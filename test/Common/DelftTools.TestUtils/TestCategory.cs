@@ -68,17 +68,5 @@
         /// Takes more than 20 s to run, usually runs nightly.
         /// </summary>
         public const string VerySlow = "Build.VerySlow";
-
-        /// <summary>
-        /// Reproduces JIRA issue.
-        /// </summary>
-        public const string Jira = "JIRA";
-
-        /// <summary>
-        /// Check how new version works with old files or components.
-        /// </summary>
-        public const string BackwardCompatibility = "Build.BackwardCompatibility";
-
-        public const string MemoryLeak = "MemoryLeak";
     }
 }

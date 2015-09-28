@@ -471,7 +471,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Jira), Category(TestCategory.WindowsForms), Category(TestCategory.WorkInProgress)]
+        [Category(TestCategory.WindowsForms), Category(TestCategory.WorkInProgress)]
         public void ComboBoxTypeEditorWithCustomFormatter_ShouldNotOverwriteColumnFormatting_Tools7594()
         {
             // types of the item, to be shown in the combo box
@@ -506,7 +506,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Jira), Category(TestCategory.WindowsForms)]
+        [Category(TestCategory.WindowsForms)]
         public void ComboBoxTypeEditorNonMandatoryItemsWithCustomFormatter_ShouldNotOverwriteColumnFormatting_Tools7594()
         {
             // types of the item, to be shown in the combo box
@@ -542,7 +542,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Jira), Category(TestCategory.WindowsForms)]
+        [Category(TestCategory.WindowsForms)]
         public void ComboBoxTypeEditorNonMandatoryWithCustomFormatter_ShouldWork_Tools7594()
         {
             // types of the item, to be shown in the combo box
@@ -583,7 +583,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Jira), Category(TestCategory.WindowsForms), Category(TestCategory.WorkInProgress)]
+        [Category(TestCategory.WindowsForms), Category(TestCategory.WorkInProgress)]
         public void ComboBoxTypeEditorNonMandatoryItemsAndWithCustomFormatter_ShouldWork_Tools7594()
         {
             // types of the item, to be shown in the combo box
@@ -627,7 +627,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Jira)]
         [Category(TestCategory.WindowsForms)]
         public void ComboBoxTypeEditorWithCustomFormatter_ShouldWork_Tools7594()
         {

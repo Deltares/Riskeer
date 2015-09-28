@@ -249,7 +249,6 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
         }
 
         [Test]
-        [Category(TestCategory.Jira)] //TOOLS-7021
         public void DistanceShouldNotThrowForGeometryNull()
         {
             var lineString = new LineString(new[] { new Coordinate(0, 0), new Coordinate(10, 0) });
@@ -270,7 +269,6 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
         }
 
         [Test]
-        [Category(TestCategory.Jira)] //TOOLS-7021
         public void GetNearestFeatureShouldNotThrowForGeometryNull()
         {
             var nearestFeature = GeometryHelper.GetNearestFeature(new Coordinate(0, 0),
@@ -296,7 +294,6 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
         }
 
         [Test]
-        [Category(TestCategory.Jira)] //TOOLS-7021
         public void GetFeaturesInRangeShouldNotThrowForGeometryNull()
         {
             var features = GeometryHelper.GetFeaturesInRange(new Coordinate(0, 0),

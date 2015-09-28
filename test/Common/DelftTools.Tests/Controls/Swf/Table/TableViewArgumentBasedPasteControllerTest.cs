@@ -104,7 +104,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [NUnit.Framework.Category(TestCategory.Jira)] //TOOLS-6385
         public void PasteOnFirstLine()
         {
             SetupOneArgumentTable();

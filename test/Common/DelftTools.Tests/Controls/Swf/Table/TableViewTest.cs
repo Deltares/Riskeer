@@ -942,7 +942,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Jira)]
         [Category(TestCategory.WindowsForms)]
         public void ComboBoxTypeEditorNonMandatoryWithCustomFormatter_ShouldNotOverwriteColumnFormatting_Tools7594()
         {
@@ -977,7 +976,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Jira)]
         [Category(TestCategory.WindowsForms)]
         public void ComboBoxTypeEditorNonMandatoryWithCustomFormatter_ShouldWork_Tools7594()
         {
@@ -1017,7 +1015,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Jira)]
         [Category(TestCategory.WindowsForms)]
         public void ComboBoxTypeEditorWithCustomFormatter_ShouldNotOverwriteColumnFormatting_Tools7594()
         {
@@ -1055,7 +1052,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Jira)]
         [Category(TestCategory.WindowsForms)]
         [Category(TestCategory.WorkInProgress)]
         public void ComboBoxTypeEditorWithCustomFormatter_ShouldWork_Tools7594()
@@ -2146,7 +2142,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Jira)]
         [Category(TestCategory.WorkInProgress)]
         public void ColumnVisibilityPropertyShouldNotAffectDisplayIndexTools9526()
         {

@@ -220,7 +220,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Jira)]
         [Category(TestCategory.Integration)]
         public void PasteIntoNewRow()
         {
