@@ -135,7 +135,6 @@
     <Compile Include="Controls\Swf\CustomInputDialogTest.cs" />
     <Compile Include="Controls\Swf\DataEditorGenerator\Domain\BindModel.cs" />
     <Compile Include="Controls\Swf\DataEditorGenerator\SelfCollapsingGroupboxTest.cs" />
-    <Compile Include="Controls\Swf\Table\TableView2Test.cs" />
     <Compile Include="Controls\Swf\FindAndReplaceControlTest.cs" />
     <Compile Include="Controls\Swf\Table\TableViewCsvImportWizardDialogTest.cs" />
     <Compile Include="Controls\Swf\MenuItemContextMenuStripAdapterTest.cs" />

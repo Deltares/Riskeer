@@ -429,17 +429,10 @@
     <Compile Include="Table\Filtering\IFilterControl.cs" />
     <Compile Include="Table\NonMandatoryDataGridViewComboBoxCell.cs" />
     <Compile Include="Table\SortableAndFilterableBindingList.cs" />
-    <Compile Include="Table\TableView2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Table\TableView2.Designer.cs">
-      <DependentUpon>TableView2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Table\EnumFormatter.cs" />
     <Compile Include="Table\TableViewArgumentBasedPasteController.cs" />
     <Compile Include="Table\TableViewCellFormatterProvider.cs" />
     <Compile Include="Table\TableViewCellStyle.cs" />
-    <Compile Include="Table\TableViewColumn2.cs" />
     <Compile Include="Table\TableViewColumnMenuItem.cs" />
     <Compile Include="Table\TableViewComboBoxItem.cs" />
     <Compile Include="Table\TableView.cs">
@@ -576,9 +569,6 @@
     <EmbeddedResource Include="Table\TableView.resx">
       <DependentUpon>TableView.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Table\TableView2.resx">
-      <DependentUpon>TableView2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Table\TableViewDataToolBar.resx">
       <DependentUpon>TableViewDataToolBar.cs</DependentUpon>

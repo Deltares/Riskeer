@@ -7,18 +7,6 @@ namespace DelftTools.Controls.Swf.Table
 {
     public static class DataGridViewColumnHelper
     {
-        public static bool ReplaceColumn(TableView2 tableView, DataGridViewColumn oldColum, DataGridViewColumn newColumn)
-        {
-            tableView.ColumnSyncDisabled = true;
-            
-            var index = tableView.DataGridView.Columns.IndexOf(oldColum);
-            tableView.DataGridView.Columns.Remove(oldColum);
-            tableView.DataGridView.Columns.Insert(index, newColumn);
-
-            tableView.ColumnSyncDisabled = false;
-            return true;
-        }
-
         public static DataGridViewColumn CreateGridViewColumn(DataGridViewColumn column, ITypeEditor typeEditor)
         {
             var boxTypeEditor = typeEditor as ComboBoxTypeEditor;
@@ -100,10 +88,7 @@ namespace DelftTools.Controls.Swf.Table
             
             if (!boxTypeEditor.ItemsMandatory)
             {
-                comboBoxColumn.CellTemplate = new NonMandatoryDataGridViewComboBoxCell
-                                                    {
-                                                        //AllowUserToEnterText = true
-                                                    };
+                comboBoxColumn.CellTemplate = new NonMandatoryDataGridViewComboBoxCell();
             }
             
             comboBoxColumn.DataSource = boxTypeEditor.Items.OfType<object>().ToDictionary(o => GetComboBoxItemText(o, boxTypeEditor), GetComboBoxItemValue).ToList();
