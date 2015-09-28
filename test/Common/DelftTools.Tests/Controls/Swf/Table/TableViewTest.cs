@@ -46,18 +46,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowReadOnlyTableView()
-        {
-            var tableView = new TableView
-                {
-                    Data = new []{ 1, 2, 3, 4, 5 }, 
-                    ReadOnly = true
-                };
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
         public void PinColumns()
         {
             var list = new EventedList<Tuple<double, double, double, double, double>>
@@ -328,29 +316,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void Init()
-        {
-            var tableView = new TableView();
-
-            var table = new DataTable();
-
-            table.Columns.Add("A", typeof(DateTime));
-            table.Columns.Add("B", typeof(int));
-            for (int i = 0; i < 50; i++)
-            {
-                DataRow row = table.NewRow();
-                row["A"] = DateTime.Now;
-                row["B"] = i;
-                table.Rows.Add(row);
-            }
-
-            tableView.Data = table;
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
         public void ExportToCsv()
         {
             var tableView = new TableView();
@@ -379,75 +344,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void DevExpressTableView_Init2()
-        {
-            var gc = new GridControl();
-            var gv = new GridView(gc);
-            gc.ViewCollection.Add(gv);
-            gc.Dock = DockStyle.Right;
-            gc.LookAndFeel.UseDefaultLookAndFeel = false;
-            //todo : check if these settings should be moved to the designer.
-
-            //gv.Appearance.SelectedRow.Assign(gv.Appearance.SelectedRow);
-
-            gv.OptionsSelection.MultiSelect = true;
-            gv.OptionsSelection.MultiSelectMode = GridMultiSelectMode.CellSelect;
-
-
-            var table = new DataTable();
-
-            table.Columns.Add("A", typeof(double));
-            table.Columns.Add("B", typeof(int));
-            DataRow row = table.NewRow();
-            row["A"] = 10.0;
-            row["B"] = 1;
-            table.Rows.Add(row);
-
-            for (int i = 90; i < 120; i++)
-            {
-                row = table.NewRow();
-                row["A"] = i;
-                row["B"] = i + 2;
-                table.Rows.Add(row);
-            }
-
-            var bs = new BindingSource();
-            bs.DataSource = table;
-            bs.AllowNew = true;
-            gc.DataSource = bs;
-            var pg = new PropertyGrid();
-            pg.SelectedObject = gv;
-            pg.Dock = DockStyle.Left;
-
-            pg.Width = 300;
-
-            var pg2 = new PropertyGrid { Width = 300, Location = new Point(310, 0), Height = 500 };
-            pg2.SelectedObject = gc;
-
-            var form = new Form { Width = 1200 };
-
-            form.Controls.Add(gc);
-            form.Controls.Add(pg);
-            form.Controls.Add(pg2);
-            WindowsFormsTestHelper.ShowModal(form);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void Init3()
-        {
-            var tableView = new TableView();
-
-            var dataList = new BindingList<SomeData>();
-            dataList.Add(new SomeData(10.0, 1));
-            dataList.Add(new SomeData(11.0, 2));
-
-            tableView.Data = dataList;
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
         public void SetDataSource()
         {
             var table = new DataTable("table1");
@@ -458,28 +354,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowGridView()
-        {
-            var table = new DataTable();
-
-            table.Columns.Add("A", typeof(double));
-            table.Columns.Add("B", typeof(int));
-
-            for (int i = 0; i < 50; i++)
-            {
-                DataRow row = table.NewRow();
-                row["A"] = i * 10.0;
-                row["B"] = i;
-                table.Rows.Add(row);
-            }
-
-            var tableView = new TableView { Data = table };
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
         [Ignore("Doesn't work on buildserver because next test is started before previous one is finished")]
         public void Copy1Paste1Cell()
         {
@@ -503,7 +377,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         [Ignore("Doesn't work on buildserver because next test is started before previous one is finished")]
         public void Copy1Paste2Cell()
         {
@@ -530,7 +403,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         [Ignore("Doesn't work on buildserver because next test is started before previous one is finished")]
         public void Copy2Paste3Cell()
         {
@@ -562,7 +434,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         [Ignore("Doesn't work on buildserver because next test is started before previous one is finished")]
         public void Copy1Paste1CellEnumValue()
         {
@@ -772,22 +643,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
             return table;
         }
 
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void DefaultCellEditor()
-        {
-            var items = new List<ClassWithTwoProperties>(new[]
-                                                              {
-                                                                  new ClassWithTwoProperties { Property1 = "11", Property2 = "12" },
-                                                                  new ClassWithTwoProperties { Property1 = "21", Property2 = "22" },
-                                                                  new ClassWithTwoProperties { Property1 = "31", Property2 = "32" },
-                                                              });
-
-            var tableView = new TableView { Data = new BindingList<ClassWithTwoProperties>(items) };
-
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
         public class ItemType
         {
             public string Name { get; set; }
@@ -798,131 +653,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         {
             public string Name { get; set; }
             public ItemType Type { get; set; }
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ButtonTypeEditorDefault()
-        {
-            var items = new EventedList<Item>
-                            {
-                                new Item { Name = "item1", Type = new ItemType{ Name = "item type1"}},
-                                new Item { Name = "item2", Type = new ItemType{ Name = "item type2"} }
-                            };
-
-            var tableView = new TableView
-                {
-                    Data = new BindingList<Item>(items),
-                    AutoSizeRows = true
-                };
-
-            var buttonTypeEditor = new ButtonTypeEditor();
-            buttonTypeEditor.ButtonClickAction += () => MessageBox.Show("Button pressed");
-
-            tableView.AddUnboundColumn("Button column", typeof (string), -1, buttonTypeEditor);
-            tableView.BestFitColumns();
-            
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ButtonTypeEditorWithTextAndToolTip()
-        {
-            var items = new EventedList<Item>
-                            {
-                                new Item { Name = "item1", Type = new ItemType{ Name = "item type1"}},
-                                new Item { Name = "item2", Type = new ItemType{ Name = "item type2"} }
-                            };
-
-            var tableView = new TableView
-            {
-                Data = new BindingList<Item>(items),
-                AutoSizeRows = true
-            };
-
-            var buttonTypeEditor = new ButtonTypeEditor{ Caption = "Test button", Tooltip = "Test button toolip"};
-            buttonTypeEditor.ButtonClickAction += () => MessageBox.Show("Button pressed");
-
-            tableView.AddUnboundColumn("Button column", typeof(string), -1, buttonTypeEditor);
-            tableView.BestFitColumns();
-             
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ButtonTypeEditorWithImage()
-        {
-            var items = new EventedList<Item>
-                            {
-                                new Item { Name = "item1", Type = new ItemType{ Name = "item type1"}},
-                                new Item { Name = "item2", Type = new ItemType{ Name = "item type2"} }
-                            };
-
-            var tableView = new TableView
-            {
-                Data = new BindingList<Item>(items),
-                AutoSizeRows = true
-            };
-
-            var buttonTypeEditor = new ButtonTypeEditor {Image = Properties.Resources.alarm_clock_blue ,Tooltip = "Test button toolip" };
-            buttonTypeEditor.ButtonClickAction += () => MessageBox.Show("Button pressed");
-
-            tableView.AddUnboundColumn("Button column", typeof(string), -1, buttonTypeEditor);
-            tableView.BestFitColumns();
-
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void MultiLineEditor()
-        {
-            var items = new EventedList<Item>
-                            {
-                                new Item { Name = "item1\r\nitem2\r\nitem3", Type = new ItemType{ Name = "item type1"}},
-                                new Item { Name = "item2", Type = new ItemType{ Name = "item type2"} }
-                            };
-
-            var tableView = new TableView
-                {
-                    Data = new BindingList<Item>(items), 
-                    AutoSizeRows = true
-                };
-
-            tableView.Columns[0].Editor = new MultiLineTextEdior();
-
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ComboBoxTypeEditor()
-        {
-
-            // types of the item, to be shown in the combo box
-            var itemTypes = new[]
-                                {
-                                    new ItemType{ Name = "item type1"},
-                                    new ItemType{ Name = "item type2"},
-                                    new ItemType{ Name = "item type3"}
-                                };
-
-            // default items
-            var items = new EventedList<Item>
-                            {
-                                new Item { Name = "item1", Type = itemTypes[0] },
-                                new Item { Name = "item2", Type = itemTypes[1] }
-                            };
-
-            var tableView = new TableView { Data = new BindingList<Item>(items) };
-
-            var comboBoxTypeEditor = new ComboBoxTypeEditor {Items = itemTypes};
-
-            tableView.Columns[1].Editor = comboBoxTypeEditor; // inject it under the 2nd column
-
-            WindowsFormsTestHelper.ShowModal(tableView);
         }
 
         class AddBracketTestFormatter : ICustomFormatter
@@ -941,7 +671,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void ComboBoxTypeEditorNonMandatoryWithCustomFormatter_ShouldNotOverwriteColumnFormatting_Tools7594()
         {
             // types of the item, to be shown in the combo box
@@ -975,7 +704,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void ComboBoxTypeEditorNonMandatoryWithCustomFormatter_ShouldWork_Tools7594()
         {
             // types of the item, to be shown in the combo box
@@ -1014,7 +742,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void ComboBoxTypeEditorWithCustomFormatter_ShouldNotOverwriteColumnFormatting_Tools7594()
         {
             // types of the item, to be shown in the combo box
@@ -1051,7 +778,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         [Category(TestCategory.WorkInProgress)]
         public void ComboBoxTypeEditorWithCustomFormatter_ShouldWork_Tools7594()
         {
@@ -1098,25 +824,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void SelectMultipleCellsUsingApi()
-        {
-            var table = new DataTable();
-            table.Columns.Add("column1", typeof(string));
-            table.Columns.Add("column2", typeof(string));
-            table.Rows.Add(new object[] { "1", "2" });
-            table.Rows.Add(new object[] { "3", "4" });
-
-            var tableView = new TableView { Data = table };
-
-            var selectionTableView = new TableView { Data = new BindingList<TableViewCell>(tableView.SelectedCells) };
-
-            WindowsFormsTestHelper.Show(selectionTableView);
-
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
         public void DefaultSelectionIsEmpty()
         {
             var table = new DataTable();
@@ -1129,41 +836,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
 
             tableView.SelectedCells
                 .Should().Be.Empty();
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowWithCustomClass()
-        {
-            var view = new TableView {Data = new BindingList<Person>()};
-            
-            WindowsFormsTestHelper.ShowModal(view);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void FillOutCustomClass()
-        {
-            //don't run on on buildserver because the keys will go everywhere ;)
-            if (GuiTestHelper.IsBuildServer)
-                return;
-            var persons = new BindingList<Person>();
-            var tableView = new TableView { Data = persons };
-            bool ranOnShown = false;
-
-            Action<Form> onShown = delegate
-            {
-                tableView.Focus();
-                SendKeys.SendWait("J"); // goto row 1 column 2
-                SendKeys.SendWait("{RIGHT}"); // goto row 1 column 2
-                SendKeys.SendWait("3"); // also select cell below
-                SendKeys.SendWait("{DOWN}"); //commit cells
-
-                Assert.AreEqual(1, persons.Count);
-                ranOnShown = true;
-            };
-            WindowsFormsTestHelper.Show(tableView, onShown);
-            Assert.IsTrue(ranOnShown);
         }
 
         [Test]
@@ -1364,100 +1036,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowRowNumbers()
-        {
-            var person = new List<Person>
-                             {new Person {Age = 12, Name = "Aaltje"}, 
-                              new Person {Age = 11, Name = "Berend"}};
-
-            for (var i = 0; i < 10; i++)
-            {
-                person.Add(new Person {Age = 11, Name = "Berend"});
-            }
-
-            var tableView = new TableView
-                                {
-                                    Data = person, ShowRowNumbers = true
-                                };
-
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowUnboundColumns()
-        {
-            var person = new List<Person>
-                             {new Person {Age = 12, Name = "Aaltje"}, 
-                              new Person {Age = 11, Name = "Berend"}};
-
-            for (var i = 0; i < 10; i++)
-            {
-                person.Add(new Person { Age = 11, Name = "Berend" });
-            }
-
-            var tableView = new TableView
-            {
-                Data = person,
-                ShowRowNumbers = true
-            };
-
-            var button = new ButtonTypeEditor {ButtonClickAction = () => MessageBox.Show("DoMessageBox")};
-
-            var comboBoxEditor = new ComboBoxTypeEditor {Items = Enum.GetNames(typeof (FruitType))};
-
-            var doubleColumn = tableView.AddUnboundColumn("double", typeof(double), 0, null);
-            var buttonColumn = tableView.AddUnboundColumn("button", typeof(int), 2, button);
-            var comboColumn = tableView.AddUnboundColumn("combo", typeof(string), -1, comboBoxEditor);
-
-            tableView.UnboundColumnData = (column, row, isGetData, isSetData, value) =>
-                                               {
-                                                   if (column == doubleColumn)
-                                                   {
-                                                       return column;
-                                                   }
-                                                   
-                                                   if (column == buttonColumn)
-                                                   {
-                                                       return 0 == (row % 2) ? 0 : column;
-                                                   }
-                                                   
-                                                   if (column == comboColumn)
-                                                   {
-                                                       return 0 == (row % 2) ? FruitType.Peer.ToString() : FruitType.Banaan.ToString();
-                                                   }
-
-                                                   return null;
-                                               };
-
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void KleurtjesTable()
-        {
-            var kleurtjes = Enum.GetValues(typeof(KnownColor)).Cast<KnownColor>().Select(Color.FromKnownColor).ToList();
-
-            var tableView = new TableView
-                                {
-                                    Data = kleurtjes,
-                                    DisplayCellFilter = celStyle =>
-                                                            {
-                                                                if ((celStyle.RowIndex >= 0) && (!celStyle.Selected))
-                                                                {
-                                                                    celStyle.BackColor = kleurtjes[celStyle.RowIndex];
-                                                                    return true;
-                                                                }
-                                                                return false;
-                                                            }
-                                };
-
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
         public void FilterTableOnSettingFilterText()
         {
             var person = new List<Person>
@@ -1485,20 +1063,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
             tableView.Columns[0].SortOrder = SortOrder.Descending;
 
             Assert.IsTrue(TypeUtils.CallPrivateMethod<bool>(tableView, "IsSorted"));
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowTableViewWithListEnumType()
-        {
-            var tableView = new TableView();
-            var list = new BindingList<ClassWithEnum> { new ClassWithEnum { Type = FruitType.Appel } };
-            tableView.Data = list;
-
-            var comboBox = new ComboBoxTypeEditor {Items = Enum.GetValues(typeof (FruitType))};
-
-            tableView.Columns[0].Editor = comboBox;
-            WindowsFormsTestHelper.ShowModal(tableView);
         }
 
         [Test]
@@ -1584,7 +1148,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void DeleteSelectionTakesAllowDeleteRowsIntoAccount()
         {
             var persons = new List<Person>
@@ -1666,21 +1229,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowTableViewWithoutDeleteRecordButton()
-        {
-            var persons = new List<Person>
-                             {new Person {Name = "Aaltje",Age = 12 }, 
-                              new Person {Name = "Berend",Age = 11 }};
-            var tableView = new TableView { Data = persons };
-
-            
-            tableView.AllowDeleteRow = false;
-
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-        
-        [Test]
         public void ColumnReadOnly()
         {
             var persons = new List<Person>
@@ -1692,86 +1240,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
             Assert.IsTrue(tableView.Columns[0].ReadOnly);
         }
 
-        /// <summary>
-        /// The visual representation of readonly items should be identical for 
-        /// cells, columns and table.
-        /// </summary>
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ColumnReadOnlyShow()
-        {
-            
-            var persons = new List<Person>();
-            for (int i = 0; i < 10; i++)
-            {
-                persons.Add(new Person { Name = string.Format("user{0}", i), Age = 10 + 1 });
-            }
-            var tableView = new TableView
-                                {
-                                    Data = persons/*,
-                                    //use some crazy colors to demonstrate this works
-                                    ReadOnlyCellBackColor = Color.Pink, 
-                                    ReadOnlyCellForeColor = Color.Blue*/
-                                };
-            tableView.Columns[0].ReadOnly = true;
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void CellReadOnlyShow()
-        {
-            var persons = new List<Person>();
-            for (int i=0; i< 10 ; i++)
-            {
-                persons.Add(new Person{ Name = string.Format("user{0}", i), Age = 10 + 1});
-            }
-            var tableView = new TableView
-            {
-                Data = persons,
-                //use some crazy colors to demonstrate this works
-                ReadOnlyCellBackColor = Color.Pink,
-                ReadOnlyCellForeColor = Color.Blue
-            };
-            tableView.ReadOnlyCellFilter += cell => (0 == (cell.RowIndex % 2) ? false : true);
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void TableReadOnlyShow()
-        {
-            var persons = new List<Person>();
-            for (int i = 0; i < 10; i++)
-            {
-                persons.Add(new Person { Name = string.Format("user{0}", i), Age = 10 + 1 });
-            }
-            var tableView = new TableView
-                                {
-                                    Data = persons,
-                                    ReadOnly = true
-                                    /*ReadOnlyCellBackColor = Color.Pink,
-                                    ReadOnlyCellForeColor = Color.Blue*/
-                                };
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void AllowAddNewRow()
-        {
-            var persons = new List<Person>
-                             {new Person {Name = "Aaltje",Age = 12 }, 
-                              new Person {Name = "Berend",Age = 11 }};
-
-            //var tableView = new TableView { Data = new BindingList<Person>(persons) { AllowNew = false }, AllowAddNewRow = false };
-            var tableView = new TableView { Data = new BindingList<Person>(persons) { AllowNew = true }, AllowAddNewRow = true };
-
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
         public void AllowAddNewRowShouldBeDeducedFromBindingSource()
         {
             var persons = new List<Person>
@@ -1805,25 +1274,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void TableViewAllowsCreatingColumnsManually()
-        {
-            var persons = new List<Person>
-                              {
-                                  new Person {Name = "Aaltje", Age = 12},
-                                  new Person {Name = "Berend", Age = 11}
-                              };
-
-            var tableView = new TableView {AutoGenerateColumns = false, Data = persons};
-
-
-            tableView.AddColumn("Name", "Naam");
-            tableView.AddColumn("DateOfBirth", "Verjaardag");
-            
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test, Category(TestCategory.WindowsForms)]// See also: TOOLS-6573
         public void FormatStringsShouldWorkCorrectly()
         {
             var dateOfBirth = new DateTime(1980,1,1);
@@ -1850,11 +1300,9 @@ namespace DelftTools.Tests.Controls.Swf.Table
             tableView.GetCellDisplayText(0, 1).Should().Be.EqualTo("012");
             tableView.GetCellDisplayText(0, 2).Should().Be.EqualTo(dateOfBirth.ToString(dtFormat1));
             tableView.GetCellDisplayText(0, 3).Should().Be.EqualTo(dateOfDeath.ToString(dtFormat2));
-
-            WindowsFormsTestHelper.ShowModal(tableView);
         }
 
-        [Test, Category(TestCategory.WindowsForms)] // See also: TOOLS-6573
+        [Test]
         public void FormatStringsShouldAlsoTakeCustomFormatter()
         {
             var dateOfBirth = new DateTime(1980, 1, 1);
@@ -1882,14 +1330,11 @@ namespace DelftTools.Tests.Controls.Swf.Table
             tableView.GetCellDisplayText(0, 1).Should().Be.EqualTo("012");
             tableView.GetCellDisplayText(0, 2).Should().Be.EqualTo(dateOfBirth.ToString(dtFormat1));
             tableView.GetCellDisplayText(0, 3).Should().Be.EqualTo(dtFormatter.Format("",dateOfDeath,null));
-
-            WindowsFormsTestHelper.ShowModal(tableView);
         }
 
-        [Test, Category(TestCategory.WindowsForms)]
+        [Test]
         public void CustomFormattingShouldWorkCorrectly()
         {
-
             var persons = new List<Person>
                               {
                                   new Person {Name = "Aaltje", Age = 12, DateOfBirth = new DateTime(1980,1,1)},
@@ -1904,8 +1349,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
             nameColumn.CustomFormatter = new NameTableCellFormatter();
 
             tableView.GetCellDisplayText(0, 0).Should().Be.EqualTo("Name with custom formatter : Aaltje");
-            
-            WindowsFormsTestHelper.ShowModal(tableView);
         }
 
 
@@ -1926,21 +1369,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
 
             //should throw because tableview is in RowSelect modus.
             tableView.SelectCells(0,0,0,1);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowWithRowSelect()
-        {
-            var persons = new List<Person>
-                              {
-                                  new Person {Name = "Aaltje", Age = 12, DateOfBirth = new DateTime(1980,1,1)},
-                                  new Person {Name = "Berend", Age = 11, DateOfBirth = new DateTime(1990,1,1)}
-                              };
-
-            var tableView = new TableView { ColumnAutoWidth = true, Data = persons, RowSelect = true };
-            
-            WindowsFormsTestHelper.ShowModal(tableView);
         }
 
         [Test]
@@ -1971,45 +1399,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowWithCheckbox()
-        {
-            var bools = new List<ClassWithBool>
-                              {
-                                  new ClassWithBool{Enabled= true},
-                                  new ClassWithBool{Enabled= false}
-                              };
-
-            var tableView = new TableView { Data = bools};
-
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowGridViewAllowSortingColumnsIsFalseShouldSelectColumnOnHeadClick()
-        {
-            var table = new DataTable();
-
-            table.Columns.Add("A", typeof(double));
-            table.Columns.Add("B", typeof(int));
-
-            for (int i = 0; i < 50; i++)
-            {
-                DataRow row = table.NewRow();
-                row["A"] = i * 10.0;
-                row["B"] = i;
-                table.Rows.Add(row);
-            }
-
-            var tableView = new TableView { Data = table, AllowColumnSorting = false };
-
-
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
         public void TableViewAllowSortingColumnPropertyShouldBeAddedToNewColumns()
         {
             var table = new DataTable();
@@ -2043,11 +1432,9 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)] //TOOLS-6647
-        [Category(TestCategory.WorkInProgress)] //hangs on buildserver :-(
+        [Ignore("Hangs on buildserver")]
         public void TableViewCursorKeysWhileInCellEditModeShouldWorkLikeExcel()
         {
-            Assert.Fail("Hangs on build server!");
             var table = new DataTable();
 
             table.Columns.Add("A", typeof(double));
@@ -2082,7 +1469,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void TableViewCellSelectionShouldUpdateSelectedColumns()
         {
             var table = new DataTable();
@@ -2107,7 +1493,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void TestAddFocusedColumnInGridViewColumnFilterChanged()
         {
             var table = new DataTable();
@@ -2172,45 +1557,35 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void GetRowObjectAtWithIndexOutOfRangeGivesNull()
         {
             var list = new List<string> { "AA", "BB", "CC" };
             var tableView = new TableView { Data = list };
 
-            WindowsFormsTestHelper.ShowModal(tableView, f =>
-                {
-                    Assert.Null(tableView.GetRowObjectAt(-1));
-                    Assert.Null(tableView.GetRowObjectAt(10));
-                });
+            Assert.Null(tableView.GetRowObjectAt(-1));
+            Assert.Null(tableView.GetRowObjectAt(10));
         }
         
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void GetRowObjectAtWithSorting()
         {
             var list = new List<string> { "AA", "BB", "CC" };
             var tableView = new TableView { Data = list };
 
-            WindowsFormsTestHelper.ShowModal(tableView, f =>
-                {
-                    tableView.Columns[0].SortOrder = SortOrder.Descending;
-                    Assert.AreEqual(list[0], tableView.GetRowObjectAt(2));
-                });
+            tableView.Columns[0].SortOrder = SortOrder.Descending;
+            Assert.AreEqual(list[0], tableView.GetRowObjectAt(2));
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void GetRowObjectAtWithoutSorting()
         {
             var list = new List<string> {"AA", "BB", "CC"};
             var tableView = new TableView { Data = list };
 
-            WindowsFormsTestHelper.ShowModal(tableView, f => Assert.AreEqual(list[2], tableView.GetRowObjectAt(2)));
+            Assert.AreEqual(list[2], tableView.GetRowObjectAt(2));
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void ClickingCheckboxColumnShouldChangeSelection()
         {
             var table = new DataTable();
@@ -2234,9 +1609,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
 
                     Assert.AreEqual(3, tableView.SelectedRowsIndices.First());
                 });
-
         }
-
 
         private class NameTableCellFormatter : ICustomFormatter
         {
