@@ -514,7 +514,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Ignore] //just for test
         [Category(TestCategory.WorkInProgress)]
         public void CrashOnOtherEndIsReceived()
         {

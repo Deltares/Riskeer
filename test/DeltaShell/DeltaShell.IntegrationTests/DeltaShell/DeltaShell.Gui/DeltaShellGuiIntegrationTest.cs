@@ -403,7 +403,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.WorkInProgress)]
         public void CreateNewProjectAfterStartWithCommonPluginsShouldBeFast()
         {
             DeltaShellApplication.TemporaryProjectSavedAsynchroneously = true;

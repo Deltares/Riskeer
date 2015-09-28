@@ -112,7 +112,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         }
 
         [Test]
-        [Category(TestCategory.WorkInProgress)] // can't find env variable on build server, in progress ...
         [TestCase(@"osm\europe_western_europe_netherlands_location.shp", ShapeType.Point)]
         [TestCase(@"osm\europe_western_europe_netherlands_water.shp", ShapeType.Polygon)]
         [TestCase(@"osm\europe_western_europe_netherlands_highway.shp", ShapeType.PolyLine)]
@@ -162,28 +161,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 
                             mapView.Map.Layers.Add(layer);
                         });
-
-                    // build quad tree from SharpMap
-/*
-                    var boxObjects = new List<QuadTree.BoxObjects>();
-                    var features = shp.Features;
-                    for (int i = 0; i < features.Count; i++)
-                    {
-                        var feature = (IFeature)features[i];
-                        boxObjects.Add(new QuadTree.BoxObjects { box = feature.Geometry.EnvelopeInternal, ID = (uint)i });
-                    }
-
-                    Heuristic heur;
-                    heur.maxdepth = (int)Math.Ceiling(0.5 * Math.Log(shp.Features.Count, 2));
-                    heur.minerror = 10;
-                    heur.tartricnt = 5;
-                    heur.mintricnt = 2;
-                    var quadTree = new QuadTree(boxObjects, 0, heur);
-
-                    AddSharpMapQuadTreeFeatures(quadTree, mapView.Map);
-*/
-
-
                 }, layer);
 
                 mapView.Dispose();
