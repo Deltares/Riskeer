@@ -1,22 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
-using DelftTools.TestUtils;
 using DelftTools.Utils.Reflection;
 using DeltaShell.Plugins.SharpMapGis.Gui;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
-using GisSharpBlog.NetTopologySuite.Index.Bintree;
 using NUnit.Framework;
 using Rhino.Mocks;
 using SharpMap;
 using SharpMap.Data.Providers;
 using SharpMap.Layers;
-using SharpMap.Rendering.Thematics;
-using SharpMap.Styles;
 
 namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 {
@@ -60,140 +55,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             TypeUtils.CallPrivateMethod<MapLegendView>(mapLegendView, "RemoveLayer", vectorLayer);
 
             shapeFile.VerifyAllExpectations();
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowMapLegendView()
-        {
-            var map = new Map();
-            Form form = CreateFormWithMapLegendView(map);
-
-            const string path = DataPath + "rivers.shp";
-            var shapeFile = new ShapeFile(path, false);
-
-            var pen1 = new Pen(new SolidBrush(Color.Yellow), 3);
-            var pen2 = new Pen(new SolidBrush(Color.Red), 5);
-
-            VectorStyle style = GetStyle(pen1);
-            VectorStyle style2 = GetStyle(pen2);
-            var interval = new Interval(11, 12.1);
-            var quantityTheme = new QuantityTheme("RIVERSEGME", style);
-            quantityTheme.AddStyle(style, interval);
-            quantityTheme.AddStyle(style2, interval);
-
-            var visibleVectorLayer = new VectorLayer(Path.GetFileName(path), shapeFile)
-                {
-                    ShowInTreeView = true,
-                    Theme = quantityTheme
-                };
-
-            var invisibleVectorLayer = new VectorLayer(Path.GetFileName(path), shapeFile)
-                {
-                    ShowInTreeView = false,
-                    Theme = quantityTheme
-                };
-
-            map.Layers.Add(visibleVectorLayer);
-            map.Layers.Add(invisibleVectorLayer);
-
-            WindowsFormsTestHelper.ShowModal(form);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void MapLegendViewWithOneStyle()
-        {
-            Map map = new Map();
-
-
-            Form form = CreateFormWithMapLegendView(map);
-
-            string path = DataPath + "rivers.shp";
-
-            ShapeFile shapeFile = new ShapeFile(path, false);
-            VectorLayer vectorLayer = new VectorLayer(Path.GetFileName(path), shapeFile);
-
-
-            Pen pen2 = new Pen(new SolidBrush(Color.Red), 5);
-
-            VectorStyle style2 = GetStyle(pen2);
-
-            vectorLayer.Style = style2;
-            map.Layers.Add(vectorLayer);
-            WindowsFormsTestHelper.ShowModal(form);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowMapLegendViewWithGradientTheme()
-        {
-            Map map = new Map();
-            Form form = CreateFormWithMapLegendView(map);
-
-            string path = DataPath + "rivers.shp";
-            ShapeFile shapeFile = new ShapeFile(path, false);
-            VectorLayer vectorLayer = new VectorLayer(Path.GetFileName(path), shapeFile);
-
-            Pen pen1 = new Pen(new SolidBrush(Color.Yellow), 3);
-            Pen pen2 = new Pen(new SolidBrush(Color.Red), 5);
-
-            VectorStyle style = GetStyle(pen1);
-            VectorStyle style2 = GetStyle(pen2);
-            GradientTheme gradientTheme = new GradientTheme("RIVERSEGME", -999, +999, style, style2, null, null, null);
-
-            vectorLayer.Theme = gradientTheme;
-            map.Layers.Add(vectorLayer);
-            WindowsFormsTestHelper.ShowModal(form);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowMapLegendViewWithPolygonVectorLayer()
-        {
-            var map = new Map();
-            Form form = CreateFormWithMapLegendView(map);
-
-            string path = DataPath + "outline.shp";
-            var shapeFile = new ShapeFile(path, false);
-            var vectorLayer = new VectorLayer(Path.GetFileName(path), shapeFile);
-
-            map.Layers.Add(vectorLayer);
-            WindowsFormsTestHelper.ShowModal(form);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowMapLegendViewWithLabelLayer()
-        {
-            Map map = new Map(new Size(2, 1));
-
-            const string rivers = DataPath + "rivers.shp";
-            string cities = DataPath + "cities_europe.shp";
-
-            ShapeFile shapeFileRivers = new ShapeFile(rivers, false);
-            ShapeFile shapeFileCities = new ShapeFile(cities, false);
-
-            VectorLayer vlRivers = new VectorLayer(Path.GetFileNameWithoutExtension(rivers), shapeFileRivers);
-            VectorLayer vlCities = new VectorLayer(Path.GetFileNameWithoutExtension(cities), shapeFileCities);
-            vlCities.Name = "City points";
-
-            var llCities = vlCities.LabelLayer;
-            llCities.Name = "City labels";
-            llCities.LabelColumn = "NAME";
-            llCities.ShowInLegend = true;
-            llCities.Visible = true;
-
-            GroupLayer lg = new GroupLayer("Cities");
-            lg.Layers.Add(vlCities);
-
-            map.Layers.Add(lg);
-            map.Layers.Add(vlRivers);
-            map.BackColor = Color.WhiteSmoke;
-
-            Form test = CreateFormWithMapLegendView(map);
-
-            WindowsFormsTestHelper.ShowModal(test);
         }
 
         [Test]
@@ -281,17 +142,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             Form form = new Form();
             form.Controls.Add(mapLegendView);
             return form;
-        }
-
-        private static VectorStyle GetStyle(Pen pen)
-        {
-            VectorStyle style = new VectorStyle();
-
-            style.Fill = Brushes.AntiqueWhite;
-            style.Line = pen;
-            style.EnableOutline = true;
-            style.Outline = Pens.Black;
-            return style;
         }
     }
 }
