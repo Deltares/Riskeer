@@ -11,7 +11,7 @@
     <fluent:Ribbon Name="RibbonControl" x:FieldModifier="private">
         <fluent:RibbonTabItem Header="Tools" fluent:KeyTip.Keys="T">
             <fluent:RibbonGroupBox Header="WTI">
-                <fluent:Button x:Name="ButtonWTIProject" Header="WTI project" Icon="/DeltaShell.Plugins.DemoGuiPlugin;component\Resources\projection-screen.png" Click="ButtonWTIProject_Click" Size="Middle" SizeDefinition="Middle,Small,Small" />
+                <fluent:Button x:Name="ButtonWTIProject" Header="WTI project" Click="ButtonWTIProject_Click" Size="Middle" SizeDefinition="Middle,Small,Small" />
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>

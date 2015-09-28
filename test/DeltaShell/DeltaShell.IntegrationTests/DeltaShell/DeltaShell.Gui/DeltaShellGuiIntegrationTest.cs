@@ -63,8 +63,8 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
 
                 Action onShown = delegate
                                            {
-                                               gui.CommandHandler.CreateNewProject();
-                                               gui.CommandHandler.CreateNewProject();
+                                               gui.CommandHandler.TryCreateNewWTIProject();
+                                               gui.CommandHandler.TryCreateNewWTIProject();
                                            };
 
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, onShown);
@@ -246,7 +246,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
                                                                       {
                                                                           app.Project.IsTemporary.Should("Project is temporary at the beginning").Be.True();
 
-                                                                          gui.CommandHandler.CreateNewProject();
+                                                                          gui.CommandHandler.TryCreateNewWTIProject();
 
                                                                           app.Project.IsTemporary.Should("Project is temporary after create new").Be.True();
                                                                       });

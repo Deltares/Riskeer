@@ -9,7 +9,13 @@ namespace DelftTools.Shell.Gui
     /// </summary>
     public interface IGuiCommandHandler : IDisposable
     {
-        void CreateNewProject();
+        /// <summary>
+        /// Tries to create a new WTI project.
+        /// </summary>
+        /// <remarks>
+        /// The creation action might be cancelled (due to user interaction).
+        /// </remarks>
+        void TryCreateNewWTIProject();
 
         /// <summary>
         /// Tries to open an existing WTI project.
@@ -30,6 +36,13 @@ namespace DelftTools.Shell.Gui
         /// <returns>Whether or not an existing WTI project was correctly opened.</returns>
         bool TryOpenExistingWTIProject(string filePath);
 
+        /// <summary>
+        /// Tries to close a WTI project.
+        /// </summary>
+        /// <remarks>
+        /// The closing action might be cancelled (due to user interaction).
+        /// </remarks>
+        /// <returns>Whether or not the WTI project was correctly closed.</returns>
         bool TryCloseWTIProject();
 
         bool SaveProject();

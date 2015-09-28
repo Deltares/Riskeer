@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.Windows.Input;
@@ -16,7 +15,6 @@ using DelftTools.Shell.Gui;
 using DelftTools.Utils;
 using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections;
-using DeltaShell.Core;
 using DeltaShell.Gui.Forms;
 using DeltaShell.Gui.Forms.MainWindow;
 using DeltaShell.Gui.Forms.ViewManager;
@@ -44,6 +42,21 @@ namespace DeltaShell.Gui
 
             guiImportHandler = CreateGuiImportHandler();
             guiExportHandler = CreateGuiExportHandler();
+        }
+
+        public void TryCreateNewWTIProject()
+        {
+            if (!TryCloseWTIProject())
+            {
+                Log.Warn(Resources.Opening_new_wti_project_cancelled);
+                return;
+            }
+
+            Log.Info(Resources.Opening_new_wti_project);
+            gui.Application.CreateNewProject();
+            Log.Info(Resources.New_wti_project_successfully_opened);
+
+            RefreshGui();
         }
 
         public bool TryOpenExistingWTIProject()
@@ -78,71 +91,16 @@ namespace DeltaShell.Gui
 
             ProgressBarDialog.PerformTask(Resources.Loading_wti_project_from_selected_file, () => result = gui.Application.OpenProject(filePath));
 
-            RefreshMainWindowTitle();
+            RefreshGui();
 
             return result;
         }
 
-        public IProjectItem GetProjectItemForActiveView()
-        {
-            var activeView = gui.DocumentViews.ActiveView;
-            if (activeView == null || activeView.Data == null)
-            {
-                return null;
-            }
-
-            var projectItemActiveView = activeView.Data as IProjectItem;
-            if (projectItemActiveView != null)
-            {
-                return projectItemActiveView;
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Create new project in the temporary path.
-        /// </summary>
-        /// <returns></returns>
-        public void CreateNewProject()
-        {
-            while (DeltaShellApplication.TemporaryProjectBeingSaved) // called second time, wait ...
-            {
-                Application.DoEvents();
-                Thread.Sleep(250);
-            }
-
-            if (gui.Application.Project != null)
-            {
-                if (!TryCloseWTIProject())
-                {
-                    return;
-                }
-            }
-
-            gui.Application.CreateNewProject();
-
-            if (DeltaShellApplication.TemporaryProjectSavedAsynchroneously)
-            {
-                while (!DeltaShellApplication.TemporaryProjectSaved)
-                {
-                    Application.DoEvents();
-                    Thread.Sleep(250);
-                }
-            }
-
-            gui.Selection = gui.Application.Project;
-
-            RefreshMainWindowTitle();
-        }
-
         public bool TryCloseWTIProject()
         {
-            gui.Selection = null;
-
             if (gui.Application.Project != null)
             {
-                Log.Info(Resources.GuiCommandHandler_CloseProject_Closing_current_project____);
+                Log.Info("Closing current WTI project.");
 
                 // Ask to save any changes first
                 if (gui.Application.Project.IsChanged)
@@ -158,11 +116,12 @@ namespace DeltaShell.Gui
                         if (alwaysOkResult != DialogResult.OK)
                         {
                             if (!SaveProject())
-                                return false;
-                            AddProjectToMruListIfNotYetAdded(); 
+                            {
+                                
+                            }
                         }
                     }
-                    
+
                     if (result == DialogResult.Cancel)
                     {
                         return false;
@@ -182,11 +141,29 @@ namespace DeltaShell.Gui
 
                 gui.Application.CloseProject();
 
-                RefreshMainWindowTitle();
+                RefreshGui();
 
                 Log.Info(Resources.GuiCommandHandler_CloseProject_Project_closed);
             }
+
             return true;
+        }
+
+        public IProjectItem GetProjectItemForActiveView()
+        {
+            var activeView = gui.DocumentViews.ActiveView;
+            if (activeView == null || activeView.Data == null)
+            {
+                return null;
+            }
+
+            var projectItemActiveView = activeView.Data as IProjectItem;
+            if (projectItemActiveView != null)
+            {
+                return projectItemActiveView;
+            }
+
+            return null;
         }
 
         public bool SaveProject()
@@ -204,7 +181,10 @@ namespace DeltaShell.Gui
             UnselectActiveControlToForceBinding();
 
             SaveProjectWithProgressDialog(path);
-            RefreshMainWindowTitle();
+
+            AddProjectToMruList();
+
+            RefreshGui();
 
             return true;
         }
@@ -251,7 +231,9 @@ namespace DeltaShell.Gui
                 return false;
             }
 
-            RefreshMainWindowTitle();
+            AddProjectToMruList();
+
+            RefreshGui();
 
             return true;
         }
@@ -516,13 +498,15 @@ namespace DeltaShell.Gui
             }
         }
 
-        private void AddProjectToMruListIfNotYetAdded()
+        private void AddProjectToMruList()
         {
-            if (gui.Application.Project.IsTemporary) //first save, so not yet added to mru list before
+            var mruList = (StringCollection) Settings.Default["mruList"];
+            if (mruList.Contains(gui.Application.ProjectFilePath))
             {
-                var mruList = (StringCollection) Settings.Default["mruList"];
-                mruList.Add(gui.Application.ProjectFilePath);
+                mruList.Remove(gui.Application.ProjectFilePath);
             }
+
+            mruList.Insert(0, gui.Application.ProjectFilePath);
         }
 
         private static void UnselectActiveControlToForceBinding()
@@ -609,7 +593,7 @@ namespace DeltaShell.Gui
                 return;
             }
 
-            RefreshMainWindowTitle();
+            RefreshGui();
         }
 
         [InvokeRequired]
@@ -623,13 +607,16 @@ namespace DeltaShell.Gui
         }
 
         [InvokeRequired]
-        private void RefreshMainWindowTitle()
+        private void RefreshGui()
         {
-            string mainWindowTitle = gui.Application.Settings != null
-                                         ? gui.Application.Settings["mainWindowTitle"]
-                                         : "DeltaShell";
-
             var project = gui.Application.Project;
+
+            // Set the gui selection to the current project
+            gui.Selection = gui.Application.Project;
+
+            var mainWindowTitle = gui.Application.Settings != null
+                                      ? gui.Application.Settings["mainWindowTitle"]
+                                      : "DeltaShell";
 
             if (project == null)
             {

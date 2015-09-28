@@ -871,9 +871,6 @@
   <data name="DeltaShellGui_LoadPlugins__0__gui_plugin_s__were_loaded" xml:space="preserve">
     <value>{0} gui plugin(s) were loaded</value>
   </data>
-  <data name="GuiCommandHandler_CloseProject_Closing_current_project____" xml:space="preserve">
-    <value>Closing current project ...</value>
-  </data>
   <data name="GuiCommandHandler_CloseProject_Save_changes_to_the_project___0_" xml:space="preserve">
     <value>Save changes to the project: {0}</value>
   </data>
@@ -1214,5 +1211,14 @@ Select No to save the project as a new project at a different location.</value>
   </data>
   <data name="Loading_wti_project_from_selected_file" xml:space="preserve">
     <value>Loading WTI project from selected file.</value>
+  </data>
+  <data name="Opening_new_wti_project_cancelled" xml:space="preserve">
+    <value>Opening new WTI project cancelled.</value>
+  </data>
+  <data name="Opening_new_wti_project" xml:space="preserve">
+    <value>Opening new WTI project.</value>
+  </data>
+  <data name="New_wti_project_successfully_opened" xml:space="preserve">
+    <value>New WTI project successfully opened.</value>
   </data>
 </root>

@@ -639,7 +639,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)
         {
-            Gui.CommandHandler.CreateNewProject();
+            Gui.CommandHandler.TryCreateNewWTIProject();
             ValidateItems();
         }
 

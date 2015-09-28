@@ -1306,15 +1306,6 @@ namespace DeltaShell.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Closing current project ....
-        /// </summary>
-        public static string GuiCommandHandler_CloseProject_Closing_current_project____ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_CloseProject_Closing_current_project____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Closing project ....
         /// </summary>
         public static string GuiCommandHandler_CloseProject_Closing_project____ {
@@ -2190,6 +2181,15 @@ namespace DeltaShell.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New WTI project successfully opened..
+        /// </summary>
+        public static string New_wti_project_successfully_opened {
+            get {
+                return ResourceManager.GetString("New_wti_project_successfully_opened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap newspaper {
@@ -2234,6 +2234,24 @@ namespace DeltaShell.Gui.Properties {
         public static string Opening_existing_wti_project_cancelled {
             get {
                 return ResourceManager.GetString("Opening_existing_wti_project_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening new WTI project..
+        /// </summary>
+        public static string Opening_new_wti_project {
+            get {
+                return ResourceManager.GetString("Opening_new_wti_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening new WTI project cancelled..
+        /// </summary>
+        public static string Opening_new_wti_project_cancelled {
+            get {
+                return ResourceManager.GetString("Opening_new_wti_project_cancelled", resourceCulture);
             }
         }
         

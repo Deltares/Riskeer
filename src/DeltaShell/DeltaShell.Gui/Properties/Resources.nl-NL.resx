@@ -369,9 +369,6 @@
   <data name="GuiCommandHandler_AddNewProjectItem_There_needs_to_be_a_project_to_add_an_item" xml:space="preserve">
     <value>NL There needs to be a project to add an item</value>
   </data>
-  <data name="GuiCommandHandler_CloseProject_Closing_current_project____" xml:space="preserve">
-    <value>NL Closing current project ...</value>
-  </data>
   <data name="GuiCommandHandler_CloseProject_Closing_project____" xml:space="preserve">
     <value>NL Closing project ...</value>
   </data>
@@ -907,5 +904,14 @@ Select No to save the project as a new project at a different location.</value>
   </data>
   <data name="Loading_wti_project_from_selected_file" xml:space="preserve">
     <value>Inladen WTI project uit geselecteerd bestand.</value>
+  </data>
+  <data name="Opening_new_wti_project_cancelled" xml:space="preserve">
+    <value>Openen nieuw WTI project geannuleerd.</value>
+  </data>
+  <data name="Opening_new_wti_project" xml:space="preserve">
+    <value>Openen nieuw WTI project.</value>
+  </data>
+  <data name="New_wti_project_successfully_opened" xml:space="preserve">
+    <value>Nieuw WTI project succesvol geopend.</value>
   </data>
 </root>
