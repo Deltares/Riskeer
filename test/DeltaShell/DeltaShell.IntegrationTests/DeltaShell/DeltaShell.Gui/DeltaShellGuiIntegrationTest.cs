@@ -43,7 +43,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.Slow)]
         public void DeleteProjectDataDirectoryShouldNotThrowExceptionOnNewProjectAndShouldNotHang()
         {
             using (var gui = new DeltaShellGui())
@@ -215,7 +214,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.Slow)]
         public void ProjectIsTemporaryAtTheBeginningAndAfterCreateNew()
         {
             using (var gui = new DeltaShellGui())
@@ -238,7 +236,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.Slow)]
         public void ClosingEmptyProjectShouldNotGiveException()
         {
             using (var gui = new DeltaShellGui())
@@ -254,7 +251,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.Slow)]
         public void ErrorLogMessageShouldActivateMessageWindow()
         {
             using (var gui = new DeltaShellGui())
@@ -460,7 +456,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.Slow)]
         public void GuiSelectionIsSetToProjectAfterStartWithProjectExplorer()
         {
             // initialize

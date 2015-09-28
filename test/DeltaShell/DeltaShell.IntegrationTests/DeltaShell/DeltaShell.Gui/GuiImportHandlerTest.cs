@@ -49,7 +49,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.Slow)]
         public void NoImporterAvailableGivesMessageBox() //are we even interested in this?
         {
             var messageBox = mocks.StrictMock<IMessageBox>();
@@ -68,7 +67,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.Slow)]
         public void FileFilteringWorks()
         {
             var application = mocks.Stub<IApplication>();
@@ -212,9 +210,8 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
-        [Category(TestCategory.Slow)]
         public void AllPluginsAreSearchedForFileImportersAndOnlyMatchingImportersAreReturned()
         {
             var application = mocks.Stub<IApplication>();
