@@ -163,18 +163,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void CopyPasteCustomClass()
-        {
-            var list = new BindingList<Person>();// {new Person {Name = "kees", Age = 25}, new Person {Name = "fon", Age = 33}};
-
-            var tableView = new TableView { Data = list };
-            WindowsFormsTestHelper
-                .ShowModal(tableView);
-        }
-
-
-        [Test]
         public void PasteClipboardContentsOverwritesExistingRows()
         {
             var person = new List<Person> { new Person { Age = 12, Name = "Hoi" }, new Person { Age = 11, Name = "keers" } };

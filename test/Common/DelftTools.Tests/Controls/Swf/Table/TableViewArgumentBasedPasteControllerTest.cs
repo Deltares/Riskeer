@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using DelftTools.Controls.Swf.Table;
-using DelftTools.TestUtils;
 using DelftTools.Utils;
 using DelftTools.Utils.Collections.Generic;
 using NUnit.Framework;
@@ -12,7 +11,6 @@ using NUnit.Framework;
 namespace DelftTools.Tests.Controls.Swf.Table
 {
     [TestFixture]
-    [NUnit.Framework.Category(TestCategory.WindowsForms)]
     public class TableViewArgumentBasedPasteControllerTest
     {
         private DataTable dataTable;
