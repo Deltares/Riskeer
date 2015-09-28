@@ -48,7 +48,9 @@ namespace Wti.Forms.NodePresenters
         public void OnNodeRenamed(object nodeData, string newName)
         {
             var project = (WtiProject)nodeData;
+
             project.Name = newName;
+            project.NotifyObservers();
         }
 
         public void OnNodeChecked(ITreeNode node)

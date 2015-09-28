@@ -56,6 +56,10 @@
     <Compile Include="WtiProject.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
+      <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
+      <Name>DelftTools.Shell.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\DelftTools.Utils\DelftTools.Utils.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>DelftTools.Utils</Name>

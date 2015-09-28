@@ -1,6 +1,9 @@
-﻿using DelftTools.Shell.Gui;
+﻿using DelftTools.Shell.Core;
+using DelftTools.Shell.Gui;
 
 using NUnit.Framework;
+
+using Rhino.Mocks;
 
 using Wti.Data;
 using Wti.Forms.PropertyClasses;
@@ -37,10 +40,16 @@ namespace Wti.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetProperties_WithData_UpdateData()
+        public void SetProperties_WithData_UpdateDataAndNotifyObservers()
         {
             // setup
+            var mocks = new MockRepository();
+            var projectObserver = mocks.StrictMock<IObserver>();
+            projectObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var project = new WtiProject();
+            project.Attach(projectObserver);
 
             var properties = new WtiProjectProperties { Data = project };
 
@@ -48,6 +57,7 @@ namespace Wti.Forms.Test.PropertyClasses
             const string newName = "Test";
             properties.Name = newName;
             Assert.AreEqual(newName, project.Name);
+            mocks.VerifyAll();
         }
 
 

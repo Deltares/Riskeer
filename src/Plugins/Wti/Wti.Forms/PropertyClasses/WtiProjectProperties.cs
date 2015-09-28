@@ -15,6 +15,7 @@ namespace Wti.Forms.PropertyClasses
             set
             {
                 data.Name = value;
+                data.NotifyObservers();
             }
         }
     }

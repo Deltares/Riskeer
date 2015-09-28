@@ -110,12 +110,18 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void OnNodeRenamed_WithData_SetProjectName()
+        public void OnNodeRenamed_WithData_SetProjectNameWithNotification()
         {
             // setup
+            var mocks = new MockRepository();
+            var projectObserver = mocks.StrictMock<IObserver>();
+            projectObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
             var nodePresenter = new WtiProjectNodePresenter();
 
             var project = new WtiProject();
+            project.Attach(projectObserver);
 
             // call
             const string newName = "New Name";
@@ -123,6 +129,7 @@ namespace Wti.Forms.Test.NodePresenters
 
             // assert
             Assert.AreEqual(newName, project.Name);
+            mocks.VerifyAll();
         }
 
         [Test]
