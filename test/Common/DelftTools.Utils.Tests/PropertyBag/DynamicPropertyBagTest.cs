@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.ComponentModel;
-using System.Drawing.Design;
 using System.Linq;
 using System.Windows.Forms;
-using DelftTools.TestUtils;
 using DelftTools.Utils.ComponentModel;
 using DelftTools.Utils.PropertyBag;
 using DelftTools.Utils.PropertyBag.Dynamic;
@@ -266,25 +263,6 @@ namespace DelftTools.Utils.Tests.PropertyBag
             Assert.AreEqual("Description", propertyDescriptorCollection[2].DisplayName);
             Assert.AreEqual("PropOne", propertyDescriptorCollection[1].DisplayName);
             Assert.AreEqual("PropTwo", propertyDescriptorCollection[0].DisplayName);
-        }
-
-        [Test]
-        [NUnit.Framework.Category(TestCategory.WindowsForms)]
-        [Ignore("Only used for visual inspection")]
-        public void DynamicPropertyBagShowsInForm()
-        {
-            var propertyGrid = new PropertyGrid();
-            
-            var testProperties = new TestProperties();
-
-            var dynamicPropertyBag = new DynamicPropertyBag(testProperties);
-            propertyGrid.SelectedObject = dynamicPropertyBag;
-
-            testProperties.PropertyChanged += delegate { propertyGrid.SelectedObject = dynamicPropertyBag; };
-
-            propertyGrid.Dock = DockStyle.Fill;
-
-            WindowsFormsTestHelper.ShowModal(propertyGrid);
         }
 
         [Test]

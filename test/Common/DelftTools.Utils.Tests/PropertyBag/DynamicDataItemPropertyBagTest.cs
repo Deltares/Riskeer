@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using DelftTools.TestUtils;
 using DelftTools.Utils.ComponentModel;
 using DelftTools.Utils.PropertyBag;
 using DelftTools.Utils.PropertyBag.Dynamic;
@@ -187,25 +186,6 @@ namespace DelftTools.Utils.Tests.PropertyBag
             
             namePropertyDescriptor.Attributes.Matches(new ReadOnlyAttribute(true))
                 .Should("Dynamic ReadOnly attribute was resolved to static attribute: wrong.").Be.False();
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        [Ignore("Only used for visual inspection")]
-        public void ShowsInForm()
-        {
-            var propertyGrid = new PropertyGrid();
-            
-            var testProperties = new TestProperties();
-
-            var dynamicDataItemPropertyBag = new DynamicDataItemPropertyBag(new TestDataItemProperties(new TestDataItem()), testProperties);
-            propertyGrid.SelectedObject = dynamicDataItemPropertyBag;
-
-            testProperties.PropertyChanged += delegate { propertyGrid.SelectedObject = dynamicDataItemPropertyBag; };
-
-            propertyGrid.Dock = DockStyle.Fill;
-
-            WindowsFormsTestHelper.ShowModal(propertyGrid);
         }
 
         [Test]

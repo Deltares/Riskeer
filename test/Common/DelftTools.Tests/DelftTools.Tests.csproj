@@ -121,7 +121,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\Swf\Charting\ChartTest.cs" />
-    <Compile Include="Controls\Swf\Charting\ChartViewTest.cs" />
     <Compile Include="Controls\Swf\Charting\QuarterViewDateTimeFormatProviderTest.cs" />
     <Compile Include="Controls\Swf\Charting\Series\AreaChartSeriesTest.cs" />
     <Compile Include="Controls\Swf\Charting\Series\BarSeriesTest.cs" />
@@ -131,7 +130,6 @@
     <Compile Include="Controls\Swf\Charting\Series\TeeChartSeriesDecoratorTest.cs" />
     <Compile Include="Controls\Swf\Charting\Tools\CursorLineToolTest.cs" />
     <Compile Include="Controls\Swf\Charting\Tools\HistoryToolTest.cs" />
-    <Compile Include="Controls\Swf\Charting\Tools\RulerToolTest.cs" />
     <Compile Include="Controls\Swf\Charting\Tools\SelectPointToolTest.cs" />
     <Compile Include="Controls\Swf\Charting\YearViewDateTimeFormatProviderTest.cs" />
     <Compile Include="Controls\Swf\CSV\CsvImportTest.cs" />

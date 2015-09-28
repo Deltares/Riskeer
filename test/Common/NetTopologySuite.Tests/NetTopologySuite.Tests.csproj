@@ -87,8 +87,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BufferTest.cs">
-    </Compile>
     <Compile Include="Geometry\GeometryTest.cs" />
     <Compile Include="Geometry\LineStringTest.cs" />
     <Compile Include="Geometry\MultiPointTest.cs" />

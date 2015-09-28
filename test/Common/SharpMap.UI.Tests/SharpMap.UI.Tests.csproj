@@ -99,7 +99,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\CoordinateSystemTypeEditorTest.cs" />
     <Compile Include="Forms\GeometryEditorTests.cs">
     </Compile>
     <Compile Include="Forms\MapControlTest.cs" />

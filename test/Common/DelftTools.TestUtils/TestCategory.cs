@@ -9,7 +9,6 @@
     /// Build.Integration ................ general integration tests (many classes, almost no mocks, mix of windows.forms, data access)<br/>
     ///     Build.Performance. ........... integration tests which assert execution time using <see cref="TestHelper.AssertIsFasterThan(float,System.Action)"/><br/>
     ///     Build.WindowsForms ........... integration tests which pop-up forms<br/>
-    ///     Build.DataAccess ............. integration tests which focus on reading/writing<br/>
     /// <br/>
     /// These categories must be always used as mutually exclusive: NEVER USE 2 OF THESE CATEGORIES AT THE SAME TIME!<br/>
     ///<br/>
@@ -17,12 +16,6 @@
     /// <br/>
     /// Build.WorkInProgress ......... tests which are currently in development<br/>
     /// Build.Slow ................... tests which take more than 500 ms but less than 20 s to run<br/>
-    /// Build.VerySlow ............... tests which take more than 20 s to run, usually run at night<br/>
-    /// Build.UndoRedo ............... tests that test undo/redo functionality<br/>
-    /// Build.RequiresLicense ........ tests that requires a license in order to run<br/>
-    /// Build.Jira ................... tests that reproduce Jira-issues<br/>
-    /// Build.BackwardCompatibility .. tests that check how new version works with old files or components<br/>
-    /// Build.MemoryLeak ............. <br/>
     /// </summary>
     public class TestCategory
     {

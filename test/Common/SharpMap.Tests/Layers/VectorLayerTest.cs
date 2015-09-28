@@ -63,38 +63,6 @@ namespace SharpMap.Tests.Layers
         }
 
         [Test]
-        [NUnit.Framework.Category(TestCategory.WindowsForms)]
-        public void RenderSymbol()
-        {
-            VectorLayer layer = new VectorLayer();
-            layer.DataSource = new DataTableFeatureProvider("LINESTRING(20 20,40 40)");
-
-            VectorLayer symbolLayer = new VectorLayer("GPS");
-            symbolLayer.DataSource = new DataTableFeatureProvider("POINT(30 30)");
-            symbolLayer.Style.Symbol = Properties.Resources.NorthArrow;
-            symbolLayer.Style.SymbolRotation = 0;
-            symbolLayer.Style.SymbolOffset = new PointF(0, 0);
-            symbolLayer.Style.SymbolScale = 0.5f;
-
-            //Show layer on form with mapcontrol
-            Form form = new Form();
-            MapControl mapControl = new MapControl();
-            mapControl.Dock = DockStyle.Fill;
-            form.Controls.Add(mapControl);
-            mapControl.Map = new Map(new Size(600, 600));
-
-            mapControl.Map.Layers.Add(symbolLayer);
-            mapControl.Map.Layers.Add(layer);
-
-            form.Show();
-            mapControl.Map.ZoomToExtents();
-            mapControl.Refresh();
-            form.Hide();
-
-            WindowsFormsTestHelper.ShowModal(form);
-        }
-
-        [Test]
         public void NoExceptionShouldBeThrownWhenZoomLevelIsTooLarge()
         {
             var featureProvider = new FeatureCollection
