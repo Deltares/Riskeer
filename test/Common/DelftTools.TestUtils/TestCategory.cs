@@ -70,16 +70,6 @@
         public const string VerySlow = "Build.VerySlow";
 
         /// <summary>
-        /// Tests that test undo/redo functionality
-        /// </summary>
-        public const string UndoRedo = "UndoRedo";
-
-        /// <summary>
-        /// Requires license in order to run.
-        /// </summary>
-        public const string RequiresLicense = "RequiresLicense";
-
-        /// <summary>
         /// Reproduces JIRA issue.
         /// </summary>
         public const string Jira = "JIRA";
