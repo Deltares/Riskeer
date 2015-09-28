@@ -26,7 +26,6 @@ namespace DelftTools.Utils.Tests.Xml.Serialization
         }
 
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void Write()
         {
             //try to serialize a derived class while xml tags are only present in the baseclass
@@ -43,7 +42,6 @@ namespace DelftTools.Utils.Tests.Xml.Serialization
         }
 
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void WriteAndReadParameter()
         {
 /*

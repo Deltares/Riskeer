@@ -17,7 +17,6 @@ using Rhino.Mocks;
 namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
 {
     [TestFixture]
-    [Category(TestCategory.DataAccess)] //SetUp creates project on disk
     public class GuiImportHandlerTest
     {
         private MockRepository mocks;

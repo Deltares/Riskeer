@@ -282,7 +282,6 @@ namespace DelftTools.Utils.Tests.IO
         }
 
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void GetChecksumTest()
         {
             // call
@@ -295,7 +294,6 @@ namespace DelftTools.Utils.Tests.IO
         }
 
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void VerifyChecksumTest()
         {
             // setup

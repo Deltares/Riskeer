@@ -96,21 +96,18 @@ namespace DelftTools.Tests.Controls.Swf.Charting
         }
 
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void ExportAsImageWorks()
         {
             SaveDeleteAndAssertExport("test.png");
         }
 
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void ExportAsVectorGraphicsImageWorks()
         {
             SaveDeleteAndAssertExport("test.svg");
         }
 
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void ExportAsVectorGraphicsImagesGivesWarningForIgnoringHatchStyle()
         {
             var chart = new Chart();
@@ -121,7 +118,6 @@ namespace DelftTools.Tests.Controls.Swf.Charting
         }
 
         [Test]
-        [Category(TestCategory.DataAccess)]
         [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Argument did not contain a filename\r\nParameter name: filename")]
         public void ExportAsImageThrowsOnIncompleteFileName()
         {
@@ -129,7 +125,6 @@ namespace DelftTools.Tests.Controls.Swf.Charting
         }
 
         [Test]
-        [Category(TestCategory.DataAccess)]
         [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Extension (.ext) not supported\r\nParameter name: filename")]
         public void ExportAsImageThrowsOnUnSupportedExtension()
         {
@@ -137,7 +132,6 @@ namespace DelftTools.Tests.Controls.Swf.Charting
         }
 
         [Test]
-        [Category(TestCategory.DataAccess)]
         [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Argument should not be null\r\nParameter name: filename")]
         public void ExportAsImageThrowsOnNullArgument()
         {
@@ -145,7 +139,6 @@ namespace DelftTools.Tests.Controls.Swf.Charting
         }
 
         [Test]
-        [Category(TestCategory.DataAccess)]
         [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Argument should have an extension\r\nParameter name: filename")]
         public void ExportAsImageThrowsOnMissingExtension()
         {

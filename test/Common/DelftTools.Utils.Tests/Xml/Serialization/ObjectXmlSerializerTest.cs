@@ -12,13 +12,10 @@ namespace DelftTools.Utils.Tests.Xml.Serialization
     [TestFixture]
     public class ObjectXmlSerializerTest
     {
-        
-
         /// <summary>
         /// Write a product to xml
         /// </summary>
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void WriteProduct()
         {
             string filePath = "xmltest.xml";
@@ -34,7 +31,6 @@ namespace DelftTools.Utils.Tests.Xml.Serialization
         /// read a product from xml
         /// </summary>
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void ReadProduct()
         {
             string filePath = @"..\..\Xml\Serialization\TestData\SomeProduct.xml";
@@ -48,7 +44,6 @@ namespace DelftTools.Utils.Tests.Xml.Serialization
         /// validate product vs xsd
         /// </summary>
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void ValidateProductXml()
         {
             string filePath = @"..\..\Xml\Serialization\TestData\SomeProduct.xml";

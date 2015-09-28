@@ -28,7 +28,6 @@ namespace DelftTools.Utils.Tests.NetCdf
 
         [Test]
         [Category(TestCategory.Performance)]
-        [Category(TestCategory.DataAccess)]
         public void WritingPerSliceShouldBeBloodyFast()
         {
             int ncId;
@@ -76,8 +75,7 @@ namespace DelftTools.Utils.Tests.NetCdf
         }
 
         [Test]
-		[Ignore("Used to create an example file for DemoApp")]
-        [Category(TestCategory.DataAccess)]
+        [Ignore("Used to create an example file for DemoApp")]
         public void WriteExampleFile()
         {
             var ncFile = NetCdfFile.CreateNew(TestHelper.GetCurrentMethodName() + ".nc");

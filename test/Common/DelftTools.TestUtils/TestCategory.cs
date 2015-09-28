@@ -34,13 +34,6 @@
         public const string Integration = "Build.Integration";
 
         /// <summary>
-        /// Tests access to the file system.
-        /// 
-        /// Speed requirements: faster than 2000 ms
-        /// </summary>
-        public const string DataAccess = "Build.DataAccess";
-
-        /// <summary>
         /// Shows forms or dialogs during run.
         /// 
         /// Speed requirements: faster than 4000 ms
@@ -63,10 +56,5 @@
         /// Takes more than 500 ms but less than 20 s to run
         /// </summary>
         public const string Slow = "Build.Slow";
-
-        /// <summary>
-        /// Takes more than 20 s to run, usually runs nightly.
-        /// </summary>
-        public const string VerySlow = "Build.VerySlow";
     }
 }

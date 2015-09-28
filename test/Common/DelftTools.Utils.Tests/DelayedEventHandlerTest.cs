@@ -152,7 +152,6 @@ namespace DelftTools.Utils.Tests
         }
 
         [Test]
-        [NUnit.Framework.Category(TestCategory.DataAccess)]
         public void DelayedEventHandlerDoesNotFireWhenFireEventsIsFalse()
         {
             try
@@ -184,7 +183,6 @@ namespace DelftTools.Utils.Tests
         }
 
         [Test]
-        [NUnit.Framework.Category(TestCategory.DataAccess)]
         public void NoEventsFiredAfterDispose()
         {
             var callCount = 0;

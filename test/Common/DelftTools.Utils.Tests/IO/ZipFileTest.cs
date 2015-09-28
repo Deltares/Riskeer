@@ -10,7 +10,7 @@ namespace DelftTools.Utils.Tests.IO
     [TestFixture]
     public class ZipFileTest
     {
-        [Test,Category(TestCategory.DataAccess)]
+        [Test]
         public void ExtractFromZipFile()
         {
             File.Delete("LogoNLMW.xml");
@@ -18,7 +18,7 @@ namespace DelftTools.Utils.Tests.IO
             Assert.IsTrue(File.Exists("LogoNLMW.xml"));
         }
 
-        [Test, Category(TestCategory.DataAccess)]
+        [Test]
         public void CreateEmptyZipFile()
         {
             var path = TestHelper.GetCurrentMethodName() + ".zip";
@@ -33,7 +33,7 @@ namespace DelftTools.Utils.Tests.IO
             Assert.IsTrue(fileExists);
         }
 
-        [Test, Category(TestCategory.DataAccess)]
+        [Test]
         public void CreateEmptyZipFileWithOverwrite()
         {
             var path = TestHelper.GetCurrentMethodName() + ".zip";
@@ -58,7 +58,7 @@ namespace DelftTools.Utils.Tests.IO
             Assert.IsTrue(fileExists);
         }
 
-        [Test, Category(TestCategory.DataAccess)]
+        [Test]
         public void CreateEmptyZipFileWithoutOverwrite()
         {
             var path = TestHelper.GetCurrentMethodName() + ".zip";
@@ -78,7 +78,7 @@ namespace DelftTools.Utils.Tests.IO
             }
         }
 
-        [Test, Category(TestCategory.DataAccess)]
+        [Test]
         public void CreateZipFileWithFiles()
         {
             var zipFilePath = TestHelper.GetCurrentMethodName() + ".zip";
@@ -114,7 +114,7 @@ namespace DelftTools.Utils.Tests.IO
             Assert.IsTrue(file2Exists);
         }
 
-        [Test, Category(TestCategory.DataAccess)]
+        [Test]
         public void CreateZipFileWithFilesAndADirectory()
         {
             var zipFilePath = TestHelper.GetCurrentMethodName() + ".zip";

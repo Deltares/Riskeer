@@ -14,7 +14,6 @@ namespace DelftTools.Tests.Controls.Swf.CSV
     public class CsvImportTest
     {
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void ConvertCsvFile()
         {
             var csvToDataTableConverter = new CsvImporter();
@@ -45,7 +44,6 @@ namespace DelftTools.Tests.Controls.Swf.CSV
         }
 
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void ParseCsvFileAndFilterColumn()
         {
             var csvToDataTableConverter = new CsvImporter();
@@ -104,7 +102,6 @@ namespace DelftTools.Tests.Controls.Swf.CSV
 
         [Test]
         [Category(TestCategory.WindowsForms)]
-        [Category(TestCategory.DataAccess)]
         public void ShowDialogForActualFile()
         {
             var csvToDataTableConverter = new CsvImporter();

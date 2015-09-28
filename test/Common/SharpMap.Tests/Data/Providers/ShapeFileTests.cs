@@ -11,7 +11,7 @@ namespace SharpMap.Tests.Data.Providers
     {
         // TODO: write tests for shapefile
 
-        [Test, Category(TestCategory.DataAccess)]
+        [Test]
         public void ContainsShouldWorkForShapeFile()
         {
             string path = TestHelper.GetTestDataPath(TestDataPath.DeltaShell.DeltaShellDeltaShellPluginsSharpMapGisTests, "Europe_Lakes.shp");
@@ -20,7 +20,7 @@ namespace SharpMap.Tests.Data.Providers
             s.Contains((IFeature)feature); // -> should not throw an exception
         }
 
-        [Test, Category(TestCategory.DataAccess)]
+        [Test]
         [Ignore("Should we drop the ShapeFile class and continue with the OgrFeatureProvider?")]
         public void GetFeatureShouldWorkForShapeFile()
         {
@@ -30,7 +30,7 @@ namespace SharpMap.Tests.Data.Providers
             Assert.LessOrEqual(0, s.IndexOf((IFeature)feature));
         }
 
-        [Test, Category(TestCategory.DataAccess)]
+        [Test]
         [Ignore("Should we drop the ShapeFile class and continue with the OgrFeatureProvider?")]
         public void GetFeatureShouldWorkForShapeFileWithoutObjectID()
         {
@@ -40,9 +40,7 @@ namespace SharpMap.Tests.Data.Providers
             Assert.LessOrEqual(0, s.IndexOf((IFeature)feature));
         }
 
-
         [Test]
-        [Category(TestCategory.DataAccess)]
         public void FeatureCount()
         {
             string path = TestHelper.GetTestDataPath(TestDataPath.DeltaShell.DeltaShellDeltaShellPluginsSharpMapGisTests, "Europe_Lakes.shp");

@@ -53,7 +53,6 @@ namespace SharpMap.Tests.Layers
         }
 
         [Test]
-        [NUnit.Framework.Category(TestCategory.DataAccess)]
         public void LoadFromFile()
         {
             string filePath = Path.GetFullPath(TestHelper.GetDataDir() + @"\rivers.shp");
