@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 
 using DelftTools.Controls;
+using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 
 using NUnit.Framework;
@@ -311,22 +312,22 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void RemoveNodeData_Always_ReturnTrue()
+        public void RemoveNodeData_ProjectWithWtiProject_ReturnTrueAndRemoveWtiProject()
         {
             // setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var wtiProject = new WtiProject();
+
+            var project = new Project();
+            project.Items.Add(wtiProject);
 
             var nodePresenter = new WtiProjectNodePresenter();
 
             // call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(dataMock, nodeMock);
+            bool removalSuccesful = nodePresenter.RemoveNodeData(project, wtiProject);
 
             // assert
             Assert.IsTrue(removalSuccesful);
-            mocks.VerifyAll(); // Expect no calls on arguments
+            CollectionAssert.DoesNotContain(project.Items, wtiProject);
         }
     }
 }

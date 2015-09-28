@@ -3,6 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 
 using DelftTools.Controls;
+using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 
 using Wti.Data;
@@ -102,6 +103,12 @@ namespace Wti.Forms.NodePresenters
 
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
+            var parentProject = (Project)parentNodeData;
+            var wtiProject = (WtiProject)nodeData;
+
+            parentProject.Items.Remove(wtiProject);
+            parentProject.NotifyObservers();
+
             return true;
         }
     }
