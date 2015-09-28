@@ -199,7 +199,7 @@ namespace SharpMap.UI.Tests.Tools
 
         [Test]
         [Category(TestCategory.Performance)]
-        public void SetLayerWithManySelectedFeaturesVisibilityFalse()
+        public void SetLayerWithManySelectedFeaturesVisibilityFalseShouldBeFast()
         {
             var mapControl = new MapControl();
             var features = Enumerable.Range(0, 10000).Select(i => new TestFeature {Geometry = new Point(i, i)}).ToList();

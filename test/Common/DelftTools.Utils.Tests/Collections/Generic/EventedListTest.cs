@@ -174,8 +174,7 @@ namespace DelftTools.Utils.Tests.Collections.Generic
         }
 
         [Test]
-        [NUnit.Framework.Category(TestCategory.Performance)]
-        public void EventSubscription()
+        public void EventSubscriptionShouldBeFast()
         {
             var eventedList = new EventedList<MockWithPropertyAndCollectionChange>();
 

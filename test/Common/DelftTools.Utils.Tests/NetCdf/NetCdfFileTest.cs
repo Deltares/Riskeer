@@ -27,8 +27,7 @@ namespace DelftTools.Utils.Tests.NetCdf
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
-        public void WritingPerSliceShouldBeBloodyFast()
+        public void WritingPerSliceShouldBeFast()
         {
             int ncId;
             var ncFile = NetCdfFile.CreateNew(TestHelper.GetCurrentMethodName() + ".nc");

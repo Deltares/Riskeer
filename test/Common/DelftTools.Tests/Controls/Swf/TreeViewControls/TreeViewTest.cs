@@ -266,8 +266,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
-        public void TreeViewUpdatesShouldBeVeryFastOnManyPropertyChanges(string a)
+        public void TreeViewUpdateOnManyPropertyChangesShouldBeFast(string a)
         {
             var parent = new Child { Name = "parent" };
 

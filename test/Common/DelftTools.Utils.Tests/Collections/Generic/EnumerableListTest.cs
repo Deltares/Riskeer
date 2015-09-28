@@ -26,8 +26,7 @@ namespace DelftTools.Utils.Tests.Collections.Generic
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
-        public void EnumerableListAddManyAndTestCount()
+        public void EnumerableListItemCountShouldBeFast()
         {
             var items = new EventedList<object>();
             var editor = new EnumerableListEditor(items);
@@ -60,8 +59,7 @@ namespace DelftTools.Utils.Tests.Collections.Generic
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
-        public void EnumerableListWithCacheAddManyAndTestCount()
+        public void EnumerableListWithCacheItemCountShouldBeFast()
         {
             EventedList<object> f = new EventedList<object>();
             var sampleFeatures = f.OfType<string>();
@@ -82,8 +80,6 @@ namespace DelftTools.Utils.Tests.Collections.Generic
 
             EnumerableList<string> featureCollection = features;
 
-
-            
             long count = 0;
             Action action = delegate
                                 {
@@ -98,7 +94,6 @@ namespace DelftTools.Utils.Tests.Collections.Generic
             Assert.AreEqual(numCalculations * numValues, count);
         }
     }
-
 
     public class EnumerableListEditor : IEnumerableListEditor
     {

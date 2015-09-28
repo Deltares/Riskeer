@@ -256,7 +256,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
         [Category(TestCategory.WorkInProgress)]
         public void StartRemoteInstanceShouldBeFast()
         {

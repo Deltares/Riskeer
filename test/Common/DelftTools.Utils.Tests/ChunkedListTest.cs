@@ -113,7 +113,6 @@ namespace DelftTools.Utils.Tests
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
         public void ComparePerformanceWithNativeList()
         {
             var size = 1000000;

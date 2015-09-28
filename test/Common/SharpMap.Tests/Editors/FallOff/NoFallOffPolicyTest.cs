@@ -113,7 +113,6 @@ namespace SharpMap.Tests.Editors.FallOff
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
         public void MovePolygonWithTrackersShouldBeFast()
         {
             var factory = new GeometricShapeFactory();

@@ -46,7 +46,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
         public void PasteLargeAmountOfDataShouldBeFast()
         {
             using (CultureUtils.SwitchToCulture("nl-NL"))

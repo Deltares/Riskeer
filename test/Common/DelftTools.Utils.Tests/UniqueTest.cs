@@ -18,7 +18,6 @@ namespace DelftTools.Utils.Tests
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
         public void GetHashCodeShouldBeFast()
         {
             var uniques = Enumerable.Range(1, 100000).Select(i => new Unique<long>()).ToList();

@@ -33,8 +33,7 @@ namespace NetTopologySuite.Extensions.Tests.Features
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
-        public void GetAttributeFast()
+        public void GetAttributeShouldBeFast()
         {
             var testFeature = new TestFeature();
             testFeature.Attributes = new DictionaryFeatureAttributeCollection();

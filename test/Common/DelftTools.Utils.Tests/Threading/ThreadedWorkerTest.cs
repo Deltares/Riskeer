@@ -11,8 +11,7 @@ namespace DelftTools.Utils.Tests.Threading
     public class ThreadedWorkerTest
     {
         [Test]
-        [Category(TestCategory.Performance)]
-        public void TestPerformanceIsImproved()
+        public void ThreadedWorkerShouldBeFast()
         {
             const int timePerWorkItem = 50;
             const int numWorkItems = 20;

@@ -141,7 +141,6 @@ namespace DelftTools.Utils.Tests.Aop
         }
         
         [Test]
-        [NUnit.Framework.Category(TestCategory.Performance)]
         public void ConstructingManyObjectsShouldBeFast()
         {
             //450-500 on my pc (TS)
@@ -155,7 +154,6 @@ namespace DelftTools.Utils.Tests.Aop
         }
 
         [Test]
-        [NUnit.Framework.Category(TestCategory.Performance)]
         public void MemoryUsageOfEntityAttributeShouldNotGrow()
         {
             var numToCreate = 100000;

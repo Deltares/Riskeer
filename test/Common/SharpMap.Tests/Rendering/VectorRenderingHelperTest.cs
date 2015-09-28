@@ -28,7 +28,6 @@ namespace SharpMap.Tests.Rendering
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
         public void RenderManyLinesShouldBeFast()
         {
             using (var bmp = new Bitmap(200, 200))

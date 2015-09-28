@@ -135,8 +135,7 @@ namespace DelftTools.Utils.Tests
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
-        public void MakeNamesUniqueForWorstCaseShouldBeQuick()
+        public void MakeNamesUniqueForWorstCaseShouldBeFast()
         {
             var nameables = Enumerable.Range(0, 10000).Select(i =>
             {

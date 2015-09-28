@@ -13,8 +13,7 @@ namespace SharpMap.Tests.Data.Providers
         private static readonly Random Rand = new Random(1234); //deterministic random (for fair comparison)
 
         [Test]
-        [Category(TestCategory.Performance)]
-        public void ConstructQuadTree()
+        public void ConstructQuadTreeShouldBeFast()
         {
             // generate random bounds
             RectangleF extends;
@@ -31,8 +30,7 @@ namespace SharpMap.Tests.Data.Providers
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
-        public void QueryQuadTree()
+        public void QueryQuadTreeShouldBeFast()
         {
             // generate random bounds
             RectangleF extends;
