@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using DelftTools.TestUtils;
-using DelftTools.Utils.Collections.Extensions;
 using NUnit.Framework;
 
 namespace DelftTools.Utils.Tests
@@ -23,7 +21,6 @@ namespace DelftTools.Utils.Tests
         }
 
         [Test]
-        [Category(TestCategory.WorkInProgress)]
         public void ComparePerformanceWithNativeArray()
         {
             var size = 10000000;

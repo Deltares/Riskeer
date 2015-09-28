@@ -333,38 +333,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.WorkInProgress)] // trace logging has been disabled
-        public void LoggingContinuesOnOpenProject()
-        {
-            var memoryAppender = new MemoryAppender { Layout = new log4net.Layout.SimpleLayout() };
-            BasicConfigurator.Configure(memoryAppender);
-
-            LogHelper.SetLoggingLevel(Level.Debug);
-
-
-            using (var gui = new DeltaShellGui())
-            {
-                var application = gui.Application;
-
-                gui.Run();
-                application.CreateNewProject();
-
-                Trace.WriteLine("test");
-
-                LoggingEvent[] lines = memoryAppender.GetEvents();
-                Assert.AreEqual("test", lines[lines.Length - 1].RenderedMessage);
-
-                application.CreateNewProject();
-
-                Trace.WriteLine("test2");
-                lines = memoryAppender.GetEvents();
-                Assert.AreEqual("test2", lines[lines.Length - 1].RenderedMessage);
-            }
-
-            LogHelper.SetLoggingLevel(Level.Error);
-        }
-
-        [Test]
         public void StartGuiWithToolboxDoesNotCrash()
         {
             using (var gui = new DeltaShellGui())

@@ -514,7 +514,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Category(TestCategory.WorkInProgress)]
         public void CrashOnOtherEndIsReceived()
         {
             var instance = RemoteInstanceContainer.CreateInstance<ISquareService, SquareService>();
@@ -522,6 +521,10 @@ namespace DelftTools.Utils.Tests.Remoting
             {
                 instance.MethodThatTerminates();
                 Assert.Fail("Should not get here");
+            }
+            catch (Exception e)
+            {
+                
             }
             finally
             {
