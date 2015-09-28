@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <UI Id="Morphan_WixUI_Deltares">
+      <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+      <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
+      <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+
+      <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+      <Property Id="WixUI_Mode" Value="Mondo" />
+
+      <DialogRef Id="ErrorDlgDeltares" />
+      <DialogRef Id="FatalErrorDeltares" />
+      <DialogRef Id="FilesInUse" />
+      <DialogRef Id="FilesInUseDeltares" />
+      <DialogRef Id="MsiRMFilesInUseDeltares" />
+      <DialogRef Id="PrepareDlgDeltares" />
+      <DialogRef Id="ProgressDlgDeltares" />
+      <DialogRef Id="ResumeDlgDeltares" />
+      <DialogRef Id="UserExitDeltares" />
+ 
+
+      <Publish Dialog="ExitDialogDeltares" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
+
+      <Publish Dialog="WelcomeDlgDeltares" Control="Next" Event="NewDialog" Value="LicenseAgreementDlgDeltares">1</Publish>
+
+      <Publish Dialog="LicenseAgreementDlgDeltares" Control="Back" Event="NewDialog" Value="WelcomeDlgDeltares">1</Publish>
+      <Publish Dialog="LicenseAgreementDlgDeltares" Control="Next" Event="NewDialog" Value="SetupTypeDlgDeltares" Order="2">LicenseAccepted = "1"</Publish>
+
+      <Publish Dialog="SetupTypeDlgDeltares" Control="Back" Event="NewDialog" Value="LicenseAgreementDlgDeltares">1</Publish>
+      <Publish Dialog="SetupTypeDlgDeltares" Control="TypicalButton" Event="NewDialog" Value="VerifyReadyDlgDeltares">1</Publish>
+      <Publish Dialog="SetupTypeDlgDeltares" Control="CustomButton" Event="NewDialog" Value="CustomizeDlgDeltares">1</Publish>
+      <Publish Dialog="SetupTypeDlgDeltares" Control="CompleteButton" Event="NewDialog" Value="VerifyReadyDlgDeltares">1</Publish>
+
+      <Publish Dialog="CustomizeDlgDeltares" Control="Back" Event="NewDialog" Value="MaintenanceTypeDlgDeltares" Order="1">WixUI_InstallMode = "Change"</Publish>
+      <Publish Dialog="CustomizeDlgDeltares" Control="Back" Event="NewDialog" Value="SetupTypeDlgDeltares" Order="2">WixUI_InstallMode = "InstallCustom"</Publish>
+      <Publish Dialog="CustomizeDlgDeltares" Control="Next" Event="NewDialog" Value="VerifyReadyDlgDeltares">1</Publish>
+
+      <Publish Dialog="VerifyReadyDlgDeltares" Control="Back" Event="NewDialog" Value="SetupTypeDlgDeltares">1</Publish>
+
+      <Publish Dialog="MaintenanceWelcomeDlgDeltares" Control="Next" Event="NewDialog" Value="MaintenanceTypeDlgDeltares">1</Publish>
+
+      <Publish Dialog="MaintenanceTypeDlgDeltares" Control="ChangeButton" Event="NewDialog" Value="CustomizeDlgDeltares">1</Publish>
+      <Publish Dialog="MaintenanceTypeDlgDeltares" Control="RepairButton" Event="NewDialog" Value="VerifyReadyDlgDeltares">1</Publish>
+      <Publish Dialog="MaintenanceTypeDlgDeltares" Control="RemoveButton" Event="NewDialog" Value="VerifyReadyDlgDeltares">1</Publish>
+      <Publish Dialog="MaintenanceTypeDlgDeltares" Control="Back" Event="NewDialog" Value="MaintenanceWelcomeDlgDeltares">1</Publish>
+
+    </UI>
+
+    <UIRef Id="WixUI_Common" />
+  </Fragment>
+</Wix>

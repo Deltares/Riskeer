@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+	<String Id="WaqFeatureName">D-Water Quality</String>
+  <String Id="WaqFeatureDescription">Allows to simulate water quality processes.</String>
+  <String Id="DuFlowProcessFeatureName">Duflow Processes Library</String>
+  <String Id="DuFlowProcessFeatureDescription">Additional process libraries from Duflow</String>
+
+  <String Id="WaqUserManualName">D-Water Quality User Manual</String>
+  <String Id="WaqReferenceManualName">D-Water Quality Processes Technical Reference Manual</String>
+  <String Id="WaqFileManualName">D-Water Quality Input File Description</String>
+  <String Id="PLCTUserManualName">D-Water Quality PLCT User Manual</String>
+</WixLocalization>

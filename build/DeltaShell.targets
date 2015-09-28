@@ -1,0 +1,97 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <PropertyGroup Condition="('$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*')">
+        <SolutionDir>$(MSBuildStartupDirectory)</SolutionDir>
+   </PropertyGroup>
+  
+  <!-- use this user.targets file as a custom user file to re-define e.g. InstallDir -->
+  <!-- <Import Project="$(SolutionDir)\build\user.targets" Condition="Exists('$(SolutionDir)\build\user.targets')"/> -->
+
+  <PropertyGroup>
+    <LoaderProjectName>DeltaShell.Gui</LoaderProjectName>
+    <OutputPath Condition="'$(CustomOutputPath)' != ''">$(CustomOutputPath)\</OutputPath>
+    <OutDir Condition="'$(CustomOutDir)' != ''">$(CustomOutDir)\</OutDir>
+    <IntermediateOutputPath Condition="'$(CustomIntermediateOutputPath)' != ''">$(CustomIntermediateOutputPath)\</IntermediateOutputPath>
+    <OutDir Condition="'$(CustomOutDir)' != '' and '$(ProjectName)'=='$(LoaderProjectName)'">$(InstallDir)\bin\</OutDir>
+  </PropertyGroup>
+
+ <!-- used by loader and also as a location of plugins/ directory -->
+  <PropertyGroup Condition="'$(InstallDir)'==''">
+    <InstallDir>$(SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin</InstallDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <GlobalLibraries Include="$(SolutionDir)\lib\*.dll"/>
+  </ItemGroup>
+
+  <Target Name="BeforeBuild" DependsOnTargets="_TimeStampBeforeCompile">
+    <Message Text="BuildInParallel: $(BuildInParallel)" />
+  </Target>
+
+  <Target Name="CopyExternalDependencies">
+  
+    <ItemGroup>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies)\*.*" Condition="'$(ExternalDependencies)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies1)\*.*" Condition="'$(ExternalDependencies1)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies2)\*.*" Condition="'$(ExternalDependencies2)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies3)\*.*" Condition="'$(ExternalDependencies3)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies4)\*.*" Condition="'$(ExternalDependencies4)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies5)\*.*" Condition="'$(ExternalDependencies5)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies6)\*.*" Condition="'$(ExternalDependencies6)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies7)\*.*" Condition="'$(ExternalDependencies7)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies8)\*.*" Condition="'$(ExternalDependencies8)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies9)\*.*" Condition="'$(ExternalDependencies9)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies10)\*.*" Condition="'$(ExternalDependencies10)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies11)\*.*" Condition="'$(ExternalDependencies11)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies12)\*.*" Condition="'$(ExternalDependencies12)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies13)\*.*" Condition="'$(ExternalDependencies13)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies14)\*.*" Condition="'$(ExternalDependencies14)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies15)\*.*" Condition="'$(ExternalDependencies15)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies16)\*.*" Condition="'$(ExternalDependencies16)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies17)\*.*" Condition="'$(ExternalDependencies17)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies18)\*.*" Condition="'$(ExternalDependencies18)' != ''"/>
+      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies19)\*.*" Condition="'$(ExternalDependencies19)' != ''"/>
+    </ItemGroup>
+  
+    <!-- Everything to prevent using **, as that seems to freeze MSBuild. Using Regex instead. -->
+  
+    <ItemGroup>
+      <DependentLibraries Remove="@(DependentLibraries)" Condition=" $([System.Text.RegularExpressions.Regex]::IsMatch(%(DependentLibraries.FullPath), '.*?\.svn.*?')) "/>	
+    </ItemGroup>
+    
+      <Message Text="Copying ExternalDependencies for project $(ProjectName) ..." Condition="'@(DependentLibraries)' != ''"/>
+      <Copy
+        Condition="'@(DependentLibraries)' != ''"
+        SourceFiles="@(DependentLibraries)"
+        DestinationFolder="$(TargetDir)\%(RecursiveDir)"
+        SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="AfterBuild" DependsOnTargets="CopyExternalDependencies">
+    <Error Condition="'$(IsPluginComponent)'=='true' and '$(PluginName)'==''" Text="PluginName must be specified when IsPluginComponent==true!"/>
+
+    <Message Text="Copying plugin component $(ProjectName) to $(InstallDir)\plugins directory ..." Condition="'$(IsPluginComponent)'=='true'" />
+    <Exec 
+      WorkingDirectory="$(OutDir)" 
+      Command="$(SolutionDir)\build\tools\PluginPostBuild.cmd $(SolutionDir) $(TargetDir) $(ProjectName) $(PluginName) $(InstallDir) $(ProjectDir) $(PluginCategory)" 
+      Condition="'$(IsPluginComponent)'=='true'" />
+  </Target>
+
+  <!-- makes sure all crap is removed -->    
+  <Target Name="AfterClean">    
+    <Delete Files="$(OutDir)\$(TargetFileName)" Condition="Exists('$(OutDir)\$(TargetFileName)')" />
+
+    <RemoveDir Directories="$(InstallDir)\plugins" Condition="'$(ProjectName)'=='$(LoaderProjectName)'" />
+
+   <!-- <RemoveDir Directories="$(OutDir)\PostSharp.$(TargetFileName)" Condition="Exists('$(OutDir)\PostSharp.$(TargetFileName)')" />  -->   
+
+    <Delete Files="$(IntermediateOutputPath)\time_before" Condition="Exists('$(IntermediateOutputPath)\time_before')" />
+    <Delete Files="$(IntermediateOutputPath)\time_after"  Condition="Exists('$(IntermediateOutputPath)\time_after')" />
+<!--    
+    <RemoveDir Directories="$(ProjectDir)\bin" Condition="'$(StartUsingCommandLine)' == 'true' and '$(CustomOutDir)'=='' and Exists('$(ProjectDir)\bin')" />
+    <RemoveDir Directories="$(ProjectDir)\obj" Condition="'$(StartUsingCommandLine)' == 'true' and '$(CustomOutDir)'=='' and Exists('$(ProjectDir)\obj')" />
+    <RemoveDir Directories="$(IntermediateOutputPath)" Condition="Exists('$(IntermediateOutputPath)')" />
+-->
+  </Target>
+
+  <Target Name="BeforeRebuild" DependsOnTargets="AfterClean" />    
+</Project>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <!-- 
+   Check for .NET 4.0
+   
+  -->
+
+  <Property Id="NET_FRAMEWORK_INSTALLED">
+    <RegistrySearch
+      Id='NetFrameworkCheck'
+      Type='raw'
+      Root='HKLM'
+      Key='SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full'
+      Name='Install' />
+  </Property>
+
+  <Condition
+    Message=".NET Framework 4.0 is not installed, go to microsoft.com to download and install it.">
+    Installed OR (NET_FRAMEWORK_INSTALLED = "#1" AND NOT Installed)
+  </Condition>
+</Include>

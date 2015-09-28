@@ -1,0 +1,16 @@
+ByteOrder I
+Layout BIL
+nRows 189
+nCols 125
+nBands 1
+nBlocks 1
+nBits 32
+BandRowBytes 500
+TotalRowBytes 500
+BandGapBytes 0
+NODATA         -999999
+ULXmap .5
+ULYmap 188.5
+Xdim 1
+Ydim 1
+PixelType Float

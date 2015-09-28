@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.Profiler.dotCover.History</name>
+    </assembly>
+    <members>
+        <member name="P:JetBrains.Profiler.History.IHistoryChoice.LastLaunch">
+            <summary>
+            In milliseconds from 01.01.1970 00:00:00 - Java notation.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.History.IHistoryChoice.LastEdit">
+            <summary>
+            In milliseconds from 01.01.1970 00:00:00 - Java notation.
+            </summary>
+        </member>
+        <member name="F:JetBrains.Profiler.History.DescriptionPropertyCollector.Data.Property">
+            <summary>
+            null - has got different values
+            </summary>
+        </member>
+        <member name="F:JetBrains.Profiler.History.Impl.HistoryManager.myConfigurations">
+            <summary>
+            Sorted!
+            </summary>
+        </member>
+        <member name="F:JetBrains.Profiler.History.Impl.HistoryManager.mySnapshots">
+            <summary>
+            Sorted!
+            </summary>
+        </member>
+        <member name="M:JetBrains.Profiler.History.Impl.HistoryManager.GetHistoryStoragePath(System.Boolean@)">
+            <summary>
+            Find the path from where we can read history records:
+            if we can not find the history XML-file in the default location,
+            try to import it from previous installations (if any).
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.History.IRecentChoice.LastOpen">
+            <summary>
+            In milliseconds from 01.01.1970 00:00:00 - Java notation.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <File Id="DFlow1DUserManual.pdf" Source="$(var.SolutionDir)\setup\Plugins\Sobek\Manuals\D-Flow1D_User_Manual.pdf"/>
+  <File Id="DRainfallRunoffUserManual.pdf" Source="$(var.SolutionDir)\setup\Plugins\Sobek\Manuals\D-Rainfall_Runoff_User_Manual.pdf"/>
+  <File Id="DFlow1DTechnicalReferenceManual.pdf" Source="$(var.SolutionDir)\setup\Plugins\Sobek\Manuals\D-Flow1D_Technical_Reference_Manual.pdf"/>
+  <File Id="DRainfallRunoffTechnicalReferenceManual.pdf" Source="$(var.SolutionDir)\setup\Plugins\Sobek\Manuals\D-Rainfall_Runoff_Technical_Reference_Manual.pdf"/>
+</Include>

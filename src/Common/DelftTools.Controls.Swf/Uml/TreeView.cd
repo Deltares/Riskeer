@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DelftTools.Controls.Swf.TreeViewControls.TreeView" BaseTypeListCollapsed="true">
+    <Position X="16" Y="1.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="DelftTools.Controls.Swf.TreeViewControls.TreeView.PlaceholderLocation" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TreeViewControls\TreeView.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CDIwEIQIACZJCRAIaACTCAWIAgGaAFIjAooYgKyRLAI=</HashCode>
+      <FileName>TreeViewControls\TreeView.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="nodes" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="System.Windows.Forms.TreeNode" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DelftTools.Controls.Swf.TreeViewControls.TreeNodeList" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="nodes" Type="System.Windows.Forms.TreeNode">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.66" Y="0.319" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AEIAAEAAAAAAABAQCAAABAQAAAAAAAAECAAAAABQIAA=</HashCode>
+      <FileName>TreeViewControls\TreeNodeList.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="nodes" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DelftTools.Controls.Swf.TreeViewControls.TreeNode" BaseTypeListCollapsed="true">
+    <Position X="10.75" Y="2.75" Width="1.75" />
+    <AssociationLine Name="nodes" Type="DelftTools.Controls.Swf.TreeViewControls.TreeNodeList" FixedToPoint="true">
+      <Path>
+        <Point X="12.5" Y="3.5" />
+        <Point X="13.25" Y="3.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>CAAgCAAAAABgECAIABQETIAEDAggABEiAAAACEIAIAg=</HashCode>
+      <FileName>TreeViewControls\TreeNode.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="nodes" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DelftTools.Controls.Swf.TreeViewControls.TreeViewNodePresenterBase&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="18.75" Y="0.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AoAAABQACgAIAAAAIAgAAAkACAABABAIEEKIACIGoAE=</HashCode>
+      <FileName>TreeViewControls\TreeViewNodePresenterBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="DelftTools.Controls.ITreeNode">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <AssociationLine Name="Nodes" Type="DelftTools.Controls.ITreeNode" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="5.601" />
+        <Point X="2.25" Y="5.601" />
+        <Point X="2.25" Y="5.316" />
+        <Point X="2" Y="5.316" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.481" Y="-0.267" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="PreviousNode" Type="DelftTools.Controls.ITreeNode" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="6.054" />
+        <Point X="2.25" Y="6.054" />
+        <Point X="2.25" Y="5.771" />
+        <Point X="2" Y="5.771" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.429" Y="-0.28" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="PreviousVisibleNode" Type="DelftTools.Controls.ITreeNode" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="7.088" />
+        <Point X="2.25" Y="7.088" />
+        <Point X="2.25" Y="6.725" />
+        <Point X="2" Y="6.725" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.439" Y="-0.338" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="NextNode" Type="DelftTools.Controls.ITreeNode" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="6.565" />
+        <Point X="2.25" Y="6.565" />
+        <Point X="2.25" Y="6.225" />
+        <Point X="2" Y="6.225" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.391" Y="-0.304" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="NextVisibleNode" Type="DelftTools.Controls.ITreeNode" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="7.692" />
+        <Point X="2.5" Y="7.692" />
+        <Point X="2.5" Y="7.269" />
+        <Point X="2" Y="7.269" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.441" Y="-0.256" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="TreeView" />
+      <Property Name="PreviousNode" />
+      <Property Name="PreviousVisibleNode" />
+      <Property Name="NextNode" />
+      <Property Name="NextVisibleNode" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Nodes" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="DelftTools.Controls.ITreeNodePresenter">
+    <Position X="7.75" Y="1.75" Width="2" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="TreeView" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="DelftTools.Controls.ITreeView">
+    <Position X="4.5" Y="2" Width="1.75" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="SelectedNode" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Nodes" />
+      <Property Name="NodePresenters" />
+      <Property Name="AllLoadedNodes" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="DelftTools.Controls.IView" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

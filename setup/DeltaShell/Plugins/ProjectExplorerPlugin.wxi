@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id="ProjectExplorer" Name="DeltaShell.Plugins.ProjectExplorer">
+    <Component Id="ProjectExplorerPlugin" Guid="DCD9F02B-567B-434F-BEB1-0A5BEC4FD31F">
+      <File Id="DeltaShell.Plugins.ProjectExplorer.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.ProjectExplorer\DeltaShell.Plugins.ProjectExplorer.dll" />
+    </Component>
+    <Directory Id="ProjectExplorerPluginResourcesNL" Name="nl-NL">
+      <Component Id="ProjectExplorerPluginResourcesNL" Guid="A63B2D8C-286B-484e-8B2B-20151DF6A820">
+        <File Id="nl.DeltaShell.Plugins.ProjectExplorer.resources.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.ProjectExplorer\nl-NL\DeltaShell.Plugins.ProjectExplorer.resources.dll" />
+      </Component>
+    </Directory>
+    <Directory Id="ProjectExplorerPluginResourcesRU" Name="ru-RU">
+      <Component Id="ProjectExplorerPluginResourcesRU" Guid="861F8D3A-2D75-45f9-8F47-3A3D02D14713">
+        <File Id="ru.DeltaShell.Plugins.ProjectExplorer.resources.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.ProjectExplorer\ru-RU\DeltaShell.Plugins.ProjectExplorer.resources.dll" />
+      </Component>
+    </Directory>
+  </Directory>
+</Include>

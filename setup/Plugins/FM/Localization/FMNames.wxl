@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+	<String Id="FMFeatureName">D-Flow Flexible Mesh</String>
+  <String Id="FMFeatureDescription" Overridable="yes">Allows to simulate 2D/3D flow of water in rivers, channels, lakes, estuarine &amp;&amp; coastal areas and seas.</String> <!-- It could be that the description is different for 1D2D in SOBEK than in FM. -->
+  <String Id="FMUserManualName">D-Flow Flexible Mesh User Manual</String>
+  <String Id="RGFGridUserManualName">RGFGRID User Manual</String>
+  <String Id="FMReferenceManualName">D-Flow Flexible Mesh Technical Reference Manual</String>
+</WixLocalization>

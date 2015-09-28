@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.Profiler.dotCover.Agent.Util</name>
+    </assembly>
+    <members>
+        <member name="M:JetBrains.Profiler.Agent.Util.Impl.AgentUtil.GetFolderPath(System.String,System.Environment.SpecialFolder)">
+            <summary>
+            <code>
+            OS     | Application | KNOWNFOLDERID                        | Default Path                      | CSIDL Equivalent
+            ========================================================================================================================
+            32 bit | 32 bit      | FOLDERID_ProgramFiles                | %SystemDrive%\Program Files       | CSIDL_PROGRAM_FILES
+            32 bit | 32 bit      | FOLDERID_ProgramFilesX86             | %SystemDrive%\Program Files       | CSIDL_PROGRAM_FILESX86
+            32 bit | 32 bit      | FOLDERID_ProgramFilesX64 (undefined) | Not applicable                    | Not applicable
+            ------------------------------------------------------------------------------------------------------------------------
+            64 bit | 64 bit      | FOLDERID_ProgramFiles                | %SystemDrive%\Program Files       | CSIDL_PROGRAM_FILES
+            64 bit | 64 bit      | FOLDERID_ProgramFilesX86             | %SystemDrive%\Program Files (x86) | CSIDL_PROGRAM_FILESX86
+            64 bit | 64 bit      | FOLDERID_ProgramFilesX64             | %SystemDrive%\Program Files       | None
+            ------------------------------------------------------------------------------------------------------------------------
+            64 bit | 32 bit      | FOLDERID_ProgramFiles                | %SystemDrive%\Program Files (x86) | CSIDL_PROGRAM_FILES
+            64 bit | 32 bit      | FOLDERID_ProgramFilesX86             | %SystemDrive%\Program Files (x86) | CSIDL_PROGRAM_FILESX86
+            64 bit | 32 bit      | FOLDERID_ProgramFilesX64             | %SystemDrive%\Program Files       | None
+            
+            OS     | Application | KNOWNFOLDERID                              | Default Path                     | CSIDL Equivalent
+            ====================================================================================================================================
+            32 bit | 32 bit      | FOLDERID_ProgramFilesCommon                | %ProgramFiles%\Common Files      | CSIDL_PROGRAM_FILES_COMMON
+            32 bit | 32 bit      | FOLDERID_ProgramFilesCommonX86             | %ProgramFiles%\Common Files      | CSIDL_PROGRAM_FILES_COMMONX86
+            32 bit | 32 bit      | FOLDERID_ProgramFilesCommonX64 (undefined) | Not applicable                   | Not applicable
+            ------------------------------------------------------------------------------------------------------------------------------------
+            64 bit | 64 bit      | FOLDERID_ProgramFilesCommon                | %ProgramFiles%\Common Files      | CSIDL_PROGRAM_FILES_COMMON
+            64 bit | 64 bit      | FOLDERID_ProgramFilesCommonX86             | %ProgramFiles(x86)%\Common Files | CSIDL_PROGRAM_FILES_COMMONX86
+            64 bit | 64 bit      | FOLDERID_ProgramFilesCommonX64             | %ProgramFiles%\Common Files      | None
+            ------------------------------------------------------------------------------------------------------------------------------------
+            64 bit | 32 bit      | FOLDERID_ProgramFilesCommon                | %ProgramFiles(x86)%\Common Files | CSIDL_PROGRAM_FILES_COMMON
+            64 bit | 32 bit      | FOLDERID_ProgramFilesCommonX86             | %ProgramFiles(x86)%\Common Files | CSIDL_PROGRAM_FILES_COMMONX86
+            64 bit | 32 bit      | FOLDERID_ProgramFilesCommonX64             | %ProgramFiles%\Common Files      | None
+            
+            OS     | Application | KNOWNFOLDERID      | Default Path      | CSIDL Equivalent
+            ================================================================================
+            32 bit | 32 bit      | FOLDERID_System    | %windir%\system32 | CSIDL_SYSTEM
+            32 bit | 32 bit      | FOLDERID_SystemX86 | %windir%\system32 | CSIDL_SYSTEMX86
+            --------------------------------------------------------------------------------
+            64 bit | 64 bit      | FOLDERID_System    | %windir%\system32 | CSIDL_SYSTEM
+            64 bit | 64 bit      | FOLDERID_SystemX86 | %windir%\syswow64 | CSIDL_SYSTEMX86
+            --------------------------------------------------------------------------------
+            64 bit | 32 bit      | FOLDERID_System    | %windir%\system32 | CSIDL_SYSTEM
+            64 bit | 32 bit      | FOLDERID_SystemX86 | %windir%\syswow64 | CSIDL_SYSTEMX86
+            </code>
+            </summary>
+            <param name="instructionSet"></param>
+            <param name="folder"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

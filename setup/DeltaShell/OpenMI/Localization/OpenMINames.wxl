@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+	<String Id="OpenMIFeatureName">OpenMI 1.4 and 2.0</String>
+  <String Id="OpenMIFeatureDescription">Implements the OpenMI 1.4 and 2.0 compliancy.</String>
+</WixLocalization>

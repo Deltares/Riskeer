@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.Profiler.dotCover.Launcher</name>
+    </assembly>
+    <members>
+        <member name="M:JetBrains.Profiler.Launcher.Impl.UI.MeasureControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:JetBrains.Profiler.Launcher.Impl.UI.MemoryControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:JetBrains.Profiler.Launcher.Impl.UI.MessageWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:JetBrains.Profiler.Launcher.Impl.UI.SessionControllerWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:JetBrains.Profiler.Launcher.ISessionController.TerminateAll">
+            <summary>
+            Terminate all profiling processes.
+            </summary>
+        </member>
+        <member name="M:JetBrains.Profiler.Launcher.ISessionController.TerminateMainProcess(System.Nullable{JetBrains.Profiler.Launcher.TerminateWays})">
+            <summary>
+            Terminate main process.
+            </summary>
+            <param name="terminateWay">The implementation chooses the termination way in case null.</param>
+        </member>
+        <member name="M:JetBrains.Profiler.Launcher.ISessionController.TerminateProcess(JetBrains.Profiler.Launcher.IBridgeController,System.Nullable{JetBrains.Profiler.Launcher.TerminateWays})">
+            <summary>
+            Terminate specified process.
+            </summary>
+            <param name="hostBridge">Profiling process interface.</param>
+            <param name="terminateWay">The implementation chooses the termination way in case null.</param>
+        </member>
+        <member name="M:JetBrains.Profiler.Launcher.ISessionController.TryUserActionWait">
+            <returns>null - no user action can be done.</returns>
+        </member>
+        <member name="P:JetBrains.Profiler.Launcher.ISessionController.MainProcessTerminateWays">
+            <summary>
+            No duplicates. The order is important. The first elements is the most important for user.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Launcher.ISessionController.ProcessTerminateWays">
+            <summary>
+            No duplicates. The order is important. The first elements is the most important for user.
+            </summary>
+        </member>
+        <member name="T:GlobalResourceDictionary">
+            <summary>
+            GlobalResourceDictionary
+            </summary>
+        </member>
+        <member name="M:GlobalResourceDictionary.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+    </members>
+</doc>

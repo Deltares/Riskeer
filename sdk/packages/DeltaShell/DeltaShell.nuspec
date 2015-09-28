@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>DeltaShell</id>
+    <title>Delta Shell SDK</title>
+    <version>1.0.0.24589</version>
+    <authors>Deltares</authors>
+    <copyright>Deltares 2013</copyright>    
+    <description>Delta Shell is an integrated modeling environment. This package contains Delta Shell binaries plus a number of plugins which can be used for data processing, visualization and storage of model data (SQLite-based project file format, NetCDF, GIS, charts / tables and support for scientific data structures such as time series, multi-dimensional arrays and geospatial coverages).</description>
+    <summary>Integrated modeling environment with a focus on setup, configuration and use of integrated environmental models.</summary>
+    <language>en-US</language>
+    <projectUrl>http://oss.deltares.nl/web/delta-shell</projectUrl>
+    <licenseUrl>http://www.gnu.org/licenses/lgpl.html</licenseUrl>
+    <iconUrl>http://bit.ly/192jI3c</iconUrl>
+    <releaseNotes>Preview release of Delta Shell: command-line, gui + default plugins.</releaseNotes>
+    <dependencies>
+    </dependencies> 
+    <frameworkAssemblies>
+        <frameworkAssembly assemblyName="System.Drawing" targetFramework="" />
+    </frameworkAssemblies>  
+  </metadata>
+  <files>
+    <file src="content\Properties\PluginInfo.cs.pp" target="content\Properties\PluginInfo.cs.pp" />
+    <file src="content\ApplicationPlugin.cs.pp" target="content\ApplicationPlugin.cs.pp" />
+    <file src="content\GuiPlugin.cs.pp" target="content\GuiPlugin.cs.pp" />
+
+    <!-- install / uninstall scripts -->
+    <file src="tools\Install.ps1" target="tools\Install.ps1" />
+    <file src="tools\Uninstall.ps1" target="tools\Uninstall.ps1" />
+
+    <!-- libraries, referenced in C# projects -->
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Controls.dll" target="lib\net40\DelftTools.Controls.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Controls.Swf.dll" target="lib\net40\DelftTools.Controls.Swf.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Functions.dll" target="lib\net40\DelftTools.Functions.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Hydro.dll" target="lib\net40\DelftTools.Hydro.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Shell.Core.dll" target="lib\net40\DelftTools.Shell.Core.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Shell.Gui.dll" target="lib\net40\DelftTools.Shell.Gui.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Shell.Gui.Swf.dll" target="lib\net40\DelftTools.Shell.Gui.Swf.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Units.dll" target="lib\net40\DelftTools.Units.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Utils.dll" target="lib\net40\DelftTools.Utils.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Fluent.dll" target="lib\net40\Fluent.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\GeoAPI.dll" target="lib\net40\GeoAPI.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\GeoAPI.Extensions.dll" target="lib\net40\GeoAPI.Extensions.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Mono.Addins.dll" target="lib\net40\Mono.Addins.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\NetTopologySuite.dll" target="lib\net40\NetTopologySuite.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\NetTopologySuite.Extensions.dll" target="lib\net40\NetTopologySuite.Extensions.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.dll" target="lib\net40\SharpMap.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.Api.dll" target="lib\net40\SharpMap.Api.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.Extensions.dll" target="lib\net40\SharpMap.Extensions.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.UI.dll" target="lib\net40\SharpMap.UI.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\log4net.dll" target="lib\net40\log4net.dll" />
+
+    <!-- pdb files -->
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Controls.pdb" target="lib\net40\DelftTools.Controls.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Controls.Swf.pdb" target="lib\net40\DelftTools.Controls.Swf.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Functions.pdb" target="lib\net40\DelftTools.Functions.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Hydro.pdb" target="lib\net40\DelftTools.Hydro.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Shell.Core.pdb" target="lib\net40\DelftTools.Shell.Core.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Shell.Gui.pdb" target="lib\net40\DelftTools.Shell.Gui.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Shell.Gui.Swf.pdb" target="lib\net40\DelftTools.Shell.Gui.Swf.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Units.pdb" target="lib\net40\DelftTools.Units.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Utils.pdb" target="lib\net40\DelftTools.Utils.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Fluent.pdb" target="lib\net40\Fluent.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\GeoAPI.pdb" target="lib\net40\GeoAPI.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\GeoAPI.Extensions.pdb" target="lib\net40\GeoAPI.Extensions.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\NetTopologySuite.pdb" target="lib\net40\NetTopologySuite.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\NetTopologySuite.Extensions.pdb" target="lib\net40\NetTopologySuite.Extensions.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.pdb" target="lib\net40\SharpMap.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.Api.pdb" target="lib\net40\SharpMap.Api.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.Extensions.pdb" target="lib\net40\SharpMap.Extensions.pdb" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.UI.pdb" target="lib\net40\SharpMap.UI.pdb" />
+
+    <!-- bin -->
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\BruTile.dll" target="delta-shell\bin\BruTile.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Controls.dll" target="delta-shell\bin\DelftTools.Controls.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Controls.xml" target="delta-shell\bin\DelftTools.Controls.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Controls.Swf.dll" target="delta-shell\bin\DelftTools.Controls.Swf.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Controls.Swf.xml" target="delta-shell\bin\DelftTools.Controls.Swf.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Functions.dll" target="delta-shell\bin\DelftTools.Functions.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Functions.xml" target="delta-shell\bin\DelftTools.Functions.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Hydro.dll" target="delta-shell\bin\DelftTools.Hydro.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Hydro.xml" target="delta-shell\bin\DelftTools.Hydro.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Shell.Core.dll" target="delta-shell\bin\DelftTools.Shell.Core.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Shell.Core.xml" target="delta-shell\bin\DelftTools.Shell.Core.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Shell.Gui.dll" target="delta-shell\bin\DelftTools.Shell.Gui.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Shell.Gui.xml" target="delta-shell\bin\DelftTools.Shell.Gui.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Shell.Gui.Swf.dll" target="delta-shell\bin\DelftTools.Shell.Gui.Swf.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Shell.Gui.Swf.xml" target="delta-shell\bin\DelftTools.Shell.Gui.Swf.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Units.dll" target="delta-shell\bin\DelftTools.Units.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Units.xml" target="delta-shell\bin\DelftTools.Units.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Utils.dll" target="delta-shell\bin\DelftTools.Utils.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Utils.xml" target="delta-shell\bin\DelftTools.Utils.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DelftTools.Utils.RemoteInstanceServer.x86.exe" target="delta-shell\bin\DelftTools.Utils.RemoteInstanceServer.x86.exe" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DeltaShell.Console.exe" target="delta-shell\bin\DeltaShell.Console.exe" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DeltaShell.Console.exe.config" target="delta-shell\bin\DeltaShell.Console.exe.config" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DeltaShell.Core.dll" target="delta-shell\bin\DeltaShell.Core.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DeltaShell.Gui.exe" target="delta-shell\bin\DeltaShell.Gui.exe" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DeltaShell.Gui.exe.config" target="delta-shell\bin\DeltaShell.Gui.exe.config" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DevExpress.Data.v9.3.dll" target="delta-shell\bin\DevExpress.Data.v9.3.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DevExpress.Utils.v9.3.dll" target="delta-shell\bin\DevExpress.Utils.v9.3.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DevExpress.XtraEditors.v9.3.dll" target="delta-shell\bin\DevExpress.XtraEditors.v9.3.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DevExpress.XtraGrid.v9.3.dll" target="delta-shell\bin\DevExpress.XtraGrid.v9.3.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DevExpress.XtraLayout.v9.3.dll" target="delta-shell\bin\DevExpress.XtraLayout.v9.3.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\DevExpress.XtraWizard.v9.3.dll" target="delta-shell\bin\DevExpress.XtraWizard.v9.3.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Fluent.dll" target="delta-shell\bin\Fluent.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Fluent.xml" target="delta-shell\bin\Fluent.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal_csharp.dll" target="delta-shell\bin\gdal_csharp.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\X86\gdal_wrap.dll" target="delta-shell\bin\gdal\X86\gdal_wrap.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\X86\gdal19.dll" target="delta-shell\bin\gdal\X86\gdal19.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\X86\gdalconst_wrap.dll" target="delta-shell\bin\gdal\X86\gdalconst_wrap.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\GeoAPI.dll" target="delta-shell\bin\GeoAPI.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\GeoAPI.xml" target="delta-shell\bin\GeoAPI.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\GeoAPI.Extensions.dll" target="delta-shell\bin\GeoAPI.Extensions.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\geos_c.dll" target="delta-shell\bin\gdal\x86\geos_c.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\iconv.dll" target="delta-shell\bin\gdal\x86\iconv.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\ICSharpCode.SharpZipLib.dll" target="delta-shell\bin\ICSharpCode.SharpZipLib.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\libcurl.dll" target="delta-shell\bin\gdal\x86\libcurl.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\libeay32.dll" target="delta-shell\bin\gdal\x86\libeay32.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\libexpat.dll" target="delta-shell\bin\gdal\x86\libexpat.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\libmysql.dll" target="delta-shell\bin\gdal\x86\libmysql.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\libpq.dll" target="delta-shell\bin\gdal\x86\libpq.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\log4net.dll" target="delta-shell\bin\log4net.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\log4net.xml" target="delta-shell\bin\log4net.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\LumenWorks.Framework.IO.dll" target="delta-shell\bin\LumenWorks.Framework.IO.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Mono.Addins.dll" target="delta-shell\bin\Mono.Addins.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\NDepend.Helpers.FileDirectoryPath.dll" target="delta-shell\bin\NDepend.Helpers.FileDirectoryPath.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\NDesk.Options.dll" target="delta-shell\bin\NDesk.Options.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\x86\netcdf-4.3.dll" target="delta-shell\bin\x86\netcdf-4.3.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\NetronGraphLib.dll" target="delta-shell\bin\NetronGraphLib.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\NetTopologySuite.dll" target="delta-shell\bin\NetTopologySuite.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\NetTopologySuite.xml" target="delta-shell\bin\NetTopologySuite.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\NetTopologySuite.Extensions.dll" target="delta-shell\bin\NetTopologySuite.Extensions.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Nini.dll" target="delta-shell\bin\Nini.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\ogr_csharp.dll" target="delta-shell\bin\ogr_csharp.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\ogr_wrap.dll" target="delta-shell\bin\gdal\x86\ogr_wrap.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\openjpeg.dll" target="delta-shell\bin\gdal\x86\openjpeg.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\osr_csharp.dll" target="delta-shell\bin\osr_csharp.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\osr_wrap.dll" target="delta-shell\bin\gdal\x86\osr_wrap.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\PostSharp.dll" target="delta-shell\bin\PostSharp.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\PostSharp.xml" target="delta-shell\bin\PostSharp.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\PowerCollections.dll" target="delta-shell\bin\PowerCollections.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\PowerCollections.xml" target="delta-shell\bin\PowerCollections.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\proj.dll" target="delta-shell\bin\gdal\x86\proj.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\ProjNET.dll" target="delta-shell\bin\ProjNET.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\protobuf-net.dll" target="delta-shell\bin\protobuf-net.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\protobuf-net.xml" target="delta-shell\bin\protobuf-net.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\ProtoBufRemote.dll" target="delta-shell\bin\ProtoBufRemote.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\QuickGraph.dll" target="delta-shell\bin\QuickGraph.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.dll" target="delta-shell\bin\SharpMap.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.xml" target="delta-shell\bin\SharpMap.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.Api.dll" target="delta-shell\bin\SharpMap.Api.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.Extensions.dll" target="delta-shell\bin\SharpMap.Extensions.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.UI.dll" target="delta-shell\bin\SharpMap.UI.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpMap.UI.xml" target="delta-shell\bin\SharpMap.UI.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpVectorBindings.dll" target="delta-shell\bin\SharpVectorBindings.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpVectorCss.dll" target="delta-shell\bin\SharpVectorCss.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpVectorDom.dll" target="delta-shell\bin\SharpVectorDom.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\SharpVectorUtil.dll" target="delta-shell\bin\SharpVectorUtil.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\spatialite.dll" target="delta-shell\bin\gdal\x86\spatialite.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\ssleay32.dll" target="delta-shell\bin\gdal\x86\ssleay32.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\System.Windows.Interactivity.dll" target="delta-shell\bin\System.Windows.Interactivity.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Tao.OpenGl.dll" target="delta-shell\bin\Tao.OpenGl.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Tao.Platform.Windows.dll" target="delta-shell\bin\Tao.Platform.Windows.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\TeeChart.dll" target="delta-shell\bin\TeeChart.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\TeeChart.xml" target="delta-shell\bin\TeeChart.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\ValidationAspects.dll" target="delta-shell\bin\ValidationAspects.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Xceed.Wpf.AvalonDock.dll" target="delta-shell\bin\Xceed.Wpf.AvalonDock.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Xceed.Wpf.AvalonDock.xml" target="delta-shell\bin\Xceed.Wpf.AvalonDock.xml" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Xceed.Wpf.AvalonDock.Themes.Aero.dll" target="delta-shell\bin\Xceed.Wpf.AvalonDock.Themes.Aero.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Xceed.Wpf.AvalonDock.Themes.Expression.dll" target="delta-shell\bin\Xceed.Wpf.AvalonDock.Themes.Expression.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Xceed.Wpf.AvalonDock.Themes.Metro.dll" target="delta-shell\bin\Xceed.Wpf.AvalonDock.Themes.Metro.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\Xceed.Wpf.AvalonDock.Themes.VS2010.dll" target="delta-shell\bin\Xceed.Wpf.AvalonDock.Themes.VS2010.dll" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\x86\zlib1.dll" target="delta-shell\bin\gdal\x86\zlib1.dll" />
+
+    <!-- bin\gdal_data -->
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\Release\gdal\data\**" target="delta-shell\bin\gdal\data" />
+	
+    <!-- default plugins -->
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\plugins\DeltaShell.Plugins.CommonTools\**" target="delta-shell\plugins\DeltaShell.Plugins.CommonTools" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\plugins\DeltaShell.Plugins.CommonTools.Gui\**" target="delta-shell\plugins\DeltaShell.Plugins.CommonTools.Gui" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\plugins\DeltaShell.Plugins.Data.NHibernate\**" target="delta-shell\plugins\DeltaShell.Plugins.Data.NHibernate" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\plugins\DeltaShell.Plugins.NetCDF\**" target="delta-shell\plugins\DeltaShell.Plugins.NetCDF" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\plugins\DeltaShell.Plugins.NetworkEditor\**" target="delta-shell\plugins\DeltaShell.Plugins.NetworkEditor" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\plugins\DeltaShell.Plugins.NetworkEditor.Gui\**" target="delta-shell\plugins\DeltaShell.Plugins.NetworkEditor.Gui" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\plugins\DeltaShell.Plugins.ProjectExplorer\**" target="delta-shell\plugins\DeltaShell.Plugins.ProjectExplorer" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\plugins\DeltaShell.Plugins.Scripting\**" target="delta-shell\plugins\DeltaShell.Plugins.Scripting" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\plugins\DeltaShell.Plugins.Scripting.Gui\**" target="delta-shell\plugins\DeltaShell.Plugins.Scripting.Gui" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\plugins\DeltaShell.Plugins.SharpMapGis\**" target="delta-shell\plugins\DeltaShell.Plugins.SharpMapGis" />
+    <file src="..\..\..\src\DeltaShell\DeltaShell.Gui\bin\plugins\DeltaShell.Plugins.SharpMapGis.Gui\**" target="delta-shell\plugins\DeltaShell.Plugins.SharpMapGis.Gui" />
+  </files>
+</package>

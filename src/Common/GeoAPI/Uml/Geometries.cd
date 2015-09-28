@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GeoAPI.Geometries.Dimension">
+    <Position X="10.25" Y="13.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Geometries\Dimension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeoAPI.Geometries.Location">
+    <Position X="12.75" Y="13" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Geometries\Location.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeoAPI.Geometries.IntersectionMatrix">
+    <Position X="11" Y="7.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ABIAAAAgAIAAFABEiAAAACAAAAQAAAAAAgFAAAgAgwA=</HashCode>
+      <FileName>Geometries\IntersectionMatrix.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="GeoAPI.Geometries.IGeometry">
+    <Position X="0.5" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CQBAAhAEgJBIhIDAMAhAAABIYAxARABAsBTAASAZTIA=</HashCode>
+      <FileName>Geometries\IGeometry.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IGeometryFactory">
+    <Position X="9.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAgAgAIgAACAAAgAANgAACAAAgAAAAQAAAA=</HashCode>
+      <FileName>Geometries\IGeometryFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IGeometryFilter">
+    <Position X="0.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometries\IGeometryFilter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.ICoordinate">
+    <Position X="8" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAwAAAAAAAgABAAAAAAAAAYAE=</HashCode>
+      <FileName>Geometries\ICoordinate.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.ICoordinateFilter">
+    <Position X="3" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometries\ICoordinateFilter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.ICoordinateSequence">
+    <Position X="12" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAJAAAAAAAAAQAAAAAQCABYgAAAAAAAAA=</HashCode>
+      <FileName>Geometries\ICoordinateSequence.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.ICoordinateSequenceFactory">
+    <Position X="12" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometries\ICoordinateSequenceFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.ICurve">
+    <Position X="3" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAhAAAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAg=</HashCode>
+      <FileName>Geometries\ICurve.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IEnvelope">
+    <Position X="8" Y="10.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>MBgABBAwBAAAAAAAEBAAAEBAAAAAAABIAAAmAQAQAIA=</HashCode>
+      <FileName>Geometries\IEnvelope.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IGeometryCollection">
+    <Position X="6.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACCAAAAAQAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Geometries\IGeometryCollection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IGeometryComponentFilter">
+    <Position X="0.5" Y="14" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometries\IGeometryComponentFilter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.ILinearRing">
+    <Position X="3" Y="12.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometries\ILinearRing.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.ILineString">
+    <Position X="3" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Geometries\ILineString.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IMultiCurve">
+    <Position X="6.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometries\IMultiCurve.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IMultiLineString">
+    <Position X="6.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Geometries\IMultiLineString.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IMultiPoint">
+    <Position X="8.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometries\IMultiPoint.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IMultiPolygon">
+    <Position X="5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometries\IMultiPolygon.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IMultiSurface">
+    <Position X="5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometries\IMultiSurface.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IPoint">
+    <Position X="5.75" Y="7.5" Width="1.5" />
+    <InheritanceLine Type="GeoAPI.Geometries.IGeometry" FixedFromPoint="true">
+      <Path>
+        <Point X="2.5" Y="8.188" />
+        <Point X="5.75" Y="8.188" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAE=</HashCode>
+      <FileName>Geometries\IPoint.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IPolygon">
+    <Position X="3" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIIQAAAAIBAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometries\IPolygon.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.IPrecisionModel">
+    <Position X="11" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAgAIAAQAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometries\IPrecisionModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GeoAPI.Geometries.ISurface">
+    <Position X="3" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Geometries\ISurface.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="GeoAPI.Geometries.Dimensions">
+    <Position X="5.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAgAAAAAAAIAAEAAAAAAAAgAgAAAAAAAA=</HashCode>
+      <FileName>Geometries\Dimension.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GeoAPI.Geometries.Locations">
+    <Position X="5.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAIAIAAAAABAA=</HashCode>
+      <FileName>Geometries\Location.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GeoAPI.Geometries.Ordinates">
+    <Position X="5.75" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAYAE=</HashCode>
+      <FileName>Geometries\ICoordinateSequence.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GeoAPI.Geometries.PrecisionModels">
+    <Position X="5.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAEAAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Geometries\IPrecisionModel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

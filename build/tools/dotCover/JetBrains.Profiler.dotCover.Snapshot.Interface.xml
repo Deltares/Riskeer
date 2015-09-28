@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.Profiler.dotCover.Snapshot.Interface</name>
+    </assembly>
+    <members>
+        <member name="T:JetBrains.Profiler.Snapshot.Interface.Section.ISection">
+            <summary>
+            Common interface for all sections
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.ActiveProcessorMask">
+            <summary>
+            Active processor mask.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.AllocationGranularity">
+            <summary>
+            Allocation granularity.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.ConfigurationXml">
+            <summary>
+            Xml string describing snapshot configuration.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.BuildDateTime">
+            <summary>
+            Core build date.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.BuildVersion">
+            <summary>
+            Core build version.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.CommandLine">
+            <summary>
+            Process command line
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.DateTime">
+            <summary>
+            Snapshot gathering time.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.ProcessGuid">
+            <summary>
+            Unique process identifier.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.ProcessIndex">
+            <summary>
+            Unique process index.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.SequenceGuid">
+            <summary>
+            Unique sequence identifier.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.SequenceIndex">
+            <summary>
+            Unique sequence index.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.MaximumApplicationAddress">
+            <summary>
+            Maximum application address.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.MinimumApplicationAddress">
+            <summary>
+            Minimum application address.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.NativeProcessorArchitecture">
+            <summary>
+            Native processor architecture.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.RuntimeName">
+            <summary>
+            CLR runtime name.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.NumberOfProcessors">
+            <summary>
+            Number of processors.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.OsName">
+            <summary>
+            Operation system full name.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.OsVersion">
+            <summary>
+            Operation system version and short name.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.PageSize">
+            <summary>
+            Page size.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.PointerSize">
+            <summary>
+            Pointer size.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.ProcessorArchitecture">
+            <summary>
+            Processor architecture.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.ProcessorLevel">
+            <summary>
+            Processor level.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.ProcessorRevision">
+            <summary>
+            Processor revision.
+            </summary>
+        </member>
+        <member name="P:JetBrains.Profiler.Snapshot.Interface.Section.Environment.IEnvironmentSection.UserName">
+            <summary>
+            User name.
+            </summary>
+        </member>
+        <member name="M:JetBrains.Profiler.Snapshot.Interface.Section.Metadata.IMetadataSection.GetFunctionItemsLight(JetBrains.Profiler.Snapshot.Interface.Section.SectionIndex{JetBrains.Profiler.Snapshot.Interface.Section.Metadata.IMetadataSection},JetBrains.Metadata.Access.MetadataToken)">
+            <summary>
+            Same as GetFunctionItems, but does not fill Parameters and ReturnValue fields
+            in the FunctionResult structure. This NULLed values are then requested separately
+            with the help of the method GetFunctionParams. This help to significantly reduce
+            total time for enumerating all functions (usually tens of thousands in average
+            snapshots), because return values and parameters do not participate neither
+            in function search nor in tabs creation, only in signature comparisons and in
+            visual representation of tree nodes (which # is tens or hundreds).
+            </summary>
+        </member>
+        <member name="T:JetBrains.Profiler.Snapshot.Interface.Storage.IStorageDescriptor">
+            <summary>
+            Unified interface for describing storage which contains snapshot
+            </summary>
+        </member>
+    </members>
+</doc>

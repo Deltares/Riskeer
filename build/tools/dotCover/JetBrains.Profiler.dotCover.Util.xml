@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.Profiler.dotCover.Util</name>
+    </assembly>
+    <members>
+        <member name="M:JetBrains.Profiler.Util.IO.StreamUtil.Copy(System.IO.Stream,System.IO.Stream,System.Int64,JetBrains.Application.Progress.IProgressIndicator)">
+            <summary>
+            Special instance of Copy method which cab break [potentially] long
+            operation when external indicator gives a clue for that.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include >
+  <File Id="DeltaShell.Gui.exe.config" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DeltaShell.Gui.exe.config" />
+
+  <File Id="RemoteInstanceServer.x64.exe" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DelftTools.Utils.RemoteInstanceServer.x64.exe" />
+  <File Id="RemoteInstanceServer.x86.exe" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DelftTools.Utils.RemoteInstanceServer.x86.exe" />
+  <File Id="ProtoBufRemote.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\ProtoBufRemote.dll" />
+  <File Id="protobuf_net.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\protobuf-net.dll" />
+  
+  <File Id="DelftTools.Controls.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DelftTools.Controls.dll" />
+  <File Id="DelftTools.Controls.Swf.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DelftTools.Controls.Swf.dll" />
+  <File Id="DelftTools.Functions.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DelftTools.Functions.dll" />
+  <File Id="DelftTools.Hydro.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DelftTools.Hydro.dll" />
+  <File Id="DelftTools.Shell.Core.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DelftTools.Shell.Core.dll" />
+  <File Id="DelftTools.Shell.Gui.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DelftTools.Shell.Gui.dll" />
+  <File Id="DelftTools.Shell.Gui.Swf.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DelftTools.Shell.Gui.Swf.dll" />
+  <File Id="DelftTools.Units.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DelftTools.Units.dll" />
+  <File Id="DelftTools.Utils.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DelftTools.Utils.dll" />
+  
+  <File Id="DeltaShell.Core.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DeltaShell.Core.dll" />
+  
+  <File Id="Mono.Addins.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\Mono.Addins.dll" />
+  
+  <File Id="GeoAPI.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\GeoAPI.dll" />
+  <File Id="GeoAPI.Extensions.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\GeoAPI.Extensions.dll" />
+
+  <File Id="ICSharpCode.SharpZipLib.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\ICSharpCode.SharpZipLib.dll" />
+
+  <!--IKVM-->
+  <File Id="IKVM.OpenJDK.Core.dlll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\IKVM.OpenJDK.Core.dll" />
+  <File Id="IKVM.OpenJDK.Text.dlll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\IKVM.OpenJDK.Text.dll" />
+  <File Id="IKVM.OpenJDK.Tools.dlll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\IKVM.OpenJDK.Tools.dll" />
+  <File Id="IKVM.OpenJDK.Util.dlll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\IKVM.OpenJDK.Util.dll" />
+
+  <File Id="IKVM.Runtime.dlll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\IKVM.Runtime.dll" />
+  <File Id="IKVM.Runtime.JNI.dlll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\IKVM.Runtime.JNI.dll" />
+  
+  <File Id="gdal_csharp.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\gdal_csharp.dll" />
+  <File Id="ogr_csharp.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\ogr_csharp.dll" />
+  <File Id="osr_csharp.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\osr_csharp.dll" />
+  
+  <File Id="ProjNET.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\ProjNET.dll" />
+  <File Id="BruTile.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\BruTile.dll" />
+  <File Id="SharpMap.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\SharpMap.dll" />
+  <File Id="SharpMap.Api.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\SharpMap.Api.dll" />
+  <File Id="SharpMap.Extensions.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\SharpMap.Extensions.dll" />
+  <File Id="SharpMap.UI.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\SharpMap.UI.dll" />
+    
+  <File Id="SharpVectorBindings.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\SharpVectorBindings.dll" />
+  <File Id="SharpVectorCss.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\SharpVectorCss.dll" />
+  <File Id="SharpVectorDom.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\SharpVectorDom.dll" />
+  <File Id="SharpVectorUtil.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\SharpVectorUtil.dll" />
+    
+  <File Id="NetTopologySuite.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\NetTopologySuite.dll" />
+  <File Id="NetTopologySuite.Extensions.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\NetTopologySuite.Extensions.dll" />
+  <File Id="PowerCollections.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\PowerCollections.dll" />
+ 
+  <File Id="DevExpress.Data.v9.3.dll" Source="$(var.SolutionDir)\lib\DevExpress.Data.v9.3.dll" />
+  <File Id="DevExpress.Utils.v9.3.dll" Source="$(var.SolutionDir)\lib\DevExpress.Utils.v9.3.dll" />
+  <File Id="DevExpress.XtraEditors.v9.3.dll" Source="$(var.SolutionDir)\lib\DevExpress.XtraEditors.v9.3.dll" />
+  <File Id="DevExpress.XtraGrid.v9.3.dll" Source="$(var.SolutionDir)\lib\DevExpress.XtraGrid.v9.3.dll" />
+  <File Id="DevExpress.XtraLayout.v9.3.dll" Source="$(var.SolutionDir)\lib\DevExpress.XtraLayout.v9.3.dll" />
+  <File Id="DevExpress.XtraWizard.v9.3.dll" Source="$(var.SolutionDir)\lib\DevExpress.XtraWizard.v9.3.dll" />
+
+  <!--Fluent ribbon-->
+  <File Id="Microsoft.Windows.Shell.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\Microsoft.Windows.Shell.dll" />
+  <File Id="System.Windows.Interactivity.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\System.Windows.Interactivity.dll" />
+  
+  <File Id="log4net.dll" Source="$(var.SolutionDir)\lib\log4net.dll" />
+
+  <File Id="NDepend.Helpers.FileDirectoryPath.dll" Source="$(var.SolutionDir)\lib\NDepend.Helpers.FileDirectoryPath.dll" />
+
+  <File Id="PostSharp.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\PostSharp.dll" />
+  
+  <File Id="QuickGraph.dll" Source="$(var.SolutionDir)\lib\QuickGraph.dll" />
+
+  <File Id="TeeChart.dll" Source="$(var.SolutionDir)\lib\TeeChart.dll" />
+
+  <File Id="ValidationAspects.dll" Source="$(var.SolutionDir)\lib\ValidationAspects.dll" />
+  <File Id="LumenWorks.Framework.IO.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\LumenWorks.Framework.IO.dll" />
+
+  <File Id="NDesk.Options.dll" Source="$(var.SolutionDir)\lib\NDesk.Options.dll"/>
+
+  <File Id="Xceed.Wpf.AvalonDock.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\Xceed.Wpf.AvalonDock.dll"/>
+  <File Id="Xceed.Wpf.AvalonDock.Themes.Aero.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\Xceed.Wpf.AvalonDock.Themes.Aero.dll"/>
+  <File Id="Xceed.Wpf.AvalonDock.Themes.Metro.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\Xceed.Wpf.AvalonDock.Themes.Metro.dll"/>
+  <File Id="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\Xceed.Wpf.AvalonDock.Themes.VS2010.dll"/>
+  <File Id="Xceed.Wpf.AvalonDock.Themes.Expression.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\Xceed.Wpf.AvalonDock.Themes.Expression.dll"/>
+  <File Id="Fluent.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\Fluent.dll"/>
+
+  <File Id="BasicModelInterface.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\BasicModelInterface.dll"/>
+  
+  <File Id="NetronGraphLib.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\NetronGraphLib.dll"/>
+  
+  <RemoveFile Id="LogFile" On="uninstall" Name="DeltaShell.Gui.log" />
+</Include>

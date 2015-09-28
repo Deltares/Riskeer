@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <ComponentRef Id="FMSuiteCommon"/>
+  <ComponentRef Id="WavePlugin"/>
+  <ComponentRef Id="wave_idx64_bin"/>
+  <ComponentRef Id="wave_idx64_default"/>
+  <ComponentRef Id="swan_idx64_bin"/>
+  <ComponentRef Id="swan_idx64_scripts"/>  
+  <ComponentRef Id="esmf_idx64_bin"/>
+  <ComponentRef Id="esmf_idx64_scripts"/>
+</Include>

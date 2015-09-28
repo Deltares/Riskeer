@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id='Habitat' Name='DeltaShell.Plugins.Habitat'>
+    <Component Id='HabitatPlugin' Guid="$(var.PLUGIN_ID)">
+      <File Id="DeltaShell.Plugins.Habitat.dll" Name="DeltaShell.Plugins.Habitat.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\DeltaShell.Plugins.Habitat.dll' />
+      <File Id="gdal15.dll" Name="gdal15.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\gdal15.dll' />
+      <File Id="NPlot.dll" Name="NPlot.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\NPlot.dll' />
+      <File Id="PCRaster.Net.dll" Name="PCRaster.Net.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\PCRaster.Net.dll' />
+      <File Id="PCRasterDal.dll" Name="PCRasterDal.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\PCRasterDal.dll' />
+      <File Id="PCRasterModelEngine.dll" Name="PCRasterModelEngine.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\PCRasterModelEngine.dll' />
+      <File Id="QtCore4.dll" Name="QtCore4.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\QtCore4.dll' DefaultLanguage='1033' />
+      <File Id="QtSql4.dll" Name="QtSql4.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\QtSql4.dll' DefaultLanguage='1033' />
+      <File Id="QtXml4.dll" Name="QtXml4.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\QtXml4.dll' DefaultLanguage='1033' />
+      <File Id="USP.Express.Pro.2.0.dll" Name="USP.Express.Pro.2.0.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\USP.Express.Pro.2.0.dll' />
+      <File Id="GEOS_C.DLL"  Name=   "GEOS_C.DLL"  Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\GEOS_C.DLL'/>
+      <File Id="HD424M.DLL"  Name=  "HD424M.DLL"   Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\HD424M.DLL'/> 
+      <File Id="HM424M.DLL"  Name=  "HM424M.DLL"   Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\HM424M.DLL'/>
+      <File Id="LIBCURL.DLL" Name=  "LIBCURL.DLL"  Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\LIBCURL.DLL'/>
+      <File Id="SQLITE3.DLL" Name=  "SQLITE3.DLL"  Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\SQLITE3.DLL'/>
+      <File Id="xerces" Name="xerces-c_2_8.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\xerces-c_2_8.dll' />
+      <File Id="PCRaster.Net.dll.config" Name="PCRaster.Net.dll.config" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\PCRaster.Net.dll.config' />
+      <File Id="zlib.dll" Name="zlib.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\zlib.dll' />
+      <File Id="GridConv.exe" Name="GridConv.exe" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat\GridConv.exe' />
+    </Component>
+  </Directory>
+</Include>

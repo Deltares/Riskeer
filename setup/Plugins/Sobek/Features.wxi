@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Feature Id="WaterFlowModel1D" Title="!(loc.Flow1DFeatureName)" Description="!(loc.Flow1DFeatureDescription)" Level="1" Absent="disallow" AllowAdvertise="no">
+    <?include Flow1D_FeatureContent.wxi?>
+  </Feature>
+
+  <Feature Id="RealTimeControl" Title="!(loc.RTCFeatureName)" Description="!(loc.RTCFeatureDescription)" Level="1" Absent="allow" AllowAdvertise="no">
+    <?include ..\RealTimeControl\RealTimeControl_FeatureContent.wxi?>
+  </Feature>
+
+  <Feature Id="WaterQualityModel" Title="!(loc.WaqFeatureName)" Description="!(loc.WaqFeatureDescription)" Level="1000" Absent="allow" AllowAdvertise="no">
+    <?include ..\Waq\WaqPlugin_FeatureContent.wxi?>
+  </Feature>
+
+  <Feature Id="RainfallRunoffModel" Title="!(loc.RRFeatureName)" Description="!(loc.RRFeatureDescription)" Level="1" Absent="disallow" AllowAdvertise="no">
+    <?include RR_FeatureContent.wxi?>
+  </Feature>
+
+  <Feature Id="FM" Title="!(loc.FMFeatureName)" Description ="!(loc.FMFeatureDescription)" Level="1" Absent="allow" AllowAdvertise="no">
+    <?include ..\FM\FMPlugin_FeatureContent.wxi?>
+  </Feature>
+</Include>

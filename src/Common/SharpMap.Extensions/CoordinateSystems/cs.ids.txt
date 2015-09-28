@@ -1,0 +1,4203 @@
+#EPSG;Name;IsGeographic
+3819;"HD1909";True
+3821;"TWD67";True
+3824;"TWD97";True
+3889;"IGRS";True
+3906;"MGI 1901";True
+4001;"Unknown datum based upon the Airy 1830 ellipsoid";True
+4002;"Unknown datum based upon the Airy Modified 1849 ellipsoid";True
+4003;"Unknown datum based upon the Australian National Spheroid";True
+4004;"Unknown datum based upon the Bessel 1841 ellipsoid";True
+4005;"Unknown datum based upon the Bessel Modified ellipsoid";True
+4006;"Unknown datum based upon the Bessel Namibia ellipsoid";True
+4007;"Unknown datum based upon the Clarke 1858 ellipsoid";True
+4008;"Unknown datum based upon the Clarke 1866 ellipsoid";True
+4009;"Unknown datum based upon the Clarke 1866 Michigan ellipsoid";True
+4010;"Unknown datum based upon the Clarke 1880 (Benoit) ellipsoid";True
+4011;"Unknown datum based upon the Clarke 1880 (IGN) ellipsoid";True
+4012;"Unknown datum based upon the Clarke 1880 (RGS) ellipsoid";True
+4013;"Unknown datum based upon the Clarke 1880 (Arc) ellipsoid";True
+4014;"Unknown datum based upon the Clarke 1880 (SGA 1922) ellipsoid";True
+4015;"Unknown datum based upon the Everest 1830 (1937 Adjustment) ellipsoid";True
+4016;"Unknown datum based upon the Everest 1830 (1967 Definition) ellipsoid";True
+4018;"Unknown datum based upon the Everest 1830 Modified ellipsoid";True
+4019;"Unknown datum based upon the GRS 1980 ellipsoid";True
+4020;"Unknown datum based upon the Helmert 1906 ellipsoid";True
+4021;"Unknown datum based upon the Indonesian National Spheroid";True
+4022;"Unknown datum based upon the International 1924 ellipsoid";True
+4023;"MOLDREF99";True
+4024;"Unknown datum based upon the Krassowsky 1940 ellipsoid";True
+4025;"Unknown datum based upon the NWL 9D ellipsoid";True
+4027;"Unknown datum based upon the Plessis 1817 ellipsoid";True
+4028;"Unknown datum based upon the Struve 1860 ellipsoid";True
+4029;"Unknown datum based upon the War Office ellipsoid";True
+4030;"Unknown datum based upon the WGS 84 ellipsoid";True
+4031;"Unknown datum based upon the GEM 10C ellipsoid";True
+4032;"Unknown datum based upon the OSU86F ellipsoid";True
+4033;"Unknown datum based upon the OSU91A ellipsoid";True
+4034;"Unknown datum based upon the Clarke 1880 ellipsoid";True
+4035;"Unknown datum based upon the Authalic Sphere";True
+4036;"Unknown datum based upon the GRS 1967 ellipsoid";True
+4041;"Unknown datum based upon the Average Terrestrial System 1977 ellipsoid";True
+4042;"Unknown datum based upon the Everest (1830 Definition) ellipsoid";True
+4043;"Unknown datum based upon the WGS 72 ellipsoid";True
+4044;"Unknown datum based upon the Everest 1830 (1962 Definition) ellipsoid";True
+4045;"Unknown datum based upon the Everest 1830 (1975 Definition) ellipsoid";True
+4046;"RGRDC 2005";True
+4047;"Unspecified datum based upon the GRS 1980 Authalic Sphere";True
+4052;"Unspecified datum based upon the Clarke 1866 Authalic Sphere";True
+4053;"Unspecified datum based upon the International 1924 Authalic Sphere";True
+4054;"Unspecified datum based upon the Hughes 1980 ellipsoid";True
+4055;"Popular Visualisation CRS";True
+4075;"SREF98";True
+4081;"REGCAN95";True
+4120;"Greek";True
+4121;"GGRS87";True
+4122;"ATS77";True
+4123;"KKJ";True
+4124;"RT90";True
+4125;"Samboja";True
+4126;"LKS94 (ETRS89)";True
+4127;"Tete";True
+4128;"Madzansua";True
+4129;"Observatario";True
+4130;"Moznet";True
+4131;"Indian 1960";True
+4132;"FD58";True
+4133;"EST92";True
+4134;"PSD93";True
+4135;"Old Hawaiian";True
+4136;"St. Lawrence Island";True
+4137;"St. Paul Island";True
+4138;"St. George Island";True
+4139;"Puerto Rico";True
+4140;"NAD83(CSRS98)";True
+4141;"Israel";True
+4142;"Locodjo 1965";True
+4143;"Abidjan 1987";True
+4144;"Kalianpur 1937";True
+4145;"Kalianpur 1962";True
+4146;"Kalianpur 1975";True
+4147;"Hanoi 1972";True
+4148;"Hartebeesthoek94";True
+4149;"CH1903";True
+4150;"CH1903+";True
+4151;"CHTRF95";True
+4152;"NAD83(HARN)";True
+4153;"Rassadiran";True
+4154;"ED50(ED77)";True
+4155;"Dabola 1981";True
+4156;"S-JTSK";True
+4157;"Mount Dillon";True
+4158;"Naparima 1955";True
+4159;"ELD79";True
+4160;"Chos Malal 1914";True
+4161;"Pampa del Castillo";True
+4162;"Korean 1985";True
+4163;"Yemen NGN96";True
+4164;"South Yemen";True
+4165;"Bissau";True
+4166;"Korean 1995";True
+4167;"NZGD2000";True
+4168;"Accra";True
+4169;"American Samoa 1962";True
+4170;"SIRGAS 1995";True
+4171;"RGF93";True
+4172;"POSGAR";True
+4173;"IRENET95";True
+4174;"Sierra Leone 1924";True
+4175;"Sierra Leone 1968";True
+4176;"Australian Antarctic";True
+4178;"Pulkovo 1942(83)";True
+4179;"Pulkovo 1942(58)";True
+4180;"EST97";True
+4181;"Luxembourg 1930";True
+4182;"Azores Occidental 1939";True
+4183;"Azores Central 1948";True
+4184;"Azores Oriental 1940";True
+4185;"Madeira 1936";True
+4188;"OSNI 1952";True
+4189;"REGVEN";True
+4190;"POSGAR 98";True
+4191;"Albanian 1987";True
+4192;"Douala 1948";True
+4193;"Manoca 1962";True
+4194;"Qornoq 1927";True
+4195;"Scoresbysund 1952";True
+4196;"Ammassalik 1958";True
+4197;"Garoua";True
+4198;"Kousseri";True
+4199;"Egypt 1930";True
+4200;"Pulkovo 1995";True
+4201;"Adindan";True
+4202;"AGD66";True
+4203;"AGD84";True
+4204;"Ain el Abd";True
+4205;"Afgooye";True
+4206;"Agadez";True
+4207;"Lisbon";True
+4208;"Aratu";True
+4209;"Arc 1950";True
+4210;"Arc 1960";True
+4211;"Batavia";True
+4212;"Barbados 1938";True
+4213;"Beduaram";True
+4214;"Beijing 1954";True
+4215;"Belge 1950";True
+4216;"Bermuda 1957";True
+4218;"Bogota 1975";True
+4219;"Bukit Rimpah";True
+4220;"Camacupa";True
+4221;"Campo Inchauspe";True
+4222;"Cape";True
+4223;"Carthage";True
+4224;"Chua";True
+4225;"Corrego Alegre 1970-72";True
+4226;"Cote d'Ivoire";True
+4227;"Deir ez Zor";True
+4228;"Douala";True
+4229;"Egypt 1907";True
+4230;"ED50";True
+4231;"ED87";True
+4232;"Fahud";True
+4233;"Gandajika 1970";True
+4234;"Garoua";True
+4235;"Guyane Francaise";True
+4236;"Hu Tzu Shan 1950";True
+4237;"HD72";True
+4238;"ID74";True
+4239;"Indian 1954";True
+4240;"Indian 1975";True
+4241;"Jamaica 1875";True
+4242;"JAD69";True
+4243;"Kalianpur 1880";True
+4244;"Kandawala";True
+4245;"Kertau 1968";True
+4246;"KOC";True
+4247;"La Canoa";True
+4248;"PSAD56";True
+4249;"Lake";True
+4250;"Leigon";True
+4251;"Liberia 1964";True
+4252;"Lome";True
+4253;"Luzon 1911";True
+4254;"Hito XVIII 1963";True
+4255;"Herat North";True
+4256;"Mahe 1971";True
+4257;"Makassar";True
+4258;"ETRS89";True
+4259;"Malongo 1987";True
+4260;"Manoca";True
+4261;"Merchich";True
+4262;"Massawa";True
+4263;"Minna";True
+4264;"Mhast";True
+4265;"Monte Mario";True
+4266;"M'poraloko";True
+4267;"NAD27";True
+4268;"NAD27 Michigan";True
+4269;"NAD83";True
+4270;"Nahrwan 1967";True
+4271;"Naparima 1972";True
+4272;"NZGD49";True
+4273;"NGO 1948";True
+4274;"Datum 73";True
+4275;"NTF";True
+4276;"NSWC 9Z-2";True
+4277;"OSGB 1936";True
+4278;"OSGB70";True
+4279;"OS(SN)80";True
+4280;"Padang";True
+4281;"Palestine 1923";True
+4282;"Pointe Noire";True
+4283;"GDA94";True
+4284;"Pulkovo 1942";True
+4285;"Qatar 1974";True
+4286;"Qatar 1948";True
+4287;"Qornoq";True
+4288;"Loma Quintana";True
+4289;"Amersfoort";True
+4291;"SAD69";True
+4292;"Sapper Hill 1943";True
+4293;"Schwarzeck";True
+4294;"Segora";True
+4295;"Serindung";True
+4296;"Sudan";True
+4297;"Tananarive";True
+4298;"Timbalai 1948";True
+4299;"TM65";True
+4300;"TM75";True
+4301;"Tokyo";True
+4302;"Trinidad 1903";True
+4303;"TC(1948)";True
+4304;"Voirol 1875";True
+4306;"Bern 1938";True
+4307;"Nord Sahara 1959";True
+4308;"RT38";True
+4309;"Yacare";True
+4310;"Yoff";True
+4311;"Zanderij";True
+4312;"MGI";True
+4313;"Belge 1972";True
+4314;"DHDN";True
+4315;"Conakry 1905";True
+4316;"Dealul Piscului 1930";True
+4317;"Dealul Piscului 1970";True
+4318;"NGN";True
+4319;"KUDAMS";True
+4322;"WGS 72";True
+4324;"WGS 72BE";True
+4326;"WGS 84";True
+4600;"Anguilla 1957";True
+4601;"Antigua 1943";True
+4602;"Dominica 1945";True
+4603;"Grenada 1953";True
+4604;"Montserrat 1958";True
+4605;"St. Kitts 1955";True
+4606;"St. Lucia 1955";True
+4607;"St. Vincent 1945";True
+4608;"NAD27(76)";True
+4609;"NAD27(CGQ77)";True
+4610;"Xian 1980";True
+4611;"Hong Kong 1980";True
+4612;"JGD2000";True
+4613;"Segara";True
+4614;"QND95";True
+4615;"Porto Santo";True
+4616;"Selvagem Grande";True
+4617;"NAD83(CSRS)";True
+4618;"SAD69";True
+4619;"SWEREF99";True
+4620;"Point 58";True
+4621;"Fort Marigot";True
+4622;"Guadeloupe 1948";True
+4623;"CSG67";True
+4624;"RGFG95";True
+4625;"Martinique 1938";True
+4626;"Reunion 1947";True
+4627;"RGR92";True
+4628;"Tahiti 52";True
+4629;"Tahaa 54";True
+4630;"IGN72 Nuku Hiva";True
+4631;"K0 1949";True
+4632;"Combani 1950";True
+4633;"IGN56 Lifou";True
+4634;"IGN72 Grand Terre";True
+4635;"ST87 Ouvea";True
+4636;"Petrels 1972";True
+4637;"Perroud 1950";True
+4638;"Saint Pierre et Miquelon 1950";True
+4639;"MOP78";True
+4640;"RRAF 1991";True
+4641;"IGN53 Mare";True
+4642;"ST84 Ile des Pins";True
+4643;"ST71 Belep";True
+4644;"NEA74 Noumea";True
+4645;"RGNC 1991";True
+4646;"Grand Comoros";True
+4657;"Reykjavik 1900";True
+4658;"Hjorsey 1955";True
+4659;"ISN93";True
+4660;"Helle 1954";True
+4661;"LKS92";True
+4662;"IGN72 Grande Terre";True
+4663;"Porto Santo 1995";True
+4664;"Azores Oriental 1995";True
+4665;"Azores Central 1995";True
+4666;"Lisbon 1890";True
+4667;"IKBD-92";True
+4668;"ED79";True
+4669;"LKS94";True
+4670;"IGM95";True
+4671;"Voirol 1879";True
+4672;"Chatham Islands 1971";True
+4673;"Chatham Islands 1979";True
+4674;"SIRGAS 2000";True
+4675;"Guam 1963";True
+4676;"Vientiane 1982";True
+4677;"Lao 1993";True
+4678;"Lao 1997";True
+4679;"Jouik 1961";True
+4680;"Nouakchott 1965";True
+4681;"Mauritania 1999";True
+4682;"Gulshan 303";True
+4683;"PRS92";True
+4684;"Gan 1970";True
+4685;"Gandajika";True
+4686;"MAGNA-SIRGAS";True
+4687;"RGPF";True
+4688;"Fatu Iva 72";True
+4689;"IGN63 Hiva Oa";True
+4690;"Tahiti 79";True
+4691;"Moorea 87";True
+4692;"Maupiti 83";True
+4693;"Nakhl-e Ghanem";True
+4694;"POSGAR 94";True
+4695;"Katanga 1955";True
+4696;"Kasai 1953";True
+4697;"IGC 1962 6th Parallel South";True
+4698;"IGN 1962 Kerguelen";True
+4699;"Le Pouce 1934";True
+4700;"IGN Astro 1960";True
+4701;"IGCB 1955";True
+4702;"Mauritania 1999";True
+4703;"Mhast 1951";True
+4704;"Mhast (onshore)";True
+4705;"Mhast (offshore)";True
+4706;"Egypt Gulf of Suez S-650 TL";True
+4707;"Tern Island 1961";True
+4708;"Cocos Islands 1965";True
+4709;"Iwo Jima 1945";True
+4710;"St. Helena 1971";True
+4711;"Marcus Island 1952";True
+4712;"Ascension Island 1958";True
+4713;"Ayabelle Lighthouse";True
+4714;"Bellevue";True
+4715;"Camp Area Astro";True
+4716;"Phoenix Islands 1966";True
+4717;"Cape Canaveral";True
+4718;"Solomon 1968";True
+4719;"Easter Island 1967";True
+4720;"Fiji 1986";True
+4721;"Fiji 1956";True
+4722;"South Georgia 1968";True
+4723;"Grand Cayman 1959";True
+4724;"Diego Garcia 1969";True
+4725;"Johnston Island 1961";True
+4726;"Little Cayman 1961";True
+4727;"Midway 1961";True
+4728;"Pico de las Nieves 1984";True
+4729;"Pitcairn 1967";True
+4730;"Santo 1965";True
+4731;"Viti Levu 1916";True
+4732;"Marshall Islands 1960";True
+4733;"Wake Island 1952";True
+4734;"Tristan 1968";True
+4735;"Kusaie 1951";True
+4736;"Deception Island";True
+4737;"Korea 2000";True
+4738;"Hong Kong 1963";True
+4739;"Hong Kong 1963(67)";True
+4740;"PZ-90";True
+4741;"FD54";True
+4742;"GDM2000";True
+4743;"Karbala 1979";True
+4744;"Nahrwan 1934";True
+4745;"RD/83";True
+4746;"PD/83";True
+4747;"GR96";True
+4748;"Vanua Levu 1915";True
+4749;"RGNC91-93";True
+4750;"ST87 Ouvea";True
+4751;"Kertau (RSO)";True
+4752;"Viti Levu 1912";True
+4753;"fk89";True
+4754;"LGD2006";True
+4755;"DGN95";True
+4756;"VN-2000";True
+4757;"SVY21";True
+4758;"JAD2001";True
+4759;"NAD83(NSRS2007)";True
+4760;"WGS 66";True
+4761;"HTRS96";True
+4762;"BDA2000";True
+4763;"Pitcairn 2006";True
+4764;"RSRGD2000";True
+4765;"Slovenia 1996";True
+4801;"Bern 1898 (Bern)";True
+4802;"Bogota 1975 (Bogota)";True
+4803;"Lisbon (Lisbon)";True
+4804;"Makassar (Jakarta)";True
+4805;"MGI (Ferro)";True
+4806;"Monte Mario (Rome)";True
+4807;"NTF (Paris)";True
+4808;"Padang (Jakarta)";True
+4809;"Belge 1950 (Brussels)";True
+4810;"Tananarive (Paris)";True
+4811;"Voirol 1875 (Paris)";True
+4813;"Batavia (Jakarta)";True
+4814;"RT38 (Stockholm)";True
+4815;"Greek (Athens)";True
+4816;"Carthage (Paris)";True
+4817;"NGO 1948 (Oslo)";True
+4818;"S-JTSK (Ferro)";True
+4819;"Nord Sahara 1959 (Paris)";True
+4820;"Segara (Jakarta)";True
+4821;"Voirol 1879 (Paris)";True
+4901;"ATF (Paris)";True
+4902;"NDG (Paris)";True
+4903;"Madrid 1870 (Madrid)";True
+4904;"Lisbon 1890 (Lisbon)";True
+2000;"Anguilla 1957 / British West Indies Grid";False
+2001;"Antigua 1943 / British West Indies Grid";False
+2002;"Dominica 1945 / British West Indies Grid";False
+2003;"Grenada 1953 / British West Indies Grid";False
+2004;"Montserrat 1958 / British West Indies Grid";False
+2005;"St. Kitts 1955 / British West Indies Grid";False
+2006;"St. Lucia 1955 / British West Indies Grid";False
+2007;"St. Vincent 45 / British West Indies Grid";False
+2008;"NAD27(CGQ77) / SCoPQ zone 2 (deprecated)";False
+2009;"NAD27(CGQ77) / SCoPQ zone 3";False
+2010;"NAD27(CGQ77) / SCoPQ zone 4";False
+2011;"NAD27(CGQ77) / SCoPQ zone 5";False
+2012;"NAD27(CGQ77) / SCoPQ zone 6";False
+2013;"NAD27(CGQ77) / SCoPQ zone 7";False
+2014;"NAD27(CGQ77) / SCoPQ zone 8";False
+2015;"NAD27(CGQ77) / SCoPQ zone 9";False
+2016;"NAD27(CGQ77) / SCoPQ zone 10";False
+2017;"NAD27(76) / MTM zone 8";False
+2018;"NAD27(76) / MTM zone 9";False
+2019;"NAD27(76) / MTM zone 10";False
+2020;"NAD27(76) / MTM zone 11";False
+2021;"NAD27(76) / MTM zone 12";False
+2022;"NAD27(76) / MTM zone 13";False
+2023;"NAD27(76) / MTM zone 14";False
+2024;"NAD27(76) / MTM zone 15";False
+2025;"NAD27(76) / MTM zone 16";False
+2026;"NAD27(76) / MTM zone 17";False
+2027;"NAD27(76) / UTM zone 15N";False
+2028;"NAD27(76) / UTM zone 16N";False
+2029;"NAD27(76) / UTM zone 17N";False
+2030;"NAD27(76) / UTM zone 18N";False
+2031;"NAD27(CGQ77) / UTM zone 17N";False
+2032;"NAD27(CGQ77) / UTM zone 18N";False
+2033;"NAD27(CGQ77) / UTM zone 19N";False
+2034;"NAD27(CGQ77) / UTM zone 20N";False
+2035;"NAD27(CGQ77) / UTM zone 21N";False
+2036;"NAD83(CSRS98) / New Brunswick Stereo (deprecated)";False
+2037;"NAD83(CSRS98) / UTM zone 19N (deprecated)";False
+2038;"NAD83(CSRS98) / UTM zone 20N (deprecated)";False
+2039;"Israel / Israeli TM Grid";False
+2040;"Locodjo 1965 / UTM zone 30N";False
+2041;"Abidjan 1987 / UTM zone 30N";False
+2042;"Locodjo 1965 / UTM zone 29N";False
+2043;"Abidjan 1987 / UTM zone 29N";False
+2044;"Hanoi 1972 / Gauss-Kruger zone 18";False
+2045;"Hanoi 1972 / Gauss-Kruger zone 19";False
+2046;"Hartebeesthoek94 / Lo15";False
+2047;"Hartebeesthoek94 / Lo17";False
+2048;"Hartebeesthoek94 / Lo19";False
+2049;"Hartebeesthoek94 / Lo21";False
+2050;"Hartebeesthoek94 / Lo23";False
+2051;"Hartebeesthoek94 / Lo25";False
+2052;"Hartebeesthoek94 / Lo27";False
+2053;"Hartebeesthoek94 / Lo29";False
+2054;"Hartebeesthoek94 / Lo31";False
+2055;"Hartebeesthoek94 / Lo33";False
+2056;"CH1903+ / LV95";False
+2057;"Rassadiran / Nakhl e Taqi";False
+2058;"ED50(ED77) / UTM zone 38N";False
+2059;"ED50(ED77) / UTM zone 39N";False
+2060;"ED50(ED77) / UTM zone 40N";False
+2061;"ED50(ED77) / UTM zone 41N";False
+2062;"Madrid 1870 (Madrid) / Spain";False
+2063;"Dabola 1981 / UTM zone 28N (deprecated)";False
+2064;"Dabola 1981 / UTM zone 29N (deprecated)";False
+2065;"S-JTSK (Ferro) / Krovak";False
+2066;"Mount Dillon / Tobago Grid";False
+2067;"Naparima 1955 / UTM zone 20N";False
+2068;"ELD79 / Libya zone 5";False
+2069;"ELD79 / Libya zone 6";False
+2070;"ELD79 / Libya zone 7";False
+2071;"ELD79 / Libya zone 8";False
+2072;"ELD79 / Libya zone 9";False
+2073;"ELD79 / Libya zone 10";False
+2074;"ELD79 / Libya zone 11";False
+2075;"ELD79 / Libya zone 12";False
+2076;"ELD79 / Libya zone 13";False
+2077;"ELD79 / UTM zone 32N";False
+2078;"ELD79 / UTM zone 33N";False
+2079;"ELD79 / UTM zone 34N";False
+2080;"ELD79 / UTM zone 35N";False
+2081;"Chos Malal 1914 / Argentina 2";False
+2082;"Pampa del Castillo / Argentina 2";False
+2083;"Hito XVIII 1963 / Argentina 2";False
+2084;"Hito XVIII 1963 / UTM zone 19S";False
+2085;"NAD27 / Cuba Norte (deprecated)";False
+2086;"NAD27 / Cuba Sur (deprecated)";False
+2087;"ELD79 / TM 12 NE";False
+2088;"Carthage / TM 11 NE";False
+2089;"Yemen NGN96 / UTM zone 38N";False
+2090;"Yemen NGN96 / UTM zone 39N";False
+2091;"South Yemen / Gauss Kruger zone 8 (deprecated)";False
+2092;"South Yemen / Gauss Kruger zone 9 (deprecated)";False
+2093;"Hanoi 1972 / GK 106 NE";False
+2094;"WGS 72BE / TM 106 NE";False
+2095;"Bissau / UTM zone 28N";False
+2096;"Korean 1985 / East Belt";False
+2097;"Korean 1985 / Central Belt";False
+2098;"Korean 1985 / West Belt";False
+2099;"Qatar 1948 / Qatar Grid";False
+2100;"GGRS87 / Greek Grid";False
+2101;"Lake / Maracaibo Grid M1";False
+2102;"Lake / Maracaibo Grid";False
+2103;"Lake / Maracaibo Grid M3";False
+2104;"Lake / Maracaibo La Rosa Grid";False
+2105;"NZGD2000 / Mount Eden 2000";False
+2106;"NZGD2000 / Bay of Plenty 2000";False
+2107;"NZGD2000 / Poverty Bay 2000";False
+2108;"NZGD2000 / Hawkes Bay 2000";False
+2109;"NZGD2000 / Taranaki 2000";False
+2110;"NZGD2000 / Tuhirangi 2000";False
+2111;"NZGD2000 / Wanganui 2000";False
+2112;"NZGD2000 / Wairarapa 2000";False
+2113;"NZGD2000 / Wellington 2000";False
+2114;"NZGD2000 / Collingwood 2000";False
+2115;"NZGD2000 / Nelson 2000";False
+2116;"NZGD2000 / Karamea 2000";False
+2117;"NZGD2000 / Buller 2000";False
+2118;"NZGD2000 / Grey 2000";False
+2119;"NZGD2000 / Amuri 2000";False
+2120;"NZGD2000 / Marlborough 2000";False
+2121;"NZGD2000 / Hokitika 2000";False
+2122;"NZGD2000 / Okarito 2000";False
+2123;"NZGD2000 / Jacksons Bay 2000";False
+2124;"NZGD2000 / Mount Pleasant 2000";False
+2125;"NZGD2000 / Gawler 2000";False
+2126;"NZGD2000 / Timaru 2000";False
+2127;"NZGD2000 / Lindis Peak 2000";False
+2128;"NZGD2000 / Mount Nicholas 2000";False
+2129;"NZGD2000 / Mount York 2000";False
+2130;"NZGD2000 / Observation Point 2000";False
+2131;"NZGD2000 / North Taieri 2000";False
+2132;"NZGD2000 / Bluff 2000";False
+2133;"NZGD2000 / UTM zone 58S";False
+2134;"NZGD2000 / UTM zone 59S";False
+2135;"NZGD2000 / UTM zone 60S";False
+2136;"Accra / Ghana National Grid";False
+2137;"Accra / TM 1 NW";False
+2138;"NAD27(CGQ77) / Quebec Lambert";False
+2139;"NAD83(CSRS98) / SCoPQ zone 2 (deprecated)";False
+2140;"NAD83(CSRS98) / MTM zone 3 (deprecated)";False
+2141;"NAD83(CSRS98) / MTM zone 4 (deprecated)";False
+2142;"NAD83(CSRS98) / MTM zone 5 (deprecated)";False
+2143;"NAD83(CSRS98) / MTM zone 6 (deprecated)";False
+2144;"NAD83(CSRS98) / MTM zone 7 (deprecated)";False
+2145;"NAD83(CSRS98) / MTM zone 8 (deprecated)";False
+2146;"NAD83(CSRS98) / MTM zone 9 (deprecated)";False
+2147;"NAD83(CSRS98) / MTM zone 10 (deprecated)";False
+2148;"NAD83(CSRS98) / UTM zone 21N (deprecated)";False
+2149;"NAD83(CSRS98) / UTM zone 18N (deprecated)";False
+2150;"NAD83(CSRS98) / UTM zone 17N (deprecated)";False
+2151;"NAD83(CSRS98) / UTM zone 13N (deprecated)";False
+2152;"NAD83(CSRS98) / UTM zone 12N (deprecated)";False
+2153;"NAD83(CSRS98) / UTM zone 11N (deprecated)";False
+2154;"RGF93 / Lambert-93";False
+2155;"American Samoa 1962 / American Samoa Lambert (deprecated)";False
+2156;"NAD83(HARN) / UTM zone 59S (deprecated)";False
+2157;"IRENET95 / Irish Transverse Mercator";False
+2158;"IRENET95 / UTM zone 29N";False
+2159;"Sierra Leone 1924 / New Colony Grid";False
+2160;"Sierra Leone 1924 / New War Office Grid";False
+2161;"Sierra Leone 1968 / UTM zone 28N";False
+2162;"Sierra Leone 1968 / UTM zone 29N";False
+2163;"US National Atlas Equal Area";False
+2164;"Locodjo 1965 / TM 5 NW";False
+2165;"Abidjan 1987 / TM 5 NW";False
+2166;"Pulkovo 1942(83) / Gauss Kruger zone 3 (deprecated)";False
+2167;"Pulkovo 1942(83) / Gauss Kruger zone 4 (deprecated)";False
+2168;"Pulkovo 1942(83) / Gauss Kruger zone 5 (deprecated)";False
+2169;"Luxembourg 1930 / Gauss";False
+2170;"MGI / Slovenia Grid (deprecated)";False
+2171;"Pulkovo 1942(58) / Poland zone I (deprecated)";False
+2172;"Pulkovo 1942(58) / Poland zone II";False
+2173;"Pulkovo 1942(58) / Poland zone III";False
+2174;"Pulkovo 1942(58) / Poland zone IV";False
+2175;"Pulkovo 1942(58) / Poland zone V";False
+2176;"ETRS89 / Poland CS2000 zone 5";False
+2177;"ETRS89 / Poland CS2000 zone 6";False
+2178;"ETRS89 / Poland CS2000 zone 7";False
+2179;"ETRS89 / Poland CS2000 zone 8";False
+2180;"ETRS89 / Poland CS92";False
+2188;"Azores Occidental 1939 / UTM zone 25N";False
+2189;"Azores Central 1948 / UTM zone 26N";False
+2190;"Azores Oriental 1940 / UTM zone 26N";False
+2191;"Madeira 1936 / UTM zone 28N (deprecated)";False
+2192;"ED50 / France EuroLambert";False
+2193;"NZGD2000 / New Zealand Transverse Mercator 2000";False
+2194;"American Samoa 1962 / American Samoa Lambert (deprecated)";False
+2195;"NAD83(HARN) / UTM zone 2S";False
+2196;"ETRS89 / Kp2000 Jutland";False
+2197;"ETRS89 / Kp2000 Zealand";False
+2198;"ETRS89 / Kp2000 Bornholm";False
+2199;"Albanian 1987 / Gauss Kruger zone 4 (deprecated)";False
+2200;"ATS77 / New Brunswick Stereographic (ATS77)";False
+2201;"REGVEN / UTM zone 18N";False
+2202;"REGVEN / UTM zone 19N";False
+2203;"REGVEN / UTM zone 20N";False
+2204;"NAD27 / Tennessee";False
+2205;"NAD83 / Kentucky North";False
+2206;"ED50 / 3-degree Gauss-Kruger zone 9";False
+2207;"ED50 / 3-degree Gauss-Kruger zone 10";False
+2208;"ED50 / 3-degree Gauss-Kruger zone 11";False
+2209;"ED50 / 3-degree Gauss-Kruger zone 12";False
+2210;"ED50 / 3-degree Gauss-Kruger zone 13";False
+2211;"ED50 / 3-degree Gauss-Kruger zone 14";False
+2212;"ED50 / 3-degree Gauss-Kruger zone 15";False
+2213;"ETRS89 / TM 30 NE";False
+2214;"Douala 1948 / AOF west (deprecated)";False
+2215;"Manoca 1962 / UTM zone 32N";False
+2216;"Qornoq 1927 / UTM zone 22N";False
+2217;"Qornoq 1927 / UTM zone 23N";False
+2219;"ATS77 / UTM zone 19N";False
+2220;"ATS77 / UTM zone 20N";False
+2222;"NAD83 / Arizona East (ft)";False
+2223;"NAD83 / Arizona Central (ft)";False
+2224;"NAD83 / Arizona West (ft)";False
+2225;"NAD83 / California zone 1 (ftUS)";False
+2226;"NAD83 / California zone 2 (ftUS)";False
+2227;"NAD83 / California zone 3 (ftUS)";False
+2228;"NAD83 / California zone 4 (ftUS)";False
+2229;"NAD83 / California zone 5 (ftUS)";False
+2230;"NAD83 / California zone 6 (ftUS)";False
+2231;"NAD83 / Colorado North (ftUS)";False
+2232;"NAD83 / Colorado Central (ftUS)";False
+2233;"NAD83 / Colorado South (ftUS)";False
+2234;"NAD83 / Connecticut (ftUS)";False
+2235;"NAD83 / Delaware (ftUS)";False
+2236;"NAD83 / Florida East (ftUS)";False
+2237;"NAD83 / Florida West (ftUS)";False
+2238;"NAD83 / Florida North (ftUS)";False
+2239;"NAD83 / Georgia East (ftUS)";False
+2240;"NAD83 / Georgia West (ftUS)";False
+2241;"NAD83 / Idaho East (ftUS)";False
+2242;"NAD83 / Idaho Central (ftUS)";False
+2243;"NAD83 / Idaho West (ftUS)";False
+2244;"NAD83 / Indiana East (ftUS) (deprecated)";False
+2245;"NAD83 / Indiana West (ftUS) (deprecated)";False
+2246;"NAD83 / Kentucky North (ftUS)";False
+2247;"NAD83 / Kentucky South (ftUS)";False
+2248;"NAD83 / Maryland (ftUS)";False
+2249;"NAD83 / Massachusetts Mainland (ftUS)";False
+2250;"NAD83 / Massachusetts Island (ftUS)";False
+2251;"NAD83 / Michigan North (ft)";False
+2252;"NAD83 / Michigan Central (ft)";False
+2253;"NAD83 / Michigan South (ft)";False
+2254;"NAD83 / Mississippi East (ftUS)";False
+2255;"NAD83 / Mississippi West (ftUS)";False
+2256;"NAD83 / Montana (ft)";False
+2257;"NAD83 / New Mexico East (ftUS)";False
+2258;"NAD83 / New Mexico Central (ftUS)";False
+2259;"NAD83 / New Mexico West (ftUS)";False
+2260;"NAD83 / New York East (ftUS)";False
+2261;"NAD83 / New York Central (ftUS)";False
+2262;"NAD83 / New York West (ftUS)";False
+2263;"NAD83 / New York Long Island (ftUS)";False
+2264;"NAD83 / North Carolina (ftUS)";False
+2265;"NAD83 / North Dakota North (ft)";False
+2266;"NAD83 / North Dakota South (ft)";False
+2267;"NAD83 / Oklahoma North (ftUS)";False
+2268;"NAD83 / Oklahoma South (ftUS)";False
+2269;"NAD83 / Oregon North (ft)";False
+2270;"NAD83 / Oregon South (ft)";False
+2271;"NAD83 / Pennsylvania North (ftUS)";False
+2272;"NAD83 / Pennsylvania South (ftUS)";False
+2273;"NAD83 / South Carolina (ft)";False
+2274;"NAD83 / Tennessee (ftUS)";False
+2275;"NAD83 / Texas North (ftUS)";False
+2276;"NAD83 / Texas North Central (ftUS)";False
+2277;"NAD83 / Texas Central (ftUS)";False
+2278;"NAD83 / Texas South Central (ftUS)";False
+2279;"NAD83 / Texas South (ftUS)";False
+2280;"NAD83 / Utah North (ft)";False
+2281;"NAD83 / Utah Central (ft)";False
+2282;"NAD83 / Utah South (ft)";False
+2283;"NAD83 / Virginia North (ftUS)";False
+2284;"NAD83 / Virginia South (ftUS)";False
+2285;"NAD83 / Washington North (ftUS)";False
+2286;"NAD83 / Washington South (ftUS)";False
+2287;"NAD83 / Wisconsin North (ftUS)";False
+2288;"NAD83 / Wisconsin Central (ftUS)";False
+2289;"NAD83 / Wisconsin South (ftUS)";False
+2290;"ATS77 / Prince Edward Isl. Stereographic (ATS77)";False
+2291;"NAD83(CSRS98) / Prince Edward Isl. Stereographic (NAD83) (deprecated)";False
+2292;"NAD83(CSRS98) / Prince Edward Isl. Stereographic (NAD83) (deprecated)";False
+2294;"ATS77 / MTM Nova Scotia zone 4";False
+2295;"ATS77 / MTM Nova Scotia zone 5";False
+2308;"Batavia / TM 109 SE";False
+2309;"WGS 84 / TM 116 SE";False
+2310;"WGS 84 / TM 132 SE";False
+2311;"WGS 84 / TM 6 NE";False
+2312;"Garoua / UTM zone 33N";False
+2313;"Kousseri / UTM zone 33N";False
+2314;"Trinidad 1903 / Trinidad Grid (ftCla)";False
+2315;"Campo Inchauspe / UTM zone 19S";False
+2316;"Campo Inchauspe / UTM zone 20S";False
+2317;"PSAD56 / ICN Regional";False
+2318;"Ain el Abd / Aramco Lambert";False
+2319;"ED50 / TM27";False
+2320;"ED50 / TM30";False
+2321;"ED50 / TM33";False
+2322;"ED50 / TM36";False
+2323;"ED50 / TM39";False
+2324;"ED50 / TM42";False
+2325;"ED50 / TM45";False
+2326;"Hong Kong 1980 Grid System";False
+2327;"Xian 1980 / Gauss-Kruger zone 13";False
+2328;"Xian 1980 / Gauss-Kruger zone 14";False
+2329;"Xian 1980 / Gauss-Kruger zone 15";False
+2330;"Xian 1980 / Gauss-Kruger zone 16";False
+2331;"Xian 1980 / Gauss-Kruger zone 17";False
+2332;"Xian 1980 / Gauss-Kruger zone 18";False
+2333;"Xian 1980 / Gauss-Kruger zone 19";False
+2334;"Xian 1980 / Gauss-Kruger zone 20";False
+2335;"Xian 1980 / Gauss-Kruger zone 21";False
+2336;"Xian 1980 / Gauss-Kruger zone 22";False
+2337;"Xian 1980 / Gauss-Kruger zone 23";False
+2338;"Xian 1980 / Gauss-Kruger CM 75E";False
+2339;"Xian 1980 / Gauss-Kruger CM 81E";False
+2340;"Xian 1980 / Gauss-Kruger CM 87E";False
+2341;"Xian 1980 / Gauss-Kruger CM 93E";False
+2342;"Xian 1980 / Gauss-Kruger CM 99E";False
+2343;"Xian 1980 / Gauss-Kruger CM 105E";False
+2344;"Xian 1980 / Gauss-Kruger CM 111E";False
+2345;"Xian 1980 / Gauss-Kruger CM 117E";False
+2346;"Xian 1980 / Gauss-Kruger CM 123E";False
+2347;"Xian 1980 / Gauss-Kruger CM 129E";False
+2348;"Xian 1980 / Gauss-Kruger CM 135E";False
+2349;"Xian 1980 / 3-degree Gauss-Kruger zone 25";False
+2350;"Xian 1980 / 3-degree Gauss-Kruger zone 26";False
+2351;"Xian 1980 / 3-degree Gauss-Kruger zone 27";False
+2352;"Xian 1980 / 3-degree Gauss-Kruger zone 28";False
+2353;"Xian 1980 / 3-degree Gauss-Kruger zone 29";False
+2354;"Xian 1980 / 3-degree Gauss-Kruger zone 30";False
+2355;"Xian 1980 / 3-degree Gauss-Kruger zone 31";False
+2356;"Xian 1980 / 3-degree Gauss-Kruger zone 32";False
+2357;"Xian 1980 / 3-degree Gauss-Kruger zone 33";False
+2358;"Xian 1980 / 3-degree Gauss-Kruger zone 34";False
+2359;"Xian 1980 / 3-degree Gauss-Kruger zone 35";False
+2360;"Xian 1980 / 3-degree Gauss-Kruger zone 36";False
+2361;"Xian 1980 / 3-degree Gauss-Kruger zone 37";False
+2362;"Xian 1980 / 3-degree Gauss-Kruger zone 38";False
+2363;"Xian 1980 / 3-degree Gauss-Kruger zone 39";False
+2364;"Xian 1980 / 3-degree Gauss-Kruger zone 40";False
+2365;"Xian 1980 / 3-degree Gauss-Kruger zone 41";False
+2366;"Xian 1980 / 3-degree Gauss-Kruger zone 42";False
+2367;"Xian 1980 / 3-degree Gauss-Kruger zone 43";False
+2368;"Xian 1980 / 3-degree Gauss-Kruger zone 44";False
+2369;"Xian 1980 / 3-degree Gauss-Kruger zone 45";False
+2370;"Xian 1980 / 3-degree Gauss-Kruger CM 75E";False
+2371;"Xian 1980 / 3-degree Gauss-Kruger CM 78E";False
+2372;"Xian 1980 / 3-degree Gauss-Kruger CM 81E";False
+2373;"Xian 1980 / 3-degree Gauss-Kruger CM 84E";False
+2374;"Xian 1980 / 3-degree Gauss-Kruger CM 87E";False
+2375;"Xian 1980 / 3-degree Gauss-Kruger CM 90E";False
+2376;"Xian 1980 / 3-degree Gauss-Kruger CM 93E";False
+2377;"Xian 1980 / 3-degree Gauss-Kruger CM 96E";False
+2378;"Xian 1980 / 3-degree Gauss-Kruger CM 99E";False
+2379;"Xian 1980 / 3-degree Gauss-Kruger CM 102E";False
+2380;"Xian 1980 / 3-degree Gauss-Kruger CM 105E";False
+2381;"Xian 1980 / 3-degree Gauss-Kruger CM 108E";False
+2382;"Xian 1980 / 3-degree Gauss-Kruger CM 111E";False
+2383;"Xian 1980 / 3-degree Gauss-Kruger CM 114E";False
+2384;"Xian 1980 / 3-degree Gauss-Kruger CM 117E";False
+2385;"Xian 1980 / 3-degree Gauss-Kruger CM 120E";False
+2386;"Xian 1980 / 3-degree Gauss-Kruger CM 123E";False
+2387;"Xian 1980 / 3-degree Gauss-Kruger CM 126E";False
+2388;"Xian 1980 / 3-degree Gauss-Kruger CM 129E";False
+2389;"Xian 1980 / 3-degree Gauss-Kruger CM 132E";False
+2390;"Xian 1980 / 3-degree Gauss-Kruger CM 135E";False
+2391;"KKJ / Finland zone 1";False
+2392;"KKJ / Finland zone 2";False
+2393;"KKJ / Finland Uniform Coordinate System";False
+2394;"KKJ / Finland zone 4";False
+2395;"South Yemen / Gauss-Kruger zone 8";False
+2396;"South Yemen / Gauss-Kruger zone 9";False
+2397;"Pulkovo 1942(83) / 3-degree Gauss-Kruger zone 3";False
+2398;"Pulkovo 1942(83) / 3-degree Gauss-Kruger zone 4";False
+2399;"Pulkovo 1942(83) / 3-degree Gauss-Kruger zone 5";False
+2400;"RT90 2.5 gon W (deprecated)";False
+2401;"Beijing 1954 / 3-degree Gauss-Kruger zone 25";False
+2402;"Beijing 1954 / 3-degree Gauss-Kruger zone 26";False
+2403;"Beijing 1954 / 3-degree Gauss-Kruger zone 27";False
+2404;"Beijing 1954 / 3-degree Gauss-Kruger zone 28";False
+2405;"Beijing 1954 / 3-degree Gauss-Kruger zone 29";False
+2406;"Beijing 1954 / 3-degree Gauss-Kruger zone 30";False
+2407;"Beijing 1954 / 3-degree Gauss-Kruger zone 31";False
+2408;"Beijing 1954 / 3-degree Gauss-Kruger zone 32";False
+2409;"Beijing 1954 / 3-degree Gauss-Kruger zone 33";False
+2410;"Beijing 1954 / 3-degree Gauss-Kruger zone 34";False
+2411;"Beijing 1954 / 3-degree Gauss-Kruger zone 35";False
+2412;"Beijing 1954 / 3-degree Gauss-Kruger zone 36";False
+2413;"Beijing 1954 / 3-degree Gauss-Kruger zone 37";False
+2414;"Beijing 1954 / 3-degree Gauss-Kruger zone 38";False
+2415;"Beijing 1954 / 3-degree Gauss-Kruger zone 39";False
+2416;"Beijing 1954 / 3-degree Gauss-Kruger zone 40";False
+2417;"Beijing 1954 / 3-degree Gauss-Kruger zone 41";False
+2418;"Beijing 1954 / 3-degree Gauss-Kruger zone 42";False
+2419;"Beijing 1954 / 3-degree Gauss-Kruger zone 43";False
+2420;"Beijing 1954 / 3-degree Gauss-Kruger zone 44";False
+2421;"Beijing 1954 / 3-degree Gauss-Kruger zone 45";False
+2422;"Beijing 1954 / 3-degree Gauss-Kruger CM 75E";False
+2423;"Beijing 1954 / 3-degree Gauss-Kruger CM 78E";False
+2424;"Beijing 1954 / 3-degree Gauss-Kruger CM 81E";False
+2425;"Beijing 1954 / 3-degree Gauss-Kruger CM 84E";False
+2426;"Beijing 1954 / 3-degree Gauss-Kruger CM 87E";False
+2427;"Beijing 1954 / 3-degree Gauss-Kruger CM 90E";False
+2428;"Beijing 1954 / 3-degree Gauss-Kruger CM 93E";False
+2429;"Beijing 1954 / 3-degree Gauss-Kruger CM 96E";False
+2430;"Beijing 1954 / 3-degree Gauss-Kruger CM 99E";False
+2431;"Beijing 1954 / 3-degree Gauss-Kruger CM 102E";False
+2432;"Beijing 1954 / 3-degree Gauss-Kruger CM 105E";False
+2433;"Beijing 1954 / 3-degree Gauss-Kruger CM 108E";False
+2434;"Beijing 1954 / 3-degree Gauss-Kruger CM 111E";False
+2435;"Beijing 1954 / 3-degree Gauss-Kruger CM 114E";False
+2436;"Beijing 1954 / 3-degree Gauss-Kruger CM 117E";False
+2437;"Beijing 1954 / 3-degree Gauss-Kruger CM 120E";False
+2438;"Beijing 1954 / 3-degree Gauss-Kruger CM 123E";False
+2439;"Beijing 1954 / 3-degree Gauss-Kruger CM 126E";False
+2440;"Beijing 1954 / 3-degree Gauss-Kruger CM 129E";False
+2441;"Beijing 1954 / 3-degree Gauss-Kruger CM 132E";False
+2442;"Beijing 1954 / 3-degree Gauss-Kruger CM 135E";False
+2443;"JGD2000 / Japan Plane Rectangular CS I";False
+2444;"JGD2000 / Japan Plane Rectangular CS II";False
+2445;"JGD2000 / Japan Plane Rectangular CS III";False
+2446;"JGD2000 / Japan Plane Rectangular CS IV";False
+2447;"JGD2000 / Japan Plane Rectangular CS V";False
+2448;"JGD2000 / Japan Plane Rectangular CS VI";False
+2449;"JGD2000 / Japan Plane Rectangular CS VII";False
+2450;"JGD2000 / Japan Plane Rectangular CS VIII";False
+2451;"JGD2000 / Japan Plane Rectangular CS IX";False
+2452;"JGD2000 / Japan Plane Rectangular CS X";False
+2453;"JGD2000 / Japan Plane Rectangular CS XI";False
+2454;"JGD2000 / Japan Plane Rectangular CS XII";False
+2455;"JGD2000 / Japan Plane Rectangular CS XIII";False
+2456;"JGD2000 / Japan Plane Rectangular CS XIV";False
+2457;"JGD2000 / Japan Plane Rectangular CS XV";False
+2458;"JGD2000 / Japan Plane Rectangular CS XVI";False
+2459;"JGD2000 / Japan Plane Rectangular CS XVII";False
+2460;"JGD2000 / Japan Plane Rectangular CS XVIII";False
+2461;"JGD2000 / Japan Plane Rectangular CS XIX";False
+2462;"Albanian 1987 / Gauss-Kruger zone 4";False
+2463;"Pulkovo 1995 / Gauss-Kruger CM 21E";False
+2464;"Pulkovo 1995 / Gauss-Kruger CM 27E";False
+2465;"Pulkovo 1995 / Gauss-Kruger CM 33E";False
+2466;"Pulkovo 1995 / Gauss-Kruger CM 39E";False
+2467;"Pulkovo 1995 / Gauss-Kruger CM 45E";False
+2468;"Pulkovo 1995 / Gauss-Kruger CM 51E";False
+2469;"Pulkovo 1995 / Gauss-Kruger CM 57E";False
+2470;"Pulkovo 1995 / Gauss-Kruger CM 63E";False
+2471;"Pulkovo 1995 / Gauss-Kruger CM 69E";False
+2472;"Pulkovo 1995 / Gauss-Kruger CM 75E";False
+2473;"Pulkovo 1995 / Gauss-Kruger CM 81E";False
+2474;"Pulkovo 1995 / Gauss-Kruger CM 87E";False
+2475;"Pulkovo 1995 / Gauss-Kruger CM 93E";False
+2476;"Pulkovo 1995 / Gauss-Kruger CM 99E";False
+2477;"Pulkovo 1995 / Gauss-Kruger CM 105E";False
+2478;"Pulkovo 1995 / Gauss-Kruger CM 111E";False
+2479;"Pulkovo 1995 / Gauss-Kruger CM 117E";False
+2480;"Pulkovo 1995 / Gauss-Kruger CM 123E";False
+2481;"Pulkovo 1995 / Gauss-Kruger CM 129E";False
+2482;"Pulkovo 1995 / Gauss-Kruger CM 135E";False
+2483;"Pulkovo 1995 / Gauss-Kruger CM 141E";False
+2484;"Pulkovo 1995 / Gauss-Kruger CM 147E";False
+2485;"Pulkovo 1995 / Gauss-Kruger CM 153E";False
+2486;"Pulkovo 1995 / Gauss-Kruger CM 159E";False
+2487;"Pulkovo 1995 / Gauss-Kruger CM 165E";False
+2488;"Pulkovo 1995 / Gauss-Kruger CM 171E";False
+2489;"Pulkovo 1995 / Gauss-Kruger CM 177E";False
+2490;"Pulkovo 1995 / Gauss-Kruger CM 177W";False
+2491;"Pulkovo 1995 / Gauss-Kruger CM 171W";False
+2492;"Pulkovo 1942 / Gauss-Kruger CM 9E (deprecated)";False
+2493;"Pulkovo 1942 / Gauss-Kruger CM 15E (deprecated)";False
+2494;"Pulkovo 1942 / Gauss-Kruger CM 21E";False
+2495;"Pulkovo 1942 / Gauss-Kruger CM 27E";False
+2496;"Pulkovo 1942 / Gauss-Kruger CM 33E";False
+2497;"Pulkovo 1942 / Gauss-Kruger CM 39E";False
+2498;"Pulkovo 1942 / Gauss-Kruger CM 45E";False
+2499;"Pulkovo 1942 / Gauss-Kruger CM 51E";False
+2500;"Pulkovo 1942 / Gauss-Kruger CM 57E";False
+2501;"Pulkovo 1942 / Gauss-Kruger CM 63E";False
+2502;"Pulkovo 1942 / Gauss-Kruger CM 69E";False
+2503;"Pulkovo 1942 / Gauss-Kruger CM 75E";False
+2504;"Pulkovo 1942 / Gauss-Kruger CM 81E";False
+2505;"Pulkovo 1942 / Gauss-Kruger CM 87E";False
+2506;"Pulkovo 1942 / Gauss-Kruger CM 93E";False
+2507;"Pulkovo 1942 / Gauss-Kruger CM 99E";False
+2508;"Pulkovo 1942 / Gauss-Kruger CM 105E";False
+2509;"Pulkovo 1942 / Gauss-Kruger CM 111E";False
+2510;"Pulkovo 1942 / Gauss-Kruger CM 117E";False
+2511;"Pulkovo 1942 / Gauss-Kruger CM 123E";False
+2512;"Pulkovo 1942 / Gauss-Kruger CM 129E";False
+2513;"Pulkovo 1942 / Gauss-Kruger CM 135E";False
+2514;"Pulkovo 1942 / Gauss-Kruger CM 141E";False
+2515;"Pulkovo 1942 / Gauss-Kruger CM 147E";False
+2516;"Pulkovo 1942 / Gauss-Kruger CM 153E";False
+2517;"Pulkovo 1942 / Gauss-Kruger CM 159E";False
+2518;"Pulkovo 1942 / Gauss-Kruger CM 165E";False
+2519;"Pulkovo 1942 / Gauss-Kruger CM 171E";False
+2520;"Pulkovo 1942 / Gauss-Kruger CM 177E";False
+2521;"Pulkovo 1942 / Gauss-Kruger CM 177W";False
+2522;"Pulkovo 1942 / Gauss-Kruger CM 171W";False
+2523;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 7";False
+2524;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 8";False
+2525;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 9";False
+2526;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 10";False
+2527;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 11";False
+2528;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 12";False
+2529;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 13";False
+2530;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 14";False
+2531;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 15";False
+2532;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 16";False
+2533;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 17";False
+2534;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 18";False
+2535;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 19";False
+2536;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 20";False
+2537;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 21";False
+2538;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 22";False
+2539;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 23";False
+2540;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 24";False
+2541;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 25";False
+2542;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 26";False
+2543;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 27";False
+2544;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 28";False
+2545;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 29";False
+2546;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 30";False
+2547;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 31";False
+2548;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 32";False
+2549;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 33";False
+2550;"Samboja / UTM zone 50S (deprecated)";False
+2551;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 34";False
+2552;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 35";False
+2553;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 36";False
+2554;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 37";False
+2555;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 38";False
+2556;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 39";False
+2557;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 40";False
+2558;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 41";False
+2559;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 42";False
+2560;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 43";False
+2561;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 44";False
+2562;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 45";False
+2563;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 46";False
+2564;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 47";False
+2565;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 48";False
+2566;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 49";False
+2567;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 50";False
+2568;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 51";False
+2569;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 52";False
+2570;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 53";False
+2571;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 54";False
+2572;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 55";False
+2573;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 56";False
+2574;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 57";False
+2575;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 58";False
+2576;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 59";False
+2577;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 60 (deprecated)";False
+2578;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 61";False
+2579;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 62";False
+2580;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 63";False
+2581;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 64";False
+2582;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 21E";False
+2583;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 24E";False
+2584;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 27E";False
+2585;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 30E";False
+2586;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 33E";False
+2587;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 36E";False
+2588;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 39E";False
+2589;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 42E";False
+2590;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 45E";False
+2591;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 48E";False
+2592;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 51E";False
+2593;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 54E";False
+2594;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 57E";False
+2595;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 60E";False
+2596;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 63E";False
+2597;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 66E";False
+2598;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 69E";False
+2599;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 72E";False
+2600;"Lietuvos Koordinoei Sistema 1994 (deprecated)";False
+2601;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 75E";False
+2602;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 78E";False
+2603;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 81E";False
+2604;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 84E";False
+2605;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 87E";False
+2606;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 90E";False
+2607;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 93E";False
+2608;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 96E";False
+2609;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 99E";False
+2610;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 102E";False
+2611;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 105E";False
+2612;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 108E";False
+2613;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 111E";False
+2614;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 114E";False
+2615;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 117E";False
+2616;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 120E";False
+2617;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 123E";False
+2618;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 126E";False
+2619;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 129E";False
+2620;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 132E";False
+2621;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 135E";False
+2622;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 138E";False
+2623;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 141E";False
+2624;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 144E";False
+2625;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 147E";False
+2626;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 150E";False
+2627;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 153E";False
+2628;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 156E";False
+2629;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 159E";False
+2630;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 162E";False
+2631;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 165E";False
+2632;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 168E";False
+2633;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 171E";False
+2634;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 174E";False
+2635;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 177E";False
+2636;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 180E";False
+2637;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 177W";False
+2638;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 174W";False
+2639;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 171W";False
+2640;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 168W";False
+2641;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 7";False
+2642;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 8";False
+2643;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 9";False
+2644;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 10";False
+2645;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 11";False
+2646;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 12";False
+2647;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 13";False
+2648;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 14";False
+2649;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 15";False
+2650;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 16";False
+2651;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 17";False
+2652;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 18";False
+2653;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 19";False
+2654;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 20";False
+2655;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 21";False
+2656;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 22";False
+2657;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 23";False
+2658;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 24";False
+2659;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 25";False
+2660;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 26";False
+2661;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 27";False
+2662;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 28";False
+2663;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 29";False
+2664;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 30";False
+2665;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 31";False
+2666;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 32";False
+2667;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 33";False
+2668;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 34";False
+2669;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 35";False
+2670;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 36";False
+2671;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 37";False
+2672;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 38";False
+2673;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 39";False
+2674;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 40";False
+2675;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 41";False
+2676;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 42";False
+2677;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 43";False
+2678;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 44";False
+2679;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 45";False
+2680;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 46";False
+2681;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 47";False
+2682;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 48";False
+2683;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 49";False
+2684;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 50";False
+2685;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 51";False
+2686;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 52";False
+2687;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 53";False
+2688;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 54";False
+2689;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 55";False
+2690;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 56";False
+2691;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 57";False
+2692;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 58";False
+2693;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 59";False
+2694;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 60 (deprecated)";False
+2695;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 61";False
+2696;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 62";False
+2697;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 63";False
+2698;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 64";False
+2699;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 21E";False
+2700;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 24E";False
+2701;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 27E";False
+2702;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 30E";False
+2703;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 33E";False
+2704;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 36E";False
+2705;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 39E";False
+2706;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 42E";False
+2707;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 45E";False
+2708;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 48E";False
+2709;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 51E";False
+2710;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 54E";False
+2711;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 57E";False
+2712;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 60E";False
+2713;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 63E";False
+2714;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 66E";False
+2715;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 69E";False
+2716;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 72E";False
+2717;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 75E";False
+2718;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 78E";False
+2719;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 81E";False
+2720;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 84E";False
+2721;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 87E";False
+2722;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 90E";False
+2723;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 93E";False
+2724;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 96E";False
+2725;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 99E";False
+2726;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 102E";False
+2727;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 105E";False
+2728;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 108E";False
+2729;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 111E";False
+2730;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 114E";False
+2731;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 117E";False
+2732;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 120E";False
+2733;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 123E";False
+2734;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 126E";False
+2735;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 129E";False
+2736;"Tete / UTM zone 36S";False
+2737;"Tete / UTM zone 37S";False
+2738;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 132E";False
+2739;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 135E";False
+2740;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 138E";False
+2741;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 141E";False
+2742;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 144E";False
+2743;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 147E";False
+2744;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 150E";False
+2745;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 153E";False
+2746;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 156E";False
+2747;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 159E";False
+2748;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 162E";False
+2749;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 165E";False
+2750;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 168E";False
+2751;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 171E";False
+2752;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 174E";False
+2753;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 177E";False
+2754;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 180E";False
+2755;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 177W";False
+2756;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 174W";False
+2757;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 171W";False
+2758;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 168W";False
+2759;"NAD83(HARN) / Alabama East";False
+2760;"NAD83(HARN) / Alabama West";False
+2761;"NAD83(HARN) / Arizona East";False
+2762;"NAD83(HARN) / Arizona Central";False
+2763;"NAD83(HARN) / Arizona West";False
+2764;"NAD83(HARN) / Arkansas North";False
+2765;"NAD83(HARN) / Arkansas South";False
+2766;"NAD83(HARN) / California zone 1";False
+2767;"NAD83(HARN) / California zone 2";False
+2768;"NAD83(HARN) / California zone 3";False
+2769;"NAD83(HARN) / California zone 4";False
+2770;"NAD83(HARN) / California zone 5";False
+2771;"NAD83(HARN) / California zone 6";False
+2772;"NAD83(HARN) / Colorado North";False
+2773;"NAD83(HARN) / Colorado Central";False
+2774;"NAD83(HARN) / Colorado South";False
+2775;"NAD83(HARN) / Connecticut";False
+2776;"NAD83(HARN) / Delaware";False
+2777;"NAD83(HARN) / Florida East";False
+2778;"NAD83(HARN) / Florida West";False
+2779;"NAD83(HARN) / Florida North";False
+2780;"NAD83(HARN) / Georgia East";False
+2781;"NAD83(HARN) / Georgia West";False
+2782;"NAD83(HARN) / Hawaii zone 1";False
+2783;"NAD83(HARN) / Hawaii zone 2";False
+2784;"NAD83(HARN) / Hawaii zone 3";False
+2785;"NAD83(HARN) / Hawaii zone 4";False
+2786;"NAD83(HARN) / Hawaii zone 5";False
+2787;"NAD83(HARN) / Idaho East";False
+2788;"NAD83(HARN) / Idaho Central";False
+2789;"NAD83(HARN) / Idaho West";False
+2790;"NAD83(HARN) / Illinois East";False
+2791;"NAD83(HARN) / Illinois West";False
+2792;"NAD83(HARN) / Indiana East";False
+2793;"NAD83(HARN) / Indiana West";False
+2794;"NAD83(HARN) / Iowa North";False
+2795;"NAD83(HARN) / Iowa South";False
+2796;"NAD83(HARN) / Kansas North";False
+2797;"NAD83(HARN) / Kansas South";False
+2798;"NAD83(HARN) / Kentucky North";False
+2799;"NAD83(HARN) / Kentucky South";False
+2800;"NAD83(HARN) / Louisiana North";False
+2801;"NAD83(HARN) / Louisiana South";False
+2802;"NAD83(HARN) / Maine East";False
+2803;"NAD83(HARN) / Maine West";False
+2804;"NAD83(HARN) / Maryland";False
+2805;"NAD83(HARN) / Massachusetts Mainland";False
+2806;"NAD83(HARN) / Massachusetts Island";False
+2807;"NAD83(HARN) / Michigan North";False
+2808;"NAD83(HARN) / Michigan Central";False
+2809;"NAD83(HARN) / Michigan South";False
+2810;"NAD83(HARN) / Minnesota North";False
+2811;"NAD83(HARN) / Minnesota Central";False
+2812;"NAD83(HARN) / Minnesota South";False
+2813;"NAD83(HARN) / Mississippi East";False
+2814;"NAD83(HARN) / Mississippi West";False
+2815;"NAD83(HARN) / Missouri East";False
+2816;"NAD83(HARN) / Missouri Central";False
+2817;"NAD83(HARN) / Missouri West";False
+2818;"NAD83(HARN) / Montana";False
+2819;"NAD83(HARN) / Nebraska";False
+2820;"NAD83(HARN) / Nevada East";False
+2821;"NAD83(HARN) / Nevada Central";False
+2822;"NAD83(HARN) / Nevada West";False
+2823;"NAD83(HARN) / New Hampshire";False
+2824;"NAD83(HARN) / New Jersey";False
+2825;"NAD83(HARN) / New Mexico East";False
+2826;"NAD83(HARN) / New Mexico Central";False
+2827;"NAD83(HARN) / New Mexico West";False
+2828;"NAD83(HARN) / New York East";False
+2829;"NAD83(HARN) / New York Central";False
+2830;"NAD83(HARN) / New York West";False
+2831;"NAD83(HARN) / New York Long Island";False
+2832;"NAD83(HARN) / North Dakota North";False
+2833;"NAD83(HARN) / North Dakota South";False
+2834;"NAD83(HARN) / Ohio North";False
+2835;"NAD83(HARN) / Ohio South";False
+2836;"NAD83(HARN) / Oklahoma North";False
+2837;"NAD83(HARN) / Oklahoma South";False
+2838;"NAD83(HARN) / Oregon North";False
+2839;"NAD83(HARN) / Oregon South";False
+2840;"NAD83(HARN) / Rhode Island";False
+2841;"NAD83(HARN) / South Dakota North";False
+2842;"NAD83(HARN) / South Dakota South";False
+2843;"NAD83(HARN) / Tennessee";False
+2844;"NAD83(HARN) / Texas North";False
+2845;"NAD83(HARN) / Texas North Central";False
+2846;"NAD83(HARN) / Texas Central";False
+2847;"NAD83(HARN) / Texas South Central";False
+2848;"NAD83(HARN) / Texas South";False
+2849;"NAD83(HARN) / Utah North";False
+2850;"NAD83(HARN) / Utah Central";False
+2851;"NAD83(HARN) / Utah South";False
+2852;"NAD83(HARN) / Vermont";False
+2853;"NAD83(HARN) / Virginia North";False
+2854;"NAD83(HARN) / Virginia South";False
+2855;"NAD83(HARN) / Washington North";False
+2856;"NAD83(HARN) / Washington South";False
+2857;"NAD83(HARN) / West Virginia North";False
+2858;"NAD83(HARN) / West Virginia South";False
+2859;"NAD83(HARN) / Wisconsin North";False
+2860;"NAD83(HARN) / Wisconsin Central";False
+2861;"NAD83(HARN) / Wisconsin South";False
+2862;"NAD83(HARN) / Wyoming East";False
+2863;"NAD83(HARN) / Wyoming East Central";False
+2864;"NAD83(HARN) / Wyoming West Central";False
+2865;"NAD83(HARN) / Wyoming West";False
+2866;"NAD83(HARN) / Puerto Rico and Virgin Is.";False
+2867;"NAD83(HARN) / Arizona East (ft)";False
+2868;"NAD83(HARN) / Arizona Central (ft)";False
+2869;"NAD83(HARN) / Arizona West (ft)";False
+2870;"NAD83(HARN) / California zone 1 (ftUS)";False
+2871;"NAD83(HARN) / California zone 2 (ftUS)";False
+2872;"NAD83(HARN) / California zone 3 (ftUS)";False
+2873;"NAD83(HARN) / California zone 4 (ftUS)";False
+2874;"NAD83(HARN) / California zone 5 (ftUS)";False
+2875;"NAD83(HARN) / California zone 6 (ftUS)";False
+2876;"NAD83(HARN) / Colorado North (ftUS)";False
+2877;"NAD83(HARN) / Colorado Central (ftUS)";False
+2878;"NAD83(HARN) / Colorado South (ftUS)";False
+2879;"NAD83(HARN) / Connecticut (ftUS)";False
+2880;"NAD83(HARN) / Delaware (ftUS)";False
+2881;"NAD83(HARN) / Florida East (ftUS)";False
+2882;"NAD83(HARN) / Florida West (ftUS)";False
+2883;"NAD83(HARN) / Florida North (ftUS)";False
+2884;"NAD83(HARN) / Georgia East (ftUS)";False
+2885;"NAD83(HARN) / Georgia West (ftUS)";False
+2886;"NAD83(HARN) / Idaho East (ftUS)";False
+2887;"NAD83(HARN) / Idaho Central (ftUS)";False
+2888;"NAD83(HARN) / Idaho West (ftUS)";False
+2889;"NAD83(HARN) / Indiana East (ftUS) (deprecated)";False
+2890;"NAD83(HARN) / Indiana West (ftUS) (deprecated)";False
+2891;"NAD83(HARN) / Kentucky North (ftUS)";False
+2892;"NAD83(HARN) / Kentucky South (ftUS)";False
+2893;"NAD83(HARN) / Maryland (ftUS)";False
+2894;"NAD83(HARN) / Massachusetts Mainland (ftUS)";False
+2895;"NAD83(HARN) / Massachusetts Island (ftUS)";False
+2896;"NAD83(HARN) / Michigan North (ft)";False
+2897;"NAD83(HARN) / Michigan Central (ft)";False
+2898;"NAD83(HARN) / Michigan South (ft)";False
+2899;"NAD83(HARN) / Mississippi East (ftUS)";False
+2900;"NAD83(HARN) / Mississippi West (ftUS)";False
+2901;"NAD83(HARN) / Montana (ft)";False
+2902;"NAD83(HARN) / New Mexico East (ftUS)";False
+2903;"NAD83(HARN) / New Mexico Central (ftUS)";False
+2904;"NAD83(HARN) / New Mexico West (ftUS)";False
+2905;"NAD83(HARN) / New York East (ftUS)";False
+2906;"NAD83(HARN) / New York Central (ftUS)";False
+2907;"NAD83(HARN) / New York West (ftUS)";False
+2908;"NAD83(HARN) / New York Long Island (ftUS)";False
+2909;"NAD83(HARN) / North Dakota North (ft)";False
+2910;"NAD83(HARN) / North Dakota South (ft)";False
+2911;"NAD83(HARN) / Oklahoma North (ftUS)";False
+2912;"NAD83(HARN) / Oklahoma South (ftUS)";False
+2913;"NAD83(HARN) / Oregon North (ft)";False
+2914;"NAD83(HARN) / Oregon South (ft)";False
+2915;"NAD83(HARN) / Tennessee (ftUS)";False
+2916;"NAD83(HARN) / Texas North (ftUS)";False
+2917;"NAD83(HARN) / Texas North Central (ftUS)";False
+2918;"NAD83(HARN) / Texas Central (ftUS)";False
+2919;"NAD83(HARN) / Texas South Central (ftUS)";False
+2920;"NAD83(HARN) / Texas South (ftUS)";False
+2921;"NAD83(HARN) / Utah North (ft)";False
+2922;"NAD83(HARN) / Utah Central (ft)";False
+2923;"NAD83(HARN) / Utah South (ft)";False
+2924;"NAD83(HARN) / Virginia North (ftUS)";False
+2925;"NAD83(HARN) / Virginia South (ftUS)";False
+2926;"NAD83(HARN) / Washington North (ftUS)";False
+2927;"NAD83(HARN) / Washington South (ftUS)";False
+2928;"NAD83(HARN) / Wisconsin North (ftUS)";False
+2929;"NAD83(HARN) / Wisconsin Central (ftUS)";False
+2930;"NAD83(HARN) / Wisconsin South (ftUS)";False
+2931;"Beduaram / TM 13 NE";False
+2932;"QND95 / Qatar National Grid";False
+2933;"Segara / UTM zone 50S";False
+2934;"Segara (Jakarta) / NEIEZ (deprecated)";False
+2935;"Pulkovo 1942 / CS63 zone A1";False
+2936;"Pulkovo 1942 / CS63 zone A2";False
+2937;"Pulkovo 1942 / CS63 zone A3";False
+2938;"Pulkovo 1942 / CS63 zone A4";False
+2939;"Pulkovo 1942 / CS63 zone K2";False
+2940;"Pulkovo 1942 / CS63 zone K3";False
+2941;"Pulkovo 1942 / CS63 zone K4";False
+2942;"Porto Santo / UTM zone 28N";False
+2943;"Selvagem Grande / UTM zone 28N";False
+2944;"NAD83(CSRS) / SCoPQ zone 2 (deprecated)";False
+2945;"NAD83(CSRS) / MTM zone 3";False
+2946;"NAD83(CSRS) / MTM zone 4";False
+2947;"NAD83(CSRS) / MTM zone 5";False
+2948;"NAD83(CSRS) / MTM zone 6";False
+2949;"NAD83(CSRS) / MTM zone 7";False
+2950;"NAD83(CSRS) / MTM zone 8";False
+2951;"NAD83(CSRS) / MTM zone 9";False
+2952;"NAD83(CSRS) / MTM zone 10";False
+2953;"NAD83(CSRS) / New Brunswick Stereographic";False
+2954;"NAD83(CSRS) / Prince Edward Isl. Stereographic (NAD83)";False
+2955;"NAD83(CSRS) / UTM zone 11N";False
+2956;"NAD83(CSRS) / UTM zone 12N";False
+2957;"NAD83(CSRS) / UTM zone 13N";False
+2958;"NAD83(CSRS) / UTM zone 17N";False
+2959;"NAD83(CSRS) / UTM zone 18N";False
+2960;"NAD83(CSRS) / UTM zone 19N";False
+2961;"NAD83(CSRS) / UTM zone 20N";False
+2962;"NAD83(CSRS) / UTM zone 21N";False
+2964;"NAD27 / Alaska Albers";False
+2965;"NAD83 / Indiana East (ftUS)";False
+2966;"NAD83 / Indiana West (ftUS)";False
+2967;"NAD83(HARN) / Indiana East (ftUS)";False
+2968;"NAD83(HARN) / Indiana West (ftUS)";False
+2969;"Fort Marigot / UTM zone 20N";False
+2970;"Guadeloupe 1948 / UTM zone 20N";False
+2971;"CSG67 / UTM zone 22N";False
+2972;"RGFG95 / UTM zone 22N";False
+2973;"Martinique 1938 / UTM zone 20N";False
+2975;"RGR92 / UTM zone 40S";False
+2976;"Tahiti 52 / UTM zone 6S";False
+2977;"Tahaa 54 / UTM zone 5S";False
+2978;"IGN72 Nuku Hiva / UTM zone 7S";False
+2979;"K0 1949 / UTM zone 42S (deprecated)";False
+2980;"Combani 1950 / UTM zone 38S";False
+2981;"IGN56 Lifou / UTM zone 58S";False
+2982;"IGN72 Grand Terre / UTM zone 58S (deprecated)";False
+2983;"ST87 Ouvea / UTM zone 58S (deprecated)";False
+2984;"RGNC 1991 / Lambert New Caledonia (deprecated)";False
+2987;"Saint Pierre et Miquelon 1950 / UTM zone 21N";False
+2988;"MOP78 / UTM zone 1S";False
+2989;"RRAF 1991 / UTM zone 20N (deprecated)";False
+2990;"Reunion 1947 / TM Reunion (deprecated)";False
+2991;"NAD83 / Oregon Lambert";False
+2992;"NAD83 / Oregon Lambert (ft)";False
+2993;"NAD83(HARN) / Oregon Lambert";False
+2994;"NAD83(HARN) / Oregon Lambert (ft)";False
+2995;"IGN53 Mare / UTM zone 58S";False
+2996;"ST84 Ile des Pins / UTM zone 58S";False
+2997;"ST71 Belep / UTM zone 58S";False
+2998;"NEA74 Noumea / UTM zone 58S";False
+2999;"Grand Comoros / UTM zone 38S";False
+3000;"Segara / NEIEZ";False
+3001;"Batavia / NEIEZ";False
+3002;"Makassar / NEIEZ";False
+3003;"Monte Mario / Italy zone 1";False
+3004;"Monte Mario / Italy zone 2";False
+3005;"NAD83 / BC Albers";False
+3006;"SWEREF99 TM";False
+3007;"SWEREF99 12 00";False
+3008;"SWEREF99 13 30";False
+3009;"SWEREF99 15 00";False
+3010;"SWEREF99 16 30";False
+3011;"SWEREF99 18 00";False
+3012;"SWEREF99 14 15";False
+3013;"SWEREF99 15 45";False
+3014;"SWEREF99 17 15";False
+3015;"SWEREF99 18 45";False
+3016;"SWEREF99 20 15";False
+3017;"SWEREF99 21 45";False
+3018;"SWEREF99 23 15";False
+3019;"RT90 7.5 gon V";False
+3020;"RT90 5 gon V";False
+3021;"RT90 2.5 gon V";False
+3022;"RT90 0 gon";False
+3023;"RT90 2.5 gon O";False
+3024;"RT90 5 gon O";False
+3025;"RT38 7.5 gon V";False
+3026;"RT38 5 gon V";False
+3027;"RT38 2.5 gon V";False
+3028;"RT38 0 gon";False
+3029;"RT38 2.5 gon O";False
+3030;"RT38 5 gon O";False
+3031;"WGS 84 / Antarctic Polar Stereographic";False
+3032;"WGS 84 / Australian Antarctic Polar Stereographic";False
+3033;"WGS 84 / Australian Antarctic Lambert";False
+3034;"ETRS89 / LCC Europe";False
+3035;"ETRS89 / LAEA Europe";False
+3036;"Moznet / UTM zone 36S";False
+3037;"Moznet / UTM zone 37S";False
+3038;"ETRS89 / TM26";False
+3039;"ETRS89 / TM27";False
+3040;"ETRS89 / TM28";False
+3041;"ETRS89 / TM29";False
+3042;"ETRS89 / TM30";False
+3043;"ETRS89 / TM31";False
+3044;"ETRS89 / TM32";False
+3045;"ETRS89 / TM33";False
+3046;"ETRS89 / TM34";False
+3047;"ETRS89 / TM35";False
+3048;"ETRS89 / TM36";False
+3049;"ETRS89 / TM37";False
+3050;"ETRS89 / TM38";False
+3051;"ETRS89 / TM39";False
+3057;"ISN93 / Lambert 1993";False
+3058;"Helle 1954 / Jan Mayen Grid";False
+3059;"LKS92 / Latvia TM";False
+3060;"IGN72 Grande Terre / UTM zone 58S";False
+3061;"Porto Santo 1995 / UTM zone 28N";False
+3062;"Azores Oriental 1995 / UTM zone 26N";False
+3063;"Azores Central 1995 / UTM zone 26N";False
+3064;"IGM95 / UTM zone 32N";False
+3065;"IGM95 / UTM zone 33N";False
+3066;"ED50 / Jordan TM";False
+3067;"ETRS89 / TM35FIN(E,N)";False
+3068;"DHDN / Soldner Berlin";False
+3069;"NAD27 / Wisconsin Transverse Mercator";False
+3070;"NAD83 / Wisconsin Transverse Mercator";False
+3071;"NAD83(HARN) / Wisconsin Transverse Mercator";False
+3072;"NAD83 / Maine CS2000 East";False
+3073;"NAD83 / Maine CS2000 Central (deprecated)";False
+3074;"NAD83 / Maine CS2000 West";False
+3075;"NAD83(HARN) / Maine CS2000 East";False
+3076;"NAD83(HARN) / Maine CS2000 Central (deprecated)";False
+3077;"NAD83(HARN) / Maine CS2000 West";False
+3078;"NAD83 / Michigan Oblique Mercator";False
+3079;"NAD83(HARN) / Michigan Oblique Mercator";False
+3080;"NAD27 / Shackleford";False
+3081;"NAD83 / Texas State Mapping System";False
+3082;"NAD83 / Texas Centric Lambert Conformal";False
+3083;"NAD83 / Texas Centric Albers Equal Area";False
+3084;"NAD83(HARN) / Texas Centric Lambert Conformal";False
+3085;"NAD83(HARN) / Texas Centric Albers Equal Area";False
+3086;"NAD83 / Florida GDL Albers";False
+3087;"NAD83(HARN) / Florida GDL Albers";False
+3088;"NAD83 / Kentucky Single Zone";False
+3089;"NAD83 / Kentucky Single Zone (ftUS)";False
+3090;"NAD83(HARN) / Kentucky Single Zone";False
+3091;"NAD83(HARN) / Kentucky Single Zone (ftUS)";False
+3092;"Tokyo / UTM zone 51N";False
+3093;"Tokyo / UTM zone 52N";False
+3094;"Tokyo / UTM zone 53N";False
+3095;"Tokyo / UTM zone 54N";False
+3096;"Tokyo / UTM zone 55N";False
+3097;"JGD2000 / UTM zone 51N";False
+3098;"JGD2000 / UTM zone 52N";False
+3099;"JGD2000 / UTM zone 53N";False
+3100;"JGD2000 / UTM zone 54N";False
+3101;"JGD2000 / UTM zone 55N";False
+3102;"American Samoa 1962 / American Samoa Lambert";False
+3103;"Mauritania 1999 / UTM zone 28N (deprecated)";False
+3104;"Mauritania 1999 / UTM zone 29N (deprecated)";False
+3105;"Mauritania 1999 / UTM zone 30N (deprecated)";False
+3106;"Gulshan 303 / Bangladesh Transverse Mercator";False
+3107;"GDA94 / SA Lambert";False
+3108;"ETRS89 / Guernsey Grid";False
+3109;"ETRS89 / Jersey Transverse Mercator";False
+3110;"AGD66 / Vicgrid66";False
+3111;"GDA94 / Vicgrid94";False
+3112;"GDA94 / Geoscience Australia Lambert";False
+3113;"GDA94 / BCSG02";False
+3114;"MAGNA-SIRGAS / Colombia Far West zone";False
+3115;"MAGNA-SIRGAS / Colombia West zone";False
+3116;"MAGNA-SIRGAS / Colombia Bogota zone";False
+3117;"MAGNA-SIRGAS / Colombia East Central zone";False
+3118;"MAGNA-SIRGAS / Colombia East zone";False
+3119;"Douala 1948 / AEF west";False
+3120;"Pulkovo 1942(58) / Poland zone I";False
+3121;"PRS92 / Philippines zone 1";False
+3122;"PRS92 / Philippines zone 2";False
+3123;"PRS92 / Philippines zone 3";False
+3124;"PRS92 / Philippines zone 4";False
+3125;"PRS92 / Philippines zone 5";False
+3126;"ETRS89 / ETRS-GK19FIN";False
+3127;"ETRS89 / ETRS-GK20FIN";False
+3128;"ETRS89 / ETRS-GK21FIN";False
+3129;"ETRS89 / ETRS-GK22FIN";False
+3130;"ETRS89 / ETRS-GK23FIN";False
+3131;"ETRS89 / ETRS-GK24FIN";False
+3132;"ETRS89 / ETRS-GK25FIN";False
+3133;"ETRS89 / ETRS-GK26FIN";False
+3134;"ETRS89 / ETRS-GK27FIN";False
+3135;"ETRS89 / ETRS-GK28FIN";False
+3136;"ETRS89 / ETRS-GK29FIN";False
+3137;"ETRS89 / ETRS-GK30FIN";False
+3138;"ETRS89 / ETRS-GK31FIN";False
+3140;"Viti Levu 1912 / Viti Levu Grid";False
+3141;"Fiji 1956 / UTM zone 60S";False
+3142;"Fiji 1956 / UTM zone 1S";False
+3143;"Fiji 1986 / Fiji Map Grid (deprecated)";False
+3146;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 6";False
+3147;"Pulkovo 1942 / 3-degree Gauss-Kruger CM 18E";False
+3148;"Indian 1960 / UTM zone 48N";False
+3149;"Indian 1960 / UTM zone 49N";False
+3150;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 6";False
+3151;"Pulkovo 1995 / 3-degree Gauss-Kruger CM 18E";False
+3152;"ST74";False
+3153;"NAD83(CSRS) / BC Albers";False
+3154;"NAD83(CSRS) / UTM zone 7N";False
+3155;"NAD83(CSRS) / UTM zone 8N";False
+3156;"NAD83(CSRS) / UTM zone 9N";False
+3157;"NAD83(CSRS) / UTM zone 10N";False
+3158;"NAD83(CSRS) / UTM zone 14N";False
+3159;"NAD83(CSRS) / UTM zone 15N";False
+3160;"NAD83(CSRS) / UTM zone 16N";False
+3161;"NAD83 / Ontario MNR Lambert";False
+3162;"NAD83(CSRS) / Ontario MNR Lambert";False
+3163;"RGNC91-93 / Lambert New Caledonia";False
+3164;"ST87 Ouvea / UTM zone 58S";False
+3165;"NEA74 Noumea / Noumea Lambert";False
+3166;"NEA74 Noumea / Noumea Lambert 2";False
+3167;"Kertau (RSO) / RSO Malaya (ch)";False
+3168;"Kertau (RSO) / RSO Malaya (m)";False
+3169;"RGNC91-93 / UTM zone 57S";False
+3170;"RGNC91-93 / UTM zone 58S";False
+3171;"RGNC91-93 / UTM zone 59S";False
+3172;"IGN53 Mare / UTM zone 59S";False
+3174;"NAD83 / Great Lakes Albers";False
+3175;"NAD83 / Great Lakes and St Lawrence Albers";False
+3176;"Indian 1960 / TM 106 NE";False
+3177;"LGD2006 / Libya TM";False
+3178;"GR96 / UTM zone 18N";False
+3179;"GR96 / UTM zone 19N";False
+3180;"GR96 / UTM zone 20N";False
+3181;"GR96 / UTM zone 21N";False
+3182;"GR96 / UTM zone 22N";False
+3183;"GR96 / UTM zone 23N";False
+3184;"GR96 / UTM zone 24N";False
+3185;"GR96 / UTM zone 25N";False
+3186;"GR96 / UTM zone 26N";False
+3187;"GR96 / UTM zone 27N";False
+3188;"GR96 / UTM zone 28N";False
+3189;"GR96 / UTM zone 29N";False
+3190;"LGD2006 / Libya TM zone 5";False
+3191;"LGD2006 / Libya TM zone 6";False
+3192;"LGD2006 / Libya TM zone 7";False
+3193;"LGD2006 / Libya TM zone 8";False
+3194;"LGD2006 / Libya TM zone 9";False
+3195;"LGD2006 / Libya TM zone 10";False
+3196;"LGD2006 / Libya TM zone 11";False
+3197;"LGD2006 / Libya TM zone 12";False
+3198;"LGD2006 / Libya TM zone 13";False
+3199;"LGD2006 / UTM zone 32N";False
+3200;"FD58 / Iraq zone";False
+3201;"LGD2006 / UTM zone 33N";False
+3202;"LGD2006 / UTM zone 34N";False
+3203;"LGD2006 / UTM zone 35N";False
+3204;"WGS 84 / SCAR IMW SP19-20";False
+3205;"WGS 84 / SCAR IMW SP21-22";False
+3206;"WGS 84 / SCAR IMW SP23-24";False
+3207;"WGS 84 / SCAR IMW SQ01-02";False
+3208;"WGS 84 / SCAR IMW SQ19-20";False
+3209;"WGS 84 / SCAR IMW SQ21-22";False
+3210;"WGS 84 / SCAR IMW SQ37-38";False
+3211;"WGS 84 / SCAR IMW SQ39-40";False
+3212;"WGS 84 / SCAR IMW SQ41-42";False
+3213;"WGS 84 / SCAR IMW SQ43-44";False
+3214;"WGS 84 / SCAR IMW SQ45-46";False
+3215;"WGS 84 / SCAR IMW SQ47-48";False
+3216;"WGS 84 / SCAR IMW SQ49-50";False
+3217;"WGS 84 / SCAR IMW SQ51-52";False
+3218;"WGS 84 / SCAR IMW SQ53-54";False
+3219;"WGS 84 / SCAR IMW SQ55-56";False
+3220;"WGS 84 / SCAR IMW SQ57-58";False
+3221;"WGS 84 / SCAR IMW SR13-14";False
+3222;"WGS 84 / SCAR IMW SR15-16";False
+3223;"WGS 84 / SCAR IMW SR17-18";False
+3224;"WGS 84 / SCAR IMW SR19-20";False
+3225;"WGS 84 / SCAR IMW SR27-28";False
+3226;"WGS 84 / SCAR IMW SR29-30";False
+3227;"WGS 84 / SCAR IMW SR31-32";False
+3228;"WGS 84 / SCAR IMW SR33-34";False
+3229;"WGS 84 / SCAR IMW SR35-36";False
+3230;"WGS 84 / SCAR IMW SR37-38";False
+3231;"WGS 84 / SCAR IMW SR39-40";False
+3232;"WGS 84 / SCAR IMW SR41-42";False
+3233;"WGS 84 / SCAR IMW SR43-44";False
+3234;"WGS 84 / SCAR IMW SR45-46";False
+3235;"WGS 84 / SCAR IMW SR47-48";False
+3236;"WGS 84 / SCAR IMW SR49-50";False
+3237;"WGS 84 / SCAR IMW SR51-52";False
+3238;"WGS 84 / SCAR IMW SR53-54";False
+3239;"WGS 84 / SCAR IMW SR55-56";False
+3240;"WGS 84 / SCAR IMW SR57-58";False
+3241;"WGS 84 / SCAR IMW SR59-60";False
+3242;"WGS 84 / SCAR IMW SS04-06";False
+3243;"WGS 84 / SCAR IMW SS07-09";False
+3244;"WGS 84 / SCAR IMW SS10-12";False
+3245;"WGS 84 / SCAR IMW SS13-15";False
+3246;"WGS 84 / SCAR IMW SS16-18";False
+3247;"WGS 84 / SCAR IMW SS19-21";False
+3248;"WGS 84 / SCAR IMW SS25-27";False
+3249;"WGS 84 / SCAR IMW SS28-30";False
+3250;"WGS 84 / SCAR IMW SS31-33";False
+3251;"WGS 84 / SCAR IMW SS34-36";False
+3252;"WGS 84 / SCAR IMW SS37-39";False
+3253;"WGS 84 / SCAR IMW SS40-42";False
+3254;"WGS 84 / SCAR IMW SS43-45";False
+3255;"WGS 84 / SCAR IMW SS46-48";False
+3256;"WGS 84 / SCAR IMW SS49-51";False
+3257;"WGS 84 / SCAR IMW SS52-54";False
+3258;"WGS 84 / SCAR IMW SS55-57";False
+3259;"WGS 84 / SCAR IMW SS58-60";False
+3260;"WGS 84 / SCAR IMW ST01-04";False
+3261;"WGS 84 / SCAR IMW ST05-08";False
+3262;"WGS 84 / SCAR IMW ST09-12";False
+3263;"WGS 84 / SCAR IMW ST13-16";False
+3264;"WGS 84 / SCAR IMW ST17-20";False
+3265;"WGS 84 / SCAR IMW ST21-24";False
+3266;"WGS 84 / SCAR IMW ST25-28";False
+3267;"WGS 84 / SCAR IMW ST29-32";False
+3268;"WGS 84 / SCAR IMW ST33-36";False
+3269;"WGS 84 / SCAR IMW ST37-40";False
+3270;"WGS 84 / SCAR IMW ST41-44";False
+3271;"WGS 84 / SCAR IMW ST45-48";False
+3272;"WGS 84 / SCAR IMW ST49-52";False
+3273;"WGS 84 / SCAR IMW ST53-56";False
+3274;"WGS 84 / SCAR IMW ST57-60";False
+3275;"WGS 84 / SCAR IMW SU01-05";False
+3276;"WGS 84 / SCAR IMW SU06-10";False
+3277;"WGS 84 / SCAR IMW SU11-15";False
+3278;"WGS 84 / SCAR IMW SU16-20";False
+3279;"WGS 84 / SCAR IMW SU21-25";False
+3280;"WGS 84 / SCAR IMW SU26-30";False
+3281;"WGS 84 / SCAR IMW SU31-35";False
+3282;"WGS 84 / SCAR IMW SU36-40";False
+3283;"WGS 84 / SCAR IMW SU41-45";False
+3284;"WGS 84 / SCAR IMW SU46-50";False
+3285;"WGS 84 / SCAR IMW SU51-55";False
+3286;"WGS 84 / SCAR IMW SU56-60";False
+3287;"WGS 84 / SCAR IMW SV01-10";False
+3288;"WGS 84 / SCAR IMW SV11-20";False
+3289;"WGS 84 / SCAR IMW SV21-30";False
+3290;"WGS 84 / SCAR IMW SV31-40";False
+3291;"WGS 84 / SCAR IMW SV41-50";False
+3292;"WGS 84 / SCAR IMW SV51-60";False
+3293;"WGS 84 / SCAR IMW SW01-60";False
+3294;"WGS 84 / USGS Transantarctic Mountains";False
+3296;"RGPF / UTM zone 5S";False
+3297;"RGPF / UTM zone 6S";False
+3298;"RGPF / UTM zone 7S";False
+3299;"RGPF / UTM zone 8S";False
+3300;"Estonian Coordinate System of 1992";False
+3301;"Estonian Coordinate System of 1997";False
+3302;"IGN63 Hiva Oa / UTM zone 7S";False
+3303;"Fatu Iva 72 / UTM zone 7S";False
+3304;"Tahiti 79 / UTM zone 6S";False
+3305;"Moorea 87 / UTM zone 6S";False
+3306;"Maupiti 83 / UTM zone 5S";False
+3307;"Nakhl-e Ghanem / UTM zone 39N";False
+3308;"GDA94 / NSW Lambert";False
+3309;"NAD27 / California Albers";False
+3310;"NAD83 / California Albers";False
+3311;"NAD83(HARN) / California Albers";False
+3312;"CSG67 / UTM zone 21N";False
+3313;"RGFG95 / UTM zone 21N";False
+3314;"Katanga 1955 / Katanga Lambert (deprecated)";False
+3315;"Katanga 1955 / Katanga TM (deprecated)";False
+3316;"Kasai 1953 / Congo TM zone 22";False
+3317;"Kasai 1953 / Congo TM zone 24";False
+3318;"IGC 1962 / Congo TM zone 12";False
+3319;"IGC 1962 / Congo TM zone 14";False
+3320;"IGC 1962 / Congo TM zone 16";False
+3321;"IGC 1962 / Congo TM zone 18";False
+3322;"IGC 1962 / Congo TM zone 20";False
+3323;"IGC 1962 / Congo TM zone 22";False
+3324;"IGC 1962 / Congo TM zone 24";False
+3325;"IGC 1962 / Congo TM zone 26";False
+3326;"IGC 1962 / Congo TM zone 28";False
+3327;"IGC 1962 / Congo TM zone 30";False
+3328;"Pulkovo 1942(58) / GUGiK-80";False
+3329;"Pulkovo 1942(58) / 3-degree Gauss-Kruger zone 5";False
+3330;"Pulkovo 1942(58) / 3-degree Gauss-Kruger zone 6";False
+3331;"Pulkovo 1942(58) / 3-degree Gauss-Kruger zone 7";False
+3332;"Pulkovo 1942(58) / 3-degree Gauss-Kruger zone 8";False
+3333;"Pulkovo 1942(58) / Gauss-Kruger zone 3";False
+3334;"Pulkovo 1942(58) / Gauss-Kruger zone 4";False
+3335;"Pulkovo 1942(58) / Gauss-Kruger zone 5";False
+3336;"IGN 1962 Kerguelen / UTM zone 42S";False
+3337;"Le Pouce 1934 / Mauritius Grid";False
+3338;"NAD83 / Alaska Albers";False
+3339;"IGCB 1955 / Congo TM zone 12";False
+3340;"IGCB 1955 / Congo TM zone 14";False
+3341;"IGCB 1955 / Congo TM zone 16";False
+3342;"IGCB 1955 / UTM zone 33S";False
+3343;"Mauritania 1999 / UTM zone 28N";False
+3344;"Mauritania 1999 / UTM zone 29N";False
+3345;"Mauritania 1999 / UTM zone 30N";False
+3346;"LKS94 / Lithuania TM";False
+3347;"NAD83 / Statistics Canada Lambert";False
+3348;"NAD83(CSRS) / Statistics Canada Lambert";False
+3349;"WGS 84 / PDC Mercator (deprecated)";False
+3350;"Pulkovo 1942 / CS63 zone C0";False
+3351;"Pulkovo 1942 / CS63 zone C1";False
+3352;"Pulkovo 1942 / CS63 zone C2";False
+3353;"Mhast (onshore) / UTM zone 32S";False
+3354;"Mhast (offshore) / UTM zone 32S";False
+3355;"Egypt Gulf of Suez S-650 TL / Red Belt";False
+3356;"Grand Cayman 1959 / UTM zone 17N";False
+3357;"Little Cayman 1961 / UTM zone 17N";False
+3358;"NAD83(HARN) / North Carolina";False
+3359;"NAD83(HARN) / North Carolina (ftUS) (deprecated)";False
+3360;"NAD83(HARN) / South Carolina";False
+3361;"NAD83(HARN) / South Carolina (ft)";False
+3362;"NAD83(HARN) / Pennsylvania North";False
+3363;"NAD83(HARN) / Pennsylvania North (ftUS)";False
+3364;"NAD83(HARN) / Pennsylvania South";False
+3365;"NAD83(HARN) / Pennsylvania South (ftUS)";False
+3366;"Hong Kong 1963 Grid System (deprecated)";False
+3367;"IGN Astro 1960 / UTM zone 28N";False
+3368;"IGN Astro 1960 / UTM zone 29N";False
+3369;"IGN Astro 1960 / UTM zone 30N";False
+3370;"NAD27 / UTM zone 59N";False
+3371;"NAD27 / UTM zone 60N";False
+3372;"NAD83 / UTM zone 59N";False
+3373;"NAD83 / UTM zone 60N";False
+3374;"FD54 / UTM zone 29N";False
+3375;"GDM2000 / Peninsula RSO";False
+3376;"GDM2000 / East Malaysia BRSO";False
+3377;"GDM2000 / Johor Grid";False
+3378;"GDM2000 / Sembilan and Melaka Grid";False
+3379;"GDM2000 / PahangGrid";False
+3380;"GDM2000 / Selangor Grid";False
+3381;"GDM2000 / Terengganu Grid";False
+3382;"GDM2000 / Pinang Grid";False
+3383;"GDM2000 / Kedah and Perlis Grid";False
+3384;"GDM2000 / Perak Grid";False
+3385;"GDM2000 / Kelantan Grid";False
+3386;"KKJ / Finland zone 0";False
+3387;"KKJ / Finland zone 5";False
+3388;"Pulkovo 1942 / Caspian Sea Mercator";False
+3389;"Pulkovo 1942 / 3-degree Gauss-Kruger zone 60";False
+3390;"Pulkovo 1995 / 3-degree Gauss-Kruger zone 60";False
+3391;"Karbala 1979 / UTM zone 37N";False
+3392;"Karbala 1979 / UTM zone 38N";False
+3393;"Karbala 1979 / UTM zone 39N";False
+3394;"Nahrwan 1934 / Iraq zone";False
+3395;"WGS 84 / World Mercator";False
+3396;"PD/83 / 3-degree Gauss-Kruger zone 3";False
+3397;"PD/83 / 3-degree Gauss-Kruger zone 4";False
+3398;"RD/83 / 3-degree Gauss-Kruger zone 4";False
+3399;"RD/83 / 3-degree Gauss-Kruger zone 5";False
+3400;"NAD83 / Alberta 10-TM (Forest)";False
+3401;"NAD83 / Alberta 10-TM (Resource)";False
+3402;"NAD83(CSRS) / Alberta 10-TM (Forest)";False
+3403;"NAD83(CSRS) / Alberta 10-TM (Resource)";False
+3404;"NAD83(HARN) / North Carolina (ftUS)";False
+3405;"VN-2000 / UTM zone 48N";False
+3406;"VN-2000 / UTM zone 49N";False
+3407;"Hong Kong 1963 Grid System";False
+3408;"NSIDC EASE-Grid North";False
+3409;"NSIDC EASE-Grid South";False
+3410;"NSIDC EASE-Grid Global";False
+3411;"NSIDC Sea Ice Polar Stereographic North";False
+3412;"NSIDC Sea Ice Polar Stereographic South";False
+3413;"WGS 84 / NSIDC Sea Ice Polar Stereographic North";False
+3414;"SVY21 / Singapore TM";False
+3415;"WGS 72BE / South China Sea Lambert";False
+3416;"ETRS89 / Austria Lambert";False
+3417;"NAD83 / Iowa North (ft US)";False
+3418;"NAD83 / Iowa South (ft US)";False
+3419;"NAD83 / Kansas North (ft US)";False
+3420;"NAD83 / Kansas South (ft US)";False
+3421;"NAD83 / Nevada East (ft US)";False
+3422;"NAD83 / Nevada Central (ft US)";False
+3423;"NAD83 / Nevada West (ft US)";False
+3424;"NAD83 / New Jersey (ft US)";False
+3425;"NAD83(HARN) / Iowa North (ft US)";False
+3426;"NAD83(HARN) / Iowa South (ft US)";False
+3427;"NAD83(HARN) / Kansas North (ft US)";False
+3428;"NAD83(HARN) / Kansas South (ft US)";False
+3429;"NAD83(HARN) / Nevada East (ft US)";False
+3430;"NAD83(HARN) / Nevada Central (ft US)";False
+3431;"NAD83(HARN) / Nevada West (ft US)";False
+3432;"NAD83(HARN) / New Jersey (ft US)";False
+3433;"NAD83 / Arkansas North (ftUS)";False
+3434;"NAD83 / Arkansas South (ftUS)";False
+3435;"NAD83 / Illinois East (ftUS)";False
+3436;"NAD83 / Illinois West (ftUS)";False
+3437;"NAD83 / New Hampshire (ftUS)";False
+3438;"NAD83 / Rhode Island (ftUS)";False
+3439;"PSD93 / UTM zone 39N";False
+3440;"PSD93 / UTM zone 40N";False
+3441;"NAD83(HARN) / Arkansas North (ftUS)";False
+3442;"NAD83(HARN) / Arkansas South (ftUS)";False
+3443;"NAD83(HARN) / Illinois East (ftUS)";False
+3444;"NAD83(HARN) / Illinois West (ftUS)";False
+3445;"NAD83(HARN) / New Hampshire (ftUS)";False
+3446;"NAD83(HARN) / Rhode Island (ftUS)";False
+3447;"ETRS89 / Belgian Lambert 2005";False
+3448;"JAD2001 / Jamaica Metric Grid";False
+3449;"JAD2001 / UTM zone 17N";False
+3450;"JAD2001 / UTM zone 18N";False
+3451;"NAD83 / Louisiana North (ftUS)";False
+3452;"NAD83 / Louisiana South (ftUS)";False
+3453;"NAD83 / Louisiana Offshore (ftUS)";False
+3454;"NAD83 / South Dakota North (ftUS) (deprecated)";False
+3455;"NAD83 / South Dakota South (ftUS)";False
+3456;"NAD83(HARN) / Louisiana North (ftUS)";False
+3457;"NAD83(HARN) / Louisiana South (ftUS)";False
+3458;"NAD83(HARN) / South Dakota North (ftUS)";False
+3459;"NAD83(HARN) / South Dakota South (ftUS)";False
+3460;"Fiji 1986 / Fiji Map Grid";False
+3461;"Dabola 1981 / UTM zone 28N";False
+3462;"Dabola 1981 / UTM zone 29N";False
+3463;"NAD83 / Maine CS2000 Central";False
+3464;"NAD83(HARN) / Maine CS2000 Central";False
+3465;"NAD83(NSRS2007) / Alabama East";False
+3466;"NAD83(NSRS2007) / Alabama West";False
+3467;"NAD83(NSRS2007) / Alaska Albers";False
+3468;"NAD83(NSRS2007) / Alaska zone 1";False
+3469;"NAD83(NSRS2007) / Alaska zone 2";False
+3470;"NAD83(NSRS2007) / Alaska zone 3";False
+3471;"NAD83(NSRS2007) / Alaska zone 4";False
+3472;"NAD83(NSRS2007) / Alaska zone 5";False
+3473;"NAD83(NSRS2007) / Alaska zone 6";False
+3474;"NAD83(NSRS2007) / Alaska zone 7";False
+3475;"NAD83(NSRS2007) / Alaska zone 8";False
+3476;"NAD83(NSRS2007) / Alaska zone 9";False
+3477;"NAD83(NSRS2007) / Alaska zone 10";False
+3478;"NAD83(NSRS2007) / Arizona Central";False
+3479;"NAD83(NSRS2007) / Arizona Central (ft)";False
+3480;"NAD83(NSRS2007) / Arizona East";False
+3481;"NAD83(NSRS2007) / Arizona East (ft)";False
+3482;"NAD83(NSRS2007) / Arizona West";False
+3483;"NAD83(NSRS2007) / Arizona West (ft)";False
+3484;"NAD83(NSRS2007) / Arkansas North";False
+3485;"NAD83(NSRS2007) / Arkansas North (ftUS)";False
+3486;"NAD83(NSRS2007) / Arkansas South";False
+3487;"NAD83(NSRS2007) / Arkansas South (ftUS)";False
+3488;"NAD83(NSRS2007) / California Albers";False
+3489;"NAD83(NSRS2007) / California zone 1";False
+3490;"NAD83(NSRS2007) / California zone 1 (ftUS)";False
+3491;"NAD83(NSRS2007) / California zone 2";False
+3492;"NAD83(NSRS2007) / California zone 2 (ftUS)";False
+3493;"NAD83(NSRS2007) / California zone 3";False
+3494;"NAD83(NSRS2007) / California zone 3 (ftUS)";False
+3495;"NAD83(NSRS2007) / California zone 4";False
+3496;"NAD83(NSRS2007) / California zone 4 (ftUS)";False
+3497;"NAD83(NSRS2007) / California zone 5";False
+3498;"NAD83(NSRS2007) / California zone 5 (ftUS)";False
+3499;"NAD83(NSRS2007) / California zone 6";False
+3500;"NAD83(NSRS2007) / California zone 6 (ftUS)";False
+3501;"NAD83(NSRS2007) / Colorado Central";False
+3502;"NAD83(NSRS2007) / Colorado Central (ftUS)";False
+3503;"NAD83(NSRS2007) / Colorado North";False
+3504;"NAD83(NSRS2007) / Colorado North (ftUS)";False
+3505;"NAD83(NSRS2007) / Colorado South";False
+3506;"NAD83(NSRS2007) / Colorado South (ftUS)";False
+3507;"NAD83(NSRS2007) / Connecticut";False
+3508;"NAD83(NSRS2007) / Connecticut (ftUS)";False
+3509;"NAD83(NSRS2007) / Delaware";False
+3510;"NAD83(NSRS2007) / Delaware (ftUS)";False
+3511;"NAD83(NSRS2007) / Florida East";False
+3512;"NAD83(NSRS2007) / Florida East (ftUS)";False
+3513;"NAD83(NSRS2007) / Florida GDL Albers";False
+3514;"NAD83(NSRS2007) / Florida North";False
+3515;"NAD83(NSRS2007) / Florida North (ftUS)";False
+3516;"NAD83(NSRS2007) / Florida West";False
+3517;"NAD83(NSRS2007) / Florida West (ftUS)";False
+3518;"NAD83(NSRS2007) / Georgia East";False
+3519;"NAD83(NSRS2007) / Georgia East (ftUS)";False
+3520;"NAD83(NSRS2007) / Georgia West";False
+3521;"NAD83(NSRS2007) / Georgia West (ftUS)";False
+3522;"NAD83(NSRS2007) / Idaho Central";False
+3523;"NAD83(NSRS2007) / Idaho Central (ftUS)";False
+3524;"NAD83(NSRS2007) / Idaho East";False
+3525;"NAD83(NSRS2007) / Idaho East (ftUS)";False
+3526;"NAD83(NSRS2007) / Idaho West";False
+3527;"NAD83(NSRS2007) / Idaho West (ftUS)";False
+3528;"NAD83(NSRS2007) / Illinois East";False
+3529;"NAD83(NSRS2007) / Illinois East (ftUS)";False
+3530;"NAD83(NSRS2007) / Illinois West";False
+3531;"NAD83(NSRS2007) / Illinois West (ftUS)";False
+3532;"NAD83(NSRS2007) / Indiana East";False
+3533;"NAD83(NSRS2007) / Indiana East (ftUS)";False
+3534;"NAD83(NSRS2007) / Indiana West";False
+3535;"NAD83(NSRS2007) / Indiana West (ftUS)";False
+3536;"NAD83(NSRS2007) / Iowa North";False
+3537;"NAD83(NSRS2007) / Iowa North (ft US)";False
+3538;"NAD83(NSRS2007) / Iowa South";False
+3539;"NAD83(NSRS2007) / Iowa South (ft US)";False
+3540;"NAD83(NSRS2007) / Kansas North";False
+3541;"NAD83(NSRS2007) / Kansas North (ft US)";False
+3542;"NAD83(NSRS2007) / Kansas South";False
+3543;"NAD83(NSRS2007) / Kansas South (ft US)";False
+3544;"NAD83(NSRS2007) / Kentucky North";False
+3545;"NAD83(NSRS2007) / Kentucky North (ftUS)";False
+3546;"NAD83(NSRS2007) / Kentucky Single Zone";False
+3547;"NAD83(NSRS2007) / Kentucky Single Zone (ftUS)";False
+3548;"NAD83(NSRS2007) / Kentucky South";False
+3549;"NAD83(NSRS2007) / Kentucky South (ftUS)";False
+3550;"NAD83(NSRS2007) / Louisiana North";False
+3551;"NAD83(NSRS2007) / Louisiana North (ftUS)";False
+3552;"NAD83(NSRS2007) / Louisiana South";False
+3553;"NAD83(NSRS2007) / Louisiana South (ftUS)";False
+3554;"NAD83(NSRS2007) / Maine CS2000 Central";False
+3555;"NAD83(NSRS2007) / Maine CS2000 East";False
+3556;"NAD83(NSRS2007) / Maine CS2000 West";False
+3557;"NAD83(NSRS2007) / Maine East";False
+3558;"NAD83(NSRS2007) / Maine West";False
+3559;"NAD83(NSRS2007) / Maryland";False
+3560;"NAD83 / Utah North (ftUS)";False
+3561;"Old Hawaiian / Hawaii zone 1";False
+3562;"Old Hawaiian / Hawaii zone 2";False
+3563;"Old Hawaiian / Hawaii zone 3";False
+3564;"Old Hawaiian / Hawaii zone 4";False
+3565;"Old Hawaiian / Hawaii zone 5";False
+3566;"NAD83 / Utah Central (ftUS)";False
+3567;"NAD83 / Utah South (ftUS)";False
+3568;"NAD83(HARN) / Utah North (ftUS)";False
+3569;"NAD83(HARN) / Utah Central (ftUS)";False
+3570;"NAD83(HARN) / Utah South (ftUS)";False
+3571;"WGS 84 / North Pole LAEA Bering Sea";False
+3572;"WGS 84 / North Pole LAEA Alaska";False
+3573;"WGS 84 / North Pole LAEA Canada";False
+3574;"WGS 84 / North Pole LAEA Atlantic";False
+3575;"WGS 84 / North Pole LAEA Europe";False
+3576;"WGS 84 / North Pole LAEA Russia";False
+3577;"GDA94 / Australian Albers";False
+3578;"NAD83 / Yukon Albers";False
+3579;"NAD83(CSRS) / Yukon Albers";False
+3580;"NAD83 / NWT Lambert";False
+3581;"NAD83(CSRS) / NWT Lambert";False
+3582;"NAD83(NSRS2007) / Maryland (ftUS)";False
+3583;"NAD83(NSRS2007) / Massachusetts Island";False
+3584;"NAD83(NSRS2007) / Massachusetts Island (ftUS)";False
+3585;"NAD83(NSRS2007) / Massachusetts Mainland";False
+3586;"NAD83(NSRS2007) / Massachusetts Mainland (ftUS)";False
+3587;"NAD83(NSRS2007) / Michigan Central";False
+3588;"NAD83(NSRS2007) / Michigan Central (ft)";False
+3589;"NAD83(NSRS2007) / Michigan North";False
+3590;"NAD83(NSRS2007) / Michigan North (ft)";False
+3591;"NAD83(NSRS2007) / Michigan Oblique Mercator";False
+3592;"NAD83(NSRS2007) / Michigan South";False
+3593;"NAD83(NSRS2007) / Michigan South (ft)";False
+3594;"NAD83(NSRS2007) / Minnesota Central";False
+3595;"NAD83(NSRS2007) / Minnesota North";False
+3596;"NAD83(NSRS2007) / Minnesota South";False
+3597;"NAD83(NSRS2007) / Mississippi East";False
+3598;"NAD83(NSRS2007) / Mississippi East (ftUS)";False
+3599;"NAD83(NSRS2007) / Mississippi West";False
+3600;"NAD83(NSRS2007) / Mississippi West (ftUS)";False
+3601;"NAD83(NSRS2007) / Missouri Central";False
+3602;"NAD83(NSRS2007) / Missouri East";False
+3603;"NAD83(NSRS2007) / Missouri West";False
+3604;"NAD83(NSRS2007) / Montana";False
+3605;"NAD83(NSRS2007) / Montana (ft)";False
+3606;"NAD83(NSRS2007) / Nebraska";False
+3607;"NAD83(NSRS2007) / Nevada Central";False
+3608;"NAD83(NSRS2007) / Nevada Central (ft US)";False
+3609;"NAD83(NSRS2007) / Nevada East";False
+3610;"NAD83(NSRS2007) / Nevada East (ft US)";False
+3611;"NAD83(NSRS2007) / Nevada West";False
+3612;"NAD83(NSRS2007) / Nevada West (ft US)";False
+3613;"NAD83(NSRS2007) / New Hampshire";False
+3614;"NAD83(NSRS2007) / New Hampshire (ftUS)";False
+3615;"NAD83(NSRS2007) / New Jersey";False
+3616;"NAD83(NSRS2007) / New Jersey (ft US)";False
+3617;"NAD83(NSRS2007) / New Mexico Central";False
+3618;"NAD83(NSRS2007) / New Mexico Central (ftUS)";False
+3619;"NAD83(NSRS2007) / New Mexico East";False
+3620;"NAD83(NSRS2007) / New Mexico East (ftUS)";False
+3621;"NAD83(NSRS2007) / New Mexico West";False
+3622;"NAD83(NSRS2007) / New Mexico West (ftUS)";False
+3623;"NAD83(NSRS2007) / New York Central";False
+3624;"NAD83(NSRS2007) / New York Central (ftUS)";False
+3625;"NAD83(NSRS2007) / New York East";False
+3626;"NAD83(NSRS2007) / New York East (ftUS)";False
+3627;"NAD83(NSRS2007) / New York Long Island";False
+3628;"NAD83(NSRS2007) / New York Long Island (ftUS)";False
+3629;"NAD83(NSRS2007) / New York West";False
+3630;"NAD83(NSRS2007) / New York West (ftUS)";False
+3631;"NAD83(NSRS2007) / North Carolina";False
+3632;"NAD83(NSRS2007) / North Carolina (ftUS)";False
+3633;"NAD83(NSRS2007) / North Dakota North";False
+3634;"NAD83(NSRS2007) / North Dakota North (ft)";False
+3635;"NAD83(NSRS2007) / North Dakota South";False
+3636;"NAD83(NSRS2007) / North Dakota South (ft)";False
+3637;"NAD83(NSRS2007) / Ohio North";False
+3638;"NAD83(NSRS2007) / Ohio South";False
+3639;"NAD83(NSRS2007) / Oklahoma North";False
+3640;"NAD83(NSRS2007) / Oklahoma North (ftUS)";False
+3641;"NAD83(NSRS2007) / Oklahoma South";False
+3642;"NAD83(NSRS2007) / Oklahoma South (ftUS)";False
+3643;"NAD83(NSRS2007) / Oregon Lambert";False
+3644;"NAD83(NSRS2007) / Oregon Lambert (ft)";False
+3645;"NAD83(NSRS2007) / Oregon North";False
+3646;"NAD83(NSRS2007) / Oregon North (ft)";False
+3647;"NAD83(NSRS2007) / Oregon South";False
+3648;"NAD83(NSRS2007) / Oregon South (ft)";False
+3649;"NAD83(NSRS2007) / Pennsylvania North";False
+3650;"NAD83(NSRS2007) / Pennsylvania North (ftUS)";False
+3651;"NAD83(NSRS2007) / Pennsylvania South";False
+3652;"NAD83(NSRS2007) / Pennsylvania South (ftUS)";False
+3653;"NAD83(NSRS2007) / Rhode Island";False
+3654;"NAD83(NSRS2007) / Rhode Island (ftUS)";False
+3655;"NAD83(NSRS2007) / South Carolina";False
+3656;"NAD83(NSRS2007) / South Carolina (ft)";False
+3657;"NAD83(NSRS2007) / South Dakota North";False
+3658;"NAD83(NSRS2007) / South Dakota North (ftUS)";False
+3659;"NAD83(NSRS2007) / South Dakota South";False
+3660;"NAD83(NSRS2007) / South Dakota South (ftUS)";False
+3661;"NAD83(NSRS2007) / Tennessee";False
+3662;"NAD83(NSRS2007) / Tennessee (ftUS)";False
+3663;"NAD83(NSRS2007) / Texas Central";False
+3664;"NAD83(NSRS2007) / Texas Central (ftUS)";False
+3665;"NAD83(NSRS2007) / Texas Centric Albers Equal Area";False
+3666;"NAD83(NSRS2007) / Texas Centric Lambert Conformal";False
+3667;"NAD83(NSRS2007) / Texas North";False
+3668;"NAD83(NSRS2007) / Texas North (ftUS)";False
+3669;"NAD83(NSRS2007) / Texas North Central";False
+3670;"NAD83(NSRS2007) / Texas North Central (ftUS)";False
+3671;"NAD83(NSRS2007) / Texas South";False
+3672;"NAD83(NSRS2007) / Texas South (ftUS)";False
+3673;"NAD83(NSRS2007) / Texas South Central";False
+3674;"NAD83(NSRS2007) / Texas South Central (ftUS)";False
+3675;"NAD83(NSRS2007) / Utah Central";False
+3676;"NAD83(NSRS2007) / Utah Central (ft)";False
+3677;"NAD83(NSRS2007) / Utah Central (ftUS)";False
+3678;"NAD83(NSRS2007) / Utah North";False
+3679;"NAD83(NSRS2007) / Utah North (ft)";False
+3680;"NAD83(NSRS2007) / Utah North (ftUS)";False
+3681;"NAD83(NSRS2007) / Utah South";False
+3682;"NAD83(NSRS2007) / Utah South (ft)";False
+3683;"NAD83(NSRS2007) / Utah South (ftUS)";False
+3684;"NAD83(NSRS2007) / Vermont";False
+3685;"NAD83(NSRS2007) / Virginia North";False
+3686;"NAD83(NSRS2007) / Virginia North (ftUS)";False
+3687;"NAD83(NSRS2007) / Virginia South";False
+3688;"NAD83(NSRS2007) / Virginia South (ftUS)";False
+3689;"NAD83(NSRS2007) / Washington North";False
+3690;"NAD83(NSRS2007) / Washington North (ftUS)";False
+3691;"NAD83(NSRS2007) / Washington South";False
+3692;"NAD83(NSRS2007) / Washington South (ftUS)";False
+3693;"NAD83(NSRS2007) / West Virginia North";False
+3694;"NAD83(NSRS2007) / West Virginia South";False
+3695;"NAD83(NSRS2007) / Wisconsin Central";False
+3696;"NAD83(NSRS2007) / Wisconsin Central (ftUS)";False
+3697;"NAD83(NSRS2007) / Wisconsin North";False
+3698;"NAD83(NSRS2007) / Wisconsin North (ftUS)";False
+3699;"NAD83(NSRS2007) / Wisconsin South";False
+3700;"NAD83(NSRS2007) / Wisconsin South (ftUS)";False
+3701;"NAD83(NSRS2007) / Wisconsin Transverse Mercator";False
+3702;"NAD83(NSRS2007) / Wyoming East";False
+3703;"NAD83(NSRS2007) / Wyoming East Central";False
+3704;"NAD83(NSRS2007) / Wyoming West Central";False
+3705;"NAD83(NSRS2007) / Wyoming West";False
+3706;"NAD83(NSRS2007) / UTM zone 59N";False
+3707;"NAD83(NSRS2007) / UTM zone 60N";False
+3708;"NAD83(NSRS2007) / UTM zone 1N";False
+3709;"NAD83(NSRS2007) / UTM zone 2N";False
+3710;"NAD83(NSRS2007) / UTM zone 3N";False
+3711;"NAD83(NSRS2007) / UTM zone 4N";False
+3712;"NAD83(NSRS2007) / UTM zone 5N";False
+3713;"NAD83(NSRS2007) / UTM zone 6N";False
+3714;"NAD83(NSRS2007) / UTM zone 7N";False
+3715;"NAD83(NSRS2007) / UTM zone 8N";False
+3716;"NAD83(NSRS2007) / UTM zone 9N";False
+3717;"NAD83(NSRS2007) / UTM zone 10N";False
+3718;"NAD83(NSRS2007) / UTM zone 11N";False
+3719;"NAD83(NSRS2007) / UTM zone 12N";False
+3720;"NAD83(NSRS2007) / UTM zone 13N";False
+3721;"NAD83(NSRS2007) / UTM zone 14N";False
+3722;"NAD83(NSRS2007) / UTM zone 15N";False
+3723;"NAD83(NSRS2007) / UTM zone 16N";False
+3724;"NAD83(NSRS2007) / UTM zone 17N";False
+3725;"NAD83(NSRS2007) / UTM zone 18N";False
+3726;"NAD83(NSRS2007) / UTM zone 19N";False
+3727;"Reunion 1947 / TM Reunion";False
+3728;"NAD83(NSRS2007) / Ohio North (ftUS)";False
+3729;"NAD83(NSRS2007) / Ohio South (ftUS)";False
+3730;"NAD83(NSRS2007) / Wyoming East (ftUS)";False
+3731;"NAD83(NSRS2007) / Wyoming East Central (ftUS)";False
+3732;"NAD83(NSRS2007) / Wyoming West Central (ftUS)";False
+3733;"NAD83(NSRS2007) / Wyoming West (ftUS)";False
+3734;"NAD83 / Ohio North (ftUS)";False
+3735;"NAD83 / Ohio South (ftUS)";False
+3736;"NAD83 / Wyoming East (ftUS)";False
+3737;"NAD83 / Wyoming East Central (ftUS)";False
+3738;"NAD83 / Wyoming West Central (ftUS)";False
+3739;"NAD83 / Wyoming West (ftUS)";False
+3740;"NAD83(HARN) / UTM zone 10N";False
+3741;"NAD83(HARN) / UTM zone 11N";False
+3742;"NAD83(HARN) / UTM zone 12N";False
+3743;"NAD83(HARN) / UTM zone 13N";False
+3744;"NAD83(HARN) / UTM zone 14N";False
+3745;"NAD83(HARN) / UTM zone 15N";False
+3746;"NAD83(HARN) / UTM zone 16N";False
+3747;"NAD83(HARN) / UTM zone 17N";False
+3748;"NAD83(HARN) / UTM zone 18N";False
+3749;"NAD83(HARN) / UTM zone 19N";False
+3750;"NAD83(HARN) / UTM zone 4N";False
+3751;"NAD83(HARN) / UTM zone 5N";False
+3752;"WGS 84 / Mercator 41 (deprecated)";False
+3753;"NAD83(HARN) / Ohio North (ftUS)";False
+3754;"NAD83(HARN) / Ohio South (ftUS)";False
+3755;"NAD83(HARN) / Wyoming East (ftUS)";False
+3756;"NAD83(HARN) / Wyoming East Central (ftUS)";False
+3757;"NAD83(HARN) / Wyoming West Central (ftUS)";False
+3758;"NAD83(HARN) / Wyoming West (ftUS)";False
+3759;"NAD83 / Hawaii zone 3 (ftUS)";False
+3760;"NAD83(HARN) / Hawaii zone 3 (ftUS)";False
+3761;"NAD83(CSRS) / UTM zone 22N";False
+3762;"WGS 84 / South Georgia Lambert";False
+3763;"ETRS89 / Portugal TM06";False
+3764;"NZGD2000 / Chatham Island Circuit 2000";False
+3765;"HTRS96 / Croatia TM";False
+3766;"HTRS96 / Croatia LCC";False
+3767;"HTRS96 / UTM zone 33N";False
+3768;"HTRS96 / UTM zone 34N";False
+3769;"Bermuda 1957 / UTM zone 20N";False
+3770;"BDA2000 / Bermuda 2000 National Grid";False
+3771;"NAD27 / Alberta 3TM ref merid 111 W";False
+3772;"NAD27 / Alberta 3TM ref merid 114 W";False
+3773;"NAD27 / Alberta 3TM ref merid 117 W";False
+3774;"NAD27 / Alberta 3TM ref merid 120 W (deprecated)";False
+3775;"NAD83 / Alberta 3TM ref merid 111 W";False
+3776;"NAD83 / Alberta 3TM ref merid 114 W";False
+3777;"NAD83 / Alberta 3TM ref merid 117 W";False
+3778;"NAD83 / Alberta 3TM ref merid 120 W (deprecated)";False
+3779;"NAD83(CSRS) / Alberta 3TM ref merid 111 W";False
+3780;"NAD83(CSRS) / Alberta 3TM ref merid 114 W";False
+3781;"NAD83(CSRS) / Alberta 3TM ref merid 117 W";False
+3782;"NAD83(CSRS) / Alberta 3TM ref merid 120 W (deprecated)";False
+3783;"Pitcairn 2006 / Pitcairn TM 2006";False
+3784;"Pitcairn 1967 / UTM zone 9S";False
+3785;"Popular Visualisation CRS / Mercator (deprecated)";False
+3786;"World Equidistant Cylindrical (Sphere) (deprecated)";False
+3787;"MGI / Slovene National Grid (deprecated)";False
+3788;"NZGD2000 / Auckland Islands TM 2000";False
+3789;"NZGD2000 / Campbell Island TM 2000";False
+3790;"NZGD2000 / Antipodes Islands TM 2000";False
+3791;"NZGD2000 / Raoul Island TM 2000";False
+3793;"NZGD2000 / Chatham Islands TM 2000";False
+3794;"Slovenia 1996 / Slovene National Grid";False
+3795;"NAD27 / Cuba Norte";False
+3796;"NAD27 / Cuba Sur";False
+3797;"NAD27 / MTQ Lambert";False
+3798;"NAD83 / MTQ Lambert";False
+3799;"NAD83(CSRS) / MTQ Lambert";False
+3800;"NAD27 / Alberta 3TM ref merid 120 W";False
+3801;"NAD83 / Alberta 3TM ref merid 120 W";False
+3802;"NAD83(CSRS) / Alberta 3TM ref merid 120 W";False
+3812;"ETRS89 / Belgian Lambert 2008";False
+3814;"NAD83 / Mississippi TM";False
+3815;"NAD83(HARN) / Mississippi TM";False
+3816;"NAD83(NSRS2007) / Mississippi TM";False
+3825;"TWD97 / TM2 zone 119";False
+3826;"TWD97 / TM2 zone 121";False
+3827;"TWD67 / TM2 zone 119";False
+3828;"TWD67 / TM2 zone 121";False
+3829;"Hu Tzu Shan 1950 / UTM zone 51N";False
+3832;"WGS 84 / PDC Mercator";False
+3833;"Pulkovo 1942(58) / Gauss-Kruger zone 2";False
+3834;"Pulkovo 1942(83) / Gauss-Kruger zone 2";False
+3835;"Pulkovo 1942(83) / Gauss-Kruger zone 3";False
+3836;"Pulkovo 1942(83) / Gauss-Kruger zone 4";False
+3837;"Pulkovo 1942(58) / 3-degree Gauss-Kruger zone 3";False
+3838;"Pulkovo 1942(58) / 3-degree Gauss-Kruger zone 4";False
+3839;"Pulkovo 1942(58) / 3-degree Gauss-Kruger zone 9";False
+3840;"Pulkovo 1942(58) / 3-degree Gauss-Kruger zone 10";False
+3841;"Pulkovo 1942(83) / 3-degree Gauss-Kruger zone 6";False
+3842;"Pulkovo 1942(83) / 3-degree Gauss-Kruger zone 7 (deprecated)";False
+3843;"Pulkovo 1942(83) / 3-degree Gauss-Kruger zone 8 (deprecated)";False
+3844;"Pulkovo 1942(58) / Stereo70";False
+3845;"SWEREF99 / RT90 7.5 gon V emulation";False
+3846;"SWEREF99 / RT90 5 gon V emulation";False
+3847;"SWEREF99 / RT90 2.5 gon V emulation";False
+3848;"SWEREF99 / RT90 0 gon emulation";False
+3849;"SWEREF99 / RT90 2.5 gon O emulation";False
+3850;"SWEREF99 / RT90 5 gon O emulation";False
+3851;"NZGD2000 / NZCS2000";False
+3852;"RSRGD2000 / DGLC2000";False
+3854;"County ST74";False
+3857;"WGS 84 / Pseudo-Mercator";False
+3890;"IGRS / UTM zone 37N";False
+3891;"IGRS / UTM zone 38N";False
+3892;"IGRS / UTM zone 39N";False
+3893;"ED50 / Iraq National Grid";False
+3907;"MGI 1901 / Balkans zone 5";False
+3908;"MGI 1901 / Balkans zone 6";False
+3909;"MGI 1901 / Balkans zone 7";False
+3910;"MGI 1901 / Balkans zone 8";False
+3911;"MGI 1901 / Slovenia Grid";False
+3912;"MGI 1901 / Slovene National Grid";False
+3920;"Puerto Rico / UTM zone 20N";False
+3942;"RGF93 / CC42";False
+3943;"RGF93 / CC43";False
+3944;"RGF93 / CC44";False
+3945;"RGF93 / CC45";False
+3946;"RGF93 / CC46";False
+3947;"RGF93 / CC47";False
+3948;"RGF93 / CC48";False
+3949;"RGF93 / CC49";False
+3950;"RGF93 / CC50";False
+3968;"NAD83 / Virginia Lambert";False
+3969;"NAD83(HARN) / Virginia Lambert";False
+3970;"NAD83(NSRS2007) / Virginia Lambert";False
+3973;"WGS 84 / NSIDC EASE-Grid North";False
+3974;"WGS 84 / NSIDC EASE-Grid South";False
+3975;"WGS 84 / NSIDC EASE-Grid Global";False
+3976;"WGS 84 / NSIDC Sea Ice Polar Stereographic South";False
+3978;"NAD83 / Canada Atlas Lambert";False
+3979;"NAD83(CSRS) / Canada Atlas Lambert";False
+3985;"Katanga 1955 / Katanga Lambert (deprecated)";False
+3986;"Katanga 1955 / Katanga Gauss zone A";False
+3987;"Katanga 1955 / Katanga Gauss zone B";False
+3988;"Katanga 1955 / Katanga Gauss zone C";False
+3989;"Katanga 1955 / Katanga Gauss zone D";False
+3991;"Puerto Rico State Plane CS of 1927";False
+3992;"Puerto Rico / St. Croix";False
+3994;"WGS 84 / Mercator 41";False
+3995;"WGS 84 / Arctic Polar Stereographic";False
+3996;"WGS 84 / IBCAO Polar Stereographic";False
+3997;"WGS 84 / Dubai Local TM";False
+4026;"MOLDREF99 / Moldova TM";False
+4037;"WGS 84 / TMzn35N";False
+4038;"WGS 84 / TMzn36N";False
+4048;"RGRDC 2005 / Congo TM zone 12";False
+4049;"RGRDC 2005 / Congo TM zone 14";False
+4050;"RGRDC 2005 / Congo TM zone 16";False
+4051;"RGRDC 2005 / Congo TM zone 18";False
+4056;"RGRDC 2005 / Congo TM zone 20";False
+4057;"RGRDC 2005 / Congo TM zone 22";False
+4058;"RGRDC 2005 / Congo TM zone 24";False
+4059;"RGRDC 2005 / Congo TM zone 26";False
+4060;"RGRDC 2005 / Congo TM zone 28";False
+4061;"RGRDC 2005 / UTM zone 33S";False
+4062;"RGRDC 2005 / UTM zone 34S";False
+4063;"RGRDC 2005 / UTM zone 35S";False
+4071;"Chua / UTM zone 23S";False
+4082;"REGCAN95 / UTM zone 27N";False
+4083;"REGCAN95 / UTM zone 28N";False
+4087;"WGS 84 / World Equidistant Cylindrical";False
+4088;"World Equidistant Cylindrical (Sphere)";False
+20004;"Pulkovo 1995 / Gauss-Kruger zone 4";False
+20005;"Pulkovo 1995 / Gauss-Kruger zone 5";False
+20006;"Pulkovo 1995 / Gauss-Kruger zone 6";False
+20007;"Pulkovo 1995 / Gauss-Kruger zone 7";False
+20008;"Pulkovo 1995 / Gauss-Kruger zone 8";False
+20009;"Pulkovo 1995 / Gauss-Kruger zone 9";False
+20010;"Pulkovo 1995 / Gauss-Kruger zone 10";False
+20011;"Pulkovo 1995 / Gauss-Kruger zone 11";False
+20012;"Pulkovo 1995 / Gauss-Kruger zone 12";False
+20013;"Pulkovo 1995 / Gauss-Kruger zone 13";False
+20014;"Pulkovo 1995 / Gauss-Kruger zone 14";False
+20015;"Pulkovo 1995 / Gauss-Kruger zone 15";False
+20016;"Pulkovo 1995 / Gauss-Kruger zone 16";False
+20017;"Pulkovo 1995 / Gauss-Kruger zone 17";False
+20018;"Pulkovo 1995 / Gauss-Kruger zone 18";False
+20019;"Pulkovo 1995 / Gauss-Kruger zone 19";False
+20020;"Pulkovo 1995 / Gauss-Kruger zone 20";False
+20021;"Pulkovo 1995 / Gauss-Kruger zone 21";False
+20022;"Pulkovo 1995 / Gauss-Kruger zone 22";False
+20023;"Pulkovo 1995 / Gauss-Kruger zone 23";False
+20024;"Pulkovo 1995 / Gauss-Kruger zone 24";False
+20025;"Pulkovo 1995 / Gauss-Kruger zone 25";False
+20026;"Pulkovo 1995 / Gauss-Kruger zone 26";False
+20027;"Pulkovo 1995 / Gauss-Kruger zone 27";False
+20028;"Pulkovo 1995 / Gauss-Kruger zone 28";False
+20029;"Pulkovo 1995 / Gauss-Kruger zone 29";False
+20030;"Pulkovo 1995 / Gauss-Kruger zone 30";False
+20031;"Pulkovo 1995 / Gauss-Kruger zone 31";False
+20032;"Pulkovo 1995 / Gauss-Kruger zone 32";False
+20064;"Pulkovo 1995 / Gauss-Kruger 4N (deprecated)";False
+20065;"Pulkovo 1995 / Gauss-Kruger 5N (deprecated)";False
+20066;"Pulkovo 1995 / Gauss-Kruger 6N (deprecated)";False
+20067;"Pulkovo 1995 / Gauss-Kruger 7N (deprecated)";False
+20068;"Pulkovo 1995 / Gauss-Kruger 8N (deprecated)";False
+20069;"Pulkovo 1995 / Gauss-Kruger 9N (deprecated)";False
+20070;"Pulkovo 1995 / Gauss-Kruger 10N (deprecated)";False
+20071;"Pulkovo 1995 / Gauss-Kruger 11N (deprecated)";False
+20072;"Pulkovo 1995 / Gauss-Kruger 12N (deprecated)";False
+20073;"Pulkovo 1995 / Gauss-Kruger 13N (deprecated)";False
+20074;"Pulkovo 1995 / Gauss-Kruger 14N (deprecated)";False
+20075;"Pulkovo 1995 / Gauss-Kruger 15N (deprecated)";False
+20076;"Pulkovo 1995 / Gauss-Kruger 16N (deprecated)";False
+20077;"Pulkovo 1995 / Gauss-Kruger 17N (deprecated)";False
+20078;"Pulkovo 1995 / Gauss-Kruger 18N (deprecated)";False
+20079;"Pulkovo 1995 / Gauss-Kruger 19N (deprecated)";False
+20080;"Pulkovo 1995 / Gauss-Kruger 20N (deprecated)";False
+20081;"Pulkovo 1995 / Gauss-Kruger 21N (deprecated)";False
+20082;"Pulkovo 1995 / Gauss-Kruger 22N (deprecated)";False
+20083;"Pulkovo 1995 / Gauss-Kruger 23N (deprecated)";False
+20084;"Pulkovo 1995 / Gauss-Kruger 24N (deprecated)";False
+20085;"Pulkovo 1995 / Gauss-Kruger 25N (deprecated)";False
+20086;"Pulkovo 1995 / Gauss-Kruger 26N (deprecated)";False
+20087;"Pulkovo 1995 / Gauss-Kruger 27N (deprecated)";False
+20088;"Pulkovo 1995 / Gauss-Kruger 28N (deprecated)";False
+20089;"Pulkovo 1995 / Gauss-Kruger 29N (deprecated)";False
+20090;"Pulkovo 1995 / Gauss-Kruger 30N (deprecated)";False
+20091;"Pulkovo 1995 / Gauss-Kruger 31N (deprecated)";False
+20092;"Pulkovo 1995 / Gauss-Kruger 32N (deprecated)";False
+20135;"Adindan / UTM zone 35N";False
+20136;"Adindan / UTM zone 36N";False
+20137;"Adindan / UTM zone 37N";False
+20138;"Adindan / UTM zone 38N";False
+20248;"AGD66 / AMG zone 48";False
+20249;"AGD66 / AMG zone 49";False
+20250;"AGD66 / AMG zone 50";False
+20251;"AGD66 / AMG zone 51";False
+20252;"AGD66 / AMG zone 52";False
+20253;"AGD66 / AMG zone 53";False
+20254;"AGD66 / AMG zone 54";False
+20255;"AGD66 / AMG zone 55";False
+20256;"AGD66 / AMG zone 56";False
+20257;"AGD66 / AMG zone 57";False
+20258;"AGD66 / AMG zone 58";False
+20348;"AGD84 / AMG zone 48";False
+20349;"AGD84 / AMG zone 49";False
+20350;"AGD84 / AMG zone 50";False
+20351;"AGD84 / AMG zone 51";False
+20352;"AGD84 / AMG zone 52";False
+20353;"AGD84 / AMG zone 53";False
+20354;"AGD84 / AMG zone 54";False
+20355;"AGD84 / AMG zone 55";False
+20356;"AGD84 / AMG zone 56";False
+20357;"AGD84 / AMG zone 57";False
+20358;"AGD84 / AMG zone 58";False
+20436;"Ain el Abd / UTM zone 36N";False
+20437;"Ain el Abd / UTM zone 37N";False
+20438;"Ain el Abd / UTM zone 38N";False
+20439;"Ain el Abd / UTM zone 39N";False
+20440;"Ain el Abd / UTM zone 40N";False
+20499;"Ain el Abd / Bahrain Grid";False
+20538;"Afgooye / UTM zone 38N";False
+20539;"Afgooye / UTM zone 39N";False
+20790;"Lisbon (Lisbon) / Portuguese National Grid";False
+20791;"Lisbon (Lisbon) / Portuguese Grid";False
+20822;"Aratu / UTM zone 22S";False
+20823;"Aratu / UTM zone 23S";False
+20824;"Aratu / UTM zone 24S";False
+20934;"Arc 1950 / UTM zone 34S";False
+20935;"Arc 1950 / UTM zone 35S";False
+20936;"Arc 1950 / UTM zone 36S";False
+21035;"Arc 1960 / UTM zone 35S";False
+21036;"Arc 1960 / UTM zone 36S";False
+21037;"Arc 1960 / UTM zone 37S";False
+21095;"Arc 1960 / UTM zone 35N";False
+21096;"Arc 1960 / UTM zone 36N";False
+21097;"Arc 1960 / UTM zone 37N";False
+21100;"Batavia (Jakarta) / NEIEZ (deprecated)";False
+21148;"Batavia / UTM zone 48S";False
+21149;"Batavia / UTM zone 49S";False
+21150;"Batavia / UTM zone 50S";False
+21291;"Barbados 1938 / British West Indies Grid";False
+21292;"Barbados 1938 / Barbados National Grid";False
+21413;"Beijing 1954 / Gauss-Kruger zone 13";False
+21414;"Beijing 1954 / Gauss-Kruger zone 14";False
+21415;"Beijing 1954 / Gauss-Kruger zone 15";False
+21416;"Beijing 1954 / Gauss-Kruger zone 16";False
+21417;"Beijing 1954 / Gauss-Kruger zone 17";False
+21418;"Beijing 1954 / Gauss-Kruger zone 18";False
+21419;"Beijing 1954 / Gauss-Kruger zone 19";False
+21420;"Beijing 1954 / Gauss-Kruger zone 20";False
+21421;"Beijing 1954 / Gauss-Kruger zone 21";False
+21422;"Beijing 1954 / Gauss-Kruger zone 22";False
+21423;"Beijing 1954 / Gauss-Kruger zone 23";False
+21453;"Beijing 1954 / Gauss-Kruger CM 75E";False
+21454;"Beijing 1954 / Gauss-Kruger CM 81E";False
+21455;"Beijing 1954 / Gauss-Kruger CM 87E";False
+21456;"Beijing 1954 / Gauss-Kruger CM 93E";False
+21457;"Beijing 1954 / Gauss-Kruger CM 99E";False
+21458;"Beijing 1954 / Gauss-Kruger CM 105E";False
+21459;"Beijing 1954 / Gauss-Kruger CM 111E";False
+21460;"Beijing 1954 / Gauss-Kruger CM 117E";False
+21461;"Beijing 1954 / Gauss-Kruger CM 123E";False
+21462;"Beijing 1954 / Gauss-Kruger CM 129E";False
+21463;"Beijing 1954 / Gauss-Kruger CM 135E";False
+21473;"Beijing 1954 / Gauss-Kruger 13N (deprecated)";False
+21474;"Beijing 1954 / Gauss-Kruger 14N (deprecated)";False
+21475;"Beijing 1954 / Gauss-Kruger 15N (deprecated)";False
+21476;"Beijing 1954 / Gauss-Kruger 16N (deprecated)";False
+21477;"Beijing 1954 / Gauss-Kruger 17N (deprecated)";False
+21478;"Beijing 1954 / Gauss-Kruger 18N (deprecated)";False
+21479;"Beijing 1954 / Gauss-Kruger 19N (deprecated)";False
+21480;"Beijing 1954 / Gauss-Kruger 20N (deprecated)";False
+21481;"Beijing 1954 / Gauss-Kruger 21N (deprecated)";False
+21482;"Beijing 1954 / Gauss-Kruger 22N (deprecated)";False
+21483;"Beijing 1954 / Gauss-Kruger 23N (deprecated)";False
+21500;"Belge 1950 (Brussels) / Belge Lambert 50";False
+21780;"Bern 1898 (Bern) / LV03C";False
+21781;"CH1903 / LV03";False
+21782;"CH1903 / LV03C-G";False
+21817;"Bogota 1975 / UTM zone 17N (deprecated)";False
+21818;"Bogota 1975 / UTM zone 18N";False
+21891;"Bogota 1975 / Colombia West zone (deprecated)";False
+21892;"Bogota 1975 / Colombia Bogota zone (deprecated)";False
+21893;"Bogota 1975 / Colombia East Central zone (deprecated)";False
+21894;"Bogota 1975 / Colombia East (deprecated)";False
+21896;"Bogota 1975 / Colombia West zone";False
+21897;"Bogota 1975 / Colombia Bogota zone";False
+21898;"Bogota 1975 / Colombia East Central zone";False
+21899;"Bogota 1975 / Colombia East";False
+22032;"Camacupa / UTM zone 32S";False
+22033;"Camacupa / UTM zone 33S";False
+22091;"Camacupa / TM 11.30 SE";False
+22092;"Camacupa / TM 12 SE";False
+22171;"POSGAR 98 / Argentina 1";False
+22172;"POSGAR 98 / Argentina 2";False
+22173;"POSGAR 98 / Argentina 3";False
+22174;"POSGAR 98 / Argentina 4";False
+22175;"POSGAR 98 / Argentina 5";False
+22176;"POSGAR 98 / Argentina 6";False
+22177;"POSGAR 98 / Argentina 7";False
+22181;"POSGAR 94 / Argentina 1";False
+22182;"POSGAR 94 / Argentina 2";False
+22183;"POSGAR 94 / Argentina 3";False
+22184;"POSGAR 94 / Argentina 4";False
+22185;"POSGAR 94 / Argentina 5";False
+22186;"POSGAR 94 / Argentina 6";False
+22187;"POSGAR 94 / Argentina 7";False
+22191;"Campo Inchauspe / Argentina 1";False
+22192;"Campo Inchauspe / Argentina 2";False
+22193;"Campo Inchauspe / Argentina 3";False
+22194;"Campo Inchauspe / Argentina 4";False
+22195;"Campo Inchauspe / Argentina 5";False
+22196;"Campo Inchauspe / Argentina 6";False
+22197;"Campo Inchauspe / Argentina 7";False
+22234;"Cape / UTM zone 34S";False
+22235;"Cape / UTM zone 35S";False
+22236;"Cape / UTM zone 36S (deprecated)";False
+22275;"Cape / Lo15";False
+22277;"Cape / Lo17";False
+22279;"Cape / Lo19";False
+22281;"Cape / Lo21";False
+22283;"Cape / Lo23";False
+22285;"Cape / Lo25";False
+22287;"Cape / Lo27";False
+22289;"Cape / Lo29";False
+22291;"Cape / Lo31";False
+22293;"Cape / Lo33";False
+22300;"Carthage (Paris) / Tunisia Mining Grid";False
+22332;"Carthage / UTM zone 32N";False
+22391;"Carthage / Nord Tunisie";False
+22392;"Carthage / Sud Tunisie";False
+22521;"Corrego Alegre 1970-72 / UTM zone 21S";False
+22522;"Corrego Alegre 1970-72 / UTM zone 22S";False
+22523;"Corrego Alegre 1970-72 / UTM zone 23S";False
+22524;"Corrego Alegre 1970-72 / UTM zone 24S";False
+22525;"Corrego Alegre 1970-72 / UTM zone 25S";False
+22700;"Deir ez Zor / Levant Zone";False
+22770;"Deir ez Zor / Syria Lambert";False
+22780;"Deir ez Zor / Levant Stereographic";False
+22832;"Douala / UTM zone 32N (deprecated)";False
+22991;"Egypt 1907 / Blue Belt";False
+22992;"Egypt 1907 / Red Belt";False
+22993;"Egypt 1907 / Purple Belt";False
+22994;"Egypt 1907 / Extended Purple Belt";False
+23028;"ED50 / UTM zone 28N";False
+23029;"ED50 / UTM zone 29N";False
+23030;"ED50 / UTM zone 30N";False
+23031;"ED50 / UTM zone 31N";False
+23032;"ED50 / UTM zone 32N";False
+23033;"ED50 / UTM zone 33N";False
+23034;"ED50 / UTM zone 34N";False
+23035;"ED50 / UTM zone 35N";False
+23036;"ED50 / UTM zone 36N";False
+23037;"ED50 / UTM zone 37N";False
+23038;"ED50 / UTM zone 38N";False
+23090;"ED50 / TM 0 N";False
+23095;"ED50 / TM 5 NE";False
+23239;"Fahud / UTM zone 39N";False
+23240;"Fahud / UTM zone 40N";False
+23433;"Garoua / UTM zone 33N (deprecated)";False
+23700;"HD72 / EOV";False
+23830;"DGN95 / Indonesia TM-3 zone 46.2";False
+23831;"DGN95 / Indonesia TM-3 zone 47.1";False
+23832;"DGN95 / Indonesia TM-3 zone 47.2";False
+23833;"DGN95 / Indonesia TM-3 zone 48.1";False
+23834;"DGN95 / Indonesia TM-3 zone 48.2";False
+23835;"DGN95 / Indonesia TM-3 zone 49.1";False
+23836;"DGN95 / Indonesia TM-3 zone 49.2";False
+23837;"DGN95 / Indonesia TM-3 zone 50.1";False
+23838;"DGN95 / Indonesia TM-3 zone 50.2";False
+23839;"DGN95 / Indonesia TM-3 zone 51.1";False
+23840;"DGN95 / Indonesia TM-3 zone 51.2";False
+23841;"DGN95 / Indonesia TM-3 zone 52.1";False
+23842;"DGN95 / Indonesia TM-3 zone 52.2";False
+23843;"DGN95 / Indonesia TM-3 zone 53.1";False
+23844;"DGN95 / Indonesia TM-3 zone 53.2";False
+23845;"DGN95 / Indonesia TM-3 zone 54.1";False
+23846;"ID74 / UTM zone 46N";False
+23847;"ID74 / UTM zone 47N";False
+23848;"ID74 / UTM zone 48N";False
+23849;"ID74 / UTM zone 49N";False
+23850;"ID74 / UTM zone 50N";False
+23851;"ID74 / UTM zone 51N";False
+23852;"ID74 / UTM zone 52N";False
+23853;"ID74 / UTM zone 53N (deprecated)";False
+23866;"DGN95 / UTM zone 46N";False
+23867;"DGN95 / UTM zone 47N";False
+23868;"DGN95 / UTM zone 48N";False
+23869;"DGN95 / UTM zone 49N";False
+23870;"DGN95 / UTM zone 50N";False
+23871;"DGN95 / UTM zone 51N";False
+23872;"DGN95 / UTM zone 52N";False
+23877;"DGN95 / UTM zone 47S";False
+23878;"DGN95 / UTM zone 48S";False
+23879;"DGN95 / UTM zone 49S";False
+23880;"DGN95 / UTM zone 50S";False
+23881;"DGN95 / UTM zone 51S";False
+23882;"DGN95 / UTM zone 52S";False
+23883;"DGN95 / UTM zone 53S";False
+23884;"DGN95 / UTM zone 54S";False
+23886;"ID74 / UTM zone 46S (deprecated)";False
+23887;"ID74 / UTM zone 47S";False
+23888;"ID74 / UTM zone 48S";False
+23889;"ID74 / UTM zone 49S";False
+23890;"ID74 / UTM zone 50S";False
+23891;"ID74 / UTM zone 51S";False
+23892;"ID74 / UTM zone 52S";False
+23893;"ID74 / UTM zone 53S";False
+23894;"ID74 / UTM zone 54S";False
+23946;"Indian 1954 / UTM zone 46N";False
+23947;"Indian 1954 / UTM zone 47N";False
+23948;"Indian 1954 / UTM zone 48N";False
+24047;"Indian 1975 / UTM zone 47N";False
+24048;"Indian 1975 / UTM zone 48N";False
+24100;"Jamaica 1875 / Jamaica (Old Grid)";False
+24200;"JAD69 / Jamaica National Grid";False
+24305;"Kalianpur 1937 / UTM zone 45N";False
+24306;"Kalianpur 1937 / UTM zone 46N";False
+24311;"Kalianpur 1962 / UTM zone 41N";False
+24312;"Kalianpur 1962 / UTM zone 42N";False
+24313;"Kalianpur 1962 / UTM zone 43N";False
+24342;"Kalianpur 1975 / UTM zone 42N";False
+24343;"Kalianpur 1975 / UTM zone 43N";False
+24344;"Kalianpur 1975 / UTM zone 44N";False
+24345;"Kalianpur 1975 / UTM zone 45N";False
+24346;"Kalianpur 1975 / UTM zone 46N";False
+24347;"Kalianpur 1975 / UTM zone 47N";False
+24370;"Kalianpur 1880 / India zone 0";False
+24371;"Kalianpur 1880 / India zone I";False
+24372;"Kalianpur 1880 / India zone IIa";False
+24373;"Kalianpur 1880 / India zone III";False
+24374;"Kalianpur 1880 / India zone IV";False
+24375;"Kalianpur 1937 / India zone IIb";False
+24376;"Kalianpur 1962 / India zone I";False
+24377;"Kalianpur 1962 / India zone IIa";False
+24378;"Kalianpur 1975 / India zone I";False
+24379;"Kalianpur 1975 / India zone IIa";False
+24380;"Kalianpur 1975 / India zone IIb";False
+24381;"Kalianpur 1975 / India zone III";False
+24382;"Kalianpur 1880 / India zone IIb";False
+24383;"Kalianpur 1975 / India zone IV";False
+24500;"Kertau 1968 / Singapore Grid";False
+24547;"Kertau 1968 / UTM zone 47N";False
+24548;"Kertau 1968 / UTM zone 48N";False
+24571;"Kertau / R.S.O. Malaya (ch) (deprecated)";False
+24600;"KOC Lambert";False
+24718;"La Canoa / UTM zone 18N";False
+24719;"La Canoa / UTM zone 19N";False
+24720;"La Canoa / UTM zone 20N";False
+24817;"PSAD56 / UTM zone 17N";False
+24818;"PSAD56 / UTM zone 18N";False
+24819;"PSAD56 / UTM zone 19N";False
+24820;"PSAD56 / UTM zone 20N";False
+24821;"PSAD56 / UTM zone 21N";False
+24877;"PSAD56 / UTM zone 17S";False
+24878;"PSAD56 / UTM zone 18S";False
+24879;"PSAD56 / UTM zone 19S";False
+24880;"PSAD56 / UTM zone 20S";False
+24881;"PSAD56 / UTM zone 21S";False
+24882;"PSAD56 / UTM zone 22S";False
+24891;"PSAD56 / Peru west zone";False
+24892;"PSAD56 / Peru central zone";False
+24893;"PSAD56 / Peru east zone";False
+25000;"Leigon / Ghana Metre Grid";False
+25231;"Lome / UTM zone 31N";False
+25391;"Luzon 1911 / Philippines zone I";False
+25392;"Luzon 1911 / Philippines zone II";False
+25393;"Luzon 1911 / Philippines zone III";False
+25394;"Luzon 1911 / Philippines zone IV";False
+25395;"Luzon 1911 / Philippines zone V";False
+25700;"Makassar (Jakarta) / NEIEZ (deprecated)";False
+25828;"ETRS89 / UTM zone 28N";False
+25829;"ETRS89 / UTM zone 29N";False
+25830;"ETRS89 / UTM zone 30N";False
+25831;"ETRS89 / UTM zone 31N";False
+25832;"ETRS89 / UTM zone 32N";False
+25833;"ETRS89 / UTM zone 33N";False
+25834;"ETRS89 / UTM zone 34N";False
+25835;"ETRS89 / UTM zone 35N";False
+25836;"ETRS89 / UTM zone 36N";False
+25837;"ETRS89 / UTM zone 37N";False
+25838;"ETRS89 / UTM zone 38N";False
+25884;"ETRS89 / TM Baltic93";False
+25932;"Malongo 1987 / UTM zone 32S";False
+26191;"Merchich / Nord Maroc";False
+26192;"Merchich / Sud Maroc";False
+26193;"Merchich / Sahara (deprecated)";False
+26194;"Merchich / Sahara Nord";False
+26195;"Merchich / Sahara Sud";False
+26237;"Massawa / UTM zone 37N";False
+26331;"Minna / UTM zone 31N";False
+26332;"Minna / UTM zone 32N";False
+26391;"Minna / Nigeria West Belt";False
+26392;"Minna / Nigeria Mid Belt";False
+26393;"Minna / Nigeria East Belt";False
+26432;"Mhast / UTM zone 32S (deprecated)";False
+26591;"Monte Mario (Rome) / Italy zone 1 (deprecated)";False
+26592;"Monte Mario (Rome) / Italy zone 2 (deprecated)";False
+26632;"M'poraloko / UTM zone 32N";False
+26692;"M'poraloko / UTM zone 32S";False
+26701;"NAD27 / UTM zone 1N";False
+26702;"NAD27 / UTM zone 2N";False
+26703;"NAD27 / UTM zone 3N";False
+26704;"NAD27 / UTM zone 4N";False
+26705;"NAD27 / UTM zone 5N";False
+26706;"NAD27 / UTM zone 6N";False
+26707;"NAD27 / UTM zone 7N";False
+26708;"NAD27 / UTM zone 8N";False
+26709;"NAD27 / UTM zone 9N";False
+26710;"NAD27 / UTM zone 10N";False
+26711;"NAD27 / UTM zone 11N";False
+26712;"NAD27 / UTM zone 12N";False
+26713;"NAD27 / UTM zone 13N";False
+26714;"NAD27 / UTM zone 14N";False
+26715;"NAD27 / UTM zone 15N";False
+26716;"NAD27 / UTM zone 16N";False
+26717;"NAD27 / UTM zone 17N";False
+26718;"NAD27 / UTM zone 18N";False
+26719;"NAD27 / UTM zone 19N";False
+26720;"NAD27 / UTM zone 20N";False
+26721;"NAD27 / UTM zone 21N";False
+26722;"NAD27 / UTM zone 22N";False
+26729;"NAD27 / Alabama East";False
+26730;"NAD27 / Alabama West";False
+26731;"NAD27 / Alaska zone 1";False
+26732;"NAD27 / Alaska zone 2";False
+26733;"NAD27 / Alaska zone 3";False
+26734;"NAD27 / Alaska zone 4";False
+26735;"NAD27 / Alaska zone 5";False
+26736;"NAD27 / Alaska zone 6";False
+26737;"NAD27 / Alaska zone 7";False
+26738;"NAD27 / Alaska zone 8";False
+26739;"NAD27 / Alaska zone 9";False
+26740;"NAD27 / Alaska zone 10";False
+26741;"NAD27 / California zone I";False
+26742;"NAD27 / California zone II";False
+26743;"NAD27 / California zone III";False
+26744;"NAD27 / California zone IV";False
+26745;"NAD27 / California zone V";False
+26746;"NAD27 / California zone VI";False
+26747;"NAD27 / California zone VII (deprecated)";False
+26748;"NAD27 / Arizona East";False
+26749;"NAD27 / Arizona Central";False
+26750;"NAD27 / Arizona West";False
+26751;"NAD27 / Arkansas North";False
+26752;"NAD27 / Arkansas South";False
+26753;"NAD27 / Colorado North";False
+26754;"NAD27 / Colorado Central";False
+26755;"NAD27 / Colorado South";False
+26756;"NAD27 / Connecticut";False
+26757;"NAD27 / Delaware";False
+26758;"NAD27 / Florida East";False
+26759;"NAD27 / Florida West";False
+26760;"NAD27 / Florida North";False
+26766;"NAD27 / Georgia East";False
+26767;"NAD27 / Georgia West";False
+26768;"NAD27 / Idaho East";False
+26769;"NAD27 / Idaho Central";False
+26770;"NAD27 / Idaho West";False
+26771;"NAD27 / Illinois East";False
+26772;"NAD27 / Illinois West";False
+26773;"NAD27 / Indiana East";False
+26774;"NAD27 / Indiana West";False
+26775;"NAD27 / Iowa North";False
+26776;"NAD27 / Iowa South";False
+26777;"NAD27 / Kansas North";False
+26778;"NAD27 / Kansas South";False
+26779;"NAD27 / Kentucky North";False
+26780;"NAD27 / Kentucky South";False
+26781;"NAD27 / Louisiana North";False
+26782;"NAD27 / Louisiana South";False
+26783;"NAD27 / Maine East";False
+26784;"NAD27 / Maine West";False
+26785;"NAD27 / Maryland";False
+26786;"NAD27 / Massachusetts Mainland";False
+26787;"NAD27 / Massachusetts Island";False
+26791;"NAD27 / Minnesota North";False
+26792;"NAD27 / Minnesota Central";False
+26793;"NAD27 / Minnesota South";False
+26794;"NAD27 / Mississippi East";False
+26795;"NAD27 / Mississippi West";False
+26796;"NAD27 / Missouri East";False
+26797;"NAD27 / Missouri Central";False
+26798;"NAD27 / Missouri West";False
+26799;"NAD27 / California zone VII";False
+26801;"NAD Michigan / Michigan East";False
+26802;"NAD Michigan / Michigan Old Central";False
+26803;"NAD Michigan / Michigan West";False
+26811;"NAD Michigan / Michigan North";False
+26812;"NAD Michigan / Michigan Central";False
+26813;"NAD Michigan / Michigan South";False
+26814;"NAD83 / Maine East (ftUS) (deprecated)";False
+26815;"NAD83 / Maine West (ftUS) (deprecated)";False
+26819;"NAD83 / Minnesota North (ftUS) (deprecated)";False
+26820;"NAD83 / Minnesota Central (ftUS) (deprecated)";False
+26821;"NAD83 / Minnesota South (ftUS) (deprecated)";False
+26822;"NAD83 / Nebraska (ftUS) (deprecated)";False
+26823;"NAD83 / West Virginia North (ftUS) (deprecated)";False
+26824;"NAD83 / West Virginia South (ftUS) (deprecated)";False
+26825;"NAD83(HARN) / Maine East (ftUS) (deprecated)";False
+26826;"NAD83(HARN) / Maine West (ftUS) (deprecated)";False
+26830;"NAD83(HARN) / Minnesota North (ftUS) (deprecated)";False
+26831;"NAD83(HARN) / Minnesota Central (ftUS) (deprecated)";False
+26832;"NAD83(HARN) / Minnesota South (ftUS) (deprecated)";False
+26833;"NAD83(HARN) / Nebraska (ftUS) (deprecated)";False
+26834;"NAD83(HARN) / West Virginia North (ftUS) (deprecated)";False
+26835;"NAD83(HARN) / West Virginia South (ftUS) (deprecated)";False
+26836;"NAD83(NSRS2007) / Maine East (ftUS) (deprecated)";False
+26837;"NAD83(NSRS2007) / Maine West (ftUS) (deprecated)";False
+26841;"NAD83(NSRS2007) / Minnesota North (ftUS) (deprecated)";False
+26842;"NAD83(NSRS2007) / Minnesota Central (ftUS) (deprecated)";False
+26843;"NAD83(NSRS2007) / Minnesota South (ftUS) (deprecated)";False
+26844;"NAD83(NSRS2007) / Nebraska (ftUS) (deprecated)";False
+26845;"NAD83(NSRS2007) / West Virginia North (ftUS) (deprecated)";False
+26846;"NAD83(NSRS2007) / West Virginia South (ftUS) (deprecated)";False
+26847;"NAD83 / Maine East (ftUS)";False
+26848;"NAD83 / Maine West (ftUS)";False
+26849;"NAD83 / Minnesota North (ftUS)";False
+26850;"NAD83 / Minnesota Central (ftUS)";False
+26851;"NAD83 / Minnesota South (ftUS)";False
+26852;"NAD83 / Nebraska (ftUS)";False
+26853;"NAD83 / West Virginia North (ftUS)";False
+26854;"NAD83 / West Virginia South (ftUS)";False
+26855;"NAD83(HARN) / Maine East (ftUS)";False
+26856;"NAD83(HARN) / Maine West (ftUS)";False
+26857;"NAD83(HARN) / Minnesota North (ftUS)";False
+26858;"NAD83(HARN) / Minnesota Central (ftUS)";False
+26859;"NAD83(HARN) / Minnesota South (ftUS)";False
+26860;"NAD83(HARN) / Nebraska (ftUS)";False
+26861;"NAD83(HARN) / West Virginia North (ftUS)";False
+26862;"NAD83(HARN) / West Virginia South (ftUS)";False
+26863;"NAD83(NSRS2007) / Maine East (ftUS)";False
+26864;"NAD83(NSRS2007) / Maine West (ftUS)";False
+26865;"NAD83(NSRS2007) / Minnesota North (ftUS)";False
+26866;"NAD83(NSRS2007) / Minnesota Central (ftUS)";False
+26867;"NAD83(NSRS2007) / Minnesota South (ftUS)";False
+26868;"NAD83(NSRS2007) / Nebraska (ftUS)";False
+26869;"NAD83(NSRS2007) / West Virginia North (ftUS)";False
+26870;"NAD83(NSRS2007) / West Virginia South (ftUS)";False
+26891;"NAD83(CSRS) / MTM zone 11";False
+26892;"NAD83(CSRS) / MTM zone 12";False
+26893;"NAD83(CSRS) / MTM zone 13";False
+26894;"NAD83(CSRS) / MTM zone 14";False
+26895;"NAD83(CSRS) / MTM zone 15";False
+26896;"NAD83(CSRS) / MTM zone 16";False
+26897;"NAD83(CSRS) / MTM zone 17";False
+26898;"NAD83(CSRS) / MTM zone 1";False
+26899;"NAD83(CSRS) / MTM zone 2";False
+26901;"NAD83 / UTM zone 1N";False
+26902;"NAD83 / UTM zone 2N";False
+26903;"NAD83 / UTM zone 3N";False
+26904;"NAD83 / UTM zone 4N";False
+26905;"NAD83 / UTM zone 5N";False
+26906;"NAD83 / UTM zone 6N";False
+26907;"NAD83 / UTM zone 7N";False
+26908;"NAD83 / UTM zone 8N";False
+26909;"NAD83 / UTM zone 9N";False
+26910;"NAD83 / UTM zone 10N";False
+26911;"NAD83 / UTM zone 11N";False
+26912;"NAD83 / UTM zone 12N";False
+26913;"NAD83 / UTM zone 13N";False
+26914;"NAD83 / UTM zone 14N";False
+26915;"NAD83 / UTM zone 15N";False
+26916;"NAD83 / UTM zone 16N";False
+26917;"NAD83 / UTM zone 17N";False
+26918;"NAD83 / UTM zone 18N";False
+26919;"NAD83 / UTM zone 19N";False
+26920;"NAD83 / UTM zone 20N";False
+26921;"NAD83 / UTM zone 21N";False
+26922;"NAD83 / UTM zone 22N";False
+26923;"NAD83 / UTM zone 23N";False
+26929;"NAD83 / Alabama East";False
+26930;"NAD83 / Alabama West";False
+26931;"NAD83 / Alaska zone 1";False
+26932;"NAD83 / Alaska zone 2";False
+26933;"NAD83 / Alaska zone 3";False
+26934;"NAD83 / Alaska zone 4";False
+26935;"NAD83 / Alaska zone 5";False
+26936;"NAD83 / Alaska zone 6";False
+26937;"NAD83 / Alaska zone 7";False
+26938;"NAD83 / Alaska zone 8";False
+26939;"NAD83 / Alaska zone 9";False
+26940;"NAD83 / Alaska zone 10";False
+26941;"NAD83 / California zone 1";False
+26942;"NAD83 / California zone 2";False
+26943;"NAD83 / California zone 3";False
+26944;"NAD83 / California zone 4";False
+26945;"NAD83 / California zone 5";False
+26946;"NAD83 / California zone 6";False
+26948;"NAD83 / Arizona East";False
+26949;"NAD83 / Arizona Central";False
+26950;"NAD83 / Arizona West";False
+26951;"NAD83 / Arkansas North";False
+26952;"NAD83 / Arkansas South";False
+26953;"NAD83 / Colorado North";False
+26954;"NAD83 / Colorado Central";False
+26955;"NAD83 / Colorado South";False
+26956;"NAD83 / Connecticut";False
+26957;"NAD83 / Delaware";False
+26958;"NAD83 / Florida East";False
+26959;"NAD83 / Florida West";False
+26960;"NAD83 / Florida North";False
+26961;"NAD83 / Hawaii zone 1";False
+26962;"NAD83 / Hawaii zone 2";False
+26963;"NAD83 / Hawaii zone 3";False
+26964;"NAD83 / Hawaii zone 4";False
+26965;"NAD83 / Hawaii zone 5";False
+26966;"NAD83 / Georgia East";False
+26967;"NAD83 / Georgia West";False
+26968;"NAD83 / Idaho East";False
+26969;"NAD83 / Idaho Central";False
+26970;"NAD83 / Idaho West";False
+26971;"NAD83 / Illinois East";False
+26972;"NAD83 / Illinois West";False
+26973;"NAD83 / Indiana East";False
+26974;"NAD83 / Indiana West";False
+26975;"NAD83 / Iowa North";False
+26976;"NAD83 / Iowa South";False
+26977;"NAD83 / Kansas North";False
+26978;"NAD83 / Kansas South";False
+26979;"NAD83 / Kentucky North (deprecated)";False
+26980;"NAD83 / Kentucky South";False
+26981;"NAD83 / Louisiana North";False
+26982;"NAD83 / Louisiana South";False
+26983;"NAD83 / Maine East";False
+26984;"NAD83 / Maine West";False
+26985;"NAD83 / Maryland";False
+26986;"NAD83 / Massachusetts Mainland";False
+26987;"NAD83 / Massachusetts Island";False
+26988;"NAD83 / Michigan North";False
+26989;"NAD83 / Michigan Central";False
+26990;"NAD83 / Michigan South";False
+26991;"NAD83 / Minnesota North";False
+26992;"NAD83 / Minnesota Central";False
+26993;"NAD83 / Minnesota South";False
+26994;"NAD83 / Mississippi East";False
+26995;"NAD83 / Mississippi West";False
+26996;"NAD83 / Missouri East";False
+26997;"NAD83 / Missouri Central";False
+26998;"NAD83 / Missouri West";False
+27037;"Nahrwan 1967 / UTM zone 37N";False
+27038;"Nahrwan 1967 / UTM zone 38N";False
+27039;"Nahrwan 1967 / UTM zone 39N";False
+27040;"Nahrwan 1967 / UTM zone 40N";False
+27120;"Naparima 1972 / UTM zone 20N";False
+27200;"NZGD49 / New Zealand Map Grid";False
+27205;"NZGD49 / Mount Eden Circuit";False
+27206;"NZGD49 / Bay of Plenty Circuit";False
+27207;"NZGD49 / Poverty Bay Circuit";False
+27208;"NZGD49 / Hawkes Bay Circuit";False
+27209;"NZGD49 / Taranaki Circuit";False
+27210;"NZGD49 / Tuhirangi Circuit";False
+27211;"NZGD49 / Wanganui Circuit";False
+27212;"NZGD49 / Wairarapa Circuit";False
+27213;"NZGD49 / Wellington Circuit";False
+27214;"NZGD49 / Collingwood Circuit";False
+27215;"NZGD49 / Nelson Circuit";False
+27216;"NZGD49 / Karamea Circuit";False
+27217;"NZGD49 / Buller Circuit";False
+27218;"NZGD49 / Grey Circuit";False
+27219;"NZGD49 / Amuri Circuit";False
+27220;"NZGD49 / Marlborough Circuit";False
+27221;"NZGD49 / Hokitika Circuit";False
+27222;"NZGD49 / Okarito Circuit";False
+27223;"NZGD49 / Jacksons Bay Circuit";False
+27224;"NZGD49 / Mount Pleasant Circuit";False
+27225;"NZGD49 / Gawler Circuit";False
+27226;"NZGD49 / Timaru Circuit";False
+27227;"NZGD49 / Lindis Peak Circuit";False
+27228;"NZGD49 / Mount Nicholas Circuit";False
+27229;"NZGD49 / Mount York Circuit";False
+27230;"NZGD49 / Observation Point Circuit";False
+27231;"NZGD49 / North Taieri Circuit";False
+27232;"NZGD49 / Bluff Circuit";False
+27258;"NZGD49 / UTM zone 58S";False
+27259;"NZGD49 / UTM zone 59S";False
+27260;"NZGD49 / UTM zone 60S";False
+27291;"NZGD49 / North Island Grid";False
+27292;"NZGD49 / South Island Grid";False
+27391;"NGO 1948 (Oslo) / NGO zone I";False
+27392;"NGO 1948 (Oslo) / NGO zone II";False
+27393;"NGO 1948 (Oslo) / NGO zone III";False
+27394;"NGO 1948 (Oslo) / NGO zone IV";False
+27395;"NGO 1948 (Oslo) / NGO zone V";False
+27396;"NGO 1948 (Oslo) / NGO zone VI";False
+27397;"NGO 1948 (Oslo) / NGO zone VII";False
+27398;"NGO 1948 (Oslo) / NGO zone VIII";False
+27429;"Datum 73 / UTM zone 29N";False
+27492;"Datum 73 / Modified Portuguese Grid (deprecated)";False
+27493;"Datum 73 / Modified Portuguese Grid";False
+27500;"ATF (Paris) / Nord de Guerre";False
+27561;"NTF (Paris) / Lambert Nord France";False
+27562;"NTF (Paris) / Lambert Centre France";False
+27563;"NTF (Paris) / Lambert Sud France";False
+27564;"NTF (Paris) / Lambert Corse";False
+27571;"NTF (Paris) / Lambert zone I";False
+27572;"NTF (Paris) / Lambert zone II";False
+27573;"NTF (Paris) / Lambert zone III";False
+27574;"NTF (Paris) / Lambert zone IV";False
+27581;"NTF (Paris) / France I (deprecated)";False
+27582;"NTF (Paris) / France II (deprecated)";False
+27583;"NTF (Paris) / France III (deprecated)";False
+27584;"NTF (Paris) / France IV (deprecated)";False
+27591;"NTF (Paris) / Nord France (deprecated)";False
+27592;"NTF (Paris) / Centre France (deprecated)";False
+27593;"NTF (Paris) / Sud France (deprecated)";False
+27594;"NTF (Paris) / Corse (deprecated)";False
+27700;"OSGB 1936 / British National Grid";False
+28191;"Palestine 1923 / Palestine Grid";False
+28192;"Palestine 1923 / Palestine Belt";False
+28193;"Palestine 1923 / Israeli CS Grid";False
+28232;"Pointe Noire / UTM zone 32S";False
+28348;"GDA94 / MGA zone 48";False
+28349;"GDA94 / MGA zone 49";False
+28350;"GDA94 / MGA zone 50";False
+28351;"GDA94 / MGA zone 51";False
+28352;"GDA94 / MGA zone 52";False
+28353;"GDA94 / MGA zone 53";False
+28354;"GDA94 / MGA zone 54";False
+28355;"GDA94 / MGA zone 55";False
+28356;"GDA94 / MGA zone 56";False
+28357;"GDA94 / MGA zone 57";False
+28358;"GDA94 / MGA zone 58";False
+28402;"Pulkovo 1942 / Gauss-Kruger zone 2 (deprecated)";False
+28403;"Pulkovo 1942 / Gauss-Kruger zone 3 (deprecated)";False
+28404;"Pulkovo 1942 / Gauss-Kruger zone 4";False
+28405;"Pulkovo 1942 / Gauss-Kruger zone 5";False
+28406;"Pulkovo 1942 / Gauss-Kruger zone 6";False
+28407;"Pulkovo 1942 / Gauss-Kruger zone 7";False
+28408;"Pulkovo 1942 / Gauss-Kruger zone 8";False
+28409;"Pulkovo 1942 / Gauss-Kruger zone 9";False
+28410;"Pulkovo 1942 / Gauss-Kruger zone 10";False
+28411;"Pulkovo 1942 / Gauss-Kruger zone 11";False
+28412;"Pulkovo 1942 / Gauss-Kruger zone 12";False
+28413;"Pulkovo 1942 / Gauss-Kruger zone 13";False
+28414;"Pulkovo 1942 / Gauss-Kruger zone 14";False
+28415;"Pulkovo 1942 / Gauss-Kruger zone 15";False
+28416;"Pulkovo 1942 / Gauss-Kruger zone 16";False
+28417;"Pulkovo 1942 / Gauss-Kruger zone 17";False
+28418;"Pulkovo 1942 / Gauss-Kruger zone 18";False
+28419;"Pulkovo 1942 / Gauss-Kruger zone 19";False
+28420;"Pulkovo 1942 / Gauss-Kruger zone 20";False
+28421;"Pulkovo 1942 / Gauss-Kruger zone 21";False
+28422;"Pulkovo 1942 / Gauss-Kruger zone 22";False
+28423;"Pulkovo 1942 / Gauss-Kruger zone 23";False
+28424;"Pulkovo 1942 / Gauss-Kruger zone 24";False
+28425;"Pulkovo 1942 / Gauss-Kruger zone 25";False
+28426;"Pulkovo 1942 / Gauss-Kruger zone 26";False
+28427;"Pulkovo 1942 / Gauss-Kruger zone 27";False
+28428;"Pulkovo 1942 / Gauss-Kruger zone 28";False
+28429;"Pulkovo 1942 / Gauss-Kruger zone 29";False
+28430;"Pulkovo 1942 / Gauss-Kruger zone 30";False
+28431;"Pulkovo 1942 / Gauss-Kruger zone 31";False
+28432;"Pulkovo 1942 / Gauss-Kruger zone 32";False
+28462;"Pulkovo 1942 / Gauss-Kruger 2N (deprecated)";False
+28463;"Pulkovo 1942 / Gauss-Kruger 3N (deprecated)";False
+28464;"Pulkovo 1942 / Gauss-Kruger 4N (deprecated)";False
+28465;"Pulkovo 1942 / Gauss-Kruger 5N (deprecated)";False
+28466;"Pulkovo 1942 / Gauss-Kruger 6N (deprecated)";False
+28467;"Pulkovo 1942 / Gauss-Kruger 7N (deprecated)";False
+28468;"Pulkovo 1942 / Gauss-Kruger 8N (deprecated)";False
+28469;"Pulkovo 1942 / Gauss-Kruger 9N (deprecated)";False
+28470;"Pulkovo 1942 / Gauss-Kruger 10N (deprecated)";False
+28471;"Pulkovo 1942 / Gauss-Kruger 11N (deprecated)";False
+28472;"Pulkovo 1942 / Gauss-Kruger 12N (deprecated)";False
+28473;"Pulkovo 1942 / Gauss-Kruger 13N (deprecated)";False
+28474;"Pulkovo 1942 / Gauss-Kruger 14N (deprecated)";False
+28475;"Pulkovo 1942 / Gauss-Kruger 15N (deprecated)";False
+28476;"Pulkovo 1942 / Gauss-Kruger 16N (deprecated)";False
+28477;"Pulkovo 1942 / Gauss-Kruger 17N (deprecated)";False
+28478;"Pulkovo 1942 / Gauss-Kruger 18N (deprecated)";False
+28479;"Pulkovo 1942 / Gauss-Kruger 19N (deprecated)";False
+28480;"Pulkovo 1942 / Gauss-Kruger 20N (deprecated)";False
+28481;"Pulkovo 1942 / Gauss-Kruger 21N (deprecated)";False
+28482;"Pulkovo 1942 / Gauss-Kruger 22N (deprecated)";False
+28483;"Pulkovo 1942 / Gauss-Kruger 23N (deprecated)";False
+28484;"Pulkovo 1942 / Gauss-Kruger 24N (deprecated)";False
+28485;"Pulkovo 1942 / Gauss-Kruger 25N (deprecated)";False
+28486;"Pulkovo 1942 / Gauss-Kruger 26N (deprecated)";False
+28487;"Pulkovo 1942 / Gauss-Kruger 27N (deprecated)";False
+28488;"Pulkovo 1942 / Gauss-Kruger 28N (deprecated)";False
+28489;"Pulkovo 1942 / Gauss-Kruger 29N (deprecated)";False
+28490;"Pulkovo 1942 / Gauss-Kruger 30N (deprecated)";False
+28491;"Pulkovo 1942 / Gauss-Kruger 31N (deprecated)";False
+28492;"Pulkovo 1942 / Gauss-Kruger 32N (deprecated)";False
+28600;"Qatar 1974 / Qatar National Grid";False
+28991;"Amersfoort / RD Old";False
+28992;"Amersfoort / RD New";False
+29100;"SAD69 / Brazil Polyconic (deprecated)";False
+29101;"SAD69 / Brazil Polyconic";False
+29118;"SAD69 / UTM zone 18N (deprecated)";False
+29119;"SAD69 / UTM zone 19N (deprecated)";False
+29120;"SAD69 / UTM zone 20N (deprecated)";False
+29121;"SAD69 / UTM zone 21N (deprecated)";False
+29122;"SAD69 / UTM zone 22N (deprecated)";False
+29168;"SAD69 / UTM zone 18N";False
+29169;"SAD69 / UTM zone 19N";False
+29170;"SAD69 / UTM zone 20N";False
+29171;"SAD69 / UTM zone 21N";False
+29172;"SAD69 / UTM zone 22N";False
+29177;"SAD69 / UTM zone 17S (deprecated)";False
+29178;"SAD69 / UTM zone 18S (deprecated)";False
+29179;"SAD69 / UTM zone 19S (deprecated)";False
+29180;"SAD69 / UTM zone 20S (deprecated)";False
+29181;"SAD69 / UTM zone 21S (deprecated)";False
+29182;"SAD69 / UTM zone 22S (deprecated)";False
+29183;"SAD69 / UTM zone 23S (deprecated)";False
+29184;"SAD69 / UTM zone 24S (deprecated)";False
+29185;"SAD69 / UTM zone 25S (deprecated)";False
+29187;"SAD69 / UTM zone 17S";False
+29188;"SAD69 / UTM zone 18S";False
+29189;"SAD69 / UTM zone 19S";False
+29190;"SAD69 / UTM zone 20S";False
+29191;"SAD69 / UTM zone 21S";False
+29192;"SAD69 / UTM zone 22S";False
+29193;"SAD69 / UTM zone 23S";False
+29194;"SAD69 / UTM zone 24S";False
+29195;"SAD69 / UTM zone 25S";False
+29220;"Sapper Hill 1943 / UTM zone 20S";False
+29221;"Sapper Hill 1943 / UTM zone 21S";False
+29333;"Schwarzeck / UTM zone 33S";False
+29371;"Schwarzeck / Lo22/11";False
+29373;"Schwarzeck / Lo22/13";False
+29375;"Schwarzeck / Lo22/15";False
+29377;"Schwarzeck / Lo22/17";False
+29379;"Schwarzeck / Lo22/19";False
+29381;"Schwarzeck / Lo22/21";False
+29383;"Schwarzeck / Lo22/23";False
+29385;"Schwarzeck / Lo22/25";False
+29635;"Sudan / UTM zone 35N (deprecated)";False
+29636;"Sudan / UTM zone 36N (deprecated)";False
+29700;"Tananarive (Paris) / Laborde Grid (deprecated)";False
+29701;"Tananarive (Paris) / Laborde Grid";False
+29702;"Tananarive (Paris) / Laborde Grid approximation";False
+29738;"Tananarive / UTM zone 38S";False
+29739;"Tananarive / UTM zone 39S";False
+29849;"Timbalai 1948 / UTM zone 49N";False
+29850;"Timbalai 1948 / UTM zone 50N";False
+29871;"Timbalai 1948 / RSO Borneo (ch)";False
+29872;"Timbalai 1948 / RSO Borneo (ft)";False
+29873;"Timbalai 1948 / RSO Borneo (m)";False
+29900;"TM65 / Irish National Grid (deprecated)";False
+29901;"OSNI 1952 / Irish National Grid";False
+29902;"TM65 / Irish Grid";False
+29903;"TM75 / Irish Grid";False
+30161;"Tokyo / Japan Plane Rectangular CS I";False
+30162;"Tokyo / Japan Plane Rectangular CS II";False
+30163;"Tokyo / Japan Plane Rectangular CS III";False
+30164;"Tokyo / Japan Plane Rectangular CS IV";False
+30165;"Tokyo / Japan Plane Rectangular CS V";False
+30166;"Tokyo / Japan Plane Rectangular CS VI";False
+30167;"Tokyo / Japan Plane Rectangular CS VII";False
+30168;"Tokyo / Japan Plane Rectangular CS VIII";False
+30169;"Tokyo / Japan Plane Rectangular CS IX";False
+30170;"Tokyo / Japan Plane Rectangular CS X";False
+30171;"Tokyo / Japan Plane Rectangular CS XI";False
+30172;"Tokyo / Japan Plane Rectangular CS XII";False
+30173;"Tokyo / Japan Plane Rectangular CS XIII";False
+30174;"Tokyo / Japan Plane Rectangular CS XIV";False
+30175;"Tokyo / Japan Plane Rectangular CS XV";False
+30176;"Tokyo / Japan Plane Rectangular CS XVI";False
+30177;"Tokyo / Japan Plane Rectangular CS XVII";False
+30178;"Tokyo / Japan Plane Rectangular CS XVIII";False
+30179;"Tokyo / Japan Plane Rectangular CS XIX";False
+30200;"Trinidad 1903 / Trinidad Grid";False
+30339;"TC(1948) / UTM zone 39N";False
+30340;"TC(1948) / UTM zone 40N";False
+30491;"Voirol 1875 / Nord Algerie (ancienne)";False
+30492;"Voirol 1875 / Sud Algerie (ancienne)";False
+30493;"Voirol 1879 / Nord Algerie (ancienne)";False
+30494;"Voirol 1879 / Sud Algerie (ancienne)";False
+30729;"Nord Sahara 1959 / UTM zone 29N";False
+30730;"Nord Sahara 1959 / UTM zone 30N";False
+30731;"Nord Sahara 1959 / UTM zone 31N";False
+30732;"Nord Sahara 1959 / UTM zone 32N";False
+30791;"Nord Sahara 1959 / Voirol Unifie Nord";False
+30792;"Nord Sahara 1959 / Voirol Unifie Sud";False
+30800;"RT38 2.5 gon W (deprecated)";False
+31028;"Yoff / UTM zone 28N";False
+31121;"Zanderij / UTM zone 21N";False
+31154;"Zanderij / TM 54 NW";False
+31170;"Zanderij / Suriname Old TM";False
+31171;"Zanderij / Suriname TM";False
+31251;"MGI (Ferro) / Austria GK West Zone";False
+31252;"MGI (Ferro) / Austria GK Central Zone";False
+31253;"MGI (Ferro) / Austria GK East Zone";False
+31254;"MGI / Austria GK West";False
+31255;"MGI / Austria GK Central";False
+31256;"MGI / Austria GK East";False
+31257;"MGI / Austria GK M28";False
+31258;"MGI / Austria GK M31";False
+31259;"MGI / Austria GK M34";False
+31265;"MGI / 3-degree Gauss zone 5 (deprecated)";False
+31266;"MGI / 3-degree Gauss zone 6 (deprecated)";False
+31267;"MGI / 3-degree Gauss zone 7 (deprecated)";False
+31268;"MGI / 3-degree Gauss zone 8 (deprecated)";False
+31275;"MGI / Balkans zone 5 (deprecated)";False
+31276;"MGI / Balkans zone 6 (deprecated)";False
+31277;"MGI / Balkans zone 7 (deprecated)";False
+31278;"MGI / Balkans zone 8 (deprecated)";False
+31279;"MGI / Balkans zone 8 (deprecated)";False
+31281;"MGI (Ferro) / Austria West Zone";False
+31282;"MGI (Ferro) / Austria Central Zone";False
+31283;"MGI (Ferro) / Austria East Zone";False
+31284;"MGI / Austria M28";False
+31285;"MGI / Austria M31";False
+31286;"MGI / Austria M34";False
+31287;"MGI / Austria Lambert";False
+31288;"MGI (Ferro) / M28";False
+31289;"MGI (Ferro) / M31";False
+31290;"MGI (Ferro) / M34";False
+31291;"MGI (Ferro) / Austria West Zone (deprecated)";False
+31292;"MGI (Ferro) / Austria Central Zone (deprecated)";False
+31293;"MGI (Ferro) / Austria East Zone (deprecated)";False
+31294;"MGI / M28 (deprecated)";False
+31295;"MGI / M31 (deprecated)";False
+31296;"MGI / M34 (deprecated)";False
+31297;"MGI / Austria Lambert (deprecated)";False
+31300;"Belge 1972 / Belge Lambert 72";False
+31370;"Belge 1972 / Belgian Lambert 72";False
+31461;"DHDN / 3-degree Gauss zone 1 (deprecated)";False
+31462;"DHDN / 3-degree Gauss zone 2 (deprecated)";False
+31463;"DHDN / 3-degree Gauss zone 3 (deprecated)";False
+31464;"DHDN / 3-degree Gauss zone 4 (deprecated)";False
+31465;"DHDN / 3-degree Gauss zone 5 (deprecated)";False
+31466;"DHDN / 3-degree Gauss-Kruger zone 2";False
+31467;"DHDN / 3-degree Gauss-Kruger zone 3";False
+31468;"DHDN / 3-degree Gauss-Kruger zone 4";False
+31469;"DHDN / 3-degree Gauss-Kruger zone 5";False
+31528;"Conakry 1905 / UTM zone 28N";False
+31529;"Conakry 1905 / UTM zone 29N";False
+31600;"Dealul Piscului 1930 / Stereo 33";False
+31700;"Dealul Piscului 1970/ Stereo 70 (deprecated)";False
+31838;"NGN / UTM zone 38N";False
+31839;"NGN / UTM zone 39N";False
+31900;"KUDAMS / KTM (deprecated)";False
+31901;"KUDAMS / KTM";False
+31965;"SIRGAS 2000 / UTM zone 11N";False
+31966;"SIRGAS 2000 / UTM zone 12N";False
+31967;"SIRGAS 2000 / UTM zone 13N";False
+31968;"SIRGAS 2000 / UTM zone 14N";False
+31969;"SIRGAS 2000 / UTM zone 15N";False
+31970;"SIRGAS 2000 / UTM zone 16N";False
+31971;"SIRGAS 2000 / UTM zone 17N";False
+31972;"SIRGAS 2000 / UTM zone 18N";False
+31973;"SIRGAS 2000 / UTM zone 19N";False
+31974;"SIRGAS 2000 / UTM zone 20N";False
+31975;"SIRGAS 2000 / UTM zone 21N";False
+31976;"SIRGAS 2000 / UTM zone 22N";False
+31977;"SIRGAS 2000 / UTM zone 17S";False
+31978;"SIRGAS 2000 / UTM zone 18S";False
+31979;"SIRGAS 2000 / UTM zone 19S";False
+31980;"SIRGAS 2000 / UTM zone 20S";False
+31981;"SIRGAS 2000 / UTM zone 21S";False
+31982;"SIRGAS 2000 / UTM zone 22S";False
+31983;"SIRGAS 2000 / UTM zone 23S";False
+31984;"SIRGAS 2000 / UTM zone 24S";False
+31985;"SIRGAS 2000 / UTM zone 25S";False
+31986;"SIRGAS 1995 / UTM zone 17N";False
+31987;"SIRGAS 1995 / UTM zone 18N";False
+31988;"SIRGAS 1995 / UTM zone 19N";False
+31989;"SIRGAS 1995 / UTM zone 20N";False
+31990;"SIRGAS 1995 / UTM zone 21N";False
+31991;"SIRGAS 1995 / UTM zone 22N";False
+31992;"SIRGAS 1995 / UTM zone 17S";False
+31993;"SIRGAS 1995 / UTM zone 18S";False
+31994;"SIRGAS 1995 / UTM zone 19S";False
+31995;"SIRGAS 1995 / UTM zone 20S";False
+31996;"SIRGAS 1995 / UTM zone 21S";False
+31997;"SIRGAS 1995 / UTM zone 22S";False
+31998;"SIRGAS 1995 / UTM zone 23S";False
+31999;"SIRGAS 1995 / UTM zone 24S";False
+32000;"SIRGAS 1995 / UTM zone 25S";False
+32001;"NAD27 / Montana North";False
+32002;"NAD27 / Montana Central";False
+32003;"NAD27 / Montana South";False
+32005;"NAD27 / Nebraska North";False
+32006;"NAD27 / Nebraska South";False
+32007;"NAD27 / Nevada East";False
+32008;"NAD27 / Nevada Central";False
+32009;"NAD27 / Nevada West";False
+32010;"NAD27 / New Hampshire";False
+32011;"NAD27 / New Jersey";False
+32012;"NAD27 / New Mexico East";False
+32013;"NAD27 / New Mexico Central";False
+32014;"NAD27 / New Mexico West";False
+32015;"NAD27 / New York East";False
+32016;"NAD27 / New York Central";False
+32017;"NAD27 / New York West";False
+32018;"NAD27 / New York Long Island (deprecated)";False
+32019;"NAD27 / North Carolina";False
+32020;"NAD27 / North Dakota North";False
+32021;"NAD27 / North Dakota South";False
+32022;"NAD27 / Ohio North";False
+32023;"NAD27 / Ohio South";False
+32024;"NAD27 / Oklahoma North";False
+32025;"NAD27 / Oklahoma South";False
+32026;"NAD27 / Oregon North";False
+32027;"NAD27 / Oregon South";False
+32028;"NAD27 / Pennsylvania North";False
+32029;"NAD27 / Pennsylvania South (deprecated)";False
+32030;"NAD27 / Rhode Island";False
+32031;"NAD27 / South Carolina North";False
+32033;"NAD27 / South Carolina South";False
+32034;"NAD27 / South Dakota North";False
+32035;"NAD27 / South Dakota South";False
+32036;"NAD27 / Tennessee (deprecated)";False
+32037;"NAD27 / Texas North";False
+32038;"NAD27 / Texas North Central";False
+32039;"NAD27 / Texas Central";False
+32040;"NAD27 / Texas South Central";False
+32041;"NAD27 / Texas South";False
+32042;"NAD27 / Utah North";False
+32043;"NAD27 / Utah Central";False
+32044;"NAD27 / Utah South";False
+32045;"NAD27 / Vermont";False
+32046;"NAD27 / Virginia North";False
+32047;"NAD27 / Virginia South";False
+32048;"NAD27 / Washington North";False
+32049;"NAD27 / Washington South";False
+32050;"NAD27 / West Virginia North";False
+32051;"NAD27 / West Virginia South";False
+32052;"NAD27 / Wisconsin North";False
+32053;"NAD27 / Wisconsin Central";False
+32054;"NAD27 / Wisconsin South";False
+32055;"NAD27 / Wyoming East";False
+32056;"NAD27 / Wyoming East Central";False
+32057;"NAD27 / Wyoming West Central";False
+32058;"NAD27 / Wyoming West";False
+32061;"NAD27 / Guatemala Norte (deprecated)";False
+32062;"NAD27 / Guatemala Sur (deprecated)";False
+32064;"NAD27 / BLM 14N (ftUS)";False
+32065;"NAD27 / BLM 15N (ftUS)";False
+32066;"NAD27 / BLM 16N (ftUS)";False
+32067;"NAD27 / BLM 17N (ftUS)";False
+32074;"NAD27 / BLM 14N (feet) (deprecated)";False
+32075;"NAD27 / BLM 15N (feet) (deprecated)";False
+32076;"NAD27 / BLM 16N (feet) (deprecated)";False
+32077;"NAD27 / BLM 17N (feet) (deprecated)";False
+32081;"NAD27 / MTM zone 1";False
+32082;"NAD27 / MTM zone 2";False
+32083;"NAD27 / MTM zone 3";False
+32084;"NAD27 / MTM zone 4";False
+32085;"NAD27 / MTM zone 5";False
+32086;"NAD27 / MTM zone 6";False
+32098;"NAD27 / Quebec Lambert";False
+32099;"NAD27 / Louisiana Offshore";False
+32100;"NAD83 / Montana";False
+32104;"NAD83 / Nebraska";False
+32107;"NAD83 / Nevada East";False
+32108;"NAD83 / Nevada Central";False
+32109;"NAD83 / Nevada West";False
+32110;"NAD83 / New Hampshire";False
+32111;"NAD83 / New Jersey";False
+32112;"NAD83 / New Mexico East";False
+32113;"NAD83 / New Mexico Central";False
+32114;"NAD83 / New Mexico West";False
+32115;"NAD83 / New York East";False
+32116;"NAD83 / New York Central";False
+32117;"NAD83 / New York West";False
+32118;"NAD83 / New York Long Island";False
+32119;"NAD83 / North Carolina";False
+32120;"NAD83 / North Dakota North";False
+32121;"NAD83 / North Dakota South";False
+32122;"NAD83 / Ohio North";False
+32123;"NAD83 / Ohio South";False
+32124;"NAD83 / Oklahoma North";False
+32125;"NAD83 / Oklahoma South";False
+32126;"NAD83 / Oregon North";False
+32127;"NAD83 / Oregon South";False
+32128;"NAD83 / Pennsylvania North";False
+32129;"NAD83 / Pennsylvania South";False
+32130;"NAD83 / Rhode Island";False
+32133;"NAD83 / South Carolina";False
+32134;"NAD83 / South Dakota North";False
+32135;"NAD83 / South Dakota South";False
+32136;"NAD83 / Tennessee";False
+32137;"NAD83 / Texas North";False
+32138;"NAD83 / Texas North Central";False
+32139;"NAD83 / Texas Central";False
+32140;"NAD83 / Texas South Central";False
+32141;"NAD83 / Texas South";False
+32142;"NAD83 / Utah North";False
+32143;"NAD83 / Utah Central";False
+32144;"NAD83 / Utah South";False
+32145;"NAD83 / Vermont";False
+32146;"NAD83 / Virginia North";False
+32147;"NAD83 / Virginia South";False
+32148;"NAD83 / Washington North";False
+32149;"NAD83 / Washington South";False
+32150;"NAD83 / West Virginia North";False
+32151;"NAD83 / West Virginia South";False
+32152;"NAD83 / Wisconsin North";False
+32153;"NAD83 / Wisconsin Central";False
+32154;"NAD83 / Wisconsin South";False
+32155;"NAD83 / Wyoming East";False
+32156;"NAD83 / Wyoming East Central";False
+32157;"NAD83 / Wyoming West Central";False
+32158;"NAD83 / Wyoming West";False
+32161;"NAD83 / Puerto Rico & Virgin Is.";False
+32164;"NAD83 / BLM 14N (ftUS)";False
+32165;"NAD83 / BLM 15N (ftUS)";False
+32166;"NAD83 / BLM 16N (ftUS)";False
+32167;"NAD83 / BLM 17N (ftUS)";False
+32180;"NAD83 / SCoPQ zone 2 (deprecated)";False
+32181;"NAD83 / MTM zone 1";False
+32182;"NAD83 / MTM zone 2";False
+32183;"NAD83 / MTM zone 3";False
+32184;"NAD83 / MTM zone 4";False
+32185;"NAD83 / MTM zone 5";False
+32186;"NAD83 / MTM zone 6";False
+32187;"NAD83 / MTM zone 7";False
+32188;"NAD83 / MTM zone 8";False
+32189;"NAD83 / MTM zone 9";False
+32190;"NAD83 / MTM zone 10";False
+32191;"NAD83 / MTM zone 11";False
+32192;"NAD83 / MTM zone 12";False
+32193;"NAD83 / MTM zone 13";False
+32194;"NAD83 / MTM zone 14";False
+32195;"NAD83 / MTM zone 15";False
+32196;"NAD83 / MTM zone 16";False
+32197;"NAD83 / MTM zone 17";False
+32198;"NAD83 / Quebec Lambert";False
+32199;"NAD83 / Louisiana Offshore";False
+32201;"WGS 72 / UTM zone 1N";False
+32202;"WGS 72 / UTM zone 2N";False
+32203;"WGS 72 / UTM zone 3N";False
+32204;"WGS 72 / UTM zone 4N";False
+32205;"WGS 72 / UTM zone 5N";False
+32206;"WGS 72 / UTM zone 6N";False
+32207;"WGS 72 / UTM zone 7N";False
+32208;"WGS 72 / UTM zone 8N";False
+32209;"WGS 72 / UTM zone 9N";False
+32210;"WGS 72 / UTM zone 10N";False
+32211;"WGS 72 / UTM zone 11N";False
+32212;"WGS 72 / UTM zone 12N";False
+32213;"WGS 72 / UTM zone 13N";False
+32214;"WGS 72 / UTM zone 14N";False
+32215;"WGS 72 / UTM zone 15N";False
+32216;"WGS 72 / UTM zone 16N";False
+32217;"WGS 72 / UTM zone 17N";False
+32218;"WGS 72 / UTM zone 18N";False
+32219;"WGS 72 / UTM zone 19N";False
+32220;"WGS 72 / UTM zone 20N";False
+32221;"WGS 72 / UTM zone 21N";False
+32222;"WGS 72 / UTM zone 22N";False
+32223;"WGS 72 / UTM zone 23N";False
+32224;"WGS 72 / UTM zone 24N";False
+32225;"WGS 72 / UTM zone 25N";False
+32226;"WGS 72 / UTM zone 26N";False
+32227;"WGS 72 / UTM zone 27N";False
+32228;"WGS 72 / UTM zone 28N";False
+32229;"WGS 72 / UTM zone 29N";False
+32230;"WGS 72 / UTM zone 30N";False
+32231;"WGS 72 / UTM zone 31N";False
+32232;"WGS 72 / UTM zone 32N";False
+32233;"WGS 72 / UTM zone 33N";False
+32234;"WGS 72 / UTM zone 34N";False
+32235;"WGS 72 / UTM zone 35N";False
+32236;"WGS 72 / UTM zone 36N";False
+32237;"WGS 72 / UTM zone 37N";False
+32238;"WGS 72 / UTM zone 38N";False
+32239;"WGS 72 / UTM zone 39N";False
+32240;"WGS 72 / UTM zone 40N";False
+32241;"WGS 72 / UTM zone 41N";False
+32242;"WGS 72 / UTM zone 42N";False
+32243;"WGS 72 / UTM zone 43N";False
+32244;"WGS 72 / UTM zone 44N";False
+32245;"WGS 72 / UTM zone 45N";False
+32246;"WGS 72 / UTM zone 46N";False
+32247;"WGS 72 / UTM zone 47N";False
+32248;"WGS 72 / UTM zone 48N";False
+32249;"WGS 72 / UTM zone 49N";False
+32250;"WGS 72 / UTM zone 50N";False
+32251;"WGS 72 / UTM zone 51N";False
+32252;"WGS 72 / UTM zone 52N";False
+32253;"WGS 72 / UTM zone 53N";False
+32254;"WGS 72 / UTM zone 54N";False
+32255;"WGS 72 / UTM zone 55N";False
+32256;"WGS 72 / UTM zone 56N";False
+32257;"WGS 72 / UTM zone 57N";False
+32258;"WGS 72 / UTM zone 58N";False
+32259;"WGS 72 / UTM zone 59N";False
+32260;"WGS 72 / UTM zone 60N";False
+32301;"WGS 72 / UTM zone 1S";False
+32302;"WGS 72 / UTM zone 2S";False
+32303;"WGS 72 / UTM zone 3S";False
+32304;"WGS 72 / UTM zone 4S";False
+32305;"WGS 72 / UTM zone 5S";False
+32306;"WGS 72 / UTM zone 6S";False
+32307;"WGS 72 / UTM zone 7S";False
+32308;"WGS 72 / UTM zone 8S";False
+32309;"WGS 72 / UTM zone 9S";False
+32310;"WGS 72 / UTM zone 10S";False
+32311;"WGS 72 / UTM zone 11S";False
+32312;"WGS 72 / UTM zone 12S";False
+32313;"WGS 72 / UTM zone 13S";False
+32314;"WGS 72 / UTM zone 14S";False
+32315;"WGS 72 / UTM zone 15S";False
+32316;"WGS 72 / UTM zone 16S";False
+32317;"WGS 72 / UTM zone 17S";False
+32318;"WGS 72 / UTM zone 18S";False
+32319;"WGS 72 / UTM zone 19S";False
+32320;"WGS 72 / UTM zone 20S";False
+32321;"WGS 72 / UTM zone 21S";False
+32322;"WGS 72 / UTM zone 22S";False
+32323;"WGS 72 / UTM zone 23S";False
+32324;"WGS 72 / UTM zone 24S";False
+32325;"WGS 72 / UTM zone 25S";False
+32326;"WGS 72 / UTM zone 26S";False
+32327;"WGS 72 / UTM zone 27S";False
+32328;"WGS 72 / UTM zone 28S";False
+32329;"WGS 72 / UTM zone 29S";False
+32330;"WGS 72 / UTM zone 30S";False
+32331;"WGS 72 / UTM zone 31S";False
+32332;"WGS 72 / UTM zone 32S";False
+32333;"WGS 72 / UTM zone 33S";False
+32334;"WGS 72 / UTM zone 34S";False
+32335;"WGS 72 / UTM zone 35S";False
+32336;"WGS 72 / UTM zone 36S";False
+32337;"WGS 72 / UTM zone 37S";False
+32338;"WGS 72 / UTM zone 38S";False
+32339;"WGS 72 / UTM zone 39S";False
+32340;"WGS 72 / UTM zone 40S";False
+32341;"WGS 72 / UTM zone 41S";False
+32342;"WGS 72 / UTM zone 42S";False
+32343;"WGS 72 / UTM zone 43S";False
+32344;"WGS 72 / UTM zone 44S";False
+32345;"WGS 72 / UTM zone 45S";False
+32346;"WGS 72 / UTM zone 46S";False
+32347;"WGS 72 / UTM zone 47S";False
+32348;"WGS 72 / UTM zone 48S";False
+32349;"WGS 72 / UTM zone 49S";False
+32350;"WGS 72 / UTM zone 50S";False
+32351;"WGS 72 / UTM zone 51S";False
+32352;"WGS 72 / UTM zone 52S";False
+32353;"WGS 72 / UTM zone 53S";False
+32354;"WGS 72 / UTM zone 54S";False
+32355;"WGS 72 / UTM zone 55S";False
+32356;"WGS 72 / UTM zone 56S";False
+32357;"WGS 72 / UTM zone 57S";False
+32358;"WGS 72 / UTM zone 58S";False
+32359;"WGS 72 / UTM zone 59S";False
+32360;"WGS 72 / UTM zone 60S";False
+32401;"WGS 72BE / UTM zone 1N";False
+32402;"WGS 72BE / UTM zone 2N";False
+32403;"WGS 72BE / UTM zone 3N";False
+32404;"WGS 72BE / UTM zone 4N";False
+32405;"WGS 72BE / UTM zone 5N";False
+32406;"WGS 72BE / UTM zone 6N";False
+32407;"WGS 72BE / UTM zone 7N";False
+32408;"WGS 72BE / UTM zone 8N";False
+32409;"WGS 72BE / UTM zone 9N";False
+32410;"WGS 72BE / UTM zone 10N";False
+32411;"WGS 72BE / UTM zone 11N";False
+32412;"WGS 72BE / UTM zone 12N";False
+32413;"WGS 72BE / UTM zone 13N";False
+32414;"WGS 72BE / UTM zone 14N";False
+32415;"WGS 72BE / UTM zone 15N";False
+32416;"WGS 72BE / UTM zone 16N";False
+32417;"WGS 72BE / UTM zone 17N";False
+32418;"WGS 72BE / UTM zone 18N";False
+32419;"WGS 72BE / UTM zone 19N";False
+32420;"WGS 72BE / UTM zone 20N";False
+32421;"WGS 72BE / UTM zone 21N";False
+32422;"WGS 72BE / UTM zone 22N";False
+32423;"WGS 72BE / UTM zone 23N";False
+32424;"WGS 72BE / UTM zone 24N";False
+32425;"WGS 72BE / UTM zone 25N";False
+32426;"WGS 72BE / UTM zone 26N";False
+32427;"WGS 72BE / UTM zone 27N";False
+32428;"WGS 72BE / UTM zone 28N";False
+32429;"WGS 72BE / UTM zone 29N";False
+32430;"WGS 72BE / UTM zone 30N";False
+32431;"WGS 72BE / UTM zone 31N";False
+32432;"WGS 72BE / UTM zone 32N";False
+32433;"WGS 72BE / UTM zone 33N";False
+32434;"WGS 72BE / UTM zone 34N";False
+32435;"WGS 72BE / UTM zone 35N";False
+32436;"WGS 72BE / UTM zone 36N";False
+32437;"WGS 72BE / UTM zone 37N";False
+32438;"WGS 72BE / UTM zone 38N";False
+32439;"WGS 72BE / UTM zone 39N";False
+32440;"WGS 72BE / UTM zone 40N";False
+32441;"WGS 72BE / UTM zone 41N";False
+32442;"WGS 72BE / UTM zone 42N";False
+32443;"WGS 72BE / UTM zone 43N";False
+32444;"WGS 72BE / UTM zone 44N";False
+32445;"WGS 72BE / UTM zone 45N";False
+32446;"WGS 72BE / UTM zone 46N";False
+32447;"WGS 72BE / UTM zone 47N";False
+32448;"WGS 72BE / UTM zone 48N";False
+32449;"WGS 72BE / UTM zone 49N";False
+32450;"WGS 72BE / UTM zone 50N";False
+32451;"WGS 72BE / UTM zone 51N";False
+32452;"WGS 72BE / UTM zone 52N";False
+32453;"WGS 72BE / UTM zone 53N";False
+32454;"WGS 72BE / UTM zone 54N";False
+32455;"WGS 72BE / UTM zone 55N";False
+32456;"WGS 72BE / UTM zone 56N";False
+32457;"WGS 72BE / UTM zone 57N";False
+32458;"WGS 72BE / UTM zone 58N";False
+32459;"WGS 72BE / UTM zone 59N";False
+32460;"WGS 72BE / UTM zone 60N";False
+32501;"WGS 72BE / UTM zone 1S";False
+32502;"WGS 72BE / UTM zone 2S";False
+32503;"WGS 72BE / UTM zone 3S";False
+32504;"WGS 72BE / UTM zone 4S";False
+32505;"WGS 72BE / UTM zone 5S";False
+32506;"WGS 72BE / UTM zone 6S";False
+32507;"WGS 72BE / UTM zone 7S";False
+32508;"WGS 72BE / UTM zone 8S";False
+32509;"WGS 72BE / UTM zone 9S";False
+32510;"WGS 72BE / UTM zone 10S";False
+32511;"WGS 72BE / UTM zone 11S";False
+32512;"WGS 72BE / UTM zone 12S";False
+32513;"WGS 72BE / UTM zone 13S";False
+32514;"WGS 72BE / UTM zone 14S";False
+32515;"WGS 72BE / UTM zone 15S";False
+32516;"WGS 72BE / UTM zone 16S";False
+32517;"WGS 72BE / UTM zone 17S";False
+32518;"WGS 72BE / UTM zone 18S";False
+32519;"WGS 72BE / UTM zone 19S";False
+32520;"WGS 72BE / UTM zone 20S";False
+32521;"WGS 72BE / UTM zone 21S";False
+32522;"WGS 72BE / UTM zone 22S";False
+32523;"WGS 72BE / UTM zone 23S";False
+32524;"WGS 72BE / UTM zone 24S";False
+32525;"WGS 72BE / UTM zone 25S";False
+32526;"WGS 72BE / UTM zone 26S";False
+32527;"WGS 72BE / UTM zone 27S";False
+32528;"WGS 72BE / UTM zone 28S";False
+32529;"WGS 72BE / UTM zone 29S";False
+32530;"WGS 72BE / UTM zone 30S";False
+32531;"WGS 72BE / UTM zone 31S";False
+32532;"WGS 72BE / UTM zone 32S";False
+32533;"WGS 72BE / UTM zone 33S";False
+32534;"WGS 72BE / UTM zone 34S";False
+32535;"WGS 72BE / UTM zone 35S";False
+32536;"WGS 72BE / UTM zone 36S";False
+32537;"WGS 72BE / UTM zone 37S";False
+32538;"WGS 72BE / UTM zone 38S";False
+32539;"WGS 72BE / UTM zone 39S";False
+32540;"WGS 72BE / UTM zone 40S";False
+32541;"WGS 72BE / UTM zone 41S";False
+32542;"WGS 72BE / UTM zone 42S";False
+32543;"WGS 72BE / UTM zone 43S";False
+32544;"WGS 72BE / UTM zone 44S";False
+32545;"WGS 72BE / UTM zone 45S";False
+32546;"WGS 72BE / UTM zone 46S";False
+32547;"WGS 72BE / UTM zone 47S";False
+32548;"WGS 72BE / UTM zone 48S";False
+32549;"WGS 72BE / UTM zone 49S";False
+32550;"WGS 72BE / UTM zone 50S";False
+32551;"WGS 72BE / UTM zone 51S";False
+32552;"WGS 72BE / UTM zone 52S";False
+32553;"WGS 72BE / UTM zone 53S";False
+32554;"WGS 72BE / UTM zone 54S";False
+32555;"WGS 72BE / UTM zone 55S";False
+32556;"WGS 72BE / UTM zone 56S";False
+32557;"WGS 72BE / UTM zone 57S";False
+32558;"WGS 72BE / UTM zone 58S";False
+32559;"WGS 72BE / UTM zone 59S";False
+32560;"WGS 72BE / UTM zone 60S";False
+32601;"WGS 84 / UTM zone 1N";False
+32602;"WGS 84 / UTM zone 2N";False
+32603;"WGS 84 / UTM zone 3N";False
+32604;"WGS 84 / UTM zone 4N";False
+32605;"WGS 84 / UTM zone 5N";False
+32606;"WGS 84 / UTM zone 6N";False
+32607;"WGS 84 / UTM zone 7N";False
+32608;"WGS 84 / UTM zone 8N";False
+32609;"WGS 84 / UTM zone 9N";False
+32610;"WGS 84 / UTM zone 10N";False
+32611;"WGS 84 / UTM zone 11N";False
+32612;"WGS 84 / UTM zone 12N";False
+32613;"WGS 84 / UTM zone 13N";False
+32614;"WGS 84 / UTM zone 14N";False
+32615;"WGS 84 / UTM zone 15N";False
+32616;"WGS 84 / UTM zone 16N";False
+32617;"WGS 84 / UTM zone 17N";False
+32618;"WGS 84 / UTM zone 18N";False
+32619;"WGS 84 / UTM zone 19N";False
+32620;"WGS 84 / UTM zone 20N";False
+32621;"WGS 84 / UTM zone 21N";False
+32622;"WGS 84 / UTM zone 22N";False
+32623;"WGS 84 / UTM zone 23N";False
+32624;"WGS 84 / UTM zone 24N";False
+32625;"WGS 84 / UTM zone 25N";False
+32626;"WGS 84 / UTM zone 26N";False
+32627;"WGS 84 / UTM zone 27N";False
+32628;"WGS 84 / UTM zone 28N";False
+32629;"WGS 84 / UTM zone 29N";False
+32630;"WGS 84 / UTM zone 30N";False
+32631;"WGS 84 / UTM zone 31N";False
+32632;"WGS 84 / UTM zone 32N";False
+32633;"WGS 84 / UTM zone 33N";False
+32634;"WGS 84 / UTM zone 34N";False
+32635;"WGS 84 / UTM zone 35N";False
+32636;"WGS 84 / UTM zone 36N";False
+32637;"WGS 84 / UTM zone 37N";False
+32638;"WGS 84 / UTM zone 38N";False
+32639;"WGS 84 / UTM zone 39N";False
+32640;"WGS 84 / UTM zone 40N";False
+32641;"WGS 84 / UTM zone 41N";False
+32642;"WGS 84 / UTM zone 42N";False
+32643;"WGS 84 / UTM zone 43N";False
+32644;"WGS 84 / UTM zone 44N";False
+32645;"WGS 84 / UTM zone 45N";False
+32646;"WGS 84 / UTM zone 46N";False
+32647;"WGS 84 / UTM zone 47N";False
+32648;"WGS 84 / UTM zone 48N";False
+32649;"WGS 84 / UTM zone 49N";False
+32650;"WGS 84 / UTM zone 50N";False
+32651;"WGS 84 / UTM zone 51N";False
+32652;"WGS 84 / UTM zone 52N";False
+32653;"WGS 84 / UTM zone 53N";False
+32654;"WGS 84 / UTM zone 54N";False
+32655;"WGS 84 / UTM zone 55N";False
+32656;"WGS 84 / UTM zone 56N";False
+32657;"WGS 84 / UTM zone 57N";False
+32658;"WGS 84 / UTM zone 58N";False
+32659;"WGS 84 / UTM zone 59N";False
+32660;"WGS 84 / UTM zone 60N";False
+32661;"WGS 84 / UPS North (N,E)";False
+32662;"WGS 84 / Plate Carree (deprecated)";False
+32664;"WGS 84 / BLM 14N (ftUS)";False
+32665;"WGS 84 / BLM 15N (ftUS)";False
+32666;"WGS 84 / BLM 16N (ftUS)";False
+32667;"WGS 84 / BLM 17N (ftUS)";False
+32701;"WGS 84 / UTM zone 1S";False
+32702;"WGS 84 / UTM zone 2S";False
+32703;"WGS 84 / UTM zone 3S";False
+32704;"WGS 84 / UTM zone 4S";False
+32705;"WGS 84 / UTM zone 5S";False
+32706;"WGS 84 / UTM zone 6S";False
+32707;"WGS 84 / UTM zone 7S";False
+32708;"WGS 84 / UTM zone 8S";False
+32709;"WGS 84 / UTM zone 9S";False
+32710;"WGS 84 / UTM zone 10S";False
+32711;"WGS 84 / UTM zone 11S";False
+32712;"WGS 84 / UTM zone 12S";False
+32713;"WGS 84 / UTM zone 13S";False
+32714;"WGS 84 / UTM zone 14S";False
+32715;"WGS 84 / UTM zone 15S";False
+32716;"WGS 84 / UTM zone 16S";False
+32717;"WGS 84 / UTM zone 17S";False
+32718;"WGS 84 / UTM zone 18S";False
+32719;"WGS 84 / UTM zone 19S";False
+32720;"WGS 84 / UTM zone 20S";False
+32721;"WGS 84 / UTM zone 21S";False
+32722;"WGS 84 / UTM zone 22S";False
+32723;"WGS 84 / UTM zone 23S";False
+32724;"WGS 84 / UTM zone 24S";False
+32725;"WGS 84 / UTM zone 25S";False
+32726;"WGS 84 / UTM zone 26S";False
+32727;"WGS 84 / UTM zone 27S";False
+32728;"WGS 84 / UTM zone 28S";False
+32729;"WGS 84 / UTM zone 29S";False
+32730;"WGS 84 / UTM zone 30S";False
+32731;"WGS 84 / UTM zone 31S";False
+32732;"WGS 84 / UTM zone 32S";False
+32733;"WGS 84 / UTM zone 33S";False
+32734;"WGS 84 / UTM zone 34S";False
+32735;"WGS 84 / UTM zone 35S";False
+32736;"WGS 84 / UTM zone 36S";False
+32737;"WGS 84 / UTM zone 37S";False
+32738;"WGS 84 / UTM zone 38S";False
+32739;"WGS 84 / UTM zone 39S";False
+32740;"WGS 84 / UTM zone 40S";False
+32741;"WGS 84 / UTM zone 41S";False
+32742;"WGS 84 / UTM zone 42S";False
+32743;"WGS 84 / UTM zone 43S";False
+32744;"WGS 84 / UTM zone 44S";False
+32745;"WGS 84 / UTM zone 45S";False
+32746;"WGS 84 / UTM zone 46S";False
+32747;"WGS 84 / UTM zone 47S";False
+32748;"WGS 84 / UTM zone 48S";False
+32749;"WGS 84 / UTM zone 49S";False
+32750;"WGS 84 / UTM zone 50S";False
+32751;"WGS 84 / UTM zone 51S";False
+32752;"WGS 84 / UTM zone 52S";False
+32753;"WGS 84 / UTM zone 53S";False
+32754;"WGS 84 / UTM zone 54S";False
+32755;"WGS 84 / UTM zone 55S";False
+32756;"WGS 84 / UTM zone 56S";False
+32757;"WGS 84 / UTM zone 57S";False
+32758;"WGS 84 / UTM zone 58S";False
+32759;"WGS 84 / UTM zone 59S";False
+32760;"WGS 84 / UTM zone 60S";False
+32761;"WGS 84 / UPS South (N,E)";False
+32766;"WGS 84 / TM 36 SE";False
+31491;"Germany_Zone_1";False
+31492;"Germany_Zone_2";False
+31493;"Germany_Zone_3";False
+31494;"Germany_Zone_4";False
+31495;"Germany_Zone_5";False
+37001;"GCS_WGS_1966";True
+37002;"GCS_Fischer_1960";True
+37003;"GCS_Fischer_1968";True
+37004;"GCS_Fischer_Modified";True
+37005;"GCS_Hough_1960";True
+37006;"GCS_Everest_Modified_1969";True
+37007;"GCS_Walbeck";True
+37008;"GCS_Sphere_ARC_INFO";True
+37201;"GCS_European_1979";True
+37202;"GCS_Everest_Bangladesh";True
+37203;"GCS_Everest_India_Nepal";True
+37204;"GCS_Hjorsey_1955";True
+37205;"GCS_Hong_Kong_1963";True
+37206;"GCS_Oman";True
+37207;"GCS_South_Asia_Singapore";True
+37208;"GCS_Ayabelle";True
+37211;"GCS_Point_58";True
+37212;"GCS_Beacon_E_1945";True
+37213;"GCS_Tern_Island_1961";True
+37214;"GCS_Astro_1952";True
+37215;"GCS_Bellevue_IGN";True
+37216;"GCS_Canton_1966";True
+37217;"GCS_Chatham_Island_1971";True
+37218;"GCS_DOS_1968";True
+37219;"GCS_Easter_Island_1967";True
+37220;"GCS_Guam_1963";True
+37221;"GCS_GUX_1";True
+37222;"GCS_Johnston_Island_1961";True
+37223;"GCS_Carthage_Degree";True
+37224;"GCS_Midway_1961";True
+37226;"GCS_Pitcairn_1967";True
+37227;"GCS_Santo_DOS_1965";True
+37228;"GCS_Viti_Levu_1916";True
+37229;"GCS_Wake_Eniwetok_1960";True
+37230;"GCS_Wake_Island_1952";True
+37231;"GCS_Anna_1_1965";True
+37232;"GCS_Gan_1970";True
+37233;"GCS_ISTS_073_1969";True
+37234;"GCS_Kerguelen_Island_1949";True
+37235;"GCS_Reunion";True
+37237;"GCS_Ascension_Island_1958";True
+37238;"GCS_DOS_71_4";True
+37239;"GCS_Cape_Canaveral";True
+37240;"GCS_Fort_Thomas_1955";True
+37241;"GCS_Graciosa_Base_SW_1948";True
+37242;"GCS_ISTS_061_1968";True
+37243;"GCS_LC5_1961";True
+37245;"GCS_Observ_Meteorologico_1939";True
+37246;"GCS_Pico_de_Las_Nieves";True
+37247;"GCS_Porto_Santo_1936";True
+37249;"GCS_Sao_Braz";True
+37250;"GCS_Selvagem_Grande_1938";True
+37251;"GCS_Tristan_1968";True
+37252;"GCS_Samoa_1962";True
+37253;"GCS_Camp_Area";True
+37254;"GCS_Deception_Island";True
+37255;"GCS_Gunung_Segara";True
+37257;"GCS_S42_Hungary";True
+37259;"GCS_Kusaie_1951";True
+37260;"GCS_Alaskan_Islands";True
+53001;"Sphere_Plate_Carree";False
+53002;"Sphere_Equidistant_Cylindrical";False
+53003;"Sphere_Miller_Cylindrical";False
+53004;"Sphere_Mercator";False
+53008;"Sphere_Sinusoidal";False
+53009;"Sphere_Mollweide";False
+53010;"Sphere_Eckert_VI";False
+53011;"Sphere_Eckert_V";False
+53012;"Sphere_Eckert_IV";False
+53013;"Sphere_Eckert_III";False
+53014;"Sphere_Eckert_II";False
+53015;"Sphere_Eckert_I";False
+53016;"Sphere_Gall_Stereographic";False
+53017;"Sphere_Behrmann";False
+53018;"Sphere_Winkel_I";False
+53019;"Sphere_Winkel_II";False
+53021;"Sphere_Polyconic";False
+53022;"Sphere_Quartic_Authalic";False
+53023;"Sphere_Loximuthal";False
+53024;"Sphere_Bonne";False
+53025;"Sphere_Hotine";False
+53026;"Sphere_Stereographic";False
+53027;"Sphere_Equidistant_Conic";False
+53028;"Sphere_Cassini";False
+53029;"Sphere_Van_der_Grinten_I";False
+53030;"Sphere_Robinson";False
+53031;"Sphere_Two_Point_Equidistant";False
+53032;"Sphere_Azimuthal_Equidistant";False
+54001;"World_Plate_Carree";False
+54002;"World_Equidistant_Cylindrical";False
+54003;"World_Miller_Cylindrical";False
+54004;"World_Mercator";False
+54008;"World_Sinusoidal";False
+54009;"World_Mollweide";False
+54010;"World_Eckert_VI";False
+54011;"World_Eckert_V";False
+54012;"World_Eckert_IV";False
+54013;"World_Eckert_III";False
+54014;"World_Eckert_II";False
+54015;"World_Eckert_I";False
+54016;"World_Gall_Stereographic";False
+54017;"World_Behrmann";False
+54018;"World_Winkel_I";False
+54019;"World_Winkel_II";False
+54021;"World_Polyconic";False
+54022;"World_Quartic_Authalic";False
+54023;"World_Loximuthal";False
+54024;"World_Bonne";False
+54025;"World_Hotine";False
+54026;"World_Stereographic";False
+54027;"World_Equidistant_Conic";False
+54028;"World_Cassini";False
+54029;"World_Van_der_Grinten_I";False
+54030;"World_Robinson";False
+54031;"World_Two_Point_Equidistant";False
+54032;"World_Azimuthal_Equidistant";False
+65061;"NAD_1927_StatePlane_Guam_FIPS_5400";False
+65161;"NAD_1983_StatePlane_Guam_FIPS_5400";False
+102001;"Canada_Albers_Equal_Area_Conic";False
+102002;"Canada_Lambert_Conformal_Conic";False
+102003;"USA_Contiguous_Albers_Equal_Area_Conic";False
+102004;"USA_Contiguous_Lambert_Conformal_Conic";False
+102005;"USA_Contiguous_Equidistant_Conic";False
+102006;"Alaska_Albers_Equal_Area_Conic";False
+102007;"Hawaii_Albers_Equal_Area_Conic";False
+102008;"North_America_Albers_Equal_Area_Conic";False
+102009;"North_America_Lambert_Conformal_Conic";False
+102010;"North_America_Equidistant_Conic";False
+102011;"Africa_Sinusoidal";False
+102012;"Asia_Lambert_Conformal_Conic";False
+102013;"Europe_Albers_Equal_Area_Conic";False
+102014;"Europe_Lambert_Conformal_Conic";False
+102015;"South_America_Lambert_Conformal_Conic";False
+102016;"North_Pole_Azimuthal_Equidistant";False
+102017;"North_Pole_Lambert_Azimuthal_Equal_Area";False
+102018;"North_Pole_Stereographic";False
+102019;"South_Pole_Azimuthal_Equidistant";False
+102020;"South_Pole_Lambert_Azimuthal_Equal_Area";False
+102021;"South_Pole_Stereographic";False
+102022;"Africa_Albers_Equal_Area_Conic";False
+102023;"Africa_Equidistant_Conic";False
+102024;"Africa_Lambert_Conformal_Conic";False
+102025;"Asia_North_Albers_Equal_Area_Conic";False
+102026;"Asia_North_Equidistant_Conic";False
+102027;"Asia_North_Lambert_Conformal_Conic";False
+102028;"Asia_South_Albers_Equal_Area_Conic";False
+102029;"Asia_South_Equidistant_Conic";False
+102030;"Asia_South_Lambert_Conformal_Conic";False
+102031;"Europe_Equidistant_Conic";False
+102032;"South_America_Equidistant_Conic";False
+102033;"South_America_Albers_Equal_Area_Conic";False
+102065;"S-JTSK_Krovak";False
+102066;"S-JTSK_Ferro_Krovak_East_North";False
+102067;"S-JTSK_Krovak_East_North";False
+102091;"Monte_Mario_Italy_1";False
+102092;"Monte_Mario_Italy_2";False
+102101;"NGO_1948_Norway_Zone_1";False
+102102;"NGO_1948_Norway_Zone_2";False
+102103;"NGO_1948_Norway_Zone_3";False
+102104;"NGO_1948_Norway_Zone_4";False
+102105;"NGO_1948_Norway_Zone_5";False
+102106;"NGO_1948_Norway_Zone_6";False
+102107;"NGO_1948_Norway_Zone_7";False
+102108;"NGO_1948_Norway_Zone_8";False
+102110;"RGF_1993_Lambert_93";False
+102114;"Old_Hawaiian_UTM_Zone_4N";False
+102115;"Old_Hawaiian_UTM_Zone_5N";False
+102120;"NAD_1927_Michigan_GeoRef_Feet_US";False
+102121;"NAD_1983_Michigan_GeoRef_Feet_US";False
+102122;"NAD_1927_Michigan_GeoRef_Meters";False
+102123;"NAD_1983_Michigan_GeoRef_Meters";False
+102132;"NGO_1948_UTM_Zone_32N";False
+102133;"NGO_1948_UTM_Zone_33N";False
+102134;"NGO_1948_UTM_Zone_34N";False
+102135;"NGO_1948_UTM_Zone_35N";False
+102140;"Hong_Kong_1980_Grid";False
+102141;"Hong_Kong_1980_UTM_Zone_49N";False
+102142;"Hong_Kong_1980_UTM_Zone_50N";False
+102151;"Tokyo_UTM_Zone_51N";False
+102152;"Tokyo_UTM_Zone_52N";False
+102153;"Tokyo_UTM_Zone_53N";False
+102154;"Tokyo_UTM_Zone_54N";False
+102155;"Tokyo_UTM_Zone_55N";False
+102156;"Tokyo_UTM_Zone_56N";False
+102160;"Datum_73_Hayford_Gauss_IGeoE";False
+102161;"Datum_73_Hayford_Gauss_IPCC";False
+102162;"Graciosa_Base_SW_1948_UTM_Zone_26N";False
+102163;"Lisboa_Bessel_Bonne";False
+102164;"Lisboa_Hayford_Gauss_IGeoE";False
+102165;"Lisboa_Hayford_Gauss_IPCC";False
+102166;"Observ_Meteorologico_1939_UTM_Zone_25N";False
+102167;"Porto_Santo_1936_UTM_Zone_28N";False
+102168;"Sao_Braz_UTM_Zone_26N";False
+102169;"Selvagem_Grande_1938_UTM_Zone_28N";False
+102191;"Nord_Maroc_Degree";False
+102192;"Sud_Maroc_Degree";False
+102193;"Sahara_Degree";False
+102229;"NAD_1983_HARN_StatePlane_Alabama_East_FIPS_0101";False
+102230;"NAD_1983_HARN_StatePlane_Alabama_West_FIPS_0102";False
+102241;"NAD_1983_HARN_StatePlane_California_I_FIPS_0401";False
+102242;"NAD_1983_HARN_StatePlane_California_II_FIPS_0402";False
+102243;"NAD_1983_HARN_StatePlane_California_III_FIPS_0403";False
+102244;"NAD_1983_HARN_StatePlane_California_IV_FIPS_0404";False
+102245;"NAD_1983_HARN_StatePlane_California_V_FIPS_0405";False
+102246;"NAD_1983_HARN_StatePlane_California_VI_FIPS_0406";False
+102248;"NAD_1983_HARN_StatePlane_Arizona_East_FIPS_0201";False
+102249;"NAD_1983_HARN_StatePlane_Arizona_Central_FIPS_0202";False
+102250;"NAD_1983_HARN_StatePlane_Arizona_West_FIPS_0203";False
+102251;"NAD_1983_HARN_StatePlane_Arkansas_North_FIPS_0301";False
+102252;"NAD_1983_HARN_StatePlane_Arkansas_South_FIPS_0302";False
+102253;"NAD_1983_HARN_StatePlane_Colorado_North_FIPS_0501";False
+102254;"NAD_1983_HARN_StatePlane_Colorado_Central_FIPS_0502";False
+102255;"NAD_1983_HARN_StatePlane_Colorado_South_FIPS_0503";False
+102256;"NAD_1983_HARN_StatePlane_Connecticut_FIPS_0600";False
+102257;"NAD_1983_HARN_StatePlane_Delaware_FIPS_0700";False
+102258;"NAD_1983_HARN_StatePlane_Florida_East_FIPS_0901";False
+102259;"NAD_1983_HARN_StatePlane_Florida_West_FIPS_0902";False
+102260;"NAD_1983_HARN_StatePlane_Florida_North_FIPS_0903";False
+102261;"NAD_1983_HARN_StatePlane_Hawaii_1_FIPS_5101";False
+102262;"NAD_1983_HARN_StatePlane_Hawaii_2_FIPS_5102";False
+102263;"NAD_1983_HARN_StatePlane_Hawaii_3_FIPS_5103";False
+102264;"NAD_1983_HARN_StatePlane_Hawaii_4_FIPS_5104";False
+102265;"NAD_1983_HARN_StatePlane_Hawaii_5_FIPS_5105";False
+102266;"NAD_1983_HARN_StatePlane_Georgia_East_FIPS_1001";False
+102267;"NAD_1983_HARN_StatePlane_Georgia_West_FIPS_1002";False
+102268;"NAD_1983_HARN_StatePlane_Idaho_East_FIPS_1101";False
+102269;"NAD_1983_HARN_StatePlane_Idaho_Central_FIPS_1102";False
+102270;"NAD_1983_HARN_StatePlane_Idaho_West_FIPS_1103";False
+102271;"NAD_1983_HARN_StatePlane_Illinois_East_FIPS_1201";False
+102272;"NAD_1983_HARN_StatePlane_Illinois_West_FIPS_1202";False
+102273;"NAD_1983_HARN_StatePlane_Indiana_East_FIPS_1301";False
+102274;"NAD_1983_HARN_StatePlane_Indiana_West_FIPS_1302";False
+102277;"NAD_1983_HARN_StatePlane_Kansas_North_FIPS_1501";False
+102278;"NAD_1983_HARN_StatePlane_Kansas_South_FIPS_1502";False
+102279;"NAD_1983_HARN_StatePlane_Kentucky_North_FIPS_1601";False
+102280;"NAD_1983_HARN_StatePlane_Kentucky_South_FIPS_1602";False
+102281;"NAD_1983_HARN_StatePlane_Louisiana_North_FIPS_1701";False
+102282;"NAD_1983_HARN_StatePlane_Louisiana_South_FIPS_1702";False
+102283;"NAD_1983_HARN_StatePlane_Maine_East_FIPS_1801";False
+102284;"NAD_1983_HARN_StatePlane_Maine_West_FIPS_1802";False
+102285;"NAD_1983_HARN_StatePlane_Maryland_FIPS_1900";False
+102286;"NAD_1983_HARN_StatePlane_Massachusetts_Mainland_FIPS_2001";False
+102287;"NAD_1983_HARN_StatePlane_Massachusetts_Island_FIPS_2002";False
+102288;"NAD_1983_HARN_StatePlane_Michigan_North_FIPS_2111";False
+102289;"NAD_1983_HARN_StatePlane_Michigan_Central_FIPS_2112";False
+102290;"NAD_1983_HARN_StatePlane_Michigan_South_FIPS_2113";False
+102291;"NAD_1983_HARN_StatePlane_Minnesota_North_FIPS_2201";False
+102292;"NAD_1983_HARN_StatePlane_Minnesota_Central_FIPS_2202";False
+102293;"NAD_1983_HARN_StatePlane_Minnesota_South_FIPS_2203";False
+102294;"NAD_1983_HARN_StatePlane_Mississippi_East_FIPS_2301";False
+102295;"NAD_1983_HARN_StatePlane_Mississippi_West_FIPS_2302";False
+102296;"NAD_1983_HARN_StatePlane_Missouri_East_FIPS_2401";False
+102297;"NAD_1983_HARN_StatePlane_Missouri_Central_FIPS_2402";False
+102298;"NAD_1983_HARN_StatePlane_Missouri_West_FIPS_2403";False
+102300;"NAD_1983_HARN_StatePlane_Montana_FIPS_2500";False
+102304;"NAD_1983_HARN_StatePlane_Nebraska_FIPS_2600";False
+102307;"NAD_1983_HARN_StatePlane_Nevada_East_FIPS_2701";False
+102308;"NAD_1983_HARN_StatePlane_Nevada_Central_FIPS_2702";False
+102309;"NAD_1983_HARN_StatePlane_Nevada_West_FIPS_2703";False
+102310;"NAD_1983_HARN_StatePlane_New_Hampshire_FIPS_2800";False
+102311;"NAD_1983_HARN_StatePlane_New_Jersey_FIPS_2900";False
+102312;"NAD_1983_HARN_StatePlane_New_Mexico_East_FIPS_3001";False
+102313;"NAD_1983_HARN_StatePlane_New_Mexico_Central_FIPS_3002";False
+102314;"NAD_1983_HARN_StatePlane_New_Mexico_West_FIPS_3003";False
+102315;"NAD_1983_HARN_StatePlane_New_York_East_FIPS_3101";False
+102316;"NAD_1983_HARN_StatePlane_New_York_Central_FIPS_3102";False
+102317;"NAD_1983_HARN_StatePlane_New_York_West_FIPS_3103";False
+102318;"NAD_1983_HARN_StatePlane_New_York_Long_Island_FIPS_3104";False
+102320;"NAD_1983_HARN_StatePlane_North_Dakota_North_FIPS_3301";False
+102321;"NAD_1983_HARN_StatePlane_North_Dakota_South_FIPS_3302";False
+102322;"NAD_1983_HARN_StatePlane_Ohio_North_FIPS_3401";False
+102323;"NAD_1983_HARN_StatePlane_Ohio_South_FIPS_3402";False
+102324;"NAD_1983_HARN_StatePlane_Oklahoma_North_FIPS_3501";False
+102325;"NAD_1983_HARN_StatePlane_Oklahoma_South_FIPS_3502";False
+102326;"NAD_1983_HARN_StatePlane_Oregon_North_FIPS_3601";False
+102327;"NAD_1983_HARN_StatePlane_Oregon_South_FIPS_3602";False
+102330;"NAD_1983_HARN_StatePlane_Rhode_Island_FIPS_3800";False
+102334;"NAD_1983_HARN_StatePlane_South_Dakota_North_FIPS_4001";False
+102335;"NAD_1983_HARN_StatePlane_South_Dakota_South_FIPS_4002";False
+102336;"NAD_1983_HARN_StatePlane_Tennessee_FIPS_4100";False
+102337;"NAD_1983_HARN_StatePlane_Texas_North_FIPS_4201";False
+102338;"NAD_1983_HARN_StatePlane_Texas_North_Central_FIPS_4202";False
+102339;"NAD_1983_HARN_StatePlane_Texas_Central_FIPS_4203";False
+102340;"NAD_1983_HARN_StatePlane_Texas_South_Central_FIPS_4204";False
+102341;"NAD_1983_HARN_StatePlane_Texas_South_FIPS_4205";False
+102342;"NAD_1983_HARN_StatePlane_Utah_North_FIPS_4301";False
+102343;"NAD_1983_HARN_StatePlane_Utah_Central_FIPS_4302";False
+102344;"NAD_1983_HARN_StatePlane_Utah_South_FIPS_4303";False
+102345;"NAD_1983_HARN_StatePlane_Vermont_FIPS_4400";False
+102346;"NAD_1983_HARN_StatePlane_Virginia_North_FIPS_4501";False
+102347;"NAD_1983_HARN_StatePlane_Virginia_South_FIPS_4502";False
+102348;"NAD_1983_HARN_StatePlane_Washington_North_FIPS_4601";False
+102349;"NAD_1983_HARN_StatePlane_Washington_South_FIPS_4602";False
+102350;"NAD_1983_HARN_StatePlane_West_Virginia_North_FIPS_4701";False
+102351;"NAD_1983_HARN_StatePlane_West_Virginia_South_FIPS_4702";False
+102352;"NAD_1983_HARN_StatePlane_Wisconsin_North_FIPS_4801";False
+102353;"NAD_1983_HARN_StatePlane_Wisconsin_Central_FIPS_4802";False
+102354;"NAD_1983_HARN_StatePlane_Wisconsin_South_FIPS_4803";False
+102355;"NAD_1983_HARN_StatePlane_Wyoming_East_FIPS_4901";False
+102356;"NAD_1983_HARN_StatePlane_Wyoming_East_Central_FIPS_4902";False
+102357;"NAD_1983_HARN_StatePlane_Wyoming_West_Central_FIPS_4903";False
+102358;"NAD_1983_HARN_StatePlane_Wyoming_West_FIPS_4904";False
+102361;"NAD_1983_HARN_StatePlane_Puerto_Rico_Virgin_Islands_FIPS_5200";False
+102491;"Nord_Algerie_Ancienne_Degree";False
+102492;"Sud_Algerie_Ancienne_Degree";False
+102581;"NTF_France_I_degrees";False
+102582;"NTF_France_II_degrees";False
+102583;"NTF_France_III_degrees";False
+102584;"NTF_France_IV_degrees";False
+102591;"Nord_Algerie_Degree";False
+102592;"Sud_Algerie_Degree";False
+102629;"NAD_1983_StatePlane_Alabama_East_FIPS_0101_Feet";False
+102630;"NAD_1983_StatePlane_Alabama_West_FIPS_0102_Feet";False
+102631;"NAD_1983_StatePlane_Alaska_1_FIPS_5001_Feet";False
+102632;"NAD_1983_StatePlane_Alaska_2_FIPS_5002_Feet";False
+102633;"NAD_1983_StatePlane_Alaska_3_FIPS_5003_Feet";False
+102634;"NAD_1983_StatePlane_Alaska_4_FIPS_5004_Feet";False
+102635;"NAD_1983_StatePlane_Alaska_5_FIPS_5005_Feet";False
+102636;"NAD_1983_StatePlane_Alaska_6_FIPS_5006_Feet";False
+102637;"NAD_1983_StatePlane_Alaska_7_FIPS_5007_Feet";False
+102638;"NAD_1983_StatePlane_Alaska_8_FIPS_5008_Feet";False
+102639;"NAD_1983_StatePlane_Alaska_9_FIPS_5009_Feet";False
+102640;"NAD_1983_StatePlane_Alaska_10_FIPS_5010_Feet";False
+102641;"NAD_1983_StatePlane_California_I_FIPS_0401_Feet";False
+102642;"NAD_1983_StatePlane_California_II_FIPS_0402_Feet";False
+102643;"NAD_1983_StatePlane_California_III_FIPS_0403_Feet";False
+102644;"NAD_1983_StatePlane_California_IV_FIPS_0404_Feet";False
+102645;"NAD_1983_StatePlane_California_V_FIPS_0405_Feet";False
+102646;"NAD_1983_StatePlane_California_VI_FIPS_0406_Feet";False
+102648;"NAD_1983_StatePlane_Arizona_East_FIPS_0201_Feet";False
+102649;"NAD_1983_StatePlane_Arizona_Central_FIPS_0202_Feet";False
+102650;"NAD_1983_StatePlane_Arizona_West_FIPS_0203_Feet";False
+102651;"NAD_1983_StatePlane_Arkansas_North_FIPS_0301_Feet";False
+102652;"NAD_1983_StatePlane_Arkansas_South_FIPS_0302_Feet";False
+102653;"NAD_1983_StatePlane_Colorado_North_FIPS_0501_Feet";False
+102654;"NAD_1983_StatePlane_Colorado_Central_FIPS_0502_Feet";False
+102655;"NAD_1983_StatePlane_Colorado_South_FIPS_0503_Feet";False
+102656;"NAD_1983_StatePlane_Connecticut_FIPS_0600_Feet";False
+102657;"NAD_1983_StatePlane_Delaware_FIPS_0700_Feet";False
+102658;"NAD_1983_StatePlane_Florida_East_FIPS_0901_Feet";False
+102659;"NAD_1983_StatePlane_Florida_West_FIPS_0902_Feet";False
+102660;"NAD_1983_StatePlane_Florida_North_FIPS_0903_Feet";False
+102661;"NAD_1983_StatePlane_Hawaii_1_FIPS_5101_Feet";False
+102662;"NAD_1983_StatePlane_Hawaii_2_FIPS_5102_Feet";False
+102663;"NAD_1983_StatePlane_Hawaii_3_FIPS_5103_Feet";False
+102664;"NAD_1983_StatePlane_Hawaii_4_FIPS_5104_Feet";False
+102665;"NAD_1983_StatePlane_Hawaii_5_FIPS_5105_Feet";False
+102666;"NAD_1983_StatePlane_Georgia_East_FIPS_1001_Feet";False
+102667;"NAD_1983_StatePlane_Georgia_West_FIPS_1002_Feet";False
+102668;"NAD_1983_StatePlane_Idaho_East_FIPS_1101_Feet";False
+102669;"NAD_1983_StatePlane_Idaho_Central_FIPS_1102_Feet";False
+102670;"NAD_1983_StatePlane_Idaho_West_FIPS_1103_Feet";False
+102671;"NAD_1983_StatePlane_Illinois_East_FIPS_1201_Feet";False
+102672;"NAD_1983_StatePlane_Illinois_West_FIPS_1202_Feet";False
+102673;"NAD_1983_StatePlane_Indiana_East_FIPS_1301_Feet";False
+102674;"NAD_1983_StatePlane_Indiana_West_FIPS_1302_Feet";False
+102675;"NAD_1983_StatePlane_Iowa_North_FIPS_1401_Feet";False
+102676;"NAD_1983_StatePlane_Iowa_South_FIPS_1402_Feet";False
+102677;"NAD_1983_StatePlane_Kansas_North_FIPS_1501_Feet";False
+102678;"NAD_1983_StatePlane_Kansas_South_FIPS_1502_Feet";False
+102679;"NAD_1983_StatePlane_Kentucky_North_FIPS_1601_Feet";False
+102680;"NAD_1983_StatePlane_Kentucky_South_FIPS_1602_Feet";False
+102681;"NAD_1983_StatePlane_Louisiana_North_FIPS_1701_Feet";False
+102682;"NAD_1983_StatePlane_Louisiana_South_FIPS_1702_Feet";False
+102683;"NAD_1983_StatePlane_Maine_East_FIPS_1801_Feet";False
+102684;"NAD_1983_StatePlane_Maine_West_FIPS_1802_Feet";False
+102685;"NAD_1983_StatePlane_Maryland_FIPS_1900_Feet";False
+102686;"NAD_1983_StatePlane_Massachusetts_Mainland_FIPS_2001_Feet";False
+102687;"NAD_1983_StatePlane_Massachusetts_Island_FIPS_2002_Feet";False
+102688;"NAD_1983_StatePlane_Michigan_North_FIPS_2111_Feet";False
+102689;"NAD_1983_StatePlane_Michigan_Central_FIPS_2112_Feet";False
+102690;"NAD_1983_StatePlane_Michigan_South_FIPS_2113_Feet";False
+102691;"NAD_1983_StatePlane_Minnesota_North_FIPS_2201_Feet";False
+102692;"NAD_1983_StatePlane_Minnesota_Central_FIPS_2202_Feet";False
+102693;"NAD_1983_StatePlane_Minnesota_South_FIPS_2203_Feet";False
+102694;"NAD_1983_StatePlane_Mississippi_East_FIPS_2301_Feet";False
+102695;"NAD_1983_StatePlane_Mississippi_West_FIPS_2302_Feet";False
+102696;"NAD_1983_StatePlane_Missouri_East_FIPS_2401_Feet";False
+102697;"NAD_1983_StatePlane_Missouri_Central_FIPS_2402_Feet";False
+102698;"NAD_1983_StatePlane_Missouri_West_FIPS_2403_Feet";False
+102700;"NAD_1983_StatePlane_Montana_FIPS_2500_Feet";False
+102704;"NAD_1983_StatePlane_Nebraska_FIPS_2600_Feet";False
+102707;"NAD_1983_StatePlane_Nevada_East_FIPS_2701_Feet";False
+102708;"NAD_1983_StatePlane_Nevada_Central_FIPS_2702_Feet";False
+102709;"NAD_1983_StatePlane_Nevada_West_FIPS_2703_Feet";False
+102710;"NAD_1983_StatePlane_New_Hampshire_FIPS_2800_Feet";False
+102711;"NAD_1983_StatePlane_New_Jersey_FIPS_2900_Feet";False
+102712;"NAD_1983_StatePlane_New_Mexico_East_FIPS_3001_Feet";False
+102713;"NAD_1983_StatePlane_New_Mexico_Central_FIPS_3002_Feet";False
+102714;"NAD_1983_StatePlane_New_Mexico_West_FIPS_3003_Feet";False
+102715;"NAD_1983_StatePlane_New_York_East_FIPS_3101_Feet";False
+102716;"NAD_1983_StatePlane_New_York_Central_FIPS_3102_Feet";False
+102717;"NAD_1983_StatePlane_New_York_West_FIPS_3103_Feet";False
+102718;"NAD_1983_StatePlane_New_York_Long_Island_FIPS_3104_Feet";False
+102719;"NAD_1983_StatePlane_North_Carolina_FIPS_3200_Feet";False
+102720;"NAD_1983_StatePlane_North_Dakota_North_FIPS_3301_Feet";False
+102721;"NAD_1983_StatePlane_North_Dakota_South_FIPS_3302_Feet";False
+102722;"NAD_1983_StatePlane_Ohio_North_FIPS_3401_Feet";False
+102723;"NAD_1983_StatePlane_Ohio_South_FIPS_3402_Feet";False
+102724;"NAD_1983_StatePlane_Oklahoma_North_FIPS_3501_Feet";False
+102725;"NAD_1983_StatePlane_Oklahoma_South_FIPS_3502_Feet";False
+102726;"NAD_1983_StatePlane_Oregon_North_FIPS_3601_Feet";False
+102727;"NAD_1983_StatePlane_Oregon_South_FIPS_3602_Feet";False
+102728;"NAD_1983_StatePlane_Pennsylvania_North_FIPS_3701_Feet";False
+102729;"NAD_1983_StatePlane_Pennsylvania_South_FIPS_3702_Feet";False
+102730;"NAD_1983_StatePlane_Rhode_Island_FIPS_3800_Feet";False
+102733;"NAD_1983_StatePlane_South_Carolina_FIPS_3900_Feet";False
+102734;"NAD_1983_StatePlane_South_Dakota_North_FIPS_4001_Feet";False
+102735;"NAD_1983_StatePlane_South_Dakota_South_FIPS_4002_Feet";False
+102736;"NAD_1983_StatePlane_Tennessee_FIPS_4100_Feet";False
+102737;"NAD_1983_StatePlane_Texas_North_FIPS_4201_Feet";False
+102738;"NAD_1983_StatePlane_Texas_North_Central_FIPS_4202_Feet";False
+102739;"NAD_1983_StatePlane_Texas_Central_FIPS_4203_Feet";False
+102740;"NAD_1983_StatePlane_Texas_South_Central_FIPS_4204_Feet";False
+102741;"NAD_1983_StatePlane_Texas_South_FIPS_4205_Feet";False
+102742;"NAD_1983_StatePlane_Utah_North_FIPS_4301_Feet";False
+102743;"NAD_1983_StatePlane_Utah_Central_FIPS_4302_Feet";False
+102744;"NAD_1983_StatePlane_Utah_South_FIPS_4303_Feet";False
+102745;"NAD_1983_StatePlane_Vermont_FIPS_4400_Feet";False
+102746;"NAD_1983_StatePlane_Virginia_North_FIPS_4501_Feet";False
+102747;"NAD_1983_StatePlane_Virginia_South_FIPS_4502_Feet";False
+102748;"NAD_1983_StatePlane_Washington_North_FIPS_4601_Feet";False
+102749;"NAD_1983_StatePlane_Washington_South_FIPS_4602_Feet";False
+102750;"NAD_1983_StatePlane_West_Virginia_North_FIPS_4701_Feet";False
+102751;"NAD_1983_StatePlane_West_Virginia_South_FIPS_4702_Feet";False
+102752;"NAD_1983_StatePlane_Wisconsin_North_FIPS_4801_Feet";False
+102753;"NAD_1983_StatePlane_Wisconsin_Central_FIPS_4802_Feet";False
+102754;"NAD_1983_StatePlane_Wisconsin_South_FIPS_4803_Feet";False
+102755;"NAD_1983_StatePlane_Wyoming_East_FIPS_4901_Feet";False
+102756;"NAD_1983_StatePlane_Wyoming_East_Central_FIPS_4902_Feet";False
+102757;"NAD_1983_StatePlane_Wyoming_West_Central_FIPS_4903_Feet";False
+102758;"NAD_1983_StatePlane_Wyoming_West_FIPS_4904_Feet";False
+102761;"NAD_1983_StatePlane_Puerto_Rico_Virgin_Islands_FIPS_5200_Feet";False
+102766;"NAD_1983_StatePlane_Guam_FIPS_5400_Feet";False
+103300;"Belge_Lambert_1972";False
+104000;"GCS_Assumed_Geographic_1";True
+104101;"GCS_Estonia_1937";True
+104102;"GCS_Hermannskogel";True
+104103;"GCS_Sierra_Leone_1960";True
+104104;"GCS_Hong_Kong_1980";True
+104105;"GCS_Datum_Lisboa_Bessel";True
+104106;"GCS_Datum_Lisboa_Hayford";True
+104107;"GCS_RGF_1993";True
+104108;"GCS_NZGD_2000";True
+104261;"GCS_Merchich_Degree";True
+104304;"GCS_Voirol_1875_Degree";True
+104305;"GCS_Voirol_Unifie_1960_Degree";True
+102113;"WGS_1984_Web_Mercator";False

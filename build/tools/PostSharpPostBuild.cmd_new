@@ -1,0 +1,42 @@
+@echo off
+set INPUT_ASSEMBLY_PATH=%1
+set TARGET_DIR=%2
+set PROJECT_PATH=%3
+set CONFIGURATION=%4
+set PLATFORM=%5
+set SNK_FILE_PATH=%6
+
+rem derived variables
+set INPUT_ASSEMBLY_NAME=%~nx1
+set INPUT_ASSEMBLY_NAME_WITHOUT_EXTENSION=%~n1
+set WORK_DIR=%~dp1\PostSharp\
+set POST_SHARP_DIR=%~dp0\PostSharp\
+set INPUT_ASSEMBLY_DIR=%~dp1
+set PROJECT_DIR=%~dp3
+set OUTPUT_ASSEMBLY_PATH=%~dp1\PostSharp\%INPUT_ASSEMBLY_NAME%
+
+echo ---------------- Running PostSharp for file %INPUT_ASSEMBLY_NAME%
+
+if exist "%WORK_DIR%" del /q /s /f "%WORK_DIR%\*"
+md "%WORK_DIR%"
+
+copy %INPUT_ASSEMBLY_PATH% %WORK_DIR%original.dll > nul
+copy %INPUT_ASSEMBLY_DIR%\%INPUT_ASSEMBLY_NAME_WITHOUT_EXTENSION%.pdb %WORK_DIR%\original.pdb > nul 
+
+rem run PostSharp
+if not "%SNK_FILE_PATH%"=="" (
+  %POST_SHARP_DIR%\PostSharp.exe %~dp0\..\build\PostSharp.targets %WORK_DIR%original.dll /P:Output=%OUTPUT_ASSEMBLY_PATH% /P:ReferenceDirectory=%TARGET_DIR% /P:Configuration=%CONFIGURATION% /P:Platform=%PLATFORM% /P:SearchPath=%TARGET_DIR% /P:IntermediateDirectory=%WORK_DIR% /P:CleanIntermediate=False /P:MSBuildProjectFullPath=%PROJECT_PATH% /P:PrivateKeyLocation=%PROJECT_DIR%%SNK_FILE_PATH% /P:SignAssembly=True
+) else (                                                                                                                                                                                                                           
+  %POST_SHARP_DIR%\PostSharp.exe %~dp0\..\build\PostSharp.targets %WORK_DIR%original.dll /P:Output=%OUTPUT_ASSEMBLY_PATH% /P:ReferenceDirectory=%TARGET_DIR% /P:Configuration=%CONFIGURATION% /P:Platform=%PLATFORM% /P:SearchPath=%TARGET_DIR% /P:IntermediateDirectory=%WORK_DIR% /P:CleanIntermediate=False /P:MSBuildProjectFullPath=%PROJECT_PATH% /P:PrivateKeyLocation= /P:SignAssembly=False
+)
+
+rem copy new files back to the target directory
+copy %OUTPUT_ASSEMBLY_PATH% %TARGET_DIR%%INPUT_ASSEMBLY_NAME% > nul
+copy %WORK_DIR%\%INPUT_ASSEMBLY_NAME_WITHOUT_EXTENSION%.pdb %TARGET_DIR%\%INPUT_ASSEMBLY_NAME_WITHOUT_EXTENSION%.pdb > nul
+
+copy %OUTPUT_ASSEMBLY_PATH% %INPUT_ASSEMBLY_PATH% > nul
+copy %WORK_DIR%\%INPUT_ASSEMBLY_NAME_WITHOUT_EXTENSION%.pdb %INPUT_ASSEMBLY_DIR%\%INPUT_ASSEMBLY_NAME_WITHOUT_EXTENSION%.pdb > nul
+
+del %WORK_DIR%original.*
+
+echo ---------------- Finished running PostSharp for file %INPUT_ASSEMBLY_NAME%

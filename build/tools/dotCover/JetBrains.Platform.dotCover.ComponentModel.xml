@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.Platform.dotCover.ComponentModel</name>
+    </assembly>
+    <members>
+        <member name="T:JetBrains.ComponentModel.ComponentMap">
+            <summary>
+            Provides mapping from PartCatalogueType to set of IComponentInstance objects which implement that type
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentState.Null">
+            <summary>
+            The component has just been created, it has not been initialized yet.
+            Cannot be returned from GetComponent in this state.
+            If queried from the Primary thread, initializes the component; on other threads, fails.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentState.Initializing">
+            <summary>
+            We're currently initializing the component.
+            Can be queried on the Primary thread only if there're no nested component initializations (because such a condition means a circular dependency); on other threads, fails.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentState.Initialized">
+            <summary>
+            The component has been initialized and its instance is accessible from any thread.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentState.Corrupted">
+            <summary>
+            We attempted to init the component, but it has failed to complete its Init.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentState.Disposing">
+            <summary>
+            The component is currently being disposed
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentState.Disposed">
+            <summary>
+            The component was disposed and no longer accessible 
+            </summary>
+        </member>
+        <member name="P:JetBrains.ComponentModel.IComponentInstance.Instance">
+            <summary>
+            The component instance.
+            Three phases:
+            (1) Non-Initialized component, <see cref="P:JetBrains.ComponentModel.IComponentInstance.Instance"/> is non-<c>Null</c> by construction, <see cref="P:JetBrains.ComponentModel.IComponentInstance.State"/> is <c>False</c>. Components are first all created, then all inited, that's why this state exists. Getting this component on the Primary thread inits it, on any other thread fails.
+            (2) Running component, <see cref="P:JetBrains.ComponentModel.IComponentInstance.Instance"/> is still non-<c>Null</c>, <see cref="P:JetBrains.ComponentModel.IComponentInstance.State"/> is <c>True</c>. Possibly, not all components enter this state. Main state of the component when the product is alive. Such a component can be gotten-instance without any restrictions.
+            (3) Disposed component. <see cref="P:JetBrains.ComponentModel.IComponentInstance.Instance"/> is <c>Null</c>, <see cref="P:JetBrains.ComponentModel.IComponentInstance.State"/> is undefined. The datas are removed from the dictionary in bulk, because the dictionary is copy-on-write, and until the pack of components is removed, those that were disposed are in this state. Getting such a component fails.
+            </summary>
+        </member>
+        <member name="P:JetBrains.ComponentModel.IComponentInstance.State">
+            <summary>
+            Init state of the component: whether it is ready for handing out or not, plus a couple service states.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.PartComponentInstance.myCatalogueType">
+            <summary>
+            The decriptor from which the component were created. 
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.PartComponentInstance.myInstance">
+            <summary>
+            The component instance.
+            Three phases:
+            (1) Non-Initialized component, <see cref="P:JetBrains.ComponentModel.PartComponentInstance.Instance"/> is non-<c>Null</c> by construction, <see cref="P:JetBrains.ComponentModel.PartComponentInstance.State"/> is <c>False</c>. Components are first all created, then all inited, that's why this state exists. Getting this component on the Primary thread inits it, on any other thread fails.
+            (2) Running component, <see cref="P:JetBrains.ComponentModel.PartComponentInstance.Instance"/> is still non-<c>Null</c>, <see cref="P:JetBrains.ComponentModel.PartComponentInstance.State"/> is <c>True</c>. Possibly, not all components enter this state. Main state of the component when the product is alive. Such a component can be gotten-instance without any restrictions.
+            (3) Disposed component. <see cref="P:JetBrains.ComponentModel.PartComponentInstance.Instance"/> is <c>Null</c>, <see cref="P:JetBrains.ComponentModel.PartComponentInstance.State"/> is undefined. The datas are removed from the dictionary in bulk, because the dictionary is copy-on-write, and until the pack of components is removed, those that were disposed are in this state. Getting such a component fails.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.PartComponentInstance.myImplementationType">
+            <summary>
+            Type of this component 
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.PartComponentInstance.myState">
+            <summary>
+            Init state of the component: whether it is ready for handing out or not, plus a couple service states.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ComponentModel.PartComponentInstance.#ctor(JetBrains.Application.Parts.PartCatalogueType)">
+            <summary>
+            Creates the component instance.
+            </summary>
+        </member>
+        <member name="P:JetBrains.ComponentModel.PartComponentInstance.Instance">
+            <summary>
+            The component instance.
+            Three phases:
+            (1) Non-Initialized component, <see cref="P:JetBrains.ComponentModel.PartComponentInstance.Instance"/> is non-<c>Null</c> by construction, <see cref="P:JetBrains.ComponentModel.PartComponentInstance.State"/> is <c>False</c>. Components are first all created, then all inited, that's why this state exists. Getting this component on the Primary thread inits it, on any other thread fails.
+            (2) Running component, <see cref="P:JetBrains.ComponentModel.PartComponentInstance.Instance"/> is still non-<c>Null</c>, <see cref="P:JetBrains.ComponentModel.PartComponentInstance.State"/> is <c>True</c>. Possibly, not all components enter this state. Main state of the component when the product is alive. Such a component can be gotten-instance without any restrictions.
+            (3) Disposed component. <see cref="P:JetBrains.ComponentModel.PartComponentInstance.Instance"/> is <c>Null</c>, <see cref="P:JetBrains.ComponentModel.PartComponentInstance.State"/> is undefined. The datas are removed from the dictionary in bulk, because the dictionary is copy-on-write, and until the pack of components is removed, those that were disposed are in this state. Getting such a component fails.
+            </summary>
+        </member>
+        <member name="P:JetBrains.ComponentModel.PartComponentInstance.CatalogueType">
+            <summary>
+            The decriptor from which the component were created. 
+            </summary>
+        </member>
+        <member name="P:JetBrains.ComponentModel.PartComponentInstance.State">
+            <summary>
+            Init state of the component: whether it is ready for handing out or not, plus a couple service states.
+            </summary>
+        </member>
+        <member name="T:JetBrains.ComponentModel.ComponentContainer">
+            <summary>
+            Base class for component containers. Provides storage for components and initialization services
+            </summary>
+        </member>
+        <member name="T:JetBrains.ComponentModel.IComponentContainer">
+            <summary>
+            Interface for abstract component container
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myId">
+            <summary>
+            Container ID for diagnostics
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myCatalogueSet">
+            <summary>
+            Catalogue set used to retrieve parts from
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.mySelector">
+            <summary>
+            Selects subset of parts to instantiate, e.g. handles parts overrides
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myPartsFilter">
+            <summary>
+            Filter applied to select parts for this component container
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myChainedContainers">
+            <summary>
+            Containers to chain to
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myDispatcher">
+            <summary>
+            Marks the container's thread affinity.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myInterfaceTypesEverKnown">
+            <summary>
+            The interface types of components that ever were present in this container, to tell apart the errors when requesting a nonexistent component that has gone away already or has never been here.
+            Must be immutable, Primary thread copy-on-write, lock-free access on any threads.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myChangingPartsBinding">
+            <summary>
+            When a group of component parts is loaded, and their instances are created, this flag is raised. Same for unloading.
+            Prevents reentrancy in these methods because they use copy-on-write which is not reentrable.
+            Primary thread modifications only.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myMapPartToComponent">
+            <summary>
+            Looks up component instances by the type of their implementation.
+            There're components without any interfaces, that's why we need this map at all.
+            Must be immutable, Primary thread copy-on-write, lock-free access on any threads.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myInitializingInstances">
+            <summary>
+            Holds stack of currently initializing components
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myMapTypeToComponent">
+            <summary>
+            Looks up component instances by the type of their interface.
+            This is the main component lookup bag.
+            Must be immutable, Primary thread copy-on-write, lock-free access on any threads.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myState">
+            <summary>
+            Current livetime state for this container
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myComponentsChange">
+            <summary>
+            Signal to notify about components coming and going
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainer.myDependencies">
+            <summary>
+            Records dependencies of components for disposal in reverse
+            </summary>
+        </member>
+        <member name="M:JetBrains.ComponentModel.ComponentContainer.Compose">
+            <summary>
+            Initializes the components in the container.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ComponentModel.ComponentContainer.TryGetComponent(System.Type)">
+            <summary>
+            Gets the component whose interface type is <paramref name="type"/>.
+            Returns <c>Null</c> if there is no such component.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ComponentModel.ComponentContainer.AddParts(System.Collections.Generic.IEnumerable{JetBrains.Application.Parts.PartCatalogueType})">
+            <summary>
+            The sink sees new items in the collection view.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ComponentModel.ComponentContainer.RemoveParts(System.Collections.Generic.IEnumerable{JetBrains.Application.Parts.PartCatalogueType})">
+            <summary>
+            The sink sees some items going away from the collection view.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ComponentModel.ComponentContainer.CreateInstanceIfNeeded(JetBrains.ComponentModel.IComponentInstance,JetBrains.Util.OnError)">
+            <summary>
+            To be called from <c>TryGetComponent…</c> only.
+            Inits the component if it has not been inited yet.
+            Usually the caller would check if the component is inited, for speed; we check here once again just in case.
+            Primary thread only (ignored for already-initializeds).
+            </summary>
+            <param name="instance">Thing to init.</param>
+            <param name="onerror">Throw out to abort and never get an invalid component. Ignore or log to allow silent failures, check retval.</param>
+            <returns><c>True</c> if the component is in the initialized state on return. <c>False</c> in case of problems, shouldn't be if <paramref name="onerror"/> throws.</returns>
+        </member>
+        <member name="M:JetBrains.ComponentModel.ComponentContainer.BindParts(System.Collections.Generic.IEnumerable{JetBrains.Application.Parts.PartCatalogueType})">
+            <summary>
+            Physical Creation.
+            Component instances are created and added to the store, but not initialized.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ComponentModel.ComponentContainer.DisposeParts(System.Collections.Generic.List{JetBrains.Application.Parts.PartCatalogueType})">
+            <summary>
+            Logical Destruction.
+            Components are disposed of.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ComponentModel.ComponentContainer.UnbindParts(System.Collections.Generic.IEnumerable{JetBrains.Application.Parts.PartCatalogueType})">
+            <summary>
+            Physical Removal.
+            Component instances are removed from the store.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ComponentModel.ComponentContainer.GetComponentsCore(System.Type,JetBrains.Util.OnError)">
+            <summary>
+            Core impl for [Try]GetComponent. NotNull or CanBeNull depending on the params.
+            </summary>
+            <param name="type">Component interface to look up.</param>
+            <param name="onerror">Throw out to abort and get NotNull, ignore or log to get CanBeNull.</param>
+        </member>
+        <member name="M:JetBrains.ComponentModel.ComponentContainerEx.TryGetComponent``1(JetBrains.ComponentModel.IComponentContainer)">
+            <summary>
+            Gets the component whose interface type is <typeparamref name="TInterface"/>.
+            Returns <c>Null</c> if there is no such component, or there are multiple components
+            </summary>
+        </member>
+        <member name="M:JetBrains.ComponentModel.ComponentContainerEx.TryGetComponentEx``1(JetBrains.ComponentModel.IComponentContainer)">
+            <summary>
+            Workaround method which is used to obtain components ONLY in the scope
+            of ActionManager which tries to workaround en exception when the
+            application is being shutting down.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainerState.Initial">
+            <summary>
+            The container has just been created and is not ready for creating the components yet. Call <see cref="M:JetBrains.ComponentModel.ComponentContainer.Compose"/> to proceed.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainerState.Initialized">
+            <summary>
+            The container is running. The first pack of components has been created.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainerState.Disposing">
+            <summary>
+            <see cref="M:System.IDisposable.Dispose"/> has been called on the container, and it's currently in the process of tearing down the components.
+            </summary>
+        </member>
+        <member name="F:JetBrains.ComponentModel.ComponentContainerState.Disposed">
+            <summary>
+            The container has destroyed all of the components and is functional no more.
+            </summary>
+        </member>
+        <member name="T:JetBrains.ComponentModel.IComponent">
+            <summary>
+            Base component interface.
+            </summary>
+        </member>
+        <member name="M:JetBrains.ComponentModel.IComponent.Init">
+            <summary>
+            <para>Initializes the component. Called by the component container after the component is created.</para>
+            <para><see cref="M:System.IDisposable.Dispose"/> is the pairing method that's guaranteed to be called by the component container to tear down your component.</para>
+            <para>You must not access other components before your <see cref="M:JetBrains.ComponentModel.IComponent.Init"/> method is called.</para>
+            <para>All of the components that you access from <see cref="M:JetBrains.ComponentModel.IComponent.Init"/> are guaranteed to exist when your <see cref="M:System.IDisposable.Dispose"/> is called. Any other component might be missing by that time, and trying to get it will throw an exception.</para>
+            </summary>
+        </member>
+        <member name="P:JetBrains.ComponentModel.ComponentChange.Instance">
+            <summary>
+            The component instance.
+            </summary>
+        </member>
+        <member name="P:JetBrains.ComponentModel.ComponentChange.CatalogueType">
+            <summary>
+            The decriptor from which the component were created. 
+            </summary>
+        </member>
+    </members>
+</doc>

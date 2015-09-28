@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id="RealTimeControl" Name="DeltaShell.Plugins.RealTimeControl">
+    <Component Id="RealTimeControlPluginDll" Guid="397EC045-3A1C-4C9C-86FC-2CC8D1E209FD">
+      <File Id="Deltares.RtcTools.Net.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\Deltares.RtcTools.Net.dll" />
+      <File Id="Deltares.RtcTools.Net.xml" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\Deltares.RtcTools.Net.xml" />
+      <File Id="DeltaShell.Plugins.DelftModels.RTCShapes.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\DeltaShell.Plugins.DelftModels.RTCShapes.dll" />
+      <File Id="DeltaShell.Plugins.DelftModels.RealTimeControl.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\DeltaShell.Plugins.DelftModels.RealTimeControl.dll" />
+      <File Id="DeltaShell.Plugins.DelftModels.RealTimeControl.Gui.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl.Gui\DeltaShell.Plugins.DelftModels.RealTimeControl.Gui.dll" />      
+    </Component>
+    <Directory Id="xsd" Name="xsd">
+      <Component Id="RealTimeControlPluginXsd" Guid="0757B867-5ED0-44FB-A28B-26E3C8DADA8F">
+        <File Id="pi_diag.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\pi_diag.xsd" />
+        <File Id="pi_modelparameters.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\pi_modelparameters.xsd" />
+        <File Id="pi_run.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\pi_run.xsd" />
+        <File Id="pi_sharedtypes.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\pi_sharedtypes.xsd" />
+        <File Id="pi_state.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\pi_state.xsd" />
+        <File Id="pi_timeseries.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\pi_timeseries.xsd" />
+        <File Id="rtcdataconfig.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\rtcdataconfig.xsd" />
+        <File Id="rtcObjectiveConfig.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\rtcObjectiveConfig.xsd" />
+        <File Id="rtcPostprocessingConfig.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\rtcPostprocessingConfig.xsd" />
+        <File Id="rtcRuntimeConfig.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\rtcRuntimeConfig.xsd" />
+        <File Id="rtcScenarioTreeConfig.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\rtcScenarioTreeConfig.xsd" />
+        <File Id="rtcsharedtypes.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\rtcsharedtypes.xsd" />
+        <File Id="rtcStateConfig.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\rtcStateConfig.xsd" />
+        <File Id="rtctoolsconfig.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\rtctoolsconfig.xsd" />
+        <File Id="treeVector.xsd" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\xsd\treeVector.xsd" />
+      </Component>
+    </Directory>
+    <Directory Id="rtc_kernel_folder" Name="rtc_kernel">
+      <Component Guid="F604359B-EF38-4C18-B881-5DEB71C0AEB1" Id="rtc_kernel">
+        <File Id="IpOptFSS.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\rtc_kernel\IpOptFSS.dll" />
+        <!--IpOpt-vc10.dll can not be used as Id so Id = IpOpt_vc10.dll//-->
+        <File Id="IpOpt_vc10.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\rtc_kernel\IpOpt-vc10.dll" />
+        <File Id="msvcr100.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\rtc_kernel\msvcr100.dll" />
+        <File Id="RTCTools_OpenMI.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\rtc_kernel\RTCTools_OpenMI.dll" />
+        <File Id="vcomp100.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\rtc_kernel\vcomp100.dll" />
+        <!--xerces-c_3_1.dll can not be used as Id so Id = xerces_c_3_1.dll//-->
+        <File Id="xerces_c_3_1.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.RealTimeControl\rtc_kernel\xerces-c_3_1.dll" />
+      </Component>
+    </Directory>
+  </Directory>
+</Include>

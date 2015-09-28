@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+  <?define IncludeX64="true" ?>
+
+  <?define Description="D-WAQ Delta Shell" ?>
+  <?define StartPage="Welcome.htm" ?>
+
+  <?define pluginicon="$(var.ProjectDir)\Resources\Waq.ico"?>
+  <?define licensefile="$(var.ProjectDir)\Resources\License.rtf"?>
+  <?define windowlayoutfile="$(var.ProjectDir)\Resources\WindowLayout_normal.xml"?>
+  <?define setupbanner="$(var.ProjectDir)\Resources\setup_banner.jpg"?>
+  <?define setupstartup="$(var.ProjectDir)\Resources\setup_start.bmp"?>
+
+  <!-- Give these definitions to the plugin with include files -->
+  <?define manualswxi="$(var.ProjectDir)\Manuals.wxi"?>
+  <?define pluginswxi="$(var.ProjectDir)\Plugins.wxi"?>
+  <?define plugin_manualshortcuts="$(var.ProjectDir)\ManualShortcuts.wxi"?>
+  <?define plugin_utilityshortcuts="$(var.ProjectDir)\UtilityShortcuts.wxi"?>
+  <?define plugin_features="$(var.ProjectDir)\Features.wxi"?>
+
+  <!-- optional extra files to include in the bin folder in the main feature -->
+  <?define customizationwxi="$(var.ProjectDir)\Extras.wxi"?>
+
+  <?define supportEmail="delft3d.support@deltares.nl"?>
+
+  <!-- optional splash screen -->
+  <?define mainWindowTitle="$(var.ProductName)"?>
+  <?define splashScreenLogoImageFilePath="splash_screen.jpg"?>
+  
+  <?include ..\..\DeltaShell\Templates\PluginTemplate.wxi?>
+</Wix>

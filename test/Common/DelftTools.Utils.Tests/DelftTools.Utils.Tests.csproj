@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7F937E31-02CA-41D9-B7D4-1079CF452C72}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DelftTools.Utils.Tests</RootNamespace>
+    <AssemblyName>DelftTools.Utils.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <DontImportPostSharp>True</DontImportPostSharp>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <NoWarn>1591</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <NoWarn>1591</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="PostSharp">
+      <HintPath>..\..\..\packages\PostSharp.2.1.7.28\lib\net20\PostSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpTestsEx">
+      <HintPath>..\..\..\lib\SharpTestsEx.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Aop\EditableObjectUniqueTest.cs" />
+    <Compile Include="Aop\EntityAttributeTest.cs" />
+    <Compile Include="Aop\TestClasses\BubbleTestClass.cs" />
+    <Compile Include="Aop\InvokeRequiredAttributeTest.cs" />
+    <Compile Include="Aop\TestClasses\ChildObject.cs" />
+    <Compile Include="Aop\TestClasses\ClassImplementingIEventedList.cs" />
+    <Compile Include="Aop\TestClasses\ClassWithAspects.cs" />
+    <Compile Include="Aop\TestClasses\ClassWithoutAspects.cs" />
+    <Compile Include="Aop\TestClasses\CollectionChangedAspectTestClass.cs" />
+    <Compile Include="Aop\TestClasses\InvokeRequiredTestClass.cs" />
+    <Compile Include="Aop\TestClasses\DllImports.cs" />
+    <Compile Include="Aop\TestClasses\NotifiableTestClass.cs" />
+    <Compile Include="Aop\TestClasses\ParentObject.cs" />
+    <Compile Include="Aop\TestClasses\ProblemChildObject.cs" />
+    <Compile Include="Aop\TestClasses\ProblemParentObject.cs" />
+    <Compile Include="Aop\TestClasses\TestPublisher.cs" />
+    <Compile Include="Aop\TestClasses\TreeClient.cs" />
+    <Compile Include="Aop\TraceDllImportCallsAttributeTest.cs" />
+    <Compile Include="Binding\EnumBindingHelperTest.cs" />
+    <Compile Include="Binding\SampleEnum.cs" />
+    <Compile Include="ChartViewDateTimeFormatProviderTest.cs" />
+    <Compile Include="ChunkedArrayTest.cs" />
+    <Compile Include="ChunkedListTest.cs" />
+    <Compile Include="Collections\EnumerableExtensionsTest.cs" />
+    <Compile Include="Collections\Extensions\ListExtensions.cs" />
+    <Compile Include="Collections\Generic\EnumerableListTest.cs" />
+    <Compile Include="Collections\Generic\EventedListTest.cs" />
+    <Compile Include="Collections\Generic\MockClassWithTwoProperties.cs" />
+    <Compile Include="ComparableExtensionsTest.cs" />
+    <Compile Include="ComparerTest.cs" />
+    <Compile Include="ConversionHelperTest.cs" />
+    <Compile Include="DateTimeExtensionsTests.cs" />
+    <Compile Include="DateTimeFormatGuesserTest.cs" />
+    <Compile Include="DelayedEventHandlerTest.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DeltaShellTimeSpanConverterTest.cs" />
+    <Compile Include="ExcelFormulaTest.cs" />
+    <Compile Include="General\TypeConverterTest.cs" />
+    <Compile Include="Globalization\RegionalSettingsManagerTest.cs" />
+    <Compile Include="InterfacePropertiesTypeDescriptionProviderTest.cs" />
+    <Compile Include="IO\FileUtilsTest.cs" />
+    <Compile Include="IO\FileWatcherTest.cs" />
+    <Compile Include="IO\ZipFileTest.cs" />
+    <Compile Include="MathUtilsTest.cs" />
+    <Compile Include="NamingHelperTest.cs" />
+    <Compile Include="NetCdf\NetCdfFileTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyBag\DynamicDataItemPropertyBagTest.cs" />
+    <Compile Include="PropertyBag\DynamicPropertyBagTest.cs" />
+    <Compile Include="Reflection\AssemblyBuilderTest.cs" />
+    <Compile Include="Reflection\AssemblyUtilsTest.cs" />
+    <Compile Include="Reflection\AutoClonerTest.cs" />
+    <Compile Include="Reflection\DynamicTypeUtilsTest.cs" />
+    <Compile Include="Reflection\TestClasses\BaseClass.cs" />
+    <Compile Include="Reflection\TestClasses\OverridingClass.cs" />
+    <Compile Include="Reflection\TypeConverterTest.cs" />
+    <Compile Include="Reflection\TypeExtensionsTest.cs" />
+    <Compile Include="Reflection\TypeUtilsTest.cs" />
+    <Compile Include="RegularExpressions\RegularExpressionTest.cs" />
+    <Compile Include="Remoting\IRemoteClass.cs" />
+    <Compile Include="Remoting\RemoteInstanceContainer2Test.cs" />
+    <Compile Include="Remoting\RemoteInstanceContainerTest.cs" />
+    <Compile Include="Remoting\RemotingClass.cs" />
+    <Compile Include="SnappingCalculatorTest.cs" />
+    <Compile Include="SqlUtilsTest.cs" />
+    <Compile Include="StringExtensionsTests.cs" />
+    <Compile Include="TestHelperTests.cs" />
+    <Compile Include="TestReferenceHelperTest.cs" />
+    <Compile Include="TextDocumentBaseTest.cs" />
+    <Compile Include="TextDocumentTest.cs" />
+    <Compile Include="Threading\ThreadedWorkerTest.cs" />
+    <Compile Include="Threading\ThreadsafeBindingListTest.cs" />
+    <Compile Include="UniqueTest.cs" />
+    <Compile Include="Validation\ValidationReportTest.cs" />
+    <Compile Include="WeakEventHandlerTest.cs" />
+    <Compile Include="Xml\Serialization\CustomSerializerTest.cs" />
+    <Compile Include="Xml\Serialization\DictionarySerializerTest.cs" />
+    <Compile Include="Xml\Serialization\ObjectXmlSerializerTest.cs" />
+    <Compile Include="Xml\Serialization\TestClasses\BaseClass.cs" />
+    <Compile Include="Xml\Serialization\TestClasses\DerivedClass.cs" />
+    <Compile Include="Xml\Serialization\TestClasses\TestClass.cs" />
+    <Compile Include="Xml\Serialization\TestClasses\XmlValidator.cs" />
+    <Compile Include="Xml\Serialization\TestData\Product.cs">
+      <DependentUpon>Product.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Xml\Serialization\TestData\Product.Designer.cs">
+      <DependentUpon>Product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Xml\Serialization\TestData\Product1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Product.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Common\DelftTools.Utils\DelftTools.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>DelftTools.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DelftTools.TestUtils\DelftTools.TestUtils.csproj">
+      <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
+      <Name>DelftTools.TestUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Xml\Serialization\TestData\Product.xsc">
+      <DependentUpon>Product.xsd</DependentUpon>
+    </None>
+    <None Include="Xml\Serialization\TestData\Product.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Product1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Xml\Serialization\TestData\Product.xss">
+      <DependentUpon>Product.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Xml\Serialization\TestData\SomeProduct.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Import Project="..\..\..\build\DeltaShell.targets" />
+  <Import Project="..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets" Condition="Exists('..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets')" />
+</Project>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <File Id="DWater_Quality_Input_File_Description" Source="$(var.SolutionDir)\setup\Plugins\Waq\$(var.Delft3DPackageName)_Manuals\D-Water_Quality_Input_File_Description.pdf"/>
+  <File Id="DWater_Quality_Processes_Technical_Reference_Manual" Source="$(var.SolutionDir)\setup\Plugins\Waq\$(var.Delft3DPackageName)_Manuals\D-Water_Quality_Processes_Technical_Reference_Manual.pdf"/>
+  <File Id="DWater_Quality_User_Manual" Source="$(var.SolutionDir)\setup\Plugins\Waq\$(var.Delft3DPackageName)_Manuals\D-Water_Quality_User_Manual.pdf"/>
+  <File Id="DWater_Quality_PLCT_User_Manual" Source="$(var.SolutionDir)\setup\Plugins\Waq\$(var.Delft3DPackageName)_Manuals\D-Water_Quality_PLCT_User_Manual.pdf"/>
+
+  <!-- DIDO
+  TODO: agrhyd is not yet ready, so DIDO should not be included
+  <File Id="DIDO_User_Manual" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.WaterQualityModel\dido\manuals\D-Water_Quality_DIDO_User_Manual.pdf"/>
+  -->
+</Include>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.dotCover.SignatureDefinitions</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "T:JetBrains.dotCover.SignatureDefinitions.INavigationInfo" -->
+        <member name="T:JetBrains.dotCover.SignatureDefinitions.LambdaInfo">
+            <summary>
+            Data used to identify lambda within some scope (type, method or other lambda).
+            </summary>
+        </member>
+        <member name="P:JetBrains.dotCover.SignatureDefinitions.LambdaInfo.Signature">
+            <summary>
+            Signature of the lambda
+            </summary>
+        </member>
+        <member name="P:JetBrains.dotCover.SignatureDefinitions.LambdaInfo.Index">
+            <summary>
+            Index of lambda in the list of all lambdas from current scope that have the same signature. If navigation should search through all lambdas at the current level, the value must be -1.
+            </summary>
+        </member>
+        <member name="P:JetBrains.dotCover.SignatureDefinitions.ClassTypeSignature.GenericArguments">
+            <summary>
+            Generic arguments of the type.
+            Returns empty enumeration if no type has no parameters
+            </summary>
+        </member>
+    </members>
+</doc>

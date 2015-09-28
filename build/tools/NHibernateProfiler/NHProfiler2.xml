@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<license id="3c26906b-0951-4dcf-9c6f-9cb000f433ce" expiration="9999-12-31T23:59:59.9999999" type="Standard">
+  <name>Nathalie Denie #1</name>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+      <Reference URI="">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>gLUlRmP5kDNPe9zQDtrABYfcqvg=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>jYPVBUEMUsgwOuUK+2AR3bvKzAdgYD7i4hgEsS/QAq6ZfyXBQ9BX4mMtNUa3wVz0kLk0jQCJdtdcvsIVSV/ANGWHnM3T6DtKvGVK4Eyb1Hl6/gLyQuWFAmZ0YB99JwxBi4Zym8dQ9kCWDiPS0o8DUJffGuYAIaeoUKBWl3H6RiI=</SignatureValue>
+  </Signature>
+</license>

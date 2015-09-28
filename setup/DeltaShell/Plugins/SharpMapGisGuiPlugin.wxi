@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id="SharpMapGisGui" Name="DeltaShell.Plugins.SharpMapGis.Gui">
+    <Component Id="SharpMapGisGuiPlugin" Guid="F393A845-3A03-40DB-9E32-AA9F5D0BE621">
+      <File Id="DeltaShell.Plugins.SharpMapGis.Gui.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.SharpMapGis.Gui\DeltaShell.Plugins.SharpMapGis.Gui.dll" />
+    </Component>
+  </Directory>
+</Include>

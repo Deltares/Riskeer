@@ -1,0 +1,361 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Reflection;
+using System.Windows.Forms;
+
+using DelftTools.Shell.Core;
+
+using log4net;
+
+namespace DelftTools.Controls.Swf.TreeViewControls
+{
+    public class TreeNode : System.Windows.Forms.TreeNode, ITreeNode, IObserver, IDisposable
+    {
+        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly TreeNodeList nodes;
+        private readonly ITreeView treeView;
+        private IMenuItem contextMenu;
+        protected bool isLoaded;
+        private bool isUpdating;
+        
+        public TreeNode(ITreeView treeView)
+        {
+            this.treeView = treeView;
+            nodes = new TreeNodeList(base.Nodes);
+            IsVisible = true;
+        }
+        
+        new public ITreeView TreeView
+        {
+            get { return treeView; }
+        }
+
+        public ITreeNodePresenter Presenter { get; set; }
+
+        public new IMenuItem ContextMenu
+        {
+            get { return contextMenu; }
+            set
+            {
+                if (null == value)
+                {
+                    //log.WarnFormat("No contextmenu set for : {0}", this);
+                    return;
+                }
+                var adapter = value as MenuItemContextMenuStripAdapter;
+                if (adapter == null)
+                {
+                    log.WarnFormat(
+                        "Only ContextMenuStrip-adapted IMenuItems are supported as a context menu for now. Node: {0}, Menu: {1}",
+                        this, contextMenu);
+                    return;
+                }
+                base.ContextMenuStrip = adapter.ContextMenuStrip;
+                contextMenu = value;
+            }
+        }
+
+        public new void EnsureVisible()
+        {
+            base.EnsureVisible();
+        }
+
+        public new string Text
+        {
+            get { return base.Text; }
+            set
+            {
+                if (base.Text != value)
+                {
+                    base.Text = value;
+                }
+            }
+        }
+
+        private object tag;
+
+        public new object Tag
+        {
+            get { return tag; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+                if(tag == value)
+                {
+                    return;
+                }
+
+                if (observable != null)
+                {
+                    observable.Detach(this);
+                }
+
+                tag = value;
+
+                observable = tag as IObservable;
+                if (observable != null)
+                {
+                    observable.Attach(this);
+                }
+            }
+        }
+
+        public new bool IsVisible { get; set; }
+
+        /// <summary>
+        /// Called when a user right clicks in the network tree
+        /// </summary>
+        public override ContextMenuStrip ContextMenuStrip
+        {
+            get
+            {
+                ITreeNodePresenter treeNodePresenter = Presenter;
+                if (treeNodePresenter == null)
+                {
+                    log.WarnFormat("No treeNodePresenter for node: {0}", this);
+                    return null;
+                }
+
+                IMenuItem contextMenu = treeNodePresenter.GetContextMenu(this, Tag);
+                if (contextMenu == null)
+                {
+                    //log.WarnFormat("No contextmenu found for node: {0}", this);
+                    return null;
+                }
+
+                var adapter = contextMenu as MenuItemContextMenuStripAdapter;
+                if (adapter == null)
+                {
+                    log.WarnFormat(
+                        "Only ContextMenuStrip-adapted IMenuItems are supported as a context menu for now. Node: {0}, Menu: {1}",
+                        this, contextMenu);
+                    return null;
+                }
+                return adapter.ContextMenuStrip;
+            }
+            set
+            {
+                base.ContextMenuStrip = value;
+            }
+        }
+
+        public new ITreeNode Parent
+        {
+            get { return (ITreeNode) base.Parent; }
+        }
+
+        new public string FullPath
+        {
+            get
+            {
+                return base.TreeView == null ? string.Empty : base.FullPath;
+            }
+        }
+
+        public new ITreeNode NextNode
+        {
+            get { return (ITreeNode) base.NextNode; }
+        }
+
+        public new ITreeNode NextVisibleNode
+        {
+            get { return (ITreeNode) base.NextVisibleNode; }
+        }
+
+        public new void Expand()
+        {
+            if (!isLoaded)
+            {
+                TreeView.RefreshChildNodes(this);
+            }
+            base.Expand();
+        }
+
+        public new IList<ITreeNode> Nodes
+        {
+            get
+            {
+                if (!isLoaded)
+                {
+                    RefreshChildNodes();
+                }
+
+                return nodes;
+            }
+        }
+
+        public ITreeNode PreviousNode
+        {
+            get { return (ITreeNode) PrevNode; }
+        }
+
+        public ITreeNode PreviousVisibleNode
+        {
+            get { return (ITreeNode) PrevVisibleNode; }
+        }
+
+        public Rectangle Bounds
+        {
+            get { return base.Bounds; }
+        }
+
+        public bool IsLoaded
+        {
+            get { return isLoaded; }
+        }
+
+        public bool ShowCheckBox { get; set; }
+
+        public Color BackgroundColor
+        {
+            get { return BackColor; }
+            set { BackColor = value; }
+        }
+
+        public Color ForegroundColor
+        {
+            get { return ForeColor; }
+            set { ForeColor = value; }
+        }
+
+        public bool Bold { get; set; }
+
+        private Image image;
+        private IObservable observable;
+
+        public Image Image
+        {
+            get { return image; } 
+            set { image = value; }
+        }
+
+        public bool IsUpdating
+        {
+            get { return isUpdating; }
+        }
+
+        /// <summary>
+        /// Used in rendering (has children indicates if a plus or minus must be drawn)
+        /// </summary>
+        public bool HasChildren { get; set; }
+
+        public void Update()
+        {
+            if (isUpdating)
+                return; //prevent 're-entrancy' issues
+
+            isUpdating = true;
+            TreeView.UpdateNode(this);
+            isUpdating = false;
+        }
+
+        public void RefreshChildNodes(bool forcedRefresh = false)
+        {
+            if (isUpdating && !forcedRefresh)
+                return; //prevent 're-entrancy' issues
+
+            isUpdating = true;
+            TreeView.RefreshChildNodes(this);
+            isLoaded = true;
+            isUpdating = false;
+        }
+
+        public ITreeNode GetParentOfLevel(int level)
+        {
+            ITreeNode node = this;
+
+            for (var i = Level; i != level; i--)
+            {
+                node = node.Parent;
+            }
+
+            return node;
+        }
+
+        public void ScrollTo()
+        {
+            EnsureVisible();
+        }
+
+        public ITreeNode GetNodeByTag(object item)
+        {
+            foreach (ITreeNode node in nodes)
+            {
+                if(node.Tag == item)
+                {
+                    return node;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Check if the node is a descendent of another node
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public bool IsChildOf(ITreeNode node)
+        {
+            ITreeNode parentNode = this;
+            while (parentNode != null && parentNode.Parent != null)
+            {
+                if (parentNode.Parent.Equals(node))
+                {
+                    return true;
+                }
+
+                parentNode = parentNode.Parent;
+            }
+
+            return false;
+        }
+
+        public void ShowContextMenu(Point location)
+        {
+            if (base.ContextMenuStrip != null)
+            {
+                base.ContextMenuStrip.Show(location);
+            }
+        }
+
+        private static Font CreateBoldFont(Font font, bool bold)
+        {
+            if (font.Bold != bold)
+            {
+                FontStyle style;
+                if (bold)
+                {
+                    style = font.Style | FontStyle.Bold;
+                }
+                else
+                {
+                    //'substract' the bold
+                    style = (FontStyle) ((int) font.Style - (int) FontStyle.Bold);
+                }
+                return new Font(font.Name, font.Size,
+                                style, font.Unit,
+                                font.GdiCharSet, font.GdiVerticalFont);
+
+            }
+            return new Font(font,font.Style);
+        }
+
+        public void UpdateObserver()
+        {
+            Update();
+        }
+
+        public void Dispose()
+        {
+            if (observable != null)
+            {
+                observable.Detach(this);
+            }
+        }
+    }
+}

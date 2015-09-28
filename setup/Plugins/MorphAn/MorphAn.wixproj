@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.5</ProductVersion>
+    <ProjectGuid>{c66dc55e-de49-44f9-bfb0-f4541320209c}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>MorphAn-1.2.0.$(BUILD_NUMBER)-EAP</OutputName>
+    <OutputType>Package</OutputType>
+    <WixToolPath>$(MSBuildProjectDirectory)\..\..\..\build\tools\wix\v3</WixToolPath>
+    <WixTargetsPath>$(WixToolPath)\Wix.targets</WixTargetsPath>
+    <WixTasksPath>$(WixToolPath)\wixtasks.dll</WixTasksPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
+  <ItemGroup>
+    <Content Include="MorphAnDomain.wxi" />
+    <Content Include="MorphAnPlugin.wxi" />
+    <Content Include="License.rtf" />
+    <Content Include="MorphAnXBeachIntegrator.wxi" />
+    <Content Include="Resources\MorphAn User Manual 1.2.3.pdf" />
+    <Content Include="Resources\morphanlogo.ico" />
+    <Content Include="Resources\morphanSplashScreen.png" />
+    <Content Include="Resources\morphan_setup_banner.bmp" />
+    <Content Include="Resources\morphan_setup_start.bmp" />
+    <Content Include="Resources\pdf.ico" />
+    <Content Include="Scripting\Feature_MorphAnScriptingToolbox.wxi" />
+    <Content Include="Scripting\MorphAnScriptingToolbox.wxi" />
+    <Content Include="WindowLayout_normal.xml" />
+    <Content Include="XBeach1DPlugin.wxi" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Product.wxs" />
+    <Compile Include="WixUI\Morphan_WixUI_Deltares.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixToolPath)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixToolPath)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixToolPath)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Scripting" />
+    <Folder Include="WixUI\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WixUIVariables.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DefaultDeltaresDialogs\DefaultDeltaresDialogs.wixproj">
+      <Name>DefaultDeltaresDialogs</Name>
+      <Project>{f30c1a46-d283-484e-aabe-ef52f9168e08}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

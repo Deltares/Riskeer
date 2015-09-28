@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define flowfm_plugin_bin="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.FMSuite.FlowFM\"?>
+  <Directory Id="DeltaShell.Plugins.FMSuite.FlowFM" Name="DeltaShell.Plugins.FMSuite.FlowFM">
+    <Component Id="FMPlugin" Guid="DC83C067-D310-43EF-91B1-2FABAAC52721">
+      <File Id="DeltaShell.Plugins.FMSuite.FlowFM.dll" Source="$(var.flowfm_plugin_bin)DeltaShell.Plugins.FMSuite.FlowFM.dll" />
+      <File Id="DeltaShell.Plugins.FMSuite.FlowFM.Gui.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.FMSuite.FlowFM.Gui\DeltaShell.Plugins.FMSuite.FlowFM.Gui.dll" />
+      <File Id="dflowfmprop.csv" Source="$(var.flowfm_plugin_bin)dflowfm-properties.csv" />
+      <File Id="structureproperties.csv" Source="$(var.flowfm_plugin_bin)structure-properties.csv" />
+    </Component>
+
+    <Directory Id="fmtoolboxes" Name="toolboxes">
+      <Component Id="FM_toolboxes" Guid="AF7228F4-F583-47C8-938D-4F6A8AA81F34">
+        <File Id="fm_User_input_example.py" Source="$(var.flowfm_plugin_bin)toolboxes\User input example.py" />
+        <File Id="fm_User_input_example.png" Source="$(var.flowfm_plugin_bin)toolboxes\User input example.png" />
+        <File Id="fm_Statistics.py" Source="$(var.flowfm_plugin_bin)toolboxes\Statistics.py" />
+        <File Id="fm_Statistics.png" Source="$(var.flowfm_plugin_bin)toolboxes\Statistics.png" />
+      </Component>
+    </Directory>
+
+    <Directory Id="fmkerneldir" Name="dflowfm_kernel">
+      <?define fmkernel_lib_dir="$(var.flowfm_plugin_bin)\dflowfm_kernel\"?>
+      <Directory Id="fmx86" Name="x86">
+        <Component Id="fmx86_dflowfmdll" Guid="AF7228F4-F083-47C8-928D-4F6A8AA81F34">
+          <File Id="fmx86_dflowfm.dll" Source="$(var.fmkernel_lib_dir)x86\dflowfm.dll" />
+          <File Id="fmx86_netcdf.dll" Source="$(var.fmkernel_lib_dir)x86\netcdf.dll"/>
+          <File Id="fmx86_pthreadVCE2.dll" Source="$(var.fmkernel_lib_dir)x86\pthreadVCE2.dll" />
+          <File Id="fmx86_libmmd.dll" Source="$(var.fmkernel_lib_dir)x86\libmmd.dll" />
+          <File Id="fmx86_msvcr100.dll" Source="$(var.fmkernel_lib_dir)x86\msvcr100.dll" />
+          <File Id="fmx86_msvcr110.dll" Source="$(var.fmkernel_lib_dir)x86\msvcr110.dll" />
+          <File Id="fmx86_msvcp110.dll" Source="$(var.fmkernel_lib_dir)x86\msvcp110.dll" />
+          <File Id="fmx86_libifcoremd.dll" Source="$(var.fmkernel_lib_dir)x86\libifcoremd.dll" />
+          <File Id="fmx86_libiomp5md.dll" Source="$(var.fmkernel_lib_dir)x86\libiomp5md.dll" />
+          <File Id="fmx86_mpich2mpi.dll" Source="$(var.fmkernel_lib_dir)x86\mpich2mpi.dll" />
+          <File Id="fmx86_fmpich2.dll" Source="$(var.fmkernel_lib_dir)x86\fmpich2.dll" />
+          <File Id="fmx86_libifportmd.dll" Source="$(var.fmkernel_lib_dir)x86\libifportmd.dll" />
+          <File Id="fmx86_svml_dispmd.dll" Source="$(var.fmkernel_lib_dir)x86\svml_dispmd.dll" />
+        </Component>
+      </Directory>
+
+      <Directory Id="fmx64" Name="x64">
+        <Component Id="fmx64_dflowfmdll" Guid="AF7228F5-F083-47C8-928D-4F6A8AA81F31">
+          <File Id="fmx64_dflowfm.dll" Source="$(var.fmkernel_lib_dir)x64\dflowfm.dll" />
+          <File Id="fmx64_netcdf.dll" Source="$(var.fmkernel_lib_dir)x64\netcdf.dll" />
+          <File Id="fmx64_pthreadVC2.dll" Source="$(var.fmkernel_lib_dir)x64\pthreadVC2.dll" />
+          <File Id="fmx64_libmmd.dll" Source="$(var.fmkernel_lib_dir)x64\libmmd.dll" />
+          <File Id="fmx64_msvcr100.dll" Source="$(var.fmkernel_lib_dir)x64\msvcr100.dll" />
+          <File Id="fmx64_msvcr110.dll" Source="$(var.fmkernel_lib_dir)x64\msvcr110.dll" />
+          <File Id="fmx64_msvcp110.dll" Source="$(var.fmkernel_lib_dir)x64\msvcp110.dll" />
+          <File Id="fmx64_libifcoremd.dll" Source="$(var.fmkernel_lib_dir)x64\libifcoremd.dll" />
+          <File Id="fmx64_libiomp5md.dll" Source="$(var.fmkernel_lib_dir)x64\libiomp5md.dll" />
+          <File Id="fmx64_mpich2mpi.dll" Source="$(var.fmkernel_lib_dir)x64\mpich2mpi.dll" />
+          <File Id="fmx64_fmpich2.dll" Source="$(var.fmkernel_lib_dir)x64\fmpich2.dll" />
+          <File Id="fmx64_libifportmd.dll" Source="$(var.fmkernel_lib_dir)x64\libifportmd.dll" />
+          <File Id="fmx64_svml_dispmd.dll" Source="$(var.fmkernel_lib_dir)x64\svml_dispmd.dll" />
+          <File Id="fmx64_tecio.dll" Source="$(var.fmkernel_lib_dir)x64\tecio.dll" />
+        </Component>
+      </Directory>
+    </Directory>
+  </Directory>
+  <?undef flowfm_plugin_bin ?>
+</Include>

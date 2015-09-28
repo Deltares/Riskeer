@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.5</ProductVersion>
+    <!-- This version is wix specific -->
+    <ReleaseVersion>1.0.0</ReleaseVersion>
+    <!-- This is our release version -->
+    <ProductName>Delft3D Flexible Mesh 2016</ProductName>
+    <!-- This is the product name -->
+    <ProjectGuid>{1dd62dbb-f7d3-40be-8063-b7b80cec8b9f}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName Condition=" '$(BUILD_NUMBER)' == '' ">$(ProductName) ($(ReleaseVersion))</OutputName>
+    <OutputName Condition=" '$(BUILD_NUMBER)' != '' ">$(ProductName) ($(ReleaseVersion).$(BUILD_NUMBER))</OutputName>
+    <OutputType>Package</OutputType>
+    <WixToolPath>$(MSBuildProjectDirectory)\..\..\..\build\tools\wix\v3</WixToolPath>
+    <WixTargetsPath>$(WixToolPath)\Wix.targets</WixTargetsPath>
+    <WixTasksPath>$(WixToolPath)\wixtasks.dll</WixTasksPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug;</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ProductName=$(ProductName)</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="..\..\DeltaShell\OpenDA\Manuals\OpenDAManuals.wxi">
+      <Link>Manuals\OpenDAManuals.wxi</Link>
+    </Content>
+    <Content Include="..\..\DeltaShell\OpenDA\Manuals\OpenDAManualShortcuts.wxi">
+      <Link>Manuals\OpenDAManualShortcuts.wxi</Link>
+    </Content>
+    <Content Include="..\HydroModel\HydroModelPlugin.wxi">
+      <Link>HydroModelPlugin.wxi</Link>
+    </Content>
+    <Content Include="..\NetworkEditor\NetworkEditorPlugin.wxi">
+      <Link>NetworkEditorPlugin.wxi</Link>
+    </Content>
+    <Content Include="..\RealTimeControl\RealTimeControlPlugin.wxi">
+      <Link>RealTimeControlPlugin.wxi</Link>
+    </Content>
+    <Content Include="..\RealTimeControl\RealTimeControl_FeatureContent.wxi">
+      <Link>RealTimeControl_FeatureContent.wxi</Link>
+    </Content>
+    <Content Include="..\Waq\WaqPlugin_FeatureContent.wxi">
+      <Link>WaqPlugin_FeatureContent.wxi</Link>
+    </Content>
+    <Content Include="..\Waq\WaterQualityModelGuiPlugin.wxi">
+      <Link>WaterQualityModelGuiPlugin.wxi</Link>
+    </Content>
+    <Content Include="..\Waq\WaterQualityModelPlugin.wxi">
+      <Link>WaterQualityModelPlugin.wxi</Link>
+    </Content>
+    <Content Include="..\Wave\WavePlugin.wxi">
+      <Link>WavePlugin.wxi</Link>
+    </Content>
+    <Content Include="..\Wave\WavePlugin_FeatureContent.wxi">
+      <Link>WavePlugin_FeatureContent.wxi</Link>
+    </Content>
+    <Content Include="Delft3D Flexible Mesh_Manuals\RGFGRID_User_Manual.pdf" />
+    <Content Include="Delft3D Flexible Mesh_Resources\setup_banner.jpg" />
+    <Content Include="Delft3D Flexible Mesh_Resources\setup_start.jpg" />
+    <Content Include="Delft3D Flexible Mesh_Manuals\D-Flow_FM_Technical_Reference_Manual.pdf" />
+    <Content Include="Delft3D Flexible Mesh_Manuals\D-Flow_FM_User_Manual.pdf" />
+    <Content Include="Delft3D Flexible Mesh_Resources\License.rtf" />
+    <Content Include="Delft3D Flexible Mesh_Resources\splash_screen.jpg" />
+    <Content Include="Delft3D Flexible Mesh_Resources\start_page_background.jpg" />
+    <Content Include="Extras.wxi" />
+    <Content Include="Features.wxi" />
+    <Content Include="FMPlugin.wxi" />
+    <Content Include="FMPlugin_FeatureContent.wxi" />
+    <Content Include="FMSuiteCommonPlugin.wxi" />
+    <Content Include="Manuals.wxi" />
+    <Content Include="ManualShortcuts.wxi" />
+    <Content Include="Manuals\FMManuals.wxi" />
+    <Content Include="Manuals\FMManualShortcuts.wxi" />
+    <Content Include="Plugins.wxi" />
+    <Content Include="Resources\FM.ico" />
+    <Content Include="Resources\FM.png" />
+    <Content Include="Resources\Welcome.htm" />
+    <Content Include="Resources\WindowLayout_normal.xml" />
+    <Content Include="RGFGrid_x64.wxi" />
+    <Content Include="RGFGrid_x86.wxi" />
+    <Content Include="UtilityShortcuts.wxi" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixToolPath)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixToolPath)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixToolPath)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Manuals\" />
+    <Folder Include="Localization" />
+    <Folder Include="Delft3D Flexible Mesh_Resources" />
+    <Folder Include="Delft3D Flexible Mesh_Manuals" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\DeltaShell\OpenDA\Localization\OpenDANames.wxl">
+      <Link>Localization\OpenDANames.wxl</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\RealTimeControl\Localization\RTCNames.wxl">
+      <Link>Localization\RTCNames.wxl</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Waq\Localization\WaqNames.wxl">
+      <Link>Localization\WaqNames.wxl</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Wave\Localization\WaveNames.wxl">
+      <Link>Localization\WaveNames.wxl</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Localization\FMNames.wxl" />
+    <EmbeddedResource Include="WixUIVariables.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DefaultDeltaresDialogs\DefaultDeltaresDialogs.wixproj">
+      <Name>DefaultDeltaresDialogs</Name>
+      <Project>{f30c1a46-d283-484e-aabe-ef52f9168e08}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\..\CreateZipFromMSI.targets" />
+</Project>

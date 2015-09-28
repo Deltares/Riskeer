@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.dotCover.ShellBase</name>
+    </assembly>
+    <members>
+        <member name="M:JetBrains.dotCover.ShellBase.DotCoverLicenseRegistryInstaller.InstallStatic(JetBrains.Application.Install.Installer)">
+            <summary>
+            Called once on the object during the registration process.
+            </summary>
+            <param name="installer">The installer object that provides the installation data.</param>
+            <returns>The list of the Registry entries to write, or <c>Null</c> if none.</returns>
+        </member>
+        <member name="M:JetBrains.dotCover.ShellBase.DotCoverLicenseRegistryInstaller.InstallInstance(JetBrains.Application.Install.Installer,System.Object)">
+            <summary>
+            Called for each of the attributes of the requested type encountered in the known assemblies.
+            </summary>
+            <param name="installer">The installer object that provides the installation data.</param>
+            <param name="attributeInstance">Instance of the attribute to process.</param>
+            <returns>The list of the Registry entries to write, or <c>Null</c> if none.</returns>
+        </member>
+        <member name="F:JetBrains.dotCover.ShellBase.ProductInfo.ProductName">
+            <summary>
+            The short ID-like product name, without any version suffixes.
+            </summary>
+        </member>
+        <member name="F:JetBrains.dotCover.ShellBase.ProductInfo.ProductFullName">
+            <summary>
+            This full name is actually displayed in the User Interface in the About Boxes and such.
+            It should include the short product name and the marketing version of the product.
+            The bugfix upgate versions are visible thru this field only (eg “ProductName + " 3.0.2"”) and do not get into the actual technical file versions. Those can be found in the ProductInformation file linked into each of the projects.
+            </summary>
+        </member>
+        <member name="F:JetBrains.dotCover.ShellBase.ProductInfo.LicenseSeed">
+            <summary>
+            The license state written to the Registry by the installer, which provides for a free trial.
+            </summary>
+        </member>
+        <member name="F:JetBrains.dotCover.ShellBase.ProductInfo.LicenseSupportIdentifier">
+            <summary>
+            An identifier for the evaluation license.
+            Change it to reset the evaluation period.
+            </summary>
+        </member>
+        <member name="F:JetBrains.dotCover.ShellBase.ProductInfo.PackageName">
+            <summary>
+            As in the package key! As supplied by Microsoft®!
+            Note: you must also update the package key value in the Resources.resx file in the VS project, one with the ID equal to PackageKeyResourceId.
+            </summary>
+        </member>
+        <member name="F:JetBrains.dotCover.ShellBase.ProductInfo.PackageCompany">
+            <summary>
+            As in the package key! As supplied by Microsoft®!
+            </summary>
+        </member>
+        <member name="F:JetBrains.dotCover.ShellBase.ProductInfo.PackageVersion">
+            <summary>
+            As in the package key! As supplied by Microsoft®!
+            </summary>
+        </member>
+        <member name="F:JetBrains.dotCover.ShellBase.ProductInfo.PackageEdition">
+            <summary>
+            As in the package key! As supplied by Microsoft®!
+            </summary>
+        </member>
+        <member name="F:JetBrains.dotCover.ShellBase.ProductInfo.PackageProduct">
+            <summary>
+            As in the package key! As supplied by Microsoft®!
+            </summary>
+        </member>
+        <member name="F:JetBrains.dotCover.ShellBase.ProductInfo.PackageKeyResourceId">
+            <summary>
+            Resource ID for the package key. See Resources.resx in the VS project.
+            </summary>
+        </member>
+        <member name="F:JetBrains.dotCover.ShellBase.ProductInfo.ProductBirthDate">
+            <summary>
+            The birth date of the product. Used for the lower copyright year and so on.
+            </summary>
+        </member>
+    </members>
+</doc>

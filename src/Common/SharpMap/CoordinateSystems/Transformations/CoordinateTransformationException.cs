@@ -1,0 +1,31 @@
+﻿using System;
+using GeoAPI.CoordinateSystems;
+
+namespace SharpMap.CoordinateSystems.Transformations
+{
+    public class CoordinateTransformException : Exception
+    {
+        private ICoordinateSystem SourceCS { get; set; }
+
+        private ICoordinateSystem TargetCS { get; set; }
+
+        private string ItemName { get; set; }
+
+        public CoordinateTransformException(string itemName, ICoordinateSystem sourceCs,
+                                                 ICoordinateSystem targetCs)
+        {
+            ItemName = itemName;
+            SourceCS = sourceCs;
+            TargetCS = targetCs;
+        }
+
+        public override string Message
+        {
+            get
+            {
+                return string.Format("could not convert '{0}' from coordinate system '{1}' to '{2}'", ItemName,
+                                     SourceCS, TargetCS);
+            }
+        }
+    }
+}

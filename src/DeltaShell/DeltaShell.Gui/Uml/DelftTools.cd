@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DelftTools.Shell.Core.Project">
+    <Position X="8.25" Y="1.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="DelftTools.Shell.Core.IApplication">
+    <Position X="5" Y="0.75" Width="2.25" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Project" />
+      <Property Name="ProjectService" />
+      <Property Name="ModelService" />
+      <Property Name="DataItemService" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.IPlugin">
+    <Position X="8.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Dao.IProjectRepository">
+    <Position X="16.25" Y="4" Width="2" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DelftTools.Utils.Data.IObjectRepository&lt;T, ID&gt;">
+    <Position X="16.25" Y="2" Width="2" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Services.IDataItemService" Collapsed="true">
+    <Position X="2" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Services.IModelService" Collapsed="true">
+    <Position X="2" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Services.IProjectService" Collapsed="true">
+    <Position X="2" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

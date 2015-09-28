@@ -1,0 +1,13 @@
+<CodeAnalysisPlugIn>
+  <ResultService Id="Microsoft.ResultServices.Managed">
+    <Assembly>..\FxCop\CodeAnalysis.dll</Assembly>
+    <Type>Microsoft.VisualStudio.CodeAnalysis.ManagedResultService</Type>
+  </ResultService>
+  <Analyzer Id="Microsoft.Analyzers.ManagedCodeAnalysis">
+    <RuleProvider>
+      <Assembly>..\FxCop\CodeAnalysis.dll</Assembly>
+      <Type>Microsoft.VisualStudio.CodeAnalysis.ManagedRuleProvider</Type>
+    </RuleProvider>
+    <ResultServiceReference>Microsoft.ResultServices.Managed</ResultServiceReference>
+  </Analyzer>
+</CodeAnalysisPlugIn>

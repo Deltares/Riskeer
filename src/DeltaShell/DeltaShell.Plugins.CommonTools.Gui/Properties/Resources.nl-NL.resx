@@ -1,0 +1,954 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AreaChartSeriesProperties_DisplayName" xml:space="preserve">
+    <value>NL Area series settings</value>
+  </data>
+  <data name="AreaChartSeriesProperties_Interpolation_Description" xml:space="preserve">
+    <value>NL Interpolation scheme of the series.</value>
+  </data>
+  <data name="AreaChartSeriesProperties_Interpolation_DisplayName" xml:space="preserve">
+    <value>NL Interpolation</value>
+  </data>
+  <data name="BarSeriesProperties_Color_Description" xml:space="preserve">
+    <value>NL Color of the bars in the series.</value>
+  </data>
+  <data name="BarSeriesProperties_Color_DisplayName" xml:space="preserve">
+    <value>NL Color</value>
+  </data>
+  <data name="BarSeriesProperties_DashStyle_Description" xml:space="preserve">
+    <value>NL Dash style of the line along the circumference of the series.</value>
+  </data>
+  <data name="BarSeriesProperties_DashStyle_DisplayName" xml:space="preserve">
+    <value>NL Dash style</value>
+  </data>
+  <data name="BarSeriesProperties_DisplayName" xml:space="preserve">
+    <value>NL Bar series settings</value>
+  </data>
+  <data name="BarSeriesProperties_LineVisible_Description" xml:space="preserve">
+    <value>NL Visibility of the line along the circumference of the series.</value>
+  </data>
+  <data name="BarSeriesProperties_OutlineColor_Description" xml:space="preserve">
+    <value>NL Color of the line along the circumference of the series.</value>
+  </data>
+  <data name="BarSeriesProperties_OutlineColor_DisplayName" xml:space="preserve">
+    <value>NL Outline color</value>
+  </data>
+  <data name="BarSeriesProperties_Width_Description" xml:space="preserve">
+    <value>NL Width of the line along the circumference of the series.</value>
+  </data>
+  <data name="BarSeriesProperties_Width_DisplayName" xml:space="preserve">
+    <value>NL Width</value>
+  </data>
+  <data name="Categories_General" xml:space="preserve">
+    <value>NL General</value>
+  </data>
+  <data name="Categories_General1" xml:space="preserve">
+    <value>NL General</value>
+  </data>
+  <data name="ChartAxisProperties_Automatic_Description" xml:space="preserve">
+    <value>NL Automatically detect the minimum and maximum values of the series and use those as limits for the axis.</value>
+  </data>
+  <data name="ChartAxisProperties_Automatic_DisplayName" xml:space="preserve">
+    <value>NL Automatic range</value>
+  </data>
+  <data name="ChartAxisProperties_DisplayName" xml:space="preserve">
+    <value>NL Axis settings</value>
+  </data>
+  <data name="ChartAxisProperties_LabelFont_Description" xml:space="preserve">
+    <value>NL The font of the labels on the axis.</value>
+  </data>
+  <data name="ChartAxisProperties_LabelFont_DisplayName" xml:space="preserve">
+    <value>NL Label font</value>
+  </data>
+  <data name="ChartAxisProperties_Labels_Description" xml:space="preserve">
+    <value>NL Determines whether or not to show the labels of this axis.</value>
+  </data>
+  <data name="ChartAxisProperties_Labels_DisplayName" xml:space="preserve">
+    <value>NL Show labels</value>
+  </data>
+  <data name="ChartAxisProperties_Logarithmic_Description" xml:space="preserve">
+    <value>NL Determines whether or not the axis uses a logarithmic scale (true) or a linear scale (false).</value>
+  </data>
+  <data name="ChartAxisProperties_Logarithmic_DisplayName" xml:space="preserve">
+    <value>NL Logarithmic</value>
+  </data>
+  <data name="ChartAxisProperties_Maximum_Description" xml:space="preserve">
+    <value>NL Maximum value for this axis.</value>
+  </data>
+  <data name="ChartAxisProperties_Maximum_DisplayName" xml:space="preserve">
+    <value>NL Maximum</value>
+  </data>
+  <data name="ChartAxisProperties_Minimum_Description" xml:space="preserve">
+    <value>NL Minimum value for this axis.</value>
+  </data>
+  <data name="ChartAxisProperties_Minimum_DisplayName" xml:space="preserve">
+    <value>NL Minimum</value>
+  </data>
+  <data name="ChartAxisProperties_Title_Description" xml:space="preserve">
+    <value>NL The title of these axis.</value>
+  </data>
+  <data name="ChartAxisProperties_Title_DisplayName" xml:space="preserve">
+    <value>NL Title</value>
+  </data>
+  <data name="ChartAxisProperties_TitleFont_Description" xml:space="preserve">
+    <value>NL The font of the title of the axis.</value>
+  </data>
+  <data name="ChartAxisProperties_TitleFont_DisplayName" xml:space="preserve">
+    <value>NL Title font</value>
+  </data>
+  <data name="ChartAxisProperties_Visible_Description" xml:space="preserve">
+    <value>NL Determines wither or not to show these axis.</value>
+  </data>
+  <data name="Charting_Categories_LineStyle" xml:space="preserve">
+    <value>NL Line style</value>
+  </data>
+  <data name="Charting_Categories_PointStyle" xml:space="preserve">
+    <value>NL Point style</value>
+  </data>
+  <data name="ChartingProperties_Visible_DisplayName" xml:space="preserve">
+    <value>NL Visible</value>
+  </data>
+  <data name="ChartingSeriesProperties_AreaStyle_DisplayName" xml:space="preserve">
+    <value>NL Area style</value>
+  </data>
+  <data name="ChartProperties_BackgroundColor_Description" xml:space="preserve">
+    <value>NL Color of the chart's background.</value>
+  </data>
+  <data name="ChartProperties_BackgroundColor_DisplayName" xml:space="preserve">
+    <value>NL Background color</value>
+  </data>
+  <data name="ChartProperties_BottomAxis_Description" xml:space="preserve">
+    <value>NL Bottom axis of this chart.</value>
+  </data>
+  <data name="ChartProperties_BottomAxis_DisplayName" xml:space="preserve">
+    <value>NL Bottom axis</value>
+  </data>
+  <data name="ChartProperties_Categories_Axes" xml:space="preserve">
+    <value>NL Axes</value>
+  </data>
+  <data name="ChartProperties_Categories_Legend" xml:space="preserve">
+    <value>NL Legend</value>
+  </data>
+  <data name="ChartProperties_Categories_Title" xml:space="preserve">
+    <value>NL Title</value>
+  </data>
+  <data name="ChartProperties_DisplayName" xml:space="preserve">
+    <value>NL Chart settings</value>
+  </data>
+  <data name="ChartProperties_Font_DisplayName" xml:space="preserve">
+    <value>NL Font</value>
+  </data>
+  <data name="ChartProperties_Font_Legend_Description" xml:space="preserve">
+    <value>NL Used font in the chart legend.</value>
+  </data>
+  <data name="ChartProperties_LeftAxis_Description" xml:space="preserve">
+    <value>NL Left axis of this chart.</value>
+  </data>
+  <data name="ChartProperties_LeftAxis_DisplayName" xml:space="preserve">
+    <value>NL Left axis</value>
+  </data>
+  <data name="ChartProperties_LegendAlignment_Description" xml:space="preserve">
+    <value>NL The placement location of the legend of this chart.</value>
+  </data>
+  <data name="ChartProperties_LegendAlignment_DisplayName" xml:space="preserve">
+    <value>NL Alignment</value>
+  </data>
+  <data name="ChartProperties_RightAcis_Description" xml:space="preserve">
+    <value>NL Right axis of this chart.</value>
+  </data>
+  <data name="ChartProperties_RightAxis_DisplayName" xml:space="preserve">
+    <value>NL Right axis</value>
+  </data>
+  <data name="ChartProperties_Title_Description" xml:space="preserve">
+    <value>NL The title of the chart.</value>
+  </data>
+  <data name="ChartProperties_Title_DisplayName" xml:space="preserve">
+    <value>NL Text</value>
+  </data>
+  <data name="ChartProperties_TitleFont_Description" xml:space="preserve">
+    <value>NL Used font in the chart title.</value>
+  </data>
+  <data name="ChartProperties_TitleVisibility_Description" xml:space="preserve">
+    <value>NL Determines whether or not to show the title.</value>
+  </data>
+  <data name="ChartProperties_Visible_Description" xml:space="preserve">
+    <value>NL Determines whether or not to show the legend.</value>
+  </data>
+  <data name="ChartSeriesProperties_DisplayName" xml:space="preserve">
+    <value>NL Series settings</value>
+  </data>
+  <data name="ChartSeriesProperties_ShowInLegend_Description" xml:space="preserve">
+    <value>NL Determines whether or not to show this series in the chart legend.</value>
+  </data>
+  <data name="ChartSeriesProperties_ShowInLegend_DisplayName" xml:space="preserve">
+    <value>NL Show in legend</value>
+  </data>
+  <data name="ChartSeriesProperties_Title_Description" xml:space="preserve">
+    <value>NL Title of this series.</value>
+  </data>
+  <data name="ChartSeriesProperties_VerticalAxis_Description" xml:space="preserve">
+    <value>NL The vertical axis whose values are associated with this series.</value>
+  </data>
+  <data name="ChartSeriesProperties_VerticalAxis_DisplayName" xml:space="preserve">
+    <value>NL Vertical axis</value>
+  </data>
+  <data name="Common_Name_Description" xml:space="preserve">
+    <value>NL Given name of this item.</value>
+  </data>
+  <data name="Common_Name_DisplayName" xml:space="preserve">
+    <value>NL Name</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_CommonToolsGuiPlugin_Generate_Data_in_Series___" xml:space="preserve">
+    <value>NL Generate Data in Series...</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_GetContextMenu_Copy_State" xml:space="preserve">
+    <value>NL Copy State</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_GetContextMenu_Paste_State" xml:space="preserve">
+    <value>NL Paste State</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_GetContextMenu_Use_as_Initial_State" xml:space="preserve">
+    <value>NL Use as Initial State</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_GetContextMenu_Use_Last_Valid_Restart" xml:space="preserve">
+    <value>NL Use Last Valid Restart</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_GetContextMenu_Use_Restart" xml:space="preserve">
+    <value>NL Use Restart</value>
+  </data>
+  <data name="CompositeActivityProperties_DisplayName" xml:space="preserve">
+    <value>NL Composite Activity</value>
+  </data>
+  <data name="DataItemProperties_DisplayName" xml:space="preserve">
+    <value>NL Data item</value>
+  </data>
+  <data name="DataItemProperties_Name_Description" xml:space="preserve">
+    <value>NL Name of the data item shown to the user.</value>
+  </data>
+  <data name="DataItemSetProperties_DisplayName" xml:space="preserve">
+    <value>NL Data item set</value>
+  </data>
+  <data name="DataItemSetProperties_Name_Description" xml:space="preserve">
+    <value>NL Name of the data item set shown to the user.</value>
+  </data>
+  <data name="DependentVariableProperties_DependsOn_Description" xml:space="preserve">
+    <value>NL This variable depends on these variables.</value>
+  </data>
+  <data name="DependentVariableProperties_DependsOn_DisplayName" xml:space="preserve">
+    <value>NL Depends on</value>
+  </data>
+  <data name="DependentVariableProperties_DisplayName" xml:space="preserve">
+    <value>NL Dependent variable</value>
+  </data>
+  <data name="DependentVariableProperties_NoDataValue_Description" xml:space="preserve">
+    <value>NL Value that represents the absence of data.</value>
+  </data>
+  <data name="DependentVariableProperties_NoDataValue_DisplayName" xml:space="preserve">
+    <value>NL 'No data'-value</value>
+  </data>
+  <data name="FileBasedRestartStateProperties_CreationTime_Description" xml:space="preserve">
+    <value>NL The real-world date and time at the time this restart state was created.</value>
+  </data>
+  <data name="FileBasedRestartStateProperties_CreationTime_DisplayName" xml:space="preserve">
+    <value>NL Creation time</value>
+  </data>
+  <data name="FileBasedRestartStateProperties_Description_Description" xml:space="preserve">
+    <value>NL The description text for this restart state.</value>
+  </data>
+  <data name="FileBasedRestartStateProperties_Description_DisplayName" xml:space="preserve">
+    <value>NL Description</value>
+  </data>
+  <data name="FileBasedRestartStateProperties_DisplayName" xml:space="preserve">
+    <value>NL Restart state</value>
+  </data>
+  <data name="FileBasedRestartStateProperties_Empty_Description" xml:space="preserve">
+    <value>NL Indicates if this restart state is empty or not.</value>
+  </data>
+  <data name="FileBasedRestartStateProperties_Empty_DisplayName" xml:space="preserve">
+    <value>NL Is empty</value>
+  </data>
+  <data name="FileBasedRestartStateProperties_Name_Description" xml:space="preserve">
+    <value>NL Name of the restart state.</value>
+  </data>
+  <data name="FileBasedRestartStateProperties_SimulationTime_Description" xml:space="preserve">
+    <value>NL The simulation date and time for which this restart state was created.</value>
+  </data>
+  <data name="FileBasedRestartStateProperties_SimulationTime_DisplayName" xml:space="preserve">
+    <value>NL Simulation time</value>
+  </data>
+  <data name="FolderProperties_DisplayName" xml:space="preserve">
+    <value>NL Folder</value>
+  </data>
+  <data name="FolderProperties_Name_Description" xml:space="preserve">
+    <value>NL Name of the folder shown to the user.</value>
+  </data>
+  <data name="IndependentVariableProperties_DisplayName" xml:space="preserve">
+    <value>NL Independent variable</value>
+  </data>
+  <data name="IndependentVariableProperties_Extrapolation_Description" xml:space="preserve">
+    <value>NL The extrapolation scheme used along this variable.</value>
+  </data>
+  <data name="IndependentVariableProperties_Extrapolation_DisplayName" xml:space="preserve">
+    <value>NL Extrapolation</value>
+  </data>
+  <data name="IndependentVariableProperties_Interpolation_Description" xml:space="preserve">
+    <value>NL The interpolation scheme used along this variable.</value>
+  </data>
+  <data name="IndependentVariableProperties_Interpolation_DisplayName" xml:space="preserve">
+    <value>NL Interpolation</value>
+  </data>
+  <data name="IndependentVariableProperties_Unit_Description" xml:space="preserve">
+    <value>NL The unit in which the variable values are expressed.</value>
+  </data>
+  <data name="IndependentVariableProperties_ValueCount_DisplayName" xml:space="preserve">
+    <value>NL Value count</value>
+  </data>
+  <data name="IndependentVariableProperties_VariableCount_Description" xml:space="preserve">
+    <value>NL Number of defined values in this variable.</value>
+  </data>
+  <data name="LineChartSeriesProperties_Color_Description" xml:space="preserve">
+    <value>NL Color of the line series.</value>
+  </data>
+  <data name="LineChartSeriesProperties_Color_DisplayName" xml:space="preserve">
+    <value>NL Color</value>
+  </data>
+  <data name="LineChartSeriesProperties_DashStyle_Description" xml:space="preserve">
+    <value>NL The dash style applied to the line series.</value>
+  </data>
+  <data name="LineChartSeriesProperties_DashStyle_DisplayName" xml:space="preserve">
+    <value>NL Dash style</value>
+  </data>
+  <data name="LineChartSeriesProperties_DisplayName" xml:space="preserve">
+    <value>NL Line series settings</value>
+  </data>
+  <data name="LineChartSeriesProperties_TitleLabelVisible_Description" xml:space="preserve">
+    <value>NL Determines whether or not to show the title as label.</value>
+  </data>
+  <data name="LineChartSeriesProperties_TitleLabelVisible_DisplayName" xml:space="preserve">
+    <value>NL Show title label</value>
+  </data>
+  <data name="LineChartSeriesProperties_Width_Description" xml:space="preserve">
+    <value>NL Width of the line series.</value>
+  </data>
+  <data name="LineChartSeriesProperties_Width_DisplayName" xml:space="preserve">
+    <value>NL Width</value>
+  </data>
+  <data name="ParameterProperties_DisplayName" xml:space="preserve">
+    <value>NL Parameter</value>
+  </data>
+  <data name="ParameterProperties_Name_Description" xml:space="preserve">
+    <value>NL Name of the parameter shown to the user.</value>
+  </data>
+  <data name="ParameterProperties_Unit_Description" xml:space="preserve">
+    <value>NL The unit in which the parameter values is expressed.</value>
+  </data>
+  <data name="ParameterProperties_Value_Description" xml:space="preserve">
+    <value>NL The value of this parameter.</value>
+  </data>
+  <data name="ParameterProperties_Value_DisplayName" xml:space="preserve">
+    <value>NL Value</value>
+  </data>
+  <data name="ParameterProperties_ValueType_Description" xml:space="preserve">
+    <value>NL The value type of the parameter.</value>
+  </data>
+  <data name="PointChartSeriesProperties_DisplayName" xml:space="preserve">
+    <value>NL Point settings</value>
+  </data>
+  <data name="PointChartSeriesProperties_PointerColor_Description" xml:space="preserve">
+    <value>NL Color of the value pointers.</value>
+  </data>
+  <data name="PointChartSeriesProperties_PointerColor_DisplayName" xml:space="preserve">
+    <value>NL Pointer color</value>
+  </data>
+  <data name="PointChartSeriesProperties_PointerLineVisible_Description" xml:space="preserve">
+    <value>NL Determines wither or not to show the line along the circumference of the value pointers.</value>
+  </data>
+  <data name="PointChartSeriesProperties_PointerLineVisible_DisplayName" xml:space="preserve">
+    <value>NL Show pointer outline</value>
+  </data>
+  <data name="PointChartSeriesProperties_PointerOutlineColor_Description" xml:space="preserve">
+    <value>NL Color of the line along the circumference of the value pointers.</value>
+  </data>
+  <data name="PointChartSeriesProperties_PointerOutlineColor_DisplayName" xml:space="preserve">
+    <value>NL Pointer outline color</value>
+  </data>
+  <data name="PointChartSeriesProperties_PointerShape_Description" xml:space="preserve">
+    <value>NL Shape of the value pointers.</value>
+  </data>
+  <data name="PointChartSeriesProperties_PointerShape_DisplayName" xml:space="preserve">
+    <value>NL Shape</value>
+  </data>
+  <data name="PointChartSeriesProperties_Size_Description" xml:space="preserve">
+    <value>NL Size of the value pointers.</value>
+  </data>
+  <data name="PointChartSeriesProperties_Size_DisplayName" xml:space="preserve">
+    <value>NL Size</value>
+  </data>
+  <data name="PointChartSeriesProperties_Visibility_Description" xml:space="preserve">
+    <value>NL Determines whether or not to show the value pointers of the series.</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_AreaColor_Description" xml:space="preserve">
+    <value>NL Color of the area series.</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_Closed_Description" xml:space="preserve">
+    <value>NL When true, the polygon is automatically closed by drawing a line between the last and first defined points.</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_Closed_DisplayName" xml:space="preserve">
+    <value>NL Auto-close polygon</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_DisplayName" xml:space="preserve">
+    <value>NL Polygon series settings</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_FillColor_DisplayName" xml:space="preserve">
+    <value>NL Fill color</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_HatchColor_Description" xml:space="preserve">
+    <value>NL Secondary color used in the hatch style.</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_HatchColor_DisplayName" xml:space="preserve">
+    <value>NL Hatch color</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_HatchStyle_Description" xml:space="preserve">
+    <value>NL Hatch style of this series.</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_HatchStyle_DisplayName" xml:space="preserve">
+    <value>NL Hatch Style</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_Transparency_Description" xml:space="preserve">
+    <value>NL Percentage of transparency of the series.</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_Transparency_DisplayName" xml:space="preserve">
+    <value>NL Transparency</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_UseHatch_Description" xml:space="preserve">
+    <value>NL Determines whether or not to use a hatch style for the series.</value>
+  </data>
+  <data name="PolygonChartSeriesProperties_UseHatch_DisplayName" xml:space="preserve">
+    <value>NL Use hatch brush</value>
+  </data>
+  <data name="ProjectProperties_Categories_Project" xml:space="preserve">
+    <value>NL Project</value>
+  </data>
+  <data name="ProjectProperties_ChangeTime_Description" xml:space="preserve">
+    <value>NL Date and time when the project was changed.</value>
+  </data>
+  <data name="ProjectProperties_ChangeTime_DisplayName" xml:space="preserve">
+    <value>NL Changed</value>
+  </data>
+  <data name="ProjectProperties_CreateTime_Description" xml:space="preserve">
+    <value>NL Date and time when this project was created.</value>
+  </data>
+  <data name="ProjectProperties_CreateTime_DisplayName" xml:space="preserve">
+    <value>NL Created</value>
+  </data>
+  <data name="ProjectProperties_Description_Description" xml:space="preserve">
+    <value>NL Short description of the project.</value>
+  </data>
+  <data name="ProjectProperties_Description_DisplayName" xml:space="preserve">
+    <value>NL Description</value>
+  </data>
+  <data name="ProjectProperties_DisplayName" xml:space="preserve">
+    <value>NL Project</value>
+  </data>
+  <data name="ProjectProperties_Name_Description" xml:space="preserve">
+    <value>NL Name of the project shown to the user.</value>
+  </data>
+  <data name="ProjectProperties_Size_Description" xml:space="preserve">
+    <value>NL Size of all the project data, in kilobytes.</value>
+  </data>
+  <data name="ProjectProperties_Size_DisplayName" xml:space="preserve">
+    <value>NL Size</value>
+  </data>
+  <data name="ProjectProperties_TaskCount_Description" xml:space="preserve">
+    <value>NL Number of tasks in the project.</value>
+  </data>
+  <data name="ProjectProperties_TaskCount_DisplayName" xml:space="preserve">
+    <value>NL Task count</value>
+  </data>
+  <data name="TextDocumentFromFileProperties_DisplayName" xml:space="preserve">
+    <value>NL Text document (from file)</value>
+  </data>
+  <data name="TextDocumentFromFileProperties_Path_Description" xml:space="preserve">
+    <value>NL Location to where the file can be found.</value>
+  </data>
+  <data name="TextDocumentFromFileProperties_Path_DisplayName" xml:space="preserve">
+    <value>NL Path</value>
+  </data>
+  <data name="TextDocumentProperties_DisplayName" xml:space="preserve">
+    <value>NL Text document</value>
+  </data>
+  <data name="TextDocumentProperties_Name_Description" xml:space="preserve">
+    <value>NL Name of the text document.</value>
+  </data>
+  <data name="TextDocumentProperties_ReadOnly_Description" xml:space="preserve">
+    <value>NL Indicates if the file can only be read (true), or that it can modified as well (false).</value>
+  </data>
+  <data name="TextDocumentProperties_ReadOnly_DisplayName" xml:space="preserve">
+    <value>NL Read only</value>
+  </data>
+  <data name="TimeSeries_Attributes_Description" xml:space="preserve">
+    <value>NL Meta data associated with the time series.</value>
+  </data>
+  <data name="TimeSeries_Attributes_DisplayName" xml:space="preserve">
+    <value>NL Attributes</value>
+  </data>
+  <data name="TimeSeriesProperties_DisplayName" xml:space="preserve">
+    <value>NL Time series</value>
+  </data>
+  <data name="TimeSeriesProperties_Extrapolation_Description" xml:space="preserve">
+    <value>NL The extrapolation scheme used along the time axis.</value>
+  </data>
+  <data name="TimeSeriesProperties_Interpolation_Description" xml:space="preserve">
+    <value>NL The interpolation scheme used along the time axis.</value>
+  </data>
+  <data name="TimeSeriesProperties_Name_Description" xml:space="preserve">
+    <value>NL Name of the time series shown to the user.</value>
+  </data>
+  <data name="TreeFolderProperties_DisplayName" xml:space="preserve">
+    <value>NL Folder</value>
+  </data>
+  <data name="TreeFolderProperties_Name_Description" xml:space="preserve">
+    <value>NL Name of the folder shown to the user.</value>
+  </data>
+  <data name="TreeNodeModelDataWrapperProperties_DisplayName" xml:space="preserve">
+    <value>NL Item set</value>
+  </data>
+  <data name="UrlProperties_DisplayName" xml:space="preserve">
+    <value>NL URL</value>
+  </data>
+  <data name="UrlProperties_Name_Description" xml:space="preserve">
+    <value>NL Name of the website or data where the URL refers to.</value>
+  </data>
+  <data name="UrlProperties_Path_Description" xml:space="preserve">
+    <value>NL Location to where the URL points to.</value>
+  </data>
+  <data name="UrlProperties_Path_DisplayName" xml:space="preserve">
+    <value>NL Path</value>
+  </data>
+  <data name="VariableProperties_DefaultValue_Description" xml:space="preserve">
+    <value>NL Variable value in case no data is specified for this variable.</value>
+  </data>
+  <data name="VariableProperties_DefaultValue_DisplayName" xml:space="preserve">
+    <value>NL Default value</value>
+  </data>
+  <data name="VariableProperties_Name_Description" xml:space="preserve">
+    <value>NL Name of the variable shown to the user.</value>
+  </data>
+  <data name="VariableProperties_Unit_DisplayName" xml:space="preserve">
+    <value>NL Unit</value>
+  </data>
+  <data name="VariableProperties_ValueType_Description" xml:space="preserve">
+    <value>NL The value type of the variable.</value>
+  </data>
+  <data name="VariableProperties_ValueType_DisplayName" xml:space="preserve">
+    <value>NL Value type</value>
+  </data>
+  <data name="Ribbon_Chart_Contents" xml:space="preserve">
+    <value>NL Chart Contents</value>
+  </data>
+  <data name="Ribbon_ContextualGroup_Charting" xml:space="preserve">
+    <value>NL Charting</value>
+  </data>
+  <data name="Ribbon_Data_Structure_View" xml:space="preserve">
+    <value>NL Data Structure View</value>
+  </data>
+  <data name="Ribbon_DecreaseFontSize" xml:space="preserve">
+    <value>NL Decrease Font Sizes</value>
+  </data>
+  <data name="Ribbon_ExportAsImage" xml:space="preserve">
+    <value>NL Export as Image</value>
+  </data>
+  <data name="Ribbon_GroupBox_Export" xml:space="preserve">
+    <value>NL Export</value>
+  </data>
+  <data name="Ribbon_GroupBox_Show_Hide" xml:space="preserve">
+    <value>NL Show/Hide</value>
+  </data>
+  <data name="Ribbon_GroupBox_Style" xml:space="preserve">
+    <value>NL Style</value>
+  </data>
+  <data name="Ribbon_GroupBox_Tools" xml:space="preserve">
+    <value>NL Tools</value>
+  </data>
+  <data name="Ribbon_IncreaseFontSize" xml:space="preserve">
+    <value>NL Increase Font Sizes</value>
+  </data>
+  <data name="Ribbon_Ruler" xml:space="preserve">
+    <value>NL Ruler</value>
+  </data>
+  <data name="Ribbon_TabItem_Chart" xml:space="preserve">
+    <value>NL Chart</value>
+  </data>
+  <data name="Ribbon_TabItem_View" xml:space="preserve">
+    <value>NL View</value>
+  </data>
+  <data name="Ribbon_Time_Navigator" xml:space="preserve">
+    <value>NL Time Navigator</value>
+  </data>
+  <data name="Ribbon_Undo_Redo" xml:space="preserve">
+    <value>NL Undo/Redo</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_ActiveViewDragDrop_TODO__show_dialog_and_select_which_part_of_function_should_be_shown_on_a_chart_and_select_series_type_" xml:space="preserve">
+    <value>NL TODO: show dialog and select which part of function should be shown on a chart and select series type.</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin__UI_" xml:space="preserve">
+    <value>NL Delta Shell Common Tools Plugin (UI)</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_FindTimeNavigatableView_View_of_type__0__has_multiple_ITimeNavigatable_ChildViews__ambiguous_" xml:space="preserve">
+    <value>NL View of type {0} has multiple ITimeNavigatable ChildViews: ambiguous.</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Browser" xml:space="preserve">
+    <value>NL Browser</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Chart_View" xml:space="preserve">
+    <value>NL Chart View</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Export_from_project" xml:space="preserve">
+    <value>NL Export from project</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Table_View" xml:space="preserve">
+    <value>NL Table View</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Text_editor" xml:space="preserve">
+    <value>NL Text editor</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_InitializeChartLegendView_Chart" xml:space="preserve">
+    <value>NL Chart</value>
+  </data>
+  <data name="CommonToolsGuiPlugin_InitializeFunctionTreeView_Data" xml:space="preserve">
+    <value>NL Data</value>
+  </data>
+  <data name="ChartProperties_FontValid_Font_can_not_be_empty_" xml:space="preserve">
+    <value>NL Font can not be empty.</value>
+  </data>
+  <data name="ChartProperties_FontValid_Font_size_is_not_within_limits__3___200_" xml:space="preserve">
+    <value>NL Font size is not within limits (3 - 200)</value>
+  </data>
+  <data name="ChartTreeNodePresenter_UpdateNode_Chart" xml:space="preserve">
+    <value>NL Chart</value>
+  </data>
+  <data name="ExportProjectFolderWizardDialog_Configure_Wizard_did_not_finish_correctly__Unable_to_configure_" xml:space="preserve">
+    <value>NL Wizard did not finish correctly. Unable to configure.</value>
+  </data>
+  <data name="ExportProjectFolderWizardDialog_Configure_Wizard_is_incompatible_with_given_exporter_" xml:space="preserve">
+    <value>NL Wizard is incompatible with given exporter.</value>
+  </data>
+  <data name="ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_Export_from_project" xml:space="preserve">
+    <value>NL Export from project</value>
+  </data>
+  <data name="ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_Press_Finish_to_Finish_" xml:space="preserve">
+    <value>NL Press Finish to Finish.</value>
+  </data>
+  <data name="ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_Project_file_to_which_the_currently_selected_folder_or_project_will_be_exported" xml:space="preserve">
+    <value>NL Project file to which the currently selected folder or project will be exported</value>
+  </data>
+  <data name="ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_target__dsproj_file" xml:space="preserve">
+    <value>NL target .dsproj file</value>
+  </data>
+  <data name="ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_This_wizard_is_used_to_export_the_current_project_or_a_folder_in_the_current_project_to_a_new_project_" xml:space="preserve">
+    <value>NL This wizard is used to export the current project or a folder in the current project to a new project.</value>
+  </data>
+  <data name="FunctionChartSeriesCreator_ThrowWhenFunctionIsInvalid_Couldn_t_create_the_view_because_one_of_the_functions_is_null___empty" xml:space="preserve">
+    <value>NL Couldn't create the view because one of the functions is null / empty</value>
+  </data>
+  <data name="FunctionChartSeriesCreator_ThrowWhenFunctionIsInvalid_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_arguments" xml:space="preserve">
+    <value>NL Couldn't create view because one of the functions doesn't contain arguments</value>
+  </data>
+  <data name="FunctionChartSeriesCreator_ThrowWhenFunctionIsInvalid_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_components" xml:space="preserve">
+    <value>NL Couldn't create view because one of the functions doesn't contain components</value>
+  </data>
+  <data name="FunctionChartSeriesCreator_ThrowWhenFunctionVariableNamesAreInvalid_Couldn_t_create_view_because_one_of_the_functions_component_name_is_the_same_as_the_argument_name_which_is_not_allowed" xml:space="preserve">
+    <value>NL Couldn't create view because one of the functions component name is the same as the argument name which is not allowed</value>
+  </data>
+  <data name="FunctionChartSeriesCreator_ThrowWhenFunctionVariableNamesAreInvalid_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_a_valid_argument_name" xml:space="preserve">
+    <value>NL Couldn't create view because one of the functions doesn't contain a valid argument name</value>
+  </data>
+  <data name="FunctionChartSeriesCreator_ThrowWhenFunctionVariableNamesAreInvalid_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_a_valid_component_name" xml:space="preserve">
+    <value>NL Couldn't create view because one of the functions doesn't contain a valid component name</value>
+  </data>
+  <data name="FunctionChartSeriesCreator_ThrowWhenValueTypeIsNull_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_an_argument_of_type_network_location" xml:space="preserve">
+    <value>NL Couldn't create view because one of the functions doesn't contain an argument of type network location</value>
+  </data>
+  <data name="GenerateDataSeriesWizard_CalculateRowsFromStartAndEnd_There_should_be_at_least_one_interval_step_between_the_start_and_end_values_" xml:space="preserve">
+    <value>NL There should be at least one interval step between the start and end values.</value>
+  </data>
+  <data name="GenerateDataSeriesWizard_CheckInput_Please_enter_a_interval___0_" xml:space="preserve">
+    <value>NL Please enter a interval &gt; 0.</value>
+  </data>
+  <data name="GenerateDataSeriesWizard_CheckInput_The_constant_value_of_the_component___0___isn_t_set_yet__All_component_fields_are_mandatory_" xml:space="preserve">
+    <value>NL The constant value of the component '{0}' isn't set yet. All component fields are mandatory.</value>
+  </data>
+  <data name="GenerateDataSeriesWizard_CheckInput_The_end_value_of_the_data_series_to_generate_isn_t_set_yet__All_argument_interval_fields_are_mandatory_" xml:space="preserve">
+    <value>NL The end value of the data series to generate isn't set yet. All argument interval fields are mandatory.</value>
+  </data>
+  <data name="GenerateDataSeriesWizard_CheckInput_The_interval_value_of_the_data_series_to_generate_isn_t_set_yet__All_argument_interval_fields_are_mandatory_" xml:space="preserve">
+    <value>NL The interval value of the data series to generate isn't set yet. All argument interval fields are mandatory.</value>
+  </data>
+  <data name="GenerateDataSeriesWizard_CheckInput_The_starting_value_of_the_data_series_to_generate_isn_t_set_yet__All_argument_interval_fields_are_mandatory_" xml:space="preserve">
+    <value>NL The starting value of the data series to generate isn't set yet. All argument interval fields are mandatory.</value>
+  </data>
+  <data name="GenerateDataSeriesWizard_MessageBoxHeader_Data_generation_settings_error" xml:space="preserve">
+    <value>NL Data generation settings error</value>
+  </data>
+  <data name="ImportProjectFolderWizardDialog_Configure_Wizard_did_not_finish_correctly__Unable_to_configure_" xml:space="preserve">
+    <value>NL Wizard did not finish correctly. Unable to configure.</value>
+  </data>
+  <data name="ImportProjectFolderWizardDialog_Configure_Wizard_is_incompatibale_with_given_importer_" xml:space="preserve">
+    <value>NL Wizard is incompatibale with given importer.</value>
+  </data>
+  <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog__dsproj_file_to_be_imported" xml:space="preserve">
+    <value>NL .dsproj file to be imported</value>
+  </data>
+  <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Import_project" xml:space="preserve">
+    <value>NL Import project</value>
+  </data>
+  <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Press_Finish_to_Finish_" xml:space="preserve">
+    <value>NL Press Finish to Finish.</value>
+  </data>
+  <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Select_an_existing_project_from_which_you_want_to_import" xml:space="preserve">
+    <value>NL Select an existing project from which you want to import</value>
+  </data>
+  <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_This_wizard_is_used_to_import_data_from_an_existing_DeltaShell_project_into_the_current_DeltaShell_project_" xml:space="preserve">
+    <value>NL This wizard is used to import data from an existing DeltaShell project into the current DeltaShell project.</value>
+  </data>
+  <data name="MultipleFunctionView_GetNoDataValues_Unable_to_set_no_data_values_for_series__Invalid_type" xml:space="preserve">
+    <value>NL Unable to set no data values for series. Invalid type</value>
+  </data>
+  <data name="MultipleFunctionView_GetReuseViewData_Non_identical_argument_values_encountered" xml:space="preserve">
+    <value>NL Non-identical argument values encountered</value>
+  </data>
+  <data name="MultipleFunctionView_GetReuseViewData_Table_will_be_hidden__Continue_to_add_function_to_current_view_" xml:space="preserve">
+    <value>NL Table will be hidden. Continue to add function to current view?</value>
+  </data>
+  <data name="MultipleFunctionView_MultipleFunctionView_Function_view" xml:space="preserve">
+    <value>NL Function view</value>
+  </data>
+  <data name="MultipleFunctionView_TableViewEditorValidator_Larger" xml:space="preserve">
+    <value>NL Please enter a value &gt;= {0}</value>
+  </data>
+  <data name="MultipleFunctionView_TableViewEditorValidator_Please_enter_a_unique_value__Value__0__is_already_present_" xml:space="preserve">
+    <value>NL Please enter a unique value. Value {0} is already present.</value>
+  </data>
+  <data name="MultipleFunctionView_TableViewEditorValidator_Please_enter_a_valid_number" xml:space="preserve">
+    <value>NL Please enter a valid number</value>
+  </data>
+  <data name="MultipleFunctionView_TableViewEditorValidator_Smaller" xml:space="preserve">
+    <value>NL Please enter a value &lt;= {0}</value>
+  </data>
+  <data name="MultipleFunctionView_TableViewEditorValidator_Year_should_not_be_smaller_than_1000" xml:space="preserve">
+    <value>NL Year should not be smaller than 1000</value>
+  </data>
+  <data name="MultipleFunctionView_TableViewSelectionChanged_Too_many_chart_series_to_draw____Limited_to_the_first__0__" xml:space="preserve">
+    <value>NL Too many chart series to draw... Limited to the first {0}.</value>
+  </data>
+  <data name="SelectProjectFileWizardPage_ButtonSelectFileClick_Delta_Shell_Project_File" xml:space="preserve">
+    <value>NL Delta Shell Project File</value>
+  </data>
+  <data name="TabbedMultipleFunctionView_ConfigureControls_right_click_to_join_tabs" xml:space="preserve">
+    <value>NL right-click to join tabs</value>
+  </data>
+  <data name="TabbedMultipleFunctionView_ConfigureControls_right_click_to_split_into_tabs" xml:space="preserve">
+    <value>NL right-click to split into tabs</value>
+  </data>
+  <data name="TabbedMultipleFunctionView_JoinTabsEventHandler_Cannot_display_series_with_different_argument_values_in_one_table_" xml:space="preserve">
+    <value>NL Cannot display series with different argument values in one table.</value>
+  </data>
+  <data name="TabbedMultipleFunctionView_JoinTabsEventHandler_Tab_join_error" xml:space="preserve">
+    <value>NL Tab join error</value>
+  </data>
+  <data name="TabbedMultipleFunctionView_TabbedMultipleFunctionView_Function_view" xml:space="preserve">
+    <value>NL Function view</value>
+  </data>
+  <data name="TabbedMultipleFunctionView_TabbedMultipleFunctionView_join_tabs___" xml:space="preserve">
+    <value>NL join tabs...</value>
+  </data>
+  <data name="TabbedMultipleFunctionView_TabbedMultipleFunctionView_split_tabs___" xml:space="preserve">
+    <value>NL split tabs...</value>
+  </data>
+  <data name="TabbedMultipleFunctionView_TableViewEditorValidator_" xml:space="preserve">
+    <value>NL Please enter a value &gt;= {0}</value>
+  </data>
+  <data name="TabbedMultipleFunctionView_TableViewEditorValidator_Please_enter_a_unique_value__Value__0__is_already_present_" xml:space="preserve">
+    <value>NL Please enter a unique value. Value {0} is already present.</value>
+  </data>
+  <data name="TabbedMultipleFunctionView_TableViewEditorValidator_Please_enter_a_valid_number" xml:space="preserve">
+    <value>NL Please enter a valid number</value>
+  </data>
+  <data name="TabbedMultipleFunctionView_TableViewEditorValidator_Smaller" xml:space="preserve">
+    <value>NL Please enter a value &lt;= {0}</value>
+  </data>
+  <data name="TabbedMultipleFunctionView_UpdateBottomAxisRange_Bottom_axis_range_mode__0__not_supported" xml:space="preserve">
+    <value>NL Bottom axis range mode {0} not supported</value>
+  </data>
+  <data name="TableViewTimeSeriesGeneratorTool_ConfigureTableView_Generate" xml:space="preserve">
+    <value>NL Generate</value>
+  </data>
+  <data name="TextDocumentView_OnVisibleChanged_Edit_text__" xml:space="preserve">
+    <value>NL Edit text:</value>
+  </data>
+  <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Choose_your_settings_for_the_imported_time_series" xml:space="preserve">
+    <value>NL Choose your settings for the imported time series</value>
+  </data>
+  <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_CSV_files" xml:space="preserve">
+    <value>NL CSV files</value>
+  </data>
+  <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_CSV_format_settings" xml:space="preserve">
+    <value>NL CSV format settings</value>
+  </data>
+  <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_CSV_parse_columns" xml:space="preserve">
+    <value>NL CSV parse columns</value>
+  </data>
+  <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Press_Finish_to_import_the_data_" xml:space="preserve">
+    <value>NL Press Finish to import the data.</value>
+  </data>
+  <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Select_CSV_file" xml:space="preserve">
+    <value>NL Select CSV file</value>
+  </data>
+  <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Select_the_CSV_file_containing_the_data" xml:space="preserve">
+    <value>NL Select the CSV-file containing the data</value>
+  </data>
+  <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_This_wizard_will_allow_you_to_import_CSV_data" xml:space="preserve">
+    <value>NL This wizard will allow you to import CSV data</value>
+  </data>
+  <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Time_series_settings" xml:space="preserve">
+    <value>NL Time series settings</value>
+  </data>
+  <data name="TimeSeriesGeneratorDialog_Apply_Generating_time_series_failed___0_" xml:space="preserve">
+    <value>NL Generating time series failed: {0}</value>
+  </data>
+  <data name="TimeSeriesGeneratorDialog_FillControl_Current_" xml:space="preserve">
+    <value>NL Current:</value>
+  </data>
+  <data name="TimeSeriesGeneratorDialog_FillControl_till" xml:space="preserve">
+    <value>NL till</value>
+  </data>
+  <data name="TimeSeriesNavigator_TimeNavigatableTimesChanged_Jumping_to_the_last_time___0_____" xml:space="preserve">
+    <value>NL Jumping to the last time: {0} ...</value>
+  </data>
+  <data name="TimeSeriesNavigator_TimeSeriesNavigator_Time_Navigator" xml:space="preserve">
+    <value>NL Time Navigator</value>
+  </data>
+  <data name="VariablesFolderTreeViewNodePresenter_UpdateNode_Arguments" xml:space="preserve">
+    <value>NL Arguments</value>
+  </data>
+  <data name="VariablesFolderTreeViewNodePresenter_UpdateNode_Variables" xml:space="preserve">
+    <value>NL Variables</value>
+  </data>
+</root>

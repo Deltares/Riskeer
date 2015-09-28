@@ -1,0 +1,982 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MeasureToolImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\measureTool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RegularGridCoverageCellProperties_Coverage_Description" xml:space="preserve">
+    <value>The grid spatial data that this cell belongs to.</value>
+  </data>
+  <data name="LocationAndTimeDependentFunctionEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\feature_coverage_with_time_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RegularGridCoverageTimeDependentProperties_TimeExtrapolationType_Description" xml:space="preserve">
+    <value>Extrapolation scheme applied along the time axis when evaluating values.</value>
+  </data>
+  <data name="polygon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\polygon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="layers_ungroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\layers-ungroup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="layers-stack-arrange-back" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\layers-stack-arrange-back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CurvilinearGridLayerProperties_ShowFaces_Description" xml:space="preserve">
+    <value>Determines whether or not to show the surfaces (faces) of the grid.</value>
+  </data>
+  <data name="RegularGridCoverageCellProperties_Value_Description" xml:space="preserve">
+    <value>The value of the grid cell.</value>
+  </data>
+  <data name="VectorLayerProperties_LineWidth_Description" xml:space="preserve">
+    <value>Width of the line.</value>
+  </data>
+  <data name="ValueOperation_Operation_Description" xml:space="preserve">
+    <value>Operation that is pointwise applied upon the values of the spatial data</value>
+  </data>
+  <data name="Categories_Storage" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="PointStyleProperties_Symbol_DisplayName" xml:space="preserve">
+    <value>Symbol</value>
+  </data>
+  <data name="ContourOperation_Value_DisplayName" xml:space="preserve">
+    <value>Argument value</value>
+    <comment>Display name of the Value property in the properties menu that is used to set the value on the points of the contour</comment>
+  </data>
+  <data name="RegularGridCoverageCellProperties_Y_DisplayName" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="VectorLayerPointProperties_DisplayName" xml:space="preserve">
+    <value>Vector layer (point)</value>
+  </data>
+  <data name="down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grid_2d" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grid_2d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CurvePointSmallRemove" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CurvePointSmallRemove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pencil_large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pencil_large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pencil_ruler" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pencil-ruler.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="map__pencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\map--pencil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShowProfile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\showprofile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VectorStyleProperties_DisplayName" xml:space="preserve">
+    <value>Vector style</value>
+  </data>
+  <data name="cut" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\cut.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CurvilinearGridLayerProperties_Name_Description" xml:space="preserve">
+    <value>Name of the curvilinear shown to the user.</value>
+  </data>
+  <data name="layers-stack" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\layers-stack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RegularGridCoverageCellProperties_I_Description" xml:space="preserve">
+    <value>The 0-based index along the X axis.</value>
+  </data>
+  <data name="Common_Name_DisplayName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="VectorStyleProperties_DashStyle_Description" xml:space="preserve">
+    <value>Dash style of the line aling the circumference of the line.</value>
+  </data>
+  <data name="RegularGridCoverageCellProperties_X_DisplayName" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="table_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\table_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GdalRasterLayerProperties_Size_Description" xml:space="preserve">
+    <value>Number of grid cells along the axis of the grid.</value>
+  </data>
+  <data name="Categories_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="PolygonStyleProperties_OutlineColor_Description" xml:space="preserve">
+    <value>Color of the line along the circumference of the polygon.</value>
+  </data>
+  <data name="LineStyleProperies_DashStyle_DisplayName" xml:space="preserve">
+    <value>Dash style</value>
+  </data>
+  <data name="PointStyleProperties_DisplayName" xml:space="preserve">
+    <value>Point style</value>
+  </data>
+  <data name="MapProperties_Name_Description" xml:space="preserve">
+    <value>Name of this map shown to the user.</value>
+  </data>
+  <data name="GdalRasterLayerProperties_Size_DisplayName" xml:space="preserve">
+    <value>Grid Size</value>
+  </data>
+  <data name="PointStyleProperties_EnableOutline_Description" xml:space="preserve">
+    <value>Determines whether or not to show the line along the circumference of the point.</value>
+  </data>
+  <data name="GdalRasterLayerProperties_Step_DisplayName" xml:space="preserve">
+    <value>Grid cell size</value>
+  </data>
+  <data name="operation_large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\operation_large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PointStyleProperties_OutlineWidth_DisplayName" xml:space="preserve">
+    <value>Outline width</value>
+  </data>
+  <data name="selection_select" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\selection-select.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FunctionGrid2D" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\grid_2d.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\deletehs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GdalRasterLayerProperties_MaxVisible_Description" xml:space="preserve">
+    <value>Maximum zoom level where this layer is still visible.</value>
+  </data>
+  <data name="RegularGridCoverageTimeDependentProperties_TimeInterpolationType_Description" xml:space="preserve">
+    <value>Interpolation scheme applied along the time axis when evaluating values.</value>
+  </data>
+  <data name="table" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\table.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LayerProperties_DisplayName" xml:space="preserve">
+    <value>Layer</value>
+  </data>
+  <data name="GradientOperation_StartValue_DisplayName" xml:space="preserve">
+    <value>Initial value</value>
+  </data>
+  <data name="CurvilinearGridLayerProperties_ShowLines_DisplayName" xml:space="preserve">
+    <value>Show lines</value>
+  </data>
+  <data name="LegendToolProperties_Padding_Description" xml:space="preserve">
+    <value>The number of pixels as inner margin along all edges of the legend.</value>
+  </data>
+  <data name="PointStyleProperties_Color_Description" xml:space="preserve">
+    <value>Color of the points.</value>
+  </data>
+  <data name="VectorLayerProperties_LineColor_DisplayName" xml:space="preserve">
+    <value>Line color</value>
+  </data>
+  <data name="GradientOperation_StopValue_Description" xml:space="preserve">
+    <value>Final value for the gradient</value>
+  </data>
+  <data name="GdalRasterLayerProperties_MaxVisibility_DisplayName" xml:space="preserve">
+    <value>Maximum visibility zoom</value>
+  </data>
+  <data name="PointStyleProperties_Shape_Description" xml:space="preserve">
+    <value>Shape for the point symbols.</value>
+  </data>
+  <data name="globe__pencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\globe--pencil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QueryTimeSeriesMapCommand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\QueryTimeSeriesMapCommand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SharpMapGisPluginGui_InitializeMapLegend_Map_Contents" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="PointStyleProperties_EnableOutline_DisplayName" xml:space="preserve">
+    <value>Show outline</value>
+  </data>
+  <data name="SpatialOperation_Enabled_Displayname" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="MapPanZoomImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MapPanZoomImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SmoothingOperation_Iterations_Description" xml:space="preserve">
+    <value>Number of cycles in the smoothing algorithm</value>
+  </data>
+  <data name="gradient" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gradient.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="select" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\select.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MapZoomToExtentsImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MapZoomToExtentsImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grid_2d_Invalid" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\grid_2d_invalid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VectorLayerProperties_OutlineWidth_Description" xml:space="preserve">
+    <value>Width of the line along the circumference of the line.</value>
+  </data>
+  <data name="LineStyleProperies_DashStyle_Description" xml:space="preserve">
+    <value>Dash style of the line.</value>
+  </data>
+  <data name="FeatureDataRowProperties_DisplayName" xml:space="preserve">
+    <value>Feature data</value>
+  </data>
+  <data name="polygonsetvalue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\polygonsetvalue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GroupLayerProperties_DisplayName" xml:space="preserve">
+    <value>Group layer</value>
+  </data>
+  <data name="linetool" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\linetool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RegularGridCoverageCellProperties_J_Description" xml:space="preserve">
+    <value>The 0-based index along the Y axis.</value>
+  </data>
+  <data name="SpatialOperation_Enabled_Description" xml:space="preserve">
+    <value>Determines whether the operation executes when the  operation stack result is refreshed</value>
+  </data>
+  <data name="RegularGridCoverageProperties_Path_DisplayName" xml:space="preserve">
+    <value>File path</value>
+  </data>
+  <data name="MoveSingle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveSingle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VectorLayerPolygonProperties_DisplayName" xml:space="preserve">
+    <value>Vector layer (polygon)</value>
+  </data>
+  <data name="paintcan" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\paintcan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RegularGridCoverageProperties_NoDataValues_Description" xml:space="preserve">
+    <value>Values that represent the absence of data.</value>
+  </data>
+  <data name="GradientOperation_Angle_DisplayName" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="VectorLayerLineProperties_DisplayName" xml:space="preserve">
+    <value>Vector layer (line)</value>
+  </data>
+  <data name="PointStyleProperties_OutlineDashStyle_Description" xml:space="preserve">
+    <value>Dash style of the line along the circumference of the point.</value>
+  </data>
+  <data name="RegularGridCoverageProperties_Store_DisplayName" xml:space="preserve">
+    <value>Store</value>
+  </data>
+  <data name="InterpolateOperation_Samples_Displayname" xml:space="preserve">
+    <value>Sample set</value>
+  </data>
+  <data name="PointStyleProperties_ShapeSize_DisplayName" xml:space="preserve">
+    <value>Shape size</value>
+  </data>
+  <data name="GdalRasterLayerProperties_MinVisible_Description" xml:space="preserve">
+    <value>Minimum zoom level where this layer is still visible.</value>
+  </data>
+  <data name="Categories_Operation_Parameters" xml:space="preserve">
+    <value>Operation parameters</value>
+  </data>
+  <data name="InterpolateOperation_Samples_Description" xml:space="preserve">
+    <value>Point set that being  interpolated to the grid</value>
+  </data>
+  <data name="RegularGridCoverageProperties_FileBased_Description" xml:space="preserve">
+    <value>Indicates whether or not this regular grid uses a file-based storage scheme.</value>
+  </data>
+  <data name="RegularGridCoverageProperties_Store_Description" xml:space="preserve">
+    <value>Scheme used to save this regular grid spatial data.</value>
+  </data>
+  <data name="Categories_Style" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="RegularGridCoverageTimeDependentProperties_TimeInterpolationType_DisplayName" xml:space="preserve">
+    <value>Time interpolation</value>
+  </data>
+  <data name="CurvilinearGridLayerProperties_ShowFaces_DisplayName" xml:space="preserve">
+    <value>Show surfaces</value>
+  </data>
+  <data name="LineStyleProperies_Color_DisplayName" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="PointStyleProperties_OutlineWidth_Description" xml:space="preserve">
+    <value>Width of the line along the circumference of the point.</value>
+  </data>
+  <data name="GradientOperation_Angle_Description" xml:space="preserve">
+    <value>Horizontal angle of the gradient in degrees (90 = northward)</value>
+  </data>
+  <data name="LocationDependentFunctionEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\function_coverage_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VectorLayerProperties_DisplayName" xml:space="preserve">
+    <value>Vector layer</value>
+  </data>
+  <data name="LineStyleProperies_DisplayName" xml:space="preserve">
+    <value>Line style</value>
+  </data>
+  <data name="PointStyleProperties_OutlineDashStyle_DisplayName" xml:space="preserve">
+    <value>Outline dash style</value>
+  </data>
+  <data name="crop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\crop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RegularGridCoverageProperties_Name_Description" xml:space="preserve">
+    <value>Name of the regular grid spatial data.</value>
+  </data>
+  <data name="LineStyleProperies_Width_DisplayName" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="RegularGridCoverageProperties_DisplayName" xml:space="preserve">
+    <value>Regular grid spatial data</value>
+  </data>
+  <data name="RegularGridCoverageCellProperties_X_Description" xml:space="preserve">
+    <value>The X coordinate of the grid cell.</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="MapZoomInImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAACiklEQVQ4T62R3UtTYRzH9xd022XRRcwK
+        kUTPjRaRb0x05ebLXsVkWGqZJJIwUdp2KkfOyhem5AzzzJh1KrAsneV0O5Q7zzHDhBDn2YgVu6jOpLvD
+        r/PkkREO6qIPPFfn9/k+3+d3FP+NZcpIsF4zjby1CWbSKIYovRj0mBLMcDXN9GsIeSw9HGWycA/q4uy4
+        GS2P6a1hj04ZdFcomWGtlXFXoqWh6njAdcYij/8JvnlHNpBsRMhAW4IW8ckWLppsXuF/lK3y3w8F+tTk
+        oksdn3eq9jZhKTONbw5HBCXihQvS6eCiQjuKbrdxfLJVCjJwkW8HF3rVyH9dRctaCkTVJpbHaqwrMaFC
+        kq/uyMkrstyMokKj1KjA71BZZxxlCVlLwXj1YtitU0rDTbu37j6h4bkR6p5Ug3GyAma6ipTzPcWirKUI
+        TuhEvDCOFxqwiLaSl3AYywvnax9VAbV2DzSjpb8D/GRBmgCPIcEMaq1sdLtkp4XQWP9MB2afFtpfXITR
+        9wPQNFUPBc58OGEjQNZShIa0dKi/EuFFSfWruJhgwZU9q0MwzN0BMtgJfe9ugDNkg5yOrL0BAVc5sTSg
+        jr/pVZPs5s8DXCx5ClcuGywEi9cMTsYB+hENZLdnQmZLBjxuydPJaorXPeWWgPSf/TdL0ayt2Irfiw+u
+        fC3QCcfbjkEs7IbNpVswZ1PD03piv6ymmCdVxCu7ip5xFCXwsubsp0VcOav1KBxpOgxf1sbh6/oEfJrt
+        Bp8xX6TShaSDvnzStNBbA5GgC+IfxmCLuQtvR+qALFRuyCN/Z6oxzzRnPwvr053wcboLFm9Xga+B2JQ/
+        /xsPLTn6+8bszy+7S8B3Lndj3JC7T6FQKH4BrluPod3v93kAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="theme" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\theme.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ContourOperation_Value_Description" xml:space="preserve">
+    <value>Argument used as value for the points on the contour.</value>
+    <comment>Description for the Value property</comment>
+  </data>
+  <data name="PolygonStyleProperties_FillColor_Description" xml:space="preserve">
+    <value>Color used to fill the polygons with.</value>
+  </data>
+  <data name="RegularGridCoverageProperties_NoDataValues_DisplayName" xml:space="preserve">
+    <value>'No data'-values</value>
+  </data>
+  <data name="ThemeItemProperties_Label_DisplayName" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="RegularGridCoverageProperties_ValueType_Description" xml:space="preserve">
+    <value>Indicates the value type used to represent values with.</value>
+  </data>
+  <data name="ContourOperation_DesiredSampleSpacing_DisplayName" xml:space="preserve">
+    <value>Sampling distance</value>
+    <comment>The desired sampling distance between points on the contour</comment>
+  </data>
+  <data name="RegularGridCoverageCellProperties_I_DisplayName" xml:space="preserve">
+    <value>X index</value>
+  </data>
+  <data name="SetValueOperation_Value_DisplayName" xml:space="preserve">
+    <value>Argument value</value>
+  </data>
+  <data name="ScaleBarIconImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scaleBarIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SetValueOperation_Value_Description" xml:space="preserve">
+    <value>Value used as argument for the pointwise operation</value>
+  </data>
+  <data name="tag_export" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\tag-export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tag_minus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\tag--minus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GroupLayerProperties_NumberOfLayers_Description" xml:space="preserve">
+    <value>Number of layers in the layer group.</value>
+  </data>
+  <data name="GradientOperation_StopValue_DisplayName" xml:space="preserve">
+    <value>Final value</value>
+  </data>
+  <data name="MapProperties_Map_DisplayName" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="SmoothingOperation_Exponent_Displayname" xml:space="preserve">
+    <value>Exponent</value>
+  </data>
+  <data name="RegularGridCoverageProperties_FileBased_DisplayName" xml:space="preserve">
+    <value>Is file based</value>
+  </data>
+  <data name="GdalRasterLayerProperties_Origin_DisplayName" xml:space="preserve">
+    <value>Origin</value>
+  </data>
+  <data name="ThemeItemProperties_DisplayName" xml:space="preserve">
+    <value>Theme item</value>
+  </data>
+  <data name="VectorLayerProperties_LineColor_Description" xml:space="preserve">
+    <value>Primary color of the line.</value>
+  </data>
+  <data name="GradientOperation_StartValue_Description" xml:space="preserve">
+    <value>Initial value for the gradient</value>
+  </data>
+  <data name="GdalRasterLayerProperties_MinVisible_DisplayName" xml:space="preserve">
+    <value>Minimum visibility zoom</value>
+  </data>
+  <data name="SetValueOperationProperties_DisplayName" xml:space="preserve">
+    <value>Interpolation operation</value>
+  </data>
+  <data name="GroupLayerProperties_NumberOfLayers_DisplayName" xml:space="preserve">
+    <value>Number of layers</value>
+  </data>
+  <data name="CurvilinearGridLayerProperties_DisplayName" xml:space="preserve">
+    <value>Curvilinear grid</value>
+  </data>
+  <data name="RegularGridCoverageCellProperties_Y_Description" xml:space="preserve">
+    <value>Y coordinate of the grid cell.</value>
+  </data>
+  <data name="SmoothingOperationProperties_DisplayName" xml:space="preserve">
+    <value>Smoothing</value>
+  </data>
+  <data name="discretization_empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\discretization_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VectorStyleProperties_EnableOutline_Description" xml:space="preserve">
+    <value>Determines whether or not to show the line along the circumference of the line.</value>
+  </data>
+  <data name="RegularGridCoverageProperties_FilePath_Description" xml:space="preserve">
+    <value>File path where the data for this regular grid spatial data can be found.</value>
+  </data>
+  <data name="RegularGridCoverageCellProperties_Value_DisplayName" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="RegularGridCoverageProperties_Description_DisplayName" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="PointStyleProperties_OutlineColor_Description" xml:space="preserve">
+    <value>Color of the line along the circumference of the point.</value>
+  </data>
+  <data name="magnifier__arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\magnifier--arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LocationAndTimeDependentFunction" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\feature_coverage_with_time.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CopyHS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\copyhs1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VectorLayerProperties_SymbolScale_DisplayName" xml:space="preserve">
+    <value>Symbol scale</value>
+  </data>
+  <data name="arrow_circle_double" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow-circle-double.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LegendIconImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\legendIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RegularGridCoverageCellProperties_Coverage_DislpayName" xml:space="preserve">
+    <value>Name of spatial data</value>
+  </data>
+  <data name="PointStyleProperties_ShapeSize_Description" xml:space="preserve">
+    <value>Size of the pointer symbols.</value>
+  </data>
+  <data name="geometries" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\geometries.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LocationDependentFunction" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\function_coverage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SmoothingOperation_Method_Displayname" xml:space="preserve">
+    <value>Overwrite method</value>
+  </data>
+  <data name="FeatureDataRowProperties_Data_Description" xml:space="preserve">
+    <value>The available feature attribute data.</value>
+  </data>
+  <data name="ContourOperation_DesiredSampleSpacing_Description" xml:space="preserve">
+    <value>The desired space between points on the contour.</value>
+    <comment>Description for the DesiredSamplingSpace property</comment>
+  </data>
+  <data name="zoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\zoom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Properties" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\propertieshs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MapZoomPreviousImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\previous.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GradientOperationProperties_DisplayName" xml:space="preserve">
+    <value>Gradient operation</value>
+  </data>
+  <data name="SmoothingOperation_Iterations_Displayname" xml:space="preserve">
+    <value>Iterations</value>
+  </data>
+  <data name="VectorLayerProperties_Categories_DefaultStyle" xml:space="preserve">
+    <value>Default style</value>
+  </data>
+  <data name="GroupLayerProperties_Name_Description" xml:space="preserve">
+    <value>Name of the layer group.</value>
+  </data>
+  <data name="discretization" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\discretization.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LineStyleProperies_Color_Description" xml:space="preserve">
+    <value>Primary color of the line</value>
+  </data>
+  <data name="PointStyleProperties_OutlineColor_DisplayName" xml:space="preserve">
+    <value>Outline color</value>
+  </data>
+  <data name="points" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\points.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VectorLayerProperties_FillColor_Description" xml:space="preserve">
+    <value>Color used to fill the area within the lines with.</value>
+  </data>
+  <data name="ContourOperationProperties_DisplayName" xml:space="preserve">
+    <value />
+    <comment>Display name of the Contour operation in the properties menu</comment>
+  </data>
+  <data name="VectorLayerProperties_Name_Description" xml:space="preserve">
+    <value>Name of the layer shown to the user.</value>
+  </data>
+  <data name="VectorLayerProperties_FillColor_DisplayName" xml:space="preserve">
+    <value>Fill color</value>
+  </data>
+  <data name="MapZoomNextImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\next.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PolygonStyleProperties_DisplayName" xml:space="preserve">
+    <value>Polygon style</value>
+  </data>
+  <data name="MoveSingleSimple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveSingleSimple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RegularGridCoverageTimeDependentProperties_DisplayName" xml:space="preserve">
+    <value>Time dependent regular grid spatial data</value>
+  </data>
+  <data name="Attribute" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\attribute.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MapZoomOutImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAACfUlEQVQ4T62R/0sTcRjH9y8EQRBBURDr
+        lyCkBmFE+JWVrmxuTjfNbFhmrUhC4UpDN8lqK7Jk+sMGus1YeBSZlm7T6bzC3edGkUKF8zZo1fqid0Mj
+        up7ukycjHNQPveDzy32e1/O8P8/J/hvTbr2C9lSSyFOVpPr1wpS7XAg5DEmqW0tSnUcVUllmGLfByPRV
+        J+jeSjTtLCfCDp08ZC+RU91qgrKXoskubSJoO2yUyv8ET16RKyx0lNuB5jk1YnkTE+PrI+xi0Qt2YWvw
+        psoyYVMl/NeUa5PQ7koSTw5HOTliuVPiaWJi3EUUSzUwLH9ebFTBRL9uGbeqkK9dSUpaGuSuSk47y4hI
+        nCsR5cYVmb8gyfUoxtWJiXJ9ZiUxbC5KSloaylMuhO06uVh8enXq6hNwIoblanGK4eZ8ub+jQJC0NCGX
+        TsALw4VYRPP8WdyMZrmTv7/FuBMRltfiBj5LboYGjookdVdN0LFU4UoKru5nYwP8MJ2B7zXHYVmtgVRe
+        ISzu3gtftu8ESUsz1aUmpzpLEV6UGF/DxDkjlr89C8Dy2BAsPR6AlLcPeGcPfNq4bW2DoK1YMXlHlRiz
+        qiz03NJmJs4fyDQZyx/XbYIBU7ZOUtMEOoqNQfE/+64eRCOtBQR+Lz5DTTlE4LpSmHnUBPGwHeYmb8Bo
+        qwoe1Cg2SGoav0WpeNqmJIfN+Um8rNG2HOHh5YKFkSuH4E2gHd6/6oUPsy54PdICXv0+wZ2pSSbIc/sN
+        49YyiIZskHjphHnqNjzvqQZLnvytVPJ37tdlG0bbjsDs4CWYGWyGiVsa8Nbu+ixd/xv3jHsMLn0WPGkp
+        hP5jincuXdZ6mUwm+wXnf5xMZ7corgAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="VectorLayerProperties_OutlineColor_Description" xml:space="preserve">
+    <value>Color of the line along the circumference of the line.</value>
+  </data>
+  <data name="CurvilinearGridLayerProperties_ShowVertices_DisplayName" xml:space="preserve">
+    <value>Show points</value>
+  </data>
+  <data name="tag_import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\tag-import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CropOperationProperties_DisplayName" xml:space="preserve">
+    <value>Crop operation</value>
+  </data>
+  <data name="CurvilinearGridLayerProperties_ShowVertices_Description" xml:space="preserve">
+    <value>Determines whether or not to show the defined points (vertices) of the grid.</value>
+  </data>
+  <data name="NorthArrowIconImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\northArrowIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RegularGridCoverageProperties_Description_Description" xml:space="preserve">
+    <value>Description of the regular grid spatial data.</value>
+  </data>
+  <data name="PolygonStyleProperties_OutlineWidth_Description" xml:space="preserve">
+    <value>Width of the line along the circumference of the polygon.</value>
+  </data>
+  <data name="InterpolateOperationProperties_DisplayName" xml:space="preserve">
+    <value>Interpolation operation</value>
+  </data>
+  <data name="VectorLayerProperties_SymbolScale_Description" xml:space="preserve">
+    <value>Scaling factor for the symbol.</value>
+  </data>
+  <data name="GdalRasterLayerProperties_Name_Description" xml:space="preserve">
+    <value>Name of the Gdal grid layer shown to the user.</value>
+  </data>
+  <data name="LineStyleProperies_Width_Description" xml:space="preserve">
+    <value>Width of the line.</value>
+  </data>
+  <data name="RegularGridCoverageCellProperties_DisplayName" xml:space="preserve">
+    <value>Regular grid spatial data cell</value>
+  </data>
+  <data name="ValueOperation_Operation_DisplayName" xml:space="preserve">
+    <value>Pointwise operation</value>
+  </data>
+  <data name="GdalRasterLayerProperties_DisplayName" xml:space="preserve">
+    <value>Gdal grid layer</value>
+  </data>
+  <data name="GdalRasterLayerProperties_Envelope_Description" xml:space="preserve">
+    <value>The extends of the Gdal grid layer.</value>
+  </data>
+  <data name="ThemeItemProperties_Label_Description" xml:space="preserve">
+    <value>Label text shown to the user.</value>
+  </data>
+  <data name="contrast_low" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\contrast_low.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LegendToolProperties_DisplayName" xml:space="preserve">
+    <value>Map legend</value>
+  </data>
+  <data name="CurvilinearGridLayerProperties_ShowLines_Description" xml:space="preserve">
+    <value>Determines whether or not to show the lines (edges) between grid points.</value>
+  </data>
+  <data name="LayerProperties_Opacity_DisplayName" xml:space="preserve">
+    <value>Opacity</value>
+  </data>
+  <data name="FeatureDataRowProperties_Data_DisplayName" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="GdalRasterLayerProperties_Envelope_DisplayName" xml:space="preserve">
+    <value>Layer extend</value>
+  </data>
+  <data name="LegendToolProperties_Font_DisplayName" xml:space="preserve">
+    <value>Font</value>
+  </data>
+  <data name="CurvePointSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CurvePointSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lassoselect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lassoselect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PointStyleProperties_Symbol_Description" xml:space="preserve">
+    <value>Image symbol used for point features.</value>
+  </data>
+  <data name="mapToolbar" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="LayerProperties_Opacity_Description" xml:space="preserve">
+    <value>Value in the range 0.0 (fully transparent) - 1.0 (fully opaque)</value>
+  </data>
+  <data name="GdalRasterLayerProperties_Origin_Description" xml:space="preserve">
+    <value>The coordinate of the origin of the Gdal grid layer.</value>
+  </data>
+  <data name="VectorLayerProperties_LineWidth_DisplayName" xml:space="preserve">
+    <value>Line width</value>
+  </data>
+  <data name="PointStyleProperties_Shape_DisplayName" xml:space="preserve">
+    <value>Point shape</value>
+  </data>
+  <data name="table_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\table_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RegularGridCoverageProperties_ValueType_DisplayName" xml:space="preserve">
+    <value>Value type</value>
+  </data>
+  <data name="SmoothingOperation_Exponent_Description" xml:space="preserve">
+    <value>Inverse distance weight exponent</value>
+  </data>
+  <data name="RegularGridCoverageTimeDependentProperties_TimeExtrapolationType_DisplayName" xml:space="preserve">
+    <value>Time extrapolation</value>
+  </data>
+  <data name="Map" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="QueryToolImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\information.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LegendToolProperties_Padding_DisplayName" xml:space="preserve">
+    <value>Padding</value>
+  </data>
+  <data name="Categories_Dimensions" xml:space="preserve">
+    <value>Dimensions</value>
+  </data>
+  <data name="GdalRasterLayerProperties_Step_Description" xml:space="preserve">
+    <value>The dimensions of a single grid cell.</value>
+  </data>
+  <data name="PointStyleProperties_Color_DisplayName" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="RegularGridCoverageCellProperties_J_DisplayName" xml:space="preserve">
+    <value>Y index</value>
+  </data>
+  <data name="MapZoomRectangleImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA68AAAOvAGVvHJJAAACdUlE
+        QVQ4T62RXUhTcRjGdx1dBt0ISVen24QOkUmRy5mzbep2tH3UlktTy0IwlmfqSCcT25hhMjVSaptkMS+y
+        OfZRc+YcbGdSpFDZl9CKUxB0ES4Ob++ZJ0ZM6qYHfjfnPM/z/7/vX/TfxHg0JOPV+Rivnk1PN3KMx8Al
+        p7Ts8gTlW7pZSwq27cV4tcb0tD7DeHRMcuoUnbhFEcvjKmJ5TEnHxygmPkplFpxyo2D/U/zJfDh1V21N
+        f/i+D6lD2pE2pBrZG3PKrTFnbSZikxbeJOXR+VJuHYNGonMkC02Dm7CyvoW+fxMu2LOA/4qjdhkTtkl9
+        QiwvxnOGTU420GiqOWfb5M2dSAdyGWlT9+YKysPWKjpiq2aFWF5pr4FLTFAEmlr5U4Xg7xHOr6znCtRB
+        i4SIDMo4IZZXyq3n4i4lX9D0ns0VXERakWb+28aXXAE13y0mwlZpYUHitpqNj9bxI0g0llxBixA2Imfr
+        TLmCMn+XmJ7vqSgcYcmlwndW8kssVnVlod6cxQVuwYcVV37yBUUBS+WPR6ZjCSGWV2xYQS6OKDNRh4x/
+        xj3IUYRClEgpUhQbVmafzbRDpOMIzLaXNgjRvJ4MnTQuOOSZyGA1E+qrpAM9xwm/WUz4r5bT0aEabvWh
+        CTaSLnizeB1C12Rwv/ngbiGaV6j/BIn4QlYpyy8r1FfF+bsrvgUtUnj1eAA+vbgDn9fc8DLYCzONh7lp
+        w4HCku00e6lMG7XXw9unDsg8n4R38RuQGNfDgIR47TldskOw/V0PWg5pQ30KWJszw+pcD8ScKphpIr+6
+        dft3CpZ/656R1Lo1JRDoleAI5EcM7xKJRKJf21ykqCQSBNsAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="LegendToolProperties_Font_Description" xml:space="preserve">
+    <value>Font used in the map legend.</value>
+  </data>
+  <data name="up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="layers-stack-arrange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\layers-stack-arrange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder--plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder--plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="magnifier_history" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\magnifier-history.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="disabled_operation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\disabled_operation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImportSamplesOperation_Source_CS_Description" xml:space="preserve">
+    <value>Coordinate system in which the points in the file are represented.</value>
+  </data>
+  <data name="ImportSamplesOperation_Source_CS_Displayname" xml:space="preserve">
+    <value>Source coordinate system</value>
+  </data>
+  <data name="ImportSamplesOperation_File_Description" xml:space="preserve">
+    <value>File from which the sample set is read.</value>
+  </data>
+  <data name="ImportSamplesOperation_File_Displayname" xml:space="preserve">
+    <value>Input file</value>
+  </data>
+  <data name="Categories_Input" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="Categories_Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="ImportSamplesOperation_Target_CS_Description" xml:space="preserve">
+    <value>Coordinate system to which the input points should be converted.</value>
+  </data>
+  <data name="ImportSamplesOperation_Target_CS_Displayname" xml:space="preserve">
+    <value>Target coordinate system</value>
+  </data>
+  <data name="ImportSamplesOperationProperties_DisplayName" xml:space="preserve">
+    <value>Sample points import properties</value>
+  </data>
+  <data name="pipette" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pipette.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="document_Export1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\document_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="document_Import1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\document_Import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="eraser" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\eraser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EraseOperationProperties_DisplayName" xml:space="preserve">
+    <value>Erase operation</value>
+  </data>
+  <data name="AddSamplesOperationProperties_DisplayName" xml:space="preserve">
+    <value>Add samples operation</value>
+  </data>
+  <data name="exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="unstrucWater" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\unstrucWater.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="spatial_operation_output" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow-turn-270-left.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="spatial_operation_parameter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\block--plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="marker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\marker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OverwriteValueOperationProperties_DisplayName" xml:space="preserve">
+    <value>Overwrite spatial data value</value>
+  </data>
+  <data name="OverwriteValueOperation_Value_Description" xml:space="preserve">
+    <value>New value to be inserted.</value>
+  </data>
+  <data name="OverwriteValueOperation_Value_DisplayName" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="OverwriteValueOperation_X_Description" xml:space="preserve">
+    <value>First coordinate value of the location where to overwrite.</value>
+  </data>
+  <data name="OverwriteValueOperation_X_DisplayName" xml:space="preserve">
+    <value>X</value>
+  </data>
+  <data name="OverwriteValueOperation_Y_Description" xml:space="preserve">
+    <value>Second coordinate value of the location where to overwrite.</value>
+  </data>
+  <data name="OverwriteValueOperation_Y_DisplayName" xml:space="preserve">
+    <value>Y</value>
+  </data>
+  <data name="unstruc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\unstruc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="layer_select_point" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\layer_select_point.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InterpolateOperation_AveragingMethod_Description" xml:space="preserve">
+    <value>Determines which value to return for the found samples</value>
+  </data>
+  <data name="InterpolateOperation_AveragingMethod_DisplayName" xml:space="preserve">
+    <value>Grid cell averaging method</value>
+  </data>
+  <data name="InterpolateOperation_InterpolationMethod_Description" xml:space="preserve">
+    <value>Interpolation method: Delauny triangulation or grid-cell averaging</value>
+  </data>
+  <data name="InterpolateOperation_InterpolationMethod_DisplayName" xml:space="preserve">
+    <value>Interpolation method</value>
+  </data>
+  <data name="InterpolateOperation_MinPoints_Description" xml:space="preserve">
+    <value>Lower bound on the number of samples found per cell when interpolating</value>
+  </data>
+  <data name="InterpolateOperation_MinPoints_DisplayName" xml:space="preserve">
+    <value>Minimum samples per cell</value>
+  </data>
+  <data name="InterpolateOperation_RelSearchCellSize_Description" xml:space="preserve">
+    <value>Scaling factor for cell sizes</value>
+  </data>
+  <data name="InterpolateOperation_RelSearchCellSize_DisplayName" xml:space="preserve">
+    <value>Rel. search cell size</value>
+  </data>
+  <data name="FilterFunctionDialog_ValidateMultiSelectError" xml:space="preserve">
+    <value>This function does not support partial multi-select. Please select only one or all values instead for argument</value>
+  </data>
+  <data name="RealTimeControlModelNodePresenter_GetContextMenu_Validate___" xml:space="preserve">
+    <value>Validate...</value>
+  </data>
+  <data name="RealTimeControlModelNodePresenter_GetContextMenu_Open_Last_Working_Directory____" xml:space="preserve">
+    <value>Open Last Working Directory ...</value>
+  </data>
+  <data name="SharpMapGisGuiPlugin_GetContextMenu_Use_Previous_Output___" xml:space="preserve">
+    <value>Use Previous Output...</value>
+  </data>
+  <data name="SharpMapGisGuiPlugin_GetContextMenu_Use_As_Default_Background_Layer" xml:space="preserve">
+    <value>Use As Default Background Layer</value>
+  </data>
+  <data name="SharpMapGisGuiPlugin_GetContextMenu_Remove_As_Default_Background_Layer" xml:space="preserve">
+    <value>Remove As Default Background Layer</value>
+  </data>
+  <data name="CellAveragingAlgorithm_DisplayName" xml:space="preserve">
+    <value>Cell averaging algorithm</value>
+  </data>
+</root>

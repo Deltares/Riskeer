@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<product xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <product_id>10</product_id>
+  <name>testname</name>
+  <list_price>10.0</list_price>
+</product>

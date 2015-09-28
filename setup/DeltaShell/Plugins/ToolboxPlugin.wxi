@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id="ToolboxDir" Name="DeltaShell.Plugins.Toolbox">
+    <Component Id="ToolboxPlugin" Guid="ACD1C502-E1C7-4312-9DA4-1E725C72B07D">
+      <File Id="DeltaShell.Plugins.Toolbox.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\DeltaShell.Plugins.Toolbox.dll" />
+    </Component>
+    <Directory Id="ScriptsDirectory" Name="Scripts">
+      <Directory Id="ExamplesDir" Name="Examples" >
+        <Component Id="ExamplesInit" Guid="21350874-0932-4F5D-9435-5D08DFFF126B">
+          <File Id="ExamplesInitFile" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\__init__.py" />
+        </Component>
+        <Directory Id="SOBEKDamBreachDirectory" Name="SOBEKDamBreach">
+          <Component Id="script_Python_27" Guid="F585D380-5C32-48ED-BF11-D5C581089D2A">
+            <File Id="file_PythonScript_27" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\SOBEKDamBreach\RunDamBreach.py" />
+          </Component>
+          <Component Id="script_Python_28" Guid="80E71449-ED41-47C6-866E-AEBD3FB42BE0">
+            <File Id="file_PythonScript_28" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\SOBEKDamBreach\SOBEKDamBreach.py" />
+          </Component>
+        </Directory>
+        <Component Id="script_Python_1" Guid="1F90012E-DB05-41E1-9B33-A559C25BE051">
+          <File Id="file_PythonScript_1" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\Charts.py" />
+        </Component>
+        <Component Id="script_Python_2" Guid="EBD44850-207C-4A91-8747-3578E92D18D6">
+          <File Id="file_PythonScript_2" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\CreatingANetworkFromShpFile.py" />
+        </Component>
+        <Component Id="script_Python_3" Guid="B396CCD4-7E17-424E-A68A-0252EB39F069">
+          <File Id="file_PythonScript_3" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\CsvFiles.py" />
+        </Component>
+        <Component Id="script_Python_4" Guid="071F6522-5C50-4F9A-ACE4-78320CBB7CED">
+          <File Id="file_PythonScript_4" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\FlowFlexibleMesh.py" />
+        </Component>
+        <Component Id="script_Python_5" Guid="8B696D10-3750-4AD0-AB46-6A7AEFD760F2">
+          <File Id="file_PythonScript_5" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\Maps.py" />
+        </Component>
+        <Component Id="script_Python_6" Guid="DB6175A9-14B2-4D27-8123-BE0D55F12639">
+          <File Id="file_PythonScript_6" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\NetCdfFiles.py" />
+        </Component>
+        <Component Id="script_Python_7" Guid="1F43CE16-47BB-4AA6-9F5D-6D3F5DB9EB2D">
+          <File Id="file_PythonScript_7" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\RainfallRunoffModel.py" />
+        </Component>
+        <Component Id="script_Python_8" Guid="345395B3-6237-440D-B4BF-53959BD6A4ED">
+          <File Id="file_PythonScript_8" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\RtcModel.py" />
+        </Component>
+        <Component Id="script_Python_9" Guid="F6AAFC72-B9C6-4046-8C8E-360E71B3E162">
+          <File Id="file_PythonScript_9" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\WaterFlow1d.py" />
+        </Component>
+        <Component Id="script_Python_10" Guid="998F7519-34C0-4E2D-9987-A109FA969E7C">
+          <File Id="file_PythonScript_10" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Examples\WaterQualityModel2D3D.py" />
+        </Component>
+      </Directory>
+      <Directory Id="LibrariesDir" Name="Libraries">
+        <Component Id="LibrariesInit" Guid="E8781F3D-226A-4E10-BEC4-212B93F475DE">
+          <File Id="LibrariesInitFile" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\__init__.py" />
+        </Component>
+        <Component Id="script_Python_11" Guid="523B1CDC-3665-479D-8E07-571DA296A70C">
+          <File Id="file_PythonScript_11" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\ChartFunctions.py" />
+        </Component>
+        <Component Id="script_Python_12" Guid="F1B68EF5-099D-438E-884F-9185B03978CA">
+          <File Id="file_PythonScript_12" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\Conversions.py" />
+        </Component>
+        <Component Id="script_Python_13" Guid="3E5B59AA-1AB5-4B94-AD31-6575F8337743">
+          <File Id="file_PythonScript_13" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\FlowFlexibleMeshFunctions.py" />
+        </Component>
+        <Component Id="script_Python_14" Guid="74ED2944-DE30-4626-82C8-4EDB25B4A126">
+          <File Id="file_PythonScript_14" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\MapFunctions.py" />
+        </Component>
+        <Component Id="script_Python_15" Guid="22362E13-4AC6-49C2-ACFE-417DE7994615">
+          <File Id="file_PythonScript_15" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\NetCdfFunctions.py" />
+        </Component>
+        <Component Id="script_Python_16" Guid="8259C624-F068-41BF-ABCB-68C685606FE7">
+          <File Id="file_PythonScript_16" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\NetworkFunctions.py" />
+        </Component>
+        <Component Id="script_Python_17" Guid="1BEDA8CA-AAAD-40D5-8239-83610101DB37">
+          <File Id="file_PythonScript_17" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\RainfallRunoffModelFunctions.py" />
+        </Component>
+        <Component Id="script_Python_18" Guid="190BAB23-AB96-4EAE-9970-3D2F18CFD6AF">
+          <File Id="file_PythonScript_18" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\RtcModelFunctions.py" />
+        </Component>
+        <Component Id="script_Python_19" Guid="0CF06452-6F06-4884-8238-B748DB6D64EB">
+          <File Id="file_PythonScript_19" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\Sobek2Functions.py" />
+        </Component>
+        <Component Id="script_Python_20" Guid="46F76368-A55D-4C78-A6D7-15F4F00A9858">
+          <File Id="file_PythonScript_20" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\SobekFunctions.py" />
+        </Component>
+        <Component Id="script_Python_21" Guid="329F6205-86C6-4B81-B697-455D41082476">
+          <File Id="file_PythonScript_21" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\SobekWaterFlowFunctions.py" />
+        </Component>
+        <Component Id="script_Python_22" Guid="5681D5A7-7CF5-487A-8D77-707E897BBA7E">
+          <File Id="file_PythonScript_22" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\SpatialOperations.py" />
+        </Component>
+        <Component Id="script_Python_23" Guid="7E34F188-03E2-46E9-BD41-F90DD9C1B104">
+          <File Id="file_PythonScript_23" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\StandardFunctions.py" />
+        </Component>
+        <Component Id="script_Python_24" Guid="4F2326C7-9D6E-40E9-BD5D-CC46148AEDA5">
+          <File Id="file_PythonScript_24" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\WaterQualityModel2D3DFunctions.py" />
+        </Component>
+        <Component Id="script_Python_25" Guid="F532233D-010A-40D2-9362-20CE5EC2A098">
+          <File Id="file_PythonScript_25" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Libraries\Wps.py" />
+        </Component>
+      </Directory>
+      <Directory Id="ScriptsDir" Name="Scripts">
+        <Component Id="ScriptsInit" Guid="04D5011E-9C42-4AF3-8281-1AB0F2EE4F92">
+          <File Id="ScriptsInitFile" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Scripts\__init__.py" />
+        </Component>
+        <Component Id="script_Python_26" Guid="4BD329D7-2A55-4988-9E59-3FF21F2EB40D">
+          <File Id="file_PythonScript_26" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Scripts\AddMapWithSateliteImages.py" />
+        </Component>
+      </Directory>
+      <Directory Id="SnippetsDir" Name="Snippets">
+        <Component Id="SnippetsInit" Guid="219BC1AC-46FE-4E44-929F-ADC573AE1B7E">
+          <File Id="SnippetsInitFile" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox\Scripts\Snippets\__init__.py" />
+        </Component>
+      </Directory>
+    </Directory>
+  </Directory>
+</Include>

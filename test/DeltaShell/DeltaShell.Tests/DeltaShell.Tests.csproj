@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E0990383-FB2E-47D1-99CD-9B9FA2929E5B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DeltaShell.Tests</RootNamespace>
+    <AssemblyName>DeltaShell.Tests</AssemblyName>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <NoWarn>1591</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Optimize>true</Optimize>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <NoWarn>1591</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Optimize>true</Optimize>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Addins">
+      <HintPath>..\..\..\lib\Mono.Addins.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpTestsEx">
+      <HintPath>..\..\..\lib\SharpTestsEx.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\..\..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\AssemblyInfoTest.cs" />
+    <Compile Include="Core\DelftShellApplicationTest.cs" />
+    <Compile Include="Core\DeltaShellApplicationSettingsTest.cs" />
+    <Compile Include="Core\Extensions\CompositeActivityExtensionsTest.cs" />
+    <Compile Include="Gui\AvalonDockingTestForm.xaml.cs">
+      <DependentUpon>AvalonDockingTestForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Forms\AvalonDockDockingManagerTest.cs" />
+    <Compile Include="Gui\Forms\HelpAboutBoxTest.cs" />
+    <Compile Include="Gui\Forms\MessageWindow\MessageWindowTest.cs" />
+    <Compile Include="Gui\Forms\ProgressBarDialogTest.cs" />
+    <Compile Include="Gui\Forms\PropertyGrid\PropertyGridTest.cs" />
+    <Compile Include="Gui\Forms\SplashScreenTest.cs" />
+    <Compile Include="Gui\Forms\ProgressDialog\TestStringBasedProgressingActivity.cs" />
+    <Compile Include="Gui\GuiExportHandlerTest.cs" />
+    <Compile Include="Gui\ViewPropertyEditorTest.cs" />
+    <Compile Include="TestObjects\TestActivityRunner.cs" />
+    <Compile Include="TestObjects\TestExporter.cs" />
+    <Compile Include="Gui\DelftShellGuiTests.cs" />
+    <Compile Include="Gui\Forms\ProgressDialog\ProgressDialogTest.cs" />
+    <Compile Include="Gui\Forms\ProgressDialog\TestActivity.cs" />
+    <Compile Include="Gui\Forms\SelectItemDialogTest.cs" />
+    <Compile Include="Gui\Forms\SelectViewDialogTest.cs" />
+    <Compile Include="Gui\GuiCommandHandlerTest.cs" />
+    <Compile Include="Gui\ImportActivityTest.cs" />
+    <Compile Include="Gui\Log4netTest.cs" />
+    <Compile Include="Gui\MenuManagerTest.cs">
+    </Compile>
+    <Compile Include="Gui\Forms\OptionsDialogTest.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TestObjects\TestImporter.cs" />
+    <Compile Include="TestObjects\TestReusableView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TestObjects\TestReusableView.Designer.cs">
+      <DependentUpon>TestReusableView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestObjects\TestDockingManager.cs" />
+    <Compile Include="TestObjects\TestCompositeView.cs" />
+    <Compile Include="Gui\ToolWindowTestControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Gui\ToolWindowTestControl.Designer.cs">
+      <DependentUpon>ToolWindowTestControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\ViewListTest.cs" />
+    <Compile Include="Core\PluginConfigurationLoaderTest.cs" />
+    <Compile Include="TestObjects\TestApplication.cs" />
+    <Compile Include="TestObjects\TestView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TestObjects\TestView.Designer.cs">
+      <DependentUpon>TestView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestObjects\TestProjectService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\Services\ProjectServiceTest.cs" />
+    <Compile Include="TestObjects\TestMenuItem.cs" />
+    <Compile Include="TestObjects\TestSettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>TestSettings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="TestObjects\TestSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>TestSettings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Gui\ToolWindowTestControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ToolWindowTestControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestObjects\TestView.resx">
+      <DependentUpon>TestView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Gui\Resources\image1.png" />
+    <Content Include="Gui\Resources\image2.png" />
+    <Content Include="Gui\Resources\image3.png" />
+    <None Include="Gui\Resources\image6.png" />
+    <None Include="Gui\Resources\image4.png" />
+    <None Include="Gui\Resources\image5.png" />
+    <Content Include="Gui\Resources\image7.png" />
+    <Content Include="Gui\Resources\image8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Common\DelftTools.Controls.Swf\DelftTools.Controls.Swf.csproj">
+      <Project>{3DBD23CE-5C4A-4A49-B51C-B268CB2B510E}</Project>
+      <Name>DelftTools.Controls.Swf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Common\DelftTools.Controls\DelftTools.Controls.csproj">
+      <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
+      <Name>DelftTools.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
+      <Project>{82B61D20-FD4B-49BE-9252-5BF6E3EE4666}</Project>
+      <Name>DelftTools.Shell.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Common\DelftTools.Shell.Gui\DelftTools.Shell.Gui.csproj">
+      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
+      <Name>DelftTools.Shell.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\DeltaShell\DeltaShell.Plugins.CommonTools\DeltaShell.Plugins.CommonTools.csproj">
+      <Project>{BEFDCC44-2638-4972-B353-42D14C7DA2C6}</Project>
+      <Name>DeltaShell.Plugins.CommonTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\DelftTools.TestUtils\DelftTools.TestUtils.csproj">
+      <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
+      <Name>DelftTools.TestUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Common\DelftTools.Utils\DelftTools.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>DelftTools.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\DeltaShell\DeltaShell.Core\DeltaShell.Core.csproj">
+      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
+      <Name>DeltaShell.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\DeltaShell\DeltaShell.Gui\DeltaShell.Gui.csproj">
+      <Project>{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7}</Project>
+      <Name>DeltaShell.Gui</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Gui\AvalonDockingTestForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Gui\Forms\CompositeModelDesigner\" />
+    <Folder Include="Gui\Forms\MainWindow\" />
+    <Folder Include="Gui\Forms\ViewManager\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\build\DeltaShell.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ExternalDependencies>lib\DeltaShell\DeltaShell.Plugins.Data.NHibernate</ExternalDependencies>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties InternalTargetFrameworkVersion="3.5" />
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>

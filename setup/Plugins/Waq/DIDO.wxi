@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Name="dido" Id="dido_folder">
+    <Component Id="dido_cmd" Guid="*">
+      <File Source="$(var.waq_plugin_bin)dido\dido.cmd"/>
+    </Component>
+    <Directory Name="bin" Id="dido_bin_folder">
+      <?define dido_bin_folder="$(var.waq_plugin_bin)dido\bin\"?>
+      <Component Id="dido_bin" Guid="E9288839-6D13-4858-AB32-39F6623C0868">
+        <File Source="$(var.dido_bin_folder)dido.dll" Id="fil548B44126F8040F6866B2816F50EBF6C" />
+        <File Source="$(var.dido_bin_folder)freeglut.dll" Id="fil5713934C00EA4105BD61931B00417731" />
+        <File Source="$(var.dido_bin_folder)glut32.dll" Id="fil8830B5C16EF1462E97AEF4786E6BD6A2" />
+        <File Source="$(var.dido_bin_folder)glut64.dll" Id="filFB6C153DEBEC447E8CF45A266010CC94" />
+        <File Source="$(var.dido_bin_folder)icudt52.dll" Id="fil052FD7ED8E464771B479ED97861C3C7D" />
+        <File Source="$(var.dido_bin_folder)icuin52.dll" Id="fil6AE6EC73C20149CEBB8C4E4ED7251CAF" />
+        <File Source="$(var.dido_bin_folder)icuuc52.dll" Id="fil9BD0CA3B8CB7482591FAE748340DEBBE" />
+        <File Source="$(var.dido_bin_folder)libifcoremd.dll" Id="fil6D307541A83945E694FFA829485AD4CC" />
+        <File Source="$(var.dido_bin_folder)libifportmd.dll" Id="filB411CA769CBD4E3685313D0D6097F6D6" />
+        <File Source="$(var.dido_bin_folder)libmmd.dll" Id="fil0782DF9E09F24FE38BBF942AF5ACAC3E" />
+        <File Source="$(var.dido_bin_folder)mfe_app.exe" Id="fil847F4A106C1C4C6187B3F234C2FE4541" />
+        <File Source="$(var.dido_bin_folder)msvcp120.dll" Id="fil140E6865AF8E48FD95E1452338C88D01" />
+        <File Source="$(var.dido_bin_folder)msvcr120.dll" Id="filD055CC834AC94AD4BC1DA3F2A09479A8" />
+        <File Source="$(var.dido_bin_folder)netcdf.dll" Id="fil1497C32DC60246C6A91A2F17955DF86D" />
+        <File Source="$(var.dido_bin_folder)pthreadVC2.dll" Id="fil761B13819E8E40BEA376844DC8AE485E" />
+        <File Source="$(var.dido_bin_folder)pthreadVCE2.dll" Id="fil0BC1C577907441E9BFB900A09A3C332E" />
+        <File Source="$(var.dido_bin_folder)qt53_canvas_window.dll" Id="filA48C005C3E7A403B999B32FD1BD0D7B3" />
+        <File Source="$(var.dido_bin_folder)qt53_commands_dialog.dll" Id="filF0EE80212AF84CFC9C1B1796DFD55783" />
+        <File Source="$(var.dido_bin_folder)qt53_common_dialogs.dll" Id="filC8D7D3E419274826BB6E3996A0CF3EEB" />
+        <File Source="$(var.dido_bin_folder)qt53_common_utils.dll" Id="fil3838944575F647E782D20417A4B70DDE" />
+        <File Source="$(var.dido_bin_folder)qt53_cpp_java.dll" Id="fil42ED69C517EB401CB84A5224775A7D3E" />
+        <File Source="$(var.dido_bin_folder)qt53_glut_window.dll" Id="fil648F242C2FEA47A2B374509D03D80F29" />
+        <File Source="$(var.dido_bin_folder)qt53_gui_api.dll" Id="filDA29FCBE2A0A4417BE572DA4E1139EB2" />
+        <File Source="$(var.dido_bin_folder)qt53_ml_support.dll" Id="filA7019901920C400D8D564671865465A8" />
+        <File Source="$(var.dido_bin_folder)qt53_plugin_shared_mem_def.dll" Id="fil0E71F119C72B439CAAE3287BC1A226D6" />
+        <File Source="$(var.dido_bin_folder)qt53_property_editor.dll" Id="fil44BAE46481C34C7ABDB816F14254C16F" />
+        <File Source="$(var.dido_bin_folder)qt53_win32_process.dll" Id="filEBE4BD7F081E4B35A116D9B3185FD073" />
+        <File Source="$(var.dido_bin_folder)Qt5Core.dll" Id="filF72FEFFFE078465DB99E8FC0341041BF" />
+        <File Source="$(var.dido_bin_folder)Qt5Gui.dll" Id="fil3FDD2FAA69DB47B799012EF483C738B8" />
+        <File Source="$(var.dido_bin_folder)Qt5PrintSupport.dll" Id="fil2549BFBB848C4AE5A4F91F1867821CB6" />
+        <File Source="$(var.dido_bin_folder)Qt5Widgets.dll" Id="fil13D18CC39C8D489DBD4DB7516F9DB4CA" />
+        <File Source="$(var.dido_bin_folder)svml_dispmd.dll" Id="filD63DCA04ED594DEFB79467C186D8B2A1" />
+      </Component>
+
+      <Directory Name="platforms" Id="dido_platforms_folder">
+        <Component Id="dido_platforms" Guid="C9C46834-4851-474B-9130-7EFEA3368ECC">
+          <File Source="$(var.dido_bin_folder)platforms\qminimal.dll" Id="fil4FF0B5E44640439AA11BC0CE57451A6C"/>
+          <File Source="$(var.dido_bin_folder)platforms\qoffscreen.dll" Id="filE0F2664BA79045719C9447EFDAF337F4"/>
+          <File Source="$(var.dido_bin_folder)platforms\qwindows.dll" Id="fil8C4AC6EC83804A44AD2E649F38260C9A"/>
+        </Component>
+      </Directory>
+      <?undef dido_bin_folder?>
+    </Directory>
+    <Directory Name="colormaps" Id="dido_colormaps_folder">
+      <?define dido_colormaps_folder="$(var.waq_plugin_bin)dido\colormaps\"?>
+      <Component Id="dido_colormaps" Guid="B82AAD46-D16D-4189-AD44-13F5ADFFECFC">
+        <File Source="$(var.dido_colormaps_folder)autumn.clrmap" Id="filFB9910666C384DA3AA79893957068428"/>
+        <File Source="$(var.dido_colormaps_folder)bathy.clrmap" Id="filA6D229B6C8104EDB96BAD5E0C6F33ABE"/>
+        <File Source="$(var.dido_colormaps_folder)bluemap.clrmap" Id="filDAE9F95109074B51863251D0F0F6B3F4"/>
+        <File Source="$(var.dido_colormaps_folder)bone.clrmap" Id="filB0B71BE56A6841DCB4597A40346CA012"/>
+        <File Source="$(var.dido_colormaps_folder)cool.clrmap" Id="fil9BDAB25A8FF447D8BFE23B8DAD515075"/>
+        <File Source="$(var.dido_colormaps_folder)copper.clrmap" Id="fil416BBEFDFBE742D487C1D0C82F429223"/>
+        <File Source="$(var.dido_colormaps_folder)depth.clrmap" Id="fil9AA8EAB467A149B2B9B1F78D50368089"/>
+        <File Source="$(var.dido_colormaps_folder)earth1.clrmap" Id="filF877F522A2D74FFF8F7D3276BC5068CF"/>
+        <File Source="$(var.dido_colormaps_folder)earth2.clrmap" Id="fil4F3A3F49C854423A8E897007D1BFF85A"/>
+        <File Source="$(var.dido_colormaps_folder)earthsurface.clrmap" Id="fil0E74CF651EC94654AB3353C1A87091E8"/>
+        <File Source="$(var.dido_colormaps_folder)gray.clrmap" Id="fil281DB0331C5C41F28CFE8A44DB2132A3"/>
+        <File Source="$(var.dido_colormaps_folder)hot.clrmap" Id="fil39EF123E6FDA410894B82DF199F4B002"/>
+        <File Source="$(var.dido_colormaps_folder)hsv.clrmap" Id="fil95FF45977E004FA29B2B2D8EFCF76961"/>
+        <File Source="$(var.dido_colormaps_folder)jet.clrmap" Id="filA8CA4D32AD6248AA8A2EC78E02DBFDCB"/>
+        <File Source="$(var.dido_colormaps_folder)jet_white_5.clrmap" Id="fil0B0252C8145348778EDC47D5E09FD85A"/>
+        <File Source="$(var.dido_colormaps_folder)pastel.clrmap" Id="filE40D4224AF294774ADBB55011431E9A1"/>
+        <File Source="$(var.dido_colormaps_folder)pink.clrmap" Id="filC505DA6566C74CC8AD12B47B9630FB2C"/>
+        <File Source="$(var.dido_colormaps_folder)qncmap.clrmap" Id="fil4D3F2484058D4BA59BFC5C6975C4C6C4"/>
+        <File Source="$(var.dido_colormaps_folder)revbluemap.clrmap" Id="filE5D4E1A776214ED1B6850052F3E42454"/>
+        <File Source="$(var.dido_colormaps_folder)sedconc.clrmap" Id="filD7E136E2D14D4214B0A5662B69FB7849"/>
+        <File Source="$(var.dido_colormaps_folder)spring.clrmap" Id="fil73678A9557164D93A65740878AFE8761"/>
+        <File Source="$(var.dido_colormaps_folder)summer.clrmap" Id="fil20D179A2CCC44495A75A445F25A2C1DF"/>
+        <File Source="$(var.dido_colormaps_folder)winter.clrmap" Id="fil3A54319C6A6F49A2B7978D716C766CA1"/>
+        <File Source="$(var.dido_colormaps_folder)xhsv.clrmap" Id="fil3CC07944262C4F228EFC3F4F76BFC02A"/>
+      </Component>
+      <?undef dido_colormaps_folder?>
+    </Directory>
+
+    <Directory Name="icons" Id="dido_icons_folder">
+      <?define dido_icons_folder=$(var.waq_plugin_bin)dido\icons\?>
+      <Component Id="dido_icons" Guid="E4266925-81BD-4B1D-9375-BD0A089A1D79">
+        <File Source="$(var.dido_icons_folder)anchor.png" Id="fil267D66DE543F427A8A617779A5BCAB4C"/>
+        <File Source="$(var.dido_icons_folder)arrow_curved_black.png" Id="filC31BBD251F0A427C8D9734B436C7CB49"/>
+        <File Source="$(var.dido_icons_folder)centre.png" Id="fil8A77D78A37C54606817CDFCD1A5401A2"/>
+        <File Source="$(var.dido_icons_folder)delete_exterior.png" Id="fil4FDC8B7FDECF40A3AA8B4E66351E1B09"/>
+        <File Source="$(var.dido_icons_folder)delete_interior.png" Id="fil677036762C8A43F6A8D0F337D65EB535"/>
+        <File Source="$(var.dido_icons_folder)deltares.ico" Id="fil12387E70CCAC47B9A831C207EA056AA2"/>
+        <File Source="$(var.dido_icons_folder)dido_icon.ico" Id="fil864F5A86A7624312974E20E52CA60F00"/>
+        <File Source="$(var.dido_icons_folder)dido_icon.png" Id="filB7FDC31011734C5EAE663B6202E32DCD"/>
+        <File Source="$(var.dido_icons_folder)edit_depth.png" Id="fil17BE46780CED43C2B6B74518D759FC53"/>
+        <File Source="$(var.dido_icons_folder)file_new.png" Id="fil167A7848FD61419CA77D3F9605CE5B5A"/>
+        <File Source="$(var.dido_icons_folder)file_open.png" Id="filD2272093987E40E9BC07F9BC53A6CC78"/>
+        <File Source="$(var.dido_icons_folder)file_save.png" Id="fil19C8360785B54678ADEE4B38A226E695"/>
+        <File Source="$(var.dido_icons_folder)full_extend.xpm" Id="fil0DA5A5FDA622403797D796B66ACE3285"/>
+        <File Source="$(var.dido_icons_folder)gisview_icon.ico" Id="fil6D37AF251F9C42048C5661FCCFE2AA42"/>
+        <File Source="$(var.dido_icons_folder)gisview_icon.png" Id="fil2939A3228C41400BAE37FC9290A7DED2"/>
+        <File Source="$(var.dido_icons_folder)grid_delete_point.png" Id="fil78DD328BBFA541FA9289ECF14C21C274"/>
+        <File Source="$(var.dido_icons_folder)grid_insert_point.png" Id="filEE791014906140098F67A93D3B27CF9B"/>
+        <File Source="$(var.dido_icons_folder)grid_move_point.png" Id="fil7A838F1BC4BC4B84A01DB761E98CD1D7"/>
+        <File Source="$(var.dido_icons_folder)legend.png" Id="filEDA357FC0CEC4DBCAEA1F9165E8D040B"/>
+        <File Source="$(var.dido_icons_folder)loadshapefile.png" Id="fil656E8C4C335E43C3B311A76BEE7337EF"/>
+        <File Source="$(var.dido_icons_folder)media_forward.png" Id="fil55F0A17F298447F9B8322F30418DD21B"/>
+        <File Source="$(var.dido_icons_folder)media_forward_next.png" Id="fil1DF4D8556D244444B39ACAA9B9A1C041"/>
+        <File Source="$(var.dido_icons_folder)media_next.png" Id="fil94640DF7B3774F8D980C69B2DA561B42"/>
+        <File Source="$(var.dido_icons_folder)media_pause.png" Id="filD4F566122BE240EAACCB7D3A2E4E5FC6"/>
+        <File Source="$(var.dido_icons_folder)menu_to_toolbar.xpm" Id="filA16D311F2ED3487E8EE286BAF6920153"/>
+        <File Source="$(var.dido_icons_folder)multiselect_domain.png" Id="fil254D100EB9374CC69DA39E1C9AB8730A"/>
+        <File Source="$(var.dido_icons_folder)orthogonalise.png" Id="filE8A2AFF334EB47B098495CA224BA550B"/>
+        <File Source="$(var.dido_icons_folder)polygon_delete.png" Id="fil17B69AD2650747EE9ACF8A3870F2EAF8"/>
+        <File Source="$(var.dido_icons_folder)polygon_delete_point.png" Id="filE2CE7FC353DD48618167D828F61F9DDF"/>
+        <File Source="$(var.dido_icons_folder)polygon_insert_point.png" Id="filE9A4393ADBB7411AAB1F763C632655CB"/>
+        <File Source="$(var.dido_icons_folder)polygon_move_point.png" Id="filD6BDBC7E3D0B4E30BD0E44C418F784B2"/>
+        <File Source="$(var.dido_icons_folder)polygon_new.png" Id="fil9B2EF148608B45DBB55EDDF8E2E084A9"/>
+        <File Source="$(var.dido_icons_folder)print_small.xpm" Id="fil2B2F576F57A848E1B8587190F4C86C76"/>
+        <File Source="$(var.dido_icons_folder)properties.png" Id="fil376CD0EF0CAC4E44AD607AEB4CAE1D69"/>
+        <File Source="$(var.dido_icons_folder)quickin_icon.ico" Id="fil2448ABB657C44C14BF35C29CAA25DEE7"/>
+        <File Source="$(var.dido_icons_folder)quickin_icon.png" Id="fil1C6D08D499644992999222FEF4FF7C27"/>
+        <File Source="$(var.dido_icons_folder)refresh.png" Id="fil955DD54AE7AB4EF4BBDC3113AE945614"/>
+        <File Source="$(var.dido_icons_folder)remoteolv_icon.ico" Id="filFBD046EF80314FDB9381A0B77CAECE24"/>
+        <File Source="$(var.dido_icons_folder)remoteolv_icon.png" Id="fil05CB36E56DBC464FB68B2850B8F86FC3"/>
+        <File Source="$(var.dido_icons_folder)repeat.png" Id="fil8F5E38CFE56742378B18BE705A455B35"/>
+        <File Source="$(var.dido_icons_folder)rgfgrid_icon.ico" Id="fil9AE4610181BE45CDBFFBFC483A3851F4"/>
+        <File Source="$(var.dido_icons_folder)rgfgrid_icon.png" Id="filB7DB34346B384CD4B5AAD427B391C412"/>
+        <File Source="$(var.dido_icons_folder)select_domain.png" Id="filCC9F8CDCF1E04B369759C0026009CC18"/>
+        <File Source="$(var.dido_icons_folder)splines_to_grid.png" Id="fil581D35A45EBD4563B3764A327FDD3FFE"/>
+        <File Source="$(var.dido_icons_folder)spline_delete.png" Id="fil21EC2C6AEFD34E129F671F23FD180DC2"/>
+        <File Source="$(var.dido_icons_folder)spline_delete_point.png" Id="filD08E56730CB34511A93B18CF1E9B3CF8"/>
+        <File Source="$(var.dido_icons_folder)spline_insert_point.png" Id="fil38486F6B4744424797FBD6FB8C7F54A7"/>
+        <File Source="$(var.dido_icons_folder)spline_move_point.png" Id="filD3E5305400BE49F59381155C60499E8E"/>
+        <File Source="$(var.dido_icons_folder)spline_new.png" Id="fil77953507458B405A869BEC7B774BBB5B"/>
+        <File Source="$(var.dido_icons_folder)vectors.png" Id="fil9700CC9312C3499E901AE3DA944745EC"/>
+        <File Source="$(var.dido_icons_folder)zoom_in.xpm" Id="fil1C2F875B7B2E49E4B47C9515C4CF2CCE"/>
+        <File Source="$(var.dido_icons_folder)zoom_out.xpm" Id="filAA1D31E94D16413A8FFE3FDAD486ACBE"/>
+        <File Source="$(var.dido_icons_folder)zoom_to_region.xpm" Id="fil633416E0855940AF8B9C1567670FFE82"/>
+      </Component>
+      <?undef dido_icons_folder?>
+    </Directory>
+
+    <Directory Name="manuals" Id="dido_manuals_folder">
+      <Component Id="dido_manuals" Guid="F1763953-8333-42A6-9346-68707AA0ABCE">
+        <File Source="$(var.waq_plugin_bin)dido\manuals\D-Water_Quality_DIDO_User_Manual.pdf" Id="fil87656EE3494047F8B7CB9C1D6D3BB9B6"/>
+      </Component>
+    </Directory>
+  </Directory>
+</Include>

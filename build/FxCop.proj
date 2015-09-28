@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<UsingTask TaskName="Nxslt" AssemblyFile="..\build\tools\nxslt\XmlLab.NxsltTasks.MSBuild.dll"/>
+
+	<PropertyGroup>
+		<FxCopOutputDir>$(MSBuildProjectDirectory)\Results\FxCopOut</FxCopOutputDir>
+		<FxCopXslt>$(MSBuildProjectDirectory)\tools\fxcop\Xml</FxCopXslt>
+		<FxCopPath>$(MSBuildProjectDirectory)\tools\fxcop\FxCopCmd.exe</FxCopPath>
+		<FxCopProjectFilePath>$(MSBuildProjectDirectory)\DeltaShell.fxcop</FxCopProjectFilePath>
+	</PropertyGroup>
+
+	<Target Name="FxCop">
+        	<MakeDir Directories="$(FxCopOutputDir)"/>
+		<Message Text="#--------- Executing FxCop ---------#" />
+		<Message Text="OutputDir: $(FxCopOutputDir)" />
+		<Message Text="FxCopPath: $(FxCopPath)" />
+		<Message Text="ProjectFile: $(FxCopProjectFilePath)" />
+
+		<Exec Command="$(FxCopPath) /project:$(FxCopProjectFilePath) /out:$(FxCopOutputDir)\Result.xml" />
+
+		<Nxslt In="$(FxCopOutputDir)\Result.xml" Style="$(FxCopXslt)\fx-total.xslt" Out="$(FxCopOutputDir)\Result.total.xml" />
+		<Nxslt In="$(FxCopOutputDir)\Result.xml" Style="$(FxCopXslt)\fx-detail.xslt" Out="$(FxCopOutputDir)\Result.detail.xml" />
+		<Nxslt In="$(FxCopOutputDir)\Result.xml" Style="$(FxCopXslt)\FxCopReport.xsl" Out="$(FxCopOutputDir)\FxCop.html" />
+	</Target>
+
+</Project>
+

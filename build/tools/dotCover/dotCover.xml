@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>dotCover</name>
+    </assembly>
+    <members>
+        <member name="M:JetBrains.dotCover.ConsoleRunner.Commands.ICommandDescriptor.PrepareCommand(JetBrains.dotCover.ConsoleRunner.Commands.ICommandExecutionContext)">
+            <exception cref="T:JetBrains.dotCover.ConsoleRunner.ValidationException"/>
+        </member>
+        <member name="M:JetBrains.dotCover.ConsoleRunner.Commands.IValidatedCommand.Execute">
+            <exception cref="T:JetBrains.dotCover.ConsoleRunner.CommandExecutionException"/>
+        </member>
+        <member name="M:JetBrains.dotCover.ConsoleRunner.Impl.CommandLineArgumentsProcessor.ProcessArguments(JetBrains.Application.ICommandLine,System.Collections.Generic.IEnumerable{JetBrains.dotCover.ConsoleRunner.Commands.ICommandDescriptor},JetBrains.dotCover.ConsoleRunner.Commands.ICommandDescriptor@,JetBrains.dotCover.ConsoleRunner.Parameters.IParametersBag@,System.Action{JetBrains.dotCover.ConsoleRunner.Parameters.IParametersBag})">
+            <exception cref="T:JetBrains.dotCover.ConsoleRunner.ValidationException"/>
+        </member>
+        <member name="P:JetBrains.dotCover.ConsoleRunner.Impl.Commands.Analyse.AnalyseParams.IncludeEnvironmentSpecificInfo">
+            not documented, used for debug purposes (unit testing)
+        </member>
+        <member name="P:JetBrains.dotCover.ConsoleRunner.Impl.Commands.Report.ReportParams.IncludeEnvironmentSpecificInfo">
+            not documented, used for debug purposes (unit testing)
+        </member>
+        <member name="M:JetBrains.dotCover.ConsoleRunner.Impl.Commands.SnapshotFilesEnumerationUtil.GetIndexFiles(System.String)">
+            <summary>
+            Returns list of index files based on the specified source. 
+            Method introduced in order to support both new and old-style source data specification.
+            </summary>
+            <param name="sourceFile">snapshot index file or coverage results descriptor (in previous versions: xml-file containing list of index files obtained during coverage session)</param>
+            <returns>list of index files</returns>
+        </member>
+        <member name="M:JetBrains.dotCover.ConsoleRunner.Impl.Commands.SnapshotFilesEnumerationUtil.GetFileNames(System.String)">
+            <summary>
+            Returns list of all snapshot files (there are snapshots consisting of multiple files)
+            </summary>
+            <param name="indexFile">snapshot index file</param>
+            <returns>list of all snapshot files</returns>
+        </member>
+        <member name="T:JetBrains.dotCover.ConsoleRunner.Parameters.IParametersBag">
+            <summary>
+            Storage for parameters with case-insensitive keys
+            </summary>
+        </member>
+        <member name="M:JetBrains.dotCover.ConsoleRunner.Shell.ConsoleRunnerApplicationDescriptor.#ctor">
+            Parameterless constructor is required for build tasks
+        </member>
+        <member name="M:JetBrains.dotCover.ConsoleRunner.Shell.LightConsoleRunnerApplicationDescriptor.#ctor">
+            Parameterless constructor is required for build tasks
+        </member>
+        <member name="T:JetBrains.dotCover.ConsoleRunner.Shell.OverridenComponents.DummyDwmStatus">
+            <summary>
+            Platform DwmStatus class expects that Shell is the UIApplicationShell which is not true for the console runner.
+            (Platform UI.Avalon assembly containing this class is refrenced due to dependency on it from Profiler Launcher)
+            </summary>
+        </member>
+        <member name="T:JetBrains.dotCover.ConsoleRunner.Shell.OverridenComponents.DummySubclassStatusBar">
+            <summary>
+            Platform SubclassStatusBar class expects that Shell is the UIApplicationShell which is not true for the console runner.
+            (Platform UI assembly containing this class is refrenced due to dependency on it from Profiler Launcher)
+            </summary>
+        </member>
+        <member name="T:JetBrains.dotCover.ConsoleRunner.Util.TempFolderUtil">
+            <summary>
+            Ensures that temp folder exists and has write permissions
+            </summary>
+        </member>
+        <member name="M:JetBrains.dotCover.ConsoleRunner.Util.TempFolderUtil.EnsureTempFolderAvailable">
+            <exception cref="T:JetBrains.dotCover.ConsoleRunner.CommandExecutionException"/>
+        </member>
+    </members>
+</doc>

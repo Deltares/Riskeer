@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id='DeltaShell.Plugins.HydroModel' Name='DeltaShell.Plugins.HydroModel'>
+    <Component Id='HydroModelPlugin' Guid="95E1BB75-2C26-45EB-A883-279DCC5094CB">
+      <File Id="DeltaShell.Plugins.DelftModels.HydroModel.dll" Source='$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.HydroModel\DeltaShell.Plugins.DelftModels.HydroModel.dll' />
+      <File Id="DeltaShell.Plugins.DelftModels.HydroModel.Gui.dll" Source='$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.HydroModel.Gui\DeltaShell.Plugins.DelftModels.HydroModel.Gui.dll' />
+      <File Id="Newtonsoft.Json.Net35.dll" Source='$(var.deltashell_gui_bin)$(var.Configuration)\Newtonsoft.Json.Net35.dll' />
+    </Component>
+  </Directory>
+</Include>

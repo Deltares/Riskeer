@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id="DeltaShell.Plugins.ImportExport.Sobek" Name="DeltaShell.Plugins.ImportExport.Sobek">
+    <!-- zz. = hack to control the sequence of plugin loading-->
+    <Component Id="ImportExportSobekPlugin" Guid="F65842D8-EE79-4203-8153-36343BF32F69">
+      <File Id="DeltaShell.Plugins.ImportExport.Sobek.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.ImportExport.Sobek\DeltaShell.Plugins.ImportExport.Sobek.dll" />
+      <File Id="DeltaShell.Sobek.Readers.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.ImportExport.Sobek\DeltaShell.Sobek.Readers.dll" />
+    </Component>
+  </Directory>
+</Include>

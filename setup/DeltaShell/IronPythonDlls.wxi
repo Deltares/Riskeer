@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <File Id="IronPython.dll" Source='$(var.deltashell_gui_bin)$(var.Configuration)\IronPython.dll' />
+  <File Id="IronPython.Modules.dll" Source='$(var.deltashell_gui_bin)$(var.Configuration)\IronPython.Modules.dll' />
+  <File Id="IronPython.SQLite.dll" Source='$(var.deltashell_gui_bin)$(var.Configuration)\IronPython.SQLite.dll' />
+  <File Id="IronPython.Wpf.dll" Source='$(var.deltashell_gui_bin)$(var.Configuration)\IronPython.Wpf.dll' />
+  <File Id="Microsoft.Dynamic.dll" Source='$(var.deltashell_gui_bin)$(var.Configuration)\Microsoft.Dynamic.dll' />
+  <File Id="Microsoft.Scripting.AspNet.dll" Source='$(var.deltashell_gui_bin)$(var.Configuration)\Microsoft.Scripting.AspNet.dll' />
+  <File Id="Microsoft.Scripting.dll" Source='$(var.deltashell_gui_bin)$(var.Configuration)\Microsoft.Scripting.dll' />
+</Include>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <!-- Manuals -->
+  <File Id="DFlow_FM_Technical_Reference" Source="$(var.SolutionDir)\setup\Plugins\FM\$(var.Delft3DPackageName)_Manuals\D-Flow_FM_Technical_Reference_Manual.pdf"/>
+  <File Id="DFlow_FM_User_Manual" Source="$(var.SolutionDir)\setup\Plugins\FM\$(var.Delft3DPackageName)_Manuals\D-Flow_FM_User_Manual.pdf"/>
+
+  <!-- RGFGRID -->
+  <File Id="RGFGRID_User_Manual" Source="$(var.SolutionDir)\setup\Plugins\FM\$(var.Delft3DPackageName)_Manuals\RGFGRID_User_Manual.pdf"/>
+</Include>

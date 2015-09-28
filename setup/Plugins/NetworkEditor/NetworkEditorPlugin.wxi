@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id='NetworkEditorPlugin' Name='DeltaShell.Plugins.NetworkEditor'>
+    <!-- Same as SharpMapGisPlugin DeltaShell.Plugins.SharpMapGis to control the sequence of loading -->
+    <Component Id='NetworkEditorPlugin' Guid="5C45F88E-9C43-45AC-8D37-4DF9B150E80E">
+     <File Id="DeltaShell.Plugins.NetworkEditor.dll" Source='$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.NetworkEditor\DeltaShell.Plugins.NetworkEditor.dll' />
+     <File Id="DeltaShell.Plugins.NetworkEditor.Gui.dll" Source='$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.NetworkEditor.Gui\DeltaShell.Plugins.NetworkEditor.Gui.dll' />
+    </Component>
+  </Directory>
+</Include>

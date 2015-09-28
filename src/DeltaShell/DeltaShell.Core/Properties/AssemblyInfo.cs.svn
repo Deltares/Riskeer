@@ -1,0 +1,42 @@
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security.Permissions;
+
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+[assembly : AssemblyTitle("Delta Shell")]
+[assembly : AssemblyDescription("")]
+[assembly : AssemblyConfiguration("")]
+[assembly : AssemblyCompany("Deltares")]
+[assembly : AssemblyProduct("Delta Shell")]
+[assembly: AssemblyCopyright("Copyright © Deltares 2013")]
+[assembly : AssemblyTrademark("")]
+[assembly : AssemblyCulture("")]
+
+// Setting ComVisible to false makes the types in this assembly not visible 
+// to COM components.  If you need to access a type in this assembly from 
+// COM, set the ComVisible attribute to true on that type.
+[assembly : ComVisible(false)]
+
+[assembly: CLSCompliant(true)] //fxcop prerequisite
+[assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution = true)] //fxcop prerequisite
+
+
+// The following GUID is for the ID of the typelib if this project is exposed to COM
+[assembly : Guid("f6a5ae38-b8ce-49c5-a8d9-4729c140ce1f")]
+
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// Note: in our case Build Number = Revision
+// 
+// if revision is defined like 1234:1235M - the last number is used
+
+[assembly: AssemblyVersion("1.0.4.SVNREV")]
+[assembly: AssemblyFileVersion("1.0.4.SVNREV")]

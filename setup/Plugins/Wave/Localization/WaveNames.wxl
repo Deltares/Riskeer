@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="WaveFeatureName">D-Waves</String>
+  <String Id="WaveFeatureDescription">Allows to simulate the evolution of random, short-crested wind-generated waves.</String>
+
+  <String Id="WaveUserManualName">D-Waves User Manual</String>
+  <String Id="SWANDocumentationName">SWAN Online Documentation</String>
+</WixLocalization>

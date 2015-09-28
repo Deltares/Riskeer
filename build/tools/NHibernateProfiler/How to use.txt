@@ -1,0 +1,26 @@
+Preparing an application to be profiled
+==================================
+
+# Add a reference to the appender dll
+
+If you're using .NET 4.0, you hsould add a reference to HibernatingRhinos.Profiler.Appender.v4.0.dll which is located in the downloadable zip.
+If you're using .NET 3.5, .NET 2.0 or .NET 1.0, add a reference to HibernatingRhinos.Profiler.Appender.dll assembly instead of the HibernatingRhinos.Profiler.Appender.v4.0.dll one.
+
+# Call the profiler from you cdoe
+
+In the application startup (Application_Start in web applications, Program.Main in windows / console applications or the App constructor for WPF applications), make the following call:
+HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+
+
+Profiling the application
+=====================
+Open the NHProf.exe
+Start using the application you wish to profile
+You should see the results immediately in the UI.
+
+Notes
+=====
+This will work only when profiling on the current machine, you can profile a remote machine by passing the host name to the Initialize() call.
+
+For any issues that you run into, please inform us at the support mailing list:
+http://groups.google.com/group/nhprof

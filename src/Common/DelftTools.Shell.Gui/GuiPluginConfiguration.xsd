@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Deltares (Deltares) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="itemType">
+		<xs:annotation>
+			<xs:documentation>menu or toolbar item</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="item" type="itemType"/>
+			<xs:element name="separator"/>
+		</xs:choice>
+    <xs:attribute name="command" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Command attached to the current item, text, category, image, etc. will be taken from a command</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="control" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Control attached to the current item, text, category, image, etc. will be taken from a control</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The unique name of the item. If Name attribute is defined - commandclass should be ignored
+        </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="after" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Name of the item after which current item will be added</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="before" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Name of the item before which current item will be added</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="text" type="xs:string">
+			<xs:annotation>
+				<xs:documentation>Text to be shown to the user  and it may contain shortcuts, e.g.: "&amp;File". Since it is optional, the name attribute would be used if there is no text.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:element name="guiPlugin">
+		<xs:annotation>
+			<xs:documentation>section in the App.config file of the plugin</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+      <xs:sequence>
+        <xs:element name="dependencies" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="plugin" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attribute name="name" type="xs:string" use="required"/>
+                </xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="models" minOccurs="0"/>
+				<xs:element name="data" minOccurs="0"/>
+				<xs:element name="commands">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="command" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attribute name="id" type="xs:string" use="required"/>
+									<xs:attribute name="text" type="xs:string" use="required"/>
+									<xs:attribute name="image" type="xs:string"/>
+									<xs:attribute name="category" type="xs:string"/>
+									<xs:attribute name="shortcutkey" type="xs:string"/>
+									<xs:attribute name="tooltip" type="xs:string"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+        <xs:element name="controls">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="control" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:string" use="required"/>
+                  <xs:attribute name="text" type="xs:string" use="required"/>
+                  <xs:attribute name="image" type="xs:string"/>
+                  <xs:attribute name="category" type="xs:string"/>
+                  <xs:attribute name="shortcutkey" type="xs:string"/>
+                  <xs:attribute name="tooltip" type="xs:string"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ui">
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="menus" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="menu" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="activeforviewtypes" minOccurs="0">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="view" type="viewType" maxOccurs="unbounded"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="item" type="itemType" maxOccurs="unbounded"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="toolbars" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="toolbar" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="activeforviewtypes" minOccurs="0">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="view" type="viewType" maxOccurs="unbounded"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="item" type="itemType" maxOccurs="unbounded"/>
+												</xs:sequence>
+												<xs:attribute name="name" type="xs:string" use="required"/>
+												<xs:attribute name="text"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="views" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="view" type="viewType" maxOccurs="unbounded"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="contextmenus" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="contextmenu" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="item" type="itemType" maxOccurs="unbounded"/>
+													<xs:element name="activeforviewtypes" minOccurs="0">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="view" type="viewType" maxOccurs="unbounded"/>
+															</xs:sequence>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="name" type="xs:string" use="required"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+      <xs:attribute name="type" type="xs:string" use="optional" />
+    </xs:complexType>
+		<xs:key name="commandkey">
+			<xs:selector xpath=".//command"/>
+			<xs:field xpath="@class"/>
+		</xs:key>
+		<xs:keyref name="commandkeyRef" refer="commandkey">
+			<xs:selector xpath=".//item"/>
+			<xs:field xpath="@commandclass"/>
+		</xs:keyref>
+	</xs:element>
+	<xs:complexType name="viewType">
+		<xs:attribute name="class" type="xs:string" use="required"/>
+	</xs:complexType>
+</xs:schema>

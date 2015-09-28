@@ -1,0 +1,168 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Habitat", "setup\Plugins\Habitat\Habitat.wixproj", "{D37FA6A1-40BB-4F66-9790-E682300E476D}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DeltaShell", "setup\DeltaShell\DeltaShell.wixproj", "{58AE50FB-48FD-49B6-9BC0-6FD21EEC15BD}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WFDExplorer", "setup\Plugins\WFDExplorer\WFDExplorer.wixproj", "{BB94C6C4-BEF2-47B2-9A77-6B8DB4547E0F}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "MorphAn", "setup\Plugins\MorphAn\MorphAn.wixproj", "{C66DC55E-DE49-44F9-BFB0-F4541320209C}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Sobek", "setup\Plugins\Sobek\Sobek.wixproj", "{C925F09B-0664-44BB-A0B0-2F54E59A1332}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "DefaultDeltaresDialogs", "setup\DefaultDeltaresDialogs\DefaultDeltaresDialogs.wixproj", "{F30C1A46-D283-484E-AABE-EF52F9168E08}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "XBeachGravel", "setup\Plugins\XBeachG\XBeachGravel.wixproj", "{04059AB7-C04B-468F-8791-906B2ACDCD67}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "FM", "setup\Plugins\FM\FM.wixproj", "{1DD62DBB-F7D3-40BE-8063-B7B80CEC8B9F}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Waq", "setup\Plugins\Waq\Waq.wixproj", "{823D3A3E-5D41-4A1D-ADE0-FCB154FA7DCF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HydroModel", "HydroModel", "{E75F8D14-80EE-4D76-9A5A-A9CAA2353ACF}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\HydroModel\HydroModelPlugin.wxi = setup\Plugins\HydroModel\HydroModelPlugin.wxi
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetworkEditor", "NetworkEditor", "{C9865FBB-95BC-47FD-8C1F-9548E3A86828}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\NetworkEditor\NetworkEditorPlugin.wxi = setup\Plugins\NetworkEditor\NetworkEditorPlugin.wxi
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RealTimeControl", "RealTimeControl", "{35E08619-42CA-475D-943C-E17A9EA72874}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\RealTimeControl\RealTimeControl_FeatureContent.wxi = setup\Plugins\RealTimeControl\RealTimeControl_FeatureContent.wxi
+		setup\Plugins\RealTimeControl\RealTimeControlPlugin.wxi = setup\Plugins\RealTimeControl\RealTimeControlPlugin.wxi
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wave", "Wave", "{AE99BF82-098E-4AA2-8E9B-51FAA0FC9DAB}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\Wave\WavePlugin.wxi = setup\Plugins\Wave\WavePlugin.wxi
+		setup\Plugins\Wave\WavePlugin_FeatureContent.wxi = setup\Plugins\Wave\WavePlugin_FeatureContent.wxi
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XBeach", "XBeach", "{20107BAE-21B1-4494-8B2E-A0C718FF560B}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\XBeach\Feature_ToolboxPluginDefaultScriptingDirectories.wxi = setup\Plugins\XBeach\Feature_ToolboxPluginDefaultScriptingDirectories.wxi
+		setup\Plugins\XBeach\XBeachBinaries.wxi = setup\Plugins\XBeach\XBeachBinaries.wxi
+		setup\Plugins\XBeach\XBeachCommonPlugin.wxi = setup\Plugins\XBeach\XBeachCommonPlugin.wxi
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Manuals", "Manuals", "{5F71DFAA-FD06-4E49-A959-B788A1C6931D}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\RealTimeControl\Manuals\RTC-Tools_Technical_Reference_Manual.pdf = setup\Plugins\RealTimeControl\Manuals\RTC-Tools_Technical_Reference_Manual.pdf
+		setup\Plugins\RealTimeControl\Manuals\RTCManuals.wxi = setup\Plugins\RealTimeControl\Manuals\RTCManuals.wxi
+		setup\Plugins\RealTimeControl\Manuals\RTCManualShortcuts.wxi = setup\Plugins\RealTimeControl\Manuals\RTCManualShortcuts.wxi
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Manuals", "Manuals", "{311AA74D-3380-4E66-89D1-D2CE5B8EF7B7}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\Wave\Manuals\WaveManuals.wxi = setup\Plugins\Wave\Manuals\WaveManuals.wxi
+		setup\Plugins\Wave\Manuals\WaveManualShortcuts.wxi = setup\Plugins\Wave\Manuals\WaveManualShortcuts.wxi
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Localization", "Localization", "{6ED6D321-1BE0-4036-84F2-19A48CD4E5B4}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\RealTimeControl\Localization\RTCNames.wxl = setup\Plugins\RealTimeControl\Localization\RTCNames.wxl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Localization", "Localization", "{3F0F3EAD-35A6-409D-AD01-C19C7D6E9860}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\Wave\Localization\WaveNames.wxl = setup\Plugins\Wave\Localization\WaveNames.wxl
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Start Page", "Start Page", "{72075871-354A-4726-8410-7CEE97B6729E}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Start Page\Welcome.css = setup\Start Page\Welcome.css
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{76E35DC0-682D-4E04-9A08-21B0F3A67ED3}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Start Page\Resources\deltares_logo_groot.jpg = setup\Start Page\Resources\deltares_logo_groot.jpg
+	EndProjectSection
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "FM_RWS", "setup\Plugins\FM\FM_RWS.wixproj", "{5725D793-35B5-48A1-BB6A-2291DF6C2980}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Delft3D Flexible Mesh_Manuals", "Delft3D Flexible Mesh_Manuals", "{909C9BFB-5A72-4C1A-BA39-06CC5BE4782D}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\Wave\Delft3D Flexible Mesh_Manuals\D-Waves_User_Manual.pdf = setup\Plugins\Wave\Delft3D Flexible Mesh_Manuals\D-Waves_User_Manual.pdf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "D-HYDRO_Manuals", "D-HYDRO_Manuals", "{5969ED98-BBD9-4CE4-B689-1D725072AF14}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\Wave\D-Hydro_Manuals\D-Waves_User_Manual.pdf = setup\Plugins\Wave\D-Hydro_Manuals\D-Waves_User_Manual.pdf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Delft3D Flexible Mesh_Manuals", "Delft3D Flexible Mesh_Manuals", "{9C1A0BE6-3CC2-471A-AE9A-2D4D213DFF7D}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\RealTimeControl\Delft3D Flexible Mesh_Manuals\D-RTC_User_Manual.pdf = setup\Plugins\RealTimeControl\Delft3D Flexible Mesh_Manuals\D-RTC_User_Manual.pdf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "D-HYDRO_Manuals", "D-HYDRO_Manuals", "{813FB501-C0AC-4F0A-9E1A-E74EFF01C4AC}"
+	ProjectSection(SolutionItems) = preProject
+		setup\Plugins\RealTimeControl\D-HYDRO_Manuals\D-RTC_User_Manual.pdf = setup\Plugins\RealTimeControl\D-HYDRO_Manuals\D-RTC_User_Manual.pdf
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D37FA6A1-40BB-4F66-9790-E682300E476D}.Debug|x86.ActiveCfg = Debug|x86
+		{D37FA6A1-40BB-4F66-9790-E682300E476D}.Debug|x86.Build.0 = Debug|x86
+		{D37FA6A1-40BB-4F66-9790-E682300E476D}.Release|x86.ActiveCfg = Release|x86
+		{D37FA6A1-40BB-4F66-9790-E682300E476D}.Release|x86.Build.0 = Release|x86
+		{58AE50FB-48FD-49B6-9BC0-6FD21EEC15BD}.Debug|x86.ActiveCfg = Debug|x86
+		{58AE50FB-48FD-49B6-9BC0-6FD21EEC15BD}.Debug|x86.Build.0 = Debug|x86
+		{58AE50FB-48FD-49B6-9BC0-6FD21EEC15BD}.Release|x86.ActiveCfg = Release|x86
+		{58AE50FB-48FD-49B6-9BC0-6FD21EEC15BD}.Release|x86.Build.0 = Release|x86
+		{BB94C6C4-BEF2-47B2-9A77-6B8DB4547E0F}.Debug|x86.ActiveCfg = Debug|x86
+		{BB94C6C4-BEF2-47B2-9A77-6B8DB4547E0F}.Debug|x86.Build.0 = Debug|x86
+		{BB94C6C4-BEF2-47B2-9A77-6B8DB4547E0F}.Release|x86.ActiveCfg = Release|x86
+		{BB94C6C4-BEF2-47B2-9A77-6B8DB4547E0F}.Release|x86.Build.0 = Release|x86
+		{C66DC55E-DE49-44F9-BFB0-F4541320209C}.Debug|x86.ActiveCfg = Debug|x86
+		{C66DC55E-DE49-44F9-BFB0-F4541320209C}.Debug|x86.Build.0 = Debug|x86
+		{C66DC55E-DE49-44F9-BFB0-F4541320209C}.Release|x86.ActiveCfg = Release|x86
+		{C66DC55E-DE49-44F9-BFB0-F4541320209C}.Release|x86.Build.0 = Release|x86
+		{C925F09B-0664-44BB-A0B0-2F54E59A1332}.Debug|x86.ActiveCfg = Debug|x86
+		{C925F09B-0664-44BB-A0B0-2F54E59A1332}.Debug|x86.Build.0 = Debug|x86
+		{C925F09B-0664-44BB-A0B0-2F54E59A1332}.Release|x86.ActiveCfg = Release|x86
+		{C925F09B-0664-44BB-A0B0-2F54E59A1332}.Release|x86.Build.0 = Release|x86
+		{F30C1A46-D283-484E-AABE-EF52F9168E08}.Debug|x86.ActiveCfg = Debug|x86
+		{F30C1A46-D283-484E-AABE-EF52F9168E08}.Debug|x86.Build.0 = Debug|x86
+		{F30C1A46-D283-484E-AABE-EF52F9168E08}.Release|x86.ActiveCfg = Release|x86
+		{F30C1A46-D283-484E-AABE-EF52F9168E08}.Release|x86.Build.0 = Release|x86
+		{04059AB7-C04B-468F-8791-906B2ACDCD67}.Debug|x86.ActiveCfg = Debug|x86
+		{04059AB7-C04B-468F-8791-906B2ACDCD67}.Debug|x86.Build.0 = Debug|x86
+		{04059AB7-C04B-468F-8791-906B2ACDCD67}.Release|x86.ActiveCfg = Release|x86
+		{04059AB7-C04B-468F-8791-906B2ACDCD67}.Release|x86.Build.0 = Release|x86
+		{1DD62DBB-F7D3-40BE-8063-B7B80CEC8B9F}.Debug|x86.ActiveCfg = Debug|x86
+		{1DD62DBB-F7D3-40BE-8063-B7B80CEC8B9F}.Debug|x86.Build.0 = Debug|x86
+		{1DD62DBB-F7D3-40BE-8063-B7B80CEC8B9F}.Release|x86.ActiveCfg = Release|x86
+		{1DD62DBB-F7D3-40BE-8063-B7B80CEC8B9F}.Release|x86.Build.0 = Release|x86
+		{823D3A3E-5D41-4A1D-ADE0-FCB154FA7DCF}.Debug|x86.ActiveCfg = Debug|x86
+		{823D3A3E-5D41-4A1D-ADE0-FCB154FA7DCF}.Debug|x86.Build.0 = Debug|x86
+		{823D3A3E-5D41-4A1D-ADE0-FCB154FA7DCF}.Release|x86.ActiveCfg = Release|x86
+		{823D3A3E-5D41-4A1D-ADE0-FCB154FA7DCF}.Release|x86.Build.0 = Release|x86
+		{5725D793-35B5-48A1-BB6A-2291DF6C2980}.Debug|x86.ActiveCfg = Debug|x86
+		{5725D793-35B5-48A1-BB6A-2291DF6C2980}.Debug|x86.Build.0 = Debug|x86
+		{5725D793-35B5-48A1-BB6A-2291DF6C2980}.Release|x86.ActiveCfg = Release|x86
+		{5725D793-35B5-48A1-BB6A-2291DF6C2980}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5F71DFAA-FD06-4E49-A959-B788A1C6931D} = {35E08619-42CA-475D-943C-E17A9EA72874}
+		{311AA74D-3380-4E66-89D1-D2CE5B8EF7B7} = {AE99BF82-098E-4AA2-8E9B-51FAA0FC9DAB}
+		{6ED6D321-1BE0-4036-84F2-19A48CD4E5B4} = {35E08619-42CA-475D-943C-E17A9EA72874}
+		{3F0F3EAD-35A6-409D-AD01-C19C7D6E9860} = {AE99BF82-098E-4AA2-8E9B-51FAA0FC9DAB}
+		{76E35DC0-682D-4E04-9A08-21B0F3A67ED3} = {72075871-354A-4726-8410-7CEE97B6729E}
+		{909C9BFB-5A72-4C1A-BA39-06CC5BE4782D} = {AE99BF82-098E-4AA2-8E9B-51FAA0FC9DAB}
+		{5969ED98-BBD9-4CE4-B689-1D725072AF14} = {AE99BF82-098E-4AA2-8E9B-51FAA0FC9DAB}
+		{9C1A0BE6-3CC2-471A-AE9A-2D4D213DFF7D} = {35E08619-42CA-475D-943C-E17A9EA72874}
+		{813FB501-C0AC-4F0A-9E1A-E74EFF01C4AC} = {35E08619-42CA-475D-943C-E17A9EA72874}
+	EndGlobalSection
+EndGlobal

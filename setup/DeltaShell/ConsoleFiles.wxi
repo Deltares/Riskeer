@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Include >
+  <File Id="DeltaShell.Console.exe" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DeltaShell.Console.exe" />
+  <File Id="DeltaShell.Console.exe.config" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DeltaShell.Console.exe.config" />
+  
+  <?ifdef IncludeX64 ?>
+	<File Id="DeltaShell.Console.x64.exe" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DeltaShell.Console.x64.exe" />
+	<File Id="DeltaShell.Console.x64.exe.config" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DeltaShell.Console.x64.exe.config" />  
+  <?endif?>
+  
+</Include>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id="ToolboxGuiDir" Name="DeltaShell.Plugins.Toolbox.Gui">
+    <Component Id="ToolboxGuiPlugin" Guid="A0AEB8DC-0516-4539-B69D-5E4AFB2F946F">
+      <File Id="DeltaShell.Plugins.Toolbox.Gui.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.Toolbox.Gui\DeltaShell.Plugins.Toolbox.Gui.dll" />
+    </Component>
+  </Directory>
+</Include>

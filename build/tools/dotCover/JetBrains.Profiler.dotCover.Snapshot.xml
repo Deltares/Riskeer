@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JetBrains.Profiler.dotCover.Snapshot</name>
+    </assembly>
+    <members>
+        <member name="T:JetBrains.Profiler.Snapshot.Storage.Impl.LoggingSnapshotStorage">
+            <summary>
+            Snapshot storage class that wraps source snapshot storage and logs all read and seek operations in it
+            To enable snapshot read logging use "logread" command line switch.
+            Log file is created only at the moment of storage disposal
+            LogFileName = SrcIndexFileName + ".log"
+            
+            
+            Log file format:
+            
+            Section: {section_type}, size: {size}
+              Time: {reader_creation_time} + {reader_life_time}
+                [Read | Seek]: {offset}
+                [Read | Seek]: {offset}
+                [Read | Seek]: {offset}
+                ...
+              Time: {reader_creation_time} + {reader_life_time}
+                [Read | Seek]: {offset}
+                ...
+            Section: {section_type}, size: {size}
+              Time: {reader_creation_time} + {reader_life_time}
+                [Read | Seek]: {offset}
+            ...
+            
+            comments:
+            
+            {section_type}: decimal integer value - section type index
+            {offset}: for 'Read' operations it means read bytes count, for 'Seek' operations - seek offset (signed)
+            {reader_creation_time}: time in nanoseconds from snapshot storage creation to the request of BinaryReader
+            {reader_life_time}: time in nanoseconds between reader creation and disposal
+            {size}: size of the section in bytes
+            </summary>
+        </member>
+        <member name="T:JetBrains.Profiler.Snapshot.Tools.SectionOffsetBinaryReader">
+            <summary>
+            Class contains extension methods for reading section offset value from the data storages.
+            </summary>
+        </member>
+        <member name="M:JetBrains.Profiler.Snapshot.Tools.SectionOffsetBinaryReader.ReadOffset``1(System.IO.BinaryReader)">
+            <summary>
+            Reads non packed Int64 value and instantiate an objects of <see cref="T:JetBrains.Profiler.Snapshot.Interface.Section.SectionOffset`1"/> type.
+            </summary>
+            <typeparam name="T">Type of the section which the section offset refers to.</typeparam>
+            <param name="reader">Binary reader holds the stream.</param>
+            <returns>Returns an object present the offset in the data section.</returns>
+        </member>
+        <member name="T:JetBrains.Profiler.Snapshot.Legacy.Writer.SectionOffsetBinayWriter">
+            <summary>
+            Class contains extension methods for writing section offset value into the data storages.
+            </summary>
+        </member>
+        <member name="M:JetBrains.Profiler.Snapshot.Legacy.Writer.SectionOffsetBinayWriter.Write``1(System.IO.BinaryWriter,JetBrains.Profiler.Snapshot.Interface.Section.SectionOffset{``0})">
+            <summary>
+            Writes value of <paramref name="sectionOffset"/> into the current position of the underlying stream.
+            </summary>
+            <typeparam name="T">Type of the section which <paramref name="sectionOffset"/> refers to.</typeparam>
+            <param name="writer">Binary writer holds the stream.</param>
+            <param name="sectionOffset">Section offset.</param>
+            <returns>Returns count of bytes really written into the stream.</returns>
+            <remarks>This method incapsulates writing of SectionOffset into the stream.
+            SectionOffset can be written to the stream without making <see cref="P:JetBrains.Profiler.Snapshot.Interface.Section.SectionOffset`1.Value"/> public.</remarks>
+        </member>
+        <member name="M:JetBrains.Profiler.Snapshot.Section.Metadata.MetadataSection.GetShortCleanedNameLight(System.String)">
+            <summary>
+            Extremely primitive but simple implementation of the Type name cleaner.
+            Uses simple heuristics on delimiters between Name and Assembly specs.
+            </summary>
+        </member>
+    </members>
+</doc>

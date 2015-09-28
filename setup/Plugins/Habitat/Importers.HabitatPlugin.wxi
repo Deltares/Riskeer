@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id='Importers.Habitat' Name='DeltaShell.Plugins.Importers.Habitat'>
+    <Component Id='Importers.HabitatPlugin' Guid="$(var.PLUGIN_ID)">
+      <File Id="DeltaShell.Plugins.Importers.Habitat.dll" Name="DeltaShell.Plugins.Importers.Habitat.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Importers.Habitat\DeltaShell.Plugins.Importers.Habitat.dll' />
+      <File Id="Habitat.dll" Name="Habitat.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Importers.Habitat\Habitat.dll' />
+    </Component>
+  </Directory>
+</Include>

@@ -1,0 +1,7 @@
+x,y,branch,chainage,value
+0,0,channel1,0.0,1.34
+50,-5,channel1,50.0,3.256
+
+150,5,channel2,50.0,123.234
+150,5,channel2,50.0,123.234
+175,0,channel2,75.0,0.0

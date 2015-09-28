@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id='DeltaShell.Plugins.WFDExplorer' Name='DeltaShell.Plugins.WFDExplorer'>
+    <Component Id='WFDExplorerPlugin' Guid="$(var.PLUGIN_ID)">
+      <File Id="DeltaShell.Plugins.WFDExplorer.dll"
+            Name="DeltaShell.Plugins.WFDExplorer.dll"
+            DiskId='1'
+            Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.WFDExplorer\DeltaShell.Plugins.WFDExplorer.dll' />
+      <File Id="DeltaShell.Plugins.WFDExplorer.dll.config"
+            Name="DeltaShell.Plugins.WFDExplorer.dll.config"
+            DiskId='1'
+            Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.WFDExplorer\DeltaShell.Plugins.WFDExplorer.dll.config' />
+      <File Id="WFDExplorer.EcologyKnowledgeBase.DecisionTrees.dll"
+            Name="WFDExplorer.EcologyKnowledgeBase.DecisionTrees.dll"
+            DiskId='1'
+            Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.WFDExplorer\WFDExplorer.EcologyKnowledgeBase.DecisionTrees.dll' />
+      <File Id="WFDExplorer.EcologyKnowledgeBase.dll"
+            Name="WFDExplorer.EcologyKnowledgeBase.dll"
+            DiskId='1'
+            Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.WFDExplorer\WFDExplorer.EcologyKnowledgeBase.dll' />
+      <File Id="WFDExplorer.EcologyKnowledgeBase.QBWAT.dll"
+            Name="WFDExplorer.EcologyKnowledgeBase.QBWAT.dll"
+            DiskId='1'
+            Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\WFDExplorer.EcologyKnowledgeBase.QBWAT\WFDExplorer.EcologyKnowledgeBase.QBWAT.dll' />
+    </Component>
+
+    <Directory Id='Ecology' Name='Ecology'>
+      <Directory Id='DataCheck' Name='DataCheck'>
+        <Component Id='WFDExplorerPluginDataCheck' Guid='8658497D-F8CD-4070-ACB2-2AC850803C63'>
+          <File Id="DataCheckEcotopeData.csv"	Name="DataCheckEcotopeData.csv"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\DataCheck\DataCheckEcotopeData.csv' />
+        </Component>
+      </Directory>
+
+      <Directory Id='EEE3' Name='EEE3'>
+        <Component Id='WFDExplorerPluginEEE3' Guid='29AF44F4-50AF-44CB-9DD4-A222FC87468D'>
+          <File Id="EEE3.exe"	Name="EEE3.exe"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\EEE3.exe' />
+          <File Id="netBekenmacrofauna3.mat"	Name="netBekenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netBekenmacrofauna.mat' />
+          <File Id="netBekenoverigewaterflora3.mat"	Name="netBekenoverigewaterflora.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netBekenoverigewaterflora.mat' />
+          <File Id="netBekenvissen3.mat"	Name="netBekenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netBekenvissen.mat' />
+          <File Id="netBZOwaterenfytoplankton3.mat"	Name="netBZOwaterenfytoplankton.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netBZOwaterenfytoplankton.mat' />
+          <File Id="netBZOwaterenmacrofauna3.mat"	Name="netBZOwaterenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netBZOwaterenmacrofauna.mat' />
+          <File Id="netBZOwaterenmacrofyten3.mat"	Name="netBZOwaterenmacrofyten.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netBZOwaterenmacrofyten.mat' />
+          <File Id="netBZOwaterenvissen3.mat"	Name="netBZOwaterenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netBZOwaterenvissen.mat' />
+          <File Id="netDmerenfytoplankton3.mat"	Name="netDmerenfytoplankton.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netDmerenfytoplankton.mat' />
+          <File Id="netDmerenmacrofauna3.mat"	Name="netDmerenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netDmerenmacrofauna.mat' />
+          <File Id="netDmerenmacrofyten3.mat"	Name="netDmerenmacrofyten.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netDmerenmacrofyten.mat' />
+          <File Id="netDmerenvissen3.mat"	Name="netDmerenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netDmerenvissen.mat' />
+          <File Id="netKanalenfytoplankton3.mat"	Name="netKanalenfytoplankton.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netKanalenfytoplankton.mat' />
+          <File Id="netKanalenmacrofauna3.mat"	Name="netKanalenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netKanalenmacrofauna.mat' />
+          <File Id="netKanalenmacrofyten3.mat"	Name="netKanalenmacrofyten.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netKanalenmacrofyten.mat' />
+          <File Id="netKanalenvissen3.mat"	Name="netKanalenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netKanalenvissen.mat' />
+          <File Id="netOmerenfytoplankton3.mat"	Name="netOmerenfytoplankton.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netOmerenfytoplankton.mat' />
+          <File Id="netOmerenmacrofauna3.mat"	Name="netOmerenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netOmerenmacrofauna.mat' />
+          <File Id="netOmerenmacrofyten3.mat"	Name="netOmerenmacrofyten.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netOmerenmacrofyten.mat' />
+          <File Id="netOmerenvissen3.mat"	Name="netOmerenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netOmerenvissen.mat' />
+          <File Id="netSlotenmacrofauna3.mat"	Name="netSlotenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netSlotenmacrofauna.mat' />
+          <File Id="netSlotenmacrofyten3.mat"	Name="netSlotenmacrofyten.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netSlotenmacrofyten.mat' />
+          <File Id="netSlotenvissen3.mat"	Name="netSlotenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netSlotenvissen.mat' />
+          <File Id="netSsBekenmacrofauna3.mat"	Name="netSsBekenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netSsBekenmacrofauna.mat' />
+          <File Id="netSsBekenoverigewaterflora3.mat"	Name="netSsBekenoverigewaterflora.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netSsBekenoverigewaterflora.mat' />
+          <File Id="netSsBekenvissen3.mat"	Name="netSsBekenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netSsBekenvissen.mat' />
+          <File Id="netZBwaterenfytoplankton3.mat"	Name="netZBwaterenfytoplankton.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netZBwaterenfytoplankton.mat' />
+          <File Id="netZBwaterenmacrofauna3.mat"	Name="netZBwaterenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netZBwaterenmacrofauna.mat' />
+          <File Id="netZBwaterenmacrofyten3.mat"	Name="netZBwaterenmacrofyten.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netZBwaterenmacrofyten.mat' />
+          <File Id="netZBwaterenvissen3.mat"	Name="netZBwaterenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE3\netZBwaterenvissen.mat' />
+        </Component>
+      </Directory>
+
+      <Directory Id='EEE4' Name='EEE4'>
+        <Component Id='WFDExplorerPluginEEE4' Guid='DF4AF466-310D-4A95-AE0B-094DD8161297'>
+          <File Id="EEE4.exe"	Name="EEE4.exe"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\EEE4.exe' />
+          <File Id="netBekenmacrofauna4.mat"	Name="netBekenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netBekenmacrofauna.mat' />
+          <File Id="netBekenoverigewaterflora4.mat"	Name="netBekenoverigewaterflora.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netBekenoverigewaterflora.mat' />
+          <File Id="netBekenvissen4.mat"	Name="netBekenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netBekenvissen.mat' />
+          <File Id="netBZOwaterenfytoplankton4.mat"	Name="netBZOwaterenfytoplankton.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netBZOwaterenfytoplankton.mat' />
+          <File Id="netBZOwaterenmacrofauna4.mat"	Name="netBZOwaterenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netBZOwaterenmacrofauna.mat' />
+          <File Id="netBZOwaterenoverigewaterflora4.mat"	Name="netBZOwaterenoverigewaterflora.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netBZOwaterenoverigewaterflora.mat' />
+          <File Id="netBZOwaterenvissen4.mat"	Name="netBZOwaterenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netBZOwaterenvissen.mat' />
+          <File Id="netDmerenfytoplankton4.mat"	Name="netDmerenfytoplankton.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netDmerenfytoplankton.mat' />
+          <File Id="netDmerenmacrofauna4.mat"	Name="netDmerenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netDmerenmacrofauna.mat' />
+          <File Id="netDmerenoverigewaterflora4.mat"	Name="netDmerenoverigewaterflora.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netDmerenoverigewaterflora.mat' />
+          <File Id="netDmerenvissen4.mat"	Name="netDmerenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netDmerenvissen.mat' />
+          <File Id="netKanalenfytoplankton4.mat"	Name="netKanalenfytoplankton.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netKanalenfytoplankton.mat' />
+          <File Id="netKanalenmacrofauna4.mat"	Name="netKanalenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netKanalenmacrofauna.mat' />
+          <File Id="netKanalenoverigewaterflora4.mat"	Name="netKanalenoverigewaterflora.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netKanalenoverigewaterflora.mat' />
+          <File Id="netKanalenvissen4.mat"	Name="netKanalenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netKanalenvissen.mat' />
+          <File Id="netOmerenfytoplankton4.mat"	Name="netOmerenfytoplankton.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netOmerenfytoplankton.mat' />
+          <File Id="netOmerenmacrofauna4.mat"	Name="netOmerenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netOmerenmacrofauna.mat' />
+          <File Id="netOmerenoverigewaterflora4.mat"	Name="netOmerenoverigewaterflora.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netOmerenoverigewaterflora.mat' />
+          <File Id="netOmerenvissen4.mat"	Name="netOmerenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netOmerenvissen.mat' />
+          <File Id="netSlotenmacrofauna4.mat"	Name="netSlotenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netSlotenmacrofauna.mat' />
+          <File Id="netSlotenoverigewaterflora4.mat"	Name="netSlotenoverigewaterflora.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netSlotenoverigewaterflora.mat' />
+          <File Id="netSlotenvissen4.mat"	Name="netSlotenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netSlotenvissen.mat' />
+          <File Id="netSsBekenmacrofauna4.mat"	Name="netSsBekenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netSsBekenmacrofauna.mat' />
+          <File Id="netSsBekenoverigewaterflora4.mat"	Name="netSsBekenoverigewaterflora.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netSsBekenoverigewaterflora.mat' />
+          <File Id="netSsBekenvissen4.mat"	Name="netSsBekenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netSsBekenvissen.mat' />
+          <File Id="netZBwaterenfytoplankton4.mat"	Name="netZBwaterenfytoplankton.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netZBwaterenfytoplankton.mat' />
+          <File Id="netZBwaterenmacrofauna4.mat"	Name="netZBwaterenmacrofauna.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netZBwaterenmacrofauna.mat' />
+          <File Id="netZBwaterenoverigewaterflora4.mat"	Name="netZBwaterenoverigewaterflora.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netZBwaterenoverigewaterflora.mat' />
+          <File Id="netZBwaterenvissen4.mat"	Name="netZBwaterenvissen.mat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\EEE4\netZBwaterenvissen.mat' />
+        </Component>
+      </Directory>
+
+      <Directory Id='PUNN1' Name='PUNN1'>
+        <Component Id='WFDExplorerPluginPUNN1' Guid='0F4DD508-735C-47E2-A060-C0615A176B23'>
+          <File Id="EKRpunn1.exe"	Name="EKRpunn1.exe"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\PUNN1\EKRpunn1.exe' />
+          <File Id="mapping1.config"	Name="mapping.config"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\PUNN1\mapping.config' />
+        </Component>
+      </Directory>
+
+      <Directory Id='PUNN3' Name='PUNN3'>
+        <Component Id='WFDExplorerPluginPUNN3' Guid='4C7B2281-C597-4A44-958D-A546DA074543'>
+          <File Id="EKRpunn3.exe"	Name="EKRpunn3.exe"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\PUNN3\EKRpunn3.exe' />
+          <File Id="mapping3.config"	Name="mapping.config"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\Ecology\PUNN3\mapping.config' />
+        </Component>
+      </Directory>
+
+    </Directory>
+
+    <Directory Id='WaterFlowModel0D' Name='WaterFlowModel0D'>
+      <Component Id='WFDExplorerPluginWaterFlowModel0D' Guid='E3C18707-6C75-42EF-BA12-3D0077606BEC'>
+        <File Id="wabacore.exe"	Name="wabacore.exe"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterFlowModel0D\wabacore.exe' />
+      </Component>
+    </Directory>
+
+    <Directory Id='WaterQualityModel0D' Name='WaterQualityModel0D'>
+      <Component Id='WFDExplorerPluginWaterQualityModel0D' Guid='17C69C22-9E64-4160-94D3-0EBC882910D5'>
+        <File Id="DELWAQ1.EXE"	Name="DELWAQ1.EXE"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterQualityModel0D\DELWAQ1.EXE' />
+        <File Id="DELWAQ2.EXE"	Name="DELWAQ2.EXE"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterQualityModel0D\DELWAQ2.EXE' />
+        <File Id="delwaq_wasteload.dll"	Name="delwaq_wasteload.dll"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterQualityModel0D\delwaq_wasteload.dll' />
+        <File Id="DFORRT.DLL"	Name="DFORRT.DLL"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterQualityModel0D\DFORRT.DLL' />
+        <File Id="domain.dat"	Name="domain.dat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterQualityModel0D\domain.dat' />
+        <File Id="libiomp5md.dll"	Name="libiomp5md.dll"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterQualityModel0D\libiomp5md.dll' />
+        <File Id="proc_def.dat"	Name="proc_def.dat"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterQualityModel0D\proc_def.dat' />
+        <File Id="proc_def.def"	Name="proc_def.def"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterQualityModel0D\proc_def.def' />
+        <File Id="pthreadvce.dll"	Name="pthreadvce.dll"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterQualityModel0D\pthreadvce.dll' />
+        <File Id="stofbal.inp"	Name="stofbal.inp"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterQualityModel0D\stofbal.inp' />
+        <File Id="stofbal_dioconfig.ini"	Name="stofbal_dioconfig.ini"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterQualityModel0D\stofbal_dioconfig.ini' />
+        <File Id="waq_plugin_wasteload.dll"	Name="waq_plugin_wasteload.dll"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer\WaterQualityModel0D\waq_plugin_wasteload.dll' />
+      </Component>
+    </Directory>
+
+    <Directory Id='QBWATModel' Name='QBWAT'>
+      <Directory Id='DOSBox' Name='DOSBox'>
+        <Component Id='WFDExplorerPluginDOSBox' Guid='494A7F22-ABA6-45E7-B17F-F560666D35FB'>
+          <File Id="dosbox_0.74.config"	Name="dosbox-0.74.config"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\DOSBox\dosbox-0.74.config' />
+          <File Id="DOSBox.exe"	Name="DOSBox.exe"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\DOSBox\DOSBox.exe' />
+          <File Id="SDL.dll"	Name="SDL.dll"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\DOSBox\SDL.dll' />
+          <File Id="SDL_net.dll"	Name="SDL_net.dll"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\DOSBox\SDL_net.dll' />
+        </Component>
+      </Directory>
+      <Directory Id='QBWAT' Name='QBWAT'>
+        <Component Id='WFDExplorerPluginQBWat' Guid='29AF3CAD-43B8-4E42-8807-5FDD5B0E10F7'>
+          <File Id="qbwat.exe"	Name="qbwat.exe"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\qbwat.exe' />
+          <File Id="qbwat.ico"	Name="qbwat.ico"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\qbwat.ico' />
+          <File Id="qbwat.reg"	Name="qbwat.reg"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\qbwat.reg' />
+        </Component>
+        <Directory Id='QBWAT4' Name='4'>
+          <Component Id='WFDExplorerPluginQBWat4' Guid='CCF93191-E789-476E-8EB0-6CB869D38DAD'>
+            <File Id="AANTAL_K.SCH_4"	Name="AANTAL-K.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\AANTAL-K.SCH' />
+            <File Id="IPSS.SCH_4"	Name="IPSS.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\IPSS.SCH' />
+            <File Id="PISCES.DTC_4"	Name="PISCES.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\PISCES.DTC' />
+            <File Id="PISCES.IXC_4"	Name="PISCES.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\PISCES.IXC' />
+            <File Id="QBW.EXE_4"	Name="QBW.EXE"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW.EXE' />
+            <File Id="qbw.ico_4"	Name="qbw.ico"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\qbw.ico' />
+            <File Id="qbw.opm_4"	Name="qbw.opm"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\qbw.opm' />
+            <File Id="QBW.OVR_4"	Name="QBW.OVR"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW.OVR' />
+            <File Id="QBW_DATA.DTA_4"	Name="QBW_DATA.DTA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATA.DTA' />
+            <File Id="QBW_DATA.DTB_4"	Name="QBW_DATA.DTB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATA.DTB' />
+            <File Id="QBW_DATA.DTX_4"	Name="QBW_DATA.DTX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATA.DTX' />
+            <File Id="QBW_DATA.DTY_4"	Name="QBW_DATA.DTY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATA.DTY' />
+            <File Id="QBW_DATA.IXA_4"	Name="QBW_DATA.IXA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATA.IXA' />
+            <File Id="QBW_DATA.IXB_4"	Name="QBW_DATA.IXB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATA.IXB' />
+            <File Id="QBW_DATA.IXX_4"	Name="QBW_DATA.IXX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATA.IXX' />
+            <File Id="QBW_DATA.IXY_4"	Name="QBW_DATA.IXY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATA.IXY' />
+            <File Id="QBW_DATA.MEY_4"	Name="QBW_DATA.MEY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATA.MEY' />
+            <File Id="QBW_DATA.OPS_4"	Name="QBW_DATA.OPS"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATA.OPS' />
+            <File Id="QBW_DATB.DTA_4"	Name="QBW_DATB.DTA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATB.DTA' />
+            <File Id="QBW_DATB.DTB_4"	Name="QBW_DATB.DTB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATB.DTB' />
+            <File Id="QBW_DATB.DTC_4"	Name="QBW_DATB.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATB.DTC' />
+            <File Id="QBW_DATB.DTX_4"	Name="QBW_DATB.DTX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATB.DTX' />
+            <File Id="QBW_DATB.DTY_4"	Name="QBW_DATB.DTY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATB.DTY' />
+            <File Id="QBW_DATB.IXA_4"	Name="QBW_DATB.IXA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATB.IXA' />
+            <File Id="QBW_DATB.IXB_4"	Name="QBW_DATB.IXB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATB.IXB' />
+            <File Id="QBW_DATB.IXC_4"	Name="QBW_DATB.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATB.IXC' />
+            <File Id="QBW_DATB.IXX_4"	Name="QBW_DATB.IXX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATB.IXX' />
+            <File Id="QBW_DATB.IXY_4"	Name="QBW_DATB.IXY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATB.IXY' />
+            <File Id="QBW_DATB.MEY_4"	Name="QBW_DATB.MEY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATB.MEY' />
+            <File Id="QBW_DATB.OPS_4"	Name="QBW_DATB.OPS"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATB.OPS' />
+            <File Id="QBW_DATC.DTA_4"	Name="QBW_DATC.DTA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATC.DTA' />
+            <File Id="QBW_DATC.DTB_4"	Name="QBW_DATC.DTB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATC.DTB' />
+            <File Id="QBW_DATC.DTC_4"	Name="QBW_DATC.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATC.DTC' />
+            <File Id="QBW_DATC.DTX_4"	Name="QBW_DATC.DTX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATC.DTX' />
+            <File Id="QBW_DATC.DTY_4"	Name="QBW_DATC.DTY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATC.DTY' />
+            <File Id="QBW_DATC.IXA_4"	Name="QBW_DATC.IXA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATC.IXA' />
+            <File Id="QBW_DATC.IXB_4"	Name="QBW_DATC.IXB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATC.IXB' />
+            <File Id="QBW_DATC.IXC_4"	Name="QBW_DATC.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATC.IXC' />
+            <File Id="QBW_DATC.IXX_4"	Name="QBW_DATC.IXX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATC.IXX' />
+            <File Id="QBW_DATC.IXY_4"	Name="QBW_DATC.IXY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATC.IXY' />
+            <File Id="QBW_DATC.MEY_4"	Name="QBW_DATC.MEY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATC.MEY' />
+            <File Id="QBW_DATC.OPS_4"	Name="QBW_DATC.OPS"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATC.OPS' />
+            <File Id="QBW_DATD.DTA_4"	Name="QBW_DATD.DTA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATD.DTA' />
+            <File Id="QBW_DATD.DTB_4"	Name="QBW_DATD.DTB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATD.DTB' />
+            <File Id="QBW_DATD.DTX_4"	Name="QBW_DATD.DTX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATD.DTX' />
+            <File Id="QBW_DATD.DTY_4"	Name="QBW_DATD.DTY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATD.DTY' />
+            <File Id="QBW_DATD.IXA_4"	Name="QBW_DATD.IXA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATD.IXA' />
+            <File Id="QBW_DATD.IXB_4"	Name="QBW_DATD.IXB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATD.IXB' />
+            <File Id="QBW_DATD.IXX_4"	Name="QBW_DATD.IXX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATD.IXX' />
+            <File Id="QBW_DATD.IXY_4"	Name="QBW_DATD.IXY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATD.IXY' />
+            <File Id="QBW_DATD.MEY_4"	Name="QBW_DATD.MEY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATD.MEY' />
+            <File Id="QBW_DATD.OPS_4"	Name="QBW_DATD.OPS"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATD.OPS' />
+            <File Id="QBW_DATV.DTA_4"	Name="QBW_DATV.DTA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATV.DTA' />
+            <File Id="QBW_DATV.DTB_4"	Name="QBW_DATV.DTB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATV.DTB' />
+            <File Id="QBW_DATV.DTX_4"	Name="QBW_DATV.DTX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATV.DTX' />
+            <File Id="QBW_DATV.DTY_4"	Name="QBW_DATV.DTY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATV.DTY' />
+            <File Id="QBW_DATV.IXA_4"	Name="QBW_DATV.IXA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATV.IXA' />
+            <File Id="QBW_DATV.IXB_4"	Name="QBW_DATV.IXB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATV.IXB' />
+            <File Id="QBW_DATV.IXX_4"	Name="QBW_DATV.IXX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATV.IXX' />
+            <File Id="QBW_DATV.IXY_4"	Name="QBW_DATV.IXY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATV.IXY' />
+            <File Id="QBW_DATV.MEY_4"	Name="QBW_DATV.MEY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATV.MEY' />
+            <File Id="QBW_DATV.OPS_4"	Name="QBW_DATV.OPS"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_DATV.OPS' />
+            <File Id="QBW_INDC.SCH_4"	Name="QBW_INDC.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_INDC.SCH' />
+            <File Id="QBW_INDW.SCH_4"	Name="QBW_INDW.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_INDW.SCH' />
+            <File Id="QBW_VISS.SCH_4"	Name="QBW_VISS.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_VISS.SCH' />
+            <File Id="QBW_WRD.SCH_4"	Name="QBW_WRD.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_WRD.SCH' />
+            <File Id="QBW_WRDE.SCH_4"	Name="QBW_WRDE.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\QBW_WRDE.SCH' />
+            <File Id="TCNDIA03.DTC_4"	Name="TCNDIA03.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TCNDIA03.DTC' />
+            <File Id="TCNDIA03.IXC_4"	Name="TCNDIA03.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TCNDIA03.IXC' />
+            <File Id="TCNMIN03.DTC_4"	Name="TCNMIN03.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TCNMIN03.DTC' />
+            <File Id="TCNMIN03.IXC_4"	Name="TCNMIN03.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TCNMIN03.IXC' />
+            <File Id="Tvflora.dtc_4"	Name="Tvflora.dtc"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\Tvflora.dtc' />
+            <File Id="TVFLORA.IXC_4"	Name="TVFLORA.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TVFLORA.IXC' />
+            <File Id="TVW_NLD.DTC_4"	Name="TVW_NLD.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TVW_NLD.DTC' />
+            <File Id="TVW_NLD.IXC_4"	Name="TVW_NLD.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TVW_NLD.IXC' />
+            <File Id="TWN4XMEV.DTC_4"	Name="TWN4XMEV.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4XMEV.DTC' />
+            <File Id="TWN4XMEV.IXC_4"	Name="TWN4XMEV.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4XMEV.IXC' />
+            <File Id="TWN4_DIA.DTC_4"	Name="TWN4_DIA.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4_DIA.DTC' />
+            <File Id="TWN4_DIA.IXC_4"	Name="TWN4_DIA.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4_DIA.IXC' />
+            <File Id="TWN4_FPL.DTC_4"	Name="TWN4_FPL.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4_FPL.DTC' />
+            <File Id="TWN4_FPL.IXC_4"	Name="TWN4_FPL.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4_FPL.IXC' />
+            <File Id="TWN4_MEV.DTC_4"	Name="TWN4_MEV.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4_MEV.DTC' />
+            <File Id="TWN4_MEV.IXC_4"	Name="TWN4_MEV.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4_MEV.IXC' />
+            <File Id="TWN4_MFY.DTC_4"	Name="TWN4_MFY.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4_MFY.DTC' />
+            <File Id="TWN4_MFY.IXC_4"	Name="TWN4_MFY.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4_MFY.IXC' />
+            <File Id="TWN4_VIS.DTC_4"	Name="TWN4_VIS.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4_VIS.DTC' />
+            <File Id="TWN4_VIS.IXC_4"	Name="TWN4_VIS.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4_VIS.IXC' />
+            <File Id="TWN4_VSL.DTC_4"	Name="TWN4_VSL.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4_VSL.DTC' />
+            <File Id="TWN4_VSL.IXC_4"	Name="TWN4_VSL.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWN4_VSL.IXC' />
+            <File Id="Twndiat.dtc_4"	Name="Twndiat.dtc"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\Twndiat.dtc' />
+            <File Id="TWNDIAT.IXC_4"	Name="TWNDIAT.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWNDIAT.IXC' />
+            <File Id="TWNPHYT.DTC_4"	Name="TWNPHYT.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWNPHYT.DTC' />
+            <File Id="TWNPHYT.IXC_4"	Name="TWNPHYT.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\TWNPHYT.IXC' />
+            <File Id="VISSEN.DTC_4"	Name="VISSEN.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\VISSEN.DTC' />
+            <File Id="VISSEN.IXC_4"	Name="VISSEN.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\4\VISSEN.IXC' />
+          </Component>
+        </Directory>
+        <Directory Id='QBWAT5' Name='5'>
+          <Component Id='WFDExplorerPluginQBWat5' Guid='CF8568AC-C721-4150-83FD-A345B4BA12A3'>
+            <File Id="AANTAL_K.SCH_5"	Name="AANTAL-K.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\AANTAL-K.SCH' />
+            <File Id="IPSS.SCH_5"	Name="IPSS.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\IPSS.SCH' />
+            <File Id="PISCES.DTC_5"	Name="PISCES.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\PISCES.DTC' />
+            <File Id="PISCES.IXC_5"	Name="PISCES.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\PISCES.IXC' />
+            <File Id="QBW.EXE_5"	Name="QBW.EXE"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW.EXE' />
+            <File Id="qbw.ico_5"	Name="qbw.ico"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\qbw.ico' />
+            <File Id="qbw.opm_5"	Name="qbw.opm"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\qbw.opm' />
+            <File Id="QBW.OVR_5"	Name="QBW.OVR"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW.OVR' />
+            <File Id="QBW_DATA.DTA_5"	Name="QBW_DATA.DTA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATA.DTA' />
+            <File Id="QBW_DATA.DTB_5"	Name="QBW_DATA.DTB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATA.DTB' />
+            <File Id="QBW_DATA.DTX_5"	Name="QBW_DATA.DTX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATA.DTX' />
+            <File Id="QBW_DATA.DTY_5"	Name="QBW_DATA.DTY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATA.DTY' />
+            <File Id="QBW_DATA.IXA_5"	Name="QBW_DATA.IXA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATA.IXA' />
+            <File Id="QBW_DATA.IXB_5"	Name="QBW_DATA.IXB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATA.IXB' />
+            <File Id="QBW_DATA.IXC_5"	Name="QBW_DATA.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATA.IXC' />
+            <File Id="QBW_DATA.IXX_5"	Name="QBW_DATA.IXX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATA.IXX' />
+            <File Id="QBW_DATA.IXY_5"	Name="QBW_DATA.IXY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATA.IXY' />
+            <File Id="QBW_DATA.MEY_5"	Name="QBW_DATA.MEY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATA.MEY' />
+            <File Id="QBW_DATA.OPS_5"	Name="QBW_DATA.OPS"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATA.OPS' />
+            <File Id="QBW_DATB.DIA_5"	Name="QBW_DATB.DIA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.DIA' />
+            <File Id="QBW_DATB.DIY_5"	Name="QBW_DATB.DIY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.DIY' />
+            <File Id="QBW_DATB.DTA_5"	Name="QBW_DATB.DTA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.DTA' />
+            <File Id="QBW_DATB.DTB_5"	Name="QBW_DATB.DTB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.DTB' />
+            <File Id="QBW_DATB.DTC_5"	Name="QBW_DATB.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.DTC' />
+            <File Id="QBW_DATB.DTX_5"	Name="QBW_DATB.DTX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.DTX' />
+            <File Id="QBW_DATB.DTY_5"	Name="QBW_DATB.DTY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.DTY' />
+            <File Id="QBW_DATB.IXA_5"	Name="QBW_DATB.IXA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.IXA' />
+            <File Id="QBW_DATB.IXB_5"	Name="QBW_DATB.IXB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.IXB' />
+            <File Id="QBW_DATB.IXC_5"	Name="QBW_DATB.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.IXC' />
+            <File Id="QBW_DATB.IXX_5"	Name="QBW_DATB.IXX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.IXX' />
+            <File Id="QBW_DATB.IXY_5"	Name="QBW_DATB.IXY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.IXY' />
+            <File Id="QBW_DATB.MEY_5"	Name="QBW_DATB.MEY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.MEY' />
+            <File Id="QBW_DATB.OPS_5"	Name="QBW_DATB.OPS"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATB.OPS' />
+            <File Id="QBW_DATC.DTA_5"	Name="QBW_DATC.DTA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATC.DTA' />
+            <File Id="QBW_DATC.DTB_5"	Name="QBW_DATC.DTB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATC.DTB' />
+            <File Id="QBW_DATC.DTC_5"	Name="QBW_DATC.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATC.DTC' />
+            <File Id="QBW_DATC.DTX_5"	Name="QBW_DATC.DTX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATC.DTX' />
+            <File Id="QBW_DATC.DTY_5"	Name="QBW_DATC.DTY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATC.DTY' />
+            <File Id="QBW_DATC.IXA_5"	Name="QBW_DATC.IXA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATC.IXA' />
+            <File Id="QBW_DATC.IXB_5"	Name="QBW_DATC.IXB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATC.IXB' />
+            <File Id="QBW_DATC.IXC_5"	Name="QBW_DATC.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATC.IXC' />
+            <File Id="QBW_DATC.IXX_5"	Name="QBW_DATC.IXX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATC.IXX' />
+            <File Id="QBW_DATC.IXY_5"	Name="QBW_DATC.IXY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATC.IXY' />
+            <File Id="QBW_DATC.MEY_5"	Name="QBW_DATC.MEY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATC.MEY' />
+            <File Id="QBW_DATC.OPS_5"	Name="QBW_DATC.OPS"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATC.OPS' />
+            <File Id="QBW_DATD.DTA_5"	Name="QBW_DATD.DTA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATD.DTA' />
+            <File Id="QBW_DATD.DTB_5"	Name="QBW_DATD.DTB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATD.DTB' />
+            <File Id="QBW_DATD.DTX_5"	Name="QBW_DATD.DTX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATD.DTX' />
+            <File Id="QBW_DATD.DTY_5"	Name="QBW_DATD.DTY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATD.DTY' />
+            <File Id="QBW_DATD.IXA_5"	Name="QBW_DATD.IXA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATD.IXA' />
+            <File Id="QBW_DATD.IXB_5"	Name="QBW_DATD.IXB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATD.IXB' />
+            <File Id="QBW_DATD.IXX_5"	Name="QBW_DATD.IXX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATD.IXX' />
+            <File Id="QBW_DATD.IXY_5"	Name="QBW_DATD.IXY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATD.IXY' />
+            <File Id="QBW_DATD.MEY_5"	Name="QBW_DATD.MEY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATD.MEY' />
+            <File Id="QBW_DATD.OPS_5"	Name="QBW_DATD.OPS"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATD.OPS' />
+            <File Id="QBW_DATV.DTA_5"	Name="QBW_DATV.DTA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATV.DTA' />
+            <File Id="QBW_DATV.DTB_5"	Name="QBW_DATV.DTB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATV.DTB' />
+            <File Id="QBW_DATV.DTX_5"	Name="QBW_DATV.DTX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATV.DTX' />
+            <File Id="QBW_DATV.DTY_5"	Name="QBW_DATV.DTY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATV.DTY' />
+            <File Id="QBW_DATV.IXA_5"	Name="QBW_DATV.IXA"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATV.IXA' />
+            <File Id="QBW_DATV.IXB_5"	Name="QBW_DATV.IXB"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATV.IXB' />
+            <File Id="QBW_DATV.IXX_5"	Name="QBW_DATV.IXX"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATV.IXX' />
+            <File Id="QBW_DATV.IXY_5"	Name="QBW_DATV.IXY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATV.IXY' />
+            <File Id="QBW_DATV.MEY_5"	Name="QBW_DATV.MEY"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATV.MEY' />
+            <File Id="QBW_DATV.OPS_5"	Name="QBW_DATV.OPS"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_DATV.OPS' />
+            <File Id="QBW_ELEM.SCH_5"	Name="QBW_ELEM.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_ELEM.SCH' />
+            <File Id="QBW_FBS.SCH_5"	Name="QBW_FBS.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_FBS.SCH' />
+            <File Id="QBW_INDC.SCH_5"	Name="QBW_INDC.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_INDC.SCH' />
+            <File Id="QBW_INDW.SCH_5"	Name="QBW_INDW.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_INDW.SCH' />
+            <File Id="QBW_VISS.SCH_5"	Name="QBW_VISS.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_VISS.SCH' />
+            <File Id="QBW_WRD.SCH_5"	Name="QBW_WRD.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_WRD.SCH' />
+            <File Id="QBW_WRDE.SCH_5"	Name="QBW_WRDE.SCH"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\QBW_WRDE.SCH' />
+            <File Id="TCNDIA03.DTC_5"	Name="TCNDIA03.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TCNDIA03.DTC' />
+            <File Id="TCNDIA03.IXC_5"	Name="TCNDIA03.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TCNDIA03.IXC' />
+            <File Id="TCNMIN03.DTC_5"	Name="TCNMIN03.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TCNMIN03.DTC' />
+            <File Id="TCNMIN03.IXC_5"	Name="TCNMIN03.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TCNMIN03.IXC' />
+            <File Id="Tvflora.dtc_5"	Name="Tvflora.dtc"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\Tvflora.dtc' />
+            <File Id="TVFLORA.IXC_5"	Name="TVFLORA.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TVFLORA.IXC' />
+            <File Id="TVW_NLD.DTC_5"	Name="TVW_NLD.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TVW_NLD.DTC' />
+            <File Id="TVW_NLD.IXC_5"	Name="TVW_NLD.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TVW_NLD.IXC' />
+            <File Id="TWN4XMEV.DTC_5"	Name="TWN4XMEV.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4XMEV.DTC' />
+            <File Id="TWN4XMEV.IXC_5"	Name="TWN4XMEV.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4XMEV.IXC' />
+            <File Id="TWN4_DIA.DTC_5"	Name="TWN4_DIA.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4_DIA.DTC' />
+            <File Id="TWN4_DIA.IXC_5"	Name="TWN4_DIA.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4_DIA.IXC' />
+            <File Id="TWN4_FPL.DTC_5"	Name="TWN4_FPL.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4_FPL.DTC' />
+            <File Id="TWN4_FPL.IXC_5"	Name="TWN4_FPL.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4_FPL.IXC' />
+            <File Id="TWN4_MEV.DTC_5"	Name="TWN4_MEV.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4_MEV.DTC' />
+            <File Id="TWN4_MEV.IXC_5"	Name="TWN4_MEV.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4_MEV.IXC' />
+            <File Id="TWN4_MFY.DTC_5"	Name="TWN4_MFY.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4_MFY.DTC' />
+            <File Id="TWN4_MFY.IXC_5"	Name="TWN4_MFY.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4_MFY.IXC' />
+            <File Id="TWN4_VIS.DTC_5"	Name="TWN4_VIS.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4_VIS.DTC' />
+            <File Id="TWN4_VIS.IXC_5"	Name="TWN4_VIS.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4_VIS.IXC' />
+            <File Id="TWN4_VSL.DTC_5"	Name="TWN4_VSL.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4_VSL.DTC' />
+            <File Id="TWN4_VSL.IXC_5"	Name="TWN4_VSL.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWN4_VSL.IXC' />
+            <File Id="Twndiat.dtc_5"	Name="Twndiat.dtc"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\Twndiat.dtc' />
+            <File Id="TWNDIAT.IXC_5"	Name="TWNDIAT.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWNDIAT.IXC' />
+            <File Id="TWNPHYT.DTC_5"	Name="TWNPHYT.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWNPHYT.DTC' />
+            <File Id="TWNPHYT.IXC_5"	Name="TWNPHYT.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\TWNPHYT.IXC' />
+            <File Id="VISSEN.DTC_5"	Name="VISSEN.DTC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\VISSEN.DTC' />
+            <File Id="VISSEN.IXC_5"	Name="VISSEN.IXC"	DiskId='1'	Source='$(var.SolutionDir)\lib\Plugins\WFDExplorer\WFDExplorer.EcologyKnowledgeBase.QBWAT\QBWAT\QBWAT\5\VISSEN.IXC' />
+          </Component>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Directory Id='WFDExplorerPluginResourcesNL' Name='nl-NL'>
+      <Component Id='WFDExplorerPluginResourcesNL' Guid='A357A974-6798-4C53-BEC0-DF56C800C8D0'>
+        <File Id="nl.DeltaShell.Plugins.WFDExplorer.resources.dll" Name="DeltaShell.Plugins.WFDExplorer.resources.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\plugins\DeltaShell.Plugins.WFDExplorer\nl-NL\DeltaShell.Plugins.WFDExplorer.resources.dll' />
+      </Component>
+    </Directory>
+
+    <Directory Id='DemoFiles' Name='Demo Files' >
+      <Component Id='WFDExplorerPluginDemoFiles' Guid="E34A88BB-FCA9-4A68-AEAA-A833F99E2816">
+        <File Id="KRW_Demo_Basins.dbf"
+              Name="KRW_Demo_Basins.dbf"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_Basins.dbf' />
+        <File Id="KRW_Demo_Basins.sbn"
+              Name="KRW_Demo_Basins.sbn"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_Basins.sbn' />
+        <File Id="KRW_Demo_Basins.sbx"
+              Name="KRW_Demo_Basins.sbx"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_Basins.sbx' />
+        <File Id="KRW_Demo_Basins.shp"
+              Name="KRW_Demo_Basins.shp"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_Basins.shp' />
+        <File Id="KRW_Demo_Basins.shx"
+              Name="KRW_Demo_Basins.shx"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_Basins.shx' />
+
+        <File Id="KRW_Demo_SurfaceWaterUnits.dbf"
+              Name="KRW_Demo_SurfaceWaterUnits.dbf"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_SurfaceWaterUnits.dbf' />
+        <File Id="KRW_Demo_SurfaceWaterUnits.sbn"
+              Name="KRW_Demo_SurfaceWaterUnits.sbn"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_SurfaceWaterUnits.sbn' />
+        <File Id="KRW_Demo_SurfaceWaterUnits.sbx"
+              Name="KRW_Demo_SurfaceWaterUnits.sbx"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_SurfaceWaterUnits.sbx' />
+        <File Id="KRW_Demo_SurfaceWaterUnits.shp"
+              Name="KRW_Demo_SurfaceWaterUnits.shp"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_SurfaceWaterUnits.shp' />
+        <File Id="KRW_Demo_SurfaceWaterUnits.shx"
+              Name="KRW_Demo_SurfaceWaterUnits.shx"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_SurfaceWaterUnits.shx' />
+
+        <File Id="KRW_Demo_Links.csv"
+              Name="KRW_Demo_Links.csv"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_Links.csv' />
+        <File Id="KRW_Demo_InternalFlows.csv"
+              Name="KRW_Demo_InternalFlows.csv"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_InternalFlows.csv' />
+        <File Id="KRW_Demo_PointSources.csv"
+              Name="KRW_Demo_PointSources.csv"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_PointSources.csv' />
+        <File Id="KRW_Demo_EmissionsPointSources.csv"
+              Name="KRW_Demo_EmissionsPointSources.csv"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_EmissionsPointSources.csv' />
+        <File Id="KRW_Demo_EmissionsDiffuseSources.csv"
+              Name="KRW_Demo_EmissionsDiffuseSources.csv"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_EmissionsDiffuseSources.csv' />
+        <File Id="KRW_Demo_EcoVariables.csv"
+              Name="KRW_Demo_EcoVariables.csv"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\KRW_Demo_EcoVariables.csv' />
+      </Component>
+
+      <Directory Id='DemoFilesExtended' Name='ExtendedData' >
+        <Component Id='WFDExplorerPluginDemoFilesExtended' Guid="5B6701B7-038C-4377-98BD-BC0CAF608141">
+          <File Id="KRW_Demo_Temperatures.csv"
+                  Name="KRW_Demo_Temperatures.csv"
+                  DiskId='1'
+                  Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\ExtendedData\KRW_Demo_Temperatures.csv' />
+            <File Id="KRW_Demo_Metrics_2015.csv"
+                  Name="KRW_Demo_Metrics_2015.csv"
+                  DiskId='1'
+                  Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\ExtendedData\KRW_Demo_Assessment_2015.csv' />
+            <File Id="KRW_Demo_Metrics_2021.csv"
+                  Name="KRW_Demo_Metrics_2021.csv"
+                  DiskId='1'
+                  Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\ExtendedData\KRW_Demo_Assessment_2021.csv' />
+            <File Id="KRW_Demo_AreaNodeRelation_ER.csv"
+                  Name="KRW_Demo_AreaNodeRelation_ER.csv"
+                  DiskId='1'
+                  Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\ExtendedData\KRW_Demo_AreaNodeRelation_ER.csv' />
+            <File Id="KRW_Demo_AreaLoads_ER.csv"
+                  Name="KRW_Demo_AreaLoads_ER.csv"
+                  DiskId='1'
+                  Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\ExtendedData\KRW_Demo_AreaLoads_ER.csv' />
+            <File Id="KRW_Demo_AreaNodeRelation_Stone.csv"
+                  Name="KRW_Demo_AreaNodeRelation_Stone.csv"
+                  DiskId='1'
+                  Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\ExtendedData\KRW_Demo_AreaNodeRelation_Stone.csv' />
+            <File Id="KRW_Demo_AreaLoads_Stone.csv"
+                  Name="KRW_Demo_AreaLoads_Stone.csv"
+                  DiskId='1'
+                  Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\ExtendedData\KRW_Demo_AreaLoads_Stone.csv' />
+        </Component>
+      </Directory>
+
+      <Directory Id='DemoFilesEcotopes' Name='Ecotopes' >
+        <Component Id='WFDExplorerPluginDemoFilesEcotopes' Guid="359CA5AB-530E-4BD2-8CF7-65E609678EC2">
+
+                  <File Id="KRW_Demo_2EcoMethodsSurfaceWaterUnits.dbf"
+              Name="KRW_Demo_2EcoMethodsSurfaceWaterUnits.dbf"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\Ecotopes\KRW_Demo_2EcoMethodsSurfaceWaterUnits.dbf' />
+        <File Id="KRW_Demo_2EcoMethodsSurfaceWaterUnits.sbn"
+              Name="KRW_Demo_2EcoMethodsSurfaceWaterUnits.sbn"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\Ecotopes\KRW_Demo_2EcoMethodsSurfaceWaterUnits.sbn' />
+        <File Id="KRW_Demo_2EcoMethodsSurfaceWaterUnits.sbx"
+              Name="KRW_Demo_2EcoMethodsSurfaceWaterUnits.sbx"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\Ecotopes\KRW_Demo_2EcoMethodsSurfaceWaterUnits.sbx' />
+        <File Id="KRW_Demo_2EcoMethodsSurfaceWaterUnits.shp"
+              Name="KRW_Demo_2EcoMethodsSurfaceWaterUnits.shp"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\Ecotopes\KRW_Demo_2EcoMethodsSurfaceWaterUnits.shp' />
+        <File Id="KRW_Demo_2EcoMethodsSurfaceWaterUnits.shx"
+              Name="KRW_Demo_2EcoMethodsSurfaceWaterUnits.shx"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\Ecotopes\KRW_Demo_2EcoMethodsSurfaceWaterUnits.shx' />
+
+        <File Id="KRW_Demo_Links_Ecotopes.csv"
+              Name="KRW_Demo_Links_Ecotopes.csv"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\Ecotopes\KRW_Demo_Links_Ecotopes.csv' />
+        <File Id="KRW_Demo_InternalFlows_Ecotopes.csv"
+              Name="KRW_Demo_InternalFlows_Ecotopes.csv"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\Ecotopes\KRW_Demo_InternalFlows_Ecotopes.csv' />
+        <File Id="KRW_Demo_EcotopeAreas.csv"
+              Name="KRW_Demo_EcotopeAreas.csv"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\Ecotopes\KRW_Demo_EcotopeAreas.csv' />
+        <File Id="KRW_Demo_EcotopeData.csv"
+              Name="KRW_Demo_EcotopeData.csv"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\Ecotopes\KRW_Demo_EcotopeData.csv' />
+        <File Id="KRW_Demo_Phytoplankton.csv"
+              Name="KRW_Demo_Phytoplankton.csv"
+              DiskId='1'
+              Source='$(var.SolutionDir)\test-data\Plugins\WFDExplorer\DeltaShell.Plugins.WFDExplorer.Test\Demo\Ecotopes\KRW_Demo_Phytoplankton.csv' />
+        </Component>
+      </Directory>
+    </Directory>
+  </Directory>
+
+</Include>

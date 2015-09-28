@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Component Id='MorphAnDomain' Guid="0895d695-f843-4ae3-a3dc-1c67d82140d3">
+    <File Id="DeltaShell.Plugins.MorphAn.Domain.dll" Name="DeltaShell.Plugins.MorphAn.Domain.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\$(var.Configuration)\DeltaShell.Plugins.MorphAn.Domain.dll' />
+  </Component>
+</Include>

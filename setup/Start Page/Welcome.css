@@ -1,0 +1,73 @@
+body, div
+{
+    background-color:#FFFFFF;
+    margin: 0px;
+    padding: 0px;
+    font-family:Arial;
+    font-style:normal;
+    font-size: 14px;
+}
+
+h3
+{
+    font-style:normal;
+    font-size: 16px;
+    color: #01A9CD;
+    margin: 10px 0 0 0;
+}
+
+p
+{
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 4px;
+}
+
+a,a:visited, a:link, a:active
+{
+    color: #01A9CD; 
+    text-decoration: none
+}
+
+a:hover
+{
+    text-decoration: underline
+}
+
+.left-column
+{
+    float:left;
+}
+
+.right-column {
+    float: right;
+}
+
+ul.nostyle-list {
+    padding-left: 0;
+    list-style-type: none;
+    margin-top: 0;
+    margin-left: 0; /* IE in DeltaShell fix */
+}
+
+#page
+{
+    margin-left:auto;
+    margin-right:auto;
+    background-image:url('start_page_background.jpg');
+    background-repeat:no-repeat;
+    width: 800px;
+    padding-top: 335px;
+    overflow: auto;
+}
+
+#content {
+    overflow: auto;
+    padding: 0 10px;
+}
+
+#Deltares-logo
+{
+    margin-top: 10px;
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id="DeltaShell.Plugins.WaterFlowModel" Name="DeltaShell.Plugins.WaterFlowModel">
+    <?define waterflowmodeldir="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.WaterFlowModel\"?>
+    
+    <Component Id="WaterFlowModelPlugin" Guid="1F4E160F-A4C7-4871-B954-9F65D389E44B">
+      <File Id="flow1d_DelftModelApi.Net.dll" Source="$(var.waterflowmodeldir)DelftModelApi.Net.dll" />
+      <File Id="flow1d_DeltaShell.Plugins.DelftModels.WaterFlowModel.dll" Source="$(var.waterflowmodeldir)DeltaShell.Plugins.DelftModels.WaterFlowModel.dll" />
+      <File Id="flow1d_DeltaShell.Plugins.DelftModels.WaterFlowModel.Gui.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.WaterFlowModel.Gui\DeltaShell.Plugins.DelftModels.WaterFlowModel.Gui.dll" />
+      
+      <File Id="flow1d_Nini.dll" Source="$(var.SolutionDir)\lib\Nini.dll" />
+      
+      <File Id="flow1d_parameters.xml" Source="$(var.waterflowmodeldir)parameters.xml" />
+	    <File Id="flow1d_template.zip" Source="$(var.waterflowmodeldir)template.zip" />
+    </Component>
+
+    <Directory Id="flow1d_kernel_folder" Name="flow1d_kernel">
+      <Component Id="flow1d_kernel" Guid="C028287C-9B47-4AE3-AE87-ADC0D41E840D">
+        <?define waterflowkernel="$(var.waterflowmodeldir)flow1d_kernel\"?>
+
+        <File Id="flow1d_cf_dll.dll" Source="$(var.waterflowkernel)cf_dll.dll" />
+        <File Id="flow1d_libifcoremd.dll" Source="$(var.waterflowkernel)libifcoremd.dll" />
+        <File Id="flow1d_libifcoremdd.dll" Source="$(var.waterflowkernel)libifcoremdd.dll" />
+        <File Id="flow1d_libifportmd.dll" Source="$(var.waterflowkernel)libifportmd.dll" />
+        <File Id="flow1d_libmmd.dll" Source="$(var.waterflowkernel)libmmd.dll" />
+        <File Id="flow1d_libmmdd.dll" Source="$(var.waterflowkernel)libmmdd.dll" />
+        <File Id="flow1d_msvcr110.dll" Source="$(var.waterflowkernel)msvcr110.dll" />
+        <File Id="flow1d_msvcr120.dll" Source="$(var.waterflowkernel)msvcr120.dll" />
+        <File Id="flow1d_netcdf.dll" Source="$(var.waterflowkernel)netcdf.dll" />
+        <File Id="flow1d_flow_pthreadVCE2.dll" Source="$(var.waterflowkernel)pthreadVCE2.dll" />
+
+        <?undef waterflowkernel?>
+      </Component>
+    </Directory>
+    
+    <?undef waterflowmodeldir?>
+  </Directory>
+</Include>

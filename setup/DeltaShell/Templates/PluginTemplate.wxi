@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <!--
+  This template can be included in your Product.wxs in order to gain all default features that the DeltaShell installer offers.
+  
+  The template requires a couple of variables that you are required to add.
+  It also has some optional variables that may be set in order to enhance your installer.
+  
+  All these variables have to be defined as follows: <?define myvar="some value"?>
+  
+  Required variables:
+  - ReleaseVersion:         Set this variable as a project variable via <PropertyGroup>. See the FM wixproj (open in text editor).
+                            This is a 3 number product version. Example: 3.4.0
+  - ProductName:            Set this variable as a project variable via <PropertyGroup>. See the FM wixproj (open in text editor).
+                            E.g. FM (Early Preview)
+  - pluginicon:             The path to the icon to use. Let it be a *.ico file.
+  - licensefile:            The path to the license file that is used in the installer. Let it be a *.rtf file.
+  - windowlayoutfile:       The path to the default window layout. Let it be a *.xml file.
+  - manualswxi:             Manuals can be added as files so that they are included in the correct folder in the target directory.
+                            The manuals should be included as <File>-elements.
+                            Example:
+                            <Include>
+                              <File Id="MyManual" Source="Resources\SOBEK_3.pdf"/>
+                              ...
+                              ...
+                            </Include>
+  - pluginswxi:             Include your plugins via this include file. They will be installed in the plugins folder next to the bin folder.
+                            You plugins should always start with a <Directory>-element and then a <Component>-element.
+                            Example:
+                            <Include>
+                              <Directory Id='MyPluginFolder' Name='MyPlugin'>
+                                <Component Id='MyPlugin' Guid="SOME-LONG-GUID"> // use the Id tag later in your features as a <ComponentRef>
+                                  <File Id="MyPlugin_dll" Source='$(var.deltashell_gui_bin)plugins\MyPlugin\MyPlugin.dll' />
+                                </Component>
+                              </Directory>
+                            </Include>
+  - plugin_features:        Add your features specific to your plugins in this include file. Always try and find *_FeatureContent.wxi files
+                            in other plugin folders. They will aid you to include the plugin and already reveals the ComponentRefs required.
+                            <Include>
+                              <Feature Id="FM" Title="D-Flow FM" Description ="Flow flexible mesh" Level="1" Absent="disallow" AllowAdvertise="no">
+                                <?include ..\FM\FMPlugin_FeatureContent.wxi?>
+                              </Feature>
+                            </Include>
+  - setupbanner:            The file path to the image that is used in all dialogs of the installer.
+  - setupstartup:           The file path to the image that is used in the first dialog that shows the splash screen.
+  
+                        
+  Optional variables:
+  - customizationwxi:               If you want to add extra files to the bin folder where Deltashell.Gui.exe is located, add them here.
+                                    It has the same layout as manualswxi.
+  - plugin_wixUIDeltares:           You can include your own wixUIDeltares by overriding the default UI dialogs.
+                                    This is not a file path, but a component name that can be found as a *.wxs file.
+                                    See FM for an example.
+  - StartPage:                      You may specify the start page that deltashell will use on startup.
+                                    The start page may also be local like "Welcome.htm".
+  - supportEmail:                   The support mail can be set if you want a specific support e-mail address that users can send their complaints to.
+  - supportPhone:                   The custom support phone number if it differs from the original.
+  - mainWindowTitle:                The title that will be visible in the center of the main window top bar.
+  - splashScreenLogoImageFilePath:  A file path to a logo that is used by deltashell on startup. The file path is relative to the deltashell.exe file.
+                                    Remember to actually add the file in the installer via $(var.customizationwxi).
+  - plugin_manualshortcuts:         The manual shortcuts will be added in the Manuals folder in the start menu next to the deltashell.exe shortcut.
+                                    Example:
+                                    <Include>
+                                      <Shortcut Id="DFlowFMUserManualnewShortcut" Name="D-Flow FM User Manual" Target="[BINDIR]D-Flow_FM_User_Manual_new.pdf" WorkingDirectory="BINDIR" Directory="ManualsMenuDir"/>
+                                      ...
+                                      ...
+                                    </Include>
+  - plugin_utilityshortcuts:        The utility shortcuts will be added in the Utilities folder in the start menu.
+                                    Example:
+                                    <Include>
+                                      <Shortcut Id="PLCTShortcut" Name="PLCT" Target="[BINDIR]PLCT.exe" Directory="ManualsMenuDir"/>
+                                      ...
+                                      ...
+                                    </Include>
+  - includeOpenMI                   Define if you want to include OpenMI-files in installation
+  - includeOpenDA                   Define if you want to include OpenDA-files in installation
+  - includeFewsAdapter              Define if you want to include FewsAdapter in installation  
+  
+  Note: In order to let your product use the files referred in your own project, use $(var.ProjectDir) to refer correctly.
+        The build server doesn't always add a trailing backslash.
+        Example: $(var.ProjectDir)\Resources\License.rtf
+        
+        But when you add a reference in your own include file, the reference is caught from that point on.
+        Example: In your own plugins project, the Manuals.wxi may refer via "Resources\MyManual.pdf".
+  
+  
+  Usage example:
+  <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  
+    // define your variables here
+  
+    <?include ..\..\DeltaShell\Templates\PluginTemplate.wxi?>
+  </Wix>
+  
+  -->
+  
+  
+  <?ifdef env.BUILD_NUMBER ?>
+  <?define FullProductVersion="$(var.ReleaseVersion).$(env.BUILD_NUMBER)" ?>
+  <?else?>
+  <?define FullProductVersion="$(var.ReleaseVersion).0" ?>
+  <?endif?>
+
+  <?define deltashell_gui_bin="$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\"?>
+  
+  <?ifndef var.Delft3DPackageName?>
+  <?define Delft3DPackageName="Delft3D Flexible Mesh"?>
+  <?endif?>
+  
+  <!-- OpenDA depends on OpenMI2, so add openMI if OpenDA is defined.-->
+  <?ifdef includeOpenDA?>
+    <?ifndef includeOpenMI?>
+    <?define includeOpenMI?>
+    <?endif?>
+  <?endif?>
+  
+
+  <Product Name="$(var.ProductName)" Id="*" Language="1033" Codepage="1252" Version="$(var.FullProductVersion)" Manufacturer="Deltares">
+
+    <Package Id="*" Keywords="Installer" Description="$(var.ProductName) Installer"
+      Comments="$(var.ProductName) is a program developed by Deltares." Manufacturer="Deltares"
+      InstallerVersion="100" Languages="1033" Compressed="yes" SummaryCodepage="1252" />
+    
+    <!--check for dotnet version-->
+    <?include ..\DotNetFramework4Check.wxi?>
+    <!--check for version of operating system-->
+    <?include ..\OSVersionCheck.wxi?>
+
+    <Property Id="INSTALLDIR">
+      <RegistrySearch Id="DeltaresDeltaShellRegistry" Type="raw"
+        Root="HKLM" Key="Software\[Manufacturer]\[ProductName]" Name="InstallDir" />
+    </Property>
+
+    <Media Id="1" Cabinet="Sample.cab" EmbedCab="yes" />
+
+    <Icon Id="icon.ico" SourceFile="$(var.pluginicon)"/>
+
+    <!-- uninstall group shows specific icon. It is the id of the icon -->
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+
+    <!--define a directory structure for main application and plugins -->
+    <!-- use include files to tell the installer which files should be copied to target directories -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="DeltaresDir" Name="Deltares">
+          <Directory Id="INSTALLDIR" Name="$(var.ProductName) ($(var.FullProductVersion))">
+            <Directory Id="BINDIR" Name="bin">
+              <Component Id="MainExecutable" Guid="7B295011-ABDC-4DED-97C4-6B1BCEEF690C">
+
+                <File Id="License.rtf" Source="$(var.licensefile)"/>
+                <File Id="WindowLayout_normal.xml" Source="$(var.windowlayoutfile)"/>
+
+                <?define GUICONFIGFILE = "DeltaShell.Gui.exe.config"?>
+                <?include GuiConfigXml.wxi?>
+                <?undef GUICONFIGFILE?>
+
+                <?define GUICONFIGFILE = "DeltaShell.Gui.x64.exe.config"?>
+                <?include GuiConfigXml.wxi?>
+                <?undef GUICONFIGFILE?>
+
+                <!-- Manuals -->
+                <File Source="$(var.SolutionDir)\setup\DeltaShell\Manuals\Delta_Shell_User_Manual.pdf" Id="Delta_Shell_User_Manual"/>
+                <?include $(var.manualswxi)?>
+
+                <?include ..\MainExecutableFiles.wxi?>
+                <?include ..\IronPythonDlls.wxi?>
+                
+                <?ifdef customizationwxi?>
+                <?include $(var.customizationwxi)?>
+                <?endif?>
+
+              </Component>
+
+              <?ifdef includeOpenMI?>
+              <?include ..\OpenMI\OpenMI.wxi?>
+              <?endif?>
+
+              <?ifdef includeOpenDA?>
+              <?include ..\OpenDA\OpenDA.wxi?>
+              <?endif?>
+
+              <?ifdef includeFewsAdapter?>
+              <?include ..\FewsAdapter\FewsAdapter.wxi?>
+              <?endif?>
+
+              <?include ..\SharpMap.wxi?>
+              <?include ..\NetCdf.wxi?>
+              <?include ..\GdalData.wxi?>
+
+              <!-- ! Put files/executables targeted by shortcuts in separate component ! -->
+              <Component Id="DeltaShellExeAndStartMenuShortcut" Guid="*">
+                <File Id="DeltaShellEXE" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DeltaShell.Gui.exe" KeyPath="yes">
+                  <Shortcut Id="startmenuDeltaShell" Directory="ProgramMenuDir" Name="$(var.ProductName) ($(var.FullProductVersion))" WorkingDirectory="BINDIR" Icon="icon.ico" IconIndex="0" Advertise="yes" />
+                </File>
+              </Component>
+              <Component Id="DeltaShellDesktopShortcut" Guid="AF591184-73FF-457A-92A6-C3BB65B29893">
+                <Shortcut Id="desktopDeltaShell" Directory="DesktopFolder" Name="$(var.ProductName) ($(var.FullProductVersion))" WorkingDirectory="BINDIR" Icon="icon.ico" IconIndex="0" Target="[BINDIR]DeltaShell.Gui.exe"/>
+                <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\[ProductCode]" Name="installedDesktopShortcut" Type="integer" Value="1" KeyPath="yes" />
+              </Component>
+
+              <?ifdef IncludeX64 ?>
+              <Component Id="DeltaShell64ExeAndStartMenuShortcut" Guid="B8FA73D8-A1C1-460A-A850-DC57806A6FB5">
+                <File Id="DeltaShell64EXE" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DeltaShell.Gui.x64.exe" KeyPath="yes">
+                  <Shortcut Id="startmenuDeltaShell64" Directory="ProgramMenuDir" Name="$(var.ProductName) ($(var.FullProductVersion))" WorkingDirectory="BINDIR" Icon="icon.ico" IconIndex="0" Advertise="yes" />
+                </File>
+                <File Id="DeltaShell.Gui.x64.exe.config" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DeltaShell.Gui.x64.exe.config" />
+              </Component>    
+              <Component Id="DeltaShell64DesktopShortcut" Guid="C4BF3EEA-A900-475B-A527-3DD773342636">
+                <Shortcut Id="desktopDeltaShell64" Directory="DesktopFolder" Name="$(var.ProductName) ($(var.FullProductVersion))" WorkingDirectory="BINDIR" Icon="icon.ico" IconIndex="0" Target="[BINDIR]DeltaShell.Gui.x64.exe"/>
+                <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\[ProductCode]" Name="installed64DesktopShortcut" Type="integer" Value="1" KeyPath="yes" />
+              </Component>
+              <?endif?>
+              
+              <Component Id="Console" Guid="CAD92840-81EB-4886-BAA5-A5E605BB015C">
+                <?include ..\ConsoleFiles.wxi?>
+              </Component>
+
+              <Directory Id="MainExecutableResourcesNL" Name="nl-NL">
+                <Component Id="MainExecutableResourcesNL" Guid="73D03FE0-0BB0-4185-8D80-D22F62AF2E1E">
+                  <File Id="nl.DeltaShell.Gui.resource.dll" Source="$(var.deltashell_gui_bin)$(var.Configuration)\nl-NL\DeltaShell.Gui.resources.dll" />
+                </Component>
+              </Directory>
+
+            </Directory>
+
+            <Directory Id="PluginsFolder" Name="plugins">
+              <!-- pass guid as variable to include project-->
+
+              <?include ..\Plugins\CommonToolsPlugin.wxi?>
+              <?include ..\Plugins\CommonToolsGuiPlugin.wxi?>
+              <?include ..\Plugins\NHibernatePlugin.wxi?>
+              <?include ..\Plugins\NetCDFPlugin.wxi?>
+
+              <?include ..\Plugins\SharpMapGisPlugin.wxi?>
+              <?include ..\Plugins\SharpMapGisGuiPlugin.wxi?>
+
+              <?include ..\Plugins\ProjectExplorerPlugin.wxi?>
+              <?include ..\Plugins\ScriptingPlugin.wxi?>
+              <?include ..\Plugins\ScriptingGuiPlugin.wxi?>
+
+              <?include ..\Plugins\ToolboxPlugin.wxi?>
+              <?include ..\Plugins\ToolboxGuiPlugin.wxi?>
+
+              <?include $(var.pluginswxi)?>
+              
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Component Id="UninstallShortcutComponent" Guid="13282CE5-FCBF-4412-AA6A-C745CB2230EC">
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\[ProductCode]" Name="InstalledUninstallerShortcut" Type="integer" Value="1" KeyPath="yes" />
+        <Shortcut Id="UninstallProduct"
+                  Name="Uninstall $(var.ProductName)"
+                  Target="[System64Folder]msiexec.exe"
+                  Arguments="/x [ProductCode]"
+                  Directory="ProgramMenuDir"
+                  Description="Uninstalls My Application"/>
+      </Component>
+
+      <!-- Add shortcuts in the start menu here -->
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramGroupMenuDir" Name="Deltares">
+
+          <Component Id="ProgramGroupMenuDir_Component" Guid="82CD5344-78BB-45F0-9160-CFA587215F64">
+            <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\[ProductCode]" Name="installedDeltaresShortcutFolder" Type="integer" Value="1" KeyPath="yes" />
+            <RemoveFolder Id="ProgramGroupMenuDir" On="uninstall" />
+          </Component>
+
+          <Directory Id="ProgramMenuDir" Name="$(var.ProductName)">
+            <Component Id="ProgramMenuDir" Guid="8785F002-6E26-4F56-80A8-1B7B7B07CCE5">
+              <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
+              <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\[ProductCode]" Name="installedProgramShortcutFolder" Type="integer" Value="1" KeyPath="yes" />
+            </Component>
+
+            <!-- Manuals folder -->
+            <Directory Id="ManualsMenuDir" Name="Manuals">
+              <Component Id="ManualsMenuShortcuts" Guid="F7571B4C-0ADD-45A4-B857-7CC9F1624905">
+                <RemoveFolder Id="ManualsMenuDir" On="uninstall" />
+                <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\[ProductCode]" Name="installedManualsShortcutFolder" Type="integer" Value="1" KeyPath="yes" />
+                <Shortcut Id="DeltaShell_User_Manual_Shortcut" Name="DeltaShell User Manual" Target="[BINDIR]Delta_Shell_User_Manual.pdf" WorkingDirectory="BINDIR"/>
+                <?ifdef plugin_manualshortcuts?>
+                <?include $(var.plugin_manualshortcuts)?>
+                <?endif?>
+              </Component>
+            </Directory>
+            
+
+            <!-- Utilities folder -->
+            <?ifdef plugin_utilityshortcuts ?>
+            <Directory Id="UtilitiesMenuDir" Name="Utilities">
+              <Component Id="UtilitiesMenuShortcuts" Guid="26B368A8-1178-4B10-A751-31819007A9DA">
+                <RemoveFolder Id="UtilitiesMenuDir" On="uninstall"/>
+                <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\[ProductCode]" Name="installedUtilitiesShortcutFolder" Type="integer" Value="1" KeyPath="yes" />
+                <?include $(var.plugin_utilityshortcuts)?>
+              </Component>
+            </Directory>
+            <?endif?>
+            
+          </Directory>
+
+        </Directory>
+      </Directory>
+
+      <!-- add shortcuts on the desktop here -->
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+    <Feature Id="Complete" Title="$(var.ProductName)" Description="The complete package."
+             Display="expand" Level="1" Absent="disallow" AllowAdvertise="no" ConfigurableDirectory="INSTALLDIR">
+       
+      <Feature Id="DeltaShellDesktopShortcut" Title="Delta Shell Desktop Shortcut" Description="Desktop Shortcut for Delta Shell" Level="0" Absent="disallow" AllowAdvertise="no" Display="hidden">
+        <Condition Level="1"><![CDATA[NOT(VersionNT64)]]></Condition>
+        <ComponentRef Id="DeltaShellDesktopShortcut"/>
+      </Feature>
+      
+      <Feature Id="DeltaShell64DesktopShortcut" Title="Delta Shell Desktop Shortcut" Description="Desktop Shortcut for Delta Shell" Level="0" Absent="disallow" AllowAdvertise="no" Display="hidden">
+        <Condition Level="1"><![CDATA[(VersionNT64)]]></Condition>
+        <?ifdef IncludeX64 ?>
+          <ComponentRef Id="DeltaShell64DesktopShortcut"/>
+        <?else?>
+          <ComponentRef Id="DeltaShellDesktopShortcut"/>
+        <?endif?>
+      </Feature>
+          
+      <Feature Id="DeltaShell" Title="Delta Shell" Description="Framework for plugins" Level="1" Absent="disallow" AllowAdvertise="no" Display="hidden">
+        <ComponentRef Id="MainExecutable" />
+        <ComponentRef Id="DeltaShellExeAndStartMenuShortcut"/>
+        
+        <?ifdef plugin_manualshortcuts?>
+        <ComponentRef Id="ManualsMenuShortcuts" />
+        <?endif?>
+        
+        <?ifdef plugin_utilityshortcuts?>
+        <ComponentRef Id="UtilitiesMenuShortcuts" />
+        <?endif?>
+
+        <ComponentRef Id="MainExecutableResourcesNL" />
+        <ComponentRef Id="Console" />
+        <ComponentRef Id="ProgramGroupMenuDir_Component"/>
+        <ComponentRef Id="ProgramMenuDir" />
+        <ComponentRef Id="UninstallShortcutComponent" />
+        <ComponentRef Id="comp_netcdf_x86" />
+        <ComponentRef Id="comp_SharpMap_Extensions_gdal_x86" />
+        <ComponentRef Id="comp_Tao_OpenGL"/>
+
+        <?ifdef IncludeX64 ?>
+        <ComponentRef Id="DeltaShell64ExeAndStartMenuShortcut"/>
+        <ComponentRef Id="comp_netcdf_x64" />
+        <ComponentRef Id="comp_SharpMap_Extensions_gdal_x64" />
+        <?endif?>
+
+        <?include ..\GdalData_FeatureContent.wxi?>
+        <?include ..\PythonLibraries_FeatureContent.wxi?>
+
+        <Feature Id="DeltaShellPlugins" Title="Common Plugins" Description="Common plugins for Delta Shell framework" Level="1" Absent="disallow" AllowAdvertise="no">
+          <ComponentRef Id="CommonToolsPlugin" />
+          <ComponentRef Id="CommonToolsGuiPlugin" />
+          <ComponentRef Id="NHibernatePlugin" />
+          <ComponentRef Id="comp_sqlite_x86" />
+
+          <?ifdef IncludeX64 ?>
+          <ComponentRef Id="comp_sqlite_x64" />
+          <ComponentRef Id="comp_geometrydll_x64" />
+          <?endif?>
+          <ComponentRef Id="NetCDFPlugin"/>
+          <ComponentRef Id="ProjectExplorerPlugin"/>
+          <ComponentRef Id="ProjectExplorerPluginResourcesNL"/>
+          <ComponentRef Id="ProjectExplorerPluginResourcesRU"/>
+          <ComponentRef Id="SharpMapGisPlugin"/>
+          <ComponentRef Id="SharpMapGisGuiPlugin"/>
+          <ComponentRef Id="ScriptingPlugin"/>
+          <ComponentRef Id="ScriptingGuiPlugin"/>
+          <ComponentRef Id="ToolboxPlugin"/>
+          <ComponentRef Id="ToolboxGuiPlugin"/>
+          <ComponentRef Id="comp_geometrydll_x86" />
+
+          <?include ..\PythonScripts_FeatureContent.wxi?>
+        </Feature>
+      </Feature>
+      
+      <?include $(var.plugin_features)?>
+
+      <?ifdef includeOpenMI?>
+      <Feature Id="OpenMIFeature" Title="!(loc.OpenMIFeatureName)" Description="!(loc.OpenMIFeatureDescription)" Absent="allow" Level="1000" AllowAdvertise="no">
+        <ComponentRef Id="OpenMIComponent"/>
+      </Feature>
+      <?endif?>
+      
+      <?ifdef includeOpenDA?>
+      <Feature Id="OpenDAFeature" Title="!(loc.OpenDAFeatureName)" Description="!(loc.OpenDAFeatureDescription)" Absent="allow" Level="1000" AllowAdvertise="no">
+        <ComponentRef Id="OpenMIComponent"/>
+        <ComponentRef Id="OpenDAComponent"/>
+      </Feature>
+      <?endif?>
+
+      <?ifdef includeFewsAdapter?>
+      <Feature Id="FewsAdapterFeature" Title="!(loc.FewsAdapterFeatureName)" Description="!(loc.FewsAdapterFeatureDescription)" Absent="allow" Level="1000" AllowAdvertise="no">
+        <ComponentRef Id="FewsAdapterFlow1DKernelComponent"/>
+        <ComponentRef Id="FewsAdapternlComponent"/>
+        <ComponentRef Id="FewsAdapternlNLComponent"/>
+        <ComponentRef Id="FewsAdapterrtc_kernelComponent"/>
+        <ComponentRef Id="FewsAdapterx64Component"/>
+        <ComponentRef Id="FewsAdapterx86Component"/>
+        <ComponentRef Id="FewsAdapterxsdComponent"/>
+        <ComponentRef Id="FewsAdapterComponent"/>
+      </Feature>
+      <?endif?>
+
+    </Feature>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" ></Property>
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.licensefile)" />
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.setupbanner)" />
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.setupstartup)" />
+    <!--Note that jpg and png in setup is visible on Windows7, but not on XP and Vista-->
+
+    <WixVariable Id="WixUICostingPopupOptOut" Value="dummy" />
+
+    <?ifdef plugin_wixUIDeltares?>
+    <UIRef Id="$(var.plugin_wixUIDeltares)" />
+    <?else?>
+    <UIRef Id="WixUI_Deltares" />
+    <?endif?>
+    
+    <UI>
+      <TextStyle Id="White8" FaceName="Tahoma" Bold="yes" Size="16" Red="0" Green="0" Blue="0"  />
+
+      <!-- These dialog references are needed for CloseApplication above to work correctly -->
+
+      <DialogRef Id="FilesInUseDeltares" />
+      <DialogRef Id="MsiRMFilesInUseDeltares" />
+
+    </UI>
+
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <InstallExecuteSequence>
+      <AppSearch Sequence="1"></AppSearch>
+      <LaunchConditions After="AppSearch" />
+      <!--RemoveExistingProducts After="InstallValidate"><![CDATA[PREVIOUSVERSIONSINSTALLED]]></RemoveExistingProducts-->
+      <RemoveExistingProducts Before="InstallInitialize"/>
+    </InstallExecuteSequence>
+
+  </Product>
+</Include>

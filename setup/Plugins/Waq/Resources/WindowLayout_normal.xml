@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LayoutRoot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <RootPanel Orientation="Horizontal">
+    <LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="220">
+      <LayoutAnchorablePane DockWidth="220" DocMinWidth="200">
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Project" IsSelected="True" ContentId="Project"/>
+      </LayoutAnchorablePane>
+      <LayoutAnchorablePane Id="086a64a2-0f23-4102-842d-2ab0e086cc42" DocMinWidth="200">
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Map" IsSelected="True" ContentId="Map"/>
+      </LayoutAnchorablePane>
+    </LayoutAnchorablePaneGroup>
+    <LayoutPanel Orientation="Vertical">
+      <LayoutDocumentPaneGroup Orientation="Horizontal">
+        <LayoutDocumentPane />
+      </LayoutDocumentPaneGroup>
+      <LayoutAnchorablePane DockHeight="150" DockMinHeight="100">
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Messages" IsSelected="True" ContentId="Messages"/>
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Time Navigator" ContentId="Time Navigator"/>
+      </LayoutAnchorablePane>
+    </LayoutPanel>
+    <LayoutAnchorablePaneGroup Orientation="Vertical" DockWidth="250">
+      <LayoutAnchorablePane DockWidth="250" DocMinWidth="200">
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Chart" ContentId="Chart"/>
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Operations" ContentId="Operations"/>
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Toolbox" IsSelected="True" ContentId="Toolbox"/>
+      </LayoutAnchorablePane>
+      <LayoutAnchorablePane Id="8fb0ed2e-8cd0-4eb4-9f6b-21c49cac6dea" DocMinWidth="200">
+        <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" Title="Properties" IsSelected="True" ContentId="Properties"/>
+      </LayoutAnchorablePane>
+    </LayoutAnchorablePaneGroup>
+  </RootPanel>
+  <TopSide />
+  <RightSide />
+  <LeftSide />
+  <BottomSide />
+  <FloatingWindows />
+  <Hidden />
+</LayoutRoot>

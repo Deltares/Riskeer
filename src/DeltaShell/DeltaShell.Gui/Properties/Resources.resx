@@ -1,0 +1,1218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="plugin_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plugin_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="shape_square" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/shape_square.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bricks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bricks.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="control_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/control_stop.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PasteHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PasteHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cog" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/cog.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="note" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\note.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brick_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/brick_delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Edit_RedoHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit_RedoHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="control_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/control_play.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_input" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_input.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="project-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\project-16.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SaveAllHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SaveAllHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="feed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\feed.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OptionsHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OptionsHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/brick.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CopyHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CopyHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chart_bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chart_bar.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="information" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\information.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="link_break" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\link_break.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/folder_add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="script" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\script.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brick_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/brick_add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brick_link" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\brick_link.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/folder_delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="graphhs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\graphhs.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DocumentHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DocumentHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="data_item_link" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\data_item_link.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chart_curve" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_database" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_database.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brick_active" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\brick_active.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_form" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_form.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_list" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_view_list.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_feed" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_feed.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\-1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brick_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\brick_edit.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PlayHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/PlayHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chart_line" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chart_line.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SplashScreenBackground" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SplashScreenBackground.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="map" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bug" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bug.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/folder_brick.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cog_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/cog_add.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="newspaper" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\newspaper.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="data_item_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\data_item_error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="openfolderHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\openfolderHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="magnifier" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\magnifier.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cog_active" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cog_active.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="calendar_view_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\calendar_view_day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="resultset_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/resultset_next.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RelationshipsHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RelationshipsHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_undo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/edit-undo.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_list1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_view_list.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_edit.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AllFilesFilter" xml:space="preserve">
+    <value>All files (*.*)|*.*</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="cut" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cut.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="plugin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plugin.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_output" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_output.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WebInsertHyperlinkHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WebInsertHyperlinkHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Edit_UndoHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit_UndoHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="data_item" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\data_item.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="OrgChartHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\OrgChartHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="link" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\link.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="chart_organisation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chart_organisation.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brick_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\brick_error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brick1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\brick1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_wrench" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_wrench.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cog_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/cog_delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="new" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\new.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="calendar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\calendar.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cut_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cut_red.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="saveHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\saveHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chart_pie" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chart_pie.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fullscreen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fullscreen.PNG;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/DeleteHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="edit_redo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/edit-redo.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CutHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CutHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PropertiesHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PropertiesHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="StopHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>../Resources/StopHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PlayAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\playall.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="startpage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\startpage.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cross_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cross-small.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cross_small_bw" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cross-small-bw.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lock_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lock_edit.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FindProject" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FindProject.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FindView" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FindView.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cross_small1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cross_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="binocular_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\binocular_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="clipboard_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clipboard_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="information_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\information_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PlayHS12_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PlayHS12_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="plus_button_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plus-button_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CloseFolder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CloseFolder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ClosePreviewHH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ClosePreviewHH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SaveAsHH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SaveAsHH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_import_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_import_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_import_blue_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_import_blue_Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cog_add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cog_add_Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ribbon_Command_New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Ribbon_Command_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Ribbon_Command_Save_As" xml:space="preserve">
+    <value>Save As</value>
+  </data>
+  <data name="Ribbon_Command_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Ribbon_Command_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Ribbon_Import" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Ribbon_Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="Ribbon_Recent" xml:space="preserve">
+    <value>Recent</value>
+  </data>
+  <data name="Ribbon_TabItem_Recent_Projects" xml:space="preserve">
+    <value>Recent Projects</value>
+  </data>
+  <data name="Ribbon_TabItem_Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Ribbon_Start_Page" xml:space="preserve">
+    <value>Start Page</value>
+  </data>
+  <data name="Ribbon_Open_Manual" xml:space="preserve">
+    <value>Open Manual</value>
+  </data>
+  <data name="Ribbon_License" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="Ribbon_Submit_Feedback" xml:space="preserve">
+    <value>Submit Feedback</value>
+  </data>
+  <data name="Ribbon_Show_Log" xml:space="preserve">
+    <value>Show Log</value>
+  </data>
+  <data name="Ribbon_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Ribbon_Plugins" xml:space="preserve">
+    <value>Plugins</value>
+  </data>
+  <data name="Ribbon_Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Ribbon_Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Ribbon_Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="Ribbon_Redo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="Ribbon_TabItem_Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Ribbon_GroupBox_Clipboard" xml:space="preserve">
+    <value>Clipboard</value>
+  </data>
+  <data name="Ribbon_Paste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="Ribbon_Cut" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="Ribbon_Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Ribbon_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Ribbon_New_Model" xml:space="preserve">
+    <value>New Model</value>
+  </data>
+  <data name="Ribbon_New_Item" xml:space="preserve">
+    <value>New Item</value>
+  </data>
+  <data name="Ribbon_New_Folder" xml:space="preserve">
+    <value>New Folder</value>
+  </data>
+  <data name="Ribbon_GroupBox_Run" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="Ribbon_Run_All" xml:space="preserve">
+    <value>Run All</value>
+  </data>
+  <data name="Ribbon_Run_Current" xml:space="preserve">
+    <value>Run Current</value>
+  </data>
+  <data name="Ribbon_Stop_All" xml:space="preserve">
+    <value>Stop All</value>
+  </data>
+  <data name="Ribbon_Stop_Current" xml:space="preserve">
+    <value>Stop Current</value>
+  </data>
+  <data name="Ribbon_Find" xml:space="preserve">
+    <value>Find</value>
+  </data>
+  <data name="Ribbon_Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Ribbon_Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="Ribbon_TabItem_View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Ribbon_GroupBox_Layout" xml:space="preserve">
+    <value>Layout</value>
+  </data>
+  <data name="Ribbon_Reset_Layout_After_Restart" xml:space="preserve">
+    <value>Reset Layout After Restart</value>
+  </data>
+  <data name="Ribbon_GroupBox_Show_Hide" xml:space="preserve">
+    <value>Show/Hide</value>
+  </data>
+  <data name="Ribbon_Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="Ribbon_Messages" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="Ribbon_StatusBar_Status_text" xml:space="preserve">
+    <value>Status text</value>
+  </data>
+  <data name="MainWindow_MainWindow_Main_window_created_" xml:space="preserve">
+    <value>Main window created.</value>
+  </data>
+  <data name="MainWindow_AddNewMruItem_Can_t_open_project" xml:space="preserve">
+    <value>Can't open project</value>
+  </data>
+  <data name="MainWindow_ButtonDelete_Click_Are_you_sure_you_want_to_delete_the_following_item___0_" xml:space="preserve">
+    <value>Are you sure you want to delete the following item: {0}</value>
+  </data>
+  <data name="MainWindow_ButtonDelete_Click_Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="MainWindow_OnLoadLayout_Could_not_load_the_requested_dock_layout__The_settings_are_invalid_and_will_be_reset_to_the_default_state_" xml:space="preserve">
+    <value>Could not load the requested dock layout. The settings are invalid and will be reset to the default state.</value>
+  </data>
+  <data name="MainWindow_OnLoadLayout_Could_not_restore_the_ribbon_state__The_settings_are_invalid_and_will_be_reset_to_the_default_state_" xml:space="preserve">
+    <value>Could not restore the ribbon state. The settings are invalid and will be reset to the default state.</value>
+  </data>
+  <data name="MainWindow_UpdateMainWindowRibbonElements_Reset_layout__restart_" xml:space="preserve">
+    <value>Reset layout (restart)</value>
+  </data>
+  <data name="MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on__the_default_layout_will_be_used_when_restarting_DeltaShell_" xml:space="preserve">
+    <value>When this option is turned on, the default layout will be used when restarting DeltaShell.</value>
+  </data>
+  <data name="MainWindow_ButtonAddModel_Click_There_needs_to_be_a_project_to_add_a_model" xml:space="preserve">
+    <value>There needs to be a project to add a model</value>
+  </data>
+  <data name="MainWindow_ShowStartPage_Adding_welcome_page____" xml:space="preserve">
+    <value>Adding welcome page ...</value>
+  </data>
+  <data name="ToolWindow_Name_Map" xml:space="preserve">
+    <value>Map</value>
+  </data>
+  <data name="ToolWindow_Name_Chart" xml:space="preserve">
+    <value>Chart</value>
+  </data>
+  <data name="ToolWindow_Name_Time_Navigator" xml:space="preserve">
+    <value>Time Navigator</value>
+  </data>
+  <data name="MainWindowCommands_RunAllModelsCommand_Text_Run_All_Models__Ctrl___F9_" xml:space="preserve">
+    <value>Run All Models (Ctrl + F9)</value>
+  </data>
+  <data name="MainWindowCommands_RunCurrentModelCommand_Text_Run_Current_Model__F9_" xml:space="preserve">
+    <value>Run Current Model (F9)</value>
+  </data>
+  <data name="MainWindowCommands_FindInProjectCommand_Text_Find_In_Project__Ctrl___F_" xml:space="preserve">
+    <value>Find In Project (Ctrl + F)</value>
+  </data>
+  <data name="MainWindowCommands_CloseViewTabCommand_Text_Close_Current_view__Ctrl___W_" xml:space="preserve">
+    <value>Close Current view (Ctrl + W)</value>
+  </data>
+  <data name="MainWindowCommands_ShowObjectInTreeViewCommand_Text_Find_In_Project_Treeview__Shift___Alt___L_" xml:space="preserve">
+    <value>Find In Project Treeview (Shift + Alt + L)</value>
+  </data>
+  <data name="MainWindowCommands_ShowMessageWindowCommand_Text_Show_Messages__Shift___Alt____O_" xml:space="preserve">
+    <value>Show Messages (Shift + Alt  + O)</value>
+  </data>
+  <data name="MainWindowCommands_ShowMapLegendViewCommand_Text_Show_Map_Contents__Shift___Alt____M_" xml:space="preserve">
+    <value>Show Map Contents (Shift + Alt  + M)</value>
+  </data>
+  <data name="MainWindowCommands_ShowPropertiesViewCommand_Text_Show_Properties__Shift___Alt____P_" xml:space="preserve">
+    <value>Show Properties (Shift + Alt  + P)</value>
+  </data>
+  <data name="MainWindowCommands_ShowChartContentsViewCommand_Text_Show_Chart_Contents__Shift___Alt____C_" xml:space="preserve">
+    <value>Show Chart Contents (Shift + Alt  + C)</value>
+  </data>
+  <data name="MainWindowCommands_ShowTimeNavigatorCommand_Text_Show_Time_Navigator__Shift___Alt___T_" xml:space="preserve">
+    <value>Show Time Navigator (Shift + Alt + T)</value>
+  </data>
+  <data name="MainWindowCommands_SwitchToNextToolWindowCommand_Text_Switch_To_Next_Toolwindow__Ctrl___Shift___PgDwn_" xml:space="preserve">
+    <value>Switch To Next Toolwindow (Ctrl + Shift + PgDwn)</value>
+  </data>
+  <data name="MainWindowCommands_SwitchToPreviousToolWindowCommand_Text_Switch_To_Previous_Toolwindow__Ctrl___Shift___PgUp_" xml:space="preserve">
+    <value>Switch To Previous Toolwindow (Ctrl + Shift + PgUp)</value>
+  </data>
+  <data name="MainWindowCommands_RunAllModelsCommand_Name_Run_All_Models" xml:space="preserve">
+    <value>Run All Models</value>
+  </data>
+  <data name="MainWindowCommands_RunCurrentModelCommand_Name_Run_Current_Model" xml:space="preserve">
+    <value>Run Current Model</value>
+  </data>
+  <data name="MainWindowCommands_FindInProjectCommand_Name_Find_In_Project" xml:space="preserve">
+    <value>Find In Project</value>
+  </data>
+  <data name="MainWindowCommands_CloseViewTabCommand_Name_Close_Current_View" xml:space="preserve">
+    <value>Close Current View</value>
+  </data>
+  <data name="MainWindowCommands_ShowObjectInTreeViewCommand_Name_Find_In_Project_Treeview" xml:space="preserve">
+    <value>Find In Project Treeview</value>
+  </data>
+  <data name="MainWindowCommands_ShowMessageWindowCommand_Name_Show_Messages" xml:space="preserve">
+    <value>Show Messages</value>
+  </data>
+  <data name="MainWindowCommands_ShowMapLegendViewCommand_Name_Show_Map_Contents" xml:space="preserve">
+    <value>Show Map Contents</value>
+  </data>
+  <data name="MainWindowCommands_ShowPropertiesViewCommand_Name_Show_Properties" xml:space="preserve">
+    <value>Show Properties</value>
+  </data>
+  <data name="MainWindowCommands_ShowChartContentsViewCommand_Name_Show_Chart_Contents" xml:space="preserve">
+    <value>Show Chart Contents</value>
+  </data>
+  <data name="MainWindowCommands_ShowTimeNavigatorCommand_Name_Show_Time_Navigator" xml:space="preserve">
+    <value>Show Time Navigator</value>
+  </data>
+  <data name="MainWindowCommands_SwitchToNextToolWindowCommand_Name_Switch_To_Next_Toolwindow" xml:space="preserve">
+    <value>Switch To Next Toolwindow</value>
+  </data>
+  <data name="MainWindowCommands_SwitchToPreviousToolWindowCommand_Name_Switch_To_Previous_Toolwindow" xml:space="preserve">
+    <value>Switch To Previous Toolwindow</value>
+  </data>
+  <data name="PopupCommand_OnExecute_" xml:space="preserve">
+    <value>{0}(name={1})</value>
+  </data>
+  <data name="MessageWindowLogAppender_AppendToMessageWindow__Check_log_file_for_more_information__Home__Show_Log__" xml:space="preserve">
+    <value>Check log file for more information (Home-&gt;Show Log).</value>
+  </data>
+  <data name="ActivityInfo_ProgressText_undefined" xml:space="preserve">
+    <value>undefined</value>
+  </data>
+  <data name="AvalonDockDockingManager_Add_View_was_already_added__activate_it_instead_of_add" xml:space="preserve">
+    <value>View was already added, activate it instead of add</value>
+  </data>
+  <data name="AvalonDockDockingManager_AddToolView_View_location__0__is_not_implemented_yet" xml:space="preserve">
+    <value>View location {0} is not implemented yet</value>
+  </data>
+  <data name="ViewList_Insert_No_default_location_specified__Cannot_add_a_view_without_location_parameter_" xml:space="preserve">
+    <value>No default location specified. Cannot add a view without location parameter.</value>
+  </data>
+  <data name="ViewList_ActivateView_Item_not_found_in_list_of_views" xml:space="preserve">
+    <value>Item not found in list of views</value>
+  </data>
+  <data name="ViewList_Close_View_is_being_closed_while_it_is_being_opened_" xml:space="preserve">
+    <value>View is being closed while it is being opened!</value>
+  </data>
+  <data name="ViewList_ForceViewCleanup_Unexpected_behaviour_from_composite_view__child_view_is_null__parent_view___0_" xml:space="preserve">
+    <value>Unexpected behaviour from composite view, child view is null, parent view: {0}</value>
+  </data>
+  <data name="ViewList_DockingManagerViewBarClosing_Closing_view___0_" xml:space="preserve">
+    <value>Closing view: {0}</value>
+  </data>
+  <data name="ViewList_UpdateViewContext_Unable_to_add_ViewContext_of_view__0___ViewContext_is_null_" xml:space="preserve">
+    <value>Unable to add ViewContext of view {0}. ViewContext is null.</value>
+  </data>
+  <data name="ViewList_UpdateViewContext_Unable_to_add_ViewContext_of_view__0___ViewContext_ViewType_is_not_of_type__1__" xml:space="preserve">
+    <value>Unable to add ViewContext of view {0}. ViewContext.ViewType is not of type {1}.</value>
+  </data>
+  <data name="ViewResolver_OpenViewForData_No_view_registered_for____0_" xml:space="preserve">
+    <value>No view registered for : {0}</value>
+  </data>
+  <data name="ViewResolver_CreateViewForData_More_than_one_view_for_data" xml:space="preserve">
+    <value>More than one view for data</value>
+  </data>
+  <data name="ViewSelectionContextMenuController_UpdateMenuItemsValidity_Unlock" xml:space="preserve">
+    <value>Unlock</value>
+  </data>
+  <data name="ViewSelectionContextMenuController_UpdateMenuItemsValidity_Lock" xml:space="preserve">
+    <value>Lock</value>
+  </data>
+  <data name="ViewSelectionMouseController_OnViewSelectionMouseDown_Sender_must_be_non_null_and_of_type_Control" xml:space="preserve">
+    <value>Sender must be non-null and of type Control</value>
+  </data>
+  <data name="HelpAboutBox_UpdateAboutBox_About__0_" xml:space="preserve">
+    <value>About {0}</value>
+  </data>
+  <data name="RichTextView_RichTextView_The_license_file__0__cannot_be_found_on_the_computer_" xml:space="preserve">
+    <value>The license file {0} cannot be found on the computer.</value>
+  </data>
+  <data name="SelectItemDialog_ListViewItemTypesOnHandleCreated_Explorer" xml:space="preserve">
+    <value>Explorer</value>
+  </data>
+  <data name="SelectItemDialog_SelectedItem_Number_of_selected_items_must_be_1" xml:space="preserve">
+    <value>Number of selected items must be 1</value>
+  </data>
+  <data name="SelectItemDialog_buttonOk_Click_Please_select_an_item" xml:space="preserve">
+    <value>Please select an item</value>
+  </data>
+  <data name="SelectItemDialog_buttonOk_Click_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="SelectItemDialog_listViewItemTypes_SelectedIndexChanged_New_" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="SelectViewDialog_listBox_DrawItem_____Default_" xml:space="preserve">
+    <value>- (Default)</value>
+  </data>
+  <data name="SplashScreenLogAppender_DoAppend__1____time_left___0_N1__sec" xml:space="preserve">
+    <value>{1}%, time left: {0:N1} sec</value>
+  </data>
+  <data name="SplashScreenWindowsForms_SplashScreen_VisibleChanged_Showing_splash_screen____" xml:space="preserve">
+    <value>Showing splash screen ...</value>
+  </data>
+  <data name="SplashScreenWindowsForms_SplashScreen_VisibleChanged_Hiding_splash_screen____" xml:space="preserve">
+    <value>Hiding splash screen ...</value>
+  </data>
+  <data name="SplashScreen_Starting" xml:space="preserve">
+    <value>Starting ...</value>
+  </data>
+  <data name="SplashScreen_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="SplashScreen_Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="SplashScreen_License" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="SplashScreen_Free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="SplashScreen_CopyRights" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to__0_" xml:space="preserve">
+    <value>Error storing settings to {0}</value>
+  </data>
+  <data name="PortableSettingsProvider_ThrowIfRoaming_Setting__0__is_roaming__This_is_not_supported" xml:space="preserve">
+    <value>Setting {0} is roaming. This is not supported</value>
+  </data>
+  <data name="DeltaShellGui_DeltaShellGui_Only_a_single_instance_of_DeltaShelGui_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__" xml:space="preserve">
+    <value>Only a single instance of DeltaShelGui is allowed at the same time per process, make sure that the previous instance was disposed correctly, stack trace:</value>
+  </data>
+  <data name="DeltaShellGui_Run_Starting_application____" xml:space="preserve">
+    <value>Starting application ...</value>
+  </data>
+  <data name="DeltaShellGui_Run_Initializing_graphical_user_interface____" xml:space="preserve">
+    <value>Initializing graphical user interface ...</value>
+  </data>
+  <data name="DeltaShellGui_Run_Waiting_until_new_project_is_initialized____" xml:space="preserve">
+    <value>Waiting until new project is initialized ...</value>
+  </data>
+  <data name="DeltaShellGui_Run_Started_in__0_f2__sec" xml:space="preserve">
+    <value>Started in {0:f2} sec</value>
+  </data>
+  <data name="DeltaShellGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied" xml:space="preserve">
+    <value>Delta Shell clipboard emptied</value>
+  </data>
+  <data name="DeltaShellGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_settings_lost_" xml:space="preserve">
+    <value>Unable to load view settings; view settings lost!</value>
+  </data>
+  <data name="DeltaShellGui_ShowSplashScreen_Logo_file__0__does_not_exist" xml:space="preserve">
+    <value>Logo file {0} does not exist</value>
+  </data>
+  <data name="DeltaShellGui_ShowSplashScreen_User_has_cancelled_start__exiting____" xml:space="preserve">
+    <value>User has cancelled start, exiting ...</value>
+  </data>
+  <data name="DeltaShellGui_InitializeWindows_Initializing_windows____" xml:space="preserve">
+    <value>Initializing windows ...</value>
+  </data>
+  <data name="DeltaShellGui_InitializeWindows_Creating_default_tool_windows____" xml:space="preserve">
+    <value>Creating default tool windows ...</value>
+  </data>
+  <data name="DeltaShellGui_InitializeWindows_All_windows_are_created_" xml:space="preserve">
+    <value>All windows are created.</value>
+  </data>
+  <data name="DeltaShellGui_DeltaShellGuiDragDrop_DragDrop_is_already_handled_in_control_itself" xml:space="preserve">
+    <value>DragDrop is already handled in control itself</value>
+  </data>
+  <data name="DeltaShellGui_InitToolWindows_Creating_document_window_manager____" xml:space="preserve">
+    <value>Creating document window manager ...</value>
+  </data>
+  <data name="DeltaShellGui_InitToolWindows_Creating_tool_window_manager____" xml:space="preserve">
+    <value>Creating tool window manager ...</value>
+  </data>
+  <data name="DeltaShellGui_InitToolWindows_Finished_InitToolWindows" xml:space="preserve">
+    <value>Finished InitToolWindows</value>
+  </data>
+  <data name="DeltaShellGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____" xml:space="preserve">
+    <value>Setting up menus and toolbars ...</value>
+  </data>
+  <data name="DeltaShellGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready_" xml:space="preserve">
+    <value>Menus and toolbars are ready.</value>
+  </data>
+  <data name="DeltaShellGui_ActivatePlugins_Initializing_gui_plugin__0_____" xml:space="preserve">
+    <value>Initializing gui plugin {0} ...</value>
+  </data>
+  <data name="DeltaShellGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____" xml:space="preserve">
+    <value>Gui plugin {0} activation has failed, skipping ...</value>
+  </data>
+  <data name="DeltaShellGui_ActivatePlugins_Error_during_plugin_activation" xml:space="preserve">
+    <value>Error during plugin activation</value>
+  </data>
+  <data name="DeltaShellGui_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
+    <value>Exception during plugin gui deactivation</value>
+  </data>
+  <data name="DeltaShellGui_ActivatePlugins_Exception_during_plugin_deactivation" xml:space="preserve">
+    <value>Exception during plugin deactivation</value>
+  </data>
+  <data name="DeltaShellGui_InitializePluginResources_DeltaShell_application_started__active_plugins__" xml:space="preserve">
+    <value>DeltaShell application started, active plugins:</value>
+  </data>
+  <data name="DeltaShellGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_" xml:space="preserve">
+    <value>No plugins found, most probably there is a configuration problem.</value>
+  </data>
+  <data name="DeltaShellGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_" xml:space="preserve">
+    <value>Please check your configuration and plugins folder!</value>
+  </data>
+  <data name="DeltaShellGui_LoadPlugins_Searching_for_Gui_plugins____" xml:space="preserve">
+    <value>Searching for Gui plugins ...</value>
+  </data>
+  <data name="DeltaShellGui_LoadPlugins__0__gui_plugin_s__were_loaded" xml:space="preserve">
+    <value>{0} gui plugin(s) were loaded</value>
+  </data>
+  <data name="GuiCommandHandler_CloseProject_Closing_current_project____" xml:space="preserve">
+    <value>Closing current project ...</value>
+  </data>
+  <data name="GuiCommandHandler_CloseProject_Save_changes_to_the_project___0_" xml:space="preserve">
+    <value>Save changes to the project: {0}</value>
+  </data>
+  <data name="GuiCommandHandler_CloseProject_Closing_project____" xml:space="preserve">
+    <value>Closing project ...</value>
+  </data>
+  <data name="GuiCommandHandler_CloseProject_Project_closed" xml:space="preserve">
+    <value>Project closed</value>
+  </data>
+  <data name="GuiCommandHandler_SaveProject_" xml:space="preserve">
+    <value>This project has been made with an older version and is migrated to the current version.
+
+Do you want to overwrite the old project files with those of the new version? (this can not be undone)
+Select No to save the project as a new project at a different location.</value>
+  </data>
+  <data name="GuiCommandHandler_SaveProject_Overwrite_current_project" xml:space="preserve">
+    <value>Overwrite current project</value>
+  </data>
+  <data name="GuiCommandHandler_SaveProjectAs_Project__0__saved" xml:space="preserve">
+    <value>Project {0} saved</value>
+  </data>
+  <data name="GuiCommandHandler_SaveProjectAs_The_specified_file_path_is_too_long__please_choose_a_shorter_path_" xml:space="preserve">
+    <value>The specified file path is too long, please choose a shorter path.</value>
+  </data>
+  <data name="GuiCommandHandler_SaveProjectAs_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="GuiCommandHandler_AddNewModel_Add_model" xml:space="preserve">
+    <value>Add model</value>
+  </data>
+  <data name="GuiCommandHandler_ImportOn_Unable_to_import_on__0__" xml:space="preserve">
+    <value>Unable to import on {0}.</value>
+  </data>
+  <data name="GuiCommandHandler_StopModelsForSelection_No_valid_selection__please_select_folder_or_project_" xml:space="preserve">
+    <value>No valid selection, please select folder or project.</value>
+  </data>
+  <data name="GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file__opening_log_file_directory_instead_" xml:space="preserve">
+    <value>Unable to open log file, opening log file directory instead.</value>
+  </data>
+  <data name="GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file" xml:space="preserve">
+    <value>Unable to open log file</value>
+  </data>
+  <data name="GuiCommandHandler_AddNewProjectItem_There_needs_to_be_a_project_to_add_an_item" xml:space="preserve">
+    <value>There needs to be a project to add an item</value>
+  </data>
+  <data name="GuiCommandHandler_AddNewProjectItem_Cannot_add_an_item_to_the_selected_container" xml:space="preserve">
+    <value>Cannot add an item to the selected container</value>
+  </data>
+  <data name="GuiCommandHandler_DeleteCurrentProjectItem_No_current_selection_found_in_the_user_interface_to_delete_" xml:space="preserve">
+    <value>No current selection found in the user interface to delete.</value>
+  </data>
+  <data name="GuiCommandHandler_AddNewFolder_There_needs_to_be_a_project_to_add_a_folder" xml:space="preserve">
+    <value>There needs to be a project to add a folder</value>
+  </data>
+  <data name="GuiCommandHandler_AddNewFolder_Add_new_folder" xml:space="preserve">
+    <value>Add new folder</value>
+  </data>
+  <data name="GuiCommandHandler_RunSelectedModel_Can_t_run_model__no_models_selected_" xml:space="preserve">
+    <value>Can't run model, no models selected.</value>
+  </data>
+  <data name="GuiCommandHandler_StopSelectedModel_Can_t_stop_model__no_models_selected_" xml:space="preserve">
+    <value>Can't stop model, no models selected.</value>
+  </data>
+  <data name="GuiCommandHandler_StopSelectedModel_Model__0__terminated" xml:space="preserve">
+    <value>Model {0} terminated</value>
+  </data>
+  <data name="GuiCommandHandler_DeleteProjectItem_The_folder_you_are_trying_to_delete_contains_models_that_are_linked_by_other_models___0__after_deletion_these_links_will_be_lost__Do_you_wish_to_continue_" xml:space="preserve">
+    <value>The folder you are trying to delete contains models that are linked by other models: {0} after deletion these links will be lost. Do you wish to continue?</value>
+  </data>
+  <data name="GuiCommandHandler_DeleteProjectItem_The_composite_model_you_are_trying_to_delete_contains_models_that_are_linked_by_other_models___0__after_deletion_these_links_will_be_lost__Do_you_wish_to_continue_" xml:space="preserve">
+    <value>The composite model you are trying to delete contains models that are linked by other models: {0} after deletion these links will be lost. Do you wish to continue?</value>
+  </data>
+  <data name="GuiCommandHandler_DeleteProjectItem_The_model_you_are_trying_to_delete_is_linked_by_other_models___0__after_deletion_these_links_will_be_lost__Do_you_wish_to_continue_" xml:space="preserve">
+    <value>The model you are trying to delete is linked by other models: {0} after deletion these links will be lost. Do you wish to continue?</value>
+  </data>
+  <data name="GuiCommandHandler_DeleteProjectItem_The_item_you_are_trying_to_delete_is_linked_by_other_items__after_deletion_these_links_will_be_lost__Do_you_wish_to_continue_" xml:space="preserve">
+    <value>The item you are trying to delete is linked by other items, after deletion these links will be lost. Do you wish to continue?</value>
+  </data>
+  <data name="GuiCommandHandler_DeleteProjectItem_The_following_model_0__depend_1__on_this_item__2_" xml:space="preserve">
+    <value>The following model{0} depend{1} on this item:{2}</value>
+  </data>
+  <data name="GuiCommandHandler_DeleteProjectItem_Delete__0_" xml:space="preserve">
+    <value>Delete {0}</value>
+  </data>
+  <data name="GuiCommandHandler_IsInvalidDataItem_The_data_item__0__cannot_be_viewed_because_it_is_not_valid" xml:space="preserve">
+    <value>The data item {0} cannot be viewed because it is not valid</value>
+  </data>
+  <data name="GuiCommandHandler_SaveProjectWithProgressDialog_Saving__0_" xml:space="preserve">
+    <value>Saving {0}</value>
+  </data>
+  <data name="GuiCommandHandler_StopModel_Run_model__0__failed__next_models_in_folder_ignored_" xml:space="preserve">
+    <value>Run model {0} failed; next models in folder ignored.</value>
+  </data>
+  <data name="GuiCommandHandler_UpdateGui__no_project_opened_____0_" xml:space="preserve">
+    <value>&lt;no project opened&gt; - {0}</value>
+  </data>
+  <data name="GuiCommandHandler_CreateNewModelUsingDialog_Select_model____" xml:space="preserve">
+    <value>Select model ...</value>
+  </data>
+  <data name="GuiCommandHandler_CreateNewModelUsingDialog_Can_not_instantiate_model_object_for___0____or_the_creation_has_been_canceled_" xml:space="preserve">
+    <value>Can not instantiate model object for '{0}' (or the creation has been canceled)</value>
+  </data>
+  <data name="GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item_available_" xml:space="preserve">
+    <value>No exporter for this item available.</value>
+  </data>
+  <data name="GuiExportHandler_GetSupportedExporterForItemUsingDialog_No_exporter_for_this_item___0___available_" xml:space="preserve">
+    <value>No exporter for this item ({0}) available.</value>
+  </data>
+  <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting" xml:space="preserve">
+    <value>Start exporting</value>
+  </data>
+  <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_file_to_export_to" xml:space="preserve">
+    <value>Select a file to export to</value>
+  </data>
+  <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Finished_exporting" xml:space="preserve">
+    <value>Finished exporting</value>
+  </data>
+  <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed" xml:space="preserve">
+    <value>Export failed</value>
+  </data>
+  <data name="GuiImportHandler_ImportDataTo__0__is_no_valid_target_for_the_result_of_the_import" xml:space="preserve">
+    <value>{0} is no valid target for the result of the import</value>
+  </data>
+  <data name="GuiImportHandler_ImportFilesTo_Can_not_import_file_s__into__0_" xml:space="preserve">
+    <value>Can not import file(s) into {0}</value>
+  </data>
+  <data name="GuiImportHandler_ImportFilesTo_No_importer_has_been_found_for_file_type__0__and_target__1__" xml:space="preserve">
+    <value>No importer has been found for file type {0} and target {1}.</value>
+  </data>
+  <data name="GuiImportHandler_ImportFilesTo__0__could_not_be_imported_by_this_importer_" xml:space="preserve">
+    <value>{0} could not be imported by this importer.</value>
+  </data>
+  <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item_" xml:space="preserve">
+    <value>No importer available for this item.</value>
+  </data>
+  <data name="GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this_item___0___" xml:space="preserve">
+    <value>No importer available for this item ({0}).</value>
+  </data>
+  <data name="GuiImportHandler_GetSupportedImporterForTargetType_Data_Import" xml:space="preserve">
+    <value>Data Import</value>
+  </data>
+  <data name="GuiImportHandler_SetDataItemValue_The_types_of_the_selected_object_and_the_imported_object_aren_t_the_same_" xml:space="preserve">
+    <value>The types of the selected object and the imported object aren't the same.</value>
+  </data>
+  <data name="GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_file_to_import_from" xml:space="preserve">
+    <value>Select a file to import from</value>
+  </data>
+  <data name="GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data" xml:space="preserve">
+    <value>Start importing data</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_Copy_Copy_item___0__" xml:space="preserve">
+    <value>Copy item "{0}"</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_Cut_Cut_item___0__" xml:space="preserve">
+    <value>Cut item "{0}"</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_Paste_Can_not_paste__0__into__1_" xml:space="preserve">
+    <value>Can not paste {0} into {1}</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_CanPasteInto_Target_paste_container_is_null" xml:space="preserve">
+    <value>Target paste container is null</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_CanPasteInto_Can_not_cut___paste_into_itself" xml:space="preserve">
+    <value>Can not cut / paste into itself</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_CanPasteInto_Can_not_cut___paste_into_the_same_container_without_providing_position" xml:space="preserve">
+    <value>Can not cut / paste into the same container without providing position</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_CanPasteInto_Can_not_cut___paste_into_child" xml:space="preserve">
+    <value>Can not cut / paste into child</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_CopyPaste_Copy_item" xml:space="preserve">
+    <value>Copy item</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_CopyPaste_Can_not_paste__0__into__1___as_an_error_occurred_during_copy___2_" xml:space="preserve">
+    <value>Can not paste {0} into {1}, as an error occurred during copy: {2}</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_CopyPaste_Copy_of__0_" xml:space="preserve">
+    <value>Copy of {0}</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_CopyPaste_Creating_a_copy_of_an_item___0___in___1__" xml:space="preserve">
+    <value>Creating a copy of an item "{0}" in "{1}"</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_CutPaste_" xml:space="preserve">
+    <value>Moving item "{0}" from "{1}" to "{2}" (position = {3})</value>
+  </data>
+  <data name="ProjectItemCopyPasteHandler_CutPaste_Moving__0_" xml:space="preserve">
+    <value>Moving {0}</value>
+  </data>
+  <data name="SplashScreen_SplashScreen_VisibleChanged_Showing_splash_screen____" xml:space="preserve">
+    <value>Showing splash screen ...</value>
+  </data>
+  <data name="SplashScreen_Shutdown_Hiding_splash_screen____" xml:space="preserve">
+    <value>Hiding splash screen ...</value>
+  </data>
+  <data name="SearchDialog_SearchDialogLoad_Entire_Project" xml:space="preserve">
+    <value>Entire Project</value>
+  </data>
+  <data name="SearchDialog_SearchDialogLoad_Current_View" xml:space="preserve">
+    <value>Current View</value>
+  </data>
+  <data name="PropertyGrid_GetObjectProperties_Multiple_object_property_instances_found_for_the_same_data_object__no_object_properties_are_displayed_in_the_property_grid" xml:space="preserve">
+    <value>Multiple object property instances found for the same data object: no object properties are displayed in the property grid</value>
+  </data>
+  <data name="PropertyGrid_CreateObjectProperties_Could_not_create_object_properties_for_the_data_item" xml:space="preserve">
+    <value>Could not create object properties for the data item</value>
+  </data>
+  <data name="PropertyGrid_CreateObjectProperties_Could_not_create_object_properties_for_the_value_of_the_data_item" xml:space="preserve">
+    <value>Could not create object properties for the value of the data item</value>
+  </data>
+  <data name="PropertyGrid_CreateObjectProperties_Could_not_create_object_properties_for_the_data" xml:space="preserve">
+    <value>Could not create object properties for the data</value>
+  </data>
+  <data name="PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_" xml:space="preserve">
+    <value>Selected object of type: {0}</value>
+  </data>
+  <data name="PropertyGrid_OnSelectedObjectsChanged_Selected_multiple_objects_" xml:space="preserve">
+    <value>Selected multiple objects:</value>
+  </data>
+  <data name="PropertyGrid_comboBox1_DrawItem_All_selected_Objects___0__" xml:space="preserve">
+    <value>All selected Objects ({0})</value>
+  </data>
+  <data name="PropertyGrid_comboBox1_DrawItem_selected__0____1__" xml:space="preserve">
+    <value>selected {0} ({1})</value>
+  </data>
+  <data name="ProgressDialog_SetButtonState_Cancelling___" xml:space="preserve">
+    <value>Cancelling...</value>
+  </data>
+  <data name="ProgressDialog_SetButtonState_Cancel_all_activities" xml:space="preserve">
+    <value>Cancel all activities</value>
+  </data>
+  <data name="PluginStatusControl_UpdateInfo_Plugin__0__does_not_have_an_image_" xml:space="preserve">
+    <value>Plugin {0} does not have an image.</value>
+  </data>
+  <data name="PluginStatusControl_UpdateInfo_Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="PluginStatusControl_UpdateInfo_Enable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="PluginDialog_UpdatePlugins__0__plugins_found_" xml:space="preserve">
+    <value>{0} plugins found.</value>
+  </data>
+  <data name="GeneralOptionsControl_GetRealNumberFormatFromControls_None_of_the_radiobuttons_is_selected__impossible" xml:space="preserve">
+    <value>None of the radiobuttons is selected: impossible</value>
+  </data>
+  <data name="GeneralOptionsControl_SetSettingsToNumberFormatControls_Unknown_numberFormat_for_user_settings" xml:space="preserve">
+    <value>Unknown numberFormat for user settings</value>
+  </data>
+  <data name="GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_Significant_digits_" xml:space="preserve">
+    <value>Significant digits:</value>
+  </data>
+  <data name="GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_____Decimal_places_" xml:space="preserve">
+    <value>Decimal places:</value>
+  </data>
+  <data name="GeneralOptionsControl_Title_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="MessageWindow_MessageWindow_Messages" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="MessageWindow_ApplyFilter_" xml:space="preserve">
+    <value>Image = '{0}'</value>
+  </data>
+  <data name="MessageWindow_showDetailsToolStripMenuItem_Click_Message_details" xml:space="preserve">
+    <value>Message details</value>
+  </data>
+  <data name="SearchDialog_BackgroundWorker1DoWork__0__does_not_support_searching" xml:space="preserve">
+    <value>{0} does not support searching</value>
+  </data>
+  <data name="SearchDialog_BackgroundWorker1RunWorkerCompleted_The_search_has_been_cancelled" xml:space="preserve">
+    <value>The search has been cancelled</value>
+  </data>
+  <data name="SearchDialog_BackgroundWorker1RunWorkerCompleted_The_following_error_occured___" xml:space="preserve">
+    <value>The following error occured :</value>
+  </data>
+  <data name="App_App_Starting_Delta_Shell____" xml:space="preserve">
+    <value>Starting Delta Shell ...</value>
+  </data>
+  <data name="App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_DeltaShell__Please_close_the_other_instance_first_" xml:space="preserve">
+    <value>Cannot start multiple instances of DeltaShell. Please close the other instance first.</value>
+  </data>
+  <data name="App_RunDeltaShell_Starting_Delta_Shell_Gui____" xml:space="preserve">
+    <value>Starting Delta Shell Gui ...</value>
+  </data>
+  <data name="App_RunDeltaShell_Specified_project___0___was_not_found_" xml:space="preserve">
+    <value>Specified project ({0}) was not found.</value>
+  </data>
+  <data name="App_RunDeltaShell_" xml:space="preserve">
+    <value>======== running command ===========</value>
+  </data>
+  <data name="App_RunDeltaShell_No_project_found__load_project_first" xml:space="preserve">
+    <value>No project found, load project first</value>
+  </data>
+  <data name="App_RunDeltaShell_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_load_a_project_" xml:space="preserve">
+    <value>Activity '{0}' not found in project! Typo, or did you forget to load a project?</value>
+  </data>
+  <data name="App_RunDeltaShell_Starting_activity___0__" xml:space="preserve">
+    <value>Starting activity '{0}'</value>
+  </data>
+  <data name="App_RunDeltaShell_Activity___0___ended_with_status__1_" xml:space="preserve">
+    <value>Activity '{0}' ended with status {1}</value>
+  </data>
+  <data name="App_RunDeltaShell_Saving_project___0__" xml:space="preserve">
+    <value>Saving project '{0}'</value>
+  </data>
+  <data name="App_RunDeltaShell_Saved_project___0__" xml:space="preserve">
+    <value>Saved project '{0}'</value>
+  </data>
+  <data name="App_RunDeltaShell_Could_not_find_script__0_" xml:space="preserve">
+    <value>Could not find script {0}</value>
+  </data>
+  <data name="App_AppDomain_UnhandledException_Unknown_exception_" xml:space="preserve">
+    <value>Unknown exception!</value>
+  </data>
+  <data name="App_HandleException_" xml:space="preserve">
+    <value>======== EXCEPTION #{0}: ========
+{1}{2}</value>
+  </data>
+  <data name="App_ParseArguments_Run_activity_or_model_available_in_the_project_" xml:space="preserve">
+    <value>Run activity or model available in the project.</value>
+  </data>
+  <data name="App_ParseArguments_Run_script_from_file" xml:space="preserve">
+    <value>Run script from file</value>
+  </data>
+  <data name="App_ParseArguments_Run_specified_command__Python__" xml:space="preserve">
+    <value>Run specified command (Python).</value>
+  </data>
+
+  <data name="Wti_project_file_filter" xml:space="preserve">
+    <value>WTI project files (.wti)|*.wti</value>
+  </data>
+  <data name="Opening_existing_wti_project_cancelled" xml:space="preserve">
+    <value>Opening existing WTI project cancelled.</value>
+  </data>
+  <data name="Opening_existing_wti_project" xml:space="preserve">
+    <value>Opening existing WTI project.</value>
+  </data>
+  <data name="Loading_wti_project_from_selected_file" xml:space="preserve">
+    <value>Loading WTI project from selected file.</value>
+  </data>
+</root>

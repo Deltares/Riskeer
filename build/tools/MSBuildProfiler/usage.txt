@@ -1,0 +1,12 @@
+url: http://msbuildprofiler.codeplex.com/wikipage?title=Manual&referringTitle=Home
+
+MSBuild Profiler, slightly modified to show total time for a specific entry.
+
+Command line create snapshot file:
+msbuild DeltaShell.sln /t:build /l:MSBuildProfileFileLogger,C:\path\to\MSBuildProfiler.dll
+
+So typically:
+
+msbuild DeltaShell.sln /t:build /l:MSBuildProfileFileLogger,.\build\tools\MSBuildProfiler\MSBuildProfiler.dll
+
+Next you can inspect and open the snapshot file with MSBuildProfilerGui.exe

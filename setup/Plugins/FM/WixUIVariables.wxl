@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<WixLocalization Culture='en-us' xmlns='http://schemas.microsoft.com/wix/2006/localization'>
+  
+  <!-- 
+        Override internal strings for custom installer text
+        
+        For a list of overridable strings see here:
+        http://wix.cvs.sourceforge.net/viewvc/wix/wix/src/ext/UIExtension/wixlib/WixUI_en-us.wxl?revision=1.12&view=markup
+    -->
+  <String Id="SetupTypeDlgTypicalText">Installs the most common program features, including Hydrodynamics and Control. Recommended for most users.</String>
+
+</WixLocalization>

@@ -1,0 +1,237 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="XmlRead"
+             AssemblyFile="..\build\tools\MSBuild.Community.Tasks.dll" />
+  <UsingTask TaskName="Zip"
+             AssemblyFile="..\build\tools\MSBuild.Community.Tasks.dll" />
+  <UsingTask TaskName="NCoverExplorer.MSBuildTasks.NCover"
+             AssemblyFile="..\build\tools\NCover\NCoverExplorer.MSBuildTasks.dll" />
+  <UsingTask TaskName="NCoverExplorer"
+              AssemblyFile="..\build\tools\NCover\NCoverExplorer.MSBuildTasks.dll" />
+
+  <!-- 
+    Updated on: 1 April 2009
+    MSBuild project creates Coverage Report (using NCover) 
+  
+    -->
+  <PropertyGroup>
+    <TargetPath>$(MSBuildProjectDirectory)\..\target</TargetPath>
+  </PropertyGroup>
+  
+  <!-- main target -->
+  <Target Name="Build" DependsOnTargets="DeltaShell;NCoverUnitTests;NCoverAll;NCoverDeltaShell;PrintCoverageForTeamCity"> 
+  </Target>
+
+<!--
+  <Target Name="Build" DependsOnTargets="PrintCoverageForTeamCity"> 
+  </Target>
+-->
+
+  <Target Name="PrintCoverageForTeamCity">
+    <!-- Line-level code coverage -->
+    <XmlRead XPath="/coverageReport/project/@coverage" XmlFileName="$(TargetPath)\NCover\CoverageReportDelftTools.xml">
+      <Output TaskParameter="Value" PropertyName="CodeCoverageL" />
+    </XmlRead>
+
+    <!-- Method-level code coverage -->
+    <XmlRead XPath="/coverageReport/project/@functionCoverage" XmlFileName="$(TargetPath)\NCover\CoverageReportDelftTools.xml">
+      <Output TaskParameter="Value" PropertyName="CodeCoverageM" />
+    </XmlRead>
+
+    <!-- Total number of lines -->
+    <XmlRead XPath="/coverageReport/project/@nonCommentLines" XmlFileName="$(TargetPath)\NCover\CoverageReportDelftTools.xml">
+      <Output TaskParameter="Value" PropertyName="CodeCoverageAbsLTotal" />
+    </XmlRead>
+
+    <!-- Total number of methods -->
+    <XmlRead XPath="/coverageReport/project/@members" XmlFileName="$(TargetPath)\NCover\CoverageReportDelftTools.xml">
+      <Output TaskParameter="Value" PropertyName="CodeCoverageAbsMTotal" />
+    </XmlRead>
+
+    <!-- Total number of classes -->
+    <XmlRead XPath="/coverageReport/project/@classes" XmlFileName="$(TargetPath)\NCover\CoverageReportDelftTools.xml">
+      <Output TaskParameter="Value" PropertyName="CodeCoverageAbsCTotal" />
+    </XmlRead>
+
+     <Message Text="##teamcity[buildStatisticValue key='CodeCoverageL' value='$(CoverCoverageL)']" />
+     <Message Text="##teamcity[buildStatisticValue key='CodeCoverageM' value='$(CoverCoverageM)']" />
+     <Message Text="##teamcity[buildStatisticValue key='CodeCoverageC' value='$(CodeCoverageAbsCTotal)']" />
+     <Message Text="##teamcity[buildStatisticValue key='CodeCoverageAbsLTotal' value='$(CodeCoverageAbsLTotal)']" />
+     <Message Text="##teamcity[buildStatisticValue key='CodeCoverageAbsMTotal' value='$(CodeCoverageAbsMTotal)']" />
+     <Message Text="##teamcity[buildStatisticValue key='CodeCoverageAbsCTotal' value='$(CodeCoverageAbsCTotal)']" />
+     <Message Text="##teamcity[buildStatisticValue key='CodeCoverageAbsLCovered' value='0']" />
+     <Message Text="##teamcity[buildStatisticValue key='CodeCoverageAbsMCovered' value='0']" />
+     <Message Text="##teamcity[buildStatisticValue key='CodeCoverageAbsCCovered' value='$(CodeCoverageAbsCTotal)']" />
+  </Target>
+
+  <Target Name="DeltaShell">
+    <MSBuild Projects="..\DeltaShell.sln" Targets="Build" Properties="Configuration=Release" />
+  </Target>
+
+  <ItemGroup>
+    <TestProjects Include="$(MSBuildProjectDirectory)\..\test\**\*.Test*.csproj;
+      $(MSBuildProjectDirectory)\..\test\**\tests\**\*.IntegrationTests.csproj" />
+    <BuildProjects Include= "$(MSBuildProjectDirectory)\..\src\**\*.csproj" 
+    	Exclude="$(MSBuildProjectDirectory)\..\src\**\GeoAPI.Extensions.csproj;
+    	$(MSBuildProjectDirectory)\..\src\**\DelftTools.TestUtils.csproj;
+    	$(MSBuildProjectDirectory)\..\src\**\NetTopologySuite.csproj;
+    	$(MSBuildProjectDirectory)\..\src\**\TestPlugin1.csproj"  />
+    <NCoverCoverageFiles Include="$(TargetPath)\NCover\1\**-coverage.xml" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <TestProjects1 Include="$(MSBuildProjectDirectory)\..\test\**\*.Tests.csproj" />
+    <BuildProjects1 Include= "$(MSBuildProjectDirectory)\..\src\**\*.csproj" 
+    	Exclude="$(MSBuildProjectDirectory)\..\src\**\GeoAPI.Extensions.csproj;
+    	$(MSBuildProjectDirectory)\..\src\**\DelftTools.TestUtils.csproj;
+    	$(MSBuildProjectDirectory)\..\src\**\TestPlugin1.csproj;
+    	$(MSBuildProjectDirectory)\..\src\**\NetTopologySuite.csproj;
+    	$(MSBuildProjectDirectory)\..\src\**\DelftTools.Gui.Swf.Controls.csproj"  />
+    <NCoverCoverageFiles1 Include="$(TargetPath)\NCover\2\**-coverage.xml" />
+  </ItemGroup>
+  
+  
+   <ItemGroup>
+    <TestProjects2 Include="$(MSBuildProjectDirectory)\..\test\DeltaShell\**\*.Tests.csproj" />
+    <BuildProjects2 Include= "$(MSBuildProjectDirectory)\..\src\DeltaShell\**\*.csproj" 
+    	Exclude="$(MSBuildProjectDirectory)\..\src\**\GeoAPI.Extensions.csproj;
+    	$(MSBuildProjectDirectory)\..\src\**\NetTopologySuite.csproj;
+    	$(MSBuildProjectDirectory)\..\src\**\DelftTools.TestUtils.csproj;
+    	$(MSBuildProjectDirectory)\..\src\**\TestPlugin1.csproj"  />
+    <NCoverCoverageFiles2 Include="$(TargetPath)\NCover\3\**-coverage.xml" />
+  </ItemGroup> 
+  
+  
+  <Target Name="NCoverUnitTests">
+    <RemoveDir Condition="Exists('$(TargetPath)\NCover')" Directories="$(TargetPath)\NCover"/>
+    <MakeDir Condition="!Exists('$(TargetPath)\NCover')" Directories="$(TargetPath)\NCover"/>
+    
+     <MakeDir Condition="!Exists('$(TargetPath)\NCover\1')" Directories="$(TargetPath)\NCover\1"/>
+
+    <!-- register coverlib.dll -->
+    <Exec Command='"$(SystemRoot)\system32\regsvr32.exe" "$(MSBuildProjectDirectory)\..\build\tools\NCover\CoverLib.dll" /s' />
+
+    <!-- Coverage Report for DelftTools.Tests -->
+
+    <NCover ToolPath="$(MSBuildProjectDirectory)\..\build\tools\NCover"
+      CommandLineArgs="%(TestProjects.RootDir)%(TestProjects.Directory)bin\release\%(TestProjects.Filename).dll /xml=%(TestProjects.Filename).xml /labels /nologo /exclude=Windows.Forms,Performance,Integration,DataAccess,Matlab,WorkInProgress" 
+      ContinueOnError="true" 
+      CommandLineExe="$(MSBuildProjectDirectory)\..\build\tools\NUnit\nunit-console.exe"
+      CoverageFile="$(TargetPath)\NCover\1\%(TestProjects.Filename)-coverage.xml" 
+      WorkingDirectory="$(TargetPath)\NCover\1"
+      Assemblies="@(BuildProjects->'%(Filename).dll')"
+      />
+
+    <NCoverExplorer
+            ToolPath="$(MSBuildProjectDirectory)\..\build\tools\NCoverExplorer"
+            ProjectName="DelftTools"
+            ReportType="4"
+            Sort="CoveragePercentageAscending"
+            Filter="None"
+            OutputDir="$(TargetPath)\NCover"
+            XmlReportName="CoverageReport.xml"
+            HtmlReportName="unit-tests.html"
+            ShowExcluded="True"
+            SatisfactoryCoverage="75"
+            CoverageFiles="@(NCoverCoverageFiles)"/>
+
+
+    <!-- Unregister NCover. -->
+    <CallTarget Targets="test-finally"/>
+
+    <!-- In case one of the tests fails, make sure to stop TypeMock and unregister NCover. -->
+    <OnError ExecuteTargets="test-finally"/>
+  </Target>
+  
+   <Target Name="NCoverAll">
+     <MakeDir Condition="!Exists('$(TargetPath)\NCover')" Directories="$(TargetPath)\NCover"/>
+     <MakeDir Condition="!Exists('$(TargetPath)\NCover\2')" Directories="$(TargetPath)\NCover\2"/>
+ 
+     <!-- register coverlib.dll -->
+     <Exec Command='"$(SystemRoot)\system32\regsvr32.exe" "$(MSBuildProjectDirectory)\..\build\tools\NCover\CoverLib.dll" /s' />
+ 
+     <!-- Coverage Report for DelftTools.Tests -->
+ 
+     <NCover ToolPath="$(MSBuildProjectDirectory)\..\build\tools\NCover"
+       CommandLineArgs="%(TestProjects1.RootDir)%(TestProjects1.Directory)bin\release\%(TestProjects1.Filename).dll /xml=%(TestProjects1.Filename).xml /labels /nologo /exclude=Matlab,WorkInProgress" 
+       ContinueOnError="true" 
+       CommandLineExe="$(MSBuildProjectDirectory)\..\build\tools\NUnit\nunit-console.exe"
+       CoverageFile="$(TargetPath)\NCover\2\%(TestProjects1.Filename)-coverage.xml" 
+       WorkingDirectory="$(TargetPath)\NCover\2"
+       Assemblies="@(BuildProjects1->'%(Filename).dll')"
+       />
+ 
+     
+     <NCoverExplorer
+             ToolPath="$(MSBuildProjectDirectory)\..\build\tools\NCoverExplorer"
+             ProjectName="DeltaShell"
+             ReportType="4"
+             Sort="CoveragePercentageAscending"
+             Filter="None"
+             OutputDir="$(TargetPath)\NCover"
+             XmlReportName="CoverageReportDelftTools.xml"
+             HtmlReportName="All.html"
+             ShowExcluded="True"
+             SatisfactoryCoverage="75"
+             CoverageFiles="@(NCoverCoverageFiles1)"/>
+ 
+ 
+     <!--Zip Files="$(TargetPath)\NCover\index.html"  WorkingDirectory="$(TargetPath)\NCover" ZipFileName="$(TargetPath)\NCover\NCover.zip" /-->
+ 
+     <!-- Unregister NCover. -->
+     <CallTarget Targets="test-finally"/>
+ 
+     <!-- In case one of the tests fails, make sure to stop TypeMock and unregister NCover. -->
+     <OnError ExecuteTargets="test-finally"/>
+  </Target>
+ 
+
+   <Target Name="NCoverDeltaShell">
+     <MakeDir Condition="!Exists('$(TargetPath)\NCover')" Directories="$(TargetPath)\NCover"/>
+     <MakeDir Condition="!Exists('$(TargetPath)\NCover\3')" Directories="$(TargetPath)\NCover\3"/>
+ 
+     <!-- register coverlib.dll -->
+     <Exec Command='"$(SystemRoot)\system32\regsvr32.exe" "$(MSBuildProjectDirectory)\..\build\tools\NCover\CoverLib.dll" /s' />
+ 
+     <!-- Coverage Report for DelftTools.Tests -->
+ 
+     <NCover ToolPath="$(MSBuildProjectDirectory)\..\build\tools\NCover"
+       CommandLineArgs="%(TestProjects2.RootDir)%(TestProjects2.Directory)bin\release\%(TestProjects2.Filename).dll /xml=%(TestProjects2.Filename).xml /labels /nologo /exclude=Matlab,WorkInProgress" 
+       ContinueOnError="true" 
+       CommandLineExe="$(MSBuildProjectDirectory)\..\build\tools\NUnit\nunit-console.exe"
+       CoverageFile="$(TargetPath)\NCover\3\%(TestProjects2.Filename)-coverage.xml" 
+       WorkingDirectory="$(TargetPath)\NCover\3"
+       Assemblies="@(BuildProjects2->'%(Filename).dll')"
+       />
+ 
+     
+     <NCoverExplorer
+             ToolPath="$(MSBuildProjectDirectory)\..\build\tools\NCoverExplorer"
+             ProjectName="DelftTools"
+             ReportType="4"
+             Sort="CoveragePercentageAscending"
+             Filter="None"
+             OutputDir="$(TargetPath)\NCover"
+             XmlReportName="CoverageReportDeltaShell.xml"
+             HtmlReportName="DeltaShell.html"
+             ShowExcluded="True"
+             SatisfactoryCoverage="75"
+             CoverageFiles="@(NCoverCoverageFiles2)"/>
+ 
+ 
+     <!--Zip Files="$(TargetPath)\NCover\index.html"  WorkingDirectory="$(TargetPath)\NCover" ZipFileName="$(TargetPath)\NCover\NCover.zip" /-->
+ 
+     <!-- Unregister NCover. -->
+     <CallTarget Targets="test-finally"/>
+ 
+     <!-- In case one of the tests fails, make sure to stop TypeMock and unregister NCover. -->
+     <OnError ExecuteTargets="test-finally"/>
+  </Target>
+  
+  <!-- Stopping TypeMock and unregistering NCover is a separate target because it has to happen -->
+  <!-- regardless of success or failure of the unit tests. Like the "finally" in a "try/finally" block. -->
+  <Target Name="test-finally">
+    <!--unregister coverlib -->
+    <Exec Command='"$(SystemRoot)\system32\regsvr32.exe" "$(MSBuildProjectDirectory)\..\build\tools\NCover\CoverLib.dll" /u /s' ContinueOnError="true"/>
+  </Target>
+</Project>

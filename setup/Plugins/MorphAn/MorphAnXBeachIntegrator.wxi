@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id='DeltaShell.Plugins.MorphAnXBeachIntegrator' Name='DeltaShell.Plugins.MorphAnXBeachIntegrator'>
+    <Component Id='MorphAnXBeachIntegratorPlugin' Guid="$(var.PLUGIN_ID)">
+      <File Id="DeltaShell.Plugins.MorphAnXBeachIntegrator.dll"
+            Name="DeltaShell.Plugins.MorphAnXBeachIntegrator.dll"
+            DiskId='1'
+            Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.MorphAnXBeachIntegrator\DeltaShell.Plugins.MorphAnXBeachIntegrator.dll' />
+    </Component>
+  </Directory>
+</Include>

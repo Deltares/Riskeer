@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Directory Id="CommonToolsDir" Name="DeltaShell.Plugins.CommonTools">
+    <Component Id="CommonToolsPlugin" Guid="A3CB04E5-2345-4976-8604-013F641A5DBD">
+      <File Id="DeltaShell.Plugins.CommonTools.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.CommonTools\DeltaShell.Plugins.CommonTools.dll" />
+    </Component>
+  </Directory>
+</Include>

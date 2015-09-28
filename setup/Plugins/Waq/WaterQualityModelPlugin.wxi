@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define waq_plugin_bin="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.WaterQualityModel\"?>
+  <Directory Id="DeltaShell.Plugins.WaterQualityModel" Name="DeltaShell.Plugins.WaterQualityModel">
+    <Component Id="WaterQualityModelPlugin" Guid="F1D6AEB0-9D12-44BD-BEAF-16341DFB84F8">
+      <File Id="DeltaShell.Plugins.DelftModels.WaterQualityModel.dll" Source="$(var.waq_plugin_bin)DeltaShell.Plugins.DelftModels.WaterQualityModel.dll" KeyPath="yes"/>
+    </Component>
+    
+    <Directory Name="waq_kernel" Id="delwaq_kernel_folder">
+      <?define waq_kernel_dir="$(var.waq_plugin_bin)\waq_kernel\"?>
+      <Directory Name="x86" Id="delwaq_x86_folder">
+        <Component Id="delwaq_x86" Guid="0AC78803-A77F-44A2-A28B-2849E5AFFEB1">
+          <File Id="x86_delwaq1.exe" Source="$(var.waq_kernel_dir)x86\delwaq1.exe" KeyPath="yes"/>
+          <File Id="x86_delwaq1_lib.dll" Source="$(var.waq_kernel_dir)x86\delwaq1_lib.dll" />
+          <File Id="x86_delwaq2.exe" Source="$(var.waq_kernel_dir)x86\delwaq2.exe" />
+          <File Id="x86_delwaq2_lib.dll" Source="$(var.waq_kernel_dir)x86\delwaq2_lib.dll" />
+          <File Id="x86_libifcoremd.dll" Source="$(var.waq_kernel_dir)x86\libifcoremd.dll" />
+          <File Id="x86_libifportmd.dll" Source="$(var.waq_kernel_dir)x86\libifportmd.dll" />
+          <File Id="x86_libiomp5md.dll" Source="$(var.waq_kernel_dir)x86\libiomp5md.dll" />
+          <File Id="x86_libmmd.dll" Source="$(var.waq_kernel_dir)x86\libmmd.dll" />
+          <File Id="x86_svml_dispmd.dll" Source="$(var.waq_kernel_dir)x86\svml_dispmd.dll" />
+          <File Id="x86_waq_plugin_wasteload.dll" Source="$(var.waq_kernel_dir)x86\waq_plugin_wasteload.dll" />
+          <File Id="x86_waq_msvcr100.dll" Source="$(var.waq_kernel_dir)x86\msvcr100.dll"/>
+        </Component>
+        <Component Id="DuflowProcessLibraryPlugin_x86" Guid="44E65CC0-1EE9-46DB-BA79-AD257FB7FD3B">
+          <File Id="x86_duflow.dll" Source="$(var.waq_kernel_dir)x86\duflow.dll" />
+        </Component>
+      </Directory>
+      
+      <Directory Name="x64" Id="delwaq_x64_folder">
+        <Component Id="delwaq_x64" Guid="75397383-7193-4FD1-83B5-4CB1DB83BC7C">
+          <File Id="x64_delwaq1.exe" Source="$(var.waq_kernel_dir)x64\delwaq1.exe" KeyPath="yes"/>
+          <File Id="x64_delwaq1_lib.dll" Source="$(var.waq_kernel_dir)x64\delwaq1_lib.dll" />
+          <File Id="x64_delwaq2.exe" Source="$(var.waq_kernel_dir)x64\delwaq2.exe" />
+          <File Id="x64_delwaq2_lib.dll" Source="$(var.waq_kernel_dir)x64\delwaq2_lib.dll" />
+          <File Id="x64_libifcoremd.dll" Source="$(var.waq_kernel_dir)x64\libifcoremd.dll" />
+          <File Id="x64_libifportmd.dll" Source="$(var.waq_kernel_dir)x64\libifportmd.dll" />
+          <File Id="x64_libiomp5md.dll" Source="$(var.waq_kernel_dir)x64\libiomp5md.dll" />
+          <File Id="x64_libmmd.dll" Source="$(var.waq_kernel_dir)x64\libmmd.dll" />
+          <File Id="x64_svml_dispmd.dll" Source="$(var.waq_kernel_dir)x64\svml_dispmd.dll" />
+          <File Id="x64_waq_plugin_wasteload.dll" Source="$(var.waq_kernel_dir)x64\waq_plugin_wasteload.dll" />
+          <File Id="x64_waq_msvcr100.dll" Source="$(var.waq_kernel_dir)x64\msvcr100.dll"/>
+        </Component>
+        <Component Id="DuflowProcessLibraryPlugin_x64" Guid="7A0AEAE4-D3F2-4BB9-BD1E-8AFC41AF56F6">
+          <File Id="x64_duflow.dll" Source="$(var.waq_kernel_dir)x64\duflow.dll" />
+        </Component>
+      </Directory>
+      
+      <Directory Id="Data" Name="Data" >
+        <Directory Id="Sobek" Name="Sobek" >
+          <Component Id="WaterQualitySobekLibrary" Guid="17DE9AE2-2A8E-4683-B013-79155533A51E">
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\02_Eutrof_simple.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\02_Eutrof_simple.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\02_Eutrof_simple.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\01_Oxygen_simple.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\01_Oxygen_simple.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\01_Oxygen_simple.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03c_Tewor+_complete.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03c_Tewor+_complete.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03c_Tewor+_complete.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03b_Tewor+_nutrients.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03b_Tewor+_nutrients.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03b_Tewor+_nutrients.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03a_Tewor+_oxygen.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03a_Tewor+_oxygen.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03a_Tewor+_oxygen.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03d_Tewor2003.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03d_Tewor2003.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03d_Tewor2003.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03e_Tewor2003b.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03e_Tewor2003b.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Sobek\03e_Tewor2003b.0" />
+          </Component>
+        </Directory>
+        
+        <Directory Id="Duflow" Name="Duflow" >
+          <Component Id="WaterQualityDuflowLibrary" Guid="F9B29CFE-B4B8-442F-A865-EE53FED914FE">
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\01_Zoutr.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\01_Zoutr.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\01_Zoutr.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\02_decay2.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\02_decay2.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\02_decay2.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\03_Zuurst.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\03_Zuurst.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\03_Zuurst.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\04_Slibst.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\04_Slibst.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\04_Slibst.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\05_Slibme.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\05_Slibme.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\05_Slibme.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\06a_Slibli.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\06a_Slibli.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\06a_Slibli.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\06b_Eutr1l.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\06b_Eutr1l.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\06b_Eutr1l.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\06c_Eutr2l.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\06c_Eutr2l.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\06c_Eutr2l.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\07_Eutr1a.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\07_Eutr1a.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\07_Eutr1a.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\08_Eutr2a.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\08_Eutr2a.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\08_Eutr2a.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\09_Put.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\09_Put.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\09_Put.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\10_Omive.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\10_Omive.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\10_Omive.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\11_Metal.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\11_Metal.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\11_Metal.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\12a_Temp.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\12a_Temp.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\12a_Temp.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\12b_Trev.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\12b_Trev.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\12b_Trev.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\13_Pcl508.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\13_Pcl508.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\13_Pcl508.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\14_fract.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\14_fract.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\14_fract.sub" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\16_PD124.0" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\16_PD124.des" />
+            <File Source="$(var.waq_kernel_dir)Data\Duflow\16_PD124.sub" />
+          </Component>
+        </Directory>
+        <Directory Name="Default" Id="Default">
+          <Component Guid="625BFC7C-1B83-43E4-BE38-FE0734C12BD5" Id="WaterQualityDefaultLibrary">
+            <File Source="$(var.waq_kernel_dir)Data\Default\bloom.spe" />
+            <File Source="$(var.waq_kernel_dir)Data\Default\bloominp.d09" />
+            <File Source="$(var.waq_kernel_dir)Data\Default\coefedit_duflow.dat" />
+            <File Source="$(var.waq_kernel_dir)Data\Default\proc_def.dat" />
+            <File Source="$(var.waq_kernel_dir)Data\Default\proc_def.def" />
+            <File Source="$(var.waq_kernel_dir)Data\Default\proc_def_duflow.dat" />
+            <File Source="$(var.waq_kernel_dir)Data\Default\proc_def_duflow.def" />
+          </Component>
+        </Directory>
+      </Directory>
+      <?undef waq_kernel_dir?>
+    </Directory>
+
+    <?include PLCT.wxi?>
+
+    <!-- TODO: DIDO is not yet included, because agrhyd is not yet ready.
+    <?include DIDO.wxi?>
+    -->
+  </Directory>
+</Include>

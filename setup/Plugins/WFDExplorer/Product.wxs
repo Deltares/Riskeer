@@ -1,0 +1,328 @@
+﻿<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+  <?define deltashell_gui_bin="$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\"?>
+  <?define ReleaseVersion="2.0.0" ?>
+  <?define ShortVersion="2.0" ?>
+  <?define ProductName="WFD-Explorer (Early Preview)" ?>
+
+  <?ifdef env.BUILD_NUMBER ?>
+    <?define FullProductVersion="$(var.ReleaseVersion).$(env.BUILD_NUMBER)" ?>
+  <?else?>
+    <?define FullProductVersion="$(var.ReleaseVersion).0" ?>
+  <?endif?>
+
+  <?define Title="WFD-Explorer (Early Preview)" ?>
+  <?define Description="Water Framework Directive Explorer for evaluation of ecological state of waterbodies" ?>
+  <?define StartPage="http://public.deltares.nl/display/KRWV" ?>
+
+  <!-- Do not change this value, unless you want to remove the possibility of the 
+         current installer to not (be able to) upgrade/patch an older installation. -->
+  <?define UpgradeCode="656199A9-C124-48D5-AB71-54E87DD7FCB1" ?>
+
+  <Product Name="$(var.ProductName) $(var.FullProductVersion)" Id="*" UpgradeCode="$(var.UpgradeCode)"
+    Language="1033" Codepage="1252" Version="$(var.FullProductVersion)" Manufacturer="Deltares">
+
+    <Package Id="*" Keywords="Installer" Description="$(var.ProductName) Installer"
+      Comments="$(var.ProductName) is a program developed by Deltares." Manufacturer="Deltares"
+      InstallerVersion="100" Languages="1033" Compressed="yes" SummaryCodepage="1252" />
+
+    <!-- The following piece of code is responsible for enabling "Mayor Upgrades".
+         It allows for patching an existing installations and incremental upgrades
+         such a going from an existing 3.1 installation to 3.2 with an incremental
+         installer.
+         This is currently commented out as this feature is not used properly nor is
+         it currently wanted. In order to allow mayor patches and mayor upgrades, the 
+         Product.UpgradeCode between installs should be identical, the Product.ID 
+         should be different and the Product.Version should be different. Next,
+         the current Product.Version should be within the range of the (previous?)
+         installation specified below, in order to recognize an upgrade. If that value
+         falls outside the area, the installations are considered completely unrelated.
+         
+         For more info, check:
+         http://blogs.technet.com/b/alexshev/archive/2008/02/15/from-msi-to-wix-part-8-major-upgrade.aspx
+         and
+         http://msdn.microsoft.com/en-us/library/aa369786(v=vs.85).aspx
+         [bouvrie]
+        
+        <Upgrade Id="$(var.UpgradeCode)">
+          <UpgradeVersion OnlyDetect="no" Property="PREVIOUSFOUND"
+            Minimum="2.0.0.0" IncludeMinimum="yes"
+            Maximum="2.99.0.0" IncludeMaximum="no" />
+        </Upgrade>
+        -->
+
+    <!-- check for dotnet version -->
+    <?include ..\..\DeltaShell\DotNetFramework4Check.wxi?>
+    <!-- check for version of operating system -->
+    <?include ..\..\DeltaShell\OSVersionCheck.wxi?>
+
+    <Property Id="INSTALLDIR">
+      <RegistrySearch Id="DeltaresDeltaShellRegistry" Type="raw"
+        Root="HKLM" Key="Software\[Manufacturer]\[ProductName]" Name="InstallDir" />
+    </Property>
+
+    <Media Id="1" Cabinet="Sample.cab" EmbedCab="yes" />
+
+    <Icon Id="icon.ico" SourceFile="Resources\WFDExplorerLogo.ico"/>
+
+    <!-- uninstall group shows specific icon-->
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+
+    <!--define a directory structure for main application and plugins -->
+    <!-- use include files to tell the installer which files should be copied to target directories -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+
+      <!-- This line should be included due to installer's payload is dependent on the 
+             Visual Studio C++ redistributable. It should always be directly under TARGETDIR.
+          
+             For more info, check:
+             http://wixtoolset.org/documentation/manual/v3/howtos/redistributables_and_install_checks/install_vcredist.html
+        -->
+      <Merge Id="VCRedis10" Language="0" SourceFile="Dependencies\microsoft_vc100_crt_x86.msm" DiskId="1" />
+      
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="DeltaresDir" Name="Deltares">
+          <Directory Id="INSTALLDIR" Name="$(var.ProductName) $(var.FullProductVersion)">
+            <Directory Id="BINDIR" Name="bin">
+              <Component Id="MainExecutable" Guid="87AB923F-0F37-406F-9A6E-080A176D4056">
+
+                <File Id="logo" Name="WFDExplorerSplashScreen.png" DiskId='1' Source='Resources\WFDExplorerSplashScreen.png' />
+                <File Id="License.rtf" Name="License.rtf" DiskId="1" Source="License.rtf"/>
+                <File Id="WindowLayout_normal.xml" Name="WindowLayout_normal.xml" DiskId="1" Source="WindowLayout_normal.xml"/>
+
+                <util:XmlFile Id="SetKey1"
+                    Action="setValue"
+                    ElementPath="/configuration/appSettings/add[\[]@key=&quot;startPageUrl&quot;[\]]/@value"
+                    File="[#DeltaShell.Gui.exe.config]"
+                    Value="$(var.StartPage)"/>
+
+                <util:XmlFile Id="SetKey2"
+                    Action="setValue"
+                    ElementPath="/configuration/appSettings/add[\[]@key=&quot;mainWindowTitle&quot;[\]]/@value"
+                    File="[#DeltaShell.Gui.exe.config]"
+                    Value="$(var.Title)"/>
+
+                <util:XmlFile Id="SetKey3"
+                    Action="setValue"
+                    ElementPath="/configuration/appSettings/add[\[]@key=&quot;splashScreenLogoImageFilePath&quot;[\]]/@value"
+                    File="[#DeltaShell.Gui.exe.config]"
+                    Value="WFDExplorerSplashScreen.png"/>
+
+                <util:XmlFile Id="SetKey4"
+                    Action="setValue"
+                    ElementPath="/configuration/appSettings/add[\[]@key=&quot;applicationName&quot;[\]]/@value"
+                    File="[#DeltaShell.Gui.exe.config]"
+                    Value="$(var.ProductName)"/>
+
+                <util:XmlFile Id="SetKey5"
+                    Action="setValue"
+                    ElementPath="/configuration/appSettings/add[\[]@key=&quot;applicationVersion&quot;[\]]/@value"
+                    File="[#DeltaShell.Gui.exe.config]"
+                    Value="$(var.FullProductVersion)"/>
+
+                <util:XmlFile Id="SetKey6"
+                    Action="setValue"
+                    ElementPath="/configuration/appSettings/add[\[]@key=&quot;fullVersion&quot;[\]]/@value"
+                    File="[#DeltaShell.Gui.exe.config]"
+                    Value="$(var.FullProductVersion)"/>
+               
+                <util:XmlFile Id="SetKey7"
+                    Action="setValue"
+                    ElementPath="/configuration/appSettings/add[\[]@key=&quot;shortVersion&quot;[\]]/@value"
+                    File="[#DeltaShell.Gui.exe.config]"
+                    Value="$(var.ShortVersion)"/>
+
+                <util:XmlFile Id="SetKey8"
+                    Action="setValue"
+                    ElementPath="/configuration/appSettings/add[\[]@key=&quot;supportEmail&quot;[\]]/@value"
+                    File="[#DeltaShell.Gui.exe.config]"
+                    Value="krw-verkenner@deltares.nl"/>
+
+                <util:XmlFile Id="SetKey9"
+                    Action="setValue"
+                    ElementPath="/configuration/appSettings/add[\[]@key=&quot;supportPhone&quot;[\]]/@value"
+                    File="[#DeltaShell.Gui.exe.config]"
+                    Value="+31 (0)88 335 7858"/>
+
+                <util:XmlFile Id="SetKey10"
+                    Action="setValue"
+                    ElementPath="/configuration/appSettings/add[\[]@key=&quot;copyright&quot;[\]]/@value"
+                    File="[#DeltaShell.Gui.exe.config]"
+                    Value="© Deltares 2005-2013"/>
+
+                <util:XmlFile Id="SetKey11"
+                    Action="setValue"
+                    ElementPath="/configuration/log4net/root/level/@value"
+                    File="[#DeltaShell.Gui.exe.config]"
+                    Value="INFO"/>
+
+                <?include ..\..\DeltaShell\MainExecutableFiles.wxi?>
+				
+              </Component>
+			  
+			  <?include ..\..\DeltaShell\NetCdf.wxi?>
+			  
+              <!-- ! Put files/executables targeted by shortcuts in separate component ! -->
+              <Component Id="DeltaShellExeAndStartMenuShortcut" Guid="*">
+                <File Id='DeltaShellEXE' Name='DeltaShell.Gui.exe' DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\$(var.Configuration)\DeltaShell.Gui.exe' KeyPath='yes'>
+                  <Shortcut Id="startmenuDeltaShell" Directory="ProgramMenuDir" Name="$(var.ProductName) $(var.FullProductVersion)" WorkingDirectory='BINDIR' Icon="icon.ico" IconIndex="0" Advertise="yes" />
+                  <Shortcut Id="desktopDeltaShell" Directory="DesktopFolder" Name="$(var.ProductName) $(var.FullProductVersion)" WorkingDirectory='BINDIR' Icon="icon.ico" IconIndex="0" Advertise="yes" />
+                </File>
+              </Component>
+
+              <Directory Id='MainExecutableResourcesNL' Name='nl-NL'>
+                <Component Id='MainExecutableResourcesNL' Guid='C9BF46C5-93A7-4C79-8825-CA1FE7EB1BF6'>
+                  <File Id="nl.DeltaShell.Gui.resource.dll" Name="DeltaShell.Gui.resources.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\$(var.Configuration)\nl-NL\DeltaShell.Gui.resources.dll' />
+                </Component>
+              </Directory>
+              
+            </Directory>
+
+            <Directory Id="PluginsFolder" Name="plugins">
+              <!-- pass guid as variable to include project-->
+
+              <?define PLUGIN_ID = "A507862C-AEC6-403B-AACA-FD1B3FC06CCB"?>
+              <?include ..\..\DeltaShell\Plugins\CommonToolsPlugin.wxi?>
+              <?undef PLUGIN_ID ?>
+
+              <?define PLUGIN_ID = "AC7D260A-3219-4C59-B1C5-2C41C880F968"?>
+              <?include ..\..\DeltaShell\Plugins\CommonToolsGuiPlugin.wxi?>
+              <?undef PLUGIN_ID ?>
+
+              <?define PLUGIN_ID = "D4A29B3C-ED33-401F-9EDC-4A4D246DF354"?>
+              <?include ..\..\DeltaShell\Plugins\NHibernatePlugin.wxi?>
+              <?undef PLUGIN_ID ?>
+
+              <?define PLUGIN_ID ="9277E9C1-DD61-44C1-90E8-E4915E272A6A" ?>
+              <?include ..\..\DeltaShell\Plugins\SharpMapGisPlugin.wxi?>
+              <?undef PLUGIN_ID ?>
+
+              <?define PLUGIN_ID ="F605D7F6-21CD-476C-B669-EAA0C3C74942" ?>
+              <?include ..\..\DeltaShell\Plugins\SharpMapGisGuiPlugin.wxi?>
+              <?undef PLUGIN_ID ?>
+              
+              <?define PLUGIN_ID ="865F1C12-BAF5-4B58-8B9E-BE6823E49BA1" ?>
+              <?include NetworkEditorPlugin.wxi?>
+              <?undef PLUGIN_ID ?>
+
+              <?define PLUGIN_ID = "776E9260-6C7C-4CB4-B5B6-4E9898D5CF72"?>
+              <?include ..\..\DeltaShell\Plugins\ProjectExplorerPlugin.wxi?>
+              <?undef PLUGIN_ID ?>
+
+              <?define PLUGIN_ID ="B3B391B8-F8EA-49AD-BA2D-6772BF94337E" ?>
+              <?include WFDExplorerPlugin.wxi?>
+              <?undef PLUGIN_ID ?>
+            </Directory>
+
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Component Id="UninstallShortcutComponent" Guid="D13F5768-E651-4A88-9B85-1A34B1613770">
+        <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\[ProductCode]" Name="installedUninstallerShortcut" Type="integer" Value="1" KeyPath="yes" />
+        <Shortcut Id="UninstallProduct"
+                            Name="Uninstall $(var.ProductName)"
+                            Target="[System64Folder]msiexec.exe"
+                            Arguments="/x [ProductCode]"
+                            Directory="ProgramMenuDir"
+                            Description="Uninstalls My Application"                   />
+      </Component>
+
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramGroupMenuDir" Name="Deltares">
+
+          <Component Id="ProgramGroupMenuDir" Guid="FBB47EDB-0D67-440A-8219-E7133997B3DB">
+            <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\[ProductCode]" Name="installedFolder0" Type="integer" Value="1" KeyPath="yes" />
+            <RemoveFolder Id="ProgramGroupMenuDir" On="uninstall" />
+          </Component>
+
+          <Directory Id="ProgramMenuDir" Name="$(var.ProductName) $(var.FullProductVersion)">
+            <Component Id="ProgramMenuDir" Guid="B345FF89-F4C4-4C62-B312-3F14952A6916">
+              <RemoveFolder Id="ProgramMenuDir" On="uninstall" />
+              <RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]\[ProductCode]" Name="installedFolder1" Type="integer" Value="1" KeyPath="yes" />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+
+    <Feature Id="Complete" Title="$(var.Title)" Description="The complete package."
+             Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
+      
+      <Feature Id="DeltaShell" Title="Delta Shell" Description="Framework for plugins" Level="1" Absent="disallow" AllowAdvertise="no">
+        <MergeRef Id="VCRedis10"/>
+        <ComponentRef Id="MainExecutable" />
+        <ComponentRef Id='DeltaShellExeAndStartMenuShortcut'/>
+        <ComponentRef Id='MainExecutableResourcesNL' />
+        <ComponentRef Id="ProgramGroupMenuDir"/>
+        <ComponentRef Id="ProgramMenuDir" />
+		<ComponentRef Id="comp_netcdf_x86" />
+        <ComponentRef Id="UninstallShortcutComponent" />
+      </Feature>
+
+      <Feature Id="DeltaShellPlugins" Title="Common Plugins" Description="Common plugins for Delta Shell framework" Level="1" Absent="disallow" AllowAdvertise="no" Display="hidden">
+        <ComponentRef Id="CommonToolsPlugin" />
+        <ComponentRef Id="CommonToolsGuiPlugin" />
+        <ComponentRef Id="NHibernatePlugin" />
+		<ComponentRef Id="comp_sqlite_x86" />
+        <ComponentRef Id="ProjectExplorerPlugin"/>
+        <ComponentRef Id="ProjectExplorerPluginResourcesNL"/>
+        <ComponentRef Id="ProjectExplorerPluginResourcesRU"/>
+        <ComponentRef Id="SharpMapGisPlugin"/>
+        <ComponentRef Id="SharpMapGisGuiPlugin"/>
+      </Feature>
+
+      <Feature Id="WFDExplorer" Title="$(var.Title)" Description ="$(var.Description)" Level="3" Absent="disallow" AllowAdvertise="no">
+        <ComponentRef Id="NetworkEditorPlugin"/>
+        <ComponentRef Id="WFDExplorerPlugin"/>
+        <ComponentRef Id="WFDExplorerPluginDataCheck"/>
+        <ComponentRef Id="WFDExplorerPluginEEE3"/>
+        <ComponentRef Id="WFDExplorerPluginEEE4"/>
+        <ComponentRef Id="WFDExplorerPluginPUNN1"/>
+        <ComponentRef Id="WFDExplorerPluginPUNN3"/>
+        <ComponentRef Id="WFDExplorerPluginWaterFlowModel0D"/>
+        <ComponentRef Id="WFDExplorerPluginWaterQualityModel0D"/>
+        <ComponentRef Id="WFDExplorerPluginDOSBox"/>
+        <ComponentRef Id="WFDExplorerPluginQBWat"/>
+        <ComponentRef Id="WFDExplorerPluginQBWat4"/>
+        <ComponentRef Id="WFDExplorerPluginQBWat5"/>
+        <ComponentRef Id="WFDExplorerPluginResourcesNL"/>
+        <ComponentRef Id="WFDExplorerPluginDemoFiles"/>
+        <ComponentRef Id="WFDExplorerPluginDemoFilesExtended"/>
+        <ComponentRef Id="WFDExplorerPluginDemoFilesEcotopes"/>
+      </Feature>
+
+    </Feature>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" ></Property>
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+    
+    <!--Note that jpg and png in setup is visible on Windows7, but not on XP and Vista-->
+    <WixVariable Id="WixUIBannerBmp" Value="Resources/WFDExplorerSetupBanner.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="Resources/WFDExplorerSetupStart.bmp" />
+    
+    <WixVariable Id="WixUICostingPopupOptOut" Value="dummy" />
+
+    <UIRef Id="WFDExplorer_WixUI_Deltares" />
+    <UI>
+      <TextStyle Id="White8" FaceName="Tahoma" Bold="yes" Size="16" Red="0" Green="0" Blue="0"  />
+
+      <!-- These dialog references are needed for CloseApplication above to work correctly -->
+
+      <DialogRef Id="FilesInUseDeltares" />
+      <DialogRef Id="MsiRMFilesInUseDeltares" />
+
+    </UI>
+
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <InstallExecuteSequence>
+      <AppSearch Sequence="1"></AppSearch>
+      <LaunchConditions After="AppSearch" />
+      <!--RemoveExistingProducts After="InstallValidate"><![CDATA[PREVIOUSVERSIONSINSTALLED]]></RemoveExistingProducts-->
+      <RemoveExistingProducts Before="InstallInitialize"/>
+    </InstallExecuteSequence>
+
+  </Product>
+</Wix>

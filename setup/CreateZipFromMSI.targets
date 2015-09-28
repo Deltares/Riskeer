@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- 
+  for this to work include the following statement at top of .wixproj-file:
+
+  <UsingTask TaskName="Zip" AssemblyFile="$(MSBuildProjectDirectory)\..\..\..\build\tools\MSBuild.Community.Tasks.dll" />
+
+  Install MSI into temporary folder, create zip-file from contents of that folder, and uninstall MSI again.
+
+  -->
+  <UsingTask TaskName="Zip" AssemblyFile="$(MSBuildProjectDirectory)\..\..\..\build\tools\MSBuild.Community.Tasks.dll" />
+  <Target Name="AfterBuild">
+    <RemoveDir Directories="$(OutputPath)\en-us\install"/>
+    <MakeDir Directories="$(OutputPath)\en-us\install"/>
+
+    <!-- install MSI -->
+    <Message Text="Installing MSI in the local directory ..." Importance="high"/>
+    <Exec Command="msiexec /l* install.log /norestart /quiet ADDLOCAL=ALL INSTALLDIR=&quot;$(MSBuildProjectDirectory)\$(OutputPath)\en-us\install\$(OutputName)&quot; /i &quot;$(OutputName).msi&quot;" WorkingDirectory="$(MSBuildProjectDirectory)\$(OutputPath)\en-us" />
+
+    <!-- zip -->
+    <CreateItem Include="$(MSBuildProjectDirectory)\$(OutputPath)\en-us\install\**\*.*">
+      <Output TaskParameter="Include" ItemName="InstallationFiles"/>
+    </CreateItem>
+
+    <Zip Files="@(InstallationFiles)" WorkingDirectory="$(MSBuildProjectDirectory)\$(OutputPath)\en-us\install" ZipFileName="$(MSBuildProjectDirectory)\$(OutputPath)\en-us\$(OutputName).zip" ContinueOnError="false" />
+
+    <!-- uninstall MSI -->
+    <Message Text="Uninstalling MSI from the local directory ..." Importance="high"/>
+    <Exec Command="msiexec /l* uninstall.log /norestart /quiet INSTALLDIR=&quot;$(MSBuildProjectDirectory)\$(OutputPath)\en-us\install\$(OutputName)&quot; /x &quot;$(OutputName).msi&quot;" WorkingDirectory="$(MSBuildProjectDirectory)\$(OutputPath)\en-us" />
+
+    <RemoveDir Directories="$(OutputPath)\en-us\install"/>
+  </Target>
+</Project>

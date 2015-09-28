@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+	<Directory Id="dir_netcdf_x86" Name="x86">
+		<Component Id="comp_netcdf_x86" Guid="12F7B3A9-2D45-4263-906C-3B83941927BE">
+			<File Id="file_netcdf_x86" Source="$(var.deltashell_gui_bin)$(var.Configuration)\x86\netcdf-4.3.dll" />
+		</Component>
+	</Directory>
+	
+	<?ifdef IncludeX64 ?>
+		<Directory Id="dir_netcdf_x64" Name="x64">
+			<Component Id="comp_netcdf_x64" Guid="22F7B3A9-2D45-4263-906C-3B83941927BA">
+				<File Id="file_netcdf_x64" Source="$(var.deltashell_gui_bin)$(var.Configuration)\x64\netcdf-4.3.dll" />
+			</Component>
+		</Directory>	
+	<?endif?>
+</Include>

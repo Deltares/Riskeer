@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FxCopProject Version="10.0" Name="DeltaShell">
+ <ProjectOptions>
+  <SharedProject>True</SharedProject>
+  <Stylesheet Apply="False">$(FxCopDir)\Xml\FxCopReport.xsl</Stylesheet>
+  <SaveMessages>
+   <Project Status="Active, Excluded" NewOnly="False" />
+   <Report Status="Active" NewOnly="False" />
+  </SaveMessages>
+  <ProjectFile Compress="True" DefaultTargetCheck="True" DefaultRuleCheck="True" SaveByRuleGroup="" Deterministic="True" />
+  <EnableMultithreadedLoad>True</EnableMultithreadedLoad>
+  <EnableMultithreadedAnalysis>True</EnableMultithreadedAnalysis>
+  <SourceLookup>True</SourceLookup>
+  <AnalysisExceptionsThreshold>10</AnalysisExceptionsThreshold>
+  <RuleExceptionsThreshold>1</RuleExceptionsThreshold>
+  <Spelling Locale="en-GB" />
+  <OverrideRuleVisibilities>False</OverrideRuleVisibilities>
+  <CustomDictionaries SearchFxCopDir="True" SearchUserProfile="True" SearchProjectDir="True" />
+  <SearchGlobalAssemblyCache>True</SearchGlobalAssemblyCache>
+  <DeadlockDetectionTimeout>120</DeadlockDetectionTimeout>
+  <IgnoreGeneratedCode>True</IgnoreGeneratedCode>
+  <TargetFrameworkVersion>3.5</TargetFrameworkVersion>
+ </ProjectOptions>
+ <Targets>
+  <AssemblyReferenceDirectories>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Gui/bin/Release/</Directory>
+   <Directory>$(ProjectDir)/../src/Plugins/DelftModels/DelftModelServer/bin/Release/</Directory>
+   <Directory>$(ProjectDir)/../src/Common/GeoAPI/bin/Release/</Directory>
+   <Directory>$(ProjectDir)/../src/Common/GeoAPI.Extensions/bin/Release/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.Toolbox/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.SharpMapGis/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.Series/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.Scripting/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.ProjectExplorer/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.OpenMI2/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.OpenMI/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.OpenDA/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.NetCDF/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.Fews/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.DelftModels.WaterQualityModel/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.DelftModels.WaterFlowModel/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.DelftModels.RealTimeControl/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.DelftModels.RainfallRunoff/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.Data.Xml/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.Data.NHibernate/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.CommonTools/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/WFDExplorer.EcologyKnowledgeBase.QBWAT/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.WFDExplorer/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.MorphAn/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/plugins/DeltaShell.Plugins.Habitat/</Directory>
+   <Directory>$(ProjectDir)/../src/DeltaShell/DeltaShell.Loader/bin/Release/</Directory>
+   <Directory>$(ProjectDir)/../src/Plugins/WFDExplorer/WFDExplorer.EcologyKnowledgeBase/bin/Release/</Directory>
+   <Directory>$(ProjectDir)/../src/Plugins/MorphAn/DeltaShell.Plugins.MorphAn/bin/Release/</Directory>
+   <Directory>$(ProjectDir)/../src/Plugins/Habitat/DeltaShell.Plugins.Habitat/bin/Release/</Directory>
+   <Directory>$(ProjectDir)/../src/Common/NetTopologySuite/bin/Release/</Directory>
+  </AssemblyReferenceDirectories>
+  <Target Name="$(ProjectDir)/../src/Common/DelftTools.Controls.Swf/bin/Release/DelftTools.Controls.Swf.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Common/DelftTools.Controls/bin/Release/DelftTools.Controls.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Common/DelftTools.Functions/bin/Release/DelftTools.Functions.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Common/DelftTools.Hydro/bin/Release/DelftTools.Hydro.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Common/DelftTools.Shell.Core/bin/Release/DelftTools.Shell.Core.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Common/DelftTools.Shell.Gui.Swf/bin/Release/DelftTools.Shell.Gui.Swf.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Common/DelftTools.Shell.Gui/bin/Release/DelftTools.Shell.Gui.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Common/DelftTools.Units/bin/Release/DelftTools.Units.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Common/DelftTools.Utils/bin/Release/DelftTools.Utils.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/DeltaShell/DeltaShell.Core/bin/Release/DeltaShell.Core.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/DeltaShell/DeltaShell.Gui/bin/Release/DeltaShell.Gui.exe" Analyze="True" AnalyzeAllChildren="True" />  <Target Name="$(ProjectDir)/../src/DeltaShell/DeltaShell.Plugins.CommonTools/bin/Release/DeltaShell.Plugins.CommonTools.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/DeltaShell/DeltaShell.Plugins.Data.NHibernate/bin/Release/DeltaShell.Plugins.Data.NHibernate.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/DeltaShell/DeltaShell.Plugins.NetCDF/bin/Release/DeltaShell.Plugins.NetCDF.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/DeltaShell/DeltaShell.Plugins.ProjectExplorer/bin/Release/DeltaShell.Plugins.ProjectExplorer.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/DeltaShell/DeltaShell.Plugins.Scripting/bin/Release/DeltaShell.Plugins.Scripting.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/DeltaShell/DeltaShell.Plugins.Series/bin/Release/DeltaShell.Plugins.Series.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/DeltaShell/DeltaShell.Plugins.SharpMapGis/bin/Release/DeltaShell.Plugins.SharpMapGis.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/DeltaShell/DeltaShell.Plugins.UdUnits/bin/Release/DeltaShell.Plugins.UdUnits.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/DataAnalysis/DeltaShell.Plugins.DataAnalysis/bin/Release/DeltaShell.Plugins.DataAnalysis.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/DataAnalysis/DeltaShell.Plugins.TeworAnalysis/bin/Release/DeltaShell.Plugins.TeworAnalysis.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/DelftModels/DeltaShell.Plugins.DelftModels.HydroModel/bin/Release/DeltaShell.Plugins.DelftModels.HydroModel.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/DelftModels/DeltaShell.Plugins.DelftModels.RainfallRunoff/bin/Release/DeltaShell.Plugins.DelftModels.RainfallRunoff.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/DelftModels/DeltaShell.Plugins.DelftModels.RealTimeControl/bin/Release/DeltaShell.Plugins.DelftModels.RealTimeControl.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/DelftModels/DeltaShell.Plugins.DelftModels.WaterFlowModel/bin/Release/DeltaShell.Plugins.DelftModels.WaterFlowModel.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/DelftModels/DeltaShell.Plugins.DelftModels.WaterQualityModel/bin/Release/DeltaShell.Plugins.DelftModels.WaterQualityModel.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/DelftModels/DeltaShell.Plugins.ImportExport.Sobek/bin/Release/DeltaShell.Plugins.ImportExport.Sobek.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/DelftModels/DeltaShell.Sobek.Readers/bin/Release/DeltaShell.Sobek.Readers.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/DelftModels/RainfallRunoffModelEngine/bin/Release/RainfallRunoffModelEngine.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/Fews/DeltaShell.Plugins.Fews/bin/Release/DeltaShell.Plugins.Fews.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/NetworkEditor/DeltaShell.Plugins.NetworkEditor/bin/Release/DeltaShell.Plugins.NetworkEditor.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/OpenDA/DeltaShell.Plugins.OpenDA/bin/Release/DeltaShell.Plugins.OpenDA.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/OpenMI/DeltaShell.Plugins.OpenMI/bin/Release/DeltaShell.Plugins.OpenMI.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/OpenMI2/DelftTools.OpenMI2/bin/Release/DelftTools.OpenMI2.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/WFDExplorer/DeltaShell.Plugins.WFDExplorer/bin/Release/DeltaShell.Plugins.WFDExplorer.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/WFDExplorer/DeltaShell.Plugins.WFDExplorer/bin/Release/WFDExplorer.EcologyKnowledgeBase.DecisionTrees.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/WFDExplorer/DeltaShell.Plugins.WFDExplorer/bin/Release/WFDExplorer.EcologyKnowledgeBase.dll" Analyze="True" AnalyzeAllChildren="True" />
+  <Target Name="$(ProjectDir)/../src/Plugins/WFDExplorer/DeltaShell.Plugins.WFDExplorer/bin/Release/WFDExplorer.EcologyKnowledgeBase.QBWAT.dll" Analyze="True" AnalyzeAllChildren="True" />
+ </Targets>
+ <Rules>
+  <RuleFiles>
+   <RuleFile Name="$(FxCopDir)\Rules\DesignRules.dll" Enabled="True" AllRulesEnabled="False">
+    <Rule Name="AbstractTypesShouldNotHaveConstructors" Enabled="True" />
+    <Rule Name="AvoidEmptyInterfaces" Enabled="True" />
+    <Rule Name="AvoidExcessiveParametersOnGenericTypes" Enabled="True" />
+    <Rule Name="AvoidNamespacesWithFewTypes" Enabled="True" />
+    <Rule Name="AvoidOutParameters" Enabled="True" />
+    <Rule Name="CollectionsShouldImplementGenericInterface" Enabled="True" />
+    <Rule Name="ConsiderPassingBaseTypesAsParameters" Enabled="True" />
+    <Rule Name="DeclareEventHandlersCorrectly" Enabled="True" />
+    <Rule Name="DeclareTypesInNamespaces" Enabled="True" />
+    <Rule Name="DefaultParametersShouldNotBeUsed" Enabled="True" />
+    <Rule Name="DefineAccessorsForAttributeArguments" Enabled="True" />
+    <Rule Name="DoNotCatchGeneralExceptionTypes" Enabled="True" />
+    <Rule Name="DoNotDeclareProtectedMembersInSealedTypes" Enabled="True" />
+    <Rule Name="DoNotDeclareStaticMembersOnGenericTypes" Enabled="True" />
+    <Rule Name="DoNotDeclareVirtualMembersInSealedTypes" Enabled="True" />
+    <Rule Name="DoNotDeclareVisibleInstanceFields" Enabled="True" />
+    <Rule Name="DoNotExposeGenericLists" Enabled="True" />
+    <Rule Name="DoNotHideBaseClassMethods" Enabled="True" />
+    <Rule Name="DoNotNestGenericTypesInMemberSignatures" Enabled="True" />
+    <Rule Name="DoNotOverloadOperatorEqualsOnReferenceTypes" Enabled="True" />
+    <Rule Name="DoNotPassTypesByReference" Enabled="True" />
+    <Rule Name="EnumeratorsShouldBeStronglyTyped" Enabled="True" />
+    <Rule Name="EnumsShouldHaveZeroValue" Enabled="True" />
+    <Rule Name="EnumStorageShouldBeInt32" Enabled="True" />
+    <Rule Name="ExceptionsShouldBePublic" Enabled="True" />
+    <Rule Name="GenericMethodsShouldProvideTypeParameter" Enabled="True" />
+    <Rule Name="ICollectionImplementationsHaveStronglyTypedMembers" Enabled="True" />
+    <Rule Name="ImplementIDisposableCorrectly" Enabled="True" />
+    <Rule Name="ImplementStandardExceptionConstructors" Enabled="True" />
+    <Rule Name="IndexersShouldNotBeMultidimensional" Enabled="True" />
+    <Rule Name="InterfaceMethodsShouldBeCallableByChildTypes" Enabled="True" />
+    <Rule Name="ListsAreStronglyTyped" Enabled="True" />
+    <Rule Name="MarkAssembliesWithAssemblyVersion" Enabled="True" />
+    <Rule Name="MarkAssembliesWithClsCompliant" Enabled="True" />
+    <Rule Name="MarkAssembliesWithComVisible" Enabled="True" />
+    <Rule Name="MarkAttributesWithAttributeUsage" Enabled="True" />
+    <Rule Name="MarkEnumsWithFlags" Enabled="True" />
+    <Rule Name="MembersShouldNotExposeCertainConcreteTypes" Enabled="True" />
+    <Rule Name="MovePInvokesToNativeMethodsClass" Enabled="True" />
+    <Rule Name="NestedTypesShouldNotBeVisible" Enabled="True" />
+    <Rule Name="OverloadOperatorEqualsOnOverloadingAddAndSubtract" Enabled="True" />
+    <Rule Name="OverrideMethodsOnComparableTypes" Enabled="True" />
+    <Rule Name="PropertiesShouldNotBeWriteOnly" Enabled="True" />
+    <Rule Name="ProvideObsoleteAttributeMessage" Enabled="True" />
+    <Rule Name="ReplaceRepetitiveArgumentsWithParamsArray" Enabled="True" />
+    <Rule Name="StaticHolderTypesShouldBeSealed" Enabled="True" />
+    <Rule Name="StaticHolderTypesShouldNotHaveConstructors" Enabled="True" />
+    <Rule Name="StringUriOverloadsCallSystemUriOverloads" Enabled="True" />
+    <Rule Name="TypesShouldNotExtendCertainBaseTypes" Enabled="True" />
+    <Rule Name="TypesThatOwnDisposableFieldsShouldBeDisposable" Enabled="True" />
+    <Rule Name="TypesThatOwnNativeResourcesShouldBeDisposable" Enabled="True" />
+    <Rule Name="UriParametersShouldNotBeStrings" Enabled="True" />
+    <Rule Name="UriPropertiesShouldNotBeStrings" Enabled="True" />
+    <Rule Name="UriReturnValuesShouldNotBeStrings" Enabled="True" />
+    <Rule Name="UseEventsWhereAppropriate" Enabled="True" />
+    <Rule Name="UseGenericEventHandlerInstances" Enabled="True" />
+    <Rule Name="UseGenericsWhereAppropriate" Enabled="True" />
+    <Rule Name="UseIntegralOrStringArgumentForIndexers" Enabled="True" />
+    <Rule Name="UsePropertiesWhereAppropriate" Enabled="True" />
+   </RuleFile>
+   <RuleFile Name="$(FxCopDir)\Rules\GlobalizationRules.dll" Enabled="True" AllRulesEnabled="False">
+    <Rule Name="NormalizeStringsToUppercase" Enabled="True" />
+    <Rule Name="SetLocaleForDataTypes" Enabled="True" />
+    <Rule Name="SpecifyCultureInfo" Enabled="True" />
+    <Rule Name="SpecifyIFormatProvider" Enabled="True" />
+    <Rule Name="SpecifyMarshalingForPInvokeStringArguments" Enabled="True" />
+    <Rule Name="SpecifyStringComparison" Enabled="True" />
+    <Rule Name="UseOrdinalStringComparison" Enabled="True" />
+   </RuleFile>
+   <RuleFile Name="$(FxCopDir)\Rules\InteroperabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\MobilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\NamingRules.dll" Enabled="True" AllRulesEnabled="False">
+    <Rule Name="DoNotNameEnumValuesReserved" Enabled="True" />
+    <Rule Name="DoNotPrefixEnumValuesWithTypeName" Enabled="True" />
+    <Rule Name="EventsShouldNotHaveBeforeOrAfterPrefix" Enabled="True" />
+    <Rule Name="FlagsEnumsShouldHavePluralNames" Enabled="True" />
+    <Rule Name="IdentifiersShouldDifferByMoreThanCase" Enabled="True" />
+    <Rule Name="IdentifiersShouldHaveCorrectPrefix" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotContainTypeNames" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotHaveIncorrectPrefix" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotHaveIncorrectSuffix" Enabled="True" />
+    <Rule Name="IdentifiersShouldNotMatchKeywords" Enabled="True" />
+    <Rule Name="OnlyFlagsEnumsShouldHavePluralNames" Enabled="True" />
+    <Rule Name="ParameterNamesShouldMatchBaseDeclaration" Enabled="True" />
+    <Rule Name="ParameterNamesShouldNotMatchMemberNames" Enabled="True" />
+    <Rule Name="PropertyNamesShouldNotMatchGetMethods" Enabled="True" />
+    <Rule Name="ResourceStringsShouldBeSpelledCorrectly" Enabled="True" />
+    <Rule Name="TypeNamesShouldNotMatchNamespaces" Enabled="True" />
+   </RuleFile>
+   <RuleFile Name="$(FxCopDir)\Rules\PerformanceRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\PortabilityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\SecurityTransparencyRules.dll" Enabled="True" AllRulesEnabled="True" />
+   <RuleFile Name="$(FxCopDir)\Rules\UsageRules.dll" Enabled="True" AllRulesEnabled="False">
+    <Rule Name="CallBaseClassMethodsOnISerializableTypes" Enabled="True" />
+    <Rule Name="CallGCSuppressFinalizeCorrectly" Enabled="True" />
+    <Rule Name="CollectionPropertiesShouldBeReadOnly" Enabled="True" />
+    <Rule Name="DisposableFieldsShouldBeDisposed" Enabled="True" />
+    <Rule Name="DisposableTypesShouldDeclareFinalizer" Enabled="True" />
+    <Rule Name="DoNotCallOverridableMethodsInConstructors" Enabled="True" />
+    <Rule Name="DoNotDecreaseInheritedMemberVisibility" Enabled="True" />
+    <Rule Name="DoNotIgnoreMethodResults" Enabled="True" />
+    <Rule Name="DoNotMarkEnumsWithFlags" Enabled="True" />
+    <Rule Name="DoNotMarkServicedComponentsWithWebMethod" Enabled="True" />
+    <Rule Name="DoNotRaiseExceptionsInExceptionClauses" Enabled="True" />
+    <Rule Name="DoNotRaiseReservedExceptionTypes" Enabled="True" />
+    <Rule Name="DoNotShipUnreleasedResourceFormats" Enabled="True" />
+    <Rule Name="FinalizersShouldBeProtected" Enabled="True" />
+    <Rule Name="FinalizersShouldCallBaseClassFinalizer" Enabled="True" />
+    <Rule Name="ImplementISerializableCorrectly" Enabled="True" />
+    <Rule Name="ImplementSerializationConstructors" Enabled="True" />
+    <Rule Name="ImplementSerializationMethodsCorrectly" Enabled="True" />
+    <Rule Name="InitializeValueTypeStaticFieldsInline" Enabled="True" />
+    <Rule Name="InstantiateArgumentExceptionsCorrectly" Enabled="True" />
+    <Rule Name="MarkAllNonSerializableFields" Enabled="True" />
+    <Rule Name="MarkISerializableTypesWithSerializable" Enabled="True" />
+    <Rule Name="MarkWindowsFormsEntryPointsWithStaThread" Enabled="True" />
+    <Rule Name="MembersShouldDifferByMoreThanReturnType" Enabled="True" />
+    <Rule Name="NonConstantFieldsShouldNotBeVisible" Enabled="True" />
+    <Rule Name="OperationsShouldNotOverflow" Enabled="True" />
+    <Rule Name="OperatorOverloadsHaveNamedAlternates" Enabled="True" />
+    <Rule Name="OperatorsShouldHaveSymmetricalOverloads" Enabled="True" />
+    <Rule Name="OverloadOperatorEqualsOnOverridingValueTypeEquals" Enabled="True" />
+    <Rule Name="OverrideEqualsOnOverloadingOperatorEquals" Enabled="True" />
+    <Rule Name="OverrideGetHashCodeOnOverridingEquals" Enabled="True" />
+    <Rule Name="PassSystemUriObjectsInsteadOfStrings" Enabled="True" />
+    <Rule Name="ProvideDeserializationMethodsForOptionalFields" Enabled="True" />
+    <Rule Name="RethrowToPreserveStackDetails" Enabled="True" />
+    <Rule Name="ReviewUnusedParameters" Enabled="True" />
+    <Rule Name="TestForNaNCorrectly" Enabled="True" />
+    <Rule Name="UseManagedEquivalentsOfWin32Api" Enabled="True" />
+    <Rule Name="UseParamsForVariableArguments" Enabled="True" />
+   </RuleFile>
+  </RuleFiles>
+  <Groups />
+  <Settings />
+ </Rules>
+ <FxCopReport Version="10.0" />
+</FxCopProject>

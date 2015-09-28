@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="DeltaShell.Plugins.ProjectExplorer.Ribbon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:resx="clr-namespace:DeltaShell.Plugins.ProjectExplorer.Properties"
+             xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
+             mc:Ignorable="d" Width="686.4" Height="168" Background="White">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml"/>
+    </UserControl.Resources>
+    <fluent:Ribbon Name="RibbonControl" x:FieldModifier="private">
+        <fluent:RibbonTabItem Header="{x:Static resx:Resources.Ribbon_TabItem_View}" fluent:KeyTip.Keys="V" >
+            <fluent:RibbonGroupBox Header="{x:Static resx:Resources.Ribbon_GroupBox_ShowHide}" fluent:KeyTip.Keys="ZS">
+                <fluent:ToggleButton x:Name="ButtonShowProjectExplorerToolWindow" Header="{x:Static resx:Resources.Ribbon_ProjectExplorer}" Icon="/DeltaShell.Plugins.ProjectExplorer;component\Resources\folder_wrench.png" SizeDefinition="Middle" Click="ButtonShowProjectExplorerToolWindowClick" fluent:KeyTip.Keys="P" />
+            </fluent:RibbonGroupBox>
+        </fluent:RibbonTabItem>
+    </fluent:Ribbon>
+</UserControl>

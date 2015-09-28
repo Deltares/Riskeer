@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  
+  <?include Manuals\SobekManuals.wxi?>
+  <?include ..\Waq\Manuals\WaqManuals.wxi?>
+  <?include ..\RealTimeControl\Manuals\RTCManuals.wxi?>
+  <?include ..\FM\Manuals\FMManuals.wxi?>
+  <?include ..\..\DeltaShell\OpenDA\Manuals\OpenDAManuals.wxi?>
+  
+</Include>

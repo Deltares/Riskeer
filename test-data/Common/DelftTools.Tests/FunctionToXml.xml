@@ -1,0 +1,12 @@
+﻿<function name="f">
+  <arguments>
+    <variable name="x">
+      <values>{1}</values>
+    </variable>
+  </arguments>
+  <components>
+    <variable name="y">
+      <values>{2}</values>
+    </variable>
+  </components>
+</function>

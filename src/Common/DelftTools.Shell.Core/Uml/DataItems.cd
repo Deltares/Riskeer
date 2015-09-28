@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DelftTools.Shell.Core.Workflow.DataItems.DataItem">
+    <Position X="12.75" Y="1.25" Width="3" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AJYCEGiQAKAgkQRGMJEPSDQFgIAEAANABog1IAAEFBo=</HashCode>
+      <FileName>Workflow\DataItems\DataItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DelftTools.Shell.Core.Workflow.DataItems.DataItemsEventedListAdapter&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="5.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="DelftTools.Shell.Core.Workflow.DataItems.DataItemsEventedListAdapter&lt;T&gt;.ConvertedEnumerator&lt;TTarget, TSource&gt;" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Workflow\DataItems\DataItemEventedListAdapter.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AHIAAEABAKSEABAUKIAAlAUhgAAgAAEEKAAAAABUIgA=</HashCode>
+      <FileName>Workflow\DataItems\DataItemEventedListAdapter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DelftTools.Shell.Core.Workflow.DataItems.DataItemSet">
+    <Position X="11.75" Y="12.75" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="DelftTools.Shell.Core.Workflow.DataItems.DataItem" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.625" Y="12.07" />
+        <Point X="13.625" Y="12.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAACCIACEAAAAIAgCAAAIMAqAAAkCAA=</HashCode>
+      <FileName>Workflow\DataItems\DataItemSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DelftTools.Shell.Core.Workflow.DataItems.LinkingUnlinkingEventArgs&lt;T&gt;">
+    <Position X="16.5" Y="4" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAIAIIAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Workflow\DataItems\ILinkable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DelftTools.Shell.Core.Workflow.DataItems.LinkedUnlinkedEventArgs&lt;T&gt;">
+    <Position X="16.5" Y="1.25" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAIAIAAAACAAAAAAAAAAAACAAAACAAA=</HashCode>
+      <FileName>Workflow\DataItems\ILinkable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DelftTools.Shell.Core.Workflow.DataItems.ModelDataItem">
+    <Position X="14.5" Y="12.75" Width="2.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <InheritanceLine Type="DelftTools.Shell.Core.Workflow.DataItems.DataItem" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.938" Y="12.07" />
+        <Point X="14.938" Y="12.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>CAEAAACAAAAAECBCgIACAAAAEIAAAIGACkgSAQAAAgA=</HashCode>
+      <FileName>Workflow\DataItems\ModelDataItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DelftTools.Shell.Core.Workflow.DataItems.IDataItem">
+    <Position X="3" Y="4.5" Width="1.5" />
+    <AssociationLine Name="Role" Type="DelftTools.Shell.Core.Workflow.DataItems.DataItemRole" FixedFromPoint="true">
+      <Path>
+        <Point X="3" Y="5.375" />
+        <Point X="2" Y="5.375" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AJYAAEiAAAAgAAAAEAEEQCAEAAAAAAAABAAgIAAEEAA=</HashCode>
+      <FileName>Workflow\DataItems\IDataItem.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Role" />
+      <Property Name="ValueConverter" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Workflow.DataItems.IDataItemOwner">
+    <Position X="5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAEAIAAAACAA=</HashCode>
+      <FileName>Workflow\DataItems\IDataItemOwner.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Workflow.DataItems.IDataItemSet">
+    <Position X="3" Y="10.25" Width="1.5" />
+    <InheritanceLine Type="DelftTools.Shell.Core.Workflow.DataItems.IDataItem" FixedToPoint="true">
+      <Path>
+        <Point X="3.75" Y="9.236" />
+        <Point X="3.75" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="DelftTools.Shell.Core.Workflow.DataItems.IDataItemOwner" FixedToPoint="true">
+      <Path>
+        <Point X="5.75" Y="9.553" />
+        <Point X="5.75" Y="9.875" />
+        <Point X="4.062" Y="9.875" />
+        <Point X="4.062" Y="10.25" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="DataItems" Type="DelftTools.Shell.Core.Workflow.DataItems.IDataItem" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3" Y="10.938" />
+        <Point X="2.198" Y="10.938" />
+        <Point X="2.198" Y="8.812" />
+        <Point X="3" Y="8.812" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.503" Y="0.158" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Workflow\DataItems\IDataItemSet.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="DataItems" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Workflow.DataItems.IDataItemsEventedListAdapter">
+    <Position X="8.25" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAgA=</HashCode>
+      <FileName>Workflow\DataItems\IDataItemsEventedListAdapter.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="DataItems" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Workflow.DataItems.ILinkable&lt;T&gt;">
+    <Position X="3" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAEAAAAAAEABCAAACAAAAAAAAAAAAAgAFAAAAAAA=</HashCode>
+      <FileName>Workflow\DataItems\ILinkable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Workflow.DataItems.IValueConverter">
+    <Position X="5.75" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAIAAAAAAAQAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Workflow\DataItems\IValueConverter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="DelftTools.Shell.Core.Workflow.DataItems.DataItemRole">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAIAAAAEAAAEAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Workflow\DataItems\DataItemRole.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

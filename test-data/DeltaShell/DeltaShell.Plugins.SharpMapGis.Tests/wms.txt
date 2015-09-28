@@ -1,0 +1,21 @@
+http://wms-sites.com/catalog
+
+NYC:
+http://wms-sites.com/catalog/NYC-Free-Map/
+http://nyc.freemap.in/cgi-bin/mapserv?map=%2Fwww%2Ffreemap.in%2Fnyc%2Fmap%2Fbasemap.map&SERVICE=WMS&REQUEST=GetCapabilities
+
+Demis:
+http://wms-sites.com/catalog/World-Map/
+http://www2.demis.nl/wms/wms.asp?wms=WorldMap&REQUEST=GetCapabilities&SERVICE=WMS
+
+
+Canada, ArcIMS:
+http://www.geographynetwork.ca/wmsconnector/com.esri.wms.Esrimap/OBM_Full_I?REQUEST=GetCapabilities&SERVICE=WMS
+
+De Nieuwe Kaart van Nederland:
+http://wms-sites.com/catalog/de-Nieuwe-Kaart-van-Nederland/
+http://webservice.nieuwekaart.nl/cgi-bin/nkn?REQUEST=GetCapabilities&SERVICE=WMS
+
+TerraServer (US):
+http://terraservice.net/ogccapabilities.ashx?REQUEST=GetCapabilities&SERVICE=WMS
+

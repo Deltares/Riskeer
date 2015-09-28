@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Shortcut Id="OpenDADocumentationShortcut" Name="!(loc.OpenDADocumentationName)" Target="[BINDIR]OpenDA_documentation.pdf" WorkingDirectory="BINDIR"/>
+</Include>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="RRFeatureName">D-Rainfall Runoff</String>
+  <String Id="RRFeatureDescription">Allows to simulate lumped rainfall runoff models, such as Sacramento, HBV and Polder concept.</String>
+  <String Id="RRUserManualName">D-Rainfall Runoff User Manual</String>
+  <String Id="RRReferenceManualName">D-Rainfall Runoff Technical Reference Manual</String>
+  
+  <String Id="Flow1DFeatureName">D-Flow1D</String>
+  <String Id="Flow1DFeatureDescription">Allows to simulate 1D flow of water in open water systems, such as rivers and irrigation &amp;&amp; drainage channels.</String>
+  <String Id="Flow1DUserManualName">D-Flow1D User Manual</String>
+  <String Id="Flow1DReferenceManualName">D-Flow1D Technical Reference Manual</String>
+
+  <String Id="FewsAdapterForSOBEKFeatureName">FewsAdapterForSOBEK</String>
+  <String Id="FewsAdapterForSOBEKFeatureDescription">Fews Adapter for SOBEK</String>
+</WixLocalization>

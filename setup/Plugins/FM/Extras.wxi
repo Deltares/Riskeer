@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <File Id="splash_screen" Source='$(var.Delft3DPackageName)_Resources\splash_screen.jpg' />
+
+  <File Id="Welcome.htm" Source="Resources\Welcome.htm"/>
+  <File Id="Welcome.css" Source="..\..\Start Page\Welcome.css"/>
+  <File Id="start_page_background" Source="$(var.Delft3DPackageName)_Resources\start_page_background.jpg"/>
+  <File Id="deltares_logo_groot.jpg" Source="..\..\Start Page\Resources\deltares_logo_groot.jpg"/>
+</Include>

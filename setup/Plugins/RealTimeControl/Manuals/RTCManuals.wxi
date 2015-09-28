@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <!-- RTC -->
+  <File Id="RTCTools_Reference_Manual.pdf" Source="$(var.SolutionDir)\setup\Plugins\RealTimeControl\Manuals\RTC-Tools_Technical_Reference_Manual.pdf"/>
+  <File Id="DRTC_User_Manual.pdf" Source="$(var.SolutionDir)\setup\Plugins\RealTimeControl\$(var.Delft3DPackageName)_Manuals\D-RTC_User_Manual.pdf"/>
+</Include>

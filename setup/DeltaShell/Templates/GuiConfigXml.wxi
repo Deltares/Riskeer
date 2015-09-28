@@ -1,0 +1,90 @@
+<Include xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  
+  <?ifdef StartPage?>
+  <util:XmlFile Id="SetKey1$(var.GUICONFIGFILE)"
+    Action="setValue"
+    ElementPath="/configuration/appSettings/add[\[]@key=&quot;startPageUrl&quot;[\]]/@value"
+    File="[#$(var.GUICONFIGFILE)]"
+    Value="$(var.StartPage)"/>
+  <?endif?>
+  
+  <util:XmlFile Id="SetKey2$(var.GUICONFIGFILE)"
+    Action="setValue"
+    ElementPath="/configuration/appSettings/add[\[]@key=&quot;applicationName&quot;[\]]/@value"
+    File="[#$(var.GUICONFIGFILE)]"
+    Value="$(var.ProductName)"/>
+
+  <util:XmlFile Id="SetKey4$(var.GUICONFIGFILE)"
+    Action="setValue"
+    ElementPath="/configuration/appSettings/add[\[]@key=&quot;fullVersion&quot;[\]]/@value"
+    File="[#$(var.GUICONFIGFILE)]"
+    Value="$(var.FullProductVersion)"/>
+  
+  <util:XmlFile Id="SetKey6$(var.GUICONFIGFILE)"
+    Action="setValue"
+    ElementPath="/configuration/appSettings/add[\[]@key=&quot;copyright&quot;[\]]/@value"
+    File="[#$(var.GUICONFIGFILE)]"
+    Value="© Deltares 2008-2015"/>
+  
+  <util:XmlFile Id="SetKey7$(var.GUICONFIGFILE)"
+    Action="setValue"
+    ElementPath="/configuration/log4net/root/level/@value"
+    File="[#$(var.GUICONFIGFILE)]"
+    Value="INFO"/>
+  
+  <?ifdef supportEmail?>
+  <util:XmlFile Id="SetKey8$(var.GUICONFIGFILE)"
+    Action="setValue"
+    ElementPath="/configuration/appSettings/add[\[]@key=&quot;supportEmail&quot;[\]]/@value"
+    File="[#$(var.GUICONFIGFILE)]"
+    Value="$(var.supportEmail)"/>
+  <?endif?>
+
+  <?ifdef supportPhone?>
+  <util:XmlFile Id="SetKey9$(var.GUICONFIGFILE)"
+    Action="setValue"
+    ElementPath="/configuration/appSettings/add[\[]@key=&quot;supportPhone&quot;[\]]/@value"
+    File="[#$(var.GUICONFIGFILE)]"
+    Value="$(var.supportPhone)"/>
+  <?endif?>
+
+  <?ifdef mainWindowTitle?>
+  <util:XmlFile Id="SetKey10$(var.GUICONFIGFILE)"
+    Action="setValue"
+    ElementPath="/configuration/appSettings/add[\[]@key=&quot;mainWindowTitle&quot;[\]]/@value"
+    File="[#$(var.GUICONFIGFILE)]"
+    Value="$(var.mainWindowTitle)"/>
+  <?endif?>
+
+  <?ifdef splashScreenLogoImageFilePath?>
+  <util:XmlFile Id="SetKey11$(var.GUICONFIGFILE)"
+    Action="setValue"
+    ElementPath="/configuration/appSettings/add[\[]@key=&quot;splashScreenLogoImageFilePath&quot;[\]]/@value"
+    File="[#$(var.GUICONFIGFILE)]"
+    Value="$(var.splashScreenLogoImageFilePath)"/>
+  <?endif?>
+  
+  <?ifdef splashScreenCompany?>
+  <util:XmlFile Id="SetKey12$(var.GUICONFIGFILE)"
+    Action="setValue"
+    ElementPath="/configuration/appSettings/add[\[]@key=&quot;company&quot;[\]]/@value"
+    File="[#$(var.GUICONFIGFILE)]"
+    Value="$(var.splashScreenCompany)"/>
+  <?endif?>
+  
+  <?ifdef splashScreenLicense?>
+  <util:XmlFile Id="SetKey13$(var.GUICONFIGFILE)"
+    Action="setValue"
+    ElementPath="/configuration/appSettings/add[\[]@key=&quot;license&quot;[\]]/@value"
+    File="[#$(var.GUICONFIGFILE)]"
+    Value="$(var.splashScreenLicense)"/>
+  <?endif?>
+  
+  <?ifdef splashScreenCopyright?>
+  <util:XmlFile Id="SetKey14$(var.GUICONFIGFILE)"
+    Action="setValue"
+    ElementPath="/configuration/appSettings/add[\[]@key=&quot;copyright&quot;[\]]/@value"
+    File="[#$(var.GUICONFIGFILE)]"
+    Value="$(var.splashScreenCopyright)"/>
+  <?endif?>
+</Include>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <ComponentRef Id="FMSuiteCommon"/>
+  <ComponentRef Id="FMSuiteCommonGui"/>
+  <ComponentRef Id="NetworkEditorPlugin"/>
+  <ComponentRef Id="FMPlugin"/>
+
+  <!-- Wanted to add this to a separate feature with conditions, but couldn't manage to get it to work.-->
+  <ComponentRef Id="HydroModelPlugin"/>
+  
+  <ComponentRef Id="fmx86_dflowfmdll"/>
+  <ComponentRef Id="fmx64_dflowfmdll"/>
+  <ComponentRef Id="comp_geometrydll_x86" />
+  <ComponentRef Id="comp_geometrydll_x64" />
+  <ComponentRef Id="FM_toolboxes"/>
+  <ComponentRef Id="FM_rgfgrid_bin_x86"/>
+  <ComponentRef Id="FM_rgfgrid_bin_x64"/>
+  <ComponentRef Id="FM_rgfgrid_platforms_x86"/>
+  <ComponentRef Id="FM_rgfgrid_platforms_x64"/>
+  <ComponentRef Id="FM_rgfgrid_colormaps_x86"/>
+  <ComponentRef Id="FM_rgfgrid_colormaps_x64"/>
+  <ComponentRef Id="FM_rgfgrid_icons_x86"/>
+  <ComponentRef Id="FM_rgfgrid_icons_x64"/>
+  <ComponentRef Id="FM_rgfgrid_manuals_x86"/>
+  <ComponentRef Id="FM_rgfgrid_manuals_x64"/>
+  
+</Include>

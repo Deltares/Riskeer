@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <Component Id="OpenDAComponent" Guid="5E1E11C3-C231-4C43-87F2-2CE4049E1B64">
+    <File Id="DeltaShell.OpenDaCalApplication.exe" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DeltaShell.OpenDaCalApplication.exe"/>
+    <File Id="DeltaShell.OpenDaCalApplication.exe.config" Source="$(var.deltashell_gui_bin)$(var.Configuration)\DeltaShell.OpenDaCalApplication.exe.config"/>
+    <File Id="DeltaShell.OpenDaOnOpenMI2Wrapper.dll" Source="$(var.SolutionDir)\src\Plugins\OpenDA\DeltaShell.Plugins.OpenDA\bin\$(var.Configuration)\DeltaShell.OpenDaOnOpenMI2Wrapper.dll"/>
+    <File Id="OpenDA.DotNet.AdditionalInterfaces.dll" Source="$(var.SolutionDir)\lib\OpenDA.DotNet.AdditionalInterfaces.dll"/>
+    <File Id="fullOpenDa.dll" Source="$(var.SolutionDir)\lib\Plugins\OpenDA\DeltaShell.Plugins.OpenDA\fullOpenDa.dll"/>
+    <File Id="OpenDA.DotNet.Bridge.dll" Source="$(var.SolutionDir)\lib\Plugins\OpenDA\DeltaShell.Plugins.OpenDA\OpenDA.DotNet.Bridge.dll"/>
+    <File Id="OpenDA.DotNet.Interfaces.dll" Source="$(var.SolutionDir)\lib\Plugins\OpenDA\DeltaShell.Plugins.OpenDA\OpenDA.DotNet.Interfaces.dll"/>
+    <File Id="OpenDA.DotNet.OpenMI.Bridge.dll" Source="$(var.SolutionDir)\lib\Plugins\OpenDA\DeltaShell.Plugins.OpenDA\OpenDA.DotNet.OpenMI.Bridge.dll"/>
+    <File Id="IKVM.OpenJDK.XML.API.dll" Source="$(var.SolutionDir)\lib\IKVM.OpenJDK.XML.API.dll"/>
+    <File Id="IKVM.OpenJDK.XML.Parse.dll" Source="$(var.SolutionDir)\lib\IKVM.OpenJDK.XML.Parse.dll"/>
+  </Component>
+</Include>

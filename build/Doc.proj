@@ -1,0 +1,277 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="Zip" AssemblyFile="..\build\tools\MSBuild.Community.Tasks.dll" />
+  <!-- 
+    Updated on: 20 December 2007
+    MSBuild project that creates help for:
+    
+    - DelftTools.Core
+    - DelftTools.DataObjects
+    - DelftTools.Gui
+    - DelftTools.Controls
+    - DelftTools.Gui.Swf
+    - DelftTools.Controls.Swf
+    - DelftTools.Utils
+  
+    -->
+  <PropertyGroup>
+    <!-- Project Setup -->
+    <PresentationStyle Condition="'$(PresentationStyle)' == ''">vs2005</PresentationStyle>
+    <TargetPath>$(MSBuildProjectDirectory)\..\target</TargetPath>
+    <BuildPath>$(MSBuildProjectDirectory)</BuildPath>
+    <BinSandcastlePath>$(MSBuildProjectDirectory)\..\build\tools\Sandcastle</BinSandcastlePath>
+    <DocumentationDir>$(TargetPath)\Sandcastle</DocumentationDir>
+
+    <!-- Sandcastle shared content -->
+    <DxRoot Condition="'$(DxRoot)' == ''">C:\Program Files\Sandcastle\</DxRoot>
+    <SandcastleOutputStructure>$(DXROOT)Presentation\$(PresentationStyle)</SandcastleOutputStructure>
+    <ReferenceContentFilePath Condition="'$(ReferenceContentFilePath)'==''">$(SandcastleOutputStructure)\content\reference_content.xml</ReferenceContentFilePath>
+    <SharedContentFilePath    Condition="'$(SharedContentFilePath)'==''">$(SandcastleOutputStructure)\content\shared_content.xml</SharedContentFilePath>
+    <FeedBackContentFilePath  Condition="'$(FeedBackContentFilePath)'==''">$(SandcastleOutputStructure)\content\feedback_content.xml</FeedBackContentFilePath>
+
+    <!-- Environment -->
+    <Framework>$(WINDIR)\Microsoft.NET\Framework\v3.5</Framework>
+    <ProductionTools>$(DxRoot)ProductionTools</ProductionTools>
+    <ProductionTransforms>$(DxRoot)ProductionTransforms</ProductionTransforms>
+    <Presentation>$(DxRoot)Presentation\$(PresentationStyle)</Presentation>
+    <HHC>$(PROGRAMFILES)\Html Help Workshop\hhc.exe</HHC>
+  </PropertyGroup>
+
+  <!--The assemblie to document -->
+  <ItemGroup>
+    <Assemblies Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Shell.Core\bin\Release\DelftTools.Shell.Core.dll"/>
+    <Assemblies Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Functions\bin\Release\DelftTools.Functions.dll"/>
+    <Assemblies Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Shell.Gui\bin\Release\DelftTools.Shell.Gui.dll"/>
+    <Assemblies Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Controls\bin\Release\DelftTools.Controls.dll"/>
+    <Assemblies Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Shell.Gui.Swf\bin\Release\DelftTools.Shell.Gui.Swf.dll"/>
+    <Assemblies Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Controls.Swf\bin\Release\DelftTools.Controls.Swf.dll"/>
+    <Assemblies Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Utils\bin\Release\DelftTools.Utils.dll"/>
+    <Assemblies Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Units\bin\Release\DelftTools.Units.dll"/>
+  </ItemGroup>
+
+  <!--The XML comment files -->
+  <ItemGroup>
+	<Comments Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Shell.Core\bin\Release\DelftTools.Shell.Core.xml"/>
+    <Comments Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Functions\bin\Release\DelftTools.Functions.xml"/>
+    <Comments Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Shell.Gui\bin\Release\DelftTools.Shell.Gui.xml"/>
+    <Comments Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Controls\bin\Release\DelftTools.Controls.xml"/>
+    <Comments Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Shell.Gui.Swf\bin\Release\DelftTools.Shell.Gui.Swf.xml"/>
+    <Comments Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Controls.Swf\bin\Release\DelftTools.Controls.Swf.xml"/>
+    <Comments Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Utils\bin\Release\DelftTools.Utils.xml"/>
+    <Comments Include="$(MSBuildProjectDirectory)\..\src\Common\DelftTools.Units\bin\Release\DelftTools.Units.xml"/>	
+  </ItemGroup>
+
+  <!-- Dependencies -->
+  <PropertyGroup>
+    <Dependencies>$(MSBuildProjectDirectory)\..\lib</Dependencies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <IconFiles Include="$(Presentation)\icons\**\*.*"/>
+    <ScriptFiles Include="$(Presentation)\scripts\**\*.*"/>
+    <StyleFiles Include="$(Presentation)\styles\**\*.*"/>
+  </ItemGroup>
+
+  <!-- main target -->
+  <Target Name="Build" DependsOnTargets="DeltaShell;CheckConfiguration;Clean;Chm;Zip"/>
+
+  <!-- Cleanning  intermediate files -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <Target Name="Clean">
+    <Delete Files="$(TargetPath)\*.*" />
+    <RemoveDir Directories="$(TargetPath)\html;
+                            $(DocumentationDir)"/>
+  </Target>
+
+  <!-- First, building DeltaShell Solution -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <Target Name="DeltaShell">
+    <!--Target Name="DelftShell" Outputs="@(MergedComments)"-->
+    <MSBuild Projects="..\DeltaShell.sln" Targets="Build" Properties="Configuration=Release" />
+    <!--Copy SourceFiles="@(Comments)" DestinationFiles="@(Comments->'$(TargetPath)\comments\%(RecursiveDir)%(FileName)%(Extension)')"/>
+    <MakeDir Directories="$(TargetPath)\comments\merged"/>
+    <Exec Command="&quot;$(ProductionTools)\XslTransform.exe&quot; &quot;@(Comments->'$(TargetPath)\comments\%(RecursiveDir)%(FileName)%(Extension)')&quot; /xsl:$(BinSandcastlePath)\merge.xsl /out:$(TargetPath)\comments\merged\%(Comments.FileName)%(Comments.Extension)" />
+    
+    <CreateItem Include="$(TargetPath)\comments\merged\*.*" Exclude="@(DefaultExclude)">
+      <Output TaskParameter="Include" ItemName="MergedComments"/>
+    </CreateItem-->
+  </Target>
+
+  <!-- Checking if all files are there; otherwise, stop the build process -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <Target Name="CheckConfiguration">
+    <Error Condition="!Exists('%(Assemblies.FullPath)')" Text="Assemblies do not exist in path: %(Assemblies.FullPath))!"/>
+    <Error Condition="!Exists('%(Comments.FullPath)')" Text="Comments do not exist in path: %(Comments.FullPath))!"/>
+    <!--Error Condition="!Exists('$(MSBuildExtensionsPath)\Sandcastle\SandcastleConfigurator.vbs')" Text="SandcastleConfigurator Script does not exist!"/-->
+    <Error Condition="!Exists('$(BinSandcastlePath)\SandcastleConfigurator.vbs')" Text="SandcastleConfigurator script does not exist in path: $(BinSandcastlePath)!"/>
+    <Error Condition="!Exists('$(BinSandcastlePath)\sandcastle.config')" Text="Original configuration file does not exist!"/>
+    <Error Condition="(!Exists('$(DxRoot)ProductionTools\MRefBuilder.exe')) OR (!Exists('$(DxRoot)ProductionTools\XslTransform.exe')) OR (!Exists('$(DxRoot)ProductionTools\BuildAssembler.exe'))" Text="Sandcastle processes do not exist in $(DxRoot)ProductionTools!"/>
+    <Error Condition="!Exists('$(BinSandcastlePath)\MrefBuilder.config')" Text="Original MRefBuilder configuration file does not exist!"/>
+    <Message Importance="high" Text="Assemblies to document are:" />
+    <Message Condition="Exists('%(Assemblies.FullPath)')" Importance="high" Text="%(Assemblies.FileName)" />
+    <MakeDir Condition="!Exists('$(TargetPath)')" Directories="$(TargetPath)"/>
+  </Target>
+
+  <!-- Call DocDotNetFramework project to create reflection data for .NET FRamework (called only once) -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <Target Name="FxReflection">
+    <Exec Condition="!Exists('$(DxRoot)\Data')" Command="$(Framework)\msbuild $(BuildPath)\DocDotNetFramework.proj /property:PresentationStyle=$(PresentationStyle)" />
+  </Target>
+
+  <!-- Copy Icons, Scripts and Styles -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <Target Name="Template" DependsOnTargets="FxReflection">
+    <Copy SourceFiles="@(IconFiles)" DestinationFiles="@(IconFiles->'$(DocumentationDir)\icons\%(RecursiveDir)%(FileName)%(Extension)')"/>
+    <Copy SourceFiles="@(ScriptFiles)" DestinationFiles="@(ScriptFiles->'$(DocumentationDir)\scripts\%(RecursiveDir)%(FileName)%(Extension)')"/>
+    <Copy SourceFiles="@(StyleFiles)" DestinationFiles="@(StyleFiles->'$(DocumentationDir)\styles\%(RecursiveDir)%(FileName)%(Extension)')"/>
+    <MakeDir Directories="$(TargetPath)\Sandcastle"/>
+  </Target>
+
+  <!-- Create Reflection.xml for Assemblies -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <Target Name="ReflectionData" DependsOnTargets="Template" Inputs="@(Assemblies)" Outputs="$(TargetPath)\reflection.xml">
+    <!--Exec Command="&quot;$(ProductionTools)\MRefBuilder.exe&quot; &quot;@(Assemblies, '&quot; &quot;')&quot; /out:$(TargetPath)\reflection_base.xml"/-->
+    <Exec Command="&quot;$(ProductionTools)\MRefBuilder.exe&quot; &quot;@(Assemblies, '&quot; &quot;')&quot; /out:$(TargetPath)\reflection_base.xml /config:$(BinSandcastlePath)\MrefBuilder.config /dep:$(Dependencies)\*.dll"/>
+    <Exec Condition="'$(PresentationStyle)' == 'vs2005'" Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\ApplyVSDocModel.xsl" /xsl:"$(ProductionTransforms)\AddFriendlyFilenames.xsl" "$(TargetPath)\reflection_base.xml" /out:"$(TargetPath)\reflection.xml" /arg:IncludeAllMembersTopic=true /arg:IncludeInheritedOverloadTopics=true' />
+  </Target>
+
+  <!-- Create manifest for Assemblies -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <Target Name="Manifest" DependsOnTargets="ReflectionData" Inputs="$(TargetPath)\reflection.xml" Outputs="$(TargetPath)\manifest.xml">
+    <Exec Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\ReflectionToManifest.xsl" "$(TargetPath)\reflection.xml" /out:"$(TargetPath)\manifest.xml"' />
+  </Target>
+
+  <!-- Create 'Sandcastle.config' file by changing some paths using SandcastleConfigurator script -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <Target Name="Config">
+    <!--Message Importance="high" Text="original config file is in: 
+             %0D%0A$(SandcastleConfigFile)
+             %0D%0A new config file would be created in: 
+             %0D%0A$(BuildPath)
+             %0D%0A shared content is: %0D%0A $(SharedContentFilePath)
+             %0D%0A reference content is: %0D%0A $(ReferenceContentFilePath) 
+             %0D%0A output path is: $(DocumentationDir)
+             %0D%0A  xml files are: &quot;@(Comments, '&quot; &quot;')"/-->
+    <Exec Command="&quot;WScript.exe&quot; &quot;$(BinSandcastlePath)\SandcastleConfigurator.vbs&quot; /in:&quot;$(BinSandcastlePath)\sandcastle.config&quot; /out:$(TargetPath)\custom_sandcastle.config /ref:&quot;$(ReferenceContentFilePath)&quot; /shared:&quot;$(SharedContentFilePath)&quot; /feedback:&quot;$(FeedBackContentFilePath)&quot; /output:&quot;$(TargetPath)&quot; /path:&quot;$(DxRoot)&quot; &quot;@(Comments, '&quot; &quot;')&quot;"/>
+  </Target>
+
+  <!-- Creating HTML pages -->
+  <!-- ~~~~~~~~~~~~~~~~~~~ -->
+  <Target Name="Html"
+          Inputs="$(TargetPath)\manifest.xml;$(TargetPath)\reflection.xml;$(TargetPath)\comments\merged\*.xml"
+          Outputs="$(TargetPath)\html\*.htm"
+          DependsOnTargets="Manifest;Config">
+    <Exec Command='"$(ProductionTools)\BuildAssembler.exe" /config:$(TargetPath)\custom_sandcastle.config "$(TargetPath)\manifest.xml"' />
+  </Target>
+
+  <!--Building CHM file -->
+  <!-- ~~~~~~~~~~~~~~~~ -->
+  <Target Name="Chm"
+          Inputs="$(TargetPath)\html\*.htm;$(TargetPath)\reflection.xml"
+          Outputs="$(DocumentationDir)\DelftTools.chm;$(TargetPath)\toc.xml" DependsOnTargets="Html">
+    <!--Exec Condition="'$(PresentationStyle)' == 'prototype'" Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\CreatePrototypeToc.xsl" $(TargetPath)\reflection.xml /out:"$(TargetPath)\Toc.xml"' /-->
+    <Exec Condition="'$(PresentationStyle)' != 'prototype'" Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\CreateVSToc.xsl" $(TargetPath)\reflection.xml /out:"$(TargetPath)\Toc.xml"' />
+
+    <!-- generate CHM-specific HTML and HH* files -->
+    <Exec Command="&quot;$(ProductionTools)\ChmBuilder.exe&quot; /project:DelftTools /html:$(TargetPath)\html /lcid:1033 /toc:$(TargetPath)\Toc.xml /out:$(DocumentationDir)"/>
+    <!--Exec Condition="'$(PresentationStyle)' == 'prototype'" Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(ProductionTransforms)\ReflectionToChmIndex.xsl" "$(TargetPath)\reflection.xml" /out:"$(DocumentationDir)\DelftTools.hhk"' /-->
+    <Exec Command="&quot;$(ProductionTools)\DBCSFix.exe&quot; /d:$(DocumentationDir) /l:1033"/>
+    <Exec Command='"$(HHC)" "$(DocumentationDir)\DelftTools.hhp"' IgnoreExitCode="true" />
+  </Target>
+
+  <!--Creating index.html file -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <Target Name="Index">
+    <Exec Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(BinSandcastlePath)\CreateIndex.xsl" $(TargetPath)\toc.xml /out:"$(TargetPath)\index.html"' />
+  </Target>
+
+ 
+  <ItemGroup>
+    <MySourceFiles Include="$(TargetPath)\html\*.*"/>
+    <!--MySourceFiles Include="$(Presentation)\icons\**\*.*"/>
+    <MySourceFiles Include="$(Presentation)\scripts\**\*.*"/>
+    <MySourceFiles Include="$(Presentation)\styles\**\*.*"/-->
+  </ItemGroup>
+
+  <Target Name="PreZip">
+    <Copy SourceFiles="@(IconFiles)" DestinationFiles="@(IconFiles->'$(TargetPath)\icons\%(RecursiveDir)%(FileName)%(Extension)')"/>
+    <Copy SourceFiles="@(ScriptFiles)" DestinationFiles="@(ScriptFiles->'$(TargetPath)\scripts\%(RecursiveDir)%(FileName)%(Extension)')"/>
+    <Copy SourceFiles="@(StyleFiles)" DestinationFiles="@(StyleFiles->'$(TargetPath)\styles\%(RecursiveDir)%(FileName)%(Extension)')"/>
+    <Copy SourceFiles="$(DocumentationDir)\DelftTools.chm" DestinationFiles="$(TargetPath)\DelftTools.chm" />
+  </Target>
+  <!-- Zip CHM file -->
+  <!-- ~~~~~~~~~~~~ -->
+  <Target Name="Zip" DependsOnTargets="Index;PreZip">
+    <!--Copy SourceFiles="@(MySourceFiles)" DestinationFiles="$(TargetPath)\%(RecursiveDir)%(Filename)%(Extension)" ContinueOnError="true"/-->
+    <CreateItem Include="$(TargetPath)\DelftTools.chm;
+                         $(TargetPath)\html\*.*;
+                         $(TargetPath)\index.html;
+                         $(TargetPath)\icons\*.*;
+                         $(TargetPath)\styles\*.*;
+                         $(TargetPath)\scripts\*.*" Exclude="@(DefaultExclude)">
+      <Output TaskParameter="Include" ItemName="HtmlPages"/>
+    </CreateItem>
+    <!--CreateItem Include="$(TargetPath)\*.htm;$(TargetPath)\*jpg.;$(TargetPath)\*.gif;$(TargetPath)\*.js;$(TargetPath)\*.css;$(TargetPath)\index.html;$(TargetPath)\icons\*.*;$(TargetPath)\styles\*.*;$(TargetPath)\scripts\*.*" Exclude="@(DefaultExclude)">
+      <Output TaskParameter="Include" ItemName="HtmlPages"/>
+    </CreateItem-->
+    <Zip Files="@(HtmlPages)"  WorkingDirectory="$(TargetPath)" ZipFileName="$(TargetPath)\doc.zip" ContinueOnError="true" />
+    <Delete Files="@(HtmlPages)"/>
+    <!--Zip Files="@(ZipFilesHtml)"  WorkingDirectory="$(TargetPath)" ZipFileName="$(TargetPath)\doc.zip" /-->
+  </Target>
+
+  <ItemGroup>
+    <Commentspath Include="$(MSBuildProjectDirectory)\..\apps\DelftTools\modules"/>
+    </ItemGroup>
+  <PropertyGroup>
+    <Server Condition="'$(MSBuildProjectDirectory)' == 'D:\projects\DelftTools\build'">No</Server>
+    <Server Condition="'$(MSBuildProjectDirectory)' != 'D:\projects\DelftTools\build'">Yes</Server>
+  </PropertyGroup>
+      <!-- Create Error Report for the Non-commented Code -->
+  <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  <Target Name="Report">
+
+    <!--Exec Command='"$(ProductionTools)\XslTransform.exe" /xsl:"$(BuildPath)\MissedComments.xsl" "$(TargetPath)\manifest.xml" /out:"$(TargetPath)\report.html" /arg:CommentsFiles=@(Comments) /arg:Check=true' /-->
+    <Delete Files="$(TargetPath)\report.html"/>
+    <Message Importance="high" Text="Commentspath is :%(Commentspath.FullPath)"/>
+    <Exec Command="&quot;$(ProductionTools)\XslTransform.exe&quot; &quot;/xsl:$(BinSandcastlePath)\MissedComments.xsl&quot; &quot;$(TargetPath)\manifest.xml&quot; &quot;/out:$(TargetPath)\report.html&quot; &quot;/arg:SolutionPath=%(Commentspath.FullPath)&quot; &quot;/arg:ReflectionXml=$(TargetPath)\reflection.xml&quot; &quot;/arg:Server=@(Server)&quot;" />
+
+    <!--Exec Command="&quot;WScript.exe&quot; &quot;$(BuildPath)\SandcastleConfigurator.vbs&quot; /in:&quot;$(BuildPath)\sandcastle.config&quot; /out:$(TargetPath)\custom_sandcastle.config /ref:&quot;$(ReferenceContentFilePath)&quot; /shared:&quot;$(SharedContentFilePath)&quot; /feedback:&quot;$(FeedBackContentFilePath)&quot; /output:&quot;$(TargetPath)&quot; /path:&quot;$(DxRoot)&quot; &quot;@(Comments, '&quot; &quot;')&quot;"/-->
+  </Target>
+
+  <PropertyGroup>
+    <HelloWorldScript>Write-Host "Hello world"</HelloWorldScript>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <WebOutpoutDir>$(TargetPath)\website</WebOutpoutDir>
+    <TempDir>$(TargetPath)</TempDir>
+    <WebConfigPath>$(BinSandcastlePath)</WebConfigPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <IconsFilesWebsite Include="$(Presentation)\icons\**\*.*"/>
+    <StyleFilesWebsite Include="$(Presentation)\styles\**\*.*"/>
+    <WebTemplate        Include="$(DXROOT)Presentation\$(PresentationStyle)\website\*.*"/>
+  </ItemGroup>
+  
+  <Target Name="Website">
+    <!-- scbuild -framework 2.0 -sources test.dll,comments.xml -BuildWebsite -->
+    <!--Exec Command="%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe&quot;$(TargetPath)scbuild&quot;-sources&quot;$(MSBuildProjectDirectory)\..\apps\DelftTools\modules\DelftTools.Core\bin\Debug\DelftTools.Core.dll,$(MSBuildProjectDirectory)\..\apps\DelftTools\modules\DelftTools.Core\bin\Debug\DelftTools.Core.xml&quot; &quot;-BuildWebsite"/-->
+    <!--Powershell Script="$(HelloWorldScript)"/-->
+    
+    <!-- CreateWebsiteTemplate -->
+    <MakeDir Directories="$(WebOutpoutDir)"/>
+    <MakeDir Directories="$(WebOutpoutDir)\api" />
+    <Copy SourceFiles="@(IconsFilesWebsite)" DestinationFiles="@(IconsFilesWebsite->'$(WebOutpoutDir)\icons\%(RecursiveDir)%(FileName)%(Extension)')"/>
+    <Copy SourceFiles="@(StyleFilesWebsite)" DestinationFiles="@(StyleFilesWebsite->'$(WebOutpoutDir)\styles\%(RecursiveDir)%(FileName)%(Extension)')"/>
+    <Copy SourceFiles="@(WebTemplate)" DestinationFiles="@(WebTemplate->'$(WebOutpoutDir)\%(RecursiveDir)%(FileName)%(Extension)')"/>
+    <Copy SourceFiles="@(Comments)" DestinationFiles="@(Comments->'$(WebOutpoutDir)\%(RecursiveDir)%(FileName)%(Extension)')"/>
+
+    <Error Condition="!Exists('$(WebConfigPath)\sandcastle-webref.config')" Text="There is NO web config file!"/>
+    <Message Condition="Exists('$(WebConfigPath)\sandcastle-webref.config')" Text="The Web config file path is: $(WebConfigPath)"/>
+    
+    <!-- RunBuildAssembler $WebBuildConfig-->
+    <!--Exec Command="&quot;WScript.exe&quot; &quot;$(BinSandcastlePath)\SandcastleConfigurator.vbs&quot; /in:&quot;$(DXROOT)Presentation\$(PresentationStyle)\Configuration\sandcastle-webref.config&quot; /out:$(WebConfigPath)\custom_sandcastle-webref.config /ref:&quot;$(ReferenceContentFilePath)&quot; /shared:&quot;$(SharedContentFilePath)&quot; /feedback:&quot;$(FeedBackContentFilePath)&quot; /output:&quot;$(TargetPath)&quot; /path:&quot;$(DxRoot)&quot; &quot;@(Comments, '&quot; &quot;')&quot;"/-->
+    <Exec Command='"$(ProductionTools)\BuildAssembler.exe" /config:$(WebConfigPath)\custom_sandcastle-webref.config "$(TargetPath)\manifest.xml"' />
+    <!-- CreateSitemap-->
+    
+  </Target>
+</Project>

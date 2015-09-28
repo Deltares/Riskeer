@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <ComponentRef Id="WaterQualityModelPlugin"/>
+  <ComponentRef Id="WaterQualityModelGuiPlugin"/>
+  <ComponentRef Id="WaterQualityDefaultLibrary"/>
+  <ComponentRef Id="WaterQualitySobekLibrary"/>
+  <ComponentRef Id="delwaq_x86"/>
+  <ComponentRef Id="plct_component"/>
+  <ComponentRef Id="plctIni"/>
+  
+  <!-- TODO: agrhyd is not yet finished, so dido is not required in the installations
+  <ComponentRef Id="dido_cmd"/>
+  <ComponentRef Id="dido_bin"/>
+  <ComponentRef Id="dido_colormaps"/>
+  <ComponentRef Id="dido_platforms"/>
+  <ComponentRef Id="dido_icons"/>
+  <ComponentRef Id="dido_manuals"/>-->
+
+  <?ifdef IncludeX64 ?>
+  <ComponentRef Id="delwaq_x64"/>
+  <?endif?>
+
+  <Feature Id="DuflowProcesses" Title="!(loc.DuFlowProcessFeatureName)" Description="!(loc.DuFlowProcessFeatureDescription)" Level="1000" Absent="allow" AllowAdvertise="no">
+    <ComponentRef Id="WaterQualityDuflowLibrary"/>
+    <ComponentRef Id="DuflowProcessLibraryPlugin_x86"/>
+
+    <?ifdef IncludeX64 ?>
+    <ComponentRef Id="DuflowProcessLibraryPlugin_x64"/>
+    <?endif?>
+  </Feature>
+</Include>

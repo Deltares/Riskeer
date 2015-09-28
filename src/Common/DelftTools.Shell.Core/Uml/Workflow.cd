@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DelftTools.Shell.Core.Workflow.Activity">
+    <Position X="8.5" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAIAACAEQAEAAQQAAIAAAAQAQNACRAIAAAQAAEAAAAA=</HashCode>
+      <FileName>Workflow\Activity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DelftTools.Shell.Core.Workflow.CompositeActivity">
+    <Position X="8.5" Y="4" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAEAIAACAAAAIAAAAIAAAAIAIAAABA=</HashCode>
+      <FileName>Workflow\CompositeActivity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DelftTools.Shell.Core.Workflow.ParallelActivity">
+    <Position X="7.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Workflow\ParallelActivity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DelftTools.Shell.Core.Workflow.SequentialActivity">
+    <Position X="9.75" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAEAAAAAAAAAAAAEEAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Workflow\SequentialActivity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DelftTools.Shell.Core.Workflow.IActivity">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEQAEAAQQAAAAAAAAAAFAABAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Workflow\IActivity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Status" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Workflow.ICompositeActivity">
+    <Position X="0.5" Y="4.5" Width="1.75" />
+    <AssociationLine Name="Activities" Type="DelftTools.Shell.Core.Workflow.IActivity" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.5" Y="4.937" />
+        <Point X="0.26" Y="4.937" />
+        <Point X="0.26" Y="2.812" />
+        <Point X="2" Y="2.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAIAAABA=</HashCode>
+      <FileName>Workflow\ICompositeActivity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Activities" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Workflow.ITimeDependentModel">
+    <Position X="2.75" Y="9.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAIIAAAAAAAAAAAkAAAABA=</HashCode>
+      <FileName>Workflow\ITimeDependentModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Workflow.IModel">
+    <Position X="2.75" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAACAAAAAAARIAAAAACxAACAAAgCgIQAgAAQAACA=</HashCode>
+      <FileName>Workflow\IModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="DelftTools.Shell.Core.Workflow.ActivityStatus">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACBAEAAAQCEAAAAAAAQAAAAAAAEAABAAABAAQAEAAAA=</HashCode>
+      <FileName>Workflow\ActivityStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

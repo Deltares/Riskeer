@@ -1,0 +1,6 @@
+08-05-2008
+
+- convert LayerCollection from CollectionBase to BindingList<ILayer>, allows to remove 90% of code there and add events
+- add QuantityTheme, CategorialTheme
+- add map name
+- fix MapBox

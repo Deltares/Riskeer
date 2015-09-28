@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="DeltaShell.Gui.DeltaShellGui">
+    <Position X="16.25" Y="6.5" Width="3.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EMoGOoIxgrKDLQCFxAQ3yQUeBIBWVARAMmBAcwYBRKI=</HashCode>
+      <FileName>DeltaShellGui.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DeltaShell.Gui.GuiCommandHandler">
+    <Position X="24.25" Y="1" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AiIoDCRZGyEqAKQQFAonAKIAZkgkAiQoMEIhKIAA0BA=</HashCode>
+      <FileName>GuiCommandHandler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DeltaShell.Core.DeltaShellApplication">
+    <Position X="11" Y="6.5" Width="4" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DeltaShell.Core.Services.DataItemService" BaseTypeListCollapsed="true">
+    <Position X="19.25" Y="15.75" Width="4.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DeltaShell.Core.Services.ModelService" BaseTypeListCollapsed="true">
+    <Position X="19.25" Y="18" Width="5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DeltaShell.Core.Services.ProjectService" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="7.25" Width="3.75" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="DelftTools.Shell.Gui.IGuiCommandHandler">
+    <Position X="3" Y="0.5" Width="3" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.IApplication">
+    <Position X="11" Y="0.5" Width="4" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Services.IProjectService">
+    <Position X="2.5" Y="6.5" Width="4" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Services.IModelService">
+    <Position X="6.75" Y="12.75" Width="5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DelftTools.Shell.Core.Services.IDataItemService">
+    <Position X="6.75" Y="15" Width="4.75" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="DelftTools.Shell.Gui.IGui">
+    <Position X="16.25" Y="0.5" Width="3.75" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Application" />
+    </ShowAsAssociation>
+  </Interface>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
