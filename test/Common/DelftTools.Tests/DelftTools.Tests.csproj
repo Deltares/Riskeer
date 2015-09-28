@@ -164,7 +164,6 @@
     <Compile Include="Shell\Core\WorkFlow\CompositeActivityTest.cs" />
     <Compile Include="Shell\Core\WorkFlow\FileImportActivityTest.cs" />
     <Compile Include="Shell\Gui\MapLayerProviderHelperTest.cs" />
-    <Compile Include="Shell\Gui\Swf\Validation\ValidationReportControlTest.cs" />
     <Compile Include="Controls\Swf\WindowsFormsHelperTests.cs" />
     <Compile Include="Shell\Core\WorkFlow\ActivityRunnerTest.cs" />
     <Compile Include="Shell\Core\WorkFlow\AsyncActivityRunnerTest.cs" />
@@ -174,7 +173,6 @@
     <Compile Include="Shell\Core\ProjectTest.cs" />
     <Compile Include="Shell\Core\UrlTest.cs" />
     <Compile Include="Controls\Swf\FileSystemTreeViewTest.cs" />
-    <Compile Include="Shell\Gui\Swf\Validation\ValidationViewTest.cs" />
     <Compile Include="ProjectStructureValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shell\Gui\Swf\ControlExtensionTest.cs" />
