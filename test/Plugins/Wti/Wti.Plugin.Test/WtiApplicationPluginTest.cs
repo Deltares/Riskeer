@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Linq;
 
 using DelftTools.Shell.Core;
 
 using Mono.Addins;
-using Mono.Addins.Description;
 
 using NUnit.Framework;
+
+using Wti.Data;
+
 using PluginResources = Wti.Plugin.Properties.Resources;
+using FormsResources = Wti.Forms.Properties.Resources;
 
 namespace Wti.Plugin.Test
 {
@@ -38,5 +42,29 @@ namespace Wti.Plugin.Test
             var extensionAttribute = (ExtensionAttribute)attribute;
             Assert.AreEqual(typeof(IPlugin), extensionAttribute.Type);
         }
+
+        [Test]
+        public void GetDataItemInfos_ReturnsExpectedDataItemDefinitions()
+        {
+            // setup
+            var plugin = new WtiApplicationPlugin();
+
+            // call
+            var dataItemDefinitions = plugin.GetDataItemInfos().ToArray();
+
+            // assert
+            Assert.AreEqual(1, dataItemDefinitions.Length);
+
+            DataItemInfo projectDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(WtiProject));
+            Assert.AreEqual("WTI2017 project", projectDataItemDefinition.Name);
+            Assert.AreEqual("WTI 2017", projectDataItemDefinition.Category);
+            Assert.AreEqual(16, projectDataItemDefinition.Image.Width);
+            Assert.AreEqual(16, projectDataItemDefinition.Image.Height);
+            Assert.IsNull(projectDataItemDefinition.AdditionalOwnerCheck);
+            Assert.IsInstanceOf<WtiProject>(projectDataItemDefinition.CreateData(null));
+            Assert.IsNull(projectDataItemDefinition.AddExampleData);
+        }
+        
+        
     }
 }

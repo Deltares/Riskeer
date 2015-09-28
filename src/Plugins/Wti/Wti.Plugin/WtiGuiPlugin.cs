@@ -1,7 +1,15 @@
-﻿using DelftTools.Shell.Core;
+﻿using System.Collections.Generic;
+
+using DelftTools.Controls;
+using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
+using DelftTools.Shell.Gui.Forms;
 
 using Mono.Addins;
+
+using Wti.Data;
+using Wti.Forms.NodePresenters;
+using Wti.Forms.PropertyClasses;
 
 namespace Wti.Plugin
 {
@@ -12,7 +20,7 @@ namespace Wti.Plugin
         {
             get
             {
-                return Properties.Resources.WtiApplicationName;
+                return Properties.Resources.WtiApplicationGuiName;
             }
         }
 
@@ -37,6 +45,24 @@ namespace Wti.Plugin
             get
             {
                 return "0.5.0.0";
+            }
+        }
+
+        public override IEnumerable<PropertyInfo> GetPropertyInfos()
+        {
+            yield return new PropertyInfo{ ObjectType = typeof(WtiProject), PropertyType = typeof(WtiProjectProperties)};
+        }
+
+        public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
+        {
+            yield return new WtiProjectNodePresenter();
+        }
+
+        public override IRibbonCommandHandler RibbonCommandHandler
+        {
+            get
+            {
+                return new WtiRibbon();
             }
         }
     }

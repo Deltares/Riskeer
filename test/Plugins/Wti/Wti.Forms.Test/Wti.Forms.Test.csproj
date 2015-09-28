@@ -51,13 +51,31 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\..\..\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NodePresenters\WtiProjectNodePresenterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyClasses\WtiProjectPropertiesTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Common\DelftTools.Controls\DelftTools.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>DelftTools.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\Common\DelftTools.Shell.Gui\DelftTools.Shell.Gui.csproj">
+      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
+      <Name>DelftTools.Shell.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\Common\DelftTools.Utils\DelftTools.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>DelftTools.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Data\Wti.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Wti.Data</Name>

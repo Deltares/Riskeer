@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Wti.Plugin.Properties {
+namespace Wti.Forms.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Wti.Plugin.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Wti.Plugin.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Wti.Forms.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,12 @@ namespace Wti.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instrumentarium om de WTI2017 toetsnorm mee uit te voeren..
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static string WtiApplicationDescription {
+        public static System.Drawing.Bitmap WtiProjectFolderIcon {
             get {
-                return ResourceManager.GetString("WtiApplicationDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wettelijk Toets Instrumentarium 2017.
-        /// </summary>
-        public static string WtiApplicationDisplayName {
-            get {
-                return ResourceManager.GetString("WtiApplicationDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to WTI2017-UI.
-        /// </summary>
-        public static string WtiApplicationGuiName {
-            get {
-                return ResourceManager.GetString("WtiApplicationGuiName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to WTI2017.
-        /// </summary>
-        public static string WtiApplicationName {
-            get {
-                return ResourceManager.GetString("WtiApplicationName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gebruikersinterface voor het Wettelijk Toets Instrumentarium 2017 programma..
-        /// </summary>
-        public static string wtiGuiPluginDescription {
-            get {
-                return ResourceManager.GetString("wtiGuiPluginDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wettelijk Toets Instrumentarium 2017 interface.
-        /// </summary>
-        public static string wtiGuiPluginDisplayName {
-            get {
-                return ResourceManager.GetString("wtiGuiPluginDisplayName", resourceCulture);
+                object obj = ResourceManager.GetObject("WtiProjectFolderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
