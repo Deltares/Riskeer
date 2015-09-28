@@ -18,7 +18,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
     public class SharpMapGisPluginGuiIntegrationTest
     {
         [Test]
-        [Category(TestCategory.Integration)]
         public void EmptyMapIsReturnedIfNoMapDefaultMapDataItemIsSet()
         {
             using (var gui = new DeltaShellGui())
@@ -36,7 +35,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void SelectMultipleFeaturesUpdatesAllMaps()
         {
             using (var gui = new DeltaShellGui())
@@ -85,7 +83,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void SetMapSelectionDoesNotSetItAgain()
         {
             using (var gui = new DeltaShellGui())

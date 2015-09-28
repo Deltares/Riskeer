@@ -27,13 +27,6 @@
     public class TestCategory
     {
         /// <summary>
-        /// Creates multiple components and tests how they work together.
-        /// 
-        /// Speed requirements: faster than 5000 ms
-        /// </summary>
-        public const string Integration = "Build.Integration";
-
-        /// <summary>
         /// Shows forms or dialogs during run.
         /// 
         /// Speed requirements: faster than 4000 ms

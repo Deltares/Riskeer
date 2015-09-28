@@ -35,7 +35,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void RemoveFromMapLegendViewDisposesLayerResources()
         {
             var mapLegendView = CreateMapLegendView();

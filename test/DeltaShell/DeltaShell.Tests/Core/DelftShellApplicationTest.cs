@@ -37,7 +37,6 @@ namespace DeltaShell.Tests.Core
 
         [Test]
         [ExpectedException(typeof(InvalidOperationException))]
-        [Category(TestCategory.Integration)]
         public void ApplicationRunCanBeCalledOnlyOnce()
         {
             using (var app = new DeltaShellApplication())
@@ -48,7 +47,6 @@ namespace DeltaShell.Tests.Core
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void ActivatePlugins()
         {
             var mocks = new MockRepository();
@@ -82,7 +80,6 @@ namespace DeltaShell.Tests.Core
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void DisposingApplicationClosesProjectOnProjectService()
         {
             using (var delftShellApplication = new DeltaShellApplication())

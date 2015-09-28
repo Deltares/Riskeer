@@ -19,7 +19,6 @@ namespace DeltaShell.Plugins.CommonTools.Tests
         private static readonly MockRepository mocks = new MockRepository();
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void ChartLegendViewIsUpdatedForCurrentActiveView()
         {
             var gui = mocks.Stub<IGui>();

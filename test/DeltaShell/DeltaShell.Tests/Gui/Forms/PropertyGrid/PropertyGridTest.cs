@@ -10,7 +10,6 @@ using Rhino.Mocks;
 namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 {
     [TestFixture]
-    [Category(TestCategory.Integration)]
     public class PropertyGridTest
     {
         # region GetObjectProperties tests

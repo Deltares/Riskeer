@@ -17,7 +17,6 @@ namespace DelftTools.Tests.Controls.Swf
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void ExpandTo()
         {
             var treeView = new FileSystemTreeView();
@@ -25,7 +24,6 @@ namespace DelftTools.Tests.Controls.Swf
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void ExpandToWithEmptyString()
         {
             var treeView = new FileSystemTreeView();

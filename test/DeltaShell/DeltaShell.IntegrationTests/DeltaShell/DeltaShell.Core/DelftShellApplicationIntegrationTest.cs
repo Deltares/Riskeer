@@ -8,7 +8,6 @@ using NUnit.Framework;
 namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Core
 {
     [TestFixture]
-    [Category(TestCategory.Integration)]
     public class DeltaShellApplicationIntegrationTest
     {
         [Test]

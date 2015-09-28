@@ -346,7 +346,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             mocks.VerifyAll();
         }
 
-        [Test, Category(TestCategory.Integration)]
+        [Test]
         public void TestRefreshChildNodesOfExpandedNode()
         {
             var mocks = new MockRepository();
@@ -397,7 +397,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             mocks.VerifyAll();
         }
 
-        [Test, Category(TestCategory.Integration)]
+        [Test]
         public void TestRefreshChildNodesOfUnExpandedNode()
         {
             var mocks = new MockRepository();

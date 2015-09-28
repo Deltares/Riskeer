@@ -139,7 +139,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             Assert.IsTrue(treeNode.IsOnCheckBox(pointOnCheckbox));
         }
 
-        [Test, Category(TestCategory.Integration)]
+        [Test]
         public void TestIsOnExpandButton()
         {
             var mocks = new MockRepository();

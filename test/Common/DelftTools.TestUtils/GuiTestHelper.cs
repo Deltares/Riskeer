@@ -208,14 +208,14 @@ namespace DelftTools.TestUtils
             {
                 // search for test attribtes in test class
                 var testClassCategories = GetTestClassCategories();
-                if (testClassCategories.Contains(TestCategory.WindowsForms) || testClassCategories.Contains(TestCategory.Integration) || testClassCategories.Contains(TestCategory.Performance))
+                if (testClassCategories.Contains(TestCategory.WindowsForms) || testClassCategories.Contains(TestCategory.Performance))
                 {
                     return; // not a unit test
                 }
 
-                throw new InvalidOperationException("This is NOT a unit test, test category " + TestCategory.WindowsForms + " or " + TestCategory.Integration + " is missing.");
+                throw new InvalidOperationException("This is NOT a unit test, test category " + TestCategory.WindowsForms + " is missing.");
             }
-            }
+        }
 
             private static IEnumerable<string> GetTestClassCategories()
         {

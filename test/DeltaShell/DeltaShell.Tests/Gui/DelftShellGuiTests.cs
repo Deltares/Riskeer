@@ -45,7 +45,6 @@ namespace DeltaShell.Tests.Gui
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void DisposingGuiDisposesApplication()
         {
             var testApplication = new TestApplication();
@@ -59,14 +58,12 @@ namespace DeltaShell.Tests.Gui
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void CheckViewPropertyEditorIsInitialized()
         {
             ViewPropertyEditor.Gui.Should().Not.Be.Null();
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void FireEventAfterRun()
         {
             var callCount = 0;

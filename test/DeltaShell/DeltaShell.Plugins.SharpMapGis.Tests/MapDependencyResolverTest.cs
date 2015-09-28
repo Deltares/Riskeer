@@ -8,7 +8,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
     public class MapDependencyResolverTest
     {
         [Test]
-        [Category(TestCategory.Integration)]
         public void RemoveBackgroundMapFromMap()
         {
             var backgroundMap = new Map();

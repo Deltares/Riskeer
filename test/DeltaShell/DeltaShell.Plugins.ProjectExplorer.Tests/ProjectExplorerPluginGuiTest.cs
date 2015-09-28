@@ -11,7 +11,6 @@ using Rhino.Mocks;
 namespace DeltaShell.Plugins.ProjectExplorer.Tests
 {
     [TestFixture]
-    [Category(TestCategory.Integration)]
     public class ProjectExplorerPluginGuiTest
     {
         MockRepository mocks = new MockRepository();

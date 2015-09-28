@@ -20,7 +20,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
         private static readonly ILog log = LogManager.GetLogger(typeof (CommandTests));
 
         [Test]
-        [Category(TestCategory.Integration)]
         [Ignore("Don't enable this test on build server until reason is found why it can't connect (hangs) probably something with security of .NET")]
         public void AddLayerFromExternalSource()
         {

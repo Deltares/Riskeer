@@ -78,7 +78,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void PasteDutchDateTimeShouldWorkFineTools8878()
         {
             var list = new EventedList<Utils.Tuple<DateTime, double>>();
@@ -112,7 +111,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void PasteClipboardContentsCanAddRows()
         {
             var person = new List<Person> { new Person { Age = 12, Name = "Hoi" }, new Person { Age = 11, Name = "keers" } };
@@ -129,7 +127,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void PasteIntoEmptyTableView()
         {
             var persons = new List<Person>();
@@ -148,7 +145,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void PasteColumnIntoEmptyTableView()
         {
             var persons = new List<Person>();
@@ -179,7 +175,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
 
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void PasteClipboardContentsOverwritesExistingRows()
         {
             var person = new List<Person> { new Person { Age = 12, Name = "Hoi" }, new Person { Age = 11, Name = "keers" } };
@@ -198,7 +193,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void CopySelectionIntoClipBoard()
         {
             var table = new DataTable();
@@ -220,7 +214,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void PasteIntoNewRow()
         {
             //this test relates to issue 3069...demonstrating a problem paste lines when rowselect is enabled.

@@ -35,7 +35,6 @@ using Control = System.Windows.Controls.Control;
 namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
 {
     [TestFixture]
-    [Category(TestCategory.Integration)]
     public class DeltaShellGuiIntegrationTest
     {
         private readonly MockRepository mocks = new MockRepository();
@@ -372,7 +371,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         [Category(TestCategory.WorkInProgress)] // trace logging has been disabled
         public void LoggingContinuesOnOpenProject()
         {
@@ -522,7 +520,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void FormActionIsRunForMainWindow()
         {
             //testing testhelper + visible changed event of mainwindow.

@@ -7,7 +7,6 @@ using DelftTools.Utils.Collections.Generic;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using NUnit.Framework;
 using Rhino.Mocks;
-using SharpMap.Api;
 using SharpMap.Api.Layers;
 using SharpMap.Data.Providers;
 using SharpMap.Layers;
@@ -17,7 +16,6 @@ using SharpMap.Styles;
 namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 {
     [TestFixture]
-    [Category(TestCategory.Integration)]
     public class MapLayerTreeViewNodePresenterTest
     {
         private static readonly MockRepository mocks = new MockRepository();

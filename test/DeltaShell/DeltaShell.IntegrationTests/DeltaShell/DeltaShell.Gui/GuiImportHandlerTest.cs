@@ -214,7 +214,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
         
         [Test]
-        [Category(TestCategory.Integration)]
         [Category(TestCategory.Slow)]
         public void AllPluginsAreSearchedForFileImportersAndOnlyMatchingImportersAreReturned()
         {

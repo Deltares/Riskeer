@@ -7,7 +7,6 @@ using SharpMap.Layers;
 namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Plugins.SharpMapGis
 {
     [TestFixture]
-    [Category(TestCategory.Integration)]
     public class SharpMapGisPluginTest
     {
         [Test]

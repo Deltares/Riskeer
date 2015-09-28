@@ -101,7 +101,6 @@ namespace SharpMap.Tests.Editors
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void MoveTestWithLinearFalOffPolicy()
         {
             var lineStringEditor = new LineStringInteractor(null, sampleFeature, GetStyle(), null);

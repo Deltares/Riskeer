@@ -22,7 +22,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void GetInstance()
         {
             // starts a new server and returns remote instance
@@ -44,7 +43,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void ServerShouldStopAfterInstanceIsRemovedFromContainer()
         {
             // starts a new server and returns remote instance
@@ -70,7 +68,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void AfterInstanceIsCreatedClassCanBeInstantiatedLocally()
         {
             // starts a new server and returns remote instance
@@ -93,7 +90,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void GettingTwoInstancesShouldStartTwoProcesses()
         {
             IRemoteClass remoteInstance1 = null;
@@ -122,7 +118,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         [Category(TestCategory.WorkInProgress)]
         public void StartInAnyCurrentDirectory()
         {
@@ -154,7 +149,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void CallRemoteMethodThatGivesException()
         {
             int called = 0;
@@ -175,7 +169,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void CopyHugeArrayUsingSharedMemory()
         {
             var remoteInstance = RemoteInstanceContainer.CreateInstance<IRemoteClass, RemotingClass>();
@@ -208,7 +201,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         [Ignore("Memory intensive")]
         public void CopyLargeDoubleArrayToServerHeap()
         {

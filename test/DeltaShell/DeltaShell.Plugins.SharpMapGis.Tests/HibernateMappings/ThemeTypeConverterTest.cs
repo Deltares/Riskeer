@@ -237,7 +237,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.HibernateMappings
         /// Tests multiple themeitems and check if they are not default items.
         /// </summary>
         [Test]
-        [NUnit.Framework.Category(TestCategory.Integration)]
         public void ConvertQuantityThemeToXmlAndBackThemeItems()
         {
             // Convert a test theme to xml and back

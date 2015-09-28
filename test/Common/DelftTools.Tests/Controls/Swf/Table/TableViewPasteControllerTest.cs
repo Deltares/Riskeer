@@ -174,7 +174,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [NUnit.Framework.Category(TestCategory.Integration)]
         public void CopyPasteEnumInBindingList()
         {
             var list = new BindingList<ClassWithEnum>

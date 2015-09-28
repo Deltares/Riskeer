@@ -26,7 +26,6 @@ namespace DelftTools.Tests.Controls.Swf.Charting
         }
 
         [Test]
-        [Category(TestCategory.Integration)]
         public void AddingSeriesToChartTriggersChartCollectionChanged()
         {
             var chart = new Chart();

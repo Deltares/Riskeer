@@ -13,7 +13,6 @@ using NUnit.Framework;
 namespace DelftTools.Utils.Tests
 {
     [TestFixture]
-    [NUnit.Framework.Category(TestCategory.Integration)]
     public class DelayedEventHandlerTest: Control
     {
         private event PropertyChangedEventHandler PropertyChanged;
@@ -110,7 +109,6 @@ namespace DelftTools.Utils.Tests
         }
 
         [Test]
-        [NUnit.Framework.Category(TestCategory.Integration)]
         public void FullRefreshWithSingleEventRefreshLimit()
         {
             var times = new List<DateTime>();

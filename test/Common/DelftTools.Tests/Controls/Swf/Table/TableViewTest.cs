@@ -448,7 +448,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.Integration)] // crete control is slow
         public void SetDataSource()
         {
             var table = new DataTable("table1");
