@@ -234,16 +234,6 @@ namespace SharpMap.UI.Forms
             }
         }
 
-        public void WaitUntilAllEventsAreProcessed()
-        {
-            while (mapCollectionChangedEventHandler != null && mapPropertyChangedEventHandler != null
-                   && (mapCollectionChangedEventHandler.HasEventsToProcess || mapCollectionChangedEventHandler.IsRunning
-                       || mapPropertyChangedEventHandler.HasEventsToProcess || mapPropertyChangedEventHandler.IsRunning))
-            {
-                Application.DoEvents();
-            }
-        }
-
         public IMapTool GetToolByName(string toolName)
         {
             return Tools.SingleOrDefault(tool => tool.Name == toolName);

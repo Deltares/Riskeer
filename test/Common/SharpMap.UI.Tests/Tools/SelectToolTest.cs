@@ -20,7 +20,6 @@ namespace SharpMap.UI.Tests.Tools
     public class SelectToolTest
     {
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void ClearSelectionOnLayerRemove()
         {
             var featureProvider = new FeatureCollection
@@ -35,21 +34,14 @@ namespace SharpMap.UI.Tests.Tools
 
                 selectTool.Select(featureProvider.Features.Cast<IFeature>());
 
-                WindowsFormsTestHelper.Show(mapControl);
-
                 mapControl.Map.Layers.Clear();
-
-                mapControl.WaitUntilAllEventsAreProcessed();
 
                 selectTool.Selection
                     .Should("selection is cleared on layer remove").Be.Empty();
             }
-
-            WindowsFormsTestHelper.CloseAll();
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void ClearSelectionOnParentGroupLayerRemove()
         {
             var featureProvider = new FeatureCollection
@@ -65,17 +57,11 @@ namespace SharpMap.UI.Tests.Tools
 
                 selectTool.Select(featureProvider.Features.Cast<IFeature>());
 
-                WindowsFormsTestHelper.Show(mapControl);
-
                 mapControl.Map.Layers.Remove(groupLayer);
-
-                mapControl.WaitUntilAllEventsAreProcessed();
 
                 selectTool.Selection
                     .Should("selection is cleared on layer remove").Be.Empty();
             }
-
-            WindowsFormsTestHelper.CloseAll();
         }
 
         [Test]
@@ -223,15 +209,14 @@ namespace SharpMap.UI.Tests.Tools
             mapControl.Map.Layers.Add(vectorLayer);
             mapControl.SelectTool.AddSelection(features.Take(5000));
 
-            TestHelper.AssertIsFasterThan(5000, () => WindowsFormsTestHelper.ShowModal(mapControl, f =>
-                {
-                    vectorLayer.Visible = false;
-                    mapControl.SelectTool.RefreshSelection();
-                }));
+            TestHelper.AssertIsFasterThan(5000, () =>
+            {
+                vectorLayer.Visible = false;
+                mapControl.SelectTool.RefreshSelection();
+            });
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void SelectionMultipleFeaturesOnMultipleLayers()
         {
             var featureProvider1 = new FeatureCollection
@@ -266,20 +251,12 @@ namespace SharpMap.UI.Tests.Tools
 
                 selectTool.Select(listOfSelectedFeatures.Cast<IFeature>());
 
-                WindowsFormsTestHelper.Show(mapControl);
-
-                
-                mapControl.WaitUntilAllEventsAreProcessed();
-
                 selectTool.Selection.Count()
                     .Should("selection are 3 features in 2 layers, 2 features in layer1, 1 feature in layer 2").Be.EqualTo(3);
             }
-
-            WindowsFormsTestHelper.CloseAll();
         }
         
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void SelectionMultipleFeaturesInMultipleLayersOnOnlyOneLayer()
         {
             var featureProvider1 = new FeatureCollection
@@ -314,33 +291,20 @@ namespace SharpMap.UI.Tests.Tools
 
                 selectTool.Select(listOfSelectedFeatures.Cast<IFeature>(), layer1);
 
-                WindowsFormsTestHelper.Show(mapControl);
-
-
-                mapControl.WaitUntilAllEventsAreProcessed();
-
                 selectTool.Selection.Count()
                     .Should("selection are 3 features in 2 layers, but only select the 2 features in layer1!").Be.EqualTo(2);
                 
                 selectTool.Select(listOfSelectedFeatures.Cast<IFeature>(), layer2);
 
-                WindowsFormsTestHelper.Show(mapControl);
-
-
-                mapControl.WaitUntilAllEventsAreProcessed();
-
                 selectTool.Selection.Count()
                     .Should("selection are 3 features in 2 layers, but only select the 1 feature in layer2!").Be.EqualTo(1);
             }
-
-            WindowsFormsTestHelper.CloseAll();
         }
 
         /// <summary>
         /// Test for TOOLS-22796:'Selecting area feature type in project tree selects all features in map which can be extremely slow'
         /// </summary>
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void SelectionMoreThanMaxMultipleFeaturesInMultipleLayers()
         {
             var maxSelectableFeatures = SelectTool.MaxSelectedFeatures;
@@ -367,17 +331,11 @@ namespace SharpMap.UI.Tests.Tools
                 var ofSelectedFeatures = listOfSelectedFeatures as IFeature[] ?? listOfSelectedFeatures.ToArray();
                 selectTool.Select(ofSelectedFeatures);
 
-                WindowsFormsTestHelper.Show(mapControl);
-
-
-                mapControl.WaitUntilAllEventsAreProcessed();
                 var message =
                     string.Format("selection are all {1} features in 2 layers, but only select the first {0} features!", maxSelectableFeatures, ofSelectedFeatures.Count());
                 selectTool.Selection.Count()
                     .Should(message).Be.EqualTo(maxSelectableFeatures);
             }
-
-            WindowsFormsTestHelper.CloseAll();
         }
 
         private class TestFeature : Feature
