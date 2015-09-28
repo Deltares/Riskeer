@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-using DelftTools.TestUtils;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SharpMap.UI.Helpers;
 
 namespace SharpMap.UI.Tests.Helpers
@@ -8,13 +6,6 @@ namespace SharpMap.UI.Tests.Helpers
     [TestFixture]
     public class MapCursorsTest
     {
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowAddPointCursor()
-        {
-            WindowsFormsTestHelper.ShowModal(new Form {Cursor = MapCursors.AddPoint});
-        }
-
         [Test]
         public void CheckNoCopiesAreReturned()
         {

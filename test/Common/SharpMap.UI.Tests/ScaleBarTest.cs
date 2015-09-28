@@ -181,37 +181,6 @@ namespace SharpMap.UI.Tests
             }
         }
 
-        [Test,Category(TestCategory.WindowsForms)]
-        public void ShowScaleBar()
-        {
-            var rectangle = new Rectangle(5,5,300,50);
-            var bar = new ScaleBar();
-            bar.BorderVisible = false;
-            bar.TransparentBackground = true;
-            bar.BorderVisible = true;
-
-            //bar.BarColor2 = Color.Yellow;
-            bar.SetScale(20, 40);
-        //    bar.MapUnit = MapUnits.ws_muMeter;
-          //  bar.BarUnit = MapUnits.ws_muMeter;
-            //bar.SetCustomUnit(4,"test","test");
-           // bar.MapUnit = MapUnits.ws_muCustom;
-
-            using (var control = new UserControl())
-            {
-
-                
-                
-                control.Paint +=
-                    delegate(object sender, PaintEventArgs e)
-                        {
-                        //    rectangle = new Rectangle(new Point(0, 0), ((Control) sender).Size);
-                            bar.DrawTheControl(e.Graphics, rectangle);
-                        };
-                WindowsFormsTestHelper.ShowModal(control);
-            }
-        }
-
         [Test]
         public void ToFormattedString()
         {

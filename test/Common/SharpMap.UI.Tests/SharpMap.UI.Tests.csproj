@@ -107,10 +107,7 @@
     <Compile Include="ScaleBarTest.cs" />
     <Compile Include="Tools\CurvePointToolTest.cs" />
     <Compile Include="Tools\DeleteToolTest.cs" />
-    <Compile Include="Tools\LegendToolTest.cs" />
-    <Compile Include="Tools\MapToolExample.cs" />
     <Compile Include="Tools\NewPointFeatureToolTest.cs" />
-    <Compile Include="Tools\ScaleBarToolTest.cs" />
     <Compile Include="Tools\SelectToolTest.cs" />
     <Compile Include="Tools\ZoomHistoryTest.cs" />
   </ItemGroup>

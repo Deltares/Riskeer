@@ -130,14 +130,10 @@
     <Compile Include="Controls\Swf\Charting\Series\TeeChartSeriesDecoratorTest.cs" />
     <Compile Include="Controls\Swf\Charting\Tools\CursorLineToolTest.cs" />
     <Compile Include="Controls\Swf\Charting\Tools\HistoryToolTest.cs" />
-    <Compile Include="Controls\Swf\Charting\Tools\SelectPointToolTest.cs" />
     <Compile Include="Controls\Swf\Charting\YearViewDateTimeFormatProviderTest.cs" />
     <Compile Include="Controls\Swf\CSV\CsvImportTest.cs" />
-    <Compile Include="Controls\Swf\CSV\CsvImportWizardDialogTest.cs" />
     <Compile Include="Controls\Swf\CustomInputDialogTest.cs" />
-    <Compile Include="Controls\Swf\DataEditorGenerator\Domain\Car.cs" />
     <Compile Include="Controls\Swf\DataEditorGenerator\Domain\BindModel.cs" />
-    <Compile Include="Controls\Swf\DataEditorGenerator\DataEditorGeneratorSwfTest.cs" />
     <Compile Include="Controls\Swf\DataEditorGenerator\LinkedToolTipTest.cs" />
     <Compile Include="Controls\Swf\DataEditorGenerator\SelfCollapsingGroupboxTest.cs" />
     <Compile Include="Controls\Swf\FileNameUITypeEditorTest.cs" />

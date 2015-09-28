@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using DelftTools.Controls.Swf;
-using DelftTools.TestUtils;
 using NUnit.Framework;
 
 namespace DelftTools.Tests.Controls.Swf
@@ -10,8 +9,7 @@ namespace DelftTools.Tests.Controls.Swf
     public class CustomInputDialogTest
     {
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowCustomDialog()
+        public void CreateCustomDialog()
         {
             var dialog = new CustomInputDialog();
             dialog.AddInput<string>("Name");
@@ -26,22 +24,17 @@ namespace DelftTools.Tests.Controls.Swf
             valueInput.ToolTip = "Value of item";
             valueInput.UnitSymbol = "m";
 
-            WindowsFormsTestHelper.ShowModal(dialog);
-
             Assert.AreEqual(10.0, dialog["Value"]);
             Assert.AreEqual(DialogResult.Retry, dialog["Result"]);
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowCustomDialogWithDropDownBox()
+        public void CreateCustomDialogWithDropDownBox()
         {
             var dialog = new CustomInputDialog();
             dialog.AddInput<string>("Name");
             dialog.AddChoice("Occupation", new List<string> {"Construction", "IT", "Management", "Finance"});
             dialog.AddChoice("Years of experience", new List<int> { 0, 1, 2, 3 }).ToolTip = "Number of years experience, choose 3 if 3 or more year";
-
-            WindowsFormsTestHelper.ShowModal(dialog);
 
             Assert.AreEqual("", dialog["Name"]);
             Assert.AreEqual("Construction", dialog["Occupation"]);
