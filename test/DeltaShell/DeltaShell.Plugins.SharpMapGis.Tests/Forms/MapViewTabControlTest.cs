@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Shell.Gui;
-using DelftTools.TestUtils;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms;
 using GeoAPI.Extensions.Feature;
 using NUnit.Framework;
@@ -16,28 +15,23 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
     public class MapViewTabControlTest
     {
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void OpeningViewCallsActivate()
         {
             var view = new TestLayerEditorView();
 
             var mapTabControl = new MapViewTabControl();
 
-            WindowsFormsTestHelper.ShowModal(mapTabControl, f =>
-                {
-                    int view1Activated = 0, view1Deactivated = 0;
-                    view.OnActivatedCalled += (s, e) => view1Activated++;
-                    view.OnDeactivatedCalled += (s, e) => view1Deactivated++;
+            int view1Activated = 0, view1Deactivated = 0;
+            view.OnActivatedCalled += (s, e) => view1Activated++;
+            view.OnDeactivatedCalled += (s, e) => view1Deactivated++;
 
-                    mapTabControl.AddView(view);
+            mapTabControl.AddView(view);
 
-                    Assert.AreEqual(1, view1Activated);
-                    Assert.AreEqual(0, view1Deactivated);
-                });
+            Assert.AreEqual(1, view1Activated);
+            Assert.AreEqual(0, view1Deactivated);
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void RemovingViewDoesNotLeakView()
         {
             var mapTabControl = new MapViewTabControl();
@@ -47,7 +41,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void DisposingTabWithOpenViewDoesNotLeakView()
         {
             var mapTabControl = new MapViewTabControl();
@@ -75,7 +68,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void OpeningSecondViewCallsDeactivateAndActivate()
         {
             var view = new TestLayerEditorView();
@@ -83,27 +75,23 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 
             var mapTabControl = new MapViewTabControl();
 
-            WindowsFormsTestHelper.ShowModal(mapTabControl, f =>
-                {
-                    mapTabControl.AddView(view);
+            mapTabControl.AddView(view);
 
-                    int view1Activated = 0, view1Deactivated = 0, view2Activated = 0, view2Deactivated = 0;
-                    view.OnActivatedCalled += (s, e) => view1Activated++;
-                    view.OnDeactivatedCalled += (s, e) => view1Deactivated++;
-                    view2.OnActivatedCalled += (s, e) => view2Activated++;
-                    view2.OnDeactivatedCalled += (s, e) => view2Deactivated++;
+            int view1Activated = 0, view1Deactivated = 0, view2Activated = 0, view2Deactivated = 0;
+            view.OnActivatedCalled += (s, e) => view1Activated++;
+            view.OnDeactivatedCalled += (s, e) => view1Deactivated++;
+            view2.OnActivatedCalled += (s, e) => view2Activated++;
+            view2.OnDeactivatedCalled += (s, e) => view2Deactivated++;
 
-                    mapTabControl.AddView(view2);
+            mapTabControl.AddView(view2);
 
-                    Assert.AreEqual(0, view1Activated);
-                    Assert.AreEqual(1, view1Deactivated);
-                    Assert.AreEqual(1, view2Activated);
-                    Assert.AreEqual(0, view2Deactivated);
-                });
+            Assert.AreEqual(0, view1Activated);
+            Assert.AreEqual(1, view1Deactivated);
+            Assert.AreEqual(1, view2Activated);
+            Assert.AreEqual(0, view2Deactivated);
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void ClosingInactivateViewCallsNothing()
         {
             var view = new TestLayerEditorView();
@@ -111,28 +99,24 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 
             var mapTabControl = new MapViewTabControl();
 
-            WindowsFormsTestHelper.ShowModal(mapTabControl, f =>
-            {
-                mapTabControl.AddView(view);
-                mapTabControl.AddView(view2);
+            mapTabControl.AddView(view);
+            mapTabControl.AddView(view2);
 
-                int view1Activated = 0, view1Deactivated = 0, view2Activated = 0, view2Deactivated = 0;
-                view.OnActivatedCalled += (s, e) => view1Activated++;
-                view.OnDeactivatedCalled += (s, e) => view1Deactivated++;
-                view2.OnActivatedCalled += (s, e) => view2Activated++;
-                view2.OnDeactivatedCalled += (s, e) => view2Deactivated++;
+            int view1Activated = 0, view1Deactivated = 0, view2Activated = 0, view2Deactivated = 0;
+            view.OnActivatedCalled += (s, e) => view1Activated++;
+            view.OnDeactivatedCalled += (s, e) => view1Deactivated++;
+            view2.OnActivatedCalled += (s, e) => view2Activated++;
+            view2.OnDeactivatedCalled += (s, e) => view2Deactivated++;
 
-                mapTabControl.RemoveView(view);
-                
-                Assert.AreEqual(0, view1Activated);
-                Assert.AreEqual(0, view1Deactivated);
-                Assert.AreEqual(0, view2Activated);
-                Assert.AreEqual(0, view2Deactivated);
-            });
+            mapTabControl.RemoveView(view);
+
+            Assert.AreEqual(0, view1Activated);
+            Assert.AreEqual(0, view1Deactivated);
+            Assert.AreEqual(0, view2Activated);
+            Assert.AreEqual(0, view2Deactivated);
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void ClosingViewCallsDeactivateAndActivate()
         {
             var view = new TestLayerEditorView();
@@ -140,27 +124,24 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 
             var mapTabControl = new MapViewTabControl();
 
-            WindowsFormsTestHelper.ShowModal(mapTabControl, f =>
-            {
-                mapTabControl.AddView(view);
-                mapTabControl.AddView(view2);
+            mapTabControl.AddView(view);
+            mapTabControl.AddView(view2);
 
-                int view1Activated = 0, view1Deactivated = 0, view2Activated = 0, view2Deactivated = 0;
-                view.OnActivatedCalled += (s, e) => view1Activated++;
-                view.OnDeactivatedCalled += (s, e) => view1Deactivated++;
-                view2.OnActivatedCalled += (s, e) => view2Activated++;
-                view2.OnDeactivatedCalled += (s, e) => view2Deactivated++;
+            int view1Activated = 0, view1Deactivated = 0, view2Activated = 0, view2Deactivated = 0;
+            view.OnActivatedCalled += (s, e) => view1Activated++;
+            view.OnDeactivatedCalled += (s, e) => view1Deactivated++;
+            view2.OnActivatedCalled += (s, e) => view2Activated++;
+            view2.OnDeactivatedCalled += (s, e) => view2Deactivated++;
 
-                mapTabControl.RemoveView(view2);
+            mapTabControl.RemoveView(view2);
 
-                Assert.AreEqual(1, view1Activated);
-                Assert.AreEqual(0, view1Deactivated);
-                Assert.AreEqual(0, view2Activated);
-                Assert.AreEqual(1, view2Deactivated);
-            });
+            Assert.AreEqual(1, view1Activated);
+            Assert.AreEqual(0, view1Deactivated);
+            Assert.AreEqual(0, view2Activated);
+            Assert.AreEqual(1, view2Deactivated);
         }
+
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void SwitchingTabsCallsDeactivateAndActivateOnlyOnce()
         {
             var view = new TestLayerEditorView();
@@ -168,23 +149,20 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 
             var mapTabControl = new MapViewTabControl();
 
-            WindowsFormsTestHelper.ShowModal(mapTabControl, f =>
-                {
-                    mapTabControl.AddView(view);
-                    mapTabControl.AddView(view2);
-                    int view1Activated = 0, view1Deactivated = 0, view2Activated = 0, view2Deactivated = 0;
-                    view.OnActivatedCalled += (s, e) => view1Activated++;
-                    view.OnDeactivatedCalled += (s, e) => view1Deactivated++;
-                    view2.OnActivatedCalled += (s, e) => view2Activated++;
-                    view2.OnDeactivatedCalled += (s, e) => view2Deactivated++;
-                    
-                    mapTabControl.ActiveView = view;
+            mapTabControl.AddView(view);
+            mapTabControl.AddView(view2);
+            int view1Activated = 0, view1Deactivated = 0, view2Activated = 0, view2Deactivated = 0;
+            view.OnActivatedCalled += (s, e) => view1Activated++;
+            view.OnDeactivatedCalled += (s, e) => view1Deactivated++;
+            view2.OnActivatedCalled += (s, e) => view2Activated++;
+            view2.OnDeactivatedCalled += (s, e) => view2Deactivated++;
 
-                    Assert.AreEqual(1, view1Activated);
-                    Assert.AreEqual(0, view1Deactivated);
-                    Assert.AreEqual(0, view2Activated);
-                    Assert.AreEqual(1, view2Deactivated);
-                });
+            mapTabControl.ActiveView = view;
+
+            Assert.AreEqual(1, view1Activated);
+            Assert.AreEqual(0, view1Deactivated);
+            Assert.AreEqual(0, view2Activated);
+            Assert.AreEqual(1, view2Deactivated);
         }
 
         private class TestLayerEditorView : UserControl, ILayerEditorView

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -13,25 +12,18 @@ using DeltaShell.Gui;
 using DeltaShell.Plugins.SharpMapGis.Gui;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
-using GeoAPI.CoordinateSystems;
-using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
 using GisSharpBlog.NetTopologySuite.Geometries;
 using log4net;
 using log4net.Core;
-using NetTopologySuite.Extensions.Features;
 using NUnit.Framework;
 using Rhino.Mocks;
 using SharpMap;
-using SharpMap.Api;
 using SharpMap.Data.Providers;
 using SharpMap.Extensions.CoordinateSystems;
 using SharpMap.Layers;
-using SharpMap.UI.Forms;
-using SharpMap.Utilities.SpatialIndexing;
 using SharpMapTestUtils;
 using SharpTestsEx;
-using Point = GisSharpBlog.NetTopologySuite.Geometries.Point;
 
 namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 {
@@ -53,13 +45,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             LogHelper.ResetLogging();
         }
 
-        [Test, Category(TestCategory.WindowsForms)]
+        [Test]
         public void DisablingLayerShouldRefreshMapOnce()
         {
             var mapView = new MapView();
             mapView.Map.Layers.Add(new GroupLayer("group1"));
-
-            WindowsFormsTestHelper.Show(mapView);
 
             while (mapView.MapControl.IsProcessing)
             {
@@ -78,11 +68,9 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 
             // TODO: currently second refresh can happen because of timer in MapControl - timer must be replaced by local Map / Layer / MapControl custom event
             refreshCount.Should("map should be refreshed once when layer property changes").Be.LessThanOrEqualTo(2);
-
-            WindowsFormsTestHelper.CloseAll();
         }
 
-        [Test, Category(TestCategory.WindowsForms)]
+        [Test]
         public void DeletingLayerSetsRenderRequired()
         {
             using (var mapView = new MapView())
@@ -93,7 +81,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             }
         }
 
-        [Test, Category(TestCategory.WindowsForms)]
+        [Test]
         public void RenderMapWithLabelLayerAsDataSource()
         {
             Map map = new Map(new Size(2, 1));
@@ -125,8 +113,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 
         [Test]
         [Category(TestCategory.WorkInProgress)] // can't find env variable on build server, in progress ...
-        [Category("CoordinateSystem")]
-
         [TestCase(@"osm\europe_western_europe_netherlands_location.shp", ShapeType.Point)]
         [TestCase(@"osm\europe_western_europe_netherlands_water.shp", ShapeType.Polygon)]
         [TestCase(@"osm\europe_western_europe_netherlands_highway.shp", ShapeType.PolyLine)]
@@ -209,117 +195,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         IGeometryFactory geometryFactory = new GeometryFactory();
         IDictionary<int, VectorLayer> quadTreeLayers = new Dictionary<int, VectorLayer>();
 
-        private void AddSharpMapQuadTreeFeatures(QuadTreeOld node, Map map)
-        {
-            var e = node.Box;
-            var feature = new Feature { Geometry = geometryFactory.ToGeometry(e) };
-
-            VectorLayer vectorLayer = null;
-            if (!quadTreeLayers.TryGetValue((int)node.Depth, out vectorLayer))
-            {
-                var featureCollection = new FeatureCollection { Features = new List<Feature> { feature } };
-                vectorLayer = new VectorLayer { DataSource = featureCollection, Style = { Fill = Brushes.Transparent }, Name = "quad tree, level: " + node.Depth };
-                map.Layers.Insert(0, vectorLayer);
-                quadTreeLayers[(int)node.Depth] = vectorLayer;
-            }
-            else
-            {
-                vectorLayer.DataSource.Features.Add(feature);
-            }
-
-            if (node.Child0 != null)
-            {
-                AddSharpMapQuadTreeFeatures(node.Child0, map);
-            }
-            if (node.Child0 != null)
-            {
-                AddSharpMapQuadTreeFeatures(node.Child1, map);
-            }
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        [Category(TestCategory.WorkInProgress)] // can't find env variable on build server, in progress ...
-        [Category("CoordinateSystem")]
-        public void RenderMapWithTransformation()
-        {
-            LogHelper.ConfigureLogging(Level.Debug);
-            Map.CoordinateSystemFactory = new OgrCoordinateSystemFactory();
-
-            log.DebugFormat("GDAL_DATA: {0}", Environment.GetEnvironmentVariable("GDAL_DATA")); 
-
-            // nice ball: +proj=lcc +lat_1=44.1 +lat_0=44.1 +lon_0=0 +k_0=0.999877499 +x_0=600000 +y_0=200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m'
-            var crsWgs84 = Map.CoordinateSystemFactory.CreateFromEPSG(4326 /* WGS84 */);
-            var crsMercator = Map.CoordinateSystemFactory.CreateFromEPSG(3857 /* Web Mercator */);
-            var crsRd = Map.CoordinateSystemFactory.CreateFromEPSG(28992 /* RD New */);
-
-            const string path = DataPath + "World_countries_shp.shp";
-            var shp = new ShapeFile(path, true);
-            var layer = new VectorLayer
-                            {
-                                DataSource = shp,
-                                UseQuadTree = true,
-                                //RenderQuadTree = true
-                                RenderQuadTreeEnvelopes = true,
-                                UseSimpleGeometryForQuadTree = true
-                            };
-
-
-/*
-            const string path2 = DataPath + @"NAD83\watershed_major.shp";
-            var shp2 = new ShapeFile(path2, true);
-            var layer2 = new VectorLayer
-            {
-                DataSource = shp2,
-                Style = { Fill = new SolidBrush(Color.FromArgb(100, 200, 50, 50))},
-                UseQuadTree = true
-            };
-
-            const string path3 = DataPath + @"Gemeenten.shp";
-            var shp3 = new ShapeFile(path3, true);
-            var layer3 = new VectorLayer
-            {
-                DataSource = shp3,
-                Style = { Fill = new SolidBrush(Color.FromArgb(100, 50, 200, 50)) },
-                UseQuadTree = true,
-                //RenderQuadTree = true
-            };
-
-            const string path4 = DataPath + @"osm\europe_western_europe_netherlands_water.shp";
-            var shp4 = new ShapeFile(path4, true);
-            var layer4 = new VectorLayer
-            {
-                DataSource = shp4,
-                CoordinateTransformation = new OgrCoordinateTransformation((OgrCoordinateSystem)shp4.CoordinateSystem, (OgrCoordinateSystem)dst),
-                //SimplifyGeometryDuringRendering = false,
-                //SkipRenderingOfVerySmallFeatures = false,
-                Style = { Fill = new SolidBrush(Color.FromArgb(100, 50, 200, 50)) }
-            };
-*/
-
-            var map = new Map
-                          {
-                              Layers = { /*layer2, layer3, layer4, layerlines,*/ layer }, 
-                              Size = new Size(640, 480),
-                              CoordinateSystem = crsMercator 
-                          };
-
-            var control = new SelectCoordinateSystemDialog(Map.CoordinateSystemFactory.SupportedCoordinateSystems, Map.CoordinateSystemFactory.CustomCoordinateSystems)
-                              {
-                                  Dock = DockStyle.Fill,
-                                  SelectedCoordinateSystem = crsMercator
-                              };
-            control.SelectedCoordinateSystemChanged += delegate(ICoordinateSystem system)
-                                                           {
-                                                               map.CoordinateSystem = system;
-                                                               map.ZoomToExtents();
-                                                           };
-
-            WindowsFormsTestHelper.Show(control, map, layer);
-
-            MapTestHelper.ShowModal(map);
-        }
-
         [Test]
         public void MapMaintainsZoomAndCenterWhenShownInMapView()
         {
@@ -337,49 +212,23 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void GetContextMenuOnMapToCreatePng()
-        {
-            MapView mapView = new MapView();
-            var map = new Map(new Size(2, 1));
-            mapView.Map = map;
-
-            const string sharpMapTestPath = @"..\..\..\..\..\test-data\DeltaShell\DeltaShell.Plugins.SharpMapGis.Tests\";
-            const string path = sharpMapTestPath + "roads.shp";
-            var shapeFile = new ShapeFile(path, false);
-            var vectorLayer = new VectorLayer(Path.GetFileNameWithoutExtension(path), shapeFile);
-            map.Layers.Add(vectorLayer);
-
-            var form1 = new Form();
-            mapView.Dock = DockStyle.Fill;
-            form1.Controls.Add(mapView);
-            
-            WindowsFormsTestHelper.ShowModal(form1);
-        }
-
-        [Test, Category(TestCategory.WindowsForms)]
         public void OpenMapViewWithVectorLayerAttributeTable()
         {
             var shapefile = new ShapeFile(DataPath + "rivers.shp");
             var layer = new VectorLayer { DataSource = shapefile };
             var map = new Map { Layers = { layer } };
             var mapView = new MapView { Map = map };
-            
-            Action<Form> afterShow = delegate
-            {
-                Assert.IsTrue(mapView.Splitter.IsCollapsed);
 
-                Assert.IsFalse(mapView.IsTabControlVisible);
+            Assert.IsTrue(mapView.Splitter.IsCollapsed);
 
-                mapView.OpenLayerAttributeTable(layer);
+            Assert.IsFalse(mapView.IsTabControlVisible);
 
-                Assert.IsTrue(mapView.IsTabControlVisible);
-            };
+            mapView.OpenLayerAttributeTable(layer);
 
-            WindowsFormsTestHelper.ShowModal(mapView, afterShow);
+            Assert.IsTrue(mapView.IsTabControlVisible);
         }
 
-        [Test, Category(TestCategory.WindowsForms)]
+        [Test]
         public void CloseLastTabCollapsesSplitter()
         {
             var shapefile = new ShapeFile(DataPath + "rivers.shp");
@@ -387,17 +236,12 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var map = new Map { Layers = { layer } };
             var mapView = new MapView { Map = map };
 
-            Action<Form> afterShow = delegate
-            {
-                var view = new VectorLayerAttributeTableView { Data = layer };
-                
-                mapView.TabControl.AddView(view);
-                mapView.TabControl.RemoveView(view);
+            var view = new VectorLayerAttributeTableView { Data = layer };
 
-                Assert.IsTrue(mapView.Splitter.IsCollapsed);
-            };
+            mapView.TabControl.AddView(view);
+            mapView.TabControl.RemoveView(view);
 
-            WindowsFormsTestHelper.ShowModal(mapView, afterShow);
+            Assert.IsTrue(mapView.Splitter.IsCollapsed);
         }
 
         [Test]
@@ -437,50 +281,5 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 
             mocks.VerifyAll();
         }
-
-        [Test, Category(TestCategory.WindowsForms)]
-        public void MapViewSynchronizesMapSelectionWithMapEditors()
-        {
-            var mocks = new MockRepository();
-
-            var featureToSync = mocks.Stub<IFeature>();
-            var featureProvider = mocks.Stub<IFeatureProvider>();
-
-            var tabControl = mocks.Stub<MapViewTabControl>();
-            var mapViewEditor = mocks.StrictMock<ILayerEditorView>();
-
-            featureToSync.Geometry = new Point(2, 2);
-            var layerEditorViews = new EventedList<IView> {mapViewEditor};
-
-            tabControl.Expect(tc => tc.Dispose()).Repeat.Any();
-            tabControl.Expect(tc => tc.ChildViews).Return(layerEditorViews).Repeat.Any();
-            
-            featureProvider.Expect(fp => fp.CoordinateSystemChanged += null).IgnoreArguments().Repeat.Any();
-            featureProvider.Expect(fp => fp.CoordinateSystemChanged -= null).IgnoreArguments().Repeat.Any();
-            featureProvider.Expect(fp => fp.Contains(featureToSync)).Return(true).Repeat.Any();
-            featureProvider.Expect(fp => fp.GetFeature(0)).Return(featureToSync).Repeat.Any();
-            featureProvider.Expect(fp => fp.GetFeatureCount()).Return(1).Repeat.Any();
-            //featureProvider.Expect(fp => fp.GetFeatures(new Envelope())).IgnoreArguments().Return(new[] { featureToSync }).Repeat.Any();
-            featureProvider.Expect(fp => fp.GetExtents()).Return(new Envelope(0, 10, 0, 10)).Repeat.Any();
-
-            featureProvider.FeaturesChanged += null;
-            LastCall.IgnoreArguments();
-
-            // expect call to mapViewEditor.SelectedFeatures after map selection
-            mapViewEditor.Expect(me => me.SelectedFeatures).SetPropertyWithArgument(new[] { featureToSync });
-
-            mocks.ReplayAll();
-
-            var mapView = new MapView();
-            mapView.Map.Layers.Add(new VectorLayer { DataSource = featureProvider });
-
-            // use mocked tab control to check synchronization
-            TypeUtils.SetField(mapView, "tabControl", tabControl);
-
-            // selecting feature will set the mapViewEditor.SelectedFeatures 
-            mapView.MapControl.SelectTool.Select(new[] { featureToSync });
-
-            WindowsFormsTestHelper.ShowModal(mapView);
-        } 
     }
 }
