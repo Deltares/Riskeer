@@ -198,7 +198,6 @@ namespace SharpMap.UI.Tests.Tools
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
         public void SetLayerWithManySelectedFeaturesVisibilityFalseShouldBeFast()
         {
             var mapControl = new MapControl();

@@ -116,7 +116,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         [TestCase(@"osm\europe_western_europe_netherlands_location.shp", ShapeType.Point)]
         [TestCase(@"osm\europe_western_europe_netherlands_water.shp", ShapeType.Polygon)]
         [TestCase(@"osm\europe_western_europe_netherlands_highway.shp", ShapeType.PolyLine)]
-        [Category(TestCategory.Performance)]
         [Category(TestCategory.Slow)]
         public void RenderLargeShapefile(string filePath, ShapeType type)
         {

@@ -383,8 +383,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
-        public void StartWithCommonPluginsIsFast()
+        public void StartWithCommonPluginsShouldBeFast()
         {
             TestHelper.AssertIsFasterThan(7500, StartWithCommonPlugins);
         }
@@ -408,9 +407,8 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
         [Category(TestCategory.WorkInProgress)]
-        public void CreateNewProjectAfterStartWithCommonPluginsIsFast()
+        public void CreateNewProjectAfterStartWithCommonPluginsShouldBeFast()
         {
             DeltaShellApplication.TemporaryProjectSavedAsynchroneously = true;
 
@@ -433,8 +431,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.Performance)]
-        public void ExitShouldBeVeryFast()
+        public void ExitShouldBeFast()
         {
             using (var gui = new DeltaShellGui())
             {
