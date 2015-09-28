@@ -118,7 +118,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Category(TestCategory.WorkInProgress)]
         public void StartInAnyCurrentDirectory()
         {
             // TODO: when this test is fixed, check also if the RTC-memory problem
@@ -256,7 +255,6 @@ namespace DelftTools.Utils.Tests.Remoting
         }
 
         [Test]
-        [Category(TestCategory.WorkInProgress)]
         public void StartRemoteInstanceShouldBeFast()
         {
             IRemoteClass instance = null;
