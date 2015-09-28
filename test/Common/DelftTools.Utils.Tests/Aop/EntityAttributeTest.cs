@@ -171,7 +171,7 @@ namespace DelftTools.Utils.Tests.Aop
             Assert.Less(bytesForEntityAttribute, 100, "entity attribute memory footprint is growing!"); // was 96 when writing test
         }
 
-        [Test, NUnit.Framework.Category(TestCategory.Slow)]
+        [Test]
         public void ConstructingObjectsInSeveralThreadsShouldBeSafe()
         {
             Task.WaitAll(new[]

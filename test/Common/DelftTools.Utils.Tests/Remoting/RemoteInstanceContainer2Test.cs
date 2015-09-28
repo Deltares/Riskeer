@@ -10,7 +10,6 @@ using NUnit.Framework;
 namespace DelftTools.Utils.Tests.Remoting
 {
     [TestFixture]
-    [Category(TestCategory.Slow)]
     public class RemoteInstanceContainer2Test
     {
         [Test]
@@ -33,7 +32,7 @@ namespace DelftTools.Utils.Tests.Remoting
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            var numCalls = 150000;
+            var numCalls = 15000;
             for (int i = 0; i < numCalls; i++)
                 service.GetSquare(3);
 
@@ -45,10 +44,10 @@ namespace DelftTools.Utils.Tests.Remoting
             RemoteInstanceContainer.RemoveInstance(service);
         }
 
-        [Test, Category(TestCategory.Slow)]
+        [Test]
         public void CreateManyCheckIssues()
         {
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 5; i++)
             {
                 var service = RemoteInstanceContainer.CreateInstance<ISquareService, SquareService>();
                 var square = service.GetSquare(3);
@@ -531,7 +530,7 @@ namespace DelftTools.Utils.Tests.Remoting
             }
         }
 
-        [Test, Category(TestCategory.Slow)]
+        [Test]
         public void VoidMethodThatTakesLongTimeIsNoProblemAndIsBlocking()
         {
             var instance = RemoteInstanceContainer.CreateInstance<ISquareService, SquareService>();
