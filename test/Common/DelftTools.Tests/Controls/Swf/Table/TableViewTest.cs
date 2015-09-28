@@ -778,8 +778,8 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WorkInProgress)]
-        public void ComboBoxTypeEditorWithCustomFormatter_ShouldWork_Tools7594()
+        [Ignore("Known issue: see TOOLS-7594")]
+        public void ComboBoxTypeEditorWithCustomFormatter_ShouldWork()
         {
             // types of the item, to be shown in the combo box
             var itemTypes = new[]
@@ -1526,8 +1526,8 @@ namespace DelftTools.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [Category(TestCategory.WorkInProgress)]
-        public void ColumnVisibilityPropertyShouldNotAffectDisplayIndexTools9526()
+        [Ignore("Known issue: see TOOLS-9526")]
+        public void ColumnVisibilityPropertyShouldNotAffectDisplayIndexTools()
         {
             var tableView = new TableView();
             tableView.AddColumn("propertyName1", "Property name 1");

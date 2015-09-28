@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 using DelftTools.TestUtils;
 using DelftTools.Utils.Aop;
@@ -191,7 +192,7 @@ namespace DelftTools.Utils.Tests.Aop
         }
 
         [Test]
-        [NUnit.Framework.Category(TestCategory.WorkInProgress)] //known issue, but pretty rare, so leaving WIP
+        [Ignore("Known issue")]
         public void WIPUnsubscriptionShouldWorkInCaseOfVirtualCallsNotCallingBase()
         {
             var super = new Super();
