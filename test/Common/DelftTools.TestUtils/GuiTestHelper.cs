@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using DelftTools.Controls.Swf;
 using DelftTools.Utils.Aop;
 using log4net;
-using NUnit.Framework;
 
 namespace DelftTools.TestUtils
 {
@@ -89,11 +85,11 @@ namespace DelftTools.TestUtils
 
         static GuiTestHelper()
         {
-            DelftTools.Controls.Swf.MessageBox.CustomMessageBox = new GuiTestHelper.LoggingMessageBox();
+            Controls.Swf.MessageBox.CustomMessageBox = new LoggingMessageBox();
 
-            System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = true;
-            System.Windows.Forms.Application.EnableVisualStyles();
-            
+            Control.CheckForIllegalCrossThreadCalls = true;
+            Application.EnableVisualStyles();
+
             InitializeSynchronizatonObject();
             Dispatcher.CurrentDispatcher.UnhandledException += CurrentDispatcher_UnhandledException;
             AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
@@ -189,60 +185,7 @@ namespace DelftTools.TestUtils
             exception = null;
             unhandledThreadExceptionOccured = false;
             appDomainExceptionOccured = false;
-            DelftTools.Controls.Swf.MessageBox.CustomMessageBox = new GuiTestHelper.LoggingMessageBox();
-
-            bool hasNoTestCategories = false;
-            try
-            {
-                hasNoTestCategories = TestContext.CurrentContext != null && TestContext.CurrentContext.Test != null &&
-                                    TestContext.CurrentContext.Test.Properties != null &&
-                                    ((System.Collections.ArrayList)
-                                     TestContext.CurrentContext.Test.Properties["_CATEGORIES"]).Count == 0;
-            }
-            catch // nunit bugs
-            {
-                Console.WriteLine("NUnit problems, can't get test categories from TestContext");
-            } 
-
-            if(hasNoTestCategories)
-            {
-                // search for test attribtes in test class
-                var testClassCategories = GetTestClassCategories();
-                if (testClassCategories.Contains(TestCategory.WindowsForms) || testClassCategories.Contains(TestCategory.Performance))
-                {
-                    return; // not a unit test
-                }
-
-                throw new InvalidOperationException("This is NOT a unit test, test category " + TestCategory.WindowsForms + " is missing.");
-            }
-        }
-
-            private static IEnumerable<string> GetTestClassCategories()
-        {
-            var stackTrace = new StackTrace();
-
-            foreach (var stackFrame in stackTrace.GetFrames())
-            {
-                // check attributes on method
-                var attributes = stackFrame.GetMethod().GetCustomAttributes(typeof(CategoryAttribute), true).OfType<CategoryAttribute>().Select(a => a.Name);
-                if (attributes.Any())
-                {
-                    return attributes;
-                }
-
-                // check attributes on class
-                var declaringType = stackFrame.GetMethod().DeclaringType;
-                if (declaringType != null && declaringType.GetCustomAttributes(typeof(TestFixtureAttribute), true).OfType<TestFixtureAttribute>().Any())
-                {
-                    attributes = declaringType.GetCustomAttributes(typeof(CategoryAttribute), true).OfType<CategoryAttribute>().Select(a => a.Name);
-                    if (attributes.Any())
-                    {
-                        return attributes;
-                    }
-                }
-            }
-
-            return Enumerable.Empty<string>();
+            Controls.Swf.MessageBox.CustomMessageBox = new LoggingMessageBox();
         }
     }
 }

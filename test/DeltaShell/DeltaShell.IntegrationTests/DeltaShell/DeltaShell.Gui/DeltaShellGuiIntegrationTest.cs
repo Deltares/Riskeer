@@ -1,11 +1,7 @@
 using System;
-using System.Collections;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Windows;
-using DelftTools.Controls;
-using DelftTools.Controls.Swf.TreeViewControls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Core.Dao;
 using DelftTools.Shell.Core.Workflow;
@@ -47,7 +43,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         [Category(TestCategory.Slow)]
         public void DeleteProjectDataDirectoryShouldNotThrowExceptionOnNewProjectAndShouldNotHang()
         {
@@ -60,13 +55,8 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
-                Action onShown = delegate
-                                           {
-                                               gui.CommandHandler.TryCreateNewWTIProject();
-                                               gui.CommandHandler.TryCreateNewWTIProject();
-                                           };
-
-                WpfTestHelper.ShowModal((Control) gui.MainWindow, onShown);
+                gui.CommandHandler.TryCreateNewWTIProject();
+                gui.CommandHandler.TryCreateNewWTIProject();
             }
         }
         
@@ -102,7 +92,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void ProgressDialogIsModal()
         {
             if (!Environment.UserInteractive)
@@ -226,7 +215,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         [Category(TestCategory.Slow)]
         public void ProjectIsTemporaryAtTheBeginningAndAfterCreateNew()
         {
@@ -241,32 +229,11 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
 
                 app.UserSettings["autosaveWindowLayout"] = false; // skip damagin of window layout
 
-                WpfTestHelper.ShowModal((Control) gui.MainWindow, () =>
-                                                                      {
-                                                                          app.Project.IsTemporary.Should("Project is temporary at the beginning").Be.True();
+                app.Project.IsTemporary.Should("Project is temporary at the beginning").Be.True();
 
-                                                                          gui.CommandHandler.TryCreateNewWTIProject();
+                gui.CommandHandler.TryCreateNewWTIProject();
 
-                                                                          app.Project.IsTemporary.Should("Project is temporary after create new").Be.True();
-                                                                      });
-            }
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowProjectExplorerWithUndoRedoEnabled()
-        {
-            using (var gui = new DeltaShellGui())
-            {
-                var app = gui.Application;
-
-                app.Plugins.Add(new CommonToolsApplicationPlugin());
-                gui.Plugins.Add(new ProjectExplorerGuiPlugin());
-
-                
-                gui.Run();
-
-                WpfTestHelper.ShowModal((Control) gui.MainWindow);
+                app.Project.IsTemporary.Should("Project is temporary after create new").Be.True();
             }
         }
 
@@ -287,7 +254,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         [Category(TestCategory.Slow)]
         public void ErrorLogMessageShouldActivateMessageWindow()
         {
@@ -403,7 +369,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void StartGuiWithToolboxDoesNotCrash()
         {
             using (var gui = new DeltaShellGui())
@@ -412,10 +377,8 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
 
                 app.Plugins.Add(new CommonToolsApplicationPlugin());
                 app.Plugins.Add(new SharpMapGisApplicationPlugin());
-                
-                gui.Run();
 
-                WpfTestHelper.ShowModal((Control) gui.MainWindow);
+                gui.Run();
             }
         }
 
@@ -500,7 +463,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         [Category(TestCategory.Slow)]
         public void GuiSelectionIsSetToProjectAfterStartWithProjectExplorer()
         {
@@ -510,12 +472,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
-                Action onShown = delegate
-                    {
-                        gui.Selection
-                            .Should().Be.EqualTo(gui.Application.Project);
-                    };
-                WpfTestHelper.ShowModal((Control) gui.MainWindow, onShown);
+                gui.Selection.Should().Be.EqualTo(gui.Application.Project);
             }
         }
 
@@ -530,60 +487,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
                 int callCount = 0;
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, () => callCount++);
                 Assert.AreEqual(1, callCount);
-            }
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        [Category(TestCategory.Slow)]
-        public void NoMemoryLeakWhenWorkingWithLargeRasterMapLayers()
-        {
-            using (var gui = new DeltaShellGui())
-            {
-                var app = gui.Application;
-
-                app.Plugins.Add(new CommonToolsApplicationPlugin());
-                app.Plugins.Add(new SharpMapGisApplicationPlugin());
-                
-                gui.Run();
-
-                WpfTestHelper.ShowModal((Control) gui.MainWindow);
-            }
-        }
-
-
-        private class ClassWithChild
-        {
-            public ClassWithChild()
-            {
-                Child = new Child();
-            }
-
-            public Child Child { get; private set; }
-        }
-
-        private class Child
-        {
-        }
-
-        private class ClassWithChildProjectTreeViewNodePresenter : TreeViewNodePresenterBase<ClassWithChild>
-        {
-            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, ClassWithChild nodeData)
-            {
-                node.Text = nodeData.ToString();
-            }
-
-            public override IEnumerable GetChildNodeObjects(ClassWithChild parentNodeData, ITreeNode node)
-            {
-                yield return parentNodeData.Child;
-            }
-        }
-
-        private class ChildProjectTreeViewNodePresenter : TreeViewNodePresenterBase<Child>
-        {
-            public override void UpdateNode(ITreeNode parentNode, ITreeNode node, Child nodeData)
-            {
-                node.Text = nodeData.ToString();
             }
         }
     }
