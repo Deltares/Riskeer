@@ -8,7 +8,6 @@
     /// <br/>
     /// Build.Integration ................ general integration tests (many classes, almost no mocks, mix of windows.forms, data access)<br/>
     ///     Build.Performance. ........... integration tests which assert execution time using <see cref="TestHelper.AssertIsFasterThan(float,System.Action)"/><br/>
-    ///     Build.WindowsForms ........... integration tests which pop-up forms<br/>
     /// <br/>
     /// These categories must be always used as mutually exclusive: NEVER USE 2 OF THESE CATEGORIES AT THE SAME TIME!<br/>
     ///<br/>
@@ -19,13 +18,6 @@
     /// </summary>
     public class TestCategory
     {
-        /// <summary>
-        /// Shows forms or dialogs during run.
-        /// 
-        /// Speed requirements: faster than 4000 ms
-        /// </summary>
-        public const string WindowsForms = "Build.WindowsForms";
-
         /// <summary>
         /// Checks how fast specific code runs. 
         /// Speed requirements: faster than 20000 ms

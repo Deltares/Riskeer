@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using DelftTools.TestUtils;
 using DelftTools.Utils;
 using DelftTools.Utils.Collections.Generic;
 using DelftTools.Utils.ComponentModel;
@@ -19,9 +18,8 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
     public class VectorLayerAttributeTableViewTest
     {
         [Test]
-        [NUnit.Framework.Category(TestCategory.WindowsForms)]
         public void DeleteOfCustomRowObjectMustDeleteOriginalFeature()
-        {   
+        {
             var features = new List<City>
                                 {
                                     new City {Name = "Amsterdam", Population = 1000000, Geometry = new Point(0,0)},
@@ -35,16 +33,12 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 
             var featureRowObjects = (IList) view.TableView.Data;
 
-            WindowsFormsTestHelper.ShowModal(view, f =>
-                {
-                    Assert.AreEqual(2, features.Count);
-                    featureRowObjects.Remove(featureRowObjects[0]);
-                    Assert.AreEqual(1, features.Count);
-                });
+            Assert.AreEqual(2, features.Count);
+            featureRowObjects.Remove(featureRowObjects[0]);
+            Assert.AreEqual(1, features.Count);
         }
 
         [Test]
-        [NUnit.Framework.Category(TestCategory.WindowsForms)]
         public void AddingFeatureMustAlsoAddCustomRowObject()
         {
             var features = new EventedList<City>
@@ -58,16 +52,12 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var view = new VectorLayerAttributeTableView { Data = layer };
             view.SetCreateFeatureRowFunction(feature => new CityProperties((City)feature));
 
-            WindowsFormsTestHelper.ShowModal(view, (f) =>
-            {
-                Assert.AreEqual(1, ((IList)view.TableView.Data).Count);
-                featureCollection.Add(new City { Name = "The Hague", Population = 90000, Geometry = new Point(-20, -40) });
-                Assert.AreEqual(2, ((IList)view.TableView.Data).Count);
-            });
+            Assert.AreEqual(1, ((IList)view.TableView.Data).Count);
+            featureCollection.Add(new City { Name = "The Hague", Population = 90000, Geometry = new Point(-20, -40) });
+            Assert.AreEqual(2, ((IList)view.TableView.Data).Count);
         }
 
         [Test]
-        [NUnit.Framework.Category(TestCategory.WindowsForms)]
         public void ShowAndCheckDynamicReadOnly()
         {
             var features = new []
@@ -79,13 +69,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var layer = new VectorLayer {DataSource = new FeatureCollection {Features = features}};
             var view = new VectorLayerAttributeTableView { Data = layer };
 
-            WindowsFormsTestHelper.ShowModal(view, f =>
-                {
-                    Assert.IsFalse(view.TableView.CellIsReadOnly(0, view.TableView.Columns[1]));
-                    Assert.IsTrue(view.TableView.CellIsReadOnly(1, view.TableView.Columns[1]));
-                });
+            Assert.IsFalse(view.TableView.CellIsReadOnly(0, view.TableView.Columns[1]));
+            Assert.IsTrue(view.TableView.CellIsReadOnly(1, view.TableView.Columns[1]));
         }
-        
+
         public class City : Feature
         {
             [FeatureAttribute]

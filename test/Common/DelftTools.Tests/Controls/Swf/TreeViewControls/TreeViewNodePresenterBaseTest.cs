@@ -16,7 +16,6 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         #region Remove
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void OnCollectionRemoveWithCollectionBasedNodePresenter()
         {
             var group = new TestGroup();
@@ -44,7 +43,6 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void ModifyCollectionShouldUpdateNodeHasChildren()
         {
             var group = new TestGroup();
@@ -77,7 +75,6 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         }
         
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void OnCollectionRemoveWithPropertyBasedNodePresenter()
         {
             var group = new TestGroup();
@@ -129,7 +126,6 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         #region Add
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void OnCollectionAddWithCollectionBasedNodePresenter()
         {
             var group = new TestGroup();
@@ -158,7 +154,6 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void OnCollectionAddWithPropertyBasedNodePresenter()
         {
             var group = new TestGroup();
