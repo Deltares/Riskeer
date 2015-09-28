@@ -51,20 +51,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var mapView = new MapView();
             mapView.Map.Layers.Add(new GroupLayer("group1"));
 
-            while (mapView.MapControl.IsProcessing)
-            {
-                Application.DoEvents();
-            }
-
             var refreshCount = 0;
             mapView.MapControl.MapRefreshed += delegate { refreshCount++; };
 
             mapView.Map.Layers.First().Visible = false;
-
-            while(mapView.MapControl.IsProcessing)
-            {
-                Application.DoEvents();
-            }
 
             // TODO: currently second refresh can happen because of timer in MapControl - timer must be replaced by local Map / Layer / MapControl custom event
             refreshCount.Should("map should be refreshed once when layer property changes").Be.LessThanOrEqualTo(2);
