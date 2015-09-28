@@ -1,6 +1,5 @@
 using System.IO;
 using DelftTools.Controls.Swf;
-using DelftTools.TestUtils;
 using NUnit.Framework;
 
 namespace DelftTools.Tests.Controls.Swf
@@ -8,14 +7,6 @@ namespace DelftTools.Tests.Controls.Swf
     [TestFixture]
     public class FileSystemTreeViewTest
     {
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void Show()
-        {
-            var treeView = new FileSystemTreeView();
-            WindowsFormsTestHelper.ShowModal(treeView);
-        }
-
         [Test]
         public void ExpandTo()
         {

@@ -37,25 +37,6 @@ namespace DelftTools.Tests.Controls.Swf.Table
 
         [Test]
         [Category(TestCategory.WindowsForms)]
-        public void ShowReadOnlyTableView()
-        {
-            var dataTable = new DataTable();
-            dataTable.Columns.Add("Column1", typeof(int));
-            dataTable.Columns.Add("Column2", typeof(int));
-            dataTable.Columns.Add("Column3", typeof(int));
-            Enumerable.Range(1,5).ForEach(i => dataTable.Rows.Add(i, i*2, i*3));
-
-            var tableView = new TableView2
-            {
-                Data = dataTable,
-                ReadOnly = true
-            };
-
-            WindowsFormsTestHelper.ShowModal(tableView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
         public void FilterIntegerValues()
         {
             var dataTable = new DataTable();
