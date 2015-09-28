@@ -176,43 +176,6 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowWithSomeData()
-        {
-            var treeView = new TreeView();
-
-            ITreeNode rootNode = new MockTestNode(treeView, true) {Text = "RootNode"};
-            var loadedChild = new MockTestNode(treeView, true) {Text = "LoadedChild"};
-            rootNode.Nodes.Add(loadedChild);
-            var notLoadedChild = new MockTestNode(treeView, false) {Text = "NotLoadedChild"};
-            rootNode.Nodes.Add(notLoadedChild);
-
-            treeView.Nodes.Add(rootNode);
-
-            WindowsFormsTestHelper.ShowModal(treeView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ShowWithSomeDataWithFullRowSelect()
-        {
-            var treeView = new TreeView();
-
-            ITreeNode rootNode = new MockTestNode(treeView, true) {Text = "RootNode Blah Di Blah"};
-            var loadedChild = new MockTestNode(treeView, true) {Text = "LoadedChild Blah Di Blah"};
-            rootNode.Nodes.Add(loadedChild);
-            var notLoadedChild = new MockTestNode(treeView, true) {Text = "NotLoadedChild Blah Di Blah"};
-            rootNode.Nodes.Add(notLoadedChild);
-
-            treeView.Nodes.Add(rootNode);
-            treeView.Nodes.Add(new MockTestNode(treeView, true) {Text = "Very long name for a tree node is this"});
-
-            treeView.FullRowSelect = true;
-
-            WindowsFormsTestHelper.ShowModal(treeView);
-        }
-
-        [Test]
         public void AddChildNodes()
         {
             var treeView = new TreeView();
@@ -268,7 +231,6 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         /// Actually this is a design problem, objects which do not exist in the 
         /// </summary>
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void TreeNodesRemainExpandedForDynamicNodes()
         {
             var treeView = new TreeView { NodePresenters =

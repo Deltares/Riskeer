@@ -75,8 +75,6 @@ namespace DeltaShell.Tests.Gui.Forms
         }
 
         [Test]
-        [Ignore("user interaction: switch to second tab")]
-        [Category(TestCategory.WindowsForms)]
         public void SwitchingTabCausesDataBindingTools9109()
         {
             var view = new TestView();

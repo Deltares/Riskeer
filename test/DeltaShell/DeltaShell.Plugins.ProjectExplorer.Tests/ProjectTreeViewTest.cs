@@ -3,14 +3,10 @@ using System.Linq;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Core.Services;
 using DelftTools.Shell.Gui;
-using DelftTools.TestUtils;
 using DeltaShell.Gui;
-using DeltaShell.Plugins.CommonTools;
-using DeltaShell.Plugins.CommonTools.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
 using SharpTestsEx;
-using Control = System.Windows.Controls.Control;
 
 // note: this is a reference to a builded assembly! not the project itself
 
@@ -59,32 +55,6 @@ namespace DeltaShell.Plugins.ProjectExplorer.Tests
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ProjectExplorerWithDeltaShell()
-        {
-            using (var gui = new DeltaShellGui())
-            {
-                IApplication app = gui.Application;
-
-                app.UserSettings["autosaveWindowLayout"] = false;
-
-                // add project explorer plugin
-                gui.Plugins.Add(new ProjectExplorerGuiPlugin());
-
-                // add common tools plugin
-                var commonToolsPlugin = new CommonToolsApplicationPlugin { Application = app };
-                app.Plugins.Add(commonToolsPlugin);
-                gui.Plugins.Add(new CommonToolsGuiPlugin());
-
-                // run delta shell
-                gui.Run();
-
-                WpfTestHelper.ShowModal((Control) gui.MainWindow);
-            }
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
         public void SelectingProjectNodeSetsSelectedItemToProject()
         {
             var gui = new DeltaShellGui();
