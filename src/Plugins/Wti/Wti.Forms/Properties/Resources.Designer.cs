@@ -61,12 +61,48 @@ namespace Wti.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Algemeen.
+        /// </summary>
+        public static string Categories_General {
+            get {
+                return ResourceManager.GetString("Categories_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap WtiProjectFolderIcon {
             get {
                 object obj = ResourceManager.GetObject("WtiProjectFolderIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van het WTI 2017 project..
+        /// </summary>
+        public static string WtiProjectNameDescription {
+            get {
+                return ResourceManager.GetString("WtiProjectNameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string WtiProjectNameDisplayName {
+            get {
+                return ResourceManager.GetString("WtiProjectNameDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WTI 2017 project.
+        /// </summary>
+        public static string WtiProjectPropertiesDisplayName {
+            get {
+                return ResourceManager.GetString("WtiProjectPropertiesDisplayName", resourceCulture);
             }
         }
     }

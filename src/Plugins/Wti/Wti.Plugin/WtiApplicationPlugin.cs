@@ -49,7 +49,7 @@ namespace Wti.Plugin
         {
             yield return new DataItemInfo<WtiProject>
             {
-                Name = "WTI2017 project",
+                Name = WtiFormsResources.WtiProjectPropertiesDisplayName,
                 Category = "WTI 2017",
                 Image = WtiFormsResources.WtiProjectFolderIcon,
                 CreateData = owner => new WtiProject()

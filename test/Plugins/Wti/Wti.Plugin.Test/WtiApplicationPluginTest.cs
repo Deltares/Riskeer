@@ -56,7 +56,7 @@ namespace Wti.Plugin.Test
             Assert.AreEqual(1, dataItemDefinitions.Length);
 
             DataItemInfo projectDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(WtiProject));
-            Assert.AreEqual("WTI2017 project", projectDataItemDefinition.Name);
+            Assert.AreEqual("WTI 2017 project", projectDataItemDefinition.Name);
             Assert.AreEqual("WTI 2017", projectDataItemDefinition.Category);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Width);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Height);

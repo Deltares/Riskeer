@@ -1,11 +1,17 @@
 ﻿using DelftTools.Shell.Gui;
+using DelftTools.Utils;
 
 using Wti.Data;
+using Wti.Forms.Properties;
 
 namespace Wti.Forms.PropertyClasses
 {
+    [ResourcesDisplayName(typeof(Resources), "WtiProjectPropertiesDisplayName")]
     public class WtiProjectProperties : ObjectProperties<WtiProject>
     {
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "WtiProjectNameDisplayName")]
+        [ResourcesDescription(typeof(Resources), "WtiProjectNameDescription")]
         public string Name
         {
             get
