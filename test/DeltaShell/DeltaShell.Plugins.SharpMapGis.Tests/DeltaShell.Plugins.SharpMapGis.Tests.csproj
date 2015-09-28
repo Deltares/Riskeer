@@ -107,17 +107,10 @@
     <Compile Include="BackGroundMapLayerTest.cs" />
     <Compile Include="Commands\CommandTests.cs" />
     <Compile Include="Commands\MapZoomToFeatureCommandTest.cs" />
-    <Compile Include="Forms\GridProperties\FeatureDataRowPropertiesTest.cs" />
-    <Compile Include="Forms\GridProperties\GroupLayerPropertiesTest.cs" />
-    <Compile Include="Forms\GridProperties\LegendToolPropertiesTest.cs" />
     <Compile Include="Forms\GridProperties\LineStylePropertiesTest.cs" />
-    <Compile Include="Forms\GridProperties\MapPropertiesTest.cs" />
     <Compile Include="Forms\GridProperties\PointStylePropertiesTest.cs" />
     <Compile Include="Forms\GridProperties\PolygonStylePropertiesTest.cs" />
     <Compile Include="Forms\GridProperties\ThemeItemPropertiesTest.cs" />
-    <Compile Include="Forms\GridProperties\VectorLayerLinePropertiesTest.cs" />
-    <Compile Include="Forms\GridProperties\VectorLayerPointPropertiesTest.cs" />
-    <Compile Include="Forms\GridProperties\VectorLayerPolygonPropertiesTest.cs" />
     <Compile Include="Forms\GridProperties\VectorLayerPropertiesTest.cs" />
     <Compile Include="Forms\GridProperties\VectorStylePropertiesTest.cs" />
     <Compile Include="Forms\MapLayerTreeViewNodePresenterTest.cs" />

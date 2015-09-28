@@ -90,21 +90,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Property\Charting\AreaChartSeriesPropertiesTest.cs" />
-    <Compile Include="Property\Charting\ChartAxisPropertiesTest.cs" />
     <Compile Include="Forms\Charting\ChartLegendViewTest.cs" />
-    <Compile Include="Property\Charting\ChartPropertiesTest.cs" />
-    <Compile Include="Property\Charting\ChartSeriesPropertiesTest.cs" />
-    <Compile Include="Property\Charting\LineChartSeriesPropertiesTest.cs" />
-    <Compile Include="Property\Charting\PointChartSeriesPropertiesTest.cs" />
     <Compile Include="TestViewList.cs" />
     <Compile Include="Forms\TextDocumentViewTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Property\CompositeActivityPropertiesTest.cs" />
-    <Compile Include="Property\DocumentPropertiesTest.cs" />
-    <Compile Include="Property\ProjectPropertiesTest.cs" />
-    <Compile Include="Property\TreeFolderPropertiesTest.cs" />
-    <Compile Include="Property\UrlPropertiesTest.cs" />
     <Compile Include="CommonToolsGuiPluginTest.cs" />
   </ItemGroup>
   <ItemGroup>
