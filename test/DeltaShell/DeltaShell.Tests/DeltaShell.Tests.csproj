@@ -123,27 +123,19 @@
       <DependentUpon>AvalonDockingTestForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\Forms\AvalonDockDockingManagerTest.cs" />
-    <Compile Include="Gui\Forms\HelpAboutBoxTest.cs" />
-    <Compile Include="Gui\Forms\MessageWindow\MessageWindowTest.cs" />
     <Compile Include="Gui\Forms\ProgressBarDialogTest.cs" />
     <Compile Include="Gui\Forms\PropertyGrid\PropertyGridTest.cs" />
-    <Compile Include="Gui\Forms\SplashScreenTest.cs" />
     <Compile Include="Gui\Forms\ProgressDialog\TestStringBasedProgressingActivity.cs" />
     <Compile Include="Gui\GuiExportHandlerTest.cs" />
-    <Compile Include="Gui\ViewPropertyEditorTest.cs" />
     <Compile Include="TestObjects\TestActivityRunner.cs" />
     <Compile Include="TestObjects\TestExporter.cs" />
     <Compile Include="Gui\DelftShellGuiTests.cs" />
-    <Compile Include="Gui\Forms\ProgressDialog\ProgressDialogTest.cs" />
     <Compile Include="Gui\Forms\ProgressDialog\TestActivity.cs" />
-    <Compile Include="Gui\Forms\SelectItemDialogTest.cs" />
-    <Compile Include="Gui\Forms\SelectViewDialogTest.cs" />
     <Compile Include="Gui\GuiCommandHandlerTest.cs" />
     <Compile Include="Gui\ImportActivityTest.cs" />
     <Compile Include="Gui\Log4netTest.cs" />
     <Compile Include="Gui\MenuManagerTest.cs">
     </Compile>
-    <Compile Include="Gui\Forms\OptionsDialogTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

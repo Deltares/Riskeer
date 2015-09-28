@@ -1,20 +1,11 @@
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
-using DelftTools.TestUtils;
 using DeltaShell.Gui.Forms.ViewManager;
 using DeltaShell.Plugins.SharpMapGis.Gui;
-using DeltaShell.Plugins.SharpMapGis.Gui.Forms;
-using DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties;
-using DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using NUnit.Framework;
 using Rhino.Mocks;
-using SharpMap;
-using SharpMap.Data.Providers;
 using SharpMap.Layers;
 
 namespace DeltaShell.Plugins.SharpMapGis.Tests
@@ -26,10 +17,8 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
         [SetUp]
         public void Setup()
         {
-            mocks= new MockRepository();    
+            mocks= new MockRepository();
         }
-        
-
 
         /// <summary>
         /// Returns a contextmenu in case the data is a vectorlayer.
@@ -65,67 +54,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
             Assert.IsNotNull(sharpMapGisPluginGui.GetContextMenu(layerNode, vectorLayer));
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        [NUnit.Framework.Category(TestCategory.WindowsForms)]
-        public void EventBubbling()
-        {
-            var mapView = new MapView();
-
-            var gui = (IGui)mocks.Stub(typeof(IGui));
-
-            var guiPlugin = new SharpMapGisGuiPlugin() {Gui = gui};
-            Expect.Call(gui.Plugins).Return(new[] { guiPlugin }).Repeat.Any();
-
-            mocks.ReplayAll();
-            //         var gisGuiService = (IGisGuiService)mocks.Stub(typeof(IGisGuiService));
-            
-            var mapLegendView = new MapLegendView(gui);
-
-            var map = new Map(new Size(2, 1));
-
-            var propertyGrid = new PropertyGrid { SelectedObject = gui };
- 
-            mapView.Map = map;
-            mapLegendView.Map = map;
-
-            const string path = @"..\..\..\..\..\test-data\DeltaShell\DeltaShell.Plugins.SharpMapGis.Tests\roads.shp";
-            var shapeFile = new ShapeFile(path, false);
-            var vectorLayer = new VectorLayer(Path.GetFileNameWithoutExtension(path), shapeFile);
-/*
-            VectorStyle style = new VectorStyle();
-            vectorLayer.Style = style;
-*/
-            map.Layers.Add(vectorLayer);
-
-            propertyGrid.SelectedObject = new VectorLayerProperties { Data = map.Layers[0] };
-
-            int changeCount = 0;
-
-            ((INotifyPropertyChanged)map).PropertyChanged +=
-                delegate
-                    {
-                        // Assert.AreEqual(e.PropertyName, "Line");
-                        changeCount++;
-                    };
-
-
-            var form1 = new Form();
-            mapView.Dock = DockStyle.Fill;
-            form1.Controls.Add(mapView);
-
-            var form2 = new Form();
-            mapLegendView.Dock = DockStyle.Fill;
-            form2.Controls.Add(mapLegendView);
-
-            var form3 = new Form();
-            propertyGrid.Dock = DockStyle.Fill;
-            form3.Controls.Add(propertyGrid);
-
-            WindowsFormsTestHelper.ShowModal(form1);
-            WindowsFormsTestHelper.ShowModal(form2);
-            WindowsFormsTestHelper.ShowModal(form3);
         }
 
         [Test]

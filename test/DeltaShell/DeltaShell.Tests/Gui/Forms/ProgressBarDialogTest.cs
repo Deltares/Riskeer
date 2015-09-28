@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Windows.Forms;
 using DelftTools.Controls.Swf;
-using DelftTools.TestUtils;
 using NUnit.Framework;
 
 namespace DeltaShell.Tests.Gui.Forms
@@ -22,14 +21,12 @@ namespace DeltaShell.Tests.Gui.Forms
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void EmptyTaskDoesNotHang()
         {
             ProgressBarDialog.PerformTask("Doing stuff", () => { });
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
         public void ShowProgress()
         {
             ProgressBarDialog.PerformTask("Doing stuff", ()=> Thread.Sleep(200));

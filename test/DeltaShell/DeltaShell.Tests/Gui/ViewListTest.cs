@@ -18,28 +18,6 @@ namespace DeltaShell.Tests.Gui
     public class ViewListTest
     {
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void ClearAllDocumentViews()
-        {
-            var form = new AvalonDockingTestForm();
-
-            var dockLocations = new [] { ViewLocation.Document };
-            var dockingManager = new AvalonDockDockingManager(form.dockingManager, dockLocations);
-
-            var documentViews = new ViewList(dockingManager, ViewLocation.Document)
-                {
-                    new ToolWindowTestControl {Text = "text1"},
-                    new ToolWindowTestControl {Text = "text2"},
-                    new ToolWindowTestControl {Text = "text3"}
-                };
-            
-            WindowsFormsTestHelper.Show(new ElementHost { Child = form });
-
-            documentViews.Clear();
-            Assert.AreEqual(0, documentViews.Count());
-        }
-
-        [Test]
         public void CollectionChangedEvent()
         {
             var dockingManager = new TestDockingManager();
@@ -209,23 +187,6 @@ namespace DeltaShell.Tests.Gui
         }
 
         [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void TestDocumentViews()
-        {
-            var form = new AvalonDockingTestForm();
-            var dockingManager = new AvalonDockDockingManager(form.dockingManager, new [] { ViewLocation.Document, ViewLocation.Floating });
-
-            var toolWindowViewManager = new ViewList(dockingManager, ViewLocation.Document)
-                {
-                    new ToolWindowTestControl {Text = "text1"},
-                    new ToolWindowTestControl {Text = "text2"},
-                    new ToolWindowTestControl {Text = "text3"}
-                };
-
-            WindowsFormsTestHelper.ShowModal(new ElementHost { Child = form });
-        }
-
-        [Test]
         public void OpeningViewForDataTwiceShouldOnlySetActiveView()
         {
             var url = new Url("Deltares", "www.deltares.nl");
@@ -241,29 +202,6 @@ namespace DeltaShell.Tests.Gui
             viewResolver.OpenViewForData(url);
 
             Assert.AreEqual(activeView, viewList.ActiveView);
-        }
-
-        [Test]
-        [Category(TestCategory.WindowsForms)]
-        public void TestToolWindowWithView()
-        {
-            var form = new AvalonDockingTestForm();
-
-            var docksites = new []
-                {
-                    ViewLocation.Left,
-                    ViewLocation.Right,
-                    ViewLocation.Top,
-                    ViewLocation.Bottom
-                };
-
-            var dockingManager = new AvalonDockDockingManager(form.dockingManager, docksites);
-            var toolWindowViewManager = new ViewList(dockingManager, ViewLocation.Left)
-                {
-                    new ToolWindowTestControl {Text = "text"}
-                };
-
-            WindowsFormsTestHelper.ShowModal(new ElementHost { Child = form });
         }
 
         [Test]

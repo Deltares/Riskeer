@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using DelftTools.TestUtils;
 using DelftTools.Utils;
 using DelftTools.Utils.Collections.Generic;
@@ -19,69 +18,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
     [TestFixture]
     public class VectorLayerAttributeTableViewTest
     {
-        [Test]
-        [NUnit.Framework.Category(TestCategory.WindowsForms)]
-        public void Show()
-        {
-            var features = new []
-                                {
-                                    new City {Name = "Amsterdam", Population = 1000000},
-                                    new City {Name = "The Hague", Population = 90000, Attributes = new DictionaryFeatureAttributeCollection() }
-                                };
-
-            features[1].Attributes["a1"] = 1;
-            features[1].Attributes["a2"] = "test";
-
-            var layer = new VectorLayer { DataSource = new FeatureCollection { Features = features } };
-
-            var view = new VectorLayerAttributeTableView { Data = layer };
-
-            WindowsFormsTestHelper.ShowModal(view);
-        }
-
-        [Test]
-        [NUnit.Framework.Category(TestCategory.WindowsForms)]
-        public void ShowWithCustomAttributesAndFilteringTools19891()
-        {
-            var features = new[]
-                                {
-                                    new City {Name = "Amsterdam", Population = 1000000},
-                                    new City {Name = "The Hague", Population = 90000, Attributes = new DictionaryFeatureAttributeCollection() }
-                                };
-
-            features[1].Attributes["a1"] = 1;
-            features[1].Attributes["a2"] = "test";
-
-            var layer = new VectorLayer { DataSource = new FeatureCollection { Features = features } };
-
-            var view = new VectorLayerAttributeTableView { Data = layer };
-            
-            WindowsFormsTestHelper.ShowModal(view, f =>
-                {
-                    var columnA2 = view.TableView.Columns.First(c => c.Name == "a2");
-                    columnA2.FilterString = "[a2] = ''";
-
-                    // manual replication here..
-                });
-        }
-
-        [Test]
-        [NUnit.Framework.Category(TestCategory.WindowsForms)]
-        public void ShowWithCustomRowObject()
-        {
-            var features = new []
-                                {
-                                    new City {Name = "Amsterdam", Population = 1000000},
-                                    new City {Name = "The Hague", Population = 90000}
-                                };
-
-            var layer = new VectorLayer { DataSource = new FeatureCollection { Features = features } };
-
-            var view = new VectorLayerAttributeTableView { Data = layer };
-            view.SetCreateFeatureRowFunction(feature => new CityProperties((City)feature));
-            WindowsFormsTestHelper.ShowModal(view);
-        }
-
         [Test]
         [NUnit.Framework.Category(TestCategory.WindowsForms)]
         public void DeleteOfCustomRowObjectMustDeleteOriginalFeature()
