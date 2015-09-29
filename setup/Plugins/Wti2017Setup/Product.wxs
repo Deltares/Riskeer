@@ -12,17 +12,12 @@
         <Directory Id="Deltares" Name="Deltares">
           <Directory Id="INSTALLDIR" Name="WTI 2017">
 
-            <Component Id="MainExecutable" Guid="E2743596-F29B-4F61-B1AF-24A7544BD2E5">
-              <File Id="WTI2017EXE" Name="Banner.jpg" Source="Banner.jpg" KeyPath='yes'>
-                <Shortcut Id="startmenuWTI2017" Directory="ProgramMenuDir" Name="WTI 2017" WorkingDirectory='INSTALLDIR' Icon="Wti2017.ico" IconIndex="0" Advertise="yes" />
-                <Shortcut Id="desktopWTI2017" Directory="DesktopFolder" Name="WTI 2017" WorkingDirectory='INSTALLDIR' Icon="Wti2017.ico" IconIndex="0" Advertise="yes" />
-              </File>
-            </Component>
-
+            <!--Wti2017Payload.wxs defines all files going into this folder-->
+            
           </Directory>
         </Directory>
       </Directory>
-
+      <!--
       <Directory Id="ProgramMenuFolder" Name="Programs">
         <Directory Id="ProgramMenuDir" Name="WTI 2017">
           <Component Id="ProgramMenuDir" Guid="FD571168-AB13-48B2-A86C-EC50F4117FD5">
@@ -31,13 +26,17 @@
           </Component>
         </Directory>
       </Directory>
+      -->
 
       <Directory Id="DesktopFolder" Name="Desktop" />
     </Directory>
     
 		<Feature Id="CompleteInstallation" Title="Wti 2017" Level="1">
+      <ComponentGroupRef Id="Wti2017ApplicationComponents"/>
+      <!--
 			<ComponentRef Id="MainExecutable" />
       <ComponentRef Id="ProgramMenuDir" />
+      -->
 		</Feature>
 
     <Icon Id="Wti2017.ico" SourceFile="Wti2017.ico"/>

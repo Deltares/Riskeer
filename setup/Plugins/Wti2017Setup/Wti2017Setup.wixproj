@@ -20,9 +20,13 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <SuppressPdbOutput>True</SuppressPdbOutput>
+    <WixVariables>
+    </WixVariables>
+    <DefineConstants>ProductSourceDir=..\..\..\src\DeltaShell\DeltaShell.Gui\bin</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Product.wxs" />
+    <Compile Include="Wti2017Payload.wxs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\DeltaShell\DeltaShell.Gui\DeltaShell.Gui.csproj">
