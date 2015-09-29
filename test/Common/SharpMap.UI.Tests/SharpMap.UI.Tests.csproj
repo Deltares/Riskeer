@@ -124,7 +124,6 @@
     <Compile Include="Forms\MapControlTest.cs" />
     <Compile Include="Helpers\MapCursorsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScaleBarTest.cs" />
     <Compile Include="Tools\CurvePointToolTest.cs" />
     <Compile Include="Tools\DeleteToolTest.cs" />
     <Compile Include="Tools\NewPointFeatureToolTest.cs" />

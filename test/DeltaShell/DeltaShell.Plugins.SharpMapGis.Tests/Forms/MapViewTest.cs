@@ -132,7 +132,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 
                 WindowsFormsTestHelper.ShowModal(mapView, o =>
                 {
-                    TestHelper.AssertIsFasterThan(20000, () =>
+                    TestHelper.AssertIsFasterThan(25000, () =>
                         {
                             shp = new ShapeFile(path, true);
                             //layer.SimplifyGeometryDuringRendering = false;
