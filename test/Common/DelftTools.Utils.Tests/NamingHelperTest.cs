@@ -137,7 +137,7 @@ namespace DelftTools.Utils.Tests
         [Test]
         public void MakeNamesUniqueForWorstCaseShouldBeFast()
         {
-            var nameables = Enumerable.Range(0, 10000).Select(i =>
+            var nameables = Enumerable.Range(0, 1000).Select(i =>
             {
                 var nameable = mocks.Stub<INameable>();
                 nameable.Name = "Nameable";
@@ -145,11 +145,11 @@ namespace DelftTools.Utils.Tests
             });
 
             var nameablesList = new List<INameable>(nameables);
-            
+
             mocks.ReplayAll();
 
-            TestHelper.AssertIsFasterThan(600, () => NamingHelper.MakeNamesUnique(nameables));
-            
+            TestHelper.AssertIsFasterThan(300, () => NamingHelper.MakeNamesUnique(nameables));
+
             var uniqueNamesCount = nameablesList.Distinct().Count();
             Assert.AreEqual(uniqueNamesCount, nameablesList.Count);
         }

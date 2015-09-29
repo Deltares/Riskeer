@@ -184,9 +184,9 @@ namespace DelftTools.Utils.Tests.Collections.Generic
                 eventedList.Add(new MockWithPropertyAndCollectionChange());
             }
 
-            TestHelper.AssertIsFasterThan(220, () =>
+            TestHelper.AssertIsFasterThan(250, () =>
                                                    {
-                                                       for(var i = 0; i < 200000; i++)
+                                                       for(var i = 0; i < 20000; i++)
                                                        {
                                                            eventedList.Add(new MockWithPropertyAndCollectionChange());
                                                        }

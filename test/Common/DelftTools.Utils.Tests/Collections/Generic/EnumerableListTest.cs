@@ -71,8 +71,8 @@ namespace DelftTools.Utils.Tests.Collections.Generic
                 Editor = editor,
                 CollectionChangeSource = f
             };
-            long numValues = 100000;
-            long numCalculations = 150000;
+            long numValues = 10000;
+            long numCalculations = 15000;
             for (int i = 0; i < numValues; i++)
             {
                 features.Add(i.ToString());
