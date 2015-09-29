@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -8,7 +7,6 @@ using System.Windows.Forms;
 using DelftTools.Controls.Swf.Table;
 using DelftTools.TestUtils;
 using DelftTools.Utils;
-using DelftTools.Utils.Collections.Generic;
 using DevExpress.XtraGrid;
 using NUnit.Framework;
 using Category = NUnit.Framework.CategoryAttribute;
@@ -48,61 +46,54 @@ namespace DelftTools.Tests.Controls.Swf.Table
         [Test]
         public void PasteLargeAmountOfDataShouldBeFast()
         {
-            using (CultureUtils.SwitchToCulture("nl-NL"))
+            using (var dataset = new DataSet())
+            using (var dataTable = dataset.Tables.Add())
             {
-                using (var dataset = new DataSet())
-                using (var dataTable = dataset.Tables.Add())
-                {
-                    dataTable.Columns.Add("A", typeof(DateTime));
-                    dataTable.Columns.Add("B", typeof(double));
+                dataTable.Columns.Add("A", typeof(DateTime));
+                dataTable.Columns.Add("B", typeof(double));
 
-                    var view = new TableView
-                               {
-                                   Data = dataTable
-                               };
+                var view = new TableView
+                           {
+                               Data = dataTable
+                           };
 
-                    var file = TestHelper.GetTestFilePath("TestPasteData.txt");
-                    var contents = File.ReadAllText(file);
-                    Clipboard.SetText(contents);
+                var file = TestHelper.GetTestFilePath("TestPasteData.txt");
+                var contents = File.ReadAllText(file);
+                Clipboard.SetText(contents);
 
-                    TestHelper.AssertIsFasterThan(17500, view.PasteClipboardContents);
+                TestHelper.AssertIsFasterThan(17500, view.PasteClipboardContents);
 
-                    Assert.Greater(dataTable.Rows.Count, 5);
-                }
+                Assert.Greater(dataTable.Rows.Count, 5);
             }
         }
 
         [Test]
         public void PasteDutchDateTimeShouldWorkFineTools8878()
         {
-            var list = new EventedList<Utils.Tuple<DateTime, double>>();
-            var bindingList = new BindingList<Utils.Tuple<DateTime, double>>(list)
+            using (var dataset = new DataSet())
+            using (var dataTable = dataset.Tables.Add())
             {
-                AllowEdit = true,
-                AllowNew = true,
-                AllowRemove = true
-            };
+                dataTable.Columns.Add("A", typeof(DateTime));
+                dataTable.Columns.Add("B", typeof(double));
 
-            var view = new TableView();
-            view.PasteController = new TableViewArgumentBasedPasteController(view, new List<int>(new[] { 0 }))
-            {
-                DataIsSorted = false
-            };
+                var view = new TableView
+                           {
+                               Data = dataTable
+                           };
 
-            view.Data = bindingList;
+                Clipboard.SetText(File.ReadAllText(TestHelper.GetTestFilePath("TestPasteData_DutchDates.txt")));
 
-            Clipboard.SetText(File.ReadAllText(TestHelper.GetTestFilePath("TestPasteData_DutchDates.txt")));
+                using (CultureUtils.SwitchToCulture("nl-NL"))
+                {
+                    view.PasteClipboardContents();
+                }
 
-            using (CultureUtils.SwitchToCulture("nl-NL"))
-            {
-                view.PasteClipboardContents();
+                var dateTimes = dataTable.AsEnumerable().Select(r => r.Field<DateTime>("A")).ToList();
+
+                Assert.AreEqual(60, dateTimes.Count);
+                Assert.AreEqual(new DateTime(2001, 1, 1), dateTimes.Min());
+                Assert.AreEqual(new DateTime(2001, 3, 1), dateTimes.Max());
             }
-
-            var dateTimes = list.Select(t => t.First).ToList();
-
-            Assert.AreEqual(60, dateTimes.Count);
-            Assert.AreEqual(new DateTime(2001, 1, 1), dateTimes.Min());
-            Assert.AreEqual(new DateTime(2001, 3, 1), dateTimes.Max());
         }
 
         [Test]

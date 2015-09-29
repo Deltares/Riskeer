@@ -62,13 +62,10 @@ namespace DelftTools.Tests.Controls.Swf.Table
                                   AllowRemove = true
                               };
 
-            var tableView = new TableView();
-            tableView.PasteController = new TableViewArgumentBasedPasteController(tableView, new List<int>(new[] { 0 }))
-                                        {
-                                            DataIsSorted = false
-                                        };
-
-            tableView.Data = bindingList;
+            var tableView = new TableView
+                            {
+                                Data = bindingList
+                            };
 
             var column0 = tableView.Columns[0];
             var column1 = tableView.Columns[1];
@@ -172,13 +169,10 @@ namespace DelftTools.Tests.Controls.Swf.Table
                                   AllowRemove = true
                               };
 
-            var tableView = new TableView();
-            tableView.PasteController = new TableViewArgumentBasedPasteController(tableView, new List<int>(new[] { 0 }))
-                                        {
-                                            DataIsSorted = false
-                                        };
-
-            tableView.Data = bindingList;
+            var tableView = new TableView
+                            {
+                                Data = bindingList
+                            };
 
             tableView.Columns[1].ReadOnly = false;
             tableView.Columns[1].DefaultValue = 99.9;

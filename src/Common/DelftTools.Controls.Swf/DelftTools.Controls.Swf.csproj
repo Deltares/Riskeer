@@ -442,7 +442,6 @@
     <Compile Include="Table\NonMandatoryDataGridViewComboBoxCell.cs" />
     <Compile Include="Table\SortableAndFilterableBindingList.cs" />
     <Compile Include="Table\EnumFormatter.cs" />
-    <Compile Include="Table\TableViewArgumentBasedPasteController.cs" />
     <Compile Include="Table\TableViewCellFormatterProvider.cs" />
     <Compile Include="Table\TableViewCellStyle.cs" />
     <Compile Include="Table\TableViewColumnMenuItem.cs" />

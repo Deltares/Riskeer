@@ -159,7 +159,6 @@
     <Compile Include="Controls\Swf\Table\TableViewCsvImportWizardDialogTest.cs" />
     <Compile Include="Controls\Swf\MenuItemContextMenuStripAdapterTest.cs" />
     <Compile Include="Controls\Swf\MessageBoxTest.cs" />
-    <Compile Include="Controls\Swf\Table\TableViewArgumentBasedPasteControllerTest.cs" />
     <Compile Include="Controls\Swf\Table\TestClasses\ClassWithBool.cs" />
     <Compile Include="Controls\Swf\Table\TableViewPasteControllerTest.cs" />
     <Compile Include="Controls\Swf\Table\TableViewCopyPasteTest.cs" />
