@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Windows.Forms;
 using DelftTools.TestUtils;
 using GisSharpBlog.NetTopologySuite.Geometries;
@@ -7,7 +6,6 @@ using NUnit.Framework;
 using SharpMap.Data.Providers;
 using SharpMap.Layers;
 using SharpMap.UI.Forms;
-using SharpTestsEx;
 
 namespace SharpMap.UI.Tests.Forms
 {

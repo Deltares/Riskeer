@@ -1,5 +1,4 @@
-﻿using System;
-using DelftTools.Utils.Collections;
+﻿using DelftTools.Utils.Collections;
 using DelftTools.Utils.Collections.Generic;
 
 namespace SharpMap.Api.Layers

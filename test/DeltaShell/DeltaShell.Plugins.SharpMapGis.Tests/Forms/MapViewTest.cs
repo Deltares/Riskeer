@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Shell.Gui;
 using DelftTools.TestUtils;
@@ -12,7 +10,6 @@ using DeltaShell.Gui;
 using DeltaShell.Plugins.SharpMapGis.Gui;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
-using GeoAPI.Geometries;
 using GisSharpBlog.NetTopologySuite.Geometries;
 using log4net;
 using log4net.Core;

@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using DelftTools.TestUtils;
 using DelftTools.Utils.Remoting;
 using NUnit.Framework;
 

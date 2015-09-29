@@ -1,5 +1,4 @@
-﻿using System;
-using DelftTools.Utils.Data;
+﻿using DelftTools.Utils.Data;
 using DelftTools.Utils.Reflection;
 using SharpMap.Api;
 using SharpMap.Api.Layers;

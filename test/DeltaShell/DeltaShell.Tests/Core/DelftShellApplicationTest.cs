@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using DelftTools.Shell.Core;
-using DelftTools.TestUtils;
 using DeltaShell.Core;
 using DeltaShell.Gui;
 using DeltaShell.Tests.TestObjects;

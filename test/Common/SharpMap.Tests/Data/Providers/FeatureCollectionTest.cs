@@ -11,7 +11,6 @@ using GisSharpBlog.NetTopologySuite.Geometries;
 using NetTopologySuite.Extensions.Features;
 using NUnit.Framework;
 using SharpMap.Data.Providers;
-using SharpTestsEx;
 
 namespace SharpMap.Tests.Data.Providers
 {

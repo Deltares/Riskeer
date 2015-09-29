@@ -1,11 +1,8 @@
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
 using System.Windows.Forms;
-using DelftTools.Utils.Reflection;
 
 namespace DelftTools.Controls.Swf.Table
 {

@@ -7,7 +7,6 @@ using DelftTools.Controls;
 using DelftTools.Controls.Swf.Editors;
 using DelftTools.Controls.Swf.Table;
 using DelftTools.Tests.Controls.Swf.Table.TestClasses;
-using DelftTools.TestUtils;
 using NUnit.Framework;
 
 namespace DelftTools.Tests.Controls.Swf.Table

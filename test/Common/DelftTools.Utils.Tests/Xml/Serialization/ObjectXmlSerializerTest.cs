@@ -1,4 +1,3 @@
-using DelftTools.TestUtils;
 using DelftTools.Utils.TestClasses;
 using DelftTools.Utils.Tests.Xml.Serialization.TestClasses;
 using DelftTools.Utils.Xml.Serialization;

@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using DelftTools.Controls.Swf.Charting.Customized;
-using Steema.TeeChart;
 using Steema.TeeChart.Drawing;
 
 namespace DelftTools.Controls.Swf.Charting.Tools

@@ -2,7 +2,6 @@
 using System.Net;
 using System.Windows.Forms;
 using DelftTools.Shell.Gui;
-using DelftTools.TestUtils;
 using DeltaShell.Plugins.SharpMapGis.Gui;
 using DeltaShell.Plugins.SharpMapGis.Gui.Commands;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms;

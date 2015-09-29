@@ -1,9 +1,5 @@
-using System.Windows.Forms;
-using DelftTools.Controls.Swf;
-using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
 using DelftTools.TestUtils;
-using DelftTools.Utils;
 using DeltaShell.Gui;
 using DeltaShell.Tests.TestObjects;
 using log4net.Core;

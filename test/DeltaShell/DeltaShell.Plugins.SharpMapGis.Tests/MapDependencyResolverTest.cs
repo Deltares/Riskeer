@@ -1,4 +1,3 @@
-using DelftTools.TestUtils;
 using NUnit.Framework;
 using SharpMap;
 

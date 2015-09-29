@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
-using DelftTools.TestUtils;
 using DelftTools.Utils.Threading;
 using NUnit.Framework;
 

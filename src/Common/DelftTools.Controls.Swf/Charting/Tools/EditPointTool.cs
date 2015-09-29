@@ -7,7 +7,6 @@ using DelftTools.Controls.Swf.Charting.Customized;
 using DelftTools.Controls.Swf.Charting.Series;
 using DelftTools.Utils;
 using log4net;
-using Steema.TeeChart;
 using Steema.TeeChart.Styles;
 
 namespace DelftTools.Controls.Swf.Charting.Tools

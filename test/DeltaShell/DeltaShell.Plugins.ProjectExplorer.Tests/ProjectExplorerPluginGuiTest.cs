@@ -4,7 +4,6 @@ using System.Configuration;
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
-using DelftTools.TestUtils;
 using NUnit.Framework;
 using Rhino.Mocks;
 

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using DelftTools.TestUtils;
 using DeltaShell.Gui;
 using DeltaShell.Plugins.SharpMapGis.Gui;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms;

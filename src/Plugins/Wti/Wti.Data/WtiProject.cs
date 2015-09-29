@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using DelftTools.Shell.Core;
 using DelftTools.Utils;

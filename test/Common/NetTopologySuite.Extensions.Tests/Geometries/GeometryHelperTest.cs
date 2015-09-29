@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using DelftTools.TestUtils;
 using GisSharpBlog.NetTopologySuite.Geometries;
 using GisSharpBlog.NetTopologySuite.IO;
 using GisSharpBlog.NetTopologySuite.Utilities;

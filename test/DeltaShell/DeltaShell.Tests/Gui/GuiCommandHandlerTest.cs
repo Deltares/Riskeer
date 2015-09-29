@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Windows.Forms;
 using DelftTools.Controls.Swf;
 using DelftTools.Shell.Core;

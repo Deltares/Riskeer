@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Windows.Forms;
 using DelftTools.Shell.Core.Workflow;
-using DelftTools.TestUtils;
 using DeltaShell.Core;
 using NUnit.Framework;
 

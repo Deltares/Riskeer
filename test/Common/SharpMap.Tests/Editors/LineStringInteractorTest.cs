@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using System.Linq;
-using DelftTools.TestUtils;
 using GisSharpBlog.NetTopologySuite.Geometries;
 using NUnit.Framework;
 using SharpMap.Api.Editors;

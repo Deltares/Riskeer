@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using DelftTools.Utils;
 using DelftTools.Utils.Aop;
 using GeoAPI.Extensions.Feature;
 using NetTopologySuite.Extensions.Features;

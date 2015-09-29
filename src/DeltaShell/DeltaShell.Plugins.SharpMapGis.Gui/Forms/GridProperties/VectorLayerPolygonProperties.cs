@@ -6,7 +6,6 @@ using DelftTools.Utils;
 using DelftTools.Utils.ComponentModel;
 using DeltaShell.Plugins.SharpMapGis.Gui.Properties;
 using GeoAPI.CoordinateSystems;
-using GeoAPI.CoordinateSystems.Transformations;
 using SharpMap.CoordinateSystems.Transformations;
 using SharpMap.Layers;
 using SharpMap.Styles;

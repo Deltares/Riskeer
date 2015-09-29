@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Core.Dao;
-using DelftTools.Utils.IO;
 using DeltaShell.Core.Services;
 using NUnit.Framework;
 using Rhino.Mocks;

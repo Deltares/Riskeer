@@ -7,7 +7,6 @@
 
 using System;
 using System.Collections.Generic;
-using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui.Forms;
 

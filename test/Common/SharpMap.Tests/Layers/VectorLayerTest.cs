@@ -2,7 +2,6 @@
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Windows.Forms;
 using DelftTools.TestUtils;
 using GeoAPI.Extensions.Feature;
 using GisSharpBlog.NetTopologySuite.Geometries;
@@ -13,7 +12,6 @@ using SharpMap.Api;
 using SharpMap.Data.Providers;
 using SharpMap.Layers;
 using SharpMap.Styles;
-using SharpMap.UI.Forms;
 using SharpTestsEx;
 
 namespace SharpMap.Tests.Layers

@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using GeoAPI.CoordinateSystems;
 
 namespace SharpMap.Extensions.CoordinateSystems

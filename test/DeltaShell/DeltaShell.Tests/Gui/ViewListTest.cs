@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms.Integration;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf;
 using DelftTools.Shell.Gui;
-using DelftTools.TestUtils;
 using DelftTools.Utils;
 using DelftTools.Utils.Collections;
 using DeltaShell.Gui.Forms.ViewManager;

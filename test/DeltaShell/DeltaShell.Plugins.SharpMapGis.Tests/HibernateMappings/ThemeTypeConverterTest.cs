@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
 using System.Threading;
-using DelftTools.TestUtils;
 using DeltaShell.Plugins.SharpMapGis.HibernateMappings;
 using GeoAPI.Geometries;
 using GisSharpBlog.NetTopologySuite.Index.Bintree;

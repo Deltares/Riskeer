@@ -1,7 +1,6 @@
 using System;
 using DelftTools.Shell.Core.Workflow;
 using DelftTools.Utils.Collections.Generic;
-using DelftTools.Utils.Threading;
 
 namespace DeltaShell.Tests.TestObjects
 {

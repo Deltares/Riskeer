@@ -1,6 +1,4 @@
-﻿using System;
-
-using DelftTools.Shell.Core;
+﻿using DelftTools.Shell.Core;
 using DelftTools.Utils;
 
 using NUnit.Framework;

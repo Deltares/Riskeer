@@ -1,6 +1,5 @@
 ﻿using System;
 using DelftTools.Shell.Core;
-using DelftTools.Shell.Core.Workflow;
 
 namespace DelftTools.Shell.Gui
 {

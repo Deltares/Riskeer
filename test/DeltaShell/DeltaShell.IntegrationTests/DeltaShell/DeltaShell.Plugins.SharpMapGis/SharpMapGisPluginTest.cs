@@ -1,5 +1,4 @@
 using DelftTools.Shell.Core;
-using DelftTools.TestUtils;
 using NUnit.Framework;
 using SharpMap;
 using SharpMap.Layers;

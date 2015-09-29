@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
-using DelftTools.Utils.ComponentModel;
 
 namespace DelftTools.Utils.PropertyBag
 {

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using log4net;
 using NUnit.Framework;
 
 namespace SharpMap.Extensions.Tests.CoordinateSystems

@@ -5,7 +5,6 @@ using System.Linq;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf.TreeViewControls;
 using DelftTools.Tests.TestObjects;
-using DelftTools.TestUtils;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.Reflection;
 using NUnit.Framework;
