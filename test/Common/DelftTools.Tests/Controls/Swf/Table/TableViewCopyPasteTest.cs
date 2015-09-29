@@ -50,29 +50,25 @@ namespace DelftTools.Tests.Controls.Swf.Table
         {
             using (CultureUtils.SwitchToCulture("nl-NL"))
             {
-                var list = new EventedList<Utils.Tuple<DateTime, double>>();
-                var bindingList = new BindingList<Utils.Tuple<DateTime, double>>(list)
+                using (var dataset = new DataSet())
+                using (var dataTable = dataset.Tables.Add())
                 {
-                    AllowEdit = true,
-                    AllowNew = true,
-                    AllowRemove = true
-                };
+                    dataTable.Columns.Add("A", typeof(DateTime));
+                    dataTable.Columns.Add("B", typeof(double));
 
-                var view = new TableView();
-                view.PasteController = new TableViewArgumentBasedPasteController(view, new List<int>(new[] { 0 }))
-                {
-                    DataIsSorted = false
-                };
+                    var view = new TableView
+                               {
+                                   Data = dataTable
+                               };
 
-                view.Data = bindingList;
+                    var file = TestHelper.GetTestFilePath("TestPasteData.txt");
+                    var contents = File.ReadAllText(file);
+                    Clipboard.SetText(contents);
 
-                var file = TestHelper.GetTestFilePath("TestPasteData.txt");
-                var contents = File.ReadAllText(file);
-                Clipboard.SetText(contents);
+                    TestHelper.AssertIsFasterThan(17500, view.PasteClipboardContents);
 
-                TestHelper.AssertIsFasterThan(17500, view.PasteClipboardContents);
-
-                Assert.Greater(list.Count, 5);
+                    Assert.Greater(dataTable.Rows.Count, 5);
+                }
             }
         }
 
