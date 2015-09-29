@@ -243,7 +243,11 @@ namespace DelftTools.Tests.Controls.Swf.Table
         public void SetTextToTableViewWithDateTimeColumnUsCulture()
         {
             var oldCulture = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+            var specificCulture = CultureInfo.CreateSpecificCulture("en-US");
+            specificCulture.NumberFormat.NumberGroupSeparator = ",";
+            specificCulture.NumberFormat.NumberDecimalSeparator = ".";
+
+            Thread.CurrentThread.CurrentCulture = specificCulture;
 
             var tableView = new TableView();
 
