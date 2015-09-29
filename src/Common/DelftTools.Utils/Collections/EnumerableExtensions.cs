@@ -48,22 +48,6 @@ namespace DelftTools.Utils.Collections
             return enumerable as IList<T> ?? enumerable.ToList();
         }
 
-        public static IList<T> ToChunkedArray<T>(this IEnumerable<T> source, int totalCount)
-        {
-            if (source is IList<T>)
-                throw new InvalidOperationException("Why use this on something already a list?");
-
-            var array = new ChunkedArrayIList<T>(totalCount);
-            var i = 0;
-            foreach (var item in source)
-                array[i++] = item;
-
-            if (i != totalCount)
-                throw new InvalidOperationException("Number of source values did not match supplied count");
-
-            return array;
-        }
-
         //borrowed: http://stackoverflow.com/questions/3907408/dotnet-flatten-a-tree-list-of-lists-with-one-statement
         public static IEnumerable<T> Flatten<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> childrenSelector)
         {

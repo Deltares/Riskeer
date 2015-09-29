@@ -129,8 +129,6 @@
     <Compile Include="Binding\EnumBindingHelperTest.cs" />
     <Compile Include="Binding\SampleEnum.cs" />
     <Compile Include="ChartViewDateTimeFormatProviderTest.cs" />
-    <Compile Include="ChunkedArrayTest.cs" />
-    <Compile Include="ChunkedListTest.cs" />
     <Compile Include="Collections\EnumerableExtensionsTest.cs" />
     <Compile Include="Collections\Extensions\ListExtensions.cs" />
     <Compile Include="Collections\Generic\EnumerableListTest.cs" />

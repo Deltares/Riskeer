@@ -120,10 +120,7 @@
     <Compile Include="Aop\Markers\NoNotifyPropertyChangeAttribute.cs" />
     <Compile Include="Aop\TraceDllImportCallsAttribute.cs" />
     <Compile Include="ArrayExtensions.cs" />
-    <Compile Include="ChunkedArray.cs" />
     <Compile Include="Binding\EnumBindingHelper.cs" />
-    <Compile Include="ChunkedArrayIList.cs" />
-    <Compile Include="ChunkedList.cs" />
     <Compile Include="Comparer.cs" />
     <Compile Include="ComponentModel\DynamicEditorAttribute.cs" />
     <Compile Include="ComponentModel\DynamicVisibleAttribute.cs" />
