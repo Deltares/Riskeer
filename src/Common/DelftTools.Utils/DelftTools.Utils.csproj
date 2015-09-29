@@ -153,15 +153,6 @@
     <Compile Include="Interop\Pinned.cs" />
     <Compile Include="IO\ITransactionalChangeAccess.cs" />
     <Compile Include="MappingDocument.cs" />
-    <Compile Include="NetCdf\NetCdfAttribute.cs" />
-    <Compile Include="NetCdf\NetCdfDataType.cs" />
-    <Compile Include="NetCdf\NetCdfDimension.cs" />
-    <Compile Include="NetCdf\NetCdfFile.cs" />
-    <Compile Include="NetCdf\NetCdfFileConstants.cs" />
-    <Compile Include="NetCdf\NetCdfFileHelper.cs" />
-    <Compile Include="NetCdf\NetCdfFileUTF8Marshaler.cs" />
-    <Compile Include="NetCdf\NetCdfVariable.cs" />
-    <Compile Include="NetCdf\NetCdfWrapper.cs" />
     <Compile Include="PropertyBag\Dynamic\DynamicDataItemPropertyBag.cs" />
     <Compile Include="Reflection\AutoCloner.cs" />
     <Compile Include="Reflection\DynamicTypeUtils.cs" />

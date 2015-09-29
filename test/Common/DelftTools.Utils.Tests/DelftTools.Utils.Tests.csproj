@@ -152,7 +152,6 @@
     <Compile Include="IO\ZipFileTest.cs" />
     <Compile Include="MathUtilsTest.cs" />
     <Compile Include="NamingHelperTest.cs" />
-    <Compile Include="NetCdf\NetCdfFileTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyBag\DynamicDataItemPropertyBagTest.cs" />
     <Compile Include="PropertyBag\DynamicPropertyBagTest.cs" />
