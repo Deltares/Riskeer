@@ -68,7 +68,7 @@ namespace DeltaShell.Plugins.ProjectExplorer.Tests
             var treeView = projectExplorer.TreeView;
             treeView.SelectedNode = treeView.Nodes[0]; // project node
 
-            gui.SelectedProjectItem.Should().Be.EqualTo(app.Project);
+            gui.Selection.Should().Be.EqualTo(app.Project);
         }
     }
 }
