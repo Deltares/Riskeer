@@ -46,59 +46,59 @@ namespace DelftTools.Tests.Controls.Swf.Table
         [Test]
         public void PinColumns()
         {
-            var list = new EventedList<Tuple<double, double, double, double, double>>
-                       {
-                           new Tuple<double, double, double, double, double>(1, 2, 3, 4, 5),
-                           new Tuple<double, double, double, double, double>(6, 7, 8, 9, 10),
-                           new Tuple<double, double, double, double, double>(11, 12, 13, 14, 15),
-                           new Tuple<double, double, double, double, double>(16, 17, 18, 19, 20),
-                           new Tuple<double, double, double, double, double>(21, 22, 23, 24, 25)
-                       };
+            using (var dataset = new DataSet())
+            using (var dataTable = dataset.Tables.Add())
+            {
+                dataTable.Columns.Add("A", typeof(double));
+                dataTable.Columns.Add("B", typeof(double));
+                dataTable.Columns.Add("C", typeof(double));
+                dataTable.Columns.Add("D", typeof(double));
+                dataTable.Columns.Add("E", typeof(double));
 
-            var bindingList = new BindingList<Tuple<double, double, double, double, double>>(list)
-                              {
-                                  AllowEdit = true,
-                                  AllowNew = true,
-                                  AllowRemove = true
-                              };
+                dataTable.Rows.Add(1, 2, 3, 4, 5);
+                dataTable.Rows.Add(6, 7, 8, 9, 10);
+                dataTable.Rows.Add(11, 12, 13, 14, 15);
+                dataTable.Rows.Add(16, 17, 18, 19, 20);
+                dataTable.Rows.Add(21, 22, 23, 24, 25);
 
-            var tableView = new TableView
-                            {
-                                Data = bindingList
-                            };
+                var tableView = new TableView
+                                {
+                                    Data = dataTable
+                                };
 
-            var column0 = tableView.Columns[0];
-            var column1 = tableView.Columns[1];
-            var column3 = tableView.Columns[3];
-            var column4 = tableView.Columns[4];
+                var column0 = tableView.Columns[0];
+                var column1 = tableView.Columns[1];
+                var column3 = tableView.Columns[3];
+                var column4 = tableView.Columns[4];
 
-            column3.ReadOnly = true;
+                column3.ReadOnly = true;
 
-            var index3 = column3.DisplayIndex;
-            var index4 = column4.DisplayIndex;
+                var index3 = column3.DisplayIndex;
+                var index4 = column4.DisplayIndex;
 
-            column3.Pinned = true;
-            column4.Pinned = true;
+                column3.Pinned = true;
+                column4.Pinned = true;
 
-            column3.Pinned = false;
+                column3.Pinned = false;
 
-            // expect original index + pinned column 4
-            Assert.AreEqual(index3 + 1, column3.DisplayIndex);
+                // expect original index + pinned column 4
+                Assert.AreEqual(index3 + 1, column3.DisplayIndex);
 
-            column4.Pinned = false;
+                column4.Pinned = false;
 
-            // expect original indices (no pinned columns)
-            Assert.AreEqual(index3, column3.DisplayIndex);
-            Assert.AreEqual(index4, column4.DisplayIndex);
+                // expect original indices (no pinned columns)
+                Assert.AreEqual(index3, column3.DisplayIndex);
+                Assert.AreEqual(index4, column4.DisplayIndex);
 
-            column0.Pinned = true;
-            column1.Pinned = true;
-            Assert.AreEqual(0, column0.DisplayIndex, "display index of first pinned column");
-            Assert.AreEqual(1, column1.DisplayIndex, "display index of second pinned column");
+                column0.Pinned = true;
+                column1.Pinned = true;
+                Assert.AreEqual(0, column0.DisplayIndex, "display index of first pinned column");
+                Assert.AreEqual(1, column1.DisplayIndex, "display index of second pinned column");
 
-            column0.Pinned = false;
-            Assert.AreEqual(1, column0.DisplayIndex, "display index of first unpinned column");
-            Assert.AreEqual(0, column1.DisplayIndex, "display index of pinned column");
+                column0.Pinned = false;
+                Assert.AreEqual(1, column0.DisplayIndex, "display index of first unpinned column");
+                Assert.AreEqual(0, column1.DisplayIndex, "display index of pinned column");
+            }
         }
 
         [Test]
@@ -154,41 +154,39 @@ namespace DelftTools.Tests.Controls.Swf.Table
         [Test]
         public void TableViewShouldUseDefaultValuesWhenDeleting()
         {
-            var list = new EventedList<Tuple<double, double, double>>
-                       {
-                           new Tuple<double, double, double>(1, 2, 3),
-                           new Tuple<double, double, double>(4, 5, 6),
-                           new Tuple<double, double, double>(7, 8, 9),
-                           new Tuple<double, double, double>(10, 11, 12)
-                       };
+            using (var dataset = new DataSet())
+            using (var dataTable = dataset.Tables.Add())
+            {
+                dataTable.Columns.Add("A", typeof(double));
+                dataTable.Columns.Add("B", typeof(double));
+                dataTable.Columns.Add("C", typeof(double));
 
-            var bindingList = new BindingList<Tuple<double, double, double>>(list)
-                              {
-                                  AllowEdit = true,
-                                  AllowNew = true,
-                                  AllowRemove = true
-                              };
+                dataTable.Rows.Add(1, 2, 3);
+                dataTable.Rows.Add(4, 5, 6);
+                dataTable.Rows.Add(7, 8, 9);
+                dataTable.Rows.Add(10, 11, 12);
 
-            var tableView = new TableView
-                            {
-                                Data = bindingList
-                            };
+                var tableView = new TableView
+                                {
+                                    Data = dataTable
+                                };
 
-            tableView.Columns[1].ReadOnly = false;
-            tableView.Columns[1].DefaultValue = 99.9;
-            tableView.Columns[2].ReadOnly = false;
-            tableView.Columns[2].DefaultValue = double.NaN;
+                tableView.Columns[1].ReadOnly = false;
+                tableView.Columns[1].DefaultValue = 99.9;
+                tableView.Columns[2].ReadOnly = false;
+                tableView.Columns[2].DefaultValue = double.NaN;
 
-            tableView.AllowColumnSorting = false;
-            tableView.AllowColumnFiltering = false;
+                tableView.AllowColumnSorting = false;
+                tableView.AllowColumnFiltering = false;
 
-            tableView.SelectCells(1, 1, 1, 2);
-            tableView.DeleteCurrentSelection();
+                tableView.SelectCells(1, 1, 1, 2);
+                tableView.DeleteCurrentSelection();
 
-            var secondIndexValue = (double)tableView.GetCellValue(1, 1);
-            Assert.AreEqual(99.9, secondIndexValue, "the deleted double column value becomes the given default value.");
-            var thirdIndexValue = (double) tableView.GetCellValue(1, 2);
-            Assert.AreEqual(double.NaN, thirdIndexValue, "the deleted double column value becomes the given default value.");
+                var secondIndexValue = (double) tableView.GetCellValue(1, 1);
+                Assert.AreEqual(99.9, secondIndexValue, "the deleted double column value becomes the given default value.");
+                var thirdIndexValue = (double) tableView.GetCellValue(1, 2);
+                Assert.AreEqual(double.NaN, thirdIndexValue, "the deleted double column value becomes the given default value.");
+            }
         }
 
         [Test] //devexpress code modified to prevent pascal casing to be split into words
