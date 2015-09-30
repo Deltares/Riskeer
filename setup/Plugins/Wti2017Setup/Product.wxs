@@ -12,7 +12,10 @@
         <Directory Id="Deltares" Name="Deltares">
           <Directory Id="INSTALLDIR" Name="WTI 2017">
 
-            <!--Wti2017Payload.wxs defines all files going into this folder-->
+            <!--
+            Wti2017Payload.wxs defines all files going into this folder. 
+            Wti2017Payload.wxs will be generated on pre-build. Ensure you clean first before building the installer!
+            -->
             
           </Directory>
         </Directory>

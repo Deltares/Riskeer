@@ -14,7 +14,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug</DefineConstants>
+    <DefineConstants>Debug;ApplicationBinFolderPath=..\..\..\src\DeltaShell\DeltaShell.Gui\bin</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -22,7 +22,7 @@
     <SuppressPdbOutput>True</SuppressPdbOutput>
     <WixVariables>
     </WixVariables>
-    <DefineConstants>ProductSourceDir=..\..\..\src\DeltaShell\DeltaShell.Gui\bin</DefineConstants>
+    <DefineConstants>ApplicationBinFolder=..\..\..\src\DeltaShell\DeltaShell.Gui\bin</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Product.wxs" />
@@ -43,6 +43,9 @@
     <Content Include="Wti2017.ico" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
+  <PropertyGroup>
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\src\DeltaShell\DeltaShell.Gui\bin -cg Wti2017ApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)Wti2017Payload.wxs"</PreBuildEvent>
+  </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.
