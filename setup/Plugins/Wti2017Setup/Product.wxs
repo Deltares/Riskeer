@@ -84,6 +84,7 @@
       <ComponentGroupRef Id="Wti2017ApplicationComponents"/>
       <ComponentRef Id="InstalledShortcut"/>
       <ComponentRef Id="ProgramMenuShortcut"/>
+      <ComponentRef Id="DesktopShortcut"/>
 		</Feature>
 
     <Icon Id="Wti2017.ico" SourceFile="Wti2017.ico"/>
