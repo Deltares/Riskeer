@@ -73,9 +73,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PipingCalculation.cs" />
-    <Compile Include="PipingCalculationInput.cs" />
-    <Compile Include="PipingCalculationResult.cs" />
+    <Compile Include="Piping\PipingCalculation.cs" />
+    <Compile Include="Piping\PipingCalculationInput.cs" />
+    <Compile Include="Piping\PipingCalculationResult.cs" />
+    <Compile Include="Piping\PipingProfileCreator.cs" />
+    <Compile Include="Piping\PipingSurfaceLineCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>

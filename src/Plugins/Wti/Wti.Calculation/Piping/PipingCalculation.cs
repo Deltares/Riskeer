@@ -1,6 +1,6 @@
 ﻿using Deltares.WTIPiping;
 
-namespace Wti.Calculation
+namespace Wti.Calculation.Piping
 {
     /// <summary>
     /// This class represents a combination of piping sub-calculations, which together can be used
@@ -59,11 +59,13 @@ namespace Wti.Calculation
 
         private WTIUpliftCalculator CalculateUplift()
         {
+            var effectiveStressResult = CalculateEffectiveThickness();
+
             var calculator = new WTIUpliftCalculator
             {
                 VolumetricWeightOfWater = input.WaterVolumetricWeight,
                 ModelFactorUplift = input.UpliftModelFactor,
-                EffectiveStress = input.EffectiveStress,
+                EffectiveStress = effectiveStressResult.EffectiveStress,
                 HRiver = input.AssessmentLevel,
                 PhiExit = input.PiezometricHeadExit,
                 RExit = input.DampingFactorExit,
@@ -81,7 +83,7 @@ namespace Wti.Calculation
                 ModelFactorPiping = input.SellmeijerModelFactor,
                 HRiver = input.AssessmentLevel,
                 HExit = input.PhreaticLevelExit,
-                Rc = input.ReductionFactor,
+                Rc = input.ReductionFactorSellmeijer,
                 DTotal = input.ThicknessCoverageLayer,
                 SeepageLength = input.SeepageLength,
                 GammaSubParticles = input.SandParticlesVolumicWeight,
@@ -94,6 +96,20 @@ namespace Wti.Calculation
                 DAquifer = input.ThicknessAquiferLayer,
                 D70Mean = input.MeanDiameter70,
                 BeddingAngle = input.BeddingAngle
+            };
+            calculator.Calculate();
+            return calculator;
+        }
+
+        private EffectiveThicknessCalculator CalculateEffectiveThickness()
+        {
+            var calculator = new EffectiveThicknessCalculator
+            {
+                ExitPointXCoordinate = input.ExitPointXCoordinate,
+                PhreaticLevel = input.PhreaticLevelExit,
+                SoilProfile = new PipingProfileCreator().Create(),
+                SurfaceLine = new PipingSurfaceLineCreator().Create(),
+                VolumicWeightOfWater = input.WaterVolumetricWeight
             };
             calculator.Calculate();
             return calculator;

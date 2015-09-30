@@ -1,4 +1,4 @@
-﻿namespace Wti.Calculation
+﻿namespace Wti.Calculation.Piping
 {
     /// <summary>
     /// This class contains all the parameters that are required to perform a piping assessment.
@@ -16,7 +16,7 @@
         private readonly double criticalHeaveGradient;
         private readonly double thicknessCoverageLayer;
         private readonly double sellmeijerModelFactor;
-        private readonly double reductionFactor;
+        private readonly double reductionFactorSellmeijer;
         private readonly double seepageLength;
         private readonly double sandParticlesVolumicWeight;
         private readonly double whitesDragCoefficient;
@@ -27,6 +27,7 @@
         private readonly double thicknessAquiferLayer;
         private readonly double meanDiameter70;
         private readonly double beddingAngle;
+        private readonly double exitPointXCoordinate;
 
         #region properties
 
@@ -117,11 +118,11 @@
             }
         }
 
-        public double ReductionFactor
+        public double ReductionFactorSellmeijer
         {
             get
             {
-                return reductionFactor;
+                return reductionFactorSellmeijer;
             }
         }
 
@@ -205,6 +206,14 @@
             }
         }
 
+        public double ExitPointXCoordinate
+        {
+            get
+            {
+                return exitPointXCoordinate;
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -212,27 +221,28 @@
         /// in the piping sub calculations.
         /// </summary>
         /// <param name="waterVolumetricWeight">The volumetric weight of water.</param>
-        /// <param name="upliftModelFactor">A model factor used in the uplift sub calculations.</param>
+        /// <param name="upliftModelFactor">Calculation value used to account for uncertainty in the model for uplift.</param>
         /// <param name="effectiveStress">The effective stress of a layer.</param>
-        /// <param name="assessmentLevel">The water level to assess for.</param>
-        /// <param name="piezometricHeadExit"></param>
-        /// <param name="dampingFactorExit"></param>
-        /// <param name="phreaticLevelExit"></param>
-        /// <param name="piezometricHeadPolder"></param>
-        /// <param name="criticalHeaveGradient"></param>
-        /// <param name="thicknessCoverageLayer">The thickness of the coverage layer in the soil profile.</param>
-        /// <param name="sellmeijerModelFactor">A model factor used in the Sellmeijer sub calculation.</param>
-        /// <param name="reductionFactor"></param>
-        /// <param name="seepageLength"></param>
-        /// <param name="sandParticlesVolumicWeight"></param>
-        /// <param name="whitesDragCoefficient"></param>
-        /// <param name="diameter70"></param>
-        /// <param name="darcyPermeability"></param>
-        /// <param name="waterKinematicViscosity">The kinematic viscosity of water.</param>
-        /// <param name="gravity">The ammount of gravitation to calculate with.</param>
-        /// <param name="thicknessAquiferLayer">The thickness of the aquifer layer in the soil profile.</param>
-        /// <param name="meanDiameter70"></param>
-        /// <param name="beddingAngle"></param>
+        /// <param name="assessmentLevel">Outside high water level.</param>
+        /// <param name="piezometricHeadExit">Piezometric head at the exit point.</param>
+        /// <param name="dampingFactorExit">Damping factor at the exit point.</param>
+        /// <param name="phreaticLevelExit">Phreatic level at the exit point.</param>
+        /// <param name="piezometricHeadPolder">Piezometric head in the hinterland.</param>
+        /// <param name="criticalHeaveGradient">Critical exit gradient for heave.</param>
+        /// <param name="thicknessCoverageLayer">The total thickness of the coverage layer at the exit point.</param>
+        /// <param name="sellmeijerModelFactor">Calculation value used to account for uncertainty in the model for Sellmeijer.</param>
+        /// <param name="reductionFactorSellmeijer">Reduction factor Sellmeijer.</param>
+        /// <param name="seepageLength">Horizontal distance between entree and exit point.</param>
+        /// <param name="sandParticlesVolumicWeight">The (lowerbound) volumic weight of sand grain material of a sand layer under water.</param>
+        /// <param name="whitesDragCoefficient">White's drag coefficient.</param>
+        /// <param name="diameter70">Sieve size through which 70% fraction of the grains of the top part of the aquifer passes.</param>
+        /// <param name="darcyPermeability">Darcy-speed with which water flows through the aquifer layer.</param>
+        /// <param name="waterKinematicViscosity">The kinematic viscosity of water at 10 degrees Celsius.</param>
+        /// <param name="gravity">Gravitational acceleration.</param>
+        /// <param name="thicknessAquiferLayer">The thickness of the aquifer layer.</param>
+        /// <param name="meanDiameter70">Mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.</param>
+        /// <param name="beddingAngle">Angle of the force balance representing the amount in which sand grains resist rolling.</param>
+        /// <param name="exitPointXCoordinate">X coordinate of the exit point.</param>
         public PipingCalculationInput(
             double waterVolumetricWeight,
             double upliftModelFactor,
@@ -245,7 +255,7 @@
             double criticalHeaveGradient,
             double thicknessCoverageLayer, 
             double sellmeijerModelFactor, 
-            double reductionFactor, 
+            double reductionFactorSellmeijer, 
             double seepageLength, 
             double sandParticlesVolumicWeight, 
             double whitesDragCoefficient, 
@@ -255,8 +265,8 @@
             double gravity, 
             double thicknessAquiferLayer, 
             double meanDiameter70, 
-            double beddingAngle
-            )
+            double beddingAngle, 
+            double exitPointXCoordinate)
         {
             this.waterVolumetricWeight = waterVolumetricWeight;
             this.upliftModelFactor = upliftModelFactor;
@@ -269,7 +279,7 @@
             this.criticalHeaveGradient = criticalHeaveGradient;
             this.thicknessCoverageLayer = thicknessCoverageLayer;
             this.sellmeijerModelFactor = sellmeijerModelFactor;
-            this.reductionFactor = reductionFactor;
+            this.reductionFactorSellmeijer = reductionFactorSellmeijer;
             this.seepageLength = seepageLength;
             this.sandParticlesVolumicWeight = sandParticlesVolumicWeight;
             this.whitesDragCoefficient = whitesDragCoefficient;
@@ -280,6 +290,7 @@
             this.thicknessAquiferLayer = thicknessAquiferLayer;
             this.meanDiameter70 = meanDiameter70;
             this.beddingAngle = beddingAngle;
+            this.exitPointXCoordinate = exitPointXCoordinate;
         }
     }
 }

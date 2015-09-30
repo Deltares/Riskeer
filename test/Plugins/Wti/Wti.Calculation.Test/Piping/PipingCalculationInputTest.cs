@@ -1,7 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
+using Wti.Calculation.Piping;
 
-namespace Wti.Calculation.Test
+namespace Wti.Calculation.Test.Piping
 {
     public class PipingCalculationInputTest
     {
@@ -32,6 +33,7 @@ namespace Wti.Calculation.Test
             double thicknessAquiferLayerValue = random.NextDouble();
             double meanDiameter70Value = random.NextDouble();
             double beddingAngleValue = random.NextDouble();
+            double exitPointXCoordinate = random.NextDouble();
 
             var input = new PipingCalculationInput(
                 volumetricWeightOfWaterValue,
@@ -55,7 +57,8 @@ namespace Wti.Calculation.Test
                 gravityValue,
                 thicknessAquiferLayerValue,
                 meanDiameter70Value,
-                beddingAngleValue);
+                beddingAngleValue,
+                exitPointXCoordinate);
 
             Assert.That(input.WaterVolumetricWeight, Is.EqualTo(volumetricWeightOfWaterValue));
             Assert.That(input.UpliftModelFactor, Is.EqualTo(modelFactorUpliftValue));
@@ -68,7 +71,7 @@ namespace Wti.Calculation.Test
             Assert.That(input.CriticalHeaveGradient, Is.EqualTo(ichValue));
             Assert.That(input.ThicknessCoverageLayer, Is.EqualTo(dTotalValue));
             Assert.That(input.SellmeijerModelFactor, Is.EqualTo(sellmeijerModelFactorValue));
-            Assert.That(input.ReductionFactor, Is.EqualTo(reductionFactorValue));
+            Assert.That(input.ReductionFactorSellmeijer, Is.EqualTo(reductionFactorValue));
             Assert.That(input.SeepageLength, Is.EqualTo(seepageLengthValue));
             Assert.That(input.SandParticlesVolumicWeight, Is.EqualTo(sandParticlesVolumicWeightValue));
             Assert.That(input.WhitesDragCoefficient, Is.EqualTo(whitesDragCoefficientValue));
@@ -79,6 +82,7 @@ namespace Wti.Calculation.Test
             Assert.That(input.ThicknessAquiferLayer, Is.EqualTo(thicknessAquiferLayerValue));
             Assert.That(input.MeanDiameter70, Is.EqualTo(meanDiameter70Value));
             Assert.That(input.BeddingAngle, Is.EqualTo(beddingAngleValue));
+            Assert.That(input.ExitPointXCoordinate, Is.EqualTo(exitPointXCoordinate));
         }
     }
 }

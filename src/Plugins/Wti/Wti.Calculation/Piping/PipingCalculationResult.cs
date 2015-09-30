@@ -1,4 +1,4 @@
-﻿namespace Wti.Calculation
+﻿namespace Wti.Calculation.Piping
 {
     public class PipingCalculationResult {
         private readonly double upliftZValue;

@@ -1,7 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
+using Wti.Calculation.Piping;
 
-namespace Wti.Calculation.Test
+namespace Wti.Calculation.Test.Piping
 {
     public class PipingCalculationResultTest
     {
