@@ -42,6 +42,12 @@
     <Content Include="Banner.jpg" />
     <Content Include="Wti2017.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
     <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\src\DeltaShell\DeltaShell.Gui\bin -cg Wti2017ApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)Wti2017Payload.wxs"</PreBuildEvent>
