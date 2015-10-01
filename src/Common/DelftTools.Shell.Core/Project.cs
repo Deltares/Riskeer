@@ -1,20 +1,18 @@
 using System.Collections.Generic;
 using DelftTools.Utils.Collections.Generic;
-using DelftTools.Utils.Data;
 
 namespace DelftTools.Shell.Core
 {
     /// <summary>
     /// Container of all data and tasks.
     /// </summary>
-    public class Project : EditableObjectUnique<long>, IObservable
+    public class Project : IObservable
     {
         private string name;
         private string description;
 
         private bool isChanged;
         private bool isTemporary;
-        private bool isMigrated;
 
         /// <summary>
         /// Creates instance of the Project.
