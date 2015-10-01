@@ -5,7 +5,7 @@ using GeoAPI.Geometries;
 namespace SharpMapTestUtils.TestClasses
 {
     [Entity(FireOnCollectionChange=false)]
-    public class SampleFeature : Unique<long>, IFeature
+    public class SampleFeature : IFeature
     {
         private IGeometry geometry;
         private IFeatureAttributeCollection attributes;

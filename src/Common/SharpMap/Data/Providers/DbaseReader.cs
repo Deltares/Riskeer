@@ -60,7 +60,7 @@ namespace SharpMap.Data.Providers
 
         protected bool Equals(ShapeFileFeature other)
         {
-            return Id == other.Id && Geometry.EqualsExact(other.Geometry);
+            return Geometry.EqualsExact(other.Geometry);
         }
 
         public override bool Equals(object obj)
@@ -74,9 +74,8 @@ namespace SharpMap.Data.Providers
         public override int GetHashCode()
         {
             int result = 17;
-            result = 37 * result + Id.GetHashCode();
             result = 37 * result + Geometry.GetHashCode();
-            
+
             return result;
         }
     }

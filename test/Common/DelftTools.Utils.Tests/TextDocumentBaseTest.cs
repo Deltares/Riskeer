@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel;
-
-using DelftTools.Utils.Data;
 using IEditableObject = DelftTools.Utils.Editing.IEditableObject;
 
 using NUnit.Framework;
@@ -17,7 +15,6 @@ namespace DelftTools.Utils.Tests
 
             // assert
             Assert.IsInstanceOf<INameable>(docBase);
-            Assert.IsInstanceOf<IUnique<long>>(docBase);
             Assert.IsInstanceOf<IEditableObject>(docBase);
             Assert.IsInstanceOf<INotifyPropertyChanged>(docBase);
             Assert.IsFalse(docBase.ReadOnly);
@@ -35,7 +32,6 @@ namespace DelftTools.Utils.Tests
 
             // assert
             Assert.IsInstanceOf<INameable>(docBase);
-            Assert.IsInstanceOf<IUnique<long>>(docBase);
             Assert.IsInstanceOf<IEditableObject>(docBase);
             Assert.IsInstanceOf<INotifyPropertyChanged>(docBase);
             Assert.AreEqual(isReadOnly, docBase.ReadOnly);

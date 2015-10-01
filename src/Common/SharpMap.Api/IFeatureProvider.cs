@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections;
-using DelftTools.Utils.Data;
 using GeoAPI.CoordinateSystems;
 using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
@@ -30,7 +29,7 @@ namespace SharpMap.Api
 	/// Interface for data providers
     /// TODO: move all editing-related properties / functions into a separate interface, IFeatureInteractor, IFeatureCollection?
     /// </summary>
-    public interface IFeatureProvider : IUnique<long>, IDisposable
+    public interface IFeatureProvider : IDisposable
 	{
         /// <summary>
         /// Type of the features provided.

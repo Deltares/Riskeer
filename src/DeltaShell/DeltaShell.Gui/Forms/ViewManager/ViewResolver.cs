@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
-using DelftTools.Utils.Data;
 using DelftTools.Utils.Reflection;
 using DeltaShell.Gui.Properties;
 using log4net;
@@ -174,19 +173,11 @@ namespace DeltaShell.Gui.Forms.ViewManager
 
         public IEnumerable<ViewInfo> GetViewInfosFor(object data, Type viewType = null)
         {
-            var infos = ViewInfos.Where(vi => GetRealObjectTypeFor(data).Implements(vi.DataType) && vi.AdditionalDataCheck(data));
+            var infos = ViewInfos.Where(vi => data.GetType().Implements(vi.DataType) && vi.AdditionalDataCheck(data));
 
             return viewType != null
                        ? infos.Where(vi => viewType.IsAssignableFrom(vi.ViewType))
                        : infos;
-        }
-
-        private static Type GetRealObjectTypeFor(object data)
-        {
-            var dataAsUnique = data as IUnique<long>;
-            return (dataAsUnique != null)
-                       ? dataAsUnique.GetEntityType()
-                       : data.GetType();
         }
 
         private IEnumerable<IView> GetViewsForData(IEnumerable<IView> viewsToCheck, object data, bool includeChildViews = true)

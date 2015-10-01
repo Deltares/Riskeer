@@ -23,7 +23,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using DelftTools.Utils.Data;
 using EGIS.ShapeFileLib;
 using GeoAPI.CoordinateSystems;
 using GeoAPI.Extensions.Feature;
@@ -59,7 +58,7 @@ namespace SharpMap.Data.Providers
     /// myLayer.DataSource = new SharpMap.Data.Providers.ShapeFile(@"C:\data\MyShapeData.shp");
     /// </code>
     /// </example>
-    public class ShapeFile : Unique<long>, IFeatureProvider
+    public class ShapeFile : IFeatureProvider
     {
         #region Delegates
 

@@ -1,10 +1,9 @@
-using DelftTools.Utils.Data;
 using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
 
 namespace NetTopologySuite.Extensions.Features
 {
-    public class Feature : Unique<long>, IFeature
+    public class Feature : IFeature
     {
         private IGeometry geometry;
 
@@ -36,9 +35,7 @@ namespace NetTopologySuite.Extensions.Features
 
         public override string ToString()
         {
-            return Id 
-                + " "  
-                + (Geometry != null ? Geometry.ToString() : "<no geometry>");
+            return Geometry != null ? Geometry.ToString() : "<no geometry>";
         }
     }
 }

@@ -62,7 +62,7 @@ namespace SharpMap.Data.Providers
 	/// </code>
 	/// </example>
 	/// </remarks>
-    public class DataTableFeatureProvider : Unique<long>, IFeatureProvider
+    public class DataTableFeatureProvider : IFeatureProvider
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DataTableFeatureProvider));
 

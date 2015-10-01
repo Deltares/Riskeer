@@ -190,7 +190,6 @@
     <Compile Include="Remoting\RemoteInstanceContainerTest.cs" />
     <Compile Include="Remoting\RemotingClass.cs" />
     <Compile Include="SnappingCalculatorTest.cs" />
-    <Compile Include="SqlUtilsTest.cs" />
     <Compile Include="StringExtensionsTests.cs" />
     <Compile Include="TestHelperTests.cs" />
     <Compile Include="TestReferenceHelperTest.cs" />

@@ -304,11 +304,8 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             // Obtain all property information
             var propertyInfos = gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList();
 
-            // Obtain the data object type
-            var dataObjectType = sourceData is IUnique<long> ? ((IUnique<long>) sourceData).GetEntityType() : sourceData.GetType();
-
             // 1. Match property information based on ObjectType and on AdditionalDataCheck
-            propertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsAssignableFrom(dataObjectType) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToList();
+            propertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsAssignableFrom(sourceData.GetType()) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToList();
 
             // 2. Match property information based on object type inheritance
             propertyInfos = FilterPropertyInfoByTypeInheritance(propertyInfos, pi => pi.ObjectType);

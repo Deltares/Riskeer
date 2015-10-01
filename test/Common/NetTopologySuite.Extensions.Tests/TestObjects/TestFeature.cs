@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using DelftTools.Utils.Data;
 using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
 
@@ -12,7 +11,7 @@ namespace NetTopologySuite.Extensions.Tests.TestObjects
 
     }
 
-    class TestFeature : Unique<long>, IFeature
+    class TestFeature : IFeature
     {
         [FeatureAttribute(Order = 2)]
         public string Name { get; set; }

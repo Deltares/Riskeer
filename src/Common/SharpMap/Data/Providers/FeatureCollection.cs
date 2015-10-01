@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DelftTools.Utils;
 using DelftTools.Utils.Collections;
-using DelftTools.Utils.Data;
 using DelftTools.Utils.Reflection;
 using GeoAPI.CoordinateSystems;
 using GeoAPI.Extensions.Feature;
@@ -18,7 +17,7 @@ namespace SharpMap.Data.Providers
     //Note: See the WFDExplorer plugin for an implementation of FeatureCollection<T>!! It is not fully covered with tests 
     //yet because not all requirements are clear
     
-    public class FeatureCollection : Unique<long>, IFeatureProvider
+    public class FeatureCollection : IFeatureProvider
     {
         private Type featureType;
         protected IList features;

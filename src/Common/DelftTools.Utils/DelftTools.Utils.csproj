@@ -183,7 +183,6 @@
     <Compile Include="Csv\Importer\CsvSettings.cs" />
     <Compile Include="CultureUtils.cs" />
     <Compile Include="Data\EditableObjectUnique.cs" />
-    <Compile Include="Data\Unique.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DateTimeFormatGuesser.cs" />
     <Compile Include="DateTimeFormats.cs" />
@@ -260,7 +259,6 @@
     <Compile Include="ConversionHelper.cs" />
     <Compile Include="Csv\CommonCsvWriter.cs" />
     <Compile Include="Data\IObjectRepository.cs" />
-    <Compile Include="Data\IUnique.cs" />
     <Compile Include="DeltaShellTimeSpanConverter.cs" />
     <Compile Include="ICopyFrom.cs" />
     <Compile Include="IO\StreamExtensions.cs" />
@@ -312,7 +310,6 @@
     <Compile Include="Interop\OcxHelper.cs" />
     <Compile Include="IO\FileUtils.cs" />
     <Compile Include="Reflection\AssemblyUtils.cs" />
-    <Compile Include="Data\SqlUtils.cs" />
     <Compile Include="Threading\EventsHelper.cs" />
     <Compile Include="Threading\GenericEventHandler.cs" />
     <Compile Include="Threading\NotifyingThreadQueue.cs" />

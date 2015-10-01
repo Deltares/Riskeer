@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using DelftTools.Utils.Data;
 using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
 
@@ -14,7 +13,7 @@ namespace SharpMap.Api.Editors
     /// eg. LineStringMutator and AllTracker
     /// todo: add support for Trackers that are not represented by a bitmap.
     /// </summary>
-    public class TrackerFeature : Unique<long>, IFeature
+    public class TrackerFeature : IFeature
     {
         private IFeatureInteractor featureInteractor;
         private IGeometry geometry;
