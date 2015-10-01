@@ -128,19 +128,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aop\EditableObjectUniqueTest.cs" />
     <Compile Include="Aop\EntityAttributeTest.cs" />
     <Compile Include="Aop\TestClasses\BubbleTestClass.cs" />
     <Compile Include="Aop\InvokeRequiredAttributeTest.cs" />
-    <Compile Include="Aop\TestClasses\ChildObject.cs" />
     <Compile Include="Aop\TestClasses\ClassImplementingIEventedList.cs" />
-    <Compile Include="Aop\TestClasses\ClassWithAspects.cs" />
-    <Compile Include="Aop\TestClasses\ClassWithoutAspects.cs" />
     <Compile Include="Aop\TestClasses\CollectionChangedAspectTestClass.cs" />
     <Compile Include="Aop\TestClasses\InvokeRequiredTestClass.cs" />
     <Compile Include="Aop\TestClasses\DllImports.cs" />
     <Compile Include="Aop\TestClasses\NotifiableTestClass.cs" />
-    <Compile Include="Aop\TestClasses\ParentObject.cs" />
     <Compile Include="Aop\TestClasses\ProblemChildObject.cs" />
     <Compile Include="Aop\TestClasses\ProblemParentObject.cs" />
     <Compile Include="Aop\TestClasses\TestPublisher.cs" />
