@@ -7,6 +7,10 @@ namespace Wti.Calculation.Piping
     /// </summary>
     internal class PipingProfileCreator
     {
+        /// <summary>
+        /// Creates a simple <see cref="PipingProfile"/> with a single default constructed <see cref="PipingLayer"/>.
+        /// </summary>
+        /// <returns></returns>
         public PipingProfile Create()
         {
             var profile = new PipingProfile();

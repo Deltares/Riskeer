@@ -7,6 +7,10 @@ namespace Wti.Calculation.Piping
     /// </summary>
     internal class PipingSurfaceLineCreator
     {
+        /// <summary>
+        /// Creates a simple <see cref="PipingSurfaceLine"/> with a single <see cref="PipingPoint"/> at the origin.
+        /// </summary>
+        /// <returns></returns>
         public PipingSurfaceLine Create()
         {
             var surfaceLine = new PipingSurfaceLine();

@@ -1,5 +1,8 @@
 ﻿namespace Wti.Calculation.Piping
 {
+    /// <summary>
+    /// This class contains all the results of a complete piping calculation.
+    /// </summary>
     public class PipingCalculationResult {
         private readonly double upliftZValue;
         private readonly double upliftFactorOfSafety;
@@ -11,7 +14,7 @@
         #region properties
 
         /// <summary>
-        /// The z-value of the Uplift sub calculation.
+        /// Gets the z-value of the Uplift sub calculation.
         /// </summary>
         public double UpliftZValue { get
             {
@@ -20,7 +23,7 @@
         }
 
         /// <summary>
-        /// The factory of safety of the Uplift sub calculation.
+        /// Gets the factory of safety of the Uplift sub calculation.
         /// </summary>
         public double UpliftFactorOfSafety
         {
@@ -31,7 +34,7 @@
         }
 
         /// <summary>
-        /// The z-value of the Heave sub calculation.
+        /// Gets the z-value of the Heave sub calculation.
         /// </summary>
         public double HeaveZValue
         {
@@ -42,7 +45,7 @@
         }
 
         /// <summary>
-        /// The factory of safety of the Heave sub calculation.
+        /// Gets the factory of safety of the Heave sub calculation.
         /// </summary>
         public double HeaveFactorOfSafety
         {
@@ -53,7 +56,7 @@
         }
 
         /// <summary>
-        /// The z-value of the Sellmeijer sub calculation.
+        /// Gets the z-value of the Sellmeijer sub calculation.
         /// </summary>
         public double SellmeijerZValue
         {
@@ -64,7 +67,7 @@
         }
 
         /// <summary>
-        /// The factory of safety of the Sellmeijer sub calculation.
+        /// Gets the factory of safety of the Sellmeijer sub calculation.
         /// </summary>
         public double SellmeijerFactorOfSafety
         {
