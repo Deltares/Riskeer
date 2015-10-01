@@ -13,7 +13,6 @@ namespace Wti.Calculation.Test.Piping
 
             double volumetricWeightOfWaterValue = random.NextDouble();
             double modelFactorUpliftValue = random.NextDouble();
-            double effectiveStressValue = random.NextDouble();
             double hRiverValue = random.NextDouble();
             double phiExitValue = random.NextDouble();
             double rExitValue = random.NextDouble();
@@ -38,7 +37,6 @@ namespace Wti.Calculation.Test.Piping
             var input = new PipingCalculationInput(
                 volumetricWeightOfWaterValue,
                 modelFactorUpliftValue,
-                effectiveStressValue,
                 hRiverValue,
                 phiExitValue,
                 rExitValue,
@@ -62,7 +60,6 @@ namespace Wti.Calculation.Test.Piping
 
             Assert.That(input.WaterVolumetricWeight, Is.EqualTo(volumetricWeightOfWaterValue));
             Assert.That(input.UpliftModelFactor, Is.EqualTo(modelFactorUpliftValue));
-            Assert.That(input.EffectiveStress, Is.EqualTo(effectiveStressValue));
             Assert.That(input.AssessmentLevel, Is.EqualTo(hRiverValue));
             Assert.That(input.PiezometricHeadExit, Is.EqualTo(phiExitValue));
             Assert.That(input.DampingFactorExit, Is.EqualTo(rExitValue));
@@ -71,7 +68,7 @@ namespace Wti.Calculation.Test.Piping
             Assert.That(input.CriticalHeaveGradient, Is.EqualTo(ichValue));
             Assert.That(input.ThicknessCoverageLayer, Is.EqualTo(dTotalValue));
             Assert.That(input.SellmeijerModelFactor, Is.EqualTo(sellmeijerModelFactorValue));
-            Assert.That(input.ReductionFactorSellmeijer, Is.EqualTo(reductionFactorValue));
+            Assert.That(input.SellmeijerReductionFactor, Is.EqualTo(reductionFactorValue));
             Assert.That(input.SeepageLength, Is.EqualTo(seepageLengthValue));
             Assert.That(input.SandParticlesVolumicWeight, Is.EqualTo(sandParticlesVolumicWeightValue));
             Assert.That(input.WhitesDragCoefficient, Is.EqualTo(whitesDragCoefficientValue));

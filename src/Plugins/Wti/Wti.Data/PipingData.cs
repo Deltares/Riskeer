@@ -25,6 +25,27 @@ namespace Wti.Data
             }
         }
 
+        public double WaterVolumetricWeight { get; set; }
+        public double UpliftModelFactor { get; set; }
         public double AssessmentLevel { get; set; } 
+        public double PiezometricHeadExit { get; set; }
+        public double DampingFactorExit { get; set; }
+        public double PhreaticLevelExit { get; set; }
+        public double PiezometricHeadPolder { get; set; }
+        public double CriticalHeaveGradient { get; set; }
+        public double ThicknessCoverageLayer { get; set; }
+        public double SellmeijerModelFactor { get; set; }
+        public double SellmeijerReductionFactor { get; set; }
+        public double SeepageLength { get; set; }
+        public double SandParticlesVolumicWeight { get; set; }
+        public double WhitesDragCoefficient { get; set; }
+        public double Diameter70 { get; set; }
+        public double DarcyPermeability { get; set; }
+        public double WaterKinematicViscosity { get; set; }
+        public double Gravity { get; set; }
+        public double ThicknessAquiferLayer { get; set; }
+        public double MeanDiameter70 { get; set; }
+        public double BeddingAngle { get; set; }
+        public double ExitPointXCoordinate { get; set; }
     }
 }

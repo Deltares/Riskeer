@@ -7,27 +7,27 @@ namespace Wti.Controller.Test
     public class PipingContextMenuStripTest
     {
         [Test]
-        public void GivenSomeData_WhenPipingContextMenuStripConstructedBasedOnThisData_ThenOneMenuItemIsAdded()
+        public void GivenPipingContextMenu_WhenConstructedBasedOnAnything_ThenOneMenuItemIsAdded()
         {
-            PipingData someData = null;
-            var actual = new PipingContextMenuStrip(someData);
+            var actual = new PipingContextMenuStrip(null);
             Assert.That(actual.Items, Has.Some.Not.Null);
         }
 
         [Test]
-        public void GivenPipingContextMenuStripConstructedWithNull_WhenClickingCalculateMenuItem_ThenNullReferenceExceptionIsThrown()
+        public void GivenPipingContextMenuWithoutHandlers_WhenClickingCalculateMenuItem_NoExceptions()
         {
             var pipingContextMenu = new PipingContextMenuStrip(null);
-            TestDelegate actual = () => pipingContextMenu.Items[0].PerformClick();
-            Assert.That(actual, Throws.InstanceOf<NullReferenceException>());
+            pipingContextMenu.Items[0].PerformClick();
         }
 
         [Test]
-        public void GivenPipingContextMenuStripConstructedWithPipingData_WhenClickingCalculateMenuItem_ThenNoNullReferenceExceptions()
+        public void GivenPipingContextMenuWithCalculateHandler_WhenClickingCalculateMenuItem_ActionIsExecuted()
         {
-            var pipingContextMenu = new PipingContextMenuStrip(new PipingData());
-            TestDelegate actual = () => pipingContextMenu.Items[0].PerformClick();
-            Assert.That(actual, Throws.Exception.Not.InstanceOf<NullReferenceException>());
+            var executed = false;
+            var pipingContextMenu = new PipingContextMenuStrip(null);
+            pipingContextMenu.OnCalculationClick += p => executed = true;
+            pipingContextMenu.Items[0].PerformClick();
+            Assert.That(executed, Is.True);
         }
     }
 }

@@ -120,14 +120,146 @@
   <data name="Categories_General" xml:space="preserve">
     <value>Algemeen</value>
   </data>
+  <data name="ErrorInPipingCalculation_0" xml:space="preserve">
+    <value>Piping berekening niet gelukt: {0}</value>
+  </data>
   <data name="PipingDataAssessmentLevelDescription" xml:space="preserve">
     <value>Peil dat gebruikt moet worden in de toetsing.</value>
   </data>
   <data name="PipingDataAssessmentLevelDisplayName" xml:space="preserve">
     <value>Toetspeil</value>
   </data>
+  <data name="PipingDataBeddingAngleDescription" xml:space="preserve">
+    <value>Hoek in het krachtenevenwicht die aangeeft hoeveel de korrels weerstand bieden tegen rollen; ook beddingshoek genoemd.</value>
+  </data>
+  <data name="PipingDataBeddingAngleDisplayName" xml:space="preserve">
+    <value>Rolweerstandshoek</value>
+  </data>
+  <data name="PipingDataContextMenuCalculate" xml:space="preserve">
+    <value>Berekenen</value>
+  </data>
+  <data name="PipingDataCriticalHeaveGradientDescription" xml:space="preserve">
+    <value>Kritiek verhang met betrekking tot heave.</value>
+  </data>
+  <data name="PipingDataCriticalHeaveGradientDisplayName" xml:space="preserve">
+    <value>Kritiek verhang m.b.t. heave</value>
+  </data>
+  <data name="PipingDataDampingFactorExitDescription" xml:space="preserve">
+    <value>Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand.</value>
+  </data>
+  <data name="PipingDataDampingFactorExitDisplayName" xml:space="preserve">
+    <value>Dempingsfactor bij uittredepunt</value>
+  </data>
+  <data name="PipingDataDarcyPermeabilityDescription" xml:space="preserve">
+    <value>Darcy-snelheid waarmee water door de eerste voor doorlatendheid te onderscheiden zandlaag loopt.</value>
+  </data>
+  <data name="PipingDataDarcyPermeabilityDisplayName" xml:space="preserve">
+    <value>Doorlatendheid aquifer</value>
+  </data>
+  <data name="PipingDataDiameter70Description" xml:space="preserve">
+    <value>Zeefmaat waar 70 gewichtsprocent van de korrels uit een zandlaag doorheen gaat. Hier de korreldiameter van het bovenste gedeelte van de aquifer, bepaald zonder fijne fractie (&lt; 63µm).</value>
+  </data>
+  <data name="PipingDataDiameter70DisplayName" xml:space="preserve">
+    <value>70%-fraktiel van de korreldiameter in de bovenste zandlaag</value>
+  </data>
+  <data name="PipingDataExitPointXCoordinateDescription" xml:space="preserve">
+    <value>De x-coordinaat van het uittredepunt.</value>
+  </data>
+  <data name="PipingDataExitPointXCoordinateDisplayName" xml:space="preserve">
+    <value>X-coordinaat uittredepunt</value>
+  </data>
+  <data name="PipingDataGravityDescription" xml:space="preserve">
+    <value>Valversnelling</value>
+  </data>
+  <data name="PipingDataGravityDisplayName" xml:space="preserve">
+    <value>Valversnelling</value>
+  </data>
+  <data name="PipingDataMeanDiameter70Description" xml:space="preserve">
+    <value>gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit.</value>
+  </data>
+  <data name="PipingDataMeanDiameter70DisplayName" xml:space="preserve">
+    <value>Referentie waarde voor 70%-fraktiel in Sellmeijer regel</value>
+  </data>
+  <data name="PipingDataPhreaticLevelExitDescription" xml:space="preserve">
+    <value>Freatische waterstand bij uittredepunt.</value>
+  </data>
+  <data name="PipingDataPhreaticLevelExitDisplayName" xml:space="preserve">
+    <value>Freatische waterstand bij uittredepunt</value>
+  </data>
+  <data name="PipingDataPiezometricHeadExitDescription" xml:space="preserve">
+    <value>Stijghoogte bij uittredepunt.</value>
+  </data>
+  <data name="PipingDataPiezometricHeadExitDisplayName" xml:space="preserve">
+    <value>Stijghoogte bij uittredepunt</value>
+  </data>
+  <data name="PipingDataPiezometricHeadPolderDescription" xml:space="preserve">
+    <value>Stijghoogte in achterland.</value>
+  </data>
+  <data name="PipingDataPiezometricHeadPolderDisplayName" xml:space="preserve">
+    <value>Stijghoogte in achterland</value>
+  </data>
   <data name="PipingDataPropertiesDisplayName" xml:space="preserve">
     <value>Piping</value>
+  </data>
+  <data name="PipingDataSandParticlesVolumicWeightDescription" xml:space="preserve">
+    <value>Het (ondergedempelde) volumegewicht van zandkorrelmateriaal van een zandlaag.</value>
+  </data>
+  <data name="PipingDataSandParticlesVolumicWeightDisplayName" xml:space="preserve">
+    <value>Volumiek gewicht van de zandkorrels onder water</value>
+  </data>
+  <data name="PipingDataSeepageLengthDescription" xml:space="preserve">
+    <value>De horizontale afstand tussen intree- en uitreepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt.</value>
+  </data>
+  <data name="PipingDataSeepageLengthDisplayName" xml:space="preserve">
+    <value>Kwelweglengte</value>
+  </data>
+  <data name="PipingDataSellmeijerModelFactorDescription" xml:space="preserve">
+    <value>Rekenwaarde om de modelonzekerheid in het model van Sellmeijer in rekening te brengen.</value>
+  </data>
+  <data name="PipingDataSellmeijerModelFactorDisplayName" xml:space="preserve">
+    <value>Modelfactor piping toegepast op Sellmeijermodel</value>
+  </data>
+  <data name="PipingDataSellmeijerReductionFactorDescription" xml:space="preserve">
+    <value>Reductiefactor Sellmeijer.</value>
+  </data>
+  <data name="PipingDataSellmeijerReductionFactorDisplayName" xml:space="preserve">
+    <value>Reductiefactor Sellmeijer</value>
+  </data>
+  <data name="PipingDataThicknessAquiferLayerDescription" xml:space="preserve">
+    <value>De dikte van de eerste of bovenste voor doorlatendheid te onderscheiden zandlaag van mogelijk meerdere zandlagen vanaf de cohesieve grondlaag.</value>
+  </data>
+  <data name="PipingDataThicknessAquiferLayerDisplayName" xml:space="preserve">
+    <value>Dikte watervoerend pakket</value>
+  </data>
+  <data name="PipingDataThicknessCoverageLayerDescription" xml:space="preserve">
+    <value>Totale deklaagdikte bij uittredepunt.</value>
+  </data>
+  <data name="PipingDataThicknessCoverageLayerDisplayName" xml:space="preserve">
+    <value>Totale deklaagdikte bij uittredepunt</value>
+  </data>
+  <data name="PipingDataUpliftModelFactorDescription" xml:space="preserve">
+    <value>Rekenwaarde om de modelonzekerheid in het model van opbarsten in rekening te brengen.</value>
+  </data>
+  <data name="PipingDataUpliftModelFactorDisplayName" xml:space="preserve">
+    <value>Modelfactor opbarsten</value>
+  </data>
+  <data name="PipingDataWaterKinematicViscosityDescription" xml:space="preserve">
+    <value>Kinematische viscositeit van water bij 10º Celsius.</value>
+  </data>
+  <data name="PipingDataWaterKinematicViscosityDisplayName" xml:space="preserve">
+    <value>Kinematische viscositeit van water bij 10º Celsius</value>
+  </data>
+  <data name="PipingDataWaterVolumetricWeightDescription" xml:space="preserve">
+    <value>Volumiek gewicht van water.</value>
+  </data>
+  <data name="PipingDataWaterVolumetricWeightDisplayName" xml:space="preserve">
+    <value>Volumiek gewicht van water</value>
+  </data>
+  <data name="PipingDataWhitesDragCoefficientDescription" xml:space="preserve">
+    <value>Sleepkrachtfactor volgens White.</value>
+  </data>
+  <data name="PipingDataWhitesDragCoefficientDisplayName" xml:space="preserve">
+    <value>Coëfficiënt van White</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="PipingIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">

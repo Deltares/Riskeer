@@ -7,7 +7,6 @@
     {
         private readonly double waterVolumetricWeight;
         private readonly double upliftModelFactor;
-        private readonly double effectiveStress;
         private readonly double assessmentLevel;
         private readonly double piezometricHeadExit;
         private readonly double dampingFactorExit;
@@ -16,7 +15,7 @@
         private readonly double criticalHeaveGradient;
         private readonly double thicknessCoverageLayer;
         private readonly double sellmeijerModelFactor;
-        private readonly double reductionFactorSellmeijer;
+        private readonly double sellmeijerReductionFactor;
         private readonly double seepageLength;
         private readonly double sandParticlesVolumicWeight;
         private readonly double whitesDragCoefficient;
@@ -50,17 +49,6 @@
             get
             {
                 return upliftModelFactor;
-            }
-        }
-
-        /// <summary>
-        /// Gets the effective stress of a layer.
-        /// </summary>
-        public double EffectiveStress
-        {
-            get
-            {
-                return effectiveStress;
             }
         }
 
@@ -154,11 +142,11 @@
         /// <summary>
         /// Gets the reduction factor Sellmeijer.
         /// </summary>
-        public double ReductionFactorSellmeijer
+        public double SellmeijerReductionFactor
         {
             get
             {
-                return reductionFactorSellmeijer;
+                return sellmeijerReductionFactor;
             }
         }
 
@@ -291,7 +279,6 @@
         /// </summary>
         /// <param name="waterVolumetricWeight">The volumetric weight of water.</param>
         /// <param name="upliftModelFactor">The calculation value used to account for uncertainty in the model for uplift.</param>
-        /// <param name="effectiveStress">The effective stress of a layer.</param>
         /// <param name="assessmentLevel">The outside high water level.</param>
         /// <param name="piezometricHeadExit">The piezometric head at the exit point.</param>
         /// <param name="dampingFactorExit">The damping factor at the exit point.</param>
@@ -300,7 +287,7 @@
         /// <param name="criticalHeaveGradient">The critical exit gradient for heave.</param>
         /// <param name="thicknessCoverageLayer">The total thickness of the coverage layer at the exit point.</param>
         /// <param name="sellmeijerModelFactor">The calculation value used to account for uncertainty in the model for Sellmeijer.</param>
-        /// <param name="reductionFactorSellmeijer">The reduction factor Sellmeijer.</param>
+        /// <param name="sellmeijerReductionFactor">The reduction factor Sellmeijer.</param>
         /// <param name="seepageLength">The horizontal distance between entree and exit point.</param>
         /// <param name="sandParticlesVolumicWeight">The (lowerbound) volumic weight of sand grain material of a sand layer under water.</param>
         /// <param name="whitesDragCoefficient">The White's drag coefficient.</param>
@@ -312,34 +299,10 @@
         /// <param name="meanDiameter70">The mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.</param>
         /// <param name="beddingAngle">The angle of the force balance representing the amount in which sand grains resist rolling.</param>
         /// <param name="exitPointXCoordinate">The x coordinate of the exit point.</param>
-        public PipingCalculationInput(
-            double waterVolumetricWeight,
-            double upliftModelFactor,
-            double effectiveStress,
-            double assessmentLevel,
-            double piezometricHeadExit,
-            double dampingFactorExit,
-            double phreaticLevelExit,
-            double piezometricHeadPolder,
-            double criticalHeaveGradient,
-            double thicknessCoverageLayer, 
-            double sellmeijerModelFactor, 
-            double reductionFactorSellmeijer, 
-            double seepageLength, 
-            double sandParticlesVolumicWeight, 
-            double whitesDragCoefficient, 
-            double diameter70, 
-            double darcyPermeability, 
-            double waterKinematicViscosity, 
-            double gravity, 
-            double thicknessAquiferLayer, 
-            double meanDiameter70, 
-            double beddingAngle, 
-            double exitPointXCoordinate)
+        public PipingCalculationInput(double waterVolumetricWeight, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double piezometricHeadPolder, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate)
         {
             this.waterVolumetricWeight = waterVolumetricWeight;
             this.upliftModelFactor = upliftModelFactor;
-            this.effectiveStress = effectiveStress;
             this.assessmentLevel = assessmentLevel;
             this.piezometricHeadExit = piezometricHeadExit;
             this.dampingFactorExit = dampingFactorExit;
@@ -348,7 +311,7 @@
             this.criticalHeaveGradient = criticalHeaveGradient;
             this.thicknessCoverageLayer = thicknessCoverageLayer;
             this.sellmeijerModelFactor = sellmeijerModelFactor;
-            this.reductionFactorSellmeijer = reductionFactorSellmeijer;
+            this.sellmeijerReductionFactor = sellmeijerReductionFactor;
             this.seepageLength = seepageLength;
             this.sandParticlesVolumicWeight = sandParticlesVolumicWeight;
             this.whitesDragCoefficient = whitesDragCoefficient;

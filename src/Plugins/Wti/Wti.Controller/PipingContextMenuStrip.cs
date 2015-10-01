@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
-using Wti.Calculation.Piping;
 using Wti.Data;
+using Wti.Forms.Properties;
 
 namespace Wti.Controller
 {
@@ -9,12 +9,14 @@ namespace Wti.Controller
     {
         private PipingData pipingData;
 
+        public Action<PipingData> OnCalculationClick;
+
         public PipingContextMenuStrip(PipingData pipingData)
         {
             this.pipingData = pipingData;
-            var menuItem = new ToolStripButton("Bereken");
-            menuItem.Click += menuItem_Click;
-            Items.Add(menuItem);
+            var calculateItem = new ToolStripButton(Resources.PipingDataContextMenuCalculate);
+            calculateItem.Click += CalculateItemClick;
+            Items.Add(calculateItem);
         }
 
         public sealed override ToolStripItemCollection Items
@@ -25,35 +27,12 @@ namespace Wti.Controller
             }
         }
 
-        private void menuItem_Click(object sender, EventArgs e)
+        private void CalculateItemClick(object sender, EventArgs e)
         {
-            var input = new PipingCalculationInput(
-                0.0,
-                0.0,
-                0.0,
-                pipingData.AssessmentLevel,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0,
-                0.0
-                );
-            var pipingCalculation = new PipingCalculation(input);
-            pipingCalculation.Calculate();
+            if (OnCalculationClick != null)
+            {
+                OnCalculationClick(pipingData);
+            }
         }
     }
 }

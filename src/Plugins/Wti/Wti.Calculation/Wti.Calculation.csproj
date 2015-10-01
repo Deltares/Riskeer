@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Piping\PipingCalculation.cs" />
+    <Compile Include="Piping\PipingCalculationException.cs" />
     <Compile Include="Piping\PipingCalculationInput.cs" />
     <Compile Include="Piping\PipingCalculationResult.cs" />
     <Compile Include="Piping\PipingProfileCreator.cs" />

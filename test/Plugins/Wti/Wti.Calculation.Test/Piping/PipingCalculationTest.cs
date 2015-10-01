@@ -32,7 +32,6 @@ namespace Wti.Calculation.Test.Piping
                 random.NextDouble(),
                 random.NextDouble(),
                 random.NextDouble(),
-                random.NextDouble(),
                 random.NextDouble());
             PipingCalculationResult actual = new PipingCalculation(input).Calculate();
 

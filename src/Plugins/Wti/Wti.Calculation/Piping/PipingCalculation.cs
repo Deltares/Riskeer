@@ -28,18 +28,37 @@ namespace Wti.Calculation.Piping
         /// <returns>A <see cref="PipingCalculationResult"/> containing the results of the sub calculations.</returns>
         public PipingCalculationResult Calculate()
         {
-            var upliftResultContainer = CalculateUplift();
-            var heaveResultContainer = CalulateHeave();
-            var sellmejerResultContainer = CalulateSellmeijer();
-            
-            return new PipingCalculationResult(
-                upliftResultContainer.Zu, 
-                upliftResultContainer.FoSu,
-                heaveResultContainer.Zh,
-                heaveResultContainer.FoSh,
-                sellmejerResultContainer.Zp,
-                sellmejerResultContainer.FoSp
-            );
+            try
+            {
+                var upliftResultContainer = CalculateUplift();
+                var heaveResultContainer = CalulateHeave();
+                var sellmejerResultContainer = CalulateSellmeijer();
+
+                return new PipingCalculationResult(
+                    upliftResultContainer.Zu,
+                    upliftResultContainer.FoSu,
+                    heaveResultContainer.Zh,
+                    heaveResultContainer.FoSh,
+                    sellmejerResultContainer.Zp,
+                    sellmejerResultContainer.FoSp
+                    );
+            }
+            catch (UpliftCalculatorException e)
+            {
+                throw new PipingCalculationException(e.Message);
+            }
+            catch (PipingException<HeaveCalculator> e)
+            {
+                throw new PipingCalculationException(e.Message);
+            }
+            catch (PipingException<EffectiveThicknessCalculator> e)
+            {
+                throw new PipingCalculationException(e.Message);
+            }
+            catch (PipingException<Sellmeijer2011Calculator> e)
+            {
+                throw new PipingCalculationException(e.Message);
+            }
         }
         
         private HeaveCalculator CalulateHeave()
@@ -83,7 +102,7 @@ namespace Wti.Calculation.Piping
                 ModelFactorPiping = input.SellmeijerModelFactor,
                 HRiver = input.AssessmentLevel,
                 HExit = input.PhreaticLevelExit,
-                Rc = input.ReductionFactorSellmeijer,
+                Rc = input.SellmeijerReductionFactor,
                 DTotal = input.ThicknessCoverageLayer,
                 SeepageLength = input.SeepageLength,
                 GammaSubParticles = input.SandParticlesVolumicWeight,

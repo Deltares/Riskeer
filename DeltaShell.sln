@@ -1594,9 +1594,10 @@ Global
 		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Debug|x86.Build.0 = Debug|x86
 		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Release|32bit.ActiveCfg = Release|x86
 		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Release|64bit.ActiveCfg = Release|x86
-		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Release|Any CPU.ActiveCfg = Release|x86
-		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Release|Mixed Platforms.Build.0 = Release|x86
+		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Release|x64.ActiveCfg = Release|x86
 		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Release|x86.ActiveCfg = Release|x86
 		{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}.Release|x86.Build.0 = Release|x86
@@ -1618,9 +1619,10 @@ Global
 		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Debug|x86.Build.0 = Debug|x86
 		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Release|32bit.ActiveCfg = Release|x86
 		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Release|64bit.ActiveCfg = Release|x86
-		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Release|Any CPU.ActiveCfg = Release|x86
-		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Release|Mixed Platforms.Build.0 = Release|x86
+		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Release|x64.ActiveCfg = Release|x86
 		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Release|x86.ActiveCfg = Release|x86
 		{D783543B-46A1-4848-A812-AF5A5259ED7E}.Release|x86.Build.0 = Release|x86
