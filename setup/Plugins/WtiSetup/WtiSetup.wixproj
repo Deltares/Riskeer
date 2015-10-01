@@ -23,7 +23,7 @@
     <SuppressPdbOutput>True</SuppressPdbOutput>
     <WixVariables>
     </WixVariables>
-    <DefineConstants>ApplicationBinFolder=..\..\..\src\DeltaShell\DeltaShell.Gui\bin</DefineConstants>
+    <DefineConstants>ApplicationBinFolder=..\..\..\src\DeltaShell\DeltaShell.Gui\bin;FullReleaseVersion=$(FullReleaseVersion)</DefineConstants>
     <Cultures>nl-NL</Cultures>
     <SuppressAllWarnings>True</SuppressAllWarnings>
     <Pedantic>False</Pedantic>
@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Banner.jpg" />
+    <Content Include="GenerateVariables.wxi" />
+    <Content Include="Variables.wxi" />
     <Content Include="Wti.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -61,7 +63,8 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\src\DeltaShell\DeltaShell.Gui\bin -cg WtiApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)WtiPayload.wxs"</PreBuildEvent>
+    <PreBuildEvent>$(ProjectDir)..\..\..\svn_insert_version.cmd $(ProjectDir) GenerateVariables.wxi.svn GenerateVariables.wxi
+"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\src\DeltaShell\DeltaShell.Gui\bin -cg WtiApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)WtiPayload.wxs"</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

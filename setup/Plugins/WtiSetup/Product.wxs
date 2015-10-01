@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-	<Product Id="C8F4EE7D-F2BA-4E1E-ABDB-C454FC68E780" Name="!(loc.ApplicationLongName)" Language="1043" Version="0.5.0" Manufacturer="!(loc.Manufacturer)" UpgradeCode="8c52b205-2bc3-4281-9d81-080fb1b2105d">
+  <!-- GenerateVariables.wxi will be generated on pre-build. -->
+  <?include GenerateVariables.wxi ?>
+  <!-- Static variables. -->
+  <?include Variables.wxi ?>
+  
+	<Product Id="C8F4EE7D-F2BA-4E1E-ABDB-C454FC68E780" Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.FullReleaseVersion)" Manufacturer="!(loc.Manufacturer)" UpgradeCode="8c52b205-2bc3-4281-9d81-080fb1b2105d">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
     <Media Id="1" Cabinet="WtiFull.cab" EmbedCab="yes"/>
     <Property Id="ARPPRODUCTICON" Value="Wti.ico" />
@@ -22,7 +27,7 @@
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder" Name="PFiles">
         <Directory Id="Deltares" Name="!(loc.Manufacturer)">
-          <Directory Id="INSTALLDIR" Name="!(loc.ApplicationLongName)">
+          <Directory Id="INSTALLDIR" Name="$(var.ApplicationFullName)">
             <Directory Id="APPLICATIONDIR" Name="application"/>
             
             <!--
@@ -33,6 +38,7 @@
             <Component Id="InstalledShortcut" Guid="441A8BC7-0B13-453D-9FBB-F03293282A3D">
               <Shortcut Id="ApplicationInstallDirShortcut"
                         Name="!(loc.ApplicationLongName)"
+                        Description="!(loc.StartApplicationDescription)"
                         Target="[APPLICATIONDIR]DeltaShell.Gui.exe"
                         WorkingDirectory="APPLICATIONDIR"
                         Icon="Wti.ico"/>
@@ -54,6 +60,7 @@
             <Component Id="ProgramMenuShortcut" Guid="1BF4BE48-FB81-425D-85E4-C30F1BF51DA4">
               <Shortcut Id="ApplicationStartMenuShortcut"
                         Name="!(loc.ApplicationLongName)"
+                        Description="!(loc.StartApplicationDescription)"
                         Target="[APPLICATIONDIR]DeltaShell.Gui.exe"
                         WorkingDirectory="APPLICATIONDIR"
                         Icon="Wti.ico"/>
@@ -74,6 +81,7 @@
         <Component Id="DesktopShortcut" Guid="A871DE12-BE7D-4A80-86F6-5BA23249A8BB">
           <Shortcut Id="ApplicationDesktopShortcut"
                     Name="!(loc.ApplicationLongName)"
+                    Description="!(loc.StartApplicationDescription)"
                     Target="[APPLICATIONDIR]DeltaShell.Gui.exe"
                     WorkingDirectory="APPLICATIONDIR"
                     Icon="Wti.ico"/>

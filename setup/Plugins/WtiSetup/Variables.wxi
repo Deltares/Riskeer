@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <!--Version:-->
+  <?define Major="0" ?>
+  <?define Minor="5" ?>
+  <?define Build="0" ?>
+  <!--Revision is defined in GenerateVariables.wxi-->
+  <?define ReleaseVersion="0.5.0" ?>
+  <?define FullReleaseVersion="$(var.ReleaseVersion).$(var.Revision)" ?>
+  
+  <?define ApplicationFullName="!(loc.ApplicationLongName) $(var.FullReleaseVersion)" ?>
+</Include>
