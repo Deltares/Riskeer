@@ -54,6 +54,13 @@ namespace Wti.Plugin
                 Image = WtiFormsResources.WtiProjectFolderIcon,
                 CreateData = owner => new WtiProject()
             };
+            yield return new DataItemInfo<PipingData>
+            {
+                Name = WtiFormsResources.PipingDataPropertiesDisplayName,
+                Category = "WTI 2017",
+                Image = WtiFormsResources.PipingIcon,
+                CreateData = owner => new PipingData()
+            };
         }
     }
 }

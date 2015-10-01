@@ -5,7 +5,7 @@ using DelftTools.Shell.Gui;
 
 namespace DeltaShell.Tests.TestObjects
 {
-    class TestMenuItem: IMenuItem
+    public class TestMenuItem: IMenuItem
     {
         private readonly IList<IMenuItem> children = new List<IMenuItem>();
         private string text;

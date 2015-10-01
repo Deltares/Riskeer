@@ -6,7 +6,7 @@ using DelftTools.Shell.Gui;
 using DelftTools.Shell.Gui.Forms;
 
 using Mono.Addins;
-
+using Wti.Controller;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
 using Wti.Forms.PropertyClasses;
@@ -51,11 +51,13 @@ namespace Wti.Plugin
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo{ ObjectType = typeof(WtiProject), PropertyType = typeof(WtiProjectProperties)};
+            yield return new PropertyInfo{ ObjectType = typeof(PipingData), PropertyType = typeof(PipingDataProperties)};
         }
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
             yield return new WtiProjectNodePresenter();
+            yield return new PipingDataNodeController().NodePresenter;
         }
 
         public override IRibbonCommandHandler RibbonCommandHandler
