@@ -153,7 +153,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Data.Test", "test\Plugi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "installer", "installer", "{C4E268AD-A25B-4F47-8F92-E5137FDF7CC7}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Wti2017Setup", "setup\Plugins\Wti2017Setup\Wti2017Setup.wixproj", "{3CCB05DB-C7B3-4EF7-B41D-22B6D2A3774E}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WtiSetup", "setup\Plugins\WtiSetup\WtiSetup.wixproj", "{3CCB05DB-C7B3-4EF7-B41D-22B6D2A3774E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
