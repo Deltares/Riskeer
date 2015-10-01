@@ -47,7 +47,6 @@ namespace DelftTools.Shell.Core.Workflow
         public override string Name
         {
             get { return Activity.Name; }
-            [EditAction]
             set { Activity.Name = value; }
         }
 
