@@ -1,10 +1,9 @@
 ﻿using DelftTools.Utils.Aop;
-using DelftTools.Utils.Data;
 
 namespace DelftTools.Utils
 {
     [Entity(FireOnCollectionChange = false)]
-    public abstract class TextDocumentBase : EditableObjectUnique<long>, INameable
+    public abstract class TextDocumentBase : INameable
     {
         private readonly bool readOnly;
 
