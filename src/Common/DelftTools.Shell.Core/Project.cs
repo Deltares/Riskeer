@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections.Generic;
 using DelftTools.Utils.Data;
 
@@ -7,6 +8,7 @@ namespace DelftTools.Shell.Core
     /// <summary>
     /// Container of all data and tasks.
     /// </summary>
+    [Entity(FireOnCollectionChange = false)]
     public class Project : EditableObjectUnique<long>, IObservable
     {
         private string name;
