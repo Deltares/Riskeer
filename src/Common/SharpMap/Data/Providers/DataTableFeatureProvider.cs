@@ -447,41 +447,4 @@ namespace SharpMap.Data.Providers
 
         #endregion
     }
-    public class WrapperFeature : Unique<long>, IFeature
-    {
-        private IGeometry geometry;
-
-        public WrapperFeature(IGeometry geometry)
-        {
-            Geometry = geometry;
-        }
-
-        #region IFeature Members
-
-        public IGeometry Geometry
-        {
-            get { return geometry; }
-            set { geometry = value; }
-        }
-        
-        public IFeatureAttributeCollection Attributes
-        {
-            get
-            {
-                throw new Exception("The method or operation is not implemented.");
-            }
-            set
-            {
-                throw new Exception("The method or operation is not implemented.");
-            }
-        }
-
-        #endregion
-
-        public object Clone()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
 }

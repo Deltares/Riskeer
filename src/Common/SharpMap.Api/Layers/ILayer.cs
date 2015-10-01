@@ -31,8 +31,6 @@ namespace SharpMap.Api.Layers
     /// </summary>
     public interface ILayer : ICloneable, IDisposable
     {
-        long Id { get; set; }
-
         /// <summary>
         /// Image of the layer for current map, layer uses it to render it's content to.
         /// Layer image contains only graphics rendered by one layer.

@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using DelftTools.Utils.Collections.Generic;
-using DelftTools.Utils.Data;
 using log4net;
 
 namespace DelftTools.Shell.Core.Workflow
 {
-    public abstract class Activity : Unique<long>, IActivity
+    public abstract class Activity : IActivity
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(Activity));
         private string progressText;

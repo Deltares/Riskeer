@@ -26,7 +26,6 @@ using DelftTools.Utils;
 using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.Collections.Generic;
-using DelftTools.Utils.Data;
 using DelftTools.Utils.Diagnostics;
 using GeoAPI.CoordinateSystems;
 using GeoAPI.Extensions.Feature;
@@ -82,7 +81,7 @@ namespace SharpMap
     /// </example>
     [Entity(FireOnCollectionChange=false)]
     //[Serializable]
-    public class Map : Unique<long>, IDisposable, INotifyCollectionChange, IMap
+    public class Map : IDisposable, INotifyCollectionChange, IMap
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(Map));
 

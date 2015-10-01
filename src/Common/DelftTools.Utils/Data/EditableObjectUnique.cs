@@ -11,7 +11,7 @@ namespace DelftTools.Utils.Data
     /// <remarks>This IEditableObject implementation allows nested edit actions</remarks>
     /// <typeparam name="T"></typeparam>
     [Entity(FireOnCollectionChange = false)]
-    public abstract class EditableObjectUnique<T> : Unique<T>, IEditableObject
+    public abstract class EditableObjectUnique<T> : IEditableObject
     {
         private readonly Stack<IEditAction> editActions = new Stack<IEditAction>();
         private bool isEditing;

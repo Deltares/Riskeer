@@ -198,7 +198,6 @@
     <Compile Include="TextDocumentTest.cs" />
     <Compile Include="Threading\ThreadedWorkerTest.cs" />
     <Compile Include="Threading\ThreadsafeBindingListTest.cs" />
-    <Compile Include="UniqueTest.cs" />
     <Compile Include="Validation\ValidationReportTest.cs" />
     <Compile Include="WeakEventHandlerTest.cs" />
     <Compile Include="Xml\Serialization\CustomSerializerTest.cs" />

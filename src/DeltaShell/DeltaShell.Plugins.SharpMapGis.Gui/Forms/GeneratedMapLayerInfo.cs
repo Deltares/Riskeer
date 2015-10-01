@@ -1,5 +1,4 @@
-﻿using DelftTools.Utils.Data;
-using DelftTools.Utils.Reflection;
+﻿using DelftTools.Utils.Reflection;
 using SharpMap.Api;
 using SharpMap.Api.Layers;
 using SharpMap.Layers;
@@ -7,7 +6,7 @@ using SharpMap.Styles;
 
 namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 {
-    public class GeneratedMapLayerInfo : Unique<long>
+    public class GeneratedMapLayerInfo
     {
         public GeneratedMapLayerInfo()
         {

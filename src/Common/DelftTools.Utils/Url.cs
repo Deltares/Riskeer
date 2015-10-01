@@ -3,7 +3,6 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using DelftTools.Utils.Aop;
-using DelftTools.Utils.Data;
 
 namespace DelftTools.Utils
 {
@@ -11,7 +10,7 @@ namespace DelftTools.Utils
     /// Web link, url.
     /// </summary>
     [Entity(FireOnCollectionChange = false)]
-    public class Url : Unique<long>, ICloneable, INameable, IXmlSerializable
+    public class Url : ICloneable, INameable, IXmlSerializable
     {
         private string path;
 

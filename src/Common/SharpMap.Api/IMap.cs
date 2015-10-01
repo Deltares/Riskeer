@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using DelftTools.Utils;
 using DelftTools.Utils.Collections.Generic;
-using DelftTools.Utils.Data;
 using GeoAPI.CoordinateSystems;
 using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
@@ -13,7 +12,7 @@ using SharpMap.Api.Layers;
 
 namespace SharpMap.Api
 {
-    public interface IMap : IUnique<long>, INameable, ICloneable
+    public interface IMap : INameable, ICloneable
     {
         /// <summary>
         /// Event fired when the zoomlevel or the center point has been changed

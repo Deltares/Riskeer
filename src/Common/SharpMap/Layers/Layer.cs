@@ -23,7 +23,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 using DelftTools.Utils.Aop;
-using DelftTools.Utils.Data;
 using DelftTools.Utils.Diagnostics;
 using GeoAPI.CoordinateSystems;
 using GeoAPI.CoordinateSystems.Transformations;
@@ -48,7 +47,7 @@ namespace SharpMap.Layers
     /// Implement this class instead of the ILayer interface to save a lot of common code.
     /// </summary>
     [Entity(FireOnCollectionChange = false)]
-    public abstract class Layer : Unique<long>, ILayer
+    public abstract class Layer : ILayer
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(Layer));
 

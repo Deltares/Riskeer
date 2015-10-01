@@ -298,7 +298,6 @@
     <Compile Include="Threading\ThreadsafeBindingList.cs" />
     <Compile Include="Tuple.cs" />
     <Compile Include="TypeConverter.cs" />
-    <Compile Include="Data\NameableEntity.cs" />
     <Compile Include="Url.cs" />
     <Compile Include="Validation\IValidator.cs" />
     <Compile Include="Validation\ValidationHelper.cs" />
