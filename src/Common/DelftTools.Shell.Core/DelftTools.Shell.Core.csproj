@@ -155,7 +155,6 @@
     <Compile Include="Workflow\ActivityRunner.cs" />
     <Compile Include="Workflow\ActivityStatus.cs" />
     <Compile Include="Workflow\ActivityStatusChangedEventArgs.cs" />
-    <Compile Include="Workflow\ActivityWrapper.cs" />
     <Compile Include="Workflow\AsyncActivityRunner.cs" />
     <Compile Include="Workflow\BackgroundWorker.cs">
       <SubType>Component</SubType>
