@@ -121,7 +121,6 @@
     <Compile Include="ProjectExplorerPluginGuiTest.cs" />
     <Compile Include="ProjectTreeViewTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestClasses\TestDataObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\DeltaShell\DeltaShell.Gui\DeltaShell.Gui.csproj">

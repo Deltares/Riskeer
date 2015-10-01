@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DelftTools.Utils;
 using DelftTools.Utils.Collections.Generic;
-using DelftTools.Utils.Data;
 using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
 using GisSharpBlog.NetTopologySuite.Geometries;
@@ -68,18 +67,6 @@ namespace SharpMap.Tests.Data.Providers
             public event PropertyChangingEventHandler PropertyChanging;
             
             public bool HasParent { get; set; }
-        }
-
-        private class TimeDependentFeature : Unique<long>, IFeature
-        {
-            public object Clone()
-            {
-                throw new NotImplementedException();
-            }
-
-            public IGeometry Geometry { get; set; }
-            public IFeatureAttributeCollection Attributes { get; set; }
-            public DateTime Time { get; set; }
         }
     }
 }
