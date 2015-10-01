@@ -4,7 +4,7 @@ using DelftTools.Utils.Editing;
 namespace DelftTools.Tests.Controls.Swf.UndoRedoTestClasses
 {
     [Entity(FireOnCollectionChange=false)]
-    public class Child
+    public class Child : IEditableObject
     {
         public string Name { get; set; }
 

@@ -900,6 +900,9 @@
   <data name="TableViewTimeSeriesGeneratorTool_ConfigureTableView_Generate" xml:space="preserve">
     <value>NL Generate</value>
   </data>
+  <data name="TextDocumentView_OnVisibleChanged_Edit_text__" xml:space="preserve">
+    <value>NL Edit text:</value>
+  </data>
   <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Choose_your_settings_for_the_imported_time_series" xml:space="preserve">
     <value>NL Choose your settings for the imported time series</value>
   </data>

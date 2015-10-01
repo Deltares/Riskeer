@@ -876,6 +876,7 @@ namespace SharpMap
             }
         }
 
+        [EditAction]
         private void CreateCoordinateSystemFromWkt(string value)
         {
             if (createCoordinateSystemFromWkt) return;
@@ -968,6 +969,7 @@ namespace SharpMap
             }
         }
 
+        [EditAction]
         private void UpdateLayerCoordinateTransformation(ILayer layer)
         {
             if (CoordinateSystem == null)
@@ -1072,8 +1074,8 @@ namespace SharpMap
                         throw new NotImplementedException();
 
                     case NotifyCollectionChangeAction.Add:
-                        layer1.Map = this;
-
+                        SetMapInLayer(layer1);
+                        
                         CheckMapExtends(layer1);
 
                         UpdateLayerCoordinateTransformation(layer1);
@@ -1092,6 +1094,7 @@ namespace SharpMap
             }
         }
 
+        [EditAction]
         private void SetRenderOrderAfterInsert(ILayer layer)
         {
             // Group layers are ignored in this code (by design)
@@ -1119,6 +1122,7 @@ namespace SharpMap
             newLayers.ForEach(l => l.RenderOrder = allLayers.IndexOf(l) + 1);
         }
 
+        [EditAction]
         private void SetRenderOrderAfterRemove(ILayer layer)
         {
             // Group layers are ignored in this code (by design)
@@ -1137,6 +1141,12 @@ namespace SharpMap
             allLayers.Where(l => l.RenderOrder >= oldLayers.Max(l1 => l1.RenderOrder))
                 .ToList()
                 .ForEach(l => l.RenderOrder -= oldLayers.Count);
+        }
+
+        [EditAction]
+        private void SetMapInLayer(ILayer layer)
+        {
+            layer.Map = this;
         }
 
         /// <summary>

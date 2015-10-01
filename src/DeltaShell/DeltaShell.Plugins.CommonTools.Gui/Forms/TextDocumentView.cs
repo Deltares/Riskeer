@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Utils;
 using DelftTools.Utils.Aop;
+using DelftTools.Utils.Editing;
+using DeltaShell.Plugins.CommonTools.Gui.Properties;
 
 namespace DeltaShell.Plugins.CommonTools.Gui.Forms
 {
@@ -79,7 +81,9 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms
             {
                 settingContent = true;
 
+                textDocument.BeginEdit(new DefaultEditAction(Resources.TextDocumentView_OnVisibleChanged_Edit_text__ + characters));
                 textDocument.Content = textBox.Text;
+                textDocument.EndEdit();
 
                 characters = "";
                 settingContent = false;
@@ -148,7 +152,9 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms
         {
             settingContent = true;
 
+            textDocument.BeginEdit(new DefaultEditAction(Resources.TextDocumentView_OnVisibleChanged_Edit_text__ + characters));
             textDocument.Content = textBox.Text;
+            textDocument.EndEdit();
 
             characters = "";
             timer.Stop();

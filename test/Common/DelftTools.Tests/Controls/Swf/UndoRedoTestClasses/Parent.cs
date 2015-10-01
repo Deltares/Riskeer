@@ -6,7 +6,7 @@ using DelftTools.Utils.Editing;
 namespace DelftTools.Tests.Controls.Swf.UndoRedoTestClasses
 {
     [Entity]
-    public class Parent
+    public class Parent : IEditableObject
     {
         public Parent()
         {

@@ -116,6 +116,7 @@ namespace DeltaShell.Gui
             {
                 if (application != null)
                 {
+                    UnsubscribeProjectEvents();
                     Application.ProjectClosing -= ApplicationProjectClosing;
                     Application.ProjectOpened -= ApplicationProjectOpened;
                     Application.ProjectOpening -= ApplicationProjectOpening;
@@ -655,14 +656,73 @@ namespace DeltaShell.Gui
         {
             Application.Project.IsChanged = false;
 
+            SubscribeProjectEvents();
             ResumeUI();
         }
 
         private void ApplicationProjectClosing(Project project)
         {
+            UnsubscribeProjectEvents();
             SuspendUI();
 
             ClonableToolStripMenuItem.ClearCache();
+        }
+
+        private void SubscribeProjectEvents()
+        {
+            var propertyChanged = (INotifyPropertyChanged)Application.Project;
+            propertyChanged.PropertyChanged += ApplicationProjectPropertyChanged;
+
+            var collectionChanged = (INotifyCollectionChange)Application.Project;
+        }
+
+        private void UnsubscribeProjectEvents()
+        {
+            if(Application.Project == null)
+            {
+                return;
+            }
+
+            var propertyChanged = (INotifyPropertyChanged) Application.Project;
+            propertyChanged.PropertyChanged -= ApplicationProjectPropertyChanged;
+
+            var collectionChanged = (INotifyCollectionChange)Application.Project;
+        }
+
+        private bool viewNamesDirty = false;
+
+        private void ApplicationProjectPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (viewNamesDirty && sender is Project && e.PropertyName == "IsEditing" && !Application.Project.IsEditing)
+            {
+                OnProjectItemNameChanged(null); //sender is ignored anyway
+                viewNamesDirty = false;
+                return;
+            }
+            
+            if (e.PropertyName != "Name")
+            {
+                return;
+            }
+
+            if (!Application.IsActivityRunning()) // avoid calls to Windows.Forms thread
+            {
+                if (Application.Project != null && Application.Project.IsEditing)
+                {
+                    viewNamesDirty = true;
+                    return;
+                }
+                OnProjectItemNameChanged(sender);
+            }
+        }
+
+        [InvokeRequired]
+        private void OnProjectItemNameChanged(object sender)
+        {
+            foreach (var documentView in DocumentViews.AllViews)
+            {
+                UpdateViewName(documentView);
+            }
         }
 
         // Sets the tooltip for given view, assuming that ProjectExplorer is not null.

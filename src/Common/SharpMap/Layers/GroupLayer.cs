@@ -79,7 +79,7 @@ namespace SharpMap.Layers
             switch (e.Action)
             {
                 case NotifyCollectionChangeAction.Add: //set map property for layers being added
-                    ((ILayer) e.Item).Map = Map;
+                    SetMapInLayer((ILayer) e.Item);
                     ((ILayer) e.Item).RenderRequired = true;
                     break;
                 case NotifyCollectionChangeAction.Remove:
@@ -88,6 +88,12 @@ namespace SharpMap.Layers
                 case NotifyCollectionChangeAction.Replace:
                     throw new NotImplementedException();
             }
+        }
+
+        [EditAction]
+        private void SetMapInLayer(ILayer layer)
+        {
+            layer.Map = Map;
         }
 
         void LayersCollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
@@ -100,15 +106,22 @@ namespace SharpMap.Layers
 
             if (sender == layers) //only for own layer collection
             {
-                if (LayersReadOnly)
-                {
-                    throw new InvalidOperationException("It is not allowed to add or remove layers from a grouplayer that has a read-only layers collection");
-                }
+                CheckIfLayersIsMutableOrThrow();
             }
 
             if (CollectionChanging != null)
             {
                 CollectionChanging(sender, e);
+            }
+        }
+
+        [EditAction] //a bit of a hack, not strictly an edit action
+        private void CheckIfLayersIsMutableOrThrow()
+        {
+            if (LayersReadOnly)
+            {
+                throw new InvalidOperationException(
+                    "It is not allowed to add or remove layers from a grouplayer that has a read-only layers collection");
             }
         }
 
@@ -175,6 +188,15 @@ namespace SharpMap.Layers
             }
         }
 
+        [EditAction]
+        private void AfterMapSet()
+        {
+            foreach (ILayer layer in Layers)
+            {
+                layer.Map = Map;
+            }
+        }
+
         private IEventedList<ILayer> layers;
         
         /// <summary>
@@ -187,10 +209,7 @@ namespace SharpMap.Layers
                 if (!isMapInitialized)
                 {
                     isMapInitialized = true;
-                    foreach (ILayer layer in Layers)
-                    {
-                        layer.Map = Map;
-                    }
+                    AfterMapSet();
                 }
 
                 return layers;
