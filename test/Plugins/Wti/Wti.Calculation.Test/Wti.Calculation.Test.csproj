@@ -66,6 +66,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Deltares.WTIPiping, Version=15.1.1.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.WTIPiping.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -76,6 +80,8 @@
     <Compile Include="Piping\PipingCalculationInputTest.cs" />
     <Compile Include="Piping\PipingCalculationResultTest.cs" />
     <Compile Include="Piping\PipingCalculationTest.cs" />
+    <Compile Include="Piping\PipingProfileCreatorTest.cs" />
+    <Compile Include="Piping\PipingSurfaceLineCreatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
