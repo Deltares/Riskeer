@@ -182,7 +182,6 @@
     <Compile Include="Csv\Importer\CsvRequiredField.cs" />
     <Compile Include="Csv\Importer\CsvSettings.cs" />
     <Compile Include="CultureUtils.cs" />
-    <Compile Include="Data\EditableObjectUnique.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DateTimeFormatGuesser.cs" />
     <Compile Include="DateTimeFormats.cs" />
