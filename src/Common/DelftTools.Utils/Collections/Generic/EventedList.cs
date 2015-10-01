@@ -377,7 +377,7 @@ namespace DelftTools.Utils.Collections.Generic
             if (CollectionChanging != null)
             {
                 if(EventSettings.EnableLogging)
-                    eventsLog.DebugFormat(EditActionAttribute.BubbleIndent + "CollectionChanging L>> '{0}[{1}]', item:{2}, index:{3}, action:{4} - BEGIN >>>>>>>>>>>>>>", "EventedList", typeof(T).Name, item, index, action);
+                    eventsLog.DebugFormat("CollectionChanging L>> '{0}[{1}]', item:{2}, index:{3}, action:{4} - BEGIN >>>>>>>>>>>>>>", "EventedList", typeof(T).Name, item, index, action);
 
                 var args = new NotifyCollectionChangingEventArgs(action, item, index, -1);
 
@@ -408,13 +408,11 @@ namespace DelftTools.Utils.Collections.Generic
             {
                 if (CollectionChanged != null)
                 {
-                    EditActionAttribute.BubbleIndentCounter++;
                     if (EventSettings.EnableLogging)
-                        eventsLog.DebugFormat(EditActionAttribute.BubbleIndent + "CollectionChanged L<< '{0}[{1}]', item:{2}, index:{3}, action:{4} - END <<<<<<<<<<<<<<", "EventedList", typeof(T).Name, item, index, action);
+                        eventsLog.DebugFormat("CollectionChanged L<< '{0}[{1}]', item:{2}, index:{3}, action:{4} - END <<<<<<<<<<<<<<", "EventedList", typeof(T).Name, item, index, action);
 
                     var args = new NotifyCollectionChangingEventArgs(action, item, index, -1) { OldItem = oldItem };
                     CollectionChanged(this, args);
-                    EditActionAttribute.BubbleIndentCounter--;
                 }
             }
             finally
@@ -428,22 +426,20 @@ namespace DelftTools.Utils.Collections.Generic
             // forwards event to subscribers of the list
             if (CollectionChanging != null)
             {
-                EditActionAttribute.BubbleIndentCounter++;
                 if (EventSettings.EnableLogging)
                 {
                     if (sender.GetType().Name.Contains("EventedList"))
                     {
                         var senderTypeName = sender.GetType().GetGenericArguments()[0].Name;
-                        eventsLog.DebugFormat(EditActionAttribute.BubbleIndent + "CollectionChanging L>> '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", "EventedList", senderTypeName, e.Item, e.Index, e.Action, "EventedList", typeof(T).Name);
+                        eventsLog.DebugFormat("CollectionChanging L>> '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", "EventedList", senderTypeName, e.Item, e.Index, e.Action, "EventedList", typeof(T).Name);
                     }
                     else
                     {
-                        eventsLog.DebugFormat(EditActionAttribute.BubbleIndent + "CollectionChanging L>> '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", sender, sender.GetType().Name, e.Item, e.Index, e.Action, "EventedList", typeof(T).Name);
+                        eventsLog.DebugFormat("CollectionChanging L>> '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", sender, sender.GetType().Name, e.Item, e.Index, e.Action, "EventedList", typeof(T).Name);
                     }
                 }
 
                 CollectionChanging(sender, e);
-                EditActionAttribute.BubbleIndentCounter--;
             }
         }
 
@@ -452,22 +448,20 @@ namespace DelftTools.Utils.Collections.Generic
             // forwards event to subscribers of the list
             if (CollectionChanged != null)
             {
-                EditActionAttribute.BubbleIndentCounter++;
                 if (EventSettings.EnableLogging)
                 {
                     if (sender.GetType().Name.Contains("EventedList"))
                     {
                         var senderTypeName = sender.GetType().GetGenericArguments()[0].Name;
-                        eventsLog.DebugFormat(EditActionAttribute.BubbleIndent + "CollectionChanged L<< '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", "EventedList", senderTypeName, e.Item, e.Index, e.Action, "EventedList", typeof(T).Name);
+                        eventsLog.DebugFormat("CollectionChanged L<< '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", "EventedList", senderTypeName, e.Item, e.Index, e.Action, "EventedList", typeof(T).Name);
                     }
                     else
                     {
-                        eventsLog.DebugFormat(EditActionAttribute.BubbleIndent + "CollectionChanged L<< '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", sender, sender.GetType().Name, e.Item, e.Index, e.Action, "EventedList", typeof(T).Name);
+                        eventsLog.DebugFormat("CollectionChanged L<< '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", sender, sender.GetType().Name, e.Item, e.Index, e.Action, "EventedList", typeof(T).Name);
                     }
                 }
 
                 CollectionChanged(sender, e);
-                EditActionAttribute.BubbleIndentCounter--;
             }
         }
 
@@ -476,15 +470,12 @@ namespace DelftTools.Utils.Collections.Generic
             // forwards event to subscribers of the list
             if (PropertyChanging != null)
             {
-                EditActionAttribute.BubbleIndentCounter++;
                 if (EventSettings.EnableLogging)
                 {
-                    eventsLog.DebugFormat(EditActionAttribute.BubbleIndent + "PropertyChanging L>> '{0}.{1}': '{2}[{3}]' -> '{4}[{5}]'", sender.GetType().Name, e.PropertyName, sender, sender.GetType().Name, "EventedList", typeof(T).Name);
+                    eventsLog.DebugFormat("PropertyChanging L>> '{0}.{1}': '{2}[{3}]' -> '{4}[{5}]'", sender.GetType().Name, e.PropertyName, sender, sender.GetType().Name, "EventedList", typeof(T).Name);
                 }
 
                 PropertyChanging(sender, e);
-
-                EditActionAttribute.BubbleIndentCounter--;
             }
         }
 
@@ -494,15 +485,12 @@ namespace DelftTools.Utils.Collections.Generic
             // forwards event to subscribers of the list
             if (PropertyChanged != null)
             {
-                EditActionAttribute.BubbleIndentCounter++;
                 if (EventSettings.EnableLogging)
                 {
-                    eventsLog.DebugFormat(EditActionAttribute.BubbleIndent + "PropertyChanged L<< '{0}.{1}': '{2}[{3}]' -> '{4}[{5}]'", sender.GetType().Name, e.PropertyName, sender, sender.GetType().Name, "EventedList", typeof(T).Name);
+                    eventsLog.DebugFormat("PropertyChanged L<< '{0}.{1}': '{2}[{3}]' -> '{4}[{5}]'", sender.GetType().Name, e.PropertyName, sender, sender.GetType().Name, "EventedList", typeof(T).Name);
                 }
 
                 PropertyChanged(sender, e);
-
-                EditActionAttribute.BubbleIndentCounter--;
             } 
         }
 

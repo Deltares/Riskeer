@@ -53,13 +53,6 @@ namespace DelftTools.Utils.Aop
             get { return GetIndent(editActionsInProgress); }
         }
 
-        internal static string BubbleIndent
-        {
-            get { return GetIndent(BubbleIndentCounter); }
-        }
-
-        public static int BubbleIndentCounter;
-
         private static string GetIndent(int num)
         {
             return Enumerable.Repeat("  ", Math.Max(0, num)).Aggregate("", (s1, s2) => s1 + s2);

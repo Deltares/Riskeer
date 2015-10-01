@@ -63,8 +63,6 @@ namespace DelftTools.Utils.Aop
                 return;
             }
 
-            EditActionAttribute.BubbleIndentCounter++;
-
             LogCollectionChanging(sender, e); 
 
             var previousSender = EventSettings.LastEventBubbler;
@@ -77,7 +75,6 @@ namespace DelftTools.Utils.Aop
             finally
             {
                 EventSettings.LastEventBubbler = previousSender;
-                EditActionAttribute.BubbleIndentCounter--;
             }
         }
 
@@ -89,14 +86,12 @@ namespace DelftTools.Utils.Aop
                 var instance = Instance;
                 if (instance == sender)
                     Console.WriteLine(
-                        EditActionAttribute.BubbleIndent +
                         "CollectionChanging >>> '{0}[{1}]', item:{2}, index:{3}, action:{4} - BEGIN >>>>>>>>>>>>>>",
                         instance, instance != null ? instance.GetType().Name : "null", e.Item, e.Index, e.Action);
                 else if (sender.GetType().Name.Contains("EventedList"))
                 {
                     var senderTypeName = sender.GetType().GetGenericArguments()[0].Name;
                     Console.WriteLine(
-                        EditActionAttribute.BubbleIndent +
                         "CollectionChanging >>> '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}",
                         "EventedList", senderTypeName, e.Item, e.Index, e.Action, instance,
                         instance != null ? instance.GetType().Name : "null");
@@ -104,7 +99,6 @@ namespace DelftTools.Utils.Aop
                 else
                 {
                     Console.WriteLine(
-                        EditActionAttribute.BubbleIndent +
                         "CollectionChanging >>> '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", sender,
                         sender.GetType().Name, e.Item, e.Index, e.Action, instance,
                         instance != null ? instance.GetType().Name : "null");
@@ -123,9 +117,6 @@ namespace DelftTools.Utils.Aop
                 return;
             }
 
-
-            EditActionAttribute.BubbleIndentCounter++;
-
             var previousSender = EventSettings.LastEventBubbler;
             EventSettings.LastEventBubbler = Instance;
 
@@ -136,7 +127,6 @@ namespace DelftTools.Utils.Aop
             finally
             {
                 EventSettings.LastEventBubbler = previousSender;
-                EditActionAttribute.BubbleIndentCounter--;
             }
         }
 
@@ -175,8 +165,6 @@ namespace DelftTools.Utils.Aop
             if (PropertyChanging == null)
                 return;
 
-            EditActionAttribute.BubbleIndentCounter++;
-            
             LogPropertyChanging(sender, e); 
 
             var previousSender = EventSettings.LastEventBubbler;
@@ -189,7 +177,6 @@ namespace DelftTools.Utils.Aop
             finally
             {
                 EventSettings.LastEventBubbler = previousSender;
-                EditActionAttribute.BubbleIndentCounter--;
             }
         }
 
@@ -199,7 +186,7 @@ namespace DelftTools.Utils.Aop
             var instance = Instance;
             var sourceTypeName = sender != null ? sender.GetType().Name : "<no type>";
             var instanceTypeName = instance != null ? instance.GetType().Name : "<no type>";
-            Console.WriteLine(EditActionAttribute.BubbleIndent + "PropertyChanging >>> {0}.{1} ({2} [{3}])",
+            Console.WriteLine("PropertyChanging >>> {0}.{1} ({2} [{3}])",
                               sourceTypeName, e.PropertyName, instance, instanceTypeName);
         }
 
@@ -208,8 +195,6 @@ namespace DelftTools.Utils.Aop
         {
             if (PropertyChanged == null) 
                 return;
-
-            EditActionAttribute.BubbleIndentCounter++;
 
             var previousSender = EventSettings.LastEventBubbler;
             EventSettings.LastEventBubbler = Instance;
@@ -221,7 +206,6 @@ namespace DelftTools.Utils.Aop
             finally
             {
                 EventSettings.LastEventBubbler = previousSender;
-                EditActionAttribute.BubbleIndentCounter--;
             }
         }
         
@@ -484,8 +468,6 @@ namespace DelftTools.Utils.Aop
             if (fireAction == null)
                 return;
 
-            EditActionAttribute.BubbleIndentCounter++;
-
             var previousSender = EventSettings.LastEventBubbler;
             EventSettings.LastEventBubbler = lastSender;
 
@@ -496,7 +478,6 @@ namespace DelftTools.Utils.Aop
             finally
             {
                 EventSettings.LastEventBubbler = previousSender;
-                EditActionAttribute.BubbleIndentCounter--;
             }
         }
 
@@ -507,8 +488,6 @@ namespace DelftTools.Utils.Aop
             if (fireAction == null)
                 return;
 
-            EditActionAttribute.BubbleIndentCounter++;
-
             var previousSender = EventSettings.LastEventBubbler;
             EventSettings.LastEventBubbler = lastSender;
 
@@ -519,7 +498,6 @@ namespace DelftTools.Utils.Aop
             finally
             {
                 EventSettings.LastEventBubbler = previousSender;
-                EditActionAttribute.BubbleIndentCounter--;
             }
         }
 
