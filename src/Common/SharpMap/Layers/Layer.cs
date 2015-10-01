@@ -735,7 +735,6 @@ namespace SharpMap.Layers
             UpdateCoordinateTransformation();
         }
 
-        [EditAction]
         protected void UpdateCoordinateTransformation()
         {
             if (map == null) 
@@ -1112,17 +1111,11 @@ namespace SharpMap.Layers
             {
                 labelLayer = value;
 
-                AfterLabelLayerSet();
-            }
-        }
-
-        [EditAction]
-        private void AfterLabelLayerSet()
-        {
-            if (labelLayer != null)
-            {
-                labelLayer.Parent = this;
-                labelLayer.Map = map;
+                if (labelLayer != null)
+                {
+                    labelLayer.Parent = this;
+                    labelLayer.Map = map;
+                }
             }
         }
 
