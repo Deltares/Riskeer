@@ -672,8 +672,6 @@ namespace DeltaShell.Gui
         {
             var propertyChanged = (INotifyPropertyChanged)Application.Project;
             propertyChanged.PropertyChanged += ApplicationProjectPropertyChanged;
-
-            var collectionChanged = (INotifyCollectionChange)Application.Project;
         }
 
         private void UnsubscribeProjectEvents()
@@ -685,8 +683,6 @@ namespace DeltaShell.Gui
 
             var propertyChanged = (INotifyPropertyChanged) Application.Project;
             propertyChanged.PropertyChanged -= ApplicationProjectPropertyChanged;
-
-            var collectionChanged = (INotifyCollectionChange)Application.Project;
         }
 
         private bool viewNamesDirty = false;
