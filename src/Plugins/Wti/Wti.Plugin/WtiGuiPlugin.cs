@@ -52,7 +52,7 @@ namespace Wti.Plugin
         {
             yield return new PropertyInfo{ ObjectType = typeof(WtiProject), PropertyType = typeof(WtiProjectProperties)};
             yield return new PropertyInfo{ ObjectType = typeof(PipingData), PropertyType = typeof(PipingDataProperties)};
-            yield return new PropertyInfo{ ObjectType = typeof(PipingOuput), PropertyType = typeof(PipingOutputProperties)};
+            yield return new PropertyInfo{ ObjectType = typeof(PipingOutput), PropertyType = typeof(PipingOutputProperties)};
         }
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()

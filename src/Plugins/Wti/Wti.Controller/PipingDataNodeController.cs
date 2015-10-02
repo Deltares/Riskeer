@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Linq.Expressions;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf;
 using log4net;
-using log4net.Core;
 using Wti.Calculation.Piping;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
@@ -68,7 +66,7 @@ namespace Wti.Controller
                 var pipingCalculation = new PipingCalculation(input);
                 var pipingResult = pipingCalculation.Calculate();
 
-                pipingData.Output = new PipingOuput(
+                pipingData.Output = new PipingOutput(
                     pipingResult.HeaveFactorOfSafety, 
                     pipingResult.HeaveZValue, 
                     pipingResult.UpliftFactorOfSafety, 

@@ -16,7 +16,7 @@ namespace Wti.Forms.NodePresenters
         {
             get
             {
-                return typeof(PipingOuput);
+                return typeof(PipingOutput);
             }
         }
 

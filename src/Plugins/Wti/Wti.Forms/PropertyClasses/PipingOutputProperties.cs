@@ -6,7 +6,7 @@ using Wti.Forms.Properties;
 namespace Wti.Forms.PropertyClasses
 {
     [ResourcesDisplayName(typeof(Resources), "PipingOutputPropertiesDisplayName")]
-    public class PipingOutputProperties : ObjectProperties<PipingOuput>
+    public class PipingOutputProperties : ObjectProperties<PipingOutput>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingOutputHeaveFactorOfSafetyDisplayName")]

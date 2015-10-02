@@ -6,9 +6,9 @@ namespace Wti.Data
     public class PipingData : IObservable
     {
         private IList<IObserver> observers = new List<IObserver>();
-        private PipingOuput output;
+        private PipingOutput output;
 
-        public PipingOuput Output
+        public PipingOutput Output
         {
             get
             {
