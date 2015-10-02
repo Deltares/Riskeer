@@ -521,6 +521,123 @@ namespace Wti.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsfactor heave.
+        /// </summary>
+        public static string PipingOutputHeaveFactorOfSafetyDescription {
+            get {
+                return ResourceManager.GetString("PipingOutputHeaveFactorOfSafetyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsfactor heave.
+        /// </summary>
+        public static string PipingOutputHeaveFactorOfSafetyDisplayName {
+            get {
+                return ResourceManager.GetString("PipingOutputHeaveFactorOfSafetyDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z-waarde heave.
+        /// </summary>
+        public static string PipingOutputHeaveZValueDescription {
+            get {
+                return ResourceManager.GetString("PipingOutputHeaveZValueDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z-waarde heave.
+        /// </summary>
+        public static string PipingOutputHeaveZValueDisplayName {
+            get {
+                return ResourceManager.GetString("PipingOutputHeaveZValueDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Piping resultaten.
+        /// </summary>
+        public static string PipingOutputPropertiesDisplayName {
+            get {
+                return ResourceManager.GetString("PipingOutputPropertiesDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsfactor Sellmeijer.
+        /// </summary>
+        public static string PipingOutputSellmeijerFactorOfSafetyDescription {
+            get {
+                return ResourceManager.GetString("PipingOutputSellmeijerFactorOfSafetyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsfactor Sellmeijer.
+        /// </summary>
+        public static string PipingOutputSellmeijerFactorOfSafetyDisplayName {
+            get {
+                return ResourceManager.GetString("PipingOutputSellmeijerFactorOfSafetyDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z-waarde Sellmeijer.
+        /// </summary>
+        public static string PipingOutputSellmeijerZValueDescription {
+            get {
+                return ResourceManager.GetString("PipingOutputSellmeijerZValueDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z-waarde Sellmeijer.
+        /// </summary>
+        public static string PipingOutputSellmeijerZValueDisplayName {
+            get {
+                return ResourceManager.GetString("PipingOutputSellmeijerZValueDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsfactor opbarsten.
+        /// </summary>
+        public static string PipingOutputUpliftFactorOfSafetyDescription {
+            get {
+                return ResourceManager.GetString("PipingOutputUpliftFactorOfSafetyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsfactor opbarsten.
+        /// </summary>
+        public static string PipingOutputUpliftFactorOfSafetyDisplayName {
+            get {
+                return ResourceManager.GetString("PipingOutputUpliftFactorOfSafetyDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z-waarde opbarsten.
+        /// </summary>
+        public static string PipingOutputUpliftZValueDescription {
+            get {
+                return ResourceManager.GetString("PipingOutputUpliftZValueDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z-waarde opbarsten.
+        /// </summary>
+        public static string PipingOutputUpliftZValueDisplayName {
+            get {
+                return ResourceManager.GetString("PipingOutputUpliftZValueDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap WtiProjectFolderIcon {
