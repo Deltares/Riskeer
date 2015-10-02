@@ -63,8 +63,8 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PreBuildEvent>$(ProjectDir)..\..\..\svn_insert_version.cmd $(ProjectDir) GenerateVariables.wxi.svn GenerateVariables.wxi
-"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\src\DeltaShell\DeltaShell.Gui\bin -cg WtiApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)WtiPayload.wxs"</PreBuildEvent>
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\src\DeltaShell\DeltaShell.Gui\bin -cg WtiApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)WtiPayload.wxs"
+$(ProjectDir)..\..\..\svn_insert_version.cmd $(ProjectDir) GenerateVariables.wxi.svn GenerateVariables.wxi%3b</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
