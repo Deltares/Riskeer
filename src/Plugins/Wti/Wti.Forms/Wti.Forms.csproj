@@ -72,6 +72,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NodePresenters\PipingOutputNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingDataNodePresenter.cs" />
     <Compile Include="NodePresenters\WtiProjectNodePresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +82,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\PipingDataProperties.cs" />
+    <Compile Include="PropertyClasses\PipingOutputProperties.cs" />
     <Compile Include="PropertyClasses\WtiProjectProperties.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>

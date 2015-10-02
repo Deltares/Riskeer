@@ -8,29 +8,27 @@ using Wti.Forms.Properties;
 
 namespace Wti.Forms.NodePresenters
 {
-    public class PipingDataNodePresenter : ITreeNodePresenter
+    public class PipingOutputNodePresenter : ITreeNodePresenter
     {
-        public Func<object, IMenuItem> ContextMenu { private get; set; } 
-
         public ITreeView TreeView { get; set; }
 
         public Type NodeTagType
         {
             get
             {
-                return typeof(PipingData);
+                return typeof(PipingOuput);
             }
         }
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
-            node.Text = Resources.PipingDataDisplayName;
+            node.Text = Resources.PipingOutputDisplayName;
             node.Image = Resources.PipingIcon;
         }
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
-            yield return ((PipingData)parentNodeData).Output;
+            yield break;
         }
 
         public bool CanRenameNode(ITreeNode node)
@@ -76,7 +74,7 @@ namespace Wti.Forms.NodePresenters
 
         public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
         {
-            return ContextMenu(nodeData);
+            return null;
         }
 
         public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e)

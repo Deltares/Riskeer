@@ -196,6 +196,15 @@ namespace Wti.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Piping.
+        /// </summary>
+        public static string PipingDataDisplayName {
+            get {
+                return ResourceManager.GetString("PipingDataDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De x-coordinaat van het uittredepunt..
         /// </summary>
         public static string PipingDataExitPointXCoordinateDescription {
@@ -499,6 +508,15 @@ namespace Wti.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("PipingIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Piping resultaat.
+        /// </summary>
+        public static string PipingOutputDisplayName {
+            get {
+                return ResourceManager.GetString("PipingOutputDisplayName", resourceCulture);
             }
         }
         

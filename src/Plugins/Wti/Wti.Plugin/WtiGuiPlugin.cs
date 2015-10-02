@@ -52,12 +52,14 @@ namespace Wti.Plugin
         {
             yield return new PropertyInfo{ ObjectType = typeof(WtiProject), PropertyType = typeof(WtiProjectProperties)};
             yield return new PropertyInfo{ ObjectType = typeof(PipingData), PropertyType = typeof(PipingDataProperties)};
+            yield return new PropertyInfo{ ObjectType = typeof(PipingOuput), PropertyType = typeof(PipingOutputProperties)};
         }
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
             yield return new WtiProjectNodePresenter();
             yield return new PipingDataNodeController().NodePresenter;
+            yield return new PipingOutputNodePresenter();
         }
 
         public override IRibbonCommandHandler RibbonCommandHandler

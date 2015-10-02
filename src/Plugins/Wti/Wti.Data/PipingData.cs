@@ -6,6 +6,20 @@ namespace Wti.Data
     public class PipingData : IObservable
     {
         private IList<IObserver> observers = new List<IObserver>();
+        private PipingOuput output;
+
+        public PipingOuput Output
+        {
+            get
+            {
+                return output;
+            }
+            set
+            {
+                output = value;
+                NotifyObservers();
+            }
+        }
 
         public void Attach(IObserver observer)
         {

@@ -67,12 +67,15 @@ namespace Wti.Controller
                     );
                 var pipingCalculation = new PipingCalculation(input);
                 var pipingResult = pipingCalculation.Calculate();
-                logger.Info(String.Format("Veiligheidsfactor heave: {0}",pipingResult.HeaveFactorOfSafety));
-                logger.Info(String.Format("Z heave: {0}",pipingResult.HeaveZValue));
-                logger.Info(String.Format("Veiligheidsfactor uplift: {0}",pipingResult.UpliftFactorOfSafety));
-                logger.Info(String.Format("Z uplift: {0}", pipingResult.UpliftZValue));
-                logger.Info(String.Format("Veiligheidsfactor sellmeijer: {0}",pipingResult.SellmeijerFactorOfSafety));
-                logger.Info(String.Format("Z sellmeijer: {0}", pipingResult.SellmeijerZValue));
+
+                pipingData.Output = new PipingOuput(
+                    pipingResult.HeaveFactorOfSafety, 
+                    pipingResult.HeaveZValue, 
+                    pipingResult.UpliftFactorOfSafety, 
+                    pipingResult.UpliftZValue, 
+                    pipingResult.SellmeijerFactorOfSafety, 
+                    pipingResult.SellmeijerZValue
+                );
             }
             catch (PipingCalculationException e)
             {
