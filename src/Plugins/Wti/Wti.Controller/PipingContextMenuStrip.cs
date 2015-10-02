@@ -14,7 +14,7 @@ namespace Wti.Controller
         public PipingContextMenuStrip(PipingData pipingData)
         {
             this.pipingData = pipingData;
-            var calculateItem = new ToolStripButton(Resources.PipingDataContextMenuCalculate);
+            var calculateItem = new ToolStripMenuItem(Resources.PipingDataContextMenuCalculate);
             calculateItem.Click += CalculateItemClick;
             Items.Add(calculateItem);
         }

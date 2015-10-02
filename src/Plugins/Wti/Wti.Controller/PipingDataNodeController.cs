@@ -76,7 +76,7 @@ namespace Wti.Controller
             }
             catch (PipingCalculationException e)
             {
-                logger.Warn(String.Format(Resources.ErrorInPipingCalculation_0, e));
+                logger.Warn(String.Format(Resources.ErrorInPipingCalculation_0, e.Message));
             }
         }
     }
