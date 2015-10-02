@@ -66,14 +66,9 @@ namespace Wti.Controller
                 var pipingCalculation = new PipingCalculation(input);
                 var pipingResult = pipingCalculation.Calculate();
 
-                pipingData.Output = new PipingOutput(
-                    pipingResult.HeaveFactorOfSafety, 
-                    pipingResult.HeaveZValue, 
+                pipingData.Output = new PipingOutput(pipingResult.UpliftZValue, 
                     pipingResult.UpliftFactorOfSafety, 
-                    pipingResult.UpliftZValue, 
-                    pipingResult.SellmeijerFactorOfSafety, 
-                    pipingResult.SellmeijerZValue
-                );
+                    pipingResult.HeaveZValue, pipingResult.HeaveFactorOfSafety, pipingResult.SellmeijerZValue, pipingResult.SellmeijerFactorOfSafety);
             }
             catch (PipingCalculationException e)
             {

@@ -11,7 +11,7 @@ namespace Wti.Data
         public double SellmeijerFactorOfSafety { get; private set; }
         public double SellmeijerZValue { get; private set; }
 
-        public PipingOutput(double heaveFactorOfSafety, double heaveZValue, double upliftFactorOfSafety, double upliftZValue, double sellmeijerFactorOfSafety, double sellmeijerZValue)
+        public PipingOutput(double upliftZValue, double upliftFactorOfSafety, double heaveZValue, double heaveFactorOfSafety, double sellmeijerZValue, double sellmeijerFactorOfSafety)
         {
             HeaveFactorOfSafety = heaveFactorOfSafety;
             HeaveZValue = heaveZValue;

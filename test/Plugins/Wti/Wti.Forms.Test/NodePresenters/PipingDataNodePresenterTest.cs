@@ -65,7 +65,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodePresenter = new PipingDataNodePresenter();
 
             var project = new PipingData();
-            project.Output = new PipingOutput(0.0,0.0,0.0,0.0,0.0,0.0);
+            project.Output = new PipingOutput(0.0,0.0,0.0, 0.0, 0.0, 0.0);
 
             // call
             var children = nodePresenter.GetChildNodeObjects(project, nodeMock);
