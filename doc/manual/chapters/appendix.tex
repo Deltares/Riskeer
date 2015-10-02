@@ -1,0 +1,185 @@
+\svnid{$Id: appendix.tex 1 2015-08-30 15:39:28Z mooiman $}
+
+\chapter{Example of extending the Delta Shell API using Python script}\label{appendix}
+During the examples treated in the previous chapters of this user manual, the Delta Shell commandline API has been extended using a single python script (API.py) that was placed within the \textbackslash\%SOBEK3ROOT\%\textbackslash \\ Deltares\textbackslash SOBEK suite 3.0\textbackslash bin\textbackslash Lib\textbackslash directory. The final API.py file that was used for the examples is printed here for users as a staring point for them to be able to extend the Delta Shell API themselves.
+{\scriptsize 
+\begin{verbatim}
+# Example API extension for Delta Shell commandline/scripting API
+# First import some system and Delta Shell libraries before adding new routines
+import time
+import System
+from DelftTools.Functions.TimeSeriesFactory import CreateFlowTimeSeries
+
+###################################################################################################
+# This is a function for getting the desired boundary
+def GetBoundaryCondition(flow, boundaryconditionname):
+   # Find and edit the desired Boundary condition
+   bcArray = flow.BoundaryConditions
+   for i in range(bcArray.Count):
+       if bcArray[i].Node.Name == boundaryconditionname:
+          bc = bcArray[i]
+   print "Boundary is: ",bc.Name
+   return bc
+#
+###################################################################################################
+
+###################################################################################################
+# This is a function for getting the desired boundary
+def GetRoughnessSection(flow, roughnesssectionname):
+   # Find and edit the desired roughness section
+   rsArray = flow.RoughnessSections
+   for i in range(rsArray.Count):
+       if rsArray[i].Name == roughnesssectionname:
+          rs = rsArray[i]
+   print "Roughness section is: ",rs.Name
+   return rs
+#
+###################################################################################################
+
+###################################################################################################
+# This is a function for editing a constant water level boundary 
+def EditConstantWaterLevelBoundaryCondition(flow, boundaryconditionname, boundaryconditionvalue):
+   # Find and edit the desired Boundary condition
+   bc = GetBoundaryCondition(flow, boundaryconditionname)
+   bc.WaterLevel = boundaryconditionvalue
+   
+   # Or use (only when you are certain that it is a unique boundary condition):
+   # bc = [x for x in flow.BoundaryConditions if x.Node.Name == "benedenrand_ZwarteWater"][0]
+   # bc.WaterLevel = constant
+   # print bc.Name
+#
+###################################################################################################
+
+###################################################################################################
+# This is a function for changing the boundary condition type
+def ChangeBoundaryConditionType(flow, boundaryconditionname, boundaryconditiontype):
+   from DeltaShell.Plugins.DelftModels.WaterFlowModel.DataObjects \
+   import WaterFlowModel1DBoundaryNodeDataType
+   boundarytypeEnum = System.Enum.Parse(WaterFlowModel1DBoundaryNodeDataType,boundaryconditiontype)
+   # Find and edit the desired Boundary condition
+   bc = GetBoundaryCondition(flow, boundaryconditionname)
+   print "Current boundary condition type is: ", bc.DataType
+   bc.DataType = boundarytypeEnum
+   print "Boundary condition type changed to: ",bc.DataType
+
+#
+###################################################################################################
+
+###################################################################################################
+# This is a function running the model and monitoring the time steps
+def InitializeAndRunModel(flow): 
+   # Initialize and run model
+   flow.Initialize()
+   TotalTimesteps = int((flow.StopTime-flow.StartTime).TotalSeconds/flow.TimeStep.TotalSeconds)
+   for i in range(1, (TotalTimesteps + 1)):
+      flow.Execute()
+      print "Timestep:", i
+   print flow.Status
+#
+###################################################################################################
+  
+###################################################################################################
+# This is a function for getting water level results at desired lateral source
+def GetWaterLevelResultsAtLateralSource(flow, location):
+   
+   # Get results at desired location
+   lateralSources = list(flow.Network.LateralSources)
+   lateralSource = [x for x in lateralSources if x.Name == location][0]
+   ts = flow.OutputWaterLevel.GetTimeSeries(lateralSource)
+   times = ts.Arguments[0].Values
+   values = ts.GetValues()
+   for i in range(0, times.Count):
+       print times[i], ' ', values[i]
+   return ts
+#
+###################################################################################################
+
+###################################################################################################
+# This is a function for getting water level results at desired calcpoint location
+def GetWaterLevelResultsAtCalcPoint(flow, location):
+   
+   # Get results at desired location
+   calcPoints = list(flow.NetworkDiscretization.Locations.Values)
+   calcPoint = [x for x in calcPoints if x.Name == location][0]
+   ts = flow.OutputWaterLevel.GetTimeSeries(calcPoint)
+   times = ts.Arguments[0].Values
+   values = ts.GetValues()
+   for i in range(0, times.Count):
+       print times[i], ' ', values[i]
+   return ts
+#
+###################################################################################################
+
+###################################################################################################
+# This is a function for getting discharge results at desired calcpoint location
+def GetDischargeResultsAtCalcPoint(flow, location):
+   
+   # Get results at desired location
+   calcPoints = list(flow.NetworkDiscretization.Locations.Values)
+   calcPoint = [x for x in calcPoints if x.Name == location][0]
+   ts = flow.OutputFlow.GetTimeSeries(calcPoint)
+   times = ts.Arguments[0].Values
+   values = ts.GetValues()
+   for i in range(0, times.Count):
+       print times[i], ' ', values[i]
+   return ts
+#
+###################################################################################################
+
+###################################################################################################
+# This is a function for the composition of a different project name using the main project name
+# as base name (for use with the Application.SaveProjectAs API function)
+def ComposeProjectName(mainProjectName, parameter):
+   # Compose the projectName for saving
+   string = mainProjectName
+   string += "_" 
+   string += str(parameter)
+   string += ".dsproj"
+   projectName = string
+   return projectName
+#
+###################################################################################################
+
+###################################################################################################
+# This is a function for cloning a model
+def CloneFlowModel(model, name_of_clone):
+    flow_clone = model.Clone()
+    flow_clone.Name = name_of_clone
+    return flow_clone
+#
+###################################################################################################
+
+###################################################################################################
+# This is a function changing Chezy values of a roughness section
+def ChangeRoughnessValuesForSection(section, value):
+   from DelftTools.Hydro import RoughnessType
+   mainRoughnessCoverage = section.RoughnessNetworkCoverage
+   roughnessLocations = mainRoughnessCoverage.Locations.Values
+   for i in range(0, roughnessLocations.Count):
+      mainRoughnessCoverage[roughnessLocations[i]] = (value, RoughnessType.Chezy)
+#
+###################################################################################################
+
+###################################################################################################
+# This is a function adding an observation point to a specific branch
+def AddObservationPointOnBranch(branch, offset):
+   from DelftTools.Hydro import ObservationPoint
+   from NetTopologySuite.Extensions.Coverages import NetworkLocation
+   location = NetworkLocation(branch, offset)
+   obs = ObservationPoint(Offset = offset, Branch = branch, Geometry = location.Geometry)
+   branch.BranchFeatures.Add(obs)
+   return obs
+#
+###################################################################################################
+
+###################################################################################################
+# This is a function for adding a discharge time series
+def AddDischargeTimeSeries(dates, values):
+    ts = CreateFlowTimeSeries()
+    for i in range(len(values)):
+       ts[dates[i]] = values[i]
+    return ts
+#
+####################################################################################################
+\end{verbatim}
+} %end scriptsize

@@ -1,0 +1,1532 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.10.1)  1 OCT 2015 16:14
+entering extended mode
+**ds_um.tex
+(ds_um.tex
+LaTeX2e <2015/01/01> patch level 2
+Babel <3.9m> and hyphenation patterns for 69 languages loaded.
+(C:\Users\rodriqu_dd\AppData\Roaming\MiKTeX\2.9\tex\latex\deltares\deltares_manual_style.cls
+Document Class: deltares_manual_style 2011/07/26 v0.1 Deltares Manual style class
+) (C:\Users\rodriqu_dd\AppData\Roaming\MiKTeX\2.9\tex\latex\deltares\deltares_manual.cls
+Document Class: deltares_manual 2014/04/01 v1.0 Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\report.cls"
+Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\size11.clo"
+File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\helvet.sty"
+Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\sectsty\sectsty.sty"
+Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading styles
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def"
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
+)) ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 94.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count88
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf.sty"
+Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\kvsetkeys.sty"
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\etexcmds.sty"
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifluatex.sty"
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty"
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 142.
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\frcursive\frcursive.sty"
+Package: frcursive 2004/02/01 v1.2 support package for French Cursive
+\seyesThickness=\skip43
+\seyes@box=\box26
+\seyes@ln=\skip44
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count89
+\float@exts=\toks15
+\float@box=\box27
+\@float@everytoks=\toks16
+\@floatcapt=\box28
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\base\textcomp.sty"
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 79.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1enc.def"
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 334.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 349.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 350.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 351.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 352.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 353.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 354.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 355.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 356.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 357.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 358.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 359.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 360.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 361.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 362.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 363.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 364.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 365.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 366.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 367.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 368.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 369.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 370.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 371.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 372.
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 373.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 374.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 375.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 376.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 377.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 378.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 379.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 380.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 381.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 382.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 383.
+Package textcomp Info: Setting lmtt sub-encoding to TS1/0 on input line 384.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 385.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 386.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 387.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 388.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 389.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 390.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 391.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 392.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 393.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 394.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 395.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 396.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 397.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 398.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 399.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 400.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 401.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 402.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 403.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 404.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 405.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 406.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 407.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 408.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 409.
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\pdfpages\pdfpages.sty"
+Package: pdfpages 2015/09/18 v0.5d Insert pages of external PDF documents (AM)
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ifthen.sty"
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\calc.sty"
+Package: calc 2014/10/28 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count90
+\calc@Bcount=\count91
+\calc@Adimen=\dimen105
+\calc@Bdimen=\dimen106
+\calc@Askip=\skip45
+\calc@Bskip=\skip46
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count92
+\calc@Cskip=\skip47
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\eso-pic\eso-pic.sty"
+Package: eso-pic 2015/07/21 v2.0g eso-pic (RN)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\atbegshi.sty"
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+))
+\AM@pagewidth=\dimen107
+\AM@pageheight=\dimen108
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\pdfpages\pppdftex.def"
+File: pppdftex.def 2015/09/18 v0.5d Pdfpages driver for pdfTeX (AM)
+)
+\AM@pagebox=\box29
+\AM@toc@title=\toks17
+\c@AM@survey=\count93
+\AM@templatesizebox=\box30
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\svn-multi\svn-multi.sty"
+Package: svn-multi 2011/08/30 v2.4d SVN Keywords for multi-file LaTeX documents
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\tabularx.sty"
+Package: tabularx 2014/10/28 v2.10 `tabularx' package (DPC)
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\array.sty"
+Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen109
+\extrarowheight=\dimen110
+\NC@list=\toks18
+\extratabsurround=\skip48
+\backup@length=\skip49
+)
+\TX@col@width=\dimen111
+\TX@old@table=\dimen112
+\TX@old@col=\dimen113
+\TX@target=\dimen114
+\TX@delta=\dimen115
+\TX@cols=\count94
+\TX@ftn=\toks19
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\longtable.sty"
+Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip50
+\LTright=\skip51
+\LTpre=\skip52
+\LTpost=\skip53
+\LTchunksize=\count95
+\LTcapwidth=\dimen116
+\LT@head=\box31
+\LT@firsthead=\box32
+\LT@foot=\box33
+\LT@lastfoot=\box34
+\LT@cols=\count96
+\LT@rows=\count97
+\c@LT@tables=\count98
+\c@LT@chunks=\count99
+\LT@p@ftn=\toks20
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\verbatim.sty"
+Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks21
+\verbatim@line=\toks22
+\verbatim@in@stream=\read1
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\fancyvrb\fancyvrb.sty"
+Package: fancyvrb 2008/02/07
+
+Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix <2008/02/07> (tvz)
+\FV@CodeLineNo=\count100
+\FV@InFile=\read2
+\FV@TabBox=\box35
+\c@FancyVerbLine=\count101
+\FV@StepNumber=\count102
+\FV@OutFile=\write3
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\wrapfig\wrapfig.sty"
+\wrapoverhang=\dimen117
+\WF@size=\dimen118
+\c@WF@wrappedlines=\count103
+\WF@box=\box36
+\WF@everypar=\toks23
+Package: wrapfig 2003/01/31  v 3.6
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\caption\caption.sty"
+Package: caption 2015/09/17 v3.3-111 Customizing captions (AR)
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\caption\caption3.sty"
+Package: caption3 2015/09/20 v1.7-115 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen119
+\captionmargin@=\dimen120
+\captionwidth=\dimen121
+\caption@tempdima=\dimen122
+\caption@indent=\dimen123
+\caption@parindent=\dimen124
+\caption@hangindent=\dimen125
+)
+\c@ContinuedFloat=\count104
+Package caption Info: float package is loaded.
+Package caption Info: longtable package is loaded.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\caption\ltcaption.sty"
+Package: ltcaption 2013/06/09 v1.4-94 longtable captions (AR)
+)
+Package caption Info: wrapfig package is loaded.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\caption\subcaption.sty"
+Package: subcaption 2015/09/15 v1.1-100 Sub-captions (AR)
+\c@subfigure=\count105
+\c@subtable=\count106
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\url\url.sty"
+\Urlmuskip=\muskip10
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\moreverb\moreverb.sty"
+Package: moreverb 2008/06/03 v2.3a `more' verbatim facilities
+\tab@position=\count107
+\tab@size=\count108
+\listing@line=\count109
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\moresize\moresize.sty"
+Package: moresize 1999/07/26 v1.9 (more font sizes)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\rotating\rotating.sty"
+Package: rotating 2009/03/28 v2.16a rotated objects in LaTeX
+\c@r@tfl@t=\count110
+\rotFPtop=\skip54
+\rotFPbot=\skip55
+\rot@float@box=\box37
+\rot@mess@toks=\toks24
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\refcount.sty"
+Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count111
+LaTeX Info: Redefining \ref on input line 353.
+LaTeX Info: Redefining \pageref on input line 353.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\import\import.sty"
+Package: import 2009/03/23  v 5.1
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\marginnote\marginnote.sty"
+Package: marginnote 2012/03/29 v1.1i non floating margin notes for LaTeX
+\c@mn@abspage=\count112
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+Package: amstext 2000/06/29 v2.01
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks25
+\ex@=\dimen126
+)) ("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip56
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen127
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count113
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count114
+\leftroot@=\count115
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count116
+\DOTSCASE@=\count117
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box38
+\strutbox@=\box39
+\big@size=\dimen128
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count118
+\c@MaxMatrixCols=\count119
+\dotsspace@=\muskip11
+\c@parentequation=\count120
+\dspbrk@lvl=\count121
+\tag@help=\toks26
+\row@=\count122
+\column@=\count123
+\maxfields@=\count124
+\andhelp@=\toks27
+\eqnshift@=\dimen129
+\alignsep@=\dimen130
+\tagshift@=\dimen131
+\tagwidth@=\dimen132
+\totwidth@=\dimen133
+\lineht@=\dimen134
+\@envbody=\toks28
+\multlinegap=\skip57
+\multlinetaggap=\skip58
+\mathdisplay@stack=\toks29
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\siunits\SIunits.sty"
+Package: SIunits 2007/12/02 v1.36 Support for the International System of units (MH)
+
+
+\@qskwidth=\skip59
+LaTeX Font Info:    Redeclaring font encoding TS1 on input line 46.
+\symgreek=\mathgroup6
+("C:\Program Files\MiKTeX 2.9\tex\latex\siunits\SIunits.cfg")
+Option `textstyle' provided!
+Option `amssymb' provided!
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\paralist\paralist.sty"
+Package: paralist 2013/06/09 v2.4 Extended list environments
+\pltopsep=\skip60
+\plpartopsep=\skip61
+\plitemsep=\skip62
+\plparsep=\skip63
+\pl@lab=\toks30
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\xspace.sty"
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\colortbl\colortbl.sty"
+Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
+\everycr=\toks31
+\minrowclearance=\skip64
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\lastpage\lastpage.sty"
+Package: lastpage 2015/03/29 v1.2m Refers to last page's name (HMM; JPG)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\etoolbox\etoolbox.sty"
+Package: etoolbox 2015/08/02 v2.2a e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count125
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\nomencl\nomencl.sty"
+Package: nomencl 2005/09/22 v4.2 Nomenclature package (LN)
+\nomlabelwidth=\dimen135
+\nom@tempdim=\dimen136
+\nomitemsep=\skip65
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\nomentbl\nomentbl.sty"
+Package: nomentbl 2006/04/14 v0.4 Nomenclature in a longtable environment
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\bookmark.sty"
+Package: bookmark 2011/12/02 v1.24 PDF bookmarks (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\pdfescape.sty"
+Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty"
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
+Package: hobsub-hyperref 2012/04/25 v1.12 Bundle oberdiek, subset hyperref (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
+Package: hobsub-generic 2012/04/25 v1.12 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2012/04/25 v1.12 Construct package bundles (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package hobsub Info: Skipping package `ifluatex' (already loaded).
+Package hobsub Info: Skipping package `ifvtex' (already loaded).
+Package: intcalc 2007/09/27 v1.1 Expandable calculations with integers (HO)
+Package hobsub Info: Skipping package `ifpdf' (already loaded).
+Package hobsub Info: Skipping package `etexcmds' (already loaded).
+Package hobsub Info: Skipping package `kvsetkeys' (already loaded).
+Package hobsub Info: Skipping package `kvdefinekeys' (already loaded).
+Package hobsub Info: Skipping package `pdftexcmds' (already loaded).
+Package hobsub Info: Skipping package `pdfescape' (already loaded).
+Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO)
+Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2011/06/24 v1.1 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
+Package hobsub Info: Skipping package `atbegshi' (already loaded).
+Package hobsub Info: Skipping package `refcount' (already loaded).
+Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty"
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
+\@linkdim=\dimen137
+\Hy@linkcounter=\count126
+\Hy@pagecounter=\count127
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
+File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count128
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4443.
+Package hyperref Info: Link nesting OFF on input line 4448.
+Package hyperref Info: Hyper index ON on input line 4451.
+Package hyperref Info: Plain pages OFF on input line 4458.
+Package hyperref Info: Backreferencing OFF on input line 4463.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4688.
+\c@Hy@tempcnt=\count129
+LaTeX Info: Redefining \url on input line 5041.
+\XeTeXLinkMargin=\dimen138
+\Fld@menulength=\count130
+\Field@Width=\dimen139
+\Fld@charsize=\dimen140
+Package hyperref Info: Hyper figures OFF on input line 6295.
+Package hyperref Info: Link nesting OFF on input line 6300.
+Package hyperref Info: Hyper index ON on input line 6303.
+Package hyperref Info: backreferencing OFF on input line 6310.
+Package hyperref Info: Link coloring OFF on input line 6315.
+Package hyperref Info: Link coloring with OCG OFF on input line 6320.
+Package hyperref Info: PDF/A mode OFF on input line 6325.
+LaTeX Info: Redefining \ref on input line 6365.
+LaTeX Info: Redefining \pageref on input line 6369.
+\Hy@abspage=\count131
+\c@Item=\count132
+\c@Hfootnote=\count133
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
+File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
+\Fld@listcount=\count134
+\c@bookmark@seq@number=\count135
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
+Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 282.
+)
+\Hy@SectionHShift=\skip66
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\bkm-pdftex.def"
+File: bkm-pdftex.def 2011/12/02 v1.24 bookmark driver for pdfTeX (HO)
+\BKM@id=\count136
+))
+
+Package hyperref Warning: Option `destlabel' has already been used,
+(hyperref)                setting the option has no effect on input line 128.
+
+
+Package hyperref Warning: Option `pagebackref' has already been used,
+(hyperref)                setting the option has no effect on input line 128.
+
+Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 128.
+Package hyperref Info: Option `colorlinks' set `true' on input line 128.
+("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\transparent.sty"
+Package: transparent 2007/01/08 v1.0 Transparency via pdfTeX's color stack (HO)
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
+\fancy@headwidth=\skip67
+\f@ncyO@elh=\skip68
+\f@ncyO@erh=\skip69
+\f@ncyO@olh=\skip70
+\f@ncyO@orh=\skip71
+\f@ncyO@elf=\skip72
+\f@ncyO@erf=\skip73
+\f@ncyO@olf=\skip74
+\f@ncyO@orf=\skip75
+)
+\maxfoottitlewidth=\skip76
+\foottitlewidth=\skip77
+\c@n_sp_blocks=\count137
+\c@n_sp_items=\count138
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\base\makeidx.sty"
+Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\idxlayout\idxlayout.sty"
+Package: idxlayout 2012/03/30 v0.4d Configurable index layout
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\tools\multicol.sty"
+Package: multicol 2015/03/31 v1.8m multicolumn formatting (FMi)
+\c@tracingmulticols=\count139
+\mult@box=\box40
+\multicol@leftmargin=\dimen141
+\c@unbalance=\count140
+\c@collectmore=\count141
+\doublecol@number=\count142
+\multicoltolerance=\count143
+\multicolpretolerance=\count144
+\full@width=\dimen142
+\page@free=\dimen143
+\premulticols=\dimen144
+\postmulticols=\dimen145
+\multicolsep=\skip78
+\multicolbaselineskip=\skip79
+\partial@page=\box41
+\last@line=\box42
+\maxbalancingoverflow=\dimen146
+\mult@rightbox=\box43
+\mult@grightbox=\box44
+\mult@gfirstbox=\box45
+\mult@firstbox=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\@tempa=\box54
+\@tempa=\box55
+\@tempa=\box56
+\@tempa=\box57
+\@tempa=\box58
+\@tempa=\box59
+\@tempa=\box60
+\@tempa=\box61
+\@tempa=\box62
+\@tempa=\box63
+\c@columnbadness=\count145
+\c@finalcolumnbadness=\count146
+\last@try=\dimen147
+\multicolovershoot=\dimen148
+\multicolundershoot=\dimen149
+\mult@nat@firstbox=\box64
+\colbreak@box=\box65
+\mc@col@check@num=\count147
+)
+\c@idxcols=\count148
+\indexcolsep=\skip80
+\indexrule=\skip81
+\ila@indentunit=\skip82
+\ila@initsep=\skip83
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\natbib\natbib.sty"
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip84
+\bibsep=\skip85
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count149
+)
+runsystem(makeindex -q ds_um.nlo -s deltares_nomentbl.ist -o ds_um.nls)...executed (allowed).
+
+\@nomenclaturefile=\write4
+
+Writing nomenclature file ds_um.nlo
+) ("C:\Program Files\MiKTeX 2.9\tex\latex\booktabs\booktabs.sty"
+Package: booktabs 2005/04/14 v1.61803 publication quality tables
+\heavyrulewidth=\dimen150
+\lightrulewidth=\dimen151
+\cmidrulewidth=\dimen152
+\belowrulesep=\dimen153
+\belowbottomsep=\dimen154
+\aboverulesep=\dimen155
+\abovetopsep=\dimen156
+\cmidrulesep=\dimen157
+\cmidrulekern=\dimen158
+\defaultaddspace=\dimen159
+\@cmidla=\count150
+\@cmidlb=\count151
+\@aboverulesep=\dimen160
+\@belowrulesep=\dimen161
+\@thisruleclass=\count152
+\@lastruleclass=\count153
+\@thisrulewidth=\dimen162
+)
+Package color Info: Redefining color cyan on input line 9.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.sty"
+\lst@mode=\count154
+\lst@gtempboxa=\box66
+\lst@token=\toks32
+\lst@length=\count155
+\lst@currlwidth=\dimen163
+\lst@column=\count156
+\lst@pos=\count157
+\lst@lostspace=\dimen164
+\lst@width=\dimen165
+\lst@newlines=\count158
+\lst@lineno=\count159
+\lst@maxwidth=\dimen166
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count160
+\lst@skipnumbers=\count161
+\lst@framebox=\box67
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.cfg"
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\ms\ragged2e.sty"
+Package: ragged2e 2009/05/21 v2.1 ragged2e Package (MS)
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\ms\everysel.sty"
+Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
+)
+\CenteringLeftskip=\skip86
+\RaggedLeftLeftskip=\skip87
+\RaggedRightLeftskip=\skip88
+\CenteringRightskip=\skip89
+\RaggedLeftRightskip=\skip90
+\RaggedRightRightskip=\skip91
+\CenteringParfillskip=\skip92
+\RaggedLeftParfillskip=\skip93
+\RaggedRightParfillskip=\skip94
+\JustifyingParfillskip=\skip95
+\CenteringParindent=\skip96
+\RaggedLeftParindent=\skip97
+\RaggedRightParindent=\skip98
+\JustifyingParindent=\skip99
+) (ds_um.aux
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:chartwindow' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `subsec:project' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `tab:RibbonScripting' multiply defined.
+
+
+LaTeX Warning: Label `table:was:used:in:doc' multiply defined.
+
+
+LaTeX Warning: Label `fig:was:used:in:doc' multiply defined.
+
+)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 86.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 86.
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 86.
+LaTeX Font Info:    ... okay on input line 86.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 86.
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1phv.fd"
+File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
+)
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 10.07397pt on input line 86.
+
+("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count162
+\scratchdimen=\dimen167
+\scratchbox=\box68
+\nofMPsegments=\count163
+\nofMParguments=\count164
+\everyMPshowfont=\toks33
+\MPscratchCnt=\count165
+\MPscratchDim=\dimen168
+\MPnumerator=\count166
+\makeMPintoPDFobject=\count167
+\everyMPtoPDFconversion=\toks34
+)
+\AtBeginShipoutBox=\box69
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\pdflscape.sty"
+Package: pdflscape 2008/08/11 v0.10 Display of landscape pages in PDF (HO)
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\lscape.sty"
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 80.
+)
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
+Package caption Info: listings package is loaded.
+Package caption Info: rotating package is loaded.
+Package caption Info: End \AtBeginDocument code.
+Package marginnote Info: \pdfoutput not 0 and \pdflastxpos available.
+(marginnote)             Extended position detection mode activated.
+
+Option `amssymb' provided! 
+ Command \square redefined by SIunits package!
+
+LaTeX Info: Redefining \micro on input line 86.
+Package lastpage Info: Please have a look at the pageslts package at
+(lastpage)             https://www.ctan.org/pkg/pageslts
+(lastpage)             ! on input line 86.
+Package hyperref Info: Link coloring ON on input line 86.
+LaTeX Info: Redefining \ref on input line 86.
+LaTeX Info: Redefining \pageref on input line 86.
+LaTeX Info: Redefining \nameref on input line 86.
+\c@lstlisting=\count168
+ABD: EverySelectfont initializing macros
+LaTeX Info: Redefining \selectfont on input line 86.
+ <cover/default-cover-pages.pdf, id=3, 597.23125pt x 845.1575pt>
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+
+<use cover/default-cover-pages.pdf>
+Package pdftex.def Info: cover/default-cover-pages.pdf used on input line 89.
+(pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+ <use cover/default-cover-pages.pdf>
+Package pdftex.def Info: cover/default-cover-pages.pdf used on input line 89.
+(pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
+
+<cover/default-cover-pages.pdf, id=6, page=1, 597.23125pt x 845.1575pt>
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+ <use cover/default-cover-pages.pdf, page 1>
+Package pdftex.def Info: cover/default-cover-pages.pdf, page1 used on input line 89.
+(pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+
+<use cover/default-cover-pages.pdf, page 1>
+Package pdftex.def Info: cover/default-cover-pages.pdf, page1 used on input line 89.
+(pdftex.def)             Requested size: 597.25711pt x 845.19412pt.
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+ <use cover/default-cover-pages.pdf, page 1>
+Package pdftex.def Info: cover/default-cover-pages.pdf, page1 used on input line 89.
+(pdftex.def)             Requested size: 597.25711pt x 845.19412pt.
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+
+<use cover/default-cover-pages.pdf, page 1>
+Package pdftex.def Info: cover/default-cover-pages.pdf, page1 used on input line 89.
+(pdftex.def)             Requested size: 597.25711pt x 845.19412pt.
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+ <use cover/default-cover-pages.pdf, page 1>
+Package pdftex.def Info: cover/default-cover-pages.pdf, page1 used on input line 89.
+(pdftex.def)             Requested size: 597.25711pt x 845.19412pt.
+ [1
+
+ <./cover/default-cover-pages.pdf>] [2
+
+]
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 15.89755pt on input line 96.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 96.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 15.89755pt on input line 96.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 27.47115pt on input line 96.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <29.86> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 96.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 27.47115pt on input line 96.
+
+Overfull \hbox (1.69934pt too wide) in paragraph at lines 96--96
+[]| \T1/phv/b/n/29.86 WTI Ring-toets Frame-work 
+ []
+
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 13.24796pt on input line 96.
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 96.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 13.24796pt on input line 96.
+[1
+
+{C:/Users/rodriqu_dd/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10.95> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 96.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 10.07397pt on input line 96.
+LaTeX Font Info:    Try loading font information for U+msa on input line 96.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 96.
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Overfull \hbox (18.0pt too wide) in paragraph at lines 96--96
+[][] 
+ []
+
+
+Overfull \hbox (18.0pt too wide) in paragraph at lines 96--96
+[][] 
+ []
+
+LaTeX Font Info:    Try loading font information for TS1+phv on input line 96.
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ts1phv.fd"
+File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
+)
+LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
+(Font)              scaled to size 10.07397pt on input line 96.
+ [2
+
+] (ds_um.toc)
+\tf@toc=\write5
+
+<cover/chapter-ribbon.jpg, id=74, 57.5751pt x 845.0772pt>
+File: cover/chapter-ribbon.jpg Graphic file (type jpg)
+ <use cover/chapter-ribbon.jpg>
+Package pdftex.def Info: cover/chapter-ribbon.jpg used on input line 96.
+(pdftex.def)             Requested size: 42.67912pt x 626.4434pt.
+
+Overfull \hbox (73.26753pt too wide) has occurred while \output is active
+[]  [] 
+ []
+
+[3
+
+ <./cover/chapter-ribbon.jpg>] [4
+
+] (ds_um.lof
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10.95> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 27.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 10.07397pt on input line 27.
+)
+\tf@lof=\write6
+File: cover/chapter-ribbon.jpg Graphic file (type jpg)
+ <use cover/chapter-ribbon.jpg>
+Package pdftex.def Info: cover/chapter-ribbon.jpg used on input line 96.
+(pdftex.def)             Requested size: 42.67912pt x 626.4434pt.
+
+Overfull \hbox (73.26753pt too wide) has occurred while \output is active
+[]  [] 
+ []
+
+[5] [6
+
+] (ds_um.lot)
+\tf@lot=\write7
+ (ds_um.nls)
+File: cover/chapter-ribbon.jpg Graphic file (type jpg)
+ <use cover/chapter-ribbon.jpg>
+Package pdftex.def Info: cover/chapter-ribbon.jpg used on input line 96.
+(pdftex.def)             Requested size: 42.67912pt x 626.4434pt.
+
+Overfull \hbox (73.26753pt too wide) has occurred while \output is active
+[]  [] 
+ []
+
+[7] [8
+
+] (chapters/ds_guide.tex
+Chapter 1.
+(common/typographical_conventions.tex
+Overfull \hbox (1.19998pt too wide) in alignment at lines 3--4
+ [] [] 
+ []
+
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 22.
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+) <pictures/action_arrow.pdf, id=219, 86.55553pt x 58.29279pt>
+File: pictures/action_arrow.pdf Graphic file (type pdf)
+
+<use pictures/action_arrow.pdf>
+Package pdftex.def Info: pictures/action_arrow.pdf used on input line 25.
+(pdftex.def)             Requested size: 16.89873pt x 11.38109pt.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 11.03998pt on input line 28.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 7.35999pt on input line 28.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 5.51999pt on input line 28.
+
+Overfull \hbox (1.19998pt too wide) in alignment at lines 4--31
+ [] [] 
+ []
+
+File: cover/chapter-ribbon.jpg Graphic file (type jpg)
+<use cover/chapter-ribbon.jpg>
+Package pdftex.def Info: cover/chapter-ribbon.jpg used on input line 31.
+(pdftex.def)             Requested size: 42.67912pt x 626.4434pt.
+
+Overfull \hbox (73.26753pt too wide) has occurred while \output is active
+[]  [] 
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.31 \end{longtable*}
+                      [1
+
+])) (chapters/ds_background.texpdfTeX warning (ext4): destination with the same identifier (name{page.2}) has been alrea
+dy used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.3 \chapter
+            {Background} [2 <./pictures/action_arrow.pdf>]
+Chapter 2.
+<Figures/Chapter_background/DeltaShellStoryMap.pdf, id=231, 703.55186pt x 468.96718pt>
+File: Figures/Chapter_background/DeltaShellStoryMap.pdf Graphic file (type pdf)
+
+<use Figures/Chapter_background/DeltaShellStoryMap.pdf>
+Package pdftex.def Info: Figures/Chapter_background/DeltaShellStoryMap.pdf used on input line 14.
+(pdftex.def)             Requested size: 412.56497pt x 275.0066pt.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 9.19998pt on input line 15.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 9.19998pt on input line 15.
+LaTeX Font Info:    Font shape `T1/phv/bx/sl' in size <10> not available
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 15.
+LaTeX Font Info:    Font shape `T1/phv/b/sl' will be
+(Font)              scaled to size 9.19998pt on input line 15.
+
+<Figures/Chapter_overview/delta_shell_structure.pdf, id=233, 722.7pt x 458.9145pt>
+File: Figures/Chapter_overview/delta_shell_structure.pdf Graphic file (type pdf)
+
+<use Figures/Chapter_overview/delta_shell_structure.pdf>
+Package pdftex.def Info: Figures/Chapter_overview/delta_shell_structure.pdf used on input line 31.
+(pdftex.def)             Requested size: 412.56497pt x 261.97612pt.
+File: cover/chapter-ribbon.jpg Graphic file (type jpg)
+ <use cover/chapter-ribbon.jpg>
+Package pdftex.def Info: cover/chapter-ribbon.jpg used on input line 34.
+(pdftex.def)             Requested size: 42.67912pt x 626.4434pt.
+
+Overfull \hbox (73.26753pt too wide) has occurred while \output is active
+[]  [] 
+ []
+
+[3
+
+ <./Figures/Chapter_background/DeltaShellStoryMap.pdf>]
+<Figures/Chapter_background/DeltaShell_layers.png, id=274, 727.71875pt x 551.05875pt>
+File: Figures/Chapter_background/DeltaShell_layers.png Graphic file (type png)
+
+<use Figures/Chapter_background/DeltaShell_layers.png>
+Package pdftex.def Info: Figures/Chapter_background/DeltaShell_layers.png used on input line 47.
+(pdftex.def)             Requested size: 412.56497pt x 312.41664pt.
+ [4 <./Figures/Chapter_overview/delta_shell_structure.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 54--58
+
+ []
+
+<Figures/Chapter_background/ArchitectureMindMap.pdf, id=340, 684.27643pt x 452.53064pt>
+File: Figures/Chapter_background/ArchitectureMindMap.pdf Graphic file (type pdf)
+
+<use Figures/Chapter_background/ArchitectureMindMap.pdf>
+Package pdftex.def Info: Figures/Chapter_background/ArchitectureMindMap.pdf used on input line 67.
+(pdftex.def)             Requested size: 412.56497pt x 272.84624pt.
+) (chapters/ds_overview.tex [5 <./Figures/Chapter_background/DeltaShell_layers.png>] [6 <./Figures/Chapter_background/Ar
+chitectureMindMap.pdf>]
+Chapter 3.
+
+LaTeX Warning: Reference `Fig:ArchDS' on page 7 undefined on input line 6.
+
+<Figures/Chapter_overview/overview_ds.png, id=383, 1445.4pt x 790.45313pt>
+File: Figures/Chapter_overview/overview_ds.png Graphic file (type png)
+
+<use Figures/Chapter_overview/overview_ds.png>
+Package pdftex.def Info: Figures/Chapter_overview/overview_ds.png used on input line 33.
+(pdftex.def)             Requested size: 412.56497pt x 225.61919pt.
+File: cover/chapter-ribbon.jpg Graphic file (type jpg)
+ <use cover/chapter-ribbon.jpg>
+Package pdftex.def Info: cover/chapter-ribbon.jpg used on input line 39.
+(pdftex.def)             Requested size: 42.67912pt x 626.4434pt.
+
+Overfull \hbox (73.26753pt too wide) has occurred while \output is active
+[]  [] 
+ []
+
+[7
+
+ <./Figures/Chapter_overview/overview_ds.png>]
+<Figures/Chapter_overview/view_project_window.png, id=392, 184.43906pt x 336.50719pt>
+File: Figures/Chapter_overview/view_project_window.png Graphic file (type png)
+
+<use Figures/Chapter_overview/view_project_window.png>
+Package pdftex.def Info: Figures/Chapter_overview/view_project_window.png used on input line 50.
+(pdftex.def)             Requested size: 206.28249pt x 376.36172pt.
+ [8 <./Figures/Chapter_overview/view_project_window.png>]
+
+LaTeX Warning: Reference `ssec:Map layers' on page 9 undefined on input line 67.
+
+<Figures/Chapter_overview/example_map.png, id=400, 651.93562pt x 323.70938pt>
+File: Figures/Chapter_overview/example_map.png Graphic file (type png)
+
+<use Figures/Chapter_overview/example_map.png>
+Package pdftex.def Info: Figures/Chapter_overview/example_map.png used on input line 71.
+(pdftex.def)             Requested size: 412.56497pt x 204.86165pt.
+
+<Figures/Chapter_overview/example_chart_window.png, id=402, 573.64313pt x 253.69781pt>
+File: Figures/Chapter_overview/example_chart_window.png Graphic file (type png)
+
+<use Figures/Chapter_overview/example_chart_window.png>
+Package pdftex.def Info: Figures/Chapter_overview/example_chart_window.png used on input line 81.
+(pdftex.def)             Requested size: 412.56497pt x 182.46486pt.
+ [9 <./Figures/Chapter_overview/example_map.png>]
+<Figures/Chapter_overview/view_map_window.png, id=410, 217.5628pt x 394.47375pt>
+File: Figures/Chapter_overview/view_map_window.png Graphic file (type png)
+
+<use Figures/Chapter_overview/view_map_window.png>
+Package pdftex.def Info: Figures/Chapter_overview/view_map_window.png used on input line 94.
+(pdftex.def)             Requested size: 206.28249pt x 374.04369pt.
+ [10 <./Figures/Chapter_overview/example_chart_window.png>]
+<Figures/Chapter_overview/view_data_window.png, id=417, 237.88875pt x 187.45032pt>
+File: Figures/Chapter_overview/view_data_window.png Graphic file (type png)
+
+<use Figures/Chapter_overview/view_data_window.png>
+Package pdftex.def Info: Figures/Chapter_overview/view_data_window.png used on input line 105.
+(pdftex.def)             Requested size: 206.28249pt x 162.55415pt.
+ [11 <./Figures/Chapter_overview/view_map_window.png> <./Figures/Chapter_overview/view_data_window.png>] <Figures/Chapte
+r_overview/view_chart_window.png, id=425, 425.33907pt x 136.25906pt>
+File: Figures/Chapter_overview/view_chart_window.png Graphic file (type png)
+
+<use Figures/Chapter_overview/view_chart_window.png>
+Package pdftex.def Info: Figures/Chapter_overview/view_chart_window.png used on input line 116.
+(pdftex.def)             Requested size: 206.28249pt x 66.08347pt.
+
+<Figures/Chapter_overview/view_properties_window.png, id=427, 293.59688pt x 439.6425pt>
+File: Figures/Chapter_overview/view_properties_window.png Graphic file (type png)
+
+<use Figures/Chapter_overview/view_properties_window.png>
+Package pdftex.def Info: Figures/Chapter_overview/view_properties_window.png used on input line 130.
+(pdftex.def)             Requested size: 206.28249pt x 308.89478pt.
+ [12 <./Figures/Chapter_overview/view_chart_window.png> <./Figures/Chapter_overview/view_properties_window.png>]
+<Figures/Chapter_overview/view_messages_window.png, id=436, 1010.27437pt x 323.70938pt>
+File: Figures/Chapter_overview/view_messages_window.png Graphic file (type png)
+
+<use Figures/Chapter_overview/view_messages_window.png>
+Package pdftex.def Info: Figures/Chapter_overview/view_messages_window.png used on input line 142.
+(pdftex.def)             Requested size: 412.56497pt x 132.19318pt.
+
+<Figures/Chapter_overview/view_messagedetails_window.png, id=437, 450.9347pt x 187.45032pt>
+File: Figures/Chapter_overview/view_messagedetails_window.png Graphic file (type png)
+
+<use Figures/Chapter_overview/view_messagedetails_window.png>
+Package pdftex.def Info: Figures/Chapter_overview/view_messagedetails_window.png used on input line 149.
+(pdftex.def)             Requested size: 206.28249pt x 85.75052pt.
+
+<Figures/Chapter_overview/icon_clear_all_messages.png, id=438, 14.30344pt x 15.05624pt>
+File: Figures/Chapter_overview/icon_clear_all_messages.png Graphic file (type png)
+
+<use Figures/Chapter_overview/icon_clear_all_messages.png>
+Package pdftex.def Info: Figures/Chapter_overview/icon_clear_all_messages.png used on input line 154.
+(pdftex.def)             Requested size: 13.51549pt x 14.22636pt.
+ (chapters/section_dockableviews.tex
+<Figures/Chapter_overview/example_docking.png, id=440, 2890.8pt x 813.0375pt>
+File: Figures/Chapter_overview/example_docking.png Graphic file (type png)
+
+<use Figures/Chapter_overview/example_docking.png>
+Package pdftex.def Info: Figures/Chapter_overview/example_docking.png used on input line 12.
+(pdftex.def)             Requested size: 412.56497pt x 116.03273pt.
+ [13 <./Figures/Chapter_overview/view_messages_window.png> <./Figures/Chapter_overview/view_messagedetails_window.png> <
+./Figures/Chapter_overview/icon_clear_all_messages.png>]
+<Figures/Chapter_overview/example_docking_UndoRedo_1.png, id=448, 187.45032pt x 274.77657pt>
+File: Figures/Chapter_overview/example_docking_UndoRedo_1.png Graphic file (type png)
+
+<use Figures/Chapter_overview/example_docking_UndoRedo_1.png>
+Package pdftex.def Info: Figures/Chapter_overview/example_docking_UndoRedo_1.png used on input line 23.
+(pdftex.def)             Requested size: 206.28249pt x 302.39769pt.
+
+<Figures/Chapter_overview/example_docking_UndoRedo_2.png, id=449, 188.20313pt x 299.61937pt>
+File: Figures/Chapter_overview/example_docking_UndoRedo_2.png Graphic file (type png)
+
+<use Figures/Chapter_overview/example_docking_UndoRedo_2.png>
+Package pdftex.def Info: Figures/Chapter_overview/example_docking_UndoRedo_2.png used on input line 31.
+(pdftex.def)             Requested size: 206.28249pt x 328.42566pt.
+ [14 <./Figures/Chapter_overview/example_docking.png> <./Figures/Chapter_overview/example_docking_UndoRedo_1.png>]
+<Figures/Chapter_overview/example_autohide.png, id=457, 207.77625pt x 277.78781pt>
+File: Figures/Chapter_overview/example_autohide.png Graphic file (type png)
+
+<use Figures/Chapter_overview/example_autohide.png>
+Package pdftex.def Info: Figures/Chapter_overview/example_autohide.png used on input line 40.
+(pdftex.def)             Requested size: 206.28249pt x 275.80339pt.
+) [15 <./Figures/Chapter_overview/example_docking_UndoRedo_2.png>]
+<Figures/Chapter_overview/context_menu_project.png, id=466, 274.02374pt x 249.18094pt>
+File: Figures/Chapter_overview/context_menu_project.png Graphic file (type png)
+
+<use Figures/Chapter_overview/context_menu_project.png>
+Package pdftex.def Info: Figures/Chapter_overview/context_menu_project.png used on input line 176.
+(pdftex.def)             Requested size: 206.28249pt x 187.58482pt.
+ [16 <./Figures/Chapter_overview/example_autohide.png>]
+
+LaTeX Warning: Reference `fig:contextmenuregion' on page 17 undefined on input line 204.
+
+<Figures/Chapter_overview/context_menu_table.png, id=474, 213.04594pt x 109.91063pt>
+File: Figures/Chapter_overview/context_menu_table.png Graphic file (type png)
+
+<use Figures/Chapter_overview/context_menu_table.png>
+Package pdftex.def Info: Figures/Chapter_overview/context_menu_table.png used on input line 217.
+(pdftex.def)             Requested size: 165.02347pt x 85.14127pt.
+ [17 <./Figures/Chapter_overview/context_menu_project.png>]
+<Figures/Chapter_overview/context_menu_chart.png, id=481, 520.94624pt x 420.82219pt>
+File: Figures/Chapter_overview/context_menu_chart.png Graphic file (type png)
+
+<use Figures/Chapter_overview/context_menu_chart.png>
+Package pdftex.def Info: Figures/Chapter_overview/context_menu_chart.png used on input line 232.
+(pdftex.def)             Requested size: 330.05322pt x 266.62193pt.
+
+
+LaTeX Warning: Reference `chapter:map' on page 18 undefined on input line 241.
+
+[18 <./Figures/Chapter_overview/context_menu_table.png> <./Figures/Chapter_overview/context_menu_chart.png>]
+<Figures/Chapter_overview/context_menu_messages.png, id=489, 981.6675pt x 227.34938pt>
+File: Figures/Chapter_overview/context_menu_messages.png Graphic file (type png)
+
+<use Figures/Chapter_overview/context_menu_messages.png>
+Package pdftex.def Info: Figures/Chapter_overview/context_menu_messages.png used on input line 249.
+(pdftex.def)             Requested size: 412.56497pt x 95.54852pt.
+ (chapters/section_ribbons.tex
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 8.27998pt on input line 15.
+
+<pictures/margin_note.pdf, id=491, 57.21375pt x 57.3894pt>
+File: pictures/margin_note.pdf Graphic file (type pdf)
+ <use pictures/margin_note.pdf>
+Package pdftex.def Info: pictures/margin_note.pdf used on input line 15.
+(pdftex.def)             Requested size: 15.47845pt x 15.5264pt.
+File: pictures/margin_note.pdf Graphic file (type pdf)
+
+<use pictures/margin_note.pdf>
+Package pdftex.def Info: pictures/margin_note.pdf used on input line 15.
+(pdftex.def)             Requested size: 15.47845pt x 15.5264pt.
+ <Figures/Chapter_overview/ds_ribbon_hotkey.png, id=492, 255.95625pt x 108.405pt>
+File: Figures/Chapter_overview/ds_ribbon_hotkey.png Graphic file (type png)
+
+<use Figures/Chapter_overview/ds_ribbon_hotkey.png>
+Package pdftex.def Info: Figures/Chapter_overview/ds_ribbon_hotkey.png used on input line 19.
+(pdftex.def)             Requested size: 255.95561pt x 108.40472pt.
+
+<Figures/Chapter_overview/ribbon_file.png, id=495, 256.70906pt x 316.18124pt>
+File: Figures/Chapter_overview/ribbon_file.png Graphic file (type png)
+
+<use Figures/Chapter_overview/ribbon_file.png>
+Package pdftex.def Info: Figures/Chapter_overview/ribbon_file.png used on input line 30.
+(pdftex.def)             Requested size: 247.54149pt x 304.89587pt.
+
+<Figures/Chapter_overview/ds_options.png, id=496, 539.76656pt x 379.4175pt>
+File: Figures/Chapter_overview/ds_options.png Graphic file (type png)
+
+<use Figures/Chapter_overview/ds_options.png>
+Package pdftex.def Info: Figures/Chapter_overview/ds_options.png used on input line 37.
+(pdftex.def)             Requested size: 412.56497pt x 290.01027pt.
+ [19 <./Figures/Chapter_overview/context_menu_messages.png> <./pictures/margin_note.pdf> <./Figures/Chapter_overview/ds_
+ribbon_hotkey.png>] [20 <./Figures/Chapter_overview/ribbon_file.png>]
+<Figures/Chapter_overview/ribbon_home.png, id=510, 505.89pt x 89.58469pt>
+File: Figures/Chapter_overview/ribbon_home.png Graphic file (type png)
+
+<use Figures/Chapter_overview/ribbon_home.png>
+Package pdftex.def Info: Figures/Chapter_overview/ribbon_home.png used on input line 48.
+(pdftex.def)             Requested size: 412.56497pt x 73.05939pt.
+
+<Figures/Chapter_overview/ribbon_view.png, id=512, 488.57532pt x 89.58469pt>
+File: Figures/Chapter_overview/ribbon_view.png Graphic file (type png)
+
+<use Figures/Chapter_overview/ribbon_view.png>
+Package pdftex.def Info: Figures/Chapter_overview/ribbon_view.png used on input line 59.
+(pdftex.def)             Requested size: 206.28249pt x 37.8235pt.
+
+<Figures/Chapter_overview/ribbon_tools.png, id=514, 122.70844pt x 82.05656pt>
+File: Figures/Chapter_overview/ribbon_tools.png Graphic file (type png)
+
+<use Figures/Chapter_overview/ribbon_tools.png>
+Package pdftex.def Info: Figures/Chapter_overview/ribbon_tools.png used on input line 70.
+(pdftex.def)             Requested size: 82.51173pt x 55.17793pt.
+ [21 <./Figures/Chapter_overview/ds_options.png> <./Figures/Chapter_overview/ribbon_home.png> <./Figures/Chapter_overvie
+w/ribbon_view.png>]
+<Figures/Chapter_overview/ribbon_map.png, id=524, 997.47656pt x 89.58469pt>
+File: Figures/Chapter_overview/ribbon_map.png Graphic file (type png)
+
+<use Figures/Chapter_overview/ribbon_map.png>
+Package pdftex.def Info: Figures/Chapter_overview/ribbon_map.png used on input line 81.
+(pdftex.def)             Requested size: 412.56497pt x 37.05255pt.
+File: pictures/margin_note.pdf Graphic file (type pdf)
+ <use pictures/margin_note.pdf>
+Package pdftex.def Info: pictures/margin_note.pdf used on input line 122.
+(pdftex.def)             Requested size: 15.47845pt x 15.5264pt.
+File: pictures/margin_note.pdf Graphic file (type pdf)
+ <use pictures/margin_note.pdf>
+Package pdftex.def Info: pictures/margin_note.pdf used on input line 122.
+(pdftex.def)             Requested size: 15.47845pt x 15.5264pt.
+
+<Figures/Chapter_overview/ribbon_map_minimised.png, id=526, 487.06969pt x 82.80937pt>
+File: Figures/Chapter_overview/ribbon_map_minimised.png Graphic file (type png)
+
+<use Figures/Chapter_overview/ribbon_map_minimised.png>
+Package pdftex.def Info: Figures/Chapter_overview/ribbon_map_minimised.png used on input line 125.
+(pdftex.def)             Requested size: 330.05322pt x 56.11375pt.
+ [22 <./Figures/Chapter_overview/ribbon_tools.png> <./Figures/Chapter_overview/ribbon_map.png>] (chapters/ribbon_scripti
+ng.tex <Figures/Ribbon.png, id=535, 1033.61156pt x 89.58469pt>
+File: Figures/Ribbon.png Graphic file (type png)
+
+<use Figures/Ribbon.png>
+Package pdftex.def Info: Figures/Ribbon.png used on input line 9.
+(pdftex.def)             Requested size: 412.56497pt x 35.75804pt.
+
+Overfull \hbox (0.44707pt too wide) in alignment at lines 14--20
+ [] [] 
+ []
+
+
+Overfull \hbox (0.44707pt too wide) in alignment at lines 20--22
+ [] [] 
+ []
+
+
+Overfull \hbox (0.44707pt too wide) in alignment at lines 22--37
+ [] [] 
+ []
+
+[23 <./Figures/Chapter_overview/ribbon_map_minimised.png> <./Figures/Ribbon.png>]
+Overfull \hbox (0.44707pt too wide) in alignment at lines 42--47
+ [] [] 
+ []
+
+
+Overfull \hbox (0.44707pt too wide) in alignment at lines 47--49
+ [] [] 
+ []
+
+
+Overfull \hbox (0.44707pt too wide) in alignment at lines 49--68
+ [] [] 
+ []
+
+)
+File: pictures/margin_note.pdf Graphic file (type pdf)
+ <use pictures/margin_note.pdf>
+Package pdftex.def Info: pictures/margin_note.pdf used on input line 138.
+(pdftex.def)             Requested size: 15.47845pt x 15.5264pt.
+File: pictures/margin_note.pdf Graphic file (type pdf)
+ <use pictures/margin_note.pdf>
+Package pdftex.def Info: pictures/margin_note.pdf used on input line 138.
+(pdftex.def)             Requested size: 15.47845pt x 15.5264pt.
+
+<Figures/Chapter_overview/quick_access_toolbar.png, id=544, 259.7203pt x 145.29282pt>
+File: Figures/Chapter_overview/quick_access_toolbar.png Graphic file (type png)
+
+<use Figures/Chapter_overview/quick_access_toolbar.png>
+Package pdftex.def Info: Figures/Chapter_overview/quick_access_toolbar.png used on input line 142.
+(pdftex.def)             Requested size: 247.54149pt x 138.47964pt.
+)) [24] [25 <./Figures/Chapter_overview/quick_access_toolbar.png>] [26
+
+]
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+ <use cover/default-cover-pages.pdf>
+Package pdftex.def Info: cover/default-cover-pages.pdf used on input line 110.
+(pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+ <use cover/default-cover-pages.pdf>
+Package pdftex.def Info: cover/default-cover-pages.pdf used on input line 110.
+(pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
+
+<cover/default-cover-pages.pdf, id=560, page=2, 597.23125pt x 845.1575pt>
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+ <use cover/default-cover-pages.pdf, page 2>
+Package pdftex.def Info: cover/default-cover-pages.pdf, page2 used on input line 110.
+(pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+
+<use cover/default-cover-pages.pdf, page 2>
+Package pdftex.def Info: cover/default-cover-pages.pdf, page2 used on input line 110.
+(pdftex.def)             Requested size: 597.25711pt x 845.19412pt.
+ [27]
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+ <use cover/default-cover-pages.pdf, page 2>
+Package pdftex.def Info: cover/default-cover-pages.pdf, page2 used on input line 110.
+(pdftex.def)             Requested size: 597.25711pt x 845.19412pt.
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+
+<use cover/default-cover-pages.pdf, page 2>
+Package pdftex.def Info: cover/default-cover-pages.pdf, page2 used on input line 110.
+(pdftex.def)             Requested size: 597.25711pt x 845.19412pt.
+File: cover/default-cover-pages.pdf Graphic file (type pdf)
+ <use cover/default-cover-pages.pdf, page 2>
+Package pdftex.def Info: cover/default-cover-pages.pdf, page2 used on input line 110.
+(pdftex.def)             Requested size: 597.25711pt x 845.19412pt.
+ [28 <./cover/default-cover-pages.pdf>] 
+AED: lastpage setting LastPage
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 111.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 111.
+(ds_um.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 111.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 111.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 13900 strings out of 493673
+ 209184 string characters out of 3143945
+ 317736 words of memory out of 3000000
+ 16738 multiletter control sequences out of 15000+200000
+ 51396 words of font info for 73 fonts, out of 3000000 for 9000
+ 1027 hyphenation exceptions out of 8191
+ 53i,18n,54p,826b,460s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc} <C:\Users\rodriqu_dd\AppData\Local\MiKTeX\2.9\fonts\pk\l
+jfour\jknappen\ec\dpi600\ectt1095.pk><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><C:/Program
+ Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw
+/helvetic/uhvbo8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/font
+s/type1/urw/helvetic/uhvro8a.pfb>
+Output written on ds_um.pdf (38 pages, 10276586 bytes).
+PDF statistics:
+ 783 PDF objects out of 1000 (max. 8388607)
+ 116 named destinations out of 1000 (max. 500000)
+ 552 words of extra memory for PDF output out of 10000 (max. 10000000)
+
