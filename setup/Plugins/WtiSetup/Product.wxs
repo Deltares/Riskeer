@@ -42,7 +42,7 @@
               <Shortcut Id="ApplicationInstallDirShortcut"
                         Name="!(loc.ApplicationLongName)"
                         Description="!(loc.StartApplicationDescription)"
-                        Target="[APPLICATIONDIR]DeltaShell.Gui.exe"
+                        Target="[APPLICATIONDIR]$(var.DeltaShell.Gui.TargetFileName)"
                         WorkingDirectory="APPLICATIONDIR"
                         Icon="Wti.ico"/>
 
@@ -64,7 +64,7 @@
               <Shortcut Id="ApplicationStartMenuShortcut"
                         Name="!(loc.ApplicationLongName)"
                         Description="!(loc.StartApplicationDescription)"
-                        Target="[APPLICATIONDIR]DeltaShell.Gui.exe"
+                        Target="[APPLICATIONDIR]$(var.DeltaShell.Gui.TargetFileName)"
                         WorkingDirectory="APPLICATIONDIR"
                         Icon="Wti.ico"/>
               
@@ -85,7 +85,7 @@
           <Shortcut Id="ApplicationDesktopShortcut"
                     Name="!(loc.ApplicationLongName)"
                     Description="!(loc.StartApplicationDescription)"
-                    Target="[APPLICATIONDIR]DeltaShell.Gui.exe"
+                    Target="[APPLICATIONDIR]$(var.DeltaShell.Gui.TargetFileName)"
                     WorkingDirectory="APPLICATIONDIR"
                     Icon="Wti.ico"/>
 
