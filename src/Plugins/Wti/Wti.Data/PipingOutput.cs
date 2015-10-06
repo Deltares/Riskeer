@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Wti.Data
+﻿namespace Wti.Data
 {
     public class PipingOutput
     {
