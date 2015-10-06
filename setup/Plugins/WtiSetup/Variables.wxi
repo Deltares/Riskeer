@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
-  <!--Version:-->
-  <?define Major="0" ?>
-  <?define Minor="5" ?>
-  <?define Build="0" ?>
-  <!--Revision is defined in GenerateVariables.wxi-->
-  <?define ReleaseVersion="0.5.0" ?>
+  <!--
+    BUILD_NUMBER is an environment variable, for example defined by buildserver.
+    ReleaseVersion is defined as custom variable in WtiSetup.wixproj.
+    Revision is defined in GenerateVariables.wxi, which is create at prebuild step.
+  -->
+  <?ifdef env.BUILD_NUMBER ?>
+  <?define FullReleaseVersion="$(var.ReleaseVersion).$(env.BUILD_NUMBER)" ?>
+  <?else?>
   <?define FullReleaseVersion="$(var.ReleaseVersion).$(var.Revision)" ?>
+  <?endif?>
   
   <?define ApplicationFullName="!(loc.ApplicationLongName) $(var.FullReleaseVersion)" ?>
 </Include>

@@ -6,7 +6,17 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>3ccb05db-c7b3-4ef7-b41d-22b6d2a3774e</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Wti Setup</OutputName>
+	<!-- 
+		Custom Field: ReleaseVersion
+		Field is injected into WiX with the same name to make it available there as well.
+	-->
+	<ReleaseVersion>0.5.0</ReleaseVersion>
+	<!--
+		Environment Variable: BUILD_NUMBER
+		Field could be set by BuildServer. If not present, it will be skipped.
+	-->
+    <OutputName Condition=" '$(BUILD_NUMBER)' == '' ">Wti Setup ($(ReleaseVersion))</OutputName>
+    <OutputName Condition=" '$(BUILD_NUMBER)' != '' ">Wti Setup ($(ReleaseVersion).$(BUILD_NUMBER))</OutputName>
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
@@ -15,15 +25,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug;ApplicationBinFolderPath=..\..\..\src\DeltaShell\DeltaShell.Gui\bin</DefineConstants>
+    <DefineConstants>Debug</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <SuppressPdbOutput>True</SuppressPdbOutput>
-    <WixVariables>
-    </WixVariables>
-    <DefineConstants>ApplicationBinFolder=..\..\..\src\DeltaShell\DeltaShell.Gui\bin;FullReleaseVersion=$(FullReleaseVersion)</DefineConstants>
     <Cultures>nl-NL</Cultures>
     <SuppressAllWarnings>True</SuppressAllWarnings>
     <Pedantic>False</Pedantic>
@@ -90,6 +97,9 @@
     <Folder Include="Installer UI" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\..\..\src\DeltaShell\DeltaShell.Gui\bin;</DefineConstants>
+  </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\src\DeltaShell\DeltaShell.Gui\bin -cg WtiApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)WtiPayload.wxs"
 $(ProjectDir)..\..\..\svn_insert_version.cmd $(ProjectDir) GenerateVariables.wxi.svn GenerateVariables.wxi%3b</PreBuildEvent>
