@@ -252,5 +252,10 @@ namespace DelftTools.Utils.Collections
         {
             times.Times(action);
         }*/
+
+        public static int Count(this IEnumerable source)
+        {
+            return Enumerable.Count(source.Cast<object>());
+        }
     }
 }

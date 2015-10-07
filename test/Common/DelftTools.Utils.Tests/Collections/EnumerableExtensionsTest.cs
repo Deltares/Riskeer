@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DelftTools.Utils.Collections;
@@ -77,7 +78,6 @@ namespace DelftTools.Utils.Tests.Collections
             Assert.IsFalse(new[] { 1, 2, 1}.IsMonotonousAscending());
         }
 
-
         [Test]
         public void SplitInGroupsAndVerify()
         {
@@ -92,6 +92,15 @@ namespace DelftTools.Utils.Tests.Collections
             Assert.AreEqual(1, items1.SplitInGroups(5).ToList()[0][0]);
             Assert.AreEqual(5, items1.SplitInGroups(5).ToList()[1][0]);
             
+        }
+
+        [Test]
+        public void Count()
+        {
+            var expectedCount = new Random().Next(100);
+            IEnumerable enumerable = Enumerable.Range(1, expectedCount);
+
+            Assert.AreEqual(expectedCount, enumerable.Count());
         }
     }
 }

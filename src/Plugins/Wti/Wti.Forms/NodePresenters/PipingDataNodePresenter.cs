@@ -30,7 +30,11 @@ namespace Wti.Forms.NodePresenters
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
-            yield return ((PipingData)parentNodeData).Output;
+            var pipingData = ((PipingData) parentNodeData).Output;
+            if (pipingData != null)
+            {
+                yield return pipingData;
+            }
         }
 
         public bool CanRenameNode(ITreeNode node)

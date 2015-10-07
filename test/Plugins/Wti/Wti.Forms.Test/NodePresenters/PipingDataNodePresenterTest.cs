@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-
+using System.Linq;
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
@@ -64,14 +64,37 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingDataNodePresenter();
 
-            var project = new PipingData();
-            project.Output = new PipingOutput(0.0,0.0,0.0, 0.0, 0.0, 0.0);
+            var project = new PipingData
+            {
+                Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+            };
 
             // call
             var children = nodePresenter.GetChildNodeObjects(project, nodeMock);
 
             // assert
+            Assert.AreEqual(1, children.Count());
             CollectionAssert.AllItemsAreInstancesOfType(children, typeof(PipingOutput));
+            mocks.VerifyAll(); // Expect no calls on tree node
+        }
+
+        [Test]
+        public void GetChildNodeObjects_WithDataButNoOutput_ReturnAllChildNodes()
+        {
+            // setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            mocks.ReplayAll();
+
+            var nodePresenter = new PipingDataNodePresenter();
+
+            var project = new PipingData();
+
+            // call
+            var children = nodePresenter.GetChildNodeObjects(project, nodeMock);
+
+            // assert
+            Assert.AreEqual(0, children.Count());
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 
