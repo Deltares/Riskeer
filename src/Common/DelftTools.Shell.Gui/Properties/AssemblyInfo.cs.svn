@@ -21,9 +21,6 @@ using Mono.Addins;
 // COM, set the ComVisible attribute to true on that type.
 [assembly : ComVisible(false)]
 
-[assembly: CLSCompliant(true)] //fxcop prerequisite
-[assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution = true)] //fxcop prerequisite
-
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly : Guid("b3c117b3-ebeb-43cd-9784-6ec81d1ced36")]
 

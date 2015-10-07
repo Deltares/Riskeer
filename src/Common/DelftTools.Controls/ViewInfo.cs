@@ -33,8 +33,11 @@ namespace DelftTools.Controls
         /// <summary>
         /// Name the view should have (if no name is specified
         /// and the data is INameable then this name will be used)
-        /// <param name="view">View to get a name for</param>
-        /// <param name="data">Data of the view (of type ViewDataType)</param>
+        /// <list type="number">
+        ///     <item>The view to get a name for</item>
+        ///     <item>The data of the view</item>
+        ///     <item>out - the view name</item>
+        /// </list>
         /// </summary>
         public Func<IView, object, string> GetViewName { get; set; }
         
@@ -45,31 +48,40 @@ namespace DelftTools.Controls
 
         /// <summary>
         /// Additional data checking for matching the ViewInfo
+        /// <list type="number">
+        ///     <item>Data as provided by the ViewProvider</item>
+        ///     <item>out - Check succeeded</item>
+        /// </list>
         /// </summary>
-        /// <param name="data">Data as provided by the ViewProvider</param>
-        /// <returns>Check succeeded</returns>
         public Func<object, bool> AdditionalDataCheck { get; set; }
 
         /// <summary>
-        /// Function that returns the data for the view (when not set it returns <param name="data"/>)
+        /// Function that returns the data for the view (when not set it returns T in <see cref="System.Func{T,TResult}"/>)
+        /// <list type="number">
+        ///     <item>object - Original data for the view</item>
+        ///     <item>out object - data for the view</item>
+        /// </list>
         /// </summary>
-        /// <param name="data">Original data for the view</param>
         public Func<object, object> GetViewData { get; set; }
 
         /// <summary>
         /// Extra actions that can be performed on the view after creation
+        /// <list type="number">
+        ///     <item>View to modify</item>
+        ///     <item>Data for this viewinfo</item>
+        /// </list>
         /// </summary>
-        /// <param name="view">View to modify</param>
-        /// <param name="data">Data for this viewinfo</param>
         public Action<IView, object> AfterCreate { get; set; }
 
         /// <summary>
         /// Extra actions that can be performed on the view after the focus has been set on the view.
         /// (Will be called after creation and when the user tries to open a view for data while there is an existing view
         /// (and only the focus will be set to the existing view))
+        /// <list type="number">
+        ///     <item>View to modify</item>
+        ///     <item>Data for this viewinfo</item>
+        /// </list>
         /// </summary>
-        /// <param name="view">View to modify</param>
-        /// <param name="data">Data for this viewinfo</param>
         public Action<IView, object> OnActivateView { get; set; }
 
         /// <summary>
@@ -79,6 +91,11 @@ namespace DelftTools.Controls
 
         /// <summary>
         /// Override the default closing of the view constructed with this info
+        /// <list type="number">
+        ///     <item>View to close</item>
+        ///     <item></item>
+        ///     <item>out - Close succeeded</item>
+        /// </list>
         /// </summary>
         public Func<IView, object, bool> CloseForData { get; set; }
 

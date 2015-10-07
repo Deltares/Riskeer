@@ -10,8 +10,8 @@ namespace DelftTools.Controls.Swf
     /// </summary>
     /// <remarks>usage example in tag for property editor 
     /// [Editor(typeof(FileNameUITypeEditor), typeof(UITypeEditor)),SaveFile , FileDialogFilter("ASCII files(*.ASC;*.TXT)|*.ASC;*.TXT|All files (*.*)|*.*"),FileDialogTitle("Select output file")]
-    /// http://www.codeproject.com/vb/net/UIFilenameEditor.asp?df=100&forumid=39019&exp=0&select=810716</remarks>
-    
+    /// http://www.codeproject.com/vb/net/UIFilenameEditor.asp?df=100&amp;forumid=39019&amp;exp=0&amp;select=810716
+    /// </remarks>
     public class FileNameUITypeEditor : UITypeEditor
     {
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)

@@ -10,10 +10,8 @@ namespace DelftTools.Shell.Core.Dao
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="id"></param>
         /// <param name="state"></param>
         /// <param name="propertyNames"></param>
-        /// <param name="projectRepository"></param>
         /// <returns></returns>
         void OnPostLoad(object entity,object[] state, string[] propertyNames);
 
@@ -21,10 +19,8 @@ namespace DelftTools.Shell.Core.Dao
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        /// <param name="id"></param>
         /// <param name="state"></param>
         /// <param name="propertyNames"></param>
-        /// <param name="repository"></param>
         /// <returns>true if the user modified the state in any way</returns>
         bool OnPreUpdate(object entity, object[] state, string[] propertyNames);
 

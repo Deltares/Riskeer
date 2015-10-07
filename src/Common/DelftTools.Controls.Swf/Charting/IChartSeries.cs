@@ -91,7 +91,7 @@ namespace DelftTools.Controls.Swf.Charting
         void Add(DateTime dateTime, double value);
 
         /// <summary>
-        /// Add values of <param name="xValues"/> and <param name="yValues"/> to the series
+        /// Add values of <paramref name="xValues"/> and <paramref name="yValues"/> to the series
         /// </summary>
         /// <param name="xValues">Values for the x axis</param>
         /// <param name="yValues">Values for the y axis</param>
@@ -113,10 +113,10 @@ namespace DelftTools.Controls.Swf.Charting
         void Refresh();
 
         /// <summary>
-        /// Gives the x value for the provided <param name="x"/> (screen position)
+        /// Gives the x value for the provided <paramrefref name="x"/> (screen position)
         /// </summary>
         /// <param name="x">The X screen position</param>
-        /// <returns>Associated x value for the provided <param name="x"/></returns>
+        /// <returns>Associated x value for the provided <paramref name="x"/></returns>
         double XScreenToValue(int x);
     }
 }

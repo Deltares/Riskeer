@@ -5,7 +5,7 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.FromType
 {
     /// <summary>
     /// Use this attribute to indicate a custom control is available to edit this property. As 
-    /// argument give the full typename (including namespace & assembly) of an 
+    /// argument give the full typename (including namespace &amp; assembly) of an 
     /// <see cref="ICustomControlHelper"/> implementation, which will be called to retrieve the 
     /// actual custom control.
     /// </summary>

@@ -39,14 +39,14 @@ namespace DelftTools.Controls.Swf.Charting
         int SelectedPointIndex { get; set; }
 
         /// <summary>
-        /// Sets the bottom axis to the supplied <param name="min"/> and <param name="max"/> value
+        /// Sets the bottom axis to the supplied <paramref name="min"/> and <paramref name="max"/> value
         /// </summary>
         /// <param name="min">Min value to set for the bottom axis</param>
         /// <param name="max">Max value to set for the bottom axis</param>
         void ZoomToValues(DateTime min, DateTime max);
 
         /// <summary>
-        /// Sets the bottom axis to the supplied <param name="min"/> and <param name="max"/> value
+        /// Sets the bottom axis to the supplied <paramref name="min"/> and <paramref name="max"/> value
         /// </summary>
         /// <param name="min">Min value to set for the bottom axis</param>
         /// <param name="max">Max value to set for the bottom axis</param>
@@ -65,7 +65,7 @@ namespace DelftTools.Controls.Swf.Charting
         bool AllowPanning { get; set; }
 
         /// <summary>
-        /// Gets the first tool of the right type (<typeparam name="T"/>)
+        /// Gets the first tool of the right type (<typeparamref name="T"/>)
         /// </summary>
         /// <typeparam name="T">Type of tool to search for</typeparam>
         IChartViewTool GetTool<T>();
@@ -76,7 +76,7 @@ namespace DelftTools.Controls.Swf.Charting
         bool WheelZoom { get; set; }
 
         /// <summary>
-        /// Disables the deleting of points by SelectPointTool (& delete key)
+        /// Disables the deleting of points by SelectPointTool (&amp; delete key)
         /// </summary>
         /// <param name="enable">Enable deleting</param>
         void EnableDelete(bool enable);

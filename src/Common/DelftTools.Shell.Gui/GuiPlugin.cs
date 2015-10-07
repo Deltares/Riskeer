@@ -122,6 +122,7 @@ namespace DelftTools.Shell.Gui
         /// <summary>
         /// Returns a context menu which is used for this object.
         /// </summary>
+        /// <param name="sender"></param>
         /// <param name="data"></param>
         /// <returns></returns>
         public virtual IMenuItem GetContextMenu(object sender, object data)

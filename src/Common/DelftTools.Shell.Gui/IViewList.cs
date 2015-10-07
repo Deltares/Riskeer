@@ -70,15 +70,15 @@ namespace DelftTools.Shell.Gui
         /// Returns views of type T that are (part of) the active view.
         /// </summary>
         /// <typeparam name="T">Type of view to look for</typeparam>
-        /// <returns>Views of type <typeparam name="T"/></returns>
+        /// <returns>Views of type <typeparamref name="T"/></returns>
         IEnumerable<T> GetActiveViews<T>() where T : class,IView;
 
         /// <summary>
-        /// Returns views of type T that are (part of) the supplied <param name="views"/>
+        /// Returns views of type T that are (part of) the supplied <paramref name="views"/>
         /// </summary>
         /// <typeparam name="T">Type of view to look for</typeparam>
         /// <param name="views">Views to search</param>
-        /// <returns>Views of type <typeparam name="T"/></returns>
+        /// <returns>Views of type <typeparamref name="T"/></returns>
         IEnumerable<T> FindViewsRecursive<T>(IEnumerable<IView> views) where T : class, IView;
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace DelftTools.Shell.Gui
         IEnumerable<IView> AllViews { get; }
 
         /// <summary>
-        /// Overloaded Clear, removes all views except <see cref="viewToKeep"/>
+        /// Overloaded Clear, removes all views except <paramref name="viewToKeep"/>
         /// </summary>
         /// <param name="viewToKeep"></param>
         void Clear(IView viewToKeep);

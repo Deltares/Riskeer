@@ -21,7 +21,9 @@ namespace DelftTools.Shell.Gui
         /// Function for determining whether or not the property information is relevant in a specfic context 
         /// </summary>
         /// <example>
-        /// var propertyInfo = new PropertyInfo<Folder, ModelImplementationFolderProperties> { AdditionalDataCheck = o => GetParent(o) is ModelImplementation };
+        /// <code>
+        /// var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties} { AdditionalDataCheck = o =&gt; GetParent(o) is ModelImplementation };
+        /// </code>
         /// </example>
         /// <remarks>
         /// This property breaks the single responsibility principle; besides <see cref="ObjectType"/> and <see cref="PropertyType"/> an additional method is 
@@ -32,17 +34,17 @@ namespace DelftTools.Shell.Gui
         /// <summary>
         /// Function for obtaining the data that should be set while creating object properties
         /// </summary>
-        /// <example>
-        /// var propertyInfo = new PropertyInfo<ModelImplementation, ModelImplementationProperties> { GetObjectPropertiesData = o => o.RunParameters };
-        /// </example>
+        /// <example><code>
+        /// var propertyInfo = new PropertyInfo &lt;ModelImplementation, ModelImplementationProperties&gt; { GetObjectPropertiesData = o =&gt; o.RunParameters };
+        /// </code></example>
         public Func<object, object> GetObjectPropertiesData { get; set; }
 
         /// <summary>
         /// Action that must be performed after creating object properties
         /// </summary>
-        /// <example>
-        /// var propertyInfo = new PropertyInfo<ModelImplementation, ModelImplementationProperties> { AfterCreate = op => op.AdditionalBooleanProperty = true };
-        /// </example>
+        /// <example><code>
+        /// var propertyInfo = new PropertyInfo &lt; ModelImplementation, ModelImplementationProperties &gt; { AfterCreate = op =&gt; op.AdditionalBooleanProperty = true };
+        /// </code></example>
         public Action<object> AfterCreate { get; set; }
     }
 
@@ -73,7 +75,9 @@ namespace DelftTools.Shell.Gui
         /// Function for determining whether or not the property information is relevant in a specfic context 
         /// </summary>
         /// <example>
-        /// var propertyInfo = new PropertyInfo<Folder, ModelImplementationFolderProperties> { AdditionalDataCheck = o => GetParent(o) is ModelImplementation };
+        /// <code>
+        /// var propertyInfo = new PropertyInfo &lt; Folder, ModelImplementationFolderProperties&gt; { AdditionalDataCheck = o =&gt; GetParent(o) is ModelImplementation };
+        /// </code>
         /// </example>
         /// <remarks>
         /// This property breaks the single responsibility principle; besides <see cref="ObjectType"/> and <see cref="PropertyType"/> an additional method is 
@@ -84,17 +88,17 @@ namespace DelftTools.Shell.Gui
         /// <summary>
         /// Function for obtaining the data that should be set while creating object properties
         /// </summary>
-        /// <example>
-        /// var propertyInfo = new PropertyInfo<ModelImplementation, ModelImplementationProperties> { GetObjectPropertiesData = o => o.RunParameters };
-        /// </example>
+        /// <example><code>
+        /// var propertyInfo = new PropertyInfo &lt;ModelImplementation, ModelImplementationProperties&gt; { GetObjectPropertiesData = o =&gt; o.RunParameters };
+        /// </code></example>
         public Func<TObject, object> GetObjectPropertiesData { get; set; }
 
         /// <summary>
         /// Action that must be performed after creating object properties
         /// </summary>
-        /// <example>
-        /// var propertyInfo = new PropertyInfo<ModelImplementation, ModelImplementationProperties> { AfterCreate = op => op.AdditionalBooleanProperty = true };
-        /// </example>
+        /// <example><code>
+        /// var propertyInfo = new PropertyInfo&lt; ModelImplementation, ModelImplementationProperties&gt; { AfterCreate = op =&gt; op.AdditionalBooleanProperty = true };
+        /// </code></example>
         public Action<TProperty> AfterCreate { get; set; }
 
         public static implicit operator PropertyInfo(PropertyInfo<TObject, TProperty> pi)

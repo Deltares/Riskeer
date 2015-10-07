@@ -78,7 +78,6 @@ namespace DelftTools.Controls
         /// Indicates if a node can be dragged to another location.
         /// </summary>
         /// <param name="nodeData"></param>
-        /// <param name="node"></param>
         /// <returns>
         /// The return value indicates which operations are valid. 
         /// DragOperations can be xored
@@ -124,7 +123,7 @@ namespace DelftTools.Controls
         /// </summary>
         /// <param name="item">Item being dropped</param>
         /// <param name="sourceParentNodeData"></param>
-        /// <param name="targetParentNodeData">Target node data where <see cref="item"/> is being dropped.</param>
+        /// <param name="targetParentNodeData">Target node data where <paramref name="item"/> is being dropped.</param>
         /// <param name="operation"></param>
         /// <param name="position"></param>
         /// TODO: change item, sourceParentNodeData, targetParentNodeData to ITreeNode!

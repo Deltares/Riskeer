@@ -115,7 +115,7 @@ namespace DelftTools.Controls.Swf.Charting
         }
 
         /// <summary>
-        /// Draws a graphics path according to the supplied <param name="graphicsPath"/>
+        /// Draws a graphics path according to the supplied <paramref name="graphicsPath"/>
         /// </summary>
         /// <param name="pen">Pen to use for drawing</param>
         /// <param name="graphicsPath">Graphics path to follow</param>
@@ -134,7 +134,7 @@ namespace DelftTools.Controls.Swf.Charting
         }
 
         /// <summary>
-        /// Draws the provided <param name="label"/> at the provided location
+        /// Draws the provided <paramref name="label"/> at the provided location
         /// </summary>
         /// <param name="xpos">X position</param>
         /// <param name="ypos">Y position</param>
@@ -145,7 +145,7 @@ namespace DelftTools.Controls.Swf.Charting
         }
 
         /// <summary>
-        /// Draws a polygon using the provided <param name="points"/>
+        /// Draws a polygon using the provided <paramref name="points"/>
         /// </summary>
         /// <param name="points">Points that make up the polygon</param>
         public void Polygon(Point[] points)

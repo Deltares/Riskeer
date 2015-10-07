@@ -23,9 +23,6 @@ using System.Security.Permissions;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-[assembly: CLSCompliant(true)] //fxcop prerequisite
-[assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution = true)] //fxcop prerequisite
-
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("a4036982-77b5-4a89-84be-0c05301f28a6")]
 

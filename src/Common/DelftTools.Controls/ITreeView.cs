@@ -38,6 +38,7 @@ namespace DelftTools.Controls
         /// Returns a specific node presenter for the given data object.
         /// </summary>
         /// <param name="nodeData"></param>
+        /// <param name="node"></param>
         ITreeNodePresenter GetTreeViewNodePresenter(object nodeData, ITreeNode node);
 
         /// <summary>

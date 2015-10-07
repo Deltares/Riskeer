@@ -13,7 +13,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         private const int SpaceBetweenNodeParts = 2;
         
         /// <summary>
-        /// Checks if the <param name="point"/> is on the expand button of the node
+        /// Checks if the <paramref name="point"/> is on the expand button of the node
         /// </summary>
         /// <param name="node">Node to check for</param>
         /// <param name="point">Point to search for</param>
@@ -29,7 +29,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         }
 
         /// <summary>
-        /// Checks if the <param name="point"/> is on the checkbox of the node
+        /// Checks if the <paramref name="point"/> is on the checkbox of the node
         /// </summary>
         /// <param name="node">Node to check for</param>
         /// <param name="point">Point to search for</param>

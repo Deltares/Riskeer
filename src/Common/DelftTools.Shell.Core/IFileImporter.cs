@@ -32,7 +32,7 @@ namespace DelftTools.Shell.Core
         IEnumerable<Type> SupportedItemTypes { get; }
 
         /// <summary>
-        /// Indicates if this importer can import on the <param name="targetObject"></param>
+        /// Indicates if this importer can import on the <paramref name="targetObject"></paramref>
         /// </summary>
         /// <param name="targetObject">Target object to check</param>
         bool CanImportOn(object targetObject);
@@ -46,6 +46,7 @@ namespace DelftTools.Shell.Core
         /// 
         /// HACK: REMOVE IT, KEEP DESIGN SIMPLE!
         /// </summary>
+        [Obsolete("HACK: REMOVE IT, KEEP DESIGN SIMPLE!")]
         bool CanImportOnRootLevel { get; }
 
         /// <summary>

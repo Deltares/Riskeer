@@ -50,13 +50,13 @@ namespace DelftTools.Shell.Core.Services
         /// <summary>
         /// Saves project.
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="project"></param>
         void Save(Project project);
 
         /// <summary>
         /// Close project (and release files).
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="project"></param>
         void Close(Project project);
 
         void SaveProjectInTemporaryFolder(Project project);

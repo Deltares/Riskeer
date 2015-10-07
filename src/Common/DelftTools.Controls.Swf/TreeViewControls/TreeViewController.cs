@@ -135,6 +135,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         /// Updates the node and if loaded the sub nodes
         /// </summary>
         /// <param name="treeNode">Node to update</param>
+        /// <param name="tag">the object bound to this node</param>
         public void UpdateNode(ITreeNode treeNode, object tag)
         {
             var suspend = false; // suspend tree view locally
@@ -181,7 +182,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                 else
                 {
                     //update existing nodes
-                    for (int i = 0; i < treeNode.Nodes.Count; i++)
+                    for (var i = 0; i < treeNode.Nodes.Count; i++)
                     {
                         UpdateNode(treeNode.Nodes[i], childNodeObjects[i]);
                     }

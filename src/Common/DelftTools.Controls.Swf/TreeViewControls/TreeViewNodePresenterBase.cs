@@ -107,7 +107,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         ///<summary>
         /// Returns the default drag operation based on pressed control keys and allowed operations
-        /// It can be used as replacement for the implementation for TreeViewNodePresenterBase<T>::CanDrop.
+        /// It can be used as replacement for the implementation for TreeViewNodePresenterBase&lt;T&gt;::<see cref="TreeViewNodePresenterBase{T}.CanDrop"/>.
         ///</summary>
         public static DragOperations GetDefaultDropOperation(ITreeView treeView, object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
         {
@@ -138,10 +138,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             return DragOperations.None;
         }
 
-        ///<exception cref="NotSupportedException">When a <paramref name="item"/> is a composite model that has an unlinked <see cref="DataItem"/>s <see cref="DataItem.Value"/> does not inherit from <see cref="ICloneable"/>, is not null, or is not a value type.</exception>
-        ///<exception cref="InvalidOperationException">
-        /// When <paramref name="item"/> contains a <see cref="IModel"/> with a <see cref="DataItemSet"/> for which a <see cref="IDataItem"/>s <see cref="IDataItem.Owner"/> is not the data item set.</exception>
-        void ITreeNodePresenter.OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData,
+       void ITreeNodePresenter.OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData,
                                            DragOperations operation, int position)
         {
             OnDragDrop(item, sourceParentNodeData, (T)targetParentNodeData, operation, position);

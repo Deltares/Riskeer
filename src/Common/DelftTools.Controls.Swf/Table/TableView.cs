@@ -609,7 +609,6 @@ namespace DelftTools.Controls.Swf.Table
         ///<summary>
         /// Enable filtering for all columns
         ///</summary>
-        ///<param name="allowed">Enable filtering</param>
         public bool AllowColumnFiltering
         {
             get { return Columns.OfType<TableViewColumn>().Any(c => c.FilteringAllowed); }

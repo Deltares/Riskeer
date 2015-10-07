@@ -8,7 +8,7 @@ namespace DelftTools.Controls.Swf.Charting
     /// <summary>
     /// Defines arrays of colors and positions used for interpolating color blending in a multicolor gradient.
     /// </summary>
-    /// <seealso cref="SharpMap.Rendering.Thematics.GradientTheme"/>
+    /// <remarks>More info in SharpMap.Rendering.Thematics.GradientTheme</remarks>
     public class ColorBlend
     {
         private Color[] _Colors;

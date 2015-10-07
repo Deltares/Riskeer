@@ -15,7 +15,6 @@ namespace DelftTools.Shell.Gui.Forms
         /// <param name="source"></param>
         /// <param name="message"></param>
         /// <param name="exception"></param>
-        /// <param name="timestamp"></param>
         void AddMessage(Level level, DateTime time, string source, string message, string exception);
 
         /// <summary>

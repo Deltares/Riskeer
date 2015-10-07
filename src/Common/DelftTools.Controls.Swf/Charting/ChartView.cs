@@ -122,7 +122,7 @@ namespace DelftTools.Controls.Swf.Charting
         }
 
         /// <summary>
-        /// Data: in this case IEventedList<ISeries> expected
+        /// Data: in this case ISeries expected in <see cref="IEventedList{ISeries}"/>
         /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)] 

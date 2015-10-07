@@ -92,7 +92,7 @@ namespace DelftTools.Controls.Swf.Charting
         /// <param name="filename">Name of the file to write.(extension determines file type)</param>
         /// <param name="height">Height of the exported image (optional, not used if value is null or smaller than 1) </param>
         /// <param name="width">Width of the exported image (optional, not used if value is null or smaller than 1) </param>
-        /// <exception cref="ArgumentException">When <param name="filename"/> is null, doesn't contain an extension or 
+        /// <exception cref="ArgumentException">When <paramref name="filename"/> is null, doesn't contain an extension or 
         /// extension is not supported</exception>
         void ExportAsImage(string filename, int? width, int? height);
 

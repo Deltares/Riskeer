@@ -15,7 +15,7 @@ namespace DelftTools.Shell.Gui
         bool OpenViewForData(object data, Type viewType = null, bool alwaysShowDialog = false);
 
         /// <summary>
-        /// Creates a view for the <param name="data"/> 
+        /// Creates a view for the <paramref name="data"/> 
         /// </summary>
         /// <param name="data">The data to create a view for</param>
         /// <param name="selectViewInfo">Function to filter the view infos to use</param>
@@ -23,7 +23,7 @@ namespace DelftTools.Shell.Gui
         IView CreateViewForData(object data, Func<ViewInfo, bool> selectViewInfo = null);
 
         /// <summary>
-        /// Check if a view can be created for the <param name="data"/> and <param name="viewType"/>
+        /// Check if a view can be created for the <paramref name="data"/> and <paramref name="viewType"/>
         /// </summary>
         /// <param name="data">The data to check for</param>
         /// <param name="viewType">ViewType to use (if null then default will be used)</param>
@@ -65,7 +65,7 @@ namespace DelftTools.Shell.Gui
         Type GetDefaultViewType(object dataObject);
 
         /// <summary>
-        /// Gets the view info objects for the <param name="data"/>
+        /// Gets the view info objects for the <paramref name="data"/>
         /// </summary>
         /// <param name="data">Data used for searching the view infos</param>
         /// <param name="viewType">The viewType of the view info</param>

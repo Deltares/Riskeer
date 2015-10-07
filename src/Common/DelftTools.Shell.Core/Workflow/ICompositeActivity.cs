@@ -5,7 +5,7 @@ namespace DelftTools.Shell.Core.Workflow
     /// <summary>
     /// Special type of activity which supports workflows to run it's child activities.
     /// 
-    /// Note that when activities contained in <see cref="Activities"/> are added to a specific workflow they must be wrapped by <see cref="ActivityWrapper"/>.
+    /// Note that when activities contained in <see cref="Activities"/> are added to a specific workflow they must be wrapped by <see cref="CompositeActivity"/>.
     /// </summary>
     public interface ICompositeActivity : IActivity
     {

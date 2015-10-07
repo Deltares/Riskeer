@@ -384,7 +384,7 @@ namespace DelftTools.Shell.Core.Workflow
     }
 
     /// <summary>
-    /// Poor man's locking mechanism under danger of deadlock due to invokes & events :-(
+    /// Poor man's locking mechanism under danger of deadlock due to invokes &amp; events :-(
     /// </summary>
     public class TryLock : IDisposable
     {

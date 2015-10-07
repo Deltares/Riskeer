@@ -36,6 +36,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         /// </summary>
         /// <param name="chartControl"></param>
         /// <param name="style"></param>
+        /// <param name="lineColor"></param>
+        /// <param name="lineWidth"></param>
+        /// <param name="lineDashStyle"></param>
         public CursorLineTool(Control chartControl, CursorToolStyles style, Color lineColor, int lineWidth, DashStyle lineDashStyle)
         {
             DragMode = false;
