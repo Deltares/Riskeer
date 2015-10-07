@@ -50,14 +50,14 @@ namespace Wti.Plugin
             yield return new DataItemInfo<WtiProject>
             {
                 Name = WtiFormsResources.WtiProjectPropertiesDisplayName,
-                Category = "WTI 2017",
+                Category = "WTI",
                 Image = WtiFormsResources.WtiProjectFolderIcon,
                 CreateData = owner => new WtiProject()
             };
             yield return new DataItemInfo<PipingData>
             {
                 Name = WtiFormsResources.PipingDataPropertiesDisplayName,
-                Category = "WTI 2017",
+                Category = "WTI",
                 Image = WtiFormsResources.PipingIcon,
                 CreateData = owner => new PipingData()
             };

@@ -19,7 +19,7 @@ namespace Wti.Data.Test
             // assert
             Assert.IsInstanceOf<INameable>(project);
             Assert.IsInstanceOf<IObservable>(project);
-            Assert.AreEqual("WTI 2017 project", project.Name);
+            Assert.AreEqual("WTI project", project.Name);
         }
 
         [Test]

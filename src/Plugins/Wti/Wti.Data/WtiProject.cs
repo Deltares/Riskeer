@@ -11,7 +11,7 @@ namespace Wti.Data
 
         public WtiProject()
         {
-            Name = "WTI 2017 project";
+            Name = "WTI project";
         }
 
         public string Name { get; set; }
