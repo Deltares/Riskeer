@@ -42,8 +42,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Piping\PipingCalculation.cd" />
-    <None Include="Piping\PipingDataModel.cd" />
+    <None Include="Plugins\Wti\Piping\PipingCalculation.cd" />
+    <None Include="Plugins\Wti\Piping\PipingDataModel.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
