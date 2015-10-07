@@ -118,7 +118,7 @@ namespace DelftTools.Controls.Swf.Editors
                         throw new ApplicationException();
                 }
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 ret = false;
             }

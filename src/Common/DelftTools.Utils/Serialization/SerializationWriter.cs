@@ -1344,7 +1344,6 @@ namespace DelftTools.Utils.Serialization
 		/// 16,383 otherwise use Write(UInt16 value)
 		/// </remarks>
 		/// <param name="value">The UInt16 to store. Must be between 0 and 16,383 inclusive.</param>
-		[CLSCompliant(false)]
 		public void WriteOptimized(ushort value)
 		{
 			CheckOptimizable(value < OptimizationFailure16BitValue, "UInt16 value is not optimizable");
@@ -1366,8 +1365,7 @@ namespace DelftTools.Utils.Serialization
 		/// Only call this method if the value is known to  be between 0 and 
 		/// 268,435,455 otherwise use Write(UInt32 value)
 		/// </remarks>
-		/// <param name="value">The UInt32 to store. Must be between 0 and 268,435,455 inclusive.</param>
-		[CLSCompliant(false)]
+		/// <param name="value">The UInt32 to store. Must be between 0 and 268,435,455 inclusive.</param>
 		public void WriteOptimized(uint value)
 		{
 			CheckOptimizable(value < OptimizationFailure32BitValue, "UInt32 value is not optimizable");
@@ -1395,7 +1393,6 @@ namespace DelftTools.Utils.Serialization
 		/// 72,057,594,037,927,935 otherwise use Write(UInt64 value)
 		/// </remarks>
 		/// <param name="value">The UInt64 to store. Must be between 0 and 72,057,594,037,927,935 inclusive.</param>
-		[CLSCompliant(false)]
 		public void WriteOptimized(ulong value)
 		{
 			CheckOptimizable(value < OptimizationFailure64BitValue, "ulong value is not optimizable");
@@ -1639,7 +1636,6 @@ namespace DelftTools.Utils.Serialization
 		/// A null or empty array will take 1 byte.
 		/// </summary>
 		/// <param name="values">The SByte[] to store.</param>
-		[CLSCompliant(false)]
 		public void Write(sbyte[] values)
 		{
 			if (values == null)
@@ -1708,7 +1704,6 @@ namespace DelftTools.Utils.Serialization
 		/// A null or empty array will take 1 byte.
 		/// </summary>
 		/// <param name="values">The UInt32[] to store.</param>
-		[CLSCompliant(false)]
 		public void Write(uint[] values)
 		{
 			if (values == null)
@@ -1730,7 +1725,6 @@ namespace DelftTools.Utils.Serialization
 		/// A null or empty array will take 1 byte.
 		/// </summary>
 		/// <param name="values">The UInt64[] to store.</param>
-		[CLSCompliant(false)]
 		public void Write(ulong[] values)
 		{
 			if (values == null)
@@ -1753,7 +1747,6 @@ namespace DelftTools.Utils.Serialization
 		/// A null or empty array will take 1 byte.
 		/// </summary>
 		/// <param name="values">The UInt16[] to store.</param>
-		[CLSCompliant(false)]
 		public void Write(ushort[] values)
 		{
 			if (values == null)
@@ -2192,7 +2185,6 @@ namespace DelftTools.Utils.Serialization
 		/// A null or empty array will take 1 byte.
 		/// </summary>
 		/// <param name="values">The UInt16[] to store.</param>
-		[CLSCompliant(false)]
 		public void WriteOptimized(ushort[] values)
 		{
 			if (values == null)
@@ -2245,7 +2237,6 @@ namespace DelftTools.Utils.Serialization
 		/// A null or empty array will take 1 byte.
 		/// </summary>
 		/// <param name="values">The UInt32[] to store.</param>
-		[CLSCompliant(false)]
 		public void WriteOptimized(uint[] values)
 		{
 			if (values == null)
@@ -2298,7 +2289,6 @@ namespace DelftTools.Utils.Serialization
 		/// A null or empty array will take 1 byte.
 		/// </summary>
 		/// <param name="values">The UInt64[] to store.</param>
-		[CLSCompliant(false)]
 		public void WriteOptimized(ulong[] values)
 		{
 			if (values == null)

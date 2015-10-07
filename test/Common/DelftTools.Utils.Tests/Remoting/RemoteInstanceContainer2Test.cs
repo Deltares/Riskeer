@@ -69,7 +69,7 @@ namespace DelftTools.Utils.Tests.Remoting
                 var service = RemoteInstanceContainer.CreateInstance<ISquareService, SquareService>();
                 RemoteInstanceContainer.RemoveInstance(service);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 var allProcesses = Process.GetProcesses().ToList();
                 Console.WriteLine("There are {0} remote instances running",
@@ -521,7 +521,7 @@ namespace DelftTools.Utils.Tests.Remoting
                 instance.MethodThatTerminates();
                 Assert.Fail("Should not get here");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 
             }

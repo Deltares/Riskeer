@@ -156,7 +156,7 @@ namespace DelftTools.Utils.Tests.Remoting
             {
                 remoteInstance.MethodThatThrowsException();
             }
-            catch (FaultException fe)
+            catch (FaultException)
             {
                 called++;
             }

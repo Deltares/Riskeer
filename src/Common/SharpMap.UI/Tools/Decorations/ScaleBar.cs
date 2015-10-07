@@ -303,7 +303,7 @@ namespace SharpMap.UI.Tools.Decorations
                 double fPageWidth = widthPage/nPxlPerInch*metersPerInch;
                 ratio = Math.Abs(fMapWidth/fPageWidth);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ratio = 0.0;
             }
@@ -701,12 +701,7 @@ namespace SharpMap.UI.Tools.Decorations
 
         private string GetScaleBarText(double scale, sbScaleText scale_text)
         {
-            string s;
-            // ostrstream s;
-            // char buf[MAX_LEN];
-            string buf;
-            int precision = 0;
-
+            var epsilon = 0.01;
 
             //text
             if (scale_text == sbScaleText.ws_stUnitsOnly)
@@ -717,7 +712,7 @@ namespace SharpMap.UI.Tools.Decorations
             else if (scale_text == sbScaleText.ws_stFraction)
             {
                 //scale(1:xxxx)
-                return "1:" + ToFormattedString(scale, 0.01);
+                return "1:" + ToFormattedString(scale, epsilon);
             }
             return "";
         }

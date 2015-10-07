@@ -262,8 +262,6 @@ namespace DelftTools.Utils.IO
         public static bool PathIsRelative(string path)
         {
             return !Path.IsPathRooted(path);
-            string reason;
-            return PathHelper.IsValidRelativePath(path, out reason);
         }
 
         /// <summary>

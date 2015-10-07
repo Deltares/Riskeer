@@ -173,7 +173,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
                     //   bug: this will fail
                     // resourceWriter.AddResource(message, message);
                 }
-                catch (ArgumentException e)
+                catch (ArgumentException)
                 {
                     //name (or a name that varies only by capitalization) has already been added to this ResourceWriter. 
                 }

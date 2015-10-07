@@ -100,7 +100,7 @@ public class PortableSettingsProvider : SettingsProvider
 
                         m_SettingsXML.Load(filePath);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         //Create new document
                         CreateNewSettingsXml();

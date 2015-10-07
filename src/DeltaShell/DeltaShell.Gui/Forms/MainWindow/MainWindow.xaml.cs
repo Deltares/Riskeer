@@ -599,8 +599,9 @@ namespace DeltaShell.Gui.Forms.MainWindow
             MessageBox.Show("Not implemented yet.");
             return;
 
-            var saveProject = Gui.CommandHandler.SaveProject();
-            OnAfterProjectSaveOrOpen(saveProject);
+            // Original code:
+            //var saveProject = Gui.CommandHandler.SaveProject();
+            //OnAfterProjectSaveOrOpen(saveProject);
         }
 
         private void OnFileSaveAsClicked(object sender, RoutedEventArgs e)
@@ -608,8 +609,9 @@ namespace DeltaShell.Gui.Forms.MainWindow
             MessageBox.Show("Not implemented yet.");
             return;
 
-            var saveProject = Gui.CommandHandler.SaveProjectAs();
-            OnAfterProjectSaveOrOpen(saveProject);
+            // Original code:
+            //var saveProject = Gui.CommandHandler.SaveProjectAs();
+            //OnAfterProjectSaveOrOpen(saveProject);
         }
 
         private void OnAfterProjectSaveOrOpen(bool actionSuccesful)
@@ -627,8 +629,9 @@ namespace DeltaShell.Gui.Forms.MainWindow
             MessageBox.Show("Not implemented yet.");
             return;
 
-            var succesful = Gui.CommandHandler.TryOpenExistingWTIProject();
-            OnAfterProjectSaveOrOpen(succesful);
+            // Original code:
+            //var succesful = Gui.CommandHandler.TryOpenExistingWTIProject();
+            //OnAfterProjectSaveOrOpen(succesful);
         }
 
         private void OnFileCloseClicked(object sender, RoutedEventArgs e)

@@ -219,7 +219,7 @@ namespace DelftTools.Utils.Remoting
                     {
                         File.Delete(GetLogFilePath(pid));
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         // gulp
                     }
