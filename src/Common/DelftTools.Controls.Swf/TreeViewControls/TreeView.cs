@@ -213,16 +213,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             return controller.CanRenameNode(SelectedNode);
         }
 
-        public void EnableDataEventListeners()
-        {
-            controller.EnableDataEventListeners();
-        }
-
-        public void DisableDataEventListeners()
-        {
-            controller.DisableDataEventListeners();
-        }
-
         public void EnsureVisible(object item) { }
 
         public ITreeNodePresenter GetTreeViewNodePresenter([NotNull] object nodeData, ITreeNode node)
@@ -411,15 +401,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             controller.OnTreeViewHandleCreated();
         }
 
-        protected override void OnHandleDestroyed(EventArgs e)
-        {
-            if (controller != null)
-            {
-                controller.OnTreeViewHandleDestroyed();
-            }
-            base.OnHandleDestroyed(e);
-        }
-
         /// <summary>
         /// Custom drawing.
         /// </summary>
@@ -442,8 +423,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         {
             if (disposing && controller != null)
             {
-                controller.OnTreeViewHandleDestroyed();
-                controller.Dispose();
                 controller = null;
             }
 
@@ -732,9 +711,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
             if (node.IsOnCheckBox(point))
             {
-                DisableDataEventListeners();
                 node.Checked = !node.Checked;
-                EnableDataEventListeners();
             }
 
             if (node.IsOnExpandButton(point))
