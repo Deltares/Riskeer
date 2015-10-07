@@ -11,7 +11,7 @@ namespace Wti.Calculation.Test.Piping
         {
             var pipingSurfaceLineCreator = new PipingSurfaceLineCreator();
             PipingSurfaceLine actual = pipingSurfaceLineCreator.Create();
-            Assert.That(actual.Points, Is.Not.Empty);
+            Assert.That(actual.Points.Count, Is.EqualTo(1));
             Assert.That(actual.Points[0].X, Is.EqualTo(0));
             Assert.That(actual.Points[0].Y, Is.EqualTo(0));
             Assert.That(actual.Points[0].Z, Is.EqualTo(0));

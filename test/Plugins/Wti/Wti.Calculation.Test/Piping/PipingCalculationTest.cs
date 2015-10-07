@@ -35,6 +35,7 @@ namespace Wti.Calculation.Test.Piping
                 random.NextDouble());
             PipingCalculationResult actual = new PipingCalculation(input).Calculate();
 
+            Assert.That(actual, Is.Not.Null);
             Assert.That(actual.UpliftZValue, Is.Not.NaN);
             Assert.That(actual.UpliftFactorOfSafety, Is.Not.NaN);
             Assert.That(actual.HeaveZValue, Is.Not.NaN);

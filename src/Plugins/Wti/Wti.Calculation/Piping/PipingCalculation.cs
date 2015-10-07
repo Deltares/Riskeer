@@ -26,6 +26,7 @@ namespace Wti.Calculation.Piping
         /// contains the results of all sub calculations.
         /// </summary>
         /// <returns>A <see cref="PipingCalculationResult"/> containing the results of the sub calculations.</returns>
+        /// <exception cref="PipingCalculationException">Thrown when any of the invocations of the sub-calculations from the kernel throws an Exception.</exception>
         public PipingCalculationResult Calculate()
         {
             try

@@ -32,6 +32,7 @@
 
         /// <summary>
         /// Gets the volumetric weight of water.
+        /// [kN/m&#179;]
         /// </summary>
         public double WaterVolumetricWeight
         {
@@ -54,6 +55,7 @@
 
         /// <summary>
         /// Gets the outside high water level.
+        /// [m]
         /// </summary>
         public double AssessmentLevel
         {
@@ -65,6 +67,7 @@
 
         /// <summary>
         /// Gets the piezometric head at the exit point.
+        /// [m]
         /// </summary>
         public double PiezometricHeadExit
         {
@@ -87,6 +90,7 @@
 
         /// <summary>
         /// Gets the phreatic level at the exit point.
+        /// [m]
         /// </summary>
         public double PhreaticLevelExit
         {
@@ -98,6 +102,7 @@
 
         /// <summary>
         /// Gets the piezometric head in the hinterland.
+        /// [m]
         /// </summary>
         public double PiezometricHeadPolder
         {
@@ -120,6 +125,7 @@
 
         /// <summary>
         /// Gets the total thickness of the coverage layer at the exit point.
+        /// [m]
         /// </summary>
         public double ThicknessCoverageLayer
         {
@@ -152,6 +158,7 @@
 
         /// <summary>
         /// Gets the horizontal distance between entree and exit point.
+        /// [m]
         /// </summary>
         public double SeepageLength
         {
@@ -163,6 +170,7 @@
 
         /// <summary>
         /// Gets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
+        /// [kN/m&#179;]
         /// </summary>
         public double SandParticlesVolumicWeight
         {
@@ -185,6 +193,7 @@
 
         /// <summary>
         /// Gets the sieve size through which 70% fraction of the grains of the top part of the aquifer passes.
+        /// [m]
         /// </summary>
         public double Diameter70
         {
@@ -196,6 +205,7 @@
 
         /// <summary>
         /// Gets the Darcy-speed with which water flows through the aquifer layer.
+        /// [m/s]
         /// </summary>
         public double DarcyPermeability
         {
@@ -207,6 +217,7 @@
 
         /// <summary>
         /// Gets the kinematic viscosity of water at 10 degrees Celsius.
+        /// [m&#178;/s]
         /// </summary>
         public double WaterKinematicViscosity
         {
@@ -218,6 +229,7 @@
 
         /// <summary>
         /// Gets the gravitational acceleration.
+        /// [m/s&#178;]
         /// </summary>
         public double Gravity
         {
@@ -229,6 +241,7 @@
 
         /// <summary>
         /// Gets the thickness of the aquifer layer.
+        /// [m]
         /// </summary>
         public double ThicknessAquiferLayer
         {
@@ -240,6 +253,7 @@
 
         /// <summary>
         /// Gets the mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.
+        /// [m]
         /// </summary>
         public double MeanDiameter70
         {
@@ -251,6 +265,7 @@
 
         /// <summary>
         /// Gets the angle of the force balance representing the amount in which sand grains resist rolling.
+        /// [&#176;]
         /// </summary>
         public double BeddingAngle
         {
@@ -262,6 +277,7 @@
 
         /// <summary>
         /// Gets the x coordinate of the exit point.
+        /// [m]
         /// </summary>
         public double ExitPointXCoordinate
         {
@@ -277,28 +293,28 @@
         /// Constructs a new <see cref="PipingCalculationInput"/>, which contains values for the parameters used
         /// in the piping sub calculations.
         /// </summary>
-        /// <param name="waterVolumetricWeight">The volumetric weight of water.</param>
+        /// <param name="waterVolumetricWeight">The volumetric weight of water. [kN/m&#179;]</param>
         /// <param name="upliftModelFactor">The calculation value used to account for uncertainty in the model for uplift.</param>
-        /// <param name="assessmentLevel">The outside high water level.</param>
-        /// <param name="piezometricHeadExit">The piezometric head at the exit point.</param>
-        /// <param name="dampingFactorExit">The damping factor at the exit point.</param>
-        /// <param name="phreaticLevelExit">The phreatic level at the exit point.</param>
-        /// <param name="piezometricHeadPolder">The piezometric head in the hinterland.</param>
+        /// <param name="assessmentLevel">The outside high water level. [m]</param>
+        /// <param name="piezometricHeadExit">The piezometric head at the exit point. [m]</param>
+        /// <param name="dampingFactorExit">The damping factor at the exit point. </param>
+        /// <param name="phreaticLevelExit">The phreatic level at the exit point. [m]</param>
+        /// <param name="piezometricHeadPolder">The piezometric head in the hinterland. [m]</param>
         /// <param name="criticalHeaveGradient">The critical exit gradient for heave.</param>
-        /// <param name="thicknessCoverageLayer">The total thickness of the coverage layer at the exit point.</param>
+        /// <param name="thicknessCoverageLayer">The total thickness of the coverage layer at the exit point. [m]</param>
         /// <param name="sellmeijerModelFactor">The calculation value used to account for uncertainty in the model for Sellmeijer.</param>
         /// <param name="sellmeijerReductionFactor">The reduction factor Sellmeijer.</param>
-        /// <param name="seepageLength">The horizontal distance between entree and exit point.</param>
-        /// <param name="sandParticlesVolumicWeight">The (lowerbound) volumic weight of sand grain material of a sand layer under water.</param>
+        /// <param name="seepageLength">The horizontal distance between entree and exit point. [m]</param>
+        /// <param name="sandParticlesVolumicWeight">The (lowerbound) volumic weight of sand grain material of a sand layer under water. [kN/m&#179;]</param>
         /// <param name="whitesDragCoefficient">The White's drag coefficient.</param>
-        /// <param name="diameter70">The sieve size through which 70% fraction of the grains of the top part of the aquifer passes.</param>
-        /// <param name="darcyPermeability">The Darcy-speed with which water flows through the aquifer layer.</param>
-        /// <param name="waterKinematicViscosity">The kinematic viscosity of water at 10 degrees Celsius.</param>
-        /// <param name="gravity">The gravitational acceleration.</param>
-        /// <param name="thicknessAquiferLayer">The thickness of the aquifer layer.</param>
-        /// <param name="meanDiameter70">The mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit.</param>
-        /// <param name="beddingAngle">The angle of the force balance representing the amount in which sand grains resist rolling.</param>
-        /// <param name="exitPointXCoordinate">The x coordinate of the exit point.</param>
+        /// <param name="diameter70">The sieve size through which 70% fraction of the grains of the top part of the aquifer passes. [m]</param>
+        /// <param name="darcyPermeability">The Darcy-speed with which water flows through the aquifer layer. [m/s]</param>
+        /// <param name="waterKinematicViscosity">The kinematic viscosity of water at 10 degrees Celsius. [m&#178;/s]</param>
+        /// <param name="gravity">The gravitational acceleration. [m/s&#178;]</param>
+        /// <param name="thicknessAquiferLayer">The thickness of the aquifer layer. [m]</param>
+        /// <param name="meanDiameter70">The mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit. [m]</param>
+        /// <param name="beddingAngle">The angle of the force balance representing the amount in which sand grains resist rolling. [&#176;]</param>
+        /// <param name="exitPointXCoordinate">The x coordinate of the exit point. [m]</param>
         public PipingCalculationInput(double waterVolumetricWeight, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double piezometricHeadPolder, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate)
         {
             this.waterVolumetricWeight = waterVolumetricWeight;
