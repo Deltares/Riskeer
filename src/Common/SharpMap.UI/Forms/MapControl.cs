@@ -234,12 +234,9 @@ namespace SharpMap.UI.Forms
         [InvokeRequired]
         public override void Refresh()
         {
-            if (inRefresh)
-                return;
-
-            if (!DelayedEventHandlerController.FireEvents || disposed)
+            if (inRefresh || disposed)
             {
-                return; //no refreshing..bleh
+                return;
             }
             
             if (refreshTimer != null)
@@ -585,11 +582,6 @@ namespace SharpMap.UI.Forms
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            //HACK: check if this works and then move this code/logic elsewhere
-            if (!DelayedEventHandlerController.FireEvents)
-            {
-                return;//stop painting..
-            }
             if (Map == null || Map.Image == null)
             {
                 return;

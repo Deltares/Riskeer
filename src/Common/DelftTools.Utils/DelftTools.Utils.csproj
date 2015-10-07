@@ -266,7 +266,6 @@
     <Compile Include="Remoting\RemoteInstanceContainer.cs" />
     <Compile Include="SnappingCalculator.cs" />
     <Compile Include="TextDocument.cs" />
-    <Compile Include="Threading\DelayedEventHandler.cs" />
     <Compile Include="DeltaShellDateTimeConverter.cs" />
     <Compile Include="Drawing\ColorHelper.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
@@ -289,7 +288,6 @@
     <Compile Include="Reflection\TypeUtils.cs" />
     <Compile Include="RegularExpressions\RegularExpression.cs" />
     <Compile Include="StringExtensions.cs" />
-    <Compile Include="Threading\DelayedEventHandlerController.cs" />
     <Compile Include="Threading\QueueStateChangedEventArgs.cs" />
     <Compile Include="Threading\ThreadsafeBindingList.cs" />
     <Compile Include="Tuple.cs" />

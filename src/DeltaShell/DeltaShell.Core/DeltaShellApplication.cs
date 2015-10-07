@@ -82,7 +82,6 @@ namespace DeltaShell.Core
             plugins = new List<ApplicationPlugin>();
 
             ActivityRunner = new ActivityRunner();
-            ActivityRunner.IsRunningChanged += ActivityRunnerIsRunningChanged;
 
             if (RunningActivityLogAppender.Instance != null)
             {
@@ -101,12 +100,6 @@ namespace DeltaShell.Core
             //HACK : this is needed because of issue 4382...the black boxes in PG. It seem like the assembly for 
             //enum types like AggregationOptions cannot be found without this 
             return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(asm => asm.FullName == args.Name);
-        }
-
-        void ActivityRunnerIsRunningChanged(object sender, EventArgs e)
-        {
-            //don't fire events while running models
-            DelayedEventHandlerController.FireEvents = !ActivityRunner.IsRunning;
         }
 
         public ApplicationPlugin GetPluginForType(Type type)
@@ -842,8 +835,6 @@ namespace DeltaShell.Core
             {
                 if (disposing)
                 {
-                    ActivityRunner.IsRunningChanged -= ActivityRunnerIsRunningChanged;
-
                     CloseProject();  
                     
                     projectBeingCreated = null;

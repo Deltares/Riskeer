@@ -154,9 +154,6 @@
     <Compile Include="ConversionHelperTest.cs" />
     <Compile Include="DateTimeExtensionsTests.cs" />
     <Compile Include="DateTimeFormatGuesserTest.cs" />
-    <Compile Include="DelayedEventHandlerTest.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="DeltaShellTimeSpanConverterTest.cs" />
     <Compile Include="ExcelFormulaTest.cs" />
     <Compile Include="General\TypeConverterTest.cs" />
