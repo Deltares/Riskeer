@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="IContextMenuProvider.cs" />
     <Compile Include="PipingContextMenuStrip.cs">
       <SubType>Component</SubType>
@@ -79,6 +82,9 @@
       <Project>{7CD038E1-E111-4969-ACED-22C5BD2974E1}</Project>
       <Name>Wti.Forms</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AssemblyInfo.cs.svn" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

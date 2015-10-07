@@ -46,6 +46,9 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\..\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="NodePresenters\PipingOutputNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingDataNodePresenter.cs" />
     <Compile Include="NodePresenters\WtiProjectNodePresenter.cs" />
@@ -98,6 +101,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\AssemblyInfo.cs.svn" />
     <None Include="Resources\folder-stand.png" />
   </ItemGroup>
   <ItemGroup>

@@ -88,6 +88,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="DeltaShellApplication.cs" />
     <Compile Include="DeltaShellApplicationSettings.cs" />
     <Compile Include="ForceLocalAddinFileSystemExtension.cs" />
@@ -109,6 +112,7 @@
     </None>
     <None Include="DelftTools.snk" />
     <None Include="packages.config" />
+    <None Include="Properties\AssemblyInfo.cs.svn" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
