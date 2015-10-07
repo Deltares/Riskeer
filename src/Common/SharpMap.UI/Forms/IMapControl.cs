@@ -20,7 +20,13 @@ namespace SharpMap.UI.Forms
         SelectTool SelectTool { get; }
         
         SnapTool SnapTool { get; }
-        
+
+        /// <summary>
+        /// Gets the name of the tool by.
+        /// </summary>
+        /// <param name="toolName">Name of the tool.</param>
+        /// <returns>An instance of IMapTool matching the given name, or null if no match was found.</returns>
+        /// <remarks>Do not throw ArgumentOutOfRangeException UI handlers (button checked) can ask for not existing tool</remarks>
         IMapTool GetToolByName(string toolName);
 
         T GetToolByType<T>() where T : class;

@@ -45,11 +45,10 @@ namespace SharpMap.UI.Forms
         // TODO: fieds below should be moved to some more specific tools?
         private bool disposed;
         private bool disposingActive;
+        private bool inRefresh;
         private Map map;
-        private DelayedEventHandler<NotifyCollectionChangingEventArgs> mapCollectionChangedEventHandler;
-        private DelayedEventHandler<PropertyChangedEventArgs> mapPropertyChangedEventHandler;
         private IList<IFeature> selectedFeatures = new List<IFeature>();
-        private Timer refreshTimer = new Timer() { Interval = 300 };
+        private Timer refreshTimer = new Timer { Interval = 300 };
         
         /// <summary>
         /// Initializes a new map
@@ -62,32 +61,6 @@ namespace SharpMap.UI.Forms
             base.AllowDrop = true;
 
             CreateMapTools();
-
-            mapPropertyChangedEventHandler =
-                new DelayedEventHandler<PropertyChangedEventArgs>(MapPropertyChangedDelayed)
-                    {
-                        SynchronizingObject = this,
-                        FireLastEventOnly = true,
-                        Delay = 300,
-                        Filter = (sender, e) => sender is ILayer ||
-                                                sender is VectorStyle ||
-                                                sender is ITheme ||
-                                                sender is IList<ILayer>,
-                        Enabled = false
-                    };
-
-            mapCollectionChangedEventHandler =
-                new DelayedEventHandler<NotifyCollectionChangingEventArgs>(MapCollectionChangedDelayed)
-                    {
-                        SynchronizingObject = this,
-                        FireLastEventOnly = true,
-                        Delay = 300,
-                        FullRefreshEventHandler = (sender, e) => OnFullRefresh(sender, e),
-                        Filter = (sender, e) => sender is Map ||
-                                                sender is ILayer ||
-                                                sender is IList<ILayer>,
-                        Enabled = false
-                    };
             
             Width = 100;
             Height = 100;
@@ -220,24 +193,11 @@ namespace SharpMap.UI.Forms
             }
         }
 
-        public bool IsProcessing
-        {
-            get
-            {
-                var processingPropertyChangedEvents = mapPropertyChangedEventHandler != null &&
-                                                      (mapPropertyChangedEventHandler.IsRunning || mapPropertyChangedEventHandler.HasEventsToProcess);
-
-                var processingCollectionChangedEvents = mapCollectionChangedEventHandler != null &&
-                                                        (mapCollectionChangedEventHandler.IsRunning || mapCollectionChangedEventHandler.HasEventsToProcess);
-
-                return processingPropertyChangedEvents || processingCollectionChangedEvents;
-            }
-        }
+        public bool IsProcessing { get { return false; } }
 
         public IMapTool GetToolByName(string toolName)
         {
             return Tools.SingleOrDefault(tool => tool.Name == toolName);
-            // Do not throw ArgumentOutOfRangeException UI handlers (button checked) can ask for not existing tool
         }
 
         public T GetToolByType<T>() where T : class
@@ -267,8 +227,6 @@ namespace SharpMap.UI.Forms
                 ToolActivated(this, new EventArgs<IMapTool>(tool));
             }
         }
-
-        private bool inRefresh = false;
 
         /// <summary>
         /// Refreshes the map
@@ -354,24 +312,24 @@ namespace SharpMap.UI.Forms
                 ColorMatrix colorMatrix;
                 if (good)
                 {
-                    colorMatrix = new ColorMatrix(new float[][]
-                        {
-                            new float[] {1.0f, 0.0f, 0.0f, 0.0f, 0.0f}, // red scaling of 1
-                            new float[] {0.0f, 1.0f, 0.0f, 0.0f, 0.0f}, // green scaling of 1
-                            new float[] {0.0f, 0.0f, 1.0f, 0.0f, 0.0f}, // blue scaling of 1
-                            new float[] {0.0f, 0.0f, 0.0f, 0.5f, 0.0f}, // alpha scaling of 0.5
-                            new float[] {0.0f, 0.0f, 0.0f, 0.0f, 1.0f}
+                    colorMatrix = new ColorMatrix(new[]
+                    {
+                            new [] {1.0f, 0.0f, 0.0f, 0.0f, 0.0f}, // red scaling of 1
+                            new [] {0.0f, 1.0f, 0.0f, 0.0f, 0.0f}, // green scaling of 1
+                            new [] {0.0f, 0.0f, 1.0f, 0.0f, 0.0f}, // blue scaling of 1
+                            new [] {0.0f, 0.0f, 0.0f, 0.5f, 0.0f}, // alpha scaling of 0.5
+                            new [] {0.0f, 0.0f, 0.0f, 0.0f, 1.0f}
                         });
                 }
                 else
                 {
-                    colorMatrix = new ColorMatrix(new float[][]
+                    colorMatrix = new ColorMatrix(new []
                         {
-                            new float[] {2.0f, 0.0f, 0.0f, 0.0f, 0.0f}, // red scaling of 2
-                            new float[] {0.0f, 1.0f, 0.0f, 0.0f, 0.0f}, // green scaling of 1
-                            new float[] {0.0f, 0.0f, 1.0f, 0.0f, 0.0f}, // blue scaling of 1
-                            new float[] {0.0f, 0.0f, 0.0f, 0.5f, 0.0f}, // alpha scaling of 0.5
-                            new float[] {1.0f, 0.0f, 0.0f, 0.0f, 1.0f}
+                            new [] {2.0f, 0.0f, 0.0f, 0.0f, 0.0f}, // red scaling of 2
+                            new [] {0.0f, 1.0f, 0.0f, 0.0f, 0.0f}, // green scaling of 1
+                            new [] {0.0f, 0.0f, 1.0f, 0.0f, 0.0f}, // blue scaling of 1
+                            new [] {0.0f, 0.0f, 0.0f, 0.5f, 0.0f}, // alpha scaling of 0.5
+                            new [] {1.0f, 0.0f, 0.0f, 0.0f, 1.0f}
                         });
                 }
 
@@ -396,19 +354,8 @@ namespace SharpMap.UI.Forms
             base.OnResize(e);
         }
 
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            base.OnHandleCreated(e);
-
-            mapPropertyChangedEventHandler.Enabled = true;
-            mapCollectionChangedEventHandler.Enabled = true;
-        }
-
         protected override void OnHandleDestroyed(EventArgs e)
         {
-            mapPropertyChangedEventHandler.Enabled = false;
-            mapCollectionChangedEventHandler.Enabled = false;
-
             if (refreshTimer != null)
             {
                 refreshTimer.Tick -= RefreshTimerTick;
@@ -696,9 +643,6 @@ namespace SharpMap.UI.Forms
 
                 Cursor = null;
 
-                mapPropertyChangedEventHandler.Enabled = false;
-                mapCollectionChangedEventHandler.Enabled = false;
-
                 if (refreshTimer != null)
                 {
                     refreshTimer.Tick -= RefreshTimerTick;
@@ -706,9 +650,6 @@ namespace SharpMap.UI.Forms
                     refreshTimer.Dispose();
                     refreshTimer = null;
                 }
-
-                mapCollectionChangedEventHandler.Dispose();
-                mapPropertyChangedEventHandler.Dispose();
 
                 base.Dispose(disposing);
             }
@@ -812,16 +753,16 @@ namespace SharpMap.UI.Forms
 
         private void UnSubscribeMapEvents()
         {
-            map.CollectionChanged -= mapCollectionChangedEventHandler;
-            ((INotifyPropertyChanged)map).PropertyChanged -= mapPropertyChangedEventHandler;
+            map.CollectionChanged -= MapCollectionChangedDelayed;
+            ((INotifyPropertyChanged)map).PropertyChanged -= MapPropertyChangedDelayed;
             map.MapRendered -= OnMapRendered;
             map.MapLayerRendered -= OnMapLayerRendered;
         }
 
         private void SubScribeMapEvents()
         {
-            map.CollectionChanged += mapCollectionChangedEventHandler;
-            ((INotifyPropertyChanged)map).PropertyChanged += mapPropertyChangedEventHandler;
+            map.CollectionChanged += MapCollectionChangedDelayed;
+            ((INotifyPropertyChanged)map).PropertyChanged += MapPropertyChangedDelayed;
             map.MapRendered += OnMapRendered;
             map.MapLayerRendered += OnMapLayerRendered;
         }
@@ -865,14 +806,17 @@ namespace SharpMap.UI.Forms
 
         private void MapPropertyChangedDelayed(object sender, PropertyChangedEventArgs e)
         {
-            if (IsDisposed || !IsHandleCreated) // must be called before InvokeRequired
+            if (sender is ILayer || sender is VectorStyle || sender is ITheme || sender is IList<ILayer>)
             {
-                return;
+                if (IsDisposed || !IsHandleCreated) // must be called before InvokeRequired
+                {
+                    return;
+                }
+
+                //Log.DebugFormat("IsDisposed: {0}, IsHandleCreated: {1}, Disposing: {2}", IsDisposed, IsHandleCreated, Disposing);
+
+                MapPropertyChanged(sender, e);
             }
-
-            //Log.DebugFormat("IsDisposed: {0}, IsHandleCreated: {1}, Disposing: {2}", IsDisposed, IsHandleCreated, Disposing);
-
-            MapPropertyChanged(sender, e);
         }
 
         [InvokeRequired]
@@ -904,12 +848,17 @@ namespace SharpMap.UI.Forms
 
         private void MapCollectionChangedDelayed(object sender, NotifyCollectionChangingEventArgs e)
         {
-            if (IsDisposed || !IsHandleCreated) // must be called before InvokeRequired
+            if (sender is Map || sender is ILayer || sender is IList<ILayer>)
             {
-                return;
-            }
+                if (IsDisposed || !IsHandleCreated) // must be called before InvokeRequired
+                {
+                    return;
+                }
 
-            MapCollectionChanged(sender, e);
+                MapCollectionChanged(sender, e);
+
+                OnFullRefresh(sender, e);
+            }
         }
 
         [InvokeRequired]
