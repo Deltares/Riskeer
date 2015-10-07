@@ -140,12 +140,12 @@ namespace DeltaShell.Plugins.ProjectExplorer
 
         private void ApplicationProjectSaved(Project project)
         {
-
+            projectExplorer.EndWaitMode();
         }
 
         private void ApplicationOnProjectSaving(Project project)
         {
-
+            projectExplorer.BeginWaitMode();
         }
         
         private void ApplicationProjectClosed(Project project)

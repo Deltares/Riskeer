@@ -106,5 +106,15 @@ namespace DeltaShell.Plugins.ProjectExplorer
         public Image Image { get; set; }
         public void EnsureVisible(object item) { }
         public ViewInfo ViewInfo { get; set; }
+
+        public void EndWaitMode()
+        {
+            ProjectTreeView.EnableEvents();
+        }
+
+        public void BeginWaitMode()
+        {
+            ProjectTreeView.DisableEvents();
+        }
     }
 }

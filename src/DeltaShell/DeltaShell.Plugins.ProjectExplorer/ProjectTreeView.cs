@@ -299,6 +299,16 @@ namespace DeltaShell.Plugins.ProjectExplorer
             treeView.StartLabelEdit();
         }
 
+        public void EnableEvents()
+        {
+            treeView.EnableDataEventListeners();
+        }
+
+        public void DisableEvents()
+        {
+            treeView.DisableDataEventListeners(); // HACK: dangerous, all changes in the tree nodes during save won't be shown
+        }
+
         private void buttonsPropertiesClick(object sender, EventArgs e)
         {
             gui.CommandHandler.ShowProperties();
