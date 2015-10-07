@@ -12,7 +12,6 @@ namespace DelftTools.Controls.Swf.Csv
     {
         private SelectFileWizardPage fileSelectPage;
         private CsvToDataTableWizardPage csvSeparatorPage;
-        private DataTable finalTable;
         private ICsvDataSelectionWizardPage csvMappingPage;
         
         public CsvImportWizardDialog()

@@ -43,6 +43,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\Release\</OutputPath>

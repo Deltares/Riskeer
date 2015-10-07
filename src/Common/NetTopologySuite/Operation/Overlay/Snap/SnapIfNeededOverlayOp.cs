@@ -57,7 +57,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
             try
             {
                 result = OverlayOp.Overlay(geom[0], geom[1], opCode);
-                var isValid = true;
+                //var isValid = true;
                 // not needed if noding validation is used
                 //      boolean isValid = OverlayResultValidator.isValid(geom[0], geom[1], OverlayOp.INTERSECTION, result);
                 // if (isValid)

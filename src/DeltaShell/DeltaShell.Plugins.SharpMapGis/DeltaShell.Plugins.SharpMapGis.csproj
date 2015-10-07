@@ -119,7 +119,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -267,7 +266,6 @@
       <Properties InternalTargetFrameworkVersion="3.5" />
     </MonoDevelop>
   </ProjectExtensions>
-  <Import Project="..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets" Condition="Exists('..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets')" />
   <PropertyGroup>
     <PreBuildEvent>cmd /c $(SolutionDir)\svn_insert_version.cmd $(ProjectDir)\Properties</PreBuildEvent>
   </PropertyGroup>

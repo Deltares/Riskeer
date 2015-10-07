@@ -43,10 +43,8 @@ namespace DelftTools.Shell.Core
         /// retrieved by supported type, eg, in code. Use false for partial/composite importers and importers
         /// called from map tools etc. If true for TargetFileImporter, the importer is assumed to support
         /// both *new* and *into* modes.
-        /// 
-        /// HACK: REMOVE IT, KEEP DESIGN SIMPLE!
         /// </summary>
-        [Obsolete("HACK: REMOVE IT, KEEP DESIGN SIMPLE!")]
+        /// <remarks>HACK: REMOVE IT, KEEP DESIGN SIMPLE!</remarks>
         bool CanImportOnRootLevel { get; }
 
         /// <summary>
