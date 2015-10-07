@@ -49,8 +49,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (PropertyGrid));
 
-        private DelayedEventHandler<SelectedItemChangedEventArgs> guiSelectionChangedDelayedEventHandler;
-
         /// <summary>
         /// todo: This is still an unwanted dependency. PropertyGrid uses gui to subscribe to the SelectionChanged
         /// delegate and in responce queries the gui.Selection
@@ -75,13 +73,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             MinimumSize = new Size(200, 200);
             this.gui = gui;
 
-            guiSelectionChangedDelayedEventHandler = new DelayedEventHandler<SelectedItemChangedEventArgs>(GuiSelectionChanged)
-            {
-                FullRefreshEventHandler = GuiSelectionChanged,
-                FullRefreshEventsCount = 10,
-                Delay = 100,
-            };
-            gui.SelectionChanged += guiSelectionChangedDelayedEventHandler;
+            gui.SelectionChanged += GuiSelectionChanged;
 
             // TODO: make timer start only when property was changed and then stop
             refreshTimer = new Timer();

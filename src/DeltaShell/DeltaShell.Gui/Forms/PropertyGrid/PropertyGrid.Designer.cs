@@ -25,10 +25,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
             if (gui != null)
             {
-                gui.SelectionChanged -= guiSelectionChangedDelayedEventHandler;
-
-                guiSelectionChangedDelayedEventHandler.Enabled = false;
-                guiSelectionChangedDelayedEventHandler.Dispose();
+                gui.SelectionChanged -= GuiSelectionChanged;
             }
 
             if (notifiableProperty != null)
