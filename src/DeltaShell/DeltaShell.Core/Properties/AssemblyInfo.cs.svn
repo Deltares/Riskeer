@@ -38,5 +38,5 @@ using System.Security.Permissions;
 // 
 // if revision is defined like 1234:1235M - the last number is used
 
-[assembly: AssemblyVersion("1.0.4.SVNREV")]
-[assembly: AssemblyFileVersion("1.0.4.SVNREV")]
+[assembly: AssemblyVersion("0.5.0.SVNREV")]
+[assembly: AssemblyFileVersion("0.5.0.SVNREV")]
