@@ -11,6 +11,11 @@ namespace DelftTools.Shell.Core.Workflow
         private string progressText;
         private ActivityStatus status;
 
+        protected Activity()
+        {
+            DependsOn = new EventedList<IActivity>();
+        }
+
         public virtual string Name { get; set; }
 
         public virtual IEventedList<IActivity> DependsOn { get; set; }
@@ -36,11 +41,6 @@ namespace DelftTools.Shell.Core.Workflow
         public virtual string ProgressText
         {
             get { return progressText; }
-        }
-
-        protected Activity()
-        {
-            DependsOn = new EventedList<IActivity>();
         }
 
         public virtual void Initialize()
@@ -84,7 +84,6 @@ namespace DelftTools.Shell.Core.Workflow
 
             Status = ActivityStatus.Executed;
         }
-
 
         public virtual void Cancel()
         {
