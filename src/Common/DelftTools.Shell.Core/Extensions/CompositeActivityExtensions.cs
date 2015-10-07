@@ -3,16 +3,25 @@ using DelftTools.Shell.Core.Workflow;
 
 namespace DelftTools.Shell.Core.Extensions
 {
+    /// <summary>
+    /// Extension methods for <see cref="ICompositeActivity"/>.
+    /// </summary>
     public static class CompositeActivityExtensions
     {
-        public static IEnumerable<T> GetAllActivitiesRecursive<T>(this ICompositeActivity compositeModel) where T : IActivity
+        /// <summary>
+        /// Gets all activities recursively matching a given type.
+        /// </summary>
+        /// <typeparam name="T">The type of activity to be matched for.</typeparam>
+        /// <param name="compositeActivity">The composite activity.</param>
+        /// <returns>An iterator over all activities implementing/inheriting <typeparamref name="T"/>.</returns>
+        public static IEnumerable<T> GetAllActivitiesRecursive<T>(this ICompositeActivity compositeActivity) where T : IActivity
         {
-            if (compositeModel is T)
+            if (compositeActivity is T)
             {
-                yield return (T) compositeModel;
+                yield return (T) compositeActivity;
             }
 
-            foreach (var subActivity in compositeModel.Activities)
+            foreach (var subActivity in compositeActivity.Activities)
             {
                 var compActivity = subActivity as ICompositeActivity;
                 if (compActivity != null)
@@ -30,32 +39,6 @@ namespace DelftTools.Shell.Core.Extensions
                     }
                 }
             }
-        }
-
-        private static ICompositeActivity GetParentActivity(IActivity workflow, IActivity targetActivity)
-        {
-            var compositeWorkflow = workflow as ICompositeActivity;
-            if (compositeWorkflow == null)
-            {
-                return null;
-            }
-
-            foreach (var a in compositeWorkflow.Activities)
-            {
-                if (a == targetActivity)
-                {
-                    return compositeWorkflow;
-                }
-
-                var parent = GetParentActivity(a, targetActivity);
-
-                if (parent != null)
-                {
-                    return parent;
-                }
-            }
-
-            return null;
         }
     }
 }

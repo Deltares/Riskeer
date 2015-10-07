@@ -6,29 +6,29 @@ using System.Resources;
 namespace DelftTools.Shell.Core
 {
     /// <summary>
-    /// Provides default functionality making it easier to implement IPlugin.
+    /// Provides default functionality making it easier to implement <see cref="IPlugin"/>.
     /// Handles Active status in activate/deactivate.
     /// </summary>
     public abstract class ApplicationPlugin : IPlugin
     {
         /// <summary>
         ///  Gets the name of the plugin.
-        ///  <value>The name.</value></summary>
+        /// </summary>
         public abstract string Name { get; }
 
         /// <summary>
-        ///  Gets the name of the plugin as displayed in the Gui.
-        ///  <value>The name.</value></summary>
+        ///  Gets the name of the plugin as displayed in the user interface.
+        /// </summary>
         public abstract string DisplayName { get; }
 
         /// <summary>
-        ///  Gets the description.
-        ///  <value>The description.</value></summary>
+        ///  Gets the description of the plugin.
+        /// </summary>
         public abstract string Description { get; }
 
         /// <summary>
         ///  Gets the version of the plugin.
-        ///  <value>The version.</value></summary>
+        /// </summary>
         public abstract string Version { get; }
 
         /// <summary>

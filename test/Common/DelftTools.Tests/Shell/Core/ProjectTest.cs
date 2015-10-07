@@ -1,5 +1,10 @@
+using System.ComponentModel;
+
 using DelftTools.Shell.Core;
+
 using NUnit.Framework;
+
+using Rhino.Mocks;
 
 namespace DelftTools.Tests.Shell.Core
 {
@@ -7,17 +12,100 @@ namespace DelftTools.Tests.Shell.Core
     public class ProjectTest
     {
         [Test]
-        public void CreateWithDefaultName()
+        public void DefaultConstructor_ExpectedValue()
         {
+            // call
             var project = new Project();
+
+            // assert
+            Assert.IsInstanceOf<INotifyPropertyChanging>(project);
+            Assert.IsInstanceOf<INotifyPropertyChanged>(project);
+            Assert.IsInstanceOf<IObservable>(project);
+
             Assert.AreEqual("Project", project.Name);
+            Assert.IsNull(project.Description);
+            CollectionAssert.IsEmpty(project.Items);
+            Assert.IsFalse(project.IsChanged);
+            Assert.IsFalse(project.IsTemporary);
         }
 
         [Test]
-        public void CreateWithCustomName()
+        public void NameConstructor_SetNameAndInitializeOtherProperties()
         {
-            var project = new Project("Test Project");
-            Assert.AreEqual(project.Name, "Test Project");
+            // setup
+            const string someName = "<Some name>";
+
+            // call
+            var project = new Project(someName);
+
+            // assert
+            Assert.AreEqual(someName, project.Name);
+            Assert.IsNull(project.Description);
+            CollectionAssert.IsEmpty(project.Items);
+            Assert.IsFalse(project.IsChanged);
+            Assert.IsFalse(project.IsTemporary);
+        }
+
+        [Test]
+        public void AutomaticProperties_SetAndGettingValue_ShouldReturnSetValue()
+        {
+            // setup & Call
+            const string niceProjectName = "Nice project name";
+            const string nicerDescription = "Nicer description";
+
+            var project = new Project
+            {
+                Name = niceProjectName,
+                Description = nicerDescription,
+                IsChanged = true,
+                IsTemporary = true
+            };
+
+            // assert
+            Assert.AreEqual(niceProjectName, project.Name);
+            Assert.AreEqual(nicerDescription, project.Description);
+            Assert.IsTrue(project.IsChanged);
+            Assert.IsTrue(project.IsTemporary);
+        }
+
+        [Test]
+        public void NotifyObservers_WithObserverAttached_ObserverIsNotified()
+        {
+            // setup
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var project = new Project();
+            project.Attach(observerMock);
+
+            // call
+            project.NotifyObservers();
+
+            // assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void NotifyObservers_AttachedObserverHasBeenDetached_ObserverShouldNoLongerBeNotified()
+        {
+            // setup
+            var mocks = new MockRepository();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Once();
+            mocks.ReplayAll();
+
+            var project = new Project();
+            project.Attach(observerMock);
+            project.NotifyObservers();
+
+            // call
+            project.Detach(observerMock);
+            project.NotifyObservers();
+
+            // assert
+            mocks.VerifyAll();
         }
     }
 }

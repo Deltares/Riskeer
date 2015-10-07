@@ -10,13 +10,6 @@ namespace DelftTools.Shell.Core
     [Entity(FireOnCollectionChange = false)]
     public class Project : IObservable
     {
-        private string name;
-        private string description;
-
-        private bool isChanged;
-        private bool isTemporary;
-        private bool isMigrated;
-
         /// <summary>
         /// Creates instance of the Project.
         /// </summary>
@@ -25,12 +18,12 @@ namespace DelftTools.Shell.Core
         }
 
         /// <summary>
-        /// Creates instance of the Project using the supplied <paramref name="name"/>.
+        /// Creates instance of the project using the supplied <paramref name="name"/>.
         /// </summary>
         /// <param name="name">Readable name of the project.</param>
         public Project(string name)
         {
-            this.name = name;
+            Name = name;
 
             Items = new EventedList<object>();
         }
@@ -38,20 +31,12 @@ namespace DelftTools.Shell.Core
         /// <summary>
         /// Gets or sets a readable name of the project.
         /// </summary>
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets description of the project.
         /// </summary>
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
+        public string Description { get; set; }
 
         /// <summary>
         /// The items in the project.
@@ -61,20 +46,12 @@ namespace DelftTools.Shell.Core
         /// <summary>
         /// True if project has changes.
         /// </summary>
-        public bool IsChanged
-        {
-            get { return isChanged; }
-            set { isChanged = value; }
-        }
+        public bool IsChanged { get; set; }
 
         /// <summary>
         /// True if project is temporary.
         /// </summary>
-        public bool IsTemporary
-        {
-            get { return isTemporary; }
-            set { isTemporary = value; }
-        }
+        public bool IsTemporary { get; set; }
 
         # region IObservable
 

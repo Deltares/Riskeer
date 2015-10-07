@@ -146,7 +146,6 @@
     <Compile Include="Dao\IProjectRepositoryListener.cs" />
     <Compile Include="Dao\IProjectTemplateFileBuilder.cs" />
     <Compile Include="Extensions\CompositeActivityExtensions.cs" />
-    <Compile Include="Extensions\FilePathHandler.cs" />
     <Compile Include="IObservable.cs" />
     <Compile Include="IObserver.cs" />
     <Compile Include="IPlugin.cs" />
@@ -163,7 +162,6 @@
     <Compile Include="Workflow\IActivityRunner.cs" />
     <Compile Include="IProjectItemExporter.cs" />
     <Compile Include="IProjectItem.cs" />
-    <Compile Include="Extensions\ProjectItemExtensions.cs" />
     <Compile Include="IProjectImporter.cs" />
     <Compile Include="ApplicationPlugin.cs" />
     <Compile Include="Dao\IDataAccessListener.cs" />

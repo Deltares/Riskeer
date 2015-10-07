@@ -179,7 +179,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Shell\Core\ApplicationPluginTest.cs" />
     <Compile Include="Shell\Core\DataItemInfoTest.cs" />
+    <Compile Include="Shell\Core\Extensions\CompositeActivityExtensionsTest.cs" />
     <Compile Include="Shell\Core\WorkFlow\BackgroundWorkerTest.cs" />
     <Compile Include="Shell\Core\WorkFlow\CompositeActivityTest.cs" />
     <Compile Include="Shell\Core\WorkFlow\FileImportActivityTest.cs" />
