@@ -163,7 +163,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UML", "src\documentation\UML\UML.csproj", "{4AD99020-8612-46E5-A313-F9ADA7B196E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Base", "Wti.Base\Wti.Base.csproj", "{C90B77DA-E421-43CC-B82E-529651BC21AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Base", "src\Common\Wti.Base\Wti.Base.csproj", "{C90B77DA-E421-43CC-B82E-529651BC21AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

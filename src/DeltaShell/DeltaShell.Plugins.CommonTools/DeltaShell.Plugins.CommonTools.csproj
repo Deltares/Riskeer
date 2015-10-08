@@ -92,10 +92,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Wti.Base\Wti.Base.csproj">
-      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
-      <Name>Wti.Base</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
       <Project>{82B61D20-FD4B-49BE-9252-5BF6E3EE4666}</Project>
       <Name>DelftTools.Shell.Core</Name>
