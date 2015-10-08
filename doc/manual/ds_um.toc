@@ -1,42 +1,60 @@
+\select@language {dutch}
 \contentsline {chapter}{\numberline {1}A guide to this manual}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Introduction}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Overview}{1}{section.1.2}
+\contentsline {section}{\numberline {1.1}Inleiding}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Overzicht}{1}{section.1.2}
 \contentsline {section}{\numberline {1.3}Manual version and revisions}{1}{section.1.3}
 \contentsline {section}{\numberline {1.4}Typographical conventions}{1}{section.1.4}
 \contentsline {section}{\numberline {1.5}Changes with respect to previous versions}{2}{section.1.5}
-\contentsline {chapter}{\numberline {2}Background}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}About the framework}{3}{section.2.1}
-\contentsline {section}{\numberline {2.2}Framework: Vision Statement}{5}{section.2.2}
-\contentsline {section}{\numberline {2.3}Overall Architecture}{5}{section.2.3}
-\contentsline {chapter}{\numberline {3}General overview of the GUI}{7}{chapter.3}
-\contentsline {section}{\numberline {3.1}Windows}{7}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Project}{8}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Main (central) window}{9}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}Map}{10}{subsection.3.1.3}
-\contentsline {subsection}{\numberline {3.1.4}Data}{11}{subsection.3.1.4}
-\contentsline {subsection}{\numberline {3.1.5}Chart}{12}{subsection.3.1.5}
-\contentsline {subsection}{\numberline {3.1.6}Properties}{12}{subsection.3.1.6}
-\contentsline {subsection}{\numberline {3.1.7}Messages}{13}{subsection.3.1.7}
-\contentsline {section}{\numberline {3.2}Dockable views}{13}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Docking tabs separately}{13}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Multiple tabs}{14}{subsection.3.2.2}
-\contentsline {section}{\numberline {3.3}Context menus}{16}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Project}{16}{subsection.3.3.1}
-\contentsline {subsubsection}{\numberline {3.3.1.1}Project level}{16}{subsubsection.3.3.1.1}
-\contentsline {subsubsection}{\numberline {3.3.1.2}Other level still to come}{17}{subsubsection.3.3.1.2}
-\contentsline {subsubsection}{\numberline {3.3.1.3}Other items}{17}{subsubsection.3.3.1.3}
-\contentsline {subsection}{\numberline {3.3.2}Main (Central Map window)}{17}{subsection.3.3.2}
-\contentsline {subsubsection}{\numberline {3.3.2.1}Table editor}{18}{subsubsection.3.3.2.1}
-\contentsline {subsubsection}{\numberline {3.3.2.2}Charts}{18}{subsubsection.3.3.2.2}
-\contentsline {subsection}{\numberline {3.3.3}Map}{18}{subsection.3.3.3}
-\contentsline {subsection}{\numberline {3.3.4}Messages}{19}{subsection.3.3.4}
-\contentsline {section}{\numberline {3.4}Ribbons and toolbars}{19}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Ribbons (hot keys)}{19}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}File}{20}{subsection.3.4.2}
-\contentsline {subsection}{\numberline {3.4.3}Home}{21}{subsection.3.4.3}
-\contentsline {subsection}{\numberline {3.4.4}View}{21}{subsection.3.4.4}
-\contentsline {subsection}{\numberline {3.4.5}Tools}{22}{subsection.3.4.5}
-\contentsline {subsection}{\numberline {3.4.6}Map}{22}{subsection.3.4.6}
-\contentsline {subsection}{\numberline {3.4.7}Scripting}{23}{subsection.3.4.7}
-\contentsline {subsection}{\numberline {3.4.8}Shortcuts}{24}{subsection.3.4.8}
-\contentsline {subsection}{\numberline {3.4.9}Quick access toolbar}{24}{subsection.3.4.9}
+\contentsline {chapter}{\numberline {2}Installatie}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Inleiding}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Systeemeisen}{3}{section.2.2}
+\contentsline {section}{\numberline {2.3}WTI installeren en opstarten}{3}{section.2.3}
+\contentsline {chapter}{\numberline {3}Projecten, schermen en schermindeling}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Project structuur}{5}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Item}{6}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Model}{6}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Folder}{7}{subsection.3.1.3}
+\contentsline {section}{\numberline {3.2}Interface onderdelen}{7}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Hoofdvenster}{8}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Docking en aanpassen van vensters}{9}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Ribbon}{10}{subsection.3.2.3}
+\contentsline {subsection}{\numberline {3.2.4}Project}{14}{subsection.3.2.4}
+\contentsline {subsection}{\numberline {3.2.5}Map}{15}{subsection.3.2.5}
+\contentsline {subsection}{\numberline {3.2.6}Map toolvenster}{16}{subsection.3.2.6}
+\contentsline {subsection}{\numberline {3.2.7}Chart toolvenster}{17}{subsection.3.2.7}
+\contentsline {subsection}{\numberline {3.2.8}Properties}{17}{subsection.3.2.8}
+\contentsline {subsection}{\numberline {3.2.9}Time Navigator}{18}{subsection.3.2.9}
+\contentsline {subsection}{\numberline {3.2.10}Messages}{19}{subsection.3.2.10}
+\contentsline {section}{\numberline {3.3}Import \ Export}{20}{section.3.3}
+\contentsline {chapter}{\numberline {4}General overview of the GUI}{21}{chapter.4}
+\contentsline {section}{\numberline {4.1}Windows}{21}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Project}{22}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Main (central) window}{23}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.3}Map}{24}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.4}Data}{25}{subsection.4.1.4}
+\contentsline {subsection}{\numberline {4.1.5}Chart}{26}{subsection.4.1.5}
+\contentsline {subsection}{\numberline {4.1.6}Properties}{26}{subsection.4.1.6}
+\contentsline {subsection}{\numberline {4.1.7}Messages}{27}{subsection.4.1.7}
+\contentsline {section}{\numberline {4.2}Dockable views}{27}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Docking tabs separately}{27}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Multiple tabs}{28}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Context menus}{30}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Project}{30}{subsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.1.1}Project level}{30}{subsubsection.4.3.1.1}
+\contentsline {subsubsection}{\numberline {4.3.1.2}Other level still to come}{31}{subsubsection.4.3.1.2}
+\contentsline {subsubsection}{\numberline {4.3.1.3}Other items}{31}{subsubsection.4.3.1.3}
+\contentsline {subsection}{\numberline {4.3.2}Main (Central Map window)}{31}{subsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.2.1}Table editor}{32}{subsubsection.4.3.2.1}
+\contentsline {subsubsection}{\numberline {4.3.2.2}Charts}{32}{subsubsection.4.3.2.2}
+\contentsline {subsection}{\numberline {4.3.3}Map}{32}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Messages}{33}{subsection.4.3.4}
+\contentsline {section}{\numberline {4.4}Ribbons and toolbars}{33}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Ribbons (hot keys)}{33}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}File}{34}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {4.4.3}Home}{35}{subsection.4.4.3}
+\contentsline {subsection}{\numberline {4.4.4}View}{35}{subsection.4.4.4}
+\contentsline {subsection}{\numberline {4.4.5}Tools}{36}{subsection.4.4.5}
+\contentsline {subsection}{\numberline {4.4.6}Map}{36}{subsection.4.4.6}
+\contentsline {subsection}{\numberline {4.4.7}Scripting}{37}{subsection.4.4.7}
+\contentsline {subsection}{\numberline {4.4.8}Shortcuts}{38}{subsection.4.4.8}
+\contentsline {subsection}{\numberline {4.4.9}Quick access toolbar}{38}{subsection.4.4.9}

@@ -7,6 +7,6 @@ MainFile=ds_um.tex
 UseBibTeX=1
 UseMakeIndex=0
 ActiveProfile=LaTeX ⇨ PDF
-ProjectLanguage=en
-ProjectDialect=US
+ProjectLanguage=nl
+ProjectDialect=NL
 

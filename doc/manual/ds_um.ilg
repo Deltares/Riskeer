@@ -1,6 +1,6 @@
 This is makeindex, version 2.15 [MiKTeX 2.9 64-bit] (kpathsea + Thai support).
-Scanning style file C:/Users/rodriqu_dd/AppData/Roaming/MiKTeX/2.9/makeindex/deltares/deltares_nomentbl.ist...............
-** Input style error (file = C:/Users/rodriqu_dd/AppData/Roaming/MiKTeX/2.9/makeindex/deltares/deltares_nomentbl.ist, line = 51):
+Scanning style file C:/Users/rodriqu_dd/AppData/Roaming/MiKTeX/2.9/makeindex/deltares/deltares_nomentbl_nl.ist...............
+** Input style error (file = C:/Users/rodriqu_dd/AppData/Roaming/MiKTeX/2.9/makeindex/deltares/deltares_nomentbl_nl.ist, line = 51):
    -- Unknown specifier \endinput.
 done (15 attributes redefined, 1 ignored).
 Scanning input file ds_um.nlo...done (0 entries accepted, 0 rejected).
