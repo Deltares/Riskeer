@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.10.1)  8 OCT 2015 13:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.10.1)  8 OCT 2015 16:26
 entering extended mode
 **ds_um.tex
 (ds_um.tex
@@ -1051,6 +1051,11 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <29.86> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 97.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 27.47115pt on input line 97.
+
+Overfull \hbox (4.09038pt too wide) in paragraph at lines 97--97
+[]| \T1/phv/b/n/29.86 Wet-te-lijk Toets In-stru-men-
+ []
+
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 13.24796pt on input line 97.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
@@ -1065,7 +1070,7 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 97.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 97.
- [1
+[1
 
 {C:/Users/rodriqu_dd/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10.95> not available
@@ -1308,11 +1313,11 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 5.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 5.
-<Figures/Chapter_installation/wti_desktop_icon.png, id=299, 45.92157pt x 44.41594pt>
-File: Figures/Chapter_installation/wti_desktop_icon.png Graphic file (type png)
+<figures/chapter_installation/wti_desktop_icon.png, id=299, 45.92157pt x 44.41594pt>
+File: figures/chapter_installation/wti_desktop_icon.png Graphic file (type png)
 
-<use Figures/Chapter_installation/wti_desktop_icon.png>
-Package pdftex.def Info: Figures/Chapter_installation/wti_desktop_icon.png used on input line 11.
+<use figures/chapter_installation/wti_desktop_icon.png>
+Package pdftex.def Info: figures/chapter_installation/wti_desktop_icon.png used on input line 11.
 (pdftex.def)             Requested size: 45.92145pt x 44.41582pt.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 9.19998pt on input line 12.
@@ -1330,7 +1335,7 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 31.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 31.
-) (chapters/wti_Algemeen.tex
+) (chapters/wti_general.tex
 File: cover/chapter-ribbon.jpg Graphic file (type jpg)
  <use cover/chapter-ribbon.jpg>
 Package pdftex.def Info: cover/chapter-ribbon.jpg used on input line 3.
@@ -1350,7 +1355,7 @@ Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 3.
 [3
 
- <./Figures/Chapter_installation/wti_desktop_icon.png>]
+ <./figures/chapter_installation/wti_desktop_icon.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 3.
 Package babel Info: Redefining dutch shorthand "~
@@ -1371,41 +1376,22 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 8.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 8.
+<figures/chapter_general/Home_Ribbon_Add_New_Model.png, id=316, 498.36188pt x 90.3375pt>
+File: figures/chapter_general/Home_Ribbon_Add_New_Model.png Graphic file (type png)
 
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/Home_Ribbon_Add_New_Model.png' not found on input line 19.
+<use figures/chapter_general/Home_Ribbon_Add_New_Model.png>
+Package pdftex.def Info: figures/chapter_general/Home_Ribbon_Add_New_Model.png used on input line 19.
+(pdftex.def)             Requested size: 412.56497pt x 74.78711pt.
 
+<figures/chapter_general/wti_Add_Object_Project_Explorer.png, id=317, 345.54094pt x 183.68625pt>
+File: figures/chapter_general/wti_Add_Object_Project_Explorer.png Graphic file (type png)
 
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/Home_Ribbon_Add_New_Model.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.19 ...Delta_Shell/Home_Ribbon_Add_New_Model.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/DS_Add_Object_Project_Explorer.png' not found on input line 25.
-
-
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/DS_Add_Object_Project_Explorer.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.25 ..._Shell/DS_Add_Object_Project_Explorer.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
+<use figures/chapter_general/wti_Add_Object_Project_Explorer.png>
+Package pdftex.def Info: figures/chapter_general/wti_Add_Object_Project_Explorer.png used on input line 25.
+(pdftex.def)             Requested size: 345.54008pt x 183.68578pt.
 File: cover/chapter-ribbon.jpg Graphic file (type jpg)
-<use cover/chapter-ribbon.jpg>
-Package pdftex.def Info: cover/chapter-ribbon.jpg used on input line 29.
+ <use cover/chapter-ribbon.jpg>
+Package pdftex.def Info: cover/chapter-ribbon.jpg used on input line 35.
 (pdftex.def)             Requested size: 42.67912pt x 626.4434pt.
 
 Overfull \hbox (73.26753pt too wide) has occurred while \output is active
@@ -1413,57 +1399,38 @@ Overfull \hbox (73.26753pt too wide) has occurred while \output is active
  []
 
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 29.
+(babel)             in language  on input line 35.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 29.
+(babel)             in language  on input line 35.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 29.
+(babel)             in language  on input line 35.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 29.
-[5]
+(babel)             in language  on input line 35.
+[5 <./figures/chapter_general/Home_Ribbon_Add_New_Model.png> <./figures/chapter_general/wti_Add_Object_Project_Explorer.
+png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 37.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 37.
 
 
-LaTeX Warning: Reference `ch:Data:MorphAnWorkspace' on page 6 undefined on input line 43.
+LaTeX Warning: Reference `ch:Data:WTIWorkspace' on page 6 undefined on input line 43.
 
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 47.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 47.
+<figures/chapter_general/Run_Arrow.png, id=324, 8.28094pt x 10.53937pt>
+File: figures/chapter_general/Run_Arrow.png Graphic file (type png)
+ <use figures/chapter_general/Run_Arrow.png>
+Package pdftex.def Info: figures/chapter_general/Run_Arrow.png used on input line 51.
+(pdftex.def)             Requested size: 8.28091pt x 10.53932pt.
 
-LaTeX Warning: File `pictures/Hoofdstuk_AandeSlag_nieuw/Run_Arrow.png' not found on input line 51.
-
-
-! Package pdftex.def Error: File `pictures/Hoofdstuk_AandeSlag_nieuw/Run_Arrow.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.51 ...s/Hoofdstuk_AandeSlag_nieuw/Run_Arrow.png}
-                                                   (run) of \includegraphics...
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: File `pictures/Hoofdstuk_AandeSlag_nieuw/RunAll_Arrow.png' not found on input line 51.
-
-
-! Package pdftex.def Error: File `pictures/Hoofdstuk_AandeSlag_nieuw/RunAll_Arrow.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.51 ...oofdstuk_AandeSlag_nieuw/RunAll_Arrow.png}
-                                                   (run All) in de \textbf{H...
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+<figures/chapter_general/RunAll_Arrow.png, id=325, 12.045pt x 9.78656pt>
+File: figures/chapter_general/RunAll_Arrow.png Graphic file (type png)
+ <use figures/chapter_general/RunAll_Arrow.png>
+Package pdftex.def Info: figures/chapter_general/RunAll_Arrow.png used on input line 51.
+(pdftex.def)             Requested size: 12.04495pt x 9.78653pt.
 
 
 LaTeX Warning: Reference `ch:Extra:Installation:Options' on page 6 undefined on input line 54.
@@ -1473,44 +1440,27 @@ Package babel Info: Redefining dutch shorthand "|
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 56.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 56.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 56.
-[6]
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 56.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 56.
-Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 59.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 59.
 
-
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/MorphAn_Welcome.png' not found on input line 84.
-
-
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/MorphAn_Welcome.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.84 ...Hoofdstuk_Delta_Shell/MorphAn_Welcome.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+LaTeX Warning: Reference `fig:1_MA_Welcome_Page' on page 6 undefined on input line 61.
 
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 88.
+(babel)             in language  on input line 63.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 88.
+(babel)             in language  on input line 63.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 88.
+(babel)             in language  on input line 63.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 88.
-[7]
+(babel)             in language  on input line 63.
+[6 <./figures/chapter_general/Run_Arrow.png> <./figures/chapter_general/RunAll_Arrow.png>]
+<figures/chapter_general/wti_Welcome.png, id=334, 630.6762pt x 415.3116pt>
+File: figures/chapter_general/wti_Welcome.png Graphic file (type png)
+
+<use figures/chapter_general/wti_Welcome.png>
+Package pdftex.def Info: figures/chapter_general/wti_Welcome.png used on input line 84.
+(pdftex.def)             Requested size: 412.56497pt x 271.68571pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 89.
 Package babel Info: Redefining dutch shorthand "~
@@ -1520,252 +1470,140 @@ Package babel Info: Redefining dutch shorthand "|
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 92.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 97.
+(babel)             in language  on input line 92.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 97.
+(babel)             in language  on input line 92.
+ [7 <./figures/chapter_general/wti_Welcome.png>]
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 97.
+(babel)             in language  on input line 92.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 97.
- [8]
+(babel)             in language  on input line 92.
 
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/DS_Docking_explained.png' not found on input line 104.
+<figures/chapter_general/wti_Docking_explained.png, id=343, 642.2394pt x 255.8358pt>
+File: figures/chapter_general/wti_Docking_explained.png Graphic file (type png)
 
+<use figures/chapter_general/wti_Docking_explained.png>
+Package pdftex.def Info: figures/chapter_general/wti_Docking_explained.png used on input line 104.
+(pdftex.def)             Requested size: 412.56497pt x 164.34723pt.
 
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/DS_Docking_explained.png' not found.
+<figures/chapter_general/wti_Pin_UnPin_Explained.png, id=344, 557.9244pt x 146.4672pt>
+File: figures/chapter_general/wti_Pin_UnPin_Explained.png Graphic file (type png)
 
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.104 ...tuk_Delta_Shell/DS_Docking_explained.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/DS_Pin_UnPin_Explained.png' not found on input line 111.
-
-
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/DS_Pin_UnPin_Explained.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.111 ...k_Delta_Shell/DS_Pin_UnPin_Explained.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 115.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 115.
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 115.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 115.
-[9]
+<use figures/chapter_general/wti_Pin_UnPin_Explained.png>
+Package pdftex.def Info: figures/chapter_general/wti_Pin_UnPin_Explained.png used on input line 111.
+(pdftex.def)             Requested size: 412.56497pt x 108.31026pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 116.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 116.
-
-
-LaTeX Warning: Reference `ch:MorphAnData:Analysis' on page 10 undefined on input line 125.
-
-
-LaTeX Warning: File `pictures/EditedImages/DS_Home.png' not found on input line 130.
-
-
-! Package pdftex.def Error: File `pictures/EditedImages/DS_Home.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.130 ...width]{pictures/EditedImages/DS_Home.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 134.
+(babel)             in language  on input line 122.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 134.
+(babel)             in language  on input line 122.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 134.
+(babel)             in language  on input line 122.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 134.
-[10]
+(babel)             in language  on input line 122.
+ [8 <./figures/chapter_general/wti_Docking_explained.png> <./figures/chapter_general/wti_Pin_UnPin_Explained.png>]
 
-LaTeX Warning: File `pictures/EditedImages/DS_View.png' not found on input line 137.
+LaTeX Warning: Reference `ch:WTIData:Analysis' on page 9 undefined on input line 125.
 
+<figures/chapter_general/wti_Home.png, id=356, 589.4522pt x 90.3375pt>
+File: figures/chapter_general/wti_Home.png Graphic file (type png)
+ <use figures/chapter_general/wti_Home.png>
+Package pdftex.def Info: figures/chapter_general/wti_Home.png used on input line 130.
+(pdftex.def)             Requested size: 412.56497pt x 63.22891pt.
 
-! Package pdftex.def Error: File `pictures/EditedImages/DS_View.png' not found.
+<figures/chapter_general/wti_View.png, id=357, 569.12625pt x 83.5622pt>
+File: figures/chapter_general/wti_View.png Graphic file (type png)
+ <use figures/chapter_general/wti_View.png>
+Package pdftex.def Info: figures/chapter_general/wti_View.png used on input line 137.
+(pdftex.def)             Requested size: 412.56497pt x 60.57784pt.
 
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.137 ...width]{pictures/EditedImages/DS_View.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+<figures/chapter_general/wti_Chart.png, id=358, 589.4522pt x 90.3375pt>
+File: figures/chapter_general/wti_Chart.png Graphic file (type png)
+ <use figures/chapter_general/wti_Chart.png>
+Package pdftex.def Info: figures/chapter_general/wti_Chart.png used on input line 144.
+(pdftex.def)             Requested size: 412.56497pt x 63.22891pt.
 
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 141.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 141.
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 141.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 141.
-[11]
-
-LaTeX Warning: File `pictures/EditedImages/DS_Chart.png' not found on input line 144.
-
-
-! Package pdftex.def Error: File `pictures/EditedImages/DS_Chart.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.144 ...idth]{pictures/EditedImages/DS_Chart.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 148.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 148.
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 148.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 148.
-[12]
-
-LaTeX Warning: File `pictures/EditedImages/DS_Map.png' not found on input line 151.
-
-
-! Package pdftex.def Error: File `pictures/EditedImages/DS_Map.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.151 ...twidth]{pictures/EditedImages/DS_Map.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 155.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 155.
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 155.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 155.
-[13]
+<figures/chapter_general/wti_Map.png, id=359, 722.7pt x 91.09032pt>
+File: figures/chapter_general/wti_Map.png Graphic file (type png)
+ <use figures/chapter_general/wti_Map.png>
+Package pdftex.def Info: figures/chapter_general/wti_Map.png used on input line 151.
+(pdftex.def)             Requested size: 412.56497pt x 51.99983pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 156.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 156.
 
 
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/Project_Explorer_MorphAnData.png' not found on input line 162.
+LaTeX Warning: Reference `fig:wti_Project_Explorer' on page 9 undefined on input line 158.
 
 
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/Project_Explorer_MorphAnData.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.162 ...a_Shell/Project_Explorer_MorphAnData.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+LaTeX Warning: Reference `fig:DS_Ribbon_View' on page 9 undefined on input line 158.
 
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 166.
+(babel)             in language  on input line 159.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 166.
+(babel)             in language  on input line 159.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 166.
+(babel)             in language  on input line 159.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 166.
-[14]
+(babel)             in language  on input line 159.
+[9 <./figures/chapter_general/wti_Home.png> <./figures/chapter_general/wti_View.png> <./figures/chapter_general/wti_Char
+t.png> <./figures/chapter_general/wti_Map.png>]
+<figures/chapter_general/Project_Explorer_WTIData.png, id=367, 346.29375pt x 243.15843pt>
+File: figures/chapter_general/Project_Explorer_WTIData.png Graphic file (type png)
+
+<use figures/chapter_general/Project_Explorer_WTIData.png>
+Package pdftex.def Info: figures/chapter_general/Project_Explorer_WTIData.png used on input line 162.
+(pdftex.def)             Requested size: 346.2929pt x 243.15784pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 174.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 174.
 
 
-LaTeX Warning: Reference `sec:General_View_Output' on page 15 undefined on input line 176.
+LaTeX Warning: Reference `fig:DS_Ribbon_Map' on page 10 undefined on input line 176.
 
 
-LaTeX Warning: Reference `sec:workspace_toevoegen' on page 15 undefined on input line 180.
-
-
-LaTeX Warning: Reference `sec:AanDeSlag:Importeren' on page 15 undefined on input line 180.
-
-
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/Map_With_MapContents.png' not found on input line 184.
-
-
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/Map_With_MapContents.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.184 ...tuk_Delta_Shell/Map_With_MapContents.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+LaTeX Warning: Reference `sec:General_View_Output' on page 10 undefined on input line 176.
 
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 188.
+(babel)             in language  on input line 177.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 188.
+(babel)             in language  on input line 177.
 Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 188.
+(babel)             in language  on input line 177.
 Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 188.
-[15]
+(babel)             in language  on input line 177.
+[10 <./figures/chapter_general/Project_Explorer_WTIData.png>]
+
+LaTeX Warning: Reference `sec:workspace_toevoegen' on page 11 undefined on input line 180.
+
+
+LaTeX Warning: Reference `sec:AanDeSlag:Importeren' on page 11 undefined on input line 180.
+
+<figures/chapter_general/Map_With_MapContents.png, id=377, 737.75626pt x 368.87813pt>
+File: figures/chapter_general/Map_With_MapContents.png Graphic file (type png)
+
+<use figures/chapter_general/Map_With_MapContents.png>
+Package pdftex.def Info: figures/chapter_general/Map_With_MapContents.png used on input line 184.
+(pdftex.def)             Requested size: 350.68274pt x 175.33713pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 189.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 189.
 
 
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/Map_Contents.png' not found on input line 199.
+LaTeX Warning: Reference `fig:DS_Ribbon_View' on page 11 undefined on input line 193.
 
+<figures/chapter_general/Map_Contents.png, id=380, 222.07968pt x 367.3725pt>
+File: figures/chapter_general/Map_Contents.png Graphic file (type png)
 
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/Map_Contents.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.199 ...s/Hoofdstuk_Delta_Shell/Map_Contents.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+<use figures/chapter_general/Map_Contents.png>
+Package pdftex.def Info: figures/chapter_general/Map_Contents.png used on input line 199.
+(pdftex.def)             Requested size: 222.07913pt x 367.37158pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1778,154 +1616,92 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 208.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 208.
-[16]
+[11 <./figures/chapter_general/Map_With_MapContents.png>]
+<figures/chapter_general/wti_MapLayer_Context_Menu.png, id=386, 275.52937pt x 366.61969pt>
+File: figures/chapter_general/wti_MapLayer_Context_Menu.png Graphic file (type png)
 
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/DS_MapLayer_Context_Menu.png' not found on input line 214.
+<use figures/chapter_general/wti_MapLayer_Context_Menu.png>
+Package pdftex.def Info: figures/chapter_general/wti_MapLayer_Context_Menu.png used on input line 214.
+(pdftex.def)             Requested size: 275.52869pt x 366.61879pt.
 
 
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/DS_MapLayer_Context_Menu.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.214 ...Delta_Shell/DS_MapLayer_Context_Menu.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 219.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 219.
+<figures/chapter_general/Chart_Contents.png, id=388, 213.04594pt x 188.20313pt>
+File: figures/chapter_general/Chart_Contents.png Graphic file (type png)
 
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/Chart_Contents.png' not found on input line 225.
-
-
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/Chart_Contents.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.225 ...Hoofdstuk_Delta_Shell/Chart_Contents.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
+<use figures/chapter_general/Chart_Contents.png>
+Package pdftex.def Info: figures/chapter_general/Chart_Contents.png used on input line 225.
+(pdftex.def)             Requested size: 213.04541pt x 188.20265pt.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 229.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 229.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 229.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 229.
+ [12 <./figures/chapter_general/Map_Contents.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 230.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 230.
 Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 232.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 232.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 232.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 232.
+ [13 <./figures/chapter_general/wti_MapLayer_Context_Menu.png> <./figures/chapter_general/Chart_Contents.png>]
+Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 233.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 233.
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 236.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 236.
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 236.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 236.
-[17]
 
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/TimeSeriesNavigator.png' not found on input line 243.
+<figures/chapter_general/TimeSeriesNavigator.png, id=399, 620.3175pt x 112.92188pt>
+File: figures/chapter_general/TimeSeriesNavigator.png Graphic file (type png)
 
+<use figures/chapter_general/TimeSeriesNavigator.png>
+Package pdftex.def Info: figures/chapter_general/TimeSeriesNavigator.png used on input line 243.
+(pdftex.def)             Requested size: 412.56497pt x 75.10243pt.
 
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/TimeSeriesNavigator.png' not found.
+<figures/chapter_general/TimeSeriesNavigator_Range.png, id=400, 621.07031pt x 112.92188pt>
+File: figures/chapter_general/TimeSeriesNavigator_Range.png Graphic file (type png)
 
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.243 ...stuk_Delta_Shell/TimeSeriesNavigator.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/TimeSeriesNavigator_Range.png' not found on input line 249.
-
-
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/TimeSeriesNavigator_Range.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.249 ...elta_Shell/TimeSeriesNavigator_Range.png}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 253.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 253.
-Package babel Info: Redefining dutch shorthand "|
-(babel)             in language  on input line 253.
-Package babel Info: Redefining dutch shorthand "~
-(babel)             in language  on input line 253.
-[18]
+<use figures/chapter_general/TimeSeriesNavigator_Range.png>
+Package pdftex.def Info: figures/chapter_general/TimeSeriesNavigator_Range.png used on input line 249.
+(pdftex.def)             Requested size: 412.56497pt x 75.01111pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 254.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 254.
 
+<figures/chapter_general/Message_Icon_Info.png, id=403, 15.80907pt x 15.05624pt>
+File: figures/chapter_general/Message_Icon_Info.png Graphic file (type png)
 
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/Message_Icon_Info.png' not found on input line 269.
+<use figures/chapter_general/Message_Icon_Info.png>
+Package pdftex.def Info: figures/chapter_general/Message_Icon_Info.png used on input line 269.
+(pdftex.def)             Requested size: 15.809pt x 15.0562pt.
 
+<figures/chapter_general/Message_Icon_Warning.png, id=404, 15.80907pt x 15.05624pt>
+File: figures/chapter_general/Message_Icon_Warning.png Graphic file (type png)
 
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/Message_Icon_Info.png' not found.
+<use figures/chapter_general/Message_Icon_Warning.png>
+Package pdftex.def Info: figures/chapter_general/Message_Icon_Warning.png used on input line 272.
+(pdftex.def)             Requested size: 15.809pt x 15.0562pt.
 
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.269 ...fdstuk_Delta_Shell/Message_Icon_Info.png}
-                                                   & Informatie \\
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+<figures/chapter_general/Message_Icon_Error.png, id=405, 15.80907pt x 15.05624pt>
+File: figures/chapter_general/Message_Icon_Error.png Graphic file (type png)
 
-
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/Message_Icon_Warning.png' not found on input line 272.
-
-
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/Message_Icon_Warning.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.272 ...tuk_Delta_Shell/Message_Icon_Warning.png}
-                                                   & Waarschuwing \\
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: File `pictures/Hoofdstuk_Delta_Shell/Message_Icon_Error.png' not found on input line 275.
-
-
-! Package pdftex.def Error: File `pictures/Hoofdstuk_Delta_Shell/Message_Icon_Error.png' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.275 ...dstuk_Delta_Shell/Message_Icon_Error.png}
-                                                   & Error \\
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
+<use figures/chapter_general/Message_Icon_Error.png>
+Package pdftex.def Info: figures/chapter_general/Message_Icon_Error.png used on input line 275.
+(pdftex.def)             Requested size: 15.809pt x 15.0562pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 280.
 Package babel Info: Redefining dutch shorthand "~
@@ -1934,14 +1710,14 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 280.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 280.
-[19]
+ [14 <./figures/chapter_general/TimeSeriesNavigator.png> <./figures/chapter_general/TimeSeriesNavigator_Range.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 281.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 281.
 
 
-LaTeX Warning: Reference `sec:General_Export_Output' on page 20 undefined on input line 284.
+LaTeX Warning: Reference `sec:General_Export_Output' on page 15 undefined on input line 284.
 
 ) (chapters/wti_overview.tex
 Package babel Info: Redefining dutch shorthand "|
@@ -1952,24 +1728,36 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 3.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 3.
- [20]
+ [15 <./figures/chapter_general/Message_Icon_Info.png> <./figures/chapter_general/Message_Icon_Warning.png> <./figures/c
+hapter_general/Message_Icon_Error.png>]
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 3.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 3.
+Package babel Info: Redefining dutch shorthand "|
+(babel)             in language  on input line 3.
+Package babel Info: Redefining dutch shorthand "~
+(babel)             in language  on input line 3.
+ [16
+
+]
 Hoofdstuk 4.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 3.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 3.
 
-LaTeX Warning: Reference `Fig:ArchDS' on page 21 undefined on input line 6.
+LaTeX Warning: Reference `Fig:ArchDS' on page 17 undefined on input line 6.
 
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 10.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 10.
-<Figures/Chapter_overview/overview_ds.png, id=417, 1445.4pt x 790.45313pt>
-File: Figures/Chapter_overview/overview_ds.png Graphic file (type png)
+<figures/chapter_overview/overview_ds.png, id=425, 1445.4pt x 790.45313pt>
+File: figures/chapter_overview/overview_ds.png Graphic file (type png)
 
-<use Figures/Chapter_overview/overview_ds.png>
-Package pdftex.def Info: Figures/Chapter_overview/overview_ds.png used on input line 33.
+<use figures/chapter_overview/overview_ds.png>
+Package pdftex.def Info: figures/chapter_overview/overview_ds.png used on input line 33.
 (pdftex.def)             Requested size: 412.56497pt x 225.61919pt.
 File: cover/chapter-ribbon.jpg Graphic file (type jpg)
  <use cover/chapter-ribbon.jpg>
@@ -1988,19 +1776,17 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 39.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 39.
-[21
-
- <./Figures/Chapter_overview/overview_ds.png>]
+[17 <./figures/chapter_overview/overview_ds.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 40.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 40.
 
-<Figures/Chapter_overview/view_project_window.png, id=426, 184.43906pt x 336.50719pt>
-File: Figures/Chapter_overview/view_project_window.png Graphic file (type png)
+<figures/chapter_overview/view_project_window.png, id=433, 184.43906pt x 336.50719pt>
+File: figures/chapter_overview/view_project_window.png Graphic file (type png)
 
-<use Figures/Chapter_overview/view_project_window.png>
-Package pdftex.def Info: Figures/Chapter_overview/view_project_window.png used on input line 50.
+<use figures/chapter_overview/view_project_window.png>
+Package pdftex.def Info: figures/chapter_overview/view_project_window.png used on input line 50.
 (pdftex.def)             Requested size: 206.28249pt x 376.36172pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 63.
@@ -2010,27 +1796,27 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 63.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 63.
- [22 <./Figures/Chapter_overview/view_project_window.png>]
+ [18 <./figures/chapter_overview/view_project_window.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 63.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 63.
 
 
-LaTeX Warning: Reference `ssec:Map layers' on page 23 undefined on input line 67.
+LaTeX Warning: Reference `ssec:Map layers' on page 19 undefined on input line 67.
 
-<Figures/Chapter_overview/example_map.png, id=434, 651.93562pt x 323.70938pt>
-File: Figures/Chapter_overview/example_map.png Graphic file (type png)
+<figures/chapter_overview/example_map.png, id=441, 651.93562pt x 323.70938pt>
+File: figures/chapter_overview/example_map.png Graphic file (type png)
 
-<use Figures/Chapter_overview/example_map.png>
-Package pdftex.def Info: Figures/Chapter_overview/example_map.png used on input line 71.
+<use figures/chapter_overview/example_map.png>
+Package pdftex.def Info: figures/chapter_overview/example_map.png used on input line 71.
 (pdftex.def)             Requested size: 412.56497pt x 204.86165pt.
 
-<Figures/Chapter_overview/example_chart_window.png, id=436, 573.64313pt x 253.69781pt>
-File: Figures/Chapter_overview/example_chart_window.png Graphic file (type png)
+<figures/chapter_overview/example_chart_window.png, id=443, 573.64313pt x 253.69781pt>
+File: figures/chapter_overview/example_chart_window.png Graphic file (type png)
 
-<use Figures/Chapter_overview/example_chart_window.png>
-Package pdftex.def Info: Figures/Chapter_overview/example_chart_window.png used on input line 81.
+<use figures/chapter_overview/example_chart_window.png>
+Package pdftex.def Info: figures/chapter_overview/example_chart_window.png used on input line 81.
 (pdftex.def)             Requested size: 412.56497pt x 182.46486pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 85.
@@ -2040,17 +1826,17 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 85.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 85.
- [23 <./Figures/Chapter_overview/example_map.png>]
+ [19 <./figures/chapter_overview/example_map.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 86.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 86.
 
-<Figures/Chapter_overview/view_map_window.png, id=443, 217.5628pt x 394.47375pt>
-File: Figures/Chapter_overview/view_map_window.png Graphic file (type png)
+<figures/chapter_overview/view_map_window.png, id=450, 217.5628pt x 394.47375pt>
+File: figures/chapter_overview/view_map_window.png Graphic file (type png)
 
-<use Figures/Chapter_overview/view_map_window.png>
-Package pdftex.def Info: Figures/Chapter_overview/view_map_window.png used on input line 94.
+<use figures/chapter_overview/view_map_window.png>
+Package pdftex.def Info: figures/chapter_overview/view_map_window.png used on input line 94.
 (pdftex.def)             Requested size: 206.28249pt x 374.04369pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 98.
@@ -2060,17 +1846,17 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 98.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 98.
- [24 <./Figures/Chapter_overview/example_chart_window.png>]
+ [20 <./figures/chapter_overview/example_chart_window.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 99.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 99.
 
-<Figures/Chapter_overview/view_data_window.png, id=450, 237.88875pt x 187.45032pt>
-File: Figures/Chapter_overview/view_data_window.png Graphic file (type png)
+<figures/chapter_overview/view_data_window.png, id=457, 237.88875pt x 187.45032pt>
+File: figures/chapter_overview/view_data_window.png Graphic file (type png)
 
-<use Figures/Chapter_overview/view_data_window.png>
-Package pdftex.def Info: Figures/Chapter_overview/view_data_window.png used on input line 105.
+<use figures/chapter_overview/view_data_window.png>
+Package pdftex.def Info: figures/chapter_overview/view_data_window.png used on input line 105.
 (pdftex.def)             Requested size: 206.28249pt x 162.55415pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 110.
@@ -2080,27 +1866,27 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 110.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 110.
- [25 <./Figures/Chapter_overview/view_map_window.png> <./Figures/Chapter_overview/view_data_window.png>]
+ [21 <./figures/chapter_overview/view_map_window.png> <./figures/chapter_overview/view_data_window.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 110.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 110.
- <Figures/Chapter_overview/view_chart_window.png, id=458, 425.33907pt x 136.25906pt>
-File: Figures/Chapter_overview/view_chart_window.png Graphic file (type png)
+ <figures/chapter_overview/view_chart_window.png, id=466, 425.33907pt x 136.25906pt>
+File: figures/chapter_overview/view_chart_window.png Graphic file (type png)
 
-<use Figures/Chapter_overview/view_chart_window.png>
-Package pdftex.def Info: Figures/Chapter_overview/view_chart_window.png used on input line 116.
+<use figures/chapter_overview/view_chart_window.png>
+Package pdftex.def Info: figures/chapter_overview/view_chart_window.png used on input line 116.
 (pdftex.def)             Requested size: 206.28249pt x 66.08347pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 121.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 121.
 
-<Figures/Chapter_overview/view_properties_window.png, id=460, 293.59688pt x 439.6425pt>
-File: Figures/Chapter_overview/view_properties_window.png Graphic file (type png)
+<figures/chapter_overview/view_properties_window.png, id=468, 293.59688pt x 439.6425pt>
+File: figures/chapter_overview/view_properties_window.png Graphic file (type png)
 
-<use Figures/Chapter_overview/view_properties_window.png>
-Package pdftex.def Info: Figures/Chapter_overview/view_properties_window.png used on input line 130.
+<use figures/chapter_overview/view_properties_window.png>
+Package pdftex.def Info: figures/chapter_overview/view_properties_window.png used on input line 130.
 (pdftex.def)             Requested size: 206.28249pt x 308.89478pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 135.
@@ -2110,31 +1896,31 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 135.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 135.
- [26 <./Figures/Chapter_overview/view_chart_window.png> <./Figures/Chapter_overview/view_properties_window.png>]
+ [22 <./figures/chapter_overview/view_chart_window.png> <./figures/chapter_overview/view_properties_window.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 135.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 135.
 
-<Figures/Chapter_overview/view_messages_window.png, id=469, 1010.27437pt x 323.70938pt>
-File: Figures/Chapter_overview/view_messages_window.png Graphic file (type png)
+<figures/chapter_overview/view_messages_window.png, id=477, 1010.27437pt x 323.70938pt>
+File: figures/chapter_overview/view_messages_window.png Graphic file (type png)
 
-<use Figures/Chapter_overview/view_messages_window.png>
-Package pdftex.def Info: Figures/Chapter_overview/view_messages_window.png used on input line 142.
+<use figures/chapter_overview/view_messages_window.png>
+Package pdftex.def Info: figures/chapter_overview/view_messages_window.png used on input line 142.
 (pdftex.def)             Requested size: 412.56497pt x 132.19318pt.
 
-<Figures/Chapter_overview/view_messagedetails_window.png, id=470, 450.9347pt x 187.45032pt>
-File: Figures/Chapter_overview/view_messagedetails_window.png Graphic file (type png)
+<figures/chapter_overview/view_messagedetails_window.png, id=478, 450.9347pt x 187.45032pt>
+File: figures/chapter_overview/view_messagedetails_window.png Graphic file (type png)
 
-<use Figures/Chapter_overview/view_messagedetails_window.png>
-Package pdftex.def Info: Figures/Chapter_overview/view_messagedetails_window.png used on input line 149.
+<use figures/chapter_overview/view_messagedetails_window.png>
+Package pdftex.def Info: figures/chapter_overview/view_messagedetails_window.png used on input line 149.
 (pdftex.def)             Requested size: 206.28249pt x 85.75052pt.
 
-<Figures/Chapter_overview/icon_clear_all_messages.png, id=471, 14.30344pt x 15.05624pt>
-File: Figures/Chapter_overview/icon_clear_all_messages.png Graphic file (type png)
+<figures/chapter_overview/icon_clear_all_messages.png, id=479, 14.30344pt x 15.05624pt>
+File: figures/chapter_overview/icon_clear_all_messages.png Graphic file (type png)
 
-<use Figures/Chapter_overview/icon_clear_all_messages.png>
-Package pdftex.def Info: Figures/Chapter_overview/icon_clear_all_messages.png used on input line 154.
+<use figures/chapter_overview/icon_clear_all_messages.png>
+Package pdftex.def Info: figures/chapter_overview/icon_clear_all_messages.png used on input line 154.
 (pdftex.def)             Requested size: 13.51549pt x 14.22636pt.
  (chapters/section_dockableviews.tex
 Package babel Info: Redefining dutch shorthand "|
@@ -2146,11 +1932,11 @@ Package babel Info: Redefining dutch shorthand "|
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 6.
 
-<Figures/Chapter_overview/example_docking.png, id=473, 2890.8pt x 813.0375pt>
-File: Figures/Chapter_overview/example_docking.png Graphic file (type png)
+<figures/chapter_overview/example_docking.png, id=481, 2890.8pt x 813.0375pt>
+File: figures/chapter_overview/example_docking.png Graphic file (type png)
 
-<use Figures/Chapter_overview/example_docking.png>
-Package pdftex.def Info: Figures/Chapter_overview/example_docking.png used on input line 12.
+<use figures/chapter_overview/example_docking.png>
+Package pdftex.def Info: figures/chapter_overview/example_docking.png used on input line 12.
 (pdftex.def)             Requested size: 412.56497pt x 116.03273pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 16.
@@ -2160,25 +1946,25 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 16.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 16.
- [27 <./Figures/Chapter_overview/view_messages_window.png> <./Figures/Chapter_overview/view_messagedetails_window.png> <
-./Figures/Chapter_overview/icon_clear_all_messages.png>]
+ [23 <./figures/chapter_overview/view_messages_window.png> <./figures/chapter_overview/view_messagedetails_window.png> <
+./figures/chapter_overview/icon_clear_all_messages.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 17.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 17.
 
-<Figures/Chapter_overview/example_docking_UndoRedo_1.png, id=482, 187.45032pt x 274.77657pt>
-File: Figures/Chapter_overview/example_docking_UndoRedo_1.png Graphic file (type png)
+<figures/chapter_overview/example_docking_UndoRedo_1.png, id=489, 187.45032pt x 274.77657pt>
+File: figures/chapter_overview/example_docking_UndoRedo_1.png Graphic file (type png)
 
-<use Figures/Chapter_overview/example_docking_UndoRedo_1.png>
-Package pdftex.def Info: Figures/Chapter_overview/example_docking_UndoRedo_1.png used on input line 23.
+<use figures/chapter_overview/example_docking_UndoRedo_1.png>
+Package pdftex.def Info: figures/chapter_overview/example_docking_UndoRedo_1.png used on input line 23.
 (pdftex.def)             Requested size: 206.28249pt x 302.39769pt.
 
-<Figures/Chapter_overview/example_docking_UndoRedo_2.png, id=483, 188.20313pt x 299.61937pt>
-File: Figures/Chapter_overview/example_docking_UndoRedo_2.png Graphic file (type png)
+<figures/chapter_overview/example_docking_UndoRedo_2.png, id=490, 188.20313pt x 299.61937pt>
+File: figures/chapter_overview/example_docking_UndoRedo_2.png Graphic file (type png)
 
-<use Figures/Chapter_overview/example_docking_UndoRedo_2.png>
-Package pdftex.def Info: Figures/Chapter_overview/example_docking_UndoRedo_2.png used on input line 31.
+<use figures/chapter_overview/example_docking_UndoRedo_2.png>
+Package pdftex.def Info: figures/chapter_overview/example_docking_UndoRedo_2.png used on input line 31.
 (pdftex.def)             Requested size: 206.28249pt x 328.42566pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 36.
@@ -2188,12 +1974,12 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 36.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 36.
- [28 <./Figures/Chapter_overview/example_docking.png> <./Figures/Chapter_overview/example_docking_UndoRedo_1.png>]
-<Figures/Chapter_overview/example_autohide.png, id=491, 207.77625pt x 277.78781pt>
-File: Figures/Chapter_overview/example_autohide.png Graphic file (type png)
+ [24 <./figures/chapter_overview/example_docking.png> <./figures/chapter_overview/example_docking_UndoRedo_1.png>]
+<figures/chapter_overview/example_autohide.png, id=498, 207.77625pt x 277.78781pt>
+File: figures/chapter_overview/example_autohide.png Graphic file (type png)
 
-<use Figures/Chapter_overview/example_autohide.png>
-Package pdftex.def Info: Figures/Chapter_overview/example_autohide.png used on input line 40.
+<use figures/chapter_overview/example_autohide.png>
+Package pdftex.def Info: figures/chapter_overview/example_autohide.png used on input line 40.
 (pdftex.def)             Requested size: 206.28249pt x 275.80339pt.
 )
 Package babel Info: Redefining dutch shorthand "|
@@ -2204,7 +1990,7 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 162.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 162.
- [29 <./Figures/Chapter_overview/example_docking_UndoRedo_2.png>]
+ [25 <./figures/chapter_overview/example_docking_UndoRedo_2.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 163.
 Package babel Info: Redefining dutch shorthand "~
@@ -2218,11 +2004,11 @@ Package babel Info: Redefining dutch shorthand "|
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 170.
 
-<Figures/Chapter_overview/context_menu_project.png, id=499, 274.02374pt x 249.18094pt>
-File: Figures/Chapter_overview/context_menu_project.png Graphic file (type png)
+<figures/chapter_overview/context_menu_project.png, id=506, 274.02374pt x 249.18094pt>
+File: figures/chapter_overview/context_menu_project.png Graphic file (type png)
 
-<use Figures/Chapter_overview/context_menu_project.png>
-Package pdftex.def Info: Figures/Chapter_overview/context_menu_project.png used on input line 176.
+<use figures/chapter_overview/context_menu_project.png>
+Package pdftex.def Info: figures/chapter_overview/context_menu_project.png used on input line 176.
 (pdftex.def)             Requested size: 206.28249pt x 187.58482pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 181.
@@ -2232,7 +2018,7 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 181.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 181.
- [30 <./Figures/Chapter_overview/example_autohide.png>]
+ [26 <./figures/chapter_overview/example_autohide.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 195.
 Package babel Info: Redefining dutch shorthand "~
@@ -2243,7 +2029,7 @@ Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 199.
 
 
-LaTeX Warning: Reference `fig:contextmenuregion' on page 31 undefined on input line 204.
+LaTeX Warning: Reference `fig:contextmenuregion' on page 27 undefined on input line 204.
 
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 207.
@@ -2253,11 +2039,11 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 211.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 211.
-<Figures/Chapter_overview/context_menu_table.png, id=507, 213.04594pt x 109.91063pt>
-File: Figures/Chapter_overview/context_menu_table.png Graphic file (type png)
+<figures/chapter_overview/context_menu_table.png, id=514, 213.04594pt x 109.91063pt>
+File: figures/chapter_overview/context_menu_table.png Graphic file (type png)
 
-<use Figures/Chapter_overview/context_menu_table.png>
-Package pdftex.def Info: Figures/Chapter_overview/context_menu_table.png used on input line 217.
+<use figures/chapter_overview/context_menu_table.png>
+Package pdftex.def Info: figures/chapter_overview/context_menu_table.png used on input line 217.
 (pdftex.def)             Requested size: 165.02347pt x 85.14127pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 222.
@@ -2267,17 +2053,17 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 222.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 222.
- [31 <./Figures/Chapter_overview/context_menu_project.png>]
+ [27 <./figures/chapter_overview/context_menu_project.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 226.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 226.
 
-<Figures/Chapter_overview/context_menu_chart.png, id=514, 520.94624pt x 420.82219pt>
-File: Figures/Chapter_overview/context_menu_chart.png Graphic file (type png)
+<figures/chapter_overview/context_menu_chart.png, id=522, 520.94624pt x 420.82219pt>
+File: figures/chapter_overview/context_menu_chart.png Graphic file (type png)
 
-<use Figures/Chapter_overview/context_menu_chart.png>
-Package pdftex.def Info: Figures/Chapter_overview/context_menu_chart.png used on input line 232.
+<use figures/chapter_overview/context_menu_chart.png>
+Package pdftex.def Info: figures/chapter_overview/context_menu_chart.png used on input line 232.
 (pdftex.def)             Requested size: 330.05322pt x 266.62193pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 239.
@@ -2285,7 +2071,7 @@ Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 239.
 
 
-LaTeX Warning: Reference `chapter:map' on page 32 undefined on input line 241.
+LaTeX Warning: Reference `chapter:map' on page 28 undefined on input line 241.
 
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 243.
@@ -2295,17 +2081,17 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 243.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 243.
-[32 <./Figures/Chapter_overview/context_menu_table.png> <./Figures/Chapter_overview/context_menu_chart.png>]
+[28 <./figures/chapter_overview/context_menu_table.png> <./figures/chapter_overview/context_menu_chart.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 243.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 243.
 
-<Figures/Chapter_overview/context_menu_messages.png, id=522, 981.6675pt x 227.34938pt>
-File: Figures/Chapter_overview/context_menu_messages.png Graphic file (type png)
+<figures/chapter_overview/context_menu_messages.png, id=530, 981.6675pt x 227.34938pt>
+File: figures/chapter_overview/context_menu_messages.png Graphic file (type png)
 
-<use Figures/Chapter_overview/context_menu_messages.png>
-Package pdftex.def Info: Figures/Chapter_overview/context_menu_messages.png used on input line 249.
+<use figures/chapter_overview/context_menu_messages.png>
+Package pdftex.def Info: figures/chapter_overview/context_menu_messages.png used on input line 249.
 (pdftex.def)             Requested size: 412.56497pt x 95.54852pt.
  (chapters/section_ribbons.tex
 Package babel Info: Redefining dutch shorthand "|
@@ -2319,7 +2105,7 @@ Package babel Info: Redefining dutch shorthand "~
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 8.27998pt on input line 15.
 
-<pictures/margin_note.pdf, id=524, 57.21375pt x 57.3894pt>
+<pictures/margin_note.pdf, id=532, 57.21375pt x 57.3894pt>
 File: pictures/margin_note.pdf Graphic file (type pdf)
  <use pictures/margin_note.pdf>
 Package pdftex.def Info: pictures/margin_note.pdf used on input line 15.
@@ -2329,29 +2115,29 @@ File: pictures/margin_note.pdf Graphic file (type pdf)
 <use pictures/margin_note.pdf>
 Package pdftex.def Info: pictures/margin_note.pdf used on input line 15.
 (pdftex.def)             Requested size: 15.47845pt x 15.5264pt.
- <Figures/Chapter_overview/ds_ribbon_hotkey.png, id=525, 255.95625pt x 108.405pt>
-File: Figures/Chapter_overview/ds_ribbon_hotkey.png Graphic file (type png)
+ <figures/chapter_overview/ds_ribbon_hotkey.png, id=533, 255.95625pt x 108.405pt>
+File: figures/chapter_overview/ds_ribbon_hotkey.png Graphic file (type png)
 
-<use Figures/Chapter_overview/ds_ribbon_hotkey.png>
-Package pdftex.def Info: Figures/Chapter_overview/ds_ribbon_hotkey.png used on input line 19.
+<use figures/chapter_overview/ds_ribbon_hotkey.png>
+Package pdftex.def Info: figures/chapter_overview/ds_ribbon_hotkey.png used on input line 19.
 (pdftex.def)             Requested size: 255.95561pt x 108.40472pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 24.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 24.
 
-<Figures/Chapter_overview/ribbon_file.png, id=528, 256.70906pt x 316.18124pt>
-File: Figures/Chapter_overview/ribbon_file.png Graphic file (type png)
+<figures/chapter_overview/ribbon_file.png, id=536, 256.70906pt x 316.18124pt>
+File: figures/chapter_overview/ribbon_file.png Graphic file (type png)
 
-<use Figures/Chapter_overview/ribbon_file.png>
-Package pdftex.def Info: Figures/Chapter_overview/ribbon_file.png used on input line 30.
+<use figures/chapter_overview/ribbon_file.png>
+Package pdftex.def Info: figures/chapter_overview/ribbon_file.png used on input line 30.
 (pdftex.def)             Requested size: 247.54149pt x 304.89587pt.
 
-<Figures/Chapter_overview/ds_options.png, id=529, 539.76656pt x 379.4175pt>
-File: Figures/Chapter_overview/ds_options.png Graphic file (type png)
+<figures/chapter_overview/ds_options.png, id=537, 539.76656pt x 379.4175pt>
+File: figures/chapter_overview/ds_options.png Graphic file (type png)
 
-<use Figures/Chapter_overview/ds_options.png>
-Package pdftex.def Info: Figures/Chapter_overview/ds_options.png used on input line 37.
+<use figures/chapter_overview/ds_options.png>
+Package pdftex.def Info: figures/chapter_overview/ds_options.png used on input line 37.
 (pdftex.def)             Requested size: 412.56497pt x 290.01027pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 40.
@@ -2361,7 +2147,7 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 40.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 40.
- [33 <./Figures/Chapter_overview/context_menu_messages.png> <./pictures/margin_note.pdf> <./Figures/Chapter_overview/ds_
+ [29 <./figures/chapter_overview/context_menu_messages.png> <./pictures/margin_note.pdf> <./figures/chapter_overview/ds_
 ribbon_hotkey.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 41.
@@ -2371,39 +2157,39 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 41.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 41.
- [34 <./Figures/Chapter_overview/ribbon_file.png>]
+ [30 <./figures/chapter_overview/ribbon_file.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 43.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 43.
 
-<Figures/Chapter_overview/ribbon_home.png, id=544, 505.89pt x 89.58469pt>
-File: Figures/Chapter_overview/ribbon_home.png Graphic file (type png)
+<figures/chapter_overview/ribbon_home.png, id=551, 505.89pt x 89.58469pt>
+File: figures/chapter_overview/ribbon_home.png Graphic file (type png)
 
-<use Figures/Chapter_overview/ribbon_home.png>
-Package pdftex.def Info: Figures/Chapter_overview/ribbon_home.png used on input line 48.
+<use figures/chapter_overview/ribbon_home.png>
+Package pdftex.def Info: figures/chapter_overview/ribbon_home.png used on input line 48.
 (pdftex.def)             Requested size: 412.56497pt x 73.05939pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 54.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 54.
 
-<Figures/Chapter_overview/ribbon_view.png, id=546, 488.57532pt x 89.58469pt>
-File: Figures/Chapter_overview/ribbon_view.png Graphic file (type png)
+<figures/chapter_overview/ribbon_view.png, id=553, 488.57532pt x 89.58469pt>
+File: figures/chapter_overview/ribbon_view.png Graphic file (type png)
 
-<use Figures/Chapter_overview/ribbon_view.png>
-Package pdftex.def Info: Figures/Chapter_overview/ribbon_view.png used on input line 59.
+<use figures/chapter_overview/ribbon_view.png>
+Package pdftex.def Info: figures/chapter_overview/ribbon_view.png used on input line 59.
 (pdftex.def)             Requested size: 206.28249pt x 37.8235pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 65.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 65.
 
-<Figures/Chapter_overview/ribbon_tools.png, id=548, 122.70844pt x 82.05656pt>
-File: Figures/Chapter_overview/ribbon_tools.png Graphic file (type png)
+<figures/chapter_overview/ribbon_tools.png, id=555, 122.70844pt x 82.05656pt>
+File: figures/chapter_overview/ribbon_tools.png Graphic file (type png)
 
-<use Figures/Chapter_overview/ribbon_tools.png>
-Package pdftex.def Info: Figures/Chapter_overview/ribbon_tools.png used on input line 70.
+<use figures/chapter_overview/ribbon_tools.png>
+Package pdftex.def Info: figures/chapter_overview/ribbon_tools.png used on input line 70.
 (pdftex.def)             Requested size: 82.51173pt x 55.17793pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 73.
@@ -2413,18 +2199,18 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 73.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 73.
- [35 <./Figures/Chapter_overview/ds_options.png> <./Figures/Chapter_overview/ribbon_home.png> <./Figures/Chapter_overvie
+ [31 <./figures/chapter_overview/ds_options.png> <./figures/chapter_overview/ribbon_home.png> <./figures/chapter_overvie
 w/ribbon_view.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 76.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 76.
 
-<Figures/Chapter_overview/ribbon_map.png, id=557, 997.47656pt x 89.58469pt>
-File: Figures/Chapter_overview/ribbon_map.png Graphic file (type png)
+<figures/chapter_overview/ribbon_map.png, id=564, 997.47656pt x 89.58469pt>
+File: figures/chapter_overview/ribbon_map.png Graphic file (type png)
 
-<use Figures/Chapter_overview/ribbon_map.png>
-Package pdftex.def Info: Figures/Chapter_overview/ribbon_map.png used on input line 81.
+<use figures/chapter_overview/ribbon_map.png>
+Package pdftex.def Info: figures/chapter_overview/ribbon_map.png used on input line 81.
 (pdftex.def)             Requested size: 412.56497pt x 37.05255pt.
 File: pictures/margin_note.pdf Graphic file (type pdf)
  <use pictures/margin_note.pdf>
@@ -2435,11 +2221,11 @@ File: pictures/margin_note.pdf Graphic file (type pdf)
 Package pdftex.def Info: pictures/margin_note.pdf used on input line 122.
 (pdftex.def)             Requested size: 15.47845pt x 15.5264pt.
 
-<Figures/Chapter_overview/ribbon_map_minimised.png, id=559, 487.06969pt x 82.80937pt>
-File: Figures/Chapter_overview/ribbon_map_minimised.png Graphic file (type png)
+<figures/chapter_overview/ribbon_map_minimised.png, id=566, 487.06969pt x 82.80937pt>
+File: figures/chapter_overview/ribbon_map_minimised.png Graphic file (type png)
 
-<use Figures/Chapter_overview/ribbon_map_minimised.png>
-Package pdftex.def Info: Figures/Chapter_overview/ribbon_map_minimised.png used on input line 125.
+<use figures/chapter_overview/ribbon_map_minimised.png>
+Package pdftex.def Info: figures/chapter_overview/ribbon_map_minimised.png used on input line 125.
 (pdftex.def)             Requested size: 330.05322pt x 56.11375pt.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 128.
@@ -2449,17 +2235,17 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 128.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 128.
- [36 <./Figures/Chapter_overview/ribbon_tools.png> <./Figures/Chapter_overview/ribbon_map.png>] (chapters/ribbon_scripti
+ [32 <./figures/chapter_overview/ribbon_tools.png> <./figures/chapter_overview/ribbon_map.png>] (chapters/ribbon_scripti
 ng.tex
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 3.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 3.
- <Figures/Ribbon.png, id=568, 1033.61156pt x 89.58469pt>
-File: Figures/Ribbon.png Graphic file (type png)
+ <figures/Ribbon.png, id=575, 1033.61156pt x 89.58469pt>
+File: figures/Ribbon.png Graphic file (type png)
 
-<use Figures/Ribbon.png>
-Package pdftex.def Info: Figures/Ribbon.png used on input line 9.
+<use figures/Ribbon.png>
+Package pdftex.def Info: figures/Ribbon.png used on input line 9.
 (pdftex.def)             Requested size: 412.56497pt x 35.75804pt.
 
 Overfull \hbox (0.44707pt too wide) in alignment at lines 14--20
@@ -2484,7 +2270,7 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 37.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 37.
-[37 <./Figures/Chapter_overview/ribbon_map_minimised.png> <./Figures/Ribbon.png>]
+[33 <./figures/chapter_overview/ribbon_map_minimised.png> <./figures/Ribbon.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 39.
 Package babel Info: Redefining dutch shorthand "~
@@ -2518,11 +2304,11 @@ File: pictures/margin_note.pdf Graphic file (type pdf)
 Package pdftex.def Info: pictures/margin_note.pdf used on input line 138.
 (pdftex.def)             Requested size: 15.47845pt x 15.5264pt.
 
-<Figures/Chapter_overview/quick_access_toolbar.png, id=577, 259.7203pt x 145.29282pt>
-File: Figures/Chapter_overview/quick_access_toolbar.png Graphic file (type png)
+<figures/chapter_overview/quick_access_toolbar.png, id=585, 259.7203pt x 145.29282pt>
+File: figures/chapter_overview/quick_access_toolbar.png Graphic file (type png)
 
-<use Figures/Chapter_overview/quick_access_toolbar.png>
-Package pdftex.def Info: Figures/Chapter_overview/quick_access_toolbar.png used on input line 142.
+<use figures/chapter_overview/quick_access_toolbar.png>
+Package pdftex.def Info: figures/chapter_overview/quick_access_toolbar.png used on input line 142.
 (pdftex.def)             Requested size: 247.54149pt x 138.47964pt.
 ))
 Package babel Info: Redefining dutch shorthand "|
@@ -2533,7 +2319,7 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 103.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 103.
- [38]
+ [34]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 107.
 Package babel Info: Redefining dutch shorthand "~
@@ -2542,7 +2328,7 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 107.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 107.
- [39 <./Figures/Chapter_overview/quick_access_toolbar.png>]
+ [35 <./figures/chapter_overview/quick_access_toolbar.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 107.
 Package babel Info: Redefining dutch shorthand "~
@@ -2551,7 +2337,7 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 107.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 107.
- [40
+ [36
 
 ]
 File: cover/default-cover-pages.pdf Graphic file (type pdf)
@@ -2563,7 +2349,7 @@ File: cover/default-cover-pages.pdf Graphic file (type pdf)
 Package pdftex.def Info: cover/default-cover-pages.pdf used on input line 112.
 (pdftex.def)             Requested size: 597.22978pt x 845.15544pt.
 
-<cover/default-cover-pages.pdf, id=594, page=2, 597.23125pt x 845.1575pt>
+<cover/default-cover-pages.pdf, id=601, page=2, 597.23125pt x 845.1575pt>
 File: cover/default-cover-pages.pdf Graphic file (type pdf)
  <use cover/default-cover-pages.pdf, page 2>
 Package pdftex.def Info: cover/default-cover-pages.pdf, page2 used on input line 112.
@@ -2581,7 +2367,7 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 112.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 112.
- [41]
+ [37]
 File: cover/default-cover-pages.pdf Graphic file (type pdf)
  <use cover/default-cover-pages.pdf, page 2>
 Package pdftex.def Info: cover/default-cover-pages.pdf, page2 used on input line 112.
@@ -2603,7 +2389,7 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 112.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 112.
- [42 <./cover/default-cover-pages.pdf>] 
+ [38 <./cover/default-cover-pages.pdf>] 
 AED: lastpage setting LastPage
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 113.
@@ -2623,22 +2409,22 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 14427 strings out of 493673
- 215931 string characters out of 3143945
- 332814 words of memory out of 3000000
- 17177 multiletter control sequences out of 15000+200000
+ 14506 strings out of 493673
+ 220069 string characters out of 3143945
+ 332803 words of memory out of 3000000
+ 17265 multiletter control sequences out of 15000+200000
  51396 words of font info for 73 fonts, out of 3000000 for 9000
  1027 hyphenation exceptions out of 8191
- 53i,18n,54p,1329b,489s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 53i,18n,54p,1320b,489s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc} <C:\Users\rodriqu_dd\AppData\Local\MiKTeX\2.9\fonts\pk\l
 jfour\jknappen\ec\dpi600\ectt1095.pk><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbsy10.pfb><C:/Program
  Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
 cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw
 /helvetic/uhvbo8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/font
 s/type1/urw/helvetic/uhvro8a.pfb>
-Output written on ds_um.pdf (52 pages, 7743150 bytes).
+Output written on ds_um.pdf (48 pages, 8477458 bytes).
 PDF statistics:
- 903 PDF objects out of 1000 (max. 8388607)
- 165 named destinations out of 1000 (max. 500000)
- 673 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 882 PDF objects out of 1000 (max. 8388607)
+ 161 named destinations out of 1000 (max. 500000)
+ 778 words of extra memory for PDF output out of 10000 (max. 10000000)
 
