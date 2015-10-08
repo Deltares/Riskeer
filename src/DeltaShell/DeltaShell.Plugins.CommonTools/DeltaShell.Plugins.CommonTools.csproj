@@ -165,5 +165,4 @@
     <PluginName>$(ProjectName)</PluginName>
   </PropertyGroup>
   <Import Project="..\..\..\build\DeltaShell.targets" />
-  <Import Project="..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets" Condition="Exists('..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets')" />
 </Project>
