@@ -168,6 +168,10 @@
       <Project>{A3C9DF74-978A-44B1-B55D-A72AC4221E3A}</Project>
       <Name>SharpMap.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wti.Base\Wti.Base.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Wti.Base</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="DelftTools.snk" />

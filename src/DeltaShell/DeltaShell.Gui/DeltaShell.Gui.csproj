@@ -51,6 +51,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstaller|AnyCPU'">
     <PlatformTarget>x86</PlatformTarget>
     <OutputPath>bin\application\</OutputPath>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
@@ -275,6 +276,10 @@
     <ProjectReference Include="..\..\Common\SharpMap\SharpMap.csproj">
       <Project>{c83777fc-aabb-47d9-911f-d76255d4d541}</Project>
       <Name>SharpMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Wti.Base\Wti.Base.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Wti.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Plugins\Wti\Wti.Calculation\Wti.Calculation.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
