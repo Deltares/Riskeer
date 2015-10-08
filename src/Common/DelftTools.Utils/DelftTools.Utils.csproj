@@ -334,11 +334,11 @@
       <Link>x64\netcdf-4.3.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="..\DelftTools.Utils.RemoteInstanceServer\bin\$(Configuration)\DelftTools.Utils.RemoteInstanceServer.x64.exe">
+    <None Include="..\DelftTools.Utils.RemoteInstanceServer\bin\x86\$(Configuration)\DelftTools.Utils.RemoteInstanceServer.x64.exe">
       <Link>DelftTools.Utils.RemoteInstanceServer.x64.exe</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="..\DelftTools.Utils.RemoteInstanceServer\bin\$(Configuration)\DelftTools.Utils.RemoteInstanceServer.x86.exe">
+    <None Include="..\DelftTools.Utils.RemoteInstanceServer\bin\x86\$(Configuration)\DelftTools.Utils.RemoteInstanceServer.x86.exe">
       <Link>DelftTools.Utils.RemoteInstanceServer.x86.exe</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
