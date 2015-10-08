@@ -113,7 +113,6 @@
     </None>
     <None Include="DelftTools.snk" />
     <None Include="packages.config" />
-    <None Include="Properties\AssemblyInfo.cs.svn" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

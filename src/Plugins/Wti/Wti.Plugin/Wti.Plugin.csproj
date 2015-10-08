@@ -134,7 +134,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\AssemblyInfo.cs.svn" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

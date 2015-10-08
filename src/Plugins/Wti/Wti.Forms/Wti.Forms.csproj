@@ -103,7 +103,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\AssemblyInfo.cs.svn" />
     <None Include="Resources\folder-stand.png" />
   </ItemGroup>
   <ItemGroup>
