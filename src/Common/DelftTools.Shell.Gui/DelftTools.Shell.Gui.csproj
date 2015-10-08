@@ -107,6 +107,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="DynamicObjectProperties.cs" />
     <Compile Include="ExpandableArrayConverter.cs" />
     <Compile Include="Forms\IHelpAboutDialog.cs" />
@@ -216,6 +219,7 @@
   </ProjectExtensions>
   <Import Project="..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets" Condition="Exists('..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets')" />
   <PropertyGroup>
-    <PreBuildEvent>cmd /c $(SolutionDir)\svn_insert_version.cmd $(ProjectDir)\Properties</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>

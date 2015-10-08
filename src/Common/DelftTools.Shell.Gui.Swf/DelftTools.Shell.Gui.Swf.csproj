@@ -87,6 +87,9 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="CollapsableGroupBoxController.cs" />
     <Compile Include="NodePresenterHelper.cs" />
     <Compile Include="CollapsableGroupBox.cs">
@@ -249,6 +252,7 @@
   -->
   <Import Project="..\..\..\build\DeltaShell.targets" />
   <PropertyGroup>
-    <PreBuildEvent>cmd /c $(SolutionDir)\svn_insert_version.cmd $(ProjectDir)\Properties</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>

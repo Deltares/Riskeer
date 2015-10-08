@@ -619,6 +619,6 @@ copy "$(SolutionDir)\lib\*.dll" .\
     </MonoDevelop>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>cmd /c $(SolutionDir)\svn_insert_version.cmd $(ProjectDir)\Properties</PreBuildEvent>
+    <PreBuildEvent>cmd /c $(SolutionDir)\svn_insert_version.cmd $(SolutionDir)\src GlobalAssembly.cs.svn GlobalAssembly.cs</PreBuildEvent>
   </PropertyGroup>
 </Project>

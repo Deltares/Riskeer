@@ -47,6 +47,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
     <Compile Include="Commands\CanvasCommand.cs" />
     <Compile Include="Commands\MapChangeCoordinateSystemCommand.cs" />
     <Compile Include="Commands\ExportMapAsImageCommand.cs" />
@@ -496,6 +499,7 @@
     <PluginName>$(ProjectName)</PluginName>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>cmd /c $(SolutionDir)\svn_insert_version.cmd $(ProjectDir)\Properties</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
