@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.10.1)  8 OCT 2015 16:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2015.10.1)  8 OCT 2015 16:46
 entering extended mode
 **ds_um.tex
 (ds_um.tex
@@ -1245,11 +1245,11 @@ Overfull \hbox (1.19998pt too wide) in alignment at lines 3--4
 LaTeX Font Info:    Try loading font information for T1+cmtt on input line 22.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-) <pictures/action_arrow.pdf, id=286, 86.55553pt x 58.29279pt>
-File: pictures/action_arrow.pdf Graphic file (type pdf)
-
-<use pictures/action_arrow.pdf>
-Package pdftex.def Info: pictures/action_arrow.pdf used on input line 25.
+)
+<figures/common/action_arrow.pdf, id=286, 86.55553pt x 58.29279pt>
+File: figures/common/action_arrow.pdf Graphic file (type pdf)
+ <use figures/common/action_arrow.pdf>
+Package pdftex.def Info: figures/common/action_arrow.pdf used on input line 25.
 (pdftex.def)             Requested size: 16.89873pt x 11.38109pt.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 11.03998pt on input line 28.
@@ -1303,7 +1303,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has b
 <to be read again> 
                    \relax 
 l.3 \chapter
-            {Installatie\label{chap:install}} [2 <./pictures/action_arrow.pdf>]
+            {Installatie\label{chap:install}} [2 <./figures/common/action_arrow.pdf>]
 Hoofdstuk 2.
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 3.
@@ -2147,8 +2147,8 @@ Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 40.
 Package babel Info: Redefining dutch shorthand "~
 (babel)             in language  on input line 40.
- [29 <./figures/chapter_overview/context_menu_messages.png> <./pictures/margin_note.pdf> <./figures/chapter_overview/ds_
-ribbon_hotkey.png>]
+ [29 <./figures/chapter_overview/context_menu_messages.png> <C:/Users/rodriqu_dd/AppData/Roaming/MiKTeX/2.9/tex/latex/de
+ltares/pictures/margin_note.pdf> <./figures/chapter_overview/ds_ribbon_hotkey.png>]
 Package babel Info: Redefining dutch shorthand "|
 (babel)             in language  on input line 41.
 Package babel Info: Redefining dutch shorthand "~
@@ -2409,8 +2409,8 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 14506 strings out of 493673
- 220069 string characters out of 3143945
+ 14507 strings out of 493673
+ 220108 string characters out of 3143945
  332803 words of memory out of 3000000
  17265 multiletter control sequences out of 15000+200000
  51396 words of font info for 73 fonts, out of 3000000 for 9000
@@ -2422,7 +2422,7 @@ jfour\jknappen\ec\dpi600\ectt1095.pk><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
 cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw
 /helvetic/uhvbo8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Program Files/MiKTeX 2.9/font
 s/type1/urw/helvetic/uhvro8a.pfb>
-Output written on ds_um.pdf (48 pages, 8477458 bytes).
+Output written on ds_um.pdf (48 pages, 8477526 bytes).
 PDF statistics:
  882 PDF objects out of 1000 (max. 8388607)
  161 named destinations out of 1000 (max. 500000)
