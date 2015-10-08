@@ -197,6 +197,10 @@
     <Content Include="Resources\textdocument.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Wti.Base\Wti.Base.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Wti.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\DelftTools.Controls.Swf\DelftTools.Controls.Swf.csproj">
       <Project>{3dbd23ce-5c4a-4a49-b51c-b268cb2b510e}</Project>
       <Name>DelftTools.Controls.Swf</Name>

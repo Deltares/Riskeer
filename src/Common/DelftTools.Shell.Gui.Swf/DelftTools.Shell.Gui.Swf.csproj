@@ -134,6 +134,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Wti.Base\Wti.Base.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Wti.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DelftTools.Controls.Swf\DelftTools.Controls.Swf.csproj">
       <Project>{3DBD23CE-5C4A-4A49-B51C-B268CB2B510E}</Project>
       <Name>DelftTools.Controls.Swf</Name>
