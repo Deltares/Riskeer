@@ -6,12 +6,12 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>3ccb05db-c7b3-4ef7-b41d-22b6d2a3774e</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-	<!-- 
+    <!-- 
 		Custom Field: ReleaseVersion
 		Field is injected into WiX with the same name to make it available there as well.
 	-->
-	<ReleaseVersion>0.5.0</ReleaseVersion>
-	<!--
+    <ReleaseVersion>0.5.0</ReleaseVersion>
+    <!--
 		Environment Variable: BUILD_NUMBER
 		Field could be set by BuildServer. If not present, it will be skipped.
 	-->
@@ -74,6 +74,7 @@
   <ItemGroup>
     <Content Include="Banner_493x77.bmp" />
     <Content Include="GenerateVariables.wxi" />
+    <Content Include="GenerateVariables.wxi.svn" />
     <Content Include="License.rtf" />
     <Content Include="Start_493x312.bmp" />
     <Content Include="Variables.wxi" />
