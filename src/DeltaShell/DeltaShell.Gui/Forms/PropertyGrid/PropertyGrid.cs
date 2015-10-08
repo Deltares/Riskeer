@@ -84,7 +84,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                                              if (IsInEditMode(propertyGrid1))
                                                  return;
                                              propertyGrid1.Refresh();
-                                             comboBox1.Refresh();
                                              refreshRequired = false;
                                          }
                                      };
@@ -384,7 +383,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         private void OnSelectedObjectsChanged()
         {
             objectTypes.Clear();
-            comboBox1.Items.Clear();
 
             if (SelectedObjects == null)
             {
@@ -410,7 +408,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                 Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, selectedType.Name);
 
                 objectTypes.Add(selectedType, 1);
-                comboBox1.Items.Add(selectedType);
             }
             else
             {
@@ -418,7 +415,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
                 int count = 0;
 
-                comboBox1.Items.Add(typeof (Object));
                 for (int i = 0; i < SelectedObjects.Length; i++)
                 {
                     var selectedType = GetRelevantType(SelectedObjects[i]);
@@ -426,7 +422,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                     if (!objectTypes.ContainsKey(selectedType))
                     {
                         objectTypes.Add(selectedType, 1);
-                        comboBox1.Items.Add(selectedType);
                     }
                     else
                     {
@@ -463,7 +458,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                 }
             }
 
-            comboBox1.SelectedIndex = comboBox1.Items.Count > 1 ? 1 : 0;
+            propertyGrid1.SelectedObject = SelectedObjects.Count() > 1 ? SelectedObjects[1] : SelectedObjects[0];
         }
 
         private static Type GetRelevantType(object obj)
@@ -474,125 +469,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                 return bag.GetContentType();
             }
             return obj.GetType();
-        }
-
-        /// <summary>
-        /// comboBox1_SelectedIndexChanged
-        /// If the the selection of the embedded combobox changes feed the embedded propertygrid
-        /// with an appropriate collection of objects.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Type t = (Type) comboBox1.Items[comboBox1.SelectedIndex];
-            if (typeof (Object) == t)
-            {
-                propertyGrid1.SelectedObjects = selectedObjects;
-            }
-            else
-            {
-                var objects = new object[objectTypes[t]];
-                var objectTypeCount = 0;
-                foreach (var t1 in selectedObjects)
-                {
-                    if (t1 != null && t == GetRelevantType(t1))
-                    {
-                        objects[objectTypeCount] = t1;
-                        objectTypeCount++;
-                    }
-                }
-                propertyGrid1.SelectedObjects = objects;
-            }
-        }
-
-        /// <summary>
-        /// objectId
-        /// Checks if object o has a property named Id and return the value.
-        /// If "Id" is not supported an empty string is returned.
-        /// </summary>
-        /// <param name="o"></param>
-        /// <returns></returns>
-        private static string GetObjectId(object o)
-        {
-            if (o == null)
-                return "(null)";
-
-            PropertyInfo[] propertyCollection = GetRelevantType(o).GetProperties();
-
-            for (int i = 0; i < propertyCollection.Length; i++)
-            {
-                PropertyInfo propertyInfo = propertyCollection[i];
-                if ("Id" == propertyInfo.Name)
-                {
-                    object value = null;
-                    if (o is DynamicPropertyBag)
-                    {
-                        var bag = o as DynamicPropertyBag;
-                        var descr = ((ICustomTypeDescriptor) bag).GetProperties().Find(propertyInfo.Name, false);
-                        if (descr != null)
-                            value = descr.GetValue(o);
-                    }
-                    else
-                    {
-                        value = propertyInfo.GetValue(o, null);
-                    }
-
-                    return (value != null) ? value.ToString() : null;
-                    //don't just do toString()..the ID might be null
-                    //return propertyInfo.GetValue(o, null).ToString();
-                }
-            }
-            return "";
-        }
-
-        private void comboBox1_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            if (-1 == e.Index)
-                return;
-            Brush brush = ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                              ? SystemBrushes.HighlightText
-                              : SystemBrushes.WindowText;
-            Rectangle bounds = e.Bounds;
-
-            Type t = (Type) comboBox1.Items[e.Index];
-
-            var displayNameAttribute = t.GetCustomAttributes(true).OfType<DisplayNameAttribute>().FirstOrDefault();
-            var name = t.Name;
-            if (displayNameAttribute != null)
-            {
-                name = displayNameAttribute.DisplayName;
-            }
-
-            e.DrawBackground();
-            if (SelectedObjects.Length > 1)
-            {
-                string text;
-                if (typeof (Object) == t)
-                {
-                    text = string.Format(Resources.PropertyGrid_comboBox1_DrawItem_All_selected_Objects___0__,SelectedObjects.Length);
-                }
-                else
-                {
-                    text = string.Format(Resources.PropertyGrid_comboBox1_DrawItem_selected__0____1__,name, objectTypes[t]);
-                }
-                e.Graphics.DrawString(text, Font, brush, e.Bounds);
-            }
-            else if (SelectedObjects.Length == 1)
-            {
-                // only 1 object; show id in boldfont followed by the type description.
-
-                Font boldFont = new Font(Font, FontStyle.Bold);
-
-                string objectDescription = GetObjectId(SelectedObjects[0]);
-                e.Graphics.DrawString(objectDescription, boldFont, brush, bounds);
-                // xx = add extra margin
-                bounds.X += Convert.ToInt32(e.Graphics.MeasureString(objectDescription + "xx", boldFont).Width);
-
-                e.Graphics.DrawString(name, Font, brush, bounds);
-            }
-            if ((e.State & DrawItemState.Focus) == DrawItemState.Focus)
-                e.DrawFocusRectangle();
         }
 
         #region enable tab key navigation on propertygrid
