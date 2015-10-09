@@ -593,11 +593,6 @@ IF EXIST "%25VS110COMNTOOLS%25vsvars32.bat" CALL “%25VS110COMNTOOLS%25vsvars32
 :endvsvars
 editbin /LARGEADDRESSAWARE $(TargetFileName)
 
-copy /Y $(TargetFileName) $(TargetName).x64.exe
-copy /Y DeltaShell.Gui.exe.config DeltaShell.Gui.x64.exe.config
-if "$(PlatformName)"=="x86" corflags /force /32bit+ $(TargetName).exe
-
-echo "Pre-compiling XmlSerializers for plugins ..."
 rem "$(SolutionDir)\build\tools\sgen.exe" /force /compiler:/keyfile:..\..\..\..\Common\DelftTools.Shell.Core\DelftTools.snk /t:DelftTools.Shell.Gui.guiPlugin /a:DelftTools.Shell.Gui.dll 
 
 copy "$(SolutionDir)\lib\DeltaShell\DeltaShell.Gui\license.lic" .\
@@ -605,13 +600,7 @@ copy "$(SolutionDir)\lib\DeltaShell\DeltaShell.Gui\license.lic" .\
 xcopy /S /D /Y /Q "$(SolutionDir)\lib\Common\SharpMap\*" .\
 xcopy /S /D /Y /Q "$(SolutionDir)\lib\Common\SharpMap.Extensions\*" .\
 
-xcopy /S /D /Y /Q "$(SolutionDir)\lib\IKVM.*" .\
-
-rem if exist NHibernate.dll del NHibernate.dll
-
 copy "$(SolutionDir)\src\DeltaShell\DeltaShell.Core\bin\$(ConfigurationName)\DeltaShell.Core.XmlSerializers.dll" .\
-
-copy "$(SolutionDir)\build\tools\NHibernateProfiler\HibernatingRhinos.Profiler.Appender.dll" .\
 
 copy "$(SolutionDir)\lib\*.dll" .\
 

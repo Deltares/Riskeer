@@ -200,8 +200,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>if exist "$(SolutionDir)target\performance-times.html" del /f /q "$(SolutionDir)target\performance-times.html"
-if exist "$(SolutionDir)target\performance-times-charts.html" del /f /q "$(SolutionDir)target\performance-times-charts.html"
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
