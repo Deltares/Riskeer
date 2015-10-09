@@ -9,28 +9,6 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
 {
     internal class DataGridBinding : Binding<DataGridView>
     {
-        #region Nested Type: ValueWrapper
-
-        public class ValueWrapper<T>
-        {
-            private readonly IList<T> valueList;
-            private readonly int index;
-
-            public ValueWrapper(IList<T> valueList, int index)
-            {
-                this.valueList = valueList;
-                this.index = index;
-            }
-
-            public T Value
-            {
-                get { return valueList[index]; }
-                set { valueList[index] = value; }
-            }
-        }
-
-        #endregion
-
         private object previousData; // Reference to check if FillControl is required
         private bool oldRowHeadersVisible; // Remember original value when showing row error where row headers are normally hidden
 
@@ -59,7 +37,7 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
                 Control.Rows[i].ErrorText = "";
             }
             Control.RowHeadersVisible = oldRowHeadersVisible;
-            
+
             Control.CellValidating -= OnCellValidating;
             Control.KeyUp -= ControlOnKeyUp;
             Control.VisibleChanged -= ControlVisibleChanged;
@@ -74,7 +52,7 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
             FillControl();
         }
 
-        void ControlVisibleChanged(object sender, EventArgs e)
+        private void ControlVisibleChanged(object sender, EventArgs e)
         {
             Control.ClearSelection();
             Control.CurrentCell = null;
@@ -91,7 +69,10 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
         private void FillDataSource()
         {
             // Collection object hasn't changed, so nothing to refresh:
-            if (ReferenceEquals(previousData, DataValue)) return;
+            if (ReferenceEquals(previousData, DataValue))
+            {
+                return;
+            }
             previousData = DataValue;
 
             var intList = DataValue as IList<int>;
@@ -125,20 +106,20 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
                 return;
             }
             var dataType = FieldDescription.ValueType.GetGenericArguments().ToList().FirstOrDefault();
-            Control.DataSource = TypeUtils.CreateGeneric(typeof (BindingList<>), dataType, DataValue);
+            Control.DataSource = TypeUtils.CreateGeneric(typeof(BindingList<>), dataType, DataValue);
         }
 
         private static string GetExpectedTypeString(Type type)
         {
-            if (type == typeof (double))
+            if (type == typeof(double))
             {
                 return "number";
             }
-            if (type == typeof (int))
+            if (type == typeof(int))
             {
                 return "whole number";
             }
-            if (type == typeof (DateTime))
+            if (type == typeof(DateTime))
             {
                 return "date and time";
             }
@@ -170,7 +151,7 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
                     var testValue = Convert.ChangeType(
                         e.FormattedValue.ToString(), // String in cell
                         genericArgument // Type of item in the collection
-                    );
+                        );
                     row.ErrorText = "";
                     Control.RowHeadersVisible = oldRowHeadersVisible;
                 }
@@ -178,11 +159,39 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
                 {
                     // Not a valid value:
                     Control.RowHeadersVisible = true;
-                    row.ErrorText = String.Format("Value on cell (Col: {0}) not a valid {1}.", 
+                    row.ErrorText = String.Format("Value on cell (Col: {0}) not a valid {1}.",
                                                   Control.Columns[0].Name, GetExpectedTypeString(genericArgument));
                     e.Cancel = true;
                 }
             }
         }
+
+        #region Nested Type: ValueWrapper
+
+        public class ValueWrapper<T>
+        {
+            private readonly IList<T> valueList;
+            private readonly int index;
+
+            public ValueWrapper(IList<T> valueList, int index)
+            {
+                this.valueList = valueList;
+                this.index = index;
+            }
+
+            public T Value
+            {
+                get
+                {
+                    return valueList[index];
+                }
+                set
+                {
+                    valueList[index] = value;
+                }
+            }
+        }
+
+        #endregion
     }
 }

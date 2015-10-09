@@ -8,13 +8,20 @@ namespace GisSharpBlog.NetTopologySuite.Precision
     /// </summary>
     public class CommonBitsRemover
     {
-        private ICoordinate commonCoord = null;
-        private CommonCoordinateFilter ccFilter = new CommonCoordinateFilter();
+        private readonly CommonCoordinateFilter ccFilter = new CommonCoordinateFilter();
 
         /// <summary>
         /// 
         /// </summary>
-        public CommonBitsRemover() { }
+        public CommonBitsRemover()
+        {
+            CommonCoordinate = null;
+        }
+
+        /// <summary>
+        /// The common bits of the Coordinates in the supplied Geometries.
+        /// </summary>
+        public ICoordinate CommonCoordinate { get; private set; }
 
         /// <summary>
         /// Add a point to the set of geometries whose common bits are
@@ -26,15 +33,7 @@ namespace GisSharpBlog.NetTopologySuite.Precision
         public void Add(IGeometry geom)
         {
             geom.Apply(ccFilter);
-            commonCoord = ccFilter.CommonCoordinate;
-        }
-
-        /// <summary>
-        /// The common bits of the Coordinates in the supplied Geometries.
-        /// </summary>
-        public ICoordinate CommonCoordinate
-        {
-            get { return commonCoord; }
+            CommonCoordinate = ccFilter.CommonCoordinate;
         }
 
         /// <summary>
@@ -45,12 +44,14 @@ namespace GisSharpBlog.NetTopologySuite.Precision
         /// <returns>The shifted Geometry.</returns>
         public IGeometry RemoveCommonBits(IGeometry geom)
         {
-            if (commonCoord.X == 0.0 && commonCoord.Y == 0.0)
+            if (CommonCoordinate.X == 0.0 && CommonCoordinate.Y == 0.0)
+            {
                 return geom;
-            ICoordinate invCoord = new Coordinate(commonCoord);
+            }
+            ICoordinate invCoord = new Coordinate(CommonCoordinate);
             invCoord.X = -invCoord.X;
             invCoord.Y = -invCoord.Y;
-            Translater trans = new Translater(invCoord);            
+            Translater trans = new Translater(invCoord);
             geom.Apply(trans);
             geom.GeometryChanged();
             return geom;
@@ -64,7 +65,7 @@ namespace GisSharpBlog.NetTopologySuite.Precision
         /// <returns>The shifted Geometry.</returns>
         public void AddCommonBits(IGeometry geom)
         {
-            Translater trans = new Translater(commonCoord);
+            Translater trans = new Translater(CommonCoordinate);
             geom.Apply(trans);
             geom.GeometryChanged();
         }
@@ -74,18 +75,8 @@ namespace GisSharpBlog.NetTopologySuite.Precision
         /// </summary>
         public class CommonCoordinateFilter : ICoordinateFilter
         {
-            private CommonBits commonBitsX = new CommonBits();
-            private CommonBits commonBitsY = new CommonBits();
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="coord"></param>
-            public void Filter(ICoordinate coord)
-            {
-                commonBitsX.Add(coord.X);
-                commonBitsY.Add(coord.Y);
-            }
+            private readonly CommonBits commonBitsX = new CommonBits();
+            private readonly CommonBits commonBitsY = new CommonBits();
 
             /// <summary>
             /// 
@@ -97,14 +88,24 @@ namespace GisSharpBlog.NetTopologySuite.Precision
                     return new Coordinate(commonBitsX.Common, commonBitsY.Common);
                 }
             }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="coord"></param>
+            public void Filter(ICoordinate coord)
+            {
+                commonBitsX.Add(coord.X);
+                commonBitsY.Add(coord.Y);
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        class Translater : ICoordinateFilter
+        private class Translater : ICoordinateFilter
         {
-            private ICoordinate trans = null;
+            private readonly ICoordinate trans = null;
 
             /// <summary>
             /// 

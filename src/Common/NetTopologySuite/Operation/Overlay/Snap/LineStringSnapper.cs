@@ -10,11 +10,11 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
     /// </summary>
     public class LineStringSnapper
     {
-        private double snapTolerance = 0.0;
+        private readonly double snapTolerance = 0.0;
 
-        private ICoordinate[] srcPts;
-        private LineSegment seg = new LineSegment(); // for reuse during snapping
-        private bool isClosed = false;
+        private readonly ICoordinate[] srcPts;
+        private readonly LineSegment seg = new LineSegment(); // for reuse during snapping
+        private readonly bool isClosed = false;
 
         /// <summary>
         /// Creates a new snapper using the points in the given {@link LineString}
@@ -22,8 +22,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
         /// </summary>
         /// <param name="line"></param>
         /// <param name="snapTolerance"></param>
-        public LineStringSnapper(ILineString line, double snapTolerance) : 
-            this(line.Coordinates, snapTolerance) { }
+        public LineStringSnapper(ILineString line, double snapTolerance) :
+            this(line.Coordinates, snapTolerance) {}
 
         /// <summary>
         /// Creates a new snapper using the given points
@@ -72,7 +72,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
                     srcCoords[i] = new Coordinate(snapVert);
                     // keep final closing point in synch (rings only)
                     if (i == 0 && isClosed)
+                    {
                         srcCoords[srcCoords.Count - 1] = new Coordinate(snapVert);
+                    }
                 }
             }
         }
@@ -89,9 +91,13 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
             {
                 // if point is already equal to a src pt, don't snap
                 if (pt.Equals2D(coord))
+                {
                     return null;
+                }
                 if (pt.Distance(coord) < snapTolerance)
+                {
                     return coord;
+                }
             }
             return null;
         }
@@ -113,7 +119,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
             // check for duplicate snap pts.  
             // Need to do this better - need to check all points for dups (using a Set?)
             if (snapPts[0].Equals2D(snapPts[snapPts.Length - 1]))
+            {
                 distinctPtCount = snapPts.Length - 1;
+            }
 
             for (int i = 0; i < distinctPtCount; i++)
             {
@@ -126,7 +134,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
                  * Duplicate points are not added.
                  */
                 if (index >= 0)
+                {
                     srcCoords.Add(index + 1, new Coordinate(snapPt), false);
+                }
             }
         }
 
@@ -154,7 +164,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
                  * If the snap pt is already in the src list, don't snap
                  */
                 if (seg.P0.Equals2D(snapPt) || seg.P1.Equals2D(snapPt))
+                {
                     return -1;
+                }
 
                 double dist = seg.Distance(snapPt);
                 if (dist < snapTolerance && dist < minDist)

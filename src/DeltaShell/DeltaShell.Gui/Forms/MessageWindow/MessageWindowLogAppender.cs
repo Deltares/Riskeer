@@ -12,49 +12,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 {
     public class MessageWindowLogAppender : AppenderSkeleton
     {
-        private static IMessageWindow messageWindow;
-        private static ResourceManager resourceManager;
-        private static ResourceWriter resourceWriter;
-        private static bool enabled;
-
-        public MessageWindowLogAppender()
-        {
-        }
-
-        public static IMessageWindow MessageWindow
-        {
-            get { return messageWindow; }
-            set { messageWindow = value; }
-        }
-
-        /// <summary>
-        /// Resource manager for looking up culture/language depended messages
-        /// </summary>
-        public static ResourceManager ResourceManager
-        {
-            get { return resourceManager; }
-            set { resourceManager = value; }
-        }
-
-        /// <summary>
-        /// Resource writer makes a catalogue for not found messages at the resources
-        /// </summary>
-        public static ResourceWriter ResourceWriter
-        {
-            get { return resourceWriter; }
-            set { resourceWriter = value; }
-        }
-
-        public static bool Enabled
-        {
-            get { return enabled; }
-            set
-            {
-                enabled = value;
-                FlushMessagesToMessageWindow();
-            }
-        }
-
         /// <summary>
         /// This list contains any messages that could not yet be delivered to the MessageWindow (typically because it doesn't exist 
         /// yet at startup). They are kept in the backlog and send to the MessageWindow upon the first message arriving while there 
@@ -62,9 +19,38 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         /// </summary>
         protected static IList<LoggingEvent> messageBackLog = new List<LoggingEvent>();
 
+        private static bool enabled;
+
+        public MessageWindowLogAppender() {}
+
+        public static IMessageWindow MessageWindow { get; set; }
+
+        /// <summary>
+        /// Resource manager for looking up culture/language depended messages
+        /// </summary>
+        public static ResourceManager ResourceManager { get; set; }
+
+        /// <summary>
+        /// Resource writer makes a catalogue for not found messages at the resources
+        /// </summary>
+        public static ResourceWriter ResourceWriter { get; set; }
+
+        public static bool Enabled
+        {
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                enabled = value;
+                FlushMessagesToMessageWindow();
+            }
+        }
+
         protected override void Append(LoggingEvent loggingEvent)
         {
-            if (messageWindow == null || !Enabled)
+            if (MessageWindow == null || !Enabled)
             {
                 messageBackLog.Add(loggingEvent);
             }
@@ -75,24 +61,9 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             }
         }
 
-        private static void FlushMessagesToMessageWindow()
-        {
-            if (MessageWindow == null)
-            {
-                return;
-            }
-
-            if (messageBackLog.Count > 0)
-            {
-                foreach (LoggingEvent backLogLoggingEvent in messageBackLog.ToArray())
-                    AppendToMessageWindow(backLogLoggingEvent);
-                messageBackLog.Clear();
-            }
-        }
-
         protected static void AppendToMessageWindow(LoggingEvent loggingEvent)
         {
-            if (messageWindow == null)
+            if (MessageWindow == null)
             {
                 return;
             }
@@ -123,17 +94,33 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             if (message == null)
             {
                 message = GetLocalizedMessage(loggingEvent.RenderedMessage);
-
             }
 
-            if(loggingEvent.ExceptionObject != null)
+            if (loggingEvent.ExceptionObject != null)
             {
                 message += loggingEvent.ExceptionObject.Message + "\n";
                 message += Resources.MessageWindowLogAppender_AppendToMessageWindow__Check_log_file_for_more_information__Home__Show_Log__;
             }
 
-            messageWindow.AddMessage(loggingEvent.Level, loggingEvent.TimeStamp,
+            MessageWindow.AddMessage(loggingEvent.Level, loggingEvent.TimeStamp,
                                      loggingEvent.LoggerName, message, loggingEvent.GetExceptionString());
+        }
+
+        private static void FlushMessagesToMessageWindow()
+        {
+            if (MessageWindow == null)
+            {
+                return;
+            }
+
+            if (messageBackLog.Count > 0)
+            {
+                foreach (LoggingEvent backLogLoggingEvent in messageBackLog.ToArray())
+                {
+                    AppendToMessageWindow(backLogLoggingEvent);
+                }
+                messageBackLog.Clear();
+            }
         }
 
         private static string GetLocalizedMessage(string format, object[] args)
@@ -151,10 +138,9 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         private static string GetLocalizedMessage(string message)
         {
             string localizedMessage = "";
-            if (resourceManager != null)
+            if (ResourceManager != null)
             {
-                localizedMessage = resourceManager.GetString(message);
-
+                localizedMessage = ResourceManager.GetString(message);
             }
             if (string.IsNullOrEmpty(localizedMessage))
             {
@@ -166,7 +152,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 
         private static void WriteMessageToResourceFile(string message)
         {
-            if(resourceWriter != null)
+            if (ResourceWriter != null)
             {
                 try
                 {

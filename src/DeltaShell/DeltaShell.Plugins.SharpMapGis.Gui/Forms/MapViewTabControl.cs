@@ -16,61 +16,22 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 {
     public partial class MapViewTabControl : UserControl
     {
+        public event EventHandler<NotifyCollectionChangedEventArgs> ViewCollectionChanged;
         private readonly DockingManager dockingManager = new DockingManager();
         private readonly IEventedList<IView> views = new EventedList<IView>();
-        private readonly IList<WindowsFormsHost> viewHosts= new List<WindowsFormsHost>();
+        private readonly IList<WindowsFormsHost> viewHosts = new List<WindowsFormsHost>();
+
+        private bool nested = false;
 
         public MapViewTabControl()
         {
             InitializeComponent();
-            
+
             elementHost.Child = dockingManager;
             dockingManager.Layout.RootPanel.Children.Clear();
 
             dockingManager.ActiveContentChanged += DockingManagerActiveContentChanged;
             dockingManager.DocumentClosed += DockingManagerOnDocumentClosed;
-        }
-
-        private bool nested = false;
-        void DockingManagerActiveContentChanged(object sender, EventArgs e)
-        {
-            if (nested)
-                return;
-
-            // nothing changes
-            if (Equals(dockingManager.Layout.LastFocusedDocument, dockingManager.Layout.ActiveContent))
-                return;
-
-            var previousView = GetViewForDocument(dockingManager.Layout.LastFocusedDocument) as ILayerEditorView;
-            var activeView = GetViewForDocument(dockingManager.Layout.ActiveContent) as ILayerEditorView;
-
-            if (previousView != null)
-            {
-                previousView.OnDeactivated();
-
-                // The below code confuses AvalonDock, causing tab switches to fail, but removing it gives 
-                // problems with changes not being committed. Unfortunately its very hard to write a test 
-                // for that. These problems also occur without this code, although it seems less often.
-                nested = true;
-                try
-                {
-                    ControlHelper.UnfocusActiveControl(previousView as IContainerControl);
-                }
-                finally
-                {
-                    nested = false;
-                }
-            }
-            
-            if (activeView != null)
-                activeView.OnActivated();
-        }
-
-        private static IView GetViewForDocument(LayoutContent document)
-        {
-            if (document == null)
-                return null;
-            return (IView)((WindowsFormsHost)document.Content).Child;
         }
 
         public IView ActiveView
@@ -79,7 +40,9 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             {
                 var activeContent = dockingManager.Layout.ActiveContent;
                 if (activeContent == null)
+                {
                     return null;
+                }
                 var contentIndex = viewHosts.IndexOf((WindowsFormsHost) activeContent.Content);
                 return contentIndex == -1 ? null : views[contentIndex];
             }
@@ -105,19 +68,27 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                 }
 
                 var control = value as Control;
-                if (control != null) 
+                if (control != null)
+                {
                     control.Focus();
+                }
             }
         }
 
         public IEventedList<IView> ChildViews
         {
-            get { return views; }
+            get
+            {
+                return views;
+            }
         }
 
         public void AddView(IView view)
         {
-            var viewHost = new WindowsFormsHost { Child = (Control)view };
+            var viewHost = new WindowsFormsHost
+            {
+                Child = (Control) view
+            };
 
             var pane = GetAllDocumentPanes().FirstOrDefault();
             if (pane == null)
@@ -126,7 +97,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                 dockingManager.Layout.RootPanel.Children.Add(pane);
             }
 
-            pane.Children.Add(new LayoutDocument { Title = view.Text, IsSelected = true, CanFloat = false, Content = viewHost});
+            pane.Children.Add(new LayoutDocument
+            {
+                Title = view.Text, IsSelected = true, CanFloat = false, Content = viewHost
+            });
 
             views.Add(view);
             viewHosts.Add(viewHost);
@@ -137,7 +111,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
         [InvokeRequired]
         public void RemoveView(IView view)
         {
-            if(!views.Contains(view))
+            if (!views.Contains(view))
             {
                 return;
             }
@@ -155,12 +129,68 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             OnViewCollectionChanged(NotifyCollectionChangedAction.Remove, view);
         }
 
-        public event EventHandler<NotifyCollectionChangedEventArgs> ViewCollectionChanged;
+        public void BeforeDispose()
+        {
+            var activeView = ActiveView;
+            var layerEditor = activeView as ILayerEditorView;
+            if (layerEditor != null)
+            {
+                layerEditor.OnDeactivated();
+            }
+        }
 
+        private void DockingManagerActiveContentChanged(object sender, EventArgs e)
+        {
+            if (nested)
+            {
+                return;
+            }
+
+            // nothing changes
+            if (Equals(dockingManager.Layout.LastFocusedDocument, dockingManager.Layout.ActiveContent))
+            {
+                return;
+            }
+
+            var previousView = GetViewForDocument(dockingManager.Layout.LastFocusedDocument) as ILayerEditorView;
+            var activeView = GetViewForDocument(dockingManager.Layout.ActiveContent) as ILayerEditorView;
+
+            if (previousView != null)
+            {
+                previousView.OnDeactivated();
+
+                // The below code confuses AvalonDock, causing tab switches to fail, but removing it gives 
+                // problems with changes not being committed. Unfortunately its very hard to write a test 
+                // for that. These problems also occur without this code, although it seems less often.
+                nested = true;
+                try
+                {
+                    ControlHelper.UnfocusActiveControl(previousView as IContainerControl);
+                }
+                finally
+                {
+                    nested = false;
+                }
+            }
+
+            if (activeView != null)
+            {
+                activeView.OnActivated();
+            }
+        }
+
+        private static IView GetViewForDocument(LayoutContent document)
+        {
+            if (document == null)
+            {
+                return null;
+            }
+            return (IView) ((WindowsFormsHost) document.Content).Child;
+        }
 
         private void DockingManagerOnDocumentClosed(object sender, DocumentClosedEventArgs documentClosedEventArgs)
         {
-            var viewHost = (WindowsFormsHost)documentClosedEventArgs.Document.Content;
+            var viewHost = (WindowsFormsHost) documentClosedEventArgs.Document.Content;
             var view = (IView) viewHost.Child;
 
             views.Remove(view);
@@ -194,10 +224,16 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
         private void ControlTextChanged(object sender, EventArgs e)
         {
             var view = sender as IView;
-            if (view == null) return;
+            if (view == null)
+            {
+                return;
+            }
 
             var layoutContent = GetDocumentFor(viewHosts[views.IndexOf(view)]);
-            if (layoutContent == null) return;
+            if (layoutContent == null)
+            {
+                return;
+            }
 
             layoutContent.Title = view.Text;
         }
@@ -210,14 +246,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
         private LayoutDocument GetDocumentFor(WindowsFormsHost viewHost)
         {
             return GetAllDocumentPanes().SelectMany(d => d.Descendents()).OfType<LayoutDocument>().FirstOrDefault(d => Equals(d.Content, viewHost));
-        }
-
-        public void BeforeDispose()
-        {
-            var activeView = ActiveView;
-            var layerEditor = activeView as ILayerEditorView;
-            if (layerEditor != null)
-                layerEditor.OnDeactivated();
         }
     }
 }

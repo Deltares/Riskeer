@@ -68,9 +68,14 @@ namespace DelftTools.Controls.Swf.Table
 
         private void csvExportBtn_Click(object sender, EventArgs e)
         {
-            var dialog = new SaveFileDialog { Filter = "Csv file (*.csv)|*.csv" };
-            if (dialog.ShowDialog() != DialogResult.OK) 
+            var dialog = new SaveFileDialog
+            {
+                Filter = "Csv file (*.csv)|*.csv"
+            };
+            if (dialog.ShowDialog() != DialogResult.OK)
+            {
                 return;
+            }
             tableView.ExportAsCsv(dialog.FileName);
         }
     }

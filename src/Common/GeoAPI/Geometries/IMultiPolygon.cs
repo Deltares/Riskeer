@@ -1,6 +1,4 @@
 namespace GeoAPI.Geometries
 {
-    public interface IMultiPolygon : IMultiSurface
-    {
-    }
+    public interface IMultiPolygon : IMultiSurface {}
 }

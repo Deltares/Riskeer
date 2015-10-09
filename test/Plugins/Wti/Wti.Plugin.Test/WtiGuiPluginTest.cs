@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Linq;
-
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
-
 using Mono.Addins;
-
 using NUnit.Framework;
-
 using Wti.Data;
 using Wti.Forms.NodePresenters;
 using Wti.Forms.PropertyClasses;
-
 using GuiPluginResources = Wti.Plugin.Properties.Resources;
 
 namespace Wti.Plugin.Test
@@ -43,7 +38,7 @@ namespace Wti.Plugin.Test
 
             // assert
             Assert.IsInstanceOf<ExtensionAttribute>(attribute);
-            var extensionAttribute = (ExtensionAttribute)attribute;
+            var extensionAttribute = (ExtensionAttribute) attribute;
             Assert.AreEqual(typeof(IPlugin), extensionAttribute.Type);
         }
 

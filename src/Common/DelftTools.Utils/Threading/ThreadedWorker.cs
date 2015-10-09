@@ -6,21 +6,54 @@ namespace DelftTools.Utils.Threading
     public class ThreadedWorker
     {
         private readonly ManualResetEvent allDone = new ManualResetEvent(false);
+        private int itemsTodo;
+
+        public ThreadedWorker(bool useGlobalWaitMethod = true)
+        {
+            if (!useGlobalWaitMethod)
+            {
+                InstanceWaitMethod = () => { };
+            }
+
+            Reset();
+        }
+
         public static Action WaitMethod { get; set; }
         public Action InstanceWaitMethod { get; set; }
-        private int itemsTodo;
+
+        public void ProcessWorkItemAsync(Action workItem)
+        {
+            Interlocked.Increment(ref itemsTodo);
+            ThreadPool.QueueUserWorkItem(
+                s =>
+                {
+                    try
+                    {
+                        workItem();
+                    }
+                    finally
+                    {
+                        ReportWorkItemDone();
+                    }
+                }
+                );
+        }
+
+        public void WaitTillAllWorkItemsDone()
+        {
+            ReportWorkItemDone(); //report fake work item done (to prevent we get at 0 before we're done)
+
+            WaitTillAllWorkItemsDoneInternal();
+
+            Reset();
+        }
 
         private Action EffectiveWaitMethod
         {
-            get { return InstanceWaitMethod ?? WaitMethod; }
-        }
-
-        public ThreadedWorker(bool useGlobalWaitMethod=true)
-        {
-            if (!useGlobalWaitMethod)
-                InstanceWaitMethod = () => { };
-            
-            Reset();
+            get
+            {
+                return InstanceWaitMethod ?? WaitMethod;
+            }
         }
 
         private void Reset()
@@ -32,33 +65,6 @@ namespace DelftTools.Utils.Threading
             //--we don't get at 0 before we're done adding items
             //--we don't deadlock if no items were added before wait
             //---(typical reason why no items are added is if the enumeration over which it is called is empty)
-        }
-
-        public void ProcessWorkItemAsync(Action workItem)
-        {
-            Interlocked.Increment(ref itemsTodo);
-            ThreadPool.QueueUserWorkItem(
-                s =>
-                    {
-                        try
-                        {
-                            workItem();
-                        }
-                        finally
-                        {
-                            ReportWorkItemDone();
-                        }
-                    }
-                );
-        }
-        
-        public void WaitTillAllWorkItemsDone()
-        {
-            ReportWorkItemDone(); //report fake work item done (to prevent we get at 0 before we're done)
-
-            WaitTillAllWorkItemsDoneInternal();
-
-            Reset();
         }
 
         private void ReportWorkItemDone()

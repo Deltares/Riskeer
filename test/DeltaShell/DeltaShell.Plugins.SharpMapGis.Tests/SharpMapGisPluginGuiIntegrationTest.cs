@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DeltaShell.Gui;
 using DeltaShell.Plugins.SharpMapGis.Gui;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms;
@@ -29,7 +30,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
 
                 // Assert statements are here for clearness and it should be the same as 
                 // the null check test in the property SharpMapGisGuiPlugin.DefaultMap
-
             }
         }
 
@@ -42,42 +42,57 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
                 gui.Plugins.Add(new SharpMapGisGuiPlugin());
                 gui.Run();
 
-                var featureProvider = new FeatureCollection { Features =
+                var featureProvider = new FeatureCollection
+                {
+                    Features =
                     {
-                        new Feature { Geometry = new WKTReader().Read("LINESTRING(0 0,80000000 0)") },
-                        new Feature { Geometry = new WKTReader().Read("POINT(50000000 0)") }
-                    }};
-                
+                        new Feature
+                        {
+                            Geometry = new WKTReader().Read("LINESTRING(0 0,80000000 0)")
+                        },
+                        new Feature
+                        {
+                            Geometry = new WKTReader().Read("POINT(50000000 0)")
+                        }
+                    }
+                };
+
                 var features = featureProvider.Features;
 
-                var layer = new VectorLayer {DataSource = featureProvider};
-                var map = new Map { Name = "Map" };
+                var layer = new VectorLayer
+                {
+                    DataSource = featureProvider
+                };
+                var map = new Map
+                {
+                    Name = "Map"
+                };
                 map.Layers.Add(layer);
 
                 gui.Application.Project.Items.Add(map);
 
                 gui.CommandHandler.OpenView(map);
 
-                var mapView = (MapView)gui.DocumentViews.ActiveView;
+                var mapView = (MapView) gui.DocumentViews.ActiveView;
 
                 int called = 0;
 
-                mapView.MapControl.SelectTool.SelectionChanged += delegate(object sender, System.EventArgs e)
-                                                                      {
-                                                                          var selectTool = (SelectTool) sender;
+                mapView.MapControl.SelectTool.SelectionChanged += delegate(object sender, EventArgs e)
+                {
+                    var selectTool = (SelectTool) sender;
 
-                                                                          if (!selectTool.Selection.Any())
-                                                                          {
-                                                                              return; // selection cleared
-                                                                          }
+                    if (!selectTool.Selection.Any())
+                    {
+                        return; // selection cleared
+                    }
 
-                                                                          Assert.AreEqual(features, selectTool.Selection.ToList());
-                                                                          called++;
-                                                                      };
+                    Assert.AreEqual(features, selectTool.Selection.ToList());
+                    called++;
+                };
 
                 gui.Selection = features;
 
-                Assert.AreEqual(1,called);
+                Assert.AreEqual(1, called);
             }
         }
 
@@ -94,28 +109,40 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
                 {
                     Features =
                     {
-                        new Feature { Geometry = new WKTReader().Read("LINESTRING(0 0,80000000 0)") },
-                        new Feature { Geometry = new WKTReader().Read("POINT(50000000 0)") }
+                        new Feature
+                        {
+                            Geometry = new WKTReader().Read("LINESTRING(0 0,80000000 0)")
+                        },
+                        new Feature
+                        {
+                            Geometry = new WKTReader().Read("POINT(50000000 0)")
+                        }
                     }
                 };
 
                 var features = featureProvider.Features;
 
-                var layer = new VectorLayer { DataSource = featureProvider };
-                var map = new Map { Name = "Map" };
+                var layer = new VectorLayer
+                {
+                    DataSource = featureProvider
+                };
+                var map = new Map
+                {
+                    Name = "Map"
+                };
                 map.Layers.Add(layer);
 
                 gui.Application.Project.Items.Add(map);
 
                 gui.CommandHandler.OpenView(map);
-                
-                var mapView = (MapView)gui.DocumentViews.ActiveView;
+
+                var mapView = (MapView) gui.DocumentViews.ActiveView;
 
                 int called = 0;
 
                 mapView.MapControl.SelectTool.SelectionChanged += delegate
                 {
-                    if(mapView.MapControl.SelectTool.Selection == Enumerable.Empty<IFeature>())
+                    if (mapView.MapControl.SelectTool.Selection == Enumerable.Empty<IFeature>())
                     {
                         return; // selection cleared
                     }

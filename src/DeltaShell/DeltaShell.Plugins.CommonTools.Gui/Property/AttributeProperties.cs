@@ -14,14 +14,12 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property
             this.key = key;
         }
 
-        public override string ToString()
-        {
-            return string.Format("{0} : ({1})", key, dictionary[key]);
-        }
-
         public string Key
         {
-            get { return key; }
+            get
+            {
+                return key;
+            }
         }
 
         public string Value
@@ -32,8 +30,13 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property
             }
             set
             {
-                dictionary[key] = (T) Convert.ChangeType(value, typeof (T));
+                dictionary[key] = (T) Convert.ChangeType(value, typeof(T));
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} : ({1})", key, dictionary[key]);
         }
     }
 }

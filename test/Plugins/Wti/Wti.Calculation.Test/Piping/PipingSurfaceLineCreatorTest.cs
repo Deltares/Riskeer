@@ -16,6 +16,5 @@ namespace Wti.Calculation.Test.Piping
             Assert.That(actual.Points[0].Y, Is.EqualTo(0));
             Assert.That(actual.Points[0].Z, Is.EqualTo(0));
         }
-         
     }
 }

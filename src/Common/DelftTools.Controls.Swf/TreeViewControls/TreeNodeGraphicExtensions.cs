@@ -11,7 +11,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         private const int DefaultImageWidth = 16;
         private const int DefaultImageHeight = 16;
         private const int SpaceBetweenNodeParts = 2;
-        
+
         /// <summary>
         /// Checks if the <paramref name="point"/> is on the expand button of the node
         /// </summary>
@@ -19,12 +19,15 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         /// <param name="point">Point to search for</param>
         public static bool IsOnExpandButton(this TreeNode node, Point point)
         {
-            if (node == null || !node.HasChildren) return false;
+            if (node == null || !node.HasChildren)
+            {
+                return false;
+            }
 
-            var yBoundsMiddle = node.Bounds.Top + node.Bounds.Height / 2;
-            var graphics = ((Control)node.TreeView).CreateGraphics();
+            var yBoundsMiddle = node.Bounds.Top + node.Bounds.Height/2;
+            var graphics = ((Control) node.TreeView).CreateGraphics();
             var buttonSize = GetExpandButtonSize(graphics);
-            var rectangle = new Rectangle(GetTreeLineLeft(node) - buttonSize / 2, yBoundsMiddle - buttonSize / 2, buttonSize, buttonSize);
+            var rectangle = new Rectangle(GetTreeLineLeft(node) - buttonSize/2, yBoundsMiddle - buttonSize/2, buttonSize, buttonSize);
             return rectangle.Contains(point);
         }
 
@@ -35,9 +38,12 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         /// <param name="point">Point to search for</param>
         public static bool IsOnCheckBox(this TreeNode node, Point point)
         {
-            if (node == null || !node.ShowCheckBox) return false;
+            if (node == null || !node.ShowCheckBox)
+            {
+                return false;
+            }
 
-            var topOffset = (node.Bounds.Height - DefaultImageHeight) / 2;
+            var topOffset = (node.Bounds.Height - DefaultImageHeight)/2;
             var rectangle = new Rectangle(GetCheckBoxLeft(node), node.Bounds.Top + topOffset, DefaultImageWidth, DefaultImageHeight);
             return rectangle.Contains(point);
         }
@@ -73,7 +79,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
             graphics.FillPolygon(Brushes.Black, rightTriangle);
 
-            if (location == PlaceholderLocation.Middle) return;
+            if (location == PlaceholderLocation.Middle)
+            {
+                return;
+            }
 
             var leftTriangle = node.MakePlaceHoldeTriangle(AnchorStyles.Left, location);
             graphics.FillPolygon(Brushes.Black, leftTriangle);
@@ -82,7 +91,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                             ? node.Bounds.Top
                             : node.Bounds.Bottom;
 
-            graphics.DrawLine(new Pen(Color.Black, 1), new Point(GetCheckBoxLeft(node), yLine),new Point(node.Bounds.Right, yLine));
+            graphics.DrawLine(new Pen(Color.Black, 1), new Point(GetCheckBoxLeft(node), yLine), new Point(node.Bounds.Right, yLine));
         }
 
         private static Point[] MakePlaceHoldeTriangle(this ITreeNode node, AnchorStyles anchor, PlaceholderLocation location)
@@ -92,25 +101,32 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
             int xPos, yPos;
             var bounds = node.Bounds;
-            
+
             switch (anchor)
             {
-                case AnchorStyles.Left: xPos = GetCheckBoxLeft(node) - placeHolderWidth;
+                case AnchorStyles.Left:
+                    xPos = GetCheckBoxLeft(node) - placeHolderWidth;
                     break;
-                case AnchorStyles.Right: xPos = bounds.Right;
+                case AnchorStyles.Right:
+                    xPos = bounds.Right;
                     break;
-                default: return new Point[0];
+                default:
+                    return new Point[0];
             }
 
             switch (location)
             {
-                case PlaceholderLocation.Top: yPos = bounds.Top;
+                case PlaceholderLocation.Top:
+                    yPos = bounds.Top;
                     break;
-                case PlaceholderLocation.Bottom: yPos = bounds.Bottom;
+                case PlaceholderLocation.Bottom:
+                    yPos = bounds.Bottom;
                     break;
-                case PlaceholderLocation.Middle: yPos = bounds.Top + bounds.Height / 2;
+                case PlaceholderLocation.Middle:
+                    yPos = bounds.Top + bounds.Height/2;
                     break;
-                default: throw new ArgumentOutOfRangeException("location");
+                default:
+                    throw new ArgumentOutOfRangeException("location");
             }
 
             return CreateTrianglePoints(new Rectangle(xPos, yPos - placeHolderWidth, placeHolderWidth, placeHolderHeigth), anchor);
@@ -119,7 +135,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         private static void DrawTreeLines(Graphics graphics, TreeNode node)
         {
             var bounds = node.Bounds;
-            var pen = new Pen(Color.Black) {DashStyle = DashStyle.Dot};
+            var pen = new Pen(Color.Black)
+            {
+                DashStyle = DashStyle.Dot
+            };
             var hasNextNodeOnSameLevel = GetNextNodeSameLevel(node) != null;
             var yBoundsMiddle = bounds.Top + bounds.Height/2;
             var xLine = GetTreeLineLeft(node);
@@ -128,19 +147,21 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             {
                 graphics.DrawLine(pen, xLine, bounds.Top, xLine, (hasNextNodeOnSameLevel) ? bounds.Bottom : yBoundsMiddle); // Vertical line
             }
-            if(node.Parent != null || node.HasChildren)
+            if (node.Parent != null || node.HasChildren)
             {
                 graphics.DrawLine(pen, xLine + 1, yBoundsMiddle, GetCheckBoxLeft(node) - SpaceBetweenNodeParts, yBoundsMiddle); // Horizontal line
             }
-            
 
             // draw parent lines
             var parentNode = (ITreeNode) node;
             for (int i = node.Level - 1; i > 0; i--)
             {
-                parentNode =  parentNode.Parent;
+                parentNode = parentNode.Parent;
                 var nextNodeSameLevel = GetNextNodeSameLevel(parentNode);
-                if (nextNodeSameLevel == null) continue;
+                if (nextNodeSameLevel == null)
+                {
+                    continue;
+                }
 
                 var xParentLine = GetTreeLineLeft(parentNode);
                 graphics.DrawLine(pen, xParentLine, bounds.Top, xParentLine, bounds.Bottom); // Vertical line parent
@@ -151,7 +172,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         private static void DrawExpandGraphic(Graphics graphics, TreeNode node, int yBoundsMiddle)
         {
-            if (!node.HasChildren) return;
+            if (!node.HasChildren)
+            {
+                return;
+            }
 
             if (Application.RenderWithVisualStyles)
             {
@@ -161,7 +185,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
                 var renderer = new VisualStyleRenderer(image);
                 var buttonSize = GetExpandButtonSize(graphics);
-                var drawingRect = new Rectangle(GetTreeLineLeft(node) - buttonSize / 2, yBoundsMiddle - buttonSize / 2, buttonSize, buttonSize);
+                var drawingRect = new Rectangle(GetTreeLineLeft(node) - buttonSize/2, yBoundsMiddle - buttonSize/2, buttonSize, buttonSize);
                 renderer.DrawBackground(graphics, drawingRect);
             }
             else
@@ -177,7 +201,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                 graphics.FillRectangle(new SolidBrush(Color.White), x + 1, y + 1, width - 1, height - 1);
                 graphics.DrawLine(penBlack, x + 2, y + 4, x + width - 2, y + 4);
 
-                if (node.IsExpanded) return;
+                if (node.IsExpanded)
+                {
+                    return;
+                }
 
                 graphics.DrawLine(penBlack, x + 4, y + 2, x + 4, y + height - 2);
             }
@@ -185,7 +212,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         private static void DrawText(Graphics graphics, TreeNode node, bool selected)
         {
-            if (node.IsEditing && node.IsSelected) return;
+            if (node.IsEditing && node.IsSelected)
+            {
+                return;
+            }
 
             var bounds = node.Bounds;
             var treeView = (TreeView) node.TreeView;
@@ -194,13 +224,13 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                                 : (node.ForeColor != Color.Empty) ? node.ForeColor : treeView.ForeColor;
 
             var backgroundColor = (selected)
-                                      ? treeView.Focused ? SystemColors.Highlight : Color.FromArgb(255, 232,232,232)
+                                      ? treeView.Focused ? SystemColors.Highlight : Color.FromArgb(255, 232, 232, 232)
                                       : (node.BackColor != Color.Empty)
                                             ? node.BackColor
                                             : treeView.BackColor;
 
             var font = new Font(node.NodeFont ?? treeView.Font, node.Bold ? FontStyle.Bold : FontStyle.Regular);
-            var topOffset = (node.Bounds.Height - TextRenderer.MeasureText(node.Text, font).Height) / 2;
+            var topOffset = (node.Bounds.Height - TextRenderer.MeasureText(node.Text, font).Height)/2;
 
             var startPoint = new Point(GetTextLeft(node), bounds.Top + topOffset);
             var drawingBounds = treeView.FullRowSelect
@@ -208,7 +238,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                                     : new Rectangle(GetTextLeft(node), bounds.Top, bounds.Width, bounds.Height);
 
             graphics.FillRectangle(new SolidBrush(backgroundColor), drawingBounds);
-            
+
             TextRenderer.DrawText(graphics, node.Text, font, startPoint, foreColor, backgroundColor, TextFormatFlags.Default);
 
             if (selected)
@@ -219,7 +249,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         private static void DrawCheckbox(Graphics graphics, ITreeNode node)
         {
-            if (!node.ShowCheckBox) return;
+            if (!node.ShowCheckBox)
+            {
+                return;
+            }
 
             var topOffset = (node.Bounds.Height - DefaultImageHeight)/2;
             var imgRect = new Rectangle(GetCheckBoxLeft(node), node.Bounds.Top + topOffset, DefaultImageWidth, DefaultImageHeight);
@@ -248,12 +281,15 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         private static void DrawImage(Graphics graphics, ITreeNode node)
         {
-            if (node.Image == null) return;
+            if (node.Image == null)
+            {
+                return;
+            }
 
             var graphicsUnit = GraphicsUnit.Pixel;
             var topOffset = (node.Bounds.Height - DefaultImageHeight)/2;
             var imgRect = new Rectangle(GetImageLeft(node), node.Bounds.Top + topOffset, DefaultImageWidth, DefaultImageHeight);
-            
+
             graphics.DrawImage(node.Image, imgRect, node.Image.GetBounds(ref graphicsUnit), graphicsUnit);
         }
 
@@ -292,20 +328,20 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             {
                 case AnchorStyles.Left:
                     return new[]
-                               {
-                                   new Point(bounds.Left, bounds.Top),
-                                   new Point(bounds.Right,bounds.Top + bounds.Height/2),
-                                   new Point(bounds.Left,bounds.Top + bounds.Height),
-                                   new Point(bounds.Left, bounds.Top)
-                               };
+                    {
+                        new Point(bounds.Left, bounds.Top),
+                        new Point(bounds.Right, bounds.Top + bounds.Height/2),
+                        new Point(bounds.Left, bounds.Top + bounds.Height),
+                        new Point(bounds.Left, bounds.Top)
+                    };
                 case AnchorStyles.Right:
                     return new[]
-                               {
-                                   new Point(bounds.Right, bounds.Top),
-                                   new Point(bounds.Left,bounds.Top + bounds.Height/2),
-                                   new Point(bounds.Right, bounds.Top + bounds.Height),
-                                   new Point(bounds.Right, bounds.Top)
-                               };
+                    {
+                        new Point(bounds.Right, bounds.Top),
+                        new Point(bounds.Left, bounds.Top + bounds.Height/2),
+                        new Point(bounds.Right, bounds.Top + bounds.Height),
+                        new Point(bounds.Right, bounds.Top)
+                    };
                 default:
                     return new Point[0];
             }

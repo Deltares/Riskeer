@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using System.Threading;
 using log4net;
 using NDepend.Helpers.FileDirectoryPath;
 
@@ -15,6 +16,8 @@ namespace DelftTools.Utils.IO
     public static class FileUtils
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(FileUtils));
+
+        private static Regex fileFilterRegex = new Regex(@"^(\||\;)+\s*[\*\w]+\.\w+");
 
         /// <summary>
         /// Copy all files and folders in a directory to another directory
@@ -42,18 +45,20 @@ namespace DelftTools.Utils.IO
             var sourceFullPath = Path.GetFullPath(sourcePath);
             var targetFullPath = Path.GetFullPath(targetPath);
             if (sourceFullPath == targetFullPath)
+            {
                 return;
+            }
 
             if (File.Exists(targetPath))
             {
-                if(!overwrite)
+                if (!overwrite)
                 {
                     return;
                 }
 
                 File.Delete(targetPath);
             }
-            
+
             File.Copy(sourcePath, targetPath);
         }
 
@@ -78,7 +83,7 @@ namespace DelftTools.Utils.IO
             {
                 Log.DebugFormat(@"Copying {0}\{1}", target.FullName, fi.Name);
 
-                if(!target.Exists)
+                if (!target.Exists)
                 {
                     target.Create();
                 }
@@ -145,8 +150,8 @@ namespace DelftTools.Utils.IO
             DirectoryInfo di1 = new DirectoryInfo(rootDir);
             DirectoryInfo di2 = new DirectoryInfo(searchItem);
 
-            return di2.FullName == di1.FullName || 
-                IsSubdirectory(rootDir, searchItem);
+            return di2.FullName == di1.FullName ||
+                   IsSubdirectory(rootDir, searchItem);
         }
 
         /// <summary>
@@ -178,10 +183,15 @@ namespace DelftTools.Utils.IO
         /// <returns></returns>
         public static string GetRelativePath(string rootDir, string filePath)
         {
-            if (rootDir == null || filePath == null) return filePath;
+            if (rootDir == null || filePath == null)
+            {
+                return filePath;
+            }
 
             if (rootDir.StartsWith("\\") && IsSubdirectory(rootDir, filePath)) //network disk?
+            {
                 return "." + filePath.Substring(rootDir.Length);
+            }
 
             try
             {
@@ -218,14 +228,14 @@ namespace DelftTools.Utils.IO
         ///   For example, on Windows-based platforms, paths must be less than 248 characters and file names must be less than 260 characters. </exception>
         /// <exception cref="DirectoryNotFoundException">The specified path is invalid (for example, it is on an unmapped drive).</exception>
         /// <exception cref="NotSupportedException"><paramref name="path"/> contains a colon character (:) that is not part of a drive label ("C:\").</exception>
-        public static void CreateDirectoryIfNotExists(string path,bool deleteIfExists = false)
+        public static void CreateDirectoryIfNotExists(string path, bool deleteIfExists = false)
         {
             if (Directory.Exists(path))
             {
                 //replace the directory with a one
                 if (deleteIfExists)
                 {
-                    Directory.Delete(path,true);
+                    Directory.Delete(path, true);
                     Directory.CreateDirectory(path);
                 }
             }
@@ -233,7 +243,6 @@ namespace DelftTools.Utils.IO
             {
                 Directory.CreateDirectory(path);
             }
-
         }
 
         /// <summary>
@@ -245,12 +254,12 @@ namespace DelftTools.Utils.IO
             // use built-in filesystemwatcher class to monitor creation/modification/deletion of files
             // example http://www.codeguru.com/csharp/csharp/cs_network/article.php/c6043/
             var watcher = new FileSystemWatcher
-                              {
-                                  IncludeSubdirectories = false,
-                                  NotifyFilter = NotifyFilters.FileName |
-                                                 NotifyFilters.LastWrite |
-                                                 NotifyFilters.Size
-                              };
+            {
+                IncludeSubdirectories = false,
+                NotifyFilter = NotifyFilters.FileName |
+                               NotifyFilters.LastWrite |
+                               NotifyFilters.Size
+            };
             return watcher;
         }
 
@@ -344,7 +353,10 @@ namespace DelftTools.Utils.IO
         /// <returns></returns>
         public static bool CanCopy(string name, string targetDir)
         {
-            string[] files = new string[] {name};
+            string[] files = new string[]
+            {
+                name
+            };
             return CanCopy(files, targetDir);
         }
 
@@ -360,27 +372,31 @@ namespace DelftTools.Utils.IO
             var second = new FileInfo(file2Path);
 
             if (first.Length != second.Length)
+            {
                 return false;
+            }
 
-            const int bytesToRead = sizeof (Int64);
+            const int bytesToRead = sizeof(Int64);
             var iterations = (int) Math.Ceiling((double) first.Length/bytesToRead);
             using (FileStream fs1 = first.OpenRead())
-            using (FileStream fs2 = second.OpenRead())
             {
-                var one = new byte[bytesToRead];
-                var two = new byte[bytesToRead];
-                for (int i = 0; i < iterations; i++)
+                using (FileStream fs2 = second.OpenRead())
                 {
-                    fs1.Read(one, 0, bytesToRead);
-                    fs2.Read(two, 0, bytesToRead);
-                    if (BitConverter.ToInt64(one, 0) != BitConverter.ToInt64(two, 0))
-                        return false;
+                    var one = new byte[bytesToRead];
+                    var two = new byte[bytesToRead];
+                    for (int i = 0; i < iterations; i++)
+                    {
+                        fs1.Read(one, 0, bytesToRead);
+                        fs2.Read(two, 0, bytesToRead);
+                        if (BitConverter.ToInt64(one, 0) != BitConverter.ToInt64(two, 0))
+                        {
+                            return false;
+                        }
+                    }
                 }
             }
             return true;
         }
-
-        static Regex fileFilterRegex = new Regex(@"^(\||\;)+\s*[\*\w]+\.\w+");
 
         /// <summary>
         /// Checks if the extension of a file belongs to the filefilter
@@ -390,21 +406,23 @@ namespace DelftTools.Utils.IO
         /// <returns></returns>
         public static bool FileMatchesFileFilterByExtension(string fileFilter, string path)
         {
-
-           /* if (!fileFilterRegex.Match(fileFilter).Success)
+            /* if (!fileFilterRegex.Match(fileFilter).Success)
             {
                 throw new ArgumentException(string.Format("Invalid filefilter: {0}", fileFilter));
             }*/
-            if (String.IsNullOrEmpty(Path.GetExtension(path))) return false;
+            if (String.IsNullOrEmpty(Path.GetExtension(path)))
+            {
+                return false;
+            }
             return Regex.Match(fileFilter, String.Format(@"(\||\;)+\s*\*\{0}", Path.GetExtension(path))).Success;
         }
-        
+
         /// <summary>
         /// Deletes the given file or directory if it exists
         /// </summary>
         public static void DeleteIfExists(string path)
         {
-            if(!File.Exists(path) & !Directory.Exists(path))
+            if (!File.Exists(path) & !Directory.Exists(path))
             {
                 return;
             }
@@ -422,7 +440,7 @@ namespace DelftTools.Utils.IO
             {
                 File.Delete(path);
             }
-            else if(Directory.Exists(path))
+            else if (Directory.Exists(path))
             {
                 foreach (var path2 in Directory.GetDirectories(path).Union(Directory.GetFiles(path)))
                 {
@@ -434,13 +452,16 @@ namespace DelftTools.Utils.IO
 
         public static string GetUniqueFileNameWithPath(string existingFileName)
         {
-            var newFileName = FileUtils.GetUniqueFileName(existingFileName);
+            var newFileName = GetUniqueFileName(existingFileName);
             return Path.Combine(Path.GetDirectoryName(existingFileName), newFileName);
         }
 
         public static string MakeDirectoryNameUnique(string directory)
         {
-            if (!Directory.Exists(directory)) return directory;
+            if (!Directory.Exists(directory))
+            {
+                return directory;
+            }
 
             var parentDirectory = Directory.GetParent(directory);
             var directoryName = Path.GetFileName(directory);
@@ -457,13 +478,15 @@ namespace DelftTools.Utils.IO
         public static string GetUniqueFileName(string existingFileName)
         {
             if (existingFileName == null)
+            {
                 throw new ArgumentNullException("existingFileName");
+            }
 
             var directory = Path.GetDirectoryName(existingFileName).Replace(Path.GetFileName(existingFileName), "");
             directory = string.IsNullOrEmpty(directory) ? "." : directory;
 
             // Declare a function to strip a file name which leaves out the extension
-            Func<string, string> getFileNameWithoutExtension = Path.GetFileNameWithoutExtension;              
+            Func<string, string> getFileNameWithoutExtension = Path.GetFileNameWithoutExtension;
 
             var searchString = string.Format("{0}*.*", getFileNameWithoutExtension(existingFileName));
 
@@ -472,11 +495,16 @@ namespace DelftTools.Utils.IO
 
             // make a list of INameable items where the Name property will get the name of the file
             var namedItems =
-                items.Select(f => new FileName { Name = getFileNameWithoutExtension(f) });
+                items.Select(f => new FileName
+                {
+                    Name = getFileNameWithoutExtension(f)
+                });
 
             var newName = getFileNameWithoutExtension(existingFileName);
             if (namedItems.Any())
-                newName = NamingHelper.GetUniqueName(string.Format("{0} ({{0}})", newName), namedItems, typeof (INameable));
+            {
+                newName = NamingHelper.GetUniqueName(string.Format("{0} ({{0}})", newName), namedItems, typeof(INameable));
+            }
 
             return newName + Path.GetExtension(existingFileName);
         }
@@ -485,13 +513,8 @@ namespace DelftTools.Utils.IO
         {
             var q = from subdir in Directory.GetDirectories(path)
                     select GetRelativePath(Path.GetFullPath(path), Path.GetFullPath(subdir));
-                    
-            return q.ToList();
-        }
 
-        private class FileName : INameable
-        {
-            public string Name { get; set; }
+            return q.ToList();
         }
 
         public static bool IsValidFileName(string fileName)
@@ -548,10 +571,12 @@ namespace DelftTools.Utils.IO
                 catch (Exception)
                 {
                     if (numTries > maxTries)
+                    {
                         return false;
+                    }
 
                     // Wait for the lock to be released
-                    System.Threading.Thread.Sleep(waitTimePerTryInMillis);
+                    Thread.Sleep(waitTimePerTryInMillis);
                 }
             }
             return true;
@@ -598,6 +623,11 @@ namespace DelftTools.Utils.IO
             var info1 = new FileInfo(path1);
             var info2 = new FileInfo(path2);
             return info1.FullName == info2.FullName;
+        }
+
+        private class FileName : INameable
+        {
+            public string Name { get; set; }
         }
     }
 }

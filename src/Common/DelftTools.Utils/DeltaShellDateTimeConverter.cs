@@ -11,19 +11,23 @@ namespace DelftTools.Utils
     /// </summary>
     public class DeltaShellDateTimeConverter : DateTimeConverter
     {
-		public override bool CanConvertFrom (ITypeDescriptorContext context, Type sourceType)
-		{
-			if (sourceType == typeof (string)) 
-				return true;
-			return base.CanConvertFrom (context, sourceType);
-		}
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            if (sourceType == typeof(string))
+            {
+                return true;
+            }
+            return base.CanConvertFrom(context, sourceType);
+        }
 
-		public override bool CanConvertTo (ITypeDescriptorContext context, Type destinationType)
-		{
-			if (destinationType == typeof (InstanceDescriptor))
-				return true;
-			return base.CanConvertTo (context, destinationType);
-		}
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            if (destinationType == typeof(InstanceDescriptor))
+            {
+                return true;
+            }
+            return base.CanConvertTo(context, destinationType);
+        }
 
         /// <summary>
         /// converts datetime to format yyyy/MM/dd HH:mm:ss
@@ -33,13 +37,11 @@ namespace DelftTools.Utils
         /// <param name="value"></param>
         /// <param name="destinationType"></param>
         /// <returns></returns>
-        public override object ConvertTo(System.ComponentModel.ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-
-            DateTime datetime = (DateTime)value;
+            DateTime datetime = (DateTime) value;
 
             return datetime.ToString(RegionalSettingsManager.DateTimeFormat, culture.DateTimeFormat);
-
         }
 
         /// <summary>
@@ -51,11 +53,10 @@ namespace DelftTools.Utils
         /// <returns></returns>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            
             if (value is string)
             {
-                var info = (DateTimeFormatInfo)culture.GetFormat(typeof(DateTimeFormatInfo));
-                var DateString = (string)value;
+                var info = (DateTimeFormatInfo) culture.GetFormat(typeof(DateTimeFormatInfo));
+                var DateString = (string) value;
                 try
                 {
                     return DateTime.Parse(DateString, info);
@@ -67,7 +68,6 @@ namespace DelftTools.Utils
                 }
             }
             return base.ConvertFrom(context, culture, value);
-            
         }
     }
 }

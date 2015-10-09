@@ -19,7 +19,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
     public class MapLegendViewTest
     {
         private readonly MockRepository mocks = new MockRepository();
-        const string DataPath = @"..\..\..\..\..\test-data\DeltaShell\DeltaShell.Plugins.SharpMapGis.Tests\";
 
         [Test]
         public void Init()
@@ -35,11 +34,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var mapLegendView = CreateMapLegendView();
             var map = new Map();
             mapLegendView.Map = map;
-            
+
             const string path = DataPath + "rivers.shp";
-            
+
             var shapeFile = mocks.StrictMock<ShapeFile>();
-            shapeFile.Expect(sf => sf.GetExtents()).Return(null).Repeat.Any(); 
+            shapeFile.Expect(sf => sf.GetExtents()).Return(null).Repeat.Any();
             shapeFile.Expect(sf => sf.FeaturesChanged += null).IgnoreArguments().Repeat.Once();
             shapeFile.Expect(sf => sf.FeaturesChanged -= null).IgnoreArguments().Repeat.Twice();
             shapeFile.Expect(sf => sf.CoordinateSystemChanged += null).IgnoreArguments().Repeat.Once();
@@ -98,10 +97,18 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Layer kees not part of map map1")]
         public void HideAllLayersButThisOneThrowsExceptionIfLayerIsNotInMap()
         {
-            var map = new Map { Name = "map1" };
-            var layer1 = new VectorLayer { Name = "kees" };
+            var map = new Map
+            {
+                Name = "map1"
+            };
+            var layer1 = new VectorLayer
+            {
+                Name = "kees"
+            };
             MapLegendView.HideAllLayersButThisOne(layer1, map);
         }
+
+        private const string DataPath = @"..\..\..\..\..\test-data\DeltaShell\DeltaShell.Plugins.SharpMapGis.Tests\";
 
         private MapLegendView CreateMapLegendView()
         {
@@ -113,7 +120,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             IGisGuiService gisService = mocks.Stub<IGisGuiService>();
             guiPlugin.GisGuiService = gisService;
 
-            Expect.Call(gui.Plugins).Return(new[] {guiPlugin}).Repeat.Any();
+            Expect.Call(gui.Plugins).Return(new[]
+            {
+                guiPlugin
+            }).Repeat.Any();
             Expect.Call(gui.ToolWindowViews).Return(mocks.Stub<IViewList>()).Repeat.Any();
             Expect.Call(gui.DocumentViews).Repeat.Any().Return(mocks.Stub<IViewList>());
 

@@ -3,7 +3,7 @@ using System.Drawing.Drawing2D;
 
 namespace DelftTools.Controls.Swf.Charting.Series
 {
-    public interface IPolygonChartSeries: IChartSeries
+    public interface IPolygonChartSeries : IChartSeries
     {
         // TODO: Add support for points
         /// <summary>

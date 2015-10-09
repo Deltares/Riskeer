@@ -153,7 +153,7 @@ namespace DelftTools.Controls
         /// <param name="sender">Sender of the event</param>
         /// <param name="e">Event arguments, e.Item contains object which was added / removed</param>
         void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e);
-        
+
         // TODO: check it we need to replace these methods with OnKeyPressed()
         /// <summary>
         /// Indicates wether a nodeData can be removed from parentNodeData.

@@ -12,16 +12,12 @@ namespace DelftTools.Utils.Tests
     {
         private MockRepository mocks;
 
-        [TestFixtureSetUp]
-        public void FixtureSetup()
-        {
-            mocks = new MockRepository();
-        }
-
-        [Test, ExpectedException(typeof(ArgumentException))]
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
         public void GetUniqueNameWithInvalidFilter()
         {
-            NamingHelper.GetUniqueName("invalidfilter", new INameable[] { }, null);
+            NamingHelper.GetUniqueName("invalidfilter", new INameable[]
+            {}, null);
         }
 
         [Test]
@@ -35,7 +31,12 @@ namespace DelftTools.Utils.Tests
             item2.Name = "one";
             item3.Name = "INameable1";
 
-            var namedItems = new List<INameable>(new[] { item1, item2, item3 });
+            var namedItems = new List<INameable>(new[]
+            {
+                item1,
+                item2,
+                item3
+            });
 
             Assert.AreEqual("INameable2", NamingHelper.GetUniqueName(null, namedItems, typeof(INameable)));
             Assert.AreEqual("one (2)", NamingHelper.GetUniqueName("one ({0})", namedItems, typeof(INameable)));
@@ -50,7 +51,11 @@ namespace DelftTools.Utils.Tests
             item1.Name = "one (1)";
             item2.Name = "Inameable1";
 
-            var namedItems = new List<INameable>(new[] { item1, item2 });
+            var namedItems = new List<INameable>(new[]
+            {
+                item1,
+                item2
+            });
 
             Assert.AreEqual("INameable1", NamingHelper.GetUniqueName(null, namedItems, typeof(INameable), false));
             Assert.AreEqual("One (1)", NamingHelper.GetUniqueName("One ({0})", namedItems, typeof(INameable), false));
@@ -65,7 +70,11 @@ namespace DelftTools.Utils.Tests
             item1.Name = "one (1)";
             item2.Name = "Inameable1";
 
-            var namedItems = new List<INameable>(new[] { item1, item2 });
+            var namedItems = new List<INameable>(new[]
+            {
+                item1,
+                item2
+            });
 
             Assert.AreEqual("INameable2", NamingHelper.GetUniqueName(null, namedItems, typeof(INameable)));
             Assert.AreEqual("One (2)", NamingHelper.GetUniqueName("One ({0})", namedItems, typeof(INameable)));
@@ -77,7 +86,11 @@ namespace DelftTools.Utils.Tests
         public void GenerateUniqueNameFromList_NameNotInCollection_ReturnOriginalName(bool ignoreCase)
         {
             // setup
-            var names = new[] { "test 1", "test 2" };
+            var names = new[]
+            {
+                "test 1",
+                "test 2"
+            };
 
             // call
             var uniqueName = NamingHelper.GenerateUniqueNameFromList("haha", ignoreCase, names);
@@ -92,7 +105,11 @@ namespace DelftTools.Utils.Tests
         public void GenerateUniqueNameFromList_NameInCollection_ReturnOriginalName(bool ignoreCase)
         {
             // setup
-            var names = new[] { "test 1", "test 2" };
+            var names = new[]
+            {
+                "test 1",
+                "test 2"
+            };
 
             // call
             var uniqueName = NamingHelper.GenerateUniqueNameFromList("test {0}", ignoreCase, names);
@@ -105,11 +122,11 @@ namespace DelftTools.Utils.Tests
         public void MakeNamesUnique()
         {
             var nameables = Enumerable.Range(0, 1000).Select(i =>
-                {
-                    var nameable = mocks.Stub<INameable>();
-                    nameable.Name = string.Format("Nameable {0}", i);
-                    return nameable;
-                });
+            {
+                var nameable = mocks.Stub<INameable>();
+                nameable.Name = string.Format("Nameable {0}", i);
+                return nameable;
+            });
 
             var nameablesList = new List<INameable>(nameables);
 
@@ -154,9 +171,13 @@ namespace DelftTools.Utils.Tests
             Assert.AreEqual(uniqueNamesCount, nameablesList.Count);
         }
 
-        [TestFixtureTearDown]
-        public void FixtureTearDown()
+        [TestFixtureSetUp]
+        public void FixtureSetup()
         {
+            mocks = new MockRepository();
         }
+
+        [TestFixtureTearDown]
+        public void FixtureTearDown() {}
     }
-}	
+}

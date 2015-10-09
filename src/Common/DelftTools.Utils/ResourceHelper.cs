@@ -28,7 +28,7 @@ namespace DelftTools.Utils
                 {
                     throw new InvalidOperationException(string.Format("Resource Property is Not String Type"));
                 }
-                return (string)property.GetValue(null, null);
+                return (string) property.GetValue(null, null);
             }
             return null;
         }

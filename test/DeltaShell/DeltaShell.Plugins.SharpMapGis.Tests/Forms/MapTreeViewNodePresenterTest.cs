@@ -22,15 +22,21 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var guiPlugin = CreateGuiPluginMock(out tv);
 
             var map = new Map();
-            map.Layers.Add(new VectorLayer { Name = "Test1", ShowInTreeView = true });
-            map.Layers.Add(new VectorLayer { Name = "Test2", ShowInTreeView = false });
+            map.Layers.Add(new VectorLayer
+            {
+                Name = "Test1", ShowInTreeView = true
+            });
+            map.Layers.Add(new VectorLayer
+            {
+                Name = "Test2", ShowInTreeView = false
+            });
 
             var mapTreeViewNodePresenter = new MapTreeViewNodePresenter(guiPlugin);
             var childNodes = mapTreeViewNodePresenter.GetChildNodeObjects(map, null);
 
             var enumerator = childNodes.GetEnumerator();
             Assert.IsTrue(enumerator.MoveNext());
-            Assert.AreEqual("Test1", ((VectorLayer)enumerator.Current).Name);
+            Assert.AreEqual("Test1", ((VectorLayer) enumerator.Current).Name);
             Assert.IsFalse(enumerator.MoveNext());
         }
 
@@ -43,7 +49,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             tv = mocks.Stub<ITreeView>();
 
             gui.Application = app;
-            Expect.Call(gui.Plugins).Return(new List<GuiPlugin> { guiPlugin }).Repeat.Any();
+            Expect.Call(gui.Plugins).Return(new List<GuiPlugin>
+            {
+                guiPlugin
+            }).Repeat.Any();
 
             guiPlugin.Gui = gui;
             return guiPlugin;

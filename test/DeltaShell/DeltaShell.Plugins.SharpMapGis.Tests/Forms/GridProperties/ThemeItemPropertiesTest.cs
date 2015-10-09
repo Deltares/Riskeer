@@ -12,11 +12,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms.GridProperties
         {
             const int maxValue = 999999;
             var themeItemProperties = new ThemeItemProperties
-                {
-                    Data = new GradientThemeItem(),
-                    Width = maxValue,
-                    OutlineWidth = maxValue
-                };
+            {
+                Data = new GradientThemeItem(),
+                Width = maxValue,
+                OutlineWidth = maxValue
+            };
 
             Assert.AreEqual(maxValue, themeItemProperties.Width);
             Assert.AreEqual(maxValue, themeItemProperties.OutlineWidth);
@@ -33,11 +33,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms.GridProperties
         {
             const int minimum = 0;
             var themeItemProperties = new ThemeItemProperties
-                {
-                    Data = new GradientThemeItem(),
-                    Width = minimum,
-                    OutlineWidth = minimum
-                };
+            {
+                Data = new GradientThemeItem(),
+                Width = minimum,
+                OutlineWidth = minimum
+            };
 
             Assert.AreEqual(minimum, themeItemProperties.Width);
             Assert.AreEqual(minimum, themeItemProperties.OutlineWidth);

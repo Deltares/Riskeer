@@ -13,7 +13,7 @@ namespace DelftTools.Tests.Controls.Swf.Charting.Tools
             var tool = chartView.NewCursorLineTool(CursorLineToolStyles.Horizontal);
             const double value = 10.0;
             tool.XValue = value;
-            Assert.AreEqual(value,tool.XValue);
+            Assert.AreEqual(value, tool.XValue);
         }
     }
 }

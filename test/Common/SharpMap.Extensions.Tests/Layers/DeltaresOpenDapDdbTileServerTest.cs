@@ -8,19 +8,6 @@ namespace SharpMap.Extensions.Tests.Layers
     [TestFixture]
     public class DeltaresOpenDapDdbTileServerTest
     {
-        [TestFixtureSetUp]
-        public void TestFixtureSetup()
-        {
-            try
-            {
-                DeltaresOpenDapDdbTileServer.GetAvailableDataSets();
-            }
-            catch (WebException e)
-            {
-                Assert.Ignore("Server down: " + e.Message);
-            }
-        }
-
         [Test]
         public void GetHighestResTilesInExtent()
         {
@@ -52,9 +39,22 @@ namespace SharpMap.Extensions.Tests.Layers
             var datasetInfo = DeltaresOpenDapDdbTileServer.GetInformationFromCatalog(gebcoDataSet);
 
             var tiles = DeltaresOpenDapDdbTileServer.GetHighestResolutionTileUrlsInExtent(datasetInfo,
-                                                                                159855, 582400, 160089, 582700)
+                                                                                          159855, 582400, 160089, 582700)
                                                     .ToList();
             Assert.AreEqual(2, tiles.Count, "rd"); // would be 4 if tiles are interpreted rectangular
+        }
+
+        [TestFixtureSetUp]
+        public void TestFixtureSetup()
+        {
+            try
+            {
+                DeltaresOpenDapDdbTileServer.GetAvailableDataSets();
+            }
+            catch (WebException e)
+            {
+                Assert.Ignore("Server down: " + e.Message);
+            }
         }
     }
 }

@@ -16,16 +16,8 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
     /// </summary>
     public class GMLWriter
     {
-		private const int InitValue = 150;
-		private const int CoordSize = 200;
-
-        /// <summary>
-        /// Formatter for double values of coordinates
-        /// </summary>
-        protected static NumberFormatInfo NumberFormatter
-        {
-            get { return Global.GetNfi(); }
-        }
+        private const int InitValue = 150;
+        private const int CoordSize = 200;
 
         /// <summary>
         /// Returns an <c>XmlReader</c> with feature informations.
@@ -37,7 +29,9 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
         {
             byte[] data = GetBytes(geometry);
             using (Stream stream = new MemoryStream(data))
+            {
                 Write(geometry, stream);
+            }
             Stream outStream = new MemoryStream(data);
             return new XmlTextReader(outStream);
         }
@@ -54,8 +48,19 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
             writer.WriteStartElement(GMLElements.gmlPrefix, "GML", GMLElements.gmlNS);
             writer.Formatting = Formatting.Indented;
             Write(geometry, writer);
-			writer.WriteEndElement();
+            writer.WriteEndElement();
             writer.Close();
+        }
+
+        /// <summary>
+        /// Formatter for double values of coordinates
+        /// </summary>
+        protected static NumberFormatInfo NumberFormatter
+        {
+            get
+            {
+                return Global.GetNfi();
+            }
         }
 
         /// <summary>
@@ -79,7 +84,9 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
         protected void Write(ICoordinate[] coordinates, XmlTextWriter writer)
         {
             foreach (ICoordinate coord in coordinates)
+            {
                 Write(coord, writer);
+            }
         }
 
         /// <summary>
@@ -90,20 +97,37 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
         protected void Write(IGeometry geometry, XmlTextWriter writer)
         {
             if (geometry is IPoint)
+            {
                 Write(geometry as IPoint, writer);
+            }
             else if (geometry is ILineString)
+            {
                 Write(geometry as ILineString, writer);
+            }
             else if (geometry is IPolygon)
+            {
                 Write(geometry as IPolygon, writer);
+            }
             else if (geometry is IMultiPoint)
+            {
                 Write(geometry as IMultiPoint, writer);
+            }
             else if (geometry is IMultiLineString)
+            {
                 Write(geometry as IMultiLineString, writer);
+            }
             else if (geometry is IMultiPolygon)
+            {
                 Write(geometry as IMultiPolygon, writer);
+            }
             else if (geometry is IGeometryCollection)
+            {
                 Write(geometry as IGeometryCollection, writer);
-            else throw new ArgumentException("Geometry not recognized: " + geometry.ToString());
+            }
+            else
+            {
+                throw new ArgumentException("Geometry not recognized: " + geometry.ToString());
+            }
         }
 
         /// <summary>
@@ -230,7 +254,6 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
             writer.WriteEndElement();
         }
 
-
         /// <summary>
         /// Sets corrent length for Byte Stream.
         /// </summary>
@@ -239,20 +262,37 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
         protected byte[] GetBytes(IGeometry geometry)
         {
             if (geometry is IPoint)
+            {
                 return new byte[SetByteStreamLength(geometry as IPoint)];
+            }
             else if (geometry is ILineString)
+            {
                 return new byte[SetByteStreamLength(geometry as ILineString)];
+            }
             else if (geometry is IPolygon)
+            {
                 return new byte[SetByteStreamLength(geometry as IPolygon)];
+            }
             else if (geometry is IMultiPoint)
+            {
                 return new byte[SetByteStreamLength(geometry as IMultiPoint)];
+            }
             else if (geometry is IMultiLineString)
+            {
                 return new byte[SetByteStreamLength(geometry as IMultiLineString)];
+            }
             else if (geometry is IMultiPolygon)
+            {
                 return new byte[SetByteStreamLength(geometry as IMultiPolygon)];
+            }
             else if (geometry is IGeometryCollection)
+            {
                 return new byte[SetByteStreamLength(geometry as IGeometryCollection)];
-            else throw new ArgumentException("ShouldNeverReachHere");
+            }
+            else
+            {
+                throw new ArgumentException("ShouldNeverReachHere");
+            }
         }
 
         /// <summary>
@@ -263,20 +303,37 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
         protected int SetByteStreamLength(IGeometry geometry)
         {
             if (geometry is IPoint)
+            {
                 return SetByteStreamLength(geometry as IPoint);
+            }
             else if (geometry is ILineString)
+            {
                 return SetByteStreamLength(geometry as ILineString);
+            }
             else if (geometry is IPolygon)
+            {
                 return SetByteStreamLength(geometry as IPolygon);
+            }
             else if (geometry is IMultiPoint)
+            {
                 return SetByteStreamLength(geometry as IMultiPoint);
+            }
             else if (geometry is IMultiLineString)
+            {
                 return SetByteStreamLength(geometry as IMultiLineString);
+            }
             else if (geometry is IMultiPolygon)
+            {
                 return SetByteStreamLength(geometry as IMultiPolygon);
+            }
             else if (geometry is IGeometryCollection)
+            {
                 return SetByteStreamLength(geometry as IGeometryCollection);
-            else throw new ArgumentException("ShouldNeverReachHere");
+            }
+            else
+            {
+                throw new ArgumentException("ShouldNeverReachHere");
+            }
         }
 
         /// <summary>
@@ -288,7 +345,9 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
         {
             int count = InitValue;
             foreach (IGeometry g in geometryCollection.Geometries)
+            {
                 count += SetByteStreamLength(g);
+            }
             return count;
         }
 
@@ -301,7 +360,9 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
         {
             int count = InitValue;
             foreach (IPolygon p in multiPolygon.Geometries)
+            {
                 count += SetByteStreamLength(p);
+            }
             return count;
         }
 
@@ -314,7 +375,9 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
         {
             int count = InitValue;
             foreach (ILineString ls in multiLineString.Geometries)
+            {
                 count += SetByteStreamLength(ls);
+            }
             return count;
         }
 
@@ -327,7 +390,9 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
         {
             int count = InitValue;
             foreach (IPoint p in multiPoint.Geometries)
+            {
                 count += SetByteStreamLength(p);
+            }
             return count;
         }
 
@@ -339,7 +404,7 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
         protected int SetByteStreamLength(IPolygon polygon)
         {
             int count = InitValue;
-            count += polygon.NumPoints * CoordSize;
+            count += polygon.NumPoints*CoordSize;
             return count;
         }
 
@@ -351,7 +416,7 @@ namespace GisSharpBlog.NetTopologySuite.IO.GML2
         protected int SetByteStreamLength(ILineString lineString)
         {
             int count = InitValue;
-            count += lineString.NumPoints * CoordSize;
+            count += lineString.NumPoints*CoordSize;
             return count;
         }
 

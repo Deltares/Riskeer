@@ -8,11 +8,14 @@ namespace GisSharpBlog.NetTopologySuite.Index.Strtree
     /// </summary>
     public class Interval
     {
+        private double min;
+        private double max;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="other"></param>
-        public Interval(Interval other) : this(other.min, other.max) { }
+        public Interval(Interval other) : this(other.min, other.max) {}
 
         /// <summary>
         /// 
@@ -26,9 +29,6 @@ namespace GisSharpBlog.NetTopologySuite.Index.Strtree
             this.max = max;
         }
 
-        private double min;
-        private double max;
-
         /// <summary>
         /// 
         /// </summary>
@@ -36,7 +36,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Strtree
         {
             get
             {
-                return (min + max) / 2;
+                return (min + max)/2;
             }
         }
 
@@ -67,10 +67,12 @@ namespace GisSharpBlog.NetTopologySuite.Index.Strtree
         /// </summary>
         /// <param name="o"></param>
         /// <returns></returns>
-        public override bool Equals(object o) 
+        public override bool Equals(object o)
         {
-            if (!(o is Interval))             
-                return false;            
+            if (!(o is Interval))
+            {
+                return false;
+            }
             Interval other = (Interval) o;
             return min == other.min && max == other.max;
         }
@@ -83,5 +85,5 @@ namespace GisSharpBlog.NetTopologySuite.Index.Strtree
         {
             return base.GetHashCode();
         }
-    }    
+    }
 }

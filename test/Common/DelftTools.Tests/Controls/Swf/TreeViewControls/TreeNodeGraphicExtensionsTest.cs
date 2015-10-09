@@ -3,8 +3,6 @@ using DelftTools.Controls;
 using DelftTools.Controls.Swf.TreeViewControls;
 using NUnit.Framework;
 using Rhino.Mocks;
-using TreeNode = DelftTools.Controls.Swf.TreeViewControls.TreeNode;
-using TreeView = DelftTools.Controls.Swf.TreeViewControls.TreeView;
 
 namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 {
@@ -31,7 +29,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             mocks.BackToRecord(treeNode, BackToRecordOptions.PropertyBehavior);
             treeNode.ShowCheckBox = true;
             Expect.Call(treeNode.Bounds).Return(bounds);
-            Expect.Call(((ITreeNode)treeNode).Bounds).Return(bounds);
+            Expect.Call(((ITreeNode) treeNode).Bounds).Return(bounds);
             treeNode.Replay();
 
             Assert.IsTrue(treeNode.IsOnCheckBox(pointOnCheckbox));
@@ -42,7 +40,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         {
             var mocks = new MockRepository();
             var treeNode = mocks.Stub<TreeNode>();
-            
+
             treeNode.HasChildren = true;
             Expect.Call(treeNode.TreeView).Return(new TreeView());
 
@@ -59,7 +57,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 
             treeNode.HasChildren = true;
             Expect.Call(treeNode.Bounds).Return(bounds);
-            Expect.Call(((ITreeNode)treeNode).Bounds).Return(bounds);
+            Expect.Call(((ITreeNode) treeNode).Bounds).Return(bounds);
             treeNode.Replay();
 
             Assert.IsTrue(treeNode.IsOnExpandButton(pointOnExpandButton));

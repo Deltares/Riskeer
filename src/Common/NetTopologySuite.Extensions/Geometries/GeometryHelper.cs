@@ -28,12 +28,14 @@ namespace NetTopologySuite.Extensions.Geometries
         /// <param name="geometries"></param>
         /// <param name="geometry"></param>
         /// <returns></returns>
-        static public int IndexOfGeometry(IList<IGeometry> geometries, IGeometry geometry)
+        public static int IndexOfGeometry(IList<IGeometry> geometries, IGeometry geometry)
         {
             for (int i = 0; i < geometries.Count; i++)
             {
                 if (ReferenceEquals(geometries[i], geometry))
+                {
                     return i;
+                }
             }
             return -1;
         }
@@ -50,7 +52,10 @@ namespace NetTopologySuite.Extensions.Geometries
         {
             // Distance along linestring
             double minDistance = Double.MaxValue;
-            if (lineString == null || worldPos == null) return minDistance;
+            if (lineString == null || worldPos == null)
+            {
+                return minDistance;
+            }
 
             ICoordinate min_c1 = null;
             ICoordinate min_c2 = null;
@@ -95,18 +100,21 @@ namespace NetTopologySuite.Extensions.Geometries
         /// <param name="lineString"></param>
         /// <param name="geometry"> </param>
         /// <returns></returns>
-        static public double Distance(ILineString lineString, IGeometry geometry)
+        public static double Distance(ILineString lineString, IGeometry geometry)
         {
             double minDistance = Double.MaxValue;
-            if (lineString == null) return minDistance;
-            
+            if (lineString == null)
+            {
+                return minDistance;
+            }
+
             ICoordinate c1;
             ICoordinate c2;
             ICoordinate[] coordinates = lineString.Coordinates;
 
             if (geometry is IPoint)
             {
-                var point = (IPoint)geometry;
+                var point = (IPoint) geometry;
                 for (int i = 1; i < coordinates.Length; i++)
                 {
                     c1 = coordinates[i - 1];
@@ -120,9 +128,9 @@ namespace NetTopologySuite.Extensions.Geometries
             }
             else if (geometry is ILineString)
             {
-                return LineStringFirstIntersectionOffset(lineString, (ILineString)geometry);
+                return LineStringFirstIntersectionOffset(lineString, (ILineString) geometry);
             }
-            else if(geometry != null)
+            else if (geometry != null)
             {
                 return lineString.Distance(geometry);
 
@@ -152,7 +160,6 @@ namespace NetTopologySuite.Extensions.Geometries
                     CrossSectionHelper.UpdateDefaultGeometry(crossSection, crossSection.Geometry.Length / 2);
                 }
 */
-
             }
 
             return minDistance;
@@ -167,7 +174,7 @@ namespace NetTopologySuite.Extensions.Geometries
         //        return sqrt(d1*d1+d2*d2);
         //    }
 
-        static public double Distance(double x1, double y1, double X2, double Y2)
+        public static double Distance(double x1, double y1, double X2, double Y2)
         {
             return Math.Sqrt((x1 - X2)*(x1 - X2) + (y1 - Y2)*(y1 - Y2));
         }
@@ -186,8 +193,8 @@ namespace NetTopologySuite.Extensions.Geometries
         //        return cross;
         //    }
 
-        static public double CrossProduct(double Ax, double Ay, double Bx, double By, 
-                                          double cx , double cy )
+        public static double CrossProduct(double Ax, double Ay, double Bx, double By,
+                                          double cx, double cy)
         {
             return (Bx - Ax)*(cy - Ay) - (By - Ay)*(cx - Ax);
         }
@@ -206,7 +213,7 @@ namespace NetTopologySuite.Extensions.Geometries
         //        return dot;
         //    }
 
-        static public double Dot(double Ax, double Ay, double Bx, double By, 
+        public static double Dot(double Ax, double Ay, double Bx, double By,
                                  double cx, double cy)
         {
             return (Bx - Ax)*(cx - Bx) + (By - Ay)*(cy - By);
@@ -227,7 +234,7 @@ namespace NetTopologySuite.Extensions.Geometries
         //        return abs(dist);
         //    }
 
-        static public double LinePointDistance(double Ax, double Ay, double Bx, double By, 
+        public static double LinePointDistance(double Ax, double Ay, double Bx, double By,
                                                double cx, double cy)
         {
             double dist, dot1, dot2;
@@ -241,14 +248,18 @@ namespace NetTopologySuite.Extensions.Geometries
             // if (isSegment) always true
             dot1 = Dot(Ax, Ay, Bx, By, cx, cy);
             if (dot1 > 0)
+            {
                 return Distance(Bx, By, cx, cy);
+            }
             dot2 = Dot(Bx, By, Ax, Ay, cx, cy);
             if (dot2 > 0)
+            {
                 return Distance(Ax, Ay, cx, cy);
+            }
             return Math.Abs(dist);
         }
 
-        static public ICoordinate NearestPointAtSegment(double Ax, double Ay, double Bx, double By, 
+        public static ICoordinate NearestPointAtSegment(double Ax, double Ay, double Bx, double By,
                                                         double cx, double cy)
         {
             // if (AB . BC) > 0) 
@@ -256,29 +267,28 @@ namespace NetTopologySuite.Extensions.Geometries
             {
                 return GeometryFactory.CreateCoordinate(Bx, By);
             }
-                // else if ((BA . AC) > 0)
+            // else if ((BA . AC) > 0)
             else if (Dot(Bx, By, Ax, Ay, cx, cy) > 0)
             {
                 return GeometryFactory.CreateCoordinate(Ax, Ay);
             }
             else
-                // both dot products < 0 -> point between A and B
+            // both dot products < 0 -> point between A and B
             {
                 double AC = Distance(Ax, Ay, cx, cy);
                 double BC = Distance(Bx, By, cx, cy);
-                return GeometryFactory.CreateCoordinate(Ax + ((AC) / (AC + BC))*(Bx-Ax),
-                                                        Ay + ((AC) / (AC + BC)) * (By - Ay));
+                return GeometryFactory.CreateCoordinate(Ax + ((AC)/(AC + BC))*(Bx - Ax),
+                                                        Ay + ((AC)/(AC + BC))*(By - Ay));
             }
         }
 
         public static IGeometry SetCoordinate(IGeometry geometry, int coordinateIndex, ICoordinate coordinate)
         {
-            var newGeometry = (IGeometry)geometry.Clone();
+            var newGeometry = (IGeometry) geometry.Clone();
             newGeometry.Coordinates[coordinateIndex].X = coordinate.X;
             newGeometry.Coordinates[coordinateIndex].Y = coordinate.Y;
             newGeometry.GeometryChangedAction();
             return newGeometry;
-
         }
 
         public static void MoveCoordinate(IGeometry geometry, int coordinateIndex, double deltaX, double deltaY)
@@ -323,12 +333,12 @@ namespace NetTopologySuite.Extensions.Geometries
                 {
                     double factor = (distance - partialDistance)/(segmentDistance);
                     return GeometryFactory.CreateCoordinate(
-                        coordinates[i - 1].X + factor * (coordinates[i].X - coordinates[i - 1].X),
-                        coordinates[i - 1].Y + factor * (coordinates[i].Y - coordinates[i - 1].Y));
+                        coordinates[i - 1].X + factor*(coordinates[i].X - coordinates[i - 1].X),
+                        coordinates[i - 1].Y + factor*(coordinates[i].Y - coordinates[i - 1].Y));
                 }
                 partialDistance += segmentDistance;
             }
-            return (ICoordinate) lineString.Coordinates[lineString.Coordinates.Length-1].Clone();
+            return (ICoordinate) lineString.Coordinates[lineString.Coordinates.Length - 1].Clone();
         }
 
         /// <summary>
@@ -339,7 +349,7 @@ namespace NetTopologySuite.Extensions.Geometries
         /// <returns>offset to the first intersection, -1 if there is no intersection -1</returns>
         public static double LineStringFirstIntersectionOffset(ILineString lineString, ILineString cutLineString)
         {
-            if(!lineString.Intersects(cutLineString))
+            if (!lineString.Intersects(cutLineString))
             {
                 return -1;
             }
@@ -351,13 +361,13 @@ namespace NetTopologySuite.Extensions.Geometries
                 var result = (IMultiLineString) lineString.Difference(cutLineString);
                 return result.Geometries[0].Length;
             }
-            
+
             return intersection.Length;
         }
 
         public static ICoordinate GetNearestPointAtLine(ILineString lineString, ICoordinate coordinate, double tolerance, out int snapVertexIndex)
         {
-            snapVertexIndex = -1; 
+            snapVertexIndex = -1;
             ICoordinate nearestPoint = null;
 
             ICoordinate minC1;
@@ -394,7 +404,10 @@ namespace NetTopologySuite.Extensions.Geometries
 
             foreach (var feature in features)
             {
-                if(feature.Geometry == null) continue;
+                if (feature.Geometry == null)
+                {
+                    continue;
+                }
 
                 var distance = point.Distance(feature.Geometry);
                 if (distance <= minDistance)
@@ -434,65 +447,17 @@ namespace NetTopologySuite.Extensions.Geometries
             return new DelftTools.Utils.Tuple<IGeometry, IGeometry>(leftHalf, rightHalf);
         }
 
-        private static void ThrowIfArgumentInvalid(IGeometry polygon, double splitPointX)
-        {
-
-            if (polygon.EnvelopeInternal.MinX > splitPointX || polygon.EnvelopeInternal.MaxX < splitPointX)
-                throw new ArgumentOutOfRangeException("splitPointX",string.Format("Splitpoint at x {0:0.00} not within polygon. ",
-                                                                    splitPointX));
-    
-        }
-
-        private static IGeometry GetLeftHalfGeometry(IGeometry geometry, double splitPointX)
-        {
-            double minXValue = geometry.EnvelopeInternal.MinX - 1;
-            double minYValue = geometry.EnvelopeInternal.MinY - 1;
-            double maxYValue = geometry.EnvelopeInternal.MaxY + 1;
-            
-            var coordinatesLeft= new[]
-                                       {
-                                           new Coordinate(minXValue, maxYValue),
-                                           new Coordinate(splitPointX, maxYValue),
-                                           new Coordinate(splitPointX, minYValue),
-                                           new Coordinate(minXValue, minYValue),
-                                           new Coordinate(minXValue, maxYValue)
-                                       };
-            //
-            var leftRectangle = new Polygon(new LinearRing(coordinatesLeft));
-            return geometry.Intersection(leftRectangle);
-        }
-
-        private static IGeometry GetRightHalfGeometry(IGeometry geometry, double splitPointX)
-        {
-            double maxXValue = geometry.EnvelopeInternal.MaxX + 1;
-            double minYValue = geometry.EnvelopeInternal.MinY - 1;
-            double maxYValue = geometry.EnvelopeInternal.MaxY + 1;
-
-            var coordinatesRight = new[]
-                                       {
-                                           new Coordinate(splitPointX, maxYValue),
-                                           new Coordinate(splitPointX, minYValue),
-                                           new Coordinate(maxXValue, minYValue),
-                                           new Coordinate(maxXValue, maxYValue),
-                                           new Coordinate(splitPointX, maxYValue)
-                                       };
-            //
-            var leftRectangle = new Polygon(new LinearRing(coordinatesRight));
-            return geometry.Intersection(leftRectangle);
-        }
-
-
         public static IGeometry NormalizeGeometry(IGeometry geometryToNormalize)
         {
             if (geometryToNormalize is IPoint)
             {
                 return geometryToNormalize;
             }
-            
+
             if (geometryToNormalize is IGeometryCollection)
             {
-                var geometries = (IGeometryCollection)geometryToNormalize.Clone();
-                for (int i=0;i<geometries.Geometries.Length;i++)
+                var geometries = (IGeometryCollection) geometryToNormalize.Clone();
+                for (int i = 0; i < geometries.Geometries.Length; i++)
                 {
                     geometries.Geometries[i] = NormalizeGeometry(geometries.Geometries[i]);
                 }
@@ -500,7 +465,6 @@ namespace NetTopologySuite.Extensions.Geometries
             }
 
             var resultCoordinates = geometryToNormalize.Coordinates.ToList();
-
 
             var removed = true;
             while (removed)
@@ -517,30 +481,7 @@ namespace NetTopologySuite.Extensions.Geometries
             return new LineString(resultCoordinates.ToArray());
         }
 
-        private static bool RemoveRedundantPoint(List<ICoordinate> resultCoordinates)
-        {
-            var removed = false;
-            int count = resultCoordinates.Count;
-            for (int i = 0; i < count;i++ )
-            {
-                var nextPoint = resultCoordinates[(i + 1) %count];
-                //make sure the index is always positive
-                int previousPointIndex = ((i+count) - 1) % count;
-                var previousPoint = resultCoordinates[previousPointIndex];
-                var point = resultCoordinates[i];
-
-                if ((PointIsSame(point, nextPoint)) ||
-                    (PointIsOnLineBetweenPreviousAndNext(previousPoint, point, nextPoint)))
-                {
-                    resultCoordinates.RemoveAt(i%count);
-                    removed = true;
-                    break;
-                }
-            }
-            return removed;
-        }
-
-        public static bool PointIsSame(ICoordinate point,ICoordinate previousPoint)
+        public static bool PointIsSame(ICoordinate point, ICoordinate previousPoint)
         {
             return point.X == previousPoint.X && point.Y == previousPoint.Y;
         }
@@ -549,22 +490,27 @@ namespace NetTopologySuite.Extensions.Geometries
         {
             //vertical
             if (nextPoint.X == point.X && point.X == previousPoint.X)
+            {
                 return true;
+            }
             //one part is vertical..so not redundant
             if (nextPoint.X == point.X || point.X == previousPoint.X)
+            {
                 return false;
+            }
 
             //check the x is monotonous and the point.x if between the other points
-            bool monotonous = (previousPoint.X < point.X && point.X < nextPoint.X )  || (previousPoint.X > point.X && point.X > nextPoint.X  );
-            if (!monotonous) 
+            bool monotonous = (previousPoint.X < point.X && point.X < nextPoint.X) || (previousPoint.X > point.X && point.X > nextPoint.X);
+            if (!monotonous)
+            {
                 return false;
+            }
 
             var nextRiCo = (nextPoint.Y - point.Y)/(nextPoint.X - point.X);
             var previousRiCo = (point.Y - previousPoint.Y)/(point.X - previousPoint.X);
             //the point slope is equal after and before the point
             return (Math.Abs(nextRiCo - previousRiCo) < 0.0001);
         }
-
 
         public static double GetIntersectionArea(IGeometry geometry, IGeometry other)
         {
@@ -573,36 +519,6 @@ namespace NetTopologySuite.Extensions.Geometries
                 return IntersectionArea(geometry as IMultiPolygon, other);
             }
             return IntersectionArea(geometry, other);
-        }
-
-        private static double IntersectionArea(IMultiPolygon multiPolygon, IGeometry other)
-        {
-            var area = 0.0;
-            foreach (var polygon in multiPolygon.Geometries.Cast<IPolygon>())
-            {
-                area += IntersectionArea(polygon, other);
-            }
-            return area;
-        }
-
-        private static double IntersectionArea(IGeometry geometry, IGeometry other)
-        {
-            if (geometry.Intersects(other.Envelope))
-            {
-                OverlayOp.NodingValidatorDisabled = true;
-                double area;
-                try
-                {
-                    area = geometry.Intersection(other).Area;
-                }
-                catch (Exception)
-                {
-                    area = GetSampledIntersectionArea(geometry, other);
-                }
-                OverlayOp.NodingValidatorDisabled = false;
-                return area;
-            }
-            return 0.0;
         }
 
         public static double GetSampledIntersectionArea(IGeometry geometry, IGeometry other)
@@ -622,10 +538,10 @@ namespace NetTopologySuite.Extensions.Geometries
             for (var i = 0; i < steps; i++)
             {
                 var x = minX + i*widthStep;
-                for(var j = 0; j < steps; j++)
+                for (var j = 0; j < steps; j++)
                 {
                     var y = minY + j*heightStep;
-                    if (geometry.Contains(new Point(x, y)) && other.Contains(new Point(x,y)))
+                    if (geometry.Contains(new Point(x, y)) && other.Contains(new Point(x, y)))
                     {
                         area += cellArea;
                     }
@@ -651,7 +567,7 @@ namespace NetTopologySuite.Extensions.Geometries
             return geometry.Union(geometryFactory.CreatePoint(coordinate));
         }
 
-        public static IGeometry RemoveCurvePoint(IGeometry geometry, int index, bool keepLineStringEndPoints=false)
+        public static IGeometry RemoveCurvePoint(IGeometry geometry, int index, bool keepLineStringEndPoints = false)
         {
             var vertices = new List<ICoordinate>(geometry.Coordinates);
             vertices.RemoveAt(index);
@@ -694,6 +610,106 @@ namespace NetTopologySuite.Extensions.Geometries
                 return geometry.Difference(point);
             }
             return geometry;
+        }
+
+        private static void ThrowIfArgumentInvalid(IGeometry polygon, double splitPointX)
+        {
+            if (polygon.EnvelopeInternal.MinX > splitPointX || polygon.EnvelopeInternal.MaxX < splitPointX)
+            {
+                throw new ArgumentOutOfRangeException("splitPointX", string.Format("Splitpoint at x {0:0.00} not within polygon. ",
+                                                                                   splitPointX));
+            }
+        }
+
+        private static IGeometry GetLeftHalfGeometry(IGeometry geometry, double splitPointX)
+        {
+            double minXValue = geometry.EnvelopeInternal.MinX - 1;
+            double minYValue = geometry.EnvelopeInternal.MinY - 1;
+            double maxYValue = geometry.EnvelopeInternal.MaxY + 1;
+
+            var coordinatesLeft = new[]
+            {
+                new Coordinate(minXValue, maxYValue),
+                new Coordinate(splitPointX, maxYValue),
+                new Coordinate(splitPointX, minYValue),
+                new Coordinate(minXValue, minYValue),
+                new Coordinate(minXValue, maxYValue)
+            };
+            //
+            var leftRectangle = new Polygon(new LinearRing(coordinatesLeft));
+            return geometry.Intersection(leftRectangle);
+        }
+
+        private static IGeometry GetRightHalfGeometry(IGeometry geometry, double splitPointX)
+        {
+            double maxXValue = geometry.EnvelopeInternal.MaxX + 1;
+            double minYValue = geometry.EnvelopeInternal.MinY - 1;
+            double maxYValue = geometry.EnvelopeInternal.MaxY + 1;
+
+            var coordinatesRight = new[]
+            {
+                new Coordinate(splitPointX, maxYValue),
+                new Coordinate(splitPointX, minYValue),
+                new Coordinate(maxXValue, minYValue),
+                new Coordinate(maxXValue, maxYValue),
+                new Coordinate(splitPointX, maxYValue)
+            };
+            //
+            var leftRectangle = new Polygon(new LinearRing(coordinatesRight));
+            return geometry.Intersection(leftRectangle);
+        }
+
+        private static bool RemoveRedundantPoint(List<ICoordinate> resultCoordinates)
+        {
+            var removed = false;
+            int count = resultCoordinates.Count;
+            for (int i = 0; i < count; i++)
+            {
+                var nextPoint = resultCoordinates[(i + 1)%count];
+                //make sure the index is always positive
+                int previousPointIndex = ((i + count) - 1)%count;
+                var previousPoint = resultCoordinates[previousPointIndex];
+                var point = resultCoordinates[i];
+
+                if ((PointIsSame(point, nextPoint)) ||
+                    (PointIsOnLineBetweenPreviousAndNext(previousPoint, point, nextPoint)))
+                {
+                    resultCoordinates.RemoveAt(i%count);
+                    removed = true;
+                    break;
+                }
+            }
+            return removed;
+        }
+
+        private static double IntersectionArea(IMultiPolygon multiPolygon, IGeometry other)
+        {
+            var area = 0.0;
+            foreach (var polygon in multiPolygon.Geometries.Cast<IPolygon>())
+            {
+                area += IntersectionArea(polygon, other);
+            }
+            return area;
+        }
+
+        private static double IntersectionArea(IGeometry geometry, IGeometry other)
+        {
+            if (geometry.Intersects(other.Envelope))
+            {
+                OverlayOp.NodingValidatorDisabled = true;
+                double area;
+                try
+                {
+                    area = geometry.Intersection(other).Area;
+                }
+                catch (Exception)
+                {
+                    area = GetSampledIntersectionArea(geometry, other);
+                }
+                OverlayOp.NodingValidatorDisabled = false;
+                return area;
+            }
+            return 0.0;
         }
     }
 }

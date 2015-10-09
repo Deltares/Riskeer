@@ -18,9 +18,9 @@ namespace DelftTools.Tests.Controls.Swf
             MessageBox.CustomMessageBox = customMessageBox;
 
             mockRepository.ReplayAll();
-            
+
             MessageBox.Show("text", "caption", MessageBoxButtons.OK);
-            
+
             mockRepository.VerifyAll();
 
             //don't forget to reset!

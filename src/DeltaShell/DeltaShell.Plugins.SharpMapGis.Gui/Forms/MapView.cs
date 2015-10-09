@@ -29,34 +29,38 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 {
     public partial class MapView : UserControl, ICanvasEditor, ICompositeView, ISearchableView
     {
-        private MapViewTabControl tabControl;
-
         private bool canAddPoint = true;
         private bool canDeleteItem = true;
         private bool canMoveItem = true;
         private bool canMoveItemLinear = true;
         private bool canSelectItem = true;
         private bool settingSelection = false;
-        private StackTrace constructorStackTrace;
+        private readonly StackTrace constructorStackTrace;
 
         public MapView()
         {
             InitializeComponent();
             IsAllowSyncWithGuiSelection = true;
 
-            tabControl = new MapViewTabControl { Size = new Size(300, 250), Dock = DockStyle.Bottom };
-            Controls.Add(tabControl);
+            TabControl = new MapViewTabControl
+            {
+                Size = new Size(300, 250), Dock = DockStyle.Bottom
+            };
+            Controls.Add(TabControl);
 
-            mapControl.SelectedFeaturesChanged += (s,e) => SyncMapViewEditorSelection();
-            collapsibleSplitter1.ControlToHide = tabControl;
-            tabControl.ViewCollectionChanged += OnTabControlOnViewCollectionChanged;
+            MapControl.SelectedFeaturesChanged += (s, e) => SyncMapViewEditorSelection();
+            Splitter.ControlToHide = TabControl;
+            TabControl.ViewCollectionChanged += OnTabControlOnViewCollectionChanged;
 
             // hide for now
             IsTabControlVisible = false;
 
             // add some tools here, to avoid references to DeltaShell projects in SharpMap
-            mapControl.Tools.Add(new ExportMapToImageMapTool());
-            Map = new Map(mapControl.ClientSize) { Zoom = 100 };
+            MapControl.Tools.Add(new ExportMapToImageMapTool());
+            Map = new Map(MapControl.ClientSize)
+            {
+                Zoom = 100
+            };
 
             if (Assembly.GetEntryAssembly() == null) // HACK: detecting nasty dispose exceptions when assembly empty - we run from non-exe (test)
             {
@@ -66,7 +70,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
         public bool IsTabControlVisible
         {
-            get { return collapsibleSplitter1.Visible; }
+            get
+            {
+                return Splitter.Visible;
+            }
             set
             {
                 if (IsTabControlVisible == value)
@@ -74,9 +81,9 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                     return;
                 }
 
-                collapsibleSplitter1.ToggleState();
-                collapsibleSplitter1.Visible = value;
-                tabControl.SendToBack();
+                Splitter.ToggleState();
+                Splitter.Visible = value;
+                TabControl.SendToBack();
             }
         }
 
@@ -87,34 +94,46 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
         public Map Map
         {
-            get { return mapControl.Map; }
+            get
+            {
+                return MapControl.Map;
+            }
             set
             {
-                if(mapControl.Map == value)
+                if (MapControl.Map == value)
                 {
                     return;
                 }
 
                 UnsubscribeEvents();
-                if (mapControl != null)
+                if (MapControl != null)
                 {
-                    mapControl.Map = value;
+                    MapControl.Map = value;
                 }
                 SubscribeEvents();
             }
         }
 
-        public MapControl MapControl
-        {
-            get { return mapControl; }
-        }
+        public MapControl MapControl { get; private set; }
 
-        public ViewInfo ViewInfo { get; set; }
+        public MapViewTabControl TabControl { get; private set; }
+
+        public CollapsibleSplitter Splitter { get; set; }
+
+        public Func<ILayer, object> GetDataForLayer { get; set; }
+
+        public Func<object, ILayer> GetLayerForData { get; set; }
 
         public bool CanSelectItem
         {
-            get { return canSelectItem; }
-            set { canSelectItem = value; }
+            get
+            {
+                return canSelectItem;
+            }
+            set
+            {
+                canSelectItem = value;
+            }
         }
 
         public bool IsSelectItemActive
@@ -136,13 +155,22 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
         public bool CanMoveItem
         {
-            get { return canMoveItem; }
-            set { canMoveItem = value; }
+            get
+            {
+                return canMoveItem;
+            }
+            set
+            {
+                canMoveItem = value;
+            }
         }
 
         public bool IsMoveItemActive
         {
-            get { return MapControl.MoveTool.IsActive; }
+            get
+            {
+                return MapControl.MoveTool.IsActive;
+            }
             set
             {
                 // only support setting to true
@@ -155,13 +183,22 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
         public bool CanMoveItemLinear
         {
-            get { return canMoveItemLinear; }
-            set { canMoveItemLinear = value; }
+            get
+            {
+                return canMoveItemLinear;
+            }
+            set
+            {
+                canMoveItemLinear = value;
+            }
         }
 
         public bool IsMoveItemLinearActive
         {
-            get { return MapControl.LinearMoveTool.IsActive; }
+            get
+            {
+                return MapControl.LinearMoveTool.IsActive;
+            }
             set
             {
                 if (value)
@@ -173,34 +210,49 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
         public bool CanDeleteItem
         {
-            get { return canDeleteItem; }
-            set { canDeleteItem = value; }
+            get
+            {
+                return canDeleteItem;
+            }
+            set
+            {
+                canDeleteItem = value;
+            }
         }
 
         public bool IsDeleteItemActive
         {
-            get { return true; }
-            set { }
+            get
+            {
+                return true;
+            }
+            set {}
         }
 
         public bool CanAddPoint
         {
-            get { return canAddPoint; }
-            set { canAddPoint = value; }
+            get
+            {
+                return canAddPoint;
+            }
+            set
+            {
+                canAddPoint = value;
+            }
         }
 
         public bool IsAddPointActive
         {
             get
             {
-                var tool = (CurvePointTool)MapControl.GetToolByName("CurvePoint");
+                var tool = (CurvePointTool) MapControl.GetToolByName("CurvePoint");
                 return tool.IsActive && tool.Mode == CurvePointTool.EditMode.Add;
             }
             set
             {
                 if (value)
                 {
-                    var tool = (CurvePointTool)MapControl.GetToolByName("CurvePoint");
+                    var tool = (CurvePointTool) MapControl.GetToolByName("CurvePoint");
                     tool.Mode = CurvePointTool.EditMode.Add;
                     MapControl.ActivateTool(tool);
                 }
@@ -211,58 +263,103 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
         {
             get
             {
-                var tool = (CurvePointTool)MapControl.GetToolByName("CurvePoint");
+                var tool = (CurvePointTool) MapControl.GetToolByName("CurvePoint");
                 return tool.IsActive && tool.Mode == CurvePointTool.EditMode.Remove;
             }
             set
             {
                 if (value)
                 {
-                    var tool = (CurvePointTool)MapControl.GetToolByName("CurvePoint");
+                    var tool = (CurvePointTool) MapControl.GetToolByName("CurvePoint");
                     tool.Mode = CurvePointTool.EditMode.Remove;
                     MapControl.ActivateTool(tool);
                 }
             }
         }
 
-        public bool CanRemovePoint { get { return true; } }
+        public bool CanRemovePoint
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        public ViewInfo ViewInfo { get; set; }
 
         /// <summary>
         /// Expects a Map
         /// </summary>
         public object Data
         {
-            get { return mapControl.Map; }
-            set { Map = (Map) value; }
+            get
+            {
+                return MapControl.Map;
+            }
+            set
+            {
+                Map = (Map) value;
+            }
         }
 
-        public Image Image 
+        public Image Image
         {
-            get { return Resources.Map; }
-            set { }
-        }
-
-        public MapViewTabControl TabControl { get { return tabControl; } }
-
-        public CollapsibleSplitter Splitter
-        {
-            get { return collapsibleSplitter1; }
-            set { collapsibleSplitter1 = value; }
+            get
+            {
+                return Resources.Map;
+            }
+            set {}
         }
 
         public IEventedList<IView> ChildViews
         {
-            get { return tabControl.ChildViews; }
+            get
+            {
+                return TabControl.ChildViews;
+            }
         }
 
         public bool HandlesChildViews
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
 
-        public Func<ILayer, object> GetDataForLayer { get; set; }
+        public IView OpenLayerAttributeTable(ILayer layer, Action<object> openViewMethod = null)
+        {
+            if (!(layer is VectorLayer) || !layer.ShowAttributeTable)
+            {
+                return null;
+            }
 
-        public Func<object, ILayer> GetLayerForData { get; set; }
+            var view = TabControl.ChildViews.OfType<VectorLayerAttributeTableView>().FirstOrDefault(v => v.Data == layer);
+            if (view != null)
+            {
+                TabControl.ActiveView = view;
+                return null;
+            }
+
+            if (!IsTabControlVisible)
+            {
+                IsTabControlVisible = true;
+            }
+
+            view = new VectorLayerAttributeTableView
+            {
+                Data = layer,
+                Layer = layer,
+                Text = layer.Name,
+                ZoomToFeature = feature => EnsureVisible(feature),
+                OpenViewMethod = openViewMethod,
+                DeleteSelectedFeatures = () => MapControl.DeleteTool.DeleteSelection()
+            };
+
+            TabControl.AddView(view);
+
+            return view;
+        }
 
         public void EnsureVisible(object item)
         {
@@ -273,7 +370,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                 {
                     view.EnsureVisible(item);
                 }
-                catch (Exception) { /* gulp */ }
+                catch (Exception)
+                {
+                    /* gulp */
+                }
             }
 
             var layer = item as ILayer;
@@ -289,12 +389,82 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             {
                 return;
             }
-            ILayer featureLayer = mapControl.Map.GetLayerByFeature(feature);
+            ILayer featureLayer = MapControl.Map.GetLayerByFeature(feature);
             if (featureLayer == null)
             {
                 return;
             }
             EnsureFeatureVisible(feature, layer);
+        }
+
+        public void ActivateChildView(IView childView)
+        {
+            TabControl.ActiveView = childView;
+            if (IsTabControlVisible && Splitter.IsCollapsed)
+            {
+                Splitter.ToggleState(); //re-show tabcontrol now
+            }
+        }
+
+        public IEnumerable<System.Tuple<string, object>> SearchItemsByText(string text, bool caseSensitive, Func<bool> isSearchCancelled, Action<int> setProgressPercentage)
+        {
+            var visibleLayers = Map.GetAllVisibleLayers(false).Where(l => l.DataSource != null && l.DataSource.Features != null).ToList();
+            if (visibleLayers.Count == 0)
+            {
+                yield break;
+            }
+
+            var percentageStep = 100.0/visibleLayers.Count;
+            var currentPercentage = 0.0;
+
+            foreach (var layer in visibleLayers)
+            {
+                if (isSearchCancelled())
+                {
+                    yield break;
+                }
+
+                var matchingItems = layer.DataSource.Features.OfType<INameable>().
+                                          Where(n => n.Name != null &&
+                                                     (caseSensitive
+                                                          ? n.Name.Contains(text)
+                                                          : n.Name.ToLower().Contains(text.ToLower())));
+
+                foreach (var item in matchingItems)
+                {
+                    yield return new System.Tuple<string, object>(string.Format("{0} ({1})", item.Name, layer.Name), item);
+                }
+
+                currentPercentage += percentageStep;
+                setProgressPercentage((int) currentPercentage);
+            }
+        }
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            try
+            {
+                if (disposing)
+                {
+                    MapControl.Dispose();
+                    TabControl.Dispose();
+                }
+
+                if (disposing && (components != null))
+                {
+                    components.Dispose();
+                }
+                base.Dispose(disposing);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception occured during dispose: " + e);
+                Console.WriteLine("Constructor stack trace: " + constructorStackTrace);
+            }
         }
 
         private void EnsureFeatureVisible(IFeature feature, ILayer layer)
@@ -322,77 +492,12 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             MapControl.Refresh();
         }
 
-        public IView OpenLayerAttributeTable(ILayer layer, Action<object> openViewMethod = null)
-        {
-            if (!(layer is VectorLayer) || !layer.ShowAttributeTable)
-            {
-                return null;
-            }
-
-            var view = tabControl.ChildViews.OfType<VectorLayerAttributeTableView>().FirstOrDefault(v => v.Data == layer);
-            if (view != null)
-            {
-                TabControl.ActiveView = view;
-                return null;
-            }
-
-            if (!IsTabControlVisible)
-            {
-                IsTabControlVisible = true;
-            }
-
-            view = new VectorLayerAttributeTableView
-                {
-                    Data = layer, 
-                    Layer = layer,
-                    Text = layer.Name,
-                    ZoomToFeature = feature => EnsureVisible(feature),
-                    OpenViewMethod = openViewMethod,
-                    DeleteSelectedFeatures = () => mapControl.DeleteTool.DeleteSelection()
-                };
-
-            TabControl.AddView(view);
-            
-            return view;
-        }
-
-        public void ActivateChildView(IView childView)
-        {
-            TabControl.ActiveView = childView;
-            if (IsTabControlVisible && collapsibleSplitter1.IsCollapsed)
-                collapsibleSplitter1.ToggleState(); //re-show tabcontrol now
-        }
-
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            try
-            {
-                if (disposing)
-                {
-                    mapControl.Dispose();
-                    tabControl.Dispose();
-                }
-
-                if (disposing && (components != null))
-                {
-                    components.Dispose();
-                }
-                base.Dispose(disposing);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception occured during dispose: " + e);
-                Console.WriteLine("Constructor stack trace: " + constructorStackTrace);
-            }
-        }
-
         private void SubscribeEvents()
         {
-            if (Map == null) return;
+            if (Map == null)
+            {
+                return;
+            }
 
             Map.CollectionChanged += mapCollectionChangedEventHandler;
 
@@ -403,7 +508,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
         private void UnsubscribeEvents()
         {
-            if (Map == null) return;
+            if (Map == null)
+            {
+                return;
+            }
 
             Map.CollectionChanged -= mapCollectionChangedEventHandler;
 
@@ -433,30 +541,32 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             }
 
             var dataForLayer = GetDataForLayer != null
-                ? GetDataForLayer(layer) ?? layer
-                : layer;
+                                   ? GetDataForLayer(layer) ?? layer
+                                   : layer;
 
-            var view = tabControl.ChildViews.FirstOrDefault(v => Equals(v.Data, dataForLayer));
+            var view = TabControl.ChildViews.FirstOrDefault(v => Equals(v.Data, dataForLayer));
             if (view == null)
             {
                 return;
             }
 
-            tabControl.RemoveView(view);
+            TabControl.RemoveView(view);
         }
 
         private void MapControlMouseMove(object sender, MouseEventArgs e)
         {
-            var worldLocation = mapControl.Map.ImageToWorld(e.Location);
+            var worldLocation = MapControl.Map.ImageToWorld(e.Location);
             if (SharpMapGisGuiPlugin.Instance != null && SharpMapGisGuiPlugin.Instance.Gui != null && worldLocation != null)
             {
-                var coordinateSystem = mapControl.Map.CoordinateSystem != null 
-                    ? "(" + mapControl.Map.CoordinateSystem.Name + ")"
-                    : "";
+                var coordinateSystem = MapControl.Map.CoordinateSystem != null
+                                           ? "(" + MapControl.Map.CoordinateSystem.Name + ")"
+                                           : "";
                 var message = string.Format("Current map coordinates {0} : {1}, {2}", coordinateSystem, worldLocation.X, worldLocation.Y);
                 // HACK:....
                 if (SharpMapGisGuiPlugin.Instance.Gui.MainWindow != null)
+                {
                     SharpMapGisGuiPlugin.Instance.Gui.MainWindow.StatusBarMessage = message;
+                }
             }
         }
 
@@ -467,7 +577,9 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             if (SharpMapGisGuiPlugin.Instance != null && SharpMapGisGuiPlugin.Instance.Gui != null)
             {
                 if (SharpMapGisGuiPlugin.Instance.Gui.MainWindow != null)
+                {
                     SharpMapGisGuiPlugin.Instance.Gui.MainWindow.StatusBarMessage = "";
+                }
             }
         }
 
@@ -483,8 +595,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
         private void SyncMapViewEditorSelection()
         {
-            var features = mapControl.SelectedFeatures;
-            if (features == null || settingSelection) return;
+            var features = MapControl.SelectedFeatures;
+            if (features == null || settingSelection)
+            {
+                return;
+            }
 
             settingSelection = true;
 
@@ -500,10 +615,13 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
         private void MapEditorSelectedFeaturesChanged(object sender, EventArgs e)
         {
             var mapViewEditor = sender as ILayerEditorView;
-            if (mapViewEditor == null || settingSelection) return;
+            if (mapViewEditor == null || settingSelection)
+            {
+                return;
+            }
 
             settingSelection = true;
-            mapControl.SelectTool.Select(mapViewEditor.SelectedFeatures);
+            MapControl.SelectTool.Select(mapViewEditor.SelectedFeatures);
             settingSelection = false;
         }
 
@@ -535,41 +653,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                     mapEditor.Dispose();
                 }
 
-                if (IsTabControlVisible && !tabControl.ChildViews.Any())
+                if (IsTabControlVisible && !TabControl.ChildViews.Any())
                 {
                     IsTabControlVisible = false;
                 }
-            }
-        }
-
-        public IEnumerable<System.Tuple<string, object>> SearchItemsByText(string text, bool caseSensitive, Func<bool> isSearchCancelled, Action<int> setProgressPercentage)
-        {
-            var visibleLayers = Map.GetAllVisibleLayers(false).Where(l => l.DataSource != null && l.DataSource.Features != null).ToList();
-            if (visibleLayers.Count == 0) yield break;
-
-            var percentageStep = 100.0 / visibleLayers.Count;
-            var currentPercentage = 0.0;
-
-            foreach (var layer in visibleLayers)
-            {
-                if (isSearchCancelled())
-                {
-                    yield break;
-                }
-
-                var matchingItems = layer.DataSource.Features.OfType<INameable>().
-                                          Where(n => n.Name != null &&
-                                                     (caseSensitive
-                                                          ? n.Name.Contains(text)
-                                                          : n.Name.ToLower().Contains(text.ToLower())));
-
-                foreach (var item in matchingItems)
-                {
-                    yield return new System.Tuple<string, object>(string.Format("{0} ({1})", item.Name, layer.Name), item);
-                }
-
-                currentPercentage += percentageStep;
-                setProgressPercentage((int) currentPercentage);
             }
         }
     }

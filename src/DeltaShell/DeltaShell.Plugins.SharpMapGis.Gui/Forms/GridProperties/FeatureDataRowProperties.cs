@@ -14,7 +14,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "FeatureDataRowProperties_Data_Description")]
         public string[] RowData
         {
-            get { return data.ItemArray.Select(i => i.ToString()).ToArray(); }
+            get
+            {
+                return data.ItemArray.Select(i => i.ToString()).ToArray();
+            }
         }
     }
 }

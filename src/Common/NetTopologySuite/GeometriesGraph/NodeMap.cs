@@ -9,7 +9,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
     /// A map of nodes, indexed by the coordinate of the node.
     /// </summary>
     public class NodeMap
-    {        
+    {
         private readonly IDictionary nodeMap = new OrderedDictionary<ICoordinate, object>();
         private readonly NodeFactory nodeFact;
 
@@ -22,6 +22,17 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
             this.nodeFact = nodeFact;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public IList Values
+        {
+            get
+            {
+                return new ArrayList(nodeMap.Values);
+            }
+        }
+
         /// <summary> 
         /// This method expects that a node has a coordinate value.
         /// </summary>
@@ -29,7 +40,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         public Node AddNode(ICoordinate coord)
         {
             Node node = (Node) nodeMap[coord];
-            if (node == null) 
+            if (node == null)
             {
                 node = nodeFact.CreateNode(coord);
                 nodeMap.Add(coord, node);
@@ -45,7 +56,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         public Node AddNode(Node n)
         {
             Node node = (Node) nodeMap[n.Coordinate];
-            if (node == null) 
+            if (node == null)
             {
                 nodeMap.Add(n.Coordinate, n);
                 return n;
@@ -71,7 +82,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// The node if found; null otherwise.
         /// </returns>
         /// <param name="coord"></param>
-        public Node Find(ICoordinate coord)  
+        public Node Find(ICoordinate coord)
         {
             return (Node) nodeMap[coord];
         }
@@ -88,24 +99,18 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <summary>
         /// 
         /// </summary>
-        public IList Values
-        {
-            get { return new ArrayList(nodeMap.Values); }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="geomIndex"></param>
         /// <returns></returns>
         public IList GetBoundaryNodes(int geomIndex)
         {
             IList bdyNodes = new ArrayList();
-            for (IEnumerator i = GetEnumerator(); i.MoveNext(); ) 
+            for (IEnumerator i = GetEnumerator(); i.MoveNext();)
             {
                 Node node = (Node) i.Current;
                 if (node.Label.GetLocation(geomIndex) == Locations.Boundary)
+                {
                     bdyNodes.Add(node);
+                }
             }
             return bdyNodes;
         }
@@ -116,9 +121,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <param name="outstream"></param>
         public void Write(StreamWriter outstream)
         {
-            for (IEnumerator i = GetEnumerator(); i.MoveNext(); ) 
+            for (IEnumerator i = GetEnumerator(); i.MoveNext();)
             {
-                Node n = (Node)i.Current;
+                Node n = (Node) i.Current;
                 n.Write(outstream);
             }
         }

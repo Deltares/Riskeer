@@ -22,20 +22,22 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </param>
         /// <param name="factory"></param>
         public LinearRing(ICoordinateSequence points, IGeometryFactory factory) : base(points, factory)
-        {            
+        {
             ValidateConstruction();
         }
 
+        /* BEGIN ADDED BY MPAUL42: monoGIS team */
+
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="T:LinearRing"/> class.
         /// </summary>
-        private void ValidateConstruction() 
-        {
-	        if (!IsEmpty && !base.IsClosed) 
-                throw new ArgumentException("points must form a closed linestring");            
-            if (CoordinateSequence.Count >= 1 && CoordinateSequence.Count <= 3) 
-                throw new ArgumentException("Number of points must be 0 or >3");            
-        }
+        /// <param name="points">The points used for create this instance.</param>
+        /// <remarks>
+        /// For create this <see cref="Geometry"/> is used a standard <see cref="GeometryFactory"/> 
+        /// with <see cref="PrecisionModel" /> <c> == </c> <see cref="PrecisionModels.Floating"/>.
+        /// </remarks>
+        public LinearRing(ICoordinate[] points) :
+            this(DefaultFactory.CoordinateSequenceFactory.Create(points), DefaultFactory) {}
 
         /// <summary>
         /// 
@@ -70,19 +72,21 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             }
         }
 
-        /* BEGIN ADDED BY MPAUL42: monoGIS team */
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:LinearRing"/> class.
+        /// 
         /// </summary>
-        /// <param name="points">The points used for create this instance.</param>
-        /// <remarks>
-        /// For create this <see cref="Geometry"/> is used a standard <see cref="GeometryFactory"/> 
-        /// with <see cref="PrecisionModel" /> <c> == </c> <see cref="PrecisionModels.Floating"/>.
-        /// </remarks>
-        public LinearRing(ICoordinate[] points) : 
-            this(DefaultFactory.CoordinateSequenceFactory.Create(points), DefaultFactory) { }
-        
+        private void ValidateConstruction()
+        {
+            if (!IsEmpty && !base.IsClosed)
+            {
+                throw new ArgumentException("points must form a closed linestring");
+            }
+            if (CoordinateSequence.Count >= 1 && CoordinateSequence.Count <= 3)
+            {
+                throw new ArgumentException("Number of points must be 0 or >3");
+            }
+        }
+
         /* END ADDED BY MPAUL42: monoGIS team */
     }
 }

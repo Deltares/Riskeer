@@ -19,28 +19,20 @@ namespace SharpMap.Tests.Editors
         [SetUp]
         public void SetUp()
         {
-            sampleFeature = new SampleFeature { Geometry = new Point(0, 0) };
-        }
-
-        private static VectorStyle GetStyle(Pen pen)
-        {
-            return new VectorStyle
+            sampleFeature = new SampleFeature
             {
-                Fill = Brushes.AntiqueWhite,
-                Line = pen,
-                EnableOutline = true,
-                Outline = Pens.Black,
-                Symbol = new Bitmap(10, 10)
+                Geometry = new Point(0, 0)
             };
         }
+
         [Test]
         public void PointMutatorCreationWithoutMapControlTest()
         {
             var pointEditor = new PointInteractor(null, sampleFeature, GetStyle(Pens.Red), null);
-            
+
             Assert.AreEqual(null, pointEditor.TargetFeature);
             Assert.AreNotEqual(null, pointEditor.SourceFeature);
-            
+
             // The tracker has focus by default; is this ok
             var trackers = pointEditor.Trackers.Where(t => t.Selected);
             Assert.AreEqual(1, trackers.Count());
@@ -58,10 +50,10 @@ namespace SharpMap.Tests.Editors
         {
             var pointEditor = new PointInteractor(null, sampleFeature, GetStyle(Pens.Red), null);
             var tracker = pointEditor.Trackers[0];
-            
+
             // The tracker has focus by default; is this ok
             Assert.AreEqual(true, tracker.Selected);
-            
+
             pointEditor.SetTrackerSelection(tracker, false);
             Assert.AreEqual(false, tracker.Selected);
         }
@@ -69,9 +61,18 @@ namespace SharpMap.Tests.Editors
         [Test]
         public void PointMutatorCreationWithMapControlTest()
         {
-            var mapControl = new MapControl {Map = {Size = new Size(1000, 1000)}};
-            var pointEditor = new PointInteractor(new VectorLayer { Map = mapControl.Map }, sampleFeature, GetStyle(Pens.Red), null);
-            
+            var mapControl = new MapControl
+            {
+                Map =
+                {
+                    Size = new Size(1000, 1000)
+                }
+            };
+            var pointEditor = new PointInteractor(new VectorLayer
+            {
+                Map = mapControl.Map
+            }, sampleFeature, GetStyle(Pens.Red), null);
+
             Assert.AreEqual(null, pointEditor.TargetFeature);
             Assert.AreNotEqual(null, pointEditor.SourceFeature);
 
@@ -86,6 +87,18 @@ namespace SharpMap.Tests.Editors
             Assert.AreEqual(5.0, tracker.Geometry.Coordinates[0].Y);
             Assert.AreEqual(5.0, sampleFeature.Geometry.Coordinates[0].X);
             Assert.AreEqual(5.0, sampleFeature.Geometry.Coordinates[0].Y);
+        }
+
+        private static VectorStyle GetStyle(Pen pen)
+        {
+            return new VectorStyle
+            {
+                Fill = Brushes.AntiqueWhite,
+                Line = pen,
+                EnableOutline = true,
+                Outline = Pens.Black,
+                Symbol = new Bitmap(10, 10)
+            };
         }
     }
 }

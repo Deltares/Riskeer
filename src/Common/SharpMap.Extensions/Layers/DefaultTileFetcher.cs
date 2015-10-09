@@ -15,7 +15,7 @@ namespace SharpMap.Extensions.Layers
             var bytes = default(byte[]);
             try
             {
-                var webRequest = (HttpWebRequest)WebRequest.Create(url);
+                var webRequest = (HttpWebRequest) WebRequest.Create(url);
                 webRequest.Timeout = 15*1000; // 10 secs max
                 webRequest.Proxy = new EmptyWebProxy();
                 webResponse = webRequest.GetResponse();
@@ -37,7 +37,7 @@ namespace SharpMap.Extensions.Layers
 
         private static byte[] StreamToArray(Stream input)
         {
-            var buffer = new byte[8 * 1024];
+            var buffer = new byte[8*1024];
             using (var ms = new MemoryStream())
             {
                 int read;
@@ -48,7 +48,7 @@ namespace SharpMap.Extensions.Layers
                 return ms.ToArray();
             }
         }
-        
+
         //take for brutile source code: we need to switch to the latest version soon, but since we're
         //not up to speed with sharpmap etc I implemented this as a local fix.
         private sealed class EmptyWebProxy : IWebProxy

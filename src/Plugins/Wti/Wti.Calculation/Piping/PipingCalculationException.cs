@@ -4,8 +4,6 @@ namespace Wti.Calculation.Piping
 {
     public class PipingCalculationException : Exception
     {
-        public PipingCalculationException(string message) : base(message)
-        {
-        }
+        public PipingCalculationException(string message) : base(message) {}
     }
 }

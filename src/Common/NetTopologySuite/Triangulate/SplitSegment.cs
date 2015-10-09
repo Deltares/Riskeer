@@ -10,6 +10,51 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
     /// <author>Martin Davis</author>
     public class SplitSegment
     {
+        private readonly LineSegment _seg;
+        private readonly double _segLen;
+
+        public SplitSegment(LineSegment seg)
+        {
+            _seg = seg;
+            _segLen = seg.Length;
+        }
+
+        public double MinimumLength { get; set; }
+
+        public ICoordinate SplitPoint { get; private set; }
+
+        public void SplitAt(double length, ICoordinate endPt)
+        {
+            double actualLen = GetConstrainedLength(length);
+            double frac = actualLen/_segLen;
+            if (endPt.Equals2D(_seg.P0))
+            {
+                SplitPoint = _seg.PointAlong(frac);
+            }
+            else
+            {
+                SplitPoint = PointAlongReverse(_seg, frac);
+            }
+        }
+
+        public void SplitAt(ICoordinate pt)
+        {
+            // check that given pt doesn't violate min length
+            double minFrac = MinimumLength/_segLen;
+            if (pt.Distance(_seg.P0) < MinimumLength)
+            {
+                SplitPoint = _seg.PointAlong(minFrac);
+                return;
+            }
+            if (pt.Distance(_seg.P1) < MinimumLength)
+            {
+                SplitPoint = PointAlongReverse(_seg, minFrac);
+                return;
+            }
+            // passes minimum distance check - use provided point as split pt
+            SplitPoint = pt;
+        }
+
         /// <summary>
         /// Computes the {@link Coordinate} that lies a given fraction along the line defined by the
         /// reverse of the given segment. A fraction of <code>0.0</code> returns the end point of the
@@ -26,63 +71,12 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
             return coord;
         }
 
-        private readonly LineSegment _seg;
-        private readonly double _segLen;
-        private ICoordinate _splitPt;
-        private double _minimumLen;
-
-        public SplitSegment(LineSegment seg)
-        {
-            _seg = seg;
-            _segLen = seg.Length;
-        }
-
-        public double MinimumLength
-        {
-            get
-            {
-                return _minimumLen;
-            }
-            set {_minimumLen = value;}
-        }
-
-        public ICoordinate SplitPoint
-        {
-            get { return _splitPt; }
-        }
-
-        public void SplitAt(double length, ICoordinate endPt)
-        {
-            double actualLen = GetConstrainedLength(length);
-            double frac = actualLen/_segLen;
-            if (endPt.Equals2D(_seg.P0))
-                _splitPt = _seg.PointAlong(frac);
-            else
-                _splitPt = PointAlongReverse(_seg, frac);
-        }
-
-        public void SplitAt(ICoordinate pt)
-        {
-            // check that given pt doesn't violate min length
-            double minFrac = _minimumLen/_segLen;
-            if (pt.Distance(_seg.P0) < _minimumLen)
-            {
-                _splitPt = _seg.PointAlong(minFrac);
-                return;
-            }
-            if (pt.Distance(_seg.P1) < _minimumLen)
-            {
-                _splitPt = PointAlongReverse(_seg, minFrac);
-                return;
-            }
-            // passes minimum distance check - use provided point as split pt
-            _splitPt = pt;
-        }
-
         private double GetConstrainedLength(double len)
         {
-            if (len < _minimumLen)
-                return _minimumLen;
+            if (len < MinimumLength)
+            {
+                return MinimumLength;
+            }
             return len;
         }
     }

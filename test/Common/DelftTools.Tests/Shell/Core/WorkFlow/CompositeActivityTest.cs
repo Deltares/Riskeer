@@ -11,10 +11,22 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
         [Test]
         public void ExecuteInParallelModeUsingSimpleActivities()
         {
-            var a1 = new SimpleActivity { Input = 2 };
-            var a2 = new SimpleActivity { Input = 3 };
+            var a1 = new SimpleActivity
+            {
+                Input = 2
+            };
+            var a2 = new SimpleActivity
+            {
+                Input = 3
+            };
 
-            var workflow = new ParallelActivity { Activities = { a1, a2 } };
+            var workflow = new ParallelActivity
+            {
+                Activities =
+                {
+                    a1, a2
+                }
+            };
 
             workflow.Initialize();
             workflow.Execute();
@@ -28,21 +40,33 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
         [Test]
         public void ExecuteInSequentialModeUsingSimpleActivities()
         {
-            var a1 = new SimpleActivity { Input = 2 };
-            var a2 = new SimpleActivity { Input = 3 };
-            var workflow = new SequentialActivity { Activities = { a1, a2 } };
+            var a1 = new SimpleActivity
+            {
+                Input = 2
+            };
+            var a2 = new SimpleActivity
+            {
+                Input = 3
+            };
+            var workflow = new SequentialActivity
+            {
+                Activities =
+                {
+                    a1, a2
+                }
+            };
 
             workflow.Initialize();
             workflow.Execute(); // initializes 1st activity
             workflow.Execute();
 
             workflow.Finish();
-            
+
             a1.Output.Should().Be.EqualTo(4);
             a2.Output.Should().Be.EqualTo(6);
             a1.Status.Should().Be.EqualTo(ActivityStatus.Finished);
             a2.Status.Should().Be.EqualTo(ActivityStatus.Finished);
-            
+
             workflow.Cleanup();
 
             a1.Status.Should().Be.EqualTo(ActivityStatus.Cleaned);
@@ -52,12 +76,24 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
         [Test]
         public void ExecuteInSequentialModeUsingSimpleTwoStepActivities()
         {
-            var a1 = new SimpleTwoStepActivity { Input = 2 };
-            var a2 = new SimpleTwoStepActivity { Input = 3 };
-            var workflow = new SequentialActivity { Activities = { a1, a2 } };
+            var a1 = new SimpleTwoStepActivity
+            {
+                Input = 2
+            };
+            var a2 = new SimpleTwoStepActivity
+            {
+                Input = 3
+            };
+            var workflow = new SequentialActivity
+            {
+                Activities =
+                {
+                    a1, a2
+                }
+            };
 
             workflow.Initialize();
-            while(workflow.Status != ActivityStatus.Done)
+            while (workflow.Status != ActivityStatus.Done)
             {
                 workflow.Execute();
 
@@ -91,14 +127,20 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
             var a4 = new SimpleActivity();
 
             var workflow = new ParallelActivity
-                               {
-                                   Activities =
-                                       {
-                                           a1, 
-                                           new SequentialActivity { Activities = { a2, a3 } },
-                                           a4
-                                       }
-                               };
+            {
+                Activities =
+                {
+                    a1,
+                    new SequentialActivity
+                    {
+                        Activities =
+                        {
+                            a2, a3
+                        }
+                    },
+                    a4
+                }
+            };
 
             workflow.Initialize();
             workflow.Execute();
@@ -128,21 +170,15 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
 
             protected override void OnExecute()
             {
-                Output = Input * 2;
+                Output = Input*2;
                 Status = ActivityStatus.Done;
             }
 
-            protected override void OnCancel()
-            {
-            }
+            protected override void OnCancel() {}
 
-            protected override void OnCleanUp()
-            {
-            }
+            protected override void OnCleanUp() {}
 
-            protected override void OnFinish()
-            {
-            }
+            protected override void OnFinish() {}
         }
 
         private class SimpleTwoStepActivity : Activity
@@ -150,6 +186,8 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
             public int Input { get; set; }
 
             public int Output { get; set; }
+
+            public bool Initialized { get; set; }
 
             protected override void OnInitialize()
             {
@@ -162,8 +200,6 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
                 Initialized = true;
             }
 
-            public bool Initialized { get; set; }
-
             protected override void OnExecute()
             {
                 Output *= 2;
@@ -174,17 +210,11 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
                 }
             }
 
-            protected override void OnCancel()
-            {
-            }
+            protected override void OnCancel() {}
 
-            protected override void OnCleanUp()
-            {
-            }
+            protected override void OnCleanUp() {}
 
-            protected override void OnFinish()
-            {
-            }
+            protected override void OnFinish() {}
         }
     }
 }

@@ -15,6 +15,23 @@ namespace DelftTools.Shell.Core
     /// </summary>
     public interface IApplication : IDisposable
     {
+        event Action<Project> ProjectOpening;
+
+        event Action<Project> ProjectOpened;
+
+        event Action<Project> ProjectClosing;
+
+        event Action<Project> ProjectSaving;
+
+        event Action<Project> ProjectSaved;
+
+        event Action<Project> ProjectSaveFailed;
+
+        /// <summary>
+        /// Fired after application has been started.
+        /// </summary>
+        event Action AfterRun;
+
         /// <summary>
         /// Gets or sets collection of plugins.
         /// </summary>
@@ -45,7 +62,7 @@ namespace DelftTools.Shell.Core
         /// <summary>
         /// TODO: should be custom providing access to text string, icons from Application.
         /// </summary>
-        ResourceManager Resources { get; set;}
+        ResourceManager Resources { get; set; }
 
         IProjectService ProjectService { get; }
 
@@ -104,7 +121,7 @@ namespace DelftTools.Shell.Core
         /// </summary>
         /// <param name="activity"></param>
         void RunActivity(IActivity activity);
-    
+
         ///<summary>
         /// Adds the activity to the CurrentActivities, runs it 
         ///</summary>
@@ -127,28 +144,11 @@ namespace DelftTools.Shell.Core
         void CreateNewProject();
 
         bool OpenProject(string path);
-            
+
         void CloseProject();
 
         void SaveProjectAs(string path);
-        
+
         void SaveProject();
-
-        event Action<Project> ProjectOpening;
-
-        event Action<Project> ProjectOpened;
-
-        event Action<Project> ProjectClosing;
-
-        event Action<Project> ProjectSaving;
-
-        event Action<Project> ProjectSaved;
-
-        event Action<Project> ProjectSaveFailed;
-
-        /// <summary>
-        /// Fired after application has been started.
-        /// </summary>
-        event Action AfterRun;
     }
 }

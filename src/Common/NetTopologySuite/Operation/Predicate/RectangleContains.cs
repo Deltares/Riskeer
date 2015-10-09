@@ -11,21 +11,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
     /// </summary>
     public class RectangleContains
     {
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="rectangle"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static bool Contains(IPolygon rectangle, IGeometry b)
-        {
-            RectangleContains rc = new RectangleContains(rectangle);
-            return rc.Contains(b);
-        }
-
         private IPolygon rectangle;
-        private IEnvelope rectEnv;
+        private readonly IEnvelope rectEnv;
 
         /// <summary>
         /// Create a new contains computer for two geometries.
@@ -40,15 +27,31 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="rectangle"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static bool Contains(IPolygon rectangle, IGeometry b)
+        {
+            RectangleContains rc = new RectangleContains(rectangle);
+            return rc.Contains(b);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="geom"></param>
         /// <returns></returns>
         public bool Contains(IGeometry geom)
         {
             if (!rectEnv.Contains(geom.EnvelopeInternal))
+            {
                 return false;
+            }
             // check that geom is not contained entirely in the rectangle boundary
             if (IsContainedInBoundary(geom))
+            {
                 return false;
+            }
             return true;
         }
 
@@ -60,18 +63,26 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         private bool IsContainedInBoundary(IGeometry geom)
         {
             // polygons can never be wholely contained in the boundary
-            if (geom is IPolygon) 
+            if (geom is IPolygon)
+            {
                 return false;
-            if (geom is IPoint) 
+            }
+            if (geom is IPoint)
+            {
                 return IsPointContainedInBoundary((IPoint) geom);
-            if (geom is ILineString) 
+            }
+            if (geom is ILineString)
+            {
                 return IsLineStringContainedInBoundary((ILineString) geom);
+            }
 
-            for (int i = 0; i < geom.NumGeometries; i++) 
+            for (int i = 0; i < geom.NumGeometries; i++)
             {
                 IGeometry comp = geom.GetGeometryN(i);
                 if (!IsContainedInBoundary(comp))
+                {
                     return false;
+                }
             }
             return true;
         }
@@ -95,9 +106,13 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         {
             // we already know that the point is contained in the rectangle envelope
             if (!(pt.X == rectEnv.MinX || pt.X == rectEnv.MaxX))
+            {
                 return false;
+            }
             if (!(pt.Y == rectEnv.MinY || pt.Y == rectEnv.MaxY))
+            {
                 return false;
+            }
             return true;
         }
 
@@ -116,7 +131,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
                 seq.GetCoordinate(i, p0);
                 seq.GetCoordinate(i + 1, p1);
                 if (!IsLineSegmentContainedInBoundary(p0, p1))
+                {
                     return false;
+                }
             }
             return true;
         }
@@ -130,26 +147,32 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         private bool IsLineSegmentContainedInBoundary(ICoordinate p0, ICoordinate p1)
         {
             if (p0.Equals(p1))
+            {
                 return IsPointContainedInBoundary(p0);
+            }
             // we already know that the segment is contained in the rectangle envelope
             if (p0.X == p1.X)
             {
-                if (p0.X == rectEnv.MinX || 
+                if (p0.X == rectEnv.MinX ||
                     p0.X == rectEnv.MaxX)
-                        return true;
+                {
+                    return true;
+                }
             }
             else if (p0.Y == p1.Y)
             {
-                if (p0.Y == rectEnv.MinY || 
+                if (p0.Y == rectEnv.MinY ||
                     p0.Y == rectEnv.MaxY)
-                        return true;
+                {
+                    return true;
+                }
             }
             /*
              * Either both x and y values are different
              * or one of x and y are the same, but the other ordinate is not the same as a boundary ordinate
              * In either case, the segment is not wholely in the boundary
              */
-            return false;         
+            return false;
         }
     }
 }

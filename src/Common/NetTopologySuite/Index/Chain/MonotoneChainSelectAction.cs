@@ -34,6 +34,6 @@ namespace GisSharpBlog.NetTopologySuite.Index.Chain
         /// line segment which is selected.
         /// </summary>
         /// <param name="seg"></param>
-        public virtual void Select(LineSegment seg) { }
+        public virtual void Select(LineSegment seg) {}
     }
 }

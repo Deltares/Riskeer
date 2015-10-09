@@ -12,11 +12,21 @@ namespace DelftTools.Shell.Gui
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GuiContextManager));
 
-        public virtual string Name { get { return "gui context"; } set { } }
+        public virtual string Name
+        {
+            get
+            {
+                return "gui context";
+            }
+            set {}
+        }
 
         public virtual object DeepClone()
         {
-            var clone = new GuiContextManager {Name = Name};
+            var clone = new GuiContextManager
+            {
+                Name = Name
+            };
 
             log.Warn("Cloning view contexts is not supported yet.");
 

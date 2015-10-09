@@ -11,7 +11,10 @@ namespace SharpMap.Tests.Rendering
         [Test]
         public void ImageToWorld()
         {
-            var map = new Map(new Size(400, 300)) {Zoom = 50};
+            var map = new Map(new Size(400, 300))
+            {
+                Zoom = 50
+            };
 
             var coordinate = MapHelper.ImageToWorld(map, 15, 15);
 
@@ -33,7 +36,10 @@ namespace SharpMap.Tests.Rendering
         [Test]
         public void GetEnvelopeForImage()
         {
-            var map = new Map(new Size(400, 300)) { Zoom = 50 };
+            var map = new Map(new Size(400, 300))
+            {
+                Zoom = 50
+            };
 
             var envelope = MapHelper.GetEnvelopeForImage(map, new Coordinate(5, 5), 16, 16);
 

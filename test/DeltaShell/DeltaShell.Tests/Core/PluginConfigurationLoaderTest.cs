@@ -16,9 +16,10 @@ namespace DeltaShell.Tests.Core
         }
 
         /// <summary>
+
         /// Pre-condition: The prebuild TestPlugin1 should exist in the path to run this test successful
         /// </summary>
-        
+
 /*        [Test]        
         [Category(TestCategory.Integration)]
         public void LoadPlugins()

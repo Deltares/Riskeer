@@ -13,8 +13,8 @@ namespace DeltaShell.Gui.Forms.ViewManager
 {
     public class ViewResolver : IViewResolver
     {
-        private readonly IDictionary<Type, Type> defaultViewTypes = new Dictionary<Type, Type>();
         private static readonly ILog Log = LogManager.GetLogger(typeof(ViewResolver));
+        private readonly IDictionary<Type, Type> defaultViewTypes = new Dictionary<Type, Type>();
 
         private readonly ViewList viewList;
         private readonly IList<ViewInfo> viewInfos;
@@ -24,21 +24,22 @@ namespace DeltaShell.Gui.Forms.ViewManager
             this.viewList = viewList;
             this.viewInfos = viewInfos.ToList();
         }
-        
+
         public IDictionary<Type, Type> DefaultViewTypes
         {
-            get { return defaultViewTypes; }
+            get
+            {
+                return defaultViewTypes;
+            }
         }
 
         public IList<ViewInfo> ViewInfos
         {
-            get { return viewInfos; }
+            get
+            {
+                return viewInfos;
+            }
         }
-
-        /// <summary>
-        /// Checks consistency of ViewList / ViewResolver logic. Sometimes views are closed while being opened.
-        /// </summary>
-        internal static bool IsViewOpening { get; private set; }
 
         public bool OpenViewForData(object data, Type viewType = null, bool alwaysShowDialog = false)
         {
@@ -46,7 +47,10 @@ namespace DeltaShell.Gui.Forms.ViewManager
             {
                 IsViewOpening = true;
 
-                if (data == null) return false;
+                if (data == null)
+                {
+                    return false;
+                }
 
                 var viewInfoList = FilterOnInheritance(GetViewInfosFor(data, viewType)).ToList();
 
@@ -89,11 +93,14 @@ namespace DeltaShell.Gui.Forms.ViewManager
                     }
                 }
 
-                if (viewInfoList.Count == 0) return false;
+                if (viewInfoList.Count == 0)
+                {
+                    return false;
+                }
 
                 // Create chosen view
                 var chosenViewInfo = GetViewInfoUsingDialog(data, viewInfoList);
-                
+
                 return chosenViewInfo != null && CreateViewFromViewInfo(data, chosenViewInfo);
             }
             finally
@@ -105,9 +112,9 @@ namespace DeltaShell.Gui.Forms.ViewManager
         public IView CreateViewForData(object data, Func<ViewInfo, bool> selectViewInfo = null)
         {
             var viewInfoList = ((selectViewInfo == null)
-                                 ? GetViewInfosFor(data)
-                                 : GetViewInfosFor(data).Where(selectViewInfo))
-                                 .ToList();
+                                    ? GetViewInfosFor(data)
+                                    : GetViewInfosFor(data).Where(selectViewInfo))
+                .ToList();
 
             if (viewInfoList.Count == 0)
             {
@@ -124,7 +131,7 @@ namespace DeltaShell.Gui.Forms.ViewManager
 
         public bool CanOpenViewFor(object data, Type viewType = null)
         {
-             return data != null && GetViewInfosFor(data, viewType).Any();
+            return data != null && GetViewInfosFor(data, viewType).Any();
         }
 
         public IList<IView> GetViewsForData(object data, bool includeChildViews = false)
@@ -135,26 +142,9 @@ namespace DeltaShell.Gui.Forms.ViewManager
         public void CloseAllViewsFor(object data)
         {
             DoWithMatchingViews(data, viewList,
-                v => viewList.Remove(v),
-                (compV, view) => compV.ChildViews.Remove(view),
-                (v, o) => v.ViewInfo != null && v.ViewInfo.CloseForData(v, o));
-        }
-
-        private void DoWithMatchingViews(object data, IEnumerable<IView> views, Action<IView> viewAction, Action<ICompositeView, IView> compositeViewAction, Func<IView,object,bool> extraCheck = null)
-        {
-            var viewsToCheck = views.ToList();
-            foreach (var view in viewsToCheck)
-            {
-                if (IsViewData(view, data) && (extraCheck == null || extraCheck(view,data)))
-                {
-                    viewAction(view);
-                }
-
-                var compositeView = view as ICompositeView;
-                if (compositeView == null || compositeView.HandlesChildViews) continue;
-
-                DoWithMatchingViews(data, compositeView.ChildViews, v => compositeViewAction(compositeView, v), compositeViewAction);
-            }
+                                v => viewList.Remove(v),
+                                (compV, view) => compV.ChildViews.Remove(view),
+                                (v, o) => v.ViewInfo != null && v.ViewInfo.CloseForData(v, o));
         }
 
         public Type GetDefaultViewType(object dataObject)
@@ -178,6 +168,31 @@ namespace DeltaShell.Gui.Forms.ViewManager
             return viewType != null
                        ? infos.Where(vi => viewType.IsAssignableFrom(vi.ViewType))
                        : infos;
+        }
+
+        /// <summary>
+        /// Checks consistency of ViewList / ViewResolver logic. Sometimes views are closed while being opened.
+        /// </summary>
+        internal static bool IsViewOpening { get; private set; }
+
+        private void DoWithMatchingViews(object data, IEnumerable<IView> views, Action<IView> viewAction, Action<ICompositeView, IView> compositeViewAction, Func<IView, object, bool> extraCheck = null)
+        {
+            var viewsToCheck = views.ToList();
+            foreach (var view in viewsToCheck)
+            {
+                if (IsViewData(view, data) && (extraCheck == null || extraCheck(view, data)))
+                {
+                    viewAction(view);
+                }
+
+                var compositeView = view as ICompositeView;
+                if (compositeView == null || compositeView.HandlesChildViews)
+                {
+                    continue;
+                }
+
+                DoWithMatchingViews(data, compositeView.ChildViews, v => compositeViewAction(compositeView, v), compositeViewAction);
+            }
         }
 
         private IEnumerable<IView> GetViewsForData(IEnumerable<IView> viewsToCheck, object data, bool includeChildViews = true)
@@ -210,7 +225,7 @@ namespace DeltaShell.Gui.Forms.ViewManager
             var view = (viewInfo.DataType == viewInfo.ViewDataType
                             ? GetOpenViewsFor(viewList, data)
                             : GetOpenViewsFor(viewList, data).Concat(GetOpenViewsFor(viewList, viewData)))
-                            .FirstOrDefault(v => v.GetType() == viewInfo.ViewType);
+                .FirstOrDefault(v => v.GetType() == viewInfo.ViewType);
 
             if (viewInfo.CompositeViewType == null)
             {
@@ -221,10 +236,10 @@ namespace DeltaShell.Gui.Forms.ViewManager
                     return true;
                 }
 
-                var reusableView = FindViewsRecursive<IReusableView>(viewList).FirstOrDefault(rv => 
-                                          !rv.Locked &&
-                                          IsDataForView(rv, viewData) &&
-                                          viewInfo.ViewDataType == rv.ViewInfo.ViewDataType);
+                var reusableView = FindViewsRecursive<IReusableView>(viewList).FirstOrDefault(rv =>
+                                                                                              !rv.Locked &&
+                                                                                              IsDataForView(rv, viewData) &&
+                                                                                              viewInfo.ViewDataType == rv.ViewInfo.ViewDataType);
 
                 if (reusableView != null)
                 {
@@ -246,12 +261,18 @@ namespace DeltaShell.Gui.Forms.ViewManager
             }
 
             var compositeView = GetCompositeView(data, viewInfo);
-            if (compositeView == null) return false;
+            if (compositeView == null)
+            {
+                return false;
+            }
 
             viewList.ActiveView = compositeView;
 
             var childView = GetChildView(data, viewInfo, view, compositeView);
-            if (childView == null) return false;
+            if (childView == null)
+            {
+                return false;
+            }
 
             compositeView.ActivateChildView(childView);
             return true;
@@ -281,10 +302,16 @@ namespace DeltaShell.Gui.Forms.ViewManager
         private ICompositeView GetCompositeView(object data, ViewInfo viewInfo)
         {
             var compositeViewInfo = ViewInfos.FirstOrDefault(vi => vi.ViewType == viewInfo.CompositeViewType);
-            if (compositeViewInfo == null) return null;
+            if (compositeViewInfo == null)
+            {
+                return null;
+            }
 
             var compositeViewData = compositeViewInfo.GetViewData(viewInfo.GetCompositeViewData(data));
-            if (compositeViewData == null) return null;
+            if (compositeViewData == null)
+            {
+                return null;
+            }
 
             var compositeView = ((IEnumerable<ICompositeView>) TypeUtils.CallGenericMethod(GetType(), "FindViewsRecursive", viewInfo.CompositeViewType, this, viewList))
                 .FirstOrDefault(v => v.Data.Equals(compositeViewData) && (!v.HandlesChildViews || v.ChildViews.Any(cv => cv.Data == data)));
@@ -296,13 +323,13 @@ namespace DeltaShell.Gui.Forms.ViewManager
             }
 
             compositeViewInfo.OnActivateView(compositeView, data);
-            
+
             return compositeView;
         }
 
         private static IView CreateViewForData(object data, ViewInfo viewInfo)
         {
-            var view = (IView)Activator.CreateInstance(viewInfo.ViewType);
+            var view = (IView) Activator.CreateInstance(viewInfo.ViewType);
 
             view.Data = viewInfo.GetViewData(data);
             view.Image = viewInfo.Image;
@@ -312,7 +339,7 @@ namespace DeltaShell.Gui.Forms.ViewManager
             view.Text = viewInfo.GetViewName(view, view.Data);
 
             viewInfo.OnActivateView(view, data);
-            
+
             return view;
         }
 
@@ -331,7 +358,10 @@ namespace DeltaShell.Gui.Forms.ViewManager
             };
 
             // TODO : get MainWindow for ShowDialog
-            if (viewSelector.ShowDialog(/*gui.MainWindow as Form*/) != DialogResult.OK) return null;
+            if (viewSelector.ShowDialog( /*gui.MainWindow as Form*/) != DialogResult.OK)
+            {
+                return null;
+            }
             var selectedViewInfo = viewTypeDictionary[viewSelector.SelectedItem];
 
             if (viewSelector.DefaultViewName == null)
@@ -349,7 +379,10 @@ namespace DeltaShell.Gui.Forms.ViewManager
 
         private IEnumerable<IView> GetOpenViewsFor(IEnumerable<IView> viewsToCheck, object data, bool includeChildViews = true, Func<IView, ViewInfo, bool> extraCheck = null)
         {
-            if(data == null) yield break;
+            if (data == null)
+            {
+                yield break;
+            }
 
             foreach (var view in viewsToCheck)
             {
@@ -360,13 +393,22 @@ namespace DeltaShell.Gui.Forms.ViewManager
                     yield return view;
                 }
 
-                if (!includeChildViews) continue;
+                if (!includeChildViews)
+                {
+                    continue;
+                }
 
                 var compositeView = view as ICompositeView;
-                if (compositeView == null || compositeView.HandlesChildViews) continue;
+                if (compositeView == null || compositeView.HandlesChildViews)
+                {
+                    continue;
+                }
 
                 var childViews = GetOpenViewsFor(compositeView.ChildViews, data).ToList();
-                if (!childViews.Any()) continue;
+                if (!childViews.Any())
+                {
+                    continue;
+                }
 
                 foreach (var childView in childViews)
                 {
@@ -383,7 +425,10 @@ namespace DeltaShell.Gui.Forms.ViewManager
 
         private bool IsDataForView(IView view, object data)
         {
-            if (data == null) return false;
+            if (data == null)
+            {
+                return false;
+            }
 
             var viewInfo = GetViewInfoForView(data, view);
             return viewInfo != null && data.GetType().Implements(viewInfo.DataType) && viewInfo.AdditionalDataCheck(data);
@@ -431,11 +476,14 @@ namespace DeltaShell.Gui.Forms.ViewManager
             {
                 if (view is T)
                 {
-                    yield return (T)view;
+                    yield return (T) view;
                 }
 
                 var compositeView = view as ICompositeView;
-                if (compositeView == null) continue;
+                if (compositeView == null)
+                {
+                    continue;
+                }
 
                 foreach (var childView in FindViewsRecursive<T>(compositeView.ChildViews))
                 {

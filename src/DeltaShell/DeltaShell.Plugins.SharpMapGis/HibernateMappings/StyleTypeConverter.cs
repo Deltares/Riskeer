@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using GeoAPI.Geometries;
 using SharpMap.Api;
 using SharpMap.Api.Enums;
@@ -16,6 +17,7 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
     public class StyleTypeConverter : TypeConverter
     {
         private const string endcapName = "line-endcap";
+
         /// <summary>
         /// Converts a CSS-like string to a <see cref="SharpMap.Api.IStyle"/> object.
         /// </summary>
@@ -23,18 +25,18 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
         /// <param name="culture"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             CssStyleDeclaration csd = null;
             // Try to parse the object as string or CssStyleDeclaration
             if (value is string)
             {
                 // Parse the string as css style declaration
-                csd = new CssStyleDeclaration((string)value, null, false, CssStyleSheetType.Author);
+                csd = new CssStyleDeclaration((string) value, null, false, CssStyleSheetType.Author);
             }
             else if (value is CssStyleDeclaration)
             {
-                csd = (CssStyleDeclaration)value;
+                csd = (CssStyleDeclaration) value;
             }
 
             if (csd != null)
@@ -62,12 +64,69 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             return base.ConvertFrom(context, culture, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="SharpMap.Api.IStyle"/> object to a CSS-like string
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="culture"></param>
+        /// <param name="value"></param>
+        /// <param name="destinationType"></param>
+        /// <returns></returns>
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (value is IStyle && (destinationType.Equals(typeof(CssStyleDeclaration)) || destinationType.Equals(typeof(string))))
+            {
+                // Get the IStyle to convert from
+                IStyle from = (IStyle) value;
+                CssStyleDeclaration csd = new CssStyleDeclaration(string.Empty, null, false, CssStyleSheetType.Author);
+
+                // Copy IStyle/Style properties to the CSS declaration
+                SetGeneralProperties(from, csd);
+
+                if (from is VectorStyle)
+                {
+                    SetVectorStyleProperties(from as VectorStyle, csd);
+                }
+                else if (from is LabelStyle)
+                {
+                    SetLabelStyleProperties(from as LabelStyle, csd);
+                }
+
+                // Return as CssStyleDeclaration
+                if (destinationType.Equals(typeof(CssStyleDeclaration)))
+                {
+                    return csd;
+                }
+
+                // Else return as string
+                return csd.CssText;
+            }
+            // Use the base converter if the value was of an unsupported type
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
+
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            // Can convert from string or CssDeclarationObject
+            return sourceType.Equals(typeof(CssStyleDeclaration)) || sourceType.Equals(typeof(string)) || base.CanConvertFrom(context, sourceType);
+        }
+
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            // Can convert from string or CssDeclarationObject
+            return destinationType.Equals(typeof(CssStyleDeclaration)) || destinationType.Equals(typeof(string)) || base.CanConvertTo(context, destinationType);
+        }
+
         private static void GetGeneralProperties(ICssStyleDeclaration csd, IStyle style)
         {
             if (csd.GetPropertyValue("zoom-min-visible") != string.Empty)
+            {
                 style.MinVisible = double.Parse(csd.GetPropertyValue("zoom-min-visible"));
+            }
             if (csd.GetPropertyValue("zoom-max-visible") != string.Empty)
+            {
                 style.MaxVisible = double.Parse(csd.GetPropertyValue("zoom-max-visible"));
+            }
         }
 
         private static IStyle GetVectorStyle(ICssStyleDeclaration csd)
@@ -81,36 +140,54 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             //   background-color Fill
             VectorStyle vStyle = new VectorStyle();
             if (csd.GetPropertyValue("border-color") != string.Empty)
+            {
                 vStyle.Line.Color = GetColorFromCss(csd, "border-color");
+            }
             if (csd.GetPropertyValue("border-width") != string.Empty)
+            {
                 vStyle.Line.Width = float.Parse(csd.GetPropertyValue("border-width"));
+            }
             if (csd.GetPropertyValue("outline-color") != string.Empty)
+            {
                 vStyle.Outline.Color = GetColorFromCss(csd, "outline-color");
+            }
             if (csd.GetPropertyValue("outline-width") != string.Empty)
+            {
                 vStyle.Outline.Width = float.Parse(csd.GetPropertyValue("outline-width"));
+            }
             if (csd.GetPropertyValue("outline-style") != string.Empty)
+            {
                 vStyle.EnableOutline = Convert.ToBoolean(csd.GetPropertyValue("outline-style"));
+            }
             if (csd.GetPropertyValue("background-color") != string.Empty)
+            {
                 vStyle.Fill = new SolidBrush(GetColorFromCss(csd, "background-color"));
+            }
             if (csd.GetPropertyValue("line-dash") != string.Empty)
-                vStyle.Line.DashStyle = (DashStyle)Enum.Parse(typeof(DashStyle), csd.GetPropertyValue("line-dash"));
+            {
+                vStyle.Line.DashStyle = (DashStyle) Enum.Parse(typeof(DashStyle), csd.GetPropertyValue("line-dash"));
+            }
 
             if (csd.GetPropertyValue("outline-dash") != string.Empty)
-                vStyle.Outline.DashStyle = (DashStyle)Enum.Parse(typeof(DashStyle), csd.GetPropertyValue("outline-dash"));
+            {
+                vStyle.Outline.DashStyle = (DashStyle) Enum.Parse(typeof(DashStyle), csd.GetPropertyValue("outline-dash"));
+            }
 
             if (csd.GetPropertyValue(endcapName) != string.Empty)
-                vStyle.Line.EndCap = (LineCap) Enum.Parse(typeof (LineCap), csd.GetPropertyValue(endcapName));
-            
+            {
+                vStyle.Line.EndCap = (LineCap) Enum.Parse(typeof(LineCap), csd.GetPropertyValue(endcapName));
+            }
+
             var customEndCap = csd.GetPropertyValue("custom-line-end-cap");
             if (customEndCap != null && customEndCap.StartsWith("AdjustableArrowCap"))
             {
                 var values = customEndCap.Split(',');
                 if (values.Length == 5)
                 {
-                    vStyle.Line.CustomEndCap = new AdjustableArrowCap(Convert.ToSingle(values[1]),Convert.ToSingle(values[2]),Convert.ToBoolean(values[3]))
-                                               {
-                                                   BaseCap = (LineCap)Enum.Parse(typeof(LineCap), values[4])
-                                               };
+                    vStyle.Line.CustomEndCap = new AdjustableArrowCap(Convert.ToSingle(values[1]), Convert.ToSingle(values[2]), Convert.ToBoolean(values[3]))
+                    {
+                        BaseCap = (LineCap) Enum.Parse(typeof(LineCap), values[4])
+                    };
                 }
             }
 
@@ -122,7 +199,7 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                 {
                     vStyle.Line.CustomStartCap = new AdjustableArrowCap(Convert.ToSingle(values[1]), Convert.ToSingle(values[2]), Convert.ToBoolean(values[3]))
                     {
-                        BaseCap = (LineCap)Enum.Parse(typeof(LineCap), values[4])
+                        BaseCap = (LineCap) Enum.Parse(typeof(LineCap), values[4])
                     };
                 }
             }
@@ -136,17 +213,18 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             {
                 vStyle.Shape = (ShapeType) Enum.Parse(typeof(ShapeType), csd.GetPropertyValue("symbol-shape"));
             }
-            if (csd.GetPropertyValue("symbol") != string.Empty) 
+            if (csd.GetPropertyValue("symbol") != string.Empty)
             {
                 // From a Codepage 1251-encoded string, convert to bytes and next to a Bitmap representing the symbol
                 byte[] bytes = Convert.FromBase64String(csd.GetPropertyValue("symbol"));
-                vStyle.Symbol = (Bitmap)TypeDescriptor.GetConverter(typeof(Bitmap)).ConvertFrom(bytes);
+                vStyle.Symbol = (Bitmap) TypeDescriptor.GetConverter(typeof(Bitmap)).ConvertFrom(bytes);
             }
             return vStyle;
         }
 
         private IStyle GetLabelStyle(ICssStyleDeclaration csd)
-        { //   LabelStyle object rebuild. Deserializes:
+        {
+            //   LabelStyle object rebuild. Deserializes:
             //   font-family        Font.Family
             //   font-size          Font.Size
             //   font-color         ForeColor
@@ -161,14 +239,22 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             string fontFamily = lStyle.Font.FontFamily.Name;
             float fontSize = lStyle.Font.Size;
             if (csd.GetPropertyValue("font-family") != string.Empty)
+            {
                 fontFamily = csd.GetPropertyValue("font-family");
+            }
             if (csd.GetPropertyValue("font-size") != string.Empty)
+            {
                 fontSize = float.Parse(csd.GetPropertyValue("font-size"));
+            }
             lStyle.Font = new Font(fontFamily, fontSize);
             if (csd.GetPropertyValue("font-color") != string.Empty)
+            {
                 lStyle.ForeColor = GetColorFromCss(csd, "font-color");
+            }
             if (csd.GetPropertyValue("background-color") != string.Empty)
+            {
                 lStyle.BackColor = new SolidBrush(GetColorFromCss(csd, "background-color"));
+            }
 
             if (csd.GetPropertyValue("collision-detection") != string.Empty)
             {
@@ -181,72 +267,43 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             float haloWidth = 1.0f;
 
             if (lStyle.Halo != null)
-            {   
+            {
                 haloColor = lStyle.Halo.Color;
                 haloWidth = lStyle.Halo.Width;
             }
 
             if (csd.GetPropertyValue("border-color") != string.Empty)
+            {
                 haloColor = GetColorFromCss(csd, "border-color");
+            }
             if (csd.GetPropertyValue("border-width") != string.Empty)
+            {
                 haloWidth = float.Parse(csd.GetPropertyValue("border-width"));
+            }
             lStyle.Halo = new Pen(haloColor, haloWidth);
 
             float offsetX = lStyle.Offset.X;
             float offsetY = lStyle.Offset.Y;
             if (csd.GetPropertyValue("padding-horizontal") != string.Empty)
+            {
                 offsetX = float.Parse(csd.GetPropertyValue("padding-horizontal"));
+            }
             if (csd.GetPropertyValue("padding-vertical") != string.Empty)
+            {
                 offsetY = float.Parse(csd.GetPropertyValue("padding-vertical"));
+            }
             lStyle.Offset = new PointF(offsetX, offsetY);
             if (csd.GetPropertyValue("text-align") != string.Empty)
-                lStyle.HorizontalAlignment = (HorizontalAlignmentEnum)Enum.Parse(typeof(HorizontalAlignmentEnum),
-                                                                                            csd.GetPropertyValue("text-align"));
-            if (csd.GetPropertyValue("vertical-align") != string.Empty)
-                lStyle.VerticalAlignment = (VerticalAlignmentEnum)Enum.Parse(typeof(VerticalAlignmentEnum),
-                                                                                        csd.GetPropertyValue("vertical-align"));
-            return lStyle;
-        }
-
-        /// <summary>
-        /// Converts a <see cref="SharpMap.Api.IStyle"/> object to a CSS-like string
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="culture"></param>
-        /// <param name="value"></param>
-        /// <param name="destinationType"></param>
-        /// <returns></returns>
-        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
-        {
-            if (value is IStyle && (destinationType.Equals(typeof(CssStyleDeclaration)) || destinationType.Equals(typeof(string))))
             {
-                // Get the IStyle to convert from
-                IStyle from = (IStyle)value;
-                CssStyleDeclaration csd = new CssStyleDeclaration(string.Empty, null, false, CssStyleSheetType.Author);
-
-                // Copy IStyle/Style properties to the CSS declaration
-                SetGeneralProperties(from, csd);
-                
-                if (from is VectorStyle)
-                {
-                    SetVectorStyleProperties(from as VectorStyle, csd);
-                }
-                else if (from is LabelStyle)
-                {
-                    SetLabelStyleProperties(from as LabelStyle, csd);
-                }
-                
-                // Return as CssStyleDeclaration
-                if (destinationType.Equals(typeof(CssStyleDeclaration)))
-                {
-                    return csd;
-                }
-
-                // Else return as string
-                return csd.CssText;
+                lStyle.HorizontalAlignment = (HorizontalAlignmentEnum) Enum.Parse(typeof(HorizontalAlignmentEnum),
+                                                                                  csd.GetPropertyValue("text-align"));
             }
-            // Use the base converter if the value was of an unsupported type
-            return base.ConvertTo(context, culture, value, destinationType);
+            if (csd.GetPropertyValue("vertical-align") != string.Empty)
+            {
+                lStyle.VerticalAlignment = (VerticalAlignmentEnum) Enum.Parse(typeof(VerticalAlignmentEnum),
+                                                                              csd.GetPropertyValue("vertical-align"));
+            }
+            return lStyle;
         }
 
         private static void SetLabelStyleProperties(LabelStyle labelStyle, ICssStyleDeclaration csd)
@@ -264,38 +321,56 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             //   vertical-align     VerticalAlignment
             LabelStyle labelDefaults = new LabelStyle();
 
-            csd.SetProperty("display-style","label",String.Empty);
+            csd.SetProperty("display-style", "label", String.Empty);
 
             if (labelStyle.Font.FontFamily != labelDefaults.Font.FontFamily)
+            {
                 csd.SetProperty("font-family", labelStyle.Font.FontFamily.Name, string.Empty);
+            }
             if (labelStyle.Font.Size != labelDefaults.Font.Size)
+            {
                 csd.SetProperty("font-size", labelStyle.Font.Size.ToString("F0"), string.Empty);
+            }
             SetColorStyleProperty(csd, "font-color", labelStyle.ForeColor, labelDefaults.ForeColor);
             SetBrushStyleProperty(csd, "background-color", labelStyle.BackColor, labelDefaults.BackColor);
 
-            csd.SetProperty("collision-detection",labelStyle.CollisionDetection.ToString(),string.Empty);
+            csd.SetProperty("collision-detection", labelStyle.CollisionDetection.ToString(), string.Empty);
 
             Color haloValueColor = Color.Empty;
             Color haloOriginalColor = Color.Empty;
             if (labelStyle.Halo != null)
+            {
                 haloValueColor = labelStyle.Halo.Color;
+            }
             if (labelDefaults.Halo != null)
+            {
                 haloOriginalColor = labelDefaults.Halo.Color;
+            }
             SetColorStyleProperty(csd, "border-color", haloValueColor, haloOriginalColor);
 
-            if (labelStyle.Halo != null 
-                && (labelDefaults.Halo == null 
-                || (labelStyle.Halo.Width != labelDefaults.Halo.Width)))
+            if (labelStyle.Halo != null
+                && (labelDefaults.Halo == null
+                    || (labelStyle.Halo.Width != labelDefaults.Halo.Width)))
+            {
                 csd.SetProperty("border-width", labelStyle.Halo.Width.ToString("F0"), string.Empty);
+            }
 
             if (labelStyle.Offset.X != labelDefaults.Offset.X)
+            {
                 csd.SetProperty("padding-horizontal", labelStyle.Offset.X.ToString("F0"), string.Empty);
+            }
             if (labelStyle.Offset.Y != labelDefaults.Offset.Y)
+            {
                 csd.SetProperty("padding-vertical", labelStyle.Offset.Y.ToString("F0"), string.Empty);
+            }
             if (labelStyle.HorizontalAlignment != labelDefaults.HorizontalAlignment)
+            {
                 csd.SetProperty("text-align", labelStyle.HorizontalAlignment.ToString(), string.Empty);
+            }
             if (labelStyle.VerticalAlignment != labelDefaults.VerticalAlignment)
+            {
                 csd.SetProperty("vertical-align", labelStyle.VerticalAlignment.ToString(), string.Empty);
+            }
         }
 
         private static void SetVectorStyleProperties(VectorStyle vectorStyle, ICssStyleDeclaration csd)
@@ -316,21 +391,29 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                 SetBrushStyleProperty(csd, "background-color", vectorStyle.Fill, vectorDefaults.Fill);
                 SetColorStyleProperty(csd, "border-color", vectorStyle.Line.Color, vectorDefaults.Line.Color);
                 SetColorStyleProperty(csd, "outline-color", vectorStyle.Outline.Color, vectorDefaults.Outline.Color);
-                
+
                 if (vectorStyle.Line.Width != vectorDefaults.Line.Width)
+                {
                     csd.SetProperty("border-width", vectorStyle.Line.Width.ToString("F0"), string.Empty);
-                
+                }
+
                 if (vectorStyle.Outline.Width != vectorDefaults.Outline.Width)
+                {
                     csd.SetProperty("outline-width", vectorStyle.Outline.Width.ToString("F0"), string.Empty);
+                }
 
                 if (vectorStyle.Line.DashStyle != vectorDefaults.Line.DashStyle)
+                {
                     csd.SetProperty("line-dash", vectorStyle.Line.DashStyle.ToString(), string.Empty);
+                }
 
                 if (vectorStyle.Outline.Width != vectorDefaults.Outline.Width)
+                {
                     csd.SetProperty("outline-dash", vectorStyle.Outline.DashStyle.ToString(), string.Empty);
+                }
 
                 csd.SetProperty("outline-style", vectorStyle.EnableOutline.ToString(), string.Empty);
-                
+
                 csd.SetProperty(endcapName, vectorStyle.Line.EndCap.ToString(), string.Empty);
 
                 var arrowEndCap = vectorStyle.Line.EndCap != LineCap.Custom ? null : vectorStyle.Line.CustomEndCap as AdjustableArrowCap;
@@ -360,7 +443,7 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                 if ((vectorStyle.Symbol != null) && (vectorStyle.HasCustomSymbol))
                 {
                     // Encode a Bitmap symbol as bytes that can be included in the css as string using Codepage 1251 encoding
-                    byte[] bytes = (byte[])TypeDescriptor.GetConverter(typeof(Bitmap)).ConvertTo(vectorStyle.Symbol, typeof(byte[]));
+                    byte[] bytes = (byte[]) TypeDescriptor.GetConverter(typeof(Bitmap)).ConvertTo(vectorStyle.Symbol, typeof(byte[]));
                     csd.SetProperty("symbol", Convert.ToBase64String(bytes), string.Empty);
                 }
             }
@@ -409,9 +492,13 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
         private static void SetGeneralProperties(IStyle from, ICssStyleDeclaration csd)
         {
             if (from.MinVisible > 0)
+            {
                 csd.SetProperty("zoom-min-visible", from.MinVisible.ToString(), string.Empty);
+            }
             if (from.MaxVisible < double.MaxValue)
+            {
                 csd.SetProperty("zoom-max-visible", from.MaxVisible.ToString(), string.Empty);
+            }
         }
 
         /// <summary>
@@ -427,10 +514,14 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             Color originalColor = Color.Empty;
 
             if (value != null)
+            {
                 valueColor = ((SolidBrush) value).Color;
+            }
 
             if (original != null)
+            {
                 originalColor = ((SolidBrush) original).Color;
+            }
 
             // Compare brushes based on the color values and output the brush' color value as HTML color
             SetColorStyleProperty(csd, property, valueColor, originalColor);
@@ -447,25 +538,18 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
         {
             // Compare colors on their ARGB values and set it as an HTML color (hex or well-known)
             if (value.ToArgb() != original.ToArgb())
+            {
                 SetColorToCss(value, csd, property);
-        }
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            // Can convert from string or CssDeclarationObject
-            return sourceType.Equals(typeof(CssStyleDeclaration)) || sourceType.Equals(typeof(string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-        {
-            // Can convert from string or CssDeclarationObject
-            return destinationType.Equals(typeof(CssStyleDeclaration)) || destinationType.Equals(typeof(string)) || base.CanConvertTo(context, destinationType);
+            }
         }
 
         private static Color GetColorFromCss(ICssStyleDeclaration csd, string propertyName)
         {
             string property = csd.GetPropertyValue(propertyName);
-            string [] components = property.Split(new string[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+            string[] components = property.Split(new string[]
+            {
+                " "
+            }, StringSplitOptions.RemoveEmptyEntries);
             Color color;
 
             if (components[0].Contains("#"))
@@ -492,6 +576,5 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             string colorString = string.Format("{0} {1}", color.IsKnownColor ? color.Name : "#", color.ToArgb());
             csd.SetProperty(propertyName, colorString, string.Empty);
         }
-
     }
 }

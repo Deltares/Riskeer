@@ -20,33 +20,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
     public class Polygonizer
     {
         /// <summary>
-        /// Add every linear element in a point into the polygonizer graph.
-        /// </summary>
-        private class LineStringAdder : IGeometryComponentFilter
-        {
-            private readonly Polygonizer container;
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="container"></param>
-            public LineStringAdder(Polygonizer container)
-            {
-                this.container = container;
-            }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="g"></param>
-            public void Filter(IGeometry g) 
-            {
-                if (g is ILineString)
-					container.Add((ILineString)g);
-            }
-        }
-
-        /// <summary>
         /// Default factory.
         /// </summary>
         private readonly LineStringAdder lineStringAdder;
@@ -75,7 +48,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
         /// 
         /// </summary>
         protected IList holeList;
-        
+
         /// <summary>
         /// 
         /// </summary>        
@@ -90,7 +63,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
         /// Create a polygonizer with the same {GeometryFactory}
         /// as the input <c>Geometry</c>s.
         /// </summary>
-        public Polygonizer() 
+        public Polygonizer()
         {
             lineStringAdder = new LineStringAdder(this);
         }
@@ -104,9 +77,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
         /// <param name="geomList">A list of <c>Geometry</c>s with linework to be polygonized.</param>
         public void Add(IList geomList)
         {
-            for (var i = geomList.GetEnumerator(); i.MoveNext(); ) 
+            for (var i = geomList.GetEnumerator(); i.MoveNext();)
             {
-				var geometry = (IGeometry)i.Current;
+                var geometry = (IGeometry) i.Current;
                 Add(geometry);
             }
         }
@@ -118,21 +91,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
         /// the constituent linework will be extracted and used
         /// </summary>
         /// <param name="g">A <c>Geometry</c> with linework to be polygonized.</param>
-		public void Add(IGeometry g)
+        public void Add(IGeometry g)
         {
             g.Apply(lineStringAdder);
-        }
-
-        /// <summary>
-        /// Add a linestring to the graph of polygon edges.
-        /// </summary>
-        /// <param name="line">The <c>LineString</c> to add.</param>
-        private void Add(ILineString line)
-        {
-            // create a new graph using the factory from the input Geometry
-            if (graph == null)
-				graph = new PolygonizeGraph(line.Factory);
-            graph.AddEdge(line);
         }
 
         /// <summary>
@@ -172,19 +133,37 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
         }
 
         /// <summary>
+        /// Add a linestring to the graph of polygon edges.
+        /// </summary>
+        /// <param name="line">The <c>LineString</c> to add.</param>
+        private void Add(ILineString line)
+        {
+            // create a new graph using the factory from the input Geometry
+            if (graph == null)
+            {
+                graph = new PolygonizeGraph(line.Factory);
+            }
+            graph.AddEdge(line);
+        }
+
+        /// <summary>
         /// Perform the polygonization, if it has not already been carried out.
         /// </summary>
         private void Polygonize()
         {
             // check if already computed
-            if (polyList != null) 
+            if (polyList != null)
+            {
                 return;
+            }
 
             polyList = new ArrayList();
 
             // if no geometries were supplied it's possible graph could be null
-            if (graph == null) 
+            if (graph == null)
+            {
                 return;
+            }
 
             dangles = graph.DeleteDangles();
             cutEdges = graph.DeleteCutEdges();
@@ -198,7 +177,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
             AssignHolesToShells(holeList, shellList);
 
             polyList = new ArrayList();
-            for (var i = shellList.GetEnumerator(); i.MoveNext(); ) 
+            for (var i = shellList.GetEnumerator(); i.MoveNext();)
             {
                 var er = (EdgeRing) i.Current;
                 polyList.Add(er.Polygon);
@@ -207,12 +186,17 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
 
         private static void FindValidRings(IList edgeRingList, IList validEdgeRingList, IList invalidRingList)
         {
-            for (var i = edgeRingList.GetEnumerator(); i.MoveNext(); ) 
+            for (var i = edgeRingList.GetEnumerator(); i.MoveNext();)
             {
                 var er = (EdgeRing) i.Current;
                 if (er.IsValid)
-                     validEdgeRingList.Add(er);
-                else invalidRingList.Add(er.LineString);
+                {
+                    validEdgeRingList.Add(er);
+                }
+                else
+                {
+                    invalidRingList.Add(er.LineString);
+                }
             }
         }
 
@@ -220,19 +204,23 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
         {
             holeList = new ArrayList();
             shellList = new ArrayList();
-            for (var i = edgeRingList.GetEnumerator(); i.MoveNext(); ) 
+            for (var i = edgeRingList.GetEnumerator(); i.MoveNext();)
             {
                 var er = (EdgeRing) i.Current;
                 if (er.IsHole)
-                     holeList.Add(er);
-                else shellList.Add(er);
-
+                {
+                    holeList.Add(er);
+                }
+                else
+                {
+                    shellList.Add(er);
+                }
             }
         }
 
         private static void AssignHolesToShells(IList holeList, IList shellList)
         {
-            for (var i = holeList.GetEnumerator(); i.MoveNext(); ) 
+            for (var i = holeList.GetEnumerator(); i.MoveNext();)
             {
                 var holeER = (EdgeRing) i.Current;
                 AssignHoleToShell(holeER, shellList);
@@ -243,7 +231,38 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
         {
             var shell = EdgeRing.FindEdgeRingContaining(holeER, shellList);
             if (shell != null)
+            {
                 shell.AddHole(holeER.Ring);
+            }
+        }
+
+        /// <summary>
+        /// Add every linear element in a point into the polygonizer graph.
+        /// </summary>
+        private class LineStringAdder : IGeometryComponentFilter
+        {
+            private readonly Polygonizer container;
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="container"></param>
+            public LineStringAdder(Polygonizer container)
+            {
+                this.container = container;
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="g"></param>
+            public void Filter(IGeometry g)
+            {
+                if (g is ILineString)
+                {
+                    container.Add((ILineString) g);
+                }
+            }
         }
     }
 }

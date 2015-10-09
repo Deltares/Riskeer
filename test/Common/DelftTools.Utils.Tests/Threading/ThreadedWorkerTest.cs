@@ -15,7 +15,7 @@ namespace DelftTools.Utils.Tests.Threading
             const int timePerWorkItem = 50;
             const int numWorkItems = 20;
             const int sequentialTime = numWorkItems*timePerWorkItem;
-            const double maxTime = 0.8 * sequentialTime;
+            const double maxTime = 0.8*sequentialTime;
 
             var threadedWorker = new ThreadedWorker();
 
@@ -23,7 +23,9 @@ namespace DelftTools.Utils.Tests.Threading
             stopwatch.Start();
 
             for (int i = 0; i < numWorkItems; i++)
-                threadedWorker.ProcessWorkItemAsync(()=>Thread.Sleep(timePerWorkItem));
+            {
+                threadedWorker.ProcessWorkItemAsync(() => Thread.Sleep(timePerWorkItem));
+            }
 
             threadedWorker.WaitTillAllWorkItemsDone();
 
@@ -56,11 +58,15 @@ namespace DelftTools.Utils.Tests.Threading
             var threadedWorker = new ThreadedWorker();
 
             for (int i = 0; i < numWorkItems; i++)
+            {
                 threadedWorker.ProcessWorkItemAsync(() => Thread.Sleep(timePerWorkItem));
+            }
             threadedWorker.WaitTillAllWorkItemsDone();
 
             for (int i = 0; i < numWorkItems; i++)
+            {
                 threadedWorker.ProcessWorkItemAsync(() => Thread.Sleep(timePerWorkItem));
+            }
             threadedWorker.WaitTillAllWorkItemsDone();
         }
     }

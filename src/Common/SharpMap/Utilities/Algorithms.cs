@@ -17,11 +17,10 @@
 
 namespace SharpMap.Utilities
 {
-	class Algorithms
-	{
-
-		// METHOD IsCCW() IS MODIFIED FROM ANOTHER WORK AND IS ORIGINALLY BASED ON GeoTools.NET:
-		/*
+    internal class Algorithms
+    {
+        // METHOD IsCCW() IS MODIFIED FROM ANOTHER WORK AND IS ORIGINALLY BASED ON GeoTools.NET:
+        /*
 		 *  Copyright (C) 2002 Urban Science Applications, Inc. 
 		 *
 		 *  This library is free software; you can redistribute it and/or
@@ -40,11 +39,11 @@ namespace SharpMap.Utilities
 		 *
 		 */
 
-		/// <summary>
-		/// Tests whether a ring is oriented counter-clockwise.
-		/// </summary>
-		/// <param name="ring">Ring to test.</param>
-		/// <returns>Returns true if ring is oriented counter-clockwise.</returns>
+        /// <summary>
+        /// Tests whether a ring is oriented counter-clockwise.
+        /// </summary>
+        /// <param name="ring">Ring to test.</param>
+        /// <returns>Returns true if ring is oriented counter-clockwise.</returns>
 //		public static bool IsCCW(ILinearRing ring)
 //		{
 //			IPoint PrevPoint, NextPoint;
@@ -103,5 +102,5 @@ namespace SharpMap.Utilities
 //				return (disc > 0.0);
 //			}
 //		} 
-	}
+    }
 }

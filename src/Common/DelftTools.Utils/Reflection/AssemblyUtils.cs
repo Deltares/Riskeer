@@ -13,7 +13,31 @@ namespace DelftTools.Utils.Reflection
     /// </summary>
     public static class AssemblyUtils
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof (AssemblyUtils));
+        private enum MachineType : ushort
+        {
+            IMAGE_FILE_MACHINE_UNKNOWN = 0x0,
+            IMAGE_FILE_MACHINE_AM33 = 0x1d3,
+            IMAGE_FILE_MACHINE_AMD64 = 0x8664,
+            IMAGE_FILE_MACHINE_ARM = 0x1c0,
+            IMAGE_FILE_MACHINE_EBC = 0xebc,
+            IMAGE_FILE_MACHINE_I386 = 0x14c,
+            IMAGE_FILE_MACHINE_IA64 = 0x200,
+            IMAGE_FILE_MACHINE_M32R = 0x9041,
+            IMAGE_FILE_MACHINE_MIPS16 = 0x266,
+            IMAGE_FILE_MACHINE_MIPSFPU = 0x366,
+            IMAGE_FILE_MACHINE_MIPSFPU16 = 0x466,
+            IMAGE_FILE_MACHINE_POWERPC = 0x1f0,
+            IMAGE_FILE_MACHINE_POWERPCFP = 0x1f1,
+            IMAGE_FILE_MACHINE_R4000 = 0x166,
+            IMAGE_FILE_MACHINE_SH3 = 0x1a2,
+            IMAGE_FILE_MACHINE_SH3DSP = 0x1a3,
+            IMAGE_FILE_MACHINE_SH4 = 0x1a6,
+            IMAGE_FILE_MACHINE_SH5 = 0x1a8,
+            IMAGE_FILE_MACHINE_THUMB = 0x1c2,
+            IMAGE_FILE_MACHINE_WCEMIPSV2 = 0x169,
+        }
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(AssemblyUtils));
 
         /// <summary>
         /// Return attributes for a specific assembly
@@ -24,7 +48,7 @@ namespace DelftTools.Utils.Reflection
         {
             AssemblyInfo info = new AssemblyInfo();
 
-            if(assembly.Location == "")
+            if (assembly.Location == "")
             {
                 return info;
             }
@@ -36,9 +60,9 @@ namespace DelftTools.Utils.Reflection
             {
                 info.Title = assemblyTitleAttribute.Title;
             }
-            
+
             var assemblyDescriptionAttribute = GetAssemblyAttributeValue<AssemblyDescriptionAttribute>(assembly);
-            if(assemblyDescriptionAttribute != null)
+            if (assemblyDescriptionAttribute != null)
             {
                 info.Description = assemblyDescriptionAttribute.Description;
             }
@@ -74,22 +98,13 @@ namespace DelftTools.Utils.Reflection
             var stackTrace = new StackTrace(false);
             if (stackTrace.ToString().ToLower().Contains("test."))
             {
-                return new AssemblyInfo { Company = "Deltares", Product = "Delta Shell", Version = "Tests Development" };
+                return new AssemblyInfo
+                {
+                    Company = "Deltares", Product = "Delta Shell", Version = "Tests Development"
+                };
             }
 
             return GetAssemblyInfo(Assembly.GetExecutingAssembly());
-        }
-
-        private static T GetAssemblyAttributeValue<T>(Assembly assembly) where T : class
-        {
-            object[] attributes = assembly.GetCustomAttributes(typeof (T), true);
-
-            if (attributes.Length == 0)
-            {
-                return null;
-            }
-
-            return (T) attributes[0];
         }
 
         /// <summary>
@@ -156,10 +171,16 @@ namespace DelftTools.Utils.Reflection
             {
                 Type foundType = a.GetType(typeName);
                 if (foundType != null)
+                {
                     if (result == null)
+                    {
                         result = foundType;
+                    }
                     else
+                    {
                         throw new Exception("Type found in multiple assemblies");
+                    }
+                }
             }
             return result;
         }
@@ -177,24 +198,6 @@ namespace DelftTools.Utils.Reflection
                 assembly.GetManifestResourceNames().Where(resourceName => resourceName.EndsWith(fileName)).Select(
                     assembly.GetManifestResourceStream).First();
         }
-
-        #region Nested type: AssemblyInfo
-
-        /// <summary>
-        /// structure containing assembly attributes as strings.
-        /// </summary>
-        [Serializable]
-        public struct AssemblyInfo
-        {
-            public string Company;
-            public string Copyright;
-            public string Description;
-            public string Product;
-            public string Title;
-            public string Version;
-        }
-
-        #endregion
 
         /// <summary>
         /// This method checks if a file is a managed dll. It's based on how the file command on linux works. <see cref="http://www.darwinsys.com/file/"/> 
@@ -222,7 +225,7 @@ namespace DelftTools.Utils.Reflection
             int i2 = fs.ReadByte();
 
             fs.Close();
-            
+
             var isManagedDll = i1 == 0x80 && i2 == 0x03;
 
             //Debug.WriteLine(path + ": " + (isManagedDll?"managed":"unmanaged"));
@@ -261,7 +264,7 @@ namespace DelftTools.Utils.Reflection
                 }
 
                 var assemblyName = Path.GetFileNameWithoutExtension(filename);
-                
+
                 //log.DebugFormat("Loading {0}", filename);
 
                 Assembly a;
@@ -279,6 +282,18 @@ namespace DelftTools.Utils.Reflection
             }
         }
 
+        private static T GetAssemblyAttributeValue<T>(Assembly assembly) where T : class
+        {
+            object[] attributes = assembly.GetCustomAttributes(typeof(T), true);
+
+            if (attributes.Length == 0)
+            {
+                return null;
+            }
+
+            return (T) attributes[0];
+        }
+
         private static MachineType GetDllMachineType(string dllPath)
         {
             //see http://www.microsoft.com/whdc/system/platform/firmware/PECOFF.mspx
@@ -292,35 +307,31 @@ namespace DelftTools.Utils.Reflection
             fs.Seek(peOffset, SeekOrigin.Begin);
             var peHead = br.ReadUInt32();
             if (peHead != 0x00004550) // "PE\0\0", little-endian
+            {
                 throw new Exception("Can't find PE header");
-            var machineType = (MachineType)br.ReadUInt16();
+            }
+            var machineType = (MachineType) br.ReadUInt16();
             br.Close();
             fs.Close();
             return machineType;
         }
 
-        private enum MachineType : ushort
+        #region Nested type: AssemblyInfo
+
+        /// <summary>
+        /// structure containing assembly attributes as strings.
+        /// </summary>
+        [Serializable]
+        public struct AssemblyInfo
         {
-            IMAGE_FILE_MACHINE_UNKNOWN = 0x0,
-            IMAGE_FILE_MACHINE_AM33 = 0x1d3,
-            IMAGE_FILE_MACHINE_AMD64 = 0x8664,
-            IMAGE_FILE_MACHINE_ARM = 0x1c0,
-            IMAGE_FILE_MACHINE_EBC = 0xebc,
-            IMAGE_FILE_MACHINE_I386 = 0x14c,
-            IMAGE_FILE_MACHINE_IA64 = 0x200,
-            IMAGE_FILE_MACHINE_M32R = 0x9041,
-            IMAGE_FILE_MACHINE_MIPS16 = 0x266,
-            IMAGE_FILE_MACHINE_MIPSFPU = 0x366,
-            IMAGE_FILE_MACHINE_MIPSFPU16 = 0x466,
-            IMAGE_FILE_MACHINE_POWERPC = 0x1f0,
-            IMAGE_FILE_MACHINE_POWERPCFP = 0x1f1,
-            IMAGE_FILE_MACHINE_R4000 = 0x166,
-            IMAGE_FILE_MACHINE_SH3 = 0x1a2,
-            IMAGE_FILE_MACHINE_SH3DSP = 0x1a3,
-            IMAGE_FILE_MACHINE_SH4 = 0x1a6,
-            IMAGE_FILE_MACHINE_SH5 = 0x1a8,
-            IMAGE_FILE_MACHINE_THUMB = 0x1c2,
-            IMAGE_FILE_MACHINE_WCEMIPSV2 = 0x169,
+            public string Company;
+            public string Copyright;
+            public string Description;
+            public string Product;
+            public string Title;
+            public string Version;
         }
+
+        #endregion
     }
 }

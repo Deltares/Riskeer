@@ -21,15 +21,8 @@ namespace DelftTools.Utils
         where TKey : class
         where TValue : class
     {
-	    // keeps our keys weak, we keep our values weak ourselves
+        // keeps our keys weak, we keep our values weak ourselves
         private readonly ConditionalWeakTable<TKey, WeakReference> innerDictionary = new ConditionalWeakTable<TKey, WeakReference>();
-
-        public void Add(TKey key, TValue value)
-        {
-            if (ContainsKey(key))
-                throw new ArgumentException("Key already exists: " + key);
-            innerDictionary.Add(key, new WeakReference(value));
-        }
 
         public TValue this[TKey key]
         {
@@ -40,7 +33,9 @@ namespace DelftTools.Utils
                 {
                     var entry = (TValue) weakRef.Target;
                     if (entry != null)
+                    {
                         return entry;
+                    }
                     innerDictionary.Remove(key); // entry no longer alive: cleanup
                 }
                 return null;
@@ -55,6 +50,15 @@ namespace DelftTools.Utils
             }
         }
 
+        public void Add(TKey key, TValue value)
+        {
+            if (ContainsKey(key))
+            {
+                throw new ArgumentException("Key already exists: " + key);
+            }
+            innerDictionary.Add(key, new WeakReference(value));
+        }
+
         public void Remove(TKey key)
         {
             innerDictionary.Remove(key);
@@ -66,7 +70,9 @@ namespace DelftTools.Utils
             if (innerDictionary.TryGetValue(key, out weakRef))
             {
                 if (weakRef.IsAlive)
+                {
                     return true;
+                }
                 innerDictionary.Remove(key); // entry no longer alive: cleanup
             }
             return false;

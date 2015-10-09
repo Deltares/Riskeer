@@ -4,100 +4,128 @@ using System.Drawing;
 
 namespace DelftTools.Utils.Serialization
 {
-	public class DrawingFastSerializationHelper: IFastSerializationTypeSurrogate
-	{
-		static readonly int ColorIsKnown = BitVector32.CreateMask();
-		static readonly int ColorHasName = BitVector32.CreateMask(ColorIsKnown);
-		static readonly int ColorHasValue = BitVector32.CreateMask(ColorHasName);
-		static readonly int ColorHasRed = BitVector32.CreateMask(ColorHasValue);
-		static readonly int ColorHasGreen = BitVector32.CreateMask(ColorHasRed);
-		static readonly int ColorHasBlue = BitVector32.CreateMask(ColorHasGreen);
-		static readonly int ColorHasAlpha = BitVector32.CreateMask(ColorHasBlue);
+    public class DrawingFastSerializationHelper : IFastSerializationTypeSurrogate
+    {
+        private static readonly int ColorIsKnown = BitVector32.CreateMask();
+        private static readonly int ColorHasName = BitVector32.CreateMask(ColorIsKnown);
+        private static readonly int ColorHasValue = BitVector32.CreateMask(ColorHasName);
+        private static readonly int ColorHasRed = BitVector32.CreateMask(ColorHasValue);
+        private static readonly int ColorHasGreen = BitVector32.CreateMask(ColorHasRed);
+        private static readonly int ColorHasBlue = BitVector32.CreateMask(ColorHasGreen);
+        private static readonly int ColorHasAlpha = BitVector32.CreateMask(ColorHasBlue);
 
-		#region IFastSerialization
-		public bool SupportsType(Type type)
-		{
-			return type == typeof(Color);
-		}
+        #region IFastSerialization
 
-		public void Serialize(SerializationWriter writer, object value)
-		{
-			var type = value.GetType();
+        public bool SupportsType(Type type)
+        {
+            return type == typeof(Color);
+        }
 
-			if (type == typeof(Color))
-			{
-				Serialize(writer, (Color) value);
-			}
-			else
-			{
-				throw new InvalidOperationException(string.Format("{0} does not support Type: {1}", GetType(), type));
-			}
-		}
+        public void Serialize(SerializationWriter writer, object value)
+        {
+            var type = value.GetType();
 
-		public object Deserialize(SerializationReader reader, Type type)
-		{
-			if (type == typeof(Color)) return DeserializeColor(reader);
+            if (type == typeof(Color))
+            {
+                Serialize(writer, (Color) value);
+            }
+            else
+            {
+                throw new InvalidOperationException(string.Format("{0} does not support Type: {1}", GetType(), type));
+            }
+        }
 
-			throw new InvalidOperationException(string.Format("{0} does not support Type: {1}", GetType(), type));
-		}
-		#endregion IFastSerialization
+        public object Deserialize(SerializationReader reader, Type type)
+        {
+            if (type == typeof(Color))
+            {
+                return DeserializeColor(reader);
+            }
 
-		#region Color
-		public static void Serialize(SerializationWriter writer, Color color)
-		{
-			var flags = new BitVector32();
+            throw new InvalidOperationException(string.Format("{0} does not support Type: {1}", GetType(), type));
+        }
 
-			if (color.IsKnownColor)
-			{
-				flags[ColorIsKnown] = true;
-			}
-			else if (color.IsNamedColor)
-			{
-				flags[ColorHasName] = true;
-			}
-			else if (!color.IsEmpty)
-			{
-				flags[ColorHasValue] = true;
-				flags[ColorHasRed] = color.R != 0;
-				flags[ColorHasGreen] = color.G != 0;
-				flags[ColorHasBlue] = color.B != 0;
-				flags[ColorHasAlpha] = color.A != 0;
-			}
-			writer.WriteOptimized(flags);
+        #endregion IFastSerialization
 
-			if (color.IsKnownColor)
-			{
-				writer.WriteOptimized((int) color.ToKnownColor());
-			}
-			else if (color.IsNamedColor)
-			{
-				writer.WriteOptimized(color.Name);
-			}
-			else if (!color.IsEmpty)
-			{
-				byte component;
-				if ( (component = color.R) != 0) writer.Write(component);	
-				if ( (component = color.G) != 0) writer.Write(component);	
-				if ( (component = color.B) != 0) writer.Write(component);	
-				if ( (component = color.A) != 0) writer.Write(component);	
-			}
-		}
+        #region Color
 
-		public static Color DeserializeColor(SerializationReader reader)
-		{
-			var flags = reader.ReadOptimizedBitVector32();
+        public static void Serialize(SerializationWriter writer, Color color)
+        {
+            var flags = new BitVector32();
 
-			if (flags[ColorIsKnown]) return Color.FromKnownColor((KnownColor) reader.ReadOptimizedInt32());
-			if (flags[ColorHasName]) return Color.FromName(reader.ReadOptimizedString());
-			if (!flags[ColorHasValue]) return Color.Empty;
+            if (color.IsKnownColor)
+            {
+                flags[ColorIsKnown] = true;
+            }
+            else if (color.IsNamedColor)
+            {
+                flags[ColorHasName] = true;
+            }
+            else if (!color.IsEmpty)
+            {
+                flags[ColorHasValue] = true;
+                flags[ColorHasRed] = color.R != 0;
+                flags[ColorHasGreen] = color.G != 0;
+                flags[ColorHasBlue] = color.B != 0;
+                flags[ColorHasAlpha] = color.A != 0;
+            }
+            writer.WriteOptimized(flags);
 
-			var red = flags[ColorHasRed] ? reader.ReadByte() : (byte) 0;
-			var green = flags[ColorHasGreen] ? reader.ReadByte() : (byte) 0;
-			var blue = flags[ColorHasBlue] ? reader.ReadByte() : (byte) 0;
-			var alpha = flags[ColorHasAlpha] ? reader.ReadByte() : (byte) 0;
+            if (color.IsKnownColor)
+            {
+                writer.WriteOptimized((int) color.ToKnownColor());
+            }
+            else if (color.IsNamedColor)
+            {
+                writer.WriteOptimized(color.Name);
+            }
+            else if (!color.IsEmpty)
+            {
+                byte component;
+                if ((component = color.R) != 0)
+                {
+                    writer.Write(component);
+                }
+                if ((component = color.G) != 0)
+                {
+                    writer.Write(component);
+                }
+                if ((component = color.B) != 0)
+                {
+                    writer.Write(component);
+                }
+                if ((component = color.A) != 0)
+                {
+                    writer.Write(component);
+                }
+            }
+        }
 
-			return Color.FromArgb(alpha, red, green, blue);
-		}
-		#endregion Color
-	}
+        public static Color DeserializeColor(SerializationReader reader)
+        {
+            var flags = reader.ReadOptimizedBitVector32();
+
+            if (flags[ColorIsKnown])
+            {
+                return Color.FromKnownColor((KnownColor) reader.ReadOptimizedInt32());
+            }
+            if (flags[ColorHasName])
+            {
+                return Color.FromName(reader.ReadOptimizedString());
+            }
+            if (!flags[ColorHasValue])
+            {
+                return Color.Empty;
+            }
+
+            var red = flags[ColorHasRed] ? reader.ReadByte() : (byte) 0;
+            var green = flags[ColorHasGreen] ? reader.ReadByte() : (byte) 0;
+            var blue = flags[ColorHasBlue] ? reader.ReadByte() : (byte) 0;
+            var alpha = flags[ColorHasAlpha] ? reader.ReadByte() : (byte) 0;
+
+            return Color.FromArgb(alpha, red, green, blue);
+        }
+
+        #endregion Color
+    }
 }

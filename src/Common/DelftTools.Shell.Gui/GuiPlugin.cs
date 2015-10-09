@@ -13,6 +13,45 @@ namespace DelftTools.Shell.Gui
     public abstract class GuiPlugin : IPlugin, IDisposable
     {
         /// <summary>
+        /// Reference to the the gui (set by framework)
+        /// </summary>
+        public virtual IGui Gui { get; set; }
+
+        /// <summary>
+        /// Extends ribbon control of the main window.
+        /// Override this property to add tabs, groups, buttons or other controls to the ribbon.
+        /// </summary>
+        public virtual IRibbonCommandHandler RibbonCommandHandler
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<IOptionsControl> OptionsControls
+        {
+            get
+            {
+                yield break;
+            }
+        }
+
+        /// <summary>
+        /// Provides custom object map layers.
+        /// </summary>
+        public virtual IMapLayerProvider MapLayerProvider
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
         ///  Gets the name of the plugin. (used for plugin versioning (backwards compatibility))
         ///  <value>The name.</value></summary>
         public abstract string Name { get; }
@@ -38,20 +77,22 @@ namespace DelftTools.Shell.Gui
         public virtual ResourceManager Resources { get; set; }
 
         /// <summary>
-        /// Reference to the the gui (set by framework)
-        /// </summary>
-        public virtual IGui Gui { get; set; }
+        ///  Image for displaying in gui. Default format 32x32 bitmap or scalable. 
+        ///  </summary>
+        public virtual Image Image
+        {
+            get
+            {
+                return null;
+            }
+        }
 
         /// <summary>
-        /// Extends ribbon control of the main window.
-        /// Override this property to add tabs, groups, buttons or other controls to the ribbon.
-        /// </summary>
-        public virtual IRibbonCommandHandler RibbonCommandHandler { get { return null; } }
+        ///  Gets a value indicating whether the plugin is active.
+        ///  <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value></summary>
+        public virtual bool IsActive { get; protected set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual IEnumerable<IOptionsControl> OptionsControls {get { yield break; } }
+        public string[] DependentPluginNames { get; private set; }
 
         /// <summary>
         /// Returns all property information objects supported by the plugin
@@ -64,60 +105,16 @@ namespace DelftTools.Shell.Gui
         /// <summary>
         /// Provides views info objects for creating views.
         /// </summary>
-        public virtual IEnumerable<ViewInfo> GetViewInfoObjects() { yield break; }
-
-        /// <summary>
-        /// Provides custom object map layers.
-        /// </summary>
-        public virtual IMapLayerProvider MapLayerProvider { get { return null;  } }
-
-        /// <summary>
-        ///  Image for displaying in gui. Default format 32x32 bitmap or scalable. 
-        ///  </summary>
-        public virtual Image Image { get { return null; } }
-
-        /// <summary>
-        ///  Gets a value indicating whether the plugin is active.
-        ///  <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value></summary>
-        public virtual bool IsActive { get; protected set; }
-
-        public string[] DependentPluginNames { get; private set; }
-
-        /// <summary>
-        ///  Activates the plugin.
-        ///  </summary>
-        public virtual void Activate()
-        {
-            IsActive = true;
-        }
-
-        /// <summary>
-        ///  Deactivates the plugin.
-        ///  </summary>
-        public virtual void Deactivate()
-        {
-            IsActive = false;
-        }
-
-        public virtual IEnumerable<Assembly> GetPersistentAssemblies()
+        public virtual IEnumerable<ViewInfo> GetViewInfoObjects()
         {
             yield break;
         }
 
-        public virtual void OnViewAdded(IView view)
-        {
+        public virtual void OnViewAdded(IView view) {}
 
-        }
+        public virtual void OnViewRemoved(IView view) {}
 
-        public virtual void OnViewRemoved(IView view)
-        {
-
-        }
-
-        public virtual void OnActiveViewChanged(IView view)
-        {
-            
-        }
+        public virtual void OnActiveViewChanged(IView view) {}
 
         /// <summary>
         /// Returns a context menu which is used for this object.
@@ -193,6 +190,27 @@ namespace DelftTools.Shell.Gui
         public virtual void Dispose()
         {
             Gui = null;
+        }
+
+        /// <summary>
+        ///  Activates the plugin.
+        ///  </summary>
+        public virtual void Activate()
+        {
+            IsActive = true;
+        }
+
+        /// <summary>
+        ///  Deactivates the plugin.
+        ///  </summary>
+        public virtual void Deactivate()
+        {
+            IsActive = false;
+        }
+
+        public virtual IEnumerable<Assembly> GetPersistentAssemblies()
+        {
+            yield break;
         }
     }
 }

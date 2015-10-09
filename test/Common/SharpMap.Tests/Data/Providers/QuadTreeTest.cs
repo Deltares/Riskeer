@@ -22,11 +22,13 @@ namespace SharpMap.Tests.Data.Providers
             // construct the quad tree (and time it)
             // 40ms on my pc
             TestHelper.AssertIsFasterThan(300, () =>
+            {
+                var quadTree = new QuadTree(extends, 5, false);
+                for (int i = 0; i < allBounds.Length; i++)
                 {
-                    var quadTree = new QuadTree(extends, 5, false);
-                    for (int i = 0; i < allBounds.Length; i++)
-                        quadTree.Insert(i, allBounds[i]);
-                });
+                    quadTree.Insert(i, allBounds[i]);
+                }
+            });
         }
 
         [Test]
@@ -39,7 +41,9 @@ namespace SharpMap.Tests.Data.Providers
             // construct the quad tree
             var quadTree = new QuadTree(extends, 5, false);
             for (int i = 0; i < allBounds.Length; i++)
+            {
                 quadTree.Insert(i, allBounds[i]);
+            }
 
             var queryRectangles = Enumerable.Range(0, 10000)
                                             .Select(i => CreateRandomRectangle(2f))
@@ -56,7 +60,7 @@ namespace SharpMap.Tests.Data.Providers
                 }
             });
         }
-        
+
         private static RectangleF[] CreateRandomRectangles(out RectangleF extends)
         {
             var allBounds = new RectangleF[20000];
@@ -69,10 +73,22 @@ namespace SharpMap.Tests.Data.Providers
                 allBounds[i] = rect;
 
                 // get max extends
-                if (rect.Left < minX) minX = rect.Left;
-                if (rect.Right > maxX) maxX = rect.Right;
-                if (rect.Top < minY) minY = rect.Top;
-                if (rect.Bottom > maxY) maxY = rect.Bottom;
+                if (rect.Left < minX)
+                {
+                    minX = rect.Left;
+                }
+                if (rect.Right > maxX)
+                {
+                    maxX = rect.Right;
+                }
+                if (rect.Top < minY)
+                {
+                    minY = rect.Top;
+                }
+                if (rect.Bottom > maxY)
+                {
+                    maxY = rect.Bottom;
+                }
             }
             extends = new RectangleF(minX, minY, maxX - minX, maxY - minY);
             return allBounds;
@@ -82,8 +98,8 @@ namespace SharpMap.Tests.Data.Providers
         {
             var x = (float) Rand.NextDouble()*10.0f; //between 0 and 10
             var y = (float) Rand.NextDouble()*10.0f; //between 0 and 10
-            var width = (float)Rand.NextDouble() * avgSize;
-            var height = (float)Rand.NextDouble() * avgSize;
+            var width = (float) Rand.NextDouble()*avgSize;
+            var height = (float) Rand.NextDouble()*avgSize;
             var rect = new RectangleF(x, y, width, height);
             return rect;
         }

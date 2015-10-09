@@ -13,6 +13,7 @@ using DeltaShell.Plugins.SharpMapGis;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
+using MessageBox = DelftTools.Controls.Swf.MessageBox;
 
 namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
 {
@@ -34,7 +35,10 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
 
             gui = mocks.Stub<IGui>();
 
-            realApp = new DeltaShellApplication {IsProjectCreatedInTemporaryDirectory = true};
+            realApp = new DeltaShellApplication
+            {
+                IsProjectCreatedInTemporaryDirectory = true
+            };
             realApp.Plugins.Add(commonToolsPlugin);
             realApp.Plugins.Add(new SharpMapGisApplicationPlugin());
             realApp.Run();
@@ -52,15 +56,15 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         public void NoImporterAvailableGivesMessageBox() //are we even interested in this?
         {
             var messageBox = mocks.StrictMock<IMessageBox>();
-            global::DelftTools.Controls.Swf.MessageBox.CustomMessageBox = messageBox;
+            MessageBox.CustomMessageBox = messageBox;
             messageBox.Expect(mb => mb.Show(null, null, MessageBoxButtons.OK)).Return(DialogResult.OK).IgnoreArguments()
-                .Repeat.Once();
+                      .Repeat.Once();
             messageBox.Replay();
-            
+
             var importHandler = new GuiImportHandler(gui);
-            
+
             var item = importHandler.GetSupportedImporterForTargetType(typeof(Int64));
-            
+
             Assert.IsNull(item);
 
             messageBox.VerifyAllExpectations();
@@ -74,18 +78,31 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             var targetItemImporter = mocks.Stub<IFileImporter>();
             var plugin = mocks.Stub<ApplicationPlugin>();
 
-            application.Stub(a => a.Plugins).Return(new[] { plugin });
-            
+            application.Stub(a => a.Plugins).Return(new[]
+            {
+                plugin
+            });
+
             gui.Application = application;
 
-            IEnumerable<IFileImporter> importers = new[] { targetItemImporter, fileImporter};
+            IEnumerable<IFileImporter> importers = new[]
+            {
+                targetItemImporter,
+                fileImporter
+            };
 
-            fileImporter.Expect(fi => fi.SupportedItemTypes).Return(new[] {typeof (Int64)}).Repeat.Any();
+            fileImporter.Expect(fi => fi.SupportedItemTypes).Return(new[]
+            {
+                typeof(Int64)
+            }).Repeat.Any();
             fileImporter.Expect(fi => fi.FileFilter).Return("known|*.bla").Repeat.Any();
             fileImporter.Expect(fi => fi.Name).Return("1").Repeat.Any();
             fileImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
 
-            targetItemImporter.Expect(fi => fi.SupportedItemTypes).Return(new[] { typeof(Int64) }).Repeat.Any();
+            targetItemImporter.Expect(fi => fi.SupportedItemTypes).Return(new[]
+            {
+                typeof(Int64)
+            }).Repeat.Any();
             targetItemImporter.Expect(fi => fi.FileFilter).Return("known|*.ext").Repeat.Any();
             targetItemImporter.Expect(fi => fi.Name).Return("2").Repeat.Any();
             targetItemImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
@@ -98,12 +115,18 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             var guiImportHandler = new GuiImportHandler(gui);
 
             var one = (long) 1.0;
-            var returnedImporter1 = guiImportHandler.GetSupportedImporterForTargetTypeAndSelectedFiles(one,new[] {"testfile.ext"});
+            var returnedImporter1 = guiImportHandler.GetSupportedImporterForTargetTypeAndSelectedFiles(one, new[]
+            {
+                "testfile.ext"
+            });
 
             Assert.AreEqual(targetItemImporter, returnedImporter1);
 
             var two = (long) 2.0;
-            var returnedImporter2 = guiImportHandler.GetSupportedImporterForTargetTypeAndSelectedFiles(two, new[] { "testfile.unknown" });
+            var returnedImporter2 = guiImportHandler.GetSupportedImporterForTargetTypeAndSelectedFiles(two, new[]
+            {
+                "testfile.unknown"
+            });
 
             Assert.IsNull(returnedImporter2);
 
@@ -119,18 +142,26 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             var targetItemImporter2 = mocks.Stub<IFileImporter>();
             var plugin = mocks.Stub<ApplicationPlugin>();
 
-            application.Stub(a => a.Plugins).Return(new[] { plugin }); 
+            application.Stub(a => a.Plugins).Return(new[]
+            {
+                plugin
+            });
             gui.Application = application;
 
-            IEnumerable<IFileImporter> importers = new[] { fileImporter, targetItemImporter, targetItemImporter2 };
-            
+            IEnumerable<IFileImporter> importers = new[]
+            {
+                fileImporter,
+                targetItemImporter,
+                targetItemImporter2
+            };
+
             fileImporter.Expect(fi => fi.CanImportOnRootLevel).Return(false);
             targetItemImporter.Expect(fi => fi.CanImportOnRootLevel).Return(false);
             targetItemImporter2.Expect(fi => fi.CanImportOnRootLevel).Return(true);
 
             application.Expect(a => a.FileImporters).IgnoreArguments().Repeat.Any().Return(importers);
             application.Expect(a => a.ProjectDataDirectory).Return("").IgnoreArguments().Repeat.Any();
-            
+
             mocks.ReplayAll();
 
             var guiImportHandler = new GuiImportHandler(gui);
@@ -142,7 +173,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
 
             mocks.VerifyAll();
         }
-       
+
         [Test]
         public void TargetItemFileImporterAreReturnedWhenMatch()
         {
@@ -150,18 +181,32 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             var fileImporter = mocks.Stub<IFileImporter>();
             var targetItemImporter = mocks.Stub<IFileImporter>();
             var targetItemImporterWhereCanImportIsFalse = mocks.Stub<IFileImporter>();
-            
+
             gui.Application = application;
 
-            IEnumerable<IFileImporter> importers = new[] { fileImporter, targetItemImporter, targetItemImporterWhereCanImportIsFalse };
+            IEnumerable<IFileImporter> importers = new[]
+            {
+                fileImporter,
+                targetItemImporter,
+                targetItemImporterWhereCanImportIsFalse
+            };
 
-            fileImporter.Expect(fi => fi.SupportedItemTypes).Return(new[] { typeof(Int64) });
+            fileImporter.Expect(fi => fi.SupportedItemTypes).Return(new[]
+            {
+                typeof(Int64)
+            });
             fileImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
 
-            targetItemImporter.Expect(fi => fi.SupportedItemTypes).Return(new[] { typeof(Int64) });
+            targetItemImporter.Expect(fi => fi.SupportedItemTypes).Return(new[]
+            {
+                typeof(Int64)
+            });
             targetItemImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
 
-            targetItemImporterWhereCanImportIsFalse.Expect(fi => fi.SupportedItemTypes).Return(new[] { typeof(Int64) });
+            targetItemImporterWhereCanImportIsFalse.Expect(fi => fi.SupportedItemTypes).Return(new[]
+            {
+                typeof(Int64)
+            });
             targetItemImporterWhereCanImportIsFalse.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(false).Repeat.Any();
 
             application.Expect(a => a.FileImporters).IgnoreArguments().Repeat.Any().Return(importers);
@@ -187,13 +232,22 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             var targetItemImporter = mocks.Stub<IFileImporter>();
             var plugin = mocks.Stub<ApplicationPlugin>();
 
-            application.Stub(a => a.Plugins).Return(new[] { plugin }); 
-            
+            application.Stub(a => a.Plugins).Return(new[]
+            {
+                plugin
+            });
+
             gui.Application = application;
 
-            IEnumerable<IFileImporter> importers = new[] { targetItemImporter };
+            IEnumerable<IFileImporter> importers = new[]
+            {
+                targetItemImporter
+            };
 
-            targetItemImporter.Expect(fi => fi.SupportedItemTypes).Return(new[] { typeof(IList<int>) });
+            targetItemImporter.Expect(fi => fi.SupportedItemTypes).Return(new[]
+            {
+                typeof(IList<int>)
+            });
             targetItemImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
 
             application.Expect(a => a.FileImporters).IgnoreArguments().Repeat.Any().Return(importers);
@@ -206,7 +260,10 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             //get importers for subtype
             var fileImporters = guiImportHandler.GetImporters(new List<int>());
 
-            Assert.AreEqual(new[]{targetItemImporter}, fileImporters);
+            Assert.AreEqual(new[]
+            {
+                targetItemImporter
+            }, fileImporters);
 
             mocks.VerifyAll();
         }
@@ -220,16 +277,36 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             var fileImporter3 = mocks.Stub<IFileImporter>();
             var plugin1 = mocks.Stub<ApplicationPlugin>();
 
-            var plugins = new List<ApplicationPlugin> { plugin1 };
-            application.Stub(a => a.Plugins).Return(new[] { plugin1 });
-            
+            var plugins = new List<ApplicationPlugin>
+            {
+                plugin1
+            };
+            application.Stub(a => a.Plugins).Return(new[]
+            {
+                plugin1
+            });
+
             gui.Application = application;
 
-            IEnumerable<IFileImporter> importers = new[] { fileImporter1, fileImporter2, fileImporter3 };
+            IEnumerable<IFileImporter> importers = new[]
+            {
+                fileImporter1,
+                fileImporter2,
+                fileImporter3
+            };
 
-            fileImporter1.Expect(fi => fi.SupportedItemTypes).Return(new[] { typeof(Int32) });
-            fileImporter2.Expect(fi => fi.SupportedItemTypes).Return(new[] { typeof(Int64) });
-            fileImporter3.Expect(fi => fi.SupportedItemTypes).Return(new[] { typeof(Int16) });
+            fileImporter1.Expect(fi => fi.SupportedItemTypes).Return(new[]
+            {
+                typeof(Int32)
+            });
+            fileImporter2.Expect(fi => fi.SupportedItemTypes).Return(new[]
+            {
+                typeof(Int64)
+            });
+            fileImporter3.Expect(fi => fi.SupportedItemTypes).Return(new[]
+            {
+                typeof(Int16)
+            });
 
             fileImporter1.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
             fileImporter2.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();

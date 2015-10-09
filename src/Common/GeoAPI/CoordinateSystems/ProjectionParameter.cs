@@ -20,77 +20,64 @@ using System.Globalization;
 
 namespace GeoAPI.CoordinateSystems
 {
-	/// <summary>
-	/// A named projection parameter value.
-	/// </summary>
-	/// <remarks>
-	/// The linear units of parameters' values match the linear units of the containing 
-	/// projected coordinate system. The angular units of parameter values match the 
-	/// angular units of the geographic coordinate system that the projected coordinate 
-	/// system is based on. (Notice that this is different from <see cref="Parameter"/>,
-	/// where the units are always meters and degrees.)
-	/// </remarks>
-	public class ProjectionParameter
-	{
-		/// <summary>
-		/// Initializes an instance of a ProjectionParameter
-		/// </summary>
-		/// <param name="name">Name of parameter</param>
-		/// <param name="value">Parameter value</param>
-		public ProjectionParameter(string name, double value)
-		{
-			_Name = name;
-			_Value = value;
-		}
+    /// <summary>
+    /// A named projection parameter value.
+    /// </summary>
+    /// <remarks>
+    /// The linear units of parameters' values match the linear units of the containing 
+    /// projected coordinate system. The angular units of parameter values match the 
+    /// angular units of the geographic coordinate system that the projected coordinate 
+    /// system is based on. (Notice that this is different from <see cref="Parameter"/>,
+    /// where the units are always meters and degrees.)
+    /// </remarks>
+    public class ProjectionParameter
+    {
+        /// <summary>
+        /// Initializes an instance of a ProjectionParameter
+        /// </summary>
+        /// <param name="name">Name of parameter</param>
+        /// <param name="value">Parameter value</param>
+        public ProjectionParameter(string name, double value)
+        {
+            Name = name;
+            Value = value;
+        }
 
-		private string _Name;
+        /// <summary>
+        /// Parameter name.
+        /// </summary>
+        public string Name { get; set; }
 
-		/// <summary>
-		/// Parameter name.
-		/// </summary>
-		public string Name
-		{
-			get { return _Name; }
-			set { _Name = value; }
-		}
+        /// <summary>
+        /// Parameter value.
+        /// The linear units of a parameters' values match the linear units of the containing 
+        /// projected coordinate system. The angular units of parameter values match the 
+        /// angular units of the geographic coordinate system that the projected coordinate 
+        /// system is based on.
+        /// </summary>
+        public double Value { get; set; }
 
-		private double _Value;
+        /// <summary>
+        /// Returns the Well-known text for this object
+        /// as defined in the simple features specification.
+        /// </summary>
+        public string WKT
+        {
+            get
+            {
+                return String.Format(CultureInfo.InvariantCulture.NumberFormat, "PARAMETER[\"{0}\", {1}]", Name, Value);
+            }
+        }
 
-		/// <summary>
-		/// Parameter value.
-		/// The linear units of a parameters' values match the linear units of the containing 
-		/// projected coordinate system. The angular units of parameter values match the 
-		/// angular units of the geographic coordinate system that the projected coordinate 
-		/// system is based on.
-		/// </summary>
-		public double Value
-		{
-			get { return _Value; }
-			set { _Value = value; }
-		}
-
-
-		/// <summary>
-		/// Returns the Well-known text for this object
-		/// as defined in the simple features specification.
-		/// </summary>
-		public string WKT
-		{
-			get
-			{
-				return String.Format(CultureInfo.InvariantCulture.NumberFormat, "PARAMETER[\"{0}\", {1}]", Name, Value);
-			}
-		}
-
-		/// <summary>
-		/// Gets an XML representation of this object
-		/// </summary>
-		public string XML
-		{
-			get
-			{
+        /// <summary>
+        /// Gets an XML representation of this object
+        /// </summary>
+        public string XML
+        {
+            get
+            {
                 return String.Format(CultureInfo.InvariantCulture.NumberFormat, "<CS_ProjectionParameter Name=\"{0}\" Value=\"{1}\"/>", Name, Value);
-			}
-		}
-	}
+            }
+        }
+    }
 }

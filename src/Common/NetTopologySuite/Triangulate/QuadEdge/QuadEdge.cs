@@ -26,6 +26,94 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
     /// <author>Martin Davis</author>
     public class QuadEdge
     {
+        // the dual of this edge, directed from right to left
+//    private int      visitedKey = 0;
+
+        /// <summary>
+        /// Quadedges must be made using {@link makeEdge}, 
+        /// to ensure proper construction.
+        /// </summary>
+        private QuadEdge() {}
+
+        /// <summary>
+        /// Gets or sets the external data value for this edge.
+        /// </summary>
+        /// <remarks>
+        /// an object containing external data
+        /// </remarks>
+        public object Data { set; get; }
+
+        /// <summary>
+        /// Tests whether this edge has been deleted.
+        /// </summary>
+        /// <returns>true if this edge has not been deleted.</returns>
+        public bool IsLive
+        {
+            get
+            {
+                return Rot != null;
+            }
+        }
+
+        /***********************************************************************************************
+         * Data Access
+         **********************************************************************************************/
+        /*
+        /// <summary>
+        /// Sets the vertex for this edge's origin
+        /// </summary>
+        /// <param name="o">the origin vertex</param>
+        internal void SetOrig(Vertex o)
+        {
+            _vertex = o;
+        }
+         */
+
+        /*
+        /// <summary>
+        /// Sets the vertex for this edge's destination
+        /// </summary>
+        /// <param name="d">the destination vertex</param>
+        internal void SetDest(Vertex d)
+        {
+            Sym.Orig = d;
+        }
+         */
+
+        /// <summary>
+        /// Gets or sets the vertex for the edge's origin
+        /// </summary>
+        /// <remarks>Gets the origin vertex</remarks>
+        public Vertex Orig { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets the vertex for the edge's destination
+        /// </summary>
+        /// <remarks>Gets the destination vertex</remarks>
+        public Vertex Dest
+        {
+            get
+            {
+                return Sym.Orig;
+            }
+            internal set
+            {
+                Sym.Orig = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the length of the geometry of this quadedge.
+        /// </summary>
+        /// <remarks>Gets the length of the quadedge</remarks>
+        public double Length
+        {
+            get
+            {
+                return Orig.Coordinate.Distance(Dest.Coordinate);
+            }
+        }
+
         /// <summary>
         /// Creates a new QuadEdge quartet from <see cref="Vertex"/>o to <see cref="Vertex"/> d.
         /// </summary>
@@ -113,20 +201,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             e.Dest = b.Dest;
         }
 
-        // the dual of this edge, directed from right to left
-        private Vertex _vertex; // The vertex that this edge represents
-        private QuadEdge _next; // A reference to a connected edge
-//    private int      visitedKey = 0;
-
-        /// <summary>
-        /// Quadedges must be made using {@link makeEdge}, 
-        /// to ensure proper construction.
-        /// </summary>
-        private QuadEdge()
-        {
-
-        }
-
         /// <summary>
         /// Gets the primary edge of this quadedge and its <tt>sym</tt>.
         /// The primary edge is the one for which the origin
@@ -137,17 +211,11 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         public QuadEdge GetPrimary()
         {
             if (Orig.Coordinate.CompareTo(Dest.Coordinate) <= 0)
+            {
                 return this;
+            }
             return Sym;
         }
-
-        /// <summary>
-        /// Gets or sets the external data value for this edge.
-        /// </summary>
-        /// <remarks>
-        /// an object containing external data
-        /// </remarks>
-        public object Data { set; get; }
 
         /// <summary>
         /// Marks this quadedge as being deleted.
@@ -162,21 +230,69 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         }
 
         /// <summary>
-        /// Tests whether this edge has been deleted.
-        /// </summary>
-        /// <returns>true if this edge has not been deleted.</returns>
-        public bool IsLive
-        {
-            get { return Rot != null; }
-        }
-
-        /// <summary>
         /// Sets the connected edge
         /// </summary>
         /// <param name="next">edge</param>
         public void SetNext(QuadEdge next)
         {
-            _next = next;
+            ONext = next;
+        }
+
+        /// <summary>
+        /// Tests if this quadedge and another have the same line segment geometry, 
+        /// regardless of orientation.
+        /// </summary>
+        /// <param name="qe">a quadege</param>
+        /// <returns>true if the quadedges are based on the same line segment regardless of orientation</returns>
+        public bool EqualsNonOriented(QuadEdge qe)
+        {
+            if (EqualsOriented(qe))
+            {
+                return true;
+            }
+            if (EqualsOriented(qe.Sym))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Tests if this quadedge and another have the same line segment geometry
+        /// with the same orientation.
+        /// </summary>
+        /// <param name="qe">a quadege</param>
+        /// <returns>true if the quadedges are based on the same line segment</returns>
+        public bool EqualsOriented(QuadEdge qe)
+        {
+            if (Orig.Coordinate.Equals2D(qe.Orig.Coordinate)
+                && Dest.Coordinate.Equals2D(qe.Dest.Coordinate))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="LineSegment"/> representing the
+        /// geometry of this edge.
+        /// </summary>
+        /// <returns>a LineSegment</returns>
+        public LineSegment ToLineSegment()
+        {
+            return new LineSegment(Orig.Coordinate, Dest.Coordinate);
+        }
+
+        /// <summary>
+        /// Converts this edge to a WKT two-point <tt>LINESTRING</tt> indicating 
+        /// the geometry of this edge.
+        /// </summary>
+        /// <returns>a String representing this edge's geometry</returns>
+        public override String ToString()
+        {
+            var p0 = Orig.Coordinate;
+            var p1 = Dest.Coordinate;
+            return WKTWriter.ToLineString(p0, p1);
         }
 
         /***************************************************************************
@@ -191,18 +307,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         internal QuadEdge Rot { get; set; }
 
         /// <summary>
-        /// Gets the dual of this edge, directed from its left to its right.
-        /// </summary>
-        /// <remarks>Gets the inverse rotated edge.</remarks>
-        private QuadEdge InvRot
-        {
-            get
-            {
-                return Rot.Sym;
-            }
-        }
-
-        /// <summary>
         /// Gets the edge from the destination to the origin of this edge.
         /// </summary>
         /// <remarks>Gets the sym of the edge.</remarks>
@@ -213,18 +317,12 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
                 return Rot.Rot;
             }
         }
-        
+
         /// <summary>
         /// Gets the next CCW edge around the origin of this edge.
         /// </summary>
         /// <remarks>Gets the next linked edge.</remarks>
-        internal QuadEdge ONext
-        {
-            get
-            {
-                return _next;
-            }
-        }
+        internal QuadEdge ONext { get; private set; }
 
         /// <summary>
         /// Gets the next CW edge around (from) the origin of this edge.
@@ -234,19 +332,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         {
             get
             {
-                return Rot._next.Rot;
-            }
-        }
-
-        /// <summary>
-        /// Gets the next CCW edge around (into) the destination of this edge.
-        /// </summary>
-        /// <remarks>Get the next destination edge.</remarks>
-        private QuadEdge DNext
-        {
-            get
-            {
-                return Sym.ONext.Sym;
+                return Rot.ONext.Rot;
             }
         }
 
@@ -270,7 +356,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         {
             get
             {
-                return this.InvRot.ONext.Rot;
+                return InvRot.ONext.Rot;
             }
         }
 
@@ -282,7 +368,31 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         {
             get
             {
-                return _next.Sym;
+                return ONext.Sym;
+            }
+        }
+
+        /// <summary>
+        /// Gets the dual of this edge, directed from its left to its right.
+        /// </summary>
+        /// <remarks>Gets the inverse rotated edge.</remarks>
+        private QuadEdge InvRot
+        {
+            get
+            {
+                return Rot.Sym;
+            }
+        }
+
+        /// <summary>
+        /// Gets the next CCW edge around (into) the destination of this edge.
+        /// </summary>
+        /// <remarks>Get the next destination edge.</remarks>
+        private QuadEdge DNext
+        {
+            get
+            {
+                return Sym.ONext.Sym;
             }
         }
 
@@ -294,7 +404,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         {
             get
             {
-                return Rot._next.InvRot;
+                return Rot.ONext.InvRot;
             }
         }
 
@@ -306,122 +416,8 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         {
             get
             {
-                return this.Sym.ONext;
+                return Sym.ONext;
             }
-        }
-
-        /***********************************************************************************************
-         * Data Access
-         **********************************************************************************************/
-        /*
-        /// <summary>
-        /// Sets the vertex for this edge's origin
-        /// </summary>
-        /// <param name="o">the origin vertex</param>
-        internal void SetOrig(Vertex o)
-        {
-            _vertex = o;
-        }
-         */
-
-        /*
-        /// <summary>
-        /// Sets the vertex for this edge's destination
-        /// </summary>
-        /// <param name="d">the destination vertex</param>
-        internal void SetDest(Vertex d)
-        {
-            Sym.Orig = d;
-        }
-         */
-
-        /// <summary>
-        /// Gets or sets the vertex for the edge's origin
-        /// </summary>
-        /// <remarks>Gets the origin vertex</remarks>
-        public Vertex Orig
-        {
-            get { return _vertex; }
-            internal set
-            {
-                _vertex = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the vertex for the edge's destination
-        /// </summary>
-        /// <remarks>Gets the destination vertex</remarks>
-        public Vertex Dest
-        {
-            get { return Sym.Orig; }
-            internal set
-            {
-                Sym.Orig = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the length of the geometry of this quadedge.
-        /// </summary>
-        /// <remarks>Gets the length of the quadedge</remarks>
-        public double Length
-        {
-            get
-            {
-                return Orig.Coordinate.Distance(Dest.Coordinate);
-            }
-        }
-
-        /// <summary>
-        /// Tests if this quadedge and another have the same line segment geometry, 
-        /// regardless of orientation.
-        /// </summary>
-        /// <param name="qe">a quadege</param>
-        /// <returns>true if the quadedges are based on the same line segment regardless of orientation</returns>
-        public bool EqualsNonOriented(QuadEdge qe)
-        {
-            if (EqualsOriented(qe))
-                return true;
-            if (EqualsOriented(qe.Sym))
-                return true;
-            return false;
-        }
-
-        /// <summary>
-        /// Tests if this quadedge and another have the same line segment geometry
-        /// with the same orientation.
-        /// </summary>
-        /// <param name="qe">a quadege</param>
-        /// <returns>true if the quadedges are based on the same line segment</returns>
-        public bool EqualsOriented(QuadEdge qe)
-        {
-            if (Orig.Coordinate.Equals2D(qe.Orig.Coordinate)
-                && Dest.Coordinate.Equals2D(qe.Dest.Coordinate))
-                return true;
-            return false;
-        }
-
-        /// <summary>
-        /// Creates a <see cref="LineSegment"/> representing the
-        /// geometry of this edge.
-        /// </summary>
-        /// <returns>a LineSegment</returns>
-        public LineSegment ToLineSegment()
-        {
-            return new LineSegment(_vertex.Coordinate, Dest.Coordinate);
-        }
-
-        /// <summary>
-        /// Converts this edge to a WKT two-point <tt>LINESTRING</tt> indicating 
-        /// the geometry of this edge.
-        /// </summary>
-        /// <returns>a String representing this edge's geometry</returns>
-        public override String ToString()
-        {
-            var p0 = _vertex.Coordinate;
-            var p1 = Dest.Coordinate;
-            return WKTWriter.ToLineString(p0, p1);
         }
     }
 }

@@ -12,8 +12,21 @@ namespace SharpMap.Rendering
         public SingleThreadedWorkQueue(string threadName)
         {
             renderQueue = new BlockingCollection<Action>();
-            thread = new Thread(WorkLoop) {Name = threadName, IsBackground = true};
+            thread = new Thread(WorkLoop)
+            {
+                Name = threadName, IsBackground = true
+            };
             thread.Start();
+        }
+
+        public void Enqueue(Action action)
+        {
+            renderQueue.Add(action);
+        }
+
+        public int GetThreadId()
+        {
+            return thread.ManagedThreadId;
         }
 
         private void WorkLoop()
@@ -29,16 +42,6 @@ namespace SharpMap.Rendering
                     Console.WriteLine(e);
                 }
             }
-        }
-
-        public void Enqueue(Action action)
-        {
-            renderQueue.Add(action);
-        }
-
-        public int GetThreadId()
-        {
-            return thread.ManagedThreadId;
         }
     }
 }

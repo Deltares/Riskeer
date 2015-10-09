@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
 {
@@ -15,7 +16,14 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
             FillControl();
         }
 
-        void ControlCheckedChanged(object sender, System.EventArgs e)
+        protected override void Deinitialize() {}
+
+        protected override void DataSourceChanged()
+        {
+            FillControl();
+        }
+
+        private void ControlCheckedChanged(object sender, EventArgs e)
         {
             DataValue = GetControlValue();
         }
@@ -23,15 +31,6 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
         private void FillControl()
         {
             Control.Checked = (bool) (DataValue ?? false);
-        }
-
-        protected override void Deinitialize()
-        {
-        }
-
-        protected override void DataSourceChanged()
-        {
-            FillControl();
         }
     }
 }

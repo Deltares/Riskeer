@@ -34,8 +34,14 @@ namespace SharpMap.Api.Editors
         ///  </summary>
         public virtual Bitmap Bitmap
         {
-            get { return bitmap; }
-            set { bitmap = value; }
+            get
+            {
+                return bitmap;
+            }
+            set
+            {
+                bitmap = value;
+            }
         }
 
         /// <summary>
@@ -49,8 +55,14 @@ namespace SharpMap.Api.Editors
         ///  </summary>
         public virtual IFeatureInteractor FeatureInteractor
         {
-            get { return featureInteractor; }
-            set { featureInteractor = value; }
+            get
+            {
+                return featureInteractor;
+            }
+            set
+            {
+                featureInteractor = value;
+            }
         }
 
         /// <summary>
@@ -59,16 +71,28 @@ namespace SharpMap.Api.Editors
         ///  </summary>
         public virtual int Index
         {
-            get { return index; }
-            set { index = value; }
+            get
+            {
+                return index;
+            }
+            set
+            {
+                index = value;
+            }
         }
 
         #region IFeature Members
 
         public virtual IGeometry Geometry
         {
-            get { return geometry; }
-            set { geometry = value; }
+            get
+            {
+                return geometry;
+            }
+            set
+            {
+                geometry = value;
+            }
         }
 
         public virtual long Id { get; set; }

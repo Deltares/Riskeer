@@ -6,8 +6,6 @@ namespace DelftTools.Controls.Swf.Table.Filtering
 {
     public partial class FilterDateTimeControl : UserControl, IFilterControl
     {
-        private string filter;
-
         private enum FilterOptionDateTime
         {
             Equal,
@@ -15,6 +13,8 @@ namespace DelftTools.Controls.Swf.Table.Filtering
             GreaterThen,
             SmallerThen
         }
+
+        private string filter;
 
         public FilterDateTimeControl()
         {
@@ -26,13 +26,18 @@ namespace DelftTools.Controls.Swf.Table.Filtering
         {
             get
             {
-                switch ((FilterOptionDateTime)comboBox1.SelectedItem)
+                switch ((FilterOptionDateTime) comboBox1.SelectedItem)
                 {
-                    case FilterOptionDateTime.Equal: return string.Format("= #{0}#", dateTimePicker1.Value);
-                    case FilterOptionDateTime.NotEqual: return string.Format("<> #{0}#", dateTimePicker1.Value);
-                    case FilterOptionDateTime.GreaterThen: return string.Format("> #{0}#", dateTimePicker1.Value);
-                    case FilterOptionDateTime.SmallerThen: return string.Format("< #{0}#", dateTimePicker1.Value);
-                    default: throw new ArgumentOutOfRangeException();
+                    case FilterOptionDateTime.Equal:
+                        return string.Format("= #{0}#", dateTimePicker1.Value);
+                    case FilterOptionDateTime.NotEqual:
+                        return string.Format("<> #{0}#", dateTimePicker1.Value);
+                    case FilterOptionDateTime.GreaterThen:
+                        return string.Format("> #{0}#", dateTimePicker1.Value);
+                    case FilterOptionDateTime.SmallerThen:
+                        return string.Format("< #{0}#", dateTimePicker1.Value);
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
             set
@@ -46,8 +51,11 @@ namespace DelftTools.Controls.Swf.Table.Filtering
 
         private string GetFilterText()
         {
-            if (filter == null) return "";
-            
+            if (filter == null)
+            {
+                return "";
+            }
+
             var start = filter.IndexOf("#") + 1;
             var end = filter.LastIndexOf("#");
 
@@ -56,12 +64,27 @@ namespace DelftTools.Controls.Swf.Table.Filtering
 
         private FilterOptionDateTime GetFilterOption()
         {
-            if (filter == null) return FilterOptionDateTime.Equal;
+            if (filter == null)
+            {
+                return FilterOptionDateTime.Equal;
+            }
 
-            if (filter.StartsWith("<>")) return FilterOptionDateTime.NotEqual;
-            if (filter.StartsWith("=")) return FilterOptionDateTime.Equal;
-            if (filter.StartsWith(">")) return FilterOptionDateTime.GreaterThen;
-            if (filter.StartsWith("<")) return FilterOptionDateTime.SmallerThen;
+            if (filter.StartsWith("<>"))
+            {
+                return FilterOptionDateTime.NotEqual;
+            }
+            if (filter.StartsWith("="))
+            {
+                return FilterOptionDateTime.Equal;
+            }
+            if (filter.StartsWith(">"))
+            {
+                return FilterOptionDateTime.GreaterThen;
+            }
+            if (filter.StartsWith("<"))
+            {
+                return FilterOptionDateTime.SmallerThen;
+            }
 
             return FilterOptionDateTime.Equal;
         }

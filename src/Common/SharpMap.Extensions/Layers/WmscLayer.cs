@@ -25,13 +25,12 @@ namespace SharpMap.Extensions.Layers
     /// </summary>
     public class WmscLayer : AsyncTileLayer
     {
-        private ITileCache<byte[]> cache;
-
-        private ITileSchema tileSchema;
-
         private static bool makeLayerVisible;
 
         private static ICoordinateTransformation geo2webTransformation;
+        private ITileCache<byte[]> cache;
+
+        private ITileSchema tileSchema;
         private IEnvelope schemaEnvelope;
 
         public WmscLayer()
@@ -47,66 +46,11 @@ namespace SharpMap.Extensions.Layers
             {
                 var path = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
                 return Path.Combine(path,
-                    "cache_wms_" + Url.Replace(':', '_').Replace('/', '_').Replace('&', '_').Replace('?', '_') + WmsLayer);
+                                    "cache_wms_" + Url.Replace(':', '_').Replace('/', '_').Replace('&', '_').Replace('?', '_') + WmsLayer);
             }
         }
 
         public virtual string WmsLayer { get; set; }
-
-        private static ICoordinateTransformation Geo2webTransformation
-        {
-            get
-            {
-                if (geo2webTransformation == null)
-                {
-                    var srcSrs = SharpMap.Map.CoordinateSystemFactory.CreateFromEPSG(4326);
-                    var dstSrs = SharpMap.Map.CoordinateSystemFactory.CreateFromEPSG(3857);
-
-                    geo2webTransformation = SharpMap.Map.CoordinateSystemFactory.CreateTransformation(srcSrs, dstSrs);
-                }
-                return geo2webTransformation;
-            }
-        }
-
-        protected override ITileCache<byte[]> GetOrCreateCache()
-        {
-            if (cache == null)
-            {
-                //no cache so mem
-                if (CacheLocation == null)
-                    cache = new MemoryCache<byte[]>(1000, 100000);
-                else
-                    cache = new FileCache(CacheLocation, "jpg");
-            }
-            return cache;
-        }
-
-        protected override ITileSchema CreateTileSchema()
-        {
-            if (tileSchema == null)
-            {
-                tileSchema = new GlobalSphericalMercator
-                {
-                    Extent = new Extent(schemaEnvelope.MinX, schemaEnvelope.MinY, schemaEnvelope.MaxX, schemaEnvelope.MaxY)
-                };
-            }
-
-            return tileSchema;
-        }
-
-        protected override IRequest CreateRequest()
-        {
-            return new WmscRequest(new Uri(Url), tileSchema, new List<string>(new[] { WmsLayer }), null, null, "1.3.0");
-        }
-
-        public override object Clone()
-        {
-            var clone = (WmscLayer)base.Clone();
-            clone.schemaEnvelope = (IEnvelope) schemaEnvelope.Clone();
-            clone.WmsLayer = WmsLayer;
-            clone.Url = Url;
-            return clone;
-        }
 
         public static ILayer CreateWmsLayersFromUrl(string url)
         {
@@ -127,10 +71,75 @@ namespace SharpMap.Extensions.Layers
 
                     makeLayerVisible = true;
 
-                    return capabilities.Capability.Layer.ChildLayers.Count > 0 
-                        ? CreateChildLayers(url, capabilities.Capability.Layer.ChildLayers, new GroupLayer { Name = GetWmsLayerName(capabilities.Capability.Layer), ReadOnly = true }) 
-                        : CreateWmsLayer(url, capabilities.Capability.Layer);
+                    return capabilities.Capability.Layer.ChildLayers.Count > 0
+                               ? CreateChildLayers(url, capabilities.Capability.Layer.ChildLayers, new GroupLayer
+                               {
+                                   Name = GetWmsLayerName(capabilities.Capability.Layer), ReadOnly = true
+                               })
+                               : CreateWmsLayer(url, capabilities.Capability.Layer);
                 }
+            }
+        }
+
+        public override object Clone()
+        {
+            var clone = (WmscLayer) base.Clone();
+            clone.schemaEnvelope = (IEnvelope) schemaEnvelope.Clone();
+            clone.WmsLayer = WmsLayer;
+            clone.Url = Url;
+            return clone;
+        }
+
+        protected override ITileCache<byte[]> GetOrCreateCache()
+        {
+            if (cache == null)
+            {
+                //no cache so mem
+                if (CacheLocation == null)
+                {
+                    cache = new MemoryCache<byte[]>(1000, 100000);
+                }
+                else
+                {
+                    cache = new FileCache(CacheLocation, "jpg");
+                }
+            }
+            return cache;
+        }
+
+        protected override ITileSchema CreateTileSchema()
+        {
+            if (tileSchema == null)
+            {
+                tileSchema = new GlobalSphericalMercator
+                {
+                    Extent = new Extent(schemaEnvelope.MinX, schemaEnvelope.MinY, schemaEnvelope.MaxX, schemaEnvelope.MaxY)
+                };
+            }
+
+            return tileSchema;
+        }
+
+        protected override IRequest CreateRequest()
+        {
+            return new WmscRequest(new Uri(Url), tileSchema, new List<string>(new[]
+            {
+                WmsLayer
+            }), null, null, "1.3.0");
+        }
+
+        private static ICoordinateTransformation Geo2webTransformation
+        {
+            get
+            {
+                if (geo2webTransformation == null)
+                {
+                    var srcSrs = SharpMap.Map.CoordinateSystemFactory.CreateFromEPSG(4326);
+                    var dstSrs = SharpMap.Map.CoordinateSystemFactory.CreateFromEPSG(3857);
+
+                    geo2webTransformation = SharpMap.Map.CoordinateSystemFactory.CreateTransformation(srcSrs, dstSrs);
+                }
+                return geo2webTransformation;
             }
         }
 
@@ -139,8 +148,11 @@ namespace SharpMap.Extensions.Layers
             foreach (var childWmsLayer in childLayers)
             {
                 parent.Layers.Add(childWmsLayer.ChildLayers.Count > 0
-                    ? CreateChildLayers(url, childWmsLayer.ChildLayers, new GroupLayer { Name = GetWmsLayerName(childWmsLayer), ReadOnly = true })
-                    : CreateWmsLayer(url, childWmsLayer));
+                                      ? CreateChildLayers(url, childWmsLayer.ChildLayers, new GroupLayer
+                                      {
+                                          Name = GetWmsLayerName(childWmsLayer), ReadOnly = true
+                                      })
+                                      : CreateWmsLayer(url, childWmsLayer));
             }
 
             return parent;
@@ -155,7 +167,7 @@ namespace SharpMap.Extensions.Layers
                 WmsLayer = wmsLayer.Name,
                 Visible = makeLayerVisible,
                 ReadOnly = true,
-                schemaEnvelope = CreateEnvelope(wmsLayer) 
+                schemaEnvelope = CreateEnvelope(wmsLayer)
             };
 
             if (makeLayerVisible)
@@ -173,7 +185,29 @@ namespace SharpMap.Extensions.Layers
             var minY = wmsLayer.ExGeographicBoundingBox.SouthBoundLatitude;
             var maxY = wmsLayer.ExGeographicBoundingBox.NorthBoundLatitude;
 
-            var pointsGeo = new List<double[]> {new[] {minX, minY}, new[] {maxX, minY}, new[] {maxX, maxY}, new[] {minX, maxY}};
+            var pointsGeo = new List<double[]>
+            {
+                new[]
+                {
+                    minX,
+                    minY
+                },
+                new[]
+                {
+                    maxX,
+                    minY
+                },
+                new[]
+                {
+                    maxX,
+                    maxY
+                },
+                new[]
+                {
+                    minX,
+                    maxY
+                }
+            };
             var pointsWeb = Geo2webTransformation.MathTransform.TransformList(pointsGeo);
 
             var envelope = new Envelope();

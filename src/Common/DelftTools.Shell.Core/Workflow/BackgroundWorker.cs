@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.ComponentModel;
+using System.Globalization;
 using System.Threading;
 
 namespace DelftTools.Shell.Core.Workflow
@@ -23,7 +24,7 @@ namespace DelftTools.Shell.Core.Workflow
             culture = Thread.CurrentThread.CurrentCulture;
         }
 
-        protected override void OnDoWork(System.ComponentModel.DoWorkEventArgs e)
+        protected override void OnDoWork(DoWorkEventArgs e)
         {
             Thread.CurrentThread.CurrentUICulture = uiCulture;
             Thread.CurrentThread.CurrentCulture = culture;

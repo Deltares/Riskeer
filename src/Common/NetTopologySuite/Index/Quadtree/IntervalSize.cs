@@ -11,13 +11,8 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
     /// computing a midpoint value which does not lie strictly between the
     /// endpoints.
     /// </summary>
-    public class IntervalSize 
+    public class IntervalSize
     {
-        /// <summary>
-        /// Only static methods!
-        /// </summary>
-        private IntervalSize() { }
-
         /// <summary> 
         /// This value is chosen to be a few powers of 2 less than the
         /// number of bits available in the double representation (i.e. 53).
@@ -25,6 +20,11 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         /// at least for comparison purposes.
         /// </summary>
         public const int MinBinaryExponent = -50;
+
+        /// <summary>
+        /// Only static methods!
+        /// </summary>
+        private IntervalSize() {}
 
         /// <summary> 
         /// Computes whether the interval [min, max] is effectively zero width.
@@ -35,10 +35,12 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         public static bool IsZeroWidth(double min, double max)
         {
             double width = max - min;
-            if (width == 0.0) 
+            if (width == 0.0)
+            {
                 return true;
+            }
             double maxAbs = Math.Max(Math.Abs(min), Math.Abs(max));
-            double scaledInterval = width / maxAbs;
+            double scaledInterval = width/maxAbs;
             int level = DoubleBits.GetExponent(scaledInterval);
             return level <= MinBinaryExponent;
         }

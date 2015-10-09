@@ -9,6 +9,8 @@ namespace SharpMap.Editors.Interactors
 {
     public class LinearRingInteractor : LineStringInteractor
     {
+        private readonly RingFallOffPolicy ringFallOffPolicy;
+
         public LinearRingInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle, IEditableObject editableObject)
             : base(layer, feature, vectorStyle, editableObject)
         {
@@ -17,9 +19,10 @@ namespace SharpMap.Editors.Interactors
 
         public override IFallOffPolicy FallOffPolicy
         {
-            get { return ringFallOffPolicy; }
+            get
+            {
+                return ringFallOffPolicy;
+            }
         }
-
-        private readonly RingFallOffPolicy ringFallOffPolicy;
     }
 }

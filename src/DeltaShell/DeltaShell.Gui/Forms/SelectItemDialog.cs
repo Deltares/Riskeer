@@ -14,6 +14,8 @@ namespace DeltaShell.Gui.Forms
     {
         private string newItemName;
 
+        private int previousSelectedItemIndex;
+
         public SelectItemDialog()
         {
             InitializeComponent();
@@ -31,14 +33,12 @@ namespace DeltaShell.Gui.Forms
             ControlHelper.SendMessage(Handle, 0x127, 0x30001, 0);
         }
 
-        private void ListViewItemTypesOnHandleCreated(object sender, EventArgs eventArgs)
-        {
-            ControlHelper.SetWindowTheme(listViewItemTypes.Handle, Resources.SelectItemDialog_ListViewItemTypesOnHandleCreated_Explorer, null);   
-        }
-
         public object SelectedItemTag
         {
-            get { return SelectedItem.Tag; }
+            get
+            {
+                return SelectedItem.Tag;
+            }
         }
 
         public string SelectedItemTypeName
@@ -46,6 +46,32 @@ namespace DeltaShell.Gui.Forms
             get
             {
                 return SelectedItem != null ? SelectedItem.Name : null;
+            }
+        }
+
+        public Func<string, bool> ItemSupportsExample { get; set; }
+
+        public bool IsExample
+        {
+            get
+            {
+                return checkBoxExample.Checked;
+            }
+            set
+            {
+                checkBoxExample.Checked = value;
+            }
+        }
+
+        public bool ShowExampleCheckBox
+        {
+            get
+            {
+                return checkBoxExample.Visible;
+            }
+            set
+            {
+                checkBoxExample.Visible = value;
             }
         }
 
@@ -62,6 +88,20 @@ namespace DeltaShell.Gui.Forms
             listViewItemTypes.Items.Add(name, name, imageList.Images.Count - 1);
             listViewItemTypes.Items[listViewItemTypes.Items.Count - 1].Group = group;
             listViewItemTypes.Items[listViewItemTypes.Items.Count - 1].Tag = tag;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Down)
+            {
+                //return true;
+            }
+            if (keyData == Keys.Up)
+            {
+                //return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private ListViewItem SelectedItem
@@ -84,11 +124,16 @@ namespace DeltaShell.Gui.Forms
             }
         }
 
+        private void ListViewItemTypesOnHandleCreated(object sender, EventArgs eventArgs)
+        {
+            ControlHelper.SetWindowTheme(listViewItemTypes.Handle, Resources.SelectItemDialog_ListViewItemTypesOnHandleCreated_Explorer, null);
+        }
+
         private bool ContainsCategory(string category)
         {
             foreach (ListViewGroup listViewGroup in listViewItemTypes.Groups)
             {
-                if(listViewGroup.Header == category)
+                if (listViewGroup.Header == category)
                 {
                     return true;
                 }
@@ -97,9 +142,7 @@ namespace DeltaShell.Gui.Forms
             return false;
         }
 
-        private void NewDataDialog_Validating(object sender, CancelEventArgs e)
-        {
-        }
+        private void NewDataDialog_Validating(object sender, CancelEventArgs e) {}
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
@@ -115,28 +158,11 @@ namespace DeltaShell.Gui.Forms
             buttonOk.PerformClick();
         }
 
-        private int previousSelectedItemIndex;
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if(keyData == Keys.Down)
-            {
-                //return true;
-            }
-            if (keyData == Keys.Up)
-            {
-                //return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
         private void listViewItemTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             var selectedItemName = "";
 
-            if(SelectedItem == null)
+            if (SelectedItem == null)
             {
                 newItemName = "";
             }
@@ -148,33 +174,16 @@ namespace DeltaShell.Gui.Forms
                 newItemName = Resources.SelectItemDialog_listViewItemTypes_SelectedIndexChanged_New_ + selectedItemName;
             }
 
-            if(string.IsNullOrEmpty(newItemName))
+            if (string.IsNullOrEmpty(newItemName))
             {
                 ShowExampleCheckBox = false;
             }
-            else if(ItemSupportsExample != null)
+            else if (ItemSupportsExample != null)
             {
                 ShowExampleCheckBox = ItemSupportsExample(selectedItemName);
             }
         }
 
-        private void checkBoxDemo_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        public Func<string, bool> ItemSupportsExample { get; set; }
-
-        public bool IsExample
-        {
-            get { return checkBoxExample.Checked; }
-            set { checkBoxExample.Checked = value; }
-        }
-    
-        public bool ShowExampleCheckBox
-        {
-            get { return checkBoxExample.Visible; }
-            set { checkBoxExample.Visible = value; }
-        }
+        private void checkBoxDemo_CheckedChanged(object sender, EventArgs e) {}
     }
 }

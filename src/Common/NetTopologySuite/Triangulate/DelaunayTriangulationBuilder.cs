@@ -14,6 +14,24 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
     /// <author>Martin Davis</author>
     public class DelaunayTriangulationBuilder
     {
+        private ICollection<ICoordinate> _siteCoords;
+        private double _tolerance;
+        private QuadEdgeSubdivision _subdiv;
+
+        /// <summary>
+        /// Sets the snapping tolerance which will be used
+        /// to improved the robustness of the triangulation computation.
+        /// A tolerance of 0.0 specifies that no snapping will take place.
+        /// </summary>
+        ///// <param name="tolerance">the tolerance distance to use</param>
+        public double Tolerance
+        {
+            set
+            {
+                _tolerance = value;
+            }
+        }
+
         /// <summary>
         /// Extracts the unique <see cref="Coordinate"/>s from the given <see cref="IGeometry"/>.
         /// </summary>
@@ -22,7 +40,9 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         public static CoordinateList ExtractUniqueCoordinates(IGeometry geom)
         {
             if (geom == null)
+            {
                 return new CoordinateList();
+            }
 
             ICoordinate[] coords = geom.Coordinates;
             return Unique(coords);
@@ -66,10 +86,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
             return env;
         }
 
-        private ICollection<ICoordinate> _siteCoords;
-        private double _tolerance;
-        private QuadEdgeSubdivision _subdiv;
-
         /// <summary>
         /// Sets the sites (vertices) which will be triangulated.
         /// All vertices of the given geometry will be used as sites.
@@ -90,28 +106,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         {
             // remove any duplicate points (they will cause the triangulation to fail)
             _siteCoords = Unique(CoordinateArrays.ToCoordinateArray(coords));
-        }
-
-        /// <summary>
-        /// Sets the snapping tolerance which will be used
-        /// to improved the robustness of the triangulation computation.
-        /// A tolerance of 0.0 specifies that no snapping will take place.
-        /// </summary>
-        ///// <param name="tolerance">the tolerance distance to use</param>
-        public double Tolerance
-        {
-            set {  _tolerance = value; }
-        }
-
-        private void Create()
-        {
-            if (_subdiv != null) return;
-
-            var siteEnv = Envelope(_siteCoords);
-            var vertices = ToVertices(_siteCoords);
-            _subdiv = new QuadEdgeSubdivision(siteEnv, _tolerance);
-            IncrementalDelaunayTriangulator triangulator = new IncrementalDelaunayTriangulator(_subdiv);
-            triangulator.InsertSites(vertices);
         }
 
         /// <summary>
@@ -145,6 +139,20 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         {
             Create();
             return _subdiv.GetTriangles(geomFact);
+        }
+
+        private void Create()
+        {
+            if (_subdiv != null)
+            {
+                return;
+            }
+
+            var siteEnv = Envelope(_siteCoords);
+            var vertices = ToVertices(_siteCoords);
+            _subdiv = new QuadEdgeSubdivision(siteEnv, _tolerance);
+            IncrementalDelaunayTriangulator triangulator = new IncrementalDelaunayTriangulator(_subdiv);
+            triangulator.InsertSites(vertices);
         }
     }
 }

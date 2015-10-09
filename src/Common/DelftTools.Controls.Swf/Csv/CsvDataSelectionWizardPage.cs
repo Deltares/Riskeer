@@ -12,14 +12,44 @@ namespace DelftTools.Controls.Swf.Csv
             InitializeComponent();
         }
 
-        public IDictionary<CsvRequiredField,CsvColumnInfo> FieldToColumnMapping
+        public bool FilteringVisible
         {
-            get { return csvDataSelectionControl1.FieldToColumnMapping; }
+            get
+            {
+                return csvDataSelectionControl1.FilteringVisible;
+            }
+            set
+            {
+                csvDataSelectionControl1.FilteringVisible = value;
+            }
+        }
+
+        public bool ColumnSelectionVisible
+        {
+            get
+            {
+                return csvDataSelectionControl1.ColumnSelectionVisible;
+            }
+            set
+            {
+                csvDataSelectionControl1.ColumnSelectionVisible = value;
+            }
+        }
+
+        public IDictionary<CsvRequiredField, CsvColumnInfo> FieldToColumnMapping
+        {
+            get
+            {
+                return csvDataSelectionControl1.FieldToColumnMapping;
+            }
         }
 
         public IEnumerable<CsvFilter> Filters
         {
-            get { return csvDataSelectionControl1.Filters; }
+            get
+            {
+                return csvDataSelectionControl1.Filters;
+            }
         }
 
         public bool CanFinish()
@@ -40,18 +70,6 @@ namespace DelftTools.Controls.Swf.Csv
         public void SetData(DataTable dataTable, IEnumerable<CsvRequiredField> requiredFields)
         {
             csvDataSelectionControl1.SetData(dataTable, requiredFields);
-        }
-
-        public bool FilteringVisible
-        {
-            get { return csvDataSelectionControl1.FilteringVisible; }
-            set { csvDataSelectionControl1.FilteringVisible = value; }
-        }
-
-        public bool ColumnSelectionVisible
-        {
-            get { return csvDataSelectionControl1.ColumnSelectionVisible; }
-            set { csvDataSelectionControl1.ColumnSelectionVisible = value; }
         }
     }
 }

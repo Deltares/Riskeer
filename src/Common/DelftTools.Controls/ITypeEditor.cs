@@ -10,8 +10,8 @@ namespace DelftTools.Controls
     // TODO: move to Editors, rename to IObjectEditor, or maybe merge with IView
     public interface ITypeEditor : IComponent
     {
-        object EditableValue { get; set; }
         event CancelEventHandler Validating;
+        object EditableValue { get; set; }
         bool Validate();
         bool CanAcceptEditValue();
         bool CanPopup();

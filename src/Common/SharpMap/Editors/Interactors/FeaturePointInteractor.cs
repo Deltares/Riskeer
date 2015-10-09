@@ -8,10 +8,8 @@ namespace SharpMap.Editors.Interactors
     public class FeaturePointInteractor : PointInteractor
     {
         public FeaturePointInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle,
-                                        IEditableObject editableObject)
-            : base(layer, feature, vectorStyle, editableObject)
-        {
-        }
+                                      IEditableObject editableObject)
+            : base(layer, feature, vectorStyle, editableObject) {}
 
         protected override bool AllowDeletionCore()
         {

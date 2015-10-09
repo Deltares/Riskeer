@@ -19,7 +19,10 @@ namespace DelftTools.Controls.Swf.Charting.Series
         /// </summary>
         public bool AutoClose
         {
-            get { return autoClose; }
+            get
+            {
+                return autoClose;
+            }
             set
             {
                 autoClose = value;
@@ -98,9 +101,7 @@ namespace DelftTools.Controls.Swf.Charting.Series
         /// <param name="valueIndex"></param>
         /// <param name="backColor"></param>
         /// <param name="aBrush"></param>
-        protected override void PrepareLegendCanvas(Graphics3D g, int valueIndex, ref Color backColor, ref ChartBrush aBrush)
-        {
-        }
+        protected override void PrepareLegendCanvas(Graphics3D g, int valueIndex, ref Color backColor, ref ChartBrush aBrush) {}
 
         private void PrepareGraphics3D(Graphics3D g)
         {
@@ -138,7 +139,10 @@ namespace DelftTools.Controls.Swf.Charting.Series
 
         private void AddToPointsList(ICollection<Point[]> pointGroupsToRender, List<Point> currentPointsGroup)
         {
-            if (!currentPointsGroup.Any()) return; // Do nothing for empty list
+            if (!currentPointsGroup.Any())
+            {
+                return; // Do nothing for empty list
+            }
 
             if (autoClose && (currentPointsGroup[0].X != currentPointsGroup.Last().X || currentPointsGroup[0].Y != currentPointsGroup.Last().Y))
             {

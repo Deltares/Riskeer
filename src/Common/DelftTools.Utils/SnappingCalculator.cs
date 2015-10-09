@@ -20,19 +20,19 @@ namespace DelftTools.Utils
             }
 
             //minimun
-            var minDuration = times.Select(t=>(t - value).Duration()).Min();
+            var minDuration = times.Select(t => (t - value).Duration()).Min();
             //selection the time with this minimum
             var q = from t in times
-                    where (t - value).Duration()== minDuration
+                    where (t - value).Duration() == minDuration
                     select t;
-            
+
             return q.FirstOrDefault();
         }
 
         public static DateTime? GetLastTimeInRange(IEnumerable<DateTime> times, DateTime? start, DateTime? end)
         {
-            var time = times.OrderByDescending(t=>t).FirstOrDefault(t => t >= start && t<=end);
-            return time == default(DateTime) ? (DateTime?)null : time;
+            var time = times.OrderByDescending(t => t).FirstOrDefault(t => t >= start && t <= end);
+            return time == default(DateTime) ? (DateTime?) null : time;
         }
 
         public static DateTime? GetFirstTimeInRange(IEnumerable<DateTime> times, DateTime? start, DateTime? end)
@@ -44,7 +44,7 @@ namespace DelftTools.Utils
         public static DateTime? GetFirstTimeLeftOfValue(IEnumerable<DateTime> times, DateTime? start)
         {
             var time = times.OrderByDescending(t => t).FirstOrDefault(t => t <= start);
-            return time == default(DateTime) ? (DateTime?)null : time;
+            return time == default(DateTime) ? (DateTime?) null : time;
         }
     }
 }

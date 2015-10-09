@@ -26,16 +26,23 @@ namespace DelftTools.Utils.Tests.Reflection
             ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name, "Generated.dll");
 
             TypeBuilder typeBuilder =
-                moduleBuilder.DefineType("DelftTools.Utils.Reflection.B", TypeAttributes.Public | TypeAttributes.Class, typeof (A));
+                moduleBuilder.DefineType("DelftTools.Utils.Reflection.B", TypeAttributes.Public | TypeAttributes.Class, typeof(A));
 
             typeBuilder.SetCustomAttribute(
-                new CustomAttributeBuilder(typeof (GuidAttribute).GetConstructor(new Type[] {typeof (string)}),
-                                           new object[] {"527A38E0-3484-465e-AC45-5FC2BE51FB78"}));
+                new CustomAttributeBuilder(typeof(GuidAttribute).GetConstructor(new Type[]
+                {
+                    typeof(string)
+                }),
+                                           new object[]
+                                           {
+                                               "527A38E0-3484-465e-AC45-5FC2BE51FB78"
+                                           }));
 
             MethodBuilder methodBuilder =
                 typeBuilder.DefineMethod("GetToolWindowName",
                                          MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.Virtual,
-                                         typeof (string), new Type[] {});
+                                         typeof(string), new Type[]
+                                         {});
 
             ILGenerator ilGenerator = methodBuilder.GetILGenerator();
             ilGenerator.Emit(OpCodes.Ldstr, "Hello!");

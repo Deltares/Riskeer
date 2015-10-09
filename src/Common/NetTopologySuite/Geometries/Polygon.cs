@@ -32,8 +32,8 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>
         /// The interior boundaries, if any.
         /// </summary>
-        protected ILinearRing[] holes; 
-        
+        protected ILinearRing[] holes;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Polygon"/> class.
         /// </summary>
@@ -51,7 +51,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// For create this <see cref="Geometry"/> is used a standard <see cref="GeometryFactory"/> 
         /// with <see cref="PrecisionModel" /> <c> == </c> <see cref="PrecisionModels.Floating"/>.
         /// </remarks>
-        public Polygon(ILinearRing shell, ILinearRing[] holes) : this(shell, holes, DefaultFactory) { }
+        public Polygon(ILinearRing shell, ILinearRing[] holes) : this(shell, holes, DefaultFactory) {}
 
         /// <summary>
         /// Constructs a <c>Polygon</c> with the given exterior boundary and
@@ -69,19 +69,51 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </param>
         /// <param name="factory"></param>
         public Polygon(ILinearRing shell, ILinearRing[] holes, IGeometryFactory factory) : base(factory)
-        {        
-            if (shell == null) 
-                shell = Factory.CreateLinearRing((ICoordinateSequence) null);            
-            if (holes == null) 
-                holes = new ILinearRing[] { };
-            if (HasNullElements(holes)) 
+        {
+            if (shell == null)
+            {
+                shell = Factory.CreateLinearRing((ICoordinateSequence) null);
+            }
+            if (holes == null)
+            {
+                holes = new ILinearRing[]
+                {};
+            }
+            if (HasNullElements(holes))
+            {
                 throw new ArgumentException("holes must not contain null elements");
-            if (shell.IsEmpty && HasNonEmptyElements(holes)) 
+            }
+            if (shell.IsEmpty && HasNonEmptyElements(holes))
+            {
                 throw new ArgumentException("shell is empty but holes are not");
+            }
             this.shell = shell;
             this.holes = holes;
             GeometryChangedAction();
         }
+
+        /* BEGIN ADDED BY MPAUL42: monoGIS team */
+
+        /// <summary>
+        /// Constructs a <c>Polygon</c> with the given exterior boundary.
+        /// </summary>
+        /// <param name="shell">
+        /// The outer boundary of the new <c>Polygon</c>,
+        /// or <c>null</c> or an empty <c>LinearRing</c> if the empty
+        /// polygon is to be created.
+        /// </param>
+        /// <param name="factory"></param>
+        public Polygon(ILinearRing shell, IGeometryFactory factory) : this(shell, null, factory) {}
+
+        /// <summary>
+        /// Constructs a <c>Polygon</c> with the given exterior boundary.
+        /// </summary>
+        /// <param name="shell">
+        /// The outer boundary of the new <c>Polygon</c>,
+        /// or <c>null</c> or an empty <c>LinearRing</c> if the empty
+        /// polygon is to be created.
+        /// </param>
+        public Polygon(ILinearRing shell) : this(shell, null, DefaultFactory) {}
 
         /// <summary>
         /// 
@@ -102,7 +134,10 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             get
             {
                 if (IsEmpty)
-                    return new ICoordinate[] { };
+                {
+                    return new ICoordinate[]
+                    {};
+                }
                 ICoordinate[] coordinates = new ICoordinate[NumPoints];
                 int k = -1;
                 ICoordinate[] shellCoordinates = shell.Coordinates;
@@ -133,7 +168,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             {
                 int numPoints = shell.NumPoints;
                 for (int i = 0; i < holes.Length; i++)
+                {
                     numPoints += holes[i].NumPoints;
+                }
                 return numPoints;
             }
         }
@@ -215,16 +252,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public ILineString GetInteriorRingN(int n) 
-        {
-            return holes[n];
-        }
-
         public override string GeometryType
         {
             get
@@ -235,8 +262,8 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
 
         /// <summary> 
         /// Returns the area of this <c>Polygon</c>
-		/// </summary>
-		/// <returns></returns>
+        /// </summary>
+        /// <returns></returns>
         public override double Area
         {
             get
@@ -244,15 +271,17 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
                 double area = 0.0;
                 area += Math.Abs(CGAlgorithms.SignedArea(shell.Coordinates));
                 for (int i = 0; i < holes.Length; i++)
-                    area -= Math.Abs(CGAlgorithms.SignedArea(holes[i].Coordinates));                
+                {
+                    area -= Math.Abs(CGAlgorithms.SignedArea(holes[i].Coordinates));
+                }
                 return area;
             }
         }
 
         /// <summary>
         /// Returns the perimeter of this <c>Polygon</c>.
-		/// </summary>
-		/// <returns></returns>
+        /// </summary>
+        /// <returns></returns>
         public override double Length
         {
             get
@@ -260,7 +289,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
                 double len = 0.0;
                 len += shell.Length;
                 for (int i = 0; i < holes.Length; i++)
+                {
                     len += holes[i].Length;
+                }
                 return len;
             }
         }
@@ -273,147 +304,21 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             get
             {
                 if (IsEmpty)
+                {
                     return Factory.CreateGeometryCollection(null);
+                }
                 ILinearRing[] rings = new ILinearRing[holes.Length + 1];
                 rings[0] = shell;
                 for (int i = 0; i < holes.Length; i++)
+                {
                     rings[i + 1] = holes[i];
+                }
                 if (rings.Length <= 1)
+                {
                     return Factory.CreateLinearRing(rings[0].CoordinateSequence);
+                }
                 return Factory.CreateMultiLineString(rings);
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected override IEnvelope ComputeEnvelopeInternal() 
-        {
-            return shell.EnvelopeInternal;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
-        /// <param name="tolerance"></param>
-        /// <returns></returns>
-        public override bool EqualsExact(IGeometry other, double tolerance) 
-        {
-            if (!IsEquivalentClass(other)) 
-                return false;
-
-            IPolygon otherPolygon = (IPolygon) other;
-            IGeometry thisShell = shell;
-            IGeometry otherPolygonShell = otherPolygon.Shell;
-            if (!thisShell.EqualsExact(otherPolygonShell, tolerance)) 
-                return false;
-            if (holes.Length != otherPolygon.Holes.Length) 
-                return false;
-            if (holes.Length != otherPolygon.Holes.Length) 
-                return false;
-            for (int i = 0; i < holes.Length; i++) 
-                if (!(holes[i]).EqualsExact(otherPolygon.Holes[i], tolerance)) 
-                    return false;
-            return true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="filter"></param>
-        public override void Apply(ICoordinateFilter filter)
-        {
-            shell.Apply(filter);
-            for (int i = 0; i < holes.Length; i++) 
-                holes[i].Apply(filter);            
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="filter"></param>
-        public override void Apply(IGeometryFilter filter) 
-        {
-            filter.Filter(this);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="filter"></param>
-        public override void Apply(IGeometryComponentFilter filter) 
-        {
-            filter.Filter(this);
-            shell.Apply(filter);
-            for (int i = 0; i < holes.Length; i++) 
-                holes[i].Apply(filter);            
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override object Clone() 
-        {
-            Polygon poly = (Polygon) base.Clone();
-            poly.shell = (LinearRing) shell.Clone();
-            poly.holes = new ILinearRing[holes.Length];
-            for (int i = 0; i < holes.Length; i++) 
-                poly.holes[i] = (LinearRing) holes[i].Clone();            
-            return poly; 
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override IGeometry ConvexHull()
-        {            
-            return ExteriorRing.ConvexHull();         
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public override void Normalize() 
-        {
-            Normalize(shell, true);
-            foreach(ILinearRing hole in Holes)
-                Normalize(hole, false);
-            Array.Sort(holes);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="o"></param>
-        /// <returns></returns>
-        protected internal override int CompareToSameClass(object o) 
-        {   
-            LinearRing thisShell = (LinearRing) shell;
-            ILinearRing otherShell = ((IPolygon) o).Shell;
-            return thisShell.CompareToSameClass(otherShell);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ring"></param>
-        /// <param name="clockwise"></param>        
-        private void Normalize(ILinearRing ring, bool clockwise) 
-        {
-            if (ring.IsEmpty) 
-                return;            
-            ICoordinate[] uniqueCoordinates = new ICoordinate[ring.Coordinates.Length - 1];
-            Array.Copy(ring.Coordinates, 0, uniqueCoordinates, 0, uniqueCoordinates.Length);
-            ICoordinate minCoordinate = CoordinateArrays.MinCoordinate(ring.Coordinates);
-            CoordinateArrays.Scroll(uniqueCoordinates, minCoordinate);
-            Array.Copy(uniqueCoordinates, 0, ring.Coordinates, 0, uniqueCoordinates.Length);
-            ring.Coordinates[uniqueCoordinates.Length] = uniqueCoordinates[0];
-            if (CGAlgorithms.IsCCW(ring.Coordinates) == clockwise) 
-                CoordinateArrays.Reverse(ring.Coordinates);            
         }
 
         /// <summary>
@@ -424,22 +329,35 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             get
             {
-                if (NumInteriorRings != 0) return false;
-                if (Shell == null) return false;
-                if (Shell.NumPoints != 5) return false;
+                if (NumInteriorRings != 0)
+                {
+                    return false;
+                }
+                if (Shell == null)
+                {
+                    return false;
+                }
+                if (Shell.NumPoints != 5)
+                {
+                    return false;
+                }
 
                 // check vertices have correct values
-                ICoordinateSequence seq = Shell.CoordinateSequence;                
+                ICoordinateSequence seq = Shell.CoordinateSequence;
                 Envelope env = (Envelope) EnvelopeInternal;
                 for (int i = 0; i < 5; i++)
                 {
                     double x = seq.GetX(i);
-                    if (!(x == env.MinX || x == env.MaxX)) 
+                    if (!(x == env.MinX || x == env.MaxX))
+                    {
                         return false;
-                    
+                    }
+
                     double y = seq.GetY(i);
                     if (!(y == env.MinY || y == env.MaxY))
+                    {
                         return false;
+                    }
                 }
 
                 // check vertices are in right order
@@ -452,39 +370,18 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
 
                     bool xChanged = x != prevX;
                     bool yChanged = y != prevY;
-                    
+
                     if (xChanged == yChanged)
+                    {
                         return false;
-                    
+                    }
+
                     prevX = x;
                     prevY = y;
                 }
                 return true;
             }
         }
-
-        /* BEGIN ADDED BY MPAUL42: monoGIS team */
-
-        /// <summary>
-        /// Constructs a <c>Polygon</c> with the given exterior boundary.
-        /// </summary>
-        /// <param name="shell">
-        /// The outer boundary of the new <c>Polygon</c>,
-        /// or <c>null</c> or an empty <c>LinearRing</c> if the empty
-        /// polygon is to be created.
-        /// </param>
-        /// <param name="factory"></param>
-        public Polygon(ILinearRing shell, IGeometryFactory factory) : this(shell, null, factory) { }
-
-        /// <summary>
-        /// Constructs a <c>Polygon</c> with the given exterior boundary.
-        /// </summary>
-        /// <param name="shell">
-        /// The outer boundary of the new <c>Polygon</c>,
-        /// or <c>null</c> or an empty <c>LinearRing</c> if the empty
-        /// polygon is to be created.
-        /// </param>
-        public Polygon(ILinearRing shell) : this(shell, null, DefaultFactory) { }
 
         /// <summary>
         /// 
@@ -508,7 +405,172 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             }
         }
 
-        /*END ADDED BY MPAUL42 */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public ILineString GetInteriorRingN(int n)
+        {
+            return holes[n];
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <param name="tolerance"></param>
+        /// <returns></returns>
+        public override bool EqualsExact(IGeometry other, double tolerance)
+        {
+            if (!IsEquivalentClass(other))
+            {
+                return false;
+            }
+
+            IPolygon otherPolygon = (IPolygon) other;
+            IGeometry thisShell = shell;
+            IGeometry otherPolygonShell = otherPolygon.Shell;
+            if (!thisShell.EqualsExact(otherPolygonShell, tolerance))
+            {
+                return false;
+            }
+            if (holes.Length != otherPolygon.Holes.Length)
+            {
+                return false;
+            }
+            if (holes.Length != otherPolygon.Holes.Length)
+            {
+                return false;
+            }
+            for (int i = 0; i < holes.Length; i++)
+            {
+                if (!(holes[i]).EqualsExact(otherPolygon.Holes[i], tolerance))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter"></param>
+        public override void Apply(ICoordinateFilter filter)
+        {
+            shell.Apply(filter);
+            for (int i = 0; i < holes.Length; i++)
+            {
+                holes[i].Apply(filter);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter"></param>
+        public override void Apply(IGeometryFilter filter)
+        {
+            filter.Filter(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter"></param>
+        public override void Apply(IGeometryComponentFilter filter)
+        {
+            filter.Filter(this);
+            shell.Apply(filter);
+            for (int i = 0; i < holes.Length; i++)
+            {
+                holes[i].Apply(filter);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override object Clone()
+        {
+            Polygon poly = (Polygon) base.Clone();
+            poly.shell = (LinearRing) shell.Clone();
+            poly.holes = new ILinearRing[holes.Length];
+            for (int i = 0; i < holes.Length; i++)
+            {
+                poly.holes[i] = (LinearRing) holes[i].Clone();
+            }
+            return poly;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override IGeometry ConvexHull()
+        {
+            return ExteriorRing.ConvexHull();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override void Normalize()
+        {
+            Normalize(shell, true);
+            foreach (ILinearRing hole in Holes)
+            {
+                Normalize(hole, false);
+            }
+            Array.Sort(holes);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
+        protected internal override int CompareToSameClass(object o)
+        {
+            LinearRing thisShell = (LinearRing) shell;
+            ILinearRing otherShell = ((IPolygon) o).Shell;
+            return thisShell.CompareToSameClass(otherShell);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override IEnvelope ComputeEnvelopeInternal()
+        {
+            return shell.EnvelopeInternal;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ring"></param>
+        /// <param name="clockwise"></param>        
+        private void Normalize(ILinearRing ring, bool clockwise)
+        {
+            if (ring.IsEmpty)
+            {
+                return;
+            }
+            ICoordinate[] uniqueCoordinates = new ICoordinate[ring.Coordinates.Length - 1];
+            Array.Copy(ring.Coordinates, 0, uniqueCoordinates, 0, uniqueCoordinates.Length);
+            ICoordinate minCoordinate = CoordinateArrays.MinCoordinate(ring.Coordinates);
+            CoordinateArrays.Scroll(uniqueCoordinates, minCoordinate);
+            Array.Copy(uniqueCoordinates, 0, ring.Coordinates, 0, uniqueCoordinates.Length);
+            ring.Coordinates[uniqueCoordinates.Length] = uniqueCoordinates[0];
+            if (CGAlgorithms.IsCCW(ring.Coordinates) == clockwise)
+            {
+                CoordinateArrays.Reverse(ring.Coordinates);
+            }
+        }
+
+        /*END ADDED BY MPAUL42 */
     }
 }

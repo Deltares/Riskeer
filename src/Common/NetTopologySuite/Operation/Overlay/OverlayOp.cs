@@ -12,9 +12,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
     /// </summary>
     public enum SpatialFunction
     {
-        Intersection  = 1,
-        Union         = 2,
-        Difference    = 3,
+        Intersection = 1,
+        Union = 2,
+        Difference = 3,
         SymDifference = 4,
     }
 
@@ -24,6 +24,34 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
     /// </summary>
     public class OverlayOp : GeometryGraphOperation
     {
+        private readonly PointLocator ptLocator = new PointLocator();
+        private readonly IGeometryFactory geomFact;
+
+        private readonly PlanarGraph graph;
+        private readonly EdgeList edgeList = new EdgeList();
+        private IGeometry resultGeom;
+
+        private IList resultPolyList = new ArrayList();
+        private IList resultLineList = new ArrayList();
+        private IList resultPointList = new ArrayList();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g0"></param>
+        /// <param name="g1"></param>
+        public OverlayOp(IGeometry g0, IGeometry g1) : base(g0, g1)
+        {
+            graph = new PlanarGraph(new OverlayNodeFactory());
+
+            /*
+            * Use factory of primary point.
+            * Note that this does NOT handle mixed-precision arguments
+            * where the second arg has greater precision than the first.
+            */
+            geomFact = g0.Factory;
+        }
+
         /// <summary>
         /// Disable <see cref="EdgeNodingValidator"/> 
         /// when an intersection is made (<see cref="ComputeOverlay"/>), 
@@ -33,6 +61,14 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         /// Use ay your own risk!
         /// </remarks>        
         public static bool NodingValidatorDisabled { get; set; }
+
+        public PlanarGraph Graph
+        {
+            get
+            {
+                return graph;
+            }
+        }
 
         public static IGeometry Overlay(IGeometry geom0, IGeometry geom1, SpatialFunction opCode)
         {
@@ -54,12 +90,16 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         /// <returns><c>true</c> if the locations correspond to the opCode.</returns>
         public static bool IsResultOfOp(Locations loc0, Locations loc1, SpatialFunction opCode)
         {
-            if (loc0 == Locations.Boundary) 
+            if (loc0 == Locations.Boundary)
+            {
                 loc0 = Locations.Interior;
-            if (loc1 == Locations.Boundary) 
+            }
+            if (loc1 == Locations.Boundary)
+            {
                 loc1 = Locations.Interior;
-            
-            switch (opCode) 
+            }
+
+            switch (opCode)
             {
                 case SpatialFunction.Intersection:
                     return loc0 == Locations.Interior && loc1 == Locations.Interior;
@@ -68,39 +108,11 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
                 case SpatialFunction.Difference:
                     return loc0 == Locations.Interior && loc1 != Locations.Interior;
                 case SpatialFunction.SymDifference:
-                    return   (loc0 == Locations.Interior &&  loc1 != Locations.Interior)
-                          || (loc0 != Locations.Interior &&  loc1 == Locations.Interior);
-	            default:
+                    return (loc0 == Locations.Interior && loc1 != Locations.Interior)
+                           || (loc0 != Locations.Interior && loc1 == Locations.Interior);
+                default:
                     return false;
-            }            
-        }
-
-        private readonly PointLocator ptLocator = new PointLocator();
-        private readonly IGeometryFactory geomFact;
-        private IGeometry resultGeom;
-
-        private readonly PlanarGraph graph;
-        private readonly EdgeList edgeList      = new EdgeList();
-
-        private IList resultPolyList   = new ArrayList();
-        private IList resultLineList   = new ArrayList();
-        private IList resultPointList  = new ArrayList();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="g0"></param>
-        /// <param name="g1"></param>
-        public OverlayOp(IGeometry g0, IGeometry g1) : base(g0, g1)
-        {            
-            graph = new PlanarGraph(new OverlayNodeFactory());
-
-            /*
-            * Use factory of primary point.
-            * Note that this does NOT handle mixed-precision arguments
-            * where the second arg has greater precision than the first.
-            */
-            geomFact = g0.Factory;
+            }
         }
 
         public IGeometry GetResultGeometry(SpatialFunction funcCode)
@@ -109,74 +121,26 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
             return resultGeom;
         }
 
-        public PlanarGraph Graph
+        /// <summary>
+        /// This method is used to decide if a point node should be included in the result or not.
+        /// </summary>
+        /// <returns><c>true</c> if the coord point is covered by a result Line or Area point.</returns>
+        public bool IsCoveredByLA(ICoordinate coord)
         {
-            get { return graph; }
+            if (IsCovered(coord, resultLineList))
+            {
+                return true;
+            }
+            return IsCovered(coord, resultPolyList);
         }
 
-        private void ComputeOverlay(SpatialFunction opCode)
+        /// <summary>
+        /// This method is used to decide if an L edge should be included in the result or not.
+        /// </summary>
+        /// <returns><c>true</c> if the coord point is covered by a result Area point.</returns>
+        public bool IsCoveredByA(ICoordinate coord)
         {
-            // copy points from input Geometries.
-            // This ensures that any Point geometries
-            // in the input are considered for inclusion in the result set
-            CopyPoints(0);
-            CopyPoints(1);
-
-            // node the input Geometries
-            arg[0].ComputeSelfNodes(lineIntersector, false);
-            arg[1].ComputeSelfNodes(lineIntersector, false);            
-
-            // compute intersections between edges of the two input geometries
-            arg[0].ComputeEdgeIntersections(arg[1], lineIntersector, true);
-
-            IList baseSplitEdges = new ArrayList();
-            arg[0].ComputeSplitEdges(baseSplitEdges);            
-            arg[1].ComputeSplitEdges(baseSplitEdges);            
-            // add the noded edges to this result graph
-            InsertUniqueEdges(baseSplitEdges);
-
-            ComputeLabelsFromDepths();
-            ReplaceCollapsedEdges();
-
-            if (!NodingValidatorDisabled)
-            {
-                var nv = new EdgeNodingValidator(edgeList.Edges);
-                nv.checkValid();
-            }
-            
-            graph.AddEdges(edgeList.Edges);
-            ComputeLabelling();
-            LabelIncompleteNodes();
-
-            /*
-            * The ordering of building the result Geometries is important.
-            * Areas must be built before lines, which must be built before points.
-            * This is so that lines which are covered by areas are not included
-            * explicitly, and similarly for points.
-            */
-            FindResultAreaEdges(opCode);
-            CancelDuplicateResultEdges();
-            var polyBuilder = new PolygonBuilder(geomFact);
-            polyBuilder.Add(graph);
-            resultPolyList = polyBuilder.Polygons;
-
-            var lineBuilder = new LineBuilder(this, geomFact, ptLocator);
-            resultLineList = lineBuilder.Build(opCode);
-
-            var pointBuilder = new PointBuilder(this, geomFact, ptLocator);
-            resultPointList = pointBuilder.Build(opCode);
-
-            // gather the results from all calculations into a single Geometry for the result set
-            resultGeom = ComputeGeometry(resultPointList, resultLineList, resultPolyList);
-        }        
-
-        private void InsertUniqueEdges(IEnumerable edges)
-        {
-            for (var i = edges.GetEnumerator(); i.MoveNext(); ) 
-            {
-                var e = (Edge) i.Current;
-                InsertUniqueEdge(e);
-            }
+            return IsCovered(coord, resultPolyList);
         }
 
         /// <summary>
@@ -207,7 +171,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
                 var depth = existingEdge.Depth;
                 // if this is the first duplicate found for this edge, initialize the depths
                 if (depth.IsNull())
+                {
                     depth.Add(existingLabel);
+                }
                 depth.Add(labelToMerge);
                 existingLabel.Merge(labelToMerge);
             }
@@ -216,6 +182,71 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
                 // no matching existing edge was found
                 // add this new edge to the list of edges in this graph
                 edgeList.Add(e);
+            }
+        }
+
+        private void ComputeOverlay(SpatialFunction opCode)
+        {
+            // copy points from input Geometries.
+            // This ensures that any Point geometries
+            // in the input are considered for inclusion in the result set
+            CopyPoints(0);
+            CopyPoints(1);
+
+            // node the input Geometries
+            arg[0].ComputeSelfNodes(lineIntersector, false);
+            arg[1].ComputeSelfNodes(lineIntersector, false);
+
+            // compute intersections between edges of the two input geometries
+            arg[0].ComputeEdgeIntersections(arg[1], lineIntersector, true);
+
+            IList baseSplitEdges = new ArrayList();
+            arg[0].ComputeSplitEdges(baseSplitEdges);
+            arg[1].ComputeSplitEdges(baseSplitEdges);
+            // add the noded edges to this result graph
+            InsertUniqueEdges(baseSplitEdges);
+
+            ComputeLabelsFromDepths();
+            ReplaceCollapsedEdges();
+
+            if (!NodingValidatorDisabled)
+            {
+                var nv = new EdgeNodingValidator(edgeList.Edges);
+                nv.checkValid();
+            }
+
+            graph.AddEdges(edgeList.Edges);
+            ComputeLabelling();
+            LabelIncompleteNodes();
+
+            /*
+            * The ordering of building the result Geometries is important.
+            * Areas must be built before lines, which must be built before points.
+            * This is so that lines which are covered by areas are not included
+            * explicitly, and similarly for points.
+            */
+            FindResultAreaEdges(opCode);
+            CancelDuplicateResultEdges();
+            var polyBuilder = new PolygonBuilder(geomFact);
+            polyBuilder.Add(graph);
+            resultPolyList = polyBuilder.Polygons;
+
+            var lineBuilder = new LineBuilder(this, geomFact, ptLocator);
+            resultLineList = lineBuilder.Build(opCode);
+
+            var pointBuilder = new PointBuilder(this, geomFact, ptLocator);
+            resultPointList = pointBuilder.Build(opCode);
+
+            // gather the results from all calculations into a single Geometry for the result set
+            resultGeom = ComputeGeometry(resultPointList, resultLineList, resultPolyList);
+        }
+
+        private void InsertUniqueEdges(IEnumerable edges)
+        {
+            for (var i = edges.GetEnumerator(); i.MoveNext();)
+            {
+                var e = (Edge) i.Current;
+                InsertUniqueEdge(e);
             }
         }
 
@@ -231,7 +262,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         /// </summary>
         private void ComputeLabelsFromDepths()
         {
-            for (var it = edgeList.GetEnumerator(); it.MoveNext(); ) 
+            for (var it = edgeList.GetEnumerator(); it.MoveNext();)
             {
                 var e = (Edge) it.Current;
                 var lbl = e.Label;
@@ -241,24 +272,30 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
                 * since these are the only ones which might
                 * be the result of dimensional collapses.
                 */
-                if (depth.IsNull()) 
+                if (depth.IsNull())
+                {
                     continue;
+                }
 
-                depth.Normalize();                    
+                depth.Normalize();
                 for (var i = 0; i < 2; i++)
                 {
                     if (lbl.IsNull(i) || !lbl.IsArea() || depth.IsNull(i))
+                    {
                         continue;
+                    }
                     /*
                      * if the depths are equal, this edge is the result of
                      * the dimensional collapse of two or more edges.
                      * It has the same location on both sides of the edge,
                      * so it has collapsed to a line.
                      */
-                    if (depth.GetDelta(i) == 0)                   
+                    if (depth.GetDelta(i) == 0)
+                    {
                         lbl.ToLine(i);
+                    }
                     else
-                    {                                
+                    {
                         /*
                          * This edge may be the result of a dimensional collapse,
                          * but it still has different locations on both sides.  The
@@ -283,11 +320,13 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
             IList newEdges = new ArrayList();
             IList edgesToRemove = new ArrayList();
             var it = edgeList.GetEnumerator();
-            while (it.MoveNext()) 
+            while (it.MoveNext())
             {
                 var e = (Edge) it.Current;
-                if (!e.IsCollapsed) 
+                if (!e.IsCollapsed)
+                {
                     continue;
+                }
                 // edgeList.Remove(it.Current as Edge); 
                 // Diego Guidi says:
                 // This instruction throws a "System.InvalidOperationException: Collection was modified; enumeration operation may not execute".
@@ -297,9 +336,13 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
             }
             // Removing all collapsed edges at the end of iteration.
             foreach (Edge obj in edgesToRemove)
-                edgeList.Remove(obj);            
+            {
+                edgeList.Remove(obj);
+            }
             foreach (var obj in newEdges)
+            {
                 edgeList.Add((Edge) obj);
+            }
         }
 
         /// <summary>
@@ -315,7 +358,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         private void CopyPoints(int argIndex)
         {
             var i = arg[argIndex].GetNodeEnumerator();
-            while (i.MoveNext()) 
+            while (i.MoveNext())
             {
                 var graphNode = (Node) i.Current;
                 var newNode = graph.AddNode(graphNode.Coordinate);
@@ -333,7 +376,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         private void ComputeLabelling()
         {
             var nodeit = graph.Nodes.GetEnumerator();
-            while (nodeit.MoveNext()) 
+            while (nodeit.MoveNext())
             {
                 var node = (Node) nodeit.Current;
                 node.Edges.ComputeLabelling(arg);
@@ -351,7 +394,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         private void MergeSymLabels()
         {
             var nodeit = graph.Nodes.GetEnumerator();
-            while (nodeit.MoveNext()) 
+            while (nodeit.MoveNext())
             {
                 var node = (Node) nodeit.Current;
                 ((DirectedEdgeStar) node.Edges).MergeSymLabels();
@@ -365,7 +408,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
             // (Note that a node may have already been labelled
             // because it is a point in one of the input geometries)
             var nodeit = graph.Nodes.GetEnumerator();
-            while (nodeit.MoveNext()) 
+            while (nodeit.MoveNext())
             {
                 var node = (Node) nodeit.Current;
                 var lbl = ((DirectedEdgeStar) node.Edges).Label;
@@ -389,15 +432,20 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         private void LabelIncompleteNodes()
         {
             var ni = graph.Nodes.GetEnumerator();
-            while (ni.MoveNext()) 
+            while (ni.MoveNext())
             {
                 var n = (Node) ni.Current;
                 var label = n.Label;
-                if (n.IsIsolated) 
+                if (n.IsIsolated)
                 {
                     if (label.IsNull(0))
-                         LabelIncompleteNode(n, 0);
-                    else LabelIncompleteNode(n, 1);
+                    {
+                        LabelIncompleteNode(n, 0);
+                    }
+                    else
+                    {
+                        LabelIncompleteNode(n, 1);
+                    }
                 }
                 // now update the labelling for the DirectedEdges incident on this node
                 ((DirectedEdgeStar) n.Edges).UpdateLabelling(label);
@@ -424,14 +472,16 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         private void FindResultAreaEdges(SpatialFunction opCode)
         {
             var it = graph.EdgeEnds.GetEnumerator();
-            while (it.MoveNext()) 
+            while (it.MoveNext())
             {
                 var de = (DirectedEdge) it.Current;
                 // mark all dirEdges with the appropriate label
                 var label = de.Label;
                 if (label.IsArea() && !de.IsInteriorAreaEdge &&
-                    IsResultOfOp(label.GetLocation(0, Positions.Right), label.GetLocation(1, Positions.Right), opCode))                 
-                        de.InResult = true;                            
+                    IsResultOfOp(label.GetLocation(0, Positions.Right), label.GetLocation(1, Positions.Right), opCode))
+                {
+                    de.InResult = true;
+                }
             }
         }
 
@@ -444,35 +494,18 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
             // remove any dirEdges whose sym is also included
             // (they "cancel each other out")
             var it = graph.EdgeEnds.GetEnumerator();
-            while (it.MoveNext()) 
+            while (it.MoveNext())
             {
                 var de = (DirectedEdge) it.Current;
                 var sym = de.Sym;
                 if (!de.IsInResult || !sym.IsInResult)
+                {
                     continue;
+                }
 
                 de.InResult = false;
                 sym.InResult = false;
             }
-        }
-
-        /// <summary>
-        /// This method is used to decide if a point node should be included in the result or not.
-        /// </summary>
-        /// <returns><c>true</c> if the coord point is covered by a result Line or Area point.</returns>
-        public bool IsCoveredByLA(ICoordinate coord)
-        {
-            if (IsCovered(coord, resultLineList)) 
-                return true;
-            return IsCovered(coord, resultPolyList);
-        }
-        /// <summary>
-        /// This method is used to decide if an L edge should be included in the result or not.
-        /// </summary>
-        /// <returns><c>true</c> if the coord point is covered by a result Area point.</returns>
-        public bool IsCoveredByA(ICoordinate coord)
-        {
-            return IsCovered(coord, resultPolyList);
         }
 
         /// <returns>
@@ -482,12 +515,14 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         private bool IsCovered(ICoordinate coord, IEnumerable geomList)
         {
             var it = geomList.GetEnumerator();
-            while (it.MoveNext()) 
+            while (it.MoveNext())
             {
                 var geom = (IGeometry) it.Current;
                 var loc = ptLocator.Locate(coord, geom);
-                if (loc != Locations.Exterior) 
+                if (loc != Locations.Exterior)
+                {
                     return true;
+                }
             }
             return false;
         }
@@ -498,15 +533,21 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
             // element geometries of the result are always in the order Point,Curve,A
             //geomList.addAll(resultPtList);
             foreach (var obj in resultPtList)
+            {
                 geomList.Add(obj);
+            }
 
             //geomList.addAll(resultLiList);
             foreach (var obj in resultLiList)
+            {
                 geomList.Add(obj);
+            }
 
             //geomList.addAll(resultPlList);
             foreach (var obj in resultPlList)
+            {
                 geomList.Add(obj);
+            }
 
             // build the most specific point possible
             return geomFact.BuildGeometry(geomList);

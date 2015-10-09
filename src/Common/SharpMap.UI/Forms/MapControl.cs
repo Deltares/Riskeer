@@ -10,7 +10,6 @@ using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.Collections.Generic;
 using DelftTools.Utils.Reflection;
-using DelftTools.Utils.Threading;
 using GeoAPI.Extensions.Feature;
 using log4net;
 using SharpMap.Api;
@@ -30,26 +29,37 @@ namespace SharpMap.UI.Forms
     [Serializable]
     public class MapControl : Control, IMapControl
     {
+        public event EventHandler SelectedFeaturesChanged;
+
+        /// <summary>
+        /// Fired when the map has been refreshed
+        /// </summary>
+        public event EventHandler MapRefreshed;
+
+        /// <summary>
+        /// Fired when a maptool is activated
+        /// </summary>
+        public event EventHandler<EventArgs<IMapTool>> ToolActivated;
+
         private static readonly ILog Log = LogManager.GetLogger(typeof(MapControl));
-        
+
         // other commonly-used specific tools
-        private MoveTool linearMoveTool;
-        private MoveTool moveTool;
-        private SelectTool selectTool;
-        private DeleteTool deleteTool;
-        private SnapTool snapTool;
         private ZoomHistoryTool zoomHistoryTool;
 
         private EventedList<IMapTool> tools;
-        
+
         // TODO: fieds below should be moved to some more specific tools?
         private bool disposed;
         private bool disposingActive;
         private bool inRefresh;
         private Map map;
         private IList<IFeature> selectedFeatures = new List<IFeature>();
-        private Timer refreshTimer = new Timer { Interval = 300 };
-        
+
+        private Timer refreshTimer = new Timer
+        {
+            Interval = 300
+        };
+
         /// <summary>
         /// Initializes a new map
         /// </summary>
@@ -58,15 +68,22 @@ namespace SharpMap.UI.Forms
             SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer |
                      ControlStyles.ResizeRedraw | ControlStyles.UserPaint, true);
 
-            base.AllowDrop = true;
+            AllowDrop = true;
 
             CreateMapTools();
-            
+
             Width = 100;
             Height = 100;
 
-            Map = new Map(ClientSize) { Zoom = 100 };
+            Map = new Map(ClientSize)
+            {
+                Zoom = 100
+            };
         }
+
+        public MoveTool LinearMoveTool { get; private set; }
+
+        public DeleteTool DeleteTool { get; private set; }
 
         [Description("The map image currently visualized.")]
         [Category("Appearance")]
@@ -86,7 +103,10 @@ namespace SharpMap.UI.Forms
 
         public override Color BackColor
         {
-            get { return base.BackColor; }
+            get
+            {
+                return base.BackColor;
+            }
             set
             {
                 base.BackColor = value;
@@ -103,7 +123,10 @@ namespace SharpMap.UI.Forms
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Map Map
         {
-            get { return map; }
+            get
+            {
+                return map;
+            }
             set
             {
                 if (map != null)
@@ -149,39 +172,26 @@ namespace SharpMap.UI.Forms
 
         public IList<IMapTool> Tools
         {
-            get { return tools; }
-        }
-        
-        public MoveTool MoveTool
-        {
-            get { return moveTool; }
+            get
+            {
+                return tools;
+            }
         }
 
-        public MoveTool LinearMoveTool
-        {
-            get { return linearMoveTool; }
-        }
+        public MoveTool MoveTool { get; private set; }
 
-        public SelectTool SelectTool
-        {
-            get { return selectTool; }
-        }
+        public SelectTool SelectTool { get; private set; }
 
-        public DeleteTool DeleteTool
-        {
-            get { return deleteTool; }
-        }
-
-        public SnapTool SnapTool
-        {
-            get { return snapTool; }
-        }
+        public SnapTool SnapTool { get; private set; }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IEnumerable<IFeature> SelectedFeatures
         {
-            get { return selectedFeatures; }
+            get
+            {
+                return selectedFeatures;
+            }
             set
             {
                 selectedFeatures = value.ToList();
@@ -193,7 +203,138 @@ namespace SharpMap.UI.Forms
             }
         }
 
-        public bool IsProcessing { get { return false; } }
+        public bool IsProcessing
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Modifies a Vectorstyle to "highlight" during operation (eg. moving features)
+        /// </summary>
+        /// <param name="vectorStyle"></param>
+        /// <param name="good"></param>
+        public static void PimpStyle(VectorStyle vectorStyle, bool good)
+        {
+            vectorStyle.Line.Color = Color.FromArgb(128, vectorStyle.Line.Color);
+            SolidBrush solidBrush = vectorStyle.Fill as SolidBrush;
+            if (null != solidBrush)
+            {
+                vectorStyle.Fill = new SolidBrush(Color.FromArgb(127, solidBrush.Color));
+            }
+            else // possibly a multicolor brush
+            {
+                vectorStyle.Fill = new SolidBrush(Color.FromArgb(63, Color.DodgerBlue));
+            }
+            if (null != vectorStyle.Symbol)
+            {
+                Bitmap bitmap = new Bitmap(vectorStyle.Symbol.Width, vectorStyle.Symbol.Height);
+                Graphics graphics = Graphics.FromImage(bitmap);
+                ColorMatrix colorMatrix;
+                if (good)
+                {
+                    colorMatrix = new ColorMatrix(new[]
+                    {
+                        new[]
+                        {
+                            1.0f,
+                            0.0f,
+                            0.0f,
+                            0.0f,
+                            0.0f
+                        }, // red scaling of 1
+                        new[]
+                        {
+                            0.0f,
+                            1.0f,
+                            0.0f,
+                            0.0f,
+                            0.0f
+                        }, // green scaling of 1
+                        new[]
+                        {
+                            0.0f,
+                            0.0f,
+                            1.0f,
+                            0.0f,
+                            0.0f
+                        }, // blue scaling of 1
+                        new[]
+                        {
+                            0.0f,
+                            0.0f,
+                            0.0f,
+                            0.5f,
+                            0.0f
+                        }, // alpha scaling of 0.5
+                        new[]
+                        {
+                            0.0f,
+                            0.0f,
+                            0.0f,
+                            0.0f,
+                            1.0f
+                        }
+                    });
+                }
+                else
+                {
+                    colorMatrix = new ColorMatrix(new[]
+                    {
+                        new[]
+                        {
+                            2.0f,
+                            0.0f,
+                            0.0f,
+                            0.0f,
+                            0.0f
+                        }, // red scaling of 2
+                        new[]
+                        {
+                            0.0f,
+                            1.0f,
+                            0.0f,
+                            0.0f,
+                            0.0f
+                        }, // green scaling of 1
+                        new[]
+                        {
+                            0.0f,
+                            0.0f,
+                            1.0f,
+                            0.0f,
+                            0.0f
+                        }, // blue scaling of 1
+                        new[]
+                        {
+                            0.0f,
+                            0.0f,
+                            0.0f,
+                            0.5f,
+                            0.0f
+                        }, // alpha scaling of 0.5
+                        new[]
+                        {
+                            1.0f,
+                            0.0f,
+                            0.0f,
+                            0.0f,
+                            1.0f
+                        }
+                    });
+                }
+
+                ImageAttributes imageAttributes = new ImageAttributes();
+                imageAttributes.SetColorMatrix(colorMatrix);
+                graphics.DrawImage(vectorStyle.Symbol,
+                                   new Rectangle(0, 0, vectorStyle.Symbol.Width, vectorStyle.Symbol.Height), 0, 0,
+                                   vectorStyle.Symbol.Width, vectorStyle.Symbol.Height, GraphicsUnit.Pixel, imageAttributes);
+                graphics.Dispose();
+                vectorStyle.Symbol = bitmap;
+            }
+        }
 
         public IMapTool GetToolByName(string toolName)
         {
@@ -207,7 +348,10 @@ namespace SharpMap.UI.Forms
 
         public void ActivateTool(IMapTool tool)
         {
-            if (tool == null) return;
+            if (tool == null)
+            {
+                return;
+            }
 
             if (tool.AlwaysActive)
             {
@@ -238,7 +382,7 @@ namespace SharpMap.UI.Forms
             {
                 return;
             }
-            
+
             if (refreshTimer != null)
             {
                 refreshTimer.Stop();
@@ -277,69 +421,6 @@ namespace SharpMap.UI.Forms
             }
         }
 
-        public event EventHandler SelectedFeaturesChanged;
-
-        /// <summary>
-        /// Fired when the map has been refreshed
-        /// </summary>
-        public event EventHandler MapRefreshed;
-
-        /// <summary>
-        /// Fired when a maptool is activated
-        /// </summary>
-        public event EventHandler<EventArgs<IMapTool>> ToolActivated;
-
-        /// <summary>
-        /// Modifies a Vectorstyle to "highlight" during operation (eg. moving features)
-        /// </summary>
-        /// <param name="vectorStyle"></param>
-        /// <param name="good"></param>
-        public static void PimpStyle(VectorStyle vectorStyle, bool good)
-        {
-            vectorStyle.Line.Color = Color.FromArgb(128, vectorStyle.Line.Color);
-            SolidBrush solidBrush = vectorStyle.Fill as SolidBrush;
-            if (null != solidBrush)
-                vectorStyle.Fill = new SolidBrush(Color.FromArgb(127, solidBrush.Color));
-            else // possibly a multicolor brush
-                vectorStyle.Fill = new SolidBrush(Color.FromArgb(63, Color.DodgerBlue));
-            if (null != vectorStyle.Symbol)
-            {
-                Bitmap bitmap = new Bitmap(vectorStyle.Symbol.Width, vectorStyle.Symbol.Height);
-                Graphics graphics = Graphics.FromImage(bitmap);
-                ColorMatrix colorMatrix;
-                if (good)
-                {
-                    colorMatrix = new ColorMatrix(new[]
-                    {
-                            new [] {1.0f, 0.0f, 0.0f, 0.0f, 0.0f}, // red scaling of 1
-                            new [] {0.0f, 1.0f, 0.0f, 0.0f, 0.0f}, // green scaling of 1
-                            new [] {0.0f, 0.0f, 1.0f, 0.0f, 0.0f}, // blue scaling of 1
-                            new [] {0.0f, 0.0f, 0.0f, 0.5f, 0.0f}, // alpha scaling of 0.5
-                            new [] {0.0f, 0.0f, 0.0f, 0.0f, 1.0f}
-                        });
-                }
-                else
-                {
-                    colorMatrix = new ColorMatrix(new []
-                        {
-                            new [] {2.0f, 0.0f, 0.0f, 0.0f, 0.0f}, // red scaling of 2
-                            new [] {0.0f, 1.0f, 0.0f, 0.0f, 0.0f}, // green scaling of 1
-                            new [] {0.0f, 0.0f, 1.0f, 0.0f, 0.0f}, // blue scaling of 1
-                            new [] {0.0f, 0.0f, 0.0f, 0.5f, 0.0f}, // alpha scaling of 0.5
-                            new [] {1.0f, 0.0f, 0.0f, 0.0f, 1.0f}
-                        });
-                }
-
-                ImageAttributes imageAttributes = new ImageAttributes();
-                imageAttributes.SetColorMatrix(colorMatrix);
-                graphics.DrawImage(vectorStyle.Symbol,
-                    new Rectangle(0, 0, vectorStyle.Symbol.Width, vectorStyle.Symbol.Height), 0, 0,
-                    vectorStyle.Symbol.Width, vectorStyle.Symbol.Height, GraphicsUnit.Pixel, imageAttributes);
-                graphics.Dispose();
-                vectorStyle.Symbol = bitmap;
-            }
-        }
-
         protected override void OnResize(EventArgs e)
         {
             if (map != null && ClientSize.Width > 0 && ClientSize.Height > 0)
@@ -369,11 +450,16 @@ namespace SharpMap.UI.Forms
             base.OnVisibleChanged(e);
 
             if (disposingActive)
+            {
                 return;
+            }
 
             if (refreshTimer == null)
             {
-                refreshTimer = new Timer() { Interval = 300 };
+                refreshTimer = new Timer()
+                {
+                    Interval = 300
+                };
             }
 
             if (Visible)
@@ -494,7 +580,9 @@ namespace SharpMap.UI.Forms
                  .ForEach(t => t.OnBeforeMouseMove(worldPosition, e, ref handled));
 
             if (!handled)
+            {
                 WithActiveToolsDo(tool => tool.OnMouseMove(worldPosition, e));
+            }
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -529,14 +617,14 @@ namespace SharpMap.UI.Forms
             var contextMenuItems = new List<MapToolContextMenuItem>();
 
             WithActiveToolsDo(tool =>
-                {
-                    tool.OnMouseUp(worldPosition, e);
+            {
+                tool.OnMouseUp(worldPosition, e);
 
-                    if (e.Button == MouseButtons.Right)
-                    {
-                        contextMenuItems.AddRange(tool.GetContextMenuItems(worldPosition));
-                    }
-                });
+                if (e.Button == MouseButtons.Right)
+                {
+                    contextMenuItems.AddRange(tool.GetContextMenuItems(worldPosition));
+                }
+            });
 
             if (!disposed)
             {
@@ -656,42 +744,57 @@ namespace SharpMap.UI.Forms
         private void CreateMapTools()
         {
             zoomHistoryTool = new ZoomHistoryTool();
-            selectTool = new SelectTool {IsActive = true};
-            deleteTool = new DeleteTool();
-            snapTool = new SnapTool();
-            moveTool = new MoveTool {Name = "Move selected vertices", FallOffPolicy = FallOffType.None};
+            SelectTool = new SelectTool
+            {
+                IsActive = true
+            };
+            DeleteTool = new DeleteTool();
+            SnapTool = new SnapTool();
+            MoveTool = new MoveTool
+            {
+                Name = "Move selected vertices", FallOffPolicy = FallOffType.None
+            };
 
-            linearMoveTool = new MoveTool
-                {
-                    Name = "Move selected vertices (linear)",
-                    FallOffPolicy = FallOffType.Linear
-                };
+            LinearMoveTool = new MoveTool
+            {
+                Name = "Move selected vertices (linear)",
+                FallOffPolicy = FallOffType.Linear
+            };
 
             tools = new EventedList<IMapTool>(new IMapTool[]
+            {
+                new NorthArrowTool
                 {
-                    new NorthArrowTool {Anchor = AnchorStyles.Right | AnchorStyles.Top, Visible = false},
-                    new ScaleBarTool
-                        {
-                            Size = new Size(230, 50),
-                            Anchor = AnchorStyles.Right | AnchorStyles.Bottom,
-                            Visible = true
-                        },
-                    new LegendTool {Anchor = AnchorStyles.Left | AnchorStyles.Top, Visible = false},
-                    new PanZoomTool(),
-                    new PanZoomUsingMouseWheelTool {WheelZoomMagnitude = 0.8},
-                    new ZoomUsingRectangleTool(),
-                    new FixedZoomInTool(),
-                    new FixedZoomOutTool(),
-                    new MeasureTool(),
-                    new CurvePointTool(),
-                    new OpenViewMapTool(),
-                    zoomHistoryTool,
-                    selectTool,
-                    deleteTool,
-                    snapTool,
-                    moveTool,
-                    linearMoveTool
-                });
+                    Anchor = AnchorStyles.Right | AnchorStyles.Top, Visible = false
+                },
+                new ScaleBarTool
+                {
+                    Size = new Size(230, 50),
+                    Anchor = AnchorStyles.Right | AnchorStyles.Bottom,
+                    Visible = true
+                },
+                new LegendTool
+                {
+                    Anchor = AnchorStyles.Left | AnchorStyles.Top, Visible = false
+                },
+                new PanZoomTool(),
+                new PanZoomUsingMouseWheelTool
+                {
+                    WheelZoomMagnitude = 0.8
+                },
+                new ZoomUsingRectangleTool(),
+                new FixedZoomInTool(),
+                new FixedZoomOutTool(),
+                new MeasureTool(),
+                new CurvePointTool(),
+                new OpenViewMapTool(),
+                zoomHistoryTool,
+                SelectTool,
+                DeleteTool,
+                SnapTool,
+                MoveTool,
+                LinearMoveTool
+            });
 
             tools.ForEach(t => t.MapControl = this);
             tools.CollectionChanged += ToolsCollectionChanged;
@@ -723,7 +826,7 @@ namespace SharpMap.UI.Forms
             SelectTool.RefreshSelection();
         }
 
-        void RefreshTimerTick(object sender, EventArgs e)
+        private void RefreshTimerTick(object sender, EventArgs e)
         {
             if (Map == null)
             {
@@ -746,7 +849,7 @@ namespace SharpMap.UI.Forms
         private void UnSubscribeMapEvents()
         {
             map.CollectionChanged -= MapCollectionChangedDelayed;
-            ((INotifyPropertyChanged)map).PropertyChanged -= MapPropertyChangedDelayed;
+            ((INotifyPropertyChanged) map).PropertyChanged -= MapPropertyChangedDelayed;
             map.MapRendered -= OnMapRendered;
             map.MapLayerRendered -= OnMapLayerRendered;
         }
@@ -754,7 +857,7 @@ namespace SharpMap.UI.Forms
         private void SubScribeMapEvents()
         {
             map.CollectionChanged += MapCollectionChangedDelayed;
-            ((INotifyPropertyChanged)map).PropertyChanged += MapPropertyChangedDelayed;
+            ((INotifyPropertyChanged) map).PropertyChanged += MapPropertyChangedDelayed;
             map.MapRendered += OnMapRendered;
             map.MapLayerRendered += OnMapLayerRendered;
         }
@@ -772,10 +875,10 @@ namespace SharpMap.UI.Forms
             switch (e.Action)
             {
                 case NotifyCollectionChangeAction.Add:
-                    ((IMapTool)e.Item).MapControl = this;
+                    ((IMapTool) e.Item).MapControl = this;
                     break;
                 case NotifyCollectionChangeAction.Remove:
-                    ((IMapTool)e.Item).MapControl = null;
+                    ((IMapTool) e.Item).MapControl = null;
                     break;
             }
 
@@ -834,7 +937,13 @@ namespace SharpMap.UI.Forms
             }
             else
             {
-                map.Layers.ForEach(l => { if (!l.RenderRequired) l.RenderRequired = true; });
+                map.Layers.ForEach(l =>
+                {
+                    if (!l.RenderRequired)
+                    {
+                        l.RenderRequired = true;
+                    }
+                });
             }
         }
 

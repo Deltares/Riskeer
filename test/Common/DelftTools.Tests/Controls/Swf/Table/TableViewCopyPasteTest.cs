@@ -20,26 +20,34 @@ namespace DelftTools.Tests.Controls.Swf.Table
         public void CopyPasteDateTimeTools8628()
         {
             using (var tableView = new TableView())
-            using (var dataset = new DataSet())
-            using (var dataTable = dataset.Tables.Add())
             {
-                dataTable.Columns.Add("A", typeof (DateTime));
-                dataTable.Columns.Add("B", typeof (double));
-                dataTable.Rows.Add(new DateTime(2000, 1, 31), 10.0);
-                dataTable.Rows.Add(new DateTime(2000, 2, 1), 15.0);
+                using (var dataset = new DataSet())
+                {
+                    using (var dataTable = dataset.Tables.Add())
+                    {
+                        dataTable.Columns.Add("A", typeof(DateTime));
+                        dataTable.Columns.Add("B", typeof(double));
+                        dataTable.Rows.Add(new DateTime(2000, 1, 31), 10.0);
+                        dataTable.Rows.Add(new DateTime(2000, 2, 1), 15.0);
 
-                tableView.Data = dataTable;
+                        tableView.Data = dataTable;
 
-                tableView.SelectRows(new[] {0, 1}); //select all
-                tableView.CopySelectionToClipboard();
-                dataTable.Clear();
+                        tableView.SelectRows(new[]
+                        {
+                            0,
+                            1
+                        }); //select all
+                        tableView.CopySelectionToClipboard();
+                        dataTable.Clear();
 
-                tableView.SelectRow(0);
-                tableView.PasteClipboardContents();
+                        tableView.SelectRow(0);
+                        tableView.PasteClipboardContents();
 
-                Assert.AreEqual(2, dataTable.Rows.Count);
-                Assert.AreEqual(new DateTime(2000, 1, 31), dataTable.Rows[0][0]);
-                Assert.AreEqual(10.0, dataTable.Rows[0][1]);
+                        Assert.AreEqual(2, dataTable.Rows.Count);
+                        Assert.AreEqual(new DateTime(2000, 1, 31), dataTable.Rows[0][0]);
+                        Assert.AreEqual(10.0, dataTable.Rows[0][1]);
+                    }
+                }
             }
         }
 
@@ -47,23 +55,25 @@ namespace DelftTools.Tests.Controls.Swf.Table
         public void PasteLargeAmountOfDataShouldBeFast()
         {
             using (var dataset = new DataSet())
-            using (var dataTable = dataset.Tables.Add())
             {
-                dataTable.Columns.Add("A", typeof(DateTime));
-                dataTable.Columns.Add("B", typeof(double));
+                using (var dataTable = dataset.Tables.Add())
+                {
+                    dataTable.Columns.Add("A", typeof(DateTime));
+                    dataTable.Columns.Add("B", typeof(double));
 
-                var view = new TableView
-                           {
-                               Data = dataTable
-                           };
+                    var view = new TableView
+                    {
+                        Data = dataTable
+                    };
 
-                var file = TestHelper.GetTestFilePath("TestPasteData.txt");
-                var contents = File.ReadAllText(file);
-                Clipboard.SetText(contents);
+                    var file = TestHelper.GetTestFilePath("TestPasteData.txt");
+                    var contents = File.ReadAllText(file);
+                    Clipboard.SetText(contents);
 
-                TestHelper.AssertIsFasterThan(17500, view.PasteClipboardContents);
+                    TestHelper.AssertIsFasterThan(17500, view.PasteClipboardContents);
 
-                Assert.Greater(dataTable.Rows.Count, 5);
+                    Assert.Greater(dataTable.Rows.Count, 5);
+                }
             }
         }
 
@@ -71,40 +81,55 @@ namespace DelftTools.Tests.Controls.Swf.Table
         public void PasteDutchDateTimeShouldWorkFineTools8878()
         {
             using (var dataset = new DataSet())
-            using (var dataTable = dataset.Tables.Add())
             {
-                dataTable.Columns.Add("A", typeof(DateTime));
-                dataTable.Columns.Add("B", typeof(double));
-
-                var view = new TableView
-                           {
-                               Data = dataTable
-                           };
-
-                Clipboard.SetText(File.ReadAllText(TestHelper.GetTestFilePath("TestPasteData_DutchDates.txt")));
-
-                using (CultureUtils.SwitchToCulture("nl-NL"))
+                using (var dataTable = dataset.Tables.Add())
                 {
-                    view.PasteClipboardContents();
+                    dataTable.Columns.Add("A", typeof(DateTime));
+                    dataTable.Columns.Add("B", typeof(double));
+
+                    var view = new TableView
+                    {
+                        Data = dataTable
+                    };
+
+                    Clipboard.SetText(File.ReadAllText(TestHelper.GetTestFilePath("TestPasteData_DutchDates.txt")));
+
+                    using (CultureUtils.SwitchToCulture("nl-NL"))
+                    {
+                        view.PasteClipboardContents();
+                    }
+
+                    var dateTimes = dataTable.AsEnumerable().Select(r => r.Field<DateTime>("A")).ToList();
+
+                    Assert.AreEqual(60, dateTimes.Count);
+                    Assert.AreEqual(new DateTime(2001, 1, 1), dateTimes.Min());
+                    Assert.AreEqual(new DateTime(2001, 3, 1), dateTimes.Max());
                 }
-
-                var dateTimes = dataTable.AsEnumerable().Select(r => r.Field<DateTime>("A")).ToList();
-
-                Assert.AreEqual(60, dateTimes.Count);
-                Assert.AreEqual(new DateTime(2001, 1, 1), dateTimes.Min());
-                Assert.AreEqual(new DateTime(2001, 3, 1), dateTimes.Max());
             }
         }
 
         [Test]
         public void PasteClipboardContentsCanAddRows()
         {
-            var person = new List<Person> { new Person { Age = 12, Name = "Hoi" }, new Person { Age = 11, Name = "keers" } };
+            var person = new List<Person>
+            {
+                new Person
+                {
+                    Age = 12, Name = "Hoi"
+                },
+                new Person
+                {
+                    Age = 11, Name = "keers"
+                }
+            };
             //set two persons in clipboard
             const string clipBoardContents = "cees anton\t34\r\nsaifon\t66\r\nmartijn\t31\r\n";
             Clipboard.SetText(clipBoardContents);
             //setup a tableview
-            var tableView = new TableView { Data = person};
+            var tableView = new TableView
+            {
+                Data = person
+            };
 
             tableView.PasteClipboardContents();
 
@@ -120,7 +145,10 @@ namespace DelftTools.Tests.Controls.Swf.Table
             const string clipBoardContents = "cees anton\t34\r\nsaifon\t66\r\nmartijn\t31\r\n";
             Clipboard.SetText(clipBoardContents);
             //setup a tableview
-            var tableView = new TableView { Data = persons };
+            var tableView = new TableView
+            {
+                Data = persons
+            };
 
             //action!
             tableView.PasteClipboardContents();
@@ -138,25 +166,51 @@ namespace DelftTools.Tests.Controls.Swf.Table
             const string clipBoardContents = "1\r\n2\r\n3\r\n";
             Clipboard.SetText(clipBoardContents);
             //setup a tableview
-            var tableView = new TableView {Data = persons};
+            var tableView = new TableView
+            {
+                Data = persons
+            };
 
             //action!
             tableView.PasteClipboardContents();
 
-            Assert.AreEqual(new[] { "1", "2", "3" }, persons.Select(p => p.Name).ToArray());
+            Assert.AreEqual(new[]
+            {
+                "1",
+                "2",
+                "3"
+            }, persons.Select(p => p.Name).ToArray());
             //assert the data is not pasted into the other column
-            Assert.AreEqual(new[] { 0, 0, 0 }, persons.Select(p => p.Age).ToArray());
+            Assert.AreEqual(new[]
+            {
+                0,
+                0,
+                0
+            }, persons.Select(p => p.Age).ToArray());
         }
 
         [Test]
         public void PasteClipboardContentsOverwritesExistingRows()
         {
-            var person = new List<Person> { new Person { Age = 12, Name = "Hoi" }, new Person { Age = 11, Name = "keers" } };
+            var person = new List<Person>
+            {
+                new Person
+                {
+                    Age = 12, Name = "Hoi"
+                },
+                new Person
+                {
+                    Age = 11, Name = "keers"
+                }
+            };
             //set two persons in clipboard
             const string clipBoardContents = "cees anton\t34\r\nsaifon\t66\r\n";
             Clipboard.SetText(clipBoardContents);
             //setup a tableview
-            var tableView = new TableView { Data = person };
+            var tableView = new TableView
+            {
+                Data = person
+            };
 
             tableView.PasteClipboardContents();
 
@@ -175,7 +229,10 @@ namespace DelftTools.Tests.Controls.Swf.Table
             table.Rows.Add("1", "2");
             table.Rows.Add("3", "4");
 
-            var tableView = new TableView { Data = table };
+            var tableView = new TableView
+            {
+                Data = table
+            };
 
             //select two rows
             tableView.SelectCells(0, 0, 1, 1);
@@ -192,12 +249,15 @@ namespace DelftTools.Tests.Controls.Swf.Table
         {
             //this test relates to issue 3069...demonstrating a problem paste lines when rowselect is enabled.
             var table = new DataTable();
-            table.Columns.Add("column1", typeof (string));
-            table.Columns.Add("column2", typeof (string));
+            table.Columns.Add("column1", typeof(string));
+            table.Columns.Add("column2", typeof(string));
             table.Rows.Add("1", "2");
             table.Rows.Add("3", "4");
 
-            var tableView = new TableView {Data = table, RowSelect = true};
+            var tableView = new TableView
+            {
+                Data = table, RowSelect = true
+            };
 
             const string clipBoardContents = "5\t6\r\n";
             Clipboard.SetText(clipBoardContents);
@@ -207,7 +267,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
 
             //add a new row
             table.Rows.Add();
-            
+
             //focus on the left cell of the new row
             tableView.SetFocus(GridControl.NewItemRowHandle, 0);
 
@@ -219,7 +279,11 @@ namespace DelftTools.Tests.Controls.Swf.Table
             //check that the first row equals the clip board contents
             var rowView = tableView.CurrentFocusedRowObject as DataRowView;
             var rowData = (rowView == null) ? null : rowView.Row.ItemArray;
-            Assert.AreEqual(rowData, new object[] { "5", "6" });
+            Assert.AreEqual(rowData, new object[]
+            {
+                "5",
+                "6"
+            });
         }
     }
 }

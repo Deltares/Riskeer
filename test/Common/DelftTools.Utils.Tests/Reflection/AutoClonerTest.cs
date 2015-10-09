@@ -12,7 +12,14 @@ namespace DelftTools.Utils.Tests.Reflection
         [Test]
         public void AutoCloneClassWithValuesArrayAsField()
         {
-            var inst = new ClassWithValueArray { values = new[] { 1.0, 3.0 } };
+            var inst = new ClassWithValueArray
+            {
+                values = new[]
+                {
+                    1.0,
+                    3.0
+                }
+            };
             var clone = TypeUtils.DeepClone(inst);
             Assert.AreEqual(inst.values.Length, clone.values.Length);
             Assert.AreEqual(inst.values[0], clone.values[0]);
@@ -26,11 +33,14 @@ namespace DelftTools.Utils.Tests.Reflection
 
             var deepPeer = new TypeUtilsTest.SuperCloneTestClassWithReference();
             var inst = new TypeUtilsTest.SuperCloneTestClassWithReference
+            {
+                OtherName = otherName,
+                Name = name,
+                Peer = new TypeUtilsTest.SuperCloneTestClassWithReference
                 {
-                    OtherName = otherName,
-                    Name = name,
-                    Peer = new TypeUtilsTest.SuperCloneTestClassWithReference { Peer = deepPeer }
-                };
+                    Peer = deepPeer
+                }
+            };
 
             var clone = TypeUtils.DeepClone(inst);
 
@@ -38,7 +48,7 @@ namespace DelftTools.Utils.Tests.Reflection
             Assert.AreEqual(name, clone.Name);
             Assert.AreNotSame(inst, clone);
             Assert.IsNotNull(clone.Peer);
-            var clonedDeepPeer = ((TypeUtilsTest.SuperCloneTestClassWithReference)clone.Peer).Peer;
+            var clonedDeepPeer = ((TypeUtilsTest.SuperCloneTestClassWithReference) clone.Peer).Peer;
             Assert.IsNotNull(clonedDeepPeer);
             Assert.AreNotSame(inst.Peer, clone.Peer);
             Assert.AreNotSame(deepPeer, clonedDeepPeer);
@@ -48,7 +58,20 @@ namespace DelftTools.Utils.Tests.Reflection
         public void AutoCloneWithExternalAggregation()
         {
             // create small graph with aggregation
-            var set = new Set { Elements = { new Element { Name = "a"}, new Element { Name = "b"} } };
+            var set = new Set
+            {
+                Elements =
+                {
+                    new Element
+                    {
+                        Name = "a"
+                    },
+                    new Element
+                    {
+                        Name = "b"
+                    }
+                }
+            };
             set.Elements.ForEach(e => e.Set = set);
 
             // clone only subgraph
@@ -62,7 +85,20 @@ namespace DelftTools.Utils.Tests.Reflection
         public void AutoCloneWithInternalAggregation()
         {
             // create small graph with aggregation
-            var set = new Set { Elements = { new Element { Name = "a" }, new Element { Name = "b" } } };
+            var set = new Set
+            {
+                Elements =
+                {
+                    new Element
+                    {
+                        Name = "a"
+                    },
+                    new Element
+                    {
+                        Name = "b"
+                    }
+                }
+            };
             set.Elements.ForEach(e => e.Set = set);
             set.RootElement = set.Elements.First();
 
@@ -95,7 +131,7 @@ namespace DelftTools.Utils.Tests.Reflection
             }
 
             public List<Element> Elements { get; set; }
-            
+
             [Aggregation]
             public Element RootElement { get; set; }
         }

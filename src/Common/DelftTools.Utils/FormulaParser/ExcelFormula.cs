@@ -47,10 +47,25 @@ namespace DelftTools.Utils.FormulaParser
         /// <param name="formula"></param>
         public ExcelFormula(string formula)
         {
-            if (formula == null) throw new ArgumentNullException("formula");
+            if (formula == null)
+            {
+                throw new ArgumentNullException("formula");
+            }
             this.formula = formula.Trim();
             tokens = new List<ExcelFormulaToken>();
             ParseToTokens();
+        }
+
+        public ExcelFormulaToken this[int index]
+        {
+            get
+            {
+                return tokens[index];
+            }
+            set
+            {
+                throw new NotSupportedException();
+            }
         }
 
         /// <summary>
@@ -58,13 +73,26 @@ namespace DelftTools.Utils.FormulaParser
         /// </summary>
         public string Formula
         {
-            get { return formula; }
+            get
+            {
+                return formula;
+            }
         }
 
-        public ExcelFormulaToken this[int index]
+        public bool IsReadOnly
         {
-            get { return tokens[index]; }
-            set { throw new NotSupportedException(); }
+            get
+            {
+                return true;
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                return tokens.Count;
+            }
         }
 
         public int IndexOf(ExcelFormulaToken item)
@@ -92,15 +120,9 @@ namespace DelftTools.Utils.FormulaParser
             throw new NotSupportedException();
         }
 
-  
         public bool Contains(ExcelFormulaToken item)
         {
             return tokens.Contains(item);
-        }
-
-        public bool IsReadOnly
-        {
-            get { return true; }
         }
 
         public bool Remove(ExcelFormulaToken item)
@@ -111,11 +133,6 @@ namespace DelftTools.Utils.FormulaParser
         public void CopyTo(ExcelFormulaToken[] array, int arrayIndex)
         {
             tokens.CopyTo(array, arrayIndex);
-        }
-
-        public int Count
-        {
-            get { return tokens.Count; }
         }
 
         public IEnumerator<ExcelFormulaToken> GetEnumerator()
@@ -134,7 +151,10 @@ namespace DelftTools.Utils.FormulaParser
         /// </summary>
         private void ParseToTokens()
         {
-            if ((formula.Length < 2) || (formula[0] != '=')) return;
+            if ((formula.Length < 2) || (formula[0] != '='))
+            {
+                return;
+            }
 
             ExcelFormulaTokens tokens1 = new ExcelFormulaTokens();
             ExcelFormulaStack stack = new ExcelFormulaStack();
@@ -156,9 +176,23 @@ namespace DelftTools.Utils.FormulaParser
             const string OPERATORS_INFIX = "+-*/^&=><";
             const string OPERATORS_POSTFIX = "%";
 
-            string[] ERRORS = new string[] {"#NULL!", "#DIV/0!", "#VALUE!", "#REF!", "#NAME?", "#NUM!", "#N/A"};
+            string[] ERRORS = new string[]
+            {
+                "#NULL!",
+                "#DIV/0!",
+                "#VALUE!",
+                "#REF!",
+                "#NAME?",
+                "#NUM!",
+                "#N/A"
+            };
 
-            string[] COMPARATORS_MULTI = new string[] {">=", "<=", "<>"};
+            string[] COMPARATORS_MULTI = new string[]
+            {
+                ">=",
+                "<=",
+                "<>"
+            };
 
             bool inString = false;
             bool inPath = false;
@@ -478,7 +512,6 @@ namespace DelftTools.Utils.FormulaParser
                     }
                     if (stack.Current.Type != ExcelFormulaTokenType.Function)
                     {
-                      
                         tokens1.Add(
                             new ExcelFormulaToken(DIGIT_GROUPING_SYMBOL.ToString(), ExcelFormulaTokenType.OperatorInfix,
                                                   ExcelFormulaTokenSubtype.Union));
@@ -526,7 +559,10 @@ namespace DelftTools.Utils.FormulaParser
             {
                 ExcelFormulaToken token = tokens1.Current;
 
-                if (token == null) continue;
+                if (token == null)
+                {
+                    continue;
+                }
 
                 if (token.Type != ExcelFormulaTokenType.WhiteSpace)
                 {
@@ -534,11 +570,17 @@ namespace DelftTools.Utils.FormulaParser
                     continue;
                 }
 
-                if ((tokens1.BOF) || (tokens1.EOF)) continue;
+                if ((tokens1.BOF) || (tokens1.EOF))
+                {
+                    continue;
+                }
 
                 ExcelFormulaToken previous = tokens1.Previous;
 
-                if (previous == null) continue;
+                if (previous == null)
+                {
+                    continue;
+                }
 
                 if (!(
                          ((previous.Type == ExcelFormulaTokenType.Function) &&
@@ -547,11 +589,17 @@ namespace DelftTools.Utils.FormulaParser
                           (previous.Subtype == ExcelFormulaTokenSubtype.Stop)) ||
                          (previous.Type == ExcelFormulaTokenType.Operand)
                      )
-                    ) continue;
+                    )
+                {
+                    continue;
+                }
 
                 ExcelFormulaToken next = tokens1.Next;
 
-                if (next == null) continue;
+                if (next == null)
+                {
+                    continue;
+                }
 
                 if (!(
                          ((next.Type == ExcelFormulaTokenType.Function) &&
@@ -560,7 +608,10 @@ namespace DelftTools.Utils.FormulaParser
                           (next.Subtype == ExcelFormulaTokenSubtype.Start)) ||
                          (next.Type == ExcelFormulaTokenType.Operand)
                      )
-                    ) continue;
+                    )
+                {
+                    continue;
+                }
 
                 tokens2.Add(
                     new ExcelFormulaToken("", ExcelFormulaTokenType.OperatorInfix, ExcelFormulaTokenSubtype.Intersection));
@@ -575,7 +626,10 @@ namespace DelftTools.Utils.FormulaParser
             {
                 ExcelFormulaToken token = tokens2.Current;
 
-                if (token == null) continue;
+                if (token == null)
+                {
+                    continue;
+                }
 
                 ExcelFormulaToken previous = tokens2.Previous;
                 //ExcelFormulaToken next = tokens2.Next;
@@ -583,7 +637,9 @@ namespace DelftTools.Utils.FormulaParser
                 if ((token.Type == ExcelFormulaTokenType.OperatorInfix) && (token.Value == "-"))
                 {
                     if (tokens2.BOF)
+                    {
                         token.Type = ExcelFormulaTokenType.OperatorPrefix;
+                    }
                     else if (
                         ((previous.Type == ExcelFormulaTokenType.Function) &&
                          (previous.Subtype == ExcelFormulaTokenSubtype.Stop)) ||
@@ -592,9 +648,13 @@ namespace DelftTools.Utils.FormulaParser
                         (previous.Type == ExcelFormulaTokenType.OperatorPostfix) ||
                         (previous.Type == ExcelFormulaTokenType.Operand)
                         )
+                    {
                         token.Subtype = ExcelFormulaTokenSubtype.Math;
+                    }
                     else
+                    {
                         token.Type = ExcelFormulaTokenType.OperatorPrefix;
+                    }
 
                     tokens.Add(token);
                     continue;
@@ -603,7 +663,9 @@ namespace DelftTools.Utils.FormulaParser
                 if ((token.Type == ExcelFormulaTokenType.OperatorInfix) && (token.Value == "+"))
                 {
                     if (tokens2.BOF)
+                    {
                         continue;
+                    }
                     else if (
                         ((previous.Type == ExcelFormulaTokenType.Function) &&
                          (previous.Subtype == ExcelFormulaTokenSubtype.Stop)) ||
@@ -612,9 +674,13 @@ namespace DelftTools.Utils.FormulaParser
                         (previous.Type == ExcelFormulaTokenType.OperatorPostfix) ||
                         (previous.Type == ExcelFormulaTokenType.Operand)
                         )
+                    {
                         token.Subtype = ExcelFormulaTokenSubtype.Math;
+                    }
                     else
+                    {
                         continue;
+                    }
 
                     tokens.Add(token);
                     continue;
@@ -624,11 +690,17 @@ namespace DelftTools.Utils.FormulaParser
                     (token.Subtype == ExcelFormulaTokenSubtype.Nothing))
                 {
                     if (("<>=").IndexOf(token.Value.Substring(0, 1)) != -1)
+                    {
                         token.Subtype = ExcelFormulaTokenSubtype.Logical;
+                    }
                     else if (token.Value == "&")
+                    {
                         token.Subtype = ExcelFormulaTokenSubtype.Concatenation;
+                    }
                     else
+                    {
                         token.Subtype = ExcelFormulaTokenSubtype.Math;
+                    }
 
                     tokens.Add(token);
                     continue;
@@ -639,12 +711,20 @@ namespace DelftTools.Utils.FormulaParser
                     double d;
                     bool isNumber = double.TryParse(token.Value, NumberStyles.Any, CultureInfo.CurrentCulture, out d);
                     if (!isNumber)
+                    {
                         if ((token.Value == "TRUE") || (token.Value == "FALSE"))
+                        {
                             token.Subtype = ExcelFormulaTokenSubtype.Logical;
+                        }
                         else
+                        {
                             token.Subtype = ExcelFormulaTokenSubtype.Range;
+                        }
+                    }
                     else
+                    {
                         token.Subtype = ExcelFormulaTokenSubtype.Number;
+                    }
 
                     tokens.Add(token);
                     continue;
@@ -665,14 +745,39 @@ namespace DelftTools.Utils.FormulaParser
             }
         }
 
+        internal class ExcelFormulaStack
+        {
+            private readonly Stack<ExcelFormulaToken> stack = new Stack<ExcelFormulaToken>();
+
+            public ExcelFormulaToken Current
+            {
+                get
+                {
+                    return (stack.Count > 0) ? stack.Peek() : null;
+                }
+            }
+
+            public void Push(ExcelFormulaToken token)
+            {
+                stack.Push(token);
+            }
+
+            public ExcelFormulaToken Pop()
+            {
+                if (stack.Count == 0)
+                {
+                    return null;
+                }
+                return new ExcelFormulaToken("", stack.Pop().Type, ExcelFormulaTokenSubtype.Stop);
+            }
+        }
+
         internal class ExcelFormulaTokens
         {
-            private int index = -1;
             private readonly List<ExcelFormulaToken> tokens;
+            private int index = -1;
 
-            public ExcelFormulaTokens() : this(4)
-            {
-            }
+            public ExcelFormulaTokens() : this(4) {}
 
             public ExcelFormulaTokens(int capacity)
             {
@@ -681,24 +786,36 @@ namespace DelftTools.Utils.FormulaParser
 
             public int Count
             {
-                get { return tokens.Count; }
+                get
+                {
+                    return tokens.Count;
+                }
             }
 
             public bool BOF
             {
-                get { return (index <= 0); }
+                get
+                {
+                    return (index <= 0);
+                }
             }
 
             public bool EOF
             {
-                get { return (index >= (tokens.Count - 1)); }
+                get
+                {
+                    return (index >= (tokens.Count - 1));
+                }
             }
 
             public ExcelFormulaToken Current
             {
                 get
                 {
-                    if (index == -1) return null;
+                    if (index == -1)
+                    {
+                        return null;
+                    }
                     return tokens[index];
                 }
             }
@@ -707,7 +824,10 @@ namespace DelftTools.Utils.FormulaParser
             {
                 get
                 {
-                    if (EOF) return null;
+                    if (EOF)
+                    {
+                        return null;
+                    }
                     return tokens[index + 1];
                 }
             }
@@ -716,7 +836,10 @@ namespace DelftTools.Utils.FormulaParser
             {
                 get
                 {
-                    if (index < 1) return null;
+                    if (index < 1)
+                    {
+                        return null;
+                    }
                     return tokens[index - 1];
                 }
             }
@@ -729,7 +852,10 @@ namespace DelftTools.Utils.FormulaParser
 
             public bool MoveNext()
             {
-                if (EOF) return false;
+                if (EOF)
+                {
+                    return false;
+                }
                 index++;
                 return true;
             }
@@ -737,27 +863,6 @@ namespace DelftTools.Utils.FormulaParser
             public void Reset()
             {
                 index = -1;
-            }
-        }
-
-        internal class ExcelFormulaStack
-        {
-            private readonly Stack<ExcelFormulaToken> stack = new Stack<ExcelFormulaToken>();
-
-            public void Push(ExcelFormulaToken token)
-            {
-                stack.Push(token);
-            }
-
-            public ExcelFormulaToken Pop()
-            {
-                if (stack.Count == 0) return null;
-                return new ExcelFormulaToken("", stack.Pop().Type, ExcelFormulaTokenSubtype.Stop);
-            }
-
-            public ExcelFormulaToken Current
-            {
-                get { return (stack.Count > 0) ? stack.Peek() : null; }
             }
         }
     }

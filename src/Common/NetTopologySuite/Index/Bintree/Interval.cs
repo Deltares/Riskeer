@@ -5,41 +5,13 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
     /// </summary>
     public class Interval
     {
-        private double min, max;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double Min
-        {
-            get { return min;  }
-            set { min = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double Max
-        {
-            get { return max;  }
-            set { max = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public double Width
-        {
-            get { return Max - Min; }
-        }
-
         /// <summary>
         /// 
         /// </summary>
         public Interval()
         {
-            min = 0.0;
-            max = 0.0;
+            Min = 0.0;
+            Max = 0.0;
         }
 
         /// <summary>
@@ -64,6 +36,27 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         /// <summary>
         /// 
         /// </summary>
+        public double Min { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double Max { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double Width
+        {
+            get
+            {
+                return Max - Min;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
         public void Init(double min, double max)
@@ -77,17 +70,21 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
                 Max = min;
             }
         }
-               
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="interval"></param>
         public void ExpandToInclude(Interval interval)
         {
-            if (interval.Max > Max) 
+            if (interval.Max > Max)
+            {
                 Max = interval.Max;
-            if (interval.Min < Min) 
+            }
+            if (interval.Min < Min)
+            {
                 Min = interval.Min;
+            }
         }
 
         /// <summary>
@@ -108,8 +105,10 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         /// <returns></returns>
         public bool Overlaps(double min, double max)
         {
-            if (Min > max || Max < min) 
+            if (Min > max || Max < min)
+            {
                 return false;
+            }
             return true;
         }
 

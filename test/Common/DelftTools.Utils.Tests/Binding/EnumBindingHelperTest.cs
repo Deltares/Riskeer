@@ -13,10 +13,18 @@ namespace DelftTools.Utils.Tests.Binding
         {
             var list = EnumBindingHelper.ToList<SampleEnum>();
             Assert.AreEqual(2, list.Count);
-            Assert.AreEqual(new[] { SampleEnum.Sinterklaas, SampleEnum.Kerstman },
-                list.Select(kvp => kvp.Key).ToArray());
-            Assert.AreEqual(new[] { "De goedheilig man", "De kerstman" },
-                list.Select(kvp => kvp.Value).ToArray());
+            Assert.AreEqual(new[]
+            {
+                SampleEnum.Sinterklaas,
+                SampleEnum.Kerstman
+            },
+                            list.Select(kvp => kvp.Key).ToArray());
+            Assert.AreEqual(new[]
+            {
+                "De goedheilig man",
+                "De kerstman"
+            },
+                            list.Select(kvp => kvp.Value).ToArray());
         }
 
         [Test]

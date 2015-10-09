@@ -17,7 +17,7 @@ namespace DeltaShell.Plugins.SharpMapGis
         {
             string fileName = Path.GetFileNameWithoutExtension(path);
 
-            switch(Path.GetExtension(path).ToLower())
+            switch (Path.GetExtension(path).ToLower())
             {
                 case ".shp":
                     //todo: optimize ogr featureprovider and replace shapefile by ogr provider

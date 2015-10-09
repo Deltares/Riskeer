@@ -5,17 +5,19 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 {
     public class SeriesBandTool : Steema.TeeChart.Tools.SeriesBandTool, ISeriesBandTool
     {
+        public event EventHandler<EventArgs> ActiveChanged;
         private ChartSeries chartSeries1;
         private ChartSeries chartSeries2;
         public IChartView ChartView { get; set; }
 
         public bool Enabled { get; set; }
 
-        public event EventHandler<EventArgs> ActiveChanged;
-
         public new bool Active
         {
-            get { return base.Active; }
+            get
+            {
+                return base.Active;
+            }
             set
             {
                 base.Active = value;
@@ -28,7 +30,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
         public new IChartSeries Series
         {
-            get { return chartSeries1; }
+            get
+            {
+                return chartSeries1;
+            }
             set
             {
                 chartSeries1 = (ChartSeries) value;
@@ -38,7 +43,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
         public new IChartSeries Series2
         {
-            get { return chartSeries2; }
+            get
+            {
+                return chartSeries2;
+            }
             set
             {
                 chartSeries2 = (ChartSeries) value;

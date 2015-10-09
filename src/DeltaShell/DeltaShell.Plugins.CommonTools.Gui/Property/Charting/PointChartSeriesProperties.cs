@@ -14,8 +14,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "PointChartSeriesProperties_PointerColor_Description")]
         public Color Color
         {
-            get { return data.Color; }
-            set { data.Color = value; }
+            get
+            {
+                return data.Color;
+            }
+            set
+            {
+                data.Color = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Charting_Categories_PointStyle")]
@@ -23,8 +29,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "PointChartSeriesProperties_PointerOutlineColor_Description")]
         public Color LineColor
         {
-            get { return data.LineColor; }
-            set { data.LineColor = value; }
+            get
+            {
+                return data.LineColor;
+            }
+            set
+            {
+                data.LineColor = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Charting_Categories_PointStyle")]
@@ -32,8 +44,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "PointChartSeriesProperties_PointerLineVisible_Description")]
         public bool PointerLineVisible
         {
-            get { return data.LineVisible; }
-            set { data.LineVisible = value; }
+            get
+            {
+                return data.LineVisible;
+            }
+            set
+            {
+                data.LineVisible = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Charting_Categories_PointStyle")]
@@ -41,8 +59,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "PointChartSeriesProperties_Size_Description")]
         public int Size
         {
-            get { return data.Size; }
-            set { data.Size = value; }
+            get
+            {
+                return data.Size;
+            }
+            set
+            {
+                data.Size = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Charting_Categories_PointStyle")]
@@ -50,8 +74,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "PointChartSeriesProperties_PointerShape_Description")]
         public PointerStyles Style
         {
-            get { return data.Style; }
-            set { data.Style = value; }
+            get
+            {
+                return data.Style;
+            }
+            set
+            {
+                data.Style = value;
+            }
         }
     }
 }

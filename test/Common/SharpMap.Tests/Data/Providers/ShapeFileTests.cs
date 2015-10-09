@@ -17,7 +17,7 @@ namespace SharpMap.Tests.Data.Providers
             string path = TestHelper.GetTestDataPath(TestDataPath.DeltaShell.DeltaShellDeltaShellPluginsSharpMapGisTests, "Europe_Lakes.shp");
             var s = new ShapeFile(path);
             var feature = s.Features[0];
-            s.Contains((IFeature)feature); // -> should not throw an exception
+            s.Contains((IFeature) feature); // -> should not throw an exception
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace SharpMap.Tests.Data.Providers
             string path = @"..\..\..\..\data\Europe_Lakes.shp";
             var s = new ShapeFile(path);
             var feature = s.Features[1];
-            Assert.LessOrEqual(0, s.IndexOf((IFeature)feature));
+            Assert.LessOrEqual(0, s.IndexOf((IFeature) feature));
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace SharpMap.Tests.Data.Providers
             string path = @"..\..\..\..\data\gemeenten.shp";
             var s = new ShapeFile(path);
             var feature = s.Features[0];
-            Assert.LessOrEqual(0, s.IndexOf((IFeature)feature));
+            Assert.LessOrEqual(0, s.IndexOf((IFeature) feature));
         }
 
         [Test]
@@ -48,5 +48,4 @@ namespace SharpMap.Tests.Data.Providers
             Assert.AreEqual(37, dataSource.Features.Count);
         }
     }
-
 }

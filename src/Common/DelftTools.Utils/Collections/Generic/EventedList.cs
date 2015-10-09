@@ -16,6 +16,11 @@ namespace DelftTools.Utils.Collections.Generic
     [Serializable]
     public class EventedList<T> : IEventedList<T>, IList, INotifyPropertyChange // TODO: move INotifyPropertyChanged to interface and fix aspect
     {
+        public event NotifyCollectionChangingEventHandler CollectionChanging;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        public event PropertyChangingEventHandler PropertyChanging;
+        public event PropertyChangedEventHandler PropertyChanged;
         private static readonly ILog eventsLog = LogManager.GetLogger("Events");
 
         // WARNING: any change here should be mirrored in >>>>>>>>> PersistentEventedList <<<<<<<<<< !!!!!!!
@@ -27,14 +32,56 @@ namespace DelftTools.Utils.Collections.Generic
         /// </summary>
         private readonly List<T> list;
 
+        // re-use event delegates, for performance reasons (10x speedup at add/remove)
+        private PropertyChangingEventHandler Item_PropertyChangingDelegate;
+        private PropertyChangedEventHandler Item_PropertyChangedDelegate;
+        private NotifyCollectionChangingEventHandler Item_CollectionChangingDelegate;
+        private NotifyCollectionChangedEventHandler Item_CollectionChangedDelegate;
+
+        private bool skipChildItemEventBubbling;
+
+        bool INotifyCollectionChange.HasParentIsCheckedInItems { get; set; }
+
+        bool INotifyCollectionChange.SkipChildItemEventBubbling
+        {
+            get
+            {
+                return skipChildItemEventBubbling;
+            }
+            set
+            {
+                if (skipChildItemEventBubbling == value)
+                {
+                    return;
+                }
+
+                skipChildItemEventBubbling = value;
+
+                if (Count > 0)
+                {
+                    foreach (var item in list)
+                    {
+                        if (value)
+                        {
+                            UnsubscribeEvents(item);
+                        }
+                        else
+                        {
+                            SubscribeEvents(item);
+                        }
+                    }
+                }
+            }
+        }
+
+        public bool HasParent { get; set; }
+
         #region Constructors
 
         /// <summary>
         /// Construct me
         /// </summary>
-        public EventedList(): this(null)
-        {
-        }
+        public EventedList() : this(null) {}
 
         /// <summary>
         /// Construct me
@@ -62,12 +109,6 @@ namespace DelftTools.Utils.Collections.Generic
 
         #endregion
 
-        // re-use event delegates, for performance reasons (10x speedup at add/remove)
-        private PropertyChangingEventHandler Item_PropertyChangingDelegate;
-        private PropertyChangedEventHandler Item_PropertyChangedDelegate;
-        private NotifyCollectionChangingEventHandler Item_CollectionChangingDelegate;
-        private NotifyCollectionChangedEventHandler Item_CollectionChangedDelegate;
-
         #region IList<T> Members
 
         public int IndexOf(T item)
@@ -78,7 +119,7 @@ namespace DelftTools.Utils.Collections.Generic
         public void Insert(int index, T item)
         {
             CheckReadOnly();
-            if(!OnAdding(item, index))
+            if (!OnAdding(item, index))
             {
                 return;
             }
@@ -108,7 +149,7 @@ namespace DelftTools.Utils.Collections.Generic
         {
             CheckReadOnly();
             var item = this[index];
-            if(!OnRemoving(item, index))
+            if (!OnRemoving(item, index))
             {
                 return;
             }
@@ -127,18 +168,27 @@ namespace DelftTools.Utils.Collections.Generic
         /// <exception cref="T:System.NotSupportedException">The property is set and the <see cref="T:System.Collections.IList" /> is read-only. </exception><filterpriority>2</filterpriority>
         object IList.this[int index]
         {
-            get { return this[index]; }
-            set { this[index] = (T)value; }
+            get
+            {
+                return this[index];
+            }
+            set
+            {
+                this[index] = (T) value;
+            }
         }
 
         public T this[int index]
         {
-            get { return list[index]; }
+            get
+            {
+                return list[index];
+            }
             set
             {
                 CheckReadOnly();
                 var old = this[index];
-                if(!OnReplacing(old, index))
+                if (!OnReplacing(old, index))
                 {
                     return;
                 }
@@ -150,16 +200,16 @@ namespace DelftTools.Utils.Collections.Generic
         #endregion
 
         #region ICollection<T> Members
-        
+
         public void Add(T item)
         {
             CheckReadOnly();
-            if(!OnAdding(item, Count))
+            if (!OnAdding(item, Count))
             {
                 return;
             }
             list.Add(item);
-            OnAdded(item,list.Count - 1);
+            OnAdded(item, list.Count - 1);
         }
 
         /// <summary>
@@ -192,7 +242,7 @@ namespace DelftTools.Utils.Collections.Generic
         {
             CheckReadOnly();
 
-            while(list.Count != 0)
+            while (list.Count != 0)
             {
                 RemoveAt(list.Count - 1);
             }
@@ -220,7 +270,7 @@ namespace DelftTools.Utils.Collections.Generic
         /// <exception cref="T:System.NullReferenceException"><paramref name="value" /> is null reference in the <see cref="T:System.Collections.IList" />.</exception><filterpriority>2</filterpriority>
         public void Insert(int index, object value)
         {
-            Insert(index, (T)value);
+            Insert(index, (T) value);
         }
 
         public bool Contains(T item)
@@ -258,22 +308,22 @@ namespace DelftTools.Utils.Collections.Generic
 
         public virtual int Count
         {
-            get { return list.Count; }
+            get
+            {
+                return list.Count;
+            }
         }
 
-        public object SyncRoot
-        {
-            get { return syncRoot; }
-        }
+        public object SyncRoot { get; private set; }
 
-        public bool IsSynchronized
-        {
-            get { return isSynchronized; }
-        }
+        public bool IsSynchronized { get; private set; }
 
         public bool IsReadOnly
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -284,11 +334,11 @@ namespace DelftTools.Utils.Collections.Generic
         /// </returns>
         public bool IsFixedSize
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
-
-        private object syncRoot;
-        private bool isSynchronized;
 
         public bool Remove(T item)
         {
@@ -299,7 +349,7 @@ namespace DelftTools.Utils.Collections.Generic
                 return false;
             }
 
-            if(!OnRemoving(item, index))
+            if (!OnRemoving(item, index))
             {
                 return false;
             }
@@ -356,7 +406,7 @@ namespace DelftTools.Utils.Collections.Generic
         {
             UnsubscribeEvents(oldItem);
             SubscribeEvents(item);
-            FireCollectionChangedEvent(NotifyCollectionChangeAction.Replace,item,  index,oldItem);
+            FireCollectionChangedEvent(NotifyCollectionChangeAction.Replace, item, index, oldItem);
         }
 
         private void OnAdded(object item, int index)
@@ -364,6 +414,7 @@ namespace DelftTools.Utils.Collections.Generic
             SubscribeEvents(item);
             FireCollectionChangedEvent(NotifyCollectionChangeAction.Add, item, index);
         }
+
         private void OnRemoved(T item, int index)
         {
             UnsubscribeEvents(item);
@@ -376,8 +427,10 @@ namespace DelftTools.Utils.Collections.Generic
 
             if (CollectionChanging != null)
             {
-                if(EventSettings.EnableLogging)
+                if (EventSettings.EnableLogging)
+                {
                     eventsLog.DebugFormat("CollectionChanging L>> '{0}[{1}]', item:{2}, index:{3}, action:{4} - BEGIN >>>>>>>>>>>>>>", "EventedList", typeof(T).Name, item, index, action);
+                }
 
                 var args = new NotifyCollectionChangingEventArgs(action, item, index, -1);
 
@@ -391,7 +444,7 @@ namespace DelftTools.Utils.Collections.Generic
                     throw;
                 }
 
-                if(args.Cancel)
+                if (args.Cancel)
                 {
                     EditActionAttribute.FireAfterEventCall(this, false, args.Cancel);
                 }
@@ -409,9 +462,14 @@ namespace DelftTools.Utils.Collections.Generic
                 if (CollectionChanged != null)
                 {
                     if (EventSettings.EnableLogging)
+                    {
                         eventsLog.DebugFormat("CollectionChanged L<< '{0}[{1}]', item:{2}, index:{3}, action:{4} - END <<<<<<<<<<<<<<", "EventedList", typeof(T).Name, item, index, action);
+                    }
 
-                    var args = new NotifyCollectionChangingEventArgs(action, item, index, -1) { OldItem = oldItem };
+                    var args = new NotifyCollectionChangingEventArgs(action, item, index, -1)
+                    {
+                        OldItem = oldItem
+                    };
                     CollectionChanged(this, args);
                 }
             }
@@ -443,7 +501,7 @@ namespace DelftTools.Utils.Collections.Generic
             }
         }
 
-        void Item_CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void Item_CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
             // forwards event to subscribers of the list
             if (CollectionChanged != null)
@@ -465,7 +523,7 @@ namespace DelftTools.Utils.Collections.Generic
             }
         }
 
-        void Item_PropertyChanging(object sender, PropertyChangingEventArgs e)
+        private void Item_PropertyChanging(object sender, PropertyChangingEventArgs e)
         {
             // forwards event to subscribers of the list
             if (PropertyChanging != null)
@@ -479,9 +537,8 @@ namespace DelftTools.Utils.Collections.Generic
             }
         }
 
-        void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-
             // forwards event to subscribers of the list
             if (PropertyChanged != null)
             {
@@ -491,7 +548,7 @@ namespace DelftTools.Utils.Collections.Generic
                 }
 
                 PropertyChanged(sender, e);
-            } 
+            }
         }
 
         /// <summary>
@@ -526,11 +583,11 @@ namespace DelftTools.Utils.Collections.Generic
         /// <param name="item">The item to detach the handlers from</param>
         private void SubscribeEvents(object item)
         {
-            if(((INotifyCollectionChange)this).SkipChildItemEventBubbling)
+            if (((INotifyCollectionChange) this).SkipChildItemEventBubbling)
             {
                 return;
             }
-            
+
             var notifyPropertyChange = item as INotifyPropertyChange;
             if (notifyPropertyChange != null)
             {
@@ -560,40 +617,5 @@ namespace DelftTools.Utils.Collections.Generic
         }
 
         #endregion
-
-        public event NotifyCollectionChangingEventHandler CollectionChanging;
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-        
-        public event PropertyChangingEventHandler PropertyChanging;
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public bool HasParent { get; set; }
-
-        bool INotifyCollectionChange.HasParentIsCheckedInItems { get; set; }
-
-        private bool skipChildItemEventBubbling;
-
-        bool INotifyCollectionChange.SkipChildItemEventBubbling
-        {
-            get { return skipChildItemEventBubbling; }
-            set
-            {
-                if (skipChildItemEventBubbling == value)
-                    return;
-
-                skipChildItemEventBubbling = value;
-
-                if (Count > 0)
-                {
-                    foreach (var item in list)
-                    {
-                        if (value)
-                            UnsubscribeEvents(item);
-                        else
-                            SubscribeEvents(item);
-                    }
-                }
-            }
-        }
     }
 }

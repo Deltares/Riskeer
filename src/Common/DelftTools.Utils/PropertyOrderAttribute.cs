@@ -17,7 +17,10 @@ namespace DelftTools.Utils
 
         public int Order
         {
-            get { return order; }
+            get
+            {
+                return order;
+            }
         }
     }
 }

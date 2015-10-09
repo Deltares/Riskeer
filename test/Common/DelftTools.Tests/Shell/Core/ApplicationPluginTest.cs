@@ -1,7 +1,6 @@
-﻿using System.Linq;
-
+﻿using System;
+using System.Linq;
 using DelftTools.Shell.Core;
-
 using NUnit.Framework;
 
 namespace DelftTools.Tests.Shell.Core
@@ -103,13 +102,13 @@ namespace DelftTools.Tests.Shell.Core
         }
     }
 
-    class SimpleApplicationPlugin : ApplicationPlugin
+    internal class SimpleApplicationPlugin : ApplicationPlugin
     {
         public override string Name
         {
             get
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
 
@@ -117,7 +116,7 @@ namespace DelftTools.Tests.Shell.Core
         {
             get
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
 
@@ -125,7 +124,7 @@ namespace DelftTools.Tests.Shell.Core
         {
             get
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
 
@@ -133,7 +132,7 @@ namespace DelftTools.Tests.Shell.Core
         {
             get
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
     }

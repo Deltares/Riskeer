@@ -11,29 +11,31 @@ namespace DeltaShell.Core
             LogLevel = logLevel;
         }
 
+        public bool LogAssemblyScanErrors { get; set; }
+
         public int LogLevel { get; private set; }
 
         public bool IsCanceled { get; private set; }
 
-        public bool LogAssemblyScanErrors { get; set; }
+        public void SetMessage(string msg) {}
 
-        public void SetMessage(string msg)
-        {
-        }
-
-        public void SetProgress(double progress)
-        {
-        }
+        public void SetProgress(double progress) {}
 
         public void Log(string msg)
         {
-            if (LogLevel <= 3) return;
+            if (LogLevel <= 3)
+            {
+                return;
+            }
             Console.WriteLine(msg);
         }
 
         public void ReportWarning(string message)
         {
-            if (LogLevel <= 2) return;
+            if (LogLevel <= 2)
+            {
+                return;
+            }
             Console.WriteLine(Resources.MonoAddinsConsoleLogger_ReportWarning_Warning___ + message);
         }
 
@@ -50,7 +52,10 @@ namespace DeltaShell.Core
                 return;
             }
 
-            if (LogLevel <= 1) return;
+            if (LogLevel <= 1)
+            {
+                return;
+            }
             Console.WriteLine(Resources.MonoAddinsConsoleLogger_ReportError_Error___ + message);
         }
 

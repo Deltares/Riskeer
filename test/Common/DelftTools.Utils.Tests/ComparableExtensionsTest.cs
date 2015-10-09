@@ -10,7 +10,7 @@ namespace DelftTools.Utils.Tests
         public void NullIsSmallerThanAnything()
         {
             IComparable b = null;
-            Assert.IsTrue( b.IsSmaller("anything"));
+            Assert.IsTrue(b.IsSmaller("anything"));
         }
 
         [Test]

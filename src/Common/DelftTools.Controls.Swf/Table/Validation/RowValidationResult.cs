@@ -5,8 +5,7 @@ namespace DelftTools.Controls.Swf.Table.Validation
     public class RowValidationResult : IRowValidationResult
     {
         public RowValidationResult(string errorText) : this(-1, errorText) //-1 = no specific column, row error
-        {
-        }
+        {}
 
         public RowValidationResult(int columnIndex, string errorText)
         {

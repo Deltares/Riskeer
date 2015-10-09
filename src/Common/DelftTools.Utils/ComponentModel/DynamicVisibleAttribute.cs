@@ -15,7 +15,9 @@ namespace DelftTools.Utils.ComponentModel
         public static bool IsDynamicVisible(object obj, string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))
+            {
                 return false;
+            }
 
             // todo: caching!!!!
             var propertyInfo = obj.GetType().GetProperty(propertyName);
@@ -39,7 +41,10 @@ namespace DelftTools.Utils.ComponentModel
                     String.Format("{0} uses DynamicVisibleAttribute but does not have method marked using DynamicVisibleValidationMethodAttribute", obj));
             }
 
-            return (bool)validationMethod.Invoke(obj, new[] { propertyName });
+            return (bool) validationMethod.Invoke(obj, new[]
+            {
+                propertyName
+            });
         }
 
         private static MethodInfo GetDynamicVisibleValidationMethod(object o)

@@ -23,8 +23,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "MapProperties_Name_Description")]
         public string Name
         {
-            get { return data.Name; }
-            set { data.Name = value; }
+            get
+            {
+                return data.Name;
+            }
+            set
+            {
+                data.Name = value;
+            }
         }
 
         [Category("Coordinates")]
@@ -34,7 +40,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [Editor(typeof(CoordinateSystemTypeEditor), typeof(UITypeEditor))]
         public ICoordinateSystem CoordinateSystem
         {
-            get { return data.CoordinateSystem; }
+            get
+            {
+                return data.CoordinateSystem;
+            }
             set
             {
                 try
@@ -55,7 +64,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [Description("Shows or hides latitude / longitude grid.")]
         public bool ShowGrid
         {
-            get { return data.ShowGrid; }
+            get
+            {
+                return data.ShowGrid;
+            }
             set
             {
                 if (data.CoordinateSystem == null)

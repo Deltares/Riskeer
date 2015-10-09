@@ -5,16 +5,16 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
     /// <summary>
     /// A <c>CoordinateFilter</c> that creates an array containing every coordinate in a <c>Geometry</c>.
     /// </summary>
-    public class CoordinateArrayFilter : ICoordinateFilter 
+    public class CoordinateArrayFilter : ICoordinateFilter
     {
-        ICoordinate[] pts = null;
-        int n = 0;
+        private readonly ICoordinate[] pts = null;
+        private int n = 0;
 
         /// <summary>
         /// Constructs a <c>CoordinateArrayFilter</c>.
         /// </summary>
         /// <param name="size">The number of points that the <c>CoordinateArrayFilter</c> will collect.</param>
-        public CoordinateArrayFilter(int size) 
+        public CoordinateArrayFilter(int size)
         {
             pts = new ICoordinate[size];
         }
@@ -34,7 +34,7 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         /// 
         /// </summary>
         /// <param name="coord"></param>
-        public void Filter(ICoordinate coord) 
+        public void Filter(ICoordinate coord)
         {
             pts[n++] = (ICoordinate) coord;
         }

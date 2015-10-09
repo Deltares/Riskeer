@@ -7,6 +7,18 @@ namespace DelftTools.Shell.Gui
     public interface IViewResolver
     {
         /// <summary>
+        /// Default view types registered for data object types.
+        /// 
+        /// <example>DefaultViewTypes[objectType] = viewType;</example>
+        /// </summary>
+        IDictionary<Type, Type> DefaultViewTypes { get; }
+
+        /// <summary>
+        /// List of view info objects used for resolving views
+        /// </summary>
+        IList<ViewInfo> ViewInfos { get; }
+
+        /// <summary>
         /// Opens a view for specified data. Using viewprovider to resolve the correct view.
         /// </summary>
         /// <param name="data">Data to open a view for</param>
@@ -44,18 +56,6 @@ namespace DelftTools.Shell.Gui
         /// <param name="data"></param>
         /// <returns></returns>
         void CloseAllViewsFor(object data);
-
-        /// <summary>
-        /// Default view types registered for data object types.
-        /// 
-        /// <example>DefaultViewTypes[objectType] = viewType;</example>
-        /// </summary>
-        IDictionary<Type, Type> DefaultViewTypes { get; }
-
-        /// <summary>
-        /// List of view info objects used for resolving views
-        /// </summary>
-        IList<ViewInfo> ViewInfos { get; }
 
         /// <summary>
         /// Gives the default viewtype for the given data object.

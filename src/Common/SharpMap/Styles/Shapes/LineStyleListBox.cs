@@ -14,38 +14,37 @@ namespace SharpMap.Styles.Shapes
     public class LineStyleListBox : ListBox
     {
         // Fields
-        private IWindowsFormsEditorService m_EditorService;
+        private readonly IWindowsFormsEditorService m_EditorService;
 
         // Methods
         public LineStyleListBox(DashStyle line_style, IWindowsFormsEditorService editor_service)
         {
-            base.DrawItem += new DrawItemEventHandler(this.LineStyleListBox_DrawItem);
-            base.Click += new EventHandler(this.LineStyleListBox_Click);
-            this.m_EditorService = editor_service;
+            DrawItem += new DrawItemEventHandler(LineStyleListBox_DrawItem);
+            Click += new EventHandler(LineStyleListBox_Click);
+            m_EditorService = editor_service;
             int i = 0;
             do
             {
-                this.Items.Add(i);
+                Items.Add(i);
                 i++;
-            }
-            while (i <= 4);
-            this.SelectedIndex = (int)line_style;
-            this.DrawMode = DrawMode.OwnerDrawFixed;
-            this.ItemHeight = 0x12;
+            } while (i <= 4);
+            SelectedIndex = (int) line_style;
+            DrawMode = DrawMode.OwnerDrawFixed;
+            ItemHeight = 0x12;
         }
 
         private void LineStyleListBox_Click(object sender, EventArgs e)
         {
-            if (this.m_EditorService != null)
+            if (m_EditorService != null)
             {
-                this.m_EditorService.CloseDropDown();
+                m_EditorService.CloseDropDown();
             }
         }
 
         private void LineStyleListBox_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
-            LineStyleEditorStuff.DrawSamplePen(e.Graphics, e.Bounds, Color.Black, (DashStyle)e.Index);
+            LineStyleEditorStuff.DrawSamplePen(e.Graphics, e.Bounds, Color.Black, (DashStyle) e.Index);
         }
     }
 }

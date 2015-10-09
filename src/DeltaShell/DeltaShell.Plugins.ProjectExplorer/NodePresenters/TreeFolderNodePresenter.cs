@@ -8,10 +8,7 @@ namespace DeltaShell.Plugins.ProjectExplorer.NodePresenters
 {
     public class TreeFolderNodePresenter : TreeViewNodePresenterBaseForPluginGui<TreeFolder>
     {
-        public TreeFolderNodePresenter(GuiPlugin guiPlugin):base(guiPlugin)
-        {
-           
-        }
+        public TreeFolderNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
 
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, TreeFolder data)
         {
@@ -20,14 +17,14 @@ namespace DeltaShell.Plugins.ProjectExplorer.NodePresenters
             node.Image = GetImage(data);
         }
 
-        private static Image GetImage(TreeFolder data)
-        {
-            return data.Image;
-        }
-
         public override IEnumerable GetChildNodeObjects(TreeFolder parentNodeData, ITreeNode node)
         {
             return parentNodeData.ChildItems;
+        }
+
+        private static Image GetImage(TreeFolder data)
+        {
+            return data.Image;
         }
     }
 }

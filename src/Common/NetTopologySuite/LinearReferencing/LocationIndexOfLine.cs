@@ -12,7 +12,18 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
     /// (However, the common case of a ring is always handled correctly).
     /// </summary>
     public class LocationIndexOfLine
-    {      
+    {
+        private readonly IGeometry linearGeom;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LocationIndexOfLine"/> class.
+        /// </summary>
+        /// <param name="linearGeom">The linear geom.</param>
+        public LocationIndexOfLine(IGeometry linearGeom)
+        {
+            this.linearGeom = linearGeom;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -28,17 +39,6 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
              */
             LocationIndexOfLine locater = new LocationIndexOfLine(linearGeom);
             return locater.IndicesOf(subLine);
-        }
-
-        private IGeometry linearGeom;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LocationIndexOfLine"/> class.
-        /// </summary>
-        /// <param name="linearGeom">The linear geom.</param>
-        public LocationIndexOfLine(IGeometry linearGeom)
-        {
-            this.linearGeom = linearGeom;
         }
 
         /// <summary>
@@ -58,8 +58,13 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
 
             // check for case where subline is zero length
             if (subLine.Length == 0)
-                 subLineLoc[1] = (LinearLocation) subLineLoc[0].Clone();            
-            else subLineLoc[1] = locPt.IndexOfAfter(endPt, subLineLoc[0]);
+            {
+                subLineLoc[1] = (LinearLocation) subLineLoc[0].Clone();
+            }
+            else
+            {
+                subLineLoc[1] = locPt.IndexOfAfter(endPt, subLineLoc[0]);
+            }
             return subLineLoc;
         }
     }

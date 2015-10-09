@@ -5,8 +5,26 @@ using DelftTools.Shell.Gui;
 
 namespace DeltaShell.Plugins.CommonTools.Gui.Commands.Charting
 {
-    public class RulerCommand: Command, IGuiCommand
+    public class RulerCommand : Command, IGuiCommand
     {
+        public override bool Checked
+        {
+            get
+            {
+                return RulerTool != null && RulerTool.Active;
+            }
+        }
+
+        public override bool Enabled
+        {
+            get
+            {
+                return Gui != null && Gui.DocumentViews.ActiveView != null && RulerTool != null;
+            }
+        }
+
+        public IGui Gui { get; set; }
+
         protected override void OnExecute(params object[] arguments)
         {
             var view = RulerTool;
@@ -18,19 +36,6 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Commands.Charting
             RulerTool.Active = (bool) arguments[0];
         }
 
-        public override bool Checked
-        {
-            get { return RulerTool != null && RulerTool.Active; }
-        }
-
-        public override bool Enabled
-        {
-            get
-            {
-                return Gui != null && Gui.DocumentViews.ActiveView != null && RulerTool != null;
-            }
-        }
-        
         private RulerTool RulerTool
         {
             get
@@ -58,11 +63,9 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Commands.Charting
                     }
                 }
             }
-            return chartView == null ? null : 
-                chartView.GetTool<RulerTool>() == null ? null :
-                chartView;
+            return chartView == null ? null :
+                       chartView.GetTool<RulerTool>() == null ? null :
+                           chartView;
         }
-
-        public IGui Gui { get; set; }
     }
 }

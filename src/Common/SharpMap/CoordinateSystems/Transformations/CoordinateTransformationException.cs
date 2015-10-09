@@ -5,14 +5,8 @@ namespace SharpMap.CoordinateSystems.Transformations
 {
     public class CoordinateTransformException : Exception
     {
-        private ICoordinateSystem SourceCS { get; set; }
-
-        private ICoordinateSystem TargetCS { get; set; }
-
-        private string ItemName { get; set; }
-
         public CoordinateTransformException(string itemName, ICoordinateSystem sourceCs,
-                                                 ICoordinateSystem targetCs)
+                                            ICoordinateSystem targetCs)
         {
             ItemName = itemName;
             SourceCS = sourceCs;
@@ -27,5 +21,11 @@ namespace SharpMap.CoordinateSystems.Transformations
                                      SourceCS, TargetCS);
             }
         }
+
+        private ICoordinateSystem SourceCS { get; set; }
+
+        private ICoordinateSystem TargetCS { get; set; }
+
+        private string ItemName { get; set; }
     }
 }

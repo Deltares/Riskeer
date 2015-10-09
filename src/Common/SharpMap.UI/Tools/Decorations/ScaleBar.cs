@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace SharpMap.UI.Tools.Decorations
 {
@@ -16,7 +17,6 @@ namespace SharpMap.UI.Tools.Decorations
         ws_stUnitsOnly = 1,
         ws_stFraction = 2
     }
-
 
 /*    public enum ScaleBarUnits
     {
@@ -56,48 +56,31 @@ namespace SharpMap.UI.Tools.Decorations
 
     public class ScaleBar
     {
-        #region fields
+        public ScaleBar()
+        {
+            MapUnit = MapUnits.ws_muCustom;
+            BarUnit = MapUnits.ws_muCustom;
+            BorderVisible = false;
+            BarOutLine = true;
+            BarOutlineColor = Color.Black;
+            BorderWidth = 1;
+            BorderStyle = DashStyle.Solid;
+            BorderColor = Color.Black;
+            ForeColor = Color.Black;
+            BackColor = Color.Green;
+            BarColor1 = Color.White;
+            BarColor2 = Color.Black;
+            BarStyle = ScaleBarStyle.ws_bsStandard;
+            NumTics = 4;
 
-        private double m_fMapWidth = 0.0; //the width in map unit
-        private long m_nPageWidth = 0; //the width in pixel for the map on screen
-        private double m_fLon1 = 0.0; //longitude 1 for map that is lat/lon
-        private double m_fLon2 = 0.0; //longitude 2 for map that is lat/lon
-        private double m_fLat = 0.0; //latitude 1 for map that is lat/lon 
-        private double m_fScale = 0.0; //mapscale
-
-        private double m_fBarUnitFactor;
-        private double m_fMapUnitFactor;
-        private string m_strMapUnitName;
-        private string m_strMapUnitShortName;
-
-        public bool TransparentBackground { get; set; }
-        private string m_strBarUnitShortName = "";
-        private string m_strBarUnitName;
-
-        #endregion
-
-        #region constants
-
-        private const double DegreesToRadians = 0.01745329252; // Convert Degrees to Radians
-        private const double metersPerInch = 0.0254;
-        private const double metersPerMile = 1609.347219;
-        private const double milesPerDegreeAtEquator = 69.171;
-        private const double metersPerDegreeAtEquator = metersPerMile*milesPerDegreeAtEquator;
-        private const double fVerySmall = 0.00000001;
-        private const int GapScaleText_Bar = 3;
-        private const int GapBar_SegmentText = 1;
-        private const int PowerRangeMin = -5;
-        private const int PowerRangeMax = 10;
-        private const int nNiceNumber = 4;
-        private static readonly double[] NiceNumberArray = new double[] {1, 2, 2.5, 5};
-        private Color barColor1;
-        private Color barColor2;
-        private int barWidth;
-        private MapUnits mapUnit;
-        private MapUnits barUnit;
-
-        #endregion
-
+            ScaleText = sbScaleText.ws_stNoText;
+            BarWidth = 6;
+            font = new Font("Arial", 8);
+            TransparentBackground = true;
+            MarginLeft = 5;
+            MarginRight = 15;
+            AlignMent = StringAlignment.Near;
+        }
 
         public Color BackColor { get; set; }
 
@@ -106,10 +89,13 @@ namespace SharpMap.UI.Tools.Decorations
         /// </summary>
         public Color BarColor1
         {
-            get { return barColor1; }
+            get
+            {
+                return barColor1;
+            }
             set
             {
-                this.barColor1 = value;
+                barColor1 = value;
                 FireViewChange();
             }
         }
@@ -119,7 +105,10 @@ namespace SharpMap.UI.Tools.Decorations
         /// </summary>
         public Color BarColor2
         {
-            get { return barColor2; }
+            get
+            {
+                return barColor2;
+            }
             set
             {
                 barColor2 = value;
@@ -139,7 +128,10 @@ namespace SharpMap.UI.Tools.Decorations
         /// </remarks>
         public MapUnits BarUnit
         {
-            get { return barUnit; }
+            get
+            {
+                return barUnit;
+            }
             set
             {
                 barUnit = value;
@@ -150,7 +142,10 @@ namespace SharpMap.UI.Tools.Decorations
 
         public int BarWidth
         {
-            get { return barWidth; }
+            get
+            {
+                return barWidth;
+            }
             set
             {
                 barWidth = value;
@@ -163,7 +158,7 @@ namespace SharpMap.UI.Tools.Decorations
         }
 
         public Color BorderColor { get; set; }
-        public System.Drawing.Drawing2D.DashStyle BorderStyle { get; set; }
+        public DashStyle BorderStyle { get; set; }
         public bool BorderVisible { get; set; }
         public int BorderWidth { get; set; }
         public Font font { get; set; }
@@ -174,7 +169,6 @@ namespace SharpMap.UI.Tools.Decorations
         /// </summary>
         public bool FormatNumber { get; set; }
 
-
         /// <summary>
         /// This is the unit used on the map. We use this unit to calculate the map scale.
         /// </summary>
@@ -183,7 +177,10 @@ namespace SharpMap.UI.Tools.Decorations
         /// </remarks>
         public MapUnits MapUnit
         {
-            get { return mapUnit; }
+            get
+            {
+                return mapUnit;
+            }
             set
             {
                 mapUnit = value;
@@ -210,12 +207,10 @@ namespace SharpMap.UI.Tools.Decorations
         /// </summary>
         public int NumTics { get; set; }
 
-
         /// <summary>
         /// If you know the real scale of the map, you can set the scale directly here; otherwise, use methods SetScaleD( )/SetScale( ).
         /// </summary>
         public double Scale { get; set; }
-
 
         /// <remarks>
         /// ws_stNoText means will show on test.
@@ -225,32 +220,6 @@ namespace SharpMap.UI.Tools.Decorations
         public sbScaleText ScaleText { get; set; }
 
         public StringAlignment AlignMent { get; set; }
-
-        public ScaleBar()
-        {
-            MapUnit = MapUnits.ws_muCustom;
-            BarUnit = MapUnits.ws_muCustom;
-            BorderVisible = false;
-            BarOutLine = true;
-            BarOutlineColor = Color.Black;
-            BorderWidth = 1;
-            BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            BorderColor = Color.Black;
-            ForeColor = Color.Black;
-            BackColor = Color.Green;
-            BarColor1 = Color.White;
-            BarColor2 = Color.Black;
-            BarStyle = ScaleBarStyle.ws_bsStandard;
-            NumTics = 4;
-
-            ScaleText = sbScaleText.ws_stNoText;
-            BarWidth = 6;
-            font = new Font("Arial", 8);
-            TransparentBackground = true;
-            MarginLeft = 5;
-            MarginRight = 15;
-            AlignMent = StringAlignment.Near;
-        }
 
         /// <summary>
         /// Calculate the scale for the map. MapWidth is the width of the map extent (in map units). WidthInPixel is the the screen width of the map (in pixels).
@@ -265,6 +234,185 @@ namespace SharpMap.UI.Tools.Decorations
             CalcScale(TODO);
             FireViewChange();
 */
+        }
+
+        public void SetScaleD(Graphics g, double lon1, double lon2, double lat, int widthInPixel)
+        {
+            m_fLon1 = lon1;
+            m_fLon2 = lon2;
+            m_fLat = lat;
+            m_nPageWidth = widthInPixel;
+/*
+            CalcScale(TODO);
+            FireViewChange();
+*/
+        }
+
+        public void SetCustomUnit(double factor, string name, string short_name)
+        {
+//If the user wants to use customer unit, then the map unit and the bar unit will be the same
+//Map Unit
+            if (factor <= 0.0) //factor should be >0
+            {
+                factor = 1.0;
+            }
+            m_fMapUnitFactor = factor;
+            // wcstombs(m_strMapUnitName, name, MaxNameLength);    
+            // wcstombs(m_strMapUnitShortName, short_name, MaxNameLength);    
+
+//Bar Unit   
+            m_fBarUnitFactor = factor;
+            // wcstombs(m_strBarUnitName, name, MaxNameLength);    
+            // wcstombs(m_strBarUnitShortName, short_name, MaxNameLength);    
+
+/*
+            CalcScale(TODO);
+            FireViewChange();
+*/
+            // return S_OK;
+        }
+
+        public void DrawTheControl(Graphics graphics, Rectangle rectangle)
+        {
+            int nWidthDc = rectangle.Right - rectangle.Left;
+            int nHeightDc = rectangle.Bottom - rectangle.Top;
+            int nPixelsPerTic;
+            double sbUnitsPerTic;
+
+            if (!TransparentBackground)
+            {
+                DrawBackground(graphics, rectangle);
+            }
+            if (BorderVisible && BorderWidth > 0)
+            {
+                DrawBorder(graphics, rectangle);
+            }
+
+            CalcScale(graphics);
+            //Get the scale first.
+            //return if the scale is just too small}
+            if (m_fScale < fVerySmall)
+            {
+                return;
+            }
+            //Initialize the locale. So the we can use the latest locale setting to show the numbers.   
+            //  m_locale.Init();
+
+            //Draw the bar.
+            CalcBarScale(graphics, nWidthDc - MarginLeft - MarginRight, NumTics, m_fScale, m_fBarUnitFactor,
+                         out nPixelsPerTic, out sbUnitsPerTic);
+
+            int nOffsetX;
+            switch (AlignMent)
+            {
+                case StringAlignment.Near:
+                    nOffsetX = rectangle.Left + MarginLeft;
+                    break;
+                case StringAlignment.Far:
+                    nOffsetX = rectangle.Left + (nWidthDc - NumTics*nPixelsPerTic - MarginLeft - MarginRight)/2 +
+                               MarginLeft;
+                    break;
+                default:
+                    nOffsetX = rectangle.Left + (nWidthDc - NumTics*nPixelsPerTic - MarginLeft - MarginRight) +
+                               MarginLeft;
+                    break;
+            }
+
+            int nOffsetY = rectangle.Top + (nHeightDc - BarWidth)/2;
+            DrawBar(graphics, nPixelsPerTic, nOffsetX, nOffsetY);
+            //return;
+            DrawVerbalScale(graphics, nWidthDc/2, nOffsetY - GapScaleText_Bar);
+
+            DrawSegmentText(graphics, nOffsetX, nOffsetY + BarWidth + GapBar_SegmentText, NumTics, nPixelsPerTic,
+                            sbUnitsPerTic, m_strBarUnitShortName);
+        }
+
+        public void DrawVerbalScale(Graphics hdc, int x, int y)
+        {
+            //Get the scale text.
+            string scaleBarText = GetScaleBarText(m_fScale, ScaleText);
+            //Draw the text.
+            var stringFormat = new StringFormat
+            {
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Far
+            };
+            hdc.DrawString(scaleBarText, font, new SolidBrush(Color.Black), x, y, stringFormat);
+            //DrawTextWithAlign(hdc, buf, x, y, TA_BOTTOM | TA_CENTER);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="graphics"></param>
+        /// <param name="offsetX">offset in  pixels</param>
+        /// <param name="offsetY">offset in pixels</param>
+        /// <param name="numberOfTicks"></param>
+        /// <param name="tickLength"></param>
+        /// <param name="barWidth">height of the bar in pixels</param>
+        /// <param name="BarColor1">Color for the first tick.</param>
+        /// <param name="BarColor2">Color for the second tick.</param>
+        /// <param name="drawOutline"></param>
+        /// <param name="outlineColor"></param>
+        /// 
+        public static void DrawBarWithStyle(Graphics graphics, int offsetX, int offsetY, int numberOfTicks,
+                                            int tickLength, int barWidth, Color BarColor1, Color BarColor2,
+                                            bool drawOutline, Color outlineColor, ScaleBarStyle BarStyle)
+        {
+            if (barWidth > 1)
+            {
+                switch (BarStyle)
+                {
+                    case ScaleBarStyle.ws_bsStandard:
+                        DrawTickBarStandard(graphics, numberOfTicks, barWidth, BarColor1, BarColor2,
+                                            tickLength, offsetX,
+                                            offsetY, drawOutline, outlineColor);
+                        break;
+                    case ScaleBarStyle.ws_bsMeridian:
+                        DrawTickBarMeridian(graphics, numberOfTicks, barWidth, BarColor1, BarColor2,
+                                            tickLength, offsetX,
+                                            offsetY, drawOutline, outlineColor);
+                        break;
+                    case ScaleBarStyle.ws_bsMeridian1:
+                        DrawTickBarMeridian1(graphics, numberOfTicks, barWidth, BarColor1, BarColor2,
+                                             tickLength, offsetX,
+                                             offsetY, drawOutline, outlineColor);
+                        break;
+                    default:
+                        DrawTickBarStandard(graphics, numberOfTicks, barWidth, BarColor1, BarColor2,
+                                            tickLength, offsetX,
+                                            offsetY, drawOutline, outlineColor);
+                        break;
+                }
+            }
+            else
+            {
+                DrawTicLine(graphics, numberOfTicks, BarColor1, BarColor2, tickLength, offsetX, offsetY);
+            }
+        }
+
+        public static string ToFormattedString(double value, double epsilon)
+        {
+            string s;
+            //double epislon = 0.0000001; // or however near zero you want to consider as zero
+            if (Math.Abs(value) > epsilon)
+            {
+                int digits = (int) Math.Log10(Math.Abs(value));
+                // if (digits >= 0) ++digits; // if you care about the exact number
+                if (Math.Abs(digits) >= 5)
+                {
+                    s = string.Format("{0:0.#E+0}", value);
+                }
+                else
+                {
+                    s = string.Format("{0:0.##}", value);
+                }
+            }
+            else
+            {
+                s = "0";
+            }
+            return s;
         }
 
         private void FireViewChange()
@@ -309,7 +457,6 @@ namespace SharpMap.UI.Tools.Decorations
             }
             return ratio;
         }
-
 
         /// <summary>
         /// 
@@ -372,7 +519,6 @@ namespace SharpMap.UI.Tools.Decorations
             return diff;
         }
 
-
         /// <summary>
         /// Calculate the distance between 2 points: (lon1,lat) and (lon2,lat). 
         /// </summary>
@@ -392,41 +538,6 @@ namespace SharpMap.UI.Tools.Decorations
             return distance;
         }
 
-        public void SetScaleD(Graphics g, double lon1, double lon2, double lat, int widthInPixel)
-        {
-            m_fLon1 = lon1;
-            m_fLon2 = lon2;
-            m_fLat = lat;
-            m_nPageWidth = widthInPixel;
-/*
-            CalcScale(TODO);
-            FireViewChange();
-*/
-        }
-
-        public void SetCustomUnit(double factor, string name, string short_name)
-        {
-//If the user wants to use customer unit, then the map unit and the bar unit will be the same
-//Map Unit
-            if (factor <= 0.0) //factor should be >0
-                factor = 1.0;
-            m_fMapUnitFactor = factor;
-            // wcstombs(m_strMapUnitName, name, MaxNameLength);    
-            // wcstombs(m_strMapUnitShortName, short_name, MaxNameLength);    
-
-//Bar Unit   
-            m_fBarUnitFactor = factor;
-            // wcstombs(m_strBarUnitName, name, MaxNameLength);    
-            // wcstombs(m_strBarUnitShortName, short_name, MaxNameLength);    
-
-/*
-            CalcScale(TODO);
-            FireViewChange();
-*/
-            // return S_OK;
-        }
-
-
         private void GetMapUnitInfo(out double factor, out string name, out string shortName)
         {
             factor = m_fMapUnitFactor;
@@ -440,7 +551,6 @@ namespace SharpMap.UI.Tools.Decorations
             name = m_strBarUnitName;
             shortName = m_strBarUnitShortName;
         }
-
 
         private static void GetUnitInformation(MapUnits mapUnit, out double factor, out string name,
                                                out string shortName)
@@ -495,64 +605,6 @@ namespace SharpMap.UI.Tools.Decorations
             }
         }
 
-
-        public void DrawTheControl(Graphics graphics, Rectangle rectangle)
-        {
-            int nWidthDc = rectangle.Right - rectangle.Left;
-            int nHeightDc = rectangle.Bottom - rectangle.Top;
-            int nPixelsPerTic;
-            double sbUnitsPerTic;
-
-            if (!TransparentBackground)
-            {
-                DrawBackground(graphics, rectangle);
-            }
-            if (BorderVisible && BorderWidth > 0)
-            {
-                DrawBorder(graphics, rectangle);
-            }
-
-            CalcScale(graphics);
-            //Get the scale first.
-            //return if the scale is just too small}
-            if (m_fScale < fVerySmall)
-            {
-                return;
-            }
-            //Initialize the locale. So the we can use the latest locale setting to show the numbers.   
-            //  m_locale.Init();
-
-            //Draw the bar.
-            CalcBarScale(graphics, nWidthDc - MarginLeft - MarginRight, NumTics, m_fScale, m_fBarUnitFactor,
-                         out nPixelsPerTic, out sbUnitsPerTic);
-
-
-            int nOffsetX;
-            switch (AlignMent)
-            {
-                case StringAlignment.Near:
-                    nOffsetX = rectangle.Left + MarginLeft;
-                    break;
-                case StringAlignment.Far:
-                    nOffsetX = rectangle.Left + (nWidthDc - NumTics*nPixelsPerTic - MarginLeft - MarginRight)/2 +
-                               MarginLeft;
-                    break;
-                default:
-                    nOffsetX = rectangle.Left + (nWidthDc - NumTics*nPixelsPerTic - MarginLeft - MarginRight) +
-                               MarginLeft;
-                    break;
-            }
-
-
-            int nOffsetY = rectangle.Top + (nHeightDc - BarWidth)/2;
-            DrawBar(graphics, nPixelsPerTic, nOffsetX, nOffsetY);
-            //return;
-            DrawVerbalScale(graphics, nWidthDc/2, nOffsetY - GapScaleText_Bar);
-
-            DrawSegmentText(graphics, nOffsetX, nOffsetY + BarWidth + GapBar_SegmentText, NumTics, nPixelsPerTic,
-                            sbUnitsPerTic, m_strBarUnitShortName);
-        }
-
         private void DrawBar(Graphics graphics, int nTicLength, int offsetX, int offsetY)
         {
             Color cr1 = BarColor1;
@@ -570,11 +622,13 @@ namespace SharpMap.UI.Tools.Decorations
                                     rc.Height - BorderWidth + 1/2);
 */
 
-            var pen = new Pen(BorderColor) {Width = BorderWidth, DashStyle = BorderStyle};
+            var pen = new Pen(BorderColor)
+            {
+                Width = BorderWidth, DashStyle = BorderStyle
+            };
             graphics.DrawRectangle(pen, rc);
             //FillRectangle(hdc, rc, BS_NULL, 0, nPenStyle, crPen, m_nBorderWidth);
         }
-
 
         private void DrawBackground(Graphics graphics, Rectangle rectangle)
         {
@@ -590,7 +644,6 @@ namespace SharpMap.UI.Tools.Decorations
                           };
             graphics.DrawRectangle(pen, rectangle1);*/
         }
-
 
         private static void CalcBarScale(Graphics g, int nWidthDC, int nNumTics, double fMapScale, double fBarUnitFactor,
                                          out int pixelsPerTic, out double sbUnitsPerTic)
@@ -617,12 +670,13 @@ namespace SharpMap.UI.Tools.Decorations
                 {
                     dCandidate = NiceNumberArray[i]*dMultiplier;
                     if (dCandidate > startValue)
+                    {
                         return dCandidate;
+                    }
                 }
             }
             return dCandidate; //return the maximum
         }
-
 
         private void DrawSegmentText(Graphics graphics, int x, int y, int NumTics, int TicWidth, double SBUnitsPerTic,
                                      string str_unit)
@@ -630,8 +684,10 @@ namespace SharpMap.UI.Tools.Decorations
             int i;
             //int precision;
 
-            var f = new StringFormat {Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Near};
-
+            var f = new StringFormat
+            {
+                Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Near
+            };
 
 //  ostrstream s;
             double value;
@@ -640,14 +696,17 @@ namespace SharpMap.UI.Tools.Decorations
             Brush brush = new SolidBrush(Color.Black);
 
             if (ScaleText == sbScaleText.ws_stUnitsOnly)
+            {
                 graphics.DrawString("0", font, brush, x, y, f);
-                //DrawTextWithAlign( "0", x, y, TA_TOP | TA_LEFT);
-            else 
+            }
+            //DrawTextWithAlign( "0", x, y, TA_TOP | TA_LEFT);
+            else
+            {
                 //DrawTextWithAlign( str_unit, x, y, TA_TOP | TA_LEFT);
                 graphics.DrawString(str_unit, font, brush, x, y, f);
+            }
 
 //Set the output format.
-
 
             //precision = PresitionOfSegmentText(SBUnitsPerTic);
             //s.precision(precision);
@@ -656,14 +715,12 @@ namespace SharpMap.UI.Tools.Decorations
             //fixed,
             //ios::floatfield)
 
-
             f.Alignment = StringAlignment.Center;
             f.LineAlignment = StringAlignment.Near;
             for (i = 1; i <= NumTics; i++)
             {
                 value = SBUnitsPerTic*i;
                 //s << value << ends;
-                
 
                 // Align = TA_TOP | TA_CENTER;
                 if (FormatNumber)
@@ -677,26 +734,10 @@ namespace SharpMap.UI.Tools.Decorations
                 }
                 else
                 {
-
-
-                    graphics.DrawString(ToFormattedString(value, 0.000001), font, brush, x + TicWidth * i, y, f);
+                    graphics.DrawString(ToFormattedString(value, 0.000001), font, brush, x + TicWidth*i, y, f);
                 }
                 //DrawTextWithAlign(hdc, s.str(), x + TicWidth * i, y, Align); 
             }
-        }
-
-        public void DrawVerbalScale(Graphics hdc, int x, int y)
-        {
-            //Get the scale text.
-            string scaleBarText = GetScaleBarText(m_fScale, ScaleText);
-            //Draw the text.
-            var stringFormat = new StringFormat
-                                   {
-                                       Alignment = StringAlignment.Center,
-                                       LineAlignment = StringAlignment.Far
-                                   };
-            hdc.DrawString(scaleBarText, font, new SolidBrush(Color.Black), x, y, stringFormat);
-            //DrawTextWithAlign(hdc, buf, x, y, TA_BOTTOM | TA_CENTER);
         }
 
         private string GetScaleBarText(double scale, sbScaleText scale_text)
@@ -715,56 +756,6 @@ namespace SharpMap.UI.Tools.Decorations
                 return "1:" + ToFormattedString(scale, epsilon);
             }
             return "";
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="graphics"></param>
-        /// <param name="offsetX">offset in  pixels</param>
-        /// <param name="offsetY">offset in pixels</param>
-        /// <param name="numberOfTicks"></param>
-        /// <param name="tickLength"></param>
-        /// <param name="barWidth">height of the bar in pixels</param>
-        /// <param name="BarColor1">Color for the first tick.</param>
-        /// <param name="BarColor2">Color for the second tick.</param>
-        /// <param name="drawOutline"></param>
-        /// <param name="outlineColor"></param>
-        /// 
-        public static void DrawBarWithStyle(Graphics graphics, int offsetX, int offsetY, int numberOfTicks,
-                                            int tickLength, int barWidth, Color BarColor1, Color BarColor2,
-                                            bool drawOutline, Color outlineColor, ScaleBarStyle BarStyle)
-        {
-            if (barWidth > 1)
-            {
-                switch (BarStyle)
-                {
-                    case ScaleBarStyle.ws_bsStandard:
-                        DrawTickBarStandard(graphics, numberOfTicks, barWidth, BarColor1, BarColor2,
-                                            tickLength, offsetX,
-                                            offsetY, drawOutline, outlineColor);
-                        break;
-                    case ScaleBarStyle.ws_bsMeridian:
-                        DrawTickBarMeridian(graphics, numberOfTicks, barWidth, BarColor1, BarColor2,
-                                            tickLength, offsetX,
-                                            offsetY, drawOutline, outlineColor);
-                        break;
-                    case ScaleBarStyle.ws_bsMeridian1:
-                        DrawTickBarMeridian1(graphics, numberOfTicks, barWidth, BarColor1, BarColor2,
-                                             tickLength, offsetX,
-                                             offsetY, drawOutline, outlineColor);
-                        break;
-                    default:
-                        DrawTickBarStandard(graphics, numberOfTicks, barWidth, BarColor1, BarColor2,
-                                            tickLength, offsetX,
-                                            offsetY, drawOutline, outlineColor);
-                        break;
-                }
-            }
-            else
-            {
-                DrawTicLine(graphics, numberOfTicks, BarColor1, BarColor2, tickLength, offsetX, offsetY);
-            }
         }
 
         private static void DrawTickBarMeridian1(Graphics graphics, int nNumTics, int nBarWidth, Color crBar1,
@@ -786,7 +777,6 @@ namespace SharpMap.UI.Tools.Decorations
             }
             var hPen1 = new Pen(cr1, 1);
             var hPen2 = new Pen(cr2, 1);
-
 
             //Create brushes.
             Brush lb1 = new SolidBrush(crBar1);
@@ -879,7 +869,6 @@ namespace SharpMap.UI.Tools.Decorations
                 cr2 = barColor2;
             }
 
-
             var pen1 = new Pen(new SolidBrush(cr1), 1);
             var pen2 = new Pen(new SolidBrush(cr2), 1);
             Brush lb1 = new SolidBrush(barColor1);
@@ -925,29 +914,55 @@ namespace SharpMap.UI.Tools.Decorations
                 x += nTicLength;
             }
         }
-    
-        public static string ToFormattedString(double value, double epsilon)
+
+        #region fields
+
+        private double m_fMapWidth = 0.0; //the width in map unit
+        private long m_nPageWidth = 0; //the width in pixel for the map on screen
+        private double m_fLon1 = 0.0; //longitude 1 for map that is lat/lon
+        private double m_fLon2 = 0.0; //longitude 2 for map that is lat/lon
+        private double m_fLat = 0.0; //latitude 1 for map that is lat/lon 
+        private double m_fScale = 0.0; //mapscale
+
+        private double m_fBarUnitFactor;
+        private double m_fMapUnitFactor;
+        private string m_strMapUnitName;
+        private string m_strMapUnitShortName;
+
+        public bool TransparentBackground { get; set; }
+        private string m_strBarUnitShortName = "";
+        private string m_strBarUnitName;
+
+        #endregion
+
+        #region constants
+
+        private const double DegreesToRadians = 0.01745329252; // Convert Degrees to Radians
+        private const double metersPerInch = 0.0254;
+        private const double metersPerMile = 1609.347219;
+        private const double milesPerDegreeAtEquator = 69.171;
+        private const double metersPerDegreeAtEquator = metersPerMile*milesPerDegreeAtEquator;
+        private const double fVerySmall = 0.00000001;
+        private const int GapScaleText_Bar = 3;
+        private const int GapBar_SegmentText = 1;
+        private const int PowerRangeMin = -5;
+        private const int PowerRangeMax = 10;
+        private const int nNiceNumber = 4;
+
+        private static readonly double[] NiceNumberArray = new double[]
         {
-            string s;
-            //double epislon = 0.0000001; // or however near zero you want to consider as zero
-            if (Math.Abs(value) > epsilon)
-            {
-                int digits = (int) Math.Log10(Math.Abs(value));
-                // if (digits >= 0) ++digits; // if you care about the exact number
-                if (Math.Abs(digits) >= 5)
-                {
-                    s = string.Format("{0:0.#E+0}", value);
-                }
-                else 
-                {
-                    s = string.Format("{0:0.##}", value);
-                }
-            }
-            else
-            {
-                s = "0";
-            }
-            return s;
-        }
+            1,
+            2,
+            2.5,
+            5
+        };
+
+        private Color barColor1;
+        private Color barColor2;
+        private int barWidth;
+        private MapUnits mapUnit;
+        private MapUnits barUnit;
+
+        #endregion
     }
 }

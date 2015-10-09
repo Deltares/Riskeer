@@ -13,6 +13,11 @@ namespace SharpMap.Api.Editors
     public interface IFeatureInteractor
     {
         /// <summary>
+        /// TODO: get rid of this event! Add GetRelatedFeatures in IRelatedFeatureEditor instead
+        /// </summary>
+        event WorkerFeatureCreated WorkerFeatureCreated;
+
+        /// <summary>
         /// original feature (geometry in coordinate system of Layer)
         /// </summary>
         IFeature SourceFeature { get; }
@@ -21,11 +26,6 @@ namespace SharpMap.Api.Editors
         /// a clone of the original feature used during the editing process (geometry in coordinate system of Layer)
         /// </summary>
         IFeature TargetFeature { get; }
-
-        /// <summary>
-        /// TODO: get rid of this event! Add GetRelatedFeatures in IRelatedFeatureEditor instead
-        /// </summary>
-        event WorkerFeatureCreated WorkerFeatureCreated;
 
         /// <summary>
         /// tolerance in world coordinates used by the editor when no CoordinateConverter is available
@@ -47,6 +47,11 @@ namespace SharpMap.Api.Editors
         /// </summary>
         /// <returns></returns>
         IList<TrackerFeature> Trackers { get; }
+
+        /// <summary>
+        /// TODO: YAGNI, do it using feature, somewhere else
+        /// </summary>
+        IEditableObject EditableObject { get; set; }
 
         /// <summary>
         /// Moves selected trackers. <paramref name="trackerFeature"/> is leading and will be used as source for
@@ -112,10 +117,5 @@ namespace SharpMap.Api.Editors
         bool AllowDeletion();
 
         bool AllowSingleClickAndMove();
-
-        /// <summary>
-        /// TODO: YAGNI, do it using feature, somewhere else
-        /// </summary>
-        IEditableObject EditableObject { get; set; }
     }
 }

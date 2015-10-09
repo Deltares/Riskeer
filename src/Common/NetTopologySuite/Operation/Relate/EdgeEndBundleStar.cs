@@ -14,7 +14,20 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
         /// <summary>
         /// 
         /// </summary>
-        public EdgeEndBundleStar() { }
+        public EdgeEndBundleStar() {}
+
+        /// <summary>
+        /// Update the IM with the contribution for the EdgeStubs around the node.
+        /// </summary>
+        /// <param name="im"></param>
+        public void UpdateIM(IntersectionMatrix im)
+        {
+            for (IEnumerator it = GetEnumerator(); it.MoveNext();)
+            {
+                EdgeEndBundle esb = (EdgeEndBundle) it.Current;
+                esb.UpdateIM(im);
+            }
+        }
 
         /// <summary>
         /// Insert a EdgeEnd in order in the list.
@@ -26,26 +39,14 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
         public override void Insert(EdgeEnd e)
         {
             EdgeEndBundle eb = (EdgeEndBundle) edgeMap[e];
-            if (eb == null) 
+            if (eb == null)
             {
                 eb = new EdgeEndBundle(e);
                 InsertEdgeEnd(e, eb);
             }
-            else 
-                eb.Insert(e);
-            
-        }
-
-        /// <summary>
-        /// Update the IM with the contribution for the EdgeStubs around the node.
-        /// </summary>
-        /// <param name="im"></param>
-        public void UpdateIM(IntersectionMatrix im)
-        {
-            for (IEnumerator it = GetEnumerator(); it.MoveNext(); ) 
+            else
             {
-                EdgeEndBundle esb = (EdgeEndBundle) it.Current;
-                esb.UpdateIM(im);
+                eb.Insert(e);
             }
         }
     }

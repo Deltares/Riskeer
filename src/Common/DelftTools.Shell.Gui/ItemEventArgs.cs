@@ -7,16 +7,12 @@ namespace DelftTools.Shell.Gui
     /// </summary>
     public class SelectedItemChangedEventArgs : EventArgs
     {
-        public SelectedItemChangedEventArgs( object item)
+        public SelectedItemChangedEventArgs(object item)
         {
             Item = item;
         }
 
-        public object Item
-        {
-            get;
-            private set;
-        }
+        public object Item { get; private set; }
     }
 
     public class SelectedItemChangedEventArgs<T> : EventArgs
@@ -26,10 +22,6 @@ namespace DelftTools.Shell.Gui
             Item = item;
         }
 
-        public T Item
-        {
-            get;
-            private set;
-        }
+        public T Item { get; private set; }
     }
 }

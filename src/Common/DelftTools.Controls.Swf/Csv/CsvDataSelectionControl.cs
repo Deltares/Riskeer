@@ -11,31 +11,24 @@ namespace DelftTools.Controls.Swf.Csv
 {
     public partial class CsvDataSelectionControl : UserControl
     {
+        private const int LineOffset = 30;
         private readonly IList<ComboBox> allColumnComboBoxes = new List<ComboBox>();
         private CsvRequiredField[] requiredFields;
-        private bool hasErrors;
-        private const int LineOffset = 30;
-        private DataTable DataTable { get; set; }
-        
-        private IDictionary<Type, CsvFormatPickerProvider> formatPickerProviderLookup;
+
+        private readonly IDictionary<Type, CsvFormatPickerProvider> formatPickerProviderLookup;
 
         public CsvDataSelectionControl()
         {
             InitializeComponent();
 
             formatPickerProviderLookup = new Dictionary<Type, CsvFormatPickerProvider>();
-            formatPickerProviderLookup[typeof (double)] = new DoubleCsvFormatPickerProvider();
-            formatPickerProviderLookup[typeof (DateTime)] = new DateTimeCsvFormatPickerProvider();
+            formatPickerProviderLookup[typeof(double)] = new DoubleCsvFormatPickerProvider();
+            formatPickerProviderLookup[typeof(DateTime)] = new DateTimeCsvFormatPickerProvider();
 
             // filter events
             checkBoxUseFilter.CheckedChanged += UserSelectionChanged;
             filterColumnCombobox.SelectedIndexChanged += UserSelectionChanged;
             textBoxFilter.Leave += UserSelectionChanged;
-        }
-
-        public void RegisterFormatPickerControlForType(Type type, CsvFormatPickerProvider formatPickerProvider)
-        {
-            formatPickerProviderLookup[type] = formatPickerProvider;
         }
 
         public IDictionary<CsvRequiredField, CsvColumnInfo> FieldToColumnMapping
@@ -56,14 +49,7 @@ namespace DelftTools.Controls.Swf.Csv
             }
         }
 
-        private DataColumn GetSelectedColumnForField(CsvRequiredField field)
-        {
-            var columnForFieldCombobox = allColumnComboBoxes.First(cb => cb.Tag == field);
-            var dataColumn = (DataColumn) columnForFieldCombobox.SelectedItem;
-            return dataColumn;
-        }
-
-        public IEnumerable<CsvFilter> Filters 
+        public IEnumerable<CsvFilter> Filters
         {
             get
             {
@@ -78,16 +64,44 @@ namespace DelftTools.Controls.Swf.Csv
             }
         }
 
-        public bool HasErrors
+        public bool HasErrors { get; private set; }
+
+        public bool FilteringVisible
         {
-            get { return hasErrors; }
+            get
+            {
+                return groupFiltering.Visible;
+            }
+            set
+            {
+                groupFiltering.Visible = value;
+            }
         }
-        
+
+        public bool ColumnSelectionVisible
+        {
+            get
+            {
+                return groupColumnSelection.Visible;
+            }
+            set
+            {
+                groupColumnSelection.Visible = value;
+            }
+        }
+
+        public void RegisterFormatPickerControlForType(Type type, CsvFormatPickerProvider formatPickerProvider)
+        {
+            formatPickerProviderLookup[type] = formatPickerProvider;
+        }
+
         public void SetData(DataTable dataTable, IEnumerable<CsvRequiredField> csvRequiredFields)
         {
             allColumnComboBoxes.Clear();
             if (dataTable.Rows.Count > 100)
+            {
                 throw new InvalidOperationException("Performance problem detected; please give a small (preview) datatable as argument, not the actual data table");
+            }
 
             requiredFields = csvRequiredFields as CsvRequiredField[] ?? csvRequiredFields.ToArray();
             AddFormatPickerControls(requiredFields);
@@ -98,17 +112,31 @@ namespace DelftTools.Controls.Swf.Csv
 
             filterColumnCombobox.Items.Clear();
             filterColumnCombobox.Items.AddRange(dataTable.Columns.OfType<object>().ToArray());
-            if(filterColumnCombobox.Items.Count > 0) filterColumnCombobox.SelectedIndex = 0;
+            if (filterColumnCombobox.Items.Count > 0)
+            {
+                filterColumnCombobox.SelectedIndex = 0;
+            }
 
             UserSelectionChanged(null, null);
         }
-        
+
+        private DataTable DataTable { get; set; }
+
+        private DataColumn GetSelectedColumnForField(CsvRequiredField field)
+        {
+            var columnForFieldCombobox = allColumnComboBoxes.First(cb => cb.Tag == field);
+            var dataColumn = (DataColumn) columnForFieldCombobox.SelectedItem;
+            return dataColumn;
+        }
+
         private void FieldToColumnMappingChanged(CsvRequiredField requiredField, DataColumn mappedColumn)
         {
             var valueType = requiredField.ValueType;
 
-            if (!formatPickerProviderLookup.ContainsKey(valueType)) 
+            if (!formatPickerProviderLookup.ContainsKey(valueType))
+            {
                 return;
+            }
 
             var formatController = formatPickerProviderLookup[valueType];
             formatController.SetFormatPickerToInitialGuess(
@@ -118,20 +146,23 @@ namespace DelftTools.Controls.Swf.Csv
 
         private void UserSelectionChanged(object sender, EventArgs e)
         {
-            hasErrors = false;
+            HasErrors = false;
 
             DataTable resultDataTable;
             try
             {
                 resultDataTable = new CsvImporter().Extract(DataTable, FieldToColumnMapping, Filters);
-                hasErrors = resultDataTable.HasErrors;
+                HasErrors = resultDataTable.HasErrors;
             }
             catch (Exception ex)
             {
-                hasErrors = true;    
+                HasErrors = true;
                 resultDataTable = new DataTable();
-                resultDataTable.Columns.Add(new DataColumn("Error", typeof (string)));
-                resultDataTable.Rows.Add(new[] {ex.Message});
+                resultDataTable.Columns.Add(new DataColumn("Error", typeof(string)));
+                resultDataTable.Rows.Add(new[]
+                {
+                    ex.Message
+                });
             }
             dataGridAfter.DataSource = resultDataTable;
         }
@@ -146,7 +177,10 @@ namespace DelftTools.Controls.Swf.Csv
             foreach (var valueType in uniqueValueTypes)
             {
                 //add format picker controller
-                if (!formatPickerProviderLookup.ContainsKey(valueType)) continue;
+                if (!formatPickerProviderLookup.ContainsKey(valueType))
+                {
+                    continue;
+                }
                 var formatPickerController = formatPickerProviderLookup[valueType];
 
                 // add label
@@ -164,7 +198,7 @@ namespace DelftTools.Controls.Swf.Csv
                 var formatPicker = formatPickerController.GetFormatPicker();
                 formatPicker.Top = placementOffset;
                 formatPicker.Left = 200;
-                
+
                 groupCultureInfo.Controls.Add(formatPicker);
 
                 placementOffset += formatPicker.Height + 5;
@@ -207,7 +241,7 @@ namespace DelftTools.Controls.Swf.Csv
                 columnsCombobox.SelectedIndexChanged +=
                     (s, e) =>
                     {
-                        FieldToColumnMappingChanged(field, (DataColumn)columnsCombobox.SelectedItem);
+                        FieldToColumnMappingChanged(field, (DataColumn) columnsCombobox.SelectedItem);
                         UserSelectionChanged(null, null);
                     };
 
@@ -235,18 +269,6 @@ namespace DelftTools.Controls.Swf.Csv
         private void btApplyFilter_Click(object sender, EventArgs e)
         {
             // empty on purpose, handled by Leave event
-        }
-
-        public bool FilteringVisible 
-        {
-            get { return groupFiltering.Visible; }
-            set { groupFiltering.Visible = value; }
-        }
-
-        public bool ColumnSelectionVisible
-        {
-            get { return groupColumnSelection.Visible; }
-            set { groupColumnSelection.Visible = value; }
         }
     }
 }

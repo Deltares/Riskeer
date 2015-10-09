@@ -7,8 +7,6 @@ namespace DelftTools.Controls.Swf.Table.Filtering
 {
     public partial class FilterNumericControl : UserControl, IFilterControl
     {
-        private string filter;
-
         private enum FilterOptionNumeric
         {
             Equal,
@@ -16,6 +14,8 @@ namespace DelftTools.Controls.Swf.Table.Filtering
             GreaterThen,
             SmallerThen
         }
+
+        private string filter;
 
         public FilterNumericControl()
         {
@@ -27,13 +27,18 @@ namespace DelftTools.Controls.Swf.Table.Filtering
         {
             get
             {
-                switch ((FilterOptionNumeric)comboBox1.SelectedItem)
+                switch ((FilterOptionNumeric) comboBox1.SelectedItem)
                 {
-                    case FilterOptionNumeric.Equal: return string.Format("= {0}", textBox1.Text);
-                    case FilterOptionNumeric.NotEqual: return string.Format("<> {0}", textBox1.Text);
-                    case FilterOptionNumeric.GreaterThen: return string.Format("> {0}", textBox1.Text);
-                    case FilterOptionNumeric.SmallerThen: return string.Format("< {0}", textBox1.Text);
-                    default: throw new ArgumentOutOfRangeException();
+                    case FilterOptionNumeric.Equal:
+                        return string.Format("= {0}", textBox1.Text);
+                    case FilterOptionNumeric.NotEqual:
+                        return string.Format("<> {0}", textBox1.Text);
+                    case FilterOptionNumeric.GreaterThen:
+                        return string.Format("> {0}", textBox1.Text);
+                    case FilterOptionNumeric.SmallerThen:
+                        return string.Format("< {0}", textBox1.Text);
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
             set
@@ -47,7 +52,10 @@ namespace DelftTools.Controls.Swf.Table.Filtering
 
         private string GetFilterText()
         {
-            if (filter == null) return "";
+            if (filter == null)
+            {
+                return "";
+            }
 
             var numberOfCharToTrim = comboBox1.SelectedItem == (object) FilterOptionNumeric.NotEqual ? 3 : 2;
             return filter.Substring(numberOfCharToTrim, filter.Length - numberOfCharToTrim);
@@ -55,12 +63,27 @@ namespace DelftTools.Controls.Swf.Table.Filtering
 
         private FilterOptionNumeric GetFilterOption()
         {
-            if (filter == null) return FilterOptionNumeric.Equal;
+            if (filter == null)
+            {
+                return FilterOptionNumeric.Equal;
+            }
 
-            if (filter.StartsWith("<>")) return FilterOptionNumeric.NotEqual;
-            if (filter.StartsWith("=")) return FilterOptionNumeric.Equal;
-            if (filter.StartsWith(">")) return FilterOptionNumeric.GreaterThen;
-            if (filter.StartsWith("<")) return FilterOptionNumeric.SmallerThen;
+            if (filter.StartsWith("<>"))
+            {
+                return FilterOptionNumeric.NotEqual;
+            }
+            if (filter.StartsWith("="))
+            {
+                return FilterOptionNumeric.Equal;
+            }
+            if (filter.StartsWith(">"))
+            {
+                return FilterOptionNumeric.GreaterThen;
+            }
+            if (filter.StartsWith("<"))
+            {
+                return FilterOptionNumeric.SmallerThen;
+            }
 
             return FilterOptionNumeric.Equal;
         }

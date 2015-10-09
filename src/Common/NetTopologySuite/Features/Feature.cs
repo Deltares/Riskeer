@@ -11,26 +11,8 @@ namespace GisSharpBlog.NetTopologySuite.Features
     {
         private IGeometry geometry = null;
 
-        /// <summary>
-        /// Geometry representation of the feature.
-        /// </summary>
-        public IGeometry Geometry
-        {
-            get { return geometry; }
-            set { geometry = value; }
-        }
-
         private IAttributesTable attributes = null;
 
-        /// <summary>
-        /// Attributes table of the feature.
-        /// </summary>
-        public IAttributesTable Attributes
-        {
-            get { return attributes; }
-            set { attributes = value; }
-        }
-        
         /// <summary>
         /// 
         /// </summary>
@@ -45,6 +27,36 @@ namespace GisSharpBlog.NetTopologySuite.Features
         /// <summary>
         /// 
         /// </summary>
-        public Feature() { }
+        public Feature() {}
+
+        /// <summary>
+        /// Geometry representation of the feature.
+        /// </summary>
+        public IGeometry Geometry
+        {
+            get
+            {
+                return geometry;
+            }
+            set
+            {
+                geometry = value;
+            }
+        }
+
+        /// <summary>
+        /// Attributes table of the feature.
+        /// </summary>
+        public IAttributesTable Attributes
+        {
+            get
+            {
+                return attributes;
+            }
+            set
+            {
+                attributes = value;
+            }
+        }
     }
 }

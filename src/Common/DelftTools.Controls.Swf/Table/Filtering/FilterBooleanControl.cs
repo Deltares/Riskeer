@@ -11,7 +11,10 @@ namespace DelftTools.Controls.Swf.Table.Filtering
 
         public string Filter
         {
-            get { return "= " + (checkBox1.Checked ? "TRUE" : "FALSE"); }
+            get
+            {
+                return "= " + (checkBox1.Checked ? "TRUE" : "FALSE");
+            }
             set
             {
                 if (value != null && value.EndsWith("TRUE"))

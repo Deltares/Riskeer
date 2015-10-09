@@ -24,6 +24,6 @@ namespace Wti.Data.Test
             Assert.That(actual.HeaveFactorOfSafety, Is.EqualTo(foShValue));
             Assert.That(actual.SellmeijerZValue, Is.EqualTo(zsValue));
             Assert.That(actual.SellmeijerFactorOfSafety, Is.EqualTo(foSsValue));
-        } 
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using DelftTools.Utils;
+using log4net.Util;
 
 namespace DeltaShell.Core
 {
@@ -12,9 +13,9 @@ namespace DeltaShell.Core
     /// <summary>
     /// PatternConverter for 'Special' Folder 
     /// </summary>
-    public class DeltaShellUserDataFolderConverter : log4net.Util.PatternConverter // NOTE: Class might be marked as unused, but it's actually created in DeltaShell.Core/app.config!
+    public class DeltaShellUserDataFolderConverter : PatternConverter // NOTE: Class might be marked as unused, but it's actually created in DeltaShell.Core/app.config!
     {
-        override protected void Convert(System.IO.TextWriter writer, object state)
+        protected override void Convert(TextWriter writer, object state)
         {
             // makes sure that the application log file is saved in a correct folder, settings it in DeltaShellApplication is not enough
             var settings = ConfigurationManager.AppSettings;
@@ -36,7 +37,7 @@ namespace DeltaShell.Core
             var daysToKeepLogFiles = 30;
 
             // HACK: don't keep log files for tests
-            if(settingsDirectory.ToLower().Contains("tests"))
+            if (settingsDirectory.ToLower().Contains("tests"))
             {
                 daysToKeepLogFiles = 0;
             }
@@ -44,15 +45,15 @@ namespace DeltaShell.Core
             var logFiles = Directory.GetFiles(settingsDirectory, "*.log");
             foreach (var logFile in logFiles)
             {
-                if((DateTime.Now - File.GetCreationTime(logFile)).TotalDays > daysToKeepLogFiles)
+                if ((DateTime.Now - File.GetCreationTime(logFile)).TotalDays > daysToKeepLogFiles)
                 {
                     File.Delete(logFile);
                 }
             }
         }
     }
-
 }
+
 /* Example: 
  * <file type="log4net.Util.PatternString">
         <converter>

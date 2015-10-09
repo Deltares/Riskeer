@@ -12,13 +12,15 @@ namespace SharpMap.CoordinateSystems.Transformations
 
         public void SetTransformation(ICoordinateTransformation coordinateTransformation)
         {
-            if (Equals(this.coordinateTransformation, coordinateTransformation)) 
+            if (Equals(this.coordinateTransformation, coordinateTransformation))
+            {
                 return;
+            }
 
             this.coordinateTransformation = coordinateTransformation;
             transformationCache = new Dictionary<ICoordinate, ICoordinate>();
         }
-        
+
         public ICoordinate PerformProjection(ICoordinate world)
         {
             if (coordinateTransformation != null)
@@ -27,7 +29,11 @@ namespace SharpMap.CoordinateSystems.Transformations
                 ICoordinate transformedCoordinate;
                 if (!transformationCache.TryGetValue(world, out transformedCoordinate))
                 {
-                    var xy = coordinateTransformation.MathTransform.Transform(new[] { world.X, world.Y });
+                    var xy = coordinateTransformation.MathTransform.Transform(new[]
+                    {
+                        world.X,
+                        world.Y
+                    });
                     transformedCoordinate = new Coordinate(xy[0], xy[1]);
                     transformationCache[world] = transformedCoordinate;
                 }

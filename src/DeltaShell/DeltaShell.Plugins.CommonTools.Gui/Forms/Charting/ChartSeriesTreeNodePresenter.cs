@@ -10,9 +10,7 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
 {
     internal class ChartSeriesTreeNodePresenter : TreeViewNodePresenterBaseForPluginGui<IChartSeries>
     {
-        public ChartSeriesTreeNodePresenter(GuiPlugin guiPlugin): base(guiPlugin)
-        {
-        }
+        public ChartSeriesTreeNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
 
         public override bool CanRenameNode(ITreeNode node)
         {
@@ -21,7 +19,10 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
 
         public override void OnNodeRenamed(IChartSeries chartSeries, string newName)
         {
-            if (chartSeries == null || chartSeries.Title == newName) return;
+            if (chartSeries == null || chartSeries.Title == newName)
+            {
+                return;
+            }
 
             chartSeries.Title = newName;
         }
@@ -34,6 +35,27 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
             node.ShowCheckBox = true;
             node.ContextMenu = GetContextMenu(null, chartSeries);
             node.Image = GetImage(chartSeries);
+        }
+
+        public override void OnNodeChecked(ITreeNode node)
+        {
+            var chartSeries = (IChartSeries) node.Tag;
+
+            if (chartSeries != null)
+            {
+                chartSeries.Visible = node.Checked;
+            }
+        }
+
+        public override DragOperations CanDrag(IChartSeries nodeData)
+        {
+            return DragOperations.Move;
+        }
+
+        protected override bool RemoveNodeData(object parentNodeData, IChartSeries chartSeries)
+        {
+            chartSeries.Chart.Series.Remove(chartSeries);
+            return true;
         }
 
         private Image GetImage(IChartSeries chartSeries)
@@ -64,27 +86,6 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
             }
 
             return null;
-        }
-
-        public override void OnNodeChecked(ITreeNode node)
-        {
-            var chartSeries = (IChartSeries) node.Tag;
-
-            if (chartSeries != null)
-            {
-                chartSeries.Visible = node.Checked;
-            }
-        }
-
-        protected override bool RemoveNodeData(object parentNodeData, IChartSeries chartSeries)
-        {
-            chartSeries.Chart.Series.Remove(chartSeries);
-            return true;
-        }
-        
-        public override DragOperations CanDrag(IChartSeries nodeData)
-        {
-            return DragOperations.Move;
         }
     }
 }

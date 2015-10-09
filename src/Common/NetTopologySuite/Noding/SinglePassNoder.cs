@@ -9,12 +9,13 @@ namespace GisSharpBlog.NetTopologySuite.Noding
     /// </summary>
     public abstract class SinglePassNoder : INoder
     {
-        private ISegmentIntersector segInt = null;
-       
         /// <summary>
         /// Initializes a new instance of the <see cref="SinglePassNoder"/> class.
         /// </summary>
-        public SinglePassNoder() { }
+        public SinglePassNoder()
+        {
+            SegmentIntersector = null;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SinglePassNoder"/> class.
@@ -22,7 +23,7 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// <param name="segInt">The <see cref="ISegmentIntersector" /> to use.</param>
         public SinglePassNoder(ISegmentIntersector segInt)
         {
-            this.segInt = segInt;
+            SegmentIntersector = segInt;
         }
 
         /// <summary>
@@ -32,18 +33,7 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// simply record the presence of intersections.
         /// However, some <see cref="INoder" />s may require that intersections be added.
         /// </summary>
-        public ISegmentIntersector SegmentIntersector
-        {
-            get 
-            { 
-                return segInt; 
-            }
-            set 
-            { 
-                segInt = value; 
-            }
-        }
-
+        public ISegmentIntersector SegmentIntersector { get; set; }
 
         /// <summary>
         /// Computes the noding for a collection of <see cref="SegmentString"/>s.
@@ -59,6 +49,5 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// </summary>
         /// <returns></returns>
         public abstract IList GetNodedSubstrings();
-
     }
 }

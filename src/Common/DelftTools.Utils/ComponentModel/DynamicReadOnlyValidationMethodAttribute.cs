@@ -7,7 +7,5 @@ namespace DelftTools.Utils.ComponentModel
     /// The method should be in the format: bool IsReadOnly(string propertyName)
     /// <seealso cref="DynamicReadOnlyAttribute"/>
     /// </summary>
-    public class DynamicReadOnlyValidationMethodAttribute : Attribute
-    {
-    }
+    public class DynamicReadOnlyValidationMethodAttribute : Attribute {}
 }

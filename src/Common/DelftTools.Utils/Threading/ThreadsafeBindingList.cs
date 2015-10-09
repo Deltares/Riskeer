@@ -17,28 +17,6 @@ namespace DelftTools.Utils.Threading
     public class ThreadsafeBindingList<T> : BindingList<T>
     {
         private readonly SynchronizationContext synchronizationContext;
-            
-        protected override void OnAddingNew(AddingNewEventArgs e)
-        {
-            synchronizationContext.Send(delegate { BaseAddingNew(e); }, null);
-        }
-
-        
-        void BaseAddingNew(AddingNewEventArgs e)
-        {
-            base.OnAddingNew(e);
-        }
-
-        protected override void OnListChanged(ListChangedEventArgs e)
-        {
-            synchronizationContext.Send(
-                delegate { BaseListChanged(e); }, null);
-        }
-
-        void BaseListChanged(ListChangedEventArgs e)
-        {
-            base.OnListChanged(e);
-        }
 
         /// <summary>
         /// Creates a bindinglist using the givin synchronization context
@@ -62,6 +40,27 @@ namespace DelftTools.Utils.Threading
             }
 
             synchronizationContext = context;
+        }
+
+        protected override void OnAddingNew(AddingNewEventArgs e)
+        {
+            synchronizationContext.Send(delegate { BaseAddingNew(e); }, null);
+        }
+
+        protected override void OnListChanged(ListChangedEventArgs e)
+        {
+            synchronizationContext.Send(
+                delegate { BaseListChanged(e); }, null);
+        }
+
+        private void BaseAddingNew(AddingNewEventArgs e)
+        {
+            base.OnAddingNew(e);
+        }
+
+        private void BaseListChanged(ListChangedEventArgs e)
+        {
+            base.OnListChanged(e);
         }
     }
 }

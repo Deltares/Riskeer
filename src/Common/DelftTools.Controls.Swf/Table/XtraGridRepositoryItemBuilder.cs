@@ -17,7 +17,7 @@ namespace DelftTools.Controls.Swf.Table
 {
     internal static class XtraGridRepositoryItemBuilder
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (TableViewColumn));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(TableViewColumn));
 
         public static RepositoryItem CreateFromTypeEditor(ITypeEditor typeEditor, GridControl gridControl, GridColumn column, string caption)
         {
@@ -28,7 +28,10 @@ namespace DelftTools.Controls.Swf.Table
                 column.AppearanceCell.TextOptions.WordWrap = WordWrap.NoWrap;
                 column.AppearanceCell.TextOptions.Trimming = Trimming.EllipsisWord;
 
-                return new RepositoryItemMemoEdit { WordWrap = false };
+                return new RepositoryItemMemoEdit
+                {
+                    WordWrap = false
+                };
             }
 
             var comboBoxTypeEditor = typeEditor as ComboBoxTypeEditor;
@@ -40,7 +43,10 @@ namespace DelftTools.Controls.Swf.Table
             var buttonEditor = typeEditor as ButtonTypeEditor;
             if (buttonEditor != null)
             {
-                var buttonTypeEditorRepositoryItem = new RepositoryItemButtonEdit {TextEditStyle = TextEditStyles.HideTextEditor};
+                var buttonTypeEditorRepositoryItem = new RepositoryItemButtonEdit
+                {
+                    TextEditStyle = TextEditStyles.HideTextEditor
+                };
                 var editorButton = buttonTypeEditorRepositoryItem.Buttons[0];
 
                 editorButton.ToolTip = buttonEditor.Tooltip;
@@ -58,9 +64,15 @@ namespace DelftTools.Controls.Swf.Table
 
             // the mechanisms for validating do not work as expected; perhaps some of the encapsulating layers
             // consumes events?
-            var repositoryItem = new RepositoryItemPopupContainerEdit {CloseOnOuterMouseClick = false};
+            var repositoryItem = new RepositoryItemPopupContainerEdit
+            {
+                CloseOnOuterMouseClick = false
+            };
 
-            var popupControl = new PopupContainerControl {AutoSize = true};
+            var popupControl = new PopupContainerControl
+            {
+                AutoSize = true
+            };
             var editorControl = (Control) typeEditor;
             popupControl.Controls.Add(editorControl);
 
@@ -87,7 +99,10 @@ namespace DelftTools.Controls.Swf.Table
             RepositoryItem comboBoxRepositoryItem;
 
             // TODO: make it check if Items is evented, if yes - refresh
-            var items = comboBoxEditor.Items.Cast<object>().Select(i => new TableViewComboBoxItem {Value = i}).ToList();
+            var items = comboBoxEditor.Items.Cast<object>().Select(i => new TableViewComboBoxItem
+            {
+                Value = i
+            }).ToList();
             items.ForEach(i => i.CustomFormatter = comboBoxEditor.CustomFormatter);
 
             if (!comboBoxEditor.ItemsMandatory)
@@ -102,7 +117,10 @@ namespace DelftTools.Controls.Swf.Table
             }
             else
             {
-                var repositoryItemLookUpEdit = new RepositoryItemLookUpEdit {SearchMode = SearchMode.AutoFilter};
+                var repositoryItemLookUpEdit = new RepositoryItemLookUpEdit
+                {
+                    SearchMode = SearchMode.AutoFilter
+                };
 
                 repositoryItemLookUpEdit.Columns.Add(new LookUpColumnInfo("DisplayText"));
                 repositoryItemLookUpEdit.DataSource = items;

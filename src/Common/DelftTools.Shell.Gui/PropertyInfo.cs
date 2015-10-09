@@ -60,7 +60,10 @@ namespace DelftTools.Shell.Gui
         /// </summary>
         public Type ObjectType
         {
-            get { return typeof (TObject); }
+            get
+            {
+                return typeof(TObject);
+            }
         }
 
         /// <summary>
@@ -68,7 +71,10 @@ namespace DelftTools.Shell.Gui
         /// </summary>
         public Type PropertyType
         {
-            get { return typeof(TProperty); }
+            get
+            {
+                return typeof(TProperty);
+            }
         }
 
         /// <summary>
@@ -104,19 +110,19 @@ namespace DelftTools.Shell.Gui
         public static implicit operator PropertyInfo(PropertyInfo<TObject, TProperty> pi)
         {
             return new PropertyInfo
-                {
-                    ObjectType = typeof (TObject),
-                    PropertyType = typeof (TProperty),
-                    AdditionalDataCheck = pi.AdditionalDataCheck != null
-                                              ? o => pi.AdditionalDataCheck((TObject) o)
-                                              : (Func<object, bool>) null,
-                    GetObjectPropertiesData = pi.GetObjectPropertiesData != null
-                                                  ? o => pi.GetObjectPropertiesData((TObject) o)
-                                                  : (Func<object, object>) null,
-                    AfterCreate = pi.AfterCreate != null
-                                      ? op => pi.AfterCreate((TProperty) op)
-                                      : (Action<object>) null
-                };
+            {
+                ObjectType = typeof(TObject),
+                PropertyType = typeof(TProperty),
+                AdditionalDataCheck = pi.AdditionalDataCheck != null
+                                          ? o => pi.AdditionalDataCheck((TObject) o)
+                                          : (Func<object, bool>) null,
+                GetObjectPropertiesData = pi.GetObjectPropertiesData != null
+                                              ? o => pi.GetObjectPropertiesData((TObject) o)
+                                              : (Func<object, object>) null,
+                AfterCreate = pi.AfterCreate != null
+                                  ? op => pi.AfterCreate((TProperty) op)
+                                  : (Action<object>) null
+            };
         }
     }
 }

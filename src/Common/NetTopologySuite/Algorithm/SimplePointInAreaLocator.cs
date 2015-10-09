@@ -15,7 +15,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <summary>
         /// 
         /// </summary>
-        private SimplePointInAreaLocator() { }
+        private SimplePointInAreaLocator() {}
 
         /// <summary> 
         /// Locate is the main location function.  It handles both single-element
@@ -27,36 +27,15 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         public static Locations Locate(ICoordinate p, IGeometry geom)
         {
             if (geom.IsEmpty)
+            {
                 return Locations.Exterior;
+            }
 
             if (ContainsPoint(p, geom))
-                return Locations.Interior;
-            return Locations.Exterior;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="p"></param>
-        /// <param name="geom"></param>
-        /// <returns></returns>
-        private static bool ContainsPoint(ICoordinate p, IGeometry geom)
-        {
-            if (geom is IPolygon) 
-                return ContainsPointInPolygon(p, (IPolygon) geom);            
-            else if(geom is IGeometryCollection) 
             {
-                IEnumerator geomi = new GeometryCollectionEnumerator((IGeometryCollection) geom);
-                while (geomi.MoveNext()) 
-                {
-                    IGeometry g2 = (IGeometry) geomi.Current;
-                    // if(g2 != geom)  --- Diego Guidi say's: Java code tests reference equality: in C# with operator overloads we tests the object.equals()... more slower!                    
-                    if (!ReferenceEquals(g2, geom)) 
-                        if (ContainsPoint(p, g2))
-                            return true;
-                }
+                return Locations.Interior;
             }
-            return false;
+            return Locations.Exterior;
         }
 
         /// <summary>
@@ -67,19 +46,56 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <returns></returns>
         public static bool ContainsPointInPolygon(ICoordinate p, IPolygon poly)
         {
-            if (poly.IsEmpty) 
+            if (poly.IsEmpty)
+            {
                 return false;
+            }
             ILinearRing shell = (ILinearRing) poly.ExteriorRing;
-            if (!CGAlgorithms.IsPointInRing(p, shell.Coordinates)) 
+            if (!CGAlgorithms.IsPointInRing(p, shell.Coordinates))
+            {
                 return false;
+            }
             // now test if the point lies in or on the holes
             for (int i = 0; i < poly.NumInteriorRings; i++)
             {
                 ILinearRing hole = (ILinearRing) poly.GetInteriorRingN(i);
-                if (CGAlgorithms.IsPointInRing(p, hole.Coordinates)) 
+                if (CGAlgorithms.IsPointInRing(p, hole.Coordinates))
+                {
                     return false;
+                }
             }
             return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="geom"></param>
+        /// <returns></returns>
+        private static bool ContainsPoint(ICoordinate p, IGeometry geom)
+        {
+            if (geom is IPolygon)
+            {
+                return ContainsPointInPolygon(p, (IPolygon) geom);
+            }
+            else if (geom is IGeometryCollection)
+            {
+                IEnumerator geomi = new GeometryCollectionEnumerator((IGeometryCollection) geom);
+                while (geomi.MoveNext())
+                {
+                    IGeometry g2 = (IGeometry) geomi.Current;
+                    // if(g2 != geom)  --- Diego Guidi say's: Java code tests reference equality: in C# with operator overloads we tests the object.equals()... more slower!                    
+                    if (!ReferenceEquals(g2, geom))
+                    {
+                        if (ContainsPoint(p, g2))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
         }
     }
 }

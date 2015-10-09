@@ -27,7 +27,7 @@ namespace SharpMap.Extensions.Tests.CoordinateSystems
 
             var webMercator = Map.CoordinateSystemFactory.CreateFromEPSG(3857);
             var amsterdam = new Coordinate(547900, 6835651);
-            var newyork = new Coordinate(-8218509, 4952200); 
+            var newyork = new Coordinate(-8218509, 4952200);
             var distance = GeodeticDistance.Distance(webMercator, amsterdam, newyork);
             Assert.AreEqual(5870000, distance, 1000.0);
         }

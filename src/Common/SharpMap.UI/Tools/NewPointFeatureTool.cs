@@ -41,14 +41,12 @@ namespace SharpMap.UI.Tools
 
     public class NewPointFeatureTool : MapTool
     {
+        private readonly Collection<IGeometry> newPointFeatureGeometry = new Collection<IGeometry>();
         private bool isBusy;
         private IPoint newPointFeature;
         private VectorLayer newPointFeatureLayer;
-        private readonly Collection<IGeometry> newPointFeatureGeometry = new Collection<IGeometry>();
         private VectorStyle pointFeatureStyle;
         private VectorStyle errorPointFeatureStyle;
-
-        private SnapResult snapResult;
 
         public NewPointFeatureTool(Func<ILayer, bool> layerCriterion, string name)
         {
@@ -56,38 +54,38 @@ namespace SharpMap.UI.Tools
             LayerFilter = layerCriterion;
         }
 
-        /// <summary>
-        /// Optional: get a feature from external providers for location IPoint
-        /// </summary>
-        public Func<IPoint, IEnumerable<IFeature>> GetFeaturePerProvider { get; set; }
-
         public override bool Enabled
         {
-            get { return base.Enabled && VectorLayer != null; }
+            get
+            {
+                return base.Enabled && VectorLayer != null;
+            }
         }
 
         public override bool IsBusy
         {
-            get { return isBusy; }
+            get
+            {
+                return isBusy;
+            }
         }
+
+        /// <summary>
+        /// Optional: get a feature from external providers for location IPoint
+        /// </summary>
+        public Func<IPoint, IEnumerable<IFeature>> GetFeaturePerProvider { get; set; }
 
         /// <summary>
         /// Name format for a new feature (for <see cref="INameable"/> features)
         /// </summary>
         public string NewNameFormat { get; set; }
 
-        private VectorLayer VectorLayer { get { return Layers.Any() ? Layers.OfType<VectorLayer>().FirstOrDefault() : null; } }
-
-        private SnapResult SnapResult
-        {
-            get { return snapResult; }
-            set { snapResult = value; }
-        }
-
         public override void Render(Graphics graphics, Map mapBox)
         {
             if (null == newPointFeatureLayer)
+            {
                 return;
+            }
             newPointFeatureLayer.Render();
             graphics.DrawImage(newPointFeatureLayer.Image, 0, 0);
             MapControl.SnapTool.Render(graphics, mapBox);
@@ -107,7 +105,7 @@ namespace SharpMap.UI.Tools
             isBusy = true;
             StartDrawing();
             newPointFeature = GeometryFactory.CreatePoint(worldPosition);
-            ((DataTableFeatureProvider)newPointFeatureLayer.DataSource).Clear();
+            ((DataTableFeatureProvider) newPointFeatureLayer.DataSource).Clear();
             newPointFeatureLayer.DataSource.Add(newPointFeature);
 
             SnapResult = MapControl.SnapTool.ExecuteLayerSnapRules(VectorLayer, null, newPointFeature, worldPosition, -1); //TODO check: why is this commented out in trunk?
@@ -129,7 +127,9 @@ namespace SharpMap.UI.Tools
 
             //to avoid listening to the mousewheel in the mean time
             if (AdditionalButtonsBeingPressed(e))
+            {
                 return;
+            }
 
             StartDrawing();
 
@@ -198,7 +198,7 @@ namespace SharpMap.UI.Tools
                     feature = GetFeaturePerProvider(newPointFeature).First(); //ToDo: give the user the option to choose a provider (read model)
                     if (feature != null)
                     {
-                        ((FeatureCollection)layer.DataSource).Add(feature);
+                        ((FeatureCollection) layer.DataSource).Add(feature);
                     }
                 }
                 else
@@ -238,49 +238,70 @@ namespace SharpMap.UI.Tools
             RemoveDrawingLayer();
         }
 
+        private VectorLayer VectorLayer
+        {
+            get
+            {
+                return Layers.Any() ? Layers.OfType<VectorLayer>().FirstOrDefault() : null;
+            }
+        }
+
+        private SnapResult SnapResult { get; set; }
+
         private IPoint GetNewFeatureGeometry(ILayer layer)
         {
-            var nearestTargetLineString = SnapResult.NearestTarget as ILineString;//check if the snap result is on a linesegment
+            var nearestTargetLineString = SnapResult.NearestTarget as ILineString; //check if the snap result is on a linesegment
             if (layer.CoordinateTransformation == null || nearestTargetLineString == null)
             {
                 var point = (IPoint) GeometryHelper.SetCoordinate(newPointFeature, 0, SnapResult.Location);
                 return layer.CoordinateTransformation != null
-                    ? GeometryTransform.TransformPoint(point, layer.CoordinateTransformation.MathTransform.Inverse())
-                    : point;
+                           ? GeometryTransform.TransformPoint(point, layer.CoordinateTransformation.MathTransform.Inverse())
+                           : point;
             }
 
             var previousCoordinate = nearestTargetLineString.Coordinates[SnapResult.SnapIndexPrevious];
             var nextCoorinate = nearestTargetLineString.Coordinates[SnapResult.SnapIndexNext];
 
             var distanceToPrevious = previousCoordinate.Distance(SnapResult.Location);
-            var percentageFromPrevious = distanceToPrevious / previousCoordinate.Distance(nextCoorinate);
+            var percentageFromPrevious = distanceToPrevious/previousCoordinate.Distance(nextCoorinate);
 
             var mathTransform = layer.CoordinateTransformation.MathTransform.Inverse();
             var c1 = TransformCoordinate(previousCoordinate, mathTransform);
             var c2 = TransformCoordinate(nextCoorinate, mathTransform);
 
-            var targetLineString = new LineString(new[] { c1, c2 });
+            var targetLineString = new LineString(new[]
+            {
+                c1,
+                c2
+            });
 
             var coordinate = GeometryHelper.LineStringCoordinate(targetLineString,
-                targetLineString.Length * percentageFromPrevious);
-            return (IPoint)GeometryHelper.SetCoordinate(newPointFeature, 0, coordinate);
+                                                                 targetLineString.Length*percentageFromPrevious);
+            return (IPoint) GeometryHelper.SetCoordinate(newPointFeature, 0, coordinate);
         }
 
         private static ICoordinate TransformCoordinate(ICoordinate coordinate, IMathTransform mathTransform)
         {
-            var transformCoordinate = mathTransform.Transform(new[] { coordinate.X, coordinate.Y });
+            var transformCoordinate = mathTransform.Transform(new[]
+            {
+                coordinate.X,
+                coordinate.Y
+            });
             return new Coordinate(transformCoordinate[0], transformCoordinate[1]);
         }
 
         private void AddDrawingLayer()
         {
-            newPointFeatureLayer = new VectorLayer(VectorLayer) { Name = "newNetworkFeature", Map = VectorLayer.Map };
+            newPointFeatureLayer = new VectorLayer(VectorLayer)
+            {
+                Name = "newNetworkFeature", Map = VectorLayer.Map
+            };
 
             DataTableFeatureProvider trackingProvider = new DataTableFeatureProvider(newPointFeatureGeometry);
             newPointFeatureLayer.DataSource = trackingProvider;
 
-            pointFeatureStyle = (VectorStyle)newPointFeatureLayer.Style.Clone();
-            errorPointFeatureStyle = (VectorStyle)newPointFeatureLayer.Style.Clone();
+            pointFeatureStyle = (VectorStyle) newPointFeatureLayer.Style.Clone();
+            errorPointFeatureStyle = (VectorStyle) newPointFeatureLayer.Style.Clone();
             Forms.MapControl.PimpStyle(pointFeatureStyle, true);
             Forms.MapControl.PimpStyle(errorPointFeatureStyle, false);
             newPointFeatureLayer.Style = pointFeatureStyle;

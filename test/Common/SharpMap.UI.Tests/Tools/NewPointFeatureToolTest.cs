@@ -36,11 +36,17 @@ namespace SharpMap.UI.Tests.Tools
             };
             map.Layers.Add(vectorLayer);
 
-            var mapControl = new MapControl { Map = map };
+            var mapControl = new MapControl
+            {
+                Map = map
+            };
             mapControl.Resize += delegate { mapControl.Refresh(); };
             mapControl.Dock = DockStyle.Fill;
 
-            var newPointFeatureTool = new NewPointFeatureTool(l => true, "new test feature") { NewNameFormat = "New test feature {0}" };
+            var newPointFeatureTool = new NewPointFeatureTool(l => true, "new test feature")
+            {
+                NewNameFormat = "New test feature {0}"
+            };
             mapControl.Tools.Add(newPointFeatureTool);
 
             var args = new MouseEventArgs(MouseButtons.Left, 1, -1, -1, -1);
@@ -69,19 +75,22 @@ namespace SharpMap.UI.Tests.Tools
             var testFeatures = new List<TestFeature>();
 
             var vectorLayer = new VectorLayer
+            {
+                DataSource = new FeatureCollection(testFeatures, typeof(TestFeature)),
+                Visible = true,
+                Style = new VectorStyle
                 {
-                    DataSource = new FeatureCollection(testFeatures, typeof (TestFeature)),
-                    Visible = true,
-                    Style = new VectorStyle
-                        {
-                            Fill = new SolidBrush(Color.Tomato),
-                            Symbol = null,
-                            Line = new Pen(Color.Turquoise, 3)
-                        }
-                };
+                    Fill = new SolidBrush(Color.Tomato),
+                    Symbol = null,
+                    Line = new Pen(Color.Turquoise, 3)
+                }
+            };
             map.Layers.Add(vectorLayer);
 
-            var mapControl = new MapControl {Map = map};
+            var mapControl = new MapControl
+            {
+                Map = map
+            };
             mapControl.Resize += delegate { mapControl.Refresh(); };
             mapControl.Dock = DockStyle.Fill;
 

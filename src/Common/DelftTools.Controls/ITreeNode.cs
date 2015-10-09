@@ -88,17 +88,17 @@ namespace DelftTools.Controls
         /// Drawing bounds of node
         /// </summary>
         Rectangle Bounds { get; }
-        
+
         /// <summary>
         /// Gets the path from the root node to this node
         /// </summary>
         string FullPath { get; }
-        
+
         /// <summary>
         /// Previous sibling tree node
         /// </summary>
         ITreeNode PreviousNode { get; }
-        
+
         /// <summary>
         /// Previous visible tree node
         /// </summary>
@@ -125,9 +125,9 @@ namespace DelftTools.Controls
         bool IsExpanded { get; }
 
         bool IsUpdating { get; }
-        
+
         bool IsEditing { get; }
-        
+
         /// <summary>
         /// Expands the tree node
         /// </summary>

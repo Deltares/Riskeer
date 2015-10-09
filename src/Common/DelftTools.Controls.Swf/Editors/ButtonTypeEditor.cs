@@ -21,9 +21,11 @@ namespace DelftTools.Controls.Swf.Editors
         /// </summary>
         public Image Image { get; set; }
 
-        public object EditableValue { get; set; }
-
         public bool HideOnReadOnly { get; set; }
+
+        public Action ButtonClickAction { get; set; }
+
+        public object EditableValue { get; set; }
 
         public bool CanAcceptEditValue()
         {
@@ -34,8 +36,6 @@ namespace DelftTools.Controls.Swf.Editors
         {
             return false;
         }
-
-        public Action ButtonClickAction { get; set; }
 
         protected override void Dispose(bool disposing)
         {

@@ -9,16 +9,16 @@ namespace GisSharpBlog.NetTopologySuite.Noding
     /// Represents an intersection point between two <see cref="SegmentString" />s.
     /// </summary>
     public class SegmentNode : IComparable
-    {        
+    {
         /// <summary>
         /// 
         /// </summary>
-        public readonly ICoordinate Coordinate;   // the point of intersection
-        
+        public readonly ICoordinate Coordinate; // the point of intersection
+
         /// <summary>
         /// 
         /// </summary>
-        public readonly int SegmentIndex;   // the index of the containing line segment in the parent edge
+        public readonly int SegmentIndex; // the index of the containing line segment in the parent edge
 
         private readonly SegmentString segString = null;
         private readonly Octants segmentOctant = Octants.Null;
@@ -31,7 +31,7 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// <param name="coord"></param>
         /// <param name="segmentIndex"></param>
         /// <param name="segmentOctant"></param>
-        public SegmentNode(SegmentString segString, ICoordinate coord, int segmentIndex, Octants segmentOctant) 
+        public SegmentNode(SegmentString segString, ICoordinate coord, int segmentIndex, Octants segmentOctant)
         {
             Coordinate = null;
             this.segString = segString;
@@ -46,9 +46,11 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// </summary>
         /// <returns></returns>
         public bool IsInterior
-        { 
-            get { return isInterior;  }
-
+        {
+            get
+            {
+                return isInterior;
+            }
         }
 
         /// <summary>
@@ -58,10 +60,22 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// <returns></returns>
         public bool IsEndPoint(int maxSegmentIndex)
         {
-            if (SegmentIndex == 0 && ! isInterior) 
+            if (SegmentIndex == 0 && !isInterior)
+            {
                 return true;
+            }
             return SegmentIndex == maxSegmentIndex;
-        } 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="outstream"></param>
+        public void Write(StreamWriter outstream)
+        {
+            outstream.Write(Coordinate);
+            outstream.Write(" seg # = " + SegmentIndex);
+        }
 
         /// <summary>
         /// </summary>
@@ -74,23 +88,19 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         public int CompareTo(object obj)
         {
             var other = (SegmentNode) obj;
-            if (SegmentIndex < other.SegmentIndex) 
+            if (SegmentIndex < other.SegmentIndex)
+            {
                 return -1;
-            if (SegmentIndex > other.SegmentIndex) 
+            }
+            if (SegmentIndex > other.SegmentIndex)
+            {
                 return 1;
+            }
             if (Coordinate.Equals2D(other.Coordinate))
+            {
                 return 0;
+            }
             return SegmentPointComparator.Compare(segmentOctant, Coordinate, other.Coordinate);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="outstream"></param>
-        public void Write(StreamWriter outstream)
-        {
-            outstream.Write(Coordinate);
-            outstream.Write(" seg # = " + SegmentIndex);
         }
     }
 }

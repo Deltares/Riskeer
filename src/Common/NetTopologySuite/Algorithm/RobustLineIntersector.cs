@@ -14,7 +14,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <summary>
         /// 
         /// </summary>
-        public RobustLineIntersector() { }
+        public RobustLineIntersector() {}
 
         /// <summary>
         /// 
@@ -22,25 +22,27 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <param name="p"></param>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
-        public override void ComputeIntersection(ICoordinate p, ICoordinate p1, ICoordinate p2) 
+        public override void ComputeIntersection(ICoordinate p, ICoordinate p1, ICoordinate p2)
         {
             isProper = false;
             // do between check first, since it is faster than the orientation test
-            if(Envelope.Intersects(p1, p2, p)) 
+            if (Envelope.Intersects(p1, p2, p))
             {
-                if( (CGAlgorithms.OrientationIndex(p1, p2, p) == 0) && 
-                    (CGAlgorithms.OrientationIndex(p2, p1, p) == 0) ) 
+                if ((CGAlgorithms.OrientationIndex(p1, p2, p) == 0) &&
+                    (CGAlgorithms.OrientationIndex(p2, p1, p) == 0))
                 {
                     isProper = true;
-                    if (p.Equals(p1) || p.Equals(p2)) 
-                        isProper = false;                    
+                    if (p.Equals(p1) || p.Equals(p2))
+                    {
+                        isProper = false;
+                    }
                     result = DoIntersect;
                     return;
                 }
             }
             result = DontIntersect;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -49,15 +51,17 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <param name="q1"></param>
         /// <param name="q2"></param>
         /// <returns></returns>
-        public override int ComputeIntersect(ICoordinate p1, ICoordinate p2, ICoordinate q1, ICoordinate q2) 
-        {            
+        public override int ComputeIntersect(ICoordinate p1, ICoordinate p2, ICoordinate q1, ICoordinate q2)
+        {
             isProper = false;
 
             // first try a fast test to see if the envelopes of the lines intersect
             if (!Envelope.Intersects(p1, p2, q1, q2) || !CGAlgorithms.IsValidCoordinate(p1) ||
                 !CGAlgorithms.IsValidCoordinate(p2) || !CGAlgorithms.IsValidCoordinate(q1) ||
                 !CGAlgorithms.IsValidCoordinate(q2))
+            {
                 return DontIntersect;
+            }
 
             // for each endpoint, compute which side of the other segment it lies
             // if both endpoints lie on the same side of the other segment,
@@ -65,18 +69,24 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             int Pq1 = CGAlgorithms.OrientationIndex(p1, p2, q1);
             int Pq2 = CGAlgorithms.OrientationIndex(p1, p2, q2);
 
-            if((Pq1 > 0 && Pq2 > 0) || (Pq1 < 0 && Pq2 < 0)) 
-                return DontIntersect;            
+            if ((Pq1 > 0 && Pq2 > 0) || (Pq1 < 0 && Pq2 < 0))
+            {
+                return DontIntersect;
+            }
 
             int Qp1 = CGAlgorithms.OrientationIndex(q1, q2, p1);
             int Qp2 = CGAlgorithms.OrientationIndex(q1, q2, p2);
 
-            if ((Qp1 > 0 && Qp2 > 0) || (Qp1 < 0 && Qp2 < 0)) 
-                return DontIntersect;            
+            if ((Qp1 > 0 && Qp2 > 0) || (Qp1 < 0 && Qp2 < 0))
+            {
+                return DontIntersect;
+            }
 
             bool collinear = (Pq1 == 0 && Pq2 == 0 && Qp1 == 0 && Qp2 == 0);
-            if (collinear) 
+            if (collinear)
+            {
                 return ComputeCollinearIntersection(p1, p2, q1, q2);
+            }
 
             /*
             *  Check if the intersection is an endpoint. If it is, copy the endpoint as
@@ -86,17 +96,25 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             *  the other line, since at this point we know that the inputLines must
             *  intersect.
             */
-            if (Pq1 == 0 || Pq2 == 0 || Qp1 == 0 || Qp2 == 0) 
+            if (Pq1 == 0 || Pq2 == 0 || Qp1 == 0 || Qp2 == 0)
             {
                 isProper = false;
-                if (Pq1 == 0) 
-                    intPt[0] = new Coordinate(q1);            
-                if (Pq2 == 0) 
-                    intPt[0] = new Coordinate(q2);            
-                if (Qp1 == 0) 
+                if (Pq1 == 0)
+                {
+                    intPt[0] = new Coordinate(q1);
+                }
+                if (Pq2 == 0)
+                {
+                    intPt[0] = new Coordinate(q2);
+                }
+                if (Qp1 == 0)
+                {
                     intPt[0] = new Coordinate(p1);
-                if (Qp2 == 0) 
+                }
+                if (Qp2 == 0)
+                {
                     intPt[0] = new Coordinate(p2);
+                }
             }
             else
             {
@@ -104,7 +122,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                 intPt[0] = Intersection(p1, p2, q1, q2);
             }
             return DoIntersect;
-        }        
+        }
 
         /// <summary>
         /// 
@@ -114,20 +132,20 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <param name="q1"></param>
         /// <param name="q2"></param>
         /// <returns></returns>
-        private int ComputeCollinearIntersection(ICoordinate p1, ICoordinate p2, ICoordinate q1, ICoordinate q2) 
+        private int ComputeCollinearIntersection(ICoordinate p1, ICoordinate p2, ICoordinate q1, ICoordinate q2)
         {
             bool p1q1p2 = Envelope.Intersects(p1, p2, q1);
             bool p1q2p2 = Envelope.Intersects(p1, p2, q2);
             bool q1p1q2 = Envelope.Intersects(q1, q2, p1);
             bool q1p2q2 = Envelope.Intersects(q1, q2, p2);
 
-            if (p1q1p2 && p1q2p2) 
+            if (p1q1p2 && p1q2p2)
             {
                 intPt[0] = q1;
                 intPt[1] = q2;
                 return Collinear;
             }
-            if (q1p1q2 && q1p2q2) 
+            if (q1p1q2 && q1p2q2)
             {
                 intPt[0] = p1;
                 intPt[1] = p2;
@@ -139,19 +157,19 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                 intPt[1] = p1;
                 return q1.Equals(p1) && !p1q2p2 && !q1p2q2 ? DoIntersect : Collinear;
             }
-            if (p1q1p2 && q1p2q2) 
+            if (p1q1p2 && q1p2q2)
             {
                 intPt[0] = q1;
                 intPt[1] = p2;
                 return q1.Equals(p2) && !p1q2p2 && !q1p1q2 ? DoIntersect : Collinear;
             }
-            if (p1q2p2 && q1p1q2) 
+            if (p1q2p2 && q1p1q2)
             {
                 intPt[0] = q2;
                 intPt[1] = p1;
                 return q2.Equals(p1) && !p1q1p2 && !q1p2q2 ? DoIntersect : Collinear;
             }
-            if (p1q2p2 && q1p2q2) 
+            if (p1q2p2 && q1p2q2)
             {
                 intPt[0] = q2;
                 intPt[1] = p2;
@@ -183,11 +201,11 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             NormalizeToEnvCentre(n1, n2, n3, n4, normPt);
 
             ICoordinate intPt = null;
-            try 
+            try
             {
                 intPt = HCoordinate.Intersection(n1, n2, n3, n4);
             }
-            catch (NotRepresentableException) 
+            catch (NotRepresentableException)
             {
                 Assert.ShouldNeverReachHere("Coordinate for intersection is not calculable");
             }
@@ -203,9 +221,11 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
              * LINESTRING (1889281.8148903656 1997547.0560044837, 2259977.3672235999 483675.17050843034)
              * int point = (2097408.2633752143,1144595.8008114607)
              */
-            if(!IsInSegmentEnvelopes(intPt)) 
-              Trace.WriteLine("Intersection outside segment envelopes: " + intPt);
-            
+            if (!IsInSegmentEnvelopes(intPt))
+            {
+                Trace.WriteLine("Intersection outside segment envelopes: " + intPt);
+            }
+
             /*
             // disabled until a better solution is found
             if(!IsInSegmentEnvelopes(intPt)) 
@@ -224,9 +244,11 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             }
             */
 
-            if (precisionModel != null) 
-                precisionModel.MakePrecise( intPt);
-     
+            if (precisionModel != null)
+            {
+                precisionModel.MakePrecise(intPt);
+            }
+
             return intPt;
         }
 
@@ -242,10 +264,14 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         {
             normPt.X = SmallestInAbsValue(n1.X, n2.X, n3.X, n4.X);
             normPt.Y = SmallestInAbsValue(n1.Y, n2.Y, n3.Y, n4.Y);
-            n1.X -= normPt.X; n1.Y -= normPt.Y;
-            n2.X -= normPt.X; n2.Y -= normPt.Y;
-            n3.X -= normPt.X; n3.Y -= normPt.Y;
-            n4.X -= normPt.X; n4.Y -= normPt.Y;
+            n1.X -= normPt.X;
+            n1.Y -= normPt.Y;
+            n2.X -= normPt.X;
+            n2.Y -= normPt.Y;
+            n3.X -= normPt.X;
+            n3.Y -= normPt.Y;
+            n4.X -= normPt.X;
+            n4.Y -= normPt.Y;
         }
 
         /// <summary>
@@ -275,17 +301,21 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             double intMinY = minY0 > minY1 ? minY0 : minY1;
             double intMaxY = maxY0 < maxY1 ? maxY0 : maxY1;
 
-            double intMidX = (intMinX + intMaxX) / 2.0;
-            double intMidY = (intMinY + intMaxY) / 2.0;
+            double intMidX = (intMinX + intMaxX)/2.0;
+            double intMidY = (intMinY + intMaxY)/2.0;
             normPt.X = intMidX;
-            normPt.Y = intMidY;           
+            normPt.Y = intMidY;
 
-            n00.X -= normPt.X; n00.Y -= normPt.Y;
-            n01.X -= normPt.X; n01.Y -= normPt.Y;
-            n10.X -= normPt.X; n10.Y -= normPt.Y;
-            n11.X -= normPt.X; n11.Y -= normPt.Y;
+            n00.X -= normPt.X;
+            n00.Y -= normPt.Y;
+            n01.X -= normPt.X;
+            n01.Y -= normPt.Y;
+            n10.X -= normPt.X;
+            n10.Y -= normPt.Y;
+            n11.X -= normPt.X;
+            n11.Y -= normPt.Y;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -298,18 +328,20 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         {
             double x = x1;
             double xabs = Math.Abs(x);
-            if (Math.Abs(x2) < xabs) 
+            if (Math.Abs(x2) < xabs)
             {
                 x = x2;
                 xabs = Math.Abs(x2);
             }
-            if (Math.Abs(x3) < xabs) 
+            if (Math.Abs(x3) < xabs)
             {
                 x = x3;
                 xabs = Math.Abs(x3);
             }
-            if (Math.Abs(x4) < xabs) 
+            if (Math.Abs(x4) < xabs)
+            {
                 x = x4;
+            }
             return x;
         }
 

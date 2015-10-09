@@ -7,7 +7,7 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph.Algorithm
     /// </summary>
     public class ConnectedSubgraphFinder
     {
-        private PlanarGraph graph;
+        private readonly PlanarGraph graph;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ConnectedSubgraphFinder"/> class.
@@ -28,12 +28,14 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph.Algorithm
 
             GraphComponent.SetVisited(graph.GetNodeEnumerator(), false);
             IEnumerator ienum = graph.GetEdgeEnumerator();
-            while(ienum.MoveNext())
+            while (ienum.MoveNext())
             {
                 Edge e = ienum.Current as Edge;
                 Node node = e.GetDirEdge(0).FromNode;
                 if (!node.IsVisited)
-                    subgraphs.Add(FindSubgraph(node));                
+                {
+                    subgraphs.Add(FindSubgraph(node));
+                }
             }
             return subgraphs;
         }
@@ -57,7 +59,7 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph.Algorithm
             nodeStack.Push(startNode);
             while (!(nodeStack.Count == 0))
             {
-                Node node = (Node)nodeStack.Pop();
+                Node node = (Node) nodeStack.Pop();
                 AddEdges(node, nodeStack, subgraph);
             }
         }
@@ -71,14 +73,16 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph.Algorithm
         private void AddEdges(Node node, Stack nodeStack, Subgraph subgraph)
         {
             node.Visited = true;
-            IEnumerator i = ((DirectedEdgeStar)node.OutEdges).GetEnumerator();
-            while(i.MoveNext())
+            IEnumerator i = ((DirectedEdgeStar) node.OutEdges).GetEnumerator();
+            while (i.MoveNext())
             {
-                DirectedEdge de = (DirectedEdge)i.Current;
+                DirectedEdge de = (DirectedEdge) i.Current;
                 subgraph.Add(de.Edge);
                 Node toNode = de.ToNode;
-                if (!toNode.IsVisited) 
+                if (!toNode.IsVisited)
+                {
                     nodeStack.Push(toNode);
+                }
             }
         }
     }

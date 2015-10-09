@@ -4,6 +4,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
 {
     public class MapZoomToExtentsCommand : MapViewCommand
     {
+        public override bool Checked
+        {
+            get
+            {
+                return false;
+            }
+            set {}
+        }
 
         /// <summary>
         /// if arguments is null the active mapview will zoom to it's default extents.
@@ -13,28 +21,22 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
         protected override void OnExecute(params object[] arguments)
         {
             MapView targetView = null;
-            if(arguments.Length == 1)//target extent
+            if (arguments.Length == 1) //target extent
             {
                 targetView = arguments[0] as MapView;
             }
 
             MapView activeView = SharpMapGisGuiPlugin.GetFocusedMapView();
 
-            if(targetView != null)
+            if (targetView != null)
             {
                 activeView.Map.ZoomToFit(targetView.Map.Envelope);
             }
-            else 
+            else
             {
                 activeView.Map.ZoomToExtents();
             }
             activeView.MapControl.Refresh();
-        }
-
-        public override bool Checked
-        {
-            get { return false; }
-            set { }
         }
     }
 }

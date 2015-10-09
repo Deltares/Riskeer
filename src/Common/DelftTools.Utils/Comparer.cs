@@ -15,8 +15,8 @@ namespace DelftTools.Utils
                 return true;
             }
 
-            if (Single.IsNaN(a) || Single.IsNaN(b) || 
-                Single.IsPositiveInfinity(a) || Single.IsPositiveInfinity(b) || 
+            if (Single.IsNaN(a) || Single.IsNaN(b) ||
+                Single.IsPositiveInfinity(a) || Single.IsPositiveInfinity(b) ||
                 Single.IsNegativeInfinity(a) || Single.IsNegativeInfinity(b))
             {
                 return false;
@@ -26,18 +26,22 @@ namespace DelftTools.Utils
             {
                 int aInt = BitConverter.ToInt32(BitConverter.GetBytes(a), 0);
                 if (aInt < 0)
+                {
                     aInt = Int32.MinValue - aInt; // Int32.MinValue = 0x80000000
+                }
 
                 int bInt = BitConverter.ToInt32(BitConverter.GetBytes(b), 0);
                 if (bInt < 0)
+                {
                     bInt = Int32.MinValue - bInt;
+                }
 
                 int intDiff = Math.Abs(aInt - bInt);
                 return intDiff <= (1 << maxDeltaBits);
             }
             catch (Exception)
             {
-                return false; 
+                return false;
             }
         }
 
@@ -51,7 +55,7 @@ namespace DelftTools.Utils
             }
 
             if (Double.IsNaN(a) || Double.IsNaN(b) ||
-                Double.IsPositiveInfinity(a) || Double.IsPositiveInfinity(b) || 
+                Double.IsPositiveInfinity(a) || Double.IsPositiveInfinity(b) ||
                 Double.IsNegativeInfinity(a) || Double.IsNegativeInfinity(b))
             {
                 return false;
@@ -61,11 +65,15 @@ namespace DelftTools.Utils
             {
                 Int64 aInt = BitConverter.ToInt64(BitConverter.GetBytes(a), 0);
                 if (aInt < 0)
+                {
                     aInt = Int64.MinValue - aInt;
+                }
 
                 Int64 bInt = BitConverter.ToInt64(BitConverter.GetBytes(b), 0);
                 if (bInt < 0)
+                {
                     bInt = Int64.MinValue - bInt;
+                }
 
                 Int64 intDiff = Math.Abs(aInt - bInt);
                 return intDiff <= (1 << maxDeltaBits);
@@ -75,6 +83,5 @@ namespace DelftTools.Utils
                 return false;
             }
         }
-
     }
 }

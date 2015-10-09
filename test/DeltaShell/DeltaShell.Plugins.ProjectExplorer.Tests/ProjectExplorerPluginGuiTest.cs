@@ -12,11 +12,11 @@ namespace DeltaShell.Plugins.ProjectExplorer.Tests
     [TestFixture]
     public class ProjectExplorerPluginGuiTest
     {
-        MockRepository mocks = new MockRepository();
-        IApplication app;
-        IGui gui;
+        private readonly MockRepository mocks = new MockRepository();
+        private IApplication app;
+        private IGui gui;
 
-        ITreeNodePresenter mockNodePresenter;
+        private ITreeNodePresenter mockNodePresenter;
         private ProjectExplorerGuiPlugin projectExplorerPluginGui;
 
         [SetUp]
@@ -29,29 +29,41 @@ namespace DeltaShell.Plugins.ProjectExplorer.Tests
             var plugin = mocks.Stub<ApplicationPlugin>();
             var pluginGui = mocks.Stub<GuiPlugin>();
 
-            projectExplorerPluginGui = new ProjectExplorerGuiPlugin { Gui = gui };
+            projectExplorerPluginGui = new ProjectExplorerGuiPlugin
+            {
+                Gui = gui
+            };
 
             settings["showHiddenDataItems"] = true;
             app.UserSettings = settings;
 
             app.Settings = new NameValueCollection();
             app.Settings["IsProjectExplorerSorted"] = "false";
-            
+
             var project = new Project();
             Expect.Call(app.Project).Return(project).Repeat.Any();
-            
+
             gui.Application = app;
             Expect.Call(gui.ToolWindowViews).Return(mocks.Stub<IViewList>());
             Expect.Call(gui.DocumentViews).Return(mocks.Stub<IViewList>());
-            Expect.Call(gui.Plugins).Return(new List<GuiPlugin> { projectExplorerPluginGui, pluginGui }).Repeat.Any();
-            
+            Expect.Call(gui.Plugins).Return(new List<GuiPlugin>
+            {
+                projectExplorerPluginGui, pluginGui
+            }).Repeat.Any();
+
             plugin.Application = app;
-            
+
             //create and register a custom np
             mockNodePresenter = mocks.Stub<ITreeNodePresenter>();
-            Expect.Call(pluginGui.GetProjectTreeViewNodePresenters()).Return(new[] { mockNodePresenter });
+            Expect.Call(pluginGui.GetProjectTreeViewNodePresenters()).Return(new[]
+            {
+                mockNodePresenter
+            });
 
-            app.Stub(a => a.Plugins).Return(new[] { plugin });
+            app.Stub(a => a.Plugins).Return(new[]
+            {
+                plugin
+            });
             app.Stub(a => a.ProjectOpened += null).IgnoreArguments().Repeat.Any();
             app.Stub(a => a.ProjectOpened -= null).IgnoreArguments().Repeat.Any();
             app.Stub(a => a.ProjectClosing += null).IgnoreArguments().Repeat.Any();
@@ -59,7 +71,7 @@ namespace DeltaShell.Plugins.ProjectExplorer.Tests
             app.Stub(a => a.ProjectSaving += null).IgnoreArguments().Repeat.Any();
             app.Stub(a => a.ProjectSaving -= null).IgnoreArguments().Repeat.Any();
             app.Stub(a => a.ProjectSaved += null).IgnoreArguments().Repeat.Any();
-            app.Stub(a => a.ProjectSaved -= null).IgnoreArguments().Repeat.Any(); 
+            app.Stub(a => a.ProjectSaved -= null).IgnoreArguments().Repeat.Any();
 
             mocks.ReplayAll();
         }

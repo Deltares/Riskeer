@@ -20,14 +20,68 @@ namespace DelftTools.Utils.PropertyBag
     /// </summary>
     public class PropertyBag : ICustomTypeDescriptor
     {
+        /// <summary>
+        /// Occurs when a PropertyGrid requests the value of a property.
+        /// </summary>
+        public event PropertySpecEventHandler GetValue;
+
+        /// <summary>
+        /// Occurs when the user changes the value of a property in a PropertyGrid.
+        /// </summary>
+        public event PropertySpecEventHandler SetValue;
+
+        /// <summary>
+        /// Initializes a new instance of the PropertyBag class.
+        /// </summary>
+        public PropertyBag()
+        {
+            DefaultProperty = null;
+            Properties = new PropertySpecCollection();
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the default property in the collection.
+        /// </summary>
+        public string DefaultProperty { get; set; }
+
+        /// <summary>
+        /// Gets the collection of properties contained within this PropertyBag.
+        /// </summary>
+        public PropertySpecCollection Properties { get; private set; }
+
+        /// <summary>
+        /// Raises the GetValue event.
+        /// </summary>
+        /// <param name="e">A PropertySpecEventArgs that contains the event data.</param>
+        protected virtual void OnGetValue(PropertySpecEventArgs e)
+        {
+            if (GetValue != null)
+            {
+                GetValue(this, e);
+            }
+        }
+
+        /// <summary>
+        /// Raises the SetValue event.
+        /// </summary>
+        /// <param name="e">A PropertySpecEventArgs that contains the event data.</param>
+        protected virtual void OnSetValue(PropertySpecEventArgs e)
+        {
+            if (SetValue != null)
+            {
+                SetValue(this, e);
+            }
+        }
+
         #region PropertySpecCollection class definition
+
         /// <summary>
         /// Encapsulates a collection of PropertySpec objects.
         /// </summary>
         [Serializable]
         public class PropertySpecCollection : IList
         {
-            private ArrayList innerArray;
+            private readonly ArrayList innerArray;
 
             /// <summary>
             /// Initializes a new instance of the PropertySpecCollection class.
@@ -35,58 +89,6 @@ namespace DelftTools.Utils.PropertyBag
             public PropertySpecCollection()
             {
                 innerArray = new ArrayList();
-            }
-
-            /// <summary>
-            /// Gets the number of elements in the PropertySpecCollection.
-            /// </summary>
-            /// <value>
-            /// The number of elements contained in the PropertySpecCollection.
-            /// </value>
-            public int Count
-            {
-                get { return innerArray.Count; }
-            }
-
-            /// <summary>
-            /// Gets a value indicating whether the PropertySpecCollection has a fixed size.
-            /// </summary>
-            /// <value>
-            /// true if the PropertySpecCollection has a fixed size; otherwise, false.
-            /// </value>
-            public bool IsFixedSize
-            {
-                get { return false; }
-            }
-
-            /// <summary>
-            /// Gets a value indicating whether the PropertySpecCollection is read-only.
-            /// </summary>
-            public bool IsReadOnly
-            {
-                get { return false; }
-            }
-
-            /// <summary>
-            /// Gets a value indicating whether access to the collection is synchronized (thread-safe).
-            /// </summary>
-            /// <value>
-            /// true if access to the PropertySpecCollection is synchronized (thread-safe); otherwise, false.
-            /// </value>
-            public bool IsSynchronized
-            {
-                get { return false; }
-            }
-
-            /// <summary>
-            /// Gets an object that can be used to synchronize access to the collection.
-            /// </summary>
-            /// <value>
-            /// An object that can be used to synchronize access to the collection.
-            /// </value>
-            object ICollection.SyncRoot
-            {
-                get { return null; }
             }
 
             /// <summary>
@@ -99,8 +101,81 @@ namespace DelftTools.Utils.PropertyBag
             /// </value>
             public PropertySpec this[int index]
             {
-                get { return (PropertySpec)innerArray[index]; }
-                set { innerArray[index] = value; }
+                get
+                {
+                    return (PropertySpec) innerArray[index];
+                }
+                set
+                {
+                    innerArray[index] = value;
+                }
+            }
+
+            /// <summary>
+            /// Gets the number of elements in the PropertySpecCollection.
+            /// </summary>
+            /// <value>
+            /// The number of elements contained in the PropertySpecCollection.
+            /// </value>
+            public int Count
+            {
+                get
+                {
+                    return innerArray.Count;
+                }
+            }
+
+            /// <summary>
+            /// Gets a value indicating whether the PropertySpecCollection has a fixed size.
+            /// </summary>
+            /// <value>
+            /// true if the PropertySpecCollection has a fixed size; otherwise, false.
+            /// </value>
+            public bool IsFixedSize
+            {
+                get
+                {
+                    return false;
+                }
+            }
+
+            /// <summary>
+            /// Gets a value indicating whether the PropertySpecCollection is read-only.
+            /// </summary>
+            public bool IsReadOnly
+            {
+                get
+                {
+                    return false;
+                }
+            }
+
+            /// <summary>
+            /// Gets a value indicating whether access to the collection is synchronized (thread-safe).
+            /// </summary>
+            /// <value>
+            /// true if access to the PropertySpecCollection is synchronized (thread-safe); otherwise, false.
+            /// </value>
+            public bool IsSynchronized
+            {
+                get
+                {
+                    return false;
+                }
+            }
+
+            /// <summary>
+            /// Gets an object that can be used to synchronize access to the collection.
+            /// </summary>
+            /// <value>
+            /// An object that can be used to synchronize access to the collection.
+            /// </value>
+            object ICollection.SyncRoot
+            {
+                get
+                {
+                    return null;
+                }
             }
 
             /// <summary>
@@ -126,14 +201,6 @@ namespace DelftTools.Utils.PropertyBag
             }
 
             /// <summary>
-            /// Removes all elements from the PropertySpecCollection.
-            /// </summary>
-            public void Clear()
-            {
-                innerArray.Clear();
-            }
-
-            /// <summary>
             /// Determines whether a PropertySpec is in the PropertySpecCollection.
             /// </summary>
             /// <param name="item">The PropertySpec to locate in the PropertySpecCollection. The element to locate
@@ -152,8 +219,12 @@ namespace DelftTools.Utils.PropertyBag
             public bool Contains(string name)
             {
                 foreach (PropertySpec spec in innerArray)
+                {
                     if (spec.Name == name)
+                    {
                         return true;
+                    }
+                }
 
                 return false;
             }
@@ -178,15 +249,6 @@ namespace DelftTools.Utils.PropertyBag
             public void CopyTo(PropertySpec[] array, int index)
             {
                 innerArray.CopyTo(array, index);
-            }
-
-            /// <summary>
-            /// Returns an enumerator that can iterate through the PropertySpecCollection.
-            /// </summary>
-            /// <returns>An IEnumerator for the entire PropertySpecCollection.</returns>
-            public IEnumerator GetEnumerator()
-            {
-                return innerArray.GetEnumerator();
             }
 
             /// <summary>
@@ -215,7 +277,9 @@ namespace DelftTools.Utils.PropertyBag
                 foreach (PropertySpec spec in innerArray)
                 {
                     if (spec.Name == name)
+                    {
                         return i;
+                    }
 
                     i++;
                 }
@@ -253,6 +317,32 @@ namespace DelftTools.Utils.PropertyBag
             }
 
             /// <summary>
+            /// Copies the elements of the PropertySpecCollection to a new PropertySpec array.
+            /// </summary>
+            /// <returns>A PropertySpec array containing copies of the elements of the PropertySpecCollection.</returns>
+            public PropertySpec[] ToArray()
+            {
+                return (PropertySpec[]) innerArray.ToArray(typeof(PropertySpec));
+            }
+
+            /// <summary>
+            /// Removes all elements from the PropertySpecCollection.
+            /// </summary>
+            public void Clear()
+            {
+                innerArray.Clear();
+            }
+
+            /// <summary>
+            /// Returns an enumerator that can iterate through the PropertySpecCollection.
+            /// </summary>
+            /// <returns>An IEnumerator for the entire PropertySpecCollection.</returns>
+            public IEnumerator GetEnumerator()
+            {
+                return innerArray.GetEnumerator();
+            }
+
+            /// <summary>
             /// Removes the object at the specified index of the PropertySpecCollection.
             /// </summary>
             /// <param name="index">The zero-based index of the element to remove.</param>
@@ -261,22 +351,14 @@ namespace DelftTools.Utils.PropertyBag
                 innerArray.RemoveAt(index);
             }
 
-            /// <summary>
-            /// Copies the elements of the PropertySpecCollection to a new PropertySpec array.
-            /// </summary>
-            /// <returns>A PropertySpec array containing copies of the elements of the PropertySpecCollection.</returns>
-            public PropertySpec[] ToArray()
-            {
-                return (PropertySpec[])innerArray.ToArray(typeof(PropertySpec));
-            }
-
             #region Explicit interface implementations for ICollection and IList
+
             /// <summary>
             /// This member supports the .NET Framework infrastructure and is not intended to be used directly from your code.
             /// </summary>
             void ICollection.CopyTo(Array array, int index)
             {
-                CopyTo((PropertySpec[])array, index);
+                CopyTo((PropertySpec[]) array, index);
             }
 
             /// <summary>
@@ -284,7 +366,7 @@ namespace DelftTools.Utils.PropertyBag
             /// </summary>
             int IList.Add(object value)
             {
-                return Add((PropertySpec)value);
+                return Add((PropertySpec) value);
             }
 
             /// <summary>
@@ -292,7 +374,7 @@ namespace DelftTools.Utils.PropertyBag
             /// </summary>
             bool IList.Contains(object obj)
             {
-                return Contains((PropertySpec)obj);
+                return Contains((PropertySpec) obj);
             }
 
             /// <summary>
@@ -302,11 +384,11 @@ namespace DelftTools.Utils.PropertyBag
             {
                 get
                 {
-                    return ((PropertySpecCollection)this)[index];
+                    return ((PropertySpecCollection) this)[index];
                 }
                 set
                 {
-                    ((PropertySpecCollection)this)[index] = (PropertySpec)value;
+                    ((PropertySpecCollection) this)[index] = (PropertySpec) value;
                 }
             }
 
@@ -315,7 +397,7 @@ namespace DelftTools.Utils.PropertyBag
             /// </summary>
             int IList.IndexOf(object obj)
             {
-                return IndexOf((PropertySpec)obj);
+                return IndexOf((PropertySpec) obj);
             }
 
             /// <summary>
@@ -323,7 +405,7 @@ namespace DelftTools.Utils.PropertyBag
             /// </summary>
             void IList.Insert(int index, object value)
             {
-                Insert(index, (PropertySpec)value);
+                Insert(index, (PropertySpec) value);
             }
 
             /// <summary>
@@ -331,16 +413,20 @@ namespace DelftTools.Utils.PropertyBag
             /// </summary>
             void IList.Remove(object value)
             {
-                Remove((PropertySpec)value);
+                Remove((PropertySpec) value);
             }
+
             #endregion
         }
+
         #endregion
+
         #region PropertySpecDescriptor class definition
+
         private class PropertySpecDescriptor : PropertyDescriptor
         {
-            private PropertyBag bag;
-            private PropertySpec item;
+            private readonly PropertyBag bag;
+            private readonly PropertySpec item;
 
             public PropertySpecDescriptor(PropertySpec item, PropertyBag bag, string name, Attribute[] attrs)
                 :
@@ -352,12 +438,18 @@ namespace DelftTools.Utils.PropertyBag
 
             public override Type ComponentType
             {
-                get { return item.GetType(); }
+                get
+                {
+                    return item.GetType();
+                }
             }
 
             public override bool IsReadOnly
             {
-                get { return (Attributes.Matches(ReadOnlyAttribute.Yes)); }
+                get
+                {
+                    return (Attributes.Matches(ReadOnlyAttribute.Yes));
+                }
             }
 
             public override bool IsBrowsable
@@ -371,15 +463,22 @@ namespace DelftTools.Utils.PropertyBag
 
             public override Type PropertyType
             {
-                get { return Type.GetType(item.TypeName); }
+                get
+                {
+                    return Type.GetType(item.TypeName);
+                }
             }
 
             public override bool CanResetValue(object component)
             {
                 if (item.DefaultValue == null)
+                {
                     return false;
+                }
                 else
-                    return !this.GetValue(component).Equals(item.DefaultValue);
+                {
+                    return !GetValue(component).Equals(item.DefaultValue);
+                }
             }
 
             public override object GetValue(object component)
@@ -403,12 +502,16 @@ namespace DelftTools.Utils.PropertyBag
 
             public override bool ShouldSerializeValue(object component)
             {
-                object val = this.GetValue(component);
+                object val = GetValue(component);
 
                 if (item.DefaultValue == null && val == null)
+                {
                     return false;
+                }
                 else
+                {
                     return !val.Equals(item.DefaultValue);
+                }
             }
 
             private PropertySpecEventArgs ReEvaluateAttributes()
@@ -417,72 +520,15 @@ namespace DelftTools.Utils.PropertyBag
                 // of the property and evaluate the dynamic attributes
                 var e = new PropertySpecEventArgs(item, null);
                 bag.OnGetValue(e);
-                base.AttributeArray = e.Property.Attributes;
+                AttributeArray = e.Property.Attributes;
                 return e;
             }
         }
+
         #endregion
 
-        private string defaultProperty;
-        private PropertySpecCollection properties;
-
-        /// <summary>
-        /// Initializes a new instance of the PropertyBag class.
-        /// </summary>
-        public PropertyBag()
-        {
-            defaultProperty = null;
-            properties = new PropertySpecCollection();
-        }
-
-        /// <summary>
-        /// Gets or sets the name of the default property in the collection.
-        /// </summary>
-        public string DefaultProperty
-        {
-            get { return defaultProperty; }
-            set { defaultProperty = value; }
-        }
-
-        /// <summary>
-        /// Gets the collection of properties contained within this PropertyBag.
-        /// </summary>
-        public PropertySpecCollection Properties
-        {
-            get { return properties; }
-        }
-
-        /// <summary>
-        /// Occurs when a PropertyGrid requests the value of a property.
-        /// </summary>
-        public event PropertySpecEventHandler GetValue;
-
-        /// <summary>
-        /// Occurs when the user changes the value of a property in a PropertyGrid.
-        /// </summary>
-        public event PropertySpecEventHandler SetValue;
-
-        /// <summary>
-        /// Raises the GetValue event.
-        /// </summary>
-        /// <param name="e">A PropertySpecEventArgs that contains the event data.</param>
-        protected virtual void OnGetValue(PropertySpecEventArgs e)
-        {
-            if (GetValue != null)
-                GetValue(this, e);
-        }
-
-        /// <summary>
-        /// Raises the SetValue event.
-        /// </summary>
-        /// <param name="e">A PropertySpecEventArgs that contains the event data.</param>
-        protected virtual void OnSetValue(PropertySpecEventArgs e)
-        {
-            if (SetValue != null)
-                SetValue(this, e);
-        }
-
         #region ICustomTypeDescriptor explicit interface definitions
+
         // Most of the functions required by the ICustomTypeDescriptor are
         // merely pssed on to the default TypeDescriptor for this type,
         // which will do something appropriate.  The exceptions are noted
@@ -520,22 +566,26 @@ namespace DelftTools.Utils.PropertyBag
             // found that matches DefaultProperty, a null reference is
             // returned instead.
 
-            if(defaultProperty == null && properties.Count != 0)
+            if (DefaultProperty == null && Properties.Count != 0)
             {
-                defaultProperty = properties[0].Name;
+                DefaultProperty = Properties[0].Name;
             }
 
             PropertySpec propertySpec = null;
-            if (defaultProperty != null)
+            if (DefaultProperty != null)
             {
-                int index = properties.IndexOf(defaultProperty);
-                propertySpec = properties[index];
+                int index = Properties.IndexOf(DefaultProperty);
+                propertySpec = Properties[index];
             }
 
             if (propertySpec != null)
+            {
                 return new PropertySpecDescriptor(propertySpec, this, propertySpec.Name, null);
+            }
             else
+            {
                 return null;
+            }
         }
 
         object ICustomTypeDescriptor.GetEditor(Type editorBaseType)
@@ -555,7 +605,7 @@ namespace DelftTools.Utils.PropertyBag
 
         PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties()
         {
-            return ((ICustomTypeDescriptor)this).GetProperties(new Attribute[0]);
+            return ((ICustomTypeDescriptor) this).GetProperties(new Attribute[0]);
         }
 
         PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties(Attribute[] attributes)
@@ -567,34 +617,44 @@ namespace DelftTools.Utils.PropertyBag
             var props = new List<PropertySpecDescriptor>();
             var propsToOrder = new List<Tuple<int, PropertySpecDescriptor>>();
 
-            foreach (PropertySpec property in properties)
+            foreach (PropertySpec property in Properties)
             {
                 var attrs = new ArrayList();
 
                 // If a category, description, editor, or type converter are specified
                 // in the PropertySpec, create attributes to define that relationship.
                 if (property.Category != null)
+                {
                     attrs.Add(new CategoryAttribute(property.Category));
+                }
 
                 if (property.Description != null)
+                {
                     attrs.Add(new DescriptionAttribute(property.Description));
+                }
 
                 if (property.EditorTypeName != null)
+                {
                     attrs.Add(new EditorAttribute(property.EditorTypeName, typeof(UITypeEditor)));
+                }
 
                 if (property.ConverterTypeName != null)
+                {
                     attrs.Add(new TypeConverterAttribute(property.ConverterTypeName));
+                }
 
                 // Additionally, append the custom attributes associated with the
                 // PropertySpec, if any.
                 if (property.Attributes != null)
+                {
                     attrs.AddRange(property.Attributes);
+                }
 
-                Attribute[] attrArray = (Attribute[])attrs.ToArray(typeof(Attribute));
+                Attribute[] attrArray = (Attribute[]) attrs.ToArray(typeof(Attribute));
 
                 // Create a new property descriptor for the property item, and add
                 // it to the list.
-                var pd = new PropertySpecDescriptor(property,this, property.Name, attrArray);
+                var pd = new PropertySpecDescriptor(property, this, property.Name, attrArray);
 
                 var propertyOrderAttribute = property.Attributes != null ? property.Attributes.OfType<PropertyOrderAttribute>().FirstOrDefault() : null;
                 if (propertyOrderAttribute != null)
@@ -608,14 +668,14 @@ namespace DelftTools.Utils.PropertyBag
             }
 
             var orderedProperties = propsToOrder.OrderBy(p => p.First).Select(p => p.Second).ToList();
-            
+
             // Convert the list of PropertyDescriptors to a collection that the
             // ICustomTypeDescriptor can use, and return it.
             var browsableAttribute = attributes.OfType<BrowsableAttribute>().FirstOrDefault();
 
             var propertySpecDescriptors = (browsableAttribute != null)
-                ? orderedProperties.Concat(props).Where(p => p.IsBrowsable == browsableAttribute.Browsable)
-                : orderedProperties.Concat(props);
+                                              ? orderedProperties.Concat(props).Where(p => p.IsBrowsable == browsableAttribute.Browsable)
+                                              : orderedProperties.Concat(props);
 
             return new PropertyDescriptorCollection(propertySpecDescriptors.ToArray());
         }
@@ -624,6 +684,7 @@ namespace DelftTools.Utils.PropertyBag
         {
             return this;
         }
+
         #endregion
     }
 }

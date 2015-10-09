@@ -19,21 +19,8 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
     /// </summary>
     public class TopologyPreservingSimplifier
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="geom"></param>
-        /// <param name="distanceTolerance"></param>
-        /// <returns></returns>
-        public static IGeometry Simplify(IGeometry geom, double distanceTolerance)
-        {
-            TopologyPreservingSimplifier tss = new TopologyPreservingSimplifier(geom);
-            tss.DistanceTolerance = distanceTolerance;
-            return tss.GetResultGeometry();
-        }
-
-        private IGeometry inputGeom;
-        private TaggedLinesSimplifier lineSimplifier = new TaggedLinesSimplifier();
+        private readonly IGeometry inputGeom;
+        private readonly TaggedLinesSimplifier lineSimplifier = new TaggedLinesSimplifier();
         private IDictionary lineStringMap;
 
         /// <summary>
@@ -42,7 +29,7 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// <param name="inputGeom"></param>
         public TopologyPreservingSimplifier(IGeometry inputGeom)
         {
-            this.inputGeom = inputGeom;            
+            this.inputGeom = inputGeom;
         }
 
         /// <summary>
@@ -63,8 +50,21 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="geom"></param>
+        /// <param name="distanceTolerance"></param>
         /// <returns></returns>
-        public IGeometry GetResultGeometry() 
+        public static IGeometry Simplify(IGeometry geom, double distanceTolerance)
+        {
+            TopologyPreservingSimplifier tss = new TopologyPreservingSimplifier(geom);
+            tss.DistanceTolerance = distanceTolerance;
+            return tss.GetResultGeometry();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IGeometry GetResultGeometry()
         {
             lineStringMap = new Hashtable();
             inputGeom.Apply(new LineStringMapBuilderFilter(this));
@@ -76,15 +76,50 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// <summary>
         /// 
         /// </summary>
-        private class LineStringTransformer : GeometryTransformer
+        private class LineStringMapBuilderFilter : IGeometryComponentFilter
         {
-            private TopologyPreservingSimplifier container = null;
+            private readonly TopologyPreservingSimplifier container = null;
 
             /// <summary>
             /// 
             /// </summary>
             /// <param name="container"></param>
-            public LineStringTransformer(TopologyPreservingSimplifier container)            
+            public LineStringMapBuilderFilter(TopologyPreservingSimplifier container)
+            {
+                this.container = container;
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="geom"></param>
+            public void Filter(IGeometry geom)
+            {
+                if (geom is ILinearRing)
+                {
+                    TaggedLineString taggedLine = new TaggedLineString((ILineString) geom, 4);
+                    container.lineStringMap.Add(geom, taggedLine);
+                }
+                else if (geom is ILineString)
+                {
+                    TaggedLineString taggedLine = new TaggedLineString((ILineString) geom, 2);
+                    container.lineStringMap.Add(geom, taggedLine);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private class LineStringTransformer : GeometryTransformer
+        {
+            private readonly TopologyPreservingSimplifier container = null;
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="container"></param>
+            public LineStringTransformer(TopologyPreservingSimplifier container)
             {
                 this.container = container;
             }
@@ -97,48 +132,13 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
             /// <returns></returns>
             protected override ICoordinateSequence TransformCoordinates(ICoordinateSequence coords, IGeometry parent)
             {
-                if (parent is ILineString) 
+                if (parent is ILineString)
                 {
                     TaggedLineString taggedLine = (TaggedLineString) container.lineStringMap[parent];
                     return CreateCoordinateSequence(taggedLine.ResultCoordinates);
                 }
                 // for anything else (e.g. points) just copy the coordinates
                 return base.TransformCoordinates(coords, parent);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private class LineStringMapBuilderFilter : IGeometryComponentFilter
-        {
-            private TopologyPreservingSimplifier container = null;
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="container"></param>
-            public LineStringMapBuilderFilter(TopologyPreservingSimplifier container)            
-            {
-                this.container = container;
-            }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="geom"></param>
-            public void Filter(IGeometry geom)
-            {
-                if (geom is ILinearRing) 
-                {
-                    TaggedLineString taggedLine = new TaggedLineString((ILineString) geom, 4);
-                    container.lineStringMap.Add(geom, taggedLine);
-                }
-                else if (geom is ILineString) 
-                {
-                    TaggedLineString taggedLine = new TaggedLineString((ILineString) geom, 2);
-                    container.lineStringMap.Add(geom, taggedLine);
-                }
             }
         }
     }

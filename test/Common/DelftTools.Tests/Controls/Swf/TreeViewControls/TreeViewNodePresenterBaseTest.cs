@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf.TreeViewControls;
@@ -13,14 +14,36 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
     [TestFixture]
     public class TreeViewNodePresenterBaseTest
     {
+        private static IEnumerable<ITreeNode> GetAllNodes(IEnumerable<ITreeNode> nodes)
+        {
+            var result = new List<ITreeNode>();
+            if (nodes == null)
+            {
+                return result;
+            }
+
+            foreach (var node in nodes)
+            {
+                result.Add(node);
+                result.AddRange(GetAllNodes(node.Nodes));
+            }
+            return result;
+        }
+
         #region Remove
 
         [Test]
         public void OnCollectionRemoveWithCollectionBasedNodePresenter()
         {
             var group = new TestGroup();
-            var child1 = new TestPerson {Name = "child1"};
-            var child2 = new TestPerson { Name = "child2" };
+            var child1 = new TestPerson
+            {
+                Name = "child1"
+            };
+            var child2 = new TestPerson
+            {
+                Name = "child2"
+            };
             group.Children.Add(child1);
             group.Children.Add(child2);
 
@@ -46,7 +69,10 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         public void ModifyCollectionShouldUpdateNodeHasChildren()
         {
             var group = new TestGroup();
-            var child1 = new TestPerson { Name = "child1" };
+            var child1 = new TestPerson
+            {
+                Name = "child1"
+            };
             group.Children.Add(child1);
 
             var treeView = new TreeView();
@@ -54,7 +80,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             treeView.NodePresenters.Add(new PersonNodePresenter());
             treeView.Data = group;
 
-            var groupNode = (TreeNode)treeView.Nodes[0];
+            var groupNode = (TreeNode) treeView.Nodes[0];
             Assert.AreEqual(true, groupNode.HasChildren);
 
             WindowsFormsTestHelper.Show(treeView);
@@ -66,20 +92,26 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             Assert.AreEqual(false, groupNode.HasChildren);
 
             group.Children.Add(child1);
-            
+
             treeView.WaitUntilAllEventsAreProcessed();
 
             Assert.AreEqual(true, groupNode.HasChildren);
 
             WindowsFormsTestHelper.CloseAll();
         }
-        
+
         [Test]
         public void OnCollectionRemoveWithPropertyBasedNodePresenter()
         {
             var group = new TestGroup();
-            var child1 = new TestPerson { Name = "child1" };
-            var child2 = new TestPerson { Name = "child2" };
+            var child1 = new TestPerson
+            {
+                Name = "child1"
+            };
+            var child2 = new TestPerson
+            {
+                Name = "child2"
+            };
             group.Children.Add(child1);
             group.Children.Add(child2);
 
@@ -105,7 +137,10 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         public void OnWrongCollectionRemove()
         {
             var group = new TestGroup();
-            var person = new TestPerson { Name = "adolecent" };
+            var person = new TestPerson
+            {
+                Name = "adolecent"
+            };
             group.Children.Add(person);
             group.Adults.Add(person);
 
@@ -129,8 +164,14 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         public void OnCollectionAddWithCollectionBasedNodePresenter()
         {
             var group = new TestGroup();
-            var child1 = new TestPerson { Name = "child1" };
-            var child2 = new TestPerson { Name = "child2" };
+            var child1 = new TestPerson
+            {
+                Name = "child1"
+            };
+            var child2 = new TestPerson
+            {
+                Name = "child2"
+            };
 
             var treeView = new TreeView();
             treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
@@ -142,7 +183,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             group.Children.Add(child1);
 
             treeView.WaitUntilAllEventsAreProcessed();
-            
+
             Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
 
             group.Children.Add(child2);
@@ -157,8 +198,14 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         public void OnCollectionAddWithPropertyBasedNodePresenter()
         {
             var group = new TestGroup();
-            var child1 = new TestPerson { Name = "child1" };
-            var child2 = new TestPerson { Name = "child2" };
+            var child1 = new TestPerson
+            {
+                Name = "child1"
+            };
+            var child2 = new TestPerson
+            {
+                Name = "child2"
+            };
 
             var treeView = new TreeView();
             treeView.NodePresenters.Add(new GroupNodePresenterUsingProperty());
@@ -186,7 +233,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 
         #region Test Classes
 
-        [Entity(FireOnCollectionChange=false)]
+        [Entity(FireOnCollectionChange = false)]
         private class TestPerson
         {
             public string Name { get; set; }
@@ -205,20 +252,24 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
                 Adults = new EventedList<TestPerson>();
                 Adults.CollectionChanged += CollectionChanged;
             }
-            
-            void CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-            {
-                if (e.Action == NotifyCollectionChangeAction.Add)
-                    ((TestPerson)e.Item).TestGroup = this;
-                else if (e.Action == NotifyCollectionChangeAction.Remove)
-                    ((TestPerson)e.Item).TestGroup = null;
-            }
 
             public string Name { get; set; }
             public IEventedList<TestPerson> Children { get; set; }
             public IEventedList<TestPerson> Adults { get; set; }
+
+            private void CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+            {
+                if (e.Action == NotifyCollectionChangeAction.Add)
+                {
+                    ((TestPerson) e.Item).TestGroup = this;
+                }
+                else if (e.Action == NotifyCollectionChangeAction.Remove)
+                {
+                    ((TestPerson) e.Item).TestGroup = null;
+                }
+            }
         }
-        
+
         private class GroupNodePresenterUsingCollection : TreeViewNodePresenterBase<TestGroup>
         {
             public override void UpdateNode(ITreeNode parentNode, ITreeNode node, TestGroup nodeData)
@@ -226,7 +277,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
                 node.Text = nodeData.Name;
             }
 
-            public override System.Collections.IEnumerable GetChildNodeObjects(TestGroup parentNodeData, ITreeNode node)
+            public override IEnumerable GetChildNodeObjects(TestGroup parentNodeData, ITreeNode node)
             {
                 return parentNodeData.Children;
             }
@@ -239,7 +290,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
                 node.Text = nodeData.Name;
             }
 
-            public override System.Collections.IEnumerable GetChildNodeObjects(TestGroup parentNodeData, ITreeNode node)
+            public override IEnumerable GetChildNodeObjects(TestGroup parentNodeData, ITreeNode node)
             {
                 return parentNodeData.Children;
             }
@@ -254,19 +305,5 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         }
 
         #endregion
-
-        private static IEnumerable<ITreeNode> GetAllNodes(IEnumerable<ITreeNode> nodes)
-        {
-            var result = new List<ITreeNode>();
-            if (nodes == null)
-                return result;
-
-            foreach (var node in nodes)
-            {
-                result.Add(node);
-                result.AddRange(GetAllNodes(node.Nodes));
-            }
-            return result;
-        }
     }
 }

@@ -18,10 +18,7 @@ namespace DeltaShell.Plugins.ProjectExplorer.Tests
         private static readonly MockRepository mocks = new MockRepository();
 
         [SetUp]
-        public void SetUp()
-        {
-            
-        }
+        public void SetUp() {}
 
         [Test]
         public void Init()
@@ -35,8 +32,11 @@ namespace DeltaShell.Plugins.ProjectExplorer.Tests
             gui.Application = app;
             Expect.Call(gui.DocumentViews).Return(documentViews).Repeat.Any();
 
-            var pluginGui = new ProjectExplorerGuiPlugin {Gui = gui};
-            
+            var pluginGui = new ProjectExplorerGuiPlugin
+            {
+                Gui = gui
+            };
+
             var projectService = mocks.StrictMock<IProjectService>();
 
             // in case of mock
@@ -59,7 +59,7 @@ namespace DeltaShell.Plugins.ProjectExplorer.Tests
         {
             var gui = new DeltaShellGui();
             var app = gui.Application;
-            
+
             gui.Plugins.Add(new ProjectExplorerGuiPlugin());
             gui.Run();
 

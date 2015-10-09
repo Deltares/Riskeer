@@ -13,19 +13,22 @@ namespace DelftTools.Controls.Swf.Charting.Series
         public PolygonChartSeries(IChartSeries chartSeries) : this()
         {
             CopySettings(chartSeries);
-            ChartStyleHelper.CopySeriesStyles(chartSeries,this);
+            ChartStyleHelper.CopySeriesStyles(chartSeries, this);
             Tag = chartSeries.Tag;
         }
 
-        public PolygonChartSeries(): base(new PolygonSeries())
+        public PolygonChartSeries() : base(new PolygonSeries())
         {
-            polygonSeries = (PolygonSeries)series;
+            polygonSeries = (PolygonSeries) series;
             DefaultNullValue = double.NaN;
         }
 
         public override Color Color
         {
-            get { return series.Color; }
+            get
+            {
+                return series.Color;
+            }
             set
             {
                 series.Color = value;
@@ -36,70 +39,52 @@ namespace DelftTools.Controls.Swf.Charting.Series
             }
         }
 
-        # region Hatch
-
-        public HatchStyle HatchStyle
-        {
-            get { return polygonSeries.bBrush.Style; }
-            set { polygonSeries.bBrush.Style = value; }
-        }
-
-        public Color HatchColor
-        {
-            get { return polygonSeries.bBrush.ForegroundColor; }
-            set { polygonSeries.bBrush.ForegroundColor = value; }
-        }
-
-        public bool UseHatch
-        {
-            get { return !polygonSeries.bBrush.Solid; }
-            set { polygonSeries.bBrush.Solid = !value; }
-        }
-
-        /// <summary>
-        /// Percentage transparancy. This should be between 0 and 100.
-        /// </summary>
-        public int Transparency
-        {
-            get { return polygonSeries.Pen.Transparency; }
-            set
-            {
-                if (value < 0 || value > 100)
-                {
-                    throw new ArgumentOutOfRangeException("value",Resources.PolygonChartSeries_Transparency_Transparancy_should_be_between_0_and_100);
-                }
-                polygonSeries.Pen.Transparency = value;
-                polygonSeries.bBrush.Transparency = value;
-            }
-        }
-
-        # endregion
-
         public ISeriesValueList XValues
         {
-            get { return new SeriesValueList(polygonSeries.XValues); }
+            get
+            {
+                return new SeriesValueList(polygonSeries.XValues);
+            }
         }
 
         public ISeriesValueList YValues
         {
-            get { return new SeriesValueList(polygonSeries.YValues); }
+            get
+            {
+                return new SeriesValueList(polygonSeries.YValues);
+            }
         }
 
         public Color LineColor
         {
-            get { return polygonSeries.Pen.Color; }
-            set { polygonSeries.Pen.Color = value; }
+            get
+            {
+                return polygonSeries.Pen.Color;
+            }
+            set
+            {
+                polygonSeries.Pen.Color = value;
+            }
         }
 
         public int LineWidth
         {
-            get { return polygonSeries.Pen.Width; }
-            set { polygonSeries.Pen.Width = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize); }
+            get
+            {
+                return polygonSeries.Pen.Width;
+            }
+            set
+            {
+                polygonSeries.Pen.Width = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize);
+            }
         }
 
         public bool LineVisible
         {
-            get { return polygonSeries.Pen.Visible; }
+            get
+            {
+                return polygonSeries.Pen.Visible;
+            }
             set
             {
                 polygonSeries.Pen.Visible = value;
@@ -109,14 +94,86 @@ namespace DelftTools.Controls.Swf.Charting.Series
 
         public DashStyle LineStyle
         {
-            get { return polygonSeries.Pen.Style; }
-            set { polygonSeries.Pen.Style = value; }
+            get
+            {
+                return polygonSeries.Pen.Style;
+            }
+            set
+            {
+                polygonSeries.Pen.Style = value;
+            }
         }
 
         public bool AutoClose
         {
-            get { return polygonSeries.AutoClose; }
-            set { polygonSeries.AutoClose = value; }
+            get
+            {
+                return polygonSeries.AutoClose;
+            }
+            set
+            {
+                polygonSeries.AutoClose = value;
+            }
         }
+
+        # region Hatch
+
+        public HatchStyle HatchStyle
+        {
+            get
+            {
+                return polygonSeries.bBrush.Style;
+            }
+            set
+            {
+                polygonSeries.bBrush.Style = value;
+            }
+        }
+
+        public Color HatchColor
+        {
+            get
+            {
+                return polygonSeries.bBrush.ForegroundColor;
+            }
+            set
+            {
+                polygonSeries.bBrush.ForegroundColor = value;
+            }
+        }
+
+        public bool UseHatch
+        {
+            get
+            {
+                return !polygonSeries.bBrush.Solid;
+            }
+            set
+            {
+                polygonSeries.bBrush.Solid = !value;
+            }
+        }
+
+        /// <summary>
+        /// Percentage transparancy. This should be between 0 and 100.
+        /// </summary>
+        public int Transparency
+        {
+            get
+            {
+                return polygonSeries.Pen.Transparency;
+            }
+            set
+            {
+                if (value < 0 || value > 100)
+                {
+                    throw new ArgumentOutOfRangeException("value", Resources.PolygonChartSeries_Transparency_Transparancy_should_be_between_0_and_100);
+                }
+                polygonSeries.Pen.Transparency = value;
+                polygonSeries.bBrush.Transparency = value;
+            }
+        }
+
+        # endregion
     }
 }

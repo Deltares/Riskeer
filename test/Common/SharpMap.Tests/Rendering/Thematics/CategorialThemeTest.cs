@@ -15,8 +15,18 @@ namespace SharpMap.Tests.Rendering.Thematics
         public void GetFillColor()
         {
             var theme = new CategorialTheme();
-            var themeItem = new CategorialThemeItem {Style = new VectorStyle {Fill = new SolidBrush(Color.Red)}, Value = 1.0};
-            theme.ThemeItems = new EventedList<IThemeItem>(new[] { themeItem });
+            var themeItem = new CategorialThemeItem
+            {
+                Style = new VectorStyle
+                {
+                    Fill = new SolidBrush(Color.Red)
+                },
+                Value = 1.0
+            };
+            theme.ThemeItems = new EventedList<IThemeItem>(new[]
+            {
+                themeItem
+            });
 
             const int valueAsInt = 1;
             const float valueAsFloat = 1.0f;
@@ -41,7 +51,7 @@ namespace SharpMap.Tests.Rendering.Thematics
 
         #region Nested Type - ComparibleObject
 
-        class ComparableObject : IComparable
+        private class ComparableObject : IComparable
         {
             public int CompareTo(object obj)
             {
@@ -53,8 +63,13 @@ namespace SharpMap.Tests.Rendering.Thematics
 
         #region Nested Type - ConvertableObject
 
-        class ConvertableObject : IConvertible, IComparable
+        private class ConvertableObject : IConvertible, IComparable
         {
+            public int CompareTo(object obj)
+            {
+                throw new NotImplementedException();
+            }
+
             public TypeCode GetTypeCode()
             {
                 throw new NotImplementedException();
@@ -136,11 +151,6 @@ namespace SharpMap.Tests.Rendering.Thematics
             }
 
             public object ToType(Type conversionType, IFormatProvider provider)
-            {
-                throw new NotImplementedException();
-            }
-
-            public int CompareTo(object obj)
             {
                 throw new NotImplementedException();
             }

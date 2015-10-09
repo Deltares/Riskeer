@@ -19,11 +19,13 @@ namespace SharpMap.Editors
 {
     public abstract class FeatureInteractor : IFeatureInteractor
     {
-        private readonly List<TrackerFeature> trackers = new List<TrackerFeature>();
-        private IFeature sourceFeature;
+        public event WorkerFeatureCreated WorkerFeatureCreated;
 
         protected static readonly Cursor MoveCursor =
             new Cursor(Assembly.GetExecutingAssembly().GetManifestResourceStream("SharpMap.Editors.Cursors.Move.cur"));
+
+        private readonly List<TrackerFeature> trackers = new List<TrackerFeature>();
+        private IFeature sourceFeature;
 
         protected FeatureInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle, IEditableObject editableObject)
         {
@@ -34,6 +36,10 @@ namespace SharpMap.Editors
             EditableObject = editableObject;
             CreateTrackers();
         }
+
+        public VectorStyle VectorStyle { get; protected set; }
+
+        public virtual IList<ISnapRule> SnapRules { get; set; }
 
         /// <summary>
         /// original feature (geometry in coordinate system of Layer)
@@ -52,31 +58,26 @@ namespace SharpMap.Editors
 
         public ILayer Layer { get; protected set; }
 
-        public VectorStyle VectorStyle { get; protected set; }
-
         public virtual IFallOffPolicy FallOffPolicy { get; set; }
-        
-        public virtual IList<ISnapRule> SnapRules { get; set; }
 
-        protected IList<IFeatureRelationInteractor> FeatureRelationEditors { get; set; }
+        public virtual IEditableObject EditableObject { get; set; }
 
-        public virtual IEditableObject EditableObject  { get; set; }
-
-        protected abstract void CreateTrackers();
-        
         public virtual IList<TrackerFeature> Trackers
         {
-            get { return trackers; }
+            get
+            {
+                return trackers;
+            }
         }
 
-        protected IEnumerable<int> TrackerIndices
+        public virtual Cursor GetCursor(TrackerFeature trackerFeature)
         {
-            get { return Trackers.Select(t => t.Index); }
+            return MoveCursor;
         }
 
-        protected IEnumerable<int> SelectedTrackerIndices
+        public virtual IEnumerable<IFeatureRelationInteractor> GetFeatureRelationInteractors(IFeature feature)
         {
-            get { return Trackers.Where(t => t.Selected).Select(t => t.Index); }
+            yield break;
         }
 
         public virtual bool MoveTracker(TrackerFeature trackerFeature, double deltaX, double deltaY, SnapResult snapResult = null)
@@ -91,7 +92,7 @@ namespace SharpMap.Editors
             if (handles.Count == 0)
             {
                 return false;
-                    // Do not throw exception, can occur in special cases when moving with CTRL toggle selection
+                // Do not throw exception, can occur in special cases when moving with CTRL toggle selection
             }
 
             if (FallOffPolicy != null)
@@ -146,7 +147,7 @@ namespace SharpMap.Editors
             Trackers.Insert(index, new TrackerFeature(this, new Point(coordinate), index, null));
 
             TargetFeature.Geometry = GeometryHelper.InsertCurvePoint(TargetFeature.Geometry, coordinate, index);
-            
+
             foreach (var topologyRule in FeatureRelationEditors)
             {
                 topologyRule.UpdateRelatedFeatures(SourceFeature, TargetFeature.Geometry, SelectedTrackerIndices.ToList());
@@ -155,14 +156,7 @@ namespace SharpMap.Editors
             return true;
         }
 
-        public virtual void SetTrackerSelection(TrackerFeature trackerFeature, bool select)
-        {
-        }
-
-        public virtual Cursor GetCursor(TrackerFeature trackerFeature)
-        {
-            return MoveCursor;
-        }
+        public virtual void SetTrackerSelection(TrackerFeature trackerFeature, bool select) {}
 
         public virtual TrackerFeature GetTrackerAtCoordinate(ICoordinate worldPos)
         {
@@ -172,7 +166,7 @@ namespace SharpMap.Editors
         public virtual void Start()
         {
             TargetFeature = (IFeature) SourceFeature.Clone();
-            
+
             foreach (var featureRelationInteractor in GetFeatureRelationInteractors(SourceFeature))
             {
                 var activeRule = featureRelationInteractor.Activate(SourceFeature, TargetFeature, AddRelatedFeature, 0, FallOffPolicy);
@@ -190,16 +184,21 @@ namespace SharpMap.Editors
 
         public virtual void Stop()
         {
-            if (TargetFeature == null) 
+            if (TargetFeature == null)
+            {
                 return;
+            }
 
             foreach (var topologyRule in FeatureRelationEditors)
             {
-                topologyRule.StoreRelatedFeatures(SourceFeature, TargetFeature.Geometry, new List<int> { 0 });
+                topologyRule.StoreRelatedFeatures(SourceFeature, TargetFeature.Geometry, new List<int>
+                {
+                    0
+                });
             }
 
             SourceFeature.Geometry = (IGeometry) TargetFeature.Geometry.Clone();
-          
+
             FeatureRelationEditors.Clear();
 
             // refresh trackers
@@ -212,9 +211,53 @@ namespace SharpMap.Editors
             Stop();
         }
 
-        public virtual void UpdateTracker(IGeometry geometry)
+        public virtual void UpdateTracker(IGeometry geometry) {}
+
+        public bool AllowMove()
         {
+            return !IsLayerReadOnly() && AllowMoveCore();
         }
+
+        public bool AllowDeletion()
+        {
+            return !IsLayerReadOnly() && AllowDeletionCore();
+        }
+
+        /// <summary>
+        /// Default set to false. See AllowMove.
+        /// Typically set to true for IPoint based geometries where there is only 1 tracker.
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool AllowSingleClickAndMove()
+        {
+            return false;
+        }
+
+        public virtual void Add(IFeature feature)
+        {
+            Start();
+            Stop();
+        }
+
+        protected IList<IFeatureRelationInteractor> FeatureRelationEditors { get; set; }
+
+        protected IEnumerable<int> TrackerIndices
+        {
+            get
+            {
+                return Trackers.Select(t => t.Index);
+            }
+        }
+
+        protected IEnumerable<int> SelectedTrackerIndices
+        {
+            get
+            {
+                return Trackers.Where(t => t.Selected).Select(t => t.Index);
+            }
+        }
+
+        protected abstract void CreateTrackers();
 
         /// <summary>
         /// Default implementation for moving feature is set to false. IFeatureProvider is not required to
@@ -237,14 +280,12 @@ namespace SharpMap.Editors
             return false;
         }
 
-        public bool AllowMove()
+        protected virtual void OnWorkerFeatureCreated(IFeature sourceFeature, IFeature workFeature)
         {
-            return !IsLayerReadOnly() && AllowMoveCore();
-        }
-
-        public bool AllowDeletion()
-        {
-            return !IsLayerReadOnly() && AllowDeletionCore();
+            if (null != WorkerFeatureCreated)
+            {
+                WorkerFeatureCreated(sourceFeature, workFeature);
+            }
         }
 
         private bool IsLayerReadOnly()
@@ -259,40 +300,9 @@ namespace SharpMap.Editors
                 }
 
                 layer = Layer.Map != null ? Layer.Map.GetGroupLayerContainingLayer(layer) : null;
-            } 
-
-            return false;
-        }
-
-        /// <summary>
-        /// Default set to false. See AllowMove.
-        /// Typically set to true for IPoint based geometries where there is only 1 tracker.
-        /// </summary>
-        /// <returns></returns>
-        public virtual bool AllowSingleClickAndMove()
-        {
-            return false;
-        }
-
-        public event WorkerFeatureCreated WorkerFeatureCreated;
-
-        protected virtual void OnWorkerFeatureCreated(IFeature sourceFeature, IFeature workFeature)
-        {
-            if (null != WorkerFeatureCreated)
-            {
-                WorkerFeatureCreated(sourceFeature, workFeature);
             }
-        }
 
-        public virtual IEnumerable<IFeatureRelationInteractor> GetFeatureRelationInteractors(IFeature feature)
-        {
-            yield break;
-        }
-
-        public virtual void Add(IFeature feature)
-        {
-            Start();
-            Stop();
+            return false;
         }
 
         private void AddRelatedFeature(IList<IFeatureRelationInteractor> childTopologyRules, IFeature sourceFeature, IFeature cloneFeature, int level)
@@ -303,7 +313,9 @@ namespace SharpMap.Editors
             {
                 var activeRule = topologyRule.Activate(sourceFeature, cloneFeature, AddRelatedFeature, ++level, FallOffPolicy);
                 if (activeRule != null)
+                {
                     childTopologyRules.Add(activeRule);
+                }
             }
         }
 
@@ -311,23 +323,23 @@ namespace SharpMap.Editors
         {
             // get world position
             var mapWorldPos = Layer.CoordinateTransformation != null
-                ? GeometryTransform.TransformPoint(new Point(worldPos), Layer.CoordinateTransformation.MathTransform).Coordinate
-                : worldPos;
+                                  ? GeometryTransform.TransformPoint(new Point(worldPos), Layer.CoordinateTransformation.MathTransform).Coordinate
+                                  : worldPos;
 
             var size = tracker.Bitmap != null
-                ? MapHelper.ImageToWorld(Layer.Map, tracker.Bitmap.Width, tracker.Bitmap.Height)
-                : MapHelper.ImageToWorld(Layer.Map, 6, 6);
+                           ? MapHelper.ImageToWorld(Layer.Map, tracker.Bitmap.Width, tracker.Bitmap.Height)
+                           : MapHelper.ImageToWorld(Layer.Map, 6, 6);
 
             var boundingBox = MapHelper.GetEnvelope(mapWorldPos, size.X, size.Y);
 
             IPolygon polygon = new Polygon(new LinearRing(new[]
-                {
-                    new Coordinate(boundingBox.MinX, boundingBox.MinY),
-                    new Coordinate(boundingBox.MinX, boundingBox.MaxY),
-                    new Coordinate(boundingBox.MaxX, boundingBox.MaxY),
-                    new Coordinate(boundingBox.MaxX, boundingBox.MinY),
-                    new Coordinate(boundingBox.MinX, boundingBox.MinY)
-                }));
+            {
+                new Coordinate(boundingBox.MinX, boundingBox.MinY),
+                new Coordinate(boundingBox.MinX, boundingBox.MaxY),
+                new Coordinate(boundingBox.MaxX, boundingBox.MaxY),
+                new Coordinate(boundingBox.MaxX, boundingBox.MinY),
+                new Coordinate(boundingBox.MinX, boundingBox.MinY)
+            }));
 
             if (Layer.CoordinateTransformation != null)
             {

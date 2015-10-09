@@ -13,6 +13,8 @@ namespace SharpMap.Editors
     {
         private IList<ISnapRule> snapRules;
 
+        private bool addingNewFeature;
+
         public virtual IList<ISnapRule> SnapRules
         {
             get
@@ -31,6 +33,8 @@ namespace SharpMap.Editors
             }
         }
 
+        public virtual Func<ILayer, IFeature> CreateNewFeature { get; set; }
+
         public virtual IFeature AddNewFeatureByGeometry(ILayer layer, IGeometry geometry)
         {
             if (CreateNewFeature != null)
@@ -41,7 +45,7 @@ namespace SharpMap.Editors
                 return feature;
             }
 
-            if(addingNewFeature)
+            if (addingNewFeature)
             {
                 throw new InvalidOperationException("loop detected, something is wrong with your feature provider (check AddNewFeatureFromGeometryDelegate)");
             }
@@ -51,7 +55,7 @@ namespace SharpMap.Editors
 
             try
             {
-                newFeature = (IFeature)Activator.CreateInstance(layer.DataSource.FeatureType);
+                newFeature = (IFeature) Activator.CreateInstance(layer.DataSource.FeatureType);
                 newFeature.Geometry = geometry;
                 AddFeatureToDataSource(layer, newFeature);
             }
@@ -63,39 +67,45 @@ namespace SharpMap.Editors
             return newFeature;
         }
 
-        protected virtual void AddFeatureToDataSource(ILayer layer, IFeature feature)
-        {
-            layer.DataSource.Features.Add(feature);
-        }
-
-        private bool addingNewFeature;
-
-        public virtual Func<ILayer, IFeature> CreateNewFeature { get; set; }
-
         public virtual IFeatureInteractor CreateInteractor(ILayer layer, IFeature feature)
         {
             if (null == feature)
+            {
                 return null;
+            }
 
             var vectorLayer = layer as VectorLayer;
             var vectorStyle = (vectorLayer != null ? vectorLayer.Style : null);
 
             if (feature.Geometry is ILineString)
+            {
                 return new LineStringInteractor(layer, feature, vectorStyle, null);
-            
+            }
+
             if (feature.Geometry is IPoint)
+            {
                 return new PointInteractor(layer, feature, vectorStyle, null);
-            
+            }
+
             // todo implement custom mutator for Polygon and MultiPolygon
             // LineStringMutator will work as long as moving is not supported.
             if (feature.Geometry is IPolygon)
+            {
                 return new LineStringInteractor(layer, feature, vectorStyle, null);
-            
+            }
+
             if (feature.Geometry is IMultiPolygon)
+            {
                 return new LineStringInteractor(layer, feature, vectorStyle, null);
-            
+            }
+
             return null;
             //throw new ArgumentException("Unsupported type " + feature.Geometry);
+        }
+
+        protected virtual void AddFeatureToDataSource(ILayer layer, IFeature feature)
+        {
+            layer.DataSource.Features.Add(feature);
         }
     }
 }

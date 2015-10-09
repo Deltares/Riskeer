@@ -20,11 +20,15 @@ namespace SharpMap.Tests.Editors.FallOff
             ringFallOffPolicy = new RingFallOffPolicy();
             lineStringSource =
                 new LineString(new[]
-                                   {
-                                       new Coordinate(0, 0), new Coordinate(10, 0), new Coordinate(20, 0),
-                                       new Coordinate(30, 0), new Coordinate(40, 0), new Coordinate(0, 0)
-                                   });
-            lineStringTarget = (ILineString)lineStringSource.Clone();
+                {
+                    new Coordinate(0, 0),
+                    new Coordinate(10, 0),
+                    new Coordinate(20, 0),
+                    new Coordinate(30, 0),
+                    new Coordinate(40, 0),
+                    new Coordinate(0, 0)
+                });
+            lineStringTarget = (ILineString) lineStringSource.Clone();
         }
 
         /// <summary>
@@ -35,7 +39,7 @@ namespace SharpMap.Tests.Editors.FallOff
         {
             ringFallOffPolicy.Move(lineStringSource, 0, 0, 5.0); // only change y
             ICoordinate firstCoordinate = lineStringSource.Coordinates[0];
-            ICoordinate lastCoordinate = lineStringSource.Coordinates[lineStringSource.Coordinates.Length-1];
+            ICoordinate lastCoordinate = lineStringSource.Coordinates[lineStringSource.Coordinates.Length - 1];
             Assert.AreEqual(0, firstCoordinate.X);
             Assert.AreEqual(5, firstCoordinate.Y);
             Assert.AreEqual(0, lastCoordinate.X);
@@ -48,7 +52,7 @@ namespace SharpMap.Tests.Editors.FallOff
         [Test]
         public void SimpleMoveLastCoordinate()
         {
-            ringFallOffPolicy.Move(lineStringSource, lineStringSource.Coordinates.Length-1, 0, 5.0); // only change y
+            ringFallOffPolicy.Move(lineStringSource, lineStringSource.Coordinates.Length - 1, 0, 5.0); // only change y
             ICoordinate firstCoordinate = lineStringSource.Coordinates[0];
             ICoordinate lastCoordinate = lineStringSource.Coordinates[lineStringSource.Coordinates.Length - 1];
             Assert.AreEqual(0, firstCoordinate.X);
@@ -61,7 +65,7 @@ namespace SharpMap.Tests.Editors.FallOff
         public void SimpleMoveAllCoordinates()
         {
             ringFallOffPolicy.Move(lineStringSource, null,
-                                   Enumerable.Range(0, lineStringSource.Coordinates.Length).ToList(), 
+                                   Enumerable.Range(0, lineStringSource.Coordinates.Length).ToList(),
                                    1, 0.0, 5.0);
             ICoordinate firstCoordinate = lineStringSource.Coordinates[0];
             ICoordinate lastCoordinate = lineStringSource.Coordinates[lineStringSource.Coordinates.Length - 1];

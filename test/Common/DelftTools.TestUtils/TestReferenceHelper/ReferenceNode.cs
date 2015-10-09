@@ -23,17 +23,12 @@ namespace DelftTools.TestUtils.TestReferenceHelper
         }
 
         public object Object { get; private set; }
-        
-        public string Name { get; private set; }
-        
-        public IList<ReferenceLink> Links { get; private set; }
-        
-        public IList<ReferenceLink> Path { get; set; }
 
-        public override string ToString()
-        {
-            return string.Format("[{0}] - {1}", ToPathString(), Object);
-        }
+        public string Name { get; private set; }
+
+        public IList<ReferenceLink> Links { get; private set; }
+
+        public IList<ReferenceLink> Path { get; set; }
 
         public string ToPathString()
         {
@@ -43,7 +38,7 @@ namespace DelftTools.TestUtils.TestReferenceHelper
             {
                 pathString.Append(String.Format("{0}", Path[0].From.Name));
             }
-            foreach(var link in Path)
+            foreach (var link in Path)
             {
                 pathString.Append(String.Format(".{0}", link.Name));
             }
@@ -51,17 +46,26 @@ namespace DelftTools.TestUtils.TestReferenceHelper
             return pathString.ToString();
         }
 
-        protected bool Equals(ReferenceNode other)
+        public override string ToString()
         {
-            return Equals(Object, other.Object);
+            return string.Format("[{0}] - {1}", ToPathString(), Object);
         }
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((ReferenceNode)obj);
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((ReferenceNode) obj);
         }
 
         public override int GetHashCode()
@@ -70,6 +74,11 @@ namespace DelftTools.TestUtils.TestReferenceHelper
             {
                 return (Object != null ? Object.GetHashCode() : 0);
             }
+        }
+
+        protected bool Equals(ReferenceNode other)
+        {
+            return Equals(Object, other.Object);
         }
     }
 }

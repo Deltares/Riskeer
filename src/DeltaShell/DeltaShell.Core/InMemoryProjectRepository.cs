@@ -17,23 +17,38 @@ namespace DeltaShell.Core
 
         public string Path
         {
-            get { return string.Empty; }
+            get
+            {
+                return string.Empty;
+            }
         }
 
         public string PreviousPath
         {
-            get { return string.Empty; }
+            get
+            {
+                return string.Empty;
+            }
         }
 
         public bool IsOpen
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
 
         public List<Type> TypesToIncludeInMigration
         {
-            get { return typesToIncludeInMigration; }
-            set { typesToIncludeInMigration = value; }
+            get
+            {
+                return typesToIncludeInMigration;
+            }
+            set
+            {
+                typesToIncludeInMigration = value;
+            }
         }
 
         public Project Open(string path)
@@ -51,9 +66,7 @@ namespace DeltaShell.Core
             project = null;
         }
 
-        public void SaveAs(Project project, string targetPath)
-        {
-        }
+        public void SaveAs(Project project, string targetPath) {}
 
         public Project GetProject()
         {
@@ -65,9 +78,7 @@ namespace DeltaShell.Core
             yield break;
         }
 
-        public void SaveOrUpdateEntity<T>(T obj)
-        {
-        }
+        public void SaveOrUpdateEntity<T>(T obj) {}
 
         public void PreLoad<T>(params Expression<Func<T, object>>[] collectionToPreload) where T : class
         {
@@ -76,7 +87,10 @@ namespace DeltaShell.Core
 
         public IList<Project> GetAll()
         {
-            return new List<Project> { project };
+            return new List<Project>
+            {
+                project
+            };
         }
 
         public Project GetById(long id)
@@ -84,9 +98,7 @@ namespace DeltaShell.Core
             return project;
         }
 
-        public void SaveOrUpdate(Project project)
-        {
-        }
+        public void SaveOrUpdate(Project project) {}
 
         public void Dispose()
         {

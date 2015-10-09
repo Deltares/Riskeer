@@ -15,7 +15,7 @@ namespace NetTopologySuite.Tests.IO
             var wkbWriter = new WKBWriter();
             var memoryStream = new MemoryStream();
             var linestring = new LineString(new ICoordinate[0]);
-            
+
             Assert.IsNull(linestring.Coordinate);
 
             try

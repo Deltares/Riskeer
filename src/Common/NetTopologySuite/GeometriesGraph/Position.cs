@@ -30,7 +30,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
     /// A Position indicates the position of a Location relative to a graph component
     /// (Node, Edge, or Area).
     /// </summary>
-    public class Position 
+    public class Position
     {
         /// <summary> 
         /// Returns Positions.Left if the position is Positions.Right, 
@@ -41,9 +41,13 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         public static Positions Opposite(Positions position)
         {
             if (position == Positions.Left)
+            {
                 return Positions.Right;
+            }
             if (position == Positions.Right)
+            {
                 return Positions.Left;
+            }
             return position;
         }
     }

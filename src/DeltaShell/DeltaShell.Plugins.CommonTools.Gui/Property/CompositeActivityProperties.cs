@@ -1,8 +1,8 @@
+using System.ComponentModel;
 using DelftTools.Shell.Core.Workflow;
 using DelftTools.Shell.Gui;
 using DelftTools.Utils;
 using DeltaShell.Plugins.CommonTools.Gui.Properties;
-using System.ComponentModel;
 
 namespace DeltaShell.Plugins.CommonTools.Gui.Property
 {
@@ -16,8 +16,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property
         [ReadOnly(true)]
         public string Name
         {
-            get { return data.Name; }
-            set { data.Name = value; }
+            get
+            {
+                return data.Name;
+            }
+            set
+            {
+                data.Name = value;
+            }
         }
     }
 }

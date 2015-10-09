@@ -79,19 +79,25 @@ namespace SharpMap
     /// System.Drawing.Image imgMap = myMap.GetMap(); //Renders the map
     /// </code>
     /// </example>
-    [Entity(FireOnCollectionChange=false)]
+    [Entity(FireOnCollectionChange = false)]
     //[Serializable]
     public class Map : IDisposable, INotifyCollectionChange, IMap
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(Map));
+        /// <summary>
+        /// When layer render time is less than this - image will not be cached, increase this parameter when you get memory leaks.
+        /// </summary>
+        public const int ThresholdToClearLayerImageInMillis = 100;
 
-        //used in zoomtoextends to have default 10 percent margin 
-        private const int defaultExtendsMarginPercentage = 10;
-        
         /// <summary>
         /// Used for converting numbers to/from strings
         /// </summary>
         public static readonly NumberFormatInfo numberFormat_EnUS = new CultureInfo("en-US", false).NumberFormat;
+
+        public static bool UseParallelRendering = true;
+
+        //used in zoomtoextends to have default 10 percent margin 
+        private const int defaultExtendsMarginPercentage = 10;
+        private static readonly ILog log = LogManager.GetLogger(typeof(Map));
 
         private IEventedList<ILayer> layers;
 
@@ -99,12 +105,16 @@ namespace SharpMap
         private double worldLeft;
         private double worldTop;
 
+        private bool showGrid;
+
+        private VectorLayer gridLayer;
+
+        private bool rendering;
+
         /// <summary>
         /// Initializes a new map
         /// </summary>
-        public Map() : this(new Size(100, 100))
-        {
-        }
+        public Map() : this(new Size(100, 100)) {}
 
         /// <summary>
         /// Initializes a new map
@@ -131,71 +141,6 @@ namespace SharpMap
             UpdateDimensions();
         }
 
-        private void UpdateDimensions()
-        {
-            pixelSize = zoom/size.Width;
-            pixelHeight = pixelSize*pixelAspectRatio;
-            worldHeight = pixelSize*size.Height;
-            worldLeft = center.X - zoom*0.5;
-            worldTop = center.Y + worldHeight*0.5*pixelAspectRatio;
-        }
-
-        /// <summary>
-        /// Disposes the map object
-        /// </summary>
-        public virtual void Dispose()
-        {
-            foreach (Layer layer in layers)
-            {
-                var disposable = layer as IDisposable;
-                if (disposable != null)
-                {
-                    disposable.Dispose();
-                }
-                layer.ClearImage();
-            }
-        }
-
-        #region Events
-
-        /// <summary>
-        /// Event fired when the zoomlevel or the center point has been changed
-        /// </summary>
-        public virtual event MapViewChangedHandler MapViewOnChange;
-
-        public virtual event MapLayerRenderedEventHandler MapLayerRendered;
-
-        /// <summary>
-        /// Event fired when all layers have been rendered
-        /// </summary>
-        public virtual event MapRenderedEventHandler MapRendered;
-
-        public virtual event MapRenderedEventHandler MapRendering;
-
-        #endregion
-
-        public virtual Image Image
-        {
-            get { return image; }
-        }
-
-        public virtual void ClearImage()
-        {
-            if (image != null)
-            {
-                ResourceMonitor.OnResourceDeallocated(this, image);
-                image.Dispose();
-                image = null;
-            }
-
-            foreach(var layer in Layers)
-            {
-                layer.ClearImage();
-            }
-        }
-
-        public static bool UseParallelRendering = true;
-
         /// <summary>
         /// True if map needs to be rendered. Map will check this flag while it will render itself.
         /// If flag is set to true - Render() will be called before Image is drawn on Map.
@@ -205,27 +150,15 @@ namespace SharpMap
         [NoNotifyPropertyChange]
         public virtual bool RenderRequired { get; protected set; }
 
-        private void SetRenderRequiredForAllLayers()
+        public virtual Image Image
         {
-            if (Layers == null)
+            get
             {
-                return;
-            }
-
-            foreach (var layer in Layers)
-            {
-                layer.RenderRequired = true;
-            }
-
-            if (ShowGrid)
-            {
-                GetGridLayer().RenderRequired = true;
+                return image;
             }
         }
 
         public virtual bool IsDisposing { get; protected set; }
-
-        private bool showGrid;
 
         /// <summary>
         /// Gets or sets a flag indicating if we should draw grid (usually latitude / longitude projected to the current map coordinate system).
@@ -255,66 +188,117 @@ namespace SharpMap
             }
         }
 
-        private void RemoveGrid()
-        {
-            if (gridLayer == null)
-            {
-                return;
-            }
+        public bool ReplacingLayer { get; private set; }
 
-            gridLayer = null;
+        /// <summary>
+        /// Returns the (first) layer on which <paramref name="feature"/> is present.
+        /// </summary>
+        /// <param name="feature">The feature to search for.</param>
+        /// <param name="visibleOnly">search only visible layers</param>
+        /// <returns>The layer that contains the <paramref name="feature"/>. Null if not layer can be found.</returns>
+        public virtual ILayer GetLayerByFeature(IFeature feature, bool visibleOnly)
+        {
+            var allLayers = visibleOnly ? GetAllVisibleLayers(true) : GetAllLayers(true);
+            return allLayers.Where(l => l.DataSource != null).FirstOrDefault(layer => layer.DataSource.Contains(feature));
         }
 
-        VectorLayer gridLayer;
-
-        private void BuildGrid()
+        public static IEnumerable<ILayer> GetLayers(IEnumerable<ILayer> layers, bool includeGroupLayers, bool includeInvisibleLayers)
         {
-            var gridLines = new List<Feature>();
-
-            if (CoordinateSystemFactory == null)
+            foreach (var layer in layers)
             {
-                log.DebugFormat("Showing map grid is only supported when map has coordinate system defined");
-                return; // can only draw if coordinate system factory is available
-            }
-            
-            for (var i = -180; i <= 180; i += 10)
-            {
-                var coordinates = new ICoordinate[179];
-
-                for (var j = -89; j <= 89; j++)
+                if (layer.Visible || includeInvisibleLayers)
                 {
-                    coordinates[j + 89] = new Coordinate(i, j);
+                    var groupLayer = layer as GroupLayer;
+                    if (groupLayer != null)
+                    {
+                        if (includeGroupLayers)
+                        {
+                            yield return layer;
+                        }
+
+                        var childLayers = GetLayers(groupLayer.Layers, includeGroupLayers, includeInvisibleLayers);
+                        foreach (var childLayer in childLayers)
+                        {
+                            if (childLayer.Visible || includeInvisibleLayers)
+                            {
+                                yield return childLayer;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        yield return layer;
+                    }
                 }
-
-                gridLines.Add(new Feature { Geometry = new LineString(coordinates) });
             }
-            for (var i = -90; i <= 90; i += 10)
-            {
-                var coordinates = new ICoordinate[361];
+        }
 
-                for (var j = -180; j <= 180; j++)
+        public virtual bool GetDataMinMaxForThemeGroup(string themeGroup, string attributeName, out double min, out double max)
+        {
+            if (String.IsNullOrEmpty(themeGroup))
+            {
+                throw new ArgumentException("expected non-empty themegroup", "themeGroup");
+            }
+
+            min = Double.MaxValue;
+            max = Double.MinValue;
+            var layersForThemeGroup = GetLayersForThemeGroup(themeGroup, attributeName).ToList();
+
+            if (!layersForThemeGroup.Any())
+            {
+                return false; //no layers, or no visible layers: no update possible
+            }
+
+            foreach (var sameRangeLayer in layersForThemeGroup)
+            {
+                min = Math.Min(sameRangeLayer.MinDataValue, min);
+                max = Math.Max(sameRangeLayer.MaxDataValue, max);
+            }
+            return true;
+        }
+
+        public virtual void OnThemeGroupDataChanged(string themeGroup, string attributeName)
+        {
+            foreach (var layer in GetLayersForThemeGroup(themeGroup, attributeName))
+            {
+                layer.ThemeIsDirty = true;
+            }
+        }
+
+        public override string ToString()
+        {
+            return (!String.IsNullOrEmpty(Name)) ? Name : base.ToString();
+        }
+
+        /// <summary>
+        /// Disposes the map object
+        /// </summary>
+        public virtual void Dispose()
+        {
+            foreach (Layer layer in layers)
+            {
+                var disposable = layer as IDisposable;
+                if (disposable != null)
                 {
-                    coordinates[j + 180] = new Coordinate(j, i);
+                    disposable.Dispose();
                 }
+                layer.ClearImage();
+            }
+        }
 
-                gridLines.Add(new Feature { Geometry = new LineString(coordinates) });
+        public virtual void ClearImage()
+        {
+            if (image != null)
+            {
+                ResourceMonitor.OnResourceDeallocated(this, image);
+                image.Dispose();
+                image = null;
             }
 
-            var src = CoordinateSystemFactory.CreateFromEPSG(4326 /* WGS84 */);
-            var dst = CoordinateSystem;
-
-            var transformation = dst == null ? null : CoordinateSystemFactory.CreateTransformation(src, dst);
-
-            gridLayer = new VectorLayer
+            foreach (var layer in Layers)
             {
-                DataSource = new FeatureCollection { Features = gridLines, CoordinateSystem = src }, CoordinateTransformation = transformation,
-                ShowInTreeView = false,
-                ShowInLegend = false,
-                Selectable = false,
-                Map = this
-            };
-
-            gridLayer.Style.Line.Color = Color.FromArgb(50, 100, 100, 100);
+                layer.ClearImage();
+            }
         }
 
         /// <summary>
@@ -342,7 +326,7 @@ namespace SharpMap
                 image = null;
             }
 
-            if(image == null)
+            if (image == null)
             {
                 image = new Bitmap(Size.Width, Size.Height, PixelFormat.Format32bppPArgb);
                 ResourceMonitor.OnResourceAllocated(this, image);
@@ -371,7 +355,10 @@ namespace SharpMap
             var gridVectorLayer = GetGridLayer();
             if (gridVectorLayer != null)
             {
-                allLayers = allLayers.Concat(new[] {gridVectorLayer}).ToArray();
+                allLayers = allLayers.Concat(new[]
+                {
+                    gridVectorLayer
+                }).ToArray();
             }
 
             // merge all layer bitmaps
@@ -380,7 +367,7 @@ namespace SharpMap
 
             foreach (var layer in allLayers)
             {
-                 if (!(layer.MaxVisible >= Zoom) || !(layer.MinVisible < Zoom))
+                if (!(layer.MaxVisible >= Zoom) || !(layer.MinVisible < Zoom))
                 {
                     continue;
                 }
@@ -391,14 +378,18 @@ namespace SharpMap
                 }
 
                 if (layer.Image == null)
+                {
                     continue;
-                
+                }
+
                 if (Math.Abs(layer.Opacity - 1.0) > 0.0000001)
                 {
                     GraphicsUtils.DrawImageTransparent(g, layer.Image, layer.Opacity);
                 }
                 else
+                {
                     g.DrawImage(layer.Image, 0, 0);
+                }
 
                 if (MapLayerRendered != null)
                 {
@@ -437,35 +428,6 @@ namespace SharpMap
         }
 
         /// <summary>
-        /// When layer render time is less than this - image will not be cached, increase this parameter when you get memory leaks.
-        /// </summary>
-        public const int ThresholdToClearLayerImageInMillis = 100;
-
-        /// <summary>
-        /// Clears layer image it if takes very little time to render it.
-        /// </summary>
-        /// <param name="layer"></param>
-        private void ClearLayerImages(ILayer layer)
-        {
-            if (layer.LastRenderDuration < ThresholdToClearLayerImageInMillis)
-            {
-                layer.ClearImage();
-            }
-
-            // will make sure that only those child layers where render duration is very fast will dispose their images
-            var groupLayer = layer as IGroupLayer;
-            if (layer.Image != null && groupLayer != null)
-            {
-                foreach (var childLayer in groupLayer.Layers)
-                {
-                    ClearLayerImages(childLayer);
-                }
-            }
-        }
-
-        private bool rendering;
-
-        /// <summary>
         /// Returns an enumerable for all layers containing the search parameter in the LayerName property
         /// </summary>
         /// <param name="layername">Search parameter</param>
@@ -484,18 +446,6 @@ namespace SharpMap
         {
             //return Layers.Find(delegate(SharpMap.Layers.ILayer layer) { return layer.LayerName.Equals(name); });
             return Layers.FirstOrDefault(t => String.Equals(t.Name, layerName, StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        /// <summary>
-        /// Returns the (first) layer on which <paramref name="feature"/> is present.
-        /// </summary>
-        /// <param name="feature">The feature to search for.</param>
-        /// <param name="visibleOnly">search only visible layers</param>
-        /// <returns>The layer that contains the <paramref name="feature"/>. Null if not layer can be found.</returns>
-        public virtual ILayer GetLayerByFeature(IFeature feature, bool visibleOnly)
-        {
-            var allLayers = visibleOnly ? GetAllVisibleLayers(true) : GetAllLayers(true);
-            return allLayers.Where(l => l.DataSource != null).FirstOrDefault(layer => layer.DataSource.Contains(feature));
         }
 
         /// <summary>
@@ -521,7 +471,10 @@ namespace SharpMap
 
         public virtual void DoWithLayerRecursive(ILayer layer, Action<ILayer> action)
         {
-            if (layer == null || action == null) return;
+            if (layer == null || action == null)
+            {
+                return;
+            }
 
             action(layer);
 
@@ -531,37 +484,6 @@ namespace SharpMap
                 foreach (var subLayer in groupLayer.Layers)
                 {
                     DoWithLayerRecursive(subLayer, action);
-                }
-            }
-        }
-        
-        public static IEnumerable<ILayer> GetLayers(IEnumerable<ILayer> layers, bool includeGroupLayers, bool includeInvisibleLayers)
-        {
-            foreach (var layer in layers)
-            {
-                if (layer.Visible || includeInvisibleLayers)
-                {
-                    var groupLayer = layer as GroupLayer;
-                    if (groupLayer != null)
-                    {
-                        if (includeGroupLayers)
-                        {
-                            yield return layer;
-                        }
-
-                        var childLayers = GetLayers(groupLayer.Layers, includeGroupLayers, includeInvisibleLayers);
-                        foreach (var childLayer in childLayers)
-                        {
-                            if (childLayer.Visible || includeInvisibleLayers)
-                            {
-                                yield return childLayer;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        yield return layer;
-                    }
                 }
             }
         }
@@ -584,15 +506,17 @@ namespace SharpMap
         {
             IEnvelope boundingBox = GetExtents();
             if (boundingBox == null || boundingBox.IsNull)
+            {
                 return;
+            }
             boundingBox = (IEnvelope) boundingBox.Clone();
             // beware of true 1d networks
             if ((boundingBox.Width < 1.0e-6) && (boundingBox.Height < 1.0e-6))
             {
                 return;
             }
-            
-            AddMargin(boundingBox,defaultExtendsMarginPercentage);
+
+            AddMargin(boundingBox, defaultExtendsMarginPercentage);
             ZoomToFit(boundingBox);
         }
 
@@ -602,7 +526,10 @@ namespace SharpMap
         /// <param name="layer"></param>
         public virtual void BringToFront(ILayer layer)
         {
-            if (layer == null) return;
+            if (layer == null)
+            {
+                return;
+            }
 
             var groupLayer = layer as IGroupLayer;
             if (groupLayer != null)
@@ -632,7 +559,10 @@ namespace SharpMap
         /// <param name="layer"></param>
         public virtual void SendToBack(ILayer layer)
         {
-            if (layer == null) return;
+            if (layer == null)
+            {
+                return;
+            }
 
             var groupLayer = layer as IGroupLayer;
             if (groupLayer != null)
@@ -658,14 +588,20 @@ namespace SharpMap
 
         public virtual void SendBackward(ILayer layer)
         {
-            if (layer == null) return;
+            if (layer == null)
+            {
+                return;
+            }
 
             var nextLayer = GetLayers(layers, false, true)
                 .Where(l => l.RenderOrder >= layer.RenderOrder)
                 .OrderBy(l => l.RenderOrder)
                 .FirstOrDefault(l => l != layer);
 
-            if (nextLayer == null) return;
+            if (nextLayer == null)
+            {
+                return;
+            }
 
             if (nextLayer.RenderOrder != layer.RenderOrder)
             {
@@ -680,42 +616,26 @@ namespace SharpMap
 
         public virtual void BringForward(ILayer layer)
         {
-            if (layer == null) return;
+            if (layer == null)
+            {
+                return;
+            }
 
             var previousLayer = GetLayers(layers, false, true)
                 .Where(l => l.RenderOrder <= layer.RenderOrder)
                 .OrderBy(l => l.RenderOrder)
                 .LastOrDefault(l => l != layer);
 
-            if (previousLayer == null) return;
+            if (previousLayer == null)
+            {
+                return;
+            }
 
             previousLayer.RenderOrder++;
             layer.RenderOrder--;
 
             ResetRenderOrder(0);
             Render();
-        }
-
-        /// <summary>
-        /// Expands the given boundingBox by percentage.
-        /// </summary>
-        /// <param name="boundingBox">Boundingbox to expand</param>
-        /// <param name="percentage">Percentage by which boundingBox is expanded</param>
-        private static void AddMargin(IEnvelope boundingBox,double percentage)
-        {
-            double minX = 0.0;
-            double minY = 0.0;
-            if (boundingBox.Width < 1.0e-6)
-            {
-                minX = 1.0;
-            }
-            if (boundingBox.Height < 1.0e-6)
-            {
-                minY = 1.0;
-            }
-
-            var factor = percentage/200;//factor is used left and right so divide by 200 (iso 100)
-            boundingBox.ExpandBy(minX + boundingBox.Width * factor, minY + boundingBox.Height * factor);
         }
 
         /// <summary>
@@ -744,8 +664,8 @@ namespace SharpMap
         /// <param name="addMargin">Add a default margin?</param>
         public virtual void ZoomToFit(IEnvelope bbox, bool addMargin)
         {
-            if (bbox == null || bbox.Width == 0 || bbox.Height == 0 || 
-                Double.IsInfinity(bbox.Width) || Double.IsInfinity(bbox.Height) || 
+            if (bbox == null || bbox.Width == 0 || bbox.Height == 0 ||
+                Double.IsInfinity(bbox.Width) || Double.IsInfinity(bbox.Height) ||
                 Double.IsNaN(bbox.Width) || Double.IsNaN(bbox.Height))
             {
                 return;
@@ -764,19 +684,18 @@ namespace SharpMap
             //if the map height is smaller than the given bbox height scale to the height
             if (Envelope.Height < bbox.Height)
             {
-                zoom *= bbox.Height / MapHeight;
+                zoom *= bbox.Height/MapHeight;
                 //zoom *= bbox.Height / Envelope.Height; --> Significance decrease for large center coordinates (TOOLS-7678) 
             }
-                
+
             center = bbox.Centre;
-            
+
             UpdateDimensions();
 
-            if(GetExtents() == null || GetExtents().IsNull)
+            if (GetExtents() == null || GetExtents().IsNull)
             {
                 desiredEnvelope = Envelope;
             }
-
 
             if (MapViewOnChange != null)
             {
@@ -807,6 +726,253 @@ namespace SharpMap
             return Transform.MapToWorld(p, this);
         }
 
+        public virtual object Clone()
+        {
+            var clone = new Map(Size)
+            {
+                name = name,
+                Center = new Coordinate(Center),
+                minimumZoom = minimumZoom,
+                maximumZoom = maximumZoom,
+                Zoom = Zoom,
+                SrsWkt = SrsWkt,
+                showGrid = ShowGrid,
+                desiredEnvelope = desiredEnvelope
+            };
+
+            foreach (ILayer layer in Layers)
+            {
+                clone.Layers.Add((ILayer) layer.Clone());
+            }
+
+            return clone;
+        }
+
+        public void ReplaceLayer(ILayer sourceLayer, ILayer targetLayer)
+        {
+            ReplacingLayer = true;
+            sourceLayer.ThemeGroup = sourceLayer.Name;
+            sourceLayer.ShowInTreeView = false;
+            targetLayer.ThemeGroup = sourceLayer.ThemeGroup;
+            targetLayer.Theme = sourceLayer.Theme != null ? (ITheme) sourceLayer.Theme.Clone() : null;
+
+            var allLayers = GetAllLayers(true).ToList();
+
+            if (!allLayers.Contains(sourceLayer))
+            {
+                return;
+            }
+
+            var layerIndex = Layers.IndexOf(sourceLayer);
+
+            if (layerIndex >= 0)
+            {
+                Layers.Remove(sourceLayer);
+                Layers.Insert(layerIndex, targetLayer);
+                targetLayer.Map = this;
+            }
+            else
+            {
+                var groupLayer = allLayers.OfType<IGroupLayer>().FirstOrDefault(gl => gl.Layers.Contains(sourceLayer));
+                if (groupLayer != null)
+                {
+                    var subIndex = groupLayer.Layers.IndexOf(sourceLayer);
+                    var groupLayersReadonly = groupLayer.LayersReadOnly;
+                    groupLayer.LayersReadOnly = false;
+                    groupLayer.Layers.Remove(sourceLayer);
+                    groupLayer.Layers.Insert(subIndex, targetLayer);
+                    targetLayer.Map = this;
+                    groupLayer.LayersReadOnly = groupLayersReadonly;
+                }
+            }
+
+            ReplacingLayer = false;
+        }
+
+        private void UpdateDimensions()
+        {
+            pixelSize = zoom/size.Width;
+            pixelHeight = pixelSize*pixelAspectRatio;
+            worldHeight = pixelSize*size.Height;
+            worldLeft = center.X - zoom*0.5;
+            worldTop = center.Y + worldHeight*0.5*pixelAspectRatio;
+        }
+
+        private void SetRenderRequiredForAllLayers()
+        {
+            if (Layers == null)
+            {
+                return;
+            }
+
+            foreach (var layer in Layers)
+            {
+                layer.RenderRequired = true;
+            }
+
+            if (ShowGrid)
+            {
+                GetGridLayer().RenderRequired = true;
+            }
+        }
+
+        private void RemoveGrid()
+        {
+            if (gridLayer == null)
+            {
+                return;
+            }
+
+            gridLayer = null;
+        }
+
+        private void BuildGrid()
+        {
+            var gridLines = new List<Feature>();
+
+            if (CoordinateSystemFactory == null)
+            {
+                log.DebugFormat("Showing map grid is only supported when map has coordinate system defined");
+                return; // can only draw if coordinate system factory is available
+            }
+
+            for (var i = -180; i <= 180; i += 10)
+            {
+                var coordinates = new ICoordinate[179];
+
+                for (var j = -89; j <= 89; j++)
+                {
+                    coordinates[j + 89] = new Coordinate(i, j);
+                }
+
+                gridLines.Add(new Feature
+                {
+                    Geometry = new LineString(coordinates)
+                });
+            }
+            for (var i = -90; i <= 90; i += 10)
+            {
+                var coordinates = new ICoordinate[361];
+
+                for (var j = -180; j <= 180; j++)
+                {
+                    coordinates[j + 180] = new Coordinate(j, i);
+                }
+
+                gridLines.Add(new Feature
+                {
+                    Geometry = new LineString(coordinates)
+                });
+            }
+
+            var src = CoordinateSystemFactory.CreateFromEPSG(4326 /* WGS84 */);
+            var dst = CoordinateSystem;
+
+            var transformation = dst == null ? null : CoordinateSystemFactory.CreateTransformation(src, dst);
+
+            gridLayer = new VectorLayer
+            {
+                DataSource = new FeatureCollection
+                {
+                    Features = gridLines, CoordinateSystem = src
+                },
+                CoordinateTransformation = transformation,
+                ShowInTreeView = false,
+                ShowInLegend = false,
+                Selectable = false,
+                Map = this
+            };
+
+            gridLayer.Style.Line.Color = Color.FromArgb(50, 100, 100, 100);
+        }
+
+        /// <summary>
+        /// Clears layer image it if takes very little time to render it.
+        /// </summary>
+        /// <param name="layer"></param>
+        private void ClearLayerImages(ILayer layer)
+        {
+            if (layer.LastRenderDuration < ThresholdToClearLayerImageInMillis)
+            {
+                layer.ClearImage();
+            }
+
+            // will make sure that only those child layers where render duration is very fast will dispose their images
+            var groupLayer = layer as IGroupLayer;
+            if (layer.Image != null && groupLayer != null)
+            {
+                foreach (var childLayer in groupLayer.Layers)
+                {
+                    ClearLayerImages(childLayer);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Expands the given boundingBox by percentage.
+        /// </summary>
+        /// <param name="boundingBox">Boundingbox to expand</param>
+        /// <param name="percentage">Percentage by which boundingBox is expanded</param>
+        private static void AddMargin(IEnvelope boundingBox, double percentage)
+        {
+            double minX = 0.0;
+            double minY = 0.0;
+            if (boundingBox.Width < 1.0e-6)
+            {
+                minX = 1.0;
+            }
+            if (boundingBox.Height < 1.0e-6)
+            {
+                minY = 1.0;
+            }
+
+            var factor = percentage/200; //factor is used left and right so divide by 200 (iso 100)
+            boundingBox.ExpandBy(minX + boundingBox.Width*factor, minY + boundingBox.Height*factor);
+        }
+
+        private int GetNewRenderNumber()
+        {
+            var allMapLayers = GetLayers(layers, false, true).ToList();
+            return allMapLayers.Any() ? allMapLayers.Max(l => l.RenderOrder) + 1 : 0;
+        }
+
+        private void ResetRenderOrder(int offset)
+        {
+            var allMapLayers = GetLayers(layers, false, true).OrderBy(l => l.RenderOrder).ToList();
+            var count = offset;
+
+            foreach (var layer in allMapLayers)
+            {
+                layer.RenderOrder = count++;
+            }
+        }
+
+        private IEnumerable<ILayer> GetLayersForThemeGroup(string themeGroup, string attributeName)
+        {
+            var layersWithSameRange = GetAllVisibleLayers(true)
+                .Where(l => l.ThemeGroup == themeGroup &&
+                            l.ThemeAttributeName == attributeName);
+            return layersWithSameRange;
+        }
+
+        #region Events
+
+        /// <summary>
+        /// Event fired when the zoomlevel or the center point has been changed
+        /// </summary>
+        public virtual event MapViewChangedHandler MapViewOnChange;
+
+        public virtual event MapLayerRenderedEventHandler MapLayerRendered;
+
+        /// <summary>
+        /// Event fired when all layers have been rendered
+        /// </summary>
+        public virtual event MapRenderedEventHandler MapRendered;
+
+        public virtual event MapRenderedEventHandler MapRendering;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -817,16 +983,18 @@ namespace SharpMap
             get
             {
                 return new Envelope(
-                                Center.X - Zoom*.5,
-                                Center.X + Zoom*.5,
-                                Center.Y - MapHeight*.5,
-                                Center.Y + MapHeight*.5);
+                    Center.X - Zoom*.5,
+                    Center.X + Zoom*.5,
+                    Center.Y - MapHeight*.5,
+                    Center.Y + MapHeight*.5);
             }
         }
 
+        [NonSerialized]
+        private Matrix mapTransform;
 
-        [NonSerialized] private Matrix mapTransform;
-        [NonSerialized] private Matrix mapTransformInverted;
+        [NonSerialized]
+        private Matrix mapTransformInverted;
 
         /// <summary>
         /// Using the <see cref="MapTransform"/> you can alter the coordinate system of the map rendering.
@@ -842,7 +1010,10 @@ namespace SharpMap
         /// </example>
         public virtual Matrix MapTransform
         {
-            get { return mapTransform; }
+            get
+            {
+                return mapTransform;
+            }
             set
             {
                 mapTransform = value;
@@ -852,7 +1023,9 @@ namespace SharpMap
                     mapTransformInverted.Invert();
                 }
                 else
+                {
                     mapTransformInverted.Reset();
+                }
 
                 SetRenderRequiredForAllLayers();
             }
@@ -867,7 +1040,10 @@ namespace SharpMap
         /// </summary>
         public virtual string SrsWkt
         {
-            get { return srsWkt; }
+            get
+            {
+                return srsWkt;
+            }
             set
             {
                 srsWkt = value;
@@ -878,7 +1054,10 @@ namespace SharpMap
 
         private void CreateCoordinateSystemFromWkt(string value)
         {
-            if (createCoordinateSystemFromWkt) return;
+            if (createCoordinateSystemFromWkt)
+            {
+                return;
+            }
 
             createCoordinateSystemFromWkt = true;
 
@@ -952,8 +1131,11 @@ namespace SharpMap
         {
             foreach (var layer in GetAllVisibleLayers(true).Where(l => l.DataSource != null).ToArray())
             {
-                if (layer.CoordinateSystem == null || layer.Envelope == null) continue;
-                
+                if (layer.CoordinateSystem == null || layer.Envelope == null)
+                {
+                    continue;
+                }
+
                 var downLeftCorner = new Coordinate(layer.Envelope.MinX, layer.Envelope.MinY, 0);
                 var upperRightCorner = new Coordinate(layer.Envelope.MaxX, layer.Envelope.MaxY, 0);
 
@@ -961,7 +1143,11 @@ namespace SharpMap
                                                                              targetCS);
 
                 if (!CoordinateSystemValidator.CanConvertByTransformation(
-                    new[] {downLeftCorner, upperRightCorner}, transform))
+                    new[]
+                    {
+                        downLeftCorner,
+                        upperRightCorner
+                    }, transform))
                 {
                     throw new CoordinateTransformException(layer.Name, layer.CoordinateSystem, targetCS);
                 }
@@ -977,8 +1163,8 @@ namespace SharpMap
             else
             {
                 layer.CoordinateTransformation = (layer.CoordinateSystem == null)
-                    ? null
-                    : CoordinateSystemFactory.CreateTransformation(layer.CoordinateSystem, CoordinateSystem);
+                                                     ? null
+                                                     : CoordinateSystemFactory.CreateTransformation(layer.CoordinateSystem, CoordinateSystem);
             }
         }
 
@@ -989,7 +1175,10 @@ namespace SharpMap
         /// </summary>
         public virtual int SRID
         {
-            get { return srid; }
+            get
+            {
+                return srid;
+            }
             set
             {
                 srid = value;
@@ -1063,7 +1252,7 @@ namespace SharpMap
         private void OnLayersCollectionChanged(NotifyCollectionChangingEventArgs e)
         {
             var layer1 = e.Item as ILayer;
-            
+
             if (layer1 != null)
             {
                 switch (e.Action)
@@ -1079,13 +1268,17 @@ namespace SharpMap
                         UpdateLayerCoordinateTransformation(layer1);
                         layer1.RenderRequired = true;
                         if (!String.IsNullOrEmpty(layer1.ThemeGroup))
+                        {
                             OnThemeGroupDataChanged(layer1.ThemeGroup, layer1.ThemeAttributeName);
+                        }
                         SetRenderOrderAfterInsert(layer1);
                         break;
                     case NotifyCollectionChangeAction.Remove:
                         RenderRequired = true;
                         if (!String.IsNullOrEmpty(layer1.ThemeGroup))
+                        {
                             OnThemeGroupDataChanged(layer1.ThemeGroup, layer1.ThemeAttributeName);
+                        }
                         SetRenderOrderAfterRemove(layer1);
                         break;
                 }
@@ -1099,7 +1292,10 @@ namespace SharpMap
 
             var newLayers = layer is GroupLayer
                                 ? GetLayers(((GroupLayer) layer).Layers, false, true).ToList()
-                                : new List<ILayer> {layer};
+                                : new List<ILayer>
+                                {
+                                    layer
+                                };
 
             var firstNewLayer = newLayers.FirstOrDefault();
             if (firstNewLayer == null)
@@ -1108,13 +1304,13 @@ namespace SharpMap
             }
 
             // Calculate the first render order based on actual map layers structure (1 based)
-            var startRenderOrder = allLayers.IndexOf(firstNewLayer)+1; 
-            
+            var startRenderOrder = allLayers.IndexOf(firstNewLayer) + 1;
+
             // Shift render orders for layers we inserting in front
             allLayers.Where(l => l.RenderOrder >= startRenderOrder)
-                .ToList()
-                .ForEach(l => l.RenderOrder += newLayers.Count);
-            
+                     .ToList()
+                     .ForEach(l => l.RenderOrder += newLayers.Count);
+
             // Assign to new layers, again based on map layer structure (1 based)
             newLayers.ForEach(l => l.RenderOrder = allLayers.IndexOf(l) + 1);
         }
@@ -1126,7 +1322,10 @@ namespace SharpMap
 
             var oldLayers = layer is GroupLayer
                                 ? GetLayers(((GroupLayer) layer).Layers, false, true).ToList()
-                                : new List<ILayer> {layer};
+                                : new List<ILayer>
+                                {
+                                    layer
+                                };
 
             if (!oldLayers.Any())
             {
@@ -1135,8 +1334,8 @@ namespace SharpMap
 
             // Shift render orders for succeeding layers
             allLayers.Where(l => l.RenderOrder >= oldLayers.Max(l1 => l1.RenderOrder))
-                .ToList()
-                .ForEach(l => l.RenderOrder -= oldLayers.Count);
+                     .ToList()
+                     .ForEach(l => l.RenderOrder -= oldLayers.Count);
         }
 
         /// <summary>
@@ -1146,9 +1345,14 @@ namespace SharpMap
         private void CheckMapExtends(ILayer layer)
         {
             if (!layer.Visible || layers == null)
+            {
                 return; // don't bother
+            }
 
-            var allVisibleLayersWereEmpty = GetAllVisibleLayers(false).Except(new[] { layer }).All(l => l.Envelope != null && l.Envelope.IsNull || !l.Visible);
+            var allVisibleLayersWereEmpty = GetAllVisibleLayers(false).Except(new[]
+            {
+                layer
+            }).All(l => l.Envelope != null && l.Envelope.IsNull || !l.Visible);
 
             if (!allVisibleLayersWereEmpty)
             {
@@ -1170,7 +1374,10 @@ namespace SharpMap
         /// </summary>
         public virtual Color BackColor
         {
-            get { return backColor; }
+            get
+            {
+                return backColor;
+            }
             set
             {
                 backColor = value;
@@ -1188,7 +1395,10 @@ namespace SharpMap
         /// </summary>
         public virtual ICoordinate Center
         {
-            get { return center; }
+            get
+            {
+                return center;
+            }
             set
             {
                 center = value;
@@ -1215,7 +1425,10 @@ namespace SharpMap
         /// </remarks>
         public virtual double Zoom
         {
-            get { return zoom; }
+            get
+            {
+                return zoom;
+            }
             set
             {
                 double oldZoom = zoom;
@@ -1233,10 +1446,10 @@ namespace SharpMap
                 {
                     clippedZoom = value;
                 }
-                
-                desiredEnvelope.Zoom(100 * (clippedZoom / oldZoom)); //adjust desiredEnvelope 
-                
-                ZoomToFit(desiredEnvelope,false);
+
+                desiredEnvelope.Zoom(100*(clippedZoom/oldZoom)); //adjust desiredEnvelope 
+
+                ZoomToFit(desiredEnvelope, false);
 
                 zoom = clippedZoom; //using intermediate value because desired.Zoom(100*) causes minor rounding issues in ZoomToFit
             }
@@ -1294,17 +1507,26 @@ namespace SharpMap
 
         public virtual double WorldHeight
         {
-            get { return worldHeight; }
+            get
+            {
+                return worldHeight;
+            }
         }
 
         public virtual double WorldLeft
         {
-            get { return worldLeft; }
+            get
+            {
+                return worldLeft;
+            }
         }
 
         public virtual double WorldTop
         {
-            get { return worldTop; }
+            get
+            {
+                return worldTop;
+            }
         }
 
         /// <summary>
@@ -1312,7 +1534,10 @@ namespace SharpMap
         /// </summary>
         public virtual double PixelSize
         {
-            get { return pixelSize; }
+            get
+            {
+                return pixelSize;
+            }
         }
 
         /// <summary>
@@ -1321,7 +1546,10 @@ namespace SharpMap
         /// <remarks>The value returned is the same as <see cref="PixelSize"/>.</remarks>
         public virtual double PixelWidth
         {
-            get { return pixelSize; }
+            get
+            {
+                return pixelSize;
+            }
         }
 
         /// <summary>
@@ -1330,7 +1558,10 @@ namespace SharpMap
         /// <remarks>The value returned is the same as <see cref="PixelSize"/> unless <see cref="PixelAspectRatio"/> is different from 1.</remarks>
         public virtual double PixelHeight
         {
-            get { return pixelHeight; }
+            get
+            {
+                return pixelHeight;
+            }
         }
 
         private double pixelAspectRatio = 1.0;
@@ -1342,7 +1573,10 @@ namespace SharpMap
         /// <exception cref="ArgumentException">Throws an argument exception when value is 0 or less.</exception>
         public virtual double PixelAspectRatio
         {
-            get { return pixelAspectRatio; }
+            get
+            {
+                return pixelAspectRatio;
+            }
             set
             {
                 if (pixelAspectRatio <= 0)
@@ -1361,7 +1595,10 @@ namespace SharpMap
         /// <returns></returns>
         public virtual double MapHeight
         {
-            get { return ( Zoom * Size.Height ) / Size.Width * PixelAspectRatio; }
+            get
+            {
+                return (Zoom*Size.Height)/Size.Width*PixelAspectRatio;
+            }
         }
 
         private Size size;
@@ -1371,7 +1608,10 @@ namespace SharpMap
         /// </summary>
         public virtual Size Size
         {
-            get { return size; }
+            get
+            {
+                return size;
+            }
             set
             {
                 size = value;
@@ -1386,7 +1626,10 @@ namespace SharpMap
         /// </summary>
         public virtual double MinimumZoom
         {
-            get { return minimumZoom; }
+            get
+            {
+                return minimumZoom;
+            }
             set
             {
                 if (value < 0)
@@ -1400,7 +1643,7 @@ namespace SharpMap
 
         private double maximumZoom;
         private string name;
-        
+
         private Image image;
         private double pixelSize;
         private double pixelHeight;
@@ -1411,7 +1654,10 @@ namespace SharpMap
         /// </summary>
         public virtual double MaximumZoom
         {
-            get { return maximumZoom; }
+            get
+            {
+                return maximumZoom;
+            }
             set
             {
                 if (value <= 0)
@@ -1425,8 +1671,14 @@ namespace SharpMap
 
         public virtual string Name
         {
-            get { return name; }
-            set { name = value; }
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
         }
 
         #endregion
@@ -1435,133 +1687,18 @@ namespace SharpMap
 
         public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
         public virtual event NotifyCollectionChangingEventHandler CollectionChanging;
-        
+
         bool INotifyCollectionChange.HasParentIsCheckedInItems { get; set; }
         bool INotifyCollectionChange.SkipChildItemEventBubbling { get; set; }
 
         public virtual bool HasDefaultEnvelopeSet
         {
-            get { return desiredEnvelope.Equals(new Envelope(-500, 500, -500, 500)); }
+            get
+            {
+                return desiredEnvelope.Equals(new Envelope(-500, 500, -500, 500));
+            }
         }
 
         #endregion
-
-        public virtual object Clone()
-        {
-            var clone = new Map(Size)
-                {
-                    name = name,
-                    Center = new Coordinate(Center),
-                    minimumZoom = minimumZoom,
-                    maximumZoom = maximumZoom,
-                    Zoom = Zoom,
-                    SrsWkt = SrsWkt,
-                    showGrid = ShowGrid,
-                    desiredEnvelope = desiredEnvelope
-                };
-
-            foreach(ILayer layer in Layers)
-            {
-                clone.Layers.Add((ILayer) layer.Clone());
-            }
-
-            return clone;
-        }
-
-        public override string ToString()
-        {
-            return (!String.IsNullOrEmpty(Name)) ? Name : base.ToString();
-        }
-
-        private int GetNewRenderNumber()
-        {
-            var allMapLayers = GetLayers(layers, false, true).ToList();
-            return allMapLayers.Any() ? allMapLayers.Max(l => l.RenderOrder) + 1 : 0;
-        }
-
-        private void ResetRenderOrder(int offset)
-        {
-            var allMapLayers = GetLayers(layers, false, true).OrderBy(l => l.RenderOrder).ToList();
-            var count = offset;
-
-            foreach (var layer in allMapLayers)
-            {
-                layer.RenderOrder = count++;
-            }
-        }
-
-        public virtual bool GetDataMinMaxForThemeGroup(string themeGroup, string attributeName, out double min, out double max)
-        {
-            if (String.IsNullOrEmpty(themeGroup))
-                throw new ArgumentException("expected non-empty themegroup", "themeGroup");
-
-            min = Double.MaxValue;
-            max = Double.MinValue;
-            var layersForThemeGroup = GetLayersForThemeGroup(themeGroup, attributeName).ToList();
-
-            if (!layersForThemeGroup.Any())
-                return false; //no layers, or no visible layers: no update possible
-
-            foreach (var sameRangeLayer in layersForThemeGroup)
-            {
-                min = Math.Min(sameRangeLayer.MinDataValue, min);
-                max = Math.Max(sameRangeLayer.MaxDataValue, max);
-            }
-            return true;
-        }
-
-        public virtual void OnThemeGroupDataChanged(string themeGroup, string attributeName)
-        {
-            foreach (var layer in GetLayersForThemeGroup(themeGroup, attributeName))
-                layer.ThemeIsDirty = true;
-        }
-
-        private IEnumerable<ILayer> GetLayersForThemeGroup(string themeGroup, string attributeName)
-        {
-            var layersWithSameRange = GetAllVisibleLayers(true)
-                .Where(l => l.ThemeGroup == themeGroup &&
-                            l.ThemeAttributeName == attributeName);
-            return layersWithSameRange;
-        }
-
-        public bool ReplacingLayer { get; private set; }
-
-        public void ReplaceLayer(ILayer sourceLayer, ILayer targetLayer)
-        {
-            ReplacingLayer = true;
-            sourceLayer.ThemeGroup = sourceLayer.Name;
-            sourceLayer.ShowInTreeView = false;
-            targetLayer.ThemeGroup = sourceLayer.ThemeGroup;
-            targetLayer.Theme = sourceLayer.Theme != null ? (ITheme)sourceLayer.Theme.Clone() : null;
-
-            var allLayers = GetAllLayers(true).ToList();
-
-            if (!allLayers.Contains(sourceLayer)) return;
-
-            var layerIndex = Layers.IndexOf(sourceLayer);
-
-            if (layerIndex >= 0)
-            {
-                Layers.Remove(sourceLayer);
-                Layers.Insert(layerIndex, targetLayer);
-                targetLayer.Map = this;
-            }
-            else
-            {
-                var groupLayer = allLayers.OfType<IGroupLayer>().FirstOrDefault(gl => gl.Layers.Contains(sourceLayer));
-                if (groupLayer != null)
-                {
-                    var subIndex = groupLayer.Layers.IndexOf(sourceLayer);
-                    var groupLayersReadonly = groupLayer.LayersReadOnly;
-                    groupLayer.LayersReadOnly = false;
-                    groupLayer.Layers.Remove(sourceLayer);
-                    groupLayer.Layers.Insert(subIndex, targetLayer);
-                    targetLayer.Map = this;
-                    groupLayer.LayersReadOnly = groupLayersReadonly;
-                }
-            }
-
-            ReplacingLayer = false;
-        }
     }
 }

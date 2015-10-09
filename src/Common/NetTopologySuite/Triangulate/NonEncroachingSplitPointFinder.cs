@@ -11,38 +11,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
     public class NonEncroachingSplitPointFinder : IConstraintSplitPointFinder
     {
         /// <summary>
-        /// A basic strategy for finding split points when nothing extra is known about the geometry of
-        /// the situation.
-        /// </summary>
-        /// <param name="seg">the encroached segment</param>
-        /// <param name="encroachPt">the encroaching point</param>
-        /// <returns>the point at which to split the encroached segment</returns>
-        public ICoordinate FindSplitPoint(Segment seg, ICoordinate encroachPt)
-        {
-            var lineSeg = seg.LineSegment;
-            var segLen = lineSeg.Length;
-            var midPtLen = segLen / 2;
-            var splitSeg = new SplitSegment(lineSeg);
-
-            var projPt = ProjectedSplitPoint(seg, encroachPt);
-            /*
-             * Compute the largest diameter (length) that will produce a split segment which is not
-             * still encroached upon by the encroaching point (The length is reduced slightly by a
-             * safety factor)
-             */
-            var nonEncroachDiam = projPt.Distance(encroachPt) * 2 * 0.8; // .99;
-            var maxSplitLen = nonEncroachDiam;
-            if (maxSplitLen > midPtLen) {
-                maxSplitLen = midPtLen;
-            }
-            splitSeg.MinimumLength = maxSplitLen;
-
-            splitSeg.SplitAt(projPt);
-
-            return splitSeg.SplitPoint;
-        }
-
-        /// <summary>
         /// Computes a split point which is the projection of the encroaching point on the segment
         /// </summary>
         /// <param name="seg">The segment</param>
@@ -53,6 +21,39 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
             LineSegment lineSeg = seg.LineSegment;
             ICoordinate projPt = lineSeg.Project(encroachPt);
             return projPt;
+        }
+
+        /// <summary>
+        /// A basic strategy for finding split points when nothing extra is known about the geometry of
+        /// the situation.
+        /// </summary>
+        /// <param name="seg">the encroached segment</param>
+        /// <param name="encroachPt">the encroaching point</param>
+        /// <returns>the point at which to split the encroached segment</returns>
+        public ICoordinate FindSplitPoint(Segment seg, ICoordinate encroachPt)
+        {
+            var lineSeg = seg.LineSegment;
+            var segLen = lineSeg.Length;
+            var midPtLen = segLen/2;
+            var splitSeg = new SplitSegment(lineSeg);
+
+            var projPt = ProjectedSplitPoint(seg, encroachPt);
+            /*
+             * Compute the largest diameter (length) that will produce a split segment which is not
+             * still encroached upon by the encroaching point (The length is reduced slightly by a
+             * safety factor)
+             */
+            var nonEncroachDiam = projPt.Distance(encroachPt)*2*0.8; // .99;
+            var maxSplitLen = nonEncroachDiam;
+            if (maxSplitLen > midPtLen)
+            {
+                maxSplitLen = midPtLen;
+            }
+            splitSeg.MinimumLength = maxSplitLen;
+
+            splitSeg.SplitAt(projPt);
+
+            return splitSeg.SplitPoint;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Chain
         /// <summary>
         /// Only static methods!
         /// </summary>
-        private MonotoneChainBuilder() { }
+        private MonotoneChainBuilder() {}
 
         /// <summary>
         ///
@@ -23,8 +23,10 @@ namespace GisSharpBlog.NetTopologySuite.Index.Chain
         public static int[] ToIntArray(IList list)
         {
             int[] array = new int[list.Count];
-            for (int i = 0; i < array.Length; i++)            
-                array[i] = (int)list[i];            
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = (int) list[i];
+            }
             return array;
         }
 
@@ -50,7 +52,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Chain
             int[] startIndex = GetChainStartIndices(pts);
             for (int i = 0; i < startIndex.Length - 1; i++)
             {
-                MonotoneChain mc = new MonotoneChain(pts, startIndex[i], startIndex[i + 1], context);                
+                MonotoneChain mc = new MonotoneChain(pts, startIndex[i], startIndex[i + 1], context);
                 mcList.Add(mc);
             }
             return mcList;
@@ -74,8 +76,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Chain
                 int last = FindChainEnd(pts, start);
                 startIndexList.Add(last);
                 start = last;
-            } 
-            while (start < pts.Length - 1);
+            } while (start < pts.Length - 1);
 
             // copy list to an array of ints, for efficiency
             int[] startIndex = ToIntArray(startIndexList);
@@ -99,11 +100,13 @@ namespace GisSharpBlog.NetTopologySuite.Index.Chain
             {
                 // compute quadrant for next possible segment in chain
                 int quad = QuadrantOp.Quadrant(pts[last - 1], pts[last]);
-                if (quad != chainQuad) 
+                if (quad != chainQuad)
+                {
                     break;
+                }
                 last++;
             }
             return last - 1;
-        }           
+        }
     }
 }

@@ -15,8 +15,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         /// </summary>
         /// <param name="start"></param>
         /// <param name="geometryFactory"></param>
-        public MinimalEdgeRing(DirectedEdge start, IGeometryFactory geometryFactory) 
-            : base(start, geometryFactory) { }
+        public MinimalEdgeRing(DirectedEdge start, IGeometryFactory geometryFactory)
+            : base(start, geometryFactory) {}
 
         /// <summary>
         /// 

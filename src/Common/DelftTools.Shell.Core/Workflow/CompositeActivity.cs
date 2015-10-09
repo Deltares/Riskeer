@@ -16,11 +16,44 @@ namespace DelftTools.Shell.Core.Workflow
         }
 
         public virtual IEventedList<IActivity> Activities { get; set; }
-        
+
         public bool ReadOnly { get; set; }
 
         [Aggregation]
-        public virtual ICompositeActivity CurrentWorkflow { get { return this; } }
+        public virtual ICompositeActivity CurrentWorkflow
+        {
+            get
+            {
+                return this;
+            }
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        public override IEnumerable<object> GetDirectChildren()
+        {
+            foreach (var activity in Activities)
+            {
+                yield return activity;
+            }
+        }
+
+        public virtual object DeepClone()
+        {
+            var clone = (ICompositeActivity) Activator.CreateInstance(GetType());
+
+            clone.Name = Name;
+
+            foreach (var activity in Activities)
+            {
+                clone.Activities.Add((IActivity) activity.DeepClone());
+            }
+
+            return clone;
+        }
 
         protected override void OnCleanUp()
         {
@@ -59,33 +92,6 @@ namespace DelftTools.Shell.Core.Workflow
                     throw new Exception(string.Format("The finishing of activity {0} failed", activity));
                 }
             }
-        }
-
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        public override IEnumerable<object> GetDirectChildren()
-        {
-            foreach (var activity in Activities)
-            {
-                yield return activity;
-            }
-        }
-
-        public virtual object DeepClone()
-        {
-            var clone = (ICompositeActivity)Activator.CreateInstance(GetType());
-
-            clone.Name = Name;
-
-            foreach (var activity in Activities)
-            {
-                clone.Activities.Add((IActivity) activity.DeepClone());
-            }
-            
-            return clone;
         }
     }
 }

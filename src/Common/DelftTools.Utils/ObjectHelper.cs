@@ -31,7 +31,7 @@ namespace DelftTools.Utils
         public static T Clone<T>(object value)
         {
             var clone = Clone(value);
-            if(clone == null)
+            if (clone == null)
             {
                 return default(T);
             }
@@ -58,7 +58,7 @@ namespace DelftTools.Utils
             {
                 return deepCloneable.DeepClone();
             }
-            
+
             var valueType = value.GetType();
             if (valueType.IsValueType)
             {

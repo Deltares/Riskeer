@@ -12,7 +12,7 @@ namespace GisSharpBlog.NetTopologySuite.Precision
         /// <summary>
         /// Only static methods!
         /// </summary>
-        private EnhancedPrecisionOp() { }
+        private EnhancedPrecisionOp() {}
 
         /// <summary>
         /// Computes the set-theoretic intersection of two <c>Geometry</c>s, using enhanced precision.
@@ -43,7 +43,9 @@ namespace GisSharpBlog.NetTopologySuite.Precision
                 IGeometry resultEP = cbo.Intersection(geom0, geom1);
                 // check that result is a valid point after the reshift to orginal precision
                 if (!resultEP.IsValid)
+                {
                     throw originalEx;
+                }
                 return resultEP;
             }
             catch (ApplicationException)
@@ -81,7 +83,9 @@ namespace GisSharpBlog.NetTopologySuite.Precision
                 IGeometry resultEP = cbo.Union(geom0, geom1);
                 // check that result is a valid point after the reshift to orginal precision
                 if (!resultEP.IsValid)
+                {
                     throw originalEx;
+                }
                 return resultEP;
             }
             catch (ApplicationException)
@@ -119,7 +123,9 @@ namespace GisSharpBlog.NetTopologySuite.Precision
                 IGeometry resultEP = cbo.Difference(geom0, geom1);
                 // check that result is a valid point after the reshift to orginal precision
                 if (!resultEP.IsValid)
+                {
                     throw originalEx;
+                }
                 return resultEP;
             }
             catch (ApplicationException)
@@ -157,7 +163,9 @@ namespace GisSharpBlog.NetTopologySuite.Precision
                 IGeometry resultEP = cbo.SymDifference(geom0, geom1);
                 // check that result is a valid point after the reshift to orginal precision
                 if (!resultEP.IsValid)
+                {
                     throw originalEx;
+                }
                 return resultEP;
             }
             catch (ApplicationException)
@@ -198,7 +206,9 @@ namespace GisSharpBlog.NetTopologySuite.Precision
                 IGeometry resultEP = cbo.Buffer(geom, distance);
                 // check that result is a valid point after the reshift to orginal precision
                 if (!resultEP.IsValid)
+                {
                     throw originalEx;
+                }
                 return resultEP;
             }
             catch (ApplicationException)

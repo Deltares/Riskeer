@@ -13,7 +13,10 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property
         [ResourcesDescription(typeof(Resources), "TreeFolderProperties_Name_Description")]
         public string Text
         {
-            get { return data.Text; }
+            get
+            {
+                return data.Text;
+            }
         }
     }
 }

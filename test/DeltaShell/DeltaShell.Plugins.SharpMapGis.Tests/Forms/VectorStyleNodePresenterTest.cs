@@ -32,7 +32,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             Assert.AreEqual(style, node.Tag);
             Assert.IsEmpty(node.Text);
             Assert.IsNotNull(node.Image);
-
         }
     }
 }

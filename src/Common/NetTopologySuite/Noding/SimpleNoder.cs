@@ -3,7 +3,6 @@ using GeoAPI.Geometries;
 
 namespace GisSharpBlog.NetTopologySuite.Noding
 {
-
     /// <summary>
     /// Nodes a set of <see cref="SegmentString" />s by
     /// performing a brute-force comparison of every segment to every other one.
@@ -11,20 +10,19 @@ namespace GisSharpBlog.NetTopologySuite.Noding
     /// </summary>
     public class SimpleNoder : SinglePassNoder
     {
-
         private IList nodedSegStrings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleNoder"/> class.
         /// </summary>
-        public SimpleNoder() { }
+        public SimpleNoder() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleNoder"/> class.
         /// </summary>
         /// <param name="segInt"></param>
         public SimpleNoder(ISegmentIntersector segInt)
-            : base(segInt) { }
+            : base(segInt) {}
 
         /// <summary>
         /// Returns a <see cref="IList"/> of fully noded <see cref="SegmentString"/>s.
@@ -44,11 +42,11 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// <param name="inputSegStrings"></param>
         public override void ComputeNodes(IList inputSegStrings)
         {
-            this.nodedSegStrings = inputSegStrings;
+            nodedSegStrings = inputSegStrings;
             foreach (object obj0 in inputSegStrings)
             {
                 SegmentString edge0 = (SegmentString) obj0;
-                foreach(object obj1 in inputSegStrings)
+                foreach (object obj1 in inputSegStrings)
                 {
                     SegmentString edge1 = (SegmentString) obj1;
                     ComputeIntersects(edge0, edge1);
@@ -66,8 +64,12 @@ namespace GisSharpBlog.NetTopologySuite.Noding
             ICoordinate[] pts0 = e0.Coordinates;
             ICoordinate[] pts1 = e1.Coordinates;
             for (int i0 = 0; i0 < pts0.Length - 1; i0++)
+            {
                 for (int i1 = 0; i1 < pts1.Length - 1; i1++)
+                {
                     SegmentIntersector.ProcessIntersections(e0, i0, e1, i1);
+                }
+            }
         }
     }
 }

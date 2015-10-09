@@ -4,14 +4,23 @@ namespace DelftTools.Utils.PropertyBag.Dynamic
 {
     public class DynamicDataItemPropertyBag : DynamicPropertyBag
     {
-        private object dataItemProperties;
-        private DynamicPropertyBag dataItemPropertyBag;
+        private readonly object dataItemProperties;
+        private readonly DynamicPropertyBag dataItemPropertyBag;
+
+        public DynamicDataItemPropertyBag(object dataItemProperties, object propertyObject)
+            : base(propertyObject)
+        {
+            this.dataItemProperties = dataItemProperties;
+            dataItemPropertyBag = new DynamicPropertyBag(dataItemProperties);
+
+            FillProperties();
+        }
 
         protected override void OnGetValue(PropertySpecEventArgs e)
         {
             if (dataItemPropertyBag.Properties.Contains(e.Property))
             {
-                var descriptor = (dataItemPropertyBag as ICustomTypeDescriptor).GetProperties().Find(e.Property.Name,false);
+                var descriptor = (dataItemPropertyBag as ICustomTypeDescriptor).GetProperties().Find(e.Property.Name, false);
                 e.Value = descriptor.GetValue(dataItemProperties);
             }
             else
@@ -33,18 +42,9 @@ namespace DelftTools.Utils.PropertyBag.Dynamic
             }
         }
 
-        public DynamicDataItemPropertyBag(object dataItemProperties, object propertyObject)
-            : base(propertyObject)
-        {
-            this.dataItemProperties = dataItemProperties;
-            this.dataItemPropertyBag = new DynamicPropertyBag(dataItemProperties);
-
-            FillProperties();
-        }
-
         private void FillProperties()
         {
-            foreach(PropertySpec property in dataItemPropertyBag.Properties)
+            foreach (PropertySpec property in dataItemPropertyBag.Properties)
             {
                 if (!Properties.Contains(property.Name))
                 {

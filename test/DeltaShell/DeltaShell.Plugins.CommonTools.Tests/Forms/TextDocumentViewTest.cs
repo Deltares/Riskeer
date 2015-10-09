@@ -11,14 +11,14 @@ namespace DeltaShell.Plugins.CommonTools.Tests.Forms
         public void SetNullDataInDocumentView()
         {
             var textDocument = new TextDocument(true)
-                               {
-                                   Content = "Lorem ipsum"
-                               };
+            {
+                Content = "Lorem ipsum"
+            };
 
             var textDocumentView = new TextDocumentView
-                                   {
-                                       Data = textDocument
-                                   };
+            {
+                Data = textDocument
+            };
 
             textDocumentView.Data = null; // Note: this should not cause an exception
         }

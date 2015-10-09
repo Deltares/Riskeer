@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using DelftTools.TestUtils;
 using NUnit.Framework;
-
 using IEditableObject = DelftTools.Utils.Editing.IEditableObject;
 
 namespace DelftTools.Utils.Tests
@@ -49,7 +48,10 @@ namespace DelftTools.Utils.Tests
         {
             // setup
             const string text = "Test";
-            var doc = new TextDocument { Name = text };
+            var doc = new TextDocument
+            {
+                Name = text
+            };
 
             // call
             var toString = doc.ToString();
@@ -57,14 +59,14 @@ namespace DelftTools.Utils.Tests
             // assert
             Assert.AreEqual(text, toString);
         }
-        
+
         [Test]
         public void Clone()
         {
             var doc = new TextDocument(true)
-                          {
-                              Content = "blabla"
-                          };
+            {
+                Content = "blabla"
+            };
             var clone = (TextDocument) doc.Clone();
             ReflectionTestHelper.AssertPublicPropertiesAreEqual(doc, clone);
             doc.Content = "kees";

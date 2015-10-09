@@ -12,17 +12,17 @@ namespace DelftTools.Utils.Globalization
     /// </summary>
     public static class RegionalSettingsManager
     {
-        private static readonly CustomFormatProvider customFormatProvider = new CustomFormatProvider();
-
         public static event Action LanguageChanged;
         public static event Action FormatChanged;
+        private static readonly CustomFormatProvider customFormatProvider = new CustomFormatProvider();
 
         private static string realNumberFormat = "G5";
-        
+
         /// <summary>
         /// Language in the form of standard cultures "en-US", "ru-RU" ...
         /// </summary>
-        public static string Language { 
+        public static string Language
+        {
             set
             {
                 var ci = new CultureInfo(value)
@@ -34,7 +34,7 @@ namespace DelftTools.Utils.Globalization
                 Thread.CurrentThread.CurrentUICulture = ci;
                 Thread.CurrentThread.CurrentCulture = ci;
 
-                if(LanguageChanged != null)
+                if (LanguageChanged != null)
                 {
                     LanguageChanged();
                 }
@@ -46,29 +46,12 @@ namespace DelftTools.Utils.Globalization
             }
         }
 
-        private static DateTimeFormatInfo CreateDateTimeFormatFromSystemSettingsWithoutNameLocalization()
-        {
-            var systemCulture = Thread.CurrentThread.CurrentCulture.DateTimeFormat;
-            var ci = CultureInfo.InvariantCulture;
-
-            var localMachineDateTimeFormat = (DateTimeFormatInfo)systemCulture.Clone();
-            //don't take the localized names!
-            localMachineDateTimeFormat.DayNames = ci.DateTimeFormat.DayNames; 
-            localMachineDateTimeFormat.MonthNames = ci.DateTimeFormat.MonthNames;
-            localMachineDateTimeFormat.AbbreviatedDayNames = ci.DateTimeFormat.AbbreviatedDayNames;
-            localMachineDateTimeFormat.AbbreviatedMonthGenitiveNames = ci.DateTimeFormat.AbbreviatedMonthGenitiveNames;
-            localMachineDateTimeFormat.AbbreviatedMonthNames = ci.DateTimeFormat.AbbreviatedMonthNames;
-            return localMachineDateTimeFormat;
-        }
-
         public static CultureInfo CurrentCulture
         {
-            get { return Thread.CurrentThread.CurrentCulture; }
-        }
-
-        public static IFormatProvider GetCustomFormatProvider()
-        {
-            return customFormatProvider;
+            get
+            {
+                return Thread.CurrentThread.CurrentCulture;
+            }
         }
 
         /// <summary>
@@ -90,43 +73,26 @@ namespace DelftTools.Utils.Globalization
         /// </summary>
         public static string RealNumberFormat
         {
-            get 
+            get
             {
                 return realNumberFormat;
             }
             set
             {
                 realNumberFormat = value;
-                if(FormatChanged != null)
+                if (FormatChanged != null)
                 {
                     FormatChanged();
                 }
             }
         }
 
-        /// <summary>
-        /// TODO: how to make .NET use this FormatProvider instead of CurrentCulture.NumberInfo? Sealed class problem
-        /// </summary>
-        private class CustomFormatProvider : IFormatProvider, ICustomFormatter
+        public static IFormatProvider GetCustomFormatProvider()
         {
-            public object GetFormat(Type formatType)
-            {
-                return (formatType == typeof(ICustomFormatter)) ? this : null;
-            }
-
-            public string Format(string format, object arg, IFormatProvider formatProvider)
-            {
-                var argType = arg.GetType();
-                if ((argType == typeof(double) || argType == typeof(float)))
-                {
-                    return string.Format(CurrentCulture, "{" + realNumberFormat + "}", arg);
-                }
-
-                return string.Format(CurrentCulture, format, arg);
-            }
+            return customFormatProvider;
         }
 
-        public static string ConvertToString(object value, bool truncateNumbers=true)
+        public static string ConvertToString(object value, bool truncateNumbers = true)
         {
             if (value is DateTime)
             {
@@ -137,6 +103,43 @@ namespace DelftTools.Utils.Globalization
                 return ((double) value).ToString(RealNumberFormat);
             }
             return Convert.ToString(value, CurrentCulture);
+        }
+
+        private static DateTimeFormatInfo CreateDateTimeFormatFromSystemSettingsWithoutNameLocalization()
+        {
+            var systemCulture = Thread.CurrentThread.CurrentCulture.DateTimeFormat;
+            var ci = CultureInfo.InvariantCulture;
+
+            var localMachineDateTimeFormat = (DateTimeFormatInfo) systemCulture.Clone();
+            //don't take the localized names!
+            localMachineDateTimeFormat.DayNames = ci.DateTimeFormat.DayNames;
+            localMachineDateTimeFormat.MonthNames = ci.DateTimeFormat.MonthNames;
+            localMachineDateTimeFormat.AbbreviatedDayNames = ci.DateTimeFormat.AbbreviatedDayNames;
+            localMachineDateTimeFormat.AbbreviatedMonthGenitiveNames = ci.DateTimeFormat.AbbreviatedMonthGenitiveNames;
+            localMachineDateTimeFormat.AbbreviatedMonthNames = ci.DateTimeFormat.AbbreviatedMonthNames;
+            return localMachineDateTimeFormat;
+        }
+
+        /// <summary>
+        /// TODO: how to make .NET use this FormatProvider instead of CurrentCulture.NumberInfo? Sealed class problem
+        /// </summary>
+        private class CustomFormatProvider : IFormatProvider, ICustomFormatter
+        {
+            public string Format(string format, object arg, IFormatProvider formatProvider)
+            {
+                var argType = arg.GetType();
+                if ((argType == typeof(double) || argType == typeof(float)))
+                {
+                    return string.Format(CurrentCulture, "{" + realNumberFormat + "}", arg);
+                }
+
+                return string.Format(CurrentCulture, format, arg);
+            }
+
+            public object GetFormat(Type formatType)
+            {
+                return (formatType == typeof(ICustomFormatter)) ? this : null;
+            }
         }
     }
 }

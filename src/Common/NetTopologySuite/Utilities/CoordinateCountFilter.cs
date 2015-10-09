@@ -6,33 +6,28 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
     /// A <c>CoordinateFilter</c> that counts the total number of coordinates
     /// in a <c>Geometry</c>.
     /// </summary>
-    public class CoordinateCountFilter : ICoordinateFilter 
+    public class CoordinateCountFilter : ICoordinateFilter
     {
-        private int n = 0;
-
         /// <summary>
         /// 
         /// </summary>
-        public CoordinateCountFilter() { }
+        public CoordinateCountFilter()
+        {
+            Count = 0;
+        }
 
         /// <summary>
         /// Returns the result of the filtering.
         /// </summary>
-        public int Count 
-        {
-            get
-            {
-                return n;
-            }
-        }
+        public int Count { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="coord"></param>
-        public void Filter(ICoordinate coord) 
+        public void Filter(ICoordinate coord)
         {
-            n++;
+            Count++;
         }
     }
 }

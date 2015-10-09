@@ -21,7 +21,9 @@ namespace DelftTools.Utils.Csv
             //store culture (in case we replace it)
             var storedCulture = Thread.CurrentThread.CurrentCulture;
             if (cultureInvariant)
+            {
                 Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            }
 
             try
             {
@@ -51,7 +53,10 @@ namespace DelftTools.Utils.Csv
 
         private static string ConvertToFileString(object item, bool quoteall)
         {
-            if (item == null) return "";
+            if (item == null)
+            {
+                return "";
+            }
 
             var itemAsString = item.ToString();
 

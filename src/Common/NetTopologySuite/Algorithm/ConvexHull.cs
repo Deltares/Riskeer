@@ -15,15 +15,15 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
     /// </summary>
     public class ConvexHull
     {
-        private IGeometryFactory geomFactory = null;
-        private ICoordinate[] inputPts = null;
+        private readonly IGeometryFactory geomFactory = null;
+        private readonly ICoordinate[] inputPts = null;
 
         /// <summary> 
         /// Create a new convex hull construction for the input <c>Geometry</c>.
         /// </summary>
         /// <param name="geometry"></param>
-        public ConvexHull(IGeometry geometry) 
-            : this(ExtractCoordinates(geometry), geometry.Factory) { }
+        public ConvexHull(IGeometry geometry)
+            : this(ExtractCoordinates(geometry), geometry.Factory) {}
 
         /// <summary>
         /// Create a new convex hull construction for the input <see cref="Coordinate" /> array.
@@ -34,18 +34,6 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         {
             inputPts = pts;
             this.geomFactory = geomFactory;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="geom"></param>
-        /// <returns></returns>
-        private static ICoordinate[] ExtractCoordinates(IGeometry geom)
-        {
-            UniqueCoordinateArrayFilter filter = new UniqueCoordinateArrayFilter();
-            geom.Apply(filter);
-            return filter.Coordinates;
         }
 
         /// <summary> 
@@ -63,20 +51,27 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         public IGeometry GetConvexHull()
         {
             if (inputPts.Length == 0)
+            {
                 return geomFactory.CreateGeometryCollection(null);
-            
+            }
+
             if (inputPts.Length == 1)
+            {
                 return geomFactory.CreatePoint(inputPts[0]);
+            }
 
             if (inputPts.Length == 2)
+            {
                 return geomFactory.CreateLineString(inputPts);
-            
+            }
 
             ICoordinate[] reducedPts = inputPts;
             // use heuristic to reduce points, if large
             if (inputPts.Length > 50)
+            {
                 reducedPts = Reduce(inputPts);
-            
+            }
+
             // sort points for Graham scan.
             ICoordinate[] sortedPts = PreSort(reducedPts);
 
@@ -89,7 +84,19 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             // Convert array to appropriate output geometry.
             return LineOrPolygon(cH);
         }
-          
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="geom"></param>
+        /// <returns></returns>
+        private static ICoordinate[] ExtractCoordinates(IGeometry geom)
+        {
+            UniqueCoordinateArrayFilter filter = new UniqueCoordinateArrayFilter();
+            geom.Apply(filter);
+            return filter.Coordinates;
+        }
+
         /// <summary>
         /// Uses a heuristic to reduce the number of points scanned to compute the hull.
         /// The heuristic is to find a polygon guaranteed to
@@ -106,16 +113,20 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         private ICoordinate[] Reduce(ICoordinate[] pts)
         {
             ICoordinate[] polyPts = ComputeOctRing(inputPts);
-            
+
             // unable to compute interior polygon for some reason
-            if(polyPts == null)
+            if (polyPts == null)
+            {
                 return inputPts;
-            
+            }
+
             // add points defining polygon
             OrderedSet<ICoordinate> reducedSet = new OrderedSet<ICoordinate>();
             for (int i = 0; i < polyPts.Length; i++)
+            {
                 reducedSet.Add(polyPts[i]);
-            
+            }
+
             /*
              * Add all unique points not in the interior poly.
              * CGAlgorithms.IsPointInRing is not defined for points actually on the ring,
@@ -123,8 +134,12 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
              * are forced to be in the reduced set.
              */
             for (int i = 0; i < inputPts.Length; i++)
-                if (!CGAlgorithms.IsPointInRing(inputPts[i], polyPts))                
+            {
+                if (!CGAlgorithms.IsPointInRing(inputPts[i], polyPts))
+                {
                     reducedSet.Add(inputPts[i]);
+                }
+            }
 
             ICoordinate[] arr = new ICoordinate[reducedSet.Count];
             reducedSet.CopyTo(arr, 0);
@@ -145,8 +160,8 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             // This focal point is put in array location pts[0].
             for (int i = 1; i < pts.Length; i++)
             {
-                if ((pts[i].Y < pts[0].Y) || ((pts[i].Y == pts[0].Y) 
-                     && (pts[i].X < pts[0].X)))
+                if ((pts[i].Y < pts[0].Y) || ((pts[i].Y == pts[0].Y)
+                                              && (pts[i].X < pts[0].X)))
                 {
                     t = pts[0];
                     pts[0] = pts[i];
@@ -175,7 +190,9 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             {
                 p = ps.Pop();
                 while (CGAlgorithms.ComputeOrientation(ps.Peek(), p, c[i]) > 0)
+                {
                     p = ps.Pop();
+                }
                 ps.Push(p);
                 ps.Push(c[i]);
             }
@@ -188,19 +205,23 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// </summary>
         /// <param name="ps"></param>
         /// <returns></returns>    
-        private Stack<ICoordinate> ReverseStack(Stack<ICoordinate> ps) 
-        {        
+        private Stack<ICoordinate> ReverseStack(Stack<ICoordinate> ps)
+        {
             // Do a manual reverse of the stack
             int size = ps.Count;
             ICoordinate[] tempArray = new ICoordinate[size];
             for (int i = 0; i < size; i++)
+            {
                 tempArray[i] = ps.Pop();
+            }
             Stack<ICoordinate> returnStack = new Stack<ICoordinate>(size);
             foreach (ICoordinate obj in tempArray)
+            {
                 returnStack.Push(obj);
-            return returnStack;                        
-        }               
-       
+            }
+            return returnStack;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -214,23 +235,33 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         private bool IsBetween(ICoordinate c1, ICoordinate c2, ICoordinate c3)
         {
             if (CGAlgorithms.ComputeOrientation(c1, c2, c3) != 0)
+            {
                 return false;
+            }
             if (c1.X != c3.X)
             {
                 if (c1.X <= c2.X && c2.X <= c3.X)
+                {
                     return true;
+                }
                 if (c3.X <= c2.X && c2.X <= c1.X)
+                {
                     return true;
+                }
             }
             if (c1.Y != c3.Y)
             {
                 if (c1.Y <= c2.Y && c2.Y <= c3.Y)
+                {
                     return true;
+                }
                 if (c3.Y <= c2.Y && c2.Y <= c1.Y)
+                {
                     return true;
+                }
             }
             return false;
-        }              
+        }
 
         /// <summary>
         /// 
@@ -245,8 +276,10 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
 
             // points must all lie in a line
             if (coordList.Count < 3)
+            {
                 return null;
-            
+            }
+
             coordList.CloseRing();
             return coordList.ToCoordinateArray();
         }
@@ -260,36 +293,53 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         {
             ICoordinate[] pts = new ICoordinate[8];
             for (int j = 0; j < pts.Length; j++)
+            {
                 pts[j] = inputPts[0];
-            
+            }
+
             for (int i = 1; i < inputPts.Length; i++)
             {
                 if (inputPts[i].X < pts[0].X)
+                {
                     pts[0] = inputPts[i];
-                
+                }
+
                 if (inputPts[i].X - inputPts[i].Y < pts[1].X - pts[1].Y)
+                {
                     pts[1] = inputPts[i];
-                
-                if (inputPts[i].Y > pts[2].Y)                
+                }
+
+                if (inputPts[i].Y > pts[2].Y)
+                {
                     pts[2] = inputPts[i];
-                
-                if (inputPts[i].X + inputPts[i].Y > pts[3].X + pts[3].Y)                
+                }
+
+                if (inputPts[i].X + inputPts[i].Y > pts[3].X + pts[3].Y)
+                {
                     pts[3] = inputPts[i];
-                
+                }
+
                 if (inputPts[i].X > pts[4].X)
+                {
                     pts[4] = inputPts[i];
-                
-                if (inputPts[i].X - inputPts[i].Y > pts[5].X - pts[5].Y)                
+                }
+
+                if (inputPts[i].X - inputPts[i].Y > pts[5].X - pts[5].Y)
+                {
                     pts[5] = inputPts[i];
-                
+                }
+
                 if (inputPts[i].Y < pts[6].Y)
+                {
                     pts[6] = inputPts[i];
-                
+                }
+
                 if (inputPts[i].X + inputPts[i].Y < pts[7].X + pts[7].Y)
-                    pts[7] = inputPts[i];                
+                {
+                    pts[7] = inputPts[i];
+                }
             }
             return pts;
-
         }
 
         /// <summary>
@@ -302,7 +352,13 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         {
             coordinates = CleanRing(coordinates);
             if (coordinates.Length == 3)
-                return geomFactory.CreateLineString(new ICoordinate[] { coordinates[0], coordinates[1] });
+            {
+                return geomFactory.CreateLineString(new ICoordinate[]
+                {
+                    coordinates[0],
+                    coordinates[1]
+                });
+            }
             ILinearRing linearRing = geomFactory.CreateLinearRing(coordinates);
             return geomFactory.CreatePolygon(linearRing, null);
         }
@@ -322,10 +378,14 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                 ICoordinate currentCoordinate = original[i];
                 ICoordinate nextCoordinate = original[i + 1];
                 if (currentCoordinate.Equals(nextCoordinate))
+                {
                     continue;
+                }
                 if (previousDistinctCoordinate != null &&
                     IsBetween(previousDistinctCoordinate, currentCoordinate, nextCoordinate))
-                    continue;                
+                {
+                    continue;
+                }
                 cleanedRing.Add(currentCoordinate);
                 previousDistinctCoordinate = currentCoordinate;
             }
@@ -339,7 +399,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// </summary>
         private class RadialComparator : IComparer<ICoordinate>
         {
-            private ICoordinate origin = null;
+            private readonly ICoordinate origin = null;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="RadialComparator"/> class.
@@ -357,7 +417,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             /// <param name="p2"></param>
             /// <returns></returns>
             public int Compare(ICoordinate p1, ICoordinate p2)
-            {                
+            {
                 return PolarCompare(origin, p1, p2);
             }
 
@@ -374,23 +434,31 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                 double dyp = p.Y - o.Y;
                 double dxq = q.X - o.X;
                 double dyq = q.Y - o.Y;
-             
+
                 int orient = CGAlgorithms.ComputeOrientation(o, p, q);
 
-                if(orient == CGAlgorithms.CounterClockwise)
+                if (orient == CGAlgorithms.CounterClockwise)
+                {
                     return 1;
-                if(orient == CGAlgorithms.Clockwise) 
+                }
+                if (orient == CGAlgorithms.Clockwise)
+                {
                     return -1;
+                }
 
                 // points are collinear - check distance
-                double op = dxp * dxp + dyp * dyp;
-                double oq = dxq * dxq + dyq * dyq;
+                double op = dxp*dxp + dyp*dyp;
+                double oq = dxq*dxq + dyq*dyq;
                 if (op < oq)
-                    return -1;                
+                {
+                    return -1;
+                }
                 if (op > oq)
+                {
                     return 1;
+                }
                 return 0;
             }
-        }       
+        }
     }
 }

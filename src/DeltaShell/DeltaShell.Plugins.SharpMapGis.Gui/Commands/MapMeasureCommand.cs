@@ -4,6 +4,18 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
 {
     public class MapMeasureCommand : MapViewCommand
     {
+        protected override IMapTool CurrentTool
+        {
+            get
+            {
+                if (MapView == null)
+                {
+                    return null;
+                }
+                return MapView.MapControl.GetToolByType<MeasureTool>();
+            }
+        }
+
         protected override void OnExecute(object[] arguments)
         {
             var tool = CurrentTool;
@@ -18,19 +30,9 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
                 {
                     MapView.MapControl.ActivateTool(tool);
                 }
-
             }
 
             base.OnExecute(arguments);
-        }
-
-        protected override IMapTool CurrentTool
-        {
-            get
-            {
-                if (MapView == null) return null;
-                return MapView.MapControl.GetToolByType<MeasureTool>(); 
-            }
         }
     }
 }

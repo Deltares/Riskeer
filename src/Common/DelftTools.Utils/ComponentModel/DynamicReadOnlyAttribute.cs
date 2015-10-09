@@ -14,7 +14,9 @@ namespace DelftTools.Utils.ComponentModel
         public static bool IsDynamicReadOnly(object obj, string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))
+            {
                 return false;
+            }
 
             // todo: caching!!!!
             var propertyInfo = obj.GetType().GetProperty(propertyName);
@@ -38,7 +40,10 @@ namespace DelftTools.Utils.ComponentModel
                     String.Format("{0} uses DynanamicReadOnlyAttribute but does not have method marked using DynamicReadOnlyValidationMethodAttribute", obj));
             }
 
-            var shouldBeReadOnly = (bool)validationMethod.Invoke(obj, new[] { propertyName });
+            var shouldBeReadOnly = (bool) validationMethod.Invoke(obj, new[]
+            {
+                propertyName
+            });
 
             return shouldBeReadOnly;
         }

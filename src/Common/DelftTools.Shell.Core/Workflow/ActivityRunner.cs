@@ -16,6 +16,11 @@ namespace DelftTools.Shell.Core.Workflow
     //TODO: make this stuff (lists) threadsafe damnit!
     public class ActivityRunner : IActivityRunner
     {
+        public event EventHandler IsRunningChanged;
+
+        public event EventHandler ActivitiesCollectionChanged;
+
+        private const int maxRunningTaskCount = 1;
         private static readonly ILog log = LogManager.GetLogger(typeof(ActivityRunner));
 
         private readonly IList<AsyncActivityRunner> runningTasks = new List<AsyncActivityRunner>();
@@ -24,15 +29,7 @@ namespace DelftTools.Shell.Core.Workflow
 
         private bool running; // synchronization flag
 
-        /// <summary>
-        /// Provides an evented summary of the current activities (running and todo). 
-        /// DO NOT ADD TO THIS LIST useEnqueue instead
-        /// </summary>
-        public IEventedList<IActivity> Activities
-        {
-            get { return activities; }
-        }
-
+        private bool wasRunning;
 
         public ActivityRunner()
         {
@@ -40,23 +37,37 @@ namespace DelftTools.Shell.Core.Workflow
             activities.CollectionChanged += HandleActivitiesCollectionChanged;
         }
 
-        void HandleActivitiesCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        /// <summary>
+        /// Provides an evented summary of the current activities (running and todo). 
+        /// DO NOT ADD TO THIS LIST useEnqueue instead
+        /// </summary>
+        public IEventedList<IActivity> Activities
         {
-            //only local changes...get this in the EventedList...
-            if (sender != activities)
-                return;
-
-            if (e.Action == NotifyCollectionChangeAction.Add)
+            get
             {
-                ((IActivity)e.Item).StatusChanged += HandleActivityStatusChanged;
-            }
-            else if (e.Action == NotifyCollectionChangeAction.Remove)
-            {
-                ((IActivity)e.Item).StatusChanged -= HandleActivityStatusChanged;
+                return activities;
             }
         }
 
-        void HandleActivityStatusChanged(object sender, ActivityStatusChangedEventArgs e)
+        private void HandleActivitiesCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        {
+            //only local changes...get this in the EventedList...
+            if (sender != activities)
+            {
+                return;
+            }
+
+            if (e.Action == NotifyCollectionChangeAction.Add)
+            {
+                ((IActivity) e.Item).StatusChanged += HandleActivityStatusChanged;
+            }
+            else if (e.Action == NotifyCollectionChangeAction.Remove)
+            {
+                ((IActivity) e.Item).StatusChanged -= HandleActivityStatusChanged;
+            }
+        }
+
+        private void HandleActivityStatusChanged(object sender, ActivityStatusChangedEventArgs e)
         {
             if (e.NewStatus == ActivityStatus.Cancelled)
             {
@@ -92,13 +103,7 @@ namespace DelftTools.Shell.Core.Workflow
             OnIsRunningChanged();
         }
 
-        private const int maxRunningTaskCount = 1;
-
-        public event EventHandler IsRunningChanged;
-        
-        public event EventHandler ActivitiesCollectionChanged;
-
-        private void StartTaskIfPossible(Action beforeActualRun=null)
+        private void StartTaskIfPossible(Action beforeActualRun = null)
         {
             //we can run if we are not busy and have something todo ;)
             while (true)
@@ -108,8 +113,10 @@ namespace DelftTools.Shell.Core.Workflow
                 using (new TryLock(runningTasks))
                 {
                     if (runningTasks.Count >= maxRunningTaskCount || (todoTasks.Count <= 0))
+                    {
                         break;
-                    
+                    }
+
                     taskToRun = todoTasks[0];
                     runningTasks.Add(taskToRun);
                     todoTasks.RemoveAt(0);
@@ -126,7 +133,7 @@ namespace DelftTools.Shell.Core.Workflow
             }
         }
 
-        void Completed(object sender, EventArgs e)
+        private void Completed(object sender, EventArgs e)
         {
             var task = (AsyncActivityRunner) sender;
 
@@ -138,7 +145,7 @@ namespace DelftTools.Shell.Core.Workflow
             {
                 Debug.WriteLine(string.Format("Finished activity {0}", task.Activity.Name));
             }
-            
+
             try
             {
                 OnTaskCompleted(task);
@@ -166,7 +173,6 @@ namespace DelftTools.Shell.Core.Workflow
             activities.Remove(task.Activity);
         }
 
-        private bool wasRunning;
         private void OnIsRunningChanged()
         {
             running = false;
@@ -193,10 +199,10 @@ namespace DelftTools.Shell.Core.Workflow
                 }
                 else
                 {
-                    log.Error(String.Format("An error occured while running activity {0}: ", sender.Activity.Name), sender.Exception);    
+                    log.Error(String.Format("An error occured while running activity {0}: ", sender.Activity.Name), sender.Exception);
                 }
             }
-                
+
             if (ActivityCompleted != null)
             {
                 ActivityCompleted(this, new ActivityEventArgs(sender.Activity));
@@ -206,7 +212,6 @@ namespace DelftTools.Shell.Core.Workflow
         }
 
         #region IActivityRunner Members
-
 
         public bool IsRunning
         {
@@ -222,8 +227,10 @@ namespace DelftTools.Shell.Core.Workflow
         public bool IsRunningActivity(IActivity activity)
         {
             if (activity == null)
+            {
                 return false;
-            
+            }
+
             return GetRunningTasksThreadSafe().Any(task => task.Activity == activity) && !running;
         }
 
@@ -247,7 +254,7 @@ namespace DelftTools.Shell.Core.Workflow
             }
 
             Debug.WriteLine(string.Format("Enqueued activity {0}", activity.Name));
-            
+
             //TODO: it might already be running so running would not be changed.
             //fix and review
             StartTaskIfPossible(OnIsRunningChanged);
@@ -291,7 +298,6 @@ namespace DelftTools.Shell.Core.Workflow
                     {
                         throw new Exception(string.Format("Finishing of {0} has failed.", activity.Name));
                     }
-
                 }
 
                 activity.Cleanup();
@@ -347,6 +353,7 @@ namespace DelftTools.Shell.Core.Workflow
 
             OnIsRunningChanged();
         }
+
         //TODO: make cancelAll use cancel for each activity.
         public void CancelAll()
         {
@@ -391,7 +398,7 @@ namespace DelftTools.Shell.Core.Workflow
         private readonly bool hasLock;
         private object lockObject;
 
-        public TryLock(object lockObject, int timeOut=100)
+        public TryLock(object lockObject, int timeOut = 100)
         {
             this.lockObject = lockObject;
             hasLock = Monitor.TryEnter(lockObject, timeOut);
@@ -400,7 +407,9 @@ namespace DelftTools.Shell.Core.Workflow
         public void Dispose()
         {
             if (hasLock)
+            {
                 Monitor.Exit(lockObject);
+            }
             lockObject = null;
         }
     }

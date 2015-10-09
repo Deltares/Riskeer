@@ -13,7 +13,7 @@ namespace GeoAPI.Geometries
 
         int SRID { get; set; }
 
-        string GeometryType { get; } 
+        string GeometryType { get; }
 
         /// <summary>
         /// A ISurface method moved in IGeometry 
@@ -23,7 +23,7 @@ namespace GeoAPI.Geometries
         /// <summary>
         /// A ICurve method moved in IGeometry
         /// </summary>
-        double Length { get; }        
+        double Length { get; }
 
         /// <summary>
         /// A IGeometryCollection method moved in IGeometry
@@ -33,7 +33,7 @@ namespace GeoAPI.Geometries
         /// <summary>
         /// A ILineString method moved to IGeometry
         /// </summary>
-        int NumPoints { get; }        
+        int NumPoints { get; }
 
         IGeometry Boundary { get; set; }
 
@@ -42,14 +42,14 @@ namespace GeoAPI.Geometries
         /// <summary>
         /// A ISurface method moved in IGeometry 
         /// </summary>
-        IPoint Centroid { get; }                        
-        
+        IPoint Centroid { get; }
+
         ICoordinate Coordinate { get; }
-        
-        ICoordinate[] Coordinates { get; }       
-                        
+
+        ICoordinate[] Coordinates { get; }
+
         Dimensions Dimension { get; set; }
-                
+
         IGeometry Envelope { get; }
 
         IEnvelope EnvelopeInternal { get; }
@@ -59,22 +59,30 @@ namespace GeoAPI.Geometries
         /// <summary>
         /// A ISurface method moved in IGeometry 
         /// </summary>        
-        IPoint PointOnSurface { get; }        
+        IPoint PointOnSurface { get; }
+
+        object UserData { get; set; }
+
+        bool IsEmpty { get; }
+
+        bool IsRectangle { get; }
+
+        bool IsSimple { get; }
+
+        bool IsValid { get; }
 
         /// <summary>
         /// A IGeometryCollection method moved in IGeometry
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
-        IGeometry GetGeometryN(int n);   
-                               
+        IGeometry GetGeometryN(int n);
+
         void Normalize();
 
         byte[] AsBinary();
-        
+
         string AsText();
-        
-        object UserData { get; set; }
 
         IGeometry ConvexHull();
 
@@ -99,14 +107,6 @@ namespace GeoAPI.Geometries
         bool EqualsExact(IGeometry other);
 
         bool EqualsExact(IGeometry other, double tolerance);
-
-        bool IsEmpty { get; }
-
-        bool IsRectangle { get; }
-
-        bool IsSimple { get; }
-
-        bool IsValid { get; }
 
         bool Within(IGeometry g);
 

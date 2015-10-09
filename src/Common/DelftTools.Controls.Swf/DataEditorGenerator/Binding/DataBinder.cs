@@ -22,7 +22,10 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding
             }
             if (editControl is TextBox)
             {
-                return new TextBoxBinding { ErrorProvider = errorProvider };
+                return new TextBoxBinding
+                {
+                    ErrorProvider = errorProvider
+                };
             }
             if (editControl is ComboBox)
             {

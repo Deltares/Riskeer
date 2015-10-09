@@ -11,12 +11,12 @@ namespace GeoAPI.Geometries
 
         int SRID { get; }
         IPrecisionModel PrecisionModel { get; }
-                
+
         IGeometry BuildGeometry(ICollection geomList);
         IGeometry CreateGeometry(IGeometry g);
-        
+
         IPoint CreatePoint(ICoordinate coordinate);
-        IPoint CreatePoint(ICoordinateSequence coordinates);        
+        IPoint CreatePoint(ICoordinateSequence coordinates);
 
         ILineString CreateLineString(ICoordinate[] coordinates);
         ILineString CreateLineString(ICoordinateSequence coordinates);
@@ -31,9 +31,9 @@ namespace GeoAPI.Geometries
         IMultiPoint CreateMultiPoint(ICoordinateSequence coordinates);
 
         IMultiLineString CreateMultiLineString(ILineString[] lineStrings);
-        
+
         IMultiPolygon CreateMultiPolygon(IPolygon[] polygons);
-        
+
         IGeometryCollection CreateGeometryCollection(IGeometry[] geometries);
 
         IGeometry ToGeometry(IEnvelope envelopeInternal);

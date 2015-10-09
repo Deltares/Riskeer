@@ -6,175 +6,15 @@ namespace SharpMap.UI.Tools.Decorations
 {
     public class LegendToolItem
     {
-        #region fields
-
-        private bool centered;
-        private Bitmap symbol;
-        private IList<LegendToolItem> items = new List<LegendToolItem>();
-        private LegendToolItem parent;
-        private Size padding;
-        private Graphics graphics;
-        private Font font;
-
-        #endregion
-
-        public LegendToolItem()
-        {
-        }
+        public LegendToolItem() {}
 
         public LegendToolItem(Bitmap symbol, string text, bool centered, LegendToolItem parent)
         {
-            this.centered = centered;
-            this.symbol = symbol;
+            Centered = centered;
+            Symbol = symbol;
             Text = text;
-            this.parent = parent;
+            Parent = parent;
         }
-
-        #region properties (getters & setters)
-        public IList<LegendToolItem> Items
-        {
-            get
-            {
-                return items;
-            }
-        }
-
-        public Bitmap Symbol
-        {
-            set { symbol = value; }
-            get { return symbol; }
-        }
-
-        internal string Text { get; set; }
-
-        public bool Centered
-        {
-            get { return centered; }
-        }
-
-        public LegendToolItem Parent
-        {
-            get { return parent; }
-            set { parent = value; }
-        }
-
-        public Graphics Graphics
-        {
-            get
-            {
-                if (parent == null)
-                    return graphics;
-
-                return parent.Graphics;
-            }
-            set { graphics = value; }
-        }
-
-        public Font Font
-        {
-            get
-            {
-                if (parent == null)
-                    return font;
-
-                return parent.Font;
-            }
-            set { font = value; }
-        }
-
-        public Size Padding
-        {
-            get
-            {
-                if (parent == null)
-                    return padding;
-
-                return parent.Padding;
-            }
-            set
-            {
-                padding = value;
-            }
-        }
-
-        /// <summary>
-        /// Compute size of this LegendToolItem only (i.e. excluding any children)
-        /// </summary>
-        public SizeF InternalSize
-        {
-            get
-            {
-                SizeF internalSize = new SizeF(0, 0);
-                List<SizeF> sizes = new List<SizeF>();
-                if (symbol != null)
-                    sizes.Add(symbol.Size);
-                if (Text != null)
-                    sizes.Add(Graphics.MeasureString(Text, Font));
-                if (Text != null && symbol != null)
-                    sizes.Add(Padding);
-
-                foreach (SizeF size in sizes)
-                {
-                    internalSize.Width += size.Width;
-                }
-
-                internalSize.Height = MaxHeight(sizes.ToArray()).Height;
-
-                return internalSize;
-            }
-        }
-
-        public SizeF Size
-        {
-            get
-            {
-                SizeF maxWidthSize = InternalSize;
-                foreach (var item in items)
-                {
-                    maxWidthSize.Width = MaxWidth(maxWidthSize, item.Size).Width;
-                }
-
-                SizeF heightSize = InternalSize;
-                heightSize.Height += Padding.Height;
-
-                foreach (var item in items)
-                {
-                    heightSize.Height += item.Size.Height;
-                }
-
-                return new SizeF(maxWidthSize.Width, heightSize.Height);
-            }
-        }
-
-        public int Depth
-        {
-            get 
-            { 
-                int maxDepth = -1;
-                foreach(var child in Items)
-                {
-                    int childDepth = child.Depth;
-                    if (childDepth > maxDepth)
-                        maxDepth = childDepth;
-                }
-                return maxDepth + 1;
-            }
-        }
-
-        public LegendToolItem Root
-        {
-            get
-            {
-                if (Parent != null)
-                {
-                    return Parent.Root;
-                }
-
-                return this;
-            }
-        }
-
-        #endregion
 
         public LegendToolItem AddItem(string text)
         {
@@ -250,5 +90,170 @@ namespace SharpMap.UI.Tools.Decorations
 
             return maxHeight;
         }
+
+        #region fields
+
+        private readonly IList<LegendToolItem> items = new List<LegendToolItem>();
+        private Size padding;
+        private Graphics graphics;
+        private Font font;
+
+        #endregion
+
+        #region properties (getters & setters)
+
+        public IList<LegendToolItem> Items
+        {
+            get
+            {
+                return items;
+            }
+        }
+
+        public Bitmap Symbol { set; get; }
+
+        internal string Text { get; set; }
+
+        public bool Centered { get; private set; }
+
+        public LegendToolItem Parent { get; set; }
+
+        public Graphics Graphics
+        {
+            get
+            {
+                if (Parent == null)
+                {
+                    return graphics;
+                }
+
+                return Parent.Graphics;
+            }
+            set
+            {
+                graphics = value;
+            }
+        }
+
+        public Font Font
+        {
+            get
+            {
+                if (Parent == null)
+                {
+                    return font;
+                }
+
+                return Parent.Font;
+            }
+            set
+            {
+                font = value;
+            }
+        }
+
+        public Size Padding
+        {
+            get
+            {
+                if (Parent == null)
+                {
+                    return padding;
+                }
+
+                return Parent.Padding;
+            }
+            set
+            {
+                padding = value;
+            }
+        }
+
+        /// <summary>
+        /// Compute size of this LegendToolItem only (i.e. excluding any children)
+        /// </summary>
+        public SizeF InternalSize
+        {
+            get
+            {
+                SizeF internalSize = new SizeF(0, 0);
+                List<SizeF> sizes = new List<SizeF>();
+                if (Symbol != null)
+                {
+                    sizes.Add(Symbol.Size);
+                }
+                if (Text != null)
+                {
+                    sizes.Add(Graphics.MeasureString(Text, Font));
+                }
+                if (Text != null && Symbol != null)
+                {
+                    sizes.Add(Padding);
+                }
+
+                foreach (SizeF size in sizes)
+                {
+                    internalSize.Width += size.Width;
+                }
+
+                internalSize.Height = MaxHeight(sizes.ToArray()).Height;
+
+                return internalSize;
+            }
+        }
+
+        public SizeF Size
+        {
+            get
+            {
+                SizeF maxWidthSize = InternalSize;
+                foreach (var item in items)
+                {
+                    maxWidthSize.Width = MaxWidth(maxWidthSize, item.Size).Width;
+                }
+
+                SizeF heightSize = InternalSize;
+                heightSize.Height += Padding.Height;
+
+                foreach (var item in items)
+                {
+                    heightSize.Height += item.Size.Height;
+                }
+
+                return new SizeF(maxWidthSize.Width, heightSize.Height);
+            }
+        }
+
+        public int Depth
+        {
+            get
+            {
+                int maxDepth = -1;
+                foreach (var child in Items)
+                {
+                    int childDepth = child.Depth;
+                    if (childDepth > maxDepth)
+                    {
+                        maxDepth = childDepth;
+                    }
+                }
+                return maxDepth + 1;
+            }
+        }
+
+        public LegendToolItem Root
+        {
+            get
+            {
+                if (Parent != null)
+                {
+                    return Parent.Root;
+                }
+
+                return this;
+            }
+        }
+
+        #endregion
     }
 }

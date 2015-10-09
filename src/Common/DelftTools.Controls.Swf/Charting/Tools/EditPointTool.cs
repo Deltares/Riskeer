@@ -16,40 +16,44 @@ namespace DelftTools.Controls.Swf.Charting.Tools
     /// </summary>
     public class EditPointTool : ChartViewSeriesToolBase, IEditPointTool
     {
+        public event EventHandler<PointEventArgs> BeforeDrag;
+
+        public event EventHandler<HoverPointEventArgs> MouseHoverPoint;
+
+        public event EventHandler<PointEventArgs> AfterPointEdit;
         private const double clippingTolerance = 1e-4;
+        private static readonly ILog log = LogManager.GetLogger(typeof(EditPointTool));
+        private readonly ToolTip toolTip;
+        private readonly DeltaShellTChart tChart;
         private DragStyle style = DragStyle.Both;
         private bool pointHasMoved;
         private Color selectedPointerColor = Color.LimeGreen;
-        private Steema.TeeChart.Styles.PointerStyles selectedPointerStyle = Steema.TeeChart.Styles.PointerStyles.Diamond;
-        private readonly ToolTip toolTip;
-        private readonly DeltaShellTChart tChart;
+        private readonly Steema.TeeChart.Styles.PointerStyles selectedPointerStyle = Steema.TeeChart.Styles.PointerStyles.Diamond;
         private bool clipXValues = true;
         private bool restoreZoom;
-        private static ILog log = LogManager.GetLogger(typeof(EditPointTool));
 
         /// <summary>
         /// Allows user to interactively change points in a chart
         /// </summary>
         /// <param name="c"></param>
-        public EditPointTool(Steema.TeeChart.Chart c): base(c)
+        public EditPointTool(Steema.TeeChart.Chart c) : base(c)
         {
-            toolTip = new ToolTip {ShowAlways = false};
+            toolTip = new ToolTip
+            {
+                ShowAlways = false
+            };
         }
 
         /// <summary>
         /// Allows user to interactively change points in a chart
         /// </summary>
         /// <param name="s"></param>
-        public EditPointTool(Steema.TeeChart.Styles.Series s): base(s)
-        {
-        }
+        public EditPointTool(Steema.TeeChart.Styles.Series s) : base(s) {}
 
         /// <summary>
         /// Allows user to interactively change points in a chart
         /// </summary>
-        public EditPointTool(): this(((Steema.TeeChart.Chart)null))
-        {
-        }
+        public EditPointTool() : this(((Steema.TeeChart.Chart) null)) {}
 
         /// <summary>
         /// Allows user to interactively change points in a chart
@@ -65,26 +69,38 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         }
 
         /// <summary>
-        /// True if series line can represent a polygon, otherwise x-coordinate of every point will be limited by x value of it's neighbours.
-        /// </summary>
-        public bool IsPolygon { get; set; }
-
-        /// <summary>
         /// Color  of the point selected in the chart
         /// </summary>
         public Color SelectedPointerColor
         {
-            get { return selectedPointerColor; }
-            set { selectedPointerColor = value; }
+            get
+            {
+                return selectedPointerColor;
+            }
+            set
+            {
+                selectedPointerColor = value;
+            }
         }
+
+        /// <summary>
+        /// True if series line can represent a polygon, otherwise x-coordinate of every point will be limited by x value of it's neighbours.
+        /// </summary>
+        public bool IsPolygon { get; set; }
 
         /// <summary>
         /// Clip means that a point cannot be dragged PASSED another in X direction
         /// </summary>
         public bool ClipXValues
         {
-            get { return clipXValues; }
-            set { clipXValues = value; }
+            get
+            {
+                return clipXValues;
+            }
+            set
+            {
+                clipXValues = value;
+            }
         }
 
         /// <summary>
@@ -94,21 +110,27 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
         public DragStyle DragStyles
         {
-            get { return style; }
-            set { style = value; }
+            get
+            {
+                return style;
+            }
+            set
+            {
+                style = value;
+            }
         }
 
         public ILineChartSeries Series
         {
-            get { return (ILineChartSeries) base.Series; }
-            set { base.Series = value; }
+            get
+            {
+                return (ILineChartSeries) base.Series;
+            }
+            set
+            {
+                base.Series = value;
+            }
         }
-
-        public event EventHandler<PointEventArgs> BeforeDrag;
-
-        public event EventHandler<HoverPointEventArgs> MouseHoverPoint;
-        
-        public event EventHandler<PointEventArgs> AfterPointEdit;
 
         protected override void KeyEvent(KeyEventArgs e)
         {
@@ -117,7 +139,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             {
                 // try to delete point from datasource so event is fired 
                 DataTable dataTable = LastSelectedSeries.DataSource as DataTable;
-                
+
                 if (dataTable != null)
                 {
                     dataTable.Rows[selectedPointIndex].Delete();
@@ -138,9 +160,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         protected override void OnMouseDown(MouseEventArgs e)
         {
             log.Debug("EditPointTool : Down");
-            
+
             Point p = new Point(e.X, e.Y);
-            
+
             //why not e.Button?
             if (Steema.TeeChart.Utils.GetMouseButton(e) != MouseButtons.Left)
             {
@@ -220,38 +242,29 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 if ((style == DragStyle.X) || (style == DragStyle.Both))
                 {
                     if (LastSelectedSeries != null)
+                    {
                         LastSelectedSeries.XValues[SelectedPointIndex] = CalculateXValue(p);
+                    }
                     pointHasMoved = true;
                 }
 
                 if ((style == DragStyle.Y) || (style == DragStyle.Both))
                 {
                     if (LastSelectedSeries != null)
+                    {
                         LastSelectedSeries.YValues[SelectedPointIndex] = CalculateYValue(p);
+                    }
                     pointHasMoved = true;
                 }
                 if (IsPolygon)
                 {
                     SynchronizeFirstAndLastPointOfPolygon();
                 }
-                
-                if (pointHasMoved)
-                    Invalidate();
-            }
-        }
 
-        private static Cursor GetCursorIcon(DragStyle dragStyle)
-        {
-            switch (dragStyle)
-            {
-                case DragStyle.Both:
-                    return Cursors.SizeAll;
-                case DragStyle.X:
-                    return Cursors.SizeWE;
-                case DragStyle.Y:
-                    return Cursors.SizeNS;
-                default:
-                    throw new NotImplementedException(String.Format("No cursor assigned for {0}", dragStyle));
+                if (pointHasMoved)
+                {
+                    Invalidate();
+                }
             }
         }
 
@@ -281,14 +294,18 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                             if (0 == SelectedPointIndex)
                             {
                                 if (LastSelectedSeries != null)
+                                {
                                     AfterPointEdit(this, new PointEventArgs(chartSeries, LastSelectedSeries.XValues.Count - 1,
                                                                             LastSelectedSeries.XValues[selectedPointIndex], LastSelectedSeries.YValues[selectedPointIndex]));
+                                }
                             }
                             else if (LastSelectedSeries != null)
+                            {
                                 if ((LastSelectedSeries.XValues.Count - 1) == SelectedPointIndex)
                                 {
                                     AfterPointEdit(this, new PointEventArgs(chartSeries, 0, LastSelectedSeries.XValues[selectedPointIndex], LastSelectedSeries.YValues[selectedPointIndex]));
                                 }
+                            }
                         }
                     }
                     pointHasMoved = false;
@@ -316,6 +333,21 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             }
         }
 
+        private static Cursor GetCursorIcon(DragStyle dragStyle)
+        {
+            switch (dragStyle)
+            {
+                case DragStyle.Both:
+                    return Cursors.SizeAll;
+                case DragStyle.X:
+                    return Cursors.SizeWE;
+                case DragStyle.Y:
+                    return Cursors.SizeNS;
+                default:
+                    throw new NotImplementedException(String.Format("No cursor assigned for {0}", dragStyle));
+            }
+        }
+
         private double CalculateXValue(Point P)
         {
             double xValue = LastSelectedSeries.XScreenToValue(P.X);
@@ -326,7 +358,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 {
                     //do not allow to horizontally drag before a neigbouring point.
                     double lowerLimit = LastSelectedSeries.XValues[SelectedPointIndex - 1];
-                    if (xValue < lowerLimit )
+                    if (xValue < lowerLimit)
                     {
                         log.DebugFormat("Fixing x value (left limit) {0} => {1}", xValue, lowerLimit + clippingTolerance);
                         xValue = lowerLimit + clippingTolerance;
@@ -336,7 +368,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 {
                     //do not allow to horizontally drag past a neigbouring point.
                     double upperLimit = LastSelectedSeries.XValues[SelectedPointIndex + 1];
-                    if (xValue > upperLimit )
+                    if (xValue > upperLimit)
                     {
                         log.DebugFormat("Fixing x value (right limit) {0} => {1}", xValue, upperLimit - clippingTolerance);
                         xValue = upperLimit - clippingTolerance;
@@ -356,7 +388,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
                 double current = LastSelectedSeries.YValues[SelectedPointIndex];
                 var limits = new List<double>();
-                
+
                 if (SelectedPointIndex > 0)
                 {
                     limits.Add(LastSelectedSeries.YValues[SelectedPointIndex - 1]);
@@ -373,7 +405,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
         private static double Clip(double newValue, double oldValue, double margin, IList<double> limits)
         {
-            foreach(double limit in limits) //note: should these be ordered?
+            foreach (double limit in limits) //note: should these be ordered?
             {
                 if (limit.IsInRange(newValue, oldValue))
                 {
@@ -397,7 +429,6 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 LastSelectedSeries.XValues[0] = LastSelectedSeries.XValues[LastSelectedSeries.XValues.Count - 1];
                 LastSelectedSeries.YValues[0] = LastSelectedSeries.YValues[LastSelectedSeries.YValues.Count - 1];
             }
-
         }
     }
 

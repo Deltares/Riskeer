@@ -28,19 +28,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
     public class MapViewTest
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MapViewTest));
-        const string DataPath = @"..\..\..\..\..\test-data\DeltaShell\DeltaShell.Plugins.SharpMapGis.Tests\";
-
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
-        {
-            LogHelper.ConfigureLogging();
-        }
-
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
-        {
-            LogHelper.ResetLogging();
-        }
 
         [Test]
         public void DisablingLayerShouldRefreshMapOnce()
@@ -115,39 +102,48 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var dst = Map.CoordinateSystemFactory.CreateFromEPSG(3857 /* Web Mercator */);
 
             var layer = new VectorLayer
-                            {
-                                Name = Path.GetFileName(path), 
-                                // RenderQuadTreeEnvelopes = true,
-                                // UseSimpleGeometryForQuadTree = true,
-                                UseQuadTree = true, 
-                                // CoordinateTransformation = Map.CoordinateSystemFactory.CreateTransformation(src, dst)
-                            };
+            {
+                Name = Path.GetFileName(path),
+                // RenderQuadTreeEnvelopes = true,
+                // UseSimpleGeometryForQuadTree = true,
+                UseQuadTree = true,
+                // CoordinateTransformation = Map.CoordinateSystemFactory.CreateTransformation(src, dst)
+            };
 
             var mapView = new MapView();
 
-            using (var gui = new DeltaShellGui { Plugins = { new SharpMapGisGuiPlugin() } })
+            using (var gui = new DeltaShellGui
             {
-                var mapLegendView = new MapLegendView(gui) { Map = mapView.Map };
+                Plugins =
+                {
+                    new SharpMapGisGuiPlugin()
+                }
+            })
+            {
+                var mapLegendView = new MapLegendView(gui)
+                {
+                    Map = mapView.Map
+                };
                 WindowsFormsTestHelper.Show(mapLegendView);
 
                 WindowsFormsTestHelper.ShowModal(mapView, o =>
                 {
                     TestHelper.AssertIsFasterThan(25000, () =>
+                    {
+                        shp = new ShapeFile(path, true);
+                        //layer.SimplifyGeometryDuringRendering = false;
+                        layer.DataSource = shp;
+
+                        if (type == ShapeType.Polygon)
                         {
-                            shp = new ShapeFile(path, true);
-                            //layer.SimplifyGeometryDuringRendering = false;
-                            layer.DataSource = shp;
+                            layer.Style.Fill = new SolidBrush(Color.FromArgb(100, 50, 50, 255));
+                            //layer.Style.Fill = Brushes.Transparent;
+                            layer.Style.Outline = new Pen(Color.FromArgb(150, 50, 50, 255), 1);
+                            //layer.Style.EnableOutline = false;
+                        }
 
-                            if (type == ShapeType.Polygon)
-                            {
-                                layer.Style.Fill = new SolidBrush(Color.FromArgb(100, 50, 50, 255));
-                                //layer.Style.Fill = Brushes.Transparent;
-                                layer.Style.Outline = new Pen(Color.FromArgb(150, 50, 50, 255), 1);
-                                //layer.Style.EnableOutline = false;
-                            }
-
-                            mapView.Map.Layers.Add(layer);
-                        });
+                        mapView.Map.Layers.Add(layer);
+                    });
                 }, layer);
 
                 mapView.Dispose();
@@ -163,7 +159,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var center = new Coordinate(20, 20);
             map.Center = center;
 
-            using (var view = new MapView {Size = new Size(640, 480), Map = map})
+            using (var view = new MapView
+            {
+                Size = new Size(640, 480), Map = map
+            })
             {
                 Assert.AreEqual(zoom, map.Zoom);
                 Assert.AreEqual(center, map.Center);
@@ -174,9 +173,21 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         public void OpenMapViewWithVectorLayerAttributeTable()
         {
             var shapefile = new ShapeFile(DataPath + "rivers.shp");
-            var layer = new VectorLayer { DataSource = shapefile };
-            var map = new Map { Layers = { layer } };
-            var mapView = new MapView { Map = map };
+            var layer = new VectorLayer
+            {
+                DataSource = shapefile
+            };
+            var map = new Map
+            {
+                Layers =
+                {
+                    layer
+                }
+            };
+            var mapView = new MapView
+            {
+                Map = map
+            };
 
             Assert.IsTrue(mapView.Splitter.IsCollapsed);
 
@@ -191,11 +202,26 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         public void CloseLastTabCollapsesSplitter()
         {
             var shapefile = new ShapeFile(DataPath + "rivers.shp");
-            var layer = new VectorLayer { DataSource = shapefile };
-            var map = new Map { Layers = { layer } };
-            var mapView = new MapView { Map = map };
+            var layer = new VectorLayer
+            {
+                DataSource = shapefile
+            };
+            var map = new Map
+            {
+                Layers =
+                {
+                    layer
+                }
+            };
+            var mapView = new MapView
+            {
+                Map = map
+            };
 
-            var view = new VectorLayerAttributeTableView { Data = layer };
+            var view = new VectorLayerAttributeTableView
+            {
+                Data = layer
+            };
 
             mapView.TabControl.AddView(view);
             mapView.TabControl.RemoveView(view);
@@ -213,7 +239,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var tabControl = mocks.Stub<MapViewTabControl>();
             var mapViewEditor = mocks.StrictMock<ILayerEditorView>();
 
-            var layerEditorViews = new EventedList<IView> {mapViewEditor};
+            var layerEditorViews = new EventedList<IView>
+            {
+                mapViewEditor
+            };
 
             tabControl.Expect(tc => tc.ChildViews).Return(layerEditorViews).Repeat.Any();
 
@@ -239,6 +268,20 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             mapView.Map.Layers.Clear();
 
             mocks.VerifyAll();
+        }
+
+        private const string DataPath = @"..\..\..\..\..\test-data\DeltaShell\DeltaShell.Plugins.SharpMapGis.Tests\";
+
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
+        {
+            LogHelper.ConfigureLogging();
+        }
+
+        [TestFixtureTearDown]
+        public void TestFixtureTearDown()
+        {
+            LogHelper.ResetLogging();
         }
     }
 }

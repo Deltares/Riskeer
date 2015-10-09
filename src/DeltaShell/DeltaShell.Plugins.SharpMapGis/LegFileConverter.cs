@@ -15,10 +15,10 @@ namespace DeltaShell.Plugins.SharpMapGis
             const string valueGroup = "ValueGroup";
             const string colorGroup = "ColorGroup";
             const string descrGroup = "DescrGroup";
-            const string regExpRange = "Range[0-9-]{1,2}="+
-                                        @"(?<" + valueGroup + @">[0-9.-]*)," +
-                                        "(?<" + colorGroup + ">[0-9a-fA-F-]*),\""+
-                                        "(?<" + descrGroup + ">" + RegularExpression.Characters + ")\"";
+            const string regExpRange = "Range[0-9-]{1,2}=" +
+                                       @"(?<" + valueGroup + @">[0-9.-]*)," +
+                                       "(?<" + colorGroup + ">[0-9a-fA-F-]*),\"" +
+                                       "(?<" + descrGroup + ">" + RegularExpression.Characters + ")\"";
 
             var generatedTheme = new QuantityTheme(attributeName, new VectorStyle());
             var regex = new Regex(regExpRange, RegexOptions.Singleline);
@@ -37,17 +37,20 @@ namespace DeltaShell.Plugins.SharpMapGis
                 var previousValue = (previousMatch.Groups[valueGroup].Captures[0].Value);
 
                 var quantityThemeItem = new QuantityThemeItem(new Interval
-                                                                  {
-                                                                      Min = System.Convert.ToDouble(previousValue),
-                                                                      Max = System.Convert.ToDouble(value)
-                                                                  }
+                {
+                    Min = System.Convert.ToDouble(previousValue),
+                    Max = System.Convert.ToDouble(value)
+                }
                                                               , new VectorStyle
-                                                                    {
-                                                                        Line = new Pen(color),
-                                                                        Fill = new SolidBrush(color)
-                                                                    }) {Label = label};
+                                                              {
+                                                                  Line = new Pen(color),
+                                                                  Fill = new SolidBrush(color)
+                                                              })
+                {
+                    Label = label
+                };
 
-                ((VectorStyle) quantityThemeItem.Style).GeometryType = typeof (IPolygon);
+                ((VectorStyle) quantityThemeItem.Style).GeometryType = typeof(IPolygon);
                 generatedTheme.ThemeItems.Add(quantityThemeItem);
             }
 

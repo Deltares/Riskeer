@@ -20,7 +20,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
     /// *************************************************************************
     /// </summary>
     public class RobustDeterminant
-    {     
+    {
         /// <summary>
         /// 
         /// </summary>
@@ -43,7 +43,6 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             double swap;
             double k;
             long count = 0;
-            
 
             sign = 1;
 
@@ -244,9 +243,9 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             while (true)
             {
                 count = count + 1;
-                k = Math.Floor(x2 / x1);
-                x2 = x2 - k * x1;
-                y2 = y2 - k * y1;
+                k = Math.Floor(x2/x1);
+                x2 = x2 - k*x1;
+                y2 = y2 - k*y1;
 
                 /*
                  *  testing if R (new U2) is in U1 rectangle
@@ -302,9 +301,9 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                 /*
                  *  exchange 1 and 2 role.
                  */
-                k = Math.Floor(x1 / x2);
-                x1 = x1 - k * x2;
-                y1 = y1 - k * y2;
+                k = Math.Floor(x1/x2);
+                x1 = x1 - k*x2;
+                y1 = y1 - k*y2;
 
                 /*
                  *  testing if R (new U1) is in U2 rectangle
@@ -357,7 +356,6 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                     return -sign;
                 }
             }
-
         }
     }
 }

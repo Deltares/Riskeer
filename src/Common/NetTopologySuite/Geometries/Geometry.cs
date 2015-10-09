@@ -16,7 +16,7 @@ using GisSharpBlog.NetTopologySuite.Operation.Valid;
 using GisSharpBlog.NetTopologySuite.Utilities;
 
 namespace GisSharpBlog.NetTopologySuite.Geometries
-{   
+{
     /// <summary>  
     /// Basic implementation of <c>Geometry</c>.
     /// <c>Clone</c> returns a deep copy of the object.
@@ -83,13 +83,22 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
     /// topologically equal Geometries are added to Collections and Dictionaries, they
     /// remain distinct. This behaviour is desired in many cases.
     /// </remarks>
-    [Serializable]    
-    public abstract class Geometry: IGeometry
-    {        
+    [Serializable]
+    public abstract class Geometry : IGeometry
+    {
+        /* BEGIN ADDED BY MPAUL42: monoGIS team */
+
+        /// <summary>
+        /// A predefined <see cref="GeometryFactory" /> with <see cref="PrecisionModel" /> <c> == </c> <see cref="PrecisionModels.Fixed" />.
+        /// </summary>
+        /// <seealso cref="GeometryFactory.Default" />
+        /// <seealso cref="GeometryFactory.Fixed"/>
+        public static readonly IGeometryFactory DefaultFactory = GeometryFactory.Default;
+
         /// <summary>
         /// 
         /// </summary>
-        private static readonly Type[] SortedClasses = new Type[] 
+        private static readonly Type[] SortedClasses = new Type[]
         {
             typeof(Point),
             typeof(MultiPoint),
@@ -98,80 +107,28 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             typeof(MultiLineString),
             typeof(Polygon),
             typeof(MultiPolygon),
-            typeof(GeometryCollection),    
-        };                    
+            typeof(GeometryCollection),
+        };
 
-        private IGeometryFactory factory = null;
-
-        /// <summary> 
-        /// Gets the factory which contains the context in which this point was created.
-        /// </summary>
-        /// <returns>The factory for this point.</returns>
-        public IGeometryFactory Factory
-        {
-            get 
-            { 
-                return factory; 
-            }
-        }
-
-        private object userData = null;
-        
-        /// <summary> 
-        /// Gets/Sets the user data object for this point, if any.
-        /// A simple scheme for applications to add their own custom data to a Geometry.
-        /// An example use might be to add an object representing a Coordinate Reference System.
-        /// Note that user data objects are not present in geometries created by
-        /// construction methods.
-        /// </summary>
-        public object UserData
-        {
-            get
-            {                
-                return userData;
-            }
-            set
-            {
-                userData = value;
-            }
-        }
-           
         /// <summary>
         /// The bounding box of this <c>Geometry</c>.
         /// </summary>
         protected IEnvelope envelope;
-       
+
+        private IGeometryFactory factory = null;
+
+        private object userData = null;
+
         // The ID of the Spatial Reference System used by this <c>Geometry</c>
         private int srid;
 
-        /// <summary>  
-        /// Gets/Sets the ID of the Spatial Reference System used by the <c>Geometry</c>. 
-        /// NTS supports Spatial Reference System information in the simple way
-        /// defined in the SFS. A Spatial Reference System ID (SRID) is present in
-        /// each <c>Geometry</c> object. <c>Geometry</c> provides basic
-        /// accessor operations for this field, but no others. The SRID is represented
-        /// as an integer.
-        /// </summary>        
-        public int SRID
-        {
-            get 
-            { 
-                return srid; 
-            }
-            set 
-            {
-                srid = value;
-				IGeometryCollection collection = this as IGeometryCollection;
-				if (collection != null)
-				{
-					foreach (IGeometry geometry in collection.Geometries)
-					{
-						geometry.SRID = value;
-					}
-				}
-				factory = new GeometryFactory(factory.PrecisionModel, value, factory.CoordinateSequenceFactory);
-			}
-        }
+        private Dimensions dimension;
+
+        private IGeometry boundary;
+
+        private Dimensions boundaryDimension;
+
+        private int hashcode;
 
         /// <summary>
         /// 
@@ -183,40 +140,71 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             srid = factory.SRID;
         }
 
+        /// <summary> 
+        /// Gets the factory which contains the context in which this point was created.
+        /// </summary>
+        /// <returns>The factory for this point.</returns>
+        public IGeometryFactory Factory
+        {
+            get
+            {
+                return factory;
+            }
+        }
+
+        /// <summary> 
+        /// Gets/Sets the user data object for this point, if any.
+        /// A simple scheme for applications to add their own custom data to a Geometry.
+        /// An example use might be to add an object representing a Coordinate Reference System.
+        /// Note that user data objects are not present in geometries created by
+        /// construction methods.
+        /// </summary>
+        public object UserData
+        {
+            get
+            {
+                return userData;
+            }
+            set
+            {
+                userData = value;
+            }
+        }
+
+        /// <summary>  
+        /// Gets/Sets the ID of the Spatial Reference System used by the <c>Geometry</c>. 
+        /// NTS supports Spatial Reference System information in the simple way
+        /// defined in the SFS. A Spatial Reference System ID (SRID) is present in
+        /// each <c>Geometry</c> object. <c>Geometry</c> provides basic
+        /// accessor operations for this field, but no others. The SRID is represented
+        /// as an integer.
+        /// </summary>        
+        public int SRID
+        {
+            get
+            {
+                return srid;
+            }
+            set
+            {
+                srid = value;
+                IGeometryCollection collection = this as IGeometryCollection;
+                if (collection != null)
+                {
+                    foreach (IGeometry geometry in collection.Geometries)
+                    {
+                        geometry.SRID = value;
+                    }
+                }
+                factory = new GeometryFactory(factory.PrecisionModel, value, factory.CoordinateSequenceFactory);
+            }
+        }
+
         /// <summary>  
         /// Returns the name of this object's interface.
-		/// </summary>
-		/// <returns>The name of this <c>Geometry</c>s most specific interface.</returns>
-        public abstract string GeometryType { get; }
-
-        /// <summary>  
-        /// Returns true if the array contains any non-empty <c>Geometry</c>s.
-		/// </summary>
-		/// <param name="geometries"> an array of <c>Geometry</c>s; no elements may be <c>null</c></param>
-		/// <returns>            
-        /// <c>true</c> if any of the <c>Geometry</c>s
-		/// <c>IsEmpty</c> methods return <c>false</c>.
-		/// </returns>
-        protected static bool HasNonEmptyElements(IGeometry[] geometries)
-        {
-            foreach (IGeometry g in geometries)
-                if(!g.IsEmpty)
-                    return true;                                        
-            return false;
-        }
-
-        /// <summary>  
-        /// Returns true if the array contains any <c>null</c> elements.
         /// </summary>
-        /// <param name="array"> an array to validate.</param>
-        /// <returns><c>true</c> if any of <c>array</c>s elements are <c>null</c>.</returns>
-        public static bool HasNullElements(object[] array)
-        {
-            foreach (object o in array)
-                if (o == null)
-                    return true;
-            return false;            
-        }
+        /// <returns>The name of this <c>Geometry</c>s most specific interface.</returns>
+        public abstract string GeometryType { get; }
 
         /// <summary>  
         /// Returns the <c>PrecisionModel</c> used by the <c>Geometry</c>.
@@ -270,17 +258,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
                 return 1;
             }
         }
-        
-        /// <summary>
-        /// Returns an element Geometry from a GeometryCollection,
-        /// or <code>this</code>, if the geometry is not a collection.
-        /// </summary>
-        /// <param name="n">The index of the geometry element.</param>
-        /// <returns>The n'th geometry contained in this geometry.</returns>
-        public virtual IGeometry GetGeometryN(int n)
-        {
-            return this;
-        }
 
         /// <summary> 
         /// Returns false if the <c>Geometry</c> not simple.
@@ -316,31 +293,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         /// <returns><c>true</c> if this <c>Geometry</c> equals the empty point.</returns>
         public abstract bool IsEmpty { get; }
-
-        /// <summary>  
-        /// Returns the minimum distance between this <c>Geometry</c>
-        /// and the <c>Geometry</c> g.
-        /// </summary>
-        /// <param name="g">The <c>Geometry</c> from which to compute the distance. Assumed not to be null.</param>
-        public double Distance(IGeometry g)
-        {
-            return DistanceOp.Distance(this, g);
-        }
-
-        /// <summary> 
-        /// Tests whether the distance from this <c>Geometry</c>
-        /// to another is less than or equal to a specified value.
-        /// </summary>
-        /// <param name="geom">the Geometry to check the distance to.</param>
-        /// <param name="distance">the distance value to compare.</param>
-        /// <returns><c>true</c> if the geometries are less than <c>distance</c> apart.</returns>
-        public bool IsWithinDistance(IGeometry geom, double distance)
-        {
-            double envDist = EnvelopeInternal.Distance(geom.EnvelopeInternal);            
-            if (envDist > distance)
-                return false;
-            return DistanceOp.IsWithinDistance(this, geom, distance);            
-        }
 
         /// <summary>  
         /// Returns the area of this <c>Geometry</c>.
@@ -383,8 +335,10 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             get
             {
-                if (IsEmpty) 
+                if (IsEmpty)
+                {
                     return null;
+                }
 
                 ICoordinate centPt = null;
                 Dimensions dim = Dimension;
@@ -453,8 +407,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             }
         }
 
-        private Dimensions dimension;
-
         /// <summary> 
         /// Returns the dimension of this <c>Geometry</c>.
         /// </summary>
@@ -464,12 +416,15 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </returns>
         public virtual Dimensions Dimension
         {
-            get { return dimension; }
-            set { dimension = value; }
+            get
+            {
+                return dimension;
+            }
+            set
+            {
+                dimension = value;
+            }
         }
-
-
-        private IGeometry boundary;
 
         /// <summary>  
         /// Returns the boundary, or the empty point if this <c>Geometry</c>
@@ -480,11 +435,15 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <returns>The closure of the combinatorial boundary of this <c>Geometry</c>.</returns>
         public virtual IGeometry Boundary
         {
-            get { return boundary; }
-            set { boundary = value; }
+            get
+            {
+                return boundary;
+            }
+            set
+            {
+                boundary = value;
+            }
         }
-
-        private Dimensions boundaryDimension;
 
         /// <summary> 
         /// Returns the dimension of this <c>Geometry</c>s inherent boundary.
@@ -496,8 +455,14 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </returns>
         public virtual Dimensions BoundaryDimension
         {
-            get { return boundaryDimension; }
-            set { boundaryDimension = value; }
+            get
+            {
+                return boundaryDimension;
+            }
+            set
+            {
+                boundaryDimension = value;
+            }
         }
 
         /// <summary>  
@@ -535,18 +500,196 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
                 if (envelope == null)
                 {
                     envelope = ComputeEnvelopeInternal();
-                }                
+                }
                 return envelope;
             }
         }
 
-        private class GeometryChangedFilter : IGeometryComponentFilter
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool IsRectangle
         {
-            public void Filter(IGeometry geom)
+            get
             {
-                geom.GeometryChangedAction();
+                // Polygon overrides to check for actual rectangle
+                return false;
             }
-        };
+        }
+
+        /// <summary>  
+        /// Returns true if the array contains any <c>null</c> elements.
+        /// </summary>
+        /// <param name="array"> an array to validate.</param>
+        /// <returns><c>true</c> if any of <c>array</c>s elements are <c>null</c>.</returns>
+        public static bool HasNullElements(object[] array)
+        {
+            foreach (object o in array)
+            {
+                if (o == null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj1"></param>
+        /// <param name="obj2"></param>
+        /// <returns></returns>
+        public static bool operator ==(Geometry obj1, IGeometry obj2)
+        {
+            return Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj1"></param>
+        /// <param name="obj2"></param>
+        /// <returns></returns>
+        public static bool operator !=(Geometry obj1, IGeometry obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// Returns the Well-known Text representation of this <c>Geometry</c>.
+        /// For a definition of the Well-known Text format, see the OpenGIS Simple
+        /// Features Specification.
+        /// </summary>
+        /// <returns>
+        /// The Well-known Text representation of this <c>Geometry</c>.
+        /// </returns>
+        public string ToText()
+        {
+            WKTWriter writer = new WKTWriter();
+            return writer.Write(this);
+        }
+
+        /// <summary>
+        /// Returns the Well-known Binary representation of this <c>Geometry</c>.
+        /// For a definition of the Well-known Binary format, see the OpenGIS Simple
+        /// Features Specification.
+        /// </summary>
+        /// <returns>The Well-known Binary representation of this <c>Geometry</c>.</returns>
+        public byte[] ToBinary()
+        {
+            WKBWriter writer = new WKBWriter();
+            return writer.Write(this);
+        }
+
+        /// <summary>
+        /// Returns the feature representation as GML 2.1.1 XML document.
+        /// This XML document is based on <c>Geometry.xsd</c> schema.
+        /// NO features or XLink are implemented here!
+        /// </summary>        
+        public XmlReader ToGMLFeature()
+        {
+            GMLWriter writer = new GMLWriter();
+            return writer.Write(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (ReferenceEquals(obj, this))
+            {
+                return true;
+            }
+            if (GetType().Namespace != obj.GetType().Namespace)
+            {
+                return false;
+            }
+            if (obj is IGeometry)
+            {
+                return Equals((IGeometry) obj);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            if (hashcode == -1)
+            {
+                int result = 17;
+                foreach (Coordinate coord in Coordinates)
+                {
+                    result = 37*result + coord.X.GetHashCode();
+                    result = 37*result + coord.Y.GetHashCode();
+                    result = 37*result + coord.Z.GetHashCode();
+                }
+                hashcode = result;
+            }
+
+            return hashcode;
+        }
+
+        /// <summary>
+        /// Returns the Well-known Text representation of this <c>Geometry</c>.
+        /// For a definition of the Well-known Text format, see the OpenGIS Simple
+        /// Features Specification.
+        /// </summary>
+        /// <returns>
+        /// The Well-known Text representation of this <c>Geometry</c>.
+        /// </returns>
+        public override string ToString()
+        {
+            return ToText();
+        }
+
+        /// <summary>
+        /// Returns an element Geometry from a GeometryCollection,
+        /// or <code>this</code>, if the geometry is not a collection.
+        /// </summary>
+        /// <param name="n">The index of the geometry element.</param>
+        /// <returns>The n'th geometry contained in this geometry.</returns>
+        public virtual IGeometry GetGeometryN(int n)
+        {
+            return this;
+        }
+
+        /// <summary>  
+        /// Returns the minimum distance between this <c>Geometry</c>
+        /// and the <c>Geometry</c> g.
+        /// </summary>
+        /// <param name="g">The <c>Geometry</c> from which to compute the distance. Assumed not to be null.</param>
+        public double Distance(IGeometry g)
+        {
+            return DistanceOp.Distance(this, g);
+        }
+
+        /// <summary> 
+        /// Tests whether the distance from this <c>Geometry</c>
+        /// to another is less than or equal to a specified value.
+        /// </summary>
+        /// <param name="geom">the Geometry to check the distance to.</param>
+        /// <param name="distance">the distance value to compare.</param>
+        /// <returns><c>true</c> if the geometries are less than <c>distance</c> apart.</returns>
+        public bool IsWithinDistance(IGeometry geom, double distance)
+        {
+            double envDist = EnvelopeInternal.Distance(geom.EnvelopeInternal);
+            if (envDist > distance)
+            {
+                return false;
+            }
+            return DistanceOp.IsWithinDistance(this, geom, distance);
+        }
 
         /// <summary>
         /// Notifies this Geometry that its Coordinates have been changed by an external
@@ -578,8 +721,10 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public bool Disjoint(IGeometry g)
         {
             // short-circuit test
-            if (! EnvelopeInternal.Intersects(g.EnvelopeInternal))
+            if (!EnvelopeInternal.Intersects(g.EnvelopeInternal))
+            {
                 return true;
+            }
             return Relate(g).IsDisjoint();
         }
 
@@ -592,11 +737,13 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <c>true</c> if the two <c>Geometry</c>s touch;
         /// Returns false if both <c>Geometry</c>s are points.
         /// </returns>
-        public bool Touches(IGeometry g) 
+        public bool Touches(IGeometry g)
         {
             // short-circuit test
-            if (! EnvelopeInternal.Intersects(g.EnvelopeInternal))
+            if (!EnvelopeInternal.Intersects(g.EnvelopeInternal))
+            {
                 return false;
+            }
             return Relate(g).IsTouches(Dimension, g.Dimension);
         }
 
@@ -605,16 +752,22 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         /// <param name="g">The <c>Geometry</c> with which to compare this <c>Geometry</c>.</param>
         /// <returns><c>true</c> if the two <c>Geometry</c>s intersect.</returns>
-        public bool Intersects(IGeometry g) 
+        public bool Intersects(IGeometry g)
         {
             // short-circuit test
             if (!EnvelopeInternal.Intersects(g.EnvelopeInternal))
+            {
                 return false;
+            }
             // optimizations for rectangle arguments
             if (IsRectangle)
+            {
                 return RectangleIntersects.Intersects((IPolygon) this, g);
+            }
             if (g.IsRectangle)
+            {
                 return RectangleIntersects.Intersects((IPolygon) g, this);
+            }
             return Relate(g).IsIntersects();
         }
 
@@ -631,11 +784,13 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// s must be a point and a curve; a point and a surface; two curves; or a
         /// curve and a surface.
         /// </returns>
-        public bool Crosses(IGeometry g) 
+        public bool Crosses(IGeometry g)
         {
             // short-circuit test
-            if (! EnvelopeInternal.Intersects(g.EnvelopeInternal))
+            if (!EnvelopeInternal.Intersects(g.EnvelopeInternal))
+            {
                 return false;
+            }
             return Relate(g).IsCrosses(Dimension, g.Dimension);
         }
 
@@ -647,7 +802,8 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <returns><c>true</c> if this <c>Geometry</c> is within <c>other</c>.</returns>
         public bool Within(IGeometry g)
         {
-            return g.Contains(this); ;
+            return g.Contains(this);
+            ;
         }
 
         /// <summary>
@@ -655,14 +811,18 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         /// <param name="g">The <c>Geometry</c> with which to compare this <c>Geometry</c>.</param>
         /// <returns><c>true</c> if this <c>Geometry</c> contains <c>other</c>.</returns>
-        public bool Contains(IGeometry g) 
+        public bool Contains(IGeometry g)
         {
             // short-circuit test
             if (!EnvelopeInternal.Contains(g.EnvelopeInternal))
+            {
                 return false;
+            }
             // optimizations for rectangle arguments
             if (IsRectangle)
+            {
                 return RectangleContains.Contains((IPolygon) this, g);
+            }
             // general case
             return Relate(g).IsContains();
         }
@@ -679,11 +839,13 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// For this function to return <c>true</c>, the <c>Geometry</c>
         /// s must be two points, two curves or two surfaces.
         /// </returns>
-        public bool Overlaps(IGeometry g) 
+        public bool Overlaps(IGeometry g)
         {
             // short-circuit test
-            if (! EnvelopeInternal.Intersects(g.EnvelopeInternal))
+            if (!EnvelopeInternal.Intersects(g.EnvelopeInternal))
+            {
                 return false;
+            }
             return Relate(g).IsOverlaps(Dimension, g.Dimension);
         }
 
@@ -711,12 +873,16 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             // short-circuit test
             if (!EnvelopeInternal.Contains(g.EnvelopeInternal))
+            {
                 return false;
-            
+            }
+
             // optimization for rectangle arguments
             if (IsRectangle)
+            {
                 return EnvelopeInternal.Contains(g.EnvelopeInternal);
-            
+            }
+
             return Relate(g).IsCovers();
         }
 
@@ -768,14 +934,14 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// A matrix describing the intersections of the interiors,
         /// boundaries and exteriors of the two <c>Geometry</c>s.
         /// </returns>
-        public IntersectionMatrix Relate(IGeometry g) 
+        public IntersectionMatrix Relate(IGeometry g)
         {
             CheckNotGeometryCollection(this);
             CheckNotGeometryCollection(g);
 
             return RelateOp.Relate(this, g);
-        }                    
-                
+        }
+
         /// <summary>
         /// Returns <c>true</c> if the DE-9IM intersection matrix for the two
         /// <c>Geometry</c>s is T*F**FFF*.
@@ -785,137 +951,29 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public bool Equals(IGeometry g)
         {
             if (ReferenceEquals(g, this))
+            {
                 return true;
+            }
 
-			if (IsEmpty && g.IsEmpty)
-				return true;
+            if (IsEmpty && g.IsEmpty)
+            {
+                return true;
+            }
 
             // Short-circuit test
             if (!EnvelopeInternal.Intersects(g.EnvelopeInternal))
+            {
                 return false;
+            }
 
             // We use an alternative method for compare GeometryCollections (but not subclasses!), 
             if (isGeometryCollection(this) || isGeometryCollection(g))
+            {
                 return CompareGeometryCollections(this, g);
-            
+            }
+
             // Use RelateOp comparation method
             return Relate(g).IsEquals(Dimension, g.Dimension);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj1"></param>
-        /// <param name="obj2"></param>
-        /// <returns></returns>
-        private static bool CompareGeometryCollections(IGeometry obj1, IGeometry obj2)
-        {
-            IGeometryCollection coll1 = obj1 as IGeometryCollection;
-            IGeometryCollection coll2 = obj2 as IGeometryCollection;
-            if (coll1 == null || coll2 == null)
-                return false;
-
-            // Short-circuit test
-            if (coll1.NumGeometries != coll2.NumGeometries)
-                return false;
-
-            // Deep test
-            for (int i = 0; i < coll1.NumGeometries; i++)
-            {
-                IGeometry geom1 = coll1[i];
-                IGeometry geom2 = coll2[i];
-                if (!geom1.Equals(geom2))
-                    return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public override bool Equals(object obj)
-        {            
-            if (obj == null)
-                return false;
-            if (ReferenceEquals(obj, this))
-                return true;
-            if (GetType().Namespace != obj.GetType().Namespace)
-                return false;            
-            if (obj is IGeometry)
-                return Equals((IGeometry) obj);
-            return false;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj1"></param>
-        /// <param name="obj2"></param>
-        /// <returns></returns>
-        public static bool operator ==(Geometry obj1, IGeometry obj2)
-        {            
-            return Equals(obj1, obj2); 
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj1"></param>
-        /// <param name="obj2"></param>
-        /// <returns></returns>
-        public static bool operator !=(Geometry obj1, IGeometry obj2)
-        {
-            return !(obj1 == obj2);
-        }    
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public override int GetHashCode()
-        {
-            if (hashcode == -1)
-            {
-                int result = 17;
-                foreach (Coordinate coord in Coordinates)
-                {
-                    result = 37 * result + coord.X.GetHashCode();
-                    result = 37 * result + coord.Y.GetHashCode();
-                    result = 37 * result + coord.Z.GetHashCode();
-                }
-                hashcode = result;
-            }
-
-            return hashcode;
-        } 
-
-        /// <summary>
-        /// Returns the Well-known Text representation of this <c>Geometry</c>.
-        /// For a definition of the Well-known Text format, see the OpenGIS Simple
-        /// Features Specification.
-        /// </summary>
-        /// <returns>
-        /// The Well-known Text representation of this <c>Geometry</c>.
-        /// </returns>
-        public override string ToString() 
-        {
-            return ToText();
-        }
-
-        /// <summary>
-        /// Returns the Well-known Text representation of this <c>Geometry</c>.
-        /// For a definition of the Well-known Text format, see the OpenGIS Simple
-        /// Features Specification.
-        /// </summary>
-        /// <returns>
-        /// The Well-known Text representation of this <c>Geometry</c>.
-        /// </returns>
-        public string ToText() 
-        {         
-            WKTWriter writer = new WKTWriter();
-            return writer.Write(this);
         }
 
         /// <summary>
@@ -928,18 +986,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         }
 
         /// <summary>
-        /// Returns the Well-known Binary representation of this <c>Geometry</c>.
-        /// For a definition of the Well-known Binary format, see the OpenGIS Simple
-        /// Features Specification.
-        /// </summary>
-        /// <returns>The Well-known Binary representation of this <c>Geometry</c>.</returns>
-        public byte[] ToBinary()
-        {
-            WKBWriter writer = new WKBWriter();
-            return writer.Write(this);
-        }
-
-        /// <summary>
         /// <see cref="ToBinary" />
         /// </summary>
         /// <returns></returns>
@@ -947,17 +993,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             return ToBinary();
         }
-
-        /// <summary>
-        /// Returns the feature representation as GML 2.1.1 XML document.
-        /// This XML document is based on <c>Geometry.xsd</c> schema.
-        /// NO features or XLink are implemented here!
-        /// </summary>        
-        public XmlReader ToGMLFeature()
-        {            
-            GMLWriter writer = new GMLWriter();
-            return writer.Write(this);
-        }        
 
         /// <summary>
         /// Returns a buffer region around this <c>Geometry</c> having the given width.
@@ -1011,7 +1046,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// All points whose distance from this <c>Geometry</c>
         /// are less than or equal to <c>distance</c>.
         /// </returns>
-        public IGeometry Buffer(double distance, int quadrantSegments) 
+        public IGeometry Buffer(double distance, int quadrantSegments)
         {
             return BufferOp.Buffer(this, distance, quadrantSegments);
         }
@@ -1037,7 +1072,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public IGeometry Buffer(double distance, int quadrantSegments, BufferStyle endCapStyle)
         {
             return BufferOp.Buffer(this, distance, quadrantSegments, endCapStyle);
-        } 
+        }
 
         /// <summary>
         /// Returns the smallest convex <c>Polygon</c> that contains all the
@@ -1046,8 +1081,8 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         /// <returns>the minimum-area convex polygon containing this <c>Geometry</c>'s points.</returns>
         public virtual IGeometry ConvexHull()
-        {            
-            return (new ConvexHull(this)).GetConvexHull();         
+        {
+            return (new ConvexHull(this)).GetConvexHull();
         }
 
         /// <summary>
@@ -1056,17 +1091,20 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         /// <param name="other">The <c>Geometry</c> with which to compute the intersection.</param>
         /// <returns>The points common to the two <c>Geometry</c>s.</returns>
-        public IGeometry Intersection(IGeometry other) 
+        public IGeometry Intersection(IGeometry other)
         {
             // Special case: if one input is empty ==> empty
-            if (IsEmpty) 
+            if (IsEmpty)
+            {
                 return Factory.CreateGeometryCollection(null);
-            if (other.IsEmpty) 
+            }
+            if (other.IsEmpty)
+            {
                 return Factory.CreateGeometryCollection(null);
-
+            }
 
             CheckNotGeometryCollection(this);
-            CheckNotGeometryCollection(other);        
+            CheckNotGeometryCollection(other);
             return SnapIfNeededOverlayOp.Overlay(this, other, SpatialFunction.Intersection);
         }
 
@@ -1076,13 +1114,17 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         /// <param name="other">The <c>Geometry</c> with which to compute the union.</param>
         /// <returns>A set combining the points of this <c>Geometry</c> and the points of <c>other</c>.</returns>
-        public IGeometry Union(IGeometry other) 
+        public IGeometry Union(IGeometry other)
         {
             // Special case: if either input is empty ==> other input
-            if (IsEmpty) 
+            if (IsEmpty)
+            {
                 return (IGeometry) other.Clone();
-            if (other.IsEmpty) 
+            }
+            if (other.IsEmpty)
+            {
                 return (IGeometry) Clone();
+            }
 
             CheckNotGeometryCollection(this);
             CheckNotGeometryCollection(other);
@@ -1099,15 +1141,19 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public IGeometry Difference(IGeometry other)
         {
             // Special case: if A.isEmpty ==> empty; if B.isEmpty ==> A
-            if (IsEmpty) 
+            if (IsEmpty)
+            {
                 return Factory.CreateGeometryCollection(null);
-            if (other.IsEmpty) 
+            }
+            if (other.IsEmpty)
+            {
                 return (IGeometry) Clone();
+            }
 
             CheckNotGeometryCollection(this);
             CheckNotGeometryCollection(other);
             return SnapIfNeededOverlayOp.Overlay(this, other, SpatialFunction.Difference);
-         }
+        }
 
         /// <summary>
         /// Returns a set combining the points in this <c>Geometry</c> not in
@@ -1117,13 +1163,17 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         /// <param name="other">The <c>Geometry</c> with which to compute the symmetric difference.</param>
         /// <returns>The point set symmetric difference of this <c>Geometry</c> with <c>other</c>.</returns>
-        public IGeometry SymmetricDifference(IGeometry other) 
+        public IGeometry SymmetricDifference(IGeometry other)
         {
             // Special case: if either input is empty ==> other input
-            if (IsEmpty) 
+            if (IsEmpty)
+            {
                 return (IGeometry) other.Clone();
-            if (other.IsEmpty) 
+            }
+            if (other.IsEmpty)
+            {
                 return (IGeometry) Clone();
+            }
 
             CheckNotGeometryCollection(this);
             CheckNotGeometryCollection(other);
@@ -1166,9 +1216,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <c>true</c> if this and the other <c>Geometry</c>
         /// are of the same class and have equal internal data.
         /// </returns>
-        public bool EqualsExact(IGeometry other) 
-        { 
-            return EqualsExact(other, 0); 
+        public bool EqualsExact(IGeometry other)
+        {
+            return EqualsExact(other, 0);
         }
 
         /// <summary>
@@ -1208,12 +1258,14 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// 
         /// </summary>
         /// <returns></returns>
-        public virtual object Clone() 
-        {            
+        public virtual object Clone()
+        {
             Geometry clone = (Geometry) MemberwiseClone();
-            if (clone.envelope != null) 
-                clone.envelope = new Envelope(clone.envelope);                 
-            return clone;         
+            if (clone.envelope != null)
+            {
+                clone.envelope = new Envelope(clone.envelope);
+            }
+            return clone;
         }
 
         /// <summary>
@@ -1253,7 +1305,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// defined in "Normal Form For Geometry" in the NTS Technical
         /// Specifications.
         /// </returns>
-        public int CompareTo(object o) 
+        public int CompareTo(object o)
         {
             return CompareTo((IGeometry) o);
         }
@@ -1267,14 +1319,55 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             Geometry other = (Geometry) geom;
             if (ClassSortIndex != other.ClassSortIndex)
+            {
                 return ClassSortIndex - other.ClassSortIndex;
+            }
             if (IsEmpty && other.IsEmpty)
+            {
                 return 0;
+            }
             if (IsEmpty)
+            {
                 return -1;
+            }
             if (other.IsEmpty)
+            {
                 return 1;
+            }
             return CompareToSameClass(geom);
+        }
+
+        /// <summary>
+        /// Returns whether this <c>Geometry</c> is greater than, equal to,
+        /// or less than another <c>Geometry</c> having the same class.
+        /// </summary>
+        /// <param name="o">A <c>Geometry</c> having the same class as this <c>Geometry</c>.</param>
+        /// <returns>
+        /// A positive number, 0, or a negative number, depending on whether
+        /// this object is greater than, equal to, or less than <c>o</c>, as
+        /// defined in "Normal Form For Geometry" in the NTS Technical
+        /// Specifications.
+        /// </returns>
+        protected internal abstract int CompareToSameClass(object o);
+
+        /// <summary>  
+        /// Returns true if the array contains any non-empty <c>Geometry</c>s.
+        /// </summary>
+        /// <param name="geometries"> an array of <c>Geometry</c>s; no elements may be <c>null</c></param>
+        /// <returns>            
+        /// <c>true</c> if any of the <c>Geometry</c>s
+        /// <c>IsEmpty</c> methods return <c>false</c>.
+        /// </returns>
+        protected static bool HasNonEmptyElements(IGeometry[] geometries)
+        {
+            foreach (IGeometry g in geometries)
+            {
+                if (!g.IsEmpty)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -1289,7 +1382,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <c>true</c> if the classes of the two <c>Geometry</c>
         /// s are considered to be equal by the <c>equalsExact</c> method.
         /// </returns>
-        protected bool IsEquivalentClass(IGeometry other) 
+        protected bool IsEquivalentClass(IGeometry other)
         {
             return GetType().FullName == other.GetType().FullName;
         }
@@ -1302,23 +1395,12 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <exception cref="ArgumentException">
         /// if <c>g</c> is a <c>GeometryCollection</c>, but not one of its subclasses.
         /// </exception>
-        protected void CheckNotGeometryCollection(IGeometry g) 
+        protected void CheckNotGeometryCollection(IGeometry g)
         {
-            if (isGeometryCollection(g)) 
-                throw new ArgumentException("This method does not support GeometryCollection arguments");                            
-        }
-
-        /// <summary>
-        /// Returns <c>true</c> if <c>g</c>'s class is <c>GeometryCollection</c>. 
-        /// (its subclasses do not trigger an exception).
-        /// </summary>
-        /// <param name="g">The <c>Geometry</c> to check.</param>
-        /// <exception cref="ArgumentException">
-        /// If <c>g</c> is a <c>GeometryCollection</c>, but not one of its subclasses.
-        /// </exception>        
-        private bool isGeometryCollection(IGeometry g)
-        {
-            return g.GetType().Name == "GeometryCollection" && g.GetType().Namespace == GetType().Namespace;
+            if (isGeometryCollection(g))
+            {
+                throw new ArgumentException("This method does not support GeometryCollection arguments");
+            }
         }
 
         /// <summary>
@@ -1335,19 +1417,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         protected abstract IEnvelope ComputeEnvelopeInternal();
 
         /// <summary>
-        /// Returns whether this <c>Geometry</c> is greater than, equal to,
-        /// or less than another <c>Geometry</c> having the same class.
-        /// </summary>
-        /// <param name="o">A <c>Geometry</c> having the same class as this <c>Geometry</c>.</param>
-        /// <returns>
-        /// A positive number, 0, or a negative number, depending on whether
-        /// this object is greater than, equal to, or less than <c>o</c>, as
-        /// defined in "Normal Form For Geometry" in the NTS Technical
-        /// Specifications.
-        /// </returns>
-        protected internal abstract int CompareToSameClass(object o);
-
-        /// <summary>
         /// Returns the first non-zero result of <c>CompareTo</c> encountered as
         /// the two <c>Collection</c>s are iterated over. If, by the time one of
         /// the iterations is complete, no non-zero result has been encountered,
@@ -1358,25 +1427,31 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="a">A <c>Collection</c> of <c>IComparable</c>s.</param>
         /// <param name="b">A <c>Collection</c> of <c>IComparable</c>s.</param>
         /// <returns>The first non-zero <c>compareTo</c> result, if any; otherwise, zero.</returns>
-        protected int Compare(ArrayList a, ArrayList b) 
+        protected int Compare(ArrayList a, ArrayList b)
         {
             IEnumerator i = a.GetEnumerator();
             IEnumerator j = b.GetEnumerator();
 
-            while (i.MoveNext() && j.MoveNext()) 
+            while (i.MoveNext() && j.MoveNext())
             {
                 IComparable aElement = (IComparable) i.Current;
                 IComparable bElement = (IComparable) j.Current;
-                int comparison = aElement.CompareTo(bElement);            
-                if (comparison != 0)                 
-                    return comparison;                
+                int comparison = aElement.CompareTo(bElement);
+                if (comparison != 0)
+                {
+                    return comparison;
+                }
             }
 
-            if (i.MoveNext())             
-                return 1;            
+            if (i.MoveNext())
+            {
+                return 1;
+            }
 
-            if (j.MoveNext())             
-                return -1;            
+            if (j.MoveNext())
+            {
+                return -1;
+            }
 
             return 0;
         }
@@ -1388,10 +1463,12 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="b"></param>
         /// <param name="tolerance"></param>
         /// <returns></returns>
-        protected bool Equal(ICoordinate a, ICoordinate b, double tolerance) 
+        protected bool Equal(ICoordinate a, ICoordinate b, double tolerance)
         {
-            if (tolerance == 0)             
-                return a.Equals(b);             
+            if (tolerance == 0)
+            {
+                return a.Equals(b);
+            }
 
             return a.Distance(b) <= tolerance;
         }
@@ -1399,16 +1476,68 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>
         /// 
         /// </summary>
-        private int ClassSortIndex 
+        private int ClassSortIndex
         {
             get
             {
-                for (int i = 0; i < SortedClasses.Length; i++)                
-                    if (GetType().Equals(SortedClasses[i]))                                        
-                        return i;                                    
+                for (int i = 0; i < SortedClasses.Length; i++)
+                {
+                    if (GetType().Equals(SortedClasses[i]))
+                    {
+                        return i;
+                    }
+                }
                 Assert.ShouldNeverReachHere(String.Format("Class not supported: {0}", GetType().FullName));
                 return -1;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj1"></param>
+        /// <param name="obj2"></param>
+        /// <returns></returns>
+        private static bool CompareGeometryCollections(IGeometry obj1, IGeometry obj2)
+        {
+            IGeometryCollection coll1 = obj1 as IGeometryCollection;
+            IGeometryCollection coll2 = obj2 as IGeometryCollection;
+            if (coll1 == null || coll2 == null)
+            {
+                return false;
+            }
+
+            // Short-circuit test
+            if (coll1.NumGeometries != coll2.NumGeometries)
+            {
+                return false;
+            }
+
+            // Deep test
+            for (int i = 0; i < coll1.NumGeometries; i++)
+            {
+                IGeometry geom1 = coll1[i];
+                IGeometry geom2 = coll2[i];
+                if (!geom1.Equals(geom2))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Returns <c>true</c> if <c>g</c>'s class is <c>GeometryCollection</c>. 
+        /// (its subclasses do not trigger an exception).
+        /// </summary>
+        /// <param name="g">The <c>Geometry</c> to check.</param>
+        /// <exception cref="ArgumentException">
+        /// If <c>g</c> is a <c>GeometryCollection</c>, but not one of its subclasses.
+        /// </exception>        
+        private bool isGeometryCollection(IGeometry g)
+        {
+            return g.GetType().Name == "GeometryCollection" && g.GetType().Namespace == GetType().Namespace;
         }
 
         /// <summary>
@@ -1421,33 +1550,16 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             exemplar.PrecisionModel.MakePrecise(coord);
             return exemplar.Factory.CreatePoint(coord);
-        }        
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public virtual bool IsRectangle
-        {
-            get
-            {
-                // Polygon overrides to check for actual rectangle
-                return false;
-            }
         }
 
-        /* BEGIN ADDED BY MPAUL42: monoGIS team */
-
-        /// <summary>
-        /// A predefined <see cref="GeometryFactory" /> with <see cref="PrecisionModel" /> <c> == </c> <see cref="PrecisionModels.Fixed" />.
-        /// </summary>
-        /// <seealso cref="GeometryFactory.Default" />
-        /// <seealso cref="GeometryFactory.Fixed"/>
-        public static readonly IGeometryFactory DefaultFactory = GeometryFactory.Default;
-
-        private int hashcode;
+        private class GeometryChangedFilter : IGeometryComponentFilter
+        {
+            public void Filter(IGeometry geom)
+            {
+                geom.GeometryChangedAction();
+            }
+        };
 
         /* END ADDED BY MPAUL42: monoGIS team */
-
     }
 }

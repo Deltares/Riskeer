@@ -24,26 +24,26 @@ namespace DeltaShell.Tests.Core.Extensions
             mocks.ReplayAll();
 
             var compositeActivity = new ParallelActivity
-                                    {
-                                        Activities = new EventedList<IActivity>
-                                                     {
-                                                         new SequentialActivity
-                                                         {
-                                                             Activities = new EventedList<IActivity>
-                                                                          {
-                                                                              activity1, activity2
-                                                                          }
-                                                         },
-                                                         new SequentialActivity
-                                                         {
-                                                             Activities = new EventedList<IActivity>
-                                                                          {
-                                                                              activity3, activity4, activity5
-                                                                          }
-                                                         },
-                                                         activity6
-                                                     }
-                                    };
+            {
+                Activities = new EventedList<IActivity>
+                {
+                    new SequentialActivity
+                    {
+                        Activities = new EventedList<IActivity>
+                        {
+                            activity1, activity2
+                        }
+                    },
+                    new SequentialActivity
+                    {
+                        Activities = new EventedList<IActivity>
+                        {
+                            activity3, activity4, activity5
+                        }
+                    },
+                    activity6
+                }
+            };
 
             Assert.AreEqual(9, compositeActivity.GetAllActivitiesRecursive<IActivity>().Count());
         }

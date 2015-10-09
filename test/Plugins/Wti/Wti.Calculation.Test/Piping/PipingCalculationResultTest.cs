@@ -16,8 +16,8 @@ namespace Wti.Calculation.Test.Piping
             var foShValue = random.NextDouble();
             var zsValue = random.NextDouble();
             var foSsValue = random.NextDouble();
-            
-            var actual = new PipingCalculationResult(zuValue,foSuValue,zhValue,foShValue,zsValue,foSsValue);
+
+            var actual = new PipingCalculationResult(zuValue, foSuValue, zhValue, foShValue, zsValue, foSsValue);
 
             Assert.That(actual.UpliftZValue, Is.EqualTo(zuValue));
             Assert.That(actual.UpliftFactorOfSafety, Is.EqualTo(foSuValue));

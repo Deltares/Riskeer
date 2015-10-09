@@ -7,8 +7,15 @@ namespace DelftTools.Controls
     /// <summary>
     /// Interface for visual TreeView to display hierarchical data.
     /// </summary>
-    public interface ITreeView: IView 
+    public interface ITreeView : IView
     {
+        /// <summary>
+        /// Event to notify observers of changes in the selection
+        /// </summary>
+        event EventHandler SelectedNodeChanged;
+
+        event Action BeforeWaitUntilAllEventsAreProcessed;
+
         /// <summary>
         /// All nodes contained in the tree
         /// </summary>
@@ -25,14 +32,18 @@ namespace DelftTools.Controls
         bool CheckBoxes { get; set; }
 
         /// <summary>
-        /// Event to notify observers of changes in the selection
-        /// </summary>
-        event EventHandler SelectedNodeChanged;
-
-        /// <summary>
         /// Node presenters, sitting between specific data objects and the tree view
         /// </summary>
         ICollection<ITreeNodePresenter> NodePresenters { get; }
+
+        IComparer TreeViewNodeSorter { get; set; }
+
+        IEnumerable<ITreeNode> AllLoadedNodes { get; }
+
+        /// <summary>
+        /// Indicates if updates are suspended (rendering, layout).
+        /// </summary>
+        bool IsUpdateSuspended { get; }
 
         /// <summary>
         /// Returns a specific node presenter for the given data object.
@@ -65,17 +76,13 @@ namespace DelftTools.Controls
         /// Refreshes the tree view based on the underlying data.
         /// </summary>
         void Refresh();
-        
+
         /// <summary>
         /// TODO: move to node
         /// </summary>
         /// <param name="treeNode"></param>
         [Obsolete("YAGNI")]
         void RefreshChildNodes(ITreeNode treeNode);
-
-        IComparer TreeViewNodeSorter { get; set; }
-
-        IEnumerable<ITreeNode> AllLoadedNodes { get; }
 
         void UpdateNode(ITreeNode treeNode);
 
@@ -84,8 +91,6 @@ namespace DelftTools.Controls
         /// This method allows to wait until all pending asynchroneous events are processed.
         /// </summary>
         void WaitUntilAllEventsAreProcessed();
-
-        event Action BeforeWaitUntilAllEventsAreProcessed;
 
         /// <summary>
         /// Collapses all nodes and their child nodes (recursively).
@@ -125,11 +130,6 @@ namespace DelftTools.Controls
         /// Ends updates, sets <see cref="IsUpdateSuspended"/> to false.
         /// </summary>
         void EndUpdate();
-
-        /// <summary>
-        /// Indicates if updates are suspended (rendering, layout).
-        /// </summary>
-        bool IsUpdateSuspended { get; }
 
         /// <summary>
         /// Checks if label of current node can be edited and starts edit mode if this is the case.

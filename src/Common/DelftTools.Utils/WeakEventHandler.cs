@@ -15,7 +15,6 @@ using System.ComponentModel;
 
 namespace DelftTools.Utils
 {
-
     /// <summary>
     /// Delegate of an unsubscribe delegate
     /// </summary>
@@ -33,44 +32,26 @@ namespace DelftTools.Utils
         where E : EventArgs
         where H : class
     {
-
         private delegate void OpenEventHandler(T @this, object sender, E e);
 
         private delegate void LocalHandler(object sender, E e);
 
-        private WeakReference m_TargetRef;
-        private OpenEventHandler m_OpenHandler;
-        private H m_Handler;
+        private readonly WeakReference m_TargetRef;
+        private readonly OpenEventHandler m_OpenHandler;
         private UnregisterDelegate<H> m_Unregister;
 
         public WeakEventHandlerGeneric(H eventHandler, UnregisterDelegate<H> unregister)
         {
             m_TargetRef = new WeakReference((eventHandler as Delegate).Target);
-            m_OpenHandler = (OpenEventHandler)Delegate.CreateDelegate(typeof(OpenEventHandler), null, (eventHandler as Delegate).Method);
-            m_Handler = CastDelegate(new LocalHandler(Invoke));
+            m_OpenHandler = (OpenEventHandler) Delegate.CreateDelegate(typeof(OpenEventHandler), null, (eventHandler as Delegate).Method);
+            Handler = CastDelegate(new LocalHandler(Invoke));
             m_Unregister = unregister;
-        }
-
-        private void Invoke(object sender, E e)
-        {
-            T target = (T)m_TargetRef.Target;
-
-            if (target != null)
-                m_OpenHandler.Invoke(target, sender, e);
-            else if (m_Unregister != null)
-            {
-                m_Unregister(m_Handler);
-                m_Unregister = null;
-            }
         }
 
         /// <summary>
         /// Gets the handler.
         /// </summary>
-        public H Handler
-        {
-            get { return m_Handler; }
-        }
+        public H Handler { get; private set; }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="PR.utils.WeakEventHandler&lt;T,E&gt;"/> to <see cref="System.EventHandler&lt;E&gt;"/>.
@@ -91,16 +72,38 @@ namespace DelftTools.Utils
         /// <returns></returns>
         public static H CastDelegate(Delegate source)
         {
-            if (source == null) return null;
+            if (source == null)
+            {
+                return null;
+            }
 
             Delegate[] delegates = source.GetInvocationList();
             if (delegates.Length == 1)
+            {
                 return Delegate.CreateDelegate(typeof(H), delegates[0].Target, delegates[0].Method) as H;
+            }
 
             for (int i = 0; i < delegates.Length; i++)
+            {
                 delegates[i] = Delegate.CreateDelegate(typeof(H), delegates[i].Target, delegates[i].Method);
+            }
 
             return Delegate.Combine(delegates) as H;
+        }
+
+        private void Invoke(object sender, E e)
+        {
+            T target = (T) m_TargetRef.Target;
+
+            if (target != null)
+            {
+                m_OpenHandler.Invoke(target, sender, e);
+            }
+            else if (m_Unregister != null)
+            {
+                m_Unregister(Handler);
+                m_Unregister = null;
+            }
         }
     }
 
@@ -125,9 +128,8 @@ namespace DelftTools.Utils
         where T : class
         where E : EventArgs
     {
-
         public WeakEventHandler(EventHandler<E> eventHandler, UnregisterDelegate<EventHandler<E>> unregister)
-            : base(eventHandler, unregister) { }
+            : base(eventHandler, unregister) {}
     }
 
     #endregion
@@ -150,11 +152,10 @@ namespace DelftTools.Utils
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="E"></typeparam>
     public class WeakPropertyChangeHandler<T> : WeakEventHandlerGeneric<T, PropertyChangedEventArgs, PropertyChangedEventHandler>, IWeakPropertyChangedEventHandler
-     where T : class
+        where T : class
     {
-
         public WeakPropertyChangeHandler(PropertyChangedEventHandler eventHandler, UnregisterDelegate<PropertyChangedEventHandler> unregister)
-            : base(eventHandler, unregister) { }
+            : base(eventHandler, unregister) {}
     }
 
     #endregion
@@ -164,20 +165,6 @@ namespace DelftTools.Utils
     /// </summary>
     public static class WeakEventExtensions
     {
-
-        private static void CheckArgs(Delegate eventHandler, Delegate unregister)
-        {
-            if (eventHandler == null) throw new ArgumentNullException("eventHandler");
-            if (eventHandler.Method.IsStatic || eventHandler.Target == null) throw new ArgumentException("Only instance methods are supported.", "eventHandler");
-        }
-
-        private static object GetWeakHandler(Type generalType, Type[] genericTypes, Type[] constructorArgTypes, object[] constructorArgs)
-        {
-            var wehType = generalType.MakeGenericType(genericTypes);
-            var wehConstructor = wehType.GetConstructor(constructorArgTypes);
-            return wehConstructor.Invoke(constructorArgs);
-        }
-
         /// <summary>
         /// Makes a property change handler weak
         /// </summary>
@@ -190,11 +177,22 @@ namespace DelftTools.Utils
             CheckArgs(eventHandler, unregister);
 
             var generalType = typeof(WeakPropertyChangeHandler<>);
-            var genericTypes = new[] { eventHandler.Method.DeclaringType };
-            var constructorTypes = new[] { typeof(PropertyChangedEventHandler), typeof(UnregisterDelegate<PropertyChangedEventHandler>) };
-            var constructorArgs = new object[] { eventHandler, unregister };
+            var genericTypes = new[]
+            {
+                eventHandler.Method.DeclaringType
+            };
+            var constructorTypes = new[]
+            {
+                typeof(PropertyChangedEventHandler),
+                typeof(UnregisterDelegate<PropertyChangedEventHandler>)
+            };
+            var constructorArgs = new object[]
+            {
+                eventHandler,
+                unregister
+            };
 
-            return ((IWeakPropertyChangedEventHandler)GetWeakHandler(generalType, genericTypes, constructorTypes, constructorArgs)).Handler;
+            return ((IWeakPropertyChangedEventHandler) GetWeakHandler(generalType, genericTypes, constructorTypes, constructorArgs)).Handler;
         }
 
         /// <summary>
@@ -209,11 +207,42 @@ namespace DelftTools.Utils
             CheckArgs(eventHandler, unregister);
 
             var generalType = typeof(WeakEventHandler<,>);
-            var genericTypes = new[] { eventHandler.Method.DeclaringType, typeof(E) };
-            var constructorTypes = new[] { typeof(EventHandler<E>), typeof(UnregisterDelegate<EventHandler<E>>) };
-            var constructorArgs = new object[] { eventHandler, unregister };
+            var genericTypes = new[]
+            {
+                eventHandler.Method.DeclaringType,
+                typeof(E)
+            };
+            var constructorTypes = new[]
+            {
+                typeof(EventHandler<E>),
+                typeof(UnregisterDelegate<EventHandler<E>>)
+            };
+            var constructorArgs = new object[]
+            {
+                eventHandler,
+                unregister
+            };
 
-            return ((IWeakEventHandler<E>)GetWeakHandler(generalType, genericTypes, constructorTypes, constructorArgs)).Handler;
+            return ((IWeakEventHandler<E>) GetWeakHandler(generalType, genericTypes, constructorTypes, constructorArgs)).Handler;
+        }
+
+        private static void CheckArgs(Delegate eventHandler, Delegate unregister)
+        {
+            if (eventHandler == null)
+            {
+                throw new ArgumentNullException("eventHandler");
+            }
+            if (eventHandler.Method.IsStatic || eventHandler.Target == null)
+            {
+                throw new ArgumentException("Only instance methods are supported.", "eventHandler");
+            }
+        }
+
+        private static object GetWeakHandler(Type generalType, Type[] genericTypes, Type[] constructorArgTypes, object[] constructorArgs)
+        {
+            var wehType = generalType.MakeGenericType(genericTypes);
+            var wehConstructor = wehType.GetConstructor(constructorArgTypes);
+            return wehConstructor.Invoke(constructorArgs);
         }
     }
 }

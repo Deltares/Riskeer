@@ -1,10 +1,7 @@
 ﻿using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Wti.Data;
 using Wti.Forms.PropertyClasses;
 
@@ -33,7 +30,10 @@ namespace Wti.Forms.Test.PropertyClasses
                 AssessmentLevel = 0.13
             };
 
-            var properties = new PipingDataProperties { Data = pipingData };
+            var properties = new PipingDataProperties
+            {
+                Data = pipingData
+            };
 
             // call & Assert
             Assert.AreEqual(pipingData.AssessmentLevel, properties.AssessmentLevel);
@@ -51,7 +51,10 @@ namespace Wti.Forms.Test.PropertyClasses
             var pipingData = new PipingData();
             pipingData.Attach(projectObserver);
 
-            var properties = new PipingDataProperties { Data = pipingData };
+            var properties = new PipingDataProperties
+            {
+                Data = pipingData
+            };
 
             // call & Assert
             const double assessmentLevel = 0.12;
@@ -59,7 +62,5 @@ namespace Wti.Forms.Test.PropertyClasses
             Assert.AreEqual(assessmentLevel, pipingData.AssessmentLevel);
             mocks.VerifyAll();
         }
-
-
     }
 }

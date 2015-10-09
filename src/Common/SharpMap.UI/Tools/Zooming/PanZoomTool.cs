@@ -9,12 +9,6 @@ namespace SharpMap.UI.Tools.Zooming
     /// </summary>
     public class PanZoomTool : ZoomTool
     {
-        private Bitmap DragImage { get; set; }
-        private Bitmap StaticToolsImage { get; set; }
-        private bool Dragging { get; set; }
-        private Point DragStartPoint { get; set; }
-        private Point DragEndPoint { get; set; }
-
         public PanZoomTool()
         {
             Name = "PanZoom";
@@ -22,10 +16,19 @@ namespace SharpMap.UI.Tools.Zooming
 
         public override bool IsBusy
         {
-            get { return Dragging; }
+            get
+            {
+                return Dragging;
+            }
         }
 
-        public override Cursor Cursor { get { return Cursors.Hand; } }
+        public override Cursor Cursor
+        {
+            get
+            {
+                return Cursors.Hand;
+            }
+        }
 
         public override void OnMouseDown(ICoordinate worldPosition, MouseEventArgs e)
         {
@@ -35,7 +38,7 @@ namespace SharpMap.UI.Tools.Zooming
             }
 
             Dragging = true;
-            DragImage = (Bitmap)Map.Image.Clone();
+            DragImage = (Bitmap) Map.Image.Clone();
             StaticToolsImage = new Bitmap(Map.Image.Width, Map.Image.Height);
             Graphics g = Graphics.FromImage(StaticToolsImage);
 
@@ -77,7 +80,7 @@ namespace SharpMap.UI.Tools.Zooming
             DragEndPoint = e.Location;
 
             var point = new Point((DragEndPoint.X - DragStartPoint.X),
-                                    (DragEndPoint.Y - DragStartPoint.Y));
+                                  (DragEndPoint.Y - DragStartPoint.Y));
 
             var previewImage = new Bitmap(DragImage.Width, DragImage.Height);
             Graphics g = Graphics.FromImage(previewImage);
@@ -92,5 +95,11 @@ namespace SharpMap.UI.Tools.Zooming
 
             previewImage.Dispose();
         }
+
+        private Bitmap DragImage { get; set; }
+        private Bitmap StaticToolsImage { get; set; }
+        private bool Dragging { get; set; }
+        private Point DragStartPoint { get; set; }
+        private Point DragEndPoint { get; set; }
     }
 }

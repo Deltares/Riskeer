@@ -24,7 +24,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         {
             ICoordinate p0 = seg.Start;
             ICoordinate p1 = seg.End;
-            return new Coordinate((p0.X + p1.X) / 2, (p0.Y + p1.Y) / 2);
+            return new Coordinate((p0.X + p1.X)/2, (p0.Y + p1.Y)/2);
         }
     }
 }

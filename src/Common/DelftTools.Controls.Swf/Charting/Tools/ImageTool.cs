@@ -4,6 +4,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using DelftTools.Controls.Swf.Charting.Customized;
 using Steema.TeeChart.Drawing;
+using Steema.TeeChart.Tools;
 
 namespace DelftTools.Controls.Swf.Charting.Tools
 {
@@ -11,13 +12,14 @@ namespace DelftTools.Controls.Swf.Charting.Tools
     /// Hack: This tool is used to plot small images (icons) in a figure. If we decide to leave TeeChart, 
     /// this functionality is not one of the must haves of the first version of the new implementation. 
     /// </summary>
-    public class ImageTool : Steema.TeeChart.Tools.Annotation, IImageTool
+    public class ImageTool : Annotation, IImageTool
     {
+        public event EventHandler<EventArgs> ActiveChanged;
+        private readonly DeltaShellTChart teeChart;
         private Image image1;
         private string toolTip;
-        private readonly DeltaShellTChart teeChart;
         private Steema.TeeChart.Chart.ChartToolTip annotationToolTip;
-        
+
         public ImageTool(DeltaShellTChart teeChart)
             : base(teeChart.Chart)
         {
@@ -36,7 +38,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
         public new bool Active
         {
-            get { return base.Active; }
+            get
+            {
+                return base.Active;
+            }
             set
             {
                 base.Active = value;
@@ -47,11 +52,12 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             }
         }
 
-        public event EventHandler<EventArgs> ActiveChanged;
-
         public Image Image
         {
-            get { return image1; }
+            get
+            {
+                return image1;
+            }
             set
             {
                 image1 = value;
@@ -62,7 +68,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
         public string ToolTip
         {
-            get { return toolTip; }
+            get
+            {
+                return toolTip;
+            }
             set
             {
                 if (toolTip != null)
@@ -93,12 +102,21 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
         public new int Height
         {
-            get { return base.Height == -1 ? image1.Height : base.Height; }
+            get
+            {
+                return base.Height == -1 ? image1.Height : base.Height;
+            }
             set
             {
                 base.Height = value;
                 ResizeImage();
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            teeChart.MouseMove -= TeeChartMouseMove;
+            base.Dispose(disposing);
         }
 
         private void ResizeImage()
@@ -127,9 +145,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             {
                 return;
             }
-            
+
             var mouseOnImage = (e.X <= Left + Width && e.X >= Left && e.Y >= Top && e.Y <= Top + Height);
-            
+
             if (annotationToolTip == null && mouseOnImage)
             {
                 annotationToolTip = chart.ToolTip;
@@ -142,7 +160,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             {
                 return;
             }
-            
+
             annotationToolTip.Hide();
             annotationToolTip = null;
         }
@@ -151,12 +169,6 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         {
             var tChart = sender as DeltaShellTChart;
             return tChart == null ? null : tChart.Chart;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            teeChart.MouseMove -= TeeChartMouseMove;
-            base.Dispose(disposing);
         }
     }
 }

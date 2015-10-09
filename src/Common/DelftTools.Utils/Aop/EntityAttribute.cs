@@ -20,6 +20,18 @@ namespace DelftTools.Utils.Aop
     [IntroduceInterface(typeof(INotifyCollectionChange), OverrideAction = InterfaceOverrideAction.Ignore)]
     public class EntityAttribute : InstanceLevelAspect, INotifyPropertyChange, INotifyCollectionChange
     {
+        [IntroduceMember(OverrideAction = MemberOverrideAction.Ignore, IsVirtual = true)]
+        public event NotifyCollectionChangingEventHandler CollectionChanging;
+
+        [IntroduceMember(OverrideAction = MemberOverrideAction.Ignore, IsVirtual = true)]
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        [IntroduceMember(Visibility = Visibility.Public, IsVirtual = true, OverrideAction = MemberOverrideAction.Ignore)]
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        [IntroduceMember(Visibility = Visibility.Public, IsVirtual = true, OverrideAction = MemberOverrideAction.Ignore)]
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public enum EntityEventType
         {
             PropertyChanging,
@@ -28,29 +40,50 @@ namespace DelftTools.Utils.Aop
             CollectionChanged
         }
 
-        public bool FireOnPropertyChange = true;
-        public bool FireOnCollectionChange = true;
-
         [ThreadStatic]
         private static bool inInitialize;
 
-        public override void RuntimeInitializeInstance()
+        public bool FireOnPropertyChange = true;
+        public bool FireOnCollectionChange = true;
+
+        [ImportMember("OnEntityEvent", IsRequired = false, Order = ImportMemberOrder.AfterIntroductions)]
+        public Action<object, EventArgs, EntityEventType> OnEntityEventMethod;
+
+        public bool HasParentIsCheckedInItems
         {
-            if (inInitialize)
-                return;
-
-            base.RuntimeInitializeInstance();
-
-            inInitialize = true;
-            ManualAspectInitializer.InitializeAspects(Instance);
-            inInitialize = false;
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
-        
-        [IntroduceMember(OverrideAction = MemberOverrideAction.Ignore, IsVirtual = true)]
-        public event NotifyCollectionChangingEventHandler CollectionChanging;
-        
-        [IntroduceMember(OverrideAction = MemberOverrideAction.Ignore, IsVirtual = true)]
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        public bool SkipChildItemEventBubbling
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool HasParent
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
 
         [IntroduceMember(Visibility = Visibility.Family, IsVirtual = true, OverrideAction = MemberOverrideAction.Ignore)]
         public void OnCollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
@@ -59,11 +92,13 @@ namespace DelftTools.Utils.Aop
             {
                 var change = Instance as ICustomNotifyCollectionChange;
                 if (change != null)
+                {
                     change.FireCollectionChanging(sender, e);
+                }
                 return;
             }
 
-            LogCollectionChanging(sender, e); 
+            LogCollectionChanging(sender, e);
 
             var previousSender = EventSettings.LastEventBubbler;
             EventSettings.LastEventBubbler = Instance;
@@ -78,34 +113,6 @@ namespace DelftTools.Utils.Aop
             }
         }
 
-        [Conditional("TRACING")]
-        private void LogCollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            //if (EventSettings.EnableLogging)
-            {
-                var instance = Instance;
-                if (instance == sender)
-                    Console.WriteLine(
-                        "CollectionChanging >>> '{0}[{1}]', item:{2}, index:{3}, action:{4} - BEGIN >>>>>>>>>>>>>>",
-                        instance, instance != null ? instance.GetType().Name : "null", e.Item, e.Index, e.Action);
-                else if (sender.GetType().Name.Contains("EventedList"))
-                {
-                    var senderTypeName = sender.GetType().GetGenericArguments()[0].Name;
-                    Console.WriteLine(
-                        "CollectionChanging >>> '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}",
-                        "EventedList", senderTypeName, e.Item, e.Index, e.Action, instance,
-                        instance != null ? instance.GetType().Name : "null");
-                }
-                else
-                {
-                    Console.WriteLine(
-                        "CollectionChanging >>> '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", sender,
-                        sender.GetType().Name, e.Item, e.Index, e.Action, instance,
-                        instance != null ? instance.GetType().Name : "null");
-                }
-            }
-        }
-
         [IntroduceMember(Visibility = Visibility.Family, IsVirtual = true, OverrideAction = MemberOverrideAction.Ignore)]
         public void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
@@ -113,7 +120,9 @@ namespace DelftTools.Utils.Aop
             {
                 var change = Instance as ICustomNotifyCollectionChange;
                 if (change != null)
+                {
                     change.FireCollectionChanged(sender, e);
+                }
                 return;
             }
 
@@ -150,22 +159,15 @@ namespace DelftTools.Utils.Aop
             }
         }
 
-        [ImportMember("OnEntityEvent", IsRequired = false, Order = ImportMemberOrder.AfterIntroductions)]
-        public Action<object, EventArgs, EntityEventType> OnEntityEventMethod;
-
-        [IntroduceMember(Visibility = Visibility.Public, IsVirtual = true, OverrideAction = MemberOverrideAction.Ignore)]
-        public event PropertyChangingEventHandler PropertyChanging;
-
-        [IntroduceMember(Visibility = Visibility.Public, IsVirtual = true, OverrideAction = MemberOverrideAction.Ignore)]
-        public event PropertyChangedEventHandler PropertyChanged;
-        
         [IntroduceMember(Visibility = Visibility.Family, IsVirtual = true, OverrideAction = MemberOverrideAction.Ignore)]
         public void OnPropertyChanging(object sender, PropertyChangingEventArgs e)
         {
             if (PropertyChanging == null)
+            {
                 return;
+            }
 
-            LogPropertyChanging(sender, e); 
+            LogPropertyChanging(sender, e);
 
             var previousSender = EventSettings.LastEventBubbler;
             EventSettings.LastEventBubbler = Instance;
@@ -180,21 +182,13 @@ namespace DelftTools.Utils.Aop
             }
         }
 
-        [Conditional("TRACING")]
-        private void LogPropertyChanging(object sender, PropertyChangingEventArgs e)
-        {
-            var instance = Instance;
-            var sourceTypeName = sender != null ? sender.GetType().Name : "<no type>";
-            var instanceTypeName = instance != null ? instance.GetType().Name : "<no type>";
-            Console.WriteLine("PropertyChanging >>> {0}.{1} ({2} [{3}])",
-                              sourceTypeName, e.PropertyName, instance, instanceTypeName);
-        }
-
         [IntroduceMember(Visibility = Visibility.Family, IsVirtual = true, OverrideAction = MemberOverrideAction.Ignore)]
         public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (PropertyChanged == null) 
+            if (PropertyChanged == null)
+            {
                 return;
+            }
 
             var previousSender = EventSettings.LastEventBubbler;
             EventSettings.LastEventBubbler = Instance;
@@ -208,7 +202,7 @@ namespace DelftTools.Utils.Aop
                 EventSettings.LastEventBubbler = previousSender;
             }
         }
-        
+
         [OnLocationSetValueAdvice]
         [MethodPointcut("GetPropertiesToNotifyFor")]
         public void OnPropertySet(LocationInterceptionArgs args)
@@ -268,12 +262,68 @@ namespace DelftTools.Utils.Aop
         {
             var notifyCollectionChange = args.Value as INotifyCollectionChange;
             if (notifyCollectionChange != null)
+            {
                 notifyCollectionChange.SkipChildItemEventBubbling = true;
+            }
 
             OnFieldSet(args);
         }
 
-        private void Subscribe(object value, bool subscribePropertyChanged=true)
+        public override void RuntimeInitializeInstance()
+        {
+            if (inInitialize)
+            {
+                return;
+            }
+
+            base.RuntimeInitializeInstance();
+
+            inInitialize = true;
+            ManualAspectInitializer.InitializeAspects(Instance);
+            inInitialize = false;
+        }
+
+        [Conditional("TRACING")]
+        private void LogCollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
+        {
+            //if (EventSettings.EnableLogging)
+            {
+                var instance = Instance;
+                if (instance == sender)
+                {
+                    Console.WriteLine(
+                        "CollectionChanging >>> '{0}[{1}]', item:{2}, index:{3}, action:{4} - BEGIN >>>>>>>>>>>>>>",
+                        instance, instance != null ? instance.GetType().Name : "null", e.Item, e.Index, e.Action);
+                }
+                else if (sender.GetType().Name.Contains("EventedList"))
+                {
+                    var senderTypeName = sender.GetType().GetGenericArguments()[0].Name;
+                    Console.WriteLine(
+                        "CollectionChanging >>> '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}",
+                        "EventedList", senderTypeName, e.Item, e.Index, e.Action, instance,
+                        instance != null ? instance.GetType().Name : "null");
+                }
+                else
+                {
+                    Console.WriteLine(
+                        "CollectionChanging >>> '{0}[{1}]' -> '{5}[{6}]', item:{2}, index:{3}, action:{4}", sender,
+                        sender.GetType().Name, e.Item, e.Index, e.Action, instance,
+                        instance != null ? instance.GetType().Name : "null");
+                }
+            }
+        }
+
+        [Conditional("TRACING")]
+        private void LogPropertyChanging(object sender, PropertyChangingEventArgs e)
+        {
+            var instance = Instance;
+            var sourceTypeName = sender != null ? sender.GetType().Name : "<no type>";
+            var instanceTypeName = instance != null ? instance.GetType().Name : "<no type>";
+            Console.WriteLine("PropertyChanging >>> {0}.{1} ({2} [{3}])",
+                              sourceTypeName, e.PropertyName, instance, instanceTypeName);
+        }
+
+        private void Subscribe(object value, bool subscribePropertyChanged = true)
         {
             if (subscribePropertyChanged && FireOnPropertyChange)
             {
@@ -303,12 +353,12 @@ namespace DelftTools.Utils.Aop
             }
         }
 
-        void ChildCollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
+        private void ChildCollectionChanging(object sender, NotifyCollectionChangingEventArgs e)
         {
             OnEntityEventMethod(sender, e, EntityEventType.CollectionChanging);
         }
 
-        void ChildCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void ChildCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
             OnEntityEventMethod(sender, e, EntityEventType.CollectionChanged);
         }
@@ -358,7 +408,9 @@ namespace DelftTools.Utils.Aop
         private IEnumerable<PropertyInfo> GetPropertiesToNotifyFor(Type type)
         {
             if (type.IsDefined(typeof(CompilerGeneratedAttribute), false))
+            {
                 return new PropertyInfo[0];
+            }
             return
                 from property in type.GetProperties(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public)
                 where ShouldNotifyFor(property)
@@ -375,7 +427,9 @@ namespace DelftTools.Utils.Aop
             var declaringType = field.DeclaringType;
 
             if (declaringType == null)
+            {
                 return null;
+            }
 
             return declaringType
                 .GetProperties()
@@ -392,7 +446,7 @@ namespace DelftTools.Utils.Aop
         private IEnumerable<FieldInfo> GetFieldsToSubscribeTo(Type type)
         {
             return GetApplicableFields(type)
-                .Where(info => !info.PropertyInfo.IsDefined(typeof (AggregationAttribute), false))
+                .Where(info => !info.PropertyInfo.IsDefined(typeof(AggregationAttribute), false))
                 .Select(i => i.FieldInfo);
         }
 
@@ -418,35 +472,21 @@ namespace DelftTools.Utils.Aop
 
         private static IEnumerable<FieldPropertyInfo> GetApplicableFields(Type type)
         {
-            if (type.IsDefined(typeof (CompilerGeneratedAttribute), false))
+            if (type.IsDefined(typeof(CompilerGeneratedAttribute), false))
+            {
                 return new FieldPropertyInfo[0];
+            }
 
             return type.GetFields(BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.NonPublic)
-                       .Where(field => 
+                       .Where(field =>
                               !(field.FieldType == typeof(string)) &&
                               !field.FieldType.IsValueType &&
-                              !field.IsDefined(typeof (NoNotifyPropertyChangeAttribute), false))
+                              !field.IsDefined(typeof(NoNotifyPropertyChangeAttribute), false))
                        .Select(field => new FieldPropertyInfo(field, GetPropertyForField(field)))
                        .Where(t => t.PropertyInfo != null && ShouldNotifyFor(t.PropertyInfo));
         }
-        
+
         #endregion
-        
-        public bool HasParent 
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
-        public bool HasParentIsCheckedInItems
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
-        public bool SkipChildItemEventBubbling
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
     }
 
     /// <summary>
@@ -466,10 +506,12 @@ namespace DelftTools.Utils.Aop
                                                 PropertyChangingEventHandler fireAction)
         {
             if (fireAction == null)
+            {
                 return;
+            }
 
-            var previousSender = EventSettings.LastEventBubbler;
-            EventSettings.LastEventBubbler = lastSender;
+            var previousSender = LastEventBubbler;
+            LastEventBubbler = lastSender;
 
             try
             {
@@ -477,19 +519,21 @@ namespace DelftTools.Utils.Aop
             }
             finally
             {
-                EventSettings.LastEventBubbler = previousSender;
+                LastEventBubbler = previousSender;
             }
         }
 
         public static void FirePropertyChanged(object lastSender, object originalSender,
-                                                PropertyChangedEventArgs args,
-                                                PropertyChangedEventHandler fireAction)
+                                               PropertyChangedEventArgs args,
+                                               PropertyChangedEventHandler fireAction)
         {
             if (fireAction == null)
+            {
                 return;
+            }
 
-            var previousSender = EventSettings.LastEventBubbler;
-            EventSettings.LastEventBubbler = lastSender;
+            var previousSender = LastEventBubbler;
+            LastEventBubbler = lastSender;
 
             try
             {
@@ -497,7 +541,7 @@ namespace DelftTools.Utils.Aop
             }
             finally
             {
-                EventSettings.LastEventBubbler = previousSender;
+                LastEventBubbler = previousSender;
             }
         }
 

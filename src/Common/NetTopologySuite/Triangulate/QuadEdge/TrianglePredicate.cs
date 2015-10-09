@@ -6,7 +6,6 @@ using GisSharpBlog.NetTopologySuite.Mathematics;
 
 namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
 {
-
     /// <summary>
     /// Algorithms for computing values and predicates
     /// associated with triangles.
@@ -22,7 +21,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
     /// <author>Martin Davis</author>
     public static class TrianglePredicate
     {
-
         /// <summary>
         /// Tests if a point is inside the circle defined by 
         /// the triangle with vertices a, b, c (oriented counter-clockwise). 
@@ -86,20 +84,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         }
 
         /// <summary>
-        /// Computes twice the area of the oriented triangle (a, b, c), i.e., the area is positive if the
-        /// triangle is oriented counterclockwise.
-        /// </summary>
-        /// <param name="a">A vertex of the triangle</param>
-        /// <param name="b">A vertex of the triangle</param>
-        /// <param name="c">A vertex of the triangle</param>
-        /// <returns>The area of the triangle defined by the points a, b, c</returns>
-        private static double TriArea(ICoordinate a, ICoordinate b, ICoordinate c)
-        {
-            return (b.X - a.X)*(c.Y - a.Y)
-                   - (b.Y - a.Y)*(c.X - a.X);
-        }
-
-        /// <summary>
         /// Tests if a point is inside the circle defined by 
         /// the triangle with vertices a, b, c (oriented counter-clockwise). 
         /// </summary>
@@ -119,7 +103,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             //    return isInCircleNonRobust(a, b, c, p);       
             return IsInCircleNormalized(a, b, c, p);
         }
-
 
         /// <summary>
         /// Tests if a point is inside the circle defined by 
@@ -161,28 +144,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             return isInCircle;
         }
 
-
-        /// <summary>
-        /// Computes twice the area of the oriented triangle (a, b, c), i.e., the area
-        /// is positive if the triangle is oriented counterclockwise.
-        /// </summary>
-        /// <remarks>
-        /// The computation uses {@link DD} arithmetic for robustness.
-        /// </remarks>
-        /// <param name="ax">x ordinate of a vertex of the triangle</param>
-        /// <param name="ay">y ordinate of a vertex of the triangle</param>
-        /// <param name="bx">x ordinate of a vertex of the triangle</param>
-        /// <param name="by">y ordinate of a vertex of the triangle</param>
-        /// <param name="cx">x ordinate of a vertex of the triangle</param>
-        /// <param name="cy">y ordinate of a vertex of the triangle</param>
-        /// <returns>The area of a triangle defined by the points a, b and c</returns>
-        private static DD TriAreaDDSlow(DD ax, DD ay,
-                                       DD bx, DD by, DD cx, DD cy)
-        {
-            return (bx.Subtract(ax).Multiply(cy.Subtract(ay)).Subtract(by.Subtract(ay)
-                                                                           .Multiply(cx.Subtract(ax))));
-        }
-
         /// <summary>
         /// Tests if a point is inside the circle defined by 
         /// the triangle with vertices a, b, c (oriented counter-clockwise). 
@@ -199,37 +160,15 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             ICoordinate a, ICoordinate b, ICoordinate c,
             ICoordinate p)
         {
-            DD aTerm = (DD.Sqr(a.X) + DD.Sqr(a.Y)) * TriAreaDDFast(b, c, p);
-            DD bTerm = (DD.Sqr(b.X) + DD.Sqr(b.Y)) * TriAreaDDFast(a, c, p);
-            DD cTerm = (DD.Sqr(c.X) + DD.Sqr(c.Y)) * TriAreaDDFast(a, b, p);
-            DD pTerm = (DD.Sqr(p.X) + DD.Sqr(p.Y)) * TriAreaDDFast(a, b, c);
+            DD aTerm = (DD.Sqr(a.X) + DD.Sqr(a.Y))*TriAreaDDFast(b, c, p);
+            DD bTerm = (DD.Sqr(b.X) + DD.Sqr(b.Y))*TriAreaDDFast(a, c, p);
+            DD cTerm = (DD.Sqr(c.X) + DD.Sqr(c.Y))*TriAreaDDFast(a, b, p);
+            DD pTerm = (DD.Sqr(p.X) + DD.Sqr(p.Y))*TriAreaDDFast(a, b, c);
 
             DD sum = aTerm - bTerm + cTerm - pTerm;
             bool isInCircle = sum.ToDoubleValue() > 0;
 
             return isInCircle;
-        }
-
-
-        /// <summary>
-        /// Computes twice the area of the oriented triangle (a, b, c), i.e., the area
-        /// is positive if the triangle is oriented counterclockwise.
-        /// </summary>
-        /// <remarks>
-        /// The computation uses {@link DD} arithmetic for robustness.
-        /// </remarks>
-        /// <param name="a">a vertex of the triangle</param>
-        /// <param name="b">a vertex of the triangle</param>
-        /// <param name="c">a vertex of the triangle</param>
-        /// <returns>The area of a triangle defined by the points a, b and c</returns>
-        private static DD TriAreaDDFast(
-            ICoordinate a, ICoordinate b, ICoordinate c)
-        {
-
-            DD t1 = (DD.ValueOf(b.X)-a.X) * (DD.ValueOf(c.Y)- a.Y);
-            DD t2 = (DD.ValueOf(b.Y)-a.Y) * (DD.ValueOf(c.X) -a.X);
-
-            return t1 - t2;
         }
 
         /// <summary>
@@ -244,12 +183,12 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             ICoordinate a, ICoordinate b, ICoordinate c,
             ICoordinate p)
         {
-            DD adx = DD.ValueOf(a.X)-p.X;
-            DD ady = DD.ValueOf(a.Y)-p.Y;
-            DD bdx = DD.ValueOf(b.X)-p.X;
-            DD bdy = DD.ValueOf(b.Y)-p.Y;
-            DD cdx = DD.ValueOf(c.X)-p.X;
-            DD cdy = DD.ValueOf(c.Y)-p.Y;
+            DD adx = DD.ValueOf(a.X) - p.X;
+            DD ady = DD.ValueOf(a.Y) - p.Y;
+            DD bdx = DD.ValueOf(b.X) - p.X;
+            DD bdy = DD.ValueOf(b.Y) - p.Y;
+            DD cdx = DD.ValueOf(c.X) - p.X;
+            DD cdy = DD.ValueOf(c.Y) - p.Y;
 
             DD abdet = adx*bdy - bdx*ady;
             DD bcdet = bdx*cdy - cdx*bdy;
@@ -258,7 +197,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             DD blift = bdx*bdx + bdy*bdy;
             DD clift = cdx*cdx + cdy*cdy;
 
-            DD sum = alift * bcdet + blift* cadet + clift * abdet;
+            DD sum = alift*bcdet + blift*cadet + clift*abdet;
 
             bool isInCircle = sum.ToDoubleValue() > 0;
 
@@ -313,6 +252,61 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         }
 
         /// <summary>
+        /// Computes twice the area of the oriented triangle (a, b, c), i.e., the area is positive if the
+        /// triangle is oriented counterclockwise.
+        /// </summary>
+        /// <param name="a">A vertex of the triangle</param>
+        /// <param name="b">A vertex of the triangle</param>
+        /// <param name="c">A vertex of the triangle</param>
+        /// <returns>The area of the triangle defined by the points a, b, c</returns>
+        private static double TriArea(ICoordinate a, ICoordinate b, ICoordinate c)
+        {
+            return (b.X - a.X)*(c.Y - a.Y)
+                   - (b.Y - a.Y)*(c.X - a.X);
+        }
+
+        /// <summary>
+        /// Computes twice the area of the oriented triangle (a, b, c), i.e., the area
+        /// is positive if the triangle is oriented counterclockwise.
+        /// </summary>
+        /// <remarks>
+        /// The computation uses {@link DD} arithmetic for robustness.
+        /// </remarks>
+        /// <param name="ax">x ordinate of a vertex of the triangle</param>
+        /// <param name="ay">y ordinate of a vertex of the triangle</param>
+        /// <param name="bx">x ordinate of a vertex of the triangle</param>
+        /// <param name="by">y ordinate of a vertex of the triangle</param>
+        /// <param name="cx">x ordinate of a vertex of the triangle</param>
+        /// <param name="cy">y ordinate of a vertex of the triangle</param>
+        /// <returns>The area of a triangle defined by the points a, b and c</returns>
+        private static DD TriAreaDDSlow(DD ax, DD ay,
+                                        DD bx, DD by, DD cx, DD cy)
+        {
+            return (bx.Subtract(ax).Multiply(cy.Subtract(ay)).Subtract(by.Subtract(ay)
+                                                                         .Multiply(cx.Subtract(ax))));
+        }
+
+        /// <summary>
+        /// Computes twice the area of the oriented triangle (a, b, c), i.e., the area
+        /// is positive if the triangle is oriented counterclockwise.
+        /// </summary>
+        /// <remarks>
+        /// The computation uses {@link DD} arithmetic for robustness.
+        /// </remarks>
+        /// <param name="a">a vertex of the triangle</param>
+        /// <param name="b">a vertex of the triangle</param>
+        /// <param name="c">a vertex of the triangle</param>
+        /// <returns>The area of a triangle defined by the points a, b and c</returns>
+        private static DD TriAreaDDFast(
+            ICoordinate a, ICoordinate b, ICoordinate c)
+        {
+            DD t1 = (DD.ValueOf(b.X) - a.X)*(DD.ValueOf(c.Y) - a.Y);
+            DD t2 = (DD.ValueOf(b.Y) - a.Y)*(DD.ValueOf(c.X) - a.X);
+
+            return t1 - t2;
+        }
+
+        /// <summary>
         /// Checks if the computed value for isInCircle is correct, using
         /// double-double precision arithmetic.
         /// </summary>
@@ -321,7 +315,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         /// <param name="c">A vertex of the triangle</param>
         /// <param name="p">The point to test</param>
         private static void CheckRobustInCircle(ICoordinate a, ICoordinate b, ICoordinate c,
-                                               ICoordinate p)
+                                                ICoordinate p)
         {
             bool nonRobustInCircle = IsInCircleNonRobust(a, b, c, p);
             bool isInCircleDD = IsInCircleDDSlow(a, b, c, p);
@@ -338,7 +332,13 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
                                   + nonRobustInCircle
                                   + ", DD result = " + isInCircleDD
                                   + ", CC result = " + isInCircleCC + ")");
-                Console.WriteLine(WKTWriter.ToLineString(new CoordinateArraySequence(new[] {a, b, c, p})));
+                Console.WriteLine(WKTWriter.ToLineString(new CoordinateArraySequence(new[]
+                {
+                    a,
+                    b,
+                    c,
+                    p
+                })));
 
                 Console.WriteLine("Circumcentre = " + WKTWriter.ToPoint(circumCentre)
                                   + " radius = " + a.Distance(circumCentre));
@@ -351,7 +351,5 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
                 Console.WriteLine();
             }
         }
-
-
     }
 }

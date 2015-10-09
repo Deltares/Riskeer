@@ -4,7 +4,7 @@ using log4net.Core;
 
 namespace DelftTools.Shell.Gui.Forms
 {
-    public interface IMessageWindow : IView 
+    public interface IMessageWindow : IView
     {
         /// <summary>
         /// Adds logging event as a log4net event to the window.

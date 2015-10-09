@@ -10,14 +10,14 @@ namespace GisSharpBlog.NetTopologySuite.IO
     [Obsolete("Use ShapefileWriter instead")]
     public class MyShapeFileWriter
     {
-        private int recordCounter = 0;
-
         /// <summary>
         /// 
         /// </summary>
-        protected ShapeWriter shapeWriter = null; 
+        protected ShapeWriter shapeWriter = null;
 
-         /// <summary>
+        private int recordCounter = 0;
+
+        /// <summary>
         /// Default empty constructor
         /// </summary>
         public MyShapeFileWriter()
@@ -32,7 +32,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="shapepath">Path of the shapefile to create: will be created a new file using the given path.
         /// if file exists throws <c>System.IO.IOException</c>.</param>        
         public void Write(GeometryCollection geometries, string shapepath)
-        {            
+        {
             using (Stream stream = new FileStream(shapepath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
             {
                 Write(geometries, stream);
@@ -47,25 +47,31 @@ namespace GisSharpBlog.NetTopologySuite.IO
         protected void Write(GeometryCollection geometries, Stream stream)
         {
             if (!geometries.IsHomogeneous)
+            {
                 throw new ArgumentException("Shapefile does contain only geometries of th esame type!");
+            }
 
             // Init counter
             recordCounter = 0;
 
             using (BigEndianBinaryWriter beWriter = new BigEndianBinaryWriter(stream))
-            {               
+            {
                 using (BinaryWriter leWriter = new BinaryWriter(stream))
                 {
                     // Evaluate stream length 
                     int fileLength = 0;
                     foreach (Geometry geometry in geometries.Geometries)
-                        fileLength += (shapeWriter.GetBytesLength(geometry) + 8);  // 12 is the length of record header
-                    fileLength += 100;  // Add main header
-                    WriteHeaderFile(geometries, leWriter, beWriter, (int)(fileLength / 2));     // Write length in 16 bit words!
+                    {
+                        fileLength += (shapeWriter.GetBytesLength(geometry) + 8); // 12 is the length of record header
+                    }
+                    fileLength += 100; // Add main header
+                    WriteHeaderFile(geometries, leWriter, beWriter, (int) (fileLength/2)); // Write length in 16 bit words!
 
                     foreach (Geometry geometry in geometries.Geometries)
+                    {
                         Write(geometry, leWriter, beWriter);
-                }    
+                    }
+                }
             }
         }
 
@@ -77,22 +83,37 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="beWriter"></param>
         protected void Write(Geometry geometry, BinaryWriter leWriter, BigEndianBinaryWriter beWriter)
         {
-            WriteFeatureHeader(geometry, beWriter);             
-                          
-            if (geometry is Point)                
+            WriteFeatureHeader(geometry, beWriter);
+
+            if (geometry is Point)
+            {
                 shapeWriter.Write(geometry as Point, leWriter);
+            }
             else if (geometry is LineString)
+            {
                 shapeWriter.Write(geometry as LineString, leWriter);
+            }
             else if (geometry is Polygon)
+            {
                 shapeWriter.Write(geometry as Polygon, leWriter);
+            }
             else if (geometry is MultiPoint)
+            {
                 shapeWriter.Write(geometry as MultiPoint, leWriter);
+            }
             else if (geometry is MultiLineString)
+            {
                 shapeWriter.Write(geometry as MultiLineString, leWriter);
+            }
             else if (geometry is MultiPolygon)
+            {
                 shapeWriter.Write(geometry as MultiPolygon, leWriter);
-            else throw new NotSupportedException("Unsupported Geometry implementation:" + geometry.GetType());
-        }        
+            }
+            else
+            {
+                throw new NotSupportedException("Unsupported Geometry implementation:" + geometry.GetType());
+            }
+        }
 
         /// <summary>
         /// 
@@ -102,20 +123,37 @@ namespace GisSharpBlog.NetTopologySuite.IO
         protected ShapeGeometryType GetShapeType(Geometry geometry)
         {
             if (geometry is Point)
+            {
                 return ShapeGeometryType.Point;
+            }
             else if (geometry is LinearRing)
+            {
                 return ShapeGeometryType.LineString;
+            }
             else if (geometry is LineString)
+            {
                 return ShapeGeometryType.LineString;
+            }
             else if (geometry is Polygon)
+            {
                 return ShapeGeometryType.Polygon;
+            }
             else if (geometry is MultiPoint)
+            {
                 return ShapeGeometryType.MultiPoint;
+            }
             else if (geometry is MultiLineString)
+            {
                 return ShapeGeometryType.LineString;
+            }
             else if (geometry is MultiPolygon)
+            {
                 return ShapeGeometryType.Polygon;
-            else throw new NotSupportedException("Unsupported Geometry implementation:" + geometry.GetType());            
+            }
+            else
+            {
+                throw new NotSupportedException("Unsupported Geometry implementation:" + geometry.GetType());
+            }
         }
 
         /// <summary>
@@ -160,12 +198,12 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="geometry"></param>
         /// <param name="beWriter"></param>
         protected void WriteFeatureHeader(Geometry geometry, BigEndianBinaryWriter beWriter)
-        {            
+        {
             // Write record number (big endian)
-            beWriter.WriteIntBE((int)++recordCounter);            
+            beWriter.WriteIntBE((int) ++recordCounter);
             // Write content length (big endian) 
             int contentLength = shapeWriter.GetBytesLength(geometry);
-            beWriter.WriteIntBE((int)(contentLength / 2));  // Write length in 16 bit words!
+            beWriter.WriteIntBE((int) (contentLength/2)); // Write length in 16 bit words!
         }
     }
 }

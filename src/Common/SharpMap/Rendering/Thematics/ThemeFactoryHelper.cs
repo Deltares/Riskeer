@@ -23,7 +23,7 @@ namespace SharpMap.Rendering.Thematics
             var highValue = values.Max();
             if (type == QuantityThemeIntervalType.NaturalBreaks)
             {
-                ArrayList.Adapter((IList)values).Sort(); // performance, works 20% faster than layerAttribute.AttributeValues.Sort();
+                ArrayList.Adapter((IList) values).Sort(); // performance, works 20% faster than layerAttribute.AttributeValues.Sort();
             }
 
             for (int i = 0; i < numberOfClasses; i++)
@@ -33,14 +33,13 @@ namespace SharpMap.Rendering.Thematics
 
                 if (type == QuantityThemeIntervalType.EqualIntervals)
                 {
-
-                    intervalMin = lowValue + i * ((highValue - lowValue) / numberOfClasses);
-                    intervalMax = lowValue + (i + 1) * ((highValue - lowValue) / numberOfClasses);
+                    intervalMin = lowValue + i*((highValue - lowValue)/numberOfClasses);
+                    intervalMax = lowValue + (i + 1)*((highValue - lowValue)/numberOfClasses);
                 }
                 else
                 {
                     intervalMin = Convert.ToSingle(values[index]);
-                    index = (int)Math.Ceiling((double)(i + 1) / numberOfClasses * (values.Count - 1));
+                    index = (int) Math.Ceiling((double) (i + 1)/numberOfClasses*(values.Count - 1));
                     intervalMax = Convert.ToSingle(values[index]);
                 }
 
@@ -50,7 +49,5 @@ namespace SharpMap.Rendering.Thematics
 
             return intervals;
         }
-       
-
     }
 }

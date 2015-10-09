@@ -8,6 +8,11 @@ namespace DelftTools.Controls.Swf
     {
         private static readonly List<ClonableToolStripMenuItem> Instances = new List<ClonableToolStripMenuItem>();
 
+        public ClonableToolStripMenuItem()
+        {
+            Instances.Add(this);
+        }
+
         /// <summary>
         /// Hack used to dispose menu items (and tags). Needed since Windows.Forms remembers references to these menu items.
         /// </summary>
@@ -21,61 +26,56 @@ namespace DelftTools.Controls.Swf
             Instances.Clear();
         }
 
-        public ClonableToolStripMenuItem()
-        {
-            Instances.Add(this);
-        }
-
         public ClonableToolStripMenuItem Clone()
         {
             // dirt simple clone - just properties, no subitems
             ClonableToolStripMenuItem menuItem = new ClonableToolStripMenuItem();
-            menuItem.Events.AddHandlers(this.Events);
-            menuItem.AccessibleName = this.AccessibleName;
-            menuItem.AccessibleRole = this.AccessibleRole;
-            menuItem.Alignment = this.Alignment;
-            menuItem.AllowDrop = this.AllowDrop;
-            menuItem.Anchor = this.Anchor;
-            menuItem.AutoSize = this.AutoSize;
-            menuItem.AutoToolTip = this.AutoToolTip;
-            menuItem.BackColor = this.BackColor;
-            menuItem.BackgroundImage = this.BackgroundImage;
-            menuItem.BackgroundImageLayout = this.BackgroundImageLayout;
-            menuItem.Checked = this.Checked;
-            menuItem.CheckOnClick = this.CheckOnClick;
-            menuItem.CheckState = this.CheckState;
-            menuItem.DisplayStyle = this.DisplayStyle;
-            menuItem.Dock = this.Dock;
-            menuItem.DoubleClickEnabled = this.DoubleClickEnabled;
-            menuItem.Enabled = this.Enabled;
-            menuItem.Font = this.Font;
-            menuItem.ForeColor = this.ForeColor;
-            menuItem.Image = this.Image;
-            menuItem.ImageAlign = this.ImageAlign;
-            menuItem.ImageScaling = this.ImageScaling;
-            menuItem.ImageTransparentColor = this.ImageTransparentColor;
-            menuItem.Margin = this.Margin;
-            menuItem.MergeAction = this.MergeAction;
-            menuItem.MergeIndex = this.MergeIndex;
-            menuItem.Name = this.Name;
-            menuItem.Overflow = this.Overflow;
-            menuItem.Padding = this.Padding;
-            menuItem.RightToLeft = this.RightToLeft;
-            menuItem.ShortcutKeys = this.ShortcutKeys;
-            menuItem.ShowShortcutKeys = this.ShowShortcutKeys;
-            menuItem.Tag = this.Tag;
-            menuItem.Text = this.Text;
-            menuItem.TextAlign = this.TextAlign;
-            menuItem.TextDirection = this.TextDirection;
-            menuItem.TextImageRelation = this.TextImageRelation;
-            menuItem.ToolTipText = this.ToolTipText;
-            menuItem.Available = this.Available;
+            menuItem.Events.AddHandlers(Events);
+            menuItem.AccessibleName = AccessibleName;
+            menuItem.AccessibleRole = AccessibleRole;
+            menuItem.Alignment = Alignment;
+            menuItem.AllowDrop = AllowDrop;
+            menuItem.Anchor = Anchor;
+            menuItem.AutoSize = AutoSize;
+            menuItem.AutoToolTip = AutoToolTip;
+            menuItem.BackColor = BackColor;
+            menuItem.BackgroundImage = BackgroundImage;
+            menuItem.BackgroundImageLayout = BackgroundImageLayout;
+            menuItem.Checked = Checked;
+            menuItem.CheckOnClick = CheckOnClick;
+            menuItem.CheckState = CheckState;
+            menuItem.DisplayStyle = DisplayStyle;
+            menuItem.Dock = Dock;
+            menuItem.DoubleClickEnabled = DoubleClickEnabled;
+            menuItem.Enabled = Enabled;
+            menuItem.Font = Font;
+            menuItem.ForeColor = ForeColor;
+            menuItem.Image = Image;
+            menuItem.ImageAlign = ImageAlign;
+            menuItem.ImageScaling = ImageScaling;
+            menuItem.ImageTransparentColor = ImageTransparentColor;
+            menuItem.Margin = Margin;
+            menuItem.MergeAction = MergeAction;
+            menuItem.MergeIndex = MergeIndex;
+            menuItem.Name = Name;
+            menuItem.Overflow = Overflow;
+            menuItem.Padding = Padding;
+            menuItem.RightToLeft = RightToLeft;
+            menuItem.ShortcutKeys = ShortcutKeys;
+            menuItem.ShowShortcutKeys = ShowShortcutKeys;
+            menuItem.Tag = Tag;
+            menuItem.Text = Text;
+            menuItem.TextAlign = TextAlign;
+            menuItem.TextDirection = TextDirection;
+            menuItem.TextImageRelation = TextImageRelation;
+            menuItem.ToolTipText = ToolTipText;
+            menuItem.Available = Available;
             if (!AutoSize)
             {
-                menuItem.Size = this.Size;
+                menuItem.Size = Size;
             }
 
-            foreach(var dropDownItem in this.DropDownItems)
+            foreach (var dropDownItem in DropDownItems)
             {
                 var cloneableItem = dropDownItem as ClonableToolStripMenuItem;
                 if (cloneableItem != null)

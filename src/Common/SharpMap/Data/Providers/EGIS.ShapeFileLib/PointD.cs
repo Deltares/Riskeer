@@ -28,6 +28,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Runtime.InteropServices;
 
 namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
@@ -37,14 +38,18 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
     /// This structure is essentially the same as the System.Drawing.PointD structure but uses double-precision floating point numbers, which are
     /// needed for accuracy in GIS applications
     /// </remarks>
-    [Serializable, StructLayout(LayoutKind.Sequential), ComVisible(true)]
+    [Serializable]
+    [StructLayout(LayoutKind.Sequential)]
+    [ComVisible(true)]
     public struct PointD
     {
         /// <summary>Represents a new instance of the <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.PointD"></see> class with member data left uninitialized.</summary>
         /// <filterpriority>1</filterpriority>
         public static readonly PointD Empty;
+
         private double x;
         private double y;
+
         /// <summary>Initializes a new instance of the <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.PointD"></see> class with the specified coordinates.</summary>
         /// <param name="y">The vertical position of the point. </param>
         /// <param name="x">The horizontal position of the point. </param>
@@ -62,9 +67,10 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return ((this.x == 0) && (this.y == 0));
+                return ((x == 0) && (y == 0));
             }
         }
+
         /// <summary>Gets or sets the x-coordinate of this <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.PointD"></see>.</summary>
         /// <returns>The x-coordinate of this <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.PointD"></see>.</returns>
         /// <filterpriority>1</filterpriority>
@@ -72,13 +78,14 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return this.x;
+                return x;
             }
             set
             {
-                this.x = value;
+                x = value;
             }
         }
+
         /// <summary>Gets or sets the y-coordinate of this <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.PointD"></see>.</summary>
         /// <returns>The y-coordinate of this <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.PointD"></see>.</returns>
         /// <filterpriority>1</filterpriority>
@@ -86,11 +93,11 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return this.y;
+                return y;
             }
             set
             {
-                this.y = value;
+                y = value;
             }
         }
 
@@ -225,8 +232,6 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
             return new PointD(pt.X - sz.Width, pt.Y - sz.Height);
         }
 
-
-
         /// <summary>Specifies whether this <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.PointD"></see> contains the same coordinates as the specified <see cref="T:System.Object"></see>.</summary>
         /// <returns>This method returns true if obj is a <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.PointD"></see> and has the same coordinates as this <see cref="T:System.Drawing.Point"></see>.</returns>
         /// <param name="obj">The <see cref="T:System.Object"></see> to test. </param>
@@ -237,8 +242,8 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
             {
                 return false;
             }
-            PointD tp = (PointD)obj;
-            return (((tp.X == this.X) && (tp.Y == this.Y)) && tp.GetType().Equals(base.GetType()));
+            PointD tp = (PointD) obj;
+            return (((tp.X == X) && (tp.Y == Y)) && tp.GetType().Equals(GetType()));
         }
 
         /// <summary>Returns a hash code for this <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.PointD"></see> structure.</summary>
@@ -254,7 +259,11 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <filterpriority>1</filterpriority>
         public override string ToString()
         {
-            return string.Format(System.Globalization.CultureInfo.CurrentCulture, "{{X={0}, Y={1}}}", new object[] { this.x, this.y });
+            return string.Format(CultureInfo.CurrentCulture, "{{X={0}, Y={1}}}", new object[]
+            {
+                x,
+                y
+            });
         }
 
         static PointD()
@@ -267,14 +276,9 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static implicit operator PointD(System.Drawing.PointF p)
+        public static implicit operator PointD(PointF p)
         {
-            return new PointD((double)p.X, (double)p.Y);            
+            return new PointD((double) p.X, (double) p.Y);
         }
-
-
-
     }
-
-
 }

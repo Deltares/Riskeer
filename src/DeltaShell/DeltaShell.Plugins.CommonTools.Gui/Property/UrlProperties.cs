@@ -12,8 +12,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property
         [ResourcesDescription(typeof(Resources), "UrlProperties_Name_Description")]
         public string Name
         {
-            get { return data.Name; }
-            set { data.Name = value; }
+            get
+            {
+                return data.Name;
+            }
+            set
+            {
+                data.Name = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
@@ -21,8 +27,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property
         [ResourcesDescription(typeof(Resources), "UrlProperties_Path_Description")]
         public string Path
         {
-            get { return data.Path; }
-            set { data.Path = value; }
+            get
+            {
+                return data.Path;
+            }
+            set
+            {
+                data.Path = value;
+            }
         }
     }
 }

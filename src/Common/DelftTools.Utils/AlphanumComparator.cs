@@ -36,28 +36,16 @@ using System.Text;
  * Please compare against the latest Java version at http://www.DaveKoelle.com
  * to see the most recent modifications 
  */
+
 namespace DelftTools.Utils
 {
     public class AlphanumComparator : IComparer<string>
     {
-        private enum ChunkType { Alphanumeric, Numeric };
-        private bool InChunk(char ch, char otherCh)
+        private enum ChunkType
         {
-            ChunkType type = ChunkType.Alphanumeric;
-
-            if (char.IsDigit(otherCh))
-            {
-                type = ChunkType.Numeric;
-            }
-
-            if ((type == ChunkType.Alphanumeric && char.IsDigit(ch))
-                || (type == ChunkType.Numeric && !char.IsDigit(ch)))
-            {
-                return false;
-            }
-
-            return true;
-        }
+            Alphanumeric,
+            Numeric
+        };
 
         public int Compare(string s1, string s2)
         {
@@ -136,6 +124,24 @@ namespace DelftTools.Utils
             }
 
             return 0;
+        }
+
+        private bool InChunk(char ch, char otherCh)
+        {
+            ChunkType type = ChunkType.Alphanumeric;
+
+            if (char.IsDigit(otherCh))
+            {
+                type = ChunkType.Numeric;
+            }
+
+            if ((type == ChunkType.Alphanumeric && char.IsDigit(ch))
+                || (type == ChunkType.Numeric && !char.IsDigit(ch)))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

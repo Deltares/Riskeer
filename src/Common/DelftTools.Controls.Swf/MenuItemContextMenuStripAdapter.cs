@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using log4net;
@@ -11,20 +12,42 @@ namespace DelftTools.Controls.Swf
     public class MenuItemContextMenuStripAdapter : IMenuItem, IDisposable
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MenuItemContextMenuStripAdapter));
-        private ContextMenuStrip contextMenuStrip;
 
         public MenuItemContextMenuStripAdapter(ContextMenuStrip contextMenuStrip)
         {
-            this.contextMenuStrip = contextMenuStrip;
+            ContextMenuStrip = contextMenuStrip;
         }
 
         /// <summary>
         /// The contextmenustrip wrapped by this adapter.
         /// </summary>
-        public ContextMenuStrip ContextMenuStrip
+        public ContextMenuStrip ContextMenuStrip { get; private set; }
+
+        public void Dispose()
         {
-            get { return contextMenuStrip; }
+            if (ContextMenuStrip != null)
+            {
+                ContextMenuStrip.Dispose();
+            }
         }
+
+        #region IEnumerable<IMenuItem> Members
+
+        public IEnumerator<IMenuItem> GetEnumerator()
+        {
+            throw new NotImplementedException("The method or operation is not implemented.");
+        }
+
+        #endregion
+
+        #region IEnumerable Members
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ContextMenuStrip.Items.GetEnumerator();
+        }
+
+        #endregion
 
         #region IMenuItem Members
 
@@ -54,14 +77,20 @@ namespace DelftTools.Controls.Swf
 
         public string Tooltip
         {
-            get { return ""; }
-            set { }
+            get
+            {
+                return "";
+            }
+            set {}
         }
 
         public string Category
         {
-            get { return ""; }
-            set { }
+            get
+            {
+                return "";
+            }
+            set {}
         }
 
         public bool Enabled
@@ -75,7 +104,6 @@ namespace DelftTools.Controls.Swf
                 throw new NotImplementedException("The method or operation is not implemented.");
             }
         }
-
 
         public string Shortcut
         {
@@ -91,7 +119,10 @@ namespace DelftTools.Controls.Swf
 
         public IList<Type> ActiveForViews
         {
-            get { throw new NotImplementedException("The method or operation is not implemented."); }
+            get
+            {
+                throw new NotImplementedException("The method or operation is not implemented.");
+            }
         }
 
         public ICommand Command
@@ -116,7 +147,7 @@ namespace DelftTools.Controls.Swf
             {
                 //ToolStripItem 
                 //ToolStripMenuItem
-                var menuItem = contextMenuStrip.Items[name];
+                var menuItem = ContextMenuStrip.Items[name];
                 if (menuItem is ToolStripMenuItem)
                 {
                     return new MenuItemToolStripMenuItemAdapter((ToolStripMenuItem) menuItem);
@@ -131,10 +162,10 @@ namespace DelftTools.Controls.Swf
 
         public int IndexOf(string name)
         {
-            var menuItem = contextMenuStrip.Items[name];
+            var menuItem = ContextMenuStrip.Items[name];
             if (null != menuItem)
             {
-                return contextMenuStrip.Items.IndexOf(menuItem);
+                return ContextMenuStrip.Items.IndexOf(menuItem);
             }
             return -1;
         }
@@ -160,18 +191,21 @@ namespace DelftTools.Controls.Swf
 
         public void Insert(int index, IMenuItem item)
         {
-            if(item is MenuItemContextMenuStripAdapter)
+            if (item is MenuItemContextMenuStripAdapter)
             {
                 var items = ((MenuItemContextMenuStripAdapter) item).ContextMenuStrip.Items;
                 for (int i = items.Count - 1; i >= 0; i--)
                 {
                     if (items[i] is ClonableToolStripMenuItem)
                     {
-                        ContextMenuStrip.Items.Insert(index,((ClonableToolStripMenuItem)items[i]).Clone());
+                        ContextMenuStrip.Items.Insert(index, ((ClonableToolStripMenuItem) items[i]).Clone());
                     }
                     else if (items[i] is ToolStripSeparator)
                     {
-                        ContextMenuStrip.Items.Insert(index, new ToolStripSeparator() { Available = items[i].Available });
+                        ContextMenuStrip.Items.Insert(index, new ToolStripSeparator()
+                        {
+                            Available = items[i].Available
+                        });
                     }
                     else
                     {
@@ -190,10 +224,10 @@ namespace DelftTools.Controls.Swf
         {
             get
             {
-                var menuItem = contextMenuStrip.Items[index];
+                var menuItem = ContextMenuStrip.Items[index];
                 if (menuItem is ToolStripMenuItem)
                 {
-                    return new MenuItemToolStripMenuItemAdapter((ToolStripMenuItem)menuItem);
+                    return new MenuItemToolStripMenuItemAdapter((ToolStripMenuItem) menuItem);
                 }
                 return null;
             }
@@ -211,24 +245,27 @@ namespace DelftTools.Controls.Swf
         {
             if (item is MenuItemContextMenuStripAdapter)
             {
-                var menuItemContextMenuStripAdapter = (MenuItemContextMenuStripAdapter)item;
+                var menuItemContextMenuStripAdapter = (MenuItemContextMenuStripAdapter) item;
 
-                for (int i = 0; i < menuItemContextMenuStripAdapter.contextMenuStrip.Items.Count; i++)
+                for (int i = 0; i < menuItemContextMenuStripAdapter.ContextMenuStrip.Items.Count; i++)
                 {
-                    ToolStripItem toolStripItem = menuItemContextMenuStripAdapter.contextMenuStrip.Items[i];
+                    ToolStripItem toolStripItem = menuItemContextMenuStripAdapter.ContextMenuStrip.Items[i];
                     if (toolStripItem is ClonableToolStripMenuItem)
                     {
                         var clonableToolStripMenuItem =
-                            (ClonableToolStripMenuItem)menuItemContextMenuStripAdapter.contextMenuStrip.Items[i];
+                            (ClonableToolStripMenuItem) menuItemContextMenuStripAdapter.ContextMenuStrip.Items[i];
                         ContextMenuStrip.Items.Add(clonableToolStripMenuItem.Clone());
                     }
                     else if (toolStripItem is ToolStripSeparator)
                     {
-                        ContextMenuStrip.Items.Add(new ToolStripSeparator() { Available = toolStripItem.Available });
+                        ContextMenuStrip.Items.Add(new ToolStripSeparator()
+                        {
+                            Available = toolStripItem.Available
+                        });
                     }
                     else
                     {
-                        log.Error(string.Format("Menuitem {0} not clonable.", menuItemContextMenuStripAdapter.contextMenuStrip.Items[i].Text));
+                        log.Error(string.Format("Menuitem {0} not clonable.", menuItemContextMenuStripAdapter.ContextMenuStrip.Items[i].Text));
                     }
                 }
             }
@@ -241,7 +278,7 @@ namespace DelftTools.Controls.Swf
         public void Clear()
         {
             //throw new NotImplementedException("The method or operation is not implemented.");
-            contextMenuStrip.Items.Clear();
+            ContextMenuStrip.Items.Clear();
         }
 
         public bool Contains(IMenuItem item)
@@ -258,13 +295,16 @@ namespace DelftTools.Controls.Swf
         {
             get
             {
-                return contextMenuStrip.Items.Count;
+                return ContextMenuStrip.Items.Count;
             }
         }
 
         public bool IsReadOnly
         {
-            get { throw new NotImplementedException("The method or operation is not implemented."); }
+            get
+            {
+                throw new NotImplementedException("The method or operation is not implemented.");
+            }
         }
 
         public bool Remove(IMenuItem item)
@@ -273,31 +313,5 @@ namespace DelftTools.Controls.Swf
         }
 
         #endregion
-
-        #region IEnumerable<IMenuItem> Members
-
-        public IEnumerator<IMenuItem> GetEnumerator()
-        {
-            throw new NotImplementedException("The method or operation is not implemented.");
-        }
-
-        #endregion
-
-        #region IEnumerable Members
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return contextMenuStrip.Items.GetEnumerator();
-        }
-
-        #endregion
-
-        public void Dispose()
-        {
-            if (ContextMenuStrip != null)
-            {
-                contextMenuStrip.Dispose();
-            }
-        }
     }
 }

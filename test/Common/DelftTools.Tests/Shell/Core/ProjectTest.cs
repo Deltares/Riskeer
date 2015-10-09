@@ -1,9 +1,6 @@
 using System.ComponentModel;
-
 using DelftTools.Shell.Core;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace DelftTools.Tests.Shell.Core

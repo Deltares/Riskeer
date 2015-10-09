@@ -20,11 +20,11 @@ namespace DelftTools.Controls.Swf
         {
             base.OnSelectionChangeCommitted(e);
 
-            var bindings = this.DataBindings
+            var bindings = DataBindings
                 .Cast<Binding>()
                 .Where(x =>
-                    x.PropertyName == "SelectedItem" &&
-                    x.DataSourceUpdateMode == DataSourceUpdateMode.OnPropertyChanged);
+                       x.PropertyName == "SelectedItem" &&
+                       x.DataSourceUpdateMode == DataSourceUpdateMode.OnPropertyChanged);
             foreach (var binding in bindings)
             {
                 // Force the binding to update from the new SelectedItem

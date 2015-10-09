@@ -18,7 +18,7 @@ namespace SharpMap.UI.Tools.Zooming
         private Point startDragPoint;
         private Point endDragPoint;
 
-        Bitmap previewImage;
+        private Bitmap previewImage;
 
         public ZoomUsingRectangleTool()
         {
@@ -28,12 +28,15 @@ namespace SharpMap.UI.Tools.Zooming
 
         public override void OnMouseDown(ICoordinate worldPosition, MouseEventArgs e)
         {
-            if(e.Button != MouseButtons.Left) return;
+            if (e.Button != MouseButtons.Left)
+            {
+                return;
+            }
 
             zooming = true;
             startDragPoint = e.Location;
             endDragPoint = e.Location;
-            previewImage = (Bitmap)Map.Image.Clone();
+            previewImage = (Bitmap) Map.Image.Clone();
         }
 
         public override void OnMouseUp(ICoordinate worldPosition, MouseEventArgs e)
@@ -74,10 +77,10 @@ namespace SharpMap.UI.Tools.Zooming
             g.Clear(MapControl.BackColor);
             g.DrawImage(Map.Image, 0, 0);
 
-            var rectangle = new Rectangle((int)Math.Min(((PointF) startDragPoint).X, ((PointF) endDragPoint).X), 
-                (int)Math.Min(((PointF) startDragPoint).Y, ((PointF) endDragPoint).Y),
-                (int)Math.Abs(((PointF) startDragPoint).X - ((PointF) endDragPoint).X), 
-                (int)Math.Abs(((PointF) startDragPoint).Y - ((PointF) endDragPoint).Y));
+            var rectangle = new Rectangle((int) Math.Min(((PointF) startDragPoint).X, ((PointF) endDragPoint).X),
+                                          (int) Math.Min(((PointF) startDragPoint).Y, ((PointF) endDragPoint).Y),
+                                          (int) Math.Abs(((PointF) startDragPoint).X - ((PointF) endDragPoint).X),
+                                          (int) Math.Abs(((PointF) startDragPoint).Y - ((PointF) endDragPoint).Y));
 
             using (var pen = new Pen(Color.DeepSkyBlue))
             {

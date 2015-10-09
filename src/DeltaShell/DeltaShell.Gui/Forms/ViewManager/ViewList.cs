@@ -16,16 +16,26 @@ namespace DeltaShell.Gui.Forms.ViewManager
     /// </summary>
     public class ViewList : IViewList
     {
+        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanging;
+
+        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
+
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        public event NotifyCollectionChangingEventHandler CollectionChanging;
+
+        public event NotifyCollectionChangedEventHandler ChildViewChanged;
         private static readonly ILog Log = LogManager.GetLogger(typeof(ViewList));
         private readonly ViewLocation? defaultLocation;
         private readonly IDockingManager dockingManager;
         private readonly IList<IView> views;
-        private ViewSelectionMouseController viewSelectionMouseController;
-        private IView activeView;
-        private bool clearing; // used to skip view activation when it is not necessary
 
         private readonly IDictionary<IView, NotifyCollectionChangedEventHandler> childViewSubscribtionLookup =
             new Dictionary<IView, NotifyCollectionChangedEventHandler>();
+
+        private ViewSelectionMouseController viewSelectionMouseController;
+        private IView activeView;
+        private bool clearing; // used to skip view activation when it is not necessary
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewList"/> class. 
@@ -43,64 +53,6 @@ namespace DeltaShell.Gui.Forms.ViewManager
             this.dockingManager.ViewActivated += DockingManagerViewActivated;
         }
 
-        public void Dispose()
-        {
-            dockingManager.ViewBarClosing -= DockingManagerViewBarClosing;
-            dockingManager.ViewActivated -= DockingManagerViewActivated;
-
-            dockingManager.Dispose();
-
-            childViewSubscribtionLookup.Clear();
-
-            Gui = null;
-        }
-
-        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanging;
-
-        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
-
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-
-        public event NotifyCollectionChangingEventHandler CollectionChanging;
-
-        public event NotifyCollectionChangedEventHandler ChildViewChanged;
-
-        bool INotifyCollectionChange.HasParentIsCheckedInItems { get; set; }
-
-        public IGui Gui { get; set; }
-
-        public bool SkipChildItemEventBubbling { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether DoNotDisposeViewsOnRemove.
-        /// </summary>
-        public static bool DoNotDisposeViewsOnRemove { get; set; }
-
-        public IView ActiveView
-        {
-            get { return activeView; }
-            set { ActivateView(value); }
-        }
-
-        public IEnumerable<IView> AllViews
-        {
-            get { return FindViewsRecursive<IView>(views); }
-        }
-
-        public int Count
-        {
-            get { return views.Count; }
-        }
-
-        public bool IgnoreActivation { get; set; }
-
-        public bool IsReadOnly
-        {
-            get { return views.IsReadOnly; }
-        }
-
-        public Action<IView> UpdateViewNameAction { get; set; }
-
         public IView this[int index]
         {
             get
@@ -114,6 +66,108 @@ namespace DeltaShell.Gui.Forms.ViewManager
                 RemoveAt(index);
                 Insert(index, value);
             }
+        }
+
+        public IGui Gui { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether DoNotDisposeViewsOnRemove.
+        /// </summary>
+        public static bool DoNotDisposeViewsOnRemove { get; set; }
+
+        public Action<IView> UpdateViewNameAction { get; set; }
+
+        bool INotifyCollectionChange.HasParentIsCheckedInItems { get; set; }
+
+        public bool SkipChildItemEventBubbling { get; set; }
+
+        public IView ActiveView
+        {
+            get
+            {
+                return activeView;
+            }
+            set
+            {
+                ActivateView(value);
+            }
+        }
+
+        public IEnumerable<IView> AllViews
+        {
+            get
+            {
+                return FindViewsRecursive<IView>(views);
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                return views.Count;
+            }
+        }
+
+        public bool IgnoreActivation { get; set; }
+
+        public bool IsReadOnly
+        {
+            get
+            {
+                return views.IsReadOnly;
+            }
+        }
+
+        /// <summary>
+        /// The resume all view updates.
+        /// </summary>
+        public void ResumeAllViewUpdates()
+        {
+            foreach (var view in AllViews.OfType<ISuspendibleView>())
+            {
+                view.ResumeUpdates();
+            }
+        }
+
+        /// <summary>
+        /// The suspend all view updates.
+        /// </summary>
+        public void SuspendAllViewUpdates()
+        {
+            foreach (var view in AllViews.OfType<ISuspendibleView>())
+            {
+                view.SuspendUpdates();
+            }
+        }
+
+        public void EnableTabContextMenus()
+        {
+            viewSelectionMouseController = new ViewSelectionMouseController(dockingManager, this);
+        }
+
+        // bug in Fluent ribbon (views removed during load layout are not cleared - no events), synchronize them manually
+        public void SynchronizeViews(IView[] openedViews)
+        {
+            foreach (var view in views.ToArray())
+            {
+                if (!openedViews.Contains(view))
+                {
+                    views.Remove(view);
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            dockingManager.ViewBarClosing -= DockingManagerViewBarClosing;
+            dockingManager.ViewActivated -= DockingManagerViewActivated;
+
+            dockingManager.Dispose();
+
+            childViewSubscribtionLookup.Clear();
+
+            Gui = null;
         }
 
         public void Add(IView view, ViewLocation viewLocation)
@@ -186,7 +240,10 @@ namespace DeltaShell.Gui.Forms.ViewManager
 
         public IEnumerable<T> GetActiveViews<T>() where T : class, IView
         {
-            return FindViewsRecursive<T>(new[] { ActiveView });
+            return FindViewsRecursive<T>(new[]
+            {
+                ActiveView
+            });
         }
 
         public IEnumerator<IView> GetEnumerator()
@@ -207,7 +264,7 @@ namespace DeltaShell.Gui.Forms.ViewManager
                     Resources.ViewList_Insert_No_default_location_specified__Cannot_add_a_view_without_location_parameter_);
             }
 
-            Insert(index, view, (ViewLocation)defaultLocation);
+            Insert(index, view, (ViewLocation) defaultLocation);
         }
 
         public bool Remove(IView view)
@@ -221,36 +278,9 @@ namespace DeltaShell.Gui.Forms.ViewManager
             Remove(views[index]);
         }
 
-        /// <summary>
-        /// The resume all view updates.
-        /// </summary>
-        public void ResumeAllViewUpdates()
-        {
-            foreach (var view in AllViews.OfType<ISuspendibleView>())
-            {
-                view.ResumeUpdates();
-            }
-        }
-
         public void SetTooltip(IView view, string tooltip)
         {
             dockingManager.SetToolTip(view, tooltip);
-        }
-
-        /// <summary>
-        /// The suspend all view updates.
-        /// </summary>
-        public void SuspendAllViewUpdates()
-        {
-            foreach (var view in AllViews.OfType<ISuspendibleView>())
-            {
-                view.SuspendUpdates();
-            }
-        }
-
-        public void EnableTabContextMenus()
-        {
-            viewSelectionMouseController = new ViewSelectionMouseController(dockingManager, this);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -264,11 +294,14 @@ namespace DeltaShell.Gui.Forms.ViewManager
             {
                 if (view is T)
                 {
-                    yield return (T)view;
+                    yield return (T) view;
                 }
 
                 var compositeView = view as ICompositeView;
-                if (compositeView == null) continue;
+                if (compositeView == null)
+                {
+                    continue;
+                }
 
                 foreach (var childView in FindViewsRecursive<T>(compositeView.ChildViews))
                 {
@@ -276,7 +309,7 @@ namespace DeltaShell.Gui.Forms.ViewManager
                 }
             }
         }
-        
+
         private void ActivateView(IView view)
         {
             if (clearing)
@@ -295,11 +328,11 @@ namespace DeltaShell.Gui.Forms.ViewManager
                 return;
             }
 
-            if (activeView == view && (activeView != null && ((Control)activeView).Visible))
+            if (activeView == view && (activeView != null && ((Control) activeView).Visible))
             {
                 if (activeView is Control)
                 {
-                    ((Control)activeView).Focus();
+                    ((Control) activeView).Focus();
                 }
 
                 return;
@@ -387,7 +420,7 @@ namespace DeltaShell.Gui.Forms.ViewManager
             views.Remove(view);
 
             FireCollectionChangedEvent(NotifyCollectionChangeAction.Remove, oldIndex, view);
-            
+
             var compositeView = view as ICompositeView;
             if (compositeView != null)
             {
@@ -455,7 +488,10 @@ namespace DeltaShell.Gui.Forms.ViewManager
         {
             if (ActiveViewChanging != null)
             {
-                ActiveViewChanging(this, new ActiveViewChangeEventArgs { View = newView, OldView = oldView });
+                ActiveViewChanging(this, new ActiveViewChangeEventArgs
+                {
+                    View = newView, OldView = oldView
+                });
             }
         }
 
@@ -463,7 +499,10 @@ namespace DeltaShell.Gui.Forms.ViewManager
         {
             if (ActiveViewChanged != null)
             {
-                ActiveViewChanged(this, new ActiveViewChangeEventArgs {View = ActiveView, OldView = oldView});
+                ActiveViewChanged(this, new ActiveViewChangeEventArgs
+                {
+                    View = ActiveView, OldView = oldView
+                });
             }
         }
 
@@ -490,7 +529,7 @@ namespace DeltaShell.Gui.Forms.ViewManager
                 ChildViewChanged(this, new NotifyCollectionChangingEventArgs(args.Action, view, args.Index, -1));
             }
         }
-        
+
         private void Insert(int index, IView view, ViewLocation viewLocation)
         {
             // activate view only if it is already added
@@ -525,18 +564,6 @@ namespace DeltaShell.Gui.Forms.ViewManager
             if (Gui != null && Gui.Plugins != null)
             {
                 Gui.Plugins.ForEach(p => p.OnViewAdded(view));
-            }
-        }
-
-        // bug in Fluent ribbon (views removed during load layout are not cleared - no events), synchronize them manually
-        public void SynchronizeViews(IView[] openedViews)
-        {
-            foreach (var view in views.ToArray())
-            {
-                if (!openedViews.Contains(view))
-                {
-                    views.Remove(view);
-                }
             }
         }
     }

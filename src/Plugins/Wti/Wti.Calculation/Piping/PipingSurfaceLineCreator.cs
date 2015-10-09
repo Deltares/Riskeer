@@ -14,7 +14,7 @@ namespace Wti.Calculation.Piping
         public PipingSurfaceLine Create()
         {
             var surfaceLine = new PipingSurfaceLine();
-            surfaceLine.Points.Add(new PipingPoint(0,0,0));
+            surfaceLine.Points.Add(new PipingPoint(0, 0, 0));
 
             return surfaceLine;
         }

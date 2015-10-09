@@ -20,17 +20,13 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         /// Creates a new instance for the given ordinates.
         /// </summary>
         public Segment(double x1, double y1, double z1, double x2, double y2, double z2)
-            :this(new Coordinate(x1, y1, z1), new Coordinate(x2, y2, z2))
-        {
-        }
+            : this(new Coordinate(x1, y1, z1), new Coordinate(x2, y2, z2)) {}
 
         /// <summary> 
         /// Creates a new instance for the given ordinates,  with associated external data. 
         /// </summary>
         public Segment(double x1, double y1, double z1, double x2, double y2, double z2, Object data)
-            : this(new Coordinate(x1, y1, z1), new Coordinate(x2, y2, z2), data)
-        {
-        }
+            : this(new Coordinate(x1, y1, z1), new Coordinate(x2, y2, z2), data) {}
 
         /// <summary> 
         /// Creates a new instance for the given points, with associated external data.
@@ -41,7 +37,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         public Segment(Coordinate p0, Coordinate p1, Object data)
         {
             _ls = new LineSegment(p0, p1);
-            this.Data = data;
+            Data = data;
         }
 
         /// <summary> 
@@ -60,7 +56,10 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         /// <remarks>a Coordinate</remarks>
         public ICoordinate Start
         {
-            get {return _ls.GetCoordinate(0);}
+            get
+            {
+                return _ls.GetCoordinate(0);
+            }
         }
 
         /// <summary>
@@ -69,7 +68,10 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         /// <remarks>a Coordinate</remarks>
         public ICoordinate End
         {
-            get {return _ls.GetCoordinate(1);}
+            get
+            {
+                return _ls.GetCoordinate(1);
+            }
         }
 
         /// <summary>
@@ -156,7 +158,10 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         /// <remarks>a LineSegment</remarks>
         public LineSegment LineSegment
         {
-           get {return _ls;}
+            get
+            {
+                return _ls;
+            }
         }
 
         /// <summary>

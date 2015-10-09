@@ -17,15 +17,50 @@ namespace DelftTools.Utils
 
         private static ImageAttributes CalculateOpacityImageAttributes(float opacity)
         {
-            var clippedOpacity = (float)Math.Min(1.0, Math.Max(0.0, opacity));
+            var clippedOpacity = (float) Math.Min(1.0, Math.Max(0.0, opacity));
             float[][] ptsArray =
+            {
+                new float[]
                 {
-                    new float[] {1, 0, 0, 0, 0},
-                    new float[] {0, 1, 0, 0, 0},
-                    new float[] {0, 0, 1, 0, 0},
-                    new float[] {0, 0, 0, clippedOpacity, 0},
-                    new float[] {0, 0, 0, 0, 1}
-                };
+                    1,
+                    0,
+                    0,
+                    0,
+                    0
+                },
+                new float[]
+                {
+                    0,
+                    1,
+                    0,
+                    0,
+                    0
+                },
+                new float[]
+                {
+                    0,
+                    0,
+                    1,
+                    0,
+                    0
+                },
+                new float[]
+                {
+                    0,
+                    0,
+                    0,
+                    clippedOpacity,
+                    0
+                },
+                new float[]
+                {
+                    0,
+                    0,
+                    0,
+                    0,
+                    1
+                }
+            };
             var clrMatrix = new ColorMatrix(ptsArray);
             var imgAttributes = new ImageAttributes();
             imgAttributes.SetColorMatrix(clrMatrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);

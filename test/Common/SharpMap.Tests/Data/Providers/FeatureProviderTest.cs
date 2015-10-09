@@ -24,13 +24,16 @@ namespace SharpMap.Tests.Data.Providers
             features[1].Geometry = GeometryFromWKT.Parse("LINESTRING (30 30, 30 40, 40 40, 40 30, 50 30)");
             features[2].Geometry = GeometryFromWKT.Parse("LINESTRING (40 40, 40 50, 50 50, 50 40, 60 40)");
 
-            FeatureCollection featureCollection = new FeatureCollection {Features = features};
+            FeatureCollection featureCollection = new FeatureCollection
+            {
+                Features = features
+            };
 
             Map map = new Map();
-            
+
             VectorLayer vectorLayer = new VectorLayer();
             vectorLayer.DataSource = featureCollection;
-            
+
             map.Layers.Add(vectorLayer);
 
             Assert.AreEqual(3, vectorLayer.DataSource.GetFeatureCount());
@@ -44,7 +47,10 @@ namespace SharpMap.Tests.Data.Providers
         {
             EventedList<SampleFeature> features = new EventedList<SampleFeature>();
 
-            FeatureCollection featureCollection = new FeatureCollection {Features = features};
+            FeatureCollection featureCollection = new FeatureCollection
+            {
+                Features = features
+            };
 
             IGeometry geometry = GeometryFromWKT.Parse("LINESTRING (20 20, 20 30, 30 30, 30 20, 40 20)");
             featureCollection.Add(geometry);

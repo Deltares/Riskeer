@@ -9,7 +9,6 @@ namespace DelftTools.Utils.Tests
     [TestFixture]
     public class ChartViewDateTimeFormatProviderTest
     {
-        
         [Test]
         public void ReturnsSingleDayOutputForSingleDayRange()
         {

@@ -16,15 +16,15 @@ namespace SharpMap.Styles.Shapes
         // Methods
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
-            var editorService = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+            var editorService = (IWindowsFormsEditorService) provider.GetService(typeof(IWindowsFormsEditorService));
             if (editorService == null)
             {
                 return base.EditValue(context, provider, RuntimeHelpers.GetObjectValue(value));
             }
-            var lineStyle = (DashStyle)value;
+            var lineStyle = (DashStyle) value;
             var lineStyleListBox = new LineStyleListBox(lineStyle, editorService);
             editorService.DropDownControl(lineStyleListBox);
-            return (DashStyle)lineStyleListBox.SelectedIndex;
+            return (DashStyle) lineStyleListBox.SelectedIndex;
         }
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
@@ -40,7 +40,7 @@ namespace SharpMap.Styles.Shapes
         public override void PaintValue(PaintValueEventArgs e)
         {
             e.Graphics.FillRectangle(Brushes.White, e.Bounds);
-            LineStyleEditorStuff.DrawSamplePen(e.Graphics, e.Bounds, Color.Black, (DashStyle)e.Value);
+            LineStyleEditorStuff.DrawSamplePen(e.Graphics, e.Bounds, Color.Black, (DashStyle) e.Value);
         }
     }
 }

@@ -7,21 +7,12 @@ namespace GisSharpBlog.NetTopologySuite.Index
     /// </summary>
     public class ArrayListVisitor : IItemVisitor
     {
-        private ArrayList items = new ArrayList();
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public ArrayListVisitor() { }
+        private readonly ArrayList items = new ArrayList();
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="item"></param>
-        public void VisitItem(object item)
-        {
-            items.Add(item);
-        }
+        public ArrayListVisitor() {}
 
         /// <summary>
         /// 
@@ -32,6 +23,15 @@ namespace GisSharpBlog.NetTopologySuite.Index
             {
                 return items;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        public void VisitItem(object item)
+        {
+            items.Add(item);
         }
     }
 }

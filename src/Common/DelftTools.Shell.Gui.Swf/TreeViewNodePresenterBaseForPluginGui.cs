@@ -12,16 +12,14 @@ namespace DelftTools.Shell.Gui.Swf
     {
         protected static readonly ILog log = LogManager.GetLogger(typeof(TreeViewNodePresenterBaseForPluginGui<T>));
 
-        public TreeViewNodePresenterBaseForPluginGui()
-        {
-        }
+        public TreeViewNodePresenterBaseForPluginGui() {}
 
         public TreeViewNodePresenterBaseForPluginGui(GuiPlugin guiPlugin)
         {
             GuiPlugin = guiPlugin;
         }
 
-        public GuiPlugin GuiPlugin { get;  set; }
+        public GuiPlugin GuiPlugin { get; set; }
 
         public override IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
         {
@@ -30,12 +28,15 @@ namespace DelftTools.Shell.Gui.Swf
                 return null;
             }
             var x = GuiPlugin.GetContextMenu(sender, nodeData);
-            return x; 
+            return x;
         }
 
         protected IGui Gui
         {
-            get { return GuiPlugin.Gui; }
+            get
+            {
+                return GuiPlugin.Gui;
+            }
         }
     }
 }

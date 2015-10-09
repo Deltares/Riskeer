@@ -22,8 +22,10 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         /// <param name="tris">a collection of QuadEdgeTriangle</param>
         public void Init(IEnumerable<QuadEdgeTriangle> tris)
         {
-            foreach(var tri in tris)
-            _triQueue.AddLast(tri);
+            foreach (var tri in tris)
+            {
+                _triQueue.AddLast(tri);
+            }
         }
 
         /* <summary>
@@ -53,13 +55,16 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             currTri.GetNeighbours();
             for (int i = 0; i < 3; i++)
             {
-                QuadEdgeTriangle neighTri = (QuadEdgeTriangle)currTri.GetEdge(i).Sym.Data;
+                QuadEdgeTriangle neighTri = (QuadEdgeTriangle) currTri.GetEdge(i).Sym.Data;
                 if (neighTri == null)
+                {
                     continue;
+                }
                 if (visitor.Visit(currTri, i, neighTri))
+                {
                     _triQueue.AddLast(neighTri);
+                }
             }
         }
-
     }
 }

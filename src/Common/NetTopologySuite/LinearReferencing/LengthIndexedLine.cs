@@ -15,8 +15,8 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
     /// </summary>
     public class LengthIndexedLine
     {
-        private IGeometry linearGeom = null;
- 
+        private readonly IGeometry linearGeom = null;
+
         /// <summary>
         /// Constructs an object which allows a linear <see cref="Geometry" />
         /// to be linearly referenced using length as an index.
@@ -25,6 +25,28 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
         public LengthIndexedLine(IGeometry linearGeom)
         {
             this.linearGeom = linearGeom;
+        }
+
+        /// <summary>
+        /// Returns the index of the start of the line.
+        /// </summary>
+        public double StartIndex
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Returns the index of the end of the line.
+        /// </summary>
+        public double EndIndex
+        {
+            get
+            {
+                return linearGeom.Length;
+            }
         }
 
         /// <summary>
@@ -40,7 +62,7 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
             LinearLocation loc = LengthLocationMap.GetLocation(linearGeom, index);
             return loc.GetCoordinate(linearGeom);
         }
-        
+
         /// <summary>
         /// Computes the <see cref="LineString" /> for the interval
         /// on the line between the given indices.
@@ -56,16 +78,6 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
             LinearLocation startLoc = LocationOf(startIndex);
             LinearLocation endLoc = LocationOf(endIndex);
             return ExtractLineByLocation.Extract(linearGeom, startLoc, endLoc);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        private LinearLocation LocationOf(double index)
-        {
-            return LengthLocationMap.GetLocation(linearGeom, index);
         }
 
         /// <summary>
@@ -120,10 +132,10 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
         public double[] IndicesOf(IGeometry subLine)
         {
             LinearLocation[] locIndex = LocationIndexOfLine.IndicesOf(linearGeom, subLine);
-            double[] index = new double[] 
+            double[] index = new double[]
             {
                 LengthLocationMap.GetLength(linearGeom, locIndex[0]),
-                LengthLocationMap.GetLength(linearGeom, locIndex[1]), 
+                LengthLocationMap.GetLength(linearGeom, locIndex[1]),
             };
             return index;
         }
@@ -138,28 +150,6 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
         public double Project(ICoordinate pt)
         {
             return LengthIndexOfPoint.IndexOf(linearGeom, pt);
-        }
-
-        /// <summary>
-        /// Returns the index of the start of the line.
-        /// </summary>
-        public double StartIndex
-        {
-            get
-            {
-                return 0;
-            }
-        }
-
-        /// <summary>
-        /// Returns the index of the end of the line.
-        /// </summary>
-        public double EndIndex
-        {
-            get
-            {
-                return linearGeom.Length;
-            }
         }
 
         /// <summary>
@@ -179,12 +169,26 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
         /// <param name="index"></param>
         /// <returns>A valid index value.</returns>
         public double ClampIndex(double index)
-        {            
-            if (index < StartIndex) 
-                return StartIndex;            
-            if (index > EndIndex) 
+        {
+            if (index < StartIndex)
+            {
+                return StartIndex;
+            }
+            if (index > EndIndex)
+            {
                 return EndIndex;
+            }
             return index;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        private LinearLocation LocationOf(double index)
+        {
+            return LengthLocationMap.GetLocation(linearGeom, index);
         }
     }
 }

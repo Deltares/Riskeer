@@ -23,12 +23,18 @@ namespace DelftTools.Utils.Tests.IO
         {
             var path = TestHelper.GetCurrentMethodName() + ".zip";
 
-            DeleteFilesIfExist(new[] { path });
+            DeleteFilesIfExist(new[]
+            {
+                path
+            });
 
-            ZipFileUtils.Create(path,null);
+            ZipFileUtils.Create(path, null);
             var fileExists = File.Exists(path);
 
-            DeleteFilesIfExist(new[] { path });
+            DeleteFilesIfExist(new[]
+            {
+                path
+            });
 
             Assert.IsTrue(fileExists);
         }
@@ -37,7 +43,10 @@ namespace DelftTools.Utils.Tests.IO
         public void CreateEmptyZipFileWithOverwrite()
         {
             var path = TestHelper.GetCurrentMethodName() + ".zip";
-            DeleteFilesIfExist(new[] { path });
+            DeleteFilesIfExist(new[]
+            {
+                path
+            });
 
             File.Create(path).Close();
 
@@ -47,13 +56,19 @@ namespace DelftTools.Utils.Tests.IO
             }
             catch (Exception)
             {
-                DeleteFilesIfExist(new[] { path });
+                DeleteFilesIfExist(new[]
+                {
+                    path
+                });
                 Assert.Fail("File should be overwritten");
             }
-            
+
             var fileExists = File.Exists(path);
 
-            DeleteFilesIfExist(new[] { path });
+            DeleteFilesIfExist(new[]
+            {
+                path
+            });
 
             Assert.IsTrue(fileExists);
         }
@@ -63,7 +78,10 @@ namespace DelftTools.Utils.Tests.IO
         {
             var path = TestHelper.GetCurrentMethodName() + ".zip";
 
-            DeleteFilesIfExist(new[] { path });
+            DeleteFilesIfExist(new[]
+            {
+                path
+            });
 
             File.Create(path).Close();
 
@@ -74,7 +92,10 @@ namespace DelftTools.Utils.Tests.IO
             }
             catch (Exception)
             {
-                DeleteFilesIfExist(new[] { path });
+                DeleteFilesIfExist(new[]
+                {
+                    path
+                });
             }
         }
 
@@ -85,30 +106,47 @@ namespace DelftTools.Utils.Tests.IO
             const string file1Path = @".\file1.txt";
             const string file2Path = @".\file2.txt";
 
-            DeleteFilesIfExist(new[] { zipFilePath, file1Path, file2Path });
-            
+            DeleteFilesIfExist(new[]
+            {
+                zipFilePath,
+                file1Path,
+                file2Path
+            });
+
             var file1 = File.CreateText(file1Path);
             var file2 = File.CreateText(file2Path);
-            
+
             file1.WriteLine("TestFile1");
             file2.WriteLine("TestFile2");
 
             file1.Close();
             file2.Close();
 
-            ZipFileUtils.Create(zipFilePath, new List<string> { file1Path, file2Path });
-            
+            ZipFileUtils.Create(zipFilePath, new List<string>
+            {
+                file1Path, file2Path
+            });
+
             var zipfileExists = File.Exists(zipFilePath);
 
-            DeleteFilesIfExist(new[] { file1Path, file2Path });
+            DeleteFilesIfExist(new[]
+            {
+                file1Path,
+                file2Path
+            });
 
             ZipFileUtils.Extract(zipFilePath, ".");
 
             var file1Exists = File.Exists(file1Path);
             var file2Exists = File.Exists(file2Path);
 
-            DeleteFilesIfExist(new[] { zipFilePath, file1Path, file2Path });
-            
+            DeleteFilesIfExist(new[]
+            {
+                zipFilePath,
+                file1Path,
+                file2Path
+            });
+
             Assert.IsTrue(zipfileExists);
             Assert.IsTrue(file1Exists);
             Assert.IsTrue(file2Exists);
@@ -121,28 +159,48 @@ namespace DelftTools.Utils.Tests.IO
             const string file1Path = @".\file1.txt";
             const string file2Path = @".\dir\file2.txt";
 
-            DeleteFilesIfExist(new []{zipFilePath, file1Path, file2Path});
+            DeleteFilesIfExist(new[]
+            {
+                zipFilePath,
+                file1Path,
+                file2Path
+            });
 
             Directory.CreateDirectory(@".\dir");
 
             CreateTestFile(file1Path);
             CreateTestFile(file2Path);
 
-            ZipFileUtils.Create(zipFilePath, new List<string> { file1Path, file2Path });
+            ZipFileUtils.Create(zipFilePath, new List<string>
+            {
+                file1Path, file2Path
+            });
 
             var zipfileExists = File.Exists(zipFilePath);
 
-            Directory.Delete(@".\dir",true);
-            DeleteFilesIfExist(new []{file1Path,file2Path});
+            Directory.Delete(@".\dir", true);
+            DeleteFilesIfExist(new[]
+            {
+                file1Path,
+                file2Path
+            });
 
             ZipFileUtils.Extract(zipFilePath, ".");
 
-            DeleteFilesIfExist(new []{zipFilePath});
+            DeleteFilesIfExist(new[]
+            {
+                zipFilePath
+            });
 
             var file1Exists = File.Exists(file1Path);
             var file2Exists = File.Exists(file2Path);
 
-            DeleteFilesIfExist(new[] { zipFilePath, file1Path, file2Path });
+            DeleteFilesIfExist(new[]
+            {
+                zipFilePath,
+                file1Path,
+                file2Path
+            });
 
             Assert.IsTrue(zipfileExists);
             Assert.IsTrue(file1Exists);
@@ -160,7 +218,10 @@ namespace DelftTools.Utils.Tests.IO
         {
             foreach (var path in paths)
             {
-                if (File.Exists(path)) File.Delete(path);
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
             }
         }
     }

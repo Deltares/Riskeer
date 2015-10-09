@@ -18,8 +18,13 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
     /// For many types of real-world data, these properties eliminate a large number of
     /// segment comparisons, producing substantial speed gains.
     /// </summary>
-    public class MonotoneChainIndexer 
+    public class MonotoneChainIndexer
     {
+        /// <summary>
+        /// Default empty constructor.
+        /// </summary>
+        public MonotoneChainIndexer() {}
+
         /// <summary>
         /// 
         /// </summary>
@@ -28,15 +33,12 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         public static int[] ToIntArray(IList list)
         {
             int[] array = new int[list.Count];
-            for (int i = 0; i < array.Length; i++) 
-                array[i] = Convert.ToInt32(list[i]);            
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = Convert.ToInt32(list[i]);
+            }
             return array;
         }
-
-        /// <summary>
-        /// Default empty constructor.
-        /// </summary>
-        public MonotoneChainIndexer() { }
 
         /// <summary>
         /// 
@@ -49,13 +51,12 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
             int start = 0;
             IList startIndexList = new ArrayList();
             startIndexList.Add(start);
-            do 
+            do
             {
                 int last = FindChainEnd(pts, start);
                 startIndexList.Add(last);
                 start = last;
-            } 
-            while (start < pts.Length - 1);
+            } while (start < pts.Length - 1);
             // copy list to an array of ints, for efficiency
             int[] startIndex = ToIntArray(startIndexList);
             return startIndex;
@@ -70,12 +71,14 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
             // determine quadrant for chain
             int chainQuad = QuadrantOp.Quadrant(pts[start], pts[start + 1]);
             int last = start + 1;
-            while (last < pts.Length) 
+            while (last < pts.Length)
             {
                 // compute quadrant for next possible segment in chain
                 int quad = QuadrantOp.Quadrant(pts[last - 1], pts[last]);
-                if (quad != chainQuad) 
+                if (quad != chainQuad)
+                {
                     break;
+                }
                 last++;
             }
             return last - 1;

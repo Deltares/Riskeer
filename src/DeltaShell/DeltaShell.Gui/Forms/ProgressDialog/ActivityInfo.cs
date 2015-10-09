@@ -10,9 +10,22 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
     /// Class wrapper an IActivity to make it bindable and evented etc.
     /// Used in progressdialog only
     /// </summary>
-    internal class ActivityInfo:INotifyPropertyChanged
+    internal class ActivityInfo : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         private readonly IActivity activity;
+
+        public ActivityInfo(IActivity activity)
+        {
+            this.activity = activity;
+
+            activity.ProgressChanged += ActivityInfoProgressChanged;
+
+            if (this.activity is INotifyPropertyChanged)
+            {
+                (this.activity as INotifyPropertyChanged).PropertyChanged += ActivityInfoPropertyChanged;
+            }
+        }
 
         public string ProgressText
         {
@@ -48,26 +61,16 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
             }
         }
 
-        public ActivityInfo(IActivity activity)
-        {
-            this.activity = activity;
-            
-            activity.ProgressChanged += ActivityInfoProgressChanged;
-            
-            if (this.activity is INotifyPropertyChanged)
-            {
-                (this.activity as INotifyPropertyChanged).PropertyChanged += ActivityInfoPropertyChanged;
-            }
-        }
-
-        void ActivityInfoPropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void ActivityInfoPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //a name change changes the wrapper name
             if (e.PropertyName == TypeUtils.GetMemberName(() => Name))
-                OnPropertyChanged(TypeUtils.GetMemberName(()=>Name));
+            {
+                OnPropertyChanged(TypeUtils.GetMemberName(() => Name));
+            }
         }
 
-        void ActivityInfoProgressChanged(object sender, EventArgs e)
+        private void ActivityInfoProgressChanged(object sender, EventArgs e)
         {
             OnPropertyChanged(TypeUtils.GetMemberName(() => ProgressText));
         }
@@ -75,9 +78,9 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
         private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
+            {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

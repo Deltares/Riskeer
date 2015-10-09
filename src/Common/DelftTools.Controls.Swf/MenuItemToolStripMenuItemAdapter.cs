@@ -14,6 +14,120 @@ namespace DelftTools.Controls.Swf
             this.toolStripMenuItem = toolStripMenuItem;
         }
 
+        public bool Visible
+        {
+            get
+            {
+                return toolStripMenuItem.Visible;
+            }
+            set
+            {
+                toolStripMenuItem.Visible = value;
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool IsReadOnly
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return toolStripMenuItem.Name;
+            }
+            set
+            {
+                toolStripMenuItem.Name = value;
+            }
+        }
+
+        public string Text
+        {
+            get
+            {
+                return toolStripMenuItem.Text;
+            }
+            set
+            {
+                toolStripMenuItem.Text = value;
+            }
+        }
+
+        public string Tooltip
+        {
+            get
+            {
+                return "";
+            }
+            set {}
+        }
+
+        public string Category
+        {
+            get
+            {
+                return "";
+            }
+            set {}
+        }
+
+        public string Shortcut
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public bool Enabled
+        {
+            get
+            {
+                return toolStripMenuItem.Enabled;
+            }
+            set
+            {
+                toolStripMenuItem.Enabled = value;
+            }
+        }
+
+        public IList<Type> ActiveForViews
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public ICommand Command
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public IEnumerator<IMenuItem> GetEnumerator()
         {
             throw new NotImplementedException();
@@ -49,16 +163,6 @@ namespace DelftTools.Controls.Swf
             throw new NotImplementedException();
         }
 
-        public int Count
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public bool IsReadOnly
-        {
-            get { throw new NotImplementedException(); }
-        }
-
         public int IndexOf(IMenuItem item)
         {
             throw new NotImplementedException();
@@ -72,18 +176,6 @@ namespace DelftTools.Controls.Swf
         public void RemoveAt(int index)
         {
             throw new NotImplementedException();
-        }
-
-        IMenuItem IList<IMenuItem>.this[int index]
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
-
-        IMenuItem IMenuItemCollection<IMenuItem>.this[string name]
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
         }
 
         public int IndexOf(string name)
@@ -101,57 +193,28 @@ namespace DelftTools.Controls.Swf
             throw new NotImplementedException();
         }
 
-        public string Name
+        IMenuItem IList<IMenuItem>.this[int index]
         {
-            get { return toolStripMenuItem.Name; }
-            set { toolStripMenuItem.Name = value; }
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        public string Text
+        IMenuItem IMenuItemCollection<IMenuItem>.this[string name]
         {
-            get { return toolStripMenuItem.Text; }
-            set { toolStripMenuItem.Text = value; }
-        }
-
-        public string Tooltip
-        {
-            get { return ""; }
-            set { }
-        }
-
-        public string Category
-        {
-            get { return ""; }
-            set { }
-        }
-
-        public string Shortcut
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
-
-        public bool Enabled
-        {
-            get { return toolStripMenuItem.Enabled; }
-            set { toolStripMenuItem.Enabled = value; }
-        }
-
-        public bool Visible
-        {
-            get { return toolStripMenuItem.Visible; }
-            set { toolStripMenuItem.Visible = value; }
-        }
-
-        public IList<Type> ActiveForViews
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public ICommand Command
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

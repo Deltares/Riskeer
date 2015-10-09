@@ -63,7 +63,7 @@ namespace DelftTools.Shell.Gui
         void OpenView(object dataObject, Type viewType = null);
 
         void RemoveAllViewsForItem(object dataObject);
-        
+
         /// <summary>
         /// Presents the user with a dialog from which items can be selected and then created. The items are retrieved 
         /// using the DataItemInfo objects of plugins. The item is NOT added to the project or wrapped in a DataItem.

@@ -29,7 +29,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         }
 
         private readonly Dictionary<string, string> levelImageName;
-        private Image image;
         private readonly Timer addNewMessagesTimer;
         private bool firstMessage;
         private readonly IList<MessageData> newMessages = new List<MessageData>();
@@ -37,7 +36,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 
         public MessageWindow()
         {
-            base.Text = Resources.MessageWindow_MessageWindow_Messages;
+            Text = Resources.MessageWindow_MessageWindow_Messages;
             MessageWindowLogAppender.MessageWindow = this;
 #if !MONO
             InitializeComponent();
@@ -45,7 +44,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             InitializeMonoComponent();
 #endif
 
-            if(!log.IsDebugEnabled)
+            if (!log.IsDebugEnabled)
             {
                 buttonShowDebug.Visible = false;
             }
@@ -80,7 +79,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             ApplyFilter();
             messagesDataGridView.CellFormatting += MessagesDataGridViewCellFormatting;
 
-            if(log.IsDebugEnabled)
+            if (log.IsDebugEnabled)
             {
                 if (messagesDataGridView != null)
                 {
@@ -97,15 +96,15 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             }
 
 #endif
-            image = Properties.Resources.application_view_list;
-            
+            Image = Resources.application_view_list;
+
             MaxMessageCount = 100;
 
             // TODO: make timer start only when property was changed and then stop
             addNewMessagesTimer = new Timer();
             firstMessage = true;
             addNewMessagesTimer.Tick += AddNewMessagesTimerTick;
-                                            
+
             addNewMessagesTimer.Interval = 300;
 
             // fixes DPI problem
@@ -113,9 +112,12 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             messagesDataGridView.RowsAdded += messagesDataGridView_RowsAdded;
         }
 
-        void messagesDataGridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        private void messagesDataGridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            if (filtering) return;
+            if (filtering)
+            {
+                return;
+            }
             var row = messagesDataGridView.Rows[e.RowIndex];
             AutoSizeRow(row);
         }
@@ -139,17 +141,16 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 
         public object Data
         {
-            get { return messageWindowData; }
-            set { }
+            get
+            {
+                return messageWindowData;
+            }
+            set {}
         }
 
-        public Image Image
-        {
-            get { return image; }
-            set { image = value; }
-        }
+        public Image Image { get; set; }
 
-        public void EnsureVisible(object item) { }
+        public void EnsureVisible(object item) {}
         public ViewInfo ViewInfo { get; set; }
 
         #endregion
@@ -166,13 +167,16 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         /// <param name="exception"></param>
         public void AddMessage(Level level, DateTime time, string source, string message, string exception)
         {
-            if(source.StartsWith("NHibernate"))
+            if (source.StartsWith("NHibernate"))
             {
                 return;
             }
 
 #if !MONO
-            newMessages.Add(new MessageData { ImageName = level.ToString(), Time = time, Source = source, Exception = exception, Message = message }); 
+            newMessages.Add(new MessageData
+            {
+                ImageName = level.ToString(), Time = time, Source = source, Exception = exception, Message = message
+            });
 #else                    
             if (messagesDataGridView != null && messagesDataGridView.Columns.Count != 0)
             {
@@ -190,7 +194,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 
         protected override void OnVisibleChanged(EventArgs e)
         {
-            if(Visible)
+            if (Visible)
             {
                 addNewMessagesTimer.Start(); // refresh
             }
@@ -253,14 +257,13 @@ namespace DeltaShell.Gui.Forms.MessageWindow
                     {
                         Error(this, null);
                     }
-
                 }
             }
 
             messagesDataGridView.ResumeLayout();
 
             if (firstMessage)
-            { 
+            {
                 firstMessage = false;
             }
 
@@ -310,9 +313,12 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         /// <param name="e"></param>
         private void MessagesDataGridViewCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex != 0 || e.Value == null) return;
+            if (e.ColumnIndex != 0 || e.Value == null)
+            {
+                return;
+            }
 
-            string level = (string)e.Value;
+            string level = (string) e.Value;
             e.Value = levelImages.Images[levelImageName[level]];
         }
 #endif
@@ -456,36 +462,37 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             ResumeLayout(false);
         }
 #endif
+
         private void ApplyFilter()
         {
             filtering = true;
-            List<string>filterlines = new List<string>();
+            List<string> filterlines = new List<string>();
             if (buttonShowInfo.Checked)
             {
-                filterlines.Add(string.Format("Image = '{0}'",Level.Info));
+                filterlines.Add(string.Format("Image = '{0}'", Level.Info));
             }
-            if(buttonShowWarning.Checked)
+            if (buttonShowWarning.Checked)
             {
                 filterlines.Add(string.Format("Image = '{0}'", Level.Warn));
             }
-            if(buttonShowError.Checked)
+            if (buttonShowError.Checked)
             {
                 filterlines.Add(string.Format("Image = '{0}'", Level.Error));
                 filterlines.Add(string.Format("Image = '{0}'", Level.Fatal));
             }
-            if(buttonShowDebug.Checked)
+            if (buttonShowDebug.Checked)
             {
                 filterlines.Add(string.Format("Image = '{0}'", Level.Debug));
             }
 
-            if (filterlines.Count==0)
+            if (filterlines.Count == 0)
             {
                 messagesBindingSource.Filter = "Image = 'NOTHING SHOWN'";
             }
             else
             {
                 string filter = filterlines[0];
-                for (int i = 1; i < filterlines.Count;i++ )
+                for (int i = 1; i < filterlines.Count; i++)
                 {
                     filter += " OR " + filterlines[i];
                 }
@@ -535,27 +542,30 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (messagesDataGridView.CurrentRow == null) return;
+            if (messagesDataGridView.CurrentRow == null)
+            {
+                return;
+            }
 
             var form = new Form
-                {
-                    Text = Resources.MessageWindow_showDetailsToolStripMenuItem_Click_Message_details,
-                    StartPosition = FormStartPosition.CenterParent,
-                    FormBorderStyle = FormBorderStyle.Sizable,
-                    ShowInTaskbar = false,
-                    Size = new Size(300,300)
-                };
+            {
+                Text = Resources.MessageWindow_showDetailsToolStripMenuItem_Click_Message_details,
+                StartPosition = FormStartPosition.CenterParent,
+                FormBorderStyle = FormBorderStyle.Sizable,
+                ShowInTaskbar = false,
+                Size = new Size(300, 300)
+            };
 
             var text = (string) messagesDataGridView.CurrentRow.Cells[messageDataGridViewTextBoxColumn.Index].Value;
 
             var textDocumentView = new TextBox
-                {
-                    Dock = DockStyle.Fill,
-                    Multiline = true,
-                    ScrollBars = ScrollBars.Both,
-                    Text = text,
-                    ReadOnly = true
-                };
+            {
+                Dock = DockStyle.Fill,
+                Multiline = true,
+                ScrollBars = ScrollBars.Both,
+                Text = text,
+                ReadOnly = true
+            };
 
             form.Controls.Add(textDocumentView);
             form.Select();

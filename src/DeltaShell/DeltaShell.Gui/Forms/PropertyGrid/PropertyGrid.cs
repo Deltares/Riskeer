@@ -1,5 +1,4 @@
 using System;
-using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,12 +13,10 @@ using DelftTools.Shell.Gui;
 using DelftTools.Shell.Gui.Forms;
 using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections;
-using DelftTools.Utils.Data;
 using DelftTools.Utils.PropertyBag.Dynamic;
-using DelftTools.Utils.Threading;
 using DeltaShell.Gui.Properties;
 using log4net;
-using PropertyInfo = System.Reflection.PropertyInfo;
+using PropertyInfo = DelftTools.Shell.Gui.PropertyInfo;
 
 namespace DeltaShell.Gui.Forms.PropertyGrid
 {
@@ -48,7 +45,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
     /// </summary>
     public sealed partial class PropertyGrid : UserControl, IPropertyGrid, IObserver
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (PropertyGrid));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(PropertyGrid));
 
         /// <summary>
         /// todo: This is still an unwanted dependency. PropertyGrid uses gui to subscribe to the SelectionChanged
@@ -84,15 +81,17 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             // TODO: make timer start only when property was changed and then stop
             refreshTimer = new Timer();
             refreshTimer.Tick += delegate
-                                     {
-                                         if (refreshRequired)
-                                         {
-                                             if (IsInEditMode(propertyGrid1))
-                                                 return;
-                                             propertyGrid1.Refresh();
-                                             refreshRequired = false;
-                                         }
-                                     };
+            {
+                if (refreshRequired)
+                {
+                    if (IsInEditMode(propertyGrid1))
+                    {
+                        return;
+                    }
+                    propertyGrid1.Refresh();
+                    refreshRequired = false;
+                }
+            };
             refreshTimer.Interval = 300;
             refreshTimer.Enabled = true;
             refreshTimer.Start();
@@ -102,18 +101,74 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         public static bool IsInEditMode(System.Windows.Forms.PropertyGrid grid)
         {
             if (grid == null)
+            {
                 throw new ArgumentNullException("grid");
+            }
 
-            Control gridView = (Control)grid.GetType().GetField("gridView", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(grid);
-            Control edit = (Control)gridView.GetType().GetField("edit", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(gridView);
-            Control dropDownHolder = (Control)gridView.GetType().GetField("dropDownHolder", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(gridView);
+            Control gridView = (Control) grid.GetType().GetField("gridView", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(grid);
+            Control edit = (Control) gridView.GetType().GetField("edit", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(gridView);
+            Control dropDownHolder = (Control) gridView.GetType().GetField("dropDownHolder", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(gridView);
 
             return ((edit != null) && (edit.Visible & edit.Focused)) || ((dropDownHolder != null) && (dropDownHolder.Visible));
         }
 
+        public void UpdateObserver()
+        {
+            refreshRequired = true;
+        }
+
+        public object GetObjectProperties(object sourceData)
+        {
+            if (sourceData == null)
+            {
+                return null;
+            }
+
+            // Obtain all property information
+            var propertyInfos = gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList();
+
+            // 1. Match property information based on ObjectType and on AdditionalDataCheck
+            propertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsAssignableFrom(sourceData.GetType()) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToList();
+
+            // 2. Match property information based on object type inheritance
+            propertyInfos = FilterPropertyInfoByTypeInheritance(propertyInfos, pi => pi.ObjectType);
+
+            // 3. Match property information based on property type inheritance
+            propertyInfos = FilterPropertyInfoByTypeInheritance(propertyInfos, pi => pi.PropertyType);
+
+            if (propertyInfos.Count == 0)
+            {
+                // No (or multiple) object properties found: return 'null' so that no object properties are shown in the property grid
+                return null;
+            }
+
+            if (propertyInfos.Count > 1)
+            {
+                // 4. We assume that the propertyInfos with AdditionalDataCheck are the most specific
+                propertyInfos = propertyInfos.Where(pi => pi.AdditionalDataCheck != null).ToList();
+            }
+
+            if (propertyInfos.Count == 1)
+            {
+                return CreateObjectProperties(propertyInfos.ElementAt(0), sourceData);
+            }
+
+            Log.Debug(Resources.PropertyGrid_GetObjectProperties_Multiple_object_property_instances_found_for_the_same_data_object__no_object_properties_are_displayed_in_the_property_grid);
+            return null;
+        }
+
+        public override void Refresh()
+        {
+            refreshRequired = true;
+            base.Refresh();
+        }
+
         private object[] SelectedObjects
         {
-            get { return selectedObjects; }
+            get
+            {
+                return selectedObjects;
+            }
             [InvokeRequired]
             set
             {
@@ -167,38 +222,12 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             }
         }
 
-        #region IPropertyGrid Members
-
-        public object Data
-        {
-            get { return SelectedObject; }
-            set { SelectedObject = value; }
-        }
-
-        /// <summary>
-        /// Refreshes propertygrid when changes in the data occur.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void selectedObject_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            refreshRequired = true;
-        }
-
-        public Image Image
-        {
-            get { return Properties.Resources.PropertiesHS; }
-            set { }
-        }
-
-        public void EnsureVisible(object item) { }
-        public ViewInfo ViewInfo { get; set; }
-
-        #endregion
-
         private void GuiSelectionChanged(object sender, EventArgs e)
         {
-            if (IsDisposed) return; //event may fire when propertygrid is already disposed.
+            if (IsDisposed)
+            {
+                return; //event may fire when propertygrid is already disposed.
+            }
 
             if (notifiableProperty != null)
             {
@@ -283,7 +312,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             {
                 SelectedObject = propertyObject;
             }
-
         }
 
         private void selectedObject_CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
@@ -291,47 +319,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             refreshRequired = true;
         }
 
-        public object GetObjectProperties(object sourceData)
-        {
-            if (sourceData == null)
-            {
-                return null;
-            }
-
-            // Obtain all property information
-            var propertyInfos = gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList();
-
-            // 1. Match property information based on ObjectType and on AdditionalDataCheck
-            propertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsAssignableFrom(sourceData.GetType()) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToList();
-
-            // 2. Match property information based on object type inheritance
-            propertyInfos = FilterPropertyInfoByTypeInheritance(propertyInfos, pi => pi.ObjectType);
-
-            // 3. Match property information based on property type inheritance
-            propertyInfos = FilterPropertyInfoByTypeInheritance(propertyInfos, pi => pi.PropertyType);
-
-            if (propertyInfos.Count == 0)
-            {
-                // No (or multiple) object properties found: return 'null' so that no object properties are shown in the property grid
-                return null;
-            }
-            
-            if (propertyInfos.Count > 1)
-            {
-                // 4. We assume that the propertyInfos with AdditionalDataCheck are the most specific
-                propertyInfos = propertyInfos.Where(pi => pi.AdditionalDataCheck != null).ToList();
-            }
-
-            if (propertyInfos.Count == 1)
-            {
-                return CreateObjectProperties(propertyInfos.ElementAt(0), sourceData);
-            }
-
-            Log.Debug(Resources.PropertyGrid_GetObjectProperties_Multiple_object_property_instances_found_for_the_same_data_object__no_object_properties_are_displayed_in_the_property_grid);
-            return null; 
-        }
-
-        private List<DelftTools.Shell.Gui.PropertyInfo> FilterPropertyInfoByTypeInheritance(List<DelftTools.Shell.Gui.PropertyInfo> propertyInfo, Func<DelftTools.Shell.Gui.PropertyInfo, Type> getTypeAction)
+        private List<PropertyInfo> FilterPropertyInfoByTypeInheritance(List<PropertyInfo> propertyInfo, Func<PropertyInfo, Type> getTypeAction)
         {
             var propertyInfoCount = propertyInfo.Count();
             var propertyInfoWithUnInheritedType = propertyInfo.ToList();
@@ -342,7 +330,10 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
                 for (var j = 0; j < propertyInfoCount; j++)
                 {
-                    if (i == j) continue;
+                    if (i == j)
+                    {
+                        continue;
+                    }
 
                     var secondType = getTypeAction(propertyInfo.ElementAt(j));
 
@@ -360,7 +351,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                        : propertyInfo; // No specific property information found: return the original list
         }
 
-        private object CreateObjectProperties(DelftTools.Shell.Gui.PropertyInfo propertyInfo, object sourceData)
+        private object CreateObjectProperties(PropertyInfo propertyInfo, object sourceData)
         {
             try
             {
@@ -451,10 +442,14 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                         string prevOne = GetRelevantType(selectedObjects[i - 1]).Name;
                         int prevHash = prevOne.GetHashCode();
 
-                        if (hash != prevHash)   
+                        if (hash != prevHash)
+                        {
                             Log.DebugFormat("    1x: {0}", currOne);
-                        else 
+                        }
+                        else
+                        {
                             printAggregate = true;
+                        }
                     }
                     if (printAggregate)
                     {
@@ -463,7 +458,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                     }
                 }
             }
-            
+
             propertyGrid1.SelectedObject = SelectedObjects.Count() > 1 ? SelectedObjects[1] : SelectedObjects[0];
         }
 
@@ -477,11 +472,57 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             return obj.GetType();
         }
 
+        private void PropertyGrid1PropertySortChanged(object sender, EventArgs e)
+        {
+            // Needed for maintaining property order
+            if (propertyGrid1.PropertySort == PropertySort.CategorizedAlphabetical)
+            {
+                propertyGrid1.PropertySort = PropertySort.Categorized;
+            }
+        }
+
+        #region IPropertyGrid Members
+
+        public object Data
+        {
+            get
+            {
+                return SelectedObject;
+            }
+            set
+            {
+                SelectedObject = value;
+            }
+        }
+
+        /// <summary>
+        /// Refreshes propertygrid when changes in the data occur.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void selectedObject_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            refreshRequired = true;
+        }
+
+        public Image Image
+        {
+            get
+            {
+                return Resources.PropertiesHS;
+            }
+            set {}
+        }
+
+        public void EnsureVisible(object item) {}
+        public ViewInfo ViewInfo { get; set; }
+
+        #endregion
+
         #region enable tab key navigation on propertygrid
 
-        private bool expandOnTab;
         private bool refreshRequired;
-        private Timer refreshTimer;
+        private readonly Timer refreshTimer;
         private INotifyCollectionChanged notifiableCollection;
         private IObservable observableProperty;
 
@@ -492,11 +533,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         /// When <c>true</c> items are also unexpanded when pressing shift-tab.
         /// Note that the enter key will always work to expand.
         /// </remarks>
-        public bool ExpandOnTab
-        {
-            get { return expandOnTab; }
-            set { expandOnTab = value; }
-        }
+        public bool ExpandOnTab { get; set; }
 
         /// <summary>
         /// Do special processing for Tab key. 
@@ -534,7 +571,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                         foundIndex = items.Count - 1;
                     }
                     propertyGrid1.SelectedGridItem = (GridItem) items[foundIndex];
-                    if (expandOnTab && (propertyGrid1.SelectedGridItem.GridItems.Count > 0))
+                    if (ExpandOnTab && (propertyGrid1.SelectedGridItem.GridItems.Count > 0))
                     {
                         propertyGrid1.SelectedGridItem.Expanded = false;
                     }
@@ -548,9 +585,9 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                         {
                             foundIndex = 0;
                         }
-                        propertyGrid1.SelectedGridItem = (GridItem)items[foundIndex];
+                        propertyGrid1.SelectedGridItem = (GridItem) items[foundIndex];
                     }
-                    if (expandOnTab && (propertyGrid1.SelectedGridItem.GridItems.Count > 0))
+                    if (ExpandOnTab && (propertyGrid1.SelectedGridItem.GridItems.Count > 0))
                     {
                         propertyGrid1.SelectedGridItem.Expanded = true;
                     }
@@ -577,25 +614,5 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         }
 
         #endregion
-
-        public void UpdateObserver()
-        {
-            refreshRequired = true;
-        }
-
-        public override void Refresh()
-        {
-            refreshRequired = true;
-            base.Refresh();
-        }
-
-        private void PropertyGrid1PropertySortChanged(object sender, EventArgs e)
-        {
-            // Needed for maintaining property order
-            if (propertyGrid1.PropertySort == PropertySort.CategorizedAlphabetical)
-            {
-                propertyGrid1.PropertySort = PropertySort.Categorized;
-            }
-        }
     }
 }

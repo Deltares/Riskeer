@@ -8,24 +8,26 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
     /// that form a graph.  Each GraphComponent can carry a
     /// Label.
     /// </summary>
-    abstract public class GraphComponent
-    {        
+    public abstract class GraphComponent
+    {
         /// <summary>
         /// 
         /// </summary>
         protected Label label;
 
         // isInResult indicates if this component has already been included in the result
-        private bool isInResult = false;
 
         private bool isCovered = false;
-        private bool isCoveredSet = false;
-        private bool isVisited = false;
 
         /// <summary>
         /// 
         /// </summary>
-        public GraphComponent() { }
+        public GraphComponent()
+        {
+            Visited = false;
+            IsCoveredSet = false;
+            InResult = false;
+        }
 
         /// <summary>
         /// 
@@ -33,6 +35,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <param name="label"></param>
         public GraphComponent(Label label)
         {
+            Visited = false;
+            IsCoveredSet = false;
+            InResult = false;
             this.label = label;
         }
 
@@ -49,22 +54,12 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
             {
                 label = value;
             }
-        }     
-                
+        }
+
         /// <summary>
         /// 
         /// </summary>
-        public bool InResult
-        { 
-            get
-            {
-                return isInResult;
-            }
-            set
-            {
-                isInResult = value;
-            }           
-        }
+        public bool InResult { get; set; }
 
         /// <summary> 
         /// IsInResult indicates if this component has already been included in the result.
@@ -84,12 +79,12 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         {
             get
             {
-                return this.isCovered;
+                return isCovered;
             }
             set
             {
                 isCovered = value;
-                isCoveredSet = true;                
+                IsCoveredSet = true;
             }
         }
 
@@ -107,28 +102,12 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <summary>
         /// 
         /// </summary>
-        public bool IsCoveredSet 
-        {
-            get
-            {
-                return isCoveredSet;
-            }
-        }
+        public bool IsCoveredSet { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool Visited
-        {
-            get
-            {
-                return isVisited;
-            }
-            set
-            {
-                isVisited = value;
-            }
-        }
+        public bool Visited { get; set; }
 
         /// <summary>
         /// 
@@ -137,22 +116,17 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         {
             get
             {
-                return isVisited;
+                return Visited;
             }
         }
-    
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns>
         /// A coordinate in this component (or null, if there are none).
         /// </returns>
-        abstract public ICoordinate Coordinate { get; }
-
-        /// <summary>
-        /// Compute the contribution to an IM for this component.
-        /// </summary>
-        abstract public void ComputeIM(IntersectionMatrix im);
+        public abstract ICoordinate Coordinate { get; }
 
         /// <summary>
         /// An isolated component is one that does not intersect or touch any other
@@ -160,7 +134,12 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// only a single Geometry.
         /// </summary>
         /// <returns><c>true</c> if this component is isolated.</returns>
-        abstract public bool IsIsolated { get; }
+        public abstract bool IsIsolated { get; }
+
+        /// <summary>
+        /// Compute the contribution to an IM for this component.
+        /// </summary>
+        public abstract void ComputeIM(IntersectionMatrix im);
 
         /// <summary>
         /// Update the IM with the contribution for this component.

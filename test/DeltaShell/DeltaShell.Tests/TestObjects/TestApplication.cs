@@ -11,20 +11,133 @@ using DelftTools.Utils.Threading;
 
 namespace DeltaShell.Tests.TestObjects
 {
-    class TestApplication: IApplication
+    internal class TestApplication : IApplication
     {
-        int disposeCallCount;
+        public event Action<Project> ProjectOpening;
+        public event Action<Project> ProjectOpened;
+        public event Action<Project> ProjectClosing;
+        public event Action<Project> ProjectSaving;
+        public event Action<Project> ProjectSaveFailed;
+        public event Action<Project> ProjectSaved;
+
+        public event Action AfterRun;
+
+        public IList<string> DisabledPlugins
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public IProjectRepository ProjectRepository { get; private set; }
+        public NotifyingThreadQueue<IActivity> CurrentActivities { get; private set; }
+
+        public bool IsProjectCreatedInTemporaryDirectory { get; set; }
+
+        public string ApplicationNameAndVersion
+        {
+            get
+            {
+                return "DeltaShell";
+            }
+        }
+
+        public int DisposeCallCount { get; private set; }
 
         public IList<ApplicationPlugin> Plugins { get; set; }
+
+        public Project Project { get; set; }
+
+        public IProjectRepositoryFactory ProjectRepositoryFactory
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set {}
+        }
+
+        public IActivityRunner ActivityRunner
+        {
+            get
+            {
+                return new ActivityRunner();
+            }
+        }
+
+        public NameValueCollection Settings { get; set; }
+        public ApplicationSettingsBase UserSettings { get; set; }
+
+        public ResourceManager Resources { get; set; }
+
+        public IProjectService ProjectService { get; set; }
+
+        public IEnumerable<IFileImporter> FileImporters
+        {
+            get
+            {
+                yield break;
+            }
+        }
+
+        public IEnumerable<IFileExporter> FileExporters
+        {
+            get
+            {
+                yield break;
+            }
+        }
+
+        public string ProjectDataDirectory
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string ProjectFilePath
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string Version
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public string PluginVersions { get; private set; }
+        public bool IsDataAccessSynchronizationDisabled { get; set; }
+
         public void LoadPluginsFromPath(string path)
         {
             throw new NotImplementedException();
         }
 
-        public IList<string> DisabledPlugins
+        public void InitializeProjectRepositoryFactory(IProjectRepositoryFactory factory)
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            throw new NotImplementedException();
+        }
+
+        public void ExportProjectItem(IProjectItem projectItem, string targetProjectRepositoryPath, bool includeLinkedFiles)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetNewFileBasedItemPath(string fileNamePrefix, string fileNameSuffix)
+        {
+            throw new NotImplementedException();
         }
 
         public ApplicationPlugin GetPluginForType(Type type)
@@ -32,42 +145,15 @@ namespace DeltaShell.Tests.TestObjects
             throw new NotImplementedException();
         }
 
-        public Project Project { get; set; }
-        public IProjectRepository ProjectRepository { get; private set; }
-
-        public IProjectRepositoryFactory ProjectRepositoryFactory
-        {
-            get { throw new NotImplementedException(); }    
-            set { }
-        }
-
-        public event Action<Project> ProjectOpening;
-        public event Action<Project> ProjectOpened;
-        public event Action<Project> ProjectClosing;
-        public event Action<Project> ProjectSaving;
-        public event Action<Project> ProjectSaveFailed;
-        public event Action<Project> ProjectSaved;
-        public NotifyingThreadQueue<IActivity> CurrentActivities { get; private set; }
-        public IActivityRunner ActivityRunner
-        {
-            get { return new ActivityRunner();}
-        }
-
         public bool IsActivityRunning()
         {
             throw new NotImplementedException();
         }
 
-        public NameValueCollection Settings { get; set; }
-        public ApplicationSettingsBase UserSettings { get; set; }
         public string GetUserSettingsDirectoryPath()
         {
             throw new NotImplementedException();
         }
-
-        public ResourceManager Resources { get; set; }
-
-        public bool IsProjectCreatedInTemporaryDirectory { get; set; }
 
         public void Run()
         {
@@ -82,18 +168,6 @@ namespace DeltaShell.Tests.TestObjects
         public void Exit()
         {
             throw new NotImplementedException();
-        }
-
-        public IProjectService ProjectService { get; set; }
-
-        public IEnumerable<IFileImporter> FileImporters
-        {
-            get { yield break; }
-        }
-
-        public IEnumerable<IFileExporter> FileExporters
-        {
-            get { yield break; }
         }
 
         public void RunActivity(IActivity activity)
@@ -141,55 +215,9 @@ namespace DeltaShell.Tests.TestObjects
             throw new NotImplementedException();
         }
 
-        public void InitializeProjectRepositoryFactory(IProjectRepositoryFactory factory)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string ProjectDataDirectory
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public string ProjectFilePath
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public void ExportProjectItem(IProjectItem projectItem, string targetProjectRepositoryPath, bool includeLinkedFiles)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetNewFileBasedItemPath(string fileNamePrefix, string fileNameSuffix)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Version
-        {
-            get { return ""; }
-        }
-
-        public string PluginVersions { get; private set; }
-
-        public string ApplicationNameAndVersion
-        {
-            get {return "DeltaShell"; }
-        }
-
         public void Dispose()
         {
-            
-            disposeCallCount++;
+            DisposeCallCount++;
         }
-
-        public int DisposeCallCount
-        {
-            get { return disposeCallCount; }
-        }
-
-        public event Action AfterRun;
-        public bool IsDataAccessSynchronizationDisabled { get; set; }
     }
 }

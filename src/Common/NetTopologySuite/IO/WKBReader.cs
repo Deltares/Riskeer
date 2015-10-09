@@ -4,27 +4,27 @@ using GeoAPI.Geometries;
 using GisSharpBlog.NetTopologySuite.Geometries;
 
 namespace GisSharpBlog.NetTopologySuite.IO
-{    
+{
     /// <summary>
     /// Converts a Well-Known Binary byte data to a <c>Geometry</c>.
     /// </summary>
     [Serializable]
     public class WKBReader
     {
-        private IGeometryFactory factory = null;
-
-        /// <summary>
-        /// <c>Geometry</c> builder.
-        /// </summary>
-        protected IGeometryFactory Factory
+        protected enum CoordinateSystem
         {
-            get { return factory; }
-        }
+            XY = 1,
+            XYZ = 2,
+            XYM = 3,
+            XYZM = 4
+        };
+
+        private readonly IGeometryFactory factory = null;
 
         /// <summary>
         /// Initialize reader with a standard <c>GeometryFactory</c>. 
         /// </summary>
-        public WKBReader() : this(GeometryFactory.Default) { }
+        public WKBReader() : this(GeometryFactory.Default) {}
 
         /// <summary>
         /// Initialize reader with the given <c>GeometryFactory</c>.
@@ -42,8 +42,10 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <returns></returns>
         public IGeometry Read(byte[] data)
         {
-            using (Stream stream = new MemoryStream(data))            
+            using (Stream stream = new MemoryStream(data))
+            {
                 return Read(stream);
+            }
         }
 
         /// <summary>
@@ -58,18 +60,34 @@ namespace GisSharpBlog.NetTopologySuite.IO
             try
             {
                 if (byteOrder == ByteOrder.BigEndian)
-                     reader = new BEBinaryReader(stream);
-                else reader = new BinaryReader(stream);
+                {
+                    reader = new BEBinaryReader(stream);
+                }
+                else
+                {
+                    reader = new BinaryReader(stream);
+                }
                 return Read(reader);
             }
             finally
             {
-                if (reader != null) 
+                if (reader != null)
+                {
                     reader.Close();
+                }
             }
         }
 
-        protected enum CoordinateSystem { XY=1, XYZ=2,  XYM=3, XYZM=4};
+        /// <summary>
+        /// <c>Geometry</c> builder.
+        /// </summary>
+        protected IGeometryFactory Factory
+        {
+            get
+            {
+                return factory;
+            }
+        }
 
         /// <summary>
         /// 
@@ -77,7 +95,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="reader"></param>
         /// <returns></returns>
         protected IGeometry Read(BinaryReader reader)
-        {     
+        {
             WKBGeometryTypes geometryType = (WKBGeometryTypes) reader.ReadInt32();
             switch (geometryType)
             {
@@ -202,7 +220,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
             int numPoints = reader.ReadInt32();
             ICoordinate[] coordinates = new ICoordinate[numPoints];
             for (int i = 0; i < numPoints; i++)
+            {
                 coordinates[i] = ReadCoordinate(reader, cs);
+            }
             return Factory.CreateLinearRing(coordinates);
         }
 
@@ -228,7 +248,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
             int numPoints = reader.ReadInt32();
             ICoordinate[] coordinates = new ICoordinate[numPoints];
             for (int i = 0; i < numPoints; i++)
+            {
                 coordinates[i] = ReadCoordinate(reader, cs);
+            }
             return Factory.CreateLineString(coordinates);
         }
 
@@ -244,7 +266,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
             ILinearRing exteriorRing = ReadRing(reader, cs);
             ILinearRing[] interiorRings = new ILinearRing[numRings - 1];
             for (int i = 0; i < numRings - 1; i++)
+            {
                 interiorRings[i] = ReadRing(reader, cs);
+            }
             return Factory.CreatePolygon(exteriorRing, interiorRings);
         }
 
@@ -261,9 +285,11 @@ namespace GisSharpBlog.NetTopologySuite.IO
             for (int i = 0; i < numGeometries; i++)
             {
                 ReadByteOrder(reader);
-                WKBGeometryTypes geometryType = (WKBGeometryTypes)reader.ReadInt32();
+                WKBGeometryTypes geometryType = (WKBGeometryTypes) reader.ReadInt32();
                 if (geometryType != WKBGeometryTypes.WKBPoint)
+                {
                     throw new ArgumentException("IPoint feature expected");
+                }
                 points[i] = ReadPoint(reader, cs) as IPoint;
             }
             return Factory.CreateMultiPoint(points);
@@ -284,8 +310,10 @@ namespace GisSharpBlog.NetTopologySuite.IO
                 ReadByteOrder(reader);
                 WKBGeometryTypes geometryType = (WKBGeometryTypes) reader.ReadInt32();
                 if (geometryType != WKBGeometryTypes.WKBLineString)
+                {
                     throw new ArgumentException("ILineString feature expected");
-                strings[i] = ReadLineString(reader, cs) as ILineString ;
+                }
+                strings[i] = ReadLineString(reader, cs) as ILineString;
             }
             return Factory.CreateMultiLineString(strings);
         }
@@ -305,8 +333,10 @@ namespace GisSharpBlog.NetTopologySuite.IO
                 ReadByteOrder(reader);
                 WKBGeometryTypes geometryType = (WKBGeometryTypes) reader.ReadInt32();
                 if (geometryType != WKBGeometryTypes.WKBPolygon &&
-                    geometryType != WKBGeometryTypes.WKBPolygonZ )
+                    geometryType != WKBGeometryTypes.WKBPolygonZ)
+                {
                     throw new ArgumentException("IPolygon feature expected");
+                }
                 polygons[i] = ReadPolygon(reader, cs) as IPolygon;
             }
             return Factory.CreateMultiPolygon(polygons);
@@ -422,7 +452,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
                         break;
                     default:
                         throw new ArgumentException("Should never reach here!");
-                }                
+                }
             }
             return Factory.CreateGeometryCollection(geometries);
         }

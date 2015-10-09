@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using DelftTools.Utils.Drawing;
 using DelftTools.Utils.Interop;
+using SharpMap.UI.Properties;
 
 namespace SharpMap.UI.Helpers
 {
@@ -13,16 +14,16 @@ namespace SharpMap.UI.Helpers
         public static Cursor RemovePoint;
         public static Bitmap AddFeatureTemplateBitmap;
 
-        private static List<Cursor> CursorsToDispose;
-        private static List<IntPtr> IconsToDispose;
+        private static readonly List<Cursor> CursorsToDispose;
+        private static readonly List<IntPtr> IconsToDispose;
 
         static MapCursors()
         {
             CursorsToDispose = new List<Cursor>();
             IconsToDispose = new List<IntPtr>();
-            AddPoint = CreateCursor(Properties.Resources.AddPoint, 0, 0);
-            RemovePoint = CreateCursor(Properties.Resources.RemovePoint, 0, 0);
-            AddFeatureTemplateBitmap = (Bitmap)Properties.Resources.AddFeatureTemplate.Clone();
+            AddPoint = CreateCursor(Resources.AddPoint, 0, 0);
+            RemovePoint = CreateCursor(Resources.RemovePoint, 0, 0);
+            AddFeatureTemplateBitmap = (Bitmap) Resources.AddFeatureTemplate.Clone();
         }
 
         public static Cursor CreateArrowOverlayCuror(Bitmap overlay, int xOffset = 12, int yOffset = 0, int width = 12, int height = 12, int xHotSpot = 0, int yHotSpot = 0)

@@ -14,7 +14,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>
         /// 
         /// </summary>
-        private CoordinateArraySequenceFactory() { }
+        private CoordinateArraySequenceFactory() {}
 
         /// <summary>
         /// Returns the singleton instance of CoordinateArraySequenceFactory.
@@ -33,7 +33,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         /// <param name="coordinates">the coordinates, which may not be null nor contain null elements.</param>
         /// <returns></returns>
-        public ICoordinateSequence Create(ICoordinate[] coordinates) 
+        public ICoordinateSequence Create(ICoordinate[] coordinates)
         {
             return new CoordinateArraySequence(coordinates);
         }
@@ -43,7 +43,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         /// <param name="coordSeq"></param>
         /// <returns></returns>
-        public ICoordinateSequence Create(ICoordinateSequence coordSeq) 
+        public ICoordinateSequence Create(ICoordinateSequence coordSeq)
         {
             return new CoordinateArraySequence(coordSeq);
         }
@@ -54,7 +54,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="size"></param>
         /// <param name="dimension">not used</param>
         /// <returns></returns>
-        public ICoordinateSequence Create(int size, int dimension) 
+        public ICoordinateSequence Create(int size, int dimension)
         {
             return new CoordinateArraySequence(size);
         }

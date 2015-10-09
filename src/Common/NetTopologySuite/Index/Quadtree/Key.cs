@@ -11,26 +11,10 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
     /// </summary>
     public class Key
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="env"></param>
-        /// <returns></returns>
-        public static int ComputeQuadLevel(IEnvelope env)
-        {
-            double dx = env.Width;
-            double dy = env.Height;
-            double dMax = dx > dy ? dx : dy;
-            int level = DoubleBits.GetExponent(dMax) + 1;
-            return level;
-        }
-
         // the fields which make up the key
-        private ICoordinate pt = new Coordinate();
-        private int level = 0;
+        private readonly ICoordinate pt = new Coordinate();
 
         // auxiliary data which is derived from the key for use in computation
-        private IEnvelope env = null;
 
         /// <summary>
         /// 
@@ -38,6 +22,8 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         /// <param name="itemEnv"></param>
         public Key(IEnvelope itemEnv)
         {
+            Envelope = null;
+            Level = 0;
             ComputeKey(itemEnv);
         }
 
@@ -55,24 +41,12 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         /// <summary>
         /// 
         /// </summary>
-        public int Level
-        {
-            get
-            {
-                return level;
-            }
-        }
+        public int Level { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IEnvelope Envelope
-        {
-            get
-            {
-                return env;
-            }
-        }
+        public IEnvelope Envelope { get; private set; }
 
         /// <summary>
         /// 
@@ -81,8 +55,22 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         {
             get
             {
-                return new Coordinate((env.MinX + env.MaxX) / 2, (env.MinY + env.MaxY) / 2);
+                return new Coordinate((Envelope.MinX + Envelope.MaxX)/2, (Envelope.MinY + Envelope.MaxY)/2);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="env"></param>
+        /// <returns></returns>
+        public static int ComputeQuadLevel(IEnvelope env)
+        {
+            double dx = env.Width;
+            double dy = env.Height;
+            double dMax = dx > dy ? dx : dy;
+            int level = DoubleBits.GetExponent(dMax) + 1;
+            return level;
         }
 
         /// <summary>
@@ -92,14 +80,14 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         /// <param name="itemEnv"></param>
         public void ComputeKey(IEnvelope itemEnv)
         {
-            level = ComputeQuadLevel(itemEnv);
-            env = new Envelope();
-            ComputeKey(level, itemEnv);
+            Level = ComputeQuadLevel(itemEnv);
+            Envelope = new Envelope();
+            ComputeKey(Level, itemEnv);
             // MD - would be nice to have a non-iterative form of this algorithm
-            while (!env.Contains(itemEnv))
+            while (!Envelope.Contains(itemEnv))
             {
-                level += 1;
-                ComputeKey(level, itemEnv);
+                Level += 1;
+                ComputeKey(Level, itemEnv);
             }
         }
 
@@ -110,10 +98,10 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         /// <param name="itemEnv"></param>
         private void ComputeKey(int level, IEnvelope itemEnv)
         {
-            double quadSize = DoubleBits.PowerOf2(level);            
-            pt.X = Math.Floor(itemEnv.MinX / quadSize) * quadSize;
-            pt.Y = Math.Floor(itemEnv.MinY / quadSize) * quadSize;
-            env.Init(pt.X, pt.X + quadSize, pt.Y, pt.Y + quadSize);
+            double quadSize = DoubleBits.PowerOf2(level);
+            pt.X = Math.Floor(itemEnv.MinX/quadSize)*quadSize;
+            pt.Y = Math.Floor(itemEnv.MinY/quadSize)*quadSize;
+            Envelope.Init(pt.X, pt.X + quadSize, pt.Y, pt.Y + quadSize);
         }
     }
 }

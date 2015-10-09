@@ -6,7 +6,6 @@ using GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge;
 
 namespace GisSharpBlog.NetTopologySuite.Triangulate
 {
-
     /// <summary>
     /// A utility class which creates Voronoi Diagrams
     /// from collections of points.
@@ -22,28 +21,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         private QuadEdgeSubdivision _subdiv;
         private Envelope _clipEnv;
         private Envelope _diagramEnv;
-
-        /// <summary>
-        /// Sets the sites (point or vertices) which will be diagrammed.
-        /// All vertices of the given geometry will be used as sites.
-        /// </summary>
-        /// <param name="geom">geom the geometry from which the sites will be extracted.</param>
-        public void SetSites(IGeometry geom)
-        {
-            // remove any duplicate points (they will cause the triangulation to fail)
-            _siteCoords = DelaunayTriangulationBuilder.ExtractUniqueCoordinates(geom);
-        }
-
-        /// <summary>
-        /// Sets the sites (point or vertices) which will be diagrammed
-        /// from a collection of <see cref="Coordinate"/>s.
-        /// </summary>
-        /// <param name="coords">a collection of Coordinates.</param>
-        public void SetSites(ICollection<ICoordinate> coords)
-        {
-            // remove any duplicate points (they will cause the triangulation to fail)
-            _siteCoords = DelaunayTriangulationBuilder.Unique(CoordinateArrays.ToCoordinateArray(coords));
-        }
 
         /// <summary>
         /// Sets the envelope to clip the diagram to.
@@ -73,22 +50,26 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
             }
         }
 
-        private void Create()
+        /// <summary>
+        /// Sets the sites (point or vertices) which will be diagrammed.
+        /// All vertices of the given geometry will be used as sites.
+        /// </summary>
+        /// <param name="geom">geom the geometry from which the sites will be extracted.</param>
+        public void SetSites(IGeometry geom)
         {
-            if (_subdiv != null) return;
+            // remove any duplicate points (they will cause the triangulation to fail)
+            _siteCoords = DelaunayTriangulationBuilder.ExtractUniqueCoordinates(geom);
+        }
 
-            Envelope siteEnv = DelaunayTriangulationBuilder.Envelope(_siteCoords);
-            _diagramEnv = siteEnv;
-            // add a buffer around the final envelope
-            double expandBy = Math.Max(_diagramEnv.Width, _diagramEnv.Height);
-            _diagramEnv.ExpandBy(expandBy);
-            if (_clipEnv != null)
-                _diagramEnv.ExpandToInclude(_clipEnv);
-
-            var vertices = DelaunayTriangulationBuilder.ToVertices(_siteCoords);
-            _subdiv = new QuadEdgeSubdivision(siteEnv, _tolerance);
-            IncrementalDelaunayTriangulator triangulator = new IncrementalDelaunayTriangulator(_subdiv);
-            triangulator.InsertSites(vertices);
+        /// <summary>
+        /// Sets the sites (point or vertices) which will be diagrammed
+        /// from a collection of <see cref="Coordinate"/>s.
+        /// </summary>
+        /// <param name="coords">a collection of Coordinates.</param>
+        public void SetSites(ICollection<ICoordinate> coords)
+        {
+            // remove any duplicate points (they will cause the triangulation to fail)
+            _siteCoords = DelaunayTriangulationBuilder.Unique(CoordinateArrays.ToCoordinateArray(coords));
         }
 
         /// <summary>
@@ -116,6 +97,29 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
             return ClipGeometryCollection(polys, _diagramEnv);
         }
 
+        private void Create()
+        {
+            if (_subdiv != null)
+            {
+                return;
+            }
+
+            Envelope siteEnv = DelaunayTriangulationBuilder.Envelope(_siteCoords);
+            _diagramEnv = siteEnv;
+            // add a buffer around the final envelope
+            double expandBy = Math.Max(_diagramEnv.Width, _diagramEnv.Height);
+            _diagramEnv.ExpandBy(expandBy);
+            if (_clipEnv != null)
+            {
+                _diagramEnv.ExpandToInclude(_clipEnv);
+            }
+
+            var vertices = DelaunayTriangulationBuilder.ToVertices(_siteCoords);
+            _subdiv = new QuadEdgeSubdivision(siteEnv, _tolerance);
+            IncrementalDelaunayTriangulator triangulator = new IncrementalDelaunayTriangulator(_subdiv);
+            triangulator.InsertSites(vertices);
+        }
+
         private static IGeometryCollection ClipGeometryCollection(IGeometryCollection geom, Envelope clipEnv)
         {
             var clipPoly = geom.Factory.ToGeometry(clipEnv);
@@ -126,7 +130,9 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
                 IGeometry result = null;
                 // don't clip unless necessary
                 if (clipEnv.Contains(g.EnvelopeInternal))
+                {
                     result = g;
+                }
                 else if (clipEnv.Intersects(g.EnvelopeInternal))
                 {
                     result = clipPoly.Intersection(g);

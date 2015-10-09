@@ -9,14 +9,42 @@ namespace DeltaShell.Tests.TestObjects
     /// <summary>
     /// 'Hand rolled' ;) mock for projectservice. Replace by mocks if easy.
     /// </summary>
-    class TestProjectService : IProjectService
+    internal class TestProjectService : IProjectService
     {
-        private int closeCallCount;
+        public event EventHandler ProjectSaved;
+
+        public event EventHandler<CancelEventArgs> ProjectOpening;
+
+        public event EventHandler ProjectOpened;
+
+        public int CloseCallCount { get; private set; }
+
         public IProjectRepositoryFactory ProjectRepositoryFactory { get; set; }
 
         public string ProjectDataDirectory
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public IProjectRepository ProjectRepository
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public void Export(IProjectItem projectItem, string targetProjectRepositoryPath, bool includeLinkedFiles, bool ClearModelOutputsOnExport = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IProjectService Clone()
+        {
+            throw new NotImplementedException();
         }
 
         public string CreateAndGetExternalDataDirectory(string basePath)
@@ -24,17 +52,6 @@ namespace DeltaShell.Tests.TestObjects
             throw new NotImplementedException();
         }
 
-        public IProjectRepository ProjectRepository
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public event EventHandler ProjectSaved;
-        public int CloseCallCount
-        {
-            get { return closeCallCount; }
-        }
-        
         public void SaveProjectAs(Project project, string path)
         {
             throw new NotImplementedException();
@@ -57,17 +74,7 @@ namespace DeltaShell.Tests.TestObjects
 
         public void Close(Project project)
         {
-            closeCallCount++;
-        }
-
-        public void Export(IProjectItem projectItem, string targetProjectRepositoryPath, bool includeLinkedFiles, bool ClearModelOutputsOnExport = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IProjectService Clone()
-        {
-            throw new NotImplementedException();
+            CloseCallCount++;
         }
 
         public void SaveProjectInTemporaryFolder(Project project)
@@ -75,8 +82,9 @@ namespace DeltaShell.Tests.TestObjects
             throw new NotImplementedException();
         }
 
-        #region IProjectService Members
+        public void Dispose() {}
 
+        #region IProjectService Members
 
         public event EventHandler<CancelEventArgs> ProjectSaving;
         public event EventHandler ProjectSaveFailed;
@@ -87,14 +95,5 @@ namespace DeltaShell.Tests.TestObjects
         }
 
         #endregion
-
-        public void Dispose()
-        {
-            
-        }
-
-        public event EventHandler<CancelEventArgs> ProjectOpening;
-
-        public event EventHandler ProjectOpened;
     }
 }

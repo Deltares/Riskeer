@@ -1,38 +1,33 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DelftTools.Controls;
 using DelftTools.Shell.Gui;
 
 namespace DeltaShell.Tests.TestObjects
 {
-    public class TestMenuItem: IMenuItem
+    public class TestMenuItem : IMenuItem
     {
+        public event EventHandler Click;
         private readonly IList<IMenuItem> children = new List<IMenuItem>();
-        private string text;
-        private bool enabled;
-        private object tag;
 
-        public IList<IMenuItem> Items 
-        { 
-            get { return children; } 
-        }
-
-        public string Text
+        public IList<IMenuItem> Items
         {
-            get { return text; }
-            set { text = value; }
+            get
+            {
+                return children;
+            }
         }
+
+        public object Tag { get; set; }
+
+        public string Text { get; set; }
 
         public string Tooltip { get; set; }
 
         public string Category { get; set; }
 
-        public bool Enabled
-        {
-            get { return enabled; }
-            set { enabled = value; }
-        }
-
+        public bool Enabled { get; set; }
 
         public string Name
         {
@@ -44,20 +39,6 @@ namespace DeltaShell.Tests.TestObjects
             {
                 throw new NotImplementedException("The method or operation is not implemented.");
             }
-        }
-
-
-        public object Tag
-        {
-            get { return tag; }
-            set { tag = value; }
-        }
-
-        public event EventHandler Click;
-
-        public IMenuItem AppendSub(bool newGroup, IGuiCommand command, EventHandler eventHandler)
-        {
-            throw new NotImplementedException("The method or operation is not implemented.");
         }
 
         public string Shortcut
@@ -83,6 +64,45 @@ namespace DeltaShell.Tests.TestObjects
                 throw new NotImplementedException("The method or operation is not implemented.");
             }
         }
+
+        #region IMenuItem Members
+
+        public IList<Type> ActiveForViews
+        {
+            get
+            {
+                throw new NotImplementedException("The method or operation is not implemented.");
+            }
+            set
+            {
+                throw new NotImplementedException("The method or operation is not implemented.");
+            }
+        }
+
+        #endregion
+
+        public IMenuItem AppendSub(bool newGroup, IGuiCommand command, EventHandler eventHandler)
+        {
+            throw new NotImplementedException("The method or operation is not implemented.");
+        }
+
+        #region IEnumerable<IMenuItem> Members
+
+        public IEnumerator<IMenuItem> GetEnumerator()
+        {
+            throw new NotImplementedException("The method or operation is not implemented.");
+        }
+
+        #endregion
+
+        #region IEnumerable Members
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException("The method or operation is not implemented.");
+        }
+
+        #endregion
 
         #region IMenuItemCollection<IMenuItem> Members
 
@@ -170,12 +190,18 @@ namespace DeltaShell.Tests.TestObjects
 
         public int Count
         {
-            get { throw new NotImplementedException("The method or operation is not implemented."); }
+            get
+            {
+                throw new NotImplementedException("The method or operation is not implemented.");
+            }
         }
 
         public bool IsReadOnly
         {
-            get { throw new NotImplementedException("The method or operation is not implemented."); }
+            get
+            {
+                throw new NotImplementedException("The method or operation is not implemented.");
+            }
         }
 
         public bool Remove(IMenuItem item)
@@ -184,41 +210,5 @@ namespace DeltaShell.Tests.TestObjects
         }
 
         #endregion
-
-        #region IEnumerable<IMenuItem> Members
-
-        public IEnumerator<IMenuItem> GetEnumerator()
-        {
-            throw new NotImplementedException("The method or operation is not implemented.");
-        }
-
-        #endregion
-
-        #region IEnumerable Members
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException("The method or operation is not implemented.");
-        }
-
-        #endregion
-
-        #region IMenuItem Members
-
-
-        public IList<Type> ActiveForViews
-        {
-            get
-            {
-                throw new NotImplementedException("The method or operation is not implemented.");
-            }
-            set
-            {
-                throw new NotImplementedException("The method or operation is not implemented.");
-            }
-        }
-
-        #endregion
-
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DelftTools.Controls.Swf.DataEditorGenerator.Binding;
 using DelftTools.Controls.Swf.DataEditorGenerator.Metadata;
+using DelftTools.Controls.Swf.Properties;
 
 namespace DelftTools.Controls.Swf.DataEditorGenerator
 {
@@ -18,7 +19,9 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
 
         private const int FieldEditControlWidth = 125;
         private const int FieldEditControlWideWidth = 150;
-        
+
+        private static readonly Bitmap InformationIcon = Resources.information;
+
         /// <summary>
         /// Generates a user control (DataEditor) based on an abstract object (UI-meta) description. 
         /// To use the generated control, add it to a view and set its 'Data' property.
@@ -29,7 +32,10 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
         {
             var categories = typeInfo.FieldDescriptions.GroupBy(p => p.Category).ToList();
 
-            var dataEditor = new DataEditor { AutoSize = true };
+            var dataEditor = new DataEditor
+            {
+                AutoSize = true
+            };
 
             if (categories.Count == 1)
             {
@@ -37,22 +43,25 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
             }
             else
             {
-                var tabControl = new TabControl {Dock = DockStyle.Fill};
+                var tabControl = new TabControl
+                {
+                    Dock = DockStyle.Fill
+                };
                 dataEditor.Controls.Add(tabControl);
                 foreach (var category in categories)
                 {
                     var page = new TabPage
-                        {
-                            Text = category.Key ?? "Misc.",
-                            Padding = new Padding(10),
-                        };
+                    {
+                        Text = category.Key ?? "Misc.",
+                        Padding = new Padding(10),
+                    };
                     var c = GenerateCategoryView(category, dataEditor.Bindings);
                     c.Dock = DockStyle.Fill;
                     page.Controls.Add(c);
                     tabControl.TabPages.Add(page);
                 }
             }
-            
+
             return dataEditor;
         }
 
@@ -97,30 +106,30 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
         private static SelfCollapsingGroupbox CreateGroupBox(string title)
         {
             return new SelfCollapsingGroupbox
-                {
-                    Text = title,
-                    AutoSize = true,
-                    Padding = new Padding(8),
-                };
+            {
+                Text = title,
+                AutoSize = true,
+                Padding = new Padding(8),
+            };
         }
 
-        private static FlowLayoutPanel CreateFlowLayoutPanel(bool inGroupBox=false)
+        private static FlowLayoutPanel CreateFlowLayoutPanel(bool inGroupBox = false)
         {
             return new FlowLayoutPanel
-                {
-                    FlowDirection = FlowDirection.TopDown,
-                    WrapContents = true,
-                    AutoScroll = !inGroupBox,
-                    Dock = DockStyle.Fill,
-                };
+            {
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = true,
+                AutoScroll = !inGroupBox,
+                Dock = DockStyle.Fill,
+            };
         }
 
         private static void GenerateFieldControls(IEnumerable<FieldUIDescription> fieldsInCategory, ICollection<IBinding> bindings, Control container)
         {
             var errorProvider = new ErrorProvider
-                {
-                    BlinkStyle = ErrorBlinkStyle.NeverBlink
-                };
+            {
+                BlinkStyle = ErrorBlinkStyle.NeverBlink
+            };
             foreach (var fieldDesc in fieldsInCategory)
             {
                 var propertyControl = GenerateFieldCompositeControl(fieldDesc, bindings, errorProvider);
@@ -145,23 +154,29 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
                 bindings.Add(DataBinder.Bind(fieldDesc, customControl, customControl, errorProvider));
                 return customControl;
             }
-            
+
             var editControl = GenerateFieldEditControl(fieldDesc);
 
             var captionLabel = new Label
-                {
-                    Text = fieldDesc.Label,
-                    TextAlign = ContentAlignment.MiddleLeft,
-                    Width = LabelWidth,
-                    Dock = DockStyle.Left
-                };
+            {
+                Text = fieldDesc.Label,
+                TextAlign = ContentAlignment.MiddleLeft,
+                Width = LabelWidth,
+                Dock = DockStyle.Left
+            };
 
-            var panel = new SelfCollapsingPanel {Height = DefaultHeight};
+            var panel = new SelfCollapsingPanel
+            {
+                Height = DefaultHeight
+            };
             panel.Controls.Add(captionLabel);
 
             bindings.Add(DataBinder.Bind(fieldDesc, editControl, panel, errorProvider));
 
-            var separator1 = new Panel { Width = 2, Dock = DockStyle.Left };
+            var separator1 = new Panel
+            {
+                Width = 2, Dock = DockStyle.Left
+            };
             panel.Controls.Add(separator1);
 
             editControl.Dock = DockStyle.Left;
@@ -175,7 +190,10 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
 
             panel.Controls.Add(editControl);
 
-            var separator2 = new Panel {Width = 4, Dock = DockStyle.Left};
+            var separator2 = new Panel
+            {
+                Width = 4, Dock = DockStyle.Left
+            };
             panel.Controls.Add(separator2);
 
             var tooltipImage = new PictureBox
@@ -187,14 +205,14 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
                 Visible = false
             };
             panel.Controls.Add(tooltipImage);
-            
+
             var unitLabel = new Label
-                {
-                    Text = fieldDesc.UnitSymbol,
-                    TextAlign = ContentAlignment.MiddleLeft,
-                    Width = 25,
-                    Dock = DockStyle.Left
-                };
+            {
+                Text = fieldDesc.UnitSymbol,
+                TextAlign = ContentAlignment.MiddleLeft,
+                Width = 25,
+                Dock = DockStyle.Left
+            };
             panel.Controls.Add(unitLabel);
 
             // add tooltip appearing / disappearing:
@@ -206,36 +224,36 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
                 tooltipImage.MouseClick += (s, e) => showToolTip(s);
                 tooltipImage.MouseHover += (s, e) => showToolTip(s);
                 editControl.GotFocus += (s, e) =>
-                    {
-                        unitLabel.Visible = false;
-                        tooltipImage.Visible = true;
-                    };
+                {
+                    unitLabel.Visible = false;
+                    tooltipImage.Visible = true;
+                };
                 editControl.LostFocus += (s, e) =>
-                    {
-                        tooltipImage.Visible = false;
-                        unitLabel.Visible = true;
-                    };
+                {
+                    tooltipImage.Visible = false;
+                    unitLabel.Visible = true;
+                };
             }
 
             // invert order of controls
             foreach (Control c in panel.Controls)
+            {
                 c.BringToFront();
+            }
 
             // calculate panel width
             panel.Width = panel.Controls.OfType<Control>().Sum(c => c.Width) - tooltipImage.Width;
 
             panel.VisibleChanged += (s, e) =>
+            {
+                if (!panel.Visible)
                 {
-                    if (!panel.Visible)
-                    {
-                        LinkedToolTip.HideToolTip();
-                    }
-                };
-            
+                    LinkedToolTip.HideToolTip();
+                }
+            };
+
             return panel;
         }
-
-        private static readonly Bitmap InformationIcon = Properties.Resources.information;
 
         /// <summary>
         /// Generates the edit control (eg, textbox, combobox etc), excluding any labels etc
@@ -250,60 +268,75 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
             }
             if (fieldDesc.ValueType.IsEnum)
             {
-                return new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Width = FieldEditControlWidth };
+                return new ComboBox
+                {
+                    DropDownStyle = ComboBoxStyle.DropDownList, Width = FieldEditControlWidth
+                };
             }
-            if (fieldDesc.ValueType == typeof (DateTime))
+            if (fieldDesc.ValueType == typeof(DateTime))
             {
                 var dtfInfo = CultureInfo.CurrentCulture.DateTimeFormat;
                 return new DateTimePicker
-                    {
-                        Width = FieldEditControlWideWidth,
-                        Format = DateTimePickerFormat.Custom,
-                        CustomFormat =
-                            dtfInfo.ShortDatePattern + " " +
-                            dtfInfo.ShortTimePattern
-                    };
+                {
+                    Width = FieldEditControlWideWidth,
+                    Format = DateTimePickerFormat.Custom,
+                    CustomFormat =
+                        dtfInfo.ShortDatePattern + " " +
+                        dtfInfo.ShortTimePattern
+                };
             }
-            if (fieldDesc.ValueType == typeof (TimeSpan))
+            if (fieldDesc.ValueType == typeof(TimeSpan))
             {
-                return new TimeSpanEditor {Width = FieldEditControlWidth};
+                return new TimeSpanEditor
+                {
+                    Width = FieldEditControlWidth
+                };
             }
-            if (fieldDesc.ValueType == typeof (bool))
+            if (fieldDesc.ValueType == typeof(bool))
             {
-                return new CheckBox {Width = FieldEditControlWidth};
+                return new CheckBox
+                {
+                    Width = FieldEditControlWidth
+                };
             }
-            if (fieldDesc.ValueType == typeof (string) ||
+            if (fieldDesc.ValueType == typeof(string) ||
                 fieldDesc.ValueType.IsValueType)
             {
-                return new TextBox {Width = FieldEditControlWidth};
+                return new TextBox
+                {
+                    Width = FieldEditControlWidth
+                };
             }
-            if (typeof (IList).IsAssignableFrom(fieldDesc.ValueType) ||
-                fieldDesc.ValueType.GetInterfaces().Concat(new[] {fieldDesc.ValueType})
-                         .Any(type => type.IsGenericType && type.GetGenericTypeDefinition() == typeof (ICollection<>)))
+            if (typeof(IList).IsAssignableFrom(fieldDesc.ValueType) ||
+                fieldDesc.ValueType.GetInterfaces().Concat(new[]
+                {
+                    fieldDesc.ValueType
+                })
+                         .Any(type => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(ICollection<>)))
             {
                 var dataGridView = new DataGridView
-                    {
-                        AllowUserToAddRows = false,
-                        RowHeadersVisible = false,
-                        AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-                        Enabled = true,
-                        AllowUserToResizeRows = false,
-                        AllowUserToResizeColumns = false,
-                        ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize,
-                        RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders,
-                        ScrollBars = ScrollBars.None
-                    };
+                {
+                    AllowUserToAddRows = false,
+                    RowHeadersVisible = false,
+                    AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                    Enabled = true,
+                    AllowUserToResizeRows = false,
+                    AllowUserToResizeColumns = false,
+                    ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize,
+                    RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders,
+                    ScrollBars = ScrollBars.None
+                };
                 dataGridView.DataBindingComplete += (s, e) =>
-                    {
-                        dataGridView.Height = (dataGridView.ColumnHeadersVisible ? dataGridView.ColumnHeadersHeight : 0) +
-                                              dataGridView.Rows.OfType<DataGridViewRow>().Sum(r => r.Height) + 3;
-                    };
+                {
+                    dataGridView.Height = (dataGridView.ColumnHeadersVisible ? dataGridView.ColumnHeadersHeight : 0) +
+                                          dataGridView.Rows.OfType<DataGridViewRow>().Sum(r => r.Height) + 3;
+                };
                 dataGridView.EnabledChanged += (s, e) =>
-                    {
-                        dataGridView.ForeColor = dataGridView.Enabled ? SystemColors.ControlText : SystemColors.GrayText;
-                        dataGridView.DefaultCellStyle.SelectionBackColor = dataGridView.Enabled ? SystemColors.Highlight : SystemColors.ControlLightLight;
-                        dataGridView.DefaultCellStyle.SelectionForeColor = dataGridView.Enabled ? SystemColors.HighlightText : SystemColors.GrayText;
-                    };
+                {
+                    dataGridView.ForeColor = dataGridView.Enabled ? SystemColors.ControlText : SystemColors.GrayText;
+                    dataGridView.DefaultCellStyle.SelectionBackColor = dataGridView.Enabled ? SystemColors.Highlight : SystemColors.ControlLightLight;
+                    dataGridView.DefaultCellStyle.SelectionForeColor = dataGridView.Enabled ? SystemColors.HighlightText : SystemColors.GrayText;
+                };
                 return dataGridView;
             }
             throw new NotImplementedException(string.Format("No control for type {0}", fieldDesc.ValueType));

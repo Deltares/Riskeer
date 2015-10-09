@@ -8,7 +8,8 @@ namespace SharpMap.Tests.Data.Providers
     [TestFixture]
     public class DataTableFeatureProviderTest
     {
-        readonly MockRepository mocks = new MockRepository();
+        private readonly MockRepository mocks = new MockRepository();
+
         [Test]
         public void Contains()
         {

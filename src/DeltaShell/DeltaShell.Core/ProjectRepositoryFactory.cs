@@ -8,25 +8,11 @@ namespace DeltaShell.Core
     /// </summary>
     public class ProjectRepositoryFactory<T> : IProjectRepositoryFactory where T : IProjectRepository, new()
     {
-        public ProjectRepositoryFactory()
-        {
-        }
+        public ProjectRepositoryFactory() {}
 
-        public IProjectRepository CreateNew()
-        {
-            var repository = new T();
-            
-            return repository;
-        }
+        public string[] PluginNames { get; set; }
 
-        public void AddPlugin(IPlugin plugin)
-        {
-        }
-
-        public void AddDataAccessListener(IDataAccessListener dataAccessListener)
-        {
-            
-        }
+        public string FileFormatVersion { get; set; }
 
         public bool SpeedUpSessionCreationUsingParallelThread { get; set; }
 
@@ -34,8 +20,15 @@ namespace DeltaShell.Core
 
         public string ConfigurationCacheDirectory { get; set; }
 
-        public string[] PluginNames { get; set; }
+        public IProjectRepository CreateNew()
+        {
+            var repository = new T();
 
-        public string FileFormatVersion { get; set; }
+            return repository;
+        }
+
+        public void AddPlugin(IPlugin plugin) {}
+
+        public void AddDataAccessListener(IDataAccessListener dataAccessListener) {}
     }
 }

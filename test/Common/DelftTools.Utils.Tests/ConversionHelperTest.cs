@@ -26,7 +26,7 @@ namespace DelftTools.Utils.Tests
         public void ConvertCommasAsThousandsSeparator()
         {
             string s = "1,121";
-            Assert.AreEqual(1121f, ConversionHelper.ToSingle(s)); 
+            Assert.AreEqual(1121f, ConversionHelper.ToSingle(s));
         }
 
         [Test]
@@ -45,6 +45,5 @@ namespace DelftTools.Utils.Tests
             Assert.AreEqual(1123f, Convert.ToSingle(s, new CultureInfo("nl-NL", false)));
             Assert.AreEqual(1.123f, ConversionHelper.ToSingle(s));
         }
-
     }
 }

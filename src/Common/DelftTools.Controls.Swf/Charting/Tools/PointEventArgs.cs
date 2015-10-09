@@ -6,47 +6,27 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
     public class PointEventArgs : CancelEventArgs
     {
-        private IChartSeries series;
-        private int index;
-        private double x;
-        private double y;
-
         public PointEventArgs(IChartSeries series, int index, double x, double y)
         {
-            this.series = series;
-            this.index = index;
-            this.x = x;
-            this.y = y;
+            Series = series;
+            Index = index;
+            X = x;
+            Y = y;
         }
 
-        public IChartSeries Series
-        {
-            get { return series; }
-        }
+        public IChartSeries Series { get; private set; }
 
-        public int Index
-        {
-            get { return index; }
-        }
+        public int Index { get; private set; }
 
-        public double X
-        {
-            get { return x; }
-        }
+        public double X { get; private set; }
 
-        public double Y
-        {
-            get { return y; }
-        }
+        public double Y { get; private set; }
     }
 
     public class HoverPointEventArgs : PointEventArgs
     {
-        public HoverPointEventArgs(IChartSeries series, int index, double x, double y, bool entering) : base(series, index, x, y)
-        {
-        }
+        public HoverPointEventArgs(IChartSeries series, int index, double x, double y, bool entering) : base(series, index, x, y) {}
 
         public bool Entering { get; set; }
     }
-        
 }

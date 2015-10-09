@@ -12,7 +12,6 @@ namespace DelftTools.Utils.Tests.IO
     public class FileUtilsTest
     {
         private readonly string fileWithContentPath = TestHelper.GetTestDataPath(TestDataPath.Common.DelftToolsUtilsTests, "File_with_content.txt");
-        private const string ExpectedChecksumForFileWithContent = "ec6ff8d1dbda4ecf65665fd7a3a057f2";
 
         [Test]
         public void isSubDirectoryTest()
@@ -117,7 +116,7 @@ namespace DelftTools.Utils.Tests.IO
                 Assert.IsTrue(FileUtils.CanCopy(fi.Name, TestHelper.GetCurrentMethodName()));
                 fi.Delete();
             }
-            catch(IOException e)
+            catch (IOException e)
             {
                 Debug.WriteLine(e);
             }
@@ -128,7 +127,7 @@ namespace DelftTools.Utils.Tests.IO
         {
             const string someFileName = "somefile.nc";
 
-            using (File.Create(someFileName)) { }
+            using (File.Create(someFileName)) {}
 
             var path = Path.GetFullPath(someFileName).Replace(someFileName, "");
 
@@ -136,7 +135,6 @@ namespace DelftTools.Utils.Tests.IO
             Assert.AreEqual(Path.Combine(path, "somefile (1).nc"), newName);
 
             File.Delete(someFileName);
-
         }
 
         [Test]
@@ -151,20 +149,19 @@ namespace DelftTools.Utils.Tests.IO
         {
             const string someFileName = "somefile.nc";
 
-            using (File.Create(someFileName)) { }
+            using (File.Create(someFileName)) {}
 
             string newName = FileUtils.GetUniqueFileName(someFileName);
-            Assert.AreEqual("somefile (1).nc", newName);                
+            Assert.AreEqual("somefile (1).nc", newName);
 
             File.Delete(someFileName);
         }
-
 
         [Test]
         public void GetUniqueFileNameReturnsNewNameBasedOnMultipleFilesFound()
         {
             const string someFileName0 = "somefile.nc";
-            using (File.Create(someFileName0)) { }
+            using (File.Create(someFileName0)) {}
 
             const string someFileName1 = "somefile (1).nc";
             using (File.Create(someFileName1)) {}
@@ -220,7 +217,7 @@ namespace DelftTools.Utils.Tests.IO
         public void CopyToSameFileDoesNotDeleteIt()
         {
             var file = Path.GetTempFileName();
-            FileUtils.CopyFile(file,file);
+            FileUtils.CopyFile(file, file);
 
             Assert.IsTrue(File.Exists(file));
         }
@@ -232,7 +229,7 @@ namespace DelftTools.Utils.Tests.IO
 
             // clean-up from previous run
             FileUtils.DeleteIfExists(path);
-            
+
             // create read-only file in source directory
             File.CreateText(path).Close();
             File.SetAttributes(path, FileAttributes.ReadOnly);
@@ -288,8 +285,8 @@ namespace DelftTools.Utils.Tests.IO
             var checkSum = FileUtils.GetChecksum(fileWithContentPath);
 
             // assert
-            Assert.AreEqual(32, checkSum.Length, 
-                "A 128bit hash should yield 16 bytes of data. Printed in hex, gives 2*16 = 32 characters.");
+            Assert.AreEqual(32, checkSum.Length,
+                            "A 128bit hash should yield 16 bytes of data. Printed in hex, gives 2*16 = 32 characters.");
             Assert.AreEqual(ExpectedChecksumForFileWithContent, checkSum);
         }
 
@@ -303,5 +300,7 @@ namespace DelftTools.Utils.Tests.IO
             Assert.IsTrue(FileUtils.VerifyChecksum(fileWithContentPath, ExpectedChecksumForFileWithContent));
             Assert.IsFalse(FileUtils.VerifyChecksum(testPath, ExpectedChecksumForFileWithContent));
         }
+
+        private const string ExpectedChecksumForFileWithContent = "ec6ff8d1dbda4ecf65665fd7a3a057f2";
     }
 }

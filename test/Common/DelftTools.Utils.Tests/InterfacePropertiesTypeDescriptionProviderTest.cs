@@ -10,31 +10,33 @@ namespace DelftTools.Utils.Tests
         [Test]
         public void GetPropertiesFromBaseInterface()
         {
-            var provider = new InterfacePropertiesTypeDescriptionProvider(typeof (IDerivedInterface));
+            var provider = new InterfacePropertiesTypeDescriptionProvider(typeof(IDerivedInterface));
             var properties = provider.GetTypeDescriptor(typeof(IDerivedInterface)).GetProperties();
             Assert.AreEqual(2, properties.Count);
 
-            var propertyNamesList = new List<string>(new[] {properties[0].Name, properties[1].Name});
+            var propertyNamesList = new List<string>(new[]
+            {
+                properties[0].Name,
+                properties[1].Name
+            });
             Assert.Contains("DerivedInterfaceProperty", propertyNamesList);
             Assert.Contains("BaseInterfaceProperty", propertyNamesList);
-
         }
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void DoesNotWorkOnClass()
         {
-            var provider = new InterfacePropertiesTypeDescriptionProvider(typeof (object));
+            var provider = new InterfacePropertiesTypeDescriptionProvider(typeof(object));
             Assert.IsNull(provider);
         }
 
-
-
-        private interface IDerivedInterface:IBaseInterface
+        private interface IDerivedInterface : IBaseInterface
         {
             int DerivedInterfaceProperty { get; set; }
         }
-        interface IBaseInterface
+
+        private interface IBaseInterface
         {
             string BaseInterfaceProperty { get; set; }
         }

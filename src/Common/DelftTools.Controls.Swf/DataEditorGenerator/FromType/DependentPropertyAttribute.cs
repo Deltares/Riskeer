@@ -9,7 +9,5 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.FromType
     /// <remarks>This property will cause the data source to be queried for changes on each property 
     /// change</remarks>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class DependentPropertyAttribute : Attribute
-    {
-    }
+    public class DependentPropertyAttribute : Attribute {}
 }

@@ -6,12 +6,13 @@ namespace DelftTools.Controls.Swf.Csv.FormatPickers
 {
     public abstract class CsvFormatPickerProvider
     {
+        public event EventHandler UserSelectionChanged;
         public abstract string Label { get; }
         public abstract Type ValueType { get; }
         public abstract Control GetFormatPicker();
         public abstract IFormatProvider GetFormatProvider();
 
-        public event EventHandler UserSelectionChanged;
+        public abstract void SetFormatPickerToInitialGuess(IEnumerable<string> exampleStrings);
 
         protected void FireUserSelectionChanged()
         {
@@ -21,8 +22,6 @@ namespace DelftTools.Controls.Swf.Csv.FormatPickers
             }
         }
 
-        public abstract void SetFormatPickerToInitialGuess(IEnumerable<string> exampleStrings);
-        
         protected static ComboBox CreateCombobox(object[] items)
         {
             var combobox = new ComboBox

@@ -11,14 +11,37 @@ namespace SharpMap.Data.Providers
     /// <typeparam name="T"></typeparam>
     public class WrappedEnumerableList<T> : IList
     {
-        private IEnumerable<T> Source { get; set; }
-        private IList<T> EditableList { get; set; }
-
         public WrappedEnumerableList(IEnumerable<T> source, IList<T> editableList)
         {
             Source = source;
             EditableList = editableList;
         }
+
+        public object this[int index]
+        {
+            get
+            {
+                return Source.ElementAt(index);
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                return Source.Count();
+            }
+        }
+
+        public object SyncRoot { get; private set; }
+        public bool IsSynchronized { get; private set; }
+
+        public bool IsReadOnly { get; private set; }
+        public bool IsFixedSize { get; private set; }
 
         public IEnumerator GetEnumerator()
         {
@@ -30,9 +53,6 @@ namespace SharpMap.Data.Providers
             throw new NotImplementedException();
         }
 
-        public int Count { get { return Source.Count(); } }
-        public object SyncRoot { get; private set; }
-        public bool IsSynchronized { get; private set; }
         public int Add(object value)
         {
             EditableList.Add((T) value);
@@ -52,10 +72,12 @@ namespace SharpMap.Data.Providers
         public int IndexOf(object value)
         {
             var i = 0;
-            foreach(var elem in Source)
+            foreach (var elem in Source)
             {
                 if (ReferenceEquals(elem, value))
+                {
                     return i;
+                }
                 i++;
             }
             return -1;
@@ -76,13 +98,7 @@ namespace SharpMap.Data.Providers
             throw new NotImplementedException();
         }
 
-        public object this[int index]
-        {
-            get { return Source.ElementAt(index); }
-            set { throw new NotImplementedException(); }
-        }
-
-        public bool IsReadOnly { get; private set; }
-        public bool IsFixedSize { get; private set; }
+        private IEnumerable<T> Source { get; set; }
+        private IList<T> EditableList { get; set; }
     }
 }

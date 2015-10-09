@@ -14,19 +14,20 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         private const int MaximumAllowedSize = 999999;
         private const int MinimumAllowedSize = 0;
 
-        protected abstract VectorStyle Style { get; }
-
-        [DynamicVisibleValidationMethod]
-        public abstract bool IsPropertyVisible(string propertyName);
-
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), "Categories_Style")]
         [ResourcesDisplayName(typeof(Resources), "VectorLayerProperties_FillColor_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PolygonStyleProperties_FillColor_Description")]
         public Color FillColor
         {
-            get { return ((SolidBrush) Style.Fill).Color; }
-            set { Style.Fill = new SolidBrush(value); }
+            get
+            {
+                return ((SolidBrush) Style.Fill).Color;
+            }
+            set
+            {
+                Style.Fill = new SolidBrush(value);
+            }
         }
 
         [DynamicVisible]
@@ -35,8 +36,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "PolygonStyleProperties_OutlineColor_Description")]
         public Color OutlineColor
         {
-            get { return Style.Outline.Color; }
-            set { Style.Outline = new Pen(value, Style.Outline.Width); }
+            get
+            {
+                return Style.Outline.Color;
+            }
+            set
+            {
+                Style.Outline = new Pen(value, Style.Outline.Width);
+            }
         }
 
         [DynamicVisible]
@@ -46,8 +53,19 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "PolygonStyleProperties_OutlineWidth_Description")]
         public float OutlineWidth
         {
-            get { return Style.Outline.Width; }
-            set { Style.Outline = new Pen(Style.Outline.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize)); }
+            get
+            {
+                return Style.Outline.Width;
+            }
+            set
+            {
+                Style.Outline = new Pen(Style.Outline.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize));
+            }
         }
+
+        [DynamicVisibleValidationMethod]
+        public abstract bool IsPropertyVisible(string propertyName);
+
+        protected abstract VectorStyle Style { get; }
     }
 }

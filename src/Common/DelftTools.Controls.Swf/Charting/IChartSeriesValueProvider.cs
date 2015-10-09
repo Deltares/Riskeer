@@ -14,16 +14,15 @@ namespace DelftTools.Controls.Swf.Charting
     /// </summary>
     public interface IChartSeriesValueProvider
     {
+        event NotifyChartSeriesValueChanged ValueChanged;
         T GetX<T>(int index);
         T GetY<T>(int index);
         Color GetColor(int index);
         string GetLabel(int index);
-        
+
         void SetX<T>(int index, T value);
         void SetY<T>(int index, T value);
         void SetColor(int index, Color color);
         void SetLabel(int index, string text);
-
-        event NotifyChartSeriesValueChanged ValueChanged;
     }
 }

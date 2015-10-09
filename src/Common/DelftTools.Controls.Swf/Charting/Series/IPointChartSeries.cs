@@ -8,7 +8,7 @@ namespace DelftTools.Controls.Swf.Charting.Series
         /// Size of the points
         /// </summary>
         int Size { get; set; }
-        
+
         /// <summary>
         /// Figure (style) to use for the points
         /// </summary>

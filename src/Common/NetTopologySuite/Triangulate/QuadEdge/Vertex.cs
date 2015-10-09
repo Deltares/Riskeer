@@ -22,15 +22,14 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
     /// <author>Martin Davis</author>
     public class Vertex : IEquatable<Vertex>
     {
-        private int LEFT = 0;
-        private int RIGHT = 1;
-        private int BEYOND = 2;
-        private int BEHIND = 3;
-        private int BETWEEN = 4;
-        private int ORIGIN = 5;
-        private int DESTINATION = 6;
-
         private readonly Coordinate _p;
+        private readonly int LEFT = 0;
+        private readonly int RIGHT = 1;
+        private readonly int BEYOND = 2;
+        private readonly int BEHIND = 3;
+        private readonly int BETWEEN = 4;
+        private readonly int ORIGIN = 5;
+        private readonly int DESTINATION = 6;
         // private int edgeNumber = -1;
 
         /// <summary>
@@ -68,7 +67,10 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         /// </summary>
         public double X
         {
-            get { return _p.X; }
+            get
+            {
+                return _p.X;
+            }
         }
 
         /// <summary>
@@ -76,7 +78,10 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         /// </summary>
         public double Y
         {
-            get { return _p.Y; }
+            get
+            {
+                return _p.Y;
+            }
         }
 
         /// <summary>
@@ -84,8 +89,14 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         /// </summary>
         public double Z
         {
-            get { return _p.Z; }
-            set { _p.Z = value; }
+            get
+            {
+                return _p.Z;
+            }
+            set
+            {
+                _p.Z = value;
+            }
         }
 
         /// <summary>
@@ -93,21 +104,10 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         /// </summary>
         public Coordinate Coordinate
         {
-            get { return _p; }
-        }
-
-        public override String ToString()
-        {
-            return "POINT (" + _p.X + " " + _p.Y + ")";
-        }
-
-        public bool Equals(Vertex x)
-        {
-            if (_p.X == x.X && _p.Y == x.Y)
+            get
             {
-                return true;
+                return _p;
             }
-            return false;
         }
 
         public bool Equals(Vertex x, double tolerance)
@@ -126,18 +126,203 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             Vertex b = p2.Sub(p0);
             double sa = a.CrossProduct(b);
             if (sa > 0.0)
+            {
                 return LEFT;
+            }
             if (sa < 0.0)
+            {
                 return RIGHT;
+            }
             if ((a.X*b.X < 0.0) || (a.Y*b.Y < 0.0))
+            {
                 return BEHIND;
+            }
             if (a.Magnitude() < b.Magnitude())
+            {
                 return BEYOND;
+            }
             if (p0.Equals(p2))
+            {
                 return ORIGIN;
+            }
             if (p1.Equals(p2))
+            {
                 return DESTINATION;
+            }
             return BETWEEN;
+        }
+
+        /** ************************************************************* */
+        /***********************************************************************************************
+        * Geometric primitives /
+        **********************************************************************************************/
+
+        /// <summary>
+        /// Tests if this is inside the circle defined by the points a, b, c. This test uses simple
+        /// double-precision arithmetic, and thus may not be robust.
+        /// </summary>
+        /// <param name="a">A vertex of the triangle</param>
+        /// <param name="b">A vertex of the triangle</param>
+        /// <param name="c">A vertex of the triangle</param>
+        /// <returns>true if this vertex is inside the circumcircle (a, b, c)</returns>
+        public Boolean IsInCircle(Vertex a, Vertex b, Vertex c)
+        {
+            return TrianglePredicate.IsInCircleRobust(a._p, b._p, c._p, _p);
+            // non-robust - best to not use
+            //return TrianglePredicate.isInCircle(a.p, b.p, c.p, this.p);
+        }
+
+        /// <summary>
+        /// Computes the value of the ratio of the circumradius to shortest edge. If smaller than some
+        /// given tolerance B, the associated triangle is considered skinny. For an equal lateral
+        /// triangle this value is 0.57735. The ratio is related to the minimum triangle angle theta by:
+        /// circumRadius/shortestEdge = 1/(2sin(theta)).
+        /// </summary>
+        /// <param name="b">second vertex of the triangle</param>
+        /// <param name="c">third vertex of the triangle</param>
+        /// <returns>ratio of circumradius to shortest edge.</returns>
+        public double CircumRadiusRatio(Vertex b, Vertex c)
+        {
+            Vertex x = CircleCenter(b, c);
+            double radius = Distance(x, b);
+            double edgeLength = Distance(this, b);
+            double el = Distance(b, c);
+            if (el < edgeLength)
+            {
+                edgeLength = el;
+            }
+            el = Distance(c, this);
+            if (el < edgeLength)
+            {
+                edgeLength = el;
+            }
+            return radius/edgeLength;
+        }
+
+        /// <summary>
+        /// returns a new vertex that is mid-way between this vertex and another end point.
+        /// </summary>
+        /// <param name="a">the other end point.</param>
+        /// <returns>the point mid-way between this and that.</returns>
+        public Vertex MidPoint(Vertex a)
+        {
+            double xm = (_p.X + a.X)/2.0;
+            double ym = (_p.Y + a.Y)/2.0;
+            double zm = (_p.Z + a.Z)/2.0;
+            return new Vertex(xm, ym, zm);
+        }
+
+        /// <summary>
+        /// Computes the centre of the circumcircle of this vertex and two others.
+        /// </summary>
+        /// <param name="b" />
+        /// <param name="c" />
+        /// <returns>the Coordinate which is the circumcircle of the 3 points.</returns>
+        public Vertex CircleCenter(Vertex b, Vertex c)
+        {
+            Vertex a = new Vertex(X, Y);
+            // compute the perpendicular bisector of cord ab
+            HCoordinate cab = Bisector(a, b);
+            // compute the perpendicular bisector of cord bc
+            HCoordinate cbc = Bisector(b, c);
+            // compute the intersection of the bisectors (circle radii)
+            HCoordinate hcc = new HCoordinate(cab, cbc);
+            Vertex cc = null;
+            try
+            {
+                cc = new Vertex(hcc.GetX(), hcc.GetY());
+            }
+            catch (NotRepresentableException nre)
+            {
+                Console.WriteLine("a: " + a + "  b: " + b + "  c: " + c);
+                Console.WriteLine(nre);
+            }
+            return cc;
+        }
+
+        /// <summary>
+        /// For this vertex enclosed in a triangle defined by three vertices v0, v1 and v2, interpolate
+        /// a z value from the surrounding vertices.
+        /// </summary>
+        public double InterpolateZValue(Vertex v0, Vertex v1, Vertex v2)
+        {
+            double x0 = v0.X;
+            double y0 = v0.Y;
+            double a = v1.X - x0;
+            double b = v2.X - x0;
+            double c = v1.Y - y0;
+            double d = v2.Y - y0;
+            double det = a*d - b*c;
+            double dx = X - x0;
+            double dy = Y - y0;
+            double t = (d*dx - b*dy)/det;
+            double u = (-c*dx + a*dy)/det;
+            double z = v0.Z + t*(v1.Z - v0.Z) + u*(v2.Z - v0.Z);
+            return z;
+        }
+
+        /// <summary>
+        /// Interpolates the Z-value (height) of a point enclosed in a triangle
+        /// whose vertices all have Z values.
+        /// The containing triangle must not be degenerate
+        /// (in other words, the three vertices must enclose a 
+        /// non-zero area).
+        /// </summary>
+        /// <param name="p">The point to interpolate the Z value of</param>
+        /// <param name="v0">A vertex of a triangle containing the <paramref name="p"/></param>
+        /// <param name="v1">A vertex of a triangle containing the <paramref name="p"/></param>
+        /// <param name="v2">A vertex of a triangle containing the <paramref name="p"/></param>
+        /// <returns>The interpolated Z-value (height) of the point</returns>
+        public static double InterpolateZ(Coordinate p, Coordinate v0, Coordinate v1, Coordinate v2)
+        {
+            double x0 = v0.X;
+            double y0 = v0.Y;
+            double a = v1.X - x0;
+            double b = v2.X - x0;
+            double c = v1.Y - y0;
+            double d = v2.Y - y0;
+            double det = a*d - b*c;
+            double dx = p.X - x0;
+            double dy = p.Y - y0;
+            double t = (d*dx - b*dy)/det;
+            double u = (-c*dx + a*dy)/det;
+            double z = v0.Z + t*(v1.Z - v0.Z) + u*(v2.Z - v0.Z);
+            return z;
+        }
+
+        /// <summary>
+        /// Computes the interpolated Z-value for a point p lying on the segment p0-p1
+        /// </summary>  
+        /// <param name="p">The point to interpolate the Z value of</param>
+        /// <param name="p0">A vertex of the segment <paramref name="p"/> is lying on</param>
+        /// <param name="p1">A vertex of the segment <paramref name="p"/> is lying on</param>
+        /// <returns>The interpolated Z-value (height) of the point</returns>
+        public static double InterpolateZ(Coordinate p, Coordinate p0, Coordinate p1)
+        {
+            double segLen = p0.Distance(p1);
+            double ptLen = p.Distance(p0);
+            double dz = p1.Z - p0.Z;
+            double pz = p0.Z + dz*(ptLen/segLen);
+            return pz;
+        }
+
+        public override String ToString()
+        {
+            return "POINT (" + _p.X + " " + _p.Y + ")";
+        }
+
+        public bool Equals(Vertex x)
+        {
+            if (_p.X == x.X && _p.Y == x.Y)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        internal bool RightOf(QuadEdge e)
+        {
+            return IsCcw(e.Dest, e.Orig);
         }
 
         /// <summary>
@@ -198,26 +383,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             return (new Vertex(_p.Y, -_p.X));
         }
 
-        /** ************************************************************* */
-        /***********************************************************************************************
-        * Geometric primitives /
-        **********************************************************************************************/
-
-        /// <summary>
-        /// Tests if this is inside the circle defined by the points a, b, c. This test uses simple
-        /// double-precision arithmetic, and thus may not be robust.
-        /// </summary>
-        /// <param name="a">A vertex of the triangle</param>
-        /// <param name="b">A vertex of the triangle</param>
-        /// <param name="c">A vertex of the triangle</param>
-        /// <returns>true if this vertex is inside the circumcircle (a, b, c)</returns>
-        public Boolean IsInCircle(Vertex a, Vertex b, Vertex c) 
-        {
-            return TrianglePredicate.IsInCircleRobust(a._p, b._p, c._p, _p);
-            // non-robust - best to not use
-            //return TrianglePredicate.isInCircle(a.p, b.p, c.p, this.p);
-        }
-
         /// <summary>
         /// Tests whether the triangle formed by this vertex and two
         /// other vertices is in CCW orientation.
@@ -239,18 +404,12 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
              */
 
             // is equal to the signed area of the triangle
-            return (b._p.X - _p.X) * (c._p.Y - _p.Y)
-                 - (b._p.Y - _p.Y) * (c._p.X - _p.X) > 0;
+            return (b._p.X - _p.X)*(c._p.Y - _p.Y)
+                   - (b._p.Y - _p.Y)*(c._p.X - _p.X) > 0;
 
             // original rolled code
             //boolean isCCW = triArea(this, b, c) > 0;
             //return isCCW;
-
-        }
-
-        internal bool RightOf(QuadEdge e)
-        {
-            return IsCcw(e.Dest, e.Orig);
         }
 
         private bool LeftOf(QuadEdge e)
@@ -272,140 +431,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         {
             return Math.Sqrt(Math.Pow(v2.X - v1.X, 2.0)
                              + Math.Pow(v2.Y - v1.Y, 2.0));
-        }
-
-        /// <summary>
-        /// Computes the value of the ratio of the circumradius to shortest edge. If smaller than some
-        /// given tolerance B, the associated triangle is considered skinny. For an equal lateral
-        /// triangle this value is 0.57735. The ratio is related to the minimum triangle angle theta by:
-        /// circumRadius/shortestEdge = 1/(2sin(theta)).
-        /// </summary>
-        /// <param name="b">second vertex of the triangle</param>
-        /// <param name="c">third vertex of the triangle</param>
-        /// <returns>ratio of circumradius to shortest edge.</returns>
-        public double CircumRadiusRatio(Vertex b, Vertex c)
-        {
-            Vertex x = this.CircleCenter(b, c);
-            double radius = Distance(x, b);
-            double edgeLength = Distance(this, b);
-            double el = Distance(b, c);
-            if (el < edgeLength)
-            {
-                edgeLength = el;
-            }
-            el = Distance(c, this);
-            if (el < edgeLength)
-            {
-                edgeLength = el;
-            }
-            return radius/edgeLength;
-        }
-
-        /// <summary>
-        /// returns a new vertex that is mid-way between this vertex and another end point.
-        /// </summary>
-        /// <param name="a">the other end point.</param>
-        /// <returns>the point mid-way between this and that.</returns>
-        public Vertex MidPoint(Vertex a)
-        {
-            double xm = (_p.X + a.X)/2.0;
-            double ym = (_p.Y + a.Y)/2.0;
-            double zm = (_p.Z + a.Z)/2.0;
-            return new Vertex(xm, ym, zm);
-        }
-
-        /// <summary>
-        /// Computes the centre of the circumcircle of this vertex and two others.
-        /// </summary>
-        /// <param name="b" />
-        /// <param name="c" />
-        /// <returns>the Coordinate which is the circumcircle of the 3 points.</returns>
-        public Vertex CircleCenter(Vertex b, Vertex c)
-        {
-            Vertex a = new Vertex(this.X, this.Y);
-            // compute the perpendicular bisector of cord ab
-            HCoordinate cab = Bisector(a, b);
-            // compute the perpendicular bisector of cord bc
-            HCoordinate cbc = Bisector(b, c);
-            // compute the intersection of the bisectors (circle radii)
-            HCoordinate hcc = new HCoordinate(cab, cbc);
-            Vertex cc = null;
-            try
-            {
-                cc = new Vertex(hcc.GetX(), hcc.GetY());
-            }
-            catch (NotRepresentableException nre)
-            {
-                System.Console.WriteLine("a: " + a + "  b: " + b + "  c: " + c);
-                System.Console.WriteLine(nre);
-            }
-            return cc;
-        }
-
-        /// <summary>
-        /// For this vertex enclosed in a triangle defined by three vertices v0, v1 and v2, interpolate
-        /// a z value from the surrounding vertices.
-        /// </summary>
-        public double InterpolateZValue(Vertex v0, Vertex v1, Vertex v2)
-        {
-            double x0 = v0.X;
-            double y0 = v0.Y;
-            double a = v1.X - x0;
-            double b = v2.X - x0;
-            double c = v1.Y - y0;
-            double d = v2.Y - y0;
-            double det = a*d - b*c;
-            double dx = this.X - x0;
-            double dy = this.Y - y0;
-            double t = (d*dx - b*dy)/det;
-            double u = (-c*dx + a*dy)/det;
-            double z = v0.Z + t*(v1.Z - v0.Z) + u*(v2.Z - v0.Z);
-            return z;
-        }
-
-        /// <summary>
-        /// Interpolates the Z-value (height) of a point enclosed in a triangle
-        /// whose vertices all have Z values.
-        /// The containing triangle must not be degenerate
-        /// (in other words, the three vertices must enclose a 
-        /// non-zero area).
-        /// </summary>
-        /// <param name="p">The point to interpolate the Z value of</param>
-        /// <param name="v0">A vertex of a triangle containing the <paramref name="p"/></param>
-        /// <param name="v1">A vertex of a triangle containing the <paramref name="p"/></param>
-        /// <param name="v2">A vertex of a triangle containing the <paramref name="p"/></param>
-        /// <returns>The interpolated Z-value (height) of the point</returns>
-        public static double InterpolateZ(Coordinate p, Coordinate v0, Coordinate v1, Coordinate v2)
-        {
-            double x0 = v0.X;
-            double y0 = v0.Y;
-            double a = v1.X - x0;
-            double b = v2.X - x0;
-            double c = v1.Y - y0;
-            double d = v2.Y - y0;
-            double det = a*d - b*c;
-            double dx = p.X - x0;
-            double dy = p.Y - y0;
-            double t = (d*dx - b*dy)/det;
-            double u = (-c*dx + a*dy)/det;
-            double z = v0.Z + t*(v1.Z - v0.Z) + u*(v2.Z - v0.Z);
-            return z;
-        }
-
-        /// <summary>
-        /// Computes the interpolated Z-value for a point p lying on the segment p0-p1
-        /// </summary>  
-        /// <param name="p">The point to interpolate the Z value of</param>
-        /// <param name="p0">A vertex of the segment <paramref name="p"/> is lying on</param>
-        /// <param name="p1">A vertex of the segment <paramref name="p"/> is lying on</param>
-        /// <returns>The interpolated Z-value (height) of the point</returns>
-        public static double InterpolateZ(Coordinate p, Coordinate p0, Coordinate p1)
-        {
-            double segLen = p0.Distance(p1);
-            double ptLen = p.Distance(p0);
-            double dz = p1.Z - p0.Z;
-            double pz = p0.Z + dz*(ptLen/segLen);
-            return pz;
         }
     }
 }

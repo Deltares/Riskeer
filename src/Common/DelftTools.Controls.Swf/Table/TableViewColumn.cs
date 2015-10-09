@@ -12,11 +12,11 @@ namespace DelftTools.Controls.Swf.Table
 {
     public class TableViewColumn : ITableViewColumn
     {
-        private ITypeEditor editor;
         private readonly GridView dxGridView;
         private readonly GridColumn dxColumn;
         private readonly ITableView tableView;
         private readonly GridControl dxGridControl;
+        private ITypeEditor editor;
 
         private string displayFormat = "";
         private int visibleIndex;
@@ -30,17 +30,24 @@ namespace DelftTools.Controls.Swf.Table
             this.tableView = tableView;
             IsUnbound = unbound;
 
-            dxColumn.FilterMode = dxColumn.ColumnType == typeof (DateTime) ||
-                                  dxColumn.ColumnType == typeof (double) ||
-                                  dxColumn.ColumnType == typeof (int)
-                                          ? ColumnFilterMode.Value
-                                          : ColumnFilterMode.DisplayText;
+            dxColumn.FilterMode = dxColumn.ColumnType == typeof(DateTime) ||
+                                  dxColumn.ColumnType == typeof(double) ||
+                                  dxColumn.ColumnType == typeof(int)
+                                      ? ColumnFilterMode.Value
+                                      : ColumnFilterMode.DisplayText;
             dxColumn.OptionsColumn.AllowMove = false;
         }
 
-        internal GridColumn DxColumn
+        public bool FilteringAllowed
         {
-            get { return dxColumn; }
+            get
+            {
+                return dxColumn.OptionsFilter.AllowFilter;
+            }
+            set
+            {
+                dxColumn.OptionsFilter.AllowFilter = value;
+            }
         }
 
         /// <summary>
@@ -49,19 +56,34 @@ namespace DelftTools.Controls.Swf.Table
         public string Name
         {
             // XtraGrid prefixes the Name with a "col", we need the FieldName for DataBinding
-            get { return dxColumn.FieldName; }
+            get
+            {
+                return dxColumn.FieldName;
+            }
         }
 
         public string Caption
         {
-            get { return dxColumn.GetCaption(); } //get actual displayed value
-            set { dxColumn.Caption = value; } //set custom value
+            get
+            {
+                return dxColumn.GetCaption();
+            } //get actual displayed value
+            set
+            {
+                dxColumn.Caption = value;
+            } //set custom value
         }
 
         public int DisplayIndex
         {
-            get { return dxColumn.VisibleIndex; }
-            set { dxColumn.VisibleIndex = value; }
+            get
+            {
+                return dxColumn.VisibleIndex;
+            }
+            set
+            {
+                dxColumn.VisibleIndex = value;
+            }
         }
 
         public object DefaultValue { get; set; }
@@ -74,8 +96,14 @@ namespace DelftTools.Controls.Swf.Table
         /// </summary>
         public int AbsoluteIndex
         {
-            get { return dxColumn.AbsoluteIndex; }
-            set { dxColumn.AbsoluteIndex = value; }
+            get
+            {
+                return dxColumn.AbsoluteIndex;
+            }
+            set
+            {
+                dxColumn.AbsoluteIndex = value;
+            }
         }
 
         /// <summary>
@@ -85,7 +113,10 @@ namespace DelftTools.Controls.Swf.Table
         /// </summary>
         public ICustomFormatter CustomFormatter
         {
-            get { return customFormatter; }
+            get
+            {
+                return customFormatter;
+            }
             set
             {
                 customFormatter = value;
@@ -104,7 +135,10 @@ namespace DelftTools.Controls.Swf.Table
         ///</summary>
         public string DisplayFormat
         {
-            get { return displayFormat; }
+            get
+            {
+                return displayFormat;
+            }
             set
             {
                 displayFormat = value;
@@ -114,7 +148,10 @@ namespace DelftTools.Controls.Swf.Table
 
         public bool Pinned
         {
-            get { return dxColumn.Fixed == FixedStyle.Left; }
+            get
+            {
+                return dxColumn.Fixed == FixedStyle.Left;
+            }
             set
             {
                 dxColumn.Fixed = (value ? FixedStyle.Left : FixedStyle.None);
@@ -124,8 +161,8 @@ namespace DelftTools.Controls.Swf.Table
                     var unPinnedColumns = tableView.Columns.Where(c => !c.Pinned).ToList();
                     var columnToTheLeft = unPinnedColumns.LastOrDefault(c => c.AbsoluteIndex < AbsoluteIndex);
                     DisplayIndex = columnToTheLeft != null
-                                           ? columnToTheLeft.DisplayIndex + 1
-                                           : tableView.Columns.Count - unPinnedColumns.Count;
+                                       ? columnToTheLeft.DisplayIndex + 1
+                                       : tableView.Columns.Count - unPinnedColumns.Count;
                 }
             }
         }
@@ -135,7 +172,10 @@ namespace DelftTools.Controls.Swf.Table
         /// </summary>
         public bool Visible
         {
-            get { return dxColumn.Visible; }
+            get
+            {
+                return dxColumn.Visible;
+            }
             set
             {
                 dxColumn.Visible = value;
@@ -160,7 +200,10 @@ namespace DelftTools.Controls.Swf.Table
 
         public ITypeEditor Editor
         {
-            get { return editor; }
+            get
+            {
+                return editor;
+            }
             set
             {
                 if (value == null)
@@ -178,20 +221,26 @@ namespace DelftTools.Controls.Swf.Table
 
         public int Width
         {
-            get { return dxColumn.Width; }
-            set { dxColumn.Width = value; }
+            get
+            {
+                return dxColumn.Width;
+            }
+            set
+            {
+                dxColumn.Width = value;
+            }
         }
 
         public bool SortingAllowed
         {
-            get { return dxColumn.OptionsColumn.AllowSort != DefaultBoolean.False; }
-            set { dxColumn.OptionsColumn.AllowSort = (value) ? DefaultBoolean.True : DefaultBoolean.False; }
-        }
-
-        public bool FilteringAllowed
-        {
-            get { return dxColumn.OptionsFilter.AllowFilter; }
-            set { dxColumn.OptionsFilter.AllowFilter = value; }
+            get
+            {
+                return dxColumn.OptionsColumn.AllowSort != DefaultBoolean.False;
+            }
+            set
+            {
+                dxColumn.OptionsColumn.AllowSort = (value) ? DefaultBoolean.True : DefaultBoolean.False;
+            }
         }
 
         /// <summary>
@@ -199,8 +248,14 @@ namespace DelftTools.Controls.Swf.Table
         /// </summary>
         public string FilterString
         {
-            get { return dxColumn.FilterInfo.FilterString; }
-            set { dxColumn.FilterInfo = new ColumnFilterInfo(value); }
+            get
+            {
+                return dxColumn.FilterInfo.FilterString;
+            }
+            set
+            {
+                dxColumn.FilterInfo = new ColumnFilterInfo(value);
+            }
         }
 
         /// <summary>
@@ -243,7 +298,7 @@ namespace DelftTools.Controls.Swf.Table
         {
             get
             {
-                var type = typeof (object);
+                var type = typeof(object);
                 try
                 {
                     if (dxColumn.ColumnHandle != -1)
@@ -261,13 +316,22 @@ namespace DelftTools.Controls.Swf.Table
 
         public string ToolTip
         {
-            get { return dxColumn.ToolTip; }
-            set { dxColumn.ToolTip = value; }
+            get
+            {
+                return dxColumn.ToolTip;
+            }
+            set
+            {
+                dxColumn.ToolTip = value;
+            }
         }
 
         public bool ReadOnly
         {
-            get { return dxColumn.OptionsColumn.ReadOnly; }
+            get
+            {
+                return dxColumn.OptionsColumn.ReadOnly;
+            }
             set
             {
                 dxColumn.OptionsColumn.AllowEdit = !value; // false;
@@ -294,6 +358,14 @@ namespace DelftTools.Controls.Swf.Table
             if (editor != null)
             {
                 editor.Dispose();
+            }
+        }
+
+        internal GridColumn DxColumn
+        {
+            get
+            {
+                return dxColumn;
             }
         }
 
@@ -328,10 +400,10 @@ namespace DelftTools.Controls.Swf.Table
         private FormatType GetFormatType(string value)
         {
             return string.IsNullOrEmpty(value)
-                           ? FormatType.None
-                           : (ColumnType == typeof (DateTime)
-                                      ? FormatType.DateTime
-                                      : FormatType.Numeric);
+                       ? FormatType.None
+                       : (ColumnType == typeof(DateTime)
+                              ? FormatType.DateTime
+                              : FormatType.Numeric);
         }
     }
 }

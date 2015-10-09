@@ -11,21 +11,21 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
     /// </summary>
     public class LineSegmentIndex
     {
-        private Quadtree index = new Quadtree();
+        private readonly Quadtree index = new Quadtree();
 
         /// <summary>
         /// 
         /// </summary>
-        public LineSegmentIndex() { }
+        public LineSegmentIndex() {}
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="line"></param>
-        public void Add(TaggedLineString line) 
+        public void Add(TaggedLineString line)
         {
             TaggedLineSegment[] segs = line.Segments;
-            for (int i = 0; i < segs.Length - 1; i++) 
+            for (int i = 0; i < segs.Length - 1; i++)
             {
                 TaggedLineSegment seg = segs[i];
                 Add(seg);
@@ -61,7 +61,7 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
 
             LineSegmentVisitor visitor = new LineSegmentVisitor(querySeg);
             index.Query(env, visitor);
-            IList itemsFound = visitor.Items;        
+            IList itemsFound = visitor.Items;
 
             return itemsFound;
         }
@@ -73,16 +73,27 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
     public class LineSegmentVisitor : IItemVisitor
     {
         // MD - only seems to make about a 10% difference in overall time.
-        private LineSegment querySeg;
-        private ArrayList items = new ArrayList();
+        private readonly LineSegment querySeg;
+        private readonly ArrayList items = new ArrayList();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="querySeg"></param>
-        public LineSegmentVisitor(LineSegment querySeg) 
+        public LineSegmentVisitor(LineSegment querySeg)
         {
             this.querySeg = querySeg;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ArrayList Items
+        {
+            get
+            {
+                return items;
+            }
         }
 
         /// <summary>
@@ -93,17 +104,8 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         {
             LineSegment seg = (LineSegment) item;
             if (Envelope.Intersects(seg.P0, seg.P1, querySeg.P0, querySeg.P1))
-                items.Add(item);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ArrayList Items 
-        {
-            get
             {
-                return items;
+                items.Add(item);
             }
         }
     }

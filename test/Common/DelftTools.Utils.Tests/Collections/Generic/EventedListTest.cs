@@ -27,11 +27,11 @@ namespace DelftTools.Utils.Tests.Collections.Generic
             var callCount = 0;
             var item = new object();
             eventedList.CollectionChanged += delegate(object sender, NotifyCollectionChangingEventArgs e)
-                                                 {
-                                                     Assert.AreEqual(eventedList, sender);
-                                                     Assert.AreEqual(item, e.Item);
-                                                     callCount++;
-                                                 };
+            {
+                Assert.AreEqual(eventedList, sender);
+                Assert.AreEqual(item, e.Item);
+                callCount++;
+            };
             eventedList.Add(item);
             Assert.AreEqual(1, callCount);
         }
@@ -68,7 +68,10 @@ namespace DelftTools.Utils.Tests.Collections.Generic
             var aPropertyChangeCount = 0;
             var listPropertyChangeCount = 0;
 
-            var a = new MockClassWithTwoProperties {StringProperty = "a"};
+            var a = new MockClassWithTwoProperties
+            {
+                StringProperty = "a"
+            };
 
             eventedList.Add(a);
 
@@ -76,7 +79,10 @@ namespace DelftTools.Utils.Tests.Collections.Generic
             a.PropertyChanged += delegate { aPropertyChangeCount++; };
 
             // replace item
-            eventedList[0] = new MockClassWithTwoProperties {StringProperty = "second a"};
+            eventedList[0] = new MockClassWithTwoProperties
+            {
+                StringProperty = "second a"
+            };
 
             a.StringProperty = "a2";
 
@@ -92,7 +98,10 @@ namespace DelftTools.Utils.Tests.Collections.Generic
             var aPropertyChangeCount = 0;
             var listPropertyChangeCount = 0;
 
-            var a = new MockClassWithTwoProperties {StringProperty = "a"};
+            var a = new MockClassWithTwoProperties
+            {
+                StringProperty = "a"
+            };
 
             eventedList.Add(a);
 
@@ -118,19 +127,32 @@ namespace DelftTools.Utils.Tests.Collections.Generic
             eventedList.CollectionChanged += delegate { i++; };
 
             //add three integers to the list.
-            eventedList.AddRange(new[] {1, 2, 3});
+            eventedList.AddRange(new[]
+            {
+                1,
+                2,
+                3
+            });
 
             //three collectionchanged events will be generated.
             Assert.AreEqual(3, i);
 
             //check if items where added to the list.
-            Assert.IsTrue(eventedList.SequenceEqual(new[] {1, 2, 3}));
+            Assert.IsTrue(eventedList.SequenceEqual(new[]
+            {
+                1,
+                2,
+                3
+            }));
         }
 
         [Test]
         public void ContainsShouldWorkForObjectsOfADifferentType()
         {
-            var doubleList = new EventedList<double>{1.0, 2.0};
+            var doubleList = new EventedList<double>
+            {
+                1.0, 2.0
+            };
             Assert.IsFalse(doubleList.Contains("This must return false"));
         }
 
@@ -141,17 +163,23 @@ namespace DelftTools.Utils.Tests.Collections.Generic
 
             //add three integers to the list.
             var properties = new MockClassWithTwoProperties();
-            eventedList.AddRange(new[] { properties });
+            eventedList.AddRange(new[]
+            {
+                properties
+            });
 
-            object theSender=null;
+            object theSender = null;
             PropertyChangedEventArgs theEventArgs = null;
-            eventedList.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e) { theSender = sender;
-                                                                                                   theEventArgs = e;};
+            eventedList.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
+            {
+                theSender = sender;
+                theEventArgs = e;
+            };
             properties.StringProperty = "iets";
-            Assert.AreEqual(properties,theSender);
+            Assert.AreEqual(properties, theSender);
             Assert.AreEqual("StringProperty", theEventArgs.PropertyName);
         }
-        
+
         [Test]
         public void ListShouldSubscribeToPropertyChangesInChildObjectAfterAdd()
         {
@@ -159,15 +187,15 @@ namespace DelftTools.Utils.Tests.Collections.Generic
 
             //add three integers to the list.
             var properties = new MockClassWithTwoProperties();
-            eventedList.Add( properties );
+            eventedList.Add(properties);
 
             object theSender = null;
             PropertyChangedEventArgs theEventArgs = null;
             eventedList.PropertyChanged += delegate(object sender, PropertyChangedEventArgs e)
-                                               {
-                                                   theSender = sender;
-                                                   theEventArgs = e;
-                                               };
+            {
+                theSender = sender;
+                theEventArgs = e;
+            };
             properties.StringProperty = "iets";
             Assert.AreEqual(properties, theSender);
             Assert.AreEqual("StringProperty", theEventArgs.PropertyName);
@@ -185,22 +213,19 @@ namespace DelftTools.Utils.Tests.Collections.Generic
             }
 
             TestHelper.AssertIsFasterThan(250, () =>
-                                                   {
-                                                       for(var i = 0; i < 20000; i++)
-                                                       {
-                                                           eventedList.Add(new MockWithPropertyAndCollectionChange());
-                                                       }
-                                                   });
-
+            {
+                for (var i = 0; i < 20000; i++)
+                {
+                    eventedList.Add(new MockWithPropertyAndCollectionChange());
+                }
+            });
         }
 
         private class MockWithPropertyAndCollectionChange : INotifyPropertyChange, INotifyCollectionChange
         {
             public event PropertyChangingEventHandler PropertyChanging;
-            
-            public event PropertyChangedEventHandler PropertyChanged;
 
-            bool INotifyPropertyChange.HasParent { get; set; }
+            public event PropertyChangedEventHandler PropertyChanged;
 
             public event NotifyCollectionChangedEventHandler CollectionChanged;
 
@@ -210,9 +235,17 @@ namespace DelftTools.Utils.Tests.Collections.Generic
 
             public bool SkipChildItemEventBubbling
             {
-                get { throw new NotImplementedException(); }
-                set { throw new NotImplementedException(); }
+                get
+                {
+                    throw new NotImplementedException();
+                }
+                set
+                {
+                    throw new NotImplementedException();
+                }
             }
+
+            bool INotifyPropertyChange.HasParent { get; set; }
         }
     }
 }

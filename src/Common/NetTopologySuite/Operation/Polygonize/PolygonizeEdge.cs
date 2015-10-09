@@ -8,26 +8,18 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
     /// </summary>
     public class PolygonizeEdge : Edge
     {
-        private ILineString line;
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="line"></param>
         public PolygonizeEdge(ILineString line)
         {
-            this.line = line;
+            Line = line;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public ILineString Line
-        {
-            get
-            {
-                return line;
-            }
-        }
+        public ILineString Line { get; private set; }
     }
 }

@@ -17,8 +17,8 @@
 
 namespace GeoAPI.CoordinateSystems
 {
-	/// <summary>
-	/// Procedure used to measure vertical distances.
-	/// </summary>
-	public interface IVerticalDatum : IDatum { }
+    /// <summary>
+    /// Procedure used to measure vertical distances.
+    /// </summary>
+    public interface IVerticalDatum : IDatum {}
 }

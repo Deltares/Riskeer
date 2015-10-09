@@ -46,7 +46,7 @@ namespace GeoAPI.Geometries
     /// </summary>
     public class Dimension
     {
-        private Dimension() { }
+        private Dimension() {}
 
         /// <summary>
         /// Converts the dimension value to a dimension symbol,

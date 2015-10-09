@@ -8,9 +8,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 {
     public class GeneratedMapLayerInfo
     {
-        public GeneratedMapLayerInfo()
-        {
-        }
+        public GeneratedMapLayerInfo() {}
 
         public GeneratedMapLayerInfo(ILayer layer)
         {
@@ -28,24 +26,26 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             if (TypeUtils.GetField(layer, "labelLayer") != null)
             {
                 ShowLabels = layer.ShowLabels;
-            
+
                 LabelColumn = layer.LabelLayer.LabelColumn;
                 LabelShowInTreeView = layer.LabelLayer.ShowInTreeView;
                 LabelStyle = (LabelStyle) layer.LabelLayer.Style.Clone();
             }
-            
+
             var theme = layer is Layer
                             ? TypeUtils.GetField(layer, "theme") as ITheme // Performance optimization
                             : layer.Theme;
 
             if (theme != null)
             {
-                Theme = (ITheme)theme.Clone();
+                Theme = (ITheme) theme.Clone();
             }
 
             var vectorLayer = layer as VectorLayer;
             if (vectorLayer == null)
+            {
                 return;
+            }
 
             VectorStyle = (VectorStyle) vectorLayer.Style.Clone();
         }
@@ -92,17 +92,19 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             if (LabelStyle != null && LabelColumn != null)
             {
                 layer.LabelLayer = new LabelLayer
-                                       {
-                                           LabelColumn = LabelColumn,
-                                           ShowInTreeView = LabelShowInTreeView,
-                                           Style = (LabelStyle) LabelStyle.Clone()
-                                       };
+                {
+                    LabelColumn = LabelColumn,
+                    ShowInTreeView = LabelShowInTreeView,
+                    Style = (LabelStyle) LabelStyle.Clone()
+                };
                 layer.ShowLabels = ShowLabels;
             }
 
             var vectorLayer = layer as VectorLayer;
             if (vectorLayer == null)
+            {
                 return;
+            }
 
             vectorLayer.Style = VectorStyle;
         }

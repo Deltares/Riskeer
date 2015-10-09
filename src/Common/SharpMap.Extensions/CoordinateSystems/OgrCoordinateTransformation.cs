@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using GeoAPI.CoordinateSystems;
 using GeoAPI.CoordinateSystems.Transformations;
@@ -16,21 +17,21 @@ namespace SharpMap.Extensions.CoordinateSystems
         }
 
         public string AreaOfUse { get; private set; }
-        
+
         public string Authority { get; private set; }
-        
+
         public long AuthorityCode { get; private set; }
-        
+
         public IMathTransform MathTransform { get; private set; }
-        
+
         public string Name { get; private set; }
-        
+
         public string Remarks { get; private set; }
-        
+
         public ICoordinateSystem SourceCS { get; private set; }
-        
+
         public ICoordinateSystem TargetCS { get; private set; }
-        
+
         public TransformType TransformType { get; private set; }
 
         public class OgrCoordinateSystemTransform : IMathTransform
@@ -47,31 +48,31 @@ namespace SharpMap.Extensions.CoordinateSystems
             }
 
             public int DimSource { get; private set; }
-            
+
             public int DimTarget { get; private set; }
-            
-            public bool Identity()
-            {
-                throw new System.NotImplementedException();
-            }
 
             public string WKT { get; private set; }
-            
+
             public string XML { get; private set; }
-            
+
+            public bool Identity()
+            {
+                throw new NotImplementedException();
+            }
+
             public double[,] Derivative(double[] point)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
             public List<double> GetCodomainConvexHull(List<double> points)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
             public DomainFlags GetDomainFlags(List<double> points)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
             public IMathTransform Inverse()
@@ -87,9 +88,9 @@ namespace SharpMap.Extensions.CoordinateSystems
             public double[] Transform(double[] point)
             {
                 var results = new double[3];
-                
+
                 transformation.TransformPoint(results, point[0], point[1], point.Length == 2 ? 0 : point[2]);
-                
+
                 return results;
             }
 
@@ -97,7 +98,7 @@ namespace SharpMap.Extensions.CoordinateSystems
             {
                 // assume (x, y) tuples, todo: refactor NTS/SharpMap to support z
                 var result = new List<double[]>(points.Count);
-                
+
                 var x = new double[points.Count];
                 var y = new double[points.Count];
                 var z = new double[points.Count];
@@ -108,12 +109,16 @@ namespace SharpMap.Extensions.CoordinateSystems
                     y[i] = points[i][1];
                     z[i] = 0;
                 }
-                
+
                 transformation.TransformPoints(points.Count, x, y, z);
-                
+
                 for (var i = 0; i < points.Count; i++)
                 {
-                    result.Add(new[] { x[i], y[i] });
+                    result.Add(new[]
+                    {
+                        x[i],
+                        y[i]
+                    });
                 }
 
                 return result;
@@ -121,7 +126,7 @@ namespace SharpMap.Extensions.CoordinateSystems
 
             public void Invert()
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
     }

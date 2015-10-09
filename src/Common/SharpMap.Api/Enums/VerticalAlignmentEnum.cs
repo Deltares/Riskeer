@@ -9,10 +9,12 @@ namespace SharpMap.Api.Enums
         /// Left oriented
         /// </summary>
         Bottom = 0,
+
         /// <summary>
         /// Right oriented
         /// </summary>
         Top = 2,
+
         /// <summary>
         /// Centered
         /// </summary>

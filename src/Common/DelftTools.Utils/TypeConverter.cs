@@ -17,7 +17,7 @@ namespace DelftTools.Utils
         /// <returns>The value object, converted and casted into the target type</returns>
         public static T ConvertValueToTargetType<T>(object value)
         {
-            return (T)ConvertValueToTargetType(typeof(T), value);
+            return (T) ConvertValueToTargetType(typeof(T), value);
         }
 
         /// <summary>
@@ -32,9 +32,6 @@ namespace DelftTools.Utils
             return tc.ConvertFrom(value);
         }
 
-
-
-
         /// <summary>
         /// Convert the object value using a specified TypeConveter, circumventing the Type's TypeConverter
         /// </summary>
@@ -47,7 +44,6 @@ namespace DelftTools.Utils
             return tc.ConvertFrom(value);
         }
 
-
         /// <summary>
         /// Overrides the original TypeConverter with the specified TypeConverter
         /// <remarks>Usefull for registering TypeConverters to Types that are closed such as library types</remarks>
@@ -56,12 +52,11 @@ namespace DelftTools.Utils
         /// <typeparam name="TC">The converter that will handle all type conversions to and from the type</typeparam>
         public static void RegisterTypeConverter<T, TC>() where TC : System.ComponentModel.TypeConverter
         {
-            TypeConverterAttribute tca = new TypeConverterAttribute(typeof (TC));
+            TypeConverterAttribute tca = new TypeConverterAttribute(typeof(TC));
             if (!TypeDescriptor.GetAttributes(typeof(T)).Contains(tca))
             {
                 TypeDescriptor.AddAttributes(typeof(T), tca);
             }
         }
-
     }
 }

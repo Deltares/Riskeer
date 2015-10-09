@@ -7,7 +7,7 @@
         Right,
         Top
     }
-    
+
     public enum ZoomDirections
     {
         Horizontal,

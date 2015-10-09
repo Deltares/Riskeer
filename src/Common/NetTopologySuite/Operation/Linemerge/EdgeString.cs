@@ -10,8 +10,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Linemerge
     /// </summary>
     public class EdgeString
     {
-        private IGeometryFactory factory;
-        private IList directedEdges = new ArrayList();
+        private readonly IGeometryFactory factory;
+        private readonly IList directedEdges = new ArrayList();
         private ICoordinate[] coordinates = null;
 
         /// <summary>
@@ -34,6 +34,14 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Linemerge
         }
 
         /// <summary>
+        /// Converts this EdgeString into a LineString.
+        /// </summary>
+        public ILineString ToLineString()
+        {
+            return factory.CreateLineString(Coordinates);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         private ICoordinate[] Coordinates
@@ -46,28 +54,27 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Linemerge
                     int reverseDirectedEdges = 0;
                     CoordinateList coordinateList = new CoordinateList();
                     IEnumerator i = directedEdges.GetEnumerator();
-                    while (i.MoveNext()) 
+                    while (i.MoveNext())
                     {
                         LineMergeDirectedEdge directedEdge = (LineMergeDirectedEdge) i.Current;
-                        if (directedEdge.EdgeDirection)                        
-                             forwardDirectedEdges++;                        
-                        else reverseDirectedEdges++;
-                         coordinateList.Add(((LineMergeEdge) directedEdge.Edge).Line.Coordinates, false, directedEdge.EdgeDirection);
+                        if (directedEdge.EdgeDirection)
+                        {
+                            forwardDirectedEdges++;
+                        }
+                        else
+                        {
+                            reverseDirectedEdges++;
+                        }
+                        coordinateList.Add(((LineMergeEdge) directedEdge.Edge).Line.Coordinates, false, directedEdge.EdgeDirection);
                     }
                     coordinates = coordinateList.ToCoordinateArray();
                     if (reverseDirectedEdges > forwardDirectedEdges)
-                        CoordinateArrays.Reverse(coordinates);                    
+                    {
+                        CoordinateArrays.Reverse(coordinates);
+                    }
                 }
                 return coordinates;
             }
-        }
-
-        /// <summary>
-        /// Converts this EdgeString into a LineString.
-        /// </summary>
-        public ILineString ToLineString()
-        {
-            return factory.CreateLineString(Coordinates);
         }
     }
 }

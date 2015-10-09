@@ -14,8 +14,8 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
     [TestFixture]
     public class MapZoomToFeatureCommandTest
     {
-        private double envelopeExpansion = 10.0;
-        
+        private readonly double envelopeExpansion = 10.0;
+
         [Test]
         public void NoActionIfMapViewIsNotActive()
         {
@@ -30,7 +30,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
             Expect.Call(gui.DocumentViews).Return(viewList).Repeat.Any();
             mocks.ReplayAll();
             mapView.Map = map;
-            new SharpMapGisGuiPlugin { Gui = gui }; // sets private gui field
+            new SharpMapGisGuiPlugin
+            {
+                Gui = gui
+            }; // sets private gui field
 
             viewList.ActiveView = null;
 
@@ -48,31 +51,33 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
             var gui = mocks.Stub<IGui>();
             IViewList viewList = mocks.Stub<IViewList>();
             MapView mapView = mocks.Stub<MapView>();
-            mapView.Stub(mv =>mv.MapControl).Return(mocks.Stub<MapControl>()); // to set readonly property
+            mapView.Stub(mv => mv.MapControl).Return(mocks.Stub<MapControl>()); // to set readonly property
             Map map = mocks.DynamicMock<Map>();
             IFeature feature = mocks.Stub<IFeature>();
 
             var point = new Point(42, 24);
             var envelope = new Envelope(point.X - envelopeExpansion, point.X + envelopeExpansion, point.Y - envelopeExpansion, point.Y + envelopeExpansion);
 
-
             Expect.Call(gui.ToolWindowViews).Return(viewList).Repeat.Any();
             Expect.Call(gui.DocumentViews).Return(viewList).Repeat.Any();
-            
+
             //the assertion..check we get a zoomtobox for the the feature
             Expect.Call(() => mapView.EnsureVisible(feature));
-            
+
             mocks.ReplayAll();
-            
+
             mapView.Map = map;
-            new SharpMapGisGuiPlugin { Gui = gui }; // sets private gui field
+            new SharpMapGisGuiPlugin
+            {
+                Gui = gui
+            }; // sets private gui field
             viewList.ActiveView = mapView;
             feature.Geometry = point;
 
             //zoom it!
             var command = new MapZoomToFeatureCommand();
             command.Execute(feature);
-            
+
             mocks.VerifyAll();
         }
 
@@ -88,25 +93,31 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
             Map map = mocks.DynamicMock<Map>();
             IFeature feature = mocks.Stub<IFeature>();
 
-            var line = new LineString(new[] {new Coordinate(0, 0), new Coordinate(20, 0)});
+            var line = new LineString(new[]
+            {
+                new Coordinate(0, 0),
+                new Coordinate(20, 0)
+            });
             var x1 = (line.StartPoint.X < line.EndPoint.X) ? line.StartPoint.X : line.EndPoint.X;
             var x2 = (line.StartPoint.X > line.EndPoint.X) ? line.StartPoint.X : line.EndPoint.X;
             var y1 = (line.StartPoint.Y < line.EndPoint.Y) ? line.StartPoint.Y : line.EndPoint.Y;
             var y2 = (line.StartPoint.Y > line.EndPoint.Y) ? line.StartPoint.Y : line.EndPoint.Y;
             var envelope = new Envelope(x1 - envelopeExpansion, x2 + envelopeExpansion,
-                                    y1 - envelopeExpansion, y2 + envelopeExpansion);
-            
+                                        y1 - envelopeExpansion, y2 + envelopeExpansion);
 
             Expect.Call(gui.ToolWindowViews).Return(viewList).Repeat.Any();
             Expect.Call(gui.DocumentViews).Return(viewList).Repeat.Any();
 
             //the assertion..check we get a zoomtobox for the the feature
-            
+
             Expect.Call(() => mapView.EnsureVisible(feature));
             mocks.ReplayAll();
 
             mapView.Map = map;
-            new SharpMapGisGuiPlugin { Gui = gui }; // sets private gui field
+            new SharpMapGisGuiPlugin
+            {
+                Gui = gui
+            }; // sets private gui field
             viewList.ActiveView = mapView;
             feature.Geometry = line;
 
@@ -116,6 +127,5 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
 
             mocks.VerifyAll();
         }
-
     }
 }

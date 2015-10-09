@@ -20,86 +20,231 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using DelftTools.Utils.Data;
 using GeoAPI.CoordinateSystems;
 using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
 using GisSharpBlog.NetTopologySuite.Geometries;
 using log4net;
 using SharpMap.Api;
+using SharpMap.Converters.WellKnownBinary;
+using SharpMap.Converters.WellKnownText;
 
 namespace SharpMap.Data.Providers
 {
-	/// <summary>
-	/// Datasource for storing a limited set of geometries.
-	/// </summary>
-	/// <remarks>
-	/// <para>The DataTableFeatureProvider doesn’t utilize performance optimizations of spatial indexing,
-	/// and thus is primarily meant for rendering a limited set of Geometries.</para>
-	/// <para>A common use of the DataTableFeatureProvider is for highlighting a set of selected features.</para>
-	/// <example>
-	/// The following example gets data within a BoundingBox of another datasource and adds it to the map.
-	/// <code lang="C#">
-	/// List&#60;Geometry&#62; geometries = myMap.Layers[0].DataSource.GetGeometriesInView(myBox);
-	/// VectorLayer laySelected = new VectorLayer("Selected Features");
-	/// laySelected.DataSource = new DataTableFeatureProvider(geometries);
-	/// laySelected.Style.Outline = new Pen(Color.Magenta, 3f);
-	/// laySelected.Style.EnableOutline = true;
-	/// myMap.Layers.Add(laySelected);
-	/// </code>
-	/// </example>
-	/// <example>
-	/// Adding points of interest to the map. This is useful for vehicle tracking etc.
-	/// <code lang="C#">
-	/// List&#60;SharpMap.Geometries.Geometry&#62; geometries = new List&#60;SharpMap.Geometries.Geometry&#62;();
-	/// //Add two points
-	/// geometries.Add(new SharpMap.Geometries.Point(23.345,64.325));
-	/// geometries.Add(new SharpMap.Geometries.Point(23.879,64.194));
-	/// SharpMap.Layers.VectorLayer layerVehicles = new SharpMap.Layers.VectorLayer("Vechicles");
-	/// layerVehicles.DataSource = new SharpMap.Data.Providers.DataTableFeatureProvider(geometries);
-	/// layerVehicles.Style.Symbol = Bitmap.FromFile(@"C:\data\car.gif");
-	/// myMap.Layers.Add(layerVehicles);
-	/// </code>
-	/// </example>
-	/// </remarks>
+    /// <summary>
+    /// Datasource for storing a limited set of geometries.
+    /// </summary>
+    /// <remarks>
+    /// <para>The DataTableFeatureProvider doesn’t utilize performance optimizations of spatial indexing,
+    /// and thus is primarily meant for rendering a limited set of Geometries.</para>
+    /// <para>A common use of the DataTableFeatureProvider is for highlighting a set of selected features.</para>
+    /// <example>
+    /// The following example gets data within a BoundingBox of another datasource and adds it to the map.
+    /// <code lang="C#">
+    /// List&#60;Geometry&#62; geometries = myMap.Layers[0].DataSource.GetGeometriesInView(myBox);
+    /// VectorLayer laySelected = new VectorLayer("Selected Features");
+    /// laySelected.DataSource = new DataTableFeatureProvider(geometries);
+    /// laySelected.Style.Outline = new Pen(Color.Magenta, 3f);
+    /// laySelected.Style.EnableOutline = true;
+    /// myMap.Layers.Add(laySelected);
+    /// </code>
+    /// </example>
+    /// <example>
+    /// Adding points of interest to the map. This is useful for vehicle tracking etc.
+    /// <code lang="C#">
+    /// List&#60;SharpMap.Geometries.Geometry&#62; geometries = new List&#60;SharpMap.Geometries.Geometry&#62;();
+    /// //Add two points
+    /// geometries.Add(new SharpMap.Geometries.Point(23.345,64.325));
+    /// geometries.Add(new SharpMap.Geometries.Point(23.879,64.194));
+    /// SharpMap.Layers.VectorLayer layerVehicles = new SharpMap.Layers.VectorLayer("Vechicles");
+    /// layerVehicles.DataSource = new SharpMap.Data.Providers.DataTableFeatureProvider(geometries);
+    /// layerVehicles.Style.Symbol = Bitmap.FromFile(@"C:\data\car.gif");
+    /// myMap.Layers.Add(layerVehicles);
+    /// </code>
+    /// </example>
+    /// </remarks>
     public class DataTableFeatureProvider : IFeatureProvider
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DataTableFeatureProvider));
 
-	    public virtual Type FeatureType
-	    {
-            get { return typeof(FeatureDataRow); }
-	    }
+        private IList<IGeometry> geometries;
 
-	    public virtual IList Features
-	    {
-	        get { return attributesTable; }
-	        set { throw new System.NotImplementedException(); }
-	    }
-
-        public virtual bool IsReadOnly { get { return true; } }
-
-	    private IList<IGeometry> geometries;
+        private FeatureDataTable attributesTable;
 
         /// <summary>
         /// Gets or sets the geometries this datasource contains
         /// </summary>
         public virtual IList<IGeometry> Geometries
         {
-            get { return geometries; }
-            set { geometries = value; }
+            get
+            {
+                return geometries;
+            }
+            set
+            {
+                geometries = value;
+            }
         }
-
-        private FeatureDataTable attributesTable;
 
         public virtual FeatureDataTable AttributesTable
         {
-            get { return attributesTable; }
+            get
+            {
+                return attributesTable;
+            }
             set
             {
                 UnSubscribeAttributeTableEvents();
                 attributesTable = value;
                 SubscribeAttributeTableEvents();
+            }
+        }
+
+        // additions
+
+        public virtual FeatureDataTable Attributes
+        {
+            get
+            {
+                return attributesTable;
+            }
+        }
+
+        public virtual Type FeatureType
+        {
+            get
+            {
+                return typeof(FeatureDataRow);
+            }
+        }
+
+        public virtual IList Features
+        {
+            get
+            {
+                return attributesTable;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public virtual bool IsReadOnly
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// The spatial reference ID (CRS)
+        /// </summary>
+        public virtual string SrsWkt { get; set; }
+
+        public virtual ICoordinateSystem CoordinateSystem { get; set; }
+
+        public virtual Func<IFeatureProvider, IGeometry, IFeature> AddNewFeatureFromGeometryDelegate { get; set; }
+
+        public virtual void AddFeature(IFeature feature)
+        {
+            Add(feature.Geometry);
+        }
+
+        public virtual void Clear()
+        {
+            geometries.Clear();
+            attributesTable.Clear();
+        }
+
+        public virtual FeatureDataRow UpdateGeometry(int index, IGeometry newGeometry)
+        {
+            geometries[index] = newGeometry;
+            FeatureDataRow featureDataRow = (FeatureDataRow) attributesTable[index];
+            featureDataRow.Geometry = newGeometry;
+            return featureDataRow;
+        }
+
+        public virtual void Remove(int index)
+        {
+            //geometries.RemoveAt(index);
+            FeatureDataRow featureDataRow = (FeatureDataRow) attributesTable[index];
+            attributesTable.RemoveRow(featureDataRow);
+        }
+
+        public virtual FeatureDataRow FeatureByIndex(int index)
+        {
+            return (FeatureDataRow) attributesTable[index];
+        }
+
+        public virtual IEnvelope GetBounds(int recordIndex)
+        {
+            return GetFeature(recordIndex).Geometry.EnvelopeInternal;
+        }
+
+        public virtual IFeature Add(IGeometry geometry)
+        {
+            FeatureDataRow featureDataRow = attributesTable.NewRow();
+            featureDataRow.Geometry = geometry;
+            attributesTable.AddRow(featureDataRow);
+            return featureDataRow;
+        }
+
+        #region IDisposable Members
+
+        /// <summary>
+        /// Disposes the object
+        /// </summary>
+        public virtual void Dispose()
+        {
+            UnSubscribeAttributeTableEvents();
+            if (!geometries.IsReadOnly)
+            {
+                geometries.Clear();
+            }
+            geometries = null;
+            attributesTable = null;
+        }
+
+        #endregion
+
+        private void SubscribeAttributeTableEvents()
+        {
+            attributesTable.RowDeleted += attributesTable_RowDeleted;
+            attributesTable.RowChanged += attributesTable_RowChanged;
+        }
+
+        private void UnSubscribeAttributeTableEvents()
+        {
+            if (attributesTable != null)
+            {
+                attributesTable.RowDeleted -= attributesTable_RowDeleted;
+                attributesTable.RowChanged -= attributesTable_RowChanged;
+            }
+        }
+
+        private void attributesTable_RowChanged(object sender, DataRowChangeEventArgs e)
+        {
+            if (e.Action == DataRowAction.Add)
+            {
+                Geometries.Add(((FeatureDataRow) e.Row).Geometry);
+            }
+        }
+
+        private void attributesTable_RowDeleted(object sender, DataRowChangeEventArgs e)
+        {
+            Geometries.Remove(((FeatureDataRow) e.Row).Geometry);
+        }
+
+        private void InitAttributeRows(IList<IGeometry> geometries)
+        {
+            AttributesTable.Clear();
+            foreach (IGeometry g in geometries)
+            {
+                FeatureDataRow r = AttributesTable.NewRow();
+                r.Geometry = g;
+                AttributesTable.AddRow(r);
             }
         }
 
@@ -146,7 +291,9 @@ namespace SharpMap.Data.Providers
             geometries = new List<IGeometry>();
 
             for (int i = 0; i < features.Count; i++)
-                geometries.Add(((IFeature)features[i]).Geometry);
+            {
+                geometries.Add(((IFeature) features[i]).Geometry);
+            }
 
             attributesTable = features;
 
@@ -171,89 +318,47 @@ namespace SharpMap.Data.Providers
         /// </summary>
         /// <param name="wellKnownBinaryGeometry"><see cref="SharpMap.Geometries.Geometry"/> as Well-known Binary to be included in this datasource</param>
         public DataTableFeatureProvider(byte[] wellKnownBinaryGeometry)
-            : this(SharpMap.Converters.WellKnownBinary.GeometryFromWKB.Parse(wellKnownBinaryGeometry))
-        {
-        }
+            : this(GeometryFromWKB.Parse(wellKnownBinaryGeometry)) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataTableFeatureProvider"/>
         /// </summary>
         /// <param name="wellKnownTextGeometry"><see cref="SharpMap.Geometries.Geometry"/> as Well-known Text to be included in this datasource</param>
         public DataTableFeatureProvider(string wellKnownTextGeometry)
-            : this(SharpMap.Converters.WellKnownText.GeometryFromWKT.Parse(wellKnownTextGeometry))
-        {
-        }
+            : this(GeometryFromWKT.Parse(wellKnownTextGeometry)) {}
 
         #endregion
 
-        private void SubscribeAttributeTableEvents()
-        {
-            attributesTable.RowDeleted += attributesTable_RowDeleted;
-            attributesTable.RowChanged += attributesTable_RowChanged;
-        }
-
-        private void UnSubscribeAttributeTableEvents()
-        {
-            if (attributesTable != null)
-            {
-                attributesTable.RowDeleted -= attributesTable_RowDeleted;
-                attributesTable.RowChanged -= attributesTable_RowChanged;
-            }
-        }
-
-        void attributesTable_RowChanged(object sender, System.Data.DataRowChangeEventArgs e)
-        {
-            if (e.Action == DataRowAction.Add)
-            {
-                Geometries.Add(((FeatureDataRow)e.Row).Geometry);
-            }
-        }
-
-        void attributesTable_RowDeleted(object sender, System.Data.DataRowChangeEventArgs e)
-        {
-            Geometries.Remove(((FeatureDataRow)e.Row).Geometry);
-        }
-
-        private void InitAttributeRows(IList<IGeometry> geometries)
-        {
-            AttributesTable.Clear();
-            foreach (IGeometry g in geometries)
-            {
-                FeatureDataRow r = AttributesTable.NewRow();
-                r.Geometry = g;
-                AttributesTable.AddRow(r);
-            }
-        }
-
         #region IFeatureProvider Members
-        public virtual event EventHandler FeaturesChanged;
-	    public virtual event EventHandler CoordinateSystemChanged;
 
-	    /// <summary>
+        public virtual event EventHandler FeaturesChanged;
+        public virtual event EventHandler CoordinateSystemChanged;
+
+        /// <summary>
         /// Returns the geometry corresponding to the Object ID
         /// </summary>
         /// <param name="oid">Object ID</param>
         /// <returns>geometry</returns>
         public virtual IGeometry GetGeometryByID(int oid)
         {
-            return Geometries[(int)oid];                
+            return Geometries[(int) oid];
         }
 
         public virtual IEnumerable<IFeature> GetFeatures(IGeometry geom)
-	    {
+        {
             var result = new List<IFeature>();
             foreach (IFeature feature in Features)
             {
-                if(feature.Geometry.Intersects(geom))
+                if (feature.Geometry.Intersects(geom))
                 {
                     result.Add(feature);
                 }
             }
             return result;
-	    }
+        }
 
         public virtual IEnumerable<IFeature> GetFeatures(IEnvelope box)
-	    {
+        {
             var result = new List<IFeature>();
             foreach (IFeature feature in Features)
             {
@@ -265,7 +370,7 @@ namespace SharpMap.Data.Providers
             return result;
         }
 
-	    /// <summary>
+        /// <summary>
         /// Throws an NotSupportedException. Attribute data is not supported by this datasource
         /// </summary>
         /// <param name="geom"></param>
@@ -276,10 +381,11 @@ namespace SharpMap.Data.Providers
             foreach (FeatureDataRow row in AttributesTable)
             {
                 dt.Rows.Add(row.ItemArray);
-                ((FeatureDataRow)dt.Rows[dt.Count - 1]).Geometry = row.Geometry;
+                ((FeatureDataRow) dt.Rows[dt.Count - 1]).Geometry = row.Geometry;
             }
             ds.Tables.Add(dt);
         }
+
         /// <summary>
         /// Throws an NotSupportedException. Attribute data is not supported by this datasource
         /// </summary>
@@ -295,7 +401,7 @@ namespace SharpMap.Data.Providers
                     if (row.Geometry.EnvelopeInternal.Intersects(box))
                     {
                         dt.Rows.Add(row.ItemArray);
-                        ((FeatureDataRow)dt.Rows[dt.Count - 1]).Geometry = row.Geometry;
+                        ((FeatureDataRow) dt.Rows[dt.Count - 1]).Geometry = row.Geometry;
                     }
                 }
             }
@@ -322,32 +428,35 @@ namespace SharpMap.Data.Providers
             {
                 return null;
             }
-            return (IFeature) AttributesTable[(int)index];
+            return (IFeature) AttributesTable[(int) index];
         }
 
-	    public virtual bool Contains(IFeature feature)
-	    {
+        public virtual bool Contains(IFeature feature)
+        {
             //dont use this..contains check the key of rows
             //return AttributesTable.Rows.Contains(feature);
-	        return IndexOf(feature) != -1;
-	    }
+            return IndexOf(feature) != -1;
+        }
 
-	    public virtual int IndexOf(IFeature feature)
-	    {
+        public virtual int IndexOf(IFeature feature)
+        {
             if (feature is FeatureDataRow)
             {
-                return AttributesTable.Rows.IndexOf((FeatureDataRow)feature);
+                return AttributesTable.Rows.IndexOf((FeatureDataRow) feature);
             }
-	        return -1;
-	    }
+            return -1;
+        }
 
-	    /// <summary>
+        /// <summary>
         /// Boundingbox of dataset
         /// </summary>
         /// <returns>boundingbox</returns>
         public virtual IEnvelope GetExtents()
-	    {
-	        if (Geometries.Count == 0) return null;
+        {
+            if (Geometries.Count == 0)
+            {
+                return null;
+            }
 
             IEnvelope envelope = new Envelope();
 
@@ -358,91 +467,8 @@ namespace SharpMap.Data.Providers
                     envelope.ExpandToInclude(Geometries[i].EnvelopeInternal);
                 }
             }
-	        
+
             return envelope;
-        }
-
-        #endregion
-
-        private string srsWkt;
-        /// <summary>
-        /// The spatial reference ID (CRS)
-        /// </summary>
-        public virtual string SrsWkt
-        {
-            get { return srsWkt; }
-            set { srsWkt = value; }
-        }
-
-        public virtual IEnvelope GetBounds(int recordIndex)
-	    {
-	        return GetFeature(recordIndex).Geometry.EnvelopeInternal;
-	    }
-
-        public virtual ICoordinateSystem CoordinateSystem { get; set; }
-
-	    // additions
-
-        public virtual FeatureDataTable Attributes
-        {
-            get { return attributesTable; }
-        }
-
-	    public virtual void AddFeature(IFeature feature)
-	    {
-	        Add(feature.Geometry);
-	    }
-
-	    public virtual void Clear()
-        {
-            geometries.Clear();
-            attributesTable.Clear();
-        }
-
-        public virtual IFeature Add(IGeometry geometry)
-        {
-            FeatureDataRow featureDataRow = attributesTable.NewRow();
-            featureDataRow.Geometry = geometry;
-            attributesTable.AddRow(featureDataRow);
-            return featureDataRow;
-        }
-
-        public virtual Func<IFeatureProvider, IGeometry, IFeature> AddNewFeatureFromGeometryDelegate { get; set; }
-
-	    public virtual FeatureDataRow UpdateGeometry(int index, IGeometry newGeometry)
-        {
-            geometries[index] = newGeometry;
-            FeatureDataRow featureDataRow = (FeatureDataRow) attributesTable[index];
-            featureDataRow.Geometry = newGeometry;
-            return featureDataRow;
-        }
-
-        public virtual void Remove(int index)
-        {
-            //geometries.RemoveAt(index);
-            FeatureDataRow featureDataRow = (FeatureDataRow) attributesTable[index];
-            attributesTable.RemoveRow(featureDataRow);
-        }
-
-        public virtual FeatureDataRow FeatureByIndex(int index)
-        {
-            return (FeatureDataRow) attributesTable[index];
-        }
-
-        #region IDisposable Members
-
-        /// <summary>
-        /// Disposes the object
-        /// </summary>
-        public virtual void Dispose()
-        {
-            UnSubscribeAttributeTableEvents();
-            if (!geometries.IsReadOnly)
-            {
-                geometries.Clear();
-            }
-            geometries = null;
-            attributesTable = null;
         }
 
         #endregion

@@ -27,7 +27,8 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
     /// </summary>
     public class ThemeTypeConverter : TypeConverter
     {
-        [NonSerialized] static StyleTypeConverter styleTypeConverter = new StyleTypeConverter();
+        [NonSerialized]
+        private static readonly StyleTypeConverter styleTypeConverter = new StyleTypeConverter();
 
         ///<summary>
         /// Converts from a XML-like string to a <see cref="SharpMap"/> <see cref="SharpMap.Api.ITheme"/> object
@@ -49,14 +50,14 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                 // If the xml was an empty string, return null (no Theme set)
                 return null;
             }
-            
+
             // Parse the string as XML via a strongly typed dataset
             var stringReader = new StringReader((string) value);
-            var xmlSerializer = new XmlSerializer(typeof (theme));
+            var xmlSerializer = new XmlSerializer(typeof(theme));
             var sourceTheme = (theme) xmlSerializer.Deserialize(stringReader);
-            
+
             ITheme targetTheme;
-            
+
             switch (GetThemeType(sourceTheme))
             {
                 case ThemeType.Custom:
@@ -77,17 +78,77 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             return targetTheme;
         }
 
+        /// <summary>
+        /// Converts from a a <see cref="SharpMap"/> <see cref="SharpMap.Api.ITheme"/> object to a XML-like string
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="culture"></param>
+        /// <param name="value"></param>
+        /// <param name="destinationType"></param>
+        /// <returns></returns>
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            if (!(value is ITheme) || !destinationType.Equals(typeof(string)))
+            {
+                // Use the base converter if the target type is unsupported
+                return base.ConvertTo(context, culture, value, destinationType);
+            }
+
+            // Get the ITheme to convert from
+            var to = new theme();
+            var from = (ITheme) value;
+
+            switch (GetThemeType(from))
+            {
+                case ThemeType.Custom:
+                    to.Item = GetThemeCustom((CustomTheme) from);
+                    break;
+                case ThemeType.Categorial:
+                    to.Item = GetThemeCategorial((CategorialTheme) from);
+                    break;
+                case ThemeType.Gradient:
+                    to.Item = GetThemeGradient((GradientTheme) from);
+                    break;
+                case ThemeType.Quantity:
+                    to.Item = GetThemeQuantity((QuantityTheme) from);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            // Return the theme classes as an xml data string
+            var sb = new StringBuilder();
+            var xml = new XmlSerializer(typeof(theme));
+            xml.Serialize(new StringWriter(sb), to);
+
+            return sb.ToString();
+        }
+
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            // Can convert from string
+            return sourceType.Equals(typeof(string)) || base.CanConvertFrom(context, sourceType);
+        }
+
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            // Can convert from string
+            return destinationType.Equals(typeof(string)) || base.CanConvertTo(context, destinationType);
+        }
+
         private static CustomTheme GetCustomTheme(theme theme)
         {
-            return new CustomTheme(null) { DefaultStyle = GetDefaultStyle(theme) };
+            return new CustomTheme(null)
+            {
+                DefaultStyle = GetDefaultStyle(theme)
+            };
         }
 
         private static GradientTheme GetGradientTheme(theme theme)
         {
-            var themeGradient = (themeGradient)theme.Item;
-            var minStyle = (IStyle)styleTypeConverter.ConvertFrom(themeGradient.minStyle);
-            var maxStyle = (IStyle)styleTypeConverter.ConvertFrom(themeGradient.maxStyle);
-
+            var themeGradient = (themeGradient) theme.Item;
+            var minStyle = (IStyle) styleTypeConverter.ConvertFrom(themeGradient.minStyle);
+            var maxStyle = (IStyle) styleTypeConverter.ConvertFrom(themeGradient.maxStyle);
 
             var gradTheme = new GradientTheme(themeGradient.columnName,
                                               themeGradient.minValue,
@@ -104,11 +165,11 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                                               (themeGradient.textColorBlends != null)
                                                   ? createColorBlendForTheme(themeGradient.textColorBlends)
                                                   : null,
-                                               themeGradient.numberOfClasses)
-                                {
-                                    NoDataValues = ConvertNoDataValues(themeGradient.noDataValues, themeGradient.noDataValueType),
-                                    UseCustomRange = themeGradient.useCustomRange,
-                                };
+                                              themeGradient.numberOfClasses)
+            {
+                NoDataValues = ConvertNoDataValues(themeGradient.noDataValues, themeGradient.noDataValueType),
+                UseCustomRange = themeGradient.useCustomRange,
+            };
 
             if (themeGradient.gradientThemeItems != null)
             {
@@ -149,7 +210,7 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                 returnValues = new List<int>();
                 for (int i = 0; i < noDataValues.Length; i++)
                 {
-                    returnValues.Add((int)noDataValues[i]);
+                    returnValues.Add((int) noDataValues[i]);
                 }
             }
             else if (noDataValueType == "System.Single")
@@ -157,7 +218,7 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                 returnValues = new List<float>();
                 for (int i = 0; i < noDataValues.Length; i++)
                 {
-                    returnValues.Add((float)noDataValues[i]);
+                    returnValues.Add((float) noDataValues[i]);
                 }
             }
             else
@@ -172,9 +233,9 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             var themeQuantity = (themeQuantity) theme.Item;
 
             var quanTheme = new QuantityTheme(themeQuantity.columnName, GetDefaultStyle(theme))
-                                {
-                                    NoDataValues = ConvertNoDataValues(themeQuantity.noDataValues, themeQuantity.noDataValueType)
-                                };
+            {
+                NoDataValues = ConvertNoDataValues(themeQuantity.noDataValues, themeQuantity.noDataValueType)
+            };
 
             if (themeQuantity.quantityThemeItems != null)
             {
@@ -184,19 +245,22 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                     var interval = new Interval(quanThemeItem.intervalMinValue,
                                                 quanThemeItem.intervalMaxValue);
 
-                    var themeItem = new QuantityThemeItem(interval, themeStyle) { Label = quanThemeItem.label };
+                    var themeItem = new QuantityThemeItem(interval, themeStyle)
+                    {
+                        Label = quanThemeItem.label
+                    };
                     quanTheme.ThemeItems.Add(themeItem);
                 }
             }
- 
+
             return quanTheme;
         }
 
         private static CategorialTheme GetCategorialTheme(theme theme)
         {
-            var themeCategory = (themeCategory)theme.Item;
+            var themeCategory = (themeCategory) theme.Item;
             var defaultStyle = GetDefaultStyle(theme);
-            
+
             var categorialTheme = new CategorialTheme(themeCategory.columnName, defaultStyle);
 
             if (themeCategory.categoryThemeItems != null)
@@ -217,7 +281,7 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
 
         private static object GetCategorialThemeItemValue(string value, string valueType)
         {
-            if (valueType == typeof (string).FullName)
+            if (valueType == typeof(string).FullName)
             {
                 return value;
             }
@@ -242,7 +306,7 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             {
                 Int32 result;
                 Int32.TryParse(value, out result);
-                 
+
                 return result;
             }
 
@@ -258,7 +322,7 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             {
                 Boolean result;
                 Boolean.TryParse(value, out result);
-                
+
                 return result;
             }
 
@@ -278,52 +342,6 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             return null;
         }
 
-        /// <summary>
-        /// Converts from a a <see cref="SharpMap"/> <see cref="SharpMap.Api.ITheme"/> object to a XML-like string
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="culture"></param>
-        /// <param name="value"></param>
-        /// <param name="destinationType"></param>
-        /// <returns></returns>
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (!(value is ITheme) || !destinationType.Equals(typeof (string)))
-            {
-                // Use the base converter if the target type is unsupported
-                return base.ConvertTo(context, culture, value, destinationType);
-            }
-
-            // Get the ITheme to convert from
-            var to = new theme();
-            var from = (ITheme) value;
- 
-            switch (GetThemeType(from))
-            {
-                case ThemeType.Custom:
-                    to.Item = GetThemeCustom((CustomTheme)from);
-                    break;
-                case ThemeType.Categorial:
-                    to.Item = GetThemeCategorial((CategorialTheme)from);
-                    break;
-                case ThemeType.Gradient:
-                    to.Item = GetThemeGradient((GradientTheme)from);
-                    break;
-                case ThemeType.Quantity:
-                    to.Item = GetThemeQuantity((QuantityTheme) from);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
- 
-            // Return the theme classes as an xml data string
-            var sb = new StringBuilder();
-            var xml = new XmlSerializer(typeof (theme));
-            xml.Serialize(new StringWriter(sb), to);
-            
-            return sb.ToString();
-        }
-
         private static themeQuantity GetThemeQuantity(QuantityTheme theme)
         {
             // QuantityTheme properties
@@ -335,24 +353,24 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                 // NOTE: The actual Category of this specific ThemeItem is always equal to the Label (no need to store it twice)
                 // NOTE: Symbol isn't stored but generated during rebuilding in the QuantityThemeItem.AddStyle() method
                 var quanThemeItem = new themeItem
-                                        {
-                                            label = item.Label,
-                                            style = styleTypeConverter.ConvertToString(item.Style),
-                                            intervalMinValue = item.Interval.Min,
-                                            intervalMaxValue = item.Interval.Max
-                                        };
+                {
+                    label = item.Label,
+                    style = styleTypeConverter.ConvertToString(item.Style),
+                    intervalMinValue = item.Interval.Min,
+                    intervalMaxValue = item.Interval.Max
+                };
 
                 quanThemeItems.Add(quanThemeItem);
             }
 
             var themeQuantity = new themeQuantity
-                                    {
-                                        columnName = theme.AttributeName,
-                                        defaultStyle = GetDefaultStyle(theme),
-                                        noDataValues = GetNoDataValues(theme.NoDataValues),
-                                        noDataValueType = GetNoDataValueType(theme.NoDataValues),
-                                        quantityThemeItems = quanThemeItems.ToArray(),
-                                    };
+            {
+                columnName = theme.AttributeName,
+                defaultStyle = GetDefaultStyle(theme),
+                noDataValues = GetNoDataValues(theme.NoDataValues),
+                noDataValueType = GetNoDataValueType(theme.NoDataValues),
+                quantityThemeItems = quanThemeItems.ToArray(),
+            };
 
             return themeQuantity;
         }
@@ -362,7 +380,7 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             // GradientTheme properties
             string minStyle = styleTypeConverter.ConvertToString(theme.MinStyle);
             string maxStyle = styleTypeConverter.ConvertToString(theme.MaxStyle);
-            
+
             var gradThemeItems = new List<themeItem>();
             foreach (GradientThemeItem item in theme.ThemeItems)
             {
@@ -379,48 +397,48 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                 }
 
                 var gradThemeItem = new themeItem
-                                        {
-                                            label = item.Label,
-                                            style = styleTypeConverter.ConvertToString(item.Style),
-                                            intervalMaxValue = intervalMaxValue
-                                        };
+                {
+                    label = item.Label,
+                    style = styleTypeConverter.ConvertToString(item.Style),
+                    intervalMaxValue = intervalMaxValue
+                };
 
                 gradThemeItems.Add(gradThemeItem);
             }
 
             var themeGradient = new themeGradient
-                                    {
-                                        gradientThemeItems = gradThemeItems.ToArray(),
-                                        columnName = theme.AttributeName,
-                                        numberOfClasses = theme.NumberOfClasses,
-                                        minValue = theme.Min,
-                                        maxValue = theme.Max,
-                                        minStyle = minStyle,
-                                        maxStyle = maxStyle,
-                                        noDataValues = GetNoDataValues(theme.NoDataValues),
-                                        noDataValueType = GetNoDataValueType(theme.NoDataValues),
-                                        useCustomRange = theme.UseCustomRange,
-                                        // Color blends
-                                        textColorBlends = (theme.TextColorBlend != null)
-                                                              ? CreateBlendsFromTheme(theme.TextColorBlend)
-                                                              : null,
-                                        lineColorBlends = (theme.LineColorBlend != null)
-                                                              ? CreateBlendsFromTheme(theme.LineColorBlend)
-                                                              : null,
-                                        fillColorBlends = (theme.FillColorBlend != null)
-                                                              ? CreateBlendsFromTheme(theme.FillColorBlend)
-                                                              : null
-                                    };
+            {
+                gradientThemeItems = gradThemeItems.ToArray(),
+                columnName = theme.AttributeName,
+                numberOfClasses = theme.NumberOfClasses,
+                minValue = theme.Min,
+                maxValue = theme.Max,
+                minStyle = minStyle,
+                maxStyle = maxStyle,
+                noDataValues = GetNoDataValues(theme.NoDataValues),
+                noDataValueType = GetNoDataValueType(theme.NoDataValues),
+                useCustomRange = theme.UseCustomRange,
+                // Color blends
+                textColorBlends = (theme.TextColorBlend != null)
+                                      ? CreateBlendsFromTheme(theme.TextColorBlend)
+                                      : null,
+                lineColorBlends = (theme.LineColorBlend != null)
+                                      ? CreateBlendsFromTheme(theme.LineColorBlend)
+                                      : null,
+                fillColorBlends = (theme.FillColorBlend != null)
+                                      ? CreateBlendsFromTheme(theme.FillColorBlend)
+                                      : null
+            };
             return themeGradient;
         }
 
         private static themeCategory GetThemeCategorial(CategorialTheme theme)
         {
             var themeCategory = new themeCategory
-                                    {
-                                        columnName = theme.AttributeName,
-                                        defaultStyle = GetDefaultStyle(theme)
-                                    };
+            {
+                columnName = theme.AttributeName,
+                defaultStyle = GetDefaultStyle(theme)
+            };
 
             var catThemeItems = new List<themeItem>();
 
@@ -429,10 +447,10 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                 var categorialThemeItem = item as CategorialThemeItem;
                 // Add theme items (style and label) to the CategorialTheme
                 var catThemeItem = new themeItem
-                                       {
-                                           label = item.Label, 
-                                           style = GetStyle(item)
-                                       };
+                {
+                    label = item.Label,
+                    style = GetStyle(item)
+                };
 
                 if (categorialThemeItem != null && categorialThemeItem.Value != null)
                 {
@@ -450,7 +468,10 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
         private static themeCustom GetThemeCustom(CustomTheme theme)
         {
             string defaultStyle = GetDefaultStyle(theme);
-            return new themeCustom {defaultStyle = defaultStyle};
+            return new themeCustom
+            {
+                defaultStyle = defaultStyle
+            };
         }
 
         private static string GetStyle(IThemeItem themeItem)
@@ -460,7 +481,7 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
 
         private static IStyle GetStyle(themeItem themeItem)
         {
-            return (IStyle)styleTypeConverter.ConvertFrom(themeItem.style);
+            return (IStyle) styleTypeConverter.ConvertFrom(themeItem.style);
         }
 
         private static string GetDefaultStyle(ITheme theme)
@@ -470,16 +491,16 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             switch (GetThemeType(theme))
             {
                 case ThemeType.Custom:
-                    style = ((CustomTheme)theme).DefaultStyle;
+                    style = ((CustomTheme) theme).DefaultStyle;
                     break;
                 case ThemeType.Categorial:
-                    style = ((CategorialTheme)theme).DefaultStyle;
+                    style = ((CategorialTheme) theme).DefaultStyle;
                     break;
                 case ThemeType.Gradient:
                     style = null;
                     break;
                 case ThemeType.Quantity:
-                    style = ((QuantityTheme)theme).DefaultStyle;
+                    style = ((QuantityTheme) theme).DefaultStyle;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -495,21 +516,21 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             switch (GetThemeType(theme))
             {
                 case ThemeType.Custom:
-                    style = ((themeCustom)theme.Item).defaultStyle;
+                    style = ((themeCustom) theme.Item).defaultStyle;
                     break;
                 case ThemeType.Categorial:
-                    style = ((themeCategory)theme.Item).defaultStyle;
+                    style = ((themeCategory) theme.Item).defaultStyle;
                     break;
                 case ThemeType.Gradient:
                     break;
                 case ThemeType.Quantity:
-                    style = ((themeQuantity)theme.Item).defaultStyle;
+                    style = ((themeQuantity) theme.Item).defaultStyle;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            return (style != string.Empty) ? (IStyle)styleTypeConverter.ConvertFrom(style) : null;
+            return (style != string.Empty) ? (IStyle) styleTypeConverter.ConvertFrom(style) : null;
         }
 
         private static double[] GetNoDataValues(IList noDataValues)
@@ -539,10 +560,22 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
 
         private static ThemeType GetThemeType(ITheme theme)
         {
-            if (theme is CustomTheme) return ThemeType.Custom;
-            if (theme is CategorialTheme) return ThemeType.Categorial;
-            if (theme is GradientTheme) return ThemeType.Gradient;
-            if (theme is QuantityTheme) return ThemeType.Quantity;
+            if (theme is CustomTheme)
+            {
+                return ThemeType.Custom;
+            }
+            if (theme is CategorialTheme)
+            {
+                return ThemeType.Categorial;
+            }
+            if (theme is GradientTheme)
+            {
+                return ThemeType.Gradient;
+            }
+            if (theme is QuantityTheme)
+            {
+                return ThemeType.Quantity;
+            }
 
             return ThemeType.Custom;
         }
@@ -551,10 +584,22 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
         {
             var type = theme.Item.GetType();
 
-            if (type.Equals(typeof(themeCustom))) return ThemeType.Custom;
-            if (type.Equals(typeof(themeCategory))) return ThemeType.Categorial;
-            if (type.Equals(typeof(themeGradient))) return ThemeType.Gradient;
-            if (type.Equals(typeof(themeQuantity))) return ThemeType.Quantity;
+            if (type.Equals(typeof(themeCustom)))
+            {
+                return ThemeType.Custom;
+            }
+            if (type.Equals(typeof(themeCategory)))
+            {
+                return ThemeType.Categorial;
+            }
+            if (type.Equals(typeof(themeGradient)))
+            {
+                return ThemeType.Gradient;
+            }
+            if (type.Equals(typeof(themeQuantity)))
+            {
+                return ThemeType.Quantity;
+            }
 
             return ThemeType.Custom;
         }
@@ -593,18 +638,6 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                 fillColorBlends.Add(fillBlend);
             }
             return fillColorBlends.ToArray();
-        }
-
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
-        {
-            // Can convert from string
-            return sourceType.Equals(typeof (string)) || base.CanConvertFrom(context, sourceType);
-        }
-
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
-        {
-            // Can convert from string
-            return destinationType.Equals(typeof (string)) || base.CanConvertTo(context, destinationType);
         }
     }
 }

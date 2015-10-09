@@ -62,17 +62,17 @@ namespace DelftTools.Tests.Controls.Swf.DataEditorGenerator
             box.SetChildContainer(panel);
 
             var child1 = new SelfCollapsingPanel
-                         {
-                             Visible = false
-                         };
+            {
+                Visible = false
+            };
 
             panel.Controls.Add(child1);
             box.SubscribeChild(child1);
 
             var child2 = new SelfCollapsingPanel
-                         {
-                             Visible = false
-                         };
+            {
+                Visible = false
+            };
 
             panel.Controls.Add(child2);
             box.SubscribeChild(child2);

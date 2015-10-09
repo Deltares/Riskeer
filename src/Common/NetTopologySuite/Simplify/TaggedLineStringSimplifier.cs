@@ -16,11 +16,15 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         // Added readonly!
         private static readonly LineIntersector li = new RobustLineIntersector();
 
-        private LineSegmentIndex inputIndex = new LineSegmentIndex();
-        private LineSegmentIndex outputIndex = new LineSegmentIndex();
+        private readonly LineSegmentIndex inputIndex = new LineSegmentIndex();
+        private readonly LineSegmentIndex outputIndex = new LineSegmentIndex();
         private TaggedLineString line;
         private ICoordinate[] linePts;
-        private double distanceTolerance = 0.0;        
+
+        /*
+        * Index of section to be tested for flattening - reusable
+        */
+        private int[] validSectionIndex = new int[2];
 
         /// <summary>
         /// 
@@ -28,7 +32,8 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// <param name="inputIndex"></param>
         /// <param name="outputIndex"></param>
         public TaggedLineStringSimplifier(LineSegmentIndex inputIndex, LineSegmentIndex outputIndex)
-        {            
+        {
+            DistanceTolerance = 0.0;
             this.inputIndex = inputIndex;
             this.outputIndex = outputIndex;
         }
@@ -36,17 +41,7 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// <summary>
         /// 
         /// </summary>
-        public double DistanceTolerance
-        {
-            get 
-            {
-                return distanceTolerance; 
-            }
-            set
-            {
-                distanceTolerance = value; 
-            }
-        }
+        public double DistanceTolerance { get; set; }
 
         /// <summary>
         /// 
@@ -69,7 +64,7 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         {
             depth += 1;
             int[] sectionIndex = new int[2];
-            if((i+1) == j)
+            if ((i + 1) == j)
             {
                 LineSegment newSeg = line.GetSegment(i);
                 line.AddToResult(newSeg);
@@ -82,18 +77,25 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
             bool isValidToFlatten = true;
 
             // must have enough points in the output line
-            if (line.ResultSize < line.MinimumSize && depth < 2)  
+            if (line.ResultSize < line.MinimumSize && depth < 2)
+            {
                 isValidToFlatten = false;
+            }
             // flattening must be less than distanceTolerance
             if (distance[0] > DistanceTolerance)
+            {
                 isValidToFlatten = false;
+            }
             // test if flattened section would cause intersection
             LineSegment candidateSeg = new LineSegment();
             candidateSeg.P0 = linePts[i];
             candidateSeg.P1 = linePts[j];
             sectionIndex[0] = i;
             sectionIndex[1] = j;
-            if (HasBadIntersection(line, sectionIndex, candidateSeg)) isValidToFlatten = false;
+            if (HasBadIntersection(line, sectionIndex, candidateSeg))
+            {
+                isValidToFlatten = false;
+            }
 
             if (isValidToFlatten)
             {
@@ -120,11 +122,11 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
             seg.P1 = pts[j];
             double maxDist = -1.0;
             int maxIndex = i;
-            for (int k = i + 1; k < j; k++) 
+            for (int k = i + 1; k < j; k++)
             {
                 ICoordinate midPt = pts[k];
                 double distance = seg.Distance(midPt);
-                if (distance > maxDist) 
+                if (distance > maxDist)
                 {
                     maxDist = distance;
                     maxIndex = k;
@@ -152,11 +154,6 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
             return newSeg;
         }
 
-        /*
-        * Index of section to be tested for flattening - reusable
-        */
-        private int[] validSectionIndex = new int[2];
-
         /// <summary>
         /// 
         /// </summary>
@@ -166,10 +163,14 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// <returns></returns>
         private bool HasBadIntersection(TaggedLineString parentLine, int[] sectionIndex, LineSegment candidateSeg)
         {
-            if (HasBadOutputIntersection(candidateSeg)) 
+            if (HasBadOutputIntersection(candidateSeg))
+            {
                 return true;
-            if (HasBadInputIntersection(parentLine, sectionIndex, candidateSeg)) 
+            }
+            if (HasBadInputIntersection(parentLine, sectionIndex, candidateSeg))
+            {
                 return true;
+            }
             return false;
         }
 
@@ -181,11 +182,13 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         private bool HasBadOutputIntersection(LineSegment candidateSeg)
         {
             IList querySegs = outputIndex.Query(candidateSeg);
-            for (IEnumerator i = querySegs.GetEnumerator(); i.MoveNext(); ) 
+            for (IEnumerator i = querySegs.GetEnumerator(); i.MoveNext();)
             {
                 LineSegment querySeg = (LineSegment) i.Current;
-                if (HasInteriorIntersection(querySeg, candidateSeg)) 
-                    return true;                
+                if (HasInteriorIntersection(querySeg, candidateSeg))
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -200,13 +203,15 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         private bool HasBadInputIntersection(TaggedLineString parentLine, int[] sectionIndex, LineSegment candidateSeg)
         {
             IList querySegs = inputIndex.Query(candidateSeg);
-            for (IEnumerator i = querySegs.GetEnumerator(); i.MoveNext(); ) 
+            for (IEnumerator i = querySegs.GetEnumerator(); i.MoveNext();)
             {
                 TaggedLineSegment querySeg = (TaggedLineSegment) i.Current;
-                if (HasInteriorIntersection(querySeg, candidateSeg)) 
+                if (HasInteriorIntersection(querySeg, candidateSeg))
                 {
                     if (IsInLineSection(parentLine, sectionIndex, querySeg))
+                    {
                         continue;
+                    }
                     return true;
                 }
             }
@@ -223,10 +228,15 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         private static bool IsInLineSection(TaggedLineString line, int[] sectionIndex, TaggedLineSegment seg)
         {
             // not in this line
-            if (seg.Parent != line.Parent) return false;
+            if (seg.Parent != line.Parent)
+            {
+                return false;
+            }
             int segIndex = seg.Index;
             if (segIndex >= sectionIndex[0] && segIndex < sectionIndex[1])
+            {
                 return true;
+            }
             return false;
         }
 

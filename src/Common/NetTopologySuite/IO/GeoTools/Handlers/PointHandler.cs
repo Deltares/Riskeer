@@ -15,9 +15,12 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         /// </summary>
         public override ShapeGeometryType ShapeType
         {
-            get { return ShapeGeometryType.Point; }
+            get
+            {
+                return ShapeGeometryType.Point;
+            }
         }
-		
+
         /// <summary>
         /// Reads a stream and converts the shapefile record to an equilivent geometry object.
         /// </summary>
@@ -27,20 +30,22 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         public override IGeometry Read(BigEndianBinaryReader file, IGeometryFactory geometryFactory)
         {
             int shapeTypeNum = file.ReadInt32();
-            type = (ShapeGeometryType) Enum.Parse(typeof (ShapeGeometryType), shapeTypeNum.ToString());
+            type = (ShapeGeometryType) Enum.Parse(typeof(ShapeGeometryType), shapeTypeNum.ToString());
             if (type == ShapeGeometryType.NullShape)
             {
                 ICoordinate emptyCoordinate = null;
                 return geometryFactory.CreatePoint(emptyCoordinate);
             }
 
-            if (!(type == ShapeGeometryType.Point  || type == ShapeGeometryType.PointM ||
+            if (!(type == ShapeGeometryType.Point || type == ShapeGeometryType.PointM ||
                   type == ShapeGeometryType.PointZ || type == ShapeGeometryType.PointZM))
-                throw new ShapefileException("Attempting to load a point as point.");		    
+            {
+                throw new ShapefileException("Attempting to load a point as point.");
+            }
 
             double x = file.ReadDouble();
-            double y = file.ReadDouble();		    
-            ICoordinate external = new Coordinate(x,y);			
+            double y = file.ReadDouble();
+            ICoordinate external = new Coordinate(x, y);
             geometryFactory.PrecisionModel.MakePrecise(external);
             IPoint point = geometryFactory.CreatePoint(external);
             GrabZMValue(file);
@@ -55,7 +60,7 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         /// <param name="geometryFactory">The geometry factory to use.</param>
         public override void Write(IGeometry geometry, BinaryWriter file, IGeometryFactory geometryFactory)
         {
-            file.Write(int.Parse(Enum.Format(typeof(ShapeGeometryType), this.ShapeType, "d")));
+            file.Write(int.Parse(Enum.Format(typeof(ShapeGeometryType), ShapeType, "d")));
             ICoordinate external = geometry.Coordinates[0];
             file.Write(external.X);
             file.Write(external.Y);
@@ -69,6 +74,6 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         public override int GetLength(IGeometry geometry)
         {
             return 10; // 10 => shapetyppe(2)+ xy(4*2)
-        }		
+        }
     }
 }

@@ -47,7 +47,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         /// Delaunay triangulation.
         /// </summary>
         /// <returns>a quadedge containing the inserted vertex</returns>
-        public global::GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge.QuadEdge InsertSite(Vertex v)
+        public QuadEdge.QuadEdge InsertSite(Vertex v)
         {
             /*
              * This code is based on Guibas and Stolfi (1985), with minor modifications
@@ -58,9 +58,10 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
              */
             var e = _subdiv.Locate(v);
 
-            if (_subdiv.IsVertexOfEdge(e, v)) {
+            if (_subdiv.IsVertexOfEdge(e, v))
+            {
                 // point is already in subdivision.
-                return e; 
+                return e;
             }
             if (_subdiv.IsOnEdge(e, v.Coordinate))
             {
@@ -75,23 +76,30 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
              * (or quadrilateral, if the new point fell on an existing edge.)
              */
             var baseQuadEdge = _subdiv.MakeEdge(e.Orig, v);
-            global::GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge.QuadEdge.Splice(baseQuadEdge, e);
+            QuadEdge.QuadEdge.Splice(baseQuadEdge, e);
             var startEdge = baseQuadEdge;
-            do {
+            do
+            {
                 baseQuadEdge = _subdiv.Connect(e, baseQuadEdge.Sym);
                 e = baseQuadEdge.OPrev;
             } while (e.LNext != startEdge);
 
             // Examine suspect edges to ensure that the Delaunay condition
             // is satisfied.
-            do {
+            do
+            {
                 var t = e.OPrev;
-                if (t.Dest.RightOf(e) && v.IsInCircle(e.Orig, t.Dest, e.Dest)) {
-                    global::GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge.QuadEdge.Swap(e);
+                if (t.Dest.RightOf(e) && v.IsInCircle(e.Orig, t.Dest, e.Dest))
+                {
+                    QuadEdge.QuadEdge.Swap(e);
                     e = e.OPrev;
-                } else if (e.ONext == startEdge) {
+                }
+                else if (e.ONext == startEdge)
+                {
                     return baseQuadEdge; // no more suspect edges.
-                } else {
+                }
+                else
+                {
                     e = e.ONext.LPrev;
                 }
             } while (true);

@@ -10,8 +10,8 @@ namespace GeoAPI.Geometries
 
         ILineString[] InteriorRings { get; }
 
-        ILineString GetInteriorRingN(int n);
+        ILinearRing[] Holes { get; }
 
-        ILinearRing[] Holes { get; }  
+        ILineString GetInteriorRingN(int n);
     }
 }

@@ -27,7 +27,7 @@ namespace DelftTools.Utils.Tests.Xml.Serialization
 
             FileStream fs = new FileStream(filePath, FileMode.Create);
             DictionarySerializer ds = new DictionarySerializer(hashtable);
-            XmlSerializer s = new XmlSerializer(typeof (DictionarySerializer));
+            XmlSerializer s = new XmlSerializer(typeof(DictionarySerializer));
             s.Serialize(fs, ds);
             fs.Close();
 
@@ -50,7 +50,7 @@ namespace DelftTools.Utils.Tests.Xml.Serialization
 
             FileStream fs = new FileStream(filePath, FileMode.Create);
             DictionarySerializer ds = new DictionarySerializer(listDictionary);
-            XmlSerializer s = new XmlSerializer(typeof (DictionarySerializer));
+            XmlSerializer s = new XmlSerializer(typeof(DictionarySerializer));
             s.Serialize(fs, ds);
             fs.Close();
 
@@ -73,7 +73,7 @@ namespace DelftTools.Utils.Tests.Xml.Serialization
 
             FileStream fs = new FileStream(filePath, FileMode.Create);
             DictionarySerializer ds = new DictionarySerializer(hybridDictionary);
-            XmlSerializer s = new XmlSerializer(typeof (DictionarySerializer));
+            XmlSerializer s = new XmlSerializer(typeof(DictionarySerializer));
             s.Serialize(fs, ds);
             fs.Close();
 
@@ -96,7 +96,7 @@ namespace DelftTools.Utils.Tests.Xml.Serialization
 
             FileStream fs = new FileStream(filePath, FileMode.Create);
             DictionarySerializer ds = new DictionarySerializer(sortedList);
-            XmlSerializer s = new XmlSerializer(typeof (DictionarySerializer));
+            XmlSerializer s = new XmlSerializer(typeof(DictionarySerializer));
             s.Serialize(fs, ds);
             fs.Close();
 

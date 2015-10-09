@@ -16,13 +16,50 @@ namespace DeltaShell.Plugins.SharpMapGis
     /// </summary>
     public class BackGroundMapLayer : GroupLayer // TODO: rename to BackgroundMapLayer
     {
-        
         private static readonly ILog log = LogManager.GetLogger(typeof(BackGroundMapLayer));
-        
+
         private Map lastUpdatedMap; // TODO: what is this for??
 
         private Map backgroundMap;
         private bool backgroundMapChanged;
+
+        public BackGroundMapLayer()
+        {
+            Selectable = false;
+        }
+
+        public BackGroundMapLayer(Map map) : this()
+        {
+            BackgroundMap = map;
+        }
+
+        [NoNotifyCollectionChange]
+        public override IEventedList<ILayer> Layers
+        {
+            get
+            {
+                if (backgroundMapChanged)
+                {
+                    backgroundMapChanged = false;
+                    UpdateLayers();
+                }
+
+                return base.Layers;
+            }
+
+            set
+            {
+                base.Layers = value;
+            }
+        }
+
+        public override bool ReadOnly
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         /// <summary>
         /// Map used a basis for this grouplayer
@@ -30,37 +67,29 @@ namespace DeltaShell.Plugins.SharpMapGis
         [NoNotifyPropertyChange]
         public Map BackgroundMap
         {
-            get { return backgroundMap; }
+            get
+            {
+                return backgroundMap;
+            }
             set
             {
                 UnsubscribeFromBackgroundMap();
                 backgroundMap = value;
                 SubscribeToBackgroundMap();
-                
+
                 // mark background map as dirty to make sure that layers will be updated (using lazy way)
                 backgroundMapChanged = true;
                 RenderRequired = true;
             }
         }
 
-        public BackGroundMapLayer()
-        {
-            Selectable = false;
-        }
-
-        public BackGroundMapLayer(Map map):this()
-        {
-            BackgroundMap = map;
-         
-        }
-
         public void UnsubscribeFromBackgroundMap()
         {
-            if(backgroundMap == null)
+            if (backgroundMap == null)
             {
                 return;
             }
-            ((INotifyCollectionChange)backgroundMap).CollectionChanged -= BackgroundMapCollectionChanged;    
+            ((INotifyCollectionChange) backgroundMap).CollectionChanged -= BackgroundMapCollectionChanged;
         }
 
         public void SubscribeToBackgroundMap()
@@ -70,13 +99,7 @@ namespace DeltaShell.Plugins.SharpMapGis
                 return;
             }
 
-            ((INotifyCollectionChange)backgroundMap).CollectionChanged += BackgroundMapCollectionChanged;
-        }
-
-        void BackgroundMapCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            backgroundMapChanged = true;
-            RenderRequired = true;
+            ((INotifyCollectionChange) backgroundMap).CollectionChanged += BackgroundMapCollectionChanged;
         }
 
         public void UpdateLayers()
@@ -86,13 +109,13 @@ namespace DeltaShell.Plugins.SharpMapGis
                 Layers.Clear();
                 return;
             }
-            
+
             Name = string.Format(Resources.BackGroundMapLayer_UpdateLayers_Background_BackgroundMapName, BackgroundMap.Name);
 
             // check if we need to update layers
             bool updateLayers = false;
 
-            if(Layers.Count != backgroundMap.Layers.Count)
+            if (Layers.Count != backgroundMap.Layers.Count)
             {
                 updateLayers = true;
             }
@@ -100,7 +123,7 @@ namespace DeltaShell.Plugins.SharpMapGis
             {
                 for (var i = 0; i < Layers.Count; i++)
                 {
-                    if(Layers[i].DataSource != backgroundMap.Layers[i].DataSource
+                    if (Layers[i].DataSource != backgroundMap.Layers[i].DataSource
                         || Layers[i].Visible != backgroundMap.Layers[i].Visible)
                     {
                         updateLayers = true;
@@ -109,7 +132,7 @@ namespace DeltaShell.Plugins.SharpMapGis
                 }
             }
 
-            if(!updateLayers)
+            if (!updateLayers)
             {
                 return;
             }
@@ -129,7 +152,7 @@ namespace DeltaShell.Plugins.SharpMapGis
             Layers.Clear();
             foreach (var layer in BackgroundMap.Layers)
             {
-                var clone = (ILayer)layer.Clone();
+                var clone = (ILayer) layer.Clone();
                 clone.Selectable = false;
                 Layers.Add(clone);
             }
@@ -145,33 +168,14 @@ namespace DeltaShell.Plugins.SharpMapGis
             //set the map of the group layer to check if it was changed after
             lastUpdatedMap = BackgroundMap;
             //set renderrequired to true because we want the treeview and legendview to update...
-            
+
             SubscribeToBackgroundMap();
         }
 
-        [NoNotifyCollectionChange]
-        public override IEventedList<ILayer> Layers
+        private void BackgroundMapCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
-            get
-            {
-                if(backgroundMapChanged)
-                {
-                    backgroundMapChanged = false; 
-                    UpdateLayers();
-                }
-
-                return base.Layers;
-            }
-            
-            set { base.Layers = value; }
-        }
-
-        public override bool ReadOnly
-        {
-            get
-            {
-                return true;
-            }
+            backgroundMapChanged = true;
+            RenderRequired = true;
         }
     }
 }

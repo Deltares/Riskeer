@@ -17,47 +17,31 @@
 
 namespace GeoAPI.CoordinateSystems
 {
-	/// <summary>
-	/// A named parameter value.
-	/// </summary>
-	public class Parameter
-	{
-		/// <summary>
-		/// Creates an instance of a parameter
-		/// </summary>
-		/// <remarks>Units are always either meters or degrees.</remarks>
-		/// <param name="name">Name of parameter</param>
-		/// <param name="value">Value</param>
-		public Parameter(string name, double value)
-		{
-			_Name = name;
-			_Value = value;
-		}
+    /// <summary>
+    /// A named parameter value.
+    /// </summary>
+    public class Parameter
+    {
+        /// <summary>
+        /// Creates an instance of a parameter
+        /// </summary>
+        /// <remarks>Units are always either meters or degrees.</remarks>
+        /// <param name="name">Name of parameter</param>
+        /// <param name="value">Value</param>
+        public Parameter(string name, double value)
+        {
+            Name = name;
+            Value = value;
+        }
 
-		#region IParameter Members
+        /// <summary>
+        /// Parameter name
+        /// </summary>
+        public string Name { get; set; }
 
-		private string _Name;
-
-		/// <summary>
-		/// Parameter name
-		/// </summary>
-		public string Name
-		{
-			get { return _Name; }
-			set { _Name = value; }
-		}
-
-		private double _Value;
-
-		/// <summary>
-		/// Parameter value
-		/// </summary>
-		public double Value
-		{
-			get { return _Value; }
-			set { _Value = value; }
-		}
-	
-		#endregion
-	}
+        /// <summary>
+        /// Parameter value
+        /// </summary>
+        public double Value { get; set; }
+    }
 }

@@ -14,7 +14,7 @@ namespace SharpMap.Tests.Rendering
         {
             TestLinesAreDrawnCorrectly(1.0);
         }
-        
+
         [Test]
         public void RenderVerySmallWithoutOverFlow()
         {
@@ -34,44 +34,50 @@ namespace SharpMap.Tests.Rendering
             {
                 using (var g = Graphics.FromImage(bmp))
                 {
-                    var map = new Map(new Size(200, 200)) {Center = new Coordinate(1, 0)};
+                    var map = new Map(new Size(200, 200))
+                    {
+                        Center = new Coordinate(1, 0)
+                    };
 
                     var line = new LineString(new[]
-                                                  {
-                                                      new Coordinate(0, 0),
-                                                      new Coordinate(1, 0),
-                                                      new Coordinate(1, 1)
-                                                  });
+                    {
+                        new Coordinate(0, 0),
+                        new Coordinate(1, 0),
+                        new Coordinate(1, 1)
+                    });
                     map.Zoom = 0.000001; //difficult zoom level to make sure limiting kicks in
 
                     TestHelper.AssertIsFasterThan(
                         200,
                         () =>
+                        {
+                            for (int i = 0; i < 5000; i++)
                             {
-                                for (int i = 0; i < 5000; i++)
-                                {
-                                    //orig (without limiting): 75 ms for 5000 lines on W510 i7
-                                    VectorRenderingHelper.DrawLineString(g, line, Pens.Black, map);
-                                }
-                            });
+                                //orig (without limiting): 75 ms for 5000 lines on W510 i7
+                                VectorRenderingHelper.DrawLineString(g, line, Pens.Black, map);
+                            }
+                        });
                 }
             }
         }
-        
+
         private static void TestLinesAreDrawnCorrectly(double zoom)
         {
             using (var bmp = new Bitmap(200, 200))
             {
                 using (var g = Graphics.FromImage(bmp))
                 {
-                    var map = new Map(new Size(200, 200)) { Center = new Coordinate(1, -0.2) };
+                    var map = new Map(new Size(200, 200))
+                    {
+                        Center = new Coordinate(1, -0.2)
+                    };
 
                     var line = new LineString(new[]
-                                                  {
-                                                      new Coordinate(0, 0.2),
-                                                      new Coordinate(1, -0.2),
-                                                      new Coordinate(1, 1)
-                                                  });
+                    {
+                        new Coordinate(0, 0.2),
+                        new Coordinate(1, -0.2),
+                        new Coordinate(1, 1)
+                    });
                     map.Zoom = zoom;
 
                     VectorRenderingHelper.DrawLineString(g, line, Pens.Black, map);

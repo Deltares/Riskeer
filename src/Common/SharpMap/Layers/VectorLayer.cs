@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Reflection;
 using DelftTools.Utils.Aop;
 using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
@@ -56,18 +57,24 @@ namespace SharpMap.Layers
     /// System.Drawing.Image mapImage = myMap.GetMap();
     /// </code>
     /// </example>
-    [Entity(FireOnCollectionChange=false)]
+    [Entity(FireOnCollectionChange = false)]
     public class VectorLayer : Layer
     {
+        public static readonly Bitmap DefaultPointSymbol = (Bitmap) Image.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("SharpMap.Styles.DefaultSymbol.png"));
         private static readonly ILog log = LogManager.GetLogger(typeof(VectorLayer));
-        public static readonly Bitmap DefaultPointSymbol = (Bitmap)Image.FromStream(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("SharpMap.Styles.DefaultSymbol.png"));
+
+        private bool clippingEnabled;
+
+        private SmoothingMode smoothingMode;
+
+        private VectorStyle style;
+
+        private bool isStyleDirty;
 
         /// <summary>
         /// Create vectorlayer with default name.
         /// </summary>
-        public VectorLayer() : this("")
-        {
-        }
+        public VectorLayer() : this("") {}
 
         /// <summary>
         /// Initializes a new layer
@@ -97,10 +104,10 @@ namespace SharpMap.Layers
                     style = (VectorStyle) layer.Style.Clone();
                     isStyleDirty = true;
                 }
-                
+
                 name = layer.Name;
             }
-            
+
             smoothingMode = SmoothingMode.HighSpeed;
             FeatureEditor = new FeatureEditor();
             SimplifyGeometryDuringRendering = layer.SimplifyGeometryDuringRendering;
@@ -118,7 +125,21 @@ namespace SharpMap.Layers
             DataSource = dataSource;
         }
 
-        private bool clippingEnabled;
+        /// <summary>
+        /// Gets or sets the datasource
+        /// </summary>
+        public override IFeatureProvider DataSource
+        {
+            get
+            {
+                return base.DataSource;
+            }
+            set
+            {
+                base.DataSource = value;
+                isStyleDirty = true;
+            }
+        }
 
         /// <summary>
         /// Specifies whether polygons should be clipped prior to rendering
@@ -132,37 +153,30 @@ namespace SharpMap.Layers
         /// </remarks>
         public virtual bool ClippingEnabled
         {
-            get { return clippingEnabled; }
-            set { clippingEnabled = value; }
+            get
+            {
+                return clippingEnabled;
+            }
+            set
+            {
+                clippingEnabled = value;
+            }
         }
-
-        private SmoothingMode smoothingMode;
 
         /// <summary>
         /// Render whether smoothing (antialiasing) is applied to lines and curves and the edges of filled areas
         /// </summary>
         public virtual SmoothingMode SmoothingMode
         {
-            get { return smoothingMode; }
-            set { smoothingMode = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the datasource
-        /// </summary>
-        public override IFeatureProvider DataSource
-        {
-            get { return base.DataSource; }
+            get
+            {
+                return smoothingMode;
+            }
             set
             {
-                base.DataSource = value;
-                isStyleDirty = true;
+                smoothingMode = value;
             }
         }
-
-        private VectorStyle style;
-
-        private bool isStyleDirty;
 
         /// <summary>
         /// Gets or sets the rendering style of the vector layer.
@@ -184,6 +198,24 @@ namespace SharpMap.Layers
             }
         }
 
+        #region ICloneable Members
+
+        /// <summary>
+        /// Clones the layer
+        /// </summary>
+        /// <returns>cloned object</returns>
+        public override object Clone()
+        {
+            var vectorLayer = (VectorLayer) base.Clone();
+            vectorLayer.Style = (VectorStyle) Style.Clone();
+            vectorLayer.SmoothingMode = SmoothingMode;
+            vectorLayer.ClippingEnabled = ClippingEnabled;
+
+            return vectorLayer;
+        }
+
+        #endregion
+
         protected virtual void OnInitializeDefaultStyle()
         {
             style = new VectorStyle();
@@ -204,7 +236,9 @@ namespace SharpMap.Layers
             {
                 double min, max;
                 if (GetDataMinMax(gradientTheme.AttributeName, out min, out max))
+                {
                     gradientTheme.ScaleTo(min, max);
+                }
             }
         }
 
@@ -212,7 +246,7 @@ namespace SharpMap.Layers
         {
             if (!string.IsNullOrEmpty(ThemeGroup))
             {
-                return ((Map)Map).GetDataMinMaxForThemeGroup(ThemeGroup, attributeName, out min, out max);
+                return ((Map) Map).GetDataMinMaxForThemeGroup(ThemeGroup, attributeName, out min, out max);
             }
             min = MinDataValue;
             max = MaxDataValue;
@@ -267,17 +301,19 @@ namespace SharpMap.Layers
         public override void OnRender(Graphics g, IMap map) // TODO: remove map as parameter
         {
             if (map.Center == null)
+            {
                 throw (new ApplicationException("Cannot render map. View center not specified"));
+            }
 
             if (g == null)
             {
                 return;
             }
-                
+
             g.SmoothingMode = SmoothingMode;
-            
+
             //View to render
-            IEnvelope envelope = map.Envelope; 
+            IEnvelope envelope = map.Envelope;
 
             if (DataSource == null)
             {
@@ -319,25 +355,25 @@ namespace SharpMap.Layers
             bool themeOn = Theme != null;
 
             lastRenderedCoordinatesCount = 0;
-            int featureCount = 0; 
-            
+            int featureCount = 0;
+
             var startRenderingTime = DateTime.Now;
 
             VectorRenderingHelper.SimplifyGeometryDuringRendering = SimplifyGeometryDuringRendering; // TODO: pass as argument to make parallel render possible
 
             var features = GetFeatures(envelope);
 
-            foreach(IFeature feature in features)
+            foreach (IFeature feature in features)
             {
                 // TODO: improve performance by first decimating geometry and then transforming)
                 // get geometry
-                IGeometry currentGeometry = CoordinateTransformation != null 
-                                ? GeometryTransform.TransformGeometry(feature.Geometry, CoordinateTransformation.MathTransform) 
-                                : feature.Geometry;
+                IGeometry currentGeometry = CoordinateTransformation != null
+                                                ? GeometryTransform.TransformGeometry(feature.Geometry, CoordinateTransformation.MathTransform)
+                                                : feature.Geometry;
 
-                VectorStyle currentVectorStyle = themeOn 
-                                ? Theme.GetStyle(feature) as VectorStyle
-                                : Style;
+                VectorStyle currentVectorStyle = themeOn
+                                                     ? Theme.GetStyle(feature) as VectorStyle
+                                                     : Style;
 
                 // TODO: make it render only one time
                 foreach (IFeatureRenderer r in CustomRenderers)
@@ -373,7 +409,7 @@ namespace SharpMap.Layers
                     }
 
                     VectorRenderingHelper.RenderGeometry(g, map, currentGeometry, currentVectorStyle, DefaultPointSymbol, clippingEnabled);
-                    
+
                     lastRenderedCoordinatesCount += currentGeometry.Coordinates.Length;
                 }
 
@@ -388,22 +424,31 @@ namespace SharpMap.Layers
 
         public virtual long LastRenderedFeaturesCount
         {
-            get { return lastRenderedFeaturesCount; }
+            get
+            {
+                return lastRenderedFeaturesCount;
+            }
         }
 
         private long lastRenderedCoordinatesCount;
 
         public virtual long LastRenderedCoordinatesCount
         {
-            get { return lastRenderedCoordinatesCount; }
+            get
+            {
+                return lastRenderedCoordinatesCount;
+            }
         }
 
         private double lastRenderDuration;
         private IEnumerable<DateTime> times;
-        
+
         public override double LastRenderDuration
         {
-            get { return lastRenderDuration; }
+            get
+            {
+                return lastRenderDuration;
+            }
         }
 
         /// <summary>
@@ -417,25 +462,6 @@ namespace SharpMap.Layers
             lastRenderedFeaturesCount = featureCount;
             lastRenderedCoordinatesCount = coordinateCount;
             lastRenderDuration = durationInMillis;
-        }
-
-        #endregion
-
-        #region ICloneable Members
-
-        /// <summary>
-        /// Clones the layer
-        /// </summary>
-        /// <returns>cloned object</returns>
-        public override object Clone()
-        {
-            var vectorLayer = (VectorLayer)base.Clone();
-            vectorLayer.Style = (VectorStyle) Style.Clone();
-            vectorLayer.SmoothingMode = SmoothingMode;
-            vectorLayer.ClippingEnabled = ClippingEnabled;
-            
-
-            return vectorLayer;
         }
 
         #endregion

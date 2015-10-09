@@ -11,11 +11,14 @@ using SharpMap.UI.Tools;
 
 namespace SharpMap.UI.Tests.Tools
 {
-    public class CloneableFeature: Feature
+    public class CloneableFeature : Feature
     {
         public override object Clone()
         {
-            return new CloneableFeature {Attributes = Attributes, Geometry = (IGeometry) Geometry.Clone()};
+            return new CloneableFeature
+            {
+                Attributes = Attributes, Geometry = (IGeometry) Geometry.Clone()
+            };
         }
     }
 
@@ -30,9 +33,13 @@ namespace SharpMap.UI.Tests.Tools
             var vectorLayer = new VectorLayer();
             var layerData = new FeatureCollection();
             vectorLayer.DataSource = layerData;
-            layerData.FeatureType = typeof (CloneableFeature);
+            layerData.FeatureType = typeof(CloneableFeature);
 
-            layerData.Add(new LineString(new[] {new Coordinate(0, 0), new Coordinate(100, 0)}));
+            layerData.Add(new LineString(new[]
+            {
+                new Coordinate(0, 0),
+                new Coordinate(100, 0)
+            }));
 
             mapControl.Map.Layers.Add(vectorLayer);
 
@@ -61,11 +68,16 @@ namespace SharpMap.UI.Tests.Tools
             vectorLayer.DataSource = layerData;
             layerData.FeatureType = typeof(CloneableFeature);
 
-            layerData.Add(new LineString(new[] { new Coordinate(0, 0), new Coordinate(50, 0), new Coordinate(100, 0) }));
+            layerData.Add(new LineString(new[]
+            {
+                new Coordinate(0, 0),
+                new Coordinate(50, 0),
+                new Coordinate(100, 0)
+            }));
 
             mapControl.Map.Layers.Add(vectorLayer);
 
-            var firstFeature = (IFeature)layerData.Features[0];
+            var firstFeature = (IFeature) layerData.Features[0];
             mapControl.SelectTool.Select(firstFeature);
 
             var curveTool = mapControl.GetToolByType<CurvePointTool>();
@@ -91,18 +103,18 @@ namespace SharpMap.UI.Tests.Tools
             layerData.FeatureType = typeof(CloneableFeature);
 
             layerData.Add(new Polygon(new LinearRing(
-                                           new[]
-                                               {
-                                                   new Coordinate(0, 0),
-                                                   new Coordinate(100, 0),
-                                                   new Coordinate(100, 100),
-                                                   new Coordinate(0, 100),
-                                                   new Coordinate(0, 0),
-                                               })));
+                                          new[]
+                                          {
+                                              new Coordinate(0, 0),
+                                              new Coordinate(100, 0),
+                                              new Coordinate(100, 100),
+                                              new Coordinate(0, 100),
+                                              new Coordinate(0, 0),
+                                          })));
 
             mapControl.Map.Layers.Add(vectorLayer);
 
-            var firstFeature = (IFeature)layerData.Features[0];
+            var firstFeature = (IFeature) layerData.Features[0];
             mapControl.SelectTool.Select(firstFeature);
 
             var curveTool = mapControl.GetToolByType<CurvePointTool>();
@@ -128,18 +140,18 @@ namespace SharpMap.UI.Tests.Tools
             layerData.FeatureType = typeof(CloneableFeature);
 
             layerData.Add(new Polygon(new LinearRing(
-                               new[]
-                                               {
-                                                   new Coordinate(0, 0),
-                                                   new Coordinate(100, 0),
-                                                   new Coordinate(100, 100),
-                                                   new Coordinate(0, 100),
-                                                   new Coordinate(0, 0),
-                                               })));
+                                          new[]
+                                          {
+                                              new Coordinate(0, 0),
+                                              new Coordinate(100, 0),
+                                              new Coordinate(100, 100),
+                                              new Coordinate(0, 100),
+                                              new Coordinate(0, 0),
+                                          })));
 
             mapControl.Map.Layers.Add(vectorLayer);
 
-            var firstFeature = (IFeature)layerData.Features[0];
+            var firstFeature = (IFeature) layerData.Features[0];
             mapControl.SelectTool.Select(firstFeature);
 
             var curveTool = mapControl.GetToolByType<CurvePointTool>();
@@ -149,7 +161,7 @@ namespace SharpMap.UI.Tests.Tools
             var args = new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0);
             curveTool.OnMouseMove(new Coordinate(100, 0), new MouseEventArgs(MouseButtons.None, 1, 0, 0, 0));
             curveTool.OnMouseDown(new Coordinate(100, 0), args); // delete tracker
-            
+
             Assert.AreEqual(4, firstFeature.Geometry.Coordinates.Length);
             Assert.AreEqual(100.0, firstFeature.Geometry.Coordinates[1].X);
             Assert.AreEqual(100.0, firstFeature.Geometry.Coordinates[1].Y);
@@ -166,18 +178,18 @@ namespace SharpMap.UI.Tests.Tools
             layerData.FeatureType = typeof(CloneableFeature);
 
             layerData.Add(new Polygon(new LinearRing(
-                               new[]
-                                               {
-                                                   new Coordinate(0, 0),
-                                                   new Coordinate(100, 0),
-                                                   new Coordinate(100, 100),
-                                                   new Coordinate(0, 100),
-                                                   new Coordinate(0, 0),
-                                               })));
+                                          new[]
+                                          {
+                                              new Coordinate(0, 0),
+                                              new Coordinate(100, 0),
+                                              new Coordinate(100, 100),
+                                              new Coordinate(0, 100),
+                                              new Coordinate(0, 0),
+                                          })));
 
             mapControl.Map.Layers.Add(vectorLayer);
 
-            var firstFeature = (IFeature)layerData.Features[0];
+            var firstFeature = (IFeature) layerData.Features[0];
             mapControl.SelectTool.Select(firstFeature);
 
             var curveTool = mapControl.GetToolByType<CurvePointTool>();
@@ -187,7 +199,7 @@ namespace SharpMap.UI.Tests.Tools
             var args = new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0);
             curveTool.OnMouseMove(new Coordinate(0, 0), new MouseEventArgs(MouseButtons.None, 1, 0, 0, 0));
             curveTool.OnMouseDown(new Coordinate(0, 0), args); // delete tracker
-            
+
             Assert.AreEqual(4, firstFeature.Geometry.Coordinates.Length);
             Assert.AreEqual(100.0, firstFeature.Geometry.Coordinates[1].X);
             Assert.AreEqual(100.0, firstFeature.Geometry.Coordinates[1].Y);

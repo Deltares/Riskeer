@@ -59,7 +59,7 @@ namespace DelftTools.Controls.Swf.Charting.Series
         /// Show title of the series as label
         /// </summary>
         bool TitleLabelVisible { get; set; }
-        
+
         /// <summary>
         /// Values on the x axis should be treated as DateTime values
         /// </summary>

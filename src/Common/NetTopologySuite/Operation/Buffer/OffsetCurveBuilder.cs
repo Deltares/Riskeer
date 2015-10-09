@@ -17,8 +17,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
     /// of all the noded raw curves and tracing outside contours.
     /// The points in the raw curve are rounded to the required precision model.
     /// </summary>
-    public class OffsetCurveBuilder 
-    {        
+    public class OffsetCurveBuilder
+    {
         /// <summary>
         /// The default number of facets into which to divide a fillet of 90 degrees.
         /// A value of 8 gives less than 2% max error in the buffer distance.
@@ -27,13 +27,13 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         public const int DefaultQuadrantSegments = 8;
 
         private static readonly ICoordinate[] arrayTypeCoordinate = new ICoordinate[0];
-        private LineIntersector li;
+        private readonly LineIntersector li;
 
         /*
         * The angle quantum with which to approximate a fillet curve
         * (based on the input # of quadrant segments)
         */
-        private double filletAngleQuantum;
+        private readonly double filletAngleQuantum;
 
         /*
         * the max error of approximation between a quad segment and the true fillet curve
@@ -42,14 +42,21 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
 
         private ArrayList ptList;
         private double distance = 0.0;
-        private IPrecisionModel precisionModel;
+        private readonly IPrecisionModel precisionModel;
         private BufferStyle endCapStyle = BufferStyle.CapRound;
+
+        private ICoordinate s0, s1, s2;
+        private readonly LineSegment seg0 = new LineSegment();
+        private readonly LineSegment seg1 = new LineSegment();
+        private readonly LineSegment offset0 = new LineSegment();
+        private readonly LineSegment offset1 = new LineSegment();
+        private Positions side = 0;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="precisionModel"></param>
-        public OffsetCurveBuilder(IPrecisionModel precisionModel) : this(precisionModel, DefaultQuadrantSegments) { }
+        public OffsetCurveBuilder(IPrecisionModel precisionModel) : this(precisionModel, DefaultQuadrantSegments) {}
 
         /// <summary>
         /// 
@@ -63,7 +70,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             // the points are rounded as they are inserted into the curve line
             li = new RobustLineIntersector();
             var limitedQuadSegs = quadrantSegments < 1 ? 1 : quadrantSegments;
-            filletAngleQuantum = Math.PI / 2.0 / limitedQuadSegs;
+            filletAngleQuantum = Math.PI/2.0/limitedQuadSegs;
         }
 
         /// <summary>
@@ -93,12 +100,14 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         {
             IList lineList = new ArrayList();
             // a zero or negative width buffer of a line/point is empty
-            if (distance <= 0.0) 
+            if (distance <= 0.0)
+            {
                 return lineList;
+            }
             Init(distance);
             if (inputPts.Length <= 1)
             {
-                switch (endCapStyle) 
+                switch (endCapStyle)
                 {
                     case BufferStyle.CapRound:
                         AddCircle(inputPts[0], distance);
@@ -106,13 +115,16 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
                     case BufferStyle.CapSquare:
                         AddSquare(inputPts[0], distance);
                         break;
-	                default:
+                    default:
                         // default is for buffer to be empty (e.g. for a butt line cap);
-                        break;                        
+                        break;
                 }
             }
-            else ComputeLineBufferCurve(inputPts);
-            var lineCoord = Coordinates;           
+            else
+            {
+                ComputeLineBufferCurve(inputPts);
+            }
+            var lineCoord = Coordinates;
             lineList.Add(lineCoord);
             return lineList;
         }
@@ -127,9 +139,11 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             IList lineList = new ArrayList();
             Init(distance);
             if (inputPts.Length <= 2)
+            {
                 return GetLineCurve(inputPts, distance);
+            }
             // optimize creating ring for for zero distance
-            if (distance == 0.0) 
+            if (distance == 0.0)
             {
                 lineList.Add(CopyCoordinates(inputPts));
                 return lineList;
@@ -137,30 +151,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             ComputeRingBufferCurve(inputPts, side);
             lineList.Add(Coordinates);
             return lineList;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pts"></param>
-        /// <returns></returns>
-        private static ICoordinate[] CopyCoordinates(ICoordinate[] pts)
-        {
-            var copy = new ICoordinate[pts.Length];
-            for (var i = 0; i < copy.Length; i++) 
-                copy[i] = new Coordinate(pts[i]);            
-            return copy;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="distance"></param>
-        private void Init(double distance)
-        {
-            this.distance = distance;
-            maxCurveSegmentError = distance * (1 - Math.Cos(filletAngleQuantum / 2.0));
-            ptList = new ArrayList();
         }
 
         /// <summary>
@@ -175,12 +165,40 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
                 {
                     var start = (ICoordinate) ptList[0];
                     var end = (ICoordinate) ptList[1];
-                    if (!start.Equals(end)) 
+                    if (!start.Equals(end))
+                    {
                         AddPt(start);
+                    }
                 }
                 var coord = (ICoordinate[]) ptList.ToArray(typeof(ICoordinate));
                 return coord;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pts"></param>
+        /// <returns></returns>
+        private static ICoordinate[] CopyCoordinates(ICoordinate[] pts)
+        {
+            var copy = new ICoordinate[pts.Length];
+            for (var i = 0; i < copy.Length; i++)
+            {
+                copy[i] = new Coordinate(pts[i]);
+            }
+            return copy;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="distance"></param>
+        private void Init(double distance)
+        {
+            this.distance = distance;
+            maxCurveSegmentError = distance*(1 - Math.Cos(filletAngleQuantum/2.0));
+            ptList = new ArrayList();
         }
 
         /// <summary>
@@ -193,16 +211,20 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
 
             // compute points for left side of line
             InitSideSegments(inputPts[0], inputPts[1], Positions.Left);
-            for (var i = 2; i <= n; i++) 
-                AddNextSegment(inputPts[i], true);            
+            for (var i = 2; i <= n; i++)
+            {
+                AddNextSegment(inputPts[i], true);
+            }
             AddLastSegment();
             // add line cap for end of line
             AddLineEndCap(inputPts[n - 1], inputPts[n]);
 
             // compute points for right side of line
             InitSideSegments(inputPts[n], inputPts[n - 1], Positions.Left);
-            for (var i = n - 2; i >= 0; i--) 
-                AddNextSegment(inputPts[i], true);            
+            for (var i = n - 2; i >= 0; i--)
+            {
+                AddNextSegment(inputPts[i], true);
+            }
             AddLastSegment();
 
             // add line cap for start of line
@@ -219,7 +241,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         {
             var n = inputPts.Length - 1;
             InitSideSegments(inputPts[n - 1], inputPts[0], side);
-            for (var i = 1; i <= n; i++) 
+            for (var i = 1; i <= n; i++)
             {
                 var addStartPoint = i != 1;
                 AddNextSegment(inputPts[i], addStartPoint);
@@ -234,14 +256,16 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         private void AddPt(ICoordinate pt)
         {
             ICoordinate bufPt = new Coordinate(pt);
-            precisionModel.MakePrecise( bufPt);
+            precisionModel.MakePrecise(bufPt);
             // don't add duplicate points
             if (ptList.Count >= 1)
             {
-                var lastPt = (ICoordinate)this.ptList[this.ptList.Count - 1];
-                if (lastPt != null && (bufPt.Distance(lastPt) < 1e-8))                 
-                // if (lastPt != null && bufPt.Equals(lastPt))
+                var lastPt = (ICoordinate) ptList[ptList.Count - 1];
+                if (lastPt != null && (bufPt.Distance(lastPt) < 1e-8))
+                {
+                    // if (lastPt != null && bufPt.Equals(lastPt))
                     return;
+                }
             }
             ptList.Add(bufPt);
         }
@@ -251,23 +275,23 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         /// </summary>
         private void ClosePts()
         {
-            if (ptList.Count < 1) return;
+            if (ptList.Count < 1)
+            {
+                return;
+            }
             ICoordinate startPt = new Coordinate((ICoordinate) ptList[0]);
-            var lastPt  = (ICoordinate) ptList[ptList.Count - 1];
+            var lastPt = (ICoordinate) ptList[ptList.Count - 1];
             ICoordinate last2Pt = null;
             if (ptList.Count >= 2)
+            {
                 last2Pt = (ICoordinate) ptList[ptList.Count - 2];
-            if (startPt.Equals(lastPt)) 
+            }
+            if (startPt.Equals(lastPt))
+            {
                 return;
+            }
             ptList.Add(startPt);
         }
-
-        private ICoordinate s0, s1, s2;
-        private LineSegment seg0 = new LineSegment();
-        private LineSegment seg1 = new LineSegment();
-        private LineSegment offset0 = new LineSegment();
-        private LineSegment offset1 = new LineSegment();
-        private Positions side = 0;
 
         /// <summary>
         /// 
@@ -282,7 +306,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             this.side = side;
             seg1.SetCoordinates(s1, s2);
             ComputeOffsetSegment(seg1, side, distance, offset1);
-        }        
+        }
 
         /// <summary>
         /// 
@@ -301,15 +325,18 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             ComputeOffsetSegment(seg1, side, distance, offset1);
 
             // do nothing if points are equal
-            if (s1.Equals(s2)) return;
+            if (s1.Equals(s2))
+            {
+                return;
+            }
 
             var orientation = CGAlgorithms.ComputeOrientation(s0, s1, s2);
             var outsideTurn =
-                (orientation == CGAlgorithms.Clockwise        && side == Positions.Left)
-            ||  (orientation == CGAlgorithms.CounterClockwise && side == Positions.Right);
+                (orientation == CGAlgorithms.Clockwise && side == Positions.Left)
+                || (orientation == CGAlgorithms.CounterClockwise && side == Positions.Right);
 
             if (orientation == 0) // lines are collinear
-            { 
+            {
                 li.ComputeIntersection(s0, s1, s1, s2);
                 var numInt = li.IntersectionNum;
                 /*
@@ -317,7 +344,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
                 * In this case the point can be ignored, since the offset lines will also be
                 * parallel.
                 */
-                if (numInt >= 2)                 
+                if (numInt >= 2)
+                {
                     /*
                     * segments are collinear but reversing.  Have to add an "end-cap" fillet
                     * all the way around to other direction
@@ -325,25 +353,30 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
                     * (Polygons can never have two consecutive segments which are parallel but reversed,
                     * because that would be a self intersection.
                     */
-                    AddFillet(s1, offset0.P1, offset1.P0, CGAlgorithms.Clockwise, distance);                
+                    AddFillet(s1, offset0.P1, offset1.P0, CGAlgorithms.Clockwise, distance);
+                }
             }
             else if (outsideTurn)
             {
                 // add a fillet to connect the endpoints of the offset segments
-                if (addStartPoint) 
+                if (addStartPoint)
+                {
                     AddPt(offset0.P1);
+                }
                 AddFillet(s1, offset0.P1, offset1.P0, orientation, distance);
                 AddPt(offset1.P0);
             }
             else // inside turn
-            { 
+            {
                 /*
                  * add intersection point of offset segments (if any)
                  */
                 li.ComputeIntersection(offset0.P0, offset0.P1, offset1.P0, offset1.P1);
-                if (li.HasIntersection) 
-                    AddPt(li.GetIntersection(0));                
-                else 
+                if (li.HasIntersection)
+                {
+                    AddPt(li.GetIntersection(0));
+                }
+                else
                 {
                     /*
                     * If no intersection, it means the angle is so small and/or the offset so large
@@ -359,9 +392,11 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
                     * If the offset points are very close, don't add a joining curve
                     * but simply use one of the offset points
                     */
-                    if (offset0.P1.Distance(offset1.P0) < distance / 1000.0) 
-                        AddPt(offset0.P1);                    
-                    else 
+                    if (offset0.P1.Distance(offset1.P0) < distance/1000.0)
+                    {
+                        AddPt(offset0.P1);
+                    }
+                    else
                     {
                         // add endpoint of this segment offset
                         AddPt(offset0.P1);
@@ -394,10 +429,10 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             var sideSign = side == Positions.Left ? 1 : -1;
             var dx = seg.P1.X - seg.P0.X;
             var dy = seg.P1.Y - seg.P0.Y;
-            var len = Math.Sqrt(dx * dx + dy * dy);            
+            var len = Math.Sqrt(dx*dx + dy*dy);
             // u is the vector that is the length of the offset, in the direction of the segment
-            var ux = sideSign * distance * dx / len;
-            var uy = sideSign * distance * dy / len;
+            var ux = sideSign*distance*dx/len;
+            var uy = sideSign*distance*dy/len;
             offset.P0.X = seg.P0.X - uy;
             offset.P0.Y = seg.P0.Y + ux;
             offset.P1.X = seg.P1.X - uy;
@@ -420,12 +455,12 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             var dy = p1.Y - p0.Y;
             var angle = Math.Atan2(dy, dx);
 
-            switch (endCapStyle) 
+            switch (endCapStyle)
             {
                 case BufferStyle.CapRound:
                     // add offset seg points with a fillet between them
                     AddPt(offsetL.P1);
-                    AddFillet(p1, angle + Math.PI / 2, angle - Math.PI / 2, CGAlgorithms.Clockwise, distance);
+                    AddFillet(p1, angle + Math.PI/2, angle - Math.PI/2, CGAlgorithms.Clockwise, distance);
                     AddPt(offsetR.P1);
                     break;
 
@@ -434,12 +469,12 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
                     AddPt(offsetL.P1);
                     AddPt(offsetR.P1);
                     break;
-                
+
                 case BufferStyle.CapSquare:
                     // add a square defined by extensions of the offset segment endpoints
                     ICoordinate squareCapSideOffset = new Coordinate();
-                    squareCapSideOffset.X = Math.Abs(distance) * Math.Cos(angle);
-                    squareCapSideOffset.Y = Math.Abs(distance) * Math.Sin(angle);
+                    squareCapSideOffset.X = Math.Abs(distance)*Math.Cos(angle);
+                    squareCapSideOffset.Y = Math.Abs(distance)*Math.Sin(angle);
 
                     ICoordinate squareCapLOffset = new Coordinate(
                         offsetL.P1.X + squareCapSideOffset.X,
@@ -451,8 +486,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
                     AddPt(squareCapROffset);
                     break;
 
-	            default:
-		            break;
+                default:
+                    break;
             }
         }
 
@@ -473,17 +508,21 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             var dy1 = p1.Y - p.Y;
             var endAngle = Math.Atan2(dy1, dx1);
 
-            if (direction == CGAlgorithms.Clockwise)    
+            if (direction == CGAlgorithms.Clockwise)
             {
                 if (startAngle <= endAngle)
-                    startAngle += 2.0 * Math.PI;
+                {
+                    startAngle += 2.0*Math.PI;
+                }
             }
             else // direction == CounterClockwise
-            {                
+            {
                 if (startAngle >= endAngle)
-                    startAngle -= 2.0 * Math.PI;
-            }                        
-            
+                {
+                    startAngle -= 2.0*Math.PI;
+                }
+            }
+
             AddPt(p0);
             AddFillet(p, startAngle, endAngle, direction, distance);
             AddPt(p1);
@@ -503,27 +542,29 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             var directionFactor = direction == CGAlgorithms.Clockwise ? -1 : 1;
 
             var totalAngle = Math.Abs(startAngle - endAngle);
-            var nSegs = (int) (totalAngle / filletAngleQuantum + 0.5);
+            var nSegs = (int) (totalAngle/filletAngleQuantum + 0.5);
 
-            if (nSegs < 1) 
-                return;    // no segments because angle is less than increment - nothing to do!
+            if (nSegs < 1)
+            {
+                return; // no segments because angle is less than increment - nothing to do!
+            }
 
             double initAngle, currAngleInc;
 
             // choose angle increment so that each segment has equal length
             initAngle = 0.0;
-            currAngleInc = totalAngle / nSegs;
+            currAngleInc = totalAngle/nSegs;
 
             var currAngle = initAngle;
-            ICoordinate pt = new Coordinate();            
-            while (currAngle < totalAngle) 
+            ICoordinate pt = new Coordinate();
+            while (currAngle < totalAngle)
             {
-                var angle = startAngle + directionFactor * currAngle;
-                pt.X = p.X + distance * Math.Cos(angle);
-                pt.Y = p.Y + distance * Math.Sin(angle);                             
+                var angle = startAngle + directionFactor*currAngle;
+                pt.X = p.X + distance*Math.Cos(angle);
+                pt.Y = p.Y + distance*Math.Sin(angle);
                 AddPt(pt);
                 currAngle += currAngleInc;
-            }            
+            }
         }
 
         /// <summary>
@@ -536,7 +577,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             // add start point
             ICoordinate pt = new Coordinate(p.X + distance, p.Y);
             AddPt(pt);
-            AddFillet(p, 0.0, 2.0 * Math.PI, -1, distance);
+            AddFillet(p, 0.0, 2.0*Math.PI, -1, distance);
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ namespace GeoAPI.Geometries
     /// Standard ordinate index values.
     /// </summary>
     public enum Ordinates
-    {        
+    {
         /// <summary>
         /// X Ordinate = 0.
         /// </summary>
@@ -59,7 +59,7 @@ namespace GeoAPI.Geometries
         /// <summary>
         /// Returns the number of coordinates in this sequence.
         /// </summary>        
-        int Count { get;} 
+        int Count { get; }
 
         /// <summary>
         /// Returns (possibly a copy of) the ith Coordinate in this collection.
@@ -82,7 +82,7 @@ namespace GeoAPI.Geometries
         /// </summary>
         /// <param name="i">The index of the coordinate to retrieve.</param>
         /// <returns>A copy of the i'th coordinate in the sequence</returns>
-        ICoordinate GetCoordinateCopy(int i);             
+        ICoordinate GetCoordinateCopy(int i);
 
         /// <summary>
         /// Copies the i'th coordinate in the sequence to the supplied Coordinate.  

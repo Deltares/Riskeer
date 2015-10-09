@@ -10,7 +10,7 @@ namespace DelftTools.Shell.Gui
         {
             if (destinationType == typeof(string) && value is Array)
             {
-                return string.Format("Count ({0})", ((Array)value).Length);
+                return string.Format("Count ({0})", ((Array) value).Length);
             }
 
             return base.ConvertTo(context, culture, value, destinationType);

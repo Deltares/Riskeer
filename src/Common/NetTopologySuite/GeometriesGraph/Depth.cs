@@ -6,62 +6,28 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
     /// A Depth object records the topological depth of the sides
     /// of an Edge for up to two Geometries.
     /// </summary>
-    public class Depth 
+    public class Depth
     {
         /// <summary>
         /// 
         /// </summary>
         private const int Null = -1;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="location"></param>
-        /// <returns></returns>
-        public static int DepthAtLocation(Locations location)
-        {
-            if (location == Locations.Exterior) 
-                return 0;
-
-            if (location == Locations.Interior) 
-                return 1;
-
-            return Null;
-        }
-
-        private int[,] depth = new int[2,3];
+        private readonly int[,] depth = new int[2, 3];
 
         /// <summary>
         /// 
         /// </summary>
-        public Depth() 
+        public Depth()
         {
             // initialize depth array to a sentinel value
-            for (int i = 0; i < 2; i++) 
-                for (int j = 0; j < 3; j++)                 
-                    depth[i,j] = Null;                
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="geomIndex"></param>
-        /// <param name="posIndex"></param>
-        /// <returns></returns>
-        public int GetDepth(int geomIndex, Positions posIndex)
-        {
-            return depth[geomIndex, (int)posIndex];
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="geomIndex"></param>
-        /// <param name="posIndex"></param>
-        /// <param name="depthValue"></param>
-        public void SetDepth(int geomIndex, Positions posIndex, int depthValue)
-        {
-            depth[geomIndex, (int)posIndex] = depthValue;
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    depth[i, j] = Null;
+                }
+            }
         }
 
         /// <summary>
@@ -85,13 +51,57 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public static int DepthAtLocation(Locations location)
+        {
+            if (location == Locations.Exterior)
+            {
+                return 0;
+            }
+
+            if (location == Locations.Interior)
+            {
+                return 1;
+            }
+
+            return Null;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="geomIndex"></param>
+        /// <param name="posIndex"></param>
+        /// <returns></returns>
+        public int GetDepth(int geomIndex, Positions posIndex)
+        {
+            return depth[geomIndex, (int) posIndex];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="geomIndex"></param>
+        /// <param name="posIndex"></param>
+        /// <param name="depthValue"></param>
+        public void SetDepth(int geomIndex, Positions posIndex, int depthValue)
+        {
+            depth[geomIndex, (int) posIndex] = depthValue;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="geomIndex"></param>
         /// <param name="posIndex"></param>
         /// <returns></returns>
         public Locations GetLocation(int geomIndex, Positions posIndex)
         {
-            if (depth[geomIndex, (int)posIndex] <= 0) 
+            if (depth[geomIndex, (int) posIndex] <= 0)
+            {
                 return Locations.Exterior;
+            }
             return Locations.Interior;
         }
 
@@ -104,23 +114,27 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         public void Add(int geomIndex, Positions posIndex, Locations location)
         {
             if (location == Locations.Interior)
-                depth[geomIndex, (int)posIndex]++;
+            {
+                depth[geomIndex, (int) posIndex]++;
+            }
         }
 
         /// <summary>
         /// A Depth object is null (has never been initialized) if all depths are null.
         /// </summary>
         public bool IsNull()
-        {                        
-                for (int i = 0; i < 2; i++)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < 3; j++)
                 {
-                    for (int j = 0; j < 3; j++)
+                    if (depth[i, j] != Null)
                     {
-                        if (depth[i,j] != Null)
-                            return false;
+                        return false;
                     }
                 }
-                return true;            
+            }
+            return true;
         }
 
         /// <summary>
@@ -130,7 +144,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <returns></returns>
         public bool IsNull(int geomIndex)
         {
-            return depth[geomIndex,1] == Null;
+            return depth[geomIndex, 1] == Null;
         }
 
         /// <summary>
@@ -141,7 +155,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <returns></returns>
         public bool IsNull(int geomIndex, Positions posIndex)
         {
-            return depth[geomIndex,(int)posIndex] == Null;
+            return depth[geomIndex, (int) posIndex] == Null;
         }
 
         /// <summary>
@@ -154,13 +168,18 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
             {
                 for (int j = 1; j < 3; j++)
                 {
-                    Locations loc = lbl.GetLocation(i, (Positions)j);
+                    Locations loc = lbl.GetLocation(i, (Positions) j);
                     if (loc == Locations.Exterior || loc == Locations.Interior)
                     {
                         // initialize depth if it is null, otherwise add this location value
-                        if (IsNull(i, (Positions)j))
-                             depth[i,j]  = DepthAtLocation(loc);
-                        else depth[i,j] += DepthAtLocation(loc);
+                        if (IsNull(i, (Positions) j))
+                        {
+                            depth[i, j] = DepthAtLocation(loc);
+                        }
+                        else
+                        {
+                            depth[i, j] += DepthAtLocation(loc);
+                        }
                     }
                 }
             }
@@ -173,7 +192,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <returns></returns>
         public int GetDelta(int geomIndex)
         {
-            return depth[geomIndex, (int)Positions.Right] - depth[geomIndex, (int)Positions.Left];
+            return depth[geomIndex, (int) Positions.Right] - depth[geomIndex, (int) Positions.Left];
         }
 
         /// <summary>
@@ -186,21 +205,28 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// </summary>
         public void Normalize()
         {
-            for (int i = 0; i < 2; i++) 
+            for (int i = 0; i < 2; i++)
             {
-                if (! IsNull(i)) 
+                if (!IsNull(i))
                 {
-                    int minDepth = depth[i,1];
-                    if (depth[i,2] < minDepth)
-                    minDepth = depth[i,2];
+                    int minDepth = depth[i, 1];
+                    if (depth[i, 2] < minDepth)
+                    {
+                        minDepth = depth[i, 2];
+                    }
 
-                    if (minDepth < 0) minDepth = 0;
-                    for (int j = 1; j < 3; j++) 
+                    if (minDepth < 0)
+                    {
+                        minDepth = 0;
+                    }
+                    for (int j = 1; j < 3; j++)
                     {
                         int newValue = 0;
-                        if (depth[i,j] > minDepth)
+                        if (depth[i, j] > minDepth)
+                        {
                             newValue = 1;
-                        depth[i,j] = newValue;
+                        }
+                        depth[i, j] = newValue;
                     }
                 }
             }
@@ -212,8 +238,8 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <returns></returns>
         public override string ToString()
         {
-            return "A: " + depth[0,1] + "," + depth[0,2]
-                 +" B: " + depth[1,1] + "," + depth[1,2];
+            return "A: " + depth[0, 1] + "," + depth[0, 2]
+                   + " B: " + depth[1, 1] + "," + depth[1, 2];
         }
     }
 }

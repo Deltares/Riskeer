@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GeoAPI.Geometries;
 
 namespace GisSharpBlog.NetTopologySuite.Geometries
-{       
+{
     /// <summary>
     /// A list of Coordinates, which may
     /// be set to prevent repeated coordinates from occuring in the list.
@@ -55,7 +55,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public CoordinateList(ICoordinate[] coord, bool allowRepeated)
         {
             Add(coord, allowRepeated);
-        }        
+        }
 
         /// <summary>
         /// Returns the coordinate at specified index.
@@ -65,7 +65,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public ICoordinate GetCoordinate(int i)
         {
             return base[i];
-        }        
+        }
 
         /// <summary>
         /// Add an array of coordinates.
@@ -77,11 +77,19 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public bool Add(ICoordinate[] coord, bool allowRepeated, bool direction)
         {
             if (direction)
+            {
                 for (int i = 0; i < coord.Length; i++)
+                {
                     Add(coord[i], allowRepeated);
+                }
+            }
             else
+            {
                 for (int i = coord.Length - 1; i >= 0; i--)
+                {
                     Add(coord[i], allowRepeated);
+                }
+            }
             return true;
         }
 
@@ -121,8 +129,10 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
                 if (Count >= 1)
                 {
                     ICoordinate last = this[Count - 1];
-                    if (last.Equals2D(coord)) 
+                    if (last.Equals2D(coord))
+                    {
                         return false;
+                    }
                 }
             }
             Add(coord);
@@ -146,12 +156,18 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
                     if (i > 0)
                     {
                         ICoordinate prev = this[i - 1];
-                        if (prev.Equals2D(coord)) return;
+                        if (prev.Equals2D(coord))
+                        {
+                            return;
+                        }
                     }
                     if (i < size)
                     {
                         ICoordinate next = this[i];
-                        if (next.Equals2D(coord)) return;
+                        if (next.Equals2D(coord))
+                        {
+                            return;
+                        }
                     }
                 }
             }
@@ -181,7 +197,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public void CloseRing()
         {
             if (Count > 0)
+            {
                 Add(this[0], false);
+            }
         }
 
         /// <summary>
@@ -198,11 +216,13 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         /// <returns>The copied object.</returns>
         public object Clone()
-        {         
+        {
             CoordinateList copy = new CoordinateList();
             foreach (ICoordinate c in this)
+            {
                 copy.Add((ICoordinate) c.Clone());
+            }
             return copy;
-        }        
-    } 
-} 
+        }
+    }
+}

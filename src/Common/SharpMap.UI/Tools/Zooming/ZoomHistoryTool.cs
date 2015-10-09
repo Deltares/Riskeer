@@ -7,14 +7,36 @@ namespace SharpMap.UI.Tools.Zooming
     /// </summary>
     public class ZoomHistoryTool : ZoomTool
     {
-        private ZoomState currentZoomState;
         private readonly Stack<ZoomState> undoStack = new Stack<ZoomState>();
         private readonly Stack<ZoomState> redoStack = new Stack<ZoomState>();
+        private ZoomState currentZoomState;
         private bool isZoomChangeTriggeredByNavigation;
 
         public ZoomHistoryTool()
         {
             Name = "ZoomHistory";
+        }
+
+        /// <summary>
+        /// Number of undo zoom steps that is available
+        /// </summary>
+        public int UndoCount
+        {
+            get
+            {
+                return (undoStack.Count);
+            }
+        }
+
+        /// <summary>
+        /// Number of redo zoom steps that is available
+        /// </summary>
+        public int RedoCount
+        {
+            get
+            {
+                return (redoStack.Count);
+            }
         }
 
         /// <summary>
@@ -57,22 +79,6 @@ namespace SharpMap.UI.Tools.Zooming
                     Map.Zoom = nextState.Zoom;
                 }
             }
-        }
-
-        /// <summary>
-        /// Number of undo zoom steps that is available
-        /// </summary>
-        public int UndoCount
-        {
-            get { return (undoStack.Count); }
-        }
-
-        /// <summary>
-        /// Number of redo zoom steps that is available
-        /// </summary>
-        public int RedoCount
-        {
-            get { return (redoStack.Count); }
         }
 
         /// <summary>

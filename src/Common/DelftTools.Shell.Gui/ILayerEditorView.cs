@@ -12,9 +12,8 @@ namespace DelftTools.Shell.Gui
     /// </summary>
     public interface ILayerEditorView : IView
     {
-        IEnumerable<IFeature> SelectedFeatures { get; set; }
-
         event EventHandler SelectedFeaturesChanged;
+        IEnumerable<IFeature> SelectedFeatures { get; set; }
 
         /// <summary>
         /// The layer for which this view is the editor.

@@ -37,51 +37,51 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VectorLayerAttributeTableView));
-            this.tableView = new DelftTools.Controls.Swf.Table.TableView();
-            ((System.ComponentModel.ISupportInitialize)(this.tableView)).BeginInit();
+            this.TableView = new DelftTools.Controls.Swf.Table.TableView();
+            ((System.ComponentModel.ISupportInitialize)(this.TableView)).BeginInit();
             this.SuspendLayout();
             // 
             // tableView
             // 
-            this.tableView.AllowAddNewRow = true;
-            this.tableView.AllowColumnPinning = true;
-            this.tableView.AllowColumnSorting = true;
-            this.tableView.AllowDeleteRow = true;
-            this.tableView.AutoGenerateColumns = true;
-            this.tableView.ColumnAutoWidth = false;
-            this.tableView.DisplayCellFilter = null;
-            this.tableView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableView.HeaderHeigth = -1;
-            this.tableView.InputValidator = null;
-            this.tableView.InvalidCellBackgroundColor = System.Drawing.Color.Tomato;
-            this.tableView.InvalidCellFilter = null;
-            this.tableView.IsEndEditOnEnterKey = false;
-            this.tableView.Location = new System.Drawing.Point(0, 0);
-            this.tableView.MultipleCellEdit = true;
-            this.tableView.MultiSelect = true;
-            this.tableView.Name = "tableView";
-            this.tableView.ReadOnly = false;
-            this.tableView.ReadOnlyCellBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.tableView.ReadOnlyCellFilter = null;
-            this.tableView.ReadOnlyCellForeColor = System.Drawing.Color.Black;
-            this.tableView.RowHeight = -1;
-            this.tableView.RowSelect = false;
-            this.tableView.RowValidator = null;
-            this.tableView.EditButtons = true;
-            this.tableView.ShowRowNumbers = false;
-            this.tableView.Size = new System.Drawing.Size(644, 316);
-            this.tableView.TabIndex = 0;
-            this.tableView.UseCenteredHeaderText = false;
-            this.tableView.SelectionChanged += new System.EventHandler<DelftTools.Controls.TableSelectionChangedEventArgs>(this.TableViewSelectionChanged);
+            this.TableView.AllowAddNewRow = true;
+            this.TableView.AllowColumnPinning = true;
+            this.TableView.AllowColumnSorting = true;
+            this.TableView.AllowDeleteRow = true;
+            this.TableView.AutoGenerateColumns = true;
+            this.TableView.ColumnAutoWidth = false;
+            this.TableView.DisplayCellFilter = null;
+            this.TableView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TableView.HeaderHeigth = -1;
+            this.TableView.InputValidator = null;
+            this.TableView.InvalidCellBackgroundColor = System.Drawing.Color.Tomato;
+            this.TableView.InvalidCellFilter = null;
+            this.TableView.IsEndEditOnEnterKey = false;
+            this.TableView.Location = new System.Drawing.Point(0, 0);
+            this.TableView.MultipleCellEdit = true;
+            this.TableView.MultiSelect = true;
+            this.TableView.Name = "TableView";
+            this.TableView.ReadOnly = false;
+            this.TableView.ReadOnlyCellBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.TableView.ReadOnlyCellFilter = null;
+            this.TableView.ReadOnlyCellForeColor = System.Drawing.Color.Black;
+            this.TableView.RowHeight = -1;
+            this.TableView.RowSelect = false;
+            this.TableView.RowValidator = null;
+            this.TableView.EditButtons = true;
+            this.TableView.ShowRowNumbers = false;
+            this.TableView.Size = new System.Drawing.Size(644, 316);
+            this.TableView.TabIndex = 0;
+            this.TableView.UseCenteredHeaderText = false;
+            this.TableView.SelectionChanged += new System.EventHandler<DelftTools.Controls.TableSelectionChangedEventArgs>(this.TableViewSelectionChanged);
             // 
             // VectorLayerAttributeTableView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableView);
+            this.Controls.Add(this.TableView);
             this.Name = "VectorLayerAttributeTableView";
             this.Size = new System.Drawing.Size(644, 316);
-            ((System.ComponentModel.ISupportInitialize)(this.tableView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TableView)).EndInit();
             this.ResumeLayout(false);
 
         }

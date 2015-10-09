@@ -2,7 +2,7 @@
 
 namespace DelftTools.Shell.Gui
 {
-    interface IProjectItemHandler
+    internal interface IProjectItemHandler
     {
         /// <summary>
         /// Returns false if plugin does not allow to paste <paramref name="item"/> into <paramref name="container"/>.
@@ -25,7 +25,7 @@ namespace DelftTools.Shell.Gui
         bool CanDelete(IProjectItem item);
     }
 
-    interface IDragDropHandler
+    internal interface IDragDropHandler
     {
         /// <summary>
         /// TODO: is it not part of IView?

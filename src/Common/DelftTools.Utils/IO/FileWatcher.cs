@@ -10,15 +10,14 @@ namespace DelftTools.Utils.IO
     /// </summary>
     public class FileWatcher : ICloneable
     {
-        private readonly FileSystemWatcher fileWatcher;
-        protected string filePath;
         //todo consider making projectlocation static property.
         private static string projectLocation;
+        private readonly FileSystemWatcher fileWatcher;
+        protected string filePath;
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        
         public FileWatcher()
         {
             fileWatcher = FileUtils.CreateWatcher();
@@ -32,8 +31,14 @@ namespace DelftTools.Utils.IO
         /// </summary>
         public virtual string FilePath
         {
-            get { return filePath; }
-            set { filePath = value; }
+            get
+            {
+                return filePath;
+            }
+            set
+            {
+                filePath = value;
+            }
         }
 
         /// <summary>
@@ -44,7 +49,7 @@ namespace DelftTools.Utils.IO
         {
             get
             {
-                if (filePath!=null && FileUtils.IsSubdirectory(projectLocation, filePath))
+                if (filePath != null && FileUtils.IsSubdirectory(projectLocation, filePath))
                 {
                     return FileUtils.GetRelativePath(projectLocation, filePath);
                 }
@@ -69,7 +74,6 @@ namespace DelftTools.Utils.IO
             }
         }
 
-
         /// <summary>
         /// Projectlocation can be set from the outside indicating that the filePath should be relative. <para/>
         /// Warning: only use this when saving/loading a project.
@@ -78,8 +82,14 @@ namespace DelftTools.Utils.IO
         /// </summary>
         public static string ProjectLocation
         {
-            set { projectLocation = Path.GetFullPath(value); }
-            get { return projectLocation; }
+            set
+            {
+                projectLocation = Path.GetFullPath(value);
+            }
+            get
+            {
+                return projectLocation;
+            }
         }
 
         #region ICloneable Members

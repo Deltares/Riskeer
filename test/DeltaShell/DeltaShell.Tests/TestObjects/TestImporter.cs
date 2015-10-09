@@ -9,44 +9,68 @@ namespace DeltaShell.Tests.TestObjects
     {
         public string Name
         {
-            get { return "Test Importer"; }
+            get
+            {
+                return "Test Importer";
+            }
         }
 
         public string Category { get; private set; }
-        
-        public Bitmap Image { get; private set; }
 
-        public bool CanImportOn(object targetObject)
-        {
-            throw new NotImplementedException();
-        }
+        public Bitmap Image { get; private set; }
 
         public bool CanImportOnRootLevel
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
 
         public IEnumerable<Type> SupportedItemTypes
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public string FileFilter
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        public bool OpenViewAfterImport { get { return false; } }
+        public bool OpenViewAfterImport
+        {
+            get
+            {
+                return false;
+            }
+        }
 
         public string TargetDataDirectory
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public bool ShouldCancel { get; set; }
 
         public ImportProgressChangedDelegate ProgressChanged { get; set; }
+
+        public bool CanImportOn(object targetObject)
+        {
+            throw new NotImplementedException();
+        }
 
         public object ImportItem(string path, object target = null)
         {

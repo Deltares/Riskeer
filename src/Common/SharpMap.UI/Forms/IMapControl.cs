@@ -9,6 +9,13 @@ namespace SharpMap.UI.Forms
 {
     public interface IMapControl
     {
+        event MouseEventHandler MouseUp;
+
+        event KeyEventHandler KeyUp;
+
+        event KeyEventHandler KeyDown;
+
+        event EventHandler SelectedFeaturesChanged;
         Map Map { get; set; }
 
         Image Image { get; }
@@ -16,10 +23,26 @@ namespace SharpMap.UI.Forms
         IList<IMapTool> Tools { get; }
 
         MoveTool MoveTool { get; }
-        
+
         SelectTool SelectTool { get; }
-        
+
         SnapTool SnapTool { get; }
+
+        IEnumerable<IFeature> SelectedFeatures { get; set; }
+
+        // common control methods
+        Cursor Cursor { get; set; }
+        Color BackColor { get; }
+        Size ClientSize { get; }
+        Size Size { get; }
+        int Height { get; }
+        int Width { get; }
+        Rectangle ClientRectangle { get; }
+
+        /// <summary>
+        /// True if map control is busy processing something in a separate thread.
+        /// </summary>
+        bool IsProcessing { get; }
 
         /// <summary>
         /// Gets the name of the tool by.
@@ -32,40 +55,16 @@ namespace SharpMap.UI.Forms
         T GetToolByType<T>() where T : class;
 
         void ActivateTool(IMapTool tool);
-        
-        IEnumerable<IFeature> SelectedFeatures { get; set; }
-
-        // common control methods
-        Cursor Cursor { get; set; }
 
         /// <summary>
         /// Does a refresh when the timer ticks.
         /// </summary>
         void Refresh();
+
         Graphics CreateGraphics();
-        Color BackColor { get; }
-        Size ClientSize { get; }
-        Size Size { get; }
-        int Height { get; }
-        int Width { get; }
-        Rectangle ClientRectangle { get; }
         Point PointToScreen(Point location);
         Point PointToClient(Point p);
 
         void Invalidate(Rectangle rectangle);
-
-
-        event MouseEventHandler MouseUp;
-
-        event KeyEventHandler KeyUp;
-
-        event KeyEventHandler KeyDown;
-
-        /// <summary>
-        /// True if map control is busy processing something in a separate thread.
-        /// </summary>
-        bool IsProcessing { get; }
-
-        event EventHandler SelectedFeaturesChanged;
     }
 }

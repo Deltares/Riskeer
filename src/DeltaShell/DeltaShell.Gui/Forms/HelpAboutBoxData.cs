@@ -17,7 +17,7 @@ namespace DeltaShell.Gui.Forms
 
         public string Copyright { get; set; }
 
-        public string Description { get; set;}
+        public string Description { get; set; }
 
         public string Version { get; set; }
 

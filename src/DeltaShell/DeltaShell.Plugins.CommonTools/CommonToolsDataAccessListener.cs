@@ -6,7 +6,10 @@ namespace DeltaShell.Plugins.CommonTools
     {
         public override object Clone()
         {
-            return new CommonToolsDataAccessListener {ProjectRepository = ProjectRepository};
+            return new CommonToolsDataAccessListener
+            {
+                ProjectRepository = ProjectRepository
+            };
         }
     }
 }

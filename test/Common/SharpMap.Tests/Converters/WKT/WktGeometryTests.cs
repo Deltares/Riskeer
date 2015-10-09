@@ -28,7 +28,7 @@ namespace SharpMap.Tests.Converters.WKT
             Assert.IsTrue(geom[1].IsEmpty);
             Assert.AreEqual(3, geom.NumGeometries);
             Assert.AreEqual(geomCollection, geom.AsText());
-            Assert.AreEqual("GEOMETRYCOLLECTION EMPTY", GeometryFactory.CreateGeometryCollection().AsText() );
+            Assert.AreEqual("GEOMETRYCOLLECTION EMPTY", GeometryFactory.CreateGeometryCollection().AsText());
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace SharpMap.Tests.Converters.WKT
             IMultiPolygon geom = GeometryFromWKT.Parse(multipolygon) as IMultiPolygon;
             Assert.IsNotNull(geom);
             Assert.AreEqual(2, geom.NumGeometries);
-            Assert.AreEqual(GeometryFactory.CreatePoint(5,5), geom[0].Centroid);
+            Assert.AreEqual(GeometryFactory.CreatePoint(5, 5), geom[0].Centroid);
             Assert.AreEqual(multipolygon, geom.AsText());
             Assert.IsNotNull(GeometryFromWKT.Parse("MULTIPOLYGON EMPTY"));
             Assert.IsTrue(GeometryFromWKT.Parse("MULTIPOLYGON EMPTY").IsEmpty);
@@ -64,6 +64,7 @@ namespace SharpMap.Tests.Converters.WKT
             Assert.IsTrue((GeometryFromWKT.Parse("LINESTRING EMPTY") as ILineString).IsEmpty);
             Assert.AreEqual("LINESTRING EMPTY", GeometryFactory.CreateLineString(null).AsText());
         }
+
         [Test]
         public void ParseMultiLineString()
         {
@@ -88,10 +89,11 @@ namespace SharpMap.Tests.Converters.WKT
             Assert.AreEqual(4, geom.NumGeometries);
             Assert.AreEqual("MULTILINESTRING EMPTY", GeometryFactory.CreateMultiLineString(null).AsText());
         }
+
         [Test]
         public void ParsePolygon()
         {
-            string polygon = "POLYGON((20 20,20 30,30 30,30 20,20 20))"; 
+            string polygon = "POLYGON((20 20,20 30,30 30,30 20,20 20))";
             IPolygon geom = GeometryFromWKT.Parse(polygon) as IPolygon;
             Assert.IsNotNull(geom);
             Assert.AreEqual(40, geom.ExteriorRing.Length);
@@ -105,11 +107,12 @@ namespace SharpMap.Tests.Converters.WKT
             Assert.AreEqual(2, geom.Holes.Length);
             //Assert.AreEqual(52, geom.Area);
             //Assert.AreEqual(geom.Shell.Area - geom.Holes[0].Area + geom.Holes[1].Area, geom.Area);
-            Assert.AreEqual(polygon, geom.AsText());			
+            Assert.AreEqual(polygon, geom.AsText());
             //Test empty geometry WKT
             Assert.IsTrue(GeometryFromWKT.Parse("POLYGON EMPTY").IsEmpty);
             Assert.AreEqual("POLYGON EMPTY", GeometryFactory.CreatePolygon(null, null).AsText());
         }
+
         [Test]
         public void ParsePoint()
         {
@@ -122,6 +125,7 @@ namespace SharpMap.Tests.Converters.WKT
             Assert.IsTrue(GeometryFromWKT.Parse("POINT EMPTY").IsEmpty);
             Assert.AreEqual("POINT EMPTY", GeometryFactory.CreatePoint(null).AsText());
         }
+
         [Test]
         public void ParseMultiPoint()
         {

@@ -63,5 +63,5 @@ namespace GeoAPI.Geometries
             }
             throw new ArgumentException("Unknown location value: " + locationValue);
         }
-    }   
+    }
 }

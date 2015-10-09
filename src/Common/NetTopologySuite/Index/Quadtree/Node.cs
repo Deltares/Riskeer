@@ -11,6 +11,28 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
     /// </summary>
     public class Node : NodeBase
     {
+        private readonly ICoordinate centre;
+        private readonly int level;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="env"></param>
+        /// <param name="level"></param>
+        public Node(IEnvelope env, int level)
+        {
+            Envelope = env;
+            this.level = level;
+            centre = new Coordinate();
+            centre.X = (env.MinX + env.MaxX)/2;
+            centre.Y = (env.MinY + env.MaxY)/2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IEnvelope Envelope { get; private set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -32,52 +54,17 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         public static Node CreateExpanded(Node node, IEnvelope addEnv)
         {
             IEnvelope expandEnv = new Envelope(addEnv);
-            if (node != null) 
-                expandEnv.ExpandToInclude(node.env);
+            if (node != null)
+            {
+                expandEnv.ExpandToInclude(node.Envelope);
+            }
 
             Node largerNode = CreateNode(expandEnv);
-            if (node != null) 
-                largerNode.InsertNode(node);
-            return largerNode;
-        }
-
-        private IEnvelope env;
-        private ICoordinate centre;
-        private int level;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="env"></param>
-        /// <param name="level"></param>
-        public Node(IEnvelope env, int level)
-        {
-            this.env = env;
-            this.level = level;
-            centre = new Coordinate();
-            centre.X = (env.MinX + env.MaxX) / 2;
-            centre.Y = (env.MinY + env.MaxY) / 2;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public IEnvelope Envelope
-        {
-            get
+            if (node != null)
             {
-                return env;
+                largerNode.InsertNode(node);
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="searchEnv"></param>
-        /// <returns></returns>
-        protected override bool IsSearchMatch(IEnvelope searchEnv)
-        {
-            return env.Intersects(searchEnv);
+            return largerNode;
         }
 
         /// <summary> 
@@ -88,16 +75,19 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         /// <param name="searchEnv"></param>
         public Node GetNode(IEnvelope searchEnv)
         {
-            int subnodeIndex = GetSubnodeIndex(searchEnv, centre);            
+            int subnodeIndex = GetSubnodeIndex(searchEnv, centre);
             // if subquadIndex is -1 searchEnv is not contained in a subquad
-            if (subnodeIndex != -1) 
+            if (subnodeIndex != -1)
             {
                 // create the quad if it does not exist
                 Node node = GetSubnode(subnodeIndex);
                 // recursively search the found/created quad
                 return node.GetNode(searchEnv);
             }
-            else return this;            
+            else
+            {
+                return this;
+            }
         }
 
         /// <summary>
@@ -109,8 +99,10 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         {
             int subnodeIndex = GetSubnodeIndex(searchEnv, centre);
             if (subnodeIndex == -1)
+            {
                 return this;
-            if (subnode[subnodeIndex] != null) 
+            }
+            if (subnode[subnodeIndex] != null)
             {
                 // query lies in subquad, so search it
                 Node node = subnode[subnodeIndex];
@@ -126,11 +118,13 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         /// <param name="node"></param>
         public void InsertNode(Node node)
         {
-            Assert.IsTrue(env == null || env.Contains(node.Envelope));        
-            int index = GetSubnodeIndex(node.env, centre);        
-            if (node.level == level - 1)             
-                subnode[index] = node;                    
-            else 
+            Assert.IsTrue(Envelope == null || Envelope.Contains(node.Envelope));
+            int index = GetSubnodeIndex(node.Envelope, centre);
+            if (node.level == level - 1)
+            {
+                subnode[index] = node;
+            }
+            else
             {
                 // the quad is not a direct child, so make a new child quad to contain it
                 // and recursively insert the quad
@@ -141,14 +135,26 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchEnv"></param>
+        /// <returns></returns>
+        protected override bool IsSearchMatch(IEnvelope searchEnv)
+        {
+            return Envelope.Intersects(searchEnv);
+        }
+
+        /// <summary>
         /// Get the subquad for the index.
         /// If it doesn't exist, create it.
         /// </summary>
         /// <param name="index"></param>
         private Node GetSubnode(int index)
         {
-            if (subnode[index] == null) 
-                subnode[index] = CreateSubnode(index);            
+            if (subnode[index] == null)
+            {
+                subnode[index] = CreateSubnode(index);
+            }
             return subnode[index];
         }
 
@@ -165,38 +171,38 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
             double miny = 0.0;
             double maxy = 0.0;
 
-            switch (index) 
+            switch (index)
             {
                 case 0:
-                    minx = env.MinX;
+                    minx = Envelope.MinX;
                     maxx = centre.X;
-                    miny = env.MinY;
+                    miny = Envelope.MinY;
                     maxy = centre.Y;
                     break;
 
                 case 1:
                     minx = centre.X;
-                    maxx = env.MaxX;
-                    miny = env.MinY;
+                    maxx = Envelope.MaxX;
+                    miny = Envelope.MinY;
                     maxy = centre.Y;
                     break;
 
                 case 2:
-                    minx = env.MinX;
+                    minx = Envelope.MinX;
                     maxx = centre.X;
                     miny = centre.Y;
-                    maxy = env.MaxY;
+                    maxy = Envelope.MaxY;
                     break;
 
                 case 3:
                     minx = centre.X;
-                    maxx = env.MaxX;
+                    maxx = Envelope.MaxX;
                     miny = centre.Y;
-                    maxy = env.MaxY;
+                    maxy = Envelope.MaxY;
                     break;
 
-	            default:
-		            break;
+                default:
+                    break;
             }
             IEnvelope sqEnv = new Envelope(minx, maxx, miny, maxy);
             Node node = new Node(sqEnv, level - 1);

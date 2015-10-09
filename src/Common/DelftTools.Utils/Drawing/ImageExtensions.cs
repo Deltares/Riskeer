@@ -11,20 +11,20 @@ namespace DelftTools.Utils.Drawing
                 return false;
             }
 
-            if(image1 == image2)
+            if (image1 == image2)
             {
                 return true;
             }
 
-            if(!(image1 is Bitmap) || !(image2 is Bitmap))
+            if (!(image1 is Bitmap) || !(image2 is Bitmap))
             {
                 return false;
             }
 
-            var bitmap1 = (Bitmap)image1;
-            var bitmap2 = (Bitmap)image2;
+            var bitmap1 = (Bitmap) image1;
+            var bitmap2 = (Bitmap) image2;
 
-            if(bitmap1.Width != bitmap2.Width || bitmap1.Height != bitmap2.Height)
+            if (bitmap1.Width != bitmap2.Width || bitmap1.Height != bitmap2.Height)
             {
                 return false;
             }
@@ -33,7 +33,7 @@ namespace DelftTools.Utils.Drawing
             {
                 for (var j = 0; j < bitmap1.Height; j++)
                 {
-                    if(!bitmap1.GetPixel(i, j).Equals(bitmap2.GetPixel(i, j)))
+                    if (!bitmap1.GetPixel(i, j).Equals(bitmap2.GetPixel(i, j)))
                     {
                         return false;
                     }
@@ -52,11 +52,11 @@ namespace DelftTools.Utils.Drawing
         /// <param name="yOffSet">Y offset for overlay drawing</param>
         public static Image AddOverlayImage(this Image originalImage, Image overlayImage, int xOffSet, int yOffSet)
         {
-            var image = (Image)originalImage.Clone();
+            var image = (Image) originalImage.Clone();
 
             using (var gfx = Graphics.FromImage(image))
             {
-                gfx.DrawImage(overlayImage, new Point(xOffSet,yOffSet));
+                gfx.DrawImage(overlayImage, new Point(xOffSet, yOffSet));
             }
 
             return image;

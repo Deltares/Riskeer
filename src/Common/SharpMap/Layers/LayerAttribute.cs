@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DelftTools.Utils.Reflection;
 using DelftTools.Utils;
+using DelftTools.Utils.Reflection;
 using GeoAPI.Extensions.Feature;
 using NetTopologySuite.Extensions.Features;
 using SharpMap.Api.Layers;
@@ -17,14 +17,19 @@ namespace SharpMap.Layers
         private IComparable maxValue;
         private IComparable minValue;
 
-        public override string ToString()
+        public LayerAttribute(ILayer layer, string attributeName)
         {
-            return AttributeName;
+            this.layer = layer;
+            this.attributeName = attributeName;
+            //TODO : check the attribute name is ok...?>
         }
 
         public string AttributeName
         {
-            get { return attributeName; }
+            get
+            {
+                return attributeName;
+            }
         }
 
         public string DisplayName
@@ -40,25 +45,16 @@ namespace SharpMap.Layers
                 return FeatureAttributeAccessorHelper.GetPropertyDisplayName(layer.DataSource.FeatureType, attributeName);
             }
         }
-        
-        public LayerAttribute(ILayer layer, string attributeName)
-        {
-            this.layer = layer;
-            this.attributeName = attributeName;
-            //TODO : check the attribute name is ok...?>
-        }
 
         /// <summary>
         /// TODO: these are not attribute values but attribute values without NoDataValues
         /// </summary>
         public IEnumerable<IComparable> AttributeValues
         {
-            get { return GetAttributeValues(); }
-        }
-
-        private IEnumerable<IComparable> GetAttributeValues()
-        {
-            return GetAttributeValuesFromFeatures();
+            get
+            {
+                return GetAttributeValues();
+            }
         }
 
         public IComparable MinValue
@@ -99,7 +95,7 @@ namespace SharpMap.Layers
 
                 IEnumerable values = null;
 
-                if(layer is VectorLayer)
+                if (layer is VectorLayer)
                 {
                     values = GetAttributeValuesFromFeatures();
                 }
@@ -107,7 +103,7 @@ namespace SharpMap.Layers
                 {
                     return new List<IComparable>();
                 }
-                
+
                 foreach (IComparable attributeValue in values)
                 {
                     uniqueValues.Add(attributeValue);
@@ -141,10 +137,22 @@ namespace SharpMap.Layers
             }
         }
 
+        public override string ToString()
+        {
+            return AttributeName;
+        }
+
+        private IEnumerable<IComparable> GetAttributeValues()
+        {
+            return GetAttributeValuesFromFeatures();
+        }
+
         private IEnumerable<IComparable> GetAttributeValuesFromFeatures()
         {
             if (layer == null || layer.DataSource == null)
+            {
                 yield break;
+            }
 
             foreach (var feature in layer.DataSource.Features.Cast<IFeature>())
             {
@@ -179,7 +187,7 @@ namespace SharpMap.Layers
             var first = true;
             var minComparable = default(IComparable);
             var maxComparable = default(IComparable);
-            
+
             foreach (var value in AttributeValues)
             {
                 if (first)
@@ -189,9 +197,13 @@ namespace SharpMap.Layers
                     first = false;
                 }
                 if (value.IsSmaller(minComparable))
+                {
                     minComparable = value;
+                }
                 if (value.IsBigger(maxComparable))
+                {
                     maxComparable = value;
+                }
             }
 
             if (first) //nothing found

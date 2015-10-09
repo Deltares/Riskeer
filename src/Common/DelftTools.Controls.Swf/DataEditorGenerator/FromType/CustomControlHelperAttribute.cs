@@ -15,13 +15,13 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.FromType
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class CustomControlHelperAttribute : Attribute
     {
-        public string HelperTypeName { get; private set; }
-        public string AssemblyName { get; private set; }
-
         public CustomControlHelperAttribute(string controlTypeName, string assemblyName = "")
         {
             HelperTypeName = controlTypeName;
             AssemblyName = assemblyName;
         }
+
+        public string HelperTypeName { get; private set; }
+        public string AssemblyName { get; private set; }
     }
 }

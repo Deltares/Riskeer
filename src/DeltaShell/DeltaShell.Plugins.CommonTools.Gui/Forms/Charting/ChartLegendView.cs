@@ -13,8 +13,8 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
     public partial class ChartLegendView : UserControl, IView
     {
         private readonly GuiPlugin guiPlugin;
+        private readonly IDictionary<ToolStripButton, Action<bool>> actionLookup;
         private IChart chart;
-        private readonly IDictionary<ToolStripButton, Action<bool>> actionLookup;  
 
         public ChartLegendView(GuiPlugin guiPlugin)
         {
@@ -22,10 +22,11 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
             InitializeComponent();
 
             actionLookup = new Dictionary<ToolStripButton, Action<bool>>
-                               {
-                                   {toolStripButtonStackSeries, b => chart.StackSeries = b},
-                                   
-                               };
+            {
+                {
+                    toolStripButtonStackSeries, b => chart.StackSeries = b
+                },
+            };
 
             treeView.SelectedNodeChanged += TreeViewSelectedNodeChanged;
             treeView.NodePresenters.Add(new ChartTreeNodePresenter(guiPlugin));
@@ -35,7 +36,10 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
 
         public object Data
         {
-            get { return chart; }
+            get
+            {
+                return chart;
+            }
             set
             {
                 chart = (IChart) value;
@@ -45,19 +49,22 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
         }
 
         public Image Image { get; set; }
-
-        public void EnsureVisible(object item) { }
         public ViewInfo ViewInfo { get; set; }
+
+        public void EnsureVisible(object item) {}
 
         private void TreeViewSelectedNodeChanged(object sender, EventArgs e)
         {
-            if (guiPlugin == null || guiPlugin.Gui == null) return;
+            if (guiPlugin == null || guiPlugin.Gui == null)
+            {
+                return;
+            }
 
             if (treeView.SelectedNode != null)
             {
                 guiPlugin.Gui.Selection = treeView.SelectedNode.Tag;
             }
-            
+
             UpdateButtons();
         }
 
@@ -70,9 +77,8 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
                 toolStrip1.Enabled = false;
                 return;
             }
-            
+
             toolStripButtonStackSeries.Checked = chart.StackSeries;
-            
         }
 
         private void ResetToolBar()
@@ -85,12 +91,15 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
                 item.Checked = false;
             }
         }
-        
+
         private void ToolStripButtonClick(object sender, EventArgs e)
         {
             var button = sender as ToolStripButton;
-            if (button == null || !actionLookup.ContainsKey(button)) return;
-            
+            if (button == null || !actionLookup.ContainsKey(button))
+            {
+                return;
+            }
+
             button.Checked = !button.Checked;
             actionLookup[button](button.Checked);
         }
@@ -108,13 +117,16 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
         private IEnumerable<IChartSeries> GetSeriesToChange()
         {
             var seriesToChange = new List<IChartSeries>();
-            if (treeView.SelectedNode == null) return seriesToChange;
+            if (treeView.SelectedNode == null)
+            {
+                return seriesToChange;
+            }
 
             var nodeItem = treeView.SelectedNode.Tag;
-            
+
             if (nodeItem is IChart)
             {
-                seriesToChange.AddRange(((IChart)nodeItem).Series);
+                seriesToChange.AddRange(((IChart) nodeItem).Series);
             }
             if (nodeItem is ChartSeries)
             {
@@ -131,15 +143,18 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
                 return;
             }
 
-            
             var series = GetNewChartSeries(sender as ToolStripButton, originalSeries);
 
             var parentNode = treeView.SelectedNode != null ? treeView.SelectedNode.Parent : null;
             var index = chart.Series.IndexOf(originalSeries);
             if (index < 0)
+            {
                 chart.Series.Add(series);
-            else 
+            }
+            else
+            {
                 chart.Series.Insert(index, series);
+            }
             chart.Series.Remove(originalSeries);
 
             if (parentNode != null)
@@ -153,8 +168,8 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
             if (originalSeries is IPolygonChartSeries)
             {
                 return originalSeries;
-            } 
-            
+            }
+
             if (toolStripButton == toolStripButtonAreaSeries)
             {
                 return ChartSeriesFactory.CreateAreaSeries(originalSeries);
@@ -174,7 +189,7 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
             {
                 return ChartSeriesFactory.CreatePointSeries(originalSeries);
             }
-            
+
             throw new NotImplementedException();
         }
     }

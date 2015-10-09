@@ -10,8 +10,8 @@ namespace DelftTools.Utils.IO
         //todo add callback function to report when extraction is finished. use separate thread?
         public static void Extract(string zipFile, string destinationPath)
         {
-            var fastZip=new FastZip();
-            fastZip.ExtractZip(zipFile,destinationPath,"");
+            var fastZip = new FastZip();
+            fastZip.ExtractZip(zipFile, destinationPath, "");
         }
 
         /// <summary>
@@ -49,7 +49,6 @@ namespace DelftTools.Utils.IO
         {
             Create(zipFileName, null, filePaths, overwriteIfExits);
         }
-
 
         /// <summary>
         /// Creates a zip file containing the provided filePaths. The zip entries will be stored relative if dirContainingZipFiles
@@ -129,7 +128,7 @@ namespace DelftTools.Utils.IO
             {
                 if (zipStream != null)
                 {
-                    zipStream.IsStreamOwner = true;	// Makes the Close also Close the underlying stream
+                    zipStream.IsStreamOwner = true; // Makes the Close also Close the underlying stream
                     zipStream.Close();
                 }
             }
@@ -141,7 +140,7 @@ namespace DelftTools.Utils.IO
         /// <param name="source">The stream to source data from.</param>
         /// <param name="destination">The stream to write data to.</param>
         /// <param name="buffer">The buffer to use during copying.</param>
-        static public void StreamUtilsCopy(Stream source, Stream destination, byte[] buffer)
+        public static void StreamUtilsCopy(Stream source, Stream destination, byte[] buffer)
         {
             if (source == null)
             {

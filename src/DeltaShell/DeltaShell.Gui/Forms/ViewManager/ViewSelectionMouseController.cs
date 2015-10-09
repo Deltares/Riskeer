@@ -22,22 +22,26 @@ namespace DeltaShell.Gui.Forms.ViewManager
             viewList.ActiveViewChanged += ViewManagerActiveViewChanged;
         }
 
+        public IDockingManager DockingManager { get; private set; }
+
+        public IViewList ViewManager { get; set; }
+
         private void ViewManagerActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
         {
             contextMenuController.ContextMenuStripValidate(null, ViewManager);
         }
 
-        public IDockingManager DockingManager { get; private set; }
-
-        public IViewList ViewManager { get; set; }
-
         private void OnViewSelectionMouseDown(object sender, MouseEventArgs e, IView selectedView)
         {
             if (!(sender is Control))
+            {
                 throw new ArgumentException(Resources.ViewSelectionMouseController_OnViewSelectionMouseDown_Sender_must_be_non_null_and_of_type_Control);
+            }
 
             if (!ViewManager.Contains(selectedView))
+            {
                 return; //View is not in our ViewList, don't handle this
+            }
 
             if (e.Button == MouseButtons.Right)
             {

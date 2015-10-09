@@ -17,46 +17,46 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.mapControl = new SharpMap.UI.Forms.MapControl();
-            this.collapsibleSplitter1 = new DelftTools.Controls.Swf.CollapsibleSplitter();
+            this.MapControl = new SharpMap.UI.Forms.MapControl();
+            this.Splitter = new DelftTools.Controls.Swf.CollapsibleSplitter();
             this.SuspendLayout();
             // 
             // mapControl
             // 
-            this.mapControl.AllowDrop = true;
-            this.mapControl.BackColor = System.Drawing.Color.White;
-            this.mapControl.Cursor = System.Windows.Forms.Cursors.Default;
-            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mapControl.Location = new System.Drawing.Point(0, 0);
-            this.mapControl.Name = "mapControl";
-            this.mapControl.Size = new System.Drawing.Size(562, 380);
-            this.mapControl.TabIndex = 0;
-            this.mapControl.MouseEnter += new System.EventHandler(this.MapControlMouseEnter);
-            this.mapControl.MouseLeave += new System.EventHandler(this.MapControlMouseLeave);
-            this.mapControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MapControlMouseMove);
+            this.MapControl.AllowDrop = true;
+            this.MapControl.BackColor = System.Drawing.Color.White;
+            this.MapControl.Cursor = System.Windows.Forms.Cursors.Default;
+            this.MapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MapControl.Location = new System.Drawing.Point(0, 0);
+            this.MapControl.Name = "MapControl";
+            this.MapControl.Size = new System.Drawing.Size(562, 380);
+            this.MapControl.TabIndex = 0;
+            this.MapControl.MouseEnter += new System.EventHandler(this.MapControlMouseEnter);
+            this.MapControl.MouseLeave += new System.EventHandler(this.MapControlMouseLeave);
+            this.MapControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MapControlMouseMove);
             // 
             // collapsibleSplitter1
             // 
-            this.collapsibleSplitter1.AnimationDelay = 20;
-            this.collapsibleSplitter1.AnimationStep = 20;
-            this.collapsibleSplitter1.BorderStyle3D = System.Windows.Forms.Border3DStyle.Flat;
-            this.collapsibleSplitter1.ControlToHide = null;
-            this.collapsibleSplitter1.Cursor = System.Windows.Forms.Cursors.HSplit;
-            this.collapsibleSplitter1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.collapsibleSplitter1.ExpandParentForm = false;
-            this.collapsibleSplitter1.Location = new System.Drawing.Point(0, 380);
-            this.collapsibleSplitter1.Name = "collapsibleSplitter1";
-            this.collapsibleSplitter1.TabIndex = 3;
-            this.collapsibleSplitter1.TabStop = false;
-            this.collapsibleSplitter1.UseAnimations = false;
-            this.collapsibleSplitter1.VisualStyle = DelftTools.Controls.Swf.VisualStyles.Lines;
+            this.Splitter.AnimationDelay = 20;
+            this.Splitter.AnimationStep = 20;
+            this.Splitter.BorderStyle3D = System.Windows.Forms.Border3DStyle.Flat;
+            this.Splitter.ControlToHide = null;
+            this.Splitter.Cursor = System.Windows.Forms.Cursors.HSplit;
+            this.Splitter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Splitter.ExpandParentForm = false;
+            this.Splitter.Location = new System.Drawing.Point(0, 380);
+            this.Splitter.Name = "Splitter";
+            this.Splitter.TabIndex = 3;
+            this.Splitter.TabStop = false;
+            this.Splitter.UseAnimations = false;
+            this.Splitter.VisualStyle = DelftTools.Controls.Swf.VisualStyles.Lines;
             // 
             // MapView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.mapControl);
-            this.Controls.Add(this.collapsibleSplitter1);
+            this.Controls.Add(this.MapControl);
+            this.Controls.Add(this.Splitter);
             this.Name = "MapView";
             this.Size = new System.Drawing.Size(562, 388);
             this.ResumeLayout(false);
@@ -64,8 +64,5 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
         }
 
         #endregion
-
-        private MapControl mapControl;
-        private DelftTools.Controls.Swf.CollapsibleSplitter collapsibleSplitter1;
     }
 }

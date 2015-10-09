@@ -22,7 +22,10 @@ namespace DeltaShell.Tests.Gui.Forms
             var dockManager = mocks.Stub<DockingManager>();
             var view = new TestView();
 
-            var dock = new AvalonDockDockingManager(dockManager, new[] { ViewLocation.Document });
+            var dock = new AvalonDockDockingManager(dockManager, new[]
+            {
+                ViewLocation.Document
+            });
             dock.Add(view, ViewLocation.Document);
 
             var layout = TypeUtils.CallPrivateMethod<LayoutContent>(dock, "GetLayoutContent", view);
@@ -40,7 +43,10 @@ namespace DeltaShell.Tests.Gui.Forms
             var dockManager = mocks.Stub<DockingManager>();
             var view = new ReusableTestView();
 
-            var dock = new AvalonDockDockingManager(dockManager, new[] { ViewLocation.Document });
+            var dock = new AvalonDockDockingManager(dockManager, new[]
+            {
+                ViewLocation.Document
+            });
             dock.Add(view, ViewLocation.Document);
 
             var layout = TypeUtils.CallPrivateMethod<LayoutContent>(dock, "GetLayoutContent", view);
@@ -59,7 +65,10 @@ namespace DeltaShell.Tests.Gui.Forms
             var view2 = new TestView();
 
             // create an avalon dock/tab with two views
-            var dock = new AvalonDockDockingManager(new DockingManager(), new[] { ViewLocation.Document });
+            var dock = new AvalonDockDockingManager(new DockingManager(), new[]
+            {
+                ViewLocation.Document
+            });
             dock.Add(view, ViewLocation.Document);
             dock.Add(view2, ViewLocation.Document);
             dock.ActivateView(view);
@@ -82,25 +91,31 @@ namespace DeltaShell.Tests.Gui.Forms
 
             // create an avalon dock/tab with two views
             var dockingManager = new DockingManager();
-            var dock = new AvalonDockDockingManager(dockingManager, new[] { ViewLocation.Document });
-            var host = new ElementHost {Child = dockingManager};
+            var dock = new AvalonDockDockingManager(dockingManager, new[]
+            {
+                ViewLocation.Document
+            });
+            var host = new ElementHost
+            {
+                Child = dockingManager
+            };
 
             int validated = 0;
 
             WindowsFormsTestHelper.ShowModal(host, f =>
-                {
-                    dock.Add(view, ViewLocation.Document);
-                    dock.Add(view2, ViewLocation.Document);
-                    dock.ActivateView(view);
-                    
-                    var textBox = (TextBox) view.Controls[0];
-                    textBox.Validated += (s, e) => { validated++; };
+            {
+                dock.Add(view, ViewLocation.Document);
+                dock.Add(view2, ViewLocation.Document);
+                dock.ActivateView(view);
 
-                    // set a textbox active
-                    view.ActiveControl = textBox;
-                    textBox.Focus();
-                });
+                var textBox = (TextBox) view.Controls[0];
+                textBox.Validated += (s, e) => { validated++; };
+
+                // set a textbox active
+                view.ActiveControl = textBox;
+                textBox.Focus();
+            });
             Assert.AreEqual(1, validated);
         }
     }
-} 
+}

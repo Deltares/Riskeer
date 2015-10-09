@@ -9,17 +9,20 @@ namespace DelftTools.Shell.Gui.Forms
         /// Application name
         /// </summary>
         string Name { get; }
+
         /// <summary>
         /// Short description application
         /// </summary>
         string Description { get; }
+
         /// <summary>
         /// Version as stored in the assembly
         /// </summary>
         string Version { get; }
+
         /// <summary>
         /// some more extensive description of application
         /// </summary>
-        string Text{ get;}
+        string Text { get; }
     }
 }

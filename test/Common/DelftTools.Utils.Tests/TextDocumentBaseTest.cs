@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
-using IEditableObject = DelftTools.Utils.Editing.IEditableObject;
-
 using NUnit.Framework;
+using IEditableObject = DelftTools.Utils.Editing.IEditableObject;
 
 namespace DelftTools.Utils.Tests
 {
@@ -39,15 +38,11 @@ namespace DelftTools.Utils.Tests
             Assert.IsNull(docBase.Content);
         }
 
-        class SimpleTextDocumentBase : TextDocumentBase
+        private class SimpleTextDocumentBase : TextDocumentBase
         {
-            public SimpleTextDocumentBase()
-            {
-            }
+            public SimpleTextDocumentBase() {}
 
-            public SimpleTextDocumentBase(bool isReadOnly) : base(isReadOnly)
-            {
-            }
-        } 
+            public SimpleTextDocumentBase(bool isReadOnly) : base(isReadOnly) {}
+        }
     }
 }

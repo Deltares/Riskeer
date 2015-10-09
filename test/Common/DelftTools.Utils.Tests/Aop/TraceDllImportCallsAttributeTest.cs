@@ -18,28 +18,28 @@ namespace DelftTools.Utils.Tests.Aop
             DllImports.GetCurrentThreadId();
             DllImports.GetWindowThreadProcessId(DllImports.GetForegroundWindow(), IntPtr.Zero);
 
-            Assert.IsFalse(TraceDllImportCallsConfig.IsLoggingEnabled(typeof (DllImports)));
+            Assert.IsFalse(TraceDllImportCallsConfig.IsLoggingEnabled(typeof(DllImports)));
 
-            TraceDllImportCallsConfig.StartLogging(typeof (DllImports), logPath);
+            TraceDllImportCallsConfig.StartLogging(typeof(DllImports), logPath);
 
             // with logging:
-                DllImports.GetCurrentThreadId();
-                DllImports.GetWindowThreadProcessId(DllImports.GetForegroundWindow(), IntPtr.Zero);
+            DllImports.GetCurrentThreadId();
+            DllImports.GetWindowThreadProcessId(DllImports.GetForegroundWindow(), IntPtr.Zero);
 
-            TraceDllImportCallsConfig.StopLogging(typeof (DllImports));
-            
+            TraceDllImportCallsConfig.StopLogging(typeof(DllImports));
+
             // without logging:
             DllImports.GetCurrentThreadId();
 
-            var expectedLineStarts = new []
-                {
-                    "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
-                    "<Run type=\"DllImports\" time=",
-                    "  <GetCurrentThreadId />",
-                    "  <GetForegroundWindow />",
-                    "  <GetWindowThreadProcessId hWnd=",
-                    "</Run>"
-                };
+            var expectedLineStarts = new[]
+            {
+                "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+                "<Run type=\"DllImports\" time=",
+                "  <GetCurrentThreadId />",
+                "  <GetForegroundWindow />",
+                "  <GetWindowThreadProcessId hWnd=",
+                "</Run>"
+            };
 
             var actualLines = File.ReadAllLines(logPath);
 

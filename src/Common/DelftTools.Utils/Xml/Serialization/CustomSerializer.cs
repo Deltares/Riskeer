@@ -14,6 +14,22 @@ namespace DelftTools.Utils.Xml.Serialization
     /// <typeparam name="ItemType"></typeparam>
     public class CustomXmlSerializer<ItemType> : IXmlSerializable where ItemType : class
     {
+        #region Properties
+
+        /// <summary>
+        /// Gets parameters.
+        /// </summary>
+        /// <value>The parameters.</value>
+        public ItemType Parameters
+        {
+            get
+            {
+                return obj;
+            }
+        }
+
+        #endregion Properties
+
         #region Private Members
 
         /// <summary>
@@ -56,9 +72,7 @@ namespace DelftTools.Utils.Xml.Serialization
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomXmlSerializer{ItemType}"/> class.
         /// </summary>
-        public CustomXmlSerializer()
-        {
-        }
+        public CustomXmlSerializer() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomXmlSerializer{ItemType}"/> class.
@@ -70,19 +84,6 @@ namespace DelftTools.Utils.Xml.Serialization
         }
 
         #endregion Constructors
-
-        #region Properties
-
-        /// <summary>
-        /// Gets parameters.
-        /// </summary>
-        /// <value>The parameters.</value>
-        public ItemType Parameters
-        {
-            get { return obj; }
-        }
-
-        #endregion Properties
 
         #region IXmlSerializable Implementation
 
@@ -109,14 +110,14 @@ namespace DelftTools.Utils.Xml.Serialization
 
             if (type == null)
             {
-                throw new ArgumentOutOfRangeException("Can not create type for: " + reader.GetAttribute("type") + 
-                    ". Make sure that plugin containing that type is loaded (check log file)");
+                throw new ArgumentOutOfRangeException("Can not create type for: " + reader.GetAttribute("type") +
+                                                      ". Make sure that plugin containing that type is loaded (check log file)");
             }
 
             // Deserialize
             reader.ReadStartElement();
 
-            XmlSerializer serializer = CreateXmlSerializer(type, typeof (ItemType));
+            XmlSerializer serializer = CreateXmlSerializer(type, typeof(ItemType));
             obj = (ItemType) serializer.Deserialize(reader);
 
             reader.ReadEndElement();
@@ -130,7 +131,7 @@ namespace DelftTools.Utils.Xml.Serialization
             {
                 if (typeName.Contains("`"))
                 {
-                    if(!typeName.Contains("`1"))
+                    if (!typeName.Contains("`1"))
                     {
                         throw new NotSupportedException("Only generic types with one argument are supported now");
                     }
@@ -141,13 +142,13 @@ namespace DelftTools.Utils.Xml.Serialization
                     if ((type = a.GetType(genericTypeName)) != null)
                     {
                         Type argumentType = Type.GetType(genericTypeArgumentName);
-                        if(argumentType == null)
+                        if (argumentType == null)
                         {
                             throw new Exception("Can't instantiate generic type argument: " + genericTypeArgumentName);
                         }
 
                         type = type.MakeGenericType(argumentType);
-                        
+
                         break;
                     }
                 }
@@ -172,16 +173,16 @@ namespace DelftTools.Utils.Xml.Serialization
             // Write type as xml attribute
             writer.WriteAttributeString("type", obj.GetType().ToString());
 
-            XmlSerializer serializer = CreateXmlSerializer(obj.GetType(), typeof (ItemType));
+            XmlSerializer serializer = CreateXmlSerializer(obj.GetType(), typeof(ItemType));
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-            ns.Add("", ""); 
+            ns.Add("", "");
             serializer.Serialize(writer, obj, ns);
         }
 
         public static XmlSerializer CreateXmlSerializer(string typeName)
         {
             Type type = FindType(typeName);
-            return CreateXmlSerializer(type, typeof (ItemType));
+            return CreateXmlSerializer(type, typeof(ItemType));
         }
 
         public static XmlSerializer CreateXmlSerializer(Type type, Type baseType)
@@ -281,7 +282,6 @@ namespace DelftTools.Utils.Xml.Serialization
                             {
                                 continue;
                             }
-
 
                             bool exist = false; // first check if attribute does not exist
 

@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
 using DelftTools.Shell.Gui.Forms;
-
 using Mono.Addins;
 using Wti.Controller;
 using Wti.Data;
@@ -48,11 +46,28 @@ namespace Wti.Plugin
             }
         }
 
+        public override IRibbonCommandHandler RibbonCommandHandler
+        {
+            get
+            {
+                return new WtiRibbon();
+            }
+        }
+
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo{ ObjectType = typeof(WtiProject), PropertyType = typeof(WtiProjectProperties)};
-            yield return new PropertyInfo{ ObjectType = typeof(PipingData), PropertyType = typeof(PipingDataProperties)};
-            yield return new PropertyInfo{ ObjectType = typeof(PipingOutput), PropertyType = typeof(PipingOutputProperties)};
+            yield return new PropertyInfo
+            {
+                ObjectType = typeof(WtiProject), PropertyType = typeof(WtiProjectProperties)
+            };
+            yield return new PropertyInfo
+            {
+                ObjectType = typeof(PipingData), PropertyType = typeof(PipingDataProperties)
+            };
+            yield return new PropertyInfo
+            {
+                ObjectType = typeof(PipingOutput), PropertyType = typeof(PipingOutputProperties)
+            };
         }
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
@@ -60,14 +75,6 @@ namespace Wti.Plugin
             yield return new WtiProjectNodePresenter();
             yield return new PipingDataNodeController().NodePresenter;
             yield return new PipingOutputNodePresenter();
-        }
-
-        public override IRibbonCommandHandler RibbonCommandHandler
-        {
-            get
-            {
-                return new WtiRibbon();
-            }
         }
     }
 }

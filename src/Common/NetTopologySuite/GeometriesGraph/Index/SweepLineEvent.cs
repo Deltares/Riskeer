@@ -11,18 +11,14 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         /// 
         /// </summary>
         public const int Insert = 1;
-        
+
         /// <summary>
         /// 
         /// </summary>
         public const int Delete = 2;
 
-        private object edgeSet;    // used for red-blue intersection detection
-        private double xValue;
-        private int eventType;
-        private SweepLineEvent insertEvent; // null if this is an Insert event
-        private int deleteEventIndex;
-        private object obj;
+        private readonly double xValue;
+        private readonly int eventType;
 
         /// <summary>
         /// 
@@ -33,88 +29,58 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         /// <param name="obj"></param>
         public SweepLineEvent(object edgeSet, double x, SweepLineEvent insertEvent, object obj)
         {
-            this.edgeSet = edgeSet;
+            EdgeSet = edgeSet;
             xValue = x;
-            this.insertEvent = insertEvent;
-            this.eventType = Insert;
+            InsertEvent = insertEvent;
+            eventType = Insert;
             if (insertEvent != null)
+            {
                 eventType = Delete;
-            this.obj = obj;
+            }
+            Object = obj;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public  object EdgeSet
-        {
-            get
-            {
-                return this.edgeSet;
-            }
-            set
-            {
-                this.edgeSet = value;
-            }
-        }
+        public object EdgeSet { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public  bool IsInsert 
+        public bool IsInsert
         {
             get
             {
-                return insertEvent == null; 
+                return InsertEvent == null;
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public  bool IsDelete
+        public bool IsDelete
         {
             get
             {
-                return insertEvent != null;
+                return InsertEvent != null;
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public SweepLineEvent InsertEvent
-        {
-            get
-            {
-                return insertEvent;
-            }
-        }
+        public SweepLineEvent InsertEvent { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public  int DeleteEventIndex
-        {
-            get
-            {
-                return deleteEventIndex;
-            }
-            set
-            {
-                this.deleteEventIndex = value;
-            }
-        }
+        public int DeleteEventIndex { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public  object Object
-        {
-            get
-            {
-                return obj;
-            }
-        }
+        public object Object { get; private set; }
 
         /// <summary>
         /// ProjectionEvents are ordered first by their x-value, and then by their eventType.
@@ -123,17 +89,25 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         /// correctly handled.
         /// </summary>
         /// <param name="o"></param>
-        public  int CompareTo(object o)
+        public int CompareTo(object o)
         {
-            SweepLineEvent pe = (SweepLineEvent)o;
+            SweepLineEvent pe = (SweepLineEvent) o;
             if (xValue < pe.xValue)
+            {
                 return -1;
+            }
             if (xValue > pe.xValue)
+            {
                 return 1;
+            }
             if (eventType < pe.eventType)
+            {
                 return -1;
+            }
             if (eventType > pe.eventType)
+            {
                 return 1;
+            }
             return 0;
         }
     }

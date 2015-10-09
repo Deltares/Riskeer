@@ -1,6 +1,7 @@
 ﻿using System;
 using log4net;
 using Steema.TeeChart;
+using Steema.TeeChart.Drawing;
 using Steema.TeeChart.Tools;
 #if WPF 
 using System.Windows.Media;
@@ -28,31 +29,33 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         public event RectangleToolResizedEventHandler Resized;
         public event RectangleToolDraggedEventHandler Dragged;
 
-        private bool allowResizeHeight = false;
         private bool allowResizeWidth = false;
 
-        public bool AllowResizeHeight
-        {
-            get { return allowResizeHeight; }
-            set { allowResizeHeight = value; }
-        }
+        public bool AllowResizeHeight { get; set; }
 
         public bool AllowResizeWidth
         {
-            get { return allowResizeWidth; }
-            set { allowResizeWidth = value; }
+            get
+            {
+                return allowResizeWidth;
+            }
+            set
+            {
+                allowResizeWidth = value;
+            }
         }
 
-        public RectangleTool() : this((Steema.TeeChart.Chart)null) {}
+        public RectangleTool() : this((Steema.TeeChart.Chart) null) {}
 
         public RectangleTool(Steema.TeeChart.Chart c)
-            : base(c) 
+            : base(c)
         {
+            AllowResizeHeight = false;
             AutoSize = false;
-            allowDrag = true;
-            allowResize = true;
+            AllowDrag = true;
+            AllowResize = true;
             iEdge = -1;
-            
+
             Shape.CustomPosition = true;
             Shape.Shadow.Visible = false;
             Shape.Transparency = 50;
@@ -60,13 +63,13 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             Shape.Top = 10;
             Shape.Width = 50;
             Shape.Height = 50;
-            Shape.Bevel.Inner = Steema.TeeChart.Drawing.BevelStyles.None;
-            Shape.Bevel.Outer = Steema.TeeChart.Drawing.BevelStyles.None;
+            Shape.Bevel.Inner = BevelStyles.None;
+            Shape.Bevel.Outer = BevelStyles.None;
             PositionUnits = PositionUnits.Pixels;
-#if ! POCKET 
+#if ! POCKET
             Cursor = Cursors.Hand;
 #endif
-            P = new Point(0,0);
+            P = new Point(0, 0);
 
             Shape.Pen.Width = 3;
             Shape.Pen.Color = Color.FromArgb(200, 150, 0, 0);
@@ -77,7 +80,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
         protected override void ChartEvent(EventArgs e)
         {
-            if(e is BeforeDrawEventArgs)
+            if (e is BeforeDrawEventArgs)
             {
                 if (Shape.Left < Chart.ChartRect.Left)
                 {
@@ -114,63 +117,49 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         }
 
         #region public properties
-        private bool allowDrag;
-        private bool allowResize;
 
 #if DESIGNATTRIBUTES 
 		[DefaultValue(true)]
 #endif
-        public bool AllowResize
-        {
-            get
-            {
-                return allowResize;
-            }
-            set
-            {
-                allowResize = value;
-            }
-        }
+        public bool AllowResize { get; set; }
 
 #if DESIGNATTRIBUTES 
 		[DefaultValue(true)]
 #endif
-        public bool AllowDrag
-        {
-            get
-            {
-                return allowDrag;
-            }
-            set
-            {
-                allowDrag = value;
-            }
-        }
-	
+        public bool AllowDrag { get; set; }
+
         #endregion
 
         protected virtual void OnDragging(EventArgs e)
         {
             if (Dragging != null)
+            {
                 Dragging(this, e);
+            }
         }
 
         protected virtual void OnResizing(EventArgs e)
         {
             if (Resizing != null)
+            {
                 Resizing(this, e);
+            }
         }
 
         protected virtual void OnResized(EventArgs e)
         {
             if (Resized != null)
+            {
                 Resized(this, e);
+            }
         }
 
         protected virtual void OnDragged(EventArgs e)
         {
             if (Dragged != null)
+            {
                 Dragged(this, e);
+            }
         }
 
 #if WPF 
@@ -179,13 +168,23 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         private void StartResizing(int X, int Y)
 #endif
         {
-            if (iEdge == 2 || iEdge == 6 || iEdge == 7) 
-                P.X = X - Shape.ShapeBounds.Right; 
-            else P.X = X - Shape.Left;
+            if (iEdge == 2 || iEdge == 6 || iEdge == 7)
+            {
+                P.X = X - Shape.ShapeBounds.Right;
+            }
+            else
+            {
+                P.X = X - Shape.Left;
+            }
 
-            if (iEdge == 3 || iEdge == 5 || iEdge == 7) 
-                P.Y = Y - Shape.ShapeBounds.Bottom; 
-            else P.Y = Y - Shape.Top;
+            if (iEdge == 3 || iEdge == 5 || iEdge == 7)
+            {
+                P.Y = Y - Shape.ShapeBounds.Bottom;
+            }
+            else
+            {
+                P.Y = Y - Shape.Top;
+            }
 
             Chart.CancelMouse = true;
         }
@@ -230,7 +229,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             {
                 Shape.Left = X - P.X;
                 Shape.Top = Y - P.Y;
-                
+
                 if (Shape.Left < Chart.ChartRect.Left)
                 {
                     Shape.Left = Chart.ChartRect.Left;
@@ -262,7 +261,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         private void ChangeTop(ref int Top, int Y)
 #endif
         {
-            if (allowResizeHeight)
+            if (AllowResizeHeight)
             {
                 Top = Math.Min(Shape.Bottom - 3, Y - P.Y);
             }
@@ -286,12 +285,11 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         private void ChangeBottom(ref int Bottom, int Y)
 #endif
         {
-            if (allowResizeHeight)
+            if (AllowResizeHeight)
             {
                 Bottom = Math.Max(Shape.Top + 3, Y - P.Y);
             }
         }
-
 
 #if WPF 
     private void DoResize(double X, double Y)
@@ -358,13 +356,11 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
             Shape.Invalidate();
 
-
             OnResizing(EventArgs.Empty);
         }
 
         protected override void MouseEvent(MouseEventKinds kind, MouseEventArgs e, ref Cursor c)
         {
-      
             if (Active)
             {
 #if WPF 
@@ -381,7 +377,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                         if (Steema.TeeChart.Utils.GetMouseButton(e) == MouseButtons.Left)
 #endif
                         {
-                            if(AllowResize)
+                            if (AllowResize)
                             {
                                 iEdge = ClickedEdge(tmP.X, tmP.Y);
                             }
@@ -425,7 +421,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                                 if (!canGuessCursor)
                                 {
                                     if (NearRectangle(tmP))
+                                    {
                                         Chart.Parent.SetCursor(Cursors.Hand);
+                                    }
                                 }
                             }
                         }
@@ -434,9 +432,13 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                         break;
                     case MouseEventKinds.Up:
                         if (iDrag)
+                        {
                             StopDrag();
+                        }
                         else if (iEdge != -1)
+                        {
                             StopResize();
+                        }
                         break;
                 }
             }
@@ -457,7 +459,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 Chart.Parent.SetCursor(aCursor);
                 return true;
             }
-            else return false;
+            else
+            {
+                return false;
+            }
         }
 
 #if WPF 
@@ -466,7 +471,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         private bool GuessEdgeCursor(int x, int y)
 #endif
         {
-            bool result=false;
+            bool result = false;
 #if WPF 
       Chart.parent.SetCursor(Cursors.Arrow);
 #else
@@ -474,7 +479,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 #endif
             switch (ClickedEdge(x, y))
             {
-#if ! POCKET 
+#if ! POCKET
                 case 0:
                     if (allowResizeWidth)
                     {
@@ -482,7 +487,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                     }
                     break;
                 case 1:
-                    if (allowResizeHeight)
+                    if (AllowResizeHeight)
                     {
                         result = TrySet(Cursors.SizeNS);
                     }
@@ -494,7 +499,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                     }
                     break;
                 case 3:
-                    if (allowResizeHeight)
+                    if (AllowResizeHeight)
                     {
                         result = TrySet(Cursors.SizeNS);
                     }
@@ -609,16 +614,15 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         public IChartView ChartView { get; set; }
 
         #endregion
-        
-        public bool Enabled
-        {
-            get;
-            set;
-        }
+
+        public bool Enabled { get; set; }
 
         public new bool Active
         {
-            get { return base.Active; }
+            get
+            {
+                return base.Active;
+            }
             set
             {
                 base.Active = value;

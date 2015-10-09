@@ -8,7 +8,7 @@ namespace DelftTools.Controls.Swf.Charting.Customized
     public class DeltaShellTChart : TChart
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DeltaShellTChart));
-        
+
         protected override void OnPaint(PaintEventArgs pe)
         {
             try

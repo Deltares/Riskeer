@@ -13,27 +13,30 @@ namespace GisSharpBlog.NetTopologySuite.Geometries.Utilities
         /// <summary>
         /// 
         /// </summary>
-        public ShortCircuitedGeometryVisitor() { }
+        public ShortCircuitedGeometryVisitor() {}
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="geom"></param>
-        public void ApplyTo(IGeometry geom) 
+        public void ApplyTo(IGeometry geom)
         {
-            for (int i = 0; i < geom.NumGeometries && ! isDone; i++) 
+            for (int i = 0; i < geom.NumGeometries && !isDone; i++)
             {
                 IGeometry element = geom.GetGeometryN(i);
-                if (!(element is IGeometryCollection)) 
+                if (!(element is IGeometryCollection))
                 {
                     Visit(element);
-                    if (IsDone()) 
+                    if (IsDone())
                     {
                         isDone = true;
                         return;
                     }
                 }
-                else ApplyTo(element);
+                else
+                {
+                    ApplyTo(element);
+                }
             }
         }
 

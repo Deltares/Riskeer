@@ -16,28 +16,8 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
     /// </para>
     public class Bintree
     {
-        /// <summary>
-        /// Ensure that the Interval for the inserted item has non-zero extents.
-        /// Use the current minExtent to pad it, if necessary.
-        /// </summary>
-        public static Interval EnsureExtent(Interval itemInterval, double minExtent)
-        {
-            double min = itemInterval.Min;
-            double max = itemInterval.Max;
-            // has a non-zero extent
-            if (min != max) 
-                return itemInterval;
-            // pad extent
-            if (min == max)
-            {
-                min = min - minExtent / 2.0;
-                max = min + minExtent / 2.0;
-            }
-            return new Interval(min, max);
-        }
+        private readonly Root root;
 
-        private Root root;
-        
         /*
         * Statistics:
         * minExtent is the minimum extent of all items
@@ -64,8 +44,10 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         {
             get
             {
-                if (root != null) 
+                if (root != null)
+                {
                     return root.Depth;
+                }
                 return 0;
             }
         }
@@ -77,8 +59,10 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         {
             get
             {
-                if (root != null) 
+                if (root != null)
+                {
                     return root.Count;
+                }
                 return 0;
             }
         }
@@ -91,10 +75,34 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         {
             get
             {
-                if (root != null) 
+                if (root != null)
+                {
                     return root.NodeCount;
+                }
                 return 0;
             }
+        }
+
+        /// <summary>
+        /// Ensure that the Interval for the inserted item has non-zero extents.
+        /// Use the current minExtent to pad it, if necessary.
+        /// </summary>
+        public static Interval EnsureExtent(Interval itemInterval, double minExtent)
+        {
+            double min = itemInterval.Min;
+            double max = itemInterval.Max;
+            // has a non-zero extent
+            if (min != max)
+            {
+                return itemInterval;
+            }
+            // pad extent
+            if (min == max)
+            {
+                min = min - minExtent/2.0;
+                max = min + minExtent/2.0;
+            }
+            return new Interval(min, max);
         }
 
         /// <summary>
@@ -105,8 +113,8 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         public void Insert(Interval itemInterval, object item)
         {
             CollectStats(itemInterval);
-            Interval insertInterval = EnsureExtent(itemInterval, minExtent);            
-            root.Insert(insertInterval, item);            
+            Interval insertInterval = EnsureExtent(itemInterval, minExtent);
+            root.Insert(insertInterval, item);
         }
 
         /// <summary>
@@ -163,7 +171,9 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         {
             double del = interval.Width;
             if (del < minExtent && del > 0.0)
+            {
                 minExtent = del;
+            }
         }
     }
 }

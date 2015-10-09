@@ -12,41 +12,48 @@ namespace SharpMap.Data
     [Serializable()]
     public class FeatureDataRow : DataRow, IFeature, IComparable
     {
+        private IGeometry geometry;
+        private IFeatureAttributeCollection attributes;
         //private FeatureDataTable tableFeatureTable;
 
-        internal FeatureDataRow(DataRowBuilder rb) : base(rb)
-        {
-        }
-        private GeoAPI.Geometries.IGeometry geometry;
-        private IFeatureAttributeCollection attributes;
+        internal FeatureDataRow(DataRowBuilder rb) : base(rb) {}
 
         public virtual long Id { get; set; }
-
-        public virtual Type GetEntityType()
-        {
-            return GetType();
-        }
 
         /// <summary>
         /// The geometry of the current feature
         /// </summary>
-        public GeoAPI.Geometries.IGeometry Geometry
+        public IGeometry Geometry
         {
-            get { return geometry; }
-            set 
+            get
+            {
+                return geometry;
+            }
+            set
             {
                 IGeometry oldGeometry = geometry;
                 geometry = value;
                 FeatureDataRowChangeEventArgs e = new FeatureDataRowChangeEventArgs(this, DataRowAction.Change);
                 e.OldGeometry = oldGeometry;
-                ((FeatureDataTable)Table).OnFeatureDataRowGeometryChanged(e);
+                ((FeatureDataTable) Table).OnFeatureDataRowGeometryChanged(e);
             }
         }
 
         public IFeatureAttributeCollection Attributes
         {
-            get { return attributes; }
-            set { attributes = value; }
+            get
+            {
+                return attributes;
+            }
+            set
+            {
+                attributes = value;
+            }
+        }
+
+        public virtual Type GetEntityType()
+        {
+            return GetType();
         }
 
         /// <summary>
@@ -55,7 +62,7 @@ namespace SharpMap.Data
         /// <returns></returns>
         public bool IsFeatureGeometryNull()
         {
-            return this.Geometry == null;
+            return Geometry == null;
         }
 
         /// <summary>
@@ -63,7 +70,41 @@ namespace SharpMap.Data
         /// </summary>
         public void SetFeatureGeometryNull()
         {
-            this.Geometry = null;
+            Geometry = null;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+            return Equals((FeatureDataRow) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return ItemArray.GetHashCode();
+        }
+
+        public int CompareTo(object obj)
+        {
+            FeatureDataRow row = (FeatureDataRow) obj;
+
+            return Table.Rows.IndexOf(this).CompareTo(Table.Rows.IndexOf(row));
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
 
         protected bool Equals(FeatureDataRow other)
@@ -85,31 +126,6 @@ namespace SharpMap.Data
             }
 
             return true;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((FeatureDataRow) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return ItemArray.GetHashCode();
-        }
-
-        public int CompareTo(object obj)
-        {
-            FeatureDataRow row = (FeatureDataRow) obj;
-
-            return Table.Rows.IndexOf(this).CompareTo(Table.Rows.IndexOf(row));
-        }
-
-        public object Clone()
-        {
-            throw new NotImplementedException();
         }
     }
 }

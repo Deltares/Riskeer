@@ -3,8 +3,5 @@ using System.Collections.Generic;
 
 namespace GeoAPI.Extensions.Feature
 {
-    public interface IFeatureAttributeCollection : IDictionary<string, object>, ICloneable
-    {
-
-    }
+    public interface IFeatureAttributeCollection : IDictionary<string, object>, ICloneable {}
 }

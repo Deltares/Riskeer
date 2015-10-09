@@ -16,7 +16,17 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
             FillControl();
         }
 
-        void ControlValueChanged(object sender, EventArgs e)
+        protected override void Deinitialize()
+        {
+            Control.ValueChanged -= ControlValueChanged;
+        }
+
+        protected override void DataSourceChanged()
+        {
+            FillControl();
+        }
+
+        private void ControlValueChanged(object sender, EventArgs e)
         {
             DataValue = GetControlValue();
         }
@@ -26,17 +36,9 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
             var value = (DateTime) DataValue;
 
             if (value > DateTime.MinValue)
+            {
                 Control.Value = value;
-        }
-
-        protected override void Deinitialize()
-        {
-            Control.ValueChanged -= ControlValueChanged;
-        }
-
-        protected override void DataSourceChanged()
-        {
-            FillControl();
+            }
         }
     }
 }

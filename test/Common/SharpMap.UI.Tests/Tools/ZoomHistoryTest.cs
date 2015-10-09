@@ -8,8 +8,6 @@ namespace SharpMap.UI.Tests.Tools
     [TestFixture]
     public class ZoomHistoryTest
     {
-        
-
         [Test]
         public void ZoomHistory()
         {
@@ -42,7 +40,7 @@ namespace SharpMap.UI.Tests.Tools
             Assert.AreEqual(1.0, mapControl.Map.Zoom, cToleranceZoom);
             Assert.AreEqual(0.1, mapControl.Map.Center.X, cToleranceZoom);
             Assert.AreEqual(0.2, mapControl.Map.Center.Y, cToleranceZoom);
-          
+
             zoomHistoryToolMapTool.NextZoomState();
             zoomHistoryToolMapTool.MapRendered(mapControl.Map);
             Assert.AreEqual(1, zoomHistoryToolMapTool.UndoCount);
@@ -91,7 +89,7 @@ namespace SharpMap.UI.Tests.Tools
             Assert.AreEqual(2.3, mapControl.Map.Center.Y, cToleranceZoom);
             Assert.AreEqual(2, zoomHistoryToolMapTool.UndoCount);
             Assert.AreEqual(2, zoomHistoryToolMapTool.RedoCount);
-            
+
             zoomHistoryToolMapTool.NextZoomState();
             zoomHistoryToolMapTool.MapRendered(mapControl.Map);
             Assert.AreEqual(3.1, mapControl.Map.Zoom, cToleranceZoom);

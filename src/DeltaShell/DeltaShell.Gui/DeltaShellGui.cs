@@ -44,28 +44,26 @@ namespace DeltaShell.Gui
     /// </summary>
     public class DeltaShellGui : IGui, IDisposable
     {
+        public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; // TODO: make it weak
+        public event Action AfterRun;
         private static readonly ILog log = LogManager.GetLogger(typeof(DeltaShellGui));
+
+        private static DeltaShellGui instance;
+        private static string instanceCreationStackTrace;
 
         private IApplication application;
         private MainWindow mainWindow;
 
         private object selection;
-        
+
         private ViewList documentViews;
         private ViewList toolWindowViews;
         private AvalonDockDockingManager toolWindowViewsDockingManager;
 
-        private IGuiCommandHandler commandHandler;
+        private readonly IList<GuiPlugin> dropTargetPluginGuis = new List<GuiPlugin>();
+        private readonly IList<IGuiCommand> commands = new List<IGuiCommand>();
 
-        private IList<GuiPlugin> plugins;
-        
-        private IList<GuiPlugin> dropTargetPluginGuis = new List<GuiPlugin>();
-        private IList<IGuiCommand> commands = new List<IGuiCommand>();
-        
         private SplashScreen splashScreen;
-        
-        private static DeltaShellGui instance; 
-        private static string instanceCreationStackTrace;
         private ProgressDialog progressDialog;
 
         private bool settingSelection;
@@ -75,7 +73,7 @@ namespace DeltaShell.Gui
         public DeltaShellGui()
         {
             // error detection code, make sure we use only a single instance of DeltaShellGui at a time
-            if(instance != null)
+            if (instance != null)
             {
                 instance = null; // reset to that the consequent creations won't fail.
                 throw new InvalidOperationException(Resources.DeltaShellGui_DeltaShellGui_Only_a_single_instance_of_DeltaShelGui_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__ + instanceCreationStackTrace);
@@ -86,32 +84,34 @@ namespace DeltaShell.Gui
             ViewPropertyEditor.Gui = this;
             ThreadedWorker.WaitMethod = System.Windows.Forms.Application.DoEvents;
 
-            Application = new DeltaShellApplication 
+            Application = new DeltaShellApplication
             {
                 IsProjectCreatedInTemporaryDirectory = true,
-                WaitMethod = () => System.Windows.Forms.Application.DoEvents() 
+                WaitMethod = () => System.Windows.Forms.Application.DoEvents()
             };
 
-            plugins = new List<GuiPlugin>();
+            Plugins = new List<GuiPlugin>();
 
             application.UserSettings = Settings.Default;
             application.Settings = ConfigurationManager.AppSettings;
 
             application.Resources = new ResourceManager(typeof(Resources));
 
-            commandHandler = new GuiCommandHandler(this);
+            CommandHandler = new GuiCommandHandler(this);
 
             System.Windows.Forms.Application.EnableVisualStyles();
         }
 
-        ~DeltaShellGui()
-        {
-            Dispose(false);
-        }
+        public bool SkipDialogsOnExit { get; set; }
+
+        public Action OnMainWindowLoaded { get; set; }
 
         public IApplication Application
         {
-            get { return application; }
+            get
+            {
+                return application;
+            }
             set
             {
                 if (application != null)
@@ -140,10 +140,13 @@ namespace DeltaShell.Gui
                 }
             }
         }
-        
+
         public object Selection
         {
-            get { return selection; }
+            get
+            {
+                return selection;
+            }
             set
             {
                 if (selection == value || settingSelection)
@@ -196,30 +199,38 @@ namespace DeltaShell.Gui
 
         public IList<IGuiCommand> Commands
         {
-            get { return commands; }
+            get
+            {
+                return commands;
+            }
         }
 
-        public IGuiCommandHandler CommandHandler
-        {
-            get { return commandHandler; }
-            set { commandHandler = value; }
-        }
+        public IGuiCommandHandler CommandHandler { get; set; }
 
         public IViewList DocumentViews
         {
-            get { return documentViews; }
+            get
+            {
+                return documentViews;
+            }
         }
 
         public IViewResolver DocumentViewsResolver { get; private set; }
 
         public IViewList ToolWindowViews
         {
-            get { return toolWindowViews; }
+            get
+            {
+                return toolWindowViews;
+            }
         }
 
         public IMainWindow MainWindow
         {
-            get { return mainWindow; }
+            get
+            {
+                return mainWindow;
+            }
             set
             {
                 mainWindow = (MainWindow) value;
@@ -227,19 +238,22 @@ namespace DeltaShell.Gui
             }
         }
 
-        public bool SkipDialogsOnExit { get; set; }
-
-        public IList<GuiPlugin> Plugins
-        {
-            get { return plugins; }
-        }
+        public IList<GuiPlugin> Plugins { get; private set; }
 
         public string PluginVersions
         {
-            get { return String.Join("\n", plugins.Select(p => string.Format("{0} ({1}) {2}", p.Name,p.DisplayName, p.Version))); }
+            get
+            {
+                return String.Join("\n", Plugins.Select(p => string.Format("{0} ({1}) {2}", p.Name, p.DisplayName, p.Version)));
+            }
         }
-        
+
         public bool IsViewRemoveOnItemDeleteSuspended { get; set; }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
 
         public void Run()
         {
@@ -273,7 +287,7 @@ namespace DeltaShell.Gui
             }
 
             log.Info(Resources.DeltaShellGui_Run_Initializing_graphical_user_interface____);
-            
+
             Initialize();
 
             log.Info(Resources.DeltaShellGui_Run_Waiting_until_new_project_is_initialized____);
@@ -281,7 +295,7 @@ namespace DeltaShell.Gui
             while (!DeltaShellApplication.TemporaryProjectSaved || Application.Plugins.Any(p => !p.IsActive))
             {
                 Thread.Sleep(50);
-                splashScreen.Dispatcher.Invoke(DispatcherPriority.Render, new Action(() => {}));
+                splashScreen.Dispatcher.Invoke(DispatcherPriority.Render, new Action(() => { }));
             }
 
             log.InfoFormat(Resources.DeltaShellGui_Run_Started_in__0_f2__sec, (DateTime.Now - startTime).TotalSeconds);
@@ -303,10 +317,12 @@ namespace DeltaShell.Gui
         public void Exit()
         {
             if (isExiting)
+            {
                 return; //already got here before
-            
+            }
+
             isExiting = true;
-            
+
             if (!SkipDialogsOnExit && !CommandHandler.TryCloseWTIProject())
             {
                 // user cancelled exit:
@@ -321,7 +337,7 @@ namespace DeltaShell.Gui
             mainWindow.ClearDocumentTabs();
 
             mainWindow.SaveLayout(); // save before Application.Exit
-            
+
             Application.Exit();
 
             // close faster (hide main window)
@@ -348,11 +364,6 @@ namespace DeltaShell.Gui
             }
 
             return null;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -396,23 +407,23 @@ namespace DeltaShell.Gui
                         ToolWindowViews.Clear();
                     }
 
-                    if (commandHandler != null)
+                    if (CommandHandler != null)
                     {
-                        commandHandler.Dispose();
-                        commandHandler = null;
+                        CommandHandler.Dispose();
+                        CommandHandler = null;
                     }
 
-                    if (plugins != null)
+                    if (Plugins != null)
                     {
                         dropTargetPluginGuis.Clear();
-                        foreach (var plugin in plugins)
+                        foreach (var plugin in Plugins)
                         {
                             plugin.Deactivate();
                             plugin.Dispose();
                         }
-                        plugins = null;
+                        Plugins = null;
                     }
-                    
+
                     if (toolWindowViews != null)
                     {
                         toolWindowViews.Clear();
@@ -468,7 +479,7 @@ namespace DeltaShell.Gui
             System.Windows.Forms.Application.ApplicationExit -= HandleApplicationExit;
 
             // prevent nasty Windows.Forms memory leak (keeps references to databinding objects / controls
-            var systemAssembly = typeof (Component).Assembly;
+            var systemAssembly = typeof(Component).Assembly;
             var reflectTypeDescriptionProviderType =
                 systemAssembly.GetType("System.ComponentModel.ReflectTypeDescriptionProvider");
             var propertyCacheInfo = reflectTypeDescriptionProviderType.GetField("_propertyCache",
@@ -489,8 +500,8 @@ namespace DeltaShell.Gui
             }
 
             var eventCacheInfo = reflectTypeDescriptionProviderType.GetField("_eventCache",
-                                                                                BindingFlags.Static |
-                                                                                BindingFlags.NonPublic);
+                                                                             BindingFlags.Static |
+                                                                             BindingFlags.NonPublic);
             var eventCache = eventCacheInfo.GetValue(null) as Hashtable;
             if (eventCache != null)
             {
@@ -498,8 +509,8 @@ namespace DeltaShell.Gui
             }
 
             var attributeCacheInfo = reflectTypeDescriptionProviderType.GetField("_attributeCache",
-                                                                                    BindingFlags.Static |
-                                                                                    BindingFlags.NonPublic);
+                                                                                 BindingFlags.Static |
+                                                                                 BindingFlags.NonPublic);
             var attributeCache = attributeCacheInfo.GetValue(null) as Hashtable;
             if (attributeCache != null)
             {
@@ -524,7 +535,7 @@ namespace DeltaShell.Gui
             }
 
             var defaultProvidersInfo = typeDescriptorType.GetField("_defaultProviders",
-                                                                    BindingFlags.Static | BindingFlags.NonPublic);
+                                                                   BindingFlags.Static | BindingFlags.NonPublic);
             var defaultProviders = defaultProvidersInfo.GetValue(null) as Hashtable;
             if (defaultProviders != null)
             {
@@ -537,49 +548,56 @@ namespace DeltaShell.Gui
             instance = null;
         }
 
-        public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; // TODO: make it weak
-        public event Action AfterRun;
-
-        void ApplicationProjectSaved(Project obj)
+        private void ApplicationProjectSaved(Project obj)
         {
             ResumeUI();
         }
 
-        void ApplicationProjectSaving(Project obj)
+        private void ApplicationProjectSaving(Project obj)
         {
             SuspendUI();
         }
 
         private void SuspendUI()
         {
-            if (documentViews != null) 
+            if (documentViews != null)
+            {
                 documentViews.SuspendAllViewUpdates();
+            }
 
-            if (toolWindowViews != null) 
+            if (toolWindowViews != null)
+            {
                 toolWindowViews.SuspendAllViewUpdates();
+            }
         }
 
         private void ResumeUI()
         {
-            if (documentViews != null) 
+            if (documentViews != null)
+            {
                 documentViews.ResumeAllViewUpdates();
+            }
 
-            if (toolWindowViews != null) 
+            if (toolWindowViews != null)
+            {
                 toolWindowViews.ResumeAllViewUpdates();
+            }
 
             if (mainWindow != null)
+            {
                 mainWindow.ValidateItems();
+            }
         }
 
-        void ApplicationProjectOpening(Project obj)
+        private void ApplicationProjectOpening(Project obj)
         {
             SuspendUI();
         }
 
         [InvokeRequired]
-        void ActivityRunnerIsRunningChanged(object sender, EventArgs e)
+        private void ActivityRunnerIsRunningChanged(object sender, EventArgs e)
         {
-            if(isExiting)
+            if (isExiting)
             {
                 return;
             }
@@ -599,7 +617,10 @@ namespace DeltaShell.Gui
         [InvokeRequired]
         private void ActivityRunnerActivityCompleted(object sender, ActivityEventArgs e)
         {
-            if (MainWindow == null || MainWindow.PropertyGrid == null) return;
+            if (MainWindow == null || MainWindow.PropertyGrid == null)
+            {
+                return;
+            }
 
             // Force refresh of propertygrid (not done automaticly because events are disabled during import)
             MainWindow.PropertyGrid.Data = MainWindow.PropertyGrid.GetObjectProperties(Selection);
@@ -611,9 +632,11 @@ namespace DeltaShell.Gui
             //Showing a modal dialog box or form when the application is not running in UserInteractive mode is not a valid operation.
             //hence this check
             if (!Environment.UserInteractive)
+            {
                 return;
+            }
 
-            if(isExiting)
+            if (isExiting)
             {
                 return;
             }
@@ -622,15 +645,15 @@ namespace DeltaShell.Gui
             {
                 progressDialog = new ProgressDialog();
                 progressDialog.CancelClicked += delegate
-                    {
-                        Application.ActivityRunner.CancelAll();
+                {
+                    Application.ActivityRunner.CancelAll();
 
-                        // wait until all import activities are finished
-                        while (Application.IsActivityRunning())
-                        {
-                            System.Windows.Forms.Application.DoEvents();
-                        }
-                    };
+                    // wait until all import activities are finished
+                    while (Application.IsActivityRunning())
+                    {
+                        System.Windows.Forms.Application.DoEvents();
+                    }
+                };
                 progressDialog.Data = Application.ActivityRunner.Activities;
             }
 
@@ -668,7 +691,10 @@ namespace DeltaShell.Gui
         // Sets the tooltip for given view, assuming that ProjectExplorer is not null.
         private void SetToolTipForView(IView view)
         {
-            if(mainWindow == null || mainWindow.ProjectExplorer == null) return;
+            if (mainWindow == null || mainWindow.ProjectExplorer == null)
+            {
+                return;
+            }
 
             var node = mainWindow.ProjectExplorer.TreeView.GetNodeByTag(view.Data);
             if (node != null)
@@ -680,7 +706,7 @@ namespace DeltaShell.Gui
         private void ConfigureLogging()
         {
             // configure logging
-            var rootLogger = ((Hierarchy)LogManager.GetRepository()).Root;
+            var rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
 
             if (!rootLogger.Appenders.Cast<IAppender>().Any(a => a is MessageWindowLogAppender))
             {
@@ -691,30 +717,30 @@ namespace DeltaShell.Gui
 
         private void RemoveLogging()
         {
-            var rootLogger = ((Hierarchy)LogManager.GetRepository()).Root;
+            var rootLogger = ((Hierarchy) LogManager.GetRepository()).Root;
             var messageWindowLogAppender = rootLogger.Appenders.Cast<IAppender>().OfType<MessageWindowLogAppender>().FirstOrDefault();
             if (messageWindowLogAppender != null)
             {
-                rootLogger.RemoveAppender(messageWindowLogAppender);    
+                rootLogger.RemoveAppender(messageWindowLogAppender);
             }
         }
 
         private void Initialize()
         {
             LoadPlugins();
-            
+
             InitializeWindows();
 
             InitializePluginResources();
 
-            plugins.ForEach(p => p.Gui = this);
-            
+            Plugins.ForEach(p => p.Gui = this);
+
             ActivatePlugins();
 
             InitializeMenusAndToolbars();
 
             System.Windows.Forms.Application.ApplicationExit += HandleApplicationExit;
-            
+
             CopyDefaultViewsFromUserSettings();
 
             //enable activation AFTER initialization
@@ -756,7 +782,7 @@ namespace DeltaShell.Gui
 
             splashScreen.LabelVersionVersion = Application.Settings["fullVersion"];
             splashScreen.SplashScreenCopyright = Application.Settings["copyright"];
-            splashScreen.LabelLicense = Application.Settings["license"]; 
+            splashScreen.LabelLicense = Application.Settings["license"];
             splashScreen.LabelCompany = Application.Settings["company"];
 
             splashScreen.IsVisibleChanged += delegate
@@ -794,55 +820,53 @@ namespace DeltaShell.Gui
             }
 
             mainWindow.Loaded += delegate
-                                   {
-                                       mainWindow.RestoreLayout();
+            {
+                mainWindow.RestoreLayout();
 
-                                       toolWindowViewsDockingManager.OnLayoutChange();
+                toolWindowViewsDockingManager.OnLayoutChange();
 
-                                       // bug in Fluent ribbon (views removed during load layout are not cleared - no events), synchronize them manually
-                                       toolWindowViews.SynchronizeViews(toolWindowViewsDockingManager.Views.ToArray());
+                // bug in Fluent ribbon (views removed during load layout are not cleared - no events), synchronize them manually
+                toolWindowViews.SynchronizeViews(toolWindowViewsDockingManager.Views.ToArray());
 
-                                       // make sure these windows come on top
-                                       if (ToolWindowViews.Contains(mainWindow.PropertyGrid))
-                                       {
-                                           ToolWindowViews.ActiveView = mainWindow.PropertyGrid;
-                                       }
+                // make sure these windows come on top
+                if (ToolWindowViews.Contains(mainWindow.PropertyGrid))
+                {
+                    ToolWindowViews.ActiveView = mainWindow.PropertyGrid;
+                }
 
-                                       if (ToolWindowViews.Contains(mainWindow.MessageWindow))
-                                       {
-                                           ToolWindowViews.ActiveView = mainWindow.MessageWindow;
-                                       }
+                if (ToolWindowViews.Contains(mainWindow.MessageWindow))
+                {
+                    ToolWindowViews.ActiveView = mainWindow.MessageWindow;
+                }
 
-                                       if (ToolWindowViews.Contains(mainWindow.ProjectExplorer))
-                                       {
-                                           ToolWindowViews.ActiveView = mainWindow.ProjectExplorer;
-                                       }
+                if (ToolWindowViews.Contains(mainWindow.ProjectExplorer))
+                {
+                    ToolWindowViews.ActiveView = mainWindow.ProjectExplorer;
+                }
 
-                                       mainWindow.ValidateItems();
+                mainWindow.ValidateItems();
 
-                                       mainWindow.ShowStartPage();
+                mainWindow.ShowStartPage();
 
-                                       if (OnMainWindowLoaded != null)
-                                       {
-                                           OnMainWindowLoaded();
-                                       }
-                                   };
+                if (OnMainWindowLoaded != null)
+                {
+                    OnMainWindowLoaded();
+                }
+            };
 
             mainWindow.Closing += delegate(object sender, CancelEventArgs e)
-                                      {
-                                          if (isExiting)
-                                          {
-                                              return;
-                                          }
+            {
+                if (isExiting)
+                {
+                    return;
+                }
 
-                                          e.Cancel = true; //cancel closing: let Exit handle it
-                                          Exit();
-                                      };
+                e.Cancel = true; //cancel closing: let Exit handle it
+                Exit();
+            };
 
             UpdateMainWindowIcon();
         }
-
-        public Action OnMainWindowLoaded { get; set; }
 
         private void UpdateMainWindowIcon()
         {
@@ -871,7 +895,7 @@ namespace DeltaShell.Gui
 
             log.Info(Resources.DeltaShellGui_InitializeWindows_Creating_default_tool_windows____);
             InitToolWindows();
-            
+
             UpdateTitle();
 
             log.Info(Resources.DeltaShellGui_InitializeWindows_All_windows_are_created_);
@@ -899,7 +923,7 @@ namespace DeltaShell.Gui
         private void ActiveViewChanging(object sender, ActiveViewChangeEventArgs e)
         {
             // TODO: if view removes controls - we will have a problem here, view controls won't be unsubscribed
-            var activeViewControl = (Control)e.OldView;
+            var activeViewControl = (Control) e.OldView;
             if (e.OldView != null)
             {
                 activeViewControl.DragEnter -= DeltaShellGuiDragEnter;
@@ -918,7 +942,7 @@ namespace DeltaShell.Gui
                 return;
             }
 
-            activeViewControl = (Control)e.View;
+            activeViewControl = (Control) e.View;
             activeViewControl.DragEnter += DeltaShellGuiDragEnter;
             activeViewControl.DragOver += DeltaShellGui_DragOver;
             activeViewControl.DragDrop += DeltaShellGuiDragDrop;
@@ -934,11 +958,11 @@ namespace DeltaShell.Gui
                 SetToolTipForView(e.View);
             }
         }
-        
-        void DeltaShellGuiDragEnter(object sender, DragEventArgs e)
+
+        private void DeltaShellGuiDragEnter(object sender, DragEventArgs e)
         {
             dropTargetPluginGuis.Clear();
-            foreach (var pluginGui in plugins)
+            foreach (var pluginGui in Plugins)
             {
                 var formats = e.Data.GetFormats();
                 foreach (var format in formats)
@@ -956,7 +980,7 @@ namespace DeltaShell.Gui
             }
         }
 
-        void DeltaShellGuiDragDrop(object sender, DragEventArgs e)
+        private void DeltaShellGuiDragDrop(object sender, DragEventArgs e)
         {
             if (e.Effect == DragDropEffects.None) // already handled
             {
@@ -969,16 +993,19 @@ namespace DeltaShell.Gui
                 var formats = e.Data.GetFormats();
                 foreach (var format in formats)
                 {
-                    if (DocumentViews.ActiveView == null) return;
+                    if (DocumentViews.ActiveView == null)
+                    {
+                        return;
+                    }
 
                     var source = e.Data.GetData(format);
 
                     pluginGui.OnDragDrop(source, DocumentViews.ActiveView.Data);
 
-                    if(DocumentViews.ActiveView is ICompositeView)
+                    if (DocumentViews.ActiveView is ICompositeView)
                     {
                         // try to drop on one of child views
-                        foreach (var view in ((ICompositeView)DocumentViews.ActiveView).ChildViews)
+                        foreach (var view in ((ICompositeView) DocumentViews.ActiveView).ChildViews)
                         {
                             pluginGui.OnDragDrop(source, view.Data);
                         }
@@ -987,11 +1014,11 @@ namespace DeltaShell.Gui
             }
         }
 
-        void DeltaShellGui_DragOver(object sender, DragEventArgs e)
+        private void DeltaShellGui_DragOver(object sender, DragEventArgs e)
         {
             // check if we can drop things here
         }
-        
+
         // TODO: incapsulate any knowledge of the plugin XML inside plugin configurator, the rest of the system should not know about it!
         private void InitToolWindows()
         {
@@ -999,19 +1026,19 @@ namespace DeltaShell.Gui
             log.Info(Resources.DeltaShellGui_InitToolWindows_Creating_document_window_manager____);
 
             var allowedDocumentWindowLocations = new[]
-                                                     {
-                                                         ViewLocation.Document, 
-                                                         ViewLocation.Floating
-                                                     };
-            
+            {
+                ViewLocation.Document,
+                ViewLocation.Floating
+            };
+
             var documentDockingManager = new AvalonDockDockingManager(mainWindow.DockingManager, allowedDocumentWindowLocations);
 
             var documentViewManager = new ViewList(documentDockingManager, ViewLocation.Document)
-                                {
-                                    IgnoreActivation = true,
-                                    UpdateViewNameAction = v => UpdateViewName(v),
-                                    Gui = this
-                                };
+            {
+                IgnoreActivation = true,
+                UpdateViewNameAction = v => UpdateViewName(v),
+                Gui = this
+            };
 
             documentViewManager.EnableTabContextMenus();
 
@@ -1022,31 +1049,30 @@ namespace DeltaShell.Gui
 
             documentViews = documentViewManager;
 
-            DocumentViewsResolver = new ViewResolver(documentViews, plugins.SelectMany(p => p.GetViewInfoObjects()));
+            DocumentViewsResolver = new ViewResolver(documentViews, Plugins.SelectMany(p => p.GetViewInfoObjects()));
 
             var allowedToolWindowLocations = new[]
-                                                 {
-                                                     ViewLocation.Left, 
-                                                     ViewLocation.Right, 
-                                                     ViewLocation.Top, 
-                                                     ViewLocation.Bottom,
-                                                     ViewLocation.Floating
-                                                 };
+            {
+                ViewLocation.Left,
+                ViewLocation.Right,
+                ViewLocation.Top,
+                ViewLocation.Bottom,
+                ViewLocation.Floating
+            };
 
             toolWindowViewsDockingManager = new AvalonDockDockingManager(mainWindow.DockingManager, allowedToolWindowLocations);
 
             toolWindowViews = new ViewList(toolWindowViewsDockingManager, ViewLocation.Left)
-                                  {
-                                      IgnoreActivation = true,
-                                      Gui = this
-                                  };
+            {
+                IgnoreActivation = true,
+                Gui = this
+            };
 
             toolWindowViews.CollectionChanged += ToolWindowViewsOnCollectionChanged;
 
             log.Info(Resources.DeltaShellGui_InitToolWindows_Creating_tool_window_manager____);
 
             mainWindow.InitializeToolWindows();
-
 
             log.Debug(Resources.DeltaShellGui_InitToolWindows_Finished_InitToolWindows);
 #endif
@@ -1066,7 +1092,10 @@ namespace DeltaShell.Gui
 
         private void DocumentViewManagerOnChildViewChanged(object sender, NotifyCollectionChangingEventArgs notifyCollectionChangingEventArgs)
         {
-            if (isExiting) return;
+            if (isExiting)
+            {
+                return;
+            }
 
             mainWindow.ValidateItems();
         }
@@ -1074,7 +1103,10 @@ namespace DeltaShell.Gui
         private static string GetViewName(IView view)
         {
             var name = view.ViewInfo != null ? view.ViewInfo.GetViewName(view, view.Data) : null;
-            if (name != null) return name;
+            if (name != null)
+            {
+                return name;
+            }
 
             var enumerable = view.Data as IEnumerable;
             var data = enumerable == null ? view.Data : enumerable.Cast<object>().FirstOrDefault();
@@ -1091,13 +1123,19 @@ namespace DeltaShell.Gui
 
         private void ToolWindowViewsOnCollectionChanged(object sender, NotifyCollectionChangingEventArgs notifyCollectionChangingEventArgs)
         {
-            if (isExiting) return;
+            if (isExiting)
+            {
+                return;
+            }
             mainWindow.ValidateItems();
         }
 
         private void DocumentViewsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
-            if (isExiting || documentViews.Count != 0) return;
+            if (isExiting || documentViews.Count != 0)
+            {
+                return;
+            }
 
             // if no new active view is set update toolbars
             mainWindow.ValidateItems();
@@ -1147,7 +1185,7 @@ namespace DeltaShell.Gui
                 {
                     log.Error(Resources.DeltaShellGui_ActivatePlugins_Exception_during_plugin_gui_deactivation, exception);
                 }
-                
+
                 try
                 {
                     problematicPlugins[i].Deactivate();
@@ -1157,18 +1195,18 @@ namespace DeltaShell.Gui
                     log.Error(Resources.DeltaShellGui_ActivatePlugins_Exception_during_plugin_deactivation, exception);
                 }
 
-                plugins.Remove(problematicPlugins[i]);
+                Plugins.Remove(problematicPlugins[i]);
             }
 
             mainWindow.ResumeLayout();
         }
-        
+
         private void InitializePluginResources()
         {
-            if (plugins.Count > 0)
+            if (Plugins.Count > 0)
             {
                 string s = "";
-                foreach (var p in plugins)
+                foreach (var p in Plugins)
                 {
                     DeltaShellApplication.InitializePluginResources(p);
 
@@ -1182,7 +1220,7 @@ namespace DeltaShell.Gui
                 log.Warn(Resources.DeltaShellGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_);
             }
         }
-        
+
         private void LoadPlugins()
         {
             log.Debug(Resources.DeltaShellGui_LoadPlugins_Searching_for_Gui_plugins____);
@@ -1190,7 +1228,7 @@ namespace DeltaShell.Gui
             var newGuiPlugins = PluginManager.GetPlugins<GuiPlugin>().Except(Plugins).ToList();
             foreach (var plugin in newGuiPlugins)
             {
-                plugins.Add(plugin);
+                Plugins.Add(plugin);
             }
 
             log.InfoFormat(Resources.DeltaShellGui_LoadPlugins__0__gui_plugin_s__were_loaded, Plugins.Count);
@@ -1215,13 +1253,12 @@ namespace DeltaShell.Gui
 
         private void CopyDefaultViewsFromUserSettings()
         {
-
             StringCollection defaultViews;
             StringCollection defaultViewDataTypes;
             if (Application.UserSettings["defaultViews"] != null)
             {
-                defaultViews = (StringCollection)Application.UserSettings["defaultViews"];
-                defaultViewDataTypes = (StringCollection)Application.UserSettings["defaultViewDataTypes"];
+                defaultViews = (StringCollection) Application.UserSettings["defaultViews"];
+                defaultViewDataTypes = (StringCollection) Application.UserSettings["defaultViewDataTypes"];
             }
             else
             {
@@ -1256,6 +1293,11 @@ namespace DeltaShell.Gui
 
             Application.UserSettings["defaultViews"] = defaultViews;
             Application.UserSettings["defaultViewDataTypes"] = defaultViewDataTypes;
+        }
+
+        ~DeltaShellGui()
+        {
+            Dispose(false);
         }
     }
 }

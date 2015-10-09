@@ -30,7 +30,7 @@ namespace DelftTools.Utils.Xml.Serialization
     /// Facade to XML serialization and deserialization of strongly typed objects to/from an XML file.
     /// <seealso href="http://samples.gotdotnet.com/">References: XML Serialization.</seealso><para />
     /// <seealso cref="http://samples.gotdotnet.com/QuickStart/howto/default.aspx?url=/quickstart/howto/doc/xmlserialization/rwobjfromxml.aspx"/>
-   /// </summary>
+    /// </summary>
     public static class ObjectXmlSerializer<T> where T : class // Specify that T must be a class.
     {
         #region Load methods
@@ -309,9 +309,13 @@ namespace DelftTools.Utils.Xml.Serialization
             FileStream fileStream;
 
             if (isolatedStorageFolder == null)
+            {
                 fileStream = new FileStream(path, FileMode.OpenOrCreate);
+            }
             else
+            {
                 fileStream = new IsolatedStorageFileStream(path, FileMode.OpenOrCreate, isolatedStorageFolder);
+            }
 
             return fileStream;
         }
@@ -348,9 +352,13 @@ namespace DelftTools.Utils.Xml.Serialization
             TextReader textReader;
 
             if (isolatedStorageFolder == null)
+            {
                 textReader = new StreamReader(path);
+            }
             else
+            {
                 textReader = new StreamReader(new IsolatedStorageFileStream(path, FileMode.Open, isolatedStorageFolder));
+            }
 
             return textReader;
         }
@@ -374,14 +382,18 @@ namespace DelftTools.Utils.Xml.Serialization
 
         private static XmlSerializer CreateXmlSerializer(Type[] extraTypes)
         {
-            Type ObjectType = typeof (T);
+            Type ObjectType = typeof(T);
 
             XmlSerializer xmlSerializer;
 
             if (extraTypes != null)
+            {
                 xmlSerializer = new XmlSerializer(ObjectType, extraTypes);
+            }
             else
+            {
                 xmlSerializer = new XmlSerializer(ObjectType);
+            }
 
             return xmlSerializer;
         }

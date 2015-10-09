@@ -16,9 +16,21 @@ namespace DelftTools.Utils.PropertyBag.Dynamic
     {
         private object propertyObject;
 
-        public DynamicPropertyBag(object propertyObject, PropertyInfo[] customPropertyInfos=null)
+        public DynamicPropertyBag(object propertyObject, PropertyInfo[] customPropertyInfos = null)
         {
             Initialize(propertyObject, customPropertyInfos ?? propertyObject.GetType().GetProperties());
+        }
+
+        protected DynamicPropertyBag() {}
+
+        public Type GetContentType()
+        {
+            return propertyObject.GetType();
+        }
+
+        public override string ToString()
+        {
+            return propertyObject.ToString();
         }
 
         protected void Initialize(object propertyObject, PropertyInfo[] properties)
@@ -28,26 +40,7 @@ namespace DelftTools.Utils.PropertyBag.Dynamic
             {
                 var propertySpec = GetProperySpecForProperty(propertyInfo);
                 Properties.Add(propertySpec);
-
             }
-        }
-
-        private static PropertySpec GetProperySpecForProperty(PropertyInfo propertyInfo)
-        {
-            var propertySpec = new PropertySpec(propertyInfo.Name, propertyInfo.PropertyType);
-                
-            var attributeList = new List<Attribute>();
-            foreach(object attrib in propertyInfo.GetCustomAttributes(true))
-                if (attrib is Attribute)
-                    attributeList.Add(attrib as Attribute);
-
-            if (propertyInfo.GetSetMethod()==null) 
-            {
-                attributeList.Add(new ReadOnlyAttribute(true));
-            }
-            propertySpec.Attributes = attributeList.ToArray();
-            
-            return propertySpec;
         }
 
         protected override void OnGetValue(PropertySpecEventArgs e)
@@ -115,7 +108,7 @@ namespace DelftTools.Utils.PropertyBag.Dynamic
                     // nothing we can do about it
                 }
             }
-            
+
             e.Property.Attributes = attributeList.ToArray();
 
             var propertyInfo = propertyObject.GetType().GetProperty(e.Property.Name);
@@ -127,6 +120,35 @@ namespace DelftTools.Utils.PropertyBag.Dynamic
             e.Value = isNestedPropertiesObject ? new DynamicPropertyBag(value) : value;
         }
 
+        protected override void OnSetValue(PropertySpecEventArgs e)
+        {
+            base.OnSetValue(e);
+
+            propertyObject.GetType().GetProperty(e.Property.Name).SetValue(propertyObject, e.Value, null);
+        }
+
+        private static PropertySpec GetProperySpecForProperty(PropertyInfo propertyInfo)
+        {
+            var propertySpec = new PropertySpec(propertyInfo.Name, propertyInfo.PropertyType);
+
+            var attributeList = new List<Attribute>();
+            foreach (object attrib in propertyInfo.GetCustomAttributes(true))
+            {
+                if (attrib is Attribute)
+                {
+                    attributeList.Add(attrib as Attribute);
+                }
+            }
+
+            if (propertyInfo.GetSetMethod() == null)
+            {
+                attributeList.Add(new ReadOnlyAttribute(true));
+            }
+            propertySpec.Attributes = attributeList.ToArray();
+
+            return propertySpec;
+        }
+
         /// <summary>
         /// Determines if the property represents nested object properties, by checking for an ExpandableObjectConverter type converter.
         /// </summary>
@@ -136,14 +158,14 @@ namespace DelftTools.Utils.PropertyBag.Dynamic
         {
             try
             {
-                var typeConverterAttributes = propertyInfo.GetCustomAttributes(typeof (TypeConverterAttribute), false);
+                var typeConverterAttributes = propertyInfo.GetCustomAttributes(typeof(TypeConverterAttribute), false);
                 foreach (TypeConverterAttribute typeConverterAttribute in typeConverterAttributes)
                 {
                     var typeString = typeConverterAttribute.ConverterTypeName;
                     var type = Type.GetType(typeString);
                     if (type != null)
                     {
-                        if (typeof (ExpandableObjectConverter) == type)
+                        if (typeof(ExpandableObjectConverter) == type)
                         {
                             return true;
                         }
@@ -155,27 +177,6 @@ namespace DelftTools.Utils.PropertyBag.Dynamic
                 //gulp
             }
             return false;
-        }
-
-        protected override void OnSetValue(PropertySpecEventArgs e)
-        {
-            base.OnSetValue(e);
-
-            propertyObject.GetType().GetProperty(e.Property.Name).SetValue(propertyObject,e.Value,null);
-        }
-
-        public Type GetContentType()
-        {
-            return propertyObject.GetType();
-        }
-
-        public override string ToString()
-        {
-            return propertyObject.ToString();
-        }
-
-        protected DynamicPropertyBag()
-        {
         }
     }
 }

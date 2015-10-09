@@ -7,6 +7,7 @@ using System.Windows.Threading;
 using DelftTools.Controls.Swf;
 using DelftTools.Utils.Aop;
 using log4net;
+using MessageBox = DelftTools.Controls.Swf.MessageBox;
 
 namespace DelftTools.TestUtils
 {
@@ -17,25 +18,46 @@ namespace DelftTools.TestUtils
     /// </summary>
     public class GuiTestHelper
     {
-        public class LoggingMessageBox : IMessageBox
-        {
-            public DialogResult Show(string text, string caption, MessageBoxButtons buttons)
-            {
-                Console.WriteLine("MessageBox: " + caption + ". " + text);
-
-                if (buttons == MessageBoxButtons.YesNoCancel || buttons == MessageBoxButtons.YesNo)
-                {
-                    return DialogResult.No;
-                }
-
-                return DialogResult.None;
-            }
-        }
+        /// <summary>
+        /// Enable to monitor allocated/deallocated resources
+        /// </summary>
+        public static bool UseResourceMonitor = false;
 
         private static GuiTestHelper instance;
 
-        public static GuiTestHelper Instance 
-        { 
+        private static readonly ILog log = LogManager.GetLogger(typeof(WindowsFormsTestHelper));
+
+        private static Form synchronizationForm;
+
+        private static Exception exception;
+
+        private static bool unhandledThreadExceptionOccured;
+
+        private static bool appDomainExceptionOccured;
+
+        private static readonly ResourceMonitor resourceMonitor;
+
+        static GuiTestHelper()
+        {
+            MessageBox.CustomMessageBox = new LoggingMessageBox();
+
+            Control.CheckForIllegalCrossThreadCalls = true;
+            Application.EnableVisualStyles();
+
+            InitializeSynchronizatonObject();
+            Dispatcher.CurrentDispatcher.UnhandledException += CurrentDispatcher_UnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
+            Application.ThreadException += Application_ThreadException;
+
+            if (UseResourceMonitor && resourceMonitor == null)
+            {
+                resourceMonitor = new ResourceMonitor();
+                resourceMonitor.Show();
+            }
+        }
+
+        public static GuiTestHelper Instance
+        {
             get
             {
                 if (instance == null)
@@ -46,23 +68,6 @@ namespace DelftTools.TestUtils
                 return instance;
             }
         }
-
-        private static ILog log = LogManager.GetLogger(typeof(WindowsFormsTestHelper));
-
-        private static Form synchronizationForm;
-
-        private static Exception exception;
-
-        private static bool unhandledThreadExceptionOccured;
-
-        private static bool appDomainExceptionOccured;
-
-        /// <summary>
-        /// Enable to monitor allocated/deallocated resources
-        /// </summary>
-        public static bool UseResourceMonitor = false;
-
-        private static ResourceMonitor resourceMonitor;
 
         /// <summary>
         /// Checks build_number environment variable to determine whether we run on the build server.
@@ -80,29 +85,34 @@ namespace DelftTools.TestUtils
 
         public Exception Exception
         {
-            get { return exception; }
-        }
-
-        static GuiTestHelper()
-        {
-            Controls.Swf.MessageBox.CustomMessageBox = new LoggingMessageBox();
-
-            Control.CheckForIllegalCrossThreadCalls = true;
-            Application.EnableVisualStyles();
-
-            InitializeSynchronizatonObject();
-            Dispatcher.CurrentDispatcher.UnhandledException += CurrentDispatcher_UnhandledException;
-            AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
-            Application.ThreadException += Application_ThreadException;
-
-            if (UseResourceMonitor && resourceMonitor == null)
+            get
             {
-                resourceMonitor = new ResourceMonitor();
-                resourceMonitor.Show();
+                return exception;
             }
         }
 
-        static void CurrentDispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        public void RethrowUnhandledException()
+        {
+            if (unhandledThreadExceptionOccured)
+            {
+                throw new UnhandledException("Unhandled thread exception: " + exception.Message, exception, exception.StackTrace);
+            }
+
+            if (appDomainExceptionOccured)
+            {
+                throw new UnhandledException("Unhandled app domain exception: " + exception.Message, exception, exception.StackTrace);
+            }
+        }
+
+        public static void Initialize()
+        {
+            exception = null;
+            unhandledThreadExceptionOccured = false;
+            appDomainExceptionOccured = false;
+            MessageBox.CustomMessageBox = new LoggingMessageBox();
+        }
+
+        private static void CurrentDispatcher_UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             unhandledThreadExceptionOccured = true;
             exception = e.Exception;
@@ -113,7 +123,10 @@ namespace DelftTools.TestUtils
         {
             if (synchronizationForm == null)
             {
-                synchronizationForm = new Form { ShowInTaskbar = false, WindowState = FormWindowState.Minimized, FormBorderStyle = FormBorderStyle.None };
+                synchronizationForm = new Form
+                {
+                    ShowInTaskbar = false, WindowState = FormWindowState.Minimized, FormBorderStyle = FormBorderStyle.None
+                };
                 synchronizationForm.Load += (sender, args) => synchronizationForm.Size = new Size(0, 0);
                 var handle = synchronizationForm.Handle; //force get handle
                 synchronizationForm.Show();
@@ -148,16 +161,18 @@ namespace DelftTools.TestUtils
             log.Error("Windows.Forms exception occured: " + e.Exception.Message, e.Exception);
         }
 
-        public void RethrowUnhandledException()
+        public class LoggingMessageBox : IMessageBox
         {
-            if (unhandledThreadExceptionOccured)
+            public DialogResult Show(string text, string caption, MessageBoxButtons buttons)
             {
-                throw new UnhandledException("Unhandled thread exception: " + exception.Message, exception, exception.StackTrace);
-            }
+                Console.WriteLine("MessageBox: " + caption + ". " + text);
 
-            if (appDomainExceptionOccured)
-            {
-                throw new UnhandledException("Unhandled app domain exception: " + exception.Message, exception, exception.StackTrace);
+                if (buttons == MessageBoxButtons.YesNoCancel || buttons == MessageBoxButtons.YesNo)
+                {
+                    return DialogResult.No;
+                }
+
+                return DialogResult.None;
             }
         }
 
@@ -166,7 +181,7 @@ namespace DelftTools.TestUtils
         /// </summary>
         public class UnhandledException : Exception
         {
-            private string stackTrace;
+            private readonly string stackTrace;
 
             public UnhandledException(string message, Exception innerException, string stackTrace)
                 : base(message, innerException)
@@ -176,16 +191,11 @@ namespace DelftTools.TestUtils
 
             public override string StackTrace
             {
-                get { return stackTrace; }
+                get
+                {
+                    return stackTrace;
+                }
             }
-        }
-
-        public static void Initialize()
-        {
-            exception = null;
-            unhandledThreadExceptionOccured = false;
-            appDomainExceptionOccured = false;
-            Controls.Swf.MessageBox.CustomMessageBox = new LoggingMessageBox();
         }
     }
 }

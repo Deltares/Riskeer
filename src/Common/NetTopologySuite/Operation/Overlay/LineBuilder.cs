@@ -12,12 +12,12 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
     /// </summary>
     public class LineBuilder
     {
-        private OverlayOp op;
-        private IGeometryFactory geometryFactory;
-        private PointLocator ptLocator;
+        private readonly OverlayOp op;
+        private readonly IGeometryFactory geometryFactory;
+        private readonly PointLocator ptLocator;
 
-        private IList lineEdgesList = new ArrayList();
-        private IList resultLineList = new ArrayList();
+        private readonly IList lineEdgesList = new ArrayList();
+        private readonly IList resultLineList = new ArrayList();
 
         /// <summary>
         /// 
@@ -48,55 +48,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         }
 
         /// <summary>
-        /// Find and mark L edges which are "covered" by the result area (if any).
-        /// L edges at nodes which also have A edges can be checked by checking
-        /// their depth at that node.
-        /// L edges at nodes which do not have A edges can be checked by doing a
-        /// point-in-polygon test with the previously computed result areas.
-        /// </summary>
-        private void FindCoveredLineEdges()
-        {            
-            // first set covered for all L edges at nodes which have A edges too
-            IEnumerator nodeit = op.Graph.Nodes.GetEnumerator();
-            while (nodeit.MoveNext())
-            {
-                Node node = (Node) nodeit.Current;                
-                ((DirectedEdgeStar) node.Edges).FindCoveredLineEdges();
-            }
-
-            /*
-             * For all Curve edges which weren't handled by the above,
-             * use a point-in-poly test to determine whether they are covered
-             */
-            IEnumerator it = op.Graph.EdgeEnds.GetEnumerator();
-            while (it.MoveNext()) 
-            {
-                DirectedEdge de = (DirectedEdge) it.Current;
-                Edge e = de.Edge;                
-                if (de.IsLineEdge && !e.IsCoveredSet)
-                {                    
-                    bool isCovered = op.IsCoveredByA(de.Coordinate);                    
-                    e.Covered = isCovered;
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="opCode"></param>
-        private void CollectLines(SpatialFunction opCode)
-        {
-            IEnumerator it = op.Graph.EdgeEnds.GetEnumerator();
-            while (it.MoveNext()) 
-            {
-                DirectedEdge de = (DirectedEdge) it.Current;                
-                CollectLineEdge(de, opCode, lineEdgesList);
-                CollectBoundaryTouchEdge(de, opCode, lineEdgesList);
-            }           
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="de"></param>
@@ -108,10 +59,10 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
             Edge e = de.Edge;
             // include Curve edges which are in the result
             if (de.IsLineEdge)
-            {                
+            {
                 if (!de.IsVisited && OverlayOp.IsResultOfOp(label, opCode) && !e.IsCovered)
-                {                    
-                    edges.Add(e);                    
+                {
+                    edges.Add(e);
                     de.VisitedEdge = true;
                 }
             }
@@ -129,19 +80,27 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         /// <param name="opCode"></param>
         /// <param name="edges"></param>
         public void CollectBoundaryTouchEdge(DirectedEdge de, SpatialFunction opCode, IList edges)
-        {            
-            Label label = de.Label;            
-            if (de.IsLineEdge)  
-                return;         // only interested in area edges         
-            if (de.IsVisited)   
-                return;         // already processed
-            if (de.IsInteriorAreaEdge)  
+        {
+            Label label = de.Label;
+            if (de.IsLineEdge)
+            {
+                return; // only interested in area edges         
+            }
+            if (de.IsVisited)
+            {
+                return; // already processed
+            }
+            if (de.IsInteriorAreaEdge)
+            {
                 return; // added to handle dimensional collapses            
-            if (de.Edge.IsInResult) 
-                return;     // if the edge linework is already included, don't include it again
+            }
+            if (de.Edge.IsInResult)
+            {
+                return; // if the edge linework is already included, don't include it again
+            }
 
             // sanity check for labelling of result edgerings
-            Assert.IsTrue(!(de.IsInResult || de.Sym.IsInResult) || !de.Edge.IsInResult);            
+            Assert.IsTrue(!(de.IsInResult || de.Sym.IsInResult) || !de.Edge.IsInResult);
             // include the linework if it's in the result of the operation
             if (OverlayOp.IsResultOfOp(label, opCode) && opCode == SpatialFunction.Intersection)
             {
@@ -151,14 +110,63 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         }
 
         /// <summary>
+        /// Find and mark L edges which are "covered" by the result area (if any).
+        /// L edges at nodes which also have A edges can be checked by checking
+        /// their depth at that node.
+        /// L edges at nodes which do not have A edges can be checked by doing a
+        /// point-in-polygon test with the previously computed result areas.
+        /// </summary>
+        private void FindCoveredLineEdges()
+        {
+            // first set covered for all L edges at nodes which have A edges too
+            IEnumerator nodeit = op.Graph.Nodes.GetEnumerator();
+            while (nodeit.MoveNext())
+            {
+                Node node = (Node) nodeit.Current;
+                ((DirectedEdgeStar) node.Edges).FindCoveredLineEdges();
+            }
+
+            /*
+             * For all Curve edges which weren't handled by the above,
+             * use a point-in-poly test to determine whether they are covered
+             */
+            IEnumerator it = op.Graph.EdgeEnds.GetEnumerator();
+            while (it.MoveNext())
+            {
+                DirectedEdge de = (DirectedEdge) it.Current;
+                Edge e = de.Edge;
+                if (de.IsLineEdge && !e.IsCoveredSet)
+                {
+                    bool isCovered = op.IsCoveredByA(de.Coordinate);
+                    e.Covered = isCovered;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="opCode"></param>
+        private void CollectLines(SpatialFunction opCode)
+        {
+            IEnumerator it = op.Graph.EdgeEnds.GetEnumerator();
+            while (it.MoveNext())
+            {
+                DirectedEdge de = (DirectedEdge) it.Current;
+                CollectLineEdge(de, opCode, lineEdgesList);
+                CollectBoundaryTouchEdge(de, opCode, lineEdgesList);
+            }
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="opCode"></param>
         private void BuildLines(SpatialFunction opCode)
-        {            
-            for (IEnumerator it = lineEdgesList.GetEnumerator(); it.MoveNext(); )
+        {
+            for (IEnumerator it = lineEdgesList.GetEnumerator(); it.MoveNext();)
             {
-                Edge e = (Edge) it.Current;                
+                Edge e = (Edge) it.Current;
                 ILineString line = geometryFactory.CreateLineString(e.Coordinates);
                 resultLineList.Add(line);
                 e.InResult = true;
@@ -172,15 +180,20 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         private void LabelIsolatedLines(IList edgesList)
         {
             IEnumerator it = edgesList.GetEnumerator();
-            while (it.MoveNext()) 
+            while (it.MoveNext())
             {
                 Edge e = (Edge) it.Current;
                 Label label = e.Label;
                 if (e.IsIsolated)
                 {
                     if (label.IsNull(0))
-                         LabelIsolatedLine(e, 0);
-                    else LabelIsolatedLine(e, 1);
+                    {
+                        LabelIsolatedLine(e, 0);
+                    }
+                    else
+                    {
+                        LabelIsolatedLine(e, 1);
+                    }
                 }
             }
         }

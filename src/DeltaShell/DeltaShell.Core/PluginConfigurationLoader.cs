@@ -22,7 +22,7 @@ namespace DeltaShell.Core
 
         private readonly IList<string> disabledPlugins = new List<string>();
 
-        readonly IDictionary<string, string> loadedAssemblyConfigFiles = new Dictionary<string, string>();
+        private readonly IDictionary<string, string> loadedAssemblyConfigFiles = new Dictionary<string, string>();
         private IEnumerable<Assembly> assemblies;
 
         public PluginConfigurationLoader(string directory)
@@ -30,7 +30,7 @@ namespace DeltaShell.Core
             this.directory = directory;
         }
 
-        public void FillPluginConfigurationsFromPath<TPluginConfig, TPluginConfigurationSectionHandler>(IList<TPluginConfig> pluginConfigs, IList<Assembly> pluginAssemblies) 
+        public void FillPluginConfigurationsFromPath<TPluginConfig, TPluginConfigurationSectionHandler>(IList<TPluginConfig> pluginConfigs, IList<Assembly> pluginAssemblies)
             where TPluginConfigurationSectionHandler : IConfigurationSectionHandler, new()
             where TPluginConfig : class
         {
@@ -53,7 +53,7 @@ namespace DeltaShell.Core
             }
         }
 
-        public static TPluginConfig GetPluginConfig<TPluginConfig, TPluginConfigurationSectionHandler>(string appConfigFilePath) 
+        public static TPluginConfig GetPluginConfig<TPluginConfig, TPluginConfigurationSectionHandler>(string appConfigFilePath)
             where TPluginConfigurationSectionHandler : IConfigurationSectionHandler, new()
             where TPluginConfig : class
         {
@@ -78,13 +78,13 @@ namespace DeltaShell.Core
                     if (node.LocalName == nodeName)
                     {
                         var handler = new TPluginConfigurationSectionHandler();
-                        return (TPluginConfig)handler.Create(null, null, node);
+                        return (TPluginConfig) handler.Create(null, null, node);
                     }
                 }
             }
             catch (Exception exception)
             {
-                log.ErrorFormat(Resources.PluginConfigurationLoader_GetPluginConfig_plugin_could_not_be_loaded____0_____1_, appConfigFilePath ,exception.Message);
+                log.ErrorFormat(Resources.PluginConfigurationLoader_GetPluginConfig_plugin_could_not_be_loaded____0_____1_, appConfigFilePath, exception.Message);
                 return default(TPluginConfig);
             }
 
@@ -98,7 +98,10 @@ namespace DeltaShell.Core
                 throw new DirectoryNotFoundException(string.Format(Resources.PluginConfigurationLoader_LoadAssembliesWithConfigInDirectory_Can_t_find_directory_to_load_assemblies_from___0___fix_your_configuration_file, path));
             }
 
-            foreach (var directoryPath in Directory.GetDirectories(path).Concat(new[] { path }))
+            foreach (var directoryPath in Directory.GetDirectories(path).Concat(new[]
+            {
+                path
+            }))
             {
                 foreach (string filename in Directory.GetFiles(directoryPath).Where(name => name.EndsWith(".dll.config")))
                 {
@@ -123,12 +126,16 @@ namespace DeltaShell.Core
         private bool CanContainAPlugin(Assembly assembly)
         {
             if (TypeUtils.IsDynamic(assembly))
+            {
                 return false;
+            }
 
             var fileName = assembly.Location;
             if (string.IsNullOrEmpty(fileName))
-                return false;//no 'location' gac or something we don't want
-            
+            {
+                return false; //no 'location' gac or something we don't want
+            }
+
             string pluginDllName = fileName;
 
             if (disabledPlugins != null && disabledPlugins.Contains(pluginDllName))
@@ -137,7 +144,7 @@ namespace DeltaShell.Core
                 return false;
             }
 
-            if(!loadedAssemblyConfigFiles.ContainsKey(Path.GetFileNameWithoutExtension(pluginDllName)))
+            if (!loadedAssemblyConfigFiles.ContainsKey(Path.GetFileNameWithoutExtension(pluginDllName)))
             {
                 return false;
             }

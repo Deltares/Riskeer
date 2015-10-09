@@ -5,8 +5,8 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
     /// </summary>
     public class MonotoneChain
     {
-        private MonotoneChainEdge mce;
-        private int chainIndex;
+        private readonly MonotoneChainEdge mce;
+        private readonly int chainIndex;
 
         /// <summary>
         /// 
@@ -26,7 +26,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         /// <param name="si"></param>
         public void ComputeIntersections(MonotoneChain mc, SegmentIntersector si)
         {
-            this.mce.ComputeIntersectsForChain(chainIndex, mc.mce, mc.chainIndex, si);
+            mce.ComputeIntersectsForChain(chainIndex, mc.mce, mc.chainIndex, si);
         }
     }
 }

@@ -1,8 +1,10 @@
-﻿namespace DelftTools.Controls.Swf.Charting
+﻿using GeoAPI.Geometries;
+
+namespace DelftTools.Controls.Swf.Charting
 {
     public interface IChartCoordinateService
     {
-        GeoAPI.Geometries.ICoordinate ToCoordinate(int x, int y);
+        ICoordinate ToCoordinate(int x, int y);
         int ToDeviceHeight(double y);
         int ToDeviceWidth(double x);
         int ToDeviceX(double x);

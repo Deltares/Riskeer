@@ -23,7 +23,7 @@ namespace DelftTools.Utils.Tests.Globalization
                 .Should("event is fired when language is changed").Be.EqualTo(1);
 
             RegionalSettingsManager.Language
-                .Should().Be.EqualTo("ru-RU");
+                                   .Should().Be.EqualTo("ru-RU");
         }
 
         [Test]
@@ -83,6 +83,5 @@ namespace DelftTools.Utils.Tests.Globalization
                 Thread.CurrentThread.CurrentCulture = currentCulture;
             }
         }
-    
     }
 }

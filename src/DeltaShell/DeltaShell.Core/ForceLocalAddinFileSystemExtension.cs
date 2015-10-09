@@ -9,7 +9,10 @@ namespace DeltaShell.Core
     {
         public override bool RequiresIsolation
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
     }
 }

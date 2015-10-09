@@ -6,8 +6,5 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.FromType
     /// Use this attribute if you want to omit the property from the generated view.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class HideAttribute : Attribute
-    {
-        
-    }
+    public class HideAttribute : Attribute {}
 }

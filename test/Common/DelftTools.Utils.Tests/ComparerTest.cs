@@ -29,7 +29,7 @@ namespace DelftTools.Utils.Tests
             Assert.IsTrue(Comparer.AlmostEqual2sComplement(a, b));
 
             a = 1.0d;
-            double inc= 1.0d/6.0d;
+            double inc = 1.0d/6.0d;
             b = inc + inc + inc + inc + inc + inc;
             Assert.IsTrue(Comparer.AlmostEqual2sComplement(a, b));
             Assert.IsFalse(a == b);
@@ -48,7 +48,7 @@ namespace DelftTools.Utils.Tests
             Assert.IsTrue(Comparer.AlmostEqual2sComplement(a, b));
 
             a = 0.6d;
-            b = 0.1d * 6;
+            b = 0.1d*6;
             Assert.IsTrue(Comparer.AlmostEqual2sComplement(a, b));
             Assert.IsFalse(a == b);
         }
@@ -69,17 +69,17 @@ namespace DelftTools.Utils.Tests
             Assert.IsFalse(Comparer.AlmostEqual2sComplement(a, b));
 
             a = 1.0f;
-            b = 1.0f / 7.0f;
+            b = 1.0f/7.0f;
             b *= 7.0f;
             Assert.IsTrue(Comparer.AlmostEqual2sComplement(a, b));
 
             a = 1.0f;
-            float inc = 1.0f / 6.0f;
+            float inc = 1.0f/6.0f;
             b = inc + inc + inc + inc + inc + inc;
             Assert.IsTrue(Comparer.AlmostEqual2sComplement(a, b));
 
             a = 0.1f;
-            b = 1.0f / 10;
+            b = 1.0f/10;
             Assert.IsTrue(Comparer.AlmostEqual2sComplement(a, b));
 
             a = 0.9f;
@@ -92,7 +92,7 @@ namespace DelftTools.Utils.Tests
             Assert.IsTrue(Comparer.AlmostEqual2sComplement(a, b));
 
             a = 0.6f;
-            b = 0.1f * 6;
+            b = 0.1f*6;
             Assert.IsTrue(Comparer.AlmostEqual2sComplement(a, b));
         }
     }

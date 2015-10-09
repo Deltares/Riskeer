@@ -19,7 +19,7 @@ namespace DelftTools.Controls.Swf.Charting.Series
         /// Use hatch brush or solid brush
         /// </summary>
         bool UseHatch { get; set; }
-        
+
         /// <summary>
         /// Transparency of the series
         /// </summary>
@@ -28,7 +28,7 @@ namespace DelftTools.Controls.Swf.Charting.Series
         /// <summary>
         /// Type of interpolation to use (constant, linear or none)
         /// </summary>
-        InterpolationType InterpolationType { get; set;}
+        InterpolationType InterpolationType { get; set; }
 
         /// <summary>
         /// Values used for the x axis

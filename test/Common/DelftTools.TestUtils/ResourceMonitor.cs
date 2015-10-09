@@ -6,20 +6,29 @@ namespace DelftTools.TestUtils
 {
     public partial class ResourceMonitor : Form
     {
-        private Timer refreshTimer;
-        
+        private readonly Timer refreshTimer;
+
+        private int allocatedResourcesCount;
+
+        private string lastStackTrace;
+
+        private bool paused;
+
         public ResourceMonitor()
         {
             InitializeComponent();
 
-            refreshTimer = new Timer { Interval = 200 };
+            refreshTimer = new Timer
+            {
+                Interval = 200
+            };
             refreshTimer.Tick += refreshTimer_Tick;
 
             Utils.Diagnostics.ResourceMonitor.ResourceAllocated += ResourceMonitor_ResourceAllocated;
             Utils.Diagnostics.ResourceMonitor.ResourceDeallocated += ResourceMonitor_ResourceDeallocated;
         }
 
-        void refreshTimer_Tick(object sender, EventArgs e)
+        private void refreshTimer_Tick(object sender, EventArgs e)
         {
             SuspendLayout();
             labelAllocatedBitmaps.Text = allocatedResourcesCount.ToString();
@@ -29,13 +38,7 @@ namespace DelftTools.TestUtils
             refreshTimer.Stop();
         }
 
-        private int allocatedResourcesCount;
-
-        private string lastStackTrace;
-
-        private bool paused;
-
-        void ResourceMonitor_ResourceAllocated(object arg1, object arg2)
+        private void ResourceMonitor_ResourceAllocated(object arg1, object arg2)
         {
             while (paused)
             {
@@ -44,7 +47,7 @@ namespace DelftTools.TestUtils
 
             allocatedResourcesCount++;
             UpdateStackTrace();
-            if(!refreshTimer.Enabled)
+            if (!refreshTimer.Enabled)
             {
                 refreshTimer.Start();
             }

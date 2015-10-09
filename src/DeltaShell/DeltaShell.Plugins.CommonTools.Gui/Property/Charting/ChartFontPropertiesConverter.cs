@@ -7,7 +7,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
 {
     public class ChartFontPropertiesConverter : FontConverter
     {
-        private static readonly string[] AllowedProperties = new[] {"Size", "Bold", "Italic", "Underline", "Strikeout"};
+        private static readonly string[] AllowedProperties = new[]
+        {
+            "Size",
+            "Bold",
+            "Italic",
+            "Underline",
+            "Strikeout"
+        };
 
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value,
                                                                    Attribute[] attributes)

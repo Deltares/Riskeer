@@ -12,7 +12,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
     /// </summary>
     public class EdgeEndBundle : EdgeEnd
     {
-        private IList edgeEnds = new ArrayList();
+        private readonly IList edgeEnds = new ArrayList();
 
         /// <summary>
         /// 
@@ -21,15 +21,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
         public EdgeEndBundle(EdgeEnd e) : base(e.Edge, e.Coordinate, e.DirectedCoordinate, new Label(e.Label))
         {
             Insert(e);
-        }       
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator GetEnumerator() 
-        { 
-            return edgeEnds.GetEnumerator(); 
         }
 
         /// <summary>
@@ -39,8 +30,17 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
         {
             get
             {
-                return edgeEnds; 
+                return edgeEnds;
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator GetEnumerator()
+        {
+            return edgeEnds.GetEnumerator();
         }
 
         /// <summary>
@@ -55,6 +55,15 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
         }
 
         /// <summary>
+        /// Update the IM with the contribution for the computed label for the EdgeStubs.
+        /// </summary>
+        /// <param name="im"></param>
+        public void UpdateIM(IntersectionMatrix im)
+        {
+            Edge.UpdateIM(label, im);
+        }
+
+        /// <summary>
         /// This computes the overall edge label for the set of
         /// edges in this EdgeStubBundle.  It essentially merges
         /// the ON and side labels for each edge. 
@@ -65,24 +74,47 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
             // create the label.  If any of the edges belong to areas,
             // the label must be an area label
             bool isArea = false;
-            for (IEnumerator it = GetEnumerator(); it.MoveNext(); )
+            for (IEnumerator it = GetEnumerator(); it.MoveNext();)
             {
                 EdgeEnd e = (EdgeEnd) it.Current;
                 if (e.Label.IsArea())
+                {
                     isArea = true;
+                }
             }
             if (isArea)
-                 label = new Label(Locations.Null, Locations.Null, Locations.Null);
-            else label = new Label(Locations.Null);
+            {
+                label = new Label(Locations.Null, Locations.Null, Locations.Null);
+            }
+            else
+            {
+                label = new Label(Locations.Null);
+            }
 
             // compute the On label, and the side labels if present
             for (int i = 0; i < 2; i++)
             {
                 ComputeLabelOn(i);
                 if (isArea)
+                {
                     ComputeLabelSides(i);
+                }
             }
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="outstream"></param>
+        public override void Write(StreamWriter outstream)
+        {
+            outstream.WriteLine("EdgeEndBundle--> Label: " + label);
+            for (IEnumerator it = GetEnumerator(); it.MoveNext();)
+            {
+                EdgeEnd ee = (EdgeEnd) it.Current;
+                ee.Write(outstream);
+                outstream.WriteLine();
+            }
         }
 
         /// <summary>
@@ -110,21 +142,29 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
             bool foundInterior = false;
             Locations loc = Locations.Null;
 
-            for (IEnumerator it = GetEnumerator(); it.MoveNext(); )
+            for (IEnumerator it = GetEnumerator(); it.MoveNext();)
             {
                 EdgeEnd e = (EdgeEnd) it.Current;
                 loc = e.Label.GetLocation(geomIndex);
-                if (loc == Locations.Boundary) 
+                if (loc == Locations.Boundary)
+                {
                     boundaryCount++;
-                if (loc == Locations.Interior) 
+                }
+                if (loc == Locations.Interior)
+                {
                     foundInterior = true;
+                }
             }
 
             loc = Locations.Null;
-            if (foundInterior) 
+            if (foundInterior)
+            {
                 loc = Locations.Interior;
-            if (boundaryCount > 0) 
-                loc = GeometryGraph.DetermineBoundary(boundaryCount);            
+            }
+            if (boundaryCount > 0)
+            {
+                loc = GeometryGraph.DetermineBoundary(boundaryCount);
+            }
             label.SetLocation(geomIndex, loc);
         }
 
@@ -155,10 +195,10 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
         /// <param name="side"></param>
         private void ComputeLabelSide(int geomIndex, Positions side)
         {
-            for (IEnumerator it = GetEnumerator(); it.MoveNext(); )
+            for (IEnumerator it = GetEnumerator(); it.MoveNext();)
             {
                 EdgeEnd e = (EdgeEnd) it.Current;
-                if (e.Label.IsArea()) 
+                if (e.Label.IsArea())
                 {
                     Locations loc = e.Label.GetLocation(geomIndex, side);
                     if (loc == Locations.Interior)
@@ -167,32 +207,10 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
                         return;
                     }
                     else if (loc == Locations.Exterior)
+                    {
                         label.SetLocation(geomIndex, side, Locations.Exterior);
+                    }
                 }
-            }
-        }
-
-        /// <summary>
-        /// Update the IM with the contribution for the computed label for the EdgeStubs.
-        /// </summary>
-        /// <param name="im"></param>
-        public void UpdateIM(IntersectionMatrix im)
-        {
-            Edge.UpdateIM(label, im);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="outstream"></param>
-        public override void Write(StreamWriter outstream)
-        {
-            outstream.WriteLine("EdgeEndBundle--> Label: " + label);
-            for (IEnumerator it = GetEnumerator(); it.MoveNext(); )
-            {
-                EdgeEnd ee = (EdgeEnd) it.Current;
-                ee.Write(outstream);
-                outstream.WriteLine();
             }
         }
     }

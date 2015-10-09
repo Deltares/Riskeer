@@ -27,7 +27,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         public void Setup()
         {
             var pluginGui = mocks.Stub<GuiPlugin>();
-            
+
             mapLayerNodePresenter = new MapLayerTreeViewNodePresenter(pluginGui);
             treeView = mocks.Stub<ITreeView>();
             mapLayerNodePresenter.TreeView = treeView;
@@ -58,7 +58,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var node = mocks.Stub<ITreeNode>();
             var parentNode = mocks.Stub<ITreeNode>();
             parentNode.Tag = groupLayer;
-            
+
             node.Expect(c => c.Parent).Return(parentNode);
             treeView.Expect(tv => tv.GetNodeByTag(null)).Return(node).IgnoreArguments().Repeat.Any();
 
@@ -72,13 +72,16 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         public void CanNotDropIntoImmutableGroupLayer()
         {
             var vectorLayer = GetRiverLayer();
-            var groupLayer = new GroupLayer {LayersReadOnly = true};
+            var groupLayer = new GroupLayer
+            {
+                LayersReadOnly = true
+            };
             var sourceNode = mocks.Stub<ITreeNode>();
             var targetNode = mocks.Stub<ITreeNode>();
-            
+
             sourceNode.Tag = vectorLayer;
             targetNode.Tag = groupLayer;
-            
+
             // No drop into layers
             Assert.AreEqual(DragOperations.None, mapLayerNodePresenter.CanDrop(vectorLayer, sourceNode, targetNode, DragOperations.Move));
         }
@@ -96,7 +99,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var nestedLayerTreeNode1 = mocks.Stub<ITreeNode>();
             nestedLayer1.CanBeRemovedByUser = true;
             nestedLayerTreeNode1.Tag = nestedLayer1;
-            groupLayer.Layers = new EventedList<ILayer> { nestedLayer1 };
+            groupLayer.Layers = new EventedList<ILayer>
+            {
+                nestedLayer1
+            };
 
             // Create a nested group layer
             var nestedGroupLayer = mocks.Stub<GroupLayer>();
@@ -109,7 +115,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var nestedLayerTreeNode2 = mocks.Stub<ITreeNode>();
             nestedLayer2.CanBeRemovedByUser = true;
             nestedLayerTreeNode2.Tag = nestedLayer2;
-            nestedGroupLayer.Layers = new EventedList<ILayer> { nestedLayer2 };
+            nestedGroupLayer.Layers = new EventedList<ILayer>
+            {
+                nestedLayer2
+            };
 
             nestedLayerTreeNode1.Expect(c => c.Parent).Return(groupLayerTreeNode).Repeat.Any();
             treeView.Expect(tv => tv.GetNodeByTag(nestedLayer1)).Return(nestedLayerTreeNode1).Repeat.Any();
@@ -146,12 +155,23 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         [Test]
         public void TestGetChildNodeObjects()
         {
-            var colorBlend = new ColorBlend(new[] { Color.Black, Color.White }, new[] { 0.0f, 1.0f });
+            var colorBlend = new ColorBlend(new[]
+            {
+                Color.Black,
+                Color.White
+            }, new[]
+            {
+                0.0f,
+                1.0f
+            });
             var gradientTheme = new GradientTheme("aa", 0, 3, new VectorStyle(), new VectorStyle(), colorBlend,
-                                                  colorBlend, colorBlend,3);
+                                                  colorBlend, colorBlend, 3);
 
             // VectorLayer:
-            var vectorLayer = new VectorLayer { Theme = gradientTheme };
+            var vectorLayer = new VectorLayer
+            {
+                Theme = gradientTheme
+            };
 
             var result = mapLayerNodePresenter.GetChildNodeObjects(vectorLayer, null);
             var enumerator = result.GetEnumerator();

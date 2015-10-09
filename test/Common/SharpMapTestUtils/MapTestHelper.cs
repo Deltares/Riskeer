@@ -11,17 +11,8 @@ namespace SharpMapTestUtils
     /// Provides common GIS testing functionality.
     /// </summary>
     public class MapTestHelper : Form // TODO: incapsulate Form as a local variable in ShowMap()
-    {       
-        /// <summary>
-        /// Method show a new map control.
-        /// </summary>
-        /// <param name="map"></param>
-        public static void ShowModal(Map map)
-        {
-            new MapTestHelper().ShowMap(map);
-        }
-
-        private Label coordinateLabel;
+    {
+        private readonly Label coordinateLabel;
 
         public MapTestHelper()
         {
@@ -29,8 +20,7 @@ namespace SharpMapTestUtils
             MapControl.Dock = DockStyle.Fill;
             // disable dragdrop because it breaks the test runtime
             MapControl.AllowDrop = false;
-            
-            
+
             Controls.Add(MapControl);
 
             coordinateLabel = new Label();
@@ -44,6 +34,17 @@ namespace SharpMapTestUtils
             MapControl.ActivateTool(MapControl.SelectTool);
         }
 
+        public MapControl MapControl { get; set; }
+
+        /// <summary>
+        /// Method show a new map control.
+        /// </summary>
+        /// <param name="map"></param>
+        public static void ShowModal(Map map)
+        {
+            new MapTestHelper().ShowMap(map);
+        }
+
         public void ShowMap(Map map)
         {
             MapControl.Map = map;
@@ -51,16 +52,14 @@ namespace SharpMapTestUtils
             map.ZoomToExtents();
 
             MapControl.MouseMove += delegate(object sender, MouseEventArgs e)
-                                        {
-                                            var point = map.ImageToWorld(new PointF(e.X, e.Y));
-                                            coordinateLabel.Text = string.Format("{0}:{1}", point.X, point.Y);
-                                        };
+            {
+                var point = map.ImageToWorld(new PointF(e.X, e.Y));
+                coordinateLabel.Text = string.Format("{0}:{1}", point.X, point.Y);
+            };
 
             WindowsFormsTestHelper.ShowModal(this);
 
             map.Dispose();
         }
-
-        public  MapControl MapControl { get; set; }
     }
 }

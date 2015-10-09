@@ -10,6 +10,24 @@ namespace SharpMap.CoordinateSystems.Transformations
     /// </summary>
     public class GeodeticDistance
     {
+        private static ICoordinateSystem Wgs84;
+        private readonly ICoordinateTransformation transformation;
+
+        public GeodeticDistance(ICoordinateSystem sourceSystem)
+        {
+            if (sourceSystem == null)
+            {
+                throw new InvalidOperationException("You must supply the source coordinate system");
+            }
+
+            if (Wgs84 == null)
+            {
+                Wgs84 = Map.CoordinateSystemFactory.CreateFromEPSG(4326);
+            }
+
+            transformation = Map.CoordinateSystemFactory.CreateTransformation(sourceSystem, Wgs84);
+        }
+
         /// <summary>
         /// Returns the (great-circle) distance (in meters) between the two coordinates.
         /// </summary>
@@ -28,7 +46,9 @@ namespace SharpMap.CoordinateSystems.Transformations
             var distance = 0.0;
             var haversine = new GeodeticDistance(coordinateSystem);
             for (var i = 1; i < geometry.Coordinates.Length; i++)
+            {
                 distance += haversine.Distance(geometry.Coordinates[i - 1], geometry.Coordinates[i]);
+            }
             return distance;
         }
 
@@ -40,8 +60,16 @@ namespace SharpMap.CoordinateSystems.Transformations
         /// <returns></returns>
         public double Distance(ICoordinate c1, ICoordinate c2)
         {
-            var transformedC1 = transformation.MathTransform.Transform(new[] {c1.X, c1.Y});
-            var transformedC2 = transformation.MathTransform.Transform(new[] {c2.X, c2.Y});
+            var transformedC1 = transformation.MathTransform.Transform(new[]
+            {
+                c1.X,
+                c1.Y
+            });
+            var transformedC2 = transformation.MathTransform.Transform(new[]
+            {
+                c2.X,
+                c2.Y
+            });
             return GetHaversineDistanceInMeters(transformedC1[1], transformedC1[0], transformedC2[1], transformedC2[0]);
         }
 
@@ -61,21 +89,7 @@ namespace SharpMap.CoordinateSystems.Transformations
 
         private static double ToRadians(double angle)
         {
-            return Math.PI * angle / 180.0;
-        }
-
-        private static ICoordinateSystem Wgs84;
-        private readonly ICoordinateTransformation transformation;
-
-        public GeodeticDistance(ICoordinateSystem sourceSystem)
-        {
-            if (sourceSystem == null)
-                throw new InvalidOperationException("You must supply the source coordinate system");
-
-            if (Wgs84 == null)
-                Wgs84 = Map.CoordinateSystemFactory.CreateFromEPSG(4326);
-
-            transformation = Map.CoordinateSystemFactory.CreateTransformation(sourceSystem, Wgs84);
+            return Math.PI*angle/180.0;
         }
     }
 }

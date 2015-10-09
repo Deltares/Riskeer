@@ -25,32 +25,62 @@ namespace DelftTools.Controls.Swf.Charting.Series
 
         public override Color Color
         {
-            get { return barSeries.Color; }
-            set { barSeries.Color = value; }
+            get
+            {
+                return barSeries.Color;
+            }
+            set
+            {
+                barSeries.Color = value;
+            }
         }
-        
+
         public DashStyle DashStyle
         {
-            get { return barSeries.Pen.Style; }
-            set { barSeries.Pen.Style = value; }
+            get
+            {
+                return barSeries.Pen.Style;
+            }
+            set
+            {
+                barSeries.Pen.Style = value;
+            }
         }
 
         public bool LineVisible
         {
-            get { return barSeries.Pen.Visible; }
-            set { barSeries.Pen.Visible = value; }
+            get
+            {
+                return barSeries.Pen.Visible;
+            }
+            set
+            {
+                barSeries.Pen.Visible = value;
+            }
         }
 
         public int LineWidth
         {
-            get { return barSeries.Pen.Width; }
-            set { barSeries.Pen.Width = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize); }
+            get
+            {
+                return barSeries.Pen.Width;
+            }
+            set
+            {
+                barSeries.Pen.Width = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize);
+            }
         }
 
         public Color LineColor
         {
-            get { return barSeries.Pen.Color; }
-            set { barSeries.Pen.Color = value; }
+            get
+            {
+                return barSeries.Pen.Color;
+            }
+            set
+            {
+                barSeries.Pen.Color = value;
+            }
         }
     }
 }

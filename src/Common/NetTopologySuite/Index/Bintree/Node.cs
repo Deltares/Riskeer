@@ -7,6 +7,26 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
     /// </summary>
     public class Node : NodeBase
     {
+        private readonly double centre;
+        private readonly int level;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="interval"></param>
+        /// <param name="level"></param>
+        public Node(Interval interval, int level)
+        {
+            Interval = interval;
+            this.level = level;
+            centre = (interval.Min + interval.Max)/2;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Interval Interval { get; private set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -15,7 +35,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         public static Node CreateNode(Interval itemInterval)
         {
             Key key = new Key(itemInterval);
-        
+
             Node node = new Node(key.Interval, key.Level);
             return node;
         }
@@ -29,47 +49,16 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         public static Node CreateExpanded(Node node, Interval addInterval)
         {
             Interval expandInt = new Interval(addInterval);
-            if (node != null) expandInt.ExpandToInclude(node.interval);
-            Node largerNode = CreateNode(expandInt);
-            if (node != null) largerNode.Insert(node);
-            return largerNode;
-        }
-
-        private Interval interval;
-        private double centre;
-        private int level;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="interval"></param>
-        /// <param name="level"></param>
-        public Node(Interval interval, int level)
-        {
-            this.interval = interval;
-            this.level = level;
-            centre = (interval.Min + interval.Max) / 2;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public  Interval Interval
-        {
-            get
+            if (node != null)
             {
-                return interval;
+                expandInt.ExpandToInclude(node.Interval);
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="itemInterval"></param>
-        /// <returns></returns>
-        protected override bool IsSearchMatch(Interval itemInterval)
-        {
-            return itemInterval.Overlaps(interval);
+            Node largerNode = CreateNode(expandInt);
+            if (node != null)
+            {
+                largerNode.Insert(node);
+            }
+            return largerNode;
         }
 
         /// <summary>
@@ -78,18 +67,21 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         /// it does not already exist.
         /// </summary>
         /// <param name="searchInterval"></param>
-        public  Node GetNode(Interval searchInterval)
+        public Node GetNode(Interval searchInterval)
         {
             int subnodeIndex = GetSubnodeIndex(searchInterval, centre);
             // if index is -1 searchEnv is not contained in a subnode
-            if (subnodeIndex != -1) 
+            if (subnodeIndex != -1)
             {
                 // create the node if it does not exist
                 Node node = GetSubnode(subnodeIndex);
                 // recursively search the found/created node
                 return node.GetNode(searchInterval);
             }
-            else return this;            
+            else
+            {
+                return this;
+            }
         }
 
         /// <summary>
@@ -97,12 +89,14 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         /// node containing the envelope.
         /// </summary>
         /// <param name="searchInterval"></param>
-        public  NodeBase Find(Interval searchInterval)
+        public NodeBase Find(Interval searchInterval)
         {
             int subnodeIndex = GetSubnodeIndex(searchInterval, centre);
             if (subnodeIndex == -1)
+            {
                 return this;
-            if (subnode[subnodeIndex] != null) 
+            }
+            if (subnode[subnodeIndex] != null)
             {
                 // query lies in subnode, so search it
                 Node node = subnode[subnodeIndex];
@@ -116,13 +110,15 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         /// 
         /// </summary>
         /// <param name="node"></param>
-        public  void Insert(Node node)
+        public void Insert(Node node)
         {
-            Assert.IsTrue(interval == null || interval.Contains(node.Interval));
-            int index = GetSubnodeIndex(node.interval, centre);
-            if (node.level == level - 1) 
-                subnode[index] = node;            
-            else 
+            Assert.IsTrue(Interval == null || Interval.Contains(node.Interval));
+            int index = GetSubnodeIndex(node.Interval, centre);
+            if (node.level == level - 1)
+            {
+                subnode[index] = node;
+            }
+            else
             {
                 // the node is not a direct child, so make a new child node to contain it
                 // and recursively insert the node
@@ -133,13 +129,25 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="itemInterval"></param>
+        /// <returns></returns>
+        protected override bool IsSearchMatch(Interval itemInterval)
+        {
+            return itemInterval.Overlaps(Interval);
+        }
+
+        /// <summary>
         /// Get the subnode for the index.
         /// If it doesn't exist, create it.
         /// </summary>
         private Node GetSubnode(int index)
         {
-            if (subnode[index] == null)             
-                subnode[index] = CreateSubnode(index);            
+            if (subnode[index] == null)
+            {
+                subnode[index] = CreateSubnode(index);
+            }
             return subnode[index];
         }
 
@@ -149,23 +157,23 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         /// <param name="index"></param>
         /// <returns></returns>
         private Node CreateSubnode(int index)
-        {   
+        {
             // create a new subnode in the appropriate interval
             double min = 0.0;
             double max = 0.0;
 
-            switch (index) 
+            switch (index)
             {
                 case 0:
-                    min = interval.Min;
+                    min = Interval.Min;
                     max = centre;
                     break;
                 case 1:
                     min = centre;
-                    max = interval.Max;
+                    max = Interval.Max;
                     break;
                 default:
-			        break;
+                    break;
             }
             Interval subInt = new Interval(min, max);
             Node node = new Node(subInt, level - 1);

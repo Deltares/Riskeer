@@ -4,7 +4,6 @@ using GisSharpBlog.NetTopologySuite.Geometries;
 
 namespace GisSharpBlog.NetTopologySuite.Noding
 {
-
     /// <summary>
     /// Nodes a set of <see cref="SegmentString" />s completely.
     /// The set of <see cref="SegmentString" />s is fully noded;
@@ -17,13 +16,12 @@ namespace GisSharpBlog.NetTopologySuite.Noding
     /// </summary>
     public class IteratedNoder : INoder
     {
-
         /// <summary>
         /// 
         /// </summary>
         public const int MaxIterations = 5;
 
-        private LineIntersector li = null;
+        private readonly LineIntersector li = null;
         private IList nodedSegStrings = null;
         private int maxIter = MaxIterations;
 
@@ -59,9 +57,9 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// The <see cref="SegmentString"/>s have the same context as their parent.
         /// </summary>
         /// <returns></returns>
-        public IList GetNodedSubstrings() 
-        { 
-            return nodedSegStrings; 
+        public IList GetNodedSubstrings()
+        {
+            return nodedSegStrings;
         }
 
         /// <summary>
@@ -71,31 +69,31 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// </summary>
         /// <param name="segStrings">A collection of SegmentStrings to be noded.</param>
         /// <exception cref="TopologyException">If the iterated noding fails to converge.</exception>
-        public void ComputeNodes(IList segStrings)    
+        public void ComputeNodes(IList segStrings)
         {
             int[] numInteriorIntersections = new int[1];
             nodedSegStrings = segStrings;
             int nodingIterationCount = 0;
             int lastNodesCreated = -1;
-            do 
+            do
             {
-              Node(nodedSegStrings, numInteriorIntersections);
-              nodingIterationCount++;
-              int nodesCreated = numInteriorIntersections[0];
+                Node(nodedSegStrings, numInteriorIntersections);
+                nodingIterationCount++;
+                int nodesCreated = numInteriorIntersections[0];
 
-              /*
+                /*
                * Fail if the number of nodes created is not declining.
                * However, allow a few iterations at least before doing this
-               */       
-              if (lastNodesCreated > 0
-                  && nodesCreated >= lastNodesCreated
-                  && nodingIterationCount > maxIter) 
-                throw new TopologyException("Iterated noding failed to converge after "
-                                            + nodingIterationCount + " iterations");              
-              lastNodesCreated = nodesCreated;
-
-            } 
-            while (lastNodesCreated > 0);        
+               */
+                if (lastNodesCreated > 0
+                    && nodesCreated >= lastNodesCreated
+                    && nodingIterationCount > maxIter)
+                {
+                    throw new TopologyException("Iterated noding failed to converge after "
+                                                + nodingIterationCount + " iterations");
+                }
+                lastNodesCreated = nodesCreated;
+            } while (lastNodesCreated > 0);
         }
 
         /// <summary>
@@ -107,11 +105,10 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         private void Node(IList segStrings, int[] numInteriorIntersections)
         {
             IntersectionAdder si = new IntersectionAdder(li);
-            MCIndexNoder noder = new MCIndexNoder(si);            
+            MCIndexNoder noder = new MCIndexNoder(si);
             noder.ComputeNodes(segStrings);
             nodedSegStrings = noder.GetNodedSubstrings();
-            numInteriorIntersections[0] = si.NumInteriorIntersections;            
+            numInteriorIntersections[0] = si.NumInteriorIntersections;
         }
-
     }
 }

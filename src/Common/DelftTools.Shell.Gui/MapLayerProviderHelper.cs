@@ -9,32 +9,34 @@ namespace DelftTools.Shell.Gui
     public static class MapLayerProviderHelper
     {
         public static ILayer CreateLayersRecursive(object layerObject, object parentObject,
-            IList<IMapLayerProvider> mapLayerProviders, IDictionary<ILayer, object> ld = null)
+                                                   IList<IMapLayerProvider> mapLayerProviders, IDictionary<ILayer, object> ld = null)
         {
             var mapLayerProvider =
                 mapLayerProviders.Where(p => p != null)
-                    .FirstOrDefault(p => p.CanCreateLayerFor(layerObject, parentObject));
+                                 .FirstOrDefault(p => p.CanCreateLayerFor(layerObject, parentObject));
 
             if (mapLayerProvider == null)
+            {
                 return null;
+            }
 
             var layer = mapLayerProvider.CreateLayer(layerObject, parentObject);
-            
+
             var groupLayer = layer as IGroupLayer;
             if (groupLayer != null)
             {
                 ModifyGroupLayer(groupLayer,
-                    () =>
-                    {
-                        var childObjects = mapLayerProvider.ChildLayerObjects(layerObject);
-                        var childLayers = childObjects.Select(
-                            o =>
-                                CreateLayersRecursive(o, layerObject,
-                                    ReorderProviders(mapLayerProvider, mapLayerProviders), ld))
-                            .Where(childLayer => childLayer != null);
+                                 () =>
+                                 {
+                                     var childObjects = mapLayerProvider.ChildLayerObjects(layerObject);
+                                     var childLayers = childObjects.Select(
+                                         o =>
+                                         CreateLayersRecursive(o, layerObject,
+                                                               ReorderProviders(mapLayerProvider, mapLayerProviders), ld))
+                                                                   .Where(childLayer => childLayer != null);
 
-                        groupLayer.Layers.AddRange(childLayers);
-                    });
+                                     groupLayer.Layers.AddRange(childLayers);
+                                 });
             }
 
             if (layer != null && ld != null)
@@ -43,18 +45,6 @@ namespace DelftTools.Shell.Gui
             }
 
             return layer;
-        }
-
-        /// <summary>
-        /// Reorder the providers such that the 'first chance' provider is returned first (get's the first chance). This way a provider returning a 
-        /// 'child object', is queried first for any layers it may have for that object, before other providers are queried.
-        /// </summary>
-        /// <param name="firstChanceProvider"></param>
-        /// <param name="allProviders"></param>
-        /// <returns></returns>
-        private static IList<IMapLayerProvider> ReorderProviders(IMapLayerProvider firstChanceProvider, IEnumerable<IMapLayerProvider> allProviders)
-        {
-            return new[] {firstChanceProvider}.Concat(allProviders.Except(new[] {firstChanceProvider})).ToList();
         }
 
         public static void RefreshLayersRecursive(ILayer layer, IDictionary<ILayer, object> layerObjectDictionary, IList<IMapLayerProvider> mapLayerProviders, object parentObject)
@@ -82,7 +72,7 @@ namespace DelftTools.Shell.Gui
             {
                 // remember old objects and layers
                 var objectLayerDictionary = layerDataObjects.Intersect(currentdataObjects)
-                                                        .ToDictionary(o => o, o => layerObjectDictionary.FirstOrDefault(kv => kv.Value == o).Key);
+                                                            .ToDictionary(o => o, o => layerObjectDictionary.FirstOrDefault(kv => kv.Value == o).Key);
 
                 ModifyGroupLayer(groupLayer, () =>
                 {
@@ -91,16 +81,16 @@ namespace DelftTools.Shell.Gui
                                                                       !currentdataObjects.Contains(
                                                                           layerObjectDictionary[l])).ToList();
                     layersToRemove.ForEach(l =>
-                        {
-                            groupLayer.Layers.Remove(l);
-                            
-                            // Call dispose on all layers that implement it
-                            l.DisposeLayersRecursive();
+                    {
+                        groupLayer.Layers.Remove(l);
 
-                            // clear all administration for the removed layer
-                            ClearLayerDictionaryRecursive(l, layerObjectDictionary);
-                        });
-                    
+                        // Call dispose on all layers that implement it
+                        l.DisposeLayersRecursive();
+
+                        // clear all administration for the removed layer
+                        ClearLayerDictionaryRecursive(l, layerObjectDictionary);
+                    });
+
                     var index = 0;
                     foreach (var dataObject in currentdataObjects)
                     {
@@ -116,7 +106,9 @@ namespace DelftTools.Shell.Gui
                             var layerForData = CreateLayersRecursive(dataObject, groupLayerObject, mapLayerProviders,
                                                                      layerObjectDictionary);
                             if (layerForData == null)
+                            {
                                 continue; // no index increment
+                            }
                             groupLayer.Layers.Insert(index, layerForData);
                             SetMapRecursive(layerForData, groupLayer.Map);
                         }
@@ -135,12 +127,33 @@ namespace DelftTools.Shell.Gui
             }
         }
 
+        /// <summary>
+        /// Reorder the providers such that the 'first chance' provider is returned first (get's the first chance). This way a provider returning a 
+        /// 'child object', is queried first for any layers it may have for that object, before other providers are queried.
+        /// </summary>
+        /// <param name="firstChanceProvider"></param>
+        /// <param name="allProviders"></param>
+        /// <returns></returns>
+        private static IList<IMapLayerProvider> ReorderProviders(IMapLayerProvider firstChanceProvider, IEnumerable<IMapLayerProvider> allProviders)
+        {
+            return new[]
+            {
+                firstChanceProvider
+            }.Concat(allProviders.Except(new[]
+            {
+                firstChanceProvider
+            })).ToList();
+        }
+
         private static void SetMapRecursive(ILayer layer, IMap map)
         {
             layer.Map = map;
 
             var groupLayer = layer as IGroupLayer;
-            if (groupLayer == null) return;
+            if (groupLayer == null)
+            {
+                return;
+            }
 
             foreach (var subLayer in groupLayer.Layers)
             {
@@ -166,7 +179,6 @@ namespace DelftTools.Shell.Gui
                 groupLayer.Visible = visible;
                 groupLayer.LayersReadOnly = hasReadOnlyLayersCollection;
             }
-            
         }
 
         private static void ClearLayerDictionaryRecursive(ILayer layer, IDictionary<ILayer, object> layerObjectDictionary)
@@ -184,7 +196,7 @@ namespace DelftTools.Shell.Gui
 
             foreach (var subLayer in groupLayer.Layers)
             {
-                ClearLayerDictionaryRecursive(subLayer,layerObjectDictionary);
+                ClearLayerDictionaryRecursive(subLayer, layerObjectDictionary);
             }
         }
     }

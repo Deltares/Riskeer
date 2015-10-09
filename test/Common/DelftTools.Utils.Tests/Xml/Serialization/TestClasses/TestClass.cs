@@ -10,11 +10,17 @@ namespace DelftTools.Utils.Tests.Xml.Serialization.TestClasses
     {
         private BaseClass someclass;
 
-        [XmlElement(Type = typeof (CustomXmlSerializer<BaseClass>))]
+        [XmlElement(Type = typeof(CustomXmlSerializer<BaseClass>))]
         public BaseClass SomeClass
         {
-            get { return someclass; }
-            set { someclass = value; }
+            get
+            {
+                return someclass;
+            }
+            set
+            {
+                someclass = value;
+            }
         }
     }
 }

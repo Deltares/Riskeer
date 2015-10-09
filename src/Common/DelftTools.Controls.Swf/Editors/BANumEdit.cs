@@ -24,8 +24,6 @@ namespace DelftTools.Controls.Swf.Editors
 
         #endregion
 
-        private NumEditType m_inpType;
-
         public NumEdit()
         {
             // set default input type
@@ -37,24 +35,93 @@ namespace DelftTools.Controls.Swf.Editors
             ContextMenu = new ContextMenu();
         }
 
-        [Description("Sets the numeric type allowed"), Category("Behavior")]
-        public NumEditType InputType
-        {
-            get { return m_inpType; }
-            set
-            {
-                m_inpType = value;
-            }
-        }
-
         public override string Text
         {
-            get { return base.Text; }
+            get
+            {
+                return base.Text;
+            }
             set
             {
                 if (IsValid(value, true))
+                {
                     base.Text = value;
+                }
             }
+        }
+
+        [Description("Sets the numeric type allowed")]
+        [Category("Behavior")]
+        public NumEditType InputType { get; set; }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // trap Ctrl-V paste and prevent invalid values
+            //	return false to allow further processing
+            if (keyData == (Keys) Shortcut.CtrlV || keyData == (Keys) Shortcut.ShiftIns)
+            {
+                IDataObject iData = Clipboard.GetDataObject();
+
+                // assemble new string and check IsValid
+                string newText;
+                newText = base.Text.Substring(0, SelectionStart)
+                          + (string) iData.GetData(DataFormats.Text)
+                          + base.Text.Substring(SelectionStart + SelectionLength);
+
+                // check if data to be pasted is convertable to inputType
+                if (!IsValid(newText, true))
+                {
+                    return true;
+                }
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        protected override void OnLeave(EventArgs e)
+        {
+            // handle - and leading zeros input since KeyPress handler must allow this
+            if (base.Text != "")
+            {
+                if (!IsValid(base.Text, false))
+                {
+                    base.Text = "";
+                }
+                else if (Double.Parse(base.Text) == 0) // this used for -0, 000 and other strings
+                {
+                    base.Text = "0";
+                }
+            }
+            base.OnLeave(e);
+        }
+
+        protected override void OnKeyPress(KeyPressEventArgs e)
+        {
+            // assemble new text with new KeyStroke
+            //	and pass to validation routine.
+
+            // NOTES;
+            //	1) Delete key is NOT passed here
+            //	2) control passed here after ProcessCmdKey() is run
+
+            char c = e.KeyChar;
+            if (!Char.IsControl(c)) // not sure about this?? nothing in docs about what is Control char??
+            {
+                // prevent spaces
+                if (c.ToString() == " ")
+                {
+                    e.Handled = true;
+                    return;
+                }
+
+                string newText = base.Text.Substring(0, SelectionStart)
+                                 + c.ToString() + base.Text.Substring(SelectionStart + SelectionLength);
+
+                if (!IsValid(newText, true))
+                {
+                    e.Handled = true;
+                }
+            }
+            base.OnKeyPress(e);
         }
 
         private bool IsValid(string val, bool user)
@@ -68,26 +135,32 @@ namespace DelftTools.Controls.Swf.Editors
 
             if (val.Equals("")
                 || val.Equals(String.Empty))
+            {
                 return ret;
+            }
 
             if (user)
             {
                 // allow first char == '-'
                 if (val.Equals("-"))
+                {
                     return ret;
+                }
             }
 
             // parse into dataType, errors indicate invalid value
             // NOTE: parsing also validates data type min/max
             try
             {
-                switch (m_inpType)
+                switch (InputType)
                 {
                     case NumEditType.Currency:
                         decimal dec = decimal.Parse(val);
                         int pos = val.IndexOf(".");
                         if (pos != -1)
+                        {
                             ret = val.Substring(pos).Length <= 3; // 2 decimals + "."
+                        }
                         //ret &= Min <= (double)dec && (double)dec <= Max;
                         break;
                     case NumEditType.Single:
@@ -118,73 +191,11 @@ namespace DelftTools.Controls.Swf.Editors
                         throw new ApplicationException();
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 ret = false;
             }
             return ret;
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            // trap Ctrl-V paste and prevent invalid values
-            //	return false to allow further processing
-            if (keyData == (Keys) Shortcut.CtrlV || keyData == (Keys) Shortcut.ShiftIns)
-            {
-                IDataObject iData = Clipboard.GetDataObject();
-
-                // assemble new string and check IsValid
-                string newText;
-                newText = base.Text.Substring(0, base.SelectionStart)
-                          + (string) iData.GetData(DataFormats.Text)
-                          + base.Text.Substring(base.SelectionStart + base.SelectionLength);
-
-                // check if data to be pasted is convertable to inputType
-                if (!IsValid(newText, true))
-                    return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
-        protected override void OnLeave(EventArgs e)
-        {
-            // handle - and leading zeros input since KeyPress handler must allow this
-            if (base.Text != "")
-            {
-                if (!IsValid(base.Text, false))
-                    base.Text = "";
-                else if (Double.Parse(base.Text) == 0) // this used for -0, 000 and other strings
-                    base.Text = "0";
-            }
-            base.OnLeave(e);
-        }
-
-        protected override void OnKeyPress(KeyPressEventArgs e)
-        {
-            // assemble new text with new KeyStroke
-            //	and pass to validation routine.
-
-            // NOTES;
-            //	1) Delete key is NOT passed here
-            //	2) control passed here after ProcessCmdKey() is run
-
-            char c = e.KeyChar;
-            if (!Char.IsControl(c)) // not sure about this?? nothing in docs about what is Control char??
-            {
-                // prevent spaces
-                if (c.ToString() == " ")
-                {
-                    e.Handled = true;
-                    return;
-                }
-
-                string newText = base.Text.Substring(0, base.SelectionStart)
-                                 + c.ToString() + base.Text.Substring(base.SelectionStart + base.SelectionLength);
-
-                if (!IsValid(newText, true))
-                    e.Handled = true;
-            }
-            base.OnKeyPress(e);
         }
     }
 }

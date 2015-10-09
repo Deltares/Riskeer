@@ -15,20 +15,12 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <summary>
         /// Geometry creator.
         /// </summary>
-        private GeometryFactory factory = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public GeometryFactory Factory
-        {
-            get { return factory; }            
-        }
+        private readonly GeometryFactory factory = null;
 
         /// <summary>
         /// Initialize reader with a standard <c>GeometryFactory</c>.
         /// </summary>
-        public ShapeReader() : this(new GeometryFactory()) { }
+        public ShapeReader() : this(new GeometryFactory()) {}
 
         /// <summary>
         /// Initialize reader with the given <c>GeometryFactory</c>.
@@ -39,6 +31,16 @@ namespace GisSharpBlog.NetTopologySuite.IO
             this.factory = factory;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public GeometryFactory Factory
+        {
+            get
+            {
+                return factory;
+            }
+        }
 
         /// <summary>
         /// 
@@ -59,7 +61,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <returns></returns>
         public IGeometry ReadLineString(BinaryReader reader)
         {
-            ReadBoundingBox(reader);  // Jump boundingbox
+            ReadBoundingBox(reader); // Jump boundingbox
 
             int numParts = ReadNumParts(reader);
             int numPoints = ReadNumPoints(reader);
@@ -69,8 +71,13 @@ namespace GisSharpBlog.NetTopologySuite.IO
             ICoordinate[] coords = ReadCoordinates(reader, numPoints);
 
             if (numParts == 1)
-                 return CreateLineString(coords);
-            else return CreateMultiLineString(numPoints, indexParts, coords);
+            {
+                return CreateLineString(coords);
+            }
+            else
+            {
+                return CreateMultiLineString(numPoints, indexParts, coords);
+            }
         }
 
         /// <summary>
@@ -80,7 +87,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <returns></returns>
         public IGeometry ReadPolygon(BinaryReader reader)
         {
-            ReadBoundingBox(reader);  // Jump boundingbox
+            ReadBoundingBox(reader); // Jump boundingbox
 
             int numParts = ReadNumParts(reader);
             int numPoints = ReadNumPoints(reader);
@@ -90,8 +97,13 @@ namespace GisSharpBlog.NetTopologySuite.IO
             ICoordinate[] coords = ReadCoordinates(reader, numPoints);
 
             if (numParts == 1)
-                 return CreateSimpleSinglePolygon(coords);
-            else return CreateSingleOrMultiPolygon(numPoints, indexParts, coords);
+            {
+                return CreateSimpleSinglePolygon(coords);
+            }
+            else
+            {
+                return CreateSingleOrMultiPolygon(numPoints, indexParts, coords);
+            }
         }
 
         /// <summary>
@@ -101,14 +113,16 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <returns></returns>
         public IGeometry ReadMultiPoint(BinaryReader reader)
         {
-            ReadBoundingBox(reader);  // Jump boundingbox
+            ReadBoundingBox(reader); // Jump boundingbox
 
             int numPoints = ReadNumPoints(reader);
             ICoordinate[] coords = new ICoordinate[numPoints];
             for (int i = 0; i < numPoints; i++)
+            {
                 coords[i] = ReadCoordinate(reader);
+            }
             return CreateMultiPoint(coords);
-        }        
+        }
 
         /// <summary>
         /// 
@@ -150,7 +164,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
             for (int i = 0; i < coords.Length - 1; i++)
             {
                 if (partIndex == indexParts.Length)
-                    break;  // Exit and add manually last part
+                {
+                    break; // Exit and add manually last part
+                }
                 if (i == indexParts[partIndex])
                 {
                     length = indexParts[partIndex] - indexParts[partIndex - 1];
@@ -199,7 +215,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
 
                 // Verify polygon area
                 if (!CGAlgorithms.IsCCW(shellCoords))
+                {
                     polygonIndex.Add(i);
+                }
 
                 // Adding shell to array
                 shells[index++] = Factory.CreateLinearRing(shellCoords);
@@ -211,7 +229,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
             shellCoords = new ICoordinate[shellLength];
             Array.Copy(coords, indexParts[lastIndex], shellCoords, 0, shellLength);
             if (!CGAlgorithms.IsCCW(shellCoords))
+            {
                 polygonIndex.Add(lastIndex);
+            }
             shells[index] = Factory.CreateLinearRing(shellCoords);
             // Create geometryString
             if (polygonIndex.Count == 1)
@@ -234,29 +254,29 @@ namespace GisSharpBlog.NetTopologySuite.IO
                 int start = 0;
                 int end = 0;
                 int length = 0;
-                ILinearRing shell = null;    // Contains Polygon Shell
-                ILinearRing[] holes = null;  // Contains Polygon Holes
-                IPolygon[] polygons = new IPolygon[polygonIndex.Count];   // Array containing all Polygons                                              
+                ILinearRing shell = null; // Contains Polygon Shell
+                ILinearRing[] holes = null; // Contains Polygon Holes
+                IPolygon[] polygons = new IPolygon[polygonIndex.Count]; // Array containing all Polygons                                              
 
                 // Building procedure
                 for (i = 0; i < polygonIndex.Count - 1; i++)
                 {
-                    start = (int )polygonIndex[i];                       // First element of polygon (Shell)
-                    end = ((int )polygonIndex[i + 1] - 1);               // Index of last Hole                                            
-                    length = end - start;                                // Holes
-                    shell = shells[start];                               // Shell
-                    holes = new ILinearRing[length];                     // Holes
-                    Array.Copy(shells, start + 1, holes, 0, length);     // (start + 1) because i jump the Shell and keep only the Holes!
+                    start = (int) polygonIndex[i]; // First element of polygon (Shell)
+                    end = ((int) polygonIndex[i + 1] - 1); // Index of last Hole                                            
+                    length = end - start; // Holes
+                    shell = shells[start]; // Shell
+                    holes = new ILinearRing[length]; // Holes
+                    Array.Copy(shells, start + 1, holes, 0, length); // (start + 1) because i jump the Shell and keep only the Holes!
                     polygons[index++] = Factory.CreatePolygon(shell, holes);
                 }
 
                 // Add manually last polygon
-                start = (int) polygonIndex[polygonIndex.Count - 1];      // First element of polygon (Shell)
-                end = shells.Length - 1;                                 // Index of last Hole                                            
-                length = end - start;                                    // Holes
-                shell = shells[start];                                   // Shell
-                holes = new ILinearRing[length];                         // Holes
-                Array.Copy(shells, start + 1, holes, 0, length);         // (start + 1) because i jump the Shell and keep only the Holes!                
+                start = (int) polygonIndex[polygonIndex.Count - 1]; // First element of polygon (Shell)
+                end = shells.Length - 1; // Index of last Hole                                            
+                length = end - start; // Holes
+                shell = shells[start]; // Shell
+                holes = new ILinearRing[length]; // Holes
+                Array.Copy(shells, start + 1, holes, 0, length); // (start + 1) because i jump the Shell and keep only the Holes!                
                 polygons[index++] = Factory.CreatePolygon(shell, holes);
 
                 // Create MultiPolygon point
@@ -282,7 +302,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         public IMultiPoint CreateMultiPoint(ICoordinate[] coords)
         {
             return Factory.CreateMultiPoint(coords);
-        }        
+        }
 
         /// <summary>
         /// Jump values for VeDEx BoundingBox
@@ -291,7 +311,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
         public void ReadBoundingBox(BinaryReader reader)
         {
             for (int i = 0; i < 4; i++)
+            {
                 reader.ReadDouble();
+            }
         }
 
         /// <summary>
@@ -324,7 +346,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
         {
             int[] indexParts = new int[numParts];
             for (int i = 0; i < numParts; i++)
+            {
                 indexParts[i] = reader.ReadInt32();
+            }
             return indexParts;
         }
 
@@ -338,7 +362,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
         {
             ICoordinate[] coords = new ICoordinate[numPoints];
             for (int i = 0; i < numPoints; i++)
+            {
                 coords[i] = ReadCoordinate(reader);
+            }
             return coords;
         }
 
@@ -358,7 +384,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="list"></param>
         /// <returns></returns>
         public IGeometryCollection CreateGeometryCollection(IList list)
-        {            
+        {
             IGeometry[] geometries = (IGeometry[]) (new ArrayList(list).ToArray(typeof(IGeometry)));
             return Factory.CreateGeometryCollection(geometries);
         }

@@ -11,8 +11,8 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <summary>
         /// Only non-null if this node is precise.
         /// </summary>
-        protected ICoordinate coord = null;     
-        
+        protected ICoordinate coord = null;
+
         /// <summary>
         /// 
         /// </summary>
@@ -37,18 +37,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         {
             get
             {
-                return coord; 
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public EdgeEndStar Edges
-        {
-            get
-            {
-                return edges; 
+                return coord;
             }
         }
 
@@ -64,10 +53,15 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         }
 
         /// <summary>
-        /// Basic nodes do not compute IMs.
+        /// 
         /// </summary>
-        /// <param name="im"></param>
-        public override void ComputeIM(IntersectionMatrix im) { }
+        public EdgeEndStar Edges
+        {
+            get
+            {
+                return edges;
+            }
+        }
 
         /// <summary> 
         /// Add the edge to the list of edges at this node.
@@ -98,15 +92,17 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <param name="label2"></param>
         public void MergeLabel(Label label2)
         {
-            for (int i = 0; i < 2; i++) 
+            for (int i = 0; i < 2; i++)
             {
                 Locations loc = ComputeMergedLocation(label2, i);
                 Locations thisLoc = label.GetLocation(i);
-                if (thisLoc == Locations.Null) 
+                if (thisLoc == Locations.Null)
+                {
                     label.SetLocation(i, loc);
+                }
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -114,9 +110,14 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <param name="onLocation"></param>
         public void SetLabel(int argIndex, Locations onLocation)
         {
-            if (label == null) 
-                 label = new Label(argIndex, onLocation);            
-            else label.SetLocation(argIndex, onLocation);
+            if (label == null)
+            {
+                label = new Label(argIndex, onLocation);
+            }
+            else
+            {
+                label.SetLocation(argIndex, onLocation);
+            }
         }
 
         /// <summary> 
@@ -129,20 +130,22 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
             // determine the current location for the point (if any)
             Locations loc = Locations.Null;
             if (label != null)
+            {
                 loc = label.GetLocation(argIndex);
+            }
             // flip the loc
             Locations newLoc;
             switch (loc)
             {
-            case Locations.Boundary:
-                newLoc = Locations.Interior; 
-                break;
-            case Locations.Interior:
-                newLoc = Locations.Boundary; 
-                break;
-            default:
-                newLoc = Locations.Boundary; 
-                break;
+                case Locations.Boundary:
+                    newLoc = Locations.Interior;
+                    break;
+                case Locations.Interior:
+                    newLoc = Locations.Boundary;
+                    break;
+                default:
+                    newLoc = Locations.Boundary;
+                    break;
             }
             label.SetLocation(argIndex, newLoc);
         }
@@ -160,11 +163,13 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         {
             Locations loc = Locations.Null;
             loc = label.GetLocation(eltIndex);
-            if (!label2.IsNull(eltIndex)) 
+            if (!label2.IsNull(eltIndex))
             {
                 Locations nLoc = label2.GetLocation(eltIndex);
-                if (loc != Locations.Boundary) 
+                if (loc != Locations.Boundary)
+                {
                     loc = nLoc;
+                }
             }
             return loc;
         }
@@ -177,6 +182,12 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         {
             outstream.WriteLine("node " + coord + " lbl: " + label);
         }
+
+        /// <summary>
+        /// Basic nodes do not compute IMs.
+        /// </summary>
+        /// <param name="im"></param>
+        public override void ComputeIM(IntersectionMatrix im) {}
 
         /// <summary>
         /// 

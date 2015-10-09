@@ -28,7 +28,7 @@ namespace DelftTools.Utils
             FieldInfo fi = value.GetType().GetField(value.ToString());
             var attributes =
                 (DescriptionAttribute[]) fi.GetCustomAttributes(
-                                             typeof (DescriptionAttribute), false);
+                    typeof(DescriptionAttribute), false);
             return (attributes.Length > 0) ? attributes[0].Description : value.ToString();
         }
 
@@ -43,47 +43,45 @@ namespace DelftTools.Utils
             FieldInfo fi = value.GetField(name);
             var attributes =
                 (DescriptionAttribute[]) fi.GetCustomAttributes(
-                                             typeof (DescriptionAttribute), false);
+                    typeof(DescriptionAttribute), false);
             return (attributes.Length > 0) ? attributes[0].Description : name;
         }
 
         /// <summary>
-        /// Gets the value of an Enum, based on it's Description Attribute or named value
+        /// Gets the display name of the enum value
         /// </summary>
-        /// <param name="value">The Enum type</param>
-        /// <param name="description">The description or name of the element</param>
-        /// <returns>The value, or the passed in description, if it was not found</returns>
-        private static object GetEnumValue(Type value, string description)
+        /// <param name="value">The value you want the display name for</param>
+        /// <returns>The display name, if any, else it's .ToString()</returns>
+        public static string GetEnumDisplayName(Enum value)
         {
-            FieldInfo[] fis = value.GetFields();
-            foreach (FieldInfo fi in fis)
-            {
-                var attributes =
-                    (DescriptionAttribute[]) fi.GetCustomAttributes(
-                                                 typeof (DescriptionAttribute), false);
-                if (attributes.Length > 0)
-                {
-                    if (attributes[0].Description == description)
-                    {
-                        return fi.GetValue(fi.Name);
-                    }
-                }
-                if (fi.Name == description)
-                {
-                    return fi.GetValue(fi.Name);
-                }
-            }
-            return description;
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+            var attributes =
+                (DisplayNameAttribute[]) fi.GetCustomAttributes(
+                    typeof(DisplayNameAttribute), false);
+            return (attributes.Length > 0) ? attributes[0].DisplayName : value.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="enumType"></param>
+        /// <param name="displayNameString"></param>
+        /// <returns>Null if no match was found in <paramref name="enumType"/> with <paramref name="displayNameString"/>; Value otherwise.</returns>
+        public static object GetEnumValueFromDisplayName(Type enumType, string displayNameString)
+        {
+            return Enum.GetValues(enumType)
+                       .Cast<Enum>()
+                       .FirstOrDefault(value => GetEnumDisplayName(value) == displayNameString);
         }
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
                                          Type destinationType)
         {
-            if (value is Enum && destinationType == typeof (string))
+            if (value is Enum && destinationType == typeof(string))
             {
                 return GetEnumDescription((Enum) value);
             }
-            if (value is string && destinationType == typeof (string))
+            if (value is string && destinationType == typeof(string))
             {
                 return GetEnumDescription(type, (string) value);
             }
@@ -109,30 +107,32 @@ namespace DelftTools.Utils
         }
 
         /// <summary>
-        /// Gets the display name of the enum value
+        /// Gets the value of an Enum, based on it's Description Attribute or named value
         /// </summary>
-        /// <param name="value">The value you want the display name for</param>
-        /// <returns>The display name, if any, else it's .ToString()</returns>
-        public static string GetEnumDisplayName(Enum value)
+        /// <param name="value">The Enum type</param>
+        /// <param name="description">The description or name of the element</param>
+        /// <returns>The value, or the passed in description, if it was not found</returns>
+        private static object GetEnumValue(Type value, string description)
         {
-            FieldInfo fi = value.GetType().GetField(value.ToString());
-            var attributes =
-                (DisplayNameAttribute[])fi.GetCustomAttributes(
-                                             typeof(DisplayNameAttribute), false);
-            return (attributes.Length > 0) ? attributes[0].DisplayName : value.ToString();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="enumType"></param>
-        /// <param name="displayNameString"></param>
-        /// <returns>Null if no match was found in <paramref name="enumType"/> with <paramref name="displayNameString"/>; Value otherwise.</returns>
-        public static object GetEnumValueFromDisplayName(Type enumType, string displayNameString)
-        {
-            return Enum.GetValues(enumType)
-                       .Cast<Enum>()
-                       .FirstOrDefault(value => GetEnumDisplayName(value) == displayNameString);
+            FieldInfo[] fis = value.GetFields();
+            foreach (FieldInfo fi in fis)
+            {
+                var attributes =
+                    (DescriptionAttribute[]) fi.GetCustomAttributes(
+                        typeof(DescriptionAttribute), false);
+                if (attributes.Length > 0)
+                {
+                    if (attributes[0].Description == description)
+                    {
+                        return fi.GetValue(fi.Name);
+                    }
+                }
+                if (fi.Name == description)
+                {
+                    return fi.GetValue(fi.Name);
+                }
+            }
+            return description;
         }
     }
 }

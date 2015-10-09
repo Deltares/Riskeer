@@ -15,11 +15,10 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
     /// </summary>
     public class SweeplineNestedRingTester
     {
-        private GeometryGraph graph;  // used to find non-node vertices
-        private IList rings = new ArrayList();
+        private readonly GeometryGraph graph; // used to find non-node vertices
+        private readonly IList rings = new ArrayList();
         private IEnvelope totalEnv = new Envelope();
         private SweepLineIndex sweepLine;
-        private ICoordinate nestedPt = null;
 
         /// <summary>
         /// 
@@ -27,19 +26,14 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
         /// <param name="graph"></param>
         public SweeplineNestedRingTester(GeometryGraph graph)
         {
+            NestedPoint = null;
             this.graph = graph;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public ICoordinate NestedPoint 
-        {
-            get
-            {
-                return nestedPt; 
-            }
-        }
+        public ICoordinate NestedPoint { get; private set; }
 
         /// <summary>
         /// 
@@ -68,7 +62,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
         private void BuildIndex()
         {
             sweepLine = new SweepLineIndex();
-            for (int i = 0; i < rings.Count; i++) 
+            for (int i = 0; i < rings.Count; i++)
             {
                 ILinearRing ring = (ILinearRing) rings[i];
                 Envelope env = (Envelope) ring.EnvelopeInternal;
@@ -88,13 +82,15 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
             ICoordinate[] innerRingPts = innerRing.Coordinates;
             ICoordinate[] searchRingPts = searchRing.Coordinates;
             if (!innerRing.EnvelopeInternal.Intersects(searchRing.EnvelopeInternal))
+            {
                 return false;
+            }
             ICoordinate innerRingPt = IsValidOp.FindPointNotNode(innerRingPts, searchRing, graph);
             Assert.IsTrue(innerRingPt != null, "Unable to find a ring point not a node of the search ring");
             bool isInside = CGAlgorithms.IsPointInRing(innerRingPt, searchRingPts);
-            if (isInside) 
+            if (isInside)
             {
-                nestedPt = innerRingPt;
+                NestedPoint = innerRingPt;
                 return true;
             }
             return false;
@@ -105,19 +101,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
         /// </summary>
         public class OverlapAction : ISweepLineOverlapAction
         {
-            private SweeplineNestedRingTester container = null;
-            bool isNonNested = true;
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public bool IsNonNested
-            {
-                get 
-                { 
-                    return isNonNested; 
-                }
-            }
+            private readonly SweeplineNestedRingTester container = null;
+            private bool isNonNested = true;
 
             /// <summary>
             /// 
@@ -131,16 +116,31 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
             /// <summary>
             /// 
             /// </summary>
+            public bool IsNonNested
+            {
+                get
+                {
+                    return isNonNested;
+                }
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
             /// <param name="s0"></param>
             /// <param name="s1"></param>
             public void Overlap(SweepLineInterval s0, SweepLineInterval s1)
             {
                 ILinearRing innerRing = (ILinearRing) s0.Item;
                 ILinearRing searchRing = (ILinearRing) s1.Item;
-                if (innerRing == searchRing) 
+                if (innerRing == searchRing)
+                {
                     return;
+                }
                 if (container.IsInside(innerRing, searchRing))
+                {
                     isNonNested = false;
+                }
             }
         }
     }

@@ -17,21 +17,7 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
     /// </summary>
     public class DouglasPeuckerSimplifier
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="geom"></param>
-        /// <param name="distanceTolerance"></param>
-        /// <returns></returns>
-        public static IGeometry Simplify(IGeometry geom, double distanceTolerance)
-        {
-            DouglasPeuckerSimplifier tss = new DouglasPeuckerSimplifier(geom);
-            tss.DistanceTolerance = distanceTolerance;
-            return tss.GetResultGeometry();
-        }
-
-        private IGeometry inputGeom;
-        private double distanceTolerance;
+        private readonly IGeometry inputGeom;
 
         /// <summary>
         /// 
@@ -45,16 +31,19 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// <summary>
         /// 
         /// </summary>
-        public double DistanceTolerance
+        public double DistanceTolerance { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="geom"></param>
+        /// <param name="distanceTolerance"></param>
+        /// <returns></returns>
+        public static IGeometry Simplify(IGeometry geom, double distanceTolerance)
         {
-            get
-            {
-                return distanceTolerance; 
-            }
-            set
-            {
-                distanceTolerance = value; 
-            }
+            DouglasPeuckerSimplifier tss = new DouglasPeuckerSimplifier(geom);
+            tss.DistanceTolerance = distanceTolerance;
+            return tss.GetResultGeometry();
         }
 
         /// <summary>
@@ -71,7 +60,7 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// </summary>
         private class DPTransformer : GeometryTransformer
         {
-            private DouglasPeuckerSimplifier container = null;
+            private readonly DouglasPeuckerSimplifier container = null;
 
             /// <summary>
             /// 
@@ -105,8 +94,10 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
             {
                 IGeometry roughGeom = base.TransformPolygon(geom, parent);
                 // don't try and correct if the parent is going to do this
-                if (parent is IMultiPolygon) 
-                    return roughGeom;            
+                if (parent is IMultiPolygon)
+                {
+                    return roughGeom;
+                }
                 return CreateValidArea(roughGeom);
             }
 

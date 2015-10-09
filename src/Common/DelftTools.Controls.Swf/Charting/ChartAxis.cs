@@ -1,38 +1,63 @@
 using System.Drawing;
+using Steema.TeeChart;
 
 namespace DelftTools.Controls.Swf.Charting
 {
     public class ChartAxis : IChartAxis
     {
-        private readonly Steema.TeeChart.Axis teeChartAxis;
+        private readonly Axis teeChartAxis;
 
-        public ChartAxis(Steema.TeeChart.Axis axis)
+        public ChartAxis(Axis axis)
         {
             teeChartAxis = axis;
         }
-               
+
         public string LabelsFormat
         {
-            get { return teeChartAxis.Labels.ValueFormat; }
-            set { teeChartAxis.Labels.ValueFormat = value; }
+            get
+            {
+                return teeChartAxis.Labels.ValueFormat;
+            }
+            set
+            {
+                teeChartAxis.Labels.ValueFormat = value;
+            }
         }
-        
+
         public bool Labels
         {
-            get { return teeChartAxis.Labels.Visible; }
-            set { teeChartAxis.Labels.Visible = value; }
+            get
+            {
+                return teeChartAxis.Labels.Visible;
+            }
+            set
+            {
+                teeChartAxis.Labels.Visible = value;
+            }
         }
-               
+
         public bool Visible
         {
-            get { return teeChartAxis.Visible; }
-            set { teeChartAxis.Visible = value; }
+            get
+            {
+                return teeChartAxis.Visible;
+            }
+            set
+            {
+                teeChartAxis.Visible = value;
+            }
         }
 
         public bool Automatic
         {
-            get { return teeChartAxis.Automatic; }
-            set { teeChartAxis.Automatic = value; }
+            get
+            {
+                return teeChartAxis.Automatic;
+            }
+            set
+            {
+                teeChartAxis.Automatic = value;
+            }
         }
 
         public double Minimum
@@ -65,25 +90,46 @@ namespace DelftTools.Controls.Swf.Charting
 
         public int MinimumOffset
         {
-            get { return teeChartAxis.MinimumOffset; }
-            set { teeChartAxis.MinimumOffset = value; }
+            get
+            {
+                return teeChartAxis.MinimumOffset;
+            }
+            set
+            {
+                teeChartAxis.MinimumOffset = value;
+            }
         }
 
         public int MaximumOffset
         {
-            get { return teeChartAxis.MaximumOffset; }
-            set { teeChartAxis.MaximumOffset = value; }
+            get
+            {
+                return teeChartAxis.MaximumOffset;
+            }
+            set
+            {
+                teeChartAxis.MaximumOffset = value;
+            }
         }
 
         public string Title
         {
-            get { return teeChartAxis.Title.Caption; }
-            set { teeChartAxis.Title.Caption = value; }
+            get
+            {
+                return teeChartAxis.Title.Caption;
+            }
+            set
+            {
+                teeChartAxis.Title.Caption = value;
+            }
         }
 
         public Font TitleFont
-        { 
-            get { return teeChartAxis.Title.Font.DrawingFont; }
+        {
+            get
+            {
+                return teeChartAxis.Title.Font.DrawingFont;
+            }
             set
             {
                 teeChartAxis.Title.Font.Bold = value.Bold;
@@ -97,7 +143,10 @@ namespace DelftTools.Controls.Swf.Charting
 
         public Font LabelsFont
         {
-            get { return teeChartAxis.Labels.Font.DrawingFont; }
+            get
+            {
+                return teeChartAxis.Labels.Font.DrawingFont;
+            }
             set
             {
                 teeChartAxis.Labels.Font.Bold = value.Bold;
@@ -111,13 +160,22 @@ namespace DelftTools.Controls.Swf.Charting
 
         public bool Logaritmic
         {
-            get { return teeChartAxis.Logarithmic; }
-            set { teeChartAxis.Logarithmic = value; }
+            get
+            {
+                return teeChartAxis.Logarithmic;
+            }
+            set
+            {
+                teeChartAxis.Logarithmic = value;
+            }
         }
 
         public bool IsDateTime
         {
-            get { return teeChartAxis.IsDateTime; }
+            get
+            {
+                return teeChartAxis.IsDateTime;
+            }
         }
 
         public double CalcPosPoint(int position)

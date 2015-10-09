@@ -9,7 +9,7 @@ namespace DelftTools.Controls
         /// Name is the unique identifier for a menuitem
         /// </summary>
         string Name { get; set; }
-        
+
         /// <summary>
         /// Text is the visible text of a menuitem
         /// </summary>
@@ -25,7 +25,7 @@ namespace DelftTools.Controls
         /// Get or set the enabled status of the menu. Disabled items are grayed
         /// </summary>
         bool Enabled { get; set; }
-        
+
         /// <summary>
         /// Defines view type which will be used to show this menuitem when view is active. 
         /// Menuitem is always active if this property is null.

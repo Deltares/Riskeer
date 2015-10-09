@@ -7,22 +7,21 @@ namespace DelftTools.Shell.Core.Services
     /// <summary>
     /// All common project manipulations in the Application
     /// </summary>
-    public interface IProjectService:IDisposable
+    public interface IProjectService : IDisposable
     {
+        event EventHandler ProjectSaved;
+        event EventHandler<CancelEventArgs> ProjectSaving;
+        event EventHandler ProjectSaveFailed;
+        event EventHandler<CancelEventArgs> ProjectOpening;
+        event EventHandler ProjectOpened;
         string ProjectDataDirectory { get; }
-
-        string CreateAndGetExternalDataDirectory(string basePath); // TODO: remove this hack, what is external data directory?!?
 
         IProjectRepository ProjectRepository { get; }
 
         IProjectRepositoryFactory ProjectRepositoryFactory { get; set; }
 
-        event EventHandler ProjectSaved;
-        event EventHandler<CancelEventArgs> ProjectSaving;
-        event EventHandler ProjectSaveFailed; 
-        event EventHandler<CancelEventArgs> ProjectOpening;
-        event EventHandler ProjectOpened;
-        
+        string CreateAndGetExternalDataDirectory(string basePath); // TODO: remove this hack, what is external data directory?!?
+
         /// <summary>
         /// Creates new project.
         /// </summary>
@@ -61,4 +60,4 @@ namespace DelftTools.Shell.Core.Services
 
         void SaveProjectInTemporaryFolder(Project project);
     }
-}   
+}

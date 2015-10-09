@@ -11,43 +11,73 @@ namespace DelftTools.Controls.Swf
     public static class ExportImageHelper
     {
         private static readonly Dictionary<string, ImageFormat> ImageFormats = new Dictionary<string, ImageFormat>
+        {
             {
-                {"png", ImageFormat.Png},
-                {"jpg", ImageFormat.Jpeg},
-                {"bmp", ImageFormat.Bmp},
-                {"gif", ImageFormat.Gif},
-                {"emf", ImageFormat.Emf},
-                {"tiff", ImageFormat.Tiff},
-            };
+                "png", ImageFormat.Png
+            },
+            {
+                "jpg", ImageFormat.Jpeg
+            },
+            {
+                "bmp", ImageFormat.Bmp
+            },
+            {
+                "gif", ImageFormat.Gif
+            },
+            {
+                "emf", ImageFormat.Emf
+            },
+            {
+                "tiff", ImageFormat.Tiff
+            },
+        };
 
         public static void Export(Image image, string filePath, string imageType, double factor = 1)
         {
-            if (image == null) return;
+            if (image == null)
+            {
+                return;
+            }
 
-            var imageToWrite = CreateResizedImage(image, (int)(image.Width * factor), (int)(image.Height * factor));
-            if (imageToWrite == null) return;
+            var imageToWrite = CreateResizedImage(image, (int) (image.Width*factor), (int) (image.Height*factor));
+            if (imageToWrite == null)
+            {
+                return;
+            }
 
             imageToWrite.Save(filePath, ImageFormats[imageType.ToLower()]);
         }
 
         public static void ExportWithDialog(Image image)
         {
-            if (image == null) return;
+            if (image == null)
+            {
+                return;
+            }
 
             var filter = GetFileFormatFilter(ImageFormats);
 
             var saveFileDialog = new SaveFileDialog
-                                      {
-                                          Filter = filter,
-                                          FilterIndex = 1,
-                                          RestoreDirectory = true,
-                                          Title = "Export as image"
-                                      };
+            {
+                Filter = filter,
+                FilterIndex = 1,
+                RestoreDirectory = true,
+                Title = "Export as image"
+            };
 
-            if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
-            
-            var imageResolutionDialog = new ImageResolutionDialog {BaseImage = image};
-            if (imageResolutionDialog.ShowModal() != DelftDialogResult.OK) return;
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            var imageResolutionDialog = new ImageResolutionDialog
+            {
+                BaseImage = image
+            };
+            if (imageResolutionDialog.ShowModal() != DelftDialogResult.OK)
+            {
+                return;
+            }
 
             var factor = imageResolutionDialog.Resolution/100;
             Export(image, saveFileDialog.FileName, ImageFormats.Keys.ElementAt(saveFileDialog.FilterIndex), factor);
@@ -65,7 +95,7 @@ namespace DelftTools.Controls.Swf
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
                 graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 graphics.SmoothingMode = SmoothingMode.HighQuality;
-                
+
                 //draw the image into the target bitmap
                 graphics.DrawImage(image, 0, 0, result.Width, result.Height);
             }

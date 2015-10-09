@@ -16,16 +16,19 @@ namespace DelftTools.Controls.Swf.Table.Filtering
 
         public ITableViewColumn TableViewColumn
         {
-            get { return tableViewColumn; }
+            get
+            {
+                return tableViewColumn;
+            }
             set
             {
                 tableViewColumn = value;
                 labelColumnName.Text = TableViewColumn.Caption;
-                
+
                 columnFilterEditor = GetColumnFilterEditor();
                 columnFilterEditor.Filter = tableViewColumn.FilterString != null
-                    ? tableViewColumn.FilterString.Replace(tableViewColumn.Name + " ", "")
-                    : null;
+                                                ? tableViewColumn.FilterString.Replace(tableViewColumn.Name + " ", "")
+                                                : null;
 
                 panelEditor.Controls.Clear();
                 panelEditor.Controls.Add((Control) columnFilterEditor);
@@ -41,7 +44,7 @@ namespace DelftTools.Controls.Swf.Table.Filtering
                 return new FilterNumericControl();
             }
 
-            if (columnType == typeof (string))
+            if (columnType == typeof(string))
             {
                 return new FilterTextControl();
             }

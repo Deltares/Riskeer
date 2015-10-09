@@ -13,16 +13,21 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Core
         public void RunManyActivitiesCheckForThreadingIssues()
         {
             var smallActivity = new SmallActivity();
-            using (var app = new DeltaShellApplication {WaitMethod = Application.DoEvents})
+            using (var app = new DeltaShellApplication
+            {
+                WaitMethod = Application.DoEvents
+            })
             {
                 for (int i = 0; i < 2000; i++)
+                {
                     app.RunActivity(smallActivity);
+                }
             }
         }
 
         private class SmallActivity : Activity
         {
-            protected override void OnInitialize() { }
+            protected override void OnInitialize() {}
 
             protected override void OnExecute()
             {
@@ -30,11 +35,11 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Core
                 Status = ActivityStatus.Done;
             }
 
-            protected override void OnCancel() { }
+            protected override void OnCancel() {}
 
-            protected override void OnCleanUp() { }
+            protected override void OnCleanUp() {}
 
-            protected override void OnFinish() { }
+            protected override void OnFinish() {}
         }
     }
 }

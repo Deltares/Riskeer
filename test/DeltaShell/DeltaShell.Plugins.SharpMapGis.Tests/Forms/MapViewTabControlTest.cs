@@ -49,24 +49,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             Assert.IsFalse(weakRef.IsAlive);
         }
 
-        private static WeakReference AddRemoveView(MapViewTabControl mapTabControl)
-        {
-            var view = new TestLayerEditorView();
-            var weakRef = new WeakReference(view);
-            mapTabControl.AddView(view);
-            mapTabControl.RemoveView(view);
-            return weakRef;
-        }
-
-        private static WeakReference AddViewDispose(MapViewTabControl mapTabControl)
-        {
-            var view = new TestLayerEditorView();
-            var weakRef = new WeakReference(view);
-            mapTabControl.AddView(view);
-            mapTabControl.Dispose();
-            return weakRef;
-        }
-
         [Test]
         public void OpeningSecondViewCallsDeactivateAndActivate()
         {
@@ -165,35 +147,59 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             Assert.AreEqual(1, view2Deactivated);
         }
 
+        private static WeakReference AddRemoveView(MapViewTabControl mapTabControl)
+        {
+            var view = new TestLayerEditorView();
+            var weakRef = new WeakReference(view);
+            mapTabControl.AddView(view);
+            mapTabControl.RemoveView(view);
+            return weakRef;
+        }
+
+        private static WeakReference AddViewDispose(MapViewTabControl mapTabControl)
+        {
+            var view = new TestLayerEditorView();
+            var weakRef = new WeakReference(view);
+            mapTabControl.AddView(view);
+            mapTabControl.Dispose();
+            return weakRef;
+        }
+
         private class TestLayerEditorView : UserControl, ILayerEditorView
         {
+            public event EventHandler SelectedFeaturesChanged;
+
+            public event EventHandler OnActivatedCalled;
+            public event EventHandler OnDeactivatedCalled;
             public object Data { get; set; }
             public string Text { get; set; }
             public Image Image { get; set; }
+
+            public bool Visible { get; private set; }
+            public ViewInfo ViewInfo { get; set; }
+            public IEnumerable<IFeature> SelectedFeatures { get; set; }
+            public ILayer Layer { set; get; }
+
             public void EnsureVisible(object item)
             {
                 throw new NotImplementedException();
             }
 
-            public bool Visible { get; private set; }
-            public ViewInfo ViewInfo { get; set; }
-            public IEnumerable<IFeature> SelectedFeatures { get; set; }
-            public event EventHandler SelectedFeaturesChanged;
-            public ILayer Layer { set; get; }
             public void OnActivated()
             {
                 if (OnActivatedCalled != null)
+                {
                     OnActivatedCalled(this, EventArgs.Empty);
+                }
             }
 
             public void OnDeactivated()
             {
                 if (OnDeactivatedCalled != null)
+                {
                     OnDeactivatedCalled(this, EventArgs.Empty);
+                }
             }
-
-            public event EventHandler OnActivatedCalled;
-            public event EventHandler OnDeactivatedCalled;
         }
     }
 }

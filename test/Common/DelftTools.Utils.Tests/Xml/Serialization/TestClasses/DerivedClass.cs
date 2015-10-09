@@ -11,13 +11,22 @@ namespace DelftTools.Utils.Tests.Xml.Serialization.TestClasses
 
         public override int Id
         {
-            get { return id; }
+            get
+            {
+                return id;
+            }
         }
 
         public int AnotherId
         {
-            get { return anotherId; }
-            set { anotherId = value; }
+            get
+            {
+                return anotherId;
+            }
+            set
+            {
+                anotherId = value;
+            }
         }
     }
 }

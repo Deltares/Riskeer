@@ -9,6 +9,7 @@ using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.Collections.Generic;
 using log4net;
+using Steema.TeeChart.Drawing;
 using Steema.TeeChart.Export;
 using Steema.TeeChart.Styles;
 
@@ -22,8 +23,8 @@ namespace DelftTools.Controls.Swf.Charting
     [Entity]
     public class Chart : IChart
     {
-        private readonly ILog log = LogManager.GetLogger(typeof (Chart));
         internal readonly Steema.TeeChart.Chart chart;
+        private readonly ILog log = LogManager.GetLogger(typeof(Chart));
 
         private IEventedList<IChartSeries> series;
         private bool chartSeriesStacked;
@@ -46,19 +47,34 @@ namespace DelftTools.Controls.Swf.Charting
 
         public bool TitleVisible
         {
-            get { return chart.Header.Visible; }
-            set { chart.Header.Visible = value; }
+            get
+            {
+                return chart.Header.Visible;
+            }
+            set
+            {
+                chart.Header.Visible = value;
+            }
         }
 
         public string Title
         {
-            get { return chart.Header.Text; }
-            set { chart.Header.Text = value; }
+            get
+            {
+                return chart.Header.Text;
+            }
+            set
+            {
+                chart.Header.Text = value;
+            }
         }
 
         public Font Font
         {
-            get { return chart.Header.Font.DrawingFont; }
+            get
+            {
+                return chart.Header.Font.DrawingFont;
+            }
             set
             {
                 chart.Header.Font.Bold = value.Bold;
@@ -72,19 +88,34 @@ namespace DelftTools.Controls.Swf.Charting
 
         public Color BackGroundColor
         {
-            get { return chart.Walls.Back.Brush.Color; }
-            set { chart.Walls.Back.Brush = new Steema.TeeChart.Drawing.ChartBrush(chart, value); }
+            get
+            {
+                return chart.Walls.Back.Brush.Color;
+            }
+            set
+            {
+                chart.Walls.Back.Brush = new ChartBrush(chart, value);
+            }
         }
 
         public Color SurroundingBackGroundColor
         {
-            get { return chart.Panel.Brush.Color; }
-            set { chart.Panel.Brush.Color = value; }
+            get
+            {
+                return chart.Panel.Brush.Color;
+            }
+            set
+            {
+                chart.Panel.Brush.Color = value;
+            }
         }
 
         public bool StackSeries
         {
-            get { return chartSeriesStacked; }
+            get
+            {
+                return chartSeriesStacked;
+            }
             set
             {
                 chartSeriesStacked = value;
@@ -101,7 +132,10 @@ namespace DelftTools.Controls.Swf.Charting
 
         public IEventedList<IChartSeries> Series
         {
-            get { return series;}
+            get
+            {
+                return series;
+            }
             set
             {
                 if (series != null)
@@ -117,43 +151,72 @@ namespace DelftTools.Controls.Swf.Charting
                 }
             }
         }
-        
+
         public IChartAxis LeftAxis
         {
-            get { return new ChartAxis(chart.Axes.Left); }
+            get
+            {
+                return new ChartAxis(chart.Axes.Left);
+            }
         }
 
         public IChartAxis RightAxis
         {
-            get { return new ChartAxis(chart.Axes.Right); }
+            get
+            {
+                return new ChartAxis(chart.Axes.Right);
+            }
         }
 
         public IChartAxis BottomAxis
         {
-            get { return new ChartAxis(chart.Axes.Bottom); }
+            get
+            {
+                return new ChartAxis(chart.Axes.Bottom);
+            }
         }
 
         public Rectangle ChartBounds
         {
-            get { return chart.ChartRect; }
+            get
+            {
+                return chart.ChartRect;
+            }
         }
 
-        public IChartLegend Legend { get { return new ChartLegend(chart.Legend); } }
+        public IChartLegend Legend
+        {
+            get
+            {
+                return new ChartLegend(chart.Legend);
+            }
+        }
 
         public ChartGraphics Graphics
         {
-            get { return graphics ?? (graphics = new ChartGraphics(chart)); }
+            get
+            {
+                return graphics ?? (graphics = new ChartGraphics(chart));
+            }
         }
 
         public Control ParentControl
         {
-            get { return (Control) chart.Parent; }
+            get
+            {
+                return (Control) chart.Parent;
+            }
         }
 
         public bool CancelMouseEvents
         {
-            set { chart.CancelMouse = value; }
+            set
+            {
+                chart.CancelMouse = value;
+            }
         }
+
+        public bool AllowSeriesTypeChange { get; set; }
 
         public void ExportAsImage()
         {
@@ -166,39 +229,39 @@ namespace DelftTools.Controls.Swf.Charting
             var dialogResult = dialog.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-                ExportAsImage(dialog.FileName,null,null);
+                ExportAsImage(dialog.FileName, null, null);
             }
-        }
-
-        /// <summary>
-        /// Returns a filter string with the supported export file types to be used in a dialog
-        /// </summary>
-        /// <returns></returns>
-        private static string GetSupportedFormatsFilter()
-        {
-            return "Bitmap (*.bmp)|*.bmp|JPG (*.jpg)|*.jpg|PNG (*.png)|*.png|GIF (*.gif)|*.gif|Tiff (*.tiff)|*.tiff|Scalable Vector Graphics (*.svg)|*.svg";
         }
 
         public void ExportAsImage(string filename, int? width, int? height)
         {
             if (string.IsNullOrEmpty(filename))
+            {
                 throw new ArgumentException("Argument should not be null", "filename");
+            }
 
             var dir = Path.GetDirectoryName(filename);
             var filenameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
             var ext = Path.GetExtension(filename);
 
             if (string.IsNullOrEmpty(ext))
+            {
                 throw new ArgumentException("Argument should have an extension", "filename");
+            }
 
             if (string.IsNullOrEmpty(filenameWithoutExtension))
+            {
                 throw new ArgumentException("Argument did not contain a filename", "filename");
+            }
 
             if (ext == ".svg")
             {
                 var hatchStyleIgnored = Series.OfType<IAreaChartSeries>().Any(cs => cs.UseHatch) ||
                                         Series.OfType<IPolygonChartSeries>().Any(cs => cs.UseHatch);
-                if (hatchStyleIgnored) log.WarnFormat("Hatch style is not supported for exports and will be ignored.");
+                if (hatchStyleIgnored)
+                {
+                    log.WarnFormat("Hatch style is not supported for exports and will be ignored.");
+                }
 
                 chart.Export.Image.SVG.Save(filename);
                 return;
@@ -214,22 +277,24 @@ namespace DelftTools.Controls.Swf.Charting
             var realHeight = height.HasValue ? height.Value : chart.Height == 0 ? 300 : chart.Height;
 
             using (var bitmap = new Bitmap(realWidth, realHeight))
-            using (var g = System.Drawing.Graphics.FromImage(bitmap))
             {
-                var oldWidth = chart.Width;
-                var oldHeight = chart.Height;
-                try
+                using (var g = System.Drawing.Graphics.FromImage(bitmap))
                 {
-                    chart.Width = realWidth;
-                    chart.Height = realHeight;
-                    chart.Draw(g);
+                    var oldWidth = chart.Width;
+                    var oldHeight = chart.Height;
+                    try
+                    {
+                        chart.Width = realWidth;
+                        chart.Height = realHeight;
+                        chart.Draw(g);
+                    }
+                    finally
+                    {
+                        chart.Width = oldWidth;
+                        chart.Height = oldHeight;
+                    }
+                    bitmap.Save(filenameToExport, GetImageFormatByExtension(ext));
                 }
-                finally
-                {
-                    chart.Width = oldWidth;
-                    chart.Height = oldHeight;
-                }
-                bitmap.Save(filenameToExport, GetImageFormatByExtension(ext));
             }
             SurroundingBackGroundColor = oldColor;
         }
@@ -239,7 +304,14 @@ namespace DelftTools.Controls.Swf.Charting
             return chart.Bitmap();
         }
 
-        public bool AllowSeriesTypeChange { get; set; }
+        /// <summary>
+        /// Returns a filter string with the supported export file types to be used in a dialog
+        /// </summary>
+        /// <returns></returns>
+        private static string GetSupportedFormatsFilter()
+        {
+            return "Bitmap (*.bmp)|*.bmp|JPG (*.jpg)|*.jpg|PNG (*.png)|*.png|GIF (*.gif)|*.gif|Tiff (*.tiff)|*.tiff|Scalable Vector Graphics (*.svg)|*.svg";
+        }
 
         private ImageFormat GetImageFormatByExtension(string ext)
         {

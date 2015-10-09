@@ -23,22 +23,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
     /// It is up to the client code to associate the 0 and 1 <c>TopologyLocation</c>s
     /// with specific geometries.
     /// </summary>
-    public class Label 
+    public class Label
     {
-        /// <summary>
-        /// Converts a Label to a Line label (that is, one with no side Locations).
-        /// </summary>
-        /// <param name="label">Label to convert.</param>
-        /// <returns>Label as Line label.</returns>
-        public static Label ToLineLabel(Label label)
-        {
-            Label lineLabel = new Label(Locations.Null);
-            for (int i = 0; i < 2; i++) 
-                lineLabel.SetLocation(i, label.GetLocation(i));            
-            return lineLabel;
-        }
-
-        private TopologyLocation[] elt = new TopologyLocation[2];
+        private readonly TopologyLocation[] elt = new TopologyLocation[2];
 
         /// <summary>
         /// Construct a Label with a single location for both Geometries.
@@ -90,7 +77,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
             elt[0] = new TopologyLocation(Locations.Null, Locations.Null, Locations.Null);
             elt[1] = new TopologyLocation(Locations.Null, Locations.Null, Locations.Null);
             elt[geomIndex].SetLocations(onLoc, leftLoc, rightLoc);
-        }        
+        }
 
         /// <summary> 
         /// Construct a Label with the same values as the argument Label.
@@ -105,7 +92,42 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <summary>
         /// 
         /// </summary>
-        public  void Flip()
+        public int GeometryCount
+        {
+            get
+            {
+                int count = 0;
+                if (!elt[0].IsNull)
+                {
+                    count++;
+                }
+                if (!elt[1].IsNull)
+                {
+                    count++;
+                }
+                return count;
+            }
+        }
+
+        /// <summary>
+        /// Converts a Label to a Line label (that is, one with no side Locations).
+        /// </summary>
+        /// <param name="label">Label to convert.</param>
+        /// <returns>Label as Line label.</returns>
+        public static Label ToLineLabel(Label label)
+        {
+            Label lineLabel = new Label(Locations.Null);
+            for (int i = 0; i < 2; i++)
+            {
+                lineLabel.SetLocation(i, label.GetLocation(i));
+            }
+            return lineLabel;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Flip()
         {
             elt[0].Flip();
             elt[1].Flip();
@@ -117,9 +139,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <param name="geomIndex"></param>
         /// <param name="posIndex"></param>
         /// <returns></returns>
-        public  Locations GetLocation(int geomIndex, Positions posIndex) 
-        { 
-            return elt[geomIndex].Get(posIndex); 
+        public Locations GetLocation(int geomIndex, Positions posIndex)
+        {
+            return elt[geomIndex].Get(posIndex);
         }
 
         /// <summary>
@@ -127,9 +149,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// </summary>
         /// <param name="geomIndex"></param>
         /// <returns></returns>
-        public  Locations GetLocation(int geomIndex) 
-        { 
-            return elt[geomIndex].Get(Positions.On); 
+        public Locations GetLocation(int geomIndex)
+        {
+            return elt[geomIndex].Get(Positions.On);
         }
 
         /// <summary>
@@ -138,7 +160,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <param name="geomIndex"></param>
         /// <param name="posIndex"></param>
         /// <param name="location"></param>
-        public  void SetLocation(int geomIndex, Positions posIndex, Locations location)
+        public void SetLocation(int geomIndex, Positions posIndex, Locations location)
         {
             elt[geomIndex].SetLocation(posIndex, location);
         }
@@ -148,7 +170,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// </summary>
         /// <param name="geomIndex"></param>
         /// <param name="location"></param>
-        public  void SetLocation(int geomIndex, Locations location)
+        public void SetLocation(int geomIndex, Locations location)
         {
             elt[geomIndex].SetLocation(Positions.On, location);
         }
@@ -158,7 +180,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// </summary>
         /// <param name="geomIndex"></param>
         /// <param name="location"></param>
-        public  void SetAllLocations(int geomIndex, Locations location)
+        public void SetAllLocations(int geomIndex, Locations location)
         {
             elt[geomIndex].SetAllLocations(location);
         }
@@ -168,7 +190,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// </summary>
         /// <param name="geomIndex"></param>
         /// <param name="location"></param>
-        public  void SetAllLocationsIfNull(int geomIndex, Locations location)
+        public void SetAllLocationsIfNull(int geomIndex, Locations location)
         {
             elt[geomIndex].SetAllLocationsIfNull(location);
         }
@@ -177,7 +199,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// 
         /// </summary>
         /// <param name="location"></param>
-        public  void SetAllLocationsIfNull(Locations location)
+        public void SetAllLocationsIfNull(Locations location)
         {
             SetAllLocationsIfNull(0, location);
             SetAllLocationsIfNull(1, location);
@@ -188,41 +210,18 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// Merging updates any null attributes of this label with the attributes from lbl.
         /// </summary>
         /// <param name="lbl"></param>
-        public  void Merge(Label lbl)
+        public void Merge(Label lbl)
         {
-            for (int i = 0; i < 2; i++) 
+            for (int i = 0; i < 2; i++)
             {
-                if (elt[i] == null && lbl.elt[i] != null) 
-                     elt[i] = new TopologyLocation(lbl.elt[i]);            
-                else elt[i].Merge(lbl.elt[i]);            
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="geomIndex"></param>
-        /// <param name="tl"></param>
-        private void SetGeometryLocation(int geomIndex, TopologyLocation tl)
-        {
-            if (tl == null) 
-                return;
-            elt[geomIndex].SetLocations(tl);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public  int GeometryCount
-        {
-            get
-            {
-                int count = 0;
-                if (!elt[0].IsNull) 
-                    count++;
-                if (!elt[1].IsNull) 
-                    count++;
-                return count;
+                if (elt[i] == null && lbl.elt[i] != null)
+                {
+                    elt[i] = new TopologyLocation(lbl.elt[i]);
+                }
+                else
+                {
+                    elt[i].Merge(lbl.elt[i]);
+                }
             }
         }
 
@@ -231,9 +230,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// </summary>
         /// <param name="geomIndex"></param>
         /// <returns></returns>
-        public  bool IsNull(int geomIndex) 
+        public bool IsNull(int geomIndex)
         {
-            return elt[geomIndex].IsNull; 
+            return elt[geomIndex].IsNull;
         }
 
         /// <summary>
@@ -241,18 +240,18 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// </summary>
         /// <param name="geomIndex"></param>
         /// <returns></returns>
-        public  bool IsAnyNull(int geomIndex)
-        { 
-            return elt[geomIndex].IsAnyNull; 
+        public bool IsAnyNull(int geomIndex)
+        {
+            return elt[geomIndex].IsAnyNull;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public  bool IsArea()               
-        { 
-            return elt[0].IsArea || elt[1].IsArea;   
+        public bool IsArea()
+        {
+            return elt[0].IsArea || elt[1].IsArea;
         }
 
         /// <summary>
@@ -260,9 +259,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// </summary>
         /// <param name="geomIndex"></param>
         /// <returns></returns>
-        public  bool IsArea(int geomIndex) 
+        public bool IsArea(int geomIndex)
         {
-            return elt[geomIndex].IsArea;   
+            return elt[geomIndex].IsArea;
         }
 
         /// <summary>
@@ -270,9 +269,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// </summary>
         /// <param name="geomIndex"></param>
         /// <returns></returns>
-        public  bool IsLine(int geomIndex)  
+        public bool IsLine(int geomIndex)
         {
-            return elt[geomIndex].IsLine;   
+            return elt[geomIndex].IsLine;
         }
 
         /// <summary>
@@ -281,10 +280,10 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <param name="lbl"></param>
         /// <param name="side"></param>
         /// <returns></returns>
-        public  bool IsEqualOnSide(Label lbl, int side)
+        public bool IsEqualOnSide(Label lbl, int side)
         {
-            return  this.elt[0].IsEqualOnSide(lbl.elt[0], side)
-                &&  this.elt[1].IsEqualOnSide(lbl.elt[1], side);
+            return elt[0].IsEqualOnSide(lbl.elt[0], side)
+                   && elt[1].IsEqualOnSide(lbl.elt[1], side);
         }
 
         /// <summary>
@@ -293,7 +292,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <param name="geomIndex"></param>
         /// <param name="loc"></param>
         /// <returns></returns>
-        public  bool AllPositionsEqual(int geomIndex, Locations loc)
+        public bool AllPositionsEqual(int geomIndex, Locations loc)
         {
             return elt[geomIndex].AllPositionsEqual(loc);
         }
@@ -302,10 +301,12 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// Converts one GeometryLocation to a Line location.
         /// </summary>
         /// <param name="geomIndex"></param>
-        public  void ToLine(int geomIndex)
+        public void ToLine(int geomIndex)
         {
             if (elt[geomIndex].IsArea)
+            {
                 elt[geomIndex] = new TopologyLocation(elt[geomIndex].GetLocations()[0]);
+            }
         }
 
         /// <summary>
@@ -315,17 +316,31 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            if (elt[0] != null) 
+            if (elt[0] != null)
             {
                 sb.Append("a:");
                 sb.Append(elt[0].ToString());
             }
-            if (elt[1] != null) 
+            if (elt[1] != null)
             {
                 sb.Append(" b:");
                 sb.Append(elt[1].ToString());
             }
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="geomIndex"></param>
+        /// <param name="tl"></param>
+        private void SetGeometryLocation(int geomIndex, TopologyLocation tl)
+        {
+            if (tl == null)
+            {
+                return;
+            }
+            elt[geomIndex].SetLocations(tl);
         }
     }
 }

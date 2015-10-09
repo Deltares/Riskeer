@@ -12,16 +12,16 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
     /// </summary>
     public class SimpleMCSweepLineIntersector : EdgeSetIntersector
     {
-        private ArrayList events = new ArrayList();
+        private readonly ArrayList events = new ArrayList();
 
         // statistics information
-        int nOverlaps;
+        private int nOverlaps;
 
         /// <summary>
         /// A SimpleMCSweepLineIntersector creates monotone chains from the edges
         /// and compares them using a simple sweep-line along the x-axis.
         /// </summary>
-        public SimpleMCSweepLineIntersector() { }
+        public SimpleMCSweepLineIntersector() {}
 
         /// <summary>
         /// 
@@ -32,8 +32,13 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         public override void ComputeIntersections(IList edges, SegmentIntersector si, bool testAllSegments)
         {
             if (testAllSegments)
-                 Add(edges, null);
-            else Add(edges);
+            {
+                Add(edges, null);
+            }
+            else
+            {
+                Add(edges);
+            }
             ComputeIntersections(si);
         }
 
@@ -56,9 +61,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         /// <param name="edges"></param>
         private void Add(IList edges)
         {
-            for (IEnumerator i = edges.GetEnumerator(); i.MoveNext(); ) 
+            for (IEnumerator i = edges.GetEnumerator(); i.MoveNext();)
             {
-                Edge edge = (Edge)i.Current;
+                Edge edge = (Edge) i.Current;
                 // edge is its own group
                 Add(edge, edge);
             }
@@ -71,9 +76,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         /// <param name="edgeSet"></param>
         private void Add(IList edges, object edgeSet)
         {
-            for (IEnumerator i = edges.GetEnumerator(); i.MoveNext(); ) 
+            for (IEnumerator i = edges.GetEnumerator(); i.MoveNext();)
             {
-                Edge edge = (Edge)i.Current;
+                Edge edge = (Edge) i.Current;
                 Add(edge, edgeSet);
             }
         }
@@ -87,7 +92,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         {
             MonotoneChainEdge mce = edge.MonotoneChainEdge;
             int[] startIndex = mce.StartIndexes;
-            for (int i = 0; i < startIndex.Length - 1; i++) 
+            for (int i = 0; i < startIndex.Length - 1; i++)
             {
                 MonotoneChain mc = new MonotoneChain(mce, i);
                 SweepLineEvent insertEvent = new SweepLineEvent(edgeSet, mce.GetMinX(i), null, mc);
@@ -104,12 +109,14 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         private void PrepareEvents()
         {
             events.Sort();
-            for (int i = 0; i < events.Count; i++ )
+            for (int i = 0; i < events.Count; i++)
             {
-                SweepLineEvent ev = (SweepLineEvent)events[i];
+                SweepLineEvent ev = (SweepLineEvent) events[i];
                 if (ev.IsDelete)
+                {
                     ev.InsertEvent.DeleteEventIndex = i;
-            }            
+                }
+            }
         }
 
         /// <summary>
@@ -121,9 +128,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
             nOverlaps = 0;
             PrepareEvents();
 
-            for (int i = 0; i < events.Count; i++ )
+            for (int i = 0; i < events.Count; i++)
             {
-                SweepLineEvent ev = (SweepLineEvent)events[i];
+                SweepLineEvent ev = (SweepLineEvent) events[i];
                 if (ev.IsInsert)
                 {
                     // Console.WriteLine("Processing event " + i);
@@ -141,22 +148,22 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         /// <param name="si"></param>
         private void ProcessOverlaps(int start, int end, SweepLineEvent ev0, SegmentIntersector si)
         {
-            MonotoneChain mc0 = (MonotoneChain)ev0.Object;
+            MonotoneChain mc0 = (MonotoneChain) ev0.Object;
 
             /*
             * Since we might need to test for self-intersections,
             * include current insert event object in list of event objects to test.
             * Last index can be skipped, because it must be a Delete event.
             */
-            for (int i = start; i < end; i++ ) 
+            for (int i = start; i < end; i++)
             {
-                SweepLineEvent ev1 = (SweepLineEvent)events[i]; 
-                if (ev1.IsInsert) 
+                SweepLineEvent ev1 = (SweepLineEvent) events[i];
+                if (ev1.IsInsert)
                 {
-                    MonotoneChain mc1 = (MonotoneChain)ev1.Object;
+                    MonotoneChain mc1 = (MonotoneChain) ev1.Object;
                     // don't compare edges in same group
                     // null group indicates that edges should be compared
-                    if (ev0.EdgeSet == null || (ev0.EdgeSet != ev1.EdgeSet)) 
+                    if (ev0.EdgeSet == null || (ev0.EdgeSet != ev1.EdgeSet))
                     {
                         mc0.ComputeIntersections(mc1, si);
                         nOverlaps++;

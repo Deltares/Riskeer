@@ -9,20 +9,21 @@ namespace DelftTools.Tests.Shell.Core.Mocks
     /// </summary>
     public class CloneableClassWithThreeProperties : INotifyPropertyChange, INameable, ICloneable
     {
+        public event PropertyChangingEventHandler PropertyChanging;
 
-        private int intField;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private string stringField;
         private string name;
 
-        public int IntField
-        {
-            get { return intField; }
-            set { intField = value; }
-        }
+        public int IntField { get; set; }
 
         public string StringProperty
         {
-            get { return stringField; }
+            get
+            {
+                return stringField;
+            }
             set
             {
                 if (PropertyChanging != null)
@@ -31,7 +32,7 @@ namespace DelftTools.Tests.Shell.Core.Mocks
                 }
 
                 stringField = value;
-                
+
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("StringProperty"));
@@ -41,7 +42,10 @@ namespace DelftTools.Tests.Shell.Core.Mocks
 
         public string Name
         {
-            get { return name; }
+            get
+            {
+                return name;
+            }
             set
             {
                 if (PropertyChanging != null)
@@ -50,7 +54,7 @@ namespace DelftTools.Tests.Shell.Core.Mocks
                 }
 
                 name = value;
-                
+
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("Name"));
@@ -58,21 +62,16 @@ namespace DelftTools.Tests.Shell.Core.Mocks
             }
         }
 
+        bool INotifyPropertyChange.HasParent { get; set; }
 
         public object Clone()
         {
             return new CloneableClassWithThreeProperties
-                       {
-                           IntField = IntField,
-                           Name = Name,
-                           StringProperty = StringProperty
-                       };
+            {
+                IntField = IntField,
+                Name = Name,
+                StringProperty = StringProperty
+            };
         }
-
-        public event PropertyChangingEventHandler PropertyChanging;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        bool INotifyPropertyChange.HasParent { get; set; }
     }
 }

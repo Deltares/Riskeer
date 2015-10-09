@@ -56,7 +56,10 @@ namespace DeltaShell.Plugins.CommonTools.Gui
             return tabGroupName == chartingContextualGroup.Name && tabName == chartTab.Name && exportAsImageCommand.Enabled;
         }
 
-        public object GetRibbonControl() { return RibbonControl; }
+        public object GetRibbonControl()
+        {
+            return RibbonControl;
+        }
 
         private void ButtonChartLegendToolWindow_Click(object sender, RoutedEventArgs e)
         {
@@ -85,6 +88,6 @@ namespace DeltaShell.Plugins.CommonTools.Gui
             {
                 rulerCommand.Execute(RulerToggleButton.IsChecked);
             }
-        }   
+        }
     }
 }

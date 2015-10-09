@@ -16,6 +16,78 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
     /// </summary>
     public abstract class GraphComponent
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        protected bool isMarked = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected bool isVisited = false;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GraphComponent"/> class.
+        /// </summary>
+        public GraphComponent() {}
+
+        /// <summary>
+        /// Tests if a component has been visited during the course of a graph algorithm.
+        /// </summary>              
+        public bool IsVisited
+        {
+            get
+            {
+                return Visited;
+            }
+        }
+
+        /// <summary> 
+        /// Gets/Sets the visited flag for this component.
+        /// </summary>
+        public bool Visited
+        {
+            get
+            {
+                return isVisited;
+            }
+            set
+            {
+                isVisited = value;
+            }
+        }
+
+        /// <summary>
+        /// Tests if a component has been marked at some point during the processing
+        /// involving this graph.
+        /// </summary>
+        public bool IsMarked
+        {
+            get
+            {
+                return Marked;
+            }
+        }
+
+        /// <summary>
+        /// Gets/Sets the marked flag for this component.
+        /// </summary>
+        public bool Marked
+        {
+            get
+            {
+                return isMarked;
+            }
+            set
+            {
+                isMarked = value;
+            }
+        }
+
+        /// <summary>
+        /// Tests whether this component has been removed from its containing graph.
+        /// </summary>
+        public abstract bool IsRemoved { get; }
 
         #region Static
 
@@ -63,66 +135,13 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
             {
                 GraphComponent comp = (GraphComponent) i.Current;
                 if (comp.IsVisited == visitedState)
+                {
                     return comp;
+                }
             }
             return null;
         }
-        
+
         #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected bool isMarked = false;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        protected bool isVisited = false;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GraphComponent"/> class.
-        /// </summary>
-        public GraphComponent() { }
-
-        /// <summary>
-        /// Tests if a component has been visited during the course of a graph algorithm.
-        /// </summary>              
-        public bool IsVisited
-        {
-            get { return Visited; }
-        }
-
-        /// <summary> 
-        /// Gets/Sets the visited flag for this component.
-        /// </summary>
-        public bool Visited
-        {
-            get { return isVisited; }
-            set { isVisited = value; }
-        }
-
-        /// <summary>
-        /// Tests if a component has been marked at some point during the processing
-        /// involving this graph.
-        /// </summary>
-        public bool IsMarked
-        {
-            get { return Marked; }
-        }
-
-        /// <summary>
-        /// Gets/Sets the marked flag for this component.
-        /// </summary>
-        public bool Marked
-        {
-            get { return isMarked; }
-            set { isMarked = value; }
-        }
-
-        /// <summary>
-        /// Tests whether this component has been removed from its containing graph.
-        /// </summary>
-        public abstract bool IsRemoved { get; }
     }
 }

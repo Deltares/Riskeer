@@ -7,9 +7,11 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 {
     internal class ToolWrapper : Tool
     {
-        public ToolWrapper(IChart chart) : base(((Chart)chart).chart)
-        {
-        }
+        public Action<EventArgs> OnAfterDraw;
+
+        public Action<ChartMouseEvent, MouseEventArgs, Cursor> OnMouseEvent;
+
+        public ToolWrapper(IChart chart) : base(((Chart) chart).chart) {}
 
         protected override void ChartEvent(EventArgs e)
         {
@@ -28,9 +30,5 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 OnMouseEvent((ChartMouseEvent) ((int) kind), e, c);
             }
         }
-
-        public Action<EventArgs> OnAfterDraw;
-
-        public Action<ChartMouseEvent, MouseEventArgs, Cursor> OnMouseEvent;
     }
 }

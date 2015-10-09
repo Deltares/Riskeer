@@ -12,20 +12,10 @@ namespace DelftTools.TestUtils.TestReferenceHelper
 {
     // TODO: move (compose if needed) this class into TestHelper - our test utility class.
     // TODO: aybe something to combine with GetAllItemsRecursive
-    public static class TestReferenceHelper 
+    public static class TestReferenceHelper
     {
-        private class ReferenceEqualsComparer<T> : IEqualityComparer<T>
-        {
-            public bool Equals(T x, T y)
-            {
-                return ReferenceEquals(x, y);
-            }
+        private static readonly HashSet<object> VisitedObjects = new HashSet<object>();
 
-            public int GetHashCode(T obj)
-            {
-                return RuntimeHelpers.GetHashCode(obj);
-            }
-        }
         public static IEnumerable<ReferenceNode> GetReferenceNodesInTree(object graph)
         {
             var root = BuildReferenceTree(graph);
@@ -36,28 +26,7 @@ namespace DelftTools.TestUtils.TestReferenceHelper
 
             //var queue = new Queue<ReferenceNode>();
             //queue.Enqueue(root);
-            return  GetReferenceNodesInTree(root, visitedNodes);
-        }
-
-        private static IEnumerable<ReferenceNode> GetReferenceNodesInTree(ReferenceNode node, HashSet<ReferenceNode> visitedNodes)
-        {
-            //don't visit the same node twice.
-            if (visitedNodes.Contains(node))
-            {
-                yield break;
-            }
-            visitedNodes.Add(node);
-
-            yield return node;
-            
-            foreach (var to in node.Links.Select(l=>l.To))
-            {
-                foreach (var obj in GetReferenceNodesInTree(to,visitedNodes))
-                {
-                    yield return obj;
-                }
-            }
-            
+            return GetReferenceNodesInTree(root, visitedNodes);
         }
 
         public static ReferenceNode BuildReferenceTree(object graph)
@@ -66,14 +35,15 @@ namespace DelftTools.TestUtils.TestReferenceHelper
             var rootNode = new ReferenceNode(graph);
             var referenceMapping = new Dictionary<object, ReferenceNode>(new ReferenceEqualsComparer<object>());
 
-            queue.Enqueue(rootNode); referenceMapping.Add(graph, rootNode);
+            queue.Enqueue(rootNode);
+            referenceMapping.Add(graph, rootNode);
 
             while (queue.Count > 0)
             {
                 var activeNode = queue.Dequeue();
 
                 var values = new List<Utils.Tuple<object, string>>();
-                
+
                 foreach (var propertyInfo in GetAllProperties(activeNode.Object))
                 {
                     object value = null;
@@ -84,12 +54,12 @@ namespace DelftTools.TestUtils.TestReferenceHelper
                             value = propertyInfo.GetValue(activeNode.Object, null);
                         }
                     }
-                    catch (Exception)
-                    {
-                    }
+                    catch (Exception) {}
 
-                    if (!ShouldInvestigateValueFurther(value)) 
+                    if (!ShouldInvestigateValueFurther(value))
+                    {
                         continue;
+                    }
 
                     values.Add(new Utils.Tuple<object, string>(value, propertyInfo.Name));
                 }
@@ -102,8 +72,10 @@ namespace DelftTools.TestUtils.TestReferenceHelper
                     foreach (var subobject in enumerable)
                     {
                         if (!ShouldInvestigateValueFurther(subobject))
+                        {
                             break; //not the kind of list we want to enumerate.. (right?)
-                        
+                        }
+
                         values.Add(new Utils.Tuple<object, string>(subobject, string.Format("[{0}]", index)));
                         index++;
                     }
@@ -124,7 +96,7 @@ namespace DelftTools.TestUtils.TestReferenceHelper
 
                     ReferenceNode referenceNode;
                     var addPath = false;
-                    
+
                     if (referenceMapping.ContainsKey(value))
                     {
                         referenceNode = referenceMapping[value];
@@ -142,21 +114,15 @@ namespace DelftTools.TestUtils.TestReferenceHelper
 
                     if (addPath)
                     {
-                        var path = new List<ReferenceLink>(activeNode.Path) {link};
+                        var path = new List<ReferenceLink>(activeNode.Path)
+                        {
+                            link
+                        };
                         referenceNode.Path = path;
                     }
                 }
             }
             return rootNode;
-        }
-
-        private static bool ShouldInvestigateValueFurther(object value)
-        {
-            if (value == null || value is Type || value is MemberInfo || value is Assembly || value.GetType().IsValueType)
-            {
-                return false;
-            }
-            return true;
         }
 
         /// <summary>
@@ -180,9 +146,9 @@ namespace DelftTools.TestUtils.TestReferenceHelper
             var visitedNodes = new Dictionary<ReferenceNode, object>(comparerNode);
             var queue = new Queue<ReferenceNode>();
             queue.Enqueue(root);
-            
+
             var uniqueFrom = new List<object>();
-            
+
             while (queue.Count > 0)
             {
                 var activeNode = queue.Dequeue();
@@ -212,7 +178,7 @@ namespace DelftTools.TestUtils.TestReferenceHelper
         {
             var objectsInReal = GetReferenceNodesInTree(network).ToList();
             var objectsInClone = GetReferenceNodesInTree(clone).ToList();
-            
+
             for (var i = 0; i < objectsInReal.Count && i < objectsInClone.Count; i++)
             {
                 var expected = objectsInReal[i];
@@ -224,7 +190,7 @@ namespace DelftTools.TestUtils.TestReferenceHelper
                 }
             }
 
-            if(objectsInReal.Count != objectsInClone.Count)
+            if (objectsInReal.Count != objectsInClone.Count)
             {
                 for (var i = 0; i < objectsInReal.Count || i < objectsInClone.Count; i++)
                 {
@@ -249,11 +215,11 @@ namespace DelftTools.TestUtils.TestReferenceHelper
         /// <param name="target">The object to check the number of event subscribers for.</param>
         /// <param name="printSubscriptions">optional: print subscriptions to console</param>
         /// <returns></returns>
-        public static int FindEventSubscriptions(object target, bool printSubscriptions=false)
+        public static int FindEventSubscriptions(object target, bool printSubscriptions = false)
         {
             var subscriptions = new List<string>();
             var count = FindEventSubscriptionsAdvanced(target, subscriptions, 0);
-            
+
             if (printSubscriptions)
             {
                 Console.WriteLine("===");
@@ -263,7 +229,6 @@ namespace DelftTools.TestUtils.TestReferenceHelper
             return count;
         }
 
-        private static readonly HashSet<object> VisitedObjects = new HashSet<object>();
         /// <summary>
         /// NOTE: No guarantees!
         /// </summary>
@@ -271,7 +236,7 @@ namespace DelftTools.TestUtils.TestReferenceHelper
         /// <param name="subscriptions">A list which will be filled with subscriptions (debug info, can be put in file compare to quickly see difference in subscriptions in subsequent calls)</param>
         /// <param name="depth">The maximum depth for which the object graph is traversed looking for subscriptions (0 only searches the target, 1 searches the target and its properties, etc)</param>
         /// <returns>Number of event subscriptions (which differs from subscriptions.Count, because multiple subscriptions are aggregated on one line there)</returns>
-        public static int FindEventSubscriptionsAdvanced(object target, IList<string> subscriptions=null, int depth=6)
+        public static int FindEventSubscriptionsAdvanced(object target, IList<string> subscriptions = null, int depth = 6)
         {
             VisitedObjects.Clear();
 
@@ -282,6 +247,35 @@ namespace DelftTools.TestUtils.TestReferenceHelper
             subscriptions.Clear();
 
             return FindEventSubscriptionsCore("", target, subscriptions, depth);
+        }
+
+        private static IEnumerable<ReferenceNode> GetReferenceNodesInTree(ReferenceNode node, HashSet<ReferenceNode> visitedNodes)
+        {
+            //don't visit the same node twice.
+            if (visitedNodes.Contains(node))
+            {
+                yield break;
+            }
+            visitedNodes.Add(node);
+
+            yield return node;
+
+            foreach (var to in node.Links.Select(l => l.To))
+            {
+                foreach (var obj in GetReferenceNodesInTree(to, visitedNodes))
+                {
+                    yield return obj;
+                }
+            }
+        }
+
+        private static bool ShouldInvestigateValueFurther(object value)
+        {
+            if (value == null || value is Type || value is MemberInfo || value is Assembly || value.GetType().IsValueType)
+            {
+                return false;
+            }
+            return true;
         }
 
         private static int FindEventSubscriptionsCore(string path, object target, IList<string> subscriptions, int depth)
@@ -296,7 +290,7 @@ namespace DelftTools.TestUtils.TestReferenceHelper
 
             int count = 0;
 
-            foreach(var eventName in allEvents)
+            foreach (var eventName in allEvents)
             {
                 var invokeList = GetEventSubscribers(target, eventName, target.GetType());
                 var invokeListLength = invokeList.Length;
@@ -321,7 +315,9 @@ namespace DelftTools.TestUtils.TestReferenceHelper
             count += FindPostSharpEvents(path, target, subscriptions);
 
             if (depth == 0)
+            {
                 return count;
+            }
 
             foreach (var propertyInfo in GetAllProperties(target))
             {
@@ -355,14 +351,12 @@ namespace DelftTools.TestUtils.TestReferenceHelper
                                     newPath += "[]";
                                 }
 
-                                count+=FindEventSubscriptionsCore(newPath, item, subscriptions, depth - 1);
+                                count += FindEventSubscriptionsCore(newPath, item, subscriptions, depth - 1);
                             }
                         }
                     }
                 }
-                catch (Exception)
-                {
-                }
+                catch (Exception) {}
             }
 
             return count;
@@ -387,7 +381,7 @@ namespace DelftTools.TestUtils.TestReferenceHelper
         private static object GetPostSharpEventImpl(object target, Type typeLevel)
         {
             var field = typeLevel.GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
-                                 .FirstOrDefault(f => f.FieldType == typeof (EntityAttribute));
+                                 .FirstOrDefault(f => f.FieldType == typeof(EntityAttribute));
 
             return (field != null)
                        ? field.GetValue(target)
@@ -405,7 +399,7 @@ namespace DelftTools.TestUtils.TestReferenceHelper
             do
             {
                 var fields = type.GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic);
-                
+
                 foreach (FieldInfo fi in fields)
                 {
                     if (fi.Name == eventName)
@@ -415,14 +409,13 @@ namespace DelftTools.TestUtils.TestReferenceHelper
                         {
                             return d.GetInvocationList();
                         }
-
                     }
                 }
                 type = type.BaseType;
-            } 
-            while (type != null);
+            } while (type != null);
 
-            return new Delegate[] { };
+            return new Delegate[]
+            {};
         }
 
         private static IEnumerable<PropertyInfo> GetAllProperties(object target)
@@ -431,6 +424,19 @@ namespace DelftTools.TestUtils.TestReferenceHelper
             var publicProperties = objectType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
             var nonpublicProperties = objectType.GetProperties(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
             return publicProperties.Concat(nonpublicProperties);
+        }
+
+        private class ReferenceEqualsComparer<T> : IEqualityComparer<T>
+        {
+            public bool Equals(T x, T y)
+            {
+                return ReferenceEquals(x, y);
+            }
+
+            public int GetHashCode(T obj)
+            {
+                return RuntimeHelpers.GetHashCode(obj);
+            }
         }
     }
 }

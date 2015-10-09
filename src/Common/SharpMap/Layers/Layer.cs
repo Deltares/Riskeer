@@ -49,8 +49,6 @@ namespace SharpMap.Layers
     [Entity(FireOnCollectionChange = false)]
     public abstract class Layer : ILayer
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(Layer));
-
         #region Delegates
 
         /// <summary>
@@ -62,6 +60,17 @@ namespace SharpMap.Layers
 
         #endregion
 
+        /// <summary>
+        /// Event fired when the layer has been rendered
+        /// </summary>
+        public virtual event LayerRenderedEventHandler LayerRendered;
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(Layer));
+
+        private static readonly IGeometryFactory geometryFactory = new GeometryFactory();
+
+        protected string name;
+
         private bool visible = true;
         private double maxVisible = double.MaxValue;
 
@@ -70,20 +79,19 @@ namespace SharpMap.Layers
         private Image image;
         private double lastRenderDuration;
 
-        [NoNotifyPropertyChange] private IMap map;
+        [NoNotifyPropertyChange]
+        private IMap map;
 
         private bool renderRequired;
         private bool showInLegend = true;
         private bool showInTreeView = true;
         private ILabelLayer labelLayer; //TEMP!
         private bool showAttributeTable = true;
-
-        protected string name;
         private IFeatureProvider dataSource;
 
         private QuadTree tree;
 
-        static IGeometryFactory geometryFactory = new GeometryFactory();
+        private ICoordinateTransformation coordinateTransformation;
 
         protected Layer()
         {
@@ -96,25 +104,139 @@ namespace SharpMap.Layers
             UseQuadTree = false;
         }
 
-        ~Layer()
-        {
-            ClearImage();
-        }
-
-        private ICoordinateTransformation coordinateTransformation;
-
         /// <summary>
         /// Gets or sets the <see cref="ICoordinateTransformation"/> applied 
         /// to this vectorlayer prior to rendering
         /// </summary>
         public virtual ICoordinateTransformation CoordinateTransformation
         {
-            get { return coordinateTransformation; }
+            get
+            {
+                return coordinateTransformation;
+            }
             set
             {
                 tree = null; // reset quad tree
                 coordinateTransformation = value;
             }
+        }
+
+        public virtual string ThemeAttributeName
+        {
+            get
+            {
+                return theme != null ? theme.AttributeName : "Value";
+            }
+        }
+
+        [NoNotifyPropertyChange]
+        public virtual bool ThemeIsDirty
+        {
+            get
+            {
+                return themeIsDirty;
+            }
+            set
+            {
+                themeIsDirty = value;
+            }
+        }
+
+        public virtual ILabelLayer LabelLayer
+        {
+            get
+            {
+                // initialize
+                if (labelLayer == null && !(this is LabelLayer))
+                {
+                    labelLayer = new LabelLayer
+                    {
+                        Visible = false, Parent = this, Map = map
+                    };
+                }
+
+                return labelLayer;
+            }
+            set
+            {
+                labelLayer = value;
+
+                if (labelLayer != null)
+                {
+                    labelLayer.Parent = this;
+                    labelLayer.Map = map;
+                }
+            }
+        }
+
+        public virtual void OnRender(Graphics g, IMap map) {}
+
+        /// <summary>
+        /// Returns the name of the layer.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return Name;
+        }
+
+        protected virtual void OnLayerPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (sender is ITheme || sender is IThemeItem)
+            {
+                return; // no infinite loops!
+            }
+
+            if (e.PropertyName == "Name")
+            {
+                return;
+            }
+
+            OnChanged();
+        }
+
+        private void LayerPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (updatingTheme)
+            {
+                return;
+            }
+
+            //provide some excludes on which we dont have to render
+            OnLayerPropertyChanged(sender, e);
+        }
+
+        private void OnChanged()
+        {
+            if (map != null && map.IsDisposing)
+            {
+                return;
+            }
+
+            if (AutoUpdateThemeOnDataSourceChanged)
+            {
+                themeIsDirty = true;
+            }
+
+            var attributeName = theme != null ? theme.AttributeName : "Value";
+            minMaxCache = new LayerAttribute(this, attributeName);
+            if (!string.IsNullOrEmpty(ThemeGroup))
+            {
+                if (Map != null)
+                {
+                    ((Map) Map).OnThemeGroupDataChanged(ThemeGroup, attributeName);
+                }
+            }
+
+            if (!RenderRequired)
+            {
+                RenderRequired = true;
+            }
+        }
+
+        ~Layer()
+        {
+            ClearImage();
         }
 
         #region ILayer Members
@@ -149,7 +271,7 @@ namespace SharpMap.Layers
 
             if (labelLayer != null)
             {
-                clone.labelLayer = (LabelLayer)labelLayer.Clone();
+                clone.labelLayer = (LabelLayer) labelLayer.Clone();
                 clone.labelLayer.Parent = clone;
                 clone.ShowLabels = ShowLabels;
             }
@@ -159,7 +281,10 @@ namespace SharpMap.Layers
 
         public virtual Image Image
         {
-            get { return image; }
+            get
+            {
+                return image;
+            }
         }
 
         /// <summary>
@@ -167,11 +292,16 @@ namespace SharpMap.Layers
         /// </summary>
         public virtual string Name
         {
-            get { return name; }
+            get
+            {
+                return name;
+            }
             set
             {
                 if (NameIsReadOnly)
+                {
                     throw new ReadOnlyException("Property Name of Layer is not editable because NameIsReadOnly is true.");
+                }
                 name = value;
             }
         }
@@ -179,7 +309,10 @@ namespace SharpMap.Layers
         [Aggregation]
         public virtual IMap Map
         {
-            get { return map; }
+            get
+            {
+                return map;
+            }
             set
             {
                 map = value;
@@ -205,7 +338,7 @@ namespace SharpMap.Layers
             {
                 // if setting to true, create a labellayer or just set
                 // if setting to false, only set if the labelLayer already exists
-                if(value || labelLayer != null)
+                if (value || labelLayer != null)
                 {
                     LabelLayer.Visible = value;
                 }
@@ -214,28 +347,52 @@ namespace SharpMap.Layers
 
         public virtual bool ShowInLegend
         {
-            get { return showInLegend; }
-            set { showInLegend = value; }
+            get
+            {
+                return showInLegend;
+            }
+            set
+            {
+                showInLegend = value;
+            }
         }
 
         public virtual bool ShowInTreeView
         {
-            get { return showInTreeView; }
-            set { showInTreeView = value; }
+            get
+            {
+                return showInTreeView;
+            }
+            set
+            {
+                showInTreeView = value;
+            }
         }
 
         public virtual bool ShowAttributeTable
         {
-            get { return showAttributeTable; }
-            set { showAttributeTable = value; }
+            get
+            {
+                return showAttributeTable;
+            }
+            set
+            {
+                showAttributeTable = value;
+            }
         }
 
         public virtual int RenderOrder { get; set; }
 
         public virtual bool CanBeRemovedByUser
         {
-            get { return canBeRemovedByUser; }
-            set { canBeRemovedByUser = value; }
+            get
+            {
+                return canBeRemovedByUser;
+            }
+            set
+            {
+                canBeRemovedByUser = value;
+            }
         }
 
         /// <summary>
@@ -269,7 +426,13 @@ namespace SharpMap.Layers
 
         public virtual bool UseSimpleGeometryForQuadTree { get; set; }
 
-        public virtual QuadTree QuadTree { get { return tree; } }
+        public virtual QuadTree QuadTree
+        {
+            get
+            {
+                return tree;
+            }
+        }
 
         public virtual IEnumerable<IFeature> GetFeatures(IGeometry geometry, bool useCustomRenderers = true)
         {
@@ -297,7 +460,7 @@ namespace SharpMap.Layers
                 foreach (var feature in features)
                 {
                     // check if we're selecting subset of features, if so - use more robust intersection check (non-evelope based)
-                    if(!getAllMapFeatures)
+                    if (!getAllMapFeatures)
                     {
                         // log.DebugFormat("Checking geometry intersection for feature: " + feature.Attributes["NAME"]);
                         var g = feature.Geometry;
@@ -328,7 +491,7 @@ namespace SharpMap.Layers
                 {
                     // BUG: this will not work, migrate it
                     features = DataSource.Features.Cast<IFeature>();
-                    
+
                     foreach (var feature in features)
                     {
                         var g = GeometryTransform.TransformGeometry(feature.Geometry, CoordinateTransformation.MathTransform);
@@ -353,7 +516,10 @@ namespace SharpMap.Layers
                 }
                 else
                 {
-                    if (DataSource == null || DataSource.Features == null) yield break;
+                    if (DataSource == null || DataSource.Features == null)
+                    {
+                        yield break;
+                    }
                     features = DataSource.Features.OfType<IFeature>().Where(feature => feature.Geometry != null && feature.Geometry.EnvelopeInternal.Intersects(e));
 
                     foreach (var feature in features)
@@ -371,23 +537,24 @@ namespace SharpMap.Layers
                         }
                     }
                 }
-
             }
         }
 
         public virtual IEnumerable<IFeature> GetFeatures(IEnvelope envelope)
         {
             return GetFeatures(geometryFactory.ToGeometry(envelope));
-            
+
             // TODO: ... this can run even faster, otherwise remove this method ...
         }
 
         private IEnumerable<IFeature> GetFeaturesUsingQuadTree(IEnvelope envelope)
         {
             if (DataSource.GetFeatureCount() == 0)
+            {
                 return Enumerable.Empty<IFeature>();
+            }
 
-            var maximumFeatureSize = SkipRenderingOfVerySmallFeatures ? map.PixelSize * 0.9 : 0;
+            var maximumFeatureSize = SkipRenderingOfVerySmallFeatures ? map.PixelSize*0.9 : 0;
 
             // use quad tree to query features.
             if (tree == null)
@@ -395,20 +562,22 @@ namespace SharpMap.Layers
                 BuildQuadTree();
             }
 
-            var rect = new RectangleF((float)envelope.MinX, (float)envelope.MinY, (float)envelope.Width, (float)envelope.Height);
-            var indices = tree.GetIndices(ref rect, (float)maximumFeatureSize);
+            var rect = new RectangleF((float) envelope.MinX, (float) envelope.MinY, (float) envelope.Width, (float) envelope.Height);
+            var indices = tree.GetIndices(ref rect, (float) maximumFeatureSize);
 
             #region debugging
+
             bool wholeMap = envelope.Equals(map.Envelope);
             if (RenderQuadTreeEnvelopes && !wholeMap)
             {
                 foreach (IFeature feature in quadTreeEnvelopesLayer.DataSource.Features)
                 {
-                    feature.Attributes["IsSelected"] = indices.Contains((int)feature.Attributes["ID"]) ? "true" : "false";
+                    feature.Attributes["IsSelected"] = indices.Contains((int) feature.Attributes["ID"]) ? "true" : "false";
                 }
 
                 quadTreeEnvelopesLayer.RenderRequired = true;
             }
+
             #endregion
 
             return indices.Select(i => DataSource.GetFeature(i));
@@ -417,19 +586,20 @@ namespace SharpMap.Layers
         private void BuildQuadTree()
         {
             #region debugging
+
             RemoveQuadTreeLayers();
             RemoveQuadTreeEnvelopesLayer();
+
             #endregion
 
             var featureCount = DataSource.GetFeatureCount();
-            var maxLevels = (int)Math.Ceiling(0.4 * Math.Log(featureCount, 2));
+            var maxLevels = (int) Math.Ceiling(0.4*Math.Log(featureCount, 2));
             var isPoint = featureCount != 0 && DataSource.GetFeature(0).Geometry is IPoint;
-
 
             if (CoordinateTransformation == null)
             {
                 var envelope = DataSource.GetExtents();
-                var rectangleF = new RectangleF((float)envelope.MinX, (float)envelope.MinY, (float)envelope.Width, (float)envelope.Height);
+                var rectangleF = new RectangleF((float) envelope.MinX, (float) envelope.MinY, (float) envelope.Width, (float) envelope.Height);
                 tree = new QuadTree(rectangleF, maxLevels, isPoint);
 
                 for (var i = 0; i < featureCount; i++)
@@ -479,7 +649,7 @@ namespace SharpMap.Layers
                     geometrys[i] = g;
                 }
 
-                var rectangleF = new RectangleF((float)envelope.MinX, (float)envelope.MinY, (float)envelope.Width, (float)envelope.Height);
+                var rectangleF = new RectangleF((float) envelope.MinX, (float) envelope.MinY, (float) envelope.Width, (float) envelope.Height);
 
                 tree = new QuadTree(rectangleF, maxLevels, isPoint);
 
@@ -528,10 +698,11 @@ namespace SharpMap.Layers
 
         private RectangleF ToRectangleF(IEnvelope envelope)
         {
-            return new RectangleF((float)envelope.MinX, (float)envelope.MinY, (float)envelope.Width, (float)envelope.Height);
+            return new RectangleF((float) envelope.MinX, (float) envelope.MinY, (float) envelope.Width, (float) envelope.Height);
         }
 
         #region debugging
+
         private void RemoveQuadTreeLayers()
         {
             if (map == null)
@@ -559,25 +730,40 @@ namespace SharpMap.Layers
         }
 
         // quad tree layers are used for debugging purposes
-        VectorLayer quadTreeEnvelopesLayer;
-        IDictionary<int, VectorLayer> quadTreeQuadLayers = new Dictionary<int, VectorLayer>();
+        private VectorLayer quadTreeEnvelopesLayer;
+        private readonly IDictionary<int, VectorLayer> quadTreeQuadLayers = new Dictionary<int, VectorLayer>();
 
         private void AddQuadTreeQuads(QTNode node, IMap map)
         {
             var r = node.Bounds;
 
-            var feature = new Feature { Geometry = geometryFactory.ToGeometry(new Envelope(r.X, r.X + r.Width, r.Y, r.Y + r.Height)) };
+            var feature = new Feature
+            {
+                Geometry = geometryFactory.ToGeometry(new Envelope(r.X, r.X + r.Width, r.Y, r.Y + r.Height))
+            };
 
             VectorLayer vectorLayer = null;
-            if (!quadTreeQuadLayers.TryGetValue((int)node.Level, out vectorLayer))
+            if (!quadTreeQuadLayers.TryGetValue((int) node.Level, out vectorLayer))
             {
-                var featureCollection = new FeatureCollection { Features = new List<Feature> { feature } };
+                var featureCollection = new FeatureCollection
+                {
+                    Features = new List<Feature>
+                    {
+                        feature
+                    }
+                };
                 vectorLayer = new VectorLayer
-                                  {
-                                      DataSource = featureCollection, Style = { Fill = Brushes.Transparent, Outline = { Width = 2, Color = Color.FromArgb(100, 100, 100, 200) } }, 
-                                      Name = Name + " quad tree, level: " + node.Level,
-                                      Selectable = false
-                                  };
+                {
+                    DataSource = featureCollection, Style =
+                    {
+                        Fill = Brushes.Transparent, Outline =
+                        {
+                            Width = 2, Color = Color.FromArgb(100, 100, 100, 200)
+                        }
+                    },
+                    Name = Name + " quad tree, level: " + node.Level,
+                    Selectable = false
+                };
                 map.Layers.Insert(0, vectorLayer);
                 map.BringToFront(vectorLayer);
                 quadTreeQuadLayers[node.Level] = vectorLayer;
@@ -606,23 +792,44 @@ namespace SharpMap.Layers
                 foreach (var bound in node.boundsList)
                 {
                     var id = node.indexList[i];
-                    
+
                     if (quadTreeEnvelopesLayer == null)
                     {
-                        var featureCollection = new FeatureCollection { Features = new List<Feature> { } };
+                        var featureCollection = new FeatureCollection
+                        {
+                            Features = new List<Feature>
+                            {}
+                        };
                         quadTreeEnvelopesLayer = new VectorLayer
                         {
                             DataSource = featureCollection,
-                            Style = { Fill = Brushes.Transparent, Outline = { Width = 1, Color = Color.DarkGreen } },
-                            
+                            Style =
+                            {
+                                Fill = Brushes.Transparent, Outline =
+                                {
+                                    Width = 1, Color = Color.DarkGreen
+                                }
+                            },
                             Name = Name + " quad tree, level: " + node.Level,
                             Selectable = false,
                             //UseQuadTree = true
                         };
 
                         var theme = new CategorialTheme("IsSelected", null);
-                        theme.AddThemeItem(new CategorialThemeItem("true", new VectorStyle { Fill = Brushes.Transparent, Outline = { Width = 3, Color = Color.FromArgb(200, 200, 100, 100) } }, null));
-                        theme.AddThemeItem(new CategorialThemeItem("false", new VectorStyle { Fill = Brushes.Transparent, Outline = { Width = 3, Color = Color.FromArgb(50, 100, 200,100) } }, null));
+                        theme.AddThemeItem(new CategorialThemeItem("true", new VectorStyle
+                        {
+                            Fill = Brushes.Transparent, Outline =
+                            {
+                                Width = 3, Color = Color.FromArgb(200, 200, 100, 100)
+                            }
+                        }, null));
+                        theme.AddThemeItem(new CategorialThemeItem("false", new VectorStyle
+                        {
+                            Fill = Brushes.Transparent, Outline =
+                            {
+                                Width = 3, Color = Color.FromArgb(50, 100, 200, 100)
+                            }
+                        }, null));
                         quadTreeEnvelopesLayer.Theme = theme;
 
                         map.Layers.Insert(0, quadTreeEnvelopesLayer);
@@ -631,7 +838,10 @@ namespace SharpMap.Layers
 
                     //if (!quadTreeEnvelopesLayer.DataSource.Features.Cast<IFeature>().Any(f => f.Attributes["ID"].Equals(id)))
                     {
-                        var feature = new Feature { Geometry = geometryFactory.ToGeometry(new Envelope(bound.X, bound.X + bound.Width, bound.Y, bound.Y + bound.Height)) };
+                        var feature = new Feature
+                        {
+                            Geometry = geometryFactory.ToGeometry(new Envelope(bound.X, bound.X + bound.Width, bound.Y, bound.Y + bound.Height))
+                        };
                         feature.Attributes = new DictionaryFeatureAttributeCollection();
                         feature.Attributes["IsSelected"] = "false";
                         feature.Attributes["ID"] = id;
@@ -653,10 +863,13 @@ namespace SharpMap.Layers
         }
 
         private bool renderQuadTree;
-        
+
         public virtual bool RenderQuadTree
         {
-            get { return renderQuadTree; } 
+            get
+            {
+                return renderQuadTree;
+            }
             set
             {
                 renderQuadTree = value;
@@ -665,8 +878,8 @@ namespace SharpMap.Layers
                 {
                     AddQuadTreeQuads(tree.RootNode, map);
                 }
-                
-                if(!value)
+
+                if (!value)
                 {
                     RemoveQuadTreeLayers();
                 }
@@ -677,7 +890,10 @@ namespace SharpMap.Layers
 
         public virtual bool RenderQuadTreeEnvelopes
         {
-            get { return renderQuadTreeEnvelopes; }
+            get
+            {
+                return renderQuadTreeEnvelopes;
+            }
             set
             {
                 renderQuadTreeEnvelopes = value;
@@ -693,11 +909,15 @@ namespace SharpMap.Layers
                 }
             }
         }
+
         #endregion
 
         public virtual IFeatureProvider DataSource
         {
-            get { return dataSource; }
+            get
+            {
+                return dataSource;
+            }
             set
             {
                 if (dataSource != null)
@@ -737,13 +957,15 @@ namespace SharpMap.Layers
 
         protected void UpdateCoordinateTransformation()
         {
-            if (map == null) 
+            if (map == null)
+            {
                 return;
+            }
 
             var hasCoordinateSystem = SharpMap.Map.CoordinateSystemFactory != null && CoordinateSystem != null;
             CoordinateTransformation = map.CoordinateSystem != null && hasCoordinateSystem
-                ? SharpMap.Map.CoordinateSystemFactory.CreateTransformation(CoordinateSystem, map.CoordinateSystem)
-                : null;
+                                           ? SharpMap.Map.CoordinateSystemFactory.CreateTransformation(CoordinateSystem, map.CoordinateSystem)
+                                           : null;
         }
 
         private IFeature AddNewFeatureFromGeometryDelegate(IFeatureProvider featureProvider, IGeometry geometry)
@@ -814,16 +1036,17 @@ namespace SharpMap.Layers
                 }
                 return theme;
             }
-            set { theme = value; }
+            set
+            {
+                theme = value;
+            }
         }
 
         /// <summary>
         /// Updates the current theme for min and max
         /// </summary>
         /// <returns></returns>
-        protected virtual void UpdateCurrentTheme()
-        {
-        }
+        protected virtual void UpdateCurrentTheme() {}
 
         //public abstract SharpMap.CoordinateSystems.CoordinateSystem CoordinateSystem { get; set; }
 
@@ -866,18 +1089,18 @@ namespace SharpMap.Layers
             {
                 image = new Bitmap(Map.Size.Width, Map.Size.Height, PixelFormat.Format32bppPArgb);
                 ResourceMonitor.OnResourceAllocated(this, image);
-            } 
-         
+            }
+
             if (!Visible || MaxVisible < Map.Zoom || MinVisible > Map.Zoom)
             {
                 return;
             }
-            
+
             Graphics graphics = Graphics.FromImage(image);
             graphics.Transform = Map.MapTransform.Clone();
             graphics.Clear(Color.Transparent);
             graphics.PageUnit = GraphicsUnit.Pixel;
-            
+
             // call virtual implementation which renders layer
             OnRender(graphics, Map);
 
@@ -904,21 +1127,36 @@ namespace SharpMap.Layers
         /// </summary>
         public virtual IList<IFeatureRenderer> CustomRenderers
         {
-            get { return customRenderers; }
-            set { customRenderers = value; }
+            get
+            {
+                return customRenderers;
+            }
+            set
+            {
+                customRenderers = value;
+            }
         }
 
         [NoNotifyPropertyChange]
         public virtual bool RenderRequired
         {
-            get { return renderRequired; }
-            set { renderRequired = value; }
+            get
+            {
+                return renderRequired;
+            }
+            set
+            {
+                renderRequired = value;
+            }
         }
 
         [NoNotifyPropertyChange]
         public virtual double LastRenderDuration
         {
-            get { return lastRenderDuration; }
+            get
+            {
+                return lastRenderDuration;
+            }
         }
 
         /// <summary>
@@ -952,7 +1190,7 @@ namespace SharpMap.Layers
                     var rectangleF = tree.RootNode.Bounds;
                     return new Envelope(rectangleF.Left, rectangleF.Right, rectangleF.Top, rectangleF.Bottom);
                 }
-                
+
                 var envelope = new Envelope();
                 var count = DataSource.GetFeatureCount();
                 for (int i = 0; i < count; i++)
@@ -982,8 +1220,14 @@ namespace SharpMap.Layers
         /// </summary>
         public virtual double MaxVisible
         {
-            get { return maxVisible; }
-            set { maxVisible = value; }
+            get
+            {
+                return maxVisible;
+            }
+            set
+            {
+                maxVisible = value;
+            }
         }
 
         /// <summary>
@@ -991,8 +1235,14 @@ namespace SharpMap.Layers
         /// </summary>
         public virtual bool Visible
         {
-            get { return visible; }
-            set { visible = value; }
+            get
+            {
+                return visible;
+            }
+            set
+            {
+                visible = value;
+            }
         }
 
         public virtual bool IsSelectable
@@ -1000,7 +1250,9 @@ namespace SharpMap.Layers
             get
             {
                 if (!Selectable)
+                {
                     return false;
+                }
 
                 return Visible;
             }
@@ -1008,7 +1260,7 @@ namespace SharpMap.Layers
 
         protected bool themeIsDirty;
         private bool canBeRemovedByUser = true;
-        
+
         public virtual bool Selectable { get; set; }
 
         /// <summary>
@@ -1018,106 +1270,6 @@ namespace SharpMap.Layers
         public virtual bool AutoUpdateThemeOnDataSourceChanged { get; set; }
 
         #endregion
-
-        /// <summary>
-        /// Event fired when the layer has been rendered
-        /// </summary>
-        public virtual event LayerRenderedEventHandler LayerRendered;
-
-        private void LayerPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (updatingTheme)
-                return;
-
-            //provide some excludes on which we dont have to render
-            OnLayerPropertyChanged(sender, e);
-        }
-
-        protected virtual void OnLayerPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (sender is ITheme || sender is IThemeItem)
-                return; // no infinite loops!
-
-            if (e.PropertyName == "Name")
-                return;
-
-            OnChanged();
-        }
-
-        private void OnChanged()
-        {
-            if (map != null && map.IsDisposing)
-            {
-                return;
-            }
-
-            if (AutoUpdateThemeOnDataSourceChanged)
-            {
-                themeIsDirty = true;
-            }
-
-            var attributeName = theme != null ? theme.AttributeName : "Value";
-            minMaxCache = new LayerAttribute(this, attributeName);
-            if (!string.IsNullOrEmpty(ThemeGroup))
-            {
-                if (Map != null)
-                    ((Map)Map).OnThemeGroupDataChanged(ThemeGroup, attributeName);
-            }
-
-            if (!RenderRequired)
-            {
-                RenderRequired = true;
-            }
-        }
-
-        public virtual string ThemeAttributeName
-        {
-            get { return theme != null ? theme.AttributeName : "Value"; }
-        }
-
-        [NoNotifyPropertyChange]
-        public virtual bool ThemeIsDirty
-        {
-            get { return themeIsDirty; }
-            set { themeIsDirty = value; }
-        }
-
-        public virtual void OnRender(Graphics g, IMap map)
-        {
-        }
-
-        /// <summary>
-        /// Returns the name of the layer.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return Name;
-        }
-
-        public virtual ILabelLayer LabelLayer
-        {
-            get
-            {
-                // initialize
-                if (labelLayer == null && !(this is LabelLayer))
-                {
-                    labelLayer = new LabelLayer { Visible = false, Parent = this, Map = map };
-                }
-
-                return labelLayer;
-            }
-            set
-            {
-                labelLayer = value;
-
-                if (labelLayer != null)
-                {
-                    labelLayer.Parent = this;
-                    labelLayer.Map = map;
-                }
-            }
-        }
 
         #region IDisposable Members
 

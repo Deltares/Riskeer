@@ -18,13 +18,19 @@ namespace DelftTools.Utils.Collections.Extensions
         public static void AddRange<T>(this IList<T> destination, IEnumerable<T> collection)
         {
             if (destination == null)
+            {
                 throw new ArgumentNullException("destination");
+            }
 
             if (collection == null)
+            {
                 throw new ArgumentNullException("collection");
+            }
 
             foreach (T item in collection)
+            {
                 destination.Add(item);
+            }
         }
 
         /// <summary>
@@ -50,17 +56,27 @@ namespace DelftTools.Utils.Collections.Extensions
                                                     Func<T, bool> predicate)
         {
             if (destination == null)
+            {
                 throw new ArgumentNullException("destination");
+            }
 
             if (collection == null)
+            {
                 throw new ArgumentNullException("collection");
+            }
 
             if (predicate == null)
+            {
                 throw new ArgumentNullException("predicate");
+            }
 
             foreach (T item in collection)
+            {
                 if (predicate(item))
+                {
                     destination.Add(item);
+                }
+            }
         }
 
         public static int BinarySearch(this IList semiSortedList, object value)
@@ -100,8 +116,10 @@ namespace DelftTools.Utils.Collections.Extensions
             }
 
             if (value.GetType().IsValueType)
+            {
                 return -1; //for value types at least we know that their sorting is not ambiguous, so if we haven't 
-                           //found it yet, we're not going to find it
+            }
+            //found it yet, we're not going to find it
 
             //if we get here, we are in trouble.. This becomes extremely slow if the value is not in the list at all.
             //perhaps introduce an interface to indicate if you ever want to get here at all?
@@ -119,12 +137,14 @@ namespace DelftTools.Utils.Collections.Extensions
                     return j;
                 }
             }
-            
+
             //still not found, do a full search (bleh):
             for (int j = 0; j < count; j++)
             {
                 if (j >= startIndex && j <= endIndex)
+                {
                     continue; //we already checked this range in the code above, so don't do that again
+                }
 
                 if (realValues[j].Equals(value))
                 {

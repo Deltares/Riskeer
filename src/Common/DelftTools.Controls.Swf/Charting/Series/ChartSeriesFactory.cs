@@ -43,12 +43,18 @@ namespace DelftTools.Controls.Swf.Charting.Series
         {
             switch (chartSeriesType)
             {
-                case ChartSeriesType.PointSeries: return CreatePointSeries();
-                case ChartSeriesType.LineSeries: return CreateLineSeries();
-                case ChartSeriesType.AreaSeries: return CreateAreaSeries();
-                case ChartSeriesType.BarSeries: return CreateBarSeries();
-                case ChartSeriesType.PolygonSeries: return CreatePolygonSeries();
-                default: throw new ArgumentOutOfRangeException("unsupported chartSeriesType");
+                case ChartSeriesType.PointSeries:
+                    return CreatePointSeries();
+                case ChartSeriesType.LineSeries:
+                    return CreateLineSeries();
+                case ChartSeriesType.AreaSeries:
+                    return CreateAreaSeries();
+                case ChartSeriesType.BarSeries:
+                    return CreateBarSeries();
+                case ChartSeriesType.PolygonSeries:
+                    return CreatePolygonSeries();
+                default:
+                    throw new ArgumentOutOfRangeException("unsupported chartSeriesType");
             }
         }
     }

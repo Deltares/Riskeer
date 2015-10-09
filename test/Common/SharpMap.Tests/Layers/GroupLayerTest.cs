@@ -18,20 +18,22 @@ namespace SharpMap.Tests.Layers
             var layerGroup = new GroupLayer();
             var childLayer = new VectorLayer();
             layerGroup.Layers.Add(childLayer);
-            ((INotifyPropertyChanged)layerGroup).PropertyChanged += (sender, args) => callCount++;
+            ((INotifyPropertyChanged) layerGroup).PropertyChanged += (sender, args) => callCount++;
             childLayer.Visible = false;
-            
-            Assert.AreEqual(1,callCount);
+
+            Assert.AreEqual(1, callCount);
         }
 
         [Test]
         [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "It is not allowed to add or remove layers from a grouplayer that has a read-only layers collection")]
         public void MutatingAGroupLayerWithHasReadonlyLayerCollectionThrows()
         {
-            var layerGroup = new GroupLayer {LayersReadOnly = true};
+            var layerGroup = new GroupLayer
+            {
+                LayersReadOnly = true
+            };
             var childLayer = new VectorLayer();
             layerGroup.Layers.Add(childLayer);
-            
         }
 
         [Test]
@@ -65,7 +67,10 @@ namespace SharpMap.Tests.Layers
 
             var originalGroupLayer = new GroupLayer("original");
             originalGroupLayer.Map = map;
-            originalGroupLayer.Layers.AddRange(new[]{layer1});
+            originalGroupLayer.Layers.AddRange(new[]
+            {
+                layer1
+            });
             originalGroupLayer.LayersReadOnly = true;
 
             var clone = (GroupLayer) originalGroupLayer.Clone();

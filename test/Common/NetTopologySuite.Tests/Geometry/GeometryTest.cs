@@ -5,6 +5,7 @@ using GeoAPI.Geometries;
 using GisSharpBlog.NetTopologySuite.Geometries;
 using GisSharpBlog.NetTopologySuite.IO;
 using NUnit.Framework;
+using SharpMap.CoordinateSystems.Transformations;
 
 namespace NetTopologySuite.Tests.Geometry
 {
@@ -25,12 +26,11 @@ namespace NetTopologySuite.Tests.Geometry
         [Test]
         public void DifferenceProblemForOtherPolygons()
         {
-            
             var wktReader = new WKTReader(new GeometryFactory(new PrecisionModel(1000)));
             var g1 = wktReader.Read("POLYGON((0.0000001 -3,5 -3,5 -7,0.000001 -7,0.0000001 -3))");
             var g2 = wktReader.Read("POLYGON((5 -10,2 -10,0.000001 0,0.000001 1,5 1,5 -10))");
-            
-            var diff  = g1.Difference(g2);
+
+            var diff = g1.Difference(g2);
         }
 
         /// <summary>
@@ -42,17 +42,21 @@ namespace NetTopologySuite.Tests.Geometry
             var wktReader = new WKTReader(new GeometryFactory(new PrecisionModel(PrecisionModel.MaximumPreciseValue)));
             var g1 = wktReader.Read("LINESTRING(280 0.01, 285 -0.07)");
             var g2 = wktReader.Read("LINESTRING(-900.0 0, 1520.0 0)");
-            
+
             var intersection = g1.Intersection(g2);
 
-             Assert.AreEqual(1, intersection.Coordinates.Count());
+            Assert.AreEqual(1, intersection.Coordinates.Count());
         }
 
         [Test]
         public void LineGeometryBuffer()
         {
             double tolerance = 20.0;
-            var line = new LineString(new ICoordinate[] {new Coordinate(0, 100), new Coordinate(100, 0)});
+            var line = new LineString(new ICoordinate[]
+            {
+                new Coordinate(0, 100),
+                new Coordinate(100, 0)
+            });
             var bufferedEnvelope = line.Envelope.Buffer(tolerance, 1);
 
             Assert.IsTrue(bufferedEnvelope.Contains(new Point(90, 105)));
@@ -69,10 +73,22 @@ namespace NetTopologySuite.Tests.Geometry
 
             for (int i = 0; i < geometryCount; i++)
             {
-                geometries[i] = new Polygon(new LinearRing(new[] { new Coordinate(1.0, 2.0), new Coordinate(2.0, 3.0), new Coordinate(3.0, 4.0), new Coordinate(1.0, 2.0) }));
+                geometries[i] = new Polygon(new LinearRing(new[]
+                {
+                    new Coordinate(1.0, 2.0),
+                    new Coordinate(2.0, 3.0),
+                    new Coordinate(3.0, 4.0),
+                    new Coordinate(1.0, 2.0)
+                }));
             }
 
-            var polygon = new Polygon(new LinearRing(new[] { new Coordinate(1.0, 2.0), new Coordinate(2.0, 3.0), new Coordinate(3.0, 4.0), new Coordinate(1.0, 2.0) }));
+            var polygon = new Polygon(new LinearRing(new[]
+            {
+                new Coordinate(1.0, 2.0),
+                new Coordinate(2.0, 3.0),
+                new Coordinate(3.0, 4.0),
+                new Coordinate(1.0, 2.0)
+            }));
 
             // computes hash code every call
             var t0 = DateTime.Now;
@@ -94,7 +110,7 @@ namespace NetTopologySuite.Tests.Geometry
 
             var dt2 = t1 - t0;
 
-            Assert.IsTrue(dt2.TotalMilliseconds < 15 * dt1.TotalMilliseconds);
+            Assert.IsTrue(dt2.TotalMilliseconds < 15*dt1.TotalMilliseconds);
         }
 
         [Test]
@@ -113,12 +129,12 @@ namespace NetTopologySuite.Tests.Geometry
         {
             var wktReader = new WKTReader(new GeometryFactory(new PrecisionModel(1000)));
             var geometry = wktReader.Read("POLYGON((0 -3,5 -3,5 -7,0 -7,0 -3))");
-            
-            var scale = 5.0;
-            
-            var scaledGeometry = SharpMap.CoordinateSystems.Transformations.GeometryTransform.Scale(geometry, scale);
 
-            Assert.AreEqual(scaledGeometry.Coordinates.Length,geometry.Coordinates.Length);
+            var scale = 5.0;
+
+            var scaledGeometry = GeometryTransform.Scale(geometry, scale);
+
+            Assert.AreEqual(scaledGeometry.Coordinates.Length, geometry.Coordinates.Length);
             Assert.AreEqual(scaledGeometry.Centroid, geometry.Centroid);
 
             Assert.AreEqual(-10.0, scaledGeometry.Coordinates[0].X);
@@ -137,11 +153,10 @@ namespace NetTopologySuite.Tests.Geometry
         public void IntersectsIgnoresZCoordinates()
         {
             var wktReader = new WKTReader(new GeometryFactory(new PrecisionModel(1000)));
-            
+
             var polygon = wktReader.Read("POLYGON((0 0,1 1,1 -1,0 0))");
             var disjointLine = wktReader.Read("LINESTRING(0 1,1 2)");
             var intersectingLine = wktReader.Read("LINESTRING(0 1,1 0)");
-            
 
             Assert.IsFalse(polygon.Intersects(disjointLine));
             Assert.IsTrue(polygon.Intersects(intersectingLine));
@@ -158,7 +173,7 @@ namespace NetTopologySuite.Tests.Geometry
             {
                 coordinate.Z = -1;
             }
-           
+
             Assert.IsFalse(polygon.Intersects(disjointLine));
             Assert.IsTrue(polygon.Intersects(intersectingLine));
         }

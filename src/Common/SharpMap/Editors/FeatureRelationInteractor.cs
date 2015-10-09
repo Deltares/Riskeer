@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GeoAPI.Extensions.Feature;
+using GeoAPI.Geometries;
 using SharpMap.Api.Delegates;
 using SharpMap.Api.Editors;
 
@@ -12,12 +13,8 @@ namespace SharpMap.Editors
             return null;
         }
 
-        public virtual void UpdateRelatedFeatures(IFeature feature, GeoAPI.Geometries.IGeometry newGeometry, IList<int> trackerIndices)
-        {
-        }
+        public virtual void UpdateRelatedFeatures(IFeature feature, IGeometry newGeometry, IList<int> trackerIndices) {}
 
-        public virtual void StoreRelatedFeatures(IFeature feature, GeoAPI.Geometries.IGeometry newGeometry, IList<int> trackerIndices)
-        {
-        }
+        public virtual void StoreRelatedFeatures(IFeature feature, IGeometry newGeometry, IList<int> trackerIndices) {}
     }
 }

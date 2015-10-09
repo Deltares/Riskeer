@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using Steema.TeeChart;
 
 namespace DelftTools.Controls.Swf.Charting
 {
@@ -8,35 +9,41 @@ namespace DelftTools.Controls.Swf.Charting
     ///</summary>
     public class ChartLegend : IChartLegend
     {
-        private readonly Steema.TeeChart.Legend legend;
+        private readonly Legend legend;
 
         ///<summary>
         /// Creates a TeeChart Legend wrapper class
         ///</summary>
         ///<param name="legend"></param>
-        public ChartLegend(Steema.TeeChart.Legend legend)
+        public ChartLegend(Legend legend)
         {
             this.legend = legend;
-            legend.LegendStyle = Steema.TeeChart.LegendStyles.Series;
+            legend.LegendStyle = LegendStyles.Series;
         }
 
         public bool Visible
         {
-            get { return legend.Visible; }
-            set { legend.Visible = value; }
+            get
+            {
+                return legend.Visible;
+            }
+            set
+            {
+                legend.Visible = value;
+            }
         }
 
         public LegendAlignment Alignment
         {
             get
             {
-                string enumName = Enum.GetName(typeof(Steema.TeeChart.LegendAlignments), legend.Alignment);
-                return (LegendAlignment)Enum.Parse(typeof(LegendAlignment), enumName);
+                string enumName = Enum.GetName(typeof(LegendAlignments), legend.Alignment);
+                return (LegendAlignment) Enum.Parse(typeof(LegendAlignment), enumName);
             }
             set
             {
                 string enumName = Enum.GetName(typeof(LegendAlignment), value);
-                legend.Alignment = (Steema.TeeChart.LegendAlignments)Enum.Parse(typeof(Steema.TeeChart.LegendAlignments), enumName);
+                legend.Alignment = (LegendAlignments) Enum.Parse(typeof(LegendAlignments), enumName);
             }
         }
 
@@ -45,13 +52,22 @@ namespace DelftTools.Controls.Swf.Charting
         ///</summary>
         public bool ShowCheckBoxes
         {
-            get { return legend.CheckBoxes; }
-            set { legend.CheckBoxes = value; }
+            get
+            {
+                return legend.CheckBoxes;
+            }
+            set
+            {
+                legend.CheckBoxes = value;
+            }
         }
 
         public Font Font
         {
-            get { return legend.Font.DrawingFont; }
+            get
+            {
+                return legend.Font.DrawingFont;
+            }
             set
             {
                 legend.Font.Bold = value.Bold;
@@ -68,8 +84,14 @@ namespace DelftTools.Controls.Swf.Charting
         ///</summary>
         public int Width
         {
-            get { return legend.Width; }
-            set { legend.Width = value; }
+            get
+            {
+                return legend.Width;
+            }
+            set
+            {
+                legend.Width = value;
+            }
         }
 
         ///<summary>
@@ -77,8 +99,14 @@ namespace DelftTools.Controls.Swf.Charting
         ///</summary>
         public int Top
         {
-            get { return legend.Top; }
-            set { legend.Top = value; }
+            get
+            {
+                return legend.Top;
+            }
+            set
+            {
+                legend.Top = value;
+            }
         }
 
         ///<summary>
@@ -86,8 +114,14 @@ namespace DelftTools.Controls.Swf.Charting
         ///</summary>
         public int Left
         {
-            get { return legend.Left; }
-            set { legend.Left = value; }
+            get
+            {
+                return legend.Left;
+            }
+            set
+            {
+                legend.Left = value;
+            }
         }
     }
 }

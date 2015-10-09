@@ -31,7 +31,7 @@ namespace SharpMap.Rendering.Thematics
     /// <summary>
     /// The GradientTheme class defines a gradient color thematic rendering of features based by a numeric attribute.
     /// </summary>
-    [Entity(FireOnCollectionChange=false)]
+    [Entity(FireOnCollectionChange = false)]
     public class GradientTheme : Theme
     {
         private double maxValue;
@@ -41,11 +41,36 @@ namespace SharpMap.Rendering.Thematics
         private GradientThemeItem minItem;
         private Color minColor;
         private Color maxColor;
-        private ColorBlend fillColorBlend;
-        private ColorBlend lineColorBlend;
-        private ColorBlend textColorBlend;
 
-        private int numberOfClasses;//stored to update the items when mix/max changes
+        private int numberOfClasses; //stored to update the items when mix/max changes
+
+        private readonly Dictionary<int, VectorStyle> vectorStyleCache = new Dictionary<int, VectorStyle>();
+
+        public GradientTheme(string attributeName, double minValue, double maxValue, IStyle minStyle, IStyle maxStyle,
+                             ColorBlend fillColorBlend, ColorBlend lineColorBlend, ColorBlend textColorBlend) : this(attributeName, minValue, maxValue, minStyle, maxStyle,
+                                                                                                                     fillColorBlend, lineColorBlend, textColorBlend, 8) {}
+
+        public GradientTheme(string attributeName, double minValue, double maxValue, IStyle minStyle, IStyle maxStyle,
+                             ColorBlend fillColorBlend, ColorBlend lineColorBlend, ColorBlend textColorBlend, int numberOfClasses)
+        {
+            this.numberOfClasses = numberOfClasses; //store for updates later on..
+            this.minValue = minValue;
+            this.maxValue = maxValue;
+
+            this.FillColorBlend = fillColorBlend;
+            this.LineColorBlend = lineColorBlend;
+            this.TextColorBlend = textColorBlend;
+
+            AttributeName = attributeName;
+
+            //create themeitems only for the extremes. Other values are interpolated.
+            CreateThemeItems(minStyle, maxStyle, numberOfClasses);
+
+            minColor = ThemeHelper.ExtractFillColorFromThemeItem(minItem);
+            minItem.Symbol = ((VectorStyle) minStyle).LegendSymbol;
+            maxColor = ThemeHelper.ExtractFillColorFromThemeItem(maxItem);
+            maxItem.Symbol = ((VectorStyle) maxStyle).LegendSymbol;
+        }
 
         /// <summary>
         /// Initializes a new instance of the GradientTheme class
@@ -98,73 +123,15 @@ namespace SharpMap.Rendering.Thematics
             // used for cloning to prevent overhead of "CreateThemeItems" method
         }
 
-        public GradientTheme(string attributeName, double minValue, double maxValue, IStyle minStyle, IStyle maxStyle,
-                    ColorBlend fillColorBlend, ColorBlend lineColorBlend, ColorBlend textColorBlend) : this(attributeName, minValue, maxValue, minStyle, maxStyle,
-                    fillColorBlend, lineColorBlend, textColorBlend, 8)
-        {
-            
-        }
-       
-        public GradientTheme(string attributeName, double minValue, double maxValue, IStyle minStyle, IStyle maxStyle,
-                    ColorBlend fillColorBlend, ColorBlend lineColorBlend, ColorBlend textColorBlend, int numberOfClasses)
-        {
-            this.numberOfClasses = numberOfClasses;//store for updates later on..
-            this.minValue = minValue;
-            this.maxValue = maxValue;
-
-            this.fillColorBlend = fillColorBlend;
-            this.lineColorBlend = lineColorBlend;
-            this.textColorBlend = textColorBlend;
-
-            AttributeName = attributeName;
-
-            //create themeitems only for the extremes. Other values are interpolated.
-            CreateThemeItems(minStyle, maxStyle, numberOfClasses);
-
-            minColor = ThemeHelper.ExtractFillColorFromThemeItem(minItem);
-            minItem.Symbol = ((VectorStyle) minStyle).LegendSymbol;
-            maxColor = ThemeHelper.ExtractFillColorFromThemeItem(maxItem);
-            maxItem.Symbol = ((VectorStyle) maxStyle).LegendSymbol;
-        }
-
-        private void CreateThemeItems(IStyle minStyle, IStyle maxStyle, int numberOfThemeItems)
-        {
-            minItem = new GradientThemeItem(minStyle, string.Format("{0:g4}", minValue),string.Format("{0:g4}", minValue));
-            themeItems.Add(minItem);
-
-            maxItem = new GradientThemeItem(maxStyle, string.Format("{0:g4}", maxValue),
-                                            string.Format("{0:g4}", maxValue));
-            
-            if (maxValue != minValue) //don't generate in between items if min == max
-            {
-                double step = (maxValue - minValue)/(numberOfThemeItems - 1);//for 3 themeItems step should be halfway the data
-                for (int i = 1; i <= numberOfThemeItems - 2; i++)
-                {
-                    double value = minValue + i * step;
-                    IStyle style = GetStyle(value);
-                    var gradientThemeItem = new GradientThemeItem(style, string.Format("{0:g4}", value), string.Format("{0:g4}", value));
-                    themeItems.Add(gradientThemeItem);
-                }
-            }
-                
-            themeItems.Add(maxItem);
-            
-        }
-
-        private void UpdateThemeItems()
-        {
-            themeItems.Clear();
-            CreateThemeItems(MinStyle,MaxStyle,numberOfClasses);
-            
-            vectorStyleCache.Clear();
-        }
-
         /// <summary>
         /// Gets or sets the minimum value of the gradient
         /// </summary>
         public double Min
         {
-            get { return minValue; }
+            get
+            {
+                return minValue;
+            }
             private set
             {
                 minValue = value;
@@ -177,7 +144,10 @@ namespace SharpMap.Rendering.Thematics
         /// </summary>
         public double Max
         {
-            get { return maxValue; }
+            get
+            {
+                return maxValue;
+            }
             private set
             {
                 maxValue = value;
@@ -190,8 +160,14 @@ namespace SharpMap.Rendering.Thematics
         /// </summary>
         public IStyle MinStyle
         {
-            get { return minItem.Style; } //minStyle; }
-            set { minItem.Style = value; }
+            get
+            {
+                return minItem.Style;
+            } //minStyle; }
+            set
+            {
+                minItem.Style = value;
+            }
         }
 
         /// <summary>
@@ -199,40 +175,37 @@ namespace SharpMap.Rendering.Thematics
         /// </summary>
         public IStyle MaxStyle
         {
-            get { return maxItem.Style; } //maxStyle; }
-            set { maxItem.Style = value; }
+            get
+            {
+                return maxItem.Style;
+            } //maxStyle; }
+            set
+            {
+                maxItem.Style = value;
+            }
         }
 
         /// <summary>
         /// Gets or sets the <see cref="SharpMap.Rendering.Thematics.ColorBlend"/> used on labels
         /// </summary>
-        public ColorBlend TextColorBlend
-        {
-            get { return textColorBlend; }
-            set { textColorBlend = value; }
-        }
+        public ColorBlend TextColorBlend { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="SharpMap.Rendering.Thematics.ColorBlend"/> used on lines
         /// </summary>
-        public ColorBlend LineColorBlend
-        {
-            get { return lineColorBlend; }
-            set { lineColorBlend = value; }
-        }
+        public ColorBlend LineColorBlend { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="SharpMap.Rendering.Thematics.ColorBlend"/> used as Fill
         /// </summary>
-        public ColorBlend FillColorBlend
-        {
-            get { return fillColorBlend; }
-            set { fillColorBlend = value; }
-        }
+        public ColorBlend FillColorBlend { get; set; }
 
         public int NumberOfClasses
         {
-            get { return numberOfClasses; }
+            get
+            {
+                return numberOfClasses;
+            }
             set
             {
                 numberOfClasses = value;
@@ -241,6 +214,16 @@ namespace SharpMap.Rendering.Thematics
         }
 
         public bool UseCustomRange { get; set; }
+
+        public IStyle GetStyle(double attributeValue)
+        {
+            return CalculateVectorStyle(attributeValue);
+        }
+
+        public void SetMinMax(double min, double max)
+        {
+            ScaleToCore(min, max);
+        }
 
         /// <summary>
         /// Returns the style based on a numeric DataColumn, where style
@@ -261,7 +244,9 @@ namespace SharpMap.Rendering.Thematics
                     "Invalid Attribute type in Gradient Theme - Couldn't parse attribute (must be numerical)");
             }
             if (MinStyle.GetType() != MaxStyle.GetType())
+            {
                 throw new ArgumentException("MinStyle and MaxStyle must be of the same type");
+            }
             switch (MinStyle.GetType().FullName)
             {
                 case "SharpMap.Styles.VectorStyle":
@@ -296,237 +281,30 @@ namespace SharpMap.Rendering.Thematics
             return CalculateVectorStyle(Convert.ToDouble(value));
         }
 
-        public IStyle GetStyle(double attributeValue)
-        {
-            return CalculateVectorStyle(attributeValue);
-        }
-
-        private Dictionary<int, VectorStyle> vectorStyleCache = new Dictionary<int, VectorStyle>();
-
-        /// <summary>
-        /// Calculates the style for the gradient Theme. Use the constructor when all values are known because
-        /// it will also update the symbol (bitmap).
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        protected VectorStyle CalculateVectorStyle(double value)
-        {
-            var min = (VectorStyle) MinStyle;
-            var max = (VectorStyle) MaxStyle;
-
-            bool isNoDataValue = noDataValues != null && noDataValues.Contains(value);
-
-            double dFrac = Fraction(value);
-
-            //There are some theoretical issues with this caching if the number of color transitions is high 
-            //(and non-smooth). However, for all intents and purposes this approach will be visually equal
-            //to non-cached styling.
-            const int numberOfCachedStyles = 512;
-            int cacheIndex = isNoDataValue ? -1 : (int)(dFrac*numberOfCachedStyles);
-            VectorStyle cachedResult;
-            if (vectorStyleCache.TryGetValue(cacheIndex, out cachedResult))
-                return cachedResult;
-
-            float fFrac = Convert.ToSingle(dFrac);
-            //bool enabled = (dFrac > 0.5 ? min.Enabled : max.Enabled);
-            bool enableOutline = (dFrac > 0.5 ? min.EnableOutline : max.EnableOutline);
-
-            Brush fillStyle = null;
-            if (isNoDataValue)
-                fillStyle = new SolidBrush(NoDataColor);
-            else if (fillColorBlend != null)
-                fillStyle = new SolidBrush(fillColorBlend.GetColor(fFrac));
-            else if (min.Fill != null && max.Fill != null)
-                fillStyle = InterpolateBrush(min.Fill, max.Fill, value);
-
-            Pen lineStyle;
-            if (isNoDataValue)
-                lineStyle = new Pen(NoDataColor, min.Line.Width);
-            else if (lineColorBlend != null)
-                lineStyle = new Pen(lineColorBlend.GetColor(fFrac), InterpolateFloat(min.Line.Width, max.Line.Width, value));
-            else
-                lineStyle = InterpolatePen(min.Line, max.Line, value);
-
-            // assume line and outline same for gradient theme
-
-            Pen outLineStyle = null;
-            if (min.Outline != null && max.Outline != null)
-                outLineStyle = InterpolatePen(min.Outline, max.Outline, value);
-
-            ShapeType shapeType = min.Shape;
-            float symbolScale = InterpolateFloat(min.SymbolScale, max.SymbolScale, value);
-            Type geometryType = min.GeometryType;
-            int shapeSize = InterpolateInt(min.ShapeSize, max.ShapeSize, value);
-            var style = new VectorStyle(fillStyle, outLineStyle, enableOutline, lineStyle, symbolScale, geometryType, shapeType, shapeSize)
-                            {
-                                MinVisible = InterpolateDouble(min.MinVisible, max.MinVisible, value),
-                                MaxVisible = InterpolateDouble(min.MaxVisible, max.MaxVisible, value),
-                                Enabled = (dFrac > 0.5 ? min.Enabled : max.Enabled),
-                                Line = 
-                                { 
-                                    StartCap = min.Line.StartCap,
-                                    EndCap = min.Line.EndCap
-                                }
-                            };
-
-            vectorStyleCache[cacheIndex] = style;
-
-            return style;
-        }
-
-        protected LabelStyle CalculateLabelStyle(LabelStyle min, LabelStyle max, double value)
-        {
-            var style = new LabelStyle();
-            style.CollisionDetection = min.CollisionDetection;
-            style.Enabled = InterpolateBool(min.Enabled, max.Enabled, value);
-            float FontSize = InterpolateFloat(min.Font.Size, max.Font.Size, value);
-            style.Font = new Font(min.Font.FontFamily, FontSize, min.Font.Style);
-            if (min.BackColor != null && max.BackColor != null)
-            {
-                style.BackColor = InterpolateBrush(min.BackColor, max.BackColor, value);
-            }
-
-            if (textColorBlend != null)
-            {
-                style.ForeColor = lineColorBlend.GetColor(Convert.ToSingle(Fraction(value)));
-            }
-            else
-            {
-                style.ForeColor = InterpolateColor(min.ForeColor, max.ForeColor, value);
-            }
-            if (min.Halo != null && max.Halo != null)
-            {
-                style.Halo = InterpolatePen(min.Halo, max.Halo, value);
-            }
-
-            style.MinVisible = InterpolateDouble(min.MinVisible, max.MinVisible, value);
-            style.MaxVisible = InterpolateDouble(min.MaxVisible, max.MaxVisible, value);
-            style.Offset =
-                new PointF(InterpolateFloat(min.Offset.X, max.Offset.X, value),
-                           InterpolateFloat(min.Offset.Y, max.Offset.Y, value));
-            return style;
-        }
-
-        private double Fraction(double attr)
-        {
-            var infinitedDelta = double.IsInfinity(Math.Abs(maxValue - minValue));
-
-            const int rangeCorrection = 2;
-            var fractionValue = (!infinitedDelta) ? attr : attr/rangeCorrection;
-            var minValueToUse = (!infinitedDelta) ? minValue : minValue/rangeCorrection;
-            var maxValueToUse = (!infinitedDelta) ? maxValue : maxValue/rangeCorrection;
-
-            if (fractionValue < minValueToUse) return 0;
-            if (fractionValue > maxValueToUse) return 1;
-
-            double delta = Math.Abs(maxValueToUse - minValueToUse);
-
-            if (delta < 1e-8)
-                return 0;
-
-            return (fractionValue - minValueToUse) / (delta);
-        }
-
-        private bool InterpolateBool(bool min, bool max, double attr)
-        {
-            double frac = Fraction(attr);
-            return frac > 0.5 ? max : min;
-        }
-
-        private float InterpolateFloat(float min, float max, double attr)
-        {
-            return Convert.ToSingle((max - min)*Fraction(attr) + min);
-        }
-
-        private double InterpolateDouble(double min, double max, double attr)
-        {
-            return (max - min) * Fraction(attr) + min;
-        }
-
-        private int InterpolateInt(int min, int max, double attr)
-        {
-            return (int) ((max - min) * Fraction(attr) + min);
-        }
-
-        private SolidBrush InterpolateBrush(Brush min, Brush max, double attr)
-        {
-            if (min.GetType() != typeof (SolidBrush) || max.GetType() != typeof (SolidBrush))
-                throw (new ArgumentException("Only SolidBrush brushes are supported in GradientTheme"));
-            return new SolidBrush(InterpolateColor((min as SolidBrush).Color, (max as SolidBrush).Color, attr));
-        }
-
-        private Pen InterpolatePen(Pen min, Pen max, double attr)
-        {
-            if (min.PenType != PenType.SolidColor || max.PenType != PenType.SolidColor)
-                throw (new ArgumentException("Only SolidColor pens are supported in GradientTheme"));
-            Pen pen =
-                new Pen(InterpolateColor(min.Color, max.Color, attr), InterpolateFloat(min.Width, max.Width, attr));
-            double frac = Fraction(attr);
-            pen.MiterLimit = InterpolateFloat(min.MiterLimit, max.MiterLimit, attr);
-            pen.StartCap = (frac > 0.5 ? max.StartCap : min.StartCap);
-            pen.EndCap = (frac > 0.5 ? max.EndCap : min.EndCap);
-            pen.LineJoin = (frac > 0.5 ? max.LineJoin : min.LineJoin);
-            pen.DashStyle = (frac > 0.5 ? max.DashStyle : min.DashStyle);
-            if (min.DashStyle == DashStyle.Custom && max.DashStyle == DashStyle.Custom)
-                pen.DashPattern = (frac > 0.5 ? max.DashPattern : min.DashPattern);
-            pen.DashOffset = (frac > 0.5 ? max.DashOffset : min.DashOffset);
-            pen.DashCap = (frac > 0.5 ? max.DashCap : min.DashCap);
-            if (min.CompoundArray.Length > 0 && max.CompoundArray.Length > 0)
-                pen.CompoundArray = (frac > 0.5 ? max.CompoundArray : min.CompoundArray);
-            pen.Alignment = (frac > 0.5 ? max.Alignment : min.Alignment);
-            //pen.CustomStartCap = (frac > 0.5 ? max.CustomStartCap : min.CustomStartCap);  //Throws ArgumentException
-            //pen.CustomEndCap = (frac > 0.5 ? max.CustomEndCap : min.CustomEndCap);  //Throws ArgumentException
-            return pen;
-        }
-
-        private Color InterpolateColor(Color minCol, Color maxCol, double attr)
-        {
-            double frac = Fraction(attr);
-            if (frac == 1)
-            {
-                return maxCol;
-            }
-            if ((frac == 0) || (double.IsNaN(frac)))
-            {
-                return minCol;
-            }
-            double r = (maxCol.R - minCol.R)*frac + minCol.R;
-            double g = (maxCol.G - minCol.G)*frac + minCol.G;
-            double b = (maxCol.B - minCol.B)*frac + minCol.B;
-            double a = (maxCol.A - minCol.A)*frac + minCol.A;
-            if (r > 255) r = 255;
-            if (g > 255) g = 255;
-            if (b > 255) b = 255;
-            if (a > 255) a = 255;
-            if (a < 0) a = 0;
-            return Color.FromArgb((int) a, (int) r, (int) g, (int) b);
-        }
-
         public override object Clone()
         {
             var gradientTheme = new GradientTheme
-                                    {
-                                        AttributeName = AttributeName,
-                                        minValue = minValue,
-                                        maxValue = maxValue,
-                                        fillColorBlend = (null != FillColorBlend) ? (ColorBlend) FillColorBlend.Clone() : null,
-                                        lineColorBlend = (null != LineColorBlend) ? (ColorBlend) LineColorBlend.Clone() : null,
-                                        textColorBlend = (null != TextColorBlend) ? (ColorBlend) TextColorBlend.Clone() : null,
-                                        numberOfClasses = numberOfClasses,
-                                        minColor = minColor,
-                                        maxColor = maxColor,
-                                        UseCustomRange = UseCustomRange
-                                    };
+            {
+                AttributeName = AttributeName,
+                minValue = minValue,
+                maxValue = maxValue,
+                FillColorBlend = (null != FillColorBlend) ? (ColorBlend) FillColorBlend.Clone() : null,
+                LineColorBlend = (null != LineColorBlend) ? (ColorBlend) LineColorBlend.Clone() : null,
+                TextColorBlend = (null != TextColorBlend) ? (ColorBlend) TextColorBlend.Clone() : null,
+                numberOfClasses = numberOfClasses,
+                minColor = minColor,
+                maxColor = maxColor,
+                UseCustomRange = UseCustomRange
+            };
 
-            gradientTheme.themeItems.AddRange(ThemeItems.Select(ti => (IThemeItem)((GradientThemeItem)ti).Clone()));
+            gradientTheme.themeItems.AddRange(ThemeItems.Select(ti => (IThemeItem) ((GradientThemeItem) ti).Clone()));
             gradientTheme.minItem = (GradientThemeItem) gradientTheme.themeItems.First();
             gradientTheme.maxItem = (GradientThemeItem) gradientTheme.themeItems.Last();
-            
+
             if (NoDataValues != null)
             {
                 gradientTheme.noDataValues = NoDataValues.Cast<object>().ToArray();
             }
-
 
             return gradientTheme;
         }
@@ -534,23 +312,12 @@ namespace SharpMap.Rendering.Thematics
         public override void ScaleTo(double min, double max)
         {
             if (UseCustomRange && min <= minValue && max >= maxValue)
+            {
                 return;
+            }
 
             UseCustomRange = false;
             ScaleToCore(min, max);
-        }
-
-        public void SetMinMax(double min, double max)
-        {
-            ScaleToCore(min, max);
-        }
-
-        private void ScaleToCore(double min, double max)
-        {
-            Min = min;
-            Max = max;
-
-            UpdateThemeItems();
         }
 
         public override Color GetFillColor<T>(T value)
@@ -561,10 +328,10 @@ namespace SharpMap.Rendering.Thematics
                 return NoDataColor;
             }
 
-            if (fillColorBlend != null)
+            if (FillColorBlend != null)
             {
                 double fraction = Fraction(Convert.ToDouble(value));
-                return fillColorBlend.GetColor((float) fraction);
+                return FillColorBlend.GetColor((float) fraction);
             }
 
             return InterpolateColor(minColor, maxColor, Convert.ToDouble(value));
@@ -597,20 +364,305 @@ namespace SharpMap.Rendering.Thematics
                     colors[i] = NoDataColor.ToArgb();
                     continue;
                 }
-                if (fillColorBlend != null)
+                if (FillColorBlend != null)
                 {
                     double fraction = Fraction(Convert.ToDouble(values[i]));
                     if (double.IsNaN(fraction))
                     {
                         fraction = 0.0;
                     }
-                    colors[i] = fillColorBlend.GetColor((float) fraction).ToArgb();
+                    colors[i] = FillColorBlend.GetColor((float) fraction).ToArgb();
                 }
                 else
                 {
                     colors[i] = InterpolateColor(minColor, maxColor, Convert.ToDouble(values[i])).ToArgb();
                 }
             }
+        }
+
+        /// <summary>
+        /// Calculates the style for the gradient Theme. Use the constructor when all values are known because
+        /// it will also update the symbol (bitmap).
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        protected VectorStyle CalculateVectorStyle(double value)
+        {
+            var min = (VectorStyle) MinStyle;
+            var max = (VectorStyle) MaxStyle;
+
+            bool isNoDataValue = noDataValues != null && noDataValues.Contains(value);
+
+            double dFrac = Fraction(value);
+
+            //There are some theoretical issues with this caching if the number of color transitions is high 
+            //(and non-smooth). However, for all intents and purposes this approach will be visually equal
+            //to non-cached styling.
+            const int numberOfCachedStyles = 512;
+            int cacheIndex = isNoDataValue ? -1 : (int) (dFrac*numberOfCachedStyles);
+            VectorStyle cachedResult;
+            if (vectorStyleCache.TryGetValue(cacheIndex, out cachedResult))
+            {
+                return cachedResult;
+            }
+
+            float fFrac = Convert.ToSingle(dFrac);
+            //bool enabled = (dFrac > 0.5 ? min.Enabled : max.Enabled);
+            bool enableOutline = (dFrac > 0.5 ? min.EnableOutline : max.EnableOutline);
+
+            Brush fillStyle = null;
+            if (isNoDataValue)
+            {
+                fillStyle = new SolidBrush(NoDataColor);
+            }
+            else if (FillColorBlend != null)
+            {
+                fillStyle = new SolidBrush(FillColorBlend.GetColor(fFrac));
+            }
+            else if (min.Fill != null && max.Fill != null)
+            {
+                fillStyle = InterpolateBrush(min.Fill, max.Fill, value);
+            }
+
+            Pen lineStyle;
+            if (isNoDataValue)
+            {
+                lineStyle = new Pen(NoDataColor, min.Line.Width);
+            }
+            else if (LineColorBlend != null)
+            {
+                lineStyle = new Pen(LineColorBlend.GetColor(fFrac), InterpolateFloat(min.Line.Width, max.Line.Width, value));
+            }
+            else
+            {
+                lineStyle = InterpolatePen(min.Line, max.Line, value);
+            }
+
+            // assume line and outline same for gradient theme
+
+            Pen outLineStyle = null;
+            if (min.Outline != null && max.Outline != null)
+            {
+                outLineStyle = InterpolatePen(min.Outline, max.Outline, value);
+            }
+
+            ShapeType shapeType = min.Shape;
+            float symbolScale = InterpolateFloat(min.SymbolScale, max.SymbolScale, value);
+            Type geometryType = min.GeometryType;
+            int shapeSize = InterpolateInt(min.ShapeSize, max.ShapeSize, value);
+            var style = new VectorStyle(fillStyle, outLineStyle, enableOutline, lineStyle, symbolScale, geometryType, shapeType, shapeSize)
+            {
+                MinVisible = InterpolateDouble(min.MinVisible, max.MinVisible, value),
+                MaxVisible = InterpolateDouble(min.MaxVisible, max.MaxVisible, value),
+                Enabled = (dFrac > 0.5 ? min.Enabled : max.Enabled),
+                Line =
+                {
+                    StartCap = min.Line.StartCap,
+                    EndCap = min.Line.EndCap
+                }
+            };
+
+            vectorStyleCache[cacheIndex] = style;
+
+            return style;
+        }
+
+        protected LabelStyle CalculateLabelStyle(LabelStyle min, LabelStyle max, double value)
+        {
+            var style = new LabelStyle();
+            style.CollisionDetection = min.CollisionDetection;
+            style.Enabled = InterpolateBool(min.Enabled, max.Enabled, value);
+            float FontSize = InterpolateFloat(min.Font.Size, max.Font.Size, value);
+            style.Font = new Font(min.Font.FontFamily, FontSize, min.Font.Style);
+            if (min.BackColor != null && max.BackColor != null)
+            {
+                style.BackColor = InterpolateBrush(min.BackColor, max.BackColor, value);
+            }
+
+            if (TextColorBlend != null)
+            {
+                style.ForeColor = LineColorBlend.GetColor(Convert.ToSingle(Fraction(value)));
+            }
+            else
+            {
+                style.ForeColor = InterpolateColor(min.ForeColor, max.ForeColor, value);
+            }
+            if (min.Halo != null && max.Halo != null)
+            {
+                style.Halo = InterpolatePen(min.Halo, max.Halo, value);
+            }
+
+            style.MinVisible = InterpolateDouble(min.MinVisible, max.MinVisible, value);
+            style.MaxVisible = InterpolateDouble(min.MaxVisible, max.MaxVisible, value);
+            style.Offset =
+                new PointF(InterpolateFloat(min.Offset.X, max.Offset.X, value),
+                           InterpolateFloat(min.Offset.Y, max.Offset.Y, value));
+            return style;
+        }
+
+        private void CreateThemeItems(IStyle minStyle, IStyle maxStyle, int numberOfThemeItems)
+        {
+            minItem = new GradientThemeItem(minStyle, string.Format("{0:g4}", minValue), string.Format("{0:g4}", minValue));
+            themeItems.Add(minItem);
+
+            maxItem = new GradientThemeItem(maxStyle, string.Format("{0:g4}", maxValue),
+                                            string.Format("{0:g4}", maxValue));
+
+            if (maxValue != minValue) //don't generate in between items if min == max
+            {
+                double step = (maxValue - minValue)/(numberOfThemeItems - 1); //for 3 themeItems step should be halfway the data
+                for (int i = 1; i <= numberOfThemeItems - 2; i++)
+                {
+                    double value = minValue + i*step;
+                    IStyle style = GetStyle(value);
+                    var gradientThemeItem = new GradientThemeItem(style, string.Format("{0:g4}", value), string.Format("{0:g4}", value));
+                    themeItems.Add(gradientThemeItem);
+                }
+            }
+
+            themeItems.Add(maxItem);
+        }
+
+        private void UpdateThemeItems()
+        {
+            themeItems.Clear();
+            CreateThemeItems(MinStyle, MaxStyle, numberOfClasses);
+
+            vectorStyleCache.Clear();
+        }
+
+        private double Fraction(double attr)
+        {
+            var infinitedDelta = double.IsInfinity(Math.Abs(maxValue - minValue));
+
+            const int rangeCorrection = 2;
+            var fractionValue = (!infinitedDelta) ? attr : attr/rangeCorrection;
+            var minValueToUse = (!infinitedDelta) ? minValue : minValue/rangeCorrection;
+            var maxValueToUse = (!infinitedDelta) ? maxValue : maxValue/rangeCorrection;
+
+            if (fractionValue < minValueToUse)
+            {
+                return 0;
+            }
+            if (fractionValue > maxValueToUse)
+            {
+                return 1;
+            }
+
+            double delta = Math.Abs(maxValueToUse - minValueToUse);
+
+            if (delta < 1e-8)
+            {
+                return 0;
+            }
+
+            return (fractionValue - minValueToUse)/(delta);
+        }
+
+        private bool InterpolateBool(bool min, bool max, double attr)
+        {
+            double frac = Fraction(attr);
+            return frac > 0.5 ? max : min;
+        }
+
+        private float InterpolateFloat(float min, float max, double attr)
+        {
+            return Convert.ToSingle((max - min)*Fraction(attr) + min);
+        }
+
+        private double InterpolateDouble(double min, double max, double attr)
+        {
+            return (max - min)*Fraction(attr) + min;
+        }
+
+        private int InterpolateInt(int min, int max, double attr)
+        {
+            return (int) ((max - min)*Fraction(attr) + min);
+        }
+
+        private SolidBrush InterpolateBrush(Brush min, Brush max, double attr)
+        {
+            if (min.GetType() != typeof(SolidBrush) || max.GetType() != typeof(SolidBrush))
+            {
+                throw (new ArgumentException("Only SolidBrush brushes are supported in GradientTheme"));
+            }
+            return new SolidBrush(InterpolateColor((min as SolidBrush).Color, (max as SolidBrush).Color, attr));
+        }
+
+        private Pen InterpolatePen(Pen min, Pen max, double attr)
+        {
+            if (min.PenType != PenType.SolidColor || max.PenType != PenType.SolidColor)
+            {
+                throw (new ArgumentException("Only SolidColor pens are supported in GradientTheme"));
+            }
+            Pen pen =
+                new Pen(InterpolateColor(min.Color, max.Color, attr), InterpolateFloat(min.Width, max.Width, attr));
+            double frac = Fraction(attr);
+            pen.MiterLimit = InterpolateFloat(min.MiterLimit, max.MiterLimit, attr);
+            pen.StartCap = (frac > 0.5 ? max.StartCap : min.StartCap);
+            pen.EndCap = (frac > 0.5 ? max.EndCap : min.EndCap);
+            pen.LineJoin = (frac > 0.5 ? max.LineJoin : min.LineJoin);
+            pen.DashStyle = (frac > 0.5 ? max.DashStyle : min.DashStyle);
+            if (min.DashStyle == DashStyle.Custom && max.DashStyle == DashStyle.Custom)
+            {
+                pen.DashPattern = (frac > 0.5 ? max.DashPattern : min.DashPattern);
+            }
+            pen.DashOffset = (frac > 0.5 ? max.DashOffset : min.DashOffset);
+            pen.DashCap = (frac > 0.5 ? max.DashCap : min.DashCap);
+            if (min.CompoundArray.Length > 0 && max.CompoundArray.Length > 0)
+            {
+                pen.CompoundArray = (frac > 0.5 ? max.CompoundArray : min.CompoundArray);
+            }
+            pen.Alignment = (frac > 0.5 ? max.Alignment : min.Alignment);
+            //pen.CustomStartCap = (frac > 0.5 ? max.CustomStartCap : min.CustomStartCap);  //Throws ArgumentException
+            //pen.CustomEndCap = (frac > 0.5 ? max.CustomEndCap : min.CustomEndCap);  //Throws ArgumentException
+            return pen;
+        }
+
+        private Color InterpolateColor(Color minCol, Color maxCol, double attr)
+        {
+            double frac = Fraction(attr);
+            if (frac == 1)
+            {
+                return maxCol;
+            }
+            if ((frac == 0) || (double.IsNaN(frac)))
+            {
+                return minCol;
+            }
+            double r = (maxCol.R - minCol.R)*frac + minCol.R;
+            double g = (maxCol.G - minCol.G)*frac + minCol.G;
+            double b = (maxCol.B - minCol.B)*frac + minCol.B;
+            double a = (maxCol.A - minCol.A)*frac + minCol.A;
+            if (r > 255)
+            {
+                r = 255;
+            }
+            if (g > 255)
+            {
+                g = 255;
+            }
+            if (b > 255)
+            {
+                b = 255;
+            }
+            if (a > 255)
+            {
+                a = 255;
+            }
+            if (a < 0)
+            {
+                a = 0;
+            }
+            return Color.FromArgb((int) a, (int) r, (int) g, (int) b);
+        }
+
+        private void ScaleToCore(double min, double max)
+        {
+            Min = min;
+            Max = max;
+
+            UpdateThemeItems();
         }
     }
 }

@@ -9,8 +9,7 @@ namespace DeltaShell.Gui.Forms
 {
     public partial class RichTextView : UserControl, IView
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof (RichTextView));
-        private Image image;
+        private static readonly ILog log = LogManager.GetLogger(typeof(RichTextView));
 
         public RichTextView()
         {
@@ -30,25 +29,26 @@ namespace DeltaShell.Gui.Forms
                 log.WarnFormat(Resources.RichTextView_RichTextView_The_license_file__0__cannot_be_found_on_the_computer_, Path.GetFileName(path));
             }
             Name = name;
-            base.Text = name;
+            Text = name;
         }
 
         #region IView Members
 
         public object Data
         {
-            get { return Text; }
-            set { /* ignore; cleanup process may set data to null */ }
+            get
+            {
+                return Text;
+            }
+            set
+            {
+                /* ignore; cleanup process may set data to null */
+            }
         }
 
+        public Image Image { get; set; }
 
-        public Image Image
-        {
-            get { return image; }
-            set { image = value; }
-        }
-
-        public void EnsureVisible(object item) { }
+        public void EnsureVisible(object item) {}
         public ViewInfo ViewInfo { get; set; }
 
         #endregion

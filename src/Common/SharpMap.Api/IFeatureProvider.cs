@@ -23,14 +23,15 @@ using GeoAPI.Geometries;
 
 namespace SharpMap.Api
 {
-    
-
-	/// <summary>
-	/// Interface for data providers
+    /// <summary>
+    /// Interface for data providers
     /// TODO: move all editing-related properties / functions into a separate interface, IFeatureInteractor, IFeatureCollection?
     /// </summary>
     public interface IFeatureProvider : IDisposable
-	{
+    {
+        event EventHandler FeaturesChanged;
+        event EventHandler CoordinateSystemChanged;
+
         /// <summary>
         /// Type of the features provided.
         /// </summary>
@@ -40,41 +41,48 @@ namespace SharpMap.Api
 
         bool IsReadOnly { get; }
 
+        [Obsolete("Create features somewhere else (e.g. in IFeatureEditor and add them to the repository")]
+        Func<IFeatureProvider, IGeometry, IFeature> AddNewFeatureFromGeometryDelegate { get; set; }
+
+        /// <summary>
+        /// The spatial reference system code (WKT).
+        /// </summary>
+        string SrsWkt { get; set; }
+
+        /// <summary>
+        /// Gets or sets the coordinate system.
+        /// </summary>
+        ICoordinateSystem CoordinateSystem { get; set; }
+
         /// <summary>
         /// Adds a new feature to the feature storage using geometry.
         /// </summary>
         /// <param name="geometry"></param>
         [Obsolete("Create features somewhere else (e.g. in IFeatureEditor and add them to the repository")]
-	    IFeature Add(IGeometry geometry);
+        IFeature Add(IGeometry geometry);
 
-        [Obsolete("Create features somewhere else (e.g. in IFeatureEditor and add them to the repository")]
-        Func<IFeatureProvider, IGeometry, IFeature> AddNewFeatureFromGeometryDelegate { get; set; }
+        /// <summary>
+        /// Returns the number of features in the dataset
+        /// </summary>
+        /// <returns>number of features</returns>
+        int GetFeatureCount();
 
-	    event EventHandler FeaturesChanged;
-	    event EventHandler CoordinateSystemChanged;
+        /// <summary>
+        /// Returns the geometry corresponding to the Object ID
+        /// </summary>
+        /// <param name="oid">Object ID</param>
+        /// <returns>geometry</returns>
+        IGeometry GetGeometryByID(int oid);
 
-	    /// <summary>
-		/// Returns the number of features in the dataset
-		/// </summary>
-		/// <returns>number of features</returns>
-		int GetFeatureCount();
-
-	    /// <summary>
-	    /// Returns the geometry corresponding to the Object ID
-	    /// </summary>
-	    /// <param name="oid">Object ID</param>
-	    /// <returns>geometry</returns>
-	    IGeometry GetGeometryByID(int oid);
-
-	    /// <summary>
-		/// Returns a <see cref="SharpMap.Data.FeatureDataRow"/> based on a RowID
-		/// 
-		/// </summary>
-		/// <param name="index"></param>
-		/// <returns>datarow</returns>
+        /// <summary>
+        /// Returns a <see cref="SharpMap.Data.FeatureDataRow"/> based on a RowID
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>datarow</returns>
         IFeature GetFeature(int index);
 
-	    /// <summary>
+        /// <summary>
         /// Returns true if feature belongs to provider.
         /// </summary>
         /// <param name="feature"></param>
@@ -88,22 +96,12 @@ namespace SharpMap.Api
         /// <returns></returns>
         int IndexOf(IFeature feature);
 
-		/// <summary>
-        /// <see cref="IEnvelope"/> of dataset
-		/// </summary>
-		/// <returns>boundingbox</returns>
-		IEnvelope GetExtents();
-
-		/// <summary>
-		/// The spatial reference system code (WKT).
-		/// </summary>
-		string SrsWkt { get; set;}
-
         /// <summary>
-        /// Gets or sets the coordinate system.
+        /// <see cref="IEnvelope"/> of dataset
         /// </summary>
-        ICoordinateSystem CoordinateSystem { get; set; }
+        /// <returns>boundingbox</returns>
+        IEnvelope GetExtents();
 
-	    IEnvelope GetBounds(int recordIndex);
-	}
+        IEnvelope GetBounds(int recordIndex);
+    }
 }

@@ -3,15 +3,26 @@ using BruTile;
 
 namespace SharpMap.Extensions.Layers
 {
-    class MapTransform
+    internal class MapTransform
     {
+        #region Private Methods
+
+        private void UpdateExtent()
+        {
+            float spanX = width*resolution;
+            float spanY = height*resolution;
+            Extent = new Extent(center.X - spanX*0.5f, center.Y - spanY*0.5f,
+                                center.X + spanX*0.5f, center.Y + spanY*0.5f);
+        }
+
+        #endregion
+
         #region Fields
 
-        float resolution;
-        PointF center;
-        float width;
-        float height;
-        Extent extent;
+        private float resolution;
+        private PointF center;
+        private float width;
+        private float height;
 
         #endregion
 
@@ -66,19 +77,16 @@ namespace SharpMap.Extensions.Layers
             }
         }
 
-        public Extent Extent
-        {
-            get { return extent; }
-        }
+        public Extent Extent { get; private set; }
 
         public PointF WorldToMap(double x, double y)
         {
-            return new PointF((float)(x - extent.MinX) / resolution, (float)(extent.MaxY - y) / resolution);
+            return new PointF((float) (x - Extent.MinX)/resolution, (float) (Extent.MaxY - y)/resolution);
         }
 
         public PointF MapToWorld(double x, double y)
         {
-            return new PointF((float)(extent.MinX + x) * resolution, (float)(extent.MaxY - y) * resolution);
+            return new PointF((float) (Extent.MinX + x)*resolution, (float) (Extent.MaxY - y)*resolution);
         }
 
         public RectangleF WorldToMap(double x1, double y1, double x2, double y2)
@@ -86,18 +94,6 @@ namespace SharpMap.Extensions.Layers
             PointF point1 = WorldToMap(x1, y1);
             PointF point2 = WorldToMap(x2, y2);
             return new RectangleF(point1.X, point2.Y, point2.X - point1.X, point1.Y - point2.Y);
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private void UpdateExtent()
-        {
-            float spanX = width * resolution;
-            float spanY = height * resolution;
-            extent = new Extent(center.X - spanX * 0.5f, center.Y - spanY * 0.5f,
-                                center.X + spanX * 0.5f, center.Y + spanY * 0.5f);
         }
 
         #endregion

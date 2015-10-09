@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using DelftTools.Controls;
+using DelftTools.Shell.Gui.Swf.Properties;
 using DelftTools.Utils;
 using DelftTools.Utils.Validation;
 
@@ -12,10 +13,25 @@ namespace DelftTools.Shell.Gui.Swf.Validation
 {
     public partial class ValidationReportControl : UserControl, IView
     {
+        public delegate void OpenViewForIssueDelegate(ValidationIssue issue);
+
+        private static readonly Bitmap ImageValidationNone = Resources.validation_none;
+        private static readonly Bitmap ImageValidationCategoryInfo = Resources.validation_category_info;
+        private static readonly Bitmap ImageValidationInfo = Resources.validation_info;
+        private static readonly Bitmap ImageValidationCategoryWarning = Resources.validation_category_warning;
+        private static readonly Bitmap ImageValidationWarning = Resources.validation_warning;
+        private static readonly Bitmap ImageValidationError = Resources.validation_error;
+        private readonly VisualStyleRenderer expandButtonRenderer;
+        private readonly VisualStyleRenderer collapseButtonRenderer;
+
+        public OpenViewForIssueDelegate OnOpenViewForIssue;
+
+        private ValidationReport data;
+
         public ValidationReportControl()
         {
             InitializeComponent();
-            
+
             treeView.HotTracking = true;
             treeView.DrawMode = TreeViewDrawMode.OwnerDrawAll;
             treeView.DrawNode += TreeViewDrawNode;
@@ -26,18 +42,13 @@ namespace DelftTools.Shell.Gui.Swf.Validation
                 collapseButtonRenderer = new VisualStyleRenderer(VisualStyleElement.TreeView.Glyph.Opened);
             }
         }
-        
-        object IView.Data
-        {
-            get { return Data; }
-            set { Data = (ValidationReport)value; }
-        }
-
-        private ValidationReport data;
 
         public ValidationReport Data
         {
-            get { return data; }
+            get
+            {
+                return data;
+            }
             set
             {
                 data = value;
@@ -48,12 +59,58 @@ namespace DelftTools.Shell.Gui.Swf.Validation
             }
         }
 
+        object IView.Data
+        {
+            get
+            {
+                return Data;
+            }
+            set
+            {
+                Data = (ValidationReport) value;
+            }
+        }
+
+        public Image Image { get; set; }
+
+        public ViewInfo ViewInfo { get; set; }
+
+        public static Image GetImageForSeverity(bool isCategory, ValidationSeverity severity)
+        {
+            switch (severity)
+            {
+                case ValidationSeverity.None:
+                    return ImageValidationNone;
+                case ValidationSeverity.Info:
+                    return isCategory
+                               ? ImageValidationCategoryInfo
+                               : ImageValidationInfo;
+                case ValidationSeverity.Warning:
+                    return isCategory
+                               ? ImageValidationCategoryWarning
+                               : ImageValidationWarning;
+                case ValidationSeverity.Error:
+                    return ImageValidationError;
+            }
+            return null;
+        }
+
+        public void EnsureVisible(object item) {}
+
+        private TreeNode SelectedNode
+        {
+            get
+            {
+                return treeView.GetNodeAt(treeView.PointToClient(Cursor.Position));
+            }
+        }
+
         private void BuildTree()
         {
             treeView.Visible = false;
 
             treeView.Nodes.Clear();
-            
+
             AddReport(treeView.Nodes, Data);
 
             if (treeView.Nodes.Count > 0)
@@ -64,7 +121,7 @@ namespace DelftTools.Shell.Gui.Swf.Validation
             treeView.Visible = true;
         }
 
-        void TreeViewDrawNode(object sender, DrawTreeNodeEventArgs e)
+        private void TreeViewDrawNode(object sender, DrawTreeNodeEventArgs e)
         {
             e.DrawDefault = false;
 
@@ -86,9 +143,11 @@ namespace DelftTools.Shell.Gui.Swf.Validation
             if (isMouseHoveringThisNode && e.Node.Nodes.Count > 0)
             {
                 var renderer = e.Node.IsExpanded ? collapseButtonRenderer : expandButtonRenderer;
-                
+
                 if (renderer != null) //can be null if visual styles disabled
+                {
                     renderer.DrawBackground(e.Graphics, new Rectangle(glyphLocation, new Size(16, 16)));
+                }
             }
 
             if (image != null)
@@ -97,14 +156,6 @@ namespace DelftTools.Shell.Gui.Swf.Validation
             }
 
             e.Graphics.DrawString(e.Node.Text, font, Brushes.Black, textLocation);
-        }
-        
-        private TreeNode SelectedNode
-        {
-            get
-            {
-                return treeView.GetNodeAt(treeView.PointToClient(Cursor.Position));
-            }
         }
 
         private static Image GetImageFromNode(TreeNode node)
@@ -193,34 +244,6 @@ namespace DelftTools.Shell.Gui.Swf.Validation
             return node;
         }
 
-        public static Image GetImageForSeverity(bool isCategory, ValidationSeverity severity)
-        {
-            switch (severity)
-            {
-                case ValidationSeverity.None:
-                    return ImageValidationNone;
-                case ValidationSeverity.Info:
-                    return isCategory
-                               ? ImageValidationCategoryInfo
-                               : ImageValidationInfo;
-                case ValidationSeverity.Warning:
-                    return isCategory
-                               ? ImageValidationCategoryWarning
-                               : ImageValidationWarning;
-                case ValidationSeverity.Error:
-                    return ImageValidationError;
-            }
-            return null;
-        }
-
-        public Image Image { get; set; }
-
-        public void EnsureVisible(object item)
-        {
-        }
-
-        public ViewInfo ViewInfo { get; set; }
-
         private void TreeViewNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             var issue = e.Node.Tag as ValidationIssue;
@@ -239,7 +262,10 @@ namespace DelftTools.Shell.Gui.Swf.Validation
 
         private static bool CanOpenView(TreeNode node)
         {
-            if (node == null) return false;
+            if (node == null)
+            {
+                return false;
+            }
 
             var issue = node.Tag as ValidationIssue;
             if (issue != null)
@@ -252,22 +278,9 @@ namespace DelftTools.Shell.Gui.Swf.Validation
             return false;
         }
 
-        public delegate void OpenViewForIssueDelegate(ValidationIssue issue);
-
-        public OpenViewForIssueDelegate OnOpenViewForIssue;
-        private readonly VisualStyleRenderer expandButtonRenderer;
-        private readonly VisualStyleRenderer collapseButtonRenderer;
-
-        private static readonly Bitmap ImageValidationNone = Properties.Resources.validation_none;
-        private static readonly Bitmap ImageValidationCategoryInfo = Properties.Resources.validation_category_info;
-        private static readonly Bitmap ImageValidationInfo = Properties.Resources.validation_info;
-        private static readonly Bitmap ImageValidationCategoryWarning = Properties.Resources.validation_category_warning;
-        private static readonly Bitmap ImageValidationWarning = Properties.Resources.validation_warning;
-        private static readonly Bitmap ImageValidationError = Properties.Resources.validation_error;
-
         private void TreeViewMouseMove(object sender, MouseEventArgs e)
         {
-            var selectedNode = SelectedNode;// buffer because it depends on mouse position
+            var selectedNode = SelectedNode; // buffer because it depends on mouse position
             var canClick = selectedNode != null && (selectedNode.Nodes.Count > 0 || CanOpenView(selectedNode));
 
             Cursor = canClick ? Cursors.Hand : DefaultCursor;

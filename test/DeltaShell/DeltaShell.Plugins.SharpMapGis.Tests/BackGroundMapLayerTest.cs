@@ -17,14 +17,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
             map.Layers.Add(new VectorLayer("Bla"));
 
             //assert the background got updated
-            Assert.AreEqual(1,backgroundLayer.Layers.Count);
+            Assert.AreEqual(1, backgroundLayer.Layers.Count);
         }
 
         [Test]
         public void UpdateDoesNotChangeDisableLayers()
         {
             var map = new Map();
-            
+
             var backgroundLayer = new BackGroundMapLayer(map);
 
             //change the default map
@@ -44,11 +44,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
 
             var vectorLayer = new VectorLayer("Bla");
             defaultMap.Layers.Add(vectorLayer);
-            
+
             vectorLayer.Selectable = true; //force selectable
 
             var backgroundLayer = new BackGroundMapLayer(defaultMap);
-            
+
             var map = new Map();
 
             map.Layers.Add(backgroundLayer);
@@ -63,7 +63,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
         {
             var defaultMap = new Map();
             var vectorLayer = new VectorLayer("Bla");
-            var backgroundLayer = new BackGroundMapLayer(defaultMap){Name = "ABC"};
+            var backgroundLayer = new BackGroundMapLayer(defaultMap)
+            {
+                Name = "ABC"
+            };
 
             defaultMap.Layers.Add(vectorLayer);
 

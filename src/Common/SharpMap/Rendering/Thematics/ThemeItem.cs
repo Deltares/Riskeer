@@ -7,7 +7,7 @@ using SharpMap.Styles;
 
 namespace SharpMap.Rendering.Thematics
 {
-    [Entity(FireOnCollectionChange=false)]
+    [Entity(FireOnCollectionChange = false)]
     public abstract class ThemeItem : IThemeItem, ICloneable
     {
         protected string label;
@@ -18,8 +18,14 @@ namespace SharpMap.Rendering.Thematics
         /// </summary>
         public virtual string Label
         {
-            get { return label; }
-            set { label = value; }
+            get
+            {
+                return label;
+            }
+            set
+            {
+                label = value;
+            }
         }
 
         /// <summary>
@@ -30,7 +36,7 @@ namespace SharpMap.Rendering.Thematics
             get
             {
                 var themeVectorStyle = style as VectorStyle;
-                if(themeVectorStyle != null)
+                if (themeVectorStyle != null)
                 {
                     if (themeVectorStyle.GeometryType == typeof(IPoint) ||
                         themeVectorStyle.GeometryType == typeof(IMultiPoint))
@@ -43,15 +49,19 @@ namespace SharpMap.Rendering.Thematics
 
                 return null;
             }
-            set
-            {
-            }
+            set {}
         }
 
         public virtual IStyle Style
         {
-            get { return style; }
-            set { style = value; }
+            get
+            {
+                return style;
+            }
+            set
+            {
+                style = value;
+            }
         }
 
         public abstract string Range { get; }

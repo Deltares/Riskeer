@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
@@ -8,7 +9,7 @@ namespace SharpMap.Api.Editors
     public interface ISnapRule
     {
         int PixelGravity { get; set; }
-        
+
         bool Obligatory { get; set; }
 
         /// <summary>
@@ -23,6 +24,6 @@ namespace SharpMap.Api.Editors
         /// <param name="envelope"></param>
         /// <param name="trackingIndex"></param>
         /// <returns></returns>
-        SnapResult Execute(IFeature sourceFeature, System.Tuple<IFeature, ILayer>[] snapCandidates, IGeometry snapSource, IList<IFeature> sourceGeometry, ICoordinate snapTargets, IEnvelope worldPos, int trackingIndex);
+        SnapResult Execute(IFeature sourceFeature, Tuple<IFeature, ILayer>[] snapCandidates, IGeometry snapSource, IList<IFeature> sourceGeometry, ICoordinate snapTargets, IEnvelope worldPos, int trackingIndex);
     }
 }

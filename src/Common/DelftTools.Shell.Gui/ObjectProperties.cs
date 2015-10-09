@@ -12,8 +12,14 @@ namespace DelftTools.Shell.Gui
         [Browsable(false)]
         public virtual object Data
         {
-            get { return data; }
-            set { data = (T) value; }
+            get
+            {
+                return data;
+            }
+            set
+            {
+                data = (T) value;
+            }
         }
     }
 }

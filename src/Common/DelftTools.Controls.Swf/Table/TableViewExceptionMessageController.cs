@@ -7,9 +7,9 @@ namespace DelftTools.Controls.Swf.Table
         public override string GetLocalizedString(GridStringId id)
         {
             return id == GridStringId.ColumnViewExceptionMessage
-                ? " Do you want to correct the value?\n\n" +
-                  "Choose Yes to correct the value yourself. Choose No to revert to the original value."
-                : base.GetLocalizedString(id);
+                       ? " Do you want to correct the value?\n\n" +
+                         "Choose Yes to correct the value yourself. Choose No to revert to the original value."
+                       : base.GetLocalizedString(id);
         }
     }
 }

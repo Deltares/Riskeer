@@ -33,8 +33,14 @@ namespace DelftTools.Tests.Controls.Swf
         {
             var dialog = new CustomInputDialog();
             dialog.AddInput<string>("Name");
-            dialog.AddChoice("Occupation", new List<string> {"Construction", "IT", "Management", "Finance"});
-            dialog.AddChoice("Years of experience", new List<int> { 0, 1, 2, 3 }).ToolTip = "Number of years experience, choose 3 if 3 or more year";
+            dialog.AddChoice("Occupation", new List<string>
+            {
+                "Construction", "IT", "Management", "Finance"
+            });
+            dialog.AddChoice("Years of experience", new List<int>
+            {
+                0, 1, 2, 3
+            }).ToolTip = "Number of years experience, choose 3 if 3 or more year";
 
             Assert.AreEqual("", dialog["Name"]);
             Assert.AreEqual("Construction", dialog["Occupation"]);

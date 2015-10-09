@@ -16,31 +16,46 @@ namespace SharpMap.Tests.Layers
         public void SetGetText()
         {
             var map = new Map(new Size(100, 100));
-            
-            var feature1 = new SimpleFeature { Data = 1, Geometry = new Point(50, 50) };
-            var feature2 = new SimpleFeature { Data = 5, Geometry = new Point(50, 55) };
-            var featureCollection = new FeatureCollection { Features = {feature1, feature2}};
+
+            var feature1 = new SimpleFeature
+            {
+                Data = 1, Geometry = new Point(50, 50)
+            };
+            var feature2 = new SimpleFeature
+            {
+                Data = 5, Geometry = new Point(50, 55)
+            };
+            var featureCollection = new FeatureCollection
+            {
+                Features =
+                {
+                    feature1, feature2
+                }
+            };
 
             var callCount = 0;
 
-            var vectorLayer = new VectorLayer { DataSource = featureCollection };
+            var vectorLayer = new VectorLayer
+            {
+                DataSource = featureCollection
+            };
 
             var labelLayer = new LabelLayer
-                                 {
-                                     Visible = true,
-                                     DataSource = featureCollection,
-                                     Parent = vectorLayer,
-                                     Map = map,
-                                     LabelStringDelegate = delegate(IFeature feature)
-                                                               {
-                                                                   callCount++;
+            {
+                Visible = true,
+                DataSource = featureCollection,
+                Parent = vectorLayer,
+                Map = map,
+                LabelStringDelegate = delegate(IFeature feature)
+                {
+                    callCount++;
 
-                                                                   feature
-                                                                       .Should().Be.OfType<SimpleFeature>();
+                    feature
+                        .Should().Be.OfType<SimpleFeature>();
 
-                                                                   return ((SimpleFeature) feature).Data.ToString();
-                                                               }
-                                 };
+                    return ((SimpleFeature) feature).Data.ToString();
+                }
+            };
 
             labelLayer.Render();
 

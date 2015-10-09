@@ -11,15 +11,15 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.FromType
         public static ObjectUIDescription ExtractObjectDescription(Type type)
         {
             return new ObjectUIDescription
-                {
-                    FieldDescriptions =
-                        type.GetProperties(
-                            BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-                            .Where(p => !p.GetCustomAttributes(typeof (HideAttribute), false).Any())
-                            .OrderBy(p => p.Name) //alphabetic ordering
-                            .Select(ExtractFieldDescription)
-                            .ToList(),
-                };
+            {
+                FieldDescriptions =
+                    type.GetProperties(
+                        BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
+                        .Where(p => !p.GetCustomAttributes(typeof(HideAttribute), false).Any())
+                        .OrderBy(p => p.Name) //alphabetic ordering
+                        .Select(ExtractFieldDescription)
+                        .ToList(),
+            };
         }
 
         private static FieldUIDescription ExtractFieldDescription(PropertyInfo propertyInfo)
@@ -36,14 +36,14 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.FromType
                 SubCategory = GetCategoryValue<SubCategoryAttribute>(propertyInfo, a => a.SubCategory),
                 UnitSymbol = GetCategoryValue<UnitAttribute>(propertyInfo, a => a.Symbol),
                 Label = GetCategoryValue<DisplayNameAttribute>(propertyInfo, a => a.DisplayName) ??
-                    GetCategoryValue<DescriptionAttribute>(propertyInfo, a => a.Description) ??
-                    propertyInfo.Name,
+                        GetCategoryValue<DescriptionAttribute>(propertyInfo, a => a.Description) ??
+                        propertyInfo.Name,
                 IsReadOnly = propertyInfo.GetSetMethod() == null || GetAttribute<ReadOnlyAttribute>(propertyInfo) != null,
                 AlwaysRefresh = GetAttribute<DependentPropertyAttribute>(propertyInfo) != null,
                 ValueType = propertyInfo.PropertyType,
                 CustomControlHelper = InstantiateCustomControlHelper(GetCategoryValue<CustomControlHelperAttribute>(propertyInfo,
-                                            a => a.HelperTypeName), GetCategoryValue<CustomControlHelperAttribute>(propertyInfo,
-                                            a => a.AssemblyName)),
+                                                                                                                    a => a.HelperTypeName), GetCategoryValue<CustomControlHelperAttribute>(propertyInfo,
+                                                                                                                                                                                           a => a.AssemblyName)),
             };
             descr.ToolTip = descr.Label;
             return descr;
@@ -110,13 +110,15 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.FromType
         private static TAttrib GetAttribute<TAttrib>(PropertyInfo propertyInfo) where TAttrib : class
         {
             var customAttributes = propertyInfo.GetCustomAttributes(true);
-            return (TAttrib)customAttributes.FirstOrDefault(c => c is TAttrib);
+            return (TAttrib) customAttributes.FirstOrDefault(c => c is TAttrib);
         }
 
         private static ICustomControlHelper InstantiateCustomControlHelper(string customControlHelperTypeName, string assemblyName)
         {
             if (string.IsNullOrEmpty(customControlHelperTypeName))
+            {
                 return null;
+            }
 
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             if (!string.IsNullOrEmpty(assemblyName))
@@ -132,12 +134,12 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.FromType
             }
 
             var type = assemblies.SelectMany(a => a.GetTypes())
-                          .FirstOrDefault(t => t.FullName.Equals(customControlHelperTypeName));
+                                 .FirstOrDefault(t => t.FullName.Equals(customControlHelperTypeName));
 
             if (type == null)
             {
                 throw new ArgumentException(string.Format(
-                    "Cannot find type {0}, make sure you specify the full type name, including namespace. Also give the assembly name.", 
+                    "Cannot find type {0}, make sure you specify the full type name, including namespace. Also give the assembly name.",
                     customControlHelperTypeName));
             }
 

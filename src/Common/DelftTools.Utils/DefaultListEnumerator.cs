@@ -5,9 +5,9 @@ namespace DelftTools.Utils
 {
     public class DefaultListEnumerator<T> : IEnumerator<T>
     {
+        private readonly int count;
         private IList<T> list;
         private int index;
-        private readonly int count;
 
         public DefaultListEnumerator(IList<T> list)
         {
@@ -16,10 +16,22 @@ namespace DelftTools.Utils
             index = -1;
         }
 
+        public T Current { get; private set; }
+
+        object IEnumerator.Current
+        {
+            get
+            {
+                return Current;
+            }
+        }
+
         public bool MoveNext()
         {
             if (++index >= count)
+            {
                 return false;
+            }
             Current = list[index];
             return true;
         }
@@ -32,13 +44,6 @@ namespace DelftTools.Utils
         public void Dispose()
         {
             list = null;
-        }
-
-        public T Current { get; private set; }
-
-        object IEnumerator.Current
-        {
-            get { return Current; }
         }
     }
 }

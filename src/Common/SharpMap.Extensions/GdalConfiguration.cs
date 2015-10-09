@@ -31,8 +31,8 @@ using System;
 using System.IO;
 using System.Reflection;
 using DelftTools.Utils.Interop;
-using Gdal = OSGeo.GDAL.Gdal;
-using Ogr = OSGeo.OGR.Ogr;
+using OSGeo.GDAL;
+using OSGeo.OGR;
 
 namespace SharpMap.Extensions
 {
@@ -42,14 +42,6 @@ namespace SharpMap.Extensions
         private static bool _configuredGdal;
 
         /// <summary>
-        /// Function to determine which platform we're on
-        /// </summary>
-        private static string GetPlatform()
-        {
-            return Environment.Is64BitProcess ? "x64" : "x86";
-        }
-        
-        /// <summary>
         /// Construction of Gdal/Ogr
         /// </summary>
         static GdalConfiguration()
@@ -58,10 +50,12 @@ namespace SharpMap.Extensions
             var executingDirectory = Path.GetDirectoryName(executingAssemblyFile);
 
             if (string.IsNullOrEmpty(executingDirectory))
+            {
                 throw new InvalidOperationException("cannot get executing directory");
-            
+            }
+
             var gdalPath = Path.Combine(executingDirectory, "gdal");
-            
+
             if (!Directory.Exists(gdalPath))
             {
                 // some code to handle tests: instead of adding gdal native to all test 
@@ -75,11 +69,17 @@ namespace SharpMap.Extensions
                 }
             }
 
-            if (!Directory.Exists(gdalPath)) throw new System.IO.DirectoryNotFoundException(String.Format("Directory '{0}' not found!", gdalPath));
+            if (!Directory.Exists(gdalPath))
+            {
+                throw new DirectoryNotFoundException(String.Format("Directory '{0}' not found!", gdalPath));
+            }
 
             var nativePath = Path.Combine(gdalPath, GetPlatform());
-            
-            if (!Directory.Exists(nativePath)) throw new System.IO.DirectoryNotFoundException(String.Format("Directory '{0}' not found!", nativePath));
+
+            if (!Directory.Exists(nativePath))
+            {
+                throw new DirectoryNotFoundException(String.Format("Directory '{0}' not found!", nativePath));
+            }
 
             using (NativeLibrary.SwitchDllSearchDirectory(nativePath))
             {
@@ -88,7 +88,7 @@ namespace SharpMap.Extensions
                 var path = Environment.GetEnvironmentVariable("PATH");
                 path = nativePath + ";" + path;
                 Environment.SetEnvironmentVariable("PATH", path);
-                
+
                 // disable plugins directory
                 Gdal.SetConfigOption("GDAL_DRIVER_PATH", "disable");
 
@@ -112,7 +112,10 @@ namespace SharpMap.Extensions
         /// <remarks>Be sure to call this function before using Gdal/Ogr/Osr</remarks>
         public static void ConfigureOgr()
         {
-            if (_configuredOgr) return;
+            if (_configuredOgr)
+            {
+                return;
+            }
 
             // Register drivers
             Ogr.RegisterAll();
@@ -127,13 +130,24 @@ namespace SharpMap.Extensions
         /// <remarks>Be sure to call this function before using Gdal/Ogr/Osr</remarks>
         public static void ConfigureGdal()
         {
-            if (_configuredGdal) return;
+            if (_configuredGdal)
+            {
+                return;
+            }
 
             // Register drivers
             Gdal.AllRegister();
             _configuredGdal = true;
 
             PrintDriversGdal();
+        }
+
+        /// <summary>
+        /// Function to determine which platform we're on
+        /// </summary>
+        private static string GetPlatform()
+        {
+            return Environment.Is64BitProcess ? "x64" : "x86";
         }
 
         private static void PrintDriversOgr()

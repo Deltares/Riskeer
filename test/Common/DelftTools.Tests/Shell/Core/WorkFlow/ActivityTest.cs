@@ -1,8 +1,6 @@
 ﻿using System;
-
 using DelftTools.Shell.Core.Workflow;
 using DelftTools.TestUtils;
-
 using NUnit.Framework;
 
 namespace DelftTools.Tests.Shell.Core.WorkFlow
@@ -29,7 +27,10 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
         {
             // setup & call
             const string someName = "Some name";
-            var activity = new SimpleActivity { Name = someName }; 
+            var activity = new SimpleActivity
+            {
+                Name = someName
+            };
 
             // assert
             Assert.AreEqual(someName, activity.Name);
@@ -51,7 +52,7 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
                 Assert.AreEqual(newStatus, args.NewStatus);
                 Assert.AreSame(activity, sender);
             };
-            
+
             // call
             activity.SetStatus(newStatus);
 
@@ -68,10 +69,7 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
 
             var activity = new SimpleActivity();
             ActivityStatus originalStatus = activity.Status;
-            activity.StatusChanged += (sender, args) =>
-            {
-                callCount++;
-            };
+            activity.StatusChanged += (sender, args) => { callCount++; };
 
             // call
             activity.SetStatus(originalStatus);
@@ -334,13 +332,24 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
             // assert
             Assert.AreEqual(2, statusChangeCount);
         }
-        
+
         private class SimpleActivity : Activity
         {
             /// <summary>
             /// Sets the implementation of <see cref="OnInitialize"/>.
             /// </summary>
             public Action OnInitializeInjection { private get; set; }
+
+            /// <summary>
+            /// Sets the implementation of <see cref="OnCancel"/>.
+            /// </summary>
+            public Action OnCancelInjection { private get; set; }
+
+            public void SetStatus(ActivityStatus newStatus)
+            {
+                Status = newStatus;
+            }
+
             protected override void OnInitialize()
             {
                 OnInitializeInjection();
@@ -348,13 +357,9 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
 
             protected override void OnExecute()
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
-            /// <summary>
-            /// Sets the implementation of <see cref="OnCancel"/>.
-            /// </summary>
-            public Action OnCancelInjection { private get; set; }
             protected override void OnCancel()
             {
                 OnCancelInjection();
@@ -362,17 +367,12 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
 
             protected override void OnCleanUp()
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
             protected override void OnFinish()
             {
-                throw new System.NotImplementedException();
-            }
-
-            public void SetStatus(ActivityStatus newStatus)
-            {
-                Status = newStatus;
+                throw new NotImplementedException();
             }
         }
     }

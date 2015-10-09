@@ -16,7 +16,6 @@ namespace DelftTools.Shell.Core.Workflow
                     throw new Exception(string.Format("The initialization of activity {0} failed", activity));
                 }
             }
-
         }
 
         protected override void OnExecute()

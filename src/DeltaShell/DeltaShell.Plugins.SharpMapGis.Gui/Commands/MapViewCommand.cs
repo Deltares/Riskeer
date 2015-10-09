@@ -7,25 +7,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
 {
     public abstract class MapViewCommand : Command
     {
-        protected override void OnExecute(params object[] arguments)
-        {
-        }
-
-        protected MapView MapView
-        {
-            get { return SharpMapGisGuiPlugin.GetFocusedMapView(); }
-        }
-
-        protected IMap Map
-        {
-            get { return MapView != null ? MapView.Map : null; }
-        }
-
-        protected virtual IMapTool CurrentTool
-        {
-            get { return null; }
-        }
-
         public override bool Enabled
         {
             get
@@ -40,7 +21,36 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
             {
                 return CurrentTool != null && CurrentTool.IsActive;
             }
-            set { base.Checked = value; }
+            set
+            {
+                base.Checked = value;
+            }
         }
+
+        protected MapView MapView
+        {
+            get
+            {
+                return SharpMapGisGuiPlugin.GetFocusedMapView();
+            }
+        }
+
+        protected IMap Map
+        {
+            get
+            {
+                return MapView != null ? MapView.Map : null;
+            }
+        }
+
+        protected virtual IMapTool CurrentTool
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        protected override void OnExecute(params object[] arguments) {}
     }
 }

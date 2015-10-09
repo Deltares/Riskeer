@@ -10,7 +10,7 @@ namespace Wti.Forms.NodePresenters
 {
     public class PipingDataNodePresenter : ITreeNodePresenter
     {
-        public Func<object, IMenuItem> ContextMenu { private get; set; } 
+        public Func<object, IMenuItem> ContextMenu { private get; set; }
 
         public ITreeView TreeView { get; set; }
 
@@ -47,13 +47,9 @@ namespace Wti.Forms.NodePresenters
             return false;
         }
 
-        public void OnNodeRenamed(object nodeData, string newName)
-        {
-        }
+        public void OnNodeRenamed(object nodeData, string newName) {}
 
-        public void OnNodeChecked(ITreeNode node)
-        {
-        }
+        public void OnNodeChecked(ITreeNode node) {}
 
         public DragOperations CanDrag(object nodeData)
         {
@@ -70,26 +66,18 @@ namespace Wti.Forms.NodePresenters
             return false;
         }
 
-        public void OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position)
-        {
-        }
+        public void OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position) {}
 
-        public void OnNodeSelected(object nodeData)
-        {
-        }
+        public void OnNodeSelected(object nodeData) {}
 
         public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
         {
             return ContextMenu(nodeData);
         }
 
-        public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e)
-        {
-        }
+        public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}
 
-        public void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-        }
+        public void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e) {}
 
         public bool CanRemove(object parentNodeData, object nodeData)
         {

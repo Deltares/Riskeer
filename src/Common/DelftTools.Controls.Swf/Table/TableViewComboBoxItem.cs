@@ -6,9 +6,9 @@ namespace DelftTools.Controls.Swf.Table
     internal class TableViewComboBoxItem : IConvertible
     {
         public object Value { get; set; }
-            
-        public string DisplayText 
-        { 
+
+        public string DisplayText
+        {
             get
             {
                 if (CustomFormatter != null)
@@ -16,21 +16,21 @@ namespace DelftTools.Controls.Swf.Table
                     return CustomFormatter.Format(null, Value, null);
                 }
 
-                if(Value.GetType().IsEnum)
+                if (Value.GetType().IsEnum)
                 {
                     return EnumDescriptionAttributeTypeConverter.GetEnumDescription((Enum) Value);
                 }
 
                 return Value.ToString();
-            } 
+            }
         }
-            
+
+        public ICustomFormatter CustomFormatter { get; set; }
+
         public override string ToString()
         {
             return Value != null ? Value.ToString() : "null";
         }
-
-        public ICustomFormatter CustomFormatter { get; set; }
 
         #region Implementation of IConvertible
 

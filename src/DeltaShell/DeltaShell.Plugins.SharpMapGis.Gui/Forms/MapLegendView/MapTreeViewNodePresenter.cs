@@ -6,6 +6,7 @@ using System.Linq;
 using DelftTools.Controls;
 using DelftTools.Shell.Gui;
 using DelftTools.Shell.Gui.Swf;
+using DeltaShell.Plugins.SharpMapGis.Gui.Properties;
 using SharpMap;
 using SharpMap.Api.Layers;
 using SharpMap.Layers;
@@ -14,11 +15,9 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public class MapTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<Map>
     {
-        private static readonly Bitmap MapIcon = Properties.Resources.Map;
+        private static readonly Bitmap MapIcon = Resources.Map;
 
-        public MapTreeViewNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin)
-        {
-        }
+        public MapTreeViewNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
 
         public override bool CanRenameNode(ITreeNode node)
         {
@@ -32,19 +31,15 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                 var indexOfCoordinateSystem = newName.IndexOf(string.Format(" ({0})", map.CoordinateSystem.Name),
                                                               StringComparison.InvariantCulture);
                 if (indexOfCoordinateSystem >= 0)
+                {
                     newName = newName.Substring(0, indexOfCoordinateSystem);
+                }
             }
 
             if (map.Name != newName)
+            {
                 map.Name = newName;
-        }
-
-        private static void SetNodeText(ITreeNode node, Map map)
-        {
-            if (map.CoordinateSystem != null)
-                node.Text = string.Format("{0} ({1})", map.Name, map.CoordinateSystem.Name);
-            else
-                node.Text = map.Name;
+            }
         }
 
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, Map map)
@@ -59,16 +54,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                 {
                     subNode.Expand();
                 }
-            }
-        }
-
-        protected override void OnPropertyChanged(Map map, ITreeNode node, PropertyChangedEventArgs e)
-        {
-            if (node == null) return;
-
-            if (e.PropertyName == "Name")
-            {
-                SetNodeText(node, map);
             }
         }
 
@@ -113,6 +98,31 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                 {
                     target.Layers.Insert(position, layer);
                 }
+            }
+        }
+
+        protected override void OnPropertyChanged(Map map, ITreeNode node, PropertyChangedEventArgs e)
+        {
+            if (node == null)
+            {
+                return;
+            }
+
+            if (e.PropertyName == "Name")
+            {
+                SetNodeText(node, map);
+            }
+        }
+
+        private static void SetNodeText(ITreeNode node, Map map)
+        {
+            if (map.CoordinateSystem != null)
+            {
+                node.Text = string.Format("{0} ({1})", map.Name, map.CoordinateSystem.Name);
+            }
+            else
+            {
+                node.Text = map.Name;
             }
         }
     }

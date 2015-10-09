@@ -2,7 +2,7 @@ using System;
 using GeoAPI.Geometries;
 
 namespace GisSharpBlog.NetTopologySuite.Noding
-{    
+{
     /// <summary>
     /// Octants in the Cartesian plane.
     /// Octants are numbered as follows:
@@ -25,49 +25,49 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// <summary>
         /// 
         /// </summary>
-        Zero    = 0,
+        Zero = 0,
 
         /// <summary>
         /// 
         /// </summary>
-        One     = 1,
+        One = 1,
 
         /// <summary>
         /// 
         /// </summary>
-        Two     = 2,
+        Two = 2,
 
         /// <summary>
         /// 
         /// </summary>
-        Three   = 3,
+        Three = 3,
 
         /// <summary>
         /// 
         /// </summary>
-        Four    = 4,
+        Four = 4,
 
         /// <summary>
         /// 
         /// </summary>
-        Five    = 5,
+        Five = 5,
 
         /// <summary>
         /// 
         /// </summary>
-        Six     = 6,
+        Six = 6,
 
         /// <summary>
         /// 
         /// </summary>
-        Seven   = 7,
+        Seven = 7,
     }
 
     /// <summary>
     ///  Methods for computing and working with <see cref="Octants"/> of the Cartesian plane.
     /// </summary>
     public static class Octant
-    {        
+    {
         /// <summary>
         /// Returns the octant of a directed line segment (specified as x and y
         /// displacements, which cannot both be 0).
@@ -78,7 +78,9 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         public static Octants GetOctant(double dx, double dy)
         {
             if (dx == 0.0 && dy == 0.0)
+            {
                 throw new ArgumentException("Cannot compute the octant for point ( " + dx + ", " + dy + " )");
+            }
 
             double adx = Math.Abs(dx);
             double ady = Math.Abs(dy);
@@ -88,33 +90,49 @@ namespace GisSharpBlog.NetTopologySuite.Noding
                 if (dy >= 0)
                 {
                     if (adx >= ady)
+                    {
                         return Octants.Zero;
+                    }
                     else
+                    {
                         return Octants.One;
+                    }
                 }
                 else // dy < 0
-                { 
+                {
                     if (adx >= ady)
+                    {
                         return Octants.Seven;
+                    }
                     else
+                    {
                         return Octants.Six;
+                    }
                 }
             }
             else // dx < 0
-            { 
+            {
                 if (dy >= 0)
                 {
                     if (adx >= ady)
+                    {
                         return Octants.Three;
+                    }
                     else
+                    {
                         return Octants.Two;
+                    }
                 }
                 else // dy < 0
-                { 
+                {
                     if (adx >= ady)
+                    {
                         return Octants.Four;
+                    }
                     else
+                    {
                         return Octants.Five;
+                    }
                 }
             }
         }
@@ -130,8 +148,10 @@ namespace GisSharpBlog.NetTopologySuite.Noding
             double dx = p1.X - p0.X;
             double dy = p1.Y - p0.Y;
             if (dx == 0.0 && dy == 0.0)
+            {
                 throw new ArgumentException("Cannot compute the octant for two identical points " + p0);
+            }
             return GetOctant(dx, dy);
-        }     
+        }
     }
 }

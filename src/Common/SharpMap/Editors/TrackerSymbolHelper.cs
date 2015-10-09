@@ -89,7 +89,38 @@ namespace SharpMap.Editors
                 this.width = width;
                 this.height = height;
                 penString = pen.Color.ToString();
-                brushString = brush is SolidBrush ? ((SolidBrush)brush).Color.ToString() : brush.ToString();
+                brushString = brush is SolidBrush ? ((SolidBrush) brush).Color.ToString() : brush.ToString();
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (ReferenceEquals(null, obj))
+                {
+                    return false;
+                }
+                if (ReferenceEquals(this, obj))
+                {
+                    return true;
+                }
+                if (obj.GetType() != GetType())
+                {
+                    return false;
+                }
+                return Equals((TrackerSymbolHelperArgumentKey) obj);
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    var hashCode = totalWidth;
+                    hashCode = (hashCode*397) ^ totaHeight;
+                    hashCode = (hashCode*397) ^ width;
+                    hashCode = (hashCode*397) ^ height;
+                    hashCode = (hashCode*397) ^ (penString != null ? penString.GetHashCode() : 0);
+                    hashCode = (hashCode*397) ^ (brushString != null ? brushString.GetHashCode() : 0);
+                    return hashCode;
+                }
             }
 
             private bool Equals(TrackerSymbolHelperArgumentKey other)
@@ -100,28 +131,6 @@ namespace SharpMap.Editors
                        height == other.height &&
                        string.Equals(penString, other.penString) &&
                        string.Equals(brushString, other.brushString);
-            }
-
-            public override bool Equals(object obj)
-            {
-                if (ReferenceEquals(null, obj)) return false;
-                if (ReferenceEquals(this, obj)) return true;
-                if (obj.GetType() != this.GetType()) return false;
-                return Equals((TrackerSymbolHelperArgumentKey)obj);
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    var hashCode = totalWidth;
-                    hashCode = (hashCode * 397) ^ totaHeight;
-                    hashCode = (hashCode * 397) ^ width;
-                    hashCode = (hashCode * 397) ^ height;
-                    hashCode = (hashCode * 397) ^ (penString != null ? penString.GetHashCode() : 0);
-                    hashCode = (hashCode * 397) ^ (brushString != null ? brushString.GetHashCode() : 0);
-                    return hashCode;
-                }
             }
         }
     }

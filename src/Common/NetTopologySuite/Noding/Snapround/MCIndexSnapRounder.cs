@@ -7,7 +7,6 @@ using GisSharpBlog.NetTopologySuite.Geometries;
 
 namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
 {
-
     /// <summary>
     /// Uses Snap Rounding to compute a rounded,
     /// fully noded arrangement from a set of {@link SegmentString}s.
@@ -24,9 +23,9 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
     /// </para>
     /// </summary>
     public class MCIndexSnapRounder : INoder
-    {        
-        private LineIntersector li = null;
+    {
         private readonly double scaleFactor;
+        private readonly LineIntersector li = null;
         private MCIndexNoder noder = null;
         private MCIndexPointSnapper pointSnapper = null;
         private IList nodedSegStrings = null;
@@ -35,11 +34,24 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
         /// Initializes a new instance of the <see cref="MCIndexSnapRounder"/> class.
         /// </summary>
         /// <param name="pm">The <see cref="PrecisionModel" /> to use.</param>
-        public MCIndexSnapRounder(PrecisionModel pm) 
+        public MCIndexSnapRounder(PrecisionModel pm)
         {
             li = new RobustLineIntersector();
             li.PrecisionModel = pm;
             scaleFactor = pm.Scale;
+        }
+
+        /// <summary>
+        /// Computes nodes introduced as a result of
+        /// snapping segments to vertices of other segments.
+        /// </summary>
+        /// <param name="edges"></param>
+        public void ComputeVertexSnaps(IList edges)
+        {
+            foreach (SegmentString edge in edges)
+            {
+                ComputeVertexSnaps(edge);
+            }
         }
 
         /// <summary>
@@ -60,10 +72,10 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
         /// <param name="inputSegmentStrings"></param>
         public void ComputeNodes(IList inputSegmentStrings)
         {
-            this.nodedSegStrings = inputSegmentStrings;
+            nodedSegStrings = inputSegmentStrings;
             noder = new MCIndexNoder();
             pointSnapper = new MCIndexPointSnapper(noder.MonotoneChains, noder.Index);
-            SnapRound(inputSegmentStrings, li);            
+            SnapRound(inputSegmentStrings, li);
         }
 
         /// <summary>
@@ -78,7 +90,10 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
             {
                 nv.CheckValid();
             }
-            catch (Exception ex) { Trace.WriteLine(ex.ToString()); }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex.ToString());
+            }
         }
 
         /// <summary>
@@ -90,7 +105,7 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
         {
             IList intersections = FindInteriorIntersections(segStrings, li);
             ComputeIntersectionSnaps(intersections);
-            ComputeVertexSnaps(segStrings);        
+            ComputeVertexSnaps(segStrings);
         }
 
         /// <summary>
@@ -124,17 +139,6 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
         }
 
         /// <summary>
-        /// Computes nodes introduced as a result of
-        /// snapping segments to vertices of other segments.
-        /// </summary>
-        /// <param name="edges"></param>
-        public void ComputeVertexSnaps(IList edges)
-        {
-            foreach (SegmentString edge in edges)
-                ComputeVertexSnaps(edge);            
-        }
-
-        /// <summary>
         /// Performs a brute-force comparison of every segment in each <see cref="SegmentString" />.
         /// This has n^2 performance.
         /// </summary>
@@ -142,13 +146,15 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
         private void ComputeVertexSnaps(SegmentString e)
         {
             ICoordinate[] pts0 = e.Coordinates;
-            for(int i = 0; i < pts0.Length - 1; i++)
+            for (int i = 0; i < pts0.Length - 1; i++)
             {
                 HotPixel hotPixel = new HotPixel(pts0[i], scaleFactor, li);
                 bool isNodeAdded = pointSnapper.Snap(hotPixel, e, i);
                 // if a node is created for a vertex, that vertex must be noded too
                 if (isNodeAdded)
+                {
                     e.AddIntersection(pts0[i], i);
+                }
             }
         }
     }

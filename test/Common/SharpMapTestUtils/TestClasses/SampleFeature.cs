@@ -4,71 +4,42 @@ using GeoAPI.Geometries;
 
 namespace SharpMapTestUtils.TestClasses
 {
-    [Entity(FireOnCollectionChange=false)]
+    [Entity(FireOnCollectionChange = false)]
     public class SampleFeature : IFeature
     {
-        private IGeometry geometry;
-        private IFeatureAttributeCollection attributes;
-        
-        private int integerProperty;
-        private double doubleProperty;
-        private string stringProperty;
-
-        public SampleFeature()
-        {
-        }
+        public SampleFeature() {}
 
         public SampleFeature(int i)
         {
-            integerProperty = i;
-        }
-
-        #region IFeature members
-        
-        public IGeometry Geometry
-        {
-            get { return geometry; }
-            set { geometry = value; }
-        }
-
-        public IFeatureAttributeCollection Attributes
-        {
-            get { return attributes; }
-            set { attributes = value; }
-        }
-
-        #endregion IFeature
-
-        [FeatureAttribute]
-        public int IntegerProperty
-        {
-            get { return integerProperty; }
-            set { integerProperty = value; }
+            IntegerProperty = i;
         }
 
         [FeatureAttribute]
-        public double DoubleProperty
-        {
-            get { return doubleProperty; }
-            set { doubleProperty = value; }
-        }
+        public int IntegerProperty { get; set; }
 
         [FeatureAttribute]
-        public string StringProperty
-        {
-            get { return stringProperty; }
-            set { stringProperty = value; }
-        }
+        public double DoubleProperty { get; set; }
+
+        [FeatureAttribute]
+        public string StringProperty { get; set; }
 
         public object Clone()
         {
             return new SampleFeature
-                       {
-                           Geometry = (IGeometry) (Geometry == null ? null : Geometry.Clone()),
-                           DoubleProperty = DoubleProperty,
-                           IntegerProperty = IntegerProperty,
-                           StringProperty = StringProperty
-                       };
+            {
+                Geometry = (IGeometry) (Geometry == null ? null : Geometry.Clone()),
+                DoubleProperty = DoubleProperty,
+                IntegerProperty = IntegerProperty,
+                StringProperty = StringProperty
+            };
         }
+
+        #region IFeature members
+
+        public IGeometry Geometry { get; set; }
+
+        public IFeatureAttributeCollection Attributes { get; set; }
+
+        #endregion IFeature
     }
 }

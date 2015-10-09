@@ -17,10 +17,10 @@ namespace SharpMap.Tests.Data
             var accessor = new FeatureDataRowAttributeAccessor(row);
 
             // now add column and check if it is available via accessor
-            table.Columns.Add("Name", typeof (string));
+            table.Columns.Add("Name", typeof(string));
 
             accessor.Count
-                .Should().Be.EqualTo(1);
+                    .Should().Be.EqualTo(1);
         }
     }
 }

@@ -14,22 +14,26 @@ namespace DelftTools.Tests.Controls.Swf.CSV
         public void ConvertCsvFile()
         {
             var csvToDataTableConverter = new CsvImporter();
-            
+
             var dataTable = csvToDataTableConverter.SplitToTable(TestHelper.GetTestFilePath("Timeseries.csv"),
-                                                          new CsvSettings
-                                                              {
-                                                                  Delimiter = ',',
-                                                                  FirstRowIsHeader = true,
-                                                                  SkipEmptyLines = true
-                                                              });
+                                                                 new CsvSettings
+                                                                 {
+                                                                     Delimiter = ',',
+                                                                     FirstRowIsHeader = true,
+                                                                     SkipEmptyLines = true
+                                                                 });
 
             var customDTFormat = (DateTimeFormatInfo) CultureInfo.InvariantCulture.DateTimeFormat.Clone();
             customDTFormat.FullDateTimePattern = "dd/MM/yyyy";
 
             var csvMapping = new Dictionary<CsvRequiredField, CsvColumnInfo>
             {
-                { new CsvRequiredField("Date time", typeof (DateTime)), new CsvColumnInfo(0, customDTFormat) },
-                { new CsvRequiredField("Value (m AD)", typeof (double)), new CsvColumnInfo(1, new NumberFormatInfo()) }
+                {
+                    new CsvRequiredField("Date time", typeof(DateTime)), new CsvColumnInfo(0, customDTFormat)
+                },
+                {
+                    new CsvRequiredField("Value (m AD)", typeof(double)), new CsvColumnInfo(1, new NumberFormatInfo())
+                }
             };
 
             var typedDataTable = csvToDataTableConverter.Extract(dataTable, csvMapping);
@@ -46,18 +50,23 @@ namespace DelftTools.Tests.Controls.Swf.CSV
             var csvToDataTableConverter = new CsvImporter();
 
             var dataTable = csvToDataTableConverter.SplitToTable(TestHelper.GetTestFilePath("Timeseries.csv"),
-                                                          new CsvSettings
-                                                          {
-                                                              Delimiter = ',',
-                                                              FirstRowIsHeader = true,
-                                                              SkipEmptyLines = true
-                                                          });
+                                                                 new CsvSettings
+                                                                 {
+                                                                     Delimiter = ',',
+                                                                     FirstRowIsHeader = true,
+                                                                     SkipEmptyLines = true
+                                                                 });
 
             var csvMapping = new Dictionary<CsvRequiredField, CsvColumnInfo>
             {
-                { new CsvRequiredField("Value (m AD)", typeof (double)), new CsvColumnInfo(1, new NumberFormatInfo()) }
+                {
+                    new CsvRequiredField("Value (m AD)", typeof(double)), new CsvColumnInfo(1, new NumberFormatInfo())
+                }
             };
-            var filteredDataTable = csvToDataTableConverter.Extract(dataTable, csvMapping, new[] { new CsvPassIfEqualFilter(0, "14/07/1990") });
+            var filteredDataTable = csvToDataTableConverter.Extract(dataTable, csvMapping, new[]
+            {
+                new CsvPassIfEqualFilter(0, "14/07/1990")
+            });
 
             Assert.AreEqual(1, filteredDataTable.Columns.Count);
             Assert.AreEqual(1, filteredDataTable.Rows.Count);

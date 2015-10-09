@@ -22,7 +22,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// Initializes a new instance of the <see cref="T:BEBinaryReader"/> class.
         /// </summary>
         /// <param name="stream">The stream.</param>
-		public BEBinaryReader(Stream stream)  : base(stream) { }
+        public BEBinaryReader(Stream stream) : base(stream) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:BEBinaryReader"/> class.
@@ -31,7 +31,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="encoding">The character encoding.</param>
         /// <exception cref="T:System.ArgumentNullException">encoding is null. </exception>
         /// <exception cref="T:System.ArgumentException">The stream does not support reading, the stream is null, or the stream is already closed. </exception>
-        public BEBinaryReader(Stream input, Encoding encoding) : base(input, encoding) { }
+        public BEBinaryReader(Stream input, Encoding encoding) : base(input, encoding) {}
 
         /// <summary>
         /// Reads a 2-byte signed integer from the current stream using big endian encoding
@@ -84,7 +84,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <exception cref="T:System.IO.IOException">An I/O error occurs. </exception>
         /// <exception cref="T:System.IO.EndOfStreamException">The end of the stream is reached. </exception>
         public override int ReadInt32()
-        {            
+        {
             byte[] byteArray = new byte[4];
             int iBytesRead = Read(byteArray, 0, 4);
             Debug.Assert(iBytesRead == 4);
@@ -109,7 +109,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
             int iBytesRead = Read(byteArray, 0, 4);
             Debug.Assert(iBytesRead == 4);
 
-            Array.Reverse(byteArray);                        
+            Array.Reverse(byteArray);
             return BitConverter.ToUInt32(byteArray, 0);
         }
 
@@ -132,7 +132,6 @@ namespace GisSharpBlog.NetTopologySuite.IO
             Array.Reverse(byteArray);
             return BitConverter.ToInt64(byteArray, 0);
         }
-
 
         /// <summary>
         /// Reads an 8-byte unsigned integer from the current stream using big endian encoding 
@@ -171,7 +170,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
             Debug.Assert(iBytesRead == 4);
 
             Array.Reverse(byteArray);
-            return BitConverter.ToSingle(byteArray, 0);   
+            return BitConverter.ToSingle(byteArray, 0);
         }
 
         /// <summary>
@@ -185,7 +184,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <exception cref="T:System.IO.IOException">An I/O error occurs. </exception>
         /// <exception cref="T:System.IO.EndOfStreamException">The end of the stream is reached. </exception>
         public override double ReadDouble()
-        {            
+        {
             byte[] byteArray = new byte[8];
             int iBytesRead = Read(byteArray, 0, 8);
             Debug.Assert(iBytesRead == 8);

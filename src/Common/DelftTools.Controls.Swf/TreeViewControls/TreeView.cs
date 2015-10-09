@@ -17,11 +17,20 @@ namespace DelftTools.Controls.Swf.TreeViewControls
     /// </summary>
     public class TreeView : System.Windows.Forms.TreeView, ITreeView
     {
+        public event EventHandler SelectedNodeChanged;
+
+        public event Action BeforeWaitUntilAllEventsAreProcessed;
+
+        private const int TV_FIRST = 0x1100;
+        private const int TVM_SETBKCOLOR = TV_FIRST + 29;
+        private const int TVM_SETEXTENDEDSTYLE = TV_FIRST + 44;
+
+        private const int TVS_EX_DOUBLEBUFFER = 0x0004;
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly TreeNodeList nodes;
-        private TreeViewController controller;
-        
+
         internal bool isUpdateSuspended;
+        private TreeViewController controller;
         private int dropAtLocation;
         private Point lastDragOverPoint;
         private PlaceholderLocation lastPlaceholderLocation;
@@ -30,19 +39,16 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         private Graphics placeHolderGraphics;
         private bool bufferedNodeExpanded;
 
-        private const int TV_FIRST = 0x1100;
-        private const int TVM_SETBKCOLOR = TV_FIRST + 29;
-        private const int TVM_SETEXTENDEDSTYLE = TV_FIRST + 44;
-
-        private const int TVS_EX_DOUBLEBUFFER = 0x0004;
-
         /// <summary>
         /// TreeView based on system windows forms component.
         /// </summary>
         public TreeView()
         {
             controller = new TreeViewController(this);
-            ImageList = new ImageList {ColorDepth = ColorDepth.Depth32Bit};
+            ImageList = new ImageList
+            {
+                ColorDepth = ColorDepth.Depth32Bit
+            };
             nodes = new TreeNodeList(base.Nodes);
             DrawMode = TreeViewDrawMode.OwnerDrawAll;
             LabelEdit = true;
@@ -60,23 +66,38 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             MouseClick += TreeViewClick;
 
             SelectNodeOnRightMouseClick = true; // default behaviour
-            
+
             // http://dev.nomad-net.info/articles/double-buffered-tree-and-list-views
             // Enable default double buffering processing
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
-            
-            
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
+
             //SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             // Disable default CommCtrl painting on non-Vista systems
             if (!NativeInterop.IsWinVista)
+            {
                 SetStyle(ControlStyles.UserPaint, true);
+            }
         }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Func<Keys, bool> OnProcessCmdKey { get; set; }
-        
+
         public bool SelectNodeOnRightMouseClick { get; set; }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public new ITreeNode SelectedNode
+        {
+            get
+            {
+                return ((ITreeView) this).SelectedNode;
+            }
+            set
+            {
+                ((ITreeView) this).SelectedNode = value;
+            }
+        }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -84,12 +105,18 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         {
             get
             {
-                if (IsDisposed || controller == null) return null;
+                if (IsDisposed || controller == null)
+                {
+                    return null;
+                }
                 return controller.Data;
             }
             set
             {
-                if (IsDisposed || controller == null) return;
+                if (IsDisposed || controller == null)
+                {
+                    return;
+                }
                 controller.Data = value;
             }
         }
@@ -102,7 +129,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IEnumerable<ITreeNode> AllLoadedNodes
         {
-            get { return Enumerable.SelectMany<ITreeNode, ITreeNode>(Nodes, GetAllLoadedNodes); }
+            get
+            {
+                return Enumerable.SelectMany<ITreeNode, ITreeNode>(Nodes, GetAllLoadedNodes);
+            }
         }
 
         /// <summary>
@@ -110,7 +140,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         /// </summary>
         public ICollection<ITreeNodePresenter> NodePresenters
         {
-            get { return controller.NodePresenters; }
+            get
+            {
+                return controller.NodePresenters;
+            }
         }
 
         /// <summary>
@@ -128,24 +161,16 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public new ITreeNode SelectedNode
-        {
-            get { return ((ITreeView) this).SelectedNode; }
-            set
-            {
-                ((ITreeView)this).SelectedNode  = value;
-            }
-        }
-
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         ITreeNode ITreeView.SelectedNode
         {
-            get { return (TreeNode) base.SelectedNode; }
+            get
+            {
+                return (TreeNode) base.SelectedNode;
+            }
             set
-            {               
-                base.SelectedNode = (System.Windows.Forms.TreeNode)value;
-                
+            {
+                base.SelectedNode = (System.Windows.Forms.TreeNode) value;
+
                 if (SelectedNodeChanged != null)
                 {
                     SelectedNodeChanged(this, new EventArgs());
@@ -157,7 +182,33 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ViewInfo ViewInfo { get; set; }
 
-        public bool IsUpdateSuspended { get { return isUpdateSuspended; } }
+        public bool IsUpdateSuspended
+        {
+            get
+            {
+                return isUpdateSuspended;
+            }
+        }
+
+        public bool SelectedNodeCanDelete()
+        {
+            return controller.CanDeleteNode(SelectedNode);
+        }
+
+        public bool SelectedNodeCanRename()
+        {
+            return controller.CanRenameNode(SelectedNode);
+        }
+
+        public void EnableDataEventListeners()
+        {
+            controller.EnableDataEventListeners();
+        }
+
+        public void DisableDataEventListeners()
+        {
+            controller.DisableDataEventListeners();
+        }
 
         public new void CollapseAll()
         {
@@ -198,32 +249,15 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         /// </summary>
         public void StartLabelEdit()
         {
-            if (!SelectedNodeCanRename()) return;
+            if (!SelectedNodeCanRename())
+            {
+                return;
+            }
 
             SelectedNode.BeginEdit();
         }
 
-        public bool SelectedNodeCanDelete()
-        {
-            return controller.CanDeleteNode(SelectedNode);
-        }
-
-        public bool SelectedNodeCanRename()
-        {
-            return controller.CanRenameNode(SelectedNode);
-        }
-
-        public void EnableDataEventListeners()
-        {
-            controller.EnableDataEventListeners();
-        }
-
-        public void DisableDataEventListeners()
-        {
-            controller.DisableDataEventListeners();
-        }
-
-        public void EnsureVisible(object item) { }
+        public void EnsureVisible(object item) {}
 
         public ITreeNodePresenter GetTreeViewNodePresenter([NotNull] object nodeData, ITreeNode node)
         {
@@ -256,20 +290,24 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             {
                 return GetNodeByTag(Nodes[0], nodeData, skipUnLoadedNodes);
             }
-            
+
             return null;
         }
 
         public void UpdateNode(ITreeNode treeNode)
         {
             if (controller != null)
+            {
                 controller.UpdateNode(treeNode, treeNode.Tag);
+            }
         }
 
         public void RefreshChildNodes(ITreeNode treeNode)
         {
-            if(controller != null)
+            if (controller != null)
+            {
                 controller.RefreshChildNodes(treeNode);
+            }
         }
 
         public void DeleteNodeData()
@@ -281,13 +319,16 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             }
 
             var message = string.Format("Are you sure you want to delete the following item: {0}", SelectedNode.Text);
-            if (MessageBox.Show(message, "Confirm", MessageBoxButtons.OKCancel) != DialogResult.OK) return;
+            if (MessageBox.Show(message, "Confirm", MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                return;
+            }
 
             var presenter = GetTreeViewNodePresenter(SelectedNode.Tag, SelectedNode);
             presenter.RemoveNodeData(SelectedNode.Parent.Tag, SelectedNode.Tag);
             SelectedNode = (SelectedNode != null) ? SelectedNode.PreviousVisibleNode : Nodes.FirstOrDefault();
         }
-        
+
         public override void Refresh()
         {
             if (Nodes.Count == 0 || controller == null)
@@ -317,7 +358,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
                     if (nodeToSelect != null)
                     {
-                        base.SelectedNode = (System.Windows.Forms.TreeNode)nodeToSelect;
+                        base.SelectedNode = (System.Windows.Forms.TreeNode) nodeToSelect;
                     }
                 }
 
@@ -335,7 +376,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             }
         }
 
-        new public void BeginUpdate()
+        public new void BeginUpdate()
         {
             if (!isUpdateSuspended)
             {
@@ -344,7 +385,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             }
         }
 
-        new public void EndUpdate()
+        public new void EndUpdate()
         {
             if (isUpdateSuspended)
             {
@@ -355,11 +396,14 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         public IEnumerable<ITreeNode> GetAllLoadedNodes(ITreeNode currentNode)
         {
-            var allChildNodes = new[] {currentNode};
+            var allChildNodes = new[]
+            {
+                currentNode
+            };
 
             return (currentNode.IsLoaded)
-                ? allChildNodes.Concat(currentNode.Nodes.SelectMany(GetAllLoadedNodes))
-                : allChildNodes;
+                       ? allChildNodes.Concat(currentNode.Nodes.SelectMany(GetAllLoadedNodes))
+                       : allChildNodes;
         }
 
         public void WaitUntilAllEventsAreProcessed()
@@ -372,21 +416,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             controller.WaitUntilAllEventsAreProcessed();
         }
 
-        public event EventHandler SelectedNodeChanged;
-
-        public event Action BeforeWaitUntilAllEventsAreProcessed;
-
-        private void UpdateExtendedStyles()
-        {
-            int Style = 0;
-
-            if (DoubleBuffered)
-                Style |= TVS_EX_DOUBLEBUFFER;
-
-            if (Style != 0)
-                NativeInterop.SendMessage(Handle, TVM_SETEXTENDEDSTYLE, (IntPtr)TVS_EX_DOUBLEBUFFER, (IntPtr)Style);
-        }
-
         protected override void OnPaint(PaintEventArgs e)
         {
             if (GetStyle(ControlStyles.UserPaint))
@@ -395,7 +424,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                 m.HWnd = Handle;
                 m.Msg = NativeInterop.WM_PRINTCLIENT;
                 m.WParam = e.Graphics.GetHdc();
-                m.LParam = (IntPtr)NativeInterop.PRF_CLIENT;
+                m.LParam = (IntPtr) NativeInterop.PRF_CLIENT;
                 DefWndProc(ref m);
                 e.Graphics.ReleaseHdc(m.WParam);
             }
@@ -407,7 +436,9 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             base.OnHandleCreated(e);
             UpdateExtendedStyles();
             if (!NativeInterop.IsWinXP || !Application.RenderWithVisualStyles)
-                NativeInterop.SendMessage(Handle, TVM_SETBKCOLOR, IntPtr.Zero, (IntPtr)ColorTranslator.ToWin32(BackColor));
+            {
+                NativeInterop.SendMessage(Handle, TVM_SETBKCOLOR, IntPtr.Zero, (IntPtr) ColorTranslator.ToWin32(BackColor));
+            }
             controller.OnTreeViewHandleCreated();
         }
 
@@ -427,7 +458,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         protected override void OnDrawNode(DrawTreeNodeEventArgs e)
         {
             e.DrawDefault = false;
-            
+
             if (isUpdateSuspended)
             {
                 return;
@@ -435,7 +466,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
             var selected = (e.State & TreeNodeStates.Selected) == TreeNodeStates.Selected;
 
-            ((TreeNode)e.Node).DrawNode(e.Graphics, selected);
+            ((TreeNode) e.Node).DrawNode(e.Graphics, selected);
         }
 
         protected override void Dispose(bool disposing)
@@ -470,7 +501,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                     }
 
                     var nodePresenter = GetTreeViewNodePresenter(treeNode.Tag, treeNode);
-                    if (nodePresenter == null) return;
+                    if (nodePresenter == null)
+                    {
+                        return;
+                    }
 
                     if (nodePresenter.CanRenameNodeTo(treeNode, e.Label))
                     {
@@ -489,7 +523,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
                 base.OnAfterLabelEdit(e);
                 BeginInvoke(new Action(Sort));
-
             }
             finally
             {
@@ -519,22 +552,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                 //log.DebugFormat(m.ToString());
                 base.DefWndProc(ref m);
             }
-        }
-
-        private new void Sort()
-        {
-            if (TreeViewNodeSorter == null)
-            {
-                return;
-            }
-
-            var oldSelectedNode = SelectedNode;
-            
-            SuspendLayout();
-            base.Sort();
-            ResumeLayout();
-
-            SelectedNode = oldSelectedNode;
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -575,7 +592,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                     }
                     return true;
 
-                    // TODO: Customize completely within OnProcessCmdKey
+                // TODO: Customize completely within OnProcessCmdKey
                 case Keys.Delete:
                     if (OnProcessCmdKey == null && SelectedNode != null && SelectedNode.Tag != null)
                     {
@@ -599,74 +616,74 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                     }
                     return true;
                 case Keys.Up:
+                {
+                    //hack: we manually handle this because ms doesnot fire selectednodechanged
+                    // Select the previous node
+                    var treeNode = SelectedNode.PreviousVisibleNode;
+                    if (treeNode != null)
                     {
-                        //hack: we manually handle this because ms doesnot fire selectednodechanged
-                        // Select the previous node
-                        var treeNode = SelectedNode.PreviousVisibleNode;
-                        if (treeNode != null)
-                        {
-                            SelectedNode = treeNode;
-                        }
+                        SelectedNode = treeNode;
                     }
+                }
                     return true;
                 case Keys.Down:
+                {
+                    //hack: we manually handle this because ms doesnot fire selectednodechanged
+                    // Select the next node
+                    var treeNode = SelectedNode.NextVisibleNode;
+                    if (treeNode != null)
                     {
-                        //hack: we manually handle this because ms doesnot fire selectednodechanged
-                        // Select the next node
-                        var treeNode = SelectedNode.NextVisibleNode;
-                        if (treeNode != null)
-                        {
-                            SelectedNode = treeNode;
-                        }
+                        SelectedNode = treeNode;
                     }
+                }
                     return true;
                 case Keys.Right:
-                    {
-                        //hack: we manually handle this because ms doesnot fire selectednodechanged
+                {
+                    //hack: we manually handle this because ms doesnot fire selectednodechanged
 
-                        if (SelectedNode.Nodes.Count > 0)
-                        {
-                            if (!SelectedNode.IsExpanded)
-                            {
-                                SelectedNode.Expand();
-                            }
-                            else
-                            {
-                                SelectedNode = SelectedNode.Nodes[0];
-                            }
-                        }
-                    }
-                    return true;
-                case Keys.Left:
+                    if (SelectedNode.Nodes.Count > 0)
                     {
-                        //hack: we manually handle this because ms doesnot fire selectednodechanged
-
-                        if(SelectedNode.IsExpanded)
+                        if (!SelectedNode.IsExpanded)
                         {
-                            SelectedNode.Collapse();
+                            SelectedNode.Expand();
                         }
                         else
                         {
-                            if(SelectedNode.Parent != null)
-                            {
-                                SelectedNode = SelectedNode.Parent;
-                            }
+                            SelectedNode = SelectedNode.Nodes[0];
                         }
                     }
+                }
+                    return true;
+                case Keys.Left:
+                {
+                    //hack: we manually handle this because ms doesnot fire selectednodechanged
+
+                    if (SelectedNode.IsExpanded)
+                    {
+                        SelectedNode.Collapse();
+                    }
+                    else
+                    {
+                        if (SelectedNode.Parent != null)
+                        {
+                            SelectedNode = SelectedNode.Parent;
+                        }
+                    }
+                }
                     return true;
                 case Keys.Home:
-                    {
-                        //hack: we manually handle this because ms doesnot fire selectednodechanged
+                {
+                    //hack: we manually handle this because ms doesnot fire selectednodechanged
 
-                        SelectedNode = Nodes.First();
-                    }
+                    SelectedNode = Nodes.First();
+                }
                     return true;
                 case Keys.End:
-                    {
-                        //hack: we manually handle this because ms doesnot fire selectednodechanged
+                {
+                    //hack: we manually handle this because ms doesnot fire selectednodechanged
 
-                        SelectedNode = GetLastNode(Nodes.Last());
-                    }
+                    SelectedNode = GetLastNode(Nodes.Last());
+                }
                     return true;
             }
 
@@ -686,13 +703,44 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
             if (OnProcessCmdKey != null)
             {
-                if(OnProcessCmdKey(keyData))
+                if (OnProcessCmdKey(keyData))
                 {
                     return true;
                 }
             }
-                
+
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void UpdateExtendedStyles()
+        {
+            int Style = 0;
+
+            if (DoubleBuffered)
+            {
+                Style |= TVS_EX_DOUBLEBUFFER;
+            }
+
+            if (Style != 0)
+            {
+                NativeInterop.SendMessage(Handle, TVM_SETEXTENDEDSTYLE, (IntPtr) TVS_EX_DOUBLEBUFFER, (IntPtr) Style);
+            }
+        }
+
+        private new void Sort()
+        {
+            if (TreeViewNodeSorter == null)
+            {
+                return;
+            }
+
+            var oldSelectedNode = SelectedNode;
+
+            SuspendLayout();
+            base.Sort();
+            ResumeLayout();
+
+            SelectedNode = oldSelectedNode;
         }
 
         private ITreeNode GetLastNode(ITreeNode treeNode)
@@ -708,10 +756,16 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         private void TreeViewMouseDown(object sender, MouseEventArgs e)
         {
             var treeView = sender as TreeView;
-            if (treeView == null) return;
-            
+            if (treeView == null)
+            {
+                return;
+            }
+
             var treeNode = (ITreeNode) GetNodeAt(e.X, e.Y);
-            if (treeNode == null) return;
+            if (treeNode == null)
+            {
+                return;
+            }
 
             // buffer expanded state for use in TreeViewClick
             bufferedNodeExpanded = treeNode.IsExpanded;
@@ -719,14 +773,17 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         private void TreeViewClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right && !SelectNodeOnRightMouseClick)
+            if (e.Button == MouseButtons.Right && !SelectNodeOnRightMouseClick)
             {
                 return;
             }
 
             var point = PointToClient(MousePosition);
             var node = (TreeNode) GetNodeAt(point);
-            if (node == null) return;
+            if (node == null)
+            {
+                return;
+            }
 
             SelectedNode = node;
 
@@ -741,7 +798,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             {
                 // Use buffered expanded state because it gets changed just
                 // before Click event is handled
-                if (bufferedNodeExpanded) 
+                if (bufferedNodeExpanded)
                 {
                     node.Collapse(true);
                 }
@@ -754,7 +811,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         private void TreeViewAfterCheck(object sender, TreeViewEventArgs e)
         {
-            controller.OnNodeChecked((ITreeNode)e.Node);
+            controller.OnNodeChecked((ITreeNode) e.Node);
         }
 
         /// <summary>
@@ -778,8 +835,8 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             }
 
             return rootNode.IsLoaded || !skipUnLoadedNodes
-                ? rootNode.Nodes.Select(n => GetNodeByTag(n, tag, skipUnLoadedNodes)).FirstOrDefault(node => node != null)
-                : null;
+                       ? rootNode.Nodes.Select(n => GetNodeByTag(n, tag, skipUnLoadedNodes)).FirstOrDefault(node => node != null)
+                       : null;
         }
 
         /// <summary>
@@ -798,7 +855,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             {
                 return;
             }
-            
+
             DragOperations dragOperation = presenter.CanDrag(sourceNode.Tag);
 
             DragDropEffects effects = WindowsFormsHelper.ToDragDropEffects(dragOperation);
@@ -811,7 +868,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             // store both treenode and tag of treenode in dataobject
             // to be dragged.
             IDataObject dataObject = new DataObject();
-            dataObject.SetData(typeof (TreeNode), sourceNode);
+            dataObject.SetData(typeof(TreeNode), sourceNode);
 
             if (sourceNode.Tag != null)
             {
@@ -835,11 +892,11 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
             lastDragOverPoint = new Point(e.X, e.Y);
             var point = PointToClient(lastDragOverPoint);
-            
+
             var nodeOver = GetNodeAt(point) as TreeNode;
             var nodeDragging = e.Data.GetData(typeof(TreeNode)) as TreeNode;
 
-            if (nodeOver == null || nodeDragging==null || nodeOver == nodeDragging || nodeOver.IsChildOf(nodeDragging))
+            if (nodeOver == null || nodeDragging == null || nodeOver == nodeDragging || nodeOver.IsChildOf(nodeDragging))
             {
                 ClearPlaceHolders();
                 return;
@@ -855,7 +912,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
             ITreeNodePresenter presenter = GetTreeViewNodePresenter(nodeDropTarget.Tag, nodeDropTarget);
             DragOperations allowedOperations = presenter.CanDrop(nodeDragging.Tag, nodeDragging, nodeDropTarget,
-                                                         WindowsFormsHelper.ToDragOperation(e.AllowedEffect));
+                                                                 WindowsFormsHelper.ToDragOperation(e.AllowedEffect));
             e.Effect = WindowsFormsHelper.ToDragDropEffects(allowedOperations);
 
             if (PlaceholderLocation.None == placeholderLocation)
@@ -882,7 +939,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             PlaceholderLocation loc = PlaceholderLocation.None;
             int offsetY = PointToClient(Cursor.Position).Y - nodeOver.Bounds.Top;
 
-            if (offsetY < (nodeOver.Bounds.Height / 3) && nodeDragging.NextNode != nodeOver)
+            if (offsetY < (nodeOver.Bounds.Height/3) && nodeDragging.NextNode != nodeOver)
             {
                 if (nodeOver.Parent != null)
                 {
@@ -907,7 +964,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                     loc = PlaceholderLocation.Middle;
                 }
             }
-            else if ((nodeOver.Parent != null) && (offsetY > (nodeOver.Bounds.Height - (nodeOver.Bounds.Height / 3))) &&
+            else if ((nodeOver.Parent != null) && (offsetY > (nodeOver.Bounds.Height - (nodeOver.Bounds.Height/3))) &&
                      nodeDragging.PreviousNode != nodeOver)
             {
                 ITreeNodePresenter nodePresenter = GetTreeViewNodePresenter(nodeOver.Parent.Tag, nodeOver.Parent);
@@ -926,14 +983,14 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                     loc = PlaceholderLocation.Middle;
                 }
             }
-            else if (nodeDragging != nodeOver && offsetY < (nodeOver.Bounds.Height - (nodeOver.Bounds.Height / 4))
-                     && offsetY > (nodeOver.Bounds.Height / 4))
+            else if (nodeDragging != nodeOver && offsetY < (nodeOver.Bounds.Height - (nodeOver.Bounds.Height/4))
+                     && offsetY > (nodeOver.Bounds.Height/4))
             {
                 nodeDropTarget = nodeOver;
                 dropAtLocation = 0;
                 loc = PlaceholderLocation.Middle;
             }
-            
+
             if (loc == PlaceholderLocation.None ||
                 (loc == PlaceholderLocation.Middle && nodeDropTarget == nodeDragging.Parent))
             {
@@ -953,21 +1010,27 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         private static void ScrollIntoView(Point point, ITreeNode nodeOver, object sender)
         {
             var treeView = sender as TreeView;
-            if (treeView == null) 
+            if (treeView == null)
+            {
                 return;
+            }
             int delta = treeView.Height - point.Y;
             if ((delta < treeView.Height/2) && (delta > 0))
             {
                 if (nodeOver.NextVisibleNode != null)
+                {
                     nodeOver.NextVisibleNode.ScrollTo();
+                }
             }
             if ((delta > treeView.Height/2) && (delta < treeView.Height))
             {
                 if (nodeOver.PreviousVisibleNode != null)
+                {
                     nodeOver.PreviousVisibleNode.ScrollTo();
+                }
             }
         }
-        
+
         /// <summary>
         /// Event handler for drag drop. Inserts Node at droplocation when node is being moved
         /// When node is being copied from other location Dropped should be handled externally
@@ -981,7 +1044,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             Point point = PointToClient(new Point(e.X, e.Y));
             var nodeOver = GetNodeAt(point) as TreeNode;
 
-            var nodeDragging = e.Data.GetData(typeof (TreeNode)) as TreeNode;
+            var nodeDragging = e.Data.GetData(typeof(TreeNode)) as TreeNode;
 
             if (nodeOver == null || nodeDragging == null)
             {
@@ -1072,16 +1135,13 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             public const int WM_PRINTCLIENT = 0x0318;
             public const int PRF_CLIENT = 0x00000004;
 
-            [DllImport("user32.dll")]
-            public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
-
             public static bool IsWinXP
             {
                 get
                 {
                     OperatingSystem OS = Environment.OSVersion;
                     return (OS.Platform == PlatformID.Win32NT) &&
-                        ((OS.Version.Major > 5) || ((OS.Version.Major == 5) && (OS.Version.Minor == 1)));
+                           ((OS.Version.Major > 5) || ((OS.Version.Major == 5) && (OS.Version.Minor == 1)));
                 }
             }
 
@@ -1093,6 +1153,9 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                     return (OS.Platform == PlatformID.Win32NT) && (OS.Version.Major >= 6);
                 }
             }
+
+            [DllImport("user32.dll")]
+            public static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
         }
     }
 }

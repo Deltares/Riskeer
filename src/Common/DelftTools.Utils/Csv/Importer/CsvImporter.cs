@@ -16,6 +16,8 @@ namespace DelftTools.Utils.Csv.Importer
             AllowEmptyCells = false;
         }
 
+        public bool AllowEmptyCells { get; set; }
+
         public DataTable SplitToTable(StreamReader streamReader, CsvSettings csvSettings)
         {
             var dataTable = new DataTable();
@@ -43,30 +45,12 @@ namespace DelftTools.Utils.Csv.Importer
             }
         }
 
-        private object Parse(object o, Type type, CsvColumnInfo info)
-        {
-            if (o is DBNull && AllowEmptyCells)
-            {
-                return o;
-            }
-            if (type == typeof (DateTime))
-            {
-                var format = info.FormatProvider as DateTimeFormatInfo;
-                return DateTime.ParseExact((string)o, format.FullDateTimePattern, format);
-            }
-            return info != null
-                       ? Convert.ChangeType(o, type, info.FormatProvider)
-                       : Convert.ChangeType(o, type); // e.g. for string
-        }
-
-        public bool AllowEmptyCells { get; set; }
-
-        public DataTable Extract(DataTable dataTable, 
-            IDictionary<CsvRequiredField, CsvColumnInfo> fieldToColumnInfoMapping, 
-            IEnumerable<CsvFilter> filters=null)
+        public DataTable Extract(DataTable dataTable,
+                                 IDictionary<CsvRequiredField, CsvColumnInfo> fieldToColumnInfoMapping,
+                                 IEnumerable<CsvFilter> filters = null)
         {
             filters = filters ?? new CsvFilter[0];
-            
+
             var typedDataTable = new DataTable();
 
             var csvRequiredFields = fieldToColumnInfoMapping.Keys.ToList();
@@ -78,7 +62,9 @@ namespace DelftTools.Utils.Csv.Importer
             foreach (DataRow oldRow in dataTable.Rows)
             {
                 if (SkipRow(oldRow, filters))
+                {
                     continue;
+                }
 
                 var newRow = typedDataTable.NewRow();
                 for (int i = 0; i < typedDataTable.Columns.Count; i++)
@@ -100,15 +86,31 @@ namespace DelftTools.Utils.Csv.Importer
             return typedDataTable;
         }
 
-        private bool SkipRow(DataRow oldRow, IEnumerable<CsvFilter> filters)
-        {
-            return filters.Any(filter => filter.ShouldSkipRow(oldRow));
-        }
-
         public DataTable ImportCsv(string filePath, CsvMappingData mappingData)
         {
             var dtTemp = SplitToTable(filePath, mappingData.Settings);
             return Extract(dtTemp, mappingData.FieldToColumnMapping, mappingData.Filters);
+        }
+
+        private object Parse(object o, Type type, CsvColumnInfo info)
+        {
+            if (o is DBNull && AllowEmptyCells)
+            {
+                return o;
+            }
+            if (type == typeof(DateTime))
+            {
+                var format = info.FormatProvider as DateTimeFormatInfo;
+                return DateTime.ParseExact((string) o, format.FullDateTimePattern, format);
+            }
+            return info != null
+                       ? Convert.ChangeType(o, type, info.FormatProvider)
+                       : Convert.ChangeType(o, type); // e.g. for string
+        }
+
+        private bool SkipRow(DataRow oldRow, IEnumerable<CsvFilter> filters)
+        {
+            return filters.Any(filter => filter.ShouldSkipRow(oldRow));
         }
     }
 }

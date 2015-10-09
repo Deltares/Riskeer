@@ -24,7 +24,7 @@ namespace DelftTools.Tests.Controls.Swf
         [Test]
         public void SimpleOwnerTest()
         {
-            ToolStripMenuItem   toolStripMenuItem = new ToolStripMenuItem("Test");
+            ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem("Test");
 
             ContextMenuStrip contextMenuStripFirst = new ContextMenuStrip();
             contextMenuStripFirst.Items.Add(toolStripMenuItem);
@@ -72,13 +72,28 @@ namespace DelftTools.Tests.Controls.Swf
         public void CombineMenusWithoutAdapterClonableToolStripMenuItem()
         {
             ContextMenuStrip contextMenuStripFirst = new ContextMenuStrip();
-            contextMenuStripFirst.Items.Add(new ClonableToolStripMenuItem { Text = "item1" });
-            contextMenuStripFirst.Items.Add(new ClonableToolStripMenuItem { Text = "item2" });
-            contextMenuStripFirst.Items.Add(new ClonableToolStripMenuItem { Text = "item3" });
+            contextMenuStripFirst.Items.Add(new ClonableToolStripMenuItem
+            {
+                Text = "item1"
+            });
+            contextMenuStripFirst.Items.Add(new ClonableToolStripMenuItem
+            {
+                Text = "item2"
+            });
+            contextMenuStripFirst.Items.Add(new ClonableToolStripMenuItem
+            {
+                Text = "item3"
+            });
 
             ContextMenuStrip contextMenuStripSecond = new ContextMenuStrip();
-            contextMenuStripSecond.Items.Add(new ClonableToolStripMenuItem { Text = "item4" });
-            contextMenuStripSecond.Items.Add(new ClonableToolStripMenuItem { Text = "item5" });
+            contextMenuStripSecond.Items.Add(new ClonableToolStripMenuItem
+            {
+                Text = "item4"
+            });
+            contextMenuStripSecond.Items.Add(new ClonableToolStripMenuItem
+            {
+                Text = "item5"
+            });
 
             Assert.AreEqual(3, contextMenuStripFirst.Items.Count);
             Assert.AreEqual(2, contextMenuStripSecond.Items.Count);
@@ -95,18 +110,33 @@ namespace DelftTools.Tests.Controls.Swf
         public void CombineMenusWithAdapter()
         {
             ContextMenuStrip contextMenuStripFirst = new ContextMenuStrip();
-            contextMenuStripFirst.Items.Add(new ClonableToolStripMenuItem { Text = "item1" });
-            contextMenuStripFirst.Items.Add(new ClonableToolStripMenuItem { Text = "item2" });
-            contextMenuStripFirst.Items.Add(new ClonableToolStripMenuItem { Text = "item3" });
+            contextMenuStripFirst.Items.Add(new ClonableToolStripMenuItem
+            {
+                Text = "item1"
+            });
+            contextMenuStripFirst.Items.Add(new ClonableToolStripMenuItem
+            {
+                Text = "item2"
+            });
+            contextMenuStripFirst.Items.Add(new ClonableToolStripMenuItem
+            {
+                Text = "item3"
+            });
 
             ContextMenuStrip contextMenuStripSecond = new ContextMenuStrip();
-            contextMenuStripSecond.Items.Add(new ClonableToolStripMenuItem { Text = "item4" });
-            contextMenuStripSecond.Items.Add(new ClonableToolStripMenuItem { Text = "item5" });
+            contextMenuStripSecond.Items.Add(new ClonableToolStripMenuItem
+            {
+                Text = "item4"
+            });
+            contextMenuStripSecond.Items.Add(new ClonableToolStripMenuItem
+            {
+                Text = "item5"
+            });
 
             Assert.AreEqual(3, contextMenuStripFirst.Items.Count);
             Assert.AreEqual(2, contextMenuStripSecond.Items.Count);
 
-            MenuItemContextMenuStripAdapter menuItemContextMenuStripAdapter = new MenuItemContextMenuStripAdapter(contextMenuStripFirst);            
+            MenuItemContextMenuStripAdapter menuItemContextMenuStripAdapter = new MenuItemContextMenuStripAdapter(contextMenuStripFirst);
 
             menuItemContextMenuStripAdapter.Add(new MenuItemContextMenuStripAdapter(contextMenuStripSecond));
 
@@ -120,7 +150,10 @@ namespace DelftTools.Tests.Controls.Swf
             ContextMenuStrip contextMenuStripFirst = new ContextMenuStrip();
 
             ContextMenuStrip contextMenuStripSecond = new ContextMenuStrip();
-            ClonableToolStripMenuItem clonableToolStripMenuItem = new ClonableToolStripMenuItem { Text = "item1" };
+            ClonableToolStripMenuItem clonableToolStripMenuItem = new ClonableToolStripMenuItem
+            {
+                Text = "item1"
+            };
             contextMenuStripSecond.Items.Add(clonableToolStripMenuItem);
 
             int counter = 0;
@@ -134,22 +167,30 @@ namespace DelftTools.Tests.Controls.Swf
             Assert.AreEqual(1, contextMenuStripSecond.Items.Count);
 
             // Both event should call the same eventhandler and thus increment the same counter var.
-            ((ToolStripMenuItem)contextMenuStripFirst.Items[0]).Checked = !(((ToolStripMenuItem)contextMenuStripFirst.Items[0]).Checked);
+            ((ToolStripMenuItem) contextMenuStripFirst.Items[0]).Checked = !(((ToolStripMenuItem) contextMenuStripFirst.Items[0]).Checked);
             Assert.AreEqual(1, counter);
-            ((ToolStripMenuItem)contextMenuStripSecond.Items[0]).Checked = !(((ToolStripMenuItem)contextMenuStripSecond.Items[0]).Checked);
+            ((ToolStripMenuItem) contextMenuStripSecond.Items[0]).Checked = !(((ToolStripMenuItem) contextMenuStripSecond.Items[0]).Checked);
             Assert.AreEqual(2, counter);
         }
-
 
         [Test]
         public void TestInsertAtOfMultiItems()
         {
             var contextMenuStripFirst = new ContextMenuStrip();
             var contextMenuStripSecond = new ContextMenuStrip();
-            var clonableToolStripMenuItem1 = new ClonableToolStripMenuItem { Text = "item1" };
-            var clonableToolStripMenuItem2 = new ClonableToolStripMenuItem { Text = "item2" };
-            var clonableToolStripMenuItem3 = new ClonableToolStripMenuItem { Text = "item3" };
-            
+            var clonableToolStripMenuItem1 = new ClonableToolStripMenuItem
+            {
+                Text = "item1"
+            };
+            var clonableToolStripMenuItem2 = new ClonableToolStripMenuItem
+            {
+                Text = "item2"
+            };
+            var clonableToolStripMenuItem3 = new ClonableToolStripMenuItem
+            {
+                Text = "item3"
+            };
+
             contextMenuStripFirst.Items.Add(clonableToolStripMenuItem1);
             contextMenuStripFirst.Items.Add(clonableToolStripMenuItem2);
 
@@ -172,9 +213,18 @@ namespace DelftTools.Tests.Controls.Swf
         public void TestIndexOf()
         {
             var contextMenuStrip = new ContextMenuStrip();
-            var toolStripMenuItem = new ToolStripMenuItem() { Text = "item1", Name = "item1"};
-            var clonableToolStripMenuItem1 = new ClonableToolStripMenuItem { Text = "item2" };
-            var clonableToolStripMenuItem2 = new ClonableToolStripMenuItem { Text = "item3", Name = "item3" };
+            var toolStripMenuItem = new ToolStripMenuItem()
+            {
+                Text = "item1", Name = "item1"
+            };
+            var clonableToolStripMenuItem1 = new ClonableToolStripMenuItem
+            {
+                Text = "item2"
+            };
+            var clonableToolStripMenuItem2 = new ClonableToolStripMenuItem
+            {
+                Text = "item3", Name = "item3"
+            };
 
             contextMenuStrip.Items.Add(toolStripMenuItem);
             contextMenuStrip.Items.Add(clonableToolStripMenuItem1);
@@ -185,21 +235,25 @@ namespace DelftTools.Tests.Controls.Swf
             Assert.AreEqual(0, menuItemContextMenuStripAdapter.IndexOf("item1"));
             Assert.AreEqual(2, menuItemContextMenuStripAdapter.IndexOf("item3"));
             Assert.AreEqual(-1, menuItemContextMenuStripAdapter.IndexOf("haha"));
-
         }
 
         [Test]
         public void ContextMenuStripIndexByName()
         {
             var contextMenuStrip = new ContextMenuStrip();
-            var toolStripMenuItemNotNamed = new ToolStripMenuItem() { Text = "NotNamed" };
-            var toolStripMenuItemNamed = new ToolStripMenuItem() { Name = "Named" };
+            var toolStripMenuItemNotNamed = new ToolStripMenuItem()
+            {
+                Text = "NotNamed"
+            };
+            var toolStripMenuItemNamed = new ToolStripMenuItem()
+            {
+                Name = "Named"
+            };
             contextMenuStrip.Items.Add(toolStripMenuItemNotNamed);
             contextMenuStrip.Items.Add(toolStripMenuItemNamed);
 
             Assert.IsNull(contextMenuStrip.Items["NotNamed"]);
             Assert.IsNotNull(contextMenuStrip.Items["Named"]);
-
         }
     }
 }

@@ -10,8 +10,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
     /// </summary>
     public class PolygonizeDirectedEdge : DirectedEdge
     {
-        private EdgeRing edgeRing = null;
-        private PolygonizeDirectedEdge next = null;
         private long label = -1;
 
         /// <summary>
@@ -29,7 +27,11 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
         /// opposite to that of the parent Edge (if any).
         /// </param>
         public PolygonizeDirectedEdge(Node from, Node to, ICoordinate directionPt, bool edgeDirection)
-            : base(from, to, directionPt, edgeDirection) { }
+            : base(from, to, directionPt, edgeDirection)
+        {
+            Ring = null;
+            Next = null;
+        }
 
         /// <summary> 
         /// Returns the identifier attached to this directed edge.
@@ -51,17 +53,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
         /// Returns the next directed edge in the EdgeRing that this directed edge is a member of.
         /// Sets the next directed edge in the EdgeRing that this directed edge is a member of.
         /// </summary>
-        public PolygonizeDirectedEdge Next
-        {
-            get
-            {
-                return next;
-            }
-            set
-            {
-                next = value;
-            }
-        }
+        public PolygonizeDirectedEdge Next { get; set; }
 
         /// <summary>
         /// Returns the ring of directed edges that this directed edge is
@@ -79,16 +71,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Polygonize
         /// Gets/Sets the ring of directed edges that this directed edge is
         /// a member of.
         /// </summary>
-        public EdgeRing Ring
-        {
-            get
-            {
-                return this.edgeRing;
-            }
-            set
-            {
-                edgeRing = value;
-            }
-        }
+        public EdgeRing Ring { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
     internal class TreeNodeList : IList<ITreeNode>
     {
         private readonly TreeNodeCollection nodes;
-        
+
         public TreeNodeList(TreeNodeCollection nodes)
         {
             this.nodes = nodes;
@@ -46,8 +46,14 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         public ITreeNode this[int index]
         {
-            get { return (ITreeNode) nodes[index]; }
-            set { nodes[index] = (System.Windows.Forms.TreeNode) value; }
+            get
+            {
+                return (ITreeNode) nodes[index];
+            }
+            set
+            {
+                nodes[index] = (System.Windows.Forms.TreeNode) value;
+            }
         }
 
         public void Add(ITreeNode item)
@@ -87,12 +93,18 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         public int Count
         {
-            get { return nodes.Count; }
+            get
+            {
+                return nodes.Count;
+            }
         }
 
         public bool IsReadOnly
         {
-            get { return nodes.IsReadOnly; }
+            get
+            {
+                return nodes.IsReadOnly;
+            }
         }
 
         /// <summary>
@@ -112,7 +124,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         public IEnumerator<ITreeNode> GetEnumerator()
         {
             //wrap TreeNodeCollection so it returns  the right enumerator variable
-            foreach(ITreeNode node in nodes)
+            foreach (ITreeNode node in nodes)
             {
                 yield return node;
             }

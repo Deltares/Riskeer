@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
-
 using DelftTools.Shell.Core;
-
 using Mono.Addins;
-
 using Wti.Data;
-
 using WtiFormsResources = Wti.Forms.Properties.Resources;
 
 namespace Wti.Plugin

@@ -11,7 +11,13 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
         {
             var backgroundMap = new Map();
             var backGroundMapLayer = new BackGroundMapLayer(backgroundMap);
-            var map = new Map { Layers = { backGroundMapLayer } };
+            var map = new Map
+            {
+                Layers =
+                {
+                    backGroundMapLayer
+                }
+            };
 
             MapDependencyResolver.RemoveItemsFromMap(map, backgroundMap);
 

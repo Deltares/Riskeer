@@ -31,10 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FindAndReplaceControl));
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxFind = new System.Windows.Forms.TextBox();
+            this.FindTextBox = new System.Windows.Forms.TextBox();
             this.buttonClose = new System.Windows.Forms.Button();
             this.labelReplaceWith = new System.Windows.Forms.Label();
-            this.textBoxReplace = new System.Windows.Forms.TextBox();
+            this.ReplaceTextBox = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.buttonReplace = new System.Windows.Forms.Button();
             this.buttonFind = new System.Windows.Forms.Button();
@@ -52,14 +52,14 @@
             // 
             // textBoxFind
             // 
-            this.textBoxFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.FindTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxFind.Location = new System.Drawing.Point(81, 5);
-            this.textBoxFind.Name = "textBoxFind";
-            this.textBoxFind.Size = new System.Drawing.Size(223, 20);
-            this.textBoxFind.TabIndex = 0;
-            this.textBoxFind.TextChanged += new System.EventHandler(this.textBoxFind_TextChanged);
-            this.textBoxFind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFind_KeyDown);
+            this.FindTextBox.Location = new System.Drawing.Point(81, 5);
+            this.FindTextBox.Name = "FindTextBox";
+            this.FindTextBox.Size = new System.Drawing.Size(223, 20);
+            this.FindTextBox.TabIndex = 0;
+            this.FindTextBox.TextChanged += new System.EventHandler(this.textBoxFind_TextChanged);
+            this.FindTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFind_KeyDown);
             // 
             // buttonClose
             // 
@@ -89,13 +89,13 @@
             // 
             // textBoxReplace
             // 
-            this.textBoxReplace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.ReplaceTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxReplace.Location = new System.Drawing.Point(81, 30);
-            this.textBoxReplace.Name = "textBoxReplace";
-            this.textBoxReplace.Size = new System.Drawing.Size(223, 20);
-            this.textBoxReplace.TabIndex = 1;
-            this.textBoxReplace.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFind_KeyDown);
+            this.ReplaceTextBox.Location = new System.Drawing.Point(81, 30);
+            this.ReplaceTextBox.Name = "ReplaceTextBox";
+            this.ReplaceTextBox.Size = new System.Drawing.Size(223, 20);
+            this.ReplaceTextBox.TabIndex = 1;
+            this.ReplaceTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFind_KeyDown);
             // 
             // buttonReplace
             // 
@@ -160,8 +160,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelReplaceWith);
             this.Controls.Add(this.buttonFind);
-            this.Controls.Add(this.textBoxReplace);
-            this.Controls.Add(this.textBoxFind);
+            this.Controls.Add(this.ReplaceTextBox);
+            this.Controls.Add(this.FindTextBox);
             this.Name = "FindAndReplaceControl";
             this.Size = new System.Drawing.Size(368, 54);
             this.VisibleChanged += new System.EventHandler(this.FindAndReplaceControl_VisibleChanged);
@@ -174,12 +174,10 @@
 
         private System.Windows.Forms.Button buttonReplaceAll;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxFind;
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Button buttonFind;
         private System.Windows.Forms.Button buttonReplace;
         private System.Windows.Forms.Label labelReplaceWith;
-        private System.Windows.Forms.TextBox textBoxReplace;
         private System.Windows.Forms.ToolTip toolTip1;
     }
 }

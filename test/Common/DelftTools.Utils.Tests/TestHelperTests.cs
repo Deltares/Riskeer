@@ -46,7 +46,6 @@ namespace DelftTools.Utils.Tests
             Assert.IsTrue(Directory.Exists(path));
 
             //plugins
-
         }
 
         [Test]
@@ -66,34 +65,51 @@ namespace DelftTools.Utils.Tests
         [Test]
         public void GetPerformanceColors()
         {
-            var type = typeof (TestHelper);
+            var type = typeof(TestHelper);
             var methodInfo = type.GetMethod("GetPerformanceColor", BindingFlags.NonPublic | BindingFlags.Static);
 
-            var colorRed = (Color)methodInfo.Invoke(null, new object[] { -0.05 });
-            var colorYellow1 = (Color)methodInfo.Invoke(null, new object[] { 0.0 });
-            var colorYellow2 = (Color)methodInfo.Invoke(null, new object[] { 1.0 });
-            var colorYellow3 = (Color)methodInfo.Invoke(null, new object[] { 1.05 });
-            var colorGreen = (Color)methodInfo.Invoke(null, new object[] { 0.25 });
-
+            var colorRed = (Color) methodInfo.Invoke(null, new object[]
+            {
+                -0.05
+            });
+            var colorYellow1 = (Color) methodInfo.Invoke(null, new object[]
+            {
+                0.0
+            });
+            var colorYellow2 = (Color) methodInfo.Invoke(null, new object[]
+            {
+                1.0
+            });
+            var colorYellow3 = (Color) methodInfo.Invoke(null, new object[]
+            {
+                1.05
+            });
+            var colorGreen = (Color) methodInfo.Invoke(null, new object[]
+            {
+                0.25
+            });
 
             colorRed.Name
-                .Should().Be.EqualTo("Red");
+                    .Should().Be.EqualTo("Red");
             colorYellow1.Name
-                .Should().Be.EqualTo("fffcfe00");
+                        .Should().Be.EqualTo("fffcfe00");
             colorYellow2.Name
-                .Should().Be.EqualTo("fffcfe00");
+                        .Should().Be.EqualTo("fffcfe00");
             colorYellow3.Name
-                .Should().Be.EqualTo("fffcfe00");
+                        .Should().Be.EqualTo("fffcfe00");
             colorGreen.Name
-                .Should().Be.EqualTo("ff008000");
+                      .Should().Be.EqualTo("ff008000");
 
             // dump all colors to html file for visual test
             const string path = "GetPerformanceColors.html";
             FileUtils.DeleteIfExists(path);
             var contents = "<table>";
-            for (var i = -0.05; i <= 1.1; i+=0.05)
+            for (var i = -0.05; i <= 1.1; i += 0.05)
             {
-                var color = (Color)methodInfo.Invoke(null, new object[] {i});
+                var color = (Color) methodInfo.Invoke(null, new object[]
+                {
+                    i
+                });
                 var htmlColor = ColorTranslator.ToHtml(color);
                 contents += string.Format(CultureInfo.InvariantCulture, "<tr><td bgcolor=\"{0}\">{1:G5}%</td></tr>", htmlColor, i);
             }
@@ -105,15 +121,36 @@ namespace DelftTools.Utils.Tests
         [Test]
         public void TestAssertLogExpectedAndUnwantedMessages()
         {
-            TestHelper.AssertLogExpectedAndUnwantedMessages(() => log.Error("Test 1"), 
-                                                            new[] {"Test 1"},
-                                                            new[] {"Test1", "Test 2"});
+            TestHelper.AssertLogExpectedAndUnwantedMessages(() => log.Error("Test 1"),
+                                                            new[]
+                                                            {
+                                                                "Test 1"
+                                                            },
+                                                            new[]
+                                                            {
+                                                                "Test1",
+                                                                "Test 2"
+                                                            });
             TestHelper.AssertLogExpectedAndUnwantedMessages(() => log.Warn("Test 1"),
-                                                            new[] { "Test 1" },
-                                                            new[] { "Test1", "Test 2" });
+                                                            new[]
+                                                            {
+                                                                "Test 1"
+                                                            },
+                                                            new[]
+                                                            {
+                                                                "Test1",
+                                                                "Test 2"
+                                                            });
             TestHelper.AssertLogExpectedAndUnwantedMessages(() => log.Info("Test 1"),
-                                                            new[] { "Test 1" },
-                                                            new[] { "Test1", "Test 2" });
+                                                            new[]
+                                                            {
+                                                                "Test 1"
+                                                            },
+                                                            new[]
+                                                            {
+                                                                "Test1",
+                                                                "Test 2"
+                                                            });
         }
 
         [Test]

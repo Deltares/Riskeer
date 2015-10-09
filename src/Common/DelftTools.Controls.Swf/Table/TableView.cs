@@ -21,6 +21,7 @@ using DelftTools.Utils.Globalization;
 using DelftTools.Utils.Reflection;
 using DevExpress.Data;
 using DevExpress.Utils;
+using DevExpress.Utils.Drawing;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Repository;
@@ -33,6 +34,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using log4net;
 using IEditableObject = DelftTools.Utils.Editing.IEditableObject;
+using TypeConverter = DelftTools.Utils.TypeConverter;
 
 namespace DelftTools.Controls.Swf.Table
 {
@@ -54,6 +56,7 @@ namespace DelftTools.Controls.Swf.Table
         private readonly EventedList<TableViewCell> selectedCells;
         private readonly TableViewValidator tableViewValidator;
         private readonly EventedList<ITableViewColumn> columns;
+        private readonly TableViewDataToolBar dataToolToolbar;
 
         private bool isPasting;
         private bool isSelectionChanging;
@@ -68,13 +71,13 @@ namespace DelftTools.Controls.Swf.Table
         private BindingSource bindingSource;
         private GridCell[] cellsToFill;
 
-        private ITableViewPasteController pasteController;
-        private readonly TableViewDataToolBar dataToolToolbar;
-
         public TableView()
         {
             InitializeComponent();
-            dataToolToolbar = new TableViewDataToolBar {Dock = DockStyle.Top, Visible = false};
+            dataToolToolbar = new TableViewDataToolBar
+            {
+                Dock = DockStyle.Top, Visible = false
+            };
             dataToolToolbar.SetTableView(this);
             Controls.Add(dataToolToolbar);
 
@@ -82,28 +85,66 @@ namespace DelftTools.Controls.Swf.Table
             ColumnMenuItems = new List<TableViewColumnMenuItem>();
             selectedCells = new EventedList<TableViewCell>();
             tableViewValidator = new TableViewValidator(this);
-            pasteController = new TableViewPasteController(this)
-                              {
-                                    PasteBehaviour = TableViewPasteBehaviourOptions.SkipCellWhenValueIsInvalid
-                              };
-            
+            PasteController = new TableViewPasteController(this)
+            {
+                PasteBehaviour = TableViewPasteBehaviourOptions.SkipCellWhenValueIsInvalid
+            };
+
             AllowColumnPinning = true;
             AllowDeleteRow = true;
             AutoGenerateColumns = true;
             MultipleCellEdit = true;
-            dxGridView.OptionsView.ShowFooter = false; 
+            dxGridView.OptionsView.ShowFooter = false;
             dxGridView.OptionsBehavior.CopyToClipboardWithColumnHeaders = false; //mimic behavior of 8.2
             GridLocalizer.Active = new TableViewExceptionMessageController();
 
-            base.Text = "new Table";
-            
-            ReadOnlyCellForeColor = Color.Black;//just use black as  a default to increase readability
+            Text = "new Table";
+
+            ReadOnlyCellForeColor = Color.Black; //just use black as  a default to increase readability
             ReadOnlyCellBackColor = Color.FromArgb(255, 244, 244, 244);
             InvalidCellBackgroundColor = Color.Tomato;
             ExceptionMode = ValidationExceptionMode.DisplayError;
             ConfigureContextMenu();
             SubscribeEvents();
             CreateRefreshTimer();
+        }
+
+        public void ExportAsCsv(string fileName, string delimiter = ", ")
+        {
+            // the build-in export to file method depends on a devexpress dll we haven't included so far
+            using (var writer = new StreamWriter(fileName))
+            {
+                var visibleColumns = Columns.Where(c => c.Visible).OrderBy(c => c.DisplayIndex);
+                var lastColumn = visibleColumns.Last();
+
+                foreach (var visibleColumn in visibleColumns)
+                {
+                    writer.Write(visibleColumn.Caption);
+                    if (visibleColumn != lastColumn)
+                    {
+                        writer.Write(delimiter);
+                    }
+                }
+
+                writer.WriteLine();
+
+                var shownColumns = visibleColumns.Select(c => c.AbsoluteIndex).ToArray();
+
+                //writing the data
+                for (int x = 0; x < RowCount; x++)
+                {
+                    for (int y = 0; y < shownColumns.Length; y++)
+                    {
+                        writer.Write(GetCellDisplayText(x, shownColumns[y]));
+                        if (y != Columns.Count - 1)
+                        {
+                            writer.Write(delimiter);
+                        }
+                    }
+                    writer.WriteLine();
+                }
+                writer.Close();
+            }
         }
 
         /// <summary> 
@@ -187,12 +228,637 @@ namespace DelftTools.Controls.Swf.Table
             }
         }
 
+        /// <summary>
+        /// Converts value pasted from clipboard, currently always a string, to a value of the type
+        /// required by the underlying datasource.
+        /// In addition to default conversion for e.g string to int by
+        ///     TypeConverter.ConvertValueToTargetType
+        /// There is added support for the RepositoryItemImageComboBox where the description (will default be 
+        /// copied to clipboard) will be converted to value.
+        ///    - NB the base class RepositoryItemComboBox does not have items with value and description
+        /// </summary>
+        /// <param name="columnIndex"></param>
+        /// <param name="cellValue"></param>
+        /// <returns></returns>
+        internal object ConvertStringValueToDataValue(int columnIndex, string cellValue)
+        {
+            object value = null;
+            RepositoryItem editor = dxGridView.Columns[columnIndex].ColumnEdit;
+            Type columnType = dxGridView.Columns[columnIndex].ColumnType;
+            if (null != editor)
+            {
+                var imageComboBoxEditor = editor as RepositoryItemImageComboBox;
+                if (imageComboBoxEditor != null)
+                {
+                    var repositoryItemImageComboBox = imageComboBoxEditor;
+                    var map = new Dictionary<string, object>();
+                    for (int j = 0; j < repositoryItemImageComboBox.Items.Count; j++)
+                    {
+                        map[repositoryItemImageComboBox.Items[j].Description] =
+                            repositoryItemImageComboBox.Items[j].Value;
+                    }
+                    if (map.ContainsKey(cellValue))
+                    {
+                        value = map[cellValue];
+                    }
+                }
+                else if (editor is RepositoryItemComboBox || editor is RepositoryItemLookUpEdit)
+                {
+                    var valueLookUp = new Dictionary<string, object>();
+
+                    var comboBoxEditor = editor as RepositoryItemComboBox;
+                    if (comboBoxEditor != null)
+                    {
+                        var repositoryItemComboBox = comboBoxEditor;
+                        valueLookUp = repositoryItemComboBox.Items.OfType<TableViewComboBoxItem>().ToDictionary(i => i.DisplayText, i => i.Value);
+                    }
+                    else
+                    {
+                        var lookUpEdit = (RepositoryItemLookUpEdit) editor;
+                        var comboBoxItems = lookUpEdit.DataSource as IEnumerable<TableViewComboBoxItem>;
+                        if (comboBoxItems != null)
+                        {
+                            valueLookUp = comboBoxItems.ToDictionary(i => i.DisplayText, i => i.Value);
+                        }
+                    }
+
+                    if (valueLookUp.Any() && valueLookUp.ContainsKey(cellValue))
+                    {
+                        value = valueLookUp[cellValue];
+                    }
+                    else if (comboBoxEditor != null) // items are not mandatory
+                    {
+                        value = cellValue;
+                    }
+                }
+                else
+                {
+                    value = ConvertToColumnValue(cellValue, columnType);
+                }
+            }
+            else if (dxGridView.Columns[columnIndex].RealColumnEdit is RepositoryItemCheckEdit)
+            {
+                return cellValue == "Checked";
+            }
+            else
+            {
+                value = ConvertToColumnValue(cellValue, columnType);
+            }
+            return value;
+        }
+
+        private ITableViewColumn GetColumnByDxColumn(GridColumn dxGridColumn)
+        {
+            return Columns.FirstOrDefault(c => c.AbsoluteIndex == dxGridColumn.AbsoluteIndex);
+        }
+
+        private void BestFitColumnsWithOnlyFirstWordOfHeader()
+        {
+            var oldHeaders = Columns.ToDictionary(c => c, c => c.Caption);
+
+            dxGridView.BeginUpdate();
+            try
+            {
+                foreach (var column in Columns)
+                {
+                    string caption = column.Caption;
+
+                    //Say the caption is 'Discharge on Lateral (m3/s)'. We're trying to do 
+                    //something a bit smarter than just ignore the header entirely: we try 
+                    //to get the first word (eg: "Discharge"), add room for the ellipsis 
+                    //and keep that into view
+
+                    if (!String.IsNullOrEmpty(caption))
+                    {
+                        var indexOfWhitespace = caption.IndexOfAny(new[]
+                        {
+                            ' ',
+                            '\t'
+                        });
+                        if (indexOfWhitespace >= 0)
+                        {
+                            //add space for ellipsis
+                            column.Caption = caption.Substring(0, indexOfWhitespace) + "...";
+                        }
+                    }
+                }
+
+                dxGridView.BestFitColumns();
+
+                //restore the original columns
+                foreach (var column in Columns)
+                {
+                    column.Caption = oldHeaders[column];
+                }
+            }
+            finally
+            {
+                dxGridView.EndUpdate();
+            }
+        }
+
+        private bool DeselectSelectCells(int top, int left, int bottom, int right)
+        {
+            var cellsDeselected = false;
+            // dxGridControl.SuspendLayout();
+            dxGridView.BeginSelection();
+            for (int y = top; y <= bottom; y++)
+            {
+                for (int x = left; x <= right; x++)
+                {
+                    var selectedCell = selectedCells.FirstOrDefault(c => c.Column == GetColumnByDisplayIndex(x) && c.RowIndex == y);
+                    if (selectedCell != null)
+                    {
+                        selectedCells.Remove(selectedCell);
+                        cellsDeselected = true;
+                    }
+                }
+            }
+            dxGridView.EndSelection();
+            //dxGridControl.ResumeLayout();
+
+            return cellsDeselected;
+        }
+
+        private void AddEnumCellEditors()
+        {
+            foreach (var column in Columns.Where(c => c.ColumnType.IsEnum && c.Editor == null))
+            {
+                column.Editor = new ComboBoxTypeEditor
+                {
+                    Items = Enum.GetValues(column.ColumnType),
+                    ItemsMandatory = false,
+                    CustomFormatter = new EnumFormatter(column.ColumnType)
+                };
+            }
+        }
+
+        private void ColumnsOnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangeAction.Remove && dxGridView.Columns.Count > e.Index)
+            {
+                dxGridView.Columns.RemoveAt(e.Index);
+            }
+        }
+
+        private static void CopyPasteControllerPasteFailed(object sender, EventArgs<string> e)
+        {
+            System.Windows.Forms.MessageBox.Show(e.Value);
+        }
+
+        private void SelectedCellsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        {
+            if (updatingSelection)
+            {
+                return;
+            }
+
+            var cell = (TableViewCell) e.Item;
+
+            var gridColumn = GetDxColumnByDisplayIndex(cell.Column.DisplayIndex);
+
+            switch (e.Action)
+            {
+                case NotifyCollectionChangeAction.Add:
+                    dxGridView.SelectCell(cell.RowIndex, gridColumn);
+                    break;
+                case NotifyCollectionChangeAction.Remove:
+                    dxGridView.UnselectCell(cell.RowIndex, gridColumn);
+                    break;
+                default:
+                    throw new NotSupportedException(string.Format("Action {0} is not supported by the TableView", e.Action));
+            }
+        }
+
+        private void BindingListListChanged(object sender, ListChangedEventArgs e)
+        {
+            if (!AutoGenerateColumns || e.ListChangedType != ListChangedType.PropertyDescriptorChanged || e.PropertyDescriptor == null)
+            {
+                return;
+            }
+
+            // has column name changed
+            var column = dxGridView.Columns.ColumnByName(e.PropertyDescriptor.DisplayName);
+            if (column != null)
+            {
+                return;
+            }
+
+            column = dxGridView.Columns[e.NewIndex];
+
+            column.FieldName = e.PropertyDescriptor.Name;
+            column.Caption = e.PropertyDescriptor.DisplayName;
+        }
+
+        private void DataSourceDataTableColumnsCollectionChanged(object sender, CollectionChangeEventArgs e)
+        {
+            if (e.Action == CollectionChangeAction.Add || e.Action == CollectionChangeAction.Remove)
+            {
+                if (AutoGenerateColumns)
+                {
+                    dxGridView.PopulateColumns();
+                    BuildColumnWrappers();
+                    UpdateColumnsFormatting();
+                    BestFitColumns();
+                }
+            }
+        }
+
+        private void DataSourcePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            refreshRequired = true;
+        }
+
+        [InvokeRequired]
+        private void DataSourceCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        {
+            refreshRequired = true;
+            UpdateHeaderColumnSize();
+        }
+
+        /// <summary>
+        /// Checks if the mouse is clicked at the Header Panel Button in the grid.
+        /// If yes select entire grid (TOOLS-2834)
+        /// cfr: http://documentation.devexpress.com/#WindowsForms/CustomDocument532
+        /// "The header panel button belongs to both the column header panel and row 
+        ///  indicator panel elements. By default, the header panel button has no special 
+        ///  functionality. When the View is used to represent detail data, the header 
+        ///  panel button serves as a zoom button." 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HandleHeaderPanelButton(object sender, MouseEventArgs e)
+        {
+            var view = sender as GridView;
+            if (view == null)
+            {
+                return;
+            }
+            var hitInfo = view.CalcHitInfo(new Point(e.X, e.Y));
+            if ((hitInfo.HitTest == GridHitTest.ColumnButton) && (hitInfo.InColumn == false))
+            {
+                view.SelectAll();
+            }
+        }
+
+        private static DXMenuItem GetItemByStringId(DXPopupMenu menu, GridStringId id)
+        {
+            return menu.Items.Cast<DXMenuItem>().FirstOrDefault(item => ((GridStringId) item.Tag) == id);
+        }
+
+        private void SubscribeToDataSource()
+        {
+            if (dxGridControl.DataSource == null)
+            {
+                return;
+            }
+
+            var propertyChanged = dxGridControl.DataSource as INotifyPropertyChanged;
+            if (propertyChanged != null)
+            {
+                propertyChanged.PropertyChanged += DataSourcePropertyChanged;
+            }
+
+            var collectionChanged = dxGridControl.DataSource as INotifyCollectionChanged;
+            if (collectionChanged != null)
+            {
+                collectionChanged.CollectionChanged += DataSourceCollectionChanged;
+            }
+
+            var dataTable = dxGridControl.DataSource as DataTable;
+            if (dataTable != null)
+            {
+                var table = dataTable;
+                table.Columns.CollectionChanged += DataSourceDataTableColumnsCollectionChanged;
+            }
+
+            var bindingList = dxGridControl.DataSource as IBindingList;
+            if (bindingList != null)
+            {
+                bindingList.ListChanged += BindingListListChanged;
+            }
+        }
+
+        private void UnSubscribeFromDataSource()
+        {
+            if (dxGridControl == null || dxGridControl.DataSource == null)
+            {
+                return;
+            }
+
+            var propertyChanged = dxGridControl.DataSource as INotifyPropertyChanged;
+            if (propertyChanged != null)
+            {
+                propertyChanged.PropertyChanged -= DataSourcePropertyChanged;
+            }
+
+            var notifyCollectionChanged = dxGridControl.DataSource as INotifyCollectionChanged;
+            if (notifyCollectionChanged != null)
+            {
+                notifyCollectionChanged.CollectionChanged -= DataSourceCollectionChanged;
+            }
+
+            var dataTable = dxGridControl.DataSource as DataTable;
+            if (dataTable != null)
+            {
+                var table = dataTable;
+                table.Columns.CollectionChanged -= DataSourceDataTableColumnsCollectionChanged;
+            }
+
+            var bindingSource = dxGridControl.DataSource as BindingSource;
+            if (bindingSource != null)
+            {
+                bindingSource.ListChanged -= BindingListListChanged;
+            }
+        }
+
+        private void RegionalSettingsManagerFormatChanged()
+        {
+            dxGridView.Invalidate();
+            UpdateColumnsFormatting();
+        }
+
+        /// <summary>
+        /// Calculate width of the header column based on grid font
+        /// </summary>
+        private void UpdateHeaderColumnSize()
+        {
+            var indicatorWidth = (int) dxGridControl.Font.SizeInPoints*RowCount.ToString(CultureInfo.InvariantCulture).Length + 15;
+            dxGridView.IndicatorWidth = showRowNumbers ? indicatorWidth : -1;
+            Refresh();
+        }
+
+        /// <summary>
+        /// Returns true if the whole selection is readonly. This can be on cell,column or table level If a cell is not it returns false.
+        /// </summary>
+        /// <returns></returns>
+        private bool GetSelectionIsReadonly()
+        {
+            //no selection use tableview readonly
+            if (SelectedCells.Count == 0)
+            {
+                return ReadOnly;
+            }
+
+            //A selection is readonly if ALL cells are readonly (otherwise i can change the not readonly part)
+            return SelectedCells.All(cell => CellIsReadOnly(cell.RowIndex, cell.Column));
+        }
+
+        private void UpdateSelectionFromGridControl()
+        {
+            if (updatingSelection)
+            {
+                return;
+            }
+
+            updatingSelection = true;
+
+            selectedCells.Clear();
+
+            var gridViewSelectedCells = dxGridView.GetSelectedCells();
+            foreach (var cell in gridViewSelectedCells)
+            {
+                selectedCells.Add(new TableViewCell(cell.RowHandle, GetColumnByDxColumn(cell.Column)));
+            }
+
+            if (!IsEditing && !isPasting)
+            {
+                if (SelectionChanged != null)
+                {
+                    Log.DebugFormat("Firing selection changed event");
+                    SelectionChanged(this, new TableSelectionChangedEventArgs(selectedCells.ToArray()));
+                }
+            }
+
+            // Update the row context menu
+            RowContextMenu.Items.OfType<ToolStripMenuItem>().ForEach(mi => mi.Available = true);
+            RowContextMenu.Items.OfType<ToolStripMenuItem>()
+                          .Where(mi => mi.Name == "btnDelete" || mi.Name == "btnPaste")
+                          .ForEach(mi => mi.Available = !GetSelectionIsReadonly());
+
+            updatingSelection = false;
+        }
+
+        private void BuildColumnWrappers()
+        {
+            if (!AutoGenerateColumns)
+            {
+                return;
+            }
+
+            columns.CollectionChanged -= ColumnsOnCollectionChanged;
+            columns.Clear();
+
+            foreach (GridColumn dxColumn in dxGridView.Columns)
+            {
+                Columns.Add(new TableViewColumn(dxGridView, dxGridControl, dxColumn, this, false)
+                {
+                    SortingAllowed = AllowColumnSorting
+                });
+            }
+
+            columns.CollectionChanged += ColumnsOnCollectionChanged;
+        }
+
+        private void UpdateColumnsFormatting()
+        {
+            foreach (var column in Columns.OfType<TableViewColumn>().Where(tvc => tvc.CustomFormatter == null))
+            {
+                if (column.ColumnType == typeof(DateTime))
+                {
+                    column.DxColumn.ColumnEdit = (RepositoryItem) repositoryItemTimeEdit1.Clone();
+
+                    if (string.IsNullOrEmpty(column.DisplayFormat))
+                    {
+                        column.DisplayFormat = RegionalSettingsManager.DateTimeFormat;
+                    }
+                }
+                else if (column.ColumnType.IsNumericalType())
+                {
+                    if (string.IsNullOrEmpty(column.DisplayFormat))
+                    {
+                        column.DisplayFormat = RegionalSettingsManager.RealNumberFormat;
+                    }
+                }
+            }
+        }
+
+        private void ShowEditorIfRowSelect()
+        {
+            if (dxGridView.FocusedColumn != null && (RowSelect) && (dxGridView.ActiveEditor == null))
+            {
+                dxGridView.ShowEditor();
+            }
+        }
+
+        private GridColumn GetDxColumnByDisplayIndex(int displayIndex)
+        {
+            return dxGridView.Columns[Columns.First(c => c.DisplayIndex == displayIndex).AbsoluteIndex];
+        }
+
+        private void UpdateColumnHeaderMenu(GridMenuEventArgs e, ITableViewColumn viewColumn)
+        {
+            //show grid menu is handled to remove menu-items.  For grouping etc.
+            //No way to do this in a setting :(
+            //see http://community.devexpress.com/forums/t/61316.aspx
+
+            var ids = new[]
+            {
+                GridStringId.MenuColumnGroupBox,
+                GridStringId.MenuColumnGroup,
+                GridStringId.MenuColumnRemoveColumn
+            };
+
+            var dxMenuItems = ids.Select(id => GetItemByStringId(e.Menu, id));
+            var dxMenuItemsToHide = dxMenuItems.Where(item => item != null);
+            foreach (var item in dxMenuItemsToHide)
+            {
+                item.Visible = false;
+            }
+
+            if (AllowColumnPinning && viewColumn != null)
+            {
+                var pinColumnMenuItem = new DXMenuCheckItem
+                {
+                    Caption = viewColumn.Pinned ? "Unpin Column" : "Pin Column",
+                    Checked = viewColumn.Pinned,
+                    Image = Resources.pin
+                };
+
+                pinColumnMenuItem.CheckedChanged += (sender, args) => { viewColumn.Pinned = pinColumnMenuItem.Checked; };
+
+                e.Menu.Items.Add(pinColumnMenuItem);
+            }
+
+            var copyHeadersColumnMenuItem = new DXMenuItem
+            {
+                Caption = "Copy all headers",
+                Image = Resources.CopyHS
+            };
+
+            copyHeadersColumnMenuItem.Click += (sender, args) =>
+            {
+                var sb = new StringBuilder();
+
+                CopyHeader(sb);
+
+                Clipboard.Clear();
+                Clipboard.SetData(DataFormats.Text, sb.ToString());
+            };
+
+            e.Menu.Items.Add(copyHeadersColumnMenuItem);
+        }
+
+        private static bool IsNumberType(Type type)
+        {
+            if (type == typeof(double)
+                || type == typeof(float)
+                || type == typeof(decimal))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool ValidateAndCommitRow(int rowIndex)
+        {
+            string errorText;
+            if (!tableViewValidator.ValidateRow(rowIndex, out errorText))
+            {
+                Log.ErrorFormat("Can not set value for row {0}, reason: {1}", rowIndex, errorText);
+                dxGridView.CancelUpdateCurrentRow();
+                tableViewValidator.RefreshRowData();
+                dxGridView.DeleteRow(rowIndex);
+                return false;
+            }
+
+            dxGridView.FocusedRowHandle = rowIndex;
+            //this line is needed for the changes to be 'commited' and the row
+            //to leave an updating state. http://community.devexpress.com/forums/p/30892/106718.aspx
+            //unfortunately hard to write a test without exposing/hacking too much
+            dxGridView.UpdateCurrentRow();
+            tableViewValidator.RefreshRowData();
+            return true;
+        }
+
+        private bool SetCellValueInternal(int rowIndex, int columnDisplayIndex, object value)
+        {
+            var col = GetDxColumnByDisplayIndex(columnDisplayIndex);
+
+            if (CellIsReadOnly(rowIndex, GetColumnByDxColumn(col)))
+            {
+                return false;
+            }
+
+            //check if the value can be converted to the column type
+            object objectValue = value is string
+                                     ? ConvertStringValueToDataValue(col.AbsoluteIndex, (string) value)
+                                     : value;
+            if (objectValue == null)
+            {
+                Log.ErrorFormat("Can not set value into cell [{0}, {1}] reason:{2}", rowIndex, col.AbsoluteIndex, "No conversion from string possible");
+                return false;
+            }
+
+            string error;
+            if (!tableViewValidator.ValidateCell(new TableViewCell(rowIndex, GetColumnByDxColumn(col)), objectValue, out error))
+            {
+                Log.ErrorFormat("Can not set value into cell [{0}, {1}] reason:{2}", rowIndex, col.AbsoluteIndex, error);
+                return false;
+            }
+
+            // (Gijs) We are mixing the row handlers and indices throughout this wrapper: should be fixed, as 
+
+            dxGridView.FocusedRowHandle = rowIndex;
+
+            dxGridView.SetRowCellValue(rowIndex, col, objectValue);
+            return true;
+        }
+
+        private static object ConvertToColumnValue(string cellValue, Type columnType)
+        {
+            try
+            {
+                return TypeConverter.ConvertValueToTargetType(columnType, cellValue);
+            }
+            catch (Exception)
+            {
+                if (string.IsNullOrEmpty(cellValue.TrimStart()))
+                {
+                    if (columnType.IsValueType)
+                    {
+                        return Activator.CreateInstance(columnType);
+                    }
+                    return null;
+                }
+
+                // still try to parse double or float numbers
+                if (columnType == typeof(double) || columnType == typeof(float))
+                {
+                    double value;
+                    if (double.TryParse(cellValue, out value))
+                    {
+                        return value;
+                    }
+                }
+
+                Log.WarnFormat("Unable to convert string {0} to {1} for paste", cellValue, columnType);
+                return null;
+            }
+        }
+
         #region Public properties
 
         public bool ShowImportExportToolbar
         {
-            get { return dataToolToolbar.Visible; }
-            set { dataToolToolbar.Visible = value; }
+            get
+            {
+                return dataToolToolbar.Visible;
+            }
+            set
+            {
+                dataToolToolbar.Visible = value;
+            }
         }
 
         /// <summary>
@@ -200,7 +866,10 @@ namespace DelftTools.Controls.Swf.Table
         /// </summary>
         public TableViewDataToolBar DataToolToolBar
         {
-            get { return dataToolToolbar; }
+            get
+            {
+                return dataToolToolbar;
+            }
         }
 
         /// <summary>
@@ -208,8 +877,14 @@ namespace DelftTools.Controls.Swf.Table
         /// </summary>
         public bool EditButtons
         {
-            get { return dxGridControl.UseEmbeddedNavigator; }
-            set { dxGridControl.UseEmbeddedNavigator = value; }
+            get
+            {
+                return dxGridControl.UseEmbeddedNavigator;
+            }
+            set
+            {
+                dxGridControl.UseEmbeddedNavigator = value;
+            }
         }
 
         public bool AllowDeleteRow
@@ -217,7 +892,12 @@ namespace DelftTools.Controls.Swf.Table
             get
             {
                 if (bindingSource == null) // lazy initialize
-                    bindingSource = new BindingSource { DataSource = dxGridView.DataSource };
+                {
+                    bindingSource = new BindingSource
+                    {
+                        DataSource = dxGridView.DataSource
+                    };
+                }
 
                 var tableAllowRemove = dxGridView.OptionsBehavior.AllowDeleteRows;
                 var dataAllowsRemove = bindingSource.AllowRemove;
@@ -232,7 +912,9 @@ namespace DelftTools.Controls.Swf.Table
             {
                 dxGridView.OptionsBehavior.AllowDeleteRows = value ? DefaultBoolean.True : DefaultBoolean.False;
                 if (dxGridControl.EmbeddedNavigator != null)
+                {
                     dxGridControl.EmbeddedNavigator.Buttons.Remove.Visible = value;
+                }
             }
         }
 
@@ -241,7 +923,12 @@ namespace DelftTools.Controls.Swf.Table
             get
             {
                 if (bindingSource == null) // lazy initialize
-                    bindingSource = new BindingSource { DataSource = dxGridView.DataSource };
+                {
+                    bindingSource = new BindingSource
+                    {
+                        DataSource = dxGridView.DataSource
+                    };
+                }
 
                 var tableAllowNew = dxGridView.OptionsBehavior.AllowAddRows;
                 var dataAllowsNew = bindingSource.AllowNew;
@@ -257,16 +944,24 @@ namespace DelftTools.Controls.Swf.Table
                 dxGridView.OptionsBehavior.AllowAddRows = value ? DefaultBoolean.True : DefaultBoolean.False;
                 dxGridView.OptionsView.NewItemRowPosition = value ? NewItemRowPosition.Bottom : NewItemRowPosition.None;
                 if (dxGridControl.EmbeddedNavigator != null)
+                {
                     dxGridControl.EmbeddedNavigator.Buttons.Append.Enabled = value;
+                }
             }
         }
 
         public bool AllowColumnSorting
         {
-            get { return allowColumnSorting; }
+            get
+            {
+                return allowColumnSorting;
+            }
             set
             {
-                if (allowColumnSorting == value) return;
+                if (allowColumnSorting == value)
+                {
+                    return;
+                }
 
                 allowColumnSorting = value;
                 foreach (var column in Columns)
@@ -283,8 +978,14 @@ namespace DelftTools.Controls.Swf.Table
         /// </summary>
         public bool MultiSelect
         {
-            get { return dxGridView.OptionsSelection.MultiSelect; }
-            set { dxGridView.OptionsSelection.MultiSelect = value; }
+            get
+            {
+                return dxGridView.OptionsSelection.MultiSelect;
+            }
+            set
+            {
+                dxGridView.OptionsSelection.MultiSelect = value;
+            }
         }
 
         public bool IncludeHeadersOnCopy { get; set; }
@@ -295,7 +996,10 @@ namespace DelftTools.Controls.Swf.Table
         [Browsable(false)]
         public bool IsEditing
         {
-            get { return dxGridView.IsEditing || dxGridView.FocusedRowModified; }
+            get
+            {
+                return dxGridView.IsEditing || dxGridView.FocusedRowModified;
+            }
         }
 
         ///<summary>
@@ -303,7 +1007,10 @@ namespace DelftTools.Controls.Swf.Table
         ///</summary>
         public bool RowSelect
         {
-            get { return dxGridView.OptionsSelection.MultiSelectMode == GridMultiSelectMode.RowSelect; }
+            get
+            {
+                return dxGridView.OptionsSelection.MultiSelectMode == GridMultiSelectMode.RowSelect;
+            }
             set
             {
                 dxGridView.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -314,35 +1021,53 @@ namespace DelftTools.Controls.Swf.Table
 
         public bool ShowRowNumbers
         {
-            get { return showRowNumbers; }
+            get
+            {
+                return showRowNumbers;
+            }
             set
             {
                 showRowNumbers = value;
                 UpdateHeaderColumnSize();
             }
         }
-        
+
         public bool ColumnAutoWidth
         {
-            get { return dxGridView.OptionsView.ColumnAutoWidth; }
-            set { dxGridView.OptionsView.ColumnAutoWidth = value; }
+            get
+            {
+                return dxGridView.OptionsView.ColumnAutoWidth;
+            }
+            set
+            {
+                dxGridView.OptionsView.ColumnAutoWidth = value;
+            }
         }
 
         public bool UseCenteredHeaderText
         {
-            get { return dxGridView.Appearance.HeaderPanel.TextOptions.HAlignment == HorzAlignment.Center; }
+            get
+            {
+                return dxGridView.Appearance.HeaderPanel.TextOptions.HAlignment == HorzAlignment.Center;
+            }
             set
             {
                 dxGridView.Appearance.HeaderPanel.TextOptions.HAlignment = (value)
-                                                                             ? HorzAlignment.Center
-                                                                             : HorzAlignment.Default;
+                                                                               ? HorzAlignment.Center
+                                                                               : HorzAlignment.Default;
             }
         }
 
         public bool ReadOnly
         {
-            get { return !dxGridView.Editable; }
-            set { dxGridView.OptionsBehavior.Editable = !value; }
+            get
+            {
+                return !dxGridView.Editable;
+            }
+            set
+            {
+                dxGridView.OptionsBehavior.Editable = !value;
+            }
         }
 
         public bool MultipleCellEdit { get; set; }
@@ -353,7 +1078,10 @@ namespace DelftTools.Controls.Swf.Table
         /// </summary>
         public bool AutoGenerateColumns
         {
-            get { return autoGenerateColumns; }
+            get
+            {
+                return autoGenerateColumns;
+            }
             set
             {
                 autoGenerateColumns = value;
@@ -364,13 +1092,22 @@ namespace DelftTools.Controls.Swf.Table
 
         public bool AutoSizeRows
         {
-            get { return dxGridView.OptionsView.RowAutoHeight; }
-            set { dxGridView.OptionsView.RowAutoHeight = value; }
+            get
+            {
+                return dxGridView.OptionsView.RowAutoHeight;
+            }
+            set
+            {
+                dxGridView.OptionsView.RowAutoHeight = value;
+            }
         }
 
         public int HeaderHeigth
         {
-            get { return dxGridView.ColumnPanelRowHeight; }
+            get
+            {
+                return dxGridView.ColumnPanelRowHeight;
+            }
             set
             {
                 if (value > 0)
@@ -378,14 +1115,19 @@ namespace DelftTools.Controls.Swf.Table
                     dxGridView.Appearance.HeaderPanel.TextOptions.WordWrap = WordWrap.Wrap;
                 }
                 dxGridView.ColumnPanelRowHeight = value;
-                
             }
         }
 
         public int RowHeight
         {
-            get { return dxGridView.RowHeight; }
-            set { dxGridView.RowHeight = value; }
+            get
+            {
+                return dxGridView.RowHeight;
+            }
+            set
+            {
+                dxGridView.RowHeight = value;
+            }
         }
 
         /// <summary>
@@ -394,31 +1136,45 @@ namespace DelftTools.Controls.Swf.Table
         [Browsable(false)]
         public int RowCount
         {
-            get { return dxGridView.DataController.VisibleCount; }
+            get
+            {
+                return dxGridView.DataController.VisibleCount;
+            }
         }
-        
+
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int FocusedRowIndex
         {
-            get { return dxGridView.FocusedRowHandle; }
+            get
+            {
+                return dxGridView.FocusedRowHandle;
+            }
             set
             {
                 if (dxGridView.FocusedRowHandle != value && dxGridView.FocusedRowHandle != int.MinValue && value > -1)
+                {
                     dxGridView.FocusedRowHandle = value;
+                }
             }
         }
 
         [Browsable(false)]
         public int[] SelectedRowsIndices
         {
-            get { return dxGridView.GetSelectedRows(); }
+            get
+            {
+                return dxGridView.GetSelectedRows();
+            }
         }
 
         [Browsable(false)]
         public int[] SelectedColumnsIndices
         {
-            get { return selectedCells.Select(c => c.Column.AbsoluteIndex).OrderBy(i => i).Distinct().ToArray(); }
+            get
+            {
+                return selectedCells.Select(c => c.Column.AbsoluteIndex).OrderBy(i => i).Distinct().ToArray();
+            }
         }
 
         ///<summary>
@@ -442,28 +1198,34 @@ namespace DelftTools.Controls.Swf.Table
         [Browsable(false)]
         public object CurrentFocusedRowObject
         {
-            get { return dxGridView.GetFocusedRow(); }
+            get
+            {
+                return dxGridView.GetFocusedRow();
+            }
         }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data
         {
-            get { return dxGridControl.DataSource; }
+            get
+            {
+                return dxGridControl.DataSource;
+            }
             set
             {
                 dxGridView.CancelUpdateCurrentRow();
                 UnSubscribeFromDataSource();
                 bindingSource = null;
                 ClearSelection();
-                
+
                 // clear before binding enables rebinding to new function; will remove old columns
                 if (dxGridControl.DataSource != value)
                 {
                     // do not explicitly clear columns; this will also remove user added column editors
-                    
+
                     dxGridControl.DataSource = value;
-                    
+
                     if (AutoGenerateColumns)
                     {
                         dxGridView.PopulateColumns();
@@ -487,7 +1249,7 @@ namespace DelftTools.Controls.Swf.Table
                 AddEnumCellEditors();
                 UpdateColumnsFormatting();
                 UpdateHeaderColumnSize();
-                
+
                 EndInit();
 
                 dataToolToolbar.RefreshButtons();
@@ -500,11 +1262,7 @@ namespace DelftTools.Controls.Swf.Table
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ITableViewPasteController PasteController
-        {
-            get { return pasteController; }
-            set { pasteController = value; }
-        }
+        public ITableViewPasteController PasteController { get; set; }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -513,7 +1271,10 @@ namespace DelftTools.Controls.Swf.Table
         [Browsable(false)]
         public IList<TableViewCell> SelectedCells
         {
-            get { return selectedCells; }
+            get
+            {
+                return selectedCells;
+            }
         }
 
         // avoid serialization of Columns into resx files, 
@@ -522,25 +1283,40 @@ namespace DelftTools.Controls.Swf.Table
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IList<ITableViewColumn> Columns
         {
-            get { return columns; }
+            get
+            {
+                return columns;
+            }
         }
 
         public override ContextMenuStrip ContextMenuStrip
         {
-            get { return RowContextMenu; }
-            set { RowContextMenu = value; }
+            get
+            {
+                return RowContextMenu;
+            }
+            set
+            {
+                RowContextMenu = value;
+            }
         }
 
         public ContextMenuStrip RowContextMenu
         {
-            get { return dxGridControl.ContextMenuStrip; }
-            private set { dxGridControl.ContextMenuStrip = value; }
+            get
+            {
+                return dxGridControl.ContextMenuStrip;
+            }
+            private set
+            {
+                dxGridControl.ContextMenuStrip = value;
+            }
         }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IList<TableViewColumnMenuItem> ColumnMenuItems { get; set; }
-        
+
         ///<summary>
         /// Gets or sets the filter to evaluate if the value of the cell is invalid
         ///</summary>
@@ -568,7 +1344,7 @@ namespace DelftTools.Controls.Swf.Table
         /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Func<int,int, bool, bool, object, object> UnboundColumnData { get; set; }
+        public Func<int, int, bool, bool, object, object> UnboundColumnData { get; set; }
 
         /// <summary>
         /// Gets or sets the row values validator. The validator should return a RowValidationResult
@@ -611,7 +1387,10 @@ namespace DelftTools.Controls.Swf.Table
         ///</summary>
         public bool AllowColumnFiltering
         {
-            get { return Columns.OfType<TableViewColumn>().Any(c => c.FilteringAllowed); }
+            get
+            {
+                return Columns.OfType<TableViewColumn>().Any(c => c.FilteringAllowed);
+            }
             set
             {
                 foreach (var column in Columns.OfType<TableViewColumn>())
@@ -641,7 +1420,7 @@ namespace DelftTools.Controls.Swf.Table
             base.ResetBindings();
         }
 
-        public void EnsureVisible(object item) { }
+        public void EnsureVisible(object item) {}
 
         ///<summary>
         /// Function to check if the current focused row is a 
@@ -719,19 +1498,22 @@ namespace DelftTools.Controls.Swf.Table
 
         public void SelectRow(int index, bool clearPreviousSelection = true)
         {
-            SelectRows(new[] { index }, clearPreviousSelection);
+            SelectRows(new[]
+            {
+                index
+            }, clearPreviousSelection);
         }
 
         public void SelectRows(int[] indices, bool clearPreviousSelection = true)
         {
             dxGridView.BeginSelection();
-            
+
             if (clearPreviousSelection)
             {
-                dxGridView.ClearSelection();//clear any previous selection
+                dxGridView.ClearSelection(); //clear any previous selection
             }
 
-            dxGridView.HideEditor();//close any open editor
+            dxGridView.HideEditor(); //close any open editor
 
             for (int i = 0; i < indices.Length; i++)
             {
@@ -786,13 +1568,22 @@ namespace DelftTools.Controls.Swf.Table
         public bool CellIsReadOnly(int rowHandle, ITableViewColumn column)
         {
             // Tableview readonly?
-            if (ReadOnly) return true;
+            if (ReadOnly)
+            {
+                return true;
+            }
 
             // Column does not exist or cannot be found (not visible for example)
-            if (column == null) return true;
+            if (column == null)
+            {
+                return true;
+            }
 
             // Column readonly?
-            if (column.ReadOnly) return true;
+            if (column.ReadOnly)
+            {
+                return true;
+            }
 
             // Cell readonly?
             if (ReadOnlyCellFilter != null)
@@ -816,9 +1607,15 @@ namespace DelftTools.Controls.Swf.Table
 
             try
             {
-                if (!SetCellValueInternal(rowIndex, columnIndex, value)) return false;
+                if (!SetCellValueInternal(rowIndex, columnIndex, value))
+                {
+                    return false;
+                }
 
-                if (!ValidateAndCommitRow(rowIndex)) return false;
+                if (!ValidateAndCommitRow(rowIndex))
+                {
+                    return false;
+                }
             }
             finally
             {
@@ -835,10 +1632,9 @@ namespace DelftTools.Controls.Swf.Table
 
             try
             {
-
                 for (int i = 0; i < cellValues.Length; i++)
                 {
-                    if(CellIsReadOnly(rowIndex, GetColumnByDisplayIndex(i+columnDisplayStartIndex))) // skip readonly cells, does not affect success.
+                    if (CellIsReadOnly(rowIndex, GetColumnByDisplayIndex(i + columnDisplayStartIndex))) // skip readonly cells, does not affect success.
                     {
                         continue;
                     }
@@ -856,13 +1652,13 @@ namespace DelftTools.Controls.Swf.Table
             {
                 tableViewValidator.AutoValidation = true;
             }
-            
+
             return success;
         }
 
         public object GetRowObjectAt(int rowIndex)
         {
-            return dxGridView.RowCount > rowIndex && rowIndex >=0 ? dxGridView.GetRow(rowIndex) : null;
+            return dxGridView.RowCount > rowIndex && rowIndex >= 0 ? dxGridView.GetRow(rowIndex) : null;
         }
 
         /// <summary>
@@ -882,7 +1678,7 @@ namespace DelftTools.Controls.Swf.Table
         {
             return GetCellValue(cell.RowIndex, cell.Column.AbsoluteIndex);
         }
-        
+
         /// <summary>
         /// Selects cells in a square described by top,left -> bottom,right
         /// </summary>
@@ -900,16 +1696,16 @@ namespace DelftTools.Controls.Swf.Table
                 throw new InvalidOperationException("Unable to select cells when tableView has RowSelect enabled. Use SelectRow instead.");
             }
 
-            if(clearOldSelection)
+            if (clearOldSelection)
             {
                 selectedCells.Clear();
             }
-            
+
             for (int y = top; y <= bottom; y++)
             {
                 for (int x = left; x <= right; x++)
                 {
-                    selectedCells.Add(new TableViewCell (y, GetColumnByDisplayIndex(x)));
+                    selectedCells.Add(new TableViewCell(y, GetColumnByDisplayIndex(x)));
                 }
             }
             dxGridView.EndSelection();
@@ -922,7 +1718,7 @@ namespace DelftTools.Controls.Swf.Table
         public void PasteClipboardContents()
         {
             isPasting = true;
-            pasteController.PasteClipboardContents();
+            PasteController.PasteClipboardContents();
             isPasting = false;
         }
 
@@ -932,9 +1728,9 @@ namespace DelftTools.Controls.Swf.Table
         public void CopySelectionToClipboard()
         {
             var sb = new StringBuilder();
-            var areAllCellsSelected = dxGridView.GetSelectedCells().Length ==(dxGridView.DataRowCount*dxGridView.VisibleColumns.Count);
+            var areAllCellsSelected = dxGridView.GetSelectedCells().Length == (dxGridView.DataRowCount*dxGridView.VisibleColumns.Count);
 
-            if(areAllCellsSelected && IncludeHeadersOnCopy)
+            if (areAllCellsSelected && IncludeHeadersOnCopy)
             {
                 CopyHeader(sb);
             }
@@ -943,9 +1739,9 @@ namespace DelftTools.Controls.Swf.Table
             var rowIndex = -1;
             foreach (var cell in selectedGridCells)
             {
-                if(rowIndex != cell.RowHandle)
+                if (rowIndex != cell.RowHandle)
                 {
-                    if(rowIndex != -1)
+                    if (rowIndex != -1)
                     {
                         sb.AppendLine();
                     }
@@ -988,7 +1784,6 @@ namespace DelftTools.Controls.Swf.Table
 
         public void SetFocus(int rowIndex, int columnIndex)
         {
-
             var column = GetDxColumnByDisplayIndex(columnIndex);
 
             dxGridView.FocusedRowHandle = rowIndex;
@@ -997,9 +1792,8 @@ namespace DelftTools.Controls.Swf.Table
             //this is needed to get the focus visible
             dxGridView.ShowEditor();
             dxGridView.HideEditor();
-
         }
-        
+
         public void DeleteCurrentSelection()
         {
             if (ReadOnly)
@@ -1010,11 +1804,17 @@ namespace DelftTools.Controls.Swf.Table
             dxGridView.CancelUpdateCurrentRow(); // cancel any open changes (as that may trigger validation)
 
             // Nothing to delete?
-            if (dxGridView.GetSelectedRows().Length == 0) return;
+            if (dxGridView.GetSelectedRows().Length == 0)
+            {
+                return;
+            }
 
             // Is deletion allowed?
-            if (CanDeleteCurrentSelection != null && !CanDeleteCurrentSelection()) return;
-            
+            if (CanDeleteCurrentSelection != null && !CanDeleteCurrentSelection())
+            {
+                return;
+            }
+
             DoActionInEditAction(this, "Deleting selection", () =>
             {
                 //delete rows in case entire rows are selected
@@ -1033,7 +1833,7 @@ namespace DelftTools.Controls.Swf.Table
                 foreach (var c in selectedGridCells)
                 {
                     var defaultValue = c.Column.DefaultValue ??
-                                        TypeUtils.GetDefaultValue(c.Column.ColumnType);
+                                       TypeUtils.GetDefaultValue(c.Column.ColumnType);
 
                     SetCellValue(c.RowIndex, c.Column.DisplayIndex, Convert.ToString(defaultValue));
                 }
@@ -1045,17 +1845,17 @@ namespace DelftTools.Controls.Swf.Table
             return AddColumn(dataSourcePropertyName, columnCaption, false, 100);
         }
 
-        public ITableViewColumn AddColumn(string dataSourcePropertyName, string columnCaption, bool readOnly, int width, Type columnType=null, string displayFormat = null)
+        public ITableViewColumn AddColumn(string dataSourcePropertyName, string columnCaption, bool readOnly, int width, Type columnType = null, string displayFormat = null)
         {
             var dxColumn = dxGridView.Columns.AddField(dataSourcePropertyName);
             dxColumn.Caption = columnCaption;
             dxColumn.VisibleIndex = dxGridView.Columns.Count - 1;
             dxColumn.OptionsColumn.ReadOnly = readOnly;
             dxColumn.Width = width;
-            
+
             var column = new TableViewColumn(dxGridView, dxGridControl, dxColumn, this, false);
 
-            if(displayFormat != null)
+            if (displayFormat != null)
             {
                 column.DisplayFormat = displayFormat;
             }
@@ -1085,24 +1885,24 @@ namespace DelftTools.Controls.Swf.Table
 
             if (columnType == typeof(double))
             {
-                unbColumn.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
+                unbColumn.UnboundType = UnboundColumnType.Decimal;
                 unbColumn.DisplayFormat.FormatType = FormatType.Numeric;
             }
             else if (columnType == typeof(int))
             {
-                unbColumn.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+                unbColumn.UnboundType = UnboundColumnType.Integer;
                 unbColumn.DisplayFormat.FormatType = FormatType.Numeric;
             }
             else if (columnType == typeof(string))
             {
-                unbColumn.UnboundType = DevExpress.Data.UnboundColumnType.String;
+                unbColumn.UnboundType = UnboundColumnType.String;
                 unbColumn.DisplayFormat.FormatType = FormatType.None;
             }
             else if (columnType.IsEnum)
             {
-                unbColumn.UnboundType = DevExpress.Data.UnboundColumnType.Object;
+                unbColumn.UnboundType = UnboundColumnType.Object;
             }
-            else if (columnType == typeof (DateTime))
+            else if (columnType == typeof(DateTime))
             {
                 unbColumn.UnboundType = UnboundColumnType.DateTime;
                 unbColumn.DisplayFormat.FormatType = FormatType.Custom;
@@ -1134,7 +1934,7 @@ namespace DelftTools.Controls.Swf.Table
         public event EventHandler FocusedRowChanged;
 
         public event EventHandler<TableSelectionChangedEventArgs> SelectionChanged;
-        
+
         public event EventHandler<EventArgs<TableViewCell>> CellChanged;
 
         public event EventHandler<EventArgs<ITableViewColumn>> ColumnFilterChanged;
@@ -1198,11 +1998,16 @@ namespace DelftTools.Controls.Swf.Table
             var dxGridColumn = tableColumn != null ? dxGridView.Columns[tableColumn.AbsoluteIndex] : null;
             dxGridView.SetColumnError(dxGridColumn, errorText);
         }
-        
+
         internal void AddNewRowToDataSource()
         {
             if (bindingSource == null)
-                bindingSource = new BindingSource {DataSource = dxGridView.DataSource};
+            {
+                bindingSource = new BindingSource
+                {
+                    DataSource = dxGridView.DataSource
+                };
+            }
 
             if (!bindingSource.AllowNew)
             {
@@ -1213,7 +2018,9 @@ namespace DelftTools.Controls.Swf.Table
 
             //end edit is needed when we bind to datatable
             if (bindingSource.DataSource is DataTable || bindingSource.DataSource is DataView)
+            {
                 bindingSource.EndEdit();
+            }
         }
 
         internal ITableViewColumn GetColumnByDisplayIndex(int i)
@@ -1224,7 +2031,7 @@ namespace DelftTools.Controls.Swf.Table
         #endregion
 
         #region Gridview event handlers
-        
+
         private void EmbeddedNavigatorButtonClick(object sender, NavigatorButtonClickEventArgs e)
         {
             if (e.Button != dxGridControl.EmbeddedNavigator.Buttons.Remove)
@@ -1253,16 +2060,27 @@ namespace DelftTools.Controls.Swf.Table
             }
 
             if (e.KeyData != Keys.Left && e.KeyData != Keys.Right)
+            {
                 return;
+            }
 
             var gridControl = sender as GridControl;
-            if (gridControl == null) return;
+            if (gridControl == null)
+            {
+                return;
+            }
 
             var view = gridControl.FocusedView as GridView;
-            if (view == null) return;
+            if (view == null)
+            {
+                return;
+            }
 
             var textEdit = view.ActiveEditor as TextEdit;
-            if (textEdit == null) return;
+            if (textEdit == null)
+            {
+                return;
+            }
 
             var left = e.KeyData == Keys.Left;
             var right = e.KeyData == Keys.Right;
@@ -1299,25 +2117,30 @@ namespace DelftTools.Controls.Swf.Table
             }
 
             var cellReadOnly = CellIsReadOnly(e.RowHandle, tableViewColumn);
-            if(!cellReadOnly)
+            if (!cellReadOnly)
+            {
                 return;
-            
-            var buttonEditViewInfo = ((GridCellInfo)e.Cell).ViewInfo as ButtonEditViewInfo;
+            }
+
+            var buttonEditViewInfo = ((GridCellInfo) e.Cell).ViewInfo as ButtonEditViewInfo;
             if ((buttonEditViewInfo == null) || (buttonEditViewInfo.RightButtons.Count != 1))
             {
                 return;
             }
 
-            e.Appearance.FillRectangle(new DevExpress.Utils.Drawing.GraphicsCache(e.Graphics), e.Bounds);
+            e.Appearance.FillRectangle(new GraphicsCache(e.Graphics), e.Bounds);
             e.Handled = true;
         }
 
         private void DxGridViewColumnFilterChanged(object sender, EventArgs e)
         {
-            if (ColumnFilterChanged == null) return;
+            if (ColumnFilterChanged == null)
+            {
+                return;
+            }
 
             var selectedColumn = Columns.OfType<TableViewColumn>()
-                                    .FirstOrDefault(c => c.DxColumn == dxGridView.FocusedColumn);
+                                        .FirstOrDefault(c => c.DxColumn == dxGridView.FocusedColumn);
 
             ColumnFilterChanged(sender, new EventArgs<ITableViewColumn>(selectedColumn));
         }
@@ -1388,10 +2211,10 @@ namespace DelftTools.Controls.Swf.Table
             if (DisplayCellFilter != null)
             {
                 var tableViewCellStyle = new TableViewCellStyle(e.RowHandle, GetColumnByDxColumn(e.Column), selected)
-                    {
-                        ForeColor = e.Appearance.ForeColor,
-                        BackColor = e.Appearance.BackColor
-                    };
+                {
+                    ForeColor = e.Appearance.ForeColor,
+                    BackColor = e.Appearance.BackColor
+                };
 
                 if (DisplayCellFilter(tableViewCellStyle))
                 {
@@ -1411,7 +2234,7 @@ namespace DelftTools.Controls.Swf.Table
             var isReadOnly = CellIsReadOnly(e.RowHandle, GetColumnByDxColumn(e.Column));
             if (isReadOnly)
             {
-                e.Appearance.ForeColor =  ReadOnlyCellForeColor;
+                e.Appearance.ForeColor = ReadOnlyCellForeColor;
                 e.Appearance.BackColor = ReadOnlyCellBackColor;
             }
 
@@ -1428,7 +2251,10 @@ namespace DelftTools.Controls.Swf.Table
         private void DxGridViewShownEditor(object sender, EventArgs e)
         {
             var view = sender as GridView;
-            if (view == null) return;
+            if (view == null)
+            {
+                return;
+            }
 
             var textEditor = view.ActiveEditor as TextEdit;
             if (f2Pressed && textEditor != null && textEditor.IsEditorActive)
@@ -1450,7 +2276,10 @@ namespace DelftTools.Controls.Swf.Table
         private void DxGridViewShowingEditor(object sender, CancelEventArgs e)
         {
             var view = sender as GridView;
-            if (view == null) return;
+            if (view == null)
+            {
+                return;
+            }
 
             e.Cancel = CellIsReadOnly(view.FocusedRowHandle, GetColumnByDxColumn(view.FocusedColumn));
         }
@@ -1458,7 +2287,7 @@ namespace DelftTools.Controls.Swf.Table
         private void DxGridControlProcessDxGridKey(object sender, KeyEventArgs e)
         {
             f2Pressed = e.KeyCode == Keys.F2;
-            
+
             //TODO: get to switch like stament
             if (((e.Shift) && (e.KeyCode == Keys.Insert)) ||
                 ((e.Control) && (e.KeyCode == Keys.V)))
@@ -1472,13 +2301,12 @@ namespace DelftTools.Controls.Swf.Table
                     e.SuppressKeyPress = true;
                     e.Handled = true;
                 }
-
             }
             if (((e.Control) && (e.KeyCode == Keys.Insert)) ||
-               ((e.Control) && (e.KeyCode == Keys.C)))
+                ((e.Control) && (e.KeyCode == Keys.C)))
             {
                 CopySelectionToClipboard();
-                e.Handled = true;//prevent XtraGrid from doing another copy resulting in an exception
+                e.Handled = true; //prevent XtraGrid from doing another copy resulting in an exception
             }
             if ((e.KeyCode == Keys.Delete) && (dxGridView.State == GridState.Normal))
             {
@@ -1492,7 +2320,7 @@ namespace DelftTools.Controls.Swf.Table
                 e.SuppressKeyPress = true;
             }
         }
-        
+
         private void DxGridViewFocusedColumnChanged(object sender, FocusedColumnChangedEventArgs e)
         {
             if (e.FocusedColumn != null && !dxGridView.Columns.Contains(e.FocusedColumn))
@@ -1507,7 +2335,7 @@ namespace DelftTools.Controls.Swf.Table
         private void DxGridViewClick(object sender, EventArgs e)
         {
             var gridHitInfo = dxGridView.CalcHitInfo(PointToClient(MousePosition));
-            
+
             if (gridHitInfo.Column != null && gridHitInfo.Column.ColumnEdit is RepositoryItemButtonEdit)
             {
                 dxGridView.ShowEditor(); // Reduces the number of clicks needed to actually click buttons by one
@@ -1516,16 +2344,16 @@ namespace DelftTools.Controls.Swf.Table
             if (gridHitInfo.InColumn && (!gridHitInfo.InColumnPanel && RowSelect) && gridHitInfo.Column != null)
             {
                 var columnIndex = gridHitInfo.Column.VisibleIndex;
-                if(((ModifierKeys & Keys.Control) == Keys.Control))
+                if (((ModifierKeys & Keys.Control) == Keys.Control))
                 {
-                    if(!DeselectSelectCells(0, columnIndex, dxGridView.RowCount - 1, columnIndex))
+                    if (!DeselectSelectCells(0, columnIndex, dxGridView.RowCount - 1, columnIndex))
                     {
                         SelectCells(0, columnIndex, dxGridView.RowCount - 1, columnIndex, false);
                     }
                 }
                 else
                 {
-                    SelectCells(0, columnIndex, dxGridView.RowCount - 1, columnIndex,true );
+                    SelectCells(0, columnIndex, dxGridView.RowCount - 1, columnIndex, true);
                 }
             }
 
@@ -1545,11 +2373,13 @@ namespace DelftTools.Controls.Swf.Table
             {
                 // temporarily disable value changed event
                 dxGridView.CellValueChanged -= DxGridViewCellValueChanged;
-                
+
                 try
                 {
                     if (cellsToFill == null)
+                    {
                         return;
+                    }
 
                     foreach (GridCell gridcell in cellsToFill)
                     {
@@ -1603,10 +2433,13 @@ namespace DelftTools.Controls.Swf.Table
 
         private void DxGridViewCustomUnboundColumnData(object sender, CustomColumnDataEventArgs e)
         {
-            if (UnboundColumnData == null) return;
+            if (UnboundColumnData == null)
+            {
+                return;
+            }
 
             var result = UnboundColumnData(e.Column.AbsoluteIndex, e.ListSourceRowIndex, e.IsGetData, e.IsSetData, e.Value);
-            if(result != null)
+            if (result != null)
             {
                 e.Value = result;
             }
@@ -1641,9 +2474,9 @@ namespace DelftTools.Controls.Swf.Table
                         if (viewInfo != null)
                         {
                             var gridGlyphRect = new Rectangle(viewInfo.GetGridCellInfo(hi).Bounds.X + glyphRect.X,
-                                viewInfo.GetGridCellInfo(hi).Bounds.Y + glyphRect.Y,
-                                glyphRect.Width,
-                                glyphRect.Height);
+                                                              viewInfo.GetGridCellInfo(hi).Bounds.Y + glyphRect.Y,
+                                                              glyphRect.Width,
+                                                              glyphRect.Height);
 
                             dxGridView.ClearSelection();
 
@@ -1674,7 +2507,7 @@ namespace DelftTools.Controls.Swf.Table
                             }
                         }
                     }
-                    
+
                     var dxMouseEventArgs = e as DXMouseEventArgs;
                     if (dxMouseEventArgs != null)
                     {
@@ -1730,17 +2563,31 @@ namespace DelftTools.Controls.Swf.Table
 
         private void ConfigureContextMenu()
         {
-            var btnCopy = new ToolStripMenuItem { Name = "btnCopy", Image = Resources.CopyHS, Size = new Size(116, 22), Text = "Copy", Tag = "btnCopy" };
-            var btnPaste = new ToolStripMenuItem { Name = "btnPaste", Image = Resources.PasteHS, Size = new Size(116, 22), Text = "Paste", Tag = "btnPaste" };
-            var btnDelete = new ToolStripMenuItem { Name = "btnDelete", Image = Resources.DeleteHS1, Size = new Size(116, 22), Text = "Delete", Tag = "btnDelete" };
+            var btnCopy = new ToolStripMenuItem
+            {
+                Name = "btnCopy", Image = Resources.CopyHS, Size = new Size(116, 22), Text = "Copy", Tag = "btnCopy"
+            };
+            var btnPaste = new ToolStripMenuItem
+            {
+                Name = "btnPaste", Image = Resources.PasteHS, Size = new Size(116, 22), Text = "Paste", Tag = "btnPaste"
+            };
+            var btnDelete = new ToolStripMenuItem
+            {
+                Name = "btnDelete", Image = Resources.DeleteHS1, Size = new Size(116, 22), Text = "Delete", Tag = "btnDelete"
+            };
 
             btnCopy.Click += delegate { CopySelectionToClipboard(); };
             btnPaste.Click += delegate { PasteClipboardContents(); };
             btnDelete.Click += delegate { DeleteCurrentSelection(); };
 
             var viewContextMenu = new ContextMenuStrip();
-            viewContextMenu.Items.AddRange(new ToolStripItem[] { btnCopy, btnPaste, btnDelete});
-            
+            viewContextMenu.Items.AddRange(new ToolStripItem[]
+            {
+                btnCopy,
+                btnPaste,
+                btnDelete
+            });
+
             RowContextMenu = viewContextMenu;
         }
 
@@ -1766,7 +2613,7 @@ namespace DelftTools.Controls.Swf.Table
             dxGridView.DoubleClick += DxGridViewDoubleClick;
             dxGridView.MouseEnter += DxGridViewMouseEnter;
             dxGridView.MouseDown += DxGridViewMouseDown;
-            
+
             dxGridView.InvalidRowException += DxGridViewInvalidRowException;
 
             // keyboard events
@@ -1776,13 +2623,13 @@ namespace DelftTools.Controls.Swf.Table
             // change of focus
             dxGridView.FocusedRowChanged += OnDxGridViewOnFocusedRowChanged;
             dxGridView.FocusedRowChanged += tableViewValidator.RowLostFocus;
-            dxGridView.FocusedColumnChanged += DxGridViewFocusedColumnChanged;           
+            dxGridView.FocusedColumnChanged += DxGridViewFocusedColumnChanged;
 
             // value changes
             dxGridView.CellValueChanged += tableViewValidator.OnCellValueChanged;
             dxGridView.CellValueChanged += DxGridViewCellValueChanged;
             dxGridView.CellValueChanging += DxGridViewCellValueChanging;
-            
+
             // filtering events
             dxGridView.ColumnFilterChanged += DxGridViewColumnFilterChanged;
 
@@ -1796,12 +2643,12 @@ namespace DelftTools.Controls.Swf.Table
             dxGridView.ShownEditor += DxGridViewShownEditor;
             dxGridView.HiddenEditor += tableViewValidator.HiddenEditor;
             dxGridView.HiddenEditor += DxGridViewHiddenEditor;
-            
+
             dxGridView.ValidatingEditor += (s, e) =>
-                {
-                    var cell = new TableViewCell(FocusedRowIndex, GetColumnByDxColumn(dxGridView.FocusedColumn));
-                    tableViewValidator.OnValidateCell(cell, e);
-                };
+            {
+                var cell = new TableViewCell(FocusedRowIndex, GetColumnByDxColumn(dxGridView.FocusedColumn));
+                tableViewValidator.OnValidateCell(cell, e);
+            };
             dxGridControl.EditorKeyDown += DxGridControlEditorKeyDown;
 
             // selection events
@@ -1812,653 +2659,10 @@ namespace DelftTools.Controls.Swf.Table
             dxGridView.ValidateRow += tableViewValidator.OnValidateRow;
             dxGridControl.EmbeddedNavigator.ButtonClick += EmbeddedNavigatorButtonClick;
 
-            pasteController.PasteFailed += CopyPasteControllerPasteFailed;
+            PasteController.PasteFailed += CopyPasteControllerPasteFailed;
             columns.CollectionChanged += ColumnsOnCollectionChanged;
         }
 
         #endregion
-
-        private ITableViewColumn GetColumnByDxColumn(GridColumn dxGridColumn)
-        {
-            return Columns.FirstOrDefault(c => c.AbsoluteIndex == dxGridColumn.AbsoluteIndex);
-        }
-
-        private void BestFitColumnsWithOnlyFirstWordOfHeader()
-        {
-            var oldHeaders = Columns.ToDictionary(c => c, c => c.Caption);
-
-            dxGridView.BeginUpdate();
-            try
-            {
-                foreach (var column in Columns)
-                {
-                    string caption = column.Caption;
-
-                    //Say the caption is 'Discharge on Lateral (m3/s)'. We're trying to do 
-                    //something a bit smarter than just ignore the header entirely: we try 
-                    //to get the first word (eg: "Discharge"), add room for the ellipsis 
-                    //and keep that into view
-
-                    if (!String.IsNullOrEmpty(caption))
-                    {
-                        var indexOfWhitespace = caption.IndexOfAny(new[] { ' ', '\t' });
-                        if (indexOfWhitespace >= 0)
-                        {
-                            //add space for ellipsis
-                            column.Caption = caption.Substring(0, indexOfWhitespace) + "...";
-                        }
-                    }
-                }
-
-                dxGridView.BestFitColumns();
-
-                //restore the original columns
-                foreach (var column in Columns)
-                {
-                    column.Caption = oldHeaders[column];
-                }
-            }
-            finally
-            {
-                dxGridView.EndUpdate();
-            }
-        }
-
-        private bool DeselectSelectCells(int top, int left, int bottom, int right)
-        {
-            var cellsDeselected = false;
-            // dxGridControl.SuspendLayout();
-            dxGridView.BeginSelection();
-            for (int y = top; y <= bottom; y++)
-            {
-                for (int x = left; x <= right; x++)
-                {
-                    var selectedCell = selectedCells.FirstOrDefault(c => c.Column == GetColumnByDisplayIndex(x) && c.RowIndex == y);
-                    if (selectedCell != null)
-                    {
-                        selectedCells.Remove(selectedCell);
-                        cellsDeselected = true;
-                    }
-                }
-            }
-            dxGridView.EndSelection();
-            //dxGridControl.ResumeLayout();
-
-            return cellsDeselected;
-        }
-
-        private void AddEnumCellEditors()
-        {
-            foreach (var column in Columns.Where(c => c.ColumnType.IsEnum && c.Editor == null))
-            {
-                column.Editor = new ComboBoxTypeEditor
-                    {
-                        Items = Enum.GetValues(column.ColumnType),
-                        ItemsMandatory = false,
-                        CustomFormatter = new EnumFormatter(column.ColumnType)
-                    };
-            }
-        }
-
-        private void ColumnsOnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            if (e.Action == NotifyCollectionChangeAction.Remove && dxGridView.Columns.Count > e.Index)
-            {
-                dxGridView.Columns.RemoveAt(e.Index);
-            }
-        }
-
-        private static void CopyPasteControllerPasteFailed(object sender, EventArgs<string> e)
-        {
-            System.Windows.Forms.MessageBox.Show(e.Value);
-        }
-
-        private void SelectedCellsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            if (updatingSelection)
-            {
-                return;
-            }
-
-            var cell = (TableViewCell)e.Item;
-
-            var gridColumn = GetDxColumnByDisplayIndex(cell.Column.DisplayIndex);
-
-            switch (e.Action)
-            {
-                case NotifyCollectionChangeAction.Add:
-                    dxGridView.SelectCell(cell.RowIndex, gridColumn);
-                    break;
-                case NotifyCollectionChangeAction.Remove:
-                    dxGridView.UnselectCell(cell.RowIndex, gridColumn);
-                    break;
-                default:
-                    throw new NotSupportedException(string.Format("Action {0} is not supported by the TableView", e.Action));
-            }
-        }
-
-        private void BindingListListChanged(object sender, ListChangedEventArgs e)
-        {
-            if (!AutoGenerateColumns || e.ListChangedType != ListChangedType.PropertyDescriptorChanged || e.PropertyDescriptor == null)
-            {
-                return;
-            }
-
-            // has column name changed
-            var column = dxGridView.Columns.ColumnByName(e.PropertyDescriptor.DisplayName);
-            if (column != null) return;
-
-            column = dxGridView.Columns[e.NewIndex];
-
-            column.FieldName = e.PropertyDescriptor.Name;
-            column.Caption = e.PropertyDescriptor.DisplayName;
-        }
-
-        private void DataSourceDataTableColumnsCollectionChanged(object sender, CollectionChangeEventArgs e)
-        {
-            if (e.Action == CollectionChangeAction.Add || e.Action == CollectionChangeAction.Remove)
-            {
-                if (AutoGenerateColumns)
-                {
-                    dxGridView.PopulateColumns();
-                    BuildColumnWrappers();
-                    UpdateColumnsFormatting();
-                    BestFitColumns();
-                }
-            }
-        }
-
-        private void DataSourcePropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            refreshRequired = true;
-        }
-
-        [InvokeRequired]
-        private void DataSourceCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            refreshRequired = true;
-            UpdateHeaderColumnSize();
-        }
-
-        /// <summary>
-        /// Checks if the mouse is clicked at the Header Panel Button in the grid.
-        /// If yes select entire grid (TOOLS-2834)
-        /// cfr: http://documentation.devexpress.com/#WindowsForms/CustomDocument532
-        /// "The header panel button belongs to both the column header panel and row 
-        ///  indicator panel elements. By default, the header panel button has no special 
-        ///  functionality. When the View is used to represent detail data, the header 
-        ///  panel button serves as a zoom button." 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void HandleHeaderPanelButton(object sender, MouseEventArgs e)
-        {
-            var view = sender as GridView;
-            if (view == null)
-            {
-                return;
-            }
-            var hitInfo = view.CalcHitInfo(new Point(e.X, e.Y));
-            if ((hitInfo.HitTest == GridHitTest.ColumnButton) && (hitInfo.InColumn == false))
-            {
-                view.SelectAll();
-            }
-        }
-
-        private static DXMenuItem GetItemByStringId(DXPopupMenu menu, GridStringId id)
-        {
-            return menu.Items.Cast<DXMenuItem>().FirstOrDefault(item => ((GridStringId)item.Tag) == id);
-        }
-
-        private void SubscribeToDataSource()
-        {
-            if (dxGridControl.DataSource == null)
-            {
-                return;
-            }
-
-            var propertyChanged = dxGridControl.DataSource as INotifyPropertyChanged;
-            if (propertyChanged != null)
-            {
-                propertyChanged.PropertyChanged += DataSourcePropertyChanged;
-            }
-
-            var collectionChanged = dxGridControl.DataSource as INotifyCollectionChanged;
-            if (collectionChanged != null)
-            {
-                collectionChanged.CollectionChanged += DataSourceCollectionChanged;
-            }
-
-            var dataTable = dxGridControl.DataSource as DataTable;
-            if (dataTable != null)
-            {
-                var table = dataTable;
-                table.Columns.CollectionChanged += DataSourceDataTableColumnsCollectionChanged;
-            }
-
-            var bindingList = dxGridControl.DataSource as IBindingList;
-            if (bindingList != null)
-            {
-                bindingList.ListChanged += BindingListListChanged;
-            }
-        }
-
-        private void UnSubscribeFromDataSource()
-        {
-            if (dxGridControl == null || dxGridControl.DataSource == null)
-            {
-                return;
-            }
-
-            var propertyChanged = dxGridControl.DataSource as INotifyPropertyChanged;
-            if (propertyChanged != null)
-            {
-                propertyChanged.PropertyChanged -= DataSourcePropertyChanged;
-            }
-
-            var notifyCollectionChanged = dxGridControl.DataSource as INotifyCollectionChanged;
-            if (notifyCollectionChanged != null)
-            {
-                notifyCollectionChanged.CollectionChanged -= DataSourceCollectionChanged;
-            }
-
-            var dataTable = dxGridControl.DataSource as DataTable;
-            if (dataTable != null)
-            {
-                var table = dataTable;
-                table.Columns.CollectionChanged -= DataSourceDataTableColumnsCollectionChanged;
-            }
-
-            var bindingSource = dxGridControl.DataSource as BindingSource;
-            if (bindingSource != null)
-            {
-                bindingSource.ListChanged -= BindingListListChanged;
-            }
-
-        }
-
-        private void RegionalSettingsManagerFormatChanged()
-        {
-            dxGridView.Invalidate();
-            UpdateColumnsFormatting();
-        }
-
-        /// <summary>
-        /// Calculate width of the header column based on grid font
-        /// </summary>
-        private void UpdateHeaderColumnSize()
-        {
-            var indicatorWidth = (int)dxGridControl.Font.SizeInPoints * RowCount.ToString(CultureInfo.InvariantCulture).Length + 15;
-            dxGridView.IndicatorWidth = showRowNumbers ? indicatorWidth : -1;
-            Refresh();
-        }
-
-        /// <summary>
-        /// Returns true if the whole selection is readonly. This can be on cell,column or table level If a cell is not it returns false.
-        /// </summary>
-        /// <returns></returns>
-        private bool GetSelectionIsReadonly()
-        {
-            //no selection use tableview readonly
-            if (SelectedCells.Count == 0)
-            {
-                return ReadOnly;
-            }
-
-            //A selection is readonly if ALL cells are readonly (otherwise i can change the not readonly part)
-            return SelectedCells.All(cell => CellIsReadOnly(cell.RowIndex, cell.Column));
-        }
-
-        private void UpdateSelectionFromGridControl()
-        {
-            if (updatingSelection)
-            {
-                return;
-            }
-
-            updatingSelection = true;
-
-            selectedCells.Clear();
-
-            var gridViewSelectedCells = dxGridView.GetSelectedCells();
-            foreach (var cell in gridViewSelectedCells)
-            {
-                selectedCells.Add(new TableViewCell(cell.RowHandle, GetColumnByDxColumn(cell.Column)));
-            }
-
-            if (!IsEditing && !isPasting)
-            {
-                if (SelectionChanged != null)
-                {
-                    Log.DebugFormat("Firing selection changed event");
-                    SelectionChanged(this, new TableSelectionChangedEventArgs(selectedCells.ToArray()));
-                }
-            }
-
-            // Update the row context menu
-            RowContextMenu.Items.OfType<ToolStripMenuItem>().ForEach(mi => mi.Available = true);
-            RowContextMenu.Items.OfType<ToolStripMenuItem>()
-                .Where(mi => mi.Name == "btnDelete" || mi.Name == "btnPaste")
-                .ForEach(mi => mi.Available = !GetSelectionIsReadonly());
-
-            updatingSelection = false;
-        }
-        
-        private void BuildColumnWrappers()
-        {
-            if (!AutoGenerateColumns)
-            {
-                return;
-            }
-
-            columns.CollectionChanged -= ColumnsOnCollectionChanged;
-            columns.Clear();
-
-            foreach (GridColumn dxColumn in dxGridView.Columns)
-            {
-                Columns.Add(new TableViewColumn(dxGridView, dxGridControl, dxColumn, this, false) {SortingAllowed = AllowColumnSorting});
-            }
-
-            columns.CollectionChanged += ColumnsOnCollectionChanged;
-        }
-
-        private void UpdateColumnsFormatting()
-        {
-            foreach(var column in Columns.OfType<TableViewColumn>().Where(tvc => tvc.CustomFormatter == null))
-            {
-                if(column.ColumnType == typeof(DateTime) )
-                {
-                    column.DxColumn.ColumnEdit = (RepositoryItem)repositoryItemTimeEdit1.Clone();
-
-                    if (string.IsNullOrEmpty(column.DisplayFormat))
-                    {
-                        column.DisplayFormat = RegionalSettingsManager.DateTimeFormat;
-                    }
-                }
-                else if (column.ColumnType.IsNumericalType())
-                {
-                    if (string.IsNullOrEmpty(column.DisplayFormat))
-                    {
-                        column.DisplayFormat = RegionalSettingsManager.RealNumberFormat;
-                    }
-                }
-            }
-        }
-
-        private void ShowEditorIfRowSelect()
-        {
-            if (dxGridView.FocusedColumn != null && (RowSelect) && (dxGridView.ActiveEditor == null))
-            {
-                dxGridView.ShowEditor();
-            }
-        }
-
-        private GridColumn GetDxColumnByDisplayIndex(int displayIndex)
-        {
-            return dxGridView.Columns[Columns.First(c => c.DisplayIndex == displayIndex).AbsoluteIndex];
-        }
-
-        private void UpdateColumnHeaderMenu(GridMenuEventArgs e, ITableViewColumn viewColumn)
-        {
-            //show grid menu is handled to remove menu-items.  For grouping etc.
-            //No way to do this in a setting :(
-            //see http://community.devexpress.com/forums/t/61316.aspx
-
-            var ids = new[]
-                          {
-                              GridStringId.MenuColumnGroupBox,
-                              GridStringId.MenuColumnGroup,
-                              GridStringId.MenuColumnRemoveColumn
-                          };
-
-            var dxMenuItems = ids.Select(id => GetItemByStringId(e.Menu, id));
-            var dxMenuItemsToHide = dxMenuItems.Where(item => item != null);
-            foreach (var item in dxMenuItemsToHide)
-            {
-                item.Visible = false;
-            }
-
-            if (AllowColumnPinning && viewColumn != null)
-            {
-                var pinColumnMenuItem = new DXMenuCheckItem
-                                        {
-                                            Caption = viewColumn.Pinned ? "Unpin Column" : "Pin Column",
-                                            Checked = viewColumn.Pinned,
-                                            Image = Resources.pin
-                                        };
-
-                pinColumnMenuItem.CheckedChanged += (sender, args) => { viewColumn.Pinned = pinColumnMenuItem.Checked; };
-
-                e.Menu.Items.Add(pinColumnMenuItem);
-            }
-
-            var copyHeadersColumnMenuItem = new DXMenuItem
-                                            {
-                                                Caption = "Copy all headers",
-                                                Image = Resources.CopyHS
-                                            };
-
-            copyHeadersColumnMenuItem.Click += (sender, args) =>
-            {
-                var sb = new StringBuilder();
-
-                CopyHeader(sb);
-
-                Clipboard.Clear();
-                Clipboard.SetData(DataFormats.Text, sb.ToString());
-            };
-
-            e.Menu.Items.Add(copyHeadersColumnMenuItem);
-        }
-
-        private static bool IsNumberType(Type type)
-        {
-            if (type == typeof(double)
-                || type == typeof(float)
-                || type == typeof(decimal))
-                return true;
-            return false;
-        }
-
-        private bool ValidateAndCommitRow(int rowIndex)
-        {
-            string errorText;
-            if (!tableViewValidator.ValidateRow(rowIndex, out errorText))
-            {
-                Log.ErrorFormat("Can not set value for row {0}, reason: {1}", rowIndex, errorText);
-                dxGridView.CancelUpdateCurrentRow();
-                tableViewValidator.RefreshRowData();
-                dxGridView.DeleteRow(rowIndex);
-                return false;
-            }
-
-            dxGridView.FocusedRowHandle = rowIndex;
-            //this line is needed for the changes to be 'commited' and the row
-            //to leave an updating state. http://community.devexpress.com/forums/p/30892/106718.aspx
-            //unfortunately hard to write a test without exposing/hacking too much
-            dxGridView.UpdateCurrentRow();
-            tableViewValidator.RefreshRowData();
-            return true;
-        }
-
-        private bool SetCellValueInternal(int rowIndex, int columnDisplayIndex, object value)
-        {
-            var col = GetDxColumnByDisplayIndex(columnDisplayIndex);
-
-            if (CellIsReadOnly(rowIndex, GetColumnByDxColumn(col)))
-                return false;
-
-            //check if the value can be converted to the column type
-            object objectValue = value is string
-                                     ? ConvertStringValueToDataValue(col.AbsoluteIndex, (string) value)
-                                     : value;
-            if (objectValue == null)
-            {
-                Log.ErrorFormat("Can not set value into cell [{0}, {1}] reason:{2}", rowIndex, col.AbsoluteIndex, "No conversion from string possible");
-                return false;
-            }
-
-            string error;
-            if (!tableViewValidator.ValidateCell(new TableViewCell(rowIndex, GetColumnByDxColumn(col)), objectValue, out error))
-            {
-                Log.ErrorFormat("Can not set value into cell [{0}, {1}] reason:{2}", rowIndex, col.AbsoluteIndex, error);
-                return false;
-            }
-
-            // (Gijs) We are mixing the row handlers and indices throughout this wrapper: should be fixed, as 
-
-            dxGridView.FocusedRowHandle = rowIndex;
-
-            dxGridView.SetRowCellValue(rowIndex, col, objectValue);
-            return true;
-        }
-        
-        /// <summary>
-        /// Converts value pasted from clipboard, currently always a string, to a value of the type
-        /// required by the underlying datasource.
-        /// In addition to default conversion for e.g string to int by
-        ///     TypeConverter.ConvertValueToTargetType
-        /// There is added support for the RepositoryItemImageComboBox where the description (will default be 
-        /// copied to clipboard) will be converted to value.
-        ///    - NB the base class RepositoryItemComboBox does not have items with value and description
-        /// </summary>
-        /// <param name="columnIndex"></param>
-        /// <param name="cellValue"></param>
-        /// <returns></returns>
-        internal object ConvertStringValueToDataValue(int columnIndex, string cellValue)
-        {
-            object value = null;
-            RepositoryItem editor = dxGridView.Columns[columnIndex].ColumnEdit;
-            Type columnType = dxGridView.Columns[columnIndex].ColumnType;
-            if (null != editor)
-            {
-                var imageComboBoxEditor = editor as RepositoryItemImageComboBox;
-                if (imageComboBoxEditor != null)
-                {
-                    var repositoryItemImageComboBox = imageComboBoxEditor;
-                    var map = new Dictionary<string, object>();
-                    for (int j = 0; j < repositoryItemImageComboBox.Items.Count; j++)
-                    {
-                        map[repositoryItemImageComboBox.Items[j].Description] =
-                            repositoryItemImageComboBox.Items[j].Value;
-                    }
-                    if (map.ContainsKey(cellValue))
-                    {
-                        value = map[cellValue];
-                    }
-                }
-                else if (editor is RepositoryItemComboBox || editor is RepositoryItemLookUpEdit)
-                {
-                    var valueLookUp = new Dictionary<string, object>();
-
-                    var comboBoxEditor = editor as RepositoryItemComboBox;
-                    if (comboBoxEditor != null)
-                    {
-                        var repositoryItemComboBox = comboBoxEditor;
-                        valueLookUp = repositoryItemComboBox.Items.OfType<TableViewComboBoxItem>().ToDictionary(i => i.DisplayText, i => i.Value);
-                    }
-                    else
-                    {
-                        var lookUpEdit = (RepositoryItemLookUpEdit) editor;
-                        var comboBoxItems = lookUpEdit.DataSource as IEnumerable<TableViewComboBoxItem>;
-                        if (comboBoxItems != null)
-                        {
-                            valueLookUp = comboBoxItems.ToDictionary(i => i.DisplayText, i => i.Value);
-                        }
-                    }
-
-                    if (valueLookUp.Any() && valueLookUp.ContainsKey(cellValue))
-                    {
-                        value = valueLookUp[cellValue];
-                    }
-                    else if (comboBoxEditor != null) // items are not mandatory
-                    {
-                        value = cellValue;
-                    }
-                }
-                else
-                {
-                    value = ConvertToColumnValue(cellValue, columnType);
-                }
-            }
-            else if (dxGridView.Columns[columnIndex].RealColumnEdit is RepositoryItemCheckEdit)
-            {
-                return cellValue == "Checked";
-            }
-            else
-            {
-                value = ConvertToColumnValue(cellValue, columnType);
-
-            }
-            return value;
-        }
-
-        private static object ConvertToColumnValue(string cellValue, Type columnType)
-        {
-            try
-            {
-                return Utils.TypeConverter.ConvertValueToTargetType(columnType, cellValue);
-            }
-            catch (Exception)
-            {
-                if (string.IsNullOrEmpty(cellValue.TrimStart()))
-                {
-                    if (columnType.IsValueType)
-                    {
-                        return Activator.CreateInstance(columnType);
-                    }
-                    return null;
-                }
-
-                // still try to parse double or float numbers
-                if (columnType == typeof(double) || columnType == typeof(float))
-                {
-                    double value;
-                    if (double.TryParse(cellValue, out value))
-                    {
-                        return value;
-                    }
-                }
-
-                Log.WarnFormat("Unable to convert string {0} to {1} for paste", cellValue, columnType);
-                return null;
-            }
-        }
-
-        public void ExportAsCsv(string fileName, string delimiter = ", ")
-        {
-            // the build-in export to file method depends on a devexpress dll we haven't included so far
-            using (var writer = new StreamWriter(fileName))
-            {
-                var visibleColumns = Columns.Where(c => c.Visible).OrderBy(c => c.DisplayIndex);
-                var lastColumn = visibleColumns.Last();
-
-                foreach (var visibleColumn in visibleColumns)
-                {
-                    writer.Write(visibleColumn.Caption);
-                    if (visibleColumn != lastColumn)
-                    {
-                        writer.Write(delimiter);
-                    }
-                }
-
-                writer.WriteLine();
-
-                var shownColumns = visibleColumns.Select(c => c.AbsoluteIndex).ToArray();
-
-                //writing the data
-                for (int x = 0; x < RowCount; x++)
-                {
-                    for (int y = 0; y < shownColumns.Length; y++)
-                    {
-                        writer.Write(GetCellDisplayText(x, shownColumns[y]));
-                        if (y != Columns.Count - 1)
-                            writer.Write(delimiter);
-                    }
-                    writer.WriteLine();
-                }
-                writer.Close();
-            }
-        }
     }
 }

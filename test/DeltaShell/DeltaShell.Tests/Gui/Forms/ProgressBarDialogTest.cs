@@ -8,6 +8,18 @@ namespace DeltaShell.Tests.Gui.Forms
     [TestFixture]
     public class ProgressBarDialogTest
     {
+        [Test]
+        public void EmptyTaskDoesNotHang()
+        {
+            ProgressBarDialog.PerformTask("Doing stuff", () => { });
+        }
+
+        [Test]
+        public void ShowProgress()
+        {
+            ProgressBarDialog.PerformTask("Doing stuff", () => Thread.Sleep(200));
+        }
+
         [TestFixtureSetUp]
         public void FixtureSetUp()
         {
@@ -18,18 +30,6 @@ namespace DeltaShell.Tests.Gui.Forms
         public void FixtureTearDown()
         {
             ModalHelper.MainWindow = null;
-        }
-
-        [Test]
-        public void EmptyTaskDoesNotHang()
-        {
-            ProgressBarDialog.PerformTask("Doing stuff", () => { });
-        }
-
-        [Test]
-        public void ShowProgress()
-        {
-            ProgressBarDialog.PerformTask("Doing stuff", ()=> Thread.Sleep(200));
         }
     }
 }

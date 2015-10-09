@@ -19,7 +19,16 @@ namespace DelftTools.Utils.Aop
         private static int pendingInvokes; //number of invokes pending (global!)
         private static readonly object InvokeLock = new object(); //object to lock on
         private static readonly ManualResetEvent ZeroPendingInvokes = new ManualResetEvent(true); //true/signalled if there are no invokes pending
-        
+
+        /// <summary>
+        /// Call this method with a using statement around the content of the Dispose method you want to protected.
+        /// </summary>
+        /// <returns></returns>
+        public static IDisposable BlockInvokeCallsDuringDispose()
+        {
+            return new InvokeBlocker();
+        }
+
         public override sealed void OnInvoke(MethodInterceptionArgs args)
         {
             var synchronizeObject = InvokeRequiredInfo.SynchronizeObject ?? args.Instance as ISynchronizeInvoke;
@@ -61,18 +70,9 @@ namespace DelftTools.Utils.Aop
                                     beforeCall ? "skipping" : "aborted"), e);
         }
 
-        /// <summary>
-        /// Call this method with a using statement around the content of the Dispose method you want to protected.
-        /// </summary>
-        /// <returns></returns>
-        public static IDisposable BlockInvokeCallsDuringDispose()
-        {
-            return new InvokeBlocker();
-        }
-
         private class InvokeBlocker : IDisposable
         {
-            private bool hasLock;
+            private readonly bool hasLock;
 
             public InvokeBlocker()
             {
@@ -86,11 +86,12 @@ namespace DelftTools.Utils.Aop
                         InvokeRequiredInfo.WaitMethod();
 
                         if (maxWaits-- <= 0) // prevent deadlocks
+                        {
                             return; //hasLock = false
+                        }
                     }
-                } 
-                while (!Monitor.TryEnter(InvokeLock)); //try to grab the invoke lock (to prevent additional invokes from occuring)
-                
+                } while (!Monitor.TryEnter(InvokeLock)); //try to grab the invoke lock (to prevent additional invokes from occuring)
+
                 hasLock = true;
             }
 
@@ -99,17 +100,19 @@ namespace DelftTools.Utils.Aop
                 //give up the lock; any invokes waiting for this lock are processed after this; but if the object is 
                 //now correctly disposed, they are skipped
                 if (hasLock)
+                {
                     Monitor.Exit(InvokeLock);
+                }
             }
         }
     }
 
     //In seperate class to make sure you don't need a postsharp reference to fill in
-    public static class InvokeRequiredInfo 
+    public static class InvokeRequiredInfo
     {
+        public static Action WaitMethod;
         //to be fill in by application:
         public static ISynchronizeInvoke SynchronizeObject { get; set; }
-        public static Action WaitMethod;
         // end fill in
     }
 }

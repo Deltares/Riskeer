@@ -8,16 +8,6 @@ namespace DelftTools.Controls.Swf.Charting
     /// </summary>
     public interface IChartView : IView
     {
-        ///<summary>
-        /// Get or set the title of the Chart (shown above the chart)
-        ///</summary>
-        string Title { get; set; }
-
-        /// <summary>
-        /// A collection of tools
-        /// </summary>
-        IEventedList<IChartViewTool> Tools { get; }
-
         /// <summary>
         /// Selected point of the active series has been changed
         /// </summary>
@@ -33,10 +23,39 @@ namespace DelftTools.Controls.Swf.Charting
         /// </summary>
         event EventHandler<EventArgs> ToolsActiveChanged;
 
+        ///<summary>
+        /// Get or set the title of the Chart (shown above the chart)
+        ///</summary>
+        string Title { get; set; }
+
+        /// <summary>
+        /// A collection of tools
+        /// </summary>
+        IEventedList<IChartViewTool> Tools { get; }
+
         /// <summary>
         /// Set and get the selected Point Index (of the active series)
         /// </summary>
         int SelectedPointIndex { get; set; }
+
+        /// <summary>
+        /// Chart used for this chartView
+        /// </summary>
+        IChart Chart { get; set; }
+
+        /// <summary>
+        /// Zoom and Pan move to chart or tools?
+        /// </summary>
+        IChartViewZoom Zoom { get; }
+
+        bool AllowPanning { get; set; }
+
+        /// <summary>
+        /// Enables zoom using mouse wheel
+        /// </summary>
+        bool WheelZoom { get; set; }
+
+        IChartCoordinateService ChartCoordinateService { get; }
 
         /// <summary>
         /// Sets the bottom axis to the supplied <paramref name="min"/> and <paramref name="max"/> value
@@ -53,35 +72,16 @@ namespace DelftTools.Controls.Swf.Charting
         void ZoomToValues(double min, double max);
 
         /// <summary>
-        /// Chart used for this chartView
-        /// </summary>
-        IChart Chart { get; set; }
-
-        /// <summary>
-        /// Zoom and Pan move to chart or tools?
-        /// </summary>
-        IChartViewZoom Zoom { get; }
-
-        bool AllowPanning { get; set; }
-
-        /// <summary>
         /// Gets the first tool of the right type (<typeparamref name="T"/>)
         /// </summary>
         /// <typeparam name="T">Type of tool to search for</typeparam>
         IChartViewTool GetTool<T>();
 
         /// <summary>
-        /// Enables zoom using mouse wheel
-        /// </summary>
-        bool WheelZoom { get; set; }
-
-        /// <summary>
         /// Disables the deleting of points by SelectPointTool (&amp; delete key)
         /// </summary>
         /// <param name="enable">Enable deleting</param>
         void EnableDelete(bool enable);
-
-        IChartCoordinateService ChartCoordinateService { get; }
 
         /// <summary>
         /// Exports the chart as image

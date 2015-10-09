@@ -8,20 +8,34 @@ namespace SharpMap.UI.Forms
 {
     public partial class SelectCoordinateSystemDialog : Form
     {
+        public event Action<ICoordinateSystem> SelectedCoordinateSystemChanged;
         private readonly List<TreeNode> gcsNodes = new List<TreeNode>();
         private readonly List<TreeNode> pcsNodes = new List<TreeNode>();
         private readonly List<TreeNode> customNodes = new List<TreeNode>();
-        
+
         private readonly Timer timerFilterChanged;
 
         private readonly IList<ICoordinateSystem> supportedCoordinateSystems;
         private readonly IList<ICoordinateSystem> customCoordinateSystems;
 
-        public event Action<ICoordinateSystem> SelectedCoordinateSystemChanged;
-
         private ICoordinateSystem selectedCoordinateSystem;
-        private string geographicNodeName = "geographic";
-        private string projectedNodeName = "projected";
+        private readonly string geographicNodeName = "geographic";
+        private readonly string projectedNodeName = "projected";
+
+        public SelectCoordinateSystemDialog(IList<ICoordinateSystem> supportedCoordinateSystems, IList<ICoordinateSystem> customCoordinateSystems)
+        {
+            this.supportedCoordinateSystems = supportedCoordinateSystems;
+            this.customCoordinateSystems = customCoordinateSystems;
+
+            InitializeComponent();
+
+            timerFilterChanged = new Timer
+            {
+                Interval = 200
+            };
+            timerFilterChanged.Tick += delegate { FilterTree(); };
+            components.Add(timerFilterChanged);
+        }
 
         public ICoordinateSystem SelectedCoordinateSystem
         {
@@ -31,7 +45,9 @@ namespace SharpMap.UI.Forms
                 {
                     var selectedNode = treeViewProjections.SelectedNode;
                     if (selectedNode != null)
+                    {
                         return selectedNode.Tag as ICoordinateSystem;
+                    }
                 }
                 return null;
             }
@@ -41,6 +57,36 @@ namespace SharpMap.UI.Forms
 
                 UpdateSelectedCoordinateSystemNode();
             }
+        }
+
+        public Func<ICoordinateSystem, bool> CoordinateSystemFilter { get; set; }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            CenterToScreen();
+
+            FillProjectionsTreeView();
+
+            treeViewProjections.ExpandAll();
+
+            treeViewProjections.AfterSelect += TreeViewProjectionsOnAfterSelect;
+
+            if (treeViewProjections.Nodes.ContainsKey(geographicNodeName))
+            {
+                gcsNodes.AddRange(((TreeNode) treeViewProjections.Nodes[geographicNodeName].Clone()).Nodes.Cast<TreeNode>());
+            }
+            // customNodes.AddRange(((TreeNode)treeViewProjections.Nodes[2].Clone()).Nodes.Cast<TreeNode>());
+
+            if (treeViewProjections.Nodes.ContainsKey(projectedNodeName))
+            {
+                pcsNodes.AddRange(((TreeNode) treeViewProjections.Nodes[projectedNodeName].Clone()).Nodes.Cast<TreeNode>());
+            }
+
+            treeViewProjections.TopNode = treeViewProjections.Nodes[0];
+
+            UpdateSelectedCoordinateSystemNode();
+
+            textBoxFilter.Select();
         }
 
         private void UpdateSelectedCoordinateSystemNode()
@@ -55,7 +101,7 @@ namespace SharpMap.UI.Forms
                 return; // no coordinate system selected
             }
 
-            var node = gcsNodes.Concat(pcsNodes).FirstOrDefault(n => Equals(((ICoordinateSystem)n.Tag).WKT, selectedCoordinateSystem.WKT));
+            var node = gcsNodes.Concat(pcsNodes).FirstOrDefault(n => Equals(((ICoordinateSystem) n.Tag).WKT, selectedCoordinateSystem.WKT));
             if (node == null)
             {
                 return; // can't find node for a given coordinate system
@@ -63,48 +109,6 @@ namespace SharpMap.UI.Forms
 
             treeViewProjections.SelectedNode = node;
         }
-
-        public SelectCoordinateSystemDialog(IList<ICoordinateSystem> supportedCoordinateSystems, IList<ICoordinateSystem> customCoordinateSystems)
-        {
-            this.supportedCoordinateSystems = supportedCoordinateSystems;
-            this.customCoordinateSystems = customCoordinateSystems;
-            
-            InitializeComponent();
-
-            timerFilterChanged = new Timer { Interval = 200 };
-            timerFilterChanged.Tick += delegate { FilterTree(); };
-            components.Add(timerFilterChanged);
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            CenterToScreen();
-
-            FillProjectionsTreeView();
-
-            treeViewProjections.ExpandAll();
-
-            treeViewProjections.AfterSelect += TreeViewProjectionsOnAfterSelect;
-
-            if (treeViewProjections.Nodes.ContainsKey(geographicNodeName))
-            {
-                gcsNodes.AddRange(((TreeNode)treeViewProjections.Nodes[geographicNodeName].Clone()).Nodes.Cast<TreeNode>());
-            }
-            // customNodes.AddRange(((TreeNode)treeViewProjections.Nodes[2].Clone()).Nodes.Cast<TreeNode>());
-
-            if (treeViewProjections.Nodes.ContainsKey(projectedNodeName))
-            {
-                pcsNodes.AddRange(((TreeNode)treeViewProjections.Nodes[projectedNodeName].Clone()).Nodes.Cast<TreeNode>());
-            }
-
-            treeViewProjections.TopNode = treeViewProjections.Nodes[0];
-
-            UpdateSelectedCoordinateSystemNode();
-
-            textBoxFilter.Select();
-        }
-
-        public Func<ICoordinateSystem, bool> CoordinateSystemFilter { get; set; }
 
         private bool ValidCoordinateSystem(ICoordinateSystem coordinateSystem)
         {
@@ -160,7 +164,6 @@ namespace SharpMap.UI.Forms
                     childNode.Tag = coordinateSystem;
                 }
             }
-
         }
 
         private static string GetTitle(ICoordinateSystem coordinateSystem)
@@ -221,16 +224,16 @@ namespace SharpMap.UI.Forms
             }
             else
             {
-                gcsNodesFiltered.AddRange(from node in gcsNodes select (TreeNode)node.Clone());
-                pcsNodesFiltered.AddRange(from node in pcsNodes select (TreeNode)node.Clone());
+                gcsNodesFiltered.AddRange(from node in gcsNodes select (TreeNode) node.Clone());
+                pcsNodesFiltered.AddRange(from node in pcsNodes select (TreeNode) node.Clone());
                 // ccsNodesFiltered.AddRange(from node in customNodes select (TreeNode)node.Clone());
             }
 
             if (treeViewProjections.Nodes.ContainsKey(geographicNodeName))
             {
                 var geographicNode = treeViewProjections.Nodes[geographicNodeName];
-            //treeViewProjections.Nodes[2].Nodes.Clear();
-            //treeViewProjections.Nodes[2].Nodes.AddRange(ccsNodesFiltered.ToArray());
+                //treeViewProjections.Nodes[2].Nodes.Clear();
+                //treeViewProjections.Nodes[2].Nodes.AddRange(ccsNodesFiltered.ToArray());
 
                 geographicNode.Nodes.Clear();
                 geographicNode.Nodes.AddRange(gcsNodesFiltered.ToArray());

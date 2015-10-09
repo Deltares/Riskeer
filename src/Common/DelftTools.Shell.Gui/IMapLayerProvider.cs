@@ -20,7 +20,7 @@ namespace DelftTools.Shell.Gui
         /// <param name="parentData">Parent data of the data</param>
         /// <returns>Can a layer be created</returns>
         bool CanCreateLayerFor(object data, object parentData);
-        
+
         /// <summary>
         /// Child objects for <paramref name="data"/>. Objects will be used to create child layers
         /// for the group layer (<paramref name="data"/>)

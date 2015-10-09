@@ -16,7 +16,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         /// <summary>
         /// 
         /// </summary>
-        public Root() { }
+        public Root() {}
 
         /// <summary> 
         /// Insert an item into the tree this is the root of.
@@ -27,7 +27,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         {
             int index = GetSubnodeIndex(itemInterval, origin);
             // if index is -1, itemEnv must contain the origin.
-            if (index == -1) 
+            if (index == -1)
             {
                 Add(item);
                 return;
@@ -42,7 +42,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
             *  have to expand the tree upward to contain the item.
             */
 
-            if (node == null || ! node.Interval.Contains(itemInterval)) 
+            if (node == null || !node.Interval.Contains(itemInterval))
             {
                 Node largerNode = Node.CreateExpanded(node, itemInterval);
                 subnode[index] = largerNode;
@@ -51,7 +51,16 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
             * At this point we have a subnode which exists and must contain
             * contains the env for the item.  Insert the item into the tree.
             */
-            InsertContained(subnode[index], itemInterval, item);        
+            InsertContained(subnode[index], itemInterval, item);
+        }
+
+        /// <summary>
+        /// The root node matches all searches.
+        /// </summary>
+        /// <param name="interval"></param>
+        protected override bool IsSearchMatch(Interval interval)
+        {
+            return true;
         }
 
         /// <summary> 
@@ -73,18 +82,14 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
             bool isZeroArea = IntervalSize.IsZeroWidth(itemInterval.Min, itemInterval.Max);
             NodeBase node;
             if (isZeroArea)
+            {
                 node = tree.Find(itemInterval);
-            else node = tree.GetNode(itemInterval);
+            }
+            else
+            {
+                node = tree.GetNode(itemInterval);
+            }
             node.Add(item);
-        }
-
-        /// <summary>
-        /// The root node matches all searches.
-        /// </summary>
-        /// <param name="interval"></param>
-        protected override bool IsSearchMatch(Interval interval)
-        {
-            return true;
         }
     }
 }

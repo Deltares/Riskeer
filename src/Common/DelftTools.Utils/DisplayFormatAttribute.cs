@@ -7,7 +7,7 @@ namespace DelftTools.Utils
     {
         public DisplayFormatAttribute(string formatString)
         {
-            this.FormatString = formatString;
+            FormatString = formatString;
         }
 
         public string FormatString { get; private set; }

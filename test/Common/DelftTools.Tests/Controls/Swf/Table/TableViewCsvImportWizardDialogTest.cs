@@ -15,8 +15,8 @@ namespace DelftTools.Tests.Controls.Swf.Table
         {
             var tableView = new TableView();
             var dataTable = new DataTable();
-            dataTable.Columns.Add("Foo", typeof (int));
-            dataTable.Columns.Add("Bar", typeof (int));
+            dataTable.Columns.Add("Foo", typeof(int));
+            dataTable.Columns.Add("Bar", typeof(int));
             tableView.Data = dataTable;
 
             var dialog = new TableViewCsvImportWizardDialog(tableView, "0\t0\n" +
@@ -25,21 +25,24 @@ namespace DelftTools.Tests.Controls.Swf.Table
             Assert.AreEqual(0, tableView.RowCount);
 
             dialog.DoImport(new CsvMappingData
+            {
+                Settings = new CsvSettings
                 {
-                    Settings = new CsvSettings {Delimiter = '\t', FirstRowIsHeader = false, SkipEmptyLines = true},
-                    Filters = new CsvFilter[0],
-                    FieldToColumnMapping = new Dictionary<CsvRequiredField, CsvColumnInfo>
-                        {
-                            {
-                                new CsvRequiredField("Foo", typeof (int)),
-                                new CsvColumnInfo(0, CultureInfo.CurrentCulture.NumberFormat)
-                            },
-                            {
-                                new CsvRequiredField("Bar", typeof (int)),
-                                new CsvColumnInfo(1, CultureInfo.CurrentCulture.NumberFormat)
-                            }
-                        },
-                });
+                    Delimiter = '\t', FirstRowIsHeader = false, SkipEmptyLines = true
+                },
+                Filters = new CsvFilter[0],
+                FieldToColumnMapping = new Dictionary<CsvRequiredField, CsvColumnInfo>
+                {
+                    {
+                        new CsvRequiredField("Foo", typeof(int)),
+                        new CsvColumnInfo(0, CultureInfo.CurrentCulture.NumberFormat)
+                    },
+                    {
+                        new CsvRequiredField("Bar", typeof(int)),
+                        new CsvColumnInfo(1, CultureInfo.CurrentCulture.NumberFormat)
+                    }
+                },
+            });
 
             Assert.AreEqual(2, tableView.RowCount);
         }

@@ -11,7 +11,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <summary>
         /// 
         /// </summary>
-        private ICoordinate[] pts;
+        private readonly ICoordinate[] pts;
 
         /// <summary>
         /// 

@@ -9,15 +9,11 @@ namespace DelftTools.Controls.Swf.Charting.Tools
     /// </summary>
     public class ZoomUsingMouseWheelTool : ToolSeries
     {
-
         ///<summary>
         /// default constructor
         ///</summary>
         ///<param name="chart"></param>
-        public ZoomUsingMouseWheelTool(Steema.TeeChart.Chart chart) : base(chart)
-        {
-        }
-
+        public ZoomUsingMouseWheelTool(Steema.TeeChart.Chart chart) : base(chart) {}
 
         /// <summary>
         /// check wether mousewheel is used together with ctrl button
@@ -48,8 +44,6 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 //var xcenter = xmin + (xmax - xmin) / 2;
                 //var ycenter = ymin + (ymax - ymin) / 2;
 
-
-
                 ////retrieve series and calculate mouseposition expressed in world coordinates
                 //Steema.TeeChart.Styles.Series theSeries = null;
                 //foreach (Steema.TeeChart.Styles.Series s in chart.Series)
@@ -61,10 +55,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 //    }
                 //}
                 //if (theSeries ==null ) return;
-                
+
                 //var xNewCenter = theSeries.XScreenToValue(e.X);
                 //var yNewCenter = theSeries.YScreenToValue(e.Y);
-
 
                 ////move to new center
                 //xmin += xNewCenter - xcenter;
@@ -72,15 +65,11 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 //ymin += yNewCenter - ycenter;
                 //ymax += yNewCenter - ycenter;
 
-
                 var d2x = (xmax - xmin)*(1 - 1/zoomFraction);
-                var d2y = (ymax - ymin) * (1 - 1 / zoomFraction);
+                var d2y = (ymax - ymin)*(1 - 1/zoomFraction);
 
-
-                Chart.Axes.Left.SetMinMax(ymin + d2y / 2, ymax - d2y / 2);
-                Chart.Axes.Bottom.SetMinMax(xmin + d2x / 2, xmax - d2x / 2);
-
-                
+                Chart.Axes.Left.SetMinMax(ymin + d2y/2, ymax - d2y/2);
+                Chart.Axes.Bottom.SetMinMax(xmin + d2x/2, xmax - d2x/2);
 
 /*
                 chart.Axes.Bottom.Minimum = xmin + d2x / 2;
@@ -88,7 +77,6 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                chart.Axes.Left.Minimum = ymin + d2y / 2;
                chart.Axes.Left.Maximum = ymax - d2y / 2;
 */
-
             }
         }
     }

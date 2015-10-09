@@ -9,25 +9,27 @@ namespace DelftTools.Controls.Swf
         private DelftDialogResult result;
         private bool updatingControls;
 
+        private Image baseImage;
+
         public ImageResolutionDialog()
         {
             InitializeComponent();
             Resolution = 100;
         }
 
-        public string Title { get; set; }
-
         public double Resolution { get; set; }
 
-        private Image baseImage;
         public Image BaseImage
         {
-            private get { return baseImage; }
+            private get
+            {
+                return baseImage;
+            }
             set
             {
                 baseImage = value;
                 double minWidthResolution = 100.0/BaseImage.Width;
-                double minHeightResolution = 100.0 / BaseImage.Width;
+                double minHeightResolution = 100.0/BaseImage.Width;
                 if (minHeightResolution > 1.0 || minWidthResolution > 1.0)
                 {
                     trackBar1.Minimum = (int) Math.Max(minHeightResolution, minHeightResolution);
@@ -36,19 +38,22 @@ namespace DelftTools.Controls.Swf
                 {
                     trackBar1.Minimum = 1;
                 }
-
             }
         }
+
+        public string Title { get; set; }
 
         public DelftDialogResult ShowModal()
         {
             if (BaseImage == null)
+            {
                 return DelftDialogResult.Cancel;
+            }
 
             result = DelftDialogResult.Cancel;
-            
+
             UpdateControls();
-            
+
             Show();
 
             while (Visible)
@@ -84,7 +89,9 @@ namespace DelftTools.Controls.Swf
         private void ResolutionTrackBarValueChanged(object sender, EventArgs e)
         {
             if (updatingControls)
+            {
                 return;
+            }
 
             Resolution = trackBar1.Value;
             UpdateControls(trackBar1);
@@ -93,10 +100,12 @@ namespace DelftTools.Controls.Swf
         private void TextBoxWidthTextChanged(object sender, EventArgs e)
         {
             if (updatingControls)
+            {
                 return;
+            }
 
             double newWidth;
-            if (!Double.TryParse(textBoxWidth.Text,out newWidth))
+            if (!Double.TryParse(textBoxWidth.Text, out newWidth))
             {
                 textBoxWidth.BackColor = Color.Red;
                 return;
@@ -107,7 +116,9 @@ namespace DelftTools.Controls.Swf
         private void TextBoxHeightTextChanged(object sender, EventArgs e)
         {
             if (updatingControls)
+            {
                 return;
+            }
 
             double newHeight;
             if (!Double.TryParse(textBoxHeight.Text, out newHeight))
@@ -115,14 +126,16 @@ namespace DelftTools.Controls.Swf
                 textBoxHeight.BackColor = Color.Red;
                 return;
             }
-            var newResolution = (newHeight / BaseImage.Height) * 100;
-            SetResolution(newResolution,textBoxHeight);
+            var newResolution = (newHeight/BaseImage.Height)*100;
+            SetResolution(newResolution, textBoxHeight);
         }
 
         private void TextBoxPercentageTextChanged(object sender, EventArgs e)
         {
             if (updatingControls)
+            {
                 return;
+            }
 
             double newResolution;
             if (!Double.TryParse(textBoxPercentage.Text, out newResolution))
@@ -130,27 +143,35 @@ namespace DelftTools.Controls.Swf
                 textBoxPercentage.BackColor = Color.Red;
                 return;
             }
-            SetResolution(newResolution,textBoxPercentage);
+            SetResolution(newResolution, textBoxPercentage);
         }
 
         private void UpdateControls(Control controlToIgnore = null)
         {
             updatingControls = true;
             if (controlToIgnore != trackBar1)
+            {
                 trackBar1.Value = (int) Resolution;
+            }
             if (controlToIgnore != textBoxPercentage)
+            {
                 textBoxPercentage.Text = Resolution.ToString();
+            }
             if (controlToIgnore != textBoxWidth)
+            {
                 textBoxWidth.Text = (Resolution/100*BaseImage.Width).ToString();
+            }
             if (controlToIgnore != textBoxHeight)
+            {
                 textBoxHeight.Text = (Resolution/100*BaseImage.Height).ToString();
+            }
             updatingControls = false;
             UpdateImageBox();
         }
 
         private void UpdateImageBox()
         {
-            pictureBox1.Image = ExportImageHelper.CreateResizedImage(BaseImage, (int)(Resolution / 100 * BaseImage.Width), (int)(Resolution / 100 * BaseImage.Height));
+            pictureBox1.Image = ExportImageHelper.CreateResizedImage(BaseImage, (int) (Resolution/100*BaseImage.Width), (int) (Resolution/100*BaseImage.Height));
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
         }
 

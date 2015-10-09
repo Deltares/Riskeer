@@ -14,12 +14,59 @@ namespace SharpMap.UI.Tools
     {
         IMapControl MapControl { get; set; }
 
+        /// <summary>
+        /// Indicates whether what the tool renders in world or screen coordinates.
+        /// When tool renders in screen coordinates - results of render are unaffected by dragging, resize, etc.
+        /// Otherwise results of rendering are related to world coordinates (e.g. specific features, like for selections, tooltips)
+        /// </summary>
+        bool RendersInScreenCoordinates { get; }
+
+        /// <summary>
+        /// Returns true if tool is currently busy (working).
+        /// </summary>
+        bool IsBusy { get; }
+
+        /// <summary>
+        /// True when tool is currently active (can be used).
+        /// </summary>
+        bool IsActive { get; set; }
+
+        /// <summary>
+        /// True when tool is currently enabled.
+        /// </summary>
+        bool Enabled { get; }
+
+        /// <summary>
+        /// Returns true if tool is always active, e.g. mouse wheel zoom,. fixed zoom in/out, zoom to map extent ...
+        /// 
+        /// <remarks>If tool is AlwaysActive - Execute() method should be used and not ActivateTool().</remarks>
+        /// </summary>
+        bool AlwaysActive { get; }
+
+        /// <summary>
+        /// User readable name of tool.
+        /// </summary>
+        string Name { get; set; }
+
+        /// <summary>
+        /// Map tool may be applied only to a set of layers. This property allows to define a filter for these layers. 
+        /// Then the layers can be obtained using <see cref="Layers"/> property.
+        /// </summary>
+        Func<ILayer, bool> LayerFilter { get; set; }
+
+        /// <summary>
+        /// Returns layers which satisfy <see cref="LayerFilter"/>.
+        /// </summary>
+        IEnumerable<ILayer> Layers { get; }
+
+        Cursor Cursor { get; }
+
         void OnMouseDown(ICoordinate worldPosition, MouseEventArgs e);
-        
+
         void OnBeforeMouseMove(ICoordinate worldPosition, MouseEventArgs e, ref bool handled);
 
         void OnMouseMove(ICoordinate worldPosition, MouseEventArgs e);
-        
+
         void OnMouseUp(ICoordinate worldPosition, MouseEventArgs e);
 
         void OnMouseWheel(ICoordinate worldPosition, MouseEventArgs e);
@@ -45,13 +92,6 @@ namespace SharpMap.UI.Tools
         /// <param name="mapBox"></param>
         void Render(Graphics graphics, Map mapBox);
 
-        /// <summary>
-        /// Indicates whether what the tool renders in world or screen coordinates.
-        /// When tool renders in screen coordinates - results of render are unaffected by dragging, resize, etc.
-        /// Otherwise results of rendering are related to world coordinates (e.g. specific features, like for selections, tooltips)
-        /// </summary>
-        bool RendersInScreenCoordinates { get; }
-
         void OnMapLayerRendered(Graphics g, ILayer layer);
 
         void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e);
@@ -65,28 +105,6 @@ namespace SharpMap.UI.Tools
         void OnDragDrop(DragEventArgs e);
 
         /// <summary>
-        /// Returns true if tool is currently busy (working).
-        /// </summary>
-        bool IsBusy { get; }
-
-        /// <summary>
-        /// True when tool is currently active (can be used).
-        /// </summary>
-        bool IsActive { get; set; }
-
-        /// <summary>
-        /// True when tool is currently enabled.
-        /// </summary>
-        bool Enabled { get; }
-
-        /// <summary>
-        /// Returns true if tool is always active, e.g. mouse wheel zoom,. fixed zoom in/out, zoom to map extent ...
-        /// 
-        /// <remarks>If tool is AlwaysActive - Execute() method should be used and not ActivateTool().</remarks>
-        /// </summary>
-        bool AlwaysActive { get; }
-
-        /// <summary>
         /// Used for AlwaysActive tools.
         /// </summary>
         void Execute();
@@ -96,25 +114,6 @@ namespace SharpMap.UI.Tools
         /// </summary>
         void Cancel();
 
-        /// <summary>
-        /// User readable name of tool.
-        /// </summary>
-        string Name { get; set; }
-
-        /// <summary>
-        /// Map tool may be applied only to a set of layers. This property allows to define a filter for these layers. 
-        /// Then the layers can be obtained using <see cref="Layers"/> property.
-        /// </summary>
-        Func<ILayer, bool> LayerFilter { get; set; }
-
-        /// <summary>
-        /// Returns layers which satisfy <see cref="LayerFilter"/>.
-        /// </summary>
-        IEnumerable<ILayer> Layers { get; }
-
-        Cursor Cursor { get; }
-
         void ActiveToolChanged(IMapTool newTool); // TODO: remove, why tool should know about changes of active tool
-
     }
 }

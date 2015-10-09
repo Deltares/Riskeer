@@ -18,7 +18,7 @@ namespace DelftTools.Shell.Gui.Swf
                 }
 
                 groupBox.MaximumSize = groupBox.Size;
-                
+
                 if (groupBox.Top < ((topMost != null) ? topMost.Top : control.Height))
                 {
                     topMost = groupBox;

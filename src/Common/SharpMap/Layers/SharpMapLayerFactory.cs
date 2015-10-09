@@ -8,10 +8,10 @@ namespace SharpMap.Layers
         public static ILayer CreateLayer(IFeatureProvider featureProvider)
         {
             return new VectorLayer
-                   {
-                       ReadOnly = true,
-                       DataSource = featureProvider
-                   };
+            {
+                ReadOnly = true,
+                DataSource = featureProvider
+            };
         }
     }
 }

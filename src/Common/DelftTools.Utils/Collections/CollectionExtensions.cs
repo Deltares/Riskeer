@@ -14,6 +14,5 @@ namespace DelftTools.Utils.Collections
                 source.Remove(item);
             }
         }
-        
     }
 }

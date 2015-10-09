@@ -9,15 +9,13 @@ namespace SharpMap.Editors.Interactors
     {
         public Feature2DPolygonInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle,
                                           IEditableObject editableObject)
-            : base(layer, feature, vectorStyle, editableObject)
-        {
-        }
+            : base(layer, feature, vectorStyle, editableObject) {}
 
         protected override bool AllowDeletionCore()
         {
             return true;
         }
-        
+
         protected override bool AllowMoveCore()
         {
             return true;

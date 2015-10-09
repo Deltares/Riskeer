@@ -11,6 +11,10 @@ namespace DelftTools.Controls
     /// </summary>
     public interface ITableView : IView, ISynchronizeInvoke
     {
+        event EventHandler<TableSelectionChangedEventArgs> SelectionChanged;
+
+        event EventHandler FocusedRowChanged;
+
         /// <summary>
         /// Specifies whether it is possible to remove rows 
         /// </summary>
@@ -167,7 +171,6 @@ namespace DelftTools.Controls
         /// </summary>
         void DeleteCurrentSelection();
 
-
         /// <summary>
         /// Set the value of a certain cell
         /// </summary>
@@ -216,9 +219,5 @@ namespace DelftTools.Controls
         object GetCellValue(TableViewCell cell);
 
         ITableViewColumn GetColumnByName(string columnName);
-
-        event EventHandler<TableSelectionChangedEventArgs> SelectionChanged;
-
-        event EventHandler FocusedRowChanged;
     }
 }

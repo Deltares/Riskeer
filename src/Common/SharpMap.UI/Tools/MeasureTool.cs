@@ -46,7 +46,9 @@ namespace SharpMap.UI.Tools
             {
                 base.IsActive = value;
                 if (!IsActive)
+                {
                     Clear();
+                }
             }
         }
 
@@ -55,17 +57,6 @@ namespace SharpMap.UI.Tools
             // TODO: It seems this is never called, so it is also cleared when the IsActive property is (re)set
             Clear();
             base.ActiveToolChanged(newTool);
-        }
-
-        /// <summary>
-        /// Clean up set coordinates and distances for a fresh future measurement
-        /// </summary>
-        private void Clear()
-        {
-            geometries.Clear();
-            pointLayer.DataSource.Features.Clear();
-            distanceInMeters = double.MinValue;
-            ((Control)MapControl).Invalidate();
         }
 
         public override void OnMouseDown(ICoordinate worldPosition, MouseEventArgs e)
@@ -84,50 +75,9 @@ namespace SharpMap.UI.Tools
 
             // Refresh the screen
             pointLayer.RenderRequired = true;
-            ((Control)MapControl).Invalidate();
-            
+            ((Control) MapControl).Invalidate();
+
             base.OnMouseDown(worldPosition, e);
-        }
-
-        /// <summary>
-        /// Calculate distance in meters between the two selected points
-        /// </summary>
-        private void CalculateDistance()
-        {
-            var points = pointGeometries.ToList();
-
-            if (points.Count >= 2)
-            {
-                distanceInMeters = 0.0;
-
-                if (Map.CoordinateSystem == null)
-                {
-                    for (int i = 1; i < points.Count; i++)
-                    {
-                        distanceInMeters += Math.Sqrt(
-                            Math.Pow(points[i].Coordinate.X - points[i - 1].Coordinate.X, 2) +
-                            Math.Pow(points[i].Coordinate.Y - points[i - 1].Coordinate.Y, 2));
-                    }
-                }
-                else
-                {
-                    var calc = new GeodeticDistance(Map.CoordinateSystem);
-                    for (int i = 1; i < points.Count; i++)
-                        distanceInMeters += calc.Distance(points[i - 1].Coordinate, points[i].Coordinate);
-                }
-
-                // Show a line indicator
-                //pointLayer.DataSource.Features
-                var existingLine = pointLayer.DataSource.Features.OfType<LineString>().FirstOrDefault();
-                if (existingLine != null)
-                {
-                    pointLayer.DataSource.Features.Remove(existingLine);
-                }
-
-                var lineGeometry = new LineString(points.Select(g => g.Coordinate).ToArray());
-                pointLayer.DataSource.Add(lineGeometry);
-            }
-        
         }
 
         /// <summary>
@@ -162,9 +112,63 @@ namespace SharpMap.UI.Tools
                 Map.WorldToImage(geometries[1].Coordinate);
                 PointF textPoint = Map.WorldToImage(geometries[1].Coordinate);
                 if (distanceInMeters > double.MinValue)
+                {
                     graphics.DrawString(distanceInMeters.ToString("N") + unit, distanceFont, Brushes.Black, textPoint);
+                }
             }
         }
-        
+
+        /// <summary>
+        /// Clean up set coordinates and distances for a fresh future measurement
+        /// </summary>
+        private void Clear()
+        {
+            geometries.Clear();
+            pointLayer.DataSource.Features.Clear();
+            distanceInMeters = double.MinValue;
+            ((Control) MapControl).Invalidate();
+        }
+
+        /// <summary>
+        /// Calculate distance in meters between the two selected points
+        /// </summary>
+        private void CalculateDistance()
+        {
+            var points = pointGeometries.ToList();
+
+            if (points.Count >= 2)
+            {
+                distanceInMeters = 0.0;
+
+                if (Map.CoordinateSystem == null)
+                {
+                    for (int i = 1; i < points.Count; i++)
+                    {
+                        distanceInMeters += Math.Sqrt(
+                            Math.Pow(points[i].Coordinate.X - points[i - 1].Coordinate.X, 2) +
+                            Math.Pow(points[i].Coordinate.Y - points[i - 1].Coordinate.Y, 2));
+                    }
+                }
+                else
+                {
+                    var calc = new GeodeticDistance(Map.CoordinateSystem);
+                    for (int i = 1; i < points.Count; i++)
+                    {
+                        distanceInMeters += calc.Distance(points[i - 1].Coordinate, points[i].Coordinate);
+                    }
+                }
+
+                // Show a line indicator
+                //pointLayer.DataSource.Features
+                var existingLine = pointLayer.DataSource.Features.OfType<LineString>().FirstOrDefault();
+                if (existingLine != null)
+                {
+                    pointLayer.DataSource.Features.Remove(existingLine);
+                }
+
+                var lineGeometry = new LineString(points.Select(g => g.Coordinate).ToArray());
+                pointLayer.DataSource.Add(lineGeometry);
+            }
+        }
     }
 }

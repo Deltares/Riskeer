@@ -11,7 +11,7 @@ namespace DeltaShell.Plugins.ProjectExplorer
     /// </summary>
     public partial class Ribbon : IRibbonCommandHandler
     {
-        private ICommand showProjectExplorerCommand;
+        private readonly ICommand showProjectExplorerCommand;
 
         public Ribbon()
         {
@@ -20,7 +20,13 @@ namespace DeltaShell.Plugins.ProjectExplorer
             showProjectExplorerCommand = new ShowProjectExplorerCommand();
         }
 
-        public IEnumerable<ICommand> Commands { get { yield return showProjectExplorerCommand; } }
+        public IEnumerable<ICommand> Commands
+        {
+            get
+            {
+                yield return showProjectExplorerCommand;
+            }
+        }
 
         public void ValidateItems()
         {
@@ -32,7 +38,10 @@ namespace DeltaShell.Plugins.ProjectExplorer
             return false;
         }
 
-        public object GetRibbonControl() { return RibbonControl; }
+        public object GetRibbonControl()
+        {
+            return RibbonControl;
+        }
 
         private void ButtonShowProjectExplorerToolWindowClick(object sender, RoutedEventArgs e)
         {

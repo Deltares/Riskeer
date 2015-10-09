@@ -6,8 +6,6 @@ namespace DelftTools.Controls.Swf.Editors
 {
     public partial class ComboBoxTypeEditor : UserControl, ITypeEditor
     {
-        private IEnumerable items;
-
         public ComboBoxTypeEditor()
         {
             InitializeComponent();
@@ -21,16 +19,10 @@ namespace DelftTools.Controls.Swf.Editors
         /// </summary>
         public bool ItemsMandatory { get; set; }
 
-        public object EditableValue { get; set; }
-
         /// <summary>
         /// List of values that the user can choose from
         /// </summary>
-        public IEnumerable Items
-        {
-            get { return items; }
-            set { items = value; }
-        }
+        public IEnumerable Items { get; set; }
 
         ///<summary>
         /// Sets the displayformat of the column. For example c2, D or AA{0}
@@ -41,6 +33,8 @@ namespace DelftTools.Controls.Swf.Editors
         /// Allows to override the way cell text is rendered.
         /// </summary>
         public ICustomFormatter CustomFormatter { get; set; }
+
+        public object EditableValue { get; set; }
 
         public bool CanAcceptEditValue()
         {

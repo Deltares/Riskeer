@@ -17,80 +17,33 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
     /// </summary>
     public class EdgeIntersection : IComparable
     {
-        private ICoordinate coordinate;   
-
-        /// <summary>
-        /// The point of intersection.
-        /// </summary>
-        public ICoordinate Coordinate
-        {
-            get
-            {
-                return coordinate; 
-            }
-            set
-            {
-                coordinate = value; 
-            }
-        }
-
-        private int segmentIndex;  
-
-        /// <summary>
-        /// The index of the containing line segment in the parent edge.
-        /// </summary>
-        public int SegmentIndex
-        {
-            get 
-            {
-                return segmentIndex; 
-            }
-            set
-            {
-                segmentIndex = value; 
-            }
-        }
-
-        private double dist;       
-
-        /// <summary>
-        /// The edge distance of this point along the containing line segment.
-        /// </summary>
-        public double Distance
-        {
-            get
-            {
-                return dist; 
-            }
-            set
-            {
-                dist = value; 
-            }
-        }
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="coord"></param>
         /// <param name="segmentIndex"></param>
         /// <param name="dist"></param>
-        public EdgeIntersection(ICoordinate coord, int segmentIndex, double dist) 
+        public EdgeIntersection(ICoordinate coord, int segmentIndex, double dist)
         {
-            this.coordinate = new Coordinate(coord);
-            this.segmentIndex = segmentIndex;
-            this.dist = dist;
+            Coordinate = new Coordinate(coord);
+            SegmentIndex = segmentIndex;
+            Distance = dist;
         }
 
         /// <summary>
-        /// 
+        /// The point of intersection.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public int CompareTo(object obj)
-        {
-            EdgeIntersection other = (EdgeIntersection) obj;
-            return Compare(other.SegmentIndex, other.Distance);
-        }
+        public ICoordinate Coordinate { get; set; }
+
+        /// <summary>
+        /// The index of the containing line segment in the parent edge.
+        /// </summary>
+        public int SegmentIndex { get; set; }
+
+        /// <summary>
+        /// The edge distance of this point along the containing line segment.
+        /// </summary>
+        public double Distance { get; set; }
 
         /// <summary>
         /// 
@@ -104,14 +57,22 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// </returns>
         public int Compare(int segmentIndex, double dist)
         {
-            if (this.SegmentIndex < segmentIndex) 
+            if (SegmentIndex < segmentIndex)
+            {
                 return -1;
-            if (this.SegmentIndex > segmentIndex) 
+            }
+            if (SegmentIndex > segmentIndex)
+            {
                 return 1;
-            if (this.Distance < dist) 
+            }
+            if (Distance < dist)
+            {
                 return -1;
-            if (this.Distance > dist) 
+            }
+            if (Distance > dist)
+            {
                 return 1;
+            }
             return 0;
         }
 
@@ -122,10 +83,14 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <returns></returns>
         public bool IsEndPoint(int maxSegmentIndex)
         {
-            if (SegmentIndex == 0 && Distance == 0.0) 
+            if (SegmentIndex == 0 && Distance == 0.0)
+            {
                 return true;
-            if (SegmentIndex == maxSegmentIndex) 
+            }
+            if (SegmentIndex == maxSegmentIndex)
+            {
                 return true;
+            }
             return false;
         }
 
@@ -138,6 +103,17 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
             outstream.Write(Coordinate);
             outstream.Write(" seg # = " + SegmentIndex);
             outstream.WriteLine(" dist = " + Distance);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public int CompareTo(object obj)
+        {
+            EdgeIntersection other = (EdgeIntersection) obj;
+            return Compare(other.SegmentIndex, other.Distance);
         }
     }
 }

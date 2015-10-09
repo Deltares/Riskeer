@@ -13,18 +13,32 @@ namespace DelftTools.Controls.Swf
         {
             InitializeComponent();
         }
+
         public SelectionMode SelectionMode
         {
-            get { return listBox.SelectionMode; }
-            set { listBox.SelectionMode = value; }
+            get
+            {
+                return listBox.SelectionMode;
+            }
+            set
+            {
+                listBox.SelectionMode = value;
+            }
         }
+
         ///<summary>
         /// Set this property to the object to be displayed in the list box.
         ///</summary>
         public IList DataSource
         {
-            get { return listBox.DataSource as IList; }
-            set { listBox.DataSource = value; }
+            get
+            {
+                return listBox.DataSource as IList;
+            }
+            set
+            {
+                listBox.DataSource = value;
+            }
         }
 
         ///<summary>
@@ -32,8 +46,14 @@ namespace DelftTools.Controls.Swf
         ///</summary>
         public string DisplayMember
         {
-            get { return listBox.DisplayMember; }
-            set { listBox.DisplayMember = value; }
+            get
+            {
+                return listBox.DisplayMember;
+            }
+            set
+            {
+                listBox.DisplayMember = value;
+            }
         }
 
         public IList<bool> CheckedItems
@@ -89,7 +109,6 @@ namespace DelftTools.Controls.Swf
                         yield return i;
                     }
                 }
-
             }
         }
 

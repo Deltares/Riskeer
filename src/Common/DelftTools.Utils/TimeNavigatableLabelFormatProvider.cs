@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using DelftTools.Utils.Properties;
 
 namespace DelftTools.Utils
 {
@@ -10,16 +11,8 @@ namespace DelftTools.Utils
     /// </summary>
     public class TimeNavigatableLabelFormatProvider
     {
-        private static string strTill = Properties.Resource.strTill;
-        /// <summary>
-        /// The culture-specific CustomDateTimeFormatInfo to use when rendering the date times. 
-        /// Default is the CurrentCulture.CustomDateTimeFormatInfo.
-        /// </summary>
-        public DateTimeFormatInfo CustomDateTimeFormatInfo
-        {
-            get; set;
-        }       
-        
+        private static readonly string strTill = Resource.strTill;
+
         /// <summary>
         /// Initializes the provider, sets the default CustomDateTimeFormatInfo.
         /// </summary>
@@ -29,10 +22,23 @@ namespace DelftTools.Utils
             ShowUnits = true;
             CustomDateTimeFormatInfo = CultureInfo.CurrentCulture.DateTimeFormat;
         }
+
+        /// <summary>
+        /// The culture-specific CustomDateTimeFormatInfo to use when rendering the date times. 
+        /// Default is the CurrentCulture.CustomDateTimeFormatInfo.
+        /// </summary>
+        public DateTimeFormatInfo CustomDateTimeFormatInfo { get; set; }
+
         /// <summary>
         /// Indicates whether the range label (typically with the date/time range) is shown. Default true.
         /// </summary>
         public virtual bool ShowRangeLabel { get; set; }
+
+        /// <summary>
+        /// Gets or sets flag indicating whether units are shown for time.
+        /// TODO: move it to FunctionBindingList (presentation facade)
+        /// </summary>
+        public bool ShowUnits { get; set; }
 
         /// <summary>
         /// Should be overwritten to implement custom label text for the labelValue.
@@ -47,12 +53,6 @@ namespace DelftTools.Utils
         }
 
         /// <summary>
-        /// Gets or sets flag indicating whether units are shown for time.
-        /// TODO: move it to FunctionBindingList (presentation facade)
-        /// </summary>
-        public bool ShowUnits { get; set; }
-
-        /// <summary>
         /// Units of measure for a given duration. Not included in labels! Client code should show this units depending on ShowUnits flag.
         /// </summary>
         /// <param name="duration">The current (zoomed) axis range. Typically if the range is large, 
@@ -63,15 +63,25 @@ namespace DelftTools.Utils
             string format = "";
 
             if (duration.TotalHours < 1)
+            {
                 format = CustomDateTimeFormatInfo.LongTimePattern;
+            }
             else if (duration.TotalDays < 1)
+            {
                 format = CustomDateTimeFormatInfo.ShortTimePattern;
+            }
             else if (duration.TotalDays < 5)
+            {
                 format = CustomDateTimeFormatInfo.ShortDatePattern + " " + CustomDateTimeFormatInfo.ShortTimePattern;
+            }
             else if (duration.TotalDays < 30)
+            {
                 format = CustomDateTimeFormatInfo.ShortDatePattern;
+            }
             else
+            {
                 format = CustomDateTimeFormatInfo.YearMonthPattern;
+            }
 
             return format;
         }
@@ -94,7 +104,7 @@ namespace DelftTools.Utils
             else
             {
                 return "(" + min.ToString(CustomDateTimeFormatInfo.LongDatePattern) + " " + strTill + " " +
-                max.ToString(CustomDateTimeFormatInfo.LongDatePattern) + ")";
+                       max.ToString(CustomDateTimeFormatInfo.LongDatePattern) + ")";
             }
         }
     }

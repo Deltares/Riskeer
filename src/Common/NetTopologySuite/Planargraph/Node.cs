@@ -15,21 +15,6 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
     public class Node : GraphComponent
     {
         /// <summary>
-        /// Returns all Edges that connect the two nodes (which are assumed to be different).
-        /// </summary>
-        /// <param name="node0"></param>
-        /// <param name="node1"></param>
-        /// <returns></returns>
-        public static IList getEdgesBetween(Node node0, Node node1)
-        {
-            IList edges0 = DirectedEdge.ToEdges(node0.OutEdges.Edges);
-            Set<DirectedEdge> commonEdges = new Set<DirectedEdge>(edges0.Cast<DirectedEdge>());
-            IList edges1 = DirectedEdge.ToEdges(node1.OutEdges.Edges);
-            commonEdges.RemoveMany(edges1.Cast<DirectedEdge>());
-            return new ArrayList(commonEdges);
-        }
-
-        /// <summary>
         /// The location of this Node.
         /// </summary>
         protected ICoordinate pt;
@@ -43,7 +28,7 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         /// Constructs a Node with the given location.
         /// </summary>
         /// <param name="pt"></param>
-        public Node(ICoordinate pt) : this(pt, new DirectedEdgeStar()) { }
+        public Node(ICoordinate pt) : this(pt, new DirectedEdgeStar()) {}
 
         /// <summary>
         /// Constructs a Node with the given location and collection of outgoing DirectedEdges.
@@ -57,6 +42,18 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         }
 
         /// <summary>
+        /// Tests whether this component has been removed from its containing graph.
+        /// </summary>
+        /// <value></value>
+        public override bool IsRemoved
+        {
+            get
+            {
+                return pt == null;
+            }
+        }
+
+        /// <summary>
         /// Returns the location of this Node.
         /// </summary>
         public ICoordinate Coordinate
@@ -65,15 +62,6 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
             {
                 return pt;
             }
-        }
-
-        /// <summary>
-        /// Adds an outgoing DirectedEdge to this Node.
-        /// </summary>
-        /// <param name="de"></param>
-        public void AddOutEdge(DirectedEdge de)
-        {
-            deStar.Add(de);
         }
 
         /// <summary>
@@ -99,6 +87,30 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         }
 
         /// <summary>
+        /// Returns all Edges that connect the two nodes (which are assumed to be different).
+        /// </summary>
+        /// <param name="node0"></param>
+        /// <param name="node1"></param>
+        /// <returns></returns>
+        public static IList getEdgesBetween(Node node0, Node node1)
+        {
+            IList edges0 = DirectedEdge.ToEdges(node0.OutEdges.Edges);
+            Set<DirectedEdge> commonEdges = new Set<DirectedEdge>(edges0.Cast<DirectedEdge>());
+            IList edges1 = DirectedEdge.ToEdges(node1.OutEdges.Edges);
+            commonEdges.RemoveMany(edges1.Cast<DirectedEdge>());
+            return new ArrayList(commonEdges);
+        }
+
+        /// <summary>
+        /// Adds an outgoing DirectedEdge to this Node.
+        /// </summary>
+        /// <param name="de"></param>
+        public void AddOutEdge(DirectedEdge de)
+        {
+            deStar.Add(de);
+        }
+
+        /// <summary>
         /// Returns the zero-based index of the given Edge, after sorting in ascending order
         /// by angle with the positive x-axis.
         /// </summary>
@@ -110,32 +122,20 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         }
 
         /// <summary>
-        /// Removes this node from its containing graph.
-        /// </summary>
-        internal void Remove()
-        {
-            pt = null;
-        }
-
-        /// <summary>
-        /// Tests whether this component has been removed from its containing graph.
-        /// </summary>
-        /// <value></value>
-        public override bool IsRemoved
-        {
-            get
-            {
-                return pt == null;
-            }
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public override string ToString()
         {
             return "NODE: " + pt.ToString() + ": " + Degree;
+        }
+
+        /// <summary>
+        /// Removes this node from its containing graph.
+        /// </summary>
+        internal void Remove()
+        {
+            pt = null;
         }
     }
 }

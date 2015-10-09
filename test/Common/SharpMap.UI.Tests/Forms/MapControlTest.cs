@@ -29,10 +29,22 @@ namespace SharpMap.UI.Tests.Forms
         [Test]
         public void ChangingEnvelopeWorksCorrectly()
         {
-            var layer = new VectorLayer { DataSource = new DataTableFeatureProvider("POINT(1 1)") };
-            var map = new Map { Layers = { layer } };
+            var layer = new VectorLayer
+            {
+                DataSource = new DataTableFeatureProvider("POINT(1 1)")
+            };
+            var map = new Map
+            {
+                Layers =
+                {
+                    layer
+                }
+            };
 
-            var mapControl = new MapControl { Map = map };
+            var mapControl = new MapControl
+            {
+                Map = map
+            };
 
             var viewEnvelope = new Envelope(10000, 10010, 10000, 10010);
 

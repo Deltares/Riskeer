@@ -13,9 +13,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public class MapLayerTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<ILayer>
     {
-        public MapLayerTreeViewNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin)
-        {
-        }
+        public MapLayerTreeViewNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
 
         public override bool CanRenameNode(ITreeNode node)
         {
@@ -94,6 +92,49 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             return DragOperations.Move;
         }
 
+        public override DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
+        {
+            var groupLayer = targetNode.Tag as IGroupLayer;
+            if (groupLayer != null && item is Layer)
+            {
+                return groupLayer.LayersReadOnly
+                           ? DragOperations.None // No dropping into 'readonly' grouplayers
+                           : DragOperations.Move;
+            }
+
+            return DragOperations.None; // No dropping into non grouplayers
+        }
+
+        public override void OnDragDrop(object item, object sourceParentNodeData, ILayer target, DragOperations operation, int position)
+        {
+            if (TreeView == null)
+            {
+                throw new NullReferenceException("TreeView not assigned to foldernodepresenter");
+            }
+
+            var sourceMap = sourceParentNodeData as Map;
+            var sourceLayerGroup = sourceParentNodeData as GroupLayer;
+            var targetLayerGroup = (GroupLayer) target;
+
+            if ((operation & DragOperations.Move) != 0)
+            {
+                if (sourceLayerGroup != null)
+                {
+                    sourceLayerGroup.Layers.Remove((ILayer) item);
+                }
+                else if (sourceMap != null)
+                {
+                    sourceMap.Layers.Remove((ILayer) item);
+                }
+                else
+                {
+                    throw new NotSupportedException("Can not drag layer from the source node: " + item);
+                }
+
+                targetLayerGroup.Layers.Insert(position, (ILayer) item);
+            }
+        }
+
         protected override bool CanRemove(ILayer nodeData)
         {
             var parentNode = TreeView.GetNodeByTag(nodeData).Parent;
@@ -112,7 +153,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         protected override void OnPropertyChanged(ILayer layer, ITreeNode node, PropertyChangedEventArgs e)
         {
-            if (node == null) return;
+            if (node == null)
+            {
+                return;
+            }
 
             if (e.PropertyName.Equals("Name", StringComparison.Ordinal))
             {
@@ -147,49 +191,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
 
             return true;
-        }
-
-        public override DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
-        {
-            var groupLayer = targetNode.Tag as IGroupLayer;
-            if (groupLayer != null && item is Layer)
-            {
-                return groupLayer.LayersReadOnly
-                    ? DragOperations.None // No dropping into 'readonly' grouplayers
-                    : DragOperations.Move;
-            }
-
-            return DragOperations.None; // No dropping into non grouplayers
-        }
-
-        public override void OnDragDrop(object item, object sourceParentNodeData, ILayer target, DragOperations operation, int position)
-        {
-            if (TreeView == null)
-            {
-                throw new NullReferenceException("TreeView not assigned to foldernodepresenter");
-            }
-
-            var sourceMap = sourceParentNodeData as Map;
-            var sourceLayerGroup = sourceParentNodeData as GroupLayer;
-            var targetLayerGroup = (GroupLayer)target;
-
-            if ((operation & DragOperations.Move) != 0)
-            {
-                if (sourceLayerGroup != null)
-                {
-                    sourceLayerGroup.Layers.Remove((ILayer) item);
-                }
-                else if (sourceMap != null)
-                {
-                    sourceMap.Layers.Remove((ILayer) item);
-                }
-                else
-                {
-                    throw new NotSupportedException("Can not drag layer from the source node: " + item);
-                }
-
-                targetLayerGroup.Layers.Insert(position, (ILayer) item);
-            }
         }
     }
 }

@@ -20,54 +20,57 @@ using System.IO;
 
 namespace RTools_NTS.Util
 {
-	/// <summary>
-	/// Wraps a TextReader with buffering for speed. This is not finished,
-	/// and preliminary testing indicates it isn't faster than FCL implementation.
-	/// </summary>
-	public class BufferedTextReader
-	{
-		static readonly int BlockSize = 1024;
-		TextReader reader;
-		char[] buffer;
-		CharBuffer cb;
+    /// <summary>
+    /// Wraps a TextReader with buffering for speed. This is not finished,
+    /// and preliminary testing indicates it isn't faster than FCL implementation.
+    /// </summary>
+    public class BufferedTextReader
+    {
+        private static readonly int BlockSize = 1024;
+        private readonly TextReader reader;
+        private readonly char[] buffer;
+        private CharBuffer cb;
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="reader">The TextReader to wrap.</param>
-		public BufferedTextReader(TextReader reader)
-		{
-			this.reader = reader;
-			buffer = new char[BlockSize];
-			cb = new CharBuffer(0);
-		}
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="reader">The TextReader to wrap.</param>
+        public BufferedTextReader(TextReader reader)
+        {
+            this.reader = reader;
+            buffer = new char[BlockSize];
+            cb = new CharBuffer(0);
+        }
 
-		/// <summary>
-		/// Read a single character.
-		/// </summary>
-		/// <returns>The character read.</returns>
-		public char Read()
-		{
-			if (cb.Length == 0)
-			{
-				// read from underlying reader
-				int readCount = reader.Read(buffer, 0, BlockSize);
-				if (readCount == 0) throw new ApplicationException("End of stream.");
-				cb.SetBuffer(buffer, readCount);
-			}
+        /// <summary>
+        /// Read a single character.
+        /// </summary>
+        /// <returns>The character read.</returns>
+        public char Read()
+        {
+            if (cb.Length == 0)
+            {
+                // read from underlying reader
+                int readCount = reader.Read(buffer, 0, BlockSize);
+                if (readCount == 0)
+                {
+                    throw new ApplicationException("End of stream.");
+                }
+                cb.SetBuffer(buffer, readCount);
+            }
 
-			char c = cb[0]; 
-			cb.Remove(0); 
-			return(c);
-		}
+            char c = cb[0];
+            cb.Remove(0);
+            return (c);
+        }
 
-		/// <summary>
-		/// Close the underlying reader.
-		/// </summary>
-		public void Close()
-		{
-			reader.Close();
-			cb = null;
-		}
-	}
+        /// <summary>
+        /// Close the underlying reader.
+        /// </summary>
+        public void Close()
+        {
+            reader.Close();
+            cb = null;
+        }
+    }
 }

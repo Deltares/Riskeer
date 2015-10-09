@@ -11,18 +11,6 @@ namespace DelftTools.Utils.Tests
     [TestFixture]
     public class TestReferenceHelperTest
     {
-        [Entity]
-        public class TestClass
-        {
-            public TestClass Parent { get; set; }
-        }
-
-        [Entity]
-        public class SuperTestClass : TestClass
-        {
-            public TestClass Other { get; set; }
-        }
-
         [Test]
         public void GetObjects()
         {
@@ -30,7 +18,7 @@ namespace DelftTools.Utils.Tests
             var parent = new TestClass();
 
             testObject.Parent = parent;
-            
+
             var referenceNodes = TestReferenceHelper.GetReferenceNodesInTree(testObject).ToList();
             Assert.AreEqual(testObject, referenceNodes[0].Object);
             Assert.AreEqual(parent, referenceNodes[1].Object);
@@ -45,13 +33,13 @@ namespace DelftTools.Utils.Tests
             var numEventsBefore = TestReferenceHelper.FindEventSubscriptionsAdvanced(testObject, subscriptionsBefore, 2);
 
             Assert.AreEqual(0, numEventsBefore);
-            
+
             //After
             ((INotifyPropertyChange) testObject).PropertyChanged += (s, e) => { };
-            ((INotifyPropertyChange)testObject).PropertyChanging += (s, e) => { };
-            
+            ((INotifyPropertyChange) testObject).PropertyChanging += (s, e) => { };
+
             var evnt = new NotifyCollectionChangedEventHandler((s, e) => { });
-            ((INotifyCollectionChange)testObject).CollectionChanged += evnt;
+            ((INotifyCollectionChange) testObject).CollectionChanged += evnt;
 
             var subscriptionsAfter = new List<string>();
             var numEventsAfter = TestReferenceHelper.FindEventSubscriptionsAdvanced(testObject, subscriptionsAfter, 2);
@@ -60,7 +48,7 @@ namespace DelftTools.Utils.Tests
             Assert.AreEqual(3, numEventsAfter);
 
             //Final
-            ((INotifyCollectionChange)testObject).CollectionChanged -= evnt;
+            ((INotifyCollectionChange) testObject).CollectionChanged -= evnt;
 
             var subscriptionsFinal = new List<string>();
             var numEventsFinal = TestReferenceHelper.FindEventSubscriptionsAdvanced(testObject, subscriptionsFinal, 2);
@@ -80,11 +68,11 @@ namespace DelftTools.Utils.Tests
             Assert.AreEqual(0, numEventsBefore);
 
             //After
-            ((INotifyPropertyChange)testObject).PropertyChanged += (s, e) => { };
-            ((INotifyPropertyChange)testObject).PropertyChanging += (s, e) => { };
+            ((INotifyPropertyChange) testObject).PropertyChanged += (s, e) => { };
+            ((INotifyPropertyChange) testObject).PropertyChanging += (s, e) => { };
 
             var evnt = new NotifyCollectionChangedEventHandler((s, e) => { });
-            ((INotifyCollectionChange)testObject).CollectionChanged += evnt;
+            ((INotifyCollectionChange) testObject).CollectionChanged += evnt;
 
             var subscriptionsAfter = new List<string>();
             var numEventsAfter = TestReferenceHelper.FindEventSubscriptionsAdvanced(testObject, subscriptionsAfter, 2);
@@ -93,13 +81,25 @@ namespace DelftTools.Utils.Tests
             Assert.AreEqual(3, numEventsAfter);
 
             //Final
-            ((INotifyCollectionChange)testObject).CollectionChanged -= evnt;
+            ((INotifyCollectionChange) testObject).CollectionChanged -= evnt;
 
             var subscriptionsFinal = new List<string>();
             var numEventsFinal = TestReferenceHelper.FindEventSubscriptionsAdvanced(testObject, subscriptionsFinal, 2);
 
             Console.WriteLine("===\n" + String.Join("\n", subscriptionsFinal.ToArray()));
             Assert.AreEqual(2, numEventsFinal);
+        }
+
+        [Entity]
+        public class TestClass
+        {
+            public TestClass Parent { get; set; }
+        }
+
+        [Entity]
+        public class SuperTestClass : TestClass
+        {
+            public TestClass Other { get; set; }
         }
     }
 }

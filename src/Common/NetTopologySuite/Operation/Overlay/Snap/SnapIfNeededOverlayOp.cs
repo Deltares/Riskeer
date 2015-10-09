@@ -16,6 +16,14 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
     /// </summary>
     public class SnapIfNeededOverlayOp
     {
+        private readonly IGeometry[] geom = new IGeometry[2];
+
+        public SnapIfNeededOverlayOp(IGeometry g1, IGeometry g2)
+        {
+            geom[0] = g1;
+            geom[1] = g2;
+        }
+
         public static IGeometry Overlay(IGeometry g0, IGeometry g1, SpatialFunction opCode)
         {
             var op = new SnapIfNeededOverlayOp(g0, g1);
@@ -42,14 +50,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
             return Overlay(g0, g1, SpatialFunction.SymDifference);
         }
 
-        private readonly IGeometry[] geom = new IGeometry[2];
-
-        public SnapIfNeededOverlayOp(IGeometry g1, IGeometry g2)
-        {
-            geom[0] = g1;
-            geom[1] = g2;
-        }
-
         public IGeometry GetResultGeometry(SpatialFunction opCode)
         {
             IGeometry result = null;
@@ -61,8 +61,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
                 // not needed if noding validation is used
                 //      boolean isValid = OverlayResultValidator.isValid(geom[0], geom[1], OverlayOp.INTERSECTION, result);
                 // if (isValid)
-                    isSuccess = true;
-
+                isSuccess = true;
             }
             catch (Exception ex)
             {

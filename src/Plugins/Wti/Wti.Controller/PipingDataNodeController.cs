@@ -11,8 +11,13 @@ namespace Wti.Controller
 {
     public class PipingDataNodeController : IContextMenuProvider
     {
-        private ILog logger = LogManager.GetLogger(typeof(PipingCalculationInput));
-        private PipingDataNodePresenter nodePresenter = new PipingDataNodePresenter();
+        private readonly ILog logger = LogManager.GetLogger(typeof(PipingCalculationInput));
+        private readonly PipingDataNodePresenter nodePresenter = new PipingDataNodePresenter();
+
+        public PipingDataNodeController()
+        {
+            nodePresenter.ContextMenu = GetContextMenu;
+        }
 
         public PipingDataNodePresenter NodePresenter
         {
@@ -20,11 +25,6 @@ namespace Wti.Controller
             {
                 return nodePresenter;
             }
-        }
-
-        public PipingDataNodeController()
-        {
-            nodePresenter.ContextMenu = GetContextMenu;
         }
 
         public IMenuItem GetContextMenu(object pipingData)
@@ -66,9 +66,9 @@ namespace Wti.Controller
                 var pipingCalculation = new PipingCalculation(input);
                 var pipingResult = pipingCalculation.Calculate();
 
-                pipingData.Output = new PipingOutput(pipingResult.UpliftZValue, 
-                    pipingResult.UpliftFactorOfSafety, 
-                    pipingResult.HeaveZValue, pipingResult.HeaveFactorOfSafety, pipingResult.SellmeijerZValue, pipingResult.SellmeijerFactorOfSafety);
+                pipingData.Output = new PipingOutput(pipingResult.UpliftZValue,
+                                                     pipingResult.UpliftFactorOfSafety,
+                                                     pipingResult.HeaveZValue, pipingResult.HeaveFactorOfSafety, pipingResult.SellmeijerZValue, pipingResult.SellmeijerFactorOfSafety);
             }
             catch (PipingCalculationException e)
             {

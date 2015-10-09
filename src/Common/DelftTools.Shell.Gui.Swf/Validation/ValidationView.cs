@@ -11,11 +11,10 @@ namespace DelftTools.Shell.Gui.Swf.Validation
 {
     public partial class ValidationView : UserControl, ISuspendibleView, IAdditionalView
     {
-        private Stopwatch stopwatch = new Stopwatch();
+        private readonly Stopwatch stopwatch = new Stopwatch();
         private Func<object, ValidationReport> onValidate;
         private bool suspend;
         private object data;
-        public Image Image { get; set; }
 
         public ValidationView()
         {
@@ -23,9 +22,28 @@ namespace DelftTools.Shell.Gui.Swf.Validation
             validationReportControl.OnOpenViewForIssue = OpenViewForIssue;
         }
 
+        public Func<object, ValidationReport> OnValidate
+        {
+            get
+            {
+                return onValidate;
+            }
+            set
+            {
+                onValidate = value;
+                RefreshReport();
+            }
+        }
+
+        public IGui Gui { get; set; }
+        public Image Image { get; set; }
+
         public object Data
         {
-            get { return data; }
+            get
+            {
+                return data;
+            }
             set
             {
                 data = value;
@@ -40,24 +58,37 @@ namespace DelftTools.Shell.Gui.Swf.Validation
             }
         }
 
+        public ViewInfo ViewInfo { get; set; }
+
+        public void EnsureVisible(object item) {}
+
+        public void SuspendUpdates()
+        {
+            suspend = true;
+        }
+
+        public void ResumeUpdates()
+        {
+            suspend = false;
+        }
+
         private void SetViewText()
         {
-            if (data == null) return;
+            if (data == null)
+            {
+                return;
+            }
 
             var dataName = (data is INameable) ? ((INameable) data).Name : data.ToString();
             Text = dataName + " Validation Report";
         }
 
-        public void EnsureVisible(object item)
-        {
-        }
-
-        public ViewInfo ViewInfo { get; set; }
-
         private bool RefreshReport()
         {
             if (Data == null || OnValidate == null)
+            {
                 return true;
+            }
 
             stopwatch.Restart();
 
@@ -68,13 +99,13 @@ namespace DelftTools.Shell.Gui.Swf.Validation
             {
                 validationReportControl.Data = validationReport;
                 Image = ValidationReportControl.GetImageForSeverity(false, validationReport.Severity);
-                
+
                 // TextChanged triggers avalondock to update the image ;-)
                 Text = "Refreshing...";
-                SetViewText(); 
+                SetViewText();
                 // end TextChanged
             }
-            
+
             stopwatch.Stop();
 
             // check the speed:
@@ -82,42 +113,41 @@ namespace DelftTools.Shell.Gui.Swf.Validation
             if (millisecondsPerRefresh < 500) // fast
             {
                 if (manualRefreshPanel.Visible)
+                {
                     manualRefreshPanel.Visible = false;
+                }
             }
             else // slow
             {
                 if (!manualRefreshPanel.Visible)
+                {
                     manualRefreshPanel.Visible = true;
+                }
                 return false; //don't restart the timer
             }
             return true;
         }
 
-        public Func<object, ValidationReport> OnValidate
-        {
-            get { return onValidate; }
-            set
-            {
-                onValidate = value;
-                RefreshReport();
-            }
-        }
-
         private void RefreshTimerTick(object sender, EventArgs e)
         {
             if (suspend)
+            {
                 return;
+            }
 
             refreshTimer.Stop();
             if (RefreshReport())
+            {
                 refreshTimer.Start();
+            }
         }
 
-        public IGui Gui { get; set; }
-        
         private void OpenViewForIssue(ValidationIssue issue)
         {
-            if (Gui == null || issue.ViewData == null) return;
+            if (Gui == null || issue.ViewData == null)
+            {
+                return;
+            }
 
             var viewOpen = Gui.DocumentViewsResolver.OpenViewForData(issue.ViewData);
 
@@ -130,7 +160,7 @@ namespace DelftTools.Shell.Gui.Swf.Validation
                     {
                         view.EnsureVisible(issue.Subject);
                     }
-                    catch (Exception) { } //gulp
+                    catch (Exception) {} //gulp
                 }
                 return;
             }
@@ -142,20 +172,12 @@ namespace DelftTools.Shell.Gui.Swf.Validation
             }
         }
 
-        public void SuspendUpdates()
-        {
-            suspend = true;
-        }
-
-        public void ResumeUpdates()
-        {
-            suspend = false;
-        }
-
         private void manualRefreshButton_Click(object sender, EventArgs e)
         {
             if (RefreshReport())
+            {
                 refreshTimer.Start();
+            }
         }
     }
 }

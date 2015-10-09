@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using DelftTools.Controls;
 using DelftTools.Shell.Gui.Forms;
 using DeltaShell.Plugins.SharpMapGis.Gui.Commands;
 using Fluent;
-using ICommand = DelftTools.Controls.ICommand;
 
 namespace DeltaShell.Plugins.SharpMapGis.Gui
 {
@@ -44,7 +44,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
 
             // view
             commandShowMapContents = new ShowMapContentsCommand();
-            
+
             // map decorations
             showNorthArrow = new ShowNorthArrowCommand();
             showMapLegend = new ShowMapLegendCommand();
@@ -68,19 +68,19 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
             mapChangeCoordinateSystemCommand = new MapChangeCoordinateSystemCommand();
 
             ButtonMapPanZoom.ToolTip = new ScreenTip
-                {
-                    Title = "Pan",
-                    Text = "Pan accross the map." + Environment.NewLine +
-                           "Alternatively, you can press CTRL+ALT or the middle (wheel/scroll) button in the mouse, if present, to pan across the map according to the movement of the mouse.",
-                    MaxWidth = 250
-                };
+            {
+                Title = "Pan",
+                Text = "Pan accross the map." + Environment.NewLine +
+                       "Alternatively, you can press CTRL+ALT or the middle (wheel/scroll) button in the mouse, if present, to pan across the map according to the movement of the mouse.",
+                MaxWidth = 250
+            };
             ButtonMapSelect.ToolTip = new ScreenTip
-                {
-                    Title = "Select",
-                    Text = "Select single or multiple features by drawing a selection box." + Environment.NewLine +
-                           "Pressing Esc when a map-related view is active, enables this tool.",
-                    MaxWidth = 250
-                };
+            {
+                Title = "Select",
+                Text = "Select single or multiple features by drawing a selection box." + Environment.NewLine +
+                       "Pressing Esc when a map-related view is active, enables this tool.",
+                MaxWidth = 250
+            };
 
             // assign tabs to contextual groups
             mapTab.Group = geospatialContextualGroup;
@@ -148,12 +148,15 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
             return tabGroupName == geospatialContextualGroup.Name && tabName == mapTab.Name && IsActiveViewMapView();
         }
 
+        public object GetRibbonControl()
+        {
+            return RibbonControl;
+        }
+
         private bool IsActiveViewMapView()
         {
             return SharpMapGisGuiPlugin.GetFocusedMapView() != null;
         }
-
-        public object GetRibbonControl() { return RibbonControl; }
 
         private void ButtonShowMapContentsToolWindow_Click(object sender, RoutedEventArgs e)
         {

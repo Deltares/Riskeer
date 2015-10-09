@@ -40,52 +40,87 @@ namespace SharpMap.UI.Tools
                 {
                     tracker.Geometry = value;
                 }
-
             }
         }
 
         public override Bitmap Bitmap
         {
-            get { return tracker.Bitmap; }
-            set { tracker.Bitmap = value; } 
+            get
+            {
+                return tracker.Bitmap;
+            }
+            set
+            {
+                tracker.Bitmap = value;
+            }
         }
 
         public override bool Selected
         {
-            get { return tracker.Selected; }
-            set { tracker.Selected = value; }
+            get
+            {
+                return tracker.Selected;
+            }
+            set
+            {
+                tracker.Selected = value;
+            }
         }
 
         public override IFeatureInteractor FeatureInteractor
         {
-            get { return tracker.FeatureInteractor; }
-            set { tracker.FeatureInteractor = value; }
+            get
+            {
+                return tracker.FeatureInteractor;
+            }
+            set
+            {
+                tracker.FeatureInteractor = value;
+            }
         }
 
         public override int Index
         {
-            get { return tracker.Index; }
-            set { tracker.Index = value; }
+            get
+            {
+                return tracker.Index;
+            }
+            set
+            {
+                tracker.Index = value;
+            }
         }
-  
+
         public override long Id
         {
-            get { return tracker.Id; }
-            set { tracker.Id = value; }
+            get
+            {
+                return tracker.Id;
+            }
+            set
+            {
+                tracker.Id = value;
+            }
         }
 
         public override IFeatureAttributeCollection Attributes
         {
-            get { return tracker.Attributes; }
-            set { tracker.Attributes = value; }
+            get
+            {
+                return tracker.Attributes;
+            }
+            set
+            {
+                tracker.Attributes = value;
+            }
         }
 
         public override object Clone()
         {
             return new LocalCoordinateSystemTrackerFeature(tracker)
-                {
-                    Geometry = (IGeometry) Geometry.Clone()
-                };
+            {
+                Geometry = (IGeometry) Geometry.Clone()
+            };
         }
     }
 }

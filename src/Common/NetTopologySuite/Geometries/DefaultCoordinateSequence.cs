@@ -14,7 +14,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
     [Obsolete("No longer used.")]
     public class DefaultCoordinateSequence : ICoordinateSequence
     {
-        private ICoordinate[] coordinates = null;
+        private readonly ICoordinate[] coordinates = null;
 
         /// <summary>
         /// Constructs a DefaultCoordinateSequence based on the given array (the
@@ -24,10 +24,12 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public DefaultCoordinateSequence(ICoordinate[] coordinates)
         {
             if (Geometry.HasNullElements(coordinates))
-                throw new ArgumentException("Null coordinate");            
+            {
+                throw new ArgumentException("Null coordinate");
+            }
             this.coordinates = coordinates;
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -36,7 +38,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             coordinates = new ICoordinate[coordSeq.Count];
             for (int i = 0; i < coordinates.Length; i++)
+            {
                 coordinates[i] = coordSeq.GetCoordinateCopy(i);
+            }
         }
 
         /// <summary>
@@ -47,7 +51,34 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             coordinates = new ICoordinate[size];
             for (int i = 0; i < size; i++)
+            {
                 coordinates[i] = new Coordinate();
+            }
+        }
+
+        /// <summary>
+        /// Returns the coordinate at specified index.
+        /// </summary>
+        /// <param name="i">Coordinate index.</param>
+        /// <return>Coordinate specified.</return>
+        public object this[int i]
+        {
+            get
+            {
+                return coordinates[i];
+            }
+        }
+
+        /// <summary>
+        /// Returns the elements number of the coordinate sequence.
+        /// </summary>
+        /// <value>The length.</value>
+        public int Length
+        {
+            get
+            {
+                return coordinates.Length;
+            }
         }
 
         /// <summary>
@@ -63,6 +94,43 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         }
 
         /// <summary>
+        /// Returns the elements number of the coordinate sequence.
+        /// </summary>
+        /// <value></value>
+        public int Count
+        {
+            get
+            {
+                return coordinates.Length;
+            }
+        }
+
+        /// <summary>
+        /// Returns the string Representation of the coordinate array
+        /// </summary>
+        /// <returns>A string.</returns>
+        public override string ToString()
+        {
+            if (coordinates.Length > 0)
+            {
+                StringBuilder sb = new StringBuilder(17*coordinates.Length);
+                sb.Append('(');
+                sb.Append(coordinates[0]);
+                for (int i = 1; i < coordinates.Length; i++)
+                {
+                    sb.Append(", ");
+                    sb.Append(coordinates[i].ToString());
+                }
+                sb.Append(')');
+                return sb.ToString();
+            }
+            else
+            {
+                return "()";
+            }
+        }
+
+        /// <summary>
         /// Returns the coordinate at specified index.
         /// </summary>
         /// <param name="i">Coordinate index.</param>
@@ -71,6 +139,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             return coordinates[i];
         }
+
         /// <summary>
         /// Returns a copy of the coordinate at specified index.
         /// </summary>
@@ -130,15 +199,15 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             switch (ordinate)
             {
-                case Ordinates.X: 
+                case Ordinates.X:
                     return coordinates[index].X;
-                case Ordinates.Y: 
+                case Ordinates.Y:
                     return coordinates[index].Y;
-                case Ordinates.Z: 
+                case Ordinates.Z:
                     return coordinates[index].Z;
                 default:
                     return Double.NaN;
-            }            
+            }
         }
 
         /// <summary>
@@ -151,29 +220,17 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             switch (ordinate)
             {
-                case Ordinates.X: 
+                case Ordinates.X:
                     coordinates[index].X = value;
                     break;
-                case Ordinates.Y: coordinates[index].Y = value;
+                case Ordinates.Y:
+                    coordinates[index].Y = value;
                     break;
-                case Ordinates.Z: 
+                case Ordinates.Z:
                     coordinates[index].Z = value;
                     break;
                 default:
                     break;
-            }
-        }
-
-        /// <summary>
-        /// Returns the coordinate at specified index.
-        /// </summary>
-        /// <param name="i">Coordinate index.</param>
-        /// <return>Coordinate specified.</return>
-        public object this[int i]
-        {
-            get
-            {
-                return coordinates[i];
             }
         }
 
@@ -186,7 +243,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public IEnvelope ExpandEnvelope(IEnvelope env)
         {
             for (int i = 0; i < coordinates.Length; i++)
+            {
                 env.ExpandToInclude(coordinates[i]);
+            }
             return env;
         }
 
@@ -198,32 +257,10 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             ICoordinate[] cloneCoordinates = new ICoordinate[coordinates.Length];
             for (int i = 0; i < coordinates.Length; i++)
-                cloneCoordinates[i] = (Coordinate) coordinates[i].Clone();            
+            {
+                cloneCoordinates[i] = (Coordinate) coordinates[i].Clone();
+            }
             return new DefaultCoordinateSequence(cloneCoordinates);
-        }
-
-        /// <summary>
-        /// Returns the elements number of the coordinate sequence.
-        /// </summary>
-        /// <value></value>
-        public int Count
-        {
-            get
-            {
-                return coordinates.Length;
-            }
-        }
-
-        /// <summary>
-        /// Returns the elements number of the coordinate sequence.
-        /// </summary>
-        /// <value>The length.</value>
-        public int Length
-        {
-            get
-            {
-                return coordinates.Length;
-            }
         }
 
         /// <summary>
@@ -233,28 +270,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public ICoordinate[] ToCoordinateArray()
         {
             return coordinates;
-        }
-
-        /// <summary>
-        /// Returns the string Representation of the coordinate array
-        /// </summary>
-        /// <returns>A string.</returns>
-        public override string ToString()
-        {
-            if (coordinates.Length > 0)
-            {
-                StringBuilder sb = new StringBuilder(17 * coordinates.Length);
-                sb.Append('(');
-                sb.Append(coordinates[0]);
-                for (int i = 1; i < coordinates.Length; i++)
-                {
-                    sb.Append(", ");
-                    sb.Append(coordinates[i].ToString());
-                }
-                sb.Append(')');
-                return sb.ToString();
-            }
-            else return "()";
         }
     }
 }

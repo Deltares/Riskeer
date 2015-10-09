@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Drawing;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -16,21 +16,24 @@ namespace DelftTools.Controls.Swf
 
     public class ColorPicker : ComboBox
     {
+        private ColorSet colorSet;
+
         public ColorPicker()
         {
             DrawMode = DrawMode.OwnerDrawFixed;
             DropDownStyle = ComboBoxStyle.DropDownList;
-            
+
             SetColorSet();
             SelectedIndex = 0;
             ItemHeight = 16;
         }
 
-        private ColorSet colorSet;
-
         public ColorSet ColorSet
         {
-            get { return colorSet; }
+            get
+            {
+                return colorSet;
+            }
             set
             {
                 colorSet = value;
@@ -41,39 +44,37 @@ namespace DelftTools.Controls.Swf
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ObjectCollection Items
         {
-            get { return base.Items; } 
+            get
+            {
+                return base.Items;
+            }
         }
 
-        private void SetColorSet()
+        public static IEnumerable<Color> GetConstants(Type enumType)
         {
-            Items.Clear();
+            var attributes = MethodAttributes.Static | MethodAttributes.Public;
+            var propertyInfos = enumType.GetProperties()
+                                        .Where(p =>
+                                               p.PropertyType == typeof(Color) && p.GetGetMethod() != null &&
+                                               (p.GetGetMethod().Attributes & attributes) == attributes);
 
-            if (colorSet == ColorSet.SystemColors)
-            {
-                var systemColors = GetConstants(typeof (SystemColors)).OfType<object>().ToArray();
-                Items.AddRange(systemColors);
-            }
-
-            if (colorSet == ColorSet.WebColors)
-            {
-                var webColors = GetConstants(typeof (Color)).OfType<object>().ToArray();
-                Items.AddRange(webColors);
-            }
+            return propertyInfos.Select(pi => pi.GetValue(null, null)).OfType<Color>().ToList();
         }
-        
-
 
         protected override void OnDrawItem(DrawItemEventArgs e)
         {
-            if (e.Index < 0 || e.Index >= Items.Count) return;
-            
+            if (e.Index < 0 || e.Index >= Items.Count)
+            {
+                return;
+            }
+
             var g = e.Graphics;
             e.DrawBackground();
             e.DrawFocusRectangle();
 
             try
             {
-                var color = (Color)Items[e.Index];
+                var color = (Color) Items[e.Index];
 
                 using (var colorBrush = new SolidBrush(color))
                 {
@@ -84,20 +85,24 @@ namespace DelftTools.Controls.Swf
                     g.DrawString(color.Name, Font, blackBrush, 20, e.Bounds.Y + 2);
                 }
             }
-            catch (Exception)
-            {
-            }
+            catch (Exception) {}
         }
 
-        public static IEnumerable<Color> GetConstants(Type enumType)
+        private void SetColorSet()
         {
-            var attributes = MethodAttributes.Static | MethodAttributes.Public;
-            var propertyInfos = enumType.GetProperties()
-                    .Where(p =>
-                            p.PropertyType == typeof (Color) && p.GetGetMethod() != null &&
-                            (p.GetGetMethod().Attributes & attributes) == attributes);
+            Items.Clear();
 
-            return propertyInfos.Select(pi => pi.GetValue(null, null)).OfType<Color>().ToList();
+            if (colorSet == ColorSet.SystemColors)
+            {
+                var systemColors = GetConstants(typeof(SystemColors)).OfType<object>().ToArray();
+                Items.AddRange(systemColors);
+            }
+
+            if (colorSet == ColorSet.WebColors)
+            {
+                var webColors = GetConstants(typeof(Color)).OfType<object>().ToArray();
+                Items.AddRange(webColors);
+            }
         }
     }
 }

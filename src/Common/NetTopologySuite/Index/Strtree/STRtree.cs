@@ -17,165 +17,77 @@ namespace GisSharpBlog.NetTopologySuite.Index.Strtree
     /// Described in: P. Rigaux, Michel Scholl and Agnes Voisard. Spatial Databases With
     /// Application To GIS. Morgan Kaufmann, San Francisco, 2002.
     /// </summary>
-    public class STRtree : AbstractSTRtree, ISpatialIndex 
+    public class STRtree : AbstractSTRtree, ISpatialIndex
     {
-        /// <summary>
-        /// 
-        /// </summary>        
-        private class AnonymousXComparerImpl : IComparer
-        {
-            private STRtree container = null;
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="container"></param>
-            public AnonymousXComparerImpl(STRtree container)
-            {
-                this.container = container;
-            }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="o1"></param>
-            /// <param name="o2"></param>
-            /// <returns></returns>
-            public int Compare(object o1, object o2) 
-            {
-                return container.CompareDoubles(container.CentreX((IEnvelope) ((IBoundable) o1).Bounds),
-                                                container.CentreX((IEnvelope) ((IBoundable) o2).Bounds));
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private class AnonymousYComparerImpl : IComparer
-        {
-            private STRtree container = null;
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="container"></param>
-            public AnonymousYComparerImpl(STRtree container)
-            {
-                this.container = container;
-            }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="o1"></param>
-            /// <param name="o2"></param>
-            /// <returns></returns>
-            public int Compare(object o1, object o2) 
-            {
-                return container.CompareDoubles(container.CentreY((IEnvelope) ((IBoundable) o1).Bounds),
-                                                container.CentreY((IEnvelope) ((IBoundable) o2).Bounds));
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private class AnonymousAbstractNodeImpl : AbstractNode
-        {
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="nodeCapacity"></param>
-            public AnonymousAbstractNodeImpl(int nodeCapacity) :
-                base(nodeCapacity) { }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <returns></returns>
-            protected override object ComputeBounds() 
-            {
-                IEnvelope bounds = null;
-                for (IEnumerator i = ChildBoundables.GetEnumerator(); i.MoveNext(); ) 
-                {
-                    IBoundable childBoundable = (IBoundable) i.Current;
-                    if (bounds == null) 
-                         bounds =  new Envelope((IEnvelope) childBoundable.Bounds);                
-                    else bounds.ExpandToInclude((IEnvelope) childBoundable.Bounds);
-                }
-                return bounds;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private class AnonymousIntersectsOpImpl : IIntersectsOp
-        {
-            private STRtree container = null;
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="container"></param>
-            public AnonymousIntersectsOpImpl(STRtree container)
-            {
-                this.container = container;
-            }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="aBounds"></param>
-            /// <param name="bBounds"></param>
-            /// <returns></returns>
-            public bool Intersects(object aBounds, object bBounds) 
-            {
-                return ((IEnvelope) aBounds).Intersects((IEnvelope) bBounds);
-            }
-        }
-
         /// <summary> 
         /// Constructs an STRtree with the default (10) node capacity.
         /// </summary>
-        public STRtree() : this(10) { }
+        public STRtree() : this(10) {}
 
         /// <summary> 
         /// Constructs an STRtree with the given maximum number of child nodes that
         /// a node may have.
         /// </summary>
         public STRtree(int nodeCapacity) :
-            base(nodeCapacity) { }
+            base(nodeCapacity) {}
 
         /// <summary>
-        /// 
+        /// Inserts an item having the given bounds into the tree.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        private double Avg(double a, double b)
+        /// <param name="itemEnv"></param>
+        /// <param name="item"></param>
+        public void Insert(IEnvelope itemEnv, object item)
         {
-            return (a + b) / 2d;
+            if (itemEnv.IsNull)
+            {
+                return;
+            }
+            base.Insert(itemEnv, item);
+        }
+
+        /// <summary>
+        /// Returns items whose bounds intersect the given envelope.
+        /// </summary>
+        /// <param name="searchEnv"></param>
+        public IList Query(IEnvelope searchEnv)
+        {
+            //Yes this method does something. It specifies that the bounds is an
+            //Envelope. super.query takes an object, not an Envelope. [Jon Aquino 10/24/2003]
+            return base.Query(searchEnv);
+        }
+
+        /// <summary>
+        /// Returns items whose bounds intersect the given envelope.
+        /// </summary>
+        /// <param name="searchEnv"></param>
+        /// <param name="visitor"></param>
+        public void Query(IEnvelope searchEnv, IItemVisitor visitor)
+        {
+            //Yes this method does something. It specifies that the bounds is an
+            //Envelope. super.query takes an Object, not an Envelope. [Jon Aquino 10/24/2003]
+            base.Query(searchEnv, visitor);
+        }
+
+        /// <summary> 
+        /// Removes a single item from the tree.
+        /// </summary>
+        /// <param name="itemEnv">The Envelope of the item to remove.</param>
+        /// <param name="item">The item to remove.</param>
+        /// <returns><c>true</c> if the item was found.</returns>
+        public bool Remove(IEnvelope itemEnv, object item)
+        {
+            return base.Remove(itemEnv, item);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        private double CentreX(IEnvelope e)
+        protected override IIntersectsOp IntersectsOp
         {
-            return Avg(e.MinX, e.MaxX);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        private double CentreY(IEnvelope e)
-        {
-            return Avg(e.MinY, e.MaxY);
+            get
+            {
+                return new AnonymousIntersectsOpImpl(this);
+            }
         }
 
         /// <summary>
@@ -190,32 +102,13 @@ namespace GisSharpBlog.NetTopologySuite.Index.Strtree
         protected override IList CreateParentBoundables(IList childBoundables, int newLevel)
         {
             Assert.IsTrue(childBoundables.Count != 0);
-            int minLeafCount = (int)Math.Ceiling((childBoundables.Count / (double)NodeCapacity));
+            int minLeafCount = (int) Math.Ceiling((childBoundables.Count/(double) NodeCapacity));
             ArrayList sortedChildBoundables = new ArrayList(childBoundables);
             sortedChildBoundables.Sort(new AnonymousXComparerImpl(this));
             IList[] verticalSlices = VerticalSlices(sortedChildBoundables,
-                (int) Math.Ceiling(Math.Sqrt(minLeafCount)));
+                                                    (int) Math.Ceiling(Math.Sqrt(minLeafCount)));
             IList tempList = CreateParentBoundablesFromVerticalSlices(verticalSlices, newLevel);
             return tempList;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="verticalSlices"></param>
-        /// <param name="newLevel"></param>
-        /// <returns></returns>
-        private IList CreateParentBoundablesFromVerticalSlices(IList[] verticalSlices, int newLevel)
-        {
-            Assert.IsTrue(verticalSlices.Length > 0);
-            IList parentBoundables = new ArrayList();
-            for (int i = 0; i < verticalSlices.Length; i++)
-            {
-                IList tempList = CreateParentBoundablesFromVerticalSlice(verticalSlices[i], newLevel);
-                foreach (object o in tempList)
-                    parentBoundables.Add(o);
-            }
-            return parentBoundables;
         }
 
         /// <summary>
@@ -236,7 +129,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Strtree
         /// <param name="sliceCount"></param>
         protected IList[] VerticalSlices(IList childBoundables, int sliceCount)
         {
-            int sliceCapacity = (int)Math.Ceiling(childBoundables.Count / (double)sliceCount);
+            int sliceCapacity = (int) Math.Ceiling(childBoundables.Count/(double) sliceCount);
             IList[] slices = new IList[sliceCount];
             IEnumerator i = childBoundables.GetEnumerator();
             for (int j = 0; j < sliceCount; j++)
@@ -265,7 +158,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Strtree
         /// </summary>
         /// <param name="level"></param>
         /// <returns></returns>
-        protected override AbstractNode CreateNode(int level) 
+        protected override AbstractNode CreateNode(int level)
         {
             return new AnonymousAbstractNodeImpl(level);
         }
@@ -273,67 +166,183 @@ namespace GisSharpBlog.NetTopologySuite.Index.Strtree
         /// <summary>
         /// 
         /// </summary>
-        protected override IIntersectsOp IntersectsOp
+        /// <returns></returns>
+        protected override IComparer GetComparer()
         {
-            get
+            return new AnonymousYComparerImpl(this);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        private double Avg(double a, double b)
+        {
+            return (a + b)/2d;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        private double CentreX(IEnvelope e)
+        {
+            return Avg(e.MinX, e.MaxX);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        private double CentreY(IEnvelope e)
+        {
+            return Avg(e.MinY, e.MaxY);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="verticalSlices"></param>
+        /// <param name="newLevel"></param>
+        /// <returns></returns>
+        private IList CreateParentBoundablesFromVerticalSlices(IList[] verticalSlices, int newLevel)
+        {
+            Assert.IsTrue(verticalSlices.Length > 0);
+            IList parentBoundables = new ArrayList();
+            for (int i = 0; i < verticalSlices.Length; i++)
             {
-                return new AnonymousIntersectsOpImpl(this);
+                IList tempList = CreateParentBoundablesFromVerticalSlice(verticalSlices[i], newLevel);
+                foreach (object o in tempList)
+                {
+                    parentBoundables.Add(o);
+                }
+            }
+            return parentBoundables;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private class AnonymousAbstractNodeImpl : AbstractNode
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="nodeCapacity"></param>
+            public AnonymousAbstractNodeImpl(int nodeCapacity) :
+                base(nodeCapacity) {}
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            protected override object ComputeBounds()
+            {
+                IEnvelope bounds = null;
+                for (IEnumerator i = ChildBoundables.GetEnumerator(); i.MoveNext();)
+                {
+                    IBoundable childBoundable = (IBoundable) i.Current;
+                    if (bounds == null)
+                    {
+                        bounds = new Envelope((IEnvelope) childBoundable.Bounds);
+                    }
+                    else
+                    {
+                        bounds.ExpandToInclude((IEnvelope) childBoundable.Bounds);
+                    }
+                }
+                return bounds;
             }
         }
 
         /// <summary>
-        /// Inserts an item having the given bounds into the tree.
+        /// 
         /// </summary>
-        /// <param name="itemEnv"></param>
-        /// <param name="item"></param>
-        public void Insert(IEnvelope itemEnv, object item) 
+        private class AnonymousIntersectsOpImpl : IIntersectsOp
         {
-            if (itemEnv.IsNull)  
-                return;
-            base.Insert(itemEnv, item);
+            private STRtree container = null;
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="container"></param>
+            public AnonymousIntersectsOpImpl(STRtree container)
+            {
+                this.container = container;
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="aBounds"></param>
+            /// <param name="bBounds"></param>
+            /// <returns></returns>
+            public bool Intersects(object aBounds, object bBounds)
+            {
+                return ((IEnvelope) aBounds).Intersects((IEnvelope) bBounds);
+            }
         }
 
         /// <summary>
-        /// Returns items whose bounds intersect the given envelope.
-        /// </summary>
-        /// <param name="searchEnv"></param>
-        public IList Query(IEnvelope searchEnv) 
+        /// 
+        /// </summary>        
+        private class AnonymousXComparerImpl : IComparer
         {
-            //Yes this method does something. It specifies that the bounds is an
-            //Envelope. super.query takes an object, not an Envelope. [Jon Aquino 10/24/2003]
-            return base.Query(searchEnv);
+            private readonly STRtree container = null;
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="container"></param>
+            public AnonymousXComparerImpl(STRtree container)
+            {
+                this.container = container;
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="o1"></param>
+            /// <param name="o2"></param>
+            /// <returns></returns>
+            public int Compare(object o1, object o2)
+            {
+                return container.CompareDoubles(container.CentreX((IEnvelope) ((IBoundable) o1).Bounds),
+                                                container.CentreX((IEnvelope) ((IBoundable) o2).Bounds));
+            }
         }
 
-        /// <summary>
-        /// Returns items whose bounds intersect the given envelope.
-        /// </summary>
-        /// <param name="searchEnv"></param>
-        /// <param name="visitor"></param>
-        public void Query(IEnvelope searchEnv, IItemVisitor visitor)
-        {
-            //Yes this method does something. It specifies that the bounds is an
-            //Envelope. super.query takes an Object, not an Envelope. [Jon Aquino 10/24/2003]
-            base.Query(searchEnv, visitor);
-        }
-
-        /// <summary> 
-        /// Removes a single item from the tree.
-        /// </summary>
-        /// <param name="itemEnv">The Envelope of the item to remove.</param>
-        /// <param name="item">The item to remove.</param>
-        /// <returns><c>true</c> if the item was found.</returns>
-        public bool Remove(IEnvelope itemEnv, object item) 
-        {
-            return base.Remove(itemEnv, item);
-        }        
-        
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        protected override IComparer GetComparer() 
+        private class AnonymousYComparerImpl : IComparer
         {
-            return new AnonymousYComparerImpl(this);
+            private readonly STRtree container = null;
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="container"></param>
+            public AnonymousYComparerImpl(STRtree container)
+            {
+                this.container = container;
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="o1"></param>
+            /// <param name="o2"></param>
+            /// <returns></returns>
+            public int Compare(object o1, object o2)
+            {
+                return container.CompareDoubles(container.CentreY((IEnvelope) ((IBoundable) o1).Bounds),
+                                                container.CentreY((IEnvelope) ((IBoundable) o2).Bounds));
+            }
         }
     }
 }

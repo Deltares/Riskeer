@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
-
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
-
 using Wti.Data;
 using Wti.Forms.Properties;
 
@@ -25,7 +23,7 @@ namespace Wti.Forms.NodePresenters
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
-            var wtiProject = (WtiProject)nodeData;
+            var wtiProject = (WtiProject) nodeData;
             node.Text = wtiProject.Name;
             node.Image = Resources.WtiProjectFolderIcon;
         }
@@ -47,16 +45,13 @@ namespace Wti.Forms.NodePresenters
 
         public void OnNodeRenamed(object nodeData, string newName)
         {
-            var project = (WtiProject)nodeData;
+            var project = (WtiProject) nodeData;
 
             project.Name = newName;
             project.NotifyObservers();
         }
 
-        public void OnNodeChecked(ITreeNode node)
-        {
-
-        }
+        public void OnNodeChecked(ITreeNode node) {}
 
         public DragOperations CanDrag(object nodeData)
         {
@@ -73,30 +68,18 @@ namespace Wti.Forms.NodePresenters
             return false;
         }
 
-        public void OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position)
-        {
+        public void OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position) {}
 
-        }
-
-        public void OnNodeSelected(object nodeData)
-        {
-
-        }
+        public void OnNodeSelected(object nodeData) {}
 
         public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
         {
             return null;
         }
 
-        public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e)
-        {
-            
-        }
+        public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}
 
-        public void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            
-        }
+        public void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e) {}
 
         public bool CanRemove(object parentNodeData, object nodeData)
         {
@@ -105,8 +88,8 @@ namespace Wti.Forms.NodePresenters
 
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
-            var parentProject = (Project)parentNodeData;
-            var wtiProject = (WtiProject)nodeData;
+            var parentProject = (Project) parentNodeData;
+            var wtiProject = (WtiProject) nodeData;
 
             parentProject.Items.Remove(wtiProject);
             parentProject.NotifyObservers();

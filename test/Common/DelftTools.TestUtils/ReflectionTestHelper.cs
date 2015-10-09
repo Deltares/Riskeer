@@ -10,38 +10,41 @@ namespace DelftTools.TestUtils
 {
     public static class ReflectionTestHelper
     {
+        private static readonly Random rnd = new Random();
+
         public static void AssertPublicPropertiesAreEqual<T>(T obj1, T obj2)
         {
             var properties = GetPublicInstanceProperties(obj1);
             foreach (var p in properties)
             {
-
                 var value1 = TypeUtils.GetPropertyValue(obj1, p.Name);
                 var value2 = TypeUtils.GetPropertyValue(obj2, p.Name);
                 string message = String.Format("Property {0} is not equal.", p.Name);
-                if (value1 is double) 
+                if (value1 is double)
                 {
-                    Assert.AreEqual((double)value1,(double)value2,0.000001,message);
+                    Assert.AreEqual((double) value1, (double) value2, 0.000001, message);
                 }
                 else
                 {
-                    Assert.AreEqual(value1, value2, message);    
+                    Assert.AreEqual(value1, value2, message);
                 }
-                
             }
         }
 
-        public static void FillRandomValuesForValueTypeProperties(object obj,params string[] excludedProperties)
+        public static void FillRandomValuesForValueTypeProperties(object obj, params string[] excludedProperties)
         {
             IEnumerable<PropertyInfo> properties = GetPublicInstanceProperties(obj);
-            foreach (var p in properties.Where(p=>!excludedProperties.Contains(p.Name))){
-                    
+            foreach (var p in properties.Where(p => !excludedProperties.Contains(p.Name)))
+            {
                 //set random value 
                 var randomValue = GetRandomValue(p.PropertyType);
                 MethodInfo methodInfo = p.GetSetMethod();
                 if (methodInfo != null)
                 {
-                    methodInfo.Invoke(obj, new[] {randomValue});
+                    methodInfo.Invoke(obj, new[]
+                    {
+                        randomValue
+                    });
                 }
             }
         }
@@ -50,7 +53,7 @@ namespace DelftTools.TestUtils
         public static IEnumerable<PropertyInfo> GetPublicInstanceProperties(object obj)
         {
             return obj.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Where(p => p.Name != "Id").Where(p => p.PropertyType.IsValueType || p.PropertyType == typeof (string));
+                      .Where(p => p.Name != "Id").Where(p => p.PropertyType.IsValueType || p.PropertyType == typeof(string));
         }
 
         // TODO: what is this ?!?!
@@ -60,23 +63,6 @@ namespace DelftTools.TestUtils
             return propertyInfos.Where(p => p.Name != "Id" && IsList(p));
         }
 
-        private static bool IsList(PropertyInfo p)
-        {
-            if (p.PropertyType is IList)
-            {
-                return true;
-            }
-            var genericParameterType = TypeUtils.GetFirstGenericTypeParameter(p.PropertyType);
-            if (genericParameterType != null)
-            {
-                var genericList = typeof (IList<>).MakeGenericType(genericParameterType);
-                return genericList.IsAssignableFrom(p.PropertyType);
-            }
-            return false;
-        }
-
-        private static readonly Random rnd = new Random();
-
         public static object GetRandomValue(Type propertyType)
         {
             if (propertyType == typeof(double))
@@ -85,7 +71,7 @@ namespace DelftTools.TestUtils
             }
             if (propertyType == typeof(Int32))
             {
-                return rnd.Next(100) ;
+                return rnd.Next(100);
             }
             if (propertyType == typeof(Int64))
             {
@@ -147,6 +133,21 @@ namespace DelftTools.TestUtils
                     Console.WriteLine(String.Format("Unable to set property: {0}", prop));
                 }
             }
+        }
+
+        private static bool IsList(PropertyInfo p)
+        {
+            if (p.PropertyType is IList)
+            {
+                return true;
+            }
+            var genericParameterType = TypeUtils.GetFirstGenericTypeParameter(p.PropertyType);
+            if (genericParameterType != null)
+            {
+                var genericList = typeof(IList<>).MakeGenericType(genericParameterType);
+                return genericList.IsAssignableFrom(p.PropertyType);
+            }
+            return false;
         }
     }
 }

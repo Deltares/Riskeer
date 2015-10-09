@@ -19,7 +19,9 @@ namespace SharpMap.UI.Helpers
         public static void OnMouseMove(MapTool mapTool, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.None)
+            {
                 return;
+            }
 
             RefreshCursor(mapTool);
         }
@@ -50,7 +52,9 @@ namespace SharpMap.UI.Helpers
         private static void SetCursor(MapTool mapTool, Cursor cursor)
         {
             if (!ReferenceEquals(mapTool.MapControl.Cursor, cursor))
+            {
                 mapTool.MapControl.Cursor = cursor;
+            }
         }
 
         private static Cursor CreateAddFeatureCursor(Bitmap icon)
@@ -59,12 +63,14 @@ namespace SharpMap.UI.Helpers
             var featureImage = icon;
 
             using (var compositeImage = new Bitmap(32, 32))
-            using (var g = Graphics.FromImage(compositeImage))
             {
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.DrawImageUnscaled(baseImage, 0, 0);
-                g.DrawImage(featureImage, 10f, 0f, 10f, 10f);
-                return MapCursors.CreateCursor(compositeImage, 0, 0);
+                using (var g = Graphics.FromImage(compositeImage))
+                {
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.DrawImageUnscaled(baseImage, 0, 0);
+                    g.DrawImage(featureImage, 10f, 0f, 10f, 10f);
+                    return MapCursors.CreateCursor(compositeImage, 0, 0);
+                }
             }
         }
     }

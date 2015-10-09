@@ -6,7 +6,6 @@ using GisSharpBlog.NetTopologySuite.Utilities;
 
 namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
 {
-
     /// <summary>
     /// Implements a "hot pixel" as used in the Snap Rounding algorithm.
     /// A hot pixel contains the interior of the tolerance square and the boundary
@@ -16,15 +15,15 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
     /// </summary>
     public class HotPixel
     {
-        private LineIntersector li = null;
+        private readonly LineIntersector li = null;
 
-        private ICoordinate pt = null;
-        private ICoordinate originalPt = null;        
+        private readonly ICoordinate pt = null;
+        private readonly ICoordinate originalPt = null;
 
-        private ICoordinate p0Scaled = null;
-        private ICoordinate p1Scaled = null;
+        private readonly ICoordinate p0Scaled = null;
+        private readonly ICoordinate p1Scaled = null;
 
-        private double scaleFactor;
+        private readonly double scaleFactor;
 
         private double minx;
         private double maxx;
@@ -36,7 +35,7 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
          *  10
          *  23
          */
-        private ICoordinate[] corner = new ICoordinate[4];
+        private readonly ICoordinate[] corner = new ICoordinate[4];
 
         private Envelope safeEnv = null;
 
@@ -51,7 +50,7 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
             originalPt = pt;
             this.pt = pt;
             this.scaleFactor = scaleFactor;
-            this.li = li;            
+            this.li = li;
             if (scaleFactor != 1.0)
             {
                 this.pt = new Coordinate(Scale(pt.X), Scale(pt.Y));
@@ -80,11 +79,53 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
         {
             if (safeEnv == null)
             {
-                double safeTolerance = 0.75 / scaleFactor;
+                double safeTolerance = 0.75/scaleFactor;
                 safeEnv = new Envelope(originalPt.X - safeTolerance, originalPt.X + safeTolerance,
                                        originalPt.Y - safeTolerance, originalPt.Y + safeTolerance);
             }
             return safeEnv;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0"></param>
+        /// <param name="p1"></param>
+        /// <returns></returns>
+        public bool Intersects(ICoordinate p0, ICoordinate p1)
+        {
+            if (scaleFactor == 1.0)
+            {
+                return IntersectsScaled(p0, p1);
+            }
+
+            CopyScaled(p0, p0Scaled);
+            CopyScaled(p1, p1Scaled);
+            return IntersectsScaled(p0Scaled, p1Scaled);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0"></param>
+        /// <param name="p1"></param>
+        /// <returns></returns>
+        public bool IntersectsScaled(ICoordinate p0, ICoordinate p1)
+        {
+            double segMinx = Math.Min(p0.X, p1.X);
+            double segMaxx = Math.Max(p0.X, p1.X);
+            double segMiny = Math.Min(p0.Y, p1.Y);
+            double segMaxy = Math.Max(p0.Y, p1.Y);
+
+            bool isOutsidePixelEnv = maxx < segMinx || minx > segMaxx ||
+                                     maxy < segMiny || miny > segMaxy;
+            if (isOutsidePixelEnv)
+            {
+                return false;
+            }
+            bool intersects = IntersectsToleranceSquare(p0, p1);
+            Assert.IsTrue(!(isOutsidePixelEnv && intersects), "Found bad envelope test");
+            return intersects;
         }
 
         /// <summary>
@@ -112,23 +153,7 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
         /// <returns></returns>
         private double Scale(double val)
         {
-            return (double) Math.Round(val * scaleFactor);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="p0"></param>
-        /// <param name="p1"></param>
-        /// <returns></returns>
-        public bool Intersects(ICoordinate p0, ICoordinate p1)
-        {
-            if (scaleFactor == 1.0)
-                return IntersectsScaled(p0, p1);
-
-            CopyScaled(p0, p0Scaled);
-            CopyScaled(p1, p1Scaled);
-            return IntersectsScaled(p0Scaled, p1Scaled);
+            return (double) Math.Round(val*scaleFactor);
         }
 
         /// <summary>
@@ -140,28 +165,6 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
         {
             pScaled.X = Scale(p.X);
             pScaled.Y = Scale(p.Y);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="p0"></param>
-        /// <param name="p1"></param>
-        /// <returns></returns>
-        public bool IntersectsScaled(ICoordinate p0, ICoordinate p1)
-        {
-            double segMinx = Math.Min(p0.X, p1.X);
-            double segMaxx = Math.Max(p0.X, p1.X);
-            double segMiny = Math.Min(p0.Y, p1.Y);
-            double segMaxy = Math.Max(p0.Y, p1.Y);
-
-            bool isOutsidePixelEnv = maxx < segMinx || minx > segMaxx || 
-                                     maxy < segMiny || miny > segMaxy;
-            if (isOutsidePixelEnv)
-                return false;
-            bool intersects = IntersectsToleranceSquare(p0, p1);           
-            Assert.IsTrue(!(isOutsidePixelEnv && intersects), "Found bad envelope test");
-            return intersects;
         }
 
         /// <summary>
@@ -185,23 +188,50 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
             bool intersectsBottom = false;
 
             li.ComputeIntersection(p0, p1, corner[0], corner[1]);
-            if(li.IsProper) return true;
+            if (li.IsProper)
+            {
+                return true;
+            }
 
             li.ComputeIntersection(p0, p1, corner[1], corner[2]);
-            if(li.IsProper) return true;
-            if(li.HasIntersection) intersectsLeft = true;
+            if (li.IsProper)
+            {
+                return true;
+            }
+            if (li.HasIntersection)
+            {
+                intersectsLeft = true;
+            }
 
             li.ComputeIntersection(p0, p1, corner[2], corner[3]);
-            if(li.IsProper) return true;
-            if(li.HasIntersection) intersectsBottom = true;
+            if (li.IsProper)
+            {
+                return true;
+            }
+            if (li.HasIntersection)
+            {
+                intersectsBottom = true;
+            }
 
             li.ComputeIntersection(p0, p1, corner[3], corner[0]);
-            if(li.IsProper) return true;
+            if (li.IsProper)
+            {
+                return true;
+            }
 
-            if(intersectsLeft && intersectsBottom) return true;
+            if (intersectsLeft && intersectsBottom)
+            {
+                return true;
+            }
 
-            if(p0.Equals(pt)) return true;
-            if(p1.Equals(pt)) return true;
+            if (p0.Equals(pt))
+            {
+                return true;
+            }
+            if (p1.Equals(pt))
+            {
+                return true;
+            }
 
             return false;
         }
@@ -219,13 +249,25 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
         private bool IntersectsPixelClosure(ICoordinate p0, ICoordinate p1)
         {
             li.ComputeIntersection(p0, p1, corner[0], corner[1]);
-            if(li.HasIntersection) return true;
+            if (li.HasIntersection)
+            {
+                return true;
+            }
             li.ComputeIntersection(p0, p1, corner[1], corner[2]);
-            if(li.HasIntersection) return true;
+            if (li.HasIntersection)
+            {
+                return true;
+            }
             li.ComputeIntersection(p0, p1, corner[2], corner[3]);
-            if(li.HasIntersection) return true;
+            if (li.HasIntersection)
+            {
+                return true;
+            }
             li.ComputeIntersection(p0, p1, corner[3], corner[0]);
-            if(li.HasIntersection) return true;
+            if (li.HasIntersection)
+            {
+                return true;
+            }
             return false;
         }
     }

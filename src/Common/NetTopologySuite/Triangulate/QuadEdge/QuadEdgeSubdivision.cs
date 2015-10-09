@@ -37,34 +37,28 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
     /// <author>Martin Davis</author>
     public class QuadEdgeSubdivision
     {
-        /// <summary>
-        /// Gets the edges for the triangle to the left of the given <see cref="QuadEdge"/>.
-        /// </summary>
-        /// <param name="startQE" />
-        /// <param name="triEdge" />
-        /// <exception cref="ArgumentException">if the edges do not form a triangle</exception>
-        public static void GetTriangleEdges(QuadEdge startQE, QuadEdge[] triEdge)
-        {
-            triEdge[0] = startQE;
-            triEdge[1] = triEdge[0].LNext;
-            triEdge[2] = triEdge[1].LNext;
-            if (triEdge[2].LNext != triEdge[0])
-                throw new ArgumentException("Edges do not form a triangle");
-        }
-
-        private readonly static double EDGE_COINCIDENCE_TOL_FACTOR = 1000;
-
-        // debugging only - preserve current subdiv statically
-        // private static QuadEdgeSubdivision currentSubdiv;
-
-        // used for edge extraction to ensure edge uniqueness
-        private int _visitedKey;
+        private static readonly double EDGE_COINCIDENCE_TOL_FACTOR = 1000;
         //private Set quadEdges = new HashSet();
         private readonly IList<QuadEdge> _quadEdges = new List<QuadEdge>();
         private readonly QuadEdge _startingEdge;
         private readonly double _tolerance;
         private readonly double _edgeCoincidenceTolerance;
         private readonly Vertex[] _frameVertex = new Vertex[3];
+
+        private readonly LineSegment seg = new LineSegment();
+
+        /// <summary>
+        /// The quadedges forming a single triangle.
+        /// Only one visitor is allowed to be active at a
+        /// time, so this is safe.
+        /// </summary>
+        private readonly QuadEdge[] _triEdges = new QuadEdge[3];
+
+        // debugging only - preserve current subdiv statically
+        // private static QuadEdgeSubdivision currentSubdiv;
+
+        // used for edge extraction to ensure edge uniqueness
+        private int _visitedKey;
         private Envelope _frameEnv;
         private IQuadEdgeLocator _locator;
 
@@ -79,49 +73,12 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         {
             // currentSubdiv = this;
             _tolerance = tolerance;
-            _edgeCoincidenceTolerance = tolerance / EDGE_COINCIDENCE_TOL_FACTOR;
+            _edgeCoincidenceTolerance = tolerance/EDGE_COINCIDENCE_TOL_FACTOR;
 
             CreateFrame(env);
 
             _startingEdge = InitSubdiv();
             _locator = new LastFoundQuadEdgeLocator(this);
-        }
-
-        private void CreateFrame(Envelope env)
-        {
-            double deltaX = env.Width;
-            double deltaY = env.Height;
-            double offset;
-            if (deltaX > deltaY)
-            {
-                offset = deltaX * 10.0;
-            }
-            else
-            {
-                offset = deltaY * 10.0;
-            }
-
-            _frameVertex[0] = new Vertex((env.MaxX + env.MinX) / 2.0, env
-                    .MaxY
-                    + offset);
-            _frameVertex[1] = new Vertex(env.MinX - offset, env.MinY - offset);
-            _frameVertex[2] = new Vertex(env.MaxX + offset, env.MinY - offset);
-
-            _frameEnv = new Envelope(_frameVertex[0].Coordinate, _frameVertex[1]
-                    .Coordinate);
-            _frameEnv.ExpandToInclude(_frameVertex[2].Coordinate);
-        }
-
-        private QuadEdge InitSubdiv()
-        {
-            // build initial subdivision from frame
-            QuadEdge ea = MakeEdge(_frameVertex[0], _frameVertex[1]);
-            QuadEdge eb = MakeEdge(_frameVertex[1], _frameVertex[2]);
-            QuadEdge.Splice(ea.Sym, eb);
-            QuadEdge ec = MakeEdge(_frameVertex[2], _frameVertex[0]);
-            QuadEdge.Splice(eb.Sym, ec);
-            QuadEdge.Splice(ec.Sym, ea);
-            return ea;
         }
 
         /// <summary>
@@ -146,6 +103,23 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             get
             {
                 return new Envelope(_frameEnv);
+            }
+        }
+
+        /// <summary>
+        /// Gets the edges for the triangle to the left of the given <see cref="QuadEdge"/>.
+        /// </summary>
+        /// <param name="startQE" />
+        /// <param name="triEdge" />
+        /// <exception cref="ArgumentException">if the edges do not form a triangle</exception>
+        public static void GetTriangleEdges(QuadEdge startQE, QuadEdge[] triEdge)
+        {
+            triEdge[0] = startQE;
+            triEdge[1] = triEdge[0].LNext;
+            triEdge[2] = triEdge[1].LNext;
+            if (triEdge[2].LNext != triEdge[0])
+            {
+                throw new ArgumentException("Edges do not form a triangle");
             }
         }
 
@@ -337,18 +311,24 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             // find an edge containing one of the points
             QuadEdge e = _locator.Locate(new Vertex(p0));
             if (e == null)
+            {
                 return null;
+            }
 
             // normalize so that p0 is origin of base edge
             QuadEdge baseQE = e;
             if (e.Dest.Coordinate.Equals2D(p0))
+            {
                 baseQE = e.Sym;
+            }
             // check all edges around origin of base edge
             QuadEdge locEdge = baseQE;
             do
             {
                 if (locEdge.Dest.Coordinate.Equals2D(p1))
+                {
                     return locEdge;
+                }
                 locEdge = locEdge.ONext;
             } while (locEdge != baseQE);
             return null;
@@ -404,7 +384,9 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         public bool IsFrameEdge(QuadEdge e)
         {
             if (IsFrameVertex(e.Orig) || IsFrameVertex(e.Dest))
+            {
                 return true;
+            }
             return false;
         }
 
@@ -428,11 +410,15 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             // check other vertex of triangle to left of edge
             Vertex vLeftTriOther = e.LNext.Dest;
             if (IsFrameVertex(vLeftTriOther))
+            {
                 return true;
+            }
             // check other vertex of triangle to right of edge
             Vertex vRightTriOther = e.Sym.LNext.Dest;
             if (IsFrameVertex(vRightTriOther))
+            {
                 return true;
+            }
 
             return false;
         }
@@ -445,15 +431,19 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         public bool IsFrameVertex(Vertex v)
         {
             if (v.Equals(_frameVertex[0]))
+            {
                 return true;
+            }
             if (v.Equals(_frameVertex[1]))
+            {
                 return true;
+            }
             if (v.Equals(_frameVertex[2]))
+            {
                 return true;
+            }
             return false;
         }
-
-        private readonly LineSegment seg = new LineSegment();
 
         /// <summary>
         /// Tests whether a {@link Coordinate} lies on a {@link QuadEdge}, up to a
@@ -502,7 +492,9 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
                 Vertex v = qe.Orig;
                 //System.out.println(v);
                 if (includeFrame || !IsFrameVertex(v))
+                {
                     vertices.Add(v);
+                }
 
                 /*
                 * Inspect the sym edge as well, since it is
@@ -512,7 +504,9 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
                 Vertex vd = qe.Dest;
                 //System.out.println(vd);
                 if (includeFrame || !IsFrameVertex(vd))
+                {
                     vertices.Add(vd);
+                }
             }
             return vertices;
         }
@@ -598,7 +592,9 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
                     QuadEdge priQE = edge.GetPrimary();
 
                     if (includeFrame || !IsFrameEdge(priQE))
+                    {
                         edges.Add(priQE);
+                    }
 
                     edgeStack.Push(edge.ONext);
                     edgeStack.Push(edge.Sym.ONext);
@@ -610,37 +606,12 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             return edges;
         }
 
-        /// <summary>
-        /// A TriangleVisitor which computes and sets the
-        /// circumcentre as the origin of the dual
-        /// edges originating in each triangle.
-        /// </summary>
-        /// <author>mbdavis</author>
-        private class TriangleCircumcentreVisitor : ITriangleVisitor
-        {
-            public void Visit(QuadEdge[] triEdges)
-            {
-                Coordinate a = triEdges[0].Orig.Coordinate;
-                Coordinate b = triEdges[1].Orig.Coordinate;
-                Coordinate c = triEdges[2].Orig.Coordinate;
-
-                // TODO: choose the most accurate circumcentre based on the edges
-                Coordinate cc = Triangle.Circumcentre(a, b, c);
-                Vertex ccVertex = new Vertex(cc);
-                // save the circumcentre as the origin for the dual edges originating in this triangle
-                for (int i = 0; i < 3; i++)
-                {
-                    triEdges[i].Rot.Orig = ccVertex;
-                }
-            }
-        }
-
         /*****************************************************************************
          * Visitors
          ****************************************************************************/
 
         public void VisitTriangles(ITriangleVisitor triVisitor,
-                                    bool includeFrame)
+                                   bool includeFrame)
         {
             _visitedKey++;
 
@@ -658,59 +629,13 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
                 if (!visitedEdges.Contains(edge))
                 {
                     QuadEdge[] triEdges = FetchTriangleToVisit(edge, edgeStack,
-                                                                includeFrame, visitedEdges);
+                                                               includeFrame, visitedEdges);
                     if (triEdges != null)
+                    {
                         triVisitor.Visit(triEdges);
+                    }
                 }
             }
-        }
-
-        /// <summary>
-        /// The quadedges forming a single triangle.
-        /// Only one visitor is allowed to be active at a
-        /// time, so this is safe.
-        /// </summary>
-        private readonly QuadEdge[] _triEdges = new QuadEdge[3];
-
-        /// <summary>
-        /// Stores the edges for a visited triangle. Also pushes sym (neighbour) edges
-        /// on stack to visit later.
-        /// </summary>
-        /// <param name="edge" />
-        /// <param name="edgeStack" />
-        /// <param name="includeFrame" />
-        /// <param name="visitedEdges"></param>
-        /// <returns>the visited triangle edges,<br/>
-        /// or <value>null</value> if the triangle should not be visited (for instance, if it is outer)
-        /// </returns>
-        private QuadEdge[] FetchTriangleToVisit(QuadEdge edge, Stack<QuadEdge> edgeStack, bool includeFrame,
-            Set<QuadEdge> visitedEdges)
-        {
-            QuadEdge curr = edge;
-            int edgeCount = 0;
-            bool isFrame = false;
-            do
-            {
-                _triEdges[edgeCount] = curr;
-
-                if (IsFrameEdge(curr))
-                    isFrame = true;
-
-                // push sym edges to visit next
-                QuadEdge sym = curr.Sym;
-                if (!visitedEdges.Contains(sym))
-                    edgeStack.Push(sym);
-
-                // mark this edge as visited
-                visitedEdges.Add(curr);
-
-                edgeCount++;
-                curr = curr.LNext;
-            } while (curr != edge);
-
-            if (isFrame && !includeFrame)
-                return null;
-            return _triEdges;
         }
 
         /// <summary>
@@ -727,21 +652,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             return visitor.GetTriangleEdges();
         }
 
-        private class TriangleEdgesListVisitor : ITriangleVisitor
-        {
-            private readonly IList<QuadEdge[]> _triList = new List<QuadEdge[]>();
-
-            public void Visit(QuadEdge[] triEdges)
-            {
-                _triList.Add((QuadEdge[])triEdges.Clone());
-            }
-
-            public IList<QuadEdge[]> GetTriangleEdges()
-            {
-                return _triList;
-            }
-        }
-
         /// <summary>
         /// Gets a list of the triangles in the subdivision,
         /// specified as an array of the triangle <see cref="Vertex"/>es.
@@ -755,22 +665,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             return visitor.GetTriangleVertices();
         }
 
-        private class TriangleVertexListVisitor : ITriangleVisitor
-        {
-            private readonly IList<Vertex[]> _triList = new List<Vertex[]>();
-
-            public void Visit(QuadEdge[] triEdges)
-            {
-                _triList.Add(new[] { triEdges[0].Orig, triEdges[1].Orig,
-                            triEdges[2].Orig });
-            }
-
-            public IList<Vertex[]> GetTriangleVertices()
-            {
-                return _triList;
-            }
-        }
-
         /// <summary>
         /// Gets the coordinates for each triangle in the subdivision as an array.
         /// </summary>
@@ -781,55 +675,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             var visitor = new TriangleCoordinatesVisitor();
             VisitTriangles(visitor, includeFrame);
             return visitor.GetTriangles();
-        }
-
-        private class TriangleCoordinatesVisitor : ITriangleVisitor
-        {
-            private readonly CoordinateList _coordList = new CoordinateList();
-
-            private readonly IList<ICoordinate[]> _triCoords = new List<ICoordinate[]>();
-
-            public void Visit(QuadEdge[] triEdges)
-            {
-                _coordList.Clear();
-                for (int i = 0; i < 3; i++)
-                {
-                    Vertex v = triEdges[i].Orig;
-                    _coordList.Add(v.Coordinate);
-                }
-                if (_coordList.Count > 0)
-                {
-                    _coordList.CloseRing();
-                    ICoordinate[] pts = _coordList.ToCoordinateArray();
-                    if (pts.Length != 4)
-                    {
-                        //CheckTriangleSize(pts);
-                        return;
-                    }
-
-                    _triCoords.Add(pts);
-                }
-            }
-
-            private static void CheckTriangleSize(Coordinate[] pts)
-            {
-                String loc = "";
-                if (pts.Length >= 2)
-                    loc = WKTWriter.ToLineString(pts[0], pts[1]);
-                else
-                {
-                    if (pts.Length >= 1)
-                        loc = WKTWriter.ToPoint(pts[0]);
-                }
-
-                Assert.IsTrue(pts.Length == 4, "Too few points for visited triangle at " + loc);
-                ////com.vividsolutions.jts.util.Debug.println("too few points for triangle at " + loc);
-            }
-
-            public IList<ICoordinate[]> GetTriangles()
-            {
-                return _triCoords;
-            }
         }
 
         /// <summary>
@@ -845,8 +690,11 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             int i = 0;
             foreach (var qe in quadEdges)
             {
-                edges[i++] = geomFact.CreateLineString(new[] {
-                                                        qe.Orig.Coordinate, qe.Dest.Coordinate });
+                edges[i++] = geomFact.CreateLineString(new[]
+                {
+                    qe.Orig.Coordinate,
+                    qe.Dest.Coordinate
+                });
             }
             return geomFact.CreateMultiLineString(edges);
         }
@@ -865,7 +713,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             foreach (var triPt in triPtsList)
             {
                 tris[i++] = geomFact
-                            .CreatePolygon(geomFact.CreateLinearRing(triPt), null);
+                    .CreatePolygon(geomFact.CreateLinearRing(triPt), null);
             }
             return geomFact.CreateGeometryCollection(tris);
         }
@@ -961,6 +809,203 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             Vertex v = startQE.Orig;
             cellPoly.UserData = v.Coordinate;
             return cellPoly;
+        }
+
+        private void CreateFrame(Envelope env)
+        {
+            double deltaX = env.Width;
+            double deltaY = env.Height;
+            double offset;
+            if (deltaX > deltaY)
+            {
+                offset = deltaX*10.0;
+            }
+            else
+            {
+                offset = deltaY*10.0;
+            }
+
+            _frameVertex[0] = new Vertex((env.MaxX + env.MinX)/2.0, env
+                                                                        .MaxY
+                                                                    + offset);
+            _frameVertex[1] = new Vertex(env.MinX - offset, env.MinY - offset);
+            _frameVertex[2] = new Vertex(env.MaxX + offset, env.MinY - offset);
+
+            _frameEnv = new Envelope(_frameVertex[0].Coordinate, _frameVertex[1]
+                                                                     .Coordinate);
+            _frameEnv.ExpandToInclude(_frameVertex[2].Coordinate);
+        }
+
+        private QuadEdge InitSubdiv()
+        {
+            // build initial subdivision from frame
+            QuadEdge ea = MakeEdge(_frameVertex[0], _frameVertex[1]);
+            QuadEdge eb = MakeEdge(_frameVertex[1], _frameVertex[2]);
+            QuadEdge.Splice(ea.Sym, eb);
+            QuadEdge ec = MakeEdge(_frameVertex[2], _frameVertex[0]);
+            QuadEdge.Splice(eb.Sym, ec);
+            QuadEdge.Splice(ec.Sym, ea);
+            return ea;
+        }
+
+        /// <summary>
+        /// Stores the edges for a visited triangle. Also pushes sym (neighbour) edges
+        /// on stack to visit later.
+        /// </summary>
+        /// <param name="edge" />
+        /// <param name="edgeStack" />
+        /// <param name="includeFrame" />
+        /// <param name="visitedEdges"></param>
+        /// <returns>the visited triangle edges,<br/>
+        /// or <value>null</value> if the triangle should not be visited (for instance, if it is outer)
+        /// </returns>
+        private QuadEdge[] FetchTriangleToVisit(QuadEdge edge, Stack<QuadEdge> edgeStack, bool includeFrame,
+                                                Set<QuadEdge> visitedEdges)
+        {
+            QuadEdge curr = edge;
+            int edgeCount = 0;
+            bool isFrame = false;
+            do
+            {
+                _triEdges[edgeCount] = curr;
+
+                if (IsFrameEdge(curr))
+                {
+                    isFrame = true;
+                }
+
+                // push sym edges to visit next
+                QuadEdge sym = curr.Sym;
+                if (!visitedEdges.Contains(sym))
+                {
+                    edgeStack.Push(sym);
+                }
+
+                // mark this edge as visited
+                visitedEdges.Add(curr);
+
+                edgeCount++;
+                curr = curr.LNext;
+            } while (curr != edge);
+
+            if (isFrame && !includeFrame)
+            {
+                return null;
+            }
+            return _triEdges;
+        }
+
+        /// <summary>
+        /// A TriangleVisitor which computes and sets the
+        /// circumcentre as the origin of the dual
+        /// edges originating in each triangle.
+        /// </summary>
+        /// <author>mbdavis</author>
+        private class TriangleCircumcentreVisitor : ITriangleVisitor
+        {
+            public void Visit(QuadEdge[] triEdges)
+            {
+                Coordinate a = triEdges[0].Orig.Coordinate;
+                Coordinate b = triEdges[1].Orig.Coordinate;
+                Coordinate c = triEdges[2].Orig.Coordinate;
+
+                // TODO: choose the most accurate circumcentre based on the edges
+                Coordinate cc = Triangle.Circumcentre(a, b, c);
+                Vertex ccVertex = new Vertex(cc);
+                // save the circumcentre as the origin for the dual edges originating in this triangle
+                for (int i = 0; i < 3; i++)
+                {
+                    triEdges[i].Rot.Orig = ccVertex;
+                }
+            }
+        }
+
+        private class TriangleCoordinatesVisitor : ITriangleVisitor
+        {
+            private readonly CoordinateList _coordList = new CoordinateList();
+
+            private readonly IList<ICoordinate[]> _triCoords = new List<ICoordinate[]>();
+
+            public IList<ICoordinate[]> GetTriangles()
+            {
+                return _triCoords;
+            }
+
+            public void Visit(QuadEdge[] triEdges)
+            {
+                _coordList.Clear();
+                for (int i = 0; i < 3; i++)
+                {
+                    Vertex v = triEdges[i].Orig;
+                    _coordList.Add(v.Coordinate);
+                }
+                if (_coordList.Count > 0)
+                {
+                    _coordList.CloseRing();
+                    ICoordinate[] pts = _coordList.ToCoordinateArray();
+                    if (pts.Length != 4)
+                    {
+                        //CheckTriangleSize(pts);
+                        return;
+                    }
+
+                    _triCoords.Add(pts);
+                }
+            }
+
+            private static void CheckTriangleSize(Coordinate[] pts)
+            {
+                String loc = "";
+                if (pts.Length >= 2)
+                {
+                    loc = WKTWriter.ToLineString(pts[0], pts[1]);
+                }
+                else
+                {
+                    if (pts.Length >= 1)
+                    {
+                        loc = WKTWriter.ToPoint(pts[0]);
+                    }
+                }
+
+                Assert.IsTrue(pts.Length == 4, "Too few points for visited triangle at " + loc);
+                ////com.vividsolutions.jts.util.Debug.println("too few points for triangle at " + loc);
+            }
+        }
+
+        private class TriangleEdgesListVisitor : ITriangleVisitor
+        {
+            private readonly IList<QuadEdge[]> _triList = new List<QuadEdge[]>();
+
+            public IList<QuadEdge[]> GetTriangleEdges()
+            {
+                return _triList;
+            }
+
+            public void Visit(QuadEdge[] triEdges)
+            {
+                _triList.Add((QuadEdge[]) triEdges.Clone());
+            }
+        }
+
+        private class TriangleVertexListVisitor : ITriangleVisitor
+        {
+            private readonly IList<Vertex[]> _triList = new List<Vertex[]>();
+
+            public IList<Vertex[]> GetTriangleVertices()
+            {
+                return _triList;
+            }
+
+            public void Visit(QuadEdge[] triEdges)
+            {
+                _triList.Add(new[]
+                {
+                    triEdges[0].Orig,
+                    triEdges[1].Orig,
+                    triEdges[2].Orig
+                });
+            }
         }
     }
 }

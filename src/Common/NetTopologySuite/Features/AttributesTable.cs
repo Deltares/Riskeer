@@ -8,20 +8,37 @@ namespace GisSharpBlog.NetTopologySuite.Features
     /// </summary>
     [Serializable]
     public class AttributesTable : IAttributesTable
-    {        
+    {
         private const string IndexField = "_NTS_ID_";
         private const int IndexValue = 0;
-        
-        private Hashtable attributes = new Hashtable();
+
+        private readonly Hashtable attributes = new Hashtable();
 
         /// <summary>
         /// Initialize a new attribute table.
         /// </summary>
-        public AttributesTable() 
-        {                       
+        public AttributesTable()
+        {
             // Add ID with fixed value of 0
             // AddAttribute(IndexField, typeof(Int32));
             // this[IndexField] = IndexValue;
+        }
+
+        /// <summary>
+        /// Get / Set the value of the specified attribute.
+        /// </summary>
+        /// <param name="attributeName"></param>
+        /// <returns></returns>
+        public object this[string attributeName]
+        {
+            get
+            {
+                return GetValue(attributeName);
+            }
+            set
+            {
+                SetValue(attributeName, value);
+            }
         }
 
         /// <summary>
@@ -29,7 +46,10 @@ namespace GisSharpBlog.NetTopologySuite.Features
         /// </summary>
         public int Count
         {
-            get { return attributes.Count; }
+            get
+            {
+                return attributes.Count;
+            }
         }
 
         /// <summary>
@@ -42,7 +62,9 @@ namespace GisSharpBlog.NetTopologySuite.Features
             int index = 0;
             string[] names = new string[attributes.Count];
             foreach (string name in attributes.Keys)
+            {
                 names[index++] = name;
+            }
             return names;
         }
 
@@ -56,7 +78,9 @@ namespace GisSharpBlog.NetTopologySuite.Features
             int index = 0;
             object[] values = new object[attributes.Count];
             foreach (object val in attributes.Values)
+            {
                 values[index++] = val;
+            }
             return values;
         }
 
@@ -79,9 +103,11 @@ namespace GisSharpBlog.NetTopologySuite.Features
         public void AddAttribute(string attributeName, object attributeValue)
         {
             if (Exists(attributeName))
+            {
                 throw new ArgumentException("Attribute " + attributeName + " already exists!");
+            }
             attributes.Add(attributeName, attributeValue);
-        }        
+        }
 
         /// <summary>
         /// Delete the specified attribute from the table.
@@ -90,7 +116,9 @@ namespace GisSharpBlog.NetTopologySuite.Features
         public virtual void DeleteAttribute(string attributeName)
         {
             if (!Exists(attributeName))
+            {
                 throw new ArgumentException("Attribute " + attributeName + " not exists!");
+            }
             attributes.Remove(attributeName);
         }
 
@@ -103,7 +131,9 @@ namespace GisSharpBlog.NetTopologySuite.Features
         public Type GetType(string attributeName)
         {
             if (!Exists(attributeName))
+            {
                 throw new ArgumentException("Attribute " + attributeName + " not exists!");
+            }
             return attributes[attributeName].GetType();
         }
 
@@ -115,7 +145,9 @@ namespace GisSharpBlog.NetTopologySuite.Features
         protected object GetValue(string attributeName)
         {
             if (!Exists(attributeName))
+            {
                 throw new ArgumentException("Attribute " + attributeName + " not exists!");
+            }
             return attributes[attributeName];
         }
 
@@ -127,19 +159,10 @@ namespace GisSharpBlog.NetTopologySuite.Features
         protected void SetValue(string attributeName, object attributeValue)
         {
             if (!Exists(attributeName))
+            {
                 throw new ArgumentException("Attribute " + attributeName + " not exists!");
+            }
             attributes[attributeName] = attributeValue;
-        }
-
-        /// <summary>
-        /// Get / Set the value of the specified attribute.
-        /// </summary>
-        /// <param name="attributeName"></param>
-        /// <returns></returns>
-        public object this[string attributeName]
-        {
-            get { return GetValue(attributeName); }
-            set { SetValue(attributeName, value); }
         }
     }
 }

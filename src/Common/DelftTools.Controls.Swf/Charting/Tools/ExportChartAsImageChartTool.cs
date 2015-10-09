@@ -5,6 +5,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 {
     public class ExportChartAsImageChartTool : IChartViewContextMenuTool
     {
+        public event EventHandler<EventArgs> ActiveChanged;
         private bool active;
 
         public ExportChartAsImageChartTool(IChartView chartView)
@@ -16,7 +17,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
         public bool Active
         {
-            get { return active; }
+            get
+            {
+                return active;
+            }
             set
             {
                 active = value;
@@ -26,8 +30,6 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 }
             }
         }
-
-        public event EventHandler<EventArgs> ActiveChanged;
 
         public bool Enabled { get; set; }
 

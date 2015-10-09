@@ -10,87 +10,56 @@ namespace DeltaShell.Plugins.CommonTools.Tests
 {
     public class TestViewList : IViewList
     {
-        private IList<IView> views = new List<IView>();
+        public event NotifyCollectionChangingEventHandler CollectionChanging;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        public void AddRange(IEnumerable<IView> enumerable)
-        {
-            throw new NotImplementedException();
-        }
+        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanging;
 
-        public IEnumerator<IView> GetEnumerator()
-        {
-            return views.GetEnumerator();
-        }
+        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public void Add(IView item)
-        {
-            views.Add(item);   
-        }
-
-        public void Clear()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Contains(IView item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(IView[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Remove(IView item)
-        {
-            return views.Remove(item);
-        }
-
-        public int Count { get; private set; }
-        public bool IsReadOnly { get; private set; }
-        public int IndexOf(IView item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Insert(int index, IView item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveAt(int index)
-        {
-            throw new NotImplementedException();
-        }
+        public event NotifyCollectionChangedEventHandler ChildViewChanged;
+        private readonly IList<IView> views = new List<IView>();
+        private IView activeView;
 
         public IView this[int index]
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
-        public event NotifyCollectionChangingEventHandler CollectionChanging;
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-        
+        public IDictionary<Type, Type> DefaultViewTypes { get; private set; }
+
+        public int Count { get; private set; }
+        public bool IsReadOnly { get; private set; }
+
         bool INotifyCollectionChange.HasParentIsCheckedInItems { get; set; }
 
         public bool SkipChildItemEventBubbling
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public bool IgnoreActivation { get; set; }
-        private IView activeView;
+
         public IView ActiveView
         {
-            get { return activeView; }
+            get
+            {
+                return activeView;
+            }
             set
             {
                 activeView = value;
@@ -98,11 +67,7 @@ namespace DeltaShell.Plugins.CommonTools.Tests
             }
         }
 
-        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanging;
-
-        public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
-
-        public event NotifyCollectionChangedEventHandler ChildViewChanged;
+        public IEnumerable<IView> AllViews { get; private set; }
 
         public IList<IView> GetViewsForData(object data, bool includeChildViews)
         {
@@ -114,18 +79,7 @@ namespace DeltaShell.Plugins.CommonTools.Tests
             throw new NotImplementedException();
         }
 
-        public IDictionary<Type, Type> DefaultViewTypes { get; private set; }
         public Type GetDefaultViewTypeForData(object dataObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Add(IView view, ViewLocation viewLocation)
-        {
-            Add(view);
-        }
-
-        public void Clear(IView view)
         {
             throw new NotImplementedException();
         }
@@ -149,16 +103,6 @@ namespace DeltaShell.Plugins.CommonTools.Tests
         {
             throw new NotImplementedException();
         }
-        
-        public void SetTooltip(IView view, string tooltip)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateViewName(IView view)
-        {
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<ViewInfo> GetViewInfosFor(object data, Type viewType = null)
         {
@@ -169,7 +113,93 @@ namespace DeltaShell.Plugins.CommonTools.Tests
         {
             throw new NotImplementedException();
         }
-        
+
+        public void OnActiveViewChanged(IView activeView)
+        {
+            if (ActiveViewChanged != null)
+            {
+                ActiveViewChanged(this, new ActiveViewChangeEventArgs
+                {
+                    View = activeView
+                });
+            }
+        }
+
+        public void AddRange(IEnumerable<IView> enumerable)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerator<IView> GetEnumerator()
+        {
+            return views.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public void Add(IView item)
+        {
+            views.Add(item);
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Contains(IView item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CopyTo(IView[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Remove(IView item)
+        {
+            return views.Remove(item);
+        }
+
+        public int IndexOf(IView item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(int index, IView item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveAt(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(IView view, ViewLocation viewLocation)
+        {
+            Add(view);
+        }
+
+        public void Clear(IView view)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetTooltip(IView view, string tooltip)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateViewName(IView view)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<T> GetActiveViews<T>() where T : class, IView
         {
             return views.OfType<T>();
@@ -180,18 +210,6 @@ namespace DeltaShell.Plugins.CommonTools.Tests
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IView> AllViews { get; private set; }
-
-        public void OnActiveViewChanged(IView activeView)
-        {
-            if (ActiveViewChanged != null)
-            {
-                ActiveViewChanged(this, new ActiveViewChangeEventArgs {View = activeView});
-            }
-        }
-
-        public void Dispose()
-        {
-        }
+        public void Dispose() {}
     }
 }

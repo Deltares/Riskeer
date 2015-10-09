@@ -16,10 +16,10 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
         /// 
         /// </summary>
         // Public in java code... temporary modified for "safe assembly" in Sql2005
-		internal static readonly int numberSnaps = 0;        
+        internal static readonly int numberSnaps = 0;
 
         private IList monoChains = null;
-        private STRtree index = null;
+        private readonly STRtree index = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MCIndexPointSnapper"/> class.
@@ -30,35 +30,6 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
         {
             this.monoChains = monoChains;
             this.index = (STRtree) index;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private class QueryVisitor : IItemVisitor
-        {
-            IEnvelope env = null;
-            HotPixelSnapAction action = null;
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="env"></param>
-            /// <param name="action"></param>
-            public QueryVisitor(IEnvelope env, HotPixelSnapAction action)
-            {
-                this.env = env;
-                this.action = action;
-            }
-
-            /// <summary>
-            /// </summary>
-            /// <param name="item"></param>
-            public void VisitItem(object item)
-            {
-                MonotoneChain testChain = (MonotoneChain) item;
-                testChain.Select(env, action);
-            }
         }
 
         /// <summary>
@@ -94,10 +65,9 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
         /// </summary>
         public class HotPixelSnapAction : MonotoneChainSelectAction
         {
-            private HotPixel hotPixel = null;
-            private SegmentString parentEdge = null;
-            private int vertexIndex;
-            private bool isNodeAdded = false;
+            private readonly HotPixel hotPixel = null;
+            private readonly SegmentString parentEdge = null;
+            private readonly int vertexIndex;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="HotPixelSnapAction"/> class.
@@ -107,6 +77,7 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
             /// <param name="vertexIndex"></param>
             public HotPixelSnapAction(HotPixel hotPixel, SegmentString parentEdge, int vertexIndex)
             {
+                IsNodeAdded = false;
                 this.hotPixel = hotPixel;
                 this.parentEdge = parentEdge;
                 this.vertexIndex = vertexIndex;
@@ -115,13 +86,7 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
             /// <summary>
             /// 
             /// </summary>
-            public bool IsNodeAdded
-            {
-                get
-                {
-                    return isNodeAdded;
-                }
-            }
+            public bool IsNodeAdded { get; private set; }
 
             /// <summary>
             /// 
@@ -132,10 +97,43 @@ namespace GisSharpBlog.NetTopologySuite.Noding.Snapround
             {
                 SegmentString ss = (SegmentString) mc.Context;
                 // don't snap a vertex to itself
-                if (parentEdge != null) 
+                if (parentEdge != null)
+                {
                     if (ss == parentEdge && startIndex == vertexIndex)
+                    {
                         return;
-                isNodeAdded = SimpleSnapRounder.AddSnappedNode(hotPixel, ss, startIndex);
+                    }
+                }
+                IsNodeAdded = SimpleSnapRounder.AddSnappedNode(hotPixel, ss, startIndex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private class QueryVisitor : IItemVisitor
+        {
+            private readonly IEnvelope env = null;
+            private readonly HotPixelSnapAction action = null;
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="env"></param>
+            /// <param name="action"></param>
+            public QueryVisitor(IEnvelope env, HotPixelSnapAction action)
+            {
+                this.env = env;
+                this.action = action;
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="item"></param>
+            public void VisitItem(object item)
+            {
+                MonotoneChain testChain = (MonotoneChain) item;
+                testChain.Select(env, action);
             }
         }
     }

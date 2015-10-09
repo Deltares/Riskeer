@@ -16,11 +16,12 @@ namespace DeltaShell.Gui.Forms.ViewManager
         /// </summary>
         event EventHandler<DockTabClosingEventArgs> ViewBarClosing;
 
-
         /// <summary>
         /// Occurs when a view got activated by clicked or entering it otherways
         /// </summary>
         event EventHandler<ActiveViewChangeEventArgs> ViewActivated;
+
+        event Action<object, MouseEventArgs, IView> ViewSelectionMouseDown;
 
         IEnumerable<IView> Views { get; }
 
@@ -49,7 +50,5 @@ namespace DeltaShell.Gui.Forms.ViewManager
         /// </summary>
         /// <param name="viewText"></param>
         void ActivateView(IView view);
-
-        event Action<object, MouseEventArgs, IView> ViewSelectionMouseDown;
     }
 }

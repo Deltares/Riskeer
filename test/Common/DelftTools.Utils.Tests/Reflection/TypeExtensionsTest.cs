@@ -11,13 +11,11 @@ namespace DelftTools.Utils.Tests.Reflection
         [Test]
         public void GetDisplayName()
         {
-            typeof (Person).GetDisplayName()
-                .Should().Be.EqualTo("person");
+            typeof(Person).GetDisplayName()
+                          .Should().Be.EqualTo("person");
         }
 
         [DisplayName("person")]
-        public class Person
-        {
-        }
+        public class Person {}
     }
 }

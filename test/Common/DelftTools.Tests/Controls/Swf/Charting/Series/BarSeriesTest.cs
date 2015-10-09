@@ -11,7 +11,7 @@ namespace DelftTools.Tests.Controls.Swf.Charting.Series
         {
             const int maximum = 999999;
             var series = new BarSeries
-            {               
+            {
                 LineWidth = maximum
             };
             Assert.AreEqual(maximum, series.LineWidth);

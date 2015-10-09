@@ -7,9 +7,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
     /// </summary>
     public class SweepLineSegment
     {
-        private Edge edge;
-        private ICoordinate[] pts;
-        int ptIndex;
+        private readonly Edge edge;
+        private readonly ICoordinate[] pts;
+        private readonly int ptIndex;
 
         /// <summary>
         /// 

@@ -8,35 +8,13 @@ using SharpMap.Api;
 
 namespace SharpMap.Rendering.Thematics
 {
-    [Entity(FireOnCollectionChange=false)]
+    [Entity(FireOnCollectionChange = false)]
     public abstract class Theme : ITheme
     {
-        public abstract IStyle GetStyle(IFeature feature);
-
-        public abstract IStyle GetStyle<T>(T value) where T : IComparable<T>, IComparable;
-
-        public abstract object Clone();
-
-        public virtual string AttributeName { get; set; }
-
-        public abstract void ScaleTo(double min, double max);
-
         protected Color NoDataColor = Pens.Transparent.Color;
 
         [NoNotifyPropertyChange]
         protected IList noDataValues;
-
-        public IList NoDataValues
-        {
-            get
-            {
-                return noDataValues;
-            } 
-            set
-            {
-                noDataValues = value;
-            }
-        }
 
         protected IEventedList<IThemeItem> themeItems;
 
@@ -44,6 +22,20 @@ namespace SharpMap.Rendering.Thematics
         {
             ThemeItems = new EventedList<IThemeItem>();
         }
+
+        public IList NoDataValues
+        {
+            get
+            {
+                return noDataValues;
+            }
+            set
+            {
+                noDataValues = value;
+            }
+        }
+
+        public virtual string AttributeName { get; set; }
 
         public virtual IEventedList<IThemeItem> ThemeItems
         {
@@ -56,11 +48,7 @@ namespace SharpMap.Rendering.Thematics
                 themeItems = value;
             }
         }
-        
-        // ADDED ONLY FOR PERFORMANCE
-        // todo move to quantitytheme and categorialtheme ?
-        public abstract Color GetFillColor<T>(T value) where T : IComparable;
-        
+
         /// <summary>
         /// Fills array of colors based on current configuration of theme.
         /// Used for grid coverages.
@@ -81,5 +69,17 @@ namespace SharpMap.Rendering.Thematics
                 colors[i] = GetFillColor(values[i]).ToArgb();
             }
         }
+
+        public abstract IStyle GetStyle(IFeature feature);
+
+        public abstract IStyle GetStyle<T>(T value) where T : IComparable<T>, IComparable;
+
+        public abstract object Clone();
+
+        public abstract void ScaleTo(double min, double max);
+
+        // ADDED ONLY FOR PERFORMANCE
+        // todo move to quantitytheme and categorialtheme ?
+        public abstract Color GetFillColor<T>(T value) where T : IComparable;
     }
 }

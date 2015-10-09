@@ -12,8 +12,14 @@ namespace DelftTools.Utils.Tests.Xml.Serialization.TestClasses
         [XmlElement("id", DataType = "int")]
         public virtual int Id
         {
-            get { return id; }
-            set { id = value; }
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
         }
     }
 }

@@ -5,15 +5,12 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
     /// </summary>
     public class SweepLineInterval
     {
-        private double min, max;
-        private object item;
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
-        public SweepLineInterval(double min, double max) : this(min, max, null) { }
+        public SweepLineInterval(double min, double max) : this(min, max, null) {}
 
         /// <summary>
         /// 
@@ -23,33 +20,24 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
         /// <param name="item"></param>
         public SweepLineInterval(double min, double max, object item)
         {
-            this.min = min < max ? min : max;
-            this.max = max > min ? max : min;
-            this.item = item;
+            Min = min < max ? min : max;
+            Max = max > min ? max : min;
+            Item = item;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Min 
-        { 
-            get { return min; } 
-        }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public double Max 
-        { 
-            get { return max; } 
-        }
+        public double Min { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public object Item 
-        { 
-            get { return item; } 
-        }
+        public double Max { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public object Item { get; private set; }
     }
 }

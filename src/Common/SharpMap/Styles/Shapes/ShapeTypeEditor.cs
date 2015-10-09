@@ -16,14 +16,14 @@ namespace SharpMap.Styles.Shapes
         {
             if ((context != null) & (provider != null))
             {
-                IWindowsFormsEditorService editorService = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+                IWindowsFormsEditorService editorService = (IWindowsFormsEditorService) provider.GetService(typeof(IWindowsFormsEditorService));
                 if (editorService != null)
                 {
                     Shape Instance;
                     DropdownShapeEditor dropDownEditor = new DropdownShapeEditor(editorService);
                     if (context.Instance.GetType() == typeof(Shape))
                     {
-                        Instance = (Shape)context.Instance;
+                        Instance = (Shape) context.Instance;
                     }
                     else
                     {

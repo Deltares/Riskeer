@@ -8,8 +8,8 @@ namespace DelftTools.Controls.Swf.Charting.Series
 {
     public class AreaChartSeries : ChartSeries, IAreaChartSeries
     {
-        private InterpolationType interpolationType;
         private readonly Area areaSeries;
+        private InterpolationType interpolationType;
 
         public AreaChartSeries(IChartSeries chartSeries) : this()
         {
@@ -25,7 +25,10 @@ namespace DelftTools.Controls.Swf.Charting.Series
 
         public override Color Color
         {
-            get { return areaSeries.Color; }
+            get
+            {
+                return areaSeries.Color;
+            }
             set
             {
                 areaSeries.Color = value;
@@ -38,31 +41,58 @@ namespace DelftTools.Controls.Swf.Charting.Series
 
         public HatchStyle HatchStyle
         {
-            get { return areaSeries.AreaBrush.Style; }
-            set { areaSeries.AreaBrush.Style = value; }
+            get
+            {
+                return areaSeries.AreaBrush.Style;
+            }
+            set
+            {
+                areaSeries.AreaBrush.Style = value;
+            }
         }
 
         public Color HatchColor
         {
-            get { return areaSeries.AreaBrush.ForegroundColor; }
-            set { areaSeries.AreaBrush.ForegroundColor = value; }
+            get
+            {
+                return areaSeries.AreaBrush.ForegroundColor;
+            }
+            set
+            {
+                areaSeries.AreaBrush.ForegroundColor = value;
+            }
         }
 
         public bool UseHatch
         {
-            get { return !areaSeries.AreaBrush.Solid; }
-            set { areaSeries.AreaBrush.Solid = !value; }
+            get
+            {
+                return !areaSeries.AreaBrush.Solid;
+            }
+            set
+            {
+                areaSeries.AreaBrush.Solid = !value;
+            }
         }
 
         public int Transparency
         {
-            get { return areaSeries.Transparency; }
-            set { areaSeries.Transparency = value; }
+            get
+            {
+                return areaSeries.Transparency;
+            }
+            set
+            {
+                areaSeries.Transparency = value;
+            }
         }
 
         public InterpolationType InterpolationType
         {
-            get { return interpolationType; }
+            get
+            {
+                return interpolationType;
+            }
             set
             {
                 interpolationType = value;
@@ -72,47 +102,86 @@ namespace DelftTools.Controls.Swf.Charting.Series
 
         public ISeriesValueList XValues
         {
-            get { return new SeriesValueList(areaSeries.XValues); }
+            get
+            {
+                return new SeriesValueList(areaSeries.XValues);
+            }
         }
 
         public ISeriesValueList YValues
         {
-            get { return new SeriesValueList(areaSeries.YValues); }
+            get
+            {
+                return new SeriesValueList(areaSeries.YValues);
+            }
         }
 
         public Color LineColor
         {
-            get { return areaSeries.LinePen.Color; }
-            set { areaSeries.LinePen.Color = value; }
+            get
+            {
+                return areaSeries.LinePen.Color;
+            }
+            set
+            {
+                areaSeries.LinePen.Color = value;
+            }
         }
 
         public int LineWidth
         {
-            get { return areaSeries.LinePen.Width; }
-            set { areaSeries.LinePen.Width = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize); }
+            get
+            {
+                return areaSeries.LinePen.Width;
+            }
+            set
+            {
+                areaSeries.LinePen.Width = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize);
+            }
         }
 
         public bool LineVisible
         {
-            get { return areaSeries.LinePen.Visible; }
-            set { areaSeries.LinePen.Visible = value; }
+            get
+            {
+                return areaSeries.LinePen.Visible;
+            }
+            set
+            {
+                areaSeries.LinePen.Visible = value;
+            }
         }
 
         public Color PointerColor
         {
-            get { return areaSeries.Pointer.Brush.Color; }
-            set { areaSeries.Pointer.Brush.Color = value; }
+            get
+            {
+                return areaSeries.Pointer.Brush.Color;
+            }
+            set
+            {
+                areaSeries.Pointer.Brush.Color = value;
+            }
         }
 
         public bool PointerVisible
         {
-            get { return areaSeries.Pointer.Visible; }
-            set { areaSeries.Pointer.Visible = value; }
+            get
+            {
+                return areaSeries.Pointer.Visible;
+            }
+            set
+            {
+                areaSeries.Pointer.Visible = value;
+            }
         }
 
         public int PointerSize
         {
-            get { return areaSeries.Pointer.VertSize; }
+            get
+            {
+                return areaSeries.Pointer.VertSize;
+            }
             set
             {
                 areaSeries.Pointer.VertSize = MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize);
@@ -125,25 +194,37 @@ namespace DelftTools.Controls.Swf.Charting.Series
             get
             {
                 string pointerStyleName = Enum.GetName(typeof(Steema.TeeChart.Styles.PointerStyles), areaSeries.Pointer.Style);
-                return (PointerStyles) Enum.Parse(typeof(PointerStyles),pointerStyleName);
+                return (PointerStyles) Enum.Parse(typeof(PointerStyles), pointerStyleName);
             }
             set
             {
                 string pointerStyleName = Enum.GetName(typeof(PointerStyles), value);
-                areaSeries.Pointer.Style = (Steema.TeeChart.Styles.PointerStyles)Enum.Parse(typeof(Steema.TeeChart.Styles.PointerStyles), pointerStyleName);
+                areaSeries.Pointer.Style = (Steema.TeeChart.Styles.PointerStyles) Enum.Parse(typeof(Steema.TeeChart.Styles.PointerStyles), pointerStyleName);
             }
         }
 
         public Color PointerLineColor
         {
-            get { return areaSeries.Pointer.Pen.Color; }
-            set { areaSeries.Pointer.Pen.Color = value; }
+            get
+            {
+                return areaSeries.Pointer.Pen.Color;
+            }
+            set
+            {
+                areaSeries.Pointer.Pen.Color = value;
+            }
         }
 
         public bool PointerLineVisible
         {
-            get { return areaSeries.Pointer.Pen.Visible; }
-            set { areaSeries.Pointer.Pen.Visible = value; }
+            get
+            {
+                return areaSeries.Pointer.Pen.Visible;
+            }
+            set
+            {
+                areaSeries.Pointer.Pen.Visible = value;
+            }
         }
     }
 }

@@ -29,7 +29,7 @@ namespace DelftTools.Controls.Swf.Charting
 
         private static int GetQuarterNumber(DateTime min)
         {
-            return ((min.Month - 1)/3)+1;
+            return ((min.Month - 1)/3) + 1;
         }
 
         private static string GetQuarterStringForDateTime(DateTime labelValue)

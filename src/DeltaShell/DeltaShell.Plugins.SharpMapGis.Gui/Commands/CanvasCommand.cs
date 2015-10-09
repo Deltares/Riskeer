@@ -4,13 +4,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
 {
     public abstract class CanvasCommand : Command
     {
-        protected override void OnExecute(params object[] arguments)
-        {
-        }
-
         protected ICanvasEditor CanvasEditor
         {
-            get { return SharpMapGisGuiPlugin.GetFocusedMapView(); }
+            get
+            {
+                return SharpMapGisGuiPlugin.GetFocusedMapView();
+            }
         }
+
+        protected override void OnExecute(params object[] arguments) {}
     }
 }

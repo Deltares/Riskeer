@@ -8,8 +8,8 @@ namespace DelftTools.Utils.Tests.Binding
     public enum SampleEnum
     {
         [Description("De goedheilig man")]
-        Sinterklaas, 
-        
+        Sinterklaas,
+
         [Description("De kerstman")]
         Kerstman,
     }

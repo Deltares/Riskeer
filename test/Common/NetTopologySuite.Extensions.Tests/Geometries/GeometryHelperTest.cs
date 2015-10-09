@@ -18,51 +18,84 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
         public void GetNearestFeatureReturnsLastNearestFeature()
         {
             var features = new[]
-                               {
-                                   new Feature {Geometry = new Point(0, 0)},
-                                   new Feature {Geometry = new Point(2, 0)},
-                                   new Feature {Geometry = new Point(2, 2)}
-                               };
+            {
+                new Feature
+                {
+                    Geometry = new Point(0, 0)
+                },
+                new Feature
+                {
+                    Geometry = new Point(2, 0)
+                },
+                new Feature
+                {
+                    Geometry = new Point(2, 2)
+                }
+            };
 
             var feature1 = GeometryHelper.GetNearestFeature(new Coordinate(1, 1), features, 3);
 
             feature1
                 .Should("the last feature is chosen if more than 1 featres with the same distance are found")
-                    .Be.EqualTo(features[2]);
+                .Be.EqualTo(features[2]);
         }
 
         [Test]
         public void GetNearestFeatureReturnsNullWhenNoNearestFeaturesCanBeFound()
         {
             var features = new[]
-                               {
-                                   new Feature {Geometry = new Point(0, 0)},
-                                   new Feature {Geometry = new Point(2, 0)},
-                                   new Feature {Geometry = new Point(2, 2)}
-                               };
+            {
+                new Feature
+                {
+                    Geometry = new Point(0, 0)
+                },
+                new Feature
+                {
+                    Geometry = new Point(2, 0)
+                },
+                new Feature
+                {
+                    Geometry = new Point(2, 2)
+                }
+            };
 
             var feature2 = GeometryHelper.GetNearestFeature(new Coordinate(1, 1), features, 0.5);
 
             feature2
                 .Should("tolerance is too small")
-                    .Be.Null();
+                .Be.Null();
         }
 
         [Test]
         public void SplitPolygonVerticalAt()
         {
             //create a polygon
-            var polygon = new Polygon(new LinearRing(new[]{new Coordinate(0, 0), 
-                                           new Coordinate(10, 10), 
-                                           new Coordinate(20, 0),
-                                           new Coordinate(0, 0)}));
+            var polygon = new Polygon(new LinearRing(new[]
+            {
+                new Coordinate(0, 0),
+                new Coordinate(10, 10),
+                new Coordinate(20, 0),
+                new Coordinate(0, 0)
+            }));
             var polygonHalfs = GeometryHelper.SplitGeometryVerticalAt(polygon, 10);
             Assert.AreEqual(
-                new[] {new Coordinate(0, 0), new Coordinate(10, 10), new Coordinate(10, 0), new Coordinate(0, 0)},
+                new[]
+                {
+                    new Coordinate(0, 0),
+                    new Coordinate(10, 10),
+                    new Coordinate(10, 0),
+                    new Coordinate(0, 0)
+                },
                 polygonHalfs.First.Coordinates);
 
             Assert.AreEqual(
-                new[] { new Coordinate(10, 10), new Coordinate(20, 0), new Coordinate(10, 0), new Coordinate(10, 10) },
+                new[]
+                {
+                    new Coordinate(10, 10),
+                    new Coordinate(20, 0),
+                    new Coordinate(10, 0),
+                    new Coordinate(10, 10)
+                },
                 polygonHalfs.Second.Coordinates);
         }
 
@@ -73,17 +106,32 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
             int callCount = 0;
             try
             {
-                var polygon = new Polygon(new LinearRing(new[]{new Coordinate(0, 0), 
-                                           new Coordinate(10, 10), 
-                                           new Coordinate(20, 0),
-                                           new Coordinate(0, 0)}));
+                var polygon = new Polygon(new LinearRing(new[]
+                {
+                    new Coordinate(0, 0),
+                    new Coordinate(10, 10),
+                    new Coordinate(20, 0),
+                    new Coordinate(0, 0)
+                }));
                 var polygonHalfs = GeometryHelper.SplitGeometryVerticalAt(polygon, 30.01);
                 Assert.AreEqual(
-                    new[] { new Coordinate(0, 0), new Coordinate(10, 10), new Coordinate(10, 0), new Coordinate(0, 0) },
+                    new[]
+                    {
+                        new Coordinate(0, 0),
+                        new Coordinate(10, 10),
+                        new Coordinate(10, 0),
+                        new Coordinate(0, 0)
+                    },
                     polygonHalfs.First.Coordinates);
 
                 Assert.AreEqual(
-                    new[] { new Coordinate(10, 10), new Coordinate(20, 0), new Coordinate(10, 0), new Coordinate(10, 10) },
+                    new[]
+                    {
+                        new Coordinate(10, 10),
+                        new Coordinate(20, 0),
+                        new Coordinate(10, 0),
+                        new Coordinate(10, 10)
+                    },
                     polygonHalfs.Second.Coordinates);
             }
             catch (Exception ex)
@@ -95,48 +143,71 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
                 Assert.AreEqual(expectedMessage, ex.Message);
             }
             //make sure the exception was thrown once
-            Assert.AreEqual(1,callCount);
-            
+            Assert.AreEqual(1, callCount);
         }
 
         [Test]
         public void SplitPolygonVerticalAtEdge()
         {
             //create a polygon
-            var polygon = new Polygon(new LinearRing(new[]{new Coordinate(0, 0), 
-                                           new Coordinate(10, 10), 
-                                           new Coordinate(10, 5),
-                                           new Coordinate(20, 0),
-                                            new Coordinate(0,0)}));
-            
+            var polygon = new Polygon(new LinearRing(new[]
+            {
+                new Coordinate(0, 0),
+                new Coordinate(10, 10),
+                new Coordinate(10, 5),
+                new Coordinate(20, 0),
+                new Coordinate(0, 0)
+            }));
+
             var polygonHalfs = GeometryHelper.SplitGeometryVerticalAt(polygon, 10);
             Assert.AreEqual(
-                new[] { new Coordinate(0, 0), new Coordinate(10, 10), new Coordinate(10, 5), new Coordinate(10, 0), new Coordinate(0, 0) },
+                new[]
+                {
+                    new Coordinate(0, 0),
+                    new Coordinate(10, 10),
+                    new Coordinate(10, 5),
+                    new Coordinate(10, 0),
+                    new Coordinate(0, 0)
+                },
                 polygonHalfs.First.Coordinates);
 
             Assert.AreEqual(
-                new[] { new Coordinate(10, 10), new Coordinate(10, 5), new Coordinate(10, 5), new Coordinate(20, 0), new Coordinate(10, 0), new Coordinate(10, 5) },
+                new[]
+                {
+                    new Coordinate(10, 10),
+                    new Coordinate(10, 5),
+                    new Coordinate(10, 5),
+                    new Coordinate(20, 0),
+                    new Coordinate(10, 0),
+                    new Coordinate(10, 5)
+                },
                 polygonHalfs.Second.Coordinates);
         }
-        
+
         [Test]
         public void Difference()
         {
             var polygon =
                 new Polygon(
                     new LinearRing(new[]
-                                       {
-                                           new Coordinate(0, 0), new Coordinate(5, 0), new Coordinate(5, 5),
-                                           new Coordinate(0, 5), new Coordinate(0, 0)
-                                       }));
+                    {
+                        new Coordinate(0, 0),
+                        new Coordinate(5, 0),
+                        new Coordinate(5, 5),
+                        new Coordinate(0, 5),
+                        new Coordinate(0, 0)
+                    }));
             var other =
                 new Polygon(
                     new LinearRing(new[]
-                                       {
-                                           new Coordinate(0, 2), new Coordinate(8, 2), new Coordinate(1, 1),
-                                           new Coordinate(0, 1), new Coordinate(0, 2)
-                                       }));
-            
+                    {
+                        new Coordinate(0, 2),
+                        new Coordinate(8, 2),
+                        new Coordinate(1, 1),
+                        new Coordinate(0, 1),
+                        new Coordinate(0, 2)
+                    }));
+
             var error = polygon.Difference(other);
         }
 
@@ -145,18 +216,24 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
         {
             var polygonWithRedundantPoints = new Polygon(
                 new LinearRing(new[]
-                                   {
-                                       new Coordinate(0, 0), new Coordinate(1, 1), new Coordinate(2, 2),
-                                       new Coordinate(3, 1), new Coordinate(4, 0), new Coordinate(2, 0),
-                                       new Coordinate(2, 0),
-                                       new Coordinate(0, 0)
-                                   }));
+                {
+                    new Coordinate(0, 0),
+                    new Coordinate(1, 1),
+                    new Coordinate(2, 2),
+                    new Coordinate(3, 1),
+                    new Coordinate(4, 0),
+                    new Coordinate(2, 0),
+                    new Coordinate(2, 0),
+                    new Coordinate(0, 0)
+                }));
             var expectedPolygon = new Polygon(
                 new LinearRing(new[]
-                                   {
-                                       new Coordinate(0, 0), new Coordinate(2, 2),
-                                       new Coordinate(4, 0), new Coordinate(0, 0)
-                                   }));
+                {
+                    new Coordinate(0, 0),
+                    new Coordinate(2, 2),
+                    new Coordinate(4, 0),
+                    new Coordinate(0, 0)
+                }));
 
             var actualPolygon = GeometryHelper.NormalizeGeometry(polygonWithRedundantPoints);
             Assert.AreEqual(expectedPolygon.Coordinates.Length, actualPolygon.Coordinates.Length);
@@ -168,17 +245,24 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
         {
             var polygonWithRedundantPoints = new Polygon(
                 new LinearRing(new[]
-                                   {
-                                       new Coordinate(1, 0), new Coordinate(0, 0), new Coordinate(0,1),
-                                       new Coordinate(2, 1), new Coordinate(2, 0), new Coordinate(1, 0)
-                                   }));
+                {
+                    new Coordinate(1, 0),
+                    new Coordinate(0, 0),
+                    new Coordinate(0, 1),
+                    new Coordinate(2, 1),
+                    new Coordinate(2, 0),
+                    new Coordinate(1, 0)
+                }));
             var expectedPolygon = new Polygon(
                 new LinearRing(new[]
-                                   {
-                                       new Coordinate(0, 0), new Coordinate(0, 1),
-                                       new Coordinate(2, 1), new Coordinate(2, 0),new Coordinate(0,0)
-                                   }));
-            
+                {
+                    new Coordinate(0, 0),
+                    new Coordinate(0, 1),
+                    new Coordinate(2, 1),
+                    new Coordinate(2, 0),
+                    new Coordinate(0, 0)
+                }));
+
             var actualPolygon = GeometryHelper.NormalizeGeometry(polygonWithRedundantPoints);
             Assert.AreEqual(expectedPolygon.Coordinates.Length, actualPolygon.Coordinates.Length);
             Assert.AreEqual(expectedPolygon, actualPolygon);
@@ -188,8 +272,7 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
         public void TestPointIsInLine()
         {
             Assert.IsFalse(GeometryHelper.PointIsOnLineBetweenPreviousAndNext(new Coordinate(0, 0), new Coordinate(2, 2),
-                                                               new Coordinate(1, 1))); 
-
+                                                                              new Coordinate(1, 1)));
         }
 
         [Test]
@@ -199,8 +282,8 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
                 new WKTReader().Read(
                     "POLYGON((2 -10,1.4 -7,3.4 -7,2.6 -3,0.6 -3,0 0,0 1,10 1,10 0,9 -5,8.6 -7,8 -10,2 -10))");
             var normal = GeometryHelper.NormalizeGeometry(polygon);
-            
-            Assert.AreEqual(polygon.Coordinates.Length-2,normal.Coordinates.Length);
+
+            Assert.AreEqual(polygon.Coordinates.Length - 2, normal.Coordinates.Length);
         }
 
         [Test]
@@ -211,17 +294,21 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
                     "LINESTRING(10 10,5 5,0 0)");
             var normal = GeometryHelper.NormalizeGeometry(line);
 
-            Assert.AreEqual(new[]{new Coordinate(10,10),new Coordinate(0,0)}, normal.Coordinates);
+            Assert.AreEqual(new[]
+            {
+                new Coordinate(10, 10),
+                new Coordinate(0, 0)
+            }, normal.Coordinates);
         }
 
         [Test]
         public void GetIntersectionArea()
         {
             var polygon = new WKTReader().Read(
-                    "POLYGON((2 -10,1.4 -7,3.4 -7,2.6 -3,0.6 -3,0 0,0 1,10 1,10 0,9 -5,8.6 -7,8 -10,2 -10))");
+                "POLYGON((2 -10,1.4 -7,3.4 -7,2.6 -3,0.6 -3,0 0,0 1,10 1,10 0,9 -5,8.6 -7,8 -10,2 -10))");
 
             var polygon2 = new WKTReader().Read(
-                    "POLYGON((3 -10,2.4 -7,4.4 -7,3.6 -3,1.6 -3,1 0,1 1,11 1,11 0,10 -5,9.6 -7,9 -10,3 -10))");
+                "POLYGON((3 -10,2.4 -7,4.4 -7,3.6 -3,1.6 -3,1 0,1 1,11 1,11 0,10 -5,9.6 -7,9 -10,3 -10))");
 
             //self area
             Assert.AreEqual(polygon.Area, GeometryHelper.GetSampledIntersectionArea(polygon, polygon), 3);
@@ -234,7 +321,10 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
         [Test]
         public void GetIntersectionAreaCircles()
         {
-            var factory = new GeometricShapeFactory {Size = 20};
+            var factory = new GeometricShapeFactory
+            {
+                Size = 20
+            };
             var circle = factory.CreateCircle();
             factory.Centre = new Coordinate(0, 5);
             var circle2 = factory.CreateCircle();
@@ -250,7 +340,11 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
         [Test]
         public void DistanceShouldNotThrowForGeometryNull()
         {
-            var lineString = new LineString(new[] { new Coordinate(0, 0), new Coordinate(10, 0) });
+            var lineString = new LineString(new[]
+            {
+                new Coordinate(0, 0),
+                new Coordinate(10, 0)
+            });
             Coordinate nullCoordinate = null;
             Point nullGeometry = null;
 
@@ -271,22 +365,41 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
         public void GetNearestFeatureShouldNotThrowForGeometryNull()
         {
             var nearestFeature = GeometryHelper.GetNearestFeature(new Coordinate(0, 0),
-                                                                  new[] { 
-                                                                            new Feature {Geometry = null},
-                                                                            new Feature {Geometry = null},
-                                                                            new Feature {Geometry = null}
-                                                                         },
+                                                                  new[]
+                                                                  {
+                                                                      new Feature
+                                                                      {
+                                                                          Geometry = null
+                                                                      },
+                                                                      new Feature
+                                                                      {
+                                                                          Geometry = null
+                                                                      },
+                                                                      new Feature
+                                                                      {
+                                                                          Geometry = null
+                                                                      }
+                                                                  },
                                                                   2);
             Assert.IsNull(nearestFeature);
 
-            var featureToBeFound = new Feature { Geometry = new Point(0.2, 0.2) };
+            var featureToBeFound = new Feature
+            {
+                Geometry = new Point(0.2, 0.2)
+            };
             nearestFeature = GeometryHelper.GetNearestFeature(new Coordinate(0, 0),
-                                                              new[] 
-                                                                  { 
-                                                                      new Feature {Geometry = null},
-                                                                      new Feature {Geometry = new Point(1, 0)},
-                                                                      featureToBeFound
+                                                              new[]
+                                                              {
+                                                                  new Feature
+                                                                  {
+                                                                      Geometry = null
                                                                   },
+                                                                  new Feature
+                                                                  {
+                                                                      Geometry = new Point(1, 0)
+                                                                  },
+                                                                  featureToBeFound
+                                                              },
                                                               2);
             Assert.IsNotNull(nearestFeature);
             Assert.IsTrue(featureToBeFound == nearestFeature);
@@ -297,23 +410,41 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
         {
             var features = GeometryHelper.GetFeaturesInRange(new Coordinate(0, 0),
                                                              new[]
+                                                             {
+                                                                 new Feature
                                                                  {
-                                                                     new Feature {Geometry = null},
-                                                                     new Feature {Geometry = null},
-                                                                     new Feature {Geometry = null}
-                                                                 }, 
+                                                                     Geometry = null
+                                                                 },
+                                                                 new Feature
+                                                                 {
+                                                                     Geometry = null
+                                                                 },
+                                                                 new Feature
+                                                                 {
+                                                                     Geometry = null
+                                                                 }
+                                                             },
                                                              5).ToArray();
             Assert.IsEmpty(features);
 
-            var feature1 = new Feature { Geometry = new Point(0.2, 1) };
-            var feature2 = new Feature { Geometry = new Point(1, 0, 2) };
+            var feature1 = new Feature
+            {
+                Geometry = new Point(0.2, 1)
+            };
+            var feature2 = new Feature
+            {
+                Geometry = new Point(1, 0, 2)
+            };
             features = GeometryHelper.GetFeaturesInRange(new Coordinate(0, 0),
                                                          new[]
+                                                         {
+                                                             feature1,
+                                                             new Feature
                                                              {
-                                                                 feature1,
-                                                                 new Feature {Geometry = null},
-                                                                 feature2
+                                                                 Geometry = null
                                                              },
+                                                             feature2
+                                                         },
                                                          5).ToArray();
             Assert.AreEqual(2, features.Count());
             Assert.Contains(feature1, features);

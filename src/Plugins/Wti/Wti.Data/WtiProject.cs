@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-
 using DelftTools.Shell.Core;
 using DelftTools.Utils;
 
@@ -7,7 +6,7 @@ namespace Wti.Data
 {
     public class WtiProject : INameable, IObservable
     {
-        private IList<IObserver> observers = new List<IObserver>();
+        private readonly IList<IObserver> observers = new List<IObserver>();
 
         public WtiProject()
         {
@@ -37,6 +36,5 @@ namespace Wti.Data
         }
 
         #endregion
-
     }
 }

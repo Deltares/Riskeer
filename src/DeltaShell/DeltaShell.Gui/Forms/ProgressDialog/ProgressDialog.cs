@@ -12,8 +12,11 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
 {
     public partial class ProgressDialog : Form
     {
+        public event EventHandler<EventArgs> CancelClicked;
         private Timer refreshTimer = new Timer();
         private BindingList<ActivityInfo> bindingList;
+
+        private IEventedList<IActivity> data;
         //private IEnumerable<IActivity> activities;
 
         public ProgressDialog()
@@ -25,75 +28,6 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
             refreshTimer.Interval = 300;
             refreshTimer.Tick += RefreshTimerOnTick;
         }
-
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing) //user shouldn't close this (with Alt-F4 or anything)
-            {
-                e.Cancel = true;
-            }
-        
-            refreshTimer.Start();
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            CenterToParent();
-            refreshTimer.Start();
-        }
-
-        private void RefreshTimerOnTick(object sender, EventArgs eventArgs)
-        {
-            dgvActivities.Refresh();
-        }
-
-        public void CenterToParent()
-        {
-            if(Owner == null)
-            {
-                CenterToScreen(); //temp hack for wpf shizzle
-                return;
-            }
-
-            // parent is smaller
-            if (Width > Owner.Width || Height > Owner.Height)
-            {
-                Location = Owner.Location;
-                return;
-            }
-
-            var x = Owner.DesktopLocation.X + (Owner.Width - Width) / 2;
-            int y = Owner.DesktopLocation.Y + (Owner.Height - Height) / 2;
-
-            Location = new Point(x, y);
-        }
-
-        public event EventHandler<EventArgs> CancelClicked;
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            SetButtonState(true);
-
-            if (CancelClicked != null)
-                CancelClicked(this, EventArgs.Empty);
-        }
-
-        private void SetButtonState(bool cancelling)
-        {
-            if (cancelling)
-            {
-                btnCancel.Text = Resources.ProgressDialog_SetButtonState_Cancelling___;
-                btnCancel.Enabled = false;
-            }
-            else
-            {
-                btnCancel.Text = Resources.ProgressDialog_SetButtonState_Cancel_all_activities;
-                btnCancel.Enabled = true;
-            }
-        }
-
-
-        private IEventedList<IActivity> data;
 
         public IEventedList<IActivity> Data
         {
@@ -119,7 +53,73 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
             }
         }
 
-        void UnWireBindingList()
+        public void CenterToParent()
+        {
+            if (Owner == null)
+            {
+                CenterToScreen(); //temp hack for wpf shizzle
+                return;
+            }
+
+            // parent is smaller
+            if (Width > Owner.Width || Height > Owner.Height)
+            {
+                Location = Owner.Location;
+                return;
+            }
+
+            var x = Owner.DesktopLocation.X + (Owner.Width - Width)/2;
+            int y = Owner.DesktopLocation.Y + (Owner.Height - Height)/2;
+
+            Location = new Point(x, y);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing) //user shouldn't close this (with Alt-F4 or anything)
+            {
+                e.Cancel = true;
+            }
+
+            refreshTimer.Start();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            CenterToParent();
+            refreshTimer.Start();
+        }
+
+        private void RefreshTimerOnTick(object sender, EventArgs eventArgs)
+        {
+            dgvActivities.Refresh();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            SetButtonState(true);
+
+            if (CancelClicked != null)
+            {
+                CancelClicked(this, EventArgs.Empty);
+            }
+        }
+
+        private void SetButtonState(bool cancelling)
+        {
+            if (cancelling)
+            {
+                btnCancel.Text = Resources.ProgressDialog_SetButtonState_Cancelling___;
+                btnCancel.Enabled = false;
+            }
+            else
+            {
+                btnCancel.Text = Resources.ProgressDialog_SetButtonState_Cancel_all_activities;
+                btnCancel.Enabled = true;
+            }
+        }
+
+        private void UnWireBindingList()
         {
             if (data is INotifyPropertyChanged)
             {
@@ -127,8 +127,7 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
             }
         }
 
-
-        void WireBindingList()
+        private void WireBindingList()
         {
             if (data is INotifyPropertyChanged)
             {
@@ -137,14 +136,16 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
         }
 
         [InvokeRequired]
-        void DataCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void DataCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
             //dont handle bubbled events
             if (sender != data)
+            {
                 return;
+            }
             if (e.Action == NotifyCollectionChangeAction.Add)
             {
-                bindingList.Add(new ActivityInfo((IActivity)e.Item));
+                bindingList.Add(new ActivityInfo((IActivity) e.Item));
                 SetButtonState(false);
             }
             if (e.Action == NotifyCollectionChangeAction.Remove)
@@ -153,11 +154,11 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
             }
             if (e.Action == NotifyCollectionChangeAction.Replace)
             {
-                bindingList[e.Index]= new ActivityInfo((IActivity) e.Item);
+                bindingList[e.Index] = new ActivityInfo((IActivity) e.Item);
             }
         }
 
-        void CreateBindingList()
+        private void CreateBindingList()
         {
             bindingList = new BindingList<ActivityInfo>();
             foreach (var activity in data)

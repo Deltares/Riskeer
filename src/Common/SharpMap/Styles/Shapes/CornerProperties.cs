@@ -6,7 +6,8 @@ using System.ComponentModel;
 
 namespace SharpMap.Styles.Shapes
 {
-    [Serializable, TypeConverter(typeof(ExpandableObjectConverter))]
+    [Serializable]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class CornersProperty
     {
         // Fields
@@ -19,125 +20,141 @@ namespace SharpMap.Styles.Shapes
         // Methods
         public CornersProperty()
         {
-            this._All = -1;
-            this._UpperLeft = 0;
-            this._UpperRight = 0;
-            this._LowerLeft = 0;
-            this._LowerRight = 0;
-            this.LowerLeft = 0;
-            this.LowerRight = 0;
-            this.UpperLeft = 0;
-            this.UpperRight = 0;
+            _All = -1;
+            _UpperLeft = 0;
+            _UpperRight = 0;
+            _LowerLeft = 0;
+            _LowerRight = 0;
+            LowerLeft = 0;
+            LowerRight = 0;
+            UpperLeft = 0;
+            UpperRight = 0;
         }
 
         public CornersProperty(short LowerLeft, short LowerRight, short UpperLeft, short UpperRight)
         {
-            this._All = -1;
-            this._UpperLeft = 0;
-            this._UpperRight = 0;
-            this._LowerLeft = 0;
-            this._LowerRight = 0;
+            _All = -1;
+            _UpperLeft = 0;
+            _UpperRight = 0;
+            _LowerLeft = 0;
+            _LowerRight = 0;
             this.LowerLeft = LowerLeft;
             this.LowerRight = LowerRight;
             this.UpperLeft = UpperLeft;
             this.UpperRight = UpperRight;
         }
 
-        private void CheckForAll(short val)
-        {
-            if (((val == this.LowerLeft) && (val == this.LowerRight)) && ((val == this.UpperLeft) && (val == this.UpperRight)))
-            {
-                if (this.All != val)
-                {
-                    this.All = val;
-                }
-            }
-            else if (this.All != -1)
-            {
-                this.All = -1;
-            }
-        }
-
         // Properties
-        [RefreshProperties(RefreshProperties.Repaint), Description("Set the Radius of the All four Corners the same"), NotifyParentProperty(true)]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [Description("Set the Radius of the All four Corners the same")]
+        [NotifyParentProperty(true)]
         public short All
         {
             get
             {
-                return this._All;
+                return _All;
             }
             set
             {
-                this._All = value;
+                _All = value;
                 if (value > -1)
                 {
-                    this.LowerLeft = value;
-                    this.LowerRight = value;
-                    this.UpperLeft = value;
-                    this.UpperRight = value;
+                    LowerLeft = value;
+                    LowerRight = value;
+                    UpperLeft = value;
+                    UpperRight = value;
                 }
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint), NotifyParentProperty(true), Description("Set the Radius of the Lower Left Corner")]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [NotifyParentProperty(true)]
+        [Description("Set the Radius of the Lower Left Corner")]
         public short LowerLeft
         {
             get
             {
-                return this._LowerLeft;
+                return _LowerLeft;
             }
             set
             {
-                this._LowerLeft = value;
-                this.CheckForAll(value);
+                _LowerLeft = value;
+                CheckForAll(value);
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint), Description("Set the Radius of the Lower Right Corner"), NotifyParentProperty(true)]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [Description("Set the Radius of the Lower Right Corner")]
+        [NotifyParentProperty(true)]
         public short LowerRight
         {
             get
             {
-                return this._LowerRight;
+                return _LowerRight;
             }
             set
             {
-                this._LowerRight = value;
-                this.CheckForAll(value);
+                _LowerRight = value;
+                CheckForAll(value);
             }
         }
 
-        [RefreshProperties(RefreshProperties.Repaint), NotifyParentProperty(true), Description("Set the Radius of the Upper Left Corner")]
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [NotifyParentProperty(true)]
+        [Description("Set the Radius of the Upper Left Corner")]
         public short UpperLeft
         {
             get
             {
-                return this._UpperLeft;
+                return _UpperLeft;
             }
             set
             {
-                this._UpperLeft = value;
-                this.CheckForAll(value);
+                _UpperLeft = value;
+                CheckForAll(value);
             }
         }
 
-        [NotifyParentProperty(true), Description("Set the Radius of the Upper Right Corner"), RefreshProperties(RefreshProperties.Repaint)]
+        [NotifyParentProperty(true)]
+        [Description("Set the Radius of the Upper Right Corner")]
+        [RefreshProperties(RefreshProperties.Repaint)]
         public short UpperRight
         {
             get
             {
-                return this._UpperRight;
+                return _UpperRight;
             }
             set
             {
-                this._UpperRight = value;
-                this.CheckForAll(value);
+                _UpperRight = value;
+                CheckForAll(value);
             }
         }
 
         public override string ToString()
         {
-            return string.Format("{0},{1},{2},{3}", new object[] { LowerLeft, LowerRight, UpperLeft, UpperRight });
+            return string.Format("{0},{1},{2},{3}", new object[]
+            {
+                LowerLeft,
+                LowerRight,
+                UpperLeft,
+                UpperRight
+            });
+        }
+
+        private void CheckForAll(short val)
+        {
+            if (((val == LowerLeft) && (val == LowerRight)) && ((val == UpperLeft) && (val == UpperRight)))
+            {
+                if (All != val)
+                {
+                    All = val;
+                }
+            }
+            else if (All != -1)
+            {
+                All = -1;
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace SharpMap.Extensions.Layers
     public class AsyncTileHandler
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(AsyncTileHandler));
-        private static DateTime lastErrorLogged; 
+        private static DateTime lastErrorLogged;
 
         private readonly ITileCache<byte[]> cache;
         private readonly ITileFetcher tileFetcher;
@@ -38,7 +38,9 @@ namespace SharpMap.Extensions.Layers
             CancelOutdatedAsyncFetches(tileInfos);
 
             if (FetchMissingTiles(requestBuilder, tileInfos))
+            {
                 Thread.Sleep(20); //wait max 20ms for fetches to complete (not all will be complete)
+            }
 
             // return tiles (whatever is done at this point, null if nothing found)
             var fetchedTiles = new List<FetchedTile>();
@@ -63,6 +65,14 @@ namespace SharpMap.Extensions.Layers
             return fetchedTiles;
         }
 
+        public void WaitForAll()
+        {
+            while (pendingRequests.Count > 0)
+            {
+                Thread.Sleep(50);
+            }
+        }
+
         private bool FetchMissingTiles(IRequest requestBuilder, IEnumerable<TileInfo> tileInfos)
         {
             var anyMissingTiles = false;
@@ -76,7 +86,9 @@ namespace SharpMap.Extensions.Layers
                     var bytes = cache.Find(tileInfo.Index);
 
                     if (bytes != default(byte[]))
+                    {
                         continue;
+                    }
 
                     if (queuedTileRequests.Any(t => t.Index == tileInfo.Index))
                     {
@@ -87,7 +99,7 @@ namespace SharpMap.Extensions.Layers
                     tileRequestRequest = new TileRequest(tileInfo, requestBuilder.GetUri(tileInfo), new CancellationTokenSource());
                     queuedTileRequests.Add(tileRequestRequest);
                 }
-                
+
                 anyMissingTiles = true;
                 ThreadPool.QueueUserWorkItem(o => ActualFetchOnWorkerThread(tileRequestRequest)); //yes, we starve the threadpool quite a bit here..
             }
@@ -105,17 +117,21 @@ namespace SharpMap.Extensions.Layers
                 {
                     lock (cache)
                     {
-                        pendingRequests.Add(tileRequestRequest); 
+                        pendingRequests.Add(tileRequestRequest);
 
                         queuedTileRequests.Remove(tileRequestRequest); // get request to process from the queue
 
                         // check if it is already in the cache by now, if so, exit
                         if (cache.Find(tileRequestRequest.Index) != null)
+                        {
                             return; // early exit
+                        }
                     }
 
                     if (tileRequestRequest.CancelToken.IsCancellationRequested) // check if we got cancelled in the meantime (tile no longer in view)
+                    {
                         return; // early cancel
+                    }
 
                     var bytes = tileFetcher.FetchImageBytes(tileRequestRequest.Index, tileRequestRequest.Uri); // retrieve the tile from the net
                     lock (cache)
@@ -151,12 +167,16 @@ namespace SharpMap.Extensions.Layers
                 foreach (var tileIndex in queuedTileRequests.ToList())
                 {
                     // we would be re-requesting it, so don't cancel
-                    if (newRequests.Any(ti => ti.Index == tileIndex.Index)) 
+                    if (newRequests.Any(ti => ti.Index == tileIndex.Index))
+                    {
                         continue;
+                    }
 
                     // if not previously cancelled -> attempt to cancel, it's no longer needed
-                    if (!tileIndex.CancelToken.IsCancellationRequested) 
+                    if (!tileIndex.CancelToken.IsCancellationRequested)
+                    {
                         tileIndex.CancelToken.Cancel();
+                    }
 
                     pendingRequests.Remove(tileIndex);
                 }
@@ -172,21 +192,20 @@ namespace SharpMap.Extensions.Layers
                 CancelToken = cancelToken;
             }
 
-            public TileIndex Index { get { return Info.Index; } }
+            public TileIndex Index
+            {
+                get
+                {
+                    return Info.Index;
+                }
+            }
+
             public TileInfo Info { get; private set; }
             public Uri Uri { get; private set; }
             public CancellationTokenSource CancelToken { get; private set; }
         }
-
-        public void WaitForAll()
-        {
-            while (pendingRequests.Count > 0)
-            {
-                Thread.Sleep(50);
-            }
-        }
     }
-    
+
     public class FetchedTile
     {
         public FetchedTile(TileInfo tileInfo, byte[] bytes)

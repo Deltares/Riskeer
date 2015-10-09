@@ -40,16 +40,16 @@ namespace DelftTools.Controls.Swf
                 return EditValue(provider, value);
             }
 
-            if (context.PropertyDescriptor.Attributes[typeof (SelectDirOnlyAttribute)] != null)
+            if (context.PropertyDescriptor.Attributes[typeof(SelectDirOnlyAttribute)] != null)
             {
                 var dialog = new FolderBrowserDialog
-                    {
-                        ShowNewFolderButton = true,
-                        Description = "Select " + context.PropertyDescriptor.DisplayName
-                    };
+                {
+                    ShowNewFolderButton = true,
+                    Description = "Select " + context.PropertyDescriptor.DisplayName
+                };
 
                 Environment.SpecialFolder directory;
-                if (value != null && Environment.SpecialFolder.TryParse(value.ToString(), true, out directory))
+                if (value != null && Enum.TryParse(value.ToString(), true, out directory))
                 {
                     dialog.RootFolder = directory;
                 }
@@ -112,9 +112,7 @@ namespace DelftTools.Controls.Swf
     /// 'SelectDir only' attribute - indicates that the FolderBrowserDialog should be shown
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class SelectDirOnlyAttribute : Attribute
-    {
-    }
+    public sealed class SelectDirOnlyAttribute : Attribute {}
 
     /// <summary>
     /// The filter to use in the file dialog in UIFilenameEditor.
@@ -127,18 +125,21 @@ namespace DelftTools.Controls.Swf
     {
         private readonly string filter;
 
+        public FileDialogFilterAttribute(string filter)
+        {
+            this.filter = filter;
+        }
+
         /// <summary>
         /// Define a filter for the UIFilenameEditor.
         /// </summary>
         /// <history>[logch_o] 2007-09-10 converted to c# from vb</history>
         public string Filter
         {
-            get { return filter; }
-        }
-
-        public FileDialogFilterAttribute(string filter)
-        {
-            this.filter = filter;
+            get
+            {
+                return filter;
+            }
         }
     }
 
@@ -147,9 +148,7 @@ namespace DelftTools.Controls.Swf
     /// </summary>
     /// <remark>http://www.gotdotnet.com/team/fxcop/docs/rules/Performance/AvoidUnsealedAttributes.html</remark>
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class SaveFileAttribute : Attribute
-    {
-    }
+    public sealed class SaveFileAttribute : Attribute {}
 
     /// <summary>
     /// Title of the dialog presented to the end-user.
@@ -160,18 +159,21 @@ namespace DelftTools.Controls.Swf
     {
         private readonly string title;
 
+        public FileDialogTitleAttribute(string title)
+        {
+            this.title = title;
+        }
+
         /// <summary>
         /// Define a filter for the UIFilenameEditor.
         /// </summary>
         /// <history>[logch_o] 2007-09-10 converted to c# from vb</history>
         public string Title
         {
-            get { return title; }
-        }
-
-        public FileDialogTitleAttribute(string title)
-        {
-            this.title = title;
+            get
+            {
+                return title;
+            }
         }
     }
 }

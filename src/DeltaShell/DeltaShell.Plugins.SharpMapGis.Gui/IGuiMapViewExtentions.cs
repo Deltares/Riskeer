@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
 using DelftTools.Controls;
 using DelftTools.Shell.Gui;
-
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms;
 
 namespace DeltaShell.Plugins.SharpMapGis.Gui

@@ -9,6 +9,15 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
 {
     public class MapChangeCoordinateSystemCommand : MapViewCommand
     {
+        public override bool Checked
+        {
+            get
+            {
+                return false;
+            }
+            set {}
+        }
+
         protected override void OnExecute(params object[] arguments)
         {
             var activeView = SharpMapGisGuiPlugin.GetFocusedMapView();
@@ -26,18 +35,12 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
                 catch (CoordinateTransformException e)
                 {
                     MessageBox.Show("Cannot convert map to selected coordinate system: " + e.Message,
-                        "Map coordinate system", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    "Map coordinate system", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     base.OnExecute(arguments);
                 }
             }
 
             base.OnExecute(arguments);
-        }
-
-        public override bool Checked
-        {
-            get { return false; }
-            set { }
         }
     }
 }

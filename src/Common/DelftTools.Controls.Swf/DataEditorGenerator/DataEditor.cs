@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using DelftTools.Controls.Swf.DataEditorGenerator.Binding;
 using DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings;
 using DelftTools.Utils.Collections;
+using IEditableObject = DelftTools.Utils.Editing.IEditableObject;
 
 namespace DelftTools.Controls.Swf.DataEditorGenerator
 {
@@ -15,28 +16,22 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
     /// </summary>
     public class DataEditor : Panel
     {
-        public ICollection<IBinding> Bindings { get; private set; }
-        
+        private object data;
+
         public DataEditor()
         {
             Dock = DockStyle.Fill; //default fill
             Bindings = new Collection<IBinding>();
         }
 
-        /// <summary>
-        /// Gets the custom controls contained in this data editor. Provided for convenience: to 
-        /// perform any manual data binding / customizations etc.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Control> GetCustomControls()
-        {
-            return Bindings.OfType<CustomControlBinding>().Select(ccb => ccb.EditControl);
-        }
+        public ICollection<IBinding> Bindings { get; private set; }
 
-        private object data;
         public object Data
         {
-            get { return data; }
+            get
+            {
+                return data;
+            }
             set
             {
                 if (data != null)
@@ -46,7 +41,7 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
                     {
                         propertyChanged.PropertyChanged -= DataPropertyChanged;
                     }
-                    
+
                     this.GetAllControlsRecursive<DataGridView>().ForEach(a => a.CancelEdit());
 
                     foreach (var binding in Bindings)
@@ -60,10 +55,14 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
                 if (data != null)
                 {
                     foreach (var binding in Bindings)
+                    {
                         binding.Data = data;
+                    }
 
                     foreach (var binding in Bindings)
+                    {
                         binding.Validate(binding.FieldDescription.GetValue(data));
+                    }
 
                     var propertyChanged = data as INotifyPropertyChanged;
                     if (propertyChanged != null)
@@ -74,11 +73,23 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
             }
         }
 
-        void DataPropertyChanged(object sender, PropertyChangedEventArgs e)
+        /// <summary>
+        /// Gets the custom controls contained in this data editor. Provided for convenience: to 
+        /// perform any manual data binding / customizations etc.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Control> GetCustomControls()
         {
-            var dataAsEditableObject = data as Utils.Editing.IEditableObject;
+            return Bindings.OfType<CustomControlBinding>().Select(ccb => ccb.EditControl);
+        }
+
+        private void DataPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var dataAsEditableObject = data as IEditableObject;
             if (dataAsEditableObject != null && dataAsEditableObject.IsEditing)
+            {
                 return; // still editing, skip
+            }
 
             foreach (var binding in Bindings)
             {

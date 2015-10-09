@@ -9,10 +9,12 @@ namespace SharpMap.UI.Tools.Zooming
             Name = "FixedZoomOut";
         }
 
-
         public override bool AlwaysActive
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
 
         public override void Execute()
@@ -23,7 +25,7 @@ namespace SharpMap.UI.Tools.Zooming
 
         public override void OnKeyDown(KeyEventArgs e)
         {
-            if((e.KeyCode == Keys.OemMinus || e.KeyCode == Keys.Subtract) && IsCtrlPressed)
+            if ((e.KeyCode == Keys.OemMinus || e.KeyCode == Keys.Subtract) && IsCtrlPressed)
             {
                 Execute();
             }

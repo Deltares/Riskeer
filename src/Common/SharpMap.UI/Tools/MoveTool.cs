@@ -26,11 +26,11 @@ namespace SharpMap.UI.Tools
     {
         private static readonly Cursor MoveCursor = MapCursors.CreateArrowOverlayCuror(Resources.MoveSingleSimple);
         private static readonly Cursor LinearMoveCursor = MapCursors.CreateArrowOverlayCuror(Resources.MoveSingle);
+        private readonly List<VectorLayer> dragLayers;
 
         private IFallOffPolicy fallOffPolicy;
         private bool isBusy;
         private VectorLayer targetLayer;
-        private readonly List<VectorLayer> dragLayers;
         private VectorStyle selectionStyle;
         private VectorStyle errorSelectionStyle;
         private SnapResult snapResult;
@@ -44,6 +44,32 @@ namespace SharpMap.UI.Tools
             dragLayers = new List<VectorLayer>();
             Name = "Move";
             fallOffPolicy = new NoFallOffPolicy();
+        }
+
+        public override Cursor Cursor
+        {
+            get
+            {
+                switch (FallOffPolicy)
+                {
+                    case FallOffType.None:
+                        return MoveCursor;
+                    case FallOffType.Linear:
+                        return LinearMoveCursor;
+                    case FallOffType.Ring:
+                        return Cursors.Default;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        public override bool IsBusy
+        {
+            get
+            {
+                return isBusy;
+            }
         }
 
         public FallOffType FallOffPolicy
@@ -67,34 +93,6 @@ namespace SharpMap.UI.Tools
         }
 
         public bool MovingLayoutComponent { get; set; }
-
-        private List<VectorLayer> DragLayers
-        {
-            get { return dragLayers; }
-        }
-
-        public override Cursor Cursor
-        {
-            get
-            {
-                switch (FallOffPolicy)
-                {
-                    case FallOffType.None:
-                        return MoveCursor;
-                    case FallOffType.Linear:
-                        return LinearMoveCursor;
-                    case FallOffType.Ring:
-                        return Cursors.Default;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
-
-        public override bool IsBusy
-        {
-            get { return isBusy; }
-        }
 
         public override void OnPaint(PaintEventArgs e)
         {
@@ -120,7 +118,7 @@ namespace SharpMap.UI.Tools
         public override void OnMouseDown(ICoordinate worldPosition, MouseEventArgs e)
         {
             MapControl.SnapTool.Reset();
-            
+
             if (isBusy)
             {
                 isBusy = false;
@@ -128,9 +126,9 @@ namespace SharpMap.UI.Tools
             }
 
             var trackerAtCoordinate = MapControl.SelectTool.GetTrackerAtCoordinate(worldPosition);
-            var featureBeforeSelection = (trackerAtCoordinate != null) 
-                                            ? trackerAtCoordinate.FeatureInteractor.SourceFeature 
-                                            : null;
+            var featureBeforeSelection = (trackerAtCoordinate != null)
+                                             ? trackerAtCoordinate.FeatureInteractor.SourceFeature
+                                             : null;
 
             if (!MovingTracker(MapControl.SelectTool, trackerAtCoordinate) && !MovingLayoutComponent)
             {
@@ -143,7 +141,10 @@ namespace SharpMap.UI.Tools
             }
 
             trackerFeature = MapControl.SelectTool.GetTrackerAtCoordinate(worldPosition);
-            if (trackerFeature == null) return;
+            if (trackerFeature == null)
+            {
+                return;
+            }
 
             var interactor = trackerFeature.FeatureInteractor;
 
@@ -162,7 +163,7 @@ namespace SharpMap.UI.Tools
             interactor.FallOffPolicy = fallOffPolicy;
             interactor.WorkerFeatureCreated += (sf, cf) => AddFeatureToDragLayers(sf, cf);
             interactor.Start();
-            
+
             targetLayer = AddFeatureToDragLayers(interactor.SourceFeature, interactor.TargetFeature);
 
             lastMouseLocation = worldPosition;
@@ -176,7 +177,7 @@ namespace SharpMap.UI.Tools
         public override void OnMouseMove(ICoordinate worldPosition, MouseEventArgs e)
         {
             MapControl.SelectTool.OnMouseMove(worldPosition, e);
-            
+
             var mouseMoved = MouseMoved(worldPosition, lastMouseLocation);
 
             if (!isBusy && mouseMoved && !MapControl.Tools.Any(t => t != this && t.IsBusy))
@@ -257,6 +258,14 @@ namespace SharpMap.UI.Tools
             return MapControl.SelectTool.GetContextMenuItems(worldPosition);
         }
 
+        private List<VectorLayer> DragLayers
+        {
+            get
+            {
+                return dragLayers;
+            }
+        }
+
         private Cursor GetCursor(ICoordinate worldPosition)
         {
             Cursor cursor = null;
@@ -274,7 +283,7 @@ namespace SharpMap.UI.Tools
                     var trackerFeature = featureInteractor.GetTrackerAtCoordinate(cursorPosition);
                     if (trackerFeature != null)
                     {
-                        cursor = ((FeatureInteractor)featureInteractor).GetCursor(trackerFeature);
+                        cursor = ((FeatureInteractor) featureInteractor).GetCursor(trackerFeature);
                     }
                 }
                 catch (Exception)
@@ -291,12 +300,16 @@ namespace SharpMap.UI.Tools
             var layerTransformation = interactor.Layer.CoordinateTransformation;
 
             var previousPosition = snapResult != null && trackerIndex != -1
-                ? (layerTransformation != null
-                    ? TransformCoordinate(trackerFeature.Geometry.Coordinate, layerTransformation.MathTransform)
-                    : trackerFeature.Geometry.Coordinate)
-                : lastMouseLocation;
+                                       ? (layerTransformation != null
+                                              ? TransformCoordinate(trackerFeature.Geometry.Coordinate, layerTransformation.MathTransform)
+                                              : trackerFeature.Geometry.Coordinate)
+                                       : lastMouseLocation;
 
-            ILineString vector = new LineString(new[] {previousPosition, worldPosition});
+            ILineString vector = new LineString(new[]
+            {
+                previousPosition,
+                worldPosition
+            });
 
             if (layerTransformation != null)
             {
@@ -308,7 +321,11 @@ namespace SharpMap.UI.Tools
 
         private static ICoordinate TransformCoordinate(ICoordinate coordinate, IMathTransform mathTransform)
         {
-            var transformCoordinate = mathTransform.Transform(new[] { coordinate.X, coordinate.Y });
+            var transformCoordinate = mathTransform.Transform(new[]
+            {
+                coordinate.X,
+                coordinate.Y
+            });
             return new Coordinate(transformCoordinate[0], transformCoordinate[1]);
         }
 
@@ -320,7 +337,7 @@ namespace SharpMap.UI.Tools
 
         private void CreateDragLayerStyles(IFeature feature)
         {
-            var sourceLayer = (VectorLayer)Map.GetLayerByFeature(feature);
+            var sourceLayer = (VectorLayer) Map.GetLayerByFeature(feature);
 
             selectionStyle = (VectorStyle) sourceLayer.Style.Clone();
             errorSelectionStyle = (VectorStyle) sourceLayer.Style.Clone();
@@ -331,9 +348,9 @@ namespace SharpMap.UI.Tools
 
         private static bool MovingTracker(SelectTool selectTool, TrackerFeature trackerAtCoordinate)
         {
-            var trackerAlreadySelected = selectTool.SelectedFeatureInteractors.Count > 0 && 
+            var trackerAlreadySelected = selectTool.SelectedFeatureInteractors.Count > 0 &&
                                          selectTool.SelectedFeatureInteractors.Any(i => i.Trackers.Where(t => t.Selected)
-                                             .Any(f => f == trackerAtCoordinate));
+                                                                                         .Any(f => f == trackerAtCoordinate));
 
             return !selectTool.KeyToggleSelection && !selectTool.KeyExtendSelection && trackerAlreadySelected;
         }
@@ -404,7 +421,7 @@ namespace SharpMap.UI.Tools
                     var renderer = customRenderer as ICloneable;
                     if (renderer != null)
                     {
-                        dragLayer.CustomRenderers.Add((IFeatureRenderer)renderer.Clone());
+                        dragLayer.CustomRenderers.Add((IFeatureRenderer) renderer.Clone());
                     }
                 }
 
@@ -416,17 +433,20 @@ namespace SharpMap.UI.Tools
 
                     foreach (var themeItem in dragLayer.Theme.ThemeItems)
                     {
-                         Forms.MapControl.PimpStyle((VectorStyle)themeItem.Style, true);
+                        Forms.MapControl.PimpStyle((VectorStyle) themeItem.Style, true);
                     }
                 }
 
-                var dragFeatures = new FeatureCollection {CoordinateSystem = sourceLayer.CoordinateSystem};
+                var dragFeatures = new FeatureCollection
+                {
+                    CoordinateSystem = sourceLayer.CoordinateSystem
+                };
                 dragLayer.DataSource = dragFeatures;
                 dragLayer.Map = Map;
 
                 if (sourceLayer.DataSource is FeatureCollection)
                 {
-                    ((FeatureCollection)dragLayer.DataSource).FeatureType = sourceLayer.DataSource.FeatureType;
+                    ((FeatureCollection) dragLayer.DataSource).FeatureType = sourceLayer.DataSource.FeatureType;
                 }
 
                 dragLayer.CoordinateTransformation = sourceLayer.CoordinateTransformation;
@@ -434,7 +454,7 @@ namespace SharpMap.UI.Tools
                 DragLayers.Add(dragLayer);
             }
 
-            if(sourceLayer.Visible && !dragLayer.DataSource.Contains(cloneFeature))
+            if (sourceLayer.Visible && !dragLayer.DataSource.Contains(cloneFeature))
             {
                 dragLayer.DataSource.Features.Add(cloneFeature);
                 dragLayer.RenderRequired = true;

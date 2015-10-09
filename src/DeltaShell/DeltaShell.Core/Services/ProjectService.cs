@@ -18,62 +18,24 @@ namespace DeltaShell.Core.Services
     /// </summary>
     public class ProjectService : IProjectService
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(ProjectService));
-
-        private IProjectRepositoryFactory projectRepositoryFactory;
-       
-        public ProjectService()
-            : this(new ProjectRepositoryFactory<InMemoryProjectRepository>())
-        {
-        }
-
-        public ProjectService(IProjectRepositoryFactory projectRepositoryFactory)
-        {
-            this.projectRepositoryFactory = projectRepositoryFactory;
-        }
-
-        public IProjectRepositoryFactory ProjectRepositoryFactory
-        {
-            get { return projectRepositoryFactory; }
-            set 
-            { 
-                projectRepositoryFactory = value;
-                projectRepository = null;
-            }
-        }
-
-        private IProjectRepository projectRepository;
-
-        public IProjectRepository ProjectRepository
-        {
-            get
-            {
-                if(ProjectRepositoryFactory != null && projectRepository == null)
-                {
-                    // HACK: new repository should not be created here!!
-                    ProjectRepository = projectRepositoryFactory.CreateNew();
-                }
-                
-                return projectRepository;
-            }
-            private set { projectRepository = value; }
-        }
-
         public event EventHandler<CancelEventArgs> ProjectSaving;
         public event EventHandler ProjectSaved;
         public event EventHandler ProjectSaveFailed;
 
         public event EventHandler<CancelEventArgs> ProjectOpening;
         public event EventHandler ProjectOpened;
+        private static readonly ILog log = LogManager.GetLogger(typeof(ProjectService));
 
-        public string ProjectDataDirectory
-        {
-            get { return GetProjectDataDirectory(ProjectRepository.Path); }
-        }
+        private IProjectRepositoryFactory projectRepositoryFactory;
 
-        private static string GetProjectDataDirectory(string projectRepositoryPath)
+        private IProjectRepository projectRepository;
+
+        public ProjectService()
+            : this(new ProjectRepositoryFactory<InMemoryProjectRepository>()) {}
+
+        public ProjectService(IProjectRepositoryFactory projectRepositoryFactory)
         {
-            return projectRepositoryPath != null ?  projectRepositoryPath + "_data" : null;
+            this.projectRepositoryFactory = projectRepositoryFactory;
         }
 
         /// <summary>
@@ -86,6 +48,45 @@ namespace DeltaShell.Core.Services
             get
             {
                 return CreateAndGetExternalDataDirectory(ProjectDataDirectory);
+            }
+        }
+
+        public IProjectRepositoryFactory ProjectRepositoryFactory
+        {
+            get
+            {
+                return projectRepositoryFactory;
+            }
+            set
+            {
+                projectRepositoryFactory = value;
+                projectRepository = null;
+            }
+        }
+
+        public IProjectRepository ProjectRepository
+        {
+            get
+            {
+                if (ProjectRepositoryFactory != null && projectRepository == null)
+                {
+                    // HACK: new repository should not be created here!!
+                    ProjectRepository = projectRepositoryFactory.CreateNew();
+                }
+
+                return projectRepository;
+            }
+            private set
+            {
+                projectRepository = value;
+            }
+        }
+
+        public string ProjectDataDirectory
+        {
+            get
+            {
+                return GetProjectDataDirectory(ProjectRepository.Path);
             }
         }
 
@@ -107,20 +108,20 @@ namespace DeltaShell.Core.Services
         /// <returns></returns>
         public Project CreateNewProjectInTemporaryFolder()
         {
-            log.InfoFormat(Resources.ProjectService_CreateNewProjectInTemporaryFolder_Creating_new_empty_project_in_temporary_folder____); 
+            log.InfoFormat(Resources.ProjectService_CreateNewProjectInTemporaryFolder_Creating_new_empty_project_in_temporary_folder____);
 
             var path = Path.GetTempFileName();
-            
+
             ProjectRepository.Create(path);
 
-            log.InfoFormat(Resources.ProjectService_CreateNewProjectInTemporaryFolder_New_empty_project_created); 
+            log.InfoFormat(Resources.ProjectService_CreateNewProjectInTemporaryFolder_New_empty_project_created);
 
             var project = ProjectRepository.GetProject();
 
             FileUtils.CreateDirectoryIfNotExists(ProjectDataDirectory);
-            
+
             project.IsTemporary = true;
-            
+
             return project;
         }
 
@@ -149,15 +150,6 @@ namespace DeltaShell.Core.Services
             CollectMemory();
 
             return project;
-        }
-
-        /// <summary>
-        /// Collect all possible memory after Save/Load operation (improve fragmentation)
-        /// </summary>
-        private void CollectMemory()
-        {
-            GC.Collect();
-            GC.WaitForPendingFinalizers(); // wait until all collect operations are finished
         }
 
         /// <summary>
@@ -249,6 +241,47 @@ namespace DeltaShell.Core.Services
         }
 
         /// <summary>
+        /// Save a project with all its task's and call savestate on the models
+        /// </summary>
+        /// <param name="path">the path where the model is saved</param>
+        /// <param name="project">the project to be saved</param>
+        /// <returns></returns>
+        public void SaveProjectAs(Project project, string path)
+        {
+            SaveProjectAs(project, path, false);
+        }
+
+        public void Dispose()
+        {
+            if (ProjectRepository != null)
+            {
+                if (ProjectRepository.IsOpen)
+                {
+                    Close(ProjectRepository.GetProject());
+                }
+
+                ProjectRepository.Dispose();
+                ProjectRepository = null;
+            }
+
+            projectRepositoryFactory = null;
+        }
+
+        private static string GetProjectDataDirectory(string projectRepositoryPath)
+        {
+            return projectRepositoryPath != null ? projectRepositoryPath + "_data" : null;
+        }
+
+        /// <summary>
+        /// Collect all possible memory after Save/Load operation (improve fragmentation)
+        /// </summary>
+        private void CollectMemory()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers(); // wait until all collect operations are finished
+        }
+
+        /// <summary>
         /// Delete all projectfiles: the projectfile and the dir and files of the data directory( for example if project is temp)
         /// </summary>
         /// <param name="pathProject"></param>
@@ -263,24 +296,13 @@ namespace DeltaShell.Core.Services
             }
         }
 
-        /// <summary>
-        /// Save a project with all its task's and call savestate on the models
-        /// </summary>
-        /// <param name="path">the path where the model is saved</param>
-        /// <param name="project">the project to be saved</param>
-        /// <returns></returns>
-        public void SaveProjectAs(Project project, string path)
-        {
-            SaveProjectAs(project, path, false);
-        }
-            
         private void SaveProjectAs(Project project, string path, bool tempProject)
         {
             var oldProjectPath = ProjectRepository.Path;
             var oldProjectDataDirectory = ProjectDataDirectory;
             var oldProjectWasTemporary = project.IsTemporary;
 
-            if(!string.IsNullOrEmpty(oldProjectPath) && !string.IsNullOrEmpty(path) 
+            if (!string.IsNullOrEmpty(oldProjectPath) && !string.IsNullOrEmpty(path)
                 && Path.GetFullPath(oldProjectPath) == Path.GetFullPath(path))
             {
                 Save(project); // path did not change, just save
@@ -317,7 +339,6 @@ namespace DeltaShell.Core.Services
                 }
 
                 p.IsTemporary = false;
-
             });
 
             DoSaving(saveAction, project, path);
@@ -329,7 +350,7 @@ namespace DeltaShell.Core.Services
             {
                 return;
             }
-            
+
             try
             {
                 saveAction(project);
@@ -352,13 +373,13 @@ namespace DeltaShell.Core.Services
                 throw new InvalidDataException(Resources.ProjectService_CreateWorkingDirectories_Parameter_projectDataDirectory_should_be_absolute_path);
             }
         }
-        
+
         #region Event firing
-        
+
         private bool FireProjectSaving(Project project, string path)
         {
-            log.InfoFormat(Resources.ProjectService_FireProjectSaving_Saving_project__0__as__1_, project.Name, path); 
-            
+            log.InfoFormat(Resources.ProjectService_FireProjectSaving_Saving_project__0__as__1_, project.Name, path);
+
             if (ProjectSaving != null)
             {
                 var cancelEventArgs = new CancelEventArgs();
@@ -391,21 +412,5 @@ namespace DeltaShell.Core.Services
         }
 
         #endregion
-
-        public void Dispose()
-        {
-            if (ProjectRepository != null)
-            {
-                if (ProjectRepository.IsOpen)
-                {
-                    Close(ProjectRepository.GetProject());
-                }
-
-                ProjectRepository.Dispose();
-                ProjectRepository = null;
-            }
-
-            projectRepositoryFactory = null;
-        }
     }
 }

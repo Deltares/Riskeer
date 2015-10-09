@@ -4,16 +4,11 @@ namespace DelftTools.Utils
 {
     public class EventArgs<T> : EventArgs
     {
-        private T t;
         public EventArgs(T t)
         {
-            this.t = t;
+            this.Value = t;
         }
 
-        public T Value
-        {
-            get { return t; }
-            set { t = value; }
-        }
+        public T Value { get; set; }
     }
 }

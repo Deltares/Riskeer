@@ -5,7 +5,7 @@ namespace Wti.Data
 {
     public class PipingData : IObservable
     {
-        private IList<IObserver> observers = new List<IObserver>();
+        private readonly IList<IObserver> observers = new List<IObserver>();
         private PipingOutput output;
 
         public PipingOutput Output
@@ -21,27 +21,9 @@ namespace Wti.Data
             }
         }
 
-        public void Attach(IObserver observer)
-        {
-            observers.Add(observer);
-        }
-
-        public void Detach(IObserver observer)
-        {
-            observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in observers)
-            {
-                observer.UpdateObserver();
-            }
-        }
-
         public double WaterVolumetricWeight { get; set; }
         public double UpliftModelFactor { get; set; }
-        public double AssessmentLevel { get; set; } 
+        public double AssessmentLevel { get; set; }
         public double PiezometricHeadExit { get; set; }
         public double DampingFactorExit { get; set; }
         public double PhreaticLevelExit { get; set; }
@@ -61,5 +43,23 @@ namespace Wti.Data
         public double MeanDiameter70 { get; set; }
         public double BeddingAngle { get; set; }
         public double ExitPointXCoordinate { get; set; }
+
+        public void Attach(IObserver observer)
+        {
+            observers.Add(observer);
+        }
+
+        public void Detach(IObserver observer)
+        {
+            observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in observers)
+            {
+                observer.UpdateObserver();
+            }
+        }
     }
 }

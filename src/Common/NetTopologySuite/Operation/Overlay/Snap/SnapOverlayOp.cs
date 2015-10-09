@@ -15,6 +15,23 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
     /// </summary>
     public class SnapOverlayOp
     {
+        private readonly IGeometry[] geom = new IGeometry[2];
+        private double tolerance;
+
+        private CommonBitsRemover cbr;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g1"></param>
+        /// <param name="g2"></param>
+        public SnapOverlayOp(IGeometry g1, IGeometry g2)
+        {
+            geom[0] = g1;
+            geom[1] = g2;
+            ComputeSnapTolerance();
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -72,30 +89,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
             return Overlay(g0, g1, SpatialFunction.SymDifference);
         }
 
-
-        private IGeometry[] geom = new IGeometry[2];
-        private double tolerance;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="g1"></param>
-        /// <param name="g2"></param>
-        public SnapOverlayOp(IGeometry g1, IGeometry g2)
-        {
-            geom[0] = g1;
-            geom[1] = g2;
-            ComputeSnapTolerance();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void ComputeSnapTolerance()
-        {
-            tolerance = GeometrySnapper.ComputeOverlaySnapTolerance(geom[0], geom[1]);
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -106,6 +99,14 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
             IGeometry[] prepGeom = Snap();
             IGeometry result = OverlayOp.Overlay(prepGeom[0], prepGeom[1], opCode);
             return PrepareResult(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ComputeSnapTolerance()
+        {
+            tolerance = GeometrySnapper.ComputeOverlaySnapTolerance(geom[0], geom[1]);
         }
 
         /// <summary>
@@ -137,8 +138,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
             return geom;
         }
 
-        private CommonBitsRemover cbr;
-
         /// <summary>
         /// 
         /// </summary>
@@ -161,8 +160,10 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
         /// <param name="g"></param>
         private void CheckValid(IGeometry g)
         {
-  	        if (! g.IsValid) 
-  		        Trace.WriteLine("Snapped geometry is invalid");
-          }
+            if (!g.IsValid)
+            {
+                Trace.WriteLine("Snapped geometry is invalid");
+            }
+        }
     }
 }

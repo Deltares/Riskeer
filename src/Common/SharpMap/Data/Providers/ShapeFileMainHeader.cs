@@ -3,8 +3,8 @@ using SharpMap.Data.Providers.EGIS.ShapeFileLib;
 
 namespace EGIS.ShapeFileLib
 {
-    [StructLayout(LayoutKind.Sequential, Pack=1)]
-    unsafe struct ShapeFileMainHeader
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    internal unsafe struct ShapeFileMainHeader
     {
         internal const int MAIN_HEADER_LENGTH = 100;
         public int FileCode;
@@ -23,24 +23,24 @@ namespace EGIS.ShapeFileLib
         public double Zmin;
         public double Zmax;
         public double Mmin;
-        public double Mmax;	
+        public double Mmax;
 
         public ShapeFileMainHeader(byte[] data)
         {
             //first convert any BE ints in the data to LE
             //swap FileCode
-            EndianUtils.SwapIntBytes(data,0);
+            EndianUtils.SwapIntBytes(data, 0);
             //no need to swap unused bytes
             //swap File Length
-            EndianUtils.SwapIntBytes(data,24);
-				
-            fixed(byte* bPtr = data)
+            EndianUtils.SwapIntBytes(data, 24);
+
+            fixed (byte* bPtr = data)
             {
                 //now cast and dereference the pointer
-                this = *(ShapeFileMainHeader*)bPtr;
+                this = *(ShapeFileMainHeader*) bPtr;
             }
             //adjust FileLength to be number of bytes (not num words)
-            FileLength*=2;            
+            FileLength *= 2;
         }
 
         public override string ToString()
@@ -49,6 +49,5 @@ namespace EGIS.ShapeFileLib
             str += ", XMin = " + Xmin + ", Ymin = " + Ymin + ", Xmax = " + Xmax + ", Ymax = " + Ymax + ", MMin = " + Mmin + ", Mmax = " + Mmax;
             return str;
         }
-
     }
 }

@@ -11,26 +11,44 @@ namespace DelftTools.Controls.Swf.Charting.Series
             valuelist = list;
         }
 
+        public double this[int index]
+        {
+            get
+            {
+                return valuelist[index];
+            }
+        }
+
         public int Count
         {
-            get { return valuelist.Count; }
+            get
+            {
+                return valuelist.Count;
+            }
         }
-        
+
         public string DataMember
         {
-            get { return valuelist.DataMember; }
-            set { valuelist.DataMember = value; }
+            get
+            {
+                return valuelist.DataMember;
+            }
+            set
+            {
+                valuelist.DataMember = value;
+            }
         }
 
         public bool DateTime
         {
-            get { return valuelist.DateTime; }
-            set { valuelist.DateTime = value; }
-        }
-
-        public double this[int index]
-        {
-            get { return valuelist[index]; }
+            get
+            {
+                return valuelist.DateTime;
+            }
+            set
+            {
+                valuelist.DateTime = value;
+            }
         }
     }
 }

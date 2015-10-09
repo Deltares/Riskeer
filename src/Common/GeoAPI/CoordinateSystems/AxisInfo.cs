@@ -20,65 +20,53 @@ using System.Globalization;
 
 namespace GeoAPI.CoordinateSystems
 {
-	/// <summary>
-	/// Details of axis. This is used to label axes, and indicate the orientation.
-	/// </summary>
-	public class AxisInfo
-	{
-		/// <summary>
-		/// Initializes a new instance of an AxisInfo.
-		/// </summary>
-		/// <param name="name">Name of axis</param>
-		/// <param name="orientation">Axis orientation</param>
-		public AxisInfo(string name, AxisOrientationEnum orientation)
-		{
-			_Name = name;
-			_Orientation = orientation;
-		}
+    /// <summary>
+    /// Details of axis. This is used to label axes, and indicate the orientation.
+    /// </summary>
+    public class AxisInfo
+    {
+        /// <summary>
+        /// Initializes a new instance of an AxisInfo.
+        /// </summary>
+        /// <param name="name">Name of axis</param>
+        /// <param name="orientation">Axis orientation</param>
+        public AxisInfo(string name, AxisOrientationEnum orientation)
+        {
+            Name = name;
+            Orientation = orientation;
+        }
 
-		private string _Name;
+        /// <summary>
+        /// Human readable name for axis. Possible values are X, Y, Long, Lat or any other short string.
+        /// </summary>
+        public string Name { get; set; }
 
-		/// <summary>
-		/// Human readable name for axis. Possible values are X, Y, Long, Lat or any other short string.
-		/// </summary>
-		public string Name
-		{
-			get { return _Name; }
-			set { _Name = value; }
-		}
+        /// <summary>
+        /// Gets enumerated value for orientation.
+        /// </summary>
+        public AxisOrientationEnum Orientation { get; set; }
 
-		private AxisOrientationEnum _Orientation;
+        /// <summary>
+        /// Returns the Well-known text for this object
+        /// as defined in the simple features specification.
+        /// </summary>
+        public string WKT
+        {
+            get
+            {
+                return String.Format("AXIS[\"{0}\", {1}]", Name, Orientation.ToString().ToUpper(CultureInfo.InvariantCulture));
+            }
+        }
 
-		/// <summary>
-		/// Gets enumerated value for orientation.
-		/// </summary>
-		public AxisOrientationEnum Orientation
-		{
-			get { return _Orientation; }
-			set { _Orientation = value; }
-		}
-
-		/// <summary>
-		/// Returns the Well-known text for this object
-		/// as defined in the simple features specification.
-		/// </summary>
-		public string WKT
-		{
-			get
-			{
-				return String.Format("AXIS[\"{0}\", {1}]", Name, Orientation.ToString().ToUpper(CultureInfo.InvariantCulture));
-			}
-		}
-
-		/// <summary>
-		/// Gets an XML representation of this object
-		/// </summary>
-		public string XML
-		{
-			get
-			{
-				return String.Format(CultureInfo.InvariantCulture.NumberFormat, "<CS_AxisInfo Name=\"{0}\" Orientation=\"{1}\"/>", Name, Orientation.ToString().ToUpper(CultureInfo.InvariantCulture));
-			}
-		}
-	}
+        /// <summary>
+        /// Gets an XML representation of this object
+        /// </summary>
+        public string XML
+        {
+            get
+            {
+                return String.Format(CultureInfo.InvariantCulture.NumberFormat, "<CS_AxisInfo Name=\"{0}\" Orientation=\"{1}\"/>", Name, Orientation.ToString().ToUpper(CultureInfo.InvariantCulture));
+            }
+        }
+    }
 }

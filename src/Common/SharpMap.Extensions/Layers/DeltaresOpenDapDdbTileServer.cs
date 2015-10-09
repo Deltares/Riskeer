@@ -36,8 +36,8 @@ namespace SharpMap.Extensions.Layers
 
             // resolutions, tile & coordinate system info:
             var dataSetInfoPage = RetrieveWebPageLines(dodscUrl + string.Format(
-                                                                     "{0}/{1}.ascii?crs,grid_size_x,x0[0:0],y0[0:0],ntilesx[0:0],ntilesy[0:0],nx[0:0],ny[0:0]",
-                                                                     datasetName, schemaFile))
+                "{0}/{1}.ascii?crs,grid_size_x,x0[0:0],y0[0:0],ntilesx[0:0],ntilesy[0:0],nx[0:0],ny[0:0]",
+                datasetName, schemaFile))
                 .SkipWhile(l => !l.Contains("-------")).ToList();
 
             // resolutions:
@@ -68,14 +68,43 @@ namespace SharpMap.Extensions.Layers
             info.TileHeight = Int32.Parse(dataSetInfoPage[tileHeightLineIndex]);
 
             // cs width / height:
-            var width = numTilesX * info.Resolutions.Last() * info.TileWidth;
-            var height = numTilesY * info.Resolutions.Last() * info.TileHeight;
+            var width = numTilesX*info.Resolutions.Last()*info.TileWidth;
+            var height = numTilesY*info.Resolutions.Last()*info.TileHeight;
             info.Extent = new Extent(originX, originY, originX + width, originY + height);
 
             //http://opendap.deltares.nl/thredds/fileServer/opendap/deltares/delftdashboard/bathymetry/gebco_08/zl06/gebco08.zl06.00005.00003.nc
             info.UrlFormat = tileUrl + datasetName + "/zl{0:00}/" + fileprefix + ".zl{0:00}.{1:00000}.{2:00000}.nc";
-            
+
             return info;
+        }
+
+        public static IEnumerable<string> GetHighestResolutionTileUrlsInExtent(DdbTiledDataSetInfo datasetInfo, double minX, double minY, double maxX, double maxY)
+        {
+            var highResLevel = datasetInfo.NumZoomLevels - 1;
+            var datasetExtend = datasetInfo.Extent;
+            var resolution = datasetInfo.Resolutions[highResLevel];
+
+            var unitsPerTileX = resolution*datasetInfo.TileWidth;
+            var unitsPerTileY = resolution*datasetInfo.TileHeight;
+
+            // make sure we don't ask outside our dataset extend:
+            var extent = new Extent(Math.Max(minX, datasetExtend.MinX),
+                                    Math.Max(minY, datasetExtend.MinY),
+                                    Math.Min(maxX, datasetExtend.MaxX),
+                                    Math.Min(maxY, datasetExtend.MaxY));
+
+            var minCol = (int) Math.Floor((extent.MinX - datasetExtend.MinX)/unitsPerTileX);
+            var maxCol = (int) Math.Ceiling((extent.MaxX - datasetExtend.MinX)/unitsPerTileX);
+            var minRow = (int) Math.Floor((extent.MinY - datasetExtend.MinY)/unitsPerTileY);
+            var maxRow = (int) Math.Ceiling((extent.MaxY - datasetExtend.MinY)/unitsPerTileY);
+
+            for (int c = minCol; c < maxCol; c++)
+            {
+                for (int r = minRow; r < maxRow; r++)
+                {
+                    yield return string.Format(datasetInfo.UrlFormat, datasetInfo.NumZoomLevels - highResLevel, c + 1, r + 1);
+                }
+            }
         }
 
         private static string RetrieveWebPage(string url)
@@ -96,39 +125,16 @@ namespace SharpMap.Extensions.Layers
                     while ((line = reader.ReadLine()) != null)
                     {
                         if (!string.IsNullOrEmpty(line.Trim()))
+                        {
                             lines.Add(line);
+                        }
                     }
                 }
             }
             return lines;
         }
-
-        public static IEnumerable<string> GetHighestResolutionTileUrlsInExtent(DdbTiledDataSetInfo datasetInfo, double minX, double minY, double maxX, double maxY)
-        {
-            var highResLevel = datasetInfo.NumZoomLevels - 1;
-            var datasetExtend = datasetInfo.Extent;
-            var resolution = datasetInfo.Resolutions[highResLevel];
-
-            var unitsPerTileX = resolution * datasetInfo.TileWidth;
-            var unitsPerTileY = resolution * datasetInfo.TileHeight;
-
-            // make sure we don't ask outside our dataset extend:
-            var extent = new Extent(Math.Max(minX, datasetExtend.MinX),
-                                    Math.Max(minY, datasetExtend.MinY),
-                                    Math.Min(maxX, datasetExtend.MaxX),
-                                    Math.Min(maxY, datasetExtend.MaxY));
-
-            var minCol = (int) Math.Floor((extent.MinX - datasetExtend.MinX)/unitsPerTileX);
-            var maxCol = (int) Math.Ceiling((extent.MaxX - datasetExtend.MinX)/unitsPerTileX);
-            var minRow = (int) Math.Floor((extent.MinY - datasetExtend.MinY)/unitsPerTileY);
-            var maxRow = (int) Math.Ceiling((extent.MaxY - datasetExtend.MinY)/unitsPerTileY);
-
-            for (int c = minCol; c < maxCol; c++)
-                for (int r = minRow; r < maxRow; r++)
-                    yield return string.Format(datasetInfo.UrlFormat, datasetInfo.NumZoomLevels - highResLevel, c + 1, r + 1);
-        }
     }
-    
+
     public class DdbTiledDataSetInfo
     {
         public DdbTiledDataSetInfo()
@@ -146,7 +152,10 @@ namespace SharpMap.Extensions.Layers
 
         public int NumZoomLevels
         {
-            get { return Resolutions.Count; }
+            get
+            {
+                return Resolutions.Count;
+            }
         }
     }
 }

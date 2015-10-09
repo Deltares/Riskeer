@@ -24,11 +24,29 @@ namespace SharpMap.UI.Tests.Tools
         {
             var featureProvider = new FeatureCollection
             {
-                Features = { new Feature { Geometry = new WKTReader().Read("POINT(0 0)") } }
+                Features =
+                {
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(0 0)")
+                    }
+                }
             };
-            var layer = new VectorLayer { DataSource = featureProvider };
+            var layer = new VectorLayer
+            {
+                DataSource = featureProvider
+            };
 
-            using (var mapControl = new MapControl { Map = { Layers = { layer } } })
+            using (var mapControl = new MapControl
+            {
+                Map =
+                {
+                    Layers =
+                    {
+                        layer
+                    }
+                }
+            })
             {
                 var selectTool = mapControl.SelectTool;
 
@@ -37,7 +55,7 @@ namespace SharpMap.UI.Tests.Tools
                 mapControl.Map.Layers.Clear();
 
                 selectTool.Selection
-                    .Should("selection is cleared on layer remove").Be.Empty();
+                          .Should("selection is cleared on layer remove").Be.Empty();
             }
         }
 
@@ -46,12 +64,36 @@ namespace SharpMap.UI.Tests.Tools
         {
             var featureProvider = new FeatureCollection
             {
-                Features = { new Feature { Geometry = new WKTReader().Read("POINT(0 0)") } }
+                Features =
+                {
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(0 0)")
+                    }
+                }
             };
-            var layer = new VectorLayer { DataSource = featureProvider };
-            var groupLayer = new GroupLayer { Layers = { layer } };
+            var layer = new VectorLayer
+            {
+                DataSource = featureProvider
+            };
+            var groupLayer = new GroupLayer
+            {
+                Layers =
+                {
+                    layer
+                }
+            };
 
-            using (var mapControl = new MapControl { Map = { Layers = { groupLayer } } })
+            using (var mapControl = new MapControl
+            {
+                Map =
+                {
+                    Layers =
+                    {
+                        groupLayer
+                    }
+                }
+            })
             {
                 var selectTool = mapControl.SelectTool;
 
@@ -60,7 +102,7 @@ namespace SharpMap.UI.Tests.Tools
                 mapControl.Map.Layers.Remove(groupLayer);
 
                 selectTool.Selection
-                    .Should("selection is cleared on layer remove").Be.Empty();
+                          .Should("selection is cleared on layer remove").Be.Empty();
             }
         }
 
@@ -69,7 +111,7 @@ namespace SharpMap.UI.Tests.Tools
         {
             var mapControl = new MapControl();
             var selectTool = mapControl.SelectTool;
-            
+
             selectTool.MultiSelectionMode = MultiSelectionMode.Lasso;
 
             mapControl.ActivateTool(selectTool);
@@ -87,7 +129,7 @@ namespace SharpMap.UI.Tests.Tools
             var layer1 = new VectorLayer();
             var layer1Data = new FeatureCollection();
             layer1.DataSource = layer1Data;
-            layer1Data.FeatureType = typeof (Feature);
+            layer1Data.FeatureType = typeof(Feature);
             layer1Data.Add(new Point(5, 5));
             layer1Data.Add(new Point(1, 1));
 
@@ -141,8 +183,8 @@ namespace SharpMap.UI.Tests.Tools
             mapControl.Map.Layers.Add(layer2);
 
             // zoom 4x because the limit (10 pixels around coordinate) used for finding the next feature depends on world to pixel ratio
-            mapControl.Map.Zoom = mapControl.Map.Zoom * 4;
-            
+            mapControl.Map.Zoom = mapControl.Map.Zoom*4;
+
             var items = mapControl.SelectTool.GetContextMenuItems(new Coordinate(4, 4));
 
             var mapToolContextMenuItem = items.FirstOrDefault();
@@ -151,7 +193,7 @@ namespace SharpMap.UI.Tests.Tools
 
             var dropDownItems = mapToolContextMenuItem.MenuItem.DropDownItems;
             Assert.AreEqual(3, dropDownItems.Count);
-            
+
             layer2.Visible = false;
 
             items = mapControl.SelectTool.GetContextMenuItems(new Coordinate(4, 4));
@@ -170,8 +212,14 @@ namespace SharpMap.UI.Tests.Tools
             var mapControl = new MapControl();
             var layerData = new FeatureCollection();
 
-            var layer = new VectorLayer {Visible = false, DataSource = layerData};
-            var feature = new TestFeature {Geometry = new Point(0, 0)};
+            var layer = new VectorLayer
+            {
+                Visible = false, DataSource = layerData
+            };
+            var feature = new TestFeature
+            {
+                Geometry = new Point(0, 0)
+            };
             layerData.FeatureType = typeof(TestFeature);
             layerData.Add(feature);
 
@@ -183,16 +231,25 @@ namespace SharpMap.UI.Tests.Tools
 
             Assert.AreEqual(0, mapControl.SelectTool.Selection.Count(), "No features should be added as none are passed");
 
-            mapControl.SelectTool.AddSelection(new[] { feature });
+            mapControl.SelectTool.AddSelection(new[]
+            {
+                feature
+            });
 
             Assert.AreEqual(0, mapControl.SelectTool.Selection.Count(), "No features should be added as none are visible");
 
             layer.Visible = true;
-            mapControl.SelectTool.AddSelection(new[] { feature });
+            mapControl.SelectTool.AddSelection(new[]
+            {
+                feature
+            });
 
             Assert.AreEqual(1, mapControl.SelectTool.Selection.Count());
 
-            mapControl.SelectTool.AddSelection(new[] { feature });
+            mapControl.SelectTool.AddSelection(new[]
+            {
+                feature
+            });
 
             Assert.AreEqual(1, mapControl.SelectTool.Selection.Count(), "Should not expand selection with items that are already selected");
         }
@@ -201,9 +258,15 @@ namespace SharpMap.UI.Tests.Tools
         public void SetLayerWithManySelectedFeaturesVisibilityFalseShouldBeFast()
         {
             var mapControl = new MapControl();
-            var features = Enumerable.Range(0, 10000).Select(i => new TestFeature {Geometry = new Point(i, i)}).ToList();
+            var features = Enumerable.Range(0, 10000).Select(i => new TestFeature
+            {
+                Geometry = new Point(i, i)
+            }).ToList();
             var layerData = new FeatureCollection(features, typeof(TestFeature));
-            var vectorLayer = new VectorLayer {Visible = true, DataSource = layerData};
+            var vectorLayer = new VectorLayer
+            {
+                Visible = true, DataSource = layerData
+            };
 
             mapControl.Map.Layers.Add(vectorLayer);
             mapControl.SelectTool.AddSelection(features.Take(5000));
@@ -222,22 +285,49 @@ namespace SharpMap.UI.Tests.Tools
             {
                 Features =
                 {
-                    new Feature { Geometry = new WKTReader().Read("POINT(0 0)") },
-                    new Feature { Geometry = new WKTReader().Read("POINT(0 1)") },
-                    new Feature { Geometry = new WKTReader().Read("POINT(0 2)") }
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(0 0)")
+                    },
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(0 1)")
+                    },
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(0 2)")
+                    }
                 }
             };
-            var layer1 = new VectorLayer { DataSource = featureProvider1 };
+            var layer1 = new VectorLayer
+            {
+                DataSource = featureProvider1
+            };
             var featureProvider2 = new FeatureCollection
             {
                 Features =
                 {
-                    new Feature { Geometry = new WKTReader().Read("POINT(1 0)") },
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(1 0)")
+                    },
                 }
             };
-            var layer2 = new VectorLayer { DataSource = featureProvider2 };
+            var layer2 = new VectorLayer
+            {
+                DataSource = featureProvider2
+            };
 
-            using (var mapControl = new MapControl { Map = { Layers = { layer1, layer2 } } })
+            using (var mapControl = new MapControl
+            {
+                Map =
+                {
+                    Layers =
+                    {
+                        layer1, layer2
+                    }
+                }
+            })
             {
                 var selectTool = mapControl.SelectTool;
 
@@ -251,10 +341,10 @@ namespace SharpMap.UI.Tests.Tools
                 selectTool.Select(listOfSelectedFeatures.Cast<IFeature>());
 
                 selectTool.Selection.Count()
-                    .Should("selection are 3 features in 2 layers, 2 features in layer1, 1 feature in layer 2").Be.EqualTo(3);
+                          .Should("selection are 3 features in 2 layers, 2 features in layer1, 1 feature in layer 2").Be.EqualTo(3);
             }
         }
-        
+
         [Test]
         public void SelectionMultipleFeaturesInMultipleLayersOnOnlyOneLayer()
         {
@@ -262,22 +352,49 @@ namespace SharpMap.UI.Tests.Tools
             {
                 Features =
                 {
-                    new Feature { Geometry = new WKTReader().Read("POINT(0 0)") },
-                    new Feature { Geometry = new WKTReader().Read("POINT(0 1)") },
-                    new Feature { Geometry = new WKTReader().Read("POINT(0 2)") }
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(0 0)")
+                    },
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(0 1)")
+                    },
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(0 2)")
+                    }
                 }
             };
-            var layer1 = new VectorLayer { DataSource = featureProvider1 };
+            var layer1 = new VectorLayer
+            {
+                DataSource = featureProvider1
+            };
             var featureProvider2 = new FeatureCollection
             {
                 Features =
                 {
-                    new Feature { Geometry = new WKTReader().Read("POINT(1 0)") },
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(1 0)")
+                    },
                 }
             };
-            var layer2 = new VectorLayer { DataSource = featureProvider2 };
+            var layer2 = new VectorLayer
+            {
+                DataSource = featureProvider2
+            };
 
-            using (var mapControl = new MapControl { Map = { Layers = { layer1, layer2 } } })
+            using (var mapControl = new MapControl
+            {
+                Map =
+                {
+                    Layers =
+                    {
+                        layer1, layer2
+                    }
+                }
+            })
             {
                 var selectTool = mapControl.SelectTool;
 
@@ -291,12 +408,12 @@ namespace SharpMap.UI.Tests.Tools
                 selectTool.Select(listOfSelectedFeatures.Cast<IFeature>(), layer1);
 
                 selectTool.Selection.Count()
-                    .Should("selection are 3 features in 2 layers, but only select the 2 features in layer1!").Be.EqualTo(2);
-                
+                          .Should("selection are 3 features in 2 layers, but only select the 2 features in layer1!").Be.EqualTo(2);
+
                 selectTool.Select(listOfSelectedFeatures.Cast<IFeature>(), layer2);
 
                 selectTool.Selection.Count()
-                    .Should("selection are 3 features in 2 layers, but only select the 1 feature in layer2!").Be.EqualTo(1);
+                          .Should("selection are 3 features in 2 layers, but only select the 1 feature in layer2!").Be.EqualTo(1);
             }
         }
 
@@ -309,18 +426,39 @@ namespace SharpMap.UI.Tests.Tools
             var maxSelectableFeatures = SelectTool.MaxSelectedFeatures;
             var featureProvider1 = new FeatureCollection(
                 Enumerable.Range(0, maxSelectableFeatures*2/3)
-                    .Select(i => new Feature {Geometry = new WKTReader().Read("POINT(0 " + i + ")")}).ToList(),
-                typeof (Feature));
+                          .Select(i => new Feature
+                          {
+                              Geometry = new WKTReader().Read("POINT(0 " + i + ")")
+                          }).ToList(),
+                typeof(Feature));
 
-            var layer1 = new VectorLayer { DataSource = featureProvider1 };
+            var layer1 = new VectorLayer
+            {
+                DataSource = featureProvider1
+            };
 
             var featureProvider2 = new FeatureCollection(
                 Enumerable.Range(0, maxSelectableFeatures*2/3)
-                    .Select(i => new Feature {Geometry = new WKTReader().Read("POINT(1 " + i + ")")}).ToList(),
-                typeof (Feature));
-            var layer2 = new VectorLayer { DataSource = featureProvider2 };
+                          .Select(i => new Feature
+                          {
+                              Geometry = new WKTReader().Read("POINT(1 " + i + ")")
+                          }).ToList(),
+                typeof(Feature));
+            var layer2 = new VectorLayer
+            {
+                DataSource = featureProvider2
+            };
 
-            using (var mapControl = new MapControl { Map = { Layers = { layer1, layer2 } } })
+            using (var mapControl = new MapControl
+            {
+                Map =
+                {
+                    Layers =
+                    {
+                        layer1, layer2
+                    }
+                }
+            })
             {
                 var selectTool = mapControl.SelectTool;
 
@@ -333,13 +471,10 @@ namespace SharpMap.UI.Tests.Tools
                 var message =
                     string.Format("selection are all {1} features in 2 layers, but only select the first {0} features!", maxSelectableFeatures, ofSelectedFeatures.Count());
                 selectTool.Selection.Count()
-                    .Should(message).Be.EqualTo(maxSelectableFeatures);
+                          .Should(message).Be.EqualTo(maxSelectableFeatures);
             }
         }
 
-        private class TestFeature : Feature
-        {
-            
-        }
+        private class TestFeature : Feature {}
     }
 }

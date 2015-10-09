@@ -12,6 +12,9 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
     [Entity(FireOnPropertyChange = false)]
     public class ClassImplementingIEventedList : IList<object>, ICloneable, INameable
     {
+        public virtual event PropertyChangedEventHandler PropertyChanged;
+
+        private const string defaultName = "item";
         private string name;
 
         private IEventedList<ClassImplementingIEventedList> children;
@@ -19,17 +22,13 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
         [NoNotifyPropertyChange]
         private ClassImplementingIEventedList parent;
 
-        private const string defaultName = "item";
-
         private long id = -1;
 
         /// <summary>
         /// Create folder with default name
         /// </summary>
         public ClassImplementingIEventedList()
-            : this(defaultName)
-        {
-        }
+            : this(defaultName) {}
 
         /// <summary>
         /// Create folder with specific name
@@ -44,54 +43,31 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
             children.CollectionChanged += ChildCollectionChanged;
         }
 
-        private void ChildCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            // update owner of folder in case the folder belongs to the list of folders contained
-            // by this folder.
-            if (sender == children)
-            {
-                ClassImplementingIEventedList folder = (ClassImplementingIEventedList)e.Item;
-
-                switch (e.Action)
-                {
-                    case NotifyCollectionChangeAction.Replace:
-                    case NotifyCollectionChangeAction.Add:
-                        folder.Parent = this;
-                        break;
-
-                    case NotifyCollectionChangeAction.Remove:
-                        folder.Parent = null;
-                        break;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Name of the folder presented to the end user.
-        /// </summary>
-        public virtual string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
         /// <summary>
         /// Folder that contains this folder.
         /// </summary>
         [NoNotifyPropertyChange]
         public virtual ClassImplementingIEventedList Parent
         {
-            get { return parent; }
-            set { parent = value; }
+            get
+            {
+                return parent;
+            }
+            set
+            {
+                parent = value;
+            }
         }
-
 
         /// <summary>
         /// Subfolders of the current folder
         /// </summary>
         public virtual IEventedList<ClassImplementingIEventedList> Children
         {
-            get { return children; }
+            get
+            {
+                return children;
+            }
             set
             {
                 children.CollectionChanged -= ChildCollectionChanged;
@@ -106,103 +82,20 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
             }
         }
 
-        public virtual object Clone()
-        {
-            ClassImplementingIEventedList folderCopy = new ClassImplementingIEventedList();
-            folderCopy.Name = Name;
-
-            foreach (var child in Children)
-            {
-                folderCopy.children.Add((ClassImplementingIEventedList)child.Clone());
-            }
-            return folderCopy;
-        }
-
-        #region IList Members
-
-        public virtual void Add(object o)
-        {
-            ClassImplementingIEventedList child;
-            if ((child = o as ClassImplementingIEventedList) != null)
-            {
-                Children.Add(child);
-            }
-        }
-
-        public virtual bool Remove(object o)
-        {
-            ClassImplementingIEventedList child = (ClassImplementingIEventedList)o;
-            return Children.Remove(child);
-        }
-
-
-        public virtual void RemoveAt(int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual object this[int index]
+        /// <summary>
+        /// Name of the folder presented to the end user.
+        /// </summary>
+        public virtual string Name
         {
             get
             {
-                if (index < Children.Count)
-                {
-                    return Children[index];
-                }
-                else
-                {
-                    throw new IndexOutOfRangeException();
-                }
+                return name;
             }
             set
             {
-                if (index < Children.Count)
-                {
-                    Children[index] = (ClassImplementingIEventedList)value;
-                }
-                else
-                {
-                    throw new IndexOutOfRangeException();
-                }
+                name = value;
             }
         }
-
-
-        public virtual bool IsReadOnly
-        {
-            get { return true; } // change it after all object-based modification methods are implemented
-        }
-
-        public virtual bool IsFixedSize
-        {
-            get { return false; }
-        }
-
-        #endregion
-
-        #region ICollection Members
-
-        public virtual void CopyTo(Array array, int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual int Count
-        {
-            get { return Children.Count; }
-        }
-
-        public virtual object SyncRoot
-        {
-            get { return null; }
-        }
-
-        public virtual bool IsSynchronized
-        {
-            get { return false; }
-        }
-
-        #endregion
 
         public virtual ClassImplementingIEventedList GetChildContaining(object item)
         {
@@ -221,6 +114,18 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
             return null;
         }
 
+        public virtual object Clone()
+        {
+            ClassImplementingIEventedList folderCopy = new ClassImplementingIEventedList();
+            folderCopy.Name = Name;
+
+            foreach (var child in Children)
+            {
+                folderCopy.children.Add((ClassImplementingIEventedList) child.Clone());
+            }
+            return folderCopy;
+        }
+
         public virtual void Insert(int index, object item)
         {
             // TODO: make it throw exception, change to ICollection in the future
@@ -236,30 +141,6 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
             }
             return false;
         }
-
-        #region ICollection<object> Members
-
-        public virtual void CopyTo(object[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
-
-        bool ICollection<object>.Remove(object item)
-        {
-            ClassImplementingIEventedList child;
-            if ((child = item as ClassImplementingIEventedList) != null)
-            {
-                return Children.Remove(child);
-            }
-            else
-            {
-                throw new NotSupportedException(
-                    String.Format(CultureInfo.InvariantCulture, "Type is not supported as a member of a folder: {0}",
-                                  item));
-            }
-        }
-
-        #endregion
 
         void ICollection<object>.Add(object item)
         {
@@ -286,6 +167,160 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
             throw new NotImplementedException();
         }
 
+        #region IEnumerable<object> Members
+
+        IEnumerator<object> IEnumerable<object>.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        private void ChildCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        {
+            // update owner of folder in case the folder belongs to the list of folders contained
+            // by this folder.
+            if (sender == children)
+            {
+                ClassImplementingIEventedList folder = (ClassImplementingIEventedList) e.Item;
+
+                switch (e.Action)
+                {
+                    case NotifyCollectionChangeAction.Replace:
+                    case NotifyCollectionChangeAction.Add:
+                        folder.Parent = this;
+                        break;
+
+                    case NotifyCollectionChangeAction.Remove:
+                        folder.Parent = null;
+                        break;
+                }
+            }
+        }
+
+        #region IList Members
+
+        public virtual void Add(object o)
+        {
+            ClassImplementingIEventedList child;
+            if ((child = o as ClassImplementingIEventedList) != null)
+            {
+                Children.Add(child);
+            }
+        }
+
+        public virtual bool Remove(object o)
+        {
+            ClassImplementingIEventedList child = (ClassImplementingIEventedList) o;
+            return Children.Remove(child);
+        }
+
+        public virtual void RemoveAt(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual object this[int index]
+        {
+            get
+            {
+                if (index < Children.Count)
+                {
+                    return Children[index];
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException();
+                }
+            }
+            set
+            {
+                if (index < Children.Count)
+                {
+                    Children[index] = (ClassImplementingIEventedList) value;
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException();
+                }
+            }
+        }
+
+        public virtual bool IsReadOnly
+        {
+            get
+            {
+                return true;
+            } // change it after all object-based modification methods are implemented
+        }
+
+        public virtual bool IsFixedSize
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region ICollection Members
+
+        public virtual void CopyTo(Array array, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual int Count
+        {
+            get
+            {
+                return Children.Count;
+            }
+        }
+
+        public virtual object SyncRoot
+        {
+            get
+            {
+                return null;
+            }
+        }
+
+        public virtual bool IsSynchronized
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #region ICollection<object> Members
+
+        public virtual void CopyTo(object[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool ICollection<object>.Remove(object item)
+        {
+            ClassImplementingIEventedList child;
+            if ((child = item as ClassImplementingIEventedList) != null)
+            {
+                return Children.Remove(child);
+            }
+            else
+            {
+                throw new NotSupportedException(
+                    String.Format(CultureInfo.InvariantCulture, "Type is not supported as a member of a folder: {0}",
+                                  item));
+            }
+        }
+
+        #endregion
+
         #region IEnumerable Members
 
         public virtual IEnumerator GetEnumerator()
@@ -295,8 +330,6 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
 
         public class FolderItemEnumerator : IEnumerator
         {
-            private object current;
-
             #region IEnumerator Members
 
             public bool MoveNext()
@@ -309,25 +342,11 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
                 throw new NotImplementedException();
             }
 
-            public object Current
-            {
-                get { return current; }
-            }
+            public object Current { get; private set; }
 
             #endregion
         }
 
         #endregion
-
-        #region IEnumerable<object> Members
-
-        IEnumerator<object> IEnumerable<object>.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        public virtual event PropertyChangedEventHandler PropertyChanged;
     }
 }

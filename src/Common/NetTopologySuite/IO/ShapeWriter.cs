@@ -20,7 +20,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <summary> 
         /// Creates a <coordinate>ShapeWriter</coordinate> that creates objects using a basic GeometryFactory.
         /// </summary>
-        public ShapeWriter() { }
+        public ShapeWriter() {}
 
         /// <summary>
         /// 
@@ -66,7 +66,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
 
             // Write Coordinates
             for (int i = 0; i < lineString.NumPoints; i++)
+            {
                 Write(lineString.Coordinates[i], writer);
+            }
         }
 
         /// <summary>
@@ -83,7 +85,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
 
             // Write NumParts and NumPoints            
             writer.Write((int) (polygon.NumInteriorRings + 1));
-            writer.Write((int)  polygon.NumPoints);
+            writer.Write((int) polygon.NumPoints);
 
             // Write IndexParts
             int count = 0;
@@ -103,7 +105,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
 
             // Write Coordinates
             for (int i = 0; i < polygon.NumPoints; i++)
+            {
                 Write(polygon.Coordinates[i], writer);
+            }
         }
 
         /// <summary>
@@ -123,7 +127,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
 
             // Write Coordinates
             for (int i = 0; i < multiPoint.NumPoints; i++)
+            {
                 Write(multiPoint.Coordinates[i], writer);
+            }
         }
 
         /// <summary>
@@ -152,13 +158,17 @@ namespace GisSharpBlog.NetTopologySuite.IO
                 // Write internal holes index
                 count += multiLineString.GetGeometryN(i).NumPoints;
                 if (count == multiLineString.NumPoints)
+                {
                     break;
+                }
                 writer.Write((int) count);
             }
 
             // Write Coordinates
             for (int i = 0; i < multiLineString.NumPoints; i++)
+            {
                 Write(multiLineString.Coordinates[i], writer);
+            }
         }
 
         /// <summary>
@@ -174,9 +184,11 @@ namespace GisSharpBlog.NetTopologySuite.IO
             WriteBoundingBox(multiPolygon, writer);
 
             // Write NumParts and NumPoints
-            int numParts = multiPolygon.NumGeometries;              // Exterior rings count
-            for (int i = 0; i < multiPolygon.NumGeometries; i++)    // Adding interior rings count            
+            int numParts = multiPolygon.NumGeometries; // Exterior rings count
+            for (int i = 0; i < multiPolygon.NumGeometries; i++) // Adding interior rings count            
+            {
                 numParts += ((IPolygon) multiPolygon.GetGeometryN(i)).NumInteriorRings;
+            }
 
             writer.Write((int) numParts);
             writer.Write((int) multiPolygon.NumPoints);
@@ -191,21 +203,27 @@ namespace GisSharpBlog.NetTopologySuite.IO
                 ILineString shell = polygon.ExteriorRing;
                 count += shell.NumPoints;
                 if (count == multiPolygon.NumPoints)
+                {
                     break;
+                }
                 writer.Write((int) count);
                 for (int j = 0; j < polygon.NumInteriorRings; j++)
                 {
                     ILineString hole = (ILineString) polygon.GetInteriorRingN(j);
                     count += hole.NumPoints;
                     if (count == multiPolygon.NumPoints)
+                    {
                         break;
+                    }
                     writer.Write((int) count);
                 }
             }
 
             // Write Coordinates
             for (int i = 0; i < multiPolygon.NumPoints; i++)
+            {
                 Write(multiPolygon.Coordinates[i], writer);
+            }
         }
 
         /// <summary>
@@ -229,7 +247,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <returns></returns>
         public byte[] GetBytes(IGeometry geometry)
         {
-            return new byte[GetBytesLength(geometry)];            
+            return new byte[GetBytesLength(geometry)];
         }
 
         /// <summary>
@@ -240,20 +258,37 @@ namespace GisSharpBlog.NetTopologySuite.IO
         public int GetBytesLength(IGeometry geometry)
         {
             if (geometry is IPoint)
+            {
                 return SetByteStreamLength(geometry as IPoint);
+            }
             else if (geometry is ILineString)
+            {
                 return SetByteStreamLength(geometry as ILineString);
+            }
             else if (geometry is IPolygon)
+            {
                 return SetByteStreamLength(geometry as IPolygon);
+            }
             else if (geometry is IMultiPoint)
+            {
                 return SetByteStreamLength(geometry as IMultiPoint);
+            }
             else if (geometry is IMultiLineString)
+            {
                 return SetByteStreamLength(geometry as IMultiLineString);
+            }
             else if (geometry is IMultiPolygon)
+            {
                 return SetByteStreamLength(geometry as IMultiPolygon);
+            }
             else if (geometry is IGeometryCollection)
+            {
                 throw new NotSupportedException("GeometryCollection not supported!");
-            else throw new ArgumentException("ShouldNeverReachHere!");
+            }
+            else
+            {
+                throw new ArgumentException("ShouldNeverReachHere!");
+            }
         }
 
         /// <summary>
@@ -262,10 +297,12 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="multiPolygon"></param>
         /// <returns></returns>
         protected int SetByteStreamLength(IMultiPolygon multiPolygon)
-        {            
-            int numParts = multiPolygon.NumGeometries;               // Exterior rings count            
-            foreach (IPolygon polygon in multiPolygon.Geometries)    // Adding interior rings count            
+        {
+            int numParts = multiPolygon.NumGeometries; // Exterior rings count            
+            foreach (IPolygon polygon in multiPolygon.Geometries) // Adding interior rings count            
+            {
                 numParts += polygon.NumInteriorRings;
+            }
             int numPoints = multiPolygon.NumPoints;
             return CalculateLength(numParts, numPoints);
         }
@@ -276,7 +313,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="multiLineString"></param>
         /// <returns></returns>
         protected int SetByteStreamLength(IMultiLineString multiLineString)
-        {            
+        {
             int numParts = multiLineString.NumGeometries;
             int numPoints = multiLineString.NumPoints;
             return CalculateLength(numParts, numPoints);
@@ -288,10 +325,10 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="multiPoint"></param>
         /// <returns></returns>
         protected int SetByteStreamLength(IMultiPoint multiPoint)
-        {            
+        {
             int numPoints = multiPoint.NumPoints;
             return CalculateLength(numPoints);
-        }        
+        }
 
         /// <summary>
         /// 
@@ -303,7 +340,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
             int numParts = polygon.InteriorRings.Length + 1;
             int numPoints = polygon.NumPoints;
             return CalculateLength(numParts, numPoints);
-        }        
+        }
 
         /// <summary>
         /// 
@@ -313,7 +350,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         protected int SetByteStreamLength(ILineString lineString)
         {
             int numPoints = lineString.NumPoints;
-            return CalculateLength(1, numPoints);   // ASSERT: IndexParts.Length == 1;            
+            return CalculateLength(1, numPoints); // ASSERT: IndexParts.Length == 1;            
         }
 
         /// <summary>
@@ -335,9 +372,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
         private static int CalculateLength(int numParts, int numPoints)
         {
             int count = InitCount;
-            count += 8;                         // NumParts and NumPoints
-            count += 4 * numParts;
-            count += 8 * 2 * numPoints;
+            count += 8; // NumParts and NumPoints
+            count += 4*numParts;
+            count += 8*2*numPoints;
             return count;
         }
 
@@ -349,8 +386,8 @@ namespace GisSharpBlog.NetTopologySuite.IO
         private static int CalculateLength(int numPoints)
         {
             int count = InitCount;
-            count += 4;                         // NumPoints
-            count += 8 * 2 * numPoints;
+            count += 4; // NumPoints
+            count += 8*2*numPoints;
             return count;
         }
     }

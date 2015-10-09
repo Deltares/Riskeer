@@ -27,6 +27,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 
@@ -34,16 +35,19 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
 {
     /// <summary>Stores a set of four double-precision floating-point numbers that represent the location and size of a rectangle. </summary>
     /// <filterpriority>1</filterpriority>
-    [Serializable, StructLayout(LayoutKind.Sequential)]
+    [Serializable]
+    [StructLayout(LayoutKind.Sequential)]
     public struct RectangleD
     {
         /// <summary>Represents an instance of the <see cref="T:System.Drawing.RectangleD"></see> class with its members uninitialized.</summary>
         /// <filterpriority>1</filterpriority>
         public static readonly RectangleD Empty;
+
         private double x;
         private double y;
         private double width;
         private double height;
+
         /// <summary>Initializes a new instance of the <see cref="T:System.Drawing.RectangleD"></see> class with the specified location and size.</summary>
         /// <param name="y">The y-coordinate of the upper-left corner of the rectangle. </param>
         /// <param name="width">The width of the rectangle. </param>
@@ -62,10 +66,10 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <param name="location">A <see cref="T:System.Drawing.PointD"></see> that represents the upper-left corner of the rectangular region. </param>
         public RectangleD(PointD location, SizeD size)
         {
-            this.x = location.X;
-            this.y = location.Y;
-            this.width = size.Width;
-            this.height = size.Height;
+            x = location.X;
+            y = location.Y;
+            width = size.Width;
+            height = size.Height;
         }
 
         /// <summary>Creates a <see cref="T:System.Drawing.RectangleD"></see> structure with upper-left corner and lower-right corner at the specified locations.</summary>
@@ -88,14 +92,15 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return new PointD(this.X, this.Y);
+                return new PointD(X, Y);
             }
             set
             {
-                this.X = value.X;
-                this.Y = value.Y;
+                X = value.X;
+                Y = value.Y;
             }
         }
+
         /// <summary>Gets or sets the size of this <see cref="T:System.Drawing.RectangleD"></see>.</summary>
         /// <returns>A <see cref="T:System.Drawing.SizeD"></see> that represents the width and height of this <see cref="T:System.Drawing.RectangleD"></see> structure.</returns>
         /// <filterpriority>1</filterpriority>
@@ -104,14 +109,15 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return new SizeD(this.Width, this.Height);
+                return new SizeD(Width, Height);
             }
             set
             {
-                this.Width = value.Width;
-                this.Height = value.Height;
+                Width = value.Width;
+                Height = value.Height;
             }
         }
+
         /// <summary>Gets or sets the x-coordinate of the upper-left corner of this <see cref="T:System.Drawing.RectangleD"></see> structure.</summary>
         /// <returns>The x-coordinate of the upper-left corner of this <see cref="T:System.Drawing.RectangleD"></see> structure.</returns>
         /// <filterpriority>1</filterpriority>
@@ -119,13 +125,14 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return this.x;
+                return x;
             }
             set
             {
-                this.x = value;
+                x = value;
             }
         }
+
         /// <summary>Gets or sets the y-coordinate of the upper-left corner of this <see cref="T:System.Drawing.RectangleD"></see> structure.</summary>
         /// <returns>The y-coordinate of the upper-left corner of this <see cref="T:System.Drawing.RectangleD"></see> structure. </returns>
         /// <filterpriority>1</filterpriority>
@@ -133,13 +140,14 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return this.y;
+                return y;
             }
             set
             {
-                this.y = value;
+                y = value;
             }
         }
+
         /// <summary>Gets or sets the width of this <see cref="T:System.Drawing.RectangleD"></see> structure.</summary>
         /// <returns>The width of this <see cref="T:System.Drawing.RectangleD"></see> structure.</returns>
         /// <filterpriority>1</filterpriority>
@@ -147,13 +155,14 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return this.width;
+                return width;
             }
             set
             {
-                this.width = value;
+                width = value;
             }
         }
+
         /// <summary>Gets or sets the height of this <see cref="T:System.Drawing.RectangleD"></see> structure.</summary>
         /// <returns>The height of this <see cref="T:System.Drawing.RectangleD"></see> structure.</returns>
         /// <filterpriority>1</filterpriority>
@@ -161,13 +170,14 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return this.height;
+                return height;
             }
             set
             {
-                this.height = value;
+                height = value;
             }
         }
+
         /// <summary>Gets the x-coordinate of the left edge of this <see cref="T:System.Drawing.RectangleD"></see> structure.</summary>
         /// <returns>The x-coordinate of the left edge of this <see cref="T:System.Drawing.RectangleD"></see> structure.</returns>
         /// <filterpriority>1</filterpriority>
@@ -176,9 +186,10 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return this.X;
+                return X;
             }
         }
+
         /// <summary>Gets the y-coordinate of the top edge of this <see cref="T:System.Drawing.RectangleD"></see> structure.</summary>
         /// <returns>The y-coordinate of the top edge of this <see cref="T:System.Drawing.RectangleD"></see> structure.</returns>
         /// <filterpriority>1</filterpriority>
@@ -187,9 +198,10 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return this.Y;
+                return Y;
             }
         }
+
         /// <summary>Gets the x-coordinate that is the sum of <see cref="P:System.Drawing.RectangleD.X"></see> and <see cref="P:System.Drawing.RectangleD.Width"></see> of this <see cref="T:System.Drawing.RectangleD"></see> structure.</summary>
         /// <returns>The x-coordinate that is the sum of <see cref="P:System.Drawing.RectangleD.X"></see> and <see cref="P:System.Drawing.RectangleD.Width"></see> of this <see cref="T:System.Drawing.RectangleD"></see> structure.</returns>
         /// <filterpriority>1</filterpriority>
@@ -198,9 +210,10 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return (this.X + this.Width);
+                return (X + Width);
             }
         }
+
         /// <summary>Gets the y-coordinate that is the sum of <see cref="P:System.Drawing.RectangleD.Y"></see> and <see cref="P:System.Drawing.RectangleD.Height"></see> of this <see cref="T:System.Drawing.RectangleD"></see> structure.</summary>
         /// <returns>The y-coordinate that is the sum of <see cref="P:System.Drawing.RectangleD.Y"></see> and <see cref="P:System.Drawing.RectangleD.Height"></see> of this <see cref="T:System.Drawing.RectangleD"></see> structure.</returns>
         /// <filterpriority>1</filterpriority>
@@ -209,9 +222,10 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return (this.Y + this.Height);
+                return (Y + Height);
             }
         }
+
         /// <summary>Tests whether the <see cref="P:System.Drawing.RectangleD.Width"></see> or <see cref="P:System.Drawing.RectangleD.Height"></see> property of this <see cref="T:System.Drawing.RectangleD"></see> has a value of zero.</summary>
         /// <returns>This property returns true if the <see cref="P:System.Drawing.RectangleD.Width"></see> or <see cref="P:System.Drawing.RectangleD.Height"></see> property of this <see cref="T:System.Drawing.RectangleD"></see> has a value of zero; otherwise, false.</returns>
         /// <filterpriority>1</filterpriority>
@@ -220,13 +234,14 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                if (this.Width > 0f)
+                if (Width > 0f)
                 {
-                    return (this.Height <= 0f);
+                    return (Height <= 0f);
                 }
                 return true;
             }
         }
+
         /// <summary>Tests whether obj is a <see cref="T:System.Drawing.RectangleD"></see> with the same location and size of this <see cref="T:System.Drawing.RectangleD"></see>.</summary>
         /// <returns>This method returns true if obj is a <see cref="T:System.Drawing.RectangleD"></see> and its X, Y, Width, and Height properties are equal to the corresponding properties of this <see cref="T:System.Drawing.RectangleD"></see>; otherwise, false.</returns>
         /// <param name="obj">The <see cref="T:System.Object"></see> to test. </param>
@@ -237,8 +252,8 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
             {
                 return false;
             }
-            RectangleD ef = (RectangleD)obj;
-            return ((((ef.X == this.X) && (ef.Y == this.Y)) && (ef.Width == this.Width)) && (ef.Height == this.Height));
+            RectangleD ef = (RectangleD) obj;
+            return ((((ef.X == X) && (ef.Y == Y)) && (ef.Width == Width)) && (ef.Height == Height));
         }
 
         /// <summary>Tests whether two <see cref="T:System.Drawing.RectangleD"></see> structures have equal location and size.</summary>
@@ -268,7 +283,7 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <filterpriority>1</filterpriority>
         public bool Contains(double x, double y)
         {
-            return ((((this.X <= x) && (x < (this.X + this.Width))) && (this.Y <= y)) && (y < (this.Y + this.Height)));
+            return ((((X <= x) && (x < (X + Width))) && (Y <= y)) && (y < (Y + Height)));
         }
 
         /// <summary>Determines if the specified point is contained within this <see cref="T:System.Drawing.RectangleD"></see> structure.</summary>
@@ -277,7 +292,7 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <filterpriority>1</filterpriority>
         public bool Contains(PointD pt)
         {
-            return this.Contains(pt.X, pt.Y);
+            return Contains(pt.X, pt.Y);
         }
 
         /// <summary>Determines if the rectangular region represented by rect is entirely contained within this <see cref="T:System.Drawing.RectangleD"></see> structure.</summary>
@@ -286,7 +301,7 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <filterpriority>1</filterpriority>
         public bool Contains(RectangleD rect)
         {
-            return ((((this.X <= rect.X) && ((rect.X + rect.Width) <= (this.X + this.Width))) && (this.Y <= rect.Y)) && ((rect.Y + rect.Height) <= (this.Y + this.Height)));
+            return ((((X <= rect.X) && ((rect.X + rect.Width) <= (X + Width))) && (Y <= rect.Y)) && ((rect.Y + rect.Height) <= (Y + Height)));
         }
 
         /// <summary>Gets the hash code for this <see cref="T:System.Drawing.RectangleD"></see> structure. For information about the use of hash codes, see Object.GetHashCode.</summary>
@@ -294,7 +309,7 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <filterpriority>1</filterpriority>
         public override int GetHashCode()
         {
-            return (int)(((((uint)this.X) ^ ((((uint)this.Y) << 13) | (((uint)this.Y) >> 0x13))) ^ ((((uint)this.Width) << 0x1a) | (((uint)this.Width) >> 6))) ^ ((((uint)this.Height) << 7) | (((uint)this.Height) >> 0x19)));
+            return (int) (((((uint) X) ^ ((((uint) Y) << 13) | (((uint) Y) >> 0x13))) ^ ((((uint) Width) << 0x1a) | (((uint) Width) >> 6))) ^ ((((uint) Height) << 7) | (((uint) Height) >> 0x19)));
         }
 
         /// <summary>Inflates this <see cref="T:System.Drawing.RectangleD"></see> structure by the specified amount.</summary>
@@ -304,10 +319,10 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <filterpriority>1</filterpriority>
         public void Inflate(double x, double y)
         {
-            this.X -= x;
-            this.Y -= y;
-            this.Width += 2f * x;
-            this.Height += 2f * y;
+            X -= x;
+            Y -= y;
+            Width += 2f*x;
+            Height += 2f*y;
         }
 
         /// <summary>Inflates this <see cref="T:System.Drawing.RectangleD"></see> by the specified amount.</summary>
@@ -316,7 +331,7 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <filterpriority>1</filterpriority>
         public void Inflate(SizeD size)
         {
-            this.Inflate(size.Width, size.Height);
+            Inflate(size.Width, size.Height);
         }
 
         /// <summary>Creates and returns an inflated copy of the specified <see cref="T:System.Drawing.RectangleD"></see> structure. The copy is inflated by the specified amount. The original rectangle remains unmodified.</summary>
@@ -339,10 +354,10 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         public void Intersect(RectangleD rect)
         {
             RectangleD ef = Intersect(rect, this);
-            this.X = ef.X;
-            this.Y = ef.Y;
-            this.Width = ef.Width;
-            this.Height = ef.Height;
+            X = ef.X;
+            Y = ef.Y;
+            Width = ef.Width;
+            Height = ef.Height;
         }
 
         /// <summary>Returns a <see cref="T:System.Drawing.RectangleD"></see> structure that represents the intersection of two rectangles. If there is no intersection, and empty <see cref="T:System.Drawing.RectangleD"></see> is returned.</summary>
@@ -353,9 +368,9 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         public static RectangleD Intersect(RectangleD a, RectangleD b)
         {
             double x = Math.Max(a.X, b.X);
-            double num2 = Math.Min((double)(a.X + a.Width), (double)(b.X + b.Width));
+            double num2 = Math.Min((double) (a.X + a.Width), (double) (b.X + b.Width));
             double y = Math.Max(a.Y, b.Y);
-            double num4 = Math.Min((double)(a.Y + a.Height), (double)(b.Y + b.Height));
+            double num4 = Math.Min((double) (a.Y + a.Height), (double) (b.Y + b.Height));
             if ((num2 >= x) && (num4 >= y))
             {
                 return new RectangleD(x, y, num2 - x, num4 - y);
@@ -369,7 +384,7 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <filterpriority>1</filterpriority>
         public bool IntersectsWith(RectangleD rect)
         {
-            return ((((rect.X < (this.X + this.Width)) && (this.X < (rect.X + rect.Width))) && (rect.Y < (this.Y + this.Height))) && (this.Y < (rect.Y + rect.Height)));
+            return ((((rect.X < (X + Width)) && (X < (rect.X + rect.Width))) && (rect.Y < (Y + Height))) && (Y < (rect.Y + rect.Height)));
         }
 
         /// <summary>Creates the smallest possible third rectangle that can contain both of two rectangles that form a union.</summary>
@@ -380,9 +395,9 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         public static RectangleD Union(RectangleD a, RectangleD b)
         {
             double x = Math.Min(a.X, b.X);
-            double num2 = Math.Max((double)(a.X + a.Width), (double)(b.X + b.Width));
+            double num2 = Math.Max((double) (a.X + a.Width), (double) (b.X + b.Width));
             double y = Math.Min(a.Y, b.Y);
-            double num4 = Math.Max((double)(a.Y + a.Height), (double)(b.Y + b.Height));
+            double num4 = Math.Max((double) (a.Y + a.Height), (double) (b.Y + b.Height));
             return new RectangleD(x, y, num2 - x, num4 - y);
         }
 
@@ -392,7 +407,7 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <filterpriority>1</filterpriority>
         public void Offset(PointD pos)
         {
-            this.Offset(pos.X, pos.Y);
+            Offset(pos.X, pos.Y);
         }
 
         /// <summary>Adjusts the location of this rectangle by the specified amount.</summary>
@@ -402,28 +417,27 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <filterpriority>1</filterpriority>
         public void Offset(double x, double y)
         {
-            this.X += x;
-            this.Y += y;
+            X += x;
+            Y += y;
         }
 
-        
         /// <summary>Converts the specified <see cref="T:System.Drawing.Rectangle"></see> structure to a <see cref="T:System.Drawing.RectangleD"></see> structure.</summary>
         /// <returns>The <see cref="T:System.Drawing.RectangleD"></see> structure that is converted from the specified <see cref="T:System.Drawing.Rectangle"></see> structure.</returns>
         /// <param name="r">The <see cref="T:System.Drawing.Rectangle"></see> structure to convert. </param>
         /// <filterpriority>3</filterpriority>
-        public static implicit operator RectangleD(System.Drawing.Rectangle r)
+        public static implicit operator RectangleD(Rectangle r)
         {
-            return new RectangleD((double)r.X, (double)r.Y, (double)r.Width, (double)r.Height);
+            return new RectangleD((double) r.X, (double) r.Y, (double) r.Width, (double) r.Height);
         }
 
-        public static implicit operator RectangleD(System.Drawing.RectangleF r)
+        public static implicit operator RectangleD(RectangleF r)
         {
-            return new RectangleD((double)r.X, (double)r.Y, (double)r.Width, (double)r.Height);
+            return new RectangleD((double) r.X, (double) r.Y, (double) r.Width, (double) r.Height);
         }
 
-        public static implicit operator System.Drawing.RectangleF(RectangleD r)
+        public static implicit operator RectangleF(RectangleD r)
         {
-            return new System.Drawing.RectangleF((float)r.X, (float)r.Y, (float)r.Width, (float)r.Height);
+            return new RectangleF((float) r.X, (float) r.Y, (float) r.Width, (float) r.Height);
         }
 
         /// <summary>Converts the Location and <see cref="T:System.Drawing.Size"></see> of this <see cref="T:System.Drawing.RectangleD"></see> to a human-readable string.</summary>
@@ -432,7 +446,7 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <PermissionSet><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode" /></PermissionSet>
         public override string ToString()
         {
-            return ("{X=" + this.X.ToString(CultureInfo.CurrentCulture) + ",Y=" + this.Y.ToString(CultureInfo.CurrentCulture) + ",Width=" + this.Width.ToString(CultureInfo.CurrentCulture) + ",Height=" + this.Height.ToString(CultureInfo.CurrentCulture) + "}");
+            return ("{X=" + X.ToString(CultureInfo.CurrentCulture) + ",Y=" + Y.ToString(CultureInfo.CurrentCulture) + ",Width=" + Width.ToString(CultureInfo.CurrentCulture) + ",Height=" + Height.ToString(CultureInfo.CurrentCulture) + "}");
         }
 
         static RectangleD()
@@ -440,6 +454,4 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
             Empty = new RectangleD();
         }
     }
-
-
 }

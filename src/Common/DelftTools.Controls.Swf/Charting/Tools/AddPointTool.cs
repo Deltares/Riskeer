@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using DelftTools.Controls.Swf.Charting.Series;
 using log4net;
 using Steema.TeeChart;
+using Steema.TeeChart.Styles;
 using Steema.TeeChart.Tools;
 
 namespace DelftTools.Controls.Swf.Charting.Tools
@@ -13,10 +14,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
     /// </summary>
     public class AddPointTool : ChartViewSeriesToolBase, IAddPointTool
     {
-        private static ILog log = LogManager.GetLogger(typeof(AddPointTool));
+        public event EventHandler<PointEventArgs> PointAdded;
+        private static readonly ILog log = LogManager.GetLogger(typeof(AddPointTool));
 
         private MouseButtons button = MouseButtons.Left;
-        private Cursor cursor;
         private bool dragging = false;
 
         /// <summary>
@@ -31,16 +32,17 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         /// <summary>
         /// Tool that enables interactive adding of points to a series.
         /// </summary>
-        public AddPointTool() : this(null)
-        {
-        }
+        public AddPointTool() : this(null) {}
 
         /// <summary>
         /// Gets descriptive text.
         /// </summary>
         public override string Description
         {
-            get { return "AddPoint"; }
+            get
+            {
+                return "AddPoint";
+            }
         }
 
         /// <summary>
@@ -48,7 +50,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         /// </summary>
         public override string Summary
         {
-            get { return Texts.DragPointSummary; }
+            get
+            {
+                return Texts.DragPointSummary;
+            }
         }
 
         public bool Insert { get; set; }
@@ -58,25 +63,33 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         /// </summary>
         public MouseButtons Button
         {
-            get { return button; }
-            set { button = value; }
+            get
+            {
+                return button;
+            }
+            set
+            {
+                button = value;
+            }
         }
 
         /// <summary>
         /// Determines the type of DragPoint Cursor displayed.
         /// </summary>
-        public Cursor Cursor
-        {
-            get { return cursor; }
-            set { cursor = value; }
-        }
+        public Cursor Cursor { get; set; }
 
         public bool AddOnlyIfOnLine { get; set; }
 
         public ILineChartSeries Series
         {
-            get { return (ILineChartSeries) base.Series; }
-            set { base.Series = value; }
+            get
+            {
+                return (ILineChartSeries) base.Series;
+            }
+            set
+            {
+                base.Series = value;
+            }
         }
 
         protected override void Assign(Tool t)
@@ -87,8 +100,8 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             tmp.Cursor = Cursor;
             //tmp.Style = Style;
         }
-  
-        protected override void OnMouseMove(MouseEventArgs e,ref Cursor c)
+
+        protected override void OnMouseMove(MouseEventArgs e, ref Cursor c)
         {
             Point P = new Point(e.X, e.Y);
             if (!dragging)
@@ -117,7 +130,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             log.Debug("AddPointTool : Up");
             dragging = false;
         }
-        
+
         protected override void OnMouseDown(MouseEventArgs e)
         {
             log.Debug("AddPointTool : Down");
@@ -133,8 +146,8 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                     {
                         if (s.Active)
                         {
-                            dragging =  (s.Clicked(p) != -1);
-                            if (dragging )
+                            dragging = (s.Clicked(p) != -1);
+                            if (dragging)
                             {
                                 LastSelectedSeries = s;
                                 break;
@@ -160,9 +173,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                         double y = LastSelectedSeries.YScreenToValue(e.Y);
 
                         //add/insert point to the series
-                        string oldOrderName = Enum.GetName(typeof(Steema.TeeChart.Styles.ValueListOrder), LastSelectedSeries.XValues.Order);
+                        string oldOrderName = Enum.GetName(typeof(ValueListOrder), LastSelectedSeries.XValues.Order);
 
-                        LastSelectedSeries.XValues.Order = Steema.TeeChart.Styles.ValueListOrder.None;// .Ascending;
+                        LastSelectedSeries.XValues.Order = ValueListOrder.None; // .Ascending;
                         if (x > Chart.Axes.Bottom.MinXValue
                             && x < Chart.Axes.Bottom.MaxXValue
                             && y > Chart.Axes.Left.MinYValue
@@ -204,13 +217,11 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                                 }
                             }
                         }
-                        LastSelectedSeries.XValues.Order = (Steema.TeeChart.Styles.ValueListOrder)Enum.Parse(typeof(Steema.TeeChart.Styles.ValueListOrder), oldOrderName);
+                        LastSelectedSeries.XValues.Order = (ValueListOrder) Enum.Parse(typeof(ValueListOrder), oldOrderName);
                     }
                 }
             }
         }
-
-        public event EventHandler<PointEventArgs> PointAdded;
 
         private bool IsPointOnLine(Point clickedPoint)
         {
@@ -230,23 +241,23 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         // HACK 
         private static double Distance(double x1, double y1, double X2, double Y2)
         {
-            return Math.Sqrt((x1 - X2) * (x1 - X2) + (y1 - Y2) * (y1 - Y2));
+            return Math.Sqrt((x1 - X2)*(x1 - X2) + (y1 - Y2)*(y1 - Y2));
         }
 
         private static double CrossProduct(double Ax, double Ay, double Bx, double By,
-                                          double cx, double cy)
+                                           double cx, double cy)
         {
-            return (Bx - Ax) * (cy - Ay) - (By - Ay) * (cx - Ax);
+            return (Bx - Ax)*(cy - Ay) - (By - Ay)*(cx - Ax);
         }
 
         private static double Dot(double Ax, double Ay, double Bx, double By,
-                                 double cx, double cy)
+                                  double cx, double cy)
         {
-            return (Bx - Ax) * (cx - Bx) + (By - Ay) * (cy - By);
+            return (Bx - Ax)*(cx - Bx) + (By - Ay)*(cy - By);
         }
 
         private static double LinePointDistance(double Ax, double Ay, double Bx, double By,
-                                               double cx, double cy)
+                                                double cx, double cy)
         {
             double dist, dot1, dot2;
 
@@ -255,17 +266,20 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             {
                 return double.MaxValue;
             }
-            dist = CrossProduct(Ax, Ay, Bx, By, cx, cy) / dist;
+            dist = CrossProduct(Ax, Ay, Bx, By, cx, cy)/dist;
             // if (isSegment) always true
             dot1 = Dot(Ax, Ay, Bx, By, cx, cy);
             if (dot1 > 0)
+            {
                 return Distance(Bx, By, cx, cy);
+            }
             dot2 = Dot(Bx, By, Ax, Ay, cx, cy);
             if (dot2 > 0)
+            {
                 return Distance(Ax, Ay, cx, cy);
+            }
             return Math.Abs(dist);
         }
-        
     }
 
     public interface IAddPointTool : IChartViewTool

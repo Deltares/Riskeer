@@ -11,8 +11,8 @@ namespace SharpMap.Extensions.Tests.Layers
         public void CacheDirectoryIsDefined()
         {
             OpenStreetMapLayer.CacheLocation
-                .Should("Cache directory is defined")
-                .EndWith(@"cache_open_street_map");
+                              .Should("Cache directory is defined")
+                              .EndWith(@"cache_open_street_map");
         }
     }
 }

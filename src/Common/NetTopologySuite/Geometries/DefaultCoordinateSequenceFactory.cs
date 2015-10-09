@@ -13,19 +13,13 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
     {
         // NOTE: modified for "safe" assembly in Sql 2005
         // Readonly added
-        private static readonly DefaultCoordinateSequenceFactory instance = 
+        private static readonly DefaultCoordinateSequenceFactory instance =
             new DefaultCoordinateSequenceFactory();
 
         /// <summary>
         /// 
         /// </summary>
-        private DefaultCoordinateSequenceFactory() { }
-
-        // see http://www.javaworld.com/javaworld/javatips/jw-javatip122.html
-        private object ReadResolve()
-        {
-            return Instance;
-        }
+        private DefaultCoordinateSequenceFactory() {}
 
         /// <summary>
         /// Returns the singleton instance of DefaultCoordinateSequenceFactory.
@@ -59,6 +53,12 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public ICoordinateSequence Create(int size, int dimension)
         {
             throw new NotImplementedException();
+        }
+
+        // see http://www.javaworld.com/javaworld/javatips/jw-javatip122.html
+        private object ReadResolve()
+        {
+            return Instance;
         }
     }
 }

@@ -17,42 +17,27 @@ namespace DeltaShell.Plugins.ProjectExplorer
     /// </summary>
     public partial class ProjectTreeView : UserControl, IView
     {
+        private readonly TreeView treeView;
         private GuiPlugin guiPlugin;
         private IApplication app;
         private IGui gui;
-        private readonly TreeView treeView;
         private Project project;
+
+        private bool selectingNode;
 
         public ProjectTreeView(GuiPlugin guiPlugin) : this()
         {
             GuiPlugin = guiPlugin;
         }
 
-        public new void Dispose()
-        {
-            if (gui != null)
-            {
-                gui.SelectionChanged -= GuiSelectionChanged;
-            }
-
-            if (app != null)
-            {
-                UnsubscribeProjectEvents();
-            }
-
-            treeView.Data = null;
-            treeView.Dispose();
-
-            base.Dispose();
-
-            app = null;
-        }
-
         public ProjectTreeView()
         {
             InitializeComponent();
 
-            treeView = new TreeView {AllowDrop = true};
+            treeView = new TreeView
+            {
+                AllowDrop = true
+            };
 
             treeView.NodeMouseClick += TreeViewNodeMouseClick;
             treeView.DoubleClick += TreeViewDoubleClick;
@@ -63,22 +48,6 @@ namespace DeltaShell.Plugins.ProjectExplorer
             treeView.OnProcessCmdKey = OnProcessCmdKey;
 
             Controls.Add(treeView);
-        }
-
-        private bool selectingNode;
-
-        void TreeViewSelectedNodeChanged(object sender, EventArgs e)
-        {
-            selectingNode = true;
-
-            var tag = treeView.SelectedNode != null ? treeView.SelectedNode.Tag : null;
-
-            gui.SelectedProjectItem = tag as IProjectItem;
-
-            // triggers validate items for ribbon so this should be done after setting SelectedProjectItem
-            gui.Selection = tag;
-
-            selectingNode = false;
         }
 
         public GuiPlugin GuiPlugin
@@ -107,18 +76,30 @@ namespace DeltaShell.Plugins.ProjectExplorer
 
         public ITreeView TreeView
         {
-            get { return treeView; }
+            get
+            {
+                return treeView;
+            }
         }
 
         public Project Project
         {
-            get { return project; }
-            set { Data = value; }
+            get
+            {
+                return project;
+            }
+            set
+            {
+                Data = value;
+            }
         }
 
         public object Data
         {
-            get { return project; }
+            get
+            {
+                return project;
+            }
             set
             {
                 if (IsDisposed) //only set value in case form is not disposed.
@@ -142,19 +123,59 @@ namespace DeltaShell.Plugins.ProjectExplorer
         }
 
         public Image Image { get; set; }
-
-        public void EnsureVisible(object item) { }
         public ViewInfo ViewInfo { get; set; }
 
-        ~ProjectTreeView()
+        public IMenuItem GetContextMenu(object nodeTag)
         {
-            if (gui == null)
+            //TODO: let go of menu's here but compose a menu on the fly based on selection.
+            if (nodeTag is Project)
             {
-                return;
+                buttonFolderAdd.Enabled = true;
+
+                buttonFolderAddNewItem.Enabled = app.Plugins.Any(p => p.GetDataItemInfos().Any());
+
+                buttonFolderDelete.Available = treeView.SelectedNodeCanDelete();
+                buttonFolderRename.Enabled = treeView.SelectedNodeCanRename();
+
+                buttonFolderImportFolder.Enabled = gui.CommandHandler.CanImportToGuiSelection();
+
+                return new MenuItemContextMenuStripAdapter(contextMenuFolder);
             }
-            gui.SelectionChanged -= GuiSelectionChanged;
-            UnsubscribeProjectEvents();
+
+            return null;
         }
+
+        public void EnableEvents()
+        {
+            treeView.EnableDataEventListeners();
+        }
+
+        public void DisableEvents()
+        {
+            treeView.DisableDataEventListeners(); // HACK: dangerous, all changes in the tree nodes during save won't be shown
+        }
+
+        public new void Dispose()
+        {
+            if (gui != null)
+            {
+                gui.SelectionChanged -= GuiSelectionChanged;
+            }
+
+            if (app != null)
+            {
+                UnsubscribeProjectEvents();
+            }
+
+            treeView.Data = null;
+            treeView.Dispose();
+
+            base.Dispose();
+
+            app = null;
+        }
+
+        public void EnsureVisible(object item) {}
 
         /// <summary>
         /// Update selected node when selection in gui changes.
@@ -164,7 +185,7 @@ namespace DeltaShell.Plugins.ProjectExplorer
         [InvokeRequired]
         protected virtual void GuiSelectionChanged(object sender, EventArgs e)
         {
-            if (selectingNode || gui.Selection == null 
+            if (selectingNode || gui.Selection == null
                 || (treeView.SelectedNode != null && treeView.SelectedNode.Tag == gui.Selection))
             {
                 return;
@@ -177,6 +198,20 @@ namespace DeltaShell.Plugins.ProjectExplorer
             }
         }
 
+        private void TreeViewSelectedNodeChanged(object sender, EventArgs e)
+        {
+            selectingNode = true;
+
+            var tag = treeView.SelectedNode != null ? treeView.SelectedNode.Tag : null;
+
+            gui.SelectedProjectItem = tag as IProjectItem;
+
+            // triggers validate items for ribbon so this should be done after setting SelectedProjectItem
+            gui.Selection = tag;
+
+            selectingNode = false;
+        }
+
         private bool OnProcessCmdKey(Keys keyData)
         {
             if (treeView.SelectedNode == null)
@@ -187,29 +222,27 @@ namespace DeltaShell.Plugins.ProjectExplorer
             var control = (keyData & Keys.Control) == Keys.Control;
             var alt = (keyData & Keys.Alt) == Keys.Alt;
 
-            if(keyData == Keys.Enter)
+            if (keyData == Keys.Enter)
             {
                 gui.CommandHandler.OpenViewForSelection();
 
                 return true;
             }
-            if(keyData == Keys.Delete)
+            if (keyData == Keys.Delete)
             {
                 treeView.DeleteNodeData();
 
                 return true;
             }
-            if(control)
-            {
-            }
+            if (control) {}
 
-            if(keyData == Keys.Escape)
+            if (keyData == Keys.Escape)
             {
-                if(gui.DocumentViews.ActiveView != null)
+                if (gui.DocumentViews.ActiveView != null)
                 {
                     ((Control) gui.DocumentViews.ActiveView).Focus();
                 }
-                    
+
                 return true;
             }
 
@@ -237,26 +270,6 @@ namespace DeltaShell.Plugins.ProjectExplorer
         private void AppProjectOpened(Project project)
         {
             Project = project;
-        }
-
-        public IMenuItem GetContextMenu(object nodeTag)
-        {
-            //TODO: let go of menu's here but compose a menu on the fly based on selection.
-            if (nodeTag is Project)
-            {
-                buttonFolderAdd.Enabled = true;
-
-                buttonFolderAddNewItem.Enabled = app.Plugins.Any(p => p.GetDataItemInfos().Any());
-
-                buttonFolderDelete.Available = treeView.SelectedNodeCanDelete();
-                buttonFolderRename.Enabled = treeView.SelectedNodeCanRename();
-
-                buttonFolderImportFolder.Enabled = gui.CommandHandler.CanImportToGuiSelection();
-
-                return new MenuItemContextMenuStripAdapter(contextMenuFolder);
-            }
-
-            return null;
         }
 
         private void buttonsAddNewDataClick(object sender, EventArgs e)
@@ -299,16 +312,6 @@ namespace DeltaShell.Plugins.ProjectExplorer
             treeView.StartLabelEdit();
         }
 
-        public void EnableEvents()
-        {
-            treeView.EnableDataEventListeners();
-        }
-
-        public void DisableEvents()
-        {
-            treeView.DisableDataEventListeners(); // HACK: dangerous, all changes in the tree nodes during save won't be shown
-        }
-
         private void buttonsPropertiesClick(object sender, EventArgs e)
         {
             gui.CommandHandler.ShowProperties();
@@ -327,6 +330,16 @@ namespace DeltaShell.Plugins.ProjectExplorer
         private void buttonFolderCollapseAll_Click(object sender, EventArgs e)
         {
             treeView.CollapseAll(treeView.SelectedNode);
+        }
+
+        ~ProjectTreeView()
+        {
+            if (gui == null)
+            {
+                return;
+            }
+            gui.SelectionChanged -= GuiSelectionChanged;
+            UnsubscribeProjectEvents();
         }
     }
 }

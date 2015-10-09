@@ -15,33 +15,40 @@ namespace SharpMap.Rendering.Thematics
     /// Theme that finds all distinct values for an attribute, for which it uses a different style. 
     /// Can be used for any attribute. 
     /// </summary>
-    [Entity(FireOnCollectionChange=false)]
+    [Entity(FireOnCollectionChange = false)]
     public class CategorialTheme : Theme
     {
+        private readonly IDictionary<IComparable, Color> colorDictionary = new Dictionary<IComparable, Color>();
         private IStyle defaultStyle;
-        private readonly IDictionary<IComparable,Color> colorDictionary = new Dictionary<IComparable, Color>();
         private IDictionary<double, Color> colorDictionaryAsDouble;
 
-        public CategorialTheme() : this("", new VectorStyle())
-        {
-        }
+        public CategorialTheme() : this("", new VectorStyle()) {}
 
         public CategorialTheme(string attributeName, IStyle defaultStyle)
         {
             AttributeName = attributeName;
-            this.defaultStyle = (defaultStyle != null) ? (IStyle)defaultStyle.Clone() : null;
+            this.defaultStyle = (defaultStyle != null) ? (IStyle) defaultStyle.Clone() : null;
         }
 
-        public override void ScaleTo(double min, double max)
+        public override IEventedList<IThemeItem> ThemeItems
         {
-            // No special rescaling behavior defined, as styles are for defined for specific values
-            // There is no rescaling those specific values
-            return;
+            get
+            {
+                return base.ThemeItems;
+            }
+            set
+            {
+                base.ThemeItems = value;
+                colorDictionary.Clear();
+            }
         }
 
         public IStyle DefaultStyle
         {
-            get { return defaultStyle; }
+            get
+            {
+                return defaultStyle;
+            }
             set
             {
                 defaultStyle = value;
@@ -49,14 +56,16 @@ namespace SharpMap.Rendering.Thematics
             }
         }
 
-        public override IEventedList<IThemeItem> ThemeItems
+        public void AddThemeItem(CategorialThemeItem categorialThemeItem)
         {
-            get { return base.ThemeItems; }
-            set
-            {
-                base.ThemeItems = value;
-                colorDictionary.Clear();
-            }
+            ThemeItems.Add(categorialThemeItem);
+        }
+
+        public override void ScaleTo(double min, double max)
+        {
+            // No special rescaling behavior defined, as styles are for defined for specific values
+            // There is no rescaling those specific values
+            return;
         }
 
         public override IStyle GetStyle(IFeature feature)
@@ -82,11 +91,6 @@ namespace SharpMap.Rendering.Thematics
             return (categorialThemeItem != null) ? categorialThemeItem.Style : DefaultStyle;
         }
 
-        public void AddThemeItem(CategorialThemeItem categorialThemeItem)
-        {
-            ThemeItems.Add(categorialThemeItem);
-        }
-
         public override object Clone()
         {
             var categorialTheme = new CategorialTheme(AttributeName, (IStyle) defaultStyle.Clone());
@@ -95,7 +99,7 @@ namespace SharpMap.Rendering.Thematics
             {
                 categorialTheme.ThemeItems.Add((CategorialThemeItem) categorialThemeItem.Clone());
             }
-            
+
             if (NoDataValues != null)
             {
                 categorialTheme.NoDataValues = NoDataValues.Cast<object>().ToArray();
@@ -137,7 +141,7 @@ namespace SharpMap.Rendering.Thematics
             }
 
             var match = colorDictionaryAsDouble.FirstOrDefault(kvp => Math.Abs(kvp.Key - valueAsDouble) < Double.Epsilon);
-            if (!match.Equals(new KeyValuePair<double,Color>()))
+            if (!match.Equals(new KeyValuePair<double, Color>()))
             {
                 return match.Value;
             }

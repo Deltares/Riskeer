@@ -14,9 +14,12 @@ namespace DelftTools.Shell.Gui
 
         public object Data
         {
-            get { return data; }
-            set 
-            { 
+            get
+            {
+                return data;
+            }
+            set
+            {
                 data = value;
 
                 Initialize(value, value.GetType().GetProperties()

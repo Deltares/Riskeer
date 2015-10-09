@@ -58,7 +58,7 @@ namespace DelftTools.Shell.Core.Dao
         IEnumerable<T> GetAllEntities<T>();
 
         void SaveOrUpdateEntity<T>(T obj);
-        
+
         void PreLoad<T>(params Expression<Func<T, object>>[] collectionToPreload) where T : class;
     }
 }

@@ -6,13 +6,14 @@ using DelftTools.Utils.Collections.Generic;
 
 namespace DelftTools.Shell.Gui
 {
-    [Flags] public enum ViewLocation
+    [Flags]
+    public enum ViewLocation
     {
-        Document = 0x0, 
-        Left = 0x1, 
-        Right = 0x2, 
-        Top = 0x4, 
-        Bottom = 0x8, 
+        Document = 0x0,
+        Left = 0x1,
+        Right = 0x2,
+        Top = 0x4,
+        Bottom = 0x8,
         Floating = 0x16
     };
 
@@ -21,16 +22,6 @@ namespace DelftTools.Shell.Gui
     /// </summary>
     public interface IViewList : IEventedList<IView>, IDisposable
     {
-        /// <summary>
-        /// HACK: Hack to disable activation temporarily
-        /// </summary>
-        bool IgnoreActivation { get; set; }
-
-        /// <summary>
-        /// Gets or sets active view, when view is active - its window is activated.
-        /// </summary>
-        IView ActiveView { get; set; }
-
         /// <summary>
         /// Fired before active view has been changed.
         /// </summary>
@@ -45,6 +36,21 @@ namespace DelftTools.Shell.Gui
         /// Fired when a childview is added to a view
         /// </summary>
         event NotifyCollectionChangedEventHandler ChildViewChanged;
+
+        /// <summary>
+        /// HACK: Hack to disable activation temporarily
+        /// </summary>
+        bool IgnoreActivation { get; set; }
+
+        /// <summary>
+        /// Gets or sets active view, when view is active - its window is activated.
+        /// </summary>
+        IView ActiveView { get; set; }
+
+        /// <summary>
+        /// Returns all views. Including views inside composite views
+        /// </summary>
+        IEnumerable<IView> AllViews { get; }
 
         /// <summary>
         /// Adds a view to the UI. 
@@ -71,7 +77,7 @@ namespace DelftTools.Shell.Gui
         /// </summary>
         /// <typeparam name="T">Type of view to look for</typeparam>
         /// <returns>Views of type <typeparamref name="T"/></returns>
-        IEnumerable<T> GetActiveViews<T>() where T : class,IView;
+        IEnumerable<T> GetActiveViews<T>() where T : class, IView;
 
         /// <summary>
         /// Returns views of type T that are (part of) the supplied <paramref name="views"/>
@@ -80,11 +86,6 @@ namespace DelftTools.Shell.Gui
         /// <param name="views">Views to search</param>
         /// <returns>Views of type <typeparamref name="T"/></returns>
         IEnumerable<T> FindViewsRecursive<T>(IEnumerable<IView> views) where T : class, IView;
-
-        /// <summary>
-        /// Returns all views. Including views inside composite views
-        /// </summary>
-        IEnumerable<IView> AllViews { get; }
 
         /// <summary>
         /// Overloaded Clear, removes all views except <paramref name="viewToKeep"/>

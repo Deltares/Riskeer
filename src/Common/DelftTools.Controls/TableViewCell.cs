@@ -11,7 +11,7 @@ namespace DelftTools.Controls
         /// <summary>
         /// Row index of the cell
         /// </summary>
-        public int RowIndex{ get; set;}
+        public int RowIndex { get; set; }
 
         /// <summary>
         /// Column of the cell

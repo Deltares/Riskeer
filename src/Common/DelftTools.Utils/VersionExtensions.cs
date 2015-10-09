@@ -12,9 +12,9 @@ namespace DelftTools.Utils
         public static Version GetFullVersion(this Version version)
         {
             return new Version(version.Major == -1 ? 0 : version.Major,
-                              version.Minor == -1 ? 0 : version.Minor,
-                              version.Build == -1 ? 0 : version.Build,
-                              version.Revision == -1 ? 0 : version.Revision);
+                               version.Minor == -1 ? 0 : version.Minor,
+                               version.Build == -1 ? 0 : version.Build,
+                               version.Revision == -1 ? 0 : version.Revision);
         }
     }
 }

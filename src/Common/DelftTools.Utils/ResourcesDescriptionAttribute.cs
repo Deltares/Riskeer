@@ -9,8 +9,6 @@ namespace DelftTools.Utils
     /// <remarks>Do not combine this with <see cref="DescriptionAttribute"/> on the same item</remarks>
     public class ResourcesDescriptionAttribute : DescriptionAttribute
     {
-        public ResourcesDescriptionAttribute(Type resourceType, string resourceName) : base(ResourceHelper.GetResourceLookup(resourceType, resourceName))
-        {
-        }
+        public ResourcesDescriptionAttribute(Type resourceType, string resourceName) : base(ResourceHelper.GetResourceLookup(resourceType, resourceName)) {}
     }
 }

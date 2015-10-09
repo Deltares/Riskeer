@@ -15,7 +15,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
         /// <param name="generatedLayer">Generated map layer to extract the paths from</param>
         public static void UpgradeToParentPaths(this IList<GeneratedMapLayerInfo> generatedMapLayerInfoList, ILayer generatedLayer)
         {
-            if (!generatedMapLayerInfoList.Any(mi => mi.ParentPath.StartsWith("*"))) return;
+            if (!generatedMapLayerInfoList.Any(mi => mi.ParentPath.StartsWith("*")))
+            {
+                return;
+            }
 
             SetParentPath(generatedLayer, 0, "", "", generatedMapLayerInfoList.GroupBy(mi => GetLevel(mi.ParentPath)).ToDictionary(g => g.Key, g => g.ToList()));
         }
@@ -34,7 +37,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
         {
             if (!parentPath.StartsWith("*"))
             {
-                return new[] {"-1", parentPath};
+                return new[]
+                {
+                    "-1",
+                    parentPath
+                };
             }
 
             return parentPath.TrimStart('*').Split(';');
@@ -56,7 +63,9 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
             var groupLayer = layer as GroupLayer;
             if (groupLayer == null)
+            {
                 return;
+            }
 
             var parentPath = String.Format("{0}\\{1}", path, groupLayer.Name);
             var subLayers = groupLayer.Layers.ToList();

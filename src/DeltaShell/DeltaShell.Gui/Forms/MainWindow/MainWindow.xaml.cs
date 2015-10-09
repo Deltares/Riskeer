@@ -1,19 +1,4 @@
-﻿using DelftTools.Controls.Swf;
-using DelftTools.Shell.Core;
-using DelftTools.Shell.Gui;
-using DelftTools.Shell.Gui.Forms;
-using DelftTools.Utils;
-using DelftTools.Utils.Aop;
-using DelftTools.Utils.Collections;
-using DelftTools.Utils.Collections.Extensions;
-using DelftTools.Utils.Interop;
-using DelftTools.Utils.Reflection;
-using DeltaShell.Gui.Forms.OptionsDialog;
-using DeltaShell.Gui.Properties;
-using Fluent;
-using log4net;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -31,12 +16,29 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
+using DelftTools.Controls.Swf;
+using DelftTools.Shell.Core;
+using DelftTools.Shell.Gui;
+using DelftTools.Shell.Gui.Forms;
+using DelftTools.Utils;
+using DelftTools.Utils.Aop;
+using DelftTools.Utils.Collections;
+using DelftTools.Utils.Collections.Extensions;
+using DelftTools.Utils.Interop;
+using DelftTools.Utils.Reflection;
 using DeltaShell.Core;
+using DeltaShell.Gui.Forms.OptionsDialog;
+using DeltaShell.Gui.Properties;
+using Fluent;
+using log4net;
+using Microsoft.Win32;
 using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
 using Xceed.Wpf.AvalonDock.Themes;
+using Application = System.Windows.Forms.Application;
+using Button = Fluent.Button;
 using Cursors = System.Windows.Input.Cursors;
 using IWin32Window = System.Windows.Forms.IWin32Window;
 using MessageBox = DelftTools.Controls.Swf.MessageBox;
@@ -49,20 +51,21 @@ namespace DeltaShell.Gui.Forms.MainWindow
     public partial class MainWindow : IMainWindow, IDisposable, IWin32Window, ISynchronizeInvoke
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MainWindow));
-        private bool resetDefaultLayout;
 
-        private DeltaShellGui gui;
+        private static Form synchronizationForm;
+
+        /// <summary>
+        /// Remember last active contextual tab per view.
+        /// </summary>
+        private readonly IDictionary<Type, string> lastActiveContextTabNamePerViewType = new Dictionary<Type, string>();
+
+        private bool resetDefaultLayout;
 
         private MessageWindow.MessageWindow messageWindow;
         private PropertyGrid.PropertyGrid propertyGrid;
         private WindowInteropHelper windowInteropHelper;
 
         private IEnumerable<IRibbonCommandHandler> ribbonCommandHandlers;
-
-        /// <summary>
-        /// Remember last active contextual tab per view.
-        /// </summary>
-        private readonly IDictionary<Type, string> lastActiveContextTabNamePerViewType = new Dictionary<Type, string>();
 
         /// <summary>
         /// This is used when user selects non-contextual tab explicitly. Then we won't activate contextual tab on the next view activation.
@@ -74,13 +77,77 @@ namespace DeltaShell.Gui.Forms.MainWindow
         /// </summary>
         private string lastNonContextualTab;
 
-        public IMessageWindow MessageWindow { get { return messageWindow; } }
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            windowInteropHelper = new WindowInteropHelper(this);
+            ModalHelper.MainWindow = this;
+
+            InitializeInvokeRequired();
+
+            App.RunDeltaShell(this);
+
+            log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
+        }
+
+        public MainWindow(DeltaShellGui gui)
+        {
+            DeltaShellApplication.SetLanguageAndRegionalSettions(Settings.Default);
+
+            Gui = gui;
+
+            InitializeComponent();
+
+            windowInteropHelper = new WindowInteropHelper(this);
+            ModalHelper.MainWindow = this;
+
+            InitializeInvokeRequired();
+
+            log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
+        }
+
+        public DeltaShellGui Gui { get; set; }
+
+        public bool IsWindowDisposed { get; private set; }
+
+        public bool Enabled
+        {
+            get
+            {
+                return IsEnabled;
+            }
+            set
+            {
+                IsEnabled = value;
+                NativeWin32.EnableWindow(new HandleRef(this, windowInteropHelper.Handle), value); // prevents resize etc
+            }
+        }
+
+        public DockingManager DockingManager
+        {
+            get
+            {
+                return dockingManager;
+            }
+        }
+
+        public IMessageWindow MessageWindow
+        {
+            get
+            {
+                return messageWindow;
+            }
+        }
 
         public new Icon Icon { get; set; }
 
         public bool Visible
         {
-            get { return IsVisible; } 
+            get
+            {
+                return IsVisible;
+            }
             set
             {
                 if (value)
@@ -104,35 +171,315 @@ namespace DeltaShell.Gui.Forms.MainWindow
             }
         }
 
-        public DeltaShellGui Gui 
-        { 
-            get { return gui; } 
-            set { gui = value; } 
+        public string StatusBarMessage
+        {
+            get
+            {
+                return StatusMessageTextBlock.Text;
+            }
+            set
+            {
+                StatusMessageTextBlock.Text = value;
+            }
+        }
+
+        public IProjectExplorer ProjectExplorer
+        {
+            get
+            {
+                return Gui.ToolWindowViews.OfType<IProjectExplorer>().FirstOrDefault();
+            }
+        }
+
+        public IPropertyGrid PropertyGrid
+        {
+            get
+            {
+                return propertyGrid;
+            }
+        }
+
+        public bool InvokeRequired
+        {
+            get
+            {
+                return !Dispatcher.CheckAccess();
+            }
+        }
+
+        public IntPtr Handle
+        {
+            get
+            {
+                return windowInteropHelper.Handle;
+            }
         }
 
         public void SubscribeToGui()
         {
-            if (gui != null)
+            if (Gui != null)
             {
-                gui.ToolWindowViews.CollectionChanged += ToolWindowViews_CollectionChanged;
-                gui.DocumentViews.ActiveViewChanged += DocumentViewsOnActiveViewChanged;
-                gui.DocumentViews.ActiveViewChanging += DocumentViewsOnActiveViewChanging;
+                Gui.ToolWindowViews.CollectionChanged += ToolWindowViews_CollectionChanged;
+                Gui.DocumentViews.ActiveViewChanged += DocumentViewsOnActiveViewChanged;
+                Gui.DocumentViews.ActiveViewChanging += DocumentViewsOnActiveViewChanging;
             }
         }
 
         public void UnsubscribeFromGui()
         {
-            if (gui != null)
+            if (Gui != null)
             {
-                gui.ToolWindowViews.CollectionChanged -= ToolWindowViews_CollectionChanged;
-                gui.DocumentViews.ActiveViewChanged -= DocumentViewsOnActiveViewChanged;
-                gui.DocumentViews.ActiveViewChanging -= DocumentViewsOnActiveViewChanging;
+                Gui.ToolWindowViews.CollectionChanged -= ToolWindowViews_CollectionChanged;
+                Gui.DocumentViews.ActiveViewChanged -= DocumentViewsOnActiveViewChanged;
+                Gui.DocumentViews.ActiveViewChanging -= DocumentViewsOnActiveViewChanging;
             }
+        }
+
+        public void RestoreLayout()
+        {
+            if (Assembly.GetEntryAssembly() == null) // API, not a real exe
+            {
+                return; // make sure we don't mess layout
+            }
+
+            OnLoadLayout("normal");
+            RestoreWindowAppearance();
+        }
+
+        public void SaveLayout()
+        {
+            if (Settings.Default.autosaveWindowLayout)
+            {
+                SaveWindowAppearance();
+                OnSaveLayout("normal");
+            }
+        }
+
+        public void InitializeToolWindows()
+        {
+            InitMessagesWindowOrActivate();
+            InitPropertiesWindowAndActivate();
+        }
+
+        public void SuspendLayout() {}
+
+        public void ResumeLayout() {}
+
+        public void InitPropertiesWindowAndActivate()
+        {
+            if ((propertyGrid == null) || (propertyGrid.IsDisposed))
+            {
+                propertyGrid = new PropertyGrid.PropertyGrid(Gui);
+            }
+
+            propertyGrid.Text = Properties.Resources.Properties;
+            propertyGrid.Data = propertyGrid.GetObjectProperties(Gui.Selection);
+
+            Gui.ToolWindowViews.Add(propertyGrid, ViewLocation.Right | ViewLocation.Bottom);
+
+            Gui.ToolWindowViews.ActiveView = null;
+            Gui.ToolWindowViews.ActiveView = Gui.MainWindow.PropertyGrid;
+        }
+
+        public void ShowStartPage(bool checkUseSettings = true)
+        {
+            if (!checkUseSettings || Convert.ToBoolean(Gui.Application.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
+            {
+                log.Info(Properties.Resources.MainWindow_ShowStartPage_Adding_welcome_page____);
+                OpenStartPage();
+            }
+        }
+
+        public void ClearDocumentTabs()
+        {
+            foreach (var contentToClose in dockingManager.Layout.Descendents().OfType<LayoutContent>().Where(d => (d.Parent is LayoutDocumentPane || d.Parent is LayoutDocumentFloatingWindow)).ToArray())
+            {
+                if (!contentToClose.CanClose)
+                {
+                    continue;
+                }
+
+                if (contentToClose is LayoutDocument)
+                {
+                    CloseContent(contentToClose as LayoutDocument);
+                }
+                else if (contentToClose is LayoutAnchorable)
+                {
+                    CloseContent(contentToClose as LayoutAnchorable);
+                }
+            }
+
+            foreach (var child in LayoutDocumentPaneGroup.Children.OfType<LayoutDocumentPane>())
+            {
+                child.Children.Clear();
+            }
+
+            while (LayoutDocumentPaneGroup.Children.Count != 1)
+            {
+                LayoutDocumentPaneGroup.Children.RemoveAt(0);
+            }
+        }
+
+        public void Dispose()
+        {
+            Close();
+            Close();
+
+            if (IsWindowDisposed)
+            {
+                return;
+            }
+
+            // TODO: add dispose code
+
+            IsWindowDisposed = true;
+
+            if (Equals(InvokeRequiredInfo.SynchronizeObject, this))
+            {
+                InvokeRequiredInfo.SynchronizeObject = null;
+            }
+
+            if (dockingManager.AutoHideWindow != null)
+            {
+                var m = typeof(LayoutAutoHideWindowControl).GetField("_manager", BindingFlags.Instance | BindingFlags.NonPublic);
+                m.SetValue(dockingManager.AutoHideWindow, null);
+                dockingManager.AutoHideWindow.Dispose();
+            }
+
+            Content = null;
+
+            if (Ribbon != null)
+            {
+                foreach (var tab in Ribbon.Tabs)
+                {
+                    foreach (var group in tab.Groups)
+                    {
+                        group.Items.Clear();
+                    }
+                    tab.Groups.Clear();
+                }
+                Ribbon.Tabs.Clear();
+                Ribbon = null;
+            }
+
+            dockingManager = null;
+
+            if (propertyGrid != null)
+            {
+                propertyGrid.Dispose();
+                propertyGrid = null;
+            }
+
+            if (messageWindow != null)
+            {
+                messageWindow.Error -= messageWindow_Error;
+                messageWindow.Dispose();
+                messageWindow = null;
+            }
+
+            // I pulled this code from some internet sources combined with the reflector to remove a well-known leak
+            var handlers = typeof(SystemEvents).GetField("_handlers", BindingFlags.Static | BindingFlags.NonPublic)
+                                               .GetValue(null);
+            var upcHandler = typeof(SystemEvents).GetField("OnUserPreferenceChangedEvent", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+            var eventLockObject = typeof(SystemEvents).GetField("eventLockObject", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+
+            lock (eventLockObject)
+            {
+                var upcHandlerList = (IList) ((IDictionary) handlers)[upcHandler];
+                for (int i = upcHandlerList.Count - 1; i >= 0; i--)
+                {
+                    var target = (Delegate) upcHandlerList[i].GetType().GetField("_delegate", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(upcHandlerList[i]);
+                    upcHandlerList.RemoveAt(i);
+                }
+            }
+
+            ribbonCommandHandlers = null;
+            windowInteropHelper = null;
+
+            Gui = null;
+
+            // Dispatcher.InvokeShutdown();
+            //System.Windows.Threading.Dispatcher.CurrentDispatcher.InvokeShutdown();
+        }
+
+        public void ValidateItems()
+        {
+            if (Gui == null)
+            {
+                return;
+            }
+
+            ValidateMainWindowRibbonItems();
+
+            if (ribbonCommandHandlers == null)
+            {
+                return;
+            }
+
+            // activate all context-specific groups (ValidateItems implementations should activate them)
+            foreach (var tabGroup in Ribbon.ContextualGroups)
+            {
+                var showGroup = false;
+                foreach (var tabItem in tabGroup.Items)
+                {
+                    var tabItemVisible = ribbonCommandHandlers.Any(h => h.IsContextualTabVisible(tabGroup.Name, tabItem.Name));
+                    tabItem.Visibility = tabItemVisible ? Visibility.Visible : Visibility.Collapsed;
+
+                    if (tabItemVisible && !showGroup)
+                    {
+                        showGroup = true;
+                    }
+                }
+
+                tabGroup.Visibility = showGroup ? Visibility.Visible : Visibility.Collapsed;
+            }
+
+            foreach (var ribbonCommandHandler in ribbonCommandHandlers)
+            {
+                ribbonCommandHandler.ValidateItems();
+            }
+
+            foreach (var ribbonGroupBox in Ribbon.Tabs.SelectMany(tab => tab.Groups))
+            {
+                // Colapse all groups without visible items
+                ribbonGroupBox.Visibility = ribbonGroupBox.Items.OfType<UIElement>().All(e => e.Visibility == Visibility.Collapsed || e is Separator)
+                                                ? Visibility.Collapsed
+                                                : Visibility.Visible;
+            }
+        }
+
+        public void SetWaitCursorOn()
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+        }
+
+        public void SetWaitCursorOff()
+        {
+            Mouse.OverrideCursor = null;
+        }
+
+        public IAsyncResult BeginInvoke(Delegate method, object[] args)
+        {
+            Dispatcher.BeginInvoke(method, args);
+            return null;
+        }
+
+        public object EndInvoke(IAsyncResult result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Invoke(Delegate method, object[] args)
+        {
+            return Dispatcher.Invoke(method, args);
         }
 
         private void ToolWindowViews_CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
-            if (e.Action != NotifyCollectionChangeAction.Remove) return;
+            if (e.Action != NotifyCollectionChangeAction.Remove)
+            {
+                return;
+            }
 
             if (e.Item == propertyGrid)
             {
@@ -203,63 +550,6 @@ namespace DeltaShell.Gui.Forms.MainWindow
             }
         }
 
-        public string StatusBarMessage
-        {
-            get { return StatusMessageTextBlock.Text; } 
-            set { StatusMessageTextBlock.Text = value; }
-        }
-
-        public bool IsWindowDisposed { get; private set; }
-
-        public bool Enabled
-        {
-            get { return IsEnabled; }
-            set
-            {
-                IsEnabled = value;
-                NativeWin32.EnableWindow(new HandleRef(this, windowInteropHelper.Handle), value); // prevents resize etc
-            }
-        }
-
-        public DockingManager DockingManager { get { return dockingManager; } }
-
-        public IProjectExplorer ProjectExplorer { get { return Gui.ToolWindowViews.OfType<IProjectExplorer>().FirstOrDefault(); } }
-
-        public IPropertyGrid PropertyGrid { get { return propertyGrid; } }
-
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            windowInteropHelper = new WindowInteropHelper(this);
-            ModalHelper.MainWindow = this;
-
-            InitializeInvokeRequired();
-            
-            App.RunDeltaShell(this);
-
-            log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
-        }
-
-        public MainWindow(DeltaShellGui gui)
-        {
-            DeltaShellApplication.SetLanguageAndRegionalSettions(Settings.Default);
-
-            Gui = gui;
-
-            InitializeComponent();
-
-            windowInteropHelper = new WindowInteropHelper(this);
-            ModalHelper.MainWindow = this;
-
-            InitializeInvokeRequired();
-
-            log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
-        }
-
-        
-        private static Form synchronizationForm;
-
         private void InitializeInvokeRequired()
         {
             if (Assembly.GetEntryAssembly() != null) // HACK: when assembly is non-empty - we run from real exe (not test)
@@ -267,7 +557,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
                 if (InvokeRequiredInfo.SynchronizeObject == null)
                 {
                     InvokeRequiredInfo.SynchronizeObject = this;
-                    InvokeRequiredInfo.WaitMethod = System.Windows.Forms.Application.DoEvents;
+                    InvokeRequiredInfo.WaitMethod = Application.DoEvents;
                 }
 
                 return; // uses MainWindow
@@ -277,7 +567,10 @@ namespace DeltaShell.Gui.Forms.MainWindow
 
             if (synchronizationForm == null)
             {
-                synchronizationForm = new Form { ShowInTaskbar = false, WindowState = FormWindowState.Minimized };
+                synchronizationForm = new Form
+                {
+                    ShowInTaskbar = false, WindowState = FormWindowState.Minimized
+                };
                 var handle = synchronizationForm.Handle; //force get handle
                 synchronizationForm.Show();
             }
@@ -285,7 +578,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
             if (InvokeRequiredInfo.SynchronizeObject == null)
             {
                 InvokeRequiredInfo.SynchronizeObject = synchronizationForm;
-                InvokeRequiredInfo.WaitMethod = System.Windows.Forms.Application.DoEvents;
+                InvokeRequiredInfo.WaitMethod = Application.DoEvents;
             }
         }
 
@@ -301,29 +594,35 @@ namespace DeltaShell.Gui.Forms.MainWindow
 
         private void AddNewMruItem(string path, bool putOnTop = true)
         {
-            var newItem = new TabItem { Header = path };
+            var newItem = new TabItem
+            {
+                Header = path
+            };
             newItem.MouseDoubleClick += (sender, args) =>
-                                            {
-                                                try
-                                                {
-                                                    Gui.CommandHandler.TryOpenExistingWTIProject(path);
-                                                    RecentProjectsTabControl.Items.Remove(newItem);
-                                                    RecentProjectsTabControl.Items.Insert(1, newItem);
-                                                }
-                                                catch (Exception)
-                                                {
-                                                    //remove item from the list if it cannot be retrieved from file
-                                                    RecentProjectsTabControl.Items.Remove(newItem);
-                                                    log.WarnFormat("{0} {1}", Properties.Resources.MainWindow_AddNewMruItem_Can_t_open_project, path);
-                                                }
-                                                finally
-                                                {
-                                                    CommitMruToSettings();
-                                                    ValidateItems();
-                                                    Menu.IsOpen = false;
-                                                }
-                                            };
-            if (RecentProjectsTabControl.Items.OfType<TabItem>().Any(i => Equals(i.Header, path))) return;
+            {
+                try
+                {
+                    Gui.CommandHandler.TryOpenExistingWTIProject(path);
+                    RecentProjectsTabControl.Items.Remove(newItem);
+                    RecentProjectsTabControl.Items.Insert(1, newItem);
+                }
+                catch (Exception)
+                {
+                    //remove item from the list if it cannot be retrieved from file
+                    RecentProjectsTabControl.Items.Remove(newItem);
+                    log.WarnFormat("{0} {1}", Properties.Resources.MainWindow_AddNewMruItem_Can_t_open_project, path);
+                }
+                finally
+                {
+                    CommitMruToSettings();
+                    ValidateItems();
+                    Menu.IsOpen = false;
+                }
+            };
+            if (RecentProjectsTabControl.Items.OfType<TabItem>().Any(i => Equals(i.Header, path)))
+            {
+                return;
+            }
 
             if (putOnTop)
             {
@@ -337,65 +636,22 @@ namespace DeltaShell.Gui.Forms.MainWindow
 
         private void CommitMruToSettings()
         {
-            var mruList = (StringCollection)Settings.Default["mruList"];
+            var mruList = (StringCollection) Settings.Default["mruList"];
 
             mruList.Clear();
 
             foreach (TabItem item in RecentProjectsTabControl.Items)
             {
                 if (item is SeparatorTabItem) //header
+                {
                     continue;
+                }
 
                 mruList.Add(item.Header.ToString());
             }
         }
 
-        private void OnLayoutRootPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-        }
-
-        public void ValidateItems()
-        {
-            if (gui == null)
-            {
-                return;
-            }
-
-            ValidateMainWindowRibbonItems();
-
-            if (ribbonCommandHandlers == null) return;
-
-            // activate all context-specific groups (ValidateItems implementations should activate them)
-            foreach (var tabGroup in Ribbon.ContextualGroups)
-            {
-                var showGroup = false;
-                foreach (var tabItem in tabGroup.Items)
-                {
-                    var tabItemVisible = ribbonCommandHandlers.Any(h => h.IsContextualTabVisible(tabGroup.Name, tabItem.Name));
-                    tabItem.Visibility = tabItemVisible ? Visibility.Visible : Visibility.Collapsed;
-
-                    if (tabItemVisible && !showGroup)
-                    {
-                        showGroup = true;
-                    }
-                }
-
-                tabGroup.Visibility = showGroup ? Visibility.Visible : Visibility.Collapsed;
-            }
-
-            foreach (var ribbonCommandHandler in ribbonCommandHandlers)
-            {
-                ribbonCommandHandler.ValidateItems();
-            }
-
-            foreach (var ribbonGroupBox in Ribbon.Tabs.SelectMany(tab => tab.Groups))
-            {
-                // Colapse all groups without visible items
-                ribbonGroupBox.Visibility = ribbonGroupBox.Items.OfType<UIElement>().All(e => e.Visibility == Visibility.Collapsed || e is Separator)
-                    ? Visibility.Collapsed
-                    : Visibility.Visible;
-            }
-        }
+        private void OnLayoutRootPropertyChanged(object sender, PropertyChangedEventArgs e) {}
 
         private void ValidateMainWindowRibbonItems()
         {
@@ -416,132 +672,6 @@ namespace DeltaShell.Gui.Forms.MainWindow
             ButtonMenuFileCloseProject.IsEnabled = appHasProject && !isActivityRunning;
         }
 
-        public void SetWaitCursorOn()
-        {
-            Mouse.OverrideCursor = Cursors.Wait;
-        }
-
-        public void SetWaitCursorOff()
-        {
-            Mouse.OverrideCursor = null;
-        }
-
-        public void Dispose()
-        {
-            Close();
-            Close();
-
-            if (IsWindowDisposed)
-            {
-                return;
-            }
-
-            // TODO: add dispose code
-
-            IsWindowDisposed = true;
-
-            if (Equals(InvokeRequiredInfo.SynchronizeObject, this))
-            {
-                InvokeRequiredInfo.SynchronizeObject = null;
-            }
-
-            if (dockingManager.AutoHideWindow != null)
-            {
-                var m = typeof (LayoutAutoHideWindowControl).GetField("_manager", BindingFlags.Instance | BindingFlags.NonPublic);
-                m.SetValue(dockingManager.AutoHideWindow, null);
-                dockingManager.AutoHideWindow.Dispose();
-            }
-
-            Content = null;
-
-            if (Ribbon != null)
-            {
-                foreach (var tab in Ribbon.Tabs)
-                {
-                    foreach (var group in tab.Groups)
-                    {
-                        group.Items.Clear();
-                    }
-                    tab.Groups.Clear();
-                }
-                Ribbon.Tabs.Clear();
-                Ribbon = null;
-            }
-
-            dockingManager = null;
-
-            if (propertyGrid != null)
-            {
-                propertyGrid.Dispose();
-                propertyGrid = null;
-            }
-
-            if (messageWindow != null)
-            {
-                messageWindow.Error -= messageWindow_Error;
-                messageWindow.Dispose();
-                messageWindow = null;
-            }
-
-            // I pulled this code from some internet sources combined with the reflector to remove a well-known leak
-            var handlers = typeof(SystemEvents).GetField("_handlers", BindingFlags.Static | BindingFlags.NonPublic)
-                                     .GetValue(null);
-            var upcHandler = typeof(SystemEvents).GetField("OnUserPreferenceChangedEvent", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
-            var eventLockObject = typeof(SystemEvents).GetField("eventLockObject", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
-            
-            lock (eventLockObject)
-            {
-                var upcHandlerList = (IList)((IDictionary)handlers)[upcHandler];
-                for (int i = upcHandlerList.Count - 1; i >= 0; i--)
-                {
-                    var target = (Delegate)upcHandlerList[i].GetType().GetField("_delegate", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(upcHandlerList[i]);
-                    upcHandlerList.RemoveAt(i);
-                }
-            }
-
-            ribbonCommandHandlers = null;
-            windowInteropHelper = null;
-
-            Gui = null;
-
-            // Dispatcher.InvokeShutdown();
-            //System.Windows.Threading.Dispatcher.CurrentDispatcher.InvokeShutdown();
-        }
-
-        public void RestoreLayout()
-        {
-            if (Assembly.GetEntryAssembly() == null) // API, not a real exe
-            {
-                return; // make sure we don't mess layout
-            }
-
-            OnLoadLayout("normal");
-            RestoreWindowAppearance();
-        }
-
-        public void SaveLayout()
-        {
-            if (Settings.Default.autosaveWindowLayout)
-            {
-                SaveWindowAppearance();
-                OnSaveLayout("normal");
-            }
-        }
-
-        public void InitializeToolWindows()
-        {
-            InitMessagesWindowOrActivate();
-            InitPropertiesWindowAndActivate();
-        }
-
-        public void SuspendLayout()
-        {
-        }
-
-        public void ResumeLayout()
-        {
-        }
-
         private void InitMessagesWindowOrActivate()
         {
             if (messageWindow == null || messageWindow.IsDisposed)
@@ -551,7 +681,10 @@ namespace DeltaShell.Gui.Forms.MainWindow
                     messageWindow.Error -= messageWindow_Error;
                 }
 
-                messageWindow = new MessageWindow.MessageWindow { Text = Properties.Resources.Messages };
+                messageWindow = new MessageWindow.MessageWindow
+                {
+                    Text = Properties.Resources.Messages
+                };
 
                 messageWindow.Error += messageWindow_Error;
             }
@@ -572,26 +705,10 @@ namespace DeltaShell.Gui.Forms.MainWindow
         }
 
         [InvokeRequired]
-        void messageWindow_Error(object sender, EventArgs e)
+        private void messageWindow_Error(object sender, EventArgs e)
         {
             // activates messageWindow when error occurs
             InitMessagesWindowOrActivate();
-        }
-
-        public void InitPropertiesWindowAndActivate()
-        {
-            if ((propertyGrid == null) || (propertyGrid.IsDisposed))
-            {
-                propertyGrid = new PropertyGrid.PropertyGrid(Gui);
-            }
-
-            propertyGrid.Text = Properties.Resources.Properties;
-            propertyGrid.Data = propertyGrid.GetObjectProperties(Gui.Selection);
-
-            Gui.ToolWindowViews.Add(propertyGrid, ViewLocation.Right | ViewLocation.Bottom);
-
-            gui.ToolWindowViews.ActiveView = null;
-            gui.ToolWindowViews.ActiveView = gui.MainWindow.PropertyGrid;
         }
 
         private void OnFileSaveClicked(object sender, RoutedEventArgs e)
@@ -651,26 +768,6 @@ namespace DeltaShell.Gui.Forms.MainWindow
             Gui.Exit();
         }
 
-        public IntPtr Handle { get { return windowInteropHelper.Handle; } }
-
-        public IAsyncResult BeginInvoke(Delegate method, object[] args)
-        {
-            Dispatcher.BeginInvoke(method, args);
-            return null;
-        }
-
-        public object EndInvoke(IAsyncResult result)
-        {
-            throw new NotImplementedException();
-        }
-
-        public object Invoke(Delegate method, object[] args)
-        {
-            return Dispatcher.Invoke(method, args);
-        }
-
-        public bool InvokeRequired { get { return !Dispatcher.CheckAccess(); } }
-
         private string GetLayoutFilePath(string perspective)
         {
             string localUserSettingsDirectory = Gui.Application.GetUserSettingsDirectoryPath();
@@ -696,8 +793,10 @@ namespace DeltaShell.Gui.Forms.MainWindow
                 string assemblyDir = Path.GetDirectoryName(path);
                 layoutFilePath = Path.Combine(assemblyDir, layoutFileName);
 
-                if(!File.Exists(layoutFilePath))
+                if (!File.Exists(layoutFilePath))
+                {
                     return;
+                }
             }
 
             var layoutSerializer = new XmlLayoutSerializer(dockingManager);
@@ -708,8 +807,8 @@ namespace DeltaShell.Gui.Forms.MainWindow
             //LayoutSerializationCallback should anyway be handled to attach contents
             //not currently loaded
             layoutSerializer.LayoutSerializationCallback += (s, e) =>
-                                                                {
-                                                                    var c = e.Content;
+            {
+                var c = e.Content;
 /*
                 if (e.Model.ContentId == FileStatsViewModel.ToolContentId)
                     e.Content = Workspace.This.FileStats;
@@ -717,7 +816,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
                     File.Exists(e.Model.ContentId))
                     e.Content = Workspace.This.Open(e.Model.ContentId);
 */
-                                                                };
+            };
 
             try
             {
@@ -733,13 +832,18 @@ namespace DeltaShell.Gui.Forms.MainWindow
             // load ribbon state
             var ribbonSettingsPath = layoutFilePath + ".ribbon";
 
-            if (!File.Exists(ribbonSettingsPath)) return;
+            if (!File.Exists(ribbonSettingsPath))
+            {
+                return;
+            }
 
             try
             {
                 var settings = File.ReadAllText(ribbonSettingsPath).Split('|');
                 if (settings.Length != 2)
+                {
                     return;
+                }
 
                 var ribbonStateSettings = settings[0].Split(',');
                 Ribbon.IsMinimized = bool.Parse(ribbonStateSettings[0]);
@@ -835,7 +939,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
         {
             AddRecentlyOpenedProjectsToFileMenu();
 
-            SetColorTheme((string)Gui.Application.UserSettings["colorTheme"]);
+            SetColorTheme((string) Gui.Application.UserSettings["colorTheme"]);
             FileManualButton.IsEnabled = File.Exists(ConfigurationManager.AppSettings["manualFileName"]);
 
             // Enable as soon as relevant/implemented
@@ -866,7 +970,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
 
             foreach (var ribbonExtension in ribbonCommandHandlers)
             {
-                var ribbonControl = (Ribbon)ribbonExtension.GetRibbonControl();
+                var ribbonControl = (Ribbon) ribbonExtension.GetRibbonControl();
 
                 // fill contextual groups from plugins
                 foreach (var group in ribbonControl.ContextualGroups)
@@ -891,7 +995,10 @@ namespace DeltaShell.Gui.Forms.MainWindow
                     }
                     else
                     {
-                        if (!string.IsNullOrEmpty(tab.ReduceOrder)) existingTab.ReduceOrder += "," + tab.ReduceOrder; // Naive implementation; Can cause duplicates to occur
+                        if (!string.IsNullOrEmpty(tab.ReduceOrder))
+                        {
+                            existingTab.ReduceOrder += "," + tab.ReduceOrder; // Naive implementation; Can cause duplicates to occur
+                        }
 
                         foreach (var group in tab.Groups)
                         {
@@ -900,11 +1007,11 @@ namespace DeltaShell.Gui.Forms.MainWindow
                             if (existingGroup == null) // add new group
                             {
                                 var newGroup = new RibbonGroupBox
-                                    {
-                                        Header = group.Header,
-                                        Name = group.Name // Ensure ReduceOrder is working properly
-                                    };
-                                
+                                {
+                                    Header = group.Header,
+                                    Name = group.Name // Ensure ReduceOrder is working properly
+                                };
+
                                 // Set KeyTip for keyboard navigation:
                                 var keys = KeyTip.GetKeys(group);
                                 if (!string.IsNullOrEmpty(keys))
@@ -926,19 +1033,19 @@ namespace DeltaShell.Gui.Forms.MainWindow
                             {
                                 // HACK: remember and restore button size (looks like a bug in Fluent)
                                 var iconSize = RibbonControlSize.Small;
-                                if (item is Fluent.Button)
+                                if (item is Button)
                                 {
-                                    var button = (Fluent.Button)item;
+                                    var button = (Button) item;
                                     iconSize = button.Size;
                                 }
 
                                 group.Items.Remove(item);
                                 existingGroup.Items.Add(item);
 
-                                if (item is Fluent.Button)
+                                if (item is Button)
                                 {
-                                    var button = existingGroup.Items.OfType<Fluent.Button>().Last();
-                                    button.Size = iconSize; 
+                                    var button = existingGroup.Items.OfType<Button>().Last();
+                                    button.Size = iconSize;
                                 }
                             }
                         }
@@ -982,7 +1089,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
             return new GeneralOptionsControl
             {
                 UserSettings = Gui.Application.UserSettings,
-                ColorTheme = (string)Gui.Application.UserSettings["colorTheme"],
+                ColorTheme = (string) Gui.Application.UserSettings["colorTheme"],
                 OnAcceptChanges = ApplyColorTheme
             };
         }
@@ -1017,8 +1124,8 @@ namespace DeltaShell.Gui.Forms.MainWindow
             else if (colorTheme == "Generic" && !(DockingManager.Theme is GenericTheme))
             {
                 DockingManager.Theme = new GenericTheme();
-            }         
-            
+            }
+
             Gui.Application.UserSettings["colorTheme"] = colorTheme;
         }
 
@@ -1069,15 +1176,6 @@ namespace DeltaShell.Gui.Forms.MainWindow
             ShowStartPage(false);
         }
 
-        public void ShowStartPage(bool checkUseSettings = true)
-        {
-            if (!checkUseSettings || Convert.ToBoolean(Gui.Application.UserSettings["showStartPage"], CultureInfo.InvariantCulture))
-            {
-                log.Info(Properties.Resources.MainWindow_ShowStartPage_Adding_welcome_page____);
-                OpenStartPage();
-            }
-        }
-
         private void OnFileHelpLicense_Clicked(object sender, RoutedEventArgs e)
         {
             var licensePageName = ConfigurationManager.AppSettings["licensePageName"];
@@ -1117,9 +1215,11 @@ namespace DeltaShell.Gui.Forms.MainWindow
         {
             var manualFileName = ConfigurationManager.AppSettings["manualFileName"];
             if (File.Exists(manualFileName))
+            {
                 Process.Start(manualFileName);
+            }
         }
-        
+
         private HelpAboutBoxData GetAboutBoxData()
         {
             //dat ain the aboutbox. Some is defined in the assembly, some in the settingshelper.
@@ -1140,11 +1240,11 @@ namespace DeltaShell.Gui.Forms.MainWindow
 
         private void OpenStartPage()
         {
-            var welcomePageName = (string)Gui.Application.UserSettings["startPageName"];
+            var welcomePageName = (string) Gui.Application.UserSettings["startPageName"];
             var welcomePageUrl = Gui.Application.Settings["startPageUrl"];
 
             // if it is a file - make sure that we use a full path
-            if (File.Exists(welcomePageUrl)) 
+            if (File.Exists(welcomePageUrl))
             {
                 welcomePageUrl = Path.GetFullPath(welcomePageUrl);
             }
@@ -1153,30 +1253,6 @@ namespace DeltaShell.Gui.Forms.MainWindow
             {
                 var url = new Url(welcomePageName, welcomePageUrl);
                 Gui.CommandHandler.OpenView(url);
-            }
-        }
-
-        public void ClearDocumentTabs()
-        {
-            foreach (var contentToClose in dockingManager.Layout.Descendents().OfType<LayoutContent>().Where(d => (d.Parent is LayoutDocumentPane || d.Parent is LayoutDocumentFloatingWindow)).ToArray())
-            {
-                if (!contentToClose.CanClose)
-                    continue;
-
-                if (contentToClose is LayoutDocument)
-                    CloseContent(contentToClose as LayoutDocument);
-                else if (contentToClose is LayoutAnchorable)
-                    CloseContent(contentToClose as LayoutAnchorable);
-            }
-
-            foreach (var child in LayoutDocumentPaneGroup.Children.OfType<LayoutDocumentPane>())
-            {
-                child.Children.Clear();
-            }
-
-            while (LayoutDocumentPaneGroup.Children.Count != 1)
-            {
-                LayoutDocumentPaneGroup.Children.RemoveAt(0);
             }
         }
 

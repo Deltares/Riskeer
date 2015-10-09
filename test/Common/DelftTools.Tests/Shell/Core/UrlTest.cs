@@ -20,8 +20,8 @@ namespace DelftTools.Tests.Shell.Core
         {
             Url url = new Url("Deltares", "http://www.deltares.com");
             Url urlClone = (Url) url.Clone();
-            Assert.AreEqual(urlClone.Name,url.Name);
-            Assert.AreEqual(urlClone.Path,url.Path);
+            Assert.AreEqual(urlClone.Name, url.Name);
+            Assert.AreEqual(urlClone.Path, url.Path);
         }
     }
 }

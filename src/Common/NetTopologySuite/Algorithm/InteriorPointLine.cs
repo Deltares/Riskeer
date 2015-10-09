@@ -14,9 +14,8 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
     /// </summary>
     public class InteriorPointLine
     {
-        private ICoordinate centroid = null;
+        private readonly ICoordinate centroid = null;
         private double minDistance = Double.MaxValue;
-        private ICoordinate interiorPoint = null;
 
         /// <summary>
         /// 
@@ -24,23 +23,20 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <param name="g"></param>
         public InteriorPointLine(IGeometry g)
         {
+            InteriorPoint = null;
             centroid = g.Centroid.Coordinate;
             AddInterior(g);
 
-            if (interiorPoint == null)                
+            if (InteriorPoint == null)
+            {
                 AddEndpoints(g);
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public ICoordinate InteriorPoint
-        {
-            get
-            {
-                return interiorPoint;
-            }
-        }
+        public ICoordinate InteriorPoint { get; private set; }
 
         /// <summary>
         /// Tests the interior vertices (if any)
@@ -50,13 +46,17 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <param name="geom">The point to add.</param>
         private void AddInterior(IGeometry geom)
         {
-            if(geom is ILineString) 
-                AddInterior(geom.Coordinates);            
-            else if(geom is IGeometryCollection) 
+            if (geom is ILineString)
+            {
+                AddInterior(geom.Coordinates);
+            }
+            else if (geom is IGeometryCollection)
             {
                 IGeometryCollection gc = (IGeometryCollection) geom;
                 foreach (IGeometry geometry in gc.Geometries)
+                {
                     AddInterior(geometry);
+                }
             }
         }
 
@@ -67,8 +67,9 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         private void AddInterior(ICoordinate[] pts)
         {
             for (int i = 1; i < pts.Length - 1; i++)
+            {
                 Add(pts[i]);
-            
+            }
         }
 
         /// <summary> 
@@ -79,13 +80,17 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <param name="geom">The point to add.</param>
         private void AddEndpoints(IGeometry geom)
         {
-            if(geom is ILineString)
-                AddEndpoints(geom.Coordinates);   
-            else if(geom is IGeometryCollection) 
+            if (geom is ILineString)
+            {
+                AddEndpoints(geom.Coordinates);
+            }
+            else if (geom is IGeometryCollection)
             {
                 IGeometryCollection gc = (IGeometryCollection) geom;
                 foreach (IGeometry geometry in gc.Geometries)
+                {
                     AddEndpoints(geometry);
+                }
             }
         }
 
@@ -108,7 +113,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             double dist = point.Distance(centroid);
             if (dist < minDistance)
             {
-                interiorPoint = new Coordinate(point);
+                InteriorPoint = new Coordinate(point);
                 minDistance = dist;
             }
         }

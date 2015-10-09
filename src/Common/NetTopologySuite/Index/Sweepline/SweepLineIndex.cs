@@ -8,7 +8,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
     /// </summary>
     public class SweepLineIndex
     {
-        private ArrayList events = new ArrayList();
+        private readonly ArrayList events = new ArrayList();
         private bool indexBuilt;
 
         // statistics information
@@ -17,7 +17,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
         /// <summary>
         /// 
         /// </summary>
-        public SweepLineIndex() { }
+        public SweepLineIndex() {}
 
         /// <summary>
         /// 
@@ -31,25 +31,6 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
         }
 
         /// <summary>
-        /// Because Delete Events have a link to their corresponding Insert event,
-        /// it is possible to compute exactly the range of events which must be
-        /// compared to a given Insert event object.
-        /// </summary>
-        private void BuildIndex()
-        {
-            if (indexBuilt) 
-                return;
-            events.Sort();
-            for (int i = 0; i < events.Count; i++)
-            {
-                SweepLineEvent ev = (SweepLineEvent)events[i];
-                if (ev.IsDelete)                
-                    ev.InsertEvent.DeleteEventIndex = i;                
-            }
-            indexBuilt = true;
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="action"></param>
@@ -60,10 +41,35 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
 
             for (int i = 0; i < events.Count; i++)
             {
-                SweepLineEvent ev = (SweepLineEvent)events[i];
-                if (ev.IsInsert)               
-                    ProcessOverlaps(i, ev.DeleteEventIndex, ev.Interval, action);                
+                SweepLineEvent ev = (SweepLineEvent) events[i];
+                if (ev.IsInsert)
+                {
+                    ProcessOverlaps(i, ev.DeleteEventIndex, ev.Interval, action);
+                }
             }
+        }
+
+        /// <summary>
+        /// Because Delete Events have a link to their corresponding Insert event,
+        /// it is possible to compute exactly the range of events which must be
+        /// compared to a given Insert event object.
+        /// </summary>
+        private void BuildIndex()
+        {
+            if (indexBuilt)
+            {
+                return;
+            }
+            events.Sort();
+            for (int i = 0; i < events.Count; i++)
+            {
+                SweepLineEvent ev = (SweepLineEvent) events[i];
+                if (ev.IsDelete)
+                {
+                    ev.InsertEvent.DeleteEventIndex = i;
+                }
+            }
+            indexBuilt = true;
         }
 
         /// <summary>
@@ -82,7 +88,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
              */
             for (int i = start; i < end; i++)
             {
-                SweepLineEvent ev = (SweepLineEvent)events[i];
+                SweepLineEvent ev = (SweepLineEvent) events[i];
                 if (ev.IsInsert)
                 {
                     SweepLineInterval s1 = ev.Interval;

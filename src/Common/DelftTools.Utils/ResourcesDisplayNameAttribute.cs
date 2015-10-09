@@ -10,8 +10,6 @@ namespace DelftTools.Utils
     public class ResourcesDisplayNameAttribute : DisplayNameAttribute
     {
         public ResourcesDisplayNameAttribute(Type resourceType, string resourceName)
-            : base(ResourceHelper.GetResourceLookup(resourceType, resourceName))
-        {
-        }
+            : base(ResourceHelper.GetResourceLookup(resourceType, resourceName)) {}
     }
 }

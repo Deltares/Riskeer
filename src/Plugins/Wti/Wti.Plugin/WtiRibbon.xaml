@@ -9,7 +9,5 @@
     <UserControl.Resources>
         <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml"/>
     </UserControl.Resources>
-    <fluent:Ribbon Name="WtiRibbonControl" x:FieldModifier="private">
-
-    </fluent:Ribbon>
+    <fluent:Ribbon Name="WtiRibbonControl" x:FieldModifier="private" />
 </UserControl>

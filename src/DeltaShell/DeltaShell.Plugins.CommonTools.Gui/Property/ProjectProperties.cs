@@ -14,7 +14,10 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property
         [ResourcesDescription(typeof(Resources), "ProjectProperties_Name_Description")]
         public string Name
         {
-            get { return data.Name; }
+            get
+            {
+                return data.Name;
+            }
         }
 
         [PropertyOrder(2)]
@@ -23,8 +26,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property
         [ResourcesDescription(typeof(Resources), "ProjectProperties_Description_Description")]
         public string Description
         {
-            get { return data.Description; }
-            set { data.Description = value; }
+            get
+            {
+                return data.Description;
+            }
+            set
+            {
+                data.Description = value;
+            }
         }
     }
 }

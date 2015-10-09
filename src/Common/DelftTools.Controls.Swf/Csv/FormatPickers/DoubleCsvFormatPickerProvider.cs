@@ -13,12 +13,18 @@ namespace DelftTools.Controls.Swf.Csv.FormatPickers
 
         public override string Label
         {
-            get { return "Number format"; }
+            get
+            {
+                return "Number format";
+            }
         }
 
         public override Type ValueType
         {
-            get { return typeof(double); }
+            get
+            {
+                return typeof(double);
+            }
         }
 
         public override Control GetFormatPicker()
@@ -30,14 +36,9 @@ namespace DelftTools.Controls.Swf.Csv.FormatPickers
             return numberFormatComboBox;
         }
 
-        void numberFormatComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FireUserSelectionChanged();
-        }
-
         public override IFormatProvider GetFormatProvider()
         {
-            return ((NumberSeparator)numberFormatComboBox.SelectedItem).FormatInfo;
+            return ((NumberSeparator) numberFormatComboBox.SelectedItem).FormatInfo;
         }
 
         public override void SetFormatPickerToInitialGuess(IEnumerable<string> exampleStrings)
@@ -58,7 +59,12 @@ namespace DelftTools.Controls.Swf.Csv.FormatPickers
                 FireUserSelectionChanged();
             }
         }
-        
+
+        private void numberFormatComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FireUserSelectionChanged();
+        }
+
         private static IEnumerable<NumberSeparator> GenerateNumberSeparators()
         {
             yield return new NumberSeparator(".", "");
@@ -68,15 +74,18 @@ namespace DelftTools.Controls.Swf.Csv.FormatPickers
             yield return new NumberSeparator(".", " ");
             yield return new NumberSeparator(",", " ");
         }
-        
+
         private class NumberSeparator
         {
             public NumberSeparator(string decimalSeparator, string groupSeparator)
             {
-                var customNFormat = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
+                var customNFormat = (NumberFormatInfo) CultureInfo.InvariantCulture.NumberFormat.Clone();
                 customNFormat.NumberDecimalSeparator = decimalSeparator;
                 customNFormat.NumberGroupSeparator = groupSeparator;
-                customNFormat.NumberGroupSizes = new[] { 3 };
+                customNFormat.NumberGroupSizes = new[]
+                {
+                    3
+                };
 
                 FormatInfo = customNFormat;
             }
@@ -93,7 +102,9 @@ namespace DelftTools.Controls.Swf.Csv.FormatPickers
                 var ns = obj as NumberSeparator;
 
                 if (ns == null)
+                {
                     return false;
+                }
 
                 return ns.FormatInfo.NumberDecimalSeparator == FormatInfo.NumberDecimalSeparator &&
                        ns.FormatInfo.NumberGroupSeparator == FormatInfo.NumberGroupSeparator;

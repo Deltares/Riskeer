@@ -29,17 +29,17 @@ namespace DelftTools.Controls
         Image Image { get; set; }
 
         /// <summary>
-        /// Makes object visible in the view if possible
-        /// </summary>
-        /// <param name="item"></param>
-        void EnsureVisible(object item);
-
-        /// <summary>
         /// True when view is visible.
         /// </summary>
         bool Visible { get; }
 
         ViewInfo ViewInfo { get; set; }
+
+        /// <summary>
+        /// Makes object visible in the view if possible
+        /// </summary>
+        /// <param name="item"></param>
+        void EnsureVisible(object item);
     }
 
     public interface ICompositeView : IView
@@ -61,7 +61,7 @@ namespace DelftTools.Controls
         /// Returns the objects that where found using the text.
         /// This will be called from a separate thread.
         /// </summary>
-        IEnumerable<Tuple<string,object>> SearchItemsByText(string text, bool caseSensitive, Func<bool> isSearchCancelled, Action<int> setProgressPercentage);
+        IEnumerable<Tuple<string, object>> SearchItemsByText(string text, bool caseSensitive, Func<bool> isSearchCancelled, Action<int> setProgressPercentage);
     }
 
     /// <summary>
@@ -69,5 +69,5 @@ namespace DelftTools.Controls
     /// should not be returned when asking for existing views for a data object. It will however be closed when 
     /// the data is removed.
     /// </summary>
-    public interface IAdditionalView : IView { }
+    public interface IAdditionalView : IView {}
 }

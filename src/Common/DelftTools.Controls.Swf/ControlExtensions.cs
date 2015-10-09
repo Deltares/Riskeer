@@ -11,6 +11,8 @@ namespace DelftTools.Controls.Swf
     ///</summary>
     public static class ControlExtensions
     {
+        private const int WM_SETREDRAW = 11;
+
         ///<summary>
         /// Gets the first found control of type in the control container. Search is recursive.
         ///</summary>
@@ -57,14 +59,14 @@ namespace DelftTools.Controls.Swf
                     yield return parent;
                 }
                 if (child != null)
+                {
                     yield return child;
+                }
             }
         }
 
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
-
-        private const int WM_SETREDRAW = 11;
 
         public static void SuspendDrawing(this Control parent)
         {

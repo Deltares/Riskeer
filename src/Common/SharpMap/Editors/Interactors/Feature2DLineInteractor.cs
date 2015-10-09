@@ -9,9 +9,7 @@ namespace SharpMap.Editors.Interactors
     {
         public Feature2DLineInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle,
                                        IEditableObject editableObject)
-            : base(layer, feature, vectorStyle, editableObject)
-        {
-        }
+            : base(layer, feature, vectorStyle, editableObject) {}
 
         protected override bool AllowDeletionCore()
         {

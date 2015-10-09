@@ -9,16 +9,13 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
     /// </summary>
     public class TaggedLineString
     {
-        private ILineString parentLine;
-        private TaggedLineSegment[] segs;
-        private IList resultSegs = new ArrayList();
-        private int minimumSize;
+        private readonly IList resultSegs = new ArrayList();
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="parentLine"></param>
-        public TaggedLineString(ILineString parentLine) : this(parentLine, 2) { }
+        public TaggedLineString(ILineString parentLine) : this(parentLine, 2) {}
 
         /// <summary>
         /// 
@@ -27,32 +24,20 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// <param name="minimumSize"></param>
         public TaggedLineString(ILineString parentLine, int minimumSize)
         {
-            this.parentLine = parentLine;
-            this.minimumSize = minimumSize;
+            Parent = parentLine;
+            MinimumSize = minimumSize;
             Init();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public int MinimumSize
-        {
-            get
-            {
-                return minimumSize;
-            }
-        }
+        public int MinimumSize { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public ILineString Parent
-        {
-            get
-            {
-                return parentLine;
-            }
-        }
+        public ILineString Parent { get; private set; }
 
         /// <summary>
         /// 
@@ -61,7 +46,7 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         {
             get
             {
-                return parentLine.Coordinates;
+                return Parent.Coordinates;
             }
         }
 
@@ -91,36 +76,16 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// <summary>
         /// 
         /// </summary>
+        public TaggedLineSegment[] Segments { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="i"></param>
         /// <returns></returns>
         public TaggedLineSegment GetSegment(int i)
         {
-            return segs[i]; 
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void Init()
-        {
-            ICoordinate[] pts = parentLine.Coordinates;
-            segs = new TaggedLineSegment[pts.Length - 1];
-            for (int i = 0; i < pts.Length - 1; i++)
-            {
-                TaggedLineSegment seg = new TaggedLineSegment(pts[i], pts[i + 1], parentLine, i);
-                segs[i] = seg;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public TaggedLineSegment[] Segments
-        {
-            get
-            {
-                return segs;
-            }
+            return Segments[i];
         }
 
         /// <summary>
@@ -138,7 +103,7 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// <returns></returns>
         public ILineString AsLineString()
         {
-            return parentLine.Factory.CreateLineString(ExtractCoordinates(resultSegs));        
+            return Parent.Factory.CreateLineString(ExtractCoordinates(resultSegs));
         }
 
         /// <summary>
@@ -147,7 +112,21 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// <returns></returns>
         public ILinearRing AsLinearRing()
         {
-            return parentLine.Factory.CreateLinearRing(ExtractCoordinates(resultSegs));
+            return Parent.Factory.CreateLinearRing(ExtractCoordinates(resultSegs));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void Init()
+        {
+            ICoordinate[] pts = Parent.Coordinates;
+            Segments = new TaggedLineSegment[pts.Length - 1];
+            for (int i = 0; i < pts.Length - 1; i++)
+            {
+                TaggedLineSegment seg = new TaggedLineSegment(pts[i], pts[i + 1], Parent, i);
+                Segments[i] = seg;
+            }
         }
 
         /// <summary>

@@ -14,10 +14,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
     public class SharpMapGisGuiPluginTest
     {
         private MockRepository mocks;
+
         [SetUp]
         public void Setup()
         {
-            mocks= new MockRepository();
+            mocks = new MockRepository();
         }
 
         /// <summary>
@@ -30,22 +31,28 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
             var viewManager = mocks.Stub<IViewList>();
             var application = mocks.Stub<IApplication>();
             var project = new Project();
-            var sharpMapGisPluginGui = new SharpMapGisGuiPlugin { Gui = gui };
+            var sharpMapGisPluginGui = new SharpMapGisGuiPlugin
+            {
+                Gui = gui
+            };
 
             Expect.Call(application.Project).Return(project).Repeat.Any();
             Expect.Call(application.FileExporters).Return(new List<IFileExporter>()).Repeat.Any();
             gui.Application = application;
             Expect.Call(gui.ToolWindowViews).Return(viewManager).Repeat.Any();
             Expect.Call(gui.DocumentViews).Return(viewManager).Repeat.Any();
-            Expect.Call(gui.Plugins).Return(new[] { sharpMapGisPluginGui }).Repeat.Any();
+            Expect.Call(gui.Plugins).Return(new[]
+            {
+                sharpMapGisPluginGui
+            }).Repeat.Any();
 
             var layerNode = new TreeNode();
             var treeView = new TreeView();
             treeView.Nodes.Add(layerNode);
             var vectorLayer = new VectorLayer("testLayer");
-            
+
             mocks.ReplayAll();
-            
+
             sharpMapGisPluginGui.Gui = gui;
 
             sharpMapGisPluginGui.InitializeMapLegend();
@@ -65,18 +72,24 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
             var viewList = new ViewList(dockingManager, null);
             var application = mocks.Stub<IApplication>();
             var project = new Project();
-            var sharpMapGisPluginGui = new SharpMapGisGuiPlugin { Gui = gui };
-            
+            var sharpMapGisPluginGui = new SharpMapGisGuiPlugin
+            {
+                Gui = gui
+            };
+
             Expect.Call(application.Project).Return(project).Repeat.Any();
             Expect.Call(application.FileExporters).Return(new List<IFileExporter>()).Repeat.Any();
 
             Expect.Call(gui.ToolWindowViews).Return(viewList).Repeat.Any();
             Expect.Call(gui.DocumentViews).Return(viewList).Repeat.Any();
-            Expect.Call(gui.Plugins).Return(new[] { sharpMapGisPluginGui }).Repeat.Any();
+            Expect.Call(gui.Plugins).Return(new[]
+            {
+                sharpMapGisPluginGui
+            }).Repeat.Any();
             gui.Application = application;
 
             mocks.ReplayAll();
-            
+
             sharpMapGisPluginGui.Activate();
             Assert.IsTrue(sharpMapGisPluginGui.IsActive);
         }

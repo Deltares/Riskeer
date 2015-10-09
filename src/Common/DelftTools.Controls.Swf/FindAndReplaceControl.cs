@@ -14,16 +14,16 @@ namespace DelftTools.Controls.Swf
         private bool isDirty;
         private string textToSearch;
         private Action<int, int, string> replaceText;
-        
+
         public FindAndReplaceControl()
         {
             InitializeComponent();
             ShowReplaceControls(false);
         }
 
-        public TextBox FindTextBox {get { return textBoxFind; }}
+        public TextBox FindTextBox { get; private set; }
 
-        public TextBox ReplaceTextBox { get { return textBoxReplace; } }
+        public TextBox ReplaceTextBox { get; private set; }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -43,7 +43,10 @@ namespace DelftTools.Controls.Swf
 
         public Action<int, int, string> ReplaceText
         {
-            get { return replaceText; }
+            get
+            {
+                return replaceText;
+            }
             set
             {
                 replaceText = value;
@@ -56,7 +59,7 @@ namespace DelftTools.Controls.Swf
         private void ShowReplaceControls(bool show)
         {
             labelReplaceWith.Visible = show;
-            textBoxReplace.Visible = show;
+            ReplaceTextBox.Visible = show;
             buttonReplace.Visible = show;
             buttonReplaceAll.Visible = show;
         }
@@ -76,7 +79,7 @@ namespace DelftTools.Controls.Swf
             var currentPosition = GetCurrentPosition();
 
             SyncMatches();
-            
+
             var currentMatch = matches.OfType<Match>().FirstOrDefault(m => m.Index == currentPosition);
             if (currentMatch == null)
             {
@@ -86,7 +89,7 @@ namespace DelftTools.Controls.Swf
 
             if (ReplaceText != null)
             {
-                ReplaceText(currentMatch.Index, currentMatch.Length, textBoxReplace.Text);
+                ReplaceText(currentMatch.Index, currentMatch.Length, ReplaceTextBox.Text);
             }
 
             FindNext();
@@ -113,7 +116,7 @@ namespace DelftTools.Controls.Swf
 
             if (nextMatch != null && SelectText != null)
             {
-                SelectText(nextMatch.Index, textBoxFind.Text.Length);
+                SelectText(nextMatch.Index, FindTextBox.Text.Length);
                 if (ScrollToPosition != null)
                 {
                     ScrollToPosition(nextMatch.Index);
@@ -131,7 +134,7 @@ namespace DelftTools.Controls.Swf
                 textToSearch = currentText;
             }
 
-            var expr = new Regex(Regex.Escape(textBoxFind.Text));
+            var expr = new Regex(Regex.Escape(FindTextBox.Text));
 
             if (matches == null || isDirty)
             {
@@ -166,15 +169,18 @@ namespace DelftTools.Controls.Swf
 
         private void buttonReplaceAll_Click(object sender, EventArgs e)
         {
-            if (ReplaceText == null) return;
+            if (ReplaceText == null)
+            {
+                return;
+            }
 
             SyncMatches();
 
             foreach (var match in matches.OfType<Match>().Reverse())
             {
-                ReplaceText(match.Index, match.Length, textBoxReplace.Text);
+                ReplaceText(match.Index, match.Length, ReplaceTextBox.Text);
             }
-            Log.InfoFormat("Replaced {0} occurrences of {1} with {2}", matches.Count, textBoxFind.Text, textBoxReplace.Text);
+            Log.InfoFormat("Replaced {0} occurrences of {1} with {2}", matches.Count, FindTextBox.Text, ReplaceTextBox.Text);
         }
 
         private void button_KeyDown(object sender, KeyEventArgs e)
@@ -187,15 +193,15 @@ namespace DelftTools.Controls.Swf
 
             if (e.KeyCode == Keys.Enter)
             {
-                ((Button)sender).PerformClick();
+                ((Button) sender).PerformClick();
             }
         }
 
         private void textBoxFind_TextChanged(object sender, EventArgs e)
         {
-            if (sender == textBoxFind && HighLightText != null)
+            if (sender == FindTextBox && HighLightText != null)
             {
-                HighLightText(textBoxFind.Text);
+                HighLightText(FindTextBox.Text);
             }
 
             isDirty = true;
@@ -203,7 +209,10 @@ namespace DelftTools.Controls.Swf
 
         private void FindAndReplaceControl_VisibleChanged(object sender, EventArgs e)
         {
-            if (HighLightText == null || Visible) return;
+            if (HighLightText == null || Visible)
+            {
+                return;
+            }
 
             HighLightText("");
         }

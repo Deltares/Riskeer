@@ -13,7 +13,7 @@ namespace SharpMap.Tests.Data
         public void GetSetAttributesViaIFeature()
         {
             var featureTable = new FeatureDataTable();
-            featureTable.Columns.Add("name", typeof (string));
+            featureTable.Columns.Add("name", typeof(string));
             featureTable.Columns.Add("attribute1", typeof(int));
 
             var feature1 = featureTable.NewRow();
@@ -26,10 +26,14 @@ namespace SharpMap.Tests.Data
             IFeature f1 = feature1;
 
             f1.Attributes.Count
-                .Should().Be.EqualTo(2);
+              .Should().Be.EqualTo(2);
 
             f1.Attributes.Keys
-                .Should().Have.SameSequenceAs(new[] {"name", "attribute1"});
+              .Should().Have.SameSequenceAs(new[]
+              {
+                  "name",
+                  "attribute1"
+              });
 
             f1.Attributes["name"]
                 .Should().Be.EqualTo("feature1");

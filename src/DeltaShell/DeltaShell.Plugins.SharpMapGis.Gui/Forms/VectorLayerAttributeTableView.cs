@@ -19,12 +19,13 @@ using GeoAPI.Extensions.Feature;
 using NetTopologySuite.Extensions.Features;
 using SharpMap.Api.Layers;
 using MessageBox = System.Windows.Forms.MessageBox;
+using TypeConverter = DelftTools.Utils.TypeConverter;
 
 namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 {
     public partial class VectorLayerAttributeTableView : UserControl, ILayerEditorView
     {
-        private TableView tableView;
+        public event EventHandler SelectedFeaturesChanged;
         private ILayer layer;
         private IList featureRowList;
         private bool removingFeatures;
@@ -42,54 +43,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             InitializeDynamicAttributeContextMenu();
 
             // TODO: extend UpdateTableDataSource() to support add/delete new rows, via layer.FeatureEditor?
-            tableView.AllowAddNewRow = false;
-            
-            tableView.ReadOnlyCellBackColor = SystemColors.ControlLight;
-            tableView.ReadOnlyCellFilter = OnReadOnlyCellFilter;
-            tableView.RowDeleteHandler = OnDeleteRows;
-        }
+            TableView.AllowAddNewRow = false;
 
-        private bool OnDeleteRows()
-        {
-            if (DeleteSelectedFeatures == null) return false;
-
-            DeleteSelectedFeatures();
-            SelectedFeatures = Enumerable.Empty<IFeature>();
-            return true;
-        }
-
-        private bool OnReadOnlyCellFilter(TableViewCell c)
-        {
-            if (c.Column.IsUnbound)
-                return false;
-
-            if (tableView.Data == null) return true;
-
-            var rowObjects = (IList) tableView.Data;
-            if (rowObjects.Count <= 0)
-                return true;
-
-            var dataSourceIndexByRowIndex = tableView.GetDataSourceIndexByRowIndex(c.RowIndex);
-            if (dataSourceIndexByRowIndex < 0)
-                return false;
-
-            var rowObject = rowObjects[dataSourceIndexByRowIndex];
-            
-            return DynamicReadOnlyAttribute.IsDynamicReadOnly(rowObject, c.Column.Name);
-        }
-
-        /// <summary>
-        /// Optional factory method to create an object to be bound to the table view for a given feature.
-        /// </summary>
-        public void SetCreateFeatureRowFunction<TFeatureRow>(Func<IFeature, TFeatureRow> createFeatureRowFunction) where TFeatureRow : class, IFeatureRowObject
-        {
-            createFeatureRowObject = createFeatureRowFunction;
-            featureRowType = typeof (TFeatureRow);
-            
-            if (layer != null)
-            {
-                UpdateTableDataSource();
-            }
+            TableView.ReadOnlyCellBackColor = SystemColors.ControlLight;
+            TableView.ReadOnlyCellFilter = OnReadOnlyCellFilter;
+            TableView.RowDeleteHandler = OnDeleteRows;
         }
 
         public Action<IFeature> ZoomToFeature { get; set; }
@@ -98,9 +56,43 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
         public Action DeleteSelectedFeatures { get; set; }
 
+        public TableView TableView { get; private set; }
+
+        public Func<string, bool> DynamicAttributeVisible
+        {
+            private get
+            {
+                return dynamicAttributeVisible;
+            }
+            set
+            {
+                dynamicAttributeVisible = value;
+                UpdateTableDataSource();
+            }
+        }
+
+        public bool CanAddDeleteAttributes
+        {
+            get
+            {
+                return canAddDeleteAttributes;
+            }
+            set
+            {
+                if (canAddDeleteAttributes != value)
+                {
+                    canAddDeleteAttributes = value;
+                    InitializeDynamicAttributeContextMenu();
+                }
+            }
+        }
+
         public object Data
         {
-            get { return layer; }
+            get
+            {
+                return layer;
+            }
             set
             {
                 if (layer != null && layer.DataSource != null)
@@ -119,21 +111,16 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             }
         }
 
-        public TableView TableView
-        {
-            get { return tableView; }
-        }
-
         public IEnumerable<IFeature> SelectedFeatures
         {
             get
             {
                 if (layer.DataSource != null)
                 {
-                    var rowIndices = tableView.SelectedCells.Select(c => c.RowIndex).Distinct();
+                    var rowIndices = TableView.SelectedCells.Select(c => c.RowIndex).Distinct();
 
                     return rowIndices.Where(i => i >= 0)
-                                     .Select(i => layer.DataSource.Features[tableView.GetDataSourceIndexByRowIndex(i)])
+                                     .Select(i => layer.DataSource.Features[TableView.GetDataSourceIndexByRowIndex(i)])
                                      .OfType<IFeature>()
                                      .Where(f => f != null);
                 }
@@ -147,7 +134,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                     return;
                 }
 
-                tableView.ClearSelection();
+                TableView.ClearSelection();
 
                 var features = value.Where(f => f.GetType().Implements(layer.DataSource.FeatureType)).ToList();
 
@@ -155,33 +142,91 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                 {
                     return;
                 }
-                
-                tableView.SelectRows(features.Select(f => tableView.GetRowIndexByDataSourceIndex(layer.DataSource.Features.IndexOf(f))).ToArray());
 
-                tableView.FocusedRowIndex = tableView.SelectedRowsIndices.FirstOrDefault();
+                TableView.SelectRows(features.Select(f => TableView.GetRowIndexByDataSourceIndex(layer.DataSource.Features.IndexOf(f))).ToArray());
+
+                TableView.FocusedRowIndex = TableView.SelectedRowsIndices.FirstOrDefault();
             }
         }
 
         public Image Image { get; set; }
 
-        public void EnsureVisible(object item)
+        public ViewInfo ViewInfo { get; set; }
+        public ILayer Layer { set; get; }
+
+        /// <summary>
+        /// Optional factory method to create an object to be bound to the table view for a given feature.
+        /// </summary>
+        public void SetCreateFeatureRowFunction<TFeatureRow>(Func<IFeature, TFeatureRow> createFeatureRowFunction) where TFeatureRow : class, IFeatureRowObject
         {
+            createFeatureRowObject = createFeatureRowFunction;
+            featureRowType = typeof(TFeatureRow);
+
+            if (layer != null)
+            {
+                UpdateTableDataSource();
+            }
         }
 
-        public ViewInfo ViewInfo { get; set; }
+        public void EnsureVisible(object item) {}
+
+        public void OnActivated() {}
+
+        public void OnDeactivated() {}
+
+        private bool OnDeleteRows()
+        {
+            if (DeleteSelectedFeatures == null)
+            {
+                return false;
+            }
+
+            DeleteSelectedFeatures();
+            SelectedFeatures = Enumerable.Empty<IFeature>();
+            return true;
+        }
+
+        private bool OnReadOnlyCellFilter(TableViewCell c)
+        {
+            if (c.Column.IsUnbound)
+            {
+                return false;
+            }
+
+            if (TableView.Data == null)
+            {
+                return true;
+            }
+
+            var rowObjects = (IList) TableView.Data;
+            if (rowObjects.Count <= 0)
+            {
+                return true;
+            }
+
+            var dataSourceIndexByRowIndex = TableView.GetDataSourceIndexByRowIndex(c.RowIndex);
+            if (dataSourceIndexByRowIndex < 0)
+            {
+                return false;
+            }
+
+            var rowObject = rowObjects[dataSourceIndexByRowIndex];
+
+            return DynamicReadOnlyAttribute.IsDynamicReadOnly(rowObject, c.Column.Name);
+        }
 
         private void DataSourceFeaturesChanged(object sender, EventArgs e)
         {
             if (createFeatureRowObject == null)
             {
-                tableView.ScheduleRefresh();
+                TableView.ScheduleRefresh();
             }
             else if (!removingFeatures)
             {
-                tableView.SuspendDrawing();
-                tableView.Data = null; // clear previous subscriptions (property changed)
-                tableView.Data = CreateFeatureRowList(layer.DataSource.Features);
-                tableView.ResumeDrawing();
+                TableView.SuspendDrawing();
+                TableView.Data = null; // clear previous subscriptions (property changed)
+                TableView.Data = CreateFeatureRowList(layer.DataSource.Features);
+                TableView.ResumeDrawing();
             }
         }
 
@@ -190,14 +235,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             ConfigureStaticAttributeColumns();
             ConfigureDynamicAttributeColumns();
 
-            tableView.Data = createFeatureRowObject == null
+            TableView.Data = createFeatureRowObject == null
                                  ? layer.DataSource.Features
                                  : CreateFeatureRowList(layer.DataSource.Features);
 
-            tableView.AllowDeleteRow = !layer.ReadOnly && layer.FeatureEditor != null;
+            TableView.AllowDeleteRow = !layer.ReadOnly && layer.FeatureEditor != null;
 
-            tableView.RefreshData();
-            tableView.BestFitColumns();
+            TableView.RefreshData();
+            TableView.BestFitColumns();
         }
 
         private IList CreateFeatureRowList(IList features)
@@ -206,7 +251,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
             // Create and initialize EventedList<TFeatureRowObject>. Type needs to be the specific featureRowObject (binding needs the 
             // type to get all the properties)
-            featureRowList = (IList) TypeUtils.CreateGeneric(typeof (EventedList<>), new[] {featureRowType});
+            featureRowList = (IList) TypeUtils.CreateGeneric(typeof(EventedList<>), new[]
+            {
+                featureRowType
+            });
 
             foreach (var featureRowObject in features.OfType<IFeature>().Select(createFeatureRowObject))
             {
@@ -225,7 +273,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                 return;
             }
 
-            ((INotifyCollectionChange)featureRowList).CollectionChanged -= FeatureRowListCollectionChanged;
+            ((INotifyCollectionChange) featureRowList).CollectionChanged -= FeatureRowListCollectionChanged;
 
             foreach (var featureRowObject in featureRowList.OfType<IDisposable>())
             {
@@ -245,15 +293,15 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
             removingFeatures = true;
             var feature = ((IFeatureRowObject) e.Item).GetFeature();
-            layer.FeatureEditor.CreateInteractor(layer,feature).Delete();
+            layer.FeatureEditor.CreateInteractor(layer, feature).Delete();
             removingFeatures = false;
         }
 
         private void ConfigureStaticAttributeColumns()
         {
-            tableView.Columns.Clear();
-            tableView.AutoGenerateColumns = false;
-            
+            TableView.Columns.Clear();
+            TableView.AutoGenerateColumns = false;
+
             if (createFeatureRowObject == null)
             {
                 var featureType = layer.DataSource.FeatureType;
@@ -262,14 +310,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                 featureType.GetProperties(); // refresh property cache (ensure that the properties are always returned in the same order)
 
                 var attributeNames = FeatureAttributeAccessorHelper.GetFeatureAttributeNames(featureType).ToList();
-                
+
                 foreach (var name in attributeNames)
                 {
                     var displayName = FeatureAttributeAccessorHelper.GetPropertyDisplayName(featureType, name);
                     var displayFormat = FeatureAttributeAccessorHelper.GetFormatString(featureType, name);
                     var isReadOnly = FeatureAttributeAccessorHelper.IsReadOnly(featureType, name);
 
-                    tableView.AddColumn(name, displayName ?? name, isReadOnly, 100, displayFormat: displayFormat);
+                    TableView.AddColumn(name, displayName ?? name, isReadOnly, 100, displayFormat: displayFormat);
                 }
             }
             else
@@ -279,26 +327,18 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                     var customAttributes = propertyInfo.GetCustomAttributes(true);
 
                     if (customAttributes.OfType<BrowsableAttribute>().Any(a => !a.Browsable))
+                    {
                         continue;
+                    }
 
                     var name = propertyInfo.Name;
-                    
+
                     var displayName = customAttributes.OfType<DisplayNameAttribute>().Select(a => a.DisplayName).FirstOrDefault();
                     var displayFormat = customAttributes.OfType<DisplayFormatAttribute>().Select(a => a.FormatString).FirstOrDefault();
                     var isReadOnly = FeatureAttributeAccessorHelper.IsReadOnly(featureRowType, name);
 
-                    tableView.AddColumn(name, displayName ?? name, isReadOnly, 100, displayFormat: displayFormat);
+                    TableView.AddColumn(name, displayName ?? name, isReadOnly, 100, displayFormat: displayFormat);
                 }
-            }
-        }
-
-        public Func<string, bool> DynamicAttributeVisible
-        {
-            private get { return dynamicAttributeVisible; }
-            set
-            {
-                dynamicAttributeVisible = value;
-                UpdateTableDataSource();
             }
         }
 
@@ -309,39 +349,26 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
         private void ConfigureDynamicAttributeColumns()
         {
-            tableView.Columns.RemoveAllWhere(c => c.IsUnbound);
+            TableView.Columns.RemoveAllWhere(c => c.IsUnbound);
 
             var attributes = layer.DataSource.Features.Cast<IFeature>()
-                .Where(f => f.Attributes != null).SelectMany(feature => feature.Attributes.Keys)
-                .Distinct().Where(IsVisible);
+                                  .Where(f => f.Attributes != null).SelectMany(feature => feature.Attributes.Keys)
+                                  .Distinct().Where(IsVisible);
 
-            var index = tableView.Columns.Count;
+            var index = TableView.Columns.Count;
 
             foreach (var attribute in attributes)
             {
                 var columnName = attribute;
 
-                var column = tableView.Columns.FirstOrDefault(c => c.Name == columnName);
+                var column = TableView.Columns.FirstOrDefault(c => c.Name == columnName);
 
                 if (column != null)
                 {
                     continue;
                 }
 
-                tableView.AddUnboundColumn(columnName, typeof(string), index++);
-            }
-        }
-
-        public bool CanAddDeleteAttributes
-        {
-            get { return canAddDeleteAttributes; }
-            set
-            {
-                if (canAddDeleteAttributes != value)
-                {
-                    canAddDeleteAttributes = value;
-                    InitializeDynamicAttributeContextMenu();
-                }
+                TableView.AddUnboundColumn(columnName, typeof(string), index++);
             }
         }
 
@@ -354,10 +381,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             const string deleteAttributeCaption = "Delete Attribute";
             const string zoomToItemCaption = "Zoom to item";
             const string openViewCaption = "Open view...";
-            
+
             if (CanAddDeleteAttributes)
             {
-                if (tableView.RowContextMenu.Items.OfType<ToolStripItem>().All(mi => mi.Name != addAttributeItemName))
+                if (TableView.RowContextMenu.Items.OfType<ToolStripItem>().All(mi => mi.Name != addAttributeItemName))
                 {
                     var btnAddAttribute = new ToolStripMenuItem
                     {
@@ -366,21 +393,21 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                         Image = Resources.table_add
                     };
                     btnAddAttribute.Click += AddAttributeItemClick;
-                    btnAddAttribute.Tag = tableView;
-                    tableView.RowContextMenu.Items.Add(btnAddAttribute);
+                    btnAddAttribute.Tag = TableView;
+                    TableView.RowContextMenu.Items.Add(btnAddAttribute);
                 }
             }
             else
             {
-                if (tableView.RowContextMenu.Items.OfType<ToolStripItem>()
-                    .Any(mi => mi.Name == addAttributeItemName))
+                if (TableView.RowContextMenu.Items.OfType<ToolStripItem>()
+                             .Any(mi => mi.Name == addAttributeItemName))
                 {
-                    var menuItem = tableView.RowContextMenu.Items.OfType<ToolStripItem>()
-                        .First(mi => mi.Name == addAttributeItemName);
-                    tableView.RowContextMenu.Items.Remove(menuItem);
+                    var menuItem = TableView.RowContextMenu.Items.OfType<ToolStripItem>()
+                                            .First(mi => mi.Name == addAttributeItemName);
+                    TableView.RowContextMenu.Items.Remove(menuItem);
                 }
             }
-            if (tableView.RowContextMenu.Items.OfType<ToolStripItem>().All(mi => mi.Name != zoomItemName))
+            if (TableView.RowContextMenu.Items.OfType<ToolStripItem>().All(mi => mi.Name != zoomItemName))
             {
                 var btnzoomToMenuItem = new ToolStripMenuItem
                 {
@@ -389,10 +416,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                     Image = Resources.magnifier__arrow
                 };
                 btnzoomToMenuItem.Click += BtnZoomToClick;
-                btnzoomToMenuItem.Tag = tableView;
-                tableView.RowContextMenu.Items.Add(btnzoomToMenuItem);
+                btnzoomToMenuItem.Tag = TableView;
+                TableView.RowContextMenu.Items.Add(btnzoomToMenuItem);
             }
-            if (tableView.RowContextMenu.Items.OfType<ToolStripItem>().All(mi => mi.Name != openViewItemName))
+            if (TableView.RowContextMenu.Items.OfType<ToolStripItem>().All(mi => mi.Name != openViewItemName))
             {
                 var btnOpenViewMenuItem = new ToolStripMenuItem
                 {
@@ -401,24 +428,24 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                     Image = Resources.Properties
                 };
                 btnOpenViewMenuItem.Click += BtnOpenViewClick;
-                btnOpenViewMenuItem.Tag = tableView;
+                btnOpenViewMenuItem.Tag = TableView;
                 btnOpenViewMenuItem.Font = new Font(btnOpenViewMenuItem.Font, FontStyle.Bold);
-                tableView.RowContextMenu.Items.Add(btnOpenViewMenuItem);
+                TableView.RowContextMenu.Items.Add(btnOpenViewMenuItem);
             }
-            tableView.UnboundColumnData = TableViewUnboundColumnDataUpdating;
+            TableView.UnboundColumnData = TableViewUnboundColumnDataUpdating;
 
             if (CanAddDeleteAttributes)
             {
-                if (tableView.ColumnMenuItems.All(mi => mi.Caption != addAttributeCaption))
+                if (TableView.ColumnMenuItems.All(mi => mi.Caption != addAttributeCaption))
                 {
                     var addAttributeItem = new TableViewColumnMenuItem(addAttributeCaption)
                     {
                         Image = Resources.table_add
                     };
                     addAttributeItem.Click += AddAttributeItemClick;
-                    tableView.ColumnMenuItems.Add(addAttributeItem);
+                    TableView.ColumnMenuItems.Add(addAttributeItem);
                 }
-                if (tableView.ColumnMenuItems.All(mi => mi.Caption != deleteAttributeCaption))
+                if (TableView.ColumnMenuItems.All(mi => mi.Caption != deleteAttributeCaption))
                 {
                     var deleteAttributeItem = new TableViewColumnMenuItem(deleteAttributeCaption)
                     {
@@ -426,20 +453,23 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                     };
                     deleteAttributeItem.Showing += DeleteAttributeItemShowing;
                     deleteAttributeItem.Click += DeleteAttributeItemClick;
-                    tableView.ColumnMenuItems.Add(deleteAttributeItem);
+                    TableView.ColumnMenuItems.Add(deleteAttributeItem);
                 }
             }
             else
             {
-                tableView.ColumnMenuItems.RemoveAllWhere(
+                TableView.ColumnMenuItems.RemoveAllWhere(
                     mi => mi.Caption == addAttributeCaption || mi.Caption == deleteAttributeCaption);
             }
 
-            if (tableView.ColumnMenuItems.All(mi => mi.Caption != zoomToItemCaption))
+            if (TableView.ColumnMenuItems.All(mi => mi.Caption != zoomToItemCaption))
             {
-                var zoomToMenuItem = new TableViewColumnMenuItem(zoomToItemCaption) {Image = Resources.magnifier__arrow};
+                var zoomToMenuItem = new TableViewColumnMenuItem(zoomToItemCaption)
+                {
+                    Image = Resources.magnifier__arrow
+                };
                 zoomToMenuItem.Click += BtnZoomToClick;
-                tableView.ColumnMenuItems.Add(zoomToMenuItem);
+                TableView.ColumnMenuItems.Add(zoomToMenuItem);
             }
         }
 
@@ -450,7 +480,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             var column = sender as ITableViewColumn;
 
             //only show delete option if its a custom attribute
-            if (column != null && attributes.Any(a => a == column.Name)) 
+            if (column != null && attributes.Any(a => a == column.Name))
             {
                 e.Cancel = false;
                 return;
@@ -468,7 +498,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             }
 
             column.Visible = false;
-            tableView.Columns.Remove(column);
+            TableView.Columns.Remove(column);
 
             var attributeName = column.Name;
 
@@ -480,8 +510,8 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                 }
             }
 
-            tableView.RefreshData();
-            tableView.ResetBindings();
+            TableView.RefreshData();
+            TableView.ResetBindings();
         }
 
         private void BtnZoomToClick(object sender, EventArgs e)
@@ -504,12 +534,15 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
 
         private void AddAttributeItemClick(object sender, EventArgs e)
         {
-            if (tableView.FocusedRowIndex < 0)
+            if (TableView.FocusedRowIndex < 0)
             {
                 return;
             }
 
-            var dialog = new InputTextDialog { Text = "Please give an attribute name" };
+            var dialog = new InputTextDialog
+            {
+                Text = "Please give an attribute name"
+            };
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 var attributeName = dialog.EnteredText;
@@ -533,7 +566,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                     }
                 }
                 ConfigureDynamicAttributeColumns();
-                tableView.RefreshData();
+                TableView.RefreshData();
             }
         }
 
@@ -541,13 +574,13 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
         {
             var featureIndex = dataSourceIndex;
             var feature = layer.DataSource.GetFeature(featureIndex);
-            
-            if (tableView.Columns.Count <= column)
+
+            if (TableView.Columns.Count <= column)
             {
                 return value;
             }
 
-            var attributeName = tableView.Columns[column].Name;
+            var attributeName = TableView.Columns[column].Name;
 
             if (feature.Attributes == null)
             {
@@ -574,11 +607,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
                 // match type
                 object currentValue;
 
-                var type = typeof (string);
+                var type = typeof(string);
                 if (feature.Attributes.TryGetValue(attributeName, out currentValue) && currentValue != null)
                 {
                     type = currentValue.GetType();
-                    feature.Attributes[attributeName] = DelftTools.Utils.TypeConverter.ConvertValueToTargetType(type,value);
+                    feature.Attributes[attributeName] = TypeConverter.ConvertValueToTargetType(type, value);
                 }
                 else
                 {
@@ -594,17 +627,9 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
         private void TableViewSelectionChanged(object sender, TableSelectionChangedEventArgs e)
         {
             if (SelectedFeaturesChanged != null)
+            {
                 SelectedFeaturesChanged(this, e);
-        }
-
-        public event EventHandler SelectedFeaturesChanged;
-        public ILayer Layer { set; get; }
-        public void OnActivated()
-        {
-        }
-
-        public void OnDeactivated()
-        {
+            }
         }
     }
 }

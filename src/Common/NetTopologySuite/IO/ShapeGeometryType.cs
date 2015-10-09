@@ -94,5 +94,5 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// MultiPointZ
         /// </summary>
         MultiPointZ = 20,
-    }        
+    }
 }

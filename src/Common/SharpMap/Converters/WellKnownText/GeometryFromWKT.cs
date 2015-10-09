@@ -40,44 +40,44 @@ using GisSharpBlog.NetTopologySuite.IO;
 
 namespace SharpMap.Converters.WellKnownText
 {
-	/// <summary>
-	///  Converts a Well-known Text representation to a <see cref="SharpMap.Geometries.Geometry"/> instance.
-	/// </summary>
-	/// <remarks>
-	/// <para>The Well-Known Text (WKT) representation of Geometry is designed to exchange geometry data in ASCII form.</para>
-	/// Examples of WKT representations of geometry objects are:
-	/// <list type="table">
-	/// <listheader><term>Geometry </term><description>WKT Representation</description></listheader>
-	/// <item><term>A Point</term>
-	/// <description>POINT(15 20)<br/> Note that point coordinates are specified with no separating comma.</description></item>
-	/// <item><term>A LineString with four points:</term>
-	/// <description>LINESTRING(0 0, 10 10, 20 25, 50 60)</description></item>
-	/// <item><term>A Polygon with one exterior ring and one interior ring:</term>
-	/// <description>POLYGON((0 0,10 0,10 10,0 10,0 0),(5 5,7 5,7 7,5 7, 5 5))</description></item>
-	/// <item><term>A MultiPoint with three Point values:</term>
-	/// <description>MULTIPOINT(0 0, 20 20, 60 60)</description></item>
-	/// <item><term>A MultiLineString with two LineString values:</term>
-	/// <description>MULTILINESTRING((10 10, 20 20), (15 15, 30 15))</description></item>
-	/// <item><term>A MultiPolygon with two Polygon values:</term>
-	/// <description>MULTIPOLYGON(((0 0,10 0,10 10,0 10,0 0)),((5 5,7 5,7 7,5 7, 5 5)))</description></item>
-	/// <item><term>A GeometryCollection consisting of two Point values and one LineString:</term>
-	/// <description>GEOMETRYCOLLECTION(POINT(10 10), POINT(30 30), LINESTRING(15 15, 20 20))</description></item>
-	/// </list>
-	/// </remarks>
-	public class GeometryFromWKT
-	{
-		/// <summary>
-		/// Converts a Well-known text representation to a <see cref="SharpMap.Geometries.Geometry"/>.
-		/// </summary>
-		/// <param name="wellKnownText">A <see cref="SharpMap.Geometries.Geometry"/> tagged text string ( see the OpenGIS Simple Features Specification.</param>
-		/// <returns>Returns a <see cref="SharpMap.Geometries.Geometry"/> specified by wellKnownText.  Throws an exception if there is a parsing problem.</returns>
-		public static IGeometry Parse(string wellKnownText)
-		{
-			return new WKTReader().Read(wellKnownText);
+    /// <summary>
+    ///  Converts a Well-known Text representation to a <see cref="SharpMap.Geometries.Geometry"/> instance.
+    /// </summary>
+    /// <remarks>
+    /// <para>The Well-Known Text (WKT) representation of Geometry is designed to exchange geometry data in ASCII form.</para>
+    /// Examples of WKT representations of geometry objects are:
+    /// <list type="table">
+    /// <listheader><term>Geometry </term><description>WKT Representation</description></listheader>
+    /// <item><term>A Point</term>
+    /// <description>POINT(15 20)<br/> Note that point coordinates are specified with no separating comma.</description></item>
+    /// <item><term>A LineString with four points:</term>
+    /// <description>LINESTRING(0 0, 10 10, 20 25, 50 60)</description></item>
+    /// <item><term>A Polygon with one exterior ring and one interior ring:</term>
+    /// <description>POLYGON((0 0,10 0,10 10,0 10,0 0),(5 5,7 5,7 7,5 7, 5 5))</description></item>
+    /// <item><term>A MultiPoint with three Point values:</term>
+    /// <description>MULTIPOINT(0 0, 20 20, 60 60)</description></item>
+    /// <item><term>A MultiLineString with two LineString values:</term>
+    /// <description>MULTILINESTRING((10 10, 20 20), (15 15, 30 15))</description></item>
+    /// <item><term>A MultiPolygon with two Polygon values:</term>
+    /// <description>MULTIPOLYGON(((0 0,10 0,10 10,0 10,0 0)),((5 5,7 5,7 7,5 7, 5 5)))</description></item>
+    /// <item><term>A GeometryCollection consisting of two Point values and one LineString:</term>
+    /// <description>GEOMETRYCOLLECTION(POINT(10 10), POINT(30 30), LINESTRING(15 15, 20 20))</description></item>
+    /// </list>
+    /// </remarks>
+    public class GeometryFromWKT
+    {
+        /// <summary>
+        /// Converts a Well-known text representation to a <see cref="SharpMap.Geometries.Geometry"/>.
+        /// </summary>
+        /// <param name="wellKnownText">A <see cref="SharpMap.Geometries.Geometry"/> tagged text string ( see the OpenGIS Simple Features Specification.</param>
+        /// <returns>Returns a <see cref="SharpMap.Geometries.Geometry"/> specified by wellKnownText.  Throws an exception if there is a parsing problem.</returns>
+        public static IGeometry Parse(string wellKnownText)
+        {
+            return new WKTReader().Read(wellKnownText);
 //			// throws a parsing exception is there is a problem.
 //			System.IO.StringReader reader = new System.IO.StringReader(wellKnownText);
 //			return Parse(reader);
-		}
+        }
 
 //		/// <summary>
 //		/// Converts a Well-known Text representation to a <see cref="SharpMap.Geometries.Geometry"/>.
@@ -439,5 +439,5 @@ namespace SharpMap.Converters.WellKnownText
 //			return geometries;
 //		}        
 //
-	}
+    }
 }

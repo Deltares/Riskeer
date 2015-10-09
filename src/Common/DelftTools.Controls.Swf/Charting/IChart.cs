@@ -6,7 +6,7 @@ using DelftTools.Utils.Collections.Generic;
 
 namespace DelftTools.Controls.Swf.Charting
 {
-    public interface IChart: INameable
+    public interface IChart : INameable
     {
         /// <summary>
         /// Color to use as background color for the chart
@@ -54,7 +54,7 @@ namespace DelftTools.Controls.Swf.Charting
         /// Bottom axis of the chart
         /// </summary>
         IChartAxis BottomAxis { get; }
-        
+
         /// <summary>
         /// The drawing bounds for the chart
         /// </summary>
@@ -81,10 +81,15 @@ namespace DelftTools.Controls.Swf.Charting
         bool CancelMouseEvents { set; }
 
         /// <summary>
+        /// The type of a series may be changed
+        /// </summary>
+        bool AllowSeriesTypeChange { get; set; }
+
+        /// <summary>
         /// Opens export dialog
         /// </summary>
         void ExportAsImage();
-        
+
         /// <summary>
         /// Exports a chart without dialog to the specified location. 
         /// Supported types : pdf, jpg, jpeg, gif, png, tiff, bmp and eps
@@ -100,10 +105,5 @@ namespace DelftTools.Controls.Swf.Charting
         /// Creates a bitmap of the chart
         /// </summary>
         Bitmap Bitmap();
-
-        /// <summary>
-        /// The type of a series may be changed
-        /// </summary>
-        bool AllowSeriesTypeChange { get;  set; }
     }
 }

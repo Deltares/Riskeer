@@ -7,7 +7,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 {
     public class GeoApiHelper
     {
-        public static IGeometry GetBoundedSeriesPolygon(Steema.TeeChart.Styles.Series series, double leftXValue, double rightXValue, double bottomYValue, double topYValue )
+        public static IGeometry GetBoundedSeriesPolygon(Steema.TeeChart.Styles.Series series, double leftXValue, double rightXValue, double bottomYValue, double topYValue)
         {
             var seriesCoordinates = new List<ICoordinate>();
             var startIndex = Math.Max(0, series.FirstVisibleIndex - 1);
@@ -24,10 +24,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 {
                     ICoordinate lastCoordinate = GeometryFactory.CreateCoordinate(series.CalcXPos(i), series.CalcYPos(i));
                     seriesCoordinates.Add(lastCoordinate);
-                    xmin = (int)Math.Min(xmin, lastCoordinate.X);
-                    xmax = (int)Math.Max(xmax, lastCoordinate.X);
-                    ymin = (int)Math.Min(ymin, lastCoordinate.Y);
-                    ymax = (int)Math.Max(ymax, lastCoordinate.Y);
+                    xmin = (int) Math.Min(xmin, lastCoordinate.X);
+                    xmax = (int) Math.Max(xmax, lastCoordinate.X);
+                    ymin = (int) Math.Min(ymin, lastCoordinate.Y);
+                    ymax = (int) Math.Max(ymax, lastCoordinate.Y);
                 }
                 ymin -= 20;
                 seriesCoordinates.Add(GeometryFactory.CreateCoordinate(seriesCoordinates[seriesCoordinates.Count - 1].X,
@@ -43,12 +43,12 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
             var coordinates = new List<ICoordinate>();
 
-            var left = Math.Max(xmin, series.CalcXPosValue(leftXValue)); 
+            var left = Math.Max(xmin, series.CalcXPosValue(leftXValue));
             var right = Math.Min(xmax, series.CalcXPosValue(rightXValue));
             var bottom = Math.Max(ymin, series.CalcYPosValue(bottomYValue));
             var top = Math.Min(ymax, series.CalcYPosValue(topYValue));
             //waterlevel line
-            
+
             coordinates.Add(GeometryFactory.CreateCoordinate(left, top));
             coordinates.Add(GeometryFactory.CreateCoordinate(left, bottom));
 
@@ -57,13 +57,13 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             coordinates.Add(GeometryFactory.CreateCoordinate(right, bottom));
             coordinates.Add(GeometryFactory.CreateCoordinate(right, top));
 
-            coordinates.Add(GeometryFactory.CreateCoordinate(left + (right - top) / 2, top - 1));
+            coordinates.Add(GeometryFactory.CreateCoordinate(left + (right - top)/2, top - 1));
 
             coordinates.Add(GeometryFactory.CreateCoordinate(left, top));
             linearRing = geomFactory.CreateLinearRing(coordinates.ToArray());
             IPolygon polygon = geomFactory.CreatePolygon(linearRing, null);
 
-            if(seriesPolygon.IsEmpty)
+            if (seriesPolygon.IsEmpty)
             {
                 return Polygon.Empty;
             }

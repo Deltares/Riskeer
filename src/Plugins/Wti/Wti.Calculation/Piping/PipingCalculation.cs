@@ -6,8 +6,8 @@ namespace Wti.Calculation.Piping
     /// This class represents a combination of piping sub-calculations, which together can be used
     /// to assess based on piping.
     /// </summary>
-    public class PipingCalculation {
-
+    public class PipingCalculation
+    {
         private readonly PipingCalculationInput input;
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Wti.Calculation.Piping
                 throw new PipingCalculationException(e.Message);
             }
         }
-        
+
         private HeaveCalculator CalulateHeave()
         {
             var calculator = new HeaveCalculator

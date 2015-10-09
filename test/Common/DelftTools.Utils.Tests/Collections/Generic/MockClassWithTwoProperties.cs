@@ -4,18 +4,18 @@ namespace DelftTools.Utils.Tests.Collections.Generic
 {
     public class MockClassWithTwoProperties : INotifyPropertyChange
     {
-        private int intField;
+        public event PropertyChangingEventHandler PropertyChanging;
+        public event PropertyChangedEventHandler PropertyChanged;
         private string stringField;
 
-        public int IntField
-        {
-            get { return intField; }
-            set { intField = value; }
-        }
+        public int IntField { get; set; }
 
         public string StringProperty
         {
-            get { return stringField; }
+            get
+            {
+                return stringField;
+            }
             set
             {
                 if (PropertyChanging != null)
@@ -23,16 +23,13 @@ namespace DelftTools.Utils.Tests.Collections.Generic
                     PropertyChanging(this, new PropertyChangingEventArgs("StringProperty"));
                 }
                 stringField = value;
-                if(PropertyChanged != null)
+                if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("StringProperty"));
                 }
             }
         }
 
-        public event PropertyChangingEventHandler PropertyChanging;
-        public event PropertyChangedEventHandler PropertyChanged;
-        
         bool INotifyPropertyChange.HasParent { get; set; }
     }
 }

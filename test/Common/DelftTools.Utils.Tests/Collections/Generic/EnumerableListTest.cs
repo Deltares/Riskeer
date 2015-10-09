@@ -12,25 +12,13 @@ namespace DelftTools.Utils.Tests.Collections.Generic
     public class EnumerableListTest
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(EnumerableListTest));
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
-        {
-            LogHelper.ConfigureLogging();
-            LogHelper.SetLoggingLevel(Level.Info);
-        }
-
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
-        {
-            LogHelper.ResetLogging();
-        }
 
         [Test]
         public void EnumerableListItemCountShouldBeFast()
         {
             var items = new EventedList<object>();
             var editor = new EnumerableListEditor(items);
-            
+
             var strings = new EnumerableList<string>
             {
                 Enumerable = items.OfType<string>(),
@@ -41,21 +29,20 @@ namespace DelftTools.Utils.Tests.Collections.Generic
             {
                 strings.Add(i.ToString());
             }
-            
+
             //actual limit of 450 is more like a max on my machine but buildagents do this one very slow.
             int count = 0;
-            
+
             // timings are unstable (reflection?)
             TestHelper.AssertIsFasterThan(1200, () =>
-                                                   {
-                                                       for (int i = 0; i < 100; i++)
-                                                       {
-                                                           count += strings.Count;
-                                                       }
-                                                   });
-            
+            {
+                for (int i = 0; i < 100; i++)
+                {
+                    count += strings.Count;
+                }
+            });
 
-            Assert.AreEqual(100 * 100000, count);
+            Assert.AreEqual(100*100000, count);
         }
 
         [Test]
@@ -82,52 +69,54 @@ namespace DelftTools.Utils.Tests.Collections.Generic
 
             long count = 0;
             Action action = delegate
-                                {
-                                    for (int i = 0; i < numCalculations; i++)
-                                    {
-                                        count += featureCollection.Count();
-                                    }
-                                };
-            
+            {
+                for (int i = 0; i < numCalculations; i++)
+                {
+                    count += featureCollection.Count();
+                }
+            };
+
             TestHelper.AssertIsFasterThan(30, action);
 
-            Assert.AreEqual(numCalculations * numValues, count);
+            Assert.AreEqual(numCalculations*numValues, count);
+        }
+
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
+        {
+            LogHelper.ConfigureLogging();
+            LogHelper.SetLoggingLevel(Level.Info);
+        }
+
+        [TestFixtureTearDown]
+        public void TestFixtureTearDown()
+        {
+            LogHelper.ResetLogging();
         }
     }
 
     public class EnumerableListEditor : IEnumerableListEditor
     {
-        public EventedList<object> EventedList { get; set; }
-
         public EnumerableListEditor(EventedList<object> eventedList)
         {
             EventedList = eventedList;
         }
+
+        public EventedList<object> EventedList { get; set; }
 
         public void OnAdd(object o)
         {
             EventedList.Add(o);
         }
 
-        public void OnRemove(object o)
-        {
-        }
+        public void OnRemove(object o) {}
 
-        public void OnInsert(int index, object value)
-        {
-        }
+        public void OnInsert(int index, object value) {}
 
-        public void OnRemoveAt(int index)
-        {
-        }
+        public void OnRemoveAt(int index) {}
 
-        public void OnReplace(int index, object o)
-        {
-        }
+        public void OnReplace(int index, object o) {}
 
-        public void OnClear()
-        {
-        }
+        public void OnClear() {}
     }
-
 }

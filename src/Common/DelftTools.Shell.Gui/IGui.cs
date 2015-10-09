@@ -38,7 +38,7 @@ namespace DelftTools.Shell.Gui
         ///  Gets all document views currently opened in the gui.
         /// </summary>
         IViewList DocumentViews { get; }
-        
+
         /// <summary>
         /// Resolves document views
         /// </summary>
@@ -102,6 +102,7 @@ namespace DelftTools.Shell.Gui
         /// Fired after application has been started.
         /// </summary>
         event Action AfterRun;
+
         #endregion
     }
 }

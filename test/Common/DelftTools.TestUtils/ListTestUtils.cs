@@ -36,15 +36,21 @@ namespace DelftTools.TestUtils
                         break;
                     case 3:
                         if (list.Count > 0)
+                        {
                             list.RemoveAt(rnd.Next(0, list.Count));
+                        }
                         break;
                     case 4:
                         if (list.Count > 0)
+                        {
                             list.Remove(list[rnd.Next(0, list.Count)]);
+                        }
                         break;
                     case 5:
                         if (list.Count > 0)
+                        {
                             list[rnd.Next(0, list.Count)] = list[rnd.Next(0, list.Count)];
+                        }
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

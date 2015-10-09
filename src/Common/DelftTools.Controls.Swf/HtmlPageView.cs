@@ -24,15 +24,54 @@ namespace DelftTools.Controls.Swf
             ScriptErrorsSuppressed = true;
         }
 
+        public new Url Url
+        {
+            get
+            {
+                return (Url) Data;
+            }
+            set
+            {
+                Data = value;
+            }
+        }
+
+        /// <summary>
+        /// Loads the html page at the specified url.
+        /// </summary>
+        public override void Refresh()
+        {
+            Navigate(url.Path);
+            Name = url.Name;
+            Text = Name;
+            try
+            {
+                base.Refresh();
+            }
+            catch (Exception)
+            {
+                // do nothing with this exception
+            }
+        }
+
+        public void NextPage()
+        {
+            GoForward();
+        }
+
+        public void PreviousPage()
+        {
+            GoBack();
+        }
+
+        public void HomePage()
+        {
+            GoHome();
+        }
+
         ~HtmlPageView()
         {
             DisableEventListeners();
-        }
-
-        public new Url Url
-        {
-            get { return (Url)Data; } 
-            set { Data = value; }
         }
 
         #region IView Members
@@ -42,7 +81,10 @@ namespace DelftTools.Controls.Swf
         /// </summary>
         public object Data
         {
-            get { return url; }
+            get
+            {
+                return url;
+            }
             set
             {
                 DisableEventListeners();
@@ -81,21 +123,15 @@ namespace DelftTools.Controls.Swf
             }
         }
 
-        public override string Text
-        {
-            get { return text; }
-            set { text = value; }
-        }
-
-        private string text;
+        public override string Text { get; set; }
 
         public Image Image { get; set; }
-        public void EnsureVisible(object item) { }
+        public void EnsureVisible(object item) {}
         public ViewInfo ViewInfo { get; set; }
 
         protected override void OnDragDrop(DragEventArgs e)
         {
-            var url1 = e.Data.GetData(typeof (Url)) as Url;
+            var url1 = e.Data.GetData(typeof(Url)) as Url;
             if (url1 != null)
             {
                 Data = url1;
@@ -104,7 +140,7 @@ namespace DelftTools.Controls.Swf
 
         protected override void OnDragOver(DragEventArgs e)
         {
-            var url1 = e.Data.GetData(typeof (Url)) as Url;
+            var url1 = e.Data.GetData(typeof(Url)) as Url;
             if (url1 != null)
             {
                 e.Effect = DragDropEffects.Copy;
@@ -112,39 +148,5 @@ namespace DelftTools.Controls.Swf
         }
 
         #endregion
-
-        /// <summary>
-        /// Loads the html page at the specified url.
-        /// </summary>
-        public override void Refresh()
-        {
-            Navigate(url.Path);
-            Name = url.Name;
-            Text = Name;
-            try
-            {
-                base.Refresh();
-            }
-            catch (Exception)
-            {
-                // do nothing with this exception
-            }
-        }
-
-
-        public void NextPage()
-        {
-            GoForward();
-        }
-
-        public void PreviousPage()
-        {
-            GoBack();
-        }
-
-        public void HomePage()
-        {
-            GoHome();
-        }
     }
 }

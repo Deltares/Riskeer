@@ -14,8 +14,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [DisplayName("Anchor position")]
         public AnchorStyles Anchor
         {
-            get { return data.Anchor; }
-            set { data.Anchor = value; }
+            get
+            {
+                return data.Anchor;
+            }
+            set
+            {
+                data.Anchor = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
@@ -23,8 +29,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [Description("Align using the anchor property")]
         public bool UseAnchor
         {
-            get { return data.UseAnchor; }
-            set { data.UseAnchor = value; }
+            get
+            {
+                return data.UseAnchor;
+            }
+            set
+            {
+                data.UseAnchor = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
@@ -32,8 +44,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [Description("Percentage of transparency for the background.")]
         public int TransparencyPercentage
         {
-            get { return data.BackGroundTransparencyPercentage; }
-            set { data.BackGroundTransparencyPercentage = value; }
+            get
+            {
+                return data.BackGroundTransparencyPercentage;
+            }
+            set
+            {
+                data.BackGroundTransparencyPercentage = value;
+            }
         }
     }
 }

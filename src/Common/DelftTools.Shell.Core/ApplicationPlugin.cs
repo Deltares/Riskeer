@@ -12,6 +12,11 @@ namespace DelftTools.Shell.Core
     public abstract class ApplicationPlugin : IPlugin
     {
         /// <summary>
+        ///  Gets or sets the application.
+        ///  <value>The application.</value></summary>
+        public virtual IApplication Application { get; set; }
+
+        /// <summary>
         ///  Gets the name of the plugin.
         /// </summary>
         public abstract string Name { get; }
@@ -32,22 +37,6 @@ namespace DelftTools.Shell.Core
         public abstract string Version { get; }
 
         /// <summary>
-        ///  Activates the plugin.
-        ///  </summary>
-        public virtual void Activate()
-        {
-            IsActive = true;
-        }
-
-        /// <summary>
-        ///  Deactivates the plugin.
-        ///  </summary>
-        public virtual void Deactivate()
-        {
-            IsActive = false;
-        }
-
-        /// <summary>
         ///  Gets a value indicating whether the plugin is active.
         ///  <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value></summary>
         public virtual bool IsActive { get; protected set; }
@@ -55,17 +44,28 @@ namespace DelftTools.Shell.Core
         /// <summary>
         ///  Image for displaying in gui. Default format 32x32 bitmap or scalable. 
         ///  </summary>
-        public virtual Image Image { get { return null; } }
+        public virtual Image Image
+        {
+            get
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         ///  ResourceManger of plugin. Default Properties.Resources.
         ///  </summary>
         public virtual ResourceManager Resources { get; set; }
 
-        /// <summary>
-        ///  Gets or sets the application.
-        ///  <value>The application.</value></summary>
-        public virtual IApplication Application { get; set; }
+        // TODO: check if it is used, otherwise remove
+        public virtual string[] DependentPluginNames
+        {
+            get
+            {
+                return new string[]
+                {};
+            }
+        }
 
         /// <summary>
         /// Provides information about data that can be created
@@ -91,10 +91,26 @@ namespace DelftTools.Shell.Core
             yield break;
         }
 
-        // TODO: check if it is used, otherwise remove
-        public virtual string[] DependentPluginNames { get { return new string[] { }; } }
+        /// <summary>
+        ///  Activates the plugin.
+        ///  </summary>
+        public virtual void Activate()
+        {
+            IsActive = true;
+        }
+
+        /// <summary>
+        ///  Deactivates the plugin.
+        ///  </summary>
+        public virtual void Deactivate()
+        {
+            IsActive = false;
+        }
 
         // TODO: check if we can remove it
-        public virtual IEnumerable<Assembly> GetPersistentAssemblies() { yield break; }
+        public virtual IEnumerable<Assembly> GetPersistentAssemblies()
+        {
+            yield break;
+        }
     }
 }

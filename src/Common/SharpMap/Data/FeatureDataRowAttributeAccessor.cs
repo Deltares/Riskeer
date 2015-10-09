@@ -10,12 +10,12 @@ namespace SharpMap.Data
     /// <summary>
     /// Returns column names and values of the underlying DataRow as attributes of the feature, (key, value) pairs
     /// </summary>
-    public class FeatureDataRowAttributeAccessor: IFeatureAttributeCollection
+    public class FeatureDataRowAttributeAccessor : IFeatureAttributeCollection
     {
         private IList<string> columnNames;
-        private DataRow featureDataRow;
+        private readonly DataRow featureDataRow;
 
-        private DataTable table;
+        private readonly DataTable table;
 
         public FeatureDataRowAttributeAccessor(DataRow row)
         {
@@ -27,17 +27,45 @@ namespace SharpMap.Data
             UpdateColumnNames();
         }
 
-        private void Columns_CollectionChanged(object sender, CollectionChangeEventArgs e)
+        /*object IFeatureAttributeCollection.this[int index]
         {
-            UpdateColumnNames();
+            get { return featureDataRow[index]; }
+            set { featureDataRow[index] = value; }
+        }*/
+
+        public IDictionary<string, object> InnerDictionary { get; set; }
+
+        public long Id { get; set; }
+
+        public int Count
+        {
+            get
+            {
+                return columnNames.Count;
+            }
         }
 
-        private void UpdateColumnNames()
+        public bool IsReadOnly
         {
-            columnNames = new List<string>();
-            foreach (DataColumn column in table.Columns)
+            get
             {
-                columnNames.Add(column.ColumnName);
+                return false;
+            }
+        }
+
+        public ICollection<string> Keys
+        {
+            get
+            {
+                return columnNames;
+            }
+        }
+
+        public ICollection<object> Values
+        {
+            get
+            {
+                return featureDataRow.ItemArray;
             }
         }
 
@@ -68,7 +96,7 @@ namespace SharpMap.Data
         {
             for (int i = 0; i < columnNames.Count; i++)
             {
-                if(columnNames[i] == item.Key && featureDataRow[i] == item.Value)
+                if (columnNames[i] == item.Key && featureDataRow[i] == item.Value)
                 {
                     return true;
                 }
@@ -85,16 +113,6 @@ namespace SharpMap.Data
         public bool Remove(KeyValuePair<string, object> item)
         {
             throw new NotSupportedException("Delete it using IFeatureProvider interface");
-        }
-
-        public int Count
-        {
-            get { return columnNames.Count; }
-        }
-
-        public bool IsReadOnly
-        {
-            get { return false; }
         }
 
         public bool ContainsKey(string key)
@@ -114,7 +132,7 @@ namespace SharpMap.Data
 
         public bool TryGetValue(string key, out object value)
         {
-            if(columnNames.Contains(key))
+            if (columnNames.Contains(key))
             {
                 value = featureDataRow[columnNames.IndexOf(key)];
                 return true;
@@ -124,36 +142,36 @@ namespace SharpMap.Data
             return false;
         }
 
-        object IDictionary<string, object>.this[string key]
-        {
-            get { return featureDataRow[columnNames.IndexOf(key)]; }
-            set { featureDataRow[columnNames.IndexOf(key)] = value; }
-        }
-
-        public ICollection<string> Keys
-        {
-            get { return columnNames; }
-        }
-
-        public ICollection<object> Values
-        {
-            get { return featureDataRow.ItemArray; }
-        }
-
-        /*object IFeatureAttributeCollection.this[int index]
-        {
-            get { return featureDataRow[index]; }
-            set { featureDataRow[index] = value; }
-        }*/
-
-        public IDictionary<string, object> InnerDictionary { get; set; }
-
         public object Clone()
         {
             var clone = new FeatureDataRowAttributeAccessor(featureDataRow);
             return clone;
         }
 
-        public long Id { get; set; }
+        private void Columns_CollectionChanged(object sender, CollectionChangeEventArgs e)
+        {
+            UpdateColumnNames();
+        }
+
+        private void UpdateColumnNames()
+        {
+            columnNames = new List<string>();
+            foreach (DataColumn column in table.Columns)
+            {
+                columnNames.Add(column.ColumnName);
+            }
+        }
+
+        object IDictionary<string, object>.this[string key]
+        {
+            get
+            {
+                return featureDataRow[columnNames.IndexOf(key)];
+            }
+            set
+            {
+                featureDataRow[columnNames.IndexOf(key)] = value;
+            }
+        }
     }
 }

@@ -6,11 +6,6 @@ namespace DeltaShell.IntegrationTests.Mocks
     {
         public string DisplayName { get; set; }
 
-        public int CompareTo(object obj)
-        {
-            return this.DisplayName.CompareTo(((ComplexObject)obj).DisplayName);
-        }
-
         public override string ToString()
         {
             return DisplayName;
@@ -23,5 +18,9 @@ namespace DeltaShell.IntegrationTests.Mocks
             return newObject;
         }
 
+        public int CompareTo(object obj)
+        {
+            return DisplayName.CompareTo(((ComplexObject) obj).DisplayName);
+        }
     }
 }

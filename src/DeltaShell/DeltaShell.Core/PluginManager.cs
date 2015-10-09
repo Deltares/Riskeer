@@ -32,7 +32,7 @@ namespace DeltaShell.Core
             if (pluginsDirectory != null)
             {
                 pluginsDirectory = Path.GetFullPath(pluginsDirectory);
-                
+
                 // load all assemblies since they can be located in different directory
                 var pluginDirectories = FileUtils.GetDirectoriesRelative(pluginsDirectory);
 
@@ -41,29 +41,37 @@ namespace DeltaShell.Core
                     var path = Path.Combine(pluginsDirectory, pluginDirectory);
                     AssemblyUtils.LoadAllAssembliesFromDirectory(path).ToList();
                 }
-                
+
                 var registryPath = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
 
                 // Initialize using the provided (DeltaShellApplication) assembly (OpenMi is started as dll and so the EntryAssembly and the CallingAssembly are incorrect). 
-                var assembly = typeof (DeltaShellApplication).Assembly;
+                var assembly = typeof(DeltaShellApplication).Assembly;
                 var methodInitialize = AddinManager.AddinEngine.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First(m => m.Name == "Initialize");
 
                 // initialize AddinEngine (without console messages -> internally the Initialize call will run Registry.Update with a verbose console logger (only when there is no cache))
-                WithoutConsoleMessage(() => methodInitialize.Invoke(AddinManager.AddinEngine, new object[] { assembly, registryPath, pluginsDirectory, null }));
+                WithoutConsoleMessage(() => methodInitialize.Invoke(AddinManager.AddinEngine, new object[]
+                {
+                    assembly,
+                    registryPath,
+                    pluginsDirectory,
+                    null
+                }));
 
                 // Force local scanning (disable isolation)
                 AddinManager.Registry.RegisterExtension(new ForceLocalAddinFileSystemExtension());
-                AddinManager.Registry.Update(new MonoAddinsConsoleLogger(2) { LogAssemblyScanErrors = false });
+                AddinManager.Registry.Update(new MonoAddinsConsoleLogger(2)
+                {
+                    LogAssemblyScanErrors = false
+                });
 
-                
                 // Reset addin roots
                 AddinManager.Registry.ResetConfiguration();
 
                 // Activate mono addin roots
                 AddinManager.Registry.GetAddinRoots()
-                    .Where(m => !AddinManager.IsAddinLoaded(m.Id))
-                    .ForEach(m => AddinManager.LoadAddin(new ConsoleProgressStatus(0), m.Id));
-                
+                            .Where(m => !AddinManager.IsAddinLoaded(m.Id))
+                            .ForEach(m => AddinManager.LoadAddin(new ConsoleProgressStatus(0), m.Id));
+
                 testMode = false;
             }
             else
@@ -79,7 +87,7 @@ namespace DeltaShell.Core
                                : AddinManager.GetExtensionObjects<IPlugin>().OfType<T>())
                 .OrderBy(p => p.GetType().FullName) //order by name (arbitrary) for deterministic loading order
                 .ToList();
-            
+
             ThrowOnNonUniquePluginNames(plugins);
 
             return plugins;
@@ -89,7 +97,7 @@ namespace DeltaShell.Core
         {
             AllPlugins.Clear();
         }
-        
+
         [Conditional("DEBUG")]
         private static void ThrowOnNonUniquePluginNames<T>(IList<T> plugins) where T : IPlugin
         {
@@ -97,7 +105,9 @@ namespace DeltaShell.Core
             var distinctNames = names.Distinct().ToList();
 
             if (names.Count == distinctNames.Count)
+            {
                 return; //no problems
+            }
             distinctNames.ForEach(name => names.Remove(name));
 
             var nonUniquePlugins = plugins.Where(p => names.Contains(p.Name));
@@ -118,7 +128,10 @@ namespace DeltaShell.Core
             }
             finally
             {
-                Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
+                Console.SetOut(new StreamWriter(Console.OpenStandardOutput())
+                {
+                    AutoFlush = true
+                });
             }
         }
     }

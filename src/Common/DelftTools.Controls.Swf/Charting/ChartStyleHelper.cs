@@ -18,8 +18,8 @@ namespace DelftTools.Controls.Swf.Charting
             CopyChartStyle(source, target);
 
             // Copy axis styles
-            CopyAxisStyle(source.LeftAxis,target.LeftAxis);
-            CopyAxisStyle(source.BottomAxis,target.BottomAxis);
+            CopyAxisStyle(source.LeftAxis, target.LeftAxis);
+            CopyAxisStyle(source.BottomAxis, target.BottomAxis);
 
             // Copy series styles
             CopySeriesStyles(source.Series, target.Series);
@@ -73,27 +73,27 @@ namespace DelftTools.Controls.Swf.Charting
                 var series = sourceSeries;
                 foreach (var targetSeries in target.Where(s => series.Tag == s.Tag))
                 {
-                    CopyStyle(series,targetSeries);
+                    CopyStyle(series, targetSeries);
 
                     var polygonChartSeries = series as IPolygonChartSeries;
                     if (polygonChartSeries != null)
                     {
-                        CopyStyle(polygonChartSeries, (IPolygonChartSeries)targetSeries);
+                        CopyStyle(polygonChartSeries, (IPolygonChartSeries) targetSeries);
                     }
                     var pointChartSeries = series as IPointChartSeries;
                     if (pointChartSeries != null)
                     {
-                        CopyStyle(pointChartSeries, (IPointChartSeries)targetSeries);
+                        CopyStyle(pointChartSeries, (IPointChartSeries) targetSeries);
                     }
                     var areaChartSeries = series as IAreaChartSeries;
                     if (areaChartSeries != null)
                     {
-                        CopyStyle(areaChartSeries, (IAreaChartSeries)targetSeries);
+                        CopyStyle(areaChartSeries, (IAreaChartSeries) targetSeries);
                     }
                     var lineChartSeries = series as ILineChartSeries;
                     if (lineChartSeries != null)
                     {
-                        CopyStyle(lineChartSeries, (ILineChartSeries)targetSeries);
+                        CopyStyle(lineChartSeries, (ILineChartSeries) targetSeries);
                     }
                 }
             }
@@ -107,19 +107,19 @@ namespace DelftTools.Controls.Swf.Charting
             CopyStyle(sourceSeries, targetSeries);
             if (sourceSeries is IPointChartSeries && targetSeries is IPointChartSeries)
             {
-                CopyStyle((IPointChartSeries)sourceSeries, (IPointChartSeries)targetSeries);
+                CopyStyle((IPointChartSeries) sourceSeries, (IPointChartSeries) targetSeries);
             }
             if (sourceSeries is ILineChartSeries && targetSeries is ILineChartSeries)
             {
-                CopyStyle((ILineChartSeries)sourceSeries, (ILineChartSeries)targetSeries);
+                CopyStyle((ILineChartSeries) sourceSeries, (ILineChartSeries) targetSeries);
             }
             if (sourceSeries is IAreaChartSeries && targetSeries is IAreaChartSeries)
             {
-                CopyStyle((IAreaChartSeries)sourceSeries, (IAreaChartSeries)targetSeries);
+                CopyStyle((IAreaChartSeries) sourceSeries, (IAreaChartSeries) targetSeries);
             }
             if (sourceSeries is IPolygonChartSeries && targetSeries is IPolygonChartSeries)
             {
-                CopyStyle((IPolygonChartSeries)sourceSeries, (IPolygonChartSeries)targetSeries);
+                CopyStyle((IPolygonChartSeries) sourceSeries, (IPolygonChartSeries) targetSeries);
             }
         }
 
@@ -184,7 +184,5 @@ namespace DelftTools.Controls.Swf.Charting
             targetSeries.Visible = series.Visible;
             targetSeries.VertAxis = series.VertAxis;
         }
-
-        
     }
 }

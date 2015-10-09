@@ -57,9 +57,15 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Commands.Charting
 
     public abstract class ChartViewCommandBase : Command, IGuiCommand
     {
-        protected override abstract void OnExecute(params object[] arguments);
+        public override bool Enabled
+        {
+            get
+            {
+                return View != null;
+            }
+        }
 
-        public override bool Enabled { get { return View != null; } }
+        public IGui Gui { get; set; }
 
         protected ChartView View
         {
@@ -71,13 +77,18 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Commands.Charting
             }
         }
 
-        public IGui Gui { get; set; }
+        protected abstract override void OnExecute(params object[] arguments);
+
+        protected Font GetChangedFontSize(Font font, int pixels)
+        {
+            return new Font(font.FontFamily, font.Size + pixels, font.Style);
+        }
 
         private T GetViewRecursive<T>(IView view) where T : class, IView
         {
             if (view is T)
             {
-                return (T)view;
+                return (T) view;
             }
             var compositeView = view as ICompositeView;
             if (compositeView != null)
@@ -92,11 +103,6 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Commands.Charting
                 }
             }
             return null;
-        }
-
-        protected Font GetChangedFontSize(Font font, int pixels)
-        {
-            return new Font(font.FontFamily, font.Size + pixels, font.Style);
         }
     }
 }

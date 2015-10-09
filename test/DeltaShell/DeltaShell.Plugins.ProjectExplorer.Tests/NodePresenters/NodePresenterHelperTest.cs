@@ -7,7 +7,6 @@ namespace DeltaShell.Plugins.ProjectExplorer.Tests.NodePresenters
     [TestFixture]
     public class NodePresenterHelperTest
     {
-         
         [Test]
         public void TrimSeparatorsGetContextMenu()
         {
@@ -74,8 +73,6 @@ namespace DeltaShell.Plugins.ProjectExplorer.Tests.NodePresenters
             Assert.IsFalse(separator1.Available);
             Assert.IsFalse(separator2.Available);
             Assert.IsTrue(separator3.Available);
-
         }
-
     }
 }

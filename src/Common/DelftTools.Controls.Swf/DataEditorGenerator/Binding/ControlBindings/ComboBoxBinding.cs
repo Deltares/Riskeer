@@ -25,16 +25,26 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
                     .ToArray();
             Control.Items.AddRange(enumValues);
 
-
             FillControl();
         }
 
-        void ControlSelectionChangeCommitted(object sender, EventArgs e)
+        protected override void DataSourceChanged()
+        {
+            FillControl();
+        }
+
+        protected override void Deinitialize()
+        {
+            Control.Format -= ControlFormat;
+            Control.SelectionChangeCommitted -= ControlSelectionChangeCommitted;
+        }
+
+        private void ControlSelectionChangeCommitted(object sender, EventArgs e)
         {
             CommitValue(GetControlValue());
         }
 
-        void ControlFirstDropDown(object sender, EventArgs e)
+        private void ControlFirstDropDown(object sender, EventArgs e)
         {
             // measure the required width
             var width = Control.DropDownWidth;
@@ -50,7 +60,9 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
                 {
                     var newWidth = TextRenderer.MeasureText(g, s, font).Width + vertScrollBarWidth + 10; // +10 for a little bit of padding to the end.
                     if (width < newWidth)
+                    {
                         width = newWidth;
+                    }
                 }
                 Control.DropDownWidth = width;
             }
@@ -59,31 +71,19 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
             Control.DropDown -= ControlFirstDropDown;
         }
 
-        static void ControlFormat(object sender, ListControlConvertEventArgs e)
+        private static void ControlFormat(object sender, ListControlConvertEventArgs e)
         {
             e.Value = FormatValue(e.Value);
         }
 
         private static string FormatValue(object value)
         {
-            return EnumDescriptionAttributeTypeConverter.GetEnumDescription((Enum)value);
+            return EnumDescriptionAttributeTypeConverter.GetEnumDescription((Enum) value);
         }
 
         private void FillControl()
         {
             Control.SelectedItem = DataValue;
         }
-
-        protected override void DataSourceChanged()
-        {
-            FillControl();
-        }
-        
-        protected override void Deinitialize()
-        {
-            Control.Format -= ControlFormat;
-            Control.SelectionChangeCommitted -= ControlSelectionChangeCommitted;
-        }
-
     }
 }

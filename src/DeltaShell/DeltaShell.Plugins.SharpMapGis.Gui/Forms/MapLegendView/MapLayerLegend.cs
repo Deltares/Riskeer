@@ -10,12 +10,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public class MapLayerLegend
     {
-        private List<IStyle> styles;
-        private ILayer layer;
+        private readonly ILayer layer;
 
         public MapLayerLegend(ILayer layer)
         {
-            styles = new List<IStyle>();
+            Styles = new List<IStyle>();
             this.layer = layer;
             VectorLayer vectorLayer;
             if ((vectorLayer = layer as VectorLayer) != null)
@@ -33,19 +32,19 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                             for (int i = 0; i < vectorLayer.DataSource.GetFeatureCount(); i++)
                             {
                                 IFeature feature = vectorLayer.DataSource.GetFeature(i);
-                                styles.Add(customTheme.GetStyle(feature));
+                                Styles.Add(customTheme.GetStyle(feature));
                             }
                         }
                         else
                         {
-                            styles.Add(customTheme.DefaultStyle);
+                            Styles.Add(customTheme.DefaultStyle);
                         }
                     }
                     else if ((categorialTheme = vectorLayer.Theme as CategorialTheme) != null)
                     {
                         foreach (CategorialThemeItem categorialThemeItem in categorialTheme.ThemeItems)
                         {
-                            styles.Add(categorialThemeItem.Style);
+                            Styles.Add(categorialThemeItem.Style);
                         }
                     }
                     else if ((gradientTheme = vectorLayer.Theme as GradientTheme) != null)
@@ -55,14 +54,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                         styles.Add(gradientTheme.MaxStyle);*/
                         foreach (GradientThemeItem gradientThemeItem in gradientTheme.ThemeItems)
                         {
-                            styles.Add(gradientThemeItem.Style);
+                            Styles.Add(gradientThemeItem.Style);
                         }
                     }
                     else if ((quantityTheme = vectorLayer.Theme as QuantityTheme) != null)
                     {
                         foreach (QuantityThemeItem quantityThemeItem in quantityTheme.ThemeItems)
                         {
-                            styles.Add(quantityThemeItem.Style);
+                            Styles.Add(quantityThemeItem.Style);
                         }
                     }
                     else
@@ -86,11 +85,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
         }
 
-
-        public List<IStyle> Styles
-        {
-            get { return styles; }
-            set { styles = value; }
-        }
+        public List<IStyle> Styles { get; set; }
     }
 }

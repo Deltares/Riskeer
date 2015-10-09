@@ -10,6 +10,6 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <summary>
         /// 
         /// </summary>
-        public NotRepresentableException() : base("Projective point not representable on the Cartesian plane.") { }
+        public NotRepresentableException() : base("Projective point not representable on the Cartesian plane.") {}
     }
 }

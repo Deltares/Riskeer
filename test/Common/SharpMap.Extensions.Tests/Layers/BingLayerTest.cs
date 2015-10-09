@@ -12,19 +12,25 @@ namespace SharpMap.Extensions.Tests.Layers
         {
             var map = new Map();
 
-            var layer = new BingLayer { MapType = "Aerial" };
+            var layer = new BingLayer
+            {
+                MapType = "Aerial"
+            };
             map.Layers.Add(layer);
 
-            var clone = (BingLayer)layer.Clone();
+            var clone = (BingLayer) layer.Clone();
             Assert.IsNull(clone.Map);
         }
 
         [Test]
         public void CacheDirectoryIsDefined()
         {
-            new BingLayer { MapType = "Aerial" }.CacheLocation
-                .Should("Cache directory is defined")
-                .EndWith(@"cache_bing_aerial");
+            new BingLayer
+            {
+                MapType = "Aerial"
+            }.CacheLocation
+             .Should("Cache directory is defined")
+             .EndWith(@"cache_bing_aerial");
         }
     }
 }

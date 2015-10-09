@@ -13,24 +13,17 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(MapLegendView));
 
-        protected override void OnExecute(params object[] arguments)
-        {
-            var openUrlDialog = new OpenUrlDialog();
-            openUrlDialog.Url = "http://www2.demis.nl/wms/wms.asp?wms=WorldMap&REQUEST=GetCapabilities";
-
-            if (openUrlDialog.ShowDialog() == DialogResult.OK)
-            {
-                string url = openUrlDialog.Url;
-                
-                AddLayerFromExternalSource(url);
-            }
-        }
-
         public void AddLayerFromExternalSource(string url)
         {
-            if (MapView == null) return;
+            if (MapView == null)
+            {
+                return;
+            }
             var map = MapView.Data as Map;
-            if (map == null) return;
+            if (map == null)
+            {
+                return;
+            }
 
             try
             {
@@ -49,6 +42,19 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
             catch (Exception ex)
             {
                 log.Error(ex.Message, ex);
+            }
+        }
+
+        protected override void OnExecute(params object[] arguments)
+        {
+            var openUrlDialog = new OpenUrlDialog();
+            openUrlDialog.Url = "http://www2.demis.nl/wms/wms.asp?wms=WorldMap&REQUEST=GetCapabilities";
+
+            if (openUrlDialog.ShowDialog() == DialogResult.OK)
+            {
+                string url = openUrlDialog.Url;
+
+                AddLayerFromExternalSource(url);
             }
         }
     }

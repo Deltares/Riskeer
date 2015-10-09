@@ -17,26 +17,20 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         private const int MaximumAllowedSize = 999999;
         private const int MinimumAllowedSize = 0;
 
-        [DynamicReadOnlyValidationMethod]
-        public bool OnIsLayerNameReadOnly(string propertyName)
-        {
-            return data.NameIsReadOnly;
-        }
-
-        [DynamicVisibleValidationMethod]
-        public bool IsPropertyVisible(string propertyName)
-        {
-            return data.Theme == null;
-        }
-
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "Common_Name_DisplayName")]
         [ResourcesDescription(typeof(Resources), "VectorLayerProperties_Name_Description")]
         [DynamicReadOnly]
         public string Name
         {
-            get { return data.Name; }
-            set { data.Name = value; }
+            get
+            {
+                return data.Name;
+            }
+            set
+            {
+                data.Name = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
@@ -44,8 +38,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [Description("Defines the layer opacity, expressed as a value between 0.0 and 1.0. A value of 0.0 indicates fully transparent, whereas a value of 1.0 indicates fully opaque.")]
         public float Opacity
         {
-            get { return data.Opacity; }
-            set { data.Opacity = (float)Math.Min(1.0, Math.Max(0.0, value)); }
+            get
+            {
+                return data.Opacity;
+            }
+            set
+            {
+                data.Opacity = (float) Math.Min(1.0, Math.Max(0.0, value));
+            }
         }
 
         [DynamicVisible]
@@ -54,8 +54,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "VectorLayerProperties_LineColor_Description")]
         public Color LineColor
         {
-            get { return data.Style.Line.Color; }
-            set 
+            get
+            {
+                return data.Style.Line.Color;
+            }
+            set
             {
                 var style = data.Style;
                 style.Line = new Pen(value, style.Line.Width);
@@ -70,8 +73,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "VectorLayerProperties_LineWidth_Description")]
         public float LineWidth
         {
-            get { return data.Style.Line.Width; }
-            set { data.Style.Line = new Pen(data.Style.Line.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize)); }
+            get
+            {
+                return data.Style.Line.Width;
+            }
+            set
+            {
+                data.Style.Line = new Pen(data.Style.Line.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize));
+            }
         }
 
         [DynamicVisible]
@@ -80,8 +89,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "VectorLayerProperties_OutlineColor_Description")]
         public Color OutlineColor
         {
-            get { return data.Style.Outline.Color; }
-            set { data.Style.Outline = new Pen(value, data.Style.Outline.Width); }
+            get
+            {
+                return data.Style.Outline.Color;
+            }
+            set
+            {
+                data.Style.Outline = new Pen(value, data.Style.Outline.Width);
+            }
         }
 
         [DynamicVisible]
@@ -91,8 +106,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "VectorLayerProperties_OutlineWidth_Description")]
         public float OutlineWidth
         {
-            get { return data.Style.Outline.Width; }
-            set { data.Style.Outline = new Pen(data.Style.Outline.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize)); }
+            get
+            {
+                return data.Style.Outline.Width;
+            }
+            set
+            {
+                data.Style.Outline = new Pen(data.Style.Outline.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize));
+            }
         }
 
         [DynamicVisible]
@@ -101,8 +122,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "VectorLayerProperties_FillColor_Description")]
         public Color FillColor
         {
-            get { return ((SolidBrush) data.Style.Fill).Color; }
-            set { data.Style.Fill = new SolidBrush(value); }
+            get
+            {
+                return ((SolidBrush) data.Style.Fill).Color;
+            }
+            set
+            {
+                data.Style.Fill = new SolidBrush(value);
+            }
         }
 
         [DynamicVisible]
@@ -111,8 +138,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "PointStyleProperties_Symbol_Description")]
         public Bitmap Symbol
         {
-            get { return data.Style.Symbol; }
-            set { data.Style.Symbol = value; }
+            get
+            {
+                return data.Style.Symbol;
+            }
+            set
+            {
+                data.Style.Symbol = value;
+            }
         }
 
         [DynamicVisible]
@@ -121,8 +154,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "VectorLayerProperties_SymbolScale_Description")]
         public float SymbolScale
         {
-            get { return data.Style.SymbolScale; }
-            set { data.Style.SymbolScale = value; }
+            get
+            {
+                return data.Style.SymbolScale;
+            }
+            set
+            {
+                data.Style.SymbolScale = value;
+            }
         }
 
         [Category("Coordinates")]
@@ -130,8 +169,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [Description("Coordinate system (geographic or projected) on which the map is represented.")]
         public ICoordinateTransformation MapCoordinateSystem
         {
-            get { return data.CoordinateTransformation; }
-            set { data.CoordinateTransformation = value; }
+            get
+            {
+                return data.CoordinateTransformation;
+            }
+            set
+            {
+                data.CoordinateTransformation = value;
+            }
         }
 
         [Category("Coordinates")]
@@ -139,8 +184,26 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [Description("Coordinate system (geographic or projected) in which the objects contained in the selected layer are declared.")]
         public ICoordinateSystem LayerCoordinateSystem
         {
-            get { return data.CoordinateSystem; }
-            set { data.CoordinateSystem = value; }
+            get
+            {
+                return data.CoordinateSystem;
+            }
+            set
+            {
+                data.CoordinateSystem = value;
+            }
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool OnIsLayerNameReadOnly(string propertyName)
+        {
+            return data.NameIsReadOnly;
+        }
+
+        [DynamicVisibleValidationMethod]
+        public bool IsPropertyVisible(string propertyName)
+        {
+            return data.Theme == null;
         }
 
 /*

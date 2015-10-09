@@ -6,13 +6,13 @@ namespace GisSharpBlog.NetTopologySuite.IO
     public enum ByteOrder
     {
         /// <summary>
-		/// BigEndian
-		/// </summary>
+        /// BigEndian
+        /// </summary>
         BigEndian = 0x00,
 
         /// <summary>
-		/// LittleEndian
-		/// </summary>
+        /// LittleEndian
+        /// </summary>
         LittleEndian = 0x01,
     }
 

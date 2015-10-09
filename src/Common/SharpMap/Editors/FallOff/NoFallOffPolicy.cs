@@ -11,10 +11,14 @@ namespace SharpMap.Editors.FallOff
     {
         public virtual FallOffType FallOffPolicy
         {
-            get { return FallOffType.None; }
+            get
+            {
+                return FallOffType.None;
+            }
         }
-        public virtual void Move(IGeometry targetGeometry, IGeometry sourceGeometry, IList<IGeometry> geometries, IList<int> handleIndices, 
-                         int mouseIndex, double deltaX, double deltaY)
+
+        public virtual void Move(IGeometry targetGeometry, IGeometry sourceGeometry, IList<IGeometry> geometries, IList<int> handleIndices,
+                                 int mouseIndex, double deltaX, double deltaY)
         {
             if ((targetGeometry != null) && (sourceGeometry != null))
             {
@@ -24,7 +28,7 @@ namespace SharpMap.Editors.FallOff
                 }
 
                 //for performance reasons, get the coordinates once: for example for polygons this is a heavy call
-                var targetCoordinates = targetGeometry.Coordinates; 
+                var targetCoordinates = targetGeometry.Coordinates;
                 var sourceCoordinates = sourceGeometry.Coordinates;
 
                 for (int i = 0; i < handleIndices.Count; i++)
@@ -43,36 +47,44 @@ namespace SharpMap.Editors.FallOff
         }
 
         public virtual void Move(IFeature targetFeature, IGeometry sourceGeometry, IList<IGeometry> trackers,
-                  IList<int> handleIndices, int mouseIndex,
-                  double deltaX, double deltaY)
+                                 IList<int> handleIndices, int mouseIndex,
+                                 double deltaX, double deltaY)
         {
-            IGeometry geometry = (IGeometry)sourceGeometry.Clone();
+            IGeometry geometry = (IGeometry) sourceGeometry.Clone();
             Move(geometry, sourceGeometry, trackers, handleIndices, mouseIndex, deltaX, deltaY);
             targetFeature.Geometry = geometry;
         }
 
         public virtual void Move(IGeometry geometry, IList<IGeometry> trackers, IList<int> handleIndices, int mouseIndex,
-                  double deltaX, double deltaY)
+                                 double deltaX, double deltaY)
         {
             Move(geometry, geometry, trackers, handleIndices, mouseIndex, deltaX, deltaY);
         }
+
         public virtual void Move(IGeometry targetGeometry, IGeometry sourceGeometry, int handleIndex, double deltaX, double deltaY)
         {
-            Move(targetGeometry, sourceGeometry, null, new List<int>(new[] { handleIndex }), handleIndex, deltaX, deltaY);
+            Move(targetGeometry, sourceGeometry, null, new List<int>(new[]
+            {
+                handleIndex
+            }), handleIndex, deltaX, deltaY);
         }
 
         public virtual void Move(IFeature targetFeature, IGeometry sourceGeometry, int handleIndex, double deltaX, double deltaY)
         {
-            Move(targetFeature, sourceGeometry, null, new List<int>(new[] { handleIndex }), handleIndex, deltaX, deltaY);
+            Move(targetFeature, sourceGeometry, null, new List<int>(new[]
+            {
+                handleIndex
+            }), handleIndex, deltaX, deltaY);
         }
 
         public virtual void Move(IGeometry geometry, int handleIndex, double deltaX, double deltaY)
         {
-            Move(geometry, geometry, null, new List<int>(new[] { handleIndex }), handleIndex, deltaX, deltaY);
+            Move(geometry, geometry, null, new List<int>(new[]
+            {
+                handleIndex
+            }), handleIndex, deltaX, deltaY);
         }
 
-        public virtual void Reset()
-        {
-        }
+        public virtual void Reset() {}
     }
 }

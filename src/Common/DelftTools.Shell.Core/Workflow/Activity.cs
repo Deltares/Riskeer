@@ -7,6 +7,9 @@ namespace DelftTools.Shell.Core.Workflow
 {
     public abstract class Activity : IActivity
     {
+        public virtual event EventHandler<ActivityStatusChangedEventArgs> StatusChanged;
+
+        public event EventHandler ProgressChanged;
         private static readonly ILog log = LogManager.GetLogger(typeof(Activity));
         private string progressText;
         private ActivityStatus status;
@@ -22,11 +25,16 @@ namespace DelftTools.Shell.Core.Workflow
 
         public virtual ActivityStatus Status
         {
-            get { return status; }
+            get
+            {
+                return status;
+            }
             protected set
             {
                 if (value == status)
+                {
                     return;
+                }
 
                 var oldStatus = status;
                 status = value;
@@ -40,7 +48,15 @@ namespace DelftTools.Shell.Core.Workflow
 
         public virtual string ProgressText
         {
-            get { return progressText; }
+            get
+            {
+                return progressText;
+            }
+        }
+
+        public virtual IEnumerable<object> GetDirectChildren()
+        {
+            throw new NotImplementedException();
         }
 
         public virtual void Initialize()
@@ -107,6 +123,11 @@ namespace DelftTools.Shell.Core.Workflow
             ChangeState(OnFinish, ActivityStatus.Finishing, ActivityStatus.Finished);
         }
 
+        public virtual object DeepClone()
+        {
+            throw new NotImplementedException();
+        }
+
         protected virtual void OnProgressChanged()
         {
             if (ProgressChanged != null)
@@ -119,7 +140,7 @@ namespace DelftTools.Shell.Core.Workflow
         {
             this.progressText = progressText;
 
-            if(ProgressChanged != null)
+            if (ProgressChanged != null)
             {
                 ProgressChanged(this, null);
             }
@@ -151,20 +172,6 @@ namespace DelftTools.Shell.Core.Workflow
         /// Activity has finished successfully.
         /// </summary>
         protected abstract void OnFinish();
-
-        public virtual IEnumerable<object> GetDirectChildren()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual object DeepClone()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual event EventHandler<ActivityStatusChangedEventArgs> StatusChanged;
-
-        public event EventHandler ProgressChanged;
 
         private void ChangeState(Action transitionAction, ActivityStatus statusBefore, ActivityStatus statusAfter)
         {

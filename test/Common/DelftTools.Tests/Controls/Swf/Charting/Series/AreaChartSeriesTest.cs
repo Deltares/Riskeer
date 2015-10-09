@@ -11,10 +11,10 @@ namespace DelftTools.Tests.Controls.Swf.Charting.Series
         {
             const int maximum = 999999;
             var series = new AreaChartSeries
-                {
-                    LineWidth = maximum,
-                    PointerSize = maximum,
-                };
+            {
+                LineWidth = maximum,
+                PointerSize = maximum,
+            };
             Assert.AreEqual(maximum, series.LineWidth);
             Assert.AreEqual(maximum, series.PointerSize);
 

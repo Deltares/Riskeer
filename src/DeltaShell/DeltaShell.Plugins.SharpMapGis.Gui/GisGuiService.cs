@@ -8,7 +8,7 @@ using SharpMap.Api;
 
 namespace DeltaShell.Plugins.SharpMapGis.Gui
 {
-    public class GisGuiService: IGisGuiService
+    public class GisGuiService : IGisGuiService
     {
         private readonly GuiPlugin guiPlugin;
 
@@ -27,7 +27,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
             foreach (IView view in mapVews)
             {
                 var mapView = view as MapView;
-                if(mapView != null)
+                if (mapView != null)
                 {
                     Cursor currentCursor = mapView.MapControl.Cursor;
                     mapView.MapControl.Cursor = Cursors.WaitCursor;
@@ -40,7 +40,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
         public void ZoomCurrentMapToEnvelope(IEnvelope envelope)
         {
             var mapView = guiPlugin.Gui.DocumentViews.ActiveView as MapView;
-            if(mapView == null)
+            if (mapView == null)
             {
                 return;
             }

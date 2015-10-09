@@ -9,54 +9,48 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public class WmsMapLayerTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<Client.WmsServerLayer>
     {
-        private IGisGuiService gisGuiService;
-        private static WmsLayer currentWmsLayer;
+        private readonly IGisGuiService gisGuiService;
 
         public WmsMapLayerTreeViewNodePresenter(GuiPlugin guiPlugin, IGisGuiService gisGuiService) : base(guiPlugin)
         {
             this.gisGuiService = gisGuiService;
         }
 
-
         // small hack
-        public static WmsLayer CurrentWmsLayer
-        {
-            get { return currentWmsLayer; }
-            set { currentWmsLayer = value; }
-        }
+        public static WmsLayer CurrentWmsLayer { get; set; }
 
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, Client.WmsServerLayer layer)
         {
             node.Text = layer.Name;
             node.Tag = layer;
-            node.Checked = currentWmsLayer.LayerList.Contains(layer.Name);
+            node.Checked = CurrentWmsLayer.LayerList.Contains(layer.Name);
             node.ShowCheckBox = true;
         }
- 
+
         public override void OnNodeChecked(ITreeNode node)
         {
-            Client.WmsServerLayer layer = (Client.WmsServerLayer)node.Tag;
-            if(node.Checked)
+            Client.WmsServerLayer layer = (Client.WmsServerLayer) node.Tag;
+            if (node.Checked)
             {
-                List<string> oldLayers = new List<string>(currentWmsLayer.LayerList);
+                List<string> oldLayers = new List<string>(CurrentWmsLayer.LayerList);
 
                 // TODO: add support for layer order when dragging will work
-                currentWmsLayer.LayerList.Clear();
-                foreach (Client.WmsServerLayer childLayer in currentWmsLayer.RootLayer.ChildLayers)
+                CurrentWmsLayer.LayerList.Clear();
+                foreach (Client.WmsServerLayer childLayer in CurrentWmsLayer.RootLayer.ChildLayers)
                 {
-                    if(childLayer.Name.Equals(layer.Name) || oldLayers.Contains(childLayer.Name))
+                    if (childLayer.Name.Equals(layer.Name) || oldLayers.Contains(childLayer.Name))
                     {
-                        currentWmsLayer.LayerList.Add(childLayer.Name);
+                        CurrentWmsLayer.LayerList.Add(childLayer.Name);
                     }
                 }
             }
             else
             {
-                currentWmsLayer.LayerList.Remove(layer.Name);
+                CurrentWmsLayer.LayerList.Remove(layer.Name);
             }
 
-            currentWmsLayer.RenderRequired = true;
-            gisGuiService.RefreshMapView(currentWmsLayer.Map);
+            CurrentWmsLayer.RenderRequired = true;
+            gisGuiService.RefreshMapView(CurrentWmsLayer.Map);
         }
     }
 }

@@ -12,24 +12,6 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
         private CultureInfo originalCulture;
         private CultureInfo originalUICulture;
 
-        # region SetUp/TearDown
-
-        [SetUp]
-        public void SetUp()
-        {
-            originalCulture = Thread.CurrentThread.CurrentCulture;
-            originalUICulture = Thread.CurrentThread.CurrentUICulture;
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            Thread.CurrentThread.CurrentCulture = originalCulture;
-            Thread.CurrentThread.CurrentUICulture = originalUICulture;
-        }
-
-        # endregion
-
         [Test]
         public void TestCultureWhileDoingWork() // Note: this test fails when using System.ComponentModel.BackgroundWorker
         {
@@ -66,5 +48,23 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
             // The correct culture should have been used while "doing work"
             Assert.IsFalse(testFailed);
         }
+
+        # region SetUp/TearDown
+
+        [SetUp]
+        public void SetUp()
+        {
+            originalCulture = Thread.CurrentThread.CurrentCulture;
+            originalUICulture = Thread.CurrentThread.CurrentUICulture;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            Thread.CurrentThread.CurrentCulture = originalCulture;
+            Thread.CurrentThread.CurrentUICulture = originalUICulture;
+        }
+
+        # endregion
     }
 }

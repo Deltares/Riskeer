@@ -2,8 +2,6 @@
 {
     public class DefaultEditAction : EditActionBase
     {
-        public DefaultEditAction(string name):base(name)
-        {
-        }
+        public DefaultEditAction(string name) : base(name) {}
     }
 }

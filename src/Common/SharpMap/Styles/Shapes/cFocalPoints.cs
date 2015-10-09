@@ -14,31 +14,26 @@ namespace SharpMap.Styles.Shapes
         // Methods
         public cFocalPoints()
         {
-            this._CenterPoint = new PointF(0.5f, 0.5f);
-            this._FocusScales = new PointF(0f, 0f);
+            _CenterPoint = new PointF(0.5f, 0.5f);
+            _FocusScales = new PointF(0f, 0f);
         }
 
         public cFocalPoints(PointF ptC, PointF ptF)
         {
-            this._CenterPoint = new PointF(0.5f, 0.5f);
-            this._FocusScales = new PointF(0f, 0f);
-            this.CenterPoint = ptC;
-            this.FocusScales = ptF;
+            _CenterPoint = new PointF(0.5f, 0.5f);
+            _FocusScales = new PointF(0f, 0f);
+            CenterPoint = ptC;
+            FocusScales = ptF;
         }
 
         public cFocalPoints(double Cx, double Cy, double Fx, double Fy)
         {
-            this._CenterPoint = new PointF(0.5f, 0.5f);
-            this._FocusScales = new PointF(0f, 0f);
+            _CenterPoint = new PointF(0.5f, 0.5f);
+            _FocusScales = new PointF(0f, 0f);
             PointF S0 = new PointF((float) Cx, (float) Cy);
-            this.CenterPoint = S0;
+            CenterPoint = S0;
             S0 = new PointF((float) Fx, (float) Fy);
-            this.FocusScales = S0;
-        }
-
-        public override string ToString()
-        {
-            return ("CP=" + this._CenterPoint.ToString() + ", FP=" + this._FocusScales.ToString());
+            FocusScales = S0;
         }
 
         // Properties
@@ -46,7 +41,7 @@ namespace SharpMap.Styles.Shapes
         {
             get
             {
-                return this._CenterPoint;
+                return _CenterPoint;
             }
             set
             {
@@ -66,7 +61,7 @@ namespace SharpMap.Styles.Shapes
                 {
                     value.Y = 1f;
                 }
-                this._CenterPoint = value;
+                _CenterPoint = value;
             }
         }
 
@@ -74,7 +69,7 @@ namespace SharpMap.Styles.Shapes
         {
             get
             {
-                return this._FocusScales;
+                return _FocusScales;
             }
             set
             {
@@ -94,8 +89,13 @@ namespace SharpMap.Styles.Shapes
                 {
                     value.Y = 1f;
                 }
-                this._FocusScales = value;
+                _FocusScales = value;
             }
+        }
+
+        public override string ToString()
+        {
+            return ("CP=" + _CenterPoint.ToString() + ", FP=" + _FocusScales.ToString());
         }
     }
 }

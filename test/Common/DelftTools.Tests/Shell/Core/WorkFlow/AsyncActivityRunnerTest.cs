@@ -11,27 +11,26 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
     public class AsyncActivityRunnerTest
     {
         private static readonly MockRepository mocks = new MockRepository();
-        
+
         [Test]
         public void DoesNotCompleteSuccesfullyIfAnExceptionWasThrown()
         {
-            
             var activity = new CrashingActivity();
 
             var asynchTask = new AsyncActivityRunner(activity, (a) => a.Execute());
             int callCount = 0;
-            asynchTask.Completed += (s,e) =>
-                    {
-                        callCount++;
-                        Assert.IsFalse(((AsyncActivityRunner) s).CompletedSuccesfully);
-                    };
+            asynchTask.Completed += (s, e) =>
+            {
+                callCount++;
+                Assert.IsFalse(((AsyncActivityRunner) s).CompletedSuccesfully);
+            };
             asynchTask.Run();
 
             Thread.Sleep(100);
 
             //do events...otherwise taskcompleted wont run
             Application.DoEvents();
-            
+
             Assert.AreEqual(1, callCount);
         }
 
@@ -51,11 +50,11 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
 
                 activity.Expect(a => a.Execute()).Callback(
                     delegate
-                        {
-                            uiCultureIsSet = "nl-NL" == Thread.CurrentThread.CurrentUICulture.Name;
-                            activityFinished = true;
-                            return false;
-                        });
+                    {
+                        uiCultureIsSet = "nl-NL" == Thread.CurrentThread.CurrentUICulture.Name;
+                        activityFinished = true;
+                        return false;
+                    });
 
                 mocks.ReplayAll();
 
@@ -68,7 +67,7 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
                 Thread.CurrentThread.CurrentUICulture = oldUICulture;
             }
 
-            while(!activityFinished)
+            while (!activityFinished)
             {
                 Thread.Sleep(0);
             }

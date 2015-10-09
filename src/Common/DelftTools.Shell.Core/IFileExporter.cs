@@ -15,21 +15,9 @@ namespace DelftTools.Shell.Core
         string Name { get; }
 
         /// <summary>
-        /// Exports given item to the data source provided by path.
-        /// </summary>
-        /// <returns>True if the export was successful, false otherwise.</returns>
-        bool Export(object item, string path);
-
-        /// <summary>
         /// The category of the exporter
         /// </summary>
         string Category { get; }
-
-        /// <summary>
-        /// Exporter supports export of the following data types
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<Type> SourceTypes();
 
         /// <summary>
         /// Must be implemented if exporter exports to the file, otherwise null.
@@ -43,6 +31,18 @@ namespace DelftTools.Shell.Core
         /// The icon shown in dialogs for the exporter
         /// </summary>
         Bitmap Icon { get; }
+
+        /// <summary>
+        /// Exports given item to the data source provided by path.
+        /// </summary>
+        /// <returns>True if the export was successful, false otherwise.</returns>
+        bool Export(object item, string path);
+
+        /// <summary>
+        /// Exporter supports export of the following data types
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Type> SourceTypes();
 
         /// <summary>
         /// Checks if the item can be exported

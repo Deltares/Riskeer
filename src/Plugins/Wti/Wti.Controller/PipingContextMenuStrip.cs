@@ -7,9 +7,8 @@ namespace Wti.Controller
 {
     internal class PipingContextMenuStrip : ContextMenuStrip
     {
-        private PipingData pipingData;
-
         public Action<PipingData> OnCalculationClick;
+        private readonly PipingData pipingData;
 
         public PipingContextMenuStrip(PipingData pipingData)
         {
@@ -19,7 +18,7 @@ namespace Wti.Controller
             Items.Add(calculateItem);
         }
 
-        public sealed override ToolStripItemCollection Items
+        public override sealed ToolStripItemCollection Items
         {
             get
             {

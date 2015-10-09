@@ -37,7 +37,7 @@ namespace SharpMap.Rendering.Thematics
                 {
                     colors.Add(ExtractFillColorFromThemeItem(quantityTheme.ThemeItems[0]));
                     values.Add(Convert.ChangeType(((QuantityThemeItem) quantityTheme.ThemeItems[0]).Interval.Min,
-                                                  typeof (T)));
+                                                  typeof(T)));
                 }
                 foreach (QuantityThemeItem item in quantityTheme.ThemeItems)
                 {
@@ -53,7 +53,7 @@ namespace SharpMap.Rendering.Thematics
                 if (values.Count > 0)
                 {
                     colors.Add(ExtractFillColorFromThemeItem(gradientTheme.ThemeItems[0]));
-                    values.Add(Convert.ChangeType(gradientTheme.Min, typeof (T)));
+                    values.Add(Convert.ChangeType(gradientTheme.Min, typeof(T)));
                 }
                 for (int i = 0; i < values.Count; i++)
                 {
@@ -70,7 +70,7 @@ namespace SharpMap.Rendering.Thematics
                 if (!colors.Contains(color))
                 {
                     colors.Add(color);
-                    values.Add(System.Convert.ChangeType(themeItemsDictionary[item], typeof (T)));
+                    values.Add(Convert.ChangeType(themeItemsDictionary[item], typeof(T)));
                 }
             }
         }
@@ -79,16 +79,18 @@ namespace SharpMap.Rendering.Thematics
         {
             Color c = Color.Empty;
 
-            if (item == null) return c;
+            if (item == null)
+            {
+                return c;
+            }
 
             VectorStyle vectorStyle;
             SolidBrush solidBrush;
 
-            if ((vectorStyle=item.Style as VectorStyle) != null && (solidBrush = vectorStyle.Fill as SolidBrush)!=null)
+            if ((vectorStyle = item.Style as VectorStyle) != null && (solidBrush = vectorStyle.Fill as SolidBrush) != null)
             {
                 c = solidBrush.Color;
             }
-
 
             return c;
         }

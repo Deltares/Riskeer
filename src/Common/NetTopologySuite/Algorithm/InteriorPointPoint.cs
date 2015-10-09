@@ -11,9 +11,8 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
     /// </summary>
     public class InteriorPointPoint
     {
-        private ICoordinate centroid;
+        private readonly ICoordinate centroid;
         private double minDistance = Double.MaxValue;
-        private ICoordinate interiorPoint = null;
 
         /// <summary>
         /// 
@@ -21,9 +20,15 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <param name="g"></param>
         public InteriorPointPoint(IGeometry g)
         {
+            InteriorPoint = null;
             centroid = g.Centroid.Coordinate;
             Add(g);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public ICoordinate InteriorPoint { get; private set; }
 
         /// <summary> 
         /// Tests the point(s) defined by a Geometry for the best inside point.
@@ -33,12 +38,16 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         private void Add(IGeometry geom)
         {
             if (geom is IPoint)
-                Add(geom.Coordinate);    
-            else if (geom is IGeometryCollection) 
+            {
+                Add(geom.Coordinate);
+            }
+            else if (geom is IGeometryCollection)
             {
                 IGeometryCollection gc = (IGeometryCollection) geom;
                 foreach (IGeometry geometry in gc.Geometries)
+                {
                     Add(geometry);
+                }
             }
         }
 
@@ -51,20 +60,9 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             double dist = point.Distance(centroid);
             if (dist < minDistance)
             {
-                interiorPoint = new Coordinate(point);
+                InteriorPoint = new Coordinate(point);
                 minDistance = dist;
             }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ICoordinate InteriorPoint
-        {
-            get
-            {
-                return interiorPoint;
-            }
-        }
-    }   
+    }
 }

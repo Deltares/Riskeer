@@ -12,11 +12,15 @@ namespace DelftTools.Utils
     {
         public T this[int index]
         {
-            get { return Get(index); }
-            set { throw new NotImplementedException(); }
+            get
+            {
+                return Get(index);
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
-
-        protected abstract T Get(int index);
 
         public abstract int Count { get; }
 
@@ -24,6 +28,8 @@ namespace DelftTools.Utils
         {
             return new DefaultListEnumerator<T>(this);
         }
+
+        protected abstract T Get(int index);
 
         #region Undesireds
 
@@ -57,7 +63,13 @@ namespace DelftTools.Utils
             throw new NotImplementedException();
         }
 
-        public bool IsReadOnly { get { return true; } }
+        public bool IsReadOnly
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         public int IndexOf(T item)
         {

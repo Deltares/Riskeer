@@ -32,9 +32,6 @@ namespace DeltaShell.Gui
             this.gui = gui;
         }
 
-        private string ProjectDataDirectory { get { return gui.Application.ProjectDataDirectory; } }
-        private IActivityRunner ActivityRunner { get { return gui.Application.ActivityRunner; } }
-
         public void ImportUsingImporter(IFileImporter importer, object target)
         {
             ConfigureImporterAndRun(importer, null, target);
@@ -45,17 +42,6 @@ namespace DeltaShell.Gui
             ImportToItem(target);
 
             RegularExpression.ClearExpressionsCache(); // prevent memory leaks
-        }
-
-        private void ImportToItem(object item)
-        {
-            var importer = GetSupportedImporterForTargetType(item);
-            if (importer == null)
-            {
-                return;
-            }
-
-            ConfigureImporterAndRun(importer, null, item);
         }
 
         public IFileImporter GetSupportedImporterForTargetType(object target)
@@ -73,7 +59,9 @@ namespace DeltaShell.Gui
 
             //if there is only one available importer use that.
             if (importers.Count == 1)
+            {
                 return importers[0];
+            }
 
             foreach (IFileImporter importer in importers)
             {
@@ -106,7 +94,7 @@ namespace DeltaShell.Gui
                     //this importer requires something to import into, but we're importing globally (into project or folder), so skip it
                     continue;
                 }
-                
+
                 // filter importers only to those which can import into targetType
                 if ((targetType == null) || (importer.SupportedItemTypes.Any(t => (t == targetType) || targetType.Implements(t)) && importer.CanImportOn(target)))
                 {
@@ -148,7 +136,7 @@ namespace DeltaShell.Gui
             {
                 selectImporterDialog.AddItemType(importer.Name, Resources.GuiImportHandler_GetSupportedImporterForTargetType_Data_Import, itemImage, null);
             }
-            
+
             if (selectImporterDialog.ShowDialog() == DialogResult.OK)
             {
                 var importerName = selectImporterDialog.SelectedItemTypeName;
@@ -156,6 +144,33 @@ namespace DeltaShell.Gui
             }
 
             return null;
+        }
+
+        private string ProjectDataDirectory
+        {
+            get
+            {
+                return gui.Application.ProjectDataDirectory;
+            }
+        }
+
+        private IActivityRunner ActivityRunner
+        {
+            get
+            {
+                return gui.Application.ActivityRunner;
+            }
+        }
+
+        private void ImportToItem(object item)
+        {
+            var importer = GetSupportedImporterForTargetType(item);
+            if (importer == null)
+            {
+                return;
+            }
+
+            ConfigureImporterAndRun(importer, null, item);
         }
 
         private void ConfigureImporterAndRun(IFileImporter importer, IProjectItem importedItemOwner, object target)
@@ -169,9 +184,15 @@ namespace DeltaShell.Gui
                 }
 
                 var importerDialog = view as IDialog;
-                if (importerDialog == null) return;
+                if (importerDialog == null)
+                {
+                    return;
+                }
 
-                if (importerDialog.ShowModal() != DelftDialogResult.OK) return;
+                if (importerDialog.ShowModal() != DelftDialogResult.OK)
+                {
+                    return;
+                }
 
                 //TODO : move to view provider..when the view is create the importer is there
                 if (importerDialog is IConfigureDialog)
@@ -180,7 +201,10 @@ namespace DeltaShell.Gui
                 }
             }
 
-            var importActivity = new FileImportActivity(importer, target) { ImportedItemOwner = importedItemOwner };
+            var importActivity = new FileImportActivity(importer, target)
+            {
+                ImportedItemOwner = importedItemOwner
+            };
 
             importActivity.OnImportFinished += ImportActivityOnImportFinished;
 
@@ -213,22 +237,25 @@ namespace DeltaShell.Gui
         private void GetImportedItemsUsingFileOpenDialog(IFileImporter importer, IProjectItem importedItemOwner, object target)
         {
             var dialog = new OpenFileDialog
-                             {
-                                 Filter = importer.FileFilter,
-                                 Multiselect = true,
-                                 Title = Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_file_to_import_from,
-                                 RestoreDirectory = true
-                             };
+            {
+                Filter = importer.FileFilter,
+                Multiselect = true,
+                Title = Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_file_to_import_from,
+                RestoreDirectory = true
+            };
 
-            if (dialog.ShowDialog() != DialogResult.OK) return;
+            if (dialog.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
 
             Log.Info(Resources.GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Start_importing_data);
 
             var importActivity = new FileImportActivity(importer, target)
-                {
-                    Files = dialog.FileNames.ToArray(),
-                    ImportedItemOwner = importedItemOwner
-                };
+            {
+                Files = dialog.FileNames.ToArray(),
+                ImportedItemOwner = importedItemOwner
+            };
 
             importActivity.OnImportFinished += ImportActivityOnImportFinished;
             ActivityRunner.Enqueue(importActivity);

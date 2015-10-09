@@ -13,8 +13,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
     /// this class can be used directly to test many geometries against a single
     /// rectangle.
     /// </summary>
-    public class RectangleIntersects 
-    {        
+    public class RectangleIntersects
+    {
         /// <summary>     
         /// Crossover size at which brute-force intersection scanning
         /// is slower than indexed intersection detection.
@@ -22,6 +22,19 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         /// safe side by making value smaller rather than larger.
         /// </summary>
         public const int MaximumScanSegmentCount = 200;
+
+        private readonly IPolygon rectangle;
+        private readonly IEnvelope rectEnv;
+
+        /// <summary>
+        /// Create a new intersects computer for a rectangle.
+        /// </summary>
+        /// <param name="rectangle">A rectangular geometry.</param>
+        public RectangleIntersects(IPolygon rectangle)
+        {
+            this.rectangle = rectangle;
+            rectEnv = rectangle.EnvelopeInternal;
+        }
 
         /// <summary>
         /// 
@@ -35,19 +48,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
             return rp.Intersects(b);
         }
 
-        private IPolygon rectangle;
-        private IEnvelope rectEnv;
-
-        /// <summary>
-        /// Create a new intersects computer for a rectangle.
-        /// </summary>
-        /// <param name="rectangle">A rectangular geometry.</param>
-        public RectangleIntersects(IPolygon rectangle) 
-        {
-            this.rectangle = rectangle;
-            rectEnv = rectangle.EnvelopeInternal;
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -56,24 +56,32 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         public bool Intersects(IGeometry geom)
         {
             if (!rectEnv.Intersects(geom.EnvelopeInternal))
+            {
                 return false;
+            }
             // test envelope relationships
             EnvelopeIntersectsVisitor visitor = new EnvelopeIntersectsVisitor(rectEnv);
             visitor.ApplyTo(geom);
             if (visitor.Intersects())
+            {
                 return true;
+            }
 
             // test if any rectangle corner is contained in the target
             ContainsPointVisitor ecpVisitor = new ContainsPointVisitor(rectangle);
             ecpVisitor.ApplyTo(geom);
             if (ecpVisitor.ContainsPoint())
+            {
                 return true;
+            }
 
             // test if any lines intersect
             LineIntersectsVisitor liVisitor = new LineIntersectsVisitor(rectangle);
             liVisitor.ApplyTo(geom);
             if (liVisitor.Intersects())
+            {
                 return true;
+            }
 
             return false;
         }
@@ -82,9 +90,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
     /// <summary>
     /// 
     /// </summary>
-    class EnvelopeIntersectsVisitor : ShortCircuitedGeometryVisitor
+    internal class EnvelopeIntersectsVisitor : ShortCircuitedGeometryVisitor
     {
-        private IEnvelope rectEnv;
+        private readonly IEnvelope rectEnv;
         private bool intersects = false;
 
         /// <summary>
@@ -100,9 +108,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool Intersects() 
-        { 
-            return intersects; 
+        public bool Intersects()
+        {
+            return intersects;
         }
 
         /// <summary>
@@ -114,9 +122,11 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
             IEnvelope elementEnv = element.EnvelopeInternal;
             // disjoint
             if (!rectEnv.Intersects(elementEnv))
-                return;            
+            {
+                return;
+            }
             // fully contained - must intersect
-            if (rectEnv.Contains(elementEnv)) 
+            if (rectEnv.Contains(elementEnv))
             {
                 intersects = true;
                 return;
@@ -145,7 +155,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override bool IsDone() 
+        protected override bool IsDone()
         {
             return intersects == true;
         }
@@ -154,10 +164,10 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
     /// <summary>
     /// 
     /// </summary>
-    class ContainsPointVisitor : ShortCircuitedGeometryVisitor
-        {
-        private ICoordinateSequence rectSeq;
-        private IEnvelope rectEnv;
+    internal class ContainsPointVisitor : ShortCircuitedGeometryVisitor
+    {
+        private readonly ICoordinateSequence rectSeq;
+        private readonly IEnvelope rectEnv;
         private bool containsPoint = false;
 
         /// <summary>
@@ -166,7 +176,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         /// <param name="rectangle"></param>
         public ContainsPointVisitor(IPolygon rectangle)
         {
-            this.rectSeq = rectangle.ExteriorRing.CoordinateSequence;
+            rectSeq = rectangle.ExteriorRing.CoordinateSequence;
             rectEnv = rectangle.EnvelopeInternal;
         }
 
@@ -174,7 +184,10 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool ContainsPoint() { return containsPoint; }
+        public bool ContainsPoint()
+        {
+            return containsPoint;
+        }
 
         /// <summary>
         /// 
@@ -183,19 +196,25 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         protected override void Visit(IGeometry geom)
         {
             if (!(geom is IPolygon))
+            {
                 return;
+            }
             IEnvelope elementEnv = geom.EnvelopeInternal;
-            if (! rectEnv.Intersects(elementEnv))
+            if (!rectEnv.Intersects(elementEnv))
+            {
                 return;
+            }
             // test each corner of rectangle for inclusion
             ICoordinate rectPt = new Coordinate();
-            for (int i = 0; i < 4; i++) 
+            for (int i = 0; i < 4; i++)
             {
                 rectSeq.GetCoordinate(i, rectPt);
                 if (!elementEnv.Contains(rectPt))
+                {
                     continue;
+                }
                 // check rect point in poly (rect is known not to touch polygon at this point)
-                if (SimplePointInAreaLocator.ContainsPointInPolygon(rectPt, (IPolygon) geom)) 
+                if (SimplePointInAreaLocator.ContainsPointInPolygon(rectPt, (IPolygon) geom))
                 {
                     containsPoint = true;
                     return;
@@ -207,7 +226,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override bool IsDone() 
+        protected override bool IsDone()
         {
             return containsPoint == true;
         }
@@ -216,11 +235,11 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
     /// <summary>
     /// 
     /// </summary>
-    class LineIntersectsVisitor : ShortCircuitedGeometryVisitor
+    internal class LineIntersectsVisitor : ShortCircuitedGeometryVisitor
     {
-        private IPolygon rectangle;
-        private ICoordinateSequence rectSeq;
-        private IEnvelope rectEnv;
+        private readonly IPolygon rectangle;
+        private readonly ICoordinateSequence rectSeq;
+        private readonly IEnvelope rectEnv;
         private bool intersects = false;
 
         /// <summary>
@@ -230,7 +249,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         public LineIntersectsVisitor(IPolygon rectangle)
         {
             this.rectangle = rectangle;
-            this.rectSeq = rectangle.ExteriorRing.CoordinateSequence;
+            rectSeq = rectangle.ExteriorRing.CoordinateSequence;
             rectEnv = rectangle.EnvelopeInternal;
         }
 
@@ -238,9 +257,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool Intersects() 
-        { 
-            return intersects; 
+        public bool Intersects()
+        {
+            return intersects;
         }
 
         /// <summary>
@@ -251,14 +270,25 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         {
             IEnvelope elementEnv = geom.EnvelopeInternal;
             if (!rectEnv.Intersects(elementEnv))
+            {
                 return;
+            }
             // check if general relate algorithm should be used, since it's faster for large inputs
-            if (geom.NumPoints > RectangleIntersects.MaximumScanSegmentCount) 
+            if (geom.NumPoints > RectangleIntersects.MaximumScanSegmentCount)
             {
                 intersects = rectangle.Relate(geom).IsIntersects();
                 return;
             }
             ComputeSegmentIntersection(geom);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected override bool IsDone()
+        {
+            return intersects == true;
         }
 
         /// <summary>
@@ -272,20 +302,11 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
             IList lines = LinearComponentExtracter.GetLines(geom);
             SegmentIntersectionTester si = new SegmentIntersectionTester();
             bool hasIntersection = si.HasIntersectionWithLineStrings(rectSeq, lines);
-            if (hasIntersection) 
+            if (hasIntersection)
             {
                 intersects = true;
                 return;
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected override bool IsDone() 
-        {
-            return intersects == true;
         }
     }
 }

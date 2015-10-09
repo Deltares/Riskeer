@@ -40,47 +40,47 @@ using GisSharpBlog.NetTopologySuite.IO;
 
 namespace SharpMap.Converters.WellKnownText
 {
-	/// <summary>
-	/// Outputs the textual representation of a <see cref="SharpMap.Geometries.Geometry"/> instance.
-	/// </summary>
-	/// <remarks>
-	/// <para>The Well-Known Text (WKT) representation of Geometry is designed to exchange geometry data in ASCII form.</para>
-	/// Examples of WKT representations of geometry objects are:
-	/// <list type="table">
-	/// <listheader><term>Geometry </term><description>WKT Representation</description></listheader>
-	/// <item><term>A Point</term>
-	/// <description>POINT(15 20)<br/> Note that point coordinates are specified with no separating comma.</description></item>
-	/// <item><term>A LineString with four points:</term>
-	/// <description>LINESTRING(0 0, 10 10, 20 25, 50 60)</description></item>
-	/// <item><term>A Polygon with one exterior ring and one interior ring:</term>
-	/// <description>POLYGON((0 0,10 0,10 10,0 10,0 0),(5 5,7 5,7 7,5 7, 5 5))</description></item>
-	/// <item><term>A MultiPoint with three Point values:</term>
-	/// <description>MULTIPOINT(0 0, 20 20, 60 60)</description></item>
-	/// <item><term>A MultiLineString with two LineString values:</term>
-	/// <description>MULTILINESTRING((10 10, 20 20), (15 15, 30 15))</description></item>
-	/// <item><term>A MultiPolygon with two Polygon values:</term>
-	/// <description>MULTIPOLYGON(((0 0,10 0,10 10,0 10,0 0)),((5 5,7 5,7 7,5 7, 5 5)))</description></item>
-	/// <item><term>A GeometryCollection consisting of two Point values and one LineString:</term>
-	/// <description>GEOMETRYCOLLECTION(POINT(10 10), POINT(30 30), LINESTRING(15 15, 20 20))</description></item>
-	/// </list>
-	/// </remarks>
-	public class GeometryToWKT
-	{
+    /// <summary>
+    /// Outputs the textual representation of a <see cref="SharpMap.Geometries.Geometry"/> instance.
+    /// </summary>
+    /// <remarks>
+    /// <para>The Well-Known Text (WKT) representation of Geometry is designed to exchange geometry data in ASCII form.</para>
+    /// Examples of WKT representations of geometry objects are:
+    /// <list type="table">
+    /// <listheader><term>Geometry </term><description>WKT Representation</description></listheader>
+    /// <item><term>A Point</term>
+    /// <description>POINT(15 20)<br/> Note that point coordinates are specified with no separating comma.</description></item>
+    /// <item><term>A LineString with four points:</term>
+    /// <description>LINESTRING(0 0, 10 10, 20 25, 50 60)</description></item>
+    /// <item><term>A Polygon with one exterior ring and one interior ring:</term>
+    /// <description>POLYGON((0 0,10 0,10 10,0 10,0 0),(5 5,7 5,7 7,5 7, 5 5))</description></item>
+    /// <item><term>A MultiPoint with three Point values:</term>
+    /// <description>MULTIPOINT(0 0, 20 20, 60 60)</description></item>
+    /// <item><term>A MultiLineString with two LineString values:</term>
+    /// <description>MULTILINESTRING((10 10, 20 20), (15 15, 30 15))</description></item>
+    /// <item><term>A MultiPolygon with two Polygon values:</term>
+    /// <description>MULTIPOLYGON(((0 0,10 0,10 10,0 10,0 0)),((5 5,7 5,7 7,5 7, 5 5)))</description></item>
+    /// <item><term>A GeometryCollection consisting of two Point values and one LineString:</term>
+    /// <description>GEOMETRYCOLLECTION(POINT(10 10), POINT(30 30), LINESTRING(15 15, 20 20))</description></item>
+    /// </list>
+    /// </remarks>
+    public class GeometryToWKT
+    {
 //		#region Methods
 
-		/// <summary>
-		/// Converts a Geometry to its Well-known Text representation.
-		/// </summary>
-		/// <param name="geometry">A Geometry to write.</param>
-		/// <returns>A &lt;Geometry Tagged Text&gt; string (see the OpenGIS Simple
-		///  Features Specification)</returns>
-		public static string Write(IGeometry geometry)
-		{
-			return new WKTWriter().Write(geometry);
+        /// <summary>
+        /// Converts a Geometry to its Well-known Text representation.
+        /// </summary>
+        /// <param name="geometry">A Geometry to write.</param>
+        /// <returns>A &lt;Geometry Tagged Text&gt; string (see the OpenGIS Simple
+        ///  Features Specification)</returns>
+        public static string Write(IGeometry geometry)
+        {
+            return new WKTWriter().Write(geometry);
 //			StringWriter sw = new StringWriter();
 //			Write(geometry, sw);
 //			return sw.ToString();
-		}
+        }
 
 //		/// <summary>
 //		/// Converts a Geometry to its Well-known Text representation.
@@ -391,5 +391,5 @@ namespace SharpMap.Converters.WellKnownText
 //			}
 //		}
 //		#endregion
-	}
+    }
 }

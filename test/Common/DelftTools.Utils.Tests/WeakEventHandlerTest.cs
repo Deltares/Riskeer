@@ -10,18 +10,6 @@ namespace DelftTools.Utils.Tests
     [TestFixture]
     public class WeakEventTests
     {
-        [TestFixtureSetUp]
-        public void SetUp()
-        {
-            testScenarios.Add(SetupTestGeneric);
-            testScenarios.Add(SetupTestPropChange);
-        }
-
-        [TestFixtureTearDown]
-        public void TearDown()
-        {
-        }
-
         private readonly List<Action<bool>> testScenarios = new List<Action<bool>>();
 
         private IEventSource source;
@@ -32,6 +20,77 @@ namespace DelftTools.Utils.Tests
 
         private IEventConsumer consumer2;
         private WeakReference consumerRef2;
+
+        [Test]
+        public void ConsumerLinkTest()
+        {
+            foreach (var a in testScenarios)
+            {
+                a(false);
+                ConsumerLinkTestMethod();
+            }
+        }
+
+        [Test]
+        public void ConsumerLinkTestDouble()
+        {
+            foreach (var a in testScenarios)
+            {
+                a(true);
+                ConsumerLinkTestDoubleMethod();
+            }
+        }
+
+        [Test]
+        public void ConsumerLinkTestMultiple()
+        {
+            foreach (var a in testScenarios)
+            {
+                a(true);
+                ConsumerLinkTestMultipleMethod();
+            }
+        }
+
+        [Test]
+        public void ConsumerSourceTest()
+        {
+            foreach (var a in testScenarios)
+            {
+                a(false);
+                ConsumerSourceTestMethod();
+            }
+        }
+
+        [Test]
+        public void SourceLinkTest()
+        {
+            foreach (var a in testScenarios)
+            {
+                a(false);
+                SourceLinkTestMethod();
+            }
+        }
+
+        [Test]
+        public void SourceLinkTestMultiple()
+        {
+            SetupTestGeneric(true);
+            foreach (var a in testScenarios)
+            {
+                a(true);
+                SourceLinkTestMultipleMethod();
+            }
+        }
+
+        [TestFixtureSetUp]
+        public void SetUp()
+        {
+            testScenarios.Add(SetupTestGeneric);
+            testScenarios.Add(SetupTestPropChange);
+        }
+
+        [TestFixtureTearDown]
+        public void TearDown() {}
 
         private void ConsumerSourceTestMethod()
         {
@@ -130,40 +189,52 @@ namespace DelftTools.Utils.Tests
 
         public class EventSourceGeneric : IEventSource
         {
+            public event EventHandler<EventArgs> theEvent;
+
             #region IEventSource Members
 
             public int InvocationCount
             {
-                get { return (theEvent != null) ? theEvent.GetInvocationList().Length : 0; }
+                get
+                {
+                    return (theEvent != null) ? theEvent.GetInvocationList().Length : 0;
+                }
             }
 
             public void Fire()
             {
-                if (theEvent != null) theEvent(this, EventArgs.Empty);
+                if (theEvent != null)
+                {
+                    theEvent(this, EventArgs.Empty);
+                }
             }
 
             #endregion
-
-            public event EventHandler<EventArgs> theEvent;
         }
 
         public class EventSourcePropChange : IEventSource
         {
+            public event PropertyChangedEventHandler theEvent;
+
             #region IEventSource Members
 
             public int InvocationCount
             {
-                get { return (theEvent != null) ? theEvent.GetInvocationList().Length : 0; }
+                get
+                {
+                    return (theEvent != null) ? theEvent.GetInvocationList().Length : 0;
+                }
             }
 
             public void Fire()
             {
-                if (theEvent != null) theEvent(this, new PropertyChangedEventArgs(""));
+                if (theEvent != null)
+                {
+                    theEvent(this, new PropertyChangedEventArgs(""));
+                }
             }
 
             #endregion
-
-            public event PropertyChangedEventHandler theEvent;
         }
 
         public interface IEventConsumer
@@ -208,67 +279,6 @@ namespace DelftTools.Utils.Tests
             public void source_theEvent(object sender, PropertyChangedEventArgs e)
             {
                 eventSet = true;
-            }
-        }
-
-        [Test]
-        public void ConsumerLinkTest()
-        {
-            foreach (var a in testScenarios)
-            {
-                a(false);
-                ConsumerLinkTestMethod();
-            }
-        }
-
-        [Test]
-        public void ConsumerLinkTestDouble()
-        {
-            foreach (var a in testScenarios)
-            {
-                a(true);
-                ConsumerLinkTestDoubleMethod();
-            }
-        }
-
-        [Test]
-        public void ConsumerLinkTestMultiple()
-        {
-            foreach (var a in testScenarios)
-            {
-                a(true);
-                ConsumerLinkTestMultipleMethod();
-            }
-        }
-
-        [Test]
-        public void ConsumerSourceTest()
-        {
-            foreach (var a in testScenarios)
-            {
-                a(false);
-                ConsumerSourceTestMethod();
-            }
-        }
-
-        [Test]
-        public void SourceLinkTest()
-        {
-            foreach (var a in testScenarios)
-            {
-                a(false);
-                SourceLinkTestMethod();
-            }
-        }
-
-        [Test]
-        public void SourceLinkTestMultiple()
-        {
-            SetupTestGeneric(true);
-            foreach (var a in testScenarios)
-            {
-                a(true);
-                SourceLinkTestMultipleMethod();
             }
         }
     }

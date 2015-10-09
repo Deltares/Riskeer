@@ -5,39 +5,21 @@ namespace DelftTools.Utils.FormulaParser
     /// </summary>
     public class ExcelFormulaToken
     {
-        private string value;
-        private ExcelFormulaTokenType type;
-        private ExcelFormulaTokenSubtype subtype;
-
         internal ExcelFormulaToken(string value, ExcelFormulaTokenType type)
-            : this(value, type, ExcelFormulaTokenSubtype.Nothing)
-        {
-        }
+            : this(value, type, ExcelFormulaTokenSubtype.Nothing) {}
 
         internal ExcelFormulaToken(string value, ExcelFormulaTokenType type, ExcelFormulaTokenSubtype subtype)
         {
-            this.value = value;
-            this.type = type;
-            this.subtype = subtype;
+            this.Value = value;
+            this.Type = type;
+            this.Subtype = subtype;
         }
 
-        public string Value
-        {
-            get { return value; }
-            internal set { this.value = value; }
-        }
+        public string Value { get; internal set; }
 
-        public ExcelFormulaTokenType Type
-        {
-            get { return type; }
-            internal set { type = value; }
-        }
+        public ExcelFormulaTokenType Type { get; internal set; }
 
-        public ExcelFormulaTokenSubtype Subtype
-        {
-            get { return subtype; }
-            internal set { subtype = value; }
-        }
+        public ExcelFormulaTokenSubtype Subtype { get; internal set; }
     }
 
     public enum ExcelFormulaTokenType
@@ -52,7 +34,7 @@ namespace DelftTools.Utils.FormulaParser
         OperatorPostfix,
         WhiteSpace,
         Unknown
-    } 
+    }
 
     public enum ExcelFormulaTokenSubtype
     {
@@ -68,5 +50,5 @@ namespace DelftTools.Utils.FormulaParser
         Concatenation,
         Intersection,
         Union
-    } 
+    }
 }

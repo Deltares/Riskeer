@@ -1,9 +1,9 @@
 // © 2005 IDesign Inc. All rights reserved 
 //Questions? Comments? go to 
 //http://www.idesign.net
+
 namespace DelftTools.Utils.Threading
 {
-
     public delegate void GenericEventHandler();
 
     public delegate void GenericEventHandler<T>(T t);

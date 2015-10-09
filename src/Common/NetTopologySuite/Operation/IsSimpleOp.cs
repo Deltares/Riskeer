@@ -19,7 +19,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation
         /// <summary>
         /// 
         /// </summary>
-        public IsSimpleOp() { }
+        public IsSimpleOp() {}
 
         /// <summary>
         /// 
@@ -46,19 +46,23 @@ namespace GisSharpBlog.NetTopologySuite.Operation
         /// </summary>
         public bool IsSimple(IMultiPoint mp)
         {
-            if (mp.IsEmpty) 
+            if (mp.IsEmpty)
+            {
                 return true;
+            }
             Set<ICoordinate> points = new Set<ICoordinate>();
             for (int i = 0; i < mp.NumGeometries; i++)
             {
                 IPoint pt = (IPoint) mp.GetGeometryN(i);
                 ICoordinate p = pt.Coordinate;
                 if (points.Contains(p))
+                {
                     return false;
+                }
                 points.Add(p);
             }
             return true;
-        }   
+        }
 
         /// <summary>
         /// 
@@ -67,17 +71,31 @@ namespace GisSharpBlog.NetTopologySuite.Operation
         /// <returns></returns>
         private bool IsSimpleLinearGeometry(IGeometry geom)
         {
-            if (geom.IsEmpty) 
+            if (geom.IsEmpty)
+            {
                 return true;
+            }
 
             GeometryGraph graph = new GeometryGraph(0, geom);
             LineIntersector li = new RobustLineIntersector();
             SegmentIntersector si = graph.ComputeSelfNodes(li, true);
             // if no self-intersection, must be simple
-            if (!si.HasIntersection) return true;
-            if (si.HasProperIntersection) return false;
-            if (HasNonEndpointIntersection(graph)) return false;
-            if (HasClosedEndpointIntersection(graph)) return false;
+            if (!si.HasIntersection)
+            {
+                return true;
+            }
+            if (si.HasProperIntersection)
+            {
+                return false;
+            }
+            if (HasNonEndpointIntersection(graph))
+            {
+                return false;
+            }
+            if (HasClosedEndpointIntersection(graph))
+            {
+                return false;
+            }
             return true;
         }
 
@@ -88,78 +106,20 @@ namespace GisSharpBlog.NetTopologySuite.Operation
         /// <param name="graph"></param>
         private bool HasNonEndpointIntersection(GeometryGraph graph)
         {
-            for (IEnumerator i = graph.GetEdgeEnumerator(); i.MoveNext(); )
+            for (IEnumerator i = graph.GetEdgeEnumerator(); i.MoveNext();)
             {
                 Edge e = (Edge) i.Current;
                 int maxSegmentIndex = e.MaximumSegmentIndex;
-                for (IEnumerator eiIt = e.EdgeIntersectionList.GetEnumerator(); eiIt.MoveNext(); )
+                for (IEnumerator eiIt = e.EdgeIntersectionList.GetEnumerator(); eiIt.MoveNext();)
                 {
                     EdgeIntersection ei = (EdgeIntersection) eiIt.Current;
                     if (!ei.IsEndPoint(maxSegmentIndex))
+                    {
                         return true;
+                    }
                 }
             }
             return false;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public class EndpointInfo
-        {
-            private ICoordinate pt;
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public ICoordinate Point
-            {
-                get { return pt; }
-                set { pt = value; }
-            }
-
-            private bool isClosed = false;
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public bool IsClosed
-            {
-                get { return isClosed; }
-                set { isClosed = value; }
-            }
-
-            private int degree;
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public int Degree
-            {
-                get { return degree; }
-                set { degree = value; }
-            }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="pt"></param>
-            public EndpointInfo(ICoordinate pt)
-            {
-                this.pt = pt;
-                isClosed = false;
-                degree = 0;
-            }
-
-            /// <summary>
-            /// 
-            /// </summary>
-            /// <param name="isClosed"></param>
-            public void AddEndpoint(bool isClosed)
-            {
-                Degree++;
-                this.IsClosed |= isClosed;
-            }
         }
 
         /// <summary> 
@@ -172,20 +132,22 @@ namespace GisSharpBlog.NetTopologySuite.Operation
         private bool HasClosedEndpointIntersection(GeometryGraph graph)
         {
             IDictionary endPoints = new OrderedDictionary<ICoordinate, object>();
-            for (IEnumerator i = graph.GetEdgeEnumerator(); i.MoveNext(); )
+            for (IEnumerator i = graph.GetEdgeEnumerator(); i.MoveNext();)
             {
                 Edge e = (Edge) i.Current;
-                bool isClosed = e.IsClosed;                
+                bool isClosed = e.IsClosed;
                 ICoordinate p0 = e.GetCoordinate(0);
                 AddEndpoint(endPoints, p0, isClosed);
                 ICoordinate p1 = e.GetCoordinate(e.NumPoints - 1);
                 AddEndpoint(endPoints, p1, isClosed);
             }
-            for (IEnumerator i = endPoints.Values.GetEnumerator(); i.MoveNext(); )
+            for (IEnumerator i = endPoints.Values.GetEnumerator(); i.MoveNext();)
             {
                 EndpointInfo eiInfo = (EndpointInfo) i.Current;
                 if (eiInfo.IsClosed && eiInfo.Degree != 2)
+                {
                     return true;
+                }
             }
             return false;
         }
@@ -205,6 +167,60 @@ namespace GisSharpBlog.NetTopologySuite.Operation
                 endPoints.Add(p, eiInfo);
             }
             eiInfo.AddEndpoint(isClosed);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public class EndpointInfo
+        {
+            private bool isClosed = false;
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="pt"></param>
+            public EndpointInfo(ICoordinate pt)
+            {
+                this.Point = pt;
+                isClosed = false;
+                Degree = 0;
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public ICoordinate Point { get; set; }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public bool IsClosed
+            {
+                get
+                {
+                    return isClosed;
+                }
+                set
+                {
+                    isClosed = value;
+                }
+            }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public int Degree { get; set; }
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="isClosed"></param>
+            public void AddEndpoint(bool isClosed)
+            {
+                Degree++;
+                IsClosed |= isClosed;
+            }
         }
     }
 }

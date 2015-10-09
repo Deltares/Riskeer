@@ -13,6 +13,9 @@ namespace DelftTools.Utils.Collections.Generic
     /// <typeparam name="T"></typeparam>
     public class EnumerableList<T> : IEnumerableList<T>, IEnumerableListCache, INotifyPropertyChange
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public event PropertyChangingEventHandler PropertyChanging;
         private IList<T> cache;
         private INotifyCollectionChange collectionChangeSource;
         private INotifyPropertyChange propertyChangeSource;
@@ -21,21 +24,105 @@ namespace DelftTools.Utils.Collections.Generic
         private IEnumerable<T> enumerable;
         private bool dirtyBackingField;
 
-        private bool Dirty
+        public EnumerableList()
         {
-            get { return dirtyBackingField; }
+            Dirty = true;
+        }
+
+        public EnumerableList(IEnumerable<T> enumerable)
+        {
+            Dirty = true;
+            Enumerable = enumerable;
+        }
+
+        public T this[int index]
+        {
+            get
+            {
+                UpdateCache();
+                return cache.ElementAt(index);
+            }
             set
             {
-                dirtyBackingField = value;
-                
-                if (!value) return;
-                countDirty = true;
+                Editor.OnReplace(index, value);
+                Dirty = true;
             }
         }
 
+        public int Count
+        {
+            get
+            {
+                if (!countDirty)
+                {
+                    return countCache;
+                }
+
+                countCache = Dirty ? Enumerable.Count() : cache.Count;
+                countDirty = false;
+
+                return countCache;
+            }
+        }
+
+        public object SyncRoot
+        {
+            get
+            {
+                return Enumerable;
+            }
+        }
+
+        public bool IsSynchronized
+        {
+            get
+            {
+                if (Enumerable is ICollection)
+                {
+                    return ((ICollection) Enumerable).IsSynchronized;
+                }
+
+                return false;
+            }
+        }
+
+        public bool IsReadOnly
+        {
+            get
+            {
+                return Editor == null;
+            }
+        }
+
+        public bool IsFixedSize
+        {
+            get
+            {
+                return Editor == null;
+            }
+        }
+
+        public IEnumerable<T> Enumerable
+        {
+            get
+            {
+                return enumerable;
+            }
+            set
+            {
+                enumerable = value;
+                Dirty = true;
+            }
+        }
+
+        public IEnumerableListEditor Editor { get; set; }
+
         public INotifyCollectionChange CollectionChangeSource
         {
-            get { return collectionChangeSource; }
+            get
+            {
+                return collectionChangeSource;
+            }
             set
             {
                 if (collectionChangeSource != null)
@@ -54,7 +141,10 @@ namespace DelftTools.Utils.Collections.Generic
 
         public INotifyPropertyChange PropertyChangeSource
         {
-            get { return propertyChangeSource; }
+            get
+            {
+                return propertyChangeSource;
+            }
             set
             {
                 if (propertyChangeSource != null)
@@ -70,47 +160,12 @@ namespace DelftTools.Utils.Collections.Generic
             }
         }
 
-        private void PropertyChangeSourcePropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (PropertyChanged != null && (sender.GetType() == typeof(T)))
-            {
-                PropertyChanged(sender, e);
-            }
-        }
-
-        void NotifyCollectionChangeCollectionChange(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            Dirty = true;
-        }
-
-        public EnumerableList()
-        {
-            Dirty = true;
-        }
-
-        public EnumerableList(IEnumerable<T> enumerable)
-        {
-            Dirty = true;
-            Enumerable = enumerable;
-        }
+        public bool HasParent { get; set; }
 
         public IEnumerator<T> GetEnumerator()
         {
             UpdateCache();
             return Enumerable.GetEnumerator();
-        }
-
-        private void UpdateCache()
-        {
-            if (!Dirty)
-            {
-                return;
-            }
-
-            cache = Enumerable.ToList();
-            countCache = cache.Count;
-            countDirty = false;
-            Dirty = false;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -126,7 +181,7 @@ namespace DelftTools.Utils.Collections.Generic
 
         public int Add(object value)
         {
-            Editor.OnAdd((T)value);
+            Editor.OnAdd((T) value);
             Dirty = true;
             return Count - 1;
         }
@@ -146,7 +201,7 @@ namespace DelftTools.Utils.Collections.Generic
         public int IndexOf(object value)
         {
             UpdateCache();
-            return cache.IndexOf((T)value);
+            return cache.IndexOf((T) value);
         }
 
         public void Insert(int index, object value)
@@ -186,55 +241,14 @@ namespace DelftTools.Utils.Collections.Generic
             cache.ToArray().CopyTo(array, index);
         }
 
-        public int Count
-        {
-            get
-            {
-                if (!countDirty) return countCache;
-
-                countCache = Dirty ? Enumerable.Count() : cache.Count;
-                countDirty = false;
-
-                return countCache;
-            }
-        }
-
-        public object SyncRoot
-        {
-            get { return Enumerable; }
-        }
-
-        public bool IsSynchronized
-        {
-            get
-            {
-                if (Enumerable is ICollection)
-                {
-                    return ((ICollection) Enumerable).IsSynchronized;
-                }
-
-                return false;
-            }
-        }
-
-        public bool IsReadOnly
-        {
-            get { return Editor == null; }
-        }
-
-        public bool IsFixedSize
-        {
-            get { return Editor == null; }
-        }
-
         public int IndexOf(T item)
         {
             UpdateCache();
-            
+
             var i = 0;
             foreach (var o in cache)
             {
-                if(Equals(o, item))
+                if (Equals(o, item))
                 {
                     return i;
                 }
@@ -256,6 +270,50 @@ namespace DelftTools.Utils.Collections.Generic
             Dirty = true;
         }
 
+        private bool Dirty
+        {
+            get
+            {
+                return dirtyBackingField;
+            }
+            set
+            {
+                dirtyBackingField = value;
+
+                if (!value)
+                {
+                    return;
+                }
+                countDirty = true;
+            }
+        }
+
+        private void PropertyChangeSourcePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null && (sender.GetType() == typeof(T)))
+            {
+                PropertyChanged(sender, e);
+            }
+        }
+
+        private void NotifyCollectionChangeCollectionChange(object sender, NotifyCollectionChangingEventArgs e)
+        {
+            Dirty = true;
+        }
+
+        private void UpdateCache()
+        {
+            if (!Dirty)
+            {
+                return;
+            }
+
+            cache = Enumerable.ToList();
+            countCache = cache.Count;
+            countDirty = false;
+            Dirty = false;
+        }
+
         object IList.this[int index]
         {
             get
@@ -270,37 +328,5 @@ namespace DelftTools.Utils.Collections.Generic
                 Dirty = true;
             }
         }
-
-        public T this[int index]
-        {
-            get
-            {
-                UpdateCache();
-                return cache.ElementAt(index);
-            }
-            set
-            {
-                Editor.OnReplace(index, value);
-                Dirty = true;
-            }
-        }
-
-        public IEnumerable<T> Enumerable
-        {
-            get { return enumerable; }
-            set
-            {
-                enumerable = value;
-                Dirty = true;
-            }
-        }
-
-        public IEnumerableListEditor Editor { get; set; }
-        
-        public event PropertyChangedEventHandler PropertyChanged;
-        
-        public event PropertyChangingEventHandler PropertyChanging;
-
-        public bool HasParent { get; set; }
     }
 }

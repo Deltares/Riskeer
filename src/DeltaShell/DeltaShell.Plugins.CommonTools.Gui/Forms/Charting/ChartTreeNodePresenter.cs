@@ -10,9 +10,7 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
 {
     public class ChartTreeNodePresenter : TreeViewNodePresenterBaseForPluginGui<IChart>
     {
-        public ChartTreeNodePresenter(GuiPlugin guiPlugin): base(guiPlugin)
-        {
-        }
+        public ChartTreeNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
 
         public override bool CanRenameNode(ITreeNode node)
         {
@@ -46,7 +44,10 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
         {
             var series = item as IChartSeries;
 
-            if (series == null) return;
+            if (series == null)
+            {
+                return;
+            }
 
             var chart = sourceParentNodeData as IChart;
             if (chart != null)
@@ -57,7 +58,7 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
             {
                 target.Series.Remove(series);
             }
-            
+
             target.Series.Insert(position, series);
         }
     }

@@ -12,8 +12,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
     /// </summary>
     public class PolygonBuilder
     {
-        private IGeometryFactory geometryFactory;        
-        private IList shellList = new ArrayList();
+        private readonly IGeometryFactory geometryFactory;
+        private readonly IList shellList = new ArrayList();
 
         /// <summary>
         /// 
@@ -22,6 +22,18 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         public PolygonBuilder(IGeometryFactory geometryFactory)
         {
             this.geometryFactory = geometryFactory;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IList Polygons
+        {
+            get
+            {
+                IList resultPolyList = ComputePolygons(shellList);
+                return resultPolyList;
+            }
         }
 
         /// <summary>
@@ -53,16 +65,23 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
             //Assert: every hole on freeHoleList has a shell assigned to it
         }
 
-        /// <summary>
-        /// 
+        /// <summary> 
+        /// Checks the current set of shells (with their associated holes) to
+        /// see if any of them contain the point.
         /// </summary>
-        public IList Polygons
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public bool ContainsPoint(ICoordinate p)
         {
-            get
+            for (IEnumerator it = shellList.GetEnumerator(); it.MoveNext();)
             {
-                IList resultPolyList = ComputePolygons(shellList);
-                return resultPolyList;
+                EdgeRing er = (EdgeRing) it.Current;
+                if (er.ContainsPoint(p))
+                {
+                    return true;
+                }
             }
+            return false;
         }
 
         /// <summary> 
@@ -73,7 +92,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         private IList BuildMaximalEdgeRings(IList dirEdges)
         {
             IList maxEdgeRings = new ArrayList();
-            for (IEnumerator it = dirEdges.GetEnumerator(); it.MoveNext(); )
+            for (IEnumerator it = dirEdges.GetEnumerator(); it.MoveNext();)
             {
                 DirectedEdge de = (DirectedEdge) it.Current;
                 if (de.IsInResult && de.Label.IsArea())
@@ -100,7 +119,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         private IList BuildMinimalEdgeRings(IList maxEdgeRings, IList shellList, IList freeHoleList)
         {
             IList edgeRings = new ArrayList();
-            for (IEnumerator it = maxEdgeRings.GetEnumerator(); it.MoveNext(); )
+            for (IEnumerator it = maxEdgeRings.GetEnumerator(); it.MoveNext();)
             {
                 MaximalEdgeRing er = (MaximalEdgeRing) it.Current;
                 if (er.MaxNodeDegree > 2)
@@ -118,10 +137,15 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
                     {
                         // freeHoleList.addAll(minEdgeRings);
                         foreach (object obj in minEdgeRings)
+                        {
                             freeHoleList.Add(obj);
+                        }
                     }
                 }
-                else edgeRings.Add(er);
+                else
+                {
+                    edgeRings.Add(er);
+                }
             }
             return edgeRings;
         }
@@ -139,7 +163,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         {
             int shellCount = 0;
             EdgeRing shell = null;
-            for (IEnumerator it = minEdgeRings.GetEnumerator(); it.MoveNext(); )
+            for (IEnumerator it = minEdgeRings.GetEnumerator(); it.MoveNext();)
             {
                 EdgeRing er = (MinimalEdgeRing) it.Current;
                 if (!er.IsHole)
@@ -165,11 +189,13 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         /// <param name="minEdgeRings"></param>
         private void PlacePolygonHoles(EdgeRing shell, IList minEdgeRings)
         {
-            for (IEnumerator it = minEdgeRings.GetEnumerator(); it.MoveNext(); )
+            for (IEnumerator it = minEdgeRings.GetEnumerator(); it.MoveNext();)
             {
                 MinimalEdgeRing er = (MinimalEdgeRing) it.Current;
-                if (er.IsHole) 
+                if (er.IsHole)
+                {
                     er.Shell = shell;
+                }
             }
         }
 
@@ -185,13 +211,18 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         /// <param name="freeHoleList"></param>
         private void SortShellsAndHoles(IList edgeRings, IList shellList, IList freeHoleList)
         {
-            for (IEnumerator it = edgeRings.GetEnumerator(); it.MoveNext(); )
+            for (IEnumerator it = edgeRings.GetEnumerator(); it.MoveNext();)
             {
                 EdgeRing er = (EdgeRing) it.Current;
                 er.SetInResult();
                 if (er.IsHole)
-                     freeHoleList.Add(er);
-                else shellList.Add(er);
+                {
+                    freeHoleList.Add(er);
+                }
+                else
+                {
+                    shellList.Add(er);
+                }
             }
         }
 
@@ -210,7 +241,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         /// <param name="freeHoleList"></param>
         private void PlaceFreeHoles(IList shellList, IList freeHoleList)
         {
-            for (IEnumerator it = freeHoleList.GetEnumerator(); it.MoveNext(); )
+            for (IEnumerator it = freeHoleList.GetEnumerator(); it.MoveNext();)
             {
                 EdgeRing hole = (EdgeRing) it.Current;
                 // only place this hole if it doesn't yet have a shell
@@ -220,7 +251,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
                     Assert.IsTrue(shell != null, "unable to assign hole to a shell");
                     hole.Shell = shell;
                 }
-             }
+            }
         }
 
         /// <summary> 
@@ -244,21 +275,27 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
 
             EdgeRing minShell = null;
             IEnvelope minEnv = null;
-            for (IEnumerator it = shellList.GetEnumerator(); it.MoveNext(); )
+            for (IEnumerator it = shellList.GetEnumerator(); it.MoveNext();)
             {
                 EdgeRing tryShell = (EdgeRing) it.Current;
                 ILinearRing tryRing = tryShell.LinearRing;
                 IEnvelope tryEnv = tryRing.EnvelopeInternal;
                 if (minShell != null)
+                {
                     minEnv = minShell.LinearRing.EnvelopeInternal;
+                }
                 bool isContained = false;
                 if (tryEnv.Contains(testEnv) && CGAlgorithms.IsPointInRing(testPt, tryRing.Coordinates))
-                        isContained = true;
+                {
+                    isContained = true;
+                }
                 // check if this new containing ring is smaller than the current minimum ring
                 if (isContained)
                 {
                     if (minShell == null || minEnv.Contains(tryEnv))
-                        minShell = tryShell;                    
+                    {
+                        minShell = tryShell;
+                    }
                 }
             }
             return minShell;
@@ -273,30 +310,13 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         {
             IList resultPolyList = new ArrayList();
             // add Polygons for all shells
-            for (IEnumerator it = shellList.GetEnumerator(); it.MoveNext(); )
+            for (IEnumerator it = shellList.GetEnumerator(); it.MoveNext();)
             {
                 EdgeRing er = (EdgeRing) it.Current;
                 IPolygon poly = er.ToPolygon(geometryFactory);
                 resultPolyList.Add(poly);
             }
             return resultPolyList;
-        }
-
-        /// <summary> 
-        /// Checks the current set of shells (with their associated holes) to
-        /// see if any of them contain the point.
-        /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
-        public bool ContainsPoint(ICoordinate p)
-        {
-            for (IEnumerator it = shellList.GetEnumerator(); it.MoveNext(); )
-            {
-                EdgeRing er = (EdgeRing) it.Current;
-                if (er.ContainsPoint(p))
-                    return true;
-            }
-            return false;
         }
     }
 }

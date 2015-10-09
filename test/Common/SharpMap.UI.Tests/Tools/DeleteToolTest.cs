@@ -28,12 +28,12 @@ namespace SharpMap.UI.Tests.Tools
             FeatureCollection layer2Data = new FeatureCollection();
             vectorLayer.DataSource = layer2Data;
             layer2Data.FeatureType = typeof(Feature);
-            
+
             layer2Data.Add(new Point(4, 5));
             layer2Data.Add(new Point(0, 1));
             mapControl.Map.Layers.Add(vectorLayer);
 
-            mapControl.SelectTool.Select((IFeature)layer2Data.Features[0]);
+            mapControl.SelectTool.Select((IFeature) layer2Data.Features[0]);
 
             mapControl.DeleteTool.DeleteSelection();
         }
@@ -62,10 +62,10 @@ namespace SharpMap.UI.Tests.Tools
             featureMutator.Expect(fm => fm.Delete()).Repeat.Never();
             editableObject.Expect(eo => eo.BeginEdit(null)).IgnoreArguments().Repeat.Never(); //never expect BeginEdit!
             editableObject.Expect(eo => eo.EndEdit()).IgnoreArguments().Repeat.Never();
-            
+
             mocks.ReplayAll();
-            
-            selectTool.Select((IFeature)layer2Data.Features[0]);
+
+            selectTool.Select((IFeature) layer2Data.Features[0]);
 
             selectTool.SelectedFeatureInteractors.Clear();
             selectTool.SelectedFeatureInteractors.Add(featureMutator); //inject our own feature editor
@@ -102,7 +102,7 @@ namespace SharpMap.UI.Tests.Tools
 
             mocks.ReplayAll();
 
-            selectTool.Select((IFeature)layer2Data.Features[0]);
+            selectTool.Select((IFeature) layer2Data.Features[0]);
 
             selectTool.SelectedFeatureInteractors.Clear();
             selectTool.SelectedFeatureInteractors.Add(featureMutator); //inject our own feature editor

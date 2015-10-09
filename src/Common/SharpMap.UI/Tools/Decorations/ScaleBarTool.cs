@@ -10,7 +10,7 @@ namespace SharpMap.UI.Tools.Decorations
     /// </summary>
     public class ScaleBarTool : LayoutComponentTool
     {
-        private ScaleBar bar;
+        private readonly ScaleBar bar;
         private bool initScreenPosition = false;
 
         /// <summary>
@@ -21,17 +21,15 @@ namespace SharpMap.UI.Tools.Decorations
         {
             Name = "ScaleBar";
             bar = new ScaleBar
-                      {
-                          BarUnit = MapUnits.ws_muMeter,
-                          MapUnit = MapUnits.ws_muMeter,
-                          AlignMent = StringAlignment.Near
-                      };
+            {
+                BarUnit = MapUnits.ws_muMeter,
+                MapUnit = MapUnits.ws_muMeter,
+                AlignMent = StringAlignment.Near
+            };
 
             //bar.BorderVisible = true;
             //this.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;           
         }
-
-
 
         /// <summary>
         /// Draws a scalebar on the screen.
@@ -44,7 +42,7 @@ namespace SharpMap.UI.Tools.Decorations
                 {
                     initScreenPosition = SetScreenLocationForAnchor();
                 }
-                
+
                 graphics.FillRectangle(new SolidBrush(GetBackGroundColor()), new Rectangle(screenLocation, ScreenRectangle.Size));
 
                 if (Selected)
@@ -56,7 +54,7 @@ namespace SharpMap.UI.Tools.Decorations
                 double meters = GetSegmentInMeters();
 
                 //display km scale on bar if map has small scale 
-                bar.BarUnit = meters<5000 ? MapUnits.ws_muMeter : MapUnits.ws_muKilometer;
+                bar.BarUnit = meters < 5000 ? MapUnits.ws_muMeter : MapUnits.ws_muKilometer;
 
                 if (meters > 0) // A valid scale was found
                 {
@@ -81,7 +79,9 @@ namespace SharpMap.UI.Tools.Decorations
             var measure1 = Map.ImageToWorld(new PointF(screenLocation.X + size.Width, screenLocation.Y + 1));
 
             if (Map.CoordinateSystem != null)
+            {
                 return GeodeticDistance.Distance(Map.CoordinateSystem, measure0, measure1);
+            }
             return Math.Sqrt(Math.Pow(measure1.X - measure0.X, 2) + Math.Pow(measure1.Y - measure0.Y, 2));
         }
 

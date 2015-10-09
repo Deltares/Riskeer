@@ -2,11 +2,14 @@ namespace DelftTools.Shell.Core.Workflow
 {
     public class FileImportActivity : Activity
     {
-        private string[] files;
-        private bool shouldCancel;
-        private string progressText;
+        public event OnImportFinishedEventHandler OnImportFinished;
+
+        public delegate void OnImportFinishedEventHandler(FileImportActivity fileImportActivity, object importedObject, IFileImporter importer);
+
         private readonly object target;
         private readonly IFileImporter importer;
+        private bool shouldCancel;
+        private string progressText;
 
         /// <summary>
         /// One Activity (thread) for a serial file import.
@@ -17,15 +20,14 @@ namespace DelftTools.Shell.Core.Workflow
             this.target = target;
         }
 
-        public string[] Files
-        {
-            get { return files; }
-            set { files = value; }
-        }
+        public string[] Files { get; set; }
 
         public IFileImporter FileImporter
         {
-            get { return importer; }
+            get
+            {
+                return importer;
+            }
         }
 
         /// <summary>
@@ -33,8 +35,13 @@ namespace DelftTools.Shell.Core.Workflow
         /// </summary>
         public object Target
         {
-            get { return target; }
+            get
+            {
+                return target;
+            }
         }
+
+        public object ImportedItemOwner { get; set; }
 
         protected override void OnInitialize()
         {
@@ -48,14 +55,14 @@ namespace DelftTools.Shell.Core.Workflow
         {
             shouldCancel = false;
 
-            if (files == null)
+            if (Files == null)
             {
                 ImportFromFile(null);
                 Name = importer.Name; // changed during progress
             }
             else
             {
-                foreach (var fileName in files)
+                foreach (var fileName in Files)
                 {
                     ImportFromFile(fileName);
 
@@ -69,6 +76,18 @@ namespace DelftTools.Shell.Core.Workflow
             Status = ActivityStatus.Done;
         }
 
+        protected override void OnCancel()
+        {
+            //todo update in the current thread by using a delegate.
+            shouldCancel = true;
+
+            importer.ShouldCancel = true;
+        }
+
+        protected override void OnCleanUp() {}
+
+        protected override void OnFinish() {}
+
         private void ImportFromFile(string fileName)
         {
             if (shouldCancel)
@@ -79,12 +98,12 @@ namespace DelftTools.Shell.Core.Workflow
             Name = importer.Name;
 
             importer.ProgressChanged = (currentStepName, currentStep, totalSteps) =>
-                                                  {
-                                                      Name = importer.Name + " - " + currentStepName;
-                                                      progressText = string.Format("{0} of {1}", currentStep, totalSteps);
+            {
+                Name = importer.Name + " - " + currentStepName;
+                progressText = string.Format("{0} of {1}", currentStep, totalSteps);
 
-                                                      SetProgressText(progressText);
-                                                  };
+                SetProgressText(progressText);
+            };
 
             var item = importer.ImportItem(fileName, target);
 
@@ -94,28 +113,5 @@ namespace DelftTools.Shell.Core.Workflow
                 OnImportFinished(this, item, importer);
             }
         }
-
-        public object ImportedItemOwner { get; set; }
-
-        protected override void OnCancel()
-        {
-            //todo update in the current thread by using a delegate.
-            shouldCancel = true;
-
-            importer.ShouldCancel = true;
-        }
-
-        protected override void OnCleanUp()
-        {
-        }
-
-        protected override void OnFinish()
-        {
-
-        }
-
-        public event OnImportFinishedEventHandler OnImportFinished;
-
-        public delegate void OnImportFinishedEventHandler(FileImportActivity fileImportActivity, object importedObject, IFileImporter importer);
     }
 }

@@ -6,7 +6,6 @@ using GisSharpBlog.NetTopologySuite.Utilities;
 
 namespace GisSharpBlog.NetTopologySuite.Noding
 {
-
     /// <summary>
     /// Wraps a <see cref="INoder" /> and transforms its input into the integer domain.
     /// This is intended for use with Snap-Rounding noders,
@@ -15,19 +14,19 @@ namespace GisSharpBlog.NetTopologySuite.Noding
     /// </summary>
     public class ScaledNoder : INoder
     {
-        private INoder noder = null;
-        private double scaleFactor = 0;
-        private double offsetX = 0;
-        private double offsetY = 0;
-        private bool isScaled = false;
+        private readonly INoder noder = null;
+        private readonly double scaleFactor = 0;
+        private readonly double offsetX = 0;
+        private readonly double offsetY = 0;
+        private readonly bool isScaled = false;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ScaledNoder"/> class.
         /// </summary>
         /// <param name="noder"></param>
         /// <param name="scaleFactor"></param>
-        public ScaledNoder(INoder noder, double scaleFactor) 
-            : this(noder, scaleFactor, 0, 0) { }      
+        public ScaledNoder(INoder noder, double scaleFactor)
+            : this(noder, scaleFactor, 0, 0) {}
 
         /// <summary>
         /// 
@@ -36,19 +35,19 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// <param name="scaleFactor"></param>
         /// <param name="offsetX"></param>
         /// <param name="offsetY"></param>
-        public ScaledNoder(INoder noder, double scaleFactor, double offsetX, double offsetY) 
+        public ScaledNoder(INoder noder, double scaleFactor, double offsetX, double offsetY)
         {
             this.noder = noder;
             this.scaleFactor = scaleFactor;
             // no need to scale if input precision is already integral
-            isScaled = ! isIntegerPrecision;
+            isScaled = !isIntegerPrecision;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public bool isIntegerPrecision
-        { 
+        {
             get
             {
                 return scaleFactor == 1.0;
@@ -62,8 +61,10 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         public IList GetNodedSubstrings()
         {
             IList splitSS = noder.GetNodedSubstrings();
-            if (isScaled) 
+            if (isScaled)
+            {
                 Rescale(splitSS);
+            }
             return splitSS;
         }
 
@@ -74,10 +75,12 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         public void ComputeNodes(IList inputSegStrings)
         {
             IList intSegStrings = inputSegStrings;
-            if(isScaled)
+            if (isScaled)
+            {
                 intSegStrings = Scale(inputSegStrings);
+            }
             noder.ComputeNodes(intSegStrings);
-        }    
+        }
 
         /// <summary>
         /// 
@@ -92,7 +95,7 @@ namespace GisSharpBlog.NetTopologySuite.Noding
                 return new SegmentString(Scale(ss.Coordinates), ss.Data);
             });
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -102,11 +105,13 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         {
             ICoordinate[] roundPts = new ICoordinate[pts.Length];
             for (int i = 0; i < pts.Length; i++)
-                roundPts[i] = new Coordinate(Math.Round((pts[i].X - offsetX) * scaleFactor),
-                                             Math.Round((pts[i].Y - offsetY) * scaleFactor));
+            {
+                roundPts[i] = new Coordinate(Math.Round((pts[i].X - offsetX)*scaleFactor),
+                                             Math.Round((pts[i].Y - offsetY)*scaleFactor));
+            }
             ICoordinate[] roundPtsNoDup = CoordinateArrays.RemoveRepeatedPoints(roundPts);
             return roundPtsNoDup;
-        }      
+        }
 
         /// <summary>
         /// 
@@ -116,10 +121,10 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         {
             CollectionUtil.Apply(segStrings, delegate(object obj)
             {
-                SegmentString ss = (SegmentString)obj;
+                SegmentString ss = (SegmentString) obj;
                 Rescale(ss.Coordinates);
                 return null;
-            });                                           
+            });
         }
 
         /// <summary>
@@ -128,10 +133,10 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// <param name="pts"></param>
         private void Rescale(ICoordinate[] pts)
         {
-            for (int i = 0; i < pts.Length; i++) 
+            for (int i = 0; i < pts.Length; i++)
             {
-                pts[i].X = pts[i].X / scaleFactor + offsetX;
-                pts[i].Y = pts[i].Y / scaleFactor + offsetY;
+                pts[i].X = pts[i].X/scaleFactor + offsetX;
+                pts[i].Y = pts[i].Y/scaleFactor + offsetY;
             }
         }
     }

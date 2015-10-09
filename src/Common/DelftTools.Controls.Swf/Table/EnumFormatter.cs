@@ -16,9 +16,13 @@ namespace DelftTools.Controls.Swf.Table
         {
             Enum enumValue = null;
             if (arg.GetType().IsEnum)
-                enumValue = (Enum)arg;
+            {
+                enumValue = (Enum) arg;
+            }
             else if (enumType != null && arg is Int32)
+            {
                 enumValue = (Enum) Enum.ToObject(enumType, arg);
+            }
 
             return enumValue != null
                        ? EnumDescriptionAttributeTypeConverter.GetEnumDescription(enumValue)

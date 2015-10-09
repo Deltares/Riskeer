@@ -17,16 +17,16 @@ namespace SharpMap.Editors.Snapping
         /// Criteria is used to select (filter) feature candidates (where can we snap)
         /// </summary>
         public Func<ILayer, IFeature, bool> Criteria { get; set; }
-        
+
         /// <summary>
         /// Target layer, where new features will be created.
         /// </summary>
         public ILayer NewFeatureLayer { get; set; }
-        
+
         public SnapRole SnapRole { get; set; }
-        
+
         public virtual bool Obligatory { get; set; }
-        
+
         /// <summary>
         /// Number of pixels where snapping will start working.
         /// 
@@ -56,7 +56,7 @@ namespace SharpMap.Editors.Snapping
 
             // hack preserve snapTargets functionality
             var snapTargetGeometries = (snapTargets != null ? snapTargets.Select(t => t.Geometry) : Enumerable.Empty<IGeometry>()).ToList();
-            
+
             var minDistance = double.MaxValue; // TODO: incapsulate minDistance in ISnapResult
             SnapResult lastSnapResult = null;
 
@@ -65,15 +65,20 @@ namespace SharpMap.Editors.Snapping
                 var feature = candidate.Item1;
                 var layer = candidate.Item2;
 
-                if ((Criteria != null && !Criteria(layer, feature)) || (snapTargets != null && snapTargetGeometries.IndexOf(feature.Geometry) == -1)) 
+                if ((Criteria != null && !Criteria(layer, feature)) || (snapTargets != null && snapTargetGeometries.IndexOf(feature.Geometry) == -1))
+                {
                     continue;
+                }
 
                 var geometryToSnap = layer.CoordinateTransformation != null
-                    ? GeometryTransform.TransformGeometry(feature.Geometry, layer.CoordinateTransformation.MathTransform)
-                    : feature.Geometry;
+                                         ? GeometryTransform.TransformGeometry(feature.Geometry, layer.CoordinateTransformation.MathTransform)
+                                         : feature.Geometry;
 
                 var snapResult = GetSnapResultForGeometry(worldPos, geometryToSnap, ref minDistance, feature);
-                if (snapResult == null) continue;
+                if (snapResult == null)
+                {
+                    continue;
+                }
 
                 snapResult.NewFeatureLayer = NewFeatureLayer;
                 lastSnapResult = snapResult;
@@ -145,10 +150,13 @@ namespace SharpMap.Editors.Snapping
                     }
                 }
             }
-            
+
             if (geometry is IPoint)
             {
-                return new SnapResult(geometry.Coordinates[0], null, NewFeatureLayer, geometry, 0, 0) {Rule = this};
+                return new SnapResult(geometry.Coordinates[0], null, NewFeatureLayer, geometry, 0, 0)
+                {
+                    Rule = this
+                };
             }
 
             return null;
@@ -170,30 +178,44 @@ namespace SharpMap.Editors.Snapping
                 snapIndexPrevious = 0;
                 snapIndexNext = 0;
                 minDistance = distance;
-                snapResult = new SnapResult(location, null, null, lineString, snapIndexPrevious, snapIndexNext) { Rule = this };
+                snapResult = new SnapResult(location, null, null, lineString, snapIndexPrevious, snapIndexNext)
+                {
+                    Rule = this
+                };
             }
-            
+
             var c2 = lineString.Coordinates[lineString.Coordinates.Length - 1];
             distance = GeometryHelper.Distance(c2.X, c2.Y, worldPos.X, worldPos.Y);
-            
+
             if (distance >= minDistance)
+            {
                 return snapResult;
+            }
 
             location = c2;
             snapIndexPrevious = lineString.Coordinates.Length - 1;
             snapIndexNext = lineString.Coordinates.Length - 1;
-            return new SnapResult(location, null, null, lineString, snapIndexPrevious, snapIndexNext) { Rule = this };
+            return new SnapResult(location, null, null, lineString, snapIndexPrevious, snapIndexNext)
+            {
+                Rule = this
+            };
         }
 
         private SnapResult LineStringSnapEnd(ILineString lineString)
         {
             return new SnapResult(lineString.Coordinates[lineString.Coordinates.Length - 1], null, null, lineString,
-                                  lineString.Coordinates.Length - 1, lineString.Coordinates.Length - 1) { Rule = this };
+                                  lineString.Coordinates.Length - 1, lineString.Coordinates.Length - 1)
+            {
+                Rule = this
+            };
         }
 
         private SnapResult LineStringSnapStart(ILineString lineString)
         {
-            return new SnapResult(lineString.Coordinates[0], null, null, lineString, 0, 0) { Rule = this };
+            return new SnapResult(lineString.Coordinates[0], null, null, lineString, 0, 0)
+            {
+                Rule = this
+            };
         }
 
         private SnapResult LineStringSnapAllTrackers(ref double minDistance, ILineString lineString, ICoordinate worldPos)
@@ -210,12 +232,17 @@ namespace SharpMap.Editors.Snapping
             {
                 var c1 = coordinates[i];
                 var distance = GeometryHelper.Distance(c1.X, c1.Y, worldPos.X, worldPos.Y);
-                
+
                 if (distance >= minDistance)
+                {
                     continue;
-                
+                }
+
                 minDistance = distance;
-                snapResult = new SnapResult(coordinates[i], null, null, geometry, i, i) {Rule = this};
+                snapResult = new SnapResult(coordinates[i], null, null, geometry, i, i)
+                {
+                    Rule = this
+                };
             }
 
             return snapResult;
@@ -232,7 +259,10 @@ namespace SharpMap.Editors.Snapping
             }
 
             minDistance = GeometryHelper.Distance(nearestPoint.X, nearestPoint.Y, worldPos.X, worldPos.Y);
-            return new SnapResult(nearestPoint, feature, null, lineString, vertexIndex - 1, vertexIndex) { Rule = this };
+            return new SnapResult(nearestPoint, feature, null, lineString, vertexIndex - 1, vertexIndex)
+            {
+                Rule = this
+            };
         }
 
         private SnapResult LineStringSnapFree(ref double minDistance, ILineString lineString, ICoordinate worldPos)
@@ -246,10 +276,15 @@ namespace SharpMap.Editors.Snapping
                 var distance = GeometryHelper.LinePointDistance(c1.X, c1.Y, c2.X, c2.Y, worldPos.X, worldPos.Y);
 
                 if (distance >= minDistance)
+                {
                     continue;
+                }
 
                 minDistance = distance;
-                snapResult = new SnapResult(GeometryFactory.CreateCoordinate(worldPos.X, worldPos.Y), null, null, lineString, i - 1, i) { Rule = this };
+                snapResult = new SnapResult(GeometryFactory.CreateCoordinate(worldPos.X, worldPos.Y), null, null, lineString, i - 1, i)
+                {
+                    Rule = this
+                };
             }
 
             return snapResult;
@@ -265,15 +300,20 @@ namespace SharpMap.Editors.Snapping
                 var c2 = polygon.Coordinates[i];
                 double distance = GeometryHelper.LinePointDistance(c1.X, c1.Y, c2.X, c2.Y, worldPos.X, worldPos.Y);
                 if (distance >= minDistance)
+                {
                     continue;
-                
+                }
+
                 minDistance = distance;
-                
+
                 var min_c1 = polygon.Coordinates[i - 1];
                 var min_c2 = polygon.Coordinates[i];
-                
+
                 snapResult = new SnapResult(GeometryHelper.NearestPointAtSegment(min_c1.X, min_c1.Y, min_c2.X, min_c2.Y, worldPos.X,
-                                                                           worldPos.Y), null, null, polygon, i - 1, i) { Rule = this };
+                                                                                 worldPos.Y), null, null, polygon, i - 1, i)
+                {
+                    Rule = this
+                };
             }
 
             return snapResult;
@@ -290,10 +330,15 @@ namespace SharpMap.Editors.Snapping
 
                 var distance = GeometryHelper.LinePointDistance(c1.X, c1.Y, c2.X, c2.Y, worldPos.X, worldPos.Y);
                 if (distance >= minDistance)
+                {
                     continue;
+                }
 
                 minDistance = distance;
-                snapResult = new SnapResult(GeometryFactory.CreateCoordinate(worldPos.X, worldPos.Y), null, null, polygon,i - 1, i) { Rule = this };
+                snapResult = new SnapResult(GeometryFactory.CreateCoordinate(worldPos.X, worldPos.Y), null, null, polygon, i - 1, i)
+                {
+                    Rule = this
+                };
             }
 
             return snapResult;

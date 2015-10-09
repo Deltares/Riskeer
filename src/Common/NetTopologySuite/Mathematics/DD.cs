@@ -67,7 +67,6 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
     [Serializable]
     public struct DD : IComparable, IComparable<DD> /*, IFormattable*/
     {
-
         /// <summary>The value nearest to the constant Pi.</summary>
         public static readonly DD PI = new DD(
             3.141592653589793116e+00,
@@ -100,48 +99,21 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         /// </summary>
         public static readonly double Epsilon = 1.23259516440783e-32; /* = 2^-106 */
 
-        private static DD CreateNaN()
-        {
-            return new DD(Double.NaN, Double.NaN);
-        }
-
-        /// <summary>
-        /// Converts the string argument to a DoubleDouble number.
-        /// </summary>
-        /// <param name="str">A string containing a representation of a numeric value</param>
-        /// <returns>The extended precision version of the value</returns>
-        /// <exception cref="FormatException">Thrown if <paramref name="str"/> is not a valid representation of a number</exception>
-        public static DD ValueOf(String str)
-        {
-            return Parse(str);
-        }
-
-        public static explicit operator DD (String val)
-        {
-            return Parse(val);
-        }
-
-        /**
-         * Converts the <tt>double</tt> argument to a DoubleDouble number.
-         * 
-         * @param x a numeric value
-         * @return the extended precision version of the value
-         */
-
-        public static DD ValueOf(double x)
-        {
-            return new DD(x);
-        }
-
-        public static implicit operator DD(Double val)
-        {
-            return new DD(val);
-        }
-
         /// <summary>
         /// The value to split a double-precision value on during multiplication
         /// </summary>
         private const double Split = 134217729.0D; // 2^27+1, for IEEE double
+
+        /*------------------------------------------------------------
+         *   Output
+         *------------------------------------------------------------
+         */
+
+        private const int MaxPrintDigits = 32;
+        private static readonly DD Ten = ValueOf(10.0);
+        private static readonly DD One = ValueOf(1.0);
+        private static readonly String SCI_NOT_EXPONENT_CHAR = "E";
+        private static readonly String SCI_NOT_ZERO = "0.0E0";
 
         /**
          * The high-order component of the double-double precision value.
@@ -158,9 +130,7 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         /// </summary>
         /// <param name="x">The initial value</param>
         public DD(double x)
-            :this(x, 0d)
-        {
-        }
+            : this(x, 0d) {}
 
         /// <summary>
         /// Creates a new <see cref="DD"/> with value (hi, lo).
@@ -191,8 +161,66 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
          */
 
         public DD(String str)
-            : this(Parse(str))
+            : this(Parse(str)) {}
+
+        /*------------------------------------------------------------
+         *   Predicates
+         *------------------------------------------------------------
+         */
+
+        /// <summary>
+        /// Gets a value indicating whether this object is zero (0) or not
+        /// </summary>
+        public bool IsZero
         {
+            get
+            {
+                return _hi == 0.0 && _lo == 0.0;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this object is negative or not
+        /// </summary>
+        public bool IsNegative
+        {
+            get
+            {
+                return _hi < 0.0 || (_hi == 0.0 && _lo < 0.0);
+            }
+        }
+
+        /// <summary>
+        /// Converts the string argument to a DoubleDouble number.
+        /// </summary>
+        /// <param name="str">A string containing a representation of a numeric value</param>
+        /// <returns>The extended precision version of the value</returns>
+        /// <exception cref="FormatException">Thrown if <paramref name="str"/> is not a valid representation of a number</exception>
+        public static DD ValueOf(String str)
+        {
+            return Parse(str);
+        }
+
+        public static explicit operator DD(String val)
+        {
+            return Parse(val);
+        }
+
+        /**
+         * Converts the <tt>double</tt> argument to a DoubleDouble number.
+         * 
+         * @param x a numeric value
+         * @return the extended precision version of the value
+         */
+
+        public static DD ValueOf(double x)
+        {
+            return new DD(x);
+        }
+
+        public static implicit operator DD(Double val)
+        {
+            return new DD(val);
         }
 
         /// <summary>
@@ -306,6 +334,7 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         {
             return lhs + rhs.Negate();
         }
+
         /// <summary>
         /// Returns the difference of <paramref name="lhs"/> and <paramref name="rhs"/>.
         /// </summary>
@@ -325,9 +354,8 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         [Obsolete("Use Operator +")]
         public DD Add(double y)
         {
-            return this+y;
+            return this + y;
         }
-
 
         //public DD SelfAdd(DD y)
         //{
@@ -392,7 +420,6 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
             return Add(-y);
         }
 
-
         ///**
         // * Subtracts the argument from the value of <tt>this</tt>.
         // * To prevent altering constants, 
@@ -408,7 +435,6 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         //    if (IsNaN(this)) return this;
         //    return SelfAdd(-y._hi, -y._lo);
         //}
-
         ///**
         // * Subtracts the argument from the value of <tt>this</tt>.
         // * To prevent altering constants, 
@@ -424,14 +450,16 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         //    if (IsNaN(this)) return this;
         //    return SelfAdd(-y, 0.0);
         //}
-
         /// <summary>
         /// Returns a <see cref="DD"/> whose value is <c>-this</c>.
         /// </summary>
         /// <returns><c>-this</c></returns>
         public DD Negate()
         {
-            if (IsNaN(this)) return this;
+            if (IsNaN(this))
+            {
+                return this;
+            }
             return new DD(-_hi, -_lo);
         }
 
@@ -455,6 +483,7 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
          * @param y the multiplicand
          * @return <tt>(this * y)</tt>
          */
+
         [Obsolete("Use *-operator instead")]
         public DD Multiply(double y)
         {
@@ -476,7 +505,6 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         //{
         //    return SelfMultiply(y._hi, y._lo);
         //}
-
         ///**
         // * Multiplies this object by the argument, returning <tt>this</tt>.
         // * To prevent altering constants, 
@@ -491,7 +519,6 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         //{
         //    return SelfMultiply(y, 0.0);
         //}
-
         public static DD operator *(DD lhs, Double rhs)
         {
             return lhs*new DD(rhs, 0d);
@@ -499,18 +526,21 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
 
         public static DD operator *(DD lhs, DD rhs)
         {
-            if (IsNaN(rhs)) return CreateNaN();
+            if (IsNaN(rhs))
+            {
+                return CreateNaN();
+            }
 
-            double C = Split * lhs._hi;
+            double C = Split*lhs._hi;
             double hx = C - lhs._hi;
-            double c = Split * rhs._hi;
+            double c = Split*rhs._hi;
             hx = C - hx;
             double tx = lhs._hi - hx;
             double hy = c - rhs._hi;
-            C = lhs._hi * rhs._hi;
+            C = lhs._hi*rhs._hi;
             hy = c - hy;
             double ty = rhs._hi - hy;
-            c = ((((hx * hy - C) + hx * ty) + tx * hy) + tx * ty) + (lhs._hi * rhs._lo + lhs._lo * rhs._hi);
+            c = ((((hx*hy - C) + hx*ty) + tx*hy) + tx*ty) + (lhs._hi*rhs._lo + lhs._lo*rhs._hi);
             double zhi = C + c;
             hx = C - zhi;
             double zlo = c + hx;
@@ -539,6 +569,7 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
             return this;
         }
         */
+
         /// <summary>
         /// Computes a new <see cref="DD"/> whose value is <tt>(this / y)</tt>.
         /// </summary>
@@ -603,7 +634,6 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         //{
         //    return SelfDivide(y, 0.0);
         //}
-
         public static DD operator /(DD lhs, Double rhs)
         {
             return lhs/new DD(rhs, 0d);
@@ -611,21 +641,24 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
 
         public static DD operator /(DD lhs, DD rhs)
         {
-            if (IsNaN(rhs)) return CreateNaN();
+            if (IsNaN(rhs))
+            {
+                return CreateNaN();
+            }
 
             double hc, tc, hy, ty, C, c, U, u;
-            C = lhs._hi / rhs._hi;
-            c = Split * C;
+            C = lhs._hi/rhs._hi;
+            c = Split*C;
             hc = c - C;
-            u = Split * rhs._hi;
+            u = Split*rhs._hi;
             hc = c - hc;
             tc = C - hc;
             hy = u - rhs._hi;
-            U = C * rhs._hi;
+            U = C*rhs._hi;
             hy = u - hy;
             ty = rhs._hi - hy;
-            u = (((hc * hy - U) + hc * ty) + tc * hy) + tc * ty;
-            c = ((((lhs._hi - U) - u) + lhs._lo) - C * rhs._lo) / rhs._hi;
+            u = (((hc*hy - U) + hc*ty) + tc*hy) + tc*ty;
+            c = ((((lhs._hi - U) - u) + lhs._lo) - C*rhs._lo)/rhs._hi;
             u = C + c;
 
             return new DD(u, (C - u) + c);
@@ -680,31 +713,6 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
             return new DD(zhi, zlo);
         }
 
-
-        #region Ordering Functions
-
-        /// <summary>
-        /// Computes the minimum of this and another DD number.
-        /// </summary>
-        /// <param name="x">A DD number</param>
-        /// <returns>The minimum of the two numbers</returns>
-        public DD Min(DD x)
-        {
-            return LessThan(x) ? this : x;
-        }
-
-        /// <summary>
-        /// Computes the maximum of this and another DD number.
-        /// </summary>
-        /// <param name="x">A DD number</param>
-        /// <returns>The maximum of the two numbers</returns>
-        public DD Max(DD x)
-        {
-            return GreaterOrEqualThan(x) ? this : x;
-        }
-
-        #endregion
-
         /**
          * Returns the largest (closest to positive infinity) 
          * value that is not greater than the argument 
@@ -721,7 +729,10 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
 
         public DD Floor()
         {
-            if (IsNaN(this)) return NaN;
+            if (IsNaN(this))
+            {
+                return NaN;
+            }
             double fhi = Math.Floor(_hi);
             double flo = 0.0;
             // Hi is already integral.  Floor the low word
@@ -747,7 +758,10 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
 
         public DD Ceiling()
         {
-            if (IsNaN(this)) return NaN;
+            if (IsNaN(this))
+            {
+                return NaN;
+            }
             double fhi = Math.Ceiling(_hi);
             double flo = 0.0;
             // Hi is already integral.  Ceil the low word
@@ -773,10 +787,22 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         /// <returns>An integer indicating the sign of this value</returns>
         public int Signum()
         {
-            if (_hi > 0) return 1;
-            if (_hi < 0) return -1;
-            if (_lo > 0) return 1;
-            if (_lo < 0) return -1;
+            if (_hi > 0)
+            {
+                return 1;
+            }
+            if (_hi < 0)
+            {
+                return -1;
+            }
+            if (_lo > 0)
+            {
+                return 1;
+            }
+            if (_lo < 0)
+            {
+                return -1;
+            }
             return 0;
         }
 
@@ -791,7 +817,10 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         /// <returns>This value rounded to the nearest integer</returns>
         public DD Rint()
         {
-            if (IsNaN(this)) return this;
+            if (IsNaN(this))
+            {
+                return this;
+            }
             // may not be 100% correct
             var plus5 = this + 0.5d;
             return plus5.Floor();
@@ -811,7 +840,10 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         /// </returns>
         public DD Truncate()
         {
-            if (IsNaN(this)) return NaN;
+            if (IsNaN(this))
+            {
+                return NaN;
+            }
             return IsPositive() ? Floor() : Ceiling();
         }
 
@@ -826,7 +858,10 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         /// <returns>The absolute value of this value</returns>
         public DD Abs()
         {
-            if (IsNaN(this)) return NaN;
+            if (IsNaN(this))
+            {
+                return NaN;
+            }
             return IsNegative ? Negate() : new DD(this);
         }
 
@@ -836,7 +871,7 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         /// <returns>The square of this value</returns>
         public DD Sqr()
         {
-            return this * this;
+            return this*this;
         }
 
         /// <summary>
@@ -845,7 +880,7 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         /// <returns>The square of this value.</returns>
         public static DD Sqr(double x)
         {
-            return ValueOf(x) * x;
+            return ValueOf(x)*x;
         }
 
         /**
@@ -869,7 +904,9 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
          */
 
             if (IsZero)
+            {
                 return ValueOf(0.0);
+            }
 
             if (IsNegative)
             {
@@ -900,7 +937,9 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         public DD Pow(int exp)
         {
             if (exp == 0.0)
+            {
                 return ValueOf(1.0);
+            }
 
             DD r = new DD(this);
             DD s = ValueOf(1.0);
@@ -917,7 +956,9 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
                     }
                     n /= 2;
                     if (n > 0)
+                    {
                         r = r.Sqr();
+                    }
                 }
             }
             else
@@ -927,7 +968,9 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
 
             /* Compute the reciprocal if n is negative. */
             if (exp < 0)
+            {
                 return s.Reciprocal();
+            }
             return s;
         }
 
@@ -958,27 +1001,6 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
             return (int) _hi;
         }
 
-        /*------------------------------------------------------------
-         *   Predicates
-         *------------------------------------------------------------
-         */
-
-        /// <summary>
-        /// Gets a value indicating whether this object is zero (0) or not
-        /// </summary>
-        public bool IsZero
-        {
-            get{ return _hi == 0.0 && _lo == 0.0; }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this object is negative or not
-        /// </summary>
-        public bool IsNegative
-        {
-            get { return _hi < 0.0 || (_hi == 0.0 && _lo < 0.0); }
-        }
-
         /// <summary>
         /// Gets a value indicating whether this object is positive or not
         /// </summary>
@@ -1007,7 +1029,7 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
             return y._hi.Equals(_hi) && y._lo.Equals(_lo);
         }
 
-        public static bool operator == (DD lhs, DD rhs)
+        public static bool operator ==(DD lhs, DD rhs)
         {
             return lhs._hi == rhs._hi && lhs._lo == rhs._lo;
         }
@@ -1060,45 +1082,6 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
             return (_hi < y._hi) || (_hi == y._hi && _lo <= y._lo);
         }
 
-        /**
-         * Compares two DoubleDouble objects numerically.
-         * 
-         * @return -1,0 or 1 depending on whether this value is less than, equal to
-         * or greater than the value of <tt>o</tt>
-         */
-
-        public int CompareTo(DD other)
-        {
-            if (_hi < other._hi) return -1;
-            if (_hi > other._hi) return 1;
-            if (_lo < other._lo) return -1;
-            if (_lo > other._lo) return 1;
-            return 0;
-        }
-
-        public int CompareTo(Object o)
-        {
-            var other = (DD) o;
-
-            if (_hi < other._hi) return -1;
-            if (_hi > other._hi) return 1;
-            if (_lo < other._lo) return -1;
-            if (_lo > other._lo) return 1;
-            return 0;
-        }
-
-
-        /*------------------------------------------------------------
-         *   Output
-         *------------------------------------------------------------
-         */
-
-        private const int MaxPrintDigits = 32;
-        private static readonly DD Ten = ValueOf(10.0);
-        private static readonly DD One = ValueOf(1.0);
-        private static readonly String SCI_NOT_EXPONENT_CHAR = "E";
-        private static readonly String SCI_NOT_ZERO = "0.0E0";
-
         /// <summary>
         /// Dumps the components of this number to a string.
         /// </summary>
@@ -1109,20 +1092,6 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         }
 
         /// <summary>
-        /// Returns a string representation of this number, in either standard or scientific notation.
-        /// If the magnitude of the number is in the range [ 10<sup>-3</sup>, 10<sup>8</sup> ]
-        /// standard notation will be used.  Otherwise, scientific notation will be used.
-        /// </summary>
-        /// <returns>A string representation of this number</returns>
-        public override String ToString()
-        {
-            var mag = Magnitude(_hi);
-            if (mag >= -3 && mag <= 20)
-                return ToStandardNotation();
-            return ToSciNotation();
-        }
-
-        /// <summary>
         /// Returns the string representation of this value in standard notation.
         /// </summary>
         /// <returns>The string representation in standard notation</returns>
@@ -1130,7 +1099,9 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         {
             var specialStr = GetSpecialNumberString();
             if (specialStr != null)
+            {
                 return specialStr;
+            }
 
             var magnitude = new int[1];
             var sigDigits = ExtractSignificantDigits(true, magnitude);
@@ -1156,7 +1127,9 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
             }
 
             if (IsNegative)
+            {
                 return "-" + num;
+            }
             return num;
         }
 
@@ -1168,11 +1141,15 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         {
             // special case zero, to allow as
             if (IsZero)
+            {
                 return SCI_NOT_ZERO;
+            }
 
             String specialStr = GetSpecialNumberString();
             if (specialStr != null)
+            {
                 return specialStr;
+            }
 
             int[] magnitude = new int[1];
             String digits = ExtractSignificantDigits(false, magnitude);
@@ -1188,14 +1165,225 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
             // add decimal point
             String trailingDigits = "";
             if (digits.Length > 1)
+            {
                 trailingDigits = digits.Substring(1);
+            }
             String digitsWithDecimal = digits[0] + "." + trailingDigits;
 
             if (IsNegative)
+            {
                 return "-" + digitsWithDecimal + expStr;
+            }
             return digitsWithDecimal + expStr;
         }
 
+        /*------------------------------------------------------------
+         *   Input
+         *------------------------------------------------------------
+         */
+
+        /// <summary>
+        /// Converts a string representation of a real number into a DoubleDouble value.
+        /// The format accepted is similar to the standard Java real number syntax.  
+        /// It is defined by the following regular expression:
+        /// <pre>
+        /// [<tt>+</tt>|<tt>-</tt>] {<i>digit</i>} [ <tt>.</tt> {<i>digit</i>} ] [ ( <tt>e</tt> | <tt>E</tt> ) [<tt>+</tt>|<tt>-</tt>] {<i>digit</i>}+
+        /// </pre>
+        ///  </summary>
+        /// <param name="str">The string to parse</param>
+        /// <returns>The value of the parsed number</returns>
+        /// <exception cref="FormatException">Thrown if <tt>str</tt> is not a valid representation of a number</exception>
+        public static DD Parse(String str)
+        {
+            int i = 0;
+            int strlen = str.Length;
+
+            // skip leading whitespace
+            while (Char.IsWhiteSpace(str[i]))
+            {
+                i++;
+            }
+
+            // check for sign
+            bool isNegative = false;
+            if (i < strlen)
+            {
+                char signCh = str[i];
+                if (signCh == '-' || signCh == '+')
+                {
+                    i++;
+                    if (signCh == '-')
+                    {
+                        isNegative = true;
+                    }
+                }
+            }
+
+            // scan all digits and accumulate into an integral value
+            // Keep track of the location of the decimal point (if any) to allow scaling later
+            DD val = new DD();
+
+            int numDigits = 0;
+            int numBeforeDec = 0;
+            int exp = 0;
+            while (true)
+            {
+                if (i >= strlen)
+                {
+                    break;
+                }
+                char ch = str[i];
+                i++;
+                if (Char.IsDigit(ch))
+                {
+                    double d = ch - '0';
+                    val *= Ten;
+                    // MD: need to optimize this
+                    val += d;
+                    numDigits++;
+                    continue;
+                }
+                if (ch == '.')
+                {
+                    numBeforeDec = numDigits;
+                    continue;
+                }
+                if (ch == 'e' || ch == 'E')
+                {
+                    String expStr = str.Substring(i);
+                    // this should catch any format problems with the exponent
+                    try
+                    {
+                        exp = int.Parse(expStr);
+                    }
+                    catch (FormatException ex)
+                    {
+                        throw new FormatException("Invalid exponent " + expStr + " in string " + str, ex);
+                    }
+                    break;
+                }
+                throw new FormatException("Unexpected character '" + ch
+                                          + "' at position " + i
+                                          + " in string " + str);
+            }
+            DD val2 = val;
+
+            // scale the number correctly
+            int numDecPlaces = numDigits - numBeforeDec - exp;
+            if (numDecPlaces == 0)
+            {
+                val2 = val;
+            }
+            else if (numDecPlaces > 0)
+            {
+                var scale = Ten.Pow(numDecPlaces);
+                val2 = val.Divide(scale);
+            }
+            else if (numDecPlaces < 0)
+            {
+                DD scale = Ten.Pow(-numDecPlaces);
+                val2 = val.Multiply(scale);
+            }
+            // apply leading sign, if any
+            if (isNegative)
+            {
+                return val2.Negate();
+            }
+            return val2;
+        }
+
+        /// <summary>
+        /// Returns a string representation of this number, in either standard or scientific notation.
+        /// If the magnitude of the number is in the range [ 10<sup>-3</sup>, 10<sup>8</sup> ]
+        /// standard notation will be used.  Otherwise, scientific notation will be used.
+        /// </summary>
+        /// <returns>A string representation of this number</returns>
+        public override String ToString()
+        {
+            var mag = Magnitude(_hi);
+            if (mag >= -3 && mag <= 20)
+            {
+                return ToStandardNotation();
+            }
+            return ToSciNotation();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+            if (obj.GetType() != typeof(DD))
+            {
+                return false;
+            }
+            return Equals((DD) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (_hi.GetHashCode()*397) ^ _lo.GetHashCode();
+            }
+        }
+
+        public int CompareTo(Object o)
+        {
+            var other = (DD) o;
+
+            if (_hi < other._hi)
+            {
+                return -1;
+            }
+            if (_hi > other._hi)
+            {
+                return 1;
+            }
+            if (_lo < other._lo)
+            {
+                return -1;
+            }
+            if (_lo > other._lo)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
+        /**
+         * Compares two DoubleDouble objects numerically.
+         * 
+         * @return -1,0 or 1 depending on whether this value is less than, equal to
+         * or greater than the value of <tt>o</tt>
+         */
+
+        public int CompareTo(DD other)
+        {
+            if (_hi < other._hi)
+            {
+                return -1;
+            }
+            if (_hi > other._hi)
+            {
+                return 1;
+            }
+            if (_lo < other._lo)
+            {
+                return -1;
+            }
+            if (_lo > other._lo)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
+        private static DD CreateNaN()
+        {
+            return new DD(Double.NaN, Double.NaN);
+        }
 
         /**
          * Extracts the significant digits in the decimal representation of the argument.
@@ -1210,7 +1398,7 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
 
         private String ExtractSignificantDigits(bool insertDecimalPoint, int[] magnitudes)
         {
-            var y = this.Abs();
+            var y = Abs();
             // compute *correct* magnitude of y
             var mag = Magnitude(y._hi);
             var scale = Ten.Pow(mag);
@@ -1273,9 +1461,11 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
                     digitChar = (char) ('0' + digit);
                 }
                 buf.Append(digitChar);
-                y = (y - ValueOf(digit)) * Ten;
+                y = (y - ValueOf(digit))*Ten;
                 if (rebiasBy10)
+                {
                     y += Ten;
+                }
 
                 bool continueExtractingDigits = true;
                 /**
@@ -1291,9 +1481,13 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
                  */
                 int remMag = Magnitude(y._hi);
                 if (remMag < 0 && Math.Abs(remMag) >= (numDigits - i))
+                {
                     continueExtractingDigits = false;
+                }
                 if (!continueExtractingDigits)
+                {
                     break;
+                }
             }
             magnitudes[0] = mag;
             return buf.ToString();
@@ -1306,8 +1500,14 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
         /// or <c>null</c> if the number is not a special number</returns>
         private String GetSpecialNumberString()
         {
-            if (IsZero) return "0.0";
-            if (IsNaN(this)) return "NaN ";
+            if (IsZero)
+            {
+                return "0.0";
+            }
+            if (IsNaN(this))
+            {
+                return "NaN ";
+            }
             return null;
         }
 
@@ -1330,134 +1530,35 @@ namespace GisSharpBlog.NetTopologySuite.Mathematics
              */
             var xApprox = Math.Pow(10, xMag);
             if (xApprox*10 <= xAbs)
+            {
                 xMag += 1;
+            }
 
             return xMag;
         }
 
-
-        /*------------------------------------------------------------
-         *   Input
-         *------------------------------------------------------------
-         */
+        #region Ordering Functions
 
         /// <summary>
-        /// Converts a string representation of a real number into a DoubleDouble value.
-        /// The format accepted is similar to the standard Java real number syntax.  
-        /// It is defined by the following regular expression:
-        /// <pre>
-        /// [<tt>+</tt>|<tt>-</tt>] {<i>digit</i>} [ <tt>.</tt> {<i>digit</i>} ] [ ( <tt>e</tt> | <tt>E</tt> ) [<tt>+</tt>|<tt>-</tt>] {<i>digit</i>}+
-        /// </pre>
-        ///  </summary>
-        /// <param name="str">The string to parse</param>
-        /// <returns>The value of the parsed number</returns>
-        /// <exception cref="FormatException">Thrown if <tt>str</tt> is not a valid representation of a number</exception>
-        public static DD Parse(String str)
+        /// Computes the minimum of this and another DD number.
+        /// </summary>
+        /// <param name="x">A DD number</param>
+        /// <returns>The minimum of the two numbers</returns>
+        public DD Min(DD x)
         {
-            int i = 0;
-            int strlen = str.Length;
-
-            // skip leading whitespace
-            while (Char.IsWhiteSpace(str[i]))
-                i++;
-
-            // check for sign
-            bool isNegative = false;
-            if (i < strlen)
-            {
-                char signCh = str[i];
-                if (signCh == '-' || signCh == '+')
-                {
-                    i++;
-                    if (signCh == '-') isNegative = true;
-                }
-            }
-
-            // scan all digits and accumulate into an integral value
-            // Keep track of the location of the decimal point (if any) to allow scaling later
-            DD val = new DD();
-
-            int numDigits = 0;
-            int numBeforeDec = 0;
-            int exp = 0;
-            while (true)
-            {
-                if (i >= strlen)
-                    break;
-                char ch = str[i];
-                i++;
-                if (Char.IsDigit(ch))
-                {
-                    double d = ch - '0';
-                    val *= Ten;
-                    // MD: need to optimize this
-                    val += d;
-                    numDigits++;
-                    continue;
-                }
-                if (ch == '.')
-                {
-                    numBeforeDec = numDigits;
-                    continue;
-                }
-                if (ch == 'e' || ch == 'E')
-                {
-                    String expStr = str.Substring(i);
-                    // this should catch any format problems with the exponent
-                    try
-                    {
-                        exp = int.Parse(expStr);
-                    }
-                    catch (FormatException ex)
-                    {
-                        throw new FormatException("Invalid exponent " + expStr + " in string " + str, ex);
-                    }
-                    break;
-                }
-                throw new FormatException("Unexpected character '" + ch
-                                          + "' at position " + i
-                                          + " in string " + str);
-            }
-            DD val2 = val;
-
-            // scale the number correctly
-            int numDecPlaces = numDigits - numBeforeDec - exp;
-            if (numDecPlaces == 0)
-            {
-                val2 = val;
-            }
-            else if (numDecPlaces > 0)
-            {
-                var scale = Ten.Pow(numDecPlaces);
-                val2 = val.Divide(scale);
-            }
-            else if (numDecPlaces < 0)
-            {
-                DD scale = Ten.Pow(-numDecPlaces);
-                val2 = val.Multiply(scale);
-            }
-            // apply leading sign, if any
-            if (isNegative)
-            {
-                return val2.Negate();
-            }
-            return val2;
-
+            return LessThan(x) ? this : x;
         }
 
-        public override bool Equals(object obj)
+        /// <summary>
+        /// Computes the maximum of this and another DD number.
+        /// </summary>
+        /// <param name="x">A DD number</param>
+        /// <returns>The maximum of the two numbers</returns>
+        public DD Max(DD x)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (obj.GetType() != typeof (DD)) return false;
-            return Equals((DD) obj);
+            return GreaterOrEqualThan(x) ? this : x;
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (_hi.GetHashCode()*397) ^ _lo.GetHashCode();
-            }
-        }
+        #endregion
     }
 }

@@ -12,10 +12,25 @@ namespace DelftTools.Controls.Swf.Charting.Tools
     /// </summary>
     internal class MarkerTool : ToolSeries, IMarkerTool
     {
+        public event EventHandler<EventArgs> ValueChanged;
+        public event EventHandler<MouseEventArgs> MouseDown;
         private readonly CursorLineTool bottomLine;
 
         private readonly DeltaShellTChart chartControl;
-        
+
+        /// <summary>
+        /// Constructor of MarkerTool
+        /// </summary>
+        public MarkerTool(DeltaShellTChart chart)
+        {
+            chartControl = chart;
+            bottomLine = new CursorLineTool(chartControl, CursorToolStyles.Horizontal);
+            chartControl.Tools.Add((CursorLineTool) BottomLine);
+
+            //event handlers
+            BottomLine.Drop += BottomLineDrop;
+        }
+
         /// <summary>
         /// Series the markertool is connected to. ex. cross-section
         /// </summary>
@@ -26,37 +41,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         /// </summary>
         public ICursorLineTool BottomLine
         {
-            get { return bottomLine;  }
-        }
-
-        /// <summary>
-        /// Constructor of MarkerTool
-        /// </summary>
-        public MarkerTool(DeltaShellTChart chart)
-        {
-            chartControl = chart;
-            bottomLine = new CursorLineTool(chartControl, CursorToolStyles.Horizontal);
-            chartControl.Tools.Add((CursorLineTool)BottomLine);
-
-            //event handlers
-            BottomLine.Drop += BottomLineDrop;
-        }
-
-        public void Hide(bool hide)
-        {
-            if (hide)
+            get
             {
-                if (chartControl.Tools.IndexOf((CursorLineTool)BottomLine) != -1)
-                {
-                    chartControl.Tools.Remove((CursorLineTool) BottomLine);
-                }
-            }
-            else
-            {
-                if (chartControl.Tools.IndexOf((CursorLineTool)BottomLine) == -1)
-                {
-                    chartControl.Tools.Add((CursorLineTool)BottomLine);
-                }
+                return bottomLine;
             }
         }
 
@@ -82,8 +69,47 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
         public IChartView ChartView { get; set; }
 
-        public event EventHandler<EventArgs> ValueChanged;
-        public event EventHandler<MouseEventArgs> MouseDown;
+        public void Hide(bool hide)
+        {
+            if (hide)
+            {
+                if (chartControl.Tools.IndexOf((CursorLineTool) BottomLine) != -1)
+                {
+                    chartControl.Tools.Remove((CursorLineTool) BottomLine);
+                }
+            }
+            else
+            {
+                if (chartControl.Tools.IndexOf((CursorLineTool) BottomLine) == -1)
+                {
+                    chartControl.Tools.Add((CursorLineTool) BottomLine);
+                }
+            }
+        }
+
+        #region private stuff
+
+        private void ValidateBottomLine()
+        {
+            if (BoundedSeries != null)
+            {
+                if (BottomLine.YValue > BoundedSeries.MaxYValue())
+                {
+                    BottomLine.YValue = BoundedSeries.MaxYValue();
+                }
+                if (BottomLine.YValue < BoundedSeries.MinYValue())
+                {
+                    BottomLine.YValue = BoundedSeries.MinYValue();
+                }
+            }
+
+            if (ValueChanged != null)
+            {
+                ValueChanged(BottomLine, new EventArgs());
+            }
+        }
+
+        #endregion
 
         #region eventHandlers
 
@@ -98,7 +124,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         protected override void MouseEvent(MouseEventKinds kind, MouseEventArgs e, ref Cursor c)
         {
             if (!Enabled)
+            {
                 return;
+            }
             if (kind == MouseEventKinds.Down)
             {
                 ChartMouseDown(null, e);
@@ -123,9 +151,13 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         }
 
         private bool enabled = true;
+
         public bool Enabled
         {
-            get { return enabled; }
+            get
+            {
+                return enabled;
+            }
             set
             {
                 enabled = value;
@@ -134,31 +166,6 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         }
 
         public event EventHandler<EventArgs> ActiveChanged;
-
-        #endregion
-
-        #region private stuff
-
-
-        private void ValidateBottomLine()
-        {
-            if (BoundedSeries != null)
-            {
-                if (BottomLine.YValue > BoundedSeries.MaxYValue())
-                {
-                    BottomLine.YValue = BoundedSeries.MaxYValue();
-                }
-                if (BottomLine.YValue < BoundedSeries.MinYValue())
-                {
-                    BottomLine.YValue = BoundedSeries.MinYValue();
-                }
-            }
-
-            if(ValueChanged != null)
-            {
-                ValueChanged(BottomLine, new EventArgs());
-            }
-        }
 
         #endregion
     }

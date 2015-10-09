@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
+using DelftTools.Controls;
 using DelftTools.Shell.Gui.Forms;
-
-using ICommand = DelftTools.Controls.ICommand;
 
 namespace Wti.Plugin
 {
@@ -28,10 +27,7 @@ namespace Wti.Plugin
             return WtiRibbonControl;
         }
 
-        public void ValidateItems()
-        {
-            
-        }
+        public void ValidateItems() {}
 
         public bool IsContextualTabVisible(string tabGroupName, string tabName)
         {

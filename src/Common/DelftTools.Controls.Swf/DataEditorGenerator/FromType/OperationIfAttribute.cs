@@ -8,15 +8,15 @@
             NotEqual,
         }
 
-        public string PropertyName { get; private set; }
-        public object Value { get; private set; }
-        public IfOperation Operation { get; private set; }
-
         protected OperationIfAttribute(string propertyName, object value, IfOperation operation = IfOperation.Equal)
         {
             PropertyName = propertyName;
             Value = value;
             Operation = operation;
         }
+
+        public string PropertyName { get; private set; }
+        public object Value { get; private set; }
+        public IfOperation Operation { get; private set; }
     }
 }

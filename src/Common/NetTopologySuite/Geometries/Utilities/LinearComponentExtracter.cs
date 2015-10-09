@@ -8,6 +8,17 @@ namespace GisSharpBlog.NetTopologySuite.Geometries.Utilities
     /// </summary>
     public class LinearComponentExtracter : IGeometryComponentFilter
     {
+        private readonly IList lines;
+
+        /// <summary> 
+        /// Constructs a LineExtracterFilter with a list in which to store LineStrings found.
+        /// </summary>
+        /// <param name="lines"></param>
+        public LinearComponentExtracter(IList lines)
+        {
+            this.lines = lines;
+        }
+
         /// <summary> 
         /// Extracts the linear components from a single point.
         /// If more than one point is to be processed, it is more
@@ -23,25 +34,16 @@ namespace GisSharpBlog.NetTopologySuite.Geometries.Utilities
             return lines;
         }
 
-        private IList lines;
-
-        /// <summary> 
-        /// Constructs a LineExtracterFilter with a list in which to store LineStrings found.
-        /// </summary>
-        /// <param name="lines"></param>
-        public LinearComponentExtracter(IList lines)
-        {
-            this.lines = lines;
-        }
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="geom"></param>
         public void Filter(IGeometry geom)
         {
-            if (geom is ILineString) 
+            if (geom is ILineString)
+            {
                 lines.Add(geom);
+            }
         }
     }
 }

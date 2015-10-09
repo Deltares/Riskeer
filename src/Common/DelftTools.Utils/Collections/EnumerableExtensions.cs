@@ -16,7 +16,7 @@ namespace DelftTools.Utils.Collections
         {
             Type inner = null;
 
-            foreach(var item in source)
+            foreach (var item in source)
             {
                 return item.GetType();
             }
@@ -42,7 +42,7 @@ namespace DelftTools.Utils.Collections
                 action(item);
             }
         }
-        
+
         public static IList<T> AsList<T>(this IEnumerable<T> enumerable)
         {
             return enumerable as IList<T> ?? enumerable.ToList();
@@ -60,6 +60,7 @@ namespace DelftTools.Utils.Collections
                 }
             }
         }
+
         public static void ForEach<T>(this IEnumerable<T> source, Action<T, int> action)
         {
             var i = 0;
@@ -77,7 +78,9 @@ namespace DelftTools.Utils.Collections
             {
                 i++;
                 if (i > 1)
+                {
                     break;
+                }
             }
             return (i == 1);
         }
@@ -85,7 +88,9 @@ namespace DelftTools.Utils.Collections
         public static IEnumerable<IList<T>> SplitInGroups<T>(this IEnumerable<T> list, int groupSize)
         {
             if (groupSize <= 0)
+            {
                 throw new ArgumentException("GroupSize must be greater than 0", "groupSize");
+            }
 
             var countSoFar = 0;
             var group = new List<T>();
@@ -101,7 +106,9 @@ namespace DelftTools.Utils.Collections
             }
 
             if (group.Count > 0)
+            {
                 yield return group;
+            }
         }
 
         /// <summary>
@@ -136,8 +143,11 @@ namespace DelftTools.Utils.Collections
             T pivot = (T) list.First();
             IEnumerable<T> smaller = list.Where(item => item.CompareTo(pivot) <= 0).QuickSort();
             IEnumerable<T> larger = list.Where(item => item.CompareTo(pivot) > 0).QuickSort();
-            
-            return smaller.Concat(new[] { pivot }).Concat(larger);
+
+            return smaller.Concat(new[]
+            {
+                pivot
+            }).Concat(larger);
         }
 
         public static IEnumerable<int> Substract(this IEnumerable<int> index1, IEnumerable<int> index2)
@@ -186,20 +196,32 @@ namespace DelftTools.Utils.Collections
         public static IEnumerable<TResult> Zip<TFirst, TSecond, TResult>(this IEnumerable<TFirst> first, IEnumerable<TSecond> second, Func<TFirst, TSecond, TResult> func)
         {
             if (first == null)
+            {
                 throw new ArgumentNullException("first");
+            }
             if (second == null)
+            {
                 throw new ArgumentNullException("second");
+            }
             if (func == null)
+            {
                 throw new ArgumentNullException("func");
+            }
             using (var ie1 = first.GetEnumerator())
-            using (var ie2 = second.GetEnumerator())
-                while (ie1.MoveNext() && ie2.MoveNext())
-                    yield return func(ie1.Current, ie2.Current);
+            {
+                using (var ie2 = second.GetEnumerator())
+                {
+                    while (ie1.MoveNext() && ie2.MoveNext())
+                    {
+                        yield return func(ie1.Current, ie2.Current);
+                    }
+                }
+            }
         }
 
-        public static IEnumerable<DelftTools.Utils.Tuple<T, R>> Zip<T, R>(this IEnumerable<T> first, IEnumerable<R> second)
+        public static IEnumerable<Tuple<T, R>> Zip<T, R>(this IEnumerable<T> first, IEnumerable<R> second)
         {
-            return first.Zip(second, (f, s) => new DelftTools.Utils.Tuple<T, R>(f, s));
+            return first.Zip(second, (f, s) => new Tuple<T, R>(f, s));
         }
 
         public static bool HasUniqueValues<T>(this IEnumerable<T> enumerable)
@@ -216,7 +238,7 @@ namespace DelftTools.Utils.Collections
                 {
                     if (value.CompareTo(previousValue) > 0)
                     {
-                        return false;//the next value is smaller than the previous...not monotonous ascending
+                        return false; //the next value is smaller than the previous...not monotonous ascending
                     }
                 }
                 previousValue = value;
@@ -231,15 +253,15 @@ namespace DelftTools.Utils.Collections
             {
                 if (previousValue != null && !previousValue.Equals(default(T)))
                 {
-                    if (value.CompareTo(previousValue)<0)
+                    if (value.CompareTo(previousValue) < 0)
                     {
-                        return false;//the next value is smaller than the previous...not monotonous ascending
+                        return false; //the next value is smaller than the previous...not monotonous ascending
                     }
                 }
                 previousValue = value;
             }
             return true;
-        }/*
+        } /*
 
         public static void Times(this int times,Action action)
         {

@@ -11,13 +11,13 @@ namespace DelftTools.Controls.Swf.Charting
         /// sets the visibility of the chart legend
         ///</summary>
         bool Visible { get; set; }
-       
+
         LegendAlignment Alignment { get; set; }
-        
+
         int Width { get; set; }
-        
+
         int Top { get; set; }
-        
+
         int Left { get; set; }
 
         [Obsolete("This functionality is replaced by the ChartLegendView")]

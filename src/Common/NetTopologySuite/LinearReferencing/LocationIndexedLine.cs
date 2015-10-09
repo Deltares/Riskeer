@@ -10,7 +10,7 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
     /// </summary>
     public class LocationIndexedLine
     {
-        private IGeometry linearGeom = null;
+        private readonly IGeometry linearGeom = null;
 
         /// <summary>
         /// Constructs an object which allows linear referencing along
@@ -24,12 +24,25 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
         }
 
         /// <summary>
-        /// 
+        /// Returns the index of the start of the line.
         /// </summary>
-        private void CheckGeometryType()
+        public LinearLocation StartIndex
         {
-            if (!(linearGeom is ILineString || linearGeom is IMultiLineString))
-                throw new ArgumentException("Input geometry must be linear", "linearGeom");
+            get
+            {
+                return new LinearLocation();
+            }
+        }
+
+        /// <summary>
+        /// Returns the index of the end of the line.
+        /// </summary>
+        public LinearLocation EndIndex
+        {
+            get
+            {
+                return LinearLocation.GetEndLocation(linearGeom);
+            }
         }
 
         /// <summary>
@@ -97,28 +110,6 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
         }
 
         /// <summary>
-        /// Returns the index of the start of the line.
-        /// </summary>
-        public LinearLocation StartIndex
-        {
-            get
-            {
-                return new LinearLocation();
-            }
-        }
-
-        /// <summary>
-        /// Returns the index of the end of the line.
-        /// </summary>
-        public LinearLocation EndIndex
-        {
-            get
-            {
-                return LinearLocation.GetEndLocation(linearGeom);
-            }
-        }
-
-        /// <summary>
         /// Tests whether an index is in the valid index range for the line.
         /// </summary>
         /// <param name="index">The index to test.</param>
@@ -139,6 +130,17 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
             LinearLocation loc = (LinearLocation) index.Clone();
             loc.Clamp(linearGeom);
             return loc;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CheckGeometryType()
+        {
+            if (!(linearGeom is ILineString || linearGeom is IMultiLineString))
+            {
+                throw new ArgumentException("Input geometry must be linear", "linearGeom");
+            }
         }
     }
 }

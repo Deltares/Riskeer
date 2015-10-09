@@ -26,17 +26,26 @@ namespace DeltaShell.Tests.Gui
             var mocks = new MockRepository();
             var exporter = mocks.StrictMock<IFileExporter>();
 
-            exporter.Expect(e => e.SourceTypes()).Return(new [] {typeof (string)});
+            exporter.Expect(e => e.SourceTypes()).Return(new[]
+            {
+                typeof(string)
+            });
             exporter.Expect(e => e.CanExportFor(null)).IgnoreArguments().Return(false);
 
             mocks.ReplayAll();
 
-            var handler = new GuiExportHandler(o => new []{exporter}, null);
+            var handler = new GuiExportHandler(o => new[]
+            {
+                exporter
+            }, null);
             handler.GetSupportedExportersForItem("string").Should().Be.Empty();
 
             mocks.BackToRecordAll();
 
-            exporter.Expect(e => e.SourceTypes()).Return(new[] { typeof(string) });
+            exporter.Expect(e => e.SourceTypes()).Return(new[]
+            {
+                typeof(string)
+            });
             exporter.Expect(e => e.CanExportFor(null)).IgnoreArguments().Return(true);
 
             mocks.ReplayAll();
@@ -55,21 +64,21 @@ namespace DeltaShell.Tests.Gui
         {
             public string Name { get; private set; }
 
+            public string Category { get; private set; }
+
+            public string FileFilter { get; private set; }
+
+            public Bitmap Icon { get; private set; }
+
             public bool Export(object item, string path)
             {
                 return true;
             }
 
-            public string Category { get; private set; }
-
             public IEnumerable<Type> SourceTypes()
             {
                 yield return typeof(string);
             }
-
-            public string FileFilter { get; private set; }
-
-            public Bitmap Icon { get; private set; }
 
             public bool CanExportFor(object item)
             {

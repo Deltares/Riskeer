@@ -10,25 +10,17 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
     /// </summary>
     public class RepeatedPointTester
     {
-
         // save the repeated coord found (if any)
-        private ICoordinate repeatedCoord;
 
         /// <summary>
         /// 
         /// </summary>
-        public RepeatedPointTester() { }
+        public RepeatedPointTester() {}
 
         /// <summary>
         /// 
         /// </summary>
-        public ICoordinate Coordinate
-        {
-            get
-            {
-                return repeatedCoord;
-            }
-        }
+        public ICoordinate Coordinate { get; private set; }
 
         /// <summary>
         /// 
@@ -37,17 +29,35 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
         /// <returns></returns>
         public bool HasRepeatedPoint(IGeometry g)
         {
-            if (g.IsEmpty)  return false;
-            if (g is IPoint) return false;
-            else if (g is IMultiPoint) return false;
+            if (g.IsEmpty)
+            {
+                return false;
+            }
+            if (g is IPoint)
+            {
+                return false;
+            }
+            else if (g is IMultiPoint)
+            {
+                return false;
+            }
             // LineString also handles LinearRings
-            else if (g is ILineString) 
+            else if (g is ILineString)
+            {
                 return HasRepeatedPoint(((ILineString) g).Coordinates);
+            }
             else if (g is IPolygon)
+            {
                 return HasRepeatedPoint((IPolygon) g);
-            else if (g is IGeometryCollection) 
+            }
+            else if (g is IGeometryCollection)
+            {
                 return HasRepeatedPoint((IGeometryCollection) g);
-            else  throw new NotSupportedException(g.GetType().FullName);
+            }
+            else
+            {
+                throw new NotSupportedException(g.GetType().FullName);
+            }
         }
 
         /// <summary>
@@ -61,7 +71,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
             {
                 if (coord[i - 1].Equals(coord[i]))
                 {
-                    repeatedCoord = coord[i];
+                    Coordinate = coord[i];
                     return true;
                 }
             }
@@ -76,10 +86,16 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
         private bool HasRepeatedPoint(IPolygon p)
         {
             if (HasRepeatedPoint(p.ExteriorRing.Coordinates))
+            {
                 return true;
+            }
             for (int i = 0; i < p.NumInteriorRings; i++)
-                if (HasRepeatedPoint(p.GetInteriorRingN(i).Coordinates)) 
-                    return true;            
+            {
+                if (HasRepeatedPoint(p.GetInteriorRingN(i).Coordinates))
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
@@ -93,8 +109,10 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
             for (int i = 0; i < gc.NumGeometries; i++)
             {
                 IGeometry g = gc.GetGeometryN(i);
-                if (HasRepeatedPoint(g)) 
+                if (HasRepeatedPoint(g))
+                {
                     return true;
+                }
             }
             return false;
         }

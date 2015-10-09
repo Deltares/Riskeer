@@ -14,13 +14,19 @@ namespace DelftTools.Controls.Swf
             InitializeComponent();
             Label = label;
         }
-        
+
         public string Label
         {
-            get { return label1.Text; }
-            set { label1.Text = value; }
+            get
+            {
+                return label1.Text;
+            }
+            set
+            {
+                label1.Text = value;
+            }
         }
-        
+
         public static void PerformTask(string label, Action action)
         {
             if (!Environment.UserInteractive)
@@ -66,7 +72,9 @@ namespace DelftTools.Controls.Swf
             }
 
             if (taskException != null)
+            {
                 throw taskException; //we loose stacktrace..but ok
+            }
         }
     }
 }

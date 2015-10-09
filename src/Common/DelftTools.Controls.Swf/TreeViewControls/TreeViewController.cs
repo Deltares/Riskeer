@@ -6,17 +6,31 @@ using System.Windows.Forms;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.Collections.Generic;
 using log4net;
-using Timer = System.Windows.Forms.Timer;
 
 namespace DelftTools.Controls.Swf.TreeViewControls
 {
     public class TreeViewController : IDisposable
     {
+        public static bool SkipEvents; // for debugging purposes, find a better way (see usage)
         private static readonly ILog Log = LogManager.GetLogger(typeof(TreeViewController));
 
         private readonly ITreeView treeView;
         private readonly IEventedList<ITreeNodePresenter> nodePresenters = new EventedList<ITreeNodePresenter>();
+
+        // use timer in order to combine property and collection change
+        // note that timer is active only when there is a full refresh taking place
+        private readonly Timer fullRefreshTimer = new Timer
+        {
+            Interval = 250
+        };
+
+        private readonly Dictionary<Type, ITreeNodePresenter> nodeTagTypePresenters = new Dictionary<Type, ITreeNodePresenter>();
         private object data;
+
+        private bool updatingExpandedState; // prevents recursive entries
+        private ITreeNode expandedStateRootNode;
+        private string[] loadedNodePaths;
+        private string[] expandedNodePaths;
 
         public TreeViewController(ITreeView treeView)
         {
@@ -31,32 +45,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
             // for a time being we use timer here to perform full refresh to avoid double refresh
             fullRefreshTimer.Tick += (sender, args) =>
-                                         {
-                                             fullRefreshTimer.Stop();
-                                             treeView.Refresh();
-                                         };
-        }
-
-        // use timer in order to combine property and collection change
-        // note that timer is active only when there is a full refresh taking place
-        readonly Timer fullRefreshTimer = new Timer { Interval = 250 };
-
-        public void WaitUntilAllEventsAreProcessed()
-        {
-            while (treeView.IsUpdateSuspended || (treeView.Visible && fullRefreshTimer.Enabled))
             {
-                Application.DoEvents();
-            }
-        }
-
-        private void FullRefreshEventHandler(object sender, EventArgs eventArgs)
-        {
-            if (fullRefreshTimer.Enabled)
-            {
-                fullRefreshTimer.Stop(); // Reset timer when already started before
-            }
-
-            fullRefreshTimer.Start(); // schedule full refresh
+                fullRefreshTimer.Stop();
+                treeView.Refresh();
+            };
         }
 
         /// <summary>
@@ -64,7 +56,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         /// </summary>
         public IEventedList<ITreeNodePresenter> NodePresenters
         {
-            get { return nodePresenters; }
+            get
+            {
+                return nodePresenters;
+            }
         }
 
         /// <summary>
@@ -72,7 +67,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         /// </summary>
         public object Data
         {
-            get { return data; }
+            get
+            {
+                return data;
+            }
             set
             {
                 if (data != null)
@@ -83,12 +81,23 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                 treeView.Nodes.Clear();
                 data = value;
 
-                if (data == null) return;
-                
+                if (data == null)
+                {
+                    return;
+                }
+
                 CreateRootNode();
                 EnableDataEventListeners();
 
                 treeView.SelectedNode = treeView.Nodes.Count > 0 ? treeView.Nodes[0] : null;
+            }
+        }
+
+        public void WaitUntilAllEventsAreProcessed()
+        {
+            while (treeView.IsUpdateSuspended || (treeView.Visible && fullRefreshTimer.Enabled))
+            {
+                Application.DoEvents();
             }
         }
 
@@ -103,12 +112,12 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             if (parentNode == null)
             {
                 var nodeByTag = treeView.GetNodeByTag(item);
-                
+
                 if (nodeByTag != null)
                 {
                     parentNode = nodeByTag.Parent;
                 }
-            }   
+            }
 
             //try to find a match on the exact type
             if (item == null)
@@ -133,8 +142,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
             return presenter;
         }
-
-        readonly Dictionary<Type, ITreeNodePresenter> nodeTagTypePresenters = new Dictionary<Type, ITreeNodePresenter>();
 
         /// <summary>
         /// Action to perform when the node is checked/unchecked
@@ -226,57 +233,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             }
         }
 
-        IEnumerable<ITreeNode> GetAllLoadedChildNodes(ITreeNode node, string[] forceNodeLoad = null)
-        {
-            if(!node.IsLoaded && (forceNodeLoad == null || !forceNodeLoad.Contains(node.FullPath)))
-            {
-                yield break;
-            }
-
-            foreach (var childNode in node.Nodes)
-            {
-                yield return childNode;
-
-                foreach (var childChildNode in GetAllLoadedChildNodes(childNode, forceNodeLoad))
-                {
-                    yield return childChildNode;
-                }
-            }
-        }
-
-        private bool updatingExpandedState; // prevents recursive entries
-        private ITreeNode expandedStateRootNode;
-        string[] loadedNodePaths;
-        string[] expandedNodePaths;
-
-        private void RememberExpandedState(ITreeNode node)
-        {
-            if (updatingExpandedState)
-            {
-                return;
-            }
-
-            updatingExpandedState = true;
-
-            // we need to remember all loaded nodes since after clear / build we have no idea anymore which nodes were loaded 
-            var allLoadedNodes = GetAllLoadedChildNodes(node).ToArray();
-            loadedNodePaths = allLoadedNodes.Select(n => n.FullPath).ToArray();
-            expandedNodePaths = GetAllLoadedChildNodes(node).Where(n => n.IsExpanded).Select(n => n.FullPath).ToArray();
-            expandedStateRootNode = node;
-        }
-
-        private void RestoreExpandedState(ITreeNode node)
-        {
-            if (!updatingExpandedState || node != expandedStateRootNode)
-            {
-                return;
-            }
-
-            GetAllLoadedChildNodes(node, loadedNodePaths).Where(n => expandedNodePaths.Contains(n.FullPath)).ToArray().ForEach(n => n.Expand());
-            expandedStateRootNode = null;
-            updatingExpandedState = false;
-        }
-
         /// <summary>
         /// Refreshes the sub nodes of the treeNode
         /// </summary>
@@ -291,7 +247,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                 treeNode.Nodes.Clear();
 
                 var nodePresenter = treeNode.Presenter;
-                if (nodePresenter == null) return;
+                if (nodePresenter == null)
+                {
+                    return;
+                }
 
                 var childNodeObjects = nodePresenter.GetChildNodeObjects(treeNode.Tag, treeNode);
                 if (childNodeObjects == null)
@@ -310,7 +269,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             }
         }
 
-        public ITreeNode AddNewNode(ITreeNode parentNode, object nodeData, int insertionIndex=-1)
+        public ITreeNode AddNewNode(ITreeNode parentNode, object nodeData, int insertionIndex = -1)
         {
             var newNode = treeView.NewNode();
 
@@ -355,11 +314,41 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         public bool CanDeleteNode(ITreeNode node)
         {
             return AskNodePresenter(node, np =>
-                                              {
-                                                  var parentNodeData = node.Parent != null ? node.Parent.Tag : null;
-                                                  return np.CanRemove(parentNodeData, node.Tag);
-                                              }, false);
+            {
+                var parentNodeData = node.Parent != null ? node.Parent.Tag : null;
+                return np.CanRemove(parentNodeData, node.Tag);
+            }, false);
         }
+
+        public void OnDragDrop(ITreeNode nodeDragging, ITreeNode parentNode, ITreeNode nodeDropTarget, DragOperations dragOperation, int dropAtLocation)
+        {
+            var nodePresenter = nodeDropTarget.Presenter;
+            if (nodePresenter == null)
+            {
+                return;
+            }
+
+            nodePresenter.OnDragDrop(nodeDragging.Tag, parentNode.Tag, nodeDropTarget.Tag, dragOperation, dropAtLocation);
+        }
+
+        public void OnTreeViewHandleCreated()
+        {
+            treeView.Refresh(); // Ensure the treeview is always up to date after creating handle (data is set and might be changed before enabling the delayed event handlers)
+        }
+
+        public void OnTreeViewHandleDestroyed()
+        {
+            fullRefreshTimer.Stop();
+        }
+
+        #region Implementation of IDisposable
+
+        public void Dispose()
+        {
+            DisableDataEventListeners();
+        }
+
+        #endregion
 
         internal void EnableDataEventListeners()
         {
@@ -381,7 +370,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             var notifyPropertyChanged = data as INotifyPropertyChanged;
             if (notifyPropertyChanged != null)
             {
-                (notifyPropertyChanged).PropertyChanged -= DataPropertyChanged; 
+                (notifyPropertyChanged).PropertyChanged -= DataPropertyChanged;
             }
 
             var notifyCollectionChange = data as INotifyCollectionChange;
@@ -389,6 +378,62 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             {
                 (notifyCollectionChange).CollectionChanged -= DataCollectionChanged;
             }
+        }
+
+        private void FullRefreshEventHandler(object sender, EventArgs eventArgs)
+        {
+            if (fullRefreshTimer.Enabled)
+            {
+                fullRefreshTimer.Stop(); // Reset timer when already started before
+            }
+
+            fullRefreshTimer.Start(); // schedule full refresh
+        }
+
+        private IEnumerable<ITreeNode> GetAllLoadedChildNodes(ITreeNode node, string[] forceNodeLoad = null)
+        {
+            if (!node.IsLoaded && (forceNodeLoad == null || !forceNodeLoad.Contains(node.FullPath)))
+            {
+                yield break;
+            }
+
+            foreach (var childNode in node.Nodes)
+            {
+                yield return childNode;
+
+                foreach (var childChildNode in GetAllLoadedChildNodes(childNode, forceNodeLoad))
+                {
+                    yield return childChildNode;
+                }
+            }
+        }
+
+        private void RememberExpandedState(ITreeNode node)
+        {
+            if (updatingExpandedState)
+            {
+                return;
+            }
+
+            updatingExpandedState = true;
+
+            // we need to remember all loaded nodes since after clear / build we have no idea anymore which nodes were loaded 
+            var allLoadedNodes = GetAllLoadedChildNodes(node).ToArray();
+            loadedNodePaths = allLoadedNodes.Select(n => n.FullPath).ToArray();
+            expandedNodePaths = GetAllLoadedChildNodes(node).Where(n => n.IsExpanded).Select(n => n.FullPath).ToArray();
+            expandedStateRootNode = node;
+        }
+
+        private void RestoreExpandedState(ITreeNode node)
+        {
+            if (!updatingExpandedState || node != expandedStateRootNode)
+            {
+                return;
+            }
+
+            GetAllLoadedChildNodes(node, loadedNodePaths).Where(n => expandedNodePaths.Contains(n.FullPath)).ToArray().ForEach(n => n.Expand());
+            expandedStateRootNode = null;
+            updatingExpandedState = false;
         }
 
         private bool HasChildren(ITreeNode treeNode)
@@ -402,19 +447,25 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                     new object[0]).OfType<object>();
         }
 
-        private T AskNodePresenter<T>(ITreeNode node, Func<ITreeNodePresenter,T> nodePresenterFunction, T defaultValue)
+        private T AskNodePresenter<T>(ITreeNode node, Func<ITreeNodePresenter, T> nodePresenterFunction, T defaultValue)
         {
-            if (node == null || node.Tag == null) return defaultValue;
+            if (node == null || node.Tag == null)
+            {
+                return defaultValue;
+            }
 
             var nodePresenter = node.Presenter;
-            if (nodePresenter == null) return defaultValue;
+            if (nodePresenter == null)
+            {
+                return defaultValue;
+            }
 
             return nodePresenterFunction(nodePresenter);
         }
 
         private void DataCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
-            if(SkipEvents)
+            if (SkipEvents)
             {
                 return;
             }
@@ -435,23 +486,24 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             nodePresenter.OnCollectionChanged(sender, e);
         }
 
-        public static bool SkipEvents; // for debugging purposes, find a better way (see usage)
-        
         private void DataPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(SkipEvents)
+            if (SkipEvents)
             {
                 return;
             }
 
             var nodePresenter = ResolveNodePresenterForData(sender);
 
-            if (nodePresenter == null) return;
+            if (nodePresenter == null)
+            {
+                return;
+            }
             var node = treeView.GetNodeByTag(sender);
 
             // HACK: bug in WaterFlowModel1DBoundaryDataNodeDataNodePresenter, in some cases event somes with a sender which is child of actual node.Tag object - find out how to fix it
             var actualSender = sender;
-            if(node != null && sender != node.Tag)
+            if (node != null && sender != node.Tag)
             {
                 actualSender = node.Tag;
             }
@@ -463,10 +515,13 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         private void CreateRootNode()
         {
-            var rootNode = new TreeNode(treeView) {Tag = data};
-            
+            var rootNode = new TreeNode(treeView)
+            {
+                Tag = data
+            };
+
             treeView.Nodes.Add(rootNode);
-            
+
             UpdateNode(null, rootNode, data);
 
             if (HasChildren(rootNode))
@@ -480,7 +535,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         {
             var nodePresentersForType = NodePresenters.Where(p => p.NodeTagType == type).ToList();
 
-            if (!nodePresentersForType.Any() && type.BaseType != null) 
+            if (!nodePresentersForType.Any() && type.BaseType != null)
             {
                 // Walk up the class hierarchy... ignore interfaces
                 return GetNodePresenterForType(type.BaseType, parentNode);
@@ -497,9 +552,12 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         private void NodePresentersCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
-            if (e.Action != NotifyCollectionChangeAction.Add) return;
+            if (e.Action != NotifyCollectionChangeAction.Add)
+            {
+                return;
+            }
 
-            ((ITreeNodePresenter)e.Item).TreeView = treeView;
+            ((ITreeNodePresenter) e.Item).TreeView = treeView;
         }
 
         private void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
@@ -522,33 +580,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
             node.Tag = nodeData;
             presenter.UpdateNode(parentNode, node, nodeData);
-        }
-
-        public void OnDragDrop(ITreeNode nodeDragging, ITreeNode parentNode, ITreeNode nodeDropTarget, DragOperations dragOperation, int dropAtLocation)
-        {
-            var nodePresenter = nodeDropTarget.Presenter;
-            if (nodePresenter == null) return;
-            
-            nodePresenter.OnDragDrop(nodeDragging.Tag, parentNode.Tag, nodeDropTarget.Tag, dragOperation, dropAtLocation);
-        }
-
-        #region Implementation of IDisposable
-
-        public void Dispose()
-        {
-            DisableDataEventListeners();
-        }
-
-        #endregion
-
-        public void OnTreeViewHandleCreated()
-        {
-            treeView.Refresh(); // Ensure the treeview is always up to date after creating handle (data is set and might be changed before enabling the delayed event handlers)
-        }
-
-        public void OnTreeViewHandleDestroyed()
-        {
-            fullRefreshTimer.Stop();
         }
     }
 }

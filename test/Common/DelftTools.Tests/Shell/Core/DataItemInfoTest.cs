@@ -1,8 +1,6 @@
 ﻿using System.Drawing;
-
 using DelftTools.Shell.Core;
 using DelftTools.Tests.Properties;
-
 using NUnit.Framework;
 
 namespace DelftTools.Tests.Shell.Core
@@ -111,7 +109,7 @@ namespace DelftTools.Tests.Shell.Core
             };
 
             // call
-            var nonGenericInfo = (DataItemInfo)info;
+            var nonGenericInfo = (DataItemInfo) info;
 
             // assert
             Assert.AreEqual(info.ValueType, nonGenericInfo.ValueType);
@@ -135,7 +133,7 @@ namespace DelftTools.Tests.Shell.Core
             };
 
             // call
-            var nonGenericInfo = (DataItemInfo)info;
+            var nonGenericInfo = (DataItemInfo) info;
 
             // assert
             Assert.AreEqual(info.ValueType, nonGenericInfo.ValueType);

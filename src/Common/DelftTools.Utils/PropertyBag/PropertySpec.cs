@@ -7,21 +7,12 @@ namespace DelftTools.Utils.PropertyBag
     /// </summary>
     public class PropertySpec
     {
-        private Attribute[] attributes;
-        private string category;
-        private object defaultValue;
-        private string description;
-        private string editor;
-        private string name;
-        private string type;
-        private string typeConverter;
-
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
         /// </summary>
         /// <param name="name">The name of the property displayed in the property grid.</param>
         /// <param name="type">The fully qualified name of the type of the property.</param>
-        public PropertySpec(string name, string type) : this(name, type, null, null, null) { }
+        public PropertySpec(string name, string type) : this(name, type, null, null, null) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -30,7 +21,7 @@ namespace DelftTools.Utils.PropertyBag
         /// <param name="type">A Type that represents the type of the property.</param>
         public PropertySpec(string name, Type type)
             :
-                this(name, type.AssemblyQualifiedName, null, null, null) { }
+                this(name, type.AssemblyQualifiedName, null, null, null) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -39,7 +30,7 @@ namespace DelftTools.Utils.PropertyBag
         /// <param name="type">The fully qualified name of the type of the property.</param>
         /// <param name="category">The category under which the property is displayed in the
         /// property grid.</param>
-        public PropertySpec(string name, string type, string category) : this(name, type, category, null, null) { }
+        public PropertySpec(string name, string type, string category) : this(name, type, category, null, null) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -49,7 +40,7 @@ namespace DelftTools.Utils.PropertyBag
         /// <param name="category"></param>
         public PropertySpec(string name, Type type, string category)
             :
-                this(name, type.AssemblyQualifiedName, category, null, null) { }
+                this(name, type.AssemblyQualifiedName, category, null, null) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -62,7 +53,7 @@ namespace DelftTools.Utils.PropertyBag
         /// property grid.</param>
         public PropertySpec(string name, string type, string category, string description)
             :
-                this(name, type, category, description, null) { }
+                this(name, type, category, description, null) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -75,7 +66,7 @@ namespace DelftTools.Utils.PropertyBag
         /// property grid.</param>
         public PropertySpec(string name, Type type, string category, string description)
             :
-                this(name, type.AssemblyQualifiedName, category, description, null) { }
+                this(name, type.AssemblyQualifiedName, category, description, null) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -90,12 +81,12 @@ namespace DelftTools.Utils.PropertyBag
         /// no default value.</param>
         public PropertySpec(string name, string type, string category, string description, object defaultValue)
         {
-            this.name = name;
-            this.type = type;
-            this.category = category;
-            this.description = description;
-            this.defaultValue = defaultValue;
-            attributes = null;
+            this.Name = name;
+            this.TypeName = type;
+            this.Category = category;
+            this.Description = description;
+            this.DefaultValue = defaultValue;
+            Attributes = null;
         }
 
         /// <summary>
@@ -111,7 +102,7 @@ namespace DelftTools.Utils.PropertyBag
         /// no default value.</param>
         public PropertySpec(string name, Type type, string category, string description, object defaultValue)
             :
-                this(name, type.AssemblyQualifiedName, category, description, defaultValue) { }
+                this(name, type.AssemblyQualifiedName, category, description, defaultValue) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -132,8 +123,8 @@ namespace DelftTools.Utils.PropertyBag
                             string editor, string typeConverter)
             : this(name, type, category, description, defaultValue)
         {
-            this.editor = editor;
-            this.typeConverter = typeConverter;
+            this.EditorTypeName = editor;
+            this.ConverterTypeName = typeConverter;
         }
 
         /// <summary>
@@ -154,7 +145,7 @@ namespace DelftTools.Utils.PropertyBag
         public PropertySpec(string name, Type type, string category, string description, object defaultValue,
                             string editor, string typeConverter)
             :
-                this(name, type.AssemblyQualifiedName, category, description, defaultValue, editor, typeConverter) { }
+                this(name, type.AssemblyQualifiedName, category, description, defaultValue, editor, typeConverter) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -175,7 +166,7 @@ namespace DelftTools.Utils.PropertyBag
                             Type editor, string typeConverter)
             :
                 this(name, type, category, description, defaultValue, editor.AssemblyQualifiedName,
-                     typeConverter) { }
+                     typeConverter) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -196,7 +187,7 @@ namespace DelftTools.Utils.PropertyBag
                             Type editor, string typeConverter)
             :
                 this(name, type.AssemblyQualifiedName, category, description, defaultValue,
-                     editor.AssemblyQualifiedName, typeConverter) { }
+                     editor.AssemblyQualifiedName, typeConverter) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -216,7 +207,7 @@ namespace DelftTools.Utils.PropertyBag
         public PropertySpec(string name, string type, string category, string description, object defaultValue,
                             string editor, Type typeConverter)
             :
-                this(name, type, category, description, defaultValue, editor, typeConverter.AssemblyQualifiedName) { }
+                this(name, type, category, description, defaultValue, editor, typeConverter.AssemblyQualifiedName) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -237,7 +228,7 @@ namespace DelftTools.Utils.PropertyBag
                             string editor, Type typeConverter)
             :
                 this(name, type.AssemblyQualifiedName, category, description, defaultValue, editor,
-                     typeConverter.AssemblyQualifiedName) { }
+                     typeConverter.AssemblyQualifiedName) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -258,7 +249,7 @@ namespace DelftTools.Utils.PropertyBag
                             Type editor, Type typeConverter)
             :
                 this(name, type, category, description, defaultValue, editor.AssemblyQualifiedName,
-                     typeConverter.AssemblyQualifiedName) { }
+                     typeConverter.AssemblyQualifiedName) {}
 
         /// <summary>
         /// Initializes a new instance of the PropertySpec class.
@@ -279,83 +270,51 @@ namespace DelftTools.Utils.PropertyBag
                             Type editor, Type typeConverter)
             :
                 this(name, type.AssemblyQualifiedName, category, description, defaultValue,
-                     editor.AssemblyQualifiedName, typeConverter.AssemblyQualifiedName) { }
+                     editor.AssemblyQualifiedName, typeConverter.AssemblyQualifiedName) {}
 
         /// <summary>
         /// Gets or sets a collection of additional Attributes for this property.  This can
         /// be used to specify attributes beyond those supported intrinsically by the
         /// PropertySpec class, such as ReadOnly and Browsable.
         /// </summary>
-        public Attribute[] Attributes
-        {
-            get { return attributes; }
-            set { attributes = value; }
-        }
+        public Attribute[] Attributes { get; set; }
 
         /// <summary>
         /// Gets or sets the category name of this property.
         /// </summary>
-        public string Category
-        {
-            get { return category; }
-            set { category = value; }
-        }
+        public string Category { get; set; }
 
         /// <summary>
         /// Gets or sets the fully qualified name of the type converter
         /// type for this property.
         /// </summary>
-        public string ConverterTypeName
-        {
-            get { return typeConverter; }
-            set { typeConverter = value; }
-        }
+        public string ConverterTypeName { get; set; }
 
         /// <summary>
         /// Gets or sets the default value of this property.
         /// </summary>
-        public object DefaultValue
-        {
-            get { return defaultValue; }
-            set { defaultValue = value; }
-        }
+        public object DefaultValue { get; set; }
 
         /// <summary>
         /// Gets or sets the help text description of this property.
         /// </summary>
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
+        public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the fully qualified name of the editor type for
         /// this property.
         /// </summary>
-        public string EditorTypeName
-        {
-            get { return editor; }
-            set { editor = value; }
-        }
+        public string EditorTypeName { get; set; }
 
         /// <summary>
         /// Gets or sets the name of this property.
         /// </summary>
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the fully qualfied name of the type of this
         /// property.
         /// </summary>
-        public string TypeName
-        {
-            get { return type; }
-            set { type = value; }
-        }
+        public string TypeName { get; set; }
     }
 }

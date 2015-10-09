@@ -12,11 +12,6 @@ namespace DeltaShell.Gui.Forms
         {
             InitializeComponent();
         }
-        
-        private void textBoxDescription_LinkClicked(object sender, LinkClickedEventArgs e)
-        {
-            Process.Start(e.LinkText); 
-        }
 
         public void UpdateAboutBox(HelpAboutBoxData helpAboutBoxData)
         {
@@ -28,6 +23,11 @@ namespace DeltaShell.Gui.Forms
             labelSupportPhone.Text = helpAboutBoxData.SupportPhone;
 
             AddPluginsToTextBox(helpAboutBoxData);
+        }
+
+        private void textBoxDescription_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start(e.LinkText);
         }
 
         private void AddPluginsToTextBox(HelpAboutBoxData helpAboutBoxData)

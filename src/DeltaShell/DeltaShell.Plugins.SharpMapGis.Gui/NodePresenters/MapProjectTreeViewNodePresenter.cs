@@ -2,14 +2,15 @@ using System.Drawing;
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui.Swf;
+using DeltaShell.Plugins.SharpMapGis.Gui.Properties;
 using SharpMap;
 using SharpMap.Api.Layers;
 
 namespace DeltaShell.Plugins.SharpMapGis.Gui.NodePresenters
 {
-    public class MapProjectTreeViewNodePresenter: TreeViewNodePresenterBaseForPluginGui<Map>
+    public class MapProjectTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<Map>
     {
-        private static readonly Bitmap MapIcon = Properties.Resources.Map;
+        private static readonly Bitmap MapIcon = Resources.Map;
 
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, Map map)
         {
@@ -40,16 +41,20 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.NodePresenters
         public override void OnDragDrop(object item, object sourceParentNodeData, Map target, DragOperations operation, int position)
         {
             if (target == null)
+            {
                 return;
+            }
 
             if (item is ILayer)
             {
                 var sourceMap = sourceParentNodeData as Map;
                 IGroupLayer sourceGroupLayer = null;
                 if (sourceMap == null)
+                {
                     sourceGroupLayer = sourceParentNodeData as IGroupLayer;
+                }
 
-                var layer = (ILayer)item;
+                var layer = (ILayer) item;
 
                 target.Layers.Remove(layer); // only changing position of layer within map
                 target.Layers.Insert(position, layer);

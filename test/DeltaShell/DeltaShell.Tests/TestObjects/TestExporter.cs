@@ -9,10 +9,29 @@ namespace DeltaShell.Tests.TestObjects
     {
         public string Name
         {
-            get { return "test exporter"; }
+            get
+            {
+                return "test exporter";
+            }
         }
 
-        public string Category { get { return "General"; } }
+        public string Category
+        {
+            get
+            {
+                return "General";
+            }
+        }
+
+        public string FileFilter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public Bitmap Icon { get; private set; }
 
         public bool Export(object item, string path)
         {
@@ -24,12 +43,6 @@ namespace DeltaShell.Tests.TestObjects
             throw new NotImplementedException();
         }
 
-        public string FileFilter
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public Bitmap Icon { get; private set; }
         public bool CanExportFor(object item)
         {
             return true;

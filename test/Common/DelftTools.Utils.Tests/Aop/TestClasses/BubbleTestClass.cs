@@ -3,12 +3,12 @@ using DelftTools.Utils.Aop;
 
 namespace DelftTools.Utils.Tests.Aop.TestClasses
 {
-    [Entity(FireOnCollectionChange=false)]
-    internal class BubbleTestClass 
+    [Entity(FireOnCollectionChange = false)]
+    internal class BubbleTestClass
     {
-        private INotifyPropertyChanged privateField;
-        protected INotifyPropertyChanged ProtectedField;
         public INotifyPropertyChanged PublicField;
+        protected INotifyPropertyChanged ProtectedField;
+        private INotifyPropertyChanged privateField;
 
         public INotifyPropertyChanged AutoProperty { get; set; }
 
@@ -21,6 +21,7 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
         {
             ProtectedField = value;
         }
+
         //public event PropertyChangedEventHandler PropertyChanged;
     }
 }

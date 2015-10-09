@@ -9,50 +9,28 @@ namespace SharpMap.Styles.Shapes
     public class cBlendItems
     {
         // Fields
-        private System.Drawing.Color[] _iColor;
-        private float[] _iPoint;
 
         // Methods
-        public cBlendItems()
-        {
-        }
+        public cBlendItems() {}
 
         public cBlendItems(Color[] color, float[] Pt)
         {
-            this.iColor = color;
-            this.iPoint = Pt;
+            iColor = color;
+            iPoint = Pt;
         }
+
+        // Properties
+        [Category("Appearance")]
+        [Description("The Color for the Point")]
+        public Color[] iColor { get; set; }
+
+        [Description("The Color for the Point")]
+        [Category("Appearance")]
+        public float[] iPoint { get; set; }
 
         public override string ToString()
         {
             return "BlendItems";
-        }
-
-        // Properties
-        [Category("Appearance"), Description("The Color for the Point")]
-        public System.Drawing.Color[] iColor
-        {
-            get
-            {
-                return this._iColor;
-            }
-            set
-            {
-                this._iColor = value;
-            }
-        }
-
-        [Description("The Color for the Point"), Category("Appearance")]
-        public float[] iPoint
-        {
-            get
-            {
-                return this._iPoint;
-            }
-            set
-            {
-                this._iPoint = value;
-            }
         }
     }
 }

@@ -11,6 +11,7 @@ namespace SharpMap.Api.Editors
     public interface IFallOffPolicy
     {
         FallOffType FallOffPolicy { get; }
+
         /// <summary>
         /// Moves the coordinates of a geometry while applying a falloff policy. In some cases the falloff policy 
         /// should always be applied to the same 'constant' source geometry. This is the case during certain drag 
@@ -31,12 +32,14 @@ namespace SharpMap.Api.Editors
         /// The index of the tracker at which the mouse is positioned.
         /// <param name="deltaX"></param>
         /// <param name="deltaY"></param>
-        void Move(IGeometry targetGeometry, IGeometry sourceGeometry, IList<IGeometry> trackers, 
-                  IList<int> handleIndices, int mouseIndex, 
+        void Move(IGeometry targetGeometry, IGeometry sourceGeometry, IList<IGeometry> trackers,
+                  IList<int> handleIndices, int mouseIndex,
                   double deltaX, double deltaY);
+
         void Move(IFeature targetFeature, IGeometry sourceGeometry, IList<IGeometry> trackers,
                   IList<int> handleIndices, int mouseIndex,
                   double deltaX, double deltaY);
+
         void Move(IGeometry geometry, IList<IGeometry> trackers, IList<int> handleIndices, int mouseIndex,
                   double deltaX, double deltaY);
 

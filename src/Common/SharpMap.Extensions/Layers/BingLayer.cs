@@ -12,17 +12,28 @@ namespace SharpMap.Extensions.Layers
     // TODO: remove this class, use TileSource.Create()
     public class BingLayer : AsyncTileLayer
     {
-        private static IDictionary<string, ITileCache<byte[]>> bingCache = new Dictionary<string, ITileCache<byte[]>>();
+        private static readonly IDictionary<string, ITileCache<byte[]>> bingCache = new Dictionary<string, ITileCache<byte[]>>();
 
         private ITileCache<byte[]> cache;
+
+        private BingMapType? mapType;
 
         public virtual string CacheLocation
         {
             get
             {
                 var path = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
-                return Path.Combine(path, "cache_bing_" + MapType.ToLower());   
+                return Path.Combine(path, "cache_bing_" + MapType.ToLower());
             }
+        }
+
+        public virtual string MapType { get; set; }
+
+        public override object Clone()
+        {
+            var clone = (BingLayer) base.Clone();
+            clone.MapType = MapType;
+            return clone;
         }
 
         protected override ITileCache<byte[]> GetOrCreateCache()
@@ -38,9 +49,13 @@ namespace SharpMap.Extensions.Layers
                 {
                     //no cache so mem
                     if (CacheLocation == null)
+                    {
                         bingCache[MapType] = new MemoryCache<byte[]>(1000, 100000);
+                    }
                     else
+                    {
                         bingCache[MapType] = new FileCache(CacheLocation, "jpg");
+                    }
                 }
 
                 cache = bingCache[MapType];
@@ -49,20 +64,16 @@ namespace SharpMap.Extensions.Layers
             return cache;
         }
 
-        public virtual string MapType { get; set; }
-
         protected override ITileSchema CreateTileSchema()
         {
             return new BingSchema();
         }
 
-        private BingMapType? mapType;
-
         protected override IRequest CreateRequest()
         {
             if (mapType == null)
             {
-                mapType = (BingMapType)Enum.Parse(typeof(BingMapType), MapType);
+                mapType = (BingMapType) Enum.Parse(typeof(BingMapType), MapType);
             }
 
             switch (mapType)
@@ -76,13 +87,6 @@ namespace SharpMap.Extensions.Layers
             }
 
             return null;
-        }
-
-        public override object Clone()
-        {
-            var clone = (BingLayer)base.Clone();
-            clone.MapType = MapType;
-            return clone;
         }
     }
 }

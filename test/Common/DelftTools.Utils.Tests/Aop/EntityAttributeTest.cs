@@ -21,8 +21,8 @@ namespace DelftTools.Utils.Tests.Aop
             var calledChanging = 0;
             var calledChanged = 0;
 
-            ((INotifyPropertyChanging)person).PropertyChanging += (s, e) => calledChanging++;
-            ((INotifyPropertyChanged)person).PropertyChanged += (s, e) => calledChanged++;
+            ((INotifyPropertyChanging) person).PropertyChanging += (s, e) => calledChanging++;
+            ((INotifyPropertyChanged) person).PropertyChanged += (s, e) => calledChanged++;
 
             person.Prop1 = true;
 
@@ -33,7 +33,14 @@ namespace DelftTools.Utils.Tests.Aop
         [Test]
         public void TestAggregationList()
         {
-            var person = new Person {Child = new Person {Prop3 = 15}, AllPersons = new EventedList<Person>()};
+            var person = new Person
+            {
+                Child = new Person
+                {
+                    Prop3 = 15
+                },
+                AllPersons = new EventedList<Person>()
+            };
 
             var propChanged = 0;
             var collChanged = 0;
@@ -58,8 +65,8 @@ namespace DelftTools.Utils.Tests.Aop
             var calledChanging = 0;
             var calledChanged = 0;
 
-            ((INotifyPropertyChanging)person).PropertyChanging += (s, e) => calledChanging++;
-            ((INotifyPropertyChanged)person).PropertyChanged += (s, e) => calledChanged++;
+            ((INotifyPropertyChanging) person).PropertyChanging += (s, e) => calledChanging++;
+            ((INotifyPropertyChanged) person).PropertyChanged += (s, e) => calledChanged++;
 
             person.Prop2 = true;
 
@@ -70,18 +77,21 @@ namespace DelftTools.Utils.Tests.Aop
         [Test]
         public void TestChildEvent()
         {
-            var person = new Person { Child = new Person() };
+            var person = new Person
+            {
+                Child = new Person()
+            };
 
             var calledChanging = 0;
             var calledChanged = 0;
 
-            ((INotifyPropertyChanging)person).PropertyChanging += (s, e) =>
+            ((INotifyPropertyChanging) person).PropertyChanging += (s, e) =>
             {
                 Assert.AreEqual(s, person.Child);
                 calledChanging++;
             };
 
-            ((INotifyPropertyChanged)person).PropertyChanged += (s, e) =>
+            ((INotifyPropertyChanged) person).PropertyChanged += (s, e) =>
             {
                 Assert.AreEqual(s, person.Child);
                 calledChanged++;
@@ -101,13 +111,13 @@ namespace DelftTools.Utils.Tests.Aop
             var calledChanging = 0;
             var calledChanged = 0;
 
-            ((INotifyPropertyChanging)person).PropertyChanging += (s, e) =>
+            ((INotifyPropertyChanging) person).PropertyChanging += (s, e) =>
             {
                 Assert.AreEqual(s, person);
                 calledChanging++;
             };
 
-            ((INotifyPropertyChanged)person).PropertyChanged += (s, e) =>
+            ((INotifyPropertyChanged) person).PropertyChanged += (s, e) =>
             {
                 Assert.AreEqual(s, person);
                 calledChanged++;
@@ -128,7 +138,7 @@ namespace DelftTools.Utils.Tests.Aop
         public void AspectInitializationShouldWorkInCaseOfVirtualCallsInConstructor()
         {
             var superSuper = new SuperSuper();
-            
+
             var elements = superSuper.AllElements;
             superSuper.AllElements = null;
 
@@ -139,18 +149,18 @@ namespace DelftTools.Utils.Tests.Aop
 
             Assert.AreEqual(0, called);
         }
-        
+
         [Test]
         public void ConstructingManyObjectsShouldBeFast()
         {
             //450-500 on my pc (TS)
             TestHelper.AssertIsFasterThan(1400, () =>
+            {
+                for (int i = 0; i < 100000; i++)
                 {
-                    for (int i = 0; i < 100000; i++)
-                    {
-                        new SuperSuper();
-                    }
-                });
+                    new SuperSuper();
+                }
+            });
         }
 
         [Test]
@@ -162,7 +172,9 @@ namespace DelftTools.Utils.Tests.Aop
             var sizeBefore = GC.GetTotalMemory(true);
 
             for (int i = 0; i < numToCreate; i++)
+            {
                 list.Add(new EmptyObject());
+            }
 
             var sizeAfter = GC.GetTotalMemory(true);
 
@@ -175,19 +187,11 @@ namespace DelftTools.Utils.Tests.Aop
         public void ConstructingObjectsInSeveralThreadsShouldBeSafe()
         {
             Task.WaitAll(new[]
-                {
-                    Task.Factory.StartNew(CreateManyObjects<Super>),
-                    Task.Factory.StartNew(CreateManyObjects<Person>),
-                    Task.Factory.StartNew(CreateManyObjects<Super>)
-                });
-        }
-
-        private void CreateManyObjects<T>() where T : new()
-        {
-            for (int i = 0; i < 1000000; i++)
             {
-                var t = new T();
-            }
+                Task.Factory.StartNew(CreateManyObjects<Super>),
+                Task.Factory.StartNew(CreateManyObjects<Person>),
+                Task.Factory.StartNew(CreateManyObjects<Super>)
+            });
         }
 
         [Test]
@@ -200,17 +204,23 @@ namespace DelftTools.Utils.Tests.Aop
             super.OtherElements = null;
 
             var called = 0;
-            ((INotifyCollectionChanged)super).CollectionChanged += (s, e) => called++;
+            ((INotifyCollectionChanged) super).CollectionChanged += (s, e) => called++;
 
             elements.Add(new Person());
 
             Assert.AreEqual(0, called);
         }
 
-        [Entity]
-        public class EmptyObject
+        private void CreateManyObjects<T>() where T : new()
         {
+            for (int i = 0; i < 1000000; i++)
+            {
+                var t = new T();
+            }
         }
+
+        [Entity]
+        public class EmptyObject {}
 
         [Entity]
         public class Base
@@ -231,8 +241,14 @@ namespace DelftTools.Utils.Tests.Aop
         {
             public override IEventedList<Person> AllElements
             {
-                get { return base.AllElements; }
-                set { base.AllElements = value; }
+                get
+                {
+                    return base.AllElements;
+                }
+                set
+                {
+                    base.AllElements = value;
+                }
             }
 
             /// <summary>
@@ -246,8 +262,14 @@ namespace DelftTools.Utils.Tests.Aop
         {
             public override IEventedList<Person> AllElements
             {
-                get { return base.AllElements; }
-                set { base.AllElements = value; }
+                get
+                {
+                    return base.AllElements;
+                }
+                set
+                {
+                    base.AllElements = value;
+                }
             }
         }
 

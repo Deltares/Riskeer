@@ -18,6 +18,5 @@ namespace DelftTools.Tests.Controls.Swf.Charting
 
             provider.GetRangeLabel(minDate, maxDate).Should("Unexpected quarter datetime string.").Be.EqualTo("1st Qtr 2001 till 3rd Qtr 2002");
         }
-
     }
 }

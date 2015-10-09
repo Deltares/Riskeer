@@ -36,7 +36,10 @@ namespace DelftTools.Controls.Swf.Table
 
         private static DataGridViewColumn CreateCheckBoxColumn(DataGridViewColumn dataGridViewColumn)
         {
-            if (dataGridViewColumn is DataGridViewCheckBoxColumn) return dataGridViewColumn;
+            if (dataGridViewColumn is DataGridViewCheckBoxColumn)
+            {
+                return dataGridViewColumn;
+            }
 
             var checkboxColumn = new DataGridViewCheckBoxColumn(false);
             CopyDataGridViewColumnValues(dataGridViewColumn, checkboxColumn);
@@ -46,7 +49,10 @@ namespace DelftTools.Controls.Swf.Table
 
         private static DataGridViewColumn CreateImageColumn(DataGridViewColumn dataGridViewColumn)
         {
-            if (dataGridViewColumn is DataGridViewImageColumn) return dataGridViewColumn;
+            if (dataGridViewColumn is DataGridViewImageColumn)
+            {
+                return dataGridViewColumn;
+            }
 
             var imageColumn = new DataGridViewImageColumn();
             CopyDataGridViewColumnValues(dataGridViewColumn, imageColumn);
@@ -58,21 +64,26 @@ namespace DelftTools.Controls.Swf.Table
 
         private static DataGridViewColumn CreateTextBoxColumn(DataGridViewColumn dataGridViewColumn)
         {
-            if (dataGridViewColumn is DataGridViewTextBoxColumn) return dataGridViewColumn;
+            if (dataGridViewColumn is DataGridViewTextBoxColumn)
+            {
+                return dataGridViewColumn;
+            }
 
             var textBoxColumn = new DataGridViewTextBoxColumn();
             CopyDataGridViewColumnValues(dataGridViewColumn, textBoxColumn);
-            
+
             return textBoxColumn;
         }
 
         private static DataGridViewColumn CreateButtonColumn(DataGridViewColumn dataGridViewColumn)
         {
-            if (dataGridViewColumn is DataGridViewButtonColumn) return dataGridViewColumn;
+            if (dataGridViewColumn is DataGridViewButtonColumn)
+            {
+                return dataGridViewColumn;
+            }
 
             var buttonColumn = new DataGridViewButtonColumn();
             CopyDataGridViewColumnValues(dataGridViewColumn, buttonColumn);
-
 
             return buttonColumn;
         }
@@ -85,16 +96,16 @@ namespace DelftTools.Controls.Swf.Table
                 comboBoxColumn = new DataGridViewComboBoxColumn();
                 CopyDataGridViewColumnValues(dataGridViewColumn, comboBoxColumn);
             }
-            
+
             if (!boxTypeEditor.ItemsMandatory)
             {
                 comboBoxColumn.CellTemplate = new NonMandatoryDataGridViewComboBoxCell();
             }
-            
+
             comboBoxColumn.DataSource = boxTypeEditor.Items.OfType<object>().ToDictionary(o => GetComboBoxItemText(o, boxTypeEditor), GetComboBoxItemValue).ToList();
             comboBoxColumn.DisplayMember = "key";
             comboBoxColumn.ValueMember = "value";
-            
+
             comboBoxColumn.DisplayStyle = DataGridViewComboBoxDisplayStyle.Nothing;
             comboBoxColumn.FlatStyle = FlatStyle.Flat;
 

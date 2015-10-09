@@ -8,6 +8,13 @@ namespace DelftTools.Utils.Interop
 {
     public abstract class NativeLibrary : IDisposable
     {
+        private IntPtr lib = IntPtr.Zero;
+
+        protected NativeLibrary(string fileName)
+        {
+            lib = LoadLibrary(fileName);
+        }
+
         [DllImport("kernel32", SetLastError = true, CharSet = CharSet.Unicode)]
         public static extern IntPtr LoadLibrary(string lpFileName);
 
@@ -17,53 +24,13 @@ namespace DelftTools.Utils.Interop
 
         //private: use SwitchDllSearchDirectory with a using instead
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
-        public static extern void SetDllDirectory(string lpPathName); 
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        private static extern int GetDllDirectory(int nBufferLength, StringBuilder lpPathName);
+        public static extern void SetDllDirectory(string lpPathName);
 
         public static string GetDllDirectory()
         {
             var tmp = new StringBuilder(4096);
             GetDllDirectory(4096, tmp);
             return tmp.ToString();
-        }
-
-        private IntPtr lib = IntPtr.Zero;
-
-        protected NativeLibrary(string fileName)
-        {
-            lib = LoadLibrary(fileName);
-        }
-
-        ~NativeLibrary()
-        {
-            Dispose();
-        }
-
-        public void Dispose()
-        {
-            if (lib == IntPtr.Zero)
-            {
-                return;
-            }
-
-            FreeLibrary(lib);
-            
-            lib = IntPtr.Zero;
-        }
-
-        protected IntPtr Library
-        {
-            get
-            {
-                if (lib == IntPtr.Zero)
-                {
-                    throw new InvalidOperationException("Plug-in library is not loaded");
-                }
-
-                return lib;
-            }
         }
 
         /// <summary>
@@ -110,6 +77,39 @@ namespace DelftTools.Utils.Interop
         public static IDisposable SwitchDllSearchDirectory(string dllDirectory)
         {
             return new SwitchDllSearchDirectoryHelper(dllDirectory);
+        }
+
+        public void Dispose()
+        {
+            if (lib == IntPtr.Zero)
+            {
+                return;
+            }
+
+            FreeLibrary(lib);
+
+            lib = IntPtr.Zero;
+        }
+
+        protected IntPtr Library
+        {
+            get
+            {
+                if (lib == IntPtr.Zero)
+                {
+                    throw new InvalidOperationException("Plug-in library is not loaded");
+                }
+
+                return lib;
+            }
+        }
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern int GetDllDirectory(int nBufferLength, StringBuilder lpPathName);
+
+        ~NativeLibrary()
+        {
+            Dispose();
         }
 
         private class SwitchDllSearchDirectoryHelper : IDisposable // ???

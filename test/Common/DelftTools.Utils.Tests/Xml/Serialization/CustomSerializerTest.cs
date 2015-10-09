@@ -29,7 +29,7 @@ namespace DelftTools.Utils.Tests.Xml.Serialization
         {
             //try to serialize a derived class while xml tags are only present in the baseclass
             string filePath1 = @"CustomSerializerTest.Write.xml";
-                
+
             derived.Id = 121;
             derived.AnotherId = 1600;
             test.SomeClass = derived;
@@ -61,7 +61,7 @@ namespace DelftTools.Utils.Tests.Xml.Serialization
             IDataItem dataItem = (IDataItem)serializer.Deserialize(reader);
             folder.Items.Add(dataItem);
             reader.Read();
- */           
+ */
         }
     }
 }

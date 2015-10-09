@@ -19,7 +19,6 @@ using SharpMap.Rendering;
 using SharpMap.Styles;
 using SharpMap.UI.Forms;
 using GeometryFactory = SharpMap.Converters.Geometries.GeometryFactory;
-using ToolStripSeparatorWithText = SharpMap.UI.Forms.ToolStripSeparatorWithText;
 
 namespace SharpMap.UI.Tools
 {
@@ -28,22 +27,19 @@ namespace SharpMap.UI.Tools
     /// </summary>
     public abstract class MapTool : IMapTool
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof (MapTool));
+        private static readonly ILog log = LogManager.GetLogger(typeof(MapTool));
 
-        private IMapControl mapControl;
         private bool isActive;
-
-
-        public virtual IMapControl MapControl
-        {
-            get { return mapControl; }
-            set { mapControl = value; }
-        }
 
         public Map Map
         {
-            get { return MapControl != null ? MapControl.Map : null; }
+            get
+            {
+                return MapControl != null ? MapControl.Map : null;
+            }
         }
+
+        public virtual IMapControl MapControl { get; set; }
 
         public string Name { get; set; }
 
@@ -57,7 +53,10 @@ namespace SharpMap.UI.Tools
         /// </summary>
         public virtual bool Enabled
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
 
         /// <summary>
@@ -86,38 +85,25 @@ namespace SharpMap.UI.Tools
 
         public virtual bool AlwaysActive
         {
-            get { return false; }
-        }
-
-        protected bool IsCtrlPressed
-        {
-            get { return (Control.ModifierKeys & Keys.Control) == Keys.Control; }
-        }
-
-        protected bool IsAltPressed
-        {
-            get { return (Control.ModifierKeys & Keys.Alt) == Keys.Alt; }
-        }
-
-        protected bool IsShiftPressed
-        {
-            get { return (Control.ModifierKeys & Keys.Shift) == Keys.Shift; }
+            get
+            {
+                return false;
+            }
         }
 
         public virtual bool RendersInScreenCoordinates
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
 
         /// <summary>
         /// Map tool may be applied only to a set of layers. This property allows to define a filter for these layers. 
         /// Then the layers can be obtained using <see cref="Layers"/> property.
         /// </summary>
-        public Func<ILayer, bool> LayerFilter
-        {
-            get;
-            set;
-        }
+        public Func<ILayer, bool> LayerFilter { get; set; }
 
         /// <summary>
         /// Returns visible layers which satisfy <see cref="LayerFilter"/>.
@@ -132,79 +118,6 @@ namespace SharpMap.UI.Tools
         }
 
         public virtual Cursor Cursor { get; set; }
-
-        public virtual void OnMouseDown(ICoordinate worldPosition, MouseEventArgs e)
-        {
-        }
-
-        public virtual void OnBeforeMouseMove(ICoordinate worldPosition, MouseEventArgs e, ref bool handled)
-        {
-        }
-
-        public virtual void OnMouseUp(ICoordinate worldPosition, MouseEventArgs e)
-        {
-        }
-
-        public virtual void OnMouseWheel(ICoordinate worldPosition, MouseEventArgs e)
-        {
-        }
-
-        public virtual void OnMouseMove(ICoordinate worldPosition, MouseEventArgs e)
-        {
-        }
-
-        public virtual void OnMouseDoubleClick(object sender, MouseEventArgs e)
-        {
-        }
-
-        public virtual void OnMouseHover(ICoordinate worldPosition, EventArgs e)
-        {
-        }
-
-        public virtual void OnDragEnter(DragEventArgs e)
-        {
-        }
-
-        public virtual void OnDragDrop(DragEventArgs e)
-        {
-        }
-
-        public virtual void OnKeyDown(KeyEventArgs e)
-        {
-        }
-
-        public virtual void OnKeyUp(KeyEventArgs e)
-        {
-        }
-
-        public virtual void OnPaint(PaintEventArgs e)
-        {
-        }
-
-        public virtual void OnMapLayerRendered(Graphics g, ILayer layer)
-        {
-        }
-
-        public virtual void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-        }
-
-        public virtual void OnMapCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-        }
-
-        public virtual IEnumerable<MapToolContextMenuItem> GetContextMenuItems(ICoordinate worldPosition)
-        {
-            yield break;
-        }
-
-        public virtual void Execute()
-        {
-        }
-
-        public virtual void ActiveToolChanged(IMapTool newTool)
-        {
-        }
 
         public IFeature FindNearestFeature(ICoordinate worldPos, float limit, out ILayer outLayer, Func<ILayer, bool> condition)
         {
@@ -231,7 +144,7 @@ namespace SharpMap.UI.Tools
                     // the minimum limit. Ignore layers with custom renderers
                     if ((vectorLayer.Style.Symbol != null) && (0 == vectorLayer.CustomRenderers.Count))
                     {
-                        var size = MapHelper.ImageToWorld(MapControl.Map,vectorLayer.Style.Symbol.Width,vectorLayer.Style.Symbol.Height);
+                        var size = MapHelper.ImageToWorld(MapControl.Map, vectorLayer.Style.Symbol.Width, vectorLayer.Style.Symbol.Height);
                         if ((size.X > localLimit) || (size.Y > localLimit))
                         {
                             envelope = MapHelper.GetEnvelope(worldPos, size.X, size.Y);
@@ -246,12 +159,14 @@ namespace SharpMap.UI.Tools
                     {
                         envelope = MapHelper.GetEnvelope(worldPos, localLimit);
                     }
-                    
+
                     if (vectorLayer.DataSource != null)
                     {
                         var layerEnvelope = vectorLayer.Envelope;
                         if (layerEnvelope != null && !layerEnvelope.Intersects(envelope))
+                        {
                             continue;
+                        }
 
                         // Get features in the envelope
                         var objectsAt = vectorLayer.GetFeatures(envelope).ToList();
@@ -283,7 +198,7 @@ namespace SharpMap.UI.Tools
 
             return nearestFeature;
         }
-        
+
         /// <summary>
         /// Returns the next feature at worldPos. 
         /// </summary>
@@ -307,11 +222,13 @@ namespace SharpMap.UI.Tools
                 var vectorLayer = mapLayer as VectorLayer;
                 if (vectorLayer == null || !vectorLayer.IsSelectable || vectorLayer.DataSource == null ||
                     (condition != null && !condition(vectorLayer)))
+                {
                     continue;
+                }
 
                 var point = GeometryFactory.CreatePoint(worldPos);
                 var objectsAt = vectorLayer.GetFeatures(envelope);
-                
+
                 foreach (var featureAt in objectsAt)
                 {
                     // GetFeatures(envelope) uses the geometry bounds; this results in more 
@@ -323,7 +240,9 @@ namespace SharpMap.UI.Tools
                     }
 
                     if (geometry.Distance(point) >= limit)
+                    {
                         continue;
+                    }
 
                     if (featureFound)
                     {
@@ -337,7 +256,9 @@ namespace SharpMap.UI.Tools
                         continue;
                     }
                     if (nextFeature != null)
+                    {
                         continue;
+                    }
 
                     // If feature is last in collections objectsAt nextfeature is first
                     nextFeature = featureAt;
@@ -345,6 +266,253 @@ namespace SharpMap.UI.Tools
                 }
             }
             return nextFeature;
+        }
+
+        public virtual void OnMouseDown(ICoordinate worldPosition, MouseEventArgs e) {}
+
+        public virtual void OnBeforeMouseMove(ICoordinate worldPosition, MouseEventArgs e, ref bool handled) {}
+
+        public virtual void OnMouseUp(ICoordinate worldPosition, MouseEventArgs e) {}
+
+        public virtual void OnMouseWheel(ICoordinate worldPosition, MouseEventArgs e) {}
+
+        public virtual void OnMouseMove(ICoordinate worldPosition, MouseEventArgs e) {}
+
+        public virtual void OnMouseDoubleClick(object sender, MouseEventArgs e) {}
+
+        public virtual void OnMouseHover(ICoordinate worldPosition, EventArgs e) {}
+
+        public virtual void OnDragEnter(DragEventArgs e) {}
+
+        public virtual void OnDragDrop(DragEventArgs e) {}
+
+        public virtual void OnKeyDown(KeyEventArgs e) {}
+
+        public virtual void OnKeyUp(KeyEventArgs e) {}
+
+        public virtual void OnPaint(PaintEventArgs e) {}
+
+        public virtual void OnMapLayerRendered(Graphics g, ILayer layer) {}
+
+        public virtual void OnMapPropertyChanged(object sender, PropertyChangedEventArgs e) {}
+
+        public virtual void OnMapCollectionChanged(object sender, NotifyCollectionChangingEventArgs e) {}
+
+        public virtual IEnumerable<MapToolContextMenuItem> GetContextMenuItems(ICoordinate worldPosition)
+        {
+            yield break;
+        }
+
+        public virtual void Execute() {}
+
+        public virtual void ActiveToolChanged(IMapTool newTool) {}
+
+        protected bool IsCtrlPressed
+        {
+            get
+            {
+                return (Control.ModifierKeys & Keys.Control) == Keys.Control;
+            }
+        }
+
+        protected bool IsAltPressed
+        {
+            get
+            {
+                return (Control.ModifierKeys & Keys.Alt) == Keys.Alt;
+            }
+        }
+
+        protected bool IsShiftPressed
+        {
+            get
+            {
+                return (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+            }
+        }
+
+        /// <summary>
+        /// Converts a coordinate as clicked on the map (so in the maps coordinate system) to coordinates 
+        /// in the layer's coordinate system.
+        /// </summary>
+        protected static ICoordinate ConvertFromMapToLayer(MapTool mapTool, ICoordinate mapCoordinate)
+        {
+            var layer = mapTool.Layers.FirstOrDefault();
+            if (layer == null)
+            {
+                return mapCoordinate;
+            }
+
+            if (layer.CoordinateTransformation != null)
+            {
+                var xy = layer.CoordinateTransformation.MathTransform.Inverse()
+                              .Transform(new[]
+                              {
+                                  mapCoordinate.X,
+                                  mapCoordinate.Y
+                              });
+                return new Coordinate(xy[0], xy[1]);
+            }
+            return mapCoordinate;
+        }
+
+        protected bool AdditionalButtonsBeingPressed(MouseEventArgs e)
+        {
+            return (e.Button != MouseButtons.None && e.Button != MouseButtons.Left) || (IsCtrlPressed && IsAltPressed);
+        }
+
+        protected ToolStripMenuItem CreateContextMenuItemForFeaturesAtLocation(ICoordinate worldPosition, string menuName, Action<ILayer, IFeature> onFeatureClick, bool includeSelectedFeatures, Func<ILayer, IFeature, bool> filterFeature = null)
+        {
+            var limit = (float) MapHelper.ImageToWorld(Map, 10);
+
+            var menuItemsToAdd = new List<ToolStripItem>();
+            menuItemsToAdd.AddRange(GetSelectableFeaturesMenuItems(worldPosition, limit, null, null, onFeatureClick, filterFeature));
+
+            if (menuItemsToAdd.Count > 0)
+            {
+                menuItemsToAdd.Insert(0, new ToolStripSeparatorWithText
+                {
+                    Text = "At location", Height = 30, ForeColor = Color.Black
+                });
+            }
+
+            if (!includeSelectedFeatures)
+            {
+                return CreateDropDownMenuItem(menuName, menuItemsToAdd);
+            }
+
+            var selectedFeatures = (MapControl.SelectedFeatures != null
+                                        ? MapControl.SelectedFeatures.Where(feature => filterFeature == null || !filterFeature(Map.GetLayerByFeature(feature, true), feature))
+                                        : Enumerable.Empty<IFeature>()).ToList();
+
+            if (selectedFeatures.Any())
+            {
+                // add selected items
+                menuItemsToAdd.Add(new ToolStripSeparatorWithText
+                {
+                    Text = "From selection", Height = 30, ForeColor = Color.Black
+                });
+                menuItemsToAdd.AddRange(selectedFeatures.Select(feature => CreateFeatureToolStripMenuItem(feature, Map.GetLayerByFeature(feature, true), onFeatureClick)));
+            }
+
+            return CreateDropDownMenuItem(menuName, menuItemsToAdd);
+        }
+
+        /// <summary>
+        /// Find the nearest feature to worldPos out of a collection of candidates. If there is no geometry
+        /// with a distance less than limit null is returned.
+        /// </summary>
+        private static IFeature FindNearestFeature(VectorLayer vectorLayer, IEnumerable candidates, ICoordinate worldPos, float limit, out double distance)
+        {
+            var point = GeometryFactory.CreatePoint(worldPos.X, worldPos.Y);
+
+            IFeature current = null;
+            distance = double.MaxValue;
+
+            foreach (IFeature feature in candidates)
+            {
+                var geometry = vectorLayer.CustomRenderers.Count > 0
+                                   ? vectorLayer.CustomRenderers[0].GetRenderedFeatureGeometry(feature, vectorLayer)
+                                   : (vectorLayer.CoordinateTransformation != null
+                                          ? GeometryTransform.TransformGeometry(feature.Geometry, vectorLayer.CoordinateTransformation.MathTransform)
+                                          : feature.Geometry);
+
+                var localDistance = geometry.Distance(point);
+
+                if ((localDistance < distance) && (localDistance < limit))
+                {
+                    current = feature;
+                    distance = localDistance;
+                }
+            }
+            return current;
+        }
+
+        private static ToolStripMenuItem CreateDropDownMenuItem(string menuName, IEnumerable<ToolStripItem> dropDownItems)
+        {
+            var toolStripItems = dropDownItems.ToArray();
+
+            var menu = new ToolStripMenuItem(menuName);
+            menu.DropDownItems.AddRange(toolStripItems);
+
+            return toolStripItems.Length == 0 ? null : menu;
+        }
+
+        private IEnumerable<ToolStripMenuItem> GetSelectableFeaturesMenuItems(ICoordinate worldPosition, float limit, IFeature currentFeature, IFeature startFeature,
+                                                                              Action<ILayer, IFeature> onFeatureClick, Func<ILayer, IFeature, bool> filterFeature)
+        {
+            ILayer selectedLayer;
+            var nextFeature = GetNextFeatureAtPosition(worldPosition, limit, out selectedLayer, currentFeature, ol => ol.Visible && ol.Selectable);
+            if (nextFeature == null || Equals(nextFeature, startFeature))
+            {
+                yield break;
+            }
+
+            if (filterFeature == null || !filterFeature(selectedLayer, nextFeature))
+            {
+                yield return CreateFeatureToolStripMenuItem(nextFeature, selectedLayer, onFeatureClick);
+            }
+
+            if (startFeature == null)
+            {
+                startFeature = nextFeature;
+            }
+
+            var nextFeatures = GetSelectableFeaturesMenuItems(worldPosition, limit, nextFeature, startFeature, onFeatureClick, filterFeature);
+            const int maxNumberOfItems = 25;
+            var count = 0;
+
+            foreach (var toolStripMenuItem in nextFeatures)
+            {
+                yield return toolStripMenuItem;
+                count++;
+
+                if (count == maxNumberOfItems)
+                {
+                    var message = string.Format("Showing only the first {0} features found.", maxNumberOfItems);
+                    yield return new ToolStripMenuItem
+                    {
+                        Text = message, Height = 30, ForeColor = Color.LightGray, ToolTipText = "Zoom in to access currently hidden features."
+                    };
+                    yield break;
+                }
+            }
+        }
+
+        private static ToolStripMenuItem CreateFeatureToolStripMenuItem(IFeature feature, ILayer layer, Action<ILayer, IFeature> onClick)
+        {
+            var featureName = GetFeatureName(feature, layer);
+            var symbol = GetSymbol(feature, layer);
+            return new ToolStripMenuItem(featureName, symbol, (sender, args) => onClick(layer, feature));
+        }
+
+        private static Image GetSymbol(IFeature feature, ILayer layer)
+        {
+            if (!(layer is VectorLayer))
+            {
+                return null;
+            }
+
+            var vectorLayer = ((VectorLayer) layer);
+            try
+            {
+                var currentVectorStyle = vectorLayer.Theme != null
+                                             ? vectorLayer.Theme.GetStyle(feature) as VectorStyle
+                                             : vectorLayer.Style;
+
+                return currentVectorStyle != null ? currentVectorStyle.LegendSymbol : null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        private static string GetFeatureName(IFeature feature, ILayer layer)
+        {
+            var featureName = feature is INameable ? ((INameable) feature).Name : feature.ToString();
+            var layerName = layer == null ? "-" : layer.Name;
+            return string.Format("{0} ({1})", featureName, layerName);
         }
 
         #region toolDrawing
@@ -370,24 +538,23 @@ namespace SharpMap.UI.Tools
             }
 
             backGroundImage = (Bitmap) Map.Image.Clone();
-            
+
             drawingBitmap = new Bitmap(Map.Image.Width, Map.Image.Height);
-            
+
             dragging = true;
         }
 
-        public virtual void Render(Graphics graphics, Map mapBox)
-        {
-        }
+        public virtual void Render(Graphics graphics, Map mapBox) {}
 
         public virtual void OnDraw(Graphics graphics) // TODO: remove it, use OnPaint?
-        {
-        }
+        {}
 
         public virtual void DoDrawing(bool drawTools)
         {
             if (!dragging)
+            {
                 return;
+            }
 
             Graphics graphics = Graphics.FromImage(drawingBitmap);
 
@@ -404,7 +571,9 @@ namespace SharpMap.UI.Tools
                 foreach (IMapTool tool in MapControl.Tools)
                 {
                     if (tool.IsActive)
+                    {
                         tool.Render(graphics, Map);
+                    }
                 }
             }
             OnDraw(graphics);
@@ -431,170 +600,8 @@ namespace SharpMap.UI.Tools
             dragging = false;
         }
 
-        public virtual void Cancel()
-        {
-        }
+        public virtual void Cancel() {}
 
         #endregion
-
-        /// <summary>
-        /// Find the nearest feature to worldPos out of a collection of candidates. If there is no geometry
-        /// with a distance less than limit null is returned.
-        /// </summary>
-        private static IFeature FindNearestFeature(VectorLayer vectorLayer, IEnumerable candidates, ICoordinate worldPos, float limit, out double distance)
-        {
-            var point = GeometryFactory.CreatePoint(worldPos.X, worldPos.Y);
-
-            IFeature current = null;
-            distance = double.MaxValue;
-
-            foreach (IFeature feature in candidates)
-            {
-                var geometry = vectorLayer.CustomRenderers.Count > 0
-                                ? vectorLayer.CustomRenderers[0].GetRenderedFeatureGeometry(feature, vectorLayer)
-                                : (vectorLayer.CoordinateTransformation != null
-                                    ? GeometryTransform.TransformGeometry(feature.Geometry,vectorLayer.CoordinateTransformation.MathTransform)
-                                    : feature.Geometry);
-
-                var localDistance = geometry.Distance(point);
-
-                if ((localDistance < distance) && (localDistance < limit))
-                {
-                    current = feature;
-                    distance = localDistance;
-                }
-            }
-            return current;
-        }
-
-        /// <summary>
-        /// Converts a coordinate as clicked on the map (so in the maps coordinate system) to coordinates 
-        /// in the layer's coordinate system.
-        /// </summary>
-        protected static ICoordinate ConvertFromMapToLayer(MapTool mapTool, ICoordinate mapCoordinate)
-        {
-            var layer = mapTool.Layers.FirstOrDefault();
-            if (layer == null)
-                return mapCoordinate;
-
-            if (layer.CoordinateTransformation != null)
-            {
-                var xy = layer.CoordinateTransformation.MathTransform.Inverse()
-                              .Transform(new[] {mapCoordinate.X, mapCoordinate.Y});
-                return new Coordinate(xy[0], xy[1]);
-            }
-            return mapCoordinate;
-        }
-
-        protected bool AdditionalButtonsBeingPressed(MouseEventArgs e)
-        {
-            return (e.Button != MouseButtons.None && e.Button != MouseButtons.Left) || (IsCtrlPressed && IsAltPressed);
-        }
-
-        protected ToolStripMenuItem CreateContextMenuItemForFeaturesAtLocation(ICoordinate worldPosition, string menuName, Action<ILayer, IFeature> onFeatureClick, bool includeSelectedFeatures, Func<ILayer, IFeature, bool> filterFeature = null)
-        {
-            var limit = (float)MapHelper.ImageToWorld(Map, 10);
-
-            var menuItemsToAdd = new List<ToolStripItem>();
-            menuItemsToAdd.AddRange(GetSelectableFeaturesMenuItems(worldPosition, limit, null, null, onFeatureClick, filterFeature));
-
-            if (menuItemsToAdd.Count > 0)
-            {
-                menuItemsToAdd.Insert(0, new ToolStripSeparatorWithText { Text = "At location", Height = 30, ForeColor = Color.Black });
-            }
-
-            if (!includeSelectedFeatures) return CreateDropDownMenuItem(menuName, menuItemsToAdd);
-
-            var selectedFeatures = (MapControl.SelectedFeatures != null
-                ? MapControl.SelectedFeatures.Where(feature => filterFeature == null || !filterFeature( Map.GetLayerByFeature(feature,true), feature))
-                : Enumerable.Empty<IFeature>()).ToList();
-
-            if (selectedFeatures.Any())
-            {
-                // add selected items
-                menuItemsToAdd.Add(new ToolStripSeparatorWithText { Text = "From selection", Height = 30, ForeColor = Color.Black });
-                menuItemsToAdd.AddRange(selectedFeatures.Select(feature => CreateFeatureToolStripMenuItem(feature, Map.GetLayerByFeature(feature,true), onFeatureClick)));
-            }
-
-            return CreateDropDownMenuItem(menuName, menuItemsToAdd);
-        }
-
-        private static ToolStripMenuItem CreateDropDownMenuItem(string menuName, IEnumerable<ToolStripItem> dropDownItems)
-        {
-            var toolStripItems = dropDownItems.ToArray();
-
-            var menu = new ToolStripMenuItem(menuName);
-            menu.DropDownItems.AddRange(toolStripItems);
-
-            return toolStripItems.Length == 0 ? null : menu;
-        }
-
-        private IEnumerable<ToolStripMenuItem> GetSelectableFeaturesMenuItems(ICoordinate worldPosition, float limit, IFeature currentFeature, IFeature startFeature, 
-            Action<ILayer, IFeature> onFeatureClick, Func<ILayer, IFeature, bool> filterFeature)
-        {
-            ILayer selectedLayer;
-            var nextFeature = GetNextFeatureAtPosition(worldPosition, limit, out selectedLayer, currentFeature, ol => ol.Visible && ol.Selectable);
-            if (nextFeature == null || Equals(nextFeature, startFeature)) yield break;
-
-            if (filterFeature == null || !filterFeature(selectedLayer, nextFeature))
-            {
-                yield return CreateFeatureToolStripMenuItem(nextFeature, selectedLayer, onFeatureClick);
-            }
-
-            if (startFeature == null)
-            {
-                startFeature = nextFeature;
-            }
-
-            var nextFeatures = GetSelectableFeaturesMenuItems(worldPosition, limit, nextFeature, startFeature, onFeatureClick, filterFeature);
-            const int maxNumberOfItems = 25;
-            var count = 0;
-
-            foreach (var toolStripMenuItem in nextFeatures)
-            {
-                yield return toolStripMenuItem;
-                count++;
-
-                if (count == maxNumberOfItems)
-                {
-                    var message = string.Format("Showing only the first {0} features found.", maxNumberOfItems);
-                    yield return new ToolStripMenuItem { Text = message, Height = 30, ForeColor = Color.LightGray, ToolTipText = "Zoom in to access currently hidden features."};
-                    yield break;
-                }
-            }
-        }
-
-        private static ToolStripMenuItem CreateFeatureToolStripMenuItem(IFeature feature, ILayer layer, Action<ILayer, IFeature> onClick)
-        {
-            var featureName = GetFeatureName(feature, layer);
-            var symbol = GetSymbol(feature, layer);
-            return new ToolStripMenuItem(featureName, symbol, (sender, args) => onClick(layer, feature));
-        }
-
-        private static Image GetSymbol(IFeature feature, ILayer layer)
-        {
-            if (!(layer is VectorLayer)) return null;
-
-            var vectorLayer = ((VectorLayer)layer);
-            try
-            {
-                var currentVectorStyle = vectorLayer.Theme != null
-                    ? vectorLayer.Theme.GetStyle(feature) as VectorStyle
-                    : vectorLayer.Style;
-
-                return currentVectorStyle != null ? currentVectorStyle.LegendSymbol : null;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
-        private static string GetFeatureName(IFeature feature, ILayer layer)
-        {
-            var featureName = feature is INameable ? ((INameable)feature).Name : feature.ToString();
-            var layerName = layer == null ? "-" : layer.Name;
-            return string.Format("{0} ({1})", featureName, layerName);
-        }
     }
 }

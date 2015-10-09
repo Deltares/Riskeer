@@ -12,17 +12,17 @@ namespace DelftTools.TestUtils
 {
     public partial class WindowsFormsTestHelper : Form
     {
-        private static ILog log = LogManager.GetLogger(typeof (WindowsFormsTestHelper));
-        private Action<Form> formShown;
-        private GuiTestHelper guiTestHelper;
-        private bool wasShown;
+        private static ILog log = LogManager.GetLogger(typeof(WindowsFormsTestHelper));
 
         private static string nonModalControlsTestName; // current unit test name
         private static readonly IList<Control> nonModalControls = new List<Control>();
+        private Action<Form> formShown;
+        private readonly GuiTestHelper guiTestHelper;
+        private bool wasShown;
 
         public WindowsFormsTestHelper()
         {
-            System.Windows.Forms.Application.EnableVisualStyles();
+            Application.EnableVisualStyles();
 
             CheckForIllegalCrossThreadCalls = true;
             Application.EnableVisualStyles();
@@ -36,10 +36,7 @@ namespace DelftTools.TestUtils
 
         public static object[] PropertyObjects { get; set; }
 
-        public PropertyGrid PropertyGrid
-        {
-            get { return propertyGrid1; }
-        }
+        public PropertyGrid PropertyGrid { get; private set; }
 
         public static void ShowPropertyGridForObject(object selectedObject)
         {
@@ -50,7 +47,10 @@ namespace DelftTools.TestUtils
             var grid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(guiMock) { Data = new DynamicPropertyBag(selectedObject) };
             */
 
-            var grid = new PropertyGrid { SelectedObject = selectedObject };
+            var grid = new PropertyGrid
+            {
+                SelectedObject = selectedObject
+            };
 
             ShowModal(grid);
         }
@@ -107,6 +107,19 @@ namespace DelftTools.TestUtils
             }
 
             ShowModal(containerControl, propertyObjects);
+        }
+
+        public static void CloseAll()
+        {
+            foreach (var control in nonModalControls)
+            {
+                control.Hide();
+                control.Dispose();
+            }
+
+            nonModalControls.Clear();
+
+            nonModalControlsTestName = string.Empty;
         }
 
         private void ShowTopLevel(Control control, object[] propertyObjects, bool modal, Action<Form> shownAction)
@@ -176,7 +189,7 @@ namespace DelftTools.TestUtils
         private void ShowControlInTestForm(Control control, bool modal, object[] propertyObjects)
         {
             PropertyObjects = propertyObjects;
-            propertyGrid1.SelectedObject = control;
+            PropertyGrid.SelectedObject = control;
             control.Dock = DockStyle.Fill;
             splitContainer1.Panel2.Controls.Add(control);
 
@@ -240,35 +253,27 @@ namespace DelftTools.TestUtils
             }
         }
 
-        public static void CloseAll()
-        {
-            foreach (var control in nonModalControls)
-            {
-                control.Hide();
-                control.Dispose();
-            }
-            
-            nonModalControls.Clear();
-
-            nonModalControlsTestName = string.Empty;
-        }
-
         private void InitializeTree(Control control)
         {
-            IList itemsToShow = new RootNode {control};
+            IList itemsToShow = new RootNode
+            {
+                control
+            };
             foreach (object o in PropertyObjects)
             {
                 itemsToShow.Add(o);
             }
 
-            treeView1.ImageList = new ImageList {ColorDepth = ColorDepth.Depth32Bit};
+            treeView1.ImageList = new ImageList
+            {
+                ColorDepth = ColorDepth.Depth32Bit
+            };
             treeView1.ImageList.Images.Add("Control", Resources.Control);
             treeView1.ImageList.Images.Add("Data", Resources.Data);
 
-
             AddAllNodes(treeView1.Nodes, itemsToShow);
 
-            treeView1.NodeMouseClick += delegate { propertyGrid1.SelectedObject = treeView1.SelectedNode.Tag; };
+            treeView1.NodeMouseClick += delegate { PropertyGrid.SelectedObject = treeView1.SelectedNode.Tag; };
         }
 
         private void AddAllNodes(TreeNodeCollection nodes, IEnumerable itemsToShow)
@@ -276,7 +281,10 @@ namespace DelftTools.TestUtils
             foreach (object item in itemsToShow.Cast<object>().Where(i => i != null))
             {
                 int imageIndex = item is Control ? 0 : 1;
-                var node = new TreeNode(item.ToString(), imageIndex, imageIndex) {Tag = item};
+                var node = new TreeNode(item.ToString(), imageIndex, imageIndex)
+                {
+                    Tag = item
+                };
                 nodes.Add(node);
 
                 if (item is Control)
@@ -290,19 +298,23 @@ namespace DelftTools.TestUtils
                     {
                         dataProperty = control.GetType().GetProperty("Data");
                     }
-                    catch (Exception)
-                    {
-                    }
+                    catch (Exception) {}
 
                     if (dataProperty != null)
                     {
-                        AddAllNodes(node.Nodes, new[] {dataProperty.GetValue(control, null)});
+                        AddAllNodes(node.Nodes, new[]
+                        {
+                            dataProperty.GetValue(control, null)
+                        });
                     }
 
                     PropertyInfo dataSourceProperty = control.GetType().GetProperty("DataSource");
                     if (dataSourceProperty != null)
                     {
-                        AddAllNodes(node.Nodes, new[] {dataSourceProperty.GetValue(control, null)});
+                        AddAllNodes(node.Nodes, new[]
+                        {
+                            dataSourceProperty.GetValue(control, null)
+                        });
                     }
                 }
 

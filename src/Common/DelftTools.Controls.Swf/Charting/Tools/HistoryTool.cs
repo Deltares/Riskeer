@@ -17,14 +17,14 @@ namespace DelftTools.Controls.Swf.Charting.Tools
     /// </summary>
     internal class HistoryTool : ToolSeries, IHistoryTool
     {
-        private DeltaShellTChart tChart;
-        private int bufferHistory = 5;
-        private List<Line> lstLines = new List<Line>();
-        
+        public event EventHandler<EventArgs> ActiveChanged;
+
         private readonly ToolTip toolTip;
+        private readonly DeltaShellTChart tChart;
+        private int bufferHistory = 5;
+        private readonly List<Line> lstLines = new List<Line>();
         private bool toolTipIsShowing;
         private string shownText = "";
-        public bool ShowToolTip { get; set; }
 
         /// <summary>
         /// Constructor for history tool
@@ -35,7 +35,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         {
             tChart = chart;
 
-            toolTip = new ToolTip {ShowAlways = false, InitialDelay = 0, UseAnimation = false, UseFading = false, AutoPopDelay = 0};
+            toolTip = new ToolTip
+            {
+                ShowAlways = false, InitialDelay = 0, UseAnimation = false, UseFading = false, AutoPopDelay = 0
+            };
         }
 
         /// <summary>
@@ -43,12 +46,47 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         /// </summary>
         public int BufferHistory
         {
-            get { return bufferHistory; }
+            get
+            {
+                return bufferHistory;
+            }
             set
             {
                 if (value >= 0)
                 {
                     bufferHistory = value;
+                }
+            }
+        }
+
+        public bool ShowToolTip { get; set; }
+
+        public IChartView ChartView { get; set; }
+
+        public bool Enabled
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public new bool Active
+        {
+            get
+            {
+                return base.Active;
+            }
+            set
+            {
+                base.Active = value;
+                if (ActiveChanged != null)
+                {
+                    ActiveChanged(this, null);
                 }
             }
         }
@@ -72,10 +110,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         public void Add(IChartSeries series)
         {
             var line = new LineChartSeries
-                           {
-                               Title = series.Title,
-                               ShowInLegend = series.ShowInLegend
-                           };
+            {
+                Title = series.Title,
+                ShowInLegend = series.ShowInLegend
+            };
 
             var lineSeries = (Line) line.series;
 
@@ -90,9 +128,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             var dataSource = series.DataSource;
 
             line.DataSource = dataSource is ICloneable
-                                        ? ((ICloneable) dataSource).Clone()
-                                        : dataSource;
-            
+                                  ? ((ICloneable) dataSource).Clone()
+                                  : dataSource;
+
             AddLine(line);
         }
 
@@ -111,7 +149,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             {
                 var linesAtPoint = new List<string>();
 
-                foreach(var line in lstLines)
+                foreach (var line in lstLines)
                 {
                     line.ClickableLine = true;
                     int abovePoint = line.Clicked(e.X, e.Y);
@@ -164,14 +202,14 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
             ChartView.Chart.Series.Add(line);
 
-            var lineSeries = (Line)line.series;
+            var lineSeries = (Line) line.series;
 
             lstLines.Add(lineSeries);
 
             //put series at the bottom
-            for (int i = tChart.Series.Count - 1; i > 0;i-- )
+            for (int i = tChart.Series.Count - 1; i > 0; i--)
             {
-                tChart.Series.Exchange(i-1, i);
+                tChart.Series.Exchange(i - 1, i);
             }
 
             //hack: assign line pen again (and other color properties) to redo auto-color of tchart
@@ -185,28 +223,5 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             lineSeries.Color = Color.DarkGray;
             lineSeries.Transparency = 25;
         }
-
-        public IChartView ChartView { get; set; }
-
-        public bool Enabled
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
-
-        public new bool Active
-        {
-            get { return base.Active; }
-            set
-            {
-                base.Active = value;
-                if (ActiveChanged != null)
-                {
-                    ActiveChanged(this, null);
-                }
-            }
-        }
-
-        public event EventHandler<EventArgs> ActiveChanged;
     }
 }

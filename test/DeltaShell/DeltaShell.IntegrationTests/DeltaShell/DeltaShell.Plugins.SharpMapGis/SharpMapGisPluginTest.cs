@@ -27,5 +27,5 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Plugins.SharpMapGis
             //check the project is not marked 'changed'
             Assert.IsFalse(project.IsChanged);
         }
-   }
+    }
 }

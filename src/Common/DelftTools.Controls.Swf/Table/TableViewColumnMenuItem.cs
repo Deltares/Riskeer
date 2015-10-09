@@ -7,28 +7,43 @@ namespace DelftTools.Controls.Swf.Table
 {
     public class TableViewColumnMenuItem
     {
+        public event EventHandler Click;
+
+        public event CancelEventHandler Showing;
         private readonly DXMenuItem internalItem;
-
-        public DXMenuItem InternalItem
-        {
-            get { return internalItem; }
-        }
-
-        public string Caption
-        {
-            get { return internalItem.Caption; }
-        }
-
-        public Image Image
-        {
-            get { return internalItem.Image; }
-            set { internalItem.Image = value; }
-        }
 
         public TableViewColumnMenuItem(string caption)
         {
             internalItem = new DXMenuItem(caption);
             internalItem.Click += InternalItemClick;
+        }
+
+        public DXMenuItem InternalItem
+        {
+            get
+            {
+                return internalItem;
+            }
+        }
+
+        public string Caption
+        {
+            get
+            {
+                return internalItem.Caption;
+            }
+        }
+
+        public Image Image
+        {
+            get
+            {
+                return internalItem.Image;
+            }
+            set
+            {
+                internalItem.Image = value;
+            }
         }
 
         public bool ShouldShow(ITableViewColumn column)
@@ -46,11 +61,7 @@ namespace DelftTools.Controls.Swf.Table
             return true;
         }
 
-        public event EventHandler Click;
-
-        public event CancelEventHandler Showing;
-
-        void InternalItemClick(object sender, EventArgs e)
+        private void InternalItemClick(object sender, EventArgs e)
         {
             if (Click != null)
             {

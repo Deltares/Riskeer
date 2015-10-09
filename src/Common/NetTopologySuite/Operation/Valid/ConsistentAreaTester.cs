@@ -16,14 +16,13 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
     /// Testing for duplicate rings.
     /// If an inconsistency if found the location of the problem is recorded.
     /// </summary>
-    public class ConsistentAreaTester 
+    public class ConsistentAreaTester
     {
         private readonly LineIntersector li = new RobustLineIntersector();
-        private GeometryGraph geomGraph;
-        private RelateNodeGraph nodeGraph = new RelateNodeGraph();
+        private readonly GeometryGraph geomGraph;
+        private readonly RelateNodeGraph nodeGraph = new RelateNodeGraph();
 
         // the intersection point found (if any)
-        private ICoordinate invalidPoint;
 
         /// <summary>
         /// 
@@ -37,13 +36,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
         /// <summary>
         /// Returns the intersection point, or <c>null</c> if none was found.
         /// </summary>        
-        public ICoordinate InvalidPoint
-        {
-            get
-            {
-                return invalidPoint;
-            }
-        }
+        public ICoordinate InvalidPoint { get; private set; }
 
         /// <summary>
         /// 
@@ -59,32 +52,11 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
                 SegmentIntersector intersector = geomGraph.ComputeSelfNodes(li, true);
                 if (intersector.HasProperIntersection)
                 {
-                    invalidPoint = intersector.ProperIntersectionPoint;
+                    InvalidPoint = intersector.ProperIntersectionPoint;
                     return false;
                 }
                 nodeGraph.Build(geomGraph);
                 return IsNodeEdgeAreaLabelsConsistent;
-            }
-        }
-
-        /// <summary>
-        /// Check all nodes to see if their labels are consistent.
-        /// If any are not, return false.
-        /// </summary>
-        private bool IsNodeEdgeAreaLabelsConsistent
-        {
-            get
-            {
-                for (IEnumerator nodeIt = nodeGraph.GetNodeEnumerator(); nodeIt.MoveNext(); )
-                {
-                    RelateNode node = (RelateNode) nodeIt.Current;
-                    if (!node.Edges.IsAreaLabelsConsistent)
-                    {
-                        invalidPoint = (ICoordinate) node.Coordinate.Clone();
-                        return false;
-                    }
-                }
-                return true;
             }
         }
 
@@ -104,20 +76,41 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
         {
             get
             {
-                for (IEnumerator nodeIt = nodeGraph.GetNodeEnumerator(); nodeIt.MoveNext(); )
+                for (IEnumerator nodeIt = nodeGraph.GetNodeEnumerator(); nodeIt.MoveNext();)
                 {
                     RelateNode node = (RelateNode) nodeIt.Current;
-                    for (IEnumerator i = node.Edges.GetEnumerator(); i.MoveNext(); )
+                    for (IEnumerator i = node.Edges.GetEnumerator(); i.MoveNext();)
                     {
                         EdgeEndBundle eeb = (EdgeEndBundle) i.Current;
                         if (eeb.EdgeEnds.Count > 1)
                         {
-                            invalidPoint = eeb.Edge.GetCoordinate(0);
+                            InvalidPoint = eeb.Edge.GetCoordinate(0);
                             return true;
                         }
                     }
                 }
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// Check all nodes to see if their labels are consistent.
+        /// If any are not, return false.
+        /// </summary>
+        private bool IsNodeEdgeAreaLabelsConsistent
+        {
+            get
+            {
+                for (IEnumerator nodeIt = nodeGraph.GetNodeEnumerator(); nodeIt.MoveNext();)
+                {
+                    RelateNode node = (RelateNode) nodeIt.Current;
+                    if (!node.Edges.IsAreaLabelsConsistent)
+                    {
+                        InvalidPoint = (ICoordinate) node.Coordinate.Clone();
+                        return false;
+                    }
+                }
+                return true;
             }
         }
     }

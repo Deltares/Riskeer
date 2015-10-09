@@ -18,6 +18,26 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
 
         public int CallsWithoutInvokeCount { get; private set; }
 
+        public bool IsDisposed { get; set; }
+
+        [InvokeRequired]
+        public void SynchronizedMethod()
+        {
+            if (!InvokeRequired)
+            {
+                CallsWithoutInvokeCount++;
+            }
+        }
+
+        public void Dispose()
+        {
+            using (InvokeRequiredAttribute.BlockInvokeCallsDuringDispose())
+            {
+                Thread.Sleep(50);
+                IsDisposed = true;
+            }
+        }
+
         #region ISynchronizeInvoke Members
 
         public IAsyncResult BeginInvoke(Delegate method, object[] args)
@@ -39,29 +59,12 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
 
         public bool InvokeRequired
         {
-            get { return Thread.CurrentThread != mainThread; }
+            get
+            {
+                return Thread.CurrentThread != mainThread;
+            }
         }
 
         #endregion
-
-        [InvokeRequired]
-        public void SynchronizedMethod()
-        {
-            if(!InvokeRequired)
-            {
-                CallsWithoutInvokeCount++;
-            }
-        }
-
-        public void Dispose()
-        {
-            using (InvokeRequiredAttribute.BlockInvokeCallsDuringDispose())
-            {
-                Thread.Sleep(50);
-                IsDisposed = true;
-            }
-        }
-
-        public bool IsDisposed { get; set; }
     }
 }

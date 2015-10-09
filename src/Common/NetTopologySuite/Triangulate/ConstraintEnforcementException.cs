@@ -16,15 +16,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
     /// <version>1.0</version>
     public class ConstraintEnforcementException : ApplicationException
     {
-
-        //private long serialVersionUID = 386496846550080140L;
-
-        private static String MsgWithCoord(String msg, ICoordinate pt) {
-            if (pt != null)
-                return msg + " [ " + WKTWriter.ToPoint(pt) + " ]";
-            return msg;
-        }
-
         private readonly ICoordinate _pt;
 
         /// <summary>
@@ -32,9 +23,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         /// </summary>
         /// <param name="msg">a string</param>
         public ConstraintEnforcementException(string msg)
-            : base(msg)
-        {
-        }
+            : base(msg) {}
 
         /// <summary>
         /// Creates a new instance with a given message and approximate location.
@@ -57,6 +46,17 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
             {
                 return _pt;
             }
+        }
+
+        //private long serialVersionUID = 386496846550080140L;
+
+        private static String MsgWithCoord(String msg, ICoordinate pt)
+        {
+            if (pt != null)
+            {
+                return msg + " [ " + WKTWriter.ToPoint(pt) + " ]";
+            }
+            return msg;
         }
     }
 }

@@ -8,8 +8,5 @@ namespace DelftTools.Utils.ComponentModel
     /// bool IsVisible(string propertyName)
     /// </summary>
     /// <seealso cref="DynamicVisibleAttribute"/>
-    public class DynamicVisibleValidationMethodAttribute : Attribute
-    {
-         
-    }
+    public class DynamicVisibleValidationMethodAttribute : Attribute {}
 }

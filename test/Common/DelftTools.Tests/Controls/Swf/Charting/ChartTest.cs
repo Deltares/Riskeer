@@ -17,7 +17,7 @@ namespace DelftTools.Tests.Controls.Swf.Charting
             var chart = new Chart();
             var count = 0;
 
-            ((INotifyCollectionChanged)chart).CollectionChanged += (s, e) => { count++; };
+            ((INotifyCollectionChanged) chart).CollectionChanged += (s, e) => { count++; };
 
             chart.Series.Add(new AreaChartSeries());
 
@@ -40,7 +40,10 @@ namespace DelftTools.Tests.Controls.Swf.Charting
         public void ExportAsVectorGraphicsImagesGivesWarningForIgnoringHatchStyle()
         {
             var chart = new Chart();
-            var areaSeries = new AreaChartSeries { UseHatch = true };
+            var areaSeries = new AreaChartSeries
+            {
+                UseHatch = true
+            };
             chart.Series.Add(areaSeries);
 
             TestHelper.AssertLogMessageIsGenerated(() => SaveDeleteAndAssertExport("test.svg", chart), "Hatch style is not supported for exports and will be ignored.", 1);
@@ -80,7 +83,7 @@ namespace DelftTools.Tests.Controls.Swf.Charting
             {
                 if (chart == null)
                 {
-                    new Chart().ExportAsImage(exportFileName,null,null);
+                    new Chart().ExportAsImage(exportFileName, null, null);
                 }
                 else
                 {

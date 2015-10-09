@@ -5,11 +5,11 @@ namespace GeoAPI.Geometries
         ICoordinateSequence CoordinateSequence { get; }
 
         IPoint StartPoint { get; }
-        
+
         IPoint EndPoint { get; }
 
         bool IsClosed { get; }
-        
-        bool IsRing { get; }        
+
+        bool IsRing { get; }
     }
 }

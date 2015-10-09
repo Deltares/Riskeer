@@ -20,13 +20,16 @@ namespace SharpMap.Tests.Editors.FallOff
             linearFallOffPolicy = new LinearFallOffPolicy();
             lineStringSource =
                 new LineString(new[]
-                                   {
-                                       new Coordinate(0, 0), new Coordinate(10, 0), new Coordinate(20, 0),
-                                       new Coordinate(30, 0), new Coordinate(40, 0)
-                                   });
-            lineStringTarget = (ILineString)lineStringSource.Clone();
-
+                {
+                    new Coordinate(0, 0),
+                    new Coordinate(10, 0),
+                    new Coordinate(20, 0),
+                    new Coordinate(30, 0),
+                    new Coordinate(40, 0)
+                });
+            lineStringTarget = (ILineString) lineStringSource.Clone();
         }
+
         /// <summary>
         /// Refer to NoFallOffPolicyTest for a simplified version of this test.
         /// </summary>
@@ -52,7 +55,10 @@ namespace SharpMap.Tests.Editors.FallOff
         [Test]
         public void SimpleMove2Coordinates()
         {
-            linearFallOffPolicy.Move(lineStringSource, null, new List<int> { 1, 3 }, 1, 0.0, 5.0);
+            linearFallOffPolicy.Move(lineStringSource, null, new List<int>
+            {
+                1, 3
+            }, 1, 0.0, 5.0);
             ICoordinate moveCoordinate = lineStringSource.Coordinates[1];
             Assert.AreEqual(10, moveCoordinate.X);
             Assert.AreEqual(5, moveCoordinate.Y);
@@ -70,15 +76,19 @@ namespace SharpMap.Tests.Editors.FallOff
             Assert.AreEqual(40, moveCoordinate.X);
             Assert.AreEqual(0, moveCoordinate.Y);
         }
+
         [Test]
         public void FullTestWithTrackersGeometries()
         {
             IList<IGeometry> trackers = new List<IGeometry>();
             for (int i = 0; i < lineStringTarget.Coordinates.Length; i++)
             {
-                trackers.Add(new Point((ICoordinate)lineStringTarget.Coordinates[i].Clone()));
+                trackers.Add(new Point((ICoordinate) lineStringTarget.Coordinates[i].Clone()));
             }
-            linearFallOffPolicy.Move(lineStringTarget, lineStringSource, trackers, new List<int> { 2 }, 2, 0.0, 5.0);
+            linearFallOffPolicy.Move(lineStringTarget, lineStringSource, trackers, new List<int>
+            {
+                2
+            }, 2, 0.0, 5.0);
             // Check coordinates
             Assert.AreEqual(0, lineStringTarget.Coordinates[0].X);
             Assert.AreEqual(0, lineStringTarget.Coordinates[0].Y);
@@ -98,7 +108,6 @@ namespace SharpMap.Tests.Editors.FallOff
                 Assert.AreEqual(lineStringTarget.Coordinates[i].X, trackers[i].Coordinates[0].X);
                 Assert.AreEqual(lineStringTarget.Coordinates[i].Y, trackers[i].Coordinates[0].Y);
             }
-
         }
     }
 }

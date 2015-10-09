@@ -12,13 +12,13 @@ namespace GisSharpBlog.NetTopologySuite.Precision
     /// </summary>
     public class CommonBitsOp
     {
-        private bool returnToOriginalPrecision = true;
+        private readonly bool returnToOriginalPrecision = true;
         private CommonBitsRemover cbr;
 
         /// <summary>
         /// Creates a new instance of class, which reshifts result <c>Geometry</c>s.
         /// </summary>
-        public CommonBitsOp() : this(true) { }
+        public CommonBitsOp() : this(true) {}
 
         /// <summary>
         /// Creates a new instance of class, specifying whether
@@ -102,7 +102,9 @@ namespace GisSharpBlog.NetTopologySuite.Precision
         private IGeometry ComputeResultPrecision(IGeometry result)
         {
             if (returnToOriginalPrecision)
+            {
                 cbr.AddCommonBits(result);
+            }
             return result;
         }
 

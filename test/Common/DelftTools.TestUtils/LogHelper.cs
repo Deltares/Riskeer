@@ -1,6 +1,7 @@
 ﻿using log4net;
 using log4net.Config;
 using log4net.Core;
+using log4net.Repository.Hierarchy;
 
 namespace DelftTools.TestUtils
 {
@@ -19,16 +20,16 @@ namespace DelftTools.TestUtils
             foreach (var repository in repositories)
             {
                 repository.Threshold = repository.LevelMap[level.ToString()];
-                var hierarchy = (log4net.Repository.Hierarchy.Hierarchy)repository;
+                var hierarchy = (Hierarchy) repository;
                 var loggers = hierarchy.GetCurrentLoggers();
                 foreach (var logger in loggers)
                 {
-                    ((log4net.Repository.Hierarchy.Logger)logger).Level = hierarchy.LevelMap[level.ToString()];
+                    ((Logger) logger).Level = hierarchy.LevelMap[level.ToString()];
                 }
             }
 
             //Configure the root logger.
-            var h = (log4net.Repository.Hierarchy.Hierarchy)log4net.LogManager.GetRepository();
+            var h = (Hierarchy) LogManager.GetRepository();
             var rootLogger = h.Root;
             rootLogger.Level = h.LevelMap[level.ToString()];
         }

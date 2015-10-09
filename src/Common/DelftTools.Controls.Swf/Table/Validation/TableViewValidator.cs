@@ -10,57 +10,14 @@ namespace DelftTools.Controls.Swf.Table.Validation
     {
         private readonly TableView tableView;
 
-        public TableViewValidator(TableView tableView)
-        {
-            this.tableView = tableView;
-            AutoValidation = true;
-        }
-
         private object[] originalRowValues;
         private bool editingRow;
         private int currentRowIndex;
 
-        private void BeginEditRow(int rowIndex)
+        public TableViewValidator(TableView tableView)
         {
-            if (currentRowIndex >= 0 && rowIndex != currentRowIndex)
-            {
-                EndEditRow();
-            }
-
-            if (editingRow) return;
-
-            currentRowIndex = rowIndex;
-
-            editingRow = true;
-            
-            originalRowValues = GetRowValues();
-        }
-
-        private object[] GetRowValues()
-        {
-            return tableView.Columns
-                .Where(column => column.Visible)
-                .Select(c => tableView.GetCellValue(currentRowIndex, c.AbsoluteIndex))
-                .ToArray();
-        }
-
-        private void EndEditRow()
-        {
-            if (!editingRow) return;
-
-            editingRow = false;
-            currentRowIndex = -1;
-            originalRowValues = null;
-        }
-        
-        private object[] GetOriginalRowValues()
-        {
-            if (editingRow)
-            {
-                return originalRowValues;
-            }
-
-            return GetRowValues(); //otherwise just get the values directly
+            this.tableView = tableView;
+            AutoValidation = true;
         }
 
         public bool ValidateRow(int rowIndex, out string firstError)
@@ -79,12 +36,12 @@ namespace DelftTools.Controls.Swf.Table.Validation
                 tableView.SetColumnError(null, ""); //clear row error
 
                 var result = tableView.RowValidator(rowIndex, GetRowValues());
-                
+
                 if (!result.Valid)
                 {
                     firstError = "Validation of row failed: " + result.ErrorText;
                     tableView.SetColumnError(result.ColumnIndex == -1 ? null : tableView.Columns[result.ColumnIndex],
-                                        result.ErrorText);
+                                             result.ErrorText);
                     return false;
                 }
             }
@@ -115,8 +72,57 @@ namespace DelftTools.Controls.Swf.Table.Validation
             EndEditRow();
         }
 
+        private void BeginEditRow(int rowIndex)
+        {
+            if (currentRowIndex >= 0 && rowIndex != currentRowIndex)
+            {
+                EndEditRow();
+            }
+
+            if (editingRow)
+            {
+                return;
+            }
+
+            currentRowIndex = rowIndex;
+
+            editingRow = true;
+
+            originalRowValues = GetRowValues();
+        }
+
+        private object[] GetRowValues()
+        {
+            return tableView.Columns
+                            .Where(column => column.Visible)
+                            .Select(c => tableView.GetCellValue(currentRowIndex, c.AbsoluteIndex))
+                            .ToArray();
+        }
+
+        private void EndEditRow()
+        {
+            if (!editingRow)
+            {
+                return;
+            }
+
+            editingRow = false;
+            currentRowIndex = -1;
+            originalRowValues = null;
+        }
+
+        private object[] GetOriginalRowValues()
+        {
+            if (editingRow)
+            {
+                return originalRowValues;
+            }
+
+            return GetRowValues(); //otherwise just get the values directly
+        }
+
         #region Event Handlers
-        
+
         public void RowLostFocus(object sender, FocusedRowChangedEventArgs e)
         {
             if (e.FocusedRowHandle != int.MinValue && e.FocusedRowHandle != currentRowIndex)
@@ -141,7 +147,7 @@ namespace DelftTools.Controls.Swf.Table.Validation
             string error;
             e.Valid = ValidateCell(cell, e.Value, out error);
             e.ErrorText = error;
-                
+
             tableView.SetColumnError(cell.Column, error);
         }
 

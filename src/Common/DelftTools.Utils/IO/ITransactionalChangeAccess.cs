@@ -6,12 +6,11 @@ namespace DelftTools.Utils.IO
     /// </summary>
     public interface ITransactionalChangeAccess
     {
+        bool IsChanging { get; }
         void BeginChanges();
 
         void RollbackChanges();
 
         void CommitChanges();
-
-        bool IsChanging { get; }
     }
 }

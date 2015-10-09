@@ -2,7 +2,7 @@
 using GeoAPI.Geometries;
 
 namespace GisSharpBlog.NetTopologySuite.Geometries
-{        
+{
     /// <summary> 
     /// Specifies the precision model of the <c>Coordinate</c>s in a <c>Geometry</c>.
     /// In other words, specifies the grid of allowable
@@ -41,10 +41,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
     [Serializable]
     public class PrecisionModel : IPrecisionModel
     {
-        private const int FloatingPrecisionDigits = 16;
-        private const int FloatingSinglePrecisionDigits = 6;
-        private const int FixedPrecisionDigits = 1;
-
         /// <summary>  
         /// The maximum precise value representable in a double. Since IEE754
         /// double-precision numbers allow 53 bits of mantissa, the value is equal to
@@ -52,10 +48,14 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         public const double MaximumPreciseValue = 9007199254740992.0;
 
+        private const int FloatingPrecisionDigits = 16;
+        private const int FloatingSinglePrecisionDigits = 6;
+        private const int FixedPrecisionDigits = 1;
+
         /// <summary>
         /// The type of PrecisionModel this represents.
         /// </summary>
-        private PrecisionModels modelType;
+        private readonly PrecisionModels modelType;
 
         /// <summary> 
         /// The scale factor which determines the number of decimal places in fixed precision.
@@ -66,7 +66,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// Creates a <c>PrecisionModel</c> with a default precision
         /// of Floating.
         /// </summary>
-        public PrecisionModel() 
+        public PrecisionModel()
         {
             // default is floating precision
             modelType = PrecisionModels.Floating;
@@ -85,7 +85,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             this.modelType = modelType;
 
             if (modelType == PrecisionModels.Fixed)
-                Scale = 1.0;            
+            {
+                Scale = 1.0;
+            }
         }
 
         /// <summary>  
@@ -100,7 +102,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="offsetX">Not used.</param>
         /// <param name="offsetY">Not used.</param>
         [Obsolete("Offsets are no longer supported, since internal representation is rounded floating point")]
-        public PrecisionModel(double scale, double offsetX, double offsetY) 
+        public PrecisionModel(double scale, double offsetX, double offsetY)
         {
             modelType = PrecisionModels.Fixed;
             Scale = scale;
@@ -115,7 +117,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// Amount by which to multiply a coordinate after subtracting
         /// the offset, to obtain a precise coordinate.
         /// </param>  
-        public PrecisionModel(double scale) 
+        public PrecisionModel(double scale)
         {
             modelType = PrecisionModels.Fixed;
             Scale = scale;
@@ -126,20 +128,43 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// from an existing one.
         /// </summary>
         /// <param name="pm"></param>
-        public PrecisionModel(PrecisionModel pm) 
+        public PrecisionModel(PrecisionModel pm)
         {
             modelType = pm.modelType;
             scale = pm.scale;
         }
 
-        /// <summary>
-        /// Return HashCode.
+        /// <summary> 
+        /// Returns the x-offset used to obtain a precise coordinate.
         /// </summary>
-        public override int GetHashCode()
+        /// <returns>
+        /// The amount by which to subtract the x-coordinate before
+        /// multiplying by the scale.
+        /// </returns>
+        [Obsolete("Offsets are no longer used")]
+        public double OffsetX
         {
-            return base.GetHashCode();
+            get
+            {
+                return 0;
+            }
         }
 
+        /// <summary> 
+        /// Returns the y-offset used to obtain a precise coordinate.
+        /// </summary>
+        /// <returns> 
+        /// The amount by which to subtract the y-coordinate before
+        /// multiplying by the scale
+        /// </returns>
+        [Obsolete("Offsets are no longer used")]
+        public double OffsetY
+        {
+            get
+            {
+                return 0;
+            }
+        }
 
         /// <summary> 
         /// Tests whether the precision model supports floating point.
@@ -172,12 +197,12 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
                     case PrecisionModels.FloatingSingle:
                         return FloatingSinglePrecisionDigits;
                     case PrecisionModels.Fixed:
-                        return FixedPrecisionDigits + (int)Math.Ceiling(Math.Log(Scale) / Math.Log(10));
+                        return FixedPrecisionDigits + (int) Math.Ceiling(Math.Log(Scale)/Math.Log(10));
                     default:
                         throw new ArgumentOutOfRangeException(modelType.ToString());
                 }
             }
-	    }
+        }
 
         /// <summary>
         /// Returns the multiplying factor used to obtain a precise coordinate.
@@ -190,17 +215,14 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </returns>
         public double Scale
         {
-            get { return scale; }
-            set { this.scale = Math.Abs(value); }
-        }
-
-        /// <summary> 
-        /// Gets the type of this PrecisionModel.
-        /// </summary>
-        /// <returns></returns>
-        public PrecisionModels GetPrecisionModelType()
-        {                        
-            return modelType;
+            get
+            {
+                return scale;
+            }
+            set
+            {
+                scale = Math.Abs(value);
+            }
         }
 
         /// <summary> 
@@ -209,33 +231,19 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <returns></returns>
         public PrecisionModels PrecisionModelType
         {
-            get { return modelType; }            
+            get
+            {
+                return modelType;
+            }
         }
 
         /// <summary> 
-        /// Returns the x-offset used to obtain a precise coordinate.
+        /// Gets the type of this PrecisionModel.
         /// </summary>
-        /// <returns>
-        /// The amount by which to subtract the x-coordinate before
-        /// multiplying by the scale.
-        /// </returns>
-        [Obsolete("Offsets are no longer used")]
-        public double OffsetX
+        /// <returns></returns>
+        public PrecisionModels GetPrecisionModelType()
         {
-            get { return 0; }
-        }
-
-        /// <summary> 
-        /// Returns the y-offset used to obtain a precise coordinate.
-        /// </summary>
-        /// <returns> 
-        /// The amount by which to subtract the y-coordinate before
-        /// multiplying by the scale
-        /// </returns>
-        [Obsolete("Offsets are no longer used")]
-        public double OffsetY
-        {
-            get { return 0; }
+            return modelType;
         }
 
         /// <summary>  
@@ -247,14 +255,14 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// precise representation of <c>external</c>.
         /// </param>        
         [Obsolete("Use MakePrecise instead")]
-        public void ToInternal(ICoordinate cexternal, ICoordinate cinternal) 
+        public void ToInternal(ICoordinate cexternal, ICoordinate cinternal)
         {
-            if (IsFloating) 
+            if (IsFloating)
             {
                 cinternal.X = cexternal.X;
                 cinternal.Y = cexternal.Y;
             }
-            else 
+            else
             {
                 cinternal.X = MakePrecise(cexternal.X);
                 cinternal.Y = MakePrecise(cexternal.Y);
@@ -271,10 +279,10 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// representation of <c>external</c>
         /// </returns>
         [Obsolete("Use MakePrecise instead")]
-        public ICoordinate ToInternal(ICoordinate cexternal) 
+        public ICoordinate ToInternal(ICoordinate cexternal)
         {
             ICoordinate cinternal = new Coordinate(cexternal);
-            MakePrecise( cinternal);
+            MakePrecise(cinternal);
             return cinternal;
         }
 
@@ -287,7 +295,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// external representation of <c>internal</c>.
         /// </returns>
         [Obsolete("No longer needed, since internal representation is same as external representation")]
-        public ICoordinate ToExternal(ICoordinate cinternal) 
+        public ICoordinate ToExternal(ICoordinate cinternal)
         {
             ICoordinate cexternal = new Coordinate(cinternal);
             return cexternal;
@@ -302,91 +310,12 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// external representation of <c>internal</c>.
         /// </param>
         [Obsolete("No longer needed, since internal representation is same as external representation")]
-        public void ToExternal(ICoordinate cinternal, ICoordinate cexternal) 
+        public void ToExternal(ICoordinate cinternal, ICoordinate cexternal)
         {
             cexternal.X = cinternal.X;
             cexternal.Y = cinternal.Y;
         }
 
-        /// <summary> 
-        /// Rounds a numeric value to the PrecisionModel grid.
-        /// Symmetric Arithmetic Rounding is used, to provide
-        /// uniform rounding behaviour no matter where the number is
-        /// on the number line.
-        /// </summary>
-        /// <param name="val"></param>
-        public double MakePrecise(double val) 
-        {
-  	        if (modelType == PrecisionModels.FloatingSingle)
-            {                
-  		        float floatSingleVal = (float) val;
-  		        return (double)floatSingleVal;
-  	        }  	        
-            if (modelType == PrecisionModels.Fixed) 
-  		        // return Math.Round(val * scale) / scale;          // Diego Guidi say's: i use the Java Round algorithm (used in JTS 1.6)
-                                                                    // Java Rint method, used in JTS 1.5, was consistend with .NET Round algorithm
-                return Math.Floor(((val * scale) + 0.5d)) / scale;
-            return val;     // modelType == FLOATING - no rounding necessary
-        }
-
-        /// <summary> 
-        /// Rounds a Coordinate to the PrecisionModel grid.
-        /// </summary>
-        /// <param name="coord"></param>
-        public void MakePrecise(ICoordinate coord)
-        {
-            // optimization for full precision
-            if (modelType == PrecisionModels.Floating) 
-                return;
-
-            coord.X = MakePrecise(coord.X);
-            coord.Y = MakePrecise(coord.Y);
-            //MD says it's OK that we're not makePrecise'ing the z [Jon Aquino]
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString() 
-        {
-  	        string description = "UNKNOWN";
-  	        if (modelType == PrecisionModels.Floating)
-  		        description = "Floating";  	        
-            else if (modelType == PrecisionModels.FloatingSingle)
-  		        description = "Floating-Single";  	        
-            else if (modelType == PrecisionModels.Fixed) 
-  		        description = "Fixed (Scale=" + Scale + ")";  	        
-  	        return description;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public override bool Equals(object other) 
-        {
-            if (other == null)
-                return false;
-
-            if (!(other is IPrecisionModel))
-                return false;            
-
-            return Equals((IPrecisionModel) other);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="otherPrecisionModel"></param>
-        /// <returns></returns>
-        public bool Equals(IPrecisionModel otherPrecisionModel)
-        {
-            return  modelType == otherPrecisionModel.PrecisionModelType &&
-                    scale == otherPrecisionModel.Scale;
-        }        
-        
         /// <summary>
         /// 
         /// </summary>
@@ -407,7 +336,108 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public static bool operator !=(PrecisionModel obj1, PrecisionModel obj2)
         {
             return !(obj1 == obj2);
-        }       
+        }
+
+        /// <summary>
+        /// Return HashCode.
+        /// </summary>
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            string description = "UNKNOWN";
+            if (modelType == PrecisionModels.Floating)
+            {
+                description = "Floating";
+            }
+            else if (modelType == PrecisionModels.FloatingSingle)
+            {
+                description = "Floating-Single";
+            }
+            else if (modelType == PrecisionModels.Fixed)
+            {
+                description = "Fixed (Scale=" + Scale + ")";
+            }
+            return description;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public override bool Equals(object other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (!(other is IPrecisionModel))
+            {
+                return false;
+            }
+
+            return Equals((IPrecisionModel) other);
+        }
+
+        /// <summary> 
+        /// Rounds a numeric value to the PrecisionModel grid.
+        /// Symmetric Arithmetic Rounding is used, to provide
+        /// uniform rounding behaviour no matter where the number is
+        /// on the number line.
+        /// </summary>
+        /// <param name="val"></param>
+        public double MakePrecise(double val)
+        {
+            if (modelType == PrecisionModels.FloatingSingle)
+            {
+                float floatSingleVal = (float) val;
+                return (double) floatSingleVal;
+            }
+            if (modelType == PrecisionModels.Fixed)
+            {
+                // return Math.Round(val * scale) / scale;          // Diego Guidi say's: i use the Java Round algorithm (used in JTS 1.6)
+                // Java Rint method, used in JTS 1.5, was consistend with .NET Round algorithm
+                return Math.Floor(((val*scale) + 0.5d))/scale;
+            }
+            return val; // modelType == FLOATING - no rounding necessary
+        }
+
+        /// <summary> 
+        /// Rounds a Coordinate to the PrecisionModel grid.
+        /// </summary>
+        /// <param name="coord"></param>
+        public void MakePrecise(ICoordinate coord)
+        {
+            // optimization for full precision
+            if (modelType == PrecisionModels.Floating)
+            {
+                return;
+            }
+
+            coord.X = MakePrecise(coord.X);
+            coord.Y = MakePrecise(coord.Y);
+            //MD says it's OK that we're not makePrecise'ing the z [Jon Aquino]
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="otherPrecisionModel"></param>
+        /// <returns></returns>
+        public bool Equals(IPrecisionModel otherPrecisionModel)
+        {
+            return modelType == otherPrecisionModel.PrecisionModelType &&
+                   scale == otherPrecisionModel.Scale;
+        }
 
         /// <summary> 
         /// Compares this <c>PrecisionModel</c> object with the specified object for order.
@@ -425,9 +455,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// A negative integer, zero, or a positive integer as this <c>PrecisionModel</c>
         /// is less than, equal to, or greater than the specified <c>PrecisionModel</c>.
         /// </returns>
-        public int CompareTo(object o) 
+        public int CompareTo(object o)
         {
-            return CompareTo((IPrecisionModel) o);   
+            return CompareTo((IPrecisionModel) o);
         }
 
         /// <summary>

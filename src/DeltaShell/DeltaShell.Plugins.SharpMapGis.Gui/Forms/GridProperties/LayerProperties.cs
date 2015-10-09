@@ -12,12 +12,32 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "LayerProperties_Opacity_DisplayName")]
         [ResourcesDescription(typeof(Resources), "LayerProperties_Opacity_Description")]
-        public float Opacity { get { return data.Opacity; } set { data.Opacity = value; } }
+        public float Opacity
+        {
+            get
+            {
+                return data.Opacity;
+            }
+            set
+            {
+                data.Opacity = value;
+            }
+        }
 
         // TODO: remove this flag after checking with POs
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [DisplayName("Exclude From Extent")]
         [Description("Exclude layer from ")]
-        public bool ExcludeFromMapExtent { get { return data.ExcludeFromMapExtent; } set { data.ExcludeFromMapExtent = value; } }
+        public bool ExcludeFromMapExtent
+        {
+            get
+            {
+                return data.ExcludeFromMapExtent;
+            }
+            set
+            {
+                data.ExcludeFromMapExtent = value;
+            }
+        }
     }
 }

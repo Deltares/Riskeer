@@ -1,15 +1,7 @@
 ﻿namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
 {
-    public class MapZoomNextCommand: MapZoomHistoryCommand
+    public class MapZoomNextCommand : MapZoomHistoryCommand
     {
-        protected override void OnExecute(params object[] arguments)
-        {
-            ZoomHistoryToolMapTool.NextZoomState();
-            MapView.MapControl.Refresh();
-
-            base.OnExecute(arguments);
-        }
-
         public override bool Enabled
         {
             get
@@ -18,9 +10,17 @@
                 {
                     return false;
                 }
-                
+
                 return ZoomHistoryToolMapTool.RedoCount > 0;
             }
+        }
+
+        protected override void OnExecute(params object[] arguments)
+        {
+            ZoomHistoryToolMapTool.NextZoomState();
+            MapView.MapControl.Refresh();
+
+            base.OnExecute(arguments);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         /// <summary>
         /// 
         /// </summary>
-        public Root() { }
+        public Root() {}
 
         /// <summary> 
         /// Insert an item into the quadtree this is the root of.
@@ -26,7 +26,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         {
             int index = GetSubnodeIndex(itemEnv, origin);
             // if index is -1, itemEnv must cross the X or Y axis.
-            if (index == -1) 
+            if (index == -1)
             {
                 Add(item);
                 return;
@@ -40,7 +40,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
             *  If the subquad doesn't exist or this item is not contained in it,
             *  have to expand the tree upward to contain the item.
             */
-            if (node == null || ! node.Envelope.Contains(itemEnv)) 
+            if (node == null || !node.Envelope.Contains(itemEnv))
             {
                 Node largerNode = Node.CreateExpanded(node, itemEnv);
                 subnode[index] = largerNode;
@@ -49,7 +49,17 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
             * At this point we have a subquad which exists and must contain
             * contains the env for the item.  Insert the item into the tree.
             */
-            InsertContained(subnode[index], itemEnv, item);            
+            InsertContained(subnode[index], itemEnv, item);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchEnv"></param>
+        /// <returns></returns>
+        protected override bool IsSearchMatch(IEnvelope searchEnv)
+        {
+            return true;
         }
 
         /// <summary> 
@@ -69,19 +79,14 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
             bool isZeroY = IntervalSize.IsZeroWidth(itemEnv.MinY, itemEnv.MaxY);
             NodeBase node;
             if (isZeroX || isZeroY)
-                 node = tree.Find(itemEnv);
-            else node = tree.GetNode(itemEnv);
+            {
+                node = tree.Find(itemEnv);
+            }
+            else
+            {
+                node = tree.GetNode(itemEnv);
+            }
             node.Add(item);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="searchEnv"></param>
-        /// <returns></returns>
-        protected override bool IsSearchMatch(IEnvelope searchEnv)
-        {
-            return true;
         }
     }
 }

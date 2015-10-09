@@ -10,7 +10,7 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         /// <summary>
         /// Only static methods!
         /// </summary>
-        private Assert() { }
+        private Assert() {}
 
         /// <summary>
         /// 
@@ -20,7 +20,7 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         {
             IsTrue(assertion, null);
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -30,9 +30,14 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         {
             if (!assertion)
             {
-                if (message == null)               
-                     throw new AssertionFailedException();                
-                else throw new AssertionFailedException(message);
+                if (message == null)
+                {
+                    throw new AssertionFailedException();
+                }
+                else
+                {
+                    throw new AssertionFailedException(message);
+                }
             }
         }
 
@@ -41,7 +46,6 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         /// </summary>
         /// <param name="expectedValue"></param>
         /// <param name="actualValue"></param>
-       
         public static void IsEquals(Object expectedValue, Object actualValue)
         {
             IsEquals(expectedValue, actualValue, null);
@@ -56,8 +60,10 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         public static void IsEquals(Object expectedValue, Object actualValue, string message)
         {
             if (!actualValue.Equals(expectedValue))
+            {
                 throw new AssertionFailedException("Expected " + expectedValue + " but encountered "
-                            + actualValue + (message != null ? ": " + message : String.Empty));            
+                                                   + actualValue + (message != null ? ": " + message : String.Empty));
+            }
         }
 
         /// <summary>
@@ -75,7 +81,7 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         public static void ShouldNeverReachHere(string message)
         {
             throw new AssertionFailedException("Should never reach here"
-                + (message != null ? ": " + message : String.Empty));
+                                               + (message != null ? ": " + message : String.Empty));
         }
     }
 }

@@ -22,13 +22,24 @@ using GeoAPI.Extensions.Feature;
 
 namespace SharpMap.Api
 {
-	/// <summary>
-	/// Interface for rendering a thematic layer
-	/// 
+    /// <summary>
+    /// Interface for rendering a thematic layer
+    /// 
     /// TODO: review ITheme, it should be easier to work with them, check implementation in ArgGIS, uDIG, QGIS...
-	/// </summary>
-	public interface ITheme : ICloneable
+    /// </summary>
+    public interface ITheme : ICloneable
     {
+        /// <summary>
+        /// Returns all themeItems that are part of this theme
+        /// </summary>
+        /// <returns>Color</returns>
+        IEventedList<IThemeItem> ThemeItems { get; set; }
+
+        /// <summary>
+        /// Theme attribute is used to find the values on which to base the coloring
+        /// </summary>
+        string AttributeName { get; }
+
         /// <summary>
         /// Returns the style based on a feature
         /// </summary>
@@ -46,12 +57,6 @@ namespace SharpMap.Api
         IStyle GetStyle<T>(T value) where T : IComparable<T>, IComparable;
 
         /// <summary>
-        /// Returns all themeItems that are part of this theme
-        /// </summary>
-        /// <returns>Color</returns>
-        IEventedList<IThemeItem> ThemeItems { get; set; }
-
-        /// <summary>
         /// Returns color by value based on current configuration of theme.
         /// 
         /// ADDED ONLY FOR PERFORMANCE
@@ -62,16 +67,11 @@ namespace SharpMap.Api
         Color GetFillColor<T>(T value) where T : IComparable;
 
         /// <summary>
-        /// Theme attribute is used to find the values on which to base the coloring
-        /// </summary>
-	    string AttributeName { get; }
-
-        /// <summary>
         /// Rescales the Theme based on <paramref name="min"/> and <paramref name="max"/>.
         /// </summary>
         /// <param name="min">Minimum value used for the visualisation of the theme</param>
         /// <param name="max">Maximum value used for the visualisation of the theme</param>
         /// <returns>Returns a new, rescaled theme based on this object.</returns>
-        void ScaleTo(double min, double max );
-	}
+        void ScaleTo(double min, double max);
+    }
 }

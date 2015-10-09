@@ -58,7 +58,10 @@ namespace DelftTools.Shell.Core
         /// </summary>
         public Type ValueType
         {
-            get { return typeof (TValue); }
+            get
+            {
+                return typeof(TValue);
+            }
         }
 
         /// <summary>
@@ -97,21 +100,21 @@ namespace DelftTools.Shell.Core
         public static implicit operator DataItemInfo(DataItemInfo<TValue> dataItemInfo)
         {
             return new DataItemInfo
-                {
-                    ValueType = dataItemInfo.ValueType,
-                    Name = dataItemInfo.Name,
-                    Category = dataItemInfo.Category,
-                    Image = dataItemInfo.Image,
-                    AdditionalOwnerCheck = dataItemInfo.AdditionalOwnerCheck != null
-                                                ? owner => dataItemInfo.AdditionalOwnerCheck(owner)
-                                                : (Func<object, bool>) null,
-                    CreateData = dataItemInfo.CreateData != null
-                                     ? owner => dataItemInfo.CreateData(owner)
-                                     : (Func<object, object>) null,
-                    AddExampleData = dataItemInfo.AddExampleData != null
-                                         ? d => dataItemInfo.AddExampleData((TValue) d)
-                                         : (Action<object>) null
-                };
+            {
+                ValueType = dataItemInfo.ValueType,
+                Name = dataItemInfo.Name,
+                Category = dataItemInfo.Category,
+                Image = dataItemInfo.Image,
+                AdditionalOwnerCheck = dataItemInfo.AdditionalOwnerCheck != null
+                                           ? owner => dataItemInfo.AdditionalOwnerCheck(owner)
+                                           : (Func<object, bool>) null,
+                CreateData = dataItemInfo.CreateData != null
+                                 ? owner => dataItemInfo.CreateData(owner)
+                                 : (Func<object, object>) null,
+                AddExampleData = dataItemInfo.AddExampleData != null
+                                     ? d => dataItemInfo.AddExampleData((TValue) d)
+                                     : (Action<object>) null
+            };
         }
     }
 }

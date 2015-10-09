@@ -37,14 +37,6 @@ namespace SharpMap.Api.Layers
         /// </summary>
         Image Image { get; }
 
-        void ClearImage();
-
-        /// <summary>
-        /// Disposes the layer (releases all resources used by the layer)
-        /// </summary>
-        /// <param name="disposeDataSource">Option to determine if the <see cref="DataSource"/> should also be disposed</param>
-        void Dispose(bool disposeDataSource = true);
-
         /// <summary>
         /// True if you don't want the extent of this layer to be included in the total map extent.
         /// </summary>
@@ -59,13 +51,6 @@ namespace SharpMap.Api.Layers
         /// True if the name is not allowed to be modified in the UI. set_Name will throw exception if you attempt to change the name while this flag is true.
         /// </summary>
         bool NameIsReadOnly { get; }
-
-        /// <summary>
-        /// Use this method to render layer manually. Results will be rendered into Image property.
-        /// 
-        /// This method should call OnRender which can be overriden in the implementations.
-        /// </summary>
-        void Render();
 
         /// <summary>
         /// Custom renderers which can be added to the layer and used to render something in addition to / instead of default rendering.
@@ -110,7 +95,8 @@ namespace SharpMap.Api.Layers
         /// <summary>
         /// Gets the boundingbox of the entire layer
         /// </summary>
-        GeoAPI.Geometries.IEnvelope Envelope { get; }
+        IEnvelope Envelope { get; }
+
         //System.Collections.Generic.List<T> Features { get; }
 
         /// <summary>
@@ -127,7 +113,7 @@ namespace SharpMap.Api.Layers
         /// Determines if the labels of the layer are shown in the map. Uses the underlying LabelLayer to customize the display style.
         /// </summary>
         bool ShowLabels { get; set; }
-        
+
         /// <summary>
         /// Defines if layer should be shown in a treeview of map layers. Useful to hide supplementary layers such as drawing Trackers or geometries.
         /// </summary>
@@ -149,21 +135,6 @@ namespace SharpMap.Api.Layers
         ICoordinateTransformation CoordinateTransformation { get; set; }
 
         /// <summary>
-        /// Gets features using envelope.
-        /// </summary>
-        /// <param name="envelope">Envelope, in current layer coordinate system (not in DataSoure)</param>
-        /// <returns></returns>
-        IEnumerable<IFeature> GetFeatures(IEnvelope envelope);
-
-        /// <summary>
-        /// Gets features using geometry.
-        /// </summary>
-        /// <param name="geometry">Geometry, defined in current layer coordinate system (not in DataSoure)</param>
-        /// <param name="useCustomRenderers"></param>
-        /// <returns></returns>
-        IEnumerable<IFeature> GetFeatures(IGeometry geometry, bool useCustomRenderers = true);
-
-        /// <summary>
         /// Provides access to the features used by the current layer.
         /// </summary>
         IFeatureProvider DataSource { get; set; }
@@ -171,14 +142,14 @@ namespace SharpMap.Api.Layers
         /// <summary>
         /// Allows editing of features.
         /// </summary>
-	    IFeatureEditor FeatureEditor { get; set; }
-       
+        IFeatureEditor FeatureEditor { get; set; }
+
         /// <summary>
         /// Symbology used to render features of the current layer.
         /// </summary>
         ITheme Theme { get; set; }
 
-	    /// <summary>
+        /// <summary>
         /// Can features of the layer be selected. 
         /// This defaults to Selectable and Visible.
         /// </summary>
@@ -215,10 +186,40 @@ namespace SharpMap.Api.Layers
         double MaxDataValue { get; }
 
         bool CanBeRemovedByUser { get; set; }
-        
+
         /// <summary>
         /// Defines the layer opacity, expressed as a value between 0.0 and 1.0. A value of 0.0 indicates fully transparent.
         /// </summary>
         float Opacity { get; set; }
+
+        void ClearImage();
+
+        /// <summary>
+        /// Disposes the layer (releases all resources used by the layer)
+        /// </summary>
+        /// <param name="disposeDataSource">Option to determine if the <see cref="DataSource"/> should also be disposed</param>
+        void Dispose(bool disposeDataSource = true);
+
+        /// <summary>
+        /// Use this method to render layer manually. Results will be rendered into Image property.
+        /// 
+        /// This method should call OnRender which can be overriden in the implementations.
+        /// </summary>
+        void Render();
+
+        /// <summary>
+        /// Gets features using envelope.
+        /// </summary>
+        /// <param name="envelope">Envelope, in current layer coordinate system (not in DataSoure)</param>
+        /// <returns></returns>
+        IEnumerable<IFeature> GetFeatures(IEnvelope envelope);
+
+        /// <summary>
+        /// Gets features using geometry.
+        /// </summary>
+        /// <param name="geometry">Geometry, defined in current layer coordinate system (not in DataSoure)</param>
+        /// <param name="useCustomRenderers"></param>
+        /// <returns></returns>
+        IEnumerable<IFeature> GetFeatures(IGeometry geometry, bool useCustomRenderers = true);
     }
 }

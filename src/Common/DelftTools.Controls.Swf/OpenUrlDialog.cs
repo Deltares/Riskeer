@@ -12,15 +12,24 @@ namespace DelftTools.Controls.Swf
 
         public string Url
         {
-            get { return urlComboBox.Text;  }
-            set { urlComboBox.Text = value;  }
+            get
+            {
+                return urlComboBox.Text;
+            }
+            set
+            {
+                urlComboBox.Text = value;
+            }
         }
 
         public string[] Urls
         {
-            get { return urlComboBox.Items.Cast<object>().Select(i => i.ToString()).ToArray(); }
-            set 
-            { 
+            get
+            {
+                return urlComboBox.Items.Cast<object>().Select(i => i.ToString()).ToArray();
+            }
+            set
+            {
                 urlComboBox.Items.Clear();
                 urlComboBox.Items.AddRange(value);
             }

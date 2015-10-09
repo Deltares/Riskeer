@@ -14,8 +14,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property
         [ResourcesDescription(typeof(Resources), "TextDocumentProperties_Name_Description")]
         public string Name
         {
-            get { return data.Name; }
-            set { data.Name = value; }
+            get
+            {
+                return data.Name;
+            }
+            set
+            {
+                data.Name = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
@@ -23,7 +29,10 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property
         [ResourcesDescription(typeof(Resources), "TextDocumentProperties_ReadOnly_Description")]
         public bool ReadOnly
         {
-            get { return data.ReadOnly; }
+            get
+            {
+                return data.ReadOnly;
+            }
         }
 
         [DynamicReadOnlyValidationMethod]

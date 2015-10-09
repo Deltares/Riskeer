@@ -12,34 +12,39 @@ using System.Windows.Forms.Design;
 
 namespace SharpMap.Styles.Shapes
 {
-    [ToolboxItemFilter("Prevent", ToolboxItemFilterType.Prevent), ToolboxItem(false)]
+    [ToolboxItemFilter("Prevent", ToolboxItemFilterType.Prevent)]
+    [ToolboxItem(false)]
     public class DropdownShapeEditor : UserControl
     {
         // Fields
-        private IWindowsFormsEditorService _editorService = null;
+        private readonly IWindowsFormsEditorService _editorService = null;
+
         [AccessedThroughProperty("sCircle")]
         private Shape _sCircle;
+
         [AccessedThroughProperty("sDiamond")]
         private Shape _sDiamond;
+
         [AccessedThroughProperty("sRectangle")]
         private Shape _sRectangle;
+
         [AccessedThroughProperty("sStar")]
         private Shape _sStar;
+
         [AccessedThroughProperty("sTriangle")]
         private Shape _sTriangle;
+
         private Shape _TheShape = new Shape();
         private IContainer components;
 
-        Shape defaultShape = new Shape();
-        private Shape.eShape selectedShapeType;
-
+        private readonly Shape defaultShape = new Shape();
 
         // Methods
         public DropdownShapeEditor(IWindowsFormsEditorService editorService)
         {
-            this.InitializeComponent();
-            this._editorService = editorService;
-        
+            InitializeComponent();
+            _editorService = editorService;
+
             sCircle = _sCircle;
             sRectangle = _sRectangle;
             sTriangle = _sTriangle;
@@ -55,14 +60,29 @@ namespace SharpMap.Styles.Shapes
             defaultShape.FocalPoints = _sCircle.FocalPoints;
         }
 
+        public Shape.eShape SelectedShapeType { get; private set; }
+
+        public Shape TheShape
+        {
+            get
+            {
+                return _TheShape;
+            }
+            set
+            {
+                _TheShape = value;
+                Invalidate();
+            }
+        }
+
         [DebuggerNonUserCode]
         protected override void Dispose(bool disposing)
         {
             try
             {
-                if (disposing && (this.components != null))
+                if (disposing && (components != null))
                 {
-                    this.components.Dispose();
+                    components.Dispose();
                 }
             }
             finally
@@ -71,9 +91,140 @@ namespace SharpMap.Styles.Shapes
             }
         }
 
-        public Shape.eShape SelectedShapeType
+        // Properties
+        internal virtual Shape sCircle
         {
-            get { return selectedShapeType; }
+            [DebuggerNonUserCode]
+            get
+            {
+                return _sCircle;
+            }
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            [DebuggerNonUserCode]
+            set
+            {
+                if (_sCircle != null)
+                {
+                    _sCircle.Click -= new EventHandler(sCircle_Click);
+                    _sCircle.MouseLeave -= new EventHandler(Shape_MouseLeave);
+                    _sCircle.MouseEnter -= new EventHandler(Shape_MouseEnter);
+                }
+                _sCircle = value;
+                if (_sCircle != null)
+                {
+                    _sCircle.Click += new EventHandler(sCircle_Click);
+                    _sCircle.MouseLeave += new EventHandler(Shape_MouseLeave);
+                    _sCircle.MouseEnter += new EventHandler(Shape_MouseEnter);
+                }
+            }
+        }
+
+        internal virtual Shape sDiamond
+        {
+            [DebuggerNonUserCode]
+            get
+            {
+                return _sDiamond;
+            }
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            [DebuggerNonUserCode]
+            set
+            {
+                if (_sDiamond != null)
+                {
+                    _sDiamond.Click -= new EventHandler(sCircle_Click);
+                    _sDiamond.MouseLeave -= new EventHandler(Shape_MouseLeave);
+                    _sDiamond.MouseEnter -= new EventHandler(Shape_MouseEnter);
+                }
+                _sDiamond = value;
+                if (_sDiamond != null)
+                {
+                    _sDiamond.Click += new EventHandler(sCircle_Click);
+                    _sDiamond.MouseLeave += new EventHandler(Shape_MouseLeave);
+                    _sDiamond.MouseEnter += new EventHandler(Shape_MouseEnter);
+                }
+            }
+        }
+
+        internal virtual Shape sRectangle
+        {
+            [DebuggerNonUserCode]
+            get
+            {
+                return _sRectangle;
+            }
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            [DebuggerNonUserCode]
+            set
+            {
+                if (_sRectangle != null)
+                {
+                    _sRectangle.Click -= new EventHandler(sCircle_Click);
+                    _sRectangle.MouseLeave -= new EventHandler(Shape_MouseLeave);
+                    _sRectangle.MouseEnter -= new EventHandler(Shape_MouseEnter);
+                }
+                _sRectangle = value;
+                if (_sRectangle != null)
+                {
+                    _sRectangle.Click += new EventHandler(sCircle_Click);
+                    _sRectangle.MouseLeave += new EventHandler(Shape_MouseLeave);
+                    _sRectangle.MouseEnter += new EventHandler(Shape_MouseEnter);
+                }
+            }
+        }
+
+        internal virtual Shape sStar
+        {
+            [DebuggerNonUserCode]
+            get
+            {
+                return _sStar;
+            }
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            [DebuggerNonUserCode]
+            set
+            {
+                if (_sStar != null)
+                {
+                    _sStar.Click -= new EventHandler(sCircle_Click);
+                    _sStar.MouseLeave -= new EventHandler(Shape_MouseLeave);
+                    _sStar.MouseEnter -= new EventHandler(Shape_MouseEnter);
+                }
+                _sStar = value;
+                if (_sStar != null)
+                {
+                    _sStar.Click += new EventHandler(sCircle_Click);
+                    _sStar.MouseLeave += new EventHandler(Shape_MouseLeave);
+                    _sStar.MouseEnter += new EventHandler(Shape_MouseEnter);
+                }
+            }
+        }
+
+        internal virtual Shape sTriangle
+        {
+            [DebuggerNonUserCode]
+            get
+            {
+                return _sTriangle;
+            }
+            [MethodImpl(MethodImplOptions.Synchronized)]
+            [DebuggerNonUserCode]
+            set
+            {
+                if (_sTriangle != null)
+                {
+                    _sTriangle.Click -= new EventHandler(sCircle_Click);
+                    _sTriangle.MouseLeave -= new EventHandler(Shape_MouseLeave);
+                    _sTriangle.MouseEnter -= new EventHandler(Shape_MouseEnter);
+                }
+                _sTriangle = value;
+                if (_sTriangle != null)
+                {
+                    _sTriangle.Click += new EventHandler(sCircle_Click);
+                    _sTriangle.MouseLeave += new EventHandler(Shape_MouseLeave);
+                    _sTriangle.MouseEnter += new EventHandler(Shape_MouseEnter);
+                }
+            }
         }
 
         private void sCircle_Click(object sender, EventArgs e)
@@ -81,8 +232,8 @@ namespace SharpMap.Styles.Shapes
             Shape shape = (Shape) sender;
 
             TheShape.ShapeType = shape.ShapeType;
-       
-            this._editorService.CloseDropDown();
+
+            _editorService.CloseDropDown();
         }
 
         private void Shape_MouseEnter(object sender, EventArgs e)
@@ -111,306 +262,177 @@ namespace SharpMap.Styles.Shapes
             shape.FocalPoints = defaultShape.FocalPoints;
         }
 
-        // Properties
-        internal virtual Shape sCircle
-        {
-            [DebuggerNonUserCode]
-            get
-            {
-                return this._sCircle;
-            }
-            [MethodImpl(MethodImplOptions.Synchronized), DebuggerNonUserCode]
-            set
-            {
-                if (this._sCircle != null)
-                {
-                    this._sCircle.Click -= new EventHandler(this.sCircle_Click);
-                    this._sCircle.MouseLeave -= new EventHandler(this.Shape_MouseLeave);
-                    this._sCircle.MouseEnter -= new EventHandler(this.Shape_MouseEnter);
-                }
-                this._sCircle = value;
-                if (this._sCircle != null)
-                {
-                    this._sCircle.Click += new EventHandler(this.sCircle_Click);
-                    this._sCircle.MouseLeave += new EventHandler(this.Shape_MouseLeave);
-                    this._sCircle.MouseEnter += new EventHandler(this.Shape_MouseEnter);
-                }
-            }
-        }
-
-        internal virtual Shape sDiamond
-        {
-            [DebuggerNonUserCode]
-            get
-            {
-                return this._sDiamond;
-            }
-            [MethodImpl(MethodImplOptions.Synchronized), DebuggerNonUserCode]
-            set
-            {
-                if (this._sDiamond != null)
-                {
-                    this._sDiamond.Click -= new EventHandler(this.sCircle_Click);
-                    this._sDiamond.MouseLeave -= new EventHandler(this.Shape_MouseLeave);
-                    this._sDiamond.MouseEnter -= new EventHandler(this.Shape_MouseEnter);
-                }
-                this._sDiamond = value;
-                if (this._sDiamond != null)
-                {
-                    this._sDiamond.Click += new EventHandler(this.sCircle_Click);
-                    this._sDiamond.MouseLeave += new EventHandler(this.Shape_MouseLeave);
-                    this._sDiamond.MouseEnter += new EventHandler(this.Shape_MouseEnter);
-                }
-            }
-        }
-
-        internal virtual Shape sRectangle
-        {
-            [DebuggerNonUserCode]
-            get
-            {
-                return this._sRectangle;
-            }
-            [MethodImpl(MethodImplOptions.Synchronized), DebuggerNonUserCode]
-            set
-            {
-                if (this._sRectangle != null)
-                {
-                    this._sRectangle.Click -= new EventHandler(this.sCircle_Click);
-                    this._sRectangle.MouseLeave -= new EventHandler(this.Shape_MouseLeave);
-                    this._sRectangle.MouseEnter -= new EventHandler(this.Shape_MouseEnter);
-                }
-                this._sRectangle = value;
-                if (this._sRectangle != null)
-                {
-                    this._sRectangle.Click += new EventHandler(this.sCircle_Click);
-                    this._sRectangle.MouseLeave += new EventHandler(this.Shape_MouseLeave);
-                    this._sRectangle.MouseEnter += new EventHandler(this.Shape_MouseEnter);
-                }
-            }
-        }
-
-        internal virtual Shape sStar
-        {
-            [DebuggerNonUserCode]
-            get
-            {
-                return this._sStar;
-            }
-            [MethodImpl(MethodImplOptions.Synchronized), DebuggerNonUserCode]
-            set
-            {
-                if (this._sStar != null)
-                {
-                    this._sStar.Click -= new EventHandler(this.sCircle_Click);
-                    this._sStar.MouseLeave -= new EventHandler(this.Shape_MouseLeave);
-                    this._sStar.MouseEnter -= new EventHandler(this.Shape_MouseEnter);
-                }
-                this._sStar = value;
-                if (this._sStar != null)
-                {
-                    this._sStar.Click += new EventHandler(this.sCircle_Click);
-                    this._sStar.MouseLeave += new EventHandler(this.Shape_MouseLeave);
-                    this._sStar.MouseEnter += new EventHandler(this.Shape_MouseEnter);
-                }
-            }
-        }
-
-        internal virtual Shape sTriangle
-        {
-            [DebuggerNonUserCode]
-            get
-            {
-                return this._sTriangle;
-            }
-            [MethodImpl(MethodImplOptions.Synchronized), DebuggerNonUserCode]
-            set
-            {
-                if (this._sTriangle != null)
-                {
-                    this._sTriangle.Click -= new EventHandler(this.sCircle_Click);
-                    this._sTriangle.MouseLeave -= new EventHandler(this.Shape_MouseLeave);
-                    this._sTriangle.MouseEnter -= new EventHandler(this.Shape_MouseEnter);
-                }
-                this._sTriangle = value;
-                if (this._sTriangle != null)
-                {
-                    this._sTriangle.Click += new EventHandler(this.sCircle_Click);
-                    this._sTriangle.MouseLeave += new EventHandler(this.Shape_MouseLeave);
-                    this._sTriangle.MouseEnter += new EventHandler(this.Shape_MouseEnter);
-                }
-            }
-        }
-
-        public Shape TheShape
-        {
-            get
-            {
-                return this._TheShape;
-            }
-            set
-            {
-                this._TheShape = value;
-                this.Invalidate();
-            }
-        }
-
         private void InitializeComponent()
         {
             cBlendItems cBlendItems1 = new cBlendItems();
             cFocalPoints cFocalPoints1 = new cFocalPoints();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DropdownShapeEditor));
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(DropdownShapeEditor));
             cBlendItems cBlendItems2 = new cBlendItems();
             cFocalPoints cFocalPoints2 = new cFocalPoints();
             cBlendItems cBlendItems3 = new cBlendItems();
             cFocalPoints cFocalPoints3 = new cFocalPoints();
             cBlendItems cBlendItems4 = new cBlendItems();
             cFocalPoints cFocalPoints4 = new cFocalPoints();
-            this._sDiamond = new Shape();
-            this._sTriangle = new Shape();
-            this._sRectangle = new Shape();
-            this._sCircle = new Shape();
-            this.SuspendLayout();
+            _sDiamond = new Shape();
+            _sTriangle = new Shape();
+            _sRectangle = new Shape();
+            _sCircle = new Shape();
+            SuspendLayout();
             // 
             // _sDiamond
             // 
-            this._sDiamond.BorderColor = System.Drawing.Color.Black;
-            this._sDiamond.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            this._sDiamond.BorderWidth = 2F;
-            cBlendItems1.iColor = new System.Drawing.Color[] {
-                                                                 System.Drawing.Color.White,
-                                                                 System.Drawing.Color.White};
-            cBlendItems1.iPoint = new float[] {
-                                                  0F,
-                                                  1F};
-            this._sDiamond.ColorFillBlend = cBlendItems1;
-            this._sDiamond.ColorFillSolid = System.Drawing.SystemColors.Control;
-            this._sDiamond.Corners.All = ((short)(0));
-            this._sDiamond.Corners.LowerLeft = ((short)(0));
-            this._sDiamond.Corners.LowerRight = ((short)(0));
-            this._sDiamond.Corners.UpperLeft = ((short)(0));
-            this._sDiamond.Corners.UpperRight = ((short)(0));
-            this._sDiamond.FillType = Shape.eFillType.Solid;
-            this._sDiamond.FillTypeLinear = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            cFocalPoints1.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.CenterPoint")));
-            cFocalPoints1.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints1.FocusScales")));
-            this._sDiamond.FocalPoints = cFocalPoints1;
-            this._sDiamond.Location = new System.Drawing.Point(175, 3);
-            this._sDiamond.Name = "_sDiamond";
-            this._sDiamond.RadiusInner = 0F;
-            this._sDiamond.RegionClip = false;
-            this._sDiamond.ShapeType = Shape.eShape.Diamond;
-            this._sDiamond.Size = new System.Drawing.Size(50, 50);
-            this._sDiamond.TabIndex = 3;
-            this._sDiamond.Text = "_sDiamond";
+            _sDiamond.BorderColor = Color.Black;
+            _sDiamond.BorderStyle = DashStyle.Solid;
+            _sDiamond.BorderWidth = 2F;
+            cBlendItems1.iColor = new Color[]
+            {
+                Color.White,
+                Color.White
+            };
+            cBlendItems1.iPoint = new float[]
+            {
+                0F,
+                1F
+            };
+            _sDiamond.ColorFillBlend = cBlendItems1;
+            _sDiamond.ColorFillSolid = SystemColors.Control;
+            _sDiamond.Corners.All = ((short) (0));
+            _sDiamond.Corners.LowerLeft = ((short) (0));
+            _sDiamond.Corners.LowerRight = ((short) (0));
+            _sDiamond.Corners.UpperLeft = ((short) (0));
+            _sDiamond.Corners.UpperRight = ((short) (0));
+            _sDiamond.FillType = Shape.eFillType.Solid;
+            _sDiamond.FillTypeLinear = LinearGradientMode.Horizontal;
+            cFocalPoints1.CenterPoint = ((PointF) (resources.GetObject("cFocalPoints1.CenterPoint")));
+            cFocalPoints1.FocusScales = ((PointF) (resources.GetObject("cFocalPoints1.FocusScales")));
+            _sDiamond.FocalPoints = cFocalPoints1;
+            _sDiamond.Location = new Point(175, 3);
+            _sDiamond.Name = "_sDiamond";
+            _sDiamond.RadiusInner = 0F;
+            _sDiamond.RegionClip = false;
+            _sDiamond.ShapeType = Shape.eShape.Diamond;
+            _sDiamond.Size = new Size(50, 50);
+            _sDiamond.TabIndex = 3;
+            _sDiamond.Text = "_sDiamond";
             // 
             // _sTriangle
             // 
-            this._sTriangle.BorderColor = System.Drawing.Color.Black;
-            this._sTriangle.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            this._sTriangle.BorderWidth = 2F;
-            cBlendItems2.iColor = new System.Drawing.Color[] {
-                                                                 System.Drawing.Color.White,
-                                                                 System.Drawing.Color.White};
-            cBlendItems2.iPoint = new float[] {
-                                                  0F,
-                                                  1F};
-            this._sTriangle.ColorFillBlend = cBlendItems2;
-            this._sTriangle.ColorFillSolid = System.Drawing.SystemColors.Control;
-            this._sTriangle.Corners.All = ((short)(0));
-            this._sTriangle.Corners.LowerLeft = ((short)(0));
-            this._sTriangle.Corners.LowerRight = ((short)(0));
-            this._sTriangle.Corners.UpperLeft = ((short)(0));
-            this._sTriangle.Corners.UpperRight = ((short)(0));
-            this._sTriangle.FillType = Shape.eFillType.Solid;
-            this._sTriangle.FillTypeLinear = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            cFocalPoints2.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.CenterPoint")));
-            cFocalPoints2.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints2.FocusScales")));
-            this._sTriangle.FocalPoints = cFocalPoints2;
-            this._sTriangle.Location = new System.Drawing.Point(119, 3);
-            this._sTriangle.Name = "_sTriangle";
-            this._sTriangle.RadiusInner = 0F;
-            this._sTriangle.RegionClip = false;
-            this._sTriangle.ShapeType = Shape.eShape.Triangle;
-            this._sTriangle.Size = new System.Drawing.Size(50, 50);
-            this._sTriangle.TabIndex = 2;
-            this._sTriangle.Text = "_sTriangle";
+            _sTriangle.BorderColor = Color.Black;
+            _sTriangle.BorderStyle = DashStyle.Solid;
+            _sTriangle.BorderWidth = 2F;
+            cBlendItems2.iColor = new Color[]
+            {
+                Color.White,
+                Color.White
+            };
+            cBlendItems2.iPoint = new float[]
+            {
+                0F,
+                1F
+            };
+            _sTriangle.ColorFillBlend = cBlendItems2;
+            _sTriangle.ColorFillSolid = SystemColors.Control;
+            _sTriangle.Corners.All = ((short) (0));
+            _sTriangle.Corners.LowerLeft = ((short) (0));
+            _sTriangle.Corners.LowerRight = ((short) (0));
+            _sTriangle.Corners.UpperLeft = ((short) (0));
+            _sTriangle.Corners.UpperRight = ((short) (0));
+            _sTriangle.FillType = Shape.eFillType.Solid;
+            _sTriangle.FillTypeLinear = LinearGradientMode.Horizontal;
+            cFocalPoints2.CenterPoint = ((PointF) (resources.GetObject("cFocalPoints2.CenterPoint")));
+            cFocalPoints2.FocusScales = ((PointF) (resources.GetObject("cFocalPoints2.FocusScales")));
+            _sTriangle.FocalPoints = cFocalPoints2;
+            _sTriangle.Location = new Point(119, 3);
+            _sTriangle.Name = "_sTriangle";
+            _sTriangle.RadiusInner = 0F;
+            _sTriangle.RegionClip = false;
+            _sTriangle.ShapeType = Shape.eShape.Triangle;
+            _sTriangle.Size = new Size(50, 50);
+            _sTriangle.TabIndex = 2;
+            _sTriangle.Text = "_sTriangle";
             // 
             // _sRectangle
             // 
-            this._sRectangle.BorderColor = System.Drawing.Color.Black;
-            this._sRectangle.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            this._sRectangle.BorderWidth = 2F;
-            cBlendItems3.iColor = new System.Drawing.Color[] {
-                                                                 System.Drawing.Color.White,
-                                                                 System.Drawing.Color.White};
-            cBlendItems3.iPoint = new float[] {
-                                                  0F,
-                                                  1F};
-            this._sRectangle.ColorFillBlend = cBlendItems3;
-            this._sRectangle.ColorFillSolid = System.Drawing.SystemColors.Control;
-            this._sRectangle.Corners.All = ((short)(0));
-            this._sRectangle.Corners.LowerLeft = ((short)(0));
-            this._sRectangle.Corners.LowerRight = ((short)(0));
-            this._sRectangle.Corners.UpperLeft = ((short)(0));
-            this._sRectangle.Corners.UpperRight = ((short)(0));
-            this._sRectangle.FillType = Shape.eFillType.Solid;
-            this._sRectangle.FillTypeLinear = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            cFocalPoints3.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.CenterPoint")));
-            cFocalPoints3.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints3.FocusScales")));
-            this._sRectangle.FocalPoints = cFocalPoints3;
-            this._sRectangle.Location = new System.Drawing.Point(63, 3);
-            this._sRectangle.Name = "_sRectangle";
-            this._sRectangle.RadiusInner = 0F;
-            this._sRectangle.RegionClip = false;
-            this._sRectangle.ShapeType = Shape.eShape.Rectangle;
-            this._sRectangle.Size = new System.Drawing.Size(50, 50);
-            this._sRectangle.TabIndex = 1;
-            this._sRectangle.Text = "_sRectangle";
+            _sRectangle.BorderColor = Color.Black;
+            _sRectangle.BorderStyle = DashStyle.Solid;
+            _sRectangle.BorderWidth = 2F;
+            cBlendItems3.iColor = new Color[]
+            {
+                Color.White,
+                Color.White
+            };
+            cBlendItems3.iPoint = new float[]
+            {
+                0F,
+                1F
+            };
+            _sRectangle.ColorFillBlend = cBlendItems3;
+            _sRectangle.ColorFillSolid = SystemColors.Control;
+            _sRectangle.Corners.All = ((short) (0));
+            _sRectangle.Corners.LowerLeft = ((short) (0));
+            _sRectangle.Corners.LowerRight = ((short) (0));
+            _sRectangle.Corners.UpperLeft = ((short) (0));
+            _sRectangle.Corners.UpperRight = ((short) (0));
+            _sRectangle.FillType = Shape.eFillType.Solid;
+            _sRectangle.FillTypeLinear = LinearGradientMode.Horizontal;
+            cFocalPoints3.CenterPoint = ((PointF) (resources.GetObject("cFocalPoints3.CenterPoint")));
+            cFocalPoints3.FocusScales = ((PointF) (resources.GetObject("cFocalPoints3.FocusScales")));
+            _sRectangle.FocalPoints = cFocalPoints3;
+            _sRectangle.Location = new Point(63, 3);
+            _sRectangle.Name = "_sRectangle";
+            _sRectangle.RadiusInner = 0F;
+            _sRectangle.RegionClip = false;
+            _sRectangle.ShapeType = Shape.eShape.Rectangle;
+            _sRectangle.Size = new Size(50, 50);
+            _sRectangle.TabIndex = 1;
+            _sRectangle.Text = "_sRectangle";
             // 
             // _sCircle
             // 
-            this._sCircle.BorderColor = System.Drawing.Color.Black;
-            this._sCircle.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            this._sCircle.BorderWidth = 2F;
-            cBlendItems4.iColor = new System.Drawing.Color[] {
-                                                                 System.Drawing.Color.White,
-                                                                 System.Drawing.Color.White};
-            cBlendItems4.iPoint = new float[] {
-                                                  0F,
-                                                  1F};
-            this._sCircle.ColorFillBlend = cBlendItems4;
-            this._sCircle.ColorFillSolid = System.Drawing.SystemColors.Control;
-            this._sCircle.Corners.All = ((short)(0));
-            this._sCircle.Corners.LowerLeft = ((short)(0));
-            this._sCircle.Corners.LowerRight = ((short)(0));
-            this._sCircle.Corners.UpperLeft = ((short)(0));
-            this._sCircle.Corners.UpperRight = ((short)(0));
-            this._sCircle.FillType = Shape.eFillType.Solid;
-            this._sCircle.FillTypeLinear = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            cFocalPoints4.CenterPoint = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints4.CenterPoint")));
-            cFocalPoints4.FocusScales = ((System.Drawing.PointF)(resources.GetObject("cFocalPoints4.FocusScales")));
-            this._sCircle.FocalPoints = cFocalPoints4;
-            this._sCircle.Location = new System.Drawing.Point(7, 3);
-            this._sCircle.Name = "_sCircle";
-            this._sCircle.RadiusInner = 0F;
-            this._sCircle.RegionClip = false;
-            this._sCircle.ShapeType = Shape.eShape.Ellipse;
-            this._sCircle.Size = new System.Drawing.Size(50, 50);
-            this._sCircle.TabIndex = 0;
-            this._sCircle.Text = "_sCircle";
+            _sCircle.BorderColor = Color.Black;
+            _sCircle.BorderStyle = DashStyle.Solid;
+            _sCircle.BorderWidth = 2F;
+            cBlendItems4.iColor = new Color[]
+            {
+                Color.White,
+                Color.White
+            };
+            cBlendItems4.iPoint = new float[]
+            {
+                0F,
+                1F
+            };
+            _sCircle.ColorFillBlend = cBlendItems4;
+            _sCircle.ColorFillSolid = SystemColors.Control;
+            _sCircle.Corners.All = ((short) (0));
+            _sCircle.Corners.LowerLeft = ((short) (0));
+            _sCircle.Corners.LowerRight = ((short) (0));
+            _sCircle.Corners.UpperLeft = ((short) (0));
+            _sCircle.Corners.UpperRight = ((short) (0));
+            _sCircle.FillType = Shape.eFillType.Solid;
+            _sCircle.FillTypeLinear = LinearGradientMode.Horizontal;
+            cFocalPoints4.CenterPoint = ((PointF) (resources.GetObject("cFocalPoints4.CenterPoint")));
+            cFocalPoints4.FocusScales = ((PointF) (resources.GetObject("cFocalPoints4.FocusScales")));
+            _sCircle.FocalPoints = cFocalPoints4;
+            _sCircle.Location = new Point(7, 3);
+            _sCircle.Name = "_sCircle";
+            _sCircle.RadiusInner = 0F;
+            _sCircle.RegionClip = false;
+            _sCircle.ShapeType = Shape.eShape.Ellipse;
+            _sCircle.Size = new Size(50, 50);
+            _sCircle.TabIndex = 0;
+            _sCircle.Text = "_sCircle";
             // 
             // DropdownShapeEditor
             // 
-            this.BackColor = System.Drawing.SystemColors.Window;
-            this.Controls.Add(this._sDiamond);
-            this.Controls.Add(this._sTriangle);
-            this.Controls.Add(this._sRectangle);
-            this.Controls.Add(this._sCircle);
-            this.Name = "DropdownShapeEditor";
-            this.Size = new System.Drawing.Size(235, 62);
-            this.ResumeLayout(false);
-
+            BackColor = SystemColors.Window;
+            Controls.Add(_sDiamond);
+            Controls.Add(_sTriangle);
+            Controls.Add(_sRectangle);
+            Controls.Add(_sCircle);
+            Name = "DropdownShapeEditor";
+            Size = new Size(235, 62);
+            ResumeLayout(false);
         }
     }
 }

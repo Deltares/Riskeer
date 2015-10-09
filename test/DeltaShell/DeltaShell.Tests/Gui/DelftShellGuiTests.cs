@@ -28,18 +28,6 @@ namespace DeltaShell.Tests.Gui
             gui.Dispose();
         }
 
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
-        {
-            LogHelper.ConfigureLogging();
-        }
-
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
-        {
-            LogHelper.ResetLogging();
-        }
-
         [Test]
         public void DisposingGuiDisposesApplication()
         {
@@ -48,7 +36,7 @@ namespace DeltaShell.Tests.Gui
 
             //action!
             gui.Dispose();
-            
+
             //assert
             Assert.AreEqual(1, testApplication.DisposeCallCount);
         }
@@ -67,6 +55,18 @@ namespace DeltaShell.Tests.Gui
             gui.Run();
 
             callCount.Should("AfterRun event is fired after gui starts").Be.EqualTo(1);
+        }
+
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
+        {
+            LogHelper.ConfigureLogging();
+        }
+
+        [TestFixtureTearDown]
+        public void TestFixtureTearDown()
+        {
+            LogHelper.ResetLogging();
         }
     }
 }

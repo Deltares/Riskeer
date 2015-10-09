@@ -3,8 +3,5 @@
 namespace SharpMap.Extensions.Tests.CoordinateSystems
 {
     [TestFixture]
-    public class OgrCoordinateTransformationTest
-    {
-         
-    }
+    public class OgrCoordinateTransformationTest {}
 }

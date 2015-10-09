@@ -16,17 +16,18 @@ namespace DelftTools.Controls.Swf.Charting
         }
 
         /// <summary>
-        /// Graphics object used for drawing.
-        /// </summary>
-        private Graphics3D Graphics3D { get; set; }
-        
-        /// <summary>
         /// Background color used when drawing
         /// </summary>
         public Color BackColor
         {
-            get { return Graphics3D.BackColor; }
-            set { Graphics3D.BackColor = value; }
+            get
+            {
+                return Graphics3D.BackColor;
+            }
+            set
+            {
+                Graphics3D.BackColor = value;
+            }
         }
 
         /// <summary>
@@ -34,8 +35,14 @@ namespace DelftTools.Controls.Swf.Charting
         /// </summary>
         public Color PenColor
         {
-            get { return Graphics3D.Pen.Color; }
-            set { Graphics3D.Pen.Color = value; }
+            get
+            {
+                return Graphics3D.Pen.Color;
+            }
+            set
+            {
+                Graphics3D.Pen.Color = value;
+            }
         }
 
         /// <summary>
@@ -43,8 +50,14 @@ namespace DelftTools.Controls.Swf.Charting
         /// </summary>
         public int PenWidth
         {
-            get { return Graphics3D.Pen.Width; }
-            set { Graphics3D.Pen.Width = value; }
+            get
+            {
+                return Graphics3D.Pen.Width;
+            }
+            set
+            {
+                Graphics3D.Pen.Width = value;
+            }
         }
 
         /// <summary>
@@ -52,8 +65,14 @@ namespace DelftTools.Controls.Swf.Charting
         /// </summary>
         public DashStyle PenStyle
         {
-            get { return Graphics3D.Pen.Style; }
-            set { Graphics3D.Pen.Style = value; }
+            get
+            {
+                return Graphics3D.Pen.Style;
+            }
+            set
+            {
+                Graphics3D.Pen.Style = value;
+            }
         }
 
         /// <summary>
@@ -61,8 +80,14 @@ namespace DelftTools.Controls.Swf.Charting
         /// </summary>
         public Font Font
         {
-            get { return Graphics3D.Font.DrawingFont; }
-            set { Graphics3D.Font.DrawingFont = value; }
+            get
+            {
+                return Graphics3D.Font.DrawingFont;
+            }
+            set
+            {
+                Graphics3D.Font.DrawingFont = value;
+            }
         }
 
         /// <summary>
@@ -71,7 +96,7 @@ namespace DelftTools.Controls.Swf.Charting
         /// <param name="rectangle">Region to draw the ellipse in</param>
         public void Ellipse(Rectangle rectangle)
         {
-            DrawWithPenEnabled(()=> Graphics3D.Ellipse(rectangle));
+            DrawWithPenEnabled(() => Graphics3D.Ellipse(rectangle));
         }
 
         /// <summary>
@@ -91,7 +116,7 @@ namespace DelftTools.Controls.Swf.Charting
         /// <param name="transparent">Use transparent color</param>
         public void Draw(Rectangle rectangle, Image image, bool transparent)
         {
-            DrawWithPenEnabled(() => Graphics3D.Draw(rectangle,image,transparent));
+            DrawWithPenEnabled(() => Graphics3D.Draw(rectangle, image, transparent));
         }
 
         /// <summary>
@@ -101,7 +126,7 @@ namespace DelftTools.Controls.Swf.Charting
         /// <param name="y">y position</param>
         public void MoveTo(int x, int y)
         {
-            Graphics3D.MoveTo(x,y);
+            Graphics3D.MoveTo(x, y);
         }
 
         /// <summary>
@@ -123,14 +148,14 @@ namespace DelftTools.Controls.Swf.Charting
         {
             DrawWithPenEnabled(() => Graphics3D.DrawPath(pen, graphicsPath));
         }
-        
+
         /// <summary>
         /// Calculates the size needed to draw the sting
         /// </summary>
         /// <param name="label">String to calculate for</param>
         public SizeF MeasureString(string label)
         {
-            return Graphics3D.MeasureString(Graphics3D.Font, label) ;
+            return Graphics3D.MeasureString(Graphics3D.Font, label);
         }
 
         /// <summary>
@@ -153,11 +178,16 @@ namespace DelftTools.Controls.Swf.Charting
             DrawWithPenEnabled(() => Graphics3D.Polygon(points));
         }
 
+        /// <summary>
+        /// Graphics object used for drawing.
+        /// </summary>
+        private Graphics3D Graphics3D { get; set; }
+
         private void DrawWithPenEnabled(Action drawAction)
         {
             var originalPenVisible = Graphics3D.Pen.Visible;
             Graphics3D.Pen.Visible = true;
-            
+
             Graphics3D.ClipRectangle(chart.ChartBounds);
             drawAction();
             Graphics3D.UnClip();

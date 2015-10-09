@@ -61,7 +61,8 @@ namespace DeltaShell.Tests.Core
             Expect.Call(plugin.GetFileImporters()).Return(new List<IFileImporter>());
             Expect.Call(plugin.GetFileExporters()).Return(new List<IFileExporter>());
 
-            plugin.Activate(); LastCall.Repeat.Once();
+            plugin.Activate();
+            LastCall.Repeat.Once();
 
             mocks.ReplayAll();
 

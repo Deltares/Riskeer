@@ -13,40 +13,50 @@ namespace SharpMap.UI.Tools.Zooming
     /// </summary>
     public class PanZoomUsingMouseWheelTool : ZoomTool
     {
-        private Bitmap DragImage { get; set; }
-        private Bitmap StaticToolsImage { get; set; }
-        private bool Dragging { get; set; }
-        private Point DragStartPoint { get; set; }
-        private Point DragEndPoint { get; set; }
+        private double wheelZoomMagnitude = 2;
 
         public PanZoomUsingMouseWheelTool()
         {
             Name = "ZoomInOutUsingWheel";
         }
 
+        public override bool AlwaysActive
+        {
+            get
+            {
+                return true;
+            }
+        }
 
-        private double wheelZoomMagnitude = 2;
+        public override bool IsBusy
+        {
+            get
+            {
+                return Dragging;
+            }
+        }
 
         [Description("The amount which a single movement of the mouse wheel zooms by.")]
         [DefaultValue(2)]
         [Category("Behavior")]
         public double WheelZoomMagnitude
         {
-            get { return wheelZoomMagnitude; }
-            set { wheelZoomMagnitude = value; }
+            get
+            {
+                return wheelZoomMagnitude;
+            }
+            set
+            {
+                wheelZoomMagnitude = value;
+            }
         }
-
-
-        public override bool AlwaysActive
-        {
-            get { return true; }
-        }
-
 
         public override void OnMouseWheel(ICoordinate mouseWorldPosition, MouseEventArgs e)
         {
             if (Dragging)
+            {
                 return;
+            }
 
             // zoom map 
             double scale = (-e.Delta/250.0);
@@ -58,7 +68,7 @@ namespace SharpMap.UI.Tools.Zooming
             }
 
             double scaleBase = 1 + usedWheelZoomMagnutide;
-            
+
             double zoomFactor = scale > 0 ? scaleBase : 1/scaleBase;
 
             Map.Zoom *= zoomFactor;
@@ -75,21 +85,21 @@ namespace SharpMap.UI.Tools.Zooming
 
                 // draw zoom rectangle (in screen coordinates)
                 zoomRectangle = new Rectangle(
-                    (int)(e.X * (1 - zoomFactor)),
-                    (int)(e.Y * (1 - zoomFactor)),
-                    (int)(MapControl.Size.Width * zoomFactor),
-                    (int)(MapControl.Size.Height * zoomFactor));
+                    (int) (e.X*(1 - zoomFactor)),
+                    (int) (e.Y*(1 - zoomFactor)),
+                    (int) (MapControl.Size.Width*zoomFactor),
+                    (int) (MapControl.Size.Height*zoomFactor));
             }
             else
             {
                 // draw zoom rectangle (in screen coordinates)
                 zoomRectangle = new Rectangle(
-                    (int)(MapControl.Width/2.0 * (1 - zoomFactor)),
-                    (int)(MapControl.Height/2.0 * (1 - zoomFactor)),
-                    (int)(MapControl.Size.Width * zoomFactor),
-                    (int)(MapControl.Size.Height * zoomFactor));
+                    (int) (MapControl.Width/2.0*(1 - zoomFactor)),
+                    (int) (MapControl.Height/2.0*(1 - zoomFactor)),
+                    (int) (MapControl.Size.Width*zoomFactor),
+                    (int) (MapControl.Size.Height*zoomFactor));
             }
-            
+
             // draw image and clear background in a separate image first to prevent flickering
 /*
             using (var previewImage = (Bitmap) Map.Image.Clone())
@@ -121,19 +131,79 @@ namespace SharpMap.UI.Tools.Zooming
         public override void OnMouseDown(ICoordinate worldPosition, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle && !Dragging)
+            {
                 StartDrag(e.Location);
+            }
         }
 
         public override void OnMouseUp(ICoordinate worldPosition, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Middle && Dragging)
+            {
                 StopDrag();
+            }
         }
 
         public override void OnKeyUp(KeyEventArgs e)
         {
             if (Dragging && (!e.Control ^ !e.Alt)) //either of the keys got depressed
+            {
                 StopDrag();
+            }
+        }
+
+        public override void OnMouseMove(ICoordinate worldPosition, MouseEventArgs e)
+        {
+            if (!Dragging)
+            {
+                if (IsCtrlAndAltPressed)
+                {
+                    StartDrag(e.Location);
+                }
+                return;
+            }
+
+            // in case key events get lost: stop dragging if no longer mouse / keyboard down
+            if (!IsCtrlAndAltPressed && e.Button != MouseButtons.Middle)
+            {
+                StopDrag();
+                return;
+            }
+
+            MapControl.Cursor = Cursors.Hand;
+            DragEndPoint = e.Location;
+
+            var point = new Point((DragEndPoint.X - DragStartPoint.X),
+                                  (DragEndPoint.Y - DragStartPoint.Y));
+
+            using (var previewImage = new Bitmap(DragImage.Width, DragImage.Height))
+            {
+                using (var g = Graphics.FromImage(previewImage))
+                {
+                    g.Clear(MapControl.BackColor);
+                    g.DrawImageUnscaled(DragImage, point);
+                    g.DrawImageUnscaled(StaticToolsImage, 0, 0);
+                }
+
+                using (var g = MapControl.CreateGraphics())
+                {
+                    g.DrawImage(previewImage, 0, 0);
+                }
+            }
+        }
+
+        private Bitmap DragImage { get; set; }
+        private Bitmap StaticToolsImage { get; set; }
+        private bool Dragging { get; set; }
+        private Point DragStartPoint { get; set; }
+        private Point DragEndPoint { get; set; }
+
+        private bool IsCtrlAndAltPressed
+        {
+            get
+            {
+                return IsCtrlPressed && IsAltPressed;
+            }
         }
 
         private void StartDrag(Point mouseStartLocation)
@@ -169,59 +239,11 @@ namespace SharpMap.UI.Tools.Zooming
             StaticToolsImage.Dispose();
             Dragging = false;
             var point = new Point((MapControl.ClientSize.Width/2 + (DragStartPoint.X - DragEndPoint.X)),
-                                    (MapControl.ClientSize.Height/2 + (DragStartPoint.Y - DragEndPoint.Y)));
+                                  (MapControl.ClientSize.Height/2 + (DragStartPoint.Y - DragEndPoint.Y)));
             Map.Center = Map.ImageToWorld(point);
 
             MapControl.Cursor = Cursors.Default;
             MapControl.Refresh();
-        }
-
-        private bool IsCtrlAndAltPressed
-        {
-            get { return IsCtrlPressed && IsAltPressed; }
-        }
-
-        public override void OnMouseMove(ICoordinate worldPosition, MouseEventArgs e)
-        {
-            if (!Dragging)
-            {
-                if (IsCtrlAndAltPressed)
-                    StartDrag(e.Location);
-                return;
-            }
-            
-            // in case key events get lost: stop dragging if no longer mouse / keyboard down
-            if (!IsCtrlAndAltPressed && e.Button != MouseButtons.Middle)
-            {
-                StopDrag();
-                return;
-            }
-
-            MapControl.Cursor = Cursors.Hand;
-            DragEndPoint = e.Location;
-
-            var point = new Point((DragEndPoint.X - DragStartPoint.X),
-                                    (DragEndPoint.Y - DragStartPoint.Y));
-
-            using (var previewImage = new Bitmap(DragImage.Width, DragImage.Height))
-            {
-                using (var g = Graphics.FromImage(previewImage))
-                {
-                    g.Clear(MapControl.BackColor);
-                    g.DrawImageUnscaled(DragImage, point);
-                    g.DrawImageUnscaled(StaticToolsImage, 0, 0);
-                }
-
-                using (var g = MapControl.CreateGraphics())
-                {
-                    g.DrawImage(previewImage, 0, 0);
-                }
-            }
-        }
-
-        public override bool IsBusy
-        {
-            get { return Dragging; }
         }
     }
 }

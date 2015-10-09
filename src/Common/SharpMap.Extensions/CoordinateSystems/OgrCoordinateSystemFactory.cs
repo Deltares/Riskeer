@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GeoAPI.CoordinateSystems;
 using GeoAPI.CoordinateSystems.Transformations;
+using SharpMap.Extensions.Properties;
 
 namespace SharpMap.Extensions.CoordinateSystems
 {
@@ -13,19 +14,18 @@ namespace SharpMap.Extensions.CoordinateSystems
         /// </summary>
         private static IList<ICoordinateSystem> supportedCoordinateSystems;
 
-        public IList<ICoordinateSystem> CustomCoordinateSystems { get; set; }
-
-        IList<ICoordinateSystem> ICoordinateSystemFactory.SupportedCoordinateSystems { get { return SupportedCoordinateSystems; } }
-
         public static IList<ICoordinateSystem> SupportedCoordinateSystems
         {
             get
             {
                 if (supportedCoordinateSystems == null)
                 {
-                    supportedCoordinateSystems = Properties.Resources.cs_ids.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries)
-                        .Where(s => !s.StartsWith("#"))
-                        .Select(GetOgrCoordinateSystem).ToArray();
+                    supportedCoordinateSystems = Resources.cs_ids.Split(new[]
+                    {
+                        "\r\n"
+                    }, StringSplitOptions.RemoveEmptyEntries)
+                                                          .Where(s => !s.StartsWith("#"))
+                                                          .Select(GetOgrCoordinateSystem).ToArray();
                 }
 
                 // Creates the cs_ids file data
@@ -35,16 +35,14 @@ namespace SharpMap.Extensions.CoordinateSystems
             }
         }
 
-        private static OgrCoordinateSystem GetOgrCoordinateSystem(string idName)
+        public IList<ICoordinateSystem> CustomCoordinateSystems { get; set; }
+
+        IList<ICoordinateSystem> ICoordinateSystemFactory.SupportedCoordinateSystems
         {
-            var str = idName.Split(';');
-            var id = int.Parse(str[0]);
-            var name = str[1].Trim('\"');
-            var isGeographic = bool.Parse(str[2]);
-
-            var ogrCoordinateSystem = new OgrCoordinateSystem(id, name, isGeographic);
-
-            return ogrCoordinateSystem;
+            get
+            {
+                return SupportedCoordinateSystems;
+            }
         }
 
         public static string ExportToPrettyWkt(ICoordinateSystem coordinateSystem)
@@ -52,7 +50,9 @@ namespace SharpMap.Extensions.CoordinateSystems
             var ogrCoordinateSystem = coordinateSystem as OgrCoordinateSystem;
 
             if (ogrCoordinateSystem == null)
+            {
                 return null;
+            }
 
             var wkt = "";
             ogrCoordinateSystem.ExportToPrettyWkt(out wkt, 1);
@@ -61,13 +61,13 @@ namespace SharpMap.Extensions.CoordinateSystems
 
         public ICoordinateSystem CreateFromEPSG(int code)
         {
-            return OgrCoordinateSystemFactory.SupportedCoordinateSystems.First(crs => crs.Authority == "EPSG" && crs.AuthorityCode == code);
+            return SupportedCoordinateSystems.First(crs => crs.Authority == "EPSG" && crs.AuthorityCode == code);
         }
 
         public ICoordinateTransformation CreateTransformation(ICoordinateSystem src, ICoordinateSystem dst)
         {
-            var srcCoordinateSystem = (OgrCoordinateSystem)src;
-            var dstCoordinateSystem = (OgrCoordinateSystem)dst;
+            var srcCoordinateSystem = (OgrCoordinateSystem) src;
+            var dstCoordinateSystem = (OgrCoordinateSystem) dst;
 
             if (!srcCoordinateSystem.IsLoaded)
             {
@@ -77,7 +77,7 @@ namespace SharpMap.Extensions.CoordinateSystems
             if (!dstCoordinateSystem.IsLoaded)
             {
                 dstCoordinateSystem.Load();
-            } 
+            }
 
             return new OgrCoordinateTransformation(srcCoordinateSystem, dstCoordinateSystem);
         }
@@ -93,7 +93,7 @@ namespace SharpMap.Extensions.CoordinateSystems
         }
 
         public IFittedCoordinateSystem CreateFittedCoordinateSystem(string name, ICoordinateSystem baseCoordinateSystem,
-            string toBaseWkt, List<AxisInfo> arAxes)
+                                                                    string toBaseWkt, List<AxisInfo> arAxes)
         {
             throw new NotImplementedException();
         }
@@ -125,13 +125,13 @@ namespace SharpMap.Extensions.CoordinateSystems
         }
 
         public IGeographicCoordinateSystem CreateGeographicCoordinateSystem(string name, IAngularUnit angularUnit,
-            IHorizontalDatum datum, IPrimeMeridian primeMeridian, AxisInfo axis0, AxisInfo axis1)
+                                                                            IHorizontalDatum datum, IPrimeMeridian primeMeridian, AxisInfo axis0, AxisInfo axis1)
         {
             throw new NotImplementedException();
         }
 
         public IHorizontalDatum CreateHorizontalDatum(string name, DatumType datumType, IEllipsoid ellipsoid,
-            Wgs84ConversionInfo toWgs84)
+                                                      Wgs84ConversionInfo toWgs84)
         {
             throw new NotImplementedException();
         }
@@ -152,7 +152,7 @@ namespace SharpMap.Extensions.CoordinateSystems
         }
 
         public IProjectedCoordinateSystem CreateProjectedCoordinateSystem(string name, IGeographicCoordinateSystem gcs,
-            IProjection projection, ILinearUnit linearUnit, AxisInfo axis0, AxisInfo axis1)
+                                                                          IProjection projection, ILinearUnit linearUnit, AxisInfo axis0, AxisInfo axis1)
         {
             throw new NotImplementedException();
         }
@@ -163,7 +163,7 @@ namespace SharpMap.Extensions.CoordinateSystems
         }
 
         public IVerticalCoordinateSystem CreateVerticalCoordinateSystem(string name, IVerticalDatum datum, ILinearUnit verticalUnit,
-            AxisInfo axis)
+                                                                        AxisInfo axis)
         {
             throw new NotImplementedException();
         }
@@ -171,6 +171,18 @@ namespace SharpMap.Extensions.CoordinateSystems
         public IVerticalDatum CreateVerticalDatum(string name, DatumType datumType)
         {
             throw new NotImplementedException();
+        }
+
+        private static OgrCoordinateSystem GetOgrCoordinateSystem(string idName)
+        {
+            var str = idName.Split(';');
+            var id = int.Parse(str[0]);
+            var name = str[1].Trim('\"');
+            var isGeographic = bool.Parse(str[2]);
+
+            var ogrCoordinateSystem = new OgrCoordinateSystem(id, name, isGeographic);
+
+            return ogrCoordinateSystem;
         }
     }
 }

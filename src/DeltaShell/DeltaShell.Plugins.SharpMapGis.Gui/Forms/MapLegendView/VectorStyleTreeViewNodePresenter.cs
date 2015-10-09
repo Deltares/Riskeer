@@ -8,13 +8,9 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public class VectorStyleTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<VectorStyle>
     {
-        public VectorStyleTreeViewNodePresenter(): base(null)
-        {
-        }
+        public VectorStyleTreeViewNodePresenter() : base(null) {}
 
-        public VectorStyleTreeViewNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin)
-        {
-        }
+        public VectorStyleTreeViewNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
 
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, VectorStyle style)
         {
@@ -36,7 +32,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         protected override void OnPropertyChanged(VectorStyle vectorStyle, ITreeNode node, PropertyChangedEventArgs e)
         {
-            if (node == null) return;
+            if (node == null)
+            {
+                return;
+            }
             UpdateNode(null, node, vectorStyle);
         }
     }

@@ -7,7 +7,5 @@ namespace DelftTools.Utils.Aop
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.Property)]
-    public class AggregationAttribute : Attribute
-    {
-    }
+    public class AggregationAttribute : Attribute {}
 }

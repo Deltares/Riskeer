@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-
 using DelftTools.Shell.Core;
-
 using log4net;
 
 namespace DelftTools.Controls.Swf.TreeViewControls
@@ -15,96 +13,19 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly TreeNodeList nodes;
         private readonly ITreeView treeView;
-        private IMenuItem contextMenu;
         protected bool isLoaded;
-        private bool isUpdating;
-        
+        private IMenuItem contextMenu;
+
+        private object tag;
+
+        private IObservable observable;
+
         public TreeNode(ITreeView treeView)
         {
             this.treeView = treeView;
             nodes = new TreeNodeList(base.Nodes);
             IsVisible = true;
         }
-        
-        new public ITreeView TreeView
-        {
-            get { return treeView; }
-        }
-
-        public ITreeNodePresenter Presenter { get; set; }
-
-        public new IMenuItem ContextMenu
-        {
-            get { return contextMenu; }
-            set
-            {
-                if (null == value)
-                {
-                    //log.WarnFormat("No contextmenu set for : {0}", this);
-                    return;
-                }
-                var adapter = value as MenuItemContextMenuStripAdapter;
-                if (adapter == null)
-                {
-                    log.WarnFormat(
-                        "Only ContextMenuStrip-adapted IMenuItems are supported as a context menu for now. Node: {0}, Menu: {1}",
-                        this, contextMenu);
-                    return;
-                }
-                base.ContextMenuStrip = adapter.ContextMenuStrip;
-                contextMenu = value;
-            }
-        }
-
-        public new void EnsureVisible()
-        {
-            base.EnsureVisible();
-        }
-
-        public new string Text
-        {
-            get { return base.Text; }
-            set
-            {
-                if (base.Text != value)
-                {
-                    base.Text = value;
-                }
-            }
-        }
-
-        private object tag;
-
-        public new object Tag
-        {
-            get { return tag; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException();
-                }
-                if(tag == value)
-                {
-                    return;
-                }
-
-                if (observable != null)
-                {
-                    observable.Detach(this);
-                }
-
-                tag = value;
-
-                observable = tag as IObservable;
-                if (observable != null)
-                {
-                    observable.Attach(this);
-                }
-            }
-        }
-
-        public new bool IsVisible { get; set; }
 
         /// <summary>
         /// Called when a user right clicks in the network tree
@@ -143,12 +64,105 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             }
         }
 
-        public new ITreeNode Parent
+        /// <summary>
+        /// Used in rendering (has children indicates if a plus or minus must be drawn)
+        /// </summary>
+        public bool HasChildren { get; set; }
+
+        public new ITreeView TreeView
         {
-            get { return (ITreeNode) base.Parent; }
+            get
+            {
+                return treeView;
+            }
         }
 
-        new public string FullPath
+        public ITreeNodePresenter Presenter { get; set; }
+
+        public new IMenuItem ContextMenu
+        {
+            get
+            {
+                return contextMenu;
+            }
+            set
+            {
+                if (null == value)
+                {
+                    //log.WarnFormat("No contextmenu set for : {0}", this);
+                    return;
+                }
+                var adapter = value as MenuItemContextMenuStripAdapter;
+                if (adapter == null)
+                {
+                    log.WarnFormat(
+                        "Only ContextMenuStrip-adapted IMenuItems are supported as a context menu for now. Node: {0}, Menu: {1}",
+                        this, contextMenu);
+                    return;
+                }
+                base.ContextMenuStrip = adapter.ContextMenuStrip;
+                contextMenu = value;
+            }
+        }
+
+        public new string Text
+        {
+            get
+            {
+                return base.Text;
+            }
+            set
+            {
+                if (base.Text != value)
+                {
+                    base.Text = value;
+                }
+            }
+        }
+
+        public new object Tag
+        {
+            get
+            {
+                return tag;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException();
+                }
+                if (tag == value)
+                {
+                    return;
+                }
+
+                if (observable != null)
+                {
+                    observable.Detach(this);
+                }
+
+                tag = value;
+
+                observable = tag as IObservable;
+                if (observable != null)
+                {
+                    observable.Attach(this);
+                }
+            }
+        }
+
+        public new bool IsVisible { get; set; }
+
+        public new ITreeNode Parent
+        {
+            get
+            {
+                return (ITreeNode) base.Parent;
+            }
+        }
+
+        public new string FullPath
         {
             get
             {
@@ -158,21 +172,18 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         public new ITreeNode NextNode
         {
-            get { return (ITreeNode) base.NextNode; }
+            get
+            {
+                return (ITreeNode) base.NextNode;
+            }
         }
 
         public new ITreeNode NextVisibleNode
         {
-            get { return (ITreeNode) base.NextVisibleNode; }
-        }
-
-        public new void Expand()
-        {
-            if (!isLoaded)
+            get
             {
-                TreeView.RefreshChildNodes(this);
+                return (ITreeNode) base.NextVisibleNode;
             }
-            base.Expand();
         }
 
         public new IList<ITreeNode> Nodes
@@ -190,108 +201,79 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         public ITreeNode PreviousNode
         {
-            get { return (ITreeNode) PrevNode; }
+            get
+            {
+                return (ITreeNode) PrevNode;
+            }
         }
 
         public ITreeNode PreviousVisibleNode
         {
-            get { return (ITreeNode) PrevVisibleNode; }
+            get
+            {
+                return (ITreeNode) PrevVisibleNode;
+            }
         }
 
         public Rectangle Bounds
         {
-            get { return base.Bounds; }
+            get
+            {
+                return base.Bounds;
+            }
         }
 
         public bool IsLoaded
         {
-            get { return isLoaded; }
+            get
+            {
+                return isLoaded;
+            }
         }
 
         public bool ShowCheckBox { get; set; }
 
         public Color BackgroundColor
         {
-            get { return BackColor; }
-            set { BackColor = value; }
+            get
+            {
+                return BackColor;
+            }
+            set
+            {
+                BackColor = value;
+            }
         }
 
         public Color ForegroundColor
         {
-            get { return ForeColor; }
-            set { ForeColor = value; }
+            get
+            {
+                return ForeColor;
+            }
+            set
+            {
+                ForeColor = value;
+            }
         }
 
         public bool Bold { get; set; }
 
-        private Image image;
-        private IObservable observable;
+        public Image Image { get; set; }
 
-        public Image Image
-        {
-            get { return image; } 
-            set { image = value; }
-        }
-
-        public bool IsUpdating
-        {
-            get { return isUpdating; }
-        }
-
-        /// <summary>
-        /// Used in rendering (has children indicates if a plus or minus must be drawn)
-        /// </summary>
-        public bool HasChildren { get; set; }
-
-        public void Update()
-        {
-            if (isUpdating)
-                return; //prevent 're-entrancy' issues
-
-            isUpdating = true;
-            TreeView.UpdateNode(this);
-            isUpdating = false;
-        }
+        public bool IsUpdating { get; private set; }
 
         public void RefreshChildNodes(bool forcedRefresh = false)
         {
-            if (isUpdating && !forcedRefresh)
+            if (IsUpdating && !forcedRefresh)
+            {
                 return; //prevent 're-entrancy' issues
+            }
 
-            isUpdating = true;
+            IsUpdating = true;
             TreeView.RefreshChildNodes(this);
             isLoaded = true;
-            isUpdating = false;
-        }
-
-        public ITreeNode GetParentOfLevel(int level)
-        {
-            ITreeNode node = this;
-
-            for (var i = Level; i != level; i--)
-            {
-                node = node.Parent;
-            }
-
-            return node;
-        }
-
-        public void ScrollTo()
-        {
-            EnsureVisible();
-        }
-
-        public ITreeNode GetNodeByTag(object item)
-        {
-            foreach (ITreeNode node in nodes)
-            {
-                if(node.Tag == item)
-                {
-                    return node;
-                }
-            }
-
-            return null;
+            IsUpdating = false;
         }
 
         /// <summary>
@@ -315,11 +297,80 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             return false;
         }
 
+        public void UpdateObserver()
+        {
+            Update();
+        }
+
+        public new void EnsureVisible()
+        {
+            base.EnsureVisible();
+        }
+
+        public new void Expand()
+        {
+            if (!isLoaded)
+            {
+                TreeView.RefreshChildNodes(this);
+            }
+            base.Expand();
+        }
+
+        public void Update()
+        {
+            if (IsUpdating)
+            {
+                return; //prevent 're-entrancy' issues
+            }
+
+            IsUpdating = true;
+            TreeView.UpdateNode(this);
+            IsUpdating = false;
+        }
+
+        public ITreeNode GetParentOfLevel(int level)
+        {
+            ITreeNode node = this;
+
+            for (var i = Level; i != level; i--)
+            {
+                node = node.Parent;
+            }
+
+            return node;
+        }
+
+        public void ScrollTo()
+        {
+            EnsureVisible();
+        }
+
+        public ITreeNode GetNodeByTag(object item)
+        {
+            foreach (ITreeNode node in nodes)
+            {
+                if (node.Tag == item)
+                {
+                    return node;
+                }
+            }
+
+            return null;
+        }
+
         public void ShowContextMenu(Point location)
         {
             if (base.ContextMenuStrip != null)
             {
                 base.ContextMenuStrip.Show(location);
+            }
+        }
+
+        public void Dispose()
+        {
+            if (observable != null)
+            {
+                observable.Detach(this);
             }
         }
 
@@ -340,22 +391,8 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                 return new Font(font.Name, font.Size,
                                 style, font.Unit,
                                 font.GdiCharSet, font.GdiVerticalFont);
-
             }
-            return new Font(font,font.Style);
-        }
-
-        public void UpdateObserver()
-        {
-            Update();
-        }
-
-        public void Dispose()
-        {
-            if (observable != null)
-            {
-                observable.Detach(this);
-            }
+            return new Font(font, font.Style);
         }
     }
 }

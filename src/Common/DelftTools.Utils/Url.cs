@@ -15,30 +15,40 @@ namespace DelftTools.Utils
         private string path;
 
         private string name;
-        
+
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public Url() : this("new url", "about:blank")
-        {
-        }
+        public Url() : this("new url", "about:blank") {}
 
         public Url(string name, string path)
         {
             this.name = name;
             this.path = path;
         }
-        
-        public virtual string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
 
         public virtual string Path
         {
-            get { return path; }
-            set { path = value; }
+            get
+            {
+                return path;
+            }
+            set
+            {
+                path = value;
+            }
+        }
+
+        public virtual string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
         }
 
         public object Clone()

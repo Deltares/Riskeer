@@ -15,10 +15,7 @@ namespace DelftTools.Tests.TestUtils
             var form = new Form();
             int callCount = 0;
 
-            WindowsFormsTestHelper.Show(form, delegate
-                                                  {
-                                                      callCount++;
-                                                  });
+            WindowsFormsTestHelper.Show(form, delegate { callCount++; });
 
             Assert.AreEqual(1, callCount);
 
@@ -31,10 +28,7 @@ namespace DelftTools.Tests.TestUtils
             var uc = new UserControl();
             int callCount = 0;
 
-            WindowsFormsTestHelper.Show(uc, delegate
-            {
-                callCount++;
-            });
+            WindowsFormsTestHelper.Show(uc, delegate { callCount++; });
 
             Assert.AreEqual(1, callCount);
 
@@ -47,10 +41,7 @@ namespace DelftTools.Tests.TestUtils
             var form = new Form();
             int callCount = 0;
 
-            WindowsFormsTestHelper.Show(form, delegate
-            {
-                callCount++;
-            });
+            WindowsFormsTestHelper.Show(form, delegate { callCount++; });
 
             Assert.AreEqual(1, callCount);
 
@@ -64,7 +55,7 @@ namespace DelftTools.Tests.TestUtils
             {
                 WindowsFormsTestHelper.Show(new Label(), MethodWithException);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Assert.AreEqual(typeof(InvalidOperationException), e.GetType());
                 Assert.AreEqual("my message", e.Message);
@@ -72,11 +63,6 @@ namespace DelftTools.Tests.TestUtils
             }
 
             WindowsFormsTestHelper.CloseAll();
-        }
-
-        private void MethodWithException(Form obj)
-        {
-            throw new InvalidOperationException("my message");
         }
 
         [Test]
@@ -87,11 +73,11 @@ namespace DelftTools.Tests.TestUtils
             try
             {
                 WindowsFormsTestHelper.Show(new Label(),
-                    delegate
-                    {
-                        thread.Start();
-                        thread.Join();
-                    });
+                                            delegate
+                                            {
+                                                thread.Start();
+                                                thread.Join();
+                                            });
             }
             catch (Exception e)
             {
@@ -101,11 +87,6 @@ namespace DelftTools.Tests.TestUtils
             }
 
             WindowsFormsTestHelper.CloseAll();
-        }
-
-        private void MethodWithExceptionInSeparateThread()
-        {
-            throw new InvalidOperationException("my message from thread");
         }
 
         [Test]
@@ -140,6 +121,16 @@ namespace DelftTools.Tests.TestUtils
             form.Shown += delegate { Assert.Fail(); };
 
             WindowsFormsTestHelper.ShowModal(form);
+        }
+
+        private void MethodWithException(Form obj)
+        {
+            throw new InvalidOperationException("my message");
+        }
+
+        private void MethodWithExceptionInSeparateThread()
+        {
+            throw new InvalidOperationException("my message from thread");
         }
     }
 }

@@ -9,6 +9,16 @@ namespace DelftTools.Shell.Core.Workflow
     public interface IActivity : IProjectItem /* TODO: wrap it with the ProjectItem instead */
     {
         /// <summary>
+        /// Event to be fired when we want to publish changes in <see cref="ProgressText"/>.
+        /// </summary>
+        event EventHandler ProgressChanged;
+
+        /// <summary>
+        /// Event to be fired on every <see cref="Status"/> change.
+        /// </summary>
+        event EventHandler<ActivityStatusChangedEventArgs> StatusChanged;
+
+        /// <summary>
         /// Activity may depend on other activities. Used within <see cref="CompositeActivity"/>.
         /// </summary>
         IEventedList<IActivity> DependsOn { get; set; }
@@ -49,15 +59,5 @@ namespace DelftTools.Shell.Core.Workflow
         /// Cleans all resources required during execution.
         /// </summary>
         void Cleanup();
-
-        /// <summary>
-        /// Event to be fired when we want to publish changes in <see cref="ProgressText"/>.
-        /// </summary>
-        event EventHandler ProgressChanged;
-
-        /// <summary>
-        /// Event to be fired on every <see cref="Status"/> change.
-        /// </summary>
-        event EventHandler<ActivityStatusChangedEventArgs> StatusChanged;
     }
 }

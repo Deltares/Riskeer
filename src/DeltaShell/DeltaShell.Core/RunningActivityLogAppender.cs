@@ -16,25 +16,32 @@ namespace DeltaShell.Core
     /// </summary>
     public class RunningActivityLogAppender : IAppender
     {
-        public static RunningActivityLogAppender Instance { get; set; }
         private readonly IList<ActivityStatus> doneStates = new[]
-                                                          {
-                                                              ActivityStatus.Cleaned, ActivityStatus.Failed, ActivityStatus.Cancelled
-                                                          };
+        {
+            ActivityStatus.Cleaned,
+            ActivityStatus.Failed,
+            ActivityStatus.Cancelled
+        };
 
         private readonly IList<ActivityStatus> runningStates = new[]
-                                                          {
-                                                              ActivityStatus.Executing, ActivityStatus.Initializing,
-                                                              ActivityStatus.Cancelling,ActivityStatus.Finishing, ActivityStatus.Cleaning
-                                                          };
-        
+        {
+            ActivityStatus.Executing,
+            ActivityStatus.Initializing,
+            ActivityStatus.Cancelling,
+            ActivityStatus.Finishing,
+            ActivityStatus.Cleaning
+        };
+
         /// shouldnt it be a dictionary of stringbuilders?
         private readonly IDictionary<IActivity, IList<string>> activityLogs;
+
         // this is ThreadLocal as a hack to ensure we can keep logfiles from several models (eg. threads) seperate.
-        private readonly ThreadLocal<HashSet<IActivity>> runningActivities = new ThreadLocal<HashSet<IActivity>>(()=>new HashSet<IActivity>());
+        private readonly ThreadLocal<HashSet<IActivity>> runningActivities = new ThreadLocal<HashSet<IActivity>>(() => new HashSet<IActivity>());
 
         private readonly object runningActivitiesLock = new object();
         private readonly object activityLogsLock = new object();
+
+        private IActivityRunner activityRunner;
 
         //THIS constructor is used by Log4Net instantiation..
         //to make the appender reachable from the app we use a singleton construction
@@ -44,28 +51,51 @@ namespace DeltaShell.Core
             Instance = this;
         }
 
-        private IActivityRunner activityRunner;
-        
+        public static RunningActivityLogAppender Instance { get; set; }
 
         public IActivityRunner ActivityRunner
         {
-            get { return activityRunner; }
+            get
+            {
+                return activityRunner;
+            }
             set
             {
                 if (activityRunner != null)
                 {
-                    activityRunner.ActivityStatusChanged -= ActivityRunnerActivityStatusChanged;    
+                    activityRunner.ActivityStatusChanged -= ActivityRunnerActivityStatusChanged;
                 }
                 activityRunner = value;
                 if (activityRunner != null)
                 {
-                    activityRunner.ActivityStatusChanged += ActivityRunnerActivityStatusChanged;    
+                    activityRunner.ActivityStatusChanged += ActivityRunnerActivityStatusChanged;
                 }
-                
             }
         }
 
-        void ActivityRunnerActivityStatusChanged(object sender, ActivityStatusChangedEventArgs e)
+        public string Name { get; set; }
+
+        public void Close() {}
+
+        public void DoAppend(LoggingEvent loggingEvent)
+        {
+            //loggingEvent.RenderedMessage;
+            foreach (var act in GetRunningActivitiesThreadSafe())
+            {
+                var message = "[" + loggingEvent.TimeStamp.ToString("HH:mm:ss") + "]:" + loggingEvent.RenderedMessage + Environment.NewLine;
+
+                using (new TryLock(activityLogsLock))
+                {
+                    if (!activityLogs.ContainsKey(act))
+                    {
+                        activityLogs[act] = new List<string>();
+                    }
+                    activityLogs[act].Add(message);
+                }
+            }
+        }
+
+        private void ActivityRunnerActivityStatusChanged(object sender, ActivityStatusChangedEventArgs e)
         {
             //if an activity goes into a running state i want to know it...
             if (runningStates.Contains(e.NewStatus))
@@ -91,9 +121,9 @@ namespace DeltaShell.Core
                 }
             }
             //it changed state into a non running state...suspend logging
-            else 
+            else
             {
-                var activity = (IActivity)sender;
+                var activity = (IActivity) sender;
                 using (new TryLock(runningActivitiesLock))
                 {
                     runningActivities.Value.Remove(activity);
@@ -105,32 +135,14 @@ namespace DeltaShell.Core
 
         private void SendLogToActivity(IActivity activity)
         {
-            if (!GetActivityLogActivitiesThreadSafe().Contains(activity)) return;
+            if (!GetActivityLogActivitiesThreadSafe().Contains(activity))
+            {
+                return;
+            }
 
             using (new TryLock(activityLogsLock))
             {
                 // TODO: Add log item and/or append log text
-            }
-        }
-
-        public void Close()
-        {
-            
-        }
-
-        public void DoAppend(LoggingEvent loggingEvent)
-        {
-            //loggingEvent.RenderedMessage;
-            foreach (var act in GetRunningActivitiesThreadSafe())
-            {
-                var message = "[" + loggingEvent.TimeStamp.ToString("HH:mm:ss") + "]:" + loggingEvent.RenderedMessage + Environment.NewLine;
-
-                using (new TryLock(activityLogsLock))
-                {
-                    if (!activityLogs.ContainsKey(act))
-                        activityLogs[act] = new List<string>();
-                    activityLogs[act].Add(message);
-                }
             }
         }
 
@@ -149,7 +161,5 @@ namespace DeltaShell.Core
                 return runningActivities.Value.ToList();
             }
         }
-
-        public string Name { get; set; }
     }
 }

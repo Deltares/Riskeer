@@ -18,9 +18,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Distance
         /// </summary>
         public const int InsideArea = -1;
 
-        private IGeometry component = null;
-        private int segIndex;
-        private ICoordinate pt = null;
+        private readonly IGeometry component = null;
+        private readonly ICoordinate pt = null;
 
         /// <summary>
         /// Constructs a GeometryLocation specifying a point on a point, as well as the 
@@ -32,14 +31,14 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Distance
         public GeometryLocation(IGeometry component, int segIndex, ICoordinate pt)
         {
             this.component = component;
-            this.segIndex = segIndex;
+            SegmentIndex = segIndex;
             this.pt = pt;
         }
 
         /// <summary> 
         /// Constructs a GeometryLocation specifying a point inside an area point.
         /// </summary>
-        public GeometryLocation(IGeometry component, ICoordinate pt) : this(component, InsideArea, pt) { }
+        public GeometryLocation(IGeometry component, ICoordinate pt) : this(component, InsideArea, pt) {}
 
         /// <summary>
         /// Returns the point associated with this location.
@@ -56,13 +55,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Distance
         /// Returns the segment index for this location. If the location is inside an
         /// area, the index will have the value InsideArea;
         /// </summary>
-        public int SegmentIndex
-        {
-            get
-            {
-                return segIndex;
-            }
-        }
+        public int SegmentIndex { get; private set; }
 
         /// <summary>
         /// Returns the location.
@@ -82,7 +75,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Distance
         {
             get
             {
-                return segIndex == InsideArea;
+                return SegmentIndex == InsideArea;
             }
         }
     }

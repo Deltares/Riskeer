@@ -11,10 +11,7 @@ namespace DelftTools.Utils
         /// Initializes a new instance of the <see cref="TextDocumentBase"/> class where
         /// <see cref="ReadOnly"/> is false.
         /// </summary>
-        public TextDocumentBase() : this(false)
-        {
-            
-        }
+        public TextDocumentBase() : this(false) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TextDocumentBase"/> class.
@@ -30,10 +27,11 @@ namespace DelftTools.Utils
         /// </summary>
         public virtual bool ReadOnly
         {
-            get { return readOnly; }
+            get
+            {
+                return readOnly;
+            }
         }
-
-        public virtual string Name { get; set; }
 
         //don't use ReadOnly it messes up data binding
         //[ReadOnly(true)]        
@@ -41,6 +39,8 @@ namespace DelftTools.Utils
         /// Gets or sets the text document contents.
         /// </summary>
         public virtual string Content { get; set; }
+
+        public virtual string Name { get; set; }
 
         public override string ToString()
         {

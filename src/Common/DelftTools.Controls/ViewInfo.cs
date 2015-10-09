@@ -40,7 +40,7 @@ namespace DelftTools.Controls
         /// </list>
         /// </summary>
         public Func<IView, object, string> GetViewName { get; set; }
-        
+
         /// <summary>
         /// Icon of the view (shown top left)
         /// </summary>
@@ -99,27 +99,45 @@ namespace DelftTools.Controls
         /// </summary>
         public Func<IView, object, bool> CloseForData { get; set; }
 
+        public override string ToString()
+        {
+            return DataType + " : " + ViewDataType + " : " + ViewType;
+        }
+
         public object Clone()
         {
             return MemberwiseClone();
-        }
-
-        public override string ToString()
-        {
-            return DataType + " : " + ViewDataType + " : " + ViewType; 
         }
     }
 
     public class ViewInfo<TData, TViewData, TView> where TView : IView
     {
-        public Type DataType { get { return typeof (TData); } }
+        public Type DataType
+        {
+            get
+            {
+                return typeof(TData);
+            }
+        }
 
-        public Type ViewDataType { get { return typeof(TViewData); } }
+        public Type ViewDataType
+        {
+            get
+            {
+                return typeof(TViewData);
+            }
+        }
 
-        public Type ViewType { get { return typeof(TView); } }
+        public Type ViewType
+        {
+            get
+            {
+                return typeof(TView);
+            }
+        }
 
         public Type CompositeViewType { get; set; }
-        
+
         public string Description { get; set; }
 
         public Func<TView, TViewData, string> GetViewName { get; set; }
@@ -131,7 +149,7 @@ namespace DelftTools.Controls
         public Func<TData, TViewData> GetViewData { get; set; }
 
         public Action<TView, TData> AfterCreate { get; set; }
-        
+
         public Action<TView, object> OnActivateView { get; set; }
 
         public Func<TData, object> GetCompositeViewData { get; set; }
@@ -150,21 +168,31 @@ namespace DelftTools.Controls
                 Image = viewInfo.Image,
                 AdditionalDataCheck = o => viewInfo.AdditionalDataCheck == null || viewInfo.AdditionalDataCheck((TData) o),
                 GetViewData = o => viewInfo.GetViewData != null ? viewInfo.GetViewData((TData) o) : o,
-                GetCompositeViewData = o => viewInfo.GetCompositeViewData != null ? viewInfo.GetCompositeViewData((TData)o) : null,
-                CloseForData = (v, o) => viewInfo.CloseForData == null || viewInfo.CloseForData((TView) v,(TData)o),
-                AfterCreate = (v, o) => { if (viewInfo.AfterCreate != null)  viewInfo.AfterCreate((TView) v, (TData) o); },
-                OnActivateView = (v, o) => { if (viewInfo.OnActivateView != null)  viewInfo.OnActivateView((TView)v, o); },
-                GetViewName = (v, o) => viewInfo.GetViewName != null ? viewInfo.GetViewName((TView)v, (TViewData) o) : null
+                GetCompositeViewData = o => viewInfo.GetCompositeViewData != null ? viewInfo.GetCompositeViewData((TData) o) : null,
+                CloseForData = (v, o) => viewInfo.CloseForData == null || viewInfo.CloseForData((TView) v, (TData) o),
+                AfterCreate = (v, o) =>
+                {
+                    if (viewInfo.AfterCreate != null)
+                    {
+                        viewInfo.AfterCreate((TView) v, (TData) o);
+                    }
+                },
+                OnActivateView = (v, o) =>
+                {
+                    if (viewInfo.OnActivateView != null)
+                    {
+                        viewInfo.OnActivateView((TView) v, o);
+                    }
+                },
+                GetViewName = (v, o) => viewInfo.GetViewName != null ? viewInfo.GetViewName((TView) v, (TViewData) o) : null
             };
         }
 
         public override string ToString()
         {
-            return DataType + " : " + ViewDataType + " : " + ViewType; 
+            return DataType + " : " + ViewDataType + " : " + ViewType;
         }
     }
-    
-    public class ViewInfo<TData, TView> : ViewInfo<TData, TData, TView> where TView : IView
-    {
-    }
+
+    public class ViewInfo<TData, TView> : ViewInfo<TData, TData, TView> where TView : IView {}
 }

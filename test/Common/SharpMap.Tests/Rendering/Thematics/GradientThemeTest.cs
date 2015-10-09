@@ -13,23 +13,17 @@ namespace SharpMap.Tests.Rendering.Thematics
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GradientThemeTest));
 
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
-        {
-            LogHelper.ConfigureLogging();
-        }
-
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
-        {
-            LogHelper.ResetLogging();
-        }
-
         [Test]
         public void ReturnMaxColorForMaxValue()
         {
-            var minVectorStyle = new VectorStyle { Fill = new SolidBrush(Color.Red) };
-            var maxVectorStyle = new VectorStyle { Fill = new SolidBrush(Color.Blue) };
+            var minVectorStyle = new VectorStyle
+            {
+                Fill = new SolidBrush(Color.Red)
+            };
+            var maxVectorStyle = new VectorStyle
+            {
+                Fill = new SolidBrush(Color.Blue)
+            };
 
             var theme = new GradientTheme("red to blue", 10.0, 100.123, minVectorStyle, maxVectorStyle, null, null, null);
 
@@ -41,8 +35,14 @@ namespace SharpMap.Tests.Rendering.Thematics
         [Test]
         public void GenerateThemeWithMaxDoubleAndMinDoubleValue()
         {
-            var minVectorStyle = new VectorStyle { Fill = new SolidBrush(Color.Red) };
-            var maxVectorStyle = new VectorStyle { Fill = new SolidBrush(Color.Blue) };
+            var minVectorStyle = new VectorStyle
+            {
+                Fill = new SolidBrush(Color.Red)
+            };
+            var maxVectorStyle = new VectorStyle
+            {
+                Fill = new SolidBrush(Color.Blue)
+            };
 
             var theme = new GradientTheme("red to blue", double.MinValue, double.MaxValue, minVectorStyle, maxVectorStyle, null, null, null);
 
@@ -54,37 +54,79 @@ namespace SharpMap.Tests.Rendering.Thematics
         [Test]
         public void ClonePerformanceTest()
         {
-            var colorBlend = new ColorBlend(new[] { Color.Black, Color.White }, new[] { 0.0f, 1.0f });
+            var colorBlend = new ColorBlend(new[]
+            {
+                Color.Black,
+                Color.White
+            }, new[]
+            {
+                0.0f,
+                1.0f
+            });
             var gradientTheme = new GradientTheme("aa", 0, 20, new VectorStyle(), new VectorStyle(), colorBlend,
-                                                  colorBlend, colorBlend, 5) { NoDataValues = new List<double> { -9999 } };
-            TestHelper.AssertIsFasterThan(30,() => gradientTheme.Clone());
+                                                  colorBlend, colorBlend, 5)
+            {
+                NoDataValues = new List<double>
+                {
+                    -9999
+                }
+            };
+            TestHelper.AssertIsFasterThan(30, () => gradientTheme.Clone());
         }
 
         [Test]
         public void CloneGradientThemeWithNoDataValues()
         {
-            var colorBlend = new ColorBlend(new[]{Color.Black, Color.White}, new[]{0.0f,1.0f});
+            var colorBlend = new ColorBlend(new[]
+            {
+                Color.Black,
+                Color.White
+            }, new[]
+            {
+                0.0f,
+                1.0f
+            });
             var gradientTheme = new GradientTheme("aa", 0, 20, new VectorStyle(), new VectorStyle(), colorBlend,
-                                                  colorBlend, colorBlend,5)
-                                                  {NoDataValues = new List<double>{-9999},UseCustomRange = true};
+                                                  colorBlend, colorBlend, 5)
+            {
+                NoDataValues = new List<double>
+                {
+                    -9999
+                },
+                UseCustomRange = true
+            };
 
-            var gradientThemeClone = (GradientTheme)gradientTheme.Clone();
+            var gradientThemeClone = (GradientTheme) gradientTheme.Clone();
 
             Assert.IsTrue(gradientThemeClone.UseCustomRange);
             Assert.AreEqual(gradientTheme.NoDataValues, (gradientThemeClone).NoDataValues);
-            Assert.AreEqual(5,gradientThemeClone.NumberOfClasses);
-            Assert.AreEqual(2,gradientThemeClone.FillColorBlend.Colors.Length);
+            Assert.AreEqual(5, gradientThemeClone.NumberOfClasses);
+            Assert.AreEqual(2, gradientThemeClone.FillColorBlend.Colors.Length);
         }
 
         [Test]
         public void GenerateThemeItems()
         {
-            var colorBlend = new ColorBlend(new[] { Color.Black, Color.White }, new[] { 0.0f, 1.0f });
+            var colorBlend = new ColorBlend(new[]
+            {
+                Color.Black,
+                Color.White
+            }, new[]
+            {
+                0.0f,
+                1.0f
+            });
             var gradientTheme = new GradientTheme("aa", 0, 3, new VectorStyle(), new VectorStyle(), colorBlend,
-                                                  colorBlend, colorBlend,3) { NoDataValues = new List<double> { -9999 } };
+                                                  colorBlend, colorBlend, 3)
+            {
+                NoDataValues = new List<double>
+                {
+                    -9999
+                }
+            };
             //assert 3 items were generated..at 0,1.5 and 3
-            Assert.AreEqual(3,gradientTheme.ThemeItems.Count);
-            Assert.AreEqual("0",gradientTheme.ThemeItems[0].Range);
+            Assert.AreEqual(3, gradientTheme.ThemeItems.Count);
+            Assert.AreEqual("0", gradientTheme.ThemeItems[0].Range);
             //use toString to make sure the machines decimal separator is used
             Assert.AreEqual(1.5.ToString(), gradientTheme.ThemeItems[1].Range);
             Assert.AreEqual("3", gradientTheme.ThemeItems[2].Range);
@@ -93,8 +135,14 @@ namespace SharpMap.Tests.Rendering.Thematics
         [Test]
         public void GradientThemeScaleToTest()
         {
-            var minStyle = new VectorStyle { Fill = new SolidBrush(Color.Red) };
-            var maxStyle = new VectorStyle { Fill = new SolidBrush(Color.Blue) };
+            var minStyle = new VectorStyle
+            {
+                Fill = new SolidBrush(Color.Red)
+            };
+            var maxStyle = new VectorStyle
+            {
+                Fill = new SolidBrush(Color.Blue)
+            };
 
             var theme = new GradientTheme("NotLinkedToVariable", 0.0, 10.0, minStyle, maxStyle, null, null, null, 3);
             var colorMid = theme.GetFillColor(5.0);
@@ -129,7 +177,15 @@ namespace SharpMap.Tests.Rendering.Thematics
         [Test]
         public void GradientThemeScaleToWithColorBlends()
         {
-            var blend = new ColorBlend(new[]{Color.Black, Color.White}, new[]{0f, 1f});
+            var blend = new ColorBlend(new[]
+            {
+                Color.Black,
+                Color.White
+            }, new[]
+            {
+                0f,
+                1f
+            });
             var theme = ThemeFactory.CreateGradientTheme("", null, blend, 0.0, 5.0, 3, 3, false, true, 3);
 
             AssertColor(Color.Black, theme.GetFillColor(-1.0));
@@ -154,20 +210,41 @@ namespace SharpMap.Tests.Rendering.Thematics
         [Test]
         public void GetStyleForNoDataValue()
         {
-            var minVectorStyle = new VectorStyle { Fill = new SolidBrush(Color.Red) };
-            var maxVectorStyle = new VectorStyle { Fill = new SolidBrush(Color.Blue) };
+            var minVectorStyle = new VectorStyle
+            {
+                Fill = new SolidBrush(Color.Red)
+            };
+            var maxVectorStyle = new VectorStyle
+            {
+                Fill = new SolidBrush(Color.Blue)
+            };
             var theme = new GradientTheme("red to blue", 10.0, 100.123, minVectorStyle, maxVectorStyle, null, null, null)
+            {
+                NoDataValues = new List<double>
                 {
-                    NoDataValues = new List<double> {12.3}
-                };
+                    12.3
+                }
+            };
 
-            var result = (VectorStyle)theme.GetStyle(10.0);
-            AssertColor(Color.Red, ((SolidBrush)result.Fill).Color); // Expecting SolidBrush
-            AssertColor(Color.FromArgb(255, 138,43, 226), result.Line.Color);
+            var result = (VectorStyle) theme.GetStyle(10.0);
+            AssertColor(Color.Red, ((SolidBrush) result.Fill).Color); // Expecting SolidBrush
+            AssertColor(Color.FromArgb(255, 138, 43, 226), result.Line.Color);
 
-            result = (VectorStyle)theme.GetStyle(12.3);
-            AssertColor(Color.Transparent, ((SolidBrush)result.Fill).Color); // Expecting SolidBrush
+            result = (VectorStyle) theme.GetStyle(12.3);
+            AssertColor(Color.Transparent, ((SolidBrush) result.Fill).Color); // Expecting SolidBrush
             AssertColor(Color.Transparent, result.Line.Color);
+        }
+
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
+        {
+            LogHelper.ConfigureLogging();
+        }
+
+        [TestFixtureTearDown]
+        public void TestFixtureTearDown()
+        {
+            LogHelper.ResetLogging();
         }
 
         /// <summary>

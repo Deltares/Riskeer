@@ -28,10 +28,10 @@ namespace DeltaShell.Gui
     public class GuiCommandHandler : IGuiCommandHandler
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(GuiCommandHandler));
-        private IGui gui;
 
         private readonly GuiImportHandler guiImportHandler;
         private readonly GuiExportHandler guiExportHandler;
+        private readonly IGui gui;
 
         public GuiCommandHandler(IGui gui)
         {
@@ -62,11 +62,11 @@ namespace DeltaShell.Gui
         public bool TryOpenExistingWTIProject()
         {
             var openFileDialog = new OpenFileDialog
-                                 {
-                                     Filter = Resources.Wti_project_file_filter,
-                                     FilterIndex = 1,
-                                     RestoreDirectory = true
-                                 };
+            {
+                Filter = Resources.Wti_project_file_filter,
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
 
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
             {
@@ -115,10 +115,7 @@ namespace DeltaShell.Gui
                         var alwaysOkResult = MessageBox.Show("Not implemented yet.");
                         if (alwaysOkResult != DialogResult.OK)
                         {
-                            if (!SaveProject())
-                            {
-                                
-                            }
+                            if (!SaveProject()) {}
                         }
                     }
 
@@ -129,7 +126,7 @@ namespace DeltaShell.Gui
                 }
 
                 // Disconnect project
-                ((INotifyPropertyChanged)gui.Application.Project).PropertyChanged -= CurrentProjectChanged;
+                ((INotifyPropertyChanged) gui.Application.Project).PropertyChanged -= CurrentProjectChanged;
 
                 // DO NOT REMOVE CODE BELOW. If the views are not cleaned up here we access disposable stuff like in issue 4161.
                 // SO VIEWS SHOULD ALWAYS BE CLOSED!
@@ -169,7 +166,10 @@ namespace DeltaShell.Gui
         public bool SaveProject()
         {
             var project = gui.Application.Project;
-            if (project == null) return false;
+            if (project == null)
+            {
+                return false;
+            }
 
             if (project.IsTemporary)
             {
@@ -196,7 +196,10 @@ namespace DeltaShell.Gui
         public bool SaveProjectAs()
         {
             var project = gui.Application.Project;
-            if (project == null) return false;
+            if (project == null)
+            {
+                return false;
+            }
 
             UnselectActiveControlToForceBinding();
 
@@ -281,7 +284,7 @@ namespace DeltaShell.Gui
 
         public bool CanOpenSelectViewDialog()
         {
-            return gui.Selection != null && gui.DocumentViewsResolver.GetViewInfosFor(gui.Selection).Count() >1;
+            return gui.Selection != null && gui.DocumentViewsResolver.GetViewInfosFor(gui.Selection).Count() > 1;
         }
 
         public void OpenSelectViewDialog()
@@ -325,7 +328,7 @@ namespace DeltaShell.Gui
                     logFileOpened = true;
                 }
             }
-            catch (Exception) { }
+            catch (Exception) {}
 
             if (!logFileOpened)
             {
@@ -333,11 +336,11 @@ namespace DeltaShell.Gui
                 Process.Start(SettingsHelper.GetApplicationLocalUserSettingsDirectory());
             }
         }
-        
+
         public object AddNewChildItem(object parent, IEnumerable<Type> childItemValueTypes)
         {
             var selectDataDialog = CreateSelectionDialogWithProjectItems(GetSupportedDataItemInfosByValueTypes(parent, childItemValueTypes).ToList());
-            
+
             if (selectDataDialog.ShowDialog(gui.MainWindow as Form) == DialogResult.OK)
             {
                 return GetNewDataObject(selectDataDialog, parent);
@@ -424,22 +427,22 @@ namespace DeltaShell.Gui
             gui.Application.ProjectClosing -= ApplicationProjectClosing;
         }
 
-        private void SaveProjectWithProgressDialog(string path=null)
+        private void SaveProjectWithProgressDialog(string path = null)
         {
             var actualPath = path ?? gui.Application.ProjectFilePath;
 
             ProgressBarDialog.PerformTask(string.Format(Resources.GuiCommandHandler_SaveProjectWithProgressDialog_Saving__0_, actualPath),
                                           () =>
+                                          {
+                                              if (path == null)
                                               {
-                                                  if (path == null)
-                                                  {
-                                                      gui.Application.SaveProject();
-                                                  }
-                                                  else
-                                                  {
-                                                      gui.Application.SaveProjectAs(path);
-                                                  }
-                                              });
+                                                  gui.Application.SaveProject();
+                                              }
+                                              else
+                                              {
+                                                  gui.Application.SaveProjectAs(path);
+                                              }
+                                          });
         }
 
         private GuiImportHandler CreateGuiImportHandler()
@@ -449,10 +452,7 @@ namespace DeltaShell.Gui
 
         private GuiExportHandler CreateGuiExportHandler()
         {
-            return new GuiExportHandler(delegate
-            {
-                return gui.Application.FileExporters;
-            }, o => gui.DocumentViewsResolver.CreateViewForData(o));
+            return new GuiExportHandler(delegate { return gui.Application.FileExporters; }, o => gui.DocumentViewsResolver.CreateViewForData(o));
         }
 
         private void ApplicationProjectClosing(Project project)
@@ -470,7 +470,7 @@ namespace DeltaShell.Gui
                     view.Data = null;
                 }
             }
-            ((INotifyCollectionChange)project).CollectionChanged -= ProjectCollectionChanged;
+            ((INotifyCollectionChange) project).CollectionChanged -= ProjectCollectionChanged;
         }
 
         private void ApplicationProjectOpened(Project project)
@@ -478,7 +478,7 @@ namespace DeltaShell.Gui
             gui.Selection = project;
 
             // listen to all changes in project
-            ((INotifyCollectionChange)project).CollectionChanged += ProjectCollectionChanged;
+            ((INotifyCollectionChange) project).CollectionChanged += ProjectCollectionChanged;
         }
 
         private void ProjectCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
@@ -567,7 +567,10 @@ namespace DeltaShell.Gui
         private static object GetNewDataObject(SelectItemDialog selectDataDialog, object parent = null)
         {
             var dataItemInfo = selectDataDialog.SelectedItemTag as DataItemInfo;
-            if (dataItemInfo == null) return null;
+            if (dataItemInfo == null)
+            {
+                return null;
+            }
 
             var newDataObject = dataItemInfo.CreateData != null ? dataItemInfo.CreateData(parent) : null;
 
@@ -625,8 +628,8 @@ namespace DeltaShell.Gui
             }
             gui.MainWindow.Title = project.Name + (project.IsChanged ? "*" : "") + " - " + mainWindowTitle;
 
-            ((INotifyPropertyChanged)project).PropertyChanged -= CurrentProjectChanged;
-            ((INotifyPropertyChanged)project).PropertyChanged += CurrentProjectChanged;
+            ((INotifyPropertyChanged) project).PropertyChanged -= CurrentProjectChanged;
+            ((INotifyPropertyChanged) project).PropertyChanged += CurrentProjectChanged;
         }
     }
 }

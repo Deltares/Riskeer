@@ -9,28 +9,6 @@ namespace DelftTools.Utils
     [Obsolete("This class is messy (taking IEnumerable as arguments, Type t?!)")]
     public static class NamingHelper
     {
-        private class NameComparer : IEqualityComparer<string>
-        {
-            private readonly bool ignoreCase;
-
-            public NameComparer(bool ignoreCase)
-            {
-                this.ignoreCase = ignoreCase;
-            }
-
-            public bool Equals(string x, string y)
-            {
-                if (x == null && y != null)
-                    return false;
-                return ignoreCase ? x.Equals(y, StringComparison.CurrentCultureIgnoreCase) : x.Equals(y);
-            }
-
-            public int GetHashCode(string obj)
-            {
-                return obj.GetHashCode();
-            }
-        }
-
         /// <summary>
         /// Extracts an unique name from the item collection
         /// </summary>
@@ -87,12 +65,11 @@ namespace DelftTools.Utils
             do
             {
                 unique = String.Format(filter, id++);
-            }
-            while (namesList.Contains(unique, new NameComparer(ignoreCase)));
+            } while (namesList.Contains(unique, new NameComparer(ignoreCase)));
 
             return unique;
         }
-        
+
         /// <summary>
         /// Makes all <param name="nameables" /> have a unique name
         /// </summary>
@@ -130,7 +107,7 @@ namespace DelftTools.Utils
             }
         }
 
-        private static Tuple<string,int> GenerateUniqueNameForList(string filter, bool ignoreCase, HashSet<string> uniqueNames)
+        private static Tuple<string, int> GenerateUniqueNameForList(string filter, bool ignoreCase, HashSet<string> uniqueNames)
         {
             String uniqueName;
             int id = 1;
@@ -138,10 +115,33 @@ namespace DelftTools.Utils
             do
             {
                 uniqueName = String.Format(filter, id++);
-            }
-            while (uniqueNames.Contains(uniqueName, new NameComparer(ignoreCase)));
+            } while (uniqueNames.Contains(uniqueName, new NameComparer(ignoreCase)));
 
             return new Tuple<string, int>(uniqueName, id);
+        }
+
+        private class NameComparer : IEqualityComparer<string>
+        {
+            private readonly bool ignoreCase;
+
+            public NameComparer(bool ignoreCase)
+            {
+                this.ignoreCase = ignoreCase;
+            }
+
+            public bool Equals(string x, string y)
+            {
+                if (x == null && y != null)
+                {
+                    return false;
+                }
+                return ignoreCase ? x.Equals(y, StringComparison.CurrentCultureIgnoreCase) : x.Equals(y);
+            }
+
+            public int GetHashCode(string obj)
+            {
+                return obj.GetHashCode();
+            }
         }
     }
 }

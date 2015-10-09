@@ -68,7 +68,10 @@ namespace DeltaShell.Tests.Core.Services
         [Test]
         public void SaveProjectAsTemporyProjectShouldMarkProjectAsNotTemporary()
         {
-            var project = new Project("project") { IsTemporary = true };
+            var project = new Project("project")
+            {
+                IsTemporary = true
+            };
 
             Expect.Call(repository.Path).Return("a_path").Repeat.Any();
             Expect.Call(delegate { repository.SaveAs(null, Path.GetFullPath("myproject.dsproj")); }).IgnoreArguments().Repeat.Once();
@@ -86,8 +89,10 @@ namespace DeltaShell.Tests.Core.Services
         [Test]
         public void SaveProjectToSameLocation()
         {
-
-            var project = new Project("project") { IsChanged = true };
+            var project = new Project("project")
+            {
+                IsChanged = true
+            };
 
             Expect.Call(repository.Path).Repeat.Any().Return(Path.GetFullPath("myproject.dsproj"));
             Expect.Call(delegate { repository.SaveOrUpdate(project); }).Repeat.Once();
@@ -138,9 +143,9 @@ namespace DeltaShell.Tests.Core.Services
         {
             Expect.Call(repository.Path).Return(@"C:\mockpath").Repeat.Any();
             Expect.Call(() => repository.SaveOrUpdate(Arg<Project>.Is.Anything))
-                .IgnoreArguments()
-                .Throw(new Exception("save failed"))
-                .Repeat.Any();
+                  .IgnoreArguments()
+                  .Throw(new Exception("save failed"))
+                  .Repeat.Any();
             mocks.ReplayAll();
 
             var savedCallCount = 0;

@@ -1,3 +1,5 @@
+using System;
+
 namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
 {
     /// <summary>
@@ -17,6 +19,22 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             Init();
         }
 
+        /// <summary>
+        /// Locates an edge e, such that either v is on e, or e is an edge of a triangle containing v.
+        /// The search starts from the last located edge amd proceeds on the general direction of v.
+        /// </summary>
+        public QuadEdge Locate(Vertex v)
+        {
+            if (!_lastEdge.IsLive)
+            {
+                Init();
+            }
+
+            QuadEdge e = _subdiv.LocateFromEdge(v, _lastEdge);
+            _lastEdge = e;
+            return e;
+        }
+
         private void Init()
         {
             _lastEdge = FindEdge();
@@ -33,24 +51,8 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             }
             else
             {
-                throw new System.IndexOutOfRangeException();
+                throw new IndexOutOfRangeException();
             }
-        }
-
-        /// <summary>
-        /// Locates an edge e, such that either v is on e, or e is an edge of a triangle containing v.
-        /// The search starts from the last located edge amd proceeds on the general direction of v.
-        /// </summary>
-        public QuadEdge Locate(Vertex v)
-        {
-            if (! _lastEdge.IsLive)
-            {
-                Init();
-            }
-
-            QuadEdge e = _subdiv.LocateFromEdge(v, _lastEdge);
-            _lastEdge = e;
-            return e;
         }
     }
 }

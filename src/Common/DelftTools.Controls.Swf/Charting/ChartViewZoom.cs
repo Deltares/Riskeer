@@ -1,24 +1,38 @@
+using Steema.TeeChart;
+
 namespace DelftTools.Controls.Swf.Charting
 {
     internal class ChartViewZoom : IChartViewZoom
     {
-        private Steema.TeeChart.Zoom teeChartZoom;
+        private readonly Zoom teeChartZoom;
 
-        public ChartViewZoom(Steema.TeeChart.Zoom zoom)
+        public ChartViewZoom(Zoom zoom)
         {
             teeChartZoom = zoom;
         }
 
         public bool Animated
         {
-            get { return teeChartZoom.Animated; }
-            set { teeChartZoom.Animated = value; }
+            get
+            {
+                return teeChartZoom.Animated;
+            }
+            set
+            {
+                teeChartZoom.Animated = value;
+            }
         }
 
         public bool Allow
         {
-            get { return teeChartZoom.Allow; }
-            set { teeChartZoom.Allow = value; }
+            get
+            {
+                return teeChartZoom.Allow;
+            }
+            set
+            {
+                teeChartZoom.Allow = value;
+            }
         }
 
         public ZoomDirections Direction
@@ -27,10 +41,13 @@ namespace DelftTools.Controls.Swf.Charting
             {
                 switch (teeChartZoom.Direction)
                 {
-                    case Steema.TeeChart.ZoomDirections.Horizontal: return ZoomDirections.Horizontal;
-                    case Steema.TeeChart.ZoomDirections.Vertical: return ZoomDirections.Vertical;
-                    default : return ZoomDirections.Both;
-                } 
+                    case Steema.TeeChart.ZoomDirections.Horizontal:
+                        return ZoomDirections.Horizontal;
+                    case Steema.TeeChart.ZoomDirections.Vertical:
+                        return ZoomDirections.Vertical;
+                    default:
+                        return ZoomDirections.Both;
+                }
             }
             set
             {

@@ -9,7 +9,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public class WmsMapLayerGroupTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<WmsLayer>
     {
-        private IGisGuiService gisGuiService;
+        private readonly IGisGuiService gisGuiService;
 
         public WmsMapLayerGroupTreeViewNodePresenter(GuiPlugin guiPlugin, IGisGuiService gisGuiService) : base(guiPlugin)
         {
@@ -18,7 +18,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         public override bool CanRenameNode(ITreeNode node)
         {
-            ILayer layer = (ILayer)node.Tag;
+            ILayer layer = (ILayer) node.Tag;
             return !layer.NameIsReadOnly;
         }
 
@@ -28,11 +28,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             {
                 layer.Name = newName;
             }
-        }
-
-        protected override bool CanRemove(WmsLayer nodeData)
-        {
-            return true;
         }
 
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, WmsLayer layer)
@@ -50,7 +45,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         public override void OnNodeChecked(ITreeNode node)
         {
-            ILayer layer = (ILayer)node.Tag;
+            ILayer layer = (ILayer) node.Tag;
             layer.Visible = node.Checked;
             gisGuiService.RefreshMapView(layer.Map);
         }
@@ -58,6 +53,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         public override DragOperations CanDrag(WmsLayer nodeData)
         {
             return DragOperations.Move;
+        }
+
+        protected override bool CanRemove(WmsLayer nodeData)
+        {
+            return true;
         }
     }
 }

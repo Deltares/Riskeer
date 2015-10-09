@@ -32,11 +32,14 @@ namespace SharpMap.Tests.Layers
         public void EventBubbling()
         {
             var style = new VectorStyle();
-            var vectorLayer = new VectorLayer("EventBubbling") { Style = style };
+            var vectorLayer = new VectorLayer("EventBubbling")
+            {
+                Style = style
+            };
             var changeCount = 0;
 
-            ((INotifyPropertyChanged)vectorLayer).PropertyChanged +=
-                delegate(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+            ((INotifyPropertyChanged) vectorLayer).PropertyChanged +=
+                delegate(object sender, PropertyChangedEventArgs e)
                 {
                     Assert.AreEqual(e.PropertyName, "Line");
                     changeCount++;
@@ -66,14 +69,30 @@ namespace SharpMap.Tests.Layers
             var featureProvider = new FeatureCollection
             {
                 Features =
+                {
+                    new Feature
                     {
-                        new Feature { Geometry = new WKTReader().Read("LINESTRING(0 0,80000000 0)") },
-                        new Feature { Geometry = new WKTReader().Read("POINT(50000000 0)")}
+                        Geometry = new WKTReader().Read("LINESTRING(0 0,80000000 0)")
+                    },
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(50000000 0)")
                     }
+                }
             };
 
-            var layer = new VectorLayer { DataSource = featureProvider };
-            var map = new Map { Layers = { layer }, Size = new Size(1000, 1000) };
+            var layer = new VectorLayer
+            {
+                DataSource = featureProvider
+            };
+            var map = new Map
+            {
+                Layers =
+                {
+                    layer
+                },
+                Size = new Size(1000, 1000)
+            };
             map.Render();
             map.ZoomToFit(new Envelope(50000000, 50000001, 0, 1));
 
@@ -86,28 +105,43 @@ namespace SharpMap.Tests.Layers
             var featureProvider = new FeatureCollection
             {
                 Features =
+                {
+                    new Feature
                     {
-                        new Feature { Geometry = new WKTReader().Read("POINT(0 0)") },
-                        new Feature { Geometry = new WKTReader().Read("POINT(100 100)")}
+                        Geometry = new WKTReader().Read("POINT(0 0)")
+                    },
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(100 100)")
                     }
+                }
             };
 
             var layer = new VectorLayer
-                            {
-                                DataSource = featureProvider,
-                                LabelLayer = { Visible = true } // set labels on, happens in ThemeEditorDialog
-                            };
+            {
+                DataSource = featureProvider,
+                LabelLayer =
+                {
+                    Visible = true
+                } // set labels on, happens in ThemeEditorDialog
+            };
 
             // make label layer use delegate so that we can check if it renders
             var callCount = 0;
             layer.LabelLayer.LabelStringDelegate = delegate(IFeature feature)
-                                                       {
-                                                           callCount++;
-                                                           return feature.ToString();
-                                                       };
+            {
+                callCount++;
+                return feature.ToString();
+            };
 
-
-            var map = new Map { Layers = { layer }, Size = new Size(1000, 1000) };
+            var map = new Map
+            {
+                Layers =
+                {
+                    layer
+                },
+                Size = new Size(1000, 1000)
+            };
             map.Render();
 
             callCount
@@ -119,7 +153,7 @@ namespace SharpMap.Tests.Layers
         {
             var layer = new VectorLayer();
             layer.LabelLayer.Visible
-                .Should("label layer is off by default").Be.False();
+                 .Should("label layer is off by default").Be.False();
         }
 
         [Test]
@@ -128,26 +162,39 @@ namespace SharpMap.Tests.Layers
             var featureProvider = new FeatureCollection
             {
                 Features =
+                {
+                    new Feature
                     {
-                        new Feature { Geometry = new WKTReader().Read("POINT(0 0)") },
-                        new Feature { Geometry = new WKTReader().Read("POINT(100 100)")}
+                        Geometry = new WKTReader().Read("POINT(0 0)")
+                    },
+                    new Feature
+                    {
+                        Geometry = new WKTReader().Read("POINT(100 100)")
                     }
+                }
             };
 
             var layer = new VectorLayer
-                            {
-                                DataSource = featureProvider
-                            };
+            {
+                DataSource = featureProvider
+            };
 
             // make label layer use delegate so that we can check if it renders
             var callCount = 0;
             layer.LabelLayer.LabelStringDelegate = delegate(IFeature feature)
-                                                       {
-                                                           callCount++;
-                                                           return feature.ToString();
-                                                       };
+            {
+                callCount++;
+                return feature.ToString();
+            };
 
-            var map = new Map {Layers = {layer}, Size = new Size(1000, 1000)};
+            var map = new Map
+            {
+                Layers =
+                {
+                    layer
+                },
+                Size = new Size(1000, 1000)
+            };
             map.Render();
 
             callCount

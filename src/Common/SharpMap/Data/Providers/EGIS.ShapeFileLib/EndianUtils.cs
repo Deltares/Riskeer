@@ -2,17 +2,14 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
 {
     internal class EndianUtils
     {
-
-        private EndianUtils()
-        {
-        }
+        private EndianUtils() {}
 
         public static int ReadIntBE(byte[] data, int offset)
         {
             int result = data[offset];
-            result= (result<<8)|data[offset+1];
-            result= (result<<8)|data[offset+2];
-            result= (result<<8)|data[offset+3];            
+            result = (result << 8) | data[offset + 1];
+            result = (result << 8) | data[offset + 2];
+            result = (result << 8) | data[offset + 3];
             return result;
         }
 
@@ -27,13 +24,12 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         public static void SwapIntBytes(byte[] data, int offset)
         {
             byte temp = data[offset];
-            data[offset] = data[offset+3];
-            data[offset+3]=temp;
+            data[offset] = data[offset + 3];
+            data[offset + 3] = temp;
 
-            temp = data[offset+1];
-            data[offset+1] = data[offset+2];
-            data[offset+2] = temp;
+            temp = data[offset + 1];
+            data[offset + 1] = data[offset + 2];
+            data[offset + 2] = temp;
         }
-
     }
 }

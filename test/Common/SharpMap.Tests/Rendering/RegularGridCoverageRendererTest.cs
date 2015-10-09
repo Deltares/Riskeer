@@ -1,6 +1,4 @@
 ﻿namespace SharpMap.Tests.Rendering
 {
-    class RegularGridCoverageRendererTest
-    {
-    }
+    internal class RegularGridCoverageRendererTest {}
 }

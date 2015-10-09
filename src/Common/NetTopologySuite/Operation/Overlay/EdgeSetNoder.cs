@@ -13,8 +13,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
     /// </summary>
     public class EdgeSetNoder
     {
-        private LineIntersector li = null;
-        private IList inputEdges = new ArrayList();
+        private readonly LineIntersector li = null;
+        private readonly IList inputEdges = new ArrayList();
 
         /// <summary>
         /// 
@@ -28,32 +28,34 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="edges"></param>
-        public void AddEdges(IList edges)
-        {
-            foreach (object obj in edges)
-                inputEdges.Add(obj);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public IList NodedEdges
         {
             get
             {
                 EdgeSetIntersector esi = new SimpleMCSweepLineIntersector();
                 SegmentIntersector si = new SegmentIntersector(li, true, false);
-                esi.ComputeIntersections(inputEdges, si, true);                
+                esi.ComputeIntersections(inputEdges, si, true);
 
                 IList splitEdges = new ArrayList();
                 IEnumerator i = inputEdges.GetEnumerator();
-                while (i.MoveNext()) 
+                while (i.MoveNext())
                 {
-                    Edge e = (Edge)i.Current;
+                    Edge e = (Edge) i.Current;
                     e.EdgeIntersectionList.AddSplitEdges(splitEdges);
                 }
                 return splitEdges;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="edges"></param>
+        public void AddEdges(IList edges)
+        {
+            foreach (object obj in edges)
+            {
+                inputEdges.Add(obj);
             }
         }
     }

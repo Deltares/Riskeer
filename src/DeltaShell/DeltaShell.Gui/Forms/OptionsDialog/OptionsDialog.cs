@@ -13,7 +13,7 @@ namespace DeltaShell.Gui.Forms.OptionsDialog
     public partial class OptionsDialog : Form
     {
         private readonly EventedList<IOptionsControl> optionsControls;
-        
+
         public OptionsDialog()
         {
             InitializeComponent();
@@ -23,7 +23,25 @@ namespace DeltaShell.Gui.Forms.OptionsDialog
             treeView1.AfterSelect += TreeViewSelectionChanged;
         }
 
-        public IList<IOptionsControl> OptionsControls { get { return optionsControls; } }
+        public IList<IOptionsControl> OptionsControls
+        {
+            get
+            {
+                return optionsControls;
+            }
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            if (DialogResult != DialogResult.OK)
+            {
+                foreach (var control in OptionsControls)
+                {
+                    control.DeclineChanges();
+                }
+            }
+            base.OnFormClosed(e);
+        }
 
         private void TreeViewSelectionChanged(object sender, TreeViewEventArgs e)
         {
@@ -104,18 +122,6 @@ namespace DeltaShell.Gui.Forms.OptionsDialog
             {
                 control.DeclineChanges();
             }
-        }
-
-        protected override void OnFormClosed(FormClosedEventArgs e)
-        {
-            if (DialogResult != DialogResult.OK)
-            {
-                foreach (var control in OptionsControls)
-                {
-                    control.DeclineChanges();
-                }
-            }
-            base.OnFormClosed(e);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace SharpMap.UI.Tools
             activeTracker = TrackerSymbolHelper.GenerateSimple(new Pen(Color.DarkGreen), new SolidBrush(Color.Orange), 8, 8);
             Failed = true;
             snapLayer.Name = "snapping";
-            
+
             var provider = new DataTableFeatureProvider(geometries);
             snapLayer.DataSource = provider;
             snapLayer.Style.Line = new Pen(Color.DarkViolet, 2);
@@ -48,16 +48,20 @@ namespace SharpMap.UI.Tools
 
         public SnapResult SnapResult { get; set; }
 
-        public VectorLayer SnapLayer { get { return snapLayer; } }
-
-        public override void Render(Graphics graphics, Map mapBox)
+        public VectorLayer SnapLayer
         {
-            snapLayer.OnRender(graphics, mapBox);
+            get
+            {
+                return snapLayer;
+            }
         }
 
         public void AddSnap(IGeometry geometry, ICoordinate from, ICoordinate to)
         {
-            var vertices = new List<ICoordinate> {from, to};
+            var vertices = new List<ICoordinate>
+            {
+                from, to
+            };
             var snapLineString = GeometryFactory.CreateLineString(vertices.ToArray());
             snapLayer.DataSource.Add(snapLineString);
         }
@@ -69,17 +73,12 @@ namespace SharpMap.UI.Tools
             snapLayer.DataSource.Features.Clear();
         }
 
-        public override void Cancel()
-        {
-            Reset();
-        }
-
         /// <summary>
         /// Executes snapRule and shows the result in the snaptools' layer
         /// </summary>
         public SnapResult ExecuteSnapRule(ISnapRule snapRule, IFeature sourceFeature, IGeometry snapSource, IList<IFeature> snapTargets, ICoordinate worldPos, int trackingIndex)
         {
-            var marge = (float)MapHelper.ImageToWorld(Map, snapRule.PixelGravity);
+            var marge = (float) MapHelper.ImageToWorld(Map, snapRule.PixelGravity);
             var envelope = MapHelper.GetEnvelope(worldPos, marge);
 
             var snapCandidates = GetSnapCandidates(envelope);
@@ -112,13 +111,18 @@ namespace SharpMap.UI.Tools
                 ISnapRule rule = snapRules[i];
                 ExecuteSnapRule(rule, feature, geometry, null, worldPosition, trackerIndex);
                 if (null != SnapResult)
+                {
                     break;
+                }
                 // If snapping failed for the last rule and snapping is obligatory 
                 // any position is valid
                 // todo add rule with SnapRole.Free?
                 if ((!rule.Obligatory) && (i == snapRules.Count - 1))
                 {
-                    SnapResult = new SnapResult(worldPosition, null, sourceLayer, null, -1, -1) { Rule = rule };
+                    SnapResult = new SnapResult(worldPosition, null, sourceLayer, null, -1, -1)
+                    {
+                        Rule = rule
+                    };
                 }
             }
             if (0 == snapRules.Count)
@@ -128,11 +132,21 @@ namespace SharpMap.UI.Tools
             return SnapResult;
         }
 
+        public override void Render(Graphics graphics, Map mapBox)
+        {
+            snapLayer.OnRender(graphics, mapBox);
+        }
+
+        public override void Cancel()
+        {
+            Reset();
+        }
+
         private IEnumerable<Tuple<IFeature, ILayer>> GetSnapCandidates(IEnvelope envelope)
         {
             foreach (var layer in Map.GetAllVisibleLayers(true).Where(l => l.DataSource != null))
             {
-                foreach(var feature in layer.GetFeatures(envelope))
+                foreach (var feature in layer.GetFeatures(envelope))
                 {
                     yield return new Tuple<IFeature, ILayer>(feature, layer);
                 }
@@ -141,12 +155,14 @@ namespace SharpMap.UI.Tools
 
         private void ShowSnapResult(SnapResult snapResult)
         {
-            var dataTableFeatureProvider = (DataTableFeatureProvider)snapLayer.DataSource;
+            var dataTableFeatureProvider = (DataTableFeatureProvider) snapLayer.DataSource;
 
             dataTableFeatureProvider.Clear();
 
             if (snapResult == null)
+            {
                 return;
+            }
 
             var visibleSnaps = snapResult.VisibleSnaps;
 
@@ -187,7 +203,7 @@ namespace SharpMap.UI.Tools
 
         private VectorStyle GetTrackerStyle(IFeature feature)
         {
-            var style = (VectorStyle)snapLayer.Style.Clone();
+            var style = (VectorStyle) snapLayer.Style.Clone();
             style.Symbol = activeTracker;
             return style;
         }

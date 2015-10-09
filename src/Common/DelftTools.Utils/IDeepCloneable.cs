@@ -13,10 +13,8 @@ namespace DelftTools.Utils
         /// Gets a deep copy of the object and its relations 
         ///</summary>
         ///<returns>The object graph</returns>
-        object DeepClone();    
+        object DeepClone();
     }
 
-    public interface IManualCloneable : ICloneable
-    {
-    }
+    public interface IManualCloneable : ICloneable {}
 }

@@ -13,7 +13,7 @@ namespace DelftTools.Shell.Core.Dao
         /// <param name="state"></param>
         /// <param name="propertyNames"></param>
         /// <returns></returns>
-        void OnPostLoad(object entity,object[] state, string[] propertyNames);
+        void OnPostLoad(object entity, object[] state, string[] propertyNames);
 
         /// <summary>
         /// 

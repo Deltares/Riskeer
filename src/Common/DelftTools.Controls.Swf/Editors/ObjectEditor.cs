@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Mask;
 
 namespace DelftTools.Controls.Swf.Editors
@@ -11,11 +12,11 @@ namespace DelftTools.Controls.Swf.Editors
     /// </summary>
     public partial class ObjectEditor : UserControl
     {
+        public event EventHandler ValueChanged;
+        private readonly Dictionary<Type, Control> support;
         private object value;
         private Type valueType;
         private string label;
-        private readonly Dictionary<Type, Control> support;
-        public event EventHandler ValueChanged;
 
         /// <summary>
         /// Creates the graphical object editor control.
@@ -36,104 +37,13 @@ namespace DelftTools.Controls.Swf.Editors
             support[typeof(TimeSpan)] = txtValue;
 
             // Default to int (the setter will initialze the controls as well)
-            ValueType = typeof (int);
+            ValueType = typeof(int);
 
             // Events should be bubbled
             chkValue.CheckedChanged += control_ValueChanged;
             txtValue.TextChanged += control_ValueChanged;
             dtpValue.ValueChanged += control_ValueChanged;
-
         }
-
-        #region Implementation of IObjectEditor
-
-        public object Value
-        {
-            get { return value; }
-            set
-            {
-                if (value != null && value.GetType() != valueType)
-                {
-                    throw new ArgumentException("The set value '" + value + "' is not of the type " + valueType + ". (You might want to set ValueType first.)");
-                }
-                this.value = value;
-
-                // Set the value in the active control
-                if (this.value != null)
-                {
-                    if (GetControlInstance() is DevExpress.XtraEditors.TextEdit)
-                    {
-                        GetControlInstance().Text = this.value.ToString();
-                    }
-                    if (GetControlInstance() is CheckBox)
-                    {
-                        ((CheckBox) GetControlInstance()).Checked = (bool) this.value;
-                    }
-                    if (GetControlInstance() is DateTimePicker)
-                    {
-                        ((DateTimePicker)GetControlInstance()).Value = (DateTime)this.value;
-                    }
-                }
-                else
-                {
-                    if (GetControlInstance() is DevExpress.XtraEditors.TextEdit)
-                    {
-                        GetControlInstance().Text = string.Empty;
-                    }
-                    if (GetControlInstance() is CheckBox)
-                    {
-                        ((CheckBox)GetControlInstance()).CheckState = CheckState.Indeterminate;
-                    }
-                    if (GetControlInstance() is DateTimePicker)
-                    {
-                        // no action (only used in constructor, correct value will be set later)
-                    }
-                }
-            }
-        }
-
-        public Type ValueType
-        {
-            get { return valueType; }
-            set
-            {
-                if (!support.ContainsKey(value))
-                {
-                    throw new ArgumentException("Type " + value + " is not supported by any available editor.");
-                }
-                valueType = value;
-
-                // Reset contained value
-                if (this.value != null && this.value.GetType() != value)
-                {
-                    // WARNING: Value lost on setting of the ValueType when a Value of a different Type was already set.
-                    this.value = null;
-                }
-
-                UpdateEditorVisibility();
-            }
-        }
-
-        public string Label
-        {
-            get { return label; }
-            set
-            {
-                label = value;
-
-                // Set the label on the forms control, if applicable
-                if (GetControlInstance() is CheckBox)
-                {
-                    GetControlInstance().Text = label;
-                }
-            }
-        }
-        public Control GetControlInstance()
-        {
-            return support[valueType];
-        }
-
-        #endregion
 
         private void control_ValueChanged(object sender, EventArgs e)
         {
@@ -162,11 +72,11 @@ namespace DelftTools.Controls.Swf.Editors
                 }
                 else
                 {
-                    if (valueType == typeof (string))
+                    if (valueType == typeof(string))
                     {
                         value = txtValue.Text;
                     }
-                    else if (valueType == typeof (int))
+                    else if (valueType == typeof(int))
                     {
                         int v;
                         if (int.TryParse(txtValue.Text, out v))
@@ -178,7 +88,7 @@ namespace DelftTools.Controls.Swf.Editors
                             value = null;
                         }
                     }
-                    else if (valueType == typeof (float))
+                    else if (valueType == typeof(float))
                     {
                         float v;
                         if (float.TryParse(txtValue.Text, out v))
@@ -190,7 +100,7 @@ namespace DelftTools.Controls.Swf.Editors
                             value = null;
                         }
                     }
-                    else if (valueType == typeof (double))
+                    else if (valueType == typeof(double))
                     {
                         double v;
                         if (double.TryParse(txtValue.Text, out v))
@@ -202,7 +112,7 @@ namespace DelftTools.Controls.Swf.Editors
                             value = null;
                         }
                     }
-                    else if (valueType == typeof (TimeSpan))
+                    else if (valueType == typeof(TimeSpan))
                     {
                         TimeSpan v;
                         if (TimeSpan.TryParse(txtValue.Text, out v))
@@ -230,7 +140,7 @@ namespace DelftTools.Controls.Swf.Editors
             GetControlInstance().BringToFront();
             foreach (KeyValuePair<Type, Control> pair in support)
             {
-                pair.Value.Visible = false;// (pair.Key == valueType);
+                pair.Value.Visible = false; // (pair.Key == valueType);
             }
             GetControlInstance().Visible = true;
             // Adjust input control to the current ValueType
@@ -260,5 +170,104 @@ namespace DelftTools.Controls.Swf.Editors
             }
         }
 
+        #region Implementation of IObjectEditor
+
+        public object Value
+        {
+            get
+            {
+                return value;
+            }
+            set
+            {
+                if (value != null && value.GetType() != valueType)
+                {
+                    throw new ArgumentException("The set value '" + value + "' is not of the type " + valueType + ". (You might want to set ValueType first.)");
+                }
+                this.value = value;
+
+                // Set the value in the active control
+                if (this.value != null)
+                {
+                    if (GetControlInstance() is TextEdit)
+                    {
+                        GetControlInstance().Text = this.value.ToString();
+                    }
+                    if (GetControlInstance() is CheckBox)
+                    {
+                        ((CheckBox) GetControlInstance()).Checked = (bool) this.value;
+                    }
+                    if (GetControlInstance() is DateTimePicker)
+                    {
+                        ((DateTimePicker) GetControlInstance()).Value = (DateTime) this.value;
+                    }
+                }
+                else
+                {
+                    if (GetControlInstance() is TextEdit)
+                    {
+                        GetControlInstance().Text = string.Empty;
+                    }
+                    if (GetControlInstance() is CheckBox)
+                    {
+                        ((CheckBox) GetControlInstance()).CheckState = CheckState.Indeterminate;
+                    }
+                    if (GetControlInstance() is DateTimePicker)
+                    {
+                        // no action (only used in constructor, correct value will be set later)
+                    }
+                }
+            }
+        }
+
+        public Type ValueType
+        {
+            get
+            {
+                return valueType;
+            }
+            set
+            {
+                if (!support.ContainsKey(value))
+                {
+                    throw new ArgumentException("Type " + value + " is not supported by any available editor.");
+                }
+                valueType = value;
+
+                // Reset contained value
+                if (this.value != null && this.value.GetType() != value)
+                {
+                    // WARNING: Value lost on setting of the ValueType when a Value of a different Type was already set.
+                    this.value = null;
+                }
+
+                UpdateEditorVisibility();
+            }
+        }
+
+        public string Label
+        {
+            get
+            {
+                return label;
+            }
+            set
+            {
+                label = value;
+
+                // Set the label on the forms control, if applicable
+                if (GetControlInstance() is CheckBox)
+                {
+                    GetControlInstance().Text = label;
+                }
+            }
+        }
+
+        public Control GetControlInstance()
+        {
+            return support[valueType];
+        }
+
+        #endregion
     }
 }

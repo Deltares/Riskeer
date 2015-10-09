@@ -15,7 +15,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [Browsable(false)]
         protected override VectorStyle Style
         {
-            get { return data; }
+            get
+            {
+                return data;
+            }
         }
     }
 }

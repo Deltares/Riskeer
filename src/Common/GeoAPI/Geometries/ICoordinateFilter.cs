@@ -14,10 +14,9 @@ namespace GeoAPI.Geometries
     public interface ICoordinateFilter
     {
         /// <summary>
-	    /// Performs an operation with or on <c>coord</c>.
-    	/// </summary>
+        /// Performs an operation with or on <c>coord</c>.
+        /// </summary>
         /// <param name="coord"><c>Coordinate</c> to which the filter is applied.</param>
-    	void Filter(ICoordinate coord);
+        void Filter(ICoordinate coord);
     }
-
 }

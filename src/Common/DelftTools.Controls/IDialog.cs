@@ -4,7 +4,7 @@
     public interface IDialog
     {
         string Title { get; set; }
-        
+
         DelftDialogResult ShowModal();
         DelftDialogResult ShowModal(object owner);
     }

@@ -10,8 +10,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
     /// </summary>
     public class PointBuilder
     {
-        private OverlayOp op;
-        private IGeometryFactory geometryFactory;
+        private readonly OverlayOp op;
+        private readonly IGeometryFactory geometryFactory;
         private PointLocator ptLocator;
 
         /// <summary>
@@ -51,14 +51,16 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
             IList resultNodeList = new ArrayList();
             // add nodes from edge intersections which have not already been included in the result
             IEnumerator nodeit = op.Graph.Nodes.GetEnumerator();
-            while (nodeit.MoveNext()) 
+            while (nodeit.MoveNext())
             {
                 Node n = (Node) nodeit.Current;
                 if (!n.IsInResult)
                 {
                     Label label = n.Label;
-                    if (OverlayOp.IsResultOfOp(label, opCode))                    
-                        resultNodeList.Add(n);                    
+                    if (OverlayOp.IsResultOfOp(label, opCode))
+                    {
+                        resultNodeList.Add(n);
+                    }
                 }
             }
             return resultNodeList;
@@ -77,9 +79,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         {
             IList nonCoveredPointList = new ArrayList();
             IEnumerator it = resultNodeList.GetEnumerator();
-            while (it.MoveNext()) 
+            while (it.MoveNext())
             {
-                Node n = (Node)it.Current;
+                Node n = (Node) it.Current;
                 ICoordinate coord = n.Coordinate;
                 if (!op.IsCoveredByLA(coord))
                 {

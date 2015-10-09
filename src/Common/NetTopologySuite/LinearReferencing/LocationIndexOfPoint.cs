@@ -12,7 +12,18 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
     /// always computes the nearest point closest to the start of the geometry.
     /// </summary>
     public class LocationIndexOfPoint
-    {        
+    {
+        private readonly IGeometry linearGeom;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:LocationIndexOfPoint"/> class.
+        /// </summary>
+        /// <param name="linearGeom">A linear geometry.</param>
+        public LocationIndexOfPoint(IGeometry linearGeom)
+        {
+            this.linearGeom = linearGeom;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -25,17 +36,6 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
             return locater.IndexOf(inputPt);
         }
 
-        private IGeometry linearGeom;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:LocationIndexOfPoint"/> class.
-        /// </summary>
-        /// <param name="linearGeom">A linear geometry.</param>
-        public LocationIndexOfPoint(IGeometry linearGeom)
-        {
-            this.linearGeom = linearGeom;
-        }
-        
         /// <summary>     
         /// Find the nearest location along a linear {@link Geometry} to a given point.
         /// </summary>
@@ -58,13 +58,17 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
         /// <returns>The location of the nearest point.</returns>
         public LinearLocation IndexOfAfter(ICoordinate inputPt, LinearLocation minIndex)
         {
-            if (minIndex == null) 
+            if (minIndex == null)
+            {
                 return IndexOf(inputPt);
+            }
 
             // sanity check for minLocation at or past end of line
             LinearLocation endLoc = LinearLocation.GetEndLocation(linearGeom);
             if (endLoc.CompareTo(minIndex) <= 0)
+            {
                 return endLoc;
+            }
 
             LinearLocation closestAfter = IndexOfFromStart(inputPt, minIndex);
 
@@ -74,6 +78,26 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
              */
             Assert.IsTrue(closestAfter.CompareTo(minIndex) >= 0, "computed location is before specified minimum location");
             return closestAfter;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="seg"></param>
+        /// <param name="inputPt"></param>
+        /// <returns></returns>
+        public static double SegmentFraction(LineSegment seg, ICoordinate inputPt)
+        {
+            double segFrac = seg.ProjectionFactor(inputPt);
+            if (segFrac < 0.0)
+            {
+                segFrac = 0.0;
+            }
+            else if (segFrac > 1.0)
+            {
+                segFrac = 1.0;
+            }
+            return segFrac;
         }
 
         /// <summary>
@@ -114,27 +138,11 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
                             minDistance = segDistance;
                         }
                     }
-                }                
+                }
             }
 
             LinearLocation loc = new LinearLocation(minComponentIndex, minSegmentIndex, minFrac);
             return loc;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="seg"></param>
-        /// <param name="inputPt"></param>
-        /// <returns></returns>
-        public static double SegmentFraction(LineSegment seg, ICoordinate inputPt)
-        {
-            double segFrac = seg.ProjectionFactor(inputPt);
-            if (segFrac < 0.0)
-                segFrac = 0.0;
-            else if (segFrac > 1.0)
-                segFrac = 1.0;
-            return segFrac;
         }
     }
 }

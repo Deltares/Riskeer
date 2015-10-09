@@ -22,7 +22,7 @@ namespace DelftTools.Controls.Swf.Charting
         /// <summary>
         /// Visibility of this series
         /// </summary>
-        bool Visible { get; set;}
+        bool Visible { get; set; }
 
         /// <summary>
         /// Chart that this series belongs to
@@ -96,7 +96,7 @@ namespace DelftTools.Controls.Swf.Charting
         /// <param name="xValues">Values for the x axis</param>
         /// <param name="yValues">Values for the y axis</param>
         void Add(double?[] xValues, double?[] yValues);
-        
+
         /// <summary>
         /// Clear data of the series
         /// </summary>

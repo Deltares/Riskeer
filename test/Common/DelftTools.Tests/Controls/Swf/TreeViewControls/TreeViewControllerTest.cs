@@ -18,7 +18,8 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
     [TestFixture]
     public class TreeViewControllerTest
     {
-        [Test, ExpectedException(typeof(ArgumentException), ExpectedMessage = "Tree view can't be null")]
+        [Test]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Tree view can't be null")]
         public void ConstructWithoutTreeView()
         {
             new TreeViewController(null);
@@ -37,11 +38,15 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             var presenter = new TreeViewController(treeview);
             var baseClassNodePresenter = new BaseClassNodePresenter();
             var subClassNodePresenter = new SubClassNodePresenter();
-            
-            presenter.NodePresenters.AddRange(new ITreeNodePresenter[]{baseClassNodePresenter, subClassNodePresenter});
-            
+
+            presenter.NodePresenters.AddRange(new ITreeNodePresenter[]
+            {
+                baseClassNodePresenter,
+                subClassNodePresenter
+            });
+
             Assert.AreEqual(subClassNodePresenter, presenter.ResolveNodePresenterForData(new SubClass()));
-            
+
             mocks.VerifyAll();
         }
 
@@ -68,7 +73,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             var treeview = mocks.StrictMock<ITreeView>();
 
             Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
-            
+
             mocks.ReplayAll();
 
             var presenter = new TreeViewController(treeview);
@@ -91,7 +96,10 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 
             var interfaceNodePresenter = new SomeInterfaceNodePresenter();
             var interfaceImplementor = new SubClass();
-            presenter.NodePresenters.AddRange(new[] { interfaceNodePresenter });
+            presenter.NodePresenters.AddRange(new[]
+            {
+                interfaceNodePresenter
+            });
 
             Assert.AreEqual(interfaceNodePresenter, presenter.ResolveNodePresenterForData(interfaceImplementor));
 
@@ -106,10 +114,10 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             var treeNode = mocks.Stub<ITreeNode>();
             var treeview = mocks.StrictMock<ITreeView>();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
-            
+
             nodePresenter.TreeView = treeview;
             treeNode.Presenter = nodePresenter;
-            
+
             Expect.Call(() => nodePresenter.OnNodeChecked(treeNode));
             //Expect.Call(nodePresenter.NodeTagType).Return(typeof(object));
             //Expect.Call(nodePresenter.IsPresenterForNode(null)).IgnoreArguments().Return(true);
@@ -165,12 +173,12 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             var nodes = new List<ITreeNode>();
 
             nodePresenter.TreeView = treeview;
-            
+
             Expect.Call(treeview.Nodes).Return(nodes).Repeat.Any();
             Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
             treeview.SelectedNode = null;
             LastCall.On(treeview).IgnoreArguments();
-            
+
             Expect.Call(nodePresenter.NodeTagType).Return(typeof(object)).Repeat.Any();
             Expect.Call(nodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(Enumerable.Empty<object>());
             Expect.Call(() => nodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
@@ -195,10 +203,13 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             var nodes = new List<ITreeNode>();
 
             Expect.Call(treeview.Nodes).Return(nodes).Repeat.Any();
-            
+
             mocks.ReplayAll();
 
-            var presenter = new TreeViewController(treeview) {Data = null};
+            var presenter = new TreeViewController(treeview)
+            {
+                Data = null
+            };
 
             Assert.IsNull(presenter.Data);
 
@@ -210,12 +221,12 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         public void TestRegisterAndUnRegisterOnPropertyChangedOnSetData()
         {
             var mocks = new MockRepository();
-            
+
             var treeview = mocks.StrictMock<ITreeView>();
             var nodePresenter = mocks.StrictMock<ITreeNodePresenter>();
             var nodes = new List<ITreeNode>();
             var parent = new Parent();
-            
+
             nodePresenter.TreeView = treeview;
 
             Expect.Call(treeview.GetNodeByTag(parent)).Return(nodes.FirstOrDefault(n => n.Tag == parent)).Repeat.Any();
@@ -223,7 +234,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             Expect.Call(treeview.Refresh).IgnoreArguments().Repeat.Any();
             treeview.SelectedNode = null;
             LastCall.On(treeview).IgnoreArguments();
-            
+
             Expect.Call(nodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
             Expect.Call(nodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(Enumerable.Empty<object>());
             Expect.Call(() => nodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
@@ -268,7 +279,11 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             var child1 = new Child();
             var child2 = new Child();
 
-            parent.Children.AddRange(new [] { child1, child2 });
+            parent.Children.AddRange(new[]
+            {
+                child1,
+                child2
+            });
             treeview.Expect(tv => tv.RefreshChildNodes(null)).IgnoreArguments().Repeat.Once();
             treeview.Expect(tv => tv.Visible).IgnoreArguments().Return(false).Repeat.Any();
             treeview.Expect(tv => tv.IsUpdateSuspended).IgnoreArguments().Return(false).Repeat.Any();
@@ -283,7 +298,11 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 
             parentNodePresenter.TreeView = treeview;
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
-            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(new[] {child1,child2});
+            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(new[]
+            {
+                child1,
+                child2
+            });
             Expect.Call(() => parentNodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
 
             childNodePresenter.TreeView = treeview;
@@ -297,7 +316,11 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 
             controller.OnTreeViewHandleCreated();
 
-            controller.NodePresenters.AddRange(new [] {parentNodePresenter, childNodePresenter});
+            controller.NodePresenters.AddRange(new[]
+            {
+                parentNodePresenter,
+                childNodePresenter
+            });
             controller.Data = parent;
 
             // generate collection changed with listeners enabled
@@ -309,7 +332,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             parent.Children.Add(child2);
 
             controller.WaitUntilAllEventsAreProcessed();
-            
+
             mocks.VerifyAll();
         }
 
@@ -323,7 +346,10 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             var treeViewController = new TreeViewController(treeView);
 
             var parentNodePresenter = mocks.Stub<ITreeNodePresenter>();
-            treeViewController.NodePresenters.AddRange(new[] { parentNodePresenter });
+            treeViewController.NodePresenters.AddRange(new[]
+            {
+                parentNodePresenter
+            });
 
             var nodes = new List<ITreeNode>();
             Expect.Call(treeView.Nodes).Return(nodes).Repeat.Any();
@@ -341,7 +367,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             treeViewController.RefreshChildNodes(nodes[0]);
 
             Assert.AreEqual(0, nodes[0].Nodes.Count);
-            
+
             mocks.VerifyAll();
         }
 
@@ -357,12 +383,16 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             var child1 = new Child();
             var child2 = new Child();
 
-            parent.Children.AddRange(new []{child1,child2});
+            parent.Children.AddRange(new[]
+            {
+                child1,
+                child2
+            });
 
             parentNodePresenter.TreeView = treeview;
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
             Expect.Call(() => parentNodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
-            Expect.Call(parentNodePresenter.GetChildNodeObjects(null,null)).IgnoreArguments().Return(parent.Children).Repeat.Any();
+            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(parent.Children).Repeat.Any();
 
             childNodePresenter.TreeView = treeview;
             Expect.Call(childNodePresenter.NodeTagType).Return(typeof(Child)).Repeat.Any();
@@ -373,7 +403,11 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             mocks.ReplayAll();
 
             var controller = TypeUtils.GetField<TreeView, TreeViewController>(treeview, "controller");
-            controller.NodePresenters.AddRange(new[] { parentNodePresenter,childNodePresenter });
+            controller.NodePresenters.AddRange(new[]
+            {
+                parentNodePresenter,
+                childNodePresenter
+            });
 
             controller.Data = parent;
 
@@ -381,18 +415,21 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 
             // setting the controller.Data creates a root node and expands it if it has children
             Assert.AreEqual(2, parentNode.Nodes.Count);
-            
+
             // simulate removing child2 from parent by changing the number of children returned by the parent node presenter
             parentNodePresenter.BackToRecord(BackToRecordOptions.All);
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
-            Expect.Call(parentNodePresenter.GetChildNodeObjects(null,null)).IgnoreArguments().Return(new[] { child1 });
+            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(new[]
+            {
+                child1
+            });
             parentNodePresenter.Replay();
 
             // updates the tree view to the new parent node state (parent has 1 child item)
             controller.RefreshChildNodes(parentNode);
 
             Assert.AreEqual(1, parentNode.Nodes.Count);
-            
+
             mocks.VerifyAll();
         }
 
@@ -412,17 +449,25 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             parentNodePresenter.TreeView = treeview;
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
             Expect.Call(() => parentNodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
-            Expect.Call(parentNodePresenter.GetChildNodeObjects(null,null)).IgnoreArguments().Return(new[] {child1, child2}).Repeat.Any();
+            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(new[]
+            {
+                child1,
+                child2
+            }).Repeat.Any();
 
             childNodePresenter.TreeView = treeview;
             Expect.Call(childNodePresenter.NodeTagType).Return(typeof(Child)).Repeat.Any();
             Expect.Call(() => childNodePresenter.UpdateNode(null, null, null)).IgnoreArguments().Repeat.Times(6);
-            Expect.Call(childNodePresenter.GetChildNodeObjects(null,null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Any();
+            Expect.Call(childNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(Enumerable.Empty<object>()).Repeat.Any();
 
             mocks.ReplayAll();
 
             var controller = TypeUtils.GetField<TreeView, TreeViewController>(treeview, "controller");
-            controller.NodePresenters.AddRange(new[] { parentNodePresenter, childNodePresenter });
+            controller.NodePresenters.AddRange(new[]
+            {
+                parentNodePresenter,
+                childNodePresenter
+            });
 
             controller.Data = parent;
 
@@ -430,9 +475,9 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 
             parentNode.Collapse();
             controller.RefreshChildNodes(parentNode);
-            
+
             Assert.AreEqual(2, parentNode.Nodes.Count);
-            
+
             mocks.VerifyAll();
         }
 
@@ -453,15 +498,18 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             Expect.Call(treeview.EndUpdate).IgnoreArguments().Repeat.Any();
 
             treeNode.HasChildren = true;
-            Expect.Call(((ITreeNode)treeNode).Tag).Return(tag).Repeat.Any();
-            Expect.Call(((ITreeNode)treeNode).IsLoaded).Return(false).Repeat.Any();
-            Expect.Call(((ITreeNode)treeNode).Parent).Return(null);
-            Expect.Call(((ITreeNode)treeNode).Presenter).Return(nodePresenter).Repeat.Any();
-            
+            Expect.Call(((ITreeNode) treeNode).Tag).Return(tag).Repeat.Any();
+            Expect.Call(((ITreeNode) treeNode).IsLoaded).Return(false).Repeat.Any();
+            Expect.Call(((ITreeNode) treeNode).Parent).Return(null);
+            Expect.Call(((ITreeNode) treeNode).Presenter).Return(nodePresenter).Repeat.Any();
+
             nodePresenter.TreeView = treeview;
-            Expect.Call(nodePresenter.NodeTagType).Return(typeof (object)).Repeat.Any();
-            Expect.Call(nodePresenter.GetChildNodeObjects(tag,null)).IgnoreArguments().Return(new[] {new object()});
-            Expect.Call(() => nodePresenter.UpdateNode(null,null,null)).IgnoreArguments();
+            Expect.Call(nodePresenter.NodeTagType).Return(typeof(object)).Repeat.Any();
+            Expect.Call(nodePresenter.GetChildNodeObjects(tag, null)).IgnoreArguments().Return(new[]
+            {
+                new object()
+            });
+            Expect.Call(() => nodePresenter.UpdateNode(null, null, null)).IgnoreArguments();
 
             mocks.ReplayAll();
 
@@ -475,7 +523,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 
         [Test]
         public void TestRefreshLoadedNode()
-        {   
+        {
             var mocks = new MockRepository();
 
             var parentTreeNode = mocks.StrictMock<TreeNode>();
@@ -486,7 +534,10 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 
             var parent = new Parent();
             var child = new Child();
-            var subNodes = new List<ITreeNode>{childTreeNode};
+            var subNodes = new List<ITreeNode>
+            {
+                childTreeNode
+            };
 
             Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
             Expect.Call(treeview.IsUpdateSuspended).IgnoreArguments().Return(false).Repeat.Any();
@@ -494,22 +545,25 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             Expect.Call(treeview.EndUpdate).IgnoreArguments().Repeat.Any();
 
             parentTreeNode.HasChildren = true;
-            Expect.Call(((ITreeNode)parentTreeNode).Tag).Return(parent).Repeat.Any();
-            Expect.Call(((ITreeNode)parentTreeNode).IsLoaded).Return(true).Repeat.Any();
-            Expect.Call(((ITreeNode)parentTreeNode).Parent).Return(null);
-            Expect.Call(((ITreeNode)parentTreeNode).Nodes).Return(subNodes).Repeat.Any();
-            Expect.Call(((ITreeNode)parentTreeNode).Presenter).Return(parentNodePresenter).Repeat.Any();
+            Expect.Call(((ITreeNode) parentTreeNode).Tag).Return(parent).Repeat.Any();
+            Expect.Call(((ITreeNode) parentTreeNode).IsLoaded).Return(true).Repeat.Any();
+            Expect.Call(((ITreeNode) parentTreeNode).Parent).Return(null);
+            Expect.Call(((ITreeNode) parentTreeNode).Nodes).Return(subNodes).Repeat.Any();
+            Expect.Call(((ITreeNode) parentTreeNode).Presenter).Return(parentNodePresenter).Repeat.Any();
 
             childTreeNode.HasChildren = false;
-            Expect.Call(((ITreeNode)childTreeNode).Tag).Return(child).Repeat.Any();
-            Expect.Call(((ITreeNode)childTreeNode).IsLoaded).Return(false).Repeat.Any();
-            Expect.Call(((ITreeNode)childTreeNode).Parent).Return(parentTreeNode).Repeat.Any();
-            Expect.Call(((ITreeNode)childTreeNode).Nodes).Return(new List<ITreeNode>()).Repeat.Any();
-            Expect.Call(((ITreeNode)childTreeNode).Presenter).Return(childNodePresenter).Repeat.Any();
+            Expect.Call(((ITreeNode) childTreeNode).Tag).Return(child).Repeat.Any();
+            Expect.Call(((ITreeNode) childTreeNode).IsLoaded).Return(false).Repeat.Any();
+            Expect.Call(((ITreeNode) childTreeNode).Parent).Return(parentTreeNode).Repeat.Any();
+            Expect.Call(((ITreeNode) childTreeNode).Nodes).Return(new List<ITreeNode>()).Repeat.Any();
+            Expect.Call(((ITreeNode) childTreeNode).Presenter).Return(childNodePresenter).Repeat.Any();
 
             parentNodePresenter.TreeView = treeview;
             Expect.Call(parentNodePresenter.NodeTagType).Return(typeof(Parent)).Repeat.Any();
-            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(new []{child}).Repeat.Any();
+            Expect.Call(parentNodePresenter.GetChildNodeObjects(null, null)).IgnoreArguments().Return(new[]
+            {
+                child
+            }).Repeat.Any();
 
             childNodePresenter.TreeView = treeview;
             Expect.Call(childNodePresenter.NodeTagType).Return(typeof(Child)).Repeat.Any();
@@ -526,7 +580,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             controller.NodePresenters.Add(childNodePresenter);
 
             controller.UpdateNode(parentTreeNode);
-            
+
             mocks.VerifyAll();
         }
 
@@ -590,14 +644,14 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             Expect.Call(treeNode.Parent).Return(null);
             Expect.Call(treeNode.Presenter).Return(null).Repeat.Once();
             Expect.Call(treeNode.Presenter).Return(nodePresenter).Repeat.Once();
-            
+
             mocks.ReplayAll();
 
             var controller = new TreeViewController(treeview);
 
             // no node
             Assert.IsFalse(controller.CanDeleteNode(null));
-            
+
             // no node presenter
             Assert.IsFalse(controller.CanDeleteNode(treeNode));
 

@@ -8,7 +8,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
     {
         private static readonly CoordinateStructSequenceFactory instance = new CoordinateStructSequenceFactory();
 
-        private CoordinateStructSequenceFactory() { }
+        private CoordinateStructSequenceFactory() {}
 
         public static CoordinateStructSequenceFactory Instance
         {
@@ -18,17 +18,17 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             }
         }
 
-        public ICoordinateSequence Create(ICoordinate[] coordinates) 
+        public ICoordinateSequence Create(ICoordinate[] coordinates)
         {
             return new CoordinateStructSequence(coordinates);
         }
 
-        public ICoordinateSequence Create(ICoordinateSequence coordSeq) 
+        public ICoordinateSequence Create(ICoordinateSequence coordSeq)
         {
             return new CoordinateStructSequence(coordSeq);
         }
 
-        public ICoordinateSequence Create(int size, int dimension) 
+        public ICoordinateSequence Create(int size, int dimension)
         {
             return new CoordinateStructSequence(size);
         }

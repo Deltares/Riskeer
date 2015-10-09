@@ -6,6 +6,15 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
 {
     public class MapFixedZoomInCommand : MapViewCommand
     {
+        public override bool Checked
+        {
+            get
+            {
+                return false;
+            }
+            set {}
+        }
+
         protected override void OnExecute(params object[] arguments)
         {
             MapView activeView = SharpMapGisGuiPlugin.GetFocusedMapView();
@@ -14,12 +23,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
             tool.Execute();
 
             base.OnExecute(arguments);
-        }
-
-        public override bool Checked
-        {
-            get { return false; }
-            set { }
         }
     }
 }

@@ -5,6 +5,11 @@ namespace DelftTools.Controls.Swf.Charting
     public interface IChartViewTool
     {
         /// <summary>
+        /// Event that is fired when the tools active state changes.
+        /// </summary>
+        event EventHandler<EventArgs> ActiveChanged;
+
+        /// <summary>
         /// Gets or sets the ChartView 
         /// </summary>
         IChartView ChartView { get; set; }
@@ -19,10 +24,5 @@ namespace DelftTools.Controls.Swf.Charting
         /// The default Teechart Active property will not draw deactivated tools
         /// </summary>
         bool Enabled { get; set; }
-
-        /// <summary>
-        /// Event that is fired when the tools active state changes.
-        /// </summary>
-        event EventHandler<EventArgs> ActiveChanged;
     }
 }

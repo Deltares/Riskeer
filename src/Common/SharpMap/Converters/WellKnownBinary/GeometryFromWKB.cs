@@ -40,32 +40,31 @@ using GisSharpBlog.NetTopologySuite.IO;
 
 namespace SharpMap.Converters.WellKnownBinary
 {
-	/// <summary>
-	///  Converts Well-known Binary representations to a <see cref="SharpMap.Geometries.Geometry"/> instance.
-	/// </summary>
-	/// <remarks>
-	/// <para>The Well-known Binary Representation for <see cref="SharpMap.Geometries.Geometry"/> (WKBGeometry) provides a portable 
-	/// representation of a <see cref="SharpMap.Geometries.Geometry"/> value as a contiguous stream of bytes. It permits <see cref="SharpMap.Geometries.Geometry"/> 
-	/// values to be exchanged between an ODBC client and an SQL database in binary form.</para>
-	/// <para>The Well-known Binary Representation for <see cref="SharpMap.Geometries.Geometry"/> is obtained by serializing a <see cref="SharpMap.Geometries.Geometry"/>
-	/// instance as a sequence of numeric types drawn from the set {Unsigned Integer, Double} and
-	/// then serializing each numeric type as a sequence of bytes using one of two well defined,
-	/// standard, binary representations for numeric types (NDR, XDR). The specific binary encoding
-	/// (NDR or XDR) used for a geometry byte stream is described by a one byte tag that precedes
-	/// the serialized bytes. The only difference between the two encodings of geometry is one of
-	/// byte order, the XDR encoding is Big Endian, the NDR encoding is Little Endian.</para>
-	/// </remarks> 
-	public class GeometryFromWKB
-	{
-
-		/// <summary>
-		/// Creates a <see cref="SharpMap.Geometries.Geometry"/> from the supplied byte[] containing the Well-known Binary representation.
-		/// </summary>
-		/// <param name="bytes">byte[] containing the Well-known Binary representation.</param>
-		/// <returns>A <see cref="SharpMap.Geometries.Geometry"/> bases on the supplied Well-known Binary representation.</returns>
-		public static IGeometry Parse(byte[] bytes)
-		{
-			return new WKBReader().Read(bytes);
+    /// <summary>
+    ///  Converts Well-known Binary representations to a <see cref="SharpMap.Geometries.Geometry"/> instance.
+    /// </summary>
+    /// <remarks>
+    /// <para>The Well-known Binary Representation for <see cref="SharpMap.Geometries.Geometry"/> (WKBGeometry) provides a portable 
+    /// representation of a <see cref="SharpMap.Geometries.Geometry"/> value as a contiguous stream of bytes. It permits <see cref="SharpMap.Geometries.Geometry"/> 
+    /// values to be exchanged between an ODBC client and an SQL database in binary form.</para>
+    /// <para>The Well-known Binary Representation for <see cref="SharpMap.Geometries.Geometry"/> is obtained by serializing a <see cref="SharpMap.Geometries.Geometry"/>
+    /// instance as a sequence of numeric types drawn from the set {Unsigned Integer, Double} and
+    /// then serializing each numeric type as a sequence of bytes using one of two well defined,
+    /// standard, binary representations for numeric types (NDR, XDR). The specific binary encoding
+    /// (NDR or XDR) used for a geometry byte stream is described by a one byte tag that precedes
+    /// the serialized bytes. The only difference between the two encodings of geometry is one of
+    /// byte order, the XDR encoding is Big Endian, the NDR encoding is Little Endian.</para>
+    /// </remarks> 
+    public class GeometryFromWKB
+    {
+        /// <summary>
+        /// Creates a <see cref="SharpMap.Geometries.Geometry"/> from the supplied byte[] containing the Well-known Binary representation.
+        /// </summary>
+        /// <param name="bytes">byte[] containing the Well-known Binary representation.</param>
+        /// <returns>A <see cref="SharpMap.Geometries.Geometry"/> bases on the supplied Well-known Binary representation.</returns>
+        public static IGeometry Parse(byte[] bytes)
+        {
+            return new WKBReader().Read(bytes);
 //			// Create a memory stream using the suppiled byte array.
 //			using (MemoryStream ms = new MemoryStream(bytes))
 //			{
@@ -76,13 +75,13 @@ namespace SharpMap.Converters.WellKnownBinary
 //					return Parse(reader);
 //				}
 //			}
-		}
+        }
 
-		/// <summary>
-		/// Creates a <see cref="SharpMap.Geometries.Geometry"/> based on the Well-known binary representation.
-		/// </summary>
-		/// <param name="reader">A <see cref="System.IO.BinaryReader">BinaryReader</see> used to read the Well-known binary representation.</param>
-		/// <returns>A <see cref="SharpMap.Geometries.Geometry"/> based on the Well-known binary representation.</returns>
+        /// <summary>
+        /// Creates a <see cref="SharpMap.Geometries.Geometry"/> based on the Well-known binary representation.
+        /// </summary>
+        /// <param name="reader">A <see cref="System.IO.BinaryReader">BinaryReader</see> used to read the Well-known binary representation.</param>
+        /// <returns>A <see cref="SharpMap.Geometries.Geometry"/> based on the Well-known binary representation.</returns>
 //		public static Geometry Parse(BinaryReader reader)
 //		{
 //			// Get the first byte in the array.  This specifies if the WKB is in
@@ -321,5 +320,5 @@ namespace SharpMap.Converters.WellKnownBinary
 //			else
 //				return reader.ReadDouble();
 //		}
-	}
+    }
 }

@@ -24,7 +24,7 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Metadata
         /// <param name="propertyValue">The field value for which this custom control was supplied (For Type 
         /// based generation: The value of the property this attribute was placed on).</param>
         void SetData(Control control, object rootObject, object propertyValue);
-        
+
         /// <summary>
         /// If true, no additional controls will be generated at all. If false, the generator code will still 
         /// generate a caption and unit label around the custom control. In that case the control is expected

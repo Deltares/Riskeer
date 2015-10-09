@@ -10,7 +10,7 @@ namespace DelftTools.Controls.Swf.Charting
     {
         public override string GetLabel(DateTime labelValue, TimeSpan duration)
         {
-            return labelValue.Year.ToString();  //always show just years, independent of duration
+            return labelValue.Year.ToString(); //always show just years, independent of duration
         }
 
         public override string GetUnits(TimeSpan duration)

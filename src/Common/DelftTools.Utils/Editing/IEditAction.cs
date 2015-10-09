@@ -31,14 +31,14 @@
         bool HandlesRestore { get; }
 
         /// <summary>
-        /// TODO: looks like a hack, maybe anaming problem, improve design
-        /// </summary>
-        void Restore();
-
-        /// <summary>
         /// TODO: looks like a hack, maybe a naming problem, improve design
         /// </summary>
         bool SuppressEventBasedRestore { get; }
+
+        /// <summary>
+        /// TODO: looks like a hack, maybe anaming problem, improve design
+        /// </summary>
+        void Restore();
 
         /// <summary>
         /// TODO: looks like a hack, maybe anaming problem, improve design

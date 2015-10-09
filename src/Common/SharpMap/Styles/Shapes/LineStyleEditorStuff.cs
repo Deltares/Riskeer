@@ -11,7 +11,7 @@ namespace SharpMap.Styles.Shapes
         // Methods
         public static void DrawSamplePen(Graphics gr, Rectangle sample_bounds, Color line_color, DashStyle line_style)
         {
-            int y = sample_bounds.Y + (sample_bounds.Height / 2);
+            int y = sample_bounds.Y + (sample_bounds.Height/2);
             using (Pen line_pen = new Pen(Color.Black, 2f))
             {
                 line_pen.DashStyle = line_style;

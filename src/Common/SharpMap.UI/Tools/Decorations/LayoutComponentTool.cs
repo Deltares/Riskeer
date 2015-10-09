@@ -15,19 +15,19 @@ namespace SharpMap.UI.Tools.Decorations
     public abstract class LayoutComponentTool : MapTool
     {
         private const int Margin = 5;
+
+        protected Point screenLocation;
+        protected Size size;
+        protected Color SelectionColor = Color.FromArgb(80, 135, 206, 250);
         private Point mouseSelectStart = new Point(-1, -1);
         private AnchorStyles anchor;
 
         private bool componentDragging; // True if the user is dragging the layout component to move it
         private Point dragOffset; // The offset from the top-left of the bitmap to the actual mouse click point
         private Size oldMapSize; // Store the 'old' size of the map to compare to changes in the map size
-        
-        protected Point screenLocation;
-        protected Size size;
         private bool visible;
-        protected Color SelectionColor = Color.FromArgb(80, 135, 206, 250);
         private int backGroundTransparencyPercentage = 50;
-        
+
         public LayoutComponentTool()
         {
             screenLocation = new Point(0, 0);
@@ -37,7 +37,10 @@ namespace SharpMap.UI.Tools.Decorations
 
         public override bool RendersInScreenCoordinates
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
 
         /// <summary>
@@ -45,7 +48,10 @@ namespace SharpMap.UI.Tools.Decorations
         /// </summary>
         public AnchorStyles Anchor
         {
-            get { return anchor; }
+            get
+            {
+                return anchor;
+            }
             set
             {
                 anchor = value;
@@ -55,14 +61,17 @@ namespace SharpMap.UI.Tools.Decorations
 
         public int BackGroundTransparencyPercentage
         {
-            get { return backGroundTransparencyPercentage; }
+            get
+            {
+                return backGroundTransparencyPercentage;
+            }
             set
             {
                 if (value < 0)
                 {
                     backGroundTransparencyPercentage = 0;
                 }
-                else if(value > 100)
+                else if (value > 100)
                 {
                     backGroundTransparencyPercentage = 100;
                 }
@@ -79,8 +88,14 @@ namespace SharpMap.UI.Tools.Decorations
         /// </summary>
         public Point ScreenLocation
         {
-            get { return screenLocation; }
-            set { screenLocation = value; }
+            get
+            {
+                return screenLocation;
+            }
+            set
+            {
+                screenLocation = value;
+            }
         }
 
         /// <summary>
@@ -88,8 +103,14 @@ namespace SharpMap.UI.Tools.Decorations
         /// </summary>
         public virtual Size Size
         {
-            get { return size; }
-            set { size = value; }
+            get
+            {
+                return size;
+            }
+            set
+            {
+                size = value;
+            }
         }
 
         /// <summary>
@@ -97,8 +118,14 @@ namespace SharpMap.UI.Tools.Decorations
         /// </summary>
         public virtual bool Visible
         {
-            get { return visible; }
-            set { visible = value;}
+            get
+            {
+                return visible;
+            }
+            set
+            {
+                visible = value;
+            }
         }
 
         /// <summary>
@@ -106,7 +133,86 @@ namespace SharpMap.UI.Tools.Decorations
         /// </summary>
         public Rectangle ScreenRectangle
         {
-            get { return new Rectangle(screenLocation, Size); }
+            get
+            {
+                return new Rectangle(screenLocation, Size);
+            }
+        }
+
+        /// <summary>
+        /// Correct the new screen location to the actual visible control area.
+        /// </summary>
+        protected void CorrectScreenLocation()
+        {
+            // Check boundaries
+            if ((screenLocation.X + Size.Width) > (Map.Size.Width - Margin))
+            {
+                screenLocation.X = Map.Size.Width - Size.Width - Margin;
+            }
+            if ((screenLocation.Y + Size.Height) > (Map.Size.Height - Margin))
+            {
+                screenLocation.Y = Map.Size.Height - Size.Height - Margin;
+            }
+            if (screenLocation.X < Margin)
+            {
+                screenLocation.X = Margin;
+            }
+            if (screenLocation.Y < Margin)
+            {
+                screenLocation.Y = Margin;
+            }
+        }
+
+        protected Color GetBackGroundColor()
+        {
+            var alpha = (int) Math.Round(255.0*((100 - backGroundTransparencyPercentage)/100.0));
+            var backColor = Map != null ? Map.BackColor : Color.White;
+
+            return Color.FromArgb(alpha, backColor);
+        }
+
+        /// <summary>
+        /// When the map's Size property is changed, adjust our screen location according to the anchoring.
+        /// </summary>
+        private void ReflectMapSizeChanges()
+        {
+            if (oldMapSize == Map.Size)
+            {
+                return;
+            }
+
+            // First time, get the current map size
+            if (oldMapSize.Height == 0 && oldMapSize.Width == 0)
+            {
+                oldMapSize = Map.Size;
+            }
+
+            if (UseAnchor)
+            {
+                SetScreenLocationForAnchor();
+            }
+
+            CorrectScreenLocation();
+
+            // Store the new size for future comparison
+            oldMapSize = Map.Size;
+
+            DoDrawing(true);
+        }
+
+        private int GetOffSet(AnchorStyles anchorStyle)
+        {
+            if (!anchorStyle.HasFlag(AnchorStyles.Left) && !anchorStyle.HasFlag(AnchorStyles.Right))
+            {
+                return 0;
+            }
+
+            var toolsBeforeThisOne = MapControl.Tools.Take(MapControl.Tools.IndexOf(this) + 1).OfType<LayoutComponentTool>();
+            var layoutComponentTools = toolsBeforeThisOne.Where(t => t.Visible && t.UseAnchor && t.Anchor.HasFlag(anchorStyle) && t != this);
+
+            var offSet = layoutComponentTools.Sum(t => t.Size.Width);
+
+            return offSet;
         }
 
         #region IMapTool Members
@@ -117,7 +223,10 @@ namespace SharpMap.UI.Tools.Decorations
         /// </summary>
         public override bool AlwaysActive
         {
-            get { return true; }
+            get
+            {
+                return true;
+            }
         }
 
         public bool UseAnchor { get; set; }
@@ -128,7 +237,10 @@ namespace SharpMap.UI.Tools.Decorations
         {
             base.OnKeyDown(e);
 
-            if (!Selected || e.KeyCode != Keys.Delete) return;
+            if (!Selected || e.KeyCode != Keys.Delete)
+            {
+                return;
+            }
 
             Selected = false;
             Visible = false;
@@ -166,7 +278,7 @@ namespace SharpMap.UI.Tools.Decorations
                 dragOffset = new Point((int) mouseDownLocation.X - screenLocation.X, (int) mouseDownLocation.Y - screenLocation.Y);
                 componentDragging = true;
             }
-            
+
             base.OnMouseDown(worldPosition, e);
         }
 
@@ -222,7 +334,7 @@ namespace SharpMap.UI.Tools.Decorations
         {
             // TODO: Instead of doing this all the time it should rather do this when the map's size has actually changed
             ReflectMapSizeChanges();
-            
+
             if (Visible)
             {
                 // Rendering of the visual appearance of this component
@@ -236,21 +348,24 @@ namespace SharpMap.UI.Tools.Decorations
         /// <returns></returns>
         public bool SetScreenLocationForAnchor()
         {
-            if (Map == null || !UseAnchor) return false;
+            if (Map == null || !UseAnchor)
+            {
+                return false;
+            }
 
-            var point = new Point(Margin,Margin);
+            var point = new Point(Margin, Margin);
 
             if (Anchor.HasFlag(AnchorStyles.Left))
             {
                 point.X += GetOffSet(Anchor);
             }
 
-            if(Anchor.HasFlag(AnchorStyles.Bottom))
+            if (Anchor.HasFlag(AnchorStyles.Bottom))
             {
                 point.Y = Map.Size.Height - Size.Height - Margin;
             }
 
-            if(Anchor.HasFlag(AnchorStyles.Right))
+            if (Anchor.HasFlag(AnchorStyles.Right))
             {
                 point.X = Map.Size.Width - Size.Width - Margin - GetOffSet(Anchor);
             }
@@ -263,65 +378,5 @@ namespace SharpMap.UI.Tools.Decorations
         }
 
         #endregion
-
-        /// <summary>
-        /// Correct the new screen location to the actual visible control area.
-        /// </summary>
-        protected void CorrectScreenLocation()
-        {
-            // Check boundaries
-            if ((screenLocation.X + Size.Width) > (Map.Size.Width - Margin))
-                screenLocation.X = Map.Size.Width - Size.Width - Margin;
-            if ((screenLocation.Y + Size.Height) > (Map.Size.Height - Margin))
-                screenLocation.Y = Map.Size.Height - Size.Height - Margin;
-            if (screenLocation.X < Margin)
-                screenLocation.X = Margin;
-            if (screenLocation.Y < Margin)
-                screenLocation.Y = Margin;
-        }
-
-        /// <summary>
-        /// When the map's Size property is changed, adjust our screen location according to the anchoring.
-        /// </summary>
-        private void ReflectMapSizeChanges()
-        {
-            if (oldMapSize == Map.Size) return;
-
-            // First time, get the current map size
-            if (oldMapSize.Height == 0 && oldMapSize.Width == 0)
-                oldMapSize = Map.Size;
-
-            if (UseAnchor)
-            {
-                SetScreenLocationForAnchor();
-            }
-
-            CorrectScreenLocation();
-
-            // Store the new size for future comparison
-            oldMapSize = Map.Size;
-
-            DoDrawing(true);
-        }
-
-        private int GetOffSet(AnchorStyles anchorStyle)
-        {
-            if (!anchorStyle.HasFlag(AnchorStyles.Left) && !anchorStyle.HasFlag(AnchorStyles.Right)) return 0;
-
-            var toolsBeforeThisOne = MapControl.Tools.Take(MapControl.Tools.IndexOf(this)+1).OfType<LayoutComponentTool>();
-            var layoutComponentTools = toolsBeforeThisOne.Where(t => t.Visible && t.UseAnchor && t.Anchor.HasFlag(anchorStyle) && t != this);
-
-            var offSet = layoutComponentTools.Sum(t => t.Size.Width);
-
-            return offSet;
-        }
-
-        protected Color GetBackGroundColor()
-        {
-            var alpha = (int) Math.Round(255.0 * ((100 - backGroundTransparencyPercentage)/100.0));
-            var backColor = Map != null ? Map.BackColor : Color.White;
-
-            return Color.FromArgb(alpha, backColor);
-        }
     }
 }

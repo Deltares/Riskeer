@@ -6,6 +6,18 @@ namespace DelftTools.Shell.Core.Workflow
     public interface IActivityRunner
     {
         /// <summary>
+        /// Fired when an activity completes
+        /// </summary>
+        event EventHandler<ActivityEventArgs> ActivityCompleted;
+
+        /// <summary>
+        /// Occurs when the queuestate changes
+        /// </summary>
+        event EventHandler IsRunningChanged;
+
+        event EventHandler<ActivityStatusChangedEventArgs> ActivityStatusChanged;
+
+        /// <summary>
         /// All activities (todo and running)
         /// </summary>
         IEventedList<IActivity> Activities { get; }
@@ -38,17 +50,5 @@ namespace DelftTools.Shell.Core.Workflow
         /// Stops all activities and empties the TODO-list
         /// </summary>
         void CancelAll();
-
-        /// <summary>
-        /// Fired when an activity completes
-        /// </summary>
-        event EventHandler<ActivityEventArgs> ActivityCompleted;
-
-        /// <summary>
-        /// Occurs when the queuestate changes
-        /// </summary>
-        event EventHandler IsRunningChanged;
-
-        event EventHandler<ActivityStatusChangedEventArgs> ActivityStatusChanged;
     }
 }

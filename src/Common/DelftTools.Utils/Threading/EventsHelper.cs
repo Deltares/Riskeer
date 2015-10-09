@@ -18,21 +18,6 @@ namespace DelftTools.Utils.Threading
     {
         private delegate void AsyncFire(Delegate del, object[] args);
 
-        private static void InvokeDelegate(Delegate del, object[] args)
-        {
-            ISynchronizeInvoke synchronizer = del.Target as ISynchronizeInvoke;
-            if (synchronizer != null) //Requires thread affinity
-            {
-                if (synchronizer.InvokeRequired)
-                {
-                    synchronizer.Invoke(del, args);
-                    return;
-                }
-            }
-            //Not requiring thread afinity or invoke is not required
-            del.DynamicInvoke(args);
-        }
-
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void UnsafeFire(Delegate del, params object[] args)
         {
@@ -257,6 +242,21 @@ namespace DelftTools.Utils.Threading
                                                           X x, Y y, Z z)
         {
             UnsafeFireAsync(del, t, u, v, w, x, y, z);
+        }
+
+        private static void InvokeDelegate(Delegate del, object[] args)
+        {
+            ISynchronizeInvoke synchronizer = del.Target as ISynchronizeInvoke;
+            if (synchronizer != null) //Requires thread affinity
+            {
+                if (synchronizer.InvokeRequired)
+                {
+                    synchronizer.Invoke(del, args);
+                    return;
+                }
+            }
+            //Not requiring thread afinity or invoke is not required
+            del.DynamicInvoke(args);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Text;
 using BruTile.Extensions;
 using BruTile.Wms;
 using NUnit.Framework;
@@ -15,7 +16,7 @@ namespace SharpMap.Extensions.Tests.Layers
             var uri = "http://geoservices.rijkswaterstaat.nl/actueel_hoogtebestand_nl?";
             uri += "REQUEST=GetCapabilities&SERVICE=WMS";
 
-            var webRequest = (HttpWebRequest)WebRequest.Create(uri);
+            var webRequest = (HttpWebRequest) WebRequest.Create(uri);
 
             using (var webResponse = webRequest.GetSyncResponse(5000))
             {
@@ -29,16 +30,14 @@ namespace SharpMap.Extensions.Tests.Layers
                     var capabilities = new WmsCapabilities(responseStream);
 
                     DumpLayers(capabilities.Capability.Layer, 0);
-                    
 
                     // dump XML
                     var bytes = BruTile.Utilities.ReadFully(responseStream);
-                    var str = System.Text.Encoding.UTF8.GetString(bytes);
+                    var str = Encoding.UTF8.GetString(bytes);
 
                     Console.WriteLine(str);
                 }
             }
-
         }
 
         private void DumpLayers(Layer layer, int depth)
@@ -56,7 +55,6 @@ namespace SharpMap.Extensions.Tests.Layers
 
             foreach (var childLayer in layer.ChildLayers)
             {
-
                 DumpLayers(childLayer, depth + 1);
             }
         }

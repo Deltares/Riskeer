@@ -6,7 +6,6 @@ using GisSharpBlog.NetTopologySuite.Index.Strtree;
 
 namespace GisSharpBlog.NetTopologySuite.Noding
 {
-
     /// <summary>
     /// Nodes a set of <see cref="SegmentString" />s using a index based
     /// on <see cref="MonotoneChain" />s and a <see cref="ISpatialIndex" />.
@@ -25,21 +24,24 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// <summary>
         /// Initializes a new instance of the <see cref="MCIndexNoder"/> class.
         /// </summary>
-        public MCIndexNoder() { }
+        public MCIndexNoder() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MCIndexNoder"/> class.
         /// </summary>
         /// <param name="segInt">The <see cref="ISegmentIntersector"/> to use.</param>
-        public MCIndexNoder(ISegmentIntersector segInt) 
-            : base(segInt) { }
+        public MCIndexNoder(ISegmentIntersector segInt)
+            : base(segInt) {}
 
         /// <summary>
         /// 
         /// </summary>
         public IList MonotoneChains
         {
-            get { return monoChains; }
+            get
+            {
+                return monoChains;
+            }
         }
 
         /// <summary>
@@ -47,7 +49,10 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// </summary>
         public ISpatialIndex Index
         {
-            get { return index; }
+            get
+            {
+                return index;
+            }
         }
 
         /// <summary>
@@ -69,9 +74,11 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         public override void ComputeNodes(IList inputSegStrings)
         {
             nodedSegStrings = inputSegStrings;
-            foreach(var obj in inputSegStrings)
-                Add((SegmentString)obj);            
-            IntersectChains();            
+            foreach (var obj in inputSegStrings)
+            {
+                Add((SegmentString) obj);
+            }
+            IntersectChains();
         }
 
         /// <summary>
@@ -80,19 +87,21 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         private void IntersectChains()
         {
             MonotoneChainOverlapAction overlapAction = new SegmentOverlapAction(SegmentIntersector);
-            foreach(var obj in monoChains) 
+            foreach (var obj in monoChains)
             {
-                var queryChain = (MonotoneChain)obj;
+                var queryChain = (MonotoneChain) obj;
                 var overlapChains = index.Query(queryChain.Envelope);
-                foreach(var j in overlapChains)
+                foreach (var j in overlapChains)
                 {
-                    var testChain = (MonotoneChain)j;
+                    var testChain = (MonotoneChain) j;
                     /*
                      * following test makes sure we only compare each pair of chains once
                      * and that we don't compare a chain to itself
                      */
                     if (testChain.Id <= queryChain.Id)
+                    {
                         continue;
+                    }
                     queryChain.ComputeOverlaps(testChain, overlapAction);
                     nOverlaps++;
                 }
@@ -106,9 +115,9 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         private void Add(SegmentString segStr)
         {
             var segChains = MonotoneChainBuilder.GetChains(segStr.Coordinates, segStr);
-            foreach (var obj in segChains) 
+            foreach (var obj in segChains)
             {
-                var mc = (MonotoneChain)obj;
+                var mc = (MonotoneChain) obj;
                 mc.Id = idCounter++;
                 index.Insert(mc.Envelope, mc);
                 monoChains.Add(mc);
@@ -127,7 +136,7 @@ namespace GisSharpBlog.NetTopologySuite.Noding
             /// </summary>
             /// <param name="si">The <see cref="ISegmentIntersector" /></param>
             public SegmentOverlapAction(ISegmentIntersector si)
-            {   
+            {
                 this.si = si;
             }
 
@@ -144,7 +153,6 @@ namespace GisSharpBlog.NetTopologySuite.Noding
                 var ss2 = (SegmentString) mc2.Context;
                 si.ProcessIntersections(ss1, start1, ss2, start2);
             }
-
         }
     }
 }

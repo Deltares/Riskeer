@@ -48,9 +48,29 @@ namespace DelftTools.Utils.Tests.Validation
             var issue3 = new ValidationIssue("", ValidationSeverity.None, "");
             var issue4 = new ValidationIssue("", ValidationSeverity.Warning, "");
             var issue5 = new ValidationIssue("", ValidationSeverity.Error, "");
-            var subReport1 = new ValidationReport("q", new[] { issue1, issue3, issue4 });
-            var subReport2 = new ValidationReport("q", new[] { issue2, issue3, issue5 });
-            return new ValidationReport("q", new[] { issue1, issue2, issue3, issue4 }, new[] { subReport1, subReport2 });
+            var subReport1 = new ValidationReport("q", new[]
+            {
+                issue1,
+                issue3,
+                issue4
+            });
+            var subReport2 = new ValidationReport("q", new[]
+            {
+                issue2,
+                issue3,
+                issue5
+            });
+            return new ValidationReport("q", new[]
+            {
+                issue1,
+                issue2,
+                issue3,
+                issue4
+            }, new[]
+            {
+                subReport1,
+                subReport2
+            });
         }
     }
 }

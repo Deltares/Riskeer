@@ -35,7 +35,7 @@
             this.exceptionTextBox = new System.Windows.Forms.RichTextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.buttonExit = new System.Windows.Forms.Button();
-            this.buttonContinue = new System.Windows.Forms.Button();
+            this.ContinueButton = new System.Windows.Forms.Button();
             this.buttonOpenLog = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -113,15 +113,15 @@
             // 
             // buttonContinue
             // 
-            this.buttonContinue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonContinue.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonContinue.Location = new System.Drawing.Point(287, 238);
-            this.buttonContinue.Name = "buttonContinue";
-            this.buttonContinue.Size = new System.Drawing.Size(75, 23);
-            this.buttonContinue.TabIndex = 0;
-            this.buttonContinue.Text = "Continue";
-            this.buttonContinue.UseVisualStyleBackColor = true;
-            this.buttonContinue.Click += new System.EventHandler(this.buttonContinue_Click);
+            this.ContinueButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ContinueButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.ContinueButton.Location = new System.Drawing.Point(287, 238);
+            this.ContinueButton.Name = "ContinueButton";
+            this.ContinueButton.Size = new System.Drawing.Size(75, 23);
+            this.ContinueButton.TabIndex = 0;
+            this.ContinueButton.Text = "Continue";
+            this.ContinueButton.UseVisualStyleBackColor = true;
+            this.ContinueButton.Click += new System.EventHandler(this.buttonContinue_Click);
             // 
             // buttonOpenLog
             // 
@@ -141,7 +141,7 @@
             this.ClientSize = new System.Drawing.Size(536, 273);
             this.ControlBox = false;
             this.Controls.Add(this.buttonOpenLog);
-            this.Controls.Add(this.buttonContinue);
+            this.Controls.Add(this.ContinueButton);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.exceptionTextBox);
@@ -165,7 +165,6 @@
         private System.Windows.Forms.RichTextBox exceptionTextBox;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button buttonExit;
-        private System.Windows.Forms.Button buttonContinue;
         private System.Windows.Forms.Button buttonOpenLog;
     }
 }

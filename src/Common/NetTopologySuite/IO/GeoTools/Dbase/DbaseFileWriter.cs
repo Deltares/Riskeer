@@ -14,7 +14,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
     /// </remarks>
     public class DbaseFileWriter
     {
-        readonly BinaryWriter _writer;
+        private readonly BinaryWriter _writer;
         private bool headerWritten;
         private bool recordsWritten;
         private DbaseFileHeader _header;
@@ -26,7 +26,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
         public DbaseFileWriter(string filename)
         {
             if (filename == null)
+            {
                 throw new ArgumentNullException("filename");
+            }
             FileStream filestream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.Write);
             _writer = new BinaryWriter(filestream);
         }
@@ -38,9 +40,13 @@ namespace GisSharpBlog.NetTopologySuite.IO
         public void Write(DbaseFileHeader header)
         {
             if (header == null)
+            {
                 throw new ArgumentNullException("header");
+            }
             if (recordsWritten)
+            {
                 throw new InvalidOperationException("Records have already been written. Header file needs to be written first.");
+            }
             headerWritten = true;
             header.WriteHeader(_writer);
             _header = header;
@@ -53,62 +59,63 @@ namespace GisSharpBlog.NetTopologySuite.IO
         public void Write(IList columnValues)
         {
             if (columnValues == null)
+            {
                 throw new ArgumentNullException("columnValues");
+            }
             if (!headerWritten)
+            {
                 throw new InvalidOperationException("Header records need to be written first.");
+            }
             int i = 0;
-            _writer.Write((byte)0x20); // the deleted flag
+            _writer.Write((byte) 0x20); // the deleted flag
             foreach (object columnValue in columnValues)
             {
                 DbaseFieldDescriptor headerField = _header.Fields[i];
 
                 if (columnValue == null)
+                {
                     // Don't corrupt the file by not writing if the value is null.
                     // Instead, treat it like an empty string.
                     Write(string.Empty, headerField.Length);
+                }
                 else if (headerField.Type == typeof(string))
+                {
                     // If the column is a character column, the values in that
                     // column should be treated as text, even if the column value
                     // is not a string.
                     Write(columnValue.ToString(), headerField.Length);
+                }
                 else if (IsRealType(columnValue.GetType()))
+                {
                     Write(Convert.ToDecimal(columnValue), headerField.Length, headerField.DecimalCount);
+                }
                 else if (IsIntegerType(columnValue.GetType()))
+                {
                     Write(Convert.ToDecimal(columnValue), headerField.Length, headerField.DecimalCount);
+                }
                 else if (columnValue is Decimal)
-                    Write((decimal)columnValue, headerField.Length, headerField.DecimalCount);
+                {
+                    Write((decimal) columnValue, headerField.Length, headerField.DecimalCount);
+                }
                 else if (columnValue is Boolean)
-                    Write((bool)columnValue);
+                {
+                    Write((bool) columnValue);
+                }
                 else if (columnValue is string)
-                    Write((string)columnValue, headerField.Length);
+                {
+                    Write((string) columnValue, headerField.Length);
+                }
                 else if (columnValue is DateTime)
-                    Write((DateTime)columnValue);
+                {
+                    Write((DateTime) columnValue);
+                }
                 else if (columnValue is Char)
-                    Write((Char)columnValue, headerField.Length);
+                {
+                    Write((Char) columnValue, headerField.Length);
+                }
 
                 i++;
             }
-        }
-
-        /// <summary>
-        /// Determine if the type provided is a "real" or "float" type.
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        static private bool IsRealType(Type type)
-        {
-            return ((type == typeof(Double)) || (type == typeof(Single)));
-        }
-
-        /// <summary>
-        /// Determine if the type provided is a "whole" number type.
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        static private bool IsIntegerType(Type type)
-        {
-            return ((type == typeof(Int16)) || (type == typeof(Int32)) || (type == typeof(Int64)) ||
-                    (type == typeof(UInt16)) || (type == typeof(UInt32)) || (type == typeof(UInt64)));
         }
 
         /// <summary>
@@ -123,13 +130,17 @@ namespace GisSharpBlog.NetTopologySuite.IO
 
             int wholeLength = length;
             if (decimalCount > 0)
+            {
                 wholeLength -= (decimalCount + 1);
+            }
 
             // Force to use point as decimal separator
             string strNum = Convert.ToString(number, Global.GetNfi());
             int decimalIndex = strNum.IndexOf('.');
             if (decimalIndex < 0)
-                 decimalIndex = strNum.Length;
+            {
+                decimalIndex = strNum.Length;
+            }
 
             if (decimalIndex > wholeLength)
             {
@@ -142,7 +153,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
                 {
                     sb.Append('.');
                     for (int i = 0; i < decimalCount; ++i)
+                    {
                         sb.Append('0');
+                    }
                 }
                 outString = sb.ToString();
             }
@@ -155,17 +168,23 @@ namespace GisSharpBlog.NetTopologySuite.IO
                 {
                     sb.Append('.');
                     for (int i = 0; i < decimalCount; ++i)
+                    {
                         sb.Append('0');
+                    }
                 }
                 sb.Append('}');
                 // Force to use point as decimal separator
-                outString = String.Format(Global.GetNfi(), sb.ToString(), number);                
+                outString = String.Format(Global.GetNfi(), sb.ToString(), number);
             }
 
             for (int i = 0; i < length - outString.Length; i++)
-                _writer.Write((byte)0x20);
+            {
+                _writer.Write((byte) 0x20);
+            }
             foreach (char c in outString)
+            {
                 _writer.Write(c);
+            }
         }
 
         /// <summary>
@@ -203,11 +222,15 @@ namespace GisSharpBlog.NetTopologySuite.IO
 
             // will extra chars get written??
             foreach (char c in dbaseString)
+            {
                 _writer.Write(c);
+            }
 
             int extraPadding = length - dbaseString.Length;
             for (int i = 0; i < extraPadding; i++)
-                _writer.Write((byte)0x20);
+            {
+                _writer.Write((byte) 0x20);
+            }
         }
 
         /// <summary>
@@ -217,17 +240,27 @@ namespace GisSharpBlog.NetTopologySuite.IO
         public void Write(DateTime date)
         {
             foreach (char c in date.Year.ToString())
+            {
                 _writer.Write(c);
+            }
 
             if (date.Month < 10)
+            {
                 _writer.Write('0');
+            }
             foreach (char c in date.Month.ToString())
+            {
                 _writer.Write(c);
+            }
 
             if (date.Day < 10)
+            {
                 _writer.Write('0');
+            }
             foreach (char c in date.Day.ToString())
+            {
                 _writer.Write(c);
+            }
         }
 
         /// <summary>
@@ -237,9 +270,13 @@ namespace GisSharpBlog.NetTopologySuite.IO
         public void Write(bool flag)
         {
             if (flag)
+            {
                 _writer.Write('T');
+            }
             else
+            {
                 _writer.Write('F');
+            }
         }
 
         /// <summary>
@@ -270,6 +307,27 @@ namespace GisSharpBlog.NetTopologySuite.IO
         public void Close()
         {
             _writer.Close();
+        }
+
+        /// <summary>
+        /// Determine if the type provided is a "real" or "float" type.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private static bool IsRealType(Type type)
+        {
+            return ((type == typeof(Double)) || (type == typeof(Single)));
+        }
+
+        /// <summary>
+        /// Determine if the type provided is a "whole" number type.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        private static bool IsIntegerType(Type type)
+        {
+            return ((type == typeof(Int16)) || (type == typeof(Int32)) || (type == typeof(Int64)) ||
+                    (type == typeof(UInt16)) || (type == typeof(UInt32)) || (type == typeof(UInt64)));
         }
     }
 }

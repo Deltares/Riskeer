@@ -17,43 +17,50 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Reflection;
 
 namespace SharpMap.Utilities
 {
-	/// <summary>
-	/// FeatureProvider helper utilities
-	/// </summary>
-	public class Providers
-	{
-		/// <summary>
-		/// Returns a list of available data providers in this assembly
-		/// </summary>
-		public static Collection<Type> GetProviders()
-		{
-			Collection<Type> ProviderList = new Collection<Type>();
+    /// <summary>
+    /// FeatureProvider helper utilities
+    /// </summary>
+    public class Providers
+    {
+        /// <summary>
+        /// Returns a list of available data providers in this assembly
+        /// </summary>
+        public static Collection<Type> GetProviders()
+        {
+            Collection<Type> ProviderList = new Collection<Type>();
 
             // Ask the current AppDomain for a list of all
             // loaded assemblies.
             AppDomain ad = AppDomain.CurrentDomain;
-            System.Reflection.Assembly[] loadedAssemblies = ad.GetAssemblies();
+            Assembly[] loadedAssemblies = ad.GetAssemblies();
 
-            foreach (System.Reflection.Assembly asm in loadedAssemblies)
+            foreach (Assembly asm in loadedAssemblies)
+            {
                 foreach (Type t in asm.GetTypes())
+                {
                     if ((t.IsClass) && (t.GetInterface("SharpMap.Data.Providers.IFeatureProvider") != null))
+                    {
                         ProviderList.Add(t);
+                    }
+                }
+            }
 
             return ProviderList;
-		}
+        }
 
-		/// <summary>
-		/// Filter method used for searching for objects in an assembly
-		/// </summary>
-		/// <param name="typeObj"></param>
-		/// <param name="criteriaObj"></param>
-		/// <returns></returns>
-		private static bool MyInterfaceFilter(Type typeObj, Object criteriaObj)
-		{
-			return (typeObj.ToString() == criteriaObj.ToString());
-		}
-	}
+        /// <summary>
+        /// Filter method used for searching for objects in an assembly
+        /// </summary>
+        /// <param name="typeObj"></param>
+        /// <param name="criteriaObj"></param>
+        /// <returns></returns>
+        private static bool MyInterfaceFilter(Type typeObj, Object criteriaObj)
+        {
+            return (typeObj.ToString() == criteriaObj.ToString());
+        }
+    }
 }

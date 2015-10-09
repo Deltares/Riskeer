@@ -2,55 +2,21 @@ using System.Drawing;
 
 namespace DelftTools.Controls.Swf.Charting
 {
-    class Tracker
+    internal class Tracker
     {
-        public enum Style { simpleRect, LargeMove };
-        private Bitmap bitmap;
-        public Bitmap Bitmap { get { return bitmap; } }
+        public enum Style
+        {
+            simpleRect,
+            LargeMove
+        };
 
         private int size = 8;
-        public int Size
-        {
-            get { return size; }
-            set
-            {
-                size = value;
-                Generate();
-            }
-        }
 
         private Color backColor = Color.Tomato;
-        public Color BackColor
-        {
-            get { return backColor; }
-            set
-            {
-                backColor = value;
-                Generate();
-            }
-        }
 
         private Color foreColor = Color.Black;
-        public Color ForeColor
-        {
-            get { return foreColor; }
-            set
-            {
-                foreColor = value;
-                Generate();
-            }
-        }
 
         private Style trackerStyle = Style.simpleRect;
-        public Style TrackerStyle
-        {
-            get { return trackerStyle; }
-            set
-            {
-                trackerStyle = value;
-                Generate();
-            }
-        }
 
         public Tracker(Style trackerStyle, int size, Color backColor, Color foreColor)
         {
@@ -61,15 +27,57 @@ namespace DelftTools.Controls.Swf.Charting
             Generate();
         }
 
-        private void Generate()
+        public Bitmap Bitmap { get; private set; }
+
+        public int Size
         {
-            if (trackerStyle == Style.simpleRect)
+            get
             {
-                bitmap = GenerateSimpleTrackerImage(new Pen(foreColor), new SolidBrush(BackColor), Size, Size);
+                return size;
             }
-            else
+            set
             {
-                bitmap = GenerateCompositeTrackerImage(new Pen(foreColor), new SolidBrush(BackColor), Size, Size, 6, 6);
+                size = value;
+                Generate();
+            }
+        }
+
+        public Color BackColor
+        {
+            get
+            {
+                return backColor;
+            }
+            set
+            {
+                backColor = value;
+                Generate();
+            }
+        }
+
+        public Color ForeColor
+        {
+            get
+            {
+                return foreColor;
+            }
+            set
+            {
+                foreColor = value;
+                Generate();
+            }
+        }
+
+        public Style TrackerStyle
+        {
+            get
+            {
+                return trackerStyle;
+            }
+            set
+            {
+                trackerStyle = value;
+                Generate();
             }
         }
 
@@ -91,6 +99,7 @@ namespace DelftTools.Controls.Swf.Charting
             graphics.Dispose();
             return bm;
         }
+
         public static Bitmap GenerateCompositeTrackerImage(Pen pen, Brush brush, int totalWidth, int totaHeight,
                                                            int width, int height)
         {
@@ -113,6 +122,18 @@ namespace DelftTools.Controls.Swf.Charting
 
             graphics.Dispose();
             return bm;
+        }
+
+        private void Generate()
+        {
+            if (trackerStyle == Style.simpleRect)
+            {
+                Bitmap = GenerateSimpleTrackerImage(new Pen(foreColor), new SolidBrush(BackColor), Size, Size);
+            }
+            else
+            {
+                Bitmap = GenerateCompositeTrackerImage(new Pen(foreColor), new SolidBrush(BackColor), Size, Size, 6, 6);
+            }
         }
     }
 }

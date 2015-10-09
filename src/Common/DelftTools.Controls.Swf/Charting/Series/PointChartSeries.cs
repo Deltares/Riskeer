@@ -12,9 +12,9 @@ namespace DelftTools.Controls.Swf.Charting.Series
     {
         private readonly Points pointSeries;
 
-        public PointChartSeries(): base(new Points())
+        public PointChartSeries() : base(new Points())
         {
-            pointSeries = (Points)series;
+            pointSeries = (Points) series;
             LineVisible = false;
         }
 
@@ -25,13 +25,22 @@ namespace DelftTools.Controls.Swf.Charting.Series
 
         public override Color Color
         {
-            get { return pointSeries.Pointer.Brush.Color; }
-            set { pointSeries.Pointer.Brush.Color = value; }
+            get
+            {
+                return pointSeries.Pointer.Brush.Color;
+            }
+            set
+            {
+                pointSeries.Pointer.Brush.Color = value;
+            }
         }
 
         public int Size
         {
-            get { return pointSeries.Pointer.VertSize; }
+            get
+            {
+                return pointSeries.Pointer.VertSize;
+            }
             set
             {
                 // just keep it square at this moment.
@@ -45,25 +54,37 @@ namespace DelftTools.Controls.Swf.Charting.Series
             get
             {
                 string enumName = Enum.GetName(typeof(Steema.TeeChart.Styles.PointerStyles), pointSeries.Pointer.Style);
-                return (PointerStyles)Enum.Parse(typeof(PointerStyles), enumName);
+                return (PointerStyles) Enum.Parse(typeof(PointerStyles), enumName);
             }
             set
             {
                 string enumName = Enum.GetName(typeof(PointerStyles), value);
-                pointSeries.Pointer.Style = (Steema.TeeChart.Styles.PointerStyles)Enum.Parse(typeof(Steema.TeeChart.Styles.PointerStyles), enumName);
+                pointSeries.Pointer.Style = (Steema.TeeChart.Styles.PointerStyles) Enum.Parse(typeof(Steema.TeeChart.Styles.PointerStyles), enumName);
             }
         }
 
         public bool LineVisible
         {
-            get { return pointSeries.Pointer.Pen.Visible; }
-            set { pointSeries.Pointer.Pen.Visible = value; }
+            get
+            {
+                return pointSeries.Pointer.Pen.Visible;
+            }
+            set
+            {
+                pointSeries.Pointer.Pen.Visible = value;
+            }
         }
 
         public Color LineColor
         {
-            get { return pointSeries.Pointer.Pen.Color; }
-            set { pointSeries.Pointer.Pen.Color = value; }
+            get
+            {
+                return pointSeries.Pointer.Pen.Color;
+            }
+            set
+            {
+                pointSeries.Pointer.Pen.Color = value;
+            }
         }
     }
 }

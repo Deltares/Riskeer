@@ -1,16 +1,11 @@
 ﻿using System.ComponentModel;
-
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Wti.Data;
 using Wti.Forms.NodePresenters;
-
 using WtiFormsResources = Wti.Forms.Properties.Resources;
 
 namespace Wti.Forms.Test.NodePresenters
@@ -42,7 +37,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            var project = new WtiProject { Name = projectName };
+            var project = new WtiProject
+            {
+                Name = projectName
+            };
 
             // call
             nodePresenter.UpdateNode(null, projectNode, project);

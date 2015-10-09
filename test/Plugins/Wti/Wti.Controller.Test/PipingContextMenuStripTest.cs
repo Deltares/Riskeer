@@ -1,6 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using Wti.Data;
+﻿using NUnit.Framework;
 
 namespace Wti.Controller.Test
 {

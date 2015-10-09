@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,6 +9,7 @@ using DelftTools.Controls.Swf;
 using DelftTools.Shell.Gui;
 using DelftTools.Utils.Aop;
 using DeltaShell.Plugins.SharpMapGis.Gui.Commands;
+using DeltaShell.Plugins.SharpMapGis.Gui.Properties;
 using GeoAPI.CoordinateSystems;
 using log4net;
 using SharpMap;
@@ -21,12 +23,15 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public partial class MapLegendView : UserControl, IView
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (MapLegendView));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(MapLegendView));
+        private readonly IGui gui; //HACK: remove gui reference
+        private readonly IGisGuiService gisService;
+
+        public Action<ILayer> OnOpenLayerAttributeTable = layer => { };
 
         private Map map;
-        private readonly IGui gui;//HACK: remove gui reference
-        private readonly IGisGuiService gisService;
         private bool disableGuiSelectionSync;
+        private string ddbDatasetString = "Delft Dashboard Dataset";
 
         public MapLegendView(IGui gui)
         {
@@ -56,7 +61,141 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             TreeView.DoubleClick += TreeViewDoubleClick;
             UpdateButtonsVisibility();
 
-            Image = Properties.Resources.Map;
+            Image = Resources.Map;
+        }
+
+        public Map Map
+        {
+            private get
+            {
+                return map;
+            }
+            set
+            {
+                if (value == map)
+                {
+                    return;
+                }
+
+                map = value;
+
+                disableGuiSelectionSync = true;
+
+                TreeView.Data = map;
+
+                disableGuiSelectionSync = false;
+
+                if (map != null)
+                {
+                    UpdateButtonsVisibility();
+                }
+            }
+        }
+
+        public object Data
+        {
+            get
+            {
+                return Map;
+            }
+            set
+            {
+                SetMap(value);
+            }
+        }
+
+        public Image Image { get; set; }
+
+        public ViewInfo ViewInfo { get; set; }
+
+        // TODO,HACK: these clicking methods below should be moved to service/command handlers
+
+        public IMenuItem GetContextMenu(object nodeTag)
+        {
+            if (nodeTag is Layer)
+            {
+                return new MenuItemContextMenuStripAdapter(contextMenuLayer);
+            }
+            if (nodeTag is Client.WmsServerLayer)
+            {
+                return new MenuItemContextMenuStripAdapter(contextMenuWmsLayer);
+            }
+            if (nodeTag is Map)
+            {
+                return new MenuItemContextMenuStripAdapter(contextMenuMap);
+            }
+
+            return null;
+        }
+
+        public void OpenFiles(IEnumerable<string> files)
+        {
+            if (map == null)
+            {
+                return;
+            }
+            foreach (var file in files)
+            {
+                AddLayerFromFile(file);
+            }
+        }
+
+        public static void HideAllLayersButThisOne(ILayer layer, Map map)
+        {
+            //find the grouplayer in which the layer resides :
+            var groupLayer = map.GetGroupLayerContainingLayer(layer);
+            if (groupLayer != null)
+            {
+                foreach (var l in groupLayer.Layers.Where(l => l != layer))
+                {
+                    l.Visible = false;
+                }
+            }
+            //no grouplayer found so the layer must be on top lavel
+            else
+            {
+                if (!map.Layers.Contains(layer))
+                {
+                    throw new InvalidOperationException(string.Format("Layer {0} not part of map {1}", layer.Name, map.Name));
+                }
+                foreach (var l in map.Layers.Where(l => l != layer))
+                {
+                    l.Visible = false;
+                }
+            }
+            layer.Visible = true;
+        }
+
+        public void EnsureVisible(object item)
+        {
+            var layer = item as ILayer;
+            if (layer == null)
+            {
+                return;
+            }
+
+            var node = TreeView.GetNodeByTag(layer, false);
+            if (node == null)
+            {
+                return;
+            }
+
+            node.EnsureVisible();
+
+            disableGuiSelectionSync = true;
+            TreeView.SelectedNode = node;
+            disableGuiSelectionSync = false;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Alt | Keys.Insert))
+            {
+                ButtonAddLayerClick(this, null);
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void TreeViewDoubleClick(object sender, EventArgs e)
@@ -72,36 +211,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         private void TreeViewSelectedNodeChanged(object sender, EventArgs e)
         {
-            if (disableGuiSelectionSync) return;
+            if (disableGuiSelectionSync)
+            {
+                return;
+            }
 
             var selectedNode = TreeView.SelectedNode;
             gui.Selection = selectedNode != null ? selectedNode.Tag : null;
             UpdateButtonsVisibility();
-        }
-
-        public Map Map
-        {
-            private get { return map; }
-            set
-            {
-                if (value == map)
-                {
-                    return;
-                }
-
-                map = value;
-                
-                disableGuiSelectionSync = true;
-                
-                TreeView.Data = map;
-                
-                disableGuiSelectionSync = false;
-
-                if (map != null)
-                {
-                    UpdateButtonsVisibility();
-                }
-            }
         }
 
         private void UpdateButtonsVisibility()
@@ -114,48 +231,24 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
             buttonAddLayer.Enabled = map != null;
             buttonAddWmsLayer.Enabled = map != null;
-            buttonRemoveLayer.Enabled = TreeView.SelectedNode != null 
-                && layer != null
-                && !(node != null && node.Parent.Tag is GroupLayer && ((GroupLayer) node.Parent.Tag).LayersReadOnly);
+            buttonRemoveLayer.Enabled = TreeView.SelectedNode != null
+                                        && layer != null
+                                        && !(node != null && node.Parent.Tag is GroupLayer && ((GroupLayer) node.Parent.Tag).LayersReadOnly);
 
             contextMenuLayerOpenAttributeTable.Enabled = layer != null && layer.ShowAttributeTable;
             // TODO: Only enable export layer button when node is group layer, but also contains vector layer at some depth (group layer within group layer that contains a vector layer for example)
         }
 
-        public object Data
-        {
-            get { return Map; }
-            set { SetMap(value); }
-        }
-
         [InvokeRequired]
         private void SetMap(object value)
         {
-            Map = (Map)value;
+            Map = (Map) value;
             UpdateButtonsVisibility();
         }
 
-        public Image Image { get; set; }
-
-        public void EnsureVisible(object item)
-        {
-            var layer = item as ILayer;
-            if (layer == null) return;
-
-            var node = TreeView.GetNodeByTag(layer, false);
-            if (node == null) return;
-
-            node.EnsureVisible();
-            
-            disableGuiSelectionSync = true;
-            TreeView.SelectedNode = node;
-            disableGuiSelectionSync = false;
-        }
-
-        public ViewInfo ViewInfo { get; set; }
-
         private void ButtonAddLayerClick(object sender, EventArgs e)
-        {AddLayer();
+        {
+            AddLayer();
         }
 
         private void AddLayer()
@@ -176,26 +269,25 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         private void ButtonAddWmsLayerClick(object sender, EventArgs e)
         {
             var openUrlDialog = new OpenUrlDialog
-                                    {
-                                        Urls = new[]
-                                                   {
-                                                       "http://openstreetmap.org",
-                                                       "Bing Maps - Aerial",
-                                                       "Bing Maps - Hybrid",
-                                                       "Bing Maps - Roads",
-                                                       "http://geoservices.rijkswaterstaat.nl/actueel_hoogtebestand_nl?",
-                                                       "http://geoservices.rijkswaterstaat.nl/noordzee_bathymetry_in_lat_raster?",
-                                                       "http://geoservices.rijkswaterstaat.nl/primaire_waterkeringen_rws?",
-                                                       "http://geoservices.rijkswaterstaat.nl/hoogte_platen?",
-                                                       "http://geoservices.rijkswaterstaat.nl/kusthoogte?",
-                                                       "http://geoservices.rijkswaterstaat.nl/hoogte_krib?",
-                                                       "http://geoservices.rijkswaterstaat.nl/ijsselmeergebied_diepte?",
-                                                       "http://geoservices.rijkswaterstaat.nl/zd_bodemhoogte_zeeland_rd?",
-                                                       // see aso http://geoservices.rijkswaterstaat.nl/services-index.html
-                                                   },
-                                        Url = "http://openstreetmap.org"
-
-                                    };
+            {
+                Urls = new[]
+                {
+                    "http://openstreetmap.org",
+                    "Bing Maps - Aerial",
+                    "Bing Maps - Hybrid",
+                    "Bing Maps - Roads",
+                    "http://geoservices.rijkswaterstaat.nl/actueel_hoogtebestand_nl?",
+                    "http://geoservices.rijkswaterstaat.nl/noordzee_bathymetry_in_lat_raster?",
+                    "http://geoservices.rijkswaterstaat.nl/primaire_waterkeringen_rws?",
+                    "http://geoservices.rijkswaterstaat.nl/hoogte_platen?",
+                    "http://geoservices.rijkswaterstaat.nl/kusthoogte?",
+                    "http://geoservices.rijkswaterstaat.nl/hoogte_krib?",
+                    "http://geoservices.rijkswaterstaat.nl/ijsselmeergebied_diepte?",
+                    "http://geoservices.rijkswaterstaat.nl/zd_bodemhoogte_zeeland_rd?",
+                    // see aso http://geoservices.rijkswaterstaat.nl/services-index.html
+                },
+                Url = "http://openstreetmap.org"
+            };
 
             if (openUrlDialog.ShowDialog(this) == DialogResult.OK)
             {
@@ -211,22 +303,34 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
                 if (url.Contains("openstreetmap"))
                 {
-                    var layer = new OpenStreetMapLayer {Name = "Open Street Map"};
+                    var layer = new OpenStreetMapLayer
+                    {
+                        Name = "Open Street Map"
+                    };
                     AddWmsLayerToMapAndSyncCoordinateSystem(layer, csFactory.CreateFromEPSG(3857)); // webmercator
                 }
                 else if (url.Contains("Bing Maps - Aerial"))
                 {
-                    var layer = new BingLayer { Name = "Bing Maps - Aerial", MapType = "Aerial" };
+                    var layer = new BingLayer
+                    {
+                        Name = "Bing Maps - Aerial", MapType = "Aerial"
+                    };
                     AddWmsLayerToMapAndSyncCoordinateSystem(layer, csFactory.CreateFromEPSG(3857)); // webmercator
                 }
                 else if (url.Contains("Bing Maps - Hybrid"))
                 {
-                    var layer = new BingLayer { Name = "Bing Maps - Hybrid", MapType = "Hybrid" };
+                    var layer = new BingLayer
+                    {
+                        Name = "Bing Maps - Hybrid", MapType = "Hybrid"
+                    };
                     AddWmsLayerToMapAndSyncCoordinateSystem(layer, csFactory.CreateFromEPSG(3857)); // webmercator
                 }
                 else if (url.Contains("Bing Maps - Roads"))
                 {
-                    var layer = new BingLayer { Name = "Bing Maps - Roads", MapType = "Roads" };
+                    var layer = new BingLayer
+                    {
+                        Name = "Bing Maps - Roads", MapType = "Roads"
+                    };
                     AddWmsLayerToMapAndSyncCoordinateSystem(layer, csFactory.CreateFromEPSG(3857)); // webmercator
                 }
                 else
@@ -266,7 +370,9 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                     else if (res == DialogResult.Cancel)
                     {
                         if (layer is IDisposable)
+                        {
                             ((IDisposable) layer).Dispose();
+                        }
                         return; // don't add anything
                     }
                 }
@@ -283,7 +389,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
 
             UpdateButtonsVisibility();
-            
+
             if (layer is IDisposable)
             {
                 var disposableLayer = layer as IDisposable;
@@ -306,26 +412,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             TreeView.StartLabelEdit();
         }
 
-        // TODO,HACK: these clicking methods below should be moved to service/command handlers
-
-        public IMenuItem GetContextMenu(object nodeTag)
-        {
-            if (nodeTag is Layer)
-            {
-                return new MenuItemContextMenuStripAdapter(contextMenuLayer);
-            }
-            if (nodeTag is Client.WmsServerLayer)
-            {
-                return new MenuItemContextMenuStripAdapter(contextMenuWmsLayer);
-            }
-            if (nodeTag is Map)
-            {
-                return new MenuItemContextMenuStripAdapter(contextMenuMap);
-            }
-
-            return null;
-        }
-
         private void ContextMenuOpenLayerAttributeTableClick(object sender, EventArgs e)
         {
             var layer = TreeView.SelectedNode.Tag as ILayer;
@@ -337,14 +423,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             OnOpenLayerAttributeTable(layer);
         }
 
-        public Action<ILayer> OnOpenLayerAttributeTable = layer => {};
-        private string ddbDatasetString = "Delft Dashboard Dataset";
-
-
         // TODO: inject it from GuiPlugin (as event/delegate) and remove dependency from IGui
         private void TreeViewNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            gui.Selection = ((ITreeNode)e.Node).Tag;
+            gui.Selection = ((ITreeNode) e.Node).Tag;
         }
 
         private void ZoomToLayerToolStripMenuItemClick(object sender, EventArgs e)
@@ -365,7 +447,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         private void ZoomToLayerToolStripMenuItem1Click(object sender, EventArgs e)
         {
-            new ZoomLayerCommand{Gui = gui}.Execute(TreeView.SelectedNode.Tag);
+            new ZoomLayerCommand
+            {
+                Gui = gui
+            }.Execute(TreeView.SelectedNode.Tag);
         }
 
         /// <summary>
@@ -396,9 +481,12 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
         }
 
-        private void ContextMenuLayerOpening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void ContextMenuLayerOpening(object sender, CancelEventArgs e)
         {
-            if (TreeView.SelectedNode.Tag is Map) return;
+            if (TreeView.SelectedNode.Tag is Map)
+            {
+                return;
+            }
 
             var selectedLayer = TreeView.SelectedNode.Tag as ILayer;
 
@@ -464,16 +552,16 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             zoomToMapItem.Enabled = false;
 
             var documentViews = SharpMapGisGuiPlugin.Instance.Gui.DocumentViews;
-            
+
             //Get all 'inactive' mapviews..we should be able to zoom to them.
             foreach (var view in documentViews.OfType<MapView>().Where(v => v != documentViews.ActiveView))
             {
                 var toolStripMenuItem = new ToolStripMenuItem
-                    {
-                        Name = "ZoomToMapMenuItem" + no,
-                        Text = view.Text,
-                        Tag = view
-                    };
+                {
+                    Name = "ZoomToMapMenuItem" + no,
+                    Text = view.Text,
+                    Tag = view
+                };
 
                 toolStripMenuItem.Click += ZoomToMapMenuItemClick;
                 lstDropDownItems.Add(toolStripMenuItem);
@@ -492,29 +580,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             var menuItem = (ToolStripMenuItem) sender;
             var zoomToExtentsCommand = new MapZoomToExtentsCommand();
             zoomToExtentsCommand.Execute(menuItem.Tag);
-        }
-
-        public void OpenFiles(IEnumerable<string> files)
-        {
-            if (map == null)
-            {
-                return;
-            }
-            foreach (var file in files)
-            {
-                AddLayerFromFile(file);
-            }
-        }
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if(keyData == (Keys.Alt | Keys.Insert))
-            {
-                ButtonAddLayerClick(this, null);
-                return true;
-            }
-
-            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void BringToFrontToolStripMenuItemClick(object sender, EventArgs e)
@@ -541,32 +606,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         {
             var cmd = new MapChangeCoordinateSystemCommand();
             cmd.Execute();
-        }
-
-        public static void HideAllLayersButThisOne(ILayer layer, Map map)
-        {
-            //find the grouplayer in which the layer resides :
-            var groupLayer = map.GetGroupLayerContainingLayer(layer);
-            if (groupLayer != null)
-            {
-                foreach (var l in groupLayer.Layers.Where(l => l != layer))
-                {
-                    l.Visible = false;
-                }
-            }
-            //no grouplayer found so the layer must be on top lavel
-            else
-            {
-                if (!map.Layers.Contains(layer))
-                {
-                    throw new InvalidOperationException(string.Format("Layer {0} not part of map {1}", layer.Name, map.Name));
-                }
-                foreach (var l in map.Layers.Where(l => l != layer))
-                {
-                    l.Visible = false;
-                }
-            }
-            layer.Visible = true;
         }
     }
 }

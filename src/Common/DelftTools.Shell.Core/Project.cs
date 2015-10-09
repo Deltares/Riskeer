@@ -13,9 +13,7 @@ namespace DelftTools.Shell.Core
         /// <summary>
         /// Creates instance of the Project.
         /// </summary>
-        public Project() : this("Project")
-        {
-        }
+        public Project() : this("Project") {}
 
         /// <summary>
         /// Creates instance of the project using the supplied <paramref name="name"/>.

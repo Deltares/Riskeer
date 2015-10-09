@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Specialized;
@@ -14,15 +13,11 @@ using log4net;
 
 public class PortableSettingsProvider : SettingsProvider
 {
-    private static readonly ILog log = LogManager.GetLogger(typeof(PortableSettingsProvider));
-    public static string SettingsFileName { get; set; }
     //XML Root Node
-    const string SETTINGSROOT = "Settings";
+    private const string SETTINGSROOT = "Settings";
+    private static readonly ILog log = LogManager.GetLogger(typeof(PortableSettingsProvider));
 
-    public override void Initialize(string name, NameValueCollection col)
-    {
-        base.Initialize(this.ApplicationName, col);
-    }
+    private XmlDocument m_SettingsXML = null;
 
     public override string ApplicationName
     {
@@ -32,18 +27,23 @@ public class PortableSettingsProvider : SettingsProvider
             {
                 return Application.ProductName;
             }
-            
+
             var fi = new FileInfo(Application.ExecutablePath);
             return fi.Name.Substring(0, fi.Name.Length - fi.Extension.Length);
         }
         //Do nothing
-        set { }
+        set {}
     }
 
-    
+    public static string SettingsFileName { get; set; }
+
+    public override void Initialize(string name, NameValueCollection col)
+    {
+        base.Initialize(ApplicationName, col);
+    }
+
     public override void SetPropertyValues(SettingsContext context, SettingsPropertyValueCollection propvals)
     {
-        
         //Iterate through the settings to be stored
         //Only dirty settings are included in propvals, and only ones relevant to this provider
         foreach (SettingsPropertyValue propval in propvals)
@@ -55,9 +55,9 @@ public class PortableSettingsProvider : SettingsProvider
         {
             SettingsXML.Save(SettingsFileName);
         }
-        catch 
+        catch
         {
-            log.ErrorFormat(Resources.PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to__0_,SettingsFileName);
+            log.ErrorFormat(Resources.PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to__0_, SettingsFileName);
         }
     }
 
@@ -71,18 +71,15 @@ public class PortableSettingsProvider : SettingsProvider
         foreach (SettingsProperty setting in props)
         {
             var value = new SettingsPropertyValue(setting)
-                                              {
-                                                  IsDirty = false,
-                                                  SerializedValue = GetValue(setting)
-                                              };
+            {
+                IsDirty = false,
+                SerializedValue = GetValue(setting)
+            };
             values.Add(value);
         }
         return values;
     }
 
-
-    private XmlDocument m_SettingsXML = null;
-    
     private XmlDocument SettingsXML
     {
         get
@@ -97,14 +94,13 @@ public class PortableSettingsProvider : SettingsProvider
                 {
                     try
                     {
-
                         m_SettingsXML.Load(filePath);
                     }
                     catch (Exception)
                     {
                         //Create new document
                         CreateNewSettingsXml();
-                    }   
+                    }
                 }
                 else
                 {
@@ -138,16 +134,15 @@ public class PortableSettingsProvider : SettingsProvider
         return (setting.DefaultValue != null) ? setting.DefaultValue.ToString() : "";
     }
 
-
     private void SetValue(SettingsPropertyValue propVal)
     {
         ThrowIfRoaming(propVal.Property);
-        
+
         XmlElement SettingNode;
 
         try
         {
-            SettingNode = (XmlElement)SettingsXML.SelectSingleNode(SETTINGSROOT + "/" + propVal.Name);
+            SettingNode = (XmlElement) SettingsXML.SelectSingleNode(SETTINGSROOT + "/" + propVal.Name);
         }
         catch (Exception)
         {
@@ -175,8 +170,7 @@ public class PortableSettingsProvider : SettingsProvider
         //Determine if the setting is marked as Roaming
         if ((from DictionaryEntry d in prop.Attributes select (Attribute) d.Value).OfType<SettingsManageabilityAttribute>().Any())
         {
-            throw new NotImplementedException(String.Format(Resources.PortableSettingsProvider_ThrowIfRoaming_Setting__0__is_roaming__This_is_not_supported,prop.Name));
+            throw new NotImplementedException(String.Format(Resources.PortableSettingsProvider_ThrowIfRoaming_Setting__0__is_roaming__This_is_not_supported, prop.Name));
         }
-        
     }
 }

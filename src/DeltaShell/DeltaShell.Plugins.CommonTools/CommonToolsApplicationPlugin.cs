@@ -14,27 +14,42 @@ namespace DeltaShell.Plugins.CommonTools
     {
         public override string Name
         {
-            get { return "CommonToolsPlugin"; }
+            get
+            {
+                return "CommonToolsPlugin";
+            }
         }
 
         public override string DisplayName
         {
-            get { return Properties.Resources.CommonToolsApplicationPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin; }
+            get
+            {
+                return Properties.Resources.CommonToolsApplicationPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin;
+            }
         }
 
         public override string Description
         {
-            get { return Properties.Resources.CommonToolsApplicationPlugin_Description; }
+            get
+            {
+                return Properties.Resources.CommonToolsApplicationPlugin_Description;
+            }
         }
 
         public override string Version
         {
-            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
+            get
+            {
+                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
         }
 
         public override Image Image
         {
-            get { return new Bitmap(32, 32); }
+            get
+            {
+                return new Bitmap(32, 32);
+            }
         }
 
         public override IEnumerable<Assembly> GetPersistentAssemblies()

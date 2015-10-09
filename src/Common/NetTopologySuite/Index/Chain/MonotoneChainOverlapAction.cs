@@ -7,7 +7,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Chain
     /// overlap queries on a MonotoneChain.
     /// </summary>
     public class MonotoneChainOverlapAction
-    {        
+    {
         /// <summary>
         /// This envelope is used during the MonotoneChain search process.
         /// </summary>
@@ -22,7 +22,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Chain
         /// 
         /// </summary>
         protected LineSegment overlapSeg1 = new LineSegment();
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -48,6 +48,6 @@ namespace GisSharpBlog.NetTopologySuite.Index.Chain
         /// </summary>
         /// <param name="seg1"></param>
         /// <param name="seg2"></param>
-        public virtual void Overlap(LineSegment seg1, LineSegment seg2) { }
+        public virtual void Overlap(LineSegment seg1, LineSegment seg2) {}
     }
 }

@@ -8,7 +8,7 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
     {
         public CollectionChangedAspectTestClass()
         {
-            ListContainers = new EventedList<CollectionChangedAspectTestClass>(); 
+            ListContainers = new EventedList<CollectionChangedAspectTestClass>();
             Integers = new EventedList<int>();
             NoBubblingIntegers = new EventedList<int>();
             Lists = new EventedList<IEventedList<int>>();
@@ -28,11 +28,11 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
         [NoNotifyPropertyChange]
         public IEventedList<int> NoBubblingIntegers { get; private set; }
 
-        IEventedList<int> PrivateList { get; set; }
-
         public void AddToPrivateList(int value)
         {
             PrivateList.Add(value);
         }
+
+        private IEventedList<int> PrivateList { get; set; }
     }
 }

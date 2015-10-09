@@ -15,22 +15,21 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
     /// </summary>
     public class Subgraph
     {
-
         /// <summary>
         /// 
         /// </summary>
         protected PlanarGraph parentGraph;
-        
+
         /// <summary>
         /// 
         /// </summary>
         protected Set<Edge> edges = new Set<Edge>();
-        
+
         /// <summary>
         /// 
         /// </summary>
         protected IList<DirectedEdge> dirEdges = new List<DirectedEdge>();
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -40,11 +39,11 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         /// Creates a new subgraph of the given <see cref="PlanarGraph" />.
         /// </summary>
         /// <param name="parentGraph"></param>
-        public Subgraph(PlanarGraph parentGraph) 
+        public Subgraph(PlanarGraph parentGraph)
         {
             this.parentGraph = parentGraph;
         }
-        
+
         /// <summary>
         ///  Gets the <see cref="PlanarGraph" /> which this subgraph is part of.
         /// </summary>
@@ -60,17 +59,19 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         /// </summary>
         /// <param name="e">The <see cref="Edge" /> to add.</param>
         public void Add(Edge e)
-        {                        
-            if (edges.Contains(e))  
+        {
+            if (edges.Contains(e))
+            {
                 return;
+            }
 
             edges.Add(e);
 
             dirEdges.Add(e.GetDirEdge(0));
             dirEdges.Add(e.GetDirEdge(1));
-            
+
             nodeMap.Add(e.GetDirEdge(0).FromNode);
-            nodeMap.Add(e.GetDirEdge(1).FromNode);            
+            nodeMap.Add(e.GetDirEdge(1).FromNode);
         }
 
         /// <summary>
@@ -78,9 +79,9 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         /// in the order in which they were added.
         /// </summary>
         /// <returns></returns>
-        public IEnumerator GetDirEdgeEnumerator() 
-        { 
-            return dirEdges.GetEnumerator(); 
+        public IEnumerator GetDirEdgeEnumerator()
+        {
+            return dirEdges.GetEnumerator();
         }
 
         /// <summary>
@@ -88,18 +89,18 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         /// in the order in which they were added.
         /// </summary>
         /// <returns></returns>
-        public IEnumerator GetEdgeEnumerator() 
-        { 
-            return edges.GetEnumerator(); 
+        public IEnumerator GetEdgeEnumerator()
+        {
+            return edges.GetEnumerator();
         }
 
         /// <summary>
         /// Returns an <see cref="IEnumerator" /> over the <see cref="Node" />s in this graph.
         /// </summary>
         /// <returns></returns>
-        public IEnumerator GetNodeEnumerator() 
-        { 
-            return nodeMap.GetEnumerator(); 
+        public IEnumerator GetNodeEnumerator()
+        {
+            return nodeMap.GetEnumerator();
         }
 
         /// <summary>
@@ -107,9 +108,9 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         /// </summary>
         /// <param name="e">The <see cref="Edge" /> to test.</param>
         /// <returns><c>true</c> if the <see cref="Edge" /> is contained in this subgraph.</returns>
-        public bool Contains(Edge e) 
-        { 
-            return edges.Contains(e); 
+        public bool Contains(Edge e)
+        {
+            return edges.Contains(e);
         }
     }
 }

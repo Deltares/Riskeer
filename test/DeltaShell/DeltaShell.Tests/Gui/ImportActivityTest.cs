@@ -23,7 +23,15 @@ namespace DeltaShell.Tests.Gui
             app.Expect(a => a.Project).Return(project).Repeat.Any();
 
             var importer = mockRepository.Stub<IFileImporter>();
-            var fileImportActivity = new FileImportActivity(importer) { Files = new[] { "test1", "test2", "test3" } };
+            var fileImportActivity = new FileImportActivity(importer)
+            {
+                Files = new[]
+                {
+                    "test1",
+                    "test2",
+                    "test3"
+                }
+            };
 
             Expect.Call(importer.ImportItem("test1")).Repeat.Once().Return(new object());
             Expect.Call(importer.ImportItem("test2")).Repeat.Once().Return(new object());
@@ -32,21 +40,20 @@ namespace DeltaShell.Tests.Gui
 
             // expect some reporting while processing each file
             fileImportActivity.ImportedItemOwner = app.Project;
-            fileImportActivity.OnImportFinished += (sender, importedObject,theImporter) =>
-                                                       {
-                                                           var projectToAddTo = sender.ImportedItemOwner as Project;
+            fileImportActivity.OnImportFinished += (sender, importedObject, theImporter) =>
+            {
+                var projectToAddTo = sender.ImportedItemOwner as Project;
 
-                                                           if (projectToAddTo != null)
-                                                           {
-                                                               projectToAddTo.Items.Add(importedObject);
-                                                           }
-                                                       };
+                if (projectToAddTo != null)
+                {
+                    projectToAddTo.Items.Add(importedObject);
+                }
+            };
             fileImportActivity.Initialize();
             fileImportActivity.Initialize();
             fileImportActivity.Execute();
 
             Assert.AreEqual(3, app.Project.Items.Count());
-
         }
     }
 }

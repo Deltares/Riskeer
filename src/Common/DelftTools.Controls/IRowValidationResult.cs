@@ -11,7 +11,7 @@
         /// Error text to display
         /// </summary>
         string ErrorText { get; }
-        
+
         /// <summary>
         /// State of the row (valid / invalid) 
         /// </summary>

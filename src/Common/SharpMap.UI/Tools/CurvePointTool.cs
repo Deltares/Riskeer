@@ -11,34 +11,24 @@ using SharpMap.CoordinateSystems.Transformations;
 using SharpMap.Editors.Snapping;
 using SharpMap.UI.Helpers;
 using SharpMap.UI.Properties;
+using Point = GisSharpBlog.NetTopologySuite.Geometries.Point;
 
 namespace SharpMap.UI.Tools
 {
     public class CurvePointTool : MapTool
     {
+        public enum EditMode
+        {
+            Add,
+            Remove
+        };
+
         private static readonly Cursor AddPointCursor = MapCursors.CreateArrowOverlayCuror(Resources.CurvePointSmall);
         private static readonly Cursor RemovePointCursor = MapCursors.CreateArrowOverlayCuror(Resources.CurvePointSmallRemove);
 
         private bool isMoving;
         private bool isBusy;
         private EditMode mode;
-        private SnapResult SnapResult { get; set; }
-
-        public EditMode Mode
-        {
-            get
-            {
-                return (Control.ModifierKeys & Keys.Alt) == Keys.Alt ? EditMode.Remove : mode;
-            }
-            set { mode = value; }
-        }
-
-        public enum EditMode { Add, Remove };
-
-        private string ActionName
-        {
-            get { return Mode == EditMode.Add ? "Adding coordinate to geometry of" : "Removing coordinate from geometry of"; }
-        }
 
         public CurvePointTool()
         {
@@ -61,47 +51,24 @@ namespace SharpMap.UI.Tools
             }
         }
 
-        private SelectTool SelectTool { get { return MapControl.SelectTool; } }
-
-        private MoveTool MoveTool { get { return MapControl.MoveTool; } }
-
-        /// <summary>
-        /// snapping specific for a tool. Called before layer specific snapping is applied.
-        /// </summary>
-        /// <returns></returns>
-        private void Snap(IGeometry snapSource, ICoordinate worldPos)
-        {
-            SnapResult = null;
-            var sourceFeature = SelectTool.SelectedFeatureInteractors[0].SourceFeature;
-            if (!Equals(sourceFeature.Geometry, snapSource))
-            {
-                return;
-            }
-
-            SnapRole snapRole;
-            if (Mode == EditMode.Add)
-            {
-                snapRole = SnapRole.FreeAtObject;
-                if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
-                    snapRole = SnapRole.Free;
-            }
-            else
-            {
-                snapRole = SnapRole.AllTrackers;
-            }
-
-            var snapRule = new SnapRule {Obligatory = true, SnapRole = snapRole, PixelGravity = 8};
-            SnapResult = MapControl.SnapTool.ExecuteSnapRule(snapRule, sourceFeature, sourceFeature.Geometry, new List<IFeature> {sourceFeature}, worldPos, -1);
-        }
-
         public override bool IsBusy
         {
-            get { return isBusy; }
+            get
+            {
+                return isBusy;
+            }
         }
 
-        private static bool SupportedGeometry(IGeometry geometry)
+        public EditMode Mode
         {
-            return geometry is ILineString || geometry is IPolygon || geometry is IMultiLineString || geometry is IMultiPolygon;
+            get
+            {
+                return (Control.ModifierKeys & Keys.Alt) == Keys.Alt ? EditMode.Remove : mode;
+            }
+            set
+            {
+                mode = value;
+            }
         }
 
         public override void OnMouseUp(ICoordinate worldPosition, MouseEventArgs e)
@@ -142,17 +109,6 @@ namespace SharpMap.UI.Tools
             }
         }
 
-        private void SetMouseCursor()
-        {
-            var cursor = SnapResult == null
-                ? Cursor
-                : Mode == EditMode.Add ? MapCursors.AddPoint : MapCursors.RemovePoint;
-            if (!ReferenceEquals(MapControl.Cursor, cursor))
-            {
-                MapControl.Cursor = cursor;
-            }
-        }
-
         public override void OnMouseDown(ICoordinate worldPosition, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left)
@@ -182,7 +138,7 @@ namespace SharpMap.UI.Tools
 
                 if (featureInteractor.Layer.CoordinateTransformation != null)
                 {
-                    worldPos = GeometryTransform.TransformPoint(new GisSharpBlog.NetTopologySuite.Geometries.Point(worldPos), featureInteractor.Layer.CoordinateTransformation.MathTransform.Inverse()).Coordinate;
+                    worldPos = GeometryTransform.TransformPoint(new Point(worldPos), featureInteractor.Layer.CoordinateTransformation.MathTransform.Inverse()).Coordinate;
                 }
 
                 var trackerFeature = featureInteractor.GetTrackerAtCoordinate(worldPos);
@@ -211,8 +167,8 @@ namespace SharpMap.UI.Tools
                     }
 
                     renderRequired = Mode == EditMode.Add
-                                     ? featureInteractor.InsertTracker(worldPos, SnapResult.SnapIndexPrevious + 1)
-                                     : featureInteractor.RemoveTracker(trackerFeature);
+                                         ? featureInteractor.InsertTracker(worldPos, SnapResult.SnapIndexPrevious + 1)
+                                         : featureInteractor.RemoveTracker(trackerFeature);
 
                     featureInteractor.Stop();
                 }
@@ -237,10 +193,89 @@ namespace SharpMap.UI.Tools
             // if no curve point modification, handle as normal selection
             SelectTool.OnMouseDown(worldPosition, e);
         }
-        
+
         public override void Render(Graphics graphics, Map mapBox)
         {
             MapControl.MoveTool.Render(graphics, mapBox);
+        }
+
+        private SnapResult SnapResult { get; set; }
+
+        private string ActionName
+        {
+            get
+            {
+                return Mode == EditMode.Add ? "Adding coordinate to geometry of" : "Removing coordinate from geometry of";
+            }
+        }
+
+        private SelectTool SelectTool
+        {
+            get
+            {
+                return MapControl.SelectTool;
+            }
+        }
+
+        private MoveTool MoveTool
+        {
+            get
+            {
+                return MapControl.MoveTool;
+            }
+        }
+
+        /// <summary>
+        /// snapping specific for a tool. Called before layer specific snapping is applied.
+        /// </summary>
+        /// <returns></returns>
+        private void Snap(IGeometry snapSource, ICoordinate worldPos)
+        {
+            SnapResult = null;
+            var sourceFeature = SelectTool.SelectedFeatureInteractors[0].SourceFeature;
+            if (!Equals(sourceFeature.Geometry, snapSource))
+            {
+                return;
+            }
+
+            SnapRole snapRole;
+            if (Mode == EditMode.Add)
+            {
+                snapRole = SnapRole.FreeAtObject;
+                if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
+                {
+                    snapRole = SnapRole.Free;
+                }
+            }
+            else
+            {
+                snapRole = SnapRole.AllTrackers;
+            }
+
+            var snapRule = new SnapRule
+            {
+                Obligatory = true, SnapRole = snapRole, PixelGravity = 8
+            };
+            SnapResult = MapControl.SnapTool.ExecuteSnapRule(snapRule, sourceFeature, sourceFeature.Geometry, new List<IFeature>
+            {
+                sourceFeature
+            }, worldPos, -1);
+        }
+
+        private static bool SupportedGeometry(IGeometry geometry)
+        {
+            return geometry is ILineString || geometry is IPolygon || geometry is IMultiLineString || geometry is IMultiPolygon;
+        }
+
+        private void SetMouseCursor()
+        {
+            var cursor = SnapResult == null
+                             ? Cursor
+                             : Mode == EditMode.Add ? MapCursors.AddPoint : MapCursors.RemovePoint;
+            if (!ReferenceEquals(MapControl.Cursor, cursor))
+            {
+                MapControl.Cursor = cursor;
+            }
         }
     }
 }

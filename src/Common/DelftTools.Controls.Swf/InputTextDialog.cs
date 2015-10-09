@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace DelftTools.Controls.Swf
@@ -7,21 +8,24 @@ namespace DelftTools.Controls.Swf
     /// Simple input box dialog 
     /// </summary>
     public partial class InputTextDialog : Form
-    { 
+    {
+        private bool escapeButtonPressed;
+
         public InputTextDialog()
         {
             InitializeComponent();
             InitialText = "";
-            textBox1.Validating += textBox1_Validating; 
+            textBox1.Validating += textBox1_Validating;
             errorProvider.SetIconAlignment(ButtonOk, ErrorIconAlignment.MiddleLeft);
             ValidationErrorMsg = "Please verify the input is valid";
         }
 
-        private bool escapeButtonPressed;
-
         public bool Multiline
         {
-            get { return textBox1.Multiline; }
+            get
+            {
+                return textBox1.Multiline;
+            }
             set
             {
                 textBox1.Multiline = value;
@@ -29,7 +33,37 @@ namespace DelftTools.Controls.Swf
             }
         }
 
-        void textBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        ///<summary>
+        /// Text the user entered in the dialog
+        ///</summary>
+        public string EnteredText
+        {
+            get
+            {
+                return textBox1.Text;
+            }
+            set
+            {
+                textBox1.Text = value;
+            }
+        }
+
+        public string InitialText { get; set; }
+
+        public Predicate<string> ValidationMethod { get; set; }
+
+        public string ValidationErrorMsg { get; set; }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                escapeButtonPressed = true;
+            }
+            return base.ProcessDialogKey(keyData);
+        }
+
+        private void textBox1_Validating(object sender, CancelEventArgs e)
         {
             if (escapeButtonPressed)
             {
@@ -69,27 +103,6 @@ namespace DelftTools.Controls.Swf
         {
             DialogResult = DialogResult.Cancel;
         }
-
-        protected override bool ProcessDialogKey(Keys keyData)
-        {
-            if (keyData == Keys.Escape) escapeButtonPressed = true;
-            return base.ProcessDialogKey(keyData);
-        }
-
-        ///<summary>
-        /// Text the user entered in the dialog
-        ///</summary>
-        public string EnteredText
-        {
-            get { return textBox1.Text; }
-            set { textBox1.Text = value; }
-        }
-
-        public string InitialText { get; set; }
-
-        public Predicate<string> ValidationMethod { get; set; }
-
-        public string ValidationErrorMsg { get; set; }
 
         private void InputTextDialogActivated(object sender, EventArgs e)
         {

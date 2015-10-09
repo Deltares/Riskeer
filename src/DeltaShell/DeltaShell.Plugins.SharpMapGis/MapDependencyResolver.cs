@@ -10,17 +10,6 @@ namespace DeltaShell.Plugins.SharpMapGis
     /// </summary>
     public class MapDependencyResolver
     {
-        private static IEnumerable<ILayer> GetMapLayersForData(Map map, object value)
-        {
-            foreach (var layer in map.GetAllLayers(true).ToArray())
-            {
-                if ((layer is BackGroundMapLayer) && ((layer as BackGroundMapLayer).BackgroundMap == value))
-                {
-                    yield return layer;
-                }
-            }
-        }
-
         public static void RemoveItemsFromMap(Map map, object child)
         {
             var layers = GetMapLayersForData(map, child);
@@ -38,6 +27,17 @@ namespace DeltaShell.Plugins.SharpMapGis
                     {
                         groupLayer.Layers.Remove(layer);
                     }
+                }
+            }
+        }
+
+        private static IEnumerable<ILayer> GetMapLayersForData(Map map, object value)
+        {
+            foreach (var layer in map.GetAllLayers(true).ToArray())
+            {
+                if ((layer is BackGroundMapLayer) && ((layer as BackGroundMapLayer).BackgroundMap == value))
+                {
+                    yield return layer;
                 }
             }
         }

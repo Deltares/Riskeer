@@ -8,7 +8,6 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
     /// </summary>
     public class CollectionUtil
     {
-        
         /// <summary>
         /// 
         /// </summary>
@@ -27,9 +26,11 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         public static IList Transform(ICollection coll, FunctionDelegate<object> func)
         {
             IList result = new ArrayList();
-            IEnumerator i = coll.GetEnumerator(); 
-            foreach(object obj in coll)           
+            IEnumerator i = coll.GetEnumerator();
+            foreach (object obj in coll)
+            {
                 result.Add(func(obj));
+            }
             return result;
         }
 
@@ -41,8 +42,10 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         /// <param name="func"></param>
         public static void Apply(ICollection coll, FunctionDelegate<object> func)
         {
-            foreach(object obj in coll)
+            foreach (object obj in coll)
+            {
                 func(obj);
+            }
         }
 
         /// <summary>
@@ -55,10 +58,14 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         /// <returns></returns>
         public static IList Select(ICollection coll, FunctionDelegate<object> func)
         {
-            IList result = new ArrayList();            
+            IList result = new ArrayList();
             foreach (object obj in coll)
+            {
                 if (true.Equals(func(obj)))
-                    result.Add(obj);                            
+                {
+                    result.Add(obj);
+                }
+            }
             return result;
         }
     }

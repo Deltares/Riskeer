@@ -28,15 +28,76 @@ namespace DeltaShell.Gui.Forms
 
         private static long historyMaxTimeOffset;
         private static long timeLeft;
-        private static DateTime startTime = DateTime.Now;
+        private static readonly DateTime startTime = DateTime.Now;
 
         private static bool shuttingDown;
 
         private static bool appending;
 
-        public void Close()
+        public string Name
         {
+            get
+            {
+                return "SplashScreenLogAppender";
+            }
+            set {}
         }
+
+        public static void InitializeUsingLogging(string path, SplashScreen screen)
+        {
+            splashScreen = screen;
+
+            InitializeLogMessagesHistory(path);
+
+            Logger rootLogger = GetRootLogger();
+
+            if (instance == null)
+            {
+                instance = new SplashScreenLogAppender();
+            }
+
+            rootLogger.AddAppender(instance);
+        }
+
+        public static void Shutdown()
+        {
+            shuttingDown = true;
+
+            while (appending)
+            {
+                Thread.Sleep(0);
+            }
+
+            Logger rootLogger = GetRootLogger();
+            rootLogger.RemoveAppender(instance);
+
+            bool saved = false;
+
+            // deadlock detected, run save in the background thread
+            var saveLogFileThread = new Thread(() =>
+            {
+                currentLogData.WriteXml(historyLogFilePath);
+                saved = true;
+            });
+            saveLogFileThread.Start();
+
+            while (!saved)
+            {
+                splashScreen.Dispatcher.Invoke(DispatcherPriority.Render, new Action(() => { }));
+            }
+
+            saveLogFileThread.Join();
+        }
+
+        public static void Dispose()
+        {
+            instance = null;
+            splashScreen = null;
+            historyLogData = null;
+            currentLogData = null;
+        }
+
+        public void Close() {}
 
         public void DoAppend(LoggingEvent loggingEvent)
         {
@@ -58,23 +119,23 @@ namespace DeltaShell.Gui.Forms
 
                 if (row != null)
                 {
-                    long historyTimeOffset = (long)row["TimeOffset"];
+                    long historyTimeOffset = (long) row["TimeOffset"];
 
-                    double fractionTimeLeft = historyTimeOffset / (double)historyMaxTimeOffset;
-                    int progressBarValue = (int)(100 * fractionTimeLeft);
+                    double fractionTimeLeft = historyTimeOffset/(double) historyMaxTimeOffset;
+                    int progressBarValue = (int) (100*fractionTimeLeft);
 
-                    timeLeft = (long)(historyMaxTimeOffset * (1.0 - fractionTimeLeft));
+                    timeLeft = (long) (historyMaxTimeOffset*(1.0 - fractionTimeLeft));
 
-                    var progressBarText = String.Format(Resources.SplashScreenLogAppender_DoAppend__1____time_left___0_N1__sec, Math.Max(0, timeLeft / 1000.0), Math.Min(100, progressBarValue));
+                    var progressBarText = String.Format(Resources.SplashScreenLogAppender_DoAppend__1____time_left___0_N1__sec, Math.Max(0, timeLeft/1000.0), Math.Min(100, progressBarValue));
 
                     if (progressBarValue >= splashScreen.ProgressBarValue)
                     {
                         splashScreen.SetProgress(new SplashScreen.ProgressInfo
-                                                        {
-                                                            Message = loggingEvent.Level >= Level.Info ? loggingEvent.RenderedMessage : "",
-                                                            ProgressText = progressBarText,
-                                                            ProgressValue = progressBarValue
-                                                        });
+                        {
+                            Message = loggingEvent.Level >= Level.Info ? loggingEvent.RenderedMessage : "",
+                            ProgressText = progressBarText,
+                            ProgressValue = progressBarValue
+                        });
                     }
                 }
             }
@@ -95,37 +156,15 @@ namespace DeltaShell.Gui.Forms
             return null;
         }
 
-        public string Name
-        {
-            get { return "SplashScreenLogAppender"; }
-            set { }
-        }
-
-        public static void InitializeUsingLogging(string path, SplashScreen screen)
-        {
-            splashScreen = screen;
-
-            InitializeLogMessagesHistory(path);
-
-            Logger rootLogger = GetRootLogger();
-
-            if (instance == null)
-            {
-                instance = new SplashScreenLogAppender();
-            }
-
-            rootLogger.AddAppender(instance);
-        }
-
         private static void InitializeLogMessagesHistory(string path)
         {
             historyLogFilePath = path;
 
             currentLogData = new MessageWindowData();
-            currentLogData.Messages.Columns.Add("TimeOffset", typeof (long));
+            currentLogData.Messages.Columns.Add("TimeOffset", typeof(long));
 
             historyLogData = new MessageWindowData();
-            historyLogData.Messages.Columns.Add("TimeOffset", typeof (long));
+            historyLogData.Messages.Columns.Add("TimeOffset", typeof(long));
 
             if (File.Exists(path)) // read previous startup lhistory
             {
@@ -135,7 +174,7 @@ namespace DeltaShell.Gui.Forms
 
                     if (historyLogData.Messages.Count > 0)
                     {
-                        historyMaxTimeOffset = (long)historyLogData.Messages[historyLogData.Messages.Count - 1]["TimeOffset"];
+                        historyMaxTimeOffset = (long) historyLogData.Messages[historyLogData.Messages.Count - 1]["TimeOffset"];
                     }
                     splashScreen.MaxProgressBarValue = 100; // %
                     return;
@@ -150,52 +189,17 @@ namespace DeltaShell.Gui.Forms
                 }
             }
 
-            splashScreen.SetProgress(new SplashScreen.ProgressInfo { Message = "", ProgressText = "", ProgressValue = 100});
-        }
-
-        public static void Shutdown()
-        {
-            shuttingDown = true;
-
-            while (appending)
+            splashScreen.SetProgress(new SplashScreen.ProgressInfo
             {
-                Thread.Sleep(0);
-            }
-
-            Logger rootLogger = GetRootLogger();
-            rootLogger.RemoveAppender(instance);
-
-            bool saved = false;
-
-            // deadlock detected, run save in the background thread
-            var saveLogFileThread = new Thread(() =>
-                                                   {
-                                                       currentLogData.WriteXml(historyLogFilePath);
-                                                       saved = true;
-                                                   });
-            saveLogFileThread.Start();
-
-            while (!saved)
-            {
-                splashScreen.Dispatcher.Invoke(DispatcherPriority.Render, new Action(() => { }));
-            }
-
-            saveLogFileThread.Join();
+                Message = "", ProgressText = "", ProgressValue = 100
+            });
         }
 
         private static Logger GetRootLogger()
         {
-            ILog log = LogManager.GetLogger(typeof (SplashScreenLogAppender));
+            ILog log = LogManager.GetLogger(typeof(SplashScreenLogAppender));
             Logger logger = (Logger) log.Logger;
             return logger.Hierarchy.Root;
-        }
-
-        public static void Dispose()
-        {
-            instance = null;
-            splashScreen = null;
-            historyLogData = null;
-            currentLogData = null;
         }
     }
 }

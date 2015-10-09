@@ -5,11 +5,9 @@ namespace SharpMap.Rendering.Thematics
 {
     public class GradientThemeItem : ThemeItem
     {
-        private string range;
+        private readonly string range;
 
-        public GradientThemeItem():this(new VectorStyle(),"","")
-        {
-        }
+        public GradientThemeItem() : this(new VectorStyle(), "", "") {}
 
         public GradientThemeItem(IStyle style, string label, string range)
         {
@@ -27,7 +25,10 @@ namespace SharpMap.Rendering.Thematics
 
         public override string Range
         {
-            get { return range; }
+            get
+            {
+                return range;
+            }
         }
 
         public override object Clone()
@@ -37,7 +38,7 @@ namespace SharpMap.Rendering.Thematics
 
         public override int CompareTo(object obj)
         {
-           return label.CompareTo(((GradientThemeItem) obj).label);
+            return label.CompareTo(((GradientThemeItem) obj).label);
         }
     }
 }

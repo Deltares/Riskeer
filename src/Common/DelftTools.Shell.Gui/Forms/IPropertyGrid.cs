@@ -10,7 +10,7 @@ namespace DelftTools.Shell.Gui.Forms
         /// <seealso cref="System.ComponentModel.CategoryAttribute"/>
         /// </summary>
         // -- object SelectedObject { get; set; }
-        
+
         // support for multiple objects
         // to be removed
         // -- object []SelectedObjects { get; set; }

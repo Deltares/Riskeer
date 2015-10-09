@@ -18,7 +18,7 @@ namespace DelftTools.Utils.Reflection
         private static IList<AggregateReplaceTask> postProcessTasks;
         private static IList<object> manualClones;
         private static CloneStore cloneStore;
-        
+
         internal static T DeepClone<T>(T inst)
         {
             postProcessTasks = new List<AggregateReplaceTask>();
@@ -26,7 +26,7 @@ namespace DelftTools.Utils.Reflection
             cloneStore = new CloneStore();
             try
             {
-                var clone = (T)DeepCloneCore(inst);
+                var clone = (T) DeepCloneCore(inst);
                 PostProcessAggregates();
                 manualClones.ForEach(SearchAndReplaceAggregates);
                 return clone;
@@ -42,37 +42,43 @@ namespace DelftTools.Utils.Reflection
         private static void PostProcessAggregates()
         {
             DoWithEditActionsDisabled(() =>
+            {
+                foreach (var todo in postProcessTasks)
                 {
-                    foreach (var todo in postProcessTasks)
+                    var fi = todo.Member as FieldInfo;
+                    var pi = todo.Member as PropertyInfo;
+
+                    var clone = cloneStore.GetExistingCloneFor(todo.OriginalValue) ?? //get existing clone
+                                todo.OriginalValue; //if no existing: restore to original value (since it lies outside the graph we're cloning)
+
+                    if (todo.IsListElement)
                     {
-                        var fi = todo.Member as FieldInfo;
-                        var pi = todo.Member as PropertyInfo;
-                        
-                        var clone = cloneStore.GetExistingCloneFor(todo.OriginalValue) ?? //get existing clone
-                            todo.OriginalValue;  //if no existing: restore to original value (since it lies outside the graph we're cloning)
-                        
-                        if (todo.IsListElement)
+                        //if list, the list has already been replaced
+                        var list = (IList) todo.Instance;
+                        ReplaceListItem(list, todo.ListIndex, clone);
+                    }
+                    else
+                    {
+                        if (fi != null)
                         {
-                            //if list, the list has already been replaced
-                            var list = (IList) todo.Instance;
-                            ReplaceListItem(list, todo.ListIndex, clone);
+                            fi.SetValue(todo.Instance, clone);
                         }
                         else
                         {
-                            if (fi != null)
-                                fi.SetValue(todo.Instance, clone);
-                            else
-                                pi.SetValue(todo.Instance, clone, null);
+                            pi.SetValue(todo.Instance, clone, null);
                         }
                     }
-                });
+                }
+            });
         }
 
         private static object DeepCloneCore(object inst)
         {
             object o;
-            if (GetExistingClone(ref inst, out o)) 
+            if (GetExistingClone(ref inst, out o))
+            {
                 return o;
+            }
 
             // check if type has manual clone implemented, use it!
             var asManualCloneable = inst as IManualCloneable;
@@ -131,8 +137,12 @@ namespace DelftTools.Utils.Reflection
             {
                 var dict = (IDictionary) inst;
                 var genericArguments = instType.GetGenericArguments().ToArray();
-                var clonedDict = (IDictionary) TypeUtils.CreateGeneric(typeof (Dictionary<,>),
-                                                                       new[] {genericArguments[0], genericArguments[1]});
+                var clonedDict = (IDictionary) TypeUtils.CreateGeneric(typeof(Dictionary<,>),
+                                                                       new[]
+                                                                       {
+                                                                           genericArguments[0],
+                                                                           genericArguments[1]
+                                                                       });
                 cloneStore.AddClone(inst, clonedDict);
 
                 foreach (var item in dict.Keys)
@@ -151,11 +161,11 @@ namespace DelftTools.Utils.Reflection
         {
             if (inst.GetType().Name.StartsWith("PersistentGenericList"))
             {
-                return (IList) TypeUtils.CreateGeneric(typeof (List<>), inst.GetType().GetGenericArguments().First());
+                return (IList) TypeUtils.CreateGeneric(typeof(List<>), inst.GetType().GetGenericArguments().First());
             }
             if (inst.GetType().Name.StartsWith("PersistentEvented"))
             {
-                return (IList) TypeUtils.CreateGeneric(typeof (EventedList<>), inst.GetType().GetGenericArguments().First());
+                return (IList) TypeUtils.CreateGeneric(typeof(EventedList<>), inst.GetType().GetGenericArguments().First());
             }
             return (IList) TypeUtils.CreateInstance<object>(inst.GetType());
         }
@@ -183,13 +193,13 @@ namespace DelftTools.Utils.Reflection
                 var binaryFormatter = new BinaryFormatter();
                 binaryFormatter.Serialize(memoryStream, dataTable);
                 memoryStream.Seek(0, 0);
-                return (DataTable)binaryFormatter.Deserialize(memoryStream);
+                return (DataTable) binaryFormatter.Deserialize(memoryStream);
             }
         }
-        
+
         private static bool IsSimpleType(Type type)
         {
-            return (type == typeof (string) || type.IsValueType);
+            return (type == typeof(string) || type.IsValueType);
         }
 
         private static bool IsInstanceOfSimpleType(object inst)
@@ -211,11 +221,11 @@ namespace DelftTools.Utils.Reflection
             var dict = inst as IDictionary;
             if (dict != null)
             {
-                DeepCloneDictionary(dict, (IDictionary)clone);
+                DeepCloneDictionary(dict, (IDictionary) clone);
             }
             else if (list != null)
             {
-                DeepCloneList(list, (IList)clone);
+                DeepCloneList(list, (IList) clone);
             }
 
             return clone;
@@ -230,7 +240,9 @@ namespace DelftTools.Utils.Reflection
             {
                 object value;
                 if (!GetValue(inst, pi, out value))
+                {
                     continue;
+                }
 
                 object clonedValue;
 
@@ -239,7 +251,9 @@ namespace DelftTools.Utils.Reflection
                     aggregationProperties.Add(pi.Name);
 
                     if (ProcessAggregateMember(value, clone, pi, out clonedValue))
+                    {
                         continue;
+                    }
                 }
                 else
                 {
@@ -256,17 +270,25 @@ namespace DelftTools.Utils.Reflection
                 var value = fieldAndValue.Value;
 
                 if (!ShouldReplaceValue(value))
+                {
                     continue;
+                }
 
                 if (!IsInstanceOfSimpleType(value))
+                {
                     if (cloneStore.IsAlreadyClonedInstance(value))
+                    {
                         continue;
+                    }
+                }
 
                 object clonedValue;
                 if (aggregationProperties.Any(p => IsFieldForProperty(fi, p)))
                 {
                     if (ProcessAggregateMember(value, clone, fi, out clonedValue))
+                    {
                         continue;
+                    }
                 }
                 else
                 {
@@ -287,9 +309,11 @@ namespace DelftTools.Utils.Reflection
                 clonedValue = CreateInstanceOfList(list);
 
                 if (value.GetType() == clonedValue.GetType()) //hack: only if types match (not so for persistent evented lists)
+                {
                     DeepClonePropertiesAndFields(value, clonedValue);
+                }
 
-                var clonedList = (IList)clonedValue;
+                var clonedList = (IList) clonedValue;
                 for (var i = 0; i < list.Count; i++)
                 {
                     var item = list[i];
@@ -297,13 +321,13 @@ namespace DelftTools.Utils.Reflection
                     if (!GetExistingClone(ref item, out clonedItem))
                     {
                         postProcessTasks.Add(new AggregateReplaceTask
-                            {
-                                Instance = clonedList,
-                                Member = pi,
-                                OriginalValue = item,
-                                IsListElement = true,
-                                ListIndex = i
-                            });
+                        {
+                            Instance = clonedList,
+                            Member = pi,
+                            OriginalValue = item,
+                            IsListElement = true,
+                            ListIndex = i
+                        });
                         DoWithEditActionsDisabled(() => clonedList.Add(null)); //add placeholder
                         continue;
                     }
@@ -314,7 +338,10 @@ namespace DelftTools.Utils.Reflection
             {
                 if (!GetExistingClone(ref value, out clonedValue))
                 {
-                    postProcessTasks.Add(new AggregateReplaceTask {Instance = clone, Member = pi, OriginalValue = value});
+                    postProcessTasks.Add(new AggregateReplaceTask
+                    {
+                        Instance = clone, Member = pi, OriginalValue = value
+                    });
                     return true;
                 }
             }
@@ -324,9 +351,13 @@ namespace DelftTools.Utils.Reflection
         private static bool IsFieldForProperty(FieldInfo fi, string propertyName)
         {
             if (fi.Name.Equals(propertyName, StringComparison.InvariantCultureIgnoreCase))
+            {
                 return true;
+            }
             if (fi.Name == string.Format("<{0}>k__BackingField", propertyName))
+            {
                 return true;
+            }
             return false;
         }
 
@@ -351,7 +382,9 @@ namespace DelftTools.Utils.Reflection
             foreach (var pair in TypeUtils.GetNonInfrastructureFields(inst, inst.GetType()))
             {
                 if (pair.Key.DeclaringType != null && pair.Key.DeclaringType.Namespace.StartsWith("System"))
+                {
                     continue; //skip internal .NET fields (eg in List and Dictionary)
+                }
 
                 pairs.Add(pair);
             }
@@ -367,12 +400,16 @@ namespace DelftTools.Utils.Reflection
                 var fieldInfo = mi as FieldInfo;
                 DoWithEditActionsDisabled(
                     () =>
+                    {
+                        if (propertyInfo != null)
                         {
-                            if (propertyInfo != null)
-                                propertyInfo.SetValue(clone, clonedValue, null);
-                            else
-                                fieldInfo.SetValue(clone, clonedValue);
-                        });
+                            propertyInfo.SetValue(clone, clonedValue, null);
+                        }
+                        else
+                        {
+                            fieldInfo.SetValue(clone, clonedValue);
+                        }
+                    });
             }
             catch (Exception e)
             {
@@ -387,11 +424,15 @@ namespace DelftTools.Utils.Reflection
             value = null;
 
             if (pi.Name == "Id")
+            {
                 return false;
+            }
 
             // we're using these as marker attribute: do not set..todo: consider using a dedicated attribute
             if (AttributeInfoCache.IsNonSerialized(pi) || AttributeInfoCache.IsNoNotify(pi))
+            {
                 return false;
+            }
 
             try
             {
@@ -403,22 +444,30 @@ namespace DelftTools.Utils.Reflection
                 return false;
             }
 
-            if (!ShouldReplaceValue(value)) 
+            if (!ShouldReplaceValue(value))
+            {
                 return false;
+            }
 
             return true;
         }
-        
+
         private static bool ShouldReplaceValue(object value)
         {
             if (value == null)
+            {
                 return false;
+            }
 
             if (value is Delegate)
+            {
                 return false;
+            }
 
             if (!(value is string) && value is IEnumerable && !(value is ICollection || value is DataTable || IsGenericCollection(value)))
+            {
                 return false;
+            }
             return true;
         }
 
@@ -440,7 +489,7 @@ namespace DelftTools.Utils.Reflection
         private static void DeepCloneList(IList list, IList clonedList)
         {
             //sometimes shallow clones already copies the elements (as-is) and sometimes it doesn't..
-            if (clonedList.Count == 0 && list.Count > 0) 
+            if (clonedList.Count == 0 && list.Count > 0)
             {
                 foreach (var item in list)
                 {
@@ -477,10 +526,10 @@ namespace DelftTools.Utils.Reflection
         private static void ReplaceListItem(IList clonedList, int i, object clonedItem)
         {
             DoWithEditActionsDisabled(() =>
-                {
-                    clonedList.RemoveAt(i);
-                    clonedList.Insert(i, clonedItem);
-                });
+            {
+                clonedList.RemoveAt(i);
+                clonedList.Insert(i, clonedItem);
+            });
         }
 
         private static IEnumerable<PropertyInfo> GetAllAccessiblePropertiesForType(Type type)
@@ -491,7 +540,7 @@ namespace DelftTools.Utils.Reflection
                              .Where(pi => pi.GetIndexParameters().Length == 0 && pi.GetSetMethod(true) != null)
                              .Concat(GetAllAccessiblePropertiesForType(type.BaseType));
         }
-        
+
         private static void DoWithEditActionsDisabled(Action action)
         {
             var oldDisabledSetting = EditActionSettings.Disabled;
@@ -520,26 +569,36 @@ namespace DelftTools.Utils.Reflection
                 var inst = queue.Dequeue();
 
                 if (IsInstanceOfSimpleType(inst))
+                {
                     continue;
-                
+                }
+
                 // geometries
                 var baseType = inst.GetType().BaseType;
                 if ((baseType != null && baseType.Name == "Geometry") && inst is ICloneable)
+                {
                     continue;
+                }
 
                 // gdi stuff
                 if (inst.GetType().FullName.StartsWith("System.Drawing.") && inst is ICloneable)
+                {
                     continue;
+                }
 
                 if (visitedItems.Contains(inst))
+                {
                     continue;
+                }
                 visitedItems.Add(inst);
 
                 foreach (var pi in GetAllAccessiblePropertiesForType(inst.GetType()))
                 {
                     object value;
                     if (!GetValue(inst, pi, out value))
+                    {
                         continue;
+                    }
 
                     if (AttributeInfoCache.IsAggregation(pi))
                     {
@@ -602,19 +661,13 @@ namespace DelftTools.Utils.Reflection
             private static readonly IDictionary<PropertyInfo, AttributeDetails> PropertyAttributeInfo =
                 new Dictionary<PropertyInfo, AttributeDetails>();
 
-            private struct AttributeDetails
-            {
-                public bool NonSerialized;
-                public bool NoNotify;
-                public bool Aggregation;
-            }
-
             public static bool IsAggregation(PropertyInfo pi)
             {
                 AttributeDetails info;
                 Initialize(pi, out info);
                 return info.Aggregation;
             }
+
             public static bool IsNoNotify(PropertyInfo pi)
             {
                 AttributeDetails info;
@@ -635,12 +688,19 @@ namespace DelftTools.Utils.Reflection
                 {
                     var attributes = pi.GetCustomAttributes(false); //or true?
                     PropertyAttributeInfo[pi] = new AttributeDetails
-                        {
-                            Aggregation = attributes.Any(a => a is AggregationAttribute),
-                            NoNotify = attributes.Any(a => a is NoNotifyPropertyChangeAttribute),
-                            NonSerialized = attributes.Any(a => a is NonSerializedAttribute)
-                        };
+                    {
+                        Aggregation = attributes.Any(a => a is AggregationAttribute),
+                        NoNotify = attributes.Any(a => a is NoNotifyPropertyChangeAttribute),
+                        NonSerialized = attributes.Any(a => a is NonSerializedAttribute)
+                    };
                 }
+            }
+
+            private struct AttributeDetails
+            {
+                public bool NonSerialized;
+                public bool NoNotify;
+                public bool Aggregation;
             }
         }
 
@@ -668,5 +728,4 @@ namespace DelftTools.Utils.Reflection
             }
         }
     }
-
 }

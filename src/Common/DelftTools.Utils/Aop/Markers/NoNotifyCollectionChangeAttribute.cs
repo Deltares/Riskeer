@@ -7,8 +7,7 @@ namespace DelftTools.Utils.Aop
     /// Apply this attribute to properties you do not want to be intercepted
     /// by NotifyCollectionChangeAttribute. 
     /// </summary>
-    [Serializable, MulticastAttributeUsage(MulticastTargets.Property)]
-    public class NoNotifyCollectionChangeAttribute : Attribute
-    {
-    }
+    [Serializable]
+    [MulticastAttributeUsage(MulticastTargets.Property)]
+    public class NoNotifyCollectionChangeAttribute : Attribute {}
 }

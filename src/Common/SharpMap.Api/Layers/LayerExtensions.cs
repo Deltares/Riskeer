@@ -10,7 +10,10 @@ namespace SharpMap.Api.Layers
             yield return layer;
 
             var groupLayer = layer as IGroupLayer;
-            if (groupLayer == null) yield break;
+            if (groupLayer == null)
+            {
+                yield break;
+            }
 
             foreach (var subLayer in groupLayer.Layers.SelectMany(GetLayersRecursive))
             {
@@ -26,7 +29,10 @@ namespace SharpMap.Api.Layers
             }
 
             var groupLayer = layer as IGroupLayer;
-            if (groupLayer == null) yield break;
+            if (groupLayer == null)
+            {
+                yield break;
+            }
 
             foreach (var typedLayer in groupLayer.Layers.SelectMany(GetLayersRecursive<T>))
             {

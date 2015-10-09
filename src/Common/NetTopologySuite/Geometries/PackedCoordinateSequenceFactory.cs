@@ -38,13 +38,13 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// Initializes a new instance of the <see cref="PackedCoordinateSequenceFactory"/> class, 
         /// using double values.
         /// </summary>
-        public PackedCoordinateSequenceFactory() : this(PackedType.Double) { }
+        public PackedCoordinateSequenceFactory() : this(PackedType.Double) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PackedCoordinateSequenceFactory"/> class.
         /// </summary>
         /// <param name="type">The type.</param>
-        public PackedCoordinateSequenceFactory(PackedType type) : this(type, 3) { }
+        public PackedCoordinateSequenceFactory(PackedType type) : this(type, 3) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PackedCoordinateSequenceFactory"/> class.
@@ -62,12 +62,17 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         public PackedType Type
         {
-            get { return type; }
+            get
+            {
+                return type;
+            }
             set
             {
                 if (value != PackedType.Double && value != PackedType.Float)
+                {
                     throw new ArgumentException("Unknown type " + value);
-                this.type = value;
+                }
+                type = value;
             }
         }
 
@@ -76,34 +81,14 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         public int Dimension
         {
-            get { return dimension; }
-            set { this.dimension = value; }
-        }
-
-        /// <summary>
-        /// Returns a CoordinateSequence based on the given array; whether or not the
-        /// array is copied is implementation-dependent.
-        /// </summary>
-        /// <param name="coordinates">Coordinates array, which may not be null nor contain null elements</param>
-        /// <returns></returns>
-        public ICoordinateSequence Create(ICoordinate[] coordinates)
-        {
-            if (type == PackedType.Double)
-                 return new PackedDoubleCoordinateSequence(coordinates, dimension);
-            else return new PackedFloatCoordinateSequence(coordinates, dimension);
-        }
-
-        /// <summary>
-        /// Returns a CoordinateSequence based on the given coordinate sequence; whether or not the
-        /// array is copied is implementation-dependent.
-        /// </summary>
-        /// <param name="coordSeq"></param>
-        /// <returns></returns>
-        public ICoordinateSequence Create(ICoordinateSequence coordSeq)
-        {
-            if (type == PackedType.Double)
-                 return new PackedDoubleCoordinateSequence(coordSeq.ToCoordinateArray(), dimension);
-            else return new PackedFloatCoordinateSequence(coordSeq.ToCoordinateArray(), dimension);
+            get
+            {
+                return dimension;
+            }
+            set
+            {
+                dimension = value;
+            }
         }
 
         /// <summary>
@@ -115,8 +100,13 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public ICoordinateSequence Create(double[] packedCoordinates, int dimension)
         {
             if (type == PackedType.Double)
-                 return new PackedDoubleCoordinateSequence(packedCoordinates, dimension);
-            else return new PackedFloatCoordinateSequence(packedCoordinates, dimension);
+            {
+                return new PackedDoubleCoordinateSequence(packedCoordinates, dimension);
+            }
+            else
+            {
+                return new PackedFloatCoordinateSequence(packedCoordinates, dimension);
+            }
         }
 
         /// <summary>
@@ -128,8 +118,49 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public ICoordinateSequence Create(float[] packedCoordinates, int dimension)
         {
             if (type == PackedType.Double)
-                 return new PackedDoubleCoordinateSequence(packedCoordinates, dimension);
-            else return new PackedFloatCoordinateSequence(packedCoordinates, dimension);
+            {
+                return new PackedDoubleCoordinateSequence(packedCoordinates, dimension);
+            }
+            else
+            {
+                return new PackedFloatCoordinateSequence(packedCoordinates, dimension);
+            }
+        }
+
+        /// <summary>
+        /// Returns a CoordinateSequence based on the given array; whether or not the
+        /// array is copied is implementation-dependent.
+        /// </summary>
+        /// <param name="coordinates">Coordinates array, which may not be null nor contain null elements</param>
+        /// <returns></returns>
+        public ICoordinateSequence Create(ICoordinate[] coordinates)
+        {
+            if (type == PackedType.Double)
+            {
+                return new PackedDoubleCoordinateSequence(coordinates, dimension);
+            }
+            else
+            {
+                return new PackedFloatCoordinateSequence(coordinates, dimension);
+            }
+        }
+
+        /// <summary>
+        /// Returns a CoordinateSequence based on the given coordinate sequence; whether or not the
+        /// array is copied is implementation-dependent.
+        /// </summary>
+        /// <param name="coordSeq"></param>
+        /// <returns></returns>
+        public ICoordinateSequence Create(ICoordinateSequence coordSeq)
+        {
+            if (type == PackedType.Double)
+            {
+                return new PackedDoubleCoordinateSequence(coordSeq.ToCoordinateArray(), dimension);
+            }
+            else
+            {
+                return new PackedFloatCoordinateSequence(coordSeq.ToCoordinateArray(), dimension);
+            }
         }
 
         /// <summary>
@@ -141,8 +172,13 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public ICoordinateSequence Create(int size, int dimension)
         {
             if (type == PackedType.Double)
-                 return new PackedDoubleCoordinateSequence(size, dimension);
-            else return new PackedFloatCoordinateSequence(size, dimension);
+            {
+                return new PackedDoubleCoordinateSequence(size, dimension);
+            }
+            else
+            {
+                return new PackedFloatCoordinateSequence(size, dimension);
+            }
         }
     }
 }

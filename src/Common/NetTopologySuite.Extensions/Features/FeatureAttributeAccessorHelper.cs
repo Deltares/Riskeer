@@ -16,24 +16,6 @@ namespace NetTopologySuite.Extensions.Features
         private static readonly IDictionary<Type, IDictionary<string, MethodInfo>> getterCache =
             new Dictionary<Type, IDictionary<string, MethodInfo>>();
 
-        private static Dictionary<PropertyInfo, FeatureAttributeAttribute> GetFeatureAttributes(Type featureType)
-        {
-            var result = new Dictionary<PropertyInfo, FeatureAttributeAttribute>();
-            if (featureType == null)
-            {
-                return result;
-            }
-            foreach (var p in featureType.GetProperties())
-            {
-                var attribute = p.GetCustomAttributes(true).OfType<FeatureAttributeAttribute>().FirstOrDefault();
-                if (attribute != null)
-                {
-                    result.Add(p, attribute);
-                }
-            }
-            return result;
-        }
-
         public static IEnumerable<string> GetFeatureAttributeNames(Type featureType)
         {
             return GetFeatureAttributes(featureType).OrderBy(kvp => kvp.Value.Order).Select(kvp => kvp.Key.Name);
@@ -60,16 +42,6 @@ namespace NetTopologySuite.Extensions.Features
             return attributeNames;
         }
 
-        private static void ThrowOnNotFound(Type featureType, string name)
-        {
-            throw new ArgumentException("Can't find attribute " + name + " for type " + featureType.Name);
-        }
-
-        private static PropertyInfo GetFeatureProperty(Type featureType, string name)
-        {
-            return featureType == null ? null : featureType.GetProperties().FirstOrDefault(p => p.Name == name);
-        }
-
         public static IEnumerable<PropertyInfo> GetFeatureProperties(Type featureType)
         {
             return GetFeatureAttributes(featureType).OrderBy(kvp => kvp.Value.Order).Select(kvp => kvp.Key);
@@ -88,13 +60,13 @@ namespace NetTopologySuite.Extensions.Features
             {
                 if (noDataValue == null)
                 {
-                    return (T) Activator.CreateInstance(typeof (T));
+                    return (T) Activator.CreateInstance(typeof(T));
                 }
 
-                return (T) Convert.ChangeType(noDataValue, typeof (T));
+                return (T) Convert.ChangeType(noDataValue, typeof(T));
             }
 
-            if (typeof (T) == typeof (string))
+            if (typeof(T) == typeof(string))
             {
                 if (value.GetType().IsEnum)
                 {
@@ -102,27 +74,27 @@ namespace NetTopologySuite.Extensions.Features
                 }
                 return (T) (object) string.Format("{0:g}", value);
             }
-            if (typeof (T) == typeof (double))
+            if (typeof(T) == typeof(double))
             {
                 return (T) (object) Convert.ToDouble(value, CultureInfo.InvariantCulture);
             }
-            if (typeof (T) == typeof (int))
+            if (typeof(T) == typeof(int))
             {
                 return (T) (object) Convert.ToInt32(value, CultureInfo.InvariantCulture);
             }
-            if (typeof (T) == typeof (short))
+            if (typeof(T) == typeof(short))
             {
                 return (T) (object) Convert.ToInt16(value, CultureInfo.InvariantCulture);
             }
-            if (typeof (T) == typeof (float))
+            if (typeof(T) == typeof(float))
             {
                 return (T) (object) Convert.ToSingle(value, CultureInfo.InvariantCulture);
             }
-            if (typeof (T) == typeof (byte))
+            if (typeof(T) == typeof(byte))
             {
                 return (T) (object) Convert.ToByte(value, CultureInfo.InvariantCulture);
             }
-            if (typeof (T) == typeof (long))
+            if (typeof(T) == typeof(long))
             {
                 return (T) (object) Convert.ToInt64(value, CultureInfo.InvariantCulture);
             }
@@ -135,7 +107,7 @@ namespace NetTopologySuite.Extensions.Features
             if (feature.Attributes != null)
             {
                 object value;
-                if(feature.Attributes.TryGetValue(name, out value))
+                if (feature.Attributes.TryGetValue(name, out value))
                 {
                     return value;
                 }
@@ -186,7 +158,10 @@ namespace NetTopologySuite.Extensions.Features
                 var setter = propertyInfo.GetSetMethod(true);
                 if (setter != null)
                 {
-                    setter.Invoke(feature, new[] {value});
+                    setter.Invoke(feature, new[]
+                    {
+                        value
+                    });
                     return;
                 }
             }
@@ -224,44 +199,12 @@ namespace NetTopologySuite.Extensions.Features
             return null;
         }
 
-        private static MethodInfo GetCachedAttributeValueGetter(IFeature feature, string name, bool throwIfNotFound = true)
-        {
-            MethodInfo getter;
-            IDictionary<string, MethodInfo> gettersForType;
-
-            if (!getterCache.TryGetValue(feature.GetType(), out gettersForType))
-            {
-                gettersForType = new Dictionary<string, MethodInfo>();
-                getterCache.Add(feature.GetType(), gettersForType);
-            }
-
-            if (!gettersForType.TryGetValue(name, out getter))
-            {
-                getter = GetAttributeValueGetter(feature, name, throwIfNotFound);
-                gettersForType.Add(name, getter);
-            }
-
-            return getter;
-        }
-
-        private static MethodInfo GetAttributeValueGetter(IFeature feature, string name, bool throwIfNotFound)
-        {
-            var propertyInfo = GetFeatureProperty(feature.GetType(), name);
-            if (propertyInfo != null)
-            {
-                return propertyInfo.GetGetMethod(true);
-            }
-            if (throwIfNotFound)
-            {
-                ThrowOnNotFound(feature.GetType(), name);
-            }
-            return null;
-        }
-
         public static string GetPropertyDisplayName(Type featureType, string name, bool throwIfNotFound = true)
         {
             if (featureType.Implements<DataRow>())
+            {
                 return name;
+            }
 
             var propertyInfo = GetFeatureProperty(featureType, name);
 
@@ -293,27 +236,6 @@ namespace NetTopologySuite.Extensions.Features
                 return name;
             }
             return GetPropertyDisplayName(feature.GetType(), name, throwIfNotFound);
-        }
-
-        private static bool GetAttributeReadonlyFlag(Type featureType, string name, bool throwIfNotFound = true)
-        {
-            if (featureType.Implements<DataRow>())
-                return false;
-
-            var propertyInfo = GetFeatureProperty(featureType, name);
-
-            if (propertyInfo != null)
-            {
-                var readOnlyAttribute =
-                    propertyInfo.GetCustomAttributes(true).OfType<ReadOnlyAttribute>().FirstOrDefault();
-
-                return readOnlyAttribute != null && readOnlyAttribute.IsReadOnly;
-            }
-            if (throwIfNotFound)
-            {
-                ThrowOnNotFound(featureType, name);
-            }
-            return false;
         }
 
         public static Type GetAttributeType(IFeature feature, string name, bool throwIfNotFound = true)
@@ -352,7 +274,7 @@ namespace NetTopologySuite.Extensions.Features
 
         public static bool IsReadOnly(Type featureType, string name)
         {
-            if(featureType.GetProperty(name).GetSetMethod() == null)
+            if (featureType.GetProperty(name).GetSetMethod() == null)
             {
                 return true;
             }
@@ -369,9 +291,94 @@ namespace NetTopologySuite.Extensions.Features
             }
 
             var formatAttribute =
-                propertyInfo.GetCustomAttributes(typeof (DisplayFormatAttribute), true).FirstOrDefault();
+                propertyInfo.GetCustomAttributes(typeof(DisplayFormatAttribute), true).FirstOrDefault();
 
             return formatAttribute != null ? ((DisplayFormatAttribute) formatAttribute).FormatString : "";
+        }
+
+        private static Dictionary<PropertyInfo, FeatureAttributeAttribute> GetFeatureAttributes(Type featureType)
+        {
+            var result = new Dictionary<PropertyInfo, FeatureAttributeAttribute>();
+            if (featureType == null)
+            {
+                return result;
+            }
+            foreach (var p in featureType.GetProperties())
+            {
+                var attribute = p.GetCustomAttributes(true).OfType<FeatureAttributeAttribute>().FirstOrDefault();
+                if (attribute != null)
+                {
+                    result.Add(p, attribute);
+                }
+            }
+            return result;
+        }
+
+        private static void ThrowOnNotFound(Type featureType, string name)
+        {
+            throw new ArgumentException("Can't find attribute " + name + " for type " + featureType.Name);
+        }
+
+        private static PropertyInfo GetFeatureProperty(Type featureType, string name)
+        {
+            return featureType == null ? null : featureType.GetProperties().FirstOrDefault(p => p.Name == name);
+        }
+
+        private static MethodInfo GetCachedAttributeValueGetter(IFeature feature, string name, bool throwIfNotFound = true)
+        {
+            MethodInfo getter;
+            IDictionary<string, MethodInfo> gettersForType;
+
+            if (!getterCache.TryGetValue(feature.GetType(), out gettersForType))
+            {
+                gettersForType = new Dictionary<string, MethodInfo>();
+                getterCache.Add(feature.GetType(), gettersForType);
+            }
+
+            if (!gettersForType.TryGetValue(name, out getter))
+            {
+                getter = GetAttributeValueGetter(feature, name, throwIfNotFound);
+                gettersForType.Add(name, getter);
+            }
+
+            return getter;
+        }
+
+        private static MethodInfo GetAttributeValueGetter(IFeature feature, string name, bool throwIfNotFound)
+        {
+            var propertyInfo = GetFeatureProperty(feature.GetType(), name);
+            if (propertyInfo != null)
+            {
+                return propertyInfo.GetGetMethod(true);
+            }
+            if (throwIfNotFound)
+            {
+                ThrowOnNotFound(feature.GetType(), name);
+            }
+            return null;
+        }
+
+        private static bool GetAttributeReadonlyFlag(Type featureType, string name, bool throwIfNotFound = true)
+        {
+            if (featureType.Implements<DataRow>())
+            {
+                return false;
+            }
+
+            var propertyInfo = GetFeatureProperty(featureType, name);
+
+            if (propertyInfo != null)
+            {
+                var readOnlyAttribute =
+                    propertyInfo.GetCustomAttributes(true).OfType<ReadOnlyAttribute>().FirstOrDefault();
+
+                return readOnlyAttribute != null && readOnlyAttribute.IsReadOnly;
+            }
+            if (throwIfNotFound)
+            {
+                ThrowOnNotFound(featureType, name);
+            }
+            return false;
         }
     }
 }

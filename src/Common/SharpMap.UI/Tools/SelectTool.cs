@@ -7,12 +7,13 @@ using System.Linq;
 using System.Windows.Forms;
 using DelftTools.Utils;
 using DelftTools.Utils.Collections;
+using GeoAPI.CoordinateSystems.Transformations;
 using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
+using GisSharpBlog.NetTopologySuite.Geometries;
 using log4net;
 using SharpMap.Api.Editors;
 using SharpMap.Api.Layers;
-using SharpMap.Converters.Geometries;
 using SharpMap.Data.Providers;
 using SharpMap.Layers;
 using SharpMap.Rendering;
@@ -21,6 +22,7 @@ using SharpMap.Styles;
 using SharpMap.UI.Forms;
 using SharpMap.UI.Helpers;
 using SharpMap.UI.Properties;
+using GeometryFactory = SharpMap.Converters.Geometries.GeometryFactory;
 
 namespace SharpMap.UI.Tools
 {
@@ -64,22 +66,23 @@ namespace SharpMap.UI.Tools
     /// </summary>
     public class SelectTool : MapTool
     {
+        public event EventHandler SelectionChanged;
+        public static int MaxSelectedFeatures = 5000;
         private static readonly ILog log = LogManager.GetLogger(typeof(SelectTool));
 
         private static readonly IDictionary<Bitmap, VectorStyle> stylesCache = new Dictionary<Bitmap, VectorStyle>();
         private readonly Collection<LocalCoordinateSystemTrackerFeature> trackers = new Collection<LocalCoordinateSystemTrackerFeature>();
+        private readonly List<PointF> selectPoints = new List<PointF>();
+
+        private readonly VectorLayer trackingLayer;
 
         private DateTime orgClickTime;
-        private readonly List<PointF> selectPoints = new List<PointF>();
-        
+
         private ICoordinate mouseDownLocation; // TODO: remove me
         private ICoordinate orgMouseDownLocation;
         private ICoordinate WORLDPOSITION;
 
-        private readonly VectorLayer trackingLayer;
-
         private bool isMultiSelect;
-        public static int MaxSelectedFeatures = 5000;
 
         public SelectTool()
         {
@@ -89,10 +92,13 @@ namespace SharpMap.UI.Tools
             SelectedFeatureInteractors = new List<IFeatureInteractor>();
 
             trackingLayer = new VectorLayer("Trackers")
+            {
+                DataSource = new FeatureCollection
                 {
-                    DataSource = new FeatureCollection {Features = trackers},
-                    Theme = new CustomTheme(GetTrackerStyle)
-                };
+                    Features = trackers
+                },
+                Theme = new CustomTheme(GetTrackerStyle)
+            };
         }
 
         public override Cursor Cursor
@@ -111,31 +117,12 @@ namespace SharpMap.UI.Tools
             }
         }
 
-        public MultiSelectionMode MultiSelectionMode { get; set; }
-        
-        /// <summary>
-        /// Interactors created for selected features.
-        /// </summary>
-        public IList<IFeatureInteractor> SelectedFeatureInteractors { get; private set; }
-
-        public bool KeyToggleSelection
-        {
-            get { return ((Control.ModifierKeys & Keys.Control) == Keys.Control); }
-        }
-
-        public bool KeyExtendSelection
-        {
-            get { return ((Control.ModifierKeys & Keys.Shift) == Keys.Shift); }
-        }
-
-        public IEnumerable<IFeature> Selection
-        {
-            get { return SelectedFeatureInteractors.Select(interactor => interactor.SourceFeature); }
-        }
-
         public override IMapControl MapControl
         {
-            get { return base.MapControl; }
+            get
+            {
+                return base.MapControl;
+            }
             set
             {
                 base.MapControl = value;
@@ -145,7 +132,10 @@ namespace SharpMap.UI.Tools
 
         public override bool IsActive
         {
-            get { return base.IsActive; }
+            get
+            {
+                return base.IsActive;
+            }
             set
             {
                 base.IsActive = value;
@@ -162,27 +152,35 @@ namespace SharpMap.UI.Tools
             }
         }
 
-        public override void OnPaint(PaintEventArgs e)
+        public MultiSelectionMode MultiSelectionMode { get; set; }
+
+        /// <summary>
+        /// Interactors created for selected features.
+        /// </summary>
+        public IList<IFeatureInteractor> SelectedFeatureInteractors { get; private set; }
+
+        public bool KeyToggleSelection
         {
-            base.OnPaint(e);
-            Render(e.Graphics, MapControl.Map);
+            get
+            {
+                return ((Control.ModifierKeys & Keys.Control) == Keys.Control);
+            }
         }
 
-        public override void Render(Graphics graphics, Map map)
+        public bool KeyExtendSelection
         {
-            // Render the selectionLayer and trackingLayer
-            // Bypass ILayer.Render and call OnRender directly; this is more efficient
-            foreach (var tracker in trackers.Where(tracker => tracker.FeatureInteractor.SourceFeature != null))
+            get
             {
-                // todo optimize this; only necessary when map extent has changed.
-                var interactor = tracker.FeatureInteractor;
-                var feature = interactor.TargetFeature ?? interactor.SourceFeature;
-
-                interactor.UpdateTracker(feature.Geometry);
+                return ((Control.ModifierKeys & Keys.Shift) == Keys.Shift);
             }
+        }
 
-            SynchronizeTrackers();
-            trackingLayer.OnRender(graphics, map);
+        public IEnumerable<IFeature> Selection
+        {
+            get
+            {
+                return SelectedFeatureInteractors.Select(interactor => interactor.SourceFeature);
+            }
         }
 
         public TrackerFeature GetTrackerAtCoordinate(ICoordinate worldPos)
@@ -195,11 +193,14 @@ namespace SharpMap.UI.Tools
                 if (featureInteractor.Layer != null && featureInteractor.Layer.CoordinateTransformation != null)
                 {
                     var mathTransform = featureInteractor.Layer.CoordinateTransformation.MathTransform.Inverse();
-                    coordinate = TransformCoordinate(worldPos,mathTransform);
+                    coordinate = TransformCoordinate(worldPos, mathTransform);
                 }
 
                 trackerFeature = featureInteractor.GetTrackerAtCoordinate(coordinate);
-                if (trackerFeature != null) break;
+                if (trackerFeature != null)
+                {
+                    break;
+                }
             }
             return trackerFeature;
         }
@@ -239,13 +240,19 @@ namespace SharpMap.UI.Tools
             UpdateMapControlSelection();
         }
 
-        public void AddSelection(ILayer layer, IFeature feature, bool synchronizeUI = true, bool checkIfAlreadySelected=true)
+        public void AddSelection(ILayer layer, IFeature feature, bool synchronizeUI = true, bool checkIfAlreadySelected = true)
         {
             // If already selected, do nothing.
-            if (!layer.Visible || (checkIfAlreadySelected && Selection.Contains(feature))) return;
+            if (!layer.Visible || (checkIfAlreadySelected && Selection.Contains(feature)))
+            {
+                return;
+            }
 
             var featureInteractor = GetFeatureInteractor(layer, feature);
-            if (featureInteractor == null) return;
+            if (featureInteractor == null)
+            {
+                return;
+            }
 
             SelectedFeatureInteractors.Add(featureInteractor);
 
@@ -253,211 +260,6 @@ namespace SharpMap.UI.Tools
             {
                 UpdateMapControlSelection();
             }
-        }
-
-        public override IEnumerable<MapToolContextMenuItem> GetContextMenuItems(ICoordinate worldPosition)
-        {
-            var selectFeatureMenu = CreateContextMenuItemForFeaturesAtLocation(worldPosition, "Select", Select, false);
-            if (selectFeatureMenu == null || selectFeatureMenu.DropDownItems.Count == 0) yield break;
-
-            yield return new MapToolContextMenuItem
-                {
-                    Priority = 1,
-                    MenuItem = selectFeatureMenu
-                };
-        }
-
-        public override void OnDraw(Graphics graphics)
-        {
-            var color = KeyExtendSelection ? Color.Magenta : Color.DeepSkyBlue;
-
-            if (MultiSelectionMode == MultiSelectionMode.Lasso)
-            {
-                var points = selectPoints.ToArray();
-
-                if (points.Length < 2)
-                {
-                    return;
-                }
-
-                using (var pen = new Pen(color))
-                {
-                    graphics.DrawCurve(pen, points);
-                }
-
-                using (var brush = new SolidBrush(Color.FromArgb(30, color)))
-                {
-                    graphics.FillClosedCurve(brush, points);
-                }
-            }
-            else
-            {
-                var point1 = Map.WorldToImage(GeometryFactory.CreateCoordinate(mouseDownLocation.X, mouseDownLocation.Y));
-                var point2 = Map.WorldToImage(GeometryFactory.CreateCoordinate(WORLDPOSITION.X, WORLDPOSITION.Y));
-                
-                var rectangle = new Rectangle((int)Math.Min(point1.X, point2.X), 
-                    (int)Math.Min(point1.Y, point2.Y),
-                    (int)Math.Abs(point1.X - point2.X), 
-                    (int)Math.Abs(point1.Y - point2.Y));
-
-                using (var pen = new Pen(color))
-                {
-                    graphics.DrawRectangle(pen, rectangle);
-                }
-
-                using (var brush = new SolidBrush(Color.FromArgb(30, color)))
-                {
-                    graphics.FillRectangle(brush, rectangle);
-                }
-            }
-        }
-
-        public override void OnMouseDown(ICoordinate worldPosition, MouseEventArgs e)
-        {
-            if (e.Button != MouseButtons.Left) return;
-
-            mouseDownLocation = worldPosition;
-            orgMouseDownLocation = null;
-
-            IsBusy = true;
-            
-            var trackerFeature = SelectedFeatureInteractors.Count <= 1
-                ? GetTrackerAtCoordinate(worldPosition)
-                : null; // hack: if multiple selection toggle/select complete feature
-
-            if (trackerFeature != null)
-            {
-                if (SelectedFeatureInteractors.Count != 1) return;
-
-                orgMouseDownLocation = (ICoordinate) worldPosition.Clone();
-                FocusTracker(trackerFeature);
-                MapControl.Refresh();
-                return;
-            }
-
-            ILayer selectedLayer;
-            
-            var limit = (float)MapHelper.ImageToWorld(Map, 4);
-            var nearest = FindNearestFeature(worldPosition, limit, out selectedLayer, ol => ol.Visible);
-            
-            if (nearest != null)
-            {
-                SelectFeature(worldPosition, nearest, selectedLayer);
-            }
-            else
-            {
-                if (!KeyExtendSelection)
-                {
-                    Clear(false);
-                }
-
-                StartMultiSelect();
-            }
-
-            MapControl.Refresh();
-        }
-
-        public override void OnMouseMove(ICoordinate worldPosition, MouseEventArgs e)
-        {
-            if (!isMultiSelect) return;
-
-            UpdateMultiSelection(worldPosition);
-            DoDrawing(false);
-        }
-
-        public override void OnMouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            orgMouseDownLocation = null;
-        }
-
-        public override void OnMouseUp(ICoordinate worldPosition, MouseEventArgs e)
-        {
-            if (e.Button != MouseButtons.Left) return;
-
-            if (isMultiSelect)
-            {
-                StopMultiSelect();
-
-                List<IFeature> selectedFeatures = null;
-                if (!KeyExtendSelection)
-                {
-                    selectedFeatures = new List<IFeature>(SelectedFeatureInteractors.Select(fe => fe.SourceFeature).ToArray());
-                    Clear(false);
-                }
-                var selectionPolygon = CreateSelectionPolygon(worldPosition);
-                if (selectionPolygon != null)
-                {
-                    foreach (var layer in Map.GetAllVisibleLayers(false))
-                    {
-                        //make sure parent layer is selectable or null
-                        var parentLayer = Map.GetGroupLayerContainingLayer(layer);
-                        if ( (parentLayer == null || parentLayer.IsSelectable) && layer.IsSelectable && layer is VectorLayer)
-                        {
-                            // do not use the maptool provider but the datasource of each layer.
-                            var vectorLayer = (VectorLayer)layer;
-                            var multiFeatures = vectorLayer.GetFeatures(selectionPolygon).Take(MaxSelectedFeatures);
-                            foreach (var feature in multiFeatures)
-                            {
-                                if (selectedFeatures != null && selectedFeatures.Contains(feature))
-                                {
-                                    continue;
-                                }
-                                AddSelection(vectorLayer, feature, false,
-                                             checkIfAlreadySelected: selectedFeatures == null);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    // if mouse hasn't moved handle as single select. A normal multi select uses the envelope
-                    // of the geometry and this has as result that unwanted features will be selected.
-                    ILayer selectedLayer;
-                    var limit = (float)MapHelper.ImageToWorld(Map, 4);
-                    var nearest = FindNearestFeature(worldPosition, limit, out selectedLayer, ol => ol.Visible);
-                    if (nearest != null)
-                    {
-                        AddSelection(selectedLayer, nearest, false);
-                    }
-                }
-
-                // synchronize with map selection, possible check if selection is already set; do not remove
-                UpdateMapControlSelection(true);
-            }
-            else
-            {
-                if (orgMouseDownLocation != null && orgMouseDownLocation.X == worldPosition.X && orgMouseDownLocation.Y == worldPosition.Y)
-                {
-                    // check if mouse was pressed at a selected object without moving the mouse. The default behaviour 
-                    // should be to select 'the next' object
-                    TimeSpan timeSpan = DateTime.Now - orgClickTime;
-                    int dc = SystemInformation.DoubleClickTime;
-                    if (dc < timeSpan.TotalMilliseconds)
-                    {
-                        if (1 == SelectedFeatureInteractors.Count)
-                        {
-                            // check if selection exists; could be toggled
-                            ILayer outLayer;
-                            IFeature nextFeature = GetNextFeatureAtPosition(worldPosition,
-                                // set limit from 4 to 10: TOOLS-1499
-                                (float)MapHelper.ImageToWorld(Map, 10),
-                                out outLayer,
-                                SelectedFeatureInteractors[0].SourceFeature,
-                                ol => ol.Visible);
-                            if (null != nextFeature)
-                            {
-                                Clear(false);
-                                SetSelection(nextFeature, outLayer); //-1 for ILineString
-                                //MapControl.Refresh();
-                            }
-                        }
-                    }
-                }
-                UpdateMapControlSelection(true);
-            }
-
-            IsBusy = false;
-            orgClickTime = DateTime.Now;
         }
 
         /// <summary>
@@ -476,7 +278,7 @@ namespace SharpMap.UI.Tools
             var features = featuresToSelect as IList<IFeature> ?? featuresToSelect.ToList();
             if (features.Count > MaxSelectedFeatures)
             {
-                log.Warn(string.Format("Can't select {0} features at once, selecting only first {1} features.",features.Count,MaxSelectedFeatures));
+                log.Warn(string.Format("Can't select {0} features at once, selecting only first {1} features.", features.Count, MaxSelectedFeatures));
                 features = features.Take(MaxSelectedFeatures).ToList();
             }
 
@@ -507,21 +309,25 @@ namespace SharpMap.UI.Tools
                     }
                 }
 
-                if (foundLayer != null )
+                if (foundLayer != null)
                 {
                     if (inLayer)
+                    {
                         AddSelection(foundLayer, feature, ReferenceEquals(feature, features.Last()), checkIfAlreadySelected);
+                    }
                     else
                     {
                         var message = string.Format("The feature '{1}' you want to select is NOT in the layer '{0}'",
-                            foundLayer.Name, 
-                            feature is INameable ? ((INameable) feature).Name : feature.ToString());
+                                                    foundLayer.Name,
+                                                    feature is INameable ? ((INameable) feature).Name : feature.ToString());
                         warningMessages.Add(message);
                     }
                 }
             }
             if (warningMessages.Count > 0)
+            {
                 log.Warn(string.Join(Environment.NewLine, warningMessages));
+            }
             return true;
         }
 
@@ -560,39 +366,299 @@ namespace SharpMap.UI.Tools
             UpdateMapControlSelection(true);
         }
 
+        /// <summary>
+        /// Checks if selected features are actually need to be selected.
+        /// </summary>
+        public void RefreshSelection()
+        {
+            var visibleLayers = Map.GetAllVisibleLayers(true).ToList();
+
+            // check if selected features still exist in the providers
+
+            SelectedFeatureInteractors.Where(featureInteractor => featureInteractor.Layer.DataSource == null || !featureInteractor.Layer.DataSource.Features.Contains(featureInteractor.SourceFeature)).ToArray()
+                                      .ForEach(fi => SelectedFeatureInteractors.Remove(fi));
+
+            SelectedFeatureInteractors.RemoveAllWhere(i => !visibleLayers.Contains(i.Layer));
+            UpdateMapControlSelection();
+        }
+
+        public override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            Render(e.Graphics, MapControl.Map);
+        }
+
+        public override void Render(Graphics graphics, Map map)
+        {
+            // Render the selectionLayer and trackingLayer
+            // Bypass ILayer.Render and call OnRender directly; this is more efficient
+            foreach (var tracker in trackers.Where(tracker => tracker.FeatureInteractor.SourceFeature != null))
+            {
+                // todo optimize this; only necessary when map extent has changed.
+                var interactor = tracker.FeatureInteractor;
+                var feature = interactor.TargetFeature ?? interactor.SourceFeature;
+
+                interactor.UpdateTracker(feature.Geometry);
+            }
+
+            SynchronizeTrackers();
+            trackingLayer.OnRender(graphics, map);
+        }
+
+        public override IEnumerable<MapToolContextMenuItem> GetContextMenuItems(ICoordinate worldPosition)
+        {
+            var selectFeatureMenu = CreateContextMenuItemForFeaturesAtLocation(worldPosition, "Select", Select, false);
+            if (selectFeatureMenu == null || selectFeatureMenu.DropDownItems.Count == 0)
+            {
+                yield break;
+            }
+
+            yield return new MapToolContextMenuItem
+            {
+                Priority = 1,
+                MenuItem = selectFeatureMenu
+            };
+        }
+
+        public override void OnDraw(Graphics graphics)
+        {
+            var color = KeyExtendSelection ? Color.Magenta : Color.DeepSkyBlue;
+
+            if (MultiSelectionMode == MultiSelectionMode.Lasso)
+            {
+                var points = selectPoints.ToArray();
+
+                if (points.Length < 2)
+                {
+                    return;
+                }
+
+                using (var pen = new Pen(color))
+                {
+                    graphics.DrawCurve(pen, points);
+                }
+
+                using (var brush = new SolidBrush(Color.FromArgb(30, color)))
+                {
+                    graphics.FillClosedCurve(brush, points);
+                }
+            }
+            else
+            {
+                var point1 = Map.WorldToImage(GeometryFactory.CreateCoordinate(mouseDownLocation.X, mouseDownLocation.Y));
+                var point2 = Map.WorldToImage(GeometryFactory.CreateCoordinate(WORLDPOSITION.X, WORLDPOSITION.Y));
+
+                var rectangle = new Rectangle((int) Math.Min(point1.X, point2.X),
+                                              (int) Math.Min(point1.Y, point2.Y),
+                                              (int) Math.Abs(point1.X - point2.X),
+                                              (int) Math.Abs(point1.Y - point2.Y));
+
+                using (var pen = new Pen(color))
+                {
+                    graphics.DrawRectangle(pen, rectangle);
+                }
+
+                using (var brush = new SolidBrush(Color.FromArgb(30, color)))
+                {
+                    graphics.FillRectangle(brush, rectangle);
+                }
+            }
+        }
+
+        public override void OnMouseDown(ICoordinate worldPosition, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left)
+            {
+                return;
+            }
+
+            mouseDownLocation = worldPosition;
+            orgMouseDownLocation = null;
+
+            IsBusy = true;
+
+            var trackerFeature = SelectedFeatureInteractors.Count <= 1
+                                     ? GetTrackerAtCoordinate(worldPosition)
+                                     : null; // hack: if multiple selection toggle/select complete feature
+
+            if (trackerFeature != null)
+            {
+                if (SelectedFeatureInteractors.Count != 1)
+                {
+                    return;
+                }
+
+                orgMouseDownLocation = (ICoordinate) worldPosition.Clone();
+                FocusTracker(trackerFeature);
+                MapControl.Refresh();
+                return;
+            }
+
+            ILayer selectedLayer;
+
+            var limit = (float) MapHelper.ImageToWorld(Map, 4);
+            var nearest = FindNearestFeature(worldPosition, limit, out selectedLayer, ol => ol.Visible);
+
+            if (nearest != null)
+            {
+                SelectFeature(worldPosition, nearest, selectedLayer);
+            }
+            else
+            {
+                if (!KeyExtendSelection)
+                {
+                    Clear(false);
+                }
+
+                StartMultiSelect();
+            }
+
+            MapControl.Refresh();
+        }
+
+        public override void OnMouseMove(ICoordinate worldPosition, MouseEventArgs e)
+        {
+            if (!isMultiSelect)
+            {
+                return;
+            }
+
+            UpdateMultiSelection(worldPosition);
+            DoDrawing(false);
+        }
+
+        public override void OnMouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            orgMouseDownLocation = null;
+        }
+
+        public override void OnMouseUp(ICoordinate worldPosition, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left)
+            {
+                return;
+            }
+
+            if (isMultiSelect)
+            {
+                StopMultiSelect();
+
+                List<IFeature> selectedFeatures = null;
+                if (!KeyExtendSelection)
+                {
+                    selectedFeatures = new List<IFeature>(SelectedFeatureInteractors.Select(fe => fe.SourceFeature).ToArray());
+                    Clear(false);
+                }
+                var selectionPolygon = CreateSelectionPolygon(worldPosition);
+                if (selectionPolygon != null)
+                {
+                    foreach (var layer in Map.GetAllVisibleLayers(false))
+                    {
+                        //make sure parent layer is selectable or null
+                        var parentLayer = Map.GetGroupLayerContainingLayer(layer);
+                        if ((parentLayer == null || parentLayer.IsSelectable) && layer.IsSelectable && layer is VectorLayer)
+                        {
+                            // do not use the maptool provider but the datasource of each layer.
+                            var vectorLayer = (VectorLayer) layer;
+                            var multiFeatures = vectorLayer.GetFeatures(selectionPolygon).Take(MaxSelectedFeatures);
+                            foreach (var feature in multiFeatures)
+                            {
+                                if (selectedFeatures != null && selectedFeatures.Contains(feature))
+                                {
+                                    continue;
+                                }
+                                AddSelection(vectorLayer, feature, false,
+                                             checkIfAlreadySelected: selectedFeatures == null);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    // if mouse hasn't moved handle as single select. A normal multi select uses the envelope
+                    // of the geometry and this has as result that unwanted features will be selected.
+                    ILayer selectedLayer;
+                    var limit = (float) MapHelper.ImageToWorld(Map, 4);
+                    var nearest = FindNearestFeature(worldPosition, limit, out selectedLayer, ol => ol.Visible);
+                    if (nearest != null)
+                    {
+                        AddSelection(selectedLayer, nearest, false);
+                    }
+                }
+
+                // synchronize with map selection, possible check if selection is already set; do not remove
+                UpdateMapControlSelection(true);
+            }
+            else
+            {
+                if (orgMouseDownLocation != null && orgMouseDownLocation.X == worldPosition.X && orgMouseDownLocation.Y == worldPosition.Y)
+                {
+                    // check if mouse was pressed at a selected object without moving the mouse. The default behaviour 
+                    // should be to select 'the next' object
+                    TimeSpan timeSpan = DateTime.Now - orgClickTime;
+                    int dc = SystemInformation.DoubleClickTime;
+                    if (dc < timeSpan.TotalMilliseconds)
+                    {
+                        if (1 == SelectedFeatureInteractors.Count)
+                        {
+                            // check if selection exists; could be toggled
+                            ILayer outLayer;
+                            IFeature nextFeature = GetNextFeatureAtPosition(worldPosition,
+                                                                            // set limit from 4 to 10: TOOLS-1499
+                                                                            (float) MapHelper.ImageToWorld(Map, 10),
+                                                                            out outLayer,
+                                                                            SelectedFeatureInteractors[0].SourceFeature,
+                                                                            ol => ol.Visible);
+                            if (null != nextFeature)
+                            {
+                                Clear(false);
+                                SetSelection(nextFeature, outLayer); //-1 for ILineString
+                                //MapControl.Refresh();
+                            }
+                        }
+                    }
+                }
+                UpdateMapControlSelection(true);
+            }
+
+            IsBusy = false;
+            orgClickTime = DateTime.Now;
+        }
+
         public override void OnMapCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangeAction.Remove:
+                {
+                    if (e.Item is ILayer)
                     {
-                        if(e.Item is ILayer)
-                        {
-                            RefreshSelection();
-                        }
-
-                        if (sender is Map)
-                        {
-                            var layer = (ILayer)e.Item;
-                            if (layer is GroupLayer)
-                            {
-                                var layerGroup = (GroupLayer)layer;
-                                foreach (ILayer layerGroupLayer in layerGroup.Layers)
-                                {
-                                    HandleLayerStatusChanged(layerGroupLayer);
-                                }
-                            }
-                            else
-                            {
-                                HandleLayerStatusChanged(layer);
-                            }
-                        }
-                        break;
+                        RefreshSelection();
                     }
+
+                    if (sender is Map)
+                    {
+                        var layer = (ILayer) e.Item;
+                        if (layer is GroupLayer)
+                        {
+                            var layerGroup = (GroupLayer) layer;
+                            foreach (ILayer layerGroupLayer in layerGroup.Layers)
+                            {
+                                HandleLayerStatusChanged(layerGroupLayer);
+                            }
+                        }
+                        else
+                        {
+                            HandleLayerStatusChanged(layer);
+                        }
+                    }
+                    break;
+                }
                 case NotifyCollectionChangeAction.Replace:
                     throw new NotImplementedException();
             }
         }
+
         /// <summary>
         /// todo add cancel method to IMapTool 
         /// todo mousedown clears selection -> complex selection -> start multi select -> cancel -> original selection lost
@@ -632,7 +698,7 @@ namespace SharpMap.UI.Tools
                     // from the selection, but this simple and effective.
                     if (layer is GroupLayer)
                     {
-                        var layerGroup = (GroupLayer)layer;
+                        var layerGroup = (GroupLayer) layer;
                         foreach (ILayer layerGroupLayer in layerGroup.Layers)
                         {
                             HandleLayerStatusChanged(layerGroupLayer);
@@ -645,24 +711,6 @@ namespace SharpMap.UI.Tools
                 }
             }
         }
-
-        /// <summary>
-        /// Checks if selected features are actually need to be selected.
-        /// </summary>
-        public void RefreshSelection()
-        {
-            var visibleLayers = Map.GetAllVisibleLayers(true).ToList();
-
-            // check if selected features still exist in the providers
-
-            SelectedFeatureInteractors.Where(featureInteractor => featureInteractor.Layer.DataSource == null || !featureInteractor.Layer.DataSource.Features.Contains(featureInteractor.SourceFeature)).ToArray()
-                .ForEach(fi => SelectedFeatureInteractors.Remove(fi));
-
-            SelectedFeatureInteractors.RemoveAllWhere(i => !visibleLayers.Contains(i.Layer));
-            UpdateMapControlSelection();
-        }
-
-        public event EventHandler SelectionChanged;
 
         protected virtual void SelectFeature(ICoordinate worldPosition, IFeature nearestFeature, ILayer selectedLayer)
         {
@@ -692,7 +740,7 @@ namespace SharpMap.UI.Tools
                 {
                     // no special key processing; handle as a single select.
                     Clear(false);
-                    
+
                     if (!StartSelection(selectedLayer, nearestFeature))
                     {
                         StartMultiSelect();
@@ -731,6 +779,36 @@ namespace SharpMap.UI.Tools
             StartDrawing();
         }
 
+        protected bool StartSelection(ILayer layer, IFeature feature)
+        {
+            var featureInteractor = GetFeatureInteractor(layer, feature);
+            if (null == featureInteractor)
+            {
+                return false;
+            }
+
+            if (featureInteractor.AllowSingleClickAndMove())
+            {
+                // do not yet select, but allow MltiSelect
+                SelectedFeatureInteractors.Add(featureInteractor);
+                SynchronizeTrackers();
+                UpdateMapControlSelection();
+                return true;
+            }
+            return false;
+        }
+
+        internal void RefreshFeatureInteractors()
+        {
+            var selectedFeaturesWithLayer = SelectedFeatureInteractors.Select(fe => new
+            {
+                Feature = fe.SourceFeature, fe.Layer
+            }).ToList();
+            SelectedFeatureInteractors.Clear();
+            selectedFeaturesWithLayer.ForEach(fl => SelectedFeatureInteractors.Add(GetFeatureInteractor(fl.Layer, fl.Feature)));
+            SynchronizeTrackers();
+        }
+
         private void StopMultiSelect()
         {
             isMultiSelect = false;
@@ -744,7 +822,7 @@ namespace SharpMap.UI.Tools
         /// <returns></returns>
         private static VectorStyle GetTrackerStyle(IFeature feature)
         {
-            var trackerFeature = (TrackerFeature)feature;
+            var trackerFeature = (TrackerFeature) feature;
 
             VectorStyle style;
 
@@ -753,7 +831,10 @@ namespace SharpMap.UI.Tools
             {
                 if (!stylesCache.ContainsKey(trackerFeature.Bitmap))
                 {
-                    style = new VectorStyle { Symbol = trackerFeature.Bitmap };
+                    style = new VectorStyle
+                    {
+                        Symbol = trackerFeature.Bitmap
+                    };
                     stylesCache[trackerFeature.Bitmap] = style;
                 }
                 else
@@ -769,11 +850,13 @@ namespace SharpMap.UI.Tools
         {
             SelectedFeatureInteractors.Clear();
             if (trackingLayer.DataSource.GetFeatureCount() <= 0)
+            {
                 return;
+            }
 
             trackers.Clear();
             trackingLayer.RenderRequired = true;
-            
+
             UpdateMapControlSelection(fireSelectionChangedEvent);
         }
 
@@ -787,22 +870,6 @@ namespace SharpMap.UI.Tools
             }
 
             trackingLayer.RenderRequired = true;
-        }
-
-        protected bool StartSelection(ILayer layer, IFeature feature)
-        {
-            var featureInteractor = GetFeatureInteractor(layer, feature);
-            if (null == featureInteractor) return false;
-
-            if (featureInteractor.AllowSingleClickAndMove())
-            {
-                // do not yet select, but allow MltiSelect
-                SelectedFeatureInteractors.Add(featureInteractor);
-                SynchronizeTrackers();
-                UpdateMapControlSelection();
-                return true;
-            }
-            return false;
         }
 
         /// <summary>
@@ -823,7 +890,7 @@ namespace SharpMap.UI.Tools
                 IList<int> featureTrackers = new List<int>();
                 for (int i = 0; i < trackingLayer.DataSource.Features.Count; i++)
                 {
-                    var trackerFeature = (TrackerFeature)trackingLayer.DataSource.Features[i];
+                    var trackerFeature = (TrackerFeature) trackingLayer.DataSource.Features[i];
                     if (ReferenceEquals(trackerFeature, feature))
                     {
                         featureTrackers.Add(i);
@@ -833,11 +900,13 @@ namespace SharpMap.UI.Tools
                 AddSelection(featureLayer, feature);
             }
         }
-        
+
         private void FocusTracker(TrackerFeature trackFeature)
         {
             if (null == trackFeature)
+            {
                 return;
+            }
 
             if (!((KeyToggleSelection) || (KeyExtendSelection)))
             {
@@ -883,16 +952,15 @@ namespace SharpMap.UI.Tools
         private static IPolygon CreatePolygon(double left, double top, double right, double bottom)
         {
             var vertices = new List<ICoordinate>
-                                   {
-                                       GeometryFactory.CreateCoordinate(left, bottom),
-                                       GeometryFactory.CreateCoordinate(right, bottom),
-                                       GeometryFactory.CreateCoordinate(right, top),
-                                       GeometryFactory.CreateCoordinate(left, top)
-                                   };
-            vertices.Add((ICoordinate)vertices[0].Clone());
+            {
+                GeometryFactory.CreateCoordinate(left, bottom),
+                GeometryFactory.CreateCoordinate(right, bottom),
+                GeometryFactory.CreateCoordinate(right, top),
+                GeometryFactory.CreateCoordinate(left, top)
+            };
+            vertices.Add((ICoordinate) vertices[0].Clone());
             ILinearRing newLinearRing = GeometryFactory.CreateLinearRing(vertices.ToArray());
             return GeometryFactory.CreatePolygon(newLinearRing, null);
-
         }
 
         private IPolygon CreateSelectionPolygon(ICoordinate worldPosition)
@@ -908,9 +976,9 @@ namespace SharpMap.UI.Tools
                     return null;
                 }
                 return CreatePolygon(Math.Min(mouseDownLocation.X, worldPosition.X),
-                                             Math.Max(mouseDownLocation.Y, worldPosition.Y),
-                                             Math.Max(mouseDownLocation.X, worldPosition.X),
-                                             Math.Min(mouseDownLocation.Y, worldPosition.Y));
+                                     Math.Max(mouseDownLocation.Y, worldPosition.Y),
+                                     Math.Max(mouseDownLocation.X, worldPosition.X),
+                                     Math.Min(mouseDownLocation.Y, worldPosition.Y));
             }
             var vertices = selectPoints.Select(point => Map.ImageToWorld(point)).ToList();
 
@@ -919,8 +987,8 @@ namespace SharpMap.UI.Tools
                 // too few points to create a polygon
                 return null;
             }
-            vertices.Add((ICoordinate)worldPosition.Clone());
-            vertices.Add((ICoordinate)vertices[0].Clone());
+            vertices.Add((ICoordinate) worldPosition.Clone());
+            vertices.Add((ICoordinate) vertices[0].Clone());
             ILinearRing newLinearRing = GeometryFactory.CreateLinearRing(vertices.ToArray());
             return GeometryFactory.CreatePolygon(newLinearRing, null);
         }
@@ -930,12 +998,16 @@ namespace SharpMap.UI.Tools
             UpdateMapControlSelection(true);
         }
 
-        private static ICoordinate TransformCoordinate(ICoordinate coordinate, GeoAPI.CoordinateSystems.Transformations. IMathTransform mathTransform)
+        private static ICoordinate TransformCoordinate(ICoordinate coordinate, IMathTransform mathTransform)
         {
-            var transformCoordinate = mathTransform.Transform(new[] { coordinate.X, coordinate.Y });
-            return new GisSharpBlog.NetTopologySuite.Geometries.Coordinate(transformCoordinate[0], transformCoordinate[1]);
+            var transformCoordinate = mathTransform.Transform(new[]
+            {
+                coordinate.X,
+                coordinate.Y
+            });
+            return new Coordinate(transformCoordinate[0], transformCoordinate[1]);
         }
-        
+
         private void UpdateMapControlSelection(bool fireSelectionChangedEvent)
         {
             SynchronizeTrackers();
@@ -956,14 +1028,6 @@ namespace SharpMap.UI.Tools
             {
                 Clear();
             }
-        }
-
-        internal void RefreshFeatureInteractors()
-        {
-            var selectedFeaturesWithLayer = SelectedFeatureInteractors.Select(fe => new {Feature = fe.SourceFeature, fe.Layer}).ToList();
-            SelectedFeatureInteractors.Clear();
-            selectedFeaturesWithLayer.ForEach(fl => SelectedFeatureInteractors.Add(GetFeatureInteractor(fl.Layer, fl.Feature)));
-            SynchronizeTrackers();
         }
     }
 }

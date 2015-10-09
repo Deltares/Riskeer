@@ -14,12 +14,22 @@ namespace NetTopologySuite.Extensions.Tests.Features
         public void GetAllAttributes()
         {
             var testFeature = new TestFeature
+            {
+                Attributes = new DictionaryFeatureAttributeCollection
                 {
-                    Attributes = new DictionaryFeatureAttributeCollection {{"attrib", "blah"}}
-                };
+                    {
+                        "attrib", "blah"
+                    }
+                }
+            };
 
             var allAttributes = FeatureAttributeAccessorHelper.GetFeatureAttributeNames(testFeature);
-            Assert.AreEqual(new[] { "attrib", "Other", "Name" }, allAttributes);
+            Assert.AreEqual(new[]
+            {
+                "attrib",
+                "Other",
+                "Name"
+            }, allAttributes);
         }
 
         [Test]
@@ -41,13 +51,13 @@ namespace NetTopologySuite.Extensions.Tests.Features
             object value;
 
             TestHelper.AssertIsFasterThan(70, () =>
-                                                    {
-                                                        for (int i = 0; i < 10000; i++)
-                                                        {
-                                                            value = FeatureAttributeAccessorHelper.GetAttributeValue(
-                                                                testFeature, "Other", false);
-                                                        }
-                                                    });
+            {
+                for (int i = 0; i < 10000; i++)
+                {
+                    value = FeatureAttributeAccessorHelper.GetAttributeValue(
+                        testFeature, "Other", false);
+                }
+            });
         }
 
         [Test]
@@ -65,10 +75,18 @@ namespace NetTopologySuite.Extensions.Tests.Features
         public void GetAttributeNamesOfType()
         {
             var actual = FeatureAttributeAccessorHelper.GetFeatureAttributeNames(typeof(TestFeature)).ToList();
-            Assert.AreEqual(new[] { "Other", "Name" }, actual);
+            Assert.AreEqual(new[]
+            {
+                "Other",
+                "Name"
+            }, actual);
 
             var actualInstance = FeatureAttributeAccessorHelper.GetFeatureAttributeNames(new TestFeature()).ToList();
-            Assert.AreEqual(new[] { "Other", "Name" }, actualInstance);
+            Assert.AreEqual(new[]
+            {
+                "Other",
+                "Name"
+            }, actualInstance);
         }
 
         [Test]
@@ -86,7 +104,7 @@ namespace NetTopologySuite.Extensions.Tests.Features
         {
             var exportName = FeatureAttributeAccessorHelper.GetAttributeExportName(new TestFeature(), "Name");
             Assert.AreEqual("Name", exportName);
-            
+
             exportName = FeatureAttributeAccessorHelper.GetAttributeExportName(new TestFeature(), "Other");
             Assert.AreEqual("Piet", exportName);
         }
@@ -125,9 +143,11 @@ namespace NetTopologySuite.Extensions.Tests.Features
         {
             var actual =
                 FeatureAttributeAccessorHelper.GetFeatureAttributeNames(new TestFeatureSubClass()).ToList();
-            Assert.AreEqual(new[] {"Other", "Name"}, actual);
+            Assert.AreEqual(new[]
+            {
+                "Other",
+                "Name"
+            }, actual);
         }
     }
-
-    
 }

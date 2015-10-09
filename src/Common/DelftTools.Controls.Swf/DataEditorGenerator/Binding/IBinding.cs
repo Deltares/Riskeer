@@ -6,13 +6,12 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding
 {
     public interface IBinding
     {
-        void InitializeControl(FieldUIDescription fieldDescription, Control editControl, Control parentControl);
-
         FieldUIDescription FieldDescription { get; }
 
         Control EditControl { get; }
 
         object Data { get; set; }
+        void InitializeControl(FieldUIDescription fieldDescription, Control editControl, Control parentControl);
 
         void OnPropertyChanged(object sender, PropertyChangedEventArgs e);
 

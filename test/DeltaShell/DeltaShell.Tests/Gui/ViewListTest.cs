@@ -22,28 +22,47 @@ namespace DeltaShell.Tests.Gui
 
             var toolWindowViewManager = new ViewList(dockingManager, ViewLocation.Left);
 
-            var view = new ToolWindowTestControl { Text = "text" };
+            var view = new ToolWindowTestControl
+            {
+                Text = "text"
+            };
 
             var senders = new List<object>();
             var actions = new List<NotifyCollectionChangeAction>();
             var items = new List<object>();
             var indexes = new List<int>();
             toolWindowViewManager.CollectionChanged += (s, e) =>
-                {
-                    senders.Add(s);
-                    actions.Add(e.Action);
-                    items.Add(e.Item);
-                    indexes.Add(e.Index);
-                };
+            {
+                senders.Add(s);
+                actions.Add(e.Action);
+                items.Add(e.Item);
+                indexes.Add(e.Index);
+            };
 
             toolWindowViewManager.Add(view);
             toolWindowViewManager.Remove(view);
 
             // asserts
-            Assert.AreEqual(new[] { toolWindowViewManager, toolWindowViewManager }, senders);
-            Assert.AreEqual(new[] { NotifyCollectionChangeAction.Add, NotifyCollectionChangeAction.Remove }, actions);
-            Assert.AreEqual(new[] { view, view }, items);
-            Assert.AreEqual(new[] { 0, 0 }, indexes);
+            Assert.AreEqual(new[]
+            {
+                toolWindowViewManager,
+                toolWindowViewManager
+            }, senders);
+            Assert.AreEqual(new[]
+            {
+                NotifyCollectionChangeAction.Add,
+                NotifyCollectionChangeAction.Remove
+            }, actions);
+            Assert.AreEqual(new[]
+            {
+                view,
+                view
+            }, items);
+            Assert.AreEqual(new[]
+            {
+                0,
+                0
+            }, indexes);
         }
 
         [Test]
@@ -51,24 +70,30 @@ namespace DeltaShell.Tests.Gui
         {
             // for example if we have a central map view & a validation view for a model, the choice is simple!
             var viewList = new ViewList(new TestDockingManager(), ViewLocation.Left);
-            var viewResolver = new ViewResolver(viewList, new ViewInfo[] { new ViewInfo<object, TestView>(), new ViewInfo<object, AdditionalView>() });
+            var viewResolver = new ViewResolver(viewList, new ViewInfo[]
+            {
+                new ViewInfo<object, TestView>(),
+                new ViewInfo<object, AdditionalView>()
+            });
 
             var testObject = new object();
 
             viewResolver.OpenViewForData(testObject);
 
-            var viewForTestObject = (TestView)viewList[0];
+            var viewForTestObject = (TestView) viewList[0];
             Assert.IsInstanceOf<TestView>(viewForTestObject);
             Assert.AreEqual(testObject, viewForTestObject.Data);
         }
-
 
         [Test]
         public void OpenViewForDataWithViewTypeShouldUseNewViews()
         {
             // for example if we have a open functionview. Opening a view for another function should use the existing functionview
             var viewList = new ViewList(new TestDockingManager(), ViewLocation.Left);
-            var viewResolver = new ViewResolver(viewList, new ViewInfo[]{new ViewInfo<object, TestView>()});
+            var viewResolver = new ViewResolver(viewList, new ViewInfo[]
+            {
+                new ViewInfo<object, TestView>()
+            });
 
             var testObject = new object();
 
@@ -90,12 +115,15 @@ namespace DeltaShell.Tests.Gui
         {
             // for example if we have a open functionview. Opening a view for another function should use the existing functionview
             var viewList = new ViewList(new TestDockingManager(), ViewLocation.Left);
-            var viewResolver = new ViewResolver(viewList, new ViewInfo[] {new ViewInfo<object, TestReusableView>()});
+            var viewResolver = new ViewResolver(viewList, new ViewInfo[]
+            {
+                new ViewInfo<object, TestReusableView>()
+            });
 
             var testObject = new object();
             viewResolver.OpenViewForData(testObject);
 
-            var viewForTestObject = (TestReusableView)viewList[0];
+            var viewForTestObject = (TestReusableView) viewList[0];
             Assert.AreEqual(testObject, viewForTestObject.Data);
 
             // lock the view so it can't be used for other data
@@ -113,7 +141,10 @@ namespace DeltaShell.Tests.Gui
         public void OpeningAViewForAObjectShouldUseNewViewForNonLockableView()
         {
             var viewList = new ViewList(new TestDockingManager(), ViewLocation.Left);
-            var viewResolver = new ViewResolver(viewList, new ViewInfo[] {new ViewInfo<object, TestView>()});
+            var viewResolver = new ViewResolver(viewList, new ViewInfo[]
+            {
+                new ViewInfo<object, TestView>()
+            });
 
             var testObject = new object();
             viewResolver.OpenViewForData(testObject);
@@ -135,11 +166,14 @@ namespace DeltaShell.Tests.Gui
         {
             // for example if we have a open functionview. Opening a view for another function should use the existing functionview
             var viewList = new ViewList(new TestDockingManager(), ViewLocation.Left);
-            var viewResolver = new ViewResolver(viewList, new ViewInfo [] { new ViewInfo<object, TestReusableView>() });
+            var viewResolver = new ViewResolver(viewList, new ViewInfo[]
+            {
+                new ViewInfo<object, TestReusableView>()
+            });
 
             var testObject = new object();
             viewResolver.OpenViewForData(testObject);
-            var viewForTestObject = (TestReusableView)viewList[0];
+            var viewForTestObject = (TestReusableView) viewList[0];
             Assert.AreEqual(testObject, viewForTestObject.Data);
 
             var otherObject = new object();
@@ -169,19 +203,31 @@ namespace DeltaShell.Tests.Gui
             var items = new List<IView>();
 
             viewList.CollectionChanged += (s, e) =>
-                {
-                    senders.Add(s);
-                    actions.Add(e.Action);
-                    items.Add((IView)e.Item);
-                };
+            {
+                senders.Add(s);
+                actions.Add(e.Action);
+                items.Add((IView) e.Item);
+            };
 
             // action! replace a view
             viewList[0] = newView;
 
             // assert the right collection changes occures ..for now it should be remove / add...no replace yet
-            Assert.AreEqual(new[] { viewList, viewList }, senders);
-            Assert.AreEqual(new[] { NotifyCollectionChangeAction.Remove, NotifyCollectionChangeAction.Add }, actions);
-            Assert.AreEqual(new[] { view, newView }, items);
+            Assert.AreEqual(new[]
+            {
+                viewList,
+                viewList
+            }, senders);
+            Assert.AreEqual(new[]
+            {
+                NotifyCollectionChangeAction.Remove,
+                NotifyCollectionChangeAction.Add
+            }, actions);
+            Assert.AreEqual(new[]
+            {
+                view,
+                newView
+            }, items);
         }
 
         [Test]
@@ -190,8 +236,11 @@ namespace DeltaShell.Tests.Gui
             var url = new Url("Deltares", "www.deltares.nl");
 
             var viewList = new ViewList(new TestDockingManager(), ViewLocation.Document);
-            var viewResolver = new ViewResolver(viewList, new ViewInfo[] { new ViewInfo<Url, HtmlPageView>() });
-            
+            var viewResolver = new ViewResolver(viewList, new ViewInfo[]
+            {
+                new ViewInfo<Url, HtmlPageView>()
+            });
+
             viewResolver.OpenViewForData(url);
 
             var activeView = viewList.ActiveView;
@@ -207,21 +256,24 @@ namespace DeltaShell.Tests.Gui
         {
             var viewList = new ViewList(new TestDockingManager(), ViewLocation.Left);
             var viewResolver = new ViewResolver(viewList, new ViewInfo[]
+            {
+                new ViewInfo<TestWrapper, string, TestView>
                 {
-                    new ViewInfo<TestWrapper, string, TestView>
-                        {
-                            GetViewData = o => o.RealData
-                        }
-                });
+                    GetViewData = o => o.RealData
+                }
+            });
 
             var someDataObject = "some data object";
-            var wrapper = new TestWrapper {RealData = someDataObject};
-            
+            var wrapper = new TestWrapper
+            {
+                RealData = someDataObject
+            };
+
             var view = new TestView
-                {
-                    Data = someDataObject
-                };
-            
+            {
+                Data = someDataObject
+            };
+
             viewList.Add(view);
 
             var returnedViews = viewResolver.GetViewsForData(wrapper); // <-- must trigger IViewProvider.IsViewForData()
@@ -236,10 +288,16 @@ namespace DeltaShell.Tests.Gui
         {
             var viewList = new ViewList(new TestDockingManager(), ViewLocation.Left);
             var viewResolver = new ViewResolver(viewList, new ViewInfo[]
+            {
+                new ViewInfo<object, TestView>
                 {
-                    new ViewInfo<object, TestView> {Description = "Object view"},
-                    new ViewInfo<string, ReusableTestView> {Description = "String view"} // string inherits from object 
-                });
+                    Description = "Object view"
+                },
+                new ViewInfo<string, ReusableTestView>
+                {
+                    Description = "String view"
+                } // string inherits from object 
+            });
 
             var data = "string data";
             viewResolver.OpenViewForData(data);

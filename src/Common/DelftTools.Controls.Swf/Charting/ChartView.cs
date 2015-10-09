@@ -23,6 +23,19 @@ namespace DelftTools.Controls.Swf.Charting
     /// </summary>
     public partial class ChartView : UserControl, IChartView
     {
+        /// <summary>
+        /// Selected point of the active series has been changed
+        /// </summary>
+        public event EventHandler SelectionPointChanged;
+
+        /// <summary>
+        /// The visible viewport of the chart has changed either due to a zoom, pan or scroll event
+        /// </summary>
+        public event EventHandler ViewPortChanged;
+
+        public event EventHandler GraphResized;
+
+        public event EventHandler<EventArgs> ToolsActiveChanged;
         private const int DisabledBackgroundAlpha = 20;
         private int selectedPointIndex = -1;
         private bool wheelZoom = true;
@@ -33,7 +46,7 @@ namespace DelftTools.Controls.Swf.Charting
         private ZoomUsingMouseWheelTool zoomUsingMouseWheelTool;
 
         private IChart chart;
-        
+
         /// <summary>
         /// Displays series data on chart
         /// </summary>
@@ -45,7 +58,7 @@ namespace DelftTools.Controls.Swf.Charting
             Tools = new EventedList<IChartViewTool>();
 
             Tools.CollectionChanged += ToolsCollectionChanged;
-            
+
             teeChart.Zoomed += TeeChartZoomed;
             teeChart.UndoneZoom += TeeChartUndoneZoom;
             teeChart.Scroll += TeeChartScroll;
@@ -66,30 +79,39 @@ namespace DelftTools.Controls.Swf.Charting
 
             DateTimeLabelFormatProvider = new TimeNavigatableLabelFormatProvider();
             RegionalSettingsManager.FormatChanged += RegionalSettingsManagerFormatChanged;
-            
+
             InitializeWheelZoom();
-            
+
             teeChart.Legend.Alignment = LegendAlignments.Bottom;
             teeChart.Axes.Left.Labels.ValueFormat = RegionalSettingsManager.RealNumberFormat; //actual format is applied in OnGetAxisLabel
             teeChart.Chart.Header.Color = Color.Black; // To avoid blue titles everywhere
 
-            Tools.Add(new ExportChartAsImageChartTool(this){Active = true, Enabled = true});
+            Tools.Add(new ExportChartAsImageChartTool(this)
+            {
+                Active = true, Enabled = true
+            });
         }
 
-        private void TeeChartMouseDown(object sender, MouseEventArgs e)
-        {
-            IsMouseDown = true;
-            OnMouseDown(e);
-        }
+        public bool IsMouseDown { get; private set; }
 
         [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)] 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public TimeNavigatableLabelFormatProvider DateTimeLabelFormatProvider { get; set; }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IChart Chart
         {
-            get { return chart; }
+            get
+            {
+                return chart;
+            }
             set
             {
-                if (chart == value) return;
+                if (chart == value)
+                {
+                    return;
+                }
 
                 if (legendScrollBarTool != null)
                 {
@@ -99,8 +121,8 @@ namespace DelftTools.Controls.Swf.Charting
 
                 chart = value;
 
-                teeChart.Chart = ((Chart)chart).chart;
-                    
+                teeChart.Chart = ((Chart) chart).chart;
+
                 if (zoomUsingMouseWheelTool != null)
                 {
                     teeChart.Tools.Remove(zoomUsingMouseWheelTool);
@@ -113,7 +135,10 @@ namespace DelftTools.Controls.Swf.Charting
 
         public string Title
         {
-            get { return chart.Title; }
+            get
+            {
+                return chart.Title;
+            }
             set
             {
                 chart.TitleVisible = !string.IsNullOrEmpty(value);
@@ -122,13 +147,16 @@ namespace DelftTools.Controls.Swf.Charting
         }
 
         /// <summary>
-        /// Data: in this case ISeries expected in <see cref="IEventedList{ISeries}"/>
+        /// Data: in this case ISeries expected in <see cref="IEventedList{T}"/>
         /// </summary>
         [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)] 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object Data
         {
-            get { return Chart; }
+            get
+            {
+                return Chart;
+            }
             set
             {
                 if (value == null)
@@ -153,7 +181,10 @@ namespace DelftTools.Controls.Swf.Charting
         /// </summary>
         public bool WheelZoom
         {
-            get { return wheelZoom; }
+            get
+            {
+                return wheelZoom;
+            }
             set
             {
                 wheelZoom = value;
@@ -163,17 +194,18 @@ namespace DelftTools.Controls.Swf.Charting
                 }
             }
         }
-        
-        public bool IsMouseDown { get; private set; }
 
         public bool AllowPanning
         {
-            get { return teeChart.Panning.Allow == Steema.TeeChart.ScrollModes.Both; }
+            get
+            {
+                return teeChart.Panning.Allow == ScrollModes.Both;
+            }
             set
             {
                 teeChart.Panning.Allow = (value)
-                    ? Steema.TeeChart.ScrollModes.Both
-                    : Steema.TeeChart.ScrollModes.None;
+                                             ? ScrollModes.Both
+                                             : ScrollModes.None;
             }
         }
 
@@ -181,14 +213,20 @@ namespace DelftTools.Controls.Swf.Charting
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IChartViewZoom Zoom
         {
-            get { return new ChartViewZoom(teeChart.Zoom); }
+            get
+            {
+                return new ChartViewZoom(teeChart.Zoom);
+            }
         }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IChartCoordinateService ChartCoordinateService
         {
-            get { return new ChartCoordinateService(chart); }
+            get
+            {
+                return new ChartCoordinateService(chart);
+            }
         }
 
         /// <summary>
@@ -205,13 +243,19 @@ namespace DelftTools.Controls.Swf.Charting
         /// </summary>
         public int SelectedPointIndex
         {
-            get { return selectedPointIndex; }
+            get
+            {
+                return selectedPointIndex;
+            }
             set
             {
-                if (selectedPointIndex == value) return;
+                if (selectedPointIndex == value)
+                {
+                    return;
+                }
 
                 selectedPointIndex = value;
-                
+
                 if (SelectionPointChanged != null)
                 {
                     SelectionPointChanged(this, new EventArgs());
@@ -221,150 +265,18 @@ namespace DelftTools.Controls.Swf.Charting
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public TimeNavigatableLabelFormatProvider DateTimeLabelFormatProvider { get; set; }
-
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ViewInfo ViewInfo { get; set; }
 
-        #region TeeChart Factory Methods
-        
-        public ICursorLineTool NewCursorLineTool(CursorLineToolStyles lineToolStyle)
+        /// <summary>
+        /// Gives the range of the bottom axis (assuming the axis is a of type DateTime)
+        /// </summary>
+        public TimeSpan GetBottomAxisRangeAsDateTime()
         {
-            return NewCursorLineTool(lineToolStyle, Color.DarkRed, 2, DashStyle.Dash);
+            return TeeChart2DateTime(teeChart.Axes.Bottom.Maximum) -
+                   TeeChart2DateTime(teeChart.Axes.Bottom.Minimum);
         }
 
-        public ICursorLineTool NewCursorLineTool(CursorLineToolStyles lineToolStyle, Color lineColor, int lineWidth, DashStyle lineDashStyle)
-        {
-            var style = CursorToolStyles.Horizontal;
-
-            if (lineToolStyle == CursorLineToolStyles.Vertical)
-                style = CursorToolStyles.Vertical;
-
-            if (lineToolStyle == CursorLineToolStyles.Both)
-                style = CursorToolStyles.Both;
-
-            var tool = new CursorLineTool(teeChart, style, lineColor, lineWidth, lineDashStyle)
-                           {
-                               Chart = teeChart.Chart,
-                               ChartView = this
-                           };
-            Tools.Add(tool);
-            return tool;
-        }
-
-        public ISeriesBandTool NewSeriesBandTool(IChartSeries series1,IChartSeries series2,Color color)
-        {
-            return NewSeriesBandTool(series1, series2, color, null);
-        }
-            
-        public ISeriesBandTool NewSeriesBandTool(IChartSeries series1,IChartSeries series2,Color color,HatchStyle? hatchStyle)
-        {
-            return NewSeriesBandTool(series1, series2, color, hatchStyle, Color.Black);
-        }
-
-        public ISeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color, HatchStyle? hatchStyle, Color hatchStyleForegroundColor)
-        {
-            var tool = new SeriesBandTool
-                           {
-                               Chart = teeChart.Chart,
-                               ChartView = this,
-                               Series = series1,
-                               Series2 = series2,
-                               Brush = {Color = color}
-                           };
-
-            if (hatchStyle != null)
-            {
-                tool.Brush.Solid = false;
-                tool.Brush.Style = (HatchStyle)hatchStyle;
-                tool.Brush.ForegroundColor = hatchStyleForegroundColor;
-            }
-
-            return tool;
-        }
-        
-        public IRectangleTool NewRectangleTool()
-        {
-            var tool = new RectangleTool(teeChart.Chart)
-                           {
-                               AutoSize = false,
-                               Height = 50,
-                               Left = 10,
-                               Shape =
-                                   {
-                                       Bottom = 60,
-                                       Brush = {Color = Color.FromArgb(64, 255, 255, 255)},
-                                       CustomPosition = true,
-                                       ImageTransparent = true,
-                                       Left = 10,
-                                       Right = 60,
-                                       Shadow = {Brush = {Color = Color.FromArgb(64, 169, 169, 169)}},
-                                       Top = 10
-                                   },
-                               Top = 10,
-                               Width = 50,
-                               ChartView = this
-                           };
-
-            Tools.Add(tool);
-            return tool;
-        }
-
-        public IImageTool NewImageTool(Image image)
-        {
-            var tool = new ImageTool(teeChart)
-                {
-                    ChartView = this,
-                    Image = image,
-                    Top = 20,
-                    Left = 20,
-                    Width = 20,
-                    Height = 20
-                };
-            Tools.Add(tool);
-            return tool;
-        }
-
-        public IHistoryTool NewHistoryTool()
-        {
-            var tool = new HistoryTool(teeChart) {ChartView = this};
-            Tools.Add(tool);
-            return tool;
-        }
-
-        public IEditPointTool NewEditPointTool()
-        {
-            var tool = new EditPointTool(teeChart) {ChartView = this};
-            Tools.Add(tool);
-            return tool;
-        }
-
-        public IAddPointTool NewAddPointTool()
-        {
-            var tool = new AddPointTool(teeChart.Chart) {ChartView = this};
-            Tools.Add(tool);
-            return tool;
-        }
-
-        public IRulerTool NewRulerTool()
-        {
-            var tool = new RulerTool(teeChart) {ChartView = this};
-            Tools.Add(tool);
-            return tool;
-        }
-
-        public ISelectPointTool NewSelectPointTool()
-        {
-            var tool = new SelectPointTool(teeChart.Chart) { ChartView = this };
-            Tools.Add(tool);
-            tool.SelectionChanged += ToolSelectionChanged;
-            return tool;
-        }
-        
-        #endregion
-        
-        public void EnsureVisible(object item) { }
+        public void EnsureVisible(object item) {}
 
         public void ZoomToValues(DateTime min, DateTime max)
         {
@@ -375,12 +287,12 @@ namespace DelftTools.Controls.Swf.Charting
         {
             teeChart.Chart.Axes.Bottom.SetMinMax(min, max);
         }
-        
+
         public IChartViewTool GetTool<T>()
         {
             return Tools.FirstOrDefault(t => t is T);
         }
-        
+
         /// <summary>
         /// Opens an export dialog.
         /// </summary>
@@ -394,51 +306,6 @@ namespace DelftTools.Controls.Swf.Charting
             foreach (var selectTool in Tools.OfType<SelectPointTool>())
             {
                 selectTool.HandleDelete = enable;
-            }
-        }
-               
-        /// <summary>
-        /// Gives the range of the bottom axis (assuming the axis is a of type DateTime)
-        /// </summary>
-        public TimeSpan GetBottomAxisRangeAsDateTime()
-        {
-            return TeeChart2DateTime(teeChart.Axes.Bottom.Maximum) -
-                   TeeChart2DateTime(teeChart.Axes.Bottom.Minimum);
-        }
-        
-        /// <summary>
-        /// Selected point of the active series has been changed
-        /// </summary>
-        public event EventHandler SelectionPointChanged;
-
-        /// <summary>
-        /// The visible viewport of the chart has changed either due to a zoom, pan or scroll event
-        /// </summary>
-        public event EventHandler ViewPortChanged;
-
-        public event EventHandler GraphResized;
-
-        internal void InternalUpdate()
-        {
-            if (teeChart.Width > 0 && teeChart.Height > 0)
-            {
-                teeChart.Draw();
-            }
-        }
-
-        private void CleanAnnotations()
-        {
-            if (teeChart == null)
-                return;
-            for (var i = 0; i < teeChart.Axes.Count; i++)
-            {
-                var axis = teeChart.Axes[i];
-                if (axis.Tag is Annotation)
-                {
-                    var annotation = (Annotation)axis.Tag;
-                    teeChart.Tools.Remove(annotation);
-                    axis.Tag = null;
-                }
             }
         }
 
@@ -458,12 +325,47 @@ namespace DelftTools.Controls.Swf.Charting
             base.Dispose(disposing);
         }
 
+        internal void InternalUpdate()
+        {
+            if (teeChart.Width > 0 && teeChart.Height > 0)
+            {
+                teeChart.Draw();
+            }
+        }
+
+        private void TeeChartMouseDown(object sender, MouseEventArgs e)
+        {
+            IsMouseDown = true;
+            OnMouseDown(e);
+        }
+
+        private void CleanAnnotations()
+        {
+            if (teeChart == null)
+            {
+                return;
+            }
+            for (var i = 0; i < teeChart.Axes.Count; i++)
+            {
+                var axis = teeChart.Axes[i];
+                if (axis.Tag is Annotation)
+                {
+                    var annotation = (Annotation) axis.Tag;
+                    teeChart.Tools.Remove(annotation);
+                    axis.Tag = null;
+                }
+            }
+        }
+
         private void OnBeforeDrawAxes(object sender, Graphics3D e)
         {
             var senderChart = sender as DeltaShellTChart;
 
-            if (senderChart == null) return;
-            
+            if (senderChart == null)
+            {
+                return;
+            }
+
             for (int i = 0; i < senderChart.Axes.Count; i++)
             {
                 var axis = senderChart.Axes[i];
@@ -497,18 +399,18 @@ namespace DelftTools.Controls.Swf.Charting
                                              : axisTitle;
                 }
 
-                 var annotation = axis.Tag as Annotation;
+                var annotation = axis.Tag as Annotation;
 
                 if (DateTimeLabelFormatProvider.ShowRangeLabel)
                 {
                     if (annotation == null)
                     {
                         annotation = new Annotation(senderChart.Chart)
-                                         {
-                                             AllowEdit = false,
-                                             AutoSize = true,
-                                             Left = senderChart.Padding.Left
-                                         };
+                        {
+                            AllowEdit = false,
+                            AutoSize = true,
+                            Left = senderChart.Padding.Left
+                        };
 
                         annotation.Shape.Shadow.Visible = false;
                         senderChart.Tools.Add(annotation);
@@ -527,17 +429,24 @@ namespace DelftTools.Controls.Swf.Charting
 
                     //make sure space is reserved for the axis label / annotation
                     if (string.IsNullOrEmpty(axis.Title.Caption))
+                    {
                         axis.Title.Caption = " ";
+                    }
 
                     string title = DateTimeLabelFormatProvider.GetRangeLabel(min, max);
 
                     if (title != null)
+                    {
                         annotation.Text = title;
+                    }
                 }
                 else
                 {
-                    if (annotation == null) return;
-                    
+                    if (annotation == null)
+                    {
+                        return;
+                    }
+
                     senderChart.Tools.Remove(annotation);
                     axis.Tag = null;
                 }
@@ -549,7 +458,7 @@ namespace DelftTools.Controls.Swf.Charting
             if (sender is Axis)
             {
                 var axis = sender as Axis;
-                if (axis.IsDateTime) 
+                if (axis.IsDateTime)
                 {
                     DateTime res;
                     DateTime.TryParse(e.LabelText, out res);
@@ -589,10 +498,13 @@ namespace DelftTools.Controls.Swf.Charting
                 g.FillRectangle(new SolidBrush(Color.FromArgb(DisabledBackgroundAlpha, Color.Black)), 0, 0, ClientRectangle.Width, ClientRectangle.Height);
             }
         }
-        
+
         private void InitializeWheelZoom()
         {
-            zoomUsingMouseWheelTool = new ZoomUsingMouseWheelTool(teeChart.Chart) {Active = wheelZoom};
+            zoomUsingMouseWheelTool = new ZoomUsingMouseWheelTool(teeChart.Chart)
+            {
+                Active = wheelZoom
+            };
         }
 
         private void TeeChartScroll(object sender, EventArgs e)
@@ -619,7 +531,7 @@ namespace DelftTools.Controls.Swf.Charting
                 ViewPortChanged(sender, e);
             }
         }
-        
+
         private void ToolSelectionChanged(object sender, PointEventArgs e)
         {
             SelectedPointIndex = e.Index;
@@ -672,7 +584,7 @@ namespace DelftTools.Controls.Swf.Charting
             if (e.Action == NotifyCollectionChangeAction.Remove)
             {
                 var tool = e.Item as Tool;
-                
+
                 var toolBase = e.Item as ToolBase;
                 if (tool == null && toolBase != null)
                 {
@@ -700,8 +612,6 @@ namespace DelftTools.Controls.Swf.Charting
             }
         }
 
-        public event EventHandler<EventArgs> ToolsActiveChanged; 
-
         private void OnToolsActiveChanged(object sender, EventArgs e)
         {
             if (ToolsActiveChanged != null)
@@ -717,10 +627,15 @@ namespace DelftTools.Controls.Swf.Charting
 
         private void ChartBeforeDrawSeries(object sender, Graphics3D g)
         {
-            if (!afterResize) return;
+            if (!afterResize)
+            {
+                return;
+            }
 
             if (GraphResized != null)
+            {
                 GraphResized(this, new EventArgs());
+            }
 
             afterResize = false;
         }
@@ -731,7 +646,7 @@ namespace DelftTools.Controls.Swf.Charting
             teeChart.PerformLayout();
             Invalidate(true);
         }
-        
+
         private void AddLegendScrollBarTool()
         {
             legendScrollBarTool = new LegendScrollBar(teeChart.Chart)
@@ -751,11 +666,179 @@ namespace DelftTools.Controls.Swf.Charting
             DateTime min = TeeChart2DateTime(axis.Minimum);
             DateTime max = TeeChart2DateTime(axis.Maximum);
             return max - min;
-        } 
-        
+        }
+
         private static DateTime TeeChart2DateTime(double axisValue)
         {
             return Steema.TeeChart.Utils.DateTime(axisValue);
         }
+
+        #region TeeChart Factory Methods
+
+        public ICursorLineTool NewCursorLineTool(CursorLineToolStyles lineToolStyle)
+        {
+            return NewCursorLineTool(lineToolStyle, Color.DarkRed, 2, DashStyle.Dash);
+        }
+
+        public ICursorLineTool NewCursorLineTool(CursorLineToolStyles lineToolStyle, Color lineColor, int lineWidth, DashStyle lineDashStyle)
+        {
+            var style = CursorToolStyles.Horizontal;
+
+            if (lineToolStyle == CursorLineToolStyles.Vertical)
+            {
+                style = CursorToolStyles.Vertical;
+            }
+
+            if (lineToolStyle == CursorLineToolStyles.Both)
+            {
+                style = CursorToolStyles.Both;
+            }
+
+            var tool = new CursorLineTool(teeChart, style, lineColor, lineWidth, lineDashStyle)
+            {
+                Chart = teeChart.Chart,
+                ChartView = this
+            };
+            Tools.Add(tool);
+            return tool;
+        }
+
+        public ISeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color)
+        {
+            return NewSeriesBandTool(series1, series2, color, null);
+        }
+
+        public ISeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color, HatchStyle? hatchStyle)
+        {
+            return NewSeriesBandTool(series1, series2, color, hatchStyle, Color.Black);
+        }
+
+        public ISeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color, HatchStyle? hatchStyle, Color hatchStyleForegroundColor)
+        {
+            var tool = new SeriesBandTool
+            {
+                Chart = teeChart.Chart,
+                ChartView = this,
+                Series = series1,
+                Series2 = series2,
+                Brush =
+                {
+                    Color = color
+                }
+            };
+
+            if (hatchStyle != null)
+            {
+                tool.Brush.Solid = false;
+                tool.Brush.Style = (HatchStyle) hatchStyle;
+                tool.Brush.ForegroundColor = hatchStyleForegroundColor;
+            }
+
+            return tool;
+        }
+
+        public IRectangleTool NewRectangleTool()
+        {
+            var tool = new RectangleTool(teeChart.Chart)
+            {
+                AutoSize = false,
+                Height = 50,
+                Left = 10,
+                Shape =
+                {
+                    Bottom = 60,
+                    Brush =
+                    {
+                        Color = Color.FromArgb(64, 255, 255, 255)
+                    },
+                    CustomPosition = true,
+                    ImageTransparent = true,
+                    Left = 10,
+                    Right = 60,
+                    Shadow =
+                    {
+                        Brush =
+                        {
+                            Color = Color.FromArgb(64, 169, 169, 169)
+                        }
+                    },
+                    Top = 10
+                },
+                Top = 10,
+                Width = 50,
+                ChartView = this
+            };
+
+            Tools.Add(tool);
+            return tool;
+        }
+
+        public IImageTool NewImageTool(Image image)
+        {
+            var tool = new ImageTool(teeChart)
+            {
+                ChartView = this,
+                Image = image,
+                Top = 20,
+                Left = 20,
+                Width = 20,
+                Height = 20
+            };
+            Tools.Add(tool);
+            return tool;
+        }
+
+        public IHistoryTool NewHistoryTool()
+        {
+            var tool = new HistoryTool(teeChart)
+            {
+                ChartView = this
+            };
+            Tools.Add(tool);
+            return tool;
+        }
+
+        public IEditPointTool NewEditPointTool()
+        {
+            var tool = new EditPointTool(teeChart)
+            {
+                ChartView = this
+            };
+            Tools.Add(tool);
+            return tool;
+        }
+
+        public IAddPointTool NewAddPointTool()
+        {
+            var tool = new AddPointTool(teeChart.Chart)
+            {
+                ChartView = this
+            };
+            Tools.Add(tool);
+            return tool;
+        }
+
+        public IRulerTool NewRulerTool()
+        {
+            var tool = new RulerTool(teeChart)
+            {
+                ChartView = this
+            };
+            Tools.Add(tool);
+            return tool;
+        }
+
+        public ISelectPointTool NewSelectPointTool()
+        {
+            var tool = new SelectPointTool(teeChart.Chart)
+            {
+                ChartView = this
+            };
+            Tools.Add(tool);
+            tool.SelectionChanged += ToolSelectionChanged;
+            return tool;
+        }
+
+        #endregion
     }
 }

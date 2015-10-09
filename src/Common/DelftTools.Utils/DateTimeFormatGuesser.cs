@@ -19,22 +19,12 @@ namespace DelftTools.Utils
     {
         private const string FallbackFormat = "dd-MM-yyyy HH:mm:ss";
 
-        private static IEnumerable<string> GetMatchingDateTimeFormats(IEnumerable<string> formatsToTry,
-                                                                      string dateTimeString)
-        {
-            foreach (var format in formatsToTry)
-            {
-                DateTime result;
-                if (DateTime.TryParseExact(dateTimeString, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
-                {
-                    yield return format;
-                }
-            }
-        }
-
         public static bool TryGuessDateTimeFormat(string dateTimeString, out string outFormat)
         {
-            return TryGuessDateTimeFormat(new[] {dateTimeString}, out outFormat);
+            return TryGuessDateTimeFormat(new[]
+            {
+                dateTimeString
+            }, out outFormat);
         }
 
         public static bool TryGuessDateTimeFormat(IEnumerable<string> dateTimeStrings, out string outFormat)
@@ -49,6 +39,19 @@ namespace DelftTools.Utils
             }
             outFormat = FallbackFormat;
             return false;
+        }
+
+        private static IEnumerable<string> GetMatchingDateTimeFormats(IEnumerable<string> formatsToTry,
+                                                                      string dateTimeString)
+        {
+            foreach (var format in formatsToTry)
+            {
+                DateTime result;
+                if (DateTime.TryParseExact(dateTimeString, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out result))
+                {
+                    yield return format;
+                }
+            }
         }
 
         private static bool CanParseExact(string dateTime, string format)

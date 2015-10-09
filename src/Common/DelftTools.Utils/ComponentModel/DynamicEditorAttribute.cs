@@ -8,13 +8,13 @@ namespace DelftTools.Utils.ComponentModel
     // would not properly switch to and from readonly-status in the property grid.
     public class DynamicEditorAttribute : Attribute
     {
-        public string EditorType { get; set; }
-        public string EditorBaseType { get; set; }
-
         public DynamicEditorAttribute(string type, string baseType)
         {
             EditorType = type;
             EditorBaseType = baseType;
         }
+
+        public string EditorType { get; set; }
+        public string EditorBaseType { get; set; }
     }
 }

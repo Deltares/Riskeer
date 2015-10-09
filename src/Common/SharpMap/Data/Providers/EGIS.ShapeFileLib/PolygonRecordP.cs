@@ -3,13 +3,13 @@ using System.Runtime.InteropServices;
 namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    unsafe struct PolygonRecordP
+    internal unsafe struct PolygonRecordP
     {
-        public ShapeType ShapeType;        
+        public ShapeType ShapeType;
         public Box bounds;
         public int NumParts;
         public int NumPoints;
-        public fixed int PartOffsets[1];
+        public fixed int PartOffsets [1];
 
         public int DataOffset
         {
@@ -28,5 +28,4 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         internal double xmax;
         internal double ymax;
     }
-
 }

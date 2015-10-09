@@ -35,16 +35,20 @@ namespace DelftTools.Utils.Tests.Aop
 
             // call from another thread
             var thread = new Thread(() =>
+            {
+                // 10 normal calls
+                for (int i = 0; i < 10; i++)
                 {
-                    // 10 normal calls
-                    for(int i = 0; i < 10;i++)
-                        testClass.SynchronizedMethod();
-                    // dispose (from wrong thread..but ok)
-                    testClass.Dispose();
-                    // subsequent calls are skipped:
-                    for (int i = 0; i < 10; i++)
-                        testClass.SynchronizedMethod();
-                });
+                    testClass.SynchronizedMethod();
+                }
+                // dispose (from wrong thread..but ok)
+                testClass.Dispose();
+                // subsequent calls are skipped:
+                for (int i = 0; i < 10; i++)
+                {
+                    testClass.SynchronizedMethod();
+                }
+            });
             thread.Start();
             thread.Join();
 

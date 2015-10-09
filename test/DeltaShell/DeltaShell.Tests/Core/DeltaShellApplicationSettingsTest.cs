@@ -11,13 +11,12 @@ namespace DeltaShell.Tests.Core
         public void PropertyChangedWorksForWrappedSettings()
         {
             var settings = new TestSettings();
-            
+
             var wrappedSettings = new DeltaShellApplicationSettings(settings);
             int callCount = 0;
             wrappedSettings.PropertyChanged += (s, e) => callCount++;
             wrappedSettings["Name"] = "kees";
-            Assert.AreEqual(1,callCount);
+            Assert.AreEqual(1, callCount);
         }
-    
     }
 }

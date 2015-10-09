@@ -42,7 +42,7 @@ namespace DeltaShell.Tests.Gui
             documentViewList = mocks.Stub<IViewList>();
             viewResolver = mocks.Stub<IViewResolver>();
             toolWindowViewList = mocks.Stub<IViewList>();
-            
+
             gui = mocks.Stub<IGui>();
             gui.Application = application;
             gui.Expect(g => g.DocumentViews).Return(documentViewList).Repeat.Any();
@@ -52,8 +52,8 @@ namespace DeltaShell.Tests.Gui
             //inject custom messagebnox
             var messageBox = mocks.Stub<IMessageBox>();
             messageBox.Expect(m => m.Show(null, null, MessageBoxButtons.OKCancel))
-                .Return(DialogResult.OK).Repeat.Any().IgnoreArguments();
-        
+                      .Return(DialogResult.OK).Repeat.Any().IgnoreArguments();
+
             MessageBox.CustomMessageBox = messageBox;
         }
 
@@ -76,7 +76,7 @@ namespace DeltaShell.Tests.Gui
             guiCommandHandler.TryCloseWTIProject();
 
             gui.Selection
-                .Should().Be.EqualTo(null);
+               .Should().Be.EqualTo(null);
 
             mocks.VerifyAll();
         }

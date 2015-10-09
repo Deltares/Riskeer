@@ -24,40 +24,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
     /// </summary>
     public class Quadtree : ISpatialIndex
     {
-        /// <summary>
-        /// Ensure that the envelope for the inserted item has non-zero extents.
-        /// Use the current minExtent to pad the envelope, if necessary.
-        /// </summary>
-        /// <param name="itemEnv"></param>
-        /// <param name="minExtent"></param>
-        public static IEnvelope EnsureExtent(IEnvelope itemEnv, double minExtent)
-        {
-            //The names "ensureExtent" and "minExtent" are misleading -- sounds like
-            //this method ensures that the extents are greater than minExtent.
-            //Perhaps we should rename them to "ensurePositiveExtent" and "defaultExtent".
-            //[Jon Aquino]
-            double minx = itemEnv.MinX;
-            double maxx = itemEnv.MaxX;
-            double miny = itemEnv.MinY;
-            double maxy = itemEnv.MaxY;            
-            // has a non-zero extent
-            if (minx != maxx && miny != maxy) 
-                return itemEnv;
-            // pad one or both extents
-            if (minx == maxx) 
-            {
-                minx = minx - minExtent / 2.0;
-                maxx = minx + minExtent / 2.0;
-            }
-            if (miny == maxy) 
-            {
-                miny = miny - minExtent / 2.0;
-                maxy = miny + minExtent / 2.0;
-            }
-            return new Envelope(minx, maxx, miny, maxy);
-        }
-
-        private Root root;
+        private readonly Root root;
 
         /// <summary>
         /// minExtent is the minimum envelope extent of all items
@@ -87,8 +54,10 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
                 //I don't think it's possible for root to be null. Perhaps we should
                 //remove the check. [Jon Aquino]
                 //Or make an assertion [Jon Aquino 10/29/2003]
-                if (root != null) 
+                if (root != null)
+                {
                     return root.Depth;
+                }
                 return 0;
             }
         }
@@ -100,10 +69,57 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         {
             get
             {
-                if (root != null) 
+                if (root != null)
+                {
                     return root.Count;
+                }
                 return 0;
             }
+        }
+
+        /// <summary>
+        /// Ensure that the envelope for the inserted item has non-zero extents.
+        /// Use the current minExtent to pad the envelope, if necessary.
+        /// </summary>
+        /// <param name="itemEnv"></param>
+        /// <param name="minExtent"></param>
+        public static IEnvelope EnsureExtent(IEnvelope itemEnv, double minExtent)
+        {
+            //The names "ensureExtent" and "minExtent" are misleading -- sounds like
+            //this method ensures that the extents are greater than minExtent.
+            //Perhaps we should rename them to "ensurePositiveExtent" and "defaultExtent".
+            //[Jon Aquino]
+            double minx = itemEnv.MinX;
+            double maxx = itemEnv.MaxX;
+            double miny = itemEnv.MinY;
+            double maxy = itemEnv.MaxY;
+            // has a non-zero extent
+            if (minx != maxx && miny != maxy)
+            {
+                return itemEnv;
+            }
+            // pad one or both extents
+            if (minx == maxx)
+            {
+                minx = minx - minExtent/2.0;
+                maxx = minx + minExtent/2.0;
+            }
+            if (miny == maxy)
+            {
+                miny = miny - minExtent/2.0;
+                maxy = miny + minExtent/2.0;
+            }
+            return new Envelope(minx, maxx, miny, maxy);
+        }
+
+        /// <summary>
+        /// Return a list of all items in the Quadtree.
+        /// </summary>
+        public IList QueryAll()
+        {
+            IList foundItems = new ArrayList();
+            root.AddAllItems(ref foundItems);
+            return foundItems;
         }
 
         /// <summary>
@@ -128,7 +144,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         {
             IEnvelope posEnv = EnsureExtent(itemEnv, minExtent);
             return root.Remove(posEnv, item);
-        }        
+        }
 
         /// <summary>
         /// 
@@ -161,16 +177,6 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         }
 
         /// <summary>
-        /// Return a list of all items in the Quadtree.
-        /// </summary>
-        public IList QueryAll()
-        {
-            IList foundItems = new ArrayList();
-            root.AddAllItems(ref foundItems);
-            return foundItems;
-        }
-        
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="itemEnv"></param>
@@ -178,11 +184,15 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         {
             double delX = itemEnv.Width;
             if (delX < minExtent && delX > 0.0)
-            minExtent = delX;
+            {
+                minExtent = delX;
+            }
 
             double delY = itemEnv.Height;
             if (delY < minExtent && delY > 0.0)
-            minExtent = delY;
+            {
+                minExtent = delY;
+            }
         }
     }
 }

@@ -2,7 +2,6 @@ using System.Collections;
 
 namespace GisSharpBlog.NetTopologySuite.Noding
 {
-
     /// <summary>
     /// Computes all intersections between segments in a set of <see cref="SegmentString" />s.
     /// Intersections found are represented as <see cref="SegmentNode" />s and added to the
@@ -11,7 +10,6 @@ namespace GisSharpBlog.NetTopologySuite.Noding
     /// </summary>
     public interface INoder
     {
-
         /// <summary>
         /// Computes the noding for a collection of <see cref="SegmentString" />s.
         /// Some Noders may add all these nodes to the input <see cref="SegmentString" />s;
@@ -26,6 +24,5 @@ namespace GisSharpBlog.NetTopologySuite.Noding
         /// </summary>
         /// <returns></returns>
         IList GetNodedSubstrings();
-
     }
 }

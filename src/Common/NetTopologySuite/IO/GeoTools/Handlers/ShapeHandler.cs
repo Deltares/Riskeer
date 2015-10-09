@@ -8,7 +8,7 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
     /// <summary>
     /// Abstract class that defines the interfaces that other 'Shape' handlers must implement.
     /// </summary>
-    public abstract class ShapeHandler 
+    public abstract class ShapeHandler
     {
         protected int bbindex = 0;
         protected double[] bbox;
@@ -34,7 +34,7 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         /// <param name="geometry">The geometry object to write.</param>
         /// <param name="file">The stream to write to.</param>
         /// <param name="geometryFactory">The geometry factory to use.</param>
-        public abstract void Write(IGeometry geometry, BinaryWriter file,  IGeometryFactory geometryFactory);
+        public abstract void Write(IGeometry geometry, BinaryWriter file, IGeometryFactory geometryFactory);
 
         /// <summary>
         /// Gets the length in bytes the Geometry will need when written as a shape file record.
@@ -71,34 +71,16 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        protected bool HasZValue()
-        {
-            return HasZValue(type);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="shapeType"></param>
         /// <returns></returns>
         public static bool HasZValue(ShapeGeometryType shapeType)
         {
-            return  shapeType == ShapeGeometryType.PointZ ||
-                    shapeType == ShapeGeometryType.PointZM ||
-                    shapeType == ShapeGeometryType.LineStringZ ||
-                    shapeType == ShapeGeometryType.LineStringZM ||
-                    shapeType == ShapeGeometryType.PolygonZ ||
-                    shapeType == ShapeGeometryType.PolygonZM;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected bool HasMValue()
-        {
-            return HasMValue(type);
+            return shapeType == ShapeGeometryType.PointZ ||
+                   shapeType == ShapeGeometryType.PointZM ||
+                   shapeType == ShapeGeometryType.LineStringZ ||
+                   shapeType == ShapeGeometryType.LineStringZM ||
+                   shapeType == ShapeGeometryType.PolygonZ ||
+                   shapeType == ShapeGeometryType.PolygonZM;
         }
 
         /// <summary>
@@ -108,21 +90,12 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         /// <returns></returns>
         public static bool HasMValue(ShapeGeometryType shapeType)
         {
-            return  shapeType == ShapeGeometryType.PointM ||
-                    shapeType == ShapeGeometryType.PointZM ||
-                    shapeType == ShapeGeometryType.LineStringM ||
-                    shapeType == ShapeGeometryType.LineStringZM ||
-                    shapeType == ShapeGeometryType.PolygonM ||
-                    shapeType == ShapeGeometryType.PolygonZM;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected bool IsPoint()
-        {
-            return IsPoint(type);
+            return shapeType == ShapeGeometryType.PointM ||
+                   shapeType == ShapeGeometryType.PointZM ||
+                   shapeType == ShapeGeometryType.LineStringM ||
+                   shapeType == ShapeGeometryType.LineStringZM ||
+                   shapeType == ShapeGeometryType.PolygonM ||
+                   shapeType == ShapeGeometryType.PolygonZM;
         }
 
         /// <summary>
@@ -141,15 +114,6 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        protected bool IsMultiPoint()
-        {
-            return IsMultiPoint(type);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="shapeType"></param>
         /// <returns></returns>
         public static bool IsMultiPoint(ShapeGeometryType shapeType)
@@ -158,15 +122,6 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
                    shapeType == ShapeGeometryType.MultiPointZ ||
                    shapeType == ShapeGeometryType.MultiPointM ||
                    shapeType == ShapeGeometryType.MultiPointZM;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected bool IsLineString()
-        {
-            return IsLineString(type);
         }
 
         /// <summary>
@@ -184,15 +139,6 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
 
         /// <summary>
         /// 
-        /// </summary>        
-        /// <returns></returns>
-        protected bool IsPolygon()
-        {
-            return IsPolygon(type);
-        }
-
-        /// <summary>
-        /// 
         /// </summary>
         /// <param name="shapeType"></param>
         /// <returns></returns>
@@ -202,6 +148,60 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
                    shapeType == ShapeGeometryType.PolygonZ ||
                    shapeType == ShapeGeometryType.PolygonM ||
                    shapeType == ShapeGeometryType.PolygonZM;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected bool HasZValue()
+        {
+            return HasZValue(type);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected bool HasMValue()
+        {
+            return HasMValue(type);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected bool IsPoint()
+        {
+            return IsPoint(type);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected bool IsMultiPoint()
+        {
+            return IsMultiPoint(type);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        protected bool IsLineString()
+        {
+            return IsLineString(type);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>        
+        /// <returns></returns>
+        protected bool IsPolygon()
+        {
+            return IsPolygon(type);
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         /// <param name="file"></param>
         /// <param name="data"></param>
         protected void GetMValue(BigEndianBinaryReader file, IDictionary<ShapeGeometryType, double> data)
-        {            
+        {
             double m = file.ReadDouble();
             // data.Add(ShapeGeometryType.PointM, m);
         }
@@ -232,9 +232,13 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
             {
                 IDictionary<ShapeGeometryType, double> data = new Dictionary<ShapeGeometryType, double>(2);
                 if (HasZValue())
+                {
                     GetZValue(file, data);
+                }
                 if (HasMValue())
+                {
                     GetMValue(file, data);
+                }
                 // geom.UserData = data;
             }
         }
@@ -256,7 +260,9 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
                     for (int i = 0; i < geom.NumPoints; i++)
                     {
                         if (datas[i] == null)
+                        {
                             datas[i] = new Dictionary<ShapeGeometryType, double>(2);
+                        }
                         GetZValue(file, datas[i]);
                     }
                 }
@@ -268,7 +274,9 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
                     for (int i = 0; i < geom.NumPoints; i++)
                     {
                         if (datas[i] == null)
+                        {
                             datas[i] = new Dictionary<ShapeGeometryType, double>(2);
+                        }
                         GetMValue(file, datas[i]);
                     }
                 }
@@ -285,9 +293,13 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
             bbindex = 0;
             int bblength = 4;
             if (HasZValue())
+            {
                 bblength += 2;
+            }
             if (HasMValue())
+            {
                 bblength += 2;
+            }
             return bblength;
         }
     }

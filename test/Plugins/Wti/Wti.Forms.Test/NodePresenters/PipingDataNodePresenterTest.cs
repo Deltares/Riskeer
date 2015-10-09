@@ -1,17 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 using DeltaShell.Tests.TestObjects;
 using NUnit.Framework;
-
 using Rhino.Mocks;
-
 using Wti.Data;
 using Wti.Forms.NodePresenters;
-
 using WtiFormsResources = Wti.Forms.Properties.Resources;
 
 namespace Wti.Forms.Test.NodePresenters
@@ -43,7 +39,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingDataNodePresenter();
 
-            var project = new PipingData { AssessmentLevel = 2.0 };
+            var project = new PipingData
+            {
+                AssessmentLevel = 2.0
+            };
 
             // call
             nodePresenter.UpdateNode(null, pipingNode, project);
@@ -276,7 +275,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodePresenter = new PipingDataNodePresenter();
             var testContext = new TestMenuItem();
             nodePresenter.ContextMenu = a => testContext;
-            
+
             // call
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 

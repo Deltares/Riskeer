@@ -25,7 +25,10 @@ namespace DeltaShell.Gui.Forms
 
         public IList<string> Items
         {
-            get { return items; }
+            get
+            {
+                return items;
+            }
             set
             {
                 items = value;
@@ -36,17 +39,23 @@ namespace DeltaShell.Gui.Forms
 
         public string SelectedItem
         {
-            get { return (string) listBox.SelectedItem;  }
-            set { listBox.SelectedItem = value;  }
+            get
+            {
+                return (string) listBox.SelectedItem;
+            }
+            set
+            {
+                listBox.SelectedItem = value;
+            }
         }
+
+        public string DefaultViewName { get; set; }
 
         private void listBox_DoubleClick(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             Close();
         }
-
-        public string DefaultViewName { get; set; }
 
         private void listBox_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -60,19 +69,19 @@ namespace DeltaShell.Gui.Forms
             {
                 string defaultIndicatorText = Resources.SelectViewDialog_listBox_DrawItem_____Default_;
                 var defaultItemFont = new Font(lbFont.FontFamily, lbFont.Size, FontStyle.Bold);
-                
+
                 var itemSize = e.Graphics.MeasureString(itemAsString, defaultItemFont);
                 var indicatorSize = e.Graphics.MeasureString(defaultIndicatorText, defaultItemFont);
 
                 var boundsIndicator = new RectangleF(e.Bounds.Left + itemSize.Width,
-                                                     e.Bounds.Top, indicatorSize.Width,e.Bounds.Height);
+                                                     e.Bounds.Top, indicatorSize.Width, e.Bounds.Height);
 
                 e.Graphics.DrawString(itemAsString, defaultItemFont, (selected) ? new SolidBrush(SystemColors.HighlightText) : Brushes.Black, e.Bounds);
                 e.Graphics.DrawString(defaultIndicatorText, defaultItemFont, Brushes.LightGray, boundsIndicator);
             }
             else
             {
-                e.Graphics.DrawString(itemAsString, lbFont, (selected) ? new SolidBrush(SystemColors.HighlightText): Brushes.Black, e.Bounds);
+                e.Graphics.DrawString(itemAsString, lbFont, (selected) ? new SolidBrush(SystemColors.HighlightText) : Brushes.Black, e.Bounds);
             }
 
             e.DrawFocusRectangle();

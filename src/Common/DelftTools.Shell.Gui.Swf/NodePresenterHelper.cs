@@ -34,37 +34,35 @@ namespace DelftTools.Shell.Gui.Swf
             return menuItem;
         }
 
-
-
         public static void TrimSeparatorsGetContextMenu(IMenuItem menuItem)
         {
-            if(menuItem is MenuItemContextMenuStripAdapter)
+            if (menuItem is MenuItemContextMenuStripAdapter)
             {
                 TrimSeparatorsGetContextMenu(
                     ((MenuItemContextMenuStripAdapter) menuItem).ContextMenuStrip
-                );
+                    );
             }
         }
 
         public static void TrimSeparatorsGetContextMenu(ContextMenuStrip contextMenu)
         {
             //top
-            for(int i = 0; i < contextMenu.Items.Count; i++)
+            for (int i = 0; i < contextMenu.Items.Count; i++)
             {
-                if(contextMenu.Items[i] is ToolStripSeparator)
+                if (contextMenu.Items[i] is ToolStripSeparator)
                 {
                     contextMenu.Items[i].Available = false;
                 }
                 else
                 {
-                    if(contextMenu.Items[i].Available)
+                    if (contextMenu.Items[i].Available)
                     {
                         break;
                     }
                 }
             }
             //bottom
-            for (int i = contextMenu.Items.Count - 1 ; i >= 0 ; i--)
+            for (int i = contextMenu.Items.Count - 1; i >= 0; i--)
             {
                 if (contextMenu.Items[i] is ToolStripSeparator)
                 {
@@ -80,14 +78,13 @@ namespace DelftTools.Shell.Gui.Swf
             }
         }
 
-
         public static void RemoveDoubleSeparatorsGetContextMenu(IMenuItem menuItem)
         {
             if (menuItem is MenuItemContextMenuStripAdapter)
             {
                 RemoveDoubleSeparatorsGetContextMenu(
-                    ((MenuItemContextMenuStripAdapter)menuItem).ContextMenuStrip
-                );
+                    ((MenuItemContextMenuStripAdapter) menuItem).ContextMenuStrip
+                    );
             }
         }
 
@@ -97,16 +94,15 @@ namespace DelftTools.Shell.Gui.Swf
             {
                 if (contextMenu.Items[i] is ToolStripSeparator)
                 {
-                    for (int j = i-1; j >= 0; j--)
+                    for (int j = i - 1; j >= 0; j--)
                     {
-
                         if (contextMenu.Items[j] is ToolStripSeparator)
                         {
                             contextMenu.Items[j].Available = false;
                             break;
                         }
 
-                        if(contextMenu.Items[j].Available)
+                        if (contextMenu.Items[j].Available)
                         {
                             break;
                         }

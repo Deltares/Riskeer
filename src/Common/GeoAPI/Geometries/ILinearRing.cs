@@ -1,6 +1,4 @@
 namespace GeoAPI.Geometries
 {
-    public interface ILinearRing : ILineString
-    {        
-    }
+    public interface ILinearRing : ILineString {}
 }

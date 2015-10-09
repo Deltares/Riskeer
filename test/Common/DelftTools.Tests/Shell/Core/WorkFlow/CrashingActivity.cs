@@ -24,7 +24,7 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
         {
             throw new NotImplementedException();
         }
-        
+
         protected override void OnFinish()
         {
             throw new NotImplementedException();

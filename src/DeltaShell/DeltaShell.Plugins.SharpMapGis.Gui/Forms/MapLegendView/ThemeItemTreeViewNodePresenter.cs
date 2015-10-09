@@ -7,15 +7,11 @@ using SharpMap.Styles;
 
 namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
-    public class ThemeItemTreeViewNodePresenter:TreeViewNodePresenterBaseForPluginGui<IThemeItem>
+    public class ThemeItemTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<IThemeItem>
     {
-        public ThemeItemTreeViewNodePresenter(): base(null)
-        {
-        }
+        public ThemeItemTreeViewNodePresenter() : base(null) {}
 
-        public ThemeItemTreeViewNodePresenter(GuiPlugin guiPlugin): base(guiPlugin)
-        {
-        }
+        public ThemeItemTreeViewNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
 
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, IThemeItem themeItem)
         {
@@ -32,8 +28,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         protected override void OnPropertyChanged(IThemeItem themeItem, ITreeNode node, PropertyChangedEventArgs e)
         {
-            if (node == null) return;
-            
+            if (node == null)
+            {
+                return;
+            }
+
             UpdateNode(null, node, themeItem);
         }
     }

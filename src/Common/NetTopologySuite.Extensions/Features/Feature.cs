@@ -5,23 +5,16 @@ namespace NetTopologySuite.Extensions.Features
 {
     public class Feature : IFeature
     {
-        private IGeometry geometry;
-
-        private IFeatureAttributeCollection attributes;
-        
         /// <summary>
         /// When changing the geometry of a feature make sure to call GeometryChangedAction
         /// </summary>
-        public virtual IGeometry Geometry
-        {
-            get { return geometry; }
-            set { geometry = value; }
-        }
+        public virtual IGeometry Geometry { get; set; }
 
-        public virtual IFeatureAttributeCollection Attributes
+        public virtual IFeatureAttributeCollection Attributes { get; set; }
+
+        public override string ToString()
         {
-            get { return attributes; }
-            set { attributes = value; }
+            return Geometry != null ? Geometry.ToString() : "<no geometry>";
         }
 
         public virtual object Clone()
@@ -31,11 +24,6 @@ namespace NetTopologySuite.Extensions.Features
                 Geometry = Geometry,
                 Attributes = Attributes == null ? null : Attributes.Clone() as IFeatureAttributeCollection
             };
-        }
-
-        public override string ToString()
-        {
-            return Geometry != null ? Geometry.ToString() : "<no geometry>";
         }
     }
 }

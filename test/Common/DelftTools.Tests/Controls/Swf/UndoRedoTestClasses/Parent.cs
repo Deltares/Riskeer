@@ -13,12 +13,7 @@ namespace DelftTools.Tests.Controls.Swf.UndoRedoTestClasses
             Children = new EventedList<Child>();
         }
 
-        private bool someBooleanValue;
-        public bool SomeBooleanValue
-        {
-            get { return someBooleanValue; }
-            set { someBooleanValue = value; }
-        }
+        public bool SomeBooleanValue { get; set; }
 
         public AttributeTargets AttributeTarget { get; set; }
 
@@ -29,17 +24,20 @@ namespace DelftTools.Tests.Controls.Swf.UndoRedoTestClasses
         public Child Child { get; set; }
 
         public string Name { get; set; }
-        
+
         public bool IsEditing { get; set; }
 
         public bool EditWasCancelled
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
         }
 
         [NoNotifyPropertyChange]
         public IEditAction CurrentEditAction { get; private set; }
-        
+
         public void BeginEdit(IEditAction action)
         {
             CurrentEditAction = action;

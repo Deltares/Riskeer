@@ -14,9 +14,11 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public static void Reverse(ICoordinateSequence seq)
         {
             int last = seq.Count - 1;
-            int mid = last / 2;
+            int mid = last/2;
             for (int i = 0; i <= mid; i++)
+            {
                 Swap(seq, i, last - i);
+            }
         }
 
         /// <summary>
@@ -27,14 +29,16 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="j"></param>
         public static void Swap(ICoordinateSequence seq, int i, int j)
         {
-            if (i == j) 
+            if (i == j)
+            {
                 return;
+            }
 
             for (int dim = 0; dim < seq.Dimension; dim++)
             {
-                double tmp = seq.GetOrdinate(i, (Ordinates)dim);
-                seq.SetOrdinate(i, (Ordinates)dim, seq.GetOrdinate(j, (Ordinates)dim));
-                seq.SetOrdinate(j, (Ordinates)dim, tmp);
+                double tmp = seq.GetOrdinate(i, (Ordinates) dim);
+                seq.SetOrdinate(i, (Ordinates) dim, seq.GetOrdinate(j, (Ordinates) dim));
+                seq.SetOrdinate(j, (Ordinates) dim, tmp);
             }
         }
     }

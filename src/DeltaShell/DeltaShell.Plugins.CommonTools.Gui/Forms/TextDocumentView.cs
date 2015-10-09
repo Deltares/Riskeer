@@ -7,14 +7,19 @@ using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Utils;
 using DelftTools.Utils.Aop;
-using DelftTools.Utils.Editing;
 using DeltaShell.Plugins.CommonTools.Gui.Properties;
 
 namespace DeltaShell.Plugins.CommonTools.Gui.Forms
 {
     public partial class TextDocumentView : UserControl, ISearchableView
     {
+        private static readonly Bitmap TextDocumentImage = Resources.TextDocument;
         private TextDocumentBase textDocument;
+
+        private bool textModified;
+
+        private string characters = "";
+        private bool settingContent = false;
 
         public TextDocumentView()
         {
@@ -24,23 +29,26 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms
             findAndReplaceControl1.GetCurrentPosition = () => textBox.SelectionStart;
             findAndReplaceControl1.SelectText = (start, length) => textBox.Select(start, length);
             findAndReplaceControl1.ScrollToPosition = i =>
+            {
+                if (textBox.SelectionStart != i)
                 {
-                    if (textBox.SelectionStart != i)
-                    {
-                        textBox.Select(i, 0);
-                    }
-                    textBox.ScrollToCaret();
-                };
+                    textBox.Select(i, 0);
+                }
+                textBox.ScrollToCaret();
+            };
         }
 
         public object Data
         {
-            get { return textDocument; }
+            get
+            {
+                return textDocument;
+            }
             set
             {
                 if (textDocument != null)
                 {
-                    ((INotifyPropertyChange)textDocument).PropertyChanged -= TextDocumentView_PropertyChanged;
+                    ((INotifyPropertyChange) textDocument).PropertyChanged -= TextDocumentView_PropertyChanged;
                 }
 
                 textDocument = value as TextDocumentBase;
@@ -49,7 +57,7 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms
                 {
                     textBox.Text = textDocument.Content;
                     textBox.ReadOnly = textDocument.ReadOnly;
-                    ((INotifyPropertyChange)textDocument).PropertyChanged += TextDocumentView_PropertyChanged;
+                    ((INotifyPropertyChange) textDocument).PropertyChanged += TextDocumentView_PropertyChanged;
                 }
 
                 /*if (textDocument == null)
@@ -73,6 +81,41 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms
             }
         }
 
+        public Image Image
+        {
+            get
+            {
+                return TextDocumentImage;
+            }
+            set {}
+        }
+
+        public ViewInfo ViewInfo { get; set; }
+
+        public void EnsureVisible(object item)
+        {
+            var text = item as string;
+            if (text == null)
+            {
+                return;
+            }
+
+            textBox.SelectionStart = textBox.Text.IndexOf(text, 0, StringComparison.InvariantCulture);
+            textBox.ScrollToCaret();
+            textBox.SelectionLength = text.Length;
+        }
+
+        public IEnumerable<System.Tuple<string, object>> SearchItemsByText(string text, bool caseSensitive, Func<bool> isSearchCancelled, Action<int> setProgressPercentage)
+        {
+            var lines = textDocument.Content.Split(new[]
+            {
+                "\r",
+                "\n",
+                "\n\r"
+            }, StringSplitOptions.RemoveEmptyEntries);
+            return lines.Where(l => caseSensitive ? l.Contains(text) : l.ToLower().Contains(text.ToLower())).Select(l => new System.Tuple<string, object>(l, l));
+        }
+
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
@@ -89,8 +132,8 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms
                 textModified = false;
             }
         }
-        
-        void TextDocumentView_PropertyChanged(object sender, PropertyChangedEventArgs e)
+
+        private void TextDocumentView_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Content" && !settingContent && !IsDisposed)
             {
@@ -106,45 +149,18 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms
             settingContent = false;
         }
 
-        public Image Image
-        {
-            get { return TextDocumentImage; }
-            set { }
-        }
-
-        public void EnsureVisible(object item)
-        {
-            var text = item as string;
-            if (text == null) return;
-
-            textBox.SelectionStart = textBox.Text.IndexOf(text, 0, StringComparison.InvariantCulture);
-            textBox.ScrollToCaret();
-            textBox.SelectionLength = text.Length;
-        }
-
-        public ViewInfo ViewInfo { get; set; }
-
-        public IEnumerable<System.Tuple<string, object>> SearchItemsByText(string text, bool caseSensitive, Func<bool> isSearchCancelled, Action<int> setProgressPercentage)
-        {
-            var lines = textDocument.Content.Split(new[] { "\r","\n","\n\r" }, StringSplitOptions.RemoveEmptyEntries);
-            return lines.Where(l => caseSensitive ? l.Contains(text) : l.ToLower().Contains(text.ToLower())).Select(l => new System.Tuple<string,object>(l,l)); 
-        }
-
-        private bool textModified;
-
         private void TextBoxTextChanged(object sender, EventArgs e)
         {
-            if (settingContent || IsDisposed) return;
+            if (settingContent || IsDisposed)
+            {
+                return;
+            }
 
             textModified = true;
 
             timer.Stop();
             timer.Start();
         }
-
-        private string characters = "";
-        private bool settingContent = false;
-        private static readonly Bitmap TextDocumentImage = Properties.Resources.TextDocument;
 
         private void TimerTick(object sender, EventArgs e)
         {
@@ -163,40 +179,40 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms
         {
             if (ModifierKeys != Keys.Control)
             {
-                if(e.KeyChar == (char)Keys.Return)
+                if (e.KeyChar == (char) Keys.Return)
                 {
                     characters += "<ENT>";
                 }
-                else if(e.KeyChar == '\b' || e.KeyChar == (char)Keys.Delete)
+                else if (e.KeyChar == '\b' || e.KeyChar == (char) Keys.Delete)
                 {
                     characters += "<DEL>";
                 }
                 else
                 {
                     characters += e.KeyChar;
-                }   
+                }
             }
-            base.OnKeyPress(e);
+            OnKeyPress(e);
         }
 
         private void TextBoxKeyUp(object sender, KeyEventArgs e)
         {
             if (ModifierKeys == Keys.Control)
             {
-                if(e.KeyCode == Keys.V)
+                if (e.KeyCode == Keys.V)
                 {
                     characters += "<PASTE>";
                 }
-                if(e.KeyCode == Keys.X)
+                if (e.KeyCode == Keys.X)
                 {
                     characters += "<CUT>";
                 }
             }
-            else if(e.KeyCode == Keys.Delete)
+            else if (e.KeyCode == Keys.Delete)
             {
                 characters += "<DEL>";
             }
-            base.OnKeyUp(e);
+            OnKeyUp(e);
         }
 
         private void textBox_KeyDown(object sender, KeyEventArgs e)
@@ -206,7 +222,7 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms
                 findAndReplaceControl1.Visible = true;
                 findAndReplaceControl1.Focus();
                 e.Handled = true;
-            } 
+            }
         }
 
         private void TextDocumentView_Load(object sender, EventArgs e)

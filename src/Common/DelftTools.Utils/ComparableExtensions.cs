@@ -10,7 +10,7 @@ namespace DelftTools.Utils
             {
                 return false; // null is not bigger than anything
             }
-            
+
             return object1.CompareTo(object2) > 0;
         }
 

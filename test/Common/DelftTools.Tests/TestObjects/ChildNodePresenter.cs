@@ -5,9 +5,10 @@ using DelftTools.Controls.Swf.TreeViewControls;
 
 namespace DelftTools.Tests.TestObjects
 {
-    
     public class ChildNodePresenter : TreeViewNodePresenterBase<Child>
     {
+        public event EventHandler AfterUpdate;
+
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, Child nodeData)
         {
             node.Text = nodeData.Name;
@@ -22,7 +23,5 @@ namespace DelftTools.Tests.TestObjects
         {
             return parentNodeData.Children;
         }
-
-        public event EventHandler AfterUpdate;
     }
 }

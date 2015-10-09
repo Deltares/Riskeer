@@ -6,26 +6,38 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding
 {
     internal abstract class Binding<TControl> : IBinding where TControl : Control
     {
-        private static ErrorProvider errorProvider = new ErrorProvider {BlinkStyle = ErrorBlinkStyle.NeverBlink};
+        private static readonly ErrorProvider errorProvider = new ErrorProvider
+        {
+            BlinkStyle = ErrorBlinkStyle.NeverBlink
+        };
 
         protected FieldUIDescription FieldDescription;
         protected TControl Control;
         protected Control ParentControl;
         private object data;
 
-        Control IBinding.EditControl { get { return Control; } }
-        FieldUIDescription IBinding.FieldDescription { get { return FieldDescription; } }
-
-        public void InitializeControl(FieldUIDescription fieldDescription, Control editControl, Control parentControl)
+        Control IBinding.EditControl
         {
-            FieldDescription = fieldDescription;
-            Control = (TControl)editControl;
-            ParentControl = parentControl;
+            get
+            {
+                return Control;
+            }
         }
-        
+
+        FieldUIDescription IBinding.FieldDescription
+        {
+            get
+            {
+                return FieldDescription;
+            }
+        }
+
         public object Data
         {
-            get { return data; }
+            get
+            {
+                return data;
+            }
             set
             {
                 if (data != null)
@@ -44,22 +56,25 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding
             }
         }
 
-        protected object DataValue
+        public void InitializeControl(FieldUIDescription fieldDescription, Control editControl, Control parentControl)
         {
-            get { return FieldDescription.GetValue(Data); }
-            set { CommitValue(value); }
+            FieldDescription = fieldDescription;
+            Control = (TControl) editControl;
+            ParentControl = parentControl;
         }
 
         public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (Control.InvokeRequired)
+            {
                 return; //not important enough to Invoke for
+            }
 
             //maybe lazy only? refresh validation status if we currently have an error
             // if (!string.IsNullOrEmpty(errorProvider.GetError(Control)))
 
             Validate(GetControlValue());
-            
+
             //general filtering
             if (FieldDescription.AlwaysRefresh || FieldDescription.HasDependencyFunctions || FieldDescription.Name == e.PropertyName)
             {
@@ -71,10 +86,39 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding
         public void RefreshEnabled()
         {
             if (Control.InvokeRequired)
+            {
                 return; //not important enough to Invoke for
+            }
 
             ParentControl.Visible = FieldDescription.IsVisible(data);
             ParentControl.Enabled = FieldDescription.IsEnabled(Data);
+        }
+
+        public void Validate(object value)
+        {
+            errorProvider.SetIconAlignment(Control, ErrorIconAlignment.MiddleLeft);
+            string errorMessage;
+            if (!FieldDescription.Validate(Data, value, out errorMessage))
+            {
+                errorProvider.SetError(Control, errorMessage);
+            }
+
+            else
+            {
+                errorProvider.SetError(Control, string.Empty);
+            }
+        }
+
+        protected object DataValue
+        {
+            get
+            {
+                return FieldDescription.GetValue(Data);
+            }
+            set
+            {
+                CommitValue(value);
+            }
         }
 
         protected void CommitValue(object value)
@@ -85,18 +129,9 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding
             //set in datasource if changed
             var currentValue = FieldDescription.GetValue(Data);
             if (!Equals(currentValue, value))
+            {
                 FieldDescription.SetValue(Data, value);
-        }
-
-        public void Validate(object value)
-        {
-            errorProvider.SetIconAlignment(Control, ErrorIconAlignment.MiddleLeft);
-            string errorMessage;
-            if (!FieldDescription.Validate(Data, value, out errorMessage))
-                errorProvider.SetError(Control, errorMessage);
-                    
-            else
-                errorProvider.SetError(Control, string.Empty);
+            }
         }
 
         protected abstract object GetControlValue();

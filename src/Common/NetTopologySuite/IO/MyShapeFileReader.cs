@@ -13,13 +13,13 @@ namespace GisSharpBlog.NetTopologySuite.IO
     [Obsolete("Use ShapefileReader instead")]
     public class MyShapeFileReader
     {
-        private int length = 0;
-
         /// <summary>
         /// Shape features reader.
         /// </summary>
         protected ShapeReader shapeReader = null;
-        
+
+        private int length = 0;
+
         /// <summary>
         /// Default empty constructor
         /// </summary>
@@ -50,7 +50,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
             {
                 return Read(stream);
             }
-        }        
+        }
 
         /// <summary>
         /// Reads a generic stream containing geographic data saved as shapefile structure, 
@@ -69,8 +69,8 @@ namespace GisSharpBlog.NetTopologySuite.IO
                 Debug.Assert(fileCode == 9994);
 
                 stream.Seek(20, SeekOrigin.Current);
-                length = beReader.ReadInt32BE();                
-                
+                length = beReader.ReadInt32BE();
+
                 // Read little endian values
                 using (BinaryReader leReader = new BinaryReader(stream))
                 {
@@ -81,7 +81,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
                     Debug.Assert(version == 1000);
 
                     // ShapeTypes
-                    int shapeType = leReader.ReadInt32();         
+                    int shapeType = leReader.ReadInt32();
 
                     switch ((ShapeGeometryType) shapeType)
                     {
@@ -121,9 +121,9 @@ namespace GisSharpBlog.NetTopologySuite.IO
                     }
                     IGeometryCollection collection = shapeReader.CreateGeometryCollection(list);
                     return collection;
-                }                               
+                }
             }
-        }             
+        }
 
         /// <summary>
         /// Reads Point shapefile
@@ -141,31 +141,20 @@ namespace GisSharpBlog.NetTopologySuite.IO
             {
                 // Read little endian informations
                 using (BinaryReader leReader = new BinaryReader(stream))
-                {                                                                
+                {
                     // For each header                
                     while (stream.Position < stream.Length)
                     {
-                        ReadFeatureHeader(beReader);                  
-                                            
+                        ReadFeatureHeader(beReader);
+
                         ICoordinate coordinate = shapeReader.ReadCoordinate(leReader);
                         IGeometry point = shapeReader.CreatePoint(coordinate);
                         list.Add(point);
                     }
-                }              
+                }
             }
-            return list;  
+            return list;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="beReader"></param>
-        private void ReadFeatureHeader(BigEndianBinaryReader beReader)
-        {
-            int recordNumber = beReader.ReadInt32BE();
-            int contentLength = beReader.ReadInt32BE();
-            int shapeType = beReader.ReadInt32();
-        }        
 
         /// <summary>
         /// Reads LineString shapefile
@@ -177,7 +166,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
             IList list = new ArrayList();
 
             // Jump to first header 
-            stream.Seek(100, SeekOrigin.Begin);              
+            stream.Seek(100, SeekOrigin.Begin);
 
             // Read big endian informations
             using (BigEndianBinaryReader beReader = new BigEndianBinaryReader(stream))
@@ -199,9 +188,14 @@ namespace GisSharpBlog.NetTopologySuite.IO
                         ICoordinate[] coordinates = shapeReader.ReadCoordinates(leReader, numPoints);
 
                         if (numParts == 1)
+                        {
                             list.Add(shapeReader.CreateLineString(coordinates));
-                        else list.Add(shapeReader.CreateMultiLineString(numPoints, indexParts, coordinates));
-                    }                    
+                        }
+                        else
+                        {
+                            list.Add(shapeReader.CreateMultiLineString(numPoints, indexParts, coordinates));
+                        }
+                    }
                 }
             }
             return list;
@@ -217,14 +211,14 @@ namespace GisSharpBlog.NetTopologySuite.IO
             IList list = new ArrayList();
 
             // Jump to first header                
-            stream.Seek(100, SeekOrigin.Begin); 
+            stream.Seek(100, SeekOrigin.Begin);
 
             // Read big endian informations
             using (BigEndianBinaryReader beReader = new BigEndianBinaryReader(stream))
             {
                 // Read little endian informations
                 using (BinaryReader reader = new BinaryReader(stream))
-                {                         
+                {
                     // For each header                
                     while (stream.Position < stream.Length)
                     {
@@ -239,9 +233,14 @@ namespace GisSharpBlog.NetTopologySuite.IO
                         ICoordinate[] coordinates = shapeReader.ReadCoordinates(reader, numPoints);
 
                         if (numParts == 1)
-                             list.Add(shapeReader.CreateSimpleSinglePolygon(coordinates));
-                        else list.Add(shapeReader.CreateSingleOrMultiPolygon(numPoints, indexParts, coordinates));
-                    }                    
+                        {
+                            list.Add(shapeReader.CreateSimpleSinglePolygon(coordinates));
+                        }
+                        else
+                        {
+                            list.Add(shapeReader.CreateSingleOrMultiPolygon(numPoints, indexParts, coordinates));
+                        }
+                    }
                 }
             }
             return list;
@@ -257,7 +256,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
             IList list = new ArrayList();
 
             // Jump to first header                
-            stream.Seek(100, SeekOrigin.Begin); 
+            stream.Seek(100, SeekOrigin.Begin);
 
             // Read big endian informations
             using (BigEndianBinaryReader beReader = new BigEndianBinaryReader(stream))
@@ -274,13 +273,25 @@ namespace GisSharpBlog.NetTopologySuite.IO
                         int numPoints = shapeReader.ReadNumPoints(reader);
                         ICoordinate[] coords = new ICoordinate[numPoints];
                         for (int i = 0; i < numPoints; i++)
+                        {
                             coords[i] = shapeReader.ReadCoordinate(reader);
+                        }
                         list.Add(shapeReader.CreateMultiPoint(coords));
                     }
-             
                 }
             }
             return list;
-        }        
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="beReader"></param>
+        private void ReadFeatureHeader(BigEndianBinaryReader beReader)
+        {
+            int recordNumber = beReader.ReadInt32BE();
+            int contentLength = beReader.ReadInt32BE();
+            int shapeType = beReader.ReadInt32();
+        }
     }
 }

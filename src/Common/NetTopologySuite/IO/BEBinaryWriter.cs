@@ -5,7 +5,6 @@ using System.Text;
 
 namespace GisSharpBlog.NetTopologySuite.IO
 {
-
     /// <summary>
     /// Extends the <see cref="BinaryWriter" /> class to allow writing values in the BigEndian format.    
     /// </summary>
@@ -22,8 +21,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <summary>
         /// Initializes a new instance of the <see cref="T:BEBinaryWriter"/> class.
         /// </summary>
-        public BEBinaryWriter() : base() { }
-
+        public BEBinaryWriter() : base() {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:BEBinaryWriter"/> class.
@@ -32,7 +30,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <exception cref="T:System.ArgumentNullException">output is null. </exception>
         /// <exception cref="T:System.ArgumentException">
         /// The stream does not support writing, or the stream is already closed. </exception>
-        public BEBinaryWriter(Stream output) : base(output) { }
+        public BEBinaryWriter(Stream output) : base(output) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:BEBinaryWriter"/> class.
@@ -42,7 +40,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <exception cref="T:System.ArgumentNullException">output or encoding is null. </exception>
         /// <exception cref="T:System.ArgumentException">
         /// The stream does not support writing, or the stream is already closed. </exception>
-        public BEBinaryWriter(Stream output, Encoding encoding) : base(output, encoding) { }
+        public BEBinaryWriter(Stream output, Encoding encoding) : base(output, encoding) {}
 
         /// <summary>
         /// Writes a two-byte signed integer to the current stream using BigEndian encoding
@@ -68,7 +66,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <exception cref="T:System.ObjectDisposedException">The stream is closed. </exception>
         /// <exception cref="T:System.IO.IOException">An I/O error occurs. </exception>
         public override void Write(ushort value)
-        {            
+        {
             byte[] bytes = BitConverter.GetBytes(value);
             Debug.Assert(bytes.Length == 2);
 

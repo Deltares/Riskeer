@@ -71,6 +71,15 @@ namespace DelftTools.Utils
             return ParseHelper<T>.Parse(target, defaultValue);
         }
 
+        public static T Parse<T>(this string target, CultureInfo culture)
+        {
+            var culture1 = Thread.CurrentThread.CurrentCulture;
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            var result = ParseHelper<T>.Parse(target);
+            Thread.CurrentThread.CurrentCulture = culture1;
+            return result;
+        }
+
         private static class ParseHelper<T>
         {
             private static readonly Func<string, T, T, T> _parser;
@@ -103,8 +112,8 @@ namespace DelftTools.Utils
                                                  where m.Name == "TryParse"
                                                  let ps = m.GetParameters()
                                                  where ps.Count() == 2
-                                                    && ps[0].ParameterType == typeof(string)
-                                                    && ps[1].ParameterType == typeof(T).MakeByRefType()
+                                                       && ps[0].ParameterType == typeof(string)
+                                                       && ps[1].ParameterType == typeof(T).MakeByRefType()
                                                  select m).SingleOrDefault();
 
                     if (tryParseMethod == null)
@@ -140,8 +149,8 @@ namespace DelftTools.Utils
                                                  where m.Name == "TryParse"
                                                  let ps = m.GetParameters()
                                                  where ps.Count() == 2
-                                                    && ps[0].ParameterType == typeof(string)
-                                                    && ps[1].ParameterType == typeof(TBase).MakeByRefType()
+                                                       && ps[0].ParameterType == typeof(string)
+                                                       && ps[1].ParameterType == typeof(TBase).MakeByRefType()
                                                  select m).SingleOrDefault();
 
                     if (tryParseMethod == null)
@@ -164,15 +173,6 @@ namespace DelftTools.Utils
                     return _parser.Invoke(target, defaultValue, default(TBase));
                 }
             }
-        }
-
-        public static T Parse<T>(this string target, CultureInfo culture)
-        {
-            var culture1 = Thread.CurrentThread.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-            var result= ParseHelper<T>.Parse(target);
-            Thread.CurrentThread.CurrentCulture = culture1;
-            return result;
         }
     }
 }

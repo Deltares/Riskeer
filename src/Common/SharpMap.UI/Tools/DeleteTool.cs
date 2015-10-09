@@ -17,49 +17,18 @@ namespace SharpMap.UI.Tools
 
         public override bool AlwaysActive
         {
-            get { return true; }
-        }
-
-        public override void OnKeyDown(KeyEventArgs e)
-        {
-            if (e.KeyCode != Keys.Delete)
+            get
             {
-                return;
+                return true;
             }
-
-            DeleteSelection();
         }
 
-        public override IEnumerable<MapToolContextMenuItem> GetContextMenuItems(ICoordinate worldPosition)
+        public override bool IsBusy
         {
-            var toolStripMenuItem = MapControl.SelectedFeatures == null || !MapControl.SelectedFeatures.Any()
-                ? CreateContextMenuItemForFeaturesAtLocation(worldPosition, "Delete", DeleteFeature, false, (l, f) => !CanDeleteFeature(l, f))
-                : (MapControl.SelectTool.SelectedFeatureInteractors.Any(i => i.AllowDeletion()) ? new ToolStripMenuItem("Delete selection", null, (sender, args) => DeleteSelection()) : null);
-
-            if (toolStripMenuItem == null) yield break;
-
-            yield return new MapToolContextMenuItem
-                {
-                    Priority = 2,
-                    MenuItem = toolStripMenuItem
-                };
-        }
-
-        private static bool CanDeleteFeature(ILayer layer, IFeature feature)
-        {
-            if (layer == null) return false;
-
-            var interactor = layer.FeatureEditor == null ? null : layer.FeatureEditor.CreateInteractor(layer, feature);
-            return interactor != null && interactor.AllowDeletion();
-        }
-
-        private static void DeleteFeature(ILayer layer, IFeature feature)
-        {
-            var interactor = layer.FeatureEditor == null ? null : layer.FeatureEditor.CreateInteractor(layer, feature);
-            if (interactor == null) return;
-
-            interactor.Delete();
-            layer.RenderRequired = true;
+            get
+            {
+                return false;
+            }
         }
 
         public void DeleteSelection()
@@ -68,7 +37,7 @@ namespace SharpMap.UI.Tools
             {
                 return;
             }
-            
+
             var featuresDeleted = false;
             var editableObject = MapControl.SelectTool.SelectedFeatureInteractors[0].EditableObject;
 
@@ -84,7 +53,10 @@ namespace SharpMap.UI.Tools
                 featuresDeleted = true;
             }
 
-            if (!featuresDeleted) return;
+            if (!featuresDeleted)
+            {
+                return;
+            }
 
             if (editableObject != null)
             {
@@ -94,9 +66,55 @@ namespace SharpMap.UI.Tools
             MapControl.SelectTool.Clear();
         }
 
-        public override bool IsBusy
+        public override void OnKeyDown(KeyEventArgs e)
         {
-            get { return false; }
+            if (e.KeyCode != Keys.Delete)
+            {
+                return;
+            }
+
+            DeleteSelection();
+        }
+
+        public override IEnumerable<MapToolContextMenuItem> GetContextMenuItems(ICoordinate worldPosition)
+        {
+            var toolStripMenuItem = MapControl.SelectedFeatures == null || !MapControl.SelectedFeatures.Any()
+                                        ? CreateContextMenuItemForFeaturesAtLocation(worldPosition, "Delete", DeleteFeature, false, (l, f) => !CanDeleteFeature(l, f))
+                                        : (MapControl.SelectTool.SelectedFeatureInteractors.Any(i => i.AllowDeletion()) ? new ToolStripMenuItem("Delete selection", null, (sender, args) => DeleteSelection()) : null);
+
+            if (toolStripMenuItem == null)
+            {
+                yield break;
+            }
+
+            yield return new MapToolContextMenuItem
+            {
+                Priority = 2,
+                MenuItem = toolStripMenuItem
+            };
+        }
+
+        private static bool CanDeleteFeature(ILayer layer, IFeature feature)
+        {
+            if (layer == null)
+            {
+                return false;
+            }
+
+            var interactor = layer.FeatureEditor == null ? null : layer.FeatureEditor.CreateInteractor(layer, feature);
+            return interactor != null && interactor.AllowDeletion();
+        }
+
+        private static void DeleteFeature(ILayer layer, IFeature feature)
+        {
+            var interactor = layer.FeatureEditor == null ? null : layer.FeatureEditor.CreateInteractor(layer, feature);
+            if (interactor == null)
+            {
+                return;
+            }
+
+            interactor.Delete();
+            layer.RenderRequired = true;
         }
     }
 }

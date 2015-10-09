@@ -23,12 +23,9 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
     /// </summary>
     public class SweepLineEvent : IComparable
     {
-        private double xValue;
-        private SweepLineEvents eventType;
-        private SweepLineEvent insertEvent = null; // null if this is an Insert event
-        private int deleteEventIndex;
-
-        private SweepLineInterval sweepInt;
+        private readonly double xValue;
+        private readonly SweepLineEvents eventType;
+        private readonly SweepLineEvent insertEvent = null; // null if this is an Insert event
 
         /// <summary>
         /// 
@@ -39,11 +36,16 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
         public SweepLineEvent(double x, SweepLineEvent insertEvent, SweepLineInterval sweepInt)
         {
             xValue = x;
-            this.insertEvent = insertEvent;            
+            this.insertEvent = insertEvent;
             if (insertEvent != null)
-                 eventType = SweepLineEvents.Delete;
-            else eventType = SweepLineEvents.Insert;
-            this.sweepInt = sweepInt;
+            {
+                eventType = SweepLineEvents.Delete;
+            }
+            else
+            {
+                eventType = SweepLineEvents.Insert;
+            }
+            Interval = sweepInt;
         }
 
         /// <summary>
@@ -82,28 +84,12 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
         /// <summary>
         /// 
         /// </summary>
-        public int DeleteEventIndex
-        {
-            get
-            {
-                return deleteEventIndex;
-            }
-            set
-            {
-                this.deleteEventIndex = value;
-            }
-        }
+        public int DeleteEventIndex { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public SweepLineInterval Interval
-        {
-            get
-            {
-                return sweepInt;
-            }
-        }
+        public SweepLineInterval Interval { get; private set; }
 
         /// <summary>
         /// ProjectionEvents are ordered first by their x-value, and then by their eventType.
@@ -112,13 +98,25 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
         /// correctly handled.
         /// </summary>
         /// <param name="o"></param>
-        public int CompareTo(object o) 
+        public int CompareTo(object o)
         {
             SweepLineEvent pe = (SweepLineEvent) o;
-            if (xValue < pe.xValue) return  -1;
-            if (xValue > pe.xValue) return   1;
-            if (eventType < pe.eventType) return  -1;
-            if (eventType > pe.eventType) return   1;
+            if (xValue < pe.xValue)
+            {
+                return -1;
+            }
+            if (xValue > pe.xValue)
+            {
+                return 1;
+            }
+            if (eventType < pe.eventType)
+            {
+                return -1;
+            }
+            if (eventType > pe.eventType)
+            {
+                return 1;
+            }
             return 0;
         }
     }

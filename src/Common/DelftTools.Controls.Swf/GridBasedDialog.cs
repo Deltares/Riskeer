@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -17,53 +18,12 @@ namespace DelftTools.Controls.Swf
         ///<summary>
         /// This event is raised when the selection in the master grid changes
         ///</summary>
-        public event System.EventHandler MasterSelectionChanged;
+        public event EventHandler MasterSelectionChanged;
 
         ///<summary>
         /// This event is raised when the selection in the slave grid changes
         ///</summary>
-        public event System.EventHandler SlaveSelectionChanged;
-
-        ///<summary>
-        /// Set to true to support multiple selection in the master grid; default is false.
-        ///</summary>
-        public bool MasterMultiSelect
-        {
-            get { return dataGridViewMaster.MultiSelect; }
-            set { dataGridViewMaster.MultiSelect = value; }
-        }
-
-        ///<summary>
-        /// Set to true to support multiple selection in the slave grid; default is false.
-        ///</summary>
-        public bool SlaveMultiSelect
-        {
-            get { return dataGridViewSlave.MultiSelect; }
-            set { dataGridViewSlave.MultiSelect = value; }
-        }
-
-        /// <summary>
-        /// The text used to name the master grid in the form
-        /// </summary>
-        public string MasterTitle
-        {
-            get { return groupBoxMaster.Text; }
-            set { groupBoxMaster.Text = value; }
-        }
-
-        /// <summary>
-        /// The text used to name the slave grid in the form
-        /// </summary>
-        public string SlaveTitle
-        {
-            get { return groupBoxSlave.Text; }
-            set { groupBoxSlave.Text = value; }
-        }
-        ///<summary>
-        /// Set to true if doubleclick in a grid should close the form with DialogResult.OK if there is 
-        /// valid selection.
-        ///</summary>
-        public bool MouseDoubleClickIsOk { get; set; }
+        public event EventHandler SlaveSelectionChanged;
 
         ///<summary>
         /// Default contructor for the form
@@ -76,27 +36,83 @@ namespace DelftTools.Controls.Swf
         }
 
         ///<summary>
+        /// Set to true to support multiple selection in the master grid; default is false.
+        ///</summary>
+        public bool MasterMultiSelect
+        {
+            get
+            {
+                return dataGridViewMaster.MultiSelect;
+            }
+            set
+            {
+                dataGridViewMaster.MultiSelect = value;
+            }
+        }
+
+        ///<summary>
+        /// Set to true to support multiple selection in the slave grid; default is false.
+        ///</summary>
+        public bool SlaveMultiSelect
+        {
+            get
+            {
+                return dataGridViewSlave.MultiSelect;
+            }
+            set
+            {
+                dataGridViewSlave.MultiSelect = value;
+            }
+        }
+
+        /// <summary>
+        /// The text used to name the master grid in the form
+        /// </summary>
+        public string MasterTitle
+        {
+            get
+            {
+                return groupBoxMaster.Text;
+            }
+            set
+            {
+                groupBoxMaster.Text = value;
+            }
+        }
+
+        /// <summary>
+        /// The text used to name the slave grid in the form
+        /// </summary>
+        public string SlaveTitle
+        {
+            get
+            {
+                return groupBoxSlave.Text;
+            }
+            set
+            {
+                groupBoxSlave.Text = value;
+            }
+        }
+
+        ///<summary>
+        /// Set to true if doubleclick in a grid should close the form with DialogResult.OK if there is 
+        /// valid selection.
+        ///</summary>
+        public bool MouseDoubleClickIsOk { get; set; }
+
+        ///<summary>
         /// Set to true to only use the master grid
         ///</summary>
         public bool SingleList
         {
-            get { return splitContainer1.Panel2Collapsed; }
-            set { splitContainer1.Panel2Collapsed = value; }
-        }
-
-        void MasterDataGridViewSelectionChanged(object sender, System.EventArgs e)
-        {
-            if (null != MasterSelectionChanged)
+            get
             {
-                MasterSelectionChanged(this, e);
+                return splitContainer1.Panel2Collapsed;
             }
-        }
-
-        void SlaveDataGridViewSelectionChanged(object sender, System.EventArgs e)
-        {
-            if (null != SlaveSelectionChanged)
+            set
             {
-                SlaveSelectionChanged(this, e);
+                splitContainer1.Panel2Collapsed = value;
             }
         }
 
@@ -105,8 +121,14 @@ namespace DelftTools.Controls.Swf
         ///</summary>
         public IEnumerable MasterDataSource
         {
-            get { return (IEnumerable) dataGridViewMaster.DataSource; }
-            set { dataGridViewMaster.DataSource = value; }
+            get
+            {
+                return (IEnumerable) dataGridViewMaster.DataSource;
+            }
+            set
+            {
+                dataGridViewMaster.DataSource = value;
+            }
         }
 
         ///<summary>
@@ -116,19 +138,14 @@ namespace DelftTools.Controls.Swf
         ///</summary>
         public IEnumerable SlaveDataSource
         {
-            get { return (IEnumerable)dataGridViewSlave.DataSource; }
-            set { dataGridViewSlave.DataSource = value; }
-        }
-
-        private static IEnumerable<int> DataGridViewSelectedIndices(DataGridView dataGridView)
-        {
-            IList<int> selectedIndices = new List<int>();
-            
-            foreach (DataGridViewRow s in dataGridView.SelectedRows)
+            get
             {
-                selectedIndices.Add(dataGridView.Rows.IndexOf(s));
+                return (IEnumerable) dataGridViewSlave.DataSource;
             }
-            return selectedIndices;
+            set
+            {
+                dataGridViewSlave.DataSource = value;
+            }
         }
 
         ///<summary>
@@ -136,7 +153,10 @@ namespace DelftTools.Controls.Swf
         ///</summary>
         public IEnumerable<int> MasterSelectedIndices
         {
-            get { return DataGridViewSelectedIndices(dataGridViewMaster); }
+            get
+            {
+                return DataGridViewSelectedIndices(dataGridViewMaster);
+            }
         }
 
         ///<summary>
@@ -144,17 +164,10 @@ namespace DelftTools.Controls.Swf
         ///</summary>
         public IEnumerable<int> SlaveSelectedIndices
         {
-            get { return DataGridViewSelectedIndices(dataGridViewSlave); }
-        }
-
-        private void dataGridViewSlave_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if ((!MouseDoubleClickIsOk) || (!MasterSelectedIndices.Any()))
-                return;
-            if ((!SingleList) && ((!SlaveSelectedIndices.Any())))
-                return;
-            DialogResult = DialogResult.OK;
-            Close();
+            get
+            {
+                return DataGridViewSelectedIndices(dataGridViewSlave);
+            }
         }
 
         public void SetMasterSelectedIndices(IEnumerable<int> pSelectedIndices)
@@ -165,6 +178,47 @@ namespace DelftTools.Controls.Swf
             {
                 row.Selected = selectedIndices.Contains(row.Index);
             }
+        }
+
+        private void MasterDataGridViewSelectionChanged(object sender, EventArgs e)
+        {
+            if (null != MasterSelectionChanged)
+            {
+                MasterSelectionChanged(this, e);
+            }
+        }
+
+        private void SlaveDataGridViewSelectionChanged(object sender, EventArgs e)
+        {
+            if (null != SlaveSelectionChanged)
+            {
+                SlaveSelectionChanged(this, e);
+            }
+        }
+
+        private static IEnumerable<int> DataGridViewSelectedIndices(DataGridView dataGridView)
+        {
+            IList<int> selectedIndices = new List<int>();
+
+            foreach (DataGridViewRow s in dataGridView.SelectedRows)
+            {
+                selectedIndices.Add(dataGridView.Rows.IndexOf(s));
+            }
+            return selectedIndices;
+        }
+
+        private void dataGridViewSlave_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if ((!MouseDoubleClickIsOk) || (!MasterSelectedIndices.Any()))
+            {
+                return;
+            }
+            if ((!SingleList) && ((!SlaveSelectedIndices.Any())))
+            {
+                return;
+            }
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }

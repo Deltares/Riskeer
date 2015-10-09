@@ -5,7 +5,7 @@ using DelftTools.Controls;
 
 namespace DeltaShell.Tests.TestObjects
 {
-    public partial class TestView : UserControl,IView
+    public partial class TestView : UserControl, IView
     {
         public TestView()
         {
@@ -14,16 +14,21 @@ namespace DeltaShell.Tests.TestObjects
 
         public object Data { get; set; }
         public Image Image { get; set; }
-        public void EnsureVisible(object item) { }
         public ViewInfo ViewInfo { get; set; }
+        public void EnsureVisible(object item) {}
     }
 
     public class ReusableTestView : TestView, IReusableView
     {
+        public event EventHandler LockedChanged;
         private bool locked;
+
         public bool Locked
         {
-            get { return locked; }
+            get
+            {
+                return locked;
+            }
             set
             {
                 if (!Equals(locked, value))
@@ -36,13 +41,9 @@ namespace DeltaShell.Tests.TestObjects
                 }
             }
         }
-
-        public event EventHandler LockedChanged;
     }
 
-    public class AdditionalView : TestView, IAdditionalView
-    {
-    }
+    public class AdditionalView : TestView, IAdditionalView {}
 
     public class TestWrapper
     {

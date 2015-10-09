@@ -14,11 +14,26 @@ namespace DelftTools.Utils.Aop
     [Synchronization]
     public class EditActionAttribute : MethodInterceptionAspect
     {
-        public EditActionAttribute()
-        {
-        }
+        public static event Action<MethodInterceptionArgs> BeforeEdit;
+
+        public static event Action<MethodInterceptionArgs> AfterEdit;
+
+        /// <summary>
+        /// Fired before any CollectionChanging or PropertyChanging events occur.
+        /// </summary>
+        public static Action<object, bool> BeforeEventCall;
+
+        /// <summary>
+        /// Fired after any CollectionChanged or PropertyChanged events occur. When collection Changing is cancelled - this event is still fired.
+        /// </summary>
+        public static Action<object, bool, bool> AfterEventCall;
+
+        [ThreadStatic]
+        private static int editActionsInProgress;
 
         private readonly Type editActionType;
+
+        public EditActionAttribute() {}
 
         public EditActionAttribute(Type editActionType)
         {
@@ -29,33 +44,6 @@ namespace DelftTools.Utils.Aop
             }
 
             this.editActionType = editActionType;
-        }
-        
-        /// <summary>
-        /// Fired before any CollectionChanging or PropertyChanging events occur.
-        /// </summary>
-        public static Action<object, bool> BeforeEventCall;
-
-        /// <summary>
-        /// Fired after any CollectionChanged or PropertyChanged events occur. When collection Changing is cancelled - this event is still fired.
-        /// </summary>
-        public static Action<object, bool, bool> AfterEventCall;
-        
-        public static event Action<MethodInterceptionArgs> BeforeEdit;
-
-        public static event Action<MethodInterceptionArgs> AfterEdit;
-        
-        [ThreadStatic]
-        private static int editActionsInProgress;
-
-        internal static string Indent
-        {
-            get { return GetIndent(editActionsInProgress); }
-        }
-
-        private static string GetIndent(int num)
-        {
-            return Enumerable.Repeat("  ", Math.Max(0, num)).Aggregate("", (s1, s2) => s1 + s2);
         }
 
         public static void FireBeforeEventCall(object sender, bool isPropertyChange)
@@ -80,7 +68,7 @@ namespace DelftTools.Utils.Aop
             }
         }
 
-        public sealed override void OnInvoke(MethodInterceptionArgs eventArgs)
+        public override sealed void OnInvoke(MethodInterceptionArgs eventArgs)
         {
             if (EditActionSettings.Disabled && !(EditActionSettings.AllowRestoreActions && editActionType != null))
             {
@@ -95,7 +83,7 @@ namespace DelftTools.Utils.Aop
                 if (EventSettings.EnableLogging)
                 {
                     //log.DebugFormat(Indent + ">> Entering edit action {0} (enabled:{1}) {2}",
-                     //               (eventArgs.Instance != null ? eventArgs.Instance.GetType().Name : "static") + "." + eventArgs.Method.Name, !Disabled, editActionsInProgress);
+                    //               (eventArgs.Instance != null ? eventArgs.Instance.GetType().Name : "static") + "." + eventArgs.Method.Name, !Disabled, editActionsInProgress);
                 }
 
                 if (BeforeEdit != null)
@@ -128,10 +116,10 @@ namespace DelftTools.Utils.Aop
                 {
                     eventArgs.Proceed();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     exception = true;
-                    
+
                     throw;
                 }
                 finally
@@ -169,6 +157,19 @@ namespace DelftTools.Utils.Aop
                 editActionsInProgress--;
             }
         }
+
+        internal static string Indent
+        {
+            get
+            {
+                return GetIndent(editActionsInProgress);
+            }
+        }
+
+        private static string GetIndent(int num)
+        {
+            return Enumerable.Repeat("  ", Math.Max(0, num)).Aggregate("", (s1, s2) => s1 + s2);
+        }
     }
 
     /// <summary>
@@ -180,5 +181,4 @@ namespace DelftTools.Utils.Aop
         public static bool AllowRestoreActions;
         public static bool SupportEditableObject;
     }
-
 }

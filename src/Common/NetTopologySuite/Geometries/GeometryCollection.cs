@@ -34,8 +34,8 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// For create this <see cref="Geometry"/> is used a standard <see cref="GeometryFactory"/> 
         /// with <see cref="PrecisionModel" /> <c> == </c> <see cref="PrecisionModels.Floating"/>.
         /// </remarks>
-        public GeometryCollection(IGeometry[] geometries) : this(geometries, DefaultFactory) { }
-              
+        public GeometryCollection(IGeometry[] geometries) : this(geometries, DefaultFactory) {}
+
         /// <summary>
         /// 
         /// </summary>
@@ -47,25 +47,45 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </param>
         /// <param name="factory"></param>
         public GeometryCollection(IGeometry[] geometries, IGeometryFactory factory) : base(factory)
-        {            
-            if (geometries == null)             
-                geometries = new IGeometry[] { };            
-            if (HasNullElements(geometries))             
-                throw new ArgumentException("geometries must not contain null elements");            
+        {
+            if (geometries == null)
+            {
+                geometries = new IGeometry[]
+                {};
+            }
+            if (HasNullElements(geometries))
+            {
+                throw new ArgumentException("geometries must not contain null elements");
+            }
             this.geometries = geometries;
-            
+
             GeometryChangedAction();
+        }
+
+        /// <summary>
+        /// Returns the iTh element in the collection.
+        /// </summary>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        public IGeometry this[int i]
+        {
+            get
+            {
+                return geometries[i];
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public override ICoordinate Coordinate 
+        public override ICoordinate Coordinate
         {
             get
             {
-                if (IsEmpty) 
+                if (IsEmpty)
+                {
                     return null;
+                }
                 return geometries[0].Coordinate;
             }
         }
@@ -104,8 +124,12 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             get
             {
                 for (int i = 0; i < geometries.Length; i++)
-                    if (!geometries[i].IsEmpty) 
+                {
+                    if (!geometries[i].IsEmpty)
+                    {
                         return false;
+                    }
+                }
                 return true;
             }
         }
@@ -113,13 +137,15 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>
         /// 
         /// </summary>
-        public override Dimensions Dimension 
+        public override Dimensions Dimension
         {
             get
             {
                 Dimensions dimension = Dimensions.False;
                 for (int i = 0; i < geometries.Length; i++)
-                    dimension = (Dimensions) Math.Max((int)dimension, (int)geometries[i].Dimension);
+                {
+                    dimension = (Dimensions) Math.Max((int) dimension, (int) geometries[i].Dimension);
+                }
                 return dimension;
             }
         }
@@ -133,7 +159,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             {
                 Dimensions dimension = Dimensions.False;
                 for (int i = 0; i < geometries.Length; i++)
+                {
                     dimension = (Dimensions) Math.Max((int) dimension, (int) (geometries[i].BoundaryDimension));
+                }
                 return dimension;
             }
         }
@@ -152,16 +180,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public override IGeometry GetGeometryN(int n) 
-        {
-            return geometries[n];
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public IGeometry[] Geometries
         {
             get
@@ -173,13 +191,15 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>
         /// 
         /// </summary>
-        public override int NumPoints 
+        public override int NumPoints
         {
             get
             {
                 int numPoints = 0;
                 for (int i = 0; i < geometries.Length; i++)
+                {
                     numPoints += geometries[i].NumPoints;
+                }
                 return numPoints;
             }
         }
@@ -190,7 +210,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public override string GeometryType
         {
             get
-            {                
+            {
                 return "GeometryCollection";
             }
         }
@@ -230,7 +250,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             {
                 double area = 0.0;
                 for (int i = 0; i < geometries.Length; i++)
+                {
                     area += geometries[i].Area;
+                }
                 return area;
             }
         }
@@ -244,110 +266,11 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             {
                 double sum = 0.0;
                 for (int i = 0; i < geometries.Length; i++)
+                {
                     sum += (geometries[i]).Length;
+                }
                 return sum;
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
-        /// <param name="tolerance"></param>
-        /// <returns></returns>
-        public override bool EqualsExact(IGeometry other, double tolerance) 
-        {
-            if (!IsEquivalentClass(other)) 
-                return false;            
-
-            IGeometryCollection otherCollection = (IGeometryCollection) other;
-            if (geometries.Length != otherCollection.Geometries.Length)
-                return false;
-
-            for (int i = 0; i < geometries.Length; i++) 
-                if (!geometries[i].EqualsExact(
-                     otherCollection.Geometries[i], tolerance)) 
-                        return false;
-            return true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="filter"></param>
-        public override void Apply(ICoordinateFilter filter)
-        {
-            for (int i = 0; i < geometries.Length; i++)
-                 geometries[i].Apply(filter);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="filter"></param>
-        public override void Apply(IGeometryFilter filter)
-        {
-            filter.Filter(this);
-            for (int i = 0; i < geometries.Length; i++)
-                 geometries[i].Apply(filter);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="filter"></param>
-        public override void Apply(IGeometryComponentFilter filter) 
-        {
-            filter.Filter(this);
-            for (int i = 0; i < geometries.Length; i++)
-                 geometries[i].Apply(filter);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override object Clone() 
-        {
-            GeometryCollection gc = (GeometryCollection) base.Clone();
-            gc.geometries = new IGeometry[geometries.Length];
-            for (int i = 0; i < geometries.Length; i++) 
-                gc.geometries[i] = (IGeometry) geometries[i].Clone();
-            return gc; 
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public override void Normalize() 
-        {
-            for (int i = 0; i < geometries.Length; i++) 
-                geometries[i].Normalize();
-            Array.Sort(geometries);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        protected override IEnvelope ComputeEnvelopeInternal()
-        {
-            IEnvelope envelope = new Envelope();
-            for (int i = 0; i < geometries.Length; i++) 
-                envelope.ExpandToInclude(geometries[i].EnvelopeInternal);
-            return envelope;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="o"></param>
-        /// <returns></returns>
-        protected internal override int CompareToSameClass(object o) 
-        {
-            ArrayList theseElements = new ArrayList(geometries);
-            ArrayList otherElements = new ArrayList(((GeometryCollection) o).geometries);
-            return Compare(theseElements, otherElements);
         }
 
         /// <summary>
@@ -359,10 +282,132 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             {
                 IGeometry baseGeom = Geometries[0];
                 for (int i = 1; i < Geometries.Length; i++)
+                {
                     if (baseGeom.GetType() != Geometries[i].GetType())
+                    {
                         return false;
+                    }
+                }
                 return true;
             }
+        }
+
+        /* BEGIN ADDED BY MPAUL42: monoGIS team */
+
+        /// <summary>
+        /// Returns the number of geometries contained by this <see cref="GeometryCollection" />.
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return geometries.Length;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public override IGeometry GetGeometryN(int n)
+        {
+            return geometries[n];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <param name="tolerance"></param>
+        /// <returns></returns>
+        public override bool EqualsExact(IGeometry other, double tolerance)
+        {
+            if (!IsEquivalentClass(other))
+            {
+                return false;
+            }
+
+            IGeometryCollection otherCollection = (IGeometryCollection) other;
+            if (geometries.Length != otherCollection.Geometries.Length)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < geometries.Length; i++)
+            {
+                if (!geometries[i].EqualsExact(
+                    otherCollection.Geometries[i], tolerance))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter"></param>
+        public override void Apply(ICoordinateFilter filter)
+        {
+            for (int i = 0; i < geometries.Length; i++)
+            {
+                geometries[i].Apply(filter);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter"></param>
+        public override void Apply(IGeometryFilter filter)
+        {
+            filter.Filter(this);
+            for (int i = 0; i < geometries.Length; i++)
+            {
+                geometries[i].Apply(filter);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filter"></param>
+        public override void Apply(IGeometryComponentFilter filter)
+        {
+            filter.Filter(this);
+            for (int i = 0; i < geometries.Length; i++)
+            {
+                geometries[i].Apply(filter);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override object Clone()
+        {
+            GeometryCollection gc = (GeometryCollection) base.Clone();
+            gc.geometries = new IGeometry[geometries.Length];
+            for (int i = 0; i < geometries.Length; i++)
+            {
+                gc.geometries[i] = (IGeometry) geometries[i].Clone();
+            }
+            return gc;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override void Normalize()
+        {
+            for (int i = 0; i < geometries.Length; i++)
+            {
+                geometries[i].Normalize();
+            }
+            Array.Sort(geometries);
         }
 
         /// <summary>
@@ -379,31 +424,31 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         }
 
         /// <summary>
-        /// Returns the iTh element in the collection.
+        /// 
         /// </summary>
-        /// <param name="i"></param>
+        /// <param name="o"></param>
         /// <returns></returns>
-        public IGeometry this[int i]
+        protected internal override int CompareToSameClass(object o)
         {
-            get
-            {
-                return this.geometries[i];
-            }
+            ArrayList theseElements = new ArrayList(geometries);
+            ArrayList otherElements = new ArrayList(((GeometryCollection) o).geometries);
+            return Compare(theseElements, otherElements);
         }
-
-        /* BEGIN ADDED BY MPAUL42: monoGIS team */
 
         /// <summary>
-        /// Returns the number of geometries contained by this <see cref="GeometryCollection" />.
+        /// 
         /// </summary>
-        public int Count
+        /// <returns></returns>
+        protected override IEnvelope ComputeEnvelopeInternal()
         {
-            get
+            IEnvelope envelope = new Envelope();
+            for (int i = 0; i < geometries.Length; i++)
             {
-                return geometries.Length;
+                envelope.ExpandToInclude(geometries[i].EnvelopeInternal);
             }
+            return envelope;
         }
-        
+
         /* END ADDED BY MPAUL42: monoGIS team */
     }
 }

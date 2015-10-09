@@ -14,11 +14,16 @@ namespace DelftTools.Utils.Reflection
     public static class TypeUtils
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(TypeUtils));
-        
+
+        private static readonly IDictionary<Type, IDictionary<string, PropertyInfo>> PropertyInfoDictionary = new Dictionary<Type, IDictionary<string, PropertyInfo>>();
+
+        private static readonly IDictionary<string, MethodInfo> CachedMethods = new Dictionary<string, MethodInfo>();
+
         public static bool Implements<T>(this Type thisType)
         {
-            return typeof (T).IsAssignableFrom(thisType);
+            return typeof(T).IsAssignableFrom(thisType);
         }
+
         public static bool Implements(this Type thisType, Type type)
         {
             return type.IsAssignableFrom(thisType);
@@ -34,7 +39,7 @@ namespace DelftTools.Utils.Reflection
                     type == typeof(Int16) ||
                     type == typeof(Double));
         }
-        
+
         /// <summary>
         /// Usage: CreateGeneric(typeof(List<>), typeof(string));
         /// </summary>
@@ -44,7 +49,10 @@ namespace DelftTools.Utils.Reflection
         /// <returns></returns>
         public static object CreateGeneric(Type generic, Type innerType, params object[] args)
         {
-            Type specificType = generic.MakeGenericType(new[] {innerType});
+            Type specificType = generic.MakeGenericType(new[]
+            {
+                innerType
+            });
             return Activator.CreateInstance(specificType, args);
         }
 
@@ -54,12 +62,12 @@ namespace DelftTools.Utils.Reflection
             return Activator.CreateInstance(specificType, args);
         }
 
-        public static object GetPropertyValue(object instance, string propertyName, bool throwOnError=true)
+        public static object GetPropertyValue(object instance, string propertyName, bool throwOnError = true)
         {
             var implementingType = instance.GetType();
-            
+
             var propertyInfo = GetPropertyInfo(implementingType, propertyName);
-            
+
             if (!throwOnError && propertyInfo.GetIndexParameters().Any())
             {
                 return null; //invalid combo, would throw
@@ -67,8 +75,6 @@ namespace DelftTools.Utils.Reflection
 
             return propertyInfo.GetValue(instance, new object[0]);
         }
-
-        private readonly static IDictionary<Type, IDictionary<string, PropertyInfo>> PropertyInfoDictionary = new Dictionary<Type, IDictionary<string, PropertyInfo>>();
 
         public static PropertyInfo GetPropertyInfo(Type type, string propertyName)
         {
@@ -95,48 +101,10 @@ namespace DelftTools.Utils.Reflection
             return propertyInfo;
         }
 
-        private static PropertyInfo GetPrivatePropertyInfo(Type type, string propertyName)
-        {
-            //get the property by walking up the inheritance chain. See NHibernate's BasicPropertyAccessor
-            //we could extend this logic more by looking there...
-            if (type == typeof(object) || type == null)
-            {
-                // the full inheritance chain has been walked and we could
-                // not find the PropertyInfo get
-                return null;
-            }
-
-            var propertyInfo = type.GetProperty(propertyName,
-                                                  BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
-            if (propertyInfo != null)
-            {
-                return propertyInfo;
-            }
-
-            return GetPrivatePropertyInfo(type.BaseType, propertyName);
-        }
-
-        /// <summary>
-        /// Returns generic instance method of given name. Cannot use GetMethod() because this does not
-        /// work if 2 members have the same name (eg. SetValues and SetValues<T>)
-        /// </summary>
-        /// <param name="declaringType"></param>
-        /// <param name="methodName"></param>
-        /// <returns></returns>
-        private static MethodInfo GetGenericMethod(Type declaringType, string methodName)
-            //,Type genericType,object instance,params object[]args )
-        {
-            var methods = declaringType.GetMembers(BindingFlags.InvokeMethod | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-            return methods.OfType<MethodInfo>().First(m => m.Name == methodName && m.IsGenericMethod);
-        }
-
-        static readonly IDictionary<string, MethodInfo> CachedMethods = new Dictionary<string, MethodInfo>();
-
         public static object CallGenericMethod(Type declaringType, string methodName, Type genericType,
                                                object instance, params object[] args)
         {
             var key = declaringType + "_" + genericType + "_" + methodName;
-
 
             MethodInfo methodInfo = null;
 
@@ -147,7 +115,6 @@ namespace DelftTools.Utils.Reflection
                 return CallMethod(methodInfo, instance, args);
             }
 
-
             MethodInfo nonGeneric = GetGenericMethod(declaringType, methodName);
 
             methodInfo = nonGeneric.MakeGenericMethod(genericType); // generify
@@ -155,29 +122,6 @@ namespace DelftTools.Utils.Reflection
             CachedMethods[key] = methodInfo;
 
             return CallMethod(methodInfo, instance, args);
-        }
-
-        private static object CallMethod(MethodInfo methodInfo, object instance, object[] args)
-        {
-            object result;
-            try
-            {
-                result = methodInfo.Invoke(instance, args);
-            }
-            catch (TargetInvocationException e)
-            {
-                // re-throw original exception
-                if (e.InnerException != null)
-                {
-                    log.Error("Exception occured", e); // log outer exception
-
-                    throw e.InnerException;
-                }
-
-                throw;
-            }
-
-            return result;
         }
 
         /// <summary>
@@ -208,70 +152,27 @@ namespace DelftTools.Utils.Reflection
             var isProxy = inst.GetType().GetInterfaces().Any(i => i.Name == "INHibernateProxy");
 
             if (!isProxy)
+            {
                 return inst;
+            }
 
             var type = AppDomain.CurrentDomain.GetAssemblies()
-                                 .Where(a => a.FullName.Contains("NHibernate"))
-                                 .SelectMany(a => a.GetTypes())
-                                 .First(t => t.Name == "DeltaShellProxyInterceptor");
+                                .Where(a => a.FullName.Contains("NHibernate"))
+                                .SelectMany(a => a.GetTypes())
+                                .First(t => t.Name == "DeltaShellProxyInterceptor");
 
             //static deproxy method:
             var deproxyMethod = type.GetMethod("GetRealObject", BindingFlags.NonPublic | BindingFlags.Static);
 
-            return (T) deproxyMethod.Invoke(null, new object[] {inst});
+            return (T) deproxyMethod.Invoke(null, new object[]
+            {
+                inst
+            });
         }
 
         public static T DeepClone<T>(T inst)
         {
             return AutoCloner.DeepClone(inst);
-        }
-
-        internal static IEnumerable<KeyValuePair<FieldInfo,object>> GetNonInfrastructureFields(object inst, Type type)
-        {
-            foreach (var fi in GetAllAccessibleFieldsForType(type))
-            {
-                //skip events
-                var value = fi.GetValue(inst);
-                if (value is Delegate)
-                    continue; //don't copy events
-
-                //skip 'Id'
-                if (fi.Name == "id" || fi.Name == "_id" || fi.Name == "<Id>k__BackingField")
-                    continue;
-
-                //skip PostSharp stuff?
-                if (fi.FieldType == typeof(EntityAttribute))
-                    continue;
-                
-                yield return new KeyValuePair<FieldInfo, object>(fi, value);
-            }
-        }
-
-        private static IEnumerable<FieldInfo> GetAllAccessibleFieldsForType(Type type)
-        {
-            return type == null
-                       ? new FieldInfo[0]
-                       : type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                             .Where(fi => !fi.IsLiteral && !fi.IsInitOnly)
-                             .Concat(GetAllAccessibleFieldsForType(type.BaseType)).Distinct();
-        }
-
-        internal static T CreateInstance<T>(Type type)
-        {
-            if (type.IsArray)
-            {
-                return (T) (object)Array.CreateInstance(type.GetElementType(), 0);
-            }
-
-            var defaultConstructor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                                         .FirstOrDefault(c => c.GetParameters().Length == 0);
-
-            if (defaultConstructor == null)
-            {
-                throw new NotImplementedException(string.Format("No default constructor available for type {0}", type));
-            }
-
-            return (T) Activator.CreateInstance(type, true);
         }
 
         public static object CallStaticGenericMethod(Type type, string methodName, Type genericType,
@@ -284,7 +185,7 @@ namespace DelftTools.Utils.Reflection
 
         public static IList GetTypedList(Type t)
         {
-            return (IList) CreateGeneric(typeof (List<>), t);
+            return (IList) CreateGeneric(typeof(List<>), t);
         }
 
         public static IEnumerable ConvertEnumerableToType(IEnumerable enumerable, Type type)
@@ -312,7 +213,9 @@ namespace DelftTools.Utils.Reflection
         public static IEnumerable<FieldInfo> GetAllFields(Type t, BindingFlags bindingFlags)
         {
             if (t == null)
+            {
                 return Enumerable.Empty<FieldInfo>();
+            }
 
             BindingFlags flags = bindingFlags;
             return t.GetFields(flags).Union(GetAllFields(t.BaseType, bindingFlags));
@@ -350,7 +253,7 @@ namespace DelftTools.Utils.Reflection
         public static TAttribute GetFieldAttribute<TAttribute>(Type classType, string fieldName) where TAttribute : class
         {
             var fieldInfo = GetFieldInfo(classType, fieldName);
-            return ((TAttribute[])fieldInfo.GetCustomAttributes(typeof (TAttribute), false)).FirstOrDefault();
+            return ((TAttribute[]) fieldInfo.GetCustomAttributes(typeof(TAttribute), false)).FirstOrDefault();
         }
 
         public static string GetMemberName<TClass>(Expression<Func<TClass, object>> e)
@@ -358,8 +261,10 @@ namespace DelftTools.Utils.Reflection
             var member = e.Body as MemberExpression;
 
             if (member != null)
+            {
                 return GetMemberNameFromMemberExpression(member);
-            
+            }
+
             var unary = e.Body as UnaryExpression;
 
             // If the method gets a lambda expression 
@@ -380,21 +285,11 @@ namespace DelftTools.Utils.Reflection
             return GetMemberNameFromMemberExpression(e.Body as MemberExpression);
         }
 
-        private static string GetMemberNameFromMemberExpression(MemberExpression member)
-        {
-            // If the method gets a lambda expression 
-            // that is not a member access,
-            // for example, () => x + y, an exception is thrown.
-            if (member != null)
-                return member.Member.Name;
-            throw new ArgumentException(member + ": not a valid expression for this method");
-        }
-
         public static object GetDefaultValue(Type type)
         {
-            return type.IsValueType 
-                ? Activator.CreateInstance(type) 
-                : type == typeof(string) ? "" : null;
+            return type.IsValueType
+                       ? Activator.CreateInstance(type)
+                       : type == typeof(string) ? "" : null;
         }
 
         public static object GetField(object instance, string fieldName)
@@ -409,30 +304,6 @@ namespace DelftTools.Utils.Reflection
             }
 
             return fieldInfo.GetValue(instance);
-        }
-
-        private static FieldInfo GetFieldInfo(Type type, string fieldName)
-        {
-            var fieldInfo = GetFieldInfoCore(type, fieldName) ??
-                            GetFieldInfoCore(type, string.Format("<{0}>", fieldName)); //postsharp compatibility mode..*sigh*
-            return fieldInfo;
-        }
-
-        private static FieldInfo GetFieldInfoCore(Type type, string fieldName)
-        {
-            if (type == typeof(object) || type == null)
-            {
-                return null;
-            }
-            FieldInfo fieldInfo = type.GetField(fieldName, BindingFlags.Instance
-                                                           | BindingFlags.NonPublic
-                                                           | BindingFlags.Public
-                                                           | BindingFlags.Static);
-            if (fieldInfo != null)
-            {
-                return fieldInfo;
-            }
-            return GetFieldInfoCore(type.BaseType, fieldName);
         }
 
         public static bool HasField(Type type, string fieldName)
@@ -450,15 +321,14 @@ namespace DelftTools.Utils.Reflection
         /// <returns></returns>
         public static TField GetField<TObject, TField>(object instance, string fieldName)
         {
-            var fieldInfo = typeof (TObject).GetField(fieldName, BindingFlags.Instance
-                                                                  | BindingFlags.NonPublic
-                                                                  | BindingFlags.Public);
+            var fieldInfo = typeof(TObject).GetField(fieldName, BindingFlags.Instance
+                                                                | BindingFlags.NonPublic
+                                                                | BindingFlags.Public);
 
             if (fieldInfo == null)
             {
                 throw new ArgumentOutOfRangeException("fieldName");
             }
-
 
             return (TField) fieldInfo.GetValue(instance);
         }
@@ -472,7 +342,7 @@ namespace DelftTools.Utils.Reflection
         public static TField GetStaticField<TField>(Type type, string staticFieldName)
         {
             var fieldInfo = type.GetField(staticFieldName, BindingFlags.NonPublic | BindingFlags.Static);
-            
+
             if (fieldInfo == null)
             {
                 throw new ArgumentOutOfRangeException("staticFieldName");
@@ -481,7 +351,7 @@ namespace DelftTools.Utils.Reflection
             return (TField) fieldInfo.GetValue(null);
         }
 
-        public static void SetField(object obj,string fieldName,object value)
+        public static void SetField(object obj, string fieldName, object value)
         {
             var fieldInfo = GetFieldInfo(obj.GetType(), fieldName);
 
@@ -496,8 +366,8 @@ namespace DelftTools.Utils.Reflection
         public static void SetField<T>(object obj, string fieldName, object value)
         {
             var fieldInfo = typeof(T).GetField(fieldName, BindingFlags.Instance
-                                                  | BindingFlags.NonPublic
-                                                  | BindingFlags.Public | BindingFlags.FlattenHierarchy);
+                                                          | BindingFlags.NonPublic
+                                                          | BindingFlags.Public | BindingFlags.FlattenHierarchy);
 
             if (fieldInfo == null)
             {
@@ -537,23 +407,30 @@ namespace DelftTools.Utils.Reflection
 
         public static void SetPropertyValue(object instance, string propertyName, object value)
         {
-            instance.GetType().GetProperty(propertyName).GetSetMethod().Invoke(instance, new[] { value });
+            instance.GetType().GetProperty(propertyName).GetSetMethod().Invoke(instance, new[]
+            {
+                value
+            });
         }
 
         public static void SetPrivatePropertyValue(object instance, string propertyName, object value)
         {
             instance.GetType().GetProperty(propertyName).SetValue(instance, value, null);
         }
-        
+
         public static bool TrySetValueAnyVisibility(object instance, Type type, string propertyName, object value)
         {
             if (type == null)
+            {
                 return false;
+            }
 
             var propertyInfo = type.GetProperties().First(p => p.Name == propertyName);
 
             if (propertyInfo == null)
+            {
                 return false;
+            }
 
             if (!propertyInfo.CanWrite)
             {
@@ -575,7 +452,7 @@ namespace DelftTools.Utils.Reflection
             //more nice than depending on an exception..
             return (assembly.ManifestModule.GetType().Namespace == "System.Reflection.Emit");
         }
-        
+
         public static bool IsAggregationProperty(object sender, string propertyName)
         {
             var propertyInfo = GetPropertyInfo(sender.GetType(), propertyName);
@@ -595,7 +472,155 @@ namespace DelftTools.Utils.Reflection
         public static void ClearCaches()
         {
             PropertyInfoDictionary.Clear();
-            CachedMethods.Clear(); 
+            CachedMethods.Clear();
+        }
+
+        internal static IEnumerable<KeyValuePair<FieldInfo, object>> GetNonInfrastructureFields(object inst, Type type)
+        {
+            foreach (var fi in GetAllAccessibleFieldsForType(type))
+            {
+                //skip events
+                var value = fi.GetValue(inst);
+                if (value is Delegate)
+                {
+                    continue; //don't copy events
+                }
+
+                //skip 'Id'
+                if (fi.Name == "id" || fi.Name == "_id" || fi.Name == "<Id>k__BackingField")
+                {
+                    continue;
+                }
+
+                //skip PostSharp stuff?
+                if (fi.FieldType == typeof(EntityAttribute))
+                {
+                    continue;
+                }
+
+                yield return new KeyValuePair<FieldInfo, object>(fi, value);
+            }
+        }
+
+        internal static T CreateInstance<T>(Type type)
+        {
+            if (type.IsArray)
+            {
+                return (T) (object) Array.CreateInstance(type.GetElementType(), 0);
+            }
+
+            var defaultConstructor = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+                                         .FirstOrDefault(c => c.GetParameters().Length == 0);
+
+            if (defaultConstructor == null)
+            {
+                throw new NotImplementedException(string.Format("No default constructor available for type {0}", type));
+            }
+
+            return (T) Activator.CreateInstance(type, true);
+        }
+
+        private static PropertyInfo GetPrivatePropertyInfo(Type type, string propertyName)
+        {
+            //get the property by walking up the inheritance chain. See NHibernate's BasicPropertyAccessor
+            //we could extend this logic more by looking there...
+            if (type == typeof(object) || type == null)
+            {
+                // the full inheritance chain has been walked and we could
+                // not find the PropertyInfo get
+                return null;
+            }
+
+            var propertyInfo = type.GetProperty(propertyName,
+                                                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly);
+            if (propertyInfo != null)
+            {
+                return propertyInfo;
+            }
+
+            return GetPrivatePropertyInfo(type.BaseType, propertyName);
+        }
+
+        /// <summary>
+        /// Returns generic instance method of given name. Cannot use GetMethod() because this does not
+        /// work if 2 members have the same name (eg. SetValues and SetValues<T>)
+        /// </summary>
+        /// <param name="declaringType"></param>
+        /// <param name="methodName"></param>
+        /// <returns></returns>
+        private static MethodInfo GetGenericMethod(Type declaringType, string methodName)
+            //,Type genericType,object instance,params object[]args )
+        {
+            var methods = declaringType.GetMembers(BindingFlags.InvokeMethod | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            return methods.OfType<MethodInfo>().First(m => m.Name == methodName && m.IsGenericMethod);
+        }
+
+        private static object CallMethod(MethodInfo methodInfo, object instance, object[] args)
+        {
+            object result;
+            try
+            {
+                result = methodInfo.Invoke(instance, args);
+            }
+            catch (TargetInvocationException e)
+            {
+                // re-throw original exception
+                if (e.InnerException != null)
+                {
+                    log.Error("Exception occured", e); // log outer exception
+
+                    throw e.InnerException;
+                }
+
+                throw;
+            }
+
+            return result;
+        }
+
+        private static IEnumerable<FieldInfo> GetAllAccessibleFieldsForType(Type type)
+        {
+            return type == null
+                       ? new FieldInfo[0]
+                       : type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                             .Where(fi => !fi.IsLiteral && !fi.IsInitOnly)
+                             .Concat(GetAllAccessibleFieldsForType(type.BaseType)).Distinct();
+        }
+
+        private static string GetMemberNameFromMemberExpression(MemberExpression member)
+        {
+            // If the method gets a lambda expression 
+            // that is not a member access,
+            // for example, () => x + y, an exception is thrown.
+            if (member != null)
+            {
+                return member.Member.Name;
+            }
+            throw new ArgumentException(member + ": not a valid expression for this method");
+        }
+
+        private static FieldInfo GetFieldInfo(Type type, string fieldName)
+        {
+            var fieldInfo = GetFieldInfoCore(type, fieldName) ??
+                            GetFieldInfoCore(type, string.Format("<{0}>", fieldName)); //postsharp compatibility mode..*sigh*
+            return fieldInfo;
+        }
+
+        private static FieldInfo GetFieldInfoCore(Type type, string fieldName)
+        {
+            if (type == typeof(object) || type == null)
+            {
+                return null;
+            }
+            FieldInfo fieldInfo = type.GetField(fieldName, BindingFlags.Instance
+                                                           | BindingFlags.NonPublic
+                                                           | BindingFlags.Public
+                                                           | BindingFlags.Static);
+            if (fieldInfo != null)
+            {
+                return fieldInfo;
+            }
+            return GetFieldInfoCore(type.BaseType, fieldName);
         }
     }
 }

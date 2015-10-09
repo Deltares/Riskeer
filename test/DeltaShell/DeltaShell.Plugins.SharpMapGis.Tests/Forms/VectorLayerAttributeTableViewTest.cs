@@ -21,15 +21,30 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         public void DeleteOfCustomRowObjectMustDeleteOriginalFeature()
         {
             var features = new List<City>
-                                {
-                                    new City {Name = "Amsterdam", Population = 1000000, Geometry = new Point(0,0)},
-                                    new City {Name = "The Hague", Population = 90000, Geometry = new Point(-20,-40)}
-                                };
+            {
+                new City
+                {
+                    Name = "Amsterdam", Population = 1000000, Geometry = new Point(0, 0)
+                },
+                new City
+                {
+                    Name = "The Hague", Population = 90000, Geometry = new Point(-20, -40)
+                }
+            };
 
-            var layer = new VectorLayer { DataSource = new FeatureCollection { Features = features } };
+            var layer = new VectorLayer
+            {
+                DataSource = new FeatureCollection
+                {
+                    Features = features
+                }
+            };
 
-            var view = new VectorLayerAttributeTableView { Data = layer };
-            view.SetCreateFeatureRowFunction(feature => new CityProperties((City)feature));
+            var view = new VectorLayerAttributeTableView
+            {
+                Data = layer
+            };
+            view.SetCreateFeatureRowFunction(feature => new CityProperties((City) feature));
 
             var featureRowObjects = (IList) view.TableView.Data;
 
@@ -42,32 +57,62 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
         public void AddingFeatureMustAlsoAddCustomRowObject()
         {
             var features = new EventedList<City>
-                                {
-                                    new City {Name = "Amsterdam", Population = 1000000, Geometry = new Point(0,0)}
-                                };
+            {
+                new City
+                {
+                    Name = "Amsterdam", Population = 1000000, Geometry = new Point(0, 0)
+                }
+            };
 
-            var featureCollection = new FeatureCollection {Features = features};
-            var layer = new VectorLayer { DataSource = featureCollection };
+            var featureCollection = new FeatureCollection
+            {
+                Features = features
+            };
+            var layer = new VectorLayer
+            {
+                DataSource = featureCollection
+            };
 
-            var view = new VectorLayerAttributeTableView { Data = layer };
-            view.SetCreateFeatureRowFunction(feature => new CityProperties((City)feature));
+            var view = new VectorLayerAttributeTableView
+            {
+                Data = layer
+            };
+            view.SetCreateFeatureRowFunction(feature => new CityProperties((City) feature));
 
-            Assert.AreEqual(1, ((IList)view.TableView.Data).Count);
-            featureCollection.Add(new City { Name = "The Hague", Population = 90000, Geometry = new Point(-20, -40) });
-            Assert.AreEqual(2, ((IList)view.TableView.Data).Count);
+            Assert.AreEqual(1, ((IList) view.TableView.Data).Count);
+            featureCollection.Add(new City
+            {
+                Name = "The Hague", Population = 90000, Geometry = new Point(-20, -40)
+            });
+            Assert.AreEqual(2, ((IList) view.TableView.Data).Count);
         }
 
         [Test]
         public void ShowAndCheckDynamicReadOnly()
         {
-            var features = new []
-                                {
-                                    new State {Name = "Amsterdam", Gouvernor = "Piet"},
-                                    new State {Name = "The Hague", Gouvernor = "Jan", ReadOnly = true}
-                                };
+            var features = new[]
+            {
+                new State
+                {
+                    Name = "Amsterdam", Gouvernor = "Piet"
+                },
+                new State
+                {
+                    Name = "The Hague", Gouvernor = "Jan", ReadOnly = true
+                }
+            };
 
-            var layer = new VectorLayer {DataSource = new FeatureCollection {Features = features}};
-            var view = new VectorLayerAttributeTableView { Data = layer };
+            var layer = new VectorLayer
+            {
+                DataSource = new FeatureCollection
+                {
+                    Features = features
+                }
+            };
+            var view = new VectorLayerAttributeTableView
+            {
+                Data = layer
+            };
 
             Assert.IsFalse(view.TableView.CellIsReadOnly(0, view.TableView.Columns[1]));
             Assert.IsTrue(view.TableView.CellIsReadOnly(1, view.TableView.Columns[1]));
@@ -100,10 +145,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
                 return ReadOnly;
             }
         }
-        
+
         public class CityProperties : IFeatureRowObject
         {
-            private City city;
+            private readonly City city;
 
             public CityProperties(City city)
             {
@@ -111,10 +156,26 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             }
 
             [DisplayName("Name (read-only)")]
-            public string Name { get { return city.Name; } }
+            public string Name
+            {
+                get
+                {
+                    return city.Name;
+                }
+            }
 
             [DisplayFormat("0 people")]
-            public int Population { get { return city.Population; } set { city.Population = value; } }
+            public int Population
+            {
+                get
+                {
+                    return city.Population;
+                }
+                set
+                {
+                    city.Population = value;
+                }
+            }
 
             public IFeature GetFeature()
             {

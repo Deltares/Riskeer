@@ -24,88 +24,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
     /// <version>1.0</version>
     public class QuadEdgeTriangle
     {
-        /// <summary>
-        /// Creates <see cref="QuadEdgeTriangle"/>s for all facets of a
-        /// <see cref="QuadEdgeSubdivision"/> representing a triangulation.
-        /// The <tt>data</tt> attributes of the <see cref="QuadEdge"/>s in the subdivision
-        /// will be set to point to the triangle which contains that edge.
-        /// This allows tracing the neighbour triangles of any given triangle.
-        /// </summary>
-        /// <param name="subdiv">The QuadEdgeSubdivision to create the triangles on.</param>
-        /// <returns>A List of the created QuadEdgeTriangles</returns>
-        public static IList<QuadEdgeTriangle> CreateOn(QuadEdgeSubdivision subdiv)
-        {
-            var visitor = new QuadEdgeTriangleBuilderVisitor();
-            subdiv.VisitTriangles(visitor, false);
-            return visitor.GetTriangles();
-        }
-
-        /// <summary>
-        /// Tests whether the point pt is contained in the triangle defined by 3 <see cref="Vertex"/>es.
-        /// </summary>
-        /// <param name="tri">an array containing at least 3 Vertexes</param>
-        /// <param name="pt">the point to test</param>
-        /// <returns>true if the point is contained in the triangle</returns>
-        public static bool Contains(Vertex[] tri, ICoordinate pt)
-        {
-            var ring = new[]
-                           {
-                               tri[0].Coordinate,
-                               tri[1].Coordinate,
-                               tri[2].Coordinate,
-                               tri[0].Coordinate
-                           };
-            return CGAlgorithms.IsPointInRing(pt, ring);
-        }
-
-        /// <summary>
-        /// Tests whether the point pt is contained in the triangle defined by 3 <see cref="QuadEdge"/>es.
-        /// </summary>
-        /// <param name="tri">an array containing at least 3 QuadEdges</param>
-        /// <param name="pt">the point to test</param>
-        /// <returns>true if the point is contained in the triangle</returns>
-        public static bool Contains(QuadEdge[] tri, ICoordinate pt)
-        {
-            var ring = new[]
-                           {
-                               tri[0].Orig.Coordinate,
-                               tri[1].Orig.Coordinate,
-                               tri[2].Orig.Coordinate,
-                               tri[0].Orig.Coordinate
-                           };
-            return CGAlgorithms.IsPointInRing(pt, ring);
-        }
-
-        public static IGeometry ToPolygon(Vertex[] v)
-        {
-            var ringPts = new[]
-                              {
-                                  v[0].Coordinate,
-                                  v[1].Coordinate,
-                                  v[2].Coordinate,
-                                  v[0].Coordinate
-                              };
-            var fact = new GeometryFactory();
-            var ring = fact.CreateLinearRing(ringPts);
-            var tri = fact.CreatePolygon(ring, null);
-            return tri;
-        }
-
-        public static IGeometry ToPolygon(QuadEdge[] e)
-        {
-            var ringPts = new[]
-                              {
-                                  e[0].Orig.Coordinate,
-                                  e[1].Orig.Coordinate,
-                                  e[2].Orig.Coordinate,
-                                  e[0].Orig.Coordinate
-                              };
-            var fact = new GeometryFactory();
-            ILinearRing ring = fact.CreateLinearRing(ringPts);
-            IPolygon tri = fact.CreatePolygon(ring, null);
-            return tri;
-        }
-
         /*
         /// <summary>
         /// Finds the next index around the triangle. Index may be an edge or vertex index.
@@ -137,6 +55,88 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
         /// Gets or sets the external data value for this triangle.
         /// </summary>
         public object Data { get; set; }
+
+        /// <summary>
+        /// Creates <see cref="QuadEdgeTriangle"/>s for all facets of a
+        /// <see cref="QuadEdgeSubdivision"/> representing a triangulation.
+        /// The <tt>data</tt> attributes of the <see cref="QuadEdge"/>s in the subdivision
+        /// will be set to point to the triangle which contains that edge.
+        /// This allows tracing the neighbour triangles of any given triangle.
+        /// </summary>
+        /// <param name="subdiv">The QuadEdgeSubdivision to create the triangles on.</param>
+        /// <returns>A List of the created QuadEdgeTriangles</returns>
+        public static IList<QuadEdgeTriangle> CreateOn(QuadEdgeSubdivision subdiv)
+        {
+            var visitor = new QuadEdgeTriangleBuilderVisitor();
+            subdiv.VisitTriangles(visitor, false);
+            return visitor.GetTriangles();
+        }
+
+        /// <summary>
+        /// Tests whether the point pt is contained in the triangle defined by 3 <see cref="Vertex"/>es.
+        /// </summary>
+        /// <param name="tri">an array containing at least 3 Vertexes</param>
+        /// <param name="pt">the point to test</param>
+        /// <returns>true if the point is contained in the triangle</returns>
+        public static bool Contains(Vertex[] tri, ICoordinate pt)
+        {
+            var ring = new[]
+            {
+                tri[0].Coordinate,
+                tri[1].Coordinate,
+                tri[2].Coordinate,
+                tri[0].Coordinate
+            };
+            return CGAlgorithms.IsPointInRing(pt, ring);
+        }
+
+        /// <summary>
+        /// Tests whether the point pt is contained in the triangle defined by 3 <see cref="QuadEdge"/>es.
+        /// </summary>
+        /// <param name="tri">an array containing at least 3 QuadEdges</param>
+        /// <param name="pt">the point to test</param>
+        /// <returns>true if the point is contained in the triangle</returns>
+        public static bool Contains(QuadEdge[] tri, ICoordinate pt)
+        {
+            var ring = new[]
+            {
+                tri[0].Orig.Coordinate,
+                tri[1].Orig.Coordinate,
+                tri[2].Orig.Coordinate,
+                tri[0].Orig.Coordinate
+            };
+            return CGAlgorithms.IsPointInRing(pt, ring);
+        }
+
+        public static IGeometry ToPolygon(Vertex[] v)
+        {
+            var ringPts = new[]
+            {
+                v[0].Coordinate,
+                v[1].Coordinate,
+                v[2].Coordinate,
+                v[0].Coordinate
+            };
+            var fact = new GeometryFactory();
+            var ring = fact.CreateLinearRing(ringPts);
+            var tri = fact.CreatePolygon(ring, null);
+            return tri;
+        }
+
+        public static IGeometry ToPolygon(QuadEdge[] e)
+        {
+            var ringPts = new[]
+            {
+                e[0].Orig.Coordinate,
+                e[1].Orig.Coordinate,
+                e[2].Orig.Coordinate,
+                e[0].Orig.Coordinate
+            };
+            var fact = new GeometryFactory();
+            ILinearRing ring = fact.CreateLinearRing(ringPts);
+            IPolygon tri = fact.CreatePolygon(ring, null);
+            return tri;
+        }
 
         public void Kill()
         {
@@ -194,7 +194,9 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             for (int i = 0; i < 3; i++)
             {
                 if (_edge[i] == e)
+                {
                     return i;
+                }
             }
             return -1;
         }
@@ -211,7 +213,9 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             for (int i = 0; i < 3; i++)
             {
                 if (_edge[i].Orig == v)
+                {
                     return i;
+                }
             }
             return -1;
         }
@@ -247,11 +251,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             return tri;
         }
 
-        public override String ToString()
-        {
-            return GetGeometry(new GeometryFactory()).ToString();
-        }
-
         /// <summary>
         /// Tests whether this triangle is adjacent to the outside of the subdivision.
         /// </summary>
@@ -261,7 +260,9 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             for (int i = 0; i < 3; i++)
             {
                 if (GetAdjacentTriangleAcrossEdge(i) == null)
+                {
                     return true;
+                }
             }
             return false;
         }
@@ -305,7 +306,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             } while (qe != start);
 
             return adjTris;
-
         }
 
         /// <summary>
@@ -323,10 +323,19 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             return neigh;
         }
 
+        public override String ToString()
+        {
+            return GetGeometry(new GeometryFactory()).ToString();
+        }
+
         private class QuadEdgeTriangleBuilderVisitor : ITriangleVisitor
         {
-
             private readonly List<QuadEdgeTriangle> _triangles = new List<QuadEdgeTriangle>();
+
+            public List<QuadEdgeTriangle> GetTriangles()
+            {
+                return _triangles;
+            }
 
             //public QuadEdgeTriangleBuilderVisitor() { }
 
@@ -334,12 +343,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
             {
                 _triangles.Add(new QuadEdgeTriangle(edges));
             }
-
-            public List<QuadEdgeTriangle> GetTriangles()
-            {
-                return _triangles;
-            }
         }
-
     }
 }

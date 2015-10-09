@@ -20,37 +20,27 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
     /// </summary>
     public class BufferBuilder
     {
-        /// <summary>
-        /// Compute the change in depth as an edge is crossed from R to L.
-        /// </summary>
-        /// <param name="label"></param>
-        private static int DepthDelta(Label label)
-        {
-            var lLoc = label.GetLocation(0, Positions.Left);
-            var rLoc = label.GetLocation(0, Positions.Right);
-            if (lLoc == Locations.Interior && rLoc == Locations.Exterior)
-                return 1;
-            else if (lLoc == Locations.Exterior && rLoc == Locations.Interior)
-                return -1;
-            return 0;
-        }
-        
+        private readonly EdgeList edgeList = new EdgeList();
+
         private int quadrantSegments = OffsetCurveBuilder.DefaultQuadrantSegments;
         private BufferStyle endCapStyle = BufferStyle.CapRound;
-        
-        private IPrecisionModel workingPrecisionModel;
-        private INoder workingNoder;
+
         private IGeometryFactory geomFact;
         private PlanarGraph graph;
-        private readonly EdgeList edgeList = new EdgeList();        
 
         /// <summary>
         /// Gets/Sets the number of segments used to approximate a angle fillet.
         /// </summary>
         public int QuadrantSegments
         {
-            get { return quadrantSegments;  }
-            set { quadrantSegments = value; }
+            get
+            {
+                return quadrantSegments;
+            }
+            set
+            {
+                quadrantSegments = value;
+            }
         }
 
         /// <summary>
@@ -59,29 +49,27 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         /// If the precision model is less than the precision of the Geometry precision model,
         /// the Geometry must have previously been rounded to that precision.
         /// </summary>
-        public IPrecisionModel WorkingPrecisionModel
-        {
-            get { return workingPrecisionModel;  }
-            set { workingPrecisionModel = value; }
-        }
+        public IPrecisionModel WorkingPrecisionModel { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public BufferStyle EndCapStyle
         {
-            get { return endCapStyle;  }
-            set { endCapStyle = value; }
+            get
+            {
+                return endCapStyle;
+            }
+            set
+            {
+                endCapStyle = value;
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public INoder Noder
-        {
-            get { return workingNoder; }
-            set { workingNoder = value; }
-        }
+        public INoder Noder { get; set; }
 
         /// <summary>
         /// 
@@ -91,12 +79,15 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         /// <returns></returns>
         public IGeometry Buffer(IGeometry g, double distance)
         {
-            var precisionModel = workingPrecisionModel ?? g.PrecisionModel;
+            var precisionModel = WorkingPrecisionModel ?? g.PrecisionModel;
 
             // factory must be the same as the one used by the input
             geomFact = g.Factory;
 
-            var curveBuilder = new OffsetCurveBuilder(precisionModel, quadrantSegments) {EndCapStyle = endCapStyle};
+            var curveBuilder = new OffsetCurveBuilder(precisionModel, quadrantSegments)
+            {
+                EndCapStyle = endCapStyle
+            };
             var curveSetBuilder = new OffsetCurveSetBuilder(g, distance, curveBuilder);
 
             var bufferSegStrList = curveSetBuilder.GetCurves();
@@ -119,42 +110,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
 
             var resultGeom = geomFact.BuildGeometry(resultPolyList);
             return resultGeom;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="precisionModel"></param>
-        /// <returns></returns>
-        private INoder GetNoder(IPrecisionModel precisionModel)
-        {
-            if (workingNoder != null) 
-                return workingNoder;
-
-            // otherwise use a fast (but non-robust) noder
-            var li = new RobustLineIntersector {PrecisionModel = precisionModel};
-            var noder = new MCIndexNoder(new IntersectionAdder(li));                     
-            return noder;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bufferSegStrList"></param>
-        /// <param name="precisionModel"></param>
-        private void ComputeNodedEdges(IList bufferSegStrList, IPrecisionModel precisionModel)
-        {
-            var noder = GetNoder(precisionModel);
-            noder.ComputeNodes(bufferSegStrList);
-            var nodedSegStrings = noder.GetNodedSubstrings();
-            
-            foreach (var obj in nodedSegStrings)
-            {
-                var segStr = (SegmentString) obj;
-                var oldLabel = (Label) segStr.Data;
-                var edge = new Edge(segStr.Coordinates, new Label(oldLabel));
-                InsertEdge(edge);
-            }
         }
 
         /// <summary>
@@ -191,7 +146,8 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
                 existingEdge.DepthDelta = newDelta;
             }
             else
-            {   // no matching existing edge was found
+            {
+                // no matching existing edge was found
                 // add this new edge to the list of edges in this graph
                 //e.setName(name + edges.size());
                 edgeList.Add(e);
@@ -199,14 +155,76 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             }
         }
 
+        /// <summary>
+        /// Compute the change in depth as an edge is crossed from R to L.
+        /// </summary>
+        /// <param name="label"></param>
+        private static int DepthDelta(Label label)
+        {
+            var lLoc = label.GetLocation(0, Positions.Left);
+            var rLoc = label.GetLocation(0, Positions.Right);
+            if (lLoc == Locations.Interior && rLoc == Locations.Exterior)
+            {
+                return 1;
+            }
+            else if (lLoc == Locations.Exterior && rLoc == Locations.Interior)
+            {
+                return -1;
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="precisionModel"></param>
+        /// <returns></returns>
+        private INoder GetNoder(IPrecisionModel precisionModel)
+        {
+            if (Noder != null)
+            {
+                return Noder;
+            }
+
+            // otherwise use a fast (but non-robust) noder
+            var li = new RobustLineIntersector
+            {
+                PrecisionModel = precisionModel
+            };
+            var noder = new MCIndexNoder(new IntersectionAdder(li));
+            return noder;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bufferSegStrList"></param>
+        /// <param name="precisionModel"></param>
+        private void ComputeNodedEdges(IList bufferSegStrList, IPrecisionModel precisionModel)
+        {
+            var noder = GetNoder(precisionModel);
+            noder.ComputeNodes(bufferSegStrList);
+            var nodedSegStrings = noder.GetNodedSubstrings();
+
+            foreach (var obj in nodedSegStrings)
+            {
+                var segStr = (SegmentString) obj;
+                var oldLabel = (Label) segStr.Data;
+                var edge = new Edge(segStr.Coordinates, new Label(oldLabel));
+                InsertEdge(edge);
+            }
+        }
+
         private IList CreateSubgraphs(PlanarGraph graph)
         {
             var subgraphList = new ArrayList();
-            foreach(var obj in graph.Nodes)
+            foreach (var obj in graph.Nodes)
             {
-                var node = (Node)obj;
+                var node = (Node) obj;
                 if (node.IsVisited)
+                {
                     continue;
+                }
                 var subgraph = new BufferSubgraph();
                 subgraph.Create(node);
                 subgraphList.Add(subgraph);
@@ -233,9 +251,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         private void BuildSubgraphs(IList subgraphList, PolygonBuilder polyBuilder)
         {
             IList processedGraphs = new ArrayList();
-            foreach(var obj in subgraphList)
+            foreach (var obj in subgraphList)
             {
-                var subgraph = (BufferSubgraph)obj;
+                var subgraph = (BufferSubgraph) obj;
                 var p = subgraph.RightMostCoordinate;
                 var locater = new SubgraphDepthLocater(processedGraphs);
                 var outsideDepth = locater.GetDepth(p);
@@ -245,6 +263,5 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
                 polyBuilder.Add(subgraph.DirectedEdges, subgraph.Nodes);
             }
         }
-
     }
 }

@@ -17,59 +17,13 @@ namespace SharpMap.Editors.Interactors
 {
     public class LineStringInteractor : FeatureInteractor
     {
-        protected TrackerFeature AllTracker { get; set; }
-
-        static private Bitmap trackerSmallStart;
-        static private Bitmap trackerSmallEnd;
-        static private Bitmap trackerSmall;
-        static private Bitmap selectedTrackerSmall;
+        private static Bitmap trackerSmallStart;
+        private static Bitmap trackerSmallEnd;
+        private static Bitmap trackerSmall;
+        private static Bitmap selectedTrackerSmall;
 
         public LineStringInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle, IEditableObject editableObject)
-            : base(layer, feature, vectorStyle, editableObject)
-        {
-        }
-
-        protected override void CreateTrackers()
-        {
-            if (SourceFeature == null || SourceFeature.Geometry == null)
-            {
-                return;
-            }
-
-            if (trackerSmallStart == null)
-            {
-                trackerSmallStart = TrackerSymbolHelper.GenerateSimple(new Pen(Color.Blue), new SolidBrush(Color.DarkBlue), 6, 6);
-                trackerSmallEnd = TrackerSymbolHelper.GenerateSimple(new Pen(Color.Tomato), new SolidBrush(Color.Maroon), 6, 6);
-                trackerSmall = TrackerSymbolHelper.GenerateSimple(new Pen(Color.Green), new SolidBrush(Color.Lime), 6, 6);
-                selectedTrackerSmall = TrackerSymbolHelper.GenerateSimple(new Pen(Color.DarkMagenta), new SolidBrush(Color.Magenta), 6, 6);
-            }
-
-            Trackers.Clear();
-            Trackers.AddRange(CreateTrackersForGeometry(SourceFeature.Geometry));
-
-            AllTracker = new TrackerFeature(this, null, -1, null);
-        }
-
-        protected IEnumerable<TrackerFeature> CreateTrackersForGeometry(IGeometry geometry)
-        {
-            var coordinates = geometry.Coordinates;
-            if (coordinates.Length == 0)
-            {
-                yield break;
-            }
-            
-            yield return new TrackerFeature(this, GeometryFactory.CreatePoint(coordinates[0].X, coordinates[0].Y), 0, trackerSmallStart);
-
-            for (var i = 1; i < coordinates.Length - 1; i++)
-            {
-                yield return new TrackerFeature(this, GeometryFactory.CreatePoint(coordinates[i].X, coordinates[i].Y), i, trackerSmall);
-            }
-
-            if (coordinates.Length > 1)
-            {
-                yield return new TrackerFeature(this, GeometryFactory.CreatePoint(coordinates.Last().X, coordinates.Last().Y), coordinates.Length - 1, trackerSmallEnd);
-            }
-        }
+            : base(layer, feature, vectorStyle, editableObject) {}
 
         public override TrackerFeature GetTrackerAtCoordinate(ICoordinate worldPos)
         {
@@ -122,6 +76,50 @@ namespace SharpMap.Editors.Interactors
         {
             trackerFeature.Selected = select;
             trackerFeature.Bitmap = select ? selectedTrackerSmall : trackerSmall;
+        }
+
+        protected TrackerFeature AllTracker { get; set; }
+
+        protected override void CreateTrackers()
+        {
+            if (SourceFeature == null || SourceFeature.Geometry == null)
+            {
+                return;
+            }
+
+            if (trackerSmallStart == null)
+            {
+                trackerSmallStart = TrackerSymbolHelper.GenerateSimple(new Pen(Color.Blue), new SolidBrush(Color.DarkBlue), 6, 6);
+                trackerSmallEnd = TrackerSymbolHelper.GenerateSimple(new Pen(Color.Tomato), new SolidBrush(Color.Maroon), 6, 6);
+                trackerSmall = TrackerSymbolHelper.GenerateSimple(new Pen(Color.Green), new SolidBrush(Color.Lime), 6, 6);
+                selectedTrackerSmall = TrackerSymbolHelper.GenerateSimple(new Pen(Color.DarkMagenta), new SolidBrush(Color.Magenta), 6, 6);
+            }
+
+            Trackers.Clear();
+            Trackers.AddRange(CreateTrackersForGeometry(SourceFeature.Geometry));
+
+            AllTracker = new TrackerFeature(this, null, -1, null);
+        }
+
+        protected IEnumerable<TrackerFeature> CreateTrackersForGeometry(IGeometry geometry)
+        {
+            var coordinates = geometry.Coordinates;
+            if (coordinates.Length == 0)
+            {
+                yield break;
+            }
+
+            yield return new TrackerFeature(this, GeometryFactory.CreatePoint(coordinates[0].X, coordinates[0].Y), 0, trackerSmallStart);
+
+            for (var i = 1; i < coordinates.Length - 1; i++)
+            {
+                yield return new TrackerFeature(this, GeometryFactory.CreatePoint(coordinates[i].X, coordinates[i].Y), i, trackerSmall);
+            }
+
+            if (coordinates.Length > 1)
+            {
+                yield return new TrackerFeature(this, GeometryFactory.CreatePoint(coordinates.Last().X, coordinates.Last().Y), coordinates.Length - 1, trackerSmallEnd);
+            }
         }
     }
 }

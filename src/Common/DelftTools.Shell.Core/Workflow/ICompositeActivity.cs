@@ -13,7 +13,7 @@ namespace DelftTools.Shell.Core.Workflow
         /// Child activities.
         /// </summary>
         IEventedList<IActivity> Activities { get; }
-            
+
         /// <summary>
         /// Indicates that the 
         /// </summary>

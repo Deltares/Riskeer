@@ -12,11 +12,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms.GridProperties
         {
             const int maxValue = 999999;
             var lineStyleProperties = new LineStyleProperties
-                {
-                    Data = new VectorStyle(),
-                    LineWidth = maxValue,
-                    OutlineWidth = maxValue
-                };
+            {
+                Data = new VectorStyle(),
+                LineWidth = maxValue,
+                OutlineWidth = maxValue
+            };
 
             Assert.AreEqual(maxValue, lineStyleProperties.LineWidth);
             Assert.AreEqual(maxValue, lineStyleProperties.OutlineWidth);
@@ -33,11 +33,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms.GridProperties
         {
             const int minimum = 0;
             var lineStyleProperties = new LineStyleProperties
-                {
-                    Data = new VectorStyle(),
-                    LineWidth = minimum,
-                    OutlineWidth = minimum
-                };
+            {
+                Data = new VectorStyle(),
+                LineWidth = minimum,
+                OutlineWidth = minimum
+            };
 
             Assert.AreEqual(minimum, lineStyleProperties.LineWidth);
             Assert.AreEqual(minimum, lineStyleProperties.OutlineWidth);

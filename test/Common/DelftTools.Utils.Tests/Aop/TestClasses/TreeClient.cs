@@ -5,6 +5,7 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
 {
     public class TreeClient
     {
+        public event EventHandler<EventArgs> RootChanged;
         private ClassImplementingIEventedList root;
 
         public TreeClient()
@@ -12,22 +13,25 @@ namespace DelftTools.Utils.Tests.Aop.TestClasses
             Root = new ClassImplementingIEventedList();
         }
 
-        public Utils.Tests.Aop.TestClasses.ClassImplementingIEventedList Root
+        public ClassImplementingIEventedList Root
         {
-            get { return root; }
+            get
+            {
+                return root;
+            }
             set
             {
                 root = value;
-                ((INotifyCollectionChange)root).CollectionChanged += root_CollectionChanged;
+                ((INotifyCollectionChange) root).CollectionChanged += root_CollectionChanged;
             }
         }
 
-        void root_CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void root_CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
             if (RootChanged != null)
+            {
                 RootChanged(this, new EventArgs());
+            }
         }
-        public event EventHandler<EventArgs> RootChanged;
-
     }
 }

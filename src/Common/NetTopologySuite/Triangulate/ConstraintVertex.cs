@@ -3,7 +3,6 @@ using GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge;
 
 namespace GisSharpBlog.NetTopologySuite.Triangulate
 {
-
     /// <summary>
     /// A vertex in a Constrained Delaunay Triangulation.
     /// The vertex may or may not lie on a constraint.
@@ -12,7 +11,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
     /// <author>Martin Davis</author>
     public class ConstraintVertex : Vertex
     {
-        private bool isOnConstraint;
         private object constraint;
 
         /// <summary>
@@ -20,25 +18,13 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         /// </summary>
         /// <param name="p">the location of the vertex</param>
         public ConstraintVertex(ICoordinate p)
-            : base(p)
-        {
-        }
+            : base(p) {}
 
         /// <summary>
         /// Gets or sets whether this vertex lies on a constraint.
         /// </summary>
         /// <remarks>true if the vertex lies on a constraint</remarks>
-        public bool IsOnConstraint
-        {
-            get
-            {
-                return isOnConstraint;
-            }
-            set
-            {
-                this.isOnConstraint = value;
-            }
-        }
+        public bool IsOnConstraint { get; set; }
 
         /// <summary>
         /// Gets or sets the external constraint object
@@ -52,8 +38,8 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
             }
             set
             {
-                isOnConstraint = true;
-                this.constraint = value;
+                IsOnConstraint = true;
+                constraint = value;
             }
         }
 
@@ -65,8 +51,9 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         /// <param name="other">the constraint vertex to merge</param>
         protected internal void Merge(ConstraintVertex other)
         {
-            if (other.isOnConstraint) {
-                isOnConstraint = true;
+            if (other.IsOnConstraint)
+            {
+                IsOnConstraint = true;
                 constraint = other.constraint;
             }
         }

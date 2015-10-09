@@ -15,7 +15,10 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         /// </summary>
         public override ShapeGeometryType ShapeType
         {
-            get { return ShapeGeometryType.LineString; }
+            get
+            {
+                return ShapeGeometryType.LineString;
+            }
         }
 
         /// <summary>
@@ -29,11 +32,15 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
             int shapeTypeNum = file.ReadInt32();
             type = (ShapeGeometryType) Enum.Parse(typeof(ShapeGeometryType), shapeTypeNum.ToString());
             if (type == ShapeGeometryType.NullShape)
+            {
                 return geometryFactory.CreateMultiLineString(null);
+            }
 
-            if (!(type == ShapeGeometryType.LineString  || type == ShapeGeometryType.LineStringM ||
+            if (!(type == ShapeGeometryType.LineString || type == ShapeGeometryType.LineStringM ||
                   type == ShapeGeometryType.LineStringZ || type == ShapeGeometryType.LineStringZM))
+            {
                 throw new ShapefileException("Attempting to load a non-arc as arc.");
+            }
 
             // Read and for now ignore bounds.            
             int bblength = GetBoundingBoxLength();
@@ -43,23 +50,30 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
                 double d = file.ReadDouble();
                 bbox[bbindex] = d;
             }
-        
+
             int numParts = file.ReadInt32();
             int numPoints = file.ReadInt32();
             int[] partOffsets = new int[numParts];
             for (int i = 0; i < numParts; i++)
+            {
                 partOffsets[i] = file.ReadInt32();
-			
-            ILineString[] lines = new ILineString[numParts];			
+            }
+
+            ILineString[] lines = new ILineString[numParts];
             for (int part = 0; part < numParts; part++)
             {
                 int start, finish, length;
                 start = partOffsets[part];
                 if (part == numParts - 1)
-                     finish = numPoints;
-                else finish = partOffsets[part + 1];
+                {
+                    finish = numPoints;
+                }
+                else
+                {
+                    finish = partOffsets[part + 1];
+                }
                 length = finish - start;
-                CoordinateList points = new CoordinateList();                
+                CoordinateList points = new CoordinateList();
                 points.Capacity = length;
                 for (int i = 0; i < length; i++)
                 {
@@ -67,7 +81,7 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
                     double y = file.ReadDouble();
                     ICoordinate external = new Coordinate(x, y);
                     geometryFactory.PrecisionModel.MakePrecise(external);
-                    points.Add(external);				    
+                    points.Add(external);
                 }
                 ILineString line = geometryFactory.CreateLineString(points.ToArray());
                 lines[part] = line;
@@ -88,32 +102,40 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
             // Force to use a MultiGeometry
             IMultiLineString multi;
             if (geometry is IGeometryCollection)
-                 multi = (IMultiLineString) geometry;
-            else multi = geometryFactory.CreateMultiLineString(new ILineString[] { (ILineString) geometry });
+            {
+                multi = (IMultiLineString) geometry;
+            }
+            else
+            {
+                multi = geometryFactory.CreateMultiLineString(new ILineString[]
+                {
+                    (ILineString) geometry
+                });
+            }
 
             file.Write(int.Parse(Enum.Format(typeof(ShapeGeometryType), ShapeType, "d")));
-        
+
             IEnvelope box = multi.EnvelopeInternal;
             file.Write(box.MinX);
             file.Write(box.MinY);
             file.Write(box.MaxX);
             file.Write(box.MaxY);
-        
+
             int numParts = multi.NumGeometries;
             int numPoints = multi.NumPoints;
-        
-            file.Write(numParts);		
-            file.Write(numPoints);      
-        
+
+            file.Write(numParts);
+            file.Write(numPoints);
+
             // Write the offsets
-            int offset=0;
+            int offset = 0;
             for (int i = 0; i < numParts; i++)
             {
                 IGeometry g = multi.GetGeometryN(i);
-                file.Write( offset );
+                file.Write(offset);
                 offset = offset + g.NumPoints;
             }
-        
+
             for (int part = 0; part < numParts; part++)
             {
                 CoordinateList points = new CoordinateList(multi.GetGeometryN(part).Coordinates);
@@ -126,7 +148,6 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
             }
         }
 
-
         /// <summary>
         /// Gets the length in bytes the Geometry will need when written as a shape file record.
         /// </summary>
@@ -135,7 +156,7 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         public override int GetLength(IGeometry geometry)
         {
             int numParts = GetNumParts(geometry);
-            return (22 + (2 * numParts) + geometry.NumPoints * 8); // 22 => shapetype(2) + bbox(4*4) + numparts(2) + numpoints(2)
+            return (22 + (2*numParts) + geometry.NumPoints*8); // 22 => shapetype(2) + bbox(4*4) + numparts(2) + numpoints(2)
         }
 
         /// <summary>
@@ -145,9 +166,11 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         /// <returns></returns>
         private int GetNumParts(IGeometry geometry)
         {
-            int numParts=1;
+            int numParts = 1;
             if (geometry is IMultiLineString)
+            {
                 numParts = ((IMultiLineString) geometry).Geometries.Length;
+            }
             return numParts;
         }
     }

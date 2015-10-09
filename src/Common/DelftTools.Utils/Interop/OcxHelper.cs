@@ -8,11 +8,6 @@ namespace DelftTools.Utils.Interop
     /// </summary>
     public class OcxHelper
     {
-        [DllImport("kernel32.dll")] static extern bool FreeLibrary(IntPtr hModule);
-        [DllImport("kernel32.dll")] static extern IntPtr LoadLibrary(string lpFilename);
-        [DllImport("kernel32.dll")] static extern UIntPtr GetProcAddress(IntPtr hModule, string lpProcName);
-        [DllImport("user32.dll")] static extern IntPtr CallWindowProc(UIntPtr lpPrevWndFunc, IntPtr hWnd, uint Msg, UIntPtr wParam, IntPtr lParam);
-
         /// <summary>
         /// Registers ocx with windows
         /// </summary>
@@ -33,6 +28,18 @@ namespace DelftTools.Utils.Interop
             return (Register(ocxPath, false));
         }
 
+        [DllImport("kernel32.dll")]
+        private static extern bool FreeLibrary(IntPtr hModule);
+
+        [DllImport("kernel32.dll")]
+        private static extern IntPtr LoadLibrary(string lpFilename);
+
+        [DllImport("kernel32.dll")]
+        private static extern UIntPtr GetProcAddress(IntPtr hModule, string lpProcName);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr CallWindowProc(UIntPtr lpPrevWndFunc, IntPtr hWnd, uint Msg, UIntPtr wParam, IntPtr lParam);
+
         private static bool Register(string ocxPath, bool register)
         {
             IntPtr lb = IntPtr.Zero;
@@ -49,7 +56,6 @@ namespace DelftTools.Utils.Interop
                 {
                     pa = GetProcAddress(lb, "DllUnregisterServer");
                 }
-
 
                 if (CallWindowProc(pa, IntPtr.Zero, 0, UIntPtr.Zero, IntPtr.Zero) == IntPtr.Zero)
                 {
@@ -69,6 +75,5 @@ namespace DelftTools.Utils.Interop
                 FreeLibrary(lb);
             }
         }
-
     }
 }

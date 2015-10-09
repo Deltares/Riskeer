@@ -7,45 +7,14 @@ namespace DeltaShell.Tests.Gui.Forms.ProgressDialog
 {
     public class TestStringBasedProgressingActivity : Activity
     {
+        public event EventHandler ProgressChanged;
         private string progressText;
-
-        protected override void OnInitialize()
-        {
-        }
-
-        protected override void OnExecute()
-        {
-            foreach (var s in AapNootMies())
-            {
-                progressText = s;
-                if (ProgressChanged != null)
-                {
-                    ProgressChanged(this, EventArgs.Empty);
-                }
-                Thread.Sleep(200);//make the change last a little
-            }
-
-            Status = ActivityStatus.Done;
-        }
-
-        protected override void OnCancel()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void OnCleanUp()
-        {
-        }
-
-        protected override void OnFinish()
-        {
-        }
 
         public string GetProgressText()
         {
             return progressText;
         }
-        
+
         public IEnumerable<string> AapNootMies()
         {
             yield return "Aap";
@@ -56,6 +25,30 @@ namespace DeltaShell.Tests.Gui.Forms.ProgressDialog
             yield return "Vuur?";
         }
 
-        public event EventHandler ProgressChanged;
+        protected override void OnInitialize() {}
+
+        protected override void OnExecute()
+        {
+            foreach (var s in AapNootMies())
+            {
+                progressText = s;
+                if (ProgressChanged != null)
+                {
+                    ProgressChanged(this, EventArgs.Empty);
+                }
+                Thread.Sleep(200); //make the change last a little
+            }
+
+            Status = ActivityStatus.Done;
+        }
+
+        protected override void OnCancel()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void OnCleanUp() {}
+
+        protected override void OnFinish() {}
     }
 }

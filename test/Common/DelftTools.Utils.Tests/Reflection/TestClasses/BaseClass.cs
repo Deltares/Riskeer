@@ -2,9 +2,7 @@
 {
     public class BaseClass
     {
-        public object Data { get; set; }
-
-
         public int FieldInBaseClass;
+        public object Data { get; set; }
     }
 }

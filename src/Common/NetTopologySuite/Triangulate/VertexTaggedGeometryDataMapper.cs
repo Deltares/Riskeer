@@ -21,6 +21,14 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
     {
         private readonly IDictionary<ICoordinate, object> _coordDataMap = new OrderedDictionary<ICoordinate, object>();
 
+        public IList<ICoordinate> Coordinates
+        {
+            get
+            {
+                return new List<ICoordinate>(_coordDataMap.Keys);
+            }
+        }
+
         public void LoadSourceGeometries(IGeometry geoms)
         {
             for (var i = 0; i < geoms.NumGeometries; i++)
@@ -47,22 +55,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
             }
         }
 
-        private void LoadVertices(ICoordinate[] pts, object data)
-        {
-            for (int i = 0; i < pts.Length; i++)
-            {
-                _coordDataMap.Add(pts[i], data);
-            }
-        }
-
-        public IList<ICoordinate> Coordinates
-        {
-            get
-            {
-                return new List<ICoordinate>(_coordDataMap.Keys);
-            }
-        }
-
         /// <summary>
         /// Input is assumed to be a multiGeometry
         /// in which every component has its userData
@@ -76,9 +68,20 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
             for (int i = 0; i < targetGeom.NumGeometries; i++)
             {
                 var geom = targetGeom.GetGeometryN(i);
-                var vertexKey = (ICoordinate)geom.UserData;
-                if (vertexKey == null) continue;
+                var vertexKey = (ICoordinate) geom.UserData;
+                if (vertexKey == null)
+                {
+                    continue;
+                }
                 geom.UserData = _coordDataMap[vertexKey];
+            }
+        }
+
+        private void LoadVertices(ICoordinate[] pts, object data)
+        {
+            for (int i = 0; i < pts.Length; i++)
+            {
+                _coordDataMap.Add(pts[i], data);
             }
         }
     }

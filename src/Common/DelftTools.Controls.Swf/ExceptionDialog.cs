@@ -7,25 +7,20 @@ namespace DelftTools.Controls.Swf
 {
     public partial class ExceptionDialog : Form
     {
-        private Exception exception;
+        public event EventHandler RestartClicked;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ExceptionDialog"/> class.
-        /// 
-        /// Default constructor is required by designer
-        /// </summary>
-        internal ExceptionDialog() 
-        {
-            InitializeComponent();
-        }
+        public event EventHandler ExitClicked;
+
+        public event EventHandler ContinueClicked;
+
+        public event EventHandler OpenLogClicked;
+        private Exception exception;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionDialog"/> class.
         /// </summary>
         /// <param name="exception">The exception.</param>
-        public ExceptionDialog(Exception exception) : this(exception, "")
-        {
-        }
+        public ExceptionDialog(Exception exception) : this(exception, "") {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExceptionDialog"/> class.
@@ -40,9 +35,22 @@ namespace DelftTools.Controls.Swf
             exceptionTextBox.Text += text;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExceptionDialog"/> class.
+        /// 
+        /// Default constructor is required by designer
+        /// </summary>
+        internal ExceptionDialog()
+        {
+            InitializeComponent();
+        }
+
         public Exception Exception
         {
-            get { return exception; }
+            get
+            {
+                return exception;
+            }
             private set
             {
                 exception = value;
@@ -50,6 +58,16 @@ namespace DelftTools.Controls.Swf
                 exceptionTextBox.Text = GetExceptionText(exception);
             }
         }
+
+        public string ExceptionText
+        {
+            get
+            {
+                return GetExceptionText(exception);
+            }
+        }
+
+        public Button ContinueButton { get; private set; }
 
         private string GetExceptionText(Exception e)
         {
@@ -60,7 +78,7 @@ namespace DelftTools.Controls.Swf
 
             var str = exception.ToString();
 
-            if(exception.InnerException != null)
+            if (exception.InnerException != null)
             {
                 str += "Inner Exception:\n";
                 str += exception.InnerException.ToString();
@@ -77,27 +95,12 @@ namespace DelftTools.Controls.Swf
             return str;
         }
 
-        public string ExceptionText { get { return GetExceptionText(exception); } }
-
-        public Button ContinueButton
-        {
-            get { return buttonContinue; }
-        }
-
-        public event EventHandler RestartClicked;
-
-        public event EventHandler ExitClicked;
-
-        public event EventHandler ContinueClicked;
-
-        public event EventHandler OpenLogClicked;
-
         private void buttonRestart_Click(object sender, EventArgs e)
         {
             buttonRestart.Enabled = false;
             buttonExit.Enabled = false;
 
-            if(RestartClicked != null)
+            if (RestartClicked != null)
             {
                 RestartClicked(this, null);
             }

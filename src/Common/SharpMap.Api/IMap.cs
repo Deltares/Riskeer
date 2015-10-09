@@ -134,6 +134,16 @@ namespace SharpMap.Api
         string Name { get; set; }
         bool HasDefaultEnvelopeSet { get; }
 
+        bool IsDisposing { get; }
+
+        /// <summary>
+        /// Replacing layer is used, because we cannot use Layers[i] = layer.
+        /// This is because there are a lot of places that have a NotImplementedException when 
+        /// a replace event in the collection occurs.
+        /// HACK
+        /// </summary>
+        bool ReplacingLayer { get; }
+
         void ClearImage();
 
         /// <summary>
@@ -171,9 +181,9 @@ namespace SharpMap.Api
         IGroupLayer GetGroupLayerContainingLayer(ILayer childLayer);
 
         void DoWithLayerRecursive(ILayer layer, Action<ILayer> action);
-       
+
         IEnumerable<ILayer> GetAllLayers(bool includeGroupLayers);
-        
+
         IEnumerable<ILayer> GetAllVisibleLayers(bool includeGroupLayers);
 
         /// <summary>
@@ -195,7 +205,7 @@ namespace SharpMap.Api
         void SendToBack(ILayer layer);
 
         void SendBackward(ILayer layer);
-       
+
         void BringForward(ILayer layer);
 
         /// <summary>
@@ -244,16 +254,6 @@ namespace SharpMap.Api
         IEnvelope GetExtents();
 
         object Clone();
-
-        bool IsDisposing { get; }
-
-        /// <summary>
-        /// Replacing layer is used, because we cannot use Layers[i] = layer.
-        /// This is because there are a lot of places that have a NotImplementedException when 
-        /// a replace event in the collection occurs.
-        /// HACK
-        /// </summary>
-        bool ReplacingLayer { get; }
 
         /// <summary>
         /// Replace a layer with another layer.

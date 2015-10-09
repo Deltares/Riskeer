@@ -6,7 +6,7 @@ namespace DelftTools.Shell.Gui
     /// <summary>
     /// Dialog with configuring abilities
     /// </summary>
-    public interface IConfigureDialog: IDialog
+    public interface IConfigureDialog : IDialog
     {
         /// <summary>
         /// Configures model or source of dialog

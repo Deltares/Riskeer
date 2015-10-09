@@ -9,34 +9,37 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
     /// The algorithms supplied in this class are robust for double-precision floating point.
     /// </summary>
     public static class CGAlgorithms
-    {        
+    {
         /// <summary> 
         /// A value that indicates an orientation of clockwise, or a right turn.
         /// </summary>
-        public const int Clockwise      = -1;
+        public const int Clockwise = -1;
+
         /// <summary> 
         /// A value that indicates an orientation of clockwise, or a right turn.
         /// </summary>
-        public const int Right         = Clockwise;
+        public const int Right = Clockwise;
 
         /// <summary>
         /// A value that indicates an orientation of counterclockwise, or a left turn.
         /// </summary>
-        public const int CounterClockwise  = 1;
+        public const int CounterClockwise = 1;
+
         /// <summary>
         /// A value that indicates an orientation of counterclockwise, or a left turn.
         /// </summary>
-        public const int Left              = CounterClockwise;
+        public const int Left = CounterClockwise;
 
         /// <summary>
         /// A value that indicates an orientation of collinear, or no turn (straight).
         /// </summary>
-        public const int Collinear         = 0;
+        public const int Collinear = 0;
+
         /// <summary>
         /// A value that indicates an orientation of collinear, or no turn (straight).
         /// </summary>
         public const int Straight = Collinear;
-        
+
         /// <summary> 
         /// Returns the index of the direction of the point <c>q</c>
         /// relative to a vector specified by <c>p1-p2</c>.
@@ -49,7 +52,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// -1 if q is clockwise (right) from p1-p2,
         /// 0 if q is collinear with p1-p2.
         /// </returns>
-        public static int OrientationIndex(ICoordinate p1, ICoordinate p2, ICoordinate q) 
+        public static int OrientationIndex(ICoordinate p1, ICoordinate p2, ICoordinate q)
         {
             // travelling along p1->p2, turn counter clockwise to get to q return 1,
             // travelling along p1->p2, turn clockwise to get to q return -1,
@@ -59,7 +62,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             double dx2 = q.X - p2.X;
             double dy2 = q.Y - p2.Y;
             return RobustDeterminant.SignOfDet2x2(dx1, dy1, dx2, dy2);
-        }        
+        }
 
         /// <summary> 
         /// Test whether a point lies inside a ring.
@@ -71,18 +74,22 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <param name="p">Point to check for ring inclusion.</param>
         /// <param name="ring">Assumed to have first point identical to last point.</param>
         /// <returns><c>true</c> if p is inside ring.</returns>
-        public static bool IsPointInRing(ICoordinate p, ICoordinate[] ring) 
+        public static bool IsPointInRing(ICoordinate p, ICoordinate[] ring)
         {
-            if (p == null) 
+            if (p == null)
+            {
                 throw new ArgumentNullException("p", "coordinate 'p' is null");
-            if (ring == null) 
+            }
+            if (ring == null)
+            {
                 throw new ArgumentNullException("ring", "ring 'ring' is null");
+            }
 
-            int crossings = 0;            
+            int crossings = 0;
             /*
             *  For each segment l = (i-1, i), see if it crosses ray from test point in positive x direction.
             */
-            for (int i = 1; i < ring.Length; i++) 
+            for (int i = 1; i < ring.Length; i++)
             {
                 int i1 = i - 1;
                 ICoordinate p1 = ring[i];
@@ -93,7 +100,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                     continue;
                 }
 
-                if (((p1.Y > p.Y) && (p2.Y <= p.Y)) || ((p2.Y > p.Y) && (p1.Y <= p.Y))) 
+                if (((p1.Y > p.Y) && (p2.Y <= p.Y)) || ((p2.Y > p.Y) && (p1.Y <= p.Y)))
                 {
                     double x1 = p1.X - p.X;
                     double y1 = p1.Y - p.Y;
@@ -102,22 +109,29 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                     /*
                     *  segment straddles x axis, so compute intersection.
                     */
-                    double xInt = RobustDeterminant.SignOfDet2x2(x1, y1, x2, y2) / (y2 - y1);
+                    double xInt = RobustDeterminant.SignOfDet2x2(x1, y1, x2, y2)/(y2 - y1);
 
                     /*
                     *  crosses ray if strictly positive intersection.
                     */
-                    if (0.0 < xInt) 
+                    if (0.0 < xInt)
+                    {
                         crossings++;
+                    }
                 }
             }
 
             /*
             *  p is inside if number of crossings is odd.
             */
-            if ((crossings % 2) == 1) 
-                return true;            
-            else return false;
+            if ((crossings%2) == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary> 
@@ -131,10 +145,10 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// the point is a vertex of the line or lies in the interior of a line
         /// segment in the linestring.
         /// </returns>
-        public static bool IsOnLine(ICoordinate p, ICoordinate[] pt) 
+        public static bool IsOnLine(ICoordinate p, ICoordinate[] pt)
         {
             LineIntersector lineIntersector = new RobustLineIntersector();
-            for (int i = 1; i < pt.Length; i++) 
+            for (int i = 1; i < pt.Length; i++)
             {
                 ICoordinate p0 = pt[i - 1];
                 ICoordinate p1 = pt[i];
@@ -145,23 +159,25 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                 }
 
                 lineIntersector.ComputeIntersection((Coordinate) p, (Coordinate) p0, (Coordinate) p1);
-                if (lineIntersector.HasIntersection) 
-                    return true;                
+                if (lineIntersector.HasIntersection)
+                {
+                    return true;
+                }
             }
             return false;
         }
- 
-		/// <summary>
+
+        /// <summary>
         /// Computes whether a ring defined by an array of <see cref="Coordinate" />s is oriented counter-clockwise.
         /// The list of points is assumed to have the first and last points equal.
         /// This will handle coordinate lists which contain repeated points.
         /// This algorithm is only guaranteed to work with valid rings.
         /// If the ring is invalid (e.g. self-crosses or touches),
         /// the computed result may not be correct.
-		/// </summary>>
+        /// </summary>>
         /// <param name="ring"></param>
         /// <returns></returns>
-        public static bool IsCCW(ICoordinate[] ring) 
+        public static bool IsCCW(ICoordinate[] ring)
         {
             // # of points without closing endpoint
             int nPts = ring.Length - 1;
@@ -189,15 +205,16 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             do
             {
                 iPrev = iPrev - 1;
-                if (iPrev < 0) iPrev = nPts;
-            } 
-            while (ring[iPrev].Equals2D(hiPt) && iPrev != hiIndex);
+                if (iPrev < 0)
+                {
+                    iPrev = nPts;
+                }
+            } while (ring[iPrev].Equals2D(hiPt) && iPrev != hiIndex);
 
             // find distinct point after highest point
             int iNext = hiIndex;
             do
-                iNext = (iNext + 1) % nPts;
-            while (ring[iNext].Equals2D(hiPt) && iNext != hiIndex);
+                iNext = (iNext + 1)%nPts; while (ring[iNext].Equals2D(hiPt) && iNext != hiIndex);
 
             ICoordinate prev = ring[iPrev];
             ICoordinate next = ring[iNext];
@@ -209,7 +226,9 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
              * or it contains coincident line segments.
              */
             if (prev.Equals2D(hiPt) || next.Equals2D(hiPt) || prev.Equals2D(next))
+            {
                 return false;
+            }
 
             int disc = ComputeOrientation(prev, hiPt, next);
 
@@ -223,12 +242,16 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
              *  (Might want to assert this)
              */
             bool isCCW = false;
-            if (disc == 0)            
+            if (disc == 0)
+            {
                 // poly is CCW if prev x is right of next x
-                isCCW = (prev.X > next.X);            
+                isCCW = (prev.X > next.X);
+            }
             else
+            {
                 // if area is positive, points are ordered CCW
                 isCCW = (disc > 0);
+            }
             return isCCW;
         }
 
@@ -250,7 +273,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// -1 if q is clockwise from p1-p2,
         /// 0 if q is collinear with p1-p2-
         /// </returns>
-        public static int ComputeOrientation(ICoordinate p1, ICoordinate p2, ICoordinate q) 
+        public static int ComputeOrientation(ICoordinate p1, ICoordinate p2, ICoordinate q)
         {
             return OrientationIndex(p1, p2, q);
         }
@@ -266,8 +289,10 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         public static double DistancePointLine(ICoordinate p, ICoordinate A, ICoordinate B)
         {
             // if start == end, then use pt distance
-            if (A.Equals(B)) 
+            if (A.Equals(B))
+            {
                 return p.Distance(A);
+            }
 
             // otherwise use comp.graphics.algorithms Frequently Asked Questions method
             /*(1)     	      AC dot AB
@@ -282,13 +307,18 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
 		                0<r<1 Point is interior to AB
 	        */
 
-            double r =  ( (p.X - A.X) * (B.X - A.X) + (p.Y - A.Y) * (B.Y - A.Y) )
-                        /
-                        ( (B.X - A.X) * (B.X - A.X) + (B.Y - A.Y) * (B.Y - A.Y) );
+            double r = ((p.X - A.X)*(B.X - A.X) + (p.Y - A.Y)*(B.Y - A.Y))
+                       /
+                       ((B.X - A.X)*(B.X - A.X) + (B.Y - A.Y)*(B.Y - A.Y));
 
-            if (r <= 0.0) return p.Distance(A);
-            if (r >= 1.0) return p.Distance(B);
-
+            if (r <= 0.0)
+            {
+                return p.Distance(A);
+            }
+            if (r >= 1.0)
+            {
+                return p.Distance(B);
+            }
 
             /*(2)
 		                    (Ay-Cy)(Bx-Ax)-(Ax-Cx)(By-Ay)
@@ -298,11 +328,11 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
 		                Then the distance from C to Point = |s|*Curve.
 	        */
 
-            double s =  ( (A.Y - p.Y) * (B.X - A.X) - (A.X - p.X) * (B.Y - A.Y) )
-                        /
-                        ( (B.X - A.X) * (B.X - A.X) + (B.Y - A.Y) * (B.Y - A.Y) );
+            double s = ((A.Y - p.Y)*(B.X - A.X) - (A.X - p.X)*(B.Y - A.Y))
+                       /
+                       ((B.X - A.X)*(B.X - A.X) + (B.Y - A.Y)*(B.Y - A.Y));
 
-            return Math.Abs(s) * Math.Sqrt(((B.X - A.X) * (B.X - A.X) + (B.Y - A.Y) * (B.Y - A.Y)));
+            return Math.Abs(s)*Math.Sqrt(((B.X - A.X)*(B.X - A.X) + (B.Y - A.Y)*(B.Y - A.Y)));
         }
 
         /// <summary> 
@@ -324,11 +354,11 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                         Then the distance from C to Point = |s|*Curve.
             */
 
-            double s =  ( (A.Y - p.Y) * (B.X - A.X) - (A.X - p.X) * (B.Y - A.Y) )
-                        /
-                        ( (B.X - A.X) * (B.X - A.X) + (B.Y - A.Y) * (B.Y - A.Y) );
+            double s = ((A.Y - p.Y)*(B.X - A.X) - (A.X - p.X)*(B.Y - A.Y))
+                       /
+                       ((B.X - A.X)*(B.X - A.X) + (B.Y - A.Y)*(B.Y - A.Y));
 
-            return Math.Abs(s) * Math.Sqrt(((B.X - A.X) * (B.X - A.X) + (B.Y - A.Y) * (B.Y - A.Y)));
+            return Math.Abs(s)*Math.Sqrt(((B.X - A.X)*(B.X - A.X) + (B.Y - A.Y)*(B.Y - A.Y)));
         }
 
         /// <summary> 
@@ -343,10 +373,14 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         public static double DistanceLineLine(ICoordinate A, ICoordinate B, ICoordinate C, ICoordinate D)
         {
             // check for zero-length segments
-            if (A.Equals(B))    
-                return DistancePointLine(A,C,D);
-            if (C.Equals(D))    
-                return DistancePointLine(D,A,B);
+            if (A.Equals(B))
+            {
+                return DistancePointLine(A, C, D);
+            }
+            if (C.Equals(D))
+            {
+                return DistancePointLine(D, A, B);
+            }
 
             // AB and CD are line segments
             /* from comp.graphics.algo
@@ -371,29 +405,32 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
 		            If the numerator in eqn 1 is also zero, AB & CD are collinear.
 
 	        */
-            double r_top = (A.Y - C.Y) * (D.X - C.X) - (A.X - C.X) * (D.Y - C.Y);
-            double r_bot = (B.X - A.X) * (D.Y - C.Y) - (B.Y - A.Y) * (D.X - C.X);
+            double r_top = (A.Y - C.Y)*(D.X - C.X) - (A.X - C.X)*(D.Y - C.Y);
+            double r_bot = (B.X - A.X)*(D.Y - C.Y) - (B.Y - A.Y)*(D.X - C.X);
 
-            double s_top = (A.Y - C.Y) * (B.X - A.X) - (A.X - C.X) * (B.Y - A.Y);
-            double s_bot = (B.X - A.X) * (D.Y - C.Y) - (B.Y - A.Y) * (D.X - C.X);
+            double s_top = (A.Y - C.Y)*(B.X - A.X) - (A.X - C.X)*(B.Y - A.Y);
+            double s_bot = (B.X - A.X)*(D.Y - C.Y) - (B.Y - A.Y)*(D.X - C.X);
 
-            if ((r_bot==0) || (s_bot == 0))             
-                return  Math.Min(DistancePointLine(A,C,D),
-	                    Math.Min(DistancePointLine(B,C,D),
-	                    Math.Min(DistancePointLine(C,A,B),
-	                    DistancePointLine(D,A,B) ) ) );
+            if ((r_bot == 0) || (s_bot == 0))
+            {
+                return Math.Min(DistancePointLine(A, C, D),
+                                Math.Min(DistancePointLine(B, C, D),
+                                         Math.Min(DistancePointLine(C, A, B),
+                                                  DistancePointLine(D, A, B))));
+            }
 
-            
             double s = s_top/s_bot;
             double r = r_top/r_bot;
 
-            if ((r < 0) || ( r > 1) || (s < 0) || (s > 1))	
+            if ((r < 0) || (r > 1) || (s < 0) || (s > 1))
+            {
                 //no intersection
-                return  Math.Min(DistancePointLine(A,C,D),
-	                    Math.Min(DistancePointLine(B,C,D),
-	                    Math.Min(DistancePointLine(C,A,B),
-	                    DistancePointLine(D,A,B) ) ) );
-            
+                return Math.Min(DistancePointLine(A, C, D),
+                                Math.Min(DistancePointLine(B, C, D),
+                                         Math.Min(DistancePointLine(C, A, B),
+                                                  DistancePointLine(D, A, B))));
+            }
+
             return 0.0; //intersection exists
         }
 
@@ -404,19 +441,21 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <returns></returns>
         public static double SignedArea(ICoordinate[] ring)
         {
-            if (ring.Length < 3) 
+            if (ring.Length < 3)
+            {
                 return 0.0;
+            }
 
             double sum = 0.0;
-            for (int i = 0; i < ring.Length - 1; i++) 
+            for (int i = 0; i < ring.Length - 1; i++)
             {
                 double bx = ring[i].X;
                 double by = ring[i].Y;
                 double cx = ring[i + 1].X;
                 double cy = ring[i + 1].Y;
-                sum += (bx + cx) * (cy - by);
+                sum += (bx + cx)*(cy - by);
             }
-            return -sum  / 2.0;
+            return -sum/2.0;
         }
 
         /// <summary> 
@@ -424,15 +463,19 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// </summary>
         /// <param name="pts">The points specifying the linestring.</param>
         /// <returns>The length of the linestring.</returns>
-        public static double Length(ICoordinateSequence pts) 
+        public static double Length(ICoordinateSequence pts)
         {
-            if (pts.Count < 1) 
+            if (pts.Count < 1)
+            {
                 return 0.0;
-            
+            }
+
             double sum = 0.0;
-            for (int i = 1; i < pts.Count; i++) 
+            for (int i = 1; i < pts.Count; i++)
+            {
                 sum += pts.GetCoordinate(i).Distance(pts.GetCoordinate(i - 1));
-            
+            }
+
             return sum;
         }
     }

@@ -28,58 +28,53 @@ namespace DeltaShell.Core
 {
     public class DeltaShellApplication : IApplication
     {
+        public event Action AfterRun;
+
+        // TODO: migrate into ProjectService
+        public event Action<Project> ProjectOpening;
+        public event Action<Project> ProjectOpened;
+
+        // TODO: migrate into ProjectService
+        public event Action<Project> ProjectClosing;
+        public event Action<Project> ProjectSaving;
+        public event Action<Project> ProjectSaveFailed;
+        public event Action<Project> ProjectSaved;
+
+        public static bool TemporaryProjectBeingSaved;
+        public static bool TemporaryProjectSaved;
+        public static bool TemporaryProjectSavedAsynchroneously;
         private static readonly ILog log = LogManager.GetLogger(typeof(DeltaShellApplication));
-
-        private PluginConfigurationLoader pluginConfigurationLoader;
-        private IList<ApplicationPlugin> plugins;
-
-        private Project project;
-        private NameValueCollection settings;
-        private DeltaShellApplicationSettings userSettings;
-        private ResourceManager resources;
-        private IProjectService projectService;
-        private IProjectRepositoryFactory projectRepositoryFactory;
-        private NotifyingThreadQueue<IActivity> activities;
         private readonly IList<IFileImporter> fileImporters = new List<IFileImporter>();
         private readonly IList<IFileExporter> fileExporters = new List<IFileExporter>();
+
+        public Action WaitMethod;
+
+        private Project project;
+        private DeltaShellApplicationSettings userSettings;
+        private IProjectService projectService;
+        private NotifyingThreadQueue<IActivity> activities;
 
         private string defaultRepositoryTypeName;
 
         private bool isRunning;
 
-        public Action WaitMethod;
+        private bool running;
 
-        public string PluginVersions
-        {
-            get { return String.Join("\n", plugins.Select(p => p.Name + "  " + p.Version)); }
-        }
+        private Project projectBeingCreated;
+        private bool initializing;
 
-        public event Action AfterRun;
-        
-        public bool IsDataAccessSynchronizationDisabled { get; set; }
-
-        public PluginConfigurationLoader PluginConfigurationLoader
-        {
-            get { return pluginConfigurationLoader; }
-        }
-
-        // TODO: migrate into ProjectService
-        public IProjectRepositoryFactory ProjectRepositoryFactory
-        {
-            get { return projectRepositoryFactory; }
-            set { projectRepositoryFactory = value; }
-        }
+        private bool disposed;
 
         public DeltaShellApplication()
         {
-            projectRepositoryFactory = new ProjectRepositoryFactory<InMemoryProjectRepository>();
+            ProjectRepositoryFactory = new ProjectRepositoryFactory<InMemoryProjectRepository>();
 
             Settings = ConfigurationManager.AppSettings;
             UserSettings = Properties.Settings.Default;
 
-            ProjectService = new ProjectService(projectRepositoryFactory);
+            ProjectService = new ProjectService(ProjectRepositoryFactory);
 
-            plugins = new List<ApplicationPlugin>();
+            Plugins = new List<ApplicationPlugin>();
 
             ActivityRunner = new ActivityRunner();
 
@@ -88,42 +83,45 @@ namespace DeltaShell.Core
                 RunningActivityLogAppender.Instance.ActivityRunner = ActivityRunner;
             }
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainAssemblyResolve;
-            
+
             InitializeSettingsHelper();
-			
+
             Settings = ConfigurationManager.AppSettings;
-			UserSettings = Properties.Settings.Default;
+            UserSettings = Properties.Settings.Default;
         }
 
-        static Assembly CurrentDomainAssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            //HACK : this is needed because of issue 4382...the black boxes in PG. It seem like the assembly for 
-            //enum types like AggregationOptions cannot be found without this 
-            return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(asm => asm.FullName == args.Name);
-        }
+        public PluginConfigurationLoader PluginConfigurationLoader { get; private set; }
 
-        public ApplicationPlugin GetPluginForType(Type type)
+        public string ApplicationNameAndVersion
         {
-            foreach (var plugin in plugins)
+            get
             {
-                if (plugin.GetType().Assembly.Equals(type.Assembly))
-                {
-                    return plugin;
-                }
-
-                if (plugin.GetDataItemInfos().Any(dii => dii.ValueType == type))
-                {
-                    return plugin;
-                }
+                return SettingsHelper.ApplicationNameAndVersion;
             }
-
-            return null;
         }
+
+        public bool IsProjectCreatedInTemporaryDirectory { get; set; }
+
+        public string PluginVersions
+        {
+            get
+            {
+                return String.Join("\n", Plugins.Select(p => p.Name + "  " + p.Version));
+            }
+        }
+
+        public bool IsDataAccessSynchronizationDisabled { get; set; }
+
+        // TODO: migrate into ProjectService
+        public IProjectRepositoryFactory ProjectRepositoryFactory { get; set; }
 
         public Project Project
         {
-            get { return project; }
-            
+            get
+            {
+                return project;
+            }
+
             [InvokeRequired]
             set
             {
@@ -154,72 +152,23 @@ namespace DeltaShell.Core
             }
         }
 
-        [InvokeRequired]
-        private void ProjectServiceProjectSaving(object sender, EventArgs e)
-        {
-            if (ProjectSaving != null)
-            {
-                ProjectSaving(Project);
-            }
-        }
-
-        [InvokeRequired]
-        void ProjectServiceProjectSaveFailed(object sender, EventArgs e)
-        {
-            if (ProjectSaveFailed != null)
-            {
-                ProjectSaveFailed(Project);
-            }
-        }
-
-        [InvokeRequired]
-        void ProjectServiceProjectSaved(object sender, EventArgs e)
-        {
-            if (ProjectSaved != null)
-            {
-                ProjectSaved(Project);
-            }
-        }
-
-        public IList<ApplicationPlugin> Plugins
-        {
-            get { return plugins; }
-            set { plugins = value; }
-        }
-
-
-
-        // TODO: migrate into ProjectService
-        public event Action<Project> ProjectOpening;
-        public event Action<Project> ProjectOpened;
-
-        // TODO: migrate into ProjectService
-        public event Action<Project> ProjectClosing;
-        public event Action<Project> ProjectSaving;
-        public event Action<Project> ProjectSaveFailed;
-        public event Action<Project> ProjectSaved;
+        public IList<ApplicationPlugin> Plugins { get; set; }
 
         public IActivityRunner ActivityRunner { get; set; }
 
         public ApplicationSettingsBase UserSettings
         {
-            get { return userSettings; }
+            get
+            {
+                return userSettings;
+            }
             set
             {
                 userSettings = new DeltaShellApplicationSettings(value); // small hack, wrap settings so that we will know when they are changed.
             }
         }
 
-        public string GetUserSettingsDirectoryPath()
-        {
-            return SettingsHelper.GetApplicationLocalUserSettingsDirectory();
-        }
-
-        public NameValueCollection Settings
-        {
-            get { return this.settings; }
-            set { this.settings = value; }
-        }
+        public NameValueCollection Settings { get; set; }
 
         public string Version
         {
@@ -231,12 +180,126 @@ namespace DeltaShell.Core
             }
         }
 
-        public string ApplicationNameAndVersion
+        // TODO: hide it
+        public IProjectService ProjectService
         {
-            get { return SettingsHelper.ApplicationNameAndVersion; }
+            get
+            {
+                return projectService;
+            }
+            set
+            {
+                if (projectService != null)
+                {
+                    projectService.ProjectSaving -= ProjectServiceProjectSaving;
+                    projectService.ProjectSaved -= ProjectServiceProjectSaved;
+                    projectService.ProjectSaveFailed -= ProjectServiceProjectSaveFailed;
+                }
+
+                projectService = value;
+
+                if (projectService != null)
+                {
+                    projectService.ProjectSaving += ProjectServiceProjectSaving;
+                    projectService.ProjectSaved += ProjectServiceProjectSaved;
+                    projectService.ProjectSaveFailed += ProjectServiceProjectSaveFailed;
+                }
+            }
         }
 
-        public bool IsProjectCreatedInTemporaryDirectory { get; set; }
+        public string ProjectDataDirectory
+        {
+            get
+            {
+                return projectService.ProjectDataDirectory;
+            }
+        }
+
+        public string ProjectFilePath
+        {
+            get
+            {
+                return projectService.ProjectRepository.Path;
+            }
+        }
+
+        public IEnumerable<IFileImporter> FileImporters
+        {
+            get
+            {
+                return fileImporters;
+            }
+        }
+
+        public IEnumerable<IFileExporter> FileExporters
+        {
+            get
+            {
+                return fileExporters;
+            }
+        }
+
+        public ResourceManager Resources { get; set; }
+
+        public static void SetLanguageAndRegionalSettions(ApplicationSettingsBase tempUserSettings = null)
+        {
+            var settings = ConfigurationManager.AppSettings;
+
+            var language = settings["language"];
+
+            if (language != null)
+            {
+                RegionalSettingsManager.Language = language;
+            }
+
+            if (tempUserSettings != null && tempUserSettings.Properties.Count > 0)
+            {
+                var realNumberFormat = tempUserSettings["realNumberFormat"];
+                if (realNumberFormat != null)
+                {
+                    RegionalSettingsManager.RealNumberFormat = (string) realNumberFormat;
+                }
+            }
+
+            var culture = Thread.CurrentThread.CurrentCulture.ToString();
+            if (culture == "tr-TR" || culture == "az")
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            }
+        }
+
+        /// <summary>
+        /// Sets plugin resources, resource manager will automatically select culture-aware resource file.
+        /// </summary>
+        /// <param name="plugin"></param>
+        public static void InitializePluginResources(IPlugin plugin)
+        {
+            var resourceName = plugin.GetType().Assembly.FullName.Split(',')[0] + ".Properties.Resources";
+            plugin.Resources = new ResourceManager(resourceName, plugin.GetType().Assembly);
+        }
+
+        public ApplicationPlugin GetPluginForType(Type type)
+        {
+            foreach (var plugin in Plugins)
+            {
+                if (plugin.GetType().Assembly.Equals(type.Assembly))
+                {
+                    return plugin;
+                }
+
+                if (plugin.GetDataItemInfos().Any(dii => dii.ValueType == type))
+                {
+                    return plugin;
+                }
+            }
+
+            return null;
+        }
+
+        public string GetUserSettingsDirectoryPath()
+        {
+            return SettingsHelper.GetApplicationLocalUserSettingsDirectory();
+        }
 
         public void Run(string projectPath)
         {
@@ -244,10 +307,9 @@ namespace DeltaShell.Core
             OpenProject(projectPath);
         }
 
-        private bool running;
         public void Run()
         {
-            if(isRunning)
+            if (isRunning)
             {
                 throw new InvalidOperationException(Properties.Resources.DeltaShellApplication_Run_You_can_call_Run___only_once_per_application);
             }
@@ -256,10 +318,10 @@ namespace DeltaShell.Core
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            
+
             log.Info(Properties.Resources.DeltaShellApplication_Run_Starting_Delta_Shell____);
 
-            if(running)
+            if (running)
             {
                 throw new InvalidOperationException(Properties.Resources.DeltaShellApplication_Run_Application_is_already_running);
             }
@@ -280,9 +342,9 @@ namespace DeltaShell.Core
 
             InitializeLicense();
 
-            log.Info(Properties.Resources.DeltaShellApplication_Run_Initializing_plugins____); 
+            log.Info(Properties.Resources.DeltaShellApplication_Run_Initializing_plugins____);
             InitializePlugins();
-            
+
             log.Info(Properties.Resources.DeltaShellApplication_Run_Initializing_project_repository____);
             InitializeProjectRepositoryFactory();
 
@@ -305,7 +367,7 @@ namespace DeltaShell.Core
             if (!TemporaryProjectSavedAsynchroneously)
             {
                 // wait until all plugins are activated
-                while(Plugins.Any(p => !p.IsActive))
+                while (Plugins.Any(p => !p.IsActive))
                 {
                     Thread.Sleep(250);
                 }
@@ -317,51 +379,13 @@ namespace DeltaShell.Core
 
             stopwatch.Stop();
 
-            log.InfoFormat(Properties.Resources.DeltaShellApplication_Run_Delta_Shell_is_ready__started_in__0_F3__sec_, stopwatch.ElapsedMilliseconds / 1000.0);
+            log.InfoFormat(Properties.Resources.DeltaShellApplication_Run_Delta_Shell_is_ready__started_in__0_F3__sec_, stopwatch.ElapsedMilliseconds/1000.0);
 
             if (AfterRun != null)
             {
                 AfterRun();
             }
         }
-
-        private void InitializeSettingsHelper()
-        {
-            //read settings from app.config and update the settings helper.
-            if (Settings.AllKeys.Contains("applicationName"))
-            {
-                SettingsHelper.ApplicationName = Settings["applicationName"];
-                SettingsHelper.ApplicationVersion = Settings["fullVersion"];
-            }
-        }
-
-        public static void SetLanguageAndRegionalSettions(ApplicationSettingsBase tempUserSettings = null)
-        {
-            var settings = ConfigurationManager.AppSettings;
-            
-            var language = settings["language"];
-
-            if (language != null)
-            {
-                RegionalSettingsManager.Language = language;
-            }
-
-            if (tempUserSettings != null && tempUserSettings.Properties.Count > 0)
-            {
-                var realNumberFormat = tempUserSettings["realNumberFormat"];
-                if (realNumberFormat != null)
-                {
-                    RegionalSettingsManager.RealNumberFormat = (string)realNumberFormat;
-                }
-            }
-
-            var culture = Thread.CurrentThread.CurrentCulture.ToString();
-            if (culture == "tr-TR" || culture == "az")
-            {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            }
-        }
-
 
         public void CloseProject()
         {
@@ -413,28 +437,14 @@ namespace DeltaShell.Core
             }
         }
 
-        private Project projectBeingCreated;
-        private bool initializing;
-
-        private void SaveTemporaryProjectThread()
-        {
-            ProjectService.SaveProjectInTemporaryFolder(projectBeingCreated);
-            TemporaryProjectSaved = true;
-            TemporaryProjectBeingSaved = false;
-        }
-
-        public static bool TemporaryProjectBeingSaved;
-        public static bool TemporaryProjectSaved;
-        public static bool TemporaryProjectSavedAsynchroneously;
-
         public bool OpenProject(string path)
         {
-            if(!isRunning)
+            if (!isRunning)
             {
                 throw new InvalidOperationException(Properties.Resources.DeltaShellApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened);
             }
 
-            if(Project != null)
+            if (Project != null)
             {
                 CloseProject();
             }
@@ -442,28 +452,67 @@ namespace DeltaShell.Core
             var retrievedProject = ProjectService.Open(path);
             if (retrievedProject != null)
             {
-                Project = retrievedProject;    
+                Project = retrievedProject;
             }
             return retrievedProject != null;
         }
-        
-        private static void LogSystemInfo()
+
+        public void Exit()
         {
-            log.DebugFormat(Properties.Resources.DeltaShellApplication_LogSystemInfo_Environmental_variables_);
+            Trace.Listeners.Clear();
 
-            var culture = Thread.CurrentThread.CurrentCulture;
-            log.DebugFormat("{0} = {1}", "CURRENT_THREAD_CULTURE" , culture.EnglishName);
-            log.DebugFormat("{0} = {1}", "NUMBER_DECIMAL_DIGITS" , culture.NumberFormat.NumberDecimalDigits);
-            log.DebugFormat("{0} = {1}", "NUMBER_DECIMAL_SEPARATOR" , culture.NumberFormat.NumberDecimalSeparator);
-            log.DebugFormat("{0} = {1}", "FULL_DATE_TIME_PATTERN" , culture.DateTimeFormat.FullDateTimePattern);
-            log.DebugFormat("{0} = {1}", "DATE_SEPARATOR" , culture.DateTimeFormat.DateSeparator);
-            log.DebugFormat("{0} = {1}", "OS_VERSION" , Environment.OSVersion);
-            log.DebugFormat("{0} = {1}", "OS_VERSION_NUMBER" , Environment.Version);
-
-            foreach(DictionaryEntry pair in Environment.GetEnvironmentVariables())
+            if (Project != null && Project.IsChanged)
             {
-                log.DebugFormat("{0} = {1}", pair.Key, pair.Value);
+                CloseProject();
             }
+
+            if (userSettings.IsDirty)
+            {
+                UserSettings.Save();
+            }
+        }
+
+        public bool IsActivityRunning()
+        {
+            return ActivityRunner.IsRunning;
+        }
+
+        public void RunActivity(IActivity activity)
+        {
+            if (WaitMethod == null) //typically in console
+            {
+                DelftTools.Shell.Core.Workflow.ActivityRunner.RunActivity(activity); //run sync
+                return;
+            }
+
+            RunActivityInBackground(activity);
+            while (ActivityRunner.IsRunningActivity(activity))
+            {
+                WaitMethod();
+            }
+        }
+
+        public void RunActivityInBackground(IActivity activity)
+        {
+            ActivityRunner.Enqueue(activity);
+        }
+
+        public void StopActivity(IActivity activity)
+        {
+            ActivityRunner.Cancel(activity);
+            //CurrentActivities.Abort(activity);
+            activity.Cancel();
+        }
+
+        public bool IsActivityRunningOrWaiting(IActivity activity)
+        {
+            return ActivityRunner.Activities.Contains(activity);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         protected void ActivatePlugins()
@@ -482,13 +531,13 @@ namespace DeltaShell.Core
             */
 
             // activate all plugins
-            foreach (var plugin in plugins)
+            foreach (var plugin in Plugins)
             {
                 log.DebugFormat(Properties.Resources.DeltaShellApplication_ActivatePlugins_Activating_plugin__0_____, plugin.Name);
                 string cwdOld = ".";
 
                 var assembly = plugin.GetType().Assembly;
-                if(!assembly.IsDynamic())
+                if (!assembly.IsDynamic())
                 {
                     cwdOld = Path.GetDirectoryName(assembly.Location);
                 }
@@ -504,6 +553,106 @@ namespace DeltaShell.Core
             log.Debug(Properties.Resources.DeltaShellApplication_ActivatePlugins_All_plugins_were_activated_);
         }
 
+        protected void InitializePlugins()
+        {
+            log.Debug(Properties.Resources.DeltaShellApplication_InitializePlugins_Searching_for_plugins____);
+
+            var pluginsDirectory = GetPluginDirectory();
+
+            PluginManager.RegisterAdditionalPlugins(Plugins);
+            PluginManager.Initialize(pluginsDirectory);
+
+            var newApplicationPlugins = PluginManager.GetPlugins<ApplicationPlugin>().Except(Plugins).ToList();
+            foreach (var plugin in newApplicationPlugins)
+            {
+                Plugins.Add(plugin);
+            }
+            Plugins.ForEach(p => p.Application = this);
+
+            log.InfoFormat(Properties.Resources.DeltaShellApplication_InitializePlugins__0__plugin_s__were_loaded, Plugins.Count);
+        }
+
+        /// <summary>
+        /// Initialize the log4net part
+        /// </summary>
+        protected static void InitializeLogging()
+        {
+            if (!Trace.Listeners.Cast<TraceListener>().Any(tl => tl is DeltaShellTraceListener))
+            {
+                Trace.Listeners.Add(new DeltaShellTraceListener());
+            }
+        }
+
+        private static Assembly CurrentDomainAssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            //HACK : this is needed because of issue 4382...the black boxes in PG. It seem like the assembly for 
+            //enum types like AggregationOptions cannot be found without this 
+            return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(asm => asm.FullName == args.Name);
+        }
+
+        [InvokeRequired]
+        private void ProjectServiceProjectSaving(object sender, EventArgs e)
+        {
+            if (ProjectSaving != null)
+            {
+                ProjectSaving(Project);
+            }
+        }
+
+        [InvokeRequired]
+        private void ProjectServiceProjectSaveFailed(object sender, EventArgs e)
+        {
+            if (ProjectSaveFailed != null)
+            {
+                ProjectSaveFailed(Project);
+            }
+        }
+
+        [InvokeRequired]
+        private void ProjectServiceProjectSaved(object sender, EventArgs e)
+        {
+            if (ProjectSaved != null)
+            {
+                ProjectSaved(Project);
+            }
+        }
+
+        private void InitializeSettingsHelper()
+        {
+            //read settings from app.config and update the settings helper.
+            if (Settings.AllKeys.Contains("applicationName"))
+            {
+                SettingsHelper.ApplicationName = Settings["applicationName"];
+                SettingsHelper.ApplicationVersion = Settings["fullVersion"];
+            }
+        }
+
+        private void SaveTemporaryProjectThread()
+        {
+            ProjectService.SaveProjectInTemporaryFolder(projectBeingCreated);
+            TemporaryProjectSaved = true;
+            TemporaryProjectBeingSaved = false;
+        }
+
+        private static void LogSystemInfo()
+        {
+            log.DebugFormat(Properties.Resources.DeltaShellApplication_LogSystemInfo_Environmental_variables_);
+
+            var culture = Thread.CurrentThread.CurrentCulture;
+            log.DebugFormat("{0} = {1}", "CURRENT_THREAD_CULTURE", culture.EnglishName);
+            log.DebugFormat("{0} = {1}", "NUMBER_DECIMAL_DIGITS", culture.NumberFormat.NumberDecimalDigits);
+            log.DebugFormat("{0} = {1}", "NUMBER_DECIMAL_SEPARATOR", culture.NumberFormat.NumberDecimalSeparator);
+            log.DebugFormat("{0} = {1}", "FULL_DATE_TIME_PATTERN", culture.DateTimeFormat.FullDateTimePattern);
+            log.DebugFormat("{0} = {1}", "DATE_SEPARATOR", culture.DateTimeFormat.DateSeparator);
+            log.DebugFormat("{0} = {1}", "OS_VERSION", Environment.OSVersion);
+            log.DebugFormat("{0} = {1}", "OS_VERSION_NUMBER", Environment.Version);
+
+            foreach (DictionaryEntry pair in Environment.GetEnvironmentVariables())
+            {
+                log.DebugFormat("{0} = {1}", pair.Key, pair.Value);
+            }
+        }
+
         /// <summary>
         /// Set license environmental variables to path of the license file. 
         /// </summary>
@@ -516,7 +665,7 @@ namespace DeltaShell.Core
                 licenseFilePath = Settings["licenseFilePath"];
             }
 
-            if(string.IsNullOrEmpty(licenseFilePath))
+            if (string.IsNullOrEmpty(licenseFilePath))
             {
                 return;
             }
@@ -533,25 +682,6 @@ namespace DeltaShell.Core
             }
 
             log.Debug(Properties.Resources.DeltaShellApplication_InitializeLicense_License_is_initialized_);
-        }
-
-        protected void InitializePlugins()
-        {
-            log.Debug(Properties.Resources.DeltaShellApplication_InitializePlugins_Searching_for_plugins____);
-
-            var pluginsDirectory = GetPluginDirectory();
-            
-            PluginManager.RegisterAdditionalPlugins(Plugins);
-            PluginManager.Initialize(pluginsDirectory);
-            
-            var newApplicationPlugins = PluginManager.GetPlugins<ApplicationPlugin>().Except(Plugins).ToList();
-            foreach (var plugin in newApplicationPlugins)
-            {
-                plugins.Add(plugin);
-            }
-            Plugins.ForEach(p => p.Application = this);
-            
-            log.InfoFormat(Properties.Resources.DeltaShellApplication_InitializePlugins__0__plugin_s__were_loaded, Plugins.Count);
         }
 
         private string GetPluginDirectory()
@@ -571,10 +701,10 @@ namespace DeltaShell.Core
 
         private void InitializePluginResources()
         {
-            if (plugins.Count > 0)
+            if (Plugins.Count > 0)
             {
                 string s = "";
-                foreach (var p in plugins)
+                foreach (var p in Plugins)
                 {
                     InitializePluginResources(p);
 
@@ -589,114 +719,17 @@ namespace DeltaShell.Core
             }
         }
 
-        /// <summary>
-        /// Sets plugin resources, resource manager will automatically select culture-aware resource file.
-        /// </summary>
-        /// <param name="plugin"></param>
-        public static void InitializePluginResources(IPlugin plugin)
-        {
-            var resourceName = plugin.GetType().Assembly.FullName.Split(',')[0] + ".Properties.Resources";
-            plugin.Resources = new ResourceManager(resourceName, plugin.GetType().Assembly);
-        }
-
-        /// <summary>
-        /// Initialize the log4net part
-        /// </summary>
-        protected static void InitializeLogging()
-        {
-            if (!Trace.Listeners.Cast<TraceListener>().Any(tl => tl is DeltaShellTraceListener))
-            {
-                Trace.Listeners.Add(new DeltaShellTraceListener());
-            }
-        }
-
-        #region Nested type: DeltaShellTraceListener
-
-        internal class DeltaShellTraceListener : TraceListener
-        {
-            private static ILog log;
-            private static bool logTraceMessages = true;
-
-            public DeltaShellTraceListener()
-            {
-                log = LogManager.GetLogger(GetType());
-            }
-
-            public static bool LogTraceMessages
-            {
-                get { return logTraceMessages; }
-                set { logTraceMessages = value; }
-            }
-
-            public override void Write(string message)
-            {
-                if (logTraceMessages)
-                {
-                    WriteLine(message);
-                }
-            }
-
-            public override void WriteLine(string message)
-            {
-                if (logTraceMessages)
-                {
-                    log.Debug(message);
-                }
-            }
-        }
-
-        #endregion
-
-        public void Exit()
-        {
-            Trace.Listeners.Clear();
-
-            if (Project != null && Project.IsChanged)
-            {
-                CloseProject();
-            }
-
-            if (userSettings.IsDirty)
-            {
-                UserSettings.Save();
-            }
-        }
-
-        // TODO: hide it
-        public IProjectService ProjectService
-        {
-            get { return projectService; }
-            set
-            {
-                if(projectService != null)
-                {
-                    projectService.ProjectSaving -= ProjectServiceProjectSaving;
-                    projectService.ProjectSaved -= ProjectServiceProjectSaved;
-                    projectService.ProjectSaveFailed -= ProjectServiceProjectSaveFailed;
-                }
-
-                projectService = value;
-
-                if (projectService != null)
-                {
-                    projectService.ProjectSaving += ProjectServiceProjectSaving;
-                    projectService.ProjectSaved += ProjectServiceProjectSaved;
-                    projectService.ProjectSaveFailed += ProjectServiceProjectSaveFailed;
-                }
-            }
-        }
-
         // TODO: migrate into ProjectService
         private void InitializeProjectRepositoryFactory()
         {
             //File.WriteAllText(@"d:\check.graphml", new PluginPersistencyGraphMlExporter().GetGraphML(Plugins));
             RegisterPersistentAssemblies(ProjectRepositoryFactory);
-            
+
             // add data access listeners from plugins
             foreach (var plugin in Plugins)
             {
                 var dataAccessListenersProvider = plugin as IDataAccessListenersProvider;
-                if(dataAccessListenersProvider != null)
+                if (dataAccessListenersProvider != null)
                 {
                     foreach (var listener in dataAccessListenersProvider.CreateDataAccessListeners())
                     {
@@ -712,7 +745,7 @@ namespace DeltaShell.Core
         {
             log.Debug(Properties.Resources.DeltaShellApplication_RegisterDataTypes_Registering_persistent_data_types____);
 
-            foreach (var dataName in plugins.SelectMany(plugin => plugin.GetDataItemInfos().Select(dii => dii.Name)))
+            foreach (var dataName in Plugins.SelectMany(plugin => plugin.GetDataItemInfos().Select(dii => dii.Name)))
             {
                 log.DebugFormat(Properties.Resources.DeltaShellApplication_RegisterDataTypes_Registering_data_type__0_, dataName);
             }
@@ -722,7 +755,7 @@ namespace DeltaShell.Core
         {
             log.Debug(Properties.Resources.DeltaShellApplication_RegisterImporters_Registering_importers____);
 
-            foreach (var fileImporter in plugins.SelectMany(plugin => plugin.GetFileImporters()))
+            foreach (var fileImporter in Plugins.SelectMany(plugin => plugin.GetFileImporters()))
             {
                 var projectImporter = fileImporter as IProjectImporter;
                 if (projectImporter != null)
@@ -740,7 +773,7 @@ namespace DeltaShell.Core
         {
             log.Debug(Properties.Resources.DeltaShellApplication_RegisterExporters_Registering_exporters____);
 
-            foreach (var fileExporter in plugins.SelectMany(plugin => plugin.GetFileExporters()))
+            foreach (var fileExporter in Plugins.SelectMany(plugin => plugin.GetFileExporters()))
             {
                 var projectExporter = fileExporter as IProjectItemExporter;
                 if (projectExporter != null)
@@ -764,79 +797,14 @@ namespace DeltaShell.Core
             }
         }
 
-        public string ProjectDataDirectory
-        {
-            get { return projectService.ProjectDataDirectory; }
-        }
-
-        public string ProjectFilePath
-        {
-            get { return projectService.ProjectRepository.Path; }
-        }
-
-        public IEnumerable<IFileImporter> FileImporters
-        {
-            get { return fileImporters; }
-        }
-
-        public IEnumerable<IFileExporter> FileExporters
-        {
-            get { return fileExporters; }
-        }
-
-        public ResourceManager Resources
-        {
-            get { return this.resources; }
-            set { this.resources = value; }
-        }
-
-        public bool IsActivityRunning()
-        {
-            return this.ActivityRunner.IsRunning;
-        }
-
-        public void RunActivity(IActivity activity)
-        {
-            if (WaitMethod == null) //typically in console
-            {
-                DelftTools.Shell.Core.Workflow.ActivityRunner.RunActivity(activity); //run sync
-                return;
-            }
-
-            RunActivityInBackground(activity);
-            while(ActivityRunner.IsRunningActivity(activity))
-            {
-                WaitMethod();
-            }
-        }
-
-        public void RunActivityInBackground(IActivity activity)
-        {
-            ActivityRunner.Enqueue(activity); 
-        }
-
-        public void StopActivity(IActivity activity)
-        {
-            ActivityRunner.Cancel(activity);
-            //CurrentActivities.Abort(activity);
-            activity.Cancel();
-        }
-
-        public bool IsActivityRunningOrWaiting(IActivity activity)
-        {
-            return ActivityRunner.Activities.Contains(activity);
-        }
-
-        private bool disposed;
-        
         private void Dispose(bool disposing)
         {
             if (!disposed)
             {
                 if (disposing)
                 {
-                    CloseProject();  
-                    
+                    CloseProject();
+
                     projectBeingCreated = null;
 
                     RegularExpression.ClearExpressionsCache();
@@ -858,9 +826,9 @@ namespace DeltaShell.Core
                         disposable.Dispose();
                     }
 
-                    plugins.Clear();
+                    Plugins.Clear();
 
-                    plugins = null;
+                    Plugins = null;
 
                     PluginManager.Reset();
 
@@ -874,15 +842,52 @@ namespace DeltaShell.Core
             disposed = true;
         }
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         ~DeltaShellApplication()
         {
             Dispose(false);
         }
+
+        #region Nested type: DeltaShellTraceListener
+
+        internal class DeltaShellTraceListener : TraceListener
+        {
+            private static ILog log;
+            private static bool logTraceMessages = true;
+
+            public DeltaShellTraceListener()
+            {
+                log = LogManager.GetLogger(GetType());
+            }
+
+            public static bool LogTraceMessages
+            {
+                get
+                {
+                    return logTraceMessages;
+                }
+                set
+                {
+                    logTraceMessages = value;
+                }
+            }
+
+            public override void Write(string message)
+            {
+                if (logTraceMessages)
+                {
+                    WriteLine(message);
+                }
+            }
+
+            public override void WriteLine(string message)
+            {
+                if (logTraceMessages)
+                {
+                    log.Debug(message);
+                }
+            }
+        }
+
+        #endregion
     }
 }

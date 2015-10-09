@@ -1,8 +1,6 @@
 ﻿using DelftTools.Shell.Core;
 using DelftTools.Utils;
-
 using NUnit.Framework;
-
 using Rhino.Mocks;
 
 namespace Wti.Data.Test
@@ -59,7 +57,5 @@ namespace Wti.Data.Test
             // assert
             mocks.VerifyAll(); // Expect no calls on observer
         }
-        
-        
     }
 }

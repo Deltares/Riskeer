@@ -9,7 +9,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
     /// a <see cref="Geometry" /> validation error.
     /// </summary>
     public enum TopologyValidationErrors
-    {     
+    {
         /// <summary>
         /// Not used.
         /// </summary>
@@ -89,15 +89,15 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
     /// Contains information about the nature and location of a <c>Geometry</c>
     /// validation error.
     /// </summary>
-    public class TopologyValidationError 
-    {        
+    public class TopologyValidationError
+    {
         // NOTE: modified for "safe" assembly in Sql 2005
         // Added readonly!
 
         /// <summary>
         /// These messages must synch up with the indexes above
         /// </summary>
-        private static readonly string[] errMsg = 
+        private static readonly string[] errMsg =
         {
             "Topology Validation Error",
             "Repeated Point",
@@ -112,9 +112,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
             "Invalid Coordinate"
         };
 
-        private TopologyValidationErrors errorType;
-        private ICoordinate pt;
-
         /// <summary>
         /// 
         /// </summary>
@@ -122,38 +119,28 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
         /// <param name="pt"></param>
         public TopologyValidationError(TopologyValidationErrors errorType, ICoordinate pt)
         {
-            this.errorType = errorType;
-            if(pt != null)
-                this.pt = (ICoordinate) pt.Clone();
+            ErrorType = errorType;
+            if (pt != null)
+            {
+                Coordinate = (ICoordinate) pt.Clone();
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="errorType"></param>
-        public TopologyValidationError(TopologyValidationErrors errorType) : this(errorType, null) { }
+        public TopologyValidationError(TopologyValidationErrors errorType) : this(errorType, null) {}
 
         /// <summary>
         /// 
         /// </summary>
-        public ICoordinate Coordinate
-        {
-            get
-            {
-                return pt;
-            }
-        }
+        public ICoordinate Coordinate { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public TopologyValidationErrors ErrorType
-        {
-            get
-            {
-                return errorType;
-            }
-        }
+        public TopologyValidationErrors ErrorType { get; private set; }
 
         /// <summary>
         /// 
@@ -162,7 +149,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
         {
             get
             {
-                return errMsg[(int) errorType];
+                return errMsg[(int) ErrorType];
             }
         }
 
@@ -172,7 +159,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
         /// <returns></returns>
         public override string ToString()
         {
-            return Message + " at or near point " + pt;
+            return Message + " at or near point " + Coordinate;
         }
     }
 }

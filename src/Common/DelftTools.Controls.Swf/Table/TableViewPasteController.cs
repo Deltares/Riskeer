@@ -12,14 +12,12 @@ namespace DelftTools.Controls.Swf.Table
     /// </summary>
     public class TableViewPasteController : ITableViewPasteController
     {
-        private bool isPasting;
-        private static readonly ILog Log = LogManager.GetLogger(typeof(TableViewPasteController));
+        public event EventHandler<EventArgs<string>> PasteFailed;
+
+        public event EventHandler<EventArgs> PasteFinished;
 
         private const int NewRowSelectedIndex = int.MinValue + 1;
-        private List<int> PastedRows { get; set; }
-
-        protected TableView TableView { get; private set; }
-        protected List<RectangleSelection> PastedBlocks { private get; set; }
+        private static readonly ILog Log = LogManager.GetLogger(typeof(TableViewPasteController));
 
         public TableViewPasteController(TableView tableView)
         {
@@ -27,6 +25,13 @@ namespace DelftTools.Controls.Swf.Table
             PastedRows = new List<int>();
             PastedBlocks = new List<RectangleSelection>();
         }
+
+        ///<summary>
+        /// Gets or sets the paste behaviour value
+        ///</summary>
+        public TableViewPasteBehaviourOptions PasteBehaviour { get; set; }
+
+        public bool IsPasting { get; private set; }
 
         /// <summary>
         /// This method does most of the work. It Pastes Clipboard content to the XtraGrid. 
@@ -45,11 +50,13 @@ namespace DelftTools.Controls.Swf.Table
                 Log.Debug("Clipboard does not contain text, so it cannot be pasted to the grid.");
                 return;
             }
-            
+
             string[] clipboardLines = GetClipboardLines();
             //nothing to paste.
             if (clipboardLines.Length == 0)
+            {
                 return;
+            }
 
             PasteLines(clipboardLines);
         }
@@ -60,7 +67,7 @@ namespace DelftTools.Controls.Swf.Table
         /// <param name="lines"></param>
         public void PasteLines(string[] lines)
         {
-            isPasting = true;
+            IsPasting = true;
 
             lines = RemoveHeaderIfPresent(lines);
 
@@ -72,9 +79,9 @@ namespace DelftTools.Controls.Swf.Table
             {
                 OnPasteFailed(message);
 
-                isPasting = false;
+                IsPasting = false;
 
-                return;//don't paste
+                return; //don't paste
             }
 
             //pastevalues returns the pasted selection
@@ -101,37 +108,13 @@ namespace DelftTools.Controls.Swf.Table
             PastedRows.Clear();
             PastedBlocks.Clear();
 
-            isPasting = false;
+            IsPasting = false;
 
             OnPasteFinished();
         }
 
-        ///<summary>
-        /// Gets or sets the paste behaviour value
-        ///</summary>
-        public TableViewPasteBehaviourOptions PasteBehaviour { get; set; }
-
-        public bool IsPasting
-        {
-            get { return isPasting; }
-        }
-
-        private string[] RemoveHeaderIfPresent(string[] lines)
-        {
-            if (lines.Length > 0 && string.Equals(lines[0], GetTableHeaderString()))
-            {
-                return lines.Skip(1).ToArray(); //skip header
-            }
-            return lines;
-        }
-
-        private string GetTableHeaderString()
-        {
-            //The function xtragrid uses to get the header string is protected and uses dxColumn.GetTextCaption(), 
-            //which may differ from dxColumn.GetCaption we use. In those cases this may break. Also if the ordering
-            //of columns is out of sync (can that happen?)
-            return String.Join("\t", TableView.Columns.Where(c => c.Visible).Select(c => c.Caption).ToArray());
-        }
+        protected TableView TableView { get; private set; }
+        protected List<RectangleSelection> PastedBlocks { private get; set; }
 
         /// <summary>
         /// Overload without message parameter.
@@ -158,32 +141,28 @@ namespace DelftTools.Controls.Swf.Table
             {
                 return GetRowSelectSelection();
             }
-            
-            
+
             var cells = TableView.SelectedCells;
             if (cells.Count == 0)
             {
-
                 //base selection on focused cell
                 var focusedCell = TableView.GetFocusedCell();
                 if (focusedCell != null)
                 {
-                    return new RectangleSelection(focusedCell, focusedCell);    
+                    return new RectangleSelection(focusedCell, focusedCell);
                 }
                 //no focused cell must mean empty table..start pasting left,top
                 return new RectangleSelection(topLeft, topLeft);
-                
             }
-            
+
             //return a selection based on the first and last cell in the selection. Tricky..should check the most upper etc..
             RectangleSelection selection = GetRectangleSelection(cells);
 
-            
             if (selection == null)
             {
                 errorMessage = "Cannot paste into non rectangular selection";
             }
-      
+
             return selection;
         }
 
@@ -198,7 +177,7 @@ namespace DelftTools.Controls.Swf.Table
             else
             {
                 //start pasting at the first row
-                topLeft = new TableViewCell(selectedRows[0], TableView.GetColumnByDisplayIndex(0));    
+                topLeft = new TableViewCell(selectedRows[0], TableView.GetColumnByDisplayIndex(0));
             }
 
             return new RectangleSelection(topLeft, topLeft);
@@ -223,26 +202,12 @@ namespace DelftTools.Controls.Swf.Table
                 top = TableView.RowCount;
             }
             //do a check if we have enought cells...
-            if (cells.Count != (right + 1 - left) * (bottom + 1 - top))
-                return null;
-
-            return new RectangleSelection(new TableViewCell(top, TableView.GetColumnByDisplayIndex(left)),new TableViewCell(bottom,TableView.GetColumnByDisplayIndex(right)) );
-        }
-
-        private void OnPasteFailed(string message)
-        {
-            Log.Warn(message);
-
-            if (PasteFailed != null)
-                PasteFailed(this, new EventArgs<string>(message));
-        }
-
-        private void OnPasteFinished()
-        {
-            if (PasteFinished != null)
+            if (cells.Count != (right + 1 - left)*(bottom + 1 - top))
             {
-                PasteFinished(this, new EventArgs());
+                return null;
             }
+
+            return new RectangleSelection(new TableViewCell(top, TableView.GetColumnByDisplayIndex(left)), new TableViewCell(bottom, TableView.GetColumnByDisplayIndex(right)));
         }
 
         /// <summary>
@@ -270,22 +235,21 @@ namespace DelftTools.Controls.Swf.Table
             var pasteColumnSpan = SplitToCells(clipboardLines[0]).Length;
 
             int[] pastedColumnIndexes = Enumerable.Range(targetSelection.Left, pasteColumnSpan).ToArray();
-            
 
             //is there sorted column in our pasted columns?
             var sortedColumnExists = (from col in TableView.Columns
-                                     where col.SortOrder != SortOrder.None && pastedColumnIndexes.Contains(col.DisplayIndex)
-                                     select col).Any();
+                                      where col.SortOrder != SortOrder.None && pastedColumnIndexes.Contains(col.DisplayIndex)
+                                      select col).Any();
             if (sortedColumnExists)
             {
-                errorMessage = "Cannot paste into sorted column";//todo: add name of column here?
+                errorMessage = "Cannot paste into sorted column"; //todo: add name of column here?
                 return false;
             }
             if (TableView.Columns.Any(col => !string.IsNullOrEmpty(col.FilterString)))
             {
-                errorMessage = "Cannot paste into filtered tableview.";//todo: add name of column here?
+                errorMessage = "Cannot paste into filtered tableview."; //todo: add name of column here?
                 return false;
-            }          
+            }
             return true;
         }
 
@@ -293,7 +257,7 @@ namespace DelftTools.Controls.Swf.Table
         /// Pastes values into target selection.
         /// </summary>
         protected virtual void PasteValues(string[] clipboardLines, RectangleSelection targetSelection,
-                                           bool allowNewRows, bool wrapInEditAction=true)
+                                           bool allowNewRows, bool wrapInEditAction = true)
         {
             if (wrapInEditAction)
             {
@@ -302,6 +266,126 @@ namespace DelftTools.Controls.Swf.Table
             else
             {
                 PasteValuesCore(clipboardLines, targetSelection, allowNewRows);
+            }
+        }
+
+        /// <summary>
+        /// Pastes the given contents to the table at row startRowIndex, increasing the number of rows if necessary and allowed.
+        /// </summary>
+        /// <returns>The row index at which the pasting effectively occured, -1 if no pasting was done.</returns>
+        protected int PasteCellsToRow(string[] content, int startRowIndex, int startColumnIndex, int pasteWidth, bool addNewRow, bool cellBased)
+        {
+            var index = startRowIndex;
+            if (addNewRow)
+            {
+                TableView.AddNewRowToDataSource();
+            }
+            else
+            {
+                if (startRowIndex >= TableView.RowCount)
+                {
+                    return -1;
+                }
+            }
+            var exceptionMode = TableView.ExceptionMode;
+            TableView.ExceptionMode = TableView.ValidationExceptionMode.ThrowException; //throw exception
+            try
+            {
+                if (cellBased)
+                {
+                    var contentWidth = content.Length;
+                    for (var i = 0; i < pasteWidth; i++)
+                    {
+                        if (!SafeSetCellValue(index, startColumnIndex + i, content[i%contentWidth]))
+                        {
+                            Log.ErrorFormat("Can not paste value into cell [{0}, {1}]. Row {0} will be skipped",
+                                            startRowIndex, startColumnIndex + i);
+                            if (addNewRow)
+                            {
+                                TableView.SelectRow(index);
+                                TableView.DeleteCurrentSelection();
+                            }
+                            return -1;
+                        }
+                    }
+                    UpdatePastedBlocks(startColumnIndex, pasteWidth, index);
+                }
+                else
+                {
+                    var contentWidth = content.Length;
+                    var values = new List<string>();
+                    for (var i = 0; i < pasteWidth; i++)
+                    {
+                        values.Add(content[i%contentWidth]);
+                    }
+                    if (!SafeSetRowCellValues(index, startColumnIndex, values))
+                    {
+                        Log.ErrorFormat("Skipping invalid row {0} from pasting",
+                                        startRowIndex);
+                        if (addNewRow)
+                        {
+                            TableView.SelectRow(index);
+                            TableView.DeleteCurrentSelection();
+                        }
+                        return -1;
+                    }
+                    PastedRows.Add(index);
+                }
+            }
+            catch (Exception e)
+            {
+                Log.ErrorFormat("Pasting values failed: {0}", e.Message);
+            }
+            finally
+            {
+                TableView.ExceptionMode = exceptionMode;
+            }
+            return index;
+        }
+
+        protected static string[] SplitToCells(string p)
+        {
+            //tab delimited data: excel, and xtragrid copy (todo think about how to implement pasting of space delimited data)
+            return p.Split(new[]
+            {
+                "\t"
+            }, StringSplitOptions.None);
+        }
+
+        private List<int> PastedRows { get; set; }
+
+        private string[] RemoveHeaderIfPresent(string[] lines)
+        {
+            if (lines.Length > 0 && string.Equals(lines[0], GetTableHeaderString()))
+            {
+                return lines.Skip(1).ToArray(); //skip header
+            }
+            return lines;
+        }
+
+        private string GetTableHeaderString()
+        {
+            //The function xtragrid uses to get the header string is protected and uses dxColumn.GetTextCaption(), 
+            //which may differ from dxColumn.GetCaption we use. In those cases this may break. Also if the ordering
+            //of columns is out of sync (can that happen?)
+            return String.Join("\t", TableView.Columns.Where(c => c.Visible).Select(c => c.Caption).ToArray());
+        }
+
+        private void OnPasteFailed(string message)
+        {
+            Log.Warn(message);
+
+            if (PasteFailed != null)
+            {
+                PasteFailed(this, new EventArgs<string>(message));
+            }
+        }
+
+        private void OnPasteFinished()
+        {
+            if (PasteFinished != null)
+            {
+                PasteFinished(this, new EventArgs());
             }
         }
 
@@ -349,81 +433,6 @@ namespace DelftTools.Controls.Swf.Table
                     currentClipBoardLineIndex = 0;
                 }
             }
-        }
-
-        /// <summary>
-        /// Pastes the given contents to the table at row startRowIndex, increasing the number of rows if necessary and allowed.
-        /// </summary>
-        /// <returns>The row index at which the pasting effectively occured, -1 if no pasting was done.</returns>
-
-        protected int PasteCellsToRow(string[] content, int startRowIndex, int startColumnIndex, int pasteWidth, bool addNewRow, bool cellBased)
-        {
-            var index = startRowIndex;
-            if(addNewRow)
-            {
-                TableView.AddNewRowToDataSource();
-            }
-            else
-            {
-                if(startRowIndex >= TableView.RowCount)
-                {
-                    return -1;
-                }
-            }
-            var exceptionMode = TableView.ExceptionMode;
-            TableView.ExceptionMode = TableView.ValidationExceptionMode.ThrowException; //throw exception
-            try
-            {
-                if (cellBased)
-                {
-                    var contentWidth = content.Length;
-                    for (var i = 0; i < pasteWidth; i++)
-                    {
-                        if (!SafeSetCellValue(index, startColumnIndex + i, content[i % contentWidth]))
-                        {
-                            Log.ErrorFormat("Can not paste value into cell [{0}, {1}]. Row {0} will be skipped",
-                                            startRowIndex, startColumnIndex + i);
-                            if(addNewRow)
-                            {
-                                TableView.SelectRow(index);
-                                TableView.DeleteCurrentSelection();
-                            }
-                            return -1;
-                        }
-                    }
-                    UpdatePastedBlocks(startColumnIndex, pasteWidth, index);
-                }
-                else
-                {
-                    var contentWidth = content.Length;
-                    var values = new List<string>();
-                    for (var i = 0; i < pasteWidth; i++)
-                    {
-                        values.Add(content[i % contentWidth]);
-                    }
-                    if(!SafeSetRowCellValues(index, startColumnIndex, values))
-                    {
-                        Log.ErrorFormat("Skipping invalid row {0} from pasting",
-                                        startRowIndex);
-                        if (addNewRow)
-                        {
-                            TableView.SelectRow(index);
-                            TableView.DeleteCurrentSelection();
-                        }
-                        return -1;
-                    }
-                    PastedRows.Add(index);
-                }
-            }
-            catch (Exception e)
-            {
-                Log.ErrorFormat("Pasting values failed: {0}", e.Message);
-            }
-            finally
-            {
-                TableView.ExceptionMode = exceptionMode;
-            }
-            return index;
         }
 
         private bool SafeSetRowCellValues(int index, int startColumnIndex, List<string> values)
@@ -496,28 +505,21 @@ namespace DelftTools.Controls.Swf.Table
         private static string[] GetClipboardLines()
         {
             var strPasteText = Clipboard.GetText();
-            var lines = strPasteText.Split(new[] {"\r\n"}, StringSplitOptions.None);
+            var lines = strPasteText.Split(new[]
+            {
+                "\r\n"
+            }, StringSplitOptions.None);
             return RemoveLastLineIfEmpty(lines);
         }
 
         private static string[] RemoveLastLineIfEmpty(string[] lines)
         {
-            if (lines[lines.Length-1] == "")
+            if (lines[lines.Length - 1] == "")
             {
                 return lines.ToList().Take(lines.Length - 1).ToArray();
             }
             return lines;
         }
-
-        protected static string[] SplitToCells(string p)
-        {
-            //tab delimited data: excel, and xtragrid copy (todo think about how to implement pasting of space delimited data)
-            return p.Split(new[] { "\t" }, StringSplitOptions.None);
-        }
-
-        public event EventHandler<EventArgs<string>> PasteFailed;
-
-        public event EventHandler<EventArgs> PasteFinished;
 
         ///<summary>
         /// Rectangular selection on a tableview. 
@@ -526,9 +528,8 @@ namespace DelftTools.Controls.Swf.Table
         {
             public RectangleSelection(TableViewCell topLeft, TableViewCell bottomRight)
             {
-
                 Top = topLeft.RowIndex;
-                Left = topLeft.Column == null? 0 : topLeft.Column.DisplayIndex;
+                Left = topLeft.Column == null ? 0 : topLeft.Column.DisplayIndex;
                 Bottom = bottomRight.RowIndex;
                 Right = bottomRight.Column == null ? 0 : bottomRight.Column.DisplayIndex;
             }

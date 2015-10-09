@@ -5,12 +5,22 @@ using GisSharpBlog.NetTopologySuite.Utilities;
 
 namespace GisSharpBlog.NetTopologySuite.LinearReferencing
 {
-
     /// <summary>
     /// 
     /// </summary>
     public class LengthIndexOfPoint
     {
+        private readonly IGeometry linearGeom;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LengthIndexOfPoint"/> class.
+        /// </summary>
+        /// <param name="linearGeom">A linear geometry.</param>
+        public LengthIndexOfPoint(IGeometry linearGeom)
+        {
+            this.linearGeom = linearGeom;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -34,17 +44,6 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
         {
             LengthIndexOfPoint locater = new LengthIndexOfPoint(linearGeom);
             return locater.IndexOfAfter(inputPt, minIndex);
-        }
-
-        private IGeometry linearGeom;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LengthIndexOfPoint"/> class.
-        /// </summary>
-        /// <param name="linearGeom">A linear geometry.</param>
-        public LengthIndexOfPoint(IGeometry linearGeom)
-        {
-            this.linearGeom = linearGeom;
         }
 
         /// <summary>
@@ -72,12 +71,17 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
         /// <returns>The location of the nearest point.</returns>
         public double IndexOfAfter(ICoordinate inputPt, double minIndex)
         {
-            if (minIndex < 0.0) return IndexOf(inputPt);
+            if (minIndex < 0.0)
+            {
+                return IndexOf(inputPt);
+            }
 
             // sanity check for minIndex at or past end of line
             double endIndex = linearGeom.Length;
             if (endIndex < minIndex)
+            {
                 return endIndex;
+            }
 
             double closestAfter = IndexOfFromStart(inputPt, minIndex);
 
@@ -103,7 +107,7 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
             double segmentStartMeasure = 0.0;
 
             LineSegment seg = new LineSegment();
-            foreach(LinearIterator.LinearElement element in new LinearIterator(linearGeom))
+            foreach (LinearIterator.LinearElement element in new LinearIterator(linearGeom))
             {
                 if (!element.IsEndOfLine)
                 {
@@ -117,7 +121,7 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
                         minDistance = segDistance;
                     }
                     segmentStartMeasure += seg.Length;
-                }                
+                }
             }
             return ptMeasure;
         }
@@ -134,9 +138,13 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
             // found new minimum, so compute location distance of point
             double projFactor = seg.ProjectionFactor(inputPt);
             if (projFactor <= 0.0)
+            {
                 return segmentStartMeasure;
+            }
             if (projFactor <= 1.0)
-                return segmentStartMeasure + projFactor * seg.Length;
+            {
+                return segmentStartMeasure + projFactor*seg.Length;
+            }
             // ASSERT: projFactor > 1.0
             return segmentStartMeasure + seg.Length;
         }

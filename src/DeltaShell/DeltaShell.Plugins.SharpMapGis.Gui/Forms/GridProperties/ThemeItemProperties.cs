@@ -23,8 +23,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "ThemeItemProperties_Label_Description")]
         public string Label
         {
-            get { return data.Label; }
-            set { data.Label = value; }
+            get
+            {
+                return data.Label;
+            }
+            set
+            {
+                data.Label = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Style")]
@@ -32,12 +38,18 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "LineStyleProperies_Color_Description")]
         public Color LineColor
         {
-            get { return ((VectorStyle) data.Style).Line.Color; }
+            get
+            {
+                return ((VectorStyle) data.Style).Line.Color;
+            }
             set
             {
                 var style = ((VectorStyle) data.Style);
 
-                style.Line = new Pen(value, style.Line.Width) { DashStyle = style.Line.DashStyle };
+                style.Line = new Pen(value, style.Line.Width)
+                {
+                    DashStyle = style.Line.DashStyle
+                };
             }
         }
 
@@ -46,12 +58,18 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "LineStyleProperies_Width_Description")]
         public float Width
         {
-            get { return (data.Style as VectorStyle).Line.Width; }
+            get
+            {
+                return (data.Style as VectorStyle).Line.Width;
+            }
             set
             {
                 var style = (VectorStyle) data.Style;
 
-                style.Line = new Pen(style.Line.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize)) { DashStyle = style.Line.DashStyle };
+                style.Line = new Pen(style.Line.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize))
+                {
+                    DashStyle = style.Line.DashStyle
+                };
             }
         }
 
@@ -61,7 +79,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [Editor(typeof(BorderStyleEditor), typeof(UITypeEditor))]
         public DashStyle LineStyle
         {
-            get { return ((VectorStyle) data.Style).Line.DashStyle; }
+            get
+            {
+                return ((VectorStyle) data.Style).Line.DashStyle;
+            }
             set
             {
                 var style = (VectorStyle) data.Style;
@@ -75,12 +96,18 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "VectorLayerProperties_OutlineColor_Description")]
         public Color OutlineColor
         {
-            get { return ((VectorStyle) data.Style).Outline.Color; }
+            get
+            {
+                return ((VectorStyle) data.Style).Outline.Color;
+            }
             set
             {
                 var style = (VectorStyle) data.Style;
 
-                style.Outline = new Pen(value, style.Outline.Width) {DashStyle = style.Outline.DashStyle};
+                style.Outline = new Pen(value, style.Outline.Width)
+                {
+                    DashStyle = style.Outline.DashStyle
+                };
             }
         }
 
@@ -89,12 +116,18 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "VectorLayerProperties_OutlineWidth_Description")]
         public float OutlineWidth
         {
-            get { return ((VectorStyle) data.Style).Outline.Width; }
+            get
+            {
+                return ((VectorStyle) data.Style).Outline.Width;
+            }
             set
             {
                 var style = (VectorStyle) data.Style;
 
-                style.Outline = new Pen(style.Outline.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize)) { DashStyle = style.Outline.DashStyle };
+                style.Outline = new Pen(style.Outline.Color, MathUtils.ClipValue(value, MinimumAllowedSize, MaximumAllowedSize))
+                {
+                    DashStyle = style.Outline.DashStyle
+                };
             }
         }
 
@@ -104,7 +137,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [Editor(typeof(BorderStyleEditor), typeof(UITypeEditor))]
         public DashStyle OutlineStyle
         {
-            get { return ((VectorStyle) data.Style).Outline.DashStyle; }
+            get
+            {
+                return ((VectorStyle) data.Style).Outline.DashStyle;
+            }
             set
             {
                 var style = (VectorStyle) data.Style;
@@ -118,8 +154,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "VectorLayerProperties_FillColor_Description")]
         public Color FillColor
         {
-            get { return ((SolidBrush)((VectorStyle) data.Style).Fill).Color; }
-            set { ((VectorStyle) data.Style).Fill = new SolidBrush(value); }
+            get
+            {
+                return ((SolidBrush) ((VectorStyle) data.Style).Fill).Color;
+            }
+            set
+            {
+                ((VectorStyle) data.Style).Fill = new SolidBrush(value);
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Style")]
@@ -127,14 +169,23 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "PointStyleProperties_Symbol_Description")]
         public Bitmap Image
         {
-            get { return ((VectorStyle) data.Style).Symbol; }
-            set { ((VectorStyle) data.Style).Symbol = value; }
+            get
+            {
+                return ((VectorStyle) data.Style).Symbol;
+            }
+            set
+            {
+                ((VectorStyle) data.Style).Symbol = value;
+            }
         }
 
         [Browsable(false)]
         public VectorStyle Style
         {
-            get { return data.Style as VectorStyle; }
+            get
+            {
+                return data.Style as VectorStyle;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Style")]
@@ -147,10 +198,13 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
             {
                 var style1 = (VectorStyle) data.Style;
                 return style1.Shape != null
-                           ? (Shape.eShape?) ((Shape.eShape) Enum.Parse(typeof (Shape.eShape), style1.Shape.ToString()))
+                           ? (Shape.eShape?) ((Shape.eShape) Enum.Parse(typeof(Shape.eShape), style1.Shape.ToString()))
                            : null;
             }
-            set { ((VectorStyle) data.Style).Shape = (ShapeType)Enum.Parse(typeof(ShapeType), value.ToString()); }
+            set
+            {
+                ((VectorStyle) data.Style).Shape = (ShapeType) Enum.Parse(typeof(ShapeType), value.ToString());
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_Style")]
@@ -158,8 +212,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.GridProperties
         [ResourcesDescription(typeof(Resources), "PointStyleProperties_ShapeSize_Description")]
         public int ShapeSize
         {
-            get { return ((VectorStyle) data.Style).ShapeSize; }
-            set { ((VectorStyle) data.Style).ShapeSize = value; }
+            get
+            {
+                return ((VectorStyle) data.Style).ShapeSize;
+            }
+            set
+            {
+                ((VectorStyle) data.Style).ShapeSize = value;
+            }
         }
     }
 }

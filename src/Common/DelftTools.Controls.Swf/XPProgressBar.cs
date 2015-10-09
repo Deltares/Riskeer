@@ -13,7 +13,7 @@ namespace DelftTools.Controls.Swf
         Horizontal,
         HorizontalCenter,
         Diagonal
-    } ;
+    };
 
     public class XPProgressBar : Control
     {
@@ -23,29 +23,45 @@ namespace DelftTools.Controls.Swf
 
         #endregion
 
-        #region "  Private Fields  "
+        #region "  BackImage  "
 
-        private Color mColor1 = Color.FromArgb(170, 240, 170);
+        [RefreshProperties(RefreshProperties.Repaint)]
+        [Category(CategoryName)]
+        public override Image BackgroundImage
+        {
+            get
+            {
+                return base.BackgroundImage;
+            }
+            set
+            {
+                base.BackgroundImage = value;
+                InvalidateBuffer();
+            }
+        }
 
-        private Color mColor2 = Color.FromArgb(10, 150, 10);
+        #endregion
 
-        private Color mColorBackground = Color.White;
+        #region "  Text Override  "
 
-        private Color mColorText = Color.Black;
-
-        private Image mDobleBack = null;
-
-        private GradientMode mGradientStyle = GradientMode.VerticalCenter;
-
-        private int mMax = 100;
-
-        private int mMin = 0;
-
-        private int mPosition = 50;
-
-        private byte mSteepDistance = 2;
-
-        private byte mSteepWidth = 6;
+        [Category(CategoryName)]
+        [Description("The Text displayed in the Progress Bar")]
+        [DefaultValue("")]
+        public override string Text
+        {
+            get
+            {
+                return base.Text;
+            }
+            set
+            {
+                if (base.Text != value)
+                {
+                    base.Text = value;
+                    Invalidate();
+                }
+            }
+        }
 
         #endregion
 
@@ -53,7 +69,7 @@ namespace DelftTools.Controls.Swf
 
         protected override void Dispose(bool disposing)
         {
-            if (! IsDisposed)
+            if (!IsDisposed)
             {
                 if (mPenIn != null)
                 {
@@ -95,13 +111,42 @@ namespace DelftTools.Controls.Swf
 
         #endregion
 
+        #region "  Private Fields  "
+
+        private Color mColor1 = Color.FromArgb(170, 240, 170);
+
+        private Color mColor2 = Color.FromArgb(10, 150, 10);
+
+        private Color mColorBackground = Color.White;
+
+        private Color mColorText = Color.Black;
+
+        private Image mDobleBack = null;
+
+        private GradientMode mGradientStyle = GradientMode.VerticalCenter;
+
+        private int mMax = 100;
+
+        private int mMin = 0;
+
+        private int mPosition = 50;
+
+        private byte mSteepDistance = 2;
+
+        private byte mSteepWidth = 6;
+
+        #endregion
+
         #region "  Colors   "
 
         [Category(CategoryName)]
         [Description("The Back Color of the Progress Bar")]
         public Color ColorBackground
         {
-            get { return mColorBackground; }
+            get
+            {
+                return mColorBackground;
+            }
             set
             {
                 mColorBackground = value;
@@ -113,7 +158,10 @@ namespace DelftTools.Controls.Swf
         [Description("The Border Color of the gradient in the Progress Bar")]
         public Color ColorBarBorder
         {
-            get { return mColor1; }
+            get
+            {
+                return mColor1;
+            }
             set
             {
                 mColor1 = value;
@@ -125,7 +173,10 @@ namespace DelftTools.Controls.Swf
         [Description("The Center Color of the gradient in the Progress Bar")]
         public Color ColorBarCenter
         {
-            get { return mColor2; }
+            get
+            {
+                return mColor2;
+            }
             set
             {
                 mColor2 = value;
@@ -140,7 +191,10 @@ namespace DelftTools.Controls.Swf
         [DefaultValue(false)]
         public bool ColorsXP
         {
-            get { return false; }
+            get
+            {
+                return false;
+            }
             //set
             //{
             //    ColorBarBorder = Color.FromArgb(170, 240, 170);
@@ -153,7 +207,10 @@ namespace DelftTools.Controls.Swf
         [Description("The Color of the text displayed in the Progress Bar")]
         public Color ColorText
         {
-            get { return mColorText; }
+            get
+            {
+                return mColorText;
+            }
             set
             {
                 mColorText = value;
@@ -174,7 +231,10 @@ namespace DelftTools.Controls.Swf
         [Description("The Current Position of the Progress Bar")]
         public int Position
         {
-            get { return mPosition; }
+            get
+            {
+                return mPosition;
+            }
             set
             {
                 if (value > mMax)
@@ -198,7 +258,10 @@ namespace DelftTools.Controls.Swf
         [Description("The Max Position of the Progress Bar")]
         public int PositionMax
         {
-            get { return mMax; }
+            get
+            {
+                return mMax;
+            }
             set
             {
                 if (value > mMin)
@@ -220,7 +283,10 @@ namespace DelftTools.Controls.Swf
         [Description("The Min Position of the Progress Bar")]
         public int PositionMin
         {
-            get { return mMin; }
+            get
+            {
+                return mMin;
+            }
             set
             {
                 if (value < mMax)
@@ -241,7 +307,10 @@ namespace DelftTools.Controls.Swf
         [DefaultValue((byte) 2)]
         public byte SteepDistance
         {
-            get { return mSteepDistance; }
+            get
+            {
+                return mSteepDistance;
+            }
             set
             {
                 if (value >= 0)
@@ -261,7 +330,10 @@ namespace DelftTools.Controls.Swf
         [DefaultValue(GradientMode.VerticalCenter)]
         public GradientMode GradientStyle
         {
-            get { return mGradientStyle; }
+            get
+            {
+                return mGradientStyle;
+            }
             set
             {
                 if (mGradientStyle != value)
@@ -278,49 +350,16 @@ namespace DelftTools.Controls.Swf
         [DefaultValue((byte) 6)]
         public byte SteepWidth
         {
-            get { return mSteepWidth; }
+            get
+            {
+                return mSteepWidth;
+            }
             set
             {
                 if (value > 0)
                 {
                     mSteepWidth = value;
                     InvalidateBuffer(true);
-                }
-            }
-        }
-
-        #endregion
-
-        #region "  BackImage  "
-
-        [RefreshProperties(RefreshProperties.Repaint)]
-        [Category(CategoryName)]
-        public override Image BackgroundImage
-        {
-            get { return base.BackgroundImage; }
-            set
-            {
-                base.BackgroundImage = value;
-                InvalidateBuffer();
-            }
-        }
-
-        #endregion
-
-        #region "  Text Override  "
-
-        [Category(CategoryName)]
-        [Description("The Text displayed in the Progress Bar")]
-        [DefaultValue("")]
-        public override string Text
-        {
-            get { return base.Text; }
-            set
-            {
-                if (base.Text != value)
-                {
-                    base.Text = value;
-                    Invalidate();
                 }
             }
         }
@@ -336,7 +375,10 @@ namespace DelftTools.Controls.Swf
         [DefaultValue(true)]
         public bool TextShadow
         {
-            get { return mTextShadow; }
+            get
+            {
+                return mTextShadow;
+            }
             set
             {
                 mTextShadow = value;
@@ -355,7 +397,10 @@ namespace DelftTools.Controls.Swf
         [DefaultValue((byte) 150)]
         public byte TextShadowAlpha
         {
-            get { return mTextShadowAlpha; }
+            get
+            {
+                return mTextShadowAlpha;
+            }
             set
             {
                 if (mTextShadowAlpha != value)
@@ -433,9 +478,7 @@ namespace DelftTools.Controls.Swf
             }
         }
 
-        protected override void OnPaintBackground(PaintEventArgs pevent)
-        {
-        }
+        protected override void OnPaintBackground(PaintEventArgs pevent) {}
 
         #endregion
 
@@ -457,7 +500,10 @@ namespace DelftTools.Controls.Swf
 
         protected override Size DefaultSize
         {
-            get { return new Size(100, 29); }
+            get
+            {
+                return new Size(100, 29);
+            }
         }
 
         #endregion
@@ -579,7 +625,6 @@ namespace DelftTools.Controls.Swf
                     mBrush2 = new LinearGradientBrush(mSteepRect2, mColor2, mColor1, LinearGradientMode.Horizontal);
                     break;
 
-
                 case GradientMode.Horizontal:
                     mSteepRect1 = new Rectangle(
                         0,
@@ -596,7 +641,6 @@ namespace DelftTools.Controls.Swf
                         1);
                     mBrush2 = new LinearGradientBrush(mSteepRect2, Color.Red, Color.Red, LinearGradientMode.Horizontal);
                     break;
-
 
                 case GradientMode.HorizontalCenter:
                     mSteepRect1 = new Rectangle(
@@ -615,7 +659,6 @@ namespace DelftTools.Controls.Swf
                         1);
                     mBrush2 = new LinearGradientBrush(mSteepRect2, Color.Red, Color.Red, LinearGradientMode.Horizontal);
                     break;
-
 
                 case GradientMode.Diagonal:
                     mSteepRect1 = new Rectangle(

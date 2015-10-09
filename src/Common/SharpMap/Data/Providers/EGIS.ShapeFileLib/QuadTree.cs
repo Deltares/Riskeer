@@ -36,42 +36,36 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
     {
         internal int maxLevels;
 
-        private QTNode rootNode;
-
         internal bool isPointData;
 
         public QuadTree(RectangleF bounds, int maxLevels, bool isPointData)
         {
             this.isPointData = isPointData;
             this.maxLevels = maxLevels;
-            rootNode = new QTNode(bounds, 0, this);
+            RootNode = new QTNode(bounds, 0, this);
         }
 
-        public QTNode RootNode
-        {
-            get { return rootNode; }
-            set { rootNode = value; }
-        }
+        public QTNode RootNode { get; set; }
 
         public void Insert(int recordIndex, RectangleF bounds)
         {
             if (isPointData)
             {
-                rootNode.Insert(recordIndex, bounds);
+                RootNode.Insert(recordIndex, bounds);
             }
             else
             {
-                rootNode.Insert(recordIndex, ref bounds);
+                RootNode.Insert(recordIndex, ref bounds);
             }
         }
 
         public IEnumerable<int> GetIndices(ref RectangleF rect, float maximumFeaturesSize)
         {
-            if (rootNode.Bounds.IntersectsWith(rect))
+            if (RootNode.Bounds.IntersectsWith(rect))
             {
                 List<int> indices = new List<int>();
                 Dictionary<int, int> duplicates = new Dictionary<int, int>();
-                rootNode.GetIndices(ref rect, indices, duplicates, maximumFeaturesSize);
+                RootNode.GetIndices(ref rect, indices, duplicates, maximumFeaturesSize);
 
                 return indices;
             }
@@ -85,47 +79,35 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         private const int TR = 1;
         private const int BL = 2;
         private const int BR = 3;
+        internal List<int> indexList;
+        internal List<RectangleF> boundsList;
 
         //public static int MaxLevels = 7;
         //public static int MinLevels = 2;
         //public static int MaxIndicesPerNode = 16;
 
-
-        private RectangleF _bounds;
-        private QTNode[] children;
-        private int _level = 0;
-        internal List<int> indexList;
-        internal List<RectangleF> boundsList;
-        private QuadTree tree;
+        private readonly int _level = 0;
+        private readonly QuadTree tree;
 
         public QTNode(RectangleF bounds, int level, QuadTree tree)
         {
             this.tree = tree;
-            this._bounds = bounds;
-            this._level = level;
+            Bounds = bounds;
+            _level = level;
             //if (level < MinLevels)
             //{
             //    //create children
             //}
             if (Level == tree.maxLevels)
-            {                
-                indexList = new List<int>();                
+            {
+                indexList = new List<int>();
                 boundsList = new List<RectangleF>();
             }
         }
 
-        public QTNode[] Children
-        {
-            get { return children; }
-        }
+        public QTNode[] Children { get; private set; }
 
-        public RectangleF Bounds
-        {
-            get
-            {
-                return _bounds;
-            }            
-        }
+        public RectangleF Bounds { get; private set; }
 
         public int Level
         {
@@ -135,80 +117,70 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
             }
         }
 
-
-        private void CreateChildren()
-        {
-            children = new QTNode[4];
-            children[TL] = new QTNode(RectangleF.FromLTRB(_bounds.Left, _bounds.Top, 0.5f * (_bounds.Left + _bounds.Right), 0.5f * (_bounds.Top + _bounds.Bottom)), Level + 1, tree);
-            children[TR] = new QTNode(RectangleF.FromLTRB(0.5f * (_bounds.Left + _bounds.Right), _bounds.Top, _bounds.Right, 0.5f * (_bounds.Top + _bounds.Bottom)), Level + 1, tree);
-            children[BL] = new QTNode(RectangleF.FromLTRB(_bounds.Left, 0.5f * (_bounds.Top + _bounds.Bottom), 0.5f * (_bounds.Left + _bounds.Right), _bounds.Bottom), Level + 1, tree);
-            children[BR] = new QTNode(RectangleF.FromLTRB(0.5f * (_bounds.Left + _bounds.Right), 0.5f * (_bounds.Top + _bounds.Bottom), _bounds.Right, _bounds.Bottom), Level + 1, tree);
-        }
-
         public void Insert(int recordIndex, RectangleF bounds)
         {
             if (Level == tree.maxLevels)
-            {                
+            {
                 indexList.Add(recordIndex);
                 boundsList.Add(bounds);
             }
             else
-            {                
-                if(tree.isPointData)
+            {
+                if (tree.isPointData)
                 {
-                    if(children == null)
+                    if (Children == null)
                     {
                         CreateChildren();
                     }
 
-                    if (children[TL].Bounds.Contains(bounds))
+                    if (Children[TL].Bounds.Contains(bounds))
                     {
-                        children[TL].Insert(recordIndex, bounds);
+                        Children[TL].Insert(recordIndex, bounds);
                     }
-                    else if (children[TR].Bounds.Contains(bounds))
+                    else if (Children[TR].Bounds.Contains(bounds))
                     {
-                        children[TR].Insert(recordIndex, bounds);
+                        Children[TR].Insert(recordIndex, bounds);
                     }
-                    else if (children[BL].Bounds.Contains(bounds))
+                    else if (Children[BL].Bounds.Contains(bounds))
                     {
-                        children[BL].Insert(recordIndex, bounds);
+                        Children[BL].Insert(recordIndex, bounds);
                     }
-                    else if (children[BR].Bounds.Contains(bounds))
+                    else if (Children[BR].Bounds.Contains(bounds))
                     {
-                        children[BR].Insert(recordIndex, bounds);
+                        Children[BR].Insert(recordIndex, bounds);
                     }
                     else
                     {
                         throw new InvalidOperationException("point " + bounds + " is not contained in children bounds");
-                    }                    
+                    }
                 }
                 else
                 {
-                    if (children == null)
+                    if (Children == null)
                     {
                         CreateChildren();
                     }
                     int c = 0;
-                    if (children[TL].Bounds.IntersectsWith(bounds))
+                    if (Children[TL].Bounds.IntersectsWith(bounds))
                     {
                         c++;
-                        children[TL].Insert(recordIndex, bounds);
+                        Children[TL].Insert(recordIndex, bounds);
                     }
-                    if (children[TR].Bounds.IntersectsWith(bounds))
+                    if (Children[TR].Bounds.IntersectsWith(bounds))
                     {
                         c++;
-                        children[TR].Insert(recordIndex, bounds);
+                        Children[TR].Insert(recordIndex, bounds);
                     }
-                    if (children[BL].Bounds.IntersectsWith(bounds))
+                    if (Children[BL].Bounds.IntersectsWith(bounds))
                     {
                         c++;
-                        children[BL].Insert(recordIndex, bounds);
+                        Children[BL].Insert(recordIndex, bounds);
                     }
-                    if (children[BR].Bounds.IntersectsWith(bounds))
+                    if (Children[BR].Bounds.IntersectsWith(bounds))
                     {
                         c++;
-                        children[BR].Insert(recordIndex, bounds);
-                    }                    
+                        Children[BR].Insert(recordIndex, bounds);
+                    }
                 }
             }
         }
@@ -222,61 +194,59 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
             }
             else
             {
-                if (tree.isPointData)
-                {
-                }
+                if (tree.isPointData) {}
                 else
                 {
-                    if (children == null)
+                    if (Children == null)
                     {
                         CreateChildren();
                     }
                     int c = 0;
-                    if (children[TL].Bounds.IntersectsWith(recBounds))
+                    if (Children[TL].Bounds.IntersectsWith(recBounds))
                     {
                         c++;
-                        children[TL].Insert(recordIndex, ref recBounds);
+                        Children[TL].Insert(recordIndex, ref recBounds);
                     }
-                    if (children[TR].Bounds.IntersectsWith(recBounds))
+                    if (Children[TR].Bounds.IntersectsWith(recBounds))
                     {
                         c++;
-                        children[TR].Insert(recordIndex,ref recBounds);
+                        Children[TR].Insert(recordIndex, ref recBounds);
                     }
-                    if (children[BL].Bounds.IntersectsWith(recBounds))
+                    if (Children[BL].Bounds.IntersectsWith(recBounds))
                     {
                         c++;
-                        children[BL].Insert(recordIndex,ref recBounds);
+                        Children[BL].Insert(recordIndex, ref recBounds);
                     }
-                    if (children[BR].Bounds.IntersectsWith(recBounds))
+                    if (Children[BR].Bounds.IntersectsWith(recBounds))
                     {
                         c++;
-                        children[BR].Insert(recordIndex,ref recBounds);
+                        Children[BR].Insert(recordIndex, ref recBounds);
                     }
                 }
             }
         }
 
-        internal void GetIndices(ref RectangleF rect, List<int> indices, System.Collections.Generic.Dictionary<int, int> foundIndicies, float maximumFeatureSize)
+        internal void GetIndices(ref RectangleF rect, List<int> indices, Dictionary<int, int> foundIndicies, float maximumFeatureSize)
         {
-            if (children != null)
+            if (Children != null)
             {
                 //check each child bounds
-                if (children[TL].Bounds.IntersectsWith(rect))
+                if (Children[TL].Bounds.IntersectsWith(rect))
                 {
-                    children[TL].GetIndices(ref rect, indices, foundIndicies, maximumFeatureSize);
+                    Children[TL].GetIndices(ref rect, indices, foundIndicies, maximumFeatureSize);
                 }
-                if (children[TR].Bounds.IntersectsWith(rect))
+                if (Children[TR].Bounds.IntersectsWith(rect))
                 {
-                    children[TR].GetIndices(ref rect, indices, foundIndicies, maximumFeatureSize);
+                    Children[TR].GetIndices(ref rect, indices, foundIndicies, maximumFeatureSize);
                 }
-                if (children[BL].Bounds.IntersectsWith(rect))
+                if (Children[BL].Bounds.IntersectsWith(rect))
                 {
-                    children[BL].GetIndices(ref rect, indices, foundIndicies, maximumFeatureSize);
+                    Children[BL].GetIndices(ref rect, indices, foundIndicies, maximumFeatureSize);
                 }
-                if (children[BR].Bounds.IntersectsWith(rect))
+                if (Children[BR].Bounds.IntersectsWith(rect))
                 {
-                    children[BR].GetIndices(ref rect, indices, foundIndicies, maximumFeatureSize);
-                }                
+                    Children[BR].GetIndices(ref rect, indices, foundIndicies, maximumFeatureSize);
+                }
             }
             else
             {
@@ -303,7 +273,7 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
                             else // points
                             {
                                 e1 = boundsList[n];
-                                
+
                                 if (n != indexList.Count - 1)
                                 {
                                     if (Math.Abs(e1.X - e2.X) < maximumFeatureSize && Math.Abs(e1.Y - e2.Y) < maximumFeatureSize)
@@ -329,6 +299,15 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
                     }
                 }
             }
+        }
+
+        private void CreateChildren()
+        {
+            Children = new QTNode[4];
+            Children[TL] = new QTNode(RectangleF.FromLTRB(Bounds.Left, Bounds.Top, 0.5f*(Bounds.Left + Bounds.Right), 0.5f*(Bounds.Top + Bounds.Bottom)), Level + 1, tree);
+            Children[TR] = new QTNode(RectangleF.FromLTRB(0.5f*(Bounds.Left + Bounds.Right), Bounds.Top, Bounds.Right, 0.5f*(Bounds.Top + Bounds.Bottom)), Level + 1, tree);
+            Children[BL] = new QTNode(RectangleF.FromLTRB(Bounds.Left, 0.5f*(Bounds.Top + Bounds.Bottom), 0.5f*(Bounds.Left + Bounds.Right), Bounds.Bottom), Level + 1, tree);
+            Children[BR] = new QTNode(RectangleF.FromLTRB(0.5f*(Bounds.Left + Bounds.Right), 0.5f*(Bounds.Top + Bounds.Bottom), Bounds.Right, Bounds.Bottom), Level + 1, tree);
         }
     }
 }

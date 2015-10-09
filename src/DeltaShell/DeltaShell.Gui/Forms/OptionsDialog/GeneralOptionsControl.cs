@@ -12,6 +12,8 @@ namespace DeltaShell.Gui.Forms.OptionsDialog
     {
         private ApplicationSettingsBase userSettings;
 
+        private bool initializingControls;
+
         public GeneralOptionsControl()
         {
             InitializeComponent();
@@ -19,11 +21,59 @@ namespace DeltaShell.Gui.Forms.OptionsDialog
 
         public ApplicationSettingsBase UserSettings
         {
-            get { return userSettings; }
-            set 
-            { 
+            get
+            {
+                return userSettings;
+            }
+            set
+            {
                 UpdateUserSettings(value);
             }
+        }
+
+        public string ColorTheme
+        {
+            get
+            {
+                return (string) comboBoxTheme.SelectedItem;
+            }
+            set
+            {
+                comboBoxTheme.SelectedItem = value;
+            }
+        }
+
+        // TODO: Call this method
+        public Action<GeneralOptionsControl> OnAcceptChanges { get; set; }
+
+        public string Title
+        {
+            get
+            {
+                return Resources.GeneralOptionsControl_Title_General;
+            }
+        }
+
+        public string Category
+        {
+            get
+            {
+                return Resources.GeneralOptionsControl_Title_General;
+            }
+        }
+
+        public void AcceptChanges()
+        {
+            SetValuesToSettings();
+            if (OnAcceptChanges != null)
+            {
+                OnAcceptChanges(this);
+            }
+        }
+
+        public void DeclineChanges()
+        {
+            SetSettingsValuesToControls();
         }
 
         /// <summary>
@@ -42,9 +92,9 @@ namespace DeltaShell.Gui.Forms.OptionsDialog
         /// </summary>
         private void SetSettingsValuesToControls()
         {
-            checkBoxStartPage.Checked = (bool)userSettings["showStartPage"];
+            checkBoxStartPage.Checked = (bool) userSettings["showStartPage"];
 
-            SetSettingsToNumberFormatControls((string)userSettings["realNumberFormat"]);
+            SetSettingsToNumberFormatControls((string) userSettings["realNumberFormat"]);
         }
 
         /// <summary>
@@ -52,14 +102,14 @@ namespace DeltaShell.Gui.Forms.OptionsDialog
         /// </summary>
         private void SetValuesToSettings()
         {
-            if ((bool)userSettings["showStartPage"] != checkBoxStartPage.Checked)
+            if ((bool) userSettings["showStartPage"] != checkBoxStartPage.Checked)
             {
                 userSettings["showStartPage"] = checkBoxStartPage.Checked;
             }
 
             string newRealNumberFormat = GetRealNumberFormatFromControls();
 
-            if ((string)userSettings["realNumberFormat"] != newRealNumberFormat)
+            if ((string) userSettings["realNumberFormat"] != newRealNumberFormat)
             {
                 userSettings["realNumberFormat"] = newRealNumberFormat;
                 RegionalSettingsManager.RealNumberFormat = newRealNumberFormat;
@@ -69,27 +119,31 @@ namespace DeltaShell.Gui.Forms.OptionsDialog
         private string GetRealNumberFormatFromControls()
         {
             string format = "";
-            var numDecimals = (int)upDownNumberOfDecimals.Value;
+            var numDecimals = (int) upDownNumberOfDecimals.Value;
 
             if (radioButtonCompactNotation.Checked)
+            {
                 format = "G";
+            }
             else if (radioButtonNumberNotation.Checked)
+            {
                 format = "N";
+            }
             else if (radioButtonScientificNotation.Checked)
+            {
                 format = "E";
+            }
             else
             {
                 throw new Exception(Resources.GeneralOptionsControl_GetRealNumberFormatFromControls_None_of_the_radiobuttons_is_selected__impossible);
             }
 
-            return format + numDecimals ;
+            return format + numDecimals;
         }
 
-        private bool initializingControls;
-
-        void UpdateRealNumberFormattingSample()
+        private void UpdateRealNumberFormattingSample()
         {
-            if (initializingControls) 
+            if (initializingControls)
             {
                 return; // controls are being initializing, inconsistent state
             }
@@ -107,7 +161,9 @@ namespace DeltaShell.Gui.Forms.OptionsDialog
         private void SetSettingsToNumberFormatControls(string numberFormat)
         {
             if (numberFormat == null || string.IsNullOrEmpty(numberFormat))
+            {
                 numberFormat = "G5"; //set default
+            }
 
             initializingControls = true;
 
@@ -115,7 +171,7 @@ namespace DeltaShell.Gui.Forms.OptionsDialog
             Int32.TryParse(numberFormat.Substring(1), out decimals);
             upDownNumberOfDecimals.Value = decimals;
 
-            switch(numberFormat[0])
+            switch (numberFormat[0])
             {
                 case 'G':
                     radioButtonCompactNotation.Checked = true;
@@ -155,42 +211,6 @@ namespace DeltaShell.Gui.Forms.OptionsDialog
             UpdateRealNumberFormattingSample();
         }
 
-        private void comboBoxTheme_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        public string ColorTheme
-        {
-            get { return (string) comboBoxTheme.SelectedItem; }
-            set { comboBoxTheme.SelectedItem = value; }
-        }
-
-        // TODO: Call this method
-        public Action<GeneralOptionsControl> OnAcceptChanges { get; set; }
-
-        public string Title
-        {
-            get { return Resources.GeneralOptionsControl_Title_General; }
-        }
-
-        public string Category
-        {
-            get { return Resources.GeneralOptionsControl_Title_General; }
-        }
-
-        public void AcceptChanges()
-        {
-            SetValuesToSettings();
-            if (OnAcceptChanges != null)
-            {
-                OnAcceptChanges(this);
-            }
-        }
-
-        public void DeclineChanges()
-        {
-            SetSettingsValuesToControls();
-        }
+        private void comboBoxTheme_SelectedIndexChanged(object sender, EventArgs e) {}
     }
 }

@@ -10,55 +10,21 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 {
     public abstract class TreeViewNodePresenterBase<T> : ITreeNodePresenter
     {
-        private ITreeView treeView;
-
-        public ITreeView TreeView
-        {
-            get { return treeView; }
-            set { treeView = value; }
-        }
+        public ITreeView TreeView { get; set; }
 
         public virtual Type NodeTagType
         {
-            get { return typeof(T); }
-        }
-
-        public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
-        {
-            T data = (T)nodeData;
-            UpdateNode(parentNode, node, data);
+            get
+            {
+                return typeof(T);
+            }
         }
 
         public abstract void UpdateNode(ITreeNode parentNode, ITreeNode node, T nodeData);
 
-        IEnumerable ITreeNodePresenter.GetChildNodeObjects(object parentNodeData, ITreeNode node)
-        {
-            return GetChildNodeObjects((T)parentNodeData, node);
-        }
-
         public virtual IEnumerable GetChildNodeObjects(T parentNodeData, ITreeNode node)
         {
             return new object[0];
-        }
-
-
-        /// <returns>Will return false.</returns>
-        public virtual bool CanRenameNode(ITreeNode node)
-        {
-            return false;
-        }
-
-        public virtual bool CanRenameNodeTo(ITreeNode node, string newName)
-        {
-            // default behavior is not to allow empty strings
-            return CanRenameNode(node) && (newName.Length > 0);
-        }
-
-        /// <exception cref="InvalidOperationException">This method should be overridden for <paramref name="nodeData"/> that do not inherit from <see cref="INameable"/>.</exception>
-        public void OnNodeRenamed(object nodeData, string newName)
-        {
-            var data = (T)nodeData;
-            OnNodeRenamed(data, newName);
         }
 
         /// <seealso cref="ITreeNodePresenter.OnNodeRenamed"/>
@@ -67,7 +33,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         {
             if (data is INameable)
             {
-                var nameable = (INameable)data;
+                var nameable = (INameable) data;
                 if (nameable.Name != newName)
                 {
                     nameable.Name = newName;
@@ -77,32 +43,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             {
                 throw new InvalidOperationException("OnNodeRenamed must be implemented in derived class");
             }
-        }
-
-        public virtual void OnNodeChecked(ITreeNode node)
-        {
-            if (!node.IsLoaded)
-            {
-                return;
-            }
-
-            foreach (var childNode in node.Nodes)
-            {
-                childNode.Checked = node.Checked;
-            }
-        }
-
-        public virtual bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
-        {
-            return (null == treeView.TreeViewNodeSorter) ? true : false;
-        }
-
-        ///<summary>
-        /// Let the node decide what dragoperation should be carried out
-        ///</summary>
-        public virtual DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
-        {
-            return DragOperations.None;
         }
 
         ///<summary>
@@ -138,21 +78,82 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             return DragOperations.None;
         }
 
-       void ITreeNodePresenter.OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData,
-                                           DragOperations operation, int position)
-        {
-            OnDragDrop(item, sourceParentNodeData, (T)targetParentNodeData, operation, position);
-        }
-
         public virtual void OnDragDrop(object item, object sourceParentNodeData, T target,
                                        DragOperations operation, int position)
         {
             throw new NotImplementedException();
         }
 
+        public virtual DragOperations CanDrag(T nodeData)
+        {
+            return DragOperations.None;
+        }
+
+        public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
+        {
+            T data = (T) nodeData;
+            UpdateNode(parentNode, node, data);
+        }
+
+        IEnumerable ITreeNodePresenter.GetChildNodeObjects(object parentNodeData, ITreeNode node)
+        {
+            return GetChildNodeObjects((T) parentNodeData, node);
+        }
+
+        /// <returns>Will return false.</returns>
+        public virtual bool CanRenameNode(ITreeNode node)
+        {
+            return false;
+        }
+
+        public virtual bool CanRenameNodeTo(ITreeNode node, string newName)
+        {
+            // default behavior is not to allow empty strings
+            return CanRenameNode(node) && (newName.Length > 0);
+        }
+
+        /// <exception cref="InvalidOperationException">This method should be overridden for <paramref name="nodeData"/> that do not inherit from <see cref="INameable"/>.</exception>
+        public void OnNodeRenamed(object nodeData, string newName)
+        {
+            var data = (T) nodeData;
+            OnNodeRenamed(data, newName);
+        }
+
+        public virtual void OnNodeChecked(ITreeNode node)
+        {
+            if (!node.IsLoaded)
+            {
+                return;
+            }
+
+            foreach (var childNode in node.Nodes)
+            {
+                childNode.Checked = node.Checked;
+            }
+        }
+
+        public virtual bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
+        {
+            return (null == TreeView.TreeViewNodeSorter) ? true : false;
+        }
+
+        ///<summary>
+        /// Let the node decide what dragoperation should be carried out
+        ///</summary>
+        public virtual DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
+        {
+            return DragOperations.None;
+        }
+
+        void ITreeNodePresenter.OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData,
+                                           DragOperations operation, int position)
+        {
+            OnDragDrop(item, sourceParentNodeData, (T) targetParentNodeData, operation, position);
+        }
+
         public bool CanRemove(object parentNodeData, object nodeData)
         {
-            T data = (T)nodeData;
+            T data = (T) nodeData;
             return CanRemove(data);
         }
 
@@ -170,27 +171,12 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         {
             if (sender is T) // sometimes events are coming from child objects
             {
-                OnPropertyChanged((T)sender, node, e);
+                OnPropertyChanged((T) sender, node, e);
             }
             else if (node != null)
             {
                 node.Update(); // full refresh node
             }
-        }
-
-        private static int IndexInParent(ITreeNodePresenter presenter, ITreeNode parentNode, object item)
-        {
-            var childItems = presenter.GetChildNodeObjects(parentNode.Tag, parentNode).OfType<object>().ToList();
-            var i = 0;
-            foreach(var childItem in childItems)
-            {
-                if (ReferenceEquals(childItem, item))
-                {
-                    return i;
-                }
-                i++;
-            }
-            return -1;
         }
 
         public void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
@@ -201,7 +187,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             {
                 case NotifyCollectionChangeAction.Add:
                     // find first parent node where node must be added for e.Item (only 1 parent supported for now)
-                    foreach (ITreeNode parentNode in treeView.AllLoadedNodes)
+                    foreach (ITreeNode parentNode in TreeView.AllLoadedNodes)
                     {
                         ITreeNodePresenter presenter = parentNode.Presenter;
                         if (presenter != null)
@@ -209,7 +195,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                             var indexOf = IndexInParent(presenter, parentNode, e.Item);
                             if (indexOf >= 0)
                             {
-                                ((TreeNode)parentNode).HasChildren = presenter.GetChildNodeObjects(parentNode.Tag, parentNode).GetEnumerator().MoveNext();
+                                ((TreeNode) parentNode).HasChildren = presenter.GetChildNodeObjects(parentNode.Tag, parentNode).GetEnumerator().MoveNext();
                                 OnCollectionChanged((T) e.Item, parentNode, e, indexOf);
                                 return; // only one Node per tag is supported for now
                             }
@@ -218,28 +204,28 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                     break;
 
                 case NotifyCollectionChangeAction.Remove:
+                {
+                    ITreeNode node = TreeView.GetNodeByTag(e.Item);
+                    if (node != null)
                     {
-                        ITreeNode node = treeView.GetNodeByTag(e.Item);
-                        if (node != null)
+                        ITreeNode parentNode = node.Parent;
+                        if (parentNode != null)
                         {
-                            ITreeNode parentNode = node.Parent;
-                            if (parentNode != null)
+                            var parentPresenter = parentNode.Presenter;
+                            if (parentPresenter != null)
                             {
-                                var parentPresenter = parentNode.Presenter;
-                                if (parentPresenter != null)
+                                //if it was removed from a collection our parent is not based on, we don't want
+                                //to remove it from the nodes list
+                                if (IndexInParent(parentPresenter, parentNode, e.Item) >= 0)
                                 {
-                                    //if it was removed from a collection our parent is not based on, we don't want
-                                    //to remove it from the nodes list
-                                    if (IndexInParent(parentPresenter, parentNode, e.Item)>=0)
-                                    {
-                                        return;
-                                    }
-                                    ((TreeNode)parentNode).HasChildren = parentPresenter.GetChildNodeObjects(parentNode.Tag, parentNode).GetEnumerator().MoveNext();
-                                    OnCollectionChanged((T)e.Item, parentNode, e, -1);
+                                    return;
                                 }
+                                ((TreeNode) parentNode).HasChildren = parentPresenter.GetChildNodeObjects(parentNode.Tag, parentNode).GetEnumerator().MoveNext();
+                                OnCollectionChanged((T) e.Item, parentNode, e, -1);
                             }
                         }
                     }
+                }
                     break;
 
                 case NotifyCollectionChangeAction.Replace:
@@ -249,18 +235,13 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
-            T data = (T)nodeData;
+            T data = (T) nodeData;
             return RemoveNodeData(parentNodeData, data);
-        }
-
-        public virtual DragOperations CanDrag(T nodeData)
-        {
-            return DragOperations.None;
         }
 
         public DragOperations CanDrag(object nodeData)
         {
-            T data = (T)nodeData;
+            T data = (T) nodeData;
             return CanDrag(data);
         }
 
@@ -274,7 +255,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         protected virtual void OnPropertyChanged(T item, ITreeNode node, PropertyChangedEventArgs e)
         {
-            if (node == null) return;
+            if (node == null)
+            {
+                return;
+            }
             UpdateNode(node.Parent, node, item);
         }
 
@@ -305,7 +289,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                         }
 
                         // create and add a new tree node
-                        var newNode = treeView.AddNewNode(parentNode, e.Item, newNodeIndex);
+                        var newNode = TreeView.AddNewNode(parentNode, e.Item, newNodeIndex);
                         newNode.ContextMenu = GetContextMenu(null, e.Item);
                     }
                     else
@@ -317,10 +301,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                     break;
 
                 case NotifyCollectionChangeAction.Remove:
-                    ITreeNode node = treeView.GetNodeByTag(e.Item);
+                    ITreeNode node = TreeView.GetNodeByTag(e.Item);
                     if (node != null)
                     {
-                        treeView.Nodes.Remove(node);
+                        TreeView.Nodes.Remove(node);
                     }
                     break;
             }
@@ -329,6 +313,21 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         protected virtual bool RemoveNodeData(object parentNodeData, T nodeData)
         {
             return false;
+        }
+
+        private static int IndexInParent(ITreeNodePresenter presenter, ITreeNode parentNode, object item)
+        {
+            var childItems = presenter.GetChildNodeObjects(parentNode.Tag, parentNode).OfType<object>().ToList();
+            var i = 0;
+            foreach (var childItem in childItems)
+            {
+                if (ReferenceEquals(childItem, item))
+                {
+                    return i;
+                }
+                i++;
+            }
+            return -1;
         }
     }
 }

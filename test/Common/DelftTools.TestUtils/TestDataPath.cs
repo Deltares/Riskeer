@@ -9,16 +9,17 @@ namespace DelftTools.TestUtils
 
         public static implicit operator TestDataPath(string path)
         {
-            return new TestDataPath {Path = path};
-        }
-
-        public static class Plugins
-        {
-            
+            return new TestDataPath
+            {
+                Path = path
+            };
         }
 
         public static class Common
         {
+            public static readonly TestDataPath DelftToolsUtilsTests =
+                System.IO.Path.Combine("Common", "DelftTools.Utils.Tests");
+
             public static class DelftTools
             {
                 public static readonly TestDataPath DelftToolsTests = @"Common/DelftTools.Tests";
@@ -28,9 +29,6 @@ namespace DelftTools.TestUtils
                 public static readonly TestDataPath DelftToolsTestsUtilsXmlSerialization =
                     @"Common/DelftTools.Tests/Utils/Xml/Serialization";
             }
-
-            public static readonly TestDataPath DelftToolsUtilsTests =
-                System.IO.Path.Combine("Common", "DelftTools.Utils.Tests");
         }
 
         public static class DeltaShell
@@ -51,19 +49,21 @@ namespace DelftTools.TestUtils
                 @"DeltaShell/DeltaShell.IntegrationTests/GDAL/";
         }
 
-        public static class VectorData
+        public static class NetCdfData
         {
-            public static readonly TestDataPath VectorDataPath = @"vectorData";
+            public static readonly TestDataPath NetCdfDataPath = @"netCdfData";
         }
+
+        public static class Plugins {}
 
         public static class RasterData
         {
             public static readonly TestDataPath RasterDataPath = @"rasterData";
         }
 
-        public static class NetCdfData
+        public static class VectorData
         {
-            public static readonly TestDataPath NetCdfDataPath = @"netCdfData";
+            public static readonly TestDataPath VectorDataPath = @"vectorData";
         }
     }
 }

@@ -13,7 +13,7 @@ namespace DelftTools.Utils.Diagnostics
 
         public static void OnResourceAllocated(object sender, object resource)
         {
-            if(ResourceAllocated != null)
+            if (ResourceAllocated != null)
             {
                 ResourceAllocated(sender, resource);
             }

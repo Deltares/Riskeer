@@ -26,11 +26,11 @@ namespace DelftTools.Utils.Aop
         public override bool CompileTimeValidate(MethodBase method)
         {
             // trace only methods with the DllImport attribute
-            return method.GetCustomAttributes(typeof (DllImportAttribute), false).Length > 0;
+            return method.GetCustomAttributes(typeof(DllImportAttribute), false).Length > 0;
         }
 
         public override void CompileTimeInitialize(MethodBase method, AspectInfo
-                                                         aspectInfo)
+                                                                          aspectInfo)
         {
             base.CompileTimeInitialize(method, aspectInfo);
             // build cache:
@@ -43,7 +43,9 @@ namespace DelftTools.Utils.Aop
         {
             // todo: check the performance overhead of this:
             if (!TraceDllImportCallsConfig.IsLoggingEnabled(type))
-                return; 
+            {
+                return;
+            }
 
             // todo: consider using OnExit, because sometimes even on-ref parameters are used as by-ref 
             // and aren't filled in till after the call
@@ -51,7 +53,9 @@ namespace DelftTools.Utils.Aop
             int count = args.Arguments.Count;
             var values = new object[count];
             for (int i = 0; i < count; i++)
+            {
                 values[i] = args.Arguments.GetArgument(i);
+            }
 
             TraceDllImportCallsConfig.Log(type, methodName, parameterNames, values);
         }
@@ -66,43 +70,6 @@ namespace DelftTools.Utils.Aop
         private static readonly Dictionary<Type, XmlTextWriter> LogWriters =
             new Dictionary<Type, XmlTextWriter>();
 
-        internal static void Log(Type type, string callName, string[] parameterNames,
-                                 object[] parameterValues)
-        {
-            XmlTextWriter writer;
-            if (!LogWriters.TryGetValue(type, out writer))
-                return;
-
-            writer.WriteStartElement(callName);
-            for (int i = 0; i < parameterNames.Length; i++)
-                writer.WriteAttributeString(parameterNames[i],
-                                            ToString(parameterValues[i]));
-            writer.WriteEndElement();
-        }
-
-        private static string ToString(object value)
-        {
-            var valueAsString = value as string;
-            if (valueAsString != null)
-                return valueAsString;
-
-            var enuerable = value as IEnumerable;
-            if (enuerable != null)
-            {
-                var sb = new StringBuilder();
-                foreach (var item in enuerable)
-                {
-                    sb.Append(item);
-                    sb.Append(" ");
-                }
-                if (sb.Length > 1)
-                    sb.Remove(sb.Length - 1, 1); // remove last space
-                return sb.ToString();
-            }
-
-            return value.ToString();
-        }
-
         public static bool IsLoggingEnabled(Type type)
         {
             XmlTextWriter writer;
@@ -116,7 +83,10 @@ namespace DelftTools.Utils.Aop
         /// <param name="path"></param>
         public static void StartLogging(Type type, string path)
         {
-            var writer = new XmlTextWriter(path, Encoding.UTF8) {Formatting = Formatting.Indented};
+            var writer = new XmlTextWriter(path, Encoding.UTF8)
+            {
+                Formatting = Formatting.Indented
+            };
             writer.WriteStartDocument();
             writer.WriteStartElement("Run");
             writer.WriteAttributeString("type", type.Name);
@@ -133,6 +103,51 @@ namespace DelftTools.Utils.Aop
             writer.WriteEndDocument(); // close document
             writer.Close(); // close file
             LogWriters.Remove(type);
+        }
+
+        internal static void Log(Type type, string callName, string[] parameterNames,
+                                 object[] parameterValues)
+        {
+            XmlTextWriter writer;
+            if (!LogWriters.TryGetValue(type, out writer))
+            {
+                return;
+            }
+
+            writer.WriteStartElement(callName);
+            for (int i = 0; i < parameterNames.Length; i++)
+            {
+                writer.WriteAttributeString(parameterNames[i],
+                                            ToString(parameterValues[i]));
+            }
+            writer.WriteEndElement();
+        }
+
+        private static string ToString(object value)
+        {
+            var valueAsString = value as string;
+            if (valueAsString != null)
+            {
+                return valueAsString;
+            }
+
+            var enuerable = value as IEnumerable;
+            if (enuerable != null)
+            {
+                var sb = new StringBuilder();
+                foreach (var item in enuerable)
+                {
+                    sb.Append(item);
+                    sb.Append(" ");
+                }
+                if (sb.Length > 1)
+                {
+                    sb.Remove(sb.Length - 1, 1); // remove last space
+                }
+                return sb.ToString();
+            }
+
+            return value.ToString();
         }
     }
 }

@@ -20,20 +20,18 @@ namespace GisSharpBlog.NetTopologySuite.Index.KdTree
     public class KdTree<T>
         where T : class
     {
+        private readonly double _tolerance;
         private KdNode<T> _root;
 // ReSharper disable once UnusedField.Compiler
-        private KdNode<T> _last = null;
+        private readonly KdNode<T> _last = null;
         private long _numberOfNodes;
-        private readonly double _tolerance;
 
         /// <summary>
         /// Creates a new instance of a KdTree with a snapping tolerance of 0.0.
         /// (I.e. distinct points will <i>not</i> be snapped)
         /// </summary>
         public KdTree()
-            : this(0.0)
-        {
-        }
+            : this(0.0) {}
 
         /// <summary>
         /// Creates a new instance of a KdTree, specifying a snapping distance tolerance.
@@ -53,12 +51,13 @@ namespace GisSharpBlog.NetTopologySuite.Index.KdTree
         {
             get
             {
-                if (_root == null) return true;
+                if (_root == null)
+                {
+                    return true;
+                }
                 return false;
             }
         }
-
-
 
         /// <summary>
         /// Inserts a new point in the kd-tree, with no data.
@@ -126,8 +125,8 @@ namespace GisSharpBlog.NetTopologySuite.Index.KdTree
                 }
                 leafNode = currentNode;
                 currentNode = isLessThan
-                    ? currentNode.Left
-                    : currentNode.Right;
+                                  ? currentNode.Left
+                                  : currentNode.Right;
 
                 isOddLevel = !isOddLevel;
             }
@@ -148,13 +147,52 @@ namespace GisSharpBlog.NetTopologySuite.Index.KdTree
             return node;
         }
 
+        /// <summary>
+        /// Performs a range search of the points in the index. 
+        /// </summary>
+        /// <param name="queryEnv">The range rectangle to query</param>
+        /// <returns>A collection of the KdNodes found</returns>
+        public ICollection<KdNode<T>> Query(Envelope queryEnv)
+        {
+            KdNode<T> last = null;
+            ICollection<KdNode<T>> result = new Collection<KdNode<T>>();
+            QueryNode(_root, _last, queryEnv, true, result);
+            return result;
+        }
+
+        /// <summary>
+        /// Performs a range search of the points in the index.
+        /// </summary>
+        /// <param name="queryEnv">The range rectangle to query</param>
+        /// <param name="result">A collection to accumulate the result nodes into</param>
+        public void Query(Envelope queryEnv, ICollection<KdNode<T>> result)
+        {
+            QueryNode(_root, _last, queryEnv, true, result);
+        }
+
+        /// <summary>
+        /// Performs a nearest neighbor search of the points in the index.
+        /// </summary>
+        /// <param name="coord">The point to search the nearset neighbor for</param>
+        public KdNode<T> NearestNeighbor(ICoordinate coord)
+        {
+            KdNode<T> result = null;
+            var closestDistSq = double.MaxValue;
+            NearestNeighbor(_root, _last, coord, ref result, ref closestDistSq);
+            return result;
+        }
+
         private static void QueryNode(KdNode<T> currentNode, KdNode<T> bottomNode,
-            Envelope queryEnv, bool odd, ICollection<KdNode<T>> result)
+                                      Envelope queryEnv, bool odd, ICollection<KdNode<T>> result)
         {
             if (currentNode == null)
+            {
                 return;
+            }
             if (currentNode == bottomNode)
+            {
                 return;
+            }
 
             double min;
             double max;
@@ -186,42 +224,21 @@ namespace GisSharpBlog.NetTopologySuite.Index.KdTree
             {
                 QueryNode(currentNode.Right, bottomNode, queryEnv, !odd, result);
             }
-
-        }
-
-        /// <summary>
-        /// Performs a range search of the points in the index. 
-        /// </summary>
-        /// <param name="queryEnv">The range rectangle to query</param>
-        /// <returns>A collection of the KdNodes found</returns>
-        public ICollection<KdNode<T>> Query(Envelope queryEnv)
-        {
-            KdNode<T> last = null;
-            ICollection<KdNode<T>> result = new Collection<KdNode<T>>();
-            QueryNode(_root, _last, queryEnv, true, result);
-            return result;
-        }
-
-        /// <summary>
-        /// Performs a range search of the points in the index.
-        /// </summary>
-        /// <param name="queryEnv">The range rectangle to query</param>
-        /// <param name="result">A collection to accumulate the result nodes into</param>
-        public void Query(Envelope queryEnv, ICollection<KdNode<T>> result)
-        {
-            QueryNode(_root, _last, queryEnv, true, result);
         }
 
         private static void NearestNeighbor(KdNode<T> currentNode, KdNode<T> bottomNode,
-            ICoordinate queryCoordinate, ref KdNode<T> closestNode, ref double closestDistanceSq)
+                                            ICoordinate queryCoordinate, ref KdNode<T> closestNode, ref double closestDistanceSq)
         {
             while (true)
             {
                 if (currentNode == null)
+                {
                     return;
+                }
                 if (currentNode == bottomNode)
+                {
                     return;
-
+                }
 
                 var distSq = Math.Pow(currentNode.X - queryCoordinate.X, 2) +
                              Math.Pow(currentNode.Y - queryCoordinate.Y, 2);
@@ -232,21 +249,24 @@ namespace GisSharpBlog.NetTopologySuite.Index.KdTree
                     closestDistanceSq = distSq;
                 }
 
-
                 var searchLeft = false;
                 var searchRight = false;
                 if (currentNode.Left != null)
+                {
                     searchLeft = (Math.Pow(currentNode.Left.X - queryCoordinate.X, 2) +
                                   Math.Pow(currentNode.Left.Y - queryCoordinate.Y, 2)) < closestDistanceSq;
+                }
 
                 if (currentNode.Right != null)
+                {
                     searchRight = (Math.Pow(currentNode.Right.X - queryCoordinate.X, 2) +
                                    Math.Pow(currentNode.Right.Y - queryCoordinate.Y, 2)) < closestDistanceSq;
+                }
 
                 if (searchLeft)
                 {
                     NearestNeighbor(currentNode.Left, bottomNode, queryCoordinate, ref closestNode,
-                        ref closestDistanceSq);
+                                    ref closestDistanceSq);
                 }
 
                 if (searchRight)
@@ -257,18 +277,5 @@ namespace GisSharpBlog.NetTopologySuite.Index.KdTree
                 break;
             }
         }
-
-        /// <summary>
-        /// Performs a nearest neighbor search of the points in the index.
-        /// </summary>
-        /// <param name="coord">The point to search the nearset neighbor for</param>
-        public KdNode<T> NearestNeighbor(ICoordinate coord)
-        {
-            KdNode<T> result = null;
-            var closestDistSq = double.MaxValue;
-            NearestNeighbor(_root, _last, coord, ref result, ref closestDistSq);
-            return result;
-        }
-
     }
 }

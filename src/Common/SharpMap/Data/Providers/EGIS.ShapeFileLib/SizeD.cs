@@ -27,6 +27,8 @@
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
 using System.Runtime.InteropServices;
 
 namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
@@ -37,28 +39,32 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
     /// needed for accuracy in GIS applications
     /// </remarks>
     /// <filterpriority>1</filterpriority>
-    [Serializable, StructLayout(LayoutKind.Sequential), ComVisible(true)]
+    [Serializable]
+    [StructLayout(LayoutKind.Sequential)]
+    [ComVisible(true)]
     public struct SizeD
     {
         /// <summary>Initializes a new instance of the <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see> class.</summary>
         /// <filterpriority>1</filterpriority>
         public static readonly SizeD Empty;
+
         private double width;
         private double height;
+
         /// <summary>Initializes a new instance of the <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see> class from the specified existing <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see>.</summary>
         /// <param name="size">The <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see> from which to create the new <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see>. </param>
         public SizeD(SizeD size)
         {
-            this.width = size.width;
-            this.height = size.height;
+            width = size.width;
+            height = size.height;
         }
 
         /// <summary>Initializes a new instance of the <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see> class from the specified <see cref="T:EGIS.ShapeFileLib.PointD"></see>.</summary>
         /// <param name="pt">The <see cref="T:EGIS.ShapeFileLib.PointD"></see> from which to initialize this <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see>. </param>
         public SizeD(PointD pt)
         {
-            this.width = pt.X;
-            this.height = pt.Y;
+            width = pt.X;
+            height = pt.Y;
         }
 
         /// <summary>Initializes a new instance of the <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see> class from the specified dimensions.</summary>
@@ -127,9 +133,10 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return ((this.width == 0f) && (this.height == 0f));
+                return ((width == 0f) && (height == 0f));
             }
         }
+
         /// <summary>Gets or sets the horizontal component of this <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see>.</summary>
         /// <returns>The horizontal component of this <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see>.</returns>
         /// <filterpriority>1</filterpriority>
@@ -137,13 +144,14 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return this.width;
+                return width;
             }
             set
             {
-                this.width = value;
+                width = value;
             }
         }
+
         /// <summary>Gets or sets the vertical component of this <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see>.</summary>
         /// <returns>The vertical component of this <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see>.</returns>
         /// <filterpriority>1</filterpriority>
@@ -151,13 +159,14 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         {
             get
             {
-                return this.height;
+                return height;
             }
             set
             {
-                this.height = value;
+                height = value;
             }
         }
+
         /// <summary>Adds the width and height of one <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see> structure to the width and height of another <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see> structure.</summary>
         /// <returns>A <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see> structure that is the result of the addition operation.</returns>
         /// <param name="sz2">The second <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see> to add.</param>
@@ -186,8 +195,8 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
             {
                 return false;
             }
-            SizeD ef = (SizeD)obj;
-            return (((ef.Width == this.Width) && (ef.Height == this.Height)) && ef.GetType().Equals(base.GetType()));
+            SizeD ef = (SizeD) obj;
+            return (((ef.Width == Width) && (ef.Height == Height)) && ef.GetType().Equals(GetType()));
         }
 
         /// <summary>Returns a hash code for this <see cref="T:EGIS.ShapeFileLib.Size"></see> structure.</summary>
@@ -203,15 +212,15 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <filterpriority>1</filterpriority>
         public PointD ToPointD()
         {
-            return (PointD)this;
+            return (PointD) this;
         }
 
         /// <summary>Converts a <see cref="T:EGIS.ShapeFileLib.SizeD"></see> to a <see cref="T:EGIS.ShapeFileLib.Size"></see>.</summary>
         /// <returns>Returns a <see cref="T:System.Drawing.Size"></see> structure.</returns>
         /// <filterpriority>1</filterpriority>
-        public System.Drawing.Size ToSize()
+        public Size ToSize()
         {
-            return System.Drawing.Size.Truncate(new System.Drawing.SizeF((float)this.width, (float)this.height));
+            return Size.Truncate(new SizeF((float) width, (float) height));
         }
 
         /// <summary>Creates a human-readable string that represents this <see cref="T:SharpMap.Data.Providers.EGIS.ShapeFileLib.SizeD"></see>.</summary>
@@ -220,7 +229,7 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
         /// <PermissionSet><IPermission class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" version="1" Flags="UnmanagedCode" /></PermissionSet>
         public override string ToString()
         {
-            return ("{Width=" + this.width.ToString(System.Globalization.CultureInfo.CurrentCulture) + ", Height=" + this.height.ToString(System.Globalization.CultureInfo.CurrentCulture) + "}");
+            return ("{Width=" + width.ToString(CultureInfo.CurrentCulture) + ", Height=" + height.ToString(CultureInfo.CurrentCulture) + "}");
         }
 
         static SizeD()

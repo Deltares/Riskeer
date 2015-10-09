@@ -17,14 +17,14 @@
 
 namespace GeoAPI.CoordinateSystems
 {
-	/// <summary>
-	/// The ILinearUnit interface defines methods on linear units.
-	/// </summary>
-	public interface ILinearUnit : IUnit
-	{
-		/// <summary>
-		/// Gets or sets the number of meters per <see cref="ILinearUnit"/>.
-		/// </summary>
-		double MetersPerUnit { get; set; }
-	}
+    /// <summary>
+    /// The ILinearUnit interface defines methods on linear units.
+    /// </summary>
+    public interface ILinearUnit : IUnit
+    {
+        /// <summary>
+        /// Gets or sets the number of meters per <see cref="ILinearUnit"/>.
+        /// </summary>
+        double MetersPerUnit { get; set; }
+    }
 }

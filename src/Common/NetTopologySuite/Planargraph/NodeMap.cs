@@ -14,7 +14,30 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         /// <summary>
         /// Constructs a NodeMap without any Nodes.
         /// </summary>
-        public NodeMap() { }
+        public NodeMap() {}
+
+        /// <summary>
+        /// Returns the Nodes in this NodeMap, sorted in ascending order
+        /// by angle with the positive x-axis.
+        /// </summary>
+        public ICollection Values
+        {
+            get
+            {
+                return nodeMap.Values;
+            }
+        }
+
+        /// <summary>
+        /// Returns the number of Nodes in this NodeMap.
+        /// </summary>
+        public int Count
+        {
+            get
+            {
+                return nodeMap.Count;
+            }
+        }
 
         /// <summary>
         /// Adds a node to the map, replacing any that is already at that location.
@@ -23,7 +46,7 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         /// <returns>The added node.</returns>
         public Node Add(Node n)
         {
-            nodeMap[n.Coordinate] = n;            
+            nodeMap[n.Coordinate] = n;
             return n;
         }
 
@@ -33,7 +56,7 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         /// <param name="pt"></param>
         /// <returns></returns>
         public Node Remove(ICoordinate pt)
-        {            
+        {
             Node node = (Node) nodeMap[pt];
             nodeMap.Remove(pt);
             return node;
@@ -44,9 +67,9 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         /// </summary>
         /// <param name="coord"></param>
         /// <returns></returns>
-        public Node Find(ICoordinate coord) 
+        public Node Find(ICoordinate coord)
         {
-            return (Node) nodeMap[coord]; 
+            return (Node) nodeMap[coord];
         }
 
         /// <summary>
@@ -56,23 +79,6 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         public IEnumerator GetEnumerator()
         {
             return nodeMap.Values.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Returns the Nodes in this NodeMap, sorted in ascending order
-        /// by angle with the positive x-axis.
-        /// </summary>
-        public ICollection Values
-        {
-            get { return nodeMap.Values; }
-        }
-
-        /// <summary>
-        /// Returns the number of Nodes in this NodeMap.
-        /// </summary>
-        public int Count
-        {
-            get { return nodeMap.Count; }
         }
     }
 }

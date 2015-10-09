@@ -33,9 +33,7 @@ namespace SharpMap.Extensions.Layers
         /// The constructor creates the storage _directory if it does not exist.
         /// </remarks>
         public FileCache(string directory, string format)
-            : this(directory, format, TimeSpan.Zero)
-        {
-        }
+            : this(directory, format, TimeSpan.Zero) {}
 
         public void Add(TileIndex index, byte[] image)
         {
@@ -99,7 +97,7 @@ namespace SharpMap.Extensions.Layers
         public string GetFileName(TileIndex index)
         {
             return Path.Combine(GetDirectoryName(index),
-                string.Format(CultureInfo.InvariantCulture, "{0}.{1}", index.Row, _format));
+                                string.Format(CultureInfo.InvariantCulture, "{0}.{1}", index.Row, _format));
         }
 
         private string GetDirectoryName(TileIndex index)
@@ -107,8 +105,8 @@ namespace SharpMap.Extensions.Layers
             var level = index.Level.ToString(CultureInfo.InvariantCulture);
             level = level.Replace(':', '_');
             return Path.Combine(_directory,
-                level,
-                index.Col.ToString(CultureInfo.InvariantCulture));
+                                level,
+                                index.Col.ToString(CultureInfo.InvariantCulture));
         }
 
 #else

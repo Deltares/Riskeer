@@ -16,17 +16,20 @@ namespace DelftTools.Utils.Interop
 
         public IntPtr IntPtr
         {
-            get { return intPtr; }
-        }
-
-        public void Dispose()
-        {
-            handle.Free();
+            get
+            {
+                return intPtr;
+            }
         }
 
         public static implicit operator IntPtr(Pinned pinner)
         {
             return pinner.intPtr;
+        }
+
+        public void Dispose()
+        {
+            handle.Free();
         }
     }
 }

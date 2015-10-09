@@ -1,4 +1,6 @@
-﻿using System.Drawing.Design;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing.Design;
 
 namespace DelftTools.Shell.Gui
 {
@@ -25,17 +27,17 @@ namespace DelftTools.Shell.Gui
     /// </example>
     public class ViewPropertyEditor : UITypeEditor
     {
-        public override UITypeEditorEditStyle GetEditStyle(System.ComponentModel.ITypeDescriptorContext context)
+        public static IGui Gui { get; set; } //static: injected in DeltaShellGui
+
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {
             return UITypeEditorEditStyle.Modal;
         }
 
-        public override object EditValue(System.ComponentModel.ITypeDescriptorContext context, System.IServiceProvider provider, object value)
+        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
             Gui.CommandHandler.OpenView(value);
             return value;
         }
-
-        public static IGui Gui { get; set; } //static: injected in DeltaShellGui
     }
 }

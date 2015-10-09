@@ -16,12 +16,18 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.HibernateMappings
             StyleTypeConverter styleTypeConverter = new StyleTypeConverter();
             //get a  style and convert it back and forth
             //styleTypeConverter.ConvertToString()
-            var vectorStyle = new VectorStyle {Line = {EndCap = LineCap.ArrowAnchor}};
+            var vectorStyle = new VectorStyle
+            {
+                Line =
+                {
+                    EndCap = LineCap.ArrowAnchor
+                }
+            };
             //serialize to xml and back
             string xml = styleTypeConverter.ConvertToString(vectorStyle);
-            VectorStyle retrievedStyle = (VectorStyle)styleTypeConverter.ConvertFrom(xml);
+            VectorStyle retrievedStyle = (VectorStyle) styleTypeConverter.ConvertFrom(xml);
             //assert both are same.
-            Assert.AreEqual(vectorStyle.Line.EndCap,retrievedStyle.Line.EndCap);
+            Assert.AreEqual(vectorStyle.Line.EndCap, retrievedStyle.Line.EndCap);
         }
 
         [Test]
@@ -58,10 +64,16 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.HibernateMappings
             StyleTypeConverter styleTypeConverter = new StyleTypeConverter();
             // get a style and convert it back and forth
             // styleTypeConverter.ConvertToString()
-            var vectorStyle = new VectorStyle {Line = {Color = Color.FromArgb(11, 22, 33, 44)}};
+            var vectorStyle = new VectorStyle
+            {
+                Line =
+                {
+                    Color = Color.FromArgb(11, 22, 33, 44)
+                }
+            };
             // serialize to xml and back
             string xml = styleTypeConverter.ConvertToString(vectorStyle);
-            VectorStyle retrievedStyle = (VectorStyle)styleTypeConverter.ConvertFrom(xml);
+            VectorStyle retrievedStyle = (VectorStyle) styleTypeConverter.ConvertFrom(xml);
             // assert both are same.
             Assert.AreEqual(22, retrievedStyle.Line.Color.R);
             Assert.AreEqual(33, retrievedStyle.Line.Color.G);
@@ -74,16 +86,28 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.HibernateMappings
         {
             StyleTypeConverter styleTypeConverter = new StyleTypeConverter();
             // get a style and convert it back and forth
-            var vectorStyle = new VectorStyle { Line = { Color = Color.Red } };
+            var vectorStyle = new VectorStyle
+            {
+                Line =
+                {
+                    Color = Color.Red
+                }
+            };
             // serialize to xml and back
             string xml = styleTypeConverter.ConvertToString(vectorStyle);
-            VectorStyle retrievedStyle = (VectorStyle)styleTypeConverter.ConvertFrom(xml);
+            VectorStyle retrievedStyle = (VectorStyle) styleTypeConverter.ConvertFrom(xml);
             // assert both are same.
             Assert.AreEqual(Color.Red, retrievedStyle.Line.Color);
 
-            vectorStyle = new VectorStyle { Line = { Color = SystemColors.ButtonFace } };
+            vectorStyle = new VectorStyle
+            {
+                Line =
+                {
+                    Color = SystemColors.ButtonFace
+                }
+            };
             xml = styleTypeConverter.ConvertToString(vectorStyle);
-            retrievedStyle = (VectorStyle)styleTypeConverter.ConvertFrom(xml);
+            retrievedStyle = (VectorStyle) styleTypeConverter.ConvertFrom(xml);
             // assert both are same.
             Assert.AreEqual(SystemColors.ButtonFace, retrievedStyle.Line.Color);
         }
@@ -92,10 +116,13 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.HibernateMappings
         public void ConvertDiamondShapeToAndFromString()
         {
             StyleTypeConverter styleTypeConverter = new StyleTypeConverter();
-            VectorStyle vectorStyle = new VectorStyle { Shape = ShapeType.Diamond, GeometryType = typeof(IPolygon) };
+            VectorStyle vectorStyle = new VectorStyle
+            {
+                Shape = ShapeType.Diamond, GeometryType = typeof(IPolygon)
+            };
             // serialize to xml and back
             string xml = styleTypeConverter.ConvertToString(vectorStyle);
-            VectorStyle retrievedStyle = (VectorStyle)styleTypeConverter.ConvertFrom(xml);
+            VectorStyle retrievedStyle = (VectorStyle) styleTypeConverter.ConvertFrom(xml);
             // assert both are same.
             Assert.AreEqual(ShapeType.Diamond, retrievedStyle.Shape);
             Assert.AreEqual(typeof(IPolygon), retrievedStyle.GeometryType);
@@ -105,10 +132,13 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.HibernateMappings
         public void ConvertEllipseShapeToAndFromString()
         {
             StyleTypeConverter styleTypeConverter = new StyleTypeConverter();
-            VectorStyle vectorStyle = new VectorStyle { Shape = ShapeType.Ellipse, GeometryType = typeof(IPoint) };
+            VectorStyle vectorStyle = new VectorStyle
+            {
+                Shape = ShapeType.Ellipse, GeometryType = typeof(IPoint)
+            };
             // serialize to xml and back
             string xml = styleTypeConverter.ConvertToString(vectorStyle);
-            VectorStyle retrievedStyle = (VectorStyle)styleTypeConverter.ConvertFrom(xml);
+            VectorStyle retrievedStyle = (VectorStyle) styleTypeConverter.ConvertFrom(xml);
             // assert both are same.
             Assert.AreEqual(ShapeType.Ellipse, retrievedStyle.Shape);
             Assert.AreEqual(typeof(IPoint), retrievedStyle.GeometryType);
@@ -118,10 +148,13 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.HibernateMappings
         public void ConvertSymbolToAndFromString()
         {
             StyleTypeConverter styleTypeConverter = new StyleTypeConverter();
-            VectorStyle vectorStyle = new VectorStyle { Symbol = new Bitmap(10, 10) };
+            VectorStyle vectorStyle = new VectorStyle
+            {
+                Symbol = new Bitmap(10, 10)
+            };
             // serialize to xml and back
             string xml = styleTypeConverter.ConvertToString(vectorStyle);
-            VectorStyle retrievedStyle = (VectorStyle)styleTypeConverter.ConvertFrom(xml);
+            VectorStyle retrievedStyle = (VectorStyle) styleTypeConverter.ConvertFrom(xml);
             Assert.AreEqual(true, retrievedStyle.HasCustomSymbol);
             Assert.IsNotNull(retrievedStyle.Symbol);
         }

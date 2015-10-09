@@ -11,15 +11,15 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
     /// </summary>
     public class SimpleSweepLineIntersector : EdgeSetIntersector
     {
-        private ArrayList events = new ArrayList();
+        private readonly ArrayList events = new ArrayList();
 
         // statistics information
-        int nOverlaps;
+        private int nOverlaps;
 
         /// <summary>
         /// 
         /// </summary>
-        public SimpleSweepLineIntersector() { }
+        public SimpleSweepLineIntersector() {}
 
         /// <summary>
         /// 
@@ -30,8 +30,13 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         public override void ComputeIntersections(IList edges, SegmentIntersector si, bool testAllSegments)
         {
             if (testAllSegments)
-                 Add(edges, null);
-            else Add(edges);
+            {
+                Add(edges, null);
+            }
+            else
+            {
+                Add(edges);
+            }
             ComputeIntersections(si);
         }
 
@@ -54,7 +59,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         /// <param name="edges"></param>
         private void Add(IList edges)
         {
-            for (IEnumerator i = edges.GetEnumerator(); i.MoveNext(); ) 
+            for (IEnumerator i = edges.GetEnumerator(); i.MoveNext();)
             {
                 Edge edge = (Edge) i.Current;
                 // edge is its own group
@@ -69,7 +74,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         /// <param name="edgeSet"></param>
         private void Add(IList edges, object edgeSet)
         {
-            for (IEnumerator i = edges.GetEnumerator(); i.MoveNext(); ) 
+            for (IEnumerator i = edges.GetEnumerator(); i.MoveNext();)
             {
                 Edge edge = (Edge) i.Current;
                 Add(edge, edgeSet);
@@ -84,7 +89,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         private void Add(Edge edge, object edgeSet)
         {
             ICoordinate[] pts = edge.Coordinates;
-            for (int i = 0; i < pts.Length - 1; i++) 
+            for (int i = 0; i < pts.Length - 1; i++)
             {
                 SweepLineSegment ss = new SweepLineSegment(edge, i);
                 SweepLineEvent insertEvent = new SweepLineEvent(edgeSet, ss.MinX, null, ss);
@@ -101,11 +106,13 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         private void PrepareEvents()
         {
             events.Sort();
-            for (int i = 0; i < events.Count; i++ )
+            for (int i = 0; i < events.Count; i++)
             {
                 SweepLineEvent ev = (SweepLineEvent) events[i];
-                if (ev.IsDelete) 
-                    ev.InsertEvent.DeleteEventIndex = i;            
+                if (ev.IsDelete)
+                {
+                    ev.InsertEvent.DeleteEventIndex = i;
+                }
             }
         }
 
@@ -118,11 +125,13 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
             nOverlaps = 0;
             PrepareEvents();
 
-            for (int i = 0; i < events.Count; i++ )
+            for (int i = 0; i < events.Count; i++)
             {
                 SweepLineEvent ev = (SweepLineEvent) events[i];
-                if (ev.IsInsert) 
-                    ProcessOverlaps(i, ev.DeleteEventIndex, ev, si);            
+                if (ev.IsInsert)
+                {
+                    ProcessOverlaps(i, ev.DeleteEventIndex, ev, si);
+                }
             }
         }
 
@@ -141,15 +150,17 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
             * include current insert event object in list of event objects to test.
             * Last index can be skipped, because it must be a Delete event.
             */
-            for (int i = start; i < end; i++ ) 
+            for (int i = start; i < end; i++)
             {
                 SweepLineEvent ev1 = (SweepLineEvent) events[i];
-                if (ev1.IsInsert) 
+                if (ev1.IsInsert)
                 {
                     SweepLineSegment ss1 = (SweepLineSegment) ev1.Object;
-                    if (ev0.EdgeSet == null || (ev0.EdgeSet != ev1.EdgeSet)) 
-                    ss0.ComputeIntersections(ss1, si);
-                    nOverlaps++;                
+                    if (ev0.EdgeSet == null || (ev0.EdgeSet != ev1.EdgeSet))
+                    {
+                        ss0.ComputeIntersections(ss1, si);
+                    }
+                    nOverlaps++;
                 }
             }
         }

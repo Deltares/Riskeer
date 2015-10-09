@@ -14,6 +14,17 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
     {
         private const double SnapPrexisionFactor = 10E-10;
 
+        private readonly IGeometry srcGeom;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
+        public GeometrySnapper(IGeometry g)
+        {
+            srcGeom = g;
+        }
+
         /// <summary>
         /// Estimates the snap tolerance for a Geometry, taking into account its precision model.
         /// </summary>
@@ -35,9 +46,11 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
             IPrecisionModel pm = g.PrecisionModel;
             if (pm.PrecisionModelType == PrecisionModels.Fixed)
             {
-                double fixedSnapTol = (1 / pm.Scale) * 2 / 1.415;
+                double fixedSnapTol = (1/pm.Scale)*2/1.415;
                 if (fixedSnapTol > snapTolerance)
+                {
                     snapTolerance = fixedSnapTol;
+                }
             }
             return snapTolerance;
         }
@@ -51,7 +64,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
         {
             IEnvelope env = g.EnvelopeInternal;
             double minDimension = Math.Min(env.Height, env.Width);
-            double snapTol = minDimension * SnapPrexisionFactor;
+            double snapTol = minDimension*SnapPrexisionFactor;
             return snapTol;
         }
 
@@ -88,47 +101,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
             return snapGeom;
         }
 
-        private IGeometry srcGeom;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="g"></param>
-        public GeometrySnapper(IGeometry g)
-        {
-            srcGeom = g;
-        }
-
-        /// <summary>
-        /// Computes the snap tolerance based on the input geometries.
-        /// </summary>
-        /// <param name="ringPts"></param>
-        /// <returns></returns>
-        private double ComputeSnapTolerance(ICoordinate[] ringPts)
-        {
-            double minSegLen = ComputeMinimumSegmentLength(ringPts);
-            // Use a small percentage of this to be safe
-            double snapTol = minSegLen / 10;
-            return snapTol;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pts"></param>
-        /// <returns></returns>
-        private double ComputeMinimumSegmentLength(ICoordinate[] pts)
-        {
-            double minSegLen = Double.MaxValue;
-            for (int i = 0; i < pts.Length - 1; i++) 
-            {
-                double segLen = pts[i].Distance(pts[i + 1]);
-                if (segLen < minSegLen)
-                    minSegLen = segLen;
-            }
-            return minSegLen;
-        }
-
         /// <summary>
         ///  Snaps the vertices in the component <see cref="ILineString" />s
         ///  of the source geometry
@@ -158,15 +130,47 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
             ptSet.CopyTo(result, 0);
             return result;
         }
+
+        /// <summary>
+        /// Computes the snap tolerance based on the input geometries.
+        /// </summary>
+        /// <param name="ringPts"></param>
+        /// <returns></returns>
+        private double ComputeSnapTolerance(ICoordinate[] ringPts)
+        {
+            double minSegLen = ComputeMinimumSegmentLength(ringPts);
+            // Use a small percentage of this to be safe
+            double snapTol = minSegLen/10;
+            return snapTol;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pts"></param>
+        /// <returns></returns>
+        private double ComputeMinimumSegmentLength(ICoordinate[] pts)
+        {
+            double minSegLen = Double.MaxValue;
+            for (int i = 0; i < pts.Length - 1; i++)
+            {
+                double segLen = pts[i].Distance(pts[i + 1]);
+                if (segLen < minSegLen)
+                {
+                    minSegLen = segLen;
+                }
+            }
+            return minSegLen;
+        }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    class SnapTransformer : GeometryTransformer
+    internal class SnapTransformer : GeometryTransformer
     {
-        private double snapTolerance;
-        private ICoordinate[] snapPts;
+        private readonly double snapTolerance;
+        private readonly ICoordinate[] snapPts;
 
         /// <summary>
         /// 

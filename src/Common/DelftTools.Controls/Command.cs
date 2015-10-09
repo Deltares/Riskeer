@@ -22,12 +22,6 @@ namespace DelftTools.Controls
         private Image image;
 
         /// <summary>
-        /// Method to be called when command will be executed.
-        /// </summary>
-        /// <param name="arguments">arguments to the command</param>
-        protected abstract void OnExecute(params object[] arguments);
-
-        /// <summary>
         /// Commands can be disabled when they should not be used.
         /// </summary>
         public abstract bool Enabled { get; }
@@ -36,6 +30,49 @@ namespace DelftTools.Controls
         /// HACK: Commands can checked if they represent a (boolean) state.
         /// </summary>
         public virtual bool Checked { set; get; }
+
+        /// <summary>
+        /// DisplayName of the command.
+        /// </summary>
+        public virtual string Name
+        {
+            get
+            {
+                return name;
+            }
+
+            protected set
+            {
+                string oldName = name;
+                name = value;
+            }
+        }
+
+        #region ICommand Members
+
+        /// <summary>
+        /// Image of the command
+        /// </summary>
+        public Image Image
+        {
+            get
+            {
+                return image;
+            }
+            set
+            {
+                Image oldImage = image;
+                image = value;
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Method to be called when command will be executed.
+        /// </summary>
+        /// <param name="arguments">arguments to the command</param>
+        protected abstract void OnExecute(params object[] arguments);
 
         #region ICommand Members
 
@@ -54,37 +91,6 @@ namespace DelftTools.Controls
         public void Unexecute()
         {
             throw new NotImplementedException();
-        }
-
-        #endregion
-
-        /// <summary>
-        /// DisplayName of the command.
-        /// </summary>
-        public virtual string Name
-        {
-            get { return name; }
-
-            protected set
-            {
-                string oldName = name;
-                name = value;
-            }
-        }
-
-        #region ICommand Members
-
-        /// <summary>
-        /// Image of the command
-        /// </summary>
-        public Image Image
-        {
-            get { return image; }
-            set
-            {
-                Image oldImage = image;
-                image = value;
-            }
         }
 
         #endregion

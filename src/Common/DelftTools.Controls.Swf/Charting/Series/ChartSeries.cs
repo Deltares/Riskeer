@@ -10,6 +10,8 @@ namespace DelftTools.Controls.Swf.Charting.Series
 {
     public abstract class ChartSeries : IChartSeries
     {
+        protected const int MaximumAllowedSize = 999999;
+        protected const int MinimumAllowedSize = 0;
         internal readonly Steema.TeeChart.Styles.Series series;
 
         private string dataMember;
@@ -17,12 +19,10 @@ namespace DelftTools.Controls.Swf.Charting.Series
         private PropertyDescriptor xPropertyDescriptor;
         private PropertyDescriptor yPropertyDescriptor;
         private BindingContext bindingContext;
-        protected const int MaximumAllowedSize = 999999;
-        protected const int MinimumAllowedSize = 0;
 
         private IList<double> noDataValues = new List<double>();
 
-        protected ChartSeries(CustomPoint series) : this((Steema.TeeChart.Styles.Series)series)
+        protected ChartSeries(CustomPoint series) : this((Steema.TeeChart.Styles.Series) series)
         {
             series.LinePen.Width = 1;
 
@@ -42,13 +42,31 @@ namespace DelftTools.Controls.Swf.Charting.Series
             UpdateASynchronously = false;
         }
 
+        /// <summary>
+        /// Set to force the x-axis to use date-time formatting, even if no data is present.
+        /// </summary>
+        public bool XAxisIsDateTime
+        {
+            get
+            {
+                return series.XValues.DateTime;
+            }
+            set
+            {
+                series.XValues.DateTime = value;
+            }
+        }
+
         ///<summary>
         /// The title of the series
         ///</summary>
         /// <remarks>Changes null to an empty string to avoid TeeChart problems (TeeChart cannot cope with null titles)</remarks>
         public string Title
         {
-            get { return series.Title; }
+            get
+            {
+                return series.Title;
+            }
             set
             {
                 series.Title = value ?? "";
@@ -57,10 +75,12 @@ namespace DelftTools.Controls.Swf.Charting.Series
 
         public object DataSource
         {
-            get { return dataSource; }
+            get
+            {
+                return dataSource;
+            }
             set
             {
-
                 Unbind();
                 dataSource = value;
 
@@ -73,13 +93,15 @@ namespace DelftTools.Controls.Swf.Charting.Series
                 {
                     throw new ArgumentException("Invalid argument for series datasource. Are you passing IEnumerable? IList and IListSource are supported", ex);
                 }
-
             }
         }
 
         public string XValuesDataMember
         {
-            get { return series.XValues.DataMember; }
+            get
+            {
+                return series.XValues.DataMember;
+            }
             set
             {
                 series.XValues.DataMember = value;
@@ -90,7 +112,10 @@ namespace DelftTools.Controls.Swf.Charting.Series
 
         public string YValuesDataMember
         {
-            get { return series.YValues.DataMember; }
+            get
+            {
+                return series.YValues.DataMember;
+            }
             set
             {
                 series.YValues.DataMember = value;
@@ -104,96 +129,72 @@ namespace DelftTools.Controls.Swf.Charting.Series
             get
             {
                 string verticalAxisName = Enum.GetName(typeof(Steema.TeeChart.Styles.VerticalAxis), series.VertAxis);
-                return (VerticalAxis)Enum.Parse(typeof(VerticalAxis), verticalAxisName);
+                return (VerticalAxis) Enum.Parse(typeof(VerticalAxis), verticalAxisName);
             }
             set
             {
                 string verticalAxisName = Enum.GetName(typeof(VerticalAxis), value);
-                series.VertAxis = (Steema.TeeChart.Styles.VerticalAxis)Enum.Parse(typeof(Steema.TeeChart.Styles.VerticalAxis), verticalAxisName);
+                series.VertAxis = (Steema.TeeChart.Styles.VerticalAxis) Enum.Parse(typeof(Steema.TeeChart.Styles.VerticalAxis), verticalAxisName);
             }
-        }
-
-        /// <summary>
-        /// Set to force the x-axis to use date-time formatting, even if no data is present.
-        /// </summary>
-        public bool XAxisIsDateTime
-        {
-            get { return series.XValues.DateTime; }
-            set { series.XValues.DateTime = value; }
         }
 
         public bool Visible
         {
-            get { return series.Visible; }
-            set { series.Visible = value; }
+            get
+            {
+                return series.Visible;
+            }
+            set
+            {
+                series.Visible = value;
+            }
         }
 
         public bool ShowInLegend
         {
-            get { return series.ShowInLegend; }
-            set { series.ShowInLegend = value; }
+            get
+            {
+                return series.ShowInLegend;
+            }
+            set
+            {
+                series.ShowInLegend = value;
+            }
         }
-        
+
         public double DefaultNullValue
         {
-            get { return series.DefaultNullValue; }
-            set { series.DefaultNullValue = value; }
+            get
+            {
+                return series.DefaultNullValue;
+            }
+            set
+            {
+                series.DefaultNullValue = value;
+            }
         }
 
         public IList<double> NoDataValues
         {
-            get { return noDataValues; }
-            set { noDataValues = value; }
+            get
+            {
+                return noDataValues;
+            }
+            set
+            {
+                noDataValues = value;
+            }
         }
 
         public bool UpdateASynchronously { get; set; }
 
         public object Tag { get; set; }
-        
-        public bool RefreshRequired
-        {
-            get;
-            private set;
-        }
+
+        public bool RefreshRequired { get; private set; }
 
         public IChart Chart { get; set; }
 
         public abstract Color Color { get; set; }
-
-        protected void CopySettings(IChartSeries chartSeries)
-        {
-            Title = chartSeries.Title;
-            
-            if (chartSeries.DataSource == null)
-            {
-                var teeChartSeries = ((ChartSeries) chartSeries).series;
-                
-                for (int i = 0; i < teeChartSeries.XValues.Count; i++)
-                {
-                    series.Add(teeChartSeries.XValues[i], teeChartSeries.YValues[i]);
-                }
-            }
-            else
-            {
-                DataSource = chartSeries.DataSource;
-                XValuesDataMember = chartSeries.XValuesDataMember;
-                YValuesDataMember = chartSeries.YValuesDataMember;
-                RefreshRequired = true;
-            }
-                
-            VertAxis = chartSeries.VertAxis;
-            Visible = chartSeries.Visible;
-            ShowInLegend = chartSeries.ShowInLegend;
-            DefaultNullValue = chartSeries.DefaultNullValue;
-            noDataValues = new List<double>(chartSeries.NoDataValues);
-            UpdateASynchronously = chartSeries.UpdateASynchronously;
-            Color = chartSeries.Color;
-
-            if (series is CustomPoint && chartSeries.Chart != null && chartSeries.Chart.StackSeries)
-            {
-                ((CustomPoint) series).Stacked = CustomStack.Stack;
-            }
-        }
 
         public void CheckDataSource()
         {
@@ -237,6 +238,41 @@ namespace DelftTools.Controls.Swf.Charting.Series
             series.Clear();
         }
 
+        protected void CopySettings(IChartSeries chartSeries)
+        {
+            Title = chartSeries.Title;
+
+            if (chartSeries.DataSource == null)
+            {
+                var teeChartSeries = ((ChartSeries) chartSeries).series;
+
+                for (int i = 0; i < teeChartSeries.XValues.Count; i++)
+                {
+                    series.Add(teeChartSeries.XValues[i], teeChartSeries.YValues[i]);
+                }
+            }
+            else
+            {
+                DataSource = chartSeries.DataSource;
+                XValuesDataMember = chartSeries.XValuesDataMember;
+                YValuesDataMember = chartSeries.YValuesDataMember;
+                RefreshRequired = true;
+            }
+
+            VertAxis = chartSeries.VertAxis;
+            Visible = chartSeries.Visible;
+            ShowInLegend = chartSeries.ShowInLegend;
+            DefaultNullValue = chartSeries.DefaultNullValue;
+            noDataValues = new List<double>(chartSeries.NoDataValues);
+            UpdateASynchronously = chartSeries.UpdateASynchronously;
+            Color = chartSeries.Color;
+
+            if (series is CustomPoint && chartSeries.Chart != null && chartSeries.Chart.StackSeries)
+            {
+                ((CustomPoint) series).Stacked = CustomStack.Stack;
+            }
+        }
+
         private BindingContext BindingContext
         {
             get
@@ -259,10 +295,12 @@ namespace DelftTools.Controls.Swf.Charting.Series
                     dataMember = String.Empty;
                 }
 
-                if (DataSource == null) 
+                if (DataSource == null)
+                {
                     return null;
+                }
 
-                return (CurrencyManager)BindingContext[DataSource, dataMember];
+                return (CurrencyManager) BindingContext[DataSource, dataMember];
             }
         }
 
@@ -372,11 +410,11 @@ namespace DelftTools.Controls.Swf.Charting.Series
             }
             else if (xIsDateTime)
             {
-                addedIndex = series.Add((DateTime)x, yValueToSet);
+                addedIndex = series.Add((DateTime) x, yValueToSet);
             }
             else //x is something non-numeric, so use the index here
             {
-                addedIndex = series.Add((double)series.XValues.Count - 1, yValueToSet, x.ToString());
+                addedIndex = series.Add((double) series.XValues.Count - 1, yValueToSet, x.ToString());
             }
 
             if (NoDataValues.Contains(yValue) || Double.IsNaN(yValue))

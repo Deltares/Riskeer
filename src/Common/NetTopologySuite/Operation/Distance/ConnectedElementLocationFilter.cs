@@ -12,6 +12,17 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Distance
     /// </summary>
     public class ConnectedElementLocationFilter : IGeometryFilter
     {
+        private readonly IList locations = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="locations"></param>
+        private ConnectedElementLocationFilter(IList locations)
+        {
+            this.locations = locations;
+        }
+
         /// <summary>
         /// Returns a list containing a point from each Polygon, LineString, and Point
         /// found inside the specified point. Thus, if the specified point is
@@ -25,17 +36,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Distance
             return locations;
         }
 
-        private IList locations = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="locations"></param>
-        ConnectedElementLocationFilter(IList locations)
-        {
-            this.locations = locations;
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -43,7 +43,9 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Distance
         public void Filter(IGeometry geom)
         {
             if (geom is IPoint || geom is ILineString || geom is IPolygon)
+            {
                 locations.Add(new GeometryLocation(geom, 0, geom.Coordinate));
+            }
         }
     }
 }

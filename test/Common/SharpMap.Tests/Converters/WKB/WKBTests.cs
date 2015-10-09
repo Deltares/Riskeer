@@ -8,11 +8,11 @@ namespace SharpMap.Tests.Converters.WKB
     [TestFixture]
     public class WKBTests
     {
-        string multiLinestring = "MULTILINESTRING((10 10,40 50),(20 20,30 20),(20 20,50 20,50 60,20 20))";
-        string linestring = "LINESTRING(20 20,20 30,30 30,30 20,40 20)";
-        string polygon = "POLYGON((20 20,20 30,30 30,30 20,20 20),(21 21,21 29,29 29,29 21,21 21))";
-        string point = "POINT(20.564 346.3493254)";
-        string multipoint = "MULTIPOINT(20.564 346.3493254,45 32,23 54)";
+        private readonly string multiLinestring = "MULTILINESTRING((10 10,40 50),(20 20,30 20),(20 20,50 20,50 60,20 20))";
+        private readonly string linestring = "LINESTRING(20 20,20 30,30 30,30 20,40 20)";
+        private readonly string polygon = "POLYGON((20 20,20 30,30 30,30 20,20 20),(21 21,21 29,29 29,29 21,21 21))";
+        private readonly string point = "POINT(20.564 346.3493254)";
+        private readonly string multipoint = "MULTIPOINT(20.564 346.3493254,45 32,23 54)";
 
         [Test]
         public void Convert()

@@ -32,11 +32,9 @@ namespace DeltaShell.Plugins.CommonTools.Gui
     [Extension(typeof(IPlugin))]
     public class CommonToolsGuiPlugin : GuiPlugin
     {
-        private IRibbonCommandHandler ribbon;
         private static bool tableViewInitialized;
         private static TableView speedupTableView; // used to speed-up start of Delta Shell
-
-        public static CommonToolsGuiPlugin Instance { get; private set; }
+        private IRibbonCommandHandler ribbon;
 
         public CommonToolsGuiPlugin()
         {
@@ -45,22 +43,72 @@ namespace DeltaShell.Plugins.CommonTools.Gui
 
         public override string Name
         {
-            get { return "CommonToolsPlugin (UI)"; }
+            get
+            {
+                return "CommonToolsPlugin (UI)";
+            }
         }
 
         public override string DisplayName
         {
-            get { return Properties.Resources.CommonToolsGuiPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin__UI_; }
+            get
+            {
+                return Properties.Resources.CommonToolsGuiPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin__UI_;
+            }
         }
 
         public override string Description
         {
-            get { return CommonTools.Properties.Resources.CommonToolsApplicationPlugin_Description; }
+            get
+            {
+                return CommonTools.Properties.Resources.CommonToolsApplicationPlugin_Description;
+            }
         }
 
         public override string Version
         {
-            get { return Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
+            get
+            {
+                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
+        }
+
+        public override Image Image
+        {
+            get
+            {
+                return new Bitmap(32, 32);
+            }
+        }
+
+        public override IRibbonCommandHandler RibbonCommandHandler
+        {
+            get
+            {
+                return ribbon;
+            }
+        }
+
+        public static CommonToolsGuiPlugin Instance { get; private set; }
+
+        public static ChartLegendView ChartLegendView { get; set; }
+
+        public void InitializeChartLegendView()
+        {
+            if ((ChartLegendView == null) || (ChartLegendView.IsDisposed))
+            {
+                ChartLegendView = new ChartLegendView(this)
+                {
+                    Text = Properties.Resources.CommonToolsGuiPlugin_InitializeChartLegendView_Chart
+                };
+            }
+
+            if (Gui.ToolWindowViews != null)
+            {
+                Gui.ToolWindowViews.Add(ChartLegendView, ViewLocation.Right | ViewLocation.Top);
+                Gui.ToolWindowViews.ActiveView = ChartLegendView;
+                UpdateChartLegendView();
+            }
         }
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
@@ -80,18 +128,22 @@ namespace DeltaShell.Plugins.CommonTools.Gui
 
         public override IEnumerable<ViewInfo> GetViewInfoObjects()
         {
-            yield return new ViewInfo<TextDocumentBase, TextDocumentView> { Description = Properties.Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Text_editor, GetViewName = (v, o) => o != null ? o.Name : "" };
-            yield return new ViewInfo<Url, HtmlPageView> { Description = Properties.Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Browser, GetViewName = (v, o) => o != null ? o.Name : "" };
-            yield return new ViewInfo<Chart, ChartView> { Description = Properties.Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Chart_View };
-        }
-
-        public override Image Image
-        {
-            get { return new Bitmap(32, 32); }
+            yield return new ViewInfo<TextDocumentBase, TextDocumentView>
+            {
+                Description = Properties.Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Text_editor, GetViewName = (v, o) => o != null ? o.Name : ""
+            };
+            yield return new ViewInfo<Url, HtmlPageView>
+            {
+                Description = Properties.Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Browser, GetViewName = (v, o) => o != null ? o.Name : ""
+            };
+            yield return new ViewInfo<Chart, ChartView>
+            {
+                Description = Properties.Resources.CommonToolsGuiPlugin_GetViewInfoObjects_Chart_View
+            };
         }
 
         public override void Activate()
-        {   
+        {
             base.Activate();
 
             if (!tableViewInitialized)
@@ -130,32 +182,6 @@ namespace DeltaShell.Plugins.CommonTools.Gui
             }
         }
 
-        private void ViewsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            if (Gui == null || Gui.DocumentViews == null)
-            {
-                return;
-            }
-
-            // Make chartviews refresh ribbon when tools become active/inactive
-            var chartViews = Gui.DocumentViews.FindViewsRecursive<IChartView>(new []{e.Item as IView});
-
-            switch (e.Action)
-            {
-                case NotifyCollectionChangeAction.Add:
-                    chartViews.ForEach(cv => cv.ToolsActiveChanged += ActiveToolsChanged);
-                    break;
-                case NotifyCollectionChangeAction.Remove:
-                    chartViews.ForEach(cv => cv.ToolsActiveChanged -= ActiveToolsChanged);
-                    break;
-            }
-        }
-
-        private void ActiveToolsChanged(object sender, EventArgs e)
-        {
-            Gui.MainWindow.ValidateItems();
-        }
-
         public override void Dispose()
         {
             if (ChartLegendView != null)
@@ -181,14 +207,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui
             var devExpressAssembly = typeof(DataListDescriptor).Assembly;
             var dataListDescriptorType = devExpressAssembly.GetType("DevExpress.Data.Access.DataListDescriptor");
             var typesInfo = dataListDescriptorType.GetField("types", BindingFlags.Static | BindingFlags.NonPublic);
-            var types = (IDictionary)typesInfo.GetValue(null);
+            var types = (IDictionary) typesInfo.GetValue(null);
             types.Clear();
 
             ribbon = null;
 
             base.Dispose();
         }
-        
+
         public override void Deactivate()
         {
             if (Gui != null)
@@ -202,35 +228,47 @@ namespace DeltaShell.Plugins.CommonTools.Gui
             base.Deactivate();
         }
 
-        public override IRibbonCommandHandler RibbonCommandHandler
+        public override void OnActiveViewChanged(IView view)
         {
-            get { return ribbon; }
+            Unsubscribe();
+
+            Subscribe();
+
+            UpdateChartLegendView();
         }
 
-        void ApplicationProjectOpening(Project project)
+        private void ViewsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
-        }
-
-        void ApplicationProjectClosing(Project project)
-        {
-        }
-
-        public static ChartLegendView ChartLegendView { get; set; }
-
-        public void InitializeChartLegendView()
-        {
-            if ((ChartLegendView == null) || (ChartLegendView.IsDisposed))
+            if (Gui == null || Gui.DocumentViews == null)
             {
-                ChartLegendView = new ChartLegendView(this) {Text = Properties.Resources.CommonToolsGuiPlugin_InitializeChartLegendView_Chart};
+                return;
             }
 
-            if (Gui.ToolWindowViews != null)
+            // Make chartviews refresh ribbon when tools become active/inactive
+            var chartViews = Gui.DocumentViews.FindViewsRecursive<IChartView>(new[]
             {
-                Gui.ToolWindowViews.Add(ChartLegendView, ViewLocation.Right | ViewLocation.Top);
-                Gui.ToolWindowViews.ActiveView = ChartLegendView;
-                UpdateChartLegendView();
+                e.Item as IView
+            });
+
+            switch (e.Action)
+            {
+                case NotifyCollectionChangeAction.Add:
+                    chartViews.ForEach(cv => cv.ToolsActiveChanged += ActiveToolsChanged);
+                    break;
+                case NotifyCollectionChangeAction.Remove:
+                    chartViews.ForEach(cv => cv.ToolsActiveChanged -= ActiveToolsChanged);
+                    break;
             }
         }
+
+        private void ActiveToolsChanged(object sender, EventArgs e)
+        {
+            Gui.MainWindow.ValidateItems();
+        }
+
+        private void ApplicationProjectOpening(Project project) {}
+
+        private void ApplicationProjectClosing(Project project) {}
 
         private void InitializeTableView()
         {
@@ -263,7 +301,7 @@ namespace DeltaShell.Plugins.CommonTools.Gui
 
         private void UpdateChartLegendView()
         {
-            if(ChartLegendView == null)
+            if (ChartLegendView == null)
             {
                 return;
             }
@@ -283,15 +321,6 @@ namespace DeltaShell.Plugins.CommonTools.Gui
             }
         }
 
-        public override void OnActiveViewChanged(IView view)
-        {
-            Unsubscribe();
-
-            Subscribe();
-
-            UpdateChartLegendView();
-        }
-     
         private void Subscribe()
         {
             var compositeView = Gui.DocumentViews.ActiveView as ICompositeView;
@@ -310,9 +339,12 @@ namespace DeltaShell.Plugins.CommonTools.Gui
             }
         }
 
-        void ChildViewsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+        private void ChildViewsCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
         {
-            if (!(e.Item is ChartView)) return;
+            if (!(e.Item is ChartView))
+            {
+                return;
+            }
 
             UpdateChartLegendView();
         }

@@ -11,14 +11,14 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
     /// </summary>
     public class GeometricShapeFactory
     {
-        private GeometryFactory geomFact;
-        private Dimensions dim = new Dimensions();
+        private readonly GeometryFactory geomFact;
+        private readonly Dimensions dim = new Dimensions();
         private int nPts = 100;
 
         /// <summary>
         /// Create a shape factory which will create shapes using the default GeometryFactory.
         /// </summary>
-        public GeometricShapeFactory() : this(new GeometryFactory()) { }
+        public GeometricShapeFactory() : this(new GeometryFactory()) {}
 
         /// <summary>
         /// Create a shape factory which will create shapes using the given GeometryFactory.
@@ -34,7 +34,7 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         /// (which in most cases is the
         /// lower left point of the envelope containing the shape).
         /// </summary>
-        public ICoordinate Base  
+        public ICoordinate Base
         {
             get
             {
@@ -130,36 +130,39 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         {
             int i;
             int ipt = 0;
-            int nSide = nPts / 4;
-            if (nSide < 1) nSide = 1;
-            double XsegLen = dim.Envelope.Width / nSide;
-            double YsegLen = dim.Envelope.Height / nSide;
-
-            ICoordinate[] pts = new ICoordinate[4 * nSide + 1];
-            IEnvelope env = dim.Envelope;            
-
-            for (i = 0; i < nSide; i++) 
+            int nSide = nPts/4;
+            if (nSide < 1)
             {
-                double x = env.MinX + i * XsegLen;
+                nSide = 1;
+            }
+            double XsegLen = dim.Envelope.Width/nSide;
+            double YsegLen = dim.Envelope.Height/nSide;
+
+            ICoordinate[] pts = new ICoordinate[4*nSide + 1];
+            IEnvelope env = dim.Envelope;
+
+            for (i = 0; i < nSide; i++)
+            {
+                double x = env.MinX + i*XsegLen;
                 double y = env.MinY;
                 pts[ipt++] = new Coordinate(x, y);
             }
-            for (i = 0; i < nSide; i++) 
+            for (i = 0; i < nSide; i++)
             {
                 double x = env.MaxX;
-                double y = env.MinY + i * YsegLen;
+                double y = env.MinY + i*YsegLen;
                 pts[ipt++] = new Coordinate(x, y);
             }
-            for (i = 0; i < nSide; i++) 
+            for (i = 0; i < nSide; i++)
             {
-                double x = env.MaxX - i * XsegLen;
+                double x = env.MaxX - i*XsegLen;
                 double y = env.MaxY;
                 pts[ipt++] = new Coordinate(x, y);
             }
-            for (i = 0; i < nSide; i++) 
+            for (i = 0; i < nSide; i++)
             {
                 double x = env.MinX;
-                double y = env.MaxY - i * YsegLen;
+                double y = env.MaxY - i*YsegLen;
                 pts[ipt++] = new Coordinate(x, y);
             }
             pts[ipt++] = new Coordinate(pts[0]);
@@ -176,19 +179,19 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         public IPolygon CreateCircle()
         {
             IEnvelope env = dim.Envelope;
-            double xRadius = env.Width / 2.0;
-            double yRadius = env.Height / 2.0;
+            double xRadius = env.Width/2.0;
+            double yRadius = env.Height/2.0;
 
             double centreX = env.MinX + xRadius;
             double centreY = env.MinY + yRadius;
 
             ICoordinate[] pts = new ICoordinate[nPts + 1];
             int iPt = 0;
-            for (int i = 0; i < nPts; i++) 
+            for (int i = 0; i < nPts; i++)
             {
-                double ang = i * (2 * Math.PI / nPts);
-                double x = xRadius * Math.Cos(ang) + centreX;
-                double y = yRadius * Math.Sin(ang) + centreY;
+                double ang = i*(2*Math.PI/nPts);
+                double x = xRadius*Math.Cos(ang) + centreX;
+                double y = yRadius*Math.Sin(ang) + centreY;
                 ICoordinate pt = new Coordinate(x, y);
                 pts[iPt++] = pt;
             }
@@ -208,26 +211,28 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         public ILineString CreateArc(double startAng, double endAng)
         {
             IEnvelope env = dim.Envelope;
-            double xRadius = env.Width / 2.0;
-            double yRadius = env.Height / 2.0;
+            double xRadius = env.Width/2.0;
+            double yRadius = env.Height/2.0;
 
             double centreX = env.MinX + xRadius;
             double centreY = env.MinY + yRadius;
 
             double angSize = (endAng - startAng);
-            if (angSize <= 0.0 || angSize > 2 * Math.PI)
-                angSize = 2 * Math.PI;
-            double angInc = angSize / nPts;
+            if (angSize <= 0.0 || angSize > 2*Math.PI)
+            {
+                angSize = 2*Math.PI;
+            }
+            double angInc = angSize/nPts;
 
             ICoordinate[] pts = new ICoordinate[nPts];
             int iPt = 0;
-            for (int i = 0; i < nPts; i++) 
+            for (int i = 0; i < nPts; i++)
             {
-                double ang = startAng + i * angInc;
-                double x = xRadius * Math.Cos(ang) + centreX;
-                double y = yRadius * Math.Sin(ang) + centreY;
+                double ang = startAng + i*angInc;
+                double x = xRadius*Math.Cos(ang) + centreX;
+                double y = yRadius*Math.Sin(ang) + centreY;
                 ICoordinate pt = new Coordinate(x, y);
-                geomFact.PrecisionModel.MakePrecise( pt);
+                geomFact.PrecisionModel.MakePrecise(pt);
                 pts[iPt++] = pt;
             }
             ILineString line = geomFact.CreateLineString(pts);
@@ -239,49 +244,25 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         /// </summary>
         private class Dimensions
         {
-            private ICoordinate basecoord;
+            /// <summary>
+            /// 
+            /// </summary>
+            public ICoordinate Base { get; set; }
 
             /// <summary>
             /// 
             /// </summary>
-            public ICoordinate Base
-            {
-                get { return basecoord; }
-                set { basecoord = value; }
-            }
-
-            private ICoordinate centre;
+            public ICoordinate Centre { get; set; }
 
             /// <summary>
             /// 
             /// </summary>
-            public ICoordinate Centre
-            {
-                get { return centre; }
-                set { centre = value; }
-            }
-
-            private double width;
+            public double Width { get; set; }
 
             /// <summary>
             /// 
             /// </summary>
-            public double Width
-            {
-                get { return width; }
-                set { width = value; }
-            }
-
-            private double height;
-
-            /// <summary>
-            /// 
-            /// </summary>
-            public double Height
-            {
-                get { return height; }
-                set { height = value; }
-            }                                  
+            public double Height { get; set; }
 
             /// <summary>
             /// 
@@ -307,10 +288,14 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
                 get
                 {
                     if (Base != null)
-                        return new Envelope(Base.X, Base.X + Width, Base.Y, Base.Y + Height);                    
+                    {
+                        return new Envelope(Base.X, Base.X + Width, Base.Y, Base.Y + Height);
+                    }
                     if (Centre != null)
-                        return new Envelope(Centre.X - Width / 2, Centre.X + Width / 2,
-                                            Centre.Y - Height / 2, Centre.Y + Height / 2);                    
+                    {
+                        return new Envelope(Centre.X - Width/2, Centre.X + Width/2,
+                                            Centre.Y - Height/2, Centre.Y + Height/2);
+                    }
                     return new Envelope(0, Width, 0, Height);
                 }
             }

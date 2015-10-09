@@ -10,9 +10,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
     [Serializable]
     public class Point : Geometry, IPoint
     {
-        private static readonly ICoordinate emptyCoordinate = null;
-
         public const string PointGeometryType = "Point";
+
+        private static readonly ICoordinate emptyCoordinate = null;
 
         /// <summary>
         /// Represents an empty <c>Point</c>.
@@ -22,20 +22,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>  
         /// The <c>Coordinate</c> wrapped by this <c>Point</c>.
         /// </summary>
-        private ICoordinateSequence coordinates;        
+        private ICoordinateSequence coordinates;
 
         /// <summary>
-        /// 
-        /// </summary>
-        public ICoordinateSequence CoordinateSequence
-        {
-            get
-            {
-                return coordinates;
-            }
-        }             
-
-         /// <summary>
         /// Initializes a new instance of the <see cref="T:Point"/> class.
         /// </summary>
         /// <param name="coordinate">The coordinate used for create this <see cref="Point" />.</param>
@@ -43,9 +32,12 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// For create this <see cref="Geometry"/> is used a standard <see cref="GeometryFactory"/> 
         /// with <see cref="PrecisionModel" /> <c> == </c> <see cref="PrecisionModels.Floating"/>.
         /// </remarks>
-        public Point(ICoordinate coordinate) :   
-            this(GeometryFactory.Default.CoordinateSequenceFactory.Create(new ICoordinate[] { coordinate } ),
-            GeometryFactory.Default) { }
+        public Point(ICoordinate coordinate) :
+            this(GeometryFactory.Default.CoordinateSequenceFactory.Create(new ICoordinate[]
+            {
+                coordinate
+            }),
+                 GeometryFactory.Default) {}
 
         /// <summary>
         /// Constructs a <c>Point</c> with the given coordinate.
@@ -56,22 +48,73 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </param>
         /// <param name="factory"></param>
         public Point(ICoordinateSequence coordinates, IGeometryFactory factory) : base(factory)
-        {               
-            if (coordinates == null) 
-                coordinates = factory.CoordinateSequenceFactory.Create(new ICoordinate[] { });
+        {
+            if (coordinates == null)
+            {
+                coordinates = factory.CoordinateSequenceFactory.Create(new ICoordinate[]
+                {});
+            }
             Debug.Assert(coordinates.Count <= 1);
             this.coordinates = (ICoordinateSequence) coordinates;
             GeometryChangedAction();
-        }        
+        }
+
+        /* BEGIN ADDED BY MPAUL42: monoGIS team */
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Point"/> class.
+        /// </summary>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <param name="z">The z coordinate.</param>
+        /// /// <remarks>
+        /// For create this <see cref="Geometry"/> is used a standard <see cref="GeometryFactory"/> 
+        /// with <see cref="PrecisionModel" /> <c> set to </c> <see cref="PrecisionModels.Floating"/>.
+        /// </remarks>
+        public Point(double x, double y, double z) :
+            this(DefaultFactory.CoordinateSequenceFactory.Create(new ICoordinate[]
+            {
+                new Coordinate(x, y, z)
+            }), DefaultFactory) {}
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Point"/> class.
+        /// </summary>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// /// <remarks>
+        /// For create this <see cref="Geometry"/> is used a standard <see cref="GeometryFactory"/> 
+        /// with <see cref="PrecisionModel" /> <c> set to </c> <see cref="PrecisionModels.Floating"/>.
+        /// </remarks>
+        public Point(double x, double y)
+            : this(DefaultFactory.CoordinateSequenceFactory.Create(new ICoordinate[]
+            {
+                new Coordinate(x, y)
+            }), DefaultFactory) {}
 
         /// <summary>
         /// 
         /// </summary>
-        public override ICoordinate[] Coordinates 
+        public ICoordinateSequence CoordinateSequence
         {
             get
             {
-                return IsEmpty ? new ICoordinate[] { } : new ICoordinate[] { this.Coordinate };
+                return coordinates;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override ICoordinate[] Coordinates
+        {
+            get
+            {
+                return IsEmpty ? new ICoordinate[]
+                {} : new ICoordinate[]
+                {
+                    Coordinate
+                };
             }
         }
 
@@ -89,11 +132,11 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>
         /// 
         /// </summary>
-        public override bool IsEmpty 
+        public override bool IsEmpty
         {
             get
             {
-                return this.Coordinate == null;
+                return Coordinate == null;
             }
         }
 
@@ -133,7 +176,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>
         /// 
         /// </summary>
-        public override Dimensions BoundaryDimension 
+        public override Dimensions BoundaryDimension
         {
             get
             {
@@ -149,7 +192,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             get
             {
                 if (Coordinate == null)
-                    throw new ArgumentOutOfRangeException("X called on empty Point");                
+                {
+                    throw new ArgumentOutOfRangeException("X called on empty Point");
+                }
                 return Coordinate.X;
             }
             set
@@ -162,12 +207,14 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>
         /// 
         /// </summary>        
-        public double Y 
+        public double Y
         {
             get
             {
                 if (Coordinate == null)
-                    throw new ArgumentOutOfRangeException("Y called on empty Point");                
+                {
+                    throw new ArgumentOutOfRangeException("Y called on empty Point");
+                }
                 return Coordinate.Y;
             }
             set
@@ -191,7 +238,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>
         /// 
         /// </summary>
-        public override string GeometryType 
+        public override string GeometryType
         {
             get
             {
@@ -212,13 +259,22 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
 
         /// <summary>
         /// 
-        /// </summary>
-        /// <returns></returns>
-        protected override IEnvelope ComputeEnvelopeInternal() 
+        /// </summary>        
+        public double Z
         {
-            if (IsEmpty) 
-                return new Envelope();            
-            return new Envelope(Coordinate.X, Coordinate.X, Coordinate.Y, Coordinate.Y);
+            get
+            {
+                if (Coordinate == null)
+                {
+                    throw new ArgumentOutOfRangeException("Z called on empty Point");
+                }
+                return Coordinate.Z;
+            }
+            set
+            {
+                Coordinate.Z = value;
+                GeometryChangedAction();
+            }
         }
 
         /// <summary>
@@ -227,23 +283,29 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="other"></param>
         /// <param name="tolerance"></param>
         /// <returns></returns>
-        public override bool EqualsExact(IGeometry other, double tolerance) 
+        public override bool EqualsExact(IGeometry other, double tolerance)
         {
-            if (!IsEquivalentClass(other)) 
-                return false;            
-            if (IsEmpty && other.IsEmpty) 
+            if (!IsEquivalentClass(other))
+            {
+                return false;
+            }
+            if (IsEmpty && other.IsEmpty)
+            {
                 return true;
-            return Equal(((IPoint) other).Coordinate, this.Coordinate, tolerance);
+            }
+            return Equal(((IPoint) other).Coordinate, Coordinate, tolerance);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="filter"></param>
-        public override void Apply(ICoordinateFilter filter) 
+        public override void Apply(ICoordinateFilter filter)
         {
-            if (IsEmpty) 
-                return;             
+            if (IsEmpty)
+            {
+                return;
+            }
             filter.Filter((Coordinate) Coordinate);
         }
 
@@ -260,7 +322,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// 
         /// </summary>
         /// <param name="filter"></param>
-        public override void Apply(IGeometryComponentFilter filter) 
+        public override void Apply(IGeometryComponentFilter filter)
         {
             filter.Filter(this);
         }
@@ -269,72 +331,40 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// 
         /// </summary>
         /// <returns></returns>
-        public override object Clone() 
+        public override object Clone()
         {
             Point p = (Point) base.Clone();
             p.coordinates = (ICoordinateSequence) coordinates.Clone();
-            return p; 
+            return p;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public override void Normalize() { }
+        public override void Normalize() {}
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        protected internal override int CompareToSameClass(object other) 
+        protected internal override int CompareToSameClass(object other)
         {
-            Point point = (Point)  other;
+            Point point = (Point) other;
             return Coordinate.CompareTo(point.Coordinate);
         }
 
-        /* BEGIN ADDED BY MPAUL42: monoGIS team */
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Point"/> class.
-        /// </summary>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="y">The y coordinate.</param>
-        /// <param name="z">The z coordinate.</param>
-        /// /// <remarks>
-        /// For create this <see cref="Geometry"/> is used a standard <see cref="GeometryFactory"/> 
-        /// with <see cref="PrecisionModel" /> <c> set to </c> <see cref="PrecisionModels.Floating"/>.
-        /// </remarks>
-        public Point(double x, double y, double z) : 
-            this(DefaultFactory.CoordinateSequenceFactory.Create(new ICoordinate[] { new Coordinate(x, y, z) }), DefaultFactory) { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:Point"/> class.
-        /// </summary>
-        /// <param name="x">The x coordinate.</param>
-        /// <param name="y">The y coordinate.</param>
-        /// /// <remarks>
-        /// For create this <see cref="Geometry"/> is used a standard <see cref="GeometryFactory"/> 
-        /// with <see cref="PrecisionModel" /> <c> set to </c> <see cref="PrecisionModels.Floating"/>.
-        /// </remarks>
-        public Point(double x, double y)
-            : this(DefaultFactory.CoordinateSequenceFactory.Create(new ICoordinate[] { new Coordinate(x, y) }), DefaultFactory) { }
-
         /// <summary>
         /// 
-        /// </summary>        
-        public double Z
+        /// </summary>
+        /// <returns></returns>
+        protected override IEnvelope ComputeEnvelopeInternal()
         {
-            get
+            if (IsEmpty)
             {
-                if (Coordinate == null)
-                    throw new ArgumentOutOfRangeException("Z called on empty Point");
-                return Coordinate.Z;
+                return new Envelope();
             }
-            set 
-            { 
-                Coordinate.Z = value;
-                GeometryChangedAction();
-            }
+            return new Envelope(Coordinate.X, Coordinate.X, Coordinate.Y, Coordinate.Y);
         }
 
         /* END ADDED BY MPAUL42: monoGIS team */

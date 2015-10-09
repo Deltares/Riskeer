@@ -63,13 +63,13 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
             Assert.IsNotNull(theme);
             Assert.IsNotNull(theme.ThemeItems);
             Assert.AreEqual(10, theme.ThemeItems.Count);
-            
-            var quantityThemeItem = ((QuantityThemeItem)theme.ThemeItems[3]);
+
+            var quantityThemeItem = ((QuantityThemeItem) theme.ThemeItems[3]);
 
             Assert.AreEqual(0, quantityThemeItem.Min);
             Assert.AreEqual(50, quantityThemeItem.Max);
-            Assert.AreEqual("0 - 0.5 m",quantityThemeItem.Label);
-            Assert.AreEqual(Color.FromArgb(0,255,0), ((SolidBrush)((VectorStyle)quantityThemeItem.Style).Fill).Color);
+            Assert.AreEqual("0 - 0.5 m", quantityThemeItem.Label);
+            Assert.AreEqual(Color.FromArgb(0, 255, 0), ((SolidBrush) ((VectorStyle) quantityThemeItem.Style).Fill).Color);
         }
     }
 }

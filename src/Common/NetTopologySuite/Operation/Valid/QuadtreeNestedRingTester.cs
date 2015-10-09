@@ -15,11 +15,10 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
     /// </summary>
     public class QuadtreeNestedRingTester
     {
-        private GeometryGraph graph;  // used to find non-node vertices
-        private IList rings = new ArrayList();
-        private IEnvelope totalEnv = new Envelope();
+        private readonly GeometryGraph graph; // used to find non-node vertices
+        private readonly IList rings = new ArrayList();
+        private readonly IEnvelope totalEnv = new Envelope();
         private Quadtree quadtree;
-        private ICoordinate nestedPt;
 
         /// <summary>
         /// 
@@ -33,13 +32,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
         /// <summary>
         /// 
         /// </summary>
-        public ICoordinate NestedPoint
-        {
-            get
-            {
-                return nestedPt;
-            }
-        }
+        public ICoordinate NestedPoint { get; private set; }
 
         /// <summary>
         /// 
@@ -70,9 +63,15 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
                     ILinearRing searchRing = (ILinearRing) results[j];
                     ICoordinate[] searchRingPts = searchRing.Coordinates;
 
-                    if (innerRing == searchRing) continue;
+                    if (innerRing == searchRing)
+                    {
+                        continue;
+                    }
 
-                    if (!innerRing.EnvelopeInternal.Intersects(searchRing.EnvelopeInternal)) continue;
+                    if (!innerRing.EnvelopeInternal.Intersects(searchRing.EnvelopeInternal))
+                    {
+                        continue;
+                    }
 
                     ICoordinate innerRingPt = IsValidOp.FindPointNotNode(innerRingPts, searchRing, graph);
                     Assert.IsTrue(innerRingPt != null, "Unable to find a ring point not a node of the search ring");
@@ -80,7 +79,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
                     bool isInside = CGAlgorithms.IsPointInRing(innerRingPt, searchRingPts);
                     if (isInside)
                     {
-                        nestedPt = innerRingPt;
+                        NestedPoint = innerRingPt;
                         return false;
                     }
                 }

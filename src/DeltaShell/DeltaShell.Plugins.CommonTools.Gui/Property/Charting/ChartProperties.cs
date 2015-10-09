@@ -18,8 +18,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "ChartProperties_BackgroundColor_Description")]
         public Color BackgroundColor
         {
-            get { return data.BackGroundColor; }
-            set { data.BackGroundColor = value; }
+            get
+            {
+                return data.BackGroundColor;
+            }
+            set
+            {
+                data.BackGroundColor = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "ChartProperties_Categories_Legend")]
@@ -27,8 +33,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "ChartProperties_Visible_Description")]
         public bool ShowLegend
         {
-            get { return data.Legend.Visible; }
-            set { data.Legend.Visible = value; }
+            get
+            {
+                return data.Legend.Visible;
+            }
+            set
+            {
+                data.Legend.Visible = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "ChartProperties_Categories_Legend")]
@@ -36,8 +48,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "ChartProperties_LegendAlignment_Description")]
         public LegendAlignment LegendAlignment
         {
-            get { return data.Legend.Alignment; }
-            set { data.Legend.Alignment = value; }
+            get
+            {
+                return data.Legend.Alignment;
+            }
+            set
+            {
+                data.Legend.Alignment = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "ChartProperties_Categories_Legend")]
@@ -46,10 +64,16 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [TypeConverter(typeof(ChartFontPropertiesConverter))]
         public Font LegendFont
         {
-            get { return data.Legend.Font; }
+            get
+            {
+                return data.Legend.Font;
+            }
             set
             {
-                if (!FontValid(value)) return;
+                if (!FontValid(value))
+                {
+                    return;
+                }
                 data.Legend.Font = value;
             }
         }
@@ -59,8 +83,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "ChartProperties_Title_Description")]
         public string Title
         {
-            get { return data.Title; }
-            set { data.Title = value; }
+            get
+            {
+                return data.Title;
+            }
+            set
+            {
+                data.Title = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "ChartProperties_Categories_Title")]
@@ -69,10 +99,16 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [TypeConverter(typeof(ChartFontPropertiesConverter))]
         public Font TitleFont
         {
-            get { return data.Font; }
+            get
+            {
+                return data.Font;
+            }
             set
             {
-                if (!FontValid(value)) return;
+                if (!FontValid(value))
+                {
+                    return;
+                }
                 data.Font = value;
             }
         }
@@ -82,8 +118,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "ChartProperties_TitleVisibility_Description")]
         public bool TitleVisibile
         {
-            get { return data.TitleVisible; }
-            set { data.TitleVisible = value; }
+            get
+            {
+                return data.TitleVisible;
+            }
+            set
+            {
+                data.TitleVisible = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "ChartProperties_Categories_Axes")]
@@ -91,7 +133,7 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "ChartProperties_LeftAxis_Description")]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public ChartAxisProperties LeftAxis
-        {  
+        {
             get
             {
                 return data.LeftAxis.IsDateTime

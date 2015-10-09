@@ -11,37 +11,20 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
     public class DirectedEdge : EdgeEnd
     {
         /// <summary>
-        /// Computes the factor for the change in depth when moving from one location to another.
-        /// E.g. if crossing from the Interior to the Exterior the depth decreases, so the factor is -1.
-        /// </summary>
-        public static int DepthFactor(Locations currLocation, Locations nextLocation)
-        {
-            if (currLocation == Locations.Exterior && nextLocation == Locations.Interior)
-                return 1;
-            else if (currLocation == Locations.Interior && nextLocation == Locations.Exterior)
-                return -1;
-            return 0;
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         protected bool isForward;
-
-        private bool isInResult = false;
-        private bool isVisited = false;
-
-        private DirectedEdge sym; // the symmetric edge
-        private DirectedEdge next;  // the next edge in the edge ring for the polygon containing this edge
-        private DirectedEdge nextMin;  // the next edge in the MinimalEdgeRing that contains this edge
-        private EdgeRing edgeRing;  // the EdgeRing that this edge is part of
-        private EdgeRing minEdgeRing;  // the MinimalEdgeRing that this edge is part of
 
         /// <summary> 
         /// The depth of each side (position) of this edge.
         /// The 0 element of the array is never used.
         /// </summary>
-        private int[] depth = { 0, -999, -999 };
+        private readonly int[] depth =
+        {
+            0,
+            -999,
+            -999
+        };
 
         /// <summary>
         /// 
@@ -49,32 +32,26 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <param name="edge"></param>
         /// <param name="isForward"></param>
         public DirectedEdge(Edge edge, bool isForward) : base(edge)
-        {            
+        {
+            Visited = false;
+            InResult = false;
             this.isForward = isForward;
-            if (isForward) 
-                Init(edge.GetCoordinate(0), edge.GetCoordinate(1));            
-            else 
+            if (isForward)
+            {
+                Init(edge.GetCoordinate(0), edge.GetCoordinate(1));
+            }
+            else
             {
                 int n = edge.NumPoints - 1;
-                Init(edge.GetCoordinate(n), edge.GetCoordinate(n-1));
+                Init(edge.GetCoordinate(n), edge.GetCoordinate(n - 1));
             }
             ComputeDirectedLabel();
-        }        
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool InResult
-        {
-            get
-            {
-                return isInResult;
-            }
-            set
-            {
-                isInResult = value;
-            }
-        }
+        public bool InResult { get; set; }
 
         /// <summary>
         /// 
@@ -83,24 +60,14 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         {
             get
             {
-                return isInResult;
+                return InResult;
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public bool Visited
-        {
-            get
-            {
-                return isVisited;
-            }
-            set
-            {
-                isVisited = value;
-            }
-        }
+        public bool Visited { get; set; }
 
         /// <summary>
         /// 
@@ -109,62 +76,19 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         {
             get
             {
-                return isVisited;
-            }
-        }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public EdgeRing EdgeRing
-        {
-            get
-            {
-                return edgeRing;
-            }
-            set
-            {
-                edgeRing = value;
+                return Visited;
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public EdgeRing MinEdgeRing
-        {
-            get
-            {
-                return minEdgeRing;
-            }
-            set
-            {
-                minEdgeRing = value; 
-            }
-        }
+        public EdgeRing EdgeRing { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="position"></param>
-        /// <returns></returns>
-        public int GetDepth(Positions position) 
-        { 
-            return depth[(int)position]; 
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="depthVal"></param>
-        public void SetDepth(Positions position, int depthVal)
-        {
-            if (depth[(int)position] != -999) 
-                if (depth[(int)position] != depthVal)                                     
-                    throw new TopologyException("assigned depths do not match", Coordinate);                                    
-            depth[(int)position] = depthVal;
-        }
+        public EdgeRing MinEdgeRing { get; set; }
 
         /// <summary>
         /// 
@@ -174,8 +98,10 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
             get
             {
                 int depthDelta = edge.DepthDelta;
-                if (!IsForward) 
+                if (!IsForward)
+                {
                     depthDelta = -depthDelta;
+                }
                 return depthDelta;
             }
         }
@@ -191,15 +117,15 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         {
             get
             {
-                return Visited && sym.Visited;
+                return Visited && Sym.Visited;
             }
             set
             {
                 Visited = value;
-                sym.Visited = value;
+                Sym.Visited = value;
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -207,54 +133,24 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         {
             get
             {
-                return this.isForward;
+                return isForward;
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public DirectedEdge Sym
-        {
-            get
-            {
-                return this.sym; 
-            }
-            set
-            {
-                sym = value;
-            }
-        }
+        public DirectedEdge Sym { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public DirectedEdge Next
-        {
-            get
-            {
-                return next;
-            }
-            set
-            {
-                next = value;
-            }
-        }
+        public DirectedEdge Next { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public DirectedEdge NextMin
-        {
-            get
-            {
-                return nextMin;
-            }
-            set
-            {
-                nextMin = value;
-            }
-        }
+        public DirectedEdge NextMin { get; set; }
 
         /// <summary>
         /// This edge is a line edge if
@@ -288,8 +184,8 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
                 for (int i = 0; i < 2; i++)
                 {
                     if (!(label.IsArea(i)
-                        && label.GetLocation(i, Positions.Left)  == Locations.Interior
-                        && label.GetLocation(i, Positions.Right) == Locations.Interior))
+                          && label.GetLocation(i, Positions.Left) == Locations.Interior
+                          && label.GetLocation(i, Positions.Right) == Locations.Interior))
                     {
                         isInteriorAreaEdge = false;
                     }
@@ -299,13 +195,47 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         }
 
         /// <summary>
-        /// Compute the label in the appropriate orientation for this DirEdge.
+        /// Computes the factor for the change in depth when moving from one location to another.
+        /// E.g. if crossing from the Interior to the Exterior the depth decreases, so the factor is -1.
         /// </summary>
-        private void ComputeDirectedLabel()
+        public static int DepthFactor(Locations currLocation, Locations nextLocation)
         {
-            label = new Label(edge.Label);
-            if (!isForward)
-                label.Flip();
+            if (currLocation == Locations.Exterior && nextLocation == Locations.Interior)
+            {
+                return 1;
+            }
+            else if (currLocation == Locations.Interior && nextLocation == Locations.Exterior)
+            {
+                return -1;
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        public int GetDepth(Positions position)
+        {
+            return depth[(int) position];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="depthVal"></param>
+        public void SetDepth(Positions position, int depthVal)
+        {
+            if (depth[(int) position] != -999)
+            {
+                if (depth[(int) position] != depthVal)
+                {
+                    throw new TopologyException("assigned depths do not match", Coordinate);
+                }
+            }
+            depth[(int) position] = depthVal;
         }
 
         /// <summary> 
@@ -320,16 +250,20 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         {
             // get the depth transition delta from R to Curve for this directed Edge
             int depthDelta = Edge.DepthDelta;
-            if (!isForward) 
+            if (!isForward)
+            {
                 depthDelta = -depthDelta;
+            }
 
             // if moving from Curve to R instead of R to Curve must change sign of delta
             int directionFactor = 1;
             if (position == Positions.Left)
+            {
                 directionFactor = -1;
+            }
 
             Positions oppositePos = Position.Opposite(position);
-            int delta = depthDelta * directionFactor;            
+            int delta = depthDelta*directionFactor;
             int oppositeDepth = depth + delta;
             SetDepth(position, depth);
             SetDepth(oppositePos, oppositeDepth);
@@ -348,23 +282,10 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
             Locations loc = label.GetLocation(0, position);
             Positions oppositePos = Position.Opposite(position);
             Locations oppositeLoc = label.GetLocation(0, oppositePos);
-            int delta = Math.Abs(depthDelta) * DepthFactor(loc, oppositeLoc);            
+            int delta = Math.Abs(depthDelta)*DepthFactor(loc, oppositeLoc);
             int oppositeDepth = depth + delta;
             SetDepth(position, depth);
             SetDepth(oppositePos, oppositeDepth);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="outstream"></param>
-        public override void Write(StreamWriter outstream)
-        {
-            base.Write(outstream);
-            outstream.Write(" " + depth[(int)Positions.Left] + "/" + depth[(int)Positions.Right]);
-            outstream.Write(" (" + DepthDelta + ")");            
-            if (isInResult)
-                outstream.Write(" inResult");
         }
 
         /// <summary>
@@ -376,8 +297,40 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
             Write(outstream);
             outstream.Write(" ");
             if (isForward)
-                 edge.Write(outstream);
-            else edge.WriteReverse(outstream);
+            {
+                edge.Write(outstream);
+            }
+            else
+            {
+                edge.WriteReverse(outstream);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="outstream"></param>
+        public override void Write(StreamWriter outstream)
+        {
+            base.Write(outstream);
+            outstream.Write(" " + depth[(int) Positions.Left] + "/" + depth[(int) Positions.Right]);
+            outstream.Write(" (" + DepthDelta + ")");
+            if (InResult)
+            {
+                outstream.Write(" inResult");
+            }
+        }
+
+        /// <summary>
+        /// Compute the label in the appropriate orientation for this DirEdge.
+        /// </summary>
+        private void ComputeDirectedLabel()
+        {
+            label = new Label(edge.Label);
+            if (!isForward)
+            {
+                label.Flip();
+            }
         }
     }
 }

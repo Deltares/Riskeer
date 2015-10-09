@@ -40,56 +40,55 @@ using GisSharpBlog.NetTopologySuite.IO;
 
 namespace SharpMap.Converters.WellKnownBinary
 {
+    /// <summary>
+    /// Converts a <see cref="SharpMap.Geometries.Geometry"/> instance to a Well-known Binary string representation.
+    /// </summary>
+    /// <remarks>
+    /// <para>The Well-known Binary Representation for <see cref="SharpMap.Geometries.Geometry"/> (WKBGeometry) provides a portable 
+    /// representation of a <see cref="SharpMap.Geometries.Geometry"/> value as a contiguous stream of bytes. It permits <see cref="SharpMap.Geometries.Geometry"/> 
+    /// values to be exchanged between an ODBC client and an SQL database in binary form.</para>
+    /// <para>The Well-known Binary Representation for <see cref="SharpMap.Geometries.Geometry"/> is obtained by serializing a <see cref="SharpMap.Geometries.Geometry"/>
+    /// instance as a sequence of numeric types drawn from the set {Unsigned Integer, Double} and
+    /// then serializing each numeric type as a sequence of bytes using one of two well defined,
+    /// standard, binary representations for numeric types (NDR, XDR). The specific binary encoding
+    /// (NDR or XDR) used for a geometry byte stream is described by a one byte tag that precedes
+    /// the serialized bytes. The only difference between the two encodings of geometry is one of
+    /// byte order, the XDR encoding is Big Endian, the NDR encoding is Little Endian.</para>
+    /// </remarks> 
+    public class GeometryToWKB
+    {
+        //private const byte WKBByteOrder = 0;
 
-	/// <summary>
-	/// Converts a <see cref="SharpMap.Geometries.Geometry"/> instance to a Well-known Binary string representation.
-	/// </summary>
-	/// <remarks>
-	/// <para>The Well-known Binary Representation for <see cref="SharpMap.Geometries.Geometry"/> (WKBGeometry) provides a portable 
-	/// representation of a <see cref="SharpMap.Geometries.Geometry"/> value as a contiguous stream of bytes. It permits <see cref="SharpMap.Geometries.Geometry"/> 
-	/// values to be exchanged between an ODBC client and an SQL database in binary form.</para>
-	/// <para>The Well-known Binary Representation for <see cref="SharpMap.Geometries.Geometry"/> is obtained by serializing a <see cref="SharpMap.Geometries.Geometry"/>
-	/// instance as a sequence of numeric types drawn from the set {Unsigned Integer, Double} and
-	/// then serializing each numeric type as a sequence of bytes using one of two well defined,
-	/// standard, binary representations for numeric types (NDR, XDR). The specific binary encoding
-	/// (NDR or XDR) used for a geometry byte stream is described by a one byte tag that precedes
-	/// the serialized bytes. The only difference between the two encodings of geometry is one of
-	/// byte order, the XDR encoding is Big Endian, the NDR encoding is Little Endian.</para>
-	/// </remarks> 
-	public class GeometryToWKB
-	{
-		//private const byte WKBByteOrder = 0;
+        /// <summary>
+        /// Writes a geometry to a byte array using little endian byte encoding
+        /// </summary>
+        /// <param name="g">The geometry to write</param>
+        /// <returns>WKB representation of the geometry</returns>
+        public static byte[] Write(IGeometry geometry)
+        {
+            return Write(geometry, WkbByteOrder.Ndr);
+        }
 
-		/// <summary>
-		/// Writes a geometry to a byte array using little endian byte encoding
-		/// </summary>
-		/// <param name="g">The geometry to write</param>
-		/// <returns>WKB representation of the geometry</returns>
-		public static byte[] Write(IGeometry geometry)
-		{
-			return Write(geometry, WkbByteOrder.Ndr);
-		}
+        /// <summary>
+        /// Writes a geometry to a byte array using the specified encoding.
+        /// </summary>
+        /// <param name="g">The geometry to write</param>
+        /// <param name="wkbByteOrder">Byte order</param>
+        /// <returns>WKB representation of the geometry</returns>
+        public static byte[] Write(IGeometry geometry, WkbByteOrder wkbByteOrder)
+        {
+            byte[] result = null;
+            switch (wkbByteOrder)
+            {
+                case WkbByteOrder.Ndr:
+                    result = new WKBWriter(ByteOrder.LittleEndian).Write(geometry);
+                    break;
+                case WkbByteOrder.Xdr:
+                    result = new WKBWriter(ByteOrder.BigEndian).Write(geometry);
+                    break;
+            }
+            return result;
 
-		/// <summary>
-		/// Writes a geometry to a byte array using the specified encoding.
-		/// </summary>
-		/// <param name="g">The geometry to write</param>
-		/// <param name="wkbByteOrder">Byte order</param>
-		/// <returns>WKB representation of the geometry</returns>
-		public static byte[] Write(IGeometry geometry, WkbByteOrder wkbByteOrder)
-		{
-			byte[] result = null;
-			switch (wkbByteOrder)
-			{
-				case WkbByteOrder.Ndr:
-					result = new WKBWriter(ByteOrder.LittleEndian).Write(geometry);
-					break;
-				case WkbByteOrder.Xdr:
-					result = new WKBWriter(ByteOrder.BigEndian).Write(geometry);
-					break;
-			}
-			return result;
-			
 //			MemoryStream ms = new MemoryStream();
 //			BinaryWriter bw = new BinaryWriter(ms);
 //
@@ -103,9 +102,10 @@ namespace SharpMap.Converters.WellKnownBinary
 //			WriteGeometry(g, bw, wkbByteOrder);
 //
 //			return ms.ToArray();
-		}
-//		#region Methods
+        }
+
 //
+//		#region Methods
 //		/// <summary>
 //		/// Writes the type number for this geometry.
 //		/// </summary>
@@ -379,5 +379,5 @@ namespace SharpMap.Converters.WellKnownBinary
 //			else
 //				writer.Write(value);
 //		}
-	}
+    }
 }

@@ -11,13 +11,13 @@ namespace DeltaShell.Gui.Forms.ViewManager
         private IView selectedView;
         private IViewList viewManager;
 
-        public new ContextMenuStrip ContextMenuStrip { get; private set; }
-
         public ViewSelectionContextMenuController()
         {
             InitializeComponent();
-            this.ContextMenuStrip = this.contextMenuStrip;
+            ContextMenuStrip = contextMenuStrip;
         }
+
+        public new ContextMenuStrip ContextMenuStrip { get; private set; }
 
         public bool ContextMenuStripValidate(IView view, IViewList viewManager)
         {
@@ -38,7 +38,7 @@ namespace DeltaShell.Gui.Forms.ViewManager
 
             var lockable = selectedView as IReusableView;
             menuItemLockUnlock.Visible = lockable != null;
-            
+
             if (lockable != null)
             {
                 if (lockable.Locked)
@@ -48,12 +48,12 @@ namespace DeltaShell.Gui.Forms.ViewManager
                 }
                 else
                 {
-                    menuItemLockUnlock.Text =Resources.ViewSelectionContextMenuController_UpdateMenuItemsValidity_Lock;
-                    menuItemLockUnlock.Image = Properties.Resources.lock_edit;
+                    menuItemLockUnlock.Text = Resources.ViewSelectionContextMenuController_UpdateMenuItemsValidity_Lock;
+                    menuItemLockUnlock.Image = Resources.lock_edit;
                 }
             }
         }
-        
+
         private void MenuItemCloseClick(object sender, EventArgs e)
         {
             viewManager.Remove(selectedView);
@@ -71,7 +71,7 @@ namespace DeltaShell.Gui.Forms.ViewManager
 
         private void LockToolStripMenuItemClick(object sender, EventArgs e)
         {
-            ((IReusableView)selectedView).Locked = !((IReusableView)selectedView).Locked;
+            ((IReusableView) selectedView).Locked = !((IReusableView) selectedView).Locked;
         }
     }
 }

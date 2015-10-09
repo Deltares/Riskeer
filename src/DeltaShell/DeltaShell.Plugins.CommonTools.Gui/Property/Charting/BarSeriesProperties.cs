@@ -10,12 +10,18 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
     public class BarSeriesProperties : ChartSeriesProperties<BarSeries>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources),"BarSeriesProperties_Color_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), "BarSeriesProperties_Color_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BarSeriesProperties_Color_Description")]
         public Color Color
         {
-            get { return data.Color; }
-            set { data.Color = value; }
+            get
+            {
+                return data.Color;
+            }
+            set
+            {
+                data.Color = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Charting_Categories_LineStyle")]
@@ -23,8 +29,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "BarSeriesProperties_OutlineColor_Description")]
         public Color LineColor
         {
-            get { return data.LineColor; }
-            set { data.LineColor = value; }
+            get
+            {
+                return data.LineColor;
+            }
+            set
+            {
+                data.LineColor = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Charting_Categories_LineStyle")]
@@ -32,8 +44,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "BarSeriesProperties_Width_Description")]
         public int Width
         {
-            get { return data.LineWidth; }
-            set { data.LineWidth = value; }
+            get
+            {
+                return data.LineWidth;
+            }
+            set
+            {
+                data.LineWidth = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Charting_Categories_LineStyle")]
@@ -41,8 +59,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "BarSeriesProperties_DashStyle_Description")]
         public DashStyle DashStyle
         {
-            get { return data.DashStyle; }
-            set { data.DashStyle = value; }
+            get
+            {
+                return data.DashStyle;
+            }
+            set
+            {
+                data.DashStyle = value;
+            }
         }
 
         [ResourcesCategory(typeof(Resources), "Charting_Categories_LineStyle")]
@@ -50,8 +74,14 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Property.Charting
         [ResourcesDescription(typeof(Resources), "BarSeriesProperties_LineVisible_Description")]
         public bool LineVisible
         {
-            get { return data.LineVisible; }
-            set { data.LineVisible = value; }
+            get
+            {
+                return data.LineVisible;
+            }
+            set
+            {
+                data.LineVisible = value;
+            }
         }
     }
 }

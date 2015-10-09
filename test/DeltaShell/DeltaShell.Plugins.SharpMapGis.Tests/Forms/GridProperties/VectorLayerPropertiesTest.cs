@@ -12,11 +12,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms.GridProperties
         {
             const int maxValue = 999999;
             var vectorLayerProperties = new VectorLayerProperties
-                {
-                    Data = new VectorLayer(),
-                    LineWidth = maxValue,
-                    OutlineWidth = maxValue
-                };
+            {
+                Data = new VectorLayer(),
+                LineWidth = maxValue,
+                OutlineWidth = maxValue
+            };
 
             Assert.AreEqual(maxValue, vectorLayerProperties.LineWidth);
             Assert.AreEqual(maxValue, vectorLayerProperties.OutlineWidth);
@@ -33,11 +33,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms.GridProperties
         {
             const int minimum = 0;
             var vectorLayerProperties = new VectorLayerProperties
-                {
-                    Data = new VectorLayer(),
-                    LineWidth = minimum,
-                    OutlineWidth = minimum
-                };
+            {
+                Data = new VectorLayer(),
+                LineWidth = minimum,
+                OutlineWidth = minimum
+            };
 
             Assert.AreEqual(minimum, vectorLayerProperties.LineWidth);
             Assert.AreEqual(minimum, vectorLayerProperties.OutlineWidth);

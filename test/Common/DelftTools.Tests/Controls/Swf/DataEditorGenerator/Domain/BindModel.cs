@@ -25,7 +25,7 @@ namespace DelftTools.Tests.Controls.Swf.DataEditorGenerator.Domain
         [Category("Timers")]
         [Description("Time step")]
         public double TimeStep { get; set; }
-        
+
         [Category("Parameters")]
         [Description("Minimal water level")]
         [Unit("m AD")]

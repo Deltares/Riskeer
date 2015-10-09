@@ -8,6 +8,17 @@ namespace GisSharpBlog.NetTopologySuite.Geometries.Utilities
     /// </summary>
     public class PointExtracter : IGeometryFilter
     {
+        private readonly IList pts;
+
+        /// <summary> 
+        /// Constructs a PointExtracterFilter with a list in which to store Points found.
+        /// </summary>
+        /// <param name="pts"></param>
+        public PointExtracter(IList pts)
+        {
+            this.pts = pts;
+        }
+
         /// <summary> 
         /// Returns the Point components from a single point.
         /// If more than one point is to be processed, it is more
@@ -22,17 +33,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries.Utilities
             return pts;
         }
 
-        private IList pts;
-
-        /// <summary> 
-        /// Constructs a PointExtracterFilter with a list in which to store Points found.
-        /// </summary>
-        /// <param name="pts"></param>
-        public PointExtracter(IList pts)
-        {
-            this.pts = pts;
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -40,7 +40,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries.Utilities
         public void Filter(IGeometry geom)
         {
             if (geom is IPoint)
+            {
                 pts.Add(geom);
+            }
         }
     }
 }

@@ -32,12 +32,6 @@ namespace DelftTools.Shell.Core
         IEnumerable<Type> SupportedItemTypes { get; }
 
         /// <summary>
-        /// Indicates if this importer can import on the <paramref name="targetObject"></paramref>
-        /// </summary>
-        /// <param name="targetObject">Target object to check</param>
-        bool CanImportOn(object targetObject);
-
-        /// <summary>
         /// Indicates whether or not the importer can import at root level (folder/project). If true, the
         /// importer will always show up in the project->import list. If false this importer can only be
         /// retrieved by supported type, eg, in code. Use false for partial/composite importers and importers
@@ -74,6 +68,12 @@ namespace DelftTools.Shell.Core
         /// Should the view for the imported item (if any) be automatically opened after import?
         /// </summary>
         bool OpenViewAfterImport { get; }
+
+        /// <summary>
+        /// Indicates if this importer can import on the <paramref name="targetObject"></paramref>
+        /// </summary>
+        /// <param name="targetObject">Target object to check</param>
+        bool CanImportOn(object targetObject);
 
         /// <summary>
         /// Imports data from the file with path <paramref name="path"/>

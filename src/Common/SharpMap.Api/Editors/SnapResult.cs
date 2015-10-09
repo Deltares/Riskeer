@@ -55,7 +55,7 @@ namespace SharpMap.Api.Editors
         /// coordinate of the successful snap position
         /// </summary>
         public ICoordinate Location { get; private set; }
-      
+
         /// <summary>
         /// Additional geometries to visualize the snapping result. Used for snapping to structures and 
         /// structure features.

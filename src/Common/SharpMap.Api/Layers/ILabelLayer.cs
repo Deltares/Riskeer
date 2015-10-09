@@ -1,3 +1,5 @@
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using DelftTools.Utils.Aop;
 using SharpMap.Api.Delegates;
 using SharpMap.Api.Enums;
@@ -15,12 +17,12 @@ namespace SharpMap.Api.Layers
         /// <summary>
         /// Render whether smoothing (antialiasing) is applied to lines and curves and the edges of filled areas
         /// </summary>
-        System.Drawing.Drawing2D.SmoothingMode SmoothingMode { get; set; }
+        SmoothingMode SmoothingMode { get; set; }
 
         /// <summary>
         /// Specifies the quality of text rendering
         /// </summary>
-        System.Drawing.Text.TextRenderingHint TextRenderingHint { get; set; }
+        TextRenderingHint TextRenderingHint { get; set; }
 
         /// <summary>
         /// Gets or sets the rendering style of the label layer.

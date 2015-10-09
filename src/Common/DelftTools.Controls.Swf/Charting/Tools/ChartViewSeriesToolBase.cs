@@ -12,98 +12,34 @@ namespace DelftTools.Controls.Swf.Charting.Tools
     ///<summary>
     /// Base class for EditPointTool,SelectPointTool and AddPointTool
     ///</summary>
-    public abstract class ChartViewSeriesToolBase : ToolSeries,IChartViewSeriesTool
+    public abstract class ChartViewSeriesToolBase : ToolSeries, IChartViewSeriesTool
     {
-        bool enabled = true;
-
-        private ChartSeries series;
-        
-        public IChartView ChartView { get; set; }
-        
-        protected int selectedPointIndex = -1;
-
         public event SelectionChangedEventHandler SelectionChanged;
-
-        public bool Enabled
-        {
-            get { return enabled; }
-            set { enabled = value; }
-        }
-
-        public new bool Active
-        {
-            get { return base.Active; }
-            set
-            {
-                base.Active = value;
-                if (ActiveChanged != null)
-                {
-                    ActiveChanged(this, null);
-                }
-            }
-        }
 
         public event EventHandler<EventArgs> ActiveChanged;
 
-        protected override void SetSeries(Steema.TeeChart.Styles.Series series)
-        {
-            var customPoint = ((ChartSeries)Series).series as CustomPoint;
-            if (customPoint != null)
-            {
-                customPoint.GetPointerStyle -= OnCustomSeriesGetPointerStyle;
-            }
+        protected int selectedPointIndex = -1;
+        private bool enabled = true;
 
-            base.SetSeries(series);
-
-            customPoint = series as CustomPoint;
-            if (customPoint != null)
-            {
-                customPoint.GetPointerStyle += OnCustomSeriesGetPointerStyle;
-            }
-        }
-
-        protected virtual void OnCustomSeriesGetPointerStyle(CustomPoint customSeries, GetPointerStyleEventArgs e)
-        {
-
-        }
-
-        protected ChartViewSeriesToolBase(Steema.TeeChart.Chart chart):base(chart)
-        {
-        }
-
-        protected ChartViewSeriesToolBase(Steema.TeeChart.Styles.Series series):base(series)
-        {
-        }
-
-        protected Steema.TeeChart.Styles.Series ClickedSeries(Point p)
-        {
-            return ClickedSeries(p.X, p.Y);
-        }
-
-        protected Steema.TeeChart.Styles.Series ClickedSeries(int x, int y)
-        {
-            if (iSeries == null)
-            {
-                var seriesInRenderOrder = Chart.Series.OfType<Steema.TeeChart.Styles.Series>().Reverse();
-
-                return seriesInRenderOrder.FirstOrDefault(s => (s.Active) && (s.Clicked(x, y) != -1));
-            }
-            else if (iSeries.Clicked(x, y) != -1)
-            {
-                return iSeries;
-            }
-
-            return null;
-        }
+        private ChartSeries series;
 
         private Steema.TeeChart.Styles.Series previousSelectedSeries;
+
+        private Steema.TeeChart.Styles.Series lastSelectedSeries;
+
+        protected ChartViewSeriesToolBase(Steema.TeeChart.Chart chart) : base(chart) {}
+
+        protected ChartViewSeriesToolBase(Steema.TeeChart.Styles.Series series) : base(series) {}
 
         /// <summary>
         /// Selects a point in the chart.
         /// </summary>
         public int SelectedPointIndex
         {
-            get { return selectedPointIndex; }
+            get
+            {
+                return selectedPointIndex;
+            }
             protected set
             {
                 if (selectedPointIndex != value || !ReferenceEquals(previousSelectedSeries, LastSelectedSeries))
@@ -147,6 +83,105 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             }
         }
 
+        public IChartView ChartView { get; set; }
+
+        public bool Enabled
+        {
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                enabled = value;
+            }
+        }
+
+        public new bool Active
+        {
+            get
+            {
+                return base.Active;
+            }
+            set
+            {
+                base.Active = value;
+                if (ActiveChanged != null)
+                {
+                    ActiveChanged(this, null);
+                }
+            }
+        }
+
+        public new IChartSeries Series
+        {
+            get
+            {
+                return series;
+            }
+            set
+            {
+                series = (ChartSeries) value;
+                iSeries = series.series;
+            }
+        }
+
+        protected Steema.TeeChart.Styles.Series LastSelectedSeries
+        {
+            get
+            {
+                return iSeries ?? lastSelectedSeries; //if internal series is set, use that (tool is only for that series), otherwise return last selected    
+            }
+            set
+            {
+                if (iSeries != null && iSeries != value)
+                {
+                    throw new ArgumentException(String.Format("This tool only accepts {0} as series", iSeries));
+                }
+                lastSelectedSeries = value;
+            }
+        }
+
+        protected override void SetSeries(Steema.TeeChart.Styles.Series series)
+        {
+            var customPoint = ((ChartSeries) Series).series as CustomPoint;
+            if (customPoint != null)
+            {
+                customPoint.GetPointerStyle -= OnCustomSeriesGetPointerStyle;
+            }
+
+            base.SetSeries(series);
+
+            customPoint = series as CustomPoint;
+            if (customPoint != null)
+            {
+                customPoint.GetPointerStyle += OnCustomSeriesGetPointerStyle;
+            }
+        }
+
+        protected virtual void OnCustomSeriesGetPointerStyle(CustomPoint customSeries, GetPointerStyleEventArgs e) {}
+
+        protected Steema.TeeChart.Styles.Series ClickedSeries(Point p)
+        {
+            return ClickedSeries(p.X, p.Y);
+        }
+
+        protected Steema.TeeChart.Styles.Series ClickedSeries(int x, int y)
+        {
+            if (iSeries == null)
+            {
+                var seriesInRenderOrder = Chart.Series.OfType<Steema.TeeChart.Styles.Series>().Reverse();
+
+                return seriesInRenderOrder.FirstOrDefault(s => (s.Active) && (s.Clicked(x, y) != -1));
+            }
+            else if (iSeries.Clicked(x, y) != -1)
+            {
+                return iSeries;
+            }
+
+            return null;
+        }
+
         protected IChartSeries GetChartSeriesFromInternalSeries(Steema.TeeChart.Styles.Series internalSeries)
         {
             if (ChartView != null && ChartView.Chart != null)
@@ -171,33 +206,6 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             throw new ArgumentException("Unknown TeeChart series: not related to any known ChartSeries");
         }
 
-        private Steema.TeeChart.Styles.Series lastSelectedSeries;
-        protected Steema.TeeChart.Styles.Series LastSelectedSeries
-        {
-            get
-            {
-                return iSeries ?? lastSelectedSeries; //if internal series is set, use that (tool is only for that series), otherwise return last selected    
-            }
-            set
-            {
-                if (iSeries != null && iSeries != value)
-                {
-                    throw new ArgumentException(String.Format("This tool only accepts {0} as series", iSeries));
-                }
-                lastSelectedSeries = value;
-            }
-        }
-
-        public new IChartSeries Series
-        {
-            get { return series; }
-            set
-            {
-                series = (ChartSeries) value;
-                iSeries = series.series;
-            }
-        }
-
         /// <summary>
         /// Handles mouse events for the tools and chart of Teechart. Teechart uses a special 
         /// mechanism to let tools cooperate via chart.CancelMouse. Therefor do not use 
@@ -208,7 +216,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         /// <param name="c"></param>
         protected override void MouseEvent(MouseEventKinds kind, MouseEventArgs e, ref Cursor c)
         {
-            if (!Enabled) return;
+            if (!Enabled)
+            {
+                return;
+            }
             switch (kind)
             {
                 case MouseEventKinds.Up:
@@ -223,21 +234,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             }
         }
 
-        protected virtual void OnMouseDown(MouseEventArgs mouseEventArgs)
-        {
-            
-        }
+        protected virtual void OnMouseDown(MouseEventArgs mouseEventArgs) {}
 
-        protected virtual void OnMouseMove(MouseEventArgs mouseEventArgs, ref Cursor cursor)
-        {
-            
-        }
+        protected virtual void OnMouseMove(MouseEventArgs mouseEventArgs, ref Cursor cursor) {}
 
-        protected virtual void OnMouseUp(MouseEventArgs mouseEventArgs)
-        {
-
-        }
-
-
+        protected virtual void OnMouseUp(MouseEventArgs mouseEventArgs) {}
     }
 }

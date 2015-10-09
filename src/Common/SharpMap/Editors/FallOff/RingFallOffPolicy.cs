@@ -8,7 +8,10 @@ namespace SharpMap.Editors.FallOff
     {
         public override FallOffType FallOffPolicy
         {
-            get { return FallOffType.Ring; }
+            get
+            {
+                return FallOffType.Ring;
+            }
         }
 
         /// <summary>

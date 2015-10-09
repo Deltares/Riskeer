@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
@@ -9,31 +10,74 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
 
         public ErrorProvider ErrorProvider { get; set; }
 
-        void ControlKeyUp(object sender, KeyEventArgs e)
+        protected override object GetControlValue()
         {
-            if (e.KeyCode != Keys.Enter) 
-                return;
-
             if (ValidateValue())
-                CommitValue(validatedValue);
+            {
+                return validatedValue;
+            }
+            return DataValue;
         }
 
-        void ControlValidating(object sender, System.ComponentModel.CancelEventArgs e)
+        protected override void Initialize()
+        {
+            Control.KeyUp += ControlKeyUp;
+            Control.Validating += ControlValidating;
+            Control.Validated += ControlValidated;
+            Control.LostFocus += ControlLostFocus;
+            Control.CausesValidation = true;
+
+            FillControl();
+        }
+
+        protected override void Deinitialize()
+        {
+            if (ErrorProvider != null)
+            {
+                ErrorProvider.SetError(Control, "");
+            }
+            Control.KeyUp -= ControlKeyUp;
+            Control.Validating -= ControlValidating;
+            Control.Validated -= ControlValidated;
+            Control.LostFocus -= ControlLostFocus;
+        }
+
+        protected override void DataSourceChanged()
+        {
+            FillControl();
+        }
+
+        private void ControlKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter)
+            {
+                return;
+            }
+
+            if (ValidateValue())
+            {
+                CommitValue(validatedValue);
+            }
+        }
+
+        private void ControlValidating(object sender, CancelEventArgs e)
         {
             e.Cancel = !ValidateValue();
         }
-        
-        void ControlLostFocus(object sender, EventArgs e)
+
+        private void ControlLostFocus(object sender, EventArgs e)
         {
             if (ValidateValue())
+            {
                 CommitValue(validatedValue);
+            }
         }
 
-        void ControlValidated(object sender, EventArgs e)
+        private void ControlValidated(object sender, EventArgs e)
         {
             CommitValue(validatedValue);
         }
-        
+
         private bool ValidateValue()
         {
             //grab value from control
@@ -58,63 +102,34 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
 
             //do any additional validation
 
-            if (ErrorProvider != null) ErrorProvider.SetError(Control, "");
+            if (ErrorProvider != null)
+            {
+                ErrorProvider.SetError(Control, "");
+            }
             return true;
         }
 
         private static string GetValueTypeDescription(Type valueType)
         {
-            if (valueType == typeof (double) || valueType == typeof(float))
+            if (valueType == typeof(double) || valueType == typeof(float))
             {
                 return "number";
             }
-            if (valueType == typeof (int) || valueType == typeof(long))
+            if (valueType == typeof(int) || valueType == typeof(long))
             {
                 return "whole number";
             }
-            if (valueType == typeof (string))
+            if (valueType == typeof(string))
             {
                 return "piece of text";
             }
             return valueType.ToString();
         }
 
-        protected override object GetControlValue()
-        {
-            if (ValidateValue())
-                return validatedValue;
-            return DataValue;
-        }
-
-        protected override void Initialize()
-        {
-            Control.KeyUp += ControlKeyUp;
-            Control.Validating += ControlValidating;
-            Control.Validated += ControlValidated;
-            Control.LostFocus += ControlLostFocus;
-            Control.CausesValidation = true;
-
-            FillControl();
-        }
-
         private void FillControl()
         {
             var value = DataValue;
             Control.Text = value != null ? value.ToString() : "(null)";
-        }
-
-        protected override void Deinitialize()
-        {
-            if (ErrorProvider != null) ErrorProvider.SetError(Control, "");
-            Control.KeyUp -= ControlKeyUp;
-            Control.Validating -= ControlValidating;
-            Control.Validated -= ControlValidated;
-            Control.LostFocus -= ControlLostFocus;
-        }
-
-        protected override void DataSourceChanged()
-        {
-            FillControl();
         }
     }
 }

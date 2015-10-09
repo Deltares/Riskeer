@@ -10,22 +10,12 @@ namespace SharpMap.CoordinateSystems
 {
     public static class CoordinateSystemValidator
     {
-        private static ICoordinateSystemFactory CoordinateSystemFactory
-        {
-            get { return Map.CoordinateSystemFactory; }
-        }
-
-        private static ICoordinateSystem Wgs84CoordinateSystem
-        {
-            get { return CoordinateSystemFactory == null ? null : CoordinateSystemFactory.CreateFromEPSG(4326); }
-        }
-
         /// <summary>
         ///  Checks whether the coordinate system will is valid for the extent of the argument coordinate list. 
         ///  Note that this only works if the tranformation maps the inner points of the extent to the inner points of the mapped extent.
         /// </summary>
         public static bool CanAssignCoordinateSystem(IEnumerable<ICoordinate> sourceCoordinates,
-            ICoordinateSystem coordinateSystem)
+                                                     ICoordinateSystem coordinateSystem)
         {
             var coordinates = sourceCoordinates as ICoordinate[] ?? sourceCoordinates.ToArray();
             return !coordinates.Any() || CanAssignCoordinateSystem(GetEnvelope(coordinates), coordinateSystem);
@@ -36,7 +26,7 @@ namespace SharpMap.CoordinateSystems
         ///  Note that this only works if the tranformation maps the inner points of the extent to the inner points of the mapped extent.
         /// </summary>
         public static bool CanAssignCoordinateSystem(IEnumerable<IGeometry> sourceGeometries,
-            ICoordinateSystem coordinateSystem)
+                                                     ICoordinateSystem coordinateSystem)
         {
             var geometries = sourceGeometries as IGeometry[] ?? sourceGeometries.ToArray();
             return !geometries.Any() || CanAssignCoordinateSystem(GetEnvelope(geometries), coordinateSystem);
@@ -64,15 +54,19 @@ namespace SharpMap.CoordinateSystems
             return !coordinates.Any() || CanConvertByTransformation(GetEnvelope(coordinates), transformation);
         }
 
-
         public static bool CanAssignCoordinateSystem(IEnvelope envelope, ICoordinateSystem coordinateSystem)
         {
-            if (envelope == null) return true;
+            if (envelope == null)
+            {
+                return true;
+            }
 
             var cornerPoints = new[]
             {
-                new Coordinate(envelope.MinX, envelope.MinY), new Coordinate(envelope.MaxX, envelope.MinY),
-                new Coordinate(envelope.MaxX, envelope.MaxY), new Coordinate(envelope.MinX, envelope.MaxY),
+                new Coordinate(envelope.MinX, envelope.MinY),
+                new Coordinate(envelope.MaxX, envelope.MinY),
+                new Coordinate(envelope.MaxX, envelope.MaxY),
+                new Coordinate(envelope.MinX, envelope.MaxY),
             };
 
             var transformation = CoordinateSystemFactory.CreateTransformation(coordinateSystem, Wgs84CoordinateSystem);
@@ -81,8 +75,12 @@ namespace SharpMap.CoordinateSystems
             {
                 return
                     cornerPoints.Select(
-                        coordinate => transformation.MathTransform.Transform(new[] { coordinate.X, coordinate.Y }))
-                        .All(ValidatePointInWgs84);
+                        coordinate => transformation.MathTransform.Transform(new[]
+                        {
+                            coordinate.X,
+                            coordinate.Y
+                        }))
+                                .All(ValidatePointInWgs84);
             }
             catch (Exception)
             {
@@ -92,18 +90,27 @@ namespace SharpMap.CoordinateSystems
 
         public static bool CanConvertByTransformation(IEnvelope envelope, ICoordinateTransformation transformation)
         {
-            if (envelope == null) return true;
+            if (envelope == null)
+            {
+                return true;
+            }
 
             var cornerPoints = new[]
             {
-                new Coordinate(envelope.MinX, envelope.MinY), new Coordinate(envelope.MaxX, envelope.MinY),
-                new Coordinate(envelope.MaxX, envelope.MaxY), new Coordinate(envelope.MinX, envelope.MaxY),
+                new Coordinate(envelope.MinX, envelope.MinY),
+                new Coordinate(envelope.MaxX, envelope.MinY),
+                new Coordinate(envelope.MaxX, envelope.MaxY),
+                new Coordinate(envelope.MinX, envelope.MaxY),
             };
 
             try
             {
                 var transformedEnvelope = cornerPoints.Select(
-                    coordinate => transformation.MathTransform.Transform(new[] {coordinate.X, coordinate.Y})).ToList();
+                    coordinate => transformation.MathTransform.Transform(new[]
+                    {
+                        coordinate.X,
+                        coordinate.Y
+                    })).ToList();
 
                 var deltaXold = Math.Abs(envelope.MaxX - envelope.MinX);
                 var deltaYold = Math.Abs(envelope.MaxY - envelope.MinY);
@@ -124,11 +131,30 @@ namespace SharpMap.CoordinateSystems
             }
         }
 
+        private static ICoordinateSystemFactory CoordinateSystemFactory
+        {
+            get
+            {
+                return Map.CoordinateSystemFactory;
+            }
+        }
+
+        private static ICoordinateSystem Wgs84CoordinateSystem
+        {
+            get
+            {
+                return CoordinateSystemFactory == null ? null : CoordinateSystemFactory.CreateFromEPSG(4326);
+            }
+        }
+
         private static IEnvelope GetEnvelope(IList<ICoordinate> coordinates)
         {
             var firstCoordinate = coordinates.FirstOrDefault();
 
-            if (firstCoordinate == null) return null;
+            if (firstCoordinate == null)
+            {
+                return null;
+            }
 
             var envelope = new Envelope(firstCoordinate);
 
@@ -144,7 +170,10 @@ namespace SharpMap.CoordinateSystems
         {
             var firstGeometry = geometries.FirstOrDefault();
 
-            if (firstGeometry == null) return null;
+            if (firstGeometry == null)
+            {
+                return null;
+            }
 
             var envelope = firstGeometry.EnvelopeInternal;
 

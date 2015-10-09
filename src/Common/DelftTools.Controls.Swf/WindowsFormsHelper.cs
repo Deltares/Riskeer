@@ -14,7 +14,7 @@ namespace DelftTools.Controls.Swf
         public static DragDropEffects ToDragDropEffects(DragOperations operation)
         {
             object o = Enum.Parse(typeof(DragDropEffects), operation.ToString());
-            return (DragDropEffects)o;
+            return (DragDropEffects) o;
         }
 
         /// <summary>
@@ -23,9 +23,9 @@ namespace DelftTools.Controls.Swf
         /// <returns></returns>
         public static DragOperations ToDragOperation(DragDropEffects dragDropEffects)
         {
-            return (DragOperations)Enum.Parse(typeof(DragOperations), dragDropEffects.ToString());
+            return (DragOperations) Enum.Parse(typeof(DragOperations), dragDropEffects.ToString());
         }
-        
+
         //from: http://stackoverflow.com/questions/4187225/how-to-add-grab-handle-in-splitter-of-splitcontainer
         public static void SplitContainerPaintGrabHandle(object sender, PaintEventArgs e)
         {
@@ -40,7 +40,7 @@ namespace DelftTools.Controls.Swf
             //calculate the position of the points'
             if (control.Orientation == Orientation.Horizontal)
             {
-                points[0] = new Point((w / 2), d + (sW / 2));
+                points[0] = new Point((w/2), d + (sW/2));
                 points[1] = new Point(points[0].X - 10, points[0].Y);
                 points[2] = new Point(points[0].X + 10, points[0].Y);
 
@@ -50,11 +50,11 @@ namespace DelftTools.Controls.Swf
             }
             else
             {
-                points[0] = new Point(d + (sW / 2), (h / 2));
+                points[0] = new Point(d + (sW/2), (h/2));
                 points[1] = new Point(points[0].X, points[0].Y - 10);
                 points[2] = new Point(points[0].X, points[0].Y + 10);
 
-                var x = points[0].X-1;
+                var x = points[0].X - 1;
                 e.Graphics.DrawLine(SystemPens.ControlLight, new Point(x, 0), new Point(x, points[1].Y - 5));
                 e.Graphics.DrawLine(SystemPens.ControlLight, new Point(x, points[2].Y + 5), new Point(x, h));
             }

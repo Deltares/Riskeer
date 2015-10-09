@@ -12,10 +12,15 @@ namespace DelftTools.Controls.Swf.Charting.Tools
     /// </summary>
     internal class CursorLineTool : CursorTool, ICursorLineTool
     {
-        private bool DragMode { get; set; }
-        private Control ChartControl { get; set; }
-        private ToolTip ToolTip { get; set; }
-        public bool ToolTipEnabled { get; set; }
+        //events
+        public event EventHandler<MouseEventArgs> MouseUp;
+        public event EventHandler<MouseEventArgs> MouseDown;
+        public event EventHandler<EventArgs> Drop;
+        public event EventHandler<EventArgs> ValueChanged;
+
+        public event EventHandler<EventArgs> ActiveChanged;
+
+        private bool enabled = true;
 
         /// <summary>
         /// Constructor with default Vertical style
@@ -27,9 +32,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             ToolTipEnabled = true;
         }
 
-        public CursorLineTool(Control chartControl, CursorToolStyles style) : this(chartControl, style, Color.DarkRed, 2, DashStyle.Dash)
-        {
-        }
+        public CursorLineTool(Control chartControl, CursorToolStyles style) : this(chartControl, style, Color.DarkRed, 2, DashStyle.Dash) {}
 
         /// <summary>
         /// Constructor with style parameter
@@ -48,7 +51,10 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             Pen.Style = lineDashStyle;
 
             ChartControl = chartControl;
-            ToolTip = new ToolTip { ShowAlways = false };
+            ToolTip = new ToolTip
+            {
+                ShowAlways = false
+            };
 
             //event listeners
             Change += Cursor_Change;
@@ -58,13 +64,60 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             //HACK: force explicit value
         }
 
+        public bool ToolTipEnabled { get; set; }
 
-        //events
-        public event EventHandler<MouseEventArgs> MouseUp;
-        public event EventHandler<MouseEventArgs> MouseDown;
-        public event EventHandler<EventArgs> Drop;
-        public event EventHandler<EventArgs> ValueChanged;
+        public override double XValue
+        {
+            get
+            {
+                return base.XValue;
+            }
+            set
+            {
+                //HACK1: force internal change
+                if (base.XValue == value)
+                {
+                    base.XValue = value + 1.0;
+                }
 
+                base.XValue = value;
+
+                if (base.XValue != value)
+                {
+                    base.XValue = value; //HACK2: force change (second time's the charm)
+                }
+            }
+        }
+
+        public IChartView ChartView { get; set; }
+
+        public bool Enabled
+        {
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                enabled = value;
+            }
+        }
+
+        public new bool Active
+        {
+            get
+            {
+                return base.Active;
+            }
+            set
+            {
+                base.Active = value;
+                if (ActiveChanged != null)
+                {
+                    ActiveChanged(this, null);
+                }
+            }
+        }
 
         /// <summary>
         /// Handles mouse events for the tools and chart of Teechart. Teechart uses a special 
@@ -77,7 +130,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         protected override void MouseEvent(MouseEventKinds kind, MouseEventArgs e, ref Cursor c)
         {
             if (!Enabled)
+            {
                 return;
+            }
             base.MouseEvent(kind, e, ref c);
             switch (kind)
             {
@@ -88,32 +143,58 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                     tChart_MouseUp(e);
                     break;
                 default:
+                {
+                    Point P = new Point(e.X, e.Y);
+                    CursorClicked cursorClicked = Clicked(P.X, P.Y);
+                    if (CursorClicked.None != cursorClicked)
                     {
-                        Point P = new Point(e.X, e.Y);
-                        CursorClicked cursorClicked = Clicked(P.X, P.Y);
-                        if (CursorClicked.None != cursorClicked)
-                        {
-                            Chart.CancelMouse = true;
-                        }
+                        Chart.CancelMouse = true;
                     }
+                }
                     break;
             }
         }
 
+        /// <summary>
+        /// TOOLS-1158 do draw marker lines outside chart area.
+        /// Seems a little odd that it is necessary.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void ChartEvent(EventArgs e)
+        {
+            if (!(e is AfterDrawEventArgs))
+            {
+                return;
+            }
+            Chart.Graphics3D.ClipCube(Chart.ChartRect, 0, 0);
+            base.ChartEvent(e);
+            Chart.Graphics3D.UnClip();
+        }
+
+        private bool DragMode { get; set; }
+        private Control ChartControl { get; set; }
+        private ToolTip ToolTip { get; set; }
+
         private void tChart_MouseDown(MouseEventArgs e)
         {
             if (Clicked(e.X, e.Y) == CursorClicked.None)
+            {
                 return;
+            }
             DragMode = true;
             Chart.CancelMouse = true;
             if (MouseDown != null)
+            {
                 MouseDown(this, e);
+            }
         }
 
         private void tChart_MouseUp(MouseEventArgs e)
         {
             if (!DragMode)
+            {
                 return;
+            }
             Chart.CancelMouse = true;
             if (Drop != null)
             {
@@ -123,7 +204,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             ToolTip.ShowAlways = false;
             ToolTip.Hide(ChartControl);
             if (MouseUp != null)
+            {
                 MouseUp(this, e);
+            }
         }
 
         private void Cursor_Change(object sender, CursorChangeEventArgs e)
@@ -145,92 +228,56 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             }
         }
 
-        public override double XValue
+        #region properties
+
+        public Color LinePenColor
         {
             get
             {
-                return base.XValue;
+                return Pen.Color;
             }
-            set
-            {                
-                //HACK1: force internal change
-                if (base.XValue == value)
-                {
-                    base.XValue = value + 1.0;
-                }
-
-                base.XValue = value;
-
-                if (base.XValue != value) 
-                {
-                    base.XValue = value; //HACK2: force change (second time's the charm)
-                }
-            }
-        }
-
-        /// <summary>
-        /// TOOLS-1158 do draw marker lines outside chart area.
-        /// Seems a little odd that it is necessary.
-        /// </summary>
-        /// <param name="e"></param>
-        protected override void ChartEvent(EventArgs e)
-        {
-            if (!(e is AfterDrawEventArgs))
-                return;
-            Chart.Graphics3D.ClipCube(Chart.ChartRect, 0, 0);
-            base.ChartEvent(e);
-            Chart.Graphics3D.UnClip();
-        }
-
-        public IChartView ChartView { get; set; }
-
-        private bool enabled = true;
-
-        public bool Enabled
-        {
-            get { return enabled; }
             set
             {
-                enabled = value;
+                Pen.Color = value;
             }
         }
 
-        public new bool Active
-        {
-            get { return base.Active; }
-            set
-            {
-                base.Active = value;
-                if (ActiveChanged != null)
-                {
-                    ActiveChanged(this, null);
-                }
-            }
-        }
-
-        public event EventHandler<EventArgs> ActiveChanged;
-
-        #region properties
-        public Color LinePenColor
-        {
-            get { return Pen.Color; }
-            set { Pen.Color = value; }
-        }
         public float[] LinePenDashPattern
         {
-            get { return Pen.DashPattern; }
-            set { Pen.DashPattern = value; }
+            get
+            {
+                return Pen.DashPattern;
+            }
+            set
+            {
+                Pen.DashPattern = value;
+            }
         }
+
         public int LinePenWidth
         {
-            get { return Pen.Width; }
-            set { Pen.Width = value; }
+            get
+            {
+                return Pen.Width;
+            }
+            set
+            {
+                Pen.Width = value;
+            }
         }
+
         public DashStyle LinePenStyle
         {
-            get { return Pen.Style; }
-            set { Pen.Style = value; }
+            get
+            {
+                return Pen.Style;
+            }
+            set
+            {
+                Pen.Style = value;
+            }
         }
+
         #endregion
     }
 }

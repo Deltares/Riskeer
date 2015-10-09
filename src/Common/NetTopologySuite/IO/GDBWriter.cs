@@ -13,7 +13,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <summary> 
         /// Creates a <coordinate>GDBWriter</coordinate> that creates objects using a basic GeometryFactory.
         /// </summary>
-        public GDBWriter() : base() { }
+        public GDBWriter() : base() {}
 
         /// <summary>
         /// Returns a byte array containing binary data for the given <c>Geometry</c>.
@@ -33,7 +33,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="geometry"></param>
         /// <param name="stream"></param>
         public void Write(IGeometry geometry, Stream stream)
-        {           
+        {
             using (BinaryWriter writer = new BinaryWriter(stream))
             {
                 Writer(geometry, writer);
@@ -48,20 +48,37 @@ namespace GisSharpBlog.NetTopologySuite.IO
         public void Writer(IGeometry geometry, BinaryWriter writer)
         {
             if (geometry is IPoint)
+            {
                 Write(geometry as IPoint, writer);
+            }
             else if (geometry is ILineString)
+            {
                 Write(geometry as ILineString, writer);
+            }
             else if (geometry is IPolygon)
+            {
                 Write(geometry as IPolygon, writer);
+            }
             else if (geometry is IMultiPoint)
+            {
                 Write(geometry as IMultiPoint, writer);
+            }
             else if (geometry is IMultiLineString)
+            {
                 Write(geometry as IMultiLineString, writer);
+            }
             else if (geometry is IMultiPolygon)
+            {
                 Write(geometry as IMultiPolygon, writer);
+            }
             else if (geometry is IGeometryCollection)
+            {
                 throw new NotSupportedException("GeometryCollection not supported!");
-            else throw new ArgumentException("Geometry not recognized: " + geometry.ToString());
+            }
+            else
+            {
+                throw new ArgumentException("Geometry not recognized: " + geometry.ToString());
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ namespace DelftTools.Shell.Core.Workflow
     /// </summary>
     public class AsyncActivityRunner
     {
+        public event EventHandler Completed;
         // private readonly BackgroundWorker backgroundWorker;
 
         private readonly Action<IActivity> action;
@@ -35,13 +36,16 @@ namespace DelftTools.Shell.Core.Workflow
 
         public Exception Exception { get; set; }
 
-        public event EventHandler Completed;
-
         // TODO: why do we need to pass activity and action here? Isn't it expected that task will always call Execute?
 
         public void Run()
         {
             ThreadPool.QueueUserWorkItem(delegate { RunAction(); });
+        }
+
+        public void Cancel()
+        {
+            Activity.Cancel();
         }
 
         private void RunAction()
@@ -64,11 +68,6 @@ namespace DelftTools.Shell.Core.Workflow
             {
                 Completed(this, EventArgs.Empty);
             }
-        }
-
-        public void Cancel()
-        {
-            Activity.Cancel();
         }
     }
 }

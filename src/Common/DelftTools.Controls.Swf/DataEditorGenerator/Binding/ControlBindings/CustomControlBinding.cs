@@ -6,34 +6,47 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
 {
     internal class CustomControlBinding : IBinding
     {
-        private static readonly ErrorProvider ErrorProvider = new ErrorProvider { BlinkStyle = ErrorBlinkStyle.NeverBlink };
+        private static readonly ErrorProvider ErrorProvider = new ErrorProvider
+        {
+            BlinkStyle = ErrorBlinkStyle.NeverBlink
+        };
 
         private readonly ICustomControlHelper customControlHelper;
         private FieldUIDescription fieldDescription;
-
-        public Control EditControl { get; private set; }
-        FieldUIDescription IBinding.FieldDescription { get { return fieldDescription; } }
 
         public CustomControlBinding(ICustomControlHelper customControlHelper)
         {
             this.customControlHelper = customControlHelper;
         }
 
-        public void InitializeControl(FieldUIDescription fieldDescription, Control editControl, Control parentControl)
+        public Control EditControl { get; private set; }
+
+        FieldUIDescription IBinding.FieldDescription
         {
-            this.fieldDescription = fieldDescription;
-            EditControl = editControl;
+            get
+            {
+                return fieldDescription;
+            }
         }
 
         public object Data
         {
-            get { return null; }
+            get
+            {
+                return null;
+            }
             set
             {
                 customControlHelper.SetData(EditControl, value, value != null
                                                                     ? fieldDescription.GetValue(value)
                                                                     : null);
             }
+        }
+
+        public void InitializeControl(FieldUIDescription fieldDescription, Control editControl, Control parentControl)
+        {
+            this.fieldDescription = fieldDescription;
+            EditControl = editControl;
         }
 
         public void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -45,9 +58,13 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
         {
             string errorMessage;
             if (!fieldDescription.Validate(Data, value, out errorMessage))
+            {
                 ErrorProvider.SetError(EditControl, errorMessage);
+            }
             else
+            {
                 ErrorProvider.SetError(EditControl, string.Empty);
+            }
         }
 
         public void RefreshEnabled()

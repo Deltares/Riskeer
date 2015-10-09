@@ -2,8 +2,8 @@
 
 namespace DelftTools.Utils.Tests.Aop.TestClasses
 {
-    [Entity(FireOnCollectionChange=false)]
-    public class ProblemChildObject 
+    [Entity(FireOnCollectionChange = false)]
+    public class ProblemChildObject
     {
         public string Name { get; set; }
 

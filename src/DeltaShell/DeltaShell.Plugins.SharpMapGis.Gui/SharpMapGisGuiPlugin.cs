@@ -33,45 +33,58 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
     [Extension(typeof(IPlugin))]
     public class SharpMapGisGuiPlugin : GuiPlugin
     {
-        private bool isActive;
         private static IGui gui;
 
-        private static SharpMapGisGuiPlugin instance;
         private static MapLegendView mapLegendView;
         private static IGisGuiService gisGuiService;
+        private bool isActive;
 
         private IRibbonCommandHandler ribbonCommandHandler;
 
-
         public SharpMapGisGuiPlugin()
         {
-            instance = this;
+            Instance = this;
             gisGuiService = new GisGuiService(this);
         }
 
         public override string Name
         {
-            get { return "GIS (UI)"; }
+            get
+            {
+                return "GIS (UI)";
+            }
         }
 
         public override string DisplayName
         {
-            get { return "SharpMap GIS Plugin (UI)"; }
+            get
+            {
+                return "SharpMap GIS Plugin (UI)";
+            }
         }
 
         public override string Description
         {
-            get { return SharpMapGis.Properties.Resources.SharpMapGisApplicationPlugin_Description; }
+            get
+            {
+                return SharpMapGis.Properties.Resources.SharpMapGisApplicationPlugin_Description;
+            }
         }
 
         public override string Version
         {
-            get { return GetType().Assembly.GetName().Version.ToString(); }
+            get
+            {
+                return GetType().Assembly.GetName().Version.ToString();
+            }
         }
 
         public override bool IsActive
         {
-            get { return isActive; }
+            get
+            {
+                return isActive;
+            }
         }
 
         public override IRibbonCommandHandler RibbonCommandHandler
@@ -89,24 +102,130 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
 
         public override IGui Gui
         {
-            get { return gui; }
-            set { gui = value; }
+            get
+            {
+                return gui;
+            }
+            set
+            {
+                gui = value;
+            }
         }
 
-        public static SharpMapGisGuiPlugin Instance
-        {
-            get { return instance; }
-        }
+        public static SharpMapGisGuiPlugin Instance { get; private set; }
 
         public IGisGuiService GisGuiService
         {
-            get { return gisGuiService; }
-            set { gisGuiService = value; }
+            get
+            {
+                return gisGuiService;
+            }
+            set
+            {
+                gisGuiService = value;
+            }
         }
 
         public MapLegendView MapLegendView
         {
-            get { return mapLegendView; }
+            get
+            {
+                return mapLegendView;
+            }
+        }
+
+        /// <summary>
+        /// Creates a <see cref="VectorLayerAttributeTableView"/> <see cref="ViewInfo"/> object for 
+        /// a IEnumerable of TFeature that is present part of a TFeatureContainer
+        /// </summary>
+        /// <example>
+        /// Model - boundaries 
+        /// <code>
+        /// var viewInfo = CreateAttributeTableViewInfo<![CDATA[<BoundaryType, ModelType>]]>(m => m.Boundaries, () => Gui)
+        /// </code>
+        /// </example>
+        /// <typeparam name="TFeature">Type of the sub features</typeparam>
+        /// <typeparam name="TFeatureContainer">Type of the feature container</typeparam>
+        /// <param name="getCollection">Function for getting the IEnumerable of <typeparam name="TFeature"/> from <typeparam name="TFeatureContainer"/> </param>
+        /// <param name="getGui">Function for getting an <see cref="IGui"/></param>
+        public static ViewInfo<IEnumerable<TFeature>, ILayer, VectorLayerAttributeTableView> CreateAttributeTableViewInfo<TFeature, TFeatureContainer>(Func<TFeatureContainer, IEnumerable<TFeature>> getCollection, Func<IGui> getGui)
+        {
+            return new ViewInfo<IEnumerable<TFeature>, ILayer, VectorLayerAttributeTableView>
+            {
+                Description = "Attribute Table",
+                GetViewName = (v, o) => o.Name,
+                AdditionalDataCheck = o =>
+                {
+                    var container = getGui().Application.Project.Items.OfType<TFeatureContainer>().FirstOrDefault(fc => Equals(o, getCollection(fc)));
+                    return container != null;
+                },
+                GetViewData = o =>
+                {
+                    var centralMap = getGui().DocumentViews.OfType<ProjectItemMapView>()
+                                             .FirstOrDefault(v => v.MapView.GetLayerForData(o) != null);
+                    return centralMap == null ? null : centralMap.MapView.GetLayerForData(o);
+                },
+                CompositeViewType = typeof(ProjectItemMapView),
+                GetCompositeViewData = o => getGui().Application.Project.Items.OfType<IProjectItem>().FirstOrDefault(fc =>
+                {
+                    if (fc is TFeatureContainer)
+                    {
+                        return Equals(o, getCollection((TFeatureContainer) fc));
+                    }
+
+                    return false;
+                }),
+                AfterCreate = (v, o) =>
+                {
+                    var centralMap = getGui().DocumentViews.OfType<ProjectItemMapView>()
+                                             .FirstOrDefault(vi => vi.MapView.GetLayerForData(o) != null);
+                    if (centralMap == null)
+                    {
+                        return;
+                    }
+
+                    v.DeleteSelectedFeatures = () => centralMap.MapView.MapControl.DeleteTool.DeleteSelection();
+                    v.OpenViewMethod = ob => getGui().CommandHandler.OpenView(ob);
+                    v.ZoomToFeature = feature => centralMap.MapView.EnsureVisible(feature);
+                    v.CanAddDeleteAttributes = false;
+                }
+            };
+        }
+
+        public void InitializeMapLegend()
+        {
+            if ((mapLegendView == null) || (mapLegendView.IsDisposed))
+            {
+                mapLegendView = new MapLegendView(gui)
+                {
+                    OnOpenLayerAttributeTable = layer =>
+                    {
+                        var mapView = GetFocusedMapView();
+                        if (mapView == null)
+                        {
+                            return;
+                        }
+
+                        var layerData = mapView.GetDataForLayer != null
+                                            ? mapView.GetDataForLayer(layer)
+                                            : null;
+
+                        if (!Gui.DocumentViewsResolver.OpenViewForData(layerData, typeof(ILayerEditorView)) && layer is VectorLayer)
+                        {
+                            mapView.OpenLayerAttributeTable(layer, o => gui.CommandHandler.OpenView(o));
+                        }
+                    },
+                    Text = Properties.Resources.SharpMapGisPluginGui_InitializeMapLegend_Map_Contents
+                };
+            }
+
+            // TODO: subscribe to mapLegendView.TreeView.SelectionChanged! and update Gui.Selection if necessary
+
+            if (gui.ToolWindowViews != null)
+            {
+                gui.ToolWindowViews.Add(mapLegendView, ViewLocation.Left | ViewLocation.Bottom);
+                gui.ToolWindowViews.ActiveView = mapLegendView;
+            }
         }
 
         public override void Activate()
@@ -156,7 +275,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
             }
 
             gui = null;
-            instance = null;
+            Instance = null;
             mapLegendView = null;
             gisGuiService = null;
         }
@@ -166,7 +285,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
             UpdateMapLegendView();
 
             var mapView = GetFocusedMapView(view);
-            if (mapView == null) return;
+            if (mapView == null)
+            {
+                return;
+            }
 
             mapView.MapControl.SelectedFeaturesChanged -= MapControlSelectedFeaturesChanged;
             mapView.MapControl.MouseDoubleClick -= mapView_MouseDoubleClick;
@@ -180,56 +302,61 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
 
         public override IEnumerable<ViewInfo> GetViewInfoObjects()
         {
-            yield return new ViewInfo<Map, MapView> {Description = "Map"};
+            yield return new ViewInfo<Map, MapView>
+            {
+                Description = "Map"
+            };
             yield return new ViewInfo<VectorLayer, VectorLayerAttributeTableView>
-                {
-                    Description = "Attribute table",
-                    CompositeViewType = typeof(ProjectItemMapView),
-                    GetViewName = (v,o) => o. Name + " Attributes"
-                };
-            yield return new ViewInfo<DataTable, TableView> { Description = "Table" };
+            {
+                Description = "Attribute table",
+                CompositeViewType = typeof(ProjectItemMapView),
+                GetViewName = (v, o) => o.Name + " Attributes"
+            };
+            yield return new ViewInfo<DataTable, TableView>
+            {
+                Description = "Table"
+            };
             yield return new ViewInfo<IProjectItem, IProjectItem, ProjectItemMapView>
+            {
+                Description = "Map",
+                AdditionalDataCheck = o => CanLayerProvidersCreateLayerFor(o),
+                GetViewData = o => o,
+                GetViewName = (v, o) => o.Name,
+                OnActivateView = (v, o) =>
                 {
-                    Description = "Map",
-                    AdditionalDataCheck = o => CanLayerProvidersCreateLayerFor(o),
-                    GetViewData = o => o,
-                    GetViewName = (v, o) => o.Name,
-                    OnActivateView = (v, o) =>
-                        {
-                            var layerData = o;
-                            var layer = v.MapView.GetLayerForData(layerData);
-                            if (layer != null)
-                            {
-                                v.MapView.EnsureVisible(layer);
+                    var layerData = o;
+                    var layer = v.MapView.GetLayerForData(layerData);
+                    if (layer != null)
+                    {
+                        v.MapView.EnsureVisible(layer);
 
-                                if (MapLegendView != null)
-                                {
-                                    MapLegendView.EnsureVisible(layer);
-                                }
-                           }
-                        },
-                    AfterCreate = (v, o) =>
+                        if (MapLegendView != null)
                         {
-                            var mapLayerProviders = Gui.Plugins.Select(p => p.MapLayerProvider).Where(p => p != null).ToList();
+                            MapLegendView.EnsureVisible(layer);
+                        }
+                    }
+                },
+                AfterCreate = (v, o) =>
+                {
+                    var mapLayerProviders = Gui.Plugins.Select(p => p.MapLayerProvider).Where(p => p != null).ToList();
 
-                            v.CreateLayerForData = (lo, ld) => MapLayerProviderHelper.CreateLayersRecursive(lo, null, mapLayerProviders, ld);
-                            v.RefreshLayersAction = (l, ld, po) => MapLayerProviderHelper.RefreshLayersRecursive(l, ld, mapLayerProviders, po);
-                        },
-                    CloseForData = (v, o) => v.Data.Equals(o) // only close the view if it is the root object 
-                };
+                    v.CreateLayerForData = (lo, ld) => MapLayerProviderHelper.CreateLayersRecursive(lo, null, mapLayerProviders, ld);
+                    v.RefreshLayersAction = (l, ld, po) => MapLayerProviderHelper.RefreshLayersRecursive(l, ld, mapLayerProviders, po);
+                },
+                CloseForData = (v, o) => v.Data.Equals(o) // only close the view if it is the root object 
+            };
         }
-        
+
         public override IMenuItem GetContextMenu(object sender, object data)
         {
             //custom treenodes for maplegend view
             if (sender is TreeNode)
             {
-                var treeNode = (TreeNode)sender;
+                var treeNode = (TreeNode) sender;
                 if (treeNode.TreeView.Parent == mapLegendView)
                 {
                     return mapLegendView != null ? mapLegendView.GetContextMenu(data) : null;
                 }
-
             }
 
             return null;
@@ -237,7 +364,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new MapProjectTreeViewNodePresenter {GuiPlugin = this};
+            yield return new MapProjectTreeViewNodePresenter
+            {
+                GuiPlugin = this
+            };
         }
 
         public override bool CanDrop(object source, object target)
@@ -246,8 +376,8 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
             {
                 return true;
             }
-            
-            if (source is IList && target is Map && ((IEnumerable)source).Cast<object>().FirstOrDefault() is IGeometry)
+
+            if (source is IList && target is Map && ((IEnumerable) source).Cast<object>().FirstOrDefault() is IGeometry)
             {
                 return true;
             }
@@ -259,7 +389,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
         {
             var map = target as Map;
 
-            if(map == null)
+            if (map == null)
             {
                 return;
             }
@@ -271,9 +401,9 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
 
             if (source is IList)
             {
-                var items = (IList)source;
-                
-                if(items.Count > 0 && items[0] is IGeometry)
+                var items = (IList) source;
+
+                if (items.Count > 0 && items[0] is IGeometry)
                 {
                     var provider = new FeatureCollection();
                     foreach (var item in items)
@@ -281,14 +411,23 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
                         var geometry = (IGeometry) item;
                         provider.Features.Add(geometry);
                     }
-                    ILayer layer = new VectorLayer { DataSource = provider };
+                    ILayer layer = new VectorLayer
+                    {
+                        DataSource = provider
+                    };
                     map.Layers.Add(layer);
                 }
 
                 if (items.Count > 0 && items[0] is IFeature)
                 {
-                    var provider = new FeatureCollection {Features = items};
-                    ILayer layer = new VectorLayer { DataSource = provider };
+                    var provider = new FeatureCollection
+                    {
+                        Features = items
+                    };
+                    ILayer layer = new VectorLayer
+                    {
+                        DataSource = provider
+                    };
                     map.Layers.Add(layer);
                 }
             }
@@ -299,97 +438,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
             yield return GetType().Assembly;
         }
 
-        /// <summary>
-        /// Creates a <see cref="VectorLayerAttributeTableView"/> <see cref="ViewInfo"/> object for 
-        /// a IEnumerable of TFeature that is present part of a TFeatureContainer
-        /// </summary>
-        /// <example>
-        /// Model - boundaries 
-        /// <code>
-        /// var viewInfo = CreateAttributeTableViewInfo<![CDATA[<BoundaryType, ModelType>]]>(m => m.Boundaries, () => Gui)
-        /// </code>
-        /// </example>
-        /// <typeparam name="TFeature">Type of the sub features</typeparam>
-        /// <typeparam name="TFeatureContainer">Type of the feature container</typeparam>
-        /// <param name="getCollection">Function for getting the IEnumerable of <typeparam name="TFeature"/> from <typeparam name="TFeatureContainer"/> </param>
-        /// <param name="getGui">Function for getting an <see cref="IGui"/></param>
-        public static ViewInfo<IEnumerable<TFeature>, ILayer, VectorLayerAttributeTableView> CreateAttributeTableViewInfo<TFeature, TFeatureContainer>(Func<TFeatureContainer, IEnumerable<TFeature>> getCollection, Func<IGui> getGui)
+        internal static MapView GetFocusedMapView(IView view = null)
         {
-            return new ViewInfo<IEnumerable<TFeature>, ILayer, VectorLayerAttributeTableView>
-                {
-                    Description = "Attribute Table",
-                    GetViewName = (v, o) => o.Name,
-                    AdditionalDataCheck = o =>
-                        {
-                            var container = getGui().Application.Project.Items.OfType<TFeatureContainer>().FirstOrDefault(fc => Equals(o, getCollection(fc)));
-                            return container != null;
-                        },
-                    GetViewData = o =>
-                        {
-                            var centralMap = getGui().DocumentViews.OfType<ProjectItemMapView>()
-                                .FirstOrDefault(v => v.MapView.GetLayerForData(o) != null);
-                            return centralMap == null ? null : centralMap.MapView.GetLayerForData(o);
-                        },
-                    CompositeViewType = typeof (ProjectItemMapView),
-                    GetCompositeViewData = o => getGui().Application.Project.Items.OfType<IProjectItem>().FirstOrDefault(fc =>
-                        {
-                            if (fc is TFeatureContainer)
-                            {
-                                return Equals(o, getCollection((TFeatureContainer)fc));
-                            }
-
-                            return false;
-                        }),
-                    AfterCreate = (v, o) =>
-                        {
-                            var centralMap = getGui().DocumentViews.OfType<ProjectItemMapView>()
-                                .FirstOrDefault(vi => vi.MapView.GetLayerForData(o) != null);
-                            if (centralMap == null) return;
-
-                            v.DeleteSelectedFeatures = () => centralMap.MapView.MapControl.DeleteTool.DeleteSelection();
-                            v.OpenViewMethod = ob => getGui().CommandHandler.OpenView(ob);
-                            v.ZoomToFeature = feature => centralMap.MapView.EnsureVisible(feature);
-                            v.CanAddDeleteAttributes = false;
-                        }
-                };
-        }
-
-        public void InitializeMapLegend()
-        {
-            if ((mapLegendView == null) || (mapLegendView.IsDisposed))
-            {
-                mapLegendView = new MapLegendView(gui)
-                    {
-                        OnOpenLayerAttributeTable = layer =>
-                            {
-                                var mapView = GetFocusedMapView();
-                                if (mapView == null) return;
-
-                                var layerData = mapView.GetDataForLayer != null
-                                    ? mapView.GetDataForLayer(layer)
-                                    : null;
-
-                                if (!Gui.DocumentViewsResolver.OpenViewForData(layerData, typeof(ILayerEditorView)) && layer is VectorLayer)
-                                {
-                                    mapView.OpenLayerAttributeTable(layer, o => gui.CommandHandler.OpenView(o));
-                                }
-                            },
-                        Text = Properties.Resources.SharpMapGisPluginGui_InitializeMapLegend_Map_Contents
-                    };
-            }
-
-            // TODO: subscribe to mapLegendView.TreeView.SelectionChanged! and update Gui.Selection if necessary
-
-            if (gui.ToolWindowViews != null)
-            {
-                gui.ToolWindowViews.Add(mapLegendView, ViewLocation.Left | ViewLocation.Bottom);
-                gui.ToolWindowViews.ActiveView = mapLegendView;
-            }
+            return gui.GetFocusedMapView(view);
         }
 
         private void ApplicationProjectClosing(Project project)
         {
-            if(gui == null)
+            if (gui == null)
             {
                 return;
             }
@@ -400,7 +456,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
             }
         }
 
-        static void GuiSelectionChanged(object sender, SelectedItemChangedEventArgs e)
+        private static void GuiSelectionChanged(object sender, SelectedItemChangedEventArgs e)
         {
             // Send selection to all relevant views
             var selection = gui.Selection;
@@ -414,10 +470,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
                     view.MapControl.SelectedFeaturesChanged += MapControlSelectedFeaturesChanged;
                 }
             }
-            else if (selection is IEnumerable && ((IEnumerable)selection).OfType<IFeature>().Any())
+            else if (selection is IEnumerable && ((IEnumerable) selection).OfType<IFeature>().Any())
             {
                 // If the selection was made from within the map control, also select it in the corresponding attribute table
-                var selectedFeatures = ((IEnumerable)selection).OfType<IFeature>();
+                var selectedFeatures = ((IEnumerable) selection).OfType<IFeature>();
                 if (!selectedFeatures.Any())
                 {
                     return;
@@ -429,11 +485,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
                     view.MapControl.SelectedFeaturesChanged += MapControlSelectedFeaturesChanged;
                 }
             }
-        }
-
-        internal static MapView GetFocusedMapView(IView view = null)
-        {
-            return gui.GetFocusedMapView(view);
         }
 
         private void DocumentViewsActiveViewChanged(object sender, EventArgs e)
@@ -487,7 +538,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
 
         private static void UpdateMapLegendView()
         {
-            if(mapLegendView == null)
+            if (mapLegendView == null)
             {
                 return;
             }
@@ -505,7 +556,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
             {
                 mapLegendView.Data = null;
             }
-            
         }
 
         private static void RefreshRibbonItems()
@@ -513,14 +563,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
             gui.MainWindow.ValidateItems();
         }
 
-        static void MapMapRendered(Graphics g)
+        private static void MapMapRendered(Graphics g)
         {
             RefreshRibbonItems();
         }
 
         // TODO: WTF?!? Use mapControl.SelectTool.SelectTool.SelectionChanged += ...
         // Reason why not to: AddTool and EditTool also have their own selection mechanism
-        static void MapControlSelectedFeaturesChanged(object sender, EventArgs e)
+        private static void MapControlSelectedFeaturesChanged(object sender, EventArgs e)
         {
             gui.SelectionChanged -= GuiSelectionChanged;
 
@@ -540,16 +590,16 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
             gui.SelectionChanged += GuiSelectionChanged;
         }
 
-        static void mapView_MouseDoubleClick(object sender, MouseEventArgs e)
+        private static void mapView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            IEnumerable<IFeature> selectedFeatures = ((MapControl)sender).SelectedFeatures;
+            IEnumerable<IFeature> selectedFeatures = ((MapControl) sender).SelectedFeatures;
             if (selectedFeatures == null || !selectedFeatures.Any())
             {
                 return;
             }
 
             var data = selectedFeatures.First();
-            
+
             gui.CommandHandler.OpenView(data);
         }
 

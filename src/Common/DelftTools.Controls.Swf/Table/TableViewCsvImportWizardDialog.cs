@@ -13,13 +13,12 @@ namespace DelftTools.Controls.Swf.Table
 {
     public class TableViewCsvImportWizardDialog : CsvImportWizardDialog
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(TableViewCsvImportWizardDialog));
         private readonly TableView tableView;
         private readonly bool importFromClipboard;
         private readonly string clipboardText;
 
-        private static readonly ILog Log = LogManager.GetLogger(typeof(TableViewCsvImportWizardDialog));
-
-        public TableViewCsvImportWizardDialog(TableView tableView, string clipboardText=null)
+        public TableViewCsvImportWizardDialog(TableView tableView, string clipboardText = null)
         {
             this.tableView = tableView;
             importFromClipboard = !string.IsNullOrEmpty(clipboardText);
@@ -31,7 +30,7 @@ namespace DelftTools.Controls.Swf.Table
                 // we're importing from file; don't bother with file select:
                 var filePage = Pages.OfType<SelectFileWizardPage>().First();
                 RemovePage(filePage);
-                
+
                 // prepare the preview:
                 var csvSeparatorPage = Pages.OfType<CsvToDataTableWizardPage>().First();
                 using (var reader = new StringReader(clipboardText))
@@ -42,48 +41,39 @@ namespace DelftTools.Controls.Swf.Table
                     while ((line = reader.ReadLine()) != null)
                     {
                         if (++numLines > 30)
+                        {
                             break;
+                        }
                         first30Lines.AppendLine(line);
                     }
                     csvSeparatorPage.PreviewText = first30Lines.ToString();
                 }
             }
         }
-        
-        protected override IEnumerable<CsvRequiredField> GetRequiredFields()
-        {
-            return
-                tableView.Columns.Where(c => c.Visible)
-                    .Select(column => new CsvRequiredField(column.Name, column.ColumnType));
-        }
 
-        protected override void OnUserFinishedMapping(string filePath, CsvMappingData mappingData)
-        {
-            DoImport(mappingData, filePath);
-        }
-
-        public void DoImport(CsvMappingData mappingData, string filePath=null)
+        public void DoImport(CsvMappingData mappingData, string filePath = null)
         {
             var importer = new CsvImporter();
-            using (var stream = importFromClipboard ? (Stream)new MemoryStream(Encoding.UTF8.GetBytes(clipboardText)): File.OpenRead(filePath))
-            using (var streamReader = new StreamReader(stream))
+            using (var stream = importFromClipboard ? (Stream) new MemoryStream(Encoding.UTF8.GetBytes(clipboardText)) : File.OpenRead(filePath))
             {
-                var importedData = importer.SplitToTable(streamReader, mappingData.Settings);
-                importedData = importer.Extract(importedData, mappingData.FieldToColumnMapping, mappingData.Filters);
-
-                // delete all existing data
-                tableView.SelectRows(Enumerable.Range(0, tableView.RowCount).ToArray());
-                tableView.DeleteCurrentSelection();
-
-                var exceptionMode = tableView.ExceptionMode;
-                tableView.ExceptionMode = TableView.ValidationExceptionMode.ThrowException; //throw exception
-
-                try
+                using (var streamReader = new StreamReader(stream))
                 {
-                    tableView.BeginInit();
-                    TableView.DoActionInEditAction(
-                        tableView, importFromClipboard ? "Pasting values" : "Importing values",
-                        () =>
+                    var importedData = importer.SplitToTable(streamReader, mappingData.Settings);
+                    importedData = importer.Extract(importedData, mappingData.FieldToColumnMapping, mappingData.Filters);
+
+                    // delete all existing data
+                    tableView.SelectRows(Enumerable.Range(0, tableView.RowCount).ToArray());
+                    tableView.DeleteCurrentSelection();
+
+                    var exceptionMode = tableView.ExceptionMode;
+                    tableView.ExceptionMode = TableView.ValidationExceptionMode.ThrowException; //throw exception
+
+                    try
+                    {
+                        tableView.BeginInit();
+                        TableView.DoActionInEditAction(
+                            tableView, importFromClipboard ? "Pasting values" : "Importing values",
+                            () =>
                             {
                                 // start importing data
                                 int rowIndex = 0;
@@ -91,8 +81,10 @@ namespace DelftTools.Controls.Swf.Table
                                 foreach (DataRow row in importedData.Rows)
                                 {
                                     if (!skipNextAdd)
+                                    {
                                         tableView.AddNewRowToDataSource();
-                                    
+                                    }
+
                                     skipNextAdd = false;
                                     bool success;
                                     var message = "";
@@ -116,13 +108,26 @@ namespace DelftTools.Controls.Swf.Table
                                     rowIndex++;
                                 }
                             });
-                    tableView.EndInit();
-                }
-                finally
-                {
-                    tableView.ExceptionMode = exceptionMode;
+                        tableView.EndInit();
+                    }
+                    finally
+                    {
+                        tableView.ExceptionMode = exceptionMode;
+                    }
                 }
             }
+        }
+
+        protected override IEnumerable<CsvRequiredField> GetRequiredFields()
+        {
+            return
+                tableView.Columns.Where(c => c.Visible)
+                         .Select(column => new CsvRequiredField(column.Name, column.ColumnType));
+        }
+
+        protected override void OnUserFinishedMapping(string filePath, CsvMappingData mappingData)
+        {
+            DoImport(mappingData, filePath);
         }
     }
 }

@@ -4,24 +4,24 @@ using GeoAPI.Geometries;
 using GisSharpBlog.NetTopologySuite.Geometries;
 
 namespace GisSharpBlog.NetTopologySuite.IO
-{    
+{
     /// <summary>
     /// Read features stored as ESRI GeoDatabase binary format in a SqlServer database,
     /// and converts this features to <coordinate>Geometry</coordinate> format.
     /// </summary>
     public class GDBReader : ShapeReader
-    {                
+    {
         /// <summary> 
         /// Creates a <coordinate>GDBReader</coordinate> that creates objects using a basic GeometryFactory.
         /// </summary>
-        public GDBReader() : base(new GeometryFactory()) { }
+        public GDBReader() : base(new GeometryFactory()) {}
 
         /// <summary>  
         /// Creates a <coordinate>GDBReader</coordinate> that creates objects using the given
         /// <coordinate>GeometryFactory</coordinate>.
         /// </summary>
         /// <param name="factory">The factory used to create <coordinate>Geometry</coordinate>s.</param>
-        public GDBReader(GeometryFactory factory) : base(factory) { }        
+        public GDBReader(GeometryFactory factory) : base(factory) {}
 
         /// <summary>
         /// Read VeDEx geometries.
@@ -29,9 +29,11 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="data"></param>
         /// <returns></returns>
         public IGeometry Read(Stream data)
-        {                                   
-            using(BinaryReader reader = new BinaryReader(data))
+        {
+            using (BinaryReader reader = new BinaryReader(data))
+            {
                 return Read(reader);
+            }
         }
 
         /// <summary>
@@ -41,7 +43,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <returns></returns>
         public IGeometry Read(BinaryReader reader)
         {
-            ShapeGeometryType shapeType = (ShapeGeometryType)reader.ReadInt32();
+            ShapeGeometryType shapeType = (ShapeGeometryType) reader.ReadInt32();
 
             switch (shapeType)
             {
@@ -84,8 +86,10 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <returns></returns>
         public IGeometry Read(byte[] data)
         {
-            using(Stream stream = new MemoryStream(data))
-                return Read(stream);            
+            using (Stream stream = new MemoryStream(data))
+            {
+                return Read(stream);
+            }
         }
     }
 }

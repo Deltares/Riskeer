@@ -17,9 +17,8 @@ namespace GisSharpBlog.NetTopologySuite.Precision
     /// </summary>
     public class SimpleGeometryPrecisionReducer
     {
-        private PrecisionModel newPrecisionModel = null;
+        private readonly PrecisionModel newPrecisionModel = null;
         private bool removeCollapsed = true;
-        private bool changePrecisionModel = false;
 
         /// <summary>
         /// 
@@ -27,6 +26,7 @@ namespace GisSharpBlog.NetTopologySuite.Precision
         /// <param name="pm"></param>
         public SimpleGeometryPrecisionReducer(PrecisionModel pm)
         {
+            ChangePrecisionModel = false;
             newPrecisionModel = pm;
         }
 
@@ -53,17 +53,7 @@ namespace GisSharpBlog.NetTopologySuite.Precision
         /// specify the reduction.  
         /// The default is to not change the precision model.
         /// </summary>
-        public bool ChangePrecisionModel
-        {
-            get
-            {
-                return changePrecisionModel;
-            }
-            set
-            {
-                changePrecisionModel = value;
-            }
-        }
+        public bool ChangePrecisionModel { get; set; }
 
         /// <summary>
         /// 
@@ -73,14 +63,16 @@ namespace GisSharpBlog.NetTopologySuite.Precision
         public IGeometry Reduce(IGeometry geom)
         {
             GeometryEditor geomEdit;
-            if (changePrecisionModel) 
+            if (ChangePrecisionModel)
             {
                 GeometryFactory newFactory = new GeometryFactory(newPrecisionModel);
                 geomEdit = new GeometryEditor(newFactory);
             }
             else
-            // don't change point factory
-            geomEdit = new GeometryEditor();
+            {
+                // don't change point factory
+                geomEdit = new GeometryEditor();
+            }
             return geomEdit.Edit(geom, new PrecisionReducerCoordinateOperation(this));
         }
 
@@ -89,7 +81,7 @@ namespace GisSharpBlog.NetTopologySuite.Precision
         /// </summary>
         private class PrecisionReducerCoordinateOperation : GeometryEditor.CoordinateOperation
         {
-            private SimpleGeometryPrecisionReducer container = null;
+            private readonly SimpleGeometryPrecisionReducer container = null;
 
             /// <summary>
             /// 
@@ -108,15 +100,17 @@ namespace GisSharpBlog.NetTopologySuite.Precision
             /// <returns></returns>
             public override ICoordinate[] Edit(ICoordinate[] coordinates, IGeometry geom)
             {
-                if (coordinates.Length == 0) 
+                if (coordinates.Length == 0)
+                {
                     return null;
+                }
 
                 ICoordinate[] reducedCoords = new ICoordinate[coordinates.Length];
                 // copy coordinates and reduce
-                for (int i = 0; i < coordinates.Length; i++) 
+                for (int i = 0; i < coordinates.Length; i++)
                 {
                     ICoordinate coord = new Coordinate(coordinates[i]);
-                    container.newPrecisionModel.MakePrecise( coord);
+                    container.newPrecisionModel.MakePrecise(coord);
                     reducedCoords[i] = coord;
                 }
 
@@ -135,18 +129,26 @@ namespace GisSharpBlog.NetTopologySuite.Precision
                 * (This may create an invalid point - the client must handle this.)
                 */
                 int minLength = 0;
-                if (geom is ILineString) 
+                if (geom is ILineString)
+                {
                     minLength = 2;
-                if (geom is ILinearRing) 
+                }
+                if (geom is ILinearRing)
+                {
                     minLength = 4;
+                }
 
                 ICoordinate[] collapsedCoords = reducedCoords;
-                if (container.removeCollapsed) 
+                if (container.removeCollapsed)
+                {
                     collapsedCoords = null;
+                }
 
                 // return null or orginal length coordinate array
-                if (noRepeatedCoords.Length < minLength) 
-                    return collapsedCoords;                
+                if (noRepeatedCoords.Length < minLength)
+                {
+                    return collapsedCoords;
+                }
 
                 // ok to return shorter coordinate array
                 return noRepeatedCoords;

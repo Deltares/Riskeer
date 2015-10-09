@@ -42,11 +42,21 @@ namespace DelftTools.Utils.Tests
         public void GuessFormatFromAmbiguousListOfDateTimes()
         {
             string format;
-            var dates = new[] {"7/5/2013 11:47:00 AM", "7/5/2013 11:47:00 PM", "13/5/2013 11:47:00 AM"};
+            var dates = new[]
+            {
+                "7/5/2013 11:47:00 AM",
+                "7/5/2013 11:47:00 PM",
+                "13/5/2013 11:47:00 AM"
+            };
             Assert.IsTrue(DateTimeFormatGuesser.TryGuessDateTimeFormat(dates, out format));
             Assert.AreEqual("d/M/yyyy hh:mm:ss tt", format);
 
-            var moreDates = new[] { "1/5/2013 23:47:00", "1/5/2013 11:47:00", "1/13/2013 1:47:00" };
+            var moreDates = new[]
+            {
+                "1/5/2013 23:47:00",
+                "1/5/2013 11:47:00",
+                "1/13/2013 1:47:00"
+            };
             Assert.IsTrue(DateTimeFormatGuesser.TryGuessDateTimeFormat(moreDates, out format));
             Assert.AreEqual("M/d/yyyy H:mm:ss", format);
         }

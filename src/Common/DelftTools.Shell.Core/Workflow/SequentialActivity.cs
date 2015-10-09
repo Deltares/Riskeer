@@ -51,8 +51,8 @@ namespace DelftTools.Shell.Core.Workflow
                     throw new Exception(string.Format("The execution of activity {0} failed", currentActivity));
                 }
             }
-                
-            if(currentActivity.Status == ActivityStatus.Done) // take the next activity
+
+            if (currentActivity.Status == ActivityStatus.Done) // take the next activity
             {
                 currentActivity.Finish();
 

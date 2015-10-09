@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Linq;
-
 using DelftTools.Shell.Core;
-
 using Mono.Addins;
-
 using NUnit.Framework;
-
 using Wti.Data;
-
 using PluginResources = Wti.Plugin.Properties.Resources;
 using FormsResources = Wti.Forms.Properties.Resources;
 
@@ -39,7 +34,7 @@ namespace Wti.Plugin.Test
 
             // assert
             Assert.IsInstanceOf<ExtensionAttribute>(attribute);
-            var extensionAttribute = (ExtensionAttribute)attribute;
+            var extensionAttribute = (ExtensionAttribute) attribute;
             Assert.AreEqual(typeof(IPlugin), extensionAttribute.Type);
         }
 
@@ -64,7 +59,5 @@ namespace Wti.Plugin.Test
             Assert.IsInstanceOf<WtiProject>(projectDataItemDefinition.CreateData(null));
             Assert.IsNull(projectDataItemDefinition.AddExampleData);
         }
-        
-        
     }
 }

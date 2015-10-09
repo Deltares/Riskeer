@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using DelftTools.Utils.Csv.Importer;
 
@@ -8,20 +9,8 @@ namespace DelftTools.Controls.Swf.Csv
 {
     public partial class CsvToDataTableControl : UserControl
     {
-        public CsvSettings Settings {
-            get
-            {
-                return new CsvSettings
-                    {
-                        Delimiter = rbComma.Checked ? ',' : 
-                                    rbSemicolon.Checked ? ';' : 
-                                    rbSpace.Checked ? ' ' : 
-                                    rbTab.Checked ? '\t' : ',',
-                        FirstRowIsHeader = chkHeader.Checked,
-                        SkipEmptyLines = chkEmptyLines.Checked
-                    };
-            }
-        }
+        private DataTable previewDataTable = new DataTable();
+        private string previewText;
 
         public CsvToDataTableControl()
         {
@@ -39,29 +28,52 @@ namespace DelftTools.Controls.Swf.Csv
             chkHeader.Checked = true;
             chkEmptyLines.Checked = true;
         }
-        
-        private DataTable previewDataTable = new DataTable();
-        private string previewText;
+
+        public CsvSettings Settings
+        {
+            get
+            {
+                return new CsvSettings
+                {
+                    Delimiter = rbComma.Checked ? ',' :
+                                    rbSemicolon.Checked ? ';' :
+                                        rbSpace.Checked ? ' ' :
+                                            rbTab.Checked ? '\t' : ',',
+                    FirstRowIsHeader = chkHeader.Checked,
+                    SkipEmptyLines = chkEmptyLines.Checked
+                };
+            }
+        }
 
         public DataTable PreviewDataTable
         {
-            get { return previewDataTable; }
+            get
+            {
+                return previewDataTable;
+            }
         }
 
         public string PreviewText
         {
-            get { return previewText; }
+            get
+            {
+                return previewText;
+            }
             set
             {
                 previewText = value;
-                
+
                 // do some auto detection:
                 if (previewText != null && previewText.Length > 1)
                 {
                     if (previewText.Contains("\t"))
+                    {
                         rbTab.Checked = true;
+                    }
                     else if (previewText.Contains(";"))
+                    {
                         rbSemicolon.Checked = true;
+                    }
                     chkHeader.Checked = !Char.IsNumber(previewText[0]);
                 }
 
@@ -83,12 +95,15 @@ namespace DelftTools.Controls.Swf.Csv
         {
             UpdatePreview();
         }
-        
+
         private void UpdatePreview()
         {
-            if (previewText == null) return;
+            if (previewText == null)
+            {
+                return;
+            }
 
-            using (var stream = new MemoryStream(System.Text.Encoding.ASCII.GetBytes(previewText)))
+            using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(previewText)))
             {
                 using (var reader = new StreamReader(stream))
                 {
@@ -103,7 +118,7 @@ namespace DelftTools.Controls.Swf.Csv
         {
             foreach (DataColumn column in dataTable.Columns)
             {
-                column.ColumnName = column.ColumnName.Replace(',',' ');
+                column.ColumnName = column.ColumnName.Replace(',', ' ');
             }
         }
     }

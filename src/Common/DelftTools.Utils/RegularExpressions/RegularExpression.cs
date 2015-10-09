@@ -21,14 +21,14 @@ namespace DelftTools.Utils.RegularExpressions
 
         public const string EndOfLine = @"\s*($|(\n|\r\n?))";
 
+        // can be a memory leak, clear it regularly
+        private static readonly IDictionary<string, Regex> expressions = new Dictionary<string, Regex>();
+
         public static Match GetFirstMatch(string pattern, string sourceText)
         {
             var matches = GetMatches(pattern, sourceText);
             return matches.OfType<Match>().FirstOrDefault();
         }
-
-        // can be a memory leak, clear it regularly
-        private static readonly IDictionary<string, Regex> expressions = new Dictionary<string, Regex>();
 
         public static void ClearExpressionsCache()
         {
@@ -114,7 +114,7 @@ namespace DelftTools.Utils.RegularExpressions
             var matches = GetMatches(GetCharacters(field), record);
             return matches.Count > 0 ? matches[0].Groups[field].Value : "";
         }
-        
+
         public static string ParseFieldAsIntegerOrString(string field, string record)
         {
             var match = GetFirstMatch(GetInteger(field), record);
@@ -156,7 +156,6 @@ namespace DelftTools.Utils.RegularExpressions
         {
             return match.Groups[field].Success ? ConversionHelper.ToDouble(match.Groups[field].Value) : defaultValue;
         }
-
 
         /// <summary>
         /// Retrieves a float value if it is available in the math.

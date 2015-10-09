@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using DelftTools.Controls.Swf.WizardPages;
@@ -10,10 +9,10 @@ namespace DelftTools.Controls.Swf.Csv
 {
     public abstract partial class CsvImportWizardDialog : WizardDialog
     {
-        private SelectFileWizardPage fileSelectPage;
-        private CsvToDataTableWizardPage csvSeparatorPage;
-        private ICsvDataSelectionWizardPage csvMappingPage;
-        
+        private readonly SelectFileWizardPage fileSelectPage;
+        private readonly CsvToDataTableWizardPage csvSeparatorPage;
+        private readonly ICsvDataSelectionWizardPage csvMappingPage;
+
         public CsvImportWizardDialog()
         {
             InitializeComponent();
@@ -23,7 +22,10 @@ namespace DelftTools.Controls.Swf.Csv
             WelcomeMessage = "This wizard will allow you to import CSV data";
             FinishedPageMessage = "Press Finish to close the wizard.";
 
-            fileSelectPage = new SelectFileWizardPage {Filter = "CSV files|*.csv"};
+            fileSelectPage = new SelectFileWizardPage
+            {
+                Filter = "CSV files|*.csv"
+            };
             csvSeparatorPage = new CsvToDataTableWizardPage();
             csvMappingPage = CreateCsvMappingPage();
 
@@ -61,6 +63,8 @@ namespace DelftTools.Controls.Swf.Csv
             OnUserFinishedMapping(FilePath, MappingData);
         }
 
+        protected abstract IEnumerable<CsvRequiredField> GetRequiredFields();
+
         private CsvMappingData MappingData
         {
             get
@@ -76,9 +80,10 @@ namespace DelftTools.Controls.Swf.Csv
 
         private string FilePath
         {
-            get { return fileSelectPage.FileName; }
+            get
+            {
+                return fileSelectPage.FileName;
+            }
         }
-        
-        protected abstract IEnumerable<CsvRequiredField> GetRequiredFields();
     }
 }

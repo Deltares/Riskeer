@@ -1,6 +1,4 @@
 namespace GeoAPI.Geometries
 {
-    public interface IMultiSurface : IGeometryCollection
-    {
-    }
+    public interface IMultiSurface : IGeometryCollection {}
 }

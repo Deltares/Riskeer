@@ -7,25 +7,32 @@ namespace DelftTools.Controls.Swf
     /// </summary>
     public class MessageBox
     {
+        /// <summary>
+        /// When set the show message of this messagebox will be called and used as a dialogresult 
+        /// </summary>
+        public static IMessageBox CustomMessageBox { get; set; }
+
         public static DialogResult Show(string text)
         {
-            return Show(text,"");
+            return Show(text, "");
         }
 
         public static DialogResult Show(string text, string caption)
         {
             return Show(text, caption, MessageBoxButtons.OK);
         }
+
         public static DialogResult Show(string text, string caption, MessageBoxButtons buttons)
         {
             return Show(text, caption, buttons, MessageBoxIcon.None);
-            
         }
+
         public static DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
             //default uses system windows forms implementation
             return Show(text, caption, buttons, icon, MessageBoxDefaultButton.Button1);
         }
+
         public static DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
         {
             //custom box ignores icon and defaultbutton
@@ -37,13 +44,6 @@ namespace DelftTools.Controls.Swf
 
             return System.Windows.Forms.MessageBox.Show(text, caption, buttons, icon, defaultButton);
         }
-
-
-
-        /// <summary>
-        /// When set the show message of this messagebox will be called and used as a dialogresult 
-        /// </summary>
-        public static IMessageBox CustomMessageBox { get; set; }
     }
 
     public interface IMessageBox

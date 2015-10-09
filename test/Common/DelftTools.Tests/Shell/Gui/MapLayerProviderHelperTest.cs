@@ -27,17 +27,23 @@ namespace DelftTools.Tests.Shell.Gui
 
             projectItemGroupLayer.Layers = new EventedList<ILayer>();
 
-            layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItem,null)).Return(true);
+            layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItem, null)).Return(true);
             layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItemName, projectItem)).Return(true);
             layerProvider.Expect(lp => lp.CreateLayer(projectItem, null)).Return(projectItemGroupLayer);
             layerProvider.Expect(lp => lp.CreateLayer(projectItemName, projectItem)).Return(projectItemLayer);
-            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[] { projectItemName });
+            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            {
+                projectItemName
+            });
 
             mocks.ReplayAll();
 
             var layerDataDictionary = new Dictionary<ILayer, object>();
 
-            var layer = MapLayerProviderHelper.CreateLayersRecursive(projectItem, null ,new[] { layerProvider }, layerDataDictionary);
+            var layer = MapLayerProviderHelper.CreateLayersRecursive(projectItem, null, new[]
+            {
+                layerProvider
+            }, layerDataDictionary);
 
             Assert.AreEqual(layer, projectItemGroupLayer);
             Assert.AreEqual(1, projectItemGroupLayer.Layers.Count);
@@ -65,14 +71,21 @@ namespace DelftTools.Tests.Shell.Gui
             otherProvider.Expect(lp => lp.CanCreateLayerFor(projectItem, null)).Return(false);
             firstChanceProvider.Expect(lp => lp.CanCreateLayerFor(projectItem, null)).Return(true);
             firstChanceProvider.Expect(lp => lp.CreateLayer(projectItem, null)).Return(objLayer);
-            firstChanceProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[] { projectItemName });
+            firstChanceProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            {
+                projectItemName
+            });
             // this is the important part; we don't want 'otherProvider' to be called here:
-            firstChanceProvider.Expect(lp => lp.CanCreateLayerFor(projectItemName, projectItem)).Return(true); 
+            firstChanceProvider.Expect(lp => lp.CanCreateLayerFor(projectItemName, projectItem)).Return(true);
             firstChanceProvider.Expect(lp => lp.CreateLayer(projectItemName, projectItem)).Return(subLayer);
 
             mocks.ReplayAll();
 
-            MapLayerProviderHelper.CreateLayersRecursive(projectItem, null, new[] {otherProvider, firstChanceProvider});
+            MapLayerProviderHelper.CreateLayersRecursive(projectItem, null, new[]
+            {
+                otherProvider,
+                firstChanceProvider
+            });
 
             mocks.VerifyAll();
         }
@@ -92,15 +105,26 @@ namespace DelftTools.Tests.Shell.Gui
             layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItem, null)).Return(true);
             layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItemName, projectItem)).Return(true);
             layerProvider.Expect(lp => lp.CreateLayer(projectItemName, projectItem)).Return(projectItemLayer);
-            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[] { projectItemName });
+            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            {
+                projectItemName
+            });
 
             mocks.ReplayAll();
 
             // Start with only a group layer
-            var layerDataDictionary = new Dictionary<ILayer, object> { {projectItemGroupLayer,projectItem} };
+            var layerDataDictionary = new Dictionary<ILayer, object>
+            {
+                {
+                    projectItemGroupLayer, projectItem
+                }
+            };
 
             // RefreshLayersRecursive should detect that the layer is out of sync, and add the project item mlayer
-            MapLayerProviderHelper.RefreshLayersRecursive(projectItemGroupLayer,layerDataDictionary, new[] { layerProvider }, null);
+            MapLayerProviderHelper.RefreshLayersRecursive(projectItemGroupLayer, layerDataDictionary, new[]
+            {
+                layerProvider
+            }, null);
 
             Assert.AreEqual(1, projectItemGroupLayer.Layers.Count);
             Assert.AreEqual(projectItemLayer, projectItemGroupLayer.Layers[0]);
@@ -109,7 +133,7 @@ namespace DelftTools.Tests.Shell.Gui
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void RefreshLayersRecursiveDoesNotNeedlesslyRemoveLayer()
         {
@@ -121,37 +145,51 @@ namespace DelftTools.Tests.Shell.Gui
             var projectItemLayer2 = mocks.Stub<ILayer>();
 
             var projectItem = mocks.StrictMock<IProjectItem>();
-            var projectItemName1 = "Project item 1"; 
+            var projectItemName1 = "Project item 1";
             var projectItemName2 = "Project item 2";
-            
+
             // first time (create)
             layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItem, null)).Return(true).Repeat.Twice();
             layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItemName1, projectItem)).Return(true);
             layerProvider.Expect(lp => lp.CreateLayer(projectItem, null)).Return(projectItemGroupLayer);
             layerProvider.Expect(lp => lp.CreateLayer(projectItemName1, projectItem)).Return(projectItemLayer1);
-            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[] { projectItemName1 });
+            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            {
+                projectItemName1
+            });
 
             // second time (refresh)
-            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[] { projectItemName1, projectItemName2 }); 
+            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            {
+                projectItemName1,
+                projectItemName2
+            });
             layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItemName2, projectItem)).Return(true);
             layerProvider.Expect(lp => lp.CreateLayer(projectItemName2, projectItem)).Return(projectItemLayer2);
 
             mocks.ReplayAll();
 
             var layerDataDictionary = new Dictionary<ILayer, object>();
-            var mapLayerProviders = new[] { layerProvider };
+            var mapLayerProviders = new[]
+            {
+                layerProvider
+            };
 
             // create
             MapLayerProviderHelper.CreateLayersRecursive(projectItem, null, mapLayerProviders, layerDataDictionary);
 
             var layerAdded = 0;
             projectItemGroupLayer.Layers.CollectionChanged += (s, e) =>
+            {
+                if (e.Action == NotifyCollectionChangeAction.Remove)
                 {
-                    if (e.Action == NotifyCollectionChangeAction.Remove)
-                        Assert.Fail("No remove should occur");
-                    else if (e.Action == NotifyCollectionChangeAction.Add)
-                        layerAdded++;
-                };
+                    Assert.Fail("No remove should occur");
+                }
+                else if (e.Action == NotifyCollectionChangeAction.Add)
+                {
+                    layerAdded++;
+                }
+            };
 
             // refresh (but it should not remove layer for project item 1)
             MapLayerProviderHelper.RefreshLayersRecursive(projectItemGroupLayer, layerDataDictionary, mapLayerProviders, null);
@@ -163,7 +201,7 @@ namespace DelftTools.Tests.Shell.Gui
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void RefreshLayersRecursiveShouldDisposeLayersOnRemove()
         {
@@ -192,21 +230,38 @@ namespace DelftTools.Tests.Shell.Gui
             layerProvider.Expect(lp => lp.CanCreateLayerFor(null, projectItem)).IgnoreArguments().Repeat.Any().Return(true);
             layerProvider.Expect(lp => lp.CreateLayer(projectItemNameOld, projectItem)).Return(oldModelItemLayer);
             layerProvider.Expect(lp => lp.CreateLayer(projectItemNameNew, projectItem)).Return(newModelItemLayer);
-            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[] { projectItemNameOld });
-            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[] { projectItemNameNew });
+            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            {
+                projectItemNameOld
+            });
+            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            {
+                projectItemNameNew
+            });
 
             mocks.ReplayAll();
 
             oldModelItemLayer.DataSource = oldDataSource;
 
             // Start with only a modelLayer
-            var layerDataDictionary = new Dictionary<ILayer, object> { { modelLayer, projectItem } };
+            var layerDataDictionary = new Dictionary<ILayer, object>
+            {
+                {
+                    modelLayer, projectItem
+                }
+            };
 
             // RefreshLayersRecursive should detect that the layer is out of sync, and add the old layer
-            MapLayerProviderHelper.RefreshLayersRecursive(modelLayer, layerDataDictionary, new[] { layerProvider }, null);
-            
+            MapLayerProviderHelper.RefreshLayersRecursive(modelLayer, layerDataDictionary, new[]
+            {
+                layerProvider
+            }, null);
+
             // expect the old layer to be removed (and thus diposed), and a new layer added:
-            MapLayerProviderHelper.RefreshLayersRecursive(modelLayer, layerDataDictionary, new[] { layerProvider }, null);
+            MapLayerProviderHelper.RefreshLayersRecursive(modelLayer, layerDataDictionary, new[]
+            {
+                layerProvider
+            }, null);
 
             Assert.AreEqual(1, modelLayer.Layers.Count);
             Assert.AreEqual(newModelItemLayer, modelLayer.Layers[0]);

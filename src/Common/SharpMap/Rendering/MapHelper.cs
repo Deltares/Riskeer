@@ -19,7 +19,7 @@ namespace SharpMap.Rendering
         public static ICoordinate ImageToWorld(IMap map, double width, double height)
         {
             ICoordinate c1 = map.ImageToWorld(new PointF(0, 0));
-            ICoordinate c2 = map.ImageToWorld(new PointF((float)width, (float)height));
+            ICoordinate c2 = map.ImageToWorld(new PointF((float) width, (float) height));
             return GeometryFactory.CreateCoordinate(Math.Abs(c1.X - c2.X), Math.Abs(c1.Y - c2.Y));
         }
 
@@ -27,7 +27,7 @@ namespace SharpMap.Rendering
         {
             // maak een rectangle in wereldcoordinaten ter grootte van 20 pixels rondom de click
             IPoint p = GeometryFactory.CreatePoint(worldPos.X, worldPos.Y);
-            IEnvelope Envelope = (IEnvelope)p.EnvelopeInternal.Clone();
+            IEnvelope Envelope = (IEnvelope) p.EnvelopeInternal.Clone();
             Envelope.SetCentre(p, width, height);
             return Envelope;
         }
@@ -36,10 +36,11 @@ namespace SharpMap.Rendering
         {
             // maak een rectangle in wereldcoordinaten ter grootte van 20 pixels rondom de click
             IPoint p = GeometryFactory.CreatePoint(worldPos);
-            IEnvelope Envelope = (IEnvelope)p.EnvelopeInternal.Clone();
+            IEnvelope Envelope = (IEnvelope) p.EnvelopeInternal.Clone();
             Envelope.SetCentre(p, radius, radius);
             return Envelope;
         }
+
         public static IEnvelope GetEnvelopeForImage(IMap map, ICoordinate centre, double pixelWidth, double pixelHeight)
         {
             var envelope = new Envelope();

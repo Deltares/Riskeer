@@ -16,7 +16,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
     public class CommandTests
     {
         private readonly MockRepository mocks = new MockRepository();
-        private static readonly ILog log = LogManager.GetLogger(typeof (CommandTests));
+        private static readonly ILog log = LogManager.GetLogger(typeof(CommandTests));
 
         [Test]
         [Ignore("Don't enable this test on build server until reason is found why it can't connect (hangs) probably something with security of .NET")]
@@ -34,15 +34,15 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
             connectionAvailable = ConnectionAvailable(url);
 
             webBrowser.DocumentCompleted += delegate
-                                                {
-                                                    mapAddWmsLayerCommand.AddLayerFromExternalSource(url);
-                                                    Assert.AreEqual(1, mapView.Map.Layers.Count);
-                                                };
+            {
+                mapAddWmsLayerCommand.AddLayerFromExternalSource(url);
+                Assert.AreEqual(1, mapView.Map.Layers.Count);
+            };
             if (connectionAvailable)
             {
                 webBrowser.Navigate(url);
             }
-         
+
             Assert.AreEqual(true, connectionAvailable);
             if (!connectionAvailable)
             {
@@ -51,12 +51,13 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
         }
 
         #region private methods
+
         private bool ConnectionAvailable(string strUrl)
         {
             try
             {
-                var reqFP = (HttpWebRequest)WebRequest.Create(strUrl);
-                var rspFP = (HttpWebResponse)reqFP.GetResponse();
+                var reqFP = (HttpWebRequest) WebRequest.Create(strUrl);
+                var rspFP = (HttpWebResponse) reqFP.GetResponse();
 
                 if (HttpStatusCode.OK == rspFP.StatusCode)
                 {
@@ -81,7 +82,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
         private MapView GetMapView()
         {
             var mapView = new MapView();
- 
+
             mapView.Data = new Map(new Size(1, 1));
 
             //stubs
@@ -90,15 +91,19 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
 
             Expect.Call(gui.ToolWindowViews).Return(viewManager).Repeat.Any();
             Expect.Call(gui.DocumentViews).Return(viewManager).Repeat.Any();
- 
+
             mocks.ReplayAll();
 
-            new SharpMapGisGuiPlugin { Gui = gui }; // sets private gui field
+            new SharpMapGisGuiPlugin
+            {
+                Gui = gui
+            }; // sets private gui field
 
             viewManager.ActiveView = mapView;
 
             return mapView;
         }
+
         #endregion
     }
 }

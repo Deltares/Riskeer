@@ -14,70 +14,22 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
     /// </summary>
     [Serializable]
     public class Envelope : IEnvelope
-    {        
-        /// <summary>
-        /// Test the point q to see whether it intersects the Envelope
-        /// defined by p1-p2.
-        /// </summary>
-        /// <param name="p1">One extremal point of the envelope.</param>
-        /// <param name="p2">Another extremal point of the envelope.</param>
-        /// <param name="q">Point to test for intersection.</param>
-        /// <returns><c>true</c> if q intersects the envelope p1-p2.</returns>
-        public static bool Intersects(ICoordinate p1, ICoordinate p2, ICoordinate q)
-        {
-            if  (((q.X >= (p1.X < p2.X ? p1.X : p2.X))  && (q.X <= (p1.X > p2.X ? p1.X : p2.X))) &&
-                 ((q.Y >= (p1.Y < p2.Y ? p1.Y : p2.Y))  && (q.Y <= (p1.Y > p2.Y ? p1.Y : p2.Y))))            
-                return true;                        
-            return false;
-        }
-
-        /// <summary>
-        /// Test the envelope defined by p1-p2 for intersection
-        /// with the envelope defined by q1-q2
-        /// </summary>
-        /// <param name="p1">One extremal point of the envelope Point.</param>
-        /// <param name="p2">Another extremal point of the envelope Point.</param>
-        /// <param name="q1">One extremal point of the envelope Q.</param>
-        /// <param name="q2">Another extremal point of the envelope Q.</param>
-        /// <returns><c>true</c> if Q intersects Point</returns>
-        public static bool Intersects(ICoordinate p1, ICoordinate p2, ICoordinate q1, ICoordinate q2)
-        {
-            double minq = Math.Min(q1.X, q2.X);
-            double maxq = Math.Max(q1.X, q2.X);
-            double minp = Math.Min(p1.X, p2.X);
-            double maxp = Math.Max(p1.X, p2.X);
-            if(minp > maxq) return false;
-            if(maxp < minq) return false;
-
-            minq = Math.Min(q1.Y, q2.Y);
-            maxq = Math.Max(q1.Y, q2.Y);
-            minp = Math.Min(p1.Y, p2.Y);
-            maxp = Math.Max(p1.Y, p2.Y);
-            if( minp > maxq ) return false;
-            if( maxp < minq ) return false;
-
-            return true;
-        }
-
+    {
         /*
         *  the minimum x-coordinate
         */
-        private double minx;
 
         /*
         *  the maximum x-coordinate
         */
-        private double maxx;
 
         /*
         * the minimum y-coordinate
         */
-        private double miny;
 
         /*
         *  the maximum y-coordinate
         */
-        private double maxy;
 
         /// <summary>
         /// Creates a null <c>Envelope</c>.
@@ -128,6 +80,247 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         }
 
         /// <summary>
+        /// Returns <c>true</c> if this <c>Envelope</c> is a "null" envelope.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if this <c>Envelope</c> is uninitialized
+        /// or is the envelope of the empty point.
+        /// </returns>
+        public bool IsNull
+        {
+            get
+            {
+                return MaxX < MinX;
+            }
+        }
+
+        /// <summary>
+        /// Returns the difference between the maximum and minimum x values.
+        /// </summary>
+        /// <returns>max x - min x, or 0 if this is a null <c>Envelope</c>.</returns>
+        public double Width
+        {
+            get
+            {
+                if (IsNull)
+                {
+                    return 0;
+                }
+                return MaxX - MinX;
+            }
+        }
+
+        /// <summary>
+        /// Returns the difference between the maximum and minimum y values.
+        /// </summary>
+        /// <returns>max y - min y, or 0 if this is a null <c>Envelope</c>.</returns>
+        public double Height
+        {
+            get
+            {
+                if (IsNull)
+                {
+                    return 0;
+                }
+                return MaxY - MinY;
+            }
+        }
+
+        /// <summary>
+        /// Returns the <c>Envelope</c>s minimum x-value. min x > max x
+        /// indicates that this is a null <c>Envelope</c>.
+        /// </summary>
+        /// <returns>The minimum x-coordinate.</returns>
+        public double MinX { get; private set; }
+
+        /// <summary>
+        /// Returns the <c>Envelope</c>s maximum x-value. min x > max x
+        /// indicates that this is a null <c>Envelope</c>.
+        /// </summary>
+        /// <returns>The maximum x-coordinate.</returns>
+        public double MaxX { get; private set; }
+
+        /// <summary>
+        /// Returns the <c>Envelope</c>s minimum y-value. min y > max y
+        /// indicates that this is a null <c>Envelope</c>.
+        /// </summary>
+        /// <returns>The minimum y-coordinate.</returns>
+        public double MinY { get; private set; }
+
+        /// <summary>
+        /// Returns the <c>Envelope</c>s maximum y-value. min y > max y
+        /// indicates that this is a null <c>Envelope</c>.
+        /// </summary>
+        /// <returns>The maximum y-coordinate.</returns>
+        public double MaxY { get; private set; }
+
+        /// <summary>
+        /// Computes the coordinate of the centre of this envelope (as long as it is non-null).
+        /// </summary>
+        /// <returns>
+        /// The centre coordinate of this envelope, 
+        /// or <c>null</c> if the envelope is null.
+        /// </returns>.
+        public ICoordinate Centre
+        {
+            get
+            {
+                if (IsNull)
+                {
+                    return null;
+                }
+                return new Coordinate((MinX + MaxX)/2.0, (MinY + MaxY)/2.0);
+            }
+        }
+
+        /* BEGIN ADDED BY MPAUL42: monoGIS team */
+
+        /// <summary>
+        /// Returns the area of the envelope.
+        /// </summary>
+        public double Area
+        {
+            get
+            {
+                double area = 1;
+                area = area*(MaxX - MinX);
+                area = area*(MaxY - MinY);
+                return area;
+            }
+        }
+
+        /// <summary>
+        /// Test the point q to see whether it intersects the Envelope
+        /// defined by p1-p2.
+        /// </summary>
+        /// <param name="p1">One extremal point of the envelope.</param>
+        /// <param name="p2">Another extremal point of the envelope.</param>
+        /// <param name="q">Point to test for intersection.</param>
+        /// <returns><c>true</c> if q intersects the envelope p1-p2.</returns>
+        public static bool Intersects(ICoordinate p1, ICoordinate p2, ICoordinate q)
+        {
+            if (((q.X >= (p1.X < p2.X ? p1.X : p2.X)) && (q.X <= (p1.X > p2.X ? p1.X : p2.X))) &&
+                ((q.Y >= (p1.Y < p2.Y ? p1.Y : p2.Y)) && (q.Y <= (p1.Y > p2.Y ? p1.Y : p2.Y))))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Test the envelope defined by p1-p2 for intersection
+        /// with the envelope defined by q1-q2
+        /// </summary>
+        /// <param name="p1">One extremal point of the envelope Point.</param>
+        /// <param name="p2">Another extremal point of the envelope Point.</param>
+        /// <param name="q1">One extremal point of the envelope Q.</param>
+        /// <param name="q2">Another extremal point of the envelope Q.</param>
+        /// <returns><c>true</c> if Q intersects Point</returns>
+        public static bool Intersects(ICoordinate p1, ICoordinate p2, ICoordinate q1, ICoordinate q2)
+        {
+            double minq = Math.Min(q1.X, q2.X);
+            double maxq = Math.Max(q1.X, q2.X);
+            double minp = Math.Min(p1.X, p2.X);
+            double maxp = Math.Max(p1.X, p2.X);
+            if (minp > maxq)
+            {
+                return false;
+            }
+            if (maxp < minq)
+            {
+                return false;
+            }
+
+            minq = Math.Min(q1.Y, q2.Y);
+            maxq = Math.Max(q1.Y, q2.Y);
+            minp = Math.Min(p1.Y, p2.Y);
+            maxp = Math.Max(p1.Y, p2.Y);
+            if (minp > maxq)
+            {
+                return false;
+            }
+            if (maxp < minq)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="obj1"></param>
+        /// <param name="obj2"></param>
+        /// <returns></returns>
+        public static bool operator ==(Envelope obj1, Envelope obj2)
+        {
+            return Equals(obj1, obj2);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj1"></param>
+        /// <param name="obj2"></param>
+        /// <returns></returns>
+        public static bool operator !=(Envelope obj1, Envelope obj2)
+        {
+            return !(obj1 == obj2);
+        }
+
+        /// <summary>
+        /// Creates a deep copy of the current envelope.
+        /// </summary>
+        /// <returns></returns>
+        public IEnvelope Clone()
+        {
+            return new Envelope(MinX, MaxX, MinY, MaxY);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public override bool Equals(object other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (!(other is Envelope))
+            {
+                return false;
+            }
+
+            return Equals((IEnvelope) other);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override int GetHashCode()
+        {
+            int result = 17;
+            result = 37*result + GetHashCode(MinX);
+            result = 37*result + GetHashCode(MaxX);
+            result = 37*result + GetHashCode(MinY);
+            result = 37*result + GetHashCode(MaxY);
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "Env[" + MinX + " : " + MaxX + ", " + MinY + " : " + MaxY + "]";
+        }
+
+        /// <summary>
         /// Initialize to a null <c>Envelope</c>.
         /// </summary>
         public void Init()
@@ -146,24 +339,24 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             if (x1 < x2)
             {
-                minx = x1;
-                maxx = x2;
+                MinX = x1;
+                MaxX = x2;
             }
             else
             {
-                minx = x2;
-                maxx = x1;
+                MinX = x2;
+                MaxX = x1;
             }
 
             if (y1 < y2)
             {
-                miny = y1;
-                maxy = y2;
+                MinY = y1;
+                MaxY = y2;
             }
             else
             {
-                miny = y2;
-                maxy = y1;
+                MinY = y2;
+                MaxY = y1;
             }
         }
 
@@ -192,10 +385,10 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="env">The Envelope to initialize from.</param>
         public void Init(IEnvelope env)
         {
-            this.minx = env.MinX;
-            this.maxx = env.MaxX;
-            this.miny = env.MinY;
-            this.maxy = env.MaxY;
+            MinX = env.MinX;
+            MaxX = env.MaxX;
+            MinY = env.MinY;
+            MaxY = env.MaxY;
         }
 
         /// <summary>
@@ -203,105 +396,10 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         public void SetToNull()
         {
-            minx = 0;
-            maxx = -1;
-            miny = 0;
-            maxy = -1;
-        }
-
-        /// <summary>
-        /// Returns <c>true</c> if this <c>Envelope</c> is a "null" envelope.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if this <c>Envelope</c> is uninitialized
-        /// or is the envelope of the empty point.
-        /// </returns>
-        public bool IsNull
-        {
-            get
-            {
-                return maxx < minx;
-            }
-        }
-
-        /// <summary>
-        /// Returns the difference between the maximum and minimum x values.
-        /// </summary>
-        /// <returns>max x - min x, or 0 if this is a null <c>Envelope</c>.</returns>
-        public double Width
-        {
-            get
-            {
-                if (IsNull)
-                    return 0;                
-                return maxx - minx;
-            }
-        }
-
-        /// <summary>
-        /// Returns the difference between the maximum and minimum y values.
-        /// </summary>
-        /// <returns>max y - min y, or 0 if this is a null <c>Envelope</c>.</returns>
-        public double Height
-        {
-            get
-            {
-                if (IsNull)
-                    return 0;
-                return maxy - miny;
-            }
-        }
-
-        /// <summary>
-        /// Returns the <c>Envelope</c>s minimum x-value. min x > max x
-        /// indicates that this is a null <c>Envelope</c>.
-        /// </summary>
-        /// <returns>The minimum x-coordinate.</returns>
-        public double MinX
-        {
-            get
-            {
-                return minx;
-            }
-        }
-
-        /// <summary>
-        /// Returns the <c>Envelope</c>s maximum x-value. min x > max x
-        /// indicates that this is a null <c>Envelope</c>.
-        /// </summary>
-        /// <returns>The maximum x-coordinate.</returns>
-        public double MaxX
-        {
-            get
-            {
-                return maxx;
-            }
-        }
-
-        /// <summary>
-        /// Returns the <c>Envelope</c>s minimum y-value. min y > max y
-        /// indicates that this is a null <c>Envelope</c>.
-        /// </summary>
-        /// <returns>The minimum y-coordinate.</returns>
-        public double MinY
-        {
-            get
-            {
-                return miny;
-            }
-        }
-
-        /// <summary>
-        /// Returns the <c>Envelope</c>s maximum y-value. min y > max y
-        /// indicates that this is a null <c>Envelope</c>.
-        /// </summary>
-        /// <returns>The maximum y-coordinate.</returns>
-        public double MaxY
-        {
-            get
-            {
-                return maxy;
-            }
+            MinX = 0;
+            MaxX = -1;
+            MinY = 0;
+            MaxY = -1;
         }
 
         /// <summary>
@@ -322,17 +420,21 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="deltaY">The distance to expand the envelope along the the Y axis.</param>
         public void ExpandBy(double deltaX, double deltaY)
         {
-            if (IsNull) 
+            if (IsNull)
+            {
                 return;
+            }
 
-            minx -= deltaX;
-            maxx += deltaX;
-            miny -= deltaY;
-            maxy += deltaY;
+            MinX -= deltaX;
+            MaxX += deltaX;
+            MinY -= deltaY;
+            MaxY += deltaY;
 
             // check for envelope disappearing
-            if (minx > maxx || miny > maxy)
+            if (MinX > MaxX || MinY > MaxY)
+            {
                 SetToNull();
+            }
         }
 
         /// <summary>
@@ -355,17 +457,29 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             if (IsNull)
             {
-                minx = x;
-                maxx = x;
-                miny = y;
-                maxy = y;
+                MinX = x;
+                MaxX = x;
+                MinY = y;
+                MaxY = y;
             }
             else
             {
-                if (x < minx) minx = x;                
-                if (x > maxx) maxx = x;
-                if (y < miny) miny = y;
-                if (y > maxy) maxy = y;
+                if (x < MinX)
+                {
+                    MinX = x;
+                }
+                if (x > MaxX)
+                {
+                    MaxX = x;
+                }
+                if (y < MinY)
+                {
+                    MinY = y;
+                }
+                if (y > MaxY)
+                {
+                    MaxY = y;
+                }
             }
         }
 
@@ -378,24 +492,34 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public void ExpandToInclude(IEnvelope other)
         {
             if (other == null || other.IsNull)
-                return;            
+            {
+                return;
+            }
             if (IsNull)
             {
-                minx = other.MinX;
-                maxx = other.MaxX;
-                miny = other.MinY;
-                maxy = other.MaxY;
+                MinX = other.MinX;
+                MaxX = other.MaxX;
+                MinY = other.MinY;
+                MaxY = other.MaxY;
             }
             else
             {
-                if (other.MinX < minx)
-                    minx = other.MinX;                
-                if (other.MaxX > maxx)
-                    maxx = other.MaxX;
-                if (other.MinY < miny)
-                    miny = other.MinY;
-                if (other.MaxY > maxy)
-                    maxy = other.MaxY;
+                if (other.MinX < MinX)
+                {
+                    MinX = other.MinX;
+                }
+                if (other.MaxX > MaxX)
+                {
+                    MaxX = other.MaxX;
+                }
+                if (other.MinY < MinY)
+                {
+                    MinY = other.MinY;
+                }
+                if (other.MaxY > MaxY)
+                {
+                    MaxY = other.MaxY;
+                }
             }
         }
 
@@ -406,25 +530,11 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="transY">The amount to translate along the Y axis.</param>
         public void Translate(double transX, double transY)
         {
-            if (IsNull) 
-                return;            
-            Init(MinX + transX, MaxX + transX, MinY + transY, MaxY + transY);
-        }
-
-        /// <summary>
-        /// Computes the coordinate of the centre of this envelope (as long as it is non-null).
-        /// </summary>
-        /// <returns>
-        /// The centre coordinate of this envelope, 
-        /// or <c>null</c> if the envelope is null.
-        /// </returns>.
-        public ICoordinate Centre
-        {
-            get
+            if (IsNull)
             {
-                if (IsNull) return null;
-                return new Coordinate((MinX + MaxX) / 2.0, (MinY + MaxY) / 2.0);
+                return;
             }
+            Init(MinX + transX, MaxX + transX, MinY + transY, MaxY + transY);
         }
 
         /// <summary>
@@ -434,14 +544,16 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <returns></returns>
         public IEnvelope Intersection(IEnvelope env)
         {
-            if (IsNull || env.IsNull || !Intersects(env)) 
+            if (IsNull || env.IsNull || !Intersects(env))
+            {
                 return new Envelope();
+            }
 
-            return new Envelope( Math.Max(MinX, env.MinX) ,
-                                 Math.Min(MaxX, env.MaxX) ,
-                                 Math.Max(MinY, env.MinY) ,
-                                 Math.Min(MaxY, env.MaxY) );
-        }        
+            return new Envelope(Math.Max(MinX, env.MinX),
+                                Math.Min(MaxX, env.MaxX),
+                                Math.Max(MinY, env.MinY),
+                                Math.Min(MaxY, env.MaxY));
+        }
 
         /// <summary> 
         /// Check if the region defined by <c>other</c>
@@ -456,10 +568,12 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public bool Intersects(IEnvelope other)
         {
             if (IsNull || other.IsNull)
-                return false;            
-            return !(other.MinX > maxx || other.MaxX < minx || other.MinY > maxy || other.MaxY < miny);
+            {
+                return false;
+            }
+            return !(other.MinX > MaxX || other.MaxX < MinX || other.MinY > MaxY || other.MaxY < MinY);
         }
-       
+
         /// <summary>
         /// Use Intersects instead. In the future, Overlaps may be
         /// changed to be a true overlap check; that is, whether the intersection is
@@ -471,7 +585,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public bool Overlaps(IEnvelope other)
         {
             return Intersects(other);
-        }        
+        }
 
         /// <summary>
         /// Use Intersects instead.
@@ -514,7 +628,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <returns><c>true</c> if the point overlaps this <c>Envelope</c>.</returns>
         public bool Intersects(double x, double y)
         {
-            return !(x > maxx || x < minx || y > maxy || y < miny);
+            return !(x > MaxX || x < MinX || y > MaxY || y < MinY);
         }
 
         /// <summary>  
@@ -542,7 +656,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// on the boundary of this <c>Envelope</c>.</returns>
         public bool Contains(double x, double y)
         {
-            return x >= minx && x <= maxx && y >= miny && y <= maxy;
+            return x >= MinX && x <= MaxX && y >= MinY && y <= MaxY;
         }
 
         /// <summary>  
@@ -554,9 +668,11 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public bool Contains(IEnvelope other)
         {
             if (IsNull || other.IsNull)
-                return false;            
-            return  other.MinX >= minx && other.MaxX <= maxx && 
-                other.MinY >= miny && other.MaxY <= maxy;
+            {
+                return false;
+            }
+            return other.MinX >= MinX && other.MaxX <= MaxX &&
+                   other.MinY >= MinY && other.MaxY <= MaxY;
         }
 
         /// <summary> 
@@ -569,43 +685,43 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public double Distance(IEnvelope env)
         {
             if (Intersects(env))
+            {
                 return 0;
+            }
 
             double dx = 0.0;
 
-            if (maxx < env.MinX)
-                dx = env.MinX - maxx;
-            if (minx > env.MaxX)
-                dx = minx - env.MaxX;
+            if (MaxX < env.MinX)
+            {
+                dx = env.MinX - MaxX;
+            }
+            if (MinX > env.MaxX)
+            {
+                dx = MinX - env.MaxX;
+            }
 
             double dy = 0.0;
 
-            if (maxy < env.MinY)
-                dy = env.MinY - maxy;
-            if (miny > env.MaxY)
-                dy = miny - env.MaxY;
+            if (MaxY < env.MinY)
+            {
+                dy = env.MinY - MaxY;
+            }
+            if (MinY > env.MaxY)
+            {
+                dy = MinY - env.MaxY;
+            }
 
             // if either is zero, the envelopes overlap either vertically or horizontally
-            if (dx == 0.0) return dy;
-            if (dy == 0.0) return dx;
+            if (dx == 0.0)
+            {
+                return dy;
+            }
+            if (dy == 0.0)
+            {
+                return dx;
+            }
 
-            return Math.Sqrt(dx * dx + dy * dy);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public override bool Equals(object other)
-        {
-            if (other == null)
-                return false;
-
-            if (!(other is Envelope)) 
-                return false;
-
-            return Equals((IEnvelope) other);
+            return Math.Sqrt(dx*dx + dy*dy);
         }
 
         /// <summary>
@@ -616,10 +732,15 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public bool Equals(IEnvelope other)
         {
             if (IsNull)
+            {
                 return other.IsNull;
-            if(other==null    ) return false;
-            return  maxx == other.MaxX && maxy == other.MaxY &&
-                    minx == other.MinX && miny == other.MinY;
+            }
+            if (other == null)
+            {
+                return false;
+            }
+            return MaxX == other.MaxX && MaxY == other.MaxY &&
+                   MinX == other.MinX && MinY == other.MinY;
         }
 
         /// <summary>
@@ -630,7 +751,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public int CompareTo(object other)
         {
             return CompareTo((IEnvelope) other);
-            
         }
 
         /// <summary>
@@ -641,71 +761,27 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public int CompareTo(IEnvelope other)
         {
             if (IsNull && other.IsNull)
+            {
                 return 0;
+            }
             else if (!IsNull && other.IsNull)
+            {
                 return 1;
+            }
             else if (IsNull && !other.IsNull)
+            {
                 return -1;
+            }
 
             if (Area > other.Area)
+            {
                 return 1;
+            }
             if (Area < other.Area)
-                return - 1;
+            {
+                return -1;
+            }
             return 0;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public override int GetHashCode()
-        {
-            int result = 17;
-            result = 37 * result + GetHashCode(minx);
-            result = 37 * result + GetHashCode(maxx);
-            result = 37 * result + GetHashCode(miny);
-            result = 37 * result + GetHashCode(maxy);
-            return result;
-        }
-
-        /// <summary>
-        /// Return HashCode.
-        /// </summary>
-        /// <param name="x">Value from HashCode computation.</param>
-        private static int GetHashCode(double value)
-        {
-            long f = BitConverter.DoubleToInt64Bits(value);
-            return (int) (f ^ (f >> 32));
-        }
-        
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="obj1"></param>
-        /// <param name="obj2"></param>
-        /// <returns></returns>
-        public static bool operator ==(Envelope obj1, Envelope obj2)
-        {
-            return Equals(obj1, obj2);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj1"></param>
-        /// <param name="obj2"></param>
-        /// <returns></returns>
-        public static bool operator !=(Envelope obj1, Envelope obj2)
-        {
-            return !(obj1 == obj2);
-        }     
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return "Env[" + minx + " : " + maxx + ", " + miny + " : " + maxy + "]";
         }
 
         /// <summary>
@@ -715,31 +791,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         object ICloneable.Clone()
         {
             return Clone();
-        }
-
-        /* BEGIN ADDED BY MPAUL42: monoGIS team */
-        
-        /// <summary>
-        /// Returns the area of the envelope.
-        /// </summary>
-        public double Area
-        {
-            get
-            {
-                double area = 1;
-                area = area * (maxx - minx);
-                area = area * (maxy - miny);
-                return area;
-            }
-        }
-  
-        /// <summary>
-        /// Creates a deep copy of the current envelope.
-        /// </summary>
-        /// <returns></returns>
-        public IEnvelope Clone()
-        {
-            return new Envelope(minx, maxx, miny, maxy);
         }
 
         /// <summary>
@@ -755,7 +806,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </summary>
         public IEnvelope Union(ICoordinate coord)
         {
-            Envelope env = (Envelope) this.Clone();
+            Envelope env = (Envelope) Clone();
             env.ExpandToInclude(coord);
             return env;
         }
@@ -766,14 +817,18 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public IEnvelope Union(IEnvelope box)
         {
             if (box.IsNull)
+            {
                 return this;
-            if (this.IsNull)
+            }
+            if (IsNull)
+            {
                 return box;
+            }
 
-            return new Envelope( Math.Min(minx, box.MinX) ,
-                                 Math.Max(maxx, box.MaxX) ,
-                                 Math.Min(miny, box.MinY) ,
-                                 Math.Max(maxy, box.MaxY) );
+            return new Envelope(Math.Min(MinX, box.MinX),
+                                Math.Max(MaxX, box.MaxX),
+                                Math.Min(MinY, box.MinY),
+                                Math.Max(MaxY, box.MaxY));
         }
 
         /// <summary>
@@ -823,10 +878,10 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="height">The new height.</param>
         public void SetCentre(ICoordinate centre, double width, double height)
         {
-            minx = centre.X - (width / 2);
-            maxx = centre.X + (width / 2);
-            miny = centre.Y - (height / 2);
-            maxy = centre.Y + (height / 2);
+            MinX = centre.X - (width/2);
+            MaxX = centre.X + (width/2);
+            MinY = centre.Y - (height/2);
+            MaxY = centre.Y + (height/2);
         }
 
         /// <summary>
@@ -843,11 +898,21 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// </example>
         public void Zoom(double perCent)
         {
-            double w = (this.Width * perCent / 100);
-            double h = (this.Height * perCent / 100);
+            double w = (Width*perCent/100);
+            double h = (Height*perCent/100);
             SetCentre(w, h);
         }
-        
+
+        /// <summary>
+        /// Return HashCode.
+        /// </summary>
+        /// <param name="x">Value from HashCode computation.</param>
+        private static int GetHashCode(double value)
+        {
+            long f = BitConverter.DoubleToInt64Bits(value);
+            return (int) (f ^ (f >> 32));
+        }
+
         /* END ADDED BY MPAUL42: monoGIS team */
     }
 }

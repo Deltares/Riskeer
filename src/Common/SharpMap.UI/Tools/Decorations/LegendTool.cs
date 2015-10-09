@@ -7,6 +7,7 @@ using SharpMap.Api.Layers;
 using SharpMap.Layers;
 using SharpMap.Rendering.Thematics;
 using SharpMap.Styles;
+using SharpMap.UI.Properties;
 
 namespace SharpMap.UI.Tools.Decorations
 {
@@ -15,14 +16,14 @@ namespace SharpMap.UI.Tools.Decorations
     /// </summary>
     public class LegendTool : LayoutComponentTool
     {
+        private const int Indent = 10;
+        private static readonly Bitmap layerThemeSymbol = Resources.legendlayergroupsymbol;
         private Size calculatedSize;
         private bool initScreenPosition;
 
         // Visual settings
         private Size padding = new Size(3, 3);
-        private const int Indent = 10;
         private Font legendFont = new Font("Arial", 10);
-        private static readonly Bitmap layerThemeSymbol = Properties.Resources.legendlayergroupsymbol;
 
         public LegendTool()
         {
@@ -31,12 +32,31 @@ namespace SharpMap.UI.Tools.Decorations
         }
 
         /// <summary>
+        /// The size of the legend component (which can't be set but rather is a result of 
+        /// the actual layer texts to show).
+        /// </summary>
+        public override Size Size
+        {
+            get
+            {
+                return calculatedSize;
+            }
+            set {} // Ignore new size
+        }
+
+        /// <summary>
         /// The amount of pixels skipped between the border and legend text (both top and bottom)
         /// </summary>
         public Size Padding
         {
-            get { return padding; }
-            set { padding = value; }
+            get
+            {
+                return padding;
+            }
+            set
+            {
+                padding = value;
+            }
         }
 
         /// <summary>
@@ -44,21 +64,14 @@ namespace SharpMap.UI.Tools.Decorations
         /// </summary>
         public Font LegendFont
         {
-            get { return legendFont; }
+            get
+            {
+                return legendFont;
+            }
             set
             {
                 legendFont = value;
             }
-        }
-
-        /// <summary>
-        /// The size of the legend component (which can't be set but rather is a result of 
-        /// the actual layer texts to show).
-        /// </summary>
-        public override Size Size
-        {
-            get { return calculatedSize; }
-            set { } // Ignore new size
         }
 
         public override void Render(Graphics graphics, Map mapBox)
@@ -75,7 +88,10 @@ namespace SharpMap.UI.Tools.Decorations
             }
 
             // create root item
-            var root = new LegendToolItem {Padding = Padding, Font = legendFont, Graphics = graphics};
+            var root = new LegendToolItem
+            {
+                Padding = Padding, Font = legendFont, Graphics = graphics
+            };
 
             root.AddItem("Legend", true);
 
@@ -93,7 +109,9 @@ namespace SharpMap.UI.Tools.Decorations
             calculatedSize = newSize;
 
             if (legendIsGrowing) //if we are growing, make sure we stay within the map area
-                CorrectScreenLocation(); 
+            {
+                CorrectScreenLocation();
+            }
 
             // Paint a semi-transparent background
             using (var bgBrush = new SolidBrush(GetBackGroundColor()))
@@ -114,7 +132,7 @@ namespace SharpMap.UI.Tools.Decorations
 
             // draw root item
             DrawLegendItem(graphics, root, screenLocation.X, screenLocation.Y);
-            
+
             base.Render(graphics, mapBox);
         }
 
@@ -122,7 +140,10 @@ namespace SharpMap.UI.Tools.Decorations
         {
             foreach (ILayer layer in layers)
             {
-                if ((!layer.Visible) || (!layer.ShowInLegend)) continue;
+                if ((!layer.Visible) || (!layer.ShowInLegend))
+                {
+                    continue;
+                }
 
                 if (layer is IGroupLayer)
                 {
@@ -131,7 +152,7 @@ namespace SharpMap.UI.Tools.Decorations
                     AddLayerThemeItems(newParent, ((IGroupLayer) layer).Layers);
                     continue;
                 }
-                
+
                 if (layer is VectorLayer)
                 {
                     AddLayerToLegend(layer as VectorLayer, parent);
@@ -152,7 +173,7 @@ namespace SharpMap.UI.Tools.Decorations
                 AddThemeItemsAsLegendItems(layer.Theme.ThemeItems, layerItem, false);
             }
         }
-        
+
         private static void AddLayerToLegend(VectorLayer layer, LegendToolItem parent)
         {
             // Add a legendItem for this layer
@@ -219,7 +240,7 @@ namespace SharpMap.UI.Tools.Decorations
             if (hasText)
             {
                 curX += (hasSymbol) ? padding.Width : 0;
-                
+
                 var deltaY = (toolItem.InternalSize.Height - graphics.MeasureString(toolItem.Text, toolItem.Font).Height)/2;
                 graphics.DrawString(toolItem.Text, toolItem.Font, Brushes.Black, curX, y + deltaY);
             }

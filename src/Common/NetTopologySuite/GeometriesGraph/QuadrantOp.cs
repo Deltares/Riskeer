@@ -11,13 +11,13 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
     /// 2 | 3
     /// </para>
     /// </summary>
-    public class QuadrantOp 
+    public class QuadrantOp
     {
         /// <summary>
         /// Only static methods!
         /// </summary>
-        private QuadrantOp() { }
-             
+        private QuadrantOp() {}
+
         /// <summary> 
         /// Returns the quadrant of a directed line segment (specified as x and y
         /// displacements, which cannot both be 0).
@@ -27,18 +27,30 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         public static int Quadrant(double dx, double dy)
         {
             if (dx == 0.0 && dy == 0.0)
-                throw new ArgumentException("Cannot compute the quadrant for point ( "+ dx + ", " + dy + " )" );
-            if (dx >= 0) 
+            {
+                throw new ArgumentException("Cannot compute the quadrant for point ( " + dx + ", " + dy + " )");
+            }
+            if (dx >= 0)
             {
                 if (dy >= 0)
-                     return 0;
-                else return 3;
+                {
+                    return 0;
+                }
+                else
+                {
+                    return 3;
+                }
             }
-            else 
+            else
             {
-	            if (dy >= 0) 
-                     return 1;
-	            else return 2;
+                if (dy >= 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 2;
+                }
             }
         }
 
@@ -52,7 +64,9 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
             double dx = p1.X - p0.X;
             double dy = p1.Y - p0.Y;
             if (dx == 0.0 && dy == 0.0)
+            {
                 throw new ArgumentException("Cannot compute the quadrant for two identical points " + p0);
+            }
             return Quadrant(dx, dy);
         }
 
@@ -63,12 +77,16 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <param name="quad2"></param>
         public static bool IsOpposite(int quad1, int quad2)
         {
-            if (quad1 == quad2) 
+            if (quad1 == quad2)
+            {
                 return false;
-            int diff = (quad1 - quad2 + 4) % 4;
+            }
+            int diff = (quad1 - quad2 + 4)%4;
             // if quadrants are not adjacent, they are opposite
             if (diff == 2)
+            {
                 return true;
+            }
             return false;
         }
 
@@ -82,18 +100,24 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         {
             // if quadrants are the same they do not determine a unique common halfplane.
             // Simply return one of the two possibilities
-            if (quad1 == quad2) 
+            if (quad1 == quad2)
+            {
                 return quad1;
-            int diff = (quad1 - quad2 + 4) % 4;
+            }
+            int diff = (quad1 - quad2 + 4)%4;
             // if quadrants are not adjacent, they do not share a common halfplane
-            if (diff == 2) 
+            if (diff == 2)
+            {
                 return -1;
-            
+            }
+
             int min = (quad1 < quad2) ? quad1 : quad2;
             int max = (quad1 > quad2) ? quad1 : quad2;
             // for this one case, the righthand plane is NOT the minimum index;
             if (min == 0 && max == 3)
+            {
                 return 3;
+            }
             // in general, the halfplane index is the minimum of the two adjacent quadrants
             return min;
         }
@@ -106,8 +130,10 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <param name="halfPlane"></param>
         public static bool IsInHalfPlane(int quad, int halfPlane)
         {
-            if (halfPlane == 3) 
-                return quad == 3 || quad == 0;            
+            if (halfPlane == 3)
+            {
+                return quad == 3 || quad == 0;
+            }
             return quad == halfPlane || quad == halfPlane + 1;
         }
 

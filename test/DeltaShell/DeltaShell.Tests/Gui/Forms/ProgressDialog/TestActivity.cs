@@ -10,10 +10,6 @@ namespace DeltaShell.Tests.Gui.Forms.ProgressDialog
         private readonly TimeSpan initializationTime;
         private readonly TimeSpan executionTime;
         private bool doCancel;
-        private void Log(string message)
-        {
-            Debug.WriteLine(string.Format("{0}:{1}", Name, message));
-        }
 
         public TestActivity(int initializationTimeInSeconds, int executionTimeInSeconds, string name)
         {
@@ -32,9 +28,9 @@ namespace DeltaShell.Tests.Gui.Forms.ProgressDialog
                 if (doCancel)
                 {
                     Log("Cancelled");
-                    return;//todo set status etc
+                    return; //todo set status etc
                 }
-                Thread.Sleep(100);//sleep it off :)
+                Thread.Sleep(100); //sleep it off :)
             }
             Log("Finished initialization");
         }
@@ -48,9 +44,9 @@ namespace DeltaShell.Tests.Gui.Forms.ProgressDialog
                 if (doCancel)
                 {
                     Log("Cancelled");
-                    return;//todo set status etc
+                    return; //todo set status etc
                 }
-                Thread.Sleep(100);//sleep it off :)
+                Thread.Sleep(100); //sleep it off :)
             }
             Log("Finished execution");
 
@@ -62,12 +58,13 @@ namespace DeltaShell.Tests.Gui.Forms.ProgressDialog
             doCancel = true;
         }
 
-        protected override void OnCleanUp()
-        {
-        }
+        protected override void OnCleanUp() {}
 
-        protected override void OnFinish()
+        protected override void OnFinish() {}
+
+        private void Log(string message)
         {
+            Debug.WriteLine(string.Format("{0}:{1}", Name, message));
         }
     }
 }

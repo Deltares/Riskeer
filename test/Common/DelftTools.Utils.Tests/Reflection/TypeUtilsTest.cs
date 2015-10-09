@@ -16,67 +16,11 @@ namespace DelftTools.Utils.Tests.Reflection
     [TestFixture]
     public class TypeUtilsTest
     {
-        private enum TestEnum
-        {
-            [System.ComponentModel.Description("Enum value 1")]
-            Value1,
-
-            [System.ComponentModel.Description("Enum value 2")]
-            Value2
-        }
-
-        private class TestClass
-        {
-            private int privateInt;
-            private static int privateStaticInt;
-
-            public TestClass()
-            {
-            }
-
-            public TestClass(int privateInt, int privateStaticInt = 0)
-            {
-                this.privateInt = privateInt;
-                TestClass.privateStaticInt = privateStaticInt;
-            }
-
-            private int PrivateMethod(int i)
-            {
-                return i * 2;
-            }
-
-            private static int PrivateStaticMethod(int i)
-            {
-                return i + 1;
-            }
-
-            [System.ComponentModel.Description("Public Property")]
-            public double PublicProperty
-            {
-                get; set;
-            }
-
-            public double PublicPropertyPrivateSetter
-            {
-                get; private set;
-            }
-
-            [System.ComponentModel.Description("Public Field")]
-            public int PublicField;
-        }
-        
-        private class DerivedTestClass : TestClass
-        {
-            public DerivedTestClass(int privateInt) : base(privateInt)
-            {
-            }
-        }
-
         [Test]
         public void GetFieldAttribute()
         {
             Assert.AreEqual("Public Field", TypeUtils.GetFieldAttribute<DescriptionAttribute>(typeof(TestClass), "PublicField").Description);
-            
+
             //also works for static classes such as Enum
             Assert.AreEqual("Enum value 2", TypeUtils.GetFieldAttribute<DescriptionAttribute>(typeof(TestEnum), "Value2").Description);
         }
@@ -91,7 +35,7 @@ namespace DelftTools.Utils.Tests.Reflection
         public void GetMemberDescription()
         {
             var testClass = new TestClass(22);
-            Assert.AreEqual("Public Property", TypeUtils.GetMemberDescription(()=>testClass.PublicProperty));
+            Assert.AreEqual("Public Property", TypeUtils.GetMemberDescription(() => testClass.PublicProperty));
         }
 
         [Test]
@@ -105,7 +49,7 @@ namespace DelftTools.Utils.Tests.Reflection
         public void GetPrivateField()
         {
             TestClass testClass = new TestClass(22);
-            Assert.AreEqual(22, TypeUtils.GetField(testClass,"privateInt"));
+            Assert.AreEqual(22, TypeUtils.GetField(testClass, "privateInt"));
         }
 
         [Test]
@@ -119,7 +63,7 @@ namespace DelftTools.Utils.Tests.Reflection
         public void SetField()
         {
             var testClass = new TestClass(22);
-            TypeUtils.SetField(testClass,"privateInt",23);
+            TypeUtils.SetField(testClass, "privateInt", 23);
             Assert.AreEqual(23, TypeUtils.GetField(testClass, "privateInt"));
         }
 
@@ -155,34 +99,22 @@ namespace DelftTools.Utils.Tests.Reflection
             TypeUtils.GetField<TestClass, int>(testClass, "nonExistingField");
         }
 
-        /// Dont'remove used by reflection test below
-        private T ReturnValue<T>(T value)
-        {
-            return value;
-        }
-        
-        /// Dont'remove used by reflection test below
-        private void VoidMethod<T>(T value)
-        {
-            T copy = value;
-        }
-
         [Test]
         public void CallGenericMethodUsingDynamicType()
         {
-            int value = (int)TypeUtils.CallGenericMethod(GetType(),"ReturnValue",  typeof(int), this, 8);
-            Assert.AreEqual(8,value);
+            int value = (int) TypeUtils.CallGenericMethod(GetType(), "ReturnValue", typeof(int), this, 8);
+            Assert.AreEqual(8, value);
 
-            DateTime t = (DateTime)TypeUtils.CallGenericMethod(GetType(),"ReturnValue",typeof(DateTime),this, new DateTime(2000,1,1));
+            DateTime t = (DateTime) TypeUtils.CallGenericMethod(GetType(), "ReturnValue", typeof(DateTime), this, new DateTime(2000, 1, 1));
             Assert.AreEqual(new DateTime(2000, 1, 1), t);
 
-            TypeUtils.CallGenericMethod(GetType(), "VoidMethod", typeof (int), this, 2);
+            TypeUtils.CallGenericMethod(GetType(), "VoidMethod", typeof(int), this, 2);
         }
 
         [Test]
         public void CallStaticMethod()
         {
-            IEnumerable values = Enumerable.Range(1,4);
+            IEnumerable values = Enumerable.Range(1, 4);
             var b = Enumerable.Cast<int>(values);
             Assert.IsTrue(b is IEnumerable<int>);
             //same call dynamic :)
@@ -207,32 +139,29 @@ namespace DelftTools.Utils.Tests.Reflection
         public void ConvertEnumerableToType()
         {
             IEnumerable values = Enumerable.Repeat(1.0, 10);
-            Assert.IsTrue(TypeUtils.ConvertEnumerableToType(values, typeof (double)) is IEnumerable<double>);
+            Assert.IsTrue(TypeUtils.ConvertEnumerableToType(values, typeof(double)) is IEnumerable<double>);
         }
 
         [Test]
         public void TestGetFirstGenericType()
         {
             IList<int> listInt = new List<int>();
-            Assert.AreEqual(typeof (int), TypeUtils.GetFirstGenericTypeParameter(listInt.GetType()));
+            Assert.AreEqual(typeof(int), TypeUtils.GetFirstGenericTypeParameter(listInt.GetType()));
             //do it on a non generic type and expect null
-            Assert.IsNull(TypeUtils.GetFirstGenericTypeParameter(typeof (int)));
-            
+            Assert.IsNull(TypeUtils.GetFirstGenericTypeParameter(typeof(int)));
         }
 
         [Test]
         public void CreateGeneric()
         {
-            Assert.IsTrue(TypeUtils.CreateGeneric(typeof (List<>), typeof (int)) is List<int>);
-            
-            
+            Assert.IsTrue(TypeUtils.CreateGeneric(typeof(List<>), typeof(int)) is List<int>);
         }
 
         [Test]
         public void GetDefaultValue()
         {
-            Assert.AreEqual(0,TypeUtils.GetDefaultValue(typeof(int)));
-            Assert.AreEqual(null,TypeUtils.GetDefaultValue(typeof(List<int>)));
+            Assert.AreEqual(0, TypeUtils.GetDefaultValue(typeof(int)));
+            Assert.AreEqual(null, TypeUtils.GetDefaultValue(typeof(List<int>)));
         }
 
         [Test]
@@ -263,41 +192,34 @@ namespace DelftTools.Utils.Tests.Reflection
             //assembly of this test class is not dynamic
             Assert.IsFalse(GetType().Assembly.IsDynamic());
         }
-        public Assembly GetDynamicAssembly()
-        {
-            // Get the current Application Domain.
-            // This is needed when building code.
-            var currentDomain = AppDomain.CurrentDomain;
 
-            // Create a new Assembly for Methods
-            var assemName = new AssemblyName { Name = "dynamicAssembly" };
-            var assemBuilder = currentDomain.DefineDynamicAssembly(assemName, AssemblyBuilderAccess.Run);
-
-            // Create a new module within this assembly
-            var moduleBuilder = assemBuilder.DefineDynamicModule("dynamicAssemblyModule");
-
-
-            // Create a new type within the module
-            return moduleBuilder.Assembly;
-        }
         [Test]
         public void GetPropertyBaseClass()
         {
-            var derivedTestClass = new DerivedTestClass(1) {PublicProperty = 1.0d};
-            Assert.AreEqual(1.0d,TypeUtils.GetPropertyValue(derivedTestClass,"PublicProperty"));
+            var derivedTestClass = new DerivedTestClass(1)
+            {
+                PublicProperty = 1.0d
+            };
+            Assert.AreEqual(1.0d, TypeUtils.GetPropertyValue(derivedTestClass, "PublicProperty"));
         }
 
         [Test]
         public void GetValueUsesMostSpecificImplementation()
         {
-            var testClass = new OverridingClass {Data = 5};
+            var testClass = new OverridingClass
+            {
+                Data = 5
+            };
             Assert.AreEqual(5, TypeUtils.GetPropertyValue(testClass, "Data"));
         }
 
         [Test]
         public void GetFieldFromBaseClass()
         {
-            var derivedTestClass = new DerivedTestClass(1) { PublicProperty = 1.0d };
+            var derivedTestClass = new DerivedTestClass(1)
+            {
+                PublicProperty = 1.0d
+            };
             derivedTestClass.PublicField = 2;
             Assert.AreEqual(2, TypeUtils.GetField(derivedTestClass, "PublicField"));
         }
@@ -306,7 +228,7 @@ namespace DelftTools.Utils.Tests.Reflection
         public void SetPrivateFieldFromBaseClass()
         {
             var derivedTestClass = new DerivedTestClass(1);
-            TypeUtils.SetField(derivedTestClass,"privateInt",10);
+            TypeUtils.SetField(derivedTestClass, "privateInt", 10);
 
             Assert.AreEqual(10, TypeUtils.GetField(derivedTestClass, "privateInt"));
         }
@@ -330,12 +252,15 @@ namespace DelftTools.Utils.Tests.Reflection
             var instances = new List<object>();
             PropertyChangedEventHandler handler = (s, e) => instances.Add(s);
 
-            var inst = new CloneTestClass {Name = "name1"};
+            var inst = new CloneTestClass
+            {
+                Name = "name1"
+            };
             ((INotifyPropertyChange) inst).PropertyChanged += handler;
 
-            var clonedInst = (CloneTestClass)inst.Clone();
+            var clonedInst = (CloneTestClass) inst.Clone();
             ((INotifyPropertyChange) clonedInst).PropertyChanged += handler;
-            
+
             inst.Id = 1;
             inst.Name = "blah";
             clonedInst.Name = "blah2";
@@ -350,14 +275,17 @@ namespace DelftTools.Utils.Tests.Reflection
             var instances = new List<object>();
             PropertyChangedEventHandler handler = (s, e) => instances.Add(s);
 
-            var inst = new CloneTestClass {Id = 5, Name = "name1"};
-            ((INotifyPropertyChange)inst).PropertyChanged += handler;
+            var inst = new CloneTestClass
+            {
+                Id = 5, Name = "name1"
+            };
+            ((INotifyPropertyChange) inst).PropertyChanged += handler;
 
             var clonedInst = TypeUtils.DeepClone(inst);
 
             Assert.AreEqual(inst.Name, clonedInst.Name);
 
-            ((INotifyPropertyChange)clonedInst).PropertyChanged += handler;
+            ((INotifyPropertyChange) clonedInst).PropertyChanged += handler;
 
             inst.Id = 1;
             inst.Name = "blah";
@@ -373,14 +301,17 @@ namespace DelftTools.Utils.Tests.Reflection
             var instances = new List<object>();
             PropertyChangedEventHandler handler = (s, e) => instances.Add(s);
 
-            var inst = new CloneTestClass { Name = "name1" };
-            ((INotifyPropertyChange)inst).PropertyChanged += handler;
+            var inst = new CloneTestClass
+            {
+                Name = "name1"
+            };
+            ((INotifyPropertyChange) inst).PropertyChanged += handler;
 
             var clonedInst = TypeUtils.MemberwiseClone(inst);
-            
+
             Assert.AreEqual(inst.Name, clonedInst.Name);
 
-            ((INotifyPropertyChange)clonedInst).PropertyChanged += handler;
+            ((INotifyPropertyChange) clonedInst).PropertyChanged += handler;
 
             inst.Id = 1;
             inst.Name = "blah";
@@ -396,7 +327,10 @@ namespace DelftTools.Utils.Tests.Reflection
             var otherName = "onm";
             var name = "nm";
 
-            var inst = new SuperCloneTestClass {OtherName = otherName, Name = name};
+            var inst = new SuperCloneTestClass
+            {
+                OtherName = otherName, Name = name
+            };
 
             var clone = TypeUtils.MemberwiseClone(inst);
 
@@ -404,26 +338,105 @@ namespace DelftTools.Utils.Tests.Reflection
             Assert.AreEqual(name, clone.Name);
         }
 
-        [Entity(FireOnCollectionChange=false)]
+        private enum TestEnum
+        {
+            [Description("Enum value 1")]
+            Value1,
+
+            [Description("Enum value 2")]
+            Value2
+        }
+
+        private class TestClass
+        {
+            private static int privateStaticInt;
+
+            [Description("Public Field")]
+            public int PublicField;
+
+            private int privateInt;
+
+            public TestClass() {}
+
+            public TestClass(int privateInt, int privateStaticInt = 0)
+            {
+                this.privateInt = privateInt;
+                TestClass.privateStaticInt = privateStaticInt;
+            }
+
+            [Description("Public Property")]
+            public double PublicProperty { get; set; }
+
+            public double PublicPropertyPrivateSetter { get; private set; }
+
+            private int PrivateMethod(int i)
+            {
+                return i*2;
+            }
+
+            private static int PrivateStaticMethod(int i)
+            {
+                return i + 1;
+            }
+        }
+
+        private class DerivedTestClass : TestClass
+        {
+            public DerivedTestClass(int privateInt) : base(privateInt) {}
+        }
+
+        /// Dont'remove used by reflection test below
+        private T ReturnValue<T>(T value)
+        {
+            return value;
+        }
+
+        /// Dont'remove used by reflection test below
+        private void VoidMethod<T>(T value)
+        {
+            T copy = value;
+        }
+
+        public Assembly GetDynamicAssembly()
+        {
+            // Get the current Application Domain.
+            // This is needed when building code.
+            var currentDomain = AppDomain.CurrentDomain;
+
+            // Create a new Assembly for Methods
+            var assemName = new AssemblyName
+            {
+                Name = "dynamicAssembly"
+            };
+            var assemBuilder = currentDomain.DefineDynamicAssembly(assemName, AssemblyBuilderAccess.Run);
+
+            // Create a new module within this assembly
+            var moduleBuilder = assemBuilder.DefineDynamicModule("dynamicAssemblyModule");
+
+            // Create a new type within the module
+            return moduleBuilder.Assembly;
+        }
+
+        [Entity(FireOnCollectionChange = false)]
         internal class CloneTestClass
         {
             public long Id { get; set; }
             public string Name { get; set; }
-            
+
             public object Clone()
             {
                 return MemberwiseClone(); //intensionally wrong
             }
         }
-        
-        [Entity(FireOnCollectionChange=false)]
-        internal class SuperCloneTestClassWithReference : TypeUtilsTest.SuperCloneTestClass
+
+        [Entity(FireOnCollectionChange = false)]
+        internal class SuperCloneTestClassWithReference : SuperCloneTestClass
         {
             public string OtherName { get; set; }
-            public TypeUtilsTest.CloneTestClass Peer { get; set; }
+            public CloneTestClass Peer { get; set; }
         }
-        
-        [Entity(FireOnCollectionChange=false)]
+
+        [Entity(FireOnCollectionChange = false)]
         internal class SuperCloneTestClass : CloneTestClass
         {
             public string OtherName { get; set; }

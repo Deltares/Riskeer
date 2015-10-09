@@ -16,16 +16,16 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
     /// </summary>
     public class BufferSubgraph : IComparable
     {
-        private RightmostEdgeFinder finder;
-        private IList dirEdgeList  = new ArrayList();
-        private IList nodes        = new ArrayList();
-        private ICoordinate rightMostCoord = null;
+        private readonly RightmostEdgeFinder finder;
+        private readonly IList dirEdgeList = new ArrayList();
+        private readonly IList nodes = new ArrayList();
 
         /// <summary>
         /// 
         /// </summary>
         public BufferSubgraph()
         {
+            RightMostCoordinate = null;
             finder = new RightmostEdgeFinder();
         }
 
@@ -54,13 +54,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         /// <summary>
         /// Gets the rightmost coordinate in the edges of the subgraph.
         /// </summary>
-        public ICoordinate RightMostCoordinate
-        {
-            get
-            {
-                return rightMostCoord;
-            }
-        }
+        public ICoordinate RightMostCoordinate { get; private set; }
 
         /// <summary>
         /// Creates the subgraph consisting of all edges reachable from this node.
@@ -71,7 +65,72 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         {
             AddReachable(node);
             finder.FindEdge(dirEdgeList);
-            rightMostCoord = finder.Coordinate;
+            RightMostCoordinate = finder.Coordinate;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="outsideDepth"></param>
+        public void ComputeDepth(int outsideDepth)
+        {
+            ClearVisitedEdges();
+            // find an outside edge to assign depth to
+            DirectedEdge de = finder.Edge;
+            // right side of line returned by finder is on the outside
+            de.SetEdgeDepths(Positions.Right, outsideDepth);
+            CopySymDepths(de);
+            ComputeDepths(de);
+        }
+
+        /// <summary>
+        /// Find all edges whose depths indicates that they are in the result area(s).
+        /// Since we want polygon shells to be
+        /// oriented CW, choose dirEdges with the interior of the result on the RHS.
+        /// Mark them as being in the result.
+        /// Interior Area edges are the result of dimensional collapses.
+        /// They do not form part of the result area boundary.
+        /// </summary>
+        public void FindResultEdges()
+        {
+            for (IEnumerator it = dirEdgeList.GetEnumerator(); it.MoveNext();)
+            {
+                DirectedEdge de = (DirectedEdge) it.Current;
+                /*
+                * Select edges which have an interior depth on the RHS
+                * and an exterior depth on the LHS.
+                * Note that because of weird rounding effects there may be
+                * edges which have negative depths!  Negative depths
+                * count as "outside".
+                */
+                // <FIX> - handle negative depths
+                if (de.GetDepth(Positions.Right) >= 1 && de.GetDepth(Positions.Left) <= 0 && !de.IsInteriorAreaEdge)
+                {
+                    de.InResult = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// BufferSubgraphs are compared on the x-value of their rightmost Coordinate.
+        /// This defines a partial ordering on the graphs such that:
+        /// g1 >= g2 - Ring(g2) does not contain Ring(g1)
+        /// where Polygon(g) is the buffer polygon that is built from g.
+        /// This relationship is used to sort the BufferSubgraphs so that shells are guaranteed to
+        /// be built before holes.
+        /// </summary>
+        public int CompareTo(Object o)
+        {
+            BufferSubgraph graph = (BufferSubgraph) o;
+            if (RightMostCoordinate.X < graph.RightMostCoordinate.X)
+            {
+                return -1;
+            }
+            if (RightMostCoordinate.X > graph.RightMostCoordinate.X)
+            {
+                return 1;
+            }
+            return 0;
         }
 
         /// <summary>
@@ -83,7 +142,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         {
             Stack nodeStack = new Stack();
             nodeStack.Push(startNode);
-            while (nodeStack.Count != 0) 
+            while (nodeStack.Count != 0)
             {
                 Node node = (Node) nodeStack.Pop();
                 Add(node, nodeStack);
@@ -99,7 +158,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         {
             node.Visited = true;
             nodes.Add(node);
-            for (IEnumerator i = ((DirectedEdgeStar) node.Edges).GetEnumerator(); i.MoveNext(); ) 
+            for (IEnumerator i = ((DirectedEdgeStar) node.Edges).GetEnumerator(); i.MoveNext();)
             {
                 DirectedEdge de = (DirectedEdge) i.Current;
                 dirEdgeList.Add(de);
@@ -110,8 +169,10 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
                 * This will cause a large depth of recursion.
                 * It might be better to do a breadth-first traversal.
                 */
-                if (! symNode.IsVisited) 
+                if (!symNode.IsVisited)
+                {
                     nodeStack.Push(symNode);
+                }
             }
         }
 
@@ -120,26 +181,11 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         /// </summary>
         private void ClearVisitedEdges()
         {
-            for (IEnumerator it = dirEdgeList.GetEnumerator(); it.MoveNext(); ) 
+            for (IEnumerator it = dirEdgeList.GetEnumerator(); it.MoveNext();)
             {
                 DirectedEdge de = (DirectedEdge) it.Current;
                 de.Visited = false;
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="outsideDepth"></param>
-        public void ComputeDepth(int outsideDepth)
-        {
-            ClearVisitedEdges();
-            // find an outside edge to assign depth to
-            DirectedEdge de = finder.Edge;            
-            // right side of line returned by finder is on the outside
-            de.SetEdgeDepths(Positions.Right, outsideDepth);
-            CopySymDepths(de);
-            ComputeDepths(de);
         }
 
         /// <summary>
@@ -151,30 +197,33 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
         {
             Set<Node> nodesVisited = new Set<Node>();
             Queue nodeQueue = new Queue();
-            Node startNode = startEdge.Node;                 
-            nodeQueue.Enqueue(startNode);   
+            Node startNode = startEdge.Node;
+            nodeQueue.Enqueue(startNode);
             nodesVisited.Add(startNode);
             startEdge.Visited = true;
             while (nodeQueue.Count != 0)
             {
-                Node n = (Node) nodeQueue.Dequeue();                
+                Node n = (Node) nodeQueue.Dequeue();
                 nodesVisited.Add(n);
                 // compute depths around node, starting at this edge since it has depths assigned
                 ComputeNodeDepth(n);
                 // add all adjacent nodes to process queue, unless the node has been visited already                
-                IEnumerator i = ((DirectedEdgeStar)n.Edges).GetEnumerator();
-                while (i.MoveNext()) 
+                IEnumerator i = ((DirectedEdgeStar) n.Edges).GetEnumerator();
+                while (i.MoveNext())
                 {
                     DirectedEdge de = (DirectedEdge) i.Current;
                     DirectedEdge sym = de.Sym;
-                    if (sym.IsVisited) continue;
+                    if (sym.IsVisited)
+                    {
+                        continue;
+                    }
                     Node adjNode = sym.Node;
-                    if (!(nodesVisited.Contains(adjNode))) 
+                    if (!(nodesVisited.Contains(adjNode)))
                     {
                         nodeQueue.Enqueue(adjNode);
                         nodesVisited.Add(adjNode);
                     }
-                }                
+                }
             }
         }
 
@@ -187,7 +236,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             // find a visited dirEdge to start at
             DirectedEdge startEdge = null;
             IEnumerator i = ((DirectedEdgeStar) n.Edges).GetEnumerator();
-            while (i.MoveNext()) 
+            while (i.MoveNext())
             {
                 DirectedEdge de = (DirectedEdge) i.Current;
                 if (de.IsVisited || de.Sym.IsVisited)
@@ -220,50 +269,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Buffer
             DirectedEdge sym = de.Sym;
             sym.SetDepth(Positions.Left, de.GetDepth(Positions.Right));
             sym.SetDepth(Positions.Right, de.GetDepth(Positions.Left));
-        }
-
-        /// <summary>
-        /// Find all edges whose depths indicates that they are in the result area(s).
-        /// Since we want polygon shells to be
-        /// oriented CW, choose dirEdges with the interior of the result on the RHS.
-        /// Mark them as being in the result.
-        /// Interior Area edges are the result of dimensional collapses.
-        /// They do not form part of the result area boundary.
-        /// </summary>
-        public void FindResultEdges()
-        {
-            for (IEnumerator it = dirEdgeList.GetEnumerator(); it.MoveNext(); )
-            {
-                DirectedEdge de = (DirectedEdge) it.Current;
-                /*
-                * Select edges which have an interior depth on the RHS
-                * and an exterior depth on the LHS.
-                * Note that because of weird rounding effects there may be
-                * edges which have negative depths!  Negative depths
-                * count as "outside".
-                */
-                // <FIX> - handle negative depths
-                if (de.GetDepth(Positions.Right) >= 1 && de.GetDepth(Positions.Left) <= 0 && !de.IsInteriorAreaEdge) 
-                    de.InResult = true;       
-            }
-        }
-
-        /// <summary>
-        /// BufferSubgraphs are compared on the x-value of their rightmost Coordinate.
-        /// This defines a partial ordering on the graphs such that:
-        /// g1 >= g2 - Ring(g2) does not contain Ring(g1)
-        /// where Polygon(g) is the buffer polygon that is built from g.
-        /// This relationship is used to sort the BufferSubgraphs so that shells are guaranteed to
-        /// be built before holes.
-        /// </summary>
-        public int CompareTo(Object o) 
-        {
-            BufferSubgraph graph = (BufferSubgraph) o;
-            if (this.RightMostCoordinate.X < graph.RightMostCoordinate.X) 
-                return -1;
-            if (this.RightMostCoordinate.X > graph.RightMostCoordinate.X) 
-                return 1;            
-            return 0;
         }
     }
 }

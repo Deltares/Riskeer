@@ -23,8 +23,43 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         /// </summary>
         /// <param name="start"></param>
         /// <param name="geometryFactory"></param>
-        public MaximalEdgeRing(DirectedEdge start, IGeometryFactory geometryFactory) 
-            : base(start, geometryFactory) { }
+        public MaximalEdgeRing(DirectedEdge start, IGeometryFactory geometryFactory)
+            : base(start, geometryFactory) {}
+
+        /// <summary> 
+        /// For all nodes in this EdgeRing,
+        /// link the DirectedEdges at the node to form minimalEdgeRings
+        /// </summary>
+        public void LinkDirectedEdgesForMinimalEdgeRings()
+        {
+            DirectedEdge de = startDe;
+            do
+            {
+                Node node = de.Node;
+                ((DirectedEdgeStar) node.Edges).LinkMinimalDirectedEdges(this);
+                de = de.Next;
+            } while (de != startDe);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IList BuildMinimalRings()
+        {
+            IList minEdgeRings = new ArrayList();
+            DirectedEdge de = startDe;
+            do
+            {
+                if (de.MinEdgeRing == null)
+                {
+                    EdgeRing minEr = new MinimalEdgeRing(de, geometryFactory);
+                    minEdgeRings.Add(minEr);
+                }
+                de = de.Next;
+            } while (de != startDe);
+            return minEdgeRings;
+        }
 
         /// <summary>
         /// 
@@ -44,43 +79,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
         public override void SetEdgeRing(DirectedEdge de, EdgeRing er)
         {
             de.EdgeRing = er;
-        }
-
-        /// <summary> 
-        /// For all nodes in this EdgeRing,
-        /// link the DirectedEdges at the node to form minimalEdgeRings
-        /// </summary>
-        public void LinkDirectedEdgesForMinimalEdgeRings()
-        {
-            DirectedEdge de = startDe;
-            do 
-            {
-                Node node = de.Node;
-                ((DirectedEdgeStar) node.Edges).LinkMinimalDirectedEdges(this);
-                de = de.Next;
-            }
-            while (de != startDe);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public IList BuildMinimalRings()
-        {
-            IList minEdgeRings = new ArrayList();
-            DirectedEdge de = startDe;
-            do 
-            {
-                if (de.MinEdgeRing == null) 
-                {
-                    EdgeRing minEr = new MinimalEdgeRing(de, geometryFactory);
-                    minEdgeRings.Add(minEr);
-                }
-                de = de.Next;
-            } 
-            while (de != startDe);
-            return minEdgeRings;
         }
     }
 }

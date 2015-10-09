@@ -11,7 +11,18 @@ namespace DelftTools.Controls.Swf.Charting
     /// <remarks>More info in SharpMap.Rendering.Thematics.GradientTheme</remarks>
     public class ColorBlend
     {
-        private Color[] _Colors;
+        /// <summary>
+        /// Initializes a new instance of the ColorBlend class.
+        /// </summary>
+        /// <param name="colors">An array of Color structures that represents the colors to use at corresponding positions along a gradient.</param>
+        /// <param name="positions">An array of values that specify percentages of distance along the gradient line.</param>
+        public ColorBlend(Color[] colors, float[] positions)
+        {
+            Colors = colors;
+            Positions = positions;
+        }
+
+        internal ColorBlend() {}
 
         /// <summary>
         /// Gets or sets an array of colors that represents the colors to use at corresponding positions along a gradient.
@@ -21,13 +32,7 @@ namespace DelftTools.Controls.Swf.Charting
         /// This property is an array of <see cref="System.Drawing.Color"/> structures that represents the colors to use at corresponding positions
         /// along a gradient. Along with the Positions property, this property defines a multicolor gradient.
         /// </remarks>
-        public Color[] Colors
-        {
-            get { return _Colors; }
-            set { _Colors = value; }
-        }
-
-        private float[] _Positions;
+        public Color[] Colors { get; set; }
 
         /// <summary>
         /// Gets or sets the positions along a gradient line.
@@ -41,23 +46,7 @@ namespace DelftTools.Controls.Swf.Charting
         /// last element must be 1.0f.</para>
         /// <pre>Along with the Colors property, this property defines a multicolor gradient.</pre>
         /// </remarks>
-        public float[] Positions
-        {
-            get { return _Positions; }
-            set { _Positions = value; }
-        }
-        internal ColorBlend() { }
-
-        /// <summary>
-        /// Initializes a new instance of the ColorBlend class.
-        /// </summary>
-        /// <param name="colors">An array of Color structures that represents the colors to use at corresponding positions along a gradient.</param>
-        /// <param name="positions">An array of values that specify percentages of distance along the gradient line.</param>
-        public ColorBlend(Color[] colors, float[] positions)
-        {
-            _Colors = colors;
-            _Positions = positions;
-        }
+        public float[] Positions { get; set; }
 
         /// <summary>
         /// Gets the color from the scale at position 'pos'.
@@ -68,23 +57,36 @@ namespace DelftTools.Controls.Swf.Charting
         /// <returns>Color on scale</returns>
         public Color GetColor(float pos)
         {
-            if (_Colors.Length != _Positions.Length)
+            if (Colors.Length != Positions.Length)
+            {
                 throw (new ArgumentException("Colors and Positions arrays must be of equal length"));
-            if (_Colors.Length < 2)
+            }
+            if (Colors.Length < 2)
+            {
                 throw (new ArgumentException("At least two colors must be defined in the ColorBlend"));
-            if (_Positions[0] != 0f)
+            }
+            if (Positions[0] != 0f)
+            {
                 throw (new ArgumentException("First position value must be 0.0f"));
-            if (_Positions[_Positions.Length - 1] != 1f)
+            }
+            if (Positions[Positions.Length - 1] != 1f)
+            {
                 throw (new ArgumentException("Last position value must be 1.0f"));
-            if (pos > 1 || pos < 0) pos -= (float)Math.Floor(pos);
+            }
+            if (pos > 1 || pos < 0)
+            {
+                pos -= (float) Math.Floor(pos);
+            }
             int i = 1;
-            while (i < _Positions.Length && _Positions[i] < pos)
+            while (i < Positions.Length && Positions[i] < pos)
+            {
                 i++;
-            float frac = (pos - _Positions[i - 1]) / (_Positions[i] - _Positions[i - 1]);
-            int R = (int)Math.Round((_Colors[i - 1].R * (1 - frac) + _Colors[i].R * frac));
-            int G = (int)Math.Round((_Colors[i - 1].G * (1 - frac) + _Colors[i].G * frac));
-            int B = (int)Math.Round((_Colors[i - 1].B * (1 - frac) + _Colors[i].B * frac));
-            int A = (int)Math.Round((_Colors[i - 1].A * (1 - frac) + _Colors[i].A * frac));
+            }
+            float frac = (pos - Positions[i - 1])/(Positions[i] - Positions[i - 1]);
+            int R = (int) Math.Round((Colors[i - 1].R*(1 - frac) + Colors[i].R*frac));
+            int G = (int) Math.Round((Colors[i - 1].G*(1 - frac) + Colors[i].G*frac));
+            int B = (int) Math.Round((Colors[i - 1].B*(1 - frac) + Colors[i].B*frac));
+            int A = (int) Math.Round((Colors[i - 1].A*(1 - frac) + Colors[i].A*frac));
             return Color.FromArgb(A, R, G, B);
         }
 
@@ -115,10 +117,15 @@ namespace DelftTools.Controls.Swf.Charting
         public Color[] GetColors(int parts)
         {
             if (parts == 1)
-                return new[] {GetColor((float) 0.5)};
+            {
+                return new[]
+                {
+                    GetColor((float) 0.5)
+                };
+            }
 
             List<Color> lstColors = new List<Color>();
-            for(int i = 0; i < parts; i++)
+            for (int i = 0; i < parts; i++)
             {
                 lstColors.Add(GetColor((float) i/(parts - 1)));
             }
@@ -135,8 +142,8 @@ namespace DelftTools.Controls.Swf.Charting
         {
             LinearGradientBrush br = new LinearGradientBrush(rectangle, Color.Black, Color.Black, angle, true);
             System.Drawing.Drawing2D.ColorBlend cb = new System.Drawing.Drawing2D.ColorBlend();
-            cb.Colors = _Colors;
-            cb.Positions = _Positions;
+            cb.Colors = Colors;
+            cb.Positions = Positions;
             br.InterpolationColors = cb;
             return br;
         }
@@ -155,10 +162,21 @@ namespace DelftTools.Controls.Swf.Charting
             get
             {
                 ColorBlend cb = new ColorBlend();
-                cb._Positions = new float[7];
+                cb.Positions = new float[7];
                 for (int i = 1; i < 7; i++)
-                    cb.Positions[i] = i / 6f;
-                cb.Colors = new Color[] { Color.Red, Color.Orange, Color.Yellow, Color.Green, Color.Blue, Color.Indigo, Color.Violet };
+                {
+                    cb.Positions[i] = i/6f;
+                }
+                cb.Colors = new Color[]
+                {
+                    Color.Red,
+                    Color.Orange,
+                    Color.Yellow,
+                    Color.Green,
+                    Color.Blue,
+                    Color.Indigo,
+                    Color.Violet
+                };
                 return cb;
             }
         }
@@ -175,8 +193,22 @@ namespace DelftTools.Controls.Swf.Charting
             get
             {
                 return new ColorBlend(
-                    new Color[] { Color.Red, Color.Yellow, Color.Green, Color.Cyan, Color.Blue },
-                    new float[] { 0f, 0.25f, 0.5f, 0.75f, 1f });
+                    new Color[]
+                    {
+                        Color.Red,
+                        Color.Yellow,
+                        Color.Green,
+                        Color.Cyan,
+                        Color.Blue
+                    },
+                    new float[]
+                    {
+                        0f,
+                        0.25f,
+                        0.5f,
+                        0.75f,
+                        1f
+                    });
             }
         }
 
@@ -187,7 +219,15 @@ namespace DelftTools.Controls.Swf.Charting
         {
             get
             {
-                return new ColorBlend(new Color[] { Color.Black, Color.White }, new float[] { 0f, 1f });
+                return new ColorBlend(new Color[]
+                {
+                    Color.Black,
+                    Color.White
+                }, new float[]
+                {
+                    0f,
+                    1f
+                });
             }
         }
 
@@ -198,7 +238,15 @@ namespace DelftTools.Controls.Swf.Charting
         {
             get
             {
-                return new ColorBlend(new Color[] { Color.White, Color.Black }, new float[] { 0f, 1f });
+                return new ColorBlend(new Color[]
+                {
+                    Color.White,
+                    Color.Black
+                }, new float[]
+                {
+                    0f,
+                    1f
+                });
             }
         }
 
@@ -209,7 +257,15 @@ namespace DelftTools.Controls.Swf.Charting
         {
             get
             {
-                return new ColorBlend(new Color[] { Color.Red, Color.Green }, new float[] { 0f, 1f });
+                return new ColorBlend(new Color[]
+                {
+                    Color.Red,
+                    Color.Green
+                }, new float[]
+                {
+                    0f,
+                    1f
+                });
             }
         }
 
@@ -220,7 +276,15 @@ namespace DelftTools.Controls.Swf.Charting
         {
             get
             {
-                return new ColorBlend(new Color[] { Color.Green, Color.Red }, new float[] { 0f, 1f });
+                return new ColorBlend(new Color[]
+                {
+                    Color.Green,
+                    Color.Red
+                }, new float[]
+                {
+                    0f,
+                    1f
+                });
             }
         }
 
@@ -231,7 +295,15 @@ namespace DelftTools.Controls.Swf.Charting
         {
             get
             {
-                return new ColorBlend(new Color[] { Color.Blue, Color.Green }, new float[] { 0f, 1f });
+                return new ColorBlend(new Color[]
+                {
+                    Color.Blue,
+                    Color.Green
+                }, new float[]
+                {
+                    0f,
+                    1f
+                });
             }
         }
 
@@ -242,7 +314,15 @@ namespace DelftTools.Controls.Swf.Charting
         {
             get
             {
-                return new ColorBlend(new Color[] { Color.Green, Color.Blue }, new float[] { 0f, 1f });
+                return new ColorBlend(new Color[]
+                {
+                    Color.Green,
+                    Color.Blue
+                }, new float[]
+                {
+                    0f,
+                    1f
+                });
             }
         }
 
@@ -253,7 +333,15 @@ namespace DelftTools.Controls.Swf.Charting
         {
             get
             {
-                return new ColorBlend(new Color[] { Color.Red, Color.Blue }, new float[] { 0f, 1f });
+                return new ColorBlend(new Color[]
+                {
+                    Color.Red,
+                    Color.Blue
+                }, new float[]
+                {
+                    0f,
+                    1f
+                });
             }
         }
 
@@ -264,7 +352,15 @@ namespace DelftTools.Controls.Swf.Charting
         {
             get
             {
-                return new ColorBlend(new Color[] { Color.Blue, Color.Red }, new float[] { 0f, 1f });
+                return new ColorBlend(new Color[]
+                {
+                    Color.Blue,
+                    Color.Red
+                }, new float[]
+                {
+                    0f,
+                    1f
+                });
             }
         }
 
@@ -273,17 +369,20 @@ namespace DelftTools.Controls.Swf.Charting
             get
             {
                 var positions = new[]
-                    {
-                        0f, 3f/8f, 6f/8f, 1f
-                    };
+                {
+                    0f,
+                    3f/8f,
+                    6f/8f,
+                    1f
+                };
                 var colors = new[]
-                    {
-                        Color.Black, 
-                        Color.Red,
-                        Color.Yellow,
-                        Color.White
-                    };
-                return new ColorBlend(colors,positions);
+                {
+                    Color.Black,
+                    Color.Red,
+                    Color.Yellow,
+                    Color.White
+                };
+                return new ColorBlend(colors, positions);
             }
         }
 
@@ -292,16 +391,19 @@ namespace DelftTools.Controls.Swf.Charting
             get
             {
                 var positions = new[]
-                    {
-                        0f, 3f/8f, 6f/8f, 1f
-                    };
+                {
+                    0f,
+                    3f/8f,
+                    6f/8f,
+                    1f
+                };
                 var colors = new[]
-                    {
-                        Color.White, 
-                        Color.Yellow,
-                        Color.Red,
-                        Color.Black
-                    };
+                {
+                    Color.White,
+                    Color.Yellow,
+                    Color.Red,
+                    Color.Black
+                };
                 return new ColorBlend(colors, positions);
             }
         }
@@ -311,19 +413,23 @@ namespace DelftTools.Controls.Swf.Charting
             get
             {
                 var positions = new[]
-                    {
-                        0f, 3f/8f, 6f/8f, 1f
-                    };
+                {
+                    0f,
+                    3f/8f,
+                    6f/8f,
+                    1f
+                };
                 var colors = new[]
-                    {
-                        Color.FromArgb(255,0,0,32), 
-                        Color.FromArgb(255,74,106,106),
-                        Color.FromArgb(255,164,180,180),
-                        Color.White
-                    };
+                {
+                    Color.FromArgb(255, 0, 0, 32),
+                    Color.FromArgb(255, 74, 106, 106),
+                    Color.FromArgb(255, 164, 180, 180),
+                    Color.White
+                };
                 return new ColorBlend(colors, positions);
             }
         }
+
         #endregion
 
         #region Constructor helpers
@@ -336,7 +442,15 @@ namespace DelftTools.Controls.Swf.Charting
         /// <returns></returns>
         public static ColorBlend TwoColors(Color fromColor, Color toColor)
         {
-            return new ColorBlend(new Color[] { fromColor, toColor }, new float[] { 0f, 1f });
+            return new ColorBlend(new Color[]
+            {
+                fromColor,
+                toColor
+            }, new float[]
+            {
+                0f,
+                1f
+            });
         }
 
         /// <summary>
@@ -344,7 +458,17 @@ namespace DelftTools.Controls.Swf.Charting
         /// </summary>
         public static ColorBlend ThreeColors(Color fromColor, Color middleColor, Color toColor)
         {
-            return new ColorBlend(new Color[] { fromColor, middleColor, toColor }, new float[] { 0f, 0.5f, 1f });
+            return new ColorBlend(new Color[]
+            {
+                fromColor,
+                middleColor,
+                toColor
+            }, new float[]
+            {
+                0f,
+                0.5f,
+                1f
+            });
         }
 
         #endregion

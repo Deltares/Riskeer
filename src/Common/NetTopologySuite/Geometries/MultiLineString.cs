@@ -12,7 +12,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>
         /// Represents an empty <c>MultiLineString</c>.
         /// </summary>
-        public static new readonly IMultiLineString Empty = new GeometryFactory().CreateMultiLineString(null);
+        public new static readonly IMultiLineString Empty = new GeometryFactory().CreateMultiLineString(null);
 
         /// <summary>
         /// Constructs a <c>MultiLineString</c>.
@@ -24,7 +24,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// but not <c>null</c>s.
         /// </param>
         /// <param name="factory"></param>
-        public MultiLineString(ILineString[] lineStrings, IGeometryFactory factory) : base(lineStrings, factory) { }        
+        public MultiLineString(ILineString[] lineStrings, IGeometryFactory factory) : base(lineStrings, factory) {}
 
         /// <summary>
         /// Constructs a <c>MultiLineString</c>.
@@ -39,7 +39,30 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// For create this <see cref="Geometry"/> is used a standard <see cref="GeometryFactory"/> 
         /// with <see cref="PrecisionModel" /> <c> == </c> <see cref="PrecisionModels.Floating"/>.
         /// </remarks>
-        public MultiLineString(ILineString[] lineStrings) : this(lineStrings, DefaultFactory) { }
+        public MultiLineString(ILineString[] lineStrings) : this(lineStrings, DefaultFactory) {}
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is closed.
+        /// </summary>
+        /// <value><c>true</c> if this instance is closed; otherwise, <c>false</c>.</value>
+        public bool IsClosed
+        {
+            get
+            {
+                if (IsEmpty)
+                {
+                    return false;
+                }
+                for (int i = 0; i < geometries.Length; i++)
+                {
+                    if (!((ILineString) geometries[i]).IsClosed)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
 
         /// <summary>
         /// 
@@ -62,7 +85,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             get
             {
                 if (IsClosed)
-                    return Dimensions.False;                
+                {
+                    return Dimensions.False;
+                }
                 return Dimensions.Point;
             }
         }
@@ -76,23 +101,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             get
             {
                 return "MultiLineString";
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is closed.
-        /// </summary>
-        /// <value><c>true</c> if this instance is closed; otherwise, <c>false</c>.</value>
-        public bool IsClosed
-        {
-            get
-            {
-                if (IsEmpty) 
-                    return false;
-                for (int i = 0; i < geometries.Length; i++)
-                    if (!((ILineString) geometries[i]).IsClosed)
-                        return false;                
-                return true;
             }
         }
 
@@ -116,8 +124,10 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         {
             get
             {
-                if(IsEmpty)
+                if (IsEmpty)
+                {
                     return Factory.CreateGeometryCollection(null);
+                }
                 GeometryGraph g = new GeometryGraph(0, this);
                 ICoordinate[] pts = g.GetBoundaryPoints();
                 return Factory.CreateMultiPoint(pts);
@@ -135,7 +145,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             int nLines = geometries.Length;
             ILineString[] revLines = new ILineString[nLines];
             for (int i = 0; i < geometries.Length; i++)
-                revLines[nLines - 1 - i] = ((ILineString) geometries[i]).Reverse();            
+            {
+                revLines[nLines - 1 - i] = ((ILineString) geometries[i]).Reverse();
+            }
             return Factory.CreateMultiLineString(revLines);
         }
 
@@ -145,10 +157,12 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="other"></param>
         /// <param name="tolerance"></param>
         /// <returns></returns>
-        public override bool EqualsExact(IGeometry other, double tolerance) 
+        public override bool EqualsExact(IGeometry other, double tolerance)
         {
-            if (!IsEquivalentClass((IGeometry) other)) 
-                return false;            
+            if (!IsEquivalentClass((IGeometry) other))
+            {
+                return false;
+            }
             return base.EqualsExact(other, tolerance);
         }
     }

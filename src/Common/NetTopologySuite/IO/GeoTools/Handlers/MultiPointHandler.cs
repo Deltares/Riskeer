@@ -9,16 +9,17 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
     /// Converts a Shapefile point to a OGIS Polygon.
     /// </summary>
     public class MultiPointHandler : ShapeHandler
-    {        
-       
-
+    {
         /// <summary>
         /// The ShapeType this handler handles.
         /// </summary>
         public override ShapeGeometryType ShapeType
         {
-            get { return ShapeGeometryType.MultiPoint; }
-        }		
+            get
+            {
+                return ShapeGeometryType.MultiPoint;
+            }
+        }
 
         /// <summary>
         /// Reads a stream and converts the shapefile record to an equilivant geometry object.
@@ -32,11 +33,16 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
 
             type = (ShapeGeometryType) Enum.Parse(typeof(ShapeGeometryType), shapeTypeNum.ToString());
             if (type == ShapeGeometryType.NullShape)
-                return geometryFactory.CreateMultiPoint(new IPoint[] { });
-            
-            if (!(type == ShapeGeometryType.MultiPoint  || type == ShapeGeometryType.MultiPointM ||
-                  type == ShapeGeometryType.MultiPointZ || type == ShapeGeometryType.MultiPointZM))	
+            {
+                return geometryFactory.CreateMultiPoint(new IPoint[]
+                {});
+            }
+
+            if (!(type == ShapeGeometryType.MultiPoint || type == ShapeGeometryType.MultiPointM ||
+                  type == ShapeGeometryType.MultiPointZ || type == ShapeGeometryType.MultiPointZM))
+            {
                 throw new ShapefileException("Attempting to load a non-multipoint as multipoint.");
+            }
 
             // Read and for now ignore bounds.
             int bblength = GetBoundingBoxLength();
@@ -54,13 +60,13 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
             {
                 double x = file.ReadDouble();
                 double y = file.ReadDouble();
-                IPoint point = geometryFactory.CreatePoint(new Coordinate(x, y));                
+                IPoint point = geometryFactory.CreatePoint(new Coordinate(x, y));
                 points[i] = point;
             }
             geom = geometryFactory.CreateMultiPoint(points);
             GrabZMValues(file);
             return geom;
-        }        
+        }
 
         /// <summary>
         /// Writes a Geometry to the given binary wirter.
@@ -71,14 +77,16 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
         public override void Write(IGeometry geometry, BinaryWriter file, IGeometryFactory geometryFactory)
         {
             if (!(geometry is IMultiPoint))
+            {
                 throw new ArgumentException("Geometry Type error: MultiPoint expected, but the type retrieved is " + geometry.GetType().Name);
+            }
 
             // Slow and maybe not useful...
             // if (!geometry.IsValid)
             // Trace.WriteLine("Invalid multipoint being written.");
 
             IMultiPoint mpoint = geometry as IMultiPoint;
-            
+
             file.Write(int.Parse(Enum.Format(typeof(ShapeGeometryType), ShapeType, "d")));
 
             IEnvelope box = geometry.EnvelopeInternal;
@@ -89,25 +97,25 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
             file.Write(bounds.MaxY);
 
             int numPoints = mpoint.NumPoints;
-            file.Write(numPoints);						
+            file.Write(numPoints);
 
             // write the points 
             for (int i = 0; i < numPoints; i++)
             {
                 IPoint point = (IPoint) mpoint.Geometries[i];
                 file.Write(point.X);
-                file.Write(point.Y);	
-            }            
+                file.Write(point.Y);
+            }
         }
-		
+
         /// <summary>
         /// Gets the length of the shapefile record using the geometry passed in.
         /// </summary>
         /// <param name="geometry">The geometry to get the length for.</param>
         /// <returns>The length in bytes this geometry is going to use when written out as a shapefile record.</returns>
         public override int GetLength(IGeometry geometry)
-        {			
-            return (20 + geometry.NumPoints * 8); // 20 => shapetype(2) + bbox (4*4) + numpoints
-        }					
+        {
+            return (20 + geometry.NumPoints*8); // 20 => shapetype(2) + bbox (4*4) + numpoints
+        }
     }
 }

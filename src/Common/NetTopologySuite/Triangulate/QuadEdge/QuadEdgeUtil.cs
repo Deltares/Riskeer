@@ -23,6 +23,5 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate.QuadEdge
 
             return incEdge;
         }
-
     }
 }

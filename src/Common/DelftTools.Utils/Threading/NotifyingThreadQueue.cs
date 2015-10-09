@@ -14,28 +14,31 @@ namespace DelftTools.Utils.Threading
         /// Nothing to do.
         /// </summary>
         Idle,
+
         /// <summary>
         /// Running items in the queue.
         /// </summary>
         Running,
+
         /// <summary>
         /// Processing of items in the queue is Paused, 
         /// Item(s) currently running will finish their run. 
         /// </summary>
         Pausing,
+
         /// <summary>
         /// Processing of items in the queue is Paused.
         /// </summary>
         Paused,
+
         /// <summary>
         /// Unprocessed items are removed from the queue
         /// Running itmes will finish their run.
         /// </summary>
         Stopping,
-       
-        Aborting
-    } ;
 
+        Aborting
+    };
 
     /// <summary>
     /// Subscribe to this if you want to be notified in case items are added/removed
@@ -86,14 +89,12 @@ namespace DelftTools.Utils.Threading
 
         #region my vars
 
-        private object syncobj;
-        private int maxthreads;
+        private readonly object syncobj;
         private int currentthreads;
-        private QueueState qs;
-        private Queue<KeyValuePair<T, QueueOperationHandler<T>>> queue;
+        private readonly Queue<KeyValuePair<T, QueueOperationHandler<T>>> queue;
         private readonly QueueOperationHandler<T> defaultop;
         //private AsyncOperation asyncOperation;
-        private Dictionary<KeyValuePair<T, QueueOperationHandler<T>>, Thread> threadDictionary =
+        private readonly Dictionary<KeyValuePair<T, QueueOperationHandler<T>>, Thread> threadDictionary =
             new Dictionary<KeyValuePair<T, QueueOperationHandler<T>>, Thread>();
 
         #endregion
@@ -106,9 +107,7 @@ namespace DelftTools.Utils.Threading
         /// <param name="defaultoperation">The default operation to perform on an enqueued item.</param>
         /// <exception cref="System.ArgumentNullException">defaultoperation is null</exception>
         public NotifyingThreadQueue(QueueOperationHandler<T> defaultoperation)
-            : this(int.MaxValue, defaultoperation)
-        {
-        }
+            : this(int.MaxValue, defaultoperation) {}
 
         /// <summary>
         /// Constructs the NotifyingThreadQueue. sets the state to QueueState.Idle.
@@ -120,14 +119,18 @@ namespace DelftTools.Utils.Threading
         public NotifyingThreadQueue(int maxthreads, QueueOperationHandler<T> defaultoperation)
         {
             if (maxthreads <= 0)
+            {
                 throw new ArgumentException("maxthreads can not be <= 0");
+            }
             if (defaultoperation == null)
+            {
                 throw new ArgumentNullException("defaultoperation", "defaultoperation can not be null");
+            }
 
-            qs = QueueState.Idle;
+            QueueState = QueueState.Idle;
             syncobj = new object();
             currentthreads = 0;
-            this.maxthreads = maxthreads;
+            MaxThreads = maxthreads;
             queue = new Queue<KeyValuePair<T, QueueOperationHandler<T>>>();
             defaultop = defaultoperation;
         }
@@ -143,24 +146,24 @@ namespace DelftTools.Utils.Threading
         {
             lock (syncobj)
             {
-                if (qs == QueueState.Idle)
+                if (QueueState == QueueState.Idle)
                 {
                     /// this is a judgment call if you pause this when you 
                     /// don’t have any elements in it then you can go directly 
                     /// to paused and this means that you basically want to 
                     /// keep queuing until something happens                    
-                    qs = QueueState.Paused;
-                    QueueStateChangedInternal(qs);
+                    QueueState = QueueState.Paused;
+                    QueueStateChangedInternal(QueueState);
                 }
-                else if (qs == QueueState.Running)
+                else if (QueueState == QueueState.Running)
                 {
-                    qs = QueueState.Pausing;
-                    QueueStateChangedInternal(qs);
+                    QueueState = QueueState.Pausing;
+                    QueueStateChangedInternal(QueueState);
 
                     /// running means you had some active threads so you couldn’t 
                     /// get to paused right away
                 }
-                else if (qs == QueueState.Stopping || qs == QueueState.Aborting)
+                else if (QueueState == QueueState.Stopping || QueueState == QueueState.Aborting)
                 {
                     ThreadErrorInternal(default(T),
                                         new ThreadStateException("Once the queue is stopping  its done processing"));
@@ -178,39 +181,41 @@ namespace DelftTools.Utils.Threading
         {
             lock (syncobj)
             {
-                if ((qs == QueueState.Idle) || (qs == QueueState.Stopping) || (qs == QueueState.Aborting))
+                if ((QueueState == QueueState.Idle) || (QueueState == QueueState.Stopping) || (QueueState == QueueState.Aborting))
                 {
                     /// do nothing idle has nothing to stop and stopping  
                     /// is already working on stopping 
                     return;
                 }
-                else if (qs == QueueState.Paused)
+                else if (QueueState == QueueState.Paused)
                 {
-                    qs = QueueState.Stopping;
-                    QueueStateChangedInternal(qs);
+                    QueueState = QueueState.Stopping;
+                    QueueStateChangedInternal(QueueState);
 
                     /// if we are already paused then we have no threads running 
                     /// so just drop all the extra items in the queue
                     while (queue.Count != 0)
+                    {
                         ThreadErrorInternal(queue.Dequeue().Key,
                                             new ThreadStateException("the Queue is stopping . no processing done"));
+                    }
 
                     /// ensure proper event flow paused-> stopping -> idle
-                    qs = QueueState.Idle;
-                    QueueStateChangedInternal(qs);
+                    QueueState = QueueState.Idle;
+                    QueueStateChangedInternal(QueueState);
                 }
                 else
                 {
-                    qs = QueueState.Stopping;
-                    QueueStateChangedInternal(qs);
+                    QueueState = QueueState.Stopping;
+                    QueueStateChangedInternal(QueueState);
 
                     /// why are we not dequeuing everything? that’s b/c if we have threads 
                     /// left they have to finish in their own good time so they can go 
                     /// through the process of getting rid of all the others. both ways work
                     if (currentthreads == 0)
                     {
-                        qs = QueueState.Idle;
-                        QueueStateChangedInternal(qs);
+                        QueueState = QueueState.Idle;
+                        QueueStateChangedInternal(QueueState);
                     }
                 }
             }
@@ -223,16 +228,16 @@ namespace DelftTools.Utils.Threading
         {
             lock (syncobj)
             {
-                if ((qs == QueueState.Idle) || (qs == QueueState.Stopping) || (qs == QueueState.Aborting))
+                if ((QueueState == QueueState.Idle) || (QueueState == QueueState.Stopping) || (QueueState == QueueState.Aborting))
                 {
                     /// do nothing idle has nothing to stop and stopping  
                     /// is already working on stopping 
                     return;
                 }
-                else if (qs == QueueState.Paused)
+                else if (QueueState == QueueState.Paused)
                 {
-                    qs = QueueState.Aborting;
-                    QueueStateChangedInternal(qs);
+                    QueueState = QueueState.Aborting;
+                    QueueStateChangedInternal(QueueState);
 
                     // if we are already paused then we have no threads running 
                     /// so just drop all the extra items in the queue
@@ -243,13 +248,13 @@ namespace DelftTools.Utils.Threading
                     }
 
                     // ensure proper event flow paused-> stopping -> idle
-                    qs = QueueState.Idle;
-                    QueueStateChangedInternal(qs);
+                    QueueState = QueueState.Idle;
+                    QueueStateChangedInternal(QueueState);
                 }
                 else
                 {
-                    qs = QueueState.Aborting;
-                    QueueStateChangedInternal(qs);
+                    QueueState = QueueState.Aborting;
+                    QueueStateChangedInternal(QueueState);
 
                     /// why are we not dequeuing everything? that’s b/c if we have threads 
                     /// left they have to finish in their own good time so they can go 
@@ -274,8 +279,8 @@ namespace DelftTools.Utils.Threading
 
                     if (currentthreads == 0)
                     {
-                        qs = QueueState.Idle;
-                        QueueStateChangedInternal(qs);
+                        QueueState = QueueState.Idle;
+                        QueueStateChangedInternal(QueueState);
                     }
                 }
             }
@@ -312,11 +317,11 @@ namespace DelftTools.Utils.Threading
         {
             lock (syncobj)
             {
-                if (qs == QueueState.Idle)
+                if (QueueState == QueueState.Idle)
                 {
                     return;
                 }
-                else if (qs == QueueState.Paused)
+                else if (QueueState == QueueState.Paused)
                 {
                     /// if we are already paused then we have no threads running 
                     /// remove item from the queue
@@ -324,16 +329,16 @@ namespace DelftTools.Utils.Threading
 
                     if (queue.Count == 0)
                     {
-                        qs = QueueState.Stopping;
-                        QueueStateChangedInternal(qs);
+                        QueueState = QueueState.Stopping;
+                        QueueStateChangedInternal(QueueState);
                         /// ensure proper event flow paused-> stopping -> idle
-                        qs = QueueState.Idle;
-                        QueueStateChangedInternal(qs);
+                        QueueState = QueueState.Idle;
+                        QueueStateChangedInternal(QueueState);
                     }
                     return;
                 }
                 else //running, pausing or stopping
-                    //check first if item is in the queue
+                //check first if item is in the queue
                 {
                     RemoveQueueKvp(kvp);
 
@@ -395,21 +400,23 @@ namespace DelftTools.Utils.Threading
         {
             lock (syncobj)
             {
-                if ((qs == QueueState.Pausing) || (qs == QueueState.Paused))
+                if ((QueueState == QueueState.Pausing) || (QueueState == QueueState.Paused))
                 {
-                    qs = QueueState.Running;
-                    QueueStateChangedInternal(qs);
+                    QueueState = QueueState.Running;
+                    QueueStateChangedInternal(QueueState);
 
-                    while (currentthreads < maxthreads)
+                    while (currentthreads < MaxThreads)
+                    {
                         TryNewThread();
+                    }
                 }
-                else if ((qs == QueueState.Idle) || (qs == QueueState.Running))
+                else if ((QueueState == QueueState.Idle) || (QueueState == QueueState.Running))
                 {
                     /// Continuing to process while the queue is idle is meaning 
                     /// less just ignore the command
                     return;
                 }
-                else if (qs == QueueState.Stopping)
+                else if (QueueState == QueueState.Stopping)
                 {
                     ThreadErrorInternal(default(T),
                                         new ThreadStateException("Once the queue is stopping  its done processing"));
@@ -424,18 +431,12 @@ namespace DelftTools.Utils.Threading
         /// <summary>
         /// Gets the current QueueState.
         /// </summary>
-        public QueueState QueueState
-        {
-            get { return qs; }
-        }
+        public QueueState QueueState { get; private set; }
 
         /// <summary>
         /// Gets the maximum number of operations that can be executed at once.
         /// </summary>
-        public int MaxThreads
-        {
-            get { return maxthreads; }
-        }
+        public int MaxThreads { get; private set; }
 
         /// <summary>
         /// Gets the current number of current ongoing operations.
@@ -456,7 +457,10 @@ namespace DelftTools.Utils.Threading
         /// </summary>
         public int Count
         {
-            get { return queue.Count + threadDictionary.Count; }
+            get
+            {
+                return queue.Count + threadDictionary.Count;
+            }
         }
 
         #endregion
@@ -482,16 +486,18 @@ namespace DelftTools.Utils.Threading
         public void EnQueue(T item, QueueOperationHandler<T> opp)
         {
             if (opp == null)
+            {
                 throw new ArgumentNullException("opp", "operation can not be null");
+            }
 
             lock (syncobj)
             {
-                if (qs == QueueState.Idle)
+                if (QueueState == QueueState.Idle)
                 {
                     #region idle
 
-                    qs = QueueState.Running;
-                    QueueStateChangedInternal(qs);
+                    QueueState = QueueState.Running;
+                    QueueStateChangedInternal(QueueState);
 
                     /// the problem with generics is that sometimes the fully 
                     /// descriptive name goes on for a while
@@ -516,7 +522,7 @@ namespace DelftTools.Utils.Threading
 
                     #endregion
                 }
-                else if ((qs == QueueState.Paused) || (qs == QueueState.Pausing))
+                else if ((QueueState == QueueState.Paused) || (QueueState == QueueState.Pausing))
                 {
                     #region pause
 
@@ -533,7 +539,7 @@ namespace DelftTools.Utils.Threading
 
                     #endregion
                 }
-                else if (qs == QueueState.Running)
+                else if (QueueState == QueueState.Running)
                 {
                     #region running
 
@@ -553,7 +559,7 @@ namespace DelftTools.Utils.Threading
 
                     #endregion
                 }
-                else if (qs == QueueState.Stopping)
+                else if (QueueState == QueueState.Stopping)
                 {
                     #region stopping
 
@@ -625,13 +631,13 @@ namespace DelftTools.Utils.Threading
         {
             lock (syncobj)
             {
-                if (qs == QueueState.Running)
+                if (QueueState == QueueState.Running)
                 {
                     #region Running
 
                     if (queue.Count != 0)
                     {
-                        if (currentthreads < maxthreads)
+                        if (currentthreads < MaxThreads)
                         {
                             currentthreads++;
 
@@ -648,14 +654,14 @@ namespace DelftTools.Utils.Threading
                     {
                         if (currentthreads == 0)
                         {
-                            qs = QueueState.Idle;
-                            QueueStateChangedInternal(qs);
+                            QueueState = QueueState.Idle;
+                            QueueStateChangedInternal(QueueState);
                         }
                     }
 
                     #endregion
                 }
-                else if (qs == QueueState.Stopping || qs == QueueState.Aborting)
+                else if (QueueState == QueueState.Stopping || QueueState == QueueState.Aborting)
                 {
                     #region stopping 
 
@@ -665,27 +671,29 @@ namespace DelftTools.Utils.Threading
                     /// important to keep with that and get rid of all the queue items in 
                     /// that same way
                     while (queue.Count != 0)
+                    {
                         ThreadErrorInternal(queue.Dequeue().Key,
                                             new ThreadStateException("the Queue is stopping . no processing done"));
+                    }
 
                     /// all threads come through here so its up to us to single the change 
                     /// from stopping to idle
                     if (currentthreads == 0)
                     {
-                        qs = QueueState.Idle;
-                        QueueStateChangedInternal(qs);
+                        QueueState = QueueState.Idle;
+                        QueueStateChangedInternal(QueueState);
                     }
 
                     #endregion
                 }
-                else if (qs == QueueState.Pausing)
+                else if (QueueState == QueueState.Pausing)
                 {
                     #region Pausing
 
                     if (currentthreads == 0)
                     {
-                        qs = QueueState.Paused;
-                        QueueStateChangedInternal(qs);
+                        QueueState = QueueState.Paused;
+                        QueueStateChangedInternal(QueueState);
                     }
 
                     #endregion
@@ -713,7 +721,6 @@ namespace DelftTools.Utils.Threading
         {
             EventsHelper.UnsafeFire(QueueStateChanged, qs);
         }
-
 
         private void ThreadFinishedInternal(KeyValuePair<T, QueueOperationHandler<T>> finisheditem)
         {

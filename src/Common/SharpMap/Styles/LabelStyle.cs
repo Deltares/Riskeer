@@ -21,147 +21,96 @@ using SharpMap.Api.Layers;
 
 namespace SharpMap.Styles
 {
-	/// <summary>
-	/// Defines a style used for rendering labels
-	/// </summary>
-	public class LabelStyle : Style, ILabelStyle
-	{
-		/// <summary>
-		/// Initializes a new LabelStyle
-		/// </summary>
-		public LabelStyle()
-		{
-			_Font = new System.Drawing.Font("Times New Roman", 12f);
-			_Offset = new System.Drawing.PointF(0, 0);
-			_CollisionDetection = false;
-			_CollisionBuffer = new System.Drawing.Size(0, 0);
-			_ForeColor = System.Drawing.Color.Black;
-			_HorisontalAlignment = HorizontalAlignmentEnum.Center;
-			_VerticalAlignment = VerticalAlignmentEnum.Middle;
-		}
+    /// <summary>
+    /// Defines a style used for rendering labels
+    /// </summary>
+    public class LabelStyle : Style, ILabelStyle
+    {
+        /// <summary>
+        /// Initializes a new LabelStyle
+        /// </summary>
+        public LabelStyle()
+        {
+            Font = new Font("Times New Roman", 12f);
+            Offset = new PointF(0, 0);
+            CollisionDetection = false;
+            CollisionBuffer = new Size(0, 0);
+            ForeColor = Color.Black;
+            HorizontalAlignment = HorizontalAlignmentEnum.Center;
+            VerticalAlignment = VerticalAlignmentEnum.Middle;
+        }
 
-		private System.Drawing.Font _Font;
+        protected LabelStyle(LabelStyle another) : base(another)
+        {
+            Font = (Font) another.Font.Clone();
+            Offset = another.Offset;
+            CollisionDetection = another.CollisionDetection;
+            CollisionBuffer = another.CollisionBuffer;
+            ForeColor = another.ForeColor;
 
-		/// <summary>
-		/// Label Font
-		/// </summary>
-		public System.Drawing.Font Font
-		{
-			get { return _Font; }
-			set { _Font = value; }
-		}
+            if (another.BackColor != null && another.BackColor is SolidBrush)
+            {
+                BackColor = new SolidBrush((another.BackColor as SolidBrush).Color);
+            }
+            if (another.Halo != null)
+            {
+                Halo = new Pen(another.Halo.Color, another.Halo.Width);
+            }
 
-		private System.Drawing.Color _ForeColor;
+            Offset = another.Offset;
+            HorizontalAlignment = another.HorizontalAlignment;
+            VerticalAlignment = another.VerticalAlignment;
+        }
 
-		/// <summary>
-		/// Font color
-		/// </summary>
-		public System.Drawing.Color ForeColor
-		{
-			get { return _ForeColor; }
-			set { _ForeColor = value; }
-		}
+        /// <summary>
+        /// Label Font
+        /// </summary>
+        public Font Font { get; set; }
 
-		private System.Drawing.Brush _BackColor;
+        /// <summary>
+        /// Font color
+        /// </summary>
+        public Color ForeColor { get; set; }
 
-		/// <summary>
-		/// The background color of the label. Set to transparent brush or null if background isn't needed
-		/// </summary>
-		public System.Drawing.Brush BackColor
-		{
-			get { return _BackColor; }
-			set { _BackColor = value; }
-		}
+        /// <summary>
+        /// The background color of the label. Set to transparent brush or null if background isn't needed
+        /// </summary>
+        public Brush BackColor { get; set; }
 
-		private System.Drawing.Pen _Halo;
-		/// <summary>
-		/// Creates a halo around the text
-		/// </summary>
-		public System.Drawing.Pen Halo
-		{
-			get { return _Halo; }
-			set { _Halo = value; }
-		}
+        /// <summary>
+        /// Creates a halo around the text
+        /// </summary>
+        public Pen Halo { get; set; }
 
-	
-		private System.Drawing.PointF _Offset;
+        /// <summary>
+        /// Specifies relative position of labels with respect to objects label point
+        /// </summary>
+        public PointF Offset { get; set; }
 
-		/// <summary>
-		/// Specifies relative position of labels with respect to objects label point
-		/// </summary>
-		public System.Drawing.PointF Offset
-		{
-			get { return _Offset; }
-			set { _Offset = value; }
-		}
-		private bool _CollisionDetection;
+        /// <summary>
+        /// Gets or sets whether Collision Detection is enabled for the labels.
+        /// If set to true, label collision will be tested.
+        /// </summary>
+        public bool CollisionDetection { get; set; }
 
-		/// <summary>
-		/// Gets or sets whether Collision Detection is enabled for the labels.
-		/// If set to true, label collision will be tested.
-		/// </summary>
-		public bool CollisionDetection
-		{
-			get { return _CollisionDetection; }
-			set { _CollisionDetection = value; }
-		}
+        /// <summary>
+        /// Distance around label where collision buffer is active
+        /// </summary>
+        public SizeF CollisionBuffer { get; set; }
 
-		private System.Drawing.SizeF _CollisionBuffer;
+        /// <summary>
+        /// The horisontal alignment of the text in relation to the labelpoint
+        /// </summary>
+        public HorizontalAlignmentEnum HorizontalAlignment { get; set; }
 
-		/// <summary>
-		/// Distance around label where collision buffer is active
-		/// </summary>
-		public System.Drawing.SizeF CollisionBuffer
-		{
-			get { return _CollisionBuffer; }
-			set { _CollisionBuffer = value; }
-		}
+        /// <summary>
+        /// The horisontal alignment of the text in relation to the labelpoint
+        /// </summary>
+        public VerticalAlignmentEnum VerticalAlignment { get; set; }
 
-		private HorizontalAlignmentEnum _HorisontalAlignment;
-		private VerticalAlignmentEnum _VerticalAlignment;
-
-	    protected LabelStyle(LabelStyle another) : base(another)
-	    {
-	        _Font = (Font) another.Font.Clone();
-	        _Offset = another.Offset;
-	        _CollisionDetection = another.CollisionDetection;
-	        _CollisionBuffer = another.CollisionBuffer;
-	        _ForeColor = another.ForeColor;
-
-	        if (another.BackColor != null && another.BackColor is SolidBrush)
-	        {
-	            _BackColor = new SolidBrush((another.BackColor as SolidBrush).Color);
-	        }
-	        if (another.Halo != null)
-	        {
-	            _Halo = new Pen(another.Halo.Color, another.Halo.Width);
-	        }
-	        
-	        _Offset = another._Offset;
-            _HorisontalAlignment = another.HorizontalAlignment;
-            _VerticalAlignment = another.VerticalAlignment;
-	    }
-
-	    /// <summary>
-		/// The horisontal alignment of the text in relation to the labelpoint
-		/// </summary>
-		public HorizontalAlignmentEnum HorizontalAlignment
-		{
-			get { return _HorisontalAlignment; }
-			set { _HorisontalAlignment = value; }
-		}
-		/// <summary>
-		/// The horisontal alignment of the text in relation to the labelpoint
-		/// </summary>
-		public VerticalAlignmentEnum VerticalAlignment
-		{
-			get { return _VerticalAlignment; }
-			set { _VerticalAlignment = value; }
-		}
-
-	    public override object Clone()
+        public override object Clone()
         {
             return new LabelStyle(this);
         }
-	}
+    }
 }

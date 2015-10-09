@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using log4net;
+using Application = System.Windows.Forms.Application;
+using Control = System.Windows.Controls.Control;
 
 namespace DelftTools.TestUtils
 {
@@ -10,11 +12,15 @@ namespace DelftTools.TestUtils
     /// </summary>
     public partial class WpfTestHelper : Window
     {
-        private static ILog log = LogManager.GetLogger(typeof(WindowsFormsTestHelper));
+        private static readonly ILog log = LogManager.GetLogger(typeof(WindowsFormsTestHelper));
+
+        private static Window window;
 
         private Action shownAction;
 
-        private GuiTestHelper guiTestHelper;
+        private readonly GuiTestHelper guiTestHelper;
+
+        private bool wasShown;
 
         public WpfTestHelper()
         {
@@ -40,7 +46,7 @@ namespace DelftTools.TestUtils
             }
         }
 
-        public static void ShowModal(Control control, Action<System.Windows.Forms.Form> formVisibleChangedAction, params object[] propertyObjects)
+        public static void ShowModal(Control control, Action<Form> formVisibleChangedAction, params object[] propertyObjects)
         {
             throw new InvalidOperationException("Use Action instead of Action<Form> (WPF)");
         }
@@ -63,7 +69,7 @@ namespace DelftTools.TestUtils
             }
 
             // clear all controls shown as non-modal after modal control closes 
-            if(!modal)
+            if (!modal)
             {
                 throw new NotImplementedException();
             }
@@ -82,8 +88,8 @@ namespace DelftTools.TestUtils
 
                     while (window.IsVisible)
                     {
-                        System.Windows.Forms.Application.DoEvents();
-                        System.Windows.Forms.Application.DoEvents();
+                        Application.DoEvents();
+                        Application.DoEvents();
                         window.Close();
                     }
 
@@ -111,10 +117,6 @@ namespace DelftTools.TestUtils
             }
         }
 
-        private bool wasShown;
-
-        private static Window window;
-
         private void ShowControlInTestForm(Control control, bool modal, object[] propertyObjects)
         {
             IsVisibleChanged += delegate { wasShown = true; };
@@ -132,9 +134,18 @@ namespace DelftTools.TestUtils
             }
             else
             {
-                window = new Window { Content = control };
+                window = new Window
+                {
+                    Content = control
+                };
             }
-            window.IsVisibleChanged += delegate { if (window.IsVisible) wasShown = true; };
+            window.IsVisibleChanged += delegate
+            {
+                if (window.IsVisible)
+                {
+                    wasShown = true;
+                }
+            };
             window.ContentRendered += delegate { wasShown = true; };
 
             window.Show();
@@ -147,13 +158,13 @@ namespace DelftTools.TestUtils
             // wait until control is shown
             while (!wasShown && guiTestHelper.Exception == null)
             {
-                System.Windows.Forms.Application.DoEvents();
+                Application.DoEvents();
             }
 
             // is shown, not trigger action
             try
             {
-                System.Windows.Forms.Application.DoEvents();
+                Application.DoEvents();
 
                 if (shownAction != null && wasShown)
                 {
@@ -170,7 +181,7 @@ namespace DelftTools.TestUtils
             {
                 while (control.IsVisible)
                 {
-                    System.Windows.Forms.Application.DoEvents();
+                    Application.DoEvents();
                 }
             }
 

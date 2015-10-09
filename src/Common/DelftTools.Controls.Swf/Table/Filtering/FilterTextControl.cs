@@ -29,12 +29,18 @@ namespace DelftTools.Controls.Swf.Table.Filtering
             {
                 switch ((FilterOption) comboBox1.SelectedItem)
                 {
-                    case FilterOption.Equal: return string.Format("= '{0}'", textBox1.Text);
-                    case FilterOption.NotEqual: return string.Format("<> '{0}'", textBox1.Text);
-                    case FilterOption.Contains: return string.Format("Like '%{0}%'", textBox1.Text);
-                    case FilterOption.StartsWith: return string.Format("Like '{0}%'", textBox1.Text);
-                    case FilterOption.EndsWith: return string.Format("Like '%{0}'", textBox1.Text);
-                    default: throw new ArgumentOutOfRangeException();
+                    case FilterOption.Equal:
+                        return string.Format("= '{0}'", textBox1.Text);
+                    case FilterOption.NotEqual:
+                        return string.Format("<> '{0}'", textBox1.Text);
+                    case FilterOption.Contains:
+                        return string.Format("Like '%{0}%'", textBox1.Text);
+                    case FilterOption.StartsWith:
+                        return string.Format("Like '{0}%'", textBox1.Text);
+                    case FilterOption.EndsWith:
+                        return string.Format("Like '%{0}'", textBox1.Text);
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
             set
@@ -48,7 +54,10 @@ namespace DelftTools.Controls.Swf.Table.Filtering
 
         private string GetFilterText()
         {
-            if (filter == null) return "";
+            if (filter == null)
+            {
+                return "";
+            }
 
             var start = filter.IndexOf("'") + 1;
             var end = filter.LastIndexOf("'");
@@ -58,15 +67,33 @@ namespace DelftTools.Controls.Swf.Table.Filtering
 
         private FilterOption GetFilterOption()
         {
-            if (filter == null) return FilterOption.Equal;
+            if (filter == null)
+            {
+                return FilterOption.Equal;
+            }
 
-            if (filter.StartsWith("<>")) return FilterOption.NotEqual;
-            if (filter.StartsWith("=")) return FilterOption.Equal;
+            if (filter.StartsWith("<>"))
+            {
+                return FilterOption.NotEqual;
+            }
+            if (filter.StartsWith("="))
+            {
+                return FilterOption.Equal;
+            }
 
-            if (filter.StartsWith("Like '%") && filter.EndsWith("%'")) return FilterOption.Contains;
-            if (filter.StartsWith("Like '") && filter.EndsWith("%'")) return FilterOption.StartsWith;
-            if (filter.StartsWith("Like '%")) return FilterOption.EndsWith;
-            
+            if (filter.StartsWith("Like '%") && filter.EndsWith("%'"))
+            {
+                return FilterOption.Contains;
+            }
+            if (filter.StartsWith("Like '") && filter.EndsWith("%'"))
+            {
+                return FilterOption.StartsWith;
+            }
+            if (filter.StartsWith("Like '%"))
+            {
+                return FilterOption.EndsWith;
+            }
+
             return FilterOption.Equal;
         }
     }

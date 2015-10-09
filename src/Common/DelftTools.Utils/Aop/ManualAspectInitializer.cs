@@ -19,6 +19,15 @@ namespace DelftTools.Utils.Aop
     /// improvement, please verify it using the tests in EntityAttributeTest</remarks>
     internal static class ManualAspectInitializer
     {
+        private delegate T FieldGetterDelegate<out T>(object obj);
+
+        private static readonly object LastTypeLock = new object();
+        //'first level cache'
+        private static Type lastType;
+        private static AspectInfo lastAspectInfo;
+        //'second level cache'
+        private static readonly IDictionary<Type, AspectInfo> AspectLookup = new Dictionary<Type, AspectInfo>();
+
         public static void InitializeAspects(object instance)
         {
             InitializeAspectsManually(instance, GetAspectInfo(instance.GetType()));
@@ -42,7 +51,9 @@ namespace DelftTools.Utils.Aop
                     var aspect = info.AspectGetter(instance);
 
                     if (aspect != null)
+                    {
                         return; //aspect already initialized, don't do it again!
+                    }
 
                     //actual initialize
                     info.InitializeMethod.Invoke(instance, new object[0]);
@@ -50,7 +61,7 @@ namespace DelftTools.Utils.Aop
                 info = baseInfo;
             }
         }
-        
+
         private static AspectInfo GetAspectInfo(Type type)
         {
             //first check the first level cache: we can expect subsequent calls for the same type due to the following reasons:
@@ -77,7 +88,9 @@ namespace DelftTools.Utils.Aop
             {
                 var baseType = typeLevel.BaseType;
                 if (baseType != null)
+                {
                     info.BaseAspectInfo = LookupAspectInfoForHierarchy(baseType);
+                }
             }
             return info;
         }
@@ -111,12 +124,15 @@ namespace DelftTools.Utils.Aop
 
         private static FieldGetterDelegate<TValue> FieldGetterUsingIl<TValue>(Type objectType, FieldInfo fieldInfo)
         {
-            var dm = new DynamicMethod("GetAspect", typeof(TValue), new[] { typeof(object) }, objectType, true);
+            var dm = new DynamicMethod("GetAspect", typeof(TValue), new[]
+            {
+                typeof(object)
+            }, objectType, true);
             var il = dm.GetILGenerator();
             il.Emit(OpCodes.Ldarg_0);
             il.Emit(OpCodes.Ldfld, fieldInfo);
             il.Emit(OpCodes.Ret);
-            return (FieldGetterDelegate<TValue>)dm.CreateDelegate(typeof(FieldGetterDelegate<TValue>));
+            return (FieldGetterDelegate<TValue>) dm.CreateDelegate(typeof(FieldGetterDelegate<TValue>));
         }
 
         private class AspectInfo
@@ -137,14 +153,5 @@ namespace DelftTools.Utils.Aop
                 InitializeMethod = initializeMethod;
             }
         }
-
-        private delegate T FieldGetterDelegate<out T>(object obj);
-        
-        private static readonly object LastTypeLock = new object();
-        //'first level cache'
-        private static Type lastType;
-        private static AspectInfo lastAspectInfo;
-        //'second level cache'
-        private static readonly IDictionary<Type, AspectInfo> AspectLookup = new Dictionary<Type, AspectInfo>();
     }
 }

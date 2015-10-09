@@ -17,54 +17,40 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
     public class DirectedEdge : GraphComponent, IComparable
     {
         /// <summary>
-        /// Returns a List containing the parent Edge (possibly null) for each of the given
-        /// DirectedEdges.
-        /// </summary>
-        /// <param name="dirEdges"></param>
-        /// <returns></returns>
-        public static IList ToEdges(IList dirEdges)
-        {
-            IList edges = new ArrayList();
-            for (IEnumerator i = dirEdges.GetEnumerator(); i.MoveNext(); ) 
-                edges.Add(((DirectedEdge) i.Current).parentEdge);            
-            return edges;
-        }
-        
-        /// <summary>
         /// 
         /// </summary>
         protected Edge parentEdge;
-        
+
         /// <summary>
         /// 
         /// </summary>
         protected Node from;
-        
+
         /// <summary>
         /// 
         /// </summary>
         protected Node to;
-        
+
         /// <summary>
         /// 
         /// </summary>
         protected ICoordinate p0, p1;
-        
+
         /// <summary>
         /// 
         /// </summary>
-        protected DirectedEdge sym = null;  // optional
-        
+        protected DirectedEdge sym = null; // optional
+
         /// <summary>
         /// 
         /// </summary>
         protected bool edgeDirection;
-        
+
         /// <summary>
         /// 
         /// </summary>
         protected int quadrant;
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -98,6 +84,18 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         }
 
         /// <summary>
+        /// Tests whether this component has been removed from its containing graph.
+        /// </summary>
+        /// <value></value>
+        public override bool IsRemoved
+        {
+            get
+            {
+                return parentEdge == null;
+            }
+        }
+
+        /// <summary>
         /// Returns this DirectedEdge's parent Edge, or null if it has none.
         /// Associates this DirectedEdge with an Edge (possibly null, indicating no associated
         /// Edge).
@@ -106,13 +104,12 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         {
             get
             {
-                return parentEdge; 
+                return parentEdge;
             }
             set
             {
                 parentEdge = value;
             }
-
         }
 
         /// <summary>
@@ -123,7 +120,7 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         {
             get
             {
-                return quadrant; 
+                return quadrant;
             }
         }
 
@@ -135,7 +132,7 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         {
             get
             {
-                return p1; 
+                return p1;
             }
         }
 
@@ -147,7 +144,7 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         {
             get
             {
-                return edgeDirection; 
+                return edgeDirection;
             }
         }
 
@@ -158,7 +155,7 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         {
             get
             {
-                return from; 
+                return from;
             }
         }
 
@@ -169,7 +166,7 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         {
             get
             {
-                return to; 
+                return to;
             }
         }
 
@@ -180,7 +177,7 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         {
             get
             {
-                return from.Coordinate; 
+                return from.Coordinate;
             }
         }
 
@@ -192,7 +189,7 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         {
             get
             {
-                return angle; 
+                return angle;
             }
         }
 
@@ -206,12 +203,81 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         {
             get
             {
-                return sym; 
+                return sym;
             }
             set
             {
                 sym = value;
             }
+        }
+
+        /// <summary>
+        /// Returns a List containing the parent Edge (possibly null) for each of the given
+        /// DirectedEdges.
+        /// </summary>
+        /// <param name="dirEdges"></param>
+        /// <returns></returns>
+        public static IList ToEdges(IList dirEdges)
+        {
+            IList edges = new ArrayList();
+            for (IEnumerator i = dirEdges.GetEnumerator(); i.MoveNext();)
+            {
+                edges.Add(((DirectedEdge) i.Current).parentEdge);
+            }
+            return edges;
+        }
+
+        /// <summary>
+        /// Returns 1 if this DirectedEdge has a greater angle with the
+        /// positive x-axis than b", 0 if the DirectedEdges are collinear, and -1 otherwise.
+        /// Using the obvious algorithm of simply computing the angle is not robust,
+        /// since the angle calculation is susceptible to roundoff. A robust algorithm
+        /// is:
+        /// first compare the quadrants. If the quadrants are different, it it
+        /// trivial to determine which vector is "greater".
+        /// if the vectors lie in the same quadrant, the robust
+        /// <c>RobustCGAlgorithms.ComputeOrientation(Coordinate, Coordinate, Coordinate)</c>
+        /// function can be used to decide the relative orientation of the vectors.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public int CompareDirection(DirectedEdge e)
+        {
+            int i = 0;
+            // if the rays are in different quadrants, determining the ordering is trivial
+            if (quadrant > e.Quadrant)
+            {
+                i = 1;
+            }
+            if (quadrant < e.Quadrant)
+            {
+                i = -1;
+            }
+            // vectors are in the same quadrant - check relative orientation of direction vectors
+            // this is > e if it is CCW of e
+            i = CGAlgorithms.ComputeOrientation(e.p0, e.p1, p1);
+            return i;
+        }
+
+        /// <summary>
+        /// Writes a detailed string representation of this DirectedEdge to the given PrintStream.
+        /// </summary>
+        /// <param name="outstream"></param>
+        public void Write(StreamWriter outstream)
+        {
+            string className = GetType().FullName;
+            int lastDotPos = className.LastIndexOf('.');
+            string name = className.Substring(lastDotPos + 1);
+            outstream.Write("  " + name + ": " + p0 + " - " + p1 + " " + quadrant + ":" + angle);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return "DirectedEdge: " + p0 + " - " + p1 + " " + quadrant + ":" + angle;
         }
 
         /// <summary>
@@ -235,73 +301,12 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         }
 
         /// <summary>
-        /// Returns 1 if this DirectedEdge has a greater angle with the
-        /// positive x-axis than b", 0 if the DirectedEdges are collinear, and -1 otherwise.
-        /// Using the obvious algorithm of simply computing the angle is not robust,
-        /// since the angle calculation is susceptible to roundoff. A robust algorithm
-        /// is:
-        /// first compare the quadrants. If the quadrants are different, it it
-        /// trivial to determine which vector is "greater".
-        /// if the vectors lie in the same quadrant, the robust
-        /// <c>RobustCGAlgorithms.ComputeOrientation(Coordinate, Coordinate, Coordinate)</c>
-        /// function can be used to decide the relative orientation of the vectors.
-        /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        public int CompareDirection(DirectedEdge e)
-        {
-            int i = 0;
-            // if the rays are in different quadrants, determining the ordering is trivial
-            if (quadrant > e.Quadrant)
-                i = 1;
-            if (quadrant < e.Quadrant) 
-                i = -1;
-            // vectors are in the same quadrant - check relative orientation of direction vectors
-            // this is > e if it is CCW of e
-            i = CGAlgorithms.ComputeOrientation(e.p0, e.p1, p1);            
-            return i;
-        }
-
-        /// <summary>
-        /// Writes a detailed string representation of this DirectedEdge to the given PrintStream.
-        /// </summary>
-        /// <param name="outstream"></param>
-        public void Write(StreamWriter outstream)
-        {
-            string className = GetType().FullName;
-            int lastDotPos = className.LastIndexOf('.');
-            string name = className.Substring(lastDotPos + 1);
-            outstream.Write("  " + name + ": " + p0 + " - " + p1 + " " + quadrant + ":" + angle);
-        }
-
-        /// <summary>
-        /// Tests whether this component has been removed from its containing graph.
-        /// </summary>
-        /// <value></value>
-        public override bool IsRemoved
-        {
-            get
-            {
-                return parentEdge == null;
-            }
-        }
-
-        /// <summary>
         /// Removes this directed edge from its containing graph.
         /// </summary>
         internal void Remove()
         {
-            this.sym = null;
-            this.parentEdge = null;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {            
-            return "DirectedEdge: " + p0 + " - " + p1 + " " + quadrant + ":" + angle;
+            sym = null;
+            parentEdge = null;
         }
     }
 }

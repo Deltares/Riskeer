@@ -11,30 +11,6 @@ namespace SharpMap.Tests.Editors
     [TestFixture]
     public class FeatureInteractorTest
     {
-        private class TestFeatureInteractor : FeatureInteractor
-        {
-            public TestFeatureInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle, IEditableObject editableObject)
-                : base(layer, feature, vectorStyle, editableObject)
-            {
-            }
-
-            public bool IsEditable { get; set; }
-
-            protected override bool AllowDeletionCore()
-            {
-                return IsEditable;
-            }
-
-            protected override void CreateTrackers()
-            {
-            }
-
-            protected override bool AllowMoveCore()
-            {
-                return IsEditable;
-            }
-        }
-
         [Test]
         public void CanDeleteAndMoveDependsOnGroupLayerReadOnly()
         {
@@ -46,7 +22,10 @@ namespace SharpMap.Tests.Editors
             groupLayer2.Layers.Add(layer);
             map.Layers.Add(groupLayer1);
 
-            var editor = new TestFeatureInteractor(layer, null, null, null) {IsEditable = true};
+            var editor = new TestFeatureInteractor(layer, null, null, null)
+            {
+                IsEditable = true
+            };
 
             Assert.IsTrue(editor.AllowDeletion());
             Assert.IsTrue(editor.AllowMove());
@@ -68,7 +47,10 @@ namespace SharpMap.Tests.Editors
             groupLayer2.Layers.Add(layer);
             map.Layers.Add(groupLayer1);
 
-            var editor = new TestFeatureInteractor(layer, null, null, null) { IsEditable = false };
+            var editor = new TestFeatureInteractor(layer, null, null, null)
+            {
+                IsEditable = false
+            };
 
             Assert.IsFalse(editor.AllowDeletion());
             Assert.IsFalse(editor.AllowMove());
@@ -82,7 +64,8 @@ namespace SharpMap.Tests.Editors
         [Test]
         public void CanDeleteAndMoveDoesNotCrashWithEmptyLayer()
         {
-            var editor = new TestFeatureInteractor(null, null, null, null) {};
+            var editor = new TestFeatureInteractor(null, null, null, null)
+            {};
 
             Assert.IsFalse(editor.AllowDeletion());
             Assert.IsFalse(editor.AllowMove());
@@ -97,6 +80,26 @@ namespace SharpMap.Tests.Editors
 
             Assert.IsFalse(editor.AllowDeletion());
             Assert.IsFalse(editor.AllowMove());
+        }
+
+        private class TestFeatureInteractor : FeatureInteractor
+        {
+            public TestFeatureInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle, IEditableObject editableObject)
+                : base(layer, feature, vectorStyle, editableObject) {}
+
+            public bool IsEditable { get; set; }
+
+            protected override bool AllowDeletionCore()
+            {
+                return IsEditable;
+            }
+
+            protected override void CreateTrackers() {}
+
+            protected override bool AllowMoveCore()
+            {
+                return IsEditable;
+            }
         }
     }
 }
