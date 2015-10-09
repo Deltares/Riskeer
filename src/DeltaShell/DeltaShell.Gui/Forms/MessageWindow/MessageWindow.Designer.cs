@@ -47,21 +47,21 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.buttonClearAll = new System.Windows.Forms.ToolStripMenuItem();
             this.levelImages = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.buttonShowDebug = new System.Windows.Forms.ToolStripButton();
             this.buttonShowInfo = new System.Windows.Forms.ToolStripButton();
             this.buttonShowWarning = new System.Windows.Forms.ToolStripButton();
             this.buttonShowError = new System.Windows.Forms.ToolStripButton();
+            this.buttonShowDebug = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonClearAllMessages = new System.Windows.Forms.ToolStripButton();
             this.messagesDataGridView = new System.Windows.Forms.DataGridView();
+            this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.messageWindowData = new DeltaShell.Gui.Forms.MessageWindow.MessageWindowData();
             this.imageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sourceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Exception = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.messageWindowData = new DeltaShell.Gui.Forms.MessageWindow.MessageWindowData();
             this.contextMenu.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).BeginInit();
@@ -126,14 +126,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.toolStrip2.Name = "toolStrip2";
             // 
-            // buttonShowDebug
-            // 
-            this.buttonShowDebug.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonShowDebug.Image = global::DeltaShell.Gui.Properties.Resources.bug;
-            resources.ApplyResources(this.buttonShowDebug, "buttonShowDebug");
-            this.buttonShowDebug.Name = "buttonShowDebug";
-            this.buttonShowDebug.Click += new System.EventHandler(this.ButtonShowDebugClick);
-            // 
             // buttonShowInfo
             // 
             this.buttonShowInfo.Checked = true;
@@ -164,6 +156,14 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.buttonShowError.Name = "buttonShowError";
             this.buttonShowError.Click += new System.EventHandler(this.ButtonShowErrorClick);
             // 
+            // buttonShowDebug
+            // 
+            this.buttonShowDebug.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonShowDebug.Image = global::DeltaShell.Gui.Properties.Resources.bug;
+            resources.ApplyResources(this.buttonShowDebug, "buttonShowDebug");
+            this.buttonShowDebug.Name = "buttonShowDebug";
+            this.buttonShowDebug.Click += new System.EventHandler(this.ButtonShowDebugClick);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -182,7 +182,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.messagesDataGridView.AllowUserToDeleteRows = false;
             this.messagesDataGridView.AllowUserToResizeRows = false;
             this.messagesDataGridView.AutoGenerateColumns = false;
-            this.messagesDataGridView.ColumnHeadersVisible = false;
+            this.messagesDataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.messagesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.imageDataGridViewTextBoxColumn,
             this.Id,
@@ -207,6 +207,17 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.messagesDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.messagesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             // 
+            // messagesBindingSource
+            // 
+            this.messagesBindingSource.DataMember = "Messages";
+            this.messagesBindingSource.DataSource = this.messageWindowData;
+            this.messagesBindingSource.Sort = "Id";
+            // 
+            // messageWindowData
+            // 
+            this.messageWindowData.DataSetName = "MessageWindowData";
+            this.messageWindowData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // imageDataGridViewTextBoxColumn
             // 
             this.imageDataGridViewTextBoxColumn.DataPropertyName = "Image";
@@ -228,7 +239,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             // 
             this.timeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.timeDataGridViewTextBoxColumn.DataPropertyName = "Time";
-            dataGridViewCellStyle1.Format = "HH:mm:ss.ffff";
+            dataGridViewCellStyle1.Format = "HH:mm:ss";
             dataGridViewCellStyle1.NullValue = null;
             this.timeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
             resources.ApplyResources(this.timeDataGridViewTextBoxColumn, "timeDataGridViewTextBoxColumn");
@@ -261,17 +272,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             resources.ApplyResources(this.Exception, "Exception");
             this.Exception.Name = "Exception";
             this.Exception.ReadOnly = true;
-            // 
-            // messagesBindingSource
-            // 
-            this.messagesBindingSource.DataMember = "Messages";
-            this.messagesBindingSource.DataSource = this.messageWindowData;
-            this.messagesBindingSource.Sort = "Id";
-            // 
-            // messageWindowData
-            // 
-            this.messageWindowData.DataSetName = "MessageWindowData";
-            this.messageWindowData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // MessageWindow
             // 
@@ -310,12 +310,12 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         private System.Windows.Forms.DataGridView messagesDataGridView;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton buttonClearAllMessages;
-        private System.Windows.Forms.DataGridViewImageColumn imageDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn timeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn messageDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sourceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Exception;
         private ToolStripMenuItem showDetailsToolStripMenuItem;
+        private DataGridViewImageColumn imageDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn timeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn messageDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn sourceDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn Exception;
     }
 }
