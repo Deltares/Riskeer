@@ -308,16 +308,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\lib\Common\DelftTools.Utils\x86\netcdf-4.3.dll">
-      <Link>x86\netcdf-4.3.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\..\lib\Common\DelftTools.Utils\x64\netcdf-4.3.dll">
-      <Link>x64\netcdf-4.3.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Wti.Base\Wti.Base.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Wti.Base</Name>
