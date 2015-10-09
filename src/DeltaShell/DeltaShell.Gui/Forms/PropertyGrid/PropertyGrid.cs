@@ -1,4 +1,5 @@
 using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -74,6 +75,11 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             this.gui = gui;
 
             gui.SelectionChanged += GuiSelectionChanged;
+
+            // removing "property tabs" button and separator before it
+            var strip = propertyGrid1.Controls.OfType<ToolStrip>().ToList()[0] as ToolStrip;
+            strip.Items[3].Visible = false;
+            strip.Items[4].Visible = false;
 
             // TODO: make timer start only when property was changed and then stop
             refreshTimer = new Timer();
@@ -457,7 +463,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                     }
                 }
             }
-
+            
             propertyGrid1.SelectedObject = SelectedObjects.Count() > 1 ? SelectedObjects[1] : SelectedObjects[0];
         }
 
