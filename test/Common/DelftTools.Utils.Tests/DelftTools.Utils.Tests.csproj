@@ -128,10 +128,6 @@
     <Compile Include="Reflection\TypeExtensionsTest.cs" />
     <Compile Include="Reflection\TypeUtilsTest.cs" />
     <Compile Include="RegularExpressions\RegularExpressionTest.cs" />
-    <Compile Include="Remoting\IRemoteClass.cs" />
-    <Compile Include="Remoting\RemoteInstanceContainer2Test.cs" />
-    <Compile Include="Remoting\RemoteInstanceContainerTest.cs" />
-    <Compile Include="Remoting\RemotingClass.cs" />
     <Compile Include="SnappingCalculatorTest.cs" />
     <Compile Include="StringExtensionsTests.cs" />
     <Compile Include="TestHelperTests.cs" />

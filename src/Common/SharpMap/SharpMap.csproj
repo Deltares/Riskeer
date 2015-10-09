@@ -96,10 +96,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\GeometryApi.cs" />
-    <Compile Include="Api\GeometryDll.cs" />
-    <Compile Include="Api\IGeometryApi.cs" />
-    <Compile Include="Api\RemoteGeometryApi.cs" />
     <Compile Include="Converters\Geometries\GeometryFactory.cs" />
     <Compile Include="Converters\WellKnownBinary\GeometryFromWKB.cs" />
     <Compile Include="Converters\WellKnownBinary\GeometryToWKB.cs" />

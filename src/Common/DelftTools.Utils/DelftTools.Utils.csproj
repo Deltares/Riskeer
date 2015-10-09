@@ -155,12 +155,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Remoting\TypeConverters\Array2DToProtoConverter.cs" />
-    <Compile Include="Remoting\TypeConverters\ArrayToProtoConverter.cs" />
-    <Compile Include="Remoting\TypeConverters\DateTimeArrayToProtoConverter.cs" />
-    <Compile Include="Remoting\TypeConverters\DateTimeToProtoConverter.cs" />
-    <Compile Include="Remoting\TypeConverters\TimeSpanToProtoConverter.cs" />
-    <Compile Include="Remoting\TypeConverters\TypeToProtoConverter.cs" />
     <Compile Include="ResourceHelper.cs" />
     <Compile Include="ResourcesCategoryAttribute.cs" />
     <Compile Include="ResourcesDescriptionAttribute.cs" />
@@ -206,7 +200,6 @@
     <Compile Include="ComponentModel\DynamicReadOnlyValidationMethodAttribute.cs" />
     <Compile Include="PropertyBag\Dynamic\DynamicPropertyBag.cs" />
     <Compile Include="ComponentModel\DynamicReadOnlyAttribute.cs" />
-    <Compile Include="Remoting\RemoteInstanceContainer.cs" />
     <Compile Include="SnappingCalculator.cs" />
     <Compile Include="TextDocument.cs" />
     <Compile Include="DeltaShellDateTimeConverter.cs" />

@@ -90,7 +90,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\GeometryApiTest.cs" />
     <Compile Include="Converters\WKB\WKBTests.cs" />
     <Compile Include="Converters\WKT\WktGeometryTests.cs" />
     <Compile Include="CoordinateSystems\CoordinateSystemValidatorTest.cs" />
