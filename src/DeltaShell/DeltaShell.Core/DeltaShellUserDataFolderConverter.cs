@@ -18,13 +18,6 @@ namespace DeltaShell.Core
         protected override void Convert(TextWriter writer, object state)
         {
             // makes sure that the application log file is saved in a correct folder, settings it in DeltaShellApplication is not enough
-            var settings = ConfigurationManager.AppSettings;
-            if (settings.AllKeys.Contains("applicationName"))
-            {
-                SettingsHelper.ApplicationName = settings["applicationName"];
-                SettingsHelper.ApplicationVersion = settings["fullVersion"];
-            }
-
             var settingsDirectory = SettingsHelper.GetApplicationLocalUserSettingsDirectory();
 
             DeleteOldLogFiles(settingsDirectory);

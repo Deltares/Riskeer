@@ -623,7 +623,6 @@ namespace DeltaShell.Core
             if (Settings.AllKeys.Contains("applicationName"))
             {
                 SettingsHelper.ApplicationName = Settings["applicationName"];
-                SettingsHelper.ApplicationVersion = Settings["fullVersion"];
             }
         }
 

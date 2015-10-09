@@ -765,25 +765,13 @@ namespace DeltaShell.Gui
         private void ShowSplashScreen()
         {
             // plugin assemblies loaded - count steps required to start application
-            splashScreen = new SplashScreen(Application);
-
-            string splashScreenLogoImageFilePath = Application.Settings["splashScreenLogoImageFilePath"];
-            if (splashScreenLogoImageFilePath != null)
+            splashScreen = new SplashScreen(Application)
             {
-                if (!File.Exists(splashScreenLogoImageFilePath))
-                {
-                    log.WarnFormat(Resources.DeltaShellGui_ShowSplashScreen_Logo_file__0__does_not_exist, splashScreenLogoImageFilePath);
-                }
-                else
-                {
-                    splashScreen.LogoImageFilePath = splashScreenLogoImageFilePath;
-                }
-            }
-
-            splashScreen.LabelVersionVersion = Application.Settings["fullVersion"];
-            splashScreen.SplashScreenCopyright = Application.Settings["copyright"];
-            splashScreen.LabelLicense = Application.Settings["license"];
-            splashScreen.LabelCompany = Application.Settings["company"];
+                LabelVersionVersion = SettingsHelper.ApplicationVersion,
+                SplashScreenCopyright = Application.Settings["copyright"],
+                LabelLicense = Application.Settings["license"],
+                LabelCompany = Application.Settings["company"]
+            };
 
             splashScreen.IsVisibleChanged += delegate
             {
