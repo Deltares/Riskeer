@@ -138,7 +138,6 @@
     <Compile Include="Editing\IEditAction.cs" />
     <Compile Include="GraphicsUtils.cs" />
     <Compile Include="Interop\NativeWin32.cs" />
-    <Compile Include="Interop\Pinned.cs" />
     <Compile Include="IO\ITransactionalChangeAccess.cs" />
     <Compile Include="MappingDocument.cs" />
     <Compile Include="PropertyBag\Dynamic\DynamicDataItemPropertyBag.cs" />

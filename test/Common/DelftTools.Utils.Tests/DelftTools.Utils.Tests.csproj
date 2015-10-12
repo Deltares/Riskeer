@@ -89,7 +89,6 @@
     <Compile Include="Aop\TestClasses\NotifiableTestClass.cs" />
     <Compile Include="Aop\TestClasses\ProblemChildObject.cs" />
     <Compile Include="Aop\TestClasses\ProblemParentObject.cs" />
-    <Compile Include="Aop\TestClasses\TestPublisher.cs" />
     <Compile Include="Aop\TestClasses\TreeClient.cs" />
     <Compile Include="Aop\TraceDllImportCallsAttributeTest.cs" />
     <Compile Include="Binding\EnumBindingHelperTest.cs" />

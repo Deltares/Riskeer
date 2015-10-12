@@ -214,7 +214,6 @@
     <Compile Include="Charting\Tools\ZoomUsingMouseWheelTool.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Charting\Tracker.cs" />
     <Compile Include="ClonableToolStripMenuItem.cs">
       <SubType>Component</SubType>
     </Compile>

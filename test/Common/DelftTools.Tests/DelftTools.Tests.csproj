@@ -140,8 +140,6 @@
     <Compile Include="Shell\Core\WorkFlow\ActivityRunnerTest.cs" />
     <Compile Include="Shell\Core\WorkFlow\AsyncActivityRunnerTest.cs" />
     <Compile Include="Shell\Core\WorkFlow\CrashingActivity.cs" />
-    <Compile Include="Shell\Core\Mocks\ClassWithNameButNotINameable.cs" />
-    <Compile Include="Shell\Core\Mocks\CloneableClassWithThreeProperties.cs" />
     <Compile Include="Shell\Core\ProjectTest.cs" />
     <Compile Include="Shell\Core\UrlTest.cs" />
     <Compile Include="Controls\Swf\FileSystemTreeViewTest.cs" />

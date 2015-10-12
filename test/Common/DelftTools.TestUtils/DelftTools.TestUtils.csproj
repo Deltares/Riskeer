@@ -104,12 +104,6 @@
     <Compile Include="TestReferenceHelper\ReferenceLink.cs" />
     <Compile Include="TestReferenceHelper\ReferenceNode.cs" />
     <Compile Include="TestReferenceHelper\TestReferenceHelper.cs" />
-    <Compile Include="TimeDependentView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TimeDependentView.Designer.cs">
-      <DependentUpon>TimeDependentView.cs</DependentUpon>
-    </Compile>
     <Compile Include="WindowsFormsTestHelper.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,9 +136,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimeDependentView.resx">
-      <DependentUpon>TimeDependentView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WindowsFormsTestHelper.resx">
       <DependentUpon>WindowsFormsTestHelper.cs</DependentUpon>
