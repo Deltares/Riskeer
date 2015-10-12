@@ -11,10 +11,10 @@ namespace Wti.Data.Test
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // call
+            // Call
             var project = new WtiProject();
 
-            // assert
+            // Assert
             Assert.IsInstanceOf<INameable>(project);
             Assert.IsInstanceOf<IObservable>(project);
             Assert.AreEqual("WTI project", project.Name);
@@ -23,7 +23,7 @@ namespace Wti.Data.Test
         [Test]
         public void NotifyObservers_ObserverAttachedToProject_ObserverIsNotified()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -32,17 +32,17 @@ namespace Wti.Data.Test
             var project = new WtiProject();
             project.Attach(observer);
 
-            // call
+            // Call
             project.NotifyObservers();
 
-            // assert
+            // Assert
             mocks.VerifyAll();
         }
 
         [Test]
         public void NotifyObservers_ObserverHasBeenDetached_ObserverShouldNotBeNotified()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
@@ -51,10 +51,10 @@ namespace Wti.Data.Test
             project.Attach(observer);
             project.Detach(observer);
 
-            // call
+            // Call
             project.NotifyObservers();
 
-            // assert
+            // Assert
             mocks.VerifyAll(); // Expect no calls on observer
         }
     }

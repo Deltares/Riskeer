@@ -54,7 +54,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetChildNodeObjects_WithData_ReturnAllChildNodes()
+        public void GetChildNodeObjects_WithOutputData_ReturnOutputChildNode()
         {
             // setup
             var mocks = new MockRepository();
@@ -78,7 +78,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetChildNodeObjects_WithDataButNoOutput_ReturnAllChildNodes()
+        public void GetChildNodeObjects_WithoutOutput_ReturnNoChildNodes()
         {
             // setup
             var mocks = new MockRepository();
@@ -98,7 +98,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanRenameNode_Always_ReturnTrue()
+        public void CanRenameNode_Always_ReturnFalse()
         {
             // setup
             var mocks = new MockRepository();
@@ -116,7 +116,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanRenameNodeTo_Always_ReturnTrue()
+        public void CanRenameNodeTo_Always_ReturnFalse()
         {
             // setup
             var mocks = new MockRepository();
@@ -341,7 +341,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void RemoveNodeData_ProjectWithPipingData_ReturnFalseAlways()
+        public void RemoveNodeData_ProjectWithPipingData_ReturnFalse()
         {
             // setup
             var PipingData = new PipingData();

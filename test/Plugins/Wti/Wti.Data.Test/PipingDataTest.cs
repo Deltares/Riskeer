@@ -1,18 +1,27 @@
 ﻿using System;
 using DelftTools.Shell.Core;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Wti.Data.Test
 {
     public class PipingDataTest
     {
+        private MockRepository mockRepository;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+        }
+
         [Test]
         public void DefaultConstructor_DefaultPropertyValuesAreSet()
         {
-            // call
+            // Call
             var defaultConstructed = new PipingData();
 
-            // assert
+            // Assert
             Assert.AreEqual(0, defaultConstructed.CriticalHeaveGradient);
             Assert.AreEqual(0, defaultConstructed.UpliftModelFactor);
             Assert.AreEqual(0, defaultConstructed.PiezometricHeadExit);
@@ -42,85 +51,69 @@ namespace Wti.Data.Test
         [Test]
         public void Notify_SingleListenerAttached_ListenerIsNotified()
         {
-            // setup
-            var called = false;
-            var observer = new PipingDataTestObserver
-            {
-                OnUpdate = () => called = true
-            };
+            // Setup
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            mockRepository.ReplayAll();
 
             var pipingData = new PipingData();
             
             pipingData.Attach(observer);
 
-            // call
+            // Call & Assert
             pipingData.NotifyObservers();
-
-            // assert
-            Assert.IsTrue(called);
         }
 
         [Test]
         public void Notify_SingleListenerAttachedAndDeattached_ListenerIsNotNotified()
         {
-            // setup
-            var called = false;
-            var observer = new PipingDataTestObserver
-            {
-                OnUpdate = () => called = true
-            };
+            // Setup
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Never();
+            mockRepository.ReplayAll();
 
             var pipingData = new PipingData();
             
             pipingData.Attach(observer);
             pipingData.Detach(observer);
 
-            // call
+            // Call & Assert
             pipingData.NotifyObservers();
-
-            // assert
-            Assert.IsFalse(called);
         }
 
         [Test]
         public void Notify_TwoListenersAttached_BothAreNotified()
         {
-            // setup
-            var calledTimes = 0;
-            var observerA = new PipingDataTestObserver
-            {
-                OnUpdate = () => calledTimes++
-            };
-            var observerB = new PipingDataTestObserver
-            {
-                OnUpdate = () => calledTimes++
-            };
+            // Setup
+            var observerA = mockRepository.StrictMock<IObserver>();
+            observerA.Expect(o => o.UpdateObserver());
+
+            var observerB = mockRepository.StrictMock<IObserver>();
+            observerB.Expect(o => o.UpdateObserver());
+
+            mockRepository.ReplayAll();
 
             var pipingData = new PipingData();
 
             pipingData.Attach(observerA);
             pipingData.Attach(observerB);
 
-            // call
+            // Call & Assert
             pipingData.NotifyObservers();
-
-            // assert
-            Assert.AreEqual(2, calledTimes);
         }
 
         [Test]
         public void Notify_TwoListenersAttachedOneDetached_InvokedOnce()
         {
-            // setup
-            var calledTimes = 0;
-            var observerA = new PipingDataTestObserver
-            {
-                OnUpdate = () => calledTimes++
-            };
-            var observerB = new PipingDataTestObserver
-            {
-                OnUpdate = () => calledTimes++
-            };
+            // Setup
+            var observerA = mockRepository.StrictMock<IObserver>();
+            observerA.Expect(o => o.UpdateObserver()).Repeat.Never();
+
+            var observerB = mockRepository.StrictMock<IObserver>();
+            observerB.Expect(o => o.UpdateObserver());
+
+            mockRepository.ReplayAll();
 
             var pipingData = new PipingData();
 
@@ -128,22 +121,19 @@ namespace Wti.Data.Test
             pipingData.Attach(observerB);
             pipingData.Detach(observerA);
 
-            // call
+            // Call & Assert
             pipingData.NotifyObservers();
-
-            // assert
-            Assert.AreEqual(1, calledTimes);
         }
 
         [Test]
         public void Detach_DetachNonAttachedObserver_ThrowsNoException()
         {
-            // setup
-            var observer = new PipingDataTestObserver();
+            // Setup
+            var observer = mockRepository.StrictMock<IObserver>();
 
             var pipingData = new PipingData();
 
-            // call & assert
+            // Call & Assert
             pipingData.Detach(observer);
         }
 
@@ -151,19 +141,15 @@ namespace Wti.Data.Test
         public void Output_SetToNullWithListeners_ListenersNotified()
         {
             // Setup
-            var called = false;
-            var observer = new PipingDataTestObserver
-            {
-                OnUpdate = () => called = true
-            };
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mockRepository.ReplayAll();
+
             var pipingData = new PipingData();
             pipingData.Attach(observer);
 
-            // Call
+            // Call & Assert
             pipingData.Output = null;
-
-            // Assert
-            Assert.IsTrue(called);
         }
 
         [Test]
@@ -171,15 +157,15 @@ namespace Wti.Data.Test
         {
             // Setup
             var random = new Random(22);
-            var called = false;
-            var observer = new PipingDataTestObserver
-            {
-                OnUpdate = () => called = true
-            };
             var pipingData = new PipingData();
-            pipingData.Attach(observer);
 
-            // Call
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            pipingData.Attach(observer);
+            mockRepository.ReplayAll();
+
+            // Call & Assert
             pipingData.Output = new PipingOutput(
                 random.NextDouble(),
                 random.NextDouble(),
@@ -188,22 +174,6 @@ namespace Wti.Data.Test
                 random.NextDouble(),
                 random.NextDouble()
             );
-
-            // Assert
-            Assert.IsTrue(called);
         }
-        
-        class PipingDataTestObserver : IObserver
-        {
-            public Action OnUpdate;
-
-            public void UpdateObserver()
-            {
-                if (OnUpdate != null)
-                {
-                    OnUpdate();
-                }
-            }
-        } 
     }
 }
