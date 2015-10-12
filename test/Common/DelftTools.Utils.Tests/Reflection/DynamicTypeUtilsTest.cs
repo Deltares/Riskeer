@@ -11,7 +11,7 @@ namespace DelftTools.Utils.Tests.Reflection
         public void CreateDynamicEnum()
         {
             var enumType = DynamicTypeUtils.CreateDynamicEnum("MyEnum",
-                                                              new int[]
+                                                              new[]
                                                               {
                                                                   1,
                                                                   2,
@@ -35,7 +35,7 @@ namespace DelftTools.Utils.Tests.Reflection
         [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Number of values / descriptions / displayNames does not match")]
         public void CreateDynamicEnumNotEnoughDescriptions()
         {
-            DynamicTypeUtils.CreateDynamicEnum("MyEnum", new int[]
+            DynamicTypeUtils.CreateDynamicEnum("MyEnum", new[]
             {
                 0,
                 1,

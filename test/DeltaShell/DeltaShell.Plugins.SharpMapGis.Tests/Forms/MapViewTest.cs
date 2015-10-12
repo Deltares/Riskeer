@@ -95,7 +95,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 
             var path = DataPath + filePath;
 
-            ShapeFile shp = null;
+            ShapeFile shp;
             Map.CoordinateSystemFactory = new OgrCoordinateSystemFactory();
 
             var src = Map.CoordinateSystemFactory.CreateFromEPSG(4326 /* WGS84 */);

@@ -38,7 +38,7 @@ namespace DelftTools.Utils.Tests.Threading
 
             Console.WriteLine("Elapsed: " + stopwatch.ElapsedMilliseconds);
             Console.WriteLine("Max: " + maxTime);
-            Console.WriteLine(String.Format("Speedup: {0:N2}x", (double) sequentialTime/stopwatch.ElapsedMilliseconds));
+            Console.WriteLine("Speedup: {0:N2}x", (double) sequentialTime/stopwatch.ElapsedMilliseconds);
 
             if (workerThreads <= 2)
             {

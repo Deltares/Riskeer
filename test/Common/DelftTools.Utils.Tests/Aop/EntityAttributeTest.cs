@@ -186,12 +186,7 @@ namespace DelftTools.Utils.Tests.Aop
         [Test]
         public void ConstructingObjectsInSeveralThreadsShouldBeSafe()
         {
-            Task.WaitAll(new[]
-            {
-                Task.Factory.StartNew(CreateManyObjects<Super>),
-                Task.Factory.StartNew(CreateManyObjects<Person>),
-                Task.Factory.StartNew(CreateManyObjects<Super>)
-            });
+            Task.WaitAll(Task.Factory.StartNew(CreateManyObjects<Super>), Task.Factory.StartNew(CreateManyObjects<Person>), Task.Factory.StartNew(CreateManyObjects<Super>));
         }
 
         [Test]

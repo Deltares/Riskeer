@@ -345,19 +345,17 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
                 new Coordinate(0, 0),
                 new Coordinate(10, 0)
             });
-            Coordinate nullCoordinate = null;
-            Point nullGeometry = null;
 
             var distance = GeometryHelper.Distance(null, new Coordinate(0, 0));
             Assert.AreEqual(double.MaxValue, distance);
 
-            distance = GeometryHelper.Distance(lineString, nullCoordinate);
+            distance = GeometryHelper.Distance(lineString, (Coordinate) null);
             Assert.AreEqual(double.MaxValue, distance);
 
             distance = GeometryHelper.Distance(null, new Point(0, 0));
             Assert.AreEqual(double.MaxValue, distance);
 
-            distance = GeometryHelper.Distance(lineString, nullGeometry);
+            distance = GeometryHelper.Distance(lineString, (Point) null);
             Assert.AreEqual(double.MaxValue, distance);
         }
 

@@ -152,7 +152,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
 
             public CityProperties(City city)
             {
-                this.city = (City) city;
+                this.city = city;
             }
 
             [DisplayName("Name (read-only)")]

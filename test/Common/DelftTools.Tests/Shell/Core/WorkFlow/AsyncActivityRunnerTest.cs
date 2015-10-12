@@ -17,7 +17,7 @@ namespace DelftTools.Tests.Shell.Core.WorkFlow
         {
             var activity = new CrashingActivity();
 
-            var asynchTask = new AsyncActivityRunner(activity, (a) => a.Execute());
+            var asynchTask = new AsyncActivityRunner(activity, a => a.Execute());
             int callCount = 0;
             asynchTask.Completed += (s, e) =>
             {

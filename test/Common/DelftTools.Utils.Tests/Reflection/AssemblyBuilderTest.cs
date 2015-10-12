@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
@@ -7,11 +6,6 @@ using NUnit.Framework;
 
 namespace DelftTools.Utils.Tests.Reflection
 {
-    public abstract class A
-    {
-
-    }
-
     [TestFixture]
     public class AssemblyBuilderTest
     {
@@ -26,10 +20,10 @@ namespace DelftTools.Utils.Tests.Reflection
             ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name, "Generated.dll");
 
             TypeBuilder typeBuilder =
-                moduleBuilder.DefineType("DelftTools.Utils.Reflection.B", TypeAttributes.Public | TypeAttributes.Class, typeof(A));
+                moduleBuilder.DefineType("DelftTools.Utils.Reflection.B", TypeAttributes.Public | TypeAttributes.Class, typeof(object));
 
             typeBuilder.SetCustomAttribute(
-                new CustomAttributeBuilder(typeof(GuidAttribute).GetConstructor(new Type[]
+                new CustomAttributeBuilder(typeof(GuidAttribute).GetConstructor(new[]
                 {
                     typeof(string)
                 }),
@@ -56,7 +50,7 @@ namespace DelftTools.Utils.Tests.Reflection
             MethodInfo getToolWindowName = type.GetMethod("GetToolWindowName");
             object retval = getToolWindowName.Invoke(obj, null);
 
-            Trace.Assert(retval.Equals("Hello!"));
+            Assert.AreEqual("Hello!", retval);
         }
     }
 }

@@ -16,8 +16,7 @@ namespace DelftTools.Utils.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void GetUniqueNameWithInvalidFilter()
         {
-            NamingHelper.GetUniqueName("invalidfilter", new INameable[]
-            {}, null);
+            NamingHelper.GetUniqueName("invalidfilter", new INameable[] { });
         }
 
         [Test]

@@ -30,8 +30,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
             string url = "http://www2.demis.nl/wms/wms.asp?wms=WorldMap&REQUEST=GetCapabilities";
 
             var webBrowser = new WebBrowser();
-            bool connectionAvailable = false;
-            connectionAvailable = ConnectionAvailable(url);
+            var connectionAvailable = ConnectionAvailable(url);
 
             webBrowser.DocumentCompleted += delegate
             {

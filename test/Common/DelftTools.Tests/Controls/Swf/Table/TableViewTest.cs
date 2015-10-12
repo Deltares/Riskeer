@@ -884,16 +884,8 @@ namespace DelftTools.Tests.Controls.Swf.Table
             var table = new DataTable();
             table.Columns.Add("column1", typeof(string));
             table.Columns.Add("column2", typeof(string));
-            table.Rows.Add(new object[]
-            {
-                "1",
-                "2"
-            });
-            table.Rows.Add(new object[]
-            {
-                "3",
-                "4"
-            });
+            table.Rows.Add("1", "2");
+            table.Rows.Add("3", "4");
 
             var tableView = new TableView
             {
@@ -979,10 +971,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
             var table = new DataTable();
             table.Columns.Add("readonlycolumn", typeof(string));
 
-            table.Rows.Add(new object[]
-            {
-                "1"
-            });
+            table.Rows.Add("1");
 
             var tableView = new TableView
             {
@@ -1003,10 +992,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
             var table = new DataTable();
             table.Columns.Add("readonlycolumn", typeof(string));
 
-            table.Rows.Add(new object[]
-            {
-                "1"
-            });
+            table.Rows.Add("1");
 
             var tableView = new TableView
             {
@@ -1027,10 +1013,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
             var table = new DataTable();
             table.Columns.Add("readonlycolumn", typeof(string));
 
-            table.Rows.Add(new object[]
-            {
-                "1"
-            });
+            table.Rows.Add("1");
 
             var tableView = new TableView
             {
@@ -1538,10 +1521,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
             var table = new DataTable();
 
             table.Columns.Add("column", typeof(string));
-            table.Rows.Add(new object[]
-            {
-                "1"
-            });
+            table.Rows.Add("1");
 
             var tableView = new TableView
             {
@@ -1966,7 +1946,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
                 Data = table, MultiSelect = true, RowSelect = true, ReadOnly = true
             };
             var gridView = TypeUtils.GetField(tableView, "dxGridView");
-            WindowsFormsTestHelper.ShowModal(tableView, (f) =>
+            WindowsFormsTestHelper.ShowModal(tableView, f =>
             {
                 TypeUtils.CallPrivateMethod(gridView, "RaiseMouseDown", new MouseEventArgs(MouseButtons.Left, 1, 156, 76, 0));
 

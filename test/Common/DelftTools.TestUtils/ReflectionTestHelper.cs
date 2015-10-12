@@ -130,7 +130,7 @@ namespace DelftTools.TestUtils
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine(String.Format("Unable to set property: {0}", prop));
+                    Console.WriteLine("Unable to set property: {0}", prop);
                 }
             }
         }

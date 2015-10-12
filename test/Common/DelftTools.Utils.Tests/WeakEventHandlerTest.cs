@@ -247,7 +247,7 @@ namespace DelftTools.Utils.Tests
             public EventConsumerGeneric(EventSourceGeneric sourceGeneric)
             {
                 sourceGeneric.theEvent +=
-                    new EventHandler<EventArgs>(source_theEvent).MakeWeak((e) => sourceGeneric.theEvent -= e);
+                    new EventHandler<EventArgs>(source_theEvent).MakeWeak(e => sourceGeneric.theEvent -= e);
             }
 
             #region IEventConsumer Members
@@ -267,7 +267,7 @@ namespace DelftTools.Utils.Tests
             public EventConsumerPropChange(EventSourcePropChange sourcePropChange)
             {
                 sourcePropChange.theEvent +=
-                    new PropertyChangedEventHandler(source_theEvent).MakeWeak((e) => sourcePropChange.theEvent -= e);
+                    new PropertyChangedEventHandler(source_theEvent).MakeWeak(e => sourcePropChange.theEvent -= e);
             }
 
             #region IEventConsumer Members

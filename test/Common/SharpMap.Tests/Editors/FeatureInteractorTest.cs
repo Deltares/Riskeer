@@ -64,8 +64,7 @@ namespace SharpMap.Tests.Editors
         [Test]
         public void CanDeleteAndMoveDoesNotCrashWithEmptyLayer()
         {
-            var editor = new TestFeatureInteractor(null, null, null, null)
-            {};
+            var editor = new TestFeatureInteractor(null, null, null, null);
 
             Assert.IsFalse(editor.AllowDeletion());
             Assert.IsFalse(editor.AllowMove());

@@ -144,14 +144,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.HibernateMappings
             QuantityTheme theme = new QuantityTheme("column1", vectorStyle);
             theme.AddStyle(vectorStyle, new Interval(0, 100));
             theme.AddStyle(vectorStyle, new Interval(101, 200));
-            theme.NoDataValues = new int[]
+            theme.NoDataValues = new[]
             {
                 -999
             };
 
             string xml = themeTC.ConvertToString(theme);
             QuantityTheme retrievedTheme = (QuantityTheme) themeTC.ConvertFromString(xml);
-            Assert.AreEqual(new int[]
+            Assert.AreEqual(new[]
             {
                 -999
             }, retrievedTheme.NoDataValues);
@@ -164,14 +164,14 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.HibernateMappings
             QuantityTheme theme = new QuantityTheme("column1", vectorStyle);
             theme.AddStyle(vectorStyle, new Interval(0, 100));
             theme.AddStyle(vectorStyle, new Interval(101, 200));
-            theme.NoDataValues = new float[]
+            theme.NoDataValues = new[]
             {
                 -999.0F
             };
 
             string xml = themeTC.ConvertToString(theme);
             QuantityTheme retrievedTheme = (QuantityTheme) themeTC.ConvertFromString(xml);
-            Assert.AreEqual(new float[]
+            Assert.AreEqual(new[]
             {
                 -999.0F
             }, retrievedTheme.NoDataValues);

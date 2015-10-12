@@ -596,7 +596,7 @@ namespace DelftTools.TestUtils
                 }
             }
 
-            string contents = "";
+            string contents;
 
             float rank = machineRank*(useHddAccessRank ? machineHddRank : 1.0f);
 
@@ -779,7 +779,7 @@ namespace DelftTools.TestUtils
             {
                 if (!renderedMessages.Contains(message))
                 {
-                    Assert.Fail(String.Format("Message \"{0}\" not found in messages of log4net", message));
+                    Assert.Fail("Message \"{0}\" not found in messages of log4net", message);
                 }
             }
         }
@@ -795,7 +795,7 @@ namespace DelftTools.TestUtils
             {
                 if (messages.Contains(renderedMessage))
                 {
-                    Assert.Fail(String.Format("Message \"{0}\" found in messages of log4net", renderedMessage));
+                    Assert.Fail("Message \"{0}\" found in messages of log4net", renderedMessage);
                 }
             }
         }
