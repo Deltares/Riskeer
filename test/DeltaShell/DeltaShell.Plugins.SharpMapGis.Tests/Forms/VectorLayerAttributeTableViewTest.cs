@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using DelftTools.Utils;
 using DelftTools.Utils.Collections.Generic;
 using DelftTools.Utils.ComponentModel;
@@ -155,7 +154,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
                 this.city = city;
             }
 
-            [DisplayName("Name (read-only)")]
             public string Name
             {
                 get
@@ -164,7 +162,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
                 }
             }
 
-            [DisplayFormat("0 people")]
             public int Population
             {
                 get

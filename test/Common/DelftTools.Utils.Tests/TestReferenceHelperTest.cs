@@ -91,15 +91,15 @@ namespace DelftTools.Utils.Tests
         }
 
         [Entity]
-        public class TestClass
+        private class TestClass
         {
             public TestClass Parent { get; set; }
         }
 
         [Entity]
-        public class SuperTestClass : TestClass
+        private class SuperTestClass : TestClass
         {
-            public TestClass Other { get; set; }
+
         }
     }
 }
