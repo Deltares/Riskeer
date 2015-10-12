@@ -142,7 +142,6 @@
     <Compile Include="Interop\Pinned.cs" />
     <Compile Include="IO\ITransactionalChangeAccess.cs" />
     <Compile Include="MappingDocument.cs" />
-    <Compile Include="PropertyBag\Dynamic\DynamicDataItemPropertyBag.cs" />
     <Compile Include="Reflection\AutoCloner.cs" />
     <Compile Include="Reflection\DynamicTypeUtils.cs" />
     <Compile Include="Properties\Resource.Designer.cs">

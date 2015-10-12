@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using DelftTools.TestUtils;
 using NUnit.Framework;
 
 namespace DelftTools.Utils.Tests

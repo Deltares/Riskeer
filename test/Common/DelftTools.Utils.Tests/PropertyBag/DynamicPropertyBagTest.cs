@@ -350,7 +350,13 @@ namespace DelftTools.Utils.Tests.PropertyBag
         {
             public string PrivateSetter { get; private set; }
 
-            public string NoSetter { get; private set; }
+            public string NoSetter
+            {
+                get
+                {
+                    return "";
+                }
+            }
         }
 
         #endregion

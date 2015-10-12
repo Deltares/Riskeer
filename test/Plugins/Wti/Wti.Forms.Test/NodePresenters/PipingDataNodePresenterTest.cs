@@ -3,7 +3,6 @@ using System.ComponentModel;
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
-using DeltaShell.Tests.TestObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Wti.Data;

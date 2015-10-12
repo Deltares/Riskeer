@@ -91,7 +91,6 @@
     <Compile Include="Collections\Extensions\ListExtensions.cs" />
     <Compile Include="Collections\Generic\EnumerableListTest.cs" />
     <Compile Include="Collections\Generic\EventedListTest.cs" />
-    <Compile Include="Collections\Generic\MockClassWithTwoProperties.cs" />
     <Compile Include="ComparableExtensionsTest.cs" />
     <Compile Include="ComparerTest.cs" />
     <Compile Include="ConversionHelperTest.cs" />
@@ -107,7 +106,6 @@
     <Compile Include="MathUtilsTest.cs" />
     <Compile Include="NamingHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyBag\DynamicDataItemPropertyBagTest.cs" />
     <Compile Include="PropertyBag\DynamicPropertyBagTest.cs" />
     <Compile Include="Reflection\AssemblyBuilderTest.cs" />
     <Compile Include="Reflection\AssemblyUtilsTest.cs" />

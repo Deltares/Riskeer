@@ -244,5 +244,34 @@ namespace DelftTools.Utils.Tests.Collections.Generic
 
             bool INotifyPropertyChange.HasParent { get; set; }
         }
+
+        private class MockClassWithTwoProperties : INotifyPropertyChange
+        {
+            private string stringField;
+            public event PropertyChangedEventHandler PropertyChanged;
+            public event PropertyChangingEventHandler PropertyChanging;
+
+            public string StringProperty
+            {
+                get
+                {
+                    return stringField;
+                }
+                set
+                {
+                    if (PropertyChanging != null)
+                    {
+                        PropertyChanging(this, new PropertyChangingEventArgs("StringProperty"));
+                    }
+                    stringField = value;
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("StringProperty"));
+                    }
+                }
+            }
+
+            bool INotifyPropertyChange.HasParent { get; set; }
+        }
     }
 }
