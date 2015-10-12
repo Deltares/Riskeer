@@ -9,16 +9,26 @@ using Wti.Forms.Properties;
 
 namespace Wti.Controller
 {
+    /// <summary>
+    /// This class controls the <see cref="PipingData"/> and its <see cref="PipingDataNodePresenter"/>.
+    /// Interactions from the <see cref="PipingDataNodePresenter"/> are handles by this class.
+    /// </summary>
     public class PipingDataNodeController : IContextMenuProvider
     {
         private readonly ILog logger = LogManager.GetLogger(typeof(PipingCalculationInput));
         private readonly PipingDataNodePresenter nodePresenter = new PipingDataNodePresenter();
 
+        /// <summary>
+        /// Creates a instance of a controller for the <see cref="PipingDataNodePresenter"/>.
+        /// </summary>
         public PipingDataNodeController()
         {
             nodePresenter.ContextMenu = GetContextMenu;
         }
 
+        /// <summary>
+        /// The <see cref="PipingDataNodePresenter"/> which this class controls.
+        /// </summary>
         public PipingDataNodePresenter NodePresenter
         {
             get
@@ -27,6 +37,11 @@ namespace Wti.Controller
             }
         }
 
+        /// <summary>
+        /// Creates a <see cref="PipingContextMenuStrip"/> which actions are tied to this controller.
+        /// </summary>
+        /// <param name="pipingData"></param>
+        /// <returns></returns>
         public IMenuItem GetContextMenu(object pipingData)
         {
             var contextMenu = new PipingContextMenuStrip((PipingData) pipingData);
