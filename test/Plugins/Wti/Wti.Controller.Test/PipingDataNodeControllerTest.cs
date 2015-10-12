@@ -9,7 +9,7 @@ namespace Wti.Controller.Test
 {
     public class PipingDataNodeControllerTest
     {
-        public PipingData ValidPipingData = new PipingData
+        private readonly PipingData validPipingData = new PipingData
         {
             AssessmentLevel = 1.0,
             BeddingAngle = 1.0,
@@ -66,7 +66,7 @@ namespace Wti.Controller.Test
         [Test]
         public void GivenPipingDataWithSomeValidInput_WhenInvokingCalculationThroughContextMenu_ThenPipingDataContainsOutput()
         {
-            PipingData pipingData = ValidPipingData;
+            PipingData pipingData = validPipingData;
             var pipingDataNodeController = new PipingDataNodeController();
             MenuItemContextMenuStripAdapter contextMenu = pipingDataNodeController.GetContextMenu(pipingData) as MenuItemContextMenuStripAdapter;
             contextMenu.ContextMenuStrip.Items[0].PerformClick();

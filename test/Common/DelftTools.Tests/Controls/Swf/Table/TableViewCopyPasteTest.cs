@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DelftTools.Controls.Swf.Table;
+using DelftTools.Tests.Controls.Swf.Table.TestClasses;
 using DelftTools.TestUtils;
 using DelftTools.Utils;
 using DevExpress.XtraGrid;

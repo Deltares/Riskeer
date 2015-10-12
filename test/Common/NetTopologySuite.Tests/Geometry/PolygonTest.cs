@@ -1,3 +1,4 @@
+using GeoAPI.Geometries;
 using GisSharpBlog.NetTopologySuite.Geometries;
 using NUnit.Framework;
 
@@ -9,7 +10,7 @@ namespace NetTopologySuite.Tests.Geometry
         [Test]
         public void CompareUsingHashcode()
         {
-            var polygon = new Polygon(new LinearRing(new[]
+            var polygon = new Polygon(new LinearRing(new ICoordinate[]
             {
                 new Coordinate(1.0, 2.0),
                 new Coordinate(2.0, 3.0),

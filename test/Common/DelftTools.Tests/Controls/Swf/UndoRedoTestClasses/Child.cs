@@ -8,7 +8,7 @@ namespace DelftTools.Tests.Controls.Swf.UndoRedoTestClasses
     {
         public string Name { get; set; }
 
-        public bool IsEditing { get; set; }
+        public bool IsEditing { get; private set; }
 
         public bool EditWasCancelled
         {

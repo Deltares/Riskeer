@@ -11,9 +11,9 @@ namespace DelftTools.TestUtils.TestReferenceHelper
             Name = name;
         }
 
-        public ReferenceNode From { get; set; }
-        public ReferenceNode To { get; set; }
-        public string Name { get; set; }
+        public ReferenceNode From { get; private set; }
+        public ReferenceNode To { get; private set; }
+        public string Name { get; private set; }
 
         public string ToPathString()
         {

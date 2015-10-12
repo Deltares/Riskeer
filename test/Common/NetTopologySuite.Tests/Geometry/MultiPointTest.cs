@@ -1,3 +1,4 @@
+using GeoAPI.Geometries;
 using GisSharpBlog.NetTopologySuite.Geometries;
 using NUnit.Framework;
 
@@ -9,7 +10,7 @@ namespace NetTopologySuite.Tests.Geometry
         [Test]
         public void GetHashCodeShoulBeComputed()
         {
-            var multiPoint = new MultiPoint(new[]
+            var multiPoint = new MultiPoint(new IPoint[]
             {
                 new Point(1.0, 2.0),
                 new Point(3.0, 4.0)

@@ -5,7 +5,7 @@ namespace DelftTools.TestUtils
     /// </summary>
     public class TestDataPath
     {
-        public string Path { get; set; }
+        public string Path { get; private set; }
 
         public static implicit operator TestDataPath(string path)
         {
