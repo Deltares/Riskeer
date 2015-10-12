@@ -44,7 +44,7 @@ namespace Wti.Calculation.Piping
                     sellmejerResultContainer.FoSp
                     );
             }
-            catch (UpliftCalculatorException e)
+            catch (WTIUpliftCalculatorException e)
             {
                 throw new PipingCalculationException(e.Message);
             }
