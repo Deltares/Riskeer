@@ -56,7 +56,8 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
             IFeature feature = mocks.Stub<IFeature>();
 
             var point = new Point(42, 24);
-            var envelope = new Envelope(point.X - envelopeExpansion, point.X + envelopeExpansion, point.Y - envelopeExpansion, point.Y + envelopeExpansion);
+
+            new Envelope(point.X - envelopeExpansion, point.X + envelopeExpansion, point.Y - envelopeExpansion, point.Y + envelopeExpansion);
 
             Expect.Call(gui.ToolWindowViews).Return(viewList).Repeat.Any();
             Expect.Call(gui.DocumentViews).Return(viewList).Repeat.Any();

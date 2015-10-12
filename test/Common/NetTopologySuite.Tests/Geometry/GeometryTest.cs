@@ -30,7 +30,7 @@ namespace NetTopologySuite.Tests.Geometry
             var g1 = wktReader.Read("POLYGON((0.0000001 -3,5 -3,5 -7,0.000001 -7,0.0000001 -3))");
             var g2 = wktReader.Read("POLYGON((5 -10,2 -10,0.000001 0,0.000001 1,5 1,5 -10))");
 
-            var diff = g1.Difference(g2);
+            g1.Difference(g2);
         }
 
         /// <summary>

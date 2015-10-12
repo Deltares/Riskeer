@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace DelftTools.TestUtils
 {
@@ -34,23 +33,6 @@ namespace DelftTools.TestUtils
         public static object[] PropertyObjects { get; set; }
 
         public PropertyGrid PropertyGrid { get; private set; }
-
-        public static void ShowPropertyGridForObject(object selectedObject)
-        {
-            var mockrepos = new MockRepository();
-
-            /* TODO: review with Bas
-            var guiMock = mockrepos.Stub<IGui>();
-            var grid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(guiMock) { Data = new DynamicPropertyBag(selectedObject) };
-            */
-
-            var grid = new PropertyGrid
-            {
-                SelectedObject = selectedObject
-            };
-
-            ShowModal(grid);
-        }
 
         public static void Show(Control control, Action<Form> formVisibleChangedAction, params object[] propertyObjects)
         {

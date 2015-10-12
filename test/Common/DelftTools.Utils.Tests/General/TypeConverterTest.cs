@@ -24,8 +24,6 @@ namespace DelftTools.Utils.Tests.General
             //char c = TConverter.ConvertValueToTargetType<char>("x");
             Assert.AreEqual('x', TypeConverter.ConvertValueToTargetType<char>("x"));
 
-            Guid g = TypeConverter.ConvertValueToTargetType<Guid>("{32F92EEB-A703-4eb7-A9F8-62E09F87D03F}");
-
             Version v = TypeConverter.ConvertValueToTargetType<Version>("1.2.3.4");
             Assert.AreEqual(1, v.Major);
             Assert.AreEqual(2, v.Minor);

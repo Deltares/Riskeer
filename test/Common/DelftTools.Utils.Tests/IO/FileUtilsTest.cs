@@ -141,7 +141,7 @@ namespace DelftTools.Utils.Tests.IO
         public void GetUniqueFileNameReturnsTheSameNameWhenNoFileIsFound()
         {
             const string someFileName = "somefile.nc";
-            string newName = FileUtils.GetUniqueFileName(someFileName);
+            Assert.AreEqual(someFileName, FileUtils.GetUniqueFileName(someFileName));
         }
 
         [Test]
@@ -177,7 +177,7 @@ namespace DelftTools.Utils.Tests.IO
         [ExpectedException(typeof(ArgumentNullException))]
         public void GetUniqueFileNameThrowsArgumentNullExceptionOnNullArgument()
         {
-            string newName = FileUtils.GetUniqueFileName(null);
+            FileUtils.GetUniqueFileName(null);
         }
 
         [Test]

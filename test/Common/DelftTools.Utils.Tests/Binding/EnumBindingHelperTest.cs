@@ -33,7 +33,7 @@ namespace DelftTools.Utils.Tests.Binding
         {
             //datetime is a struct but not an enum. Would be nice to get compile time checking 
             //but for now this is OK
-            var list = EnumBindingHelper.ToList<DateTime>();
+            EnumBindingHelper.ToList<DateTime>();
         }
     }
 }

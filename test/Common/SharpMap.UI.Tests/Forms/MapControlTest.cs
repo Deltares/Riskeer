@@ -41,11 +41,6 @@ namespace SharpMap.UI.Tests.Forms
                 }
             };
 
-            var mapControl = new MapControl
-            {
-                Map = map
-            };
-
             var viewEnvelope = new Envelope(10000, 10010, 10000, 10010);
 
             map.ZoomToFit(viewEnvelope);

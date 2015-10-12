@@ -210,7 +210,7 @@ namespace DelftTools.Utils.Tests.Aop
         {
             for (int i = 0; i < 1000000; i++)
             {
-                var t = new T();
+                new T();
             }
         }
 

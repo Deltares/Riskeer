@@ -64,7 +64,8 @@ namespace DelftTools.Utils.Tests.PropertyBag
             var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
 
             var namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-            var namePropertyValue = namePropertyDescriptor.GetValue(dynamicPropertyBag);
+
+            namePropertyDescriptor.GetValue(dynamicPropertyBag);
 
             // asserts
             namePropertyDescriptor.Attributes.Matches(new DynamicReadOnlyAttribute())
@@ -83,7 +84,7 @@ namespace DelftTools.Utils.Tests.PropertyBag
 
             var namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
 
-            var nameValue = namePropertyDescriptor.GetValue(dynamicPropertyBag);
+            namePropertyDescriptor.GetValue(dynamicPropertyBag);
 
             // asserts
             namePropertyDescriptor.Attributes.Matches(new DynamicReadOnlyAttribute())
@@ -128,7 +129,8 @@ namespace DelftTools.Utils.Tests.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(new TestWithoutValidationMethodClassProperties());
             var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
             var namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-            var nameValue = namePropertyDescriptor.GetValue(dynamicPropertyBag);
+
+            namePropertyDescriptor.GetValue(dynamicPropertyBag);
         }
 
         [Test]
@@ -191,7 +193,8 @@ namespace DelftTools.Utils.Tests.PropertyBag
             var dynamicPropertyBag = new DynamicPropertyBag(new TestInvalidValidationMethodClassProperties());
             var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
             var namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-            var nameValue = namePropertyDescriptor.GetValue(dynamicPropertyBag);
+
+            namePropertyDescriptor.GetValue(dynamicPropertyBag);
         }
 
         [Test]
@@ -213,7 +216,8 @@ namespace DelftTools.Utils.Tests.PropertyBag
 
             var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicPropertyBag).GetProperties();
             var namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-            var nameValue = namePropertyDescriptor.GetValue(dynamicPropertyBag);
+
+            namePropertyDescriptor.GetValue(dynamicPropertyBag);
         }
 
         #region Test Classes

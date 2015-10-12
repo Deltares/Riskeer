@@ -56,7 +56,7 @@ namespace SharpMap.Tests.Data.Providers
                 for (int i = 0; i < queryRectangles.Length; i++)
                 {
                     var rect = queryRectangles[i];
-                    var res = quadTree.GetIndices(ref rect, 0f).ToList();
+                    quadTree.GetIndices(ref rect, 0f).ToList();
                 }
             });
         }

@@ -67,7 +67,6 @@ namespace DelftTools.Utils.Tests.PropertyBag
             var propertyDescriptorCollection = ((ICustomTypeDescriptor) dynamicDataItemPropertyBag).GetProperties();
 
             var namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-            var namePropertyValue = namePropertyDescriptor.GetValue(dynamicDataItemPropertyBag);
 
             // asserts
             namePropertyDescriptor.Attributes.Matches(new DynamicReadOnlyAttribute())

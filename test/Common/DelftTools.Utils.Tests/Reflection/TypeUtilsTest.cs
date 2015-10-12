@@ -54,7 +54,7 @@ namespace DelftTools.Utils.Tests.Reflection
         [Test]
         public void GetPrivateStaticField()
         {
-            TestClass testClass = new TestClass(22, 23);
+            new TestClass(22, 23);
             Assert.AreEqual(23, TypeUtils.GetStaticField<int>(typeof(TestClass), "privateStaticInt"));
         }
 
