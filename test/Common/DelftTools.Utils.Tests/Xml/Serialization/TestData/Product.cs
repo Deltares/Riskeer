@@ -2,10 +2,6 @@ using System.Xml.Serialization;
 
 namespace DelftTools.Utils.Tests.Xml.Serialization.TestData
 {
-}
-
-namespace DelftTools.Utils.TestClasses
-{
     [XmlRoot("product", Namespace = "", IsNullable = false)]
     public class Product
     {

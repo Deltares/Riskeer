@@ -109,7 +109,6 @@
     <Compile Include="GuiPluginConfiguration.cs">
       <DependentUpon>GuiPluginConfiguration.xsd</DependentUpon>
     </Compile>
-    <Compile Include="GuiPluginConfigurationSectionHandler.cs" />
     <Compile Include="ItemEventArgs.cs" />
     <Compile Include="Forms\IMainWindow.cs" />
     <Compile Include="IGui.cs" />

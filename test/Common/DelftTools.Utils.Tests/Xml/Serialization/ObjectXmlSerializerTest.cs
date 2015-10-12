@@ -1,5 +1,5 @@
-using DelftTools.Utils.TestClasses;
 using DelftTools.Utils.Tests.Xml.Serialization.TestClasses;
+using DelftTools.Utils.Tests.Xml.Serialization.TestData;
 using DelftTools.Utils.Xml.Serialization;
 using NUnit.Framework;
 

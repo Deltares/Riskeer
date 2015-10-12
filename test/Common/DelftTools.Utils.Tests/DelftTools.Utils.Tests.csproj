@@ -87,9 +87,6 @@
     <Compile Include="Aop\TestClasses\InvokeRequiredTestClass.cs" />
     <Compile Include="Aop\TestClasses\DllImports.cs" />
     <Compile Include="Aop\TestClasses\NotifiableTestClass.cs" />
-    <Compile Include="Aop\TestClasses\ProblemChildObject.cs" />
-    <Compile Include="Aop\TestClasses\ProblemParentObject.cs" />
-    <Compile Include="Aop\TestClasses\TreeClient.cs" />
     <Compile Include="Aop\TraceDllImportCallsAttributeTest.cs" />
     <Compile Include="Binding\EnumBindingHelperTest.cs" />
     <Compile Include="Binding\SampleEnum.cs" />

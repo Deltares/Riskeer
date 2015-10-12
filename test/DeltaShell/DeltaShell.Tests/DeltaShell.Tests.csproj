@@ -89,8 +89,6 @@
     <Compile Include="Gui\Forms\PropertyGrid\PropertyGridTest.cs" />
     <Compile Include="Gui\Forms\ProgressDialog\TestStringBasedProgressingActivity.cs" />
     <Compile Include="Gui\GuiExportHandlerTest.cs" />
-    <Compile Include="TestObjects\TestActivityRunner.cs" />
-    <Compile Include="TestObjects\TestExporter.cs" />
     <Compile Include="Gui\DelftShellGuiTests.cs" />
     <Compile Include="Gui\Forms\ProgressDialog\TestActivity.cs" />
     <Compile Include="Gui\GuiCommandHandlerTest.cs" />
@@ -103,7 +101,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TestObjects\TestImporter.cs" />
     <Compile Include="TestObjects\TestReusableView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -111,7 +108,6 @@
       <DependentUpon>TestReusableView.cs</DependentUpon>
     </Compile>
     <Compile Include="TestObjects\TestDockingManager.cs" />
-    <Compile Include="TestObjects\TestCompositeView.cs" />
     <Compile Include="Gui\ToolWindowTestControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -192,7 +192,6 @@
     <Compile Include="Charting\Tools\EditPointTool.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Charting\Tools\GeoApiHelper.cs" />
     <Compile Include="Charting\Tools\HistoryTool.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -414,12 +413,6 @@
     <Compile Include="Table\Filtering\FilterNumericControl.Designer.cs">
       <DependentUpon>FilterNumericControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Table\Filtering\FilterTableColumnControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Table\Filtering\FilterTableColumnControl.Designer.cs">
-      <DependentUpon>FilterTableColumnControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Table\Filtering\FilterTextControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -557,9 +550,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Table\Filtering\FilterNumericControl.resx">
       <DependentUpon>FilterNumericControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Table\Filtering\FilterTableColumnControl.resx">
-      <DependentUpon>FilterTableColumnControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Table\Filtering\FilterTextControl.resx">
       <DependentUpon>FilterTextControl.cs</DependentUpon>

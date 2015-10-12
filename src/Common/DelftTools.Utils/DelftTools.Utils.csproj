@@ -139,7 +139,6 @@
     <Compile Include="GraphicsUtils.cs" />
     <Compile Include="Interop\NativeWin32.cs" />
     <Compile Include="IO\ITransactionalChangeAccess.cs" />
-    <Compile Include="MappingDocument.cs" />
     <Compile Include="PropertyBag\Dynamic\DynamicDataItemPropertyBag.cs" />
     <Compile Include="Reflection\AutoCloner.cs" />
     <Compile Include="Reflection\DynamicTypeUtils.cs" />
@@ -224,7 +223,6 @@
     <Compile Include="Tuple.cs" />
     <Compile Include="TypeConverter.cs" />
     <Compile Include="Url.cs" />
-    <Compile Include="Validation\ValidationHelper.cs" />
     <Compile Include="Validation\ValidationIssue.cs" />
     <Compile Include="Validation\ValidationReport.cs" />
     <Compile Include="Validation\ValidationSeverity.cs" />
