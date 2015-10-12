@@ -52,13 +52,25 @@ namespace Wti.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(1, propertyInfos.Length);
+                Assert.AreEqual(3, propertyInfos.Length);
 
                 var wtiProjectProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(WtiProject));
                 Assert.AreEqual(typeof(WtiProjectProperties), wtiProjectProperties.PropertyType);
                 Assert.IsNull(wtiProjectProperties.AdditionalDataCheck);
                 Assert.IsNull(wtiProjectProperties.GetObjectPropertiesData);
                 Assert.IsNull(wtiProjectProperties.AfterCreate);
+
+                var pipingDataProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingData));
+                Assert.AreEqual(typeof(PipingDataProperties), pipingDataProperties.PropertyType);
+                Assert.IsNull(pipingDataProperties.AdditionalDataCheck);
+                Assert.IsNull(pipingDataProperties.GetObjectPropertiesData);
+                Assert.IsNull(pipingDataProperties.AfterCreate);
+
+                var pipingOutputProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingOutput));
+                Assert.AreEqual(typeof(PipingOutputProperties), pipingOutputProperties.PropertyType);
+                Assert.IsNull(pipingOutputProperties.AdditionalDataCheck);
+                Assert.IsNull(pipingOutputProperties.GetObjectPropertiesData);
+                Assert.IsNull(pipingOutputProperties.AfterCreate);
             }
         }
 
@@ -72,8 +84,10 @@ namespace Wti.Plugin.Test
                 ITreeNodePresenter[] nodePresenters = guiPlugin.GetProjectTreeViewNodePresenters().ToArray();
 
                 // assert
-                Assert.AreEqual(1, nodePresenters.Length);
+                Assert.AreEqual(3, nodePresenters.Length);
                 Assert.IsTrue(nodePresenters.Any(np => np is WtiProjectNodePresenter));
+                Assert.IsTrue(nodePresenters.Any(np => np is PipingDataNodePresenter));
+                Assert.IsTrue(nodePresenters.Any(np => np is PipingOutputNodePresenter));
             }
         }
     }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
-using DeltaShell.Tests.TestObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Wti.Data;
@@ -13,84 +11,57 @@ using WtiFormsResources = Wti.Forms.Properties.Resources;
 namespace Wti.Forms.Test.NodePresenters
 {
     [TestFixture]
-    public class PipingDataNodePresenterTest
+    public class PipingOutputNodePresenterTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Assert
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
-            Assert.AreEqual(typeof(PipingData), nodePresenter.NodeTagType);
+            Assert.AreEqual(typeof(PipingOutput), nodePresenter.NodeTagType);
         }
 
         [Test]
         public void UpdateNode_WithData_InitializeNode()
         {
             // Setup
-            const string nodeName = "Piping";
+            const string outputName = "Piping resultaat";
 
             var mocks = new MockRepository();
             var pipingNode = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
-            var pipingData = new PipingData
-            {
-                AssessmentLevel = 2.0
-            };
+            var project = PipingOutputCreator.Create();
 
             // Call
-            nodePresenter.UpdateNode(null, pipingNode, pipingData);
+            nodePresenter.UpdateNode(null, pipingNode, project);
 
             // Assert
-            Assert.AreEqual(nodeName, pipingNode.Text);
+            Assert.AreEqual(outputName, pipingNode.Text);
             Assert.AreEqual(16, pipingNode.Image.Height);
             Assert.AreEqual(16, pipingNode.Image.Width);
         }
 
         [Test]
-        public void GetChildNodeObjects_WithOutputData_ReturnOutputChildNode()
+        public void GetChildNodeObjects_Always_ReturnNoChildNodes()
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
-            var pipingData = new PipingData
-            {
-                Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-            };
+            var output = PipingOutputCreator.Create();
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(pipingData, nodeMock);
-
-            // Assert
-            Assert.AreEqual(1, children.Count());
-            CollectionAssert.AllItemsAreInstancesOfType(children, typeof(PipingOutput));
-            mocks.VerifyAll(); // Expect no calls on tree node
-        }
-
-        [Test]
-        public void GetChildNodeObjects_WithoutOutput_ReturnNoChildNodes()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingDataNodePresenter();
-
-            var pipingData = new PipingData();
-
-            // Call
-            var children = nodePresenter.GetChildNodeObjects(pipingData, nodeMock);
+            var children = nodePresenter.GetChildNodeObjects(output, nodeMock);
 
             // Assert
             Assert.AreEqual(0, children.Count());
@@ -105,7 +76,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNode(nodeMock);
@@ -123,7 +94,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
@@ -141,7 +112,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
             nodePresenter.OnNodeChecked(nodeMock);
@@ -158,7 +129,7 @@ namespace Wti.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
             DragOperations dragAllowed = nodePresenter.CanDrag(dataMock);
@@ -178,7 +149,7 @@ namespace Wti.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
             DragOperations dropAllowed = nodePresenter.CanDrop(dataMock, sourceMock, targetMock, DragOperations.Move);
@@ -198,7 +169,7 @@ namespace Wti.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
             bool insertionAllowed = nodePresenter.CanInsert(dataMock, sourceMock, targetMock);
@@ -218,7 +189,7 @@ namespace Wti.Forms.Test.NodePresenters
             var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
             nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
@@ -235,7 +206,7 @@ namespace Wti.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
             nodePresenter.OnNodeSelected(dataMock);
@@ -245,7 +216,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_NoContextMenuFunctionSet_ThrowsNullReferenceException()
+        public void GetContextMenu_Always_ReturnsNull()
         {
             // Setup
             var mocks = new MockRepository();
@@ -253,37 +224,13 @@ namespace Wti.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
-            TestDelegate contextMenu = () => nodePresenter.GetContextMenu(nodeMock, dataMock);
+            IMenuItem contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
-            Assert.Throws<NullReferenceException>(contextMenu);
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void GetContextMenu_ContextMenuFunctionSet_CallsContextMenuFunction()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<object>();
-            var testContext = mocks.StrictMock<IMenuItem>();
-
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingDataNodePresenter
-            {
-                ContextMenu = a => testContext
-            };
-
-            // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
-
-            // Assert
-            Assert.AreSame(testContext, contextMenu);
+            Assert.IsNull(contextMenu);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -297,7 +244,7 @@ namespace Wti.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
@@ -315,7 +262,7 @@ namespace Wti.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
             nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
@@ -333,7 +280,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
             bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
@@ -347,19 +294,19 @@ namespace Wti.Forms.Test.NodePresenters
         public void RemoveNodeData_ProjectWithPipingData_ReturnFalse()
         {
             // Setup
-            var pipingData = new PipingData();
+            var PipingData = new PipingData();
 
             var project = new Project();
-            project.Items.Add(pipingData);
+            project.Items.Add(PipingData);
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(project, pipingData);
+            bool removalSuccesful = nodePresenter.RemoveNodeData(project, PipingData);
 
             // Assert
             Assert.IsFalse(removalSuccesful);
-            CollectionAssert.Contains(project.Items, pipingData);
+            CollectionAssert.Contains(project.Items, PipingData);
         }
     }
 }

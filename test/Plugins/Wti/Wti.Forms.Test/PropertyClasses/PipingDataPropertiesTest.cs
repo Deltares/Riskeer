@@ -13,10 +13,10 @@ namespace Wti.Forms.Test.PropertyClasses
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // call
+            // Call
             var properties = new PipingDataProperties();
 
-            // assert
+            // Assert
             Assert.IsInstanceOf<ObjectProperties<PipingData>>(properties);
             Assert.IsNull(properties.Data);
         }
@@ -24,7 +24,7 @@ namespace Wti.Forms.Test.PropertyClasses
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
-            // setup
+            // Setup
             var pipingData = new PipingData();
 
             var properties = new PipingDataProperties
@@ -32,7 +32,7 @@ namespace Wti.Forms.Test.PropertyClasses
                 Data = pipingData
             };
 
-            // call & Assert
+            // Call & Assert
             Assert.AreEqual(0, properties.CriticalHeaveGradient);
             Assert.AreEqual(0, properties.UpliftModelFactor);
             Assert.AreEqual(0, properties.PiezometricHeadExit);
@@ -60,7 +60,7 @@ namespace Wti.Forms.Test.PropertyClasses
         [Test]
         public void SetProperties_WithData_UpdateDataAndNotifyObservers()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
@@ -74,7 +74,7 @@ namespace Wti.Forms.Test.PropertyClasses
                 Data = pipingData
             };
 
-            // call & Assert
+            // Call & Assert
             const double assessmentLevel = 0.12;
             properties.AssessmentLevel = assessmentLevel;
             Assert.AreEqual(assessmentLevel, pipingData.AssessmentLevel);

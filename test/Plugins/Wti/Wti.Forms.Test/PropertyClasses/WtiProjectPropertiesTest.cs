@@ -13,10 +13,10 @@ namespace Wti.Forms.Test.PropertyClasses
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // call
+            // Call
             var properties = new WtiProjectProperties();
 
-            // assert
+            // Assert
             Assert.IsInstanceOf<ObjectProperties<WtiProject>>(properties);
             Assert.IsNull(properties.Data);
         }
@@ -24,7 +24,7 @@ namespace Wti.Forms.Test.PropertyClasses
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
-            // setup
+            // Setup
             var project = new WtiProject
             {
                 Name = "Test"
@@ -35,14 +35,14 @@ namespace Wti.Forms.Test.PropertyClasses
                 Data = project
             };
 
-            // call & Assert
+            // Call & Assert
             Assert.AreEqual(project.Name, properties.Name);
         }
 
         [Test]
         public void SetProperties_WithData_UpdateDataAndNotifyObservers()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
@@ -56,7 +56,7 @@ namespace Wti.Forms.Test.PropertyClasses
                 Data = project
             };
 
-            // call & Assert
+            // Call & Assert
             const string newName = "Test";
             properties.Name = newName;
             Assert.AreEqual(newName, project.Name);

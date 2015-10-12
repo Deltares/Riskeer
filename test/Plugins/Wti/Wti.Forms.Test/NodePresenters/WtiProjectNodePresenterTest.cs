@@ -16,10 +16,10 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // call
+            // Call
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // assert
+            // Assert
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
             Assert.AreEqual(typeof(WtiProject), nodePresenter.NodeTagType);
@@ -28,7 +28,7 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void UpdateNode_WithData_InitializeNode()
         {
-            // setup
+            // Setup
             const string projectName = "<Insert Project Name Here>";
 
             var mocks = new MockRepository();
@@ -42,10 +42,10 @@ namespace Wti.Forms.Test.NodePresenters
                 Name = projectName
             };
 
-            // call
+            // Call
             nodePresenter.UpdateNode(null, projectNode, project);
 
-            // assert
+            // Assert
             Assert.AreEqual(projectName, projectNode.Text);
             Assert.AreEqual(16, projectNode.Image.Height);
             Assert.AreEqual(16, projectNode.Image.Width);
@@ -54,7 +54,7 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void GetChildNodeObjects_WithData_ReturnAllChildNodes()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
@@ -63,10 +63,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             var project = new WtiProject();
 
-            // call
+            // Call
             var children = nodePresenter.GetChildNodeObjects(project, nodeMock);
 
-            // assert
+            // Assert
             CollectionAssert.IsEmpty(children);
             mocks.VerifyAll(); // Expect no calls on tree node
         }
@@ -74,17 +74,17 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void CanRenameNode_Always_ReturnTrue()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             var renameAllowed = nodePresenter.CanRenameNode(nodeMock);
 
-            // assert
+            // Assert
             Assert.IsTrue(renameAllowed);
             mocks.VerifyAll(); // Expect no calls on tree node
         }
@@ -92,17 +92,17 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void CanRenameNodeTo_Always_ReturnTrue()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             var renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
 
-            // assert
+            // Assert
             Assert.IsTrue(renameAllowed);
             mocks.ReplayAll(); // Expect no calls on tree node
         }
@@ -110,7 +110,7 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void OnNodeRenamed_WithData_SetProjectNameWithNotification()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
@@ -121,11 +121,11 @@ namespace Wti.Forms.Test.NodePresenters
             var project = new WtiProject();
             project.Attach(projectObserver);
 
-            // call
+            // Call
             const string newName = "New Name";
             nodePresenter.OnNodeRenamed(project, newName);
 
-            // assert
+            // Assert
             Assert.AreEqual(newName, project.Name);
             mocks.VerifyAll();
         }
@@ -133,34 +133,34 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void OnNodeChecked_Always_DoNothing()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             nodePresenter.OnNodeChecked(nodeMock);
 
-            // assert
+            // Assert
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void CanDrag_Always_ReturnNone()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             DragOperations dragAllowed = nodePresenter.CanDrag(dataMock);
 
-            // assert
+            // Assert
             Assert.AreEqual(DragOperations.None, dragAllowed);
             mocks.VerifyAll();
         }
@@ -168,7 +168,7 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void CanDrop_Always_ReturnNone()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<object>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
@@ -177,10 +177,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             DragOperations dropAllowed = nodePresenter.CanDrop(dataMock, sourceMock, targetMock, DragOperations.Move);
 
-            // assert
+            // Assert
             Assert.AreEqual(DragOperations.None, dropAllowed);
             mocks.VerifyAll(); // Expect no calls on mocks.
         }
@@ -188,7 +188,7 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void CanInsert_Always_ReturnFalse()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<object>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
@@ -197,10 +197,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             bool insertionAllowed = nodePresenter.CanInsert(dataMock, sourceMock, targetMock);
 
-            // assert
+            // Assert
             Assert.IsFalse(insertionAllowed);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
@@ -208,7 +208,7 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void OnDragDrop_Always_DoNothing()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<object>();
             var sourceParentNodeMock = mocks.StrictMock<ITreeNode>();
@@ -217,34 +217,34 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
 
-            // assert
+            // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void OnNodeSelected_Always_DoNothing()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             nodePresenter.OnNodeSelected(dataMock);
 
-            // assert
+            // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void GetContextMenu_Always_ReturnNull()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var dataMock = mocks.StrictMock<object>();
@@ -252,10 +252,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
-            // assert
+            // Assert
             Assert.IsNull(contextMenu);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
@@ -263,7 +263,7 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void OnPropertyChange_Always_DoNothing()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<object>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
@@ -272,17 +272,17 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
 
-            // assert
+            // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void OnCollectionChange_Always_DoNothing()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<object>();
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
@@ -290,17 +290,17 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
 
-            // assert
+            // Assert
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void CanRemove_Always_ReturnTrue()
         {
-            // setup
+            // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<object>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
@@ -308,10 +308,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
 
-            // assert
+            // Assert
             Assert.IsTrue(removalAllowed);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
@@ -319,7 +319,7 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void RemoveNodeData_ProjectWithWtiProject_ReturnTrueAndRemoveWtiProject()
         {
-            // setup
+            // Setup
             var wtiProject = new WtiProject();
 
             var project = new Project();
@@ -327,10 +327,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new WtiProjectNodePresenter();
 
-            // call
+            // Call
             bool removalSuccesful = nodePresenter.RemoveNodeData(project, wtiProject);
 
-            // assert
+            // Assert
             Assert.IsTrue(removalSuccesful);
             CollectionAssert.DoesNotContain(project.Items, wtiProject);
         }
