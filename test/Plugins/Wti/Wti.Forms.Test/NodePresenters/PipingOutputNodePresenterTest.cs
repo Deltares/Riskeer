@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
+using Wti.Forms.Test.Helper;
 using WtiFormsResources = Wti.Forms.Properties.Resources;
 
 namespace Wti.Forms.Test.NodePresenters

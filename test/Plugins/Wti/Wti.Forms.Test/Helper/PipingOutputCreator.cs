@@ -1,12 +1,13 @@
 ﻿using System;
 using Wti.Data;
 
-namespace Wti.Forms.Test.NodePresenters
+namespace Wti.Forms.Test.Helper
 {
     /// <summary>
-    /// Helper class to create simple PipingOutput
+    /// Helper class to create simple PipingOutput.
     /// </summary>
-    public class PipingOutputCreator {
+    public static class PipingOutputCreator
+    {
         public static PipingOutput Create()
         {
             Random random = new Random(22);
