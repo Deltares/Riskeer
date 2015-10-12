@@ -45,7 +45,7 @@ namespace SharpMap.UI.Forms
         bool IsProcessing { get; }
 
         /// <summary>
-        /// Gets the name of the tool by.
+        /// Gets the <see cref="IMapTool"/>, matching on <see cref="IMapTool.Name"/>.
         /// </summary>
         /// <param name="toolName">Name of the tool.</param>
         /// <returns>An instance of IMapTool matching the given name, or null if no match was found.</returns>

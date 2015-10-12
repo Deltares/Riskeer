@@ -908,8 +908,6 @@ namespace SharpMap.UI.Forms
                     return;
                 }
 
-                //Log.DebugFormat("IsDisposed: {0}, IsHandleCreated: {1}, Disposing: {2}", IsDisposed, IsHandleCreated, Disposing);
-
                 MapPropertyChanged(sender, e);
             }
         }
