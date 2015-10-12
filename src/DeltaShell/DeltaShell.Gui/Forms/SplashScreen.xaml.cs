@@ -187,7 +187,6 @@ namespace DeltaShell.Gui.Forms
             app = null;
 
             log.Info(Properties.Resources.SplashScreen_Shutdown_Hiding_splash_screen____);
-            SplashScreenLogAppender.Shutdown();
 
             Close();
         }
@@ -228,7 +227,6 @@ namespace DeltaShell.Gui.Forms
                 log.Debug(Properties.Resources.SplashScreen_SplashScreen_VisibleChanged_Showing_splash_screen____);
                 string splashScreenLogFilePath =
                     Path.Combine(app.GetUserSettingsDirectoryPath(), "splash-screen-log-history.xml");
-                SplashScreenLogAppender.InitializeUsingLogging(splashScreenLogFilePath, this);
             }
             else
             {

@@ -197,7 +197,6 @@
     <Compile Include="Forms\SelectViewDialog.Designer.cs">
       <DependentUpon>SelectViewDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SplashScreenLogAppender.cs" />
     <Compile Include="Forms\ViewManager\ViewSelectionContextMenuController.cs">
       <SubType>UserControl</SubType>
     </Compile>

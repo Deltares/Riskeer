@@ -461,8 +461,6 @@ namespace DeltaShell.Gui
 
                     splashScreen = null;
 
-                    SplashScreenLogAppender.Dispose();
-
                     MessageWindowLogAppender.MessageWindow = null;
 
                     if (Application != null)
