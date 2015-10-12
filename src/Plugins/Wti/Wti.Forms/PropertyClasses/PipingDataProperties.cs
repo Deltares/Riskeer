@@ -343,21 +343,5 @@ namespace Wti.Forms.PropertyClasses
                 data.NotifyObservers();
             }
         }
-
-        [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataExitPointXCoordinateDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataExitPointXCoordinateDescription")]
-        public double ExitPointXCoordinate
-        {
-            get
-            {
-                return data.ExitPointXCoordinate;
-            }
-            set
-            {
-                data.ExitPointXCoordinate = value;
-                data.NotifyObservers();
-            }
-        }
     }
 }
