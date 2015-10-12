@@ -16,9 +16,9 @@
             <Dialog Id="CustomizeDlgDeltares" Width="370" Height="270" Title="!(loc.CustomizeDlg_Title)" TrackDiskSpace="yes">
                 <Control Id="Tree" Type="SelectionTree" X="25" Y="85" Width="175" Height="115" Property="_BrowseProperty" Sunken="yes" TabSkip="no" Text="!(loc.CustomizeDlgTree)" />
                 <Control Id="Browse" Type="PushButton" X="294" Y="210" Width="66" Height="17" Text="!(loc.CustomizeDlgBrowse)">
-     		    <Publish Event="SelectionBrowse" Value="BrowseDlgDeltares">1</Publish>
-                    <Condition Action="hide">Installed</Condition>
-                    <Condition Action="disable">Installed</Condition>
+     		          <Publish Event="SelectionBrowse" Value="BrowseDlgDeltares">1</Publish>
+                  <Condition Action="hide">Installed</Condition>
+                  <Condition Action="disable">Installed</Condition>
                 </Control>
 <!-- nothing to reset
                 <Control Id="Reset" Type="PushButton" X="10" Y="243" Width="81" Height="17" Text="!(loc.CustomizeDlgReset)">
@@ -41,8 +41,8 @@
                 <Control Id="Text" Type="Text" X="25" Y="61" Width="320" Height="20" Text="!(loc.CustomizeDlgText)" />
                 <Control Id="BannerLine" Type="Line" X="0" Y="58" Width="370" Height="0" />
                 <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
-                <Control Id="Description" Type="Text" X="125" Y="29" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.CustomizeDlgDescription)" />
-                <Control Id="Title" Type="Text" X="125" Y="16" Width="210" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.CustomizeDlgTitle)" />
+                <Control Id="Description" Type="Text" X="!(loc.TitleDescriptionX)" Y="29" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.CustomizeDlgDescription)" />
+                <Control Id="Title" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.CustomizeDlgTitle)" />
                 <Control Id="Box" Type="GroupBox" X="210" Y="81" Width="150" Height="118" />
                 <Control Id="ItemDescription" Type="Text" X="215" Y="90" Width="131" Height="50" Text="!(loc.CustomizeDlgItemDescription)">
                     <Subscribe Event="SelectionDescription" Attribute="Text" />

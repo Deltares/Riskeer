@@ -27,8 +27,8 @@
 		<Control Id="Text" Type="Text" X="20" Y="61" Width="330" Height="30" Text="!(loc.FilesInUseText)" />
 		<Control Id="BannerLine" Type="Line" X="0" Y="58" Width="370" Height="0" />
                 <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
-                <Control Id="Description" Type="Text" X="125" Y="29" Width="280" Height="20" Transparent="yes" NoPrefix="yes" Text="!(loc.FilesInUseDescription)" />
-                <Control Id="Title" Type="Text" X="125" Y="16" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.FilesInUseTitle)" />
+                <Control Id="Description" Type="Text" X="!(loc.TitleDescriptionX)" Y="29" Width="325" Height="20" Transparent="yes" NoPrefix="yes" Text="!(loc.FilesInUseDescription)" />
+                <Control Id="Title" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.FilesInUseTitle)" />
                 <Control Id="List" Type="ListBox" X="20" Y="87" Width="330" Height="130" Property="FileInUseProcess" Sunken="yes" TabSkip="yes" />
             </Dialog>
         </UI>

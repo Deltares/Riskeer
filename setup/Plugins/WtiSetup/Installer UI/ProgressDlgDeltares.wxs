@@ -26,31 +26,31 @@
                 <Control Id="TextInstalling" Type="Text" X="20" Y="65" Width="330" Height="35" Hidden="yes" NoPrefix="yes" Text="!(loc.ProgressDlgTextInstalling)">
                     <Condition Action="show">NOT Installed OR (Installed AND (RESUME OR Preselected) AND NOT PATCH)</Condition>
                 </Control>
-		<Control Id="TitleInstalling" Type="Text" X="125" Y="16" Width="330" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.ProgressDlgTitleInstalling)">
+		<Control Id="TitleInstalling" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.ProgressDlgTitleInstalling)">
                     <Condition Action="show">NOT Installed OR (Installed AND (RESUME OR Preselected) AND NOT PATCH)</Condition>
                 </Control>
                 <Control Id="TextChanging" Type="Text" X="20" Y="65" Width="330" Height="35" Hidden="yes" NoPrefix="yes" Text="!(loc.ProgressDlgTextChanging)">
                     <Condition Action="show">WixUI_InstallMode = "Change"</Condition>
                 </Control>
-                <Control Id="TitleChanging" Type="Text" X="125" Y="16" Width="330" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.ProgressDlgTitleChanging)">
+                <Control Id="TitleChanging" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.ProgressDlgTitleChanging)">
                     <Condition Action="show">WixUI_InstallMode = "Change"</Condition>
                 </Control>
                 <Control Id="TextRepairing" Type="Text" X="20" Y="65" Width="330" Height="35" Hidden="yes" NoPrefix="yes" Text="!(loc.ProgressDlgTextRepairing)">
                     <Condition Action="show">WixUI_InstallMode = "Repair"</Condition>
                 </Control>
-		<Control Id="TitleRepairing" Type="Text" X="125" Y="16" Width="330" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.ProgressDlgTitleRepairing)">
+		<Control Id="TitleRepairing" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.ProgressDlgTitleRepairing)">
                     <Condition Action="show">WixUI_InstallMode = "Repair"</Condition>
                 </Control>
                 <Control Id="TextRemoving" Type="Text" X="20" Y="65" Width="330" Height="35" Hidden="yes" NoPrefix="yes" Text="!(loc.ProgressDlgTextRemoving)">
                     <Condition Action="show">WixUI_InstallMode = "Remove"</Condition>
                 </Control>
-                <Control Id="TitleRemoving" Type="Text" X="125" Y="16" Width="330" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.ProgressDlgTitleRemoving)">
+                <Control Id="TitleRemoving" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.ProgressDlgTitleRemoving)">
                     <Condition Action="show">WixUI_InstallMode = "Remove"</Condition>
                 </Control>
                 <Control Id="TextUpdating" Type="Text" X="20" Y="65" Width="330" Height="35" Hidden="yes" NoPrefix="yes" Text="!(loc.ProgressDlgTextUpdating)">
                     <Condition Action="show">WixUI_InstallMode = "Update"</Condition>
                 </Control>
-		<Control Id="TitleUpdating" Type="Text" X="125" Y="16" Width="330" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.ProgressDlgTitleUpdating)">
+		<Control Id="TitleUpdating" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.ProgressDlgTitleUpdating)">
                     <Condition Action="show">WixUI_InstallMode = "Update"</Condition>
                 </Control>
                 <Control Id="ActionText" Type="Text" X="70" Y="100" Width="285" Height="10">

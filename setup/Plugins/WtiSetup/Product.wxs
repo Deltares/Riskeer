@@ -7,7 +7,9 @@
   <?include Variables.wxi ?>
   
 	<Product Id="*" Name="$(var.ApplicationFullName)" Language="1043" Version="$(var.FullReleaseVersion)" Manufacturer="!(loc.Manufacturer)" UpgradeCode="8c52b205-2bc3-4281-9d81-080fb1b2105d">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <!--Comment left empty on purpose to remove auto-generated text.-->
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Languages="1043" Manufacturer="!(loc.Manufacturer)" Comments=" "/>
+    
     <Media Id="1" Cabinet="WtiFull.cab" EmbedCab="yes"/>
     <Property Id="ARPPRODUCTICON" Value="Wti.ico" />
 
@@ -96,7 +98,7 @@
       </Directory>
     </Directory>
     
-		<Feature Id="CompleteInstallation" Title="!(loc.ApplicationLongName)" Level="1">
+		<Feature Id="CompleteInstallation" Title="!(loc.ApplicationLongName)" Level="1" Absent="disallow" ConfigurableDirectory="INSTALLDIR">
       <ComponentGroupRef Id="WtiApplicationComponents"/>
       <ComponentRef Id="InstalledShortcut"/>
       <ComponentRef Id="ProgramMenuShortcut"/>

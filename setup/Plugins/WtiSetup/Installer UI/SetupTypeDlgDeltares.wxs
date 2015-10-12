@@ -33,8 +33,8 @@
                 <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="58" TabSkip="no" Text="!(loc.SetupTypeDlgBannerBitmap)" />
                 <Control Id="BannerLine" Type="Line" X="0" Y="58" Width="370" Height="0" />
                 <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
-                <Control Id="Title" Type="Text" X="125" Y="16" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.SetupTypeDlgTitle)" />
-                <Control Id="Description" Type="Text" X="125" Y="29" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.SetupTypeDlgDescription)" />
+                <Control Id="Title" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.SetupTypeDlgTitle)" />
+                <Control Id="Description" Type="Text" X="!(loc.TitleDescriptionX)" Y="29" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.SetupTypeDlgDescription)" />
                 <Control Id="TypicalText" Type="Text" X="60" Y="85" Width="280" Height="20" Text="!(loc.SetupTypeDlgTypicalText)" />
                 <Control Id="CustomText" Type="Text" X="60" Y="138" Width="280" Height="30" Text="!(loc.SetupTypeDlgCustomText)" />
                 <Control Id="CompleteText" Type="Text" X="60" Y="191" Width="280" Height="20" Default="yes" Text="!(loc.SetupTypeDlgCompleteText)" />
