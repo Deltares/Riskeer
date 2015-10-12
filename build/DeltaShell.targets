@@ -80,8 +80,8 @@
   <Target Name="AfterClean">    
     <Delete Files="$(OutDir)\$(TargetFileName)" Condition="Exists('$(OutDir)\$(TargetFileName)')" />
 
-    <RemoveDir Directories="$(InstallDir)\plugins" Condition="'$(ProjectName)'=='$(LoaderProjectName)'" />
-    <RemoveDir Directories="$(ProjectDir)\bin" Condition="'$(ProjectName)'=='$(LoaderProjectName)'" />
+    <RemoveDir Directories="$(InstallDir)\plugins" Condition="'$(ProjectName)'=='$(LoaderProjectName)' and Exists('$(InstallDir)\plugins')" />
+    <RemoveDir Directories="$(ProjectDir)\bin" Condition="'$(ProjectName)'=='$(LoaderProjectName)' and Exists('$(ProjectDir)\bin')" />
    <!-- <RemoveDir Directories="$(OutDir)\PostSharp.$(TargetFileName)" Condition="Exists('$(OutDir)\PostSharp.$(TargetFileName)')" />  -->   
 
     <Delete Files="$(IntermediateOutputPath)\time_before" Condition="Exists('$(IntermediateOutputPath)\time_before')" />
