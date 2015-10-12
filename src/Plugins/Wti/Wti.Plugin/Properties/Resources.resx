@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="WtiApplicationDescription" xml:space="preserve">
-    <value>Instrumentarium om de WTI2017 toetsnorm mee uit te voeren.</value>
+    <value>Instrumentarium om de WTI toetsnorm mee uit te voeren.</value>
   </data>
   <data name="WtiApplicationDisplayName" xml:space="preserve">
-    <value>Wettelijk Toets Instrumentarium 2017</value>
+    <value>Wettelijk Toets Instrumentarium</value>
   </data>
   <data name="WtiApplicationName" xml:space="preserve">
-    <value>WTI2017</value>
+    <value>WTI</value>
   </data>
   <data name="WtiApplicationGuiName" xml:space="preserve">
-    <value>WTI2017-UI</value>
+    <value>WTI-UI</value>
   </data>
   <data name="wtiGuiPluginDescription" xml:space="preserve">
-    <value>Gebruikersinterface voor het Wettelijk Toets Instrumentarium 2017 programma.</value>
+    <value>Gebruikersinterface voor het Wettelijk Toets Instrumentarium programma.</value>
   </data>
   <data name="wtiGuiPluginDisplayName" xml:space="preserve">
-    <value>Wettelijk Toets Instrumentarium 2017 interface</value>
+    <value>Wettelijk Toets Instrumentarium interface</value>
   </data>
 </root>

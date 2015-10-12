@@ -648,7 +648,7 @@ namespace Wti.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van het 2017 project..
+        ///   Looks up a localized string similar to Naam van het wettelijk toets instrumentarium project..
         /// </summary>
         public static string WtiProjectNameDescription {
             get {

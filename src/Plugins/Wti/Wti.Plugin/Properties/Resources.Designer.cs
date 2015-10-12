@@ -61,7 +61,7 @@ namespace Wti.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instrumentarium om de WTI2017 toetsnorm mee uit te voeren..
+        ///   Looks up a localized string similar to Instrumentarium om de WTI toetsnorm mee uit te voeren..
         /// </summary>
         public static string WtiApplicationDescription {
             get {
@@ -70,7 +70,7 @@ namespace Wti.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wettelijk Toets Instrumentarium 2017.
+        ///   Looks up a localized string similar to Wettelijk Toets Instrumentarium.
         /// </summary>
         public static string WtiApplicationDisplayName {
             get {
@@ -79,7 +79,7 @@ namespace Wti.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WTI2017-UI.
+        ///   Looks up a localized string similar to WTI-UI.
         /// </summary>
         public static string WtiApplicationGuiName {
             get {
@@ -88,7 +88,7 @@ namespace Wti.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WTI2017.
+        ///   Looks up a localized string similar to WTI.
         /// </summary>
         public static string WtiApplicationName {
             get {
@@ -97,7 +97,7 @@ namespace Wti.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gebruikersinterface voor het Wettelijk Toets Instrumentarium 2017 programma..
+        ///   Looks up a localized string similar to Gebruikersinterface voor het Wettelijk Toets Instrumentarium programma..
         /// </summary>
         public static string wtiGuiPluginDescription {
             get {
@@ -106,7 +106,7 @@ namespace Wti.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wettelijk Toets Instrumentarium 2017 interface.
+        ///   Looks up a localized string similar to Wettelijk Toets Instrumentarium interface.
         /// </summary>
         public static string wtiGuiPluginDisplayName {
             get {
