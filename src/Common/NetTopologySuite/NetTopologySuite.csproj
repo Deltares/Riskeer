@@ -196,6 +196,7 @@
     <Compile Include="Index\Chain\MonotoneChainBuilder.cs" />
     <Compile Include="Index\Chain\MonotoneChainOverlapAction.cs" />
     <Compile Include="Index\Chain\MonotoneChainSelectAction.cs" />
+    <Compile Include="Index\IIndexVisitor.cs" />
     <Compile Include="Index\IItemVisitor.cs" />
     <Compile Include="Index\ISpatialIndex.cs" />
     <Compile Include="Index\KdTree\KdNode.cs" />
@@ -242,6 +243,12 @@
     <Compile Include="IO\GeoTools\ShapefileReader.cs" />
     <Compile Include="IO\GeoTools\ShapefileWriter.cs" />
     <Compile Include="IO\GeoTools\ShapefileDataWriter.cs" />
+    <Compile Include="IO\MsSqlSpatialReader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IO\MsSqlSpatialWriter.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="IO\PostGisGeometryType.cs" />
     <Compile Include="IO\PostGisReader.cs" />
     <Compile Include="IO\PostGisWriter.cs" />
@@ -393,6 +400,7 @@
     <Compile Include="Triangulate\QuadEdge\QuadEdge.cs" />
     <Compile Include="Triangulate\QuadEdge\QuadEdgeSubdivision.cs" />
     <Compile Include="Triangulate\QuadEdge\QuadEdgeTriangle.cs" />
+    <Compile Include="Triangulate\QuadEdge\QuadEdgeUtil.cs" />
     <Compile Include="Triangulate\QuadEdge\TrianglePredicate.cs" />
     <Compile Include="Triangulate\QuadEdge\Vertex.cs" />
     <Compile Include="Triangulate\Segment.cs" />
@@ -406,9 +414,12 @@
     <Compile Include="Utilities\CoordinateArrayFilter.cs" />
     <Compile Include="Utilities\CoordinateCompare.cs" />
     <Compile Include="Utilities\CoordinateCountFilter.cs" />
+    <Compile Include="Utilities\Degrees.cs" />
     <Compile Include="Utilities\GeometricShapeFactory.cs" />
     <Compile Include="Utilities\HexConverter.cs" />
     <Compile Include="Utilities\Global.cs" />
+    <Compile Include="Utilities\Radians.cs" />
+    <Compile Include="Utilities\ReverseOrder.cs" />
     <Compile Include="Utilities\RToolsUtil\BufferedTextReader.cs" />
     <Compile Include="Utilities\RToolsUtil\CharBuffer.cs" />
     <Compile Include="Utilities\RToolsUtil\Logger.cs" />

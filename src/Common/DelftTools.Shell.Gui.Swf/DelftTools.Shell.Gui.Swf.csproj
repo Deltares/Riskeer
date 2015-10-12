@@ -75,6 +75,7 @@
     <Compile Include="..\..\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="CollapsableGroupBoxController.cs" />
     <Compile Include="NodePresenterHelper.cs" />
     <Compile Include="CollapsableGroupBox.cs">
       <SubType>Component</SubType>

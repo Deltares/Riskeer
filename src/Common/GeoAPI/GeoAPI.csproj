@@ -86,6 +86,7 @@
     <Compile Include="CoordinateSystems\IGeodeticSpatialReference.cs" />
     <Compile Include="CoordinateSystems\IGeographicCoordinateSystem.cs" />
     <Compile Include="CoordinateSystems\IGeographicTransform.cs" />
+    <Compile Include="CoordinateSystems\IHasCoordinateSystem.cs" />
     <Compile Include="CoordinateSystems\IHorizontalCoordinateSystem.cs" />
     <Compile Include="CoordinateSystems\IHorizontalDatum.cs" />
     <Compile Include="CoordinateSystems\IInfo.cs" />

@@ -101,6 +101,8 @@
     <Compile Include="ILayerEditorView.cs" />
     <Compile Include="IMapLayerProvider.cs" />
     <Compile Include="IObjectProperties.cs" />
+    <Compile Include="IPartitionDialog.cs" />
+    <Compile Include="IProjectItemHandler.cs" />
     <Compile Include="IViewResolver.cs" />
     <Compile Include="ObjectProperties.cs" />
     <Compile Include="PropertyInfo.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="GuiPluginConfiguration.cs">
       <DependentUpon>GuiPluginConfiguration.xsd</DependentUpon>
     </Compile>
+    <Compile Include="GuiPluginConfigurationSectionHandler.cs" />
     <Compile Include="ItemEventArgs.cs" />
     <Compile Include="Forms\IMainWindow.cs" />
     <Compile Include="IGui.cs" />

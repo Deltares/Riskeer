@@ -150,6 +150,7 @@
     <Compile Include="Forms\HelpAboutBox.Designer.cs">
       <DependentUpon>HelpAboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\MessageWindow\MessageRowData.cs" />
     <Compile Include="Forms\MessageWindow\MessageWindow.cs">
       <SubType>UserControl</SubType>
     </Compile>

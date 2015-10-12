@@ -84,11 +84,16 @@
     <Compile Include="Core\DelftShellApplicationTest.cs" />
     <Compile Include="Core\DeltaShellApplicationSettingsTest.cs" />
     <Compile Include="Core\Extensions\CompositeActivityExtensionsTest.cs" />
+    <Compile Include="Gui\AvalonDockingTestForm.xaml.cs">
+      <DependentUpon>AvalonDockingTestForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gui\Forms\AvalonDockDockingManagerTest.cs" />
     <Compile Include="Gui\Forms\ProgressBarDialogTest.cs" />
     <Compile Include="Gui\Forms\PropertyGrid\PropertyGridTest.cs" />
     <Compile Include="Gui\Forms\ProgressDialog\TestStringBasedProgressingActivity.cs" />
     <Compile Include="Gui\GuiExportHandlerTest.cs" />
+    <Compile Include="TestObjects\TestActivityRunner.cs" />
+    <Compile Include="TestObjects\TestExporter.cs" />
     <Compile Include="Gui\DelftShellGuiTests.cs" />
     <Compile Include="Gui\Forms\ProgressDialog\TestActivity.cs" />
     <Compile Include="Gui\GuiCommandHandlerTest.cs" />
@@ -101,6 +106,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TestObjects\TestImporter.cs" />
     <Compile Include="TestObjects\TestReusableView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -108,6 +114,7 @@
       <DependentUpon>TestReusableView.cs</DependentUpon>
     </Compile>
     <Compile Include="TestObjects\TestDockingManager.cs" />
+    <Compile Include="TestObjects\TestCompositeView.cs" />
     <Compile Include="Gui\ToolWindowTestControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -223,6 +230,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Gui\AvalonDockingTestForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Gui\Forms\CompositeModelDesigner\" />

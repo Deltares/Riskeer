@@ -122,6 +122,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Rendering\MapHelperTest.cs" />
+    <Compile Include="Rendering\RegularGridCoverageRendererTest.cs" />
     <Compile Include="Rendering\Thematics\CategorialThemeTest.cs" />
     <Compile Include="Rendering\Thematics\ColorBlendTest.cs" />
     <Compile Include="Rendering\Thematics\GradientThemeTest.cs" />

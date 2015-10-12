@@ -172,6 +172,7 @@
     <Compile Include="Rendering\Label.cs" />
     <Compile Include="Rendering\LabelCollisionDetection.cs" />
     <Compile Include="Rendering\RenderExceptions.cs" />
+    <Compile Include="Rendering\SingleThreadedWorkQueue.cs" />
     <Compile Include="Rendering\Thematics\CategorialTheme.cs" />
     <Compile Include="Rendering\Thematics\CategorialThemeItem.cs" />
     <Compile Include="Rendering\Thematics\ColorBlend.cs" />

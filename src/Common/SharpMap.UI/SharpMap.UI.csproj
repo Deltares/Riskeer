@@ -115,6 +115,7 @@
     </Compile>
     <Compile Include="Tools\Decorations\LegendToolItem.cs" />
     <Compile Include="Tools\DeleteTool.cs" />
+    <Compile Include="Tools\ITargetLayerTool.cs" />
     <Compile Include="Tools\LocalCoordinateSystemTrackerFeature.cs" />
     <Compile Include="Tools\MapToolContextMenuItem.cs" />
     <Compile Include="Tools\Decorations\ScaleBar.cs" />

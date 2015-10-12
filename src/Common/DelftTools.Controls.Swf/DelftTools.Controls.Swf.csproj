@@ -118,6 +118,7 @@
     <Compile Include="Charting\ChartCoordinateService.cs" />
     <Compile Include="Charting\ChartGraphics.cs" />
     <Compile Include="Charting\ChartLegend.cs" />
+    <Compile Include="Charting\ChartRectangle.cs" />
     <Compile Include="Charting\Customized\DeltaShellTChart.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -192,6 +193,7 @@
     <Compile Include="Charting\Tools\EditPointTool.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Charting\Tools\GeoApiHelper.cs" />
     <Compile Include="Charting\Tools\HistoryTool.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -213,6 +215,7 @@
     <Compile Include="Charting\Tools\ZoomUsingMouseWheelTool.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Charting\Tracker.cs" />
     <Compile Include="ClonableToolStripMenuItem.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -413,6 +416,12 @@
     <Compile Include="Table\Filtering\FilterNumericControl.Designer.cs">
       <DependentUpon>FilterNumericControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Table\Filtering\FilterTableColumnControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Table\Filtering\FilterTableColumnControl.Designer.cs">
+      <DependentUpon>FilterTableColumnControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Table\Filtering\FilterTextControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -445,6 +454,7 @@
     <Compile Include="Table\TableViewDataToolBar.Designer.cs">
       <DependentUpon>TableViewDataToolBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Table\Validation\RowValidationResult.cs" />
     <Compile Include="Table\Validation\TableViewValidator.cs" />
     <Compile Include="Table\XtraGridRepositoryItemBuilder.cs" />
     <Compile Include="TimeSpanEditor.cs">
@@ -550,6 +560,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Table\Filtering\FilterNumericControl.resx">
       <DependentUpon>FilterNumericControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Table\Filtering\FilterTableColumnControl.resx">
+      <DependentUpon>FilterTableColumnControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Table\Filtering\FilterTextControl.resx">
       <DependentUpon>FilterTextControl.cs</DependentUpon>
