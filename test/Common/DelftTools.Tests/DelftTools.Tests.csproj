@@ -111,14 +111,11 @@
     <Compile Include="Controls\Swf\Table\TableViewCsvImportWizardDialogTest.cs" />
     <Compile Include="Controls\Swf\MenuItemContextMenuStripAdapterTest.cs" />
     <Compile Include="Controls\Swf\MessageBoxTest.cs" />
-    <Compile Include="Controls\Swf\Table\TestClasses\ClassWithBool.cs" />
     <Compile Include="Controls\Swf\Table\TableViewPasteControllerTest.cs" />
     <Compile Include="Controls\Swf\Table\TableViewCopyPasteTest.cs" />
     <Compile Include="Controls\Swf\Table\TestClasses\ClassWithEnum.cs" />
     <Compile Include="Controls\Swf\Table\TestClasses\Person.cs" />
     <Compile Include="Controls\Swf\Table\TableViewTest.cs" />
-    <Compile Include="Controls\Swf\Table\TestClasses\ClassWithTwoProperties.cs" />
-    <Compile Include="Controls\Swf\Table\TestClasses\SomeData.cs" />
     <Compile Include="Controls\Swf\TreeViewControls\TreeNodeTest.cs" />
     <Compile Include="Controls\Swf\TreeViewControls\TreeNodeGraphicExtensionsTest.cs" />
     <Compile Include="Controls\Swf\TreeViewControls\TreeViewNodePresenterBaseTest.cs" />

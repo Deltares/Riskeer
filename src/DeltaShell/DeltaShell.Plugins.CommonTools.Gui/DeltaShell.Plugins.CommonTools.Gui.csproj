@@ -78,7 +78,6 @@
     </Compile>
     <Compile Include="Forms\Charting\ChartSeriesTreeNodePresenter.cs" />
     <Compile Include="Forms\Charting\ChartTreeNodePresenter.cs" />
-    <Compile Include="Forms\Charting\ChartViewOptions.cs" />
     <Compile Include="Forms\TextDocumentView.cs">
       <SubType>UserControl</SubType>
     </Compile>

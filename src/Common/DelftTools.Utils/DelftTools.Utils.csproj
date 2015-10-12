@@ -110,7 +110,6 @@
     <Compile Include="Aop\Markers\NoNotifyCollectionChangeAttribute.cs" />
     <Compile Include="Aop\Markers\NoNotifyPropertyChangeAttribute.cs" />
     <Compile Include="Aop\TraceDllImportCallsAttribute.cs" />
-    <Compile Include="ArrayExtensions.cs" />
     <Compile Include="Binding\EnumBindingHelper.cs" />
     <Compile Include="Comparer.cs" />
     <Compile Include="ComponentModel\DynamicEditorAttribute.cs" />
@@ -196,14 +195,12 @@
     <Compile Include="Data\IObjectRepository.cs" />
     <Compile Include="DeltaShellTimeSpanConverter.cs" />
     <Compile Include="ICopyFrom.cs" />
-    <Compile Include="IO\StreamExtensions.cs" />
     <Compile Include="ComponentModel\DynamicReadOnlyValidationMethodAttribute.cs" />
     <Compile Include="PropertyBag\Dynamic\DynamicPropertyBag.cs" />
     <Compile Include="ComponentModel\DynamicReadOnlyAttribute.cs" />
     <Compile Include="SnappingCalculator.cs" />
     <Compile Include="TextDocument.cs" />
     <Compile Include="DeltaShellDateTimeConverter.cs" />
-    <Compile Include="Drawing\ColorHelper.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
     <Compile Include="EnumDescriptionAttributeTypeConverter.cs" />
     <Compile Include="EventArgs.cs" />
@@ -224,12 +221,10 @@
     <Compile Include="Reflection\TypeUtils.cs" />
     <Compile Include="RegularExpressions\RegularExpression.cs" />
     <Compile Include="StringExtensions.cs" />
-    <Compile Include="Threading\QueueStateChangedEventArgs.cs" />
     <Compile Include="Threading\ThreadsafeBindingList.cs" />
     <Compile Include="Tuple.cs" />
     <Compile Include="TypeConverter.cs" />
     <Compile Include="Url.cs" />
-    <Compile Include="Validation\IValidator.cs" />
     <Compile Include="Validation\ValidationHelper.cs" />
     <Compile Include="Validation\ValidationIssue.cs" />
     <Compile Include="Validation\ValidationReport.cs" />

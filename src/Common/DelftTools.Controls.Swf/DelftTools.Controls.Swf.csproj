@@ -118,7 +118,6 @@
     <Compile Include="Charting\ChartCoordinateService.cs" />
     <Compile Include="Charting\ChartGraphics.cs" />
     <Compile Include="Charting\ChartLegend.cs" />
-    <Compile Include="Charting\ChartRectangle.cs" />
     <Compile Include="Charting\Customized\DeltaShellTChart.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -454,7 +453,6 @@
     <Compile Include="Table\TableViewDataToolBar.Designer.cs">
       <DependentUpon>TableViewDataToolBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Table\Validation\RowValidationResult.cs" />
     <Compile Include="Table\Validation\TableViewValidator.cs" />
     <Compile Include="Table\XtraGridRepositoryItemBuilder.cs" />
     <Compile Include="TimeSpanEditor.cs">

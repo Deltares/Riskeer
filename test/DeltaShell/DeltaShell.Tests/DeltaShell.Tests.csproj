@@ -84,9 +84,6 @@
     <Compile Include="Core\DelftShellApplicationTest.cs" />
     <Compile Include="Core\DeltaShellApplicationSettingsTest.cs" />
     <Compile Include="Core\Extensions\CompositeActivityExtensionsTest.cs" />
-    <Compile Include="Gui\AvalonDockingTestForm.xaml.cs">
-      <DependentUpon>AvalonDockingTestForm.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Gui\Forms\AvalonDockDockingManagerTest.cs" />
     <Compile Include="Gui\Forms\ProgressBarDialogTest.cs" />
     <Compile Include="Gui\Forms\PropertyGrid\PropertyGridTest.cs" />
@@ -230,12 +227,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Gui\AvalonDockingTestForm.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Gui\Forms\CompositeModelDesigner\" />
