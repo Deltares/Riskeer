@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Create Nunit test</Title>
+      <Author>Deltares</Author>
+      <Description>Creates a new Nunit test</Description>
+      <HelpUrl></HelpUrl>
+      <SnippetTypes />
+      <Keywords />
+      <Shortcut>ssr</Shortcut>
+    </Header>
+    <Snippet>
+      <References />
+      <Imports />
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Subject</ID>
+          <Type></Type>
+          <ToolTip>Sets the subject name part of the SSR format test method.</ToolTip>
+          <Default>Subject</Default>
+          <Function></Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Scenario</ID>
+          <Type></Type>
+          <ToolTip>Sets the scenario name part of the SSR format test method.</ToolTip>
+          <Default>Scenario1</Default>
+          <Function></Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Result</ID>
+          <Type></Type>
+          <ToolTip>Sets the result name part of the SSR format test method.</ToolTip>
+          <Default>ShouldReturn</Default>
+          <Function></Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Kind="" Delimiter="$">
+          <![CDATA[[Test]
+        public void $Subject$_$Scenario$_$Result$()
+        {       
+            // Setup
+
+            // Call
+
+            // Assert
+
+        }]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
