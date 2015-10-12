@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Reflection.Emit;
 using DelftTools.Utils.Aop;
 using DelftTools.Utils.Reflection;
-using DelftTools.Utils.Tests.Reflection.TestClasses;
 using NUnit.Framework;
 using DescriptionAttribute = System.ComponentModel.DescriptionAttribute;
 
@@ -440,6 +439,16 @@ namespace DelftTools.Utils.Tests.Reflection
         internal class SuperCloneTestClass : CloneTestClass
         {
             public string OtherName { get; set; }
+        }
+
+        public class BaseClass
+        {
+            public object Data { get; set; }
+        }
+
+        public class OverridingClass : BaseClass
+        {
+            public int Data { get; set; }
         }
     }
 }

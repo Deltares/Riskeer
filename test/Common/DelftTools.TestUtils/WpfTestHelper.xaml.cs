@@ -10,7 +10,7 @@ namespace DelftTools.TestUtils
     /// <summary>
     /// Interaction logic for WpfTestHelper.xaml
     /// </summary>
-    public partial class WpfTestHelper : Window
+    public partial class WpfTestHelper
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WindowsFormsTestHelper));
 

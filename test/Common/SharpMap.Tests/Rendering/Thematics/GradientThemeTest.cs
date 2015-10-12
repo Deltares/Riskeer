@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using DelftTools.TestUtils;
-using log4net;
 using NUnit.Framework;
 using SharpMap.Rendering.Thematics;
 using SharpMap.Styles;
@@ -11,8 +10,6 @@ namespace SharpMap.Tests.Rendering.Thematics
     [TestFixture]
     public class GradientThemeTest
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(GradientThemeTest));
-
         [Test]
         public void ReturnMaxColorForMaxValue()
         {

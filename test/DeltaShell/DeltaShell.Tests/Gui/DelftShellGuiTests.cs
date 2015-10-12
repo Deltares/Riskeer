@@ -4,7 +4,6 @@ using DeltaShell.Gui;
 using DeltaShell.Tests.TestObjects;
 using log4net.Core;
 using NUnit.Framework;
-using Rhino.Mocks;
 using SharpTestsEx;
 
 namespace DeltaShell.Tests.Gui
@@ -12,7 +11,6 @@ namespace DeltaShell.Tests.Gui
     [TestFixture]
     public class DeltaShellGuiTests
     {
-        private readonly MockRepository mocks = new MockRepository();
         private DeltaShellGui gui;
 
         [SetUp]

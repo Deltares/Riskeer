@@ -9,7 +9,7 @@ namespace DelftTools.Utils.Tests.Reflection
 {
     public abstract class A
     {
-        public abstract string GetToolWindowName();
+
     }
 
     [TestFixture]

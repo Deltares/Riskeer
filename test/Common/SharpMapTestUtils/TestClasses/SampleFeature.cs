@@ -7,13 +7,6 @@ namespace SharpMapTestUtils.TestClasses
     [Entity(FireOnCollectionChange = false)]
     public class SampleFeature : IFeature
     {
-        public SampleFeature() {}
-
-        public SampleFeature(int i)
-        {
-            IntegerProperty = i;
-        }
-
         [FeatureAttribute]
         public int IntegerProperty { get; set; }
 

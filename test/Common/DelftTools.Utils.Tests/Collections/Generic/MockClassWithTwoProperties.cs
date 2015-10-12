@@ -8,8 +8,6 @@ namespace DelftTools.Utils.Tests.Collections.Generic
         public event PropertyChangedEventHandler PropertyChanged;
         private string stringField;
 
-        public int IntField { get; set; }
-
         public string StringProperty
         {
             get

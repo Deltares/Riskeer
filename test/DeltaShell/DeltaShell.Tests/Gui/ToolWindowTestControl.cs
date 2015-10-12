@@ -6,12 +6,6 @@ namespace DeltaShell.Tests.Gui
 {
     public partial class ToolWindowTestControl : UserControl, IView
     {
-        public ToolWindowTestControl(string name)
-        {
-            Name = name;
-            Initialize();
-        }
-
         public ToolWindowTestControl()
         {
             Initialize();

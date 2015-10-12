@@ -2,7 +2,6 @@
 using System.Linq;
 using DelftTools.TestUtils;
 using DelftTools.Utils.Collections.Generic;
-using log4net;
 using log4net.Core;
 using NUnit.Framework;
 
@@ -11,8 +10,6 @@ namespace DelftTools.Utils.Tests.Collections.Generic
     [TestFixture]
     public class EnumerableListTest
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(EnumerableListTest));
-
         [Test]
         public void EnumerableListItemCountShouldBeFast()
         {

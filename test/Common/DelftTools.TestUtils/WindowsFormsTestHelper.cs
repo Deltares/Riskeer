@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using log4net;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -12,8 +11,6 @@ namespace DelftTools.TestUtils
 {
     public partial class WindowsFormsTestHelper : Form
     {
-        private static ILog log = LogManager.GetLogger(typeof(WindowsFormsTestHelper));
-
         private static string nonModalControlsTestName; // current unit test name
         private static readonly IList<Control> nonModalControls = new List<Control>();
         private Action<Form> formShown;

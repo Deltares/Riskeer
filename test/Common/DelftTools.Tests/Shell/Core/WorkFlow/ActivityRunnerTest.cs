@@ -1,15 +1,12 @@
 ﻿using System.Threading;
 using DelftTools.Shell.Core.Workflow;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace DelftTools.Tests.Shell.Core.WorkFlow
 {
     [TestFixture]
     public class ActivityRunnerTest
     {
-        private static readonly MockRepository mocks = new MockRepository();
-
         [Test]
         public void ActivityIsRemovedAfterItIsFinished()
         {

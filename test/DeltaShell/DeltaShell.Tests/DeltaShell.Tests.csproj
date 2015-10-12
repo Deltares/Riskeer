@@ -113,7 +113,6 @@
       <DependentUpon>ToolWindowTestControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Gui\ViewListTest.cs" />
-    <Compile Include="Core\PluginConfigurationLoaderTest.cs" />
     <Compile Include="TestObjects\TestApplication.cs" />
     <Compile Include="TestObjects\TestView.cs">
       <SubType>UserControl</SubType>

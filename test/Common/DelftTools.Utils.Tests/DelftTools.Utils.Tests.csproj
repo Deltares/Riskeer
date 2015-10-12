@@ -117,8 +117,6 @@
     <Compile Include="Reflection\AssemblyUtilsTest.cs" />
     <Compile Include="Reflection\AutoClonerTest.cs" />
     <Compile Include="Reflection\DynamicTypeUtilsTest.cs" />
-    <Compile Include="Reflection\TestClasses\BaseClass.cs" />
-    <Compile Include="Reflection\TestClasses\OverridingClass.cs" />
     <Compile Include="Reflection\TypeConverterTest.cs" />
     <Compile Include="Reflection\TypeExtensionsTest.cs" />
     <Compile Include="Reflection\TypeUtilsTest.cs" />
