@@ -7,14 +7,16 @@ namespace Wti.Calculation.Test.Piping
     public class PipingSurfaceLineCreatorTest
     {
         [Test]
-        public void GivenASurfaceLineCreator_WhenCreatingPipingSurfaceLine_ThenASurfaceLineWithASinglePointAtOrigin()
+        public void Create_Always_ReturnsSurfaceLineWithASinglePointAtOrigin()
         {
-            var pipingSurfaceLineCreator = new PipingSurfaceLineCreator();
-            PipingSurfaceLine actual = pipingSurfaceLineCreator.Create();
-            Assert.That(actual.Points.Count, Is.EqualTo(1));
-            Assert.That(actual.Points[0].X, Is.EqualTo(0));
-            Assert.That(actual.Points[0].Y, Is.EqualTo(0));
-            Assert.That(actual.Points[0].Z, Is.EqualTo(0));
+            // Call
+            PipingSurfaceLine actual = PipingSurfaceLineCreator.Create();
+
+            // Assert
+            Assert.AreEqual(1, actual.Points.Count);
+            Assert.AreEqual(0, actual.Points[0].X);
+            Assert.AreEqual(0, actual.Points[0].Y);
+            Assert.AreEqual(0, actual.Points[0].Z);
         }
     }
 }

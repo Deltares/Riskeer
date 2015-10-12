@@ -11,11 +11,13 @@ namespace Wti.Calculation.Piping
         /// Creates a simple <see cref="PipingProfile"/> with a single default constructed <see cref="PipingLayer"/>.
         /// </summary>
         /// <returns></returns>
-        public PipingProfile Create()
+        public static PipingProfile Create()
         {
             var profile = new PipingProfile();
-            var layer = new PipingLayer();
-            layer.IsAquifer = true;
+            var layer = new PipingLayer
+            {
+                IsAquifer = true
+            };
             profile.Layers.Add(layer);
 
             return profile;

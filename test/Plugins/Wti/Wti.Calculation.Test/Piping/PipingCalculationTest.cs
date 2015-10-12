@@ -33,15 +33,16 @@ namespace Wti.Calculation.Test.Piping
                 random.NextDouble(),
                 random.NextDouble(),
                 random.NextDouble());
+
             PipingCalculationResult actual = new PipingCalculation(input).Calculate();
 
-            Assert.That(actual, Is.Not.Null);
-            Assert.That(actual.UpliftZValue, Is.Not.NaN);
-            Assert.That(actual.UpliftFactorOfSafety, Is.Not.NaN);
-            Assert.That(actual.HeaveZValue, Is.Not.NaN);
-            Assert.That(actual.HeaveFactorOfSafety, Is.Not.NaN);
-            Assert.That(actual.SellmeijerZValue, Is.Not.NaN);
-            Assert.That(actual.SellmeijerFactorOfSafety, Is.Not.NaN);
+            Assert.NotNull(actual);
+            Assert.IsFalse(double.IsNaN(actual.UpliftZValue));
+            Assert.IsFalse(double.IsNaN(actual.UpliftFactorOfSafety));
+            Assert.IsFalse(double.IsNaN(actual.HeaveZValue));
+            Assert.IsFalse(double.IsNaN(actual.HeaveFactorOfSafety));
+            Assert.IsFalse(double.IsNaN(actual.SellmeijerZValue));
+            Assert.IsFalse(double.IsNaN(actual.SellmeijerFactorOfSafety));
         }
     }
 }

@@ -7,11 +7,15 @@ namespace Wti.Calculation.Test.Piping
     public class PipingProfileCreatorTest
     {
         [Test]
-        public void GivenAPipingProfileCreator_WhenCreatingPipingProfile_ThenAProfileWithALayerIsReturned()
+        public void Create_Always_ReturnsProfileWithSingleAquiferLayer()
         {
-            var pipingProfileCreator = new PipingProfileCreator();
-            PipingProfile actual = pipingProfileCreator.Create();
-            Assert.That(actual.Layers, Is.Not.Empty);
+            // Call
+            PipingProfile actual = PipingProfileCreator.Create();
+
+            // Assert
+            Assert.IsNotNull(actual.Layers);
+            Assert.AreEqual(1, actual.Layers.Count);
+            Assert.IsTrue(actual.Layers[0].IsAquifer);
         }
     }
 }

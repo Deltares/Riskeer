@@ -131,8 +131,8 @@ namespace Wti.Calculation.Piping
             {
                 ExitPointXCoordinate = input.ExitPointXCoordinate,
                 PhreaticLevel = input.PhreaticLevelExit,
-                SoilProfile = new PipingProfileCreator().Create(),
-                SurfaceLine = new PipingSurfaceLineCreator().Create(),
+                SoilProfile = PipingProfileCreator.Create(),
+                SurfaceLine = PipingSurfaceLineCreator.Create(),
                 VolumicWeightOfWater = input.WaterVolumetricWeight
             };
             calculator.Calculate();

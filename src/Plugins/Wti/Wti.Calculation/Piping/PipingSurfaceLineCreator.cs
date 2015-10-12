@@ -11,7 +11,7 @@ namespace Wti.Calculation.Piping
         /// Creates a simple <see cref="PipingSurfaceLine"/> with a single <see cref="PipingPoint"/> at the origin.
         /// </summary>
         /// <returns></returns>
-        public PipingSurfaceLine Create()
+        public static PipingSurfaceLine Create()
         {
             var surfaceLine = new PipingSurfaceLine();
             surfaceLine.Points.Add(new PipingPoint(0, 0, 0));
