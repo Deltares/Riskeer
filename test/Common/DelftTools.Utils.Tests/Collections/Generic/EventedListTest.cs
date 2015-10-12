@@ -4,7 +4,6 @@ using System.Linq;
 using DelftTools.TestUtils;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.Collections.Generic;
-using log4net;
 using NUnit.Framework;
 
 namespace DelftTools.Utils.Tests.Collections.Generic
@@ -12,8 +11,6 @@ namespace DelftTools.Utils.Tests.Collections.Generic
     [TestFixture]
     public class EventedListTest
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(EventedListTest));
-
         [SetUp]
         public void SetUp()
         {

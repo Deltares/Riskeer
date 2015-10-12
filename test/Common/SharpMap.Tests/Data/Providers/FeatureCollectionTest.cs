@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using DelftTools.Utils;
@@ -20,8 +19,7 @@ namespace SharpMap.Tests.Data.Providers
         [ExpectedException(typeof(ArgumentException))]
         public void AddingInvalidTypeGivesArgumentException()
         {
-            IList list = new List<IFeature>();
-            var featureCollection = new FeatureCollection(list, typeof(string));
+            new FeatureCollection(new List<IFeature>(), typeof(string));
         }
 
         [Test]

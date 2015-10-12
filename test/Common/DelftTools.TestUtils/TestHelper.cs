@@ -12,7 +12,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using DelftTools.Utils.IO;
-using log4net;
 using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
@@ -23,7 +22,6 @@ namespace DelftTools.TestUtils
 {
     public class TestHelper
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(TestHelper));
         private static string solutionRoot;
         private static int assertInTestMethod;
         private static string lastTestName;

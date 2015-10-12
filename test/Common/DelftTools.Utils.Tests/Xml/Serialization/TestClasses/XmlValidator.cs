@@ -12,7 +12,7 @@ namespace DelftTools.Utils.Tests.Xml.Serialization.TestClasses
         // variable declarations 
         private readonly string xmlFileName;
         private readonly string schemaFileName;
-        private bool failed = false;
+        private bool failed;
 
         //public XmlValidator()
         //{

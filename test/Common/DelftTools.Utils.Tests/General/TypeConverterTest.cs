@@ -13,12 +13,6 @@ namespace DelftTools.Utils.Tests.General
         {
             Assert.AreEqual(12, TypeConverter.ConvertValueToTargetType<int>("12"));
 
-            IFormatProvider providerEN = new CultureInfo("en-US", true);
-            IFormatProvider providerTR = new CultureInfo("tr-TR", true);
-
-            //    DateTime x = TConverter.ConvertValueToTargetType<DateTime>("12.10.2007", providerTR); // ddMMyyyy
-            //    DateTime y = TConverter.ConvertValueToTargetType<DateTime>("12.10.2007", providerEN); // MMddyyyy
-
             TypeConverter.RegisterTypeConverter<Version, VersionConverter>();
 
             Assert.AreEqual(123, TypeConverter.ConvertValueToTargetType<int?>("123"));
