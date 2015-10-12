@@ -83,7 +83,6 @@
     <Compile Include="Aop\InvokeRequiredAttributeTest.cs" />
     <Compile Include="Aop\TestClasses\InvokeRequiredTestClass.cs" />
     <Compile Include="Aop\TestClasses\DllImports.cs" />
-    <Compile Include="Aop\TestClasses\NotifiableTestClass.cs" />
     <Compile Include="Aop\TraceDllImportCallsAttributeTest.cs" />
     <Compile Include="Binding\EnumBindingHelperTest.cs" />
     <Compile Include="Binding\SampleEnum.cs" />

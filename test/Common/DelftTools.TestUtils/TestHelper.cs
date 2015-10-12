@@ -210,40 +210,15 @@ namespace DelftTools.TestUtils
         }
 
         /// <summary>
-        /// TODO: add machine benchmark/rank and use it as a weight when comparing test times, write rank to results file
-        /// </summary>
-        /// <param name="maxMilliseconds"></param>
-        /// <param name="action"></param>
-        public static double AssertIsFasterThan(float maxMilliseconds, Action action)
-        {
-            return AssertIsFasterThan(maxMilliseconds, action, false);
-        }
-
-        public static double AssertIsFasterThan(float maxMilliseconds, bool warmUp, Action action)
-        {
-            return AssertIsFasterThan(maxMilliseconds, String.Empty, action, false, warmUp);
-        }
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="maxMilliseconds"></param>
         /// <param name="action"></param>
         /// <param name="rankHddAccess">Take HDD speed into account, makes sure that test timing is divided by MACHINE_HDD_PERFORMANCE_RANK environmental variable.</param>
         /// <returns></returns>
-        public static double AssertIsFasterThan(float maxMilliseconds, Action action, bool rankHddAccess)
+        public static double AssertIsFasterThan(float maxMilliseconds, Action action, bool rankHddAccess = false)
         {
-            return AssertIsFasterThan(maxMilliseconds, null, action, rankHddAccess, false);
-        }
-
-        public static double AssertIsFasterThan(float maxMilliseconds, string message, Action action)
-        {
-            return AssertIsFasterThan(maxMilliseconds, message, action, false, false);
-        }
-
-        public static double AssertIsFasterThan(float maxMilliseconds, Action action, bool rankHddAccess, bool warmUp)
-        {
-            return AssertIsFasterThan(maxMilliseconds, "assert timing", action, rankHddAccess, warmUp);
+            return AssertIsFasterThan(maxMilliseconds, null, action, rankHddAccess);
         }
 
         /// <summary>
@@ -253,29 +228,21 @@ namespace DelftTools.TestUtils
         /// <param name="message"></param>
         /// <param name="action"></param>
         /// <param name="rankHddAccess">Take HDD speed into account, makes sure that test timing is divided by MACHINE_HDD_PERFORMANCE_RANK environmental variable.</param>
-        /// <param name="warmUp"></param>
         /// <returns></returns>
-        public static double AssertIsFasterThan(float maxMilliseconds, string message, Action action, bool rankHddAccess, bool warmUp)
+        public static double AssertIsFasterThan(float maxMilliseconds, string message, Action action, bool rankHddAccess)
         {
             var stopwatch = new Stopwatch();
             double actualMillisecond = default(double);
 
-            for (int i = 0; i < (warmUp ? 3 : 1); i++)
-            {
-                stopwatch.Start();
-                action();
-                stopwatch.Stop();
+            stopwatch.Start();
+            action();
+            stopwatch.Stop();
 
-                if (Math.Abs(actualMillisecond - default(double)) > 1e-5)
-                {
-                    actualMillisecond = Math.Min(stopwatch.ElapsedMilliseconds, actualMillisecond);
-                }
-                else
-                {
-                    actualMillisecond = stopwatch.ElapsedMilliseconds;
-                }
-                stopwatch.Reset();
-            }
+            actualMillisecond = Math.Abs(actualMillisecond - default(double)) > 1e-5
+                ? Math.Min(stopwatch.ElapsedMilliseconds, actualMillisecond)
+                : stopwatch.ElapsedMilliseconds;
+
+            stopwatch.Reset();
 
             string testName = GetCurrentTestClassMethodName();
 

@@ -234,18 +234,6 @@ namespace DelftTools.Utils.Tests.Aop
         [Entity]
         public class Super : Base
         {
-            public override IEventedList<Person> AllElements
-            {
-                get
-                {
-                    return base.AllElements;
-                }
-                set
-                {
-                    base.AllElements = value;
-                }
-            }
-
             /// <summary>
             /// override, but not calling base!
             /// </summary>
@@ -255,17 +243,6 @@ namespace DelftTools.Utils.Tests.Aop
         [Entity]
         public class SuperSuper : Super
         {
-            public override IEventedList<Person> AllElements
-            {
-                get
-                {
-                    return base.AllElements;
-                }
-                set
-                {
-                    base.AllElements = value;
-                }
-            }
         }
 
         [Entity]

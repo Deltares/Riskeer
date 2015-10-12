@@ -302,7 +302,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
 
                 gui.Run();
 
-                Action onShown = () => TestHelper.AssertIsFasterThan(300, gui.Application.CreateNewProject, false);
+                Action onShown = () => TestHelper.AssertIsFasterThan(300, gui.Application.CreateNewProject);
 
                 WpfTestHelper.ShowModal((Control) gui.MainWindow, onShown);
             }
@@ -333,7 +333,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
                 }
                 app.SaveProjectAs(TestHelper.GetCurrentMethodName() + ".dsproj");
 
-                TestHelper.AssertIsFasterThan(200, "exit gui is very fast", gui.Exit);
+                TestHelper.AssertIsFasterThan(200, gui.Exit);
             }
         }
 

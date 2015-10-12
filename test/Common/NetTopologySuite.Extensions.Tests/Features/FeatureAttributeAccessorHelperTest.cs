@@ -48,14 +48,11 @@ namespace NetTopologySuite.Extensions.Tests.Features
             var testFeature = new TestFeature();
             testFeature.Attributes = new DictionaryFeatureAttributeCollection();
 
-            object value;
-
             TestHelper.AssertIsFasterThan(70, () =>
             {
                 for (int i = 0; i < 10000; i++)
                 {
-                    value = FeatureAttributeAccessorHelper.GetAttributeValue(
-                        testFeature, "Other", false);
+                    FeatureAttributeAccessorHelper.GetAttributeValue(testFeature, "Other", false);
                 }
             });
         }
