@@ -9,10 +9,6 @@ using DeltaShell.Gui.Properties;
 using log4net;
 using log4net.Core;
 
-#if MONO
-using System.Drawing;
-#endif
-
 namespace DeltaShell.Gui.Forms.MessageWindow
 {
     public partial class MessageWindow : UserControl, IMessageWindow
@@ -36,11 +32,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         {
             Text = Resources.MessageWindow_MessageWindow_Messages;
             MessageWindowLogAppender.MessageWindow = this;
-#if !MONO
             InitializeComponent();
-#else
-            InitializeMonoComponent();
-#endif
 
             if (!log.IsDebugEnabled)
             {
@@ -70,14 +62,12 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             messagesDataGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             messagesDataGridView.MouseUp += MessagesDataGridViewMouseUp;
 
-#if !MONO
             /// Apply sorting so the messages added last will be on Top.
             messagesBindingSource.Sort = "Id";
             messagesBindingSource.ApplySort(messagesBindingSource.SortProperty, ListSortDirection.Descending);
             ApplyFilter();
             messagesDataGridView.CellFormatting += MessagesDataGridViewCellFormatting;
 
-#endif
             Image = Resources.application_view_list;
 
             MaxMessageCount = 100;
@@ -148,24 +138,10 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         /// <param name="message"></param>
         public void AddMessage(Level level, DateTime time, string message)
         {
-#if !MONO
             newMessages.Add(new MessageData
             {
                 ImageName = level.ToString(), Time = time, Message = message
             });
-#else                    
-            if (messagesDataGridView != null && messagesDataGridView.Columns.Count != 0)
-            {
-                messagesDataGridView.Rows.Add(new object[] { level.ToString(), timeStamp.ToLongTimeString(), source, message});
-                
-                //Time.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-                Time.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                Source.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                LevelColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                LogMessage.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                messagesDataGridView.Invalidate(true);
-            }
-#endif
         }
 
         protected override void OnVisibleChanged(EventArgs e)
@@ -216,25 +192,27 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             }
 
             messagesDataGridView.SuspendLayout();
-
-            Refresh();
-
-            while (newMessages.Count != 0)
+            try
             {
-                var newMessage = newMessages[0];
-                newMessages.RemoveAt(0);
-                if (newMessage != null)
+                Refresh();
+
+                while (newMessages.Count != 0)
                 {
+                    var newMessage = newMessages[0];
+                    newMessages.RemoveAt(0);
+
                     messageWindowData.Messages.AddMessagesRow(newMessage.ImageName, newMessage.Time, newMessage.Message);
 
-                    if (newMessage.ImageName == "ERROR" && Error != null)
+                    if (newMessage.ImageName == "ERROR" && OnError != null)
                     {
-                        Error(this, null);
+                        OnError(this, null);
                     }
                 }
             }
-
-            messagesDataGridView.ResumeLayout();
+            finally
+            {
+                messagesDataGridView.ResumeLayout();
+            }   
 
             if (firstMessage)
             {
@@ -278,7 +256,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             Clipboard.SetDataObject(messagesDataGridView.GetClipboardContent());
         }
 
-#if !MONO
+
         /// <summary>
         /// since the dataset stores the image name and not the actual image, we have to put
         /// the corresponding image in the datagridviewcell of the first column.
@@ -295,147 +273,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             string level = (string) e.Value;
             e.Value = levelImages.Images[levelImageName[level]];
         }
-#endif
-
-#if MONO
-
-        private DataGridViewTextBoxColumn Time;
-        private DataGridViewTextBoxColumn Source;
-        private DataGridViewTextBoxColumn LogMessage;
-        private DataGridViewTextBoxColumn LevelColumn;
-        private void InitializeMonoComponent()
-        {
-            components = new Container();
-            ComponentResourceManager resources = new ComponentResourceManager(typeof (MessageWindow));
-            messagesDataGridView = new DataGridView();
-            LevelColumn = new DataGridViewTextBoxColumn();
-            Time = new DataGridViewTextBoxColumn();
-            Source = new DataGridViewTextBoxColumn();
-            LogMessage = new DataGridViewTextBoxColumn();
-            contextMenu = new ContextMenuStrip(components);
-            buttonCopy = new ToolStripMenuItem();
-            cToolStripMenuItem = new ToolStripSeparator();
-            buttonClearAll = new ToolStripMenuItem();
-            levelImages = new ImageList(components);
-            text = new TextBox();
-            ((ISupportInitialize) (messagesDataGridView)).BeginInit();
-            contextMenu.SuspendLayout();
-            SuspendLayout();
-            // 
-            // messagesDataGridView
-            // 
-            messagesDataGridView.AllowUserToAddRows = false;
-            messagesDataGridView.AllowUserToResizeRows = false;
-//            this.messagesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            messagesDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            messagesDataGridView.Columns.AddRange(new DataGridViewColumn[]
-                                               {
-                                                   LevelColumn,
-                                                   Time,
-                                                   Source,
-                                                   LogMessage
-                                               });
-            messagesDataGridView.ContextMenuStrip = contextMenu;
-            messagesDataGridView.Dock = DockStyle.Fill;
-            messagesDataGridView.Location = new Point(0, 0);
-            messagesDataGridView.Margin = new Padding(2);
-            messagesDataGridView.Name = "messagesDataGridView";
-            messagesDataGridView.ReadOnly = true;
-            messagesDataGridView.RowHeadersVisible = false;
-            messagesDataGridView.RowTemplate.Height = 24;
-            messagesDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-//            this.messagesDataGridView.Size = new System.Drawing.Size(607, 368);
-//            this.messagesDataGridView.TabIndex = 3;
-            // 
-            // Level
-            // 
-            LevelColumn.HeaderText = "Level";
-            LevelColumn.Name = "Level";
-            LevelColumn.ReadOnly = true;
-//            this.Level.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-//            this.Level.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Time
-            // 
-            Time.HeaderText = "Time";
-            Time.Name = "Time";
-            Time.ReadOnly = true;
-            // 
-            // Source
-            // 
-            Source.HeaderText = "Source";
-            Source.Name = "Source";
-            Source.ReadOnly = true;
-            // 
-            // LogMessage
-            // 
-            LogMessage.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            LogMessage.HeaderText = "Message";
-            LogMessage.Name = "LogMessage";
-            LogMessage.ReadOnly = true;
-            // 
-            // contextMenu
-            // 
-            contextMenu.Items.AddRange(new ToolStripItem[]
-                                           {
-                                               buttonCopy,
-                                               cToolStripMenuItem,
-                                               buttonClearAll
-                                           });
-            contextMenu.Name = "contextMenu";
-            contextMenu.Size = new Size(153, 76);
-            // 
-            // buttonCopy
-            // 
-            buttonCopy.Name = "buttonCopy";
-            buttonCopy.Size = new Size(152, 22);
-            buttonCopy.Text = "&Copy";
-            buttonCopy.Click += buttonCopy_Click;
-            // 
-            // cToolStripMenuItem
-            // 
-            cToolStripMenuItem.Name = "cToolStripMenuItem";
-            cToolStripMenuItem.Size = new Size(149, 6);
-            // 
-            // buttonClearAll
-            // 
-            buttonClearAll.Name = "buttonClearAll";
-            buttonClearAll.Size = new Size(152, 22);
-            buttonClearAll.Text = "Clear &All";
-            buttonClearAll.Click += buttonClearAll_Click;
-            // 
-            // levelImages
-            // 
-            levelImages.ImageStream = ((ImageListStreamer) (resources.GetObject("levelImages.ImageStream")));
-            levelImages.TransparentColor = Color.Transparent;
-            levelImages.Images.SetKeyName(0, "error.png");
-            levelImages.Images.SetKeyName(1, "info.png");
-            levelImages.Images.SetKeyName(2, "warning.png");
-            levelImages.Images.SetKeyName(3, "debug.png");
-            // 
-            // text
-            // 
-            text.Location = new Point(111, 162);
-            text.Name = "text";
-            text.Size = new Size(100, 96);
-            text.TabIndex = 4;
-            text.Text = "";
-            text.Visible = false;
-            // 
-            // MessageWindow
-            // 
-            AutoScaleDimensions = new SizeF(6F, 13F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(text);
-            Controls.Add(messagesDataGridView);
-            Margin = new Padding(2);
-            Name = "MessageWindow";
-            Size = new Size(607, 368);
-            ((ISupportInitialize) (messagesDataGridView)).EndInit();
-            contextMenu.ResumeLayout(false);
-            ResumeLayout(false);
-        }
-#endif
 
         private void ApplyFilter()
         {
@@ -510,7 +347,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             Clear();
         }
 
-        public event EventHandler Error;
+        public event EventHandler OnError;
 
         private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {

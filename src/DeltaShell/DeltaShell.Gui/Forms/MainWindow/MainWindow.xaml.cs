@@ -372,7 +372,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
 
             if (messageWindow != null)
             {
-                messageWindow.Error -= messageWindow_Error;
+                messageWindow.OnError -= MessageWindowOnError;
                 messageWindow.Dispose();
                 messageWindow = null;
             }
@@ -678,7 +678,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
             {
                 if (messageWindow != null && messageWindow.IsDisposed)
                 {
-                    messageWindow.Error -= messageWindow_Error;
+                    messageWindow.OnError -= MessageWindowOnError;
                 }
 
                 messageWindow = new MessageWindow.MessageWindow
@@ -686,7 +686,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
                     Text = Properties.Resources.Messages
                 };
 
-                messageWindow.Error += messageWindow_Error;
+                messageWindow.OnError += MessageWindowOnError;
             }
 
             if (Gui == null || Gui.ToolWindowViews == null)
@@ -705,7 +705,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
         }
 
         [InvokeRequired]
-        private void messageWindow_Error(object sender, EventArgs e)
+        private void MessageWindowOnError(object sender, EventArgs e)
         {
             // activates messageWindow when error occurs
             InitMessagesWindowOrActivate();
