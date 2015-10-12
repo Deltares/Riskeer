@@ -764,13 +764,12 @@ namespace DeltaShell.Gui
 
         private void ShowSplashScreen()
         {
-            // plugin assemblies loaded - count steps required to start application
             splashScreen = new SplashScreen(Application)
             {
                 LabelVersionVersion = SettingsHelper.ApplicationVersion,
                 SplashScreenCopyright = Application.Settings["copyright"],
                 LabelLicense = Application.Settings["license"],
-                LabelCompany = Application.Settings["company"]
+                LabelCompany = SettingsHelper.ApplicationCompany
             };
 
             splashScreen.IsVisibleChanged += delegate

@@ -13,6 +13,7 @@ namespace DelftTools.Utils
             var info = AssemblyUtils.GetExecutingAssemblyInfo();
             ApplicationName = info.Product;
             ApplicationVersion = info.Version;
+            ApplicationCompany = info.Company;
         }
 
         public static string ApplicationNameAndVersion
@@ -23,8 +24,9 @@ namespace DelftTools.Utils
             }
         }
 
-        public static string ApplicationName { get; set; }
-        public static string ApplicationVersion { get; set; }
+        public static string ApplicationName { get; private set; }
+        public static string ApplicationVersion { get; private set; }
+        public static string ApplicationCompany { get; private set; }
 
         public static string GetApplicationLocalUserSettingsDirectory()
         {

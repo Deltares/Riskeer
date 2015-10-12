@@ -84,8 +84,6 @@ namespace DeltaShell.Core
             }
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainAssemblyResolve;
 
-            InitializeSettingsHelper();
-
             Settings = ConfigurationManager.AppSettings;
             UserSettings = Properties.Settings.Default;
         }
@@ -614,15 +612,6 @@ namespace DeltaShell.Core
             if (ProjectSaved != null)
             {
                 ProjectSaved(Project);
-            }
-        }
-
-        private void InitializeSettingsHelper()
-        {
-            //read settings from app.config and update the settings helper.
-            if (Settings.AllKeys.Contains("applicationName"))
-            {
-                SettingsHelper.ApplicationName = Settings["applicationName"];
             }
         }
 
