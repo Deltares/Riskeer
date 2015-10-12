@@ -103,8 +103,8 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
             var x2 = (line.StartPoint.X > line.EndPoint.X) ? line.StartPoint.X : line.EndPoint.X;
             var y1 = (line.StartPoint.Y < line.EndPoint.Y) ? line.StartPoint.Y : line.EndPoint.Y;
             var y2 = (line.StartPoint.Y > line.EndPoint.Y) ? line.StartPoint.Y : line.EndPoint.Y;
-            var envelope = new Envelope(x1 - envelopeExpansion, x2 + envelopeExpansion,
-                                        y1 - envelopeExpansion, y2 + envelopeExpansion);
+
+            new Envelope(x1 - envelopeExpansion, x2 + envelopeExpansion, y1 - envelopeExpansion, y2 + envelopeExpansion);
 
             Expect.Call(gui.ToolWindowViews).Return(viewList).Repeat.Any();
             Expect.Call(gui.DocumentViews).Return(viewList).Repeat.Any();

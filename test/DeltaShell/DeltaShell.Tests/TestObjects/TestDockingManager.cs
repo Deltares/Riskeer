@@ -24,8 +24,6 @@ namespace DeltaShell.Tests.TestObjects
 
         public IEnumerable<IView> Views { get; private set; }
 
-        public void Add(IView view, ViewLocation location, ContextMenuStrip containerContextMenuStrip) {}
-
         public void Add(IView view, ViewLocation location) {}
 
         public void Remove(IView view, bool removeTabFromDockingbar) {}

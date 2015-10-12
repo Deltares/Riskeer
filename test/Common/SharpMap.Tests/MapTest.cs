@@ -201,7 +201,7 @@ namespace SharpMap.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void SetMinimumZoom_NegativeValue_ThrowException()
         {
-            var map = new Map
+            new Map
             {
                 MinimumZoom = -1
             };
@@ -211,7 +211,7 @@ namespace SharpMap.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void SetMaximumZoom_NegativeValue_ThrowException()
         {
-            var map = new Map
+            new Map
             {
                 MaximumZoom = -1
             };

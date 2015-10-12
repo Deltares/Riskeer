@@ -226,7 +226,7 @@ namespace DelftTools.Utils.Tests.Aop
                 OtherElements = new EventedList<Person>();
             }
 
-            public virtual IEventedList<Person> AllElements { get; set; }
+            public IEventedList<Person> AllElements { get; set; }
 
             public virtual IEventedList<Person> OtherElements { get; set; }
         }

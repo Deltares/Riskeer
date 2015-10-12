@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Forms;
 using log4net;
 using Application = System.Windows.Forms.Application;
 using Control = System.Windows.Controls.Control;
@@ -46,11 +45,6 @@ namespace DelftTools.TestUtils
             }
         }
 
-        public static void ShowModal(Control control, Action<Form> formVisibleChangedAction, params object[] propertyObjects)
-        {
-            throw new InvalidOperationException("Use Action instead of Action<Form> (WPF)");
-        }
-
         private void ShowTopLevel(Control control, object[] propertyObjects, bool modal, Action shownAction)
         {
             ThrowIfPropertyObjectsContainsActionDueToLikelyMisuse(propertyObjects);
@@ -65,7 +59,7 @@ namespace DelftTools.TestUtils
             }
             else
             {
-                ShowControlInTestForm(control, modal, propertyObjects);
+                ShowControlInTestForm(modal);
             }
 
             // clear all controls shown as non-modal after modal control closes 
@@ -117,7 +111,7 @@ namespace DelftTools.TestUtils
             }
         }
 
-        private void ShowControlInTestForm(Control control, bool modal, object[] propertyObjects)
+        private void ShowControlInTestForm(bool modal)
         {
             IsVisibleChanged += delegate { wasShown = true; };
 

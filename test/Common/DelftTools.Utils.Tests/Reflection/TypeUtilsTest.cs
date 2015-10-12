@@ -393,7 +393,6 @@ namespace DelftTools.Utils.Tests.Reflection
         /// Dont'remove used by reflection test below
         private void VoidMethod<T>(T value)
         {
-            T copy = value;
         }
 
         public Assembly GetDynamicAssembly()

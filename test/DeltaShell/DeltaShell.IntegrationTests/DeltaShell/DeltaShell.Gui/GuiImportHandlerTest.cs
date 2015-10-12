@@ -277,10 +277,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             var fileImporter3 = mocks.Stub<IFileImporter>();
             var plugin1 = mocks.Stub<ApplicationPlugin>();
 
-            var plugins = new List<ApplicationPlugin>
-            {
-                plugin1
-            };
             application.Stub(a => a.Plugins).Return(new[]
             {
                 plugin1

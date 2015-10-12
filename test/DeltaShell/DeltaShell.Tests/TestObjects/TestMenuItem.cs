@@ -2,13 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DelftTools.Controls;
-using DelftTools.Shell.Gui;
 
 namespace DeltaShell.Tests.TestObjects
 {
     public class TestMenuItem : IMenuItem
     {
-        public event EventHandler Click;
         private readonly IList<IMenuItem> children = new List<IMenuItem>();
 
         public IList<IMenuItem> Items
@@ -80,11 +78,6 @@ namespace DeltaShell.Tests.TestObjects
         }
 
         #endregion
-
-        public IMenuItem AppendSub(bool newGroup, IGuiCommand command, EventHandler eventHandler)
-        {
-            throw new NotImplementedException("The method or operation is not implemented.");
-        }
 
         #region IEnumerable<IMenuItem> Members
 

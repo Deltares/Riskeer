@@ -37,16 +37,6 @@ namespace DeltaShell.Tests.TestObjects
             }
         }
 
-        public void Export(IProjectItem projectItem, string targetProjectRepositoryPath, bool includeLinkedFiles, bool ClearModelOutputsOnExport = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IProjectService Clone()
-        {
-            throw new NotImplementedException();
-        }
-
         public string CreateAndGetExternalDataDirectory(string basePath)
         {
             throw new NotImplementedException();

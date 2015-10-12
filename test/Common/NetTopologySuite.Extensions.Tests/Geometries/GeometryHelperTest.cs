@@ -208,7 +208,7 @@ namespace NetTopologySuite.Extensions.Tests.Geometries
                         new Coordinate(0, 2)
                     }));
 
-            var error = polygon.Difference(other);
+            polygon.Difference(other);
         }
 
         [Test]

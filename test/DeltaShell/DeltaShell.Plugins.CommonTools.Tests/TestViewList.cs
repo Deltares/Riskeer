@@ -33,8 +33,6 @@ namespace DeltaShell.Plugins.CommonTools.Tests
             }
         }
 
-        public IDictionary<Type, Type> DefaultViewTypes { get; private set; }
-
         public int Count { get; private set; }
         public bool IsReadOnly { get; private set; }
 
@@ -68,51 +66,6 @@ namespace DeltaShell.Plugins.CommonTools.Tests
         }
 
         public IEnumerable<IView> AllViews { get; private set; }
-
-        public IList<IView> GetViewsForData(object data, bool includeChildViews)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IList<IView> GetViewsToRemoveOnDataRemove(object data)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Type GetDefaultViewTypeForData(object dataObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IView CreateViewForData(object data, Func<ViewInfo, bool> selectViewInfo = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IView CreateViewForData(object data, ViewInfo viewInfo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void TryToOpenViewFor(object data, Type viewType = null, bool alwaysShowDialog = false)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Type GetDefaultViewType(object dataObject)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<ViewInfo> GetViewInfosFor(object data, Type viewType = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OpenViewForData(object data, Type viewType = null, bool alwaysShowDialog = false)
-        {
-            throw new NotImplementedException();
-        }
 
         public void OnActiveViewChanged(IView activeView)
         {

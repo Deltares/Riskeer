@@ -7,7 +7,6 @@ using DelftTools.Shell.Core;
 using DelftTools.Shell.Core.Dao;
 using DelftTools.Shell.Core.Services;
 using DelftTools.Shell.Core.Workflow;
-using DelftTools.Utils.Threading;
 
 namespace DeltaShell.Tests.TestObjects
 {
@@ -21,31 +20,6 @@ namespace DeltaShell.Tests.TestObjects
         public event Action<Project> ProjectSaved;
 
         public event Action AfterRun;
-
-        public IList<string> DisabledPlugins
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public IProjectRepository ProjectRepository { get; private set; }
-        public NotifyingThreadQueue<IActivity> CurrentActivities { get; private set; }
-
-        public bool IsProjectCreatedInTemporaryDirectory { get; set; }
-
-        public string ApplicationNameAndVersion
-        {
-            get
-            {
-                return "DeltaShell";
-            }
-        }
 
         public int DisposeCallCount { get; private set; }
 
@@ -119,26 +93,6 @@ namespace DeltaShell.Tests.TestObjects
 
         public string PluginVersions { get; private set; }
         public bool IsDataAccessSynchronizationDisabled { get; set; }
-
-        public void LoadPluginsFromPath(string path)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InitializeProjectRepositoryFactory(IProjectRepositoryFactory factory)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ExportProjectItem(IProjectItem projectItem, string targetProjectRepositoryPath, bool includeLinkedFiles)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetNewFileBasedItemPath(string fileNamePrefix, string fileNameSuffix)
-        {
-            throw new NotImplementedException();
-        }
 
         public ApplicationPlugin GetPluginForType(Type type)
         {

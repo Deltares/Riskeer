@@ -98,9 +98,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             ShapeFile shp;
             Map.CoordinateSystemFactory = new OgrCoordinateSystemFactory();
 
-            var src = Map.CoordinateSystemFactory.CreateFromEPSG(4326 /* WGS84 */);
-            var dst = Map.CoordinateSystemFactory.CreateFromEPSG(3857 /* Web Mercator */);
-
             var layer = new VectorLayer
             {
                 Name = Path.GetFileName(path),
@@ -159,7 +156,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             var center = new Coordinate(20, 20);
             map.Center = center;
 
-            using (var view = new MapView
+            using (new MapView
             {
                 Size = new Size(640, 480), Map = map
             })

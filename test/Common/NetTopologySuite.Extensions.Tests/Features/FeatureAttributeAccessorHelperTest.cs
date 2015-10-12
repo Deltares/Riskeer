@@ -125,14 +125,14 @@ namespace NetTopologySuite.Extensions.Tests.Features
             feature.Attributes = new DictionaryFeatureAttributeCollection();
             feature.Attributes["Jan"] = 3;
 
-            var displayName = FeatureAttributeAccessorHelper.GetAttributeDisplayName(feature, "Piet");
+            FeatureAttributeAccessorHelper.GetAttributeDisplayName(feature, "Piet");
         }
 
         [Test]
         [ExpectedException(ExpectedException = typeof(ArgumentException))]
         public void GetAttributeDisplayNameThrowExceptionForNonExistingProperties()
         {
-            var displayName = FeatureAttributeAccessorHelper.GetPropertyDisplayName(typeof(TestFeature), "Blabla");
+            FeatureAttributeAccessorHelper.GetPropertyDisplayName(typeof(TestFeature), "Blabla");
         }
 
         [Test]
