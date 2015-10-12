@@ -270,11 +270,14 @@ namespace Wti.Forms.Test.NodePresenters
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var dataMock = mocks.StrictMock<object>();
+            var testContext = mocks.StrictMock<IMenuItem>();
+
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
-            var testContext = new TestMenuItem();
-            nodePresenter.ContextMenu = a => testContext;
+            var nodePresenter = new PipingDataNodePresenter
+            {
+                ContextMenu = a => testContext
+            };
 
             // call
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);

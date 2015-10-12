@@ -209,7 +209,6 @@
     <Compile Include="EventArgs.cs" />
     <Compile Include="IDeepCloneable.cs" />
     <Compile Include="INameable.cs" />
-    <Compile Include="InterfaceTypeDescriptorProvider.cs" />
     <Compile Include="Interop\NativeLibrary.cs" />
     <Compile Include="IO\FileWatcher.cs" />
     <Compile Include="IO\ZipFileUtils.cs" />

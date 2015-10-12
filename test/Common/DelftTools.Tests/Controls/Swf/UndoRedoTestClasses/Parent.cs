@@ -1,5 +1,4 @@
-﻿using System;
-using DelftTools.Utils.Aop;
+﻿using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections.Generic;
 using DelftTools.Utils.Editing;
 
@@ -13,15 +12,7 @@ namespace DelftTools.Tests.Controls.Swf.UndoRedoTestClasses
             Children = new EventedList<Child>();
         }
 
-        public bool SomeBooleanValue { get; set; }
-
-        public AttributeTargets AttributeTarget { get; set; }
-
         public IEventedList<Child> Children { get; set; }
-
-        public Parent GrandParent { get; set; }
-
-        public Child Child { get; set; }
 
         public string Name { get; set; }
 

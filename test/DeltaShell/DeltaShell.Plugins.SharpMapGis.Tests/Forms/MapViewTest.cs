@@ -11,7 +11,6 @@ using DeltaShell.Plugins.SharpMapGis.Gui;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using GisSharpBlog.NetTopologySuite.Geometries;
-using log4net;
 using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -27,8 +26,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
     [TestFixture]
     public class MapViewTest
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(MapViewTest));
-
         [Test]
         public void DisablingLayerShouldRefreshMapOnce()
         {

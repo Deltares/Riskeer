@@ -44,11 +44,6 @@ namespace DelftTools.TestUtils
             new WindowsFormsTestHelper().ShowTopLevel(control, propertyObjects, false, null);
         }
 
-        public static void ShowModal(IEnumerable<Control> controls, params object[] propertyObjects)
-        {
-            ShowModal(controls, true, propertyObjects);
-        }
-
         public static void ShowModal(Control control, params object[] propertyObjects)
         {
             new WindowsFormsTestHelper().ShowTopLevel(control, propertyObjects, true, null);
@@ -58,34 +53,6 @@ namespace DelftTools.TestUtils
                                      params object[] propertyObjects)
         {
             new WindowsFormsTestHelper().ShowTopLevel(control, propertyObjects, true, formVisibleChangedAction);
-        }
-
-        /// <summary>
-        ///     Embeds the controls into one container control, and shows this control modally.
-        ///     All controls will be using dockstyle top, exect the last control (if useFillForLastControl is true).
-        /// </summary>
-        /// <param name="controls">Controls to embed</param>
-        /// <param name="useFillForLastControl">If true, the last control will be using dockstyle fill</param>
-        /// <param name="propertyObjects">Objects to show as property</param>
-        public static void ShowModal(IEnumerable<Control> controls, bool useFillForLastControl,
-                                     params object[] propertyObjects)
-        {
-            var containerControl = new Control();
-            int numberOfControls = 0;
-
-            foreach (Control control in controls)
-            {
-                control.Dock = DockStyle.Top;
-                containerControl.Controls.Add(control);
-                numberOfControls++;
-            }
-
-            if (useFillForLastControl)
-            {
-                containerControl.Controls[numberOfControls - 1].Dock = DockStyle.Fill;
-            }
-
-            ShowModal(containerControl, propertyObjects);
         }
 
         public static void CloseAll()

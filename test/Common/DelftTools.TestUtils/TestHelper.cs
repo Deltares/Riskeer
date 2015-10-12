@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -8,9 +7,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
-using System.Windows.Forms;
-using System.Xml.Linq;
 using DelftTools.Utils.IO;
 using log4net.Appender;
 using log4net.Config;
@@ -50,74 +46,10 @@ namespace DelftTools.TestUtils
             }
         }
 
-        /// <summary>
-        /// This method creates a local copy in the current working directory, of a dsproj project and its data folder.
-        /// </summary>
-        /// <param name="projectSourcePath">Full path to the project (dsproj), typically in test-data</param>
-        /// <returns>The relative path (eg, filename only) of the copied project</returns>
-        public static string CopyProjectToLocalDirectory(string projectSourcePath)
-        {
-            var projectFileName = Path.GetFileName(projectSourcePath);
-            var currentDir = Environment.CurrentDirectory;
-            File.Copy(projectSourcePath, Path.Combine(currentDir, projectFileName), true);
-
-            var dataDirPath = projectSourcePath + "_data";
-            if (Directory.Exists(dataDirPath))
-            {
-                var dataDirDirectoryName = Path.GetFileName(dataDirPath);
-                var targetDir = Directory.CreateDirectory(dataDirDirectoryName);
-                FileUtils.CopyAll(new DirectoryInfo(dataDirPath), targetDir, ".svn");
-            }
-            return projectFileName;
-        }
-
-        public static string GetProjectNameForCurrentMethod()
-        {
-            MethodBase callingMethod = new StackFrame(1, false).GetMethod(); //.Name;
-            return callingMethod.DeclaringType.Name + "." + callingMethod.Name + ".dsproj";
-        }
-
         public static string GetCurrentMethodName()
         {
             MethodBase callingMethod = new StackFrame(1, false).GetMethod();
             return callingMethod.DeclaringType.Name + "." + callingMethod.Name;
-        }
-
-        /// <summary>
-        /// Does an XML compare based on the xml documents. 
-        /// TODO: get a more precise assert.
-        /// </summary>
-        /// <param name="xml1"></param>
-        /// <param name="xml2"></param>
-        /// <returns></returns>
-        public static void AssertXmlEquals(string xml1, string xml2)
-        {
-            //TODO: get a nicer assert with more info about what is different.
-            /*
-             * does not work on the build server :( */
-            XDocument doc1 = XDocument.Parse(xml1);
-            XDocument doc2 = XDocument.Parse(xml2);
-            //XmlUnit.XmlAssertion.AssertXmlEquals(xml1,xml2);
-            Assert.IsTrue(XNode.DeepEquals(doc1, doc2));
-
-            //do a string compare for now..not the issue the issue is in datetime conversion
-            //Assert.AreEqual(xml1,xml2);
-        }
-
-        //TODO: get this near functiontest. This is not a general function.
-
-        /// <summary>
-        /// Writes an xml file for the given content. Gives a 'nice' layout
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="xml"></param>
-        public static void WriteXml(string path, string xml)
-        {
-            /*XDocument doc = XDocument.Parse(xml);
-            doc.Save(path);
-             */
-            //todo: get the formatting nice again. Now 
-            File.WriteAllText(path, xml);
         }
 
         /// <summary>
@@ -200,13 +132,6 @@ namespace DelftTools.TestUtils
 
             // file not found..exception
             throw new FileNotFoundException(String.Format("File not found: {0}", path), path);
-        }
-
-        public static double GetRunTime(Action action)
-        {
-            DateTime startTime = DateTime.Now;
-            action();
-            return (DateTime.Now - startTime).TotalMilliseconds;
         }
 
         /// <summary>
@@ -401,84 +326,6 @@ namespace DelftTools.TestUtils
             var renderedMessages = GetAllRenderedMessages(action);
 
             Assert.AreEqual(count, renderedMessages.Count());
-        }
-
-        /// <summary>
-        /// Checks if <paramref name="npc"/> is fired <paramref name="expectedCallCount"/> times when <paramref name="action"/> is exectuted
-        /// </summary>
-        /// <param name="npc"></param>
-        /// <param name="expectedCallCount"></param>
-        /// <param name="action"></param>
-        public static void AssertPropertyChangedIsFired(INotifyPropertyChanged npc, int expectedCallCount, Action action)
-        {
-            int callCount = 0;
-            //create a local delegate so when can unsubscribe
-            PropertyChangedEventHandler npcOnPropertyChanged = (s, e) => { callCount++; };
-            npc.PropertyChanged += npcOnPropertyChanged;
-            action();
-
-            Assert.AreEqual(expectedCallCount, callCount);
-            //clean up 
-            npc.PropertyChanged -= npcOnPropertyChanged;
-        }
-
-        public static void SuppressUIForUnhandledExceptions()
-        {
-            if (suppressionInitialized)
-            {
-                return; //call once
-            }
-
-            suppressionInitialized = true;
-
-            //unregister any previous calls
-            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-
-            Application.ThreadException -= ApplicationThreadException;
-            Application.ThreadException += ApplicationThreadException;
-
-            AppDomain.CurrentDomain.UnhandledException -= CurrentDomainUnhandledException;
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomainUnhandledException;
-        }
-
-        public static string CreateLocalCopySingleFile(string filePath)
-        {
-            var newPath = Path.Combine(Environment.CurrentDirectory, Path.GetFileName(filePath));
-            File.Copy(filePath, newPath, true);
-            return newPath;
-        }
-
-        /// <summary>
-        /// Create a local copy from the directory containing a file.
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <returns></returns>
-        public static string CreateLocalCopy(string filePath)
-        {
-            var dir = Path.GetDirectoryName(filePath);
-            var lastDir = new DirectoryInfo(dir).Name;
-
-            var newDir = Path.Combine(Environment.CurrentDirectory, lastDir);
-
-            if (Directory.Exists(newDir))
-            {
-                try
-                {
-                    Directory.Delete(newDir, true);
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Failed to delete directory before local copy: {0}", newDir);
-                }
-            }
-
-            FileUtils.CopyDirectory(dir, newDir, ".svn");
-            return Path.Combine(newDir, Path.GetFileName(filePath));
-        }
-
-        public static long GetManagedMemoryUsageKb()
-        {
-            return GC.GetTotalMemory(true)/1024;
         }
 
         private static string GetCurrentTestClassMethodName()
@@ -779,22 +626,6 @@ namespace DelftTools.TestUtils
             LogHelper.ResetLogging();
 
             return renderedMessages;
-        }
-
-        private static void ApplicationThreadException(object sender, ThreadExceptionEventArgs e)
-        {
-            ThrowExceptionOnCallingThread(e.Exception);
-        }
-
-        private static void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            ThrowExceptionOnCallingThread(new Exception(e.ExceptionObject.ToString()));
-        }
-
-        private static void ThrowExceptionOnCallingThread(Exception innerException)
-        {
-            Debug.WriteLine(innerException.ToString());
-            Thread.CurrentThread.Interrupt();
         }
 
         #region Nested type: TestRunInfo

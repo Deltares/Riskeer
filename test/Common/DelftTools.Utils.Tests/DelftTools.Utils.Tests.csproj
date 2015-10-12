@@ -101,7 +101,6 @@
     <Compile Include="ExcelFormulaTest.cs" />
     <Compile Include="General\TypeConverterTest.cs" />
     <Compile Include="Globalization\RegionalSettingsManagerTest.cs" />
-    <Compile Include="InterfacePropertiesTypeDescriptionProviderTest.cs" />
     <Compile Include="IO\FileUtilsTest.cs" />
     <Compile Include="IO\FileWatcherTest.cs" />
     <Compile Include="IO\ZipFileTest.cs" />

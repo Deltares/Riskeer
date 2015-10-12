@@ -60,14 +60,18 @@ namespace DelftTools.Utils.Tests
         [Test]
         public void Clone()
         {
-            var doc = new TextDocument(true)
+            var orignalTextDocument = new TextDocument(true)
             {
-                Content = "blabla"
+                Name = "Name",
+                Content = "Content"
             };
-            var clone = (TextDocument) doc.Clone();
-            ReflectionTestHelper.AssertPublicPropertiesAreEqual(doc, clone);
-            doc.Content = "kees";
-            Assert.AreNotEqual(doc.Content, clone.Content);
+
+            var clonedTextDocument = (TextDocument) orignalTextDocument.Clone();
+
+            Assert.AreNotSame(orignalTextDocument, clonedTextDocument);
+            Assert.AreEqual(orignalTextDocument.ReadOnly, clonedTextDocument.ReadOnly);
+            Assert.AreEqual(orignalTextDocument.Name, clonedTextDocument.Name);
+            Assert.AreEqual(orignalTextDocument.Content, clonedTextDocument.Content);
         }
     }
 }
