@@ -60,6 +60,10 @@ namespace Wti.Calculation.Piping
             {
                 throw new PipingCalculationException(e.Message);
             }
+            catch (PipingException<SellmeijerBaseCalculator> e)
+            {
+                throw new PipingCalculationException(e.Message);
+            }
         }
 
         private HeaveCalculator CalulateHeave()
