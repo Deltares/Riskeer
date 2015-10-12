@@ -5,7 +5,7 @@ namespace Wti.Calculation.Piping
     /// <summary>
     /// Creates <see cref="PipingSurfaceLine"/> instances which are required by the <see cref="PipingCalculation"/>.
     /// </summary>
-    internal class PipingSurfaceLineCreator
+    internal static class PipingSurfaceLineCreator
     {
         /// <summary>
         /// Creates a simple <see cref="PipingSurfaceLine"/> with a single <see cref="PipingPoint"/> at the origin.

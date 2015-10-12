@@ -295,19 +295,19 @@ namespace Wti.Forms.Test.NodePresenters
         public void RemoveNodeData_ProjectWithPipingData_ReturnFalse()
         {
             // Setup
-            var PipingData = new PipingData();
+            var pipingData = new PipingData();
 
             var project = new Project();
-            project.Items.Add(PipingData);
+            project.Items.Add(pipingData);
 
             var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(project, PipingData);
+            bool removalSuccesful = nodePresenter.RemoveNodeData(project, pipingData);
 
             // Assert
             Assert.IsFalse(removalSuccesful);
-            CollectionAssert.Contains(project.Items, PipingData);
+            CollectionAssert.Contains(project.Items, pipingData);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Wti.Calculation.Piping
     /// <summary>
     /// Creates <see cref="PipingProfile"/> instances which are required by the <see cref="PipingCalculation"/>.
     /// </summary>
-    internal class PipingProfileCreator
+    internal static class PipingProfileCreator
     {
         /// <summary>
         /// Creates a simple <see cref="PipingProfile"/> with a single default constructed <see cref="PipingLayer"/>.
