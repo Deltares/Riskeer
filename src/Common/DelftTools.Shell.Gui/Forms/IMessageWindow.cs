@@ -12,10 +12,8 @@ namespace DelftTools.Shell.Gui.Forms
         /// </summary>
         /// <param name="level"></param>
         /// <param name="time"></param>
-        /// <param name="source"></param>
         /// <param name="message"></param>
-        /// <param name="exception"></param>
-        void AddMessage(Level level, DateTime time, string source, string message, string exception);
+        void AddMessage(Level level, DateTime time, string message);
 
         /// <summary>
         /// Clears all messages in the window.

@@ -23,9 +23,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         {
             public string ImageName { get; set; }
             public DateTime Time { get; set; }
-            public string Source { get; set; }
             public string Message { get; set; }
-            public string Exception { get; set; }
         }
 
         private readonly Dictionary<string, string> levelImageName;
@@ -78,22 +76,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             messagesBindingSource.ApplySort(messagesBindingSource.SortProperty, ListSortDirection.Descending);
             ApplyFilter();
             messagesDataGridView.CellFormatting += MessagesDataGridViewCellFormatting;
-
-            if (log.IsDebugEnabled)
-            {
-                if (messagesDataGridView != null)
-                {
-                    messagesDataGridView.Columns["Exception"].Visible = true;
-                    messagesDataGridView.Columns["sourceDataGridViewTextBoxColumn"].Visible = true;
-                }
-            }
-            else
-            {
-                messagesDataGridView.Columns["Exception"].Visible = false;
-                messagesDataGridView.Columns["sourceDataGridViewTextBoxColumn"].Visible = false;
-                buttonShowDebug.Checked = false;
-                ApplyFilter();
-            }
 
 #endif
             Image = Resources.application_view_list;
@@ -164,18 +146,12 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         /// <param name="time"></param>
         /// <param name="source"></param>
         /// <param name="message"></param>
-        /// <param name="exception"></param>
-        public void AddMessage(Level level, DateTime time, string source, string message, string exception)
+        public void AddMessage(Level level, DateTime time, string message)
         {
-            if (source.StartsWith("NHibernate"))
-            {
-                return;
-            }
-
 #if !MONO
             newMessages.Add(new MessageData
             {
-                ImageName = level.ToString(), Time = time, Source = source, Exception = exception, Message = message
+                ImageName = level.ToString(), Time = time, Message = message
             });
 #else                    
             if (messagesDataGridView != null && messagesDataGridView.Columns.Count != 0)
@@ -249,9 +225,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
                 newMessages.RemoveAt(0);
                 if (newMessage != null)
                 {
-                    messageWindowData.Messages.AddMessagesRow(newMessage.ImageName, newMessage.Time,
-                                                              newMessage.Source, newMessage.Message,
-                                                              newMessage.Exception);
+                    messageWindowData.Messages.AddMessagesRow(newMessage.ImageName, newMessage.Time, newMessage.Message);
 
                     if (newMessage.ImageName == "ERROR" && Error != null)
                     {
@@ -510,8 +484,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         private void ButtonShowDebugClick(object sender, EventArgs e)
         {
             buttonShowDebug.Checked = !buttonShowDebug.Checked;
-            messagesDataGridView.Columns["Exception"].Visible = buttonShowDebug.Checked;
-            messagesDataGridView.Columns["sourceDataGridViewTextBoxColumn"].Visible = buttonShowDebug.Checked;
             ApplyFilter();
         }
 

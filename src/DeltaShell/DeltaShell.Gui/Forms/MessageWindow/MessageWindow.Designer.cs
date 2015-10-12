@@ -37,9 +37,8 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageWindow));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.cToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
@@ -60,8 +59,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sourceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Exception = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenu.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).BeginInit();
@@ -187,19 +184,17 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.imageDataGridViewTextBoxColumn,
             this.Id,
             this.timeDataGridViewTextBoxColumn,
-            this.messageDataGridViewTextBoxColumn,
-            this.sourceDataGridViewTextBoxColumn,
-            this.Exception});
+            this.messageDataGridViewTextBoxColumn});
             this.messagesDataGridView.ContextMenuStrip = this.contextMenu;
             this.messagesDataGridView.DataSource = this.messagesBindingSource;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.messagesDataGridView.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.messagesDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(this.messagesDataGridView, "messagesDataGridView");
             this.messagesDataGridView.Name = "messagesDataGridView";
             this.messagesDataGridView.ReadOnly = true;
@@ -255,24 +250,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.messageDataGridViewTextBoxColumn.Name = "messageDataGridViewTextBoxColumn";
             this.messageDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // sourceDataGridViewTextBoxColumn
-            // 
-            this.sourceDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.sourceDataGridViewTextBoxColumn.DataPropertyName = "Source";
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.sourceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.sourceDataGridViewTextBoxColumn.FillWeight = 30F;
-            resources.ApplyResources(this.sourceDataGridViewTextBoxColumn, "sourceDataGridViewTextBoxColumn");
-            this.sourceDataGridViewTextBoxColumn.Name = "sourceDataGridViewTextBoxColumn";
-            this.sourceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // Exception
-            // 
-            this.Exception.DataPropertyName = "Exception";
-            resources.ApplyResources(this.Exception, "Exception");
-            this.Exception.Name = "Exception";
-            this.Exception.ReadOnly = true;
-            // 
             // MessageWindow
             // 
             resources.ApplyResources(this, "$this");
@@ -311,11 +288,10 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton buttonClearAllMessages;
         private ToolStripMenuItem showDetailsToolStripMenuItem;
+        private DataGridViewTextBoxColumn sourceDataGridViewTextBoxColumn;
         private DataGridViewImageColumn imageDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn timeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn messageDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn sourceDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn Exception;
     }
 }

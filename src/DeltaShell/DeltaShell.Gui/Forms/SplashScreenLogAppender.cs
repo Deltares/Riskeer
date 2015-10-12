@@ -110,7 +110,7 @@ namespace DeltaShell.Gui.Forms
 
             long timeOffset = (long) (loggingEvent.TimeStamp - startTime).TotalMilliseconds;
 
-            DataRow newRow = currentLogData.Messages.AddMessagesRow(null, loggingEvent.TimeStamp, loggingEvent.LoggerName, loggingEvent.RenderedMessage, null);
+            DataRow newRow = currentLogData.Messages.AddMessagesRow(null, loggingEvent.TimeStamp, loggingEvent.RenderedMessage);
             newRow["TimeOffset"] = timeOffset;
 
             if (historyLogData.Messages.Count != 0)

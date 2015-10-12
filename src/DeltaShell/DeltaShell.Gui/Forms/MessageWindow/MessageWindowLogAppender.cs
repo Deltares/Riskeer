@@ -102,8 +102,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
                 message += Resources.MessageWindowLogAppender_AppendToMessageWindow__Check_log_file_for_more_information__Home__Show_Log__;
             }
 
-            MessageWindow.AddMessage(loggingEvent.Level, loggingEvent.TimeStamp,
-                                     loggingEvent.LoggerName, message, loggingEvent.GetExceptionString());
+            MessageWindow.AddMessage(loggingEvent.Level, loggingEvent.TimeStamp, message);
         }
 
         private static void FlushMessagesToMessageWindow()
