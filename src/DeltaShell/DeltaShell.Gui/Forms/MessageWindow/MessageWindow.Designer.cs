@@ -37,8 +37,8 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageWindow));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.cToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
@@ -50,14 +50,13 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.buttonShowWarning = new System.Windows.Forms.ToolStripButton();
             this.buttonShowError = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonClearAllMessages = new System.Windows.Forms.ToolStripButton();
             this.messagesDataGridView = new System.Windows.Forms.DataGridView();
+            this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.messageWindowData = new DeltaShell.Gui.Forms.MessageWindow.MessageWindowData();
             this.imageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.messageWindowData = new DeltaShell.Gui.Forms.MessageWindow.MessageWindowData();
             this.contextMenu.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).BeginInit();
@@ -117,8 +116,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.buttonShowInfo,
             this.buttonShowWarning,
             this.buttonShowError,
-            this.toolStripSeparator1,
-            this.buttonClearAllMessages});
+            this.toolStripSeparator1});
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.toolStrip2.Name = "toolStrip2";
             // 
@@ -157,13 +155,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
-            // buttonClearAllMessages
-            // 
-            this.buttonClearAllMessages.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            resources.ApplyResources(this.buttonClearAllMessages, "buttonClearAllMessages");
-            this.buttonClearAllMessages.Name = "buttonClearAllMessages";
-            this.buttonClearAllMessages.Click += new System.EventHandler(this.ButtonClearAllMessagesClick);
-            // 
             // messagesDataGridView
             // 
             this.messagesDataGridView.AllowUserToAddRows = false;
@@ -178,20 +169,31 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.messageDataGridViewTextBoxColumn});
             this.messagesDataGridView.ContextMenuStrip = this.contextMenu;
             this.messagesDataGridView.DataSource = this.messagesBindingSource;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.messagesDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.messagesDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(this.messagesDataGridView, "messagesDataGridView");
             this.messagesDataGridView.Name = "messagesDataGridView";
             this.messagesDataGridView.ReadOnly = true;
             this.messagesDataGridView.RowHeadersVisible = false;
             this.messagesDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.messagesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            // 
+            // messagesBindingSource
+            // 
+            this.messagesBindingSource.DataMember = "Messages";
+            this.messagesBindingSource.DataSource = this.messageWindowData;
+            this.messagesBindingSource.Sort = "Id";
+            // 
+            // messageWindowData
+            // 
+            this.messageWindowData.DataSetName = "MessageWindowData";
+            this.messageWindowData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // imageDataGridViewTextBoxColumn
             // 
@@ -214,9 +216,9 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             // 
             this.timeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.timeDataGridViewTextBoxColumn.DataPropertyName = "Time";
-            dataGridViewCellStyle3.Format = "HH:mm:ss";
-            dataGridViewCellStyle3.NullValue = null;
-            this.timeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Format = "HH:mm:ss";
+            dataGridViewCellStyle1.NullValue = null;
+            this.timeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
             resources.ApplyResources(this.timeDataGridViewTextBoxColumn, "timeDataGridViewTextBoxColumn");
             this.timeDataGridViewTextBoxColumn.Name = "timeDataGridViewTextBoxColumn";
             this.timeDataGridViewTextBoxColumn.ReadOnly = true;
@@ -229,17 +231,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             resources.ApplyResources(this.messageDataGridViewTextBoxColumn, "messageDataGridViewTextBoxColumn");
             this.messageDataGridViewTextBoxColumn.Name = "messageDataGridViewTextBoxColumn";
             this.messageDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // messagesBindingSource
-            // 
-            this.messagesBindingSource.DataMember = "Messages";
-            this.messagesBindingSource.DataSource = this.messageWindowData;
-            this.messagesBindingSource.Sort = "Id";
-            // 
-            // messageWindowData
-            // 
-            this.messageWindowData.DataSetName = "MessageWindowData";
-            this.messageWindowData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // MessageWindow
             // 
@@ -276,7 +267,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         private System.Windows.Forms.ToolStripButton buttonShowInfo;
         private System.Windows.Forms.DataGridView messagesDataGridView;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton buttonClearAllMessages;
         private ToolStripMenuItem showDetailsToolStripMenuItem;
         private DataGridViewTextBoxColumn sourceDataGridViewTextBoxColumn;
         private DataGridViewImageColumn imageDataGridViewTextBoxColumn;
