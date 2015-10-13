@@ -1,4 +1,7 @@
-﻿using Deltares.WTIPiping;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Deltares.WTIPiping;
 
 namespace Wti.Calculation.Piping
 {
@@ -29,32 +32,40 @@ namespace Wti.Calculation.Piping
         /// <exception cref="PipingCalculationException">Thrown when any of the invocations of the sub-calculations from the kernel throws an Exception.</exception>
         public PipingCalculationResult Calculate()
         {
+            var upliftResult = CalculateUplift();
+            var heaveResult = CalculateHeave();
+            var sellmeijerResult = CalculateSellmeijer();
+
+            return new PipingCalculationResult(
+                upliftResult.Zu,
+                upliftResult.FoSu,
+                heaveResult.Zh,
+                heaveResult.FoSh,
+                sellmeijerResult.Zp,
+                sellmeijerResult.FoSp
+            );
+        }
+
+        /// <summary>
+        /// Returns a list of validation messages. The validation messages are based on the values of the <see cref="PipingCalculationInput"/>
+        /// which was provided to this <see cref="PipingCalculation"/> and are determined by the Piping kernel.
+        /// </summary>
+        public List<string> Validate()
+        {
+            List<string> upliftCalculatorValidationResults = CreateUpliftCalculator().Validate();
+            List<string> heaveCalculatorValidationResults = CreateHeaveCalculator().Validate();
+            List<string> sellmeijerCalculatorValidationResults = CreateSellmeijerCalculator().Validate();
+
+            return upliftCalculatorValidationResults.Concat(heaveCalculatorValidationResults).Concat(sellmeijerCalculatorValidationResults).ToList();
+        }
+
+        private Sellmeijer2011Calculator CalculateSellmeijer()
+        {
+            Sellmeijer2011Calculator sellmeijerCalculator = CreateSellmeijerCalculator();
+
             try
             {
-                var upliftResultContainer = CalculateUplift();
-                var heaveResultContainer = CalulateHeave();
-                var sellmejerResultContainer = CalulateSellmeijer();
-
-                return new PipingCalculationResult(
-                    upliftResultContainer.Zu,
-                    upliftResultContainer.FoSu,
-                    heaveResultContainer.Zh,
-                    heaveResultContainer.FoSh,
-                    sellmejerResultContainer.Zp,
-                    sellmejerResultContainer.FoSp
-                    );
-            }
-            catch (WTIUpliftCalculatorException e)
-            {
-                throw new PipingCalculationException(e.Message);
-            }
-            catch (PipingException<HeaveCalculator> e)
-            {
-                throw new PipingCalculationException(e.Message);
-            }
-            catch (PipingException<EffectiveThicknessCalculator> e)
-            {
-                throw new PipingCalculationException(e.Message);
+                sellmeijerCalculator.Calculate();
             }
             catch (PipingException<Sellmeijer2011Calculator> e)
             {
@@ -64,9 +75,47 @@ namespace Wti.Calculation.Piping
             {
                 throw new PipingCalculationException(e.Message);
             }
+
+            return sellmeijerCalculator;
         }
 
-        private HeaveCalculator CalulateHeave()
+        private HeaveCalculator CalculateHeave()
+        {
+            var heaveCalculator = CreateHeaveCalculator();
+
+            try
+            {
+                heaveCalculator.Calculate();
+            }
+            catch (PipingException<HeaveCalculator> e)
+            {
+                throw new PipingCalculationException(e.Message);
+            }
+
+            return heaveCalculator;
+        }
+
+        private WTIUpliftCalculator CalculateUplift()
+        {
+            WTIUpliftCalculator upliftCalculator = CreateUpliftCalculator();
+            
+            try
+            {
+                upliftCalculator.Calculate();
+            }
+            catch (WTIUpliftCalculatorException e)
+            {
+                throw new PipingCalculationException(e.Message);
+            }
+            catch (PipingException<EffectiveThicknessCalculator> e)
+            {
+                throw new PipingCalculationException(e.Message);
+            }
+
+            return upliftCalculator;
+        }
+
+        private HeaveCalculator CreateHeaveCalculator()
         {
             var calculator = new HeaveCalculator
             {
@@ -77,11 +126,10 @@ namespace Wti.Calculation.Piping
                 RExit = input.DampingFactorExit,
                 HExit = input.PhreaticLevelExit
             };
-            calculator.Calculate();
             return calculator;
         }
 
-        private WTIUpliftCalculator CalculateUplift()
+        private WTIUpliftCalculator CreateUpliftCalculator()
         {
             var effectiveStressResult = CalculateEffectiveThickness();
 
@@ -96,11 +144,10 @@ namespace Wti.Calculation.Piping
                 HExit = input.PhreaticLevelExit,
                 PhiPolder = input.PiezometricHeadPolder
             };
-            calculator.Calculate();
             return calculator;
         }
 
-        private Sellmeijer2011Calculator CalulateSellmeijer()
+        private Sellmeijer2011Calculator CreateSellmeijerCalculator()
         {
             var calculator = new Sellmeijer2011Calculator
             {
@@ -121,7 +168,6 @@ namespace Wti.Calculation.Piping
                 D70Mean = input.MeanDiameter70,
                 BeddingAngle = input.BeddingAngle
             };
-            calculator.Calculate();
             return calculator;
         }
 

@@ -4,7 +4,7 @@ using Wti.Data;
 namespace Wti.Forms.Test.Helper
 {
     /// <summary>
-    /// Helper class to create simple PipingOutput.
+    /// Helper class to create simple <see cref="PipingOutput"/>.
     /// </summary>
     public static class PipingOutputCreator
     {
