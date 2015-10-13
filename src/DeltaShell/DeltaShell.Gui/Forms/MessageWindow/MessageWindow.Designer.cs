@@ -53,12 +53,12 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonClearAllMessages = new System.Windows.Forms.ToolStripButton();
             this.messagesDataGridView = new System.Windows.Forms.DataGridView();
-            this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.messageWindowData = new DeltaShell.Gui.Forms.MessageWindow.MessageWindowData();
             this.imageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.messageWindowData = new DeltaShell.Gui.Forms.MessageWindow.MessageWindowData();
             this.contextMenu.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).BeginInit();
@@ -89,6 +89,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             // 
             // showDetailsToolStripMenuItem
             // 
+            this.showDetailsToolStripMenuItem.Image = global::DeltaShell.Gui.Properties.Resources.application_import_blue;
             this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
             resources.ApplyResources(this.showDetailsToolStripMenuItem, "showDetailsToolStripMenuItem");
             this.showDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
@@ -157,8 +158,8 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             // 
             this.buttonShowDebug.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.buttonShowDebug.Image = global::DeltaShell.Gui.Properties.Resources.bug;
-            resources.ApplyResources(this.buttonShowDebug, "buttonShowDebug");
             this.buttonShowDebug.Name = "buttonShowDebug";
+            resources.ApplyResources(this.buttonShowDebug, "buttonShowDebug");
             this.buttonShowDebug.Click += new System.EventHandler(this.ButtonShowDebugClick);
             // 
             // toolStripSeparator1
@@ -202,17 +203,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.messagesDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.messagesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             // 
-            // messagesBindingSource
-            // 
-            this.messagesBindingSource.DataMember = "Messages";
-            this.messagesBindingSource.DataSource = this.messageWindowData;
-            this.messagesBindingSource.Sort = "Id";
-            // 
-            // messageWindowData
-            // 
-            this.messageWindowData.DataSetName = "MessageWindowData";
-            this.messageWindowData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // imageDataGridViewTextBoxColumn
             // 
             this.imageDataGridViewTextBoxColumn.DataPropertyName = "Image";
@@ -249,6 +239,17 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             resources.ApplyResources(this.messageDataGridViewTextBoxColumn, "messageDataGridViewTextBoxColumn");
             this.messageDataGridViewTextBoxColumn.Name = "messageDataGridViewTextBoxColumn";
             this.messageDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // messagesBindingSource
+            // 
+            this.messagesBindingSource.DataMember = "Messages";
+            this.messagesBindingSource.DataSource = this.messageWindowData;
+            this.messagesBindingSource.Sort = "Id";
+            // 
+            // messageWindowData
+            // 
+            this.messageWindowData.DataSetName = "MessageWindowData";
+            this.messageWindowData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // MessageWindow
             // 

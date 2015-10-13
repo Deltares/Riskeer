@@ -409,6 +409,7 @@
     <Resource Include="Resources\application_import_blue.png" />
     <Resource Include="Resources\application_import_blue_Large.png" />
     <Resource Include="Resources\cog_add_Large.png" />
+    <None Include="Resources\application_import_blue.ico" />
     <Content Include="Resources\DeltaShell11.png" />
     <Resource Include="Resources\FindProject.png" />
     <Resource Include="Resources\FindView.png" />

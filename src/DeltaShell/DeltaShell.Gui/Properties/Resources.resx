@@ -754,9 +754,6 @@
   <data name="SelectViewDialog_listBox_DrawItem_____Default_" xml:space="preserve">
     <value>- (Default)</value>
   </data>
-  <data name="SplashScreenLogAppender_DoAppend__1____time_left___0_N1__sec" xml:space="preserve">
-    <value>{1}%, time left: {0:N1} sec</value>
-  </data>
   <data name="SplashScreenWindowsForms_SplashScreen_VisibleChanged_Showing_splash_screen____" xml:space="preserve">
     <value>Showing splash screen ...</value>
   </data>
@@ -1199,7 +1196,6 @@ Select No to save the project as a new project at a different location.</value>
   <data name="App_ParseArguments_Run_specified_command__Python__" xml:space="preserve">
     <value>Run specified command (Python).</value>
   </data>
-
   <data name="Wti_project_file_filter" xml:space="preserve">
     <value>WTI project files (.wti)|*.wti</value>
   </data>
@@ -1220,5 +1216,8 @@ Select No to save the project as a new project at a different location.</value>
   </data>
   <data name="New_wti_project_successfully_opened" xml:space="preserve">
     <value>New WTI project successfully opened.</value>
+  </data>
+  <data name="application_import_blue1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_import_blue.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -359,9 +359,10 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             var form = new Form
             {
                 Text = Resources.MessageWindow_showDetailsToolStripMenuItem_Click_Message_details,
-                StartPosition = FormStartPosition.CenterParent,
+                StartPosition = FormStartPosition.CenterScreen,
                 FormBorderStyle = FormBorderStyle.Sizable,
                 ShowInTaskbar = false,
+                Icon = Resources.application_import_blue1,
                 Size = new Size(300, 300)
             };
 
