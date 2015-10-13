@@ -140,8 +140,6 @@ namespace DeltaShell.Gui.Forms.MainWindow
             }
         }
 
-        public new Icon Icon { get; set; }
-
         public bool Visible
         {
             get

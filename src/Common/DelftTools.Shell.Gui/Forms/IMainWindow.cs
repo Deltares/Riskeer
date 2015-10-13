@@ -22,11 +22,6 @@ namespace DelftTools.Shell.Gui.Forms
         /// </summary>
         IMessageWindow MessageWindow { get; }
 
-        /// <summary>
-        /// The icon to show in the top left
-        /// </summary>
-        Icon Icon { get; set; }
-
         //TODO: This is  inconsistent with the form title which is called .Text
         /// <summary>
         /// The window title

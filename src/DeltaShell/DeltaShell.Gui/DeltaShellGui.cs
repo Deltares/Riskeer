@@ -849,27 +849,6 @@ namespace DeltaShell.Gui
                 e.Cancel = true; //cancel closing: let Exit handle it
                 Exit();
             };
-
-            UpdateMainWindowIcon();
-        }
-
-        private void UpdateMainWindowIcon()
-        {
-            //update icon if a valid icon is in app.config
-            string iconPath = Application.Settings["applicationIcon"];
-            if (iconPath != null)
-            {
-                if (iconPath.Trim().Length > 0 &&
-                    (Path.GetDirectoryName(iconPath).Length == 0 || iconPath.StartsWith("..", StringComparison.Ordinal)))
-                {
-                    iconPath = Path.Combine(System.Windows.Forms.Application.StartupPath, iconPath);
-                }
-
-                if (File.Exists(iconPath))
-                {
-                    mainWindow.Icon = new Icon(iconPath);
-                }
-            }
         }
 
         private void InitializeWindows()
