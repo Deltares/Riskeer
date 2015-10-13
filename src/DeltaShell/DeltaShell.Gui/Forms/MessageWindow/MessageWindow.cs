@@ -24,7 +24,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 
         private readonly Dictionary<string, string> levelImageName;
         private readonly Timer addNewMessagesTimer;
-        private bool firstMessage;
         private readonly IList<MessageData> newMessages = new List<MessageData>();
         private bool filtering;
 
@@ -69,7 +68,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 
             // TODO: make timer start only when property was changed and then stop
             addNewMessagesTimer = new Timer();
-            firstMessage = true;
             addNewMessagesTimer.Tick += AddNewMessagesTimerTick;
 
             addNewMessagesTimer.Interval = 300;
@@ -204,11 +202,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             {
                 messagesDataGridView.ResumeLayout();
             }   
-
-            if (firstMessage)
-            {
-                firstMessage = false;
-            }
 
             if (messagesDataGridView.Rows.Count > 0)
             {
