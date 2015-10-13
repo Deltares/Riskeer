@@ -11,12 +11,12 @@ namespace DelftTools.Utils.Binding
     /// Copied from:
     /// http://geekswithblogs.net/sdorman/archive/2007/08/02/Data-Binding-an-Enum-with-Descriptions.aspx
     /// </summary>
-    /// <example>
+    /// <example><code>
     /// ComboBox combo = new ComboBox();
-    /// combo.DataSource = EnumBindingHelper.ToList<SimpleEnum>();
+    /// combo.DataSource = EnumBindingHelper.ToList&lt;SimpleEnum&gt;();
     /// combo.DisplayMember = "Value";
     /// combo.ValueMember = "Key";
-    /// </example>
+    /// </code></example>
     public class EnumBindingHelper
     {
         /// <summary>

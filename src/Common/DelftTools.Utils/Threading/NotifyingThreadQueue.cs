@@ -148,10 +148,11 @@ namespace DelftTools.Utils.Threading
             {
                 if (QueueState == QueueState.Idle)
                 {
-                    /// this is a judgment call if you pause this when you 
-                    /// don’t have any elements in it then you can go directly 
-                    /// to paused and this means that you basically want to 
-                    /// keep queuing until something happens                    
+                    /* this is a judgment call if you pause this when you 
+                     * don’t have any elements in it then you can go directly 
+                     * to paused and this means that you basically want to 
+                     * keep queuing until something happens
+                     */
                     QueueState = QueueState.Paused;
                     QueueStateChangedInternal(QueueState);
                 }
@@ -160,15 +161,14 @@ namespace DelftTools.Utils.Threading
                     QueueState = QueueState.Pausing;
                     QueueStateChangedInternal(QueueState);
 
-                    /// running means you had some active threads so you couldn’t 
-                    /// get to paused right away
+                    // running means you had some active threads so you couldn’t get to paused right away
                 }
                 else if (QueueState == QueueState.Stopping || QueueState == QueueState.Aborting)
                 {
                     ThreadErrorInternal(default(T),
                                         new ThreadStateException("Once the queue is stopping  its done processing"));
                 }
-                /// if we are already paused or pausing we dont need to do anything
+                // if we are already paused or pausing we dont need to do anything
             }
         }
 
@@ -183,8 +183,7 @@ namespace DelftTools.Utils.Threading
             {
                 if ((QueueState == QueueState.Idle) || (QueueState == QueueState.Stopping) || (QueueState == QueueState.Aborting))
                 {
-                    /// do nothing idle has nothing to stop and stopping  
-                    /// is already working on stopping 
+                    // Do nothing. Idle has nothing to stop and Stopping is already working on stopping 
                     return;
                 }
                 else if (QueueState == QueueState.Paused)
@@ -192,15 +191,14 @@ namespace DelftTools.Utils.Threading
                     QueueState = QueueState.Stopping;
                     QueueStateChangedInternal(QueueState);
 
-                    /// if we are already paused then we have no threads running 
-                    /// so just drop all the extra items in the queue
+                    // If we are already paused then we have no threads running so drop all the extra items in the queue
                     while (queue.Count != 0)
                     {
                         ThreadErrorInternal(queue.Dequeue().Key,
                                             new ThreadStateException("the Queue is stopping . no processing done"));
                     }
 
-                    /// ensure proper event flow paused-> stopping -> idle
+                    // ensure proper event flow paused-> stopping -> idle
                     QueueState = QueueState.Idle;
                     QueueStateChangedInternal(QueueState);
                 }
@@ -209,9 +207,9 @@ namespace DelftTools.Utils.Threading
                     QueueState = QueueState.Stopping;
                     QueueStateChangedInternal(QueueState);
 
-                    /// why are we not dequeuing everything? that’s b/c if we have threads 
-                    /// left they have to finish in their own good time so they can go 
-                    /// through the process of getting rid of all the others. both ways work
+                    // why are we not dequeuing everything? 
+                    // that’s b/c if we have threads left they have to finish in their own good time so they can go 
+                    // through the process of getting rid of all the others. both ways work
                     if (currentthreads == 0)
                     {
                         QueueState = QueueState.Idle;
@@ -230,8 +228,7 @@ namespace DelftTools.Utils.Threading
             {
                 if ((QueueState == QueueState.Idle) || (QueueState == QueueState.Stopping) || (QueueState == QueueState.Aborting))
                 {
-                    /// do nothing idle has nothing to stop and stopping  
-                    /// is already working on stopping 
+                    // Do nothing. Idle has nothing to stop and Stopping is already working on stopping 
                     return;
                 }
                 else if (QueueState == QueueState.Paused)
@@ -239,8 +236,7 @@ namespace DelftTools.Utils.Threading
                     QueueState = QueueState.Aborting;
                     QueueStateChangedInternal(QueueState);
 
-                    // if we are already paused then we have no threads running 
-                    /// so just drop all the extra items in the queue
+                    // if we are already paused then we have no threads running so drop all the extra items in the queue
                     while (queue.Count != 0)
                     {
                         queue.Dequeue();
@@ -256,9 +252,9 @@ namespace DelftTools.Utils.Threading
                     QueueState = QueueState.Aborting;
                     QueueStateChangedInternal(QueueState);
 
-                    /// why are we not dequeuing everything? that’s b/c if we have threads 
-                    /// left they have to finish in their own good time so they can go 
-                    /// through the process of getting rid of all the others. both ways work
+                    // why are we not dequeuing everything? 
+                    // That’s b/c if we have threads left they have to finish in their own good time so they can go 
+                    // through the process of getting rid of all the others. both ways work
 
                     //abort running threads
                     KeyValuePair<T, QueueOperationHandler<T>>[] kvpArr =
@@ -323,15 +319,14 @@ namespace DelftTools.Utils.Threading
                 }
                 else if (QueueState == QueueState.Paused)
                 {
-                    /// if we are already paused then we have no threads running 
-                    /// remove item from the queue
+                    // if we are already paused then we have no threads running, remove item from the queue
                     RemoveQueueKvp(kvp);
 
                     if (queue.Count == 0)
                     {
                         QueueState = QueueState.Stopping;
                         QueueStateChangedInternal(QueueState);
-                        /// ensure proper event flow paused-> stopping -> idle
+                        // ensure proper event flow paused-> stopping -> idle
                         QueueState = QueueState.Idle;
                         QueueStateChangedInternal(QueueState);
                     }
@@ -412,14 +407,13 @@ namespace DelftTools.Utils.Threading
                 }
                 else if ((QueueState == QueueState.Idle) || (QueueState == QueueState.Running))
                 {
-                    /// Continuing to process while the queue is idle is meaning 
-                    /// less just ignore the command
+                    // Continuing to process while the queue is idle is meaningless. Ignoring the command
                     return;
                 }
                 else if (QueueState == QueueState.Stopping)
                 {
                     ThreadErrorInternal(default(T),
-                                        new ThreadStateException("Once the queue is stopping  its done processing"));
+                                        new ThreadStateException("Once the queue is stopping it's done processing"));
                 }
             }
         }
@@ -478,7 +472,7 @@ namespace DelftTools.Utils.Threading
 
         /// <summary>
         /// Adds the item to the queue to process asynchronously and 
-        /// uses the different operation instead  of the default.
+        /// uses the different operation instead of the default.
         /// </summary>
         /// <param name="item">the item to enqueue</param>
         /// <param name="opp">the new operation that overrides the default</param>
@@ -499,14 +493,13 @@ namespace DelftTools.Utils.Threading
                     QueueState = QueueState.Running;
                     QueueStateChangedInternal(QueueState);
 
-                    /// the problem with generics is that sometimes the fully 
-                    /// descriptive name goes on for a while
                     KeyValuePair<T, QueueOperationHandler<T>> kvp =
                         new KeyValuePair<T, QueueOperationHandler<T>>(item, opp);
 
-                    /// thread demands that its ParameterizedThreadStart take an object not a generic type
-                    /// one might have resonably thought that there would be a generic constructor that 
-                    /// took a strongly typed value but there is not one
+                    // TODO: rewrite comment below
+                    // thread demands that its ParameterizedThreadStart take an object not a generic type
+                    // one might have resonably thought that there would be a generic constructor that 
+                    // took a strongly typed value but there is not one
                     currentthreads++;
 
                     ParameterizedThreadStart threadStart = RunOpp;
@@ -533,8 +526,7 @@ namespace DelftTools.Utils.Threading
                         ThreadErrorInternal(kvp.Key, new Exception("This item is in the queue already"));
                         return;
                     }
-                    /// in the case that we are pausing or currently paused we just add the value to the
-                    /// queue we dont try to run the process 
+                    // in the case that we are pausing or currently paused we just add the value to the queue and dont try to run the process 
                     queue.Enqueue(kvp);
 
                     #endregion
@@ -551,9 +543,9 @@ namespace DelftTools.Utils.Threading
                         return;
                     }
 
-                    /// you have to enqueue the item then try to execute the first item in the process
-                    /// always enqueue first as this ensures that you get the oldest item first since 
-                    /// that is what you wanted to do you did not want a stack
+                    // You have to enqueue the item and then try to execute the first item in the process.
+                    // Always enqueue first as this ensures that you get the oldest item first, 
+                    // since that is what you wanted to do you did not want a stack
                     queue.Enqueue(kvp);
                     TryNewThread();
 
@@ -563,14 +555,9 @@ namespace DelftTools.Utils.Threading
                 {
                     #region stopping
 
-                    /// when you are stopping the queue i assume that you wanted to stop it not pause it this 
-                    /// means that if you try to enqueue something it will throw an exception since you 
-                    /// shouldnt be enqueueing anything since when the queue gets done all its current 
-                    /// threads it clears the rest out so why bother enqueueing it. at this point we have 
-                    /// a choice we can make the notifyer die or we can use the error event we already 
-                    /// have built in to tell the sender. i chose the later. also try to pick an appropriate 
-                    /// exception not just the base
-                    ThreadErrorInternal(item, new ThreadStateException("the Queue is stopping . no processing done"));
+                    // when you are stopping the queue it is assumed that you wanted to Stop it not Pause it. 
+                    // Since it can not go back to a running state, if you try to enqueue something it will throw an exception
+                    ThreadErrorInternal(item, new ThreadStateException("the Queue is stopping. No processing done"));
 
                     #endregion
                 }
@@ -665,19 +652,17 @@ namespace DelftTools.Utils.Threading
                 {
                     #region stopping 
 
-                    /// normally when we stop a queue we can just clear out the remaining 
-                    /// values and let the threads peter out. however, we made the decision 
-                    /// to throw an exception by way of our exception handler. it is therefore 
-                    /// important to keep with that and get rid of all the queue items in 
-                    /// that same way
+                    // Normally when we stop a queue we can just clear out the remaining 
+                    // values and let the threads figger out. however, we made the decision 
+                    // to throw an exception by way of our exception handler. It is therefore 
+                    // important to keep with that and get rid of all the queue items in that same way
                     while (queue.Count != 0)
                     {
                         ThreadErrorInternal(queue.Dequeue().Key,
-                                            new ThreadStateException("the Queue is stopping . no processing done"));
+                                            new ThreadStateException("the Queue is stopping. No processing done"));
                     }
 
-                    /// all threads come through here so its up to us to single the change 
-                    /// from stopping to idle
+                    // All threads come through here so its up to us to single the change from stopping to idle
                     if (currentthreads == 0)
                     {
                         QueueState = QueueState.Idle;
@@ -702,8 +687,7 @@ namespace DelftTools.Utils.Threading
                 {
                     #region Idle / Paused
 
-                    /// there should be no way to got in here while your idle or paused
-                    /// this is just an error check
+                    // There should be no way to got in here while you're idle or paused. This is just an error check
                     ThreadErrorInternal(default(T), new Exception("internal state bad"));
 
                     #endregion

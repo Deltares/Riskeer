@@ -87,7 +87,6 @@ namespace DelftTools.Utils.Collections.Generic
         /// Construct me
         /// </summary>
         /// <param name="initialData">The initialization data</param>
-        /// <param name="bubbleChildEvents">Specifies whether property/collection changed events on the items themselves are bubbled</param>
         public EventedList(IEnumerable<T> initialData)
         {
             list = initialData == null ? new List<T>() : new List<T>(initialData);

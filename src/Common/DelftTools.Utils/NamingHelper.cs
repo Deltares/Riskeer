@@ -71,7 +71,7 @@ namespace DelftTools.Utils
         }
 
         /// <summary>
-        /// Makes all <param name="nameables" /> have a unique name
+        /// Makes all <paramref name="nameables" /> have a unique name
         /// </summary>
         /// <param name="nameables">List of INameble objects to make unique</param>
         public static void MakeNamesUnique(IEnumerable<INameable> nameables)

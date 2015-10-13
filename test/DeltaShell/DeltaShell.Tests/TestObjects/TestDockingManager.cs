@@ -12,10 +12,13 @@ namespace DeltaShell.Tests.TestObjects
     /// </summary>
     public class TestDockingManager : IDockingManager
     {
+// Required by interface, but not used (yet)
+#pragma warning disable 67
         public event EventHandler<DockTabClosingEventArgs> ViewBarClosing;
         public event EventHandler<ActiveViewChangeEventArgs> ViewActivated;
 
         public event Action<object, MouseEventArgs, IView> ViewSelectionMouseDown;
+#pragma warning restore 67
 
         public TestDockingManager()
         {

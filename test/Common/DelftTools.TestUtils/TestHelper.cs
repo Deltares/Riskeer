@@ -23,8 +23,6 @@ namespace DelftTools.TestUtils
         private static string lastTestName;
         private static Color[] colors;
 
-        private static bool suppressionInitialized;
-
         public static string SolutionRoot
         {
             get

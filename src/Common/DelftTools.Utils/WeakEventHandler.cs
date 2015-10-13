@@ -1,14 +1,13 @@
-///  Basic weak event management. 
-/// 
-///  Weak allow objects to be garbage collected without having to unsubscribe
-///  
-///  Taken with some minor variations from:
-///  http://diditwith.net/2007/03/23/SolvingTheProblemWithEventsWeakEventHandlers.aspx
-///  
-///  use as class.theEvent +=new EventHandler<EventArgs>(instance_handler).MakeWeak((e) => class.theEvent -= e);
-///  MakeWeak extension methods take an delegate to unsubscribe the handler from the event
-/// 
-/// 
+/*  Basic weak event management. 
+ * 
+ *  Weak allow objects to be garbage collected without having to unsubscribe
+ *  
+ *  Taken with some minor variations from:
+ *  http://diditwith.net/2007/03/23/SolvingTheProblemWithEventsWeakEventHandlers.aspx
+ *   
+ *  use as class.theEvent +=new EventHandler<EventArgs>(instance_handler).MakeWeak((e) => class.theEvent -= e);
+ *  MakeWeak extension methods take an delegate to unsubscribe the handler from the event 
+*/
 
 using System;
 using System.ComponentModel;
@@ -54,7 +53,7 @@ namespace DelftTools.Utils
         public H Handler { get; private set; }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="PR.utils.WeakEventHandler&lt;T,E&gt;"/> to <see cref="System.EventHandler&lt;E&gt;"/>.
+        /// Performs an implicit conversion from <see cref="DelftTools.Utils.WeakEventHandler&lt;T,E&gt;"/> to <see cref="System.EventHandler&lt;E&gt;"/>.
         /// </summary>
         /// <param name="weh">The weh.</param>
         /// <returns>The result of the conversion.</returns>
@@ -139,7 +138,6 @@ namespace DelftTools.Utils
     /// <summary>
     /// An interface for a weak event handler
     /// </summary>
-    /// <typeparam name="E"></typeparam>
     public interface IWeakPropertyChangedEventHandler
     {
         PropertyChangedEventHandler Handler { get; }
@@ -150,7 +148,6 @@ namespace DelftTools.Utils
     /// handler must be a instance method
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <typeparam name="E"></typeparam>
     public class WeakPropertyChangeHandler<T> : WeakEventHandlerGeneric<T, PropertyChangedEventArgs, PropertyChangedEventHandler>, IWeakPropertyChangedEventHandler
         where T : class
     {
@@ -168,7 +165,6 @@ namespace DelftTools.Utils
         /// <summary>
         /// Makes a property change handler weak
         /// </summary>
-        /// <typeparam name="E"></typeparam>
         /// <param name="eventHandler">The event handler.</param>
         /// <param name="unregister">The unregister.</param>
         /// <returns></returns>

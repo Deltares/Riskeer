@@ -220,6 +220,8 @@ namespace DelftTools.Utils.Tests.Collections.Generic
 
         private class MockWithPropertyAndCollectionChange : INotifyPropertyChange, INotifyCollectionChange
         {
+            // Required by interface, but not used (yet)
+#pragma warning disable 67
             public event PropertyChangingEventHandler PropertyChanging;
 
             public event PropertyChangedEventHandler PropertyChanged;
@@ -227,6 +229,7 @@ namespace DelftTools.Utils.Tests.Collections.Generic
             public event NotifyCollectionChangedEventHandler CollectionChanged;
 
             public event NotifyCollectionChangingEventHandler CollectionChanging;
+#pragma warning restore 67
 
             bool INotifyCollectionChange.HasParentIsCheckedInItems { get; set; }
 

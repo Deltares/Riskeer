@@ -21,7 +21,7 @@ namespace DelftTools.Utils.Editing
 
         /// <summary>
         /// Start editing object with the named action. 
-        /// Note: Object must assign <paramref cref="action"/> to <see cref="CurrentEditAction"/> before <see cref="IsEditing"/> is changed.
+        /// Note: Object must assign <paramref name="action"/> to <see cref="CurrentEditAction"/> before <see cref="IsEditing"/> is changed.
         /// </summary>
         /// <param name="action"></param>
         void BeginEdit(IEditAction action);

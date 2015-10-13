@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace DelftTools.Utils
 {
     /// <summary>
-    /// Inherit this class to have an enumerable with [] and Count functionality. (but no other IList<T> functionality)
+    /// Inherit this class to have an enumerable with [] and Count functionality. (but no other IList&lt;T&gt; functionality)
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class Selector<T> : IList<T>

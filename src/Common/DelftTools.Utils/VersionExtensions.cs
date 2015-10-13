@@ -7,7 +7,7 @@ namespace DelftTools.Utils
         /// <summary>
         /// Replaces -1 in version by 0. Allowing 1.3 == 1.3.0.0 
         /// </summary>
-        /// <param name="?"></param>
+        /// <param name="version"></param>
         /// <returns></returns>
         public static Version GetFullVersion(this Version version)
         {

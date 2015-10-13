@@ -29,7 +29,7 @@ namespace DelftTools.Utils.Collections
         /// <typeparam name="T">Type of item</typeparam>
         /// <param name="collection">Collection to add the elements to</param>
         /// <param name="items">Items to add</param>
-        /// <returns><param name="collection"/> with <param name="items"/></returns>
+        /// <returns><paramref name="collection"/> with <paramref name="items"/></returns>
         public static IEnumerable<T> Plus<T>(this IEnumerable<T> collection, params T[] items)
         {
             return collection.Concat(items);

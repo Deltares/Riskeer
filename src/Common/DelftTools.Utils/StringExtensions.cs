@@ -35,9 +35,9 @@ namespace DelftTools.Utils
         /// <returns>The resultant <typeparamref name="T"/> or the default of <typeparamref name="T"/>.</returns>
         /// <example>
         /// <code>
-        /// "1234".Parse&ltint&gt;() == 1234;
-        /// "a".Parse&ltint&gt;() == 0;
-        /// "a".Parse&ltint?&gt;() == null;
+        /// "1234".Parse&lt;int&gt;() == 1234;
+        /// "a".Parse&lt;int&gt;() == 0;
+        /// "a".Parse&lt;int?&gt;() == null;
         /// "2010-01-01".Parse&lt;DateTime?&gt;() == new DateTime(2010, 1, 1)
         /// "2010-01-01a".Parse&lt;DateTime?&gt;() == null
         /// "127.0.0.1".Parse&lt;System.Net.IPAddress&gt;().Equals(new System.Net.IPAddress(new byte[] { 127, 0, 0, 1 }))
@@ -58,8 +58,8 @@ namespace DelftTools.Utils
         /// <returns>The resultant <typeparamref name="T"/> or <paramref name="defaultValue"/>.</returns>
         /// <example>
         /// <code>
-        /// "1234".Parse&ltint&gt;(-1) == 1234;
-        /// "a".Parse&ltint&gt;(-1) == -1;
+        /// "1234".Parse &lt;int&gt;(-1) == 1234;
+        /// "a".Parse&lt;int&gt;(-1) == -1;
         /// "2010-01-01".Parse&lt;DateTime?&gt;(new DateTime(1900, 1, 1)) == new DateTime(2010, 1, 1)
         /// "2010-01-01a".Parse&lt;DateTime?&gt;(new DateTime(1900, 1, 1)) == new DateTime(1900, 1, 1)
         /// "127.0.0.1".Parse&lt;System.Net.IPAddress&gt;(new System.Net.IPAddress(new byte[] { 0, 0, 0, 0 })).Equals(new System.Net.IPAddress(new byte[] { 127, 0, 0, 1 }))

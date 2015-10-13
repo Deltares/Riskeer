@@ -7,8 +7,8 @@ using System.Linq;
 namespace DelftTools.Utils.Collections.Generic
 {
     /// <summary>
-    /// Implement the IEnumerableList<T> list and allows caching of the Count to speeds up performance.
-    /// If _collectionChangeSource is not set Count will always be processed by Enumerable.
+    /// Implement the IEnumerableList&lt;T&gt; list and allows caching of the Count to speeds up performance.
+    /// If _collectionChangeSource is not set, Count will always be processed by Enumerable.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class EnumerableList<T> : IEnumerableList<T>, IEnumerableListCache, INotifyPropertyChange

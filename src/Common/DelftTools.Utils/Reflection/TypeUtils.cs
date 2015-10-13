@@ -41,7 +41,7 @@ namespace DelftTools.Utils.Reflection
         }
 
         /// <summary>
-        /// Usage: CreateGeneric(typeof(List<>), typeof(string));
+        /// Usage: CreateGeneric(typeof(List&lt;&gt;), typeof(string));
         /// </summary>
         /// <param name="generic"></param>
         /// <param name="innerType"></param>
@@ -194,7 +194,7 @@ namespace DelftTools.Utils.Reflection
         }
 
         /// <summary>
-        /// Returns typeof(int) for List<int> etc.
+        /// Returns typeof(int) for List&lt;int&gt; etc.
         /// </summary>
         /// <param name="t"></param>
         public static Type GetFirstGenericTypeParameter(Type t)
@@ -543,7 +543,7 @@ namespace DelftTools.Utils.Reflection
 
         /// <summary>
         /// Returns generic instance method of given name. Cannot use GetMethod() because this does not
-        /// work if 2 members have the same name (eg. SetValues and SetValues<T>)
+        /// work if 2 members have the same name (eg. SetValues and SetValues&lt;T&gt;)
         /// </summary>
         /// <param name="declaringType"></param>
         /// <param name="methodName"></param>

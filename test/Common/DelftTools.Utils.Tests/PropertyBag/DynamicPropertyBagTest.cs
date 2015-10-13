@@ -282,8 +282,10 @@ namespace DelftTools.Utils.Tests.PropertyBag
         private class TestProperties : INotifyPropertyChange
         {
             public event PropertyChangedEventHandler PropertyChanged;
+// Required by interface, but not used (yet)
+#pragma warning disable 67
             public event PropertyChangingEventHandler PropertyChanging;
-
+#pragma warning restore 67
             private bool isNameReadOnly;
 
             public TestProperties()

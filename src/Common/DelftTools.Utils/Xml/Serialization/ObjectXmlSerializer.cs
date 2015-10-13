@@ -28,8 +28,6 @@ namespace DelftTools.Utils.Xml.Serialization
 
     /// <summary>
     /// Facade to XML serialization and deserialization of strongly typed objects to/from an XML file.
-    /// <seealso href="http://samples.gotdotnet.com/">References: XML Serialization.</seealso><para />
-    /// <seealso cref="http://samples.gotdotnet.com/QuickStart/howto/default.aspx?url=/quickstart/howto/doc/xmlserialization/rwobjfromxml.aspx"/>
     /// </summary>
     public static class ObjectXmlSerializer<T> where T : class // Specify that T must be a class.
     {

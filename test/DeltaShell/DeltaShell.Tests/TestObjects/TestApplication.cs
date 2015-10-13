@@ -12,7 +12,10 @@ namespace DeltaShell.Tests.TestObjects
 {
     internal class TestApplication : IApplication
     {
+        // Required by interface, but not used (yet)
+#pragma warning disable 67
         public event Action<Project> ProjectOpening;
+
         public event Action<Project> ProjectOpened;
         public event Action<Project> ProjectClosing;
         public event Action<Project> ProjectSaving;
@@ -20,6 +23,7 @@ namespace DeltaShell.Tests.TestObjects
         public event Action<Project> ProjectSaved;
 
         public event Action AfterRun;
+#pragma warning restore 67
 
         public int DisposeCallCount { get; private set; }
 

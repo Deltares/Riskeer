@@ -10,14 +10,17 @@ namespace DeltaShell.Plugins.CommonTools.Tests
 {
     public class TestViewList : IViewList
     {
+// Required by interface, but not used (yet)
+#pragma warning disable 67
         public event NotifyCollectionChangingEventHandler CollectionChanging;
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanging;
 
+        public event NotifyCollectionChangedEventHandler ChildViewChanged;
+#pragma warning restore 67
         public event EventHandler<ActiveViewChangeEventArgs> ActiveViewChanged;
 
-        public event NotifyCollectionChangedEventHandler ChildViewChanged;
         private readonly IList<IView> views = new List<IView>();
         private IView activeView;
 
