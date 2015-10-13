@@ -114,6 +114,9 @@
   <ItemGroup>
     <None Include="Resources\folder.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u48.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\build\DeltaShell.targets" />
   <PropertyGroup>

@@ -135,4 +135,7 @@
   <data name="wtiGuiPluginDisplayName" xml:space="preserve">
     <value>Wettelijk Toets Instrumentarium interface</value>
   </data>
+  <data name="CsvFileName" xml:space="preserve">
+    <value>Kommagescheiden bestand</value>
+  </data>
 </root>

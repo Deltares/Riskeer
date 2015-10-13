@@ -61,6 +61,15 @@ namespace Wti.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kommagescheiden bestand.
+        /// </summary>
+        public static string CsvFileName {
+            get {
+                return ResourceManager.GetString("CsvFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Instrumentarium om de WTI toetsnorm mee uit te voeren..
         /// </summary>
         public static string WtiApplicationDescription {

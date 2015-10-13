@@ -3,6 +3,7 @@ using DelftTools.Shell.Core;
 using Mono.Addins;
 using Wti.Data;
 using WtiFormsResources = Wti.Forms.Properties.Resources;
+using ApplicationResources = Wti.Plugin.Properties.Resources;
 
 namespace Wti.Plugin
 {
@@ -46,14 +47,14 @@ namespace Wti.Plugin
             yield return new DataItemInfo<WtiProject>
             {
                 Name = WtiFormsResources.WtiProjectPropertiesDisplayName,
-                Category = "WTI",
+                Category = ApplicationResources.WtiApplicationName,
                 Image = WtiFormsResources.WtiProjectFolderIcon,
                 CreateData = owner => new WtiProject()
             };
             yield return new DataItemInfo<PipingFailureMechanism>
             {
                 Name = WtiFormsResources.PipingFailureMechanismDisplayName,
-                Category = "WTI",
+                Category = ApplicationResources.WtiApplicationName,
                 Image = WtiFormsResources.PipingIcon,
                 CreateData = owner => new PipingFailureMechanism()
             };

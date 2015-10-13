@@ -32,7 +32,7 @@ namespace Wti.Forms.NodePresenters
         {
             node.Text = Resources.PipingSurfaceLinesCollectionName;
             node.ForegroundColor = Color.FromKnownColor(KnownColor.GrayText);
-            node.Image = Resources.folder;
+            node.Image = Resources.FolderIcon;
         }
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
