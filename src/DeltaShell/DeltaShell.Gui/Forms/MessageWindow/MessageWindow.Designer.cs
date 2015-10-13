@@ -44,7 +44,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.cToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.buttonClearAll = new System.Windows.Forms.ToolStripMenuItem();
             this.levelImages = new System.Windows.Forms.ImageList(this.components);
-            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.messagesToolStrip = new System.Windows.Forms.ToolStrip();
             this.buttonShowInfo = new System.Windows.Forms.ToolStripButton();
             this.buttonShowWarning = new System.Windows.Forms.ToolStripButton();
             this.buttonShowError = new System.Windows.Forms.ToolStripButton();
@@ -58,7 +58,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.messageWindowData = new DeltaShell.Gui.Forms.MessageWindow.MessageWindowData();
             this.contextMenu.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
+            this.messagesToolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.messagesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.messageWindowData)).BeginInit();
@@ -101,19 +101,19 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.levelImages.Images.SetKeyName(2, "warning.png");
             this.levelImages.Images.SetKeyName(3, "debug.png");
             // 
-            // toolStrip2
+            // messagesToolStrip
             // 
-            this.toolStrip2.BackColor = System.Drawing.SystemColors.ControlLight;
-            resources.ApplyResources(this.toolStrip2, "toolStrip2");
-            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.messagesToolStrip.BackColor = System.Drawing.SystemColors.ControlLight;
+            resources.ApplyResources(this.messagesToolStrip, "messagesToolStrip");
+            this.messagesToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.messagesToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonShowInfo,
             this.buttonShowWarning,
             this.buttonShowError,
             this.toolStripSeparator1,
             this.toolStripButton1});
-            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.toolStrip2.Name = "toolStrip2";
+            this.messagesToolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.messagesToolStrip.Name = "messagesToolStrip";
             // 
             // buttonShowInfo
             // 
@@ -240,11 +240,11 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.Controls.Add(this.messagesDataGridView);
-            this.Controls.Add(this.toolStrip2);
+            this.Controls.Add(this.messagesToolStrip);
             this.Name = "MessageWindow";
             this.contextMenu.ResumeLayout(false);
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
+            this.messagesToolStrip.ResumeLayout(false);
+            this.messagesToolStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.messagesBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.messageWindowData)).EndInit();
@@ -264,7 +264,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         private System.Windows.Forms.ToolStripMenuItem buttonClearAll;
         private System.Windows.Forms.BindingSource messagesBindingSource;
         private MessageWindowData messageWindowData;
-        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStrip messagesToolStrip;
         private System.Windows.Forms.ToolStripButton buttonShowWarning;
         private System.Windows.Forms.ToolStripButton buttonShowError;
         private System.Windows.Forms.ToolStripButton buttonShowInfo;

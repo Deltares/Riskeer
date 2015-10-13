@@ -268,7 +268,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         private void ApplyFilter()
         {
             filtering = true;
-            List<string> filterlines = new List<string>();
+            var filterlines = new List<string>();
             if (buttonShowInfo.Checked)
             {
                 filterlines.Add(string.Format("Image = '{0}'", Level.Info));
@@ -289,8 +289,8 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             }
             else
             {
-                string filter = filterlines[0];
-                for (int i = 1; i < filterlines.Count; i++)
+                var filter = filterlines[0];
+                for (var i = 1; i < filterlines.Count; i++)
                 {
                     filter += " OR " + filterlines[i];
                 }
@@ -321,11 +321,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         {
             buttonShowError.Checked = !buttonShowError.Checked;
             ApplyFilter();
-        }
-
-        private void ButtonClearAllMessagesClick(object sender, EventArgs e)
-        {
-            Clear();
         }
 
         public event EventHandler OnError;
