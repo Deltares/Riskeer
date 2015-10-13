@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="NodePresenters\PipingDataNodePresenterTest.cs" />
     <Compile Include="Helper\PipingOutputCreator.cs" />
+    <Compile Include="NodePresenters\PipingFailureMechanismNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingOutputNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingSurfaceLineCollectionNodePresenterTest.cs" />
     <Compile Include="NodePresenters\WtiProjectNodePresenterTest.cs" />

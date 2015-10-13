@@ -14,11 +14,17 @@ namespace Wti.Data
         public PipingFailureMechanism()
         {
             SurfaceLines = Enumerable.Empty<PipingSurfaceLine>();
+            PipingData = new PipingData();
         }
 
         /// <summary>
         /// Gets the available surface lines within the scope of the piping failure mechanism.
         /// </summary>
         public IEnumerable<PipingSurfaceLine> SurfaceLines { get; private set; }
+
+        /// <summary>
+        /// Gets the input data which contains input and output of a piping calculation
+        /// </summary>
+        public PipingData PipingData { get; private set; }
     }
 }

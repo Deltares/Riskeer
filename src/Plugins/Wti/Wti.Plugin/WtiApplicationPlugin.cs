@@ -50,12 +50,12 @@ namespace Wti.Plugin
                 Image = WtiFormsResources.WtiProjectFolderIcon,
                 CreateData = owner => new WtiProject()
             };
-            yield return new DataItemInfo<PipingData>
+            yield return new DataItemInfo<PipingFailureMechanism>
             {
-                Name = WtiFormsResources.PipingDataPropertiesDisplayName,
+                Name = WtiFormsResources.PipingFailureMechanismDisplayName,
                 Category = "WTI",
                 Image = WtiFormsResources.PipingIcon,
-                CreateData = owner => new PipingData()
+                CreateData = owner => new PipingFailureMechanism()
             };
         }
     }

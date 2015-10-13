@@ -13,6 +13,7 @@ namespace Wti.Data.Test
 
             // assert
             CollectionAssert.IsEmpty(piping.SurfaceLines);
+            Assert.IsNotNull(piping.PipingData);
         }
     }
 }

@@ -325,4 +325,7 @@
   <data name="WtiProjectPropertiesDisplayName" xml:space="preserve">
     <value>WTI project</value>
   </data>
+  <data name="PipingFailureMechanismDisplayName" xml:space="preserve">
+    <value>Faalmechanisme piping</value>
+  </data>
 </root>
