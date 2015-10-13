@@ -82,21 +82,23 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         {
             if (e is BeforeDrawEventArgs)
             {
-                if (Shape.Left < Chart.ChartRect.Left)
+                // Local copy to prevent compiler warning CS1690 (https://msdn.microsoft.com/en-us/library/x524dkh4.aspx)
+                var chartRect = Chart.ChartRect;
+                if (Shape.Left < chartRect.Left)
                 {
-                    Shape.Left = Chart.ChartRect.Left;
+                    Shape.Left = chartRect.Left;
                 }
-                if (Shape.Left + Shape.Width > Chart.ChartRect.Right)
+                if (Shape.Left + Shape.Width > chartRect.Right)
                 {
-                    Shape.Left = Chart.ChartRect.Right - Shape.Width;
+                    Shape.Left = chartRect.Right - Shape.Width;
                 }
 
                 // Shape.Left = chart.ChartRect.Left;
                 // Shape.Width = chart.ChartRect.Width;
                 if (!AllowResizeHeight)
                 {
-                    Shape.Top = Chart.ChartRect.Top;
-                    Shape.Height = Chart.ChartRect.Height;
+                    Shape.Top = chartRect.Top;
+                    Shape.Height = chartRect.Height;
                 }
             }
             base.ChartEvent(e);
@@ -229,14 +231,15 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             {
                 Shape.Left = X - P.X;
                 Shape.Top = Y - P.Y;
-
-                if (Shape.Left < Chart.ChartRect.Left)
+                // Local copy to prevent compiler warning CS1690 (https://msdn.microsoft.com/en-us/library/x524dkh4.aspx)
+                var chartRect = Chart.ChartRect;
+                if (Shape.Left < chartRect.Left)
                 {
-                    Shape.Left = Chart.ChartRect.Left;
+                    Shape.Left = chartRect.Left;
                 }
-                if (Shape.Left > Chart.ChartRect.Right - Shape.Width)
+                if (Shape.Left > chartRect.Right - Shape.Width)
                 {
-                    Shape.Left = Chart.ChartRect.Right - Shape.Width;
+                    Shape.Left = chartRect.Right - Shape.Width;
                 }
 
                 OnDragging(EventArgs.Empty);
@@ -304,7 +307,8 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             int left, right, top, bottom;
             Rectangle tmpR = Rectangle.Empty;
 #endif
-
+            // Local copy to prevent compiler warning CS1690 (https://msdn.microsoft.com/en-us/library/x524dkh4.aspx)
+            var chartRect = Chart.ChartRect;
             left = Shape.Left;
             right = Shape.Right;
             top = Shape.Top;
@@ -314,9 +318,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 case 0:
                     ChangeLeft(ref left, X);
 
-                    if (left < Chart.ChartRect.Left)
+                    if (left < chartRect.Left)
                     {
-                        left = Chart.ChartRect.Left;
+                        left = chartRect.Left;
                     }
                     break;
                 case 1:
@@ -325,9 +329,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                 case 2:
                     ChangeRight(ref right, X);
 
-                    if (right > Chart.ChartRect.Right)
+                    if (right > chartRect.Right)
                     {
-                        right = Chart.ChartRect.Right;
+                        right = chartRect.Right;
                     }
                     break;
                 case 3:

@@ -365,7 +365,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
                     int x = point.Series.CalcXPos(point.PointIndex);
                     int y = point.Series.CalcYPos(point.PointIndex);
 
-                    if (!Chart.ChartRect.Contains(x, y)) //outside chart area
+                    // Local copy to prevent compiler warning CS1690 (https://msdn.microsoft.com/en-us/library/x524dkh4.aspx)
+                    var chartRect = Chart.ChartRect;
+                    if (! chartRect.Contains(x, y)) //outside chart area
                     {
                         continue;
                     }

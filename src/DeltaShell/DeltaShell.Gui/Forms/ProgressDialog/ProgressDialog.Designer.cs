@@ -118,7 +118,6 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
 
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridView dgvActivities;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Progress;

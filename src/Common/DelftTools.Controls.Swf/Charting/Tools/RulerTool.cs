@@ -65,15 +65,17 @@ namespace DelftTools.Controls.Swf.Charting.Tools
 
             measuringStartPoint = point;
 
+            var chartRect = teeChart.Chart.ChartRect;
+
             horizontalValueStartPoint = GetAxesValue(bottomMinValue,
                                                      bottomMaxValue,
-                                                     teeChart.Chart.ChartRect.Left,
-                                                     teeChart.Chart.ChartRect.Left + teeChart.Chart.ChartRect.Width,
+                                                     chartRect.Left,
+                                                     (chartRect.Left + chartRect.Width),
                                                      point.X);
             verticalValueStartPoint = GetAxesValue(leftMinValue,
                                                    leftMaxValue,
-                                                   teeChart.Chart.ChartRect.Top + teeChart.Chart.ChartRect.Height,
-                                                   teeChart.Chart.ChartRect.Top,
+                                                   (chartRect.Top + chartRect.Height),
+                                                   chartRect.Top,
                                                    point.Y);
             horizontalValueEndPoint = double.NaN;
             verticalValueEndPoint = double.NaN;
@@ -96,15 +98,17 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             var leftMinValue = chartView.Chart.LeftAxis.Minimum;
             var leftMaxValue = chartView.Chart.LeftAxis.Maximum;
 
+            var chartRect = teeChart.Chart.ChartRect;
+
             horizontalValueEndPoint = GetAxesValue(bottomMinValue,
                                                    bottomMaxValue,
-                                                   teeChart.Chart.ChartRect.Left,
-                                                   teeChart.Chart.ChartRect.Left + teeChart.Chart.ChartRect.Width,
+                                                   chartRect.Left,
+                                                   (chartRect.Left + chartRect.Width),
                                                    point.X);
             verticalValueEndPoint = GetAxesValue(leftMinValue,
                                                  leftMaxValue,
-                                                 teeChart.Chart.ChartRect.Top + teeChart.Chart.ChartRect.Height,
-                                                 teeChart.Chart.ChartRect.Top,
+                                                 (chartRect.Top + chartRect.Height),
+                                                 chartRect.Top,
                                                  point.Y);
 
             var dx = teeChart.Chart.Axes.Bottom.IsDateTime
@@ -302,7 +306,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             var currentPoint = new Point(e.X, e.Y);
             if (Active && measuring)
             {
-                if (teeChart.Chart.ChartRect.Contains(currentPoint))
+                // Local copy to prevent compiler warning CS1690 (https://msdn.microsoft.com/en-us/library/x524dkh4.aspx)
+                var chartRect = teeChart.Chart.ChartRect;
+                if (chartRect.Contains(currentPoint))
                 {
                     measuringEndPoint = currentPoint;
                 }
@@ -317,7 +323,9 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             if (Active && Steema.TeeChart.Utils.GetMouseButton(e) == MouseButtons.Left)
             {
                 var clickedPoint = new Point(e.X, e.Y);
-                if (teeChart.Chart.ChartRect.Contains(clickedPoint))
+                // Local copy to prevent compiler warning CS1690 (https://msdn.microsoft.com/en-us/library/x524dkh4.aspx)
+                var chartRect = teeChart.Chart.ChartRect;
+                if (chartRect.Contains(clickedPoint))
                 {
                     if (!measuring)
                     {
@@ -344,27 +352,29 @@ namespace DelftTools.Controls.Swf.Charting.Tools
             var leftMinValue = chartView.Chart.LeftAxis.Minimum;
             var leftMaxValue = chartView.Chart.LeftAxis.Maximum;
 
+            var chartRect = teeChart.Chart.ChartRect;
+
             if (horizontalValueStartPoint != null && !double.IsNaN((double) horizontalValueStartPoint))
             {
                 var pixelValueStartX = GetPixelValue(bottomMinValue, bottomMaxValue,
-                                                     teeChart.Chart.ChartRect.Left,
-                                                     teeChart.Chart.ChartRect.Left + teeChart.Chart.ChartRect.Width,
+                                                     chartRect.Left,
+                                                     (chartRect.Left + chartRect.Width),
                                                      (double) horizontalValueStartPoint);
                 var pixelValueStartY = GetPixelValue(leftMinValue, leftMaxValue,
-                                                     teeChart.Chart.ChartRect.Top + teeChart.Chart.ChartRect.Height,
-                                                     teeChart.Chart.ChartRect.Top,
+                                                     (chartRect.Top + chartRect.Height),
+                                                     chartRect.Top,
                                                      (double) verticalValueStartPoint);
                 measuringStartPoint = new Point(pixelValueStartX, pixelValueStartY);
             }
             if (horizontalValueEndPoint != null && !double.IsNaN((double) horizontalValueEndPoint))
             {
                 var pixelValueEndX = GetPixelValue(bottomMinValue, bottomMaxValue,
-                                                   teeChart.Chart.ChartRect.Left,
-                                                   teeChart.Chart.ChartRect.Left + teeChart.Chart.ChartRect.Width,
+                                                   chartRect.Left,
+                                                   (chartRect.Left + chartRect.Width),
                                                    (double) horizontalValueEndPoint);
                 var pixelValueEndY = GetPixelValue(leftMinValue, leftMaxValue,
-                                                   teeChart.Chart.ChartRect.Top + teeChart.Chart.ChartRect.Height,
-                                                   teeChart.Chart.ChartRect.Top,
+                                                   (chartRect.Top + chartRect.Height),
+                                                   chartRect.Top,
                                                    (double) verticalValueEndPoint);
                 measuringEndPoint = new Point(pixelValueEndX, pixelValueEndY);
             }

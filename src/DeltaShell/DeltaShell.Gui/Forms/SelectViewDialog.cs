@@ -9,7 +9,6 @@ namespace DeltaShell.Gui.Forms
     public partial class SelectViewDialog : Form
     {
         private IList<string> items;
-        private string dataName;
 
         public SelectViewDialog()
         {

@@ -24,7 +24,6 @@ namespace DeltaShell.Gui.Forms
         private IApplication app;
         private DateTime lastUpdateTime;
         private string logoImageFilePath;
-        private MessageWindowData messageWindowData;
         private volatile ProgressInfo progressInfo;
         private bool scheduleUpdate;
 
