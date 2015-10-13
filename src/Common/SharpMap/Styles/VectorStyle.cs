@@ -82,6 +82,7 @@ namespace SharpMap.Styles
         /// by an external source.
         /// </summary>
         /// <returns></returns>
+        [NoNotifyPropertyChange]
         public bool HasCustomSymbol { get; private set; }
 
         public override object Clone()
