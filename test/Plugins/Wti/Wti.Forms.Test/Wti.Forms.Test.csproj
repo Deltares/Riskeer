@@ -45,6 +45,7 @@
     <Compile Include="NodePresenters\PipingDataNodePresenterTest.cs" />
     <Compile Include="Helper\PipingOutputCreator.cs" />
     <Compile Include="NodePresenters\PipingOutputNodePresenterTest.cs" />
+    <Compile Include="NodePresenters\PipingSurfaceLineCollectionNodePresenterTest.cs" />
     <Compile Include="NodePresenters\WtiProjectNodePresenterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\PipingDataPropertiesTest.cs" />

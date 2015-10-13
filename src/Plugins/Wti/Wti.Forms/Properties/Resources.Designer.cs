@@ -79,6 +79,16 @@ namespace Wti.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap folder {
+            get {
+                object obj = ResourceManager.GetObject("folder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Peil dat gebruikt moet worden in de toetsing..
         /// </summary>
         public static string PipingDataAssessmentLevelDescription {
@@ -634,6 +644,15 @@ namespace Wti.Forms.Properties {
         public static string PipingOutputUpliftZValueDisplayName {
             get {
                 return ResourceManager.GetString("PipingOutputUpliftZValueDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dwarsdoorsneden.
+        /// </summary>
+        public static string PipingSurfaceLinesCollectionName {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCollectionName", resourceCulture);
             }
         }
         

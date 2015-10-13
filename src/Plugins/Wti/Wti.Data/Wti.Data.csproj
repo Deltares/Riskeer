@@ -40,7 +40,9 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="PipingData.cs" />
+    <Compile Include="PipingFailureMechanism.cs" />
     <Compile Include="PipingOutput.cs" />
+    <Compile Include="PipingSurfaceLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WtiProject.cs" />
   </ItemGroup>
