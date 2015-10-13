@@ -37,8 +37,8 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageWindow));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.cToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
@@ -49,7 +49,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.buttonShowInfo = new System.Windows.Forms.ToolStripButton();
             this.buttonShowWarning = new System.Windows.Forms.ToolStripButton();
             this.buttonShowError = new System.Windows.Forms.ToolStripButton();
-            this.buttonShowDebug = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonClearAllMessages = new System.Windows.Forms.ToolStripButton();
             this.messagesDataGridView = new System.Windows.Forms.DataGridView();
@@ -118,7 +117,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.buttonShowInfo,
             this.buttonShowWarning,
             this.buttonShowError,
-            this.buttonShowDebug,
             this.toolStripSeparator1,
             this.buttonClearAllMessages});
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
@@ -154,14 +152,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.buttonShowError.Name = "buttonShowError";
             this.buttonShowError.Click += new System.EventHandler(this.ButtonShowErrorClick);
             // 
-            // buttonShowDebug
-            // 
-            this.buttonShowDebug.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonShowDebug.Image = global::DeltaShell.Gui.Properties.Resources.bug;
-            this.buttonShowDebug.Name = "buttonShowDebug";
-            resources.ApplyResources(this.buttonShowDebug, "buttonShowDebug");
-            this.buttonShowDebug.Click += new System.EventHandler(this.ButtonShowDebugClick);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -188,14 +178,14 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.messageDataGridViewTextBoxColumn});
             this.messagesDataGridView.ContextMenuStrip = this.contextMenu;
             this.messagesDataGridView.DataSource = this.messagesBindingSource;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.messagesDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.messagesDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
             resources.ApplyResources(this.messagesDataGridView, "messagesDataGridView");
             this.messagesDataGridView.Name = "messagesDataGridView";
             this.messagesDataGridView.ReadOnly = true;
@@ -224,9 +214,9 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             // 
             this.timeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.timeDataGridViewTextBoxColumn.DataPropertyName = "Time";
-            dataGridViewCellStyle1.Format = "HH:mm:ss";
-            dataGridViewCellStyle1.NullValue = null;
-            this.timeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Format = "HH:mm:ss";
+            dataGridViewCellStyle3.NullValue = null;
+            this.timeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
             resources.ApplyResources(this.timeDataGridViewTextBoxColumn, "timeDataGridViewTextBoxColumn");
             this.timeDataGridViewTextBoxColumn.Name = "timeDataGridViewTextBoxColumn";
             this.timeDataGridViewTextBoxColumn.ReadOnly = true;
@@ -281,7 +271,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         private System.Windows.Forms.BindingSource messagesBindingSource;
         private MessageWindowData messageWindowData;
         private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripButton buttonShowDebug;
         private System.Windows.Forms.ToolStripButton buttonShowWarning;
         private System.Windows.Forms.ToolStripButton buttonShowError;
         private System.Windows.Forms.ToolStripButton buttonShowInfo;

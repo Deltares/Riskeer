@@ -34,11 +34,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             MessageWindowLogAppender.MessageWindow = this;
             InitializeComponent();
 
-            if (!log.IsDebugEnabled)
-            {
-                buttonShowDebug.Visible = false;
-            }
-
             levelImageName = new Dictionary<string, string>();
 
             // order is the same as in log4j Level (check sources of log4net)
@@ -174,10 +169,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             {
                 return false;
             }
-            if (level == Level.Debug && !buttonShowDebug.Checked)
-            {
-                return false;
-            }
 
             return true;
         }
@@ -291,11 +282,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
                 filterlines.Add(string.Format("Image = '{0}'", Level.Error));
                 filterlines.Add(string.Format("Image = '{0}'", Level.Fatal));
             }
-            if (buttonShowDebug.Checked)
-            {
-                filterlines.Add(string.Format("Image = '{0}'", Level.Debug));
-            }
-
+            
             if (filterlines.Count == 0)
             {
                 messagesBindingSource.Filter = "Image = 'NOTHING SHOWN'";
@@ -316,12 +303,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             {
                 AutoSizeRow(row);
             }
-        }
-
-        private void ButtonShowDebugClick(object sender, EventArgs e)
-        {
-            buttonShowDebug.Checked = !buttonShowDebug.Checked;
-            ApplyFilter();
         }
 
         private void ButtonShowInfoClick(object sender, EventArgs e)
