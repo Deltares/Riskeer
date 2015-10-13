@@ -289,7 +289,7 @@
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
       <Name>Wti.Calculation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\Wti\Wti.Controller\Wti.Service.csproj">
+    <ProjectReference Include="..\..\Plugins\Wti\Wti.Service\Wti.Service.csproj">
       <Project>{10b8d63d-87e8-46df-aca9-a8cf22ee8fb5}</Project>
       <Name>Wti.Service</Name>
     </ProjectReference>
