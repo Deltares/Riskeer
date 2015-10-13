@@ -200,7 +200,7 @@ namespace DelftTools.Utils.Reflection
         }
 
         /// <summary>
-        /// This method checks if a file is a managed dll. It's based on how the file command on linux works. <see cref="http://www.darwinsys.com/file/"/> 
+        /// This method checks if a file is a managed dll. It's based on how the file command on linux works, as explained in http://www.darwinsys.com/file/
         /// </summary>
         /// <param name="path">path of dll</param>
         /// <returns>true if file is a managed dll</returns>
