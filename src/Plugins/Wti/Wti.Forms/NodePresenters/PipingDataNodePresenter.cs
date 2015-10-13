@@ -2,9 +2,12 @@
 using System.Collections;
 using System.ComponentModel;
 using DelftTools.Controls;
+using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
+using Wti.Controller;
 using Wti.Data;
 using Wti.Forms.Properties;
+using Wti.Service;
 
 namespace Wti.Forms.NodePresenters
 {
@@ -72,7 +75,17 @@ namespace Wti.Forms.NodePresenters
 
         public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
         {
-            return ContextMenu(nodeData);
+            var contextMenu = new PipingContextMenuStrip((PipingData)nodeData);
+            var contextMenuAdapter = new MenuItemContextMenuStripAdapter(contextMenu);
+
+            contextMenu.OnCalculationClick += PerformPipingCalculation;
+
+            return contextMenuAdapter;
+        }
+
+        private void PerformPipingCalculation(PipingData pipingData)
+        {
+            PipingCalculationService.Calculate(pipingData);
         }
 
         public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}

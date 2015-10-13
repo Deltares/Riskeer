@@ -1,56 +1,25 @@
 ﻿using System;
-using DelftTools.Controls;
-using DelftTools.Controls.Swf;
 using log4net;
 using Wti.Calculation.Piping;
 using Wti.Data;
-using Wti.Forms.NodePresenters;
-using Wti.Forms.Properties;
+using Wti.Service.Properties;
 
-namespace Wti.Controller
+namespace Wti.Service
 {
     /// <summary>
     /// This class controls the <see cref="PipingData"/> and its <see cref="PipingDataNodePresenter"/>.
     /// Interactions from the <see cref="PipingDataNodePresenter"/> are handles by this class.
     /// </summary>
-    public class PipingDataNodeController : IContextMenuProvider
+    public static class PipingCalculationService
     {
-        private readonly ILog logger = LogManager.GetLogger(typeof(PipingCalculationInput));
-        private readonly PipingDataNodePresenter nodePresenter = new PipingDataNodePresenter();
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(PipingCalculationService));
 
         /// <summary>
-        /// Creates a instance of a controller for the <see cref="PipingDataNodePresenter"/>.
+        /// Performs a piping calculation based on the supplied <see cref="PipingData"/> and sets <see cref="PipingData.Output"/>
+        /// to the <see cref="PipingCalculationResult"/> if the calculation was successful.
         /// </summary>
-        public PipingDataNodeController()
-        {
-            nodePresenter.ContextMenu = GetContextMenu;
-        }
-
-        /// <summary>
-        /// The <see cref="PipingDataNodePresenter"/> which this class controls.
-        /// </summary>
-        public PipingDataNodePresenter NodePresenter
-        {
-            get
-            {
-                return nodePresenter;
-            }
-        }
-
-        /// <summary>
-        /// Creates a <see cref="PipingContextMenuStrip"/> which actions are tied to this controller.
-        /// </summary>
-        /// <param name="pipingData"></param>
-        /// <returns></returns>
-        public IMenuItem GetContextMenu(object pipingData)
-        {
-            var contextMenu = new PipingContextMenuStrip((PipingData) pipingData);
-            contextMenu.OnCalculationClick += OnCalculationClick;
-            var contextMenuAdapter = new MenuItemContextMenuStripAdapter(contextMenu);
-            return contextMenuAdapter;
-        }
-
-        private void OnCalculationClick(PipingData pipingData)
+        /// <param name="pipingData">The <see cref="PipingData"/> to base the input for the calculation upon.</param>
+        public static void Calculate(PipingData pipingData)
         {
             try
             {
@@ -87,7 +56,7 @@ namespace Wti.Controller
             }
             catch (PipingCalculationException e)
             {
-                logger.Warn(String.Format(Resources.ErrorInPipingCalculation_0, e.Message));
+                Logger.Warn(String.Format(Resources.ErrorInPipingCalculation_0, e.Message));
             }
         }
     }

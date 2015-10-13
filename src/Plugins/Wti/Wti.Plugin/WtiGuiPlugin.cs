@@ -73,7 +73,7 @@ namespace Wti.Plugin
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
             yield return new WtiProjectNodePresenter();
-            yield return new PipingDataNodeController().NodePresenter;
+            yield return new PipingDataNodePresenter();
             yield return new PipingOutputNodePresenter();
         }
     }

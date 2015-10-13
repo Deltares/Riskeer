@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
+using Wti.Controller;
 
-namespace Wti.Controller.Test
+namespace Wti.Forms.Test
 {
     public class PipingContextMenuStripTest
     {
@@ -8,7 +9,7 @@ namespace Wti.Controller.Test
         public void GivenPipingContextMenu_WhenConstructedBasedOnAnything_ThenOneMenuItemIsAdded()
         {
             var actual = new PipingContextMenuStrip(null);
-            Assert.That(actual.Items, Has.Some.Not.Null);
+            CollectionAssert.AllItemsAreNotNull(actual.Items);
         }
 
         [Test]

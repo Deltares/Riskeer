@@ -244,45 +244,22 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_NoContextMenuFunctionSet_ThrowsNullReferenceException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<object>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingDataNodePresenter();
-
-            // Call
-            TestDelegate contextMenu = () => nodePresenter.GetContextMenu(nodeMock, dataMock);
-
-            // Assert
-            Assert.Throws<NullReferenceException>(contextMenu);
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
         public void GetContextMenu_ContextMenuFunctionSet_CallsContextMenuFunction()
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<object>();
-            var testContext = mocks.StrictMock<IMenuItem>();
+            var dataMock = mocks.StrictMock<PipingData>();
+
+            var nodePresenter = new PipingDataNodePresenter();
 
             mocks.ReplayAll();
-
-            var nodePresenter = new PipingDataNodePresenter
-            {
-                ContextMenu = a => testContext
-            };
 
             // Call
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
-            Assert.AreSame(testContext, contextMenu);
+            Assert.NotNull(contextMenu);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 

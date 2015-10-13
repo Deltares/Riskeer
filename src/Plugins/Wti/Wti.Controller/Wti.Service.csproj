@@ -7,8 +7,8 @@
     <ProjectGuid>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wti.Controller</RootNamespace>
-    <AssemblyName>Wti.Controller</AssemblyName>
+    <RootNamespace>Wti.Service</RootNamespace>
+    <AssemblyName>Wti.Service</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -50,12 +50,13 @@
     <Compile Include="..\..\..\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="IContextMenuProvider.cs" />
-    <Compile Include="PipingContextMenuStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PipingDataNodeController.cs" />
+    <Compile Include="PipingCalculationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\DelftTools.Controls.Swf\DelftTools.Controls.Swf.csproj">
@@ -82,10 +83,12 @@
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Wti.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wti.Forms\Wti.Forms.csproj">
-      <Project>{7CD038E1-E111-4969-ACED-22C5BD2974E1}</Project>
-      <Name>Wti.Forms</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -7,8 +7,8 @@
     <ProjectGuid>{D783543B-46A1-4848-A812-AF5A5259ED7E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wti.Controller.Test</RootNamespace>
-    <AssemblyName>Wti.Controller.Test</AssemblyName>
+    <RootNamespace>Wti.Service.Test</RootNamespace>
+    <AssemblyName>Wti.Service.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,8 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PipingContextMenuStripTest.cs" />
-    <Compile Include="PipingDataNodeControllerTest.cs" />
+    <Compile Include="PipingCalculationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,9 +60,13 @@
       <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
       <Name>DelftTools.Shell.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Controller\Wti.Controller.csproj">
+    <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Calculation\Wti.Calculation.csproj">
+      <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
+      <Name>Wti.Calculation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Controller\Wti.Service.csproj">
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
-      <Name>Wti.Controller</Name>
+      <Name>Wti.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Data\Wti.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
