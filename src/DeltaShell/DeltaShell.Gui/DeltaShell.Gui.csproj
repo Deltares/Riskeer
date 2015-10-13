@@ -377,6 +377,7 @@
     <Resource Include="Resources\application_view_list.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icon_clear_all_messages.PNG" />
     <None Include="DelftTools.snk" />
     <None Include="Forms\MessageWindow\MessageWindowData.xsc">
       <DependentUpon>MessageWindowData.xsd</DependentUpon>

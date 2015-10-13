@@ -42,7 +42,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.cToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
-            this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonClearAll = new System.Windows.Forms.ToolStripMenuItem();
             this.levelImages = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
@@ -50,13 +49,14 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.buttonShowWarning = new System.Windows.Forms.ToolStripButton();
             this.buttonShowError = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.messagesDataGridView = new System.Windows.Forms.DataGridView();
-            this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.messageWindowData = new DeltaShell.Gui.Forms.MessageWindow.MessageWindowData();
             this.imageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewImageColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.messageDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.messagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.messageWindowData = new DeltaShell.Gui.Forms.MessageWindow.MessageWindowData();
             this.contextMenu.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.messagesDataGridView)).BeginInit();
@@ -69,13 +69,13 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonCopy,
             this.cToolStripMenuItem,
-            this.showDetailsToolStripMenuItem,
             this.buttonClearAll});
             this.contextMenu.Name = "contextMenu";
             resources.ApplyResources(this.contextMenu, "contextMenu");
             // 
             // buttonCopy
             // 
+            this.buttonCopy.Image = global::DeltaShell.Gui.Properties.Resources.CopyHS;
             this.buttonCopy.Name = "buttonCopy";
             resources.ApplyResources(this.buttonCopy, "buttonCopy");
             this.buttonCopy.Click += new System.EventHandler(this.ButtonCopyClick);
@@ -85,15 +85,9 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.cToolStripMenuItem.Name = "cToolStripMenuItem";
             resources.ApplyResources(this.cToolStripMenuItem, "cToolStripMenuItem");
             // 
-            // showDetailsToolStripMenuItem
-            // 
-            this.showDetailsToolStripMenuItem.Image = global::DeltaShell.Gui.Properties.Resources.application_import_blue;
-            this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
-            resources.ApplyResources(this.showDetailsToolStripMenuItem, "showDetailsToolStripMenuItem");
-            this.showDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
-            // 
             // buttonClearAll
             // 
+            this.buttonClearAll.Image = global::DeltaShell.Gui.Properties.Resources.icon_clear_all_messages;
             this.buttonClearAll.Name = "buttonClearAll";
             resources.ApplyResources(this.buttonClearAll, "buttonClearAll");
             this.buttonClearAll.Click += new System.EventHandler(this.ButtonClearAllClick);
@@ -116,7 +110,8 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.buttonShowInfo,
             this.buttonShowWarning,
             this.buttonShowError,
-            this.toolStripSeparator1});
+            this.toolStripSeparator1,
+            this.toolStripButton1});
             this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.toolStrip2.Name = "toolStrip2";
             // 
@@ -155,6 +150,14 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::DeltaShell.Gui.Properties.Resources.application_import_blue;
+            resources.ApplyResources(this.toolStripButton1, "toolStripButton1");
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
+            // 
             // messagesDataGridView
             // 
             this.messagesDataGridView.AllowUserToAddRows = false;
@@ -183,17 +186,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.messagesDataGridView.RowHeadersVisible = false;
             this.messagesDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.messagesDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            // 
-            // messagesBindingSource
-            // 
-            this.messagesBindingSource.DataMember = "Messages";
-            this.messagesBindingSource.DataSource = this.messageWindowData;
-            this.messagesBindingSource.Sort = "Id";
-            // 
-            // messageWindowData
-            // 
-            this.messageWindowData.DataSetName = "MessageWindowData";
-            this.messageWindowData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // imageDataGridViewTextBoxColumn
             // 
@@ -232,6 +224,17 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             this.messageDataGridViewTextBoxColumn.Name = "messageDataGridViewTextBoxColumn";
             this.messageDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // messagesBindingSource
+            // 
+            this.messagesBindingSource.DataMember = "Messages";
+            this.messagesBindingSource.DataSource = this.messageWindowData;
+            this.messagesBindingSource.Sort = "Id";
+            // 
+            // messageWindowData
+            // 
+            this.messageWindowData.DataSetName = "MessageWindowData";
+            this.messageWindowData.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // MessageWindow
             // 
             resources.ApplyResources(this, "$this");
@@ -267,11 +270,11 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         private System.Windows.Forms.ToolStripButton buttonShowInfo;
         private System.Windows.Forms.DataGridView messagesDataGridView;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private ToolStripMenuItem showDetailsToolStripMenuItem;
         private DataGridViewTextBoxColumn sourceDataGridViewTextBoxColumn;
         private DataGridViewImageColumn imageDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn timeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn messageDataGridViewTextBoxColumn;
+        private ToolStripButton toolStripButton1;
     }
 }
