@@ -1,7 +1,4 @@
-﻿using System.Windows.Forms;
-using System.Windows.Forms.Integration;
-using DelftTools.Shell.Gui;
-using DelftTools.TestUtils;
+﻿using DelftTools.Shell.Gui;
 using DelftTools.Utils.Reflection;
 using DeltaShell.Gui.Forms.ViewManager;
 using DeltaShell.Tests.TestObjects;
@@ -81,41 +78,6 @@ namespace DeltaShell.Tests.Gui.Forms
 
             // assert the textbox is no longer active 
             Assert.IsNull(view.ActiveControl);
-        }
-
-        [Test]
-        public void SwitchingTabCausesDataBindingTools9109()
-        {
-            var view = new TestView();
-            var view2 = new TestView();
-
-            // create an avalon dock/tab with two views
-            var dockingManager = new DockingManager();
-            var dock = new AvalonDockDockingManager(dockingManager, new[]
-            {
-                ViewLocation.Document
-            });
-            var host = new ElementHost
-            {
-                Child = dockingManager
-            };
-
-            int validated = 0;
-
-            WindowsFormsTestHelper.ShowModal(host, f =>
-            {
-                dock.Add(view, ViewLocation.Document);
-                dock.Add(view2, ViewLocation.Document);
-                dock.ActivateView(view);
-
-                var textBox = (TextBox) view.Controls[0];
-                textBox.Validated += (s, e) => { validated++; };
-
-                // set a textbox active
-                view.ActiveControl = textBox;
-                textBox.Focus();
-            });
-            Assert.AreEqual(1, validated);
         }
     }
 }
