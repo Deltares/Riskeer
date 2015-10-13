@@ -1,4 +1,5 @@
 ﻿using DelftTools.Shell.Gui;
+using DelftTools.Utils.Reflection;
 using DeltaShell.Plugins.SharpMapGis.Gui;
 using DeltaShell.Plugins.SharpMapGis.Gui.Commands;
 using DeltaShell.Plugins.SharpMapGis.Gui.Forms;
@@ -51,7 +52,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
             var gui = mocks.Stub<IGui>();
             IViewList viewList = mocks.Stub<IViewList>();
             MapView mapView = mocks.Stub<MapView>();
-            mapView.Stub(mv => mv.MapControl).Return(mocks.Stub<MapControl>()); // to set readonly property
+            TypeUtils.SetPrivatePropertyValue(mapView, "MapControl", mocks.Stub<MapControl>());
             Map map = mocks.DynamicMock<Map>();
             IFeature feature = mocks.Stub<IFeature>();
 
@@ -89,7 +90,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Commands
             var gui = mocks.Stub<IGui>();
             IViewList viewList = mocks.Stub<IViewList>();
             MapView mapView = mocks.Stub<MapView>();
-            mapView.Stub(mv => mv.MapControl).Return(mocks.Stub<MapControl>()); // to set readonly property
+            TypeUtils.SetPrivatePropertyValue(mapView, "MapControl", mocks.Stub<MapControl>());
             //mapView.Expect(mv => mv.EnsureVisible(null)).IgnoreArguments().Repeat.Any();
             Map map = mocks.DynamicMock<Map>();
             IFeature feature = mocks.Stub<IFeature>();
