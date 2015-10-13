@@ -75,6 +75,7 @@ namespace Wti.Plugin
             yield return new WtiProjectNodePresenter();
             yield return new PipingDataNodePresenter();
             yield return new PipingFailureMechanismNodePresenter();
+            yield return new PipingSurfaceLineCollectionNodePresenter();
             yield return new PipingOutputNodePresenter();
         }
     }

@@ -27,6 +27,8 @@ namespace Wti.Forms.NodePresenters
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
             PipingFailureMechanism failureMechanism = (PipingFailureMechanism)parentNodeData;
+            yield return failureMechanism.SurfaceLines;
+
             if (failureMechanism.PipingData != null)
             {
                 yield return failureMechanism.PipingData;

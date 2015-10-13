@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 using DelftTools.Controls;
-using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
+using System.Linq;
+
 using NUnit.Framework;
 using Rhino.Mocks;
 using Wti.Data;
@@ -62,11 +63,12 @@ namespace Wti.Forms.Test.NodePresenters
             var pipingFailureMechanism = new PipingFailureMechanism();
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(pipingFailureMechanism, nodeMock);
+            var children = nodePresenter.GetChildNodeObjects(pipingFailureMechanism, nodeMock).OfType<object>().ToArray();
 
             // Assert
-            Assert.AreEqual(1, children.Count());
-            CollectionAssert.AllItemsAreInstancesOfType(children, typeof(PipingData));
+            Assert.AreEqual(2, children.Length);
+            Assert.AreSame(pipingFailureMechanism.SurfaceLines, children[0]);
+            Assert.AreSame(pipingFailureMechanism.PipingData, children[1]);
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 
