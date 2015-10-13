@@ -156,7 +156,7 @@ namespace DelftTools.Utils.Tests.Aop
             //450-500 on my pc (TS)
             TestHelper.AssertIsFasterThan(1400, () =>
             {
-                for (int i = 0; i < 100000; i++)
+                for (int i = 0; i < 10000; i++)
                 {
                     new SuperSuper();
                 }
