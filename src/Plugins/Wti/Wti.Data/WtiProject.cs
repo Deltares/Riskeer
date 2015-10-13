@@ -7,6 +7,7 @@ namespace Wti.Data
     public class WtiProject : INameable, IObservable
     {
         private readonly IList<IObserver> observers = new List<IObserver>();
+        private PipingFailureMechanism pipingFailureMechanism;
 
         public WtiProject()
         {
@@ -14,6 +15,18 @@ namespace Wti.Data
         }
 
         public string Name { get; set; }
+
+        public PipingFailureMechanism PipingFailureMechanism
+        {
+            get
+            {
+                return pipingFailureMechanism;
+            }
+            set
+            {
+                pipingFailureMechanism = value;
+            }
+        }
 
         #region IObservable
 

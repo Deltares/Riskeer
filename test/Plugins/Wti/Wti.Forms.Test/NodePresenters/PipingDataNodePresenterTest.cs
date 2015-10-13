@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
 using DelftTools.Controls;
+using DelftTools.Controls.Swf;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Wti.Controller;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
 using WtiFormsResources = Wti.Forms.Properties.Resources;
@@ -244,7 +246,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_ContextMenuFunctionSet_CallsContextMenuFunction()
+        public void GetContextMenu_Always_ContextMenuWithOneItemForCalculate()
         {
             // Setup
             var mocks = new MockRepository();
@@ -256,10 +258,13 @@ namespace Wti.Forms.Test.NodePresenters
             mocks.ReplayAll();
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock) as MenuItemContextMenuStripAdapter;
 
             // Assert
             Assert.NotNull(contextMenu);
+            Assert.AreEqual(1, contextMenu.ContextMenuStrip.Items.Count);
+            Assert.AreEqual(WtiFormsResources.PipingDataContextMenuCalculate, contextMenu.ContextMenuStrip.Items[0].Text);
+            Assert.IsInstanceOf<PipingContextMenuStrip>(contextMenu.ContextMenuStrip);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 

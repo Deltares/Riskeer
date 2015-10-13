@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using DelftTools.Controls;
+using DelftTools.Controls.Swf;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
@@ -242,7 +243,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_Always_ReturnNull()
+        public void GetContextMenu_CreateWithData_ReturnsContextMenuWithOneItemWithDataAsTag()
         {
             // Setup
             var mocks = new MockRepository();
@@ -253,10 +254,13 @@ namespace Wti.Forms.Test.NodePresenters
             var nodePresenter = new WtiProjectNodePresenter();
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock) as MenuItemContextMenuStripAdapter;
 
             // Assert
-            Assert.IsNull(contextMenu);
+            Assert.NotNull(contextMenu);
+            Assert.AreEqual(1, contextMenu.ContextMenuStrip.Items.Count);
+            Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, contextMenu.ContextMenuStrip.Items[0].Text);
+            Assert.AreSame(dataMock, contextMenu.ContextMenuStrip.Items[0].Tag);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 

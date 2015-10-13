@@ -48,7 +48,7 @@ namespace Wti.Plugin.Test
             var dataItemDefinitions = plugin.GetDataItemInfos().ToArray();
 
             // assert
-            Assert.AreEqual(2, dataItemDefinitions.Length);
+            Assert.AreEqual(1, dataItemDefinitions.Length);
 
             DataItemInfo projectDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(WtiProject));
             Assert.AreEqual("WTI project", projectDataItemDefinition.Name);
@@ -58,15 +58,6 @@ namespace Wti.Plugin.Test
             Assert.IsNull(projectDataItemDefinition.AdditionalOwnerCheck);
             Assert.IsInstanceOf<WtiProject>(projectDataItemDefinition.CreateData(null));
             Assert.IsNull(projectDataItemDefinition.AddExampleData);
-
-            DataItemInfo pipingDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(PipingData));
-            Assert.AreEqual("Piping", pipingDataItemDefinition.Name);
-            Assert.AreEqual("WTI", pipingDataItemDefinition.Category);
-            Assert.AreEqual(16, pipingDataItemDefinition.Image.Width);
-            Assert.AreEqual(16, pipingDataItemDefinition.Image.Height);
-            Assert.IsNull(pipingDataItemDefinition.AdditionalOwnerCheck);
-            Assert.IsInstanceOf<PipingData>(pipingDataItemDefinition.CreateData(null));
-            Assert.IsNull(pipingDataItemDefinition.AddExampleData);
         }
     }
 }

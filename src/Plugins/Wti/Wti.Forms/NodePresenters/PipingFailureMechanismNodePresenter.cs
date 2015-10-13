@@ -77,11 +77,20 @@ namespace Wti.Forms.NodePresenters
 
         public bool CanRemove(object parentNodeData, object nodeData)
         {
-            return false;
+            return nodeData is PipingFailureMechanism;
         }
 
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
+            if (nodeData is PipingFailureMechanism)
+            {
+                var wtiProject = (WtiProject) parentNodeData;
+
+                wtiProject.PipingFailureMechanism = null;
+                wtiProject.NotifyObservers();
+
+                return true;
+            }
             return false;
         }
     }

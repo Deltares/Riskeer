@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Windows.Forms;
 using DelftTools.Controls;
+using DelftTools.Controls.Swf;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 using Wti.Data;
@@ -30,7 +32,11 @@ namespace Wti.Forms.NodePresenters
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
-            yield break;
+            var wtiProject = (WtiProject)parentNodeData;
+            if (wtiProject.PipingFailureMechanism != null)
+            {
+                yield return wtiProject.PipingFailureMechanism;
+            }
         }
 
         public bool CanRenameNode(ITreeNode node)
@@ -74,7 +80,25 @@ namespace Wti.Forms.NodePresenters
 
         public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
         {
-            return null;
+            var contextMenu = new ContextMenuStrip();
+            var addPipingFailureMechanismItem = contextMenu.Items.Add(Resources.AddPipingFailureMechanismContextMenuItem);
+            var contextMenuAdapter = new MenuItemContextMenuStripAdapter(contextMenu);
+
+            addPipingFailureMechanismItem.Tag = nodeData;
+            addPipingFailureMechanismItem.Click += InitializePipingFailureMechanismForWtiProject;
+
+            return contextMenuAdapter;
+        }
+
+        private void InitializePipingFailureMechanismForWtiProject(object sender, EventArgs e)
+        {
+            var treeNode = (ToolStripItem) sender;
+            if (treeNode != null)
+            {
+                var wtiProject = (WtiProject) treeNode.Tag;
+                wtiProject.PipingFailureMechanism = new PipingFailureMechanism();
+                wtiProject.NotifyObservers();
+            }
         }
 
         public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}

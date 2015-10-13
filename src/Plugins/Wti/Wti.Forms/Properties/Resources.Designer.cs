@@ -61,6 +61,15 @@ namespace Wti.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voeg piping faalmechanisme toe.
+        /// </summary>
+        public static string AddPipingFailureMechanismContextMenuItem {
+            get {
+                return ResourceManager.GetString("AddPipingFailureMechanismContextMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Algemeen.
         /// </summary>
         public static string Categories_General {
