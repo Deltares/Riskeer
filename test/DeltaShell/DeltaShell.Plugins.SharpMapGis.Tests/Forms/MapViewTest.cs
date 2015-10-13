@@ -257,7 +257,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests.Forms
             mapView.Map.Layers.Add(groupLayer);
 
             // use mocked tab control to check the removing of the sub-layer view
-            TypeUtils.SetField(mapView, "tabControl", tabControl);
+            TypeUtils.SetPrivatePropertyValue(mapView, "TabControl", tabControl);
 
             mapView.Map.Layers.Clear();
 

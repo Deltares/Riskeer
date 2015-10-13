@@ -89,7 +89,6 @@
     <Compile Include="Gui\Forms\PropertyGrid\PropertyGridTest.cs" />
     <Compile Include="Gui\GuiExportHandlerTest.cs" />
     <Compile Include="Gui\DelftShellGuiTests.cs" />
-    <Compile Include="Gui\GuiCommandHandlerTest.cs" />
     <Compile Include="Gui\ImportActivityTest.cs" />
     <Compile Include="Gui\Log4netTest.cs" />
     <Compile Include="Gui\MenuManagerTest.cs">
