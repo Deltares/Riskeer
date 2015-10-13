@@ -277,7 +277,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanRemove_RemovingAnythingButPipingFailureMechanism_ReturnFalse()
+        public void CanRemove_Always_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -291,31 +291,12 @@ namespace Wti.Forms.Test.NodePresenters
             bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
 
             // Assert
-            Assert.IsFalse(removalAllowed);
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void CanRemove_RemovingPipingFailureMechanism_ReturnTrue()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var nodeMock = mocks.StrictMock<PipingFailureMechanism>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-
-            // Call
-            bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
-
-            // Assert
             Assert.IsTrue(removalAllowed);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
-        public void RemoveNodeData_PipingFailureMechanism_PipingFailureMechanismRemovedFromWtiProject()
+        public void RemoveNodeData_Always_PipingFailureMechanismRemovedFromWtiProject()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -331,26 +312,6 @@ namespace Wti.Forms.Test.NodePresenters
             // Assert
             Assert.IsTrue(removalSuccesful);
             Assert.IsNull(project.PipingFailureMechanism);
-        }
-
-
-        [Test]
-        public void RemoveNodeData_AnythingButPipingFailureMechanism_PipingFailureMechanismNotRemovedFromWtiProject()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            var project = new WtiProject();
-            project.PipingFailureMechanism = failureMechanism;
-
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-
-            // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(project, new object());
-
-            // Assert
-            Assert.IsFalse(removalSuccesful);
-            Assert.AreSame(failureMechanism, project.PipingFailureMechanism);
         }
     }
 }

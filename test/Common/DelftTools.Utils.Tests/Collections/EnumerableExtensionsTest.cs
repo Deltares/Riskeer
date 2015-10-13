@@ -151,7 +151,7 @@ namespace DelftTools.Utils.Tests.Collections
         }
 
         [Test]
-        public void Count()
+        public void Count_ForRandomRange_ReturnsRangeElementCount()
         {
             var expectedCount = new Random().Next(100);
             IEnumerable enumerable = Enumerable.Range(1, expectedCount);

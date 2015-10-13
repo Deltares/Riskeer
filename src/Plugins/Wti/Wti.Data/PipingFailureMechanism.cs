@@ -25,6 +25,6 @@ namespace Wti.Data
         /// <summary>
         /// Gets the input data which contains input and output of a piping calculation
         /// </summary>
-        public PipingData PipingData { get; private set; }
+        public PipingData PipingData { get; set; }
     }
 }

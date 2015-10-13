@@ -1,12 +1,10 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Wti.Controller;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
 using WtiFormsResources = Wti.Forms.Properties.Resources;
@@ -311,7 +309,7 @@ namespace Wti.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<object>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodeMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingDataNodePresenter();
@@ -325,22 +323,22 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void RemoveNodeData_ProjectWithPipingData_ReturnFalse()
+        public void RemoveNodeData_Always_PipingDataRemovedFromPipingFailureMechanism()
         {
             // Setup
             var pipingData = new PipingData();
 
-            var project = new Project();
-            project.Items.Add(pipingData);
+            var pipingFailureMechanism = new PipingFailureMechanism();
+            pipingFailureMechanism.PipingData = pipingData;
 
             var nodePresenter = new PipingDataNodePresenter();
 
             // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(project, pipingData);
+            bool removalSuccesful = nodePresenter.RemoveNodeData(pipingFailureMechanism, pipingData);
 
             // Assert
-            Assert.IsFalse(removalSuccesful);
-            CollectionAssert.Contains(project.Items, pipingData);
+            Assert.IsTrue(removalSuccesful);
+            Assert.IsNull(pipingFailureMechanism.PipingData);
         }
     }
 }

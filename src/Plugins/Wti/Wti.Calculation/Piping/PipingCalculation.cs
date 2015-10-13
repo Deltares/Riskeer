@@ -69,11 +69,11 @@ namespace Wti.Calculation.Piping
             }
             catch (PipingException<Sellmeijer2011Calculator> e)
             {
-                throw new PipingCalculationException(e.Message);
+                throw new PipingCalculationException(e.Message, e);
             }
             catch (PipingException<SellmeijerBaseCalculator> e)
             {
-                throw new PipingCalculationException(e.Message);
+                throw new PipingCalculationException(e.Message, e);
             }
 
             return sellmeijerCalculator;
@@ -89,7 +89,7 @@ namespace Wti.Calculation.Piping
             }
             catch (PipingException<HeaveCalculator> e)
             {
-                throw new PipingCalculationException(e.Message);
+                throw new PipingCalculationException(e.Message, e);
             }
 
             return heaveCalculator;
@@ -105,11 +105,11 @@ namespace Wti.Calculation.Piping
             }
             catch (WTIUpliftCalculatorException e)
             {
-                throw new PipingCalculationException(e.Message);
+                throw new PipingCalculationException(e.Message, e);
             }
             catch (PipingException<EffectiveThicknessCalculator> e)
             {
-                throw new PipingCalculationException(e.Message);
+                throw new PipingCalculationException(e.Message, e);
             }
 
             return upliftCalculator;

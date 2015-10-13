@@ -4,17 +4,18 @@ using System.ComponentModel;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
-using Wti.Controller;
 using Wti.Data;
 using Wti.Forms.Properties;
 using Wti.Service;
 
 namespace Wti.Forms.NodePresenters
 {
+    /// <summary>
+    /// This class presents the data on <see cref="PipingData"/> as a node in a <see cref="ITreeView"/> and
+    /// implements the way the user can interact with the node.
+    /// </summary>
     public class PipingDataNodePresenter : ITreeNodePresenter
     {
-        public Func<object, IMenuItem> ContextMenu { private get; set; }
-
         public ITreeView TreeView { get; set; }
 
         public Type NodeTagType
@@ -86,6 +87,7 @@ namespace Wti.Forms.NodePresenters
         private void PerformPipingCalculation(PipingData pipingData)
         {
             PipingCalculationService.Calculate(pipingData);
+            pipingData.NotifyObservers();
         }
 
         public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}
@@ -99,7 +101,10 @@ namespace Wti.Forms.NodePresenters
 
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
-            return false;
+            var failureMechanism = (PipingFailureMechanism) parentNodeData;
+
+            failureMechanism.PipingData = null;
+            return true;
         }
     }
 }

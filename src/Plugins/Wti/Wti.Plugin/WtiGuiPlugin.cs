@@ -4,7 +4,6 @@ using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
 using DelftTools.Shell.Gui.Forms;
 using Mono.Addins;
-using Wti.Controller;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
 using Wti.Forms.PropertyClasses;
