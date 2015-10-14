@@ -144,7 +144,7 @@ namespace SharpMap.Tests.Editors.FallOff
 
             var handles = Enumerable.Range(0, trackers.Count).ToList();
 
-            TestHelper.AssertIsFasterThan(40,
+            TestHelper.AssertIsFasterThan(100,
                                           () => noFallOffPolicy.Move(circle, circleSource, trackers, handles, 0, 5, 5));
         }
 
