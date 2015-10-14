@@ -28,11 +28,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                 gui.SelectionChanged -= GuiSelectionChanged;
             }
 
-            if (notifiableProperty != null)
-            {
-                notifiableProperty.PropertyChanged -= selectedObject_PropertyChanged;
-                notifiableProperty = null;
-            }
+            notifiableProperty = null;
 
             base.Dispose(disposing);
         }

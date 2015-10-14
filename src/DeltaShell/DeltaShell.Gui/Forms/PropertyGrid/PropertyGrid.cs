@@ -82,15 +82,11 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             refreshTimer = new Timer();
             refreshTimer.Tick += delegate
             {
-                if (refreshRequired)
+                if (IsInEditMode(propertyGrid1))
                 {
-                    if (IsInEditMode(propertyGrid1))
-                    {
-                        return;
-                    }
-                    propertyGrid1.Refresh();
-                    refreshRequired = false;
+                    return;
                 }
+                propertyGrid1.Refresh();
             };
             refreshTimer.Interval = 300;
             refreshTimer.Enabled = true;
@@ -98,23 +94,24 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         }
 
         //from: http://stackoverflow.com/questions/7553423/c-sharp-propertygrid-check-if-a-value-is-currently-beeing-edited
-        public static bool IsInEditMode(System.Windows.Forms.PropertyGrid grid)
+        private static bool IsInEditMode(System.Windows.Forms.PropertyGrid grid)
         {
             if (grid == null)
             {
                 throw new ArgumentNullException("grid");
             }
 
-            Control gridView = (Control) grid.GetType().GetField("gridView", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(grid);
-            Control edit = (Control) gridView.GetType().GetField("edit", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(gridView);
-            Control dropDownHolder = (Control) gridView.GetType().GetField("dropDownHolder", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(gridView);
+
+            var gridView = (Control) grid.GetType().GetField("gridView", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(grid);
+            var edit = (Control) gridView.GetType().GetField("edit", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(gridView);
+            var dropDownHolder = (Control) gridView.GetType().GetField("dropDownHolder", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(gridView);
 
             return ((edit != null) && (edit.Visible & edit.Focused)) || ((dropDownHolder != null) && (dropDownHolder.Visible));
         }
 
         public void UpdateObserver()
         {
-            refreshRequired = true;
+            // refresh expected here
         }
 
         public object GetObjectProperties(object sourceData)
@@ -155,12 +152,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
             Log.Debug(Resources.PropertyGrid_GetObjectProperties_Multiple_object_property_instances_found_for_the_same_data_object__no_object_properties_are_displayed_in_the_property_grid);
             return null;
-        }
-
-        public override void Refresh()
-        {
-            refreshRequired = true;
-            base.Refresh();
         }
 
         private object[] SelectedObjects
@@ -229,22 +220,13 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                 return; //event may fire when propertygrid is already disposed.
             }
 
-            if (notifiableProperty != null)
-            {
-                notifiableProperty.PropertyChanged -= selectedObject_PropertyChanged;
-                notifiableProperty = null;
-            }
-
-            if (notifiableCollection != null)
-            {
-                notifiableCollection.CollectionChanged -= selectedObject_CollectionChanged;
-                notifiableCollection = null;
-            }
             if (observableProperty != null)
             {
                 observableProperty.Detach(this);
-                observableProperty = null;
             }
+
+            notifiableProperty = null;
+            notifiableCollection = null;
 
             var selection = gui.Selection;
 
@@ -254,17 +236,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                 return;
             }
 
-            //            if (selection is IEnumerable<object>)
-            //            {
-            //                SelectedObjects = selection as object[]; // HACK: this is buggy!
-            //            }
-            //            else
-
             notifiableProperty = selection as INotifyPropertyChanged;
-            if (notifiableProperty != null)
-            {
-                notifiableProperty.PropertyChanged += selectedObject_PropertyChanged;
-            }
             observableProperty = selection as IObservable;
             if (observableProperty != null)
             {
@@ -272,10 +244,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             }
 
             notifiableCollection = selection as INotifyCollectionChanged;
-            if (notifiableCollection != null)
-            {
-                notifiableCollection.CollectionChanged += selectedObject_CollectionChanged;
-            }
 
             object propertyObject;
 
@@ -312,11 +280,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             {
                 SelectedObject = propertyObject;
             }
-        }
-
-        private void selectedObject_CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            refreshRequired = true;
         }
 
         private List<PropertyInfo> FilterPropertyInfoByTypeInheritance(List<PropertyInfo> propertyInfo, Func<PropertyInfo, Type> getTypeAction)
@@ -495,16 +458,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             }
         }
 
-        /// <summary>
-        /// Refreshes propertygrid when changes in the data occur.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void selectedObject_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            refreshRequired = true;
-        }
-
         public Image Image
         {
             get
@@ -521,7 +474,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
         #region enable tab key navigation on propertygrid
 
-        private bool refreshRequired;
         private readonly Timer refreshTimer;
         private INotifyCollectionChanged notifiableCollection;
         private IObservable observableProperty;
