@@ -7,10 +7,10 @@ namespace DelftTools.Tests.Controls.Swf
     [TestFixture]
     public class FindAndReplaceControlTest
     {
-        [Test]
-        public void FindNextText()
+        [TestCase(true)] // search for third "Test" occurrence (index 23)
+        [TestCase(false)] // search for second "Test" occurrence (index 11)
+        public void FindNextText(bool check2)
         {
-            var check2 = false;
             var text = "Test text\n Test text2\n Test text2";
             var findAndReplaceControl = new FindAndReplaceControl
             {
@@ -26,11 +26,6 @@ namespace DelftTools.Tests.Controls.Swf
 
             findAndReplaceControl.FindTextBox.Text = "Test";
 
-            // search for second "Test" occurrence (index 11)
-            TypeUtils.CallPrivateMethod(findAndReplaceControl, "FindNext");
-
-            // search for third "Test" occurrence (index 23)
-            check2 = true;
             TypeUtils.CallPrivateMethod(findAndReplaceControl, "FindNext");
         }
 

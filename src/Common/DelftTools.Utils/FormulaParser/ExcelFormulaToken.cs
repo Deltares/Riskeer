@@ -10,9 +10,9 @@ namespace DelftTools.Utils.FormulaParser
 
         internal ExcelFormulaToken(string value, ExcelFormulaTokenType type, ExcelFormulaTokenSubtype subtype)
         {
-            this.Value = value;
-            this.Type = type;
-            this.Subtype = subtype;
+            Value = value;
+            Type = type;
+            Subtype = subtype;
         }
 
         public string Value { get; internal set; }

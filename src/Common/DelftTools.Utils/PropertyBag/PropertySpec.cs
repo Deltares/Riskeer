@@ -81,11 +81,11 @@ namespace DelftTools.Utils.PropertyBag
         /// no default value.</param>
         public PropertySpec(string name, string type, string category, string description, object defaultValue)
         {
-            this.Name = name;
-            this.TypeName = type;
-            this.Category = category;
-            this.Description = description;
-            this.DefaultValue = defaultValue;
+            Name = name;
+            TypeName = type;
+            Category = category;
+            Description = description;
+            DefaultValue = defaultValue;
             Attributes = null;
         }
 
@@ -123,8 +123,8 @@ namespace DelftTools.Utils.PropertyBag
                             string editor, string typeConverter)
             : this(name, type, category, description, defaultValue)
         {
-            this.EditorTypeName = editor;
-            this.ConverterTypeName = typeConverter;
+            EditorTypeName = editor;
+            ConverterTypeName = typeConverter;
         }
 
         /// <summary>

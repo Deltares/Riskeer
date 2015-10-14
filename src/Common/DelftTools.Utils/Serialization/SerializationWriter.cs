@@ -11,12 +11,6 @@ using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
-// ReSharper disable PossibleInvalidCastException
-// ReSharper disable PossibleNullReferenceException
-// ReSharper disable AssignNullToNotNullAttribute
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-// ReSharper disable HeuristicUnreachableCode
-
 namespace DelftTools.Utils.Serialization
 {
     /// <summary>

@@ -32,7 +32,7 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Metadata
             this.setValueFunc = setValueFunc;
             this.isEnabledFunc = isEnabledFunc;
             this.isVisibleFunc = isVisibleFunc;
-            this.ValidationMethod = validationMethod;
+            ValidationMethod = validationMethod;
         }
 
         public Func<object, object, string> ValidationMethod { get; set; }

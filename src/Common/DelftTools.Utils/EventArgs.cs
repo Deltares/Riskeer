@@ -6,7 +6,7 @@ namespace DelftTools.Utils
     {
         public EventArgs(T t)
         {
-            this.Value = t;
+            Value = t;
         }
 
         public T Value { get; set; }
