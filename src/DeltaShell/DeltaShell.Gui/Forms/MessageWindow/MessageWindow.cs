@@ -97,9 +97,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 
             messagesDataGridView.AutoResizeRow(row.Index, DataGridViewAutoSizeRowMode.AllCells);
         }
-
         
-
         #region IView Members
 
         public object Data
@@ -252,7 +250,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
                 return;
             }
 
-            string level = (string) e.Value;
+            var level = (string) e.Value;
             e.Value = levelImages.Images[levelImageName[level]];
         }
 
