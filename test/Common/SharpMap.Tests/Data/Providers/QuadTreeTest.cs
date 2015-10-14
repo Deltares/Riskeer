@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using DelftTools.TestUtils;
+using DelftTools.Utils.Aop;
 using NUnit.Framework;
 using SharpMap.Data.Providers.EGIS.ShapeFileLib;
 
@@ -53,10 +54,20 @@ namespace SharpMap.Tests.Data.Providers
             // 1050ms on my pc
             TestHelper.AssertIsFasterThan(3000, () =>
             {
-                for (int i = 0; i < queryRectangles.Length; i++)
+                var previousBubblingEnabledState = EventSettings.BubblingEnabled;
+                EventSettings.BubblingEnabled = false;
+
+                try
                 {
-                    var rect = queryRectangles[i];
-                    quadTree.GetIndices(ref rect, 0f);
+                    for (int i = 0; i < queryRectangles.Length; i++)
+                    {
+                        var rect = queryRectangles[i];
+                        quadTree.GetIndices(ref rect, 0f);
+                    }
+                }
+                finally
+                {
+                    EventSettings.BubblingEnabled = previousBubblingEnabledState;
                 }
             });
         }
