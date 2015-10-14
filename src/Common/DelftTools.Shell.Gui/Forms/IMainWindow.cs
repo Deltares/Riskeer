@@ -1,5 +1,3 @@
-using System.Drawing;
-
 namespace DelftTools.Shell.Gui.Forms
 {
     /// <summary>

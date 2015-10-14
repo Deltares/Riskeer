@@ -1840,12 +1840,7 @@ namespace DelftTools.Controls.Swf.Table
             });
         }
 
-        public ITableViewColumn AddColumn(string dataSourcePropertyName, string columnCaption)
-        {
-            return AddColumn(dataSourcePropertyName, columnCaption, false, 100);
-        }
-
-        public ITableViewColumn AddColumn(string dataSourcePropertyName, string columnCaption, bool readOnly, int width, Type columnType = null, string displayFormat = null)
+        public void AddColumn(string dataSourcePropertyName, string columnCaption, bool readOnly = false, int width = 100, Type columnType = null, string displayFormat = null)
         {
             var dxColumn = dxGridView.Columns.AddField(dataSourcePropertyName);
             dxColumn.Caption = columnCaption;
@@ -1863,8 +1858,6 @@ namespace DelftTools.Controls.Swf.Table
             Columns.Add(column);
 
             UpdateColumnsFormatting();
-
-            return column;
         }
 
         /// <summary>
@@ -1874,8 +1867,7 @@ namespace DelftTools.Controls.Swf.Table
         /// <param name="columnType">Type of the data the column is going to display</param>
         /// <param name="index">Index of the column</param>
         /// <param name="editor">Editor to use for editing the values of this column</param>
-        /// <returns>Last column index</returns>
-        public int AddUnboundColumn(string columnName, Type columnType, int index = -1, ITypeEditor editor = null)
+        public void AddUnboundColumn(string columnName, Type columnType, int index = -1, ITypeEditor editor = null)
         {
             var unbColumn = dxGridView.Columns.AddField(columnName);
             var column = new TableViewColumn(dxGridView, dxGridControl, unbColumn, this, true);
@@ -1919,7 +1911,6 @@ namespace DelftTools.Controls.Swf.Table
 
             dxGridView.CustomUnboundColumnData -= DxGridViewCustomUnboundColumnData;
             dxGridView.CustomUnboundColumnData += DxGridViewCustomUnboundColumnData;
-            return dxGridView.Columns.Count - 1;
         }
 
         public string GetCellDisplayText(int rowIndex, int absoluteColumnIndex)

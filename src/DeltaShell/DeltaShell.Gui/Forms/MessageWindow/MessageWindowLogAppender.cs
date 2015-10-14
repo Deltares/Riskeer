@@ -21,8 +21,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 
         private static bool enabled;
 
-        public MessageWindowLogAppender() {}
-
         public static IMessageWindow MessageWindow { get; set; }
 
         /// <summary>

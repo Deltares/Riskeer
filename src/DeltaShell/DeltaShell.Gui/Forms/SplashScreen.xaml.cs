@@ -6,7 +6,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using DelftTools.Shell.Core;
 using DeltaShell.Core;
-using DeltaShell.Gui.Forms.MessageWindow;
 using log4net;
 
 namespace DeltaShell.Gui.Forms

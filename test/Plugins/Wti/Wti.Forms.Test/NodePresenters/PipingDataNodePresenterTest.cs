@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf;
-using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;

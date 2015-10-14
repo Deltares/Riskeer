@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using DelftTools.Utils.Aop;
 using GeoAPI.Geometries;
-using NUnit.Framework;
 
 namespace DelftTools.TestUtils.TestReferenceHelper
 {

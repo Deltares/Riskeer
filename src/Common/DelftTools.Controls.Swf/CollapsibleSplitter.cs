@@ -956,8 +956,6 @@ namespace DelftTools.Controls.Swf
     /// </summary>
     public class CollapsibleSplitterDesigner : ControlDesigner
     {
-        public CollapsibleSplitterDesigner() {}
-
         protected override void PreFilterProperties(IDictionary properties)
         {
             properties.Remove("IsCollapsed");

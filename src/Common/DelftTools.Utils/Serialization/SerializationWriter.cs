@@ -2416,8 +2416,7 @@ namespace DelftTools.Utils.Serialization
         /// Called automatically by ToArray() otherwise must be called
         /// manually when serialization is complete.
         /// </summary>
-        /// <returns>The total length of serialized data or 0 if the stream is not seekable</returns>
-        public int UpdateHeader()
+        public void UpdateHeader()
         {
             var result = BaseStream.CanSeek ? (int) BaseStream.Position - startPosition : 0;
 
@@ -2434,8 +2433,6 @@ namespace DelftTools.Utils.Serialization
 
                 BaseStream.Position = currentPosition;
             }
-
-            return result;
         }
 
         /// <summary>

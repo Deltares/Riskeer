@@ -1,7 +1,5 @@
 using System;
-using System.Configuration;
 using System.IO;
-using System.Linq;
 using DelftTools.Utils;
 using log4net.Util;
 
