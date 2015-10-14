@@ -21,7 +21,7 @@ namespace SharpMap.Tests.Data.Providers
 
             // construct the quad tree (and time it)
             // 40ms on my pc
-            TestHelper.AssertIsFasterThan(300, () =>
+            TestHelper.AssertIsFasterThan(400, () =>
             {
                 var quadTree = new QuadTree(extends, 5, false);
                 for (int i = 0; i < allBounds.Length; i++)
@@ -56,7 +56,7 @@ namespace SharpMap.Tests.Data.Providers
                 for (int i = 0; i < queryRectangles.Length; i++)
                 {
                     var rect = queryRectangles[i];
-                    quadTree.GetIndices(ref rect, 0f).ToList();
+                    quadTree.GetIndices(ref rect, 0f);
                 }
             });
         }
