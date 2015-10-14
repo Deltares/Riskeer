@@ -903,7 +903,7 @@ namespace SharpMap.UI.Forms
         {
             if (sender is ILayer || sender is VectorStyle || sender is ITheme || sender is IList<ILayer>)
             {
-                if (IsDisposed)
+                if (IsDisposed || !IsHandleCreated) // must be called before InvokeRequired
                 {
                     return;
                 }
@@ -949,7 +949,7 @@ namespace SharpMap.UI.Forms
         {
             if (sender is Map || sender is ILayer || sender is IList<ILayer>)
             {
-                if (IsDisposed)
+                if (IsDisposed || !IsHandleCreated) // must be called before InvokeRequired
                 {
                     return;
                 }
