@@ -48,6 +48,8 @@ namespace SharpMap.UI.Tests.Tools
                 }
             })
             {
+                WindowsFormsTestHelper.Show(mapControl);
+
                 var selectTool = mapControl.SelectTool;
 
                 selectTool.Select(featureProvider.Features.Cast<IFeature>());
@@ -57,6 +59,8 @@ namespace SharpMap.UI.Tests.Tools
                 selectTool.Selection
                           .Should("selection is cleared on layer remove").Be.Empty();
             }
+
+            WindowsFormsTestHelper.CloseAll();
         }
 
         [Test]
@@ -95,6 +99,8 @@ namespace SharpMap.UI.Tests.Tools
                 }
             })
             {
+                WindowsFormsTestHelper.Show(mapControl);
+
                 var selectTool = mapControl.SelectTool;
 
                 selectTool.Select(featureProvider.Features.Cast<IFeature>());
@@ -104,6 +110,8 @@ namespace SharpMap.UI.Tests.Tools
                 selectTool.Selection
                           .Should("selection is cleared on layer remove").Be.Empty();
             }
+
+            WindowsFormsTestHelper.CloseAll();
         }
 
         [Test]
