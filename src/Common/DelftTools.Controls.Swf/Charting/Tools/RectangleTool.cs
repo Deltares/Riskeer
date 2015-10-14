@@ -221,12 +221,6 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         private void TryDrag(int X, int Y)
 #endif
         {
-#if WPF 
-      double tmpW, tmpH;
-#else
-            int tmpW, tmpH;
-#endif
-
             if (X != P.X || Y != P.Y)
             {
                 Shape.Left = X - P.X;

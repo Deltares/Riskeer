@@ -435,10 +435,9 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
                     csd.SetProperty("geometry-type", GeometryType2CssString(vectorStyle), string.Empty);
                 }
 
-                if (vectorStyle.Shape != null)
-                {
-                    csd.SetProperty("symbol-shape", vectorStyle.Shape.ToString(), string.Empty);
-                }
+                // vectorStyle.Shape has got a default value and cannot be null (no check required)
+                csd.SetProperty("symbol-shape", vectorStyle.Shape.ToString(), string.Empty);
+                
 
                 if ((vectorStyle.Symbol != null) && (vectorStyle.HasCustomSymbol))
                 {
@@ -469,19 +468,17 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
         private static Type GetGeometryTypeFromCssString(ICssStyleDeclaration csd)
         {
             string property = csd.GetPropertyValue("geometry-type");
-            if (property == "LineString")
-            {
-                return typeof(ILineString);
+            switch (property) {
+                case "LineString":
+                    return typeof(ILineString);
+                case "Polygon":
+                    return typeof(IPolygon);
+                case "Point":
+                    return typeof(IPoint);
+                default:
+                    return new VectorStyle().GeometryType;
             }
-            if (property == "Polygon")
-            {
-                return typeof(IPolygon);
-            }
-            if (property == "Point")
-            {
-                return typeof(IPoint);
-            }
-            return new VectorStyle().GeometryType;
+            
         }
 
         /// <summary>
@@ -550,16 +547,8 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             {
                 " "
             }, StringSplitOptions.RemoveEmptyEntries);
-            Color color;
 
-            if (components[0].Contains("#"))
-            {
-                color = Color.FromArgb(int.Parse(components[1]));
-            }
-            else
-            {
-                color = Color.FromName(components[0]);
-            }
+            var color = components[0].Contains("#") ? Color.FromArgb(int.Parse(components[1])) : Color.FromName(components[0]);
 
             return color;
         }

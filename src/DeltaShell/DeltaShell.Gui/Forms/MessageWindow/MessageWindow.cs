@@ -56,7 +56,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             messagesDataGridView.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             messagesDataGridView.MouseUp += MessagesDataGridViewMouseUp;
 
-            /// Apply sorting so the messages added last will be on Top.
+            // Apply sorting so the messages added last will be on Top.
             messagesBindingSource.Sort = "Id";
             messagesBindingSource.ApplySort(messagesBindingSource.SortProperty, ListSortDirection.Descending);
             ApplyFilter();

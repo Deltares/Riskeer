@@ -3,15 +3,20 @@ using System.Drawing;
 using System.Reflection;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Core.Dao;
-using DelftTools.Shell.Gui;
-using DelftTools.Utils;
 using Mono.Addins;
 
 namespace DeltaShell.Plugins.CommonTools
 {
+    /// <summary>
+    /// Common tool plugins
+    /// </summary>
     [Extension(typeof(IPlugin))]
     public class CommonToolsApplicationPlugin : ApplicationPlugin, IDataAccessListenersProvider
     {
+        /// <summary>
+        /// Gets the name of the plugin
+        /// Derived from <see cref="ApplicationPlugin.Name">ApplicationPlugin.Name</see>
+        /// </summary>
         public override string Name
         {
             get
@@ -20,6 +25,10 @@ namespace DeltaShell.Plugins.CommonTools
             }
         }
 
+        /// <summary>
+        /// Gets the display name from the <see cref="Properties.Resources.CommonToolsApplicationPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin">resource</see>
+        /// Derived from <see cref="ApplicationPlugin.DisplayName">ApplicationPlugin.DisplayName</see>
+        /// </summary>
         public override string DisplayName
         {
             get
@@ -28,6 +37,10 @@ namespace DeltaShell.Plugins.CommonTools
             }
         }
 
+        /// <summary>
+        /// Gets the description from the <see cref="Properties.Resources.CommonToolsApplicationPlugin_Description">resource</see>
+        /// Derived from <see cref="ApplicationPlugin.Description">ApplicationPlugin.Description</see>
+        /// </summary>
         public override string Description
         {
             get
@@ -36,6 +49,10 @@ namespace DeltaShell.Plugins.CommonTools
             }
         }
 
+        /// <summary>
+        /// Gets the version from the assembly.
+        /// Derived from <see cref="ApplicationPlugin.Version">ApplicationPlugin.Version</see>
+        /// </summary>
         public override string Version
         {
             get
@@ -44,6 +61,10 @@ namespace DeltaShell.Plugins.CommonTools
             }
         }
 
+        /// <summary>
+        /// Image for displaying in gui. Default format 32x32 bitmap. 
+        /// Derived from <see cref="ApplicationPlugin.Image">ApplicationPlugin.Image</see>
+        /// </summary>
         public override Image Image
         {
             get
@@ -52,11 +73,7 @@ namespace DeltaShell.Plugins.CommonTools
             }
         }
 
-        public override IEnumerable<Assembly> GetPersistentAssemblies()
-        {
-            yield return typeof(Url).Assembly;
-            yield return typeof(GuiContextManager).Assembly;
-        }
+
 
         public IEnumerable<IDataAccessListener> CreateDataAccessListeners()
         {

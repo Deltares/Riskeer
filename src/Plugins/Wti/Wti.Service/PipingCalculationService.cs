@@ -7,8 +7,8 @@ using Wti.Service.Properties;
 namespace Wti.Service
 {
     /// <summary>
-    /// This class controls the <see cref="PipingData"/> and its <see cref="PipingDataNodePresenter"/>.
-    /// Interactions from the <see cref="PipingDataNodePresenter"/> are handles by this class.
+    /// This class controls the <see cref="PipingData"/> and its PipingDataNodePresenter.
+    /// Interactions from the PipingDataNodePresenter are handles by this class.
     /// </summary>
     public static class PipingCalculationService
     {

@@ -13,7 +13,6 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         public static double ToDegrees(double radians)
         {
             return radians*57.29577951308232;
-            ;
         }
     }
 }
