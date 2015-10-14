@@ -92,8 +92,6 @@ namespace DelftTools.Shell.Gui
         ///  <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value></summary>
         public virtual bool IsActive { get; protected set; }
 
-        public string[] DependentPluginNames { get; private set; }
-
         /// <summary>
         /// Returns all property information objects supported by the plugin
         /// </summary>

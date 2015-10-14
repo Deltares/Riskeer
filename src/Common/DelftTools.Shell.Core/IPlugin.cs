@@ -44,8 +44,6 @@ namespace DelftTools.Shell.Core
         ///  </summary>
         ResourceManager Resources { get; set; }
 
-        string[] DependentPluginNames { get; }
-
         /// <summary>
         ///  Activates the plugin.
         ///  </summary>

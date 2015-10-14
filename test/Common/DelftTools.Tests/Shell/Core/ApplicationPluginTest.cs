@@ -19,7 +19,6 @@ namespace DelftTools.Tests.Shell.Core
             Assert.IsNull(applicationPlugin.Image);
             Assert.IsNull(applicationPlugin.Resources);
             Assert.IsNull(applicationPlugin.Application);
-            CollectionAssert.IsEmpty(applicationPlugin.DependentPluginNames);
         }
 
         [Test]
@@ -56,19 +55,6 @@ namespace DelftTools.Tests.Shell.Core
 
             // call
             var importers = applicationPlugin.GetDataItemInfos().ToArray();
-
-            // assert
-            CollectionAssert.IsEmpty(importers);
-        }
-
-        [Test]
-        public void GetPersistentAssemblies_ReturnEmptyEnummerable()
-        {
-            // setup
-            var applicationPlugin = new SimpleApplicationPlugin();
-
-            // call
-            var importers = applicationPlugin.GetPersistentAssemblies().ToArray();
 
             // assert
             CollectionAssert.IsEmpty(importers);

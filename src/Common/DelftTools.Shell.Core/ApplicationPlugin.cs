@@ -57,16 +57,6 @@ namespace DelftTools.Shell.Core
         ///  </summary>
         public virtual ResourceManager Resources { get; set; }
 
-        // TODO: check if it is used, otherwise remove
-        public virtual string[] DependentPluginNames
-        {
-            get
-            {
-                return new string[]
-                {};
-            }
-        }
-
         /// <summary>
         /// Provides information about data that can be created
         /// </summary>
