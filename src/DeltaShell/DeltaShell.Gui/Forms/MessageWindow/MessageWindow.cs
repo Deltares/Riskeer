@@ -64,8 +64,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 
             Image = Resources.application_view_list;
 
-            MaxMessageCount = 100;
-
             // TODO: make timer start only when property was changed and then stop
             addNewMessagesTimer = new Timer();
             addNewMessagesTimer.Tick += AddNewMessagesTimerTick;
@@ -100,7 +98,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             messagesDataGridView.AutoResizeRow(row.Index, DataGridViewAutoSizeRowMode.AllCells);
         }
 
-        public int MaxMessageCount { get; set; }
+        
 
         #region IView Members
 
