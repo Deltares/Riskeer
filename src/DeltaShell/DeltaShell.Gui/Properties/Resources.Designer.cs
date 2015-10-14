@@ -2182,7 +2182,7 @@ namespace DeltaShell.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Message details.
+        ///   Looks up a localized string similar to Bericht details.
         /// </summary>
         public static string MessageWindow_showDetailsToolStripMenuItem_Click_Message_details {
             get {
