@@ -112,6 +112,131 @@ namespace Wti.Calculation.Test.Piping
             Assert.IsTrue(validationMessages.Any(message => message.Contains("phiExit - hExit")));
         }
 
+        [Test]
+        public void Validate_PhreaticLevelExitZero_TwoValidationMessageForRExit()
+        {
+            // Setup
+            PipingCalculationInput input = new TestPipingInput
+            {
+                DampingFactorExit = 0
+            }.AsRealInput();
+
+            var calculation = new PipingCalculation(input);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            Assert.AreEqual(2, validationMessages.Count);
+            Assert.AreEqual(2, validationMessages.Count(message => message.Contains("Rexit")));
+        }
+
+        [Test]
+        public void Validate_ThicknessCoverageLayerZero_ValidationMessageForDTotal()
+        {
+            // Setup
+            PipingCalculationInput input = new TestPipingInput
+            {
+                ThicknessCoverageLayer = 0
+            }.AsRealInput();
+
+            var calculation = new PipingCalculation(input);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            Assert.AreEqual(1, validationMessages.Count);
+            Assert.IsTrue(validationMessages.Any(message => message.Contains("Dtotal")));
+        }
+
+        [Test]
+        public void Validate_ThicknessAquiferLayerZero_ValidationMessageForDAquifer()
+        {
+            // Setup
+            PipingCalculationInput input = new TestPipingInput
+            {
+                ThicknessAquiferLayer = 0
+            }.AsRealInput();
+
+            var calculation = new PipingCalculation(input);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            Assert.AreEqual(1, validationMessages.Count);
+            Assert.IsTrue(validationMessages.Any(message => message.Contains("DAquifer")));
+        }
+
+        [Test]
+        public void Validate_VolumetricWeightWaterZero_ValidationMessageForVolumetricWeightWater()
+        {                                                                                                                                                                                
+            // Setup
+            PipingCalculationInput input = new TestPipingInput
+            {
+                WaterVolumetricWeight = 0
+            }.AsRealInput();
+
+            var calculation = new PipingCalculation(input);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            Assert.AreEqual(1, validationMessages.Count);
+            Assert.IsTrue(validationMessages.Any(message => message.Contains("Volumetric weight water")));
+        }
+
+        [Test]
+        [TestCase(2, 1, 2, 0.5)]
+        [TestCase(1, 1, 0, 2)]
+        [TestCase(8, 4, 2, 2)]
+        public void Validate_DifferenceAssessmentLevelAndPhreaticLevelExitEqualToSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidationMessageForHRiverHExitRcDTotal(
+            double assessmentLevel, double phreaticLevelExit, double sellmeijerReductionFactor, double thicknessCoverageLayer)
+        {
+            // Setup
+            PipingCalculationInput input = new TestPipingInput
+            {
+                AssessmentLevel = assessmentLevel,
+                PhreaticLevelExit = phreaticLevelExit,
+                SellmeijerReductionFactor = sellmeijerReductionFactor,
+                ThicknessCoverageLayer = thicknessCoverageLayer
+            }.AsRealInput();
+
+            var calculation = new PipingCalculation(input);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            Assert.AreEqual(1, validationMessages.Count);
+            Assert.IsTrue(validationMessages.Any(message => message.Contains("HRiver - HExit - (Rc*DTotal)")));
+        }
+
+        [Test]
+        public void Validate_AssessmentLevelPhreaticLevelExitSellmeijerReductionFactorThicknessCoverageLayerZero_ValidationMessageForHRiverHExitRcDTotalAndDTotal()
+        {
+            // Setup
+            PipingCalculationInput input = new TestPipingInput
+            {
+                AssessmentLevel = 0,
+                PhreaticLevelExit = 0,
+                SellmeijerReductionFactor = 0,
+                ThicknessCoverageLayer = 0
+            }.AsRealInput();
+
+            var calculation = new PipingCalculation(input);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            Assert.AreEqual(2, validationMessages.Count);
+            Assert.IsTrue(validationMessages.Any(message => message.Contains("HRiver - HExit - (Rc*DTotal)")));
+            Assert.IsTrue(validationMessages.Any(message => message.Contains("Dtotal")));
+        }
+
         class TestPipingInput
         {
             public double WaterVolumetricWeight;
@@ -142,35 +267,35 @@ namespace Wti.Calculation.Test.Piping
 
             public TestPipingInput()
             {
-                WaterVolumetricWeight = NextDouble();
-                UpliftModelFactor = NextDouble();
-                AssessmentLevel = NextDouble();
-                PiezometricHeadExit = NextDouble();
-                PhreaticLevelExit = NextDouble();
-                DampingFactorExit = NextDouble();
-                PiezometricHeadPolder = NextDouble();
-                CriticalHeaveGradient = NextDouble();
-                ThicknessCoverageLayer = NextDouble();
-                SellmeijerModelFactor = NextDouble();
-                SellmeijerReductionFactor = NextDouble();
-                SeepageLength = NextDouble();
-                SandParticlesVolumicWeight = NextDouble();
-                WhitesDragCoefficient = NextDouble();
-                Diameter70 = NextDouble();
-                DarcyPermeability = NextDouble();
-                WaterKinematicViscosity = NextDouble();
-                Gravity = NextDouble();
-                ExitPointXCoordinate = NextDouble();
-                BeddingAngle = NextDouble();
-                MeanDiameter70 = NextDouble();
-                ThicknessAquiferLayer = NextDouble();
+                WaterVolumetricWeight = NextIncrementalDouble();
+                UpliftModelFactor = NextIncrementalDouble();
+                AssessmentLevel = NextIncrementalDouble();
+                PiezometricHeadExit = NextIncrementalDouble();
+                PhreaticLevelExit = NextIncrementalDouble();
+                DampingFactorExit = NextIncrementalDouble();
+                PiezometricHeadPolder = NextIncrementalDouble();
+                CriticalHeaveGradient = NextIncrementalDouble();
+                ThicknessCoverageLayer = NextIncrementalDouble();
+                SellmeijerModelFactor = NextIncrementalDouble();
+                SellmeijerReductionFactor = NextIncrementalDouble();
+                SeepageLength = NextIncrementalDouble();
+                SandParticlesVolumicWeight = NextIncrementalDouble();
+                WhitesDragCoefficient = NextIncrementalDouble();
+                Diameter70 = NextIncrementalDouble();
+                DarcyPermeability = NextIncrementalDouble();
+                WaterKinematicViscosity = NextIncrementalDouble();
+                Gravity = NextIncrementalDouble();
+                ExitPointXCoordinate = NextIncrementalDouble();
+                BeddingAngle = NextIncrementalDouble();
+                MeanDiameter70 = NextIncrementalDouble();
+                ThicknessAquiferLayer = NextIncrementalDouble();
             }
 
             /// <summary>
             /// The returned double is sure to be different from the last time it was called.
             /// </summary>
             /// <returns></returns>
-            private double NextDouble()
+            private double NextIncrementalDouble()
             {
                 return last += random.NextDouble() + 1e-6;
             }

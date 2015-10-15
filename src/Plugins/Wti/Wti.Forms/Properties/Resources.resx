@@ -334,4 +334,7 @@
   <data name="AddPipingFailureMechanismContextMenuItem" xml:space="preserve">
     <value>Voeg piping faalmechanisme toe</value>
   </data>
+  <data name="ErrorInPipingCalculation_0" xml:space="preserve">
+    <value>Piping berekening niet gelukt: {0}</value>
+  </data>
 </root>

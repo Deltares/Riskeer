@@ -4,6 +4,8 @@ using System.ComponentModel;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
+using log4net;
+using Wti.Calculation.Piping;
 using Wti.Data;
 using Wti.Forms.Properties;
 using Wti.Service;
@@ -86,7 +88,14 @@ namespace Wti.Forms.NodePresenters
 
         private void PerformPipingCalculation(PipingData pipingData)
         {
-            PipingCalculationService.Calculate(pipingData);
+            try
+            {
+                PipingCalculationService.Calculate(pipingData);
+            }
+            catch (PipingCalculationException e)
+            {
+                LogManager.GetLogger(typeof(PipingCalculationService)).Error(String.Format(Resources.ErrorInPipingCalculation_0, e.Message));
+            }
             pipingData.NotifyObservers();
         }
 
