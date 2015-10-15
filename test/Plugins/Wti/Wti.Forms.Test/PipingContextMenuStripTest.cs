@@ -9,6 +9,7 @@ namespace Wti.Forms.Test
         public void Constructor_Always_OneMenuItemIsAdded()
         {
             var actual = new PipingContextMenuStrip(null);
+            Assert.AreEqual(1, actual.Items.Count);
             CollectionAssert.AllItemsAreNotNull(actual.Items);
         }
 
@@ -26,7 +27,7 @@ namespace Wti.Forms.Test
             var pipingContextMenu = new PipingContextMenuStrip(null);
             pipingContextMenu.OnCalculationClick += p => executed = true;
             pipingContextMenu.Items[0].PerformClick();
-            Assert.That(executed, Is.True);
+            Assert.IsTrue(executed);
         }
     }
 }

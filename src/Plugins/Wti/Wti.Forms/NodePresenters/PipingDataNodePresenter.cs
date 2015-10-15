@@ -94,7 +94,7 @@ namespace Wti.Forms.NodePresenters
             }
             catch (PipingCalculationException e)
             {
-                LogManager.GetLogger(typeof(PipingCalculationService)).Error(String.Format(Resources.ErrorInPipingCalculation_0, e.Message));
+                LogManager.GetLogger(typeof(PipingData)).Error(String.Format(Resources.ErrorInPipingCalculation_0, e.Message));
             }
             pipingData.NotifyObservers();
         }

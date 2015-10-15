@@ -76,6 +76,10 @@
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>DelftTools.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Calculation\Wti.Calculation.csproj">
+      <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
+      <Name>Wti.Calculation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Data\Wti.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Wti.Data</Name>
@@ -83,6 +87,14 @@
     <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Forms\Wti.Forms.csproj">
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
       <Name>Wti.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Wti.Calculation.TestUtil\Wti.Calculation.TestUtil.csproj">
+      <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
+      <Name>Wti.Calculation.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\DelftTools.TestUtils\DelftTools.TestUtils.csproj">
+      <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
+      <Name>DelftTools.TestUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\DeltaShell\DeltaShell.Tests\DeltaShell.Tests.csproj">
       <Project>{e0990383-fb2e-47d1-99cd-9b9fa2929e5b}</Project>

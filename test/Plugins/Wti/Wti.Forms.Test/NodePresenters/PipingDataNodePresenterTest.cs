@@ -1,9 +1,13 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf;
+using DelftTools.Shell.Core;
+using DelftTools.TestUtils;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Wti.Calculation.Test.Piping.Stub;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
 using WtiFormsResources = Wti.Forms.Properties.Resources;
@@ -13,6 +17,14 @@ namespace Wti.Forms.Test.NodePresenters
     [TestFixture]
     public class PipingDataNodePresenterTest
     {
+        private MockRepository mockRepository;
+
+        [SetUp]
+        public void SetUp()
+        {
+            mockRepository = new MockRepository();
+        }
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -338,6 +350,77 @@ namespace Wti.Forms.Test.NodePresenters
             // Assert
             Assert.IsTrue(removalSuccesful);
             Assert.IsNull(pipingFailureMechanism.PipingData);
+        }
+
+        [Test]
+        public void GivenInvalidPipingData_WhenCalculatingFromContextMenu_ThenPipingDataNotifiesObserversAndLogMessageAdded()
+        {
+            // Given
+            var pipingData = new PipingData();
+            var observer = mockRepository.StrictMock<IObserver>();
+            var nodePresenter = new PipingDataNodePresenter();
+            observer.Expect(o => o.UpdateObserver());
+            pipingData.Attach(observer);
+
+            mockRepository.ReplayAll();
+
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData) as MenuItemContextMenuStripAdapter;
+            var expectedMessage = "Piping berekening niet gelukt: Dtotal (total thickness) may not be 0." + Environment.NewLine + "Exception of type HeaveCalculator";
+            
+            // When
+            Action action = () => contextMenuAdapter.ContextMenuStrip.Items[0].PerformClick();
+
+            // Then
+            TestHelper.AssertLogMessageIsGenerated(action, expectedMessage, 1);
+            Assert.IsNull(pipingData.Output);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenValidPipingData_WhenCalculatingFromContextMenu_ThenPipingDataNotifiesObservers()
+        {
+            // Given
+            var pipingData = new PipingData();
+            var validPipingInput = new TestPipingInput();
+            pipingData.AssessmentLevel = validPipingInput.AssessmentLevel;
+            pipingData.BeddingAngle = validPipingInput.BeddingAngle;
+            pipingData.CriticalHeaveGradient = validPipingInput.CriticalHeaveGradient;
+            pipingData.DampingFactorExit = validPipingInput.DampingFactorExit;
+            pipingData.DarcyPermeability = validPipingInput.DarcyPermeability;
+            pipingData.Diameter70 = validPipingInput.Diameter70;
+            pipingData.ExitPointXCoordinate = validPipingInput.ExitPointXCoordinate;
+            pipingData.Gravity = validPipingInput.Gravity;
+            pipingData.MeanDiameter70 = validPipingInput.MeanDiameter70;
+            pipingData.PhreaticLevelExit = validPipingInput.PhreaticLevelExit;
+            pipingData.PiezometricHeadExit = validPipingInput.PiezometricHeadExit;
+            pipingData.PiezometricHeadPolder = validPipingInput.PiezometricHeadPolder;
+            pipingData.SandParticlesVolumicWeight = validPipingInput.SandParticlesVolumicWeight;
+            pipingData.SeepageLength = validPipingInput.SeepageLength;
+            pipingData.SellmeijerModelFactor = validPipingInput.SellmeijerModelFactor;
+            pipingData.SellmeijerReductionFactor = validPipingInput.SellmeijerReductionFactor;
+            pipingData.ThicknessAquiferLayer = validPipingInput.ThicknessAquiferLayer;
+            pipingData.ThicknessCoverageLayer = validPipingInput.ThicknessCoverageLayer;
+            pipingData.UpliftModelFactor = validPipingInput.UpliftModelFactor;
+            pipingData.WaterVolumetricWeight = validPipingInput.WaterVolumetricWeight;
+            pipingData.WaterKinematicViscosity = validPipingInput.WaterKinematicViscosity;
+            pipingData.WhitesDragCoefficient = validPipingInput.WhitesDragCoefficient;
+
+            var observer = mockRepository.StrictMock<IObserver>();
+            var nodePresenter = new PipingDataNodePresenter();
+            observer.Expect(o => o.UpdateObserver());
+            pipingData.Attach(observer);
+
+            mockRepository.ReplayAll();
+
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData) as MenuItemContextMenuStripAdapter;
+
+            // When
+            Action action = () => contextMenuAdapter.ContextMenuStrip.Items[0].PerformClick();
+
+            // Then
+            TestHelper.AssertLogMessagesCount(action, 0);
+            Assert.IsNotNull(pipingData.Output);
+            mockRepository.VerifyAll();
         }
     }
 }
