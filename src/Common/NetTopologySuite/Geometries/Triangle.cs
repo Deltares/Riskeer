@@ -18,9 +18,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="p2"></param>
         public Triangle(ICoordinate p0, ICoordinate p1, ICoordinate p2)
         {
-            this.P0 = p0;
-            this.P1 = p1;
-            this.P2 = p2;
+            P0 = p0;
+            P1 = p1;
+            P2 = p2;
         }
 
         /// <summary>

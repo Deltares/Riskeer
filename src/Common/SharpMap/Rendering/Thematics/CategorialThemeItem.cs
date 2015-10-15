@@ -22,7 +22,7 @@ namespace SharpMap.Rendering.Thematics
             this.style = (IStyle) style.Clone();
             Symbol = symbol;
 
-            this.Value = value;
+            Value = value;
         }
 
         public CategorialThemeItem(string category, IStyle style, Bitmap symbol)

@@ -36,10 +36,10 @@ namespace SharpMap.Rendering
         /// <param name="height">Height of the box</param>
         public LabelBox(float left, float top, float width, float height)
         {
-            this.Left = left;
-            this.Top = top;
-            this.Width = width;
-            this.Height = height;
+            Left = left;
+            Top = top;
+            Width = width;
+            Height = height;
         }
 
         /// <summary>
@@ -152,12 +152,12 @@ namespace SharpMap.Rendering
         /// <param name="style">The style of the label</param>
         public Label(string text, PointF labelPoint, float rotation, int priority, LabelBox collisionbox, ILabelStyle style)
         {
-            this.Text = text;
-            this.LabelPoint = labelPoint;
-            this.Rotation = rotation;
-            this.Priority = priority;
+            Text = text;
+            LabelPoint = labelPoint;
+            Rotation = rotation;
+            Priority = priority;
             Box = collisionbox;
-            this.Style = style;
+            Style = style;
         }
 
         /// <summary>

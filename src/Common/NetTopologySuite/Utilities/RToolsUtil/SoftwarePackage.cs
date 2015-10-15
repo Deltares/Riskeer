@@ -211,20 +211,20 @@ namespace RTools_NTS.Util
         {
             if (name != null)
             {
-                this.Name = name;
+                Name = name;
             }
             else
             {
-                this.Name = string.Empty;
+                Name = string.Empty;
             }
 
             if (productCode != null)
             {
-                this.ProductCode = productCode;
+                ProductCode = productCode;
             }
             else
             {
-                this.ProductCode = string.Empty;
+                ProductCode = string.Empty;
             }
 
             if (uninstallString != null)
@@ -238,11 +238,11 @@ namespace RTools_NTS.Util
 
             if (displayVersion != null)
             {
-                this.DisplayVersion = displayVersion;
+                DisplayVersion = displayVersion;
             }
             else
             {
-                this.DisplayVersion = string.Empty;
+                DisplayVersion = string.Empty;
             }
         }
 

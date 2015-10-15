@@ -182,7 +182,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation
             /// <param name="pt"></param>
             public EndpointInfo(ICoordinate pt)
             {
-                this.Point = pt;
+                Point = pt;
                 isClosed = false;
                 Degree = 0;
             }

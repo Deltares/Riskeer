@@ -57,9 +57,9 @@ namespace SharpMap.Rendering.Thematics
             this.minValue = minValue;
             this.maxValue = maxValue;
 
-            this.FillColorBlend = fillColorBlend;
-            this.LineColorBlend = lineColorBlend;
-            this.TextColorBlend = textColorBlend;
+            FillColorBlend = fillColorBlend;
+            LineColorBlend = lineColorBlend;
+            TextColorBlend = textColorBlend;
 
             AttributeName = attributeName;
 

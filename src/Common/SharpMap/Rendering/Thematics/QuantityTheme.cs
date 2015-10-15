@@ -24,7 +24,7 @@ namespace SharpMap.Rendering.Thematics
         public QuantityTheme(string attributeName, IStyle defaultStyle)
         {
             AttributeName = attributeName;
-            this.DefaultStyle = (defaultStyle != null) ? (IStyle) defaultStyle.Clone() : null;
+            DefaultStyle = (defaultStyle != null) ? (IStyle) defaultStyle.Clone() : null;
         }
 
         public override IEventedList<IThemeItem> ThemeItems

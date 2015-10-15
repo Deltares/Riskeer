@@ -27,9 +27,9 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <param name="w"></param>
         public HCoordinate(double x, double y, double w)
         {
-            this.X = x;
-            this.Y = y;
-            this.W = w;
+            X = x;
+            Y = y;
+            W = w;
         }
 
         /// <summary>
