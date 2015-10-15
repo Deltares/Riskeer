@@ -54,20 +54,10 @@ namespace SharpMap.Tests.Data.Providers
             // 1050ms on my pc
             TestHelper.AssertIsFasterThan(3000, () =>
             {
-                var previousBubblingEnabledState = EventSettings.BubblingEnabled;
-                EventSettings.BubblingEnabled = false;
-
-                try
+                for (int i = 0; i < queryRectangles.Length; i++)
                 {
-                    for (int i = 0; i < queryRectangles.Length; i++)
-                    {
-                        var rect = queryRectangles[i];
-                        quadTree.GetIndices(ref rect, 0f);
-                    }
-                }
-                finally
-                {
-                    EventSettings.BubblingEnabled = previousBubblingEnabledState;
+                    var rect = queryRectangles[i];
+                    quadTree.GetIndices(ref rect, 0f);
                 }
             });
         }
