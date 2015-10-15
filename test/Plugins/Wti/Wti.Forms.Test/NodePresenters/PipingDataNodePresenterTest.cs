@@ -365,13 +365,12 @@ namespace Wti.Forms.Test.NodePresenters
             mockRepository.ReplayAll();
 
             var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData) as MenuItemContextMenuStripAdapter;
-            var expectedMessage = "Piping berekening niet gelukt: Dtotal (total thickness) may not be 0." + Environment.NewLine + "Exception of type HeaveCalculator";
             
             // When
             Action action = () => contextMenuAdapter.ContextMenuStrip.Items[0].PerformClick();
 
             // Then
-            TestHelper.AssertLogMessageIsGenerated(action, expectedMessage, 1);
+            TestHelper.AssertLogMessagesCount(action, 6);
             Assert.IsNull(pipingData.Output);
             mockRepository.VerifyAll();
         }

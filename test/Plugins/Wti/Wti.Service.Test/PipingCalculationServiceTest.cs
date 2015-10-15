@@ -36,23 +36,23 @@ namespace Wti.Service.Test
         public void Calculate_ValidPipingData_ShouldSetOutput()
         {
             // Call
-            PipingCalculationService.Calculate(validPipingData);
+            PipingCalculationService.PerfromValidatedCalculation(validPipingData);
 
             // Assert
             Assert.NotNull(validPipingData.Output);
         }
 
         [Test]
-        public void Calculate_InValidPipingData_ThrowsException()
+        public void Calculate_InValidPipingData_ReturnsErrorMessages()
         {
             // Setup
             var invalidPipingData = new PipingData();
 
             // Call
-            TestDelegate testDelegate = () => PipingCalculationService.Calculate(invalidPipingData);
+            var results = PipingCalculationService.PerfromValidatedCalculation(invalidPipingData);
             
             // Assert
-            Assert.Throws<PipingCalculationException>(testDelegate);
+            CollectionAssert.IsNotEmpty(results);
         }
     }
 }

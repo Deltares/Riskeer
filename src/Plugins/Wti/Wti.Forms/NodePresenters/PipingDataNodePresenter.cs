@@ -88,13 +88,11 @@ namespace Wti.Forms.NodePresenters
 
         private void PerformPipingCalculation(PipingData pipingData)
         {
-            try
+            var calculationErrorMessages = PipingCalculationService.PerfromValidatedCalculation(pipingData);
+
+            foreach(var errorMessage in calculationErrorMessages) 
             {
-                PipingCalculationService.Calculate(pipingData);
-            }
-            catch (PipingCalculationException e)
-            {
-                LogManager.GetLogger(typeof(PipingData)).Error(String.Format(Resources.ErrorInPipingCalculation_0, e.Message));
+                LogManager.GetLogger(typeof(PipingData)).Error(String.Format(Resources.ErrorInPipingCalculation_0, errorMessage));
             }
             pipingData.NotifyObservers();
         }
