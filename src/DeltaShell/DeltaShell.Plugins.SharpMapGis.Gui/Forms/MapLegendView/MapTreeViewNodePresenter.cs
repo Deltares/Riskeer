@@ -85,14 +85,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                 var layer = (ILayer) item;
 
                 bool removed;
-                if (sourceLayerGroup != null)
-                {
-                    removed = sourceLayerGroup.Layers.Remove(layer);
-                }
-                else
-                {
-                    removed = target.Layers.Remove(layer); // only changing position of layer within map
-                }
+                removed = sourceLayerGroup != null ? sourceLayerGroup.Layers.Remove(layer) : target.Layers.Remove(layer);
 
                 if (removed)
                 {
@@ -116,14 +109,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         private static void SetNodeText(ITreeNode node, Map map)
         {
-            if (map.CoordinateSystem != null)
-            {
-                node.Text = string.Format("{0} ({1})", map.Name, map.CoordinateSystem.Name);
-            }
-            else
-            {
-                node.Text = map.Name;
-            }
+            node.Text = map.CoordinateSystem != null ? string.Format("{0} ({1})", map.Name, map.CoordinateSystem.Name) : map.Name;
         }
     }
 }

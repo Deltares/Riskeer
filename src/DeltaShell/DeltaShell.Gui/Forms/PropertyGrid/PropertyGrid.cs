@@ -193,15 +193,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                     {
                         objects.Add(obj.Current);
                     }
-                    if (objects.Count > 0)
-                    {
-                        SelectedObjects = objects.ToArray();
-                    }
-                    else
-                    {
-                        // If this was an empty list, set the property grid to null
-                        SelectedObjects = null;
-                    }
+                    SelectedObjects = objects.Count > 0 ? objects.ToArray() : null;  // If this was an empty list, set the property grid to null
                 }
                 else
                 {

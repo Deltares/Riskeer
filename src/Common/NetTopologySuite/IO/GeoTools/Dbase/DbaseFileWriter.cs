@@ -269,14 +269,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="flag"></param>
         public void Write(bool flag)
         {
-            if (flag)
-            {
-                _writer.Write('T');
-            }
-            else
-            {
-                _writer.Write('F');
-            }
+            _writer.Write(flag ? 'T' : 'F');
         }
 
         /// <summary>

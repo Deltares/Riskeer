@@ -81,14 +81,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
             */
             bool isZeroArea = IntervalSize.IsZeroWidth(itemInterval.Min, itemInterval.Max);
             NodeBase node;
-            if (isZeroArea)
-            {
-                node = tree.Find(itemInterval);
-            }
-            else
-            {
-                node = tree.GetNode(itemInterval);
-            }
+            node = isZeroArea ? tree.Find(itemInterval) : tree.GetNode(itemInterval);
             node.Add(item);
         }
     }

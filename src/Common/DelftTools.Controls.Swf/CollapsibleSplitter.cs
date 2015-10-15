@@ -272,14 +272,7 @@ namespace DelftTools.Controls.Swf
             // set the current state
             if (ControlToHide != null)
             {
-                if (ControlToHide.Visible)
-                {
-                    currentState = SplitterState.Expanded;
-                }
-                else
-                {
-                    currentState = SplitterState.Collapsed;
-                }
+                currentState = ControlToHide.Visible ? SplitterState.Expanded : SplitterState.Collapsed;
             }
         }
 
@@ -618,14 +611,7 @@ namespace DelftTools.Controls.Swf
                 Width = 8;
 
                 // draw the background color for our control image
-                if (hot)
-                {
-                    g.FillRectangle(new SolidBrush(hotColor), new Rectangle(rr.X + 1, rr.Y, 6, 115));
-                }
-                else
-                {
-                    g.FillRectangle(new SolidBrush(BackColor), new Rectangle(rr.X + 1, rr.Y, 6, 115));
-                }
+                g.FillRectangle(hot ? new SolidBrush(hotColor) : new SolidBrush(BackColor), new Rectangle(rr.X + 1, rr.Y, 6, 115));
 
                 // draw the top & bottom lines for our control image
                 g.DrawLine(new Pen(SystemColors.ControlDark, 1), rr.X + 1, rr.Y, rr.X + rr.Width - 2, rr.Y);
@@ -655,14 +641,7 @@ namespace DelftTools.Controls.Swf
                             // dark dot
                             g.DrawLine(new Pen(SystemColors.ControlDarkDark), x + 1, y + 1 + (i*3), x + 2, y + 2 + (i*3));
                             // overdraw the background color as we actually drew 2px diagonal lines, not just dots
-                            if (hot)
-                            {
-                                g.DrawLine(new Pen(hotColor), x + 2, y + 1 + (i*3), x + 2, y + 2 + (i*3));
-                            }
-                            else
-                            {
-                                g.DrawLine(new Pen(BackColor), x + 2, y + 1 + (i*3), x + 2, y + 2 + (i*3));
-                            }
+                            g.DrawLine(hot ? new Pen(hotColor) : new Pen(BackColor), x + 2, y + 1 + (i*3), x + 2, y + 2 + (i*3));
                         }
                         break;
 
@@ -738,14 +717,7 @@ namespace DelftTools.Controls.Swf
                 Height = 8;
 
                 // draw the background color for our control image
-                if (hot)
-                {
-                    g.FillRectangle(new SolidBrush(hotColor), new Rectangle(rr.X, rr.Y + 1, 115, 6));
-                }
-                else
-                {
-                    g.FillRectangle(new SolidBrush(BackColor), new Rectangle(rr.X, rr.Y + 1, 115, 6));
-                }
+                g.FillRectangle(hot ? new SolidBrush(hotColor) : new SolidBrush(BackColor), new Rectangle(rr.X, rr.Y + 1, 115, 6));
 
                 // draw the left & right lines for our control image
                 g.DrawLine(new Pen(SystemColors.ControlDark, 1), rr.X, rr.Y + 1, rr.X, rr.Y + rr.Height - 2);
@@ -775,14 +747,7 @@ namespace DelftTools.Controls.Swf
                             // dark dot
                             g.DrawLine(new Pen(SystemColors.ControlDarkDark), x + 1 + (i*3), y + 1, x + 2 + (i*3), y + 2);
                             // overdraw the background color as we actually drew 2px diagonal lines, not just dots
-                            if (hot)
-                            {
-                                g.DrawLine(new Pen(hotColor), x + 1 + (i*3), y + 2, x + 2 + (i*3), y + 2);
-                            }
-                            else
-                            {
-                                g.DrawLine(new Pen(BackColor), x + 1 + (i*3), y + 2, x + 2 + (i*3), y + 2);
-                            }
+                            g.DrawLine(hot ? new Pen(hotColor) : new Pen(BackColor), x + 1 + (i*3), y + 2, x + 2 + (i*3), y + 2);
                         }
                         break;
 

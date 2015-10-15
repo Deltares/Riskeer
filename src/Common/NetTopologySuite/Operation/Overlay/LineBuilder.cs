@@ -186,14 +186,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
                 Label label = e.Label;
                 if (e.IsIsolated)
                 {
-                    if (label.IsNull(0))
-                    {
-                        LabelIsolatedLine(e, 0);
-                    }
-                    else
-                    {
-                        LabelIsolatedLine(e, 1);
-                    }
+                    LabelIsolatedLine(e, label.IsNull(0) ? 0 : 1);
                 }
             }
         }

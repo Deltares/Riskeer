@@ -177,27 +177,13 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             }
             else if (p.Equals(p1))
             {
-                if (dx > dy)
-                {
-                    dist = dx;
-                }
-                else
-                {
-                    dist = dy;
-                }
+                dist = dx > dy ? dx : dy;
             }
             else
             {
                 double pdx = Math.Abs(p.X - p0.X);
                 double pdy = Math.Abs(p.Y - p0.Y);
-                if (dx > dy)
-                {
-                    dist = pdx;
-                }
-                else
-                {
-                    dist = pdy;
-                }
+                dist = dx > dy ? pdx : pdy;
 
                 // <FIX>: hack to ensure that non-endpoints always have a non-zero distance
                 if (dist == 0.0 && !p.Equals(p0))

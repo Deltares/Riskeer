@@ -48,14 +48,7 @@ namespace DelftTools.Utils.Interop
             try
             {
                 lb = LoadLibrary(ocxPath);
-                if (register)
-                {
-                    pa = GetProcAddress(lb, "DllRegisterServer");
-                }
-                else
-                {
-                    pa = GetProcAddress(lb, "DllUnregisterServer");
-                }
+                pa = GetProcAddress(lb, register ? "DllRegisterServer" : "DllUnregisterServer");
 
                 if (CallWindowProc(pa, IntPtr.Zero, 0, UIntPtr.Zero, IntPtr.Zero) == IntPtr.Zero)
                 {

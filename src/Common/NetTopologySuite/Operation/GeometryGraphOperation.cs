@@ -29,14 +29,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation
         public GeometryGraphOperation(IGeometry g0, IGeometry g1)
         {
             // use the most precise model for the result
-            if (g0.PrecisionModel.CompareTo(g1.PrecisionModel) >= 0)
-            {
-                ComputationPrecision = g0.PrecisionModel;
-            }
-            else
-            {
-                ComputationPrecision = g1.PrecisionModel;
-            }
+            ComputationPrecision = g0.PrecisionModel.CompareTo(g1.PrecisionModel) >= 0 ? g0.PrecisionModel : g1.PrecisionModel;
 
             arg = new GeometryGraph[2];
             arg[0] = new GeometryGraph(0, g0);

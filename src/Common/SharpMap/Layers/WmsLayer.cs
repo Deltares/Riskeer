@@ -685,14 +685,7 @@ namespace SharpMap.Layers
             {
                 throw new ApplicationException("Spatial reference system not set");
             }
-            if (wmsClient.WmsVersion == "1.3.0")
-            {
-                strReq.AppendFormat("&CRS={0}", spatialReferenceSystem);
-            }
-            else
-            {
-                strReq.AppendFormat("&SRS={0}", spatialReferenceSystem);
-            }
+            strReq.AppendFormat(wmsClient.WmsVersion == "1.3.0" ? "&CRS={0}" : "&SRS={0}", spatialReferenceSystem);
             strReq.AppendFormat("&VERSION={0}", wmsClient.WmsVersion);
             strReq.Append("&Styles=");
             if (stylesList != null && stylesList.Count > 0)

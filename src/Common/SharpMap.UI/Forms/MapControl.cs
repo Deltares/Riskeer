@@ -220,14 +220,7 @@ namespace SharpMap.UI.Forms
         {
             vectorStyle.Line.Color = Color.FromArgb(128, vectorStyle.Line.Color);
             SolidBrush solidBrush = vectorStyle.Fill as SolidBrush;
-            if (null != solidBrush)
-            {
-                vectorStyle.Fill = new SolidBrush(Color.FromArgb(127, solidBrush.Color));
-            }
-            else // possibly a multicolor brush
-            {
-                vectorStyle.Fill = new SolidBrush(Color.FromArgb(63, Color.DodgerBlue));
-            }
+            vectorStyle.Fill = null != solidBrush ? new SolidBrush(Color.FromArgb(127, solidBrush.Color)) : new SolidBrush(Color.FromArgb(63, Color.DodgerBlue));
             if (null != vectorStyle.Symbol)
             {
                 Bitmap bitmap = new Bitmap(vectorStyle.Symbol.Width, vectorStyle.Symbol.Height);

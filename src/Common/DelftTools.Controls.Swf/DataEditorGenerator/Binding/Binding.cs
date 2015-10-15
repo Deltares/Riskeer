@@ -98,15 +98,7 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding
         {
             errorProvider.SetIconAlignment(Control, ErrorIconAlignment.MiddleLeft);
             string errorMessage;
-            if (!FieldDescription.Validate(Data, value, out errorMessage))
-            {
-                errorProvider.SetError(Control, errorMessage);
-            }
-
-            else
-            {
-                errorProvider.SetError(Control, string.Empty);
-            }
+            errorProvider.SetError(Control, !FieldDescription.Validate(Data, value, out errorMessage) ? errorMessage : string.Empty);
         }
 
         protected object DataValue

@@ -82,14 +82,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
                     isArea = true;
                 }
             }
-            if (isArea)
-            {
-                label = new Label(Locations.Null, Locations.Null, Locations.Null);
-            }
-            else
-            {
-                label = new Label(Locations.Null);
-            }
+            label = isArea ? new Label(Locations.Null, Locations.Null, Locations.Null) : new Label(Locations.Null);
 
             // compute the On label, and the side labels if present
             for (int i = 0; i < 2; i++)

@@ -63,14 +63,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
             BinaryWriter writer = null;
             try
             {
-                if (encodingType == ByteOrder.LittleEndian)
-                {
-                    writer = new BinaryWriter(stream);
-                }
-                else
-                {
-                    writer = new BEBinaryWriter(stream);
-                }
+                writer = encodingType == ByteOrder.LittleEndian ? new BinaryWriter(stream) : new BEBinaryWriter(stream);
                 Write(geometry, writer);
             }
             finally

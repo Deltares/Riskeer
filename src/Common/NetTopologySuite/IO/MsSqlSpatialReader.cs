@@ -11,14 +11,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
             ByteOrder byteOrder = (ByteOrder) stream.ReadByte();
             try
             {
-                if (byteOrder == ByteOrder.BigEndian)
-                {
-                    reader = new BEBinaryReader(stream);
-                }
-                else
-                {
-                    reader = new BinaryReader(stream);
-                }
+                reader = byteOrder == ByteOrder.BigEndian ? new BEBinaryReader(stream) : new BinaryReader(stream);
                 IGeometry geometry = Read(reader);
                 int srid = -1;
                 try

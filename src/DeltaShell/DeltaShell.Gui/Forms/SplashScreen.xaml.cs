@@ -208,14 +208,7 @@ namespace DeltaShell.Gui.Forms
             ProgressBarValue = newInfo.ProgressValue;
             ProgressBarText = newInfo.ProgressText;
 
-            if (newInfo.Message != "")
-            {
-                labelProgressMessage.Content = newInfo.Message;
-            }
-            else
-            {
-                labelProgressMessage.Content = lastProgressMessage;
-            }
+            labelProgressMessage.Content = newInfo.Message != "" ? newInfo.Message : lastProgressMessage;
         }
 
         private void SplashScreen_VisibleChanged(object sender, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)

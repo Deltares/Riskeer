@@ -73,14 +73,7 @@ namespace DelftTools.Controls.Swf
             }
 
             fileDlg.Title = "Select " + context.PropertyDescriptor.DisplayName;
-            if (value == null)
-            {
-                fileDlg.FileName = "";
-            }
-            else
-            {
-                fileDlg.FileName = value.ToString();
-            }
+            fileDlg.FileName = value == null ? "" : value.ToString();
 
             FileDialogFilterAttribute filterAtt =
                 context.PropertyDescriptor.Attributes[typeof(FileDialogFilterAttribute)] as

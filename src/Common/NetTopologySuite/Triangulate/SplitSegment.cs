@@ -27,14 +27,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         {
             double actualLen = GetConstrainedLength(length);
             double frac = actualLen/_segLen;
-            if (endPt.Equals2D(_seg.P0))
-            {
-                SplitPoint = _seg.PointAlong(frac);
-            }
-            else
-            {
-                SplitPoint = PointAlongReverse(_seg, frac);
-            }
+            SplitPoint = endPt.Equals2D(_seg.P0) ? _seg.PointAlong(frac) : PointAlongReverse(_seg, frac);
         }
 
         public void SplitAt(ICoordinate pt)

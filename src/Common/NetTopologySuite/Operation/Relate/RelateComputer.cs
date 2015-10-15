@@ -396,14 +396,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
                 Assert.IsTrue(label.GeometryCount > 0, "node with empty label found");
                 if (n.IsIsolated)
                 {
-                    if (label.IsNull(0))
-                    {
-                        LabelIsolatedNode(n, 0);
-                    }
-                    else
-                    {
-                        LabelIsolatedNode(n, 1);
-                    }
+                    LabelIsolatedNode(n, label.IsNull(0) ? 0 : 1);
                 }
             }
         }

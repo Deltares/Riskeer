@@ -565,15 +565,7 @@ namespace DelftTools.TestUtils
             }
 
             // 25% is the best result GREEN, less or greater than goes to yellow
-            double localValue;
-            if (fraction >= 0.25)
-            {
-                localValue = Math.Min(1, (fraction - 0.25)/0.75);
-            }
-            else
-            {
-                localValue = Math.Max(0, (0.25 - fraction)/0.25);
-            }
+            var localValue = fraction >= 0.25 ? Math.Min(1, (fraction - 0.25)/0.75) : Math.Max(0, (0.25 - fraction)/0.25);
 
             return colors[(int) (localValue*100.0)];
         }

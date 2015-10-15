@@ -47,14 +47,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="coordSeq">The coordinate array that will be referenced.</param>      
         public CoordinateArraySequence(ICoordinateSequence coordSeq)
         {
-            if (coordSeq != null)
-            {
-                coordinates = new ICoordinate[coordSeq.Count];
-            }
-            else
-            {
-                coordinates = new ICoordinate[0];
-            }
+            coordinates = coordSeq != null ? new ICoordinate[coordSeq.Count] : new ICoordinate[0];
             for (int i = 0; i < coordinates.Length; i++)
             {
                 coordinates[i] = coordSeq.GetCoordinateCopy(i);

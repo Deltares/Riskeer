@@ -156,14 +156,7 @@ namespace SharpMap.Converters.WellKnownText.IO
         public TokenType NextToken(bool ignoreWhitespace)
         {
             TokenType nextTokenType;
-            if (ignoreWhitespace)
-            {
-                nextTokenType = NextNonWhitespaceToken();
-            }
-            else
-            {
-                nextTokenType = NextTokenAny();
-            }
+            nextTokenType = ignoreWhitespace ? NextNonWhitespaceToken() : NextTokenAny();
             return nextTokenType;
         }
 

@@ -126,14 +126,9 @@ namespace DelftTools.Controls.Swf.Charting
 
         private void Generate()
         {
-            if (trackerStyle == Style.simpleRect)
-            {
-                Bitmap = GenerateSimpleTrackerImage(new Pen(foreColor), new SolidBrush(BackColor), Size, Size);
-            }
-            else
-            {
-                Bitmap = GenerateCompositeTrackerImage(new Pen(foreColor), new SolidBrush(BackColor), Size, Size, 6, 6);
-            }
+            Bitmap = trackerStyle == Style.simpleRect
+                ? GenerateSimpleTrackerImage(new Pen(foreColor), new SolidBrush(BackColor), Size, Size)
+                : GenerateCompositeTrackerImage(new Pen(foreColor), new SolidBrush(BackColor), Size, Size, 6, 6);
         }
     }
 }

@@ -56,14 +56,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
             stream.Position = 0;
             try
             {
-                if (byteOrder == ByteOrder.BigEndian)
-                {
-                    reader = new BEBinaryReader(stream);
-                }
-                else
-                {
-                    reader = new BinaryReader(stream);
-                }
+                reader = byteOrder == ByteOrder.BigEndian ? new BEBinaryReader(stream) : new BinaryReader(stream);
                 return Read(reader);
             }
             finally

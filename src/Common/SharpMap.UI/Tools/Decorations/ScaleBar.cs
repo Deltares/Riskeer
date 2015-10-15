@@ -399,14 +399,7 @@ namespace SharpMap.UI.Tools.Decorations
             {
                 int digits = (int) Math.Log10(Math.Abs(value));
                 // if (digits >= 0) ++digits; // if you care about the exact number
-                if (Math.Abs(digits) >= 5)
-                {
-                    s = string.Format("{0:0.#E+0}", value);
-                }
-                else
-                {
-                    s = string.Format("{0:0.##}", value);
-                }
+                s = string.Format(Math.Abs(digits) >= 5 ? "{0:0.#E+0}" : "{0:0.##}", value);
             }
             else
             {
@@ -423,14 +416,9 @@ namespace SharpMap.UI.Tools.Decorations
         private void CalcScale(Graphics graphics)
         {
             double fScale;
-            if (MapUnit == MapUnits.ws_muDegree) //LatLong
-            {
-                fScale = CalcRFScaleD(graphics, m_fLon1, m_fLon2, m_fLat, m_nPageWidth);
-            }
-            else
-            {
-                fScale = CalcRFScale(graphics, m_fMapWidth, m_nPageWidth, m_fMapUnitFactor);
-            }
+            fScale = MapUnit == MapUnits.ws_muDegree 
+                ? CalcRFScaleD(graphics, m_fLon1, m_fLon2, m_fLat, m_nPageWidth) 
+                : CalcRFScale(graphics, m_fMapWidth, m_nPageWidth, m_fMapUnitFactor);
             m_fScale = fScale;
         }
 
@@ -695,16 +683,8 @@ namespace SharpMap.UI.Tools.Decorations
             //char buf[MAX_LEN];
             Brush brush = new SolidBrush(Color.Black);
 
-            if (ScaleText == sbScaleText.ws_stUnitsOnly)
-            {
-                graphics.DrawString("0", font, brush, x, y, f);
-            }
-            //DrawTextWithAlign( "0", x, y, TA_TOP | TA_LEFT);
-            else
-            {
-                //DrawTextWithAlign( str_unit, x, y, TA_TOP | TA_LEFT);
-                graphics.DrawString(str_unit, font, brush, x, y, f);
-            }
+            //? DrawTextWithAlign( "0", x, y, TA_TOP | TA_LEFT) : DrawTextWithAlign( str_unit, x, y, TA_TOP | TA_LEFT);
+            graphics.DrawString(ScaleText == sbScaleText.ws_stUnitsOnly ? "0" : str_unit, font, brush, x, y, f);
 
 //Set the output format.
 
@@ -903,14 +883,7 @@ namespace SharpMap.UI.Tools.Decorations
             var y = nOffsetY;
             for (int i = 0; i < nNumTics; i++)
             {
-                if (i%2 != 0)
-                {
-                    graphics.DrawLine(pen, x, y, x + nOffsetX, y);
-                }
-                else
-                {
-                    graphics.DrawLine(pen2, x, y, x + nOffsetX, y);
-                }
+                graphics.DrawLine(i%2 != 0 ? pen : pen2, x, y, x + nOffsetX, y);
                 x += nTicLength;
             }
         }

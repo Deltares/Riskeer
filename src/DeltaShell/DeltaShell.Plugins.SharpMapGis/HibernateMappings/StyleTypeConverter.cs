@@ -46,14 +46,7 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
 
                 // See what kind of style this is
                 string styleType = csd.GetPropertyValue("display-style");
-                if (styleType == "label")
-                {
-                    style = GetLabelStyle(csd);
-                }
-                else
-                {
-                    style = GetVectorStyle(csd);
-                }
+                style = styleType == "label" ? GetLabelStyle(csd) : GetVectorStyle(csd);
 
                 // Generic style properties assignment
                 GetGeneralProperties(csd, style);

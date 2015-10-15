@@ -187,14 +187,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
                         indexParts = shapeReader.ReadIndexParts(leReader, numParts);
                         ICoordinate[] coordinates = shapeReader.ReadCoordinates(leReader, numPoints);
 
-                        if (numParts == 1)
-                        {
-                            list.Add(shapeReader.CreateLineString(coordinates));
-                        }
-                        else
-                        {
-                            list.Add(shapeReader.CreateMultiLineString(numPoints, indexParts, coordinates));
-                        }
+                        list.Add(numParts == 1 ? shapeReader.CreateLineString(coordinates) : shapeReader.CreateMultiLineString(numPoints, indexParts, coordinates));
                     }
                 }
             }
@@ -232,14 +225,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
                         indexParts = shapeReader.ReadIndexParts(reader, numParts);
                         ICoordinate[] coordinates = shapeReader.ReadCoordinates(reader, numPoints);
 
-                        if (numParts == 1)
-                        {
-                            list.Add(shapeReader.CreateSimpleSinglePolygon(coordinates));
-                        }
-                        else
-                        {
-                            list.Add(shapeReader.CreateSingleOrMultiPolygon(numPoints, indexParts, coordinates));
-                        }
+                        list.Add(numParts == 1 ? shapeReader.CreateSimpleSinglePolygon(coordinates) : shapeReader.CreateSingleOrMultiPolygon(numPoints, indexParts, coordinates));
                     }
                 }
             }

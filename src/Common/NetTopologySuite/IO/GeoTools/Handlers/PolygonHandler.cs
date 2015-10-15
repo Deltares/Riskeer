@@ -69,14 +69,7 @@ namespace GisSharpBlog.NetTopologySuite.IO.Handlers
             for (int part = 0; part < numParts; part++)
             {
                 start = partOffsets[part];
-                if (part == numParts - 1)
-                {
-                    finish = numPoints;
-                }
-                else
-                {
-                    finish = partOffsets[part + 1];
-                }
+                finish = part == numParts - 1 ? numPoints : partOffsets[part + 1];
                 length = finish - start;
                 CoordinateList points = new CoordinateList();
                 points.Capacity = length;

@@ -438,14 +438,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
                 var label = n.Label;
                 if (n.IsIsolated)
                 {
-                    if (label.IsNull(0))
-                    {
-                        LabelIncompleteNode(n, 0);
-                    }
-                    else
-                    {
-                        LabelIncompleteNode(n, 1);
-                    }
+                    LabelIncompleteNode(n, label.IsNull(0) ? 0 : 1);
                 }
                 // now update the labelling for the DirectedEdges incident on this node
                 ((DirectedEdgeStar) n.Edges).UpdateLabelling(label);

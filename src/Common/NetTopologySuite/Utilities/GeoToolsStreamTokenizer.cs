@@ -113,15 +113,7 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
         /// <returns>The TokenType of the next token.</returns>
         public TokenType NextToken(bool ignoreWhitespace)
         {
-            TokenType nextTokenType;
-            if (ignoreWhitespace)
-            {
-                nextTokenType = NextNonWhitespaceToken();
-            }
-            else
-            {
-                nextTokenType = NextTokenAny();
-            }
+            var nextTokenType = ignoreWhitespace ? NextNonWhitespaceToken() : NextTokenAny();
             return nextTokenType;
         }
 

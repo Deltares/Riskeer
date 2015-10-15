@@ -326,24 +326,10 @@ namespace SharpMap.Rendering
             switch (feature.GeometryType)
             {
                 case "Polygon":
-                    if (style.EnableOutline)
-                    {
-                        DrawPolygon(g, (IPolygon) feature, style.Fill, style.Outline, clippingEnabled, map);
-                    }
-                    else
-                    {
-                        DrawPolygon(g, (IPolygon) feature, style.Fill, null, clippingEnabled, map);
-                    }
+                    DrawPolygon(g, (IPolygon) feature, style.Fill, style.EnableOutline ? style.Outline : null, clippingEnabled, map);
                     break;
                 case "MultiPolygon":
-                    if (style.EnableOutline)
-                    {
-                        DrawMultiPolygon(g, (IMultiPolygon) feature, style.Fill, style.Outline, clippingEnabled, map);
-                    }
-                    else
-                    {
-                        DrawMultiPolygon(g, (IMultiPolygon) feature, style.Fill, null, clippingEnabled, map);
-                    }
+                    DrawMultiPolygon(g, (IMultiPolygon) feature, style.Fill, style.EnableOutline ? style.Outline : null, clippingEnabled, map);
                     break;
                 case "LineString":
                     DrawLineString(g, (ILineString) feature, style.Line, map);
@@ -513,26 +499,12 @@ namespace SharpMap.Rendering
                             {
                                 if (0 < tin2)
                                 {
-                                    if (tinx > tiny)
-                                    {
-                                        line.Add(new PointF(xin, y1 + tinx*deltay));
-                                    }
-                                    else
-                                    {
-                                        line.Add(new PointF(x1 + tiny*deltax, yin));
-                                    }
+                                    line.Add(tinx > tiny ? new PointF(xin, y1 + tinx*deltay) : new PointF(x1 + tiny*deltax, yin));
                                 }
 
                                 if (1 > tout)
                                 {
-                                    if (toutx < touty)
-                                    {
-                                        line.Add(new PointF(xout, y1 + toutx*deltay));
-                                    }
-                                    else
-                                    {
-                                        line.Add(new PointF(x1 + touty*deltax, yout));
-                                    }
+                                    line.Add(toutx < touty ? new PointF(xout, y1 + toutx*deltay) : new PointF(x1 + touty*deltax, yout));
                                 }
                                 else
                                 {
@@ -541,14 +513,7 @@ namespace SharpMap.Rendering
                             }
                             else
                             {
-                                if (tinx > tiny)
-                                {
-                                    line.Add(new PointF(xin, yout));
-                                }
-                                else
-                                {
-                                    line.Add(new PointF(xout, yin));
-                                }
+                                line.Add(tinx > tiny ? new PointF(xin, yout) : new PointF(xout, yin));
                             }
                         }
                     }

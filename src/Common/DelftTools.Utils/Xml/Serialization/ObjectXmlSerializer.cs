@@ -304,16 +304,7 @@ namespace DelftTools.Utils.Xml.Serialization
 
         private static FileStream CreateFileStream(IsolatedStorageFile isolatedStorageFolder, string path)
         {
-            FileStream fileStream;
-
-            if (isolatedStorageFolder == null)
-            {
-                fileStream = new FileStream(path, FileMode.OpenOrCreate);
-            }
-            else
-            {
-                fileStream = new IsolatedStorageFileStream(path, FileMode.OpenOrCreate, isolatedStorageFolder);
-            }
+            var fileStream = isolatedStorageFolder == null ? new FileStream(path, FileMode.OpenOrCreate) : new IsolatedStorageFileStream(path, FileMode.OpenOrCreate, isolatedStorageFolder);
 
             return fileStream;
         }
@@ -347,33 +338,14 @@ namespace DelftTools.Utils.Xml.Serialization
 
         private static TextReader CreateTextReader(IsolatedStorageFile isolatedStorageFolder, string path)
         {
-            TextReader textReader;
-
-            if (isolatedStorageFolder == null)
-            {
-                textReader = new StreamReader(path);
-            }
-            else
-            {
-                textReader = new StreamReader(new IsolatedStorageFileStream(path, FileMode.Open, isolatedStorageFolder));
-            }
+            TextReader textReader = isolatedStorageFolder == null ? new StreamReader(path) : new StreamReader(new IsolatedStorageFileStream(path, FileMode.Open, isolatedStorageFolder));
 
             return textReader;
         }
 
         private static TextWriter CreateTextWriter(IsolatedStorageFile isolatedStorageFolder, string path)
         {
-            TextWriter textWriter;
-
-            if (isolatedStorageFolder == null)
-            {
-                textWriter = new StreamWriter(path);
-            }
-            else
-            {
-                textWriter =
-                    new StreamWriter(new IsolatedStorageFileStream(path, FileMode.OpenOrCreate, isolatedStorageFolder));
-            }
+            TextWriter textWriter = isolatedStorageFolder == null ? new StreamWriter(path) : new StreamWriter(new IsolatedStorageFileStream(path, FileMode.OpenOrCreate, isolatedStorageFolder));
 
             return textWriter;
         }
@@ -382,16 +354,7 @@ namespace DelftTools.Utils.Xml.Serialization
         {
             Type ObjectType = typeof(T);
 
-            XmlSerializer xmlSerializer;
-
-            if (extraTypes != null)
-            {
-                xmlSerializer = new XmlSerializer(ObjectType, extraTypes);
-            }
-            else
-            {
-                xmlSerializer = new XmlSerializer(ObjectType);
-            }
+            var xmlSerializer = extraTypes != null ? new XmlSerializer(ObjectType, extraTypes) : new XmlSerializer(ObjectType);
 
             return xmlSerializer;
         }

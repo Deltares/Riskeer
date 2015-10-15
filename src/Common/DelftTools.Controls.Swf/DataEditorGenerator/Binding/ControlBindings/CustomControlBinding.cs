@@ -57,14 +57,7 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
         public void Validate(object value)
         {
             string errorMessage;
-            if (!fieldDescription.Validate(Data, value, out errorMessage))
-            {
-                ErrorProvider.SetError(EditControl, errorMessage);
-            }
-            else
-            {
-                ErrorProvider.SetError(EditControl, string.Empty);
-            }
+            ErrorProvider.SetError(EditControl, !fieldDescription.Validate(Data, value, out errorMessage) ? errorMessage : string.Empty);
         }
 
         public void RefreshEnabled()

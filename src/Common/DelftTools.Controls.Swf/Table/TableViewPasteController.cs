@@ -170,15 +170,9 @@ namespace DelftTools.Controls.Swf.Table
         {
             TableViewCell topLeft;
             var selectedRows = TableView.SelectedRowsIndices;
-            if (selectedRows.Length == 0)
-            {
-                topLeft = new TableViewCell(TableView.RowCount, TableView.GetColumnByDisplayIndex(0));
-            }
-            else
-            {
-                //start pasting at the first row
-                topLeft = new TableViewCell(selectedRows[0], TableView.GetColumnByDisplayIndex(0));
-            }
+            topLeft = selectedRows.Length == 0 
+                ? new TableViewCell(TableView.RowCount, TableView.GetColumnByDisplayIndex(0)) 
+                : new TableViewCell(selectedRows[0], TableView.GetColumnByDisplayIndex(0));
 
             return new RectangleSelection(topLeft, topLeft);
         }

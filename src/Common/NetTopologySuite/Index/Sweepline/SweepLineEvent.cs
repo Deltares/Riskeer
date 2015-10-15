@@ -37,14 +37,7 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
         {
             xValue = x;
             this.insertEvent = insertEvent;
-            if (insertEvent != null)
-            {
-                eventType = SweepLineEvents.Delete;
-            }
-            else
-            {
-                eventType = SweepLineEvents.Insert;
-            }
+            eventType = insertEvent != null ? SweepLineEvents.Delete : SweepLineEvents.Insert;
             Interval = sweepInt;
         }
 

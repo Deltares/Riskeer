@@ -213,14 +213,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         {
             if (ToolTipEnabled)
             {
-                if (Style == CursorToolStyles.Vertical)
-                {
-                    ToolTip.Show(string.Format("    {0:N2}", XValue), ChartControl);
-                }
-                else
-                {
-                    ToolTip.Show(string.Format("    {0:N2}", YValue), ChartControl);
-                }
+                ToolTip.Show(Style == CursorToolStyles.Vertical ? string.Format("    {0:N2}", XValue) : string.Format("    {0:N2}", YValue), ChartControl);
             }
             if (ValueChanged != null)
             {

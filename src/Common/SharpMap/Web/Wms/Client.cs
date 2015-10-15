@@ -98,14 +98,7 @@ namespace SharpMap.Web.Wms
                 }
 
                 nsmgr.AddNamespace(String.Empty, "http://www.opengis.net/wms");
-                if (WmsVersion == "1.3.0")
-                {
-                    nsmgr.AddNamespace("sm", "http://www.opengis.net/wms");
-                }
-                else
-                {
-                    nsmgr.AddNamespace("sm", "");
-                }
+                nsmgr.AddNamespace("sm", WmsVersion == "1.3.0" ? "http://www.opengis.net/wms" : "");
                 nsmgr.AddNamespace("xlink", "http://www.w3.org/1999/xlink");
                 nsmgr.AddNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
             }

@@ -349,14 +349,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Linemerge
             Node fromNode = null;
             while (true)
             {
-                if (pos == null)
-                {
-                    pos = list.AddLast(de.Sym);
-                }
-                else
-                {
-                    pos = list.AddAfter(pos, de.Sym);
-                }
+                pos = pos == null ? list.AddLast(de.Sym) : list.AddAfter(pos, de.Sym);
                 de.Edge.Visited = true;
                 fromNode = de.FromNode;
                 DirectedEdge unvisitedOutDE = FindUnvisitedBestOrientedDE(fromNode);

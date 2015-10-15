@@ -137,14 +137,9 @@ namespace DelftTools.Shell.Core.Workflow
         {
             var task = (AsyncActivityRunner) sender;
 
-            if (task.Activity.Status == ActivityStatus.Cancelled)
-            {
-                Debug.WriteLine(string.Format("Cancelled activity {0}", task.Activity.Name));
-            }
-            else
-            {
-                Debug.WriteLine(string.Format("Finished activity {0}", task.Activity.Name));
-            }
+            Debug.WriteLine(task.Activity.Status == ActivityStatus.Cancelled
+                ? string.Format("Cancelled activity {0}", task.Activity.Name)
+                : string.Format("Finished activity {0}", task.Activity.Name));
 
             try
             {
@@ -193,14 +188,9 @@ namespace DelftTools.Shell.Core.Workflow
         {
             if (!sender.CompletedSuccesfully)
             {
-                if (String.IsNullOrEmpty(sender.Activity.Name))
-                {
-                    log.Error("An error occured while running a background activity: ", sender.Exception);
-                }
-                else
-                {
-                    log.Error(String.Format("An error occured while running activity {0}: ", sender.Activity.Name), sender.Exception);
-                }
+                log.Error(String.IsNullOrEmpty(sender.Activity.Name) 
+                    ? "An error occured while running a background activity: " 
+                    : String.Format("An error occured while running activity {0}: ", sender.Activity.Name), sender.Exception);
             }
 
             if (ActivityCompleted != null)

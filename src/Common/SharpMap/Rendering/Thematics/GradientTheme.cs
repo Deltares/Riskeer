@@ -479,14 +479,7 @@ namespace SharpMap.Rendering.Thematics
                 style.BackColor = InterpolateBrush(min.BackColor, max.BackColor, value);
             }
 
-            if (TextColorBlend != null)
-            {
-                style.ForeColor = LineColorBlend.GetColor(Convert.ToSingle(Fraction(value)));
-            }
-            else
-            {
-                style.ForeColor = InterpolateColor(min.ForeColor, max.ForeColor, value);
-            }
+            style.ForeColor = TextColorBlend != null ? LineColorBlend.GetColor(Convert.ToSingle(Fraction(value))) : InterpolateColor(min.ForeColor, max.ForeColor, value);
             if (min.Halo != null && max.Halo != null)
             {
                 style.Halo = InterpolatePen(min.Halo, max.Halo, value);

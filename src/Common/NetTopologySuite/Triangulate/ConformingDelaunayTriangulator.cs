@@ -288,40 +288,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
             ConvexHull = hull.GetConvexHull();
         }
 
-        // /**
-        // * Adds the segments in the Convex Hull of all sites in the input data as
-        // linear constraints.
-        // * This is required if TIN Refinement is performed. The hull segments are
-        // flagged with a
-        // unique
-        // * data object to allow distinguishing them.
-        // *
-        // * @param convexHullSegmentData the data object to attach to each convex
-        // hull segment
-        // */
-        // private void addConvexHullToConstraints(Object convexHullSegmentData) {
-        // Coordinate[] coords = convexHull.getCoordinates();
-        // for (int i = 1; i < coords.length; i++) {
-        // Segment s = new Segment(coords[i - 1], coords[i], convexHullSegmentData);
-        // addConstraintIfUnique(s);
-        // }
-        // }
-
-        // private void addConstraintIfUnique(Segment r) {
-        // boolean exists = false;
-        // Iterator it = segments.iterator();
-        // Segment s = null;
-        // while (it.hasNext()) {
-        // s = (Segment) it.next();
-        // if (r.equalsTopo(s)) {
-        // exists = true;
-        // }
-        // }
-        // if (!exists) {
-        // segments.add((Object) r);
-        // }
-        // }
-
         private ICoordinate[] GetPointArray()
         {
             ICoordinate[] pts = new ICoordinate[_initialVertices.Count
@@ -341,14 +307,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         private ConstraintVertex CreateVertex(ICoordinate p)
         {
             ConstraintVertex v = null;
-            if (VertexFactory != null)
-            {
-                v = VertexFactory.CreateVertex(p, null);
-            }
-            else
-            {
-                v = new ConstraintVertex(p);
-            }
+            v = VertexFactory != null ? VertexFactory.CreateVertex(p, null) : new ConstraintVertex(p);
             return v;
         }
 
@@ -361,14 +320,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         private ConstraintVertex CreateVertex(ICoordinate p, Segment seg)
         {
             ConstraintVertex v;
-            if (VertexFactory != null)
-            {
-                v = VertexFactory.CreateVertex(p, seg);
-            }
-            else
-            {
-                v = new ConstraintVertex(p);
-            }
+            v = VertexFactory != null ? VertexFactory.CreateVertex(p, seg) : new ConstraintVertex(p);
             v.IsOnConstraint = true;
             return v;
         }
@@ -412,13 +364,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
             // insert constraint vertices as sites
             InsertSites(_segVertices);
         }
-
-        /*
-	     * private List findMissingConstraints() { List missingSegs = new ArrayList();
-	     * for (int i = 0; i < segments.size(); i++) { Segment s = (Segment)
-	     * segments.get(i); QuadEdge q = subdiv.locate(s.getStart(), s.getEnd()); if
-	     * (q == null) missingSegs.add(s); } return missingSegs; }
-	     */
 
         private int EnforceGabriel(ICollection<Segment> segsToInsert)
         {
@@ -507,8 +452,6 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
             return splits;
         }
 
-        //	public static final String DEBUG_SEG_SPLIT = "C:\\proj\\CWB\\test\\segSplit.jml";
-
         /// <summary>
         /// Given a set of points stored in the kd-tree and a line segment defined by
         /// two points in this set, finds a {@link Coordinate} in the circumcircle of
@@ -518,8 +461,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
         /// segment.
         /// </summary>
         /// <param name="seg">the line segment</param>
-        /// <returns>a point which is non-Gabriel,
-        /// or null if no point is non-Gabriel
+        /// <returns>a point which is non-Gabriel, or null if no point is non-Gabriel
         /// </returns>
         private ICoordinate FindNonGabrielPoint(Segment seg)
         {
