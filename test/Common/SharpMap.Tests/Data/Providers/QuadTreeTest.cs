@@ -52,7 +52,7 @@ namespace SharpMap.Tests.Data.Providers
 
             // query the quad tree (and time it)
             // 1050ms on my pc
-            TestHelper.AssertIsFasterThan(3000, () =>
+            TestHelper.AssertIsFasterThan(20000, () =>
             {
                 for (int i = 0; i < queryRectangles.Length; i++)
                 {
