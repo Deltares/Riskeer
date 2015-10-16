@@ -100,6 +100,7 @@ namespace Wti.Forms.NodePresenters
             var failureMechanism = (PipingFailureMechanism) parentNodeData;
 
             failureMechanism.PipingData = null;
+            failureMechanism.NotifyObservers();
             return true;
         }
 
