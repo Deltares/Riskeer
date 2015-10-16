@@ -37,5 +37,13 @@ namespace DelftTools.TestUtils
             public static readonly TestDataPath DeltaShellDeltaShellPluginsSharpMapGisTestsRasterData =
                 @"DeltaShell/DeltaShell.Plugins.SharpMapGis.Tests/RasterData/";
         }
+
+        public static class Plugins
+        {
+            public static class Wti
+            {
+                public static readonly TestDataPath WtiIOPath = @"Plugins/Wti/IO/";
+            }
+        }
     }
 }

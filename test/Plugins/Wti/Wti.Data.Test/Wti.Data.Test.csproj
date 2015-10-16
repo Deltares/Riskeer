@@ -49,6 +49,8 @@
     <Compile Include="PipingDataTest.cs" />
     <Compile Include="PipingFailureMechanismTest.cs" />
     <Compile Include="PipingOutputTest.cs" />
+    <Compile Include="PipingSurfaceLineTest.cs" />
+    <Compile Include="Point3DTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WtiProjectTest.cs" />
   </ItemGroup>
