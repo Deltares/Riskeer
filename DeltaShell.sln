@@ -160,7 +160,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UML", "src\documentation\UM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Base", "src\Common\Wti.Base\Wti.Base.csproj", "{C90B77DA-E421-43CC-B82E-529651BC21AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Calculation.TestUtil", "Wti.Calculation.TestUtil\Wti.Calculation.TestUtil.csproj", "{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Calculation.TestUtil", "test\Plugins\Wti\Wti.Calculation.TestUtil\Wti.Calculation.TestUtil.csproj", "{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
