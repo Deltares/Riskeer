@@ -11,7 +11,6 @@ using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
 using DelftTools.Shell.Gui.Forms;
-using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.PropertyBag.Dynamic;
 using DeltaShell.Gui.Properties;
@@ -54,16 +53,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         /// </summary>
         private readonly IGui gui;
 
-        /// <summary>
-        /// objectTypes is a collection of used types. The type of the object is used as key,
-        /// the value is the number of occurences in selectedObjects
-        /// </summary>
-        private readonly Dictionary<Type, int> objectTypes = new Dictionary<Type, int>();
-
-        // The selected object as they are available to the outside world
-        private object[] selectedObjects;
-
-        private INotifyPropertyChanged notifiableProperty;
+        private object selectedObject;
 
         public PropertyGrid(IGui gui)
         {
@@ -154,54 +144,20 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             return null;
         }
 
-        private object[] SelectedObjects
-        {
-            get
-            {
-                return selectedObjects;
-            }
-            [InvokeRequired]
-            set
-            {
-                selectedObjects = value;
-                OnSelectedObjectsChanged();
-            }
-        }
-
         private object SelectedObject
         {
             get
             {
-                if (selectedObjects == null)
-                {
-                    return null;
-                }
-
-                return selectedObjects[0];
+                return selectedObject;
             }
 
             set
             {
-                // If the object is only one list, show all the contained items
-                IEnumerable ienum = value as IEnumerable;
-                if (ienum != null)
-                {
-                    ArrayList objects = new ArrayList();
-                    IEnumerator obj = ienum.GetEnumerator();
-                    // Create array of the items in the list
-                    while (obj.MoveNext())
-                    {
-                        objects.Add(obj.Current);
-                    }
-                    SelectedObjects = objects.Count > 0 ? objects.ToArray() : null;  // If this was an empty list, set the property grid to null
-                }
-                else
-                {
-                    // Show a single object
-                    object[] objects = new object[1];
-                    objects[0] = value;
-                    SelectedObjects = objects;
-                }
+                if (selectedObject == value)
+                    return;
+
+                selectedObject = value;
+                OnSelectedObjectsChanged();                
             }
         }
 
@@ -217,9 +173,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                 observableProperty.Detach(this);
             }
 
-            notifiableProperty = null;
-            notifiableCollection = null;
-
             var selection = gui.Selection;
 
             if (selection == null)
@@ -228,50 +181,13 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                 return;
             }
 
-            notifiableProperty = selection as INotifyPropertyChanged;
             observableProperty = selection as IObservable;
             if (observableProperty != null)
             {
                 observableProperty.Attach(this);
             }
 
-            notifiableCollection = selection as INotifyCollectionChanged;
-
-            object propertyObject;
-
-            if (selection is IEnumerable)
-            {
-                // Try to get a object properties for the enumerable directly
-                propertyObject = GetObjectProperties(selection);
-
-                if (propertyObject == null || propertyObject == selection)
-                {
-                    // Otherwise, create an array list with object properties for the individual elements of the enumerable
-                    var enumerable = (IEnumerable) selection;
-                    var providers = new ArrayList();
-
-                    foreach (var element in enumerable)
-                    {
-                        var o = GetObjectProperties(element);
-
-                        if (o != null)
-                        {
-                            providers.Add(o);
-                        }
-                    }
-
-                    propertyObject = providers;
-                }
-            }
-            else
-            {
-                propertyObject = GetObjectProperties(selection);
-            }
-
-            if (selectedObjects != propertyObject)
-            {
-                SelectedObject = propertyObject;
-            }
+            SelectedObject = GetObjectProperties(selection);
         }
 
         private List<PropertyInfo> FilterPropertyInfoByTypeInheritance(List<PropertyInfo> propertyInfo, Func<PropertyInfo, Type> getTypeAction)
@@ -334,87 +250,17 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         /// </summary>
         private void OnSelectedObjectsChanged()
         {
-            objectTypes.Clear();
-
-            if (SelectedObjects == null)
+            if (SelectedObject == null)
             {
                 propertyGrid1.SelectedObject = null;
-
                 return;
             }
+            
+            var selectedType = GetRelevantType(SelectedObject);
 
-            if (SelectedObjects[0] == null)
-            {
-                if (propertyGrid1.SelectedObjects.Length > 0)
-                {
-                    propertyGrid1.SelectedObjects = new object[0];
-                }
+            Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, selectedType.Name);
 
-                return;
-            }
-
-            if (SelectedObjects.Length == 1)
-            {
-                var selectedType = GetRelevantType(SelectedObjects[0]);
-
-                Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, selectedType.Name);
-
-                objectTypes.Add(selectedType, 1);
-            }
-            else
-            {
-                Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_multiple_objects_);
-
-                int count = 0;
-
-                for (int i = 0; i < SelectedObjects.Length; i++)
-                {
-                    var selectedType = GetRelevantType(SelectedObjects[i]);
-
-                    if (!objectTypes.ContainsKey(selectedType))
-                    {
-                        objectTypes.Add(selectedType, 1);
-                    }
-                    else
-                    {
-                        objectTypes[selectedType] = objectTypes[selectedType] + 1;
-                    }
-
-                    //Aggregate logging results for speed reasons:
-                    string currOne = selectedType.Name;
-                    int hash = currOne.GetHashCode();
-                    bool printAggregate = false;
-                    count++;
-                    if (i < (selectedObjects.Length - 1)) //not at the end yet, look at next one
-                    {
-                        string nextOne = GetRelevantType(selectedObjects[i + 1]).Name;
-                        int nextHash = nextOne.GetHashCode();
-                        printAggregate = hash != nextHash;
-                    }
-                    else //last one, print ourselves, plus previous if same
-                    {
-                        //(we know there are at least two objects in the list)
-                        string prevOne = GetRelevantType(selectedObjects[i - 1]).Name;
-                        int prevHash = prevOne.GetHashCode();
-
-                        if (hash != prevHash)
-                        {
-                            Log.DebugFormat("    1x: {0}", currOne);
-                        }
-                        else
-                        {
-                            printAggregate = true;
-                        }
-                    }
-                    if (printAggregate)
-                    {
-                        Log.DebugFormat("    {0}x: {1}", count, currOne);
-                        count = 0;
-                    }
-                }
-            }
-
-            propertyGrid1.SelectedObject = SelectedObjects.Count() > 1 ? SelectedObjects[1] : SelectedObjects[0];
+            propertyGrid1.SelectedObject = SelectedObject;
         }
 
         private static Type GetRelevantType(object obj)
@@ -467,7 +313,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         #region enable tab key navigation on propertygrid
 
         private readonly Timer refreshTimer;
-        private INotifyCollectionChanged notifiableCollection;
         private IObservable observableProperty;
 
         /// <summary>
