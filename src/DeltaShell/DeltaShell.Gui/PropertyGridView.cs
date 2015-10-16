@@ -15,7 +15,7 @@ using log4net;
 
 namespace DeltaShell.Gui
 {
-    public class PropertyGridView : System.Windows.Forms.PropertyGrid, IPropertyGrid, IObserver
+    public class PropertyGridView : PropertyGrid, IPropertyGrid, IObserver
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(PropertyGridView));
 
@@ -31,7 +31,6 @@ namespace DeltaShell.Gui
 
         public PropertyGridView(IGui gui)
         {
-//            InitializeComponent();
             HideTabsButton();
 
             this.gui = gui;
@@ -58,11 +57,6 @@ namespace DeltaShell.Gui
                 OnSelectedObjectChanged();
             }
         }
-
-//        public override void Refresh()
-//        {
-//            Refresh();
-//        }
 
         public void UpdateObserver()
         {
@@ -230,12 +224,9 @@ namespace DeltaShell.Gui
 
         private static Type GetRelevantType(object obj)
         {
-            if (obj is DynamicPropertyBag)
-            {
-                var bag = obj as DynamicPropertyBag;
-                return bag.GetContentType();
-            }
-            return obj.GetType();
+            var propertyBag = obj as DynamicPropertyBag;
+
+            return propertyBag != null ? propertyBag.GetContentType() : obj.GetType();
         }
 
         #region IPropertyGrid Members
