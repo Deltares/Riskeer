@@ -25,7 +25,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
             var objectProperties = propertyGrid.GetObjectProperties(1.0);
 
             Assert.IsNull(objectProperties);
@@ -52,7 +52,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
             var objectProperties = propertyGrid.GetObjectProperties(new A());
 
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
@@ -83,7 +83,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
             var objectProperties = propertyGrid.GetObjectProperties(new A());
 
             Assert.IsNull(objectProperties);
@@ -120,7 +120,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
             var objectProperties = propertyGrid.GetObjectProperties(new C()); //we ask for C
 
             Assert.AreSame(typeof(SimpleProperties<C>),
@@ -149,7 +149,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
             var objectProperties = propertyGrid.GetObjectProperties(new D());
 
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
@@ -178,7 +178,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
             var objectProperties = propertyGrid.GetObjectProperties(new D());
 
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
@@ -213,7 +213,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
             var objectProperties = propertyGrid.GetObjectProperties(new D());
 
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
@@ -241,7 +241,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
             var objectProperties = propertyGrid.GetObjectProperties(new B());
 
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
@@ -273,7 +273,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
             var objectProperties = propertyGrid.GetObjectProperties(new B());
 
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
@@ -303,7 +303,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
             var objectProperties = propertyGrid.GetObjectProperties(new B());
 
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
@@ -337,7 +337,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
             var objectProperties = propertyGrid.GetObjectProperties(new B());
 
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
@@ -366,7 +366,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
             mocks.ReplayAll();
 
             object propertyObject = new B();
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
 
             TestHelper.AssertLogMessageIsGenerated(() => propertyObject = propertyGrid.GetObjectProperties(new B()), "Multiple object property instances found for the same data object: no object properties are displayed in the property grid");
 
@@ -411,7 +411,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new DeltaShell.Gui.Forms.PropertyGrid.PropertyGrid(gui);
+            var propertyGrid = new PropertyGridView(gui);
             var objectProperties = propertyGrid.GetObjectProperties(new C());
 
             Assert.IsTrue(objectProperties is DynamicPropertyBag);

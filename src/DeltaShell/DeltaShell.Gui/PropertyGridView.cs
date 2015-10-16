@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,34 +13,11 @@ using DelftTools.Utils.PropertyBag.Dynamic;
 using DeltaShell.Gui.Properties;
 using log4net;
 
-namespace DeltaShell.Gui.Forms.PropertyGrid
+namespace DeltaShell.Gui
 {
-    /// TODO: get rid of the properties class or create them runtime like this:
-    /// http://stackoverflow.com/questions/313822/how-to-modify-propertygrid-at-runtime-add-remove-property-and-dynamic-types-enum
-    /// Having to create property classes for everty state of the object is too much code 
-    /// <summary>
-    /// PropertyGrid extends the functionality of the PropertyGrid by extra support
-    /// for objects of different types. The default behaviour of the PropertyGrid is to show
-    /// only the common properties of the objects in the selectedObjects array. In some cases
-    /// it is desirable to add an extra filter for objects types.
-    /// An example were this behaviour is requested is the 1d schematisation editor. The user 
-    /// selects the objects in the GIS oriented view by tracking a rectangle. The objects 
-    /// inside the rectangle are set as selectedObjects in a propertygrid. In many cases the 
-    /// objects in the selection rectangle will be of different types; this results in a very 
-    /// limited subset of shared properties.
-    /// Typically a user is only interested in river profiles or culverts. This 
-    /// PropertyGrid user control automatically makes a subdivision of the different
-    /// types in the selectedObjects array and offers the user the chance to make a selection
-    /// via a combobox.
-    /// 
-    /// Note the combobox at the Top of the propertygrid tries to mimic the behaviour of the 
-    /// combobox in Visual Studio. If 1 object is selected the Id is shown bold followed by 
-    /// the type description.
-    ///
-    /// </summary>
-    public sealed partial class PropertyGrid : UserControl, IPropertyGrid, IObserver
+    public class PropertyGridView : System.Windows.Forms.PropertyGrid, IPropertyGrid, IObserver
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(PropertyGrid));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(PropertyGridView));
 
         /// <summary>
         /// todo: This is still an unwanted dependency. PropertyGrid uses gui to subscribe to the SelectionChanged
@@ -52,9 +29,9 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         private object selectedObject;
         private IObservable observableProperty;
 
-        public PropertyGrid(IGui gui)
+        public PropertyGridView(IGui gui)
         {
-            InitializeComponent();
+//            InitializeComponent();
             HideTabsButton();
 
             this.gui = gui;
@@ -62,9 +39,34 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             gui.SelectionChanged += GuiSelectionChanged;
         }
 
+        public new object SelectedObject
+        {
+            get
+            {
+                return selectedObject;
+            }
+            set
+            {
+                // Performance optimization
+                if (selectedObject == value)
+                {
+                    return;
+                }
+
+                selectedObject = value;
+
+                OnSelectedObjectChanged();
+            }
+        }
+
+//        public override void Refresh()
+//        {
+//            Refresh();
+//        }
+
         public void UpdateObserver()
         {
-            propertyGrid.Refresh();
+            Refresh();
         }
 
         public object GetObjectProperties(object sourceData)
@@ -107,35 +109,26 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             return null;
         }
 
-        public override void Refresh()
+        protected override void Dispose(bool disposing)
         {
-            propertyGrid.Refresh();
-        }
-
-        private object SelectedObject
-        {
-            get
+            if (gui != null)
             {
-                return selectedObject;
+                gui.SelectionChanged -= GuiSelectionChanged;
             }
-            set
+
+            if (observableProperty != null)
             {
-                // Performance optimization
-                if (selectedObject == value)
-                {
-                    return;
-                }
-
-                selectedObject = value;
-
-                OnSelectedObjectChanged();
+                observableProperty.Detach(this);
             }
+
+            base.Dispose(disposing);
         }
 
         private void HideTabsButton()
         {
             // removing "property tabs" button and separator before it
-            var strip = propertyGrid.Controls.OfType<ToolStrip>().ToList()[0];
+            // TODO: case we used derived functionality for this?
+            var strip = Controls.OfType<ToolStrip>().ToList()[0];
             strip.Items[3].Visible = false;
             strip.Items[4].Visible = false;
         }
@@ -224,7 +217,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         {
             if (SelectedObject == null)
             {
-                propertyGrid.SelectedObject = null;
+                base.SelectedObject = null;
                 return;
             }
 
@@ -232,7 +225,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
             Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, selectedType.Name);
 
-            propertyGrid.SelectedObject = SelectedObject;
+            base.SelectedObject = SelectedObject;
         }
 
         private static Type GetRelevantType(object obj)
@@ -288,8 +281,8 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         {
             if ((keyData == Keys.Tab) || (keyData == (Keys.Tab | Keys.Shift)))
             {
-                GridItem selectedItem = propertyGrid.SelectedGridItem;
-                GridItem root = selectedItem;
+                var selectedItem = SelectedGridItem;
+                var root = selectedItem;
                 if (selectedItem == null)
                 {
                     return false;
@@ -299,7 +292,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                     root = root.Parent;
                 }
                 // Find all expanded items and put them in a list.
-                ArrayList items = new ArrayList();
+                var items = new ArrayList();
                 AddExpandedItems(root, items);
 
                 // Find selectedItem.
@@ -311,10 +304,10 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                     {
                         foundIndex = items.Count - 1;
                     }
-                    propertyGrid.SelectedGridItem = (GridItem) items[foundIndex];
-                    if (propertyGrid.SelectedGridItem.GridItems.Count > 0)
+                    SelectedGridItem = (GridItem) items[foundIndex];
+                    if (SelectedGridItem.GridItems.Count > 0)
                     {
-                        propertyGrid.SelectedGridItem.Expanded = false;
+                        SelectedGridItem.Expanded = false;
                     }
                 }
                 else
@@ -326,11 +319,11 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                         {
                             foundIndex = 0;
                         }
-                        propertyGrid.SelectedGridItem = (GridItem) items[foundIndex];
+                        SelectedGridItem = (GridItem) items[foundIndex];
                     }
-                    if (propertyGrid.SelectedGridItem.GridItems.Count > 0)
+                    if (SelectedGridItem.GridItems.Count > 0)
                     {
-                        propertyGrid.SelectedGridItem.Expanded = true;
+                        SelectedGridItem.Expanded = true;
                     }
                 }
 

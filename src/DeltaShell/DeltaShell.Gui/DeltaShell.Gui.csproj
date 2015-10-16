@@ -140,6 +140,9 @@
     <Compile Include="Forms\ProgressDialog\ProgressDialog.Designer.cs">
       <DependentUpon>ProgressDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="PropertyGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -183,12 +186,6 @@
     </Compile>
     <Compile Include="Forms\OptionsDialog\OptionsDialog.Designer.cs">
       <DependentUpon>OptionsDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\PropertyGrid\PropertyGrid.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\PropertyGrid\PropertyGrid.Designer.cs">
-      <DependentUpon>PropertyGrid.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\RichTextView.cs">
       <SubType>UserControl</SubType>
@@ -489,10 +486,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProgressDialog\ProgressDialog.resx">
       <DependentUpon>ProgressDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PropertyGrid\PropertyGrid.resx">
-      <DependentUpon>PropertyGrid.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ViewManager\ViewSelectionContextMenuController.resx">
       <DependentUpon>ViewSelectionContextMenuController.cs</DependentUpon>

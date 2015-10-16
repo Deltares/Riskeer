@@ -62,7 +62,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
         private bool resetDefaultLayout;
 
         private MessageWindow.MessageWindow messageWindow;
-        private PropertyGrid.PropertyGrid propertyGrid;
+        private PropertyGridView propertyGrid;
         private WindowInteropHelper windowInteropHelper;
 
         private IEnumerable<IRibbonCommandHandler> ribbonCommandHandlers;
@@ -267,7 +267,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
         {
             if ((propertyGrid == null) || (propertyGrid.IsDisposed))
             {
-                propertyGrid = new PropertyGrid.PropertyGrid(Gui);
+                propertyGrid = new PropertyGridView(Gui);
             }
 
             propertyGrid.Text = Properties.Resources.Properties;
