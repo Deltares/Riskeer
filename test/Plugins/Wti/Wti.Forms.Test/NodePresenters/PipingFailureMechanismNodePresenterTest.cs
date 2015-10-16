@@ -51,7 +51,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetChildNodeObjects_Always_ReturnPipingDataChildNode()
+        public void GetChildNodeObjects_Always_ReturnChildDataNodes()
         {
             // Setup
             var mocks = new MockRepository();
