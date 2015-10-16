@@ -269,20 +269,12 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         }
 
         public void EnsureVisible(object item) {}
+
         public ViewInfo ViewInfo { get; set; }
 
         #endregion
 
-        #region Enable tab key navigation on propertygrid
-
-        /// <summary>
-        /// Gets or sets whether to expand an item when pressing tab.
-        /// </summary>
-        /// <remarks>
-        /// When <c>true</c> items are also unexpanded when pressing shift-tab.
-        /// Note that the enter key will always work to expand.
-        /// </remarks>
-        public bool ExpandOnTab { get; set; }
+        #region Enable tab key navigation on property grid
 
         /// <summary>
         /// Do special processing for Tab key. 
@@ -320,7 +312,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                         foundIndex = items.Count - 1;
                     }
                     propertyGrid.SelectedGridItem = (GridItem) items[foundIndex];
-                    if (ExpandOnTab && (propertyGrid.SelectedGridItem.GridItems.Count > 0))
+                    if (propertyGrid.SelectedGridItem.GridItems.Count > 0)
                     {
                         propertyGrid.SelectedGridItem.Expanded = false;
                     }
@@ -336,7 +328,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                         }
                         propertyGrid.SelectedGridItem = (GridItem) items[foundIndex];
                     }
-                    if (ExpandOnTab && (propertyGrid.SelectedGridItem.GridItems.Count > 0))
+                    if (propertyGrid.SelectedGridItem.GridItems.Count > 0)
                     {
                         propertyGrid.SelectedGridItem.Expanded = true;
                     }
