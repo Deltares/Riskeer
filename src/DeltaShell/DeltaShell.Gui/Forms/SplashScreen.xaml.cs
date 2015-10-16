@@ -13,7 +13,7 @@ namespace DeltaShell.Gui.Forms
     /// <summary>
     ///     Interaction logic for SplashScreen.xaml
     /// </summary>
-    public partial class SplashScreen : Window
+    public partial class SplashScreen
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DeltaShellApplication));
 

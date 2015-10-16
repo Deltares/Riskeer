@@ -9,8 +9,8 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
     /// An iterator over the components and coordinates of a linear geometry
     /// (<see cref="LineString" />s and <see cref="MultiLineString" />s.
     /// </summary>
-    public class LinearIterator : IEnumerator<LinearIterator.LinearElement>, IEnumerator,
-                                  IEnumerable<LinearIterator.LinearElement>, IEnumerable
+    public class LinearIterator : IEnumerator<LinearIterator.LinearElement>,
+                                  IEnumerable<LinearIterator.LinearElement>
     {
         // Cached start values - for Reset() call
         private readonly int startComponentIndex = 0;

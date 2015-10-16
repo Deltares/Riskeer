@@ -16,7 +16,6 @@ using DeltaShell.Core;
 using DeltaShell.Gui.Properties;
 using log4net;
 using NDesk.Options;
-using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
 namespace DeltaShell.Gui
@@ -24,7 +23,7 @@ namespace DeltaShell.Gui
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         private delegate void ExceptionDelegate(Exception exception, bool isTerminating);
 

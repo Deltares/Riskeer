@@ -13,7 +13,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
     /// <remarks>	
     /// To create a ShapefileDataReader, use the static methods on the Shapefile class.
     /// </remarks>
-    public class ShapefileDataReader : IDataReader, IDataRecord, IEnumerable, IDisposable
+    public class ShapefileDataReader : IDataReader, IEnumerable
     {
         private bool _open = false;
         private readonly DbaseFieldDescriptor[] _dbaseFields;

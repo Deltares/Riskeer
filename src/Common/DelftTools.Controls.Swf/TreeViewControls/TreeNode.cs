@@ -8,7 +8,7 @@ using log4net;
 
 namespace DelftTools.Controls.Swf.TreeViewControls
 {
-    public class TreeNode : System.Windows.Forms.TreeNode, ITreeNode, IObserver, IDisposable
+    public class TreeNode : System.Windows.Forms.TreeNode, ITreeNode, IObserver
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly TreeNodeList nodes;
