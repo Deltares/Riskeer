@@ -203,7 +203,6 @@
     <Compile Include="SnappingCalculator.cs" />
     <Compile Include="TextDocument.cs" />
     <Compile Include="DeltaShellDateTimeConverter.cs" />
-    <Compile Include="Drawing\ColorHelper.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
     <Compile Include="EnumDescriptionAttributeTypeConverter.cs" />
     <Compile Include="EventArgs.cs" />

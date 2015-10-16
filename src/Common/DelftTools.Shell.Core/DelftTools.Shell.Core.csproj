@@ -89,7 +89,6 @@
     <Compile Include="Dao\IDataAccessListenersProvider.cs" />
     <Compile Include="Dao\ILegacyLoader.cs" />
     <Compile Include="Dao\IProjectRepositoryListener.cs" />
-    <Compile Include="Dao\IProjectTemplateFileBuilder.cs" />
     <Compile Include="Extensions\CompositeActivityExtensions.cs" />
     <Compile Include="IObservable.cs" />
     <Compile Include="IObserver.cs" />
