@@ -1,21 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
 using DelftTools.Shell.Gui.Forms;
-using DelftTools.Utils.Collections;
 using DelftTools.Utils.PropertyBag.Dynamic;
 using DeltaShell.Gui.Properties;
 using log4net;
-using PropertyInfo = DelftTools.Shell.Gui.PropertyInfo;
 
 namespace DeltaShell.Gui.Forms.PropertyGrid
 {
@@ -64,20 +60,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             gui.SelectionChanged += GuiSelectionChanged;
 
             HideTabsButton();
-
-            refreshTimer = new Timer();
-            refreshTimer.Tick += delegate
-            {
-                if (IsInEditMode(propertyGrid1))
-                {
-                    return;
-                }
-                propertyGrid1.Refresh();
-                refreshTimer.Stop();
-            };
-            refreshTimer.Interval = 300;
-            refreshTimer.Enabled = true;
-            refreshTimer.Start();
         }
 
         private void HideTabsButton()
@@ -88,25 +70,9 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             strip.Items[4].Visible = false;
         }
 
-        //from: http://stackoverflow.com/questions/7553423/c-sharp-propertygrid-check-if-a-value-is-currently-beeing-edited
-        private static bool IsInEditMode(System.Windows.Forms.PropertyGrid grid)
-        {
-            if (grid == null)
-            {
-                throw new ArgumentNullException("grid");
-            }
-
-
-            var gridView = (Control) grid.GetType().GetField("gridView", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(grid);
-            var edit = (Control) gridView.GetType().GetField("edit", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(gridView);
-            var dropDownHolder = (Control) gridView.GetType().GetField("dropDownHolder", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(gridView);
-
-            return ((edit != null) && (edit.Visible & edit.Focused)) || ((dropDownHolder != null) && (dropDownHolder.Visible));
-        }
-
         public void UpdateObserver()
         {
-            refreshTimer.Start();
+            propertyGrid1.Refresh();
         }
 
         public object GetObjectProperties(object sourceData)
@@ -151,7 +117,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
         public override void Refresh()
         {
-            refreshTimer.Start();    
+            propertyGrid1.Refresh();
         }
 
         private object SelectedObject
@@ -322,7 +288,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
         #region enable tab key navigation on propertygrid
 
-        private readonly Timer refreshTimer;
         private IObservable observableProperty;
 
         /// <summary>
