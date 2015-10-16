@@ -63,12 +63,8 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
             gui.SelectionChanged += GuiSelectionChanged;
 
-            // removing "property tabs" button and separator before it
-            var strip = propertyGrid1.Controls.OfType<ToolStrip>().ToList()[0] as ToolStrip;
-            strip.Items[3].Visible = false;
-            strip.Items[4].Visible = false;
+            HideTabsButton();
 
-            // TODO: make timer start only when property was changed and then stop
             refreshTimer = new Timer();
             refreshTimer.Tick += delegate
             {
@@ -82,6 +78,14 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             refreshTimer.Interval = 300;
             refreshTimer.Enabled = true;
             refreshTimer.Start();
+        }
+
+        private void HideTabsButton()
+        {
+            // removing "property tabs" button and separator before it
+            var strip = propertyGrid1.Controls.OfType<ToolStrip>().ToList()[0] as ToolStrip;
+            strip.Items[3].Visible = false;
+            strip.Items[4].Visible = false;
         }
 
         //from: http://stackoverflow.com/questions/7553423/c-sharp-propertygrid-check-if-a-value-is-currently-beeing-edited
