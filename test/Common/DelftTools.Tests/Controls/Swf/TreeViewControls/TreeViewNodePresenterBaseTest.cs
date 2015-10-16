@@ -47,22 +47,24 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             group.Children.Add(child1);
             group.Children.Add(child2);
 
-            var treeView = new TreeView();
-            treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
-            treeView.NodePresenters.Add(new PersonNodePresenter());
-            treeView.Data = group;
+            using (var treeView = new TreeView())
+            {
+                treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
+                treeView.NodePresenters.Add(new PersonNodePresenter());
+                treeView.Data = group;
 
-            WindowsFormsTestHelper.Show(treeView);
+                WindowsFormsTestHelper.Show(treeView);
 
-            Assert.AreEqual(3, GetAllNodes(treeView.Nodes).Count());
+                Assert.AreEqual(3, GetAllNodes(treeView.Nodes).Count());
 
-            group.Children.Remove(child1);
+                group.Children.Remove(child1);
 
-            treeView.WaitUntilAllEventsAreProcessed();
+                treeView.WaitUntilAllEventsAreProcessed();
 
-            Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
+                Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
 
-            WindowsFormsTestHelper.CloseAll();
+                WindowsFormsTestHelper.CloseAll();
+            }
         }
 
         [Test]
@@ -75,29 +77,31 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             };
             group.Children.Add(child1);
 
-            var treeView = new TreeView();
-            treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
-            treeView.NodePresenters.Add(new PersonNodePresenter());
-            treeView.Data = group;
+            using (var treeView = new TreeView())
+            {
+                treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
+                treeView.NodePresenters.Add(new PersonNodePresenter());
+                treeView.Data = group;
 
-            var groupNode = (TreeNode) treeView.Nodes[0];
-            Assert.AreEqual(true, groupNode.HasChildren);
+                var groupNode = (TreeNode) treeView.Nodes[0];
+                Assert.AreEqual(true, groupNode.HasChildren);
 
-            WindowsFormsTestHelper.Show(treeView);
+                WindowsFormsTestHelper.Show(treeView);
 
-            group.Children.Remove(child1);
+                group.Children.Remove(child1);
 
-            treeView.WaitUntilAllEventsAreProcessed();
+                treeView.WaitUntilAllEventsAreProcessed();
 
-            Assert.AreEqual(false, groupNode.HasChildren);
+                Assert.AreEqual(false, groupNode.HasChildren);
 
-            group.Children.Add(child1);
+                group.Children.Add(child1);
 
-            treeView.WaitUntilAllEventsAreProcessed();
+                treeView.WaitUntilAllEventsAreProcessed();
 
-            Assert.AreEqual(true, groupNode.HasChildren);
+                Assert.AreEqual(true, groupNode.HasChildren);
 
-            WindowsFormsTestHelper.CloseAll();
+                WindowsFormsTestHelper.CloseAll();
+            }
         }
 
         [Test]
@@ -115,22 +119,24 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             group.Children.Add(child1);
             group.Children.Add(child2);
 
-            var treeView = new TreeView();
-            treeView.NodePresenters.Add(new GroupNodePresenterUsingProperty());
-            treeView.NodePresenters.Add(new PersonNodePresenter());
-            treeView.Data = group;
+            using (var treeView = new TreeView())
+            {
+                treeView.NodePresenters.Add(new GroupNodePresenterUsingProperty());
+                treeView.NodePresenters.Add(new PersonNodePresenter());
+                treeView.Data = group;
 
-            WindowsFormsTestHelper.Show(treeView);
+                WindowsFormsTestHelper.Show(treeView);
 
-            Assert.AreEqual(3, GetAllNodes(treeView.Nodes).Count());
+                Assert.AreEqual(3, GetAllNodes(treeView.Nodes).Count());
 
-            group.Children.Remove(child1);
+                group.Children.Remove(child1);
 
-            treeView.WaitUntilAllEventsAreProcessed();
+                treeView.WaitUntilAllEventsAreProcessed();
 
-            Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
+                Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
 
-            WindowsFormsTestHelper.CloseAll();
+                WindowsFormsTestHelper.CloseAll();
+            }
         }
 
         [Test]
@@ -144,16 +150,18 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             group.Children.Add(person);
             group.Adults.Add(person);
 
-            var treeView = new TreeView();
-            treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
-            treeView.NodePresenters.Add(new PersonNodePresenter());
-            treeView.Data = group;
+            using (var treeView = new TreeView())
+            {
+                treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
+                treeView.NodePresenters.Add(new PersonNodePresenter());
+                treeView.Data = group;
 
-            Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
+                Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
 
-            group.Adults.Remove(person);
+                group.Adults.Remove(person);
 
-            Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
+                Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
+            }
         }
 
         #endregion Remove
@@ -173,25 +181,27 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
                 Name = "child2"
             };
 
-            var treeView = new TreeView();
-            treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
-            treeView.NodePresenters.Add(new PersonNodePresenter());
-            treeView.Data = group;
+            using (var treeView = new TreeView())
+            {
+                treeView.NodePresenters.Add(new GroupNodePresenterUsingCollection());
+                treeView.NodePresenters.Add(new PersonNodePresenter());
+                treeView.Data = group;
 
-            WindowsFormsTestHelper.Show(treeView);
+                WindowsFormsTestHelper.Show(treeView);
 
-            group.Children.Add(child1);
+                group.Children.Add(child1);
 
-            treeView.WaitUntilAllEventsAreProcessed();
+                treeView.WaitUntilAllEventsAreProcessed();
 
-            Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
+                Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
 
-            group.Children.Add(child2);
-            treeView.WaitUntilAllEventsAreProcessed();
+                group.Children.Add(child2);
+                treeView.WaitUntilAllEventsAreProcessed();
 
-            Assert.AreEqual(3, GetAllNodes(treeView.Nodes).Count());
+                Assert.AreEqual(3, GetAllNodes(treeView.Nodes).Count());
 
-            WindowsFormsTestHelper.CloseAll();
+                WindowsFormsTestHelper.CloseAll();
+            }
         }
 
         [Test]
@@ -207,26 +217,28 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
                 Name = "child2"
             };
 
-            var treeView = new TreeView();
-            treeView.NodePresenters.Add(new GroupNodePresenterUsingProperty());
-            treeView.NodePresenters.Add(new PersonNodePresenter());
-            treeView.Data = group;
+            using (var treeView = new TreeView())
+            {
+                treeView.NodePresenters.Add(new GroupNodePresenterUsingProperty());
+                treeView.NodePresenters.Add(new PersonNodePresenter());
+                treeView.Data = group;
 
-            WindowsFormsTestHelper.Show(treeView);
+                WindowsFormsTestHelper.Show(treeView);
 
-            Assert.AreEqual(1, GetAllNodes(treeView.Nodes).Count());
+                Assert.AreEqual(1, GetAllNodes(treeView.Nodes).Count());
 
-            group.Children.Add(child1);
-            treeView.WaitUntilAllEventsAreProcessed();
+                group.Children.Add(child1);
+                treeView.WaitUntilAllEventsAreProcessed();
 
-            Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
+                Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
 
-            group.Children.Add(child2);
-            treeView.WaitUntilAllEventsAreProcessed();
+                group.Children.Add(child2);
+                treeView.WaitUntilAllEventsAreProcessed();
 
-            Assert.AreEqual(3, GetAllNodes(treeView.Nodes).Count());
+                Assert.AreEqual(3, GetAllNodes(treeView.Nodes).Count());
 
-            WindowsFormsTestHelper.CloseAll();
+                WindowsFormsTestHelper.CloseAll();
+            }
         }
 
         #endregion Add
