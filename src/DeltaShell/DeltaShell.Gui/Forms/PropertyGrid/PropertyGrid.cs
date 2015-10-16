@@ -50,29 +50,21 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         private readonly IGui gui;
 
         private object selectedObject;
+        private IObservable observableProperty;
 
         public PropertyGrid(IGui gui)
         {
             InitializeComponent();
-            MinimumSize = new Size(200, 200);
+            HideTabsButton();
+
             this.gui = gui;
 
             gui.SelectionChanged += GuiSelectionChanged;
-
-            HideTabsButton();
-        }
-
-        private void HideTabsButton()
-        {
-            // removing "property tabs" button and separator before it
-            var strip = propertyGrid1.Controls.OfType<ToolStrip>().ToList()[0] as ToolStrip;
-            strip.Items[3].Visible = false;
-            strip.Items[4].Visible = false;
         }
 
         public void UpdateObserver()
         {
-            propertyGrid1.Refresh();
+            propertyGrid.Refresh();
         }
 
         public object GetObjectProperties(object sourceData)
@@ -86,7 +78,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             var propertyInfos = gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList();
 
             // 1. Match property information based on ObjectType and on AdditionalDataCheck
-            propertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsAssignableFrom(sourceData.GetType()) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToList();
+            propertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsInstanceOfType(sourceData) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToList();
 
             // 2. Match property information based on object type inheritance
             propertyInfos = FilterPropertyInfoByTypeInheritance(propertyInfos, pi => pi.ObjectType);
@@ -117,7 +109,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
         public override void Refresh()
         {
-            propertyGrid1.Refresh();
+            propertyGrid.Refresh();
         }
 
         private object SelectedObject
@@ -126,31 +118,36 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
             {
                 return selectedObject;
             }
-
             set
             {
+                // Performance optimization
                 if (selectedObject == value)
+                {
                     return;
+                }
 
                 selectedObject = value;
-                OnSelectedObjectsChanged();                
+
+                OnSelectedObjectChanged();
             }
+        }
+
+        private void HideTabsButton()
+        {
+            // removing "property tabs" button and separator before it
+            var strip = propertyGrid.Controls.OfType<ToolStrip>().ToList()[0];
+            strip.Items[3].Visible = false;
+            strip.Items[4].Visible = false;
         }
 
         private void GuiSelectionChanged(object sender, EventArgs e)
         {
-            if (IsDisposed)
-            {
-                return; //event may fire when propertygrid is already disposed.
-            }
-
             if (observableProperty != null)
             {
                 observableProperty.Detach(this);
             }
 
             var selection = gui.Selection;
-
             if (selection == null)
             {
                 SelectedObject = null;
@@ -168,7 +165,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
         private List<PropertyInfo> FilterPropertyInfoByTypeInheritance(List<PropertyInfo> propertyInfo, Func<PropertyInfo, Type> getTypeAction)
         {
-            var propertyInfoCount = propertyInfo.Count();
+            var propertyInfoCount = propertyInfo.Count;
             var propertyInfoWithUnInheritedType = propertyInfo.ToList();
 
             for (var i = 0; i < propertyInfoCount; i++)
@@ -220,23 +217,22 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         }
 
         /// <summary>
-        /// OnSelectedObjectsChanged
         /// If the selected objects changed rebuild the internal dictionary that counts the number of
         /// objects of each type.
         /// </summary>
-        private void OnSelectedObjectsChanged()
+        private void OnSelectedObjectChanged()
         {
             if (SelectedObject == null)
             {
-                propertyGrid1.SelectedObject = null;
+                propertyGrid.SelectedObject = null;
                 return;
             }
-            
+
             var selectedType = GetRelevantType(SelectedObject);
 
             Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, selectedType.Name);
 
-            propertyGrid1.SelectedObject = SelectedObject;
+            propertyGrid.SelectedObject = SelectedObject;
         }
 
         private static Type GetRelevantType(object obj)
@@ -247,15 +243,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                 return bag.GetContentType();
             }
             return obj.GetType();
-        }
-
-        private void PropertyGrid1PropertySortChanged(object sender, EventArgs e)
-        {
-            // Needed for maintaining property order
-            if (propertyGrid1.PropertySort == PropertySort.CategorizedAlphabetical)
-            {
-                propertyGrid1.PropertySort = PropertySort.Categorized;
-            }
         }
 
         #region IPropertyGrid Members
@@ -286,9 +273,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
         #endregion
 
-        #region enable tab key navigation on propertygrid
-
-        private IObservable observableProperty;
+        #region Enable tab key navigation on propertygrid
 
         /// <summary>
         /// Gets or sets whether to expand an item when pressing tab.
@@ -311,7 +296,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         {
             if ((keyData == Keys.Tab) || (keyData == (Keys.Tab | Keys.Shift)))
             {
-                GridItem selectedItem = propertyGrid1.SelectedGridItem;
+                GridItem selectedItem = propertyGrid.SelectedGridItem;
                 GridItem root = selectedItem;
                 if (selectedItem == null)
                 {
@@ -334,10 +319,10 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                     {
                         foundIndex = items.Count - 1;
                     }
-                    propertyGrid1.SelectedGridItem = (GridItem) items[foundIndex];
-                    if (ExpandOnTab && (propertyGrid1.SelectedGridItem.GridItems.Count > 0))
+                    propertyGrid.SelectedGridItem = (GridItem) items[foundIndex];
+                    if (ExpandOnTab && (propertyGrid.SelectedGridItem.GridItems.Count > 0))
                     {
-                        propertyGrid1.SelectedGridItem.Expanded = false;
+                        propertyGrid.SelectedGridItem.Expanded = false;
                     }
                 }
                 else
@@ -349,11 +334,11 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                         {
                             foundIndex = 0;
                         }
-                        propertyGrid1.SelectedGridItem = (GridItem) items[foundIndex];
+                        propertyGrid.SelectedGridItem = (GridItem) items[foundIndex];
                     }
-                    if (ExpandOnTab && (propertyGrid1.SelectedGridItem.GridItems.Count > 0))
+                    if (ExpandOnTab && (propertyGrid.SelectedGridItem.GridItems.Count > 0))
                     {
-                        propertyGrid1.SelectedGridItem.Expanded = true;
+                        propertyGrid.SelectedGridItem.Expanded = true;
                     }
                 }
 

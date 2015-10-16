@@ -23,6 +23,11 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                 gui.SelectionChanged -= GuiSelectionChanged;
             }
 
+            if (observableProperty != null)
+            {
+                observableProperty.Detach(this);
+            }
+
             base.Dispose(disposing);
         }
 
@@ -35,20 +40,20 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PropertyGrid));
-            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.SuspendLayout();
             // 
-            // propertyGrid1
+            // propertyGrid
             // 
-            resources.ApplyResources(this.propertyGrid1, "propertyGrid1");
-            this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.PropertySort = System.Windows.Forms.PropertySort.Categorized;
+            resources.ApplyResources(this.propertyGrid, "propertyGrid");
+            this.propertyGrid.Name = "propertyGrid";
+            this.propertyGrid.PropertySort = System.Windows.Forms.PropertySort.Categorized;
             // 
             // PropertyGrid
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.propertyGrid1);
+            this.Controls.Add(this.propertyGrid);
             this.Name = "PropertyGrid";
             this.ResumeLayout(false);
 
@@ -56,6 +61,6 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
         #endregion
 
-        private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private System.Windows.Forms.PropertyGrid propertyGrid;
     }
 }
