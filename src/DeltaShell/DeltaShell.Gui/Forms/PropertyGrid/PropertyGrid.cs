@@ -77,6 +77,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                     return;
                 }
                 propertyGrid1.Refresh();
+                refreshTimer.Stop();
             };
             refreshTimer.Interval = 300;
             refreshTimer.Enabled = true;
@@ -101,7 +102,7 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
         public void UpdateObserver()
         {
-            // refresh expected here
+            refreshTimer.Start();
         }
 
         public object GetObjectProperties(object sourceData)
@@ -142,6 +143,11 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
 
             Log.Debug(Resources.PropertyGrid_GetObjectProperties_Multiple_object_property_instances_found_for_the_same_data_object__no_object_properties_are_displayed_in_the_property_grid);
             return null;
+        }
+
+        public override void Refresh()
+        {
+            refreshTimer.Start();    
         }
 
         private object SelectedObject
