@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -11,8 +10,6 @@ using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
 using DelftTools.Shell.Gui.Forms;
-using DelftTools.Utils.Collections;
-using DelftTools.Utils.PropertyBag.Dynamic;
 using DeltaShell.Gui.Properties;
 using log4net;
 using PropertyInfo = DelftTools.Shell.Gui.PropertyInfo;
@@ -226,20 +223,14 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
         {
             try
             {
-                // Try to create object properties for the source data
-                var objectProperties = propertyInfo.CreateObjectProperties(sourceData);
-
-                // Return a dynamic property bag containing the created object properties
-                return objectProperties is DynamicPropertyBag
-                           ? (object) objectProperties
-                           : new DynamicPropertyBag(objectProperties);
+                return propertyInfo.CreateObjectProperties(sourceData);
             }
             catch (Exception)
             {
                 Log.Debug(Resources.PropertyGrid_CreateObjectProperties_Could_not_create_object_properties_for_the_data);
 
                 // Directly return the source data (TODO: Shouldn't we return "null" instead?)
-                return sourceData;
+                return null;
             }
         }
 
@@ -256,23 +247,11 @@ namespace DeltaShell.Gui.Forms.PropertyGrid
                 return;
             }
             
-            var selectedType = GetRelevantType(SelectedObject);
-
-            Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, selectedType.Name);
+            Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, SelectedObject.GetType().Name);
 
             propertyGrid1.SelectedObject = SelectedObject;
         }
-
-        private static Type GetRelevantType(object obj)
-        {
-            if (obj is DynamicPropertyBag)
-            {
-                var bag = obj as DynamicPropertyBag;
-                return bag.GetContentType();
-            }
-            return obj.GetType();
-        }
-
+        
         private void PropertyGrid1PropertySortChanged(object sender, EventArgs e)
         {
             // Needed for maintaining property order
