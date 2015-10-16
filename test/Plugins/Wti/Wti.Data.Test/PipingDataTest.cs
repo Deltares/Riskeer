@@ -136,44 +136,5 @@ namespace Wti.Data.Test
             // Call & Assert
             pipingData.Detach(observer);
         }
-
-        [Test]
-        public void Output_SetToNullWithListeners_ListenersNotified()
-        {
-            // Setup
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mockRepository.ReplayAll();
-
-            var pipingData = new PipingData();
-            pipingData.Attach(observer);
-
-            // Call & Assert
-            pipingData.Output = null;
-        }
-
-        [Test]
-        public void Output_SetToNewOutputWithListeners_ListenersNotified()
-        {
-            // Setup
-            var random = new Random(22);
-            var pipingData = new PipingData();
-
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            pipingData.Attach(observer);
-            mockRepository.ReplayAll();
-
-            // Call & Assert
-            pipingData.Output = new PipingOutput(
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextDouble()
-            );
-        }
     }
 }
