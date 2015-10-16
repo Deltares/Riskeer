@@ -75,7 +75,7 @@ namespace Wti.Forms.NodePresenters
 
         public bool CanRemove(object parentNodeData, object nodeData)
         {
-            return true;
+            return false;
         }
 
         public bool RemoveNodeData(object parentNodeData, object nodeData)

@@ -79,15 +79,6 @@ namespace Wti.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Piping berekening niet gelukt: {0}.
-        /// </summary>
-        public static string ErrorInPipingCalculation_0 {
-            get {
-                return ResourceManager.GetString("ErrorInPipingCalculation_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap FolderIcon {
@@ -167,6 +158,15 @@ namespace Wti.Forms.Properties {
         public static string PipingDataContextMenuCalculate {
             get {
                 return ResourceManager.GetString("PipingDataContextMenuCalculate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valideren.
+        /// </summary>
+        public static string PipingDataContextMenuValidate {
+            get {
+                return ResourceManager.GetString("PipingDataContextMenuValidate", resourceCulture);
             }
         }
         

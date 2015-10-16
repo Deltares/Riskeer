@@ -4,6 +4,7 @@ using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Wti.Calculation.Test.Piping.Stub;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
 using Wti.Forms.Test.Helper;
@@ -273,7 +274,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanRemove_Always_ReturnTrue()
+        public void CanRemove_Always_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -287,27 +288,21 @@ namespace Wti.Forms.Test.NodePresenters
             bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
 
             // Assert
-            Assert.IsTrue(removalAllowed);
+            Assert.IsFalse(removalAllowed);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
-        public void RemoveNodeData_ProjectWithPipingData_ReturnFalse()
+        public void RemoveNodeData_Always_ReturnFalse()
         {
             // Setup
-            var pipingData = new PipingData();
-
-            var project = new Project();
-            project.Items.Add(pipingData);
-
             var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(project, pipingData);
+            bool removalSuccesful = nodePresenter.RemoveNodeData(null, null);
 
             // Assert
             Assert.IsFalse(removalSuccesful);
-            CollectionAssert.Contains(project.Items, pipingData);
         }
     }
 }

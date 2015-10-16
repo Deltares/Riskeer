@@ -1,40 +1,67 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using log4net;
 using Wti.Calculation.Piping;
 using Wti.Data;
+using Wti.Service.Properties;
 
 namespace Wti.Service
 {
     /// <summary>
-    /// This class controls the <see cref="PipingData"/> and its PipingDataNodePresenter.
-    /// Interactions from the PipingDataNodePresenter are handles by this class.
+    /// This class is responsible for invoking operations on the <see cref="PipingCalculation"/>. Error and status information is 
+    /// logged during the execution of the operation. At the end of an operation, a <see cref="PipingCalculationResult"/> is returned,
+    /// representing the result of the operation.
     /// </summary>
     public static class PipingCalculationService
     {
+        private static readonly ILog PipingDataLogger = LogManager.GetLogger(typeof(PipingData));
+
         /// <summary>
         /// Performs a piping calculation based on the supplied <see cref="PipingData"/> and sets <see cref="PipingData.Output"/>
-        /// to the <see cref="PipingCalculationResult"/> if the calculation was successful.
+        /// to the <see cref="PipingCalculationResult"/> if the calculation was successful. Error and status information is logged during
+        /// the execution of the operation.
         /// </summary>
         /// <param name="pipingData">The <see cref="PipingData"/> to base the input for the calculation upon.</param>
-        /// <returns>A <see cref="List{T}"/> with all the messages that were returned due to validation errors in the given <paramref name="pipingData"/>
-        /// or error message that occurred when performing the calculation.</returns>
-        public static List<string> PerfromValidatedCalculation(PipingData pipingData)
+        /// <returns>If <paramref name="pipingData"/> contains validation errors, then <see cref="PipingCalculationResult.ValidationErrors"/> is returned.
+        /// If problems were encountered during the calculation, <see cref="PipingCalculationResult.CalculationErrors"/> is returned. 
+        /// Otherwise, <see cref="PipingCalculationResult.Successful"/> is returned.</returns>
+        public static PipingCalculationResult PerfromValidatedCalculation(PipingData pipingData)
         {
-            var validationResults = Validate(pipingData);
-            if (validationResults.Count > 0)
+            PipingCalculationResult validationResult = Validate(pipingData);
+
+            if (validationResult == PipingCalculationResult.Successful)
             {
                 ClearOutput(pipingData);
-                return validationResults;
+                return Calculate(pipingData);
             }
-            try
+
+            return validationResult;
+        }
+
+        /// <summary>
+        /// Performs validation over the values on the given <paramref name="pipingData"/>. Error and status information is logged during
+        /// the execution of the operation.
+        /// </summary>
+        /// <param name="pipingData">The <see cref="PipingData"/> for which to validate the values.</param>
+        /// <returns>If <paramref name="pipingData"/> contains validation errors, then <see cref="PipingCalculationResult.ValidationErrors"/> is returned.
+        /// Otherwise, <see cref="PipingCalculationResult.Successful"/> is returned.</returns>
+        public static PipingCalculationResult Validate(PipingData pipingData)
+        {
+            PipingDataLogger.Info(String.Format(Resources.ValidationStarted_0, DateTimeService.CurrentTimeAsString));
+
+            var validationResults = new PipingCalculation(CreateInputFromData(pipingData)).Validate();
+            LogMessagesAsError(validationResults.ToArray());
+
+            PipingDataLogger.Info(String.Format(Resources.ValidationEnded_0, DateTimeService.CurrentTimeAsString));
+
+            return validationResults.Count > 0 ? PipingCalculationResult.ValidationErrors : PipingCalculationResult.Successful;
+        }
+
+        private static void LogMessagesAsError(params string[] errorMessages)
+        {
+            foreach (var errorMessage in errorMessages)
             {
-                Calculate(pipingData);
+                PipingDataLogger.Error(string.Format(Resources.ErrorInPipingCalculation_0, errorMessage));
             }
-            catch (PipingCalculationException e)
-            {
-                ClearOutput(pipingData);
-                return new List<string>{ e.Message };
-            }
-            return new List<string>();
         }
 
         private static void ClearOutput(PipingData pipingData)
@@ -42,24 +69,32 @@ namespace Wti.Service
             pipingData.Output = null;
         }
 
-        private static void Calculate(PipingData pipingData)
+        private static PipingCalculationResult Calculate(PipingData pipingData)
         {
-            var input = CreateInputFromData(pipingData);
-            var pipingCalculation = new PipingCalculation(input);
+            PipingDataLogger.Info(String.Format(Resources.CalculationStarted_0, DateTimeService.CurrentTimeAsString));
 
-            var pipingResult = pipingCalculation.Calculate();
+            try
+            {
+                var pipingResult = new PipingCalculation(CreateInputFromData(pipingData)).Calculate();
 
-            pipingData.Output = new PipingOutput(pipingResult.UpliftZValue,
-                                                 pipingResult.UpliftFactorOfSafety,
-                                                 pipingResult.HeaveZValue, pipingResult.HeaveFactorOfSafety, pipingResult.SellmeijerZValue, pipingResult.SellmeijerFactorOfSafety);
+                pipingData.Output = new PipingOutput(pipingResult.UpliftZValue,
+                                                     pipingResult.UpliftFactorOfSafety,
+                                                     pipingResult.HeaveZValue,
+                                                     pipingResult.HeaveFactorOfSafety,
+                                                     pipingResult.SellmeijerZValue,
+                                                     pipingResult.SellmeijerFactorOfSafety);
+            }
+            catch (PipingCalculationException e)
+            {
+                LogMessagesAsError(e.Message);
+                return PipingCalculationResult.CalculationErrors;
+            }
+            finally
+            {
+                PipingDataLogger.Info(String.Format(Resources.CalculationEnded_0, DateTimeService.CurrentTimeAsString));
+            }
+            return PipingCalculationResult.Successful;
         }
-
-        public static List<string> Validate(PipingData pipingData)
-        {
-            var input = CreateInputFromData(pipingData);
-
-            return new PipingCalculation(input).Validate();
-        } 
 
         private static PipingCalculationInput CreateInputFromData(PipingData pipingData)
         {

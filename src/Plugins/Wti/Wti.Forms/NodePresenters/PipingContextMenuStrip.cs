@@ -18,15 +18,25 @@ namespace Wti.Forms.NodePresenters
         public Action<PipingData> OnCalculationClick { get; set; }
 
         /// <summary>
+        /// Gets or sets the <see cref="Action"/> which is performed when the validate item on a <see cref="PipingContextMenuStrip"/> is called.
+        /// </summary>
+        public Action<PipingData> OnValidationClick { get; set; }
+
+        /// <summary>
         /// Creates a new instance of <see cref="PipingContextMenuStrip"/> and assigns the <see cref="PipingData"/> to it.
         /// </summary>
         /// <param name="pipingData"></param>
         public PipingContextMenuStrip(PipingData pipingData)
         {
             this.pipingData = pipingData;
+
+            var validateItem = new ToolStripMenuItem(Resources.PipingDataContextMenuValidate);
+            validateItem.Click += ValidateItemClick;
+
             var calculateItem = new ToolStripMenuItem(Resources.PipingDataContextMenuCalculate);
             calculateItem.Click += CalculateItemClick;
-            Items.Add(calculateItem);
+
+            Items.AddRange(new ToolStripItem[] { validateItem, calculateItem });
         }
 
         private void CalculateItemClick(object sender, EventArgs e)
@@ -34,6 +44,14 @@ namespace Wti.Forms.NodePresenters
             if (OnCalculationClick != null)
             {
                 OnCalculationClick(pipingData);
+            }
+        }
+
+        private void ValidateItemClick(object sender, EventArgs e)
+        {
+            if (OnValidationClick != null)
+            {
+                OnValidationClick(pipingData);
             }
         }
     }

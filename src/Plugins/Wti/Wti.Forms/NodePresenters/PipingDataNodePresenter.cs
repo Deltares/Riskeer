@@ -5,7 +5,6 @@ using DelftTools.Controls;
 using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
 using log4net;
-using Wti.Calculation.Piping;
 using Wti.Data;
 using Wti.Forms.Properties;
 using Wti.Service;
@@ -78,23 +77,13 @@ namespace Wti.Forms.NodePresenters
 
         public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
         {
-            var contextMenu = new PipingContextMenuStrip((PipingData)nodeData);
+            var contextMenu = new PipingContextMenuStrip((PipingData) nodeData);
             var contextMenuAdapter = new MenuItemContextMenuStripAdapter(contextMenu);
 
             contextMenu.OnCalculationClick += PerformPipingCalculation;
+            contextMenu.OnValidationClick += PerformPipingValidation;
 
             return contextMenuAdapter;
-        }
-
-        private void PerformPipingCalculation(PipingData pipingData)
-        {
-            var calculationErrorMessages = PipingCalculationService.PerfromValidatedCalculation(pipingData);
-
-            foreach(var errorMessage in calculationErrorMessages) 
-            {
-                LogManager.GetLogger(typeof(PipingData)).Error(String.Format(Resources.ErrorInPipingCalculation_0, errorMessage));
-            }
-            pipingData.NotifyObservers();
         }
 
         public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}
@@ -112,6 +101,17 @@ namespace Wti.Forms.NodePresenters
 
             failureMechanism.PipingData = null;
             return true;
+        }
+
+        private void PerformPipingValidation(PipingData pipingData)
+        {
+            PipingCalculationService.Validate(pipingData);
+        }
+
+        private void PerformPipingCalculation(PipingData pipingData)
+        {
+            PipingCalculationService.PerfromValidatedCalculation(pipingData);
+            pipingData.NotifyObservers();
         }
     }
 }

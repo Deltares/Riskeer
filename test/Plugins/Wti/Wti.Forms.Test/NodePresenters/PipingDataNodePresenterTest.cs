@@ -271,8 +271,9 @@ namespace Wti.Forms.Test.NodePresenters
 
             // Assert
             Assert.NotNull(contextMenu);
-            Assert.AreEqual(1, contextMenu.ContextMenuStrip.Items.Count);
-            Assert.AreEqual(WtiFormsResources.PipingDataContextMenuCalculate, contextMenu.ContextMenuStrip.Items[0].Text);
+            Assert.AreEqual(2, contextMenu.ContextMenuStrip.Items.Count);
+            Assert.AreEqual(WtiFormsResources.PipingDataContextMenuCalculate, contextMenu.ContextMenuStrip.Items[1].Text);
+            Assert.AreEqual(WtiFormsResources.PipingDataContextMenuValidate, contextMenu.ContextMenuStrip.Items[0].Text);
             Assert.IsInstanceOf<PipingContextMenuStrip>(contextMenu.ContextMenuStrip);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
@@ -356,6 +357,11 @@ namespace Wti.Forms.Test.NodePresenters
         public void GivenInvalidPipingData_WhenCalculatingFromContextMenu_ThenPipingDataNotifiesObserversAndLogMessageAdded()
         {
             // Given
+            var expectedValidationMessageCount = 6;
+            var expectedStatusMessageCount = 2;
+            var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
+
+            var calculateContextMenuItemIndex = 1;
             var pipingData = new PipingData();
             var observer = mockRepository.StrictMock<IObserver>();
             var nodePresenter = new PipingDataNodePresenter();
@@ -367,11 +373,38 @@ namespace Wti.Forms.Test.NodePresenters
             var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData) as MenuItemContextMenuStripAdapter;
             
             // When
-            Action action = () => contextMenuAdapter.ContextMenuStrip.Items[0].PerformClick();
+            Action action = () => contextMenuAdapter.ContextMenuStrip.Items[calculateContextMenuItemIndex].PerformClick();
 
             // Then
-            TestHelper.AssertLogMessagesCount(action, 6);
+            TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
             Assert.IsNull(pipingData.Output);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GivenInvalidPipingData_WhenValidatingFromContextMenu_ThenLogMessageAddedAndNoNotifyObserver()
+        {
+            // Given
+            var expectedValidationMessageCount = 6;
+            var expectedStatusMessageCount = 2;
+            var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
+
+            var validateContextMenuItemIndex = 0;
+            var pipingData = new PipingData();
+            var observer = mockRepository.StrictMock<IObserver>();
+            var nodePresenter = new PipingDataNodePresenter();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Never();
+            pipingData.Attach(observer);
+
+            mockRepository.ReplayAll();
+
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData) as MenuItemContextMenuStripAdapter;
+
+            // When
+            Action action = () => contextMenuAdapter.ContextMenuStrip.Items[validateContextMenuItemIndex].PerformClick();
+
+            // Then
+            TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
             mockRepository.VerifyAll();
         }
 
@@ -379,6 +412,11 @@ namespace Wti.Forms.Test.NodePresenters
         public void GivenValidPipingData_WhenCalculatingFromContextMenu_ThenPipingDataNotifiesObservers()
         {
             // Given
+            var expectedCalculationStatusMessageCount = 2;
+            var expectedValidationStatusMessageCount = 2;
+            var expectedLogMessageCount = expectedCalculationStatusMessageCount + expectedValidationStatusMessageCount;
+
+            var calculateContextMenuItemIndex = 1;
             var pipingData = new PipingData();
             var validPipingInput = new TestPipingInput();
             pipingData.AssessmentLevel = validPipingInput.AssessmentLevel;
@@ -414,10 +452,10 @@ namespace Wti.Forms.Test.NodePresenters
             var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData) as MenuItemContextMenuStripAdapter;
 
             // When
-            Action action = () => contextMenuAdapter.ContextMenuStrip.Items[0].PerformClick();
+            Action action = () => contextMenuAdapter.ContextMenuStrip.Items[calculateContextMenuItemIndex].PerformClick();
 
             // Then
-            TestHelper.AssertLogMessagesCount(action, 0);
+            TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
             Assert.IsNotNull(pipingData.Output);
             mockRepository.VerifyAll();
         }
