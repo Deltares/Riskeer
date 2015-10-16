@@ -351,7 +351,7 @@ Select No to save the project as a new project at a different location.</value>
     <value>Stop All</value>
   </data>
   <data name="MessageWindow_showDetailsToolStripMenuItem_Click_Message_details" xml:space="preserve">
-    <value>Bericht details</value>
+    <value>Berichtdetails</value>
   </data>
   <data name="PluginStatusControl_UpdateInfo_Disable" xml:space="preserve">
     <value>Disable</value>
