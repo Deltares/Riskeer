@@ -23,7 +23,7 @@
 
   <!-- Change the colour of the description texts in the banners to white -->
   <String Id="BrowseDlgDescription">{\WixUI_Font_Banner_Description}Configureer de installatie locatie.</String>
-  <String Id="CustomizeDlgDescription">{\WixUI_Font_Banner_Description}Configureer de features die u wilt installeren.</String>
+  <String Id="CustomizeDlgDescription">{\WixUI_Font_Banner_Description}Configureer de programmaonderdelen die u wilt installeren.</String>
   <String Id="DiskCostDlgDescription">{\WixUI_Font_Banner_Description}De hoeveelheid geheugen nodig voor de geconfigureerde installatie.</String>
   <String Id="LicenseAgreementDlgDescription">{\WixUI_Font_Banner_Description}Lees de licentieovereenkomst zorgvuldig.</String>
   <String Id="MaintenanceTypeDlgDescription">{\WixUI_Font_Banner_Description}Selecteer de operatie die u wenst uit te voeren.</String>
