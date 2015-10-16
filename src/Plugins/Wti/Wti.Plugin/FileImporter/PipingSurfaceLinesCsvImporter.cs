@@ -65,7 +65,7 @@ namespace Wti.Plugin.FileImporter
         {
             get
             {
-                return String.Format("{0} {1}(*.csv)|*.csv",
+                return String.Format("{0} {1} (*.csv)|*.csv",
                                      WtiFormsResources.PipingSurfaceLinesCollectionName, ApplicationResources.CsvFileName);
             }
         }
@@ -84,12 +84,24 @@ namespace Wti.Plugin.FileImporter
 
         public bool CanImportOn(object targetObject)
         {
-            throw new NotImplementedException();
+            return targetObject is ICollection<PipingSurfaceLine>;
         }
 
         public object ImportItem(string path, object target = null)
         {
-            throw new NotImplementedException();
+            // TODO: Open file at 'path' with PipingSurfaceLinesCsvReader
+            // TODO: Determine line count (for progress)
+            // TODO: For each line...
+                // TODO: Check ShouldCancel for early abort
+                // TODO: Read line
+                // TODO: Parse line
+                // TODO: Create PipingSurfaceLine
+                // TODO: Set data on PipingSurfaceLine
+            // TODO: Add all PipingSurfaceLines to 'target' if no errors occur.
+
+            // TODO: Notifying observer?
+
+            return target;
         }
     }
 }

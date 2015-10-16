@@ -2,6 +2,8 @@
 using DelftTools.Shell.Core;
 using Mono.Addins;
 using Wti.Data;
+using Wti.Plugin.FileImporter;
+
 using WtiFormsResources = Wti.Forms.Properties.Resources;
 using ApplicationResources = Wti.Plugin.Properties.Resources;
 
@@ -51,6 +53,11 @@ namespace Wti.Plugin
                 Image = WtiFormsResources.WtiProjectFolderIcon,
                 CreateData = owner => new WtiProject()
             };
+        }
+
+        public override IEnumerable<IFileImporter> GetFileImporters()
+        {
+            yield return new PipingSurfaceLinesCsvImporter();
         }
     }
 }

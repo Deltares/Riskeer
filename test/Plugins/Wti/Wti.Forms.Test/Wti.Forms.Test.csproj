@@ -43,6 +43,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ContextMenuStripExtensionsTest.cs" />
     <Compile Include="NodePresenters\PipingDataNodePresenterTest.cs" />
     <Compile Include="Helper\PipingOutputCreator.cs" />
     <Compile Include="NodePresenters\PipingFailureMechanismNodePresenterTest.cs" />

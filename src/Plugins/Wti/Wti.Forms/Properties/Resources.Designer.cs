@@ -98,6 +98,34 @@ namespace Wti.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ImportIcon {
+            get {
+                object obj = ResourceManager.GetObject("ImportIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importeer dwarsdoorsnedes.
+        /// </summary>
+        public static string ImportSurfaceLines {
+            get {
+                return ResourceManager.GetString("ImportSurfaceLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importeer nieuwe dwarsdoorsnedes van een *.csv bestand..
+        /// </summary>
+        public static string ImportSurfaceLinesDescription {
+            get {
+                return ResourceManager.GetString("ImportSurfaceLinesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Peil dat gebruikt moet worden in de toetsing..
         /// </summary>
         public static string PipingDataAssessmentLevelDescription {

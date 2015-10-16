@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 
 using DelftTools.Controls;
+using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
 
 using NUnit.Framework;
@@ -247,7 +248,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_Always_ReturnNull()
+        public void GetContextMenu_DefaultScenario_ReturnNull()
         {
             // Setup
             var mocks = new MockRepository();
@@ -255,13 +256,45 @@ namespace Wti.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter
+            {
+                ImportSurfaceLinesAction = null
+            };
 
             // Call
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
             Assert.IsNull(contextMenu);
+            mocks.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void GetContextMenu_SurfaceLinesImportActionSet_HaveImportSurfaceLinesItemInContextMenu()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var dataMock = mocks.StrictMock<object>();
+            var actionStub = mocks.Stub<Action>();
+            mocks.ReplayAll();
+
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter
+            {
+                ImportSurfaceLinesAction = actionStub
+            };
+
+            // Call
+            var returnedContextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+
+            // Assert
+            var contextMenu = ((MenuItemContextMenuStripAdapter)returnedContextMenu).ContextMenuStrip;
+            Assert.AreEqual(1, contextMenu.Items.Count);
+            var importItem = contextMenu.Items[0];
+            Assert.AreEqual("Importeer dwarsdoorsnedes", importItem.Text);
+            Assert.AreEqual("Importeer nieuwe dwarsdoorsnedes van een *.csv bestand.", importItem.ToolTipText);
+            Assert.AreEqual(16, importItem.Image.Width);
+            Assert.AreEqual(16, importItem.Image.Height);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 

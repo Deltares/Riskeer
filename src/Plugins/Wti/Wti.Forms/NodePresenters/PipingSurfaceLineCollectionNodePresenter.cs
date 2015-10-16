@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Windows.Forms;
 
 using DelftTools.Controls;
+using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
 
 using Wti.Data;
+using Wti.Forms.Extensions;
 using Wti.Forms.Properties;
 
 namespace Wti.Forms.NodePresenters
@@ -18,6 +21,12 @@ namespace Wti.Forms.NodePresenters
     /// </summary>
     public class PipingSurfaceLineCollectionNodePresenter : ITreeNodePresenter
     {
+        /// <summary>
+        /// Injects the action to be performed when importing <see cref="PipingSurfaceLine"/>
+        /// instances to <see cref="PipingFailureMechanism.SurfaceLines"/>.
+        /// </summary>
+        public Action ImportSurfaceLinesAction { private get; set; }
+
         public ITreeView TreeView { get; set; }
 
         public Type NodeTagType
@@ -91,6 +100,10 @@ namespace Wti.Forms.NodePresenters
 
         public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
         {
+            if (ImportSurfaceLinesAction != null)
+            {
+                return new MenuItemContextMenuStripAdapter(CreateContextMenu());
+            }
             return null;
         }
 
@@ -112,6 +125,24 @@ namespace Wti.Forms.NodePresenters
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
             throw new InvalidOperationException(String.Format("Cannot delete node of type {0}.", GetType().Name));
+        }
+
+        private ContextMenuStrip CreateContextMenu()
+        {
+            var rootMenu = new ContextMenuStrip();
+
+            if (ImportSurfaceLinesAction != null)
+            {
+                rootMenu.AddMenuItem(Resources.ImportSurfaceLines, Resources.ImportSurfaceLinesDescription,
+                                     Resources.ImportIcon, ImportItemOnClick);
+            }
+
+            return rootMenu;
+        }
+
+        private void ImportItemOnClick(object sender, EventArgs eventArgs)
+        {
+            ImportSurfaceLinesAction();
         }
     }
 }

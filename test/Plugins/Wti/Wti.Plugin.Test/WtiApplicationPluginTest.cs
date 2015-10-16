@@ -4,6 +4,8 @@ using DelftTools.Shell.Core;
 using Mono.Addins;
 using NUnit.Framework;
 using Wti.Data;
+using Wti.Plugin.FileImporter;
+
 using PluginResources = Wti.Plugin.Properties.Resources;
 using FormsResources = Wti.Forms.Properties.Resources;
 
@@ -58,6 +60,20 @@ namespace Wti.Plugin.Test
             Assert.IsNull(projectDataItemDefinition.AdditionalOwnerCheck);
             Assert.IsInstanceOf<WtiProject>(projectDataItemDefinition.CreateData(null));
             Assert.IsNull(projectDataItemDefinition.AddExampleData);
+        }
+
+        [Test]
+        public void GetFileImporters_Always_ReturnExpectedFileImporters()
+        {
+            // Setup
+            var plugin = new WtiApplicationPlugin();
+
+            // Call
+            var importers = plugin.GetFileImporters().ToArray();
+
+            // Assert
+            Assert.AreEqual(1, importers.Length);
+            Assert.IsInstanceOf<PipingSurfaceLinesCsvImporter>(importers[0]);
         }
     }
 }
