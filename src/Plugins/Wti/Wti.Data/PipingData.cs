@@ -3,10 +3,16 @@ using DelftTools.Shell.Core;
 
 namespace Wti.Data
 {
+    /// <summary>
+    /// This class holds the information which can be made visible in the graphical interface of the application.
+    /// </summary>
     public class PipingData : IObservable
     {
         private readonly IList<IObserver> observers = new List<IObserver>();
 
+        /// <summary>
+        /// Constructs a new instance of <see cref="PipingData"/> with default values set for some of the parameters.
+        /// </summary>
         public PipingData()
         {
             // Defaults as they have been defined in the DikesPiping Kernel's Technical Documentation of 07 Oct 15
