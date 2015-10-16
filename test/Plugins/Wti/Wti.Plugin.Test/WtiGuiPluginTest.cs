@@ -5,6 +5,9 @@ using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
 using Mono.Addins;
 using NUnit.Framework;
+
+using Rhino.Mocks;
+
 using Wti.Data;
 using Wti.Forms.NodePresenters;
 using Wti.Forms.PropertyClasses;
@@ -78,7 +81,12 @@ namespace Wti.Plugin.Test
         public void GetProjectTreeViewNodePresenters_ReturnsSupportedNodePresenters()
         {
             // setup
-            using (var guiPlugin = new WtiGuiPlugin())
+            var mocks = new MockRepository();
+            var guiStub = mocks.Stub<IGui>();
+            guiStub.CommandHandler = mocks.Stub<IGuiCommandHandler>();
+            mocks.ReplayAll();
+
+            using (var guiPlugin = new WtiGuiPlugin { Gui = guiStub })
             {
                 // call
                 ITreeNodePresenter[] nodePresenters = guiPlugin.GetProjectTreeViewNodePresenters().ToArray();
@@ -91,6 +99,7 @@ namespace Wti.Plugin.Test
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingFailureMechanismNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingOutputNodePresenter));
             }
+            mocks.VerifyAll();
         }
     }
 }
