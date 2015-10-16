@@ -19,6 +19,7 @@ namespace Wti.Plugin.Test
     public class WtiGuiPluginTest
     {
         [Test]
+        [STAThread] // For creation of XAML UI component
         public void DefaultConstructor_ExpectedValues()
         {
             // call
@@ -30,6 +31,7 @@ namespace Wti.Plugin.Test
                 Assert.AreEqual(GuiPluginResources.wtiGuiPluginDisplayName, wtiGuiPlugin.DisplayName);
                 Assert.AreEqual(GuiPluginResources.wtiGuiPluginDescription, wtiGuiPlugin.Description);
                 Assert.AreEqual("0.5.0.0", wtiGuiPlugin.Version);
+                Assert.IsInstanceOf<WtiRibbon>(wtiGuiPlugin.RibbonCommandHandler);
             }
         }
 

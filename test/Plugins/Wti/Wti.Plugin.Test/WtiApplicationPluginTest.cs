@@ -9,6 +9,9 @@ using Wti.Plugin.FileImporter;
 using PluginResources = Wti.Plugin.Properties.Resources;
 using FormsResources = Wti.Forms.Properties.Resources;
 
+using WtiFormsResources = Wti.Forms.Properties.Resources;
+using ApplicationResources = Wti.Plugin.Properties.Resources;
+
 namespace Wti.Plugin.Test
 {
     [TestFixture]
@@ -53,8 +56,8 @@ namespace Wti.Plugin.Test
             Assert.AreEqual(1, dataItemDefinitions.Length);
 
             DataItemInfo projectDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(WtiProject));
-            Assert.AreEqual("WTI project", projectDataItemDefinition.Name);
-            Assert.AreEqual("WTI", projectDataItemDefinition.Category);
+            Assert.AreEqual(WtiFormsResources.WtiProjectPropertiesDisplayName, projectDataItemDefinition.Name);
+            Assert.AreEqual(ApplicationResources.WtiApplicationName, projectDataItemDefinition.Category);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Width);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Height);
             Assert.IsNull(projectDataItemDefinition.AdditionalOwnerCheck);

@@ -5,6 +5,9 @@ using Wti.Forms.Properties;
 
 namespace Wti.Forms.PropertyClasses
 {
+    /// <summary>
+    /// ViewModel of <see cref="WtiProject"/> for properties panel.
+    /// </summary>
     [ResourcesDisplayName(typeof(Resources), "WtiProjectPropertiesDisplayName")]
     public class WtiProjectProperties : ObjectProperties<WtiProject>
     {

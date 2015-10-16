@@ -374,10 +374,18 @@ namespace Wti.Forms.Test.NodePresenters
         public void RemoveNodeData_ProjectWithWtiProject_ReturnTrueAndRemoveWtiProject()
         {
             // Setup
+            var mocks = new MockRepository();
+
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
             var wtiProject = new WtiProject();
 
             var project = new Project();
             project.Items.Add(wtiProject);
+            project.Attach(observerMock);
 
             var nodePresenter = new WtiProjectNodePresenter();
 
@@ -387,6 +395,7 @@ namespace Wti.Forms.Test.NodePresenters
             // Assert
             Assert.IsTrue(removalSuccesful);
             CollectionAssert.DoesNotContain(project.Items, wtiProject);
+            mocks.VerifyAll();
         }
 
         [Test]

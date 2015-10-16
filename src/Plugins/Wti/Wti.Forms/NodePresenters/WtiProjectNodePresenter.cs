@@ -11,6 +11,9 @@ using Wti.Forms.Properties;
 
 namespace Wti.Forms.NodePresenters
 {
+    /// <summary>
+    /// Node presenter for <see cref="WtiProject"/> items in the tree view.
+    /// </summary>
     public class WtiProjectNodePresenter : ITreeNodePresenter
     {
         public ITreeView TreeView { get; set; }

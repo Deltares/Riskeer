@@ -56,9 +56,12 @@ namespace Wti.Forms.Test.PropertyClasses
                 Data = project
             };
 
-            // Call & Assert
             const string newName = "Test";
+
+            // Call
             properties.Name = newName;
+
+            // Assert
             Assert.AreEqual(newName, project.Name);
             mocks.VerifyAll();
         }
