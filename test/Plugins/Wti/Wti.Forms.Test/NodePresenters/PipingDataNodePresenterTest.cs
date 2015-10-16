@@ -143,6 +143,27 @@ namespace Wti.Forms.Test.NodePresenters
             mocks.ReplayAll(); // Expect no calls on tree node
         }
 
+
+        [Test]
+        public void OnNodeRenamed_Always_ThrowInvalidOperationException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            mocks.ReplayAll();
+
+            var nodePresenter = new PipingDataNodePresenter();
+
+            // Call
+            TestDelegate call = () => { nodePresenter.OnNodeRenamed(nodeMock, "<Insert New Name Here>"); };
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(call);
+            var expectedMessage = string.Format("Cannot rename tree node of type {0}.", nodePresenter.GetType().Name);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            mocks.ReplayAll(); // Expect no calls on tree node
+        }
+
         [Test]
         public void OnNodeChecked_Always_DoNothing()
         {
@@ -330,27 +351,23 @@ namespace Wti.Forms.Test.NodePresenters
             bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
 
             // Assert
-            Assert.IsTrue(removalAllowed);
+            Assert.IsFalse(removalAllowed);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
-        public void RemoveNodeData_Always_PipingDataRemovedFromPipingFailureMechanism()
+        public void RemoveNodeData_Always_ThrowsInvalidOperationException()
         {
             // Setup
-            var pipingData = new PipingData();
-
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.PipingData = pipingData;
-
             var nodePresenter = new PipingDataNodePresenter();
 
             // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(pipingFailureMechanism, pipingData);
+            TestDelegate removeAction = () => nodePresenter.RemoveNodeData(null, null);
 
             // Assert
-            Assert.IsTrue(removalSuccesful);
-            Assert.IsNull(pipingFailureMechanism.PipingData);
+            var exception = Assert.Throws<InvalidOperationException>(removeAction);
+            var expectedMessage = string.Format("Cannot delete node of type {0}.", nodePresenter.GetType().Name);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
 
         [Test]

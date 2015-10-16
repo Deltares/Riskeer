@@ -26,7 +26,7 @@ namespace Wti.Data
         public IEnumerable<PipingSurfaceLine> SurfaceLines { get; private set; }
 
         /// <summary>
-        /// Gets the input data which contains input and output of a piping calculation
+        /// Gets the <see cref="PipingData"/>, which contains input and output of a piping calculation.
         /// </summary>
         public PipingData PipingData { get; set; }
 

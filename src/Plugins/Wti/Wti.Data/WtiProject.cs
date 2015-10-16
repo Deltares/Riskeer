@@ -20,14 +20,30 @@ namespace Wti.Data
         }
 
         /// <summary>
+        /// Gets or sets the <see cref="PipingFailureMechanism"/>.
+        /// </summary>
+        public PipingFailureMechanism PipingFailureMechanism { get; private set; }
+
+        /// <summary>
         /// The name of the <see cref="WtiProject"/>.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="PipingFailureMechanism"/>.
+        /// Removes the <see cref="PipingFailureMechanism"/> assigned to the <see cref="WtiProject"/>.
         /// </summary>
-        public PipingFailureMechanism PipingFailureMechanism { get; set; }
+        public void ClearPipingFailureMechanism()
+        {
+            PipingFailureMechanism = null;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="PipingFailureMechanism"/> and assign it to the <see cref="WtiProject"/>.
+        /// </summary>
+        public void InitializePipingFailureMechanism()
+        {
+            PipingFailureMechanism = new PipingFailureMechanism();
+        }
 
         #region IObservable
 

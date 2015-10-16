@@ -52,7 +52,10 @@ namespace Wti.Forms.NodePresenters
             return false;
         }
 
-        public void OnNodeRenamed(object nodeData, string newName) {}
+        public void OnNodeRenamed(object nodeData, string newName)
+        {
+            throw new InvalidOperationException(string.Format("Cannot rename tree node of type {0}.", GetType().Name));
+        }
 
         public void OnNodeChecked(ITreeNode node) {}
 
@@ -92,16 +95,12 @@ namespace Wti.Forms.NodePresenters
 
         public bool CanRemove(object parentNodeData, object nodeData)
         {
-            return true;
+            return false;
         }
 
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
-            var failureMechanism = (PipingFailureMechanism) parentNodeData;
-
-            failureMechanism.PipingData = null;
-            failureMechanism.NotifyObservers();
-            return true;
+            throw new InvalidOperationException(String.Format("Cannot delete node of type {0}.", GetType().Name));
         }
 
         private void PerformPipingValidation(PipingData pipingData)

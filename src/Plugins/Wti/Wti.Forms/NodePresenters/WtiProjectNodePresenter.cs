@@ -84,10 +84,25 @@ namespace Wti.Forms.NodePresenters
             var addPipingFailureMechanismItem = contextMenu.Items.Add(Resources.AddPipingFailureMechanismContextMenuItem);
             var contextMenuAdapter = new MenuItemContextMenuStripAdapter(contextMenu);
 
-            addPipingFailureMechanismItem.Tag = nodeData;
-            addPipingFailureMechanismItem.Click += InitializePipingFailureMechanismForWtiProject;
+            if (CanAddPipingFailureMechanism(nodeData))
+            {
+                addPipingFailureMechanismItem.Tag = nodeData;
+                addPipingFailureMechanismItem.Click += InitializePipingFailureMechanismForWtiProject;
+                addPipingFailureMechanismItem.ToolTipText = Resources.WtiProjectTooltipAddPipingFailureMechanism;
+            }
+            else
+            {
+                addPipingFailureMechanismItem.Enabled = false;
+                addPipingFailureMechanismItem.ToolTipText = Resources.WtiProjectTooltipPipingFailureMechanismAlreadyAdded;
+            }
 
             return contextMenuAdapter;
+        }
+
+        private bool CanAddPipingFailureMechanism(object nodeData)
+        {
+            var wtiProject = nodeData as WtiProject;
+            return wtiProject != null && wtiProject.PipingFailureMechanism == null;
         }
 
         private void InitializePipingFailureMechanismForWtiProject(object sender, EventArgs e)
@@ -96,7 +111,7 @@ namespace Wti.Forms.NodePresenters
             if (treeNode != null)
             {
                 var wtiProject = (WtiProject) treeNode.Tag;
-                wtiProject.PipingFailureMechanism = new PipingFailureMechanism();
+                wtiProject.InitializePipingFailureMechanism();
                 wtiProject.NotifyObservers();
             }
         }

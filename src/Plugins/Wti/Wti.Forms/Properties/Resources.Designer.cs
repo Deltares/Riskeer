@@ -748,5 +748,23 @@ namespace Wti.Forms.Properties {
                 return ResourceManager.GetString("WtiProjectPropertiesDisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start een nieuwe piping toetsing voor dit project..
+        /// </summary>
+        public static string WtiProjectTooltipAddPipingFailureMechanism {
+            get {
+                return ResourceManager.GetString("WtiProjectTooltipAddPipingFailureMechanism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan geen nieuwe piping toetsing starten, omdat er al een piping toetsing is gestart voor dit project..
+        /// </summary>
+        public static string WtiProjectTooltipPipingFailureMechanismAlreadyAdded {
+            get {
+                return ResourceManager.GetString("WtiProjectTooltipPipingFailureMechanismAlreadyAdded", resourceCulture);
+            }
+        }
     }
 }

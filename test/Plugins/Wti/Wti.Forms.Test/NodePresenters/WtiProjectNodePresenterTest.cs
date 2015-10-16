@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf;
 using DelftTools.Shell.Core;
@@ -53,7 +54,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetChildNodeObjects_WithData_ReturnAllChildNodes()
+        public void GetChildNodeObjects_WithoutPipingFailureMechanism_ReturnsEmptyList()
         {
             // Setup
             var mocks = new MockRepository();
@@ -69,6 +70,28 @@ namespace Wti.Forms.Test.NodePresenters
 
             // Assert
             CollectionAssert.IsEmpty(children);
+            mocks.VerifyAll(); // Expect no calls on tree node
+        }
+
+        [Test]
+        public void GetChildNodeObjects_WithPipingFailureMechanism_ReturnPipingFailureMechanism()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            mocks.ReplayAll();
+
+            var nodePresenter = new WtiProjectNodePresenter();
+
+            var project = new WtiProject();
+            project.InitializePipingFailureMechanism();
+
+            // Call
+            var children = nodePresenter.GetChildNodeObjects(project, nodeMock).Cast<object>().AsList();
+
+            // Assert
+            Assert.AreEqual(1, children.Count);
+            Assert.AreSame(project.PipingFailureMechanism, children[0]);
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 
@@ -243,24 +266,51 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_CreateWithData_ReturnsContextMenuWithOneItemWithDataAsTag()
+        public void GetContextMenu_WithNoPipingFailureMechanism_ReturnsContextMenuWithOneItemWithDataAsTag()
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<object>();
+            var wtiProject = new WtiProject();
             mocks.ReplayAll();
 
             var nodePresenter = new WtiProjectNodePresenter();
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock) as MenuItemContextMenuStripAdapter;
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, wtiProject) as MenuItemContextMenuStripAdapter;
 
             // Assert
             Assert.NotNull(contextMenu);
             Assert.AreEqual(1, contextMenu.ContextMenuStrip.Items.Count);
             Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, contextMenu.ContextMenuStrip.Items[0].Text);
-            Assert.AreSame(dataMock, contextMenu.ContextMenuStrip.Items[0].Tag);
+            Assert.AreEqual(WtiFormsResources.WtiProjectTooltipAddPipingFailureMechanism, contextMenu.ContextMenuStrip.Items[0].ToolTipText);
+            Assert.IsTrue(contextMenu.ContextMenuStrip.Items[0].Enabled);
+            Assert.AreSame(wtiProject, contextMenu.ContextMenuStrip.Items[0].Tag);
+            mocks.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void GetContextMenu_WithPipingFailureMechanismAlreadySet_ReturnsContextMenuWithOneDisabledItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var wtiProject = new WtiProject();
+            wtiProject.InitializePipingFailureMechanism();
+            mocks.ReplayAll();
+
+            var nodePresenter = new WtiProjectNodePresenter();
+
+            // Call
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, wtiProject) as MenuItemContextMenuStripAdapter;
+
+            // Assert
+            Assert.NotNull(contextMenu);
+            Assert.AreEqual(1, contextMenu.ContextMenuStrip.Items.Count);
+            Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, contextMenu.ContextMenuStrip.Items[0].Text);
+            Assert.AreEqual(WtiFormsResources.WtiProjectTooltipPipingFailureMechanismAlreadyAdded, contextMenu.ContextMenuStrip.Items[0].ToolTipText);
+            Assert.IsFalse(contextMenu.ContextMenuStrip.Items[0].Enabled);
+            Assert.IsNull(contextMenu.ContextMenuStrip.Items[0].Tag);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -337,6 +387,30 @@ namespace Wti.Forms.Test.NodePresenters
             // Assert
             Assert.IsTrue(removalSuccesful);
             CollectionAssert.DoesNotContain(project.Items, wtiProject);
+        }
+
+        [Test]
+        public void GivenWtiProjectWithoutPipingFailureMechanism_WhenAddPipingFailureMechanismThroughContextMenu_ThenWtiProjectHasPipingFailureMechanismAssigned()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var wtiProject = new WtiProject();
+            mocks.ReplayAll();
+
+            var nodePresenter = new WtiProjectNodePresenter();
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, wtiProject) as MenuItemContextMenuStripAdapter;
+
+            // Preconditions
+            Assert.NotNull(contextMenu);
+            Assert.IsNull(wtiProject.PipingFailureMechanism);
+            Assert.AreEqual(1, contextMenu.ContextMenuStrip.Items.Count);
+
+            // Call
+            contextMenu.ContextMenuStrip.Items[0].PerformClick();
+
+            // Assert
+            Assert.NotNull(wtiProject.PipingFailureMechanism);
         }
     }
 }

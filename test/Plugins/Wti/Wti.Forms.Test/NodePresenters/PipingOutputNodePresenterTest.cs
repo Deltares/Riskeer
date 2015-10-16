@@ -115,7 +115,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
             TestDelegate call = () => { nodePresenter.OnNodeRenamed(nodeMock, "<Insert New Name Here>"); };

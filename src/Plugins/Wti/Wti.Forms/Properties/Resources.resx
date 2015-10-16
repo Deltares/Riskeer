@@ -346,4 +346,10 @@
   <data name="ImportSurfaceLinesDescription" xml:space="preserve">
     <value>Importeer nieuwe dwarsdoorsnedes van een *.csv bestand.</value>
   </data>
+  <data name="WtiProjectTooltipAddPipingFailureMechanism" xml:space="preserve">
+    <value>Start een nieuwe piping toetsing voor dit project.</value>
+  </data>
+  <data name="WtiProjectTooltipPipingFailureMechanismAlreadyAdded" xml:space="preserve">
+    <value>Kan geen nieuwe piping toetsing starten, omdat er al een piping toetsing is gestart voor dit project.</value>
+  </data>
 </root>

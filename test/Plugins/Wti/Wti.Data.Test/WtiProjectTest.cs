@@ -21,6 +21,72 @@ namespace Wti.Data.Test
         }
 
         [Test]
+        public void InitializePipingFailureMechanism_WithoutFailureMechanismSet_SetNewFailureMechanism()
+        {
+            // Setup
+            var project = new WtiProject();
+
+            // Call
+            project.InitializePipingFailureMechanism();
+
+            // Assert
+            Assert.NotNull(project.PipingFailureMechanism);
+
+        }
+
+        [Test]
+        public void InitializePipingFailureMechanism_WithFailureMechanismSet_SetNewFailureMechanism()
+        {
+            // Setup
+            var project = new WtiProject();
+            project.InitializePipingFailureMechanism();
+            PipingFailureMechanism notExpectedFailureMechanism = project.PipingFailureMechanism;
+
+            // Precondition
+            Assert.NotNull(notExpectedFailureMechanism);
+
+            // Call
+            project.InitializePipingFailureMechanism();
+
+            // Assert
+            Assert.AreNotSame(notExpectedFailureMechanism, project.PipingFailureMechanism);
+        }
+
+        [Test]
+        public void ClearPipingFailureMechanism_WithFailureMechanismSet_FailureMechanismUnassigned()
+        {
+            // Setup
+            var project = new WtiProject();
+            project.InitializePipingFailureMechanism();
+            PipingFailureMechanism notExpectedFailureMechanism = project.PipingFailureMechanism;
+
+            // Precondition
+            Assert.NotNull(notExpectedFailureMechanism);
+
+            // Call
+            project.ClearPipingFailureMechanism();
+
+            // Assert
+            Assert.IsNull(project.PipingFailureMechanism);
+        }
+
+        [Test]
+        public void ClearPipingFailureMechanism_WithoutFailureMechanismSet_PipingFailureMechanismStillUnassigned()
+        {
+            // Setup
+            var project = new WtiProject();
+
+            // Precondition
+            Assert.Null(project.PipingFailureMechanism);
+
+            // Call
+            project.ClearPipingFailureMechanism();
+
+            // Assert
+            Assert.IsNull(project.PipingFailureMechanism);
+        }
+
+        [Test]
         public void NotifyObservers_ObserverAttachedToProject_ObserverIsNotified()
         {
             // Setup
