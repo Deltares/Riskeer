@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
@@ -103,6 +104,26 @@ namespace Wti.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(renameAllowed);
+            mocks.ReplayAll(); // Expect no calls on tree node
+        }
+
+        [Test]
+        public void OnNodeRenamed_Always_ThrowInvalidOperationException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            mocks.ReplayAll();
+
+            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+
+            // Call
+            TestDelegate call = () => { nodePresenter.OnNodeRenamed(nodeMock, "<Insert New Name Here>"); };
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(call);
+            var expectedMessage = string.Format("Cannot rename tree node of type {0}.", nodePresenter.GetType().Name);
+            Assert.AreEqual(expectedMessage, exception.Message);
             mocks.ReplayAll(); // Expect no calls on tree node
         }
 
@@ -293,16 +314,18 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void RemoveNodeData_Always_ReturnFalse()
+        public void RemoveNodeData_Always_ThrowsInvalidOperationException()
         {
             // Setup
             var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(null, null);
+            TestDelegate removeAction = () => nodePresenter.RemoveNodeData(null, null);
 
             // Assert
-            Assert.IsFalse(removalSuccesful);
+            var exception = Assert.Throws<InvalidOperationException>(removeAction);
+            var expectedMessage = string.Format("Cannot delete node of type {0}.", nodePresenter.GetType().Name);
+            Assert.AreEqual(expectedMessage, exception.Message);
         }
     }
 }

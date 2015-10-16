@@ -41,7 +41,10 @@ namespace Wti.Forms.NodePresenters
             return false;
         }
 
-        public void OnNodeRenamed(object nodeData, string newName) {}
+        public void OnNodeRenamed(object nodeData, string newName)
+        {
+            throw new InvalidOperationException(string.Format("Cannot rename tree node of type {0}.", GetType().Name));
+        }
 
         public void OnNodeChecked(ITreeNode node) {}
 
@@ -80,7 +83,7 @@ namespace Wti.Forms.NodePresenters
 
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
-            return false;
+            throw new InvalidOperationException(String.Format("Cannot delete node of type {0}.", GetType().Name));
         }
     }
 }
