@@ -8,6 +8,7 @@ using DelftTools.Controls;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Wti.Data;
 using Wti.Forms.NodePresenters;
 using WtiFormsResources = Wti.Forms.Properties.Resources;
 
@@ -25,7 +26,7 @@ namespace Wti.Forms.Test.NodePresenters
             // Assert
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
-            Assert.AreEqual(typeof(IEnumerable), nodePresenter.NodeTagType);
+            Assert.AreEqual(typeof(IEnumerable<PipingSoilProfile>), nodePresenter.NodeTagType);
         }
 
         [Test]
@@ -38,10 +39,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
-            IEnumerable<object> soilProfileCollection = Enumerable.Empty<object>();
+            IEnumerable<object> soilProfilesCollection = Enumerable.Empty<object>();
 
             // Call
-            nodePresenter.UpdateNode(null, soilProfileCollectionNodeStub, soilProfileCollection);
+            nodePresenter.UpdateNode(null, soilProfileCollectionNodeStub, soilProfilesCollection);
 
             // Assert
             Assert.AreEqual(WtiFormsResources.PipingSoilProfilesCollectionName, soilProfileCollectionNodeStub.Text);
@@ -51,7 +52,7 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetChildNodeObjects_Always_ReturnEmpty()
+        public void GetChildNodeObjects_WithData_ReturnCollection()
         {
             // Setup
             var mocks = new MockRepository();
@@ -60,13 +61,17 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
-            IEnumerable<object> soilProfilesCollection = new object[0];
+            IEnumerable<object> soilProfilesCollection = new []
+            {
+                new PipingSoilProfile(),
+                new PipingSoilProfile()
+            };
 
             // Call
             var children = nodePresenter.GetChildNodeObjects(soilProfilesCollection, nodeMock);
 
             // Assert
-            CollectionAssert.IsEmpty(children);
+            CollectionAssert.AreEqual(soilProfilesCollection, children);
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 

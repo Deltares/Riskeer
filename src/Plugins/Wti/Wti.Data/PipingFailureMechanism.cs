@@ -18,7 +18,7 @@ namespace Wti.Data
         public PipingFailureMechanism()
         {
             SurfaceLines = Enumerable.Empty<PipingSurfaceLine>();
-            SoilProfiles = Enumerable.Empty<object>();
+            SoilProfiles = Enumerable.Empty<PipingSoilProfile>();
             PipingData = new PipingData();
         }
 

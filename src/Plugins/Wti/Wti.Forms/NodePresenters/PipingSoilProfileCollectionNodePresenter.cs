@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DelftTools.Controls;
 using DelftTools.Utils.Collections;
+using Wti.Data;
 using Wti.Forms.Properties;
 
 namespace Wti.Forms.NodePresenters
@@ -20,7 +22,7 @@ namespace Wti.Forms.NodePresenters
         {
             get
             {
-                return typeof(IEnumerable);
+                return typeof(IEnumerable<PipingSoilProfile>);
             }
         }
 
@@ -33,7 +35,12 @@ namespace Wti.Forms.NodePresenters
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
-            yield break;
+            var pipingSoilProfiles = (IEnumerable<PipingSoilProfile>) parentNodeData;
+
+            foreach (PipingSoilProfile profile in pipingSoilProfiles)
+            {
+                yield return profile;
+            }
         }
 
         public bool CanRenameNode(ITreeNode node)
