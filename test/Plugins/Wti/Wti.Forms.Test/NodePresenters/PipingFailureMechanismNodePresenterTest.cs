@@ -253,7 +253,7 @@ namespace Wti.Forms.Test.NodePresenters
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
-            Assert.Null(contextMenu);
+            Assert.IsNull(contextMenu);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 

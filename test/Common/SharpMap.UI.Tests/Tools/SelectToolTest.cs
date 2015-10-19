@@ -196,7 +196,7 @@ namespace SharpMap.UI.Tests.Tools
             var items = mapControl.SelectTool.GetContextMenuItems(new Coordinate(4, 4));
 
             var mapToolContextMenuItem = items.FirstOrDefault();
-            Assert.NotNull(mapToolContextMenuItem);
+            Assert.IsNotNull(mapToolContextMenuItem);
             Assert.IsInstanceOf<ToolStripMenuItem>(mapToolContextMenuItem.MenuItem);
 
             var dropDownItems = mapToolContextMenuItem.MenuItem.DropDownItems;
@@ -207,7 +207,7 @@ namespace SharpMap.UI.Tests.Tools
             items = mapControl.SelectTool.GetContextMenuItems(new Coordinate(4, 4));
 
             mapToolContextMenuItem = items.FirstOrDefault();
-            Assert.NotNull(mapToolContextMenuItem);
+            Assert.IsNotNull(mapToolContextMenuItem);
             Assert.IsInstanceOf<ToolStripMenuItem>(mapToolContextMenuItem.MenuItem);
 
             dropDownItems = mapToolContextMenuItem.MenuItem.DropDownItems;

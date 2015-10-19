@@ -30,7 +30,7 @@ namespace Wti.Data.Test
             project.InitializePipingFailureMechanism();
 
             // Assert
-            Assert.NotNull(project.PipingFailureMechanism);
+            Assert.IsNotNull(project.PipingFailureMechanism);
 
         }
 
@@ -43,7 +43,7 @@ namespace Wti.Data.Test
             PipingFailureMechanism notExpectedFailureMechanism = project.PipingFailureMechanism;
 
             // Precondition
-            Assert.NotNull(notExpectedFailureMechanism);
+            Assert.IsNotNull(notExpectedFailureMechanism);
 
             // Call
             project.InitializePipingFailureMechanism();
@@ -61,7 +61,7 @@ namespace Wti.Data.Test
             PipingFailureMechanism notExpectedFailureMechanism = project.PipingFailureMechanism;
 
             // Precondition
-            Assert.NotNull(notExpectedFailureMechanism);
+            Assert.IsNotNull(notExpectedFailureMechanism);
 
             // Call
             project.ClearPipingFailureMechanism();
@@ -77,7 +77,7 @@ namespace Wti.Data.Test
             var project = new WtiProject();
 
             // Precondition
-            Assert.Null(project.PipingFailureMechanism);
+            Assert.IsNull(project.PipingFailureMechanism);
 
             // Call
             project.ClearPipingFailureMechanism();
@@ -122,6 +122,33 @@ namespace Wti.Data.Test
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on observer
+        }
+
+        [Test]
+        public void CanAddPipingFailureMechanism_NoPipingFailureMechanismAssigned_ReturnsTrue()
+        {
+            // Setup
+            var project = new WtiProject();
+
+            // Call
+            var result = project.CanAddPipingFailureMechanism();
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void CanAddPipingFailureMechanism_PipingFailureMechanismInitialized_ReturnsTrue()
+        {
+            // Setup
+            var project = new WtiProject();
+            project.InitializePipingFailureMechanism();
+
+            // Call
+            var result = project.CanAddPipingFailureMechanism();
+
+            // Assert
+            Assert.IsFalse(result);
         }
     }
 }

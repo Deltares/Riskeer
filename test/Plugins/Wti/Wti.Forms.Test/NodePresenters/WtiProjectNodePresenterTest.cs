@@ -280,7 +280,7 @@ namespace Wti.Forms.Test.NodePresenters
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, wtiProject) as MenuItemContextMenuStripAdapter;
 
             // Assert
-            Assert.NotNull(contextMenu);
+            Assert.IsNotNull(contextMenu);
             Assert.AreEqual(1, contextMenu.ContextMenuStrip.Items.Count);
             Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, contextMenu.ContextMenuStrip.Items[0].Text);
             Assert.AreEqual(WtiFormsResources.WtiProjectTooltipAddPipingFailureMechanism, contextMenu.ContextMenuStrip.Items[0].ToolTipText);
@@ -305,7 +305,7 @@ namespace Wti.Forms.Test.NodePresenters
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, wtiProject) as MenuItemContextMenuStripAdapter;
 
             // Assert
-            Assert.NotNull(contextMenu);
+            Assert.IsNotNull(contextMenu);
             Assert.AreEqual(1, contextMenu.ContextMenuStrip.Items.Count);
             Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, contextMenu.ContextMenuStrip.Items[0].Text);
             Assert.AreEqual(WtiFormsResources.WtiProjectTooltipPipingFailureMechanismAlreadyAdded, contextMenu.ContextMenuStrip.Items[0].ToolTipText);
@@ -411,7 +411,7 @@ namespace Wti.Forms.Test.NodePresenters
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, wtiProject) as MenuItemContextMenuStripAdapter;
 
             // Preconditions
-            Assert.NotNull(contextMenu);
+            Assert.IsNotNull(contextMenu);
             Assert.IsNull(wtiProject.PipingFailureMechanism);
             Assert.AreEqual(1, contextMenu.ContextMenuStrip.Items.Count);
 
@@ -419,7 +419,7 @@ namespace Wti.Forms.Test.NodePresenters
             contextMenu.ContextMenuStrip.Items[0].PerformClick();
 
             // Assert
-            Assert.NotNull(wtiProject.PipingFailureMechanism);
+            Assert.IsNotNull(wtiProject.PipingFailureMechanism);
         }
     }
 }

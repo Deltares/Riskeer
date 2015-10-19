@@ -15,7 +15,7 @@ namespace Wti.Calculation.Test.Piping
 
             PipingCalculationResult actual = new PipingCalculation(input).Calculate();
 
-            Assert.NotNull(actual);
+            Assert.IsNotNull(actual);
             Assert.IsFalse(double.IsNaN(actual.UpliftZValue));
             Assert.IsFalse(double.IsNaN(actual.UpliftFactorOfSafety));
             Assert.IsFalse(double.IsNaN(actual.HeaveZValue));

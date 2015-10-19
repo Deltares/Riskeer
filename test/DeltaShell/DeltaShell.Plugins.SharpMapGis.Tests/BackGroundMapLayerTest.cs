@@ -72,7 +72,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Tests
 
             var clonedBackgroundLayer = backgroundLayer.Clone() as BackGroundMapLayer;
 
-            Assert.NotNull(clonedBackgroundLayer);
+            Assert.IsNotNull(clonedBackgroundLayer);
             Assert.AreEqual(backgroundLayer.Name, clonedBackgroundLayer.Name);
             Assert.AreEqual(backgroundLayer.Layers.Count, clonedBackgroundLayer.Layers.Count);
             Assert.AreEqual(backgroundLayer.Layers[0].Name, clonedBackgroundLayer.Layers[0].Name);

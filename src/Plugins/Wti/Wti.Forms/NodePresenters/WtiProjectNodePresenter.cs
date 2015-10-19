@@ -35,7 +35,7 @@ namespace Wti.Forms.NodePresenters
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
-            var wtiProject = (WtiProject)parentNodeData;
+            var wtiProject = (WtiProject) parentNodeData;
             if (wtiProject.PipingFailureMechanism != null)
             {
                 yield return wtiProject.PipingFailureMechanism;
@@ -87,7 +87,9 @@ namespace Wti.Forms.NodePresenters
             var addPipingFailureMechanismItem = contextMenu.Items.Add(Resources.AddPipingFailureMechanismContextMenuItem);
             var contextMenuAdapter = new MenuItemContextMenuStripAdapter(contextMenu);
 
-            if (CanAddPipingFailureMechanism(nodeData))
+            var wtiProject = (WtiProject) nodeData;
+
+            if (wtiProject.CanAddPipingFailureMechanism())
             {
                 addPipingFailureMechanismItem.Tag = nodeData;
                 addPipingFailureMechanismItem.Click += InitializePipingFailureMechanismForWtiProject;
@@ -100,23 +102,6 @@ namespace Wti.Forms.NodePresenters
             }
 
             return contextMenuAdapter;
-        }
-
-        private bool CanAddPipingFailureMechanism(object nodeData)
-        {
-            var wtiProject = nodeData as WtiProject;
-            return wtiProject != null && wtiProject.PipingFailureMechanism == null;
-        }
-
-        private void InitializePipingFailureMechanismForWtiProject(object sender, EventArgs e)
-        {
-            var treeNode = (ToolStripItem) sender;
-            if (treeNode != null)
-            {
-                var wtiProject = (WtiProject) treeNode.Tag;
-                wtiProject.InitializePipingFailureMechanism();
-                wtiProject.NotifyObservers();
-            }
         }
 
         public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}
@@ -137,6 +122,17 @@ namespace Wti.Forms.NodePresenters
             parentProject.NotifyObservers();
 
             return true;
+        }
+
+        private void InitializePipingFailureMechanismForWtiProject(object sender, EventArgs e)
+        {
+            var treeNode = (ToolStripItem) sender;
+            if (treeNode != null)
+            {
+                var wtiProject = (WtiProject) treeNode.Tag;
+                wtiProject.InitializePipingFailureMechanism();
+                wtiProject.NotifyObservers();
+            }
         }
     }
 }

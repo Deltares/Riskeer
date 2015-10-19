@@ -291,7 +291,7 @@ namespace Wti.Forms.Test.NodePresenters
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock) as MenuItemContextMenuStripAdapter;
 
             // Assert
-            Assert.NotNull(contextMenu);
+            Assert.IsNotNull(contextMenu);
             Assert.AreEqual(2, contextMenu.ContextMenuStrip.Items.Count);
             Assert.AreEqual(WtiFormsResources.PipingDataContextMenuCalculate, contextMenu.ContextMenuStrip.Items[1].Text);
             Assert.AreEqual(WtiFormsResources.PipingDataContextMenuValidate, contextMenu.ContextMenuStrip.Items[0].Text);

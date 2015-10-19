@@ -50,7 +50,7 @@ namespace Wti.Service.Test
 
             // Assert
             Assert.AreEqual(PipingCalculationResult.Successful, result);
-            Assert.NotNull(validPipingData.Output);
+            Assert.IsNotNull(validPipingData.Output);
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace Wti.Service.Test
 
             // Assert
             Assert.AreEqual(PipingCalculationResult.CalculationErrors, result);
-            Assert.Null(validPipingData.Output);
+            Assert.IsNull(validPipingData.Output);
         }
     }
 }

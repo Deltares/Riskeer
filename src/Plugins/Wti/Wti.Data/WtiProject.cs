@@ -45,6 +45,15 @@ namespace Wti.Data
             PipingFailureMechanism = new PipingFailureMechanism();
         }
 
+        /// <summary>
+        /// Determines whether a new <see cref="PipingFailureMechanism"/> can be added to the <see cref="WtiProject"/>.
+        /// </summary>
+        /// <returns>True if a new <see cref="PipingFailureMechanism"/> can be assigned. False otherwise.</returns>
+        public bool CanAddPipingFailureMechanism()
+        {
+            return PipingFailureMechanism == null;
+        }
+
         #region IObservable
 
         public void Attach(IObserver observer)

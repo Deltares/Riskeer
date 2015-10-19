@@ -872,7 +872,7 @@ namespace DelftTools.Tests.Controls.Swf.Table
                 var dxColumn = tableView.Columns[1].FieldValue<GridColumn>("dxColumn");
                 var dxEditor = (RepositoryItemLookUpEdit) dxColumn.ColumnEdit;
                 var list = dxEditor.DataSource as IEnumerable;
-                Assert.NotNull(list);
+                Assert.IsNotNull(list);
                 TypeUtils.GetPropertyValue(list.OfType<object>().First(), "DisplayText").Should().Be.EqualTo("[item type1]"); // Only have formatting in ComboBox
                 tableView.GetCellDisplayText(0, 1).Should().Be.EqualTo("item type1"); // No formatting should be visible in TableView
             });
@@ -1890,8 +1890,8 @@ namespace DelftTools.Tests.Controls.Swf.Table
                 Data = list
             };
 
-            Assert.Null(tableView.GetRowObjectAt(-1));
-            Assert.Null(tableView.GetRowObjectAt(10));
+            Assert.IsNull(tableView.GetRowObjectAt(-1));
+            Assert.IsNull(tableView.GetRowObjectAt(10));
         }
 
         [Test]

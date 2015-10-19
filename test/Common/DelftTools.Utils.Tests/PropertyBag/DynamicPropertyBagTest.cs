@@ -119,7 +119,7 @@ namespace DelftTools.Utils.Tests.PropertyBag
             });
 
             namePropertyDescriptor = propertyDescriptorCollection.Find("Name", false);
-            Assert.Null(namePropertyDescriptor, "Name should not be visible anymore");
+            Assert.IsNull(namePropertyDescriptor, "Name should not be visible anymore");
         }
 
         [Test]
