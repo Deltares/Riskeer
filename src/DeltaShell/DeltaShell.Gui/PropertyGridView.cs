@@ -34,11 +34,27 @@ namespace DeltaShell.Gui
             HideTabsButton();
 
             this.gui = gui;
+            PropertySort = PropertySort.Categorized;
 
             gui.SelectionChanged += GuiSelectionChanged;
         }
 
-        public new object SelectedObject
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Forms.PropertyGrid.PropertySortChanged"/> event.
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.EventArgs"/> that contains the event data. </param>
+        protected override void OnPropertySortChanged(EventArgs e)
+        {
+            // Needed for maintaining property order
+            if (PropertySort == PropertySort.CategorizedAlphabetical)
+            {
+                PropertySort = PropertySort.Categorized;
+            }
+
+            base.OnPropertySortChanged(e);
+        }
+        
+        private new object SelectedObject
         {
             get
             {
@@ -220,7 +236,7 @@ namespace DeltaShell.Gui
             Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, selectedType.Name);
 
             base.SelectedObject = SelectedObject;
-        }
+            }
 
         private static Type GetRelevantType(object obj)
         {
