@@ -9,6 +9,7 @@ using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Wti.Calculation.Test.Piping.Stub;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
 using WtiFormsResources = Wti.Forms.Properties.Resources;
@@ -64,8 +65,8 @@ namespace Wti.Forms.Test.NodePresenters
 
             IEnumerable<object> soilProfilesCollection = new []
             {
-                new PipingSoilProfile(),
-                new PipingSoilProfile()
+                new TestPipingSoilProfile(),
+                new TestPipingSoilProfile()
             };
 
             // Call

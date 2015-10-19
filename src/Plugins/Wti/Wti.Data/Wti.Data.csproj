@@ -46,6 +46,7 @@
     <Compile Include="PipingData.cs" />
     <Compile Include="PipingFailureMechanism.cs" />
     <Compile Include="PipingOutput.cs" />
+    <Compile Include="PipingSoilLayer.cs" />
     <Compile Include="PipingSoilProfile.cs" />
     <Compile Include="PipingSurfaceLine.cs" />
     <Compile Include="Point3D.cs" />
