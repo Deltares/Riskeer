@@ -393,31 +393,6 @@
     <Compile Include="ImageResolutionDialog.Designer.cs">
       <DependentUpon>ImageResolutionDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Table\Filtering\FilterBooleanControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Table\Filtering\FilterBooleanControl.Designer.cs">
-      <DependentUpon>FilterBooleanControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Table\Filtering\FilterDateTimeControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Table\Filtering\FilterDateTimeControl.Designer.cs">
-      <DependentUpon>FilterDateTimeControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Table\Filtering\FilterNumericControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Table\Filtering\FilterNumericControl.Designer.cs">
-      <DependentUpon>FilterNumericControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Table\Filtering\FilterTextControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Table\Filtering\FilterTextControl.Designer.cs">
-      <DependentUpon>FilterTextControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Table\Filtering\IFilterControl.cs" />
     <Compile Include="Table\NonMandatoryDataGridViewComboBoxCell.cs" />
     <Compile Include="Table\SortableAndFilterableBindingList.cs" />
     <Compile Include="Table\EnumFormatter.cs" />
@@ -540,18 +515,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ImageResolutionDialog.resx">
       <DependentUpon>ImageResolutionDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Table\Filtering\FilterBooleanControl.resx">
-      <DependentUpon>FilterBooleanControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Table\Filtering\FilterDateTimeControl.resx">
-      <DependentUpon>FilterDateTimeControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Table\Filtering\FilterNumericControl.resx">
-      <DependentUpon>FilterNumericControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Table\Filtering\FilterTextControl.resx">
-      <DependentUpon>FilterTextControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Table\TableView.resx">
       <DependentUpon>TableView.cs</DependentUpon>
