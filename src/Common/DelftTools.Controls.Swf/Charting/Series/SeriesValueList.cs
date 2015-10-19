@@ -11,22 +11,6 @@ namespace DelftTools.Controls.Swf.Charting.Series
             valuelist = list;
         }
 
-        public double this[int index]
-        {
-            get
-            {
-                return valuelist[index];
-            }
-        }
-
-        public int Count
-        {
-            get
-            {
-                return valuelist.Count;
-            }
-        }
-
         public string DataMember
         {
             get
@@ -36,18 +20,6 @@ namespace DelftTools.Controls.Swf.Charting.Series
             set
             {
                 valuelist.DataMember = value;
-            }
-        }
-
-        public bool DateTime
-        {
-            get
-            {
-                return valuelist.DateTime;
-            }
-            set
-            {
-                valuelist.DateTime = value;
             }
         }
     }

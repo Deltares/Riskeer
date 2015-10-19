@@ -8,20 +8,6 @@
         Top
     }
 
-    public enum ZoomDirections
-    {
-        Horizontal,
-        Vertical,
-        Both
-    }
-
-    public enum CursorLineToolStyles
-    {
-        Horizontal,
-        Vertical,
-        Both
-    }
-
     public enum PointerStyles
     {
         Circle,

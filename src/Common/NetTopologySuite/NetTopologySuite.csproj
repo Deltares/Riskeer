@@ -183,8 +183,6 @@
     <Compile Include="Index\Chain\MonotoneChainSelectAction.cs" />
     <Compile Include="Index\IItemVisitor.cs" />
     <Compile Include="Index\ISpatialIndex.cs" />
-    <Compile Include="Index\KdTree\KdNode.cs" />
-    <Compile Include="Index\KdTree\KdTree.cs" />
     <Compile Include="Index\Quadtree\DoubleBits.cs" />
     <Compile Include="Index\Quadtree\IntervalSize.cs" />
     <Compile Include="Index\Quadtree\Key.cs" />
@@ -197,11 +195,7 @@
     <Compile Include="Index\Strtree\IBoundable.cs" />
     <Compile Include="Index\Strtree\Interval.cs" />
     <Compile Include="Index\Strtree\ItemBoundable.cs" />
-    <Compile Include="Index\Strtree\SIRtree.cs" />
     <Compile Include="Index\Strtree\STRtree.cs" />
-    <Compile Include="Index\Sweepline\SweepLineEvent.cs" />
-    <Compile Include="Index\Sweepline\SweepLineInterval.cs" />
-    <Compile Include="Index\Sweepline\ISweepLineOverlapAction.cs" />
     <Compile Include="IO\BEBinaryReader.cs" />
     <Compile Include="IO\BEBinaryWriter.cs" />
     <Compile Include="IO\GeoTools\BigEndianBinaryReader.cs" />
@@ -333,7 +327,6 @@
     <Compile Include="Simplify\TaggedLineSegment.cs" />
     <Compile Include="Simplify\TaggedLineString.cs" />
     <Compile Include="Simplify\TaggedLineStringSimplifier.cs" />
-    <Compile Include="Triangulate\ConformingDelaunayTriangulator.cs" />
     <Compile Include="Triangulate\ConstraintEnforcementException.cs" />
     <Compile Include="Triangulate\ConstraintVertex.cs" />
     <Compile Include="Triangulate\ConstraintVertexFactory.cs" />
