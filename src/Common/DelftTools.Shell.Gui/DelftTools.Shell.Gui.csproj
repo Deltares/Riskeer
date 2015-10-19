@@ -90,7 +90,6 @@
     <Compile Include="..\..\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="DynamicObjectProperties.cs" />
     <Compile Include="ExpandableArrayConverter.cs" />
     <Compile Include="Forms\IMessageWindow.cs" />
     <Compile Include="Forms\IOptionsControl.cs" />

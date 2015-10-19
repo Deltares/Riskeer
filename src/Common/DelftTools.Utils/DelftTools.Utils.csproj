@@ -120,7 +120,6 @@
     <Compile Include="ComponentModel\DynamicEditorAttribute.cs" />
     <Compile Include="ComponentModel\DynamicVisibleAttribute.cs" />
     <Compile Include="ComponentModel\DynamicVisibleValidationMethodAttribute.cs" />
-    <Compile Include="ComponentModel\PropertyGridAttribute.cs" />
     <Compile Include="Csv\Importer\CsvColumnInfo.cs" />
     <Compile Include="Csv\Importer\CsvFilter.cs" />
     <Compile Include="Csv\Importer\CsvMappingData.cs" />
@@ -158,10 +157,8 @@
     <Compile Include="ResourcesCategoryAttribute.cs" />
     <Compile Include="ResourcesDescriptionAttribute.cs" />
     <Compile Include="ResourcesDisplayNameAttribute.cs" />
-    <Compile Include="Selector.cs" />
     <Compile Include="Serialization\IByteCompressor.cs" />
     <Compile Include="Serialization\IFastSerializationTypeSurrogate.cs" />
-    <Compile Include="Serialization\IMemoryStreamByteCompressor.cs" />
     <Compile Include="Serialization\IOwnedDataSerializable.cs" />
     <Compile Include="Serialization\IOwnedDataSerializableAndRecreatable.cs" />
     <Compile Include="Serialization\SerializationReader.cs" />
@@ -191,13 +188,11 @@
     <Compile Include="ComparableExtensions.cs" />
     <Compile Include="ConversionHelper.cs" />
     <Compile Include="Data\IObjectRepository.cs" />
-    <Compile Include="DeltaShellTimeSpanConverter.cs" />
     <Compile Include="ComponentModel\DynamicReadOnlyValidationMethodAttribute.cs" />
     <Compile Include="PropertyBag\Dynamic\DynamicPropertyBag.cs" />
     <Compile Include="ComponentModel\DynamicReadOnlyAttribute.cs" />
     <Compile Include="SnappingCalculator.cs" />
     <Compile Include="TextDocument.cs" />
-    <Compile Include="DeltaShellDateTimeConverter.cs" />
     <Compile Include="Drawing\ImageExtensions.cs" />
     <Compile Include="EnumDescriptionAttributeTypeConverter.cs" />
     <Compile Include="EventArgs.cs" />
@@ -238,7 +233,6 @@
     <Compile Include="Xml\Serialization\DictionarySerializer.cs" />
     <Compile Include="Xml\Serialization\ObjectXmlSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Xml\Serialization\SerializationUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DelftTools.snk" />

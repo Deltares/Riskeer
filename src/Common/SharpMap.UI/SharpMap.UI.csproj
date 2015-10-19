@@ -104,7 +104,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Helpers\MapCursors.cs" />
-    <Compile Include="Helpers\MapToolCursorHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -98,7 +98,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableViewPasteBehaviourOptions.cs" />
     <Compile Include="ViewInfo.cs" />
-    <Compile Include="ViewInfoWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DelftTools.snk" />

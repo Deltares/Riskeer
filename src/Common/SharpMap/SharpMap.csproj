@@ -139,7 +139,6 @@
     <Compile Include="Data\Providers\DataTableFeatureProvider.cs" />
     <Compile Include="Data\Providers\ShapeFile.cs" />
     <Compile Include="Data\Providers\ShapeType.cs" />
-    <Compile Include="Data\Providers\WrappedEnumerableList.cs" />
     <Compile Include="Editors\FeatureEditor.cs" />
     <Compile Include="Editors\FallOff\LinearFallOffPolicy.cs" />
     <Compile Include="Editors\FallOff\NoFallOffPolicy.cs" />
@@ -188,7 +187,6 @@
     <Compile Include="Styles\IShape.cs" />
     <Compile Include="Styles\Shapes\BorderStyleEditor.cs" />
     <Compile Include="Styles\Shapes\cBlendItems.cs" />
-    <Compile Include="Styles\Shapes\cblPointer.cs" />
     <Compile Include="Styles\Shapes\cFocalPoints.cs" />
     <Compile Include="Styles\Shapes\CornerProperties.cs" />
     <Compile Include="Styles\Shapes\DropdownRadiusInner.cs">

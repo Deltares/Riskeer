@@ -97,7 +97,6 @@
     <Compile Include="Algorithm\LineIntersector.cs" />
     <Compile Include="Algorithm\MCPointInRing.cs" />
     <Compile Include="Algorithm\MinimumDiameter.cs" />
-    <Compile Include="Algorithm\NonRobustCGAlgorithms.cs" />
     <Compile Include="Algorithm\NotRepresentableException.cs" />
     <Compile Include="Algorithm\IPointInRing.cs" />
     <Compile Include="Algorithm\PointLocator.cs" />
@@ -116,9 +115,7 @@
     <Compile Include="Geometries\CoordinateArraySequence.cs" />
     <Compile Include="Geometries\CoordinateArraySequenceFactory.cs" />
     <Compile Include="Geometries\CoordinateList.cs" />
-    <Compile Include="Geometries\CoordinateSequences.cs" />
     <Compile Include="Geometries\DefaultCoordinateSequence.cs" />
-    <Compile Include="Geometries\DefaultCoordinateSequenceFactory.cs" />
     <Compile Include="Geometries\Envelope.cs" />
     <Compile Include="Geometries\Geometry.cs" />
     <Compile Include="Geometries\GeometryCollection.cs" />
@@ -131,7 +128,6 @@
     <Compile Include="Geometries\MultiPoint.cs" />
     <Compile Include="Geometries\MultiPolygon.cs" />
     <Compile Include="Geometries\PackedCoordinateSequence.cs" />
-    <Compile Include="Geometries\PackedCoordinateSequenceFactory.cs" />
     <Compile Include="Geometries\Point.cs" />
     <Compile Include="Geometries\Polygon.cs" />
     <Compile Include="Geometries\PrecisionModel.cs" />
@@ -231,15 +227,11 @@
     <Compile Include="IO\GeoTools\ShapefileHeader.cs" />
     <Compile Include="IO\GeoTools\ShapefileReader.cs" />
     <Compile Include="IO\GeoTools\ShapefileWriter.cs" />
-    <Compile Include="IO\GeoTools\ShapefileDataWriter.cs" />
     <Compile Include="IO\PostGisGeometryType.cs" />
     <Compile Include="IO\PostGisReader.cs" />
     <Compile Include="IO\PostGisWriter.cs" />
     <Compile Include="IO\GDBReader.cs" />
-    <Compile Include="IO\GDBWriter.cs" />
     <Compile Include="IO\ParseException.cs" />
-    <Compile Include="IO\MyShapeFileReader.cs" />
-    <Compile Include="IO\MyShapeFileWriter.cs" />
     <Compile Include="IO\GeoTools\Handlers\ShapeHandler.cs" />
     <Compile Include="IO\ShapeGeometryType.cs">
       <SubType>Code</SubType>
@@ -332,7 +324,6 @@
     <Compile Include="Operation\Valid\ConsistentAreaTester.cs" />
     <Compile Include="Operation\Valid\IsValidOp.cs" />
     <Compile Include="Operation\Valid\QuadtreeNestedRingTester.cs" />
-    <Compile Include="Operation\Valid\RepeatedPointTester.cs" />
     <Compile Include="Operation\Valid\TopologyValidationError.cs" />
     <Compile Include="Planargraph\Algorithm\ConnectedSubgraphFinder.cs" />
     <Compile Include="Planargraph\DirectedEdge.cs" />
@@ -346,7 +337,6 @@
     <Compile Include="Precision\CommonBits.cs" />
     <Compile Include="Precision\CommonBitsOp.cs" />
     <Compile Include="Precision\CommonBitsRemover.cs" />
-    <Compile Include="Precision\EnhancedPrecisionOp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simplify\DouglasPeuckerLineSimplifier.cs" />
     <Compile Include="Simplify\LineSegmentIndex.cs" />
@@ -362,7 +352,6 @@
     <Compile Include="Triangulate\IConstraintSplitPointFinder.cs" />
     <Compile Include="Triangulate\IncrementalDelaunayTriangulator.cs" />
     <Compile Include="Triangulate\NonEncroachingSplitPointFinder.cs" />
-    <Compile Include="Triangulate\QuadEdge\EdgeConnectedTriangleTraversal.cs" />
     <Compile Include="Triangulate\QuadEdge\IQuadEdgeLocator.cs" />
     <Compile Include="Triangulate\QuadEdge\ITraversalVisitor.cs" />
     <Compile Include="Triangulate\QuadEdge\ITriangleVisitor.cs" />
@@ -377,9 +366,7 @@
     <Compile Include="Triangulate\SplitSegment.cs" />
     <Compile Include="Utilities\Assert.cs" />
     <Compile Include="Utilities\AssertionFailedException.cs" />
-    <Compile Include="Utilities\BitConverter.cs" />
     <Compile Include="Utilities\CollectionUtil.cs" />
-    <Compile Include="Utilities\CoordinateCompare.cs" />
     <Compile Include="Utilities\GeometricShapeFactory.cs" />
     <Compile Include="Utilities\HexConverter.cs" />
     <Compile Include="Utilities\Global.cs" />

@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections.Generic;
-using log4net;
 
 namespace DelftTools.Shell.Core.Workflow
 {
     public abstract class CompositeActivity : Activity, ICompositeActivity
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(CompositeActivity));
-
         public CompositeActivity()
         {
             Activities = new EventedList<IActivity>();

@@ -215,9 +215,6 @@
     <Compile Include="CollapsibleSplitter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ColorPicker.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="ControlHelper.cs" />
     <Compile Include="Csv\CsvDataSelectionControl.cs">
@@ -367,7 +364,6 @@
     <Compile Include="ImageResolutionDialog.Designer.cs">
       <DependentUpon>ImageResolutionDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Table\SortableAndFilterableBindingList.cs" />
     <Compile Include="Table\EnumFormatter.cs" />
     <Compile Include="Table\TableViewCellFormatterProvider.cs" />
     <Compile Include="Table\TableViewCellStyle.cs" />
@@ -418,9 +414,6 @@
     </Compile>
     <Compile Include="WizardPages\SelectFileWizardPage.Designer.cs">
       <DependentUpon>SelectFileWizardPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="XPProgressBar.cs">
-      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -500,10 +493,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\SelectFileWizardPage.resx">
       <DependentUpon>SelectFileWizardPage.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="XPProgressBar.resx">
-      <DependentUpon>XPProgressBar.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
