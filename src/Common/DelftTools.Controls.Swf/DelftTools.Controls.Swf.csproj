@@ -133,12 +133,6 @@
     </Compile>
     <Compile Include="Charting\Tools\ChartMouseEvent.cs" />
     <Compile Include="Charting\Tools\ExportChartAsImageChartTool.cs" />
-    <Compile Include="Charting\Tools\IEditPointTool.cs" />
-    <Compile Include="Charting\Tools\IImageTool.cs" />
-    <Compile Include="Charting\Tools\ImageTool.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Charting\Tools\IRulerTool.cs" />
     <Compile Include="Charting\Tools\RulerTool.cs" />
     <Compile Include="Charting\Tools\ToolBase.cs" />
     <Compile Include="Charting\Tools\ToolWrapper.cs">
@@ -181,28 +175,10 @@
     <Compile Include="Charting\Tools\AddPointTool.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Charting\Tools\SeriesBandTool.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Charting\Tools\CursorLineTool.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Charting\Tools\EditPointTool.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Charting\Tools\HistoryTool.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Charting\Tools\ICursorLineTool.cs" />
-    <Compile Include="Charting\Tools\IMarkerTool.cs" />
-    <Compile Include="Charting\Tools\IRectangleTool.cs" />
-    <Compile Include="Charting\Tools\MarkerTool.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Charting\Tools\PointEventArgs.cs" />
-    <Compile Include="Charting\Tools\RectangleTool.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Charting\Tools\SelectPointTool.cs">
       <SubType>Component</SubType>
     </Compile>

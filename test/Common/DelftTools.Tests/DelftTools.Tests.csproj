@@ -39,14 +39,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-	<WarningLevel>4</WarningLevel>
+    <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\Release\</OutputPath>
-	<WarningLevel>4</WarningLevel>
+    <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE</DefineConstants>
@@ -105,8 +105,6 @@
     <Compile Include="Controls\Swf\Charting\Series\PointChartSeriesTest.cs" />
     <Compile Include="Controls\Swf\Charting\Series\PolygonChartSeriesTest.cs" />
     <Compile Include="Controls\Swf\Charting\Series\TeeChartSeriesDecoratorTest.cs" />
-    <Compile Include="Controls\Swf\Charting\Tools\CursorLineToolTest.cs" />
-    <Compile Include="Controls\Swf\Charting\Tools\HistoryToolTest.cs" />
     <Compile Include="Controls\Swf\Charting\YearViewDateTimeFormatProviderTest.cs" />
     <Compile Include="Controls\Swf\CSV\CsvImportTest.cs" />
     <Compile Include="Controls\Swf\CustomInputDialogTest.cs" />

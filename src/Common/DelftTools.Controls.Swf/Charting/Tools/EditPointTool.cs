@@ -14,7 +14,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
     /// <summary>
     /// Tools for moving and deleting points (responds to 'DEL'button)
     /// </summary>
-    public class EditPointTool : ChartViewSeriesToolBase, IEditPointTool
+    public class EditPointTool : ChartViewSeriesToolBase
     {
         public event EventHandler<PointEventArgs> BeforeDrag;
 

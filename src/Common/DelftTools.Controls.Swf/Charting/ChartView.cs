@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 using DelftTools.Controls.Swf.Charting.Customized;
@@ -13,8 +12,6 @@ using DelftTools.Utils.Globalization;
 using Steema.TeeChart;
 using Steema.TeeChart.Drawing;
 using Steema.TeeChart.Tools;
-using RectangleTool = DelftTools.Controls.Swf.Charting.Tools.RectangleTool;
-using SeriesBandTool = DelftTools.Controls.Swf.Charting.Tools.SeriesBandTool;
 
 namespace DelftTools.Controls.Swf.Charting
 {
@@ -675,130 +672,7 @@ namespace DelftTools.Controls.Swf.Charting
 
         #region TeeChart Factory Methods
 
-        public ICursorLineTool NewCursorLineTool(CursorLineToolStyles lineToolStyle)
-        {
-            return NewCursorLineTool(lineToolStyle, Color.DarkRed, 2, DashStyle.Dash);
-        }
-
-        public ICursorLineTool NewCursorLineTool(CursorLineToolStyles lineToolStyle, Color lineColor, int lineWidth, DashStyle lineDashStyle)
-        {
-            var style = CursorToolStyles.Horizontal;
-
-            if (lineToolStyle == CursorLineToolStyles.Vertical)
-            {
-                style = CursorToolStyles.Vertical;
-            }
-
-            if (lineToolStyle == CursorLineToolStyles.Both)
-            {
-                style = CursorToolStyles.Both;
-            }
-
-            var tool = new CursorLineTool(teeChart, style, lineColor, lineWidth, lineDashStyle)
-            {
-                Chart = teeChart.Chart,
-                ChartView = this
-            };
-            Tools.Add(tool);
-            return tool;
-        }
-
-        public SeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color)
-        {
-            return NewSeriesBandTool(series1, series2, color, null);
-        }
-
-        public SeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color, HatchStyle? hatchStyle)
-        {
-            return NewSeriesBandTool(series1, series2, color, hatchStyle, Color.Black);
-        }
-
-        public SeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color, HatchStyle? hatchStyle, Color hatchStyleForegroundColor)
-        {
-            var tool = new SeriesBandTool
-            {
-                Chart = teeChart.Chart,
-                ChartView = this,
-                Series = series1,
-                Series2 = series2,
-                Brush =
-                {
-                    Color = color
-                }
-            };
-
-            if (hatchStyle != null)
-            {
-                tool.Brush.Solid = false;
-                tool.Brush.Style = (HatchStyle) hatchStyle;
-                tool.Brush.ForegroundColor = hatchStyleForegroundColor;
-            }
-
-            return tool;
-        }
-
-        public IRectangleTool NewRectangleTool()
-        {
-            var tool = new RectangleTool(teeChart.Chart)
-            {
-                AutoSize = false,
-                Height = 50,
-                Left = 10,
-                Shape =
-                {
-                    Bottom = 60,
-                    Brush =
-                    {
-                        Color = Color.FromArgb(64, 255, 255, 255)
-                    },
-                    CustomPosition = true,
-                    ImageTransparent = true,
-                    Left = 10,
-                    Right = 60,
-                    Shadow =
-                    {
-                        Brush =
-                        {
-                            Color = Color.FromArgb(64, 169, 169, 169)
-                        }
-                    },
-                    Top = 10
-                },
-                Top = 10,
-                Width = 50,
-                ChartView = this
-            };
-
-            Tools.Add(tool);
-            return tool;
-        }
-
-        public IImageTool NewImageTool(Image image)
-        {
-            var tool = new ImageTool(teeChart)
-            {
-                ChartView = this,
-                Image = image,
-                Top = 20,
-                Left = 20,
-                Width = 20,
-                Height = 20
-            };
-            Tools.Add(tool);
-            return tool;
-        }
-
-        public HistoryTool NewHistoryTool()
-        {
-            var tool = new HistoryTool(teeChart)
-            {
-                ChartView = this
-            };
-            Tools.Add(tool);
-            return tool;
-        }
-
-        public IEditPointTool NewEditPointTool()
+        public EditPointTool NewEditPointTool()
         {
             var tool = new EditPointTool(teeChart)
             {
@@ -818,7 +692,7 @@ namespace DelftTools.Controls.Swf.Charting
             return tool;
         }
 
-        public IRulerTool NewRulerTool()
+        public RulerTool NewRulerTool()
         {
             var tool = new RulerTool(teeChart)
             {

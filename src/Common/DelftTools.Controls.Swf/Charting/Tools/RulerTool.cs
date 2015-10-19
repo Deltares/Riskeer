@@ -10,7 +10,7 @@ using Steema.TeeChart.Drawing;
 
 namespace DelftTools.Controls.Swf.Charting.Tools
 {
-    public class RulerTool : IRulerTool
+    public class RulerTool : IChartViewTool
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(RulerTool));
         private readonly DeltaShellTChart teeChart;
