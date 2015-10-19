@@ -146,7 +146,6 @@
     <Compile Include="Charting\ChartView.Designer.cs">
       <DependentUpon>ChartView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Charting\ChartViewZoom.cs" />
     <Compile Include="Charting\ColorBlend.cs" />
     <Compile Include="Charting\Enumerators.cs" />
     <Compile Include="Charting\IChart.cs" />
@@ -262,7 +261,6 @@
     <Compile Include="DataEditorGenerator\FromType\CustomControlHelperAttribute.cs" />
     <Compile Include="DataEditorGenerator\FromType\DependentPropertyAttribute.cs" />
     <Compile Include="DataEditorGenerator\FromType\EnabledIfAttribute.cs" />
-    <Compile Include="DataEditorGenerator\FromType\HideAttribute.cs" />
     <Compile Include="DataEditorGenerator\SelfCollapsingGroupbox.cs">
       <SubType>Component</SubType>
     </Compile>

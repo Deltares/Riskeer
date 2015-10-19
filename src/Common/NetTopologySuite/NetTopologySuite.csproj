@@ -200,7 +200,6 @@
     <Compile Include="Index\Strtree\SIRtree.cs" />
     <Compile Include="Index\Strtree\STRtree.cs" />
     <Compile Include="Index\Sweepline\SweepLineEvent.cs" />
-    <Compile Include="Index\Sweepline\SweepLineIndex.cs" />
     <Compile Include="Index\Sweepline\SweepLineInterval.cs" />
     <Compile Include="Index\Sweepline\ISweepLineOverlapAction.cs" />
     <Compile Include="IO\BEBinaryReader.cs" />
@@ -222,7 +221,6 @@
     <Compile Include="IO\GeoTools\ShapefileException.cs" />
     <Compile Include="IO\GeoTools\ShapefileHeader.cs" />
     <Compile Include="IO\GeoTools\ShapefileReader.cs" />
-    <Compile Include="IO\GeoTools\ShapefileWriter.cs" />
     <Compile Include="IO\PostGisGeometryType.cs" />
     <Compile Include="IO\PostGisReader.cs" />
     <Compile Include="IO\PostGisWriter.cs" />
@@ -256,7 +254,6 @@
     <Compile Include="Noding\INoder.cs" />
     <Compile Include="Noding\NodingValidator.cs" />
     <Compile Include="Noding\Octant.cs" />
-    <Compile Include="Noding\OrientedCoordinateArray.cs" />
     <Compile Include="Noding\ScaledNoder.cs" />
     <Compile Include="Noding\SegmentNode.cs" />
     <Compile Include="Noding\SegmentNodeList.cs" />
@@ -332,10 +329,8 @@
     <Compile Include="Precision\CommonBitsOp.cs" />
     <Compile Include="Precision\CommonBitsRemover.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Simplify\DouglasPeuckerLineSimplifier.cs" />
     <Compile Include="Simplify\LineSegmentIndex.cs" />
     <Compile Include="Simplify\TaggedLineSegment.cs" />
-    <Compile Include="Simplify\TaggedLinesSimplifier.cs" />
     <Compile Include="Simplify\TaggedLineString.cs" />
     <Compile Include="Simplify\TaggedLineStringSimplifier.cs" />
     <Compile Include="Triangulate\ConformingDelaunayTriangulator.cs" />
@@ -347,7 +342,6 @@
     <Compile Include="Triangulate\IncrementalDelaunayTriangulator.cs" />
     <Compile Include="Triangulate\NonEncroachingSplitPointFinder.cs" />
     <Compile Include="Triangulate\QuadEdge\IQuadEdgeLocator.cs" />
-    <Compile Include="Triangulate\QuadEdge\ITraversalVisitor.cs" />
     <Compile Include="Triangulate\QuadEdge\ITriangleVisitor.cs" />
     <Compile Include="Triangulate\QuadEdge\LastFoundQuadEdgeLocator.cs" />
     <Compile Include="Triangulate\QuadEdge\LocateFailureException.cs" />

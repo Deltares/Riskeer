@@ -1,5 +1,3 @@
-using System.Drawing;
-
 namespace DelftTools.Controls
 {
     /// <summary>
@@ -8,19 +6,9 @@ namespace DelftTools.Controls
     public interface ICommand
     {
         /// <summary>
-        /// Name of the Command. This might show up in the toolbar button.
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
         /// Commands can be disabled if they cannot be executed.
         /// </summary>
         bool Enabled { get; }
-
-        /// <summary>
-        /// Image displayed commandtext in interface
-        /// </summary>
-        Image Image { set; get; }
 
         /// <summary>
         /// Commands can checked if they represent a (boolean) state.

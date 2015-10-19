@@ -43,11 +43,6 @@ namespace DelftTools.Controls.Swf.Charting
         /// </summary>
         IChart Chart { get; set; }
 
-        /// <summary>
-        /// Zoom and Pan move to chart or tools?
-        /// </summary>
-        ChartViewZoom Zoom { get; }
-
         bool AllowPanning { get; set; }
 
         /// <summary>

@@ -178,7 +178,6 @@
     <Compile Include="Collections\Extensions\ListExtensions.cs" />
     <Compile Include="Collections\Generic\EnumerableList.cs" />
     <Compile Include="Collections\Generic\IEnumerableList.cs" />
-    <Compile Include="Collections\Generic\IEnumerableListCache.cs" />
     <Compile Include="Collections\Generic\IEnumerableListEditor.cs" />
     <Compile Include="Collections\INotifyCollectionChange.cs" />
     <Compile Include="Aop\InvokeRequiredAttribute.cs" />

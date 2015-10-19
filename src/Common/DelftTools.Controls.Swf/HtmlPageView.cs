@@ -3,17 +3,14 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using DelftTools.Utils;
-using log4net;
 
 namespace DelftTools.Controls.Swf
 {
     /// <summary>
     /// Control that shows html page defined by Web link.
     /// </summary>
-    public partial class HtmlPageView : WebBrowser, IView
+    public class HtmlPageView : WebBrowser, IView
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HtmlPageView));
-
         private Url url;
 
         /// <summary>
@@ -22,18 +19,6 @@ namespace DelftTools.Controls.Swf
         public HtmlPageView()
         {
             ScriptErrorsSuppressed = true;
-        }
-
-        public new Url Url
-        {
-            get
-            {
-                return (Url) Data;
-            }
-            set
-            {
-                Data = value;
-            }
         }
 
         /// <summary>
@@ -52,21 +37,6 @@ namespace DelftTools.Controls.Swf
             {
                 // do nothing with this exception
             }
-        }
-
-        public void NextPage()
-        {
-            GoForward();
-        }
-
-        public void PreviousPage()
-        {
-            GoBack();
-        }
-
-        public void HomePage()
-        {
-            GoHome();
         }
 
         ~HtmlPageView()

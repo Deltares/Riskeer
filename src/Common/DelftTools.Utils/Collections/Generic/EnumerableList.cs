@@ -11,7 +11,7 @@ namespace DelftTools.Utils.Collections.Generic
     /// If _collectionChangeSource is not set, Count will always be processed by Enumerable.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class EnumerableList<T> : IEnumerableList<T>, IEnumerableListCache, INotifyPropertyChange
+    public class EnumerableList<T> : IEnumerableList<T>, INotifyPropertyChange
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

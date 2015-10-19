@@ -208,16 +208,6 @@ namespace DelftTools.Controls.Swf.Charting
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public ChartViewZoom Zoom
-        {
-            get
-            {
-                return new ChartViewZoom(teeChart.Zoom);
-            }
-        }
-
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ChartCoordinateService ChartCoordinateService
         {
             get
