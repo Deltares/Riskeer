@@ -287,8 +287,6 @@
     <Compile Include="DataEditorGenerator\FromType\DependentPropertyAttribute.cs" />
     <Compile Include="DataEditorGenerator\FromType\EnabledIfAttribute.cs" />
     <Compile Include="DataEditorGenerator\FromType\HideAttribute.cs" />
-    <Compile Include="DataEditorGenerator\FromType\SubCategoryAttribute.cs" />
-    <Compile Include="DataEditorGenerator\FromType\UnitAttribute.cs" />
     <Compile Include="DataEditorGenerator\SelfCollapsingGroupbox.cs">
       <SubType>Component</SubType>
     </Compile>

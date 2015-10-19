@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
-using System.Xml;
 using GeoAPI.Geometries;
 using GeoAPI.Operations.Buffer;
 using GisSharpBlog.NetTopologySuite.Algorithm;
 using GisSharpBlog.NetTopologySuite.IO;
-using GisSharpBlog.NetTopologySuite.IO.GML2;
 using GisSharpBlog.NetTopologySuite.Operation.Buffer;
 using GisSharpBlog.NetTopologySuite.Operation.Distance;
 using GisSharpBlog.NetTopologySuite.Operation.Overlay;
@@ -580,17 +578,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public byte[] ToBinary()
         {
             WKBWriter writer = new WKBWriter();
-            return writer.Write(this);
-        }
-
-        /// <summary>
-        /// Returns the feature representation as GML 2.1.1 XML document.
-        /// This XML document is based on <c>Geometry.xsd</c> schema.
-        /// NO features or XLink are implemented here!
-        /// </summary>        
-        public XmlReader ToGMLFeature()
-        {
-            GMLWriter writer = new GMLWriter();
             return writer.Write(this);
         }
 

@@ -5,7 +5,7 @@
         public enum IfOperation
         {
             Equal,
-            NotEqual,
+            NotEqual
         }
 
         protected OperationIfAttribute(string propertyName, object value, IfOperation operation = IfOperation.Equal)

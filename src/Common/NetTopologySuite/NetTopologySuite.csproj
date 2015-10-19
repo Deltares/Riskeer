@@ -133,7 +133,6 @@
     <Compile Include="Geometries\PrecisionModel.cs" />
     <Compile Include="Geometries\TopologyException.cs" />
     <Compile Include="Geometries\Triangle.cs" />
-    <Compile Include="Geometries\Utilities\GeometryCombiner.cs" />
     <Compile Include="Geometries\Utilities\GeometryEditor.cs" />
     <Compile Include="Geometries\Utilities\GeometryTransformer.cs" />
     <Compile Include="Geometries\Utilities\LinearComponentExtracter.cs" />
@@ -213,9 +212,6 @@
     <Compile Include="IO\GeoTools\Dbase\DbaseFileHeader.cs" />
     <Compile Include="IO\GeoTools\Dbase\DbaseFileReader.cs" />
     <Compile Include="IO\GeoTools\Dbase\DbaseFileWriter.cs" />
-    <Compile Include="IO\GML2\GMLElements.cs" />
-    <Compile Include="IO\GML2\GMLReader.cs" />
-    <Compile Include="IO\GML2\GMLWriter.cs" />
     <Compile Include="IO\GeoTools\Handlers\MultiLineHandler.cs" />
     <Compile Include="IO\GeoTools\Handlers\MultiPointHandler.cs" />
     <Compile Include="IO\GeoTools\Handlers\PointHandler.cs" />
@@ -237,7 +233,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="IO\ShapeReader.cs" />
-    <Compile Include="IO\ShapeWriter.cs" />
     <Compile Include="IO\GeoTools\TokenType.cs" />
     <Compile Include="IO\WKBReader.cs" />
     <Compile Include="IO\WKBGeometryTypes.cs" />
@@ -246,7 +241,6 @@
     <Compile Include="IO\GeoTools\WktStreamTokenizer.cs" />
     <Compile Include="IO\WKTWriter.cs" />
     <Compile Include="LinearReferencing\ExtractLineByLocation.cs" />
-    <Compile Include="LinearReferencing\LengthIndexOfPoint.cs" />
     <Compile Include="LinearReferencing\LengthLocationMap.cs" />
     <Compile Include="LinearReferencing\LinearGeometryBuilder.cs" />
     <Compile Include="LinearReferencing\LinearIterator.cs" />

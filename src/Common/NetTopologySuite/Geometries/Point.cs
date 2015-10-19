@@ -259,26 +259,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
 
         /// <summary>
         /// 
-        /// </summary>        
-        public double Z
-        {
-            get
-            {
-                if (Coordinate == null)
-                {
-                    throw new ArgumentOutOfRangeException("Z called on empty Point");
-                }
-                return Coordinate.Z;
-            }
-            set
-            {
-                Coordinate.Z = value;
-                GeometryChangedAction();
-            }
-        }
-
-        /// <summary>
-        /// 
         /// </summary>
         /// <param name="other"></param>
         /// <param name="tolerance"></param>

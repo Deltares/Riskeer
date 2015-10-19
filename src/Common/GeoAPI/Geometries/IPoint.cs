@@ -2,11 +2,9 @@ namespace GeoAPI.Geometries
 {
     public interface IPoint : IGeometry
     {
-        double X { get; set; }
+        double X { get; }
 
-        double Y { get; set; }
-
-        double Z { get; set; }
+        double Y { get; }
 
         ICoordinateSequence CoordinateSequence { get; }
     }

@@ -131,7 +131,6 @@
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DateTimeFormatGuesser.cs" />
     <Compile Include="DateTimeFormats.cs" />
-    <Compile Include="DefaultListEnumerator.cs" />
     <Compile Include="Diagnostics\ResourceMonitor.cs" />
     <Compile Include="DisplayFormatAttribute.cs" />
     <Compile Include="Editing\DefaultEditAction.cs" />
@@ -157,7 +156,6 @@
     <Compile Include="ResourcesCategoryAttribute.cs" />
     <Compile Include="ResourcesDescriptionAttribute.cs" />
     <Compile Include="ResourcesDisplayNameAttribute.cs" />
-    <Compile Include="Serialization\IByteCompressor.cs" />
     <Compile Include="Serialization\IFastSerializationTypeSurrogate.cs" />
     <Compile Include="Serialization\IOwnedDataSerializable.cs" />
     <Compile Include="Serialization\IOwnedDataSerializableAndRecreatable.cs" />
