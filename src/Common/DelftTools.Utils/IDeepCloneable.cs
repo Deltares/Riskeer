@@ -1,5 +1,3 @@
-using System;
-
 namespace DelftTools.Utils
 {
     ///<summary>
@@ -15,6 +13,4 @@ namespace DelftTools.Utils
         ///<returns>The object graph</returns>
         object DeepClone();
     }
-
-    public interface IManualCloneable : ICloneable {}
 }

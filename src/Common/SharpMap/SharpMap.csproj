@@ -209,14 +209,9 @@
     <Compile Include="Styles\ShapeType.cs" />
     <Compile Include="Styles\Style.cs" />
     <Compile Include="Styles\VectorStyle.cs" />
-    <Compile Include="Utilities\Algorithms.cs" />
     <Compile Include="Utilities\Indexing\BinaryTree.cs" />
     <Compile Include="Utilities\Indexing\SpatialIndexing.cs" />
-    <Compile Include="Utilities\LeastSquaresTransform.cs" />
-    <Compile Include="Utilities\Providers.cs" />
-    <Compile Include="Utilities\Surrogates.cs" />
     <Compile Include="Utilities\Transform.cs" />
-    <Compile Include="Utilities\Version.cs" />
     <Compile Include="Web\Cache.cs" />
     <Compile Include="Web\HttpHandler.cs" />
     <Compile Include="Web\Wms\Capabilities.cs" />

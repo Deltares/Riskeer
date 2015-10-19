@@ -97,7 +97,6 @@
     <Compile Include="Forms\IRibbonCommandHandler.cs" />
     <Compile Include="Forms\IProjectExplorer.cs" />
     <Compile Include="Forms\IPropertyGrid.cs" />
-    <Compile Include="GuiContextManager.cs" />
     <Compile Include="IConfigureDialog.cs" />
     <Compile Include="IGuiCommand.cs" />
     <Compile Include="ILayerEditorView.cs" />

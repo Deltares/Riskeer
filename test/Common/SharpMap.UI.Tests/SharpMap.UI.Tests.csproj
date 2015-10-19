@@ -82,7 +82,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\CurvePointToolTest.cs" />
     <Compile Include="Tools\DeleteToolTest.cs" />
-    <Compile Include="Tools\NewPointFeatureToolTest.cs" />
     <Compile Include="Tools\SelectToolTest.cs" />
     <Compile Include="Tools\ZoomHistoryTest.cs" />
   </ItemGroup>

@@ -6,7 +6,6 @@ namespace EGIS.ShapeFileLib
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     internal unsafe struct ShapeFileMainHeader
     {
-        internal const int MAIN_HEADER_LENGTH = 100;
         public int FileCode;
         public int UnusedByte1;
         public int UnusedByte2;

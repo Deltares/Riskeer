@@ -80,15 +80,6 @@ namespace DelftTools.Utils.Reflection
                 return o;
             }
 
-            // check if type has manual clone implemented, use it!
-            var asManualCloneable = inst as IManualCloneable;
-            if (asManualCloneable != null)
-            {
-                var manualClone = asManualCloneable.Clone();
-                manualClones.Add(manualClone);
-                cloneStore.AddClone(inst, manualClone);
-                return manualClone;
-            }
             var instType = inst.GetType();
 
             // clone arrays

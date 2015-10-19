@@ -142,7 +142,6 @@
     <Compile Include="Editing\IEditAction.cs" />
     <Compile Include="GraphicsUtils.cs" />
     <Compile Include="Interop\NativeWin32.cs" />
-    <Compile Include="IO\ITransactionalChangeAccess.cs" />
     <Compile Include="Reflection\AutoCloner.cs" />
     <Compile Include="Reflection\DynamicTypeUtils.cs" />
     <Compile Include="Properties\Resource.Designer.cs">

@@ -127,7 +127,6 @@
     <Compile Include="Tools\IMapTool.cs" />
     <Compile Include="Tools\MeasureTool.cs" />
     <Compile Include="Tools\MoveTool.cs" />
-    <Compile Include="Tools\NewPointFeatureTool.cs" />
     <Compile Include="Tools\Decorations\NorthArrowTool.cs" />
     <Compile Include="Tools\Zooming\PanZoomTool.cs" />
     <Compile Include="Tools\Decorations\ScaleBarTool.cs" />
