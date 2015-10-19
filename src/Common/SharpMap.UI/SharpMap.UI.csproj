@@ -88,12 +88,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\CoordinateConversionDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\CoordinateConversionDialog.Designer.cs">
-      <DependentUpon>CoordinateConversionDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\CoordinateSystemStringTypeConverter.cs" />
     <Compile Include="Forms\CoordinateSystemTypeEditor.cs" />
     <Compile Include="Forms\IMapControl.cs" />
@@ -178,9 +172,6 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\CoordinateConversionDialog.resx">
-      <DependentUpon>CoordinateConversionDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SelectCoordinateSystemDialog.resx">
       <DependentUpon>SelectCoordinateSystemDialog.cs</DependentUpon>
     </EmbeddedResource>

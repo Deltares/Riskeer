@@ -98,7 +98,6 @@
     <Compile Include="Algorithm\MCPointInRing.cs" />
     <Compile Include="Algorithm\MinimumDiameter.cs" />
     <Compile Include="Algorithm\NonRobustCGAlgorithms.cs" />
-    <Compile Include="Algorithm\NonRobustLineIntersector.cs" />
     <Compile Include="Algorithm\NotRepresentableException.cs" />
     <Compile Include="Algorithm\IPointInRing.cs" />
     <Compile Include="Algorithm\PointLocator.cs" />

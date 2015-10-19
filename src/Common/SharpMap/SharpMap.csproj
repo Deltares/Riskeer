@@ -147,7 +147,6 @@
     <Compile Include="Editors\FallOff\RingFallOffPolicy.cs" />
     <Compile Include="Editors\FeatureInteractor.cs" />
     <Compile Include="Editors\Interactors\LinearRingInteractor.cs" />
-    <Compile Include="Editors\FeatureRelationInteractor.cs" />
     <Compile Include="Editors\Interactors\LineStringInteractor.cs" />
     <Compile Include="Editors\Interactors\PointInteractor.cs" />
     <Compile Include="Editors\Snapping\SnapRule.cs" />

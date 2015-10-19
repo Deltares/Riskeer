@@ -322,9 +322,6 @@
       <DependentUpon>FindAndReplaceControl.cs</DependentUpon>
     </Compile>
     <Compile Include="MessageBox.cs" />
-    <Compile Include="Editors\BANumEdit.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Editors\ComboBoxTypeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -393,7 +390,6 @@
     <Compile Include="ImageResolutionDialog.Designer.cs">
       <DependentUpon>ImageResolutionDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Table\NonMandatoryDataGridViewComboBoxCell.cs" />
     <Compile Include="Table\SortableAndFilterableBindingList.cs" />
     <Compile Include="Table\EnumFormatter.cs" />
     <Compile Include="Table\TableViewCellFormatterProvider.cs" />

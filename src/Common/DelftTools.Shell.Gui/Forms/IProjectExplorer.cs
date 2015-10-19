@@ -7,8 +7,6 @@ namespace DelftTools.Shell.Gui.Forms
     {
         ITreeView TreeView { get; }
 
-        IMenuItem GetContextMenu(ITreeNode sender, object o);
-
         void ScrollTo(IProjectItem projectItem);
     }
 }

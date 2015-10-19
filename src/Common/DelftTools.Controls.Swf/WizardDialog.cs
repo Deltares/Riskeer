@@ -9,7 +9,7 @@ using DevExpress.XtraWizard;
 
 namespace DelftTools.Controls.Swf
 {
-    public partial class WizardDialog : Form, IWizardDialog, IView
+    public partial class WizardDialog : Form, IDialog, IView
     {
         private readonly IDictionary<IComponent, WizardPage> wizardPages = new Dictionary<IComponent, WizardPage>();
 
