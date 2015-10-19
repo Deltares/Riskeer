@@ -70,7 +70,17 @@ namespace DeltaShell.Gui
 
                 selectedObject = value;
 
-                OnSelectedObjectChanged();
+                if (selectedObject == null)
+                {
+                    base.SelectedObject = null;
+                    return;
+                }
+
+                var selectedType = GetRelevantType(selectedObject);
+
+                Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, selectedType.Name);
+
+                base.SelectedObject = selectedObject;
             }
         }
 
@@ -218,25 +228,6 @@ namespace DeltaShell.Gui
                 return sourceData;
             }
         }
-
-        /// <summary>
-        /// If the selected objects changed rebuild the internal dictionary that counts the number of
-        /// objects of each type.
-        /// </summary>
-        private void OnSelectedObjectChanged()
-        {
-            if (SelectedObject == null)
-            {
-                base.SelectedObject = null;
-                return;
-            }
-
-            var selectedType = GetRelevantType(SelectedObject);
-
-            Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, selectedType.Name);
-
-            base.SelectedObject = SelectedObject;
-            }
 
         private static Type GetRelevantType(object obj)
         {
