@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using DelftTools.Shell.Core;
 
@@ -17,18 +18,24 @@ namespace Wti.Data
         public PipingFailureMechanism()
         {
             SurfaceLines = Enumerable.Empty<PipingSurfaceLine>();
+            SoilProfiles = Enumerable.Empty<object>();
             PipingData = new PipingData();
         }
 
         /// <summary>
-        /// Gets the available surface lines within the scope of the piping failure mechanism.
+        /// Gets the available <see cref="PipingSurfaceLine"/> within the scope of the piping failure mechanism.
         /// </summary>
         public IEnumerable<PipingSurfaceLine> SurfaceLines { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="PipingData"/>, which contains input and output of a piping calculation.
         /// </summary>
-        public PipingData PipingData { get; set; }
+        public PipingData PipingData { get; private set; }
+
+        /// <summary>
+        /// Gets the available profiles within the scope of the piping failure mechanism.
+        /// </summary>
+        public IEnumerable SoilProfiles { get; private set; }
 
         public void Attach(IObserver observer)
         {

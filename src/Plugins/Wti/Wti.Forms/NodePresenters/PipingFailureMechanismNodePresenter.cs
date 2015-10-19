@@ -8,8 +8,10 @@ using Wti.Forms.Properties;
 
 namespace Wti.Forms.NodePresenters
 {
-    public class PipingFailureMechanismNodePresenter : ITreeNodePresenter {
+    public class PipingFailureMechanismNodePresenter : ITreeNodePresenter
+    {
         public ITreeView TreeView { get; set; }
+
         public Type NodeTagType
         {
             get
@@ -26,13 +28,14 @@ namespace Wti.Forms.NodePresenters
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
-            PipingFailureMechanism failureMechanism = (PipingFailureMechanism)parentNodeData;
+            PipingFailureMechanism failureMechanism = (PipingFailureMechanism) parentNodeData;
+            yield return failureMechanism.SoilProfiles;
             yield return failureMechanism.SurfaceLines;
 
             if (failureMechanism.PipingData != null)
             {
                 yield return failureMechanism.PipingData;
-            } 
+            }
         }
 
         public bool CanRenameNode(ITreeNode node)

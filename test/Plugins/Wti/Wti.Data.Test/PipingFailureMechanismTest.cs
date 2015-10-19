@@ -23,6 +23,7 @@ namespace Wti.Data.Test
 
             // assert
             CollectionAssert.IsEmpty(piping.SurfaceLines);
+            CollectionAssert.IsEmpty(piping.SoilProfiles);
             Assert.IsNotNull(piping.PipingData);
         }
 

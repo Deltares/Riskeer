@@ -352,4 +352,7 @@
   <data name="WtiProjectTooltipPipingFailureMechanismAlreadyAdded" xml:space="preserve">
     <value>Kan geen nieuwe piping toetsing starten, omdat er al een piping toetsing is gestart voor dit project.</value>
   </data>
+  <data name="PipingSoilProfilesCollectionName" xml:space="preserve">
+    <value>Ondergrondprofielen</value>
+  </data>
 </root>

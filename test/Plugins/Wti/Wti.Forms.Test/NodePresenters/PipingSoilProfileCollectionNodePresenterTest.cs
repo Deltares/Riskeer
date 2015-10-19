@@ -1,72 +1,72 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using DelftTools.Controls;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Wti.Data;
 using Wti.Forms.NodePresenters;
+using WtiFormsResources = Wti.Forms.Properties.Resources;
 
 namespace Wti.Forms.Test.NodePresenters
 {
-    public class PipingFailureMechanismNodePresenterTest
+    [TestFixture]
+    public class PipingSoilProfileCollectionNodePresenterTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Assert
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
-            Assert.AreEqual(typeof(PipingFailureMechanism), nodePresenter.NodeTagType);
+            Assert.AreEqual(typeof(IEnumerable), nodePresenter.NodeTagType);
         }
 
         [Test]
         public void UpdateNode_WithData_InitializeNode()
         {
             // Setup
-            const string nodeName = "Faalmechanisme piping";
-
             var mocks = new MockRepository();
-            var pipingNode = mocks.Stub<ITreeNode>();
+            var soilProfileCollectionNodeStub = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
-            var pipingData = new PipingData();
+            IEnumerable<object> surfaceLinesCollection = Enumerable.Empty<object>();
 
             // Call
-            nodePresenter.UpdateNode(null, pipingNode, pipingData);
+            nodePresenter.UpdateNode(null, soilProfileCollectionNodeStub, surfaceLinesCollection);
 
             // Assert
-            Assert.AreEqual(nodeName, pipingNode.Text);
-            Assert.AreEqual(16, pipingNode.Image.Height);
-            Assert.AreEqual(16, pipingNode.Image.Width);
+            Assert.AreEqual(WtiFormsResources.PipingSoilProfilesCollectionName, soilProfileCollectionNodeStub.Text);
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), soilProfileCollectionNodeStub.ForegroundColor);
+            Assert.AreEqual(16, soilProfileCollectionNodeStub.Image.Height);
+            Assert.AreEqual(16, soilProfileCollectionNodeStub.Image.Width);
         }
 
         [Test]
-        public void GetChildNodeObjects_Always_ReturnChildDataNodes()
+        public void GetChildNodeObjects_Always_ReturnEmpty()
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            IEnumerable<object> surfaceLinesCollection = new object[0];
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(pipingFailureMechanism, nodeMock).OfType<object>().ToArray();
+            var children = nodePresenter.GetChildNodeObjects(surfaceLinesCollection, nodeMock);
 
             // Assert
-            Assert.AreEqual(3, children.Length);
-            Assert.AreSame(pipingFailureMechanism.SoilProfiles, children[0]);
-            Assert.AreSame(pipingFailureMechanism.SurfaceLines, children[1]);
-            Assert.AreSame(pipingFailureMechanism.PipingData, children[2]);
+            CollectionAssert.IsEmpty(children);
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 
@@ -78,7 +78,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNode(nodeMock);
@@ -96,7 +96,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
@@ -114,7 +114,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Call
             TestDelegate call = () => { nodePresenter.OnNodeRenamed(nodeMock, "<Insert New Name Here>"); };
@@ -134,7 +134,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Call
             nodePresenter.OnNodeChecked(nodeMock);
@@ -151,7 +151,7 @@ namespace Wti.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Call
             DragOperations dragAllowed = nodePresenter.CanDrag(dataMock);
@@ -171,7 +171,7 @@ namespace Wti.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Call
             DragOperations dropAllowed = nodePresenter.CanDrop(dataMock, sourceMock, targetMock, DragOperations.Move);
@@ -191,7 +191,7 @@ namespace Wti.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Call
             bool insertionAllowed = nodePresenter.CanInsert(dataMock, sourceMock, targetMock);
@@ -211,7 +211,7 @@ namespace Wti.Forms.Test.NodePresenters
             var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Call
             nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
@@ -228,32 +228,12 @@ namespace Wti.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Call
             nodePresenter.OnNodeSelected(dataMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void GetContextMenu_Always_ReturnsNull()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<PipingData>();
-
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-
-            mocks.ReplayAll();
-
-            // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
-
-            // Assert
-            Assert.IsNull(contextMenu);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -267,7 +247,7 @@ namespace Wti.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Call
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
@@ -285,7 +265,7 @@ namespace Wti.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Call
             nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
@@ -295,34 +275,15 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanRemove_PipingFailureMechanism_ReturnTrue()
+        public void CanRemove_Always_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<object>();
-            var nodeMock = mocks.StrictMock<PipingFailureMechanism>();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-
-            // Call
-            bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
-
-            // Assert
-            Assert.IsTrue(removalAllowed);
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void CanRemove_NotPipingFailureMechanism_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var nodeMock = mocks.StrictMock<object>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
             // Call
             bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
@@ -333,38 +294,24 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void RemoveNodeData_PipingFailureMechanism_PipingFailureMechanismRemovedFromWtiProject()
+        public void RemoveNodeData_Always_ThrowInvalidOperationException()
         {
-            // Setup
-            var project = new WtiProject();
-            project.InitializePipingFailureMechanism();
+            // setup
+            var mocks = new MockRepository();
+            var parentNodeDataMock = mocks.StrictMock<object>();
+            var nodeDataMock = mocks.StrictMock<ITreeNode>();
+            mocks.ReplayAll();
 
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
-            // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(project, new PipingFailureMechanism());
+            // call
+            TestDelegate call = () => nodePresenter.RemoveNodeData(parentNodeDataMock, nodeDataMock);
 
-            // Assert
-            Assert.IsTrue(removalSuccesful);
-            Assert.IsNull(project.PipingFailureMechanism);
-        }
-
-        [Test]
-        public void RemoveNodeData_NotPipingFailureMechanism_PipingFailureMechanismStillAssignedToWtiProject()
-        {
-            // Setup
-            var project = new WtiProject();
-            project.InitializePipingFailureMechanism();
-            var expectedFailureMechanism = project.PipingFailureMechanism;
-
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-
-            // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(project, new object());
-
-            // Assert
-            Assert.IsFalse(removalSuccesful);
-            Assert.AreSame(expectedFailureMechanism, project.PipingFailureMechanism);
+            // assert
+            var exception = Assert.Throws<InvalidOperationException>(call);
+            var expectedMessage = string.Format("Cannot delete node of type {0}.", nodePresenter.GetType().Name);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            mocks.VerifyAll(); // Expect no calls on arguments
         }
     }
 }
