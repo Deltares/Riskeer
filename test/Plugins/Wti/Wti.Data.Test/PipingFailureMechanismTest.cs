@@ -41,6 +41,7 @@ namespace Wti.Data.Test
 
             // Call & Assert
             pipingFailureMechanism.NotifyObservers();
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -58,6 +59,7 @@ namespace Wti.Data.Test
 
             // Call & Assert
             pipingFailureMechanism.NotifyObservers();
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -79,6 +81,7 @@ namespace Wti.Data.Test
 
             // Call & Assert
             pipingFailureMechanism.NotifyObservers();
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -101,6 +104,7 @@ namespace Wti.Data.Test
 
             // Call & Assert
             pipingFailureMechanism.NotifyObservers();
+            mockRepository.VerifyAll();
         }
 
         [Test]

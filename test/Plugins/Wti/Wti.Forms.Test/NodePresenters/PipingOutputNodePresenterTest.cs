@@ -1,11 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using DelftTools.Controls;
-using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Wti.Calculation.Test.Piping.Stub;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
 using Wti.Forms.Test.Helper;
@@ -104,7 +102,7 @@ namespace Wti.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(renameAllowed);
-            mocks.ReplayAll(); // Expect no calls on tree node
+            mocks.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
@@ -124,7 +122,7 @@ namespace Wti.Forms.Test.NodePresenters
             var exception = Assert.Throws<InvalidOperationException>(call);
             var expectedMessage = string.Format("Cannot rename tree node of type {0}.", nodePresenter.GetType().Name);
             Assert.AreEqual(expectedMessage, exception.Message);
-            mocks.ReplayAll(); // Expect no calls on tree node
+            mocks.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
