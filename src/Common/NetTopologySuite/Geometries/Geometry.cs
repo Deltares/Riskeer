@@ -803,7 +803,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         public bool Within(IGeometry g)
         {
             return g.Contains(this);
-            ;
         }
 
         /// <summary>

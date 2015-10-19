@@ -213,7 +213,6 @@ namespace SharpMap.Web.Wms
                         WmsException.ThrowWmsException("Invalid parameter BGCOLOR");
                         return;
                     }
-                    ;
                 }
                 else
                 {

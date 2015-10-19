@@ -284,11 +284,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay
                 {
                     minEnv = minShell.LinearRing.EnvelopeInternal;
                 }
-                bool isContained = false;
-                if (tryEnv.Contains(testEnv) && CGAlgorithms.IsPointInRing(testPt, tryRing.Coordinates))
-                {
-                    isContained = true;
-                }
+                bool isContained = tryEnv.Contains(testEnv) && CGAlgorithms.IsPointInRing(testPt, tryRing.Coordinates);
                 // check if this new containing ring is smaller than the current minimum ring
                 if (isContained)
                 {

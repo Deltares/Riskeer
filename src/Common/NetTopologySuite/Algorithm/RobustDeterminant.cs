@@ -115,9 +115,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                 if (0.0 < y2)
                 {
                     if (y1 <= y2)
-                    {
-                        ;
-                    }
+                    {}
                     else
                     {
                         sign = -sign;
@@ -176,7 +174,6 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                         y1 = -y1;
                         x2 = -x2;
                         y2 = -y2;
-                        ;
                     }
                     else
                     {
@@ -202,9 +199,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                 if (0.0 < x2)
                 {
                     if (x1 <= x2)
-                    {
-                        ;
-                    }
+                    {}
                     else
                     {
                         return sign;
@@ -228,7 +223,6 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
                         sign = -sign;
                         x1 = -x1;
                         x2 = -x2;
-                        ;
                     }
                     else
                     {

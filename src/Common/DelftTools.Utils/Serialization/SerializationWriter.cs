@@ -1408,16 +1408,12 @@ namespace DelftTools.Utils.Serialization
         /// <summary>
         /// Writes a Byte[] into the stream.
         /// Notes:
-        /// A null or empty array will take 1 byte.
+        /// An empty array will take 1 byte.
         /// </summary>
         /// <param name="values">The Byte[] to store.</param>
         public override void Write(byte[] values)
         {
-            if (values == null)
-            {
-                WriteTypeCode(SerializedType.NullType);
-            }
-            else if (values.Length == 0)
+            if (values.Length == 0)
             {
                 WriteTypeCode(SerializedType.EmptyTypedArrayType);
             }
@@ -1431,16 +1427,12 @@ namespace DelftTools.Utils.Serialization
         /// <summary>
         /// Writes a Char[] into the stream.
         /// Notes:
-        /// A null or empty array will take 1 byte.
+        /// An empty array will take 1 byte.
         /// </summary>
         /// <param name="values">The Char[] to store.</param>
         public override void Write(char[] values)
         {
-            if (values == null)
-            {
-                WriteTypeCode(SerializedType.NullType);
-            }
-            else if (values.Length == 0)
+            if (values.Length == 0)
             {
                 WriteTypeCode(SerializedType.EmptyTypedArrayType);
             }

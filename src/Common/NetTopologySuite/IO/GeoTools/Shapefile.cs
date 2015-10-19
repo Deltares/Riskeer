@@ -253,8 +253,8 @@ namespace GisSharpBlog.NetTopologySuite.IO
                 if (columnName == "PRIMARY")
                 {
                     columnName = "DBF_PRIMARY";
-                    Debug.Assert(false, "Shp2Db: Column PRIMARY renamed to PRIMARY.");
                     Trace.WriteLine("Shp2Db: Column PRIMARY renamed to PRIMARY.");
+                    Debug.Assert(false, "Shp2Db: Column PRIMARY renamed to PRIMARY.");
                 }
                 sb.AppendFormat("[{0}] {1} ", columnName, type);
 

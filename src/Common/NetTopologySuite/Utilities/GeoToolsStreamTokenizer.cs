@@ -86,7 +86,6 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
                 return double.Parse(number);
             }
             throw new ParseException(String.Format("The token '{0}' is not a number at line {1} column {2}.", number, LineNumber, Column));
-            ;
         }
 
         /// <summary>

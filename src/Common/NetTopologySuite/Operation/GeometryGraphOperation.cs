@@ -46,7 +46,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation
 
             arg = new GeometryGraph[1];
             arg[0] = new GeometryGraph(0, g0);
-            ;
         }
 
         /// <summary>

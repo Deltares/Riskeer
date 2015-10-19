@@ -128,7 +128,6 @@ namespace SharpMap.Converters.WellKnownText.IO
                 return double.Parse(number, Map.numberFormat_EnUS);
             }
             throw new Exception(String.Format(Map.numberFormat_EnUS, "The token '{0}' is not a number at line {1} column {2}.", number, LineNumber, Column));
-            ;
         }
 
         /// <summary>

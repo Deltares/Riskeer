@@ -261,7 +261,6 @@ namespace GisSharpBlog.NetTopologySuite.IO
             {
                 Write(geomCollection.Geometries[i], writer);
             }
-            ;
         }
 
         /// <summary>

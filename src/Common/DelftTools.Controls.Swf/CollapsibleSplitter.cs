@@ -323,7 +323,6 @@ namespace DelftTools.Controls.Swf
                 {
                     hot = false;
                     Invalidate();
-                    ;
                 }
 
                 Cursor = Cursors.Default;
@@ -354,7 +353,6 @@ namespace DelftTools.Controls.Swf
             // ensure that the hot state is removed
             hot = false;
             Invalidate();
-            ;
         }
 
         private void OnClick(object sender, EventArgs e)
