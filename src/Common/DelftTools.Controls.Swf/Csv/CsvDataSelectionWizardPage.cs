@@ -12,30 +12,6 @@ namespace DelftTools.Controls.Swf.Csv
             InitializeComponent();
         }
 
-        public bool FilteringVisible
-        {
-            get
-            {
-                return csvDataSelectionControl1.FilteringVisible;
-            }
-            set
-            {
-                csvDataSelectionControl1.FilteringVisible = value;
-            }
-        }
-
-        public bool ColumnSelectionVisible
-        {
-            get
-            {
-                return csvDataSelectionControl1.ColumnSelectionVisible;
-            }
-            set
-            {
-                csvDataSelectionControl1.ColumnSelectionVisible = value;
-            }
-        }
-
         public IDictionary<CsvRequiredField, CsvColumnInfo> FieldToColumnMapping
         {
             get

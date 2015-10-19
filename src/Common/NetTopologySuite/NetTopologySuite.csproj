@@ -223,7 +223,6 @@
     <Compile Include="IO\WKBGeometryTypes.cs" />
     <Compile Include="IO\WKBWriter.cs" />
     <Compile Include="IO\WKTReader.cs" />
-    <Compile Include="IO\GeoTools\WktStreamTokenizer.cs" />
     <Compile Include="IO\WKTWriter.cs" />
     <Compile Include="LinearReferencing\ExtractLineByLocation.cs" />
     <Compile Include="LinearReferencing\LengthLocationMap.cs" />
@@ -245,7 +244,6 @@
     <Compile Include="Noding\SegmentNodeList.cs" />
     <Compile Include="Noding\SegmentPointComparator.cs" />
     <Compile Include="Noding\SegmentString.cs" />
-    <Compile Include="Noding\SimpleNoder.cs" />
     <Compile Include="Noding\SinglePassNoder.cs" />
     <Compile Include="Noding\Snapround\HotPixel.cs" />
     <Compile Include="Noding\Snapround\MCIndexPointSnapper.cs" />
@@ -259,7 +257,6 @@
     <Compile Include="Operation\Buffer\RightmostEdgeFinder.cs" />
     <Compile Include="Operation\Buffer\SubgraphDepthLocater.cs" />
     <Compile Include="Operation\Distance\ConnectedElementLocationFilter.cs" />
-    <Compile Include="Operation\Distance\ConnectedElementPointFilter.cs" />
     <Compile Include="Operation\Distance\DistanceOp.cs" />
     <Compile Include="Operation\Distance\GeometryLocation.cs" />
     <Compile Include="Operation\GeometryGraphOperation.cs" />
