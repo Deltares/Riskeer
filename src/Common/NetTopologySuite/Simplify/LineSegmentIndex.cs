@@ -16,11 +16,6 @@ namespace GisSharpBlog.NetTopologySuite.Simplify
         /// <summary>
         /// 
         /// </summary>
-        public LineSegmentIndex() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="line"></param>
         public void Add(TaggedLineString line)
         {

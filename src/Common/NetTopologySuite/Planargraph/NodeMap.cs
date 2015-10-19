@@ -12,11 +12,6 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         private readonly IDictionary nodeMap = new Dictionary<ICoordinate, Node>();
 
         /// <summary>
-        /// Constructs a NodeMap without any Nodes.
-        /// </summary>
-        public NodeMap() {}
-
-        /// <summary>
         /// Returns the Nodes in this NodeMap, sorted in ascending order
         /// by angle with the positive x-axis.
         /// </summary>

@@ -28,11 +28,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
         /// <summary>
         /// 
         /// </summary>
-        public RelateNodeGraph() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
         public IEnumerator GetNodeEnumerator()
         {

@@ -21,11 +21,6 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
     public class MonotoneChainIndexer
     {
         /// <summary>
-        /// Default empty constructor.
-        /// </summary>
-        public MonotoneChainIndexer() {}
-
-        /// <summary>
         /// 
         /// </summary>
         /// <param name="list"></param>

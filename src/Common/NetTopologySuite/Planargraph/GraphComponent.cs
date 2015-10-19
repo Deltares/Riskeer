@@ -27,11 +27,6 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         protected bool isVisited = false;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GraphComponent"/> class.
-        /// </summary>
-        public GraphComponent() {}
-
-        /// <summary>
         /// Tests if a component has been visited during the course of a graph algorithm.
         /// </summary>              
         public bool IsVisited

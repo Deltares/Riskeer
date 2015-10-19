@@ -13,11 +13,6 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         // the singleton root node is centred at the origin.
         private const double origin = 0.0;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Root() {}
-
         /// <summary> 
         /// Insert an item into the tree this is the root of.
         /// </summary>

@@ -14,11 +14,6 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
     public abstract class EdgeSetIntersector
     {
         /// <summary>
-        /// Default empty constructor.
-        /// </summary>
-        public EdgeSetIntersector() {}
-
-        /// <summary>
         /// Computes all self-intersections between edges in a set of edges,
         /// allowing client to choose whether self-intersections are computed.
         /// </summary>

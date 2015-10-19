@@ -16,11 +16,6 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         private bool isIn; // true if the point lies in or on any Geometry element
         private int numBoundaries; // the number of sub-elements whose boundaries the point lies in
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PointLocator"/> class.
-        /// </summary>
-        public PointLocator() {}
-
         /// <summary> 
         /// Convenience method to test a point for intersection with a Geometry
         /// </summary>

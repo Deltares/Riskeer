@@ -17,11 +17,6 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// </summary>
         protected const int InitCount = 36;
 
-        /// <summary> 
-        /// Creates a <coordinate>ShapeWriter</coordinate> that creates objects using a basic GeometryFactory.
-        /// </summary>
-        public ShapeWriter() {}
-
         /// <summary>
         /// 
         /// </summary>

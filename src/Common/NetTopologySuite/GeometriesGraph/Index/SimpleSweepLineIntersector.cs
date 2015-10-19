@@ -19,11 +19,6 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
         /// <summary>
         /// 
         /// </summary>
-        public SimpleSweepLineIntersector() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="edges"></param>
         /// <param name="si"></param>
         /// <param name="testAllSegments"></param>

@@ -10,13 +10,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Valid
     /// </summary>
     public class RepeatedPointTester
     {
-        // save the repeated coord found (if any)
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public RepeatedPointTester() {}
-
         /// <summary>
         /// 
         /// </summary>

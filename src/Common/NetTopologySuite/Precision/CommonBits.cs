@@ -20,11 +20,6 @@ namespace GisSharpBlog.NetTopologySuite.Precision
         /// <summary>
         /// 
         /// </summary>
-        public CommonBits() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         public double Common
         {
             get

@@ -22,11 +22,6 @@ namespace GisSharpBlog.NetTopologySuite.Index.Bintree
         /// <summary>
         /// 
         /// </summary>
-        public NodeBase() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         public IList Items
         {
             get

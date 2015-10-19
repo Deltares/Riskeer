@@ -11,10 +11,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
     /// </summary>
     public class EdgeEndBundleStar : EdgeEndStar
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public EdgeEndBundleStar() {}
 
         /// <summary>
         /// Update the IM with the contribution for the EdgeStubs around the node.

@@ -24,11 +24,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Predicate
         /// <summary>
         /// 
         /// </summary>
-        public SegmentIntersectionTester() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="seq"></param>
         /// <param name="lines"></param>
         /// <returns></returns>

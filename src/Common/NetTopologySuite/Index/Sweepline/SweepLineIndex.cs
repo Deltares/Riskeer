@@ -17,11 +17,6 @@ namespace GisSharpBlog.NetTopologySuite.Index.Sweepline
         /// <summary>
         /// 
         /// </summary>
-        public SweepLineIndex() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="sweepInt"></param>
         public void Add(SweepLineInterval sweepInt)
         {

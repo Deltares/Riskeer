@@ -9,6 +9,8 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
     /// drastically improves the average-case time.
     /// The use of MonotoneChains as the items in the index
     /// seems to offer an improvement in performance over a sweep-line alone.
+    /// A SimpleMCSweepLineIntersector creates monotone chains from the edges
+    /// and compares them using a simple sweep-line along the x-axis.
     /// </summary>
     public class SimpleMCSweepLineIntersector : EdgeSetIntersector
     {
@@ -16,12 +18,6 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph.Index
 
         // statistics information
         private int nOverlaps;
-
-        /// <summary>
-        /// A SimpleMCSweepLineIntersector creates monotone chains from the edges
-        /// and compares them using a simple sweep-line along the x-axis.
-        /// </summary>
-        public SimpleMCSweepLineIntersector() {}
 
         /// <summary>
         /// 

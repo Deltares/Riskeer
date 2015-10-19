@@ -34,11 +34,6 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
             Locations.Null
         };
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public EdgeEndStar() {}
-
         /// <returns>
         /// The coordinate for the node this star is based at.
         /// </returns>

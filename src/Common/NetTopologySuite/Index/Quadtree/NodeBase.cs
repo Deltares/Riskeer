@@ -24,11 +24,6 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         /// <summary>
         /// 
         /// </summary>
-        public NodeBase() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         public IList Items
         {
             get

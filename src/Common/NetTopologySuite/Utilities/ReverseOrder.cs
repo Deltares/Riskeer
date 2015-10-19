@@ -7,10 +7,6 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
     /// </summary>
     internal class ReverseOrder : IComparer
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public ReverseOrder() {}
 
         /// <summary>
         /// 

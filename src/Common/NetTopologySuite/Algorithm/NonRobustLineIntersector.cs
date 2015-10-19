@@ -8,10 +8,6 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
     /// </summary>   
     public class NonRobustLineIntersector : LineIntersector
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public NonRobustLineIntersector() {}
 
         /// <summary>
         /// 

@@ -19,11 +19,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation
         /// <summary>
         /// 
         /// </summary>
-        public IsSimpleOp() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="geom"></param>
         /// <returns></returns>
         public bool IsSimple(ILineString geom)

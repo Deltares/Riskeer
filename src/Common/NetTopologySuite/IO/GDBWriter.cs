@@ -10,11 +10,6 @@ namespace GisSharpBlog.NetTopologySuite.IO
     /// </summary>
     public class GDBWriter : ShapeWriter
     {
-        /// <summary> 
-        /// Creates a <coordinate>GDBWriter</coordinate> that creates objects using a basic GeometryFactory.
-        /// </summary>
-        public GDBWriter() : base() {}
-
         /// <summary>
         /// Returns a byte array containing binary data for the given <c>Geometry</c>.
         /// </summary>

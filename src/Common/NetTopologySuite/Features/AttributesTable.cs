@@ -15,16 +15,6 @@ namespace GisSharpBlog.NetTopologySuite.Features
         private readonly Hashtable attributes = new Hashtable();
 
         /// <summary>
-        /// Initialize a new attribute table.
-        /// </summary>
-        public AttributesTable()
-        {
-            // Add ID with fixed value of 0
-            // AddAttribute(IndexField, typeof(Int32));
-            // this[IndexField] = IndexValue;
-        }
-
-        /// <summary>
         /// Get / Set the value of the specified attribute.
         /// </summary>
         /// <param name="attributeName"></param>

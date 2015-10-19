@@ -13,11 +13,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries.Utilities
         /// <summary>
         /// 
         /// </summary>
-        public ShortCircuitedGeometryVisitor() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="geom"></param>
         public void ApplyTo(IGeometry geom)
         {

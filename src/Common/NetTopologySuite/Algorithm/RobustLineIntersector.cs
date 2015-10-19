@@ -11,10 +11,6 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
     /// </summary>
     public class RobustLineIntersector : LineIntersector
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public RobustLineIntersector() {}
 
         /// <summary>
         /// 

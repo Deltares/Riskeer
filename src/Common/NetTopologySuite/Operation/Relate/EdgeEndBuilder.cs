@@ -11,10 +11,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
     /// </summary>
     public class EdgeEndBuilder
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public EdgeEndBuilder() {}
 
         /// <summary>
         /// 

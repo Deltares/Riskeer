@@ -16,11 +16,6 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <summary>
         /// 
         /// </summary>
-        public CentroidPoint() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         public ICoordinate Centroid
         {
             get

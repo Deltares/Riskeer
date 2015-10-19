@@ -32,11 +32,6 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         protected NodeMap nodeMap = new NodeMap();
 
         /// <summary>
-        /// Constructs a PlanarGraph without any Edges, DirectedEdges, or Nodes.
-        /// </summary>
-        public PlanarGraph() {}
-
-        /// <summary>
         /// Returns the Nodes in this PlanarGraph.
         /// </summary>
         public ICollection Nodes

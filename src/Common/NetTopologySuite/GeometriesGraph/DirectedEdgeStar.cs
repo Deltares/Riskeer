@@ -24,11 +24,6 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <summary>
         /// 
         /// </summary>
-        public DirectedEdgeStar() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         public Label Label { get; private set; }
 
         /// <summary>

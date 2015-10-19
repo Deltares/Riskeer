@@ -14,11 +14,6 @@ namespace GisSharpBlog.NetTopologySuite.Index.Quadtree
         // the singleton root quad is centred at the origin.
         private static readonly ICoordinate origin = new Coordinate(0.0, 0.0);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Root() {}
-
         /// <summary> 
         /// Insert an item into the quadtree this is the root of.
         /// </summary>

@@ -10,10 +10,6 @@ namespace GisSharpBlog.NetTopologySuite.Utilities
     /// </summary>
     public class CoordinateCompare : IComparer
     {
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        public CoordinateCompare() {}
 
         /// <summary>
         /// Compares two object and returns a value indicating whether one is less than, equal to or greater

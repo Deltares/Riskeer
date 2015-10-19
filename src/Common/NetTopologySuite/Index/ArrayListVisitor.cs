@@ -12,11 +12,6 @@ namespace GisSharpBlog.NetTopologySuite.Index
         /// <summary>
         /// 
         /// </summary>
-        public ArrayListVisitor() {}
-
-        /// <summary>
-        /// 
-        /// </summary>
         public ArrayList Items
         {
             get

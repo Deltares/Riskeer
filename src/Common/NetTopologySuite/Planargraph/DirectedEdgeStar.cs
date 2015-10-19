@@ -17,11 +17,6 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         private bool sorted = false;
 
         /// <summary>
-        /// Constructs a DirectedEdgeStar with no edges.
-        /// </summary>
-        public DirectedEdgeStar() {}
-
-        /// <summary>
         /// Returns the number of edges around the Node associated with this DirectedEdgeStar.
         /// </summary>
         public int Degree
