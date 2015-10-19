@@ -58,6 +58,7 @@ namespace Wti.Plugin
         public override IEnumerable<IFileImporter> GetFileImporters()
         {
             yield return new PipingSurfaceLinesCsvImporter();
+            yield return new PipingSoilProfilesImporter();
         }
     }
 }

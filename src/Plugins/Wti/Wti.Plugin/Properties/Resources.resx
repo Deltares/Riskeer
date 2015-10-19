@@ -138,4 +138,7 @@
   <data name="CsvFileName" xml:space="preserve">
     <value>Kommagescheiden bestand</value>
   </data>
+  <data name="SoilFileName" xml:space="preserve">
+    <value>DSoilModel bestand</value>
+  </data>
 </root>

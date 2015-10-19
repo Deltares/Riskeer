@@ -712,6 +712,16 @@ namespace Wti.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PipingSoilProfileIcon {
+            get {
+                object obj = ResourceManager.GetObject("PipingSoilProfileIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ondergrondprofielen.
         /// </summary>
         public static string PipingSoilProfilesCollectionName {
