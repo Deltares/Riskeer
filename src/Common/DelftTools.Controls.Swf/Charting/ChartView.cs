@@ -211,7 +211,7 @@ namespace DelftTools.Controls.Swf.Charting
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IChartViewZoom Zoom
+        public ChartViewZoom Zoom
         {
             get
             {

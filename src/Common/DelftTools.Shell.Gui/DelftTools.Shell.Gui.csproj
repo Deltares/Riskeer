@@ -102,7 +102,6 @@
     <Compile Include="ILayerEditorView.cs" />
     <Compile Include="IMapLayerProvider.cs" />
     <Compile Include="IObjectProperties.cs" />
-    <Compile Include="IProjectItemHandler.cs" />
     <Compile Include="IViewResolver.cs" />
     <Compile Include="ObjectProperties.cs" />
     <Compile Include="PropertyInfo.cs" />

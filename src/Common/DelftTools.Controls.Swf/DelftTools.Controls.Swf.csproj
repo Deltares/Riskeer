@@ -119,7 +119,6 @@
     <Compile Include="Charting\ChartCoordinateService.cs" />
     <Compile Include="Charting\ChartGraphics.cs" />
     <Compile Include="Charting\ChartLegend.cs" />
-    <Compile Include="Charting\ChartRectangle.cs" />
     <Compile Include="Charting\Customized\DeltaShellTChart.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -166,7 +165,6 @@
     <Compile Include="Charting\IChartView.cs" />
     <Compile Include="Charting\IChartViewSeriesTool.cs" />
     <Compile Include="Charting\IChartViewTool.cs" />
-    <Compile Include="Charting\IChartViewZoom.cs" />
     <Compile Include="Charting\Tools\ChartViewSeriesToolBase.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -216,7 +214,6 @@
     <Compile Include="Charting\Tools\ZoomUsingMouseWheelTool.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Charting\Tracker.cs" />
     <Compile Include="ClonableToolStripMenuItem.cs">
       <SubType>Component</SubType>
     </Compile>

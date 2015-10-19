@@ -10,7 +10,7 @@ namespace DelftTools.Controls.Swf
     /// <summary>
     /// Control that shows html page defined by Web link.
     /// </summary>
-    public partial class HtmlPageView : WebBrowser, IView, IWebPageView
+    public partial class HtmlPageView : WebBrowser, IView
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HtmlPageView));
 

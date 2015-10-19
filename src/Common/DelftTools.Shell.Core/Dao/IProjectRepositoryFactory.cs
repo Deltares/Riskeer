@@ -2,11 +2,6 @@
 {
     public interface IProjectRepositoryFactory
     {
-        bool SpeedUpSessionCreationUsingParallelThread { get; set; }
-
-        bool SpeedUpConfigurationCreationUsingCaching { get; set; }
-
-        string ConfigurationCacheDirectory { get; set; }
         IProjectRepository CreateNew();
 
         void AddPlugin(IPlugin plugin);

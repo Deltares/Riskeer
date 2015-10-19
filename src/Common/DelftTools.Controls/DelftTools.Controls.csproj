@@ -85,7 +85,6 @@
     <Compile Include="IMenuItem.cs" />
     <Compile Include="IMenuItemCollection.cs" />
     <Compile Include="ITableView.cs" />
-    <Compile Include="IWebPageView.cs" />
     <Compile Include="TableSelectionChangedEventArgs.cs" />
     <Compile Include="TableViewCell.cs" />
     <Compile Include="ITableViewColumn.cs" />

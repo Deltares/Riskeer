@@ -2,7 +2,7 @@ using Steema.TeeChart;
 
 namespace DelftTools.Controls.Swf.Charting
 {
-    internal class ChartViewZoom : IChartViewZoom
+    public class ChartViewZoom
     {
         private readonly Zoom teeChartZoom;
 
