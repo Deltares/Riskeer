@@ -278,7 +278,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             }
             else
             {
-                var filter = filterlines[0];
+                string filter = filterlines[0];
                 for (var i = 1; i < filterlines.Count; i++)
                 {
                     filter += " OR " + filterlines[i];
