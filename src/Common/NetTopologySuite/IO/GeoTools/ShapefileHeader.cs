@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using GeoAPI.Geometries;
 using GisSharpBlog.NetTopologySuite.Geometries;
+using GisSharpBlog.NetTopologySuite.IO.GeoTools;
 
 namespace GisSharpBlog.NetTopologySuite.IO
 {

@@ -4,6 +4,7 @@ using System.IO;
 using GeoAPI.Geometries;
 using GisSharpBlog.NetTopologySuite.Algorithm;
 using GisSharpBlog.NetTopologySuite.Geometries;
+using GisSharpBlog.NetTopologySuite.IO.GeoTools;
 
 namespace GisSharpBlog.NetTopologySuite.IO.Handlers
 {

@@ -10,8 +10,6 @@ namespace DelftTools.Shell.Gui.Swf
     /// <typeparam name="T"></typeparam>
     public abstract class TreeViewNodePresenterBaseForPluginGui<T> : TreeViewNodePresenterBase<T>
     {
-        protected static readonly ILog log = LogManager.GetLogger(typeof(TreeViewNodePresenterBaseForPluginGui<T>));
-
         public TreeViewNodePresenterBaseForPluginGui() {}
 
         public TreeViewNodePresenterBaseForPluginGui(GuiPlugin guiPlugin)

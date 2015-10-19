@@ -685,7 +685,7 @@ namespace DelftTools.Controls.Swf.Charting
             return tool;
         }
 
-        public ISelectPointTool NewSelectPointTool()
+        public SelectPointTool NewSelectPointTool()
         {
             var tool = new SelectPointTool(teeChart.Chart)
             {

@@ -100,7 +100,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.nl-NL.resx</DependentUpon>
     </Compile>
-    <Compile Include="Property\AttributeProperties.cs" />
     <Compile Include="Property\Charting\AreaChartSeriesProperties.cs" />
     <Compile Include="Property\Charting\BarSeriesProperties.cs" />
     <Compile Include="Property\Charting\ChartAxisProperties.cs" />

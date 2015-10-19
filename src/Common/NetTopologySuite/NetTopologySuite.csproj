@@ -152,10 +152,8 @@
     <Compile Include="GeometriesGraph\Index\MonotoneChainEdge.cs" />
     <Compile Include="GeometriesGraph\Index\MonotoneChainIndexer.cs" />
     <Compile Include="GeometriesGraph\Index\SegmentIntersector.cs" />
-    <Compile Include="GeometriesGraph\Index\SimpleEdgeSetIntersector.cs" />
     <Compile Include="GeometriesGraph\Index\SimpleMCSweepLineIntersector.cs" />
     <Compile Include="GeometriesGraph\Index\SweepLineEvent.cs" />
-    <Compile Include="GeometriesGraph\Index\SweepLineSegment.cs" />
     <Compile Include="GeometriesGraph\Label.cs" />
     <Compile Include="GeometriesGraph\Node.cs" />
     <Compile Include="GeometriesGraph\NodeFactory.cs" />
@@ -197,7 +195,6 @@
     <Compile Include="IO\GeoTools\Dbase\DbaseFieldDescriptor.cs" />
     <Compile Include="IO\GeoTools\Dbase\DbaseFileHeader.cs" />
     <Compile Include="IO\GeoTools\Dbase\DbaseFileReader.cs" />
-    <Compile Include="IO\GeoTools\Dbase\DbaseFileWriter.cs" />
     <Compile Include="IO\GeoTools\Handlers\MultiLineHandler.cs" />
     <Compile Include="IO\GeoTools\Handlers\MultiPointHandler.cs" />
     <Compile Include="IO\GeoTools\Handlers\PointHandler.cs" />
@@ -208,7 +205,6 @@
     <Compile Include="IO\GeoTools\ShapefileException.cs" />
     <Compile Include="IO\GeoTools\ShapefileHeader.cs" />
     <Compile Include="IO\GeoTools\ShapefileReader.cs" />
-    <Compile Include="IO\PostGisGeometryType.cs" />
     <Compile Include="IO\ParseException.cs" />
     <Compile Include="IO\GeoTools\Handlers\ShapeHandler.cs" />
     <Compile Include="IO\ShapeGeometryType.cs">
@@ -220,8 +216,6 @@
     <Compile Include="IO\WKBWriter.cs" />
     <Compile Include="IO\WKTReader.cs" />
     <Compile Include="IO\WKTWriter.cs" />
-    <Compile Include="LinearReferencing\LengthLocationMap.cs" />
-    <Compile Include="LinearReferencing\LinearGeometryBuilder.cs" />
     <Compile Include="LinearReferencing\LinearIterator.cs" />
     <Compile Include="LinearReferencing\LinearLocation.cs" />
     <Compile Include="LinearReferencing\LocationIndexOfLine.cs" />
@@ -307,16 +301,8 @@
     <Compile Include="Precision\CommonBitsOp.cs" />
     <Compile Include="Precision\CommonBitsRemover.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Simplify\LineSegmentIndex.cs" />
-    <Compile Include="Simplify\TaggedLineSegment.cs" />
-    <Compile Include="Simplify\TaggedLineString.cs" />
-    <Compile Include="Simplify\TaggedLineStringSimplifier.cs" />
-    <Compile Include="Triangulate\ConstraintEnforcementException.cs" />
-    <Compile Include="Triangulate\ConstraintVertex.cs" />
-    <Compile Include="Triangulate\DelaunayTriangulationBuilder.cs" />
     <Compile Include="Triangulate\IConstraintSplitPointFinder.cs" />
     <Compile Include="Triangulate\IncrementalDelaunayTriangulator.cs" />
-    <Compile Include="Triangulate\NonEncroachingSplitPointFinder.cs" />
     <Compile Include="Triangulate\QuadEdge\IQuadEdgeLocator.cs" />
     <Compile Include="Triangulate\QuadEdge\ITriangleVisitor.cs" />
     <Compile Include="Triangulate\QuadEdge\LastFoundQuadEdgeLocator.cs" />

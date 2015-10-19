@@ -61,7 +61,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
     /// <summary>
     /// Interactive selection of points of a specific series on the chart.
     /// </summary>
-    public class SelectPointTool : ChartViewSeriesToolBase, ISelectPointTool
+    public class SelectPointTool : ChartViewSeriesToolBase
     {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
         private static readonly ILog log = LogManager.GetLogger(typeof(SelectPointTool));

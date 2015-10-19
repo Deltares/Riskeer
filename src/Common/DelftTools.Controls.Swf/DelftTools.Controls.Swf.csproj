@@ -147,14 +147,12 @@
     <Compile Include="Charting\IChartAxis.cs" />
     <Compile Include="Charting\IChartLegend.cs" />
     <Compile Include="Charting\IChartSeries.cs" />
-    <Compile Include="Charting\IChartSeriesValueProvider.cs" />
     <Compile Include="Charting\IChartView.cs" />
     <Compile Include="Charting\IChartViewSeriesTool.cs" />
     <Compile Include="Charting\IChartViewTool.cs" />
     <Compile Include="Charting\Tools\ChartViewSeriesToolBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Charting\Tools\ISelectPointTool.cs" />
     <Compile Include="Charting\Series\AreaChartSeries.cs" />
     <Compile Include="Charting\Series\ChartSeriesFactory.cs" />
     <Compile Include="Charting\Series\IAreaChartSeries.cs" />

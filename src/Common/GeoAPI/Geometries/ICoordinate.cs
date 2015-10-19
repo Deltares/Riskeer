@@ -15,7 +15,5 @@ namespace GeoAPI.Geometries
         double Distance(ICoordinate p);
 
         bool Equals2D(ICoordinate other);
-
-        bool Equals3D(ICoordinate other);
     }
 }
