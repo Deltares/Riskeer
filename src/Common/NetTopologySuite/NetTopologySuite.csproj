@@ -122,12 +122,6 @@
     <Compile Include="Geometries\CoordinateArraySequenceFactory.cs" />
     <Compile Include="Geometries\CoordinateList.cs" />
     <Compile Include="Geometries\CoordinateSequences.cs" />
-    <Compile Include="Geometries\CoordinateStruct.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Geometries\CoordinateStructSequence.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Geometries\DefaultCoordinateSequence.cs" />
     <Compile Include="Geometries\DefaultCoordinateSequenceFactory.cs" />
     <Compile Include="Geometries\Envelope.cs" />
@@ -197,7 +191,6 @@
     <Compile Include="Index\Chain\MonotoneChainBuilder.cs" />
     <Compile Include="Index\Chain\MonotoneChainOverlapAction.cs" />
     <Compile Include="Index\Chain\MonotoneChainSelectAction.cs" />
-    <Compile Include="Index\IIndexVisitor.cs" />
     <Compile Include="Index\IItemVisitor.cs" />
     <Compile Include="Index\ISpatialIndex.cs" />
     <Compile Include="Index\KdTree\KdNode.cs" />
@@ -408,12 +401,9 @@
     <Compile Include="Utilities\CoordinateArrayFilter.cs" />
     <Compile Include="Utilities\CoordinateCompare.cs" />
     <Compile Include="Utilities\CoordinateCountFilter.cs" />
-    <Compile Include="Utilities\Degrees.cs" />
     <Compile Include="Utilities\GeometricShapeFactory.cs" />
     <Compile Include="Utilities\HexConverter.cs" />
     <Compile Include="Utilities\Global.cs" />
-    <Compile Include="Utilities\Radians.cs" />
-    <Compile Include="Utilities\ReverseOrder.cs" />
     <Compile Include="Utilities\RToolsUtil\BufferedTextReader.cs" />
     <Compile Include="Utilities\RToolsUtil\CharBuffer.cs" />
     <Compile Include="Utilities\RToolsUtil\Logger.cs" />

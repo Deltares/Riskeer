@@ -3,7 +3,7 @@ using DelftTools.Controls.Swf.Charting.Series;
 
 namespace DelftTools.Controls.Swf.Charting.Tools
 {
-    public class SeriesBandTool : Steema.TeeChart.Tools.SeriesBandTool, ISeriesBandTool
+    public class SeriesBandTool : Steema.TeeChart.Tools.SeriesBandTool, IChartViewTool
     {
         public event EventHandler<EventArgs> ActiveChanged;
         private ChartSeries chartSeries1;

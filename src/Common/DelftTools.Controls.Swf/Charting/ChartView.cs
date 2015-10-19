@@ -221,7 +221,7 @@ namespace DelftTools.Controls.Swf.Charting
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IChartCoordinateService ChartCoordinateService
+        public ChartCoordinateService ChartCoordinateService
         {
             get
             {
@@ -703,17 +703,17 @@ namespace DelftTools.Controls.Swf.Charting
             return tool;
         }
 
-        public ISeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color)
+        public SeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color)
         {
             return NewSeriesBandTool(series1, series2, color, null);
         }
 
-        public ISeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color, HatchStyle? hatchStyle)
+        public SeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color, HatchStyle? hatchStyle)
         {
             return NewSeriesBandTool(series1, series2, color, hatchStyle, Color.Black);
         }
 
-        public ISeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color, HatchStyle? hatchStyle, Color hatchStyleForegroundColor)
+        public SeriesBandTool NewSeriesBandTool(IChartSeries series1, IChartSeries series2, Color color, HatchStyle? hatchStyle, Color hatchStyleForegroundColor)
         {
             var tool = new SeriesBandTool
             {

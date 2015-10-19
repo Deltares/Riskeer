@@ -5,23 +5,17 @@ namespace SharpMap.Api.Layers
 {
     public static class LayerExtensions
     {
-        public static IEnumerable<ILayer> GetLayersRecursive(this ILayer layer)
+        public static void DisposeLayersRecursive(this ILayer layer, bool disposeDataSource = true)
         {
-            yield return layer;
+            var disposableLayers = GetLayersRecursive<ILayer>(layer).ToList();
 
-            var groupLayer = layer as IGroupLayer;
-            if (groupLayer == null)
+            foreach (var disposableLayer in disposableLayers)
             {
-                yield break;
-            }
-
-            foreach (var subLayer in groupLayer.Layers.SelectMany(GetLayersRecursive))
-            {
-                yield return subLayer;
+                disposableLayer.Dispose(disposeDataSource);
             }
         }
 
-        public static IEnumerable<T> GetLayersRecursive<T>(this ILayer layer)
+        private static IEnumerable<T> GetLayersRecursive<T>(this ILayer layer)
         {
             if (layer is T)
             {
@@ -37,16 +31,6 @@ namespace SharpMap.Api.Layers
             foreach (var typedLayer in groupLayer.Layers.SelectMany(GetLayersRecursive<T>))
             {
                 yield return typedLayer;
-            }
-        }
-
-        public static void DisposeLayersRecursive(this ILayer layer, bool disposeDataSource = true)
-        {
-            var disposableLayers = GetLayersRecursive<ILayer>(layer).ToList();
-
-            foreach (var disposableLayer in disposableLayers)
-            {
-                disposableLayer.Dispose(disposeDataSource);
             }
         }
     }

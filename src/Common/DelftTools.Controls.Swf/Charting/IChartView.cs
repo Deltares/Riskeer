@@ -55,7 +55,7 @@ namespace DelftTools.Controls.Swf.Charting
         /// </summary>
         bool WheelZoom { get; set; }
 
-        IChartCoordinateService ChartCoordinateService { get; }
+        ChartCoordinateService ChartCoordinateService { get; }
 
         /// <summary>
         /// Sets the bottom axis to the supplied <paramref name="min"/> and <paramref name="max"/> value

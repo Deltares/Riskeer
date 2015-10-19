@@ -72,7 +72,6 @@
     <Compile Include="Forms\ProjectItemMapView.Designer.cs">
       <DependentUpon>ProjectItemMapView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\GeneratedMapLayerInfo.cs" />
     <Compile Include="Forms\GridProperties\FeatureDataRowProperties.cs" />
     <Compile Include="Forms\GridProperties\GroupLayerProperties.cs" />
     <Compile Include="Forms\GridProperties\LegendToolProperties.cs" />
@@ -115,7 +114,6 @@
     <Compile Include="Forms\MapViewTabControl.Designer.cs">
       <DependentUpon>MapViewTabControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\GeneratedMapLayerInfoUpgradeExtension.cs" />
     <Compile Include="Forms\VectorLayerAttributeTableView.cs">
       <SubType>UserControl</SubType>
     </Compile>

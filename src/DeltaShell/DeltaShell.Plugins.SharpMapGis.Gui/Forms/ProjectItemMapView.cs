@@ -360,16 +360,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             }
         }
 
-        private static IList<GeneratedMapLayerInfo> CreateMapLayerInfoList(ILayer layer)
-        {
-            return CreateLayerByPathLookup(layer, "")
-                .Select(pathLayerKvp => new GeneratedMapLayerInfo(pathLayerKvp.Value)
-                {
-                    ParentPath = pathLayerKvp.Key
-                })
-                .ToList();
-        }
-
         private static IEnumerable<KeyValuePair<string, ILayer>> CreateLayerByPathLookup(ILayer layer, string path)
         {
             yield return new KeyValuePair<string, ILayer>(path, layer);
@@ -384,26 +374,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms
             foreach (var kvp in groupLayer.Layers.SelectMany(subLayer => CreateLayerByPathLookup(subLayer, parentPath)))
             {
                 yield return kvp;
-            }
-        }
-
-        private static void RestoreGeneratedMapLayerData(ILayer layer, IEnumerable<GeneratedMapLayerInfo> generatedMapLayerInfos)
-        {
-            var layerByPathLookup = CreateLayerByPathLookup(layer, "").ToDictionary(kvp => string.Format("{0}\\{1}", kvp.Key, kvp.Value.Name), kvp => kvp.Value);
-            var generatedMapLayerInfoByPath = generatedMapLayerInfos.Select(i => new KeyValuePair<string, GeneratedMapLayerInfo>(i.ParentPath, i));
-
-            foreach (var pathGeneratedMapLayerInfoKvp in generatedMapLayerInfoByPath)
-            {
-                var key = string.Format("{0}\\{1}", pathGeneratedMapLayerInfoKvp.Key, pathGeneratedMapLayerInfoKvp.Value.Name);
-
-                ILayer generatedLayer;
-                layerByPathLookup.TryGetValue(key, out generatedLayer);
-                if (generatedLayer == null)
-                {
-                    return;
-                }
-
-                pathGeneratedMapLayerInfoKvp.Value.SetToLayer(generatedLayer);
             }
         }
     }

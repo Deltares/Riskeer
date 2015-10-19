@@ -4,7 +4,7 @@ using GisSharpBlog.NetTopologySuite.Geometries;
 
 namespace DelftTools.Controls.Swf.Charting
 {
-    public class ChartCoordinateService : IChartCoordinateService
+    public class ChartCoordinateService
     {
         public ChartCoordinateService(IChart chart)
         {

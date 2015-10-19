@@ -146,9 +146,6 @@
     <Compile Include="Editors\FallOff\NoFallOffPolicy.cs" />
     <Compile Include="Editors\FallOff\RingFallOffPolicy.cs" />
     <Compile Include="Editors\FeatureInteractor.cs" />
-    <Compile Include="Editors\Interactors\Feature2DLineInteractor.cs" />
-    <Compile Include="Editors\Interactors\Feature2DPolygonInteractor.cs" />
-    <Compile Include="Editors\Interactors\FeaturePointInteractor.cs" />
     <Compile Include="Editors\Interactors\LinearRingInteractor.cs" />
     <Compile Include="Editors\FeatureRelationInteractor.cs" />
     <Compile Include="Editors\Interactors\LineStringInteractor.cs" />
