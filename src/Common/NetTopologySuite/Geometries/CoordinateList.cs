@@ -13,7 +13,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <summary>
         /// Constructs a new list without any coordinates
         /// </summary>
-        public CoordinateList() : base() {}
+        public CoordinateList() {}
 
         /// <summary>
         /// The basic constructor for a CoordinateArray allows repeated points

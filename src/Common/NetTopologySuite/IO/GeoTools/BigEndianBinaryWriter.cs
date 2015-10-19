@@ -14,7 +14,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <summary>
         /// Initializes a new instance of the BigEndianBinaryWriter class.
         /// </summary>
-        public BigEndianBinaryWriter() : base() {}
+        public BigEndianBinaryWriter() {}
 
         /// <summary>
         /// Initializes a new instance of the BigEndianBinaryWriter class 

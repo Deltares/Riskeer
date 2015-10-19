@@ -217,7 +217,7 @@ namespace SharpMap.Data
         /// <summary>
         /// Initializes a new instance of the FeatureDataTable class with no arguments.
         /// </summary>
-        public FeatureDataTable() : base()
+        public FeatureDataTable()
         {
             InitClass();
         }

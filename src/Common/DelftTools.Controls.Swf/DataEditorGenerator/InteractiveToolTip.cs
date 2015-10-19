@@ -821,7 +821,6 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
         /// </summary>
         /// <param name="window">The window representing the content of the <see cref="InteractiveToolTip"/>.</param>
         public InteractiveToolTipEventArgs(IWin32Window window)
-            : base()
         {
             Window = window;
         }
