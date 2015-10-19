@@ -106,8 +106,6 @@
     <Compile Include="CoordinateSystems\Transformations\GeometryTransform.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Features\Feature.cs" />
-    <Compile Include="Features\IAttributesTable.cs" />
     <Compile Include="Geometries\Coordinate.cs">
       <SubType>Code</SubType>
     </Compile>

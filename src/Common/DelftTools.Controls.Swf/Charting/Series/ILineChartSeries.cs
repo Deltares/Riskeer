@@ -41,16 +41,6 @@ namespace DelftTools.Controls.Swf.Charting.Series
         PointerStyles PointerStyle { get; set; }
 
         /// <summary>
-        /// Values used for the x axis
-        /// </summary>
-        ISeriesValueList XValues { get; }
-
-        /// <summary>
-        /// Values used for the y axis
-        /// </summary>
-        ISeriesValueList YValues { get; }
-
-        /// <summary>
         /// Type of interpolation to use (constant, linear or none)
         /// </summary>
         InterpolationType InterpolationType { get; set; }

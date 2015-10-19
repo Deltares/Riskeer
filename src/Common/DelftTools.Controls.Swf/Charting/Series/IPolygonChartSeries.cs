@@ -27,16 +27,6 @@ namespace DelftTools.Controls.Swf.Charting.Series
         int Transparency { get; set; }
 
         /// <summary>
-        /// Values used for the x axis
-        /// </summary>
-        ISeriesValueList XValues { get; }
-
-        /// <summary>
-        /// Values used for the y axis
-        /// </summary>
-        ISeriesValueList YValues { get; }
-
-        /// <summary>
         /// Color of the line above the area
         /// </summary>
         Color LineColor { get; set; }

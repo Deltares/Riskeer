@@ -131,22 +131,6 @@ namespace DelftTools.Controls.Swf.Charting.Series
             }
         }
 
-        public ISeriesValueList XValues
-        {
-            get
-            {
-                return new SeriesValueList(lineSeries.XValues);
-            }
-        }
-
-        public ISeriesValueList YValues
-        {
-            get
-            {
-                return new SeriesValueList(lineSeries.YValues);
-            }
-        }
-
         public InterpolationType InterpolationType
         {
             get

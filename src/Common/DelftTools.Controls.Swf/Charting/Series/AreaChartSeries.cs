@@ -100,22 +100,6 @@ namespace DelftTools.Controls.Swf.Charting.Series
             }
         }
 
-        public ISeriesValueList XValues
-        {
-            get
-            {
-                return new SeriesValueList(areaSeries.XValues);
-            }
-        }
-
-        public ISeriesValueList YValues
-        {
-            get
-            {
-                return new SeriesValueList(areaSeries.YValues);
-            }
-        }
-
         public Color LineColor
         {
             get

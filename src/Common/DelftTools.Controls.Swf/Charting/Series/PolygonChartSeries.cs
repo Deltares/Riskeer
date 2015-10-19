@@ -39,22 +39,6 @@ namespace DelftTools.Controls.Swf.Charting.Series
             }
         }
 
-        public ISeriesValueList XValues
-        {
-            get
-            {
-                return new SeriesValueList(polygonSeries.XValues);
-            }
-        }
-
-        public ISeriesValueList YValues
-        {
-            get
-            {
-                return new SeriesValueList(polygonSeries.YValues);
-            }
-        }
-
         public Color LineColor
         {
             get

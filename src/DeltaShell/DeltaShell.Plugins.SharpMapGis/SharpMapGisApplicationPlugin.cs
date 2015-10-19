@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using DelftTools.Shell.Core;
-using GisSharpBlog.NetTopologySuite.Features;
 using Mono.Addins;
 using SharpMap;
 using SharpMap.Extensions.CoordinateSystems;
@@ -75,7 +74,6 @@ namespace DeltaShell.Plugins.SharpMapGis
 
         public override IEnumerable<Assembly> GetPersistentAssemblies()
         {
-            yield return typeof(Feature).Assembly;
             yield return GetType().Assembly;
         }
     }

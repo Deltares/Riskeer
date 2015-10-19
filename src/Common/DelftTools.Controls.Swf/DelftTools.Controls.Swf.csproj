@@ -165,10 +165,8 @@
     <Compile Include="Charting\Series\IAreaChartSeries.cs" />
     <Compile Include="Charting\Series\ILineChartSeries.cs" />
     <Compile Include="Charting\Series\IPointChartSeries.cs" />
-    <Compile Include="Charting\Series\ISeriesValueList.cs" />
     <Compile Include="Charting\Series\LineChartSeries.cs" />
     <Compile Include="Charting\Series\PointChartSeries.cs" />
-    <Compile Include="Charting\Series\SeriesValueList.cs" />
     <Compile Include="Charting\Series\ChartSeries.cs" />
     <Compile Include="Charting\TeeChartHelper.cs" />
     <Compile Include="Charting\Tools\AddPointTool.cs">
