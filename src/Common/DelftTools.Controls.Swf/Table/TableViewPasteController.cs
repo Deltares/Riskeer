@@ -168,11 +168,10 @@ namespace DelftTools.Controls.Swf.Table
 
         protected RectangleSelection GetRowSelectSelection()
         {
-            TableViewCell topLeft;
             var selectedRows = TableView.SelectedRowsIndices;
-            topLeft = selectedRows.Length == 0 
-                ? new TableViewCell(TableView.RowCount, TableView.GetColumnByDisplayIndex(0)) 
-                : new TableViewCell(selectedRows[0], TableView.GetColumnByDisplayIndex(0));
+            var topLeft = selectedRows.Length == 0 
+                                        ? new TableViewCell(TableView.RowCount, TableView.GetColumnByDisplayIndex(0)) 
+                                        : new TableViewCell(selectedRows[0], TableView.GetColumnByDisplayIndex(0));
 
             return new RectangleSelection(topLeft, topLeft);
         }

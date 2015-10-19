@@ -91,8 +91,10 @@ namespace DelftTools.Controls.Swf
             MouseMove += new MouseEventHandler(OnMouseMove);
 
             // Setup the animation timer control
-            animationTimer = new Timer();
-            animationTimer.Interval = animationDelay;
+            animationTimer = new Timer
+            {
+                Interval = animationDelay
+            };
             animationTimer.Tick += new EventHandler(animationTimerTick);
         }
 

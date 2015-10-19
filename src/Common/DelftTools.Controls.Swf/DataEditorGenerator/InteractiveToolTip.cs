@@ -776,12 +776,11 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
             _durationTimer.Stop();
 
             ToolTipWindow toolTip = _currentToolTip;
-            IWin32Window window;
 
             if (null != toolTip)
             {
                 _currentToolTip = null;
-                window = toolTip.Window;
+                var window = toolTip.Window;
                 toolTip.Dispose();
 
                 if (null != ToolTipHidden)

@@ -22,11 +22,11 @@ namespace DelftTools.Utils
                 var property = resourceType.GetProperty(resourceName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
                 if (property == null)
                 {
-                    throw new InvalidOperationException(string.Format("Resource Type Does Not Have Property"));
+                    throw new InvalidOperationException("Resource Type Does Not Have Property");
                 }
                 if (property.PropertyType != typeof(string))
                 {
-                    throw new InvalidOperationException(string.Format("Resource Property is Not String Type"));
+                    throw new InvalidOperationException("Resource Property is Not String Type");
                 }
                 return (string) property.GetValue(null, null);
             }

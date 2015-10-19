@@ -134,7 +134,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         public virtual bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
         {
-            return (null == TreeView.TreeViewNodeSorter) ? true : false;
+            return (null == TreeView.TreeViewNodeSorter);
         }
 
         ///<summary>

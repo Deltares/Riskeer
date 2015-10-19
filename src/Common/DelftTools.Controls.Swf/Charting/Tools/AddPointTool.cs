@@ -259,21 +259,19 @@ namespace DelftTools.Controls.Swf.Charting.Tools
         private static double LinePointDistance(double Ax, double Ay, double Bx, double By,
                                                 double cx, double cy)
         {
-            double dist, dot1, dot2;
-
-            dist = Distance(Ax, Ay, Bx, By);
+            var dist = Distance(Ax, Ay, Bx, By);
             if (dist < 0.000001)
             {
                 return double.MaxValue;
             }
             dist = CrossProduct(Ax, Ay, Bx, By, cx, cy)/dist;
             // if (isSegment) always true
-            dot1 = Dot(Ax, Ay, Bx, By, cx, cy);
+            var dot1 = Dot(Ax, Ay, Bx, By, cx, cy);
             if (dot1 > 0)
             {
                 return Distance(Bx, By, cx, cy);
             }
-            dot2 = Dot(Bx, By, Ax, Ay, cx, cy);
+            var dot2 = Dot(Bx, By, Ax, Ay, cx, cy);
             if (dot2 > 0)
             {
                 return Distance(Ax, Ay, cx, cy);

@@ -596,7 +596,7 @@ namespace DelftTools.Utils.Reflection
             {
                 return member.Member.Name;
             }
-            throw new ArgumentException(member + ": not a valid expression for this method");
+            throw new ArgumentException("'member' not a valid expression for this method");
         }
 
         private static FieldInfo GetFieldInfo(Type type, string fieldName)
