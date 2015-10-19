@@ -13,8 +13,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 {
     public partial class MessageWindow : UserControl, IMessageWindow
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(MessageWindow));
-
         private class MessageData
         {
             public string ImageName { get; set; }
