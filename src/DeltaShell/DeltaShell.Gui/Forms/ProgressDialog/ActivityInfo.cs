@@ -31,7 +31,7 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
         {
             get
             {
-                string progressText = "";
+                string progressText;
                 try
                 {
                     progressText = activity.ProgressText;

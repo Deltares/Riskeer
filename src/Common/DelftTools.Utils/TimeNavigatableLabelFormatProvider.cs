@@ -60,7 +60,7 @@ namespace DelftTools.Utils
         /// <returns></returns>
         public virtual string GetUnits(TimeSpan duration)
         {
-            string format = "";
+            string format;
 
             if (duration.TotalHours < 1)
             {

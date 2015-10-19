@@ -263,7 +263,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                throw ex;
+                throw;
             }
         }
 

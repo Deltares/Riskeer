@@ -51,7 +51,7 @@ namespace SharpMap.Editors
             }
 
             addingNewFeature = true;
-            IFeature newFeature = null;
+            IFeature newFeature;
 
             try
             {

@@ -341,7 +341,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Linemerge
         {
             // trace an unvisited path *backwards* from this de
             Node endNode = de.ToNode;
-            Node fromNode = null;
+            Node fromNode;
             while (true)
             {
                 pos = pos == null ? list.AddLast(de.Sym) : list.AddAfter(pos, de.Sym);

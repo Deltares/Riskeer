@@ -1747,7 +1747,7 @@ namespace RTools_NTS.Util
                 {
                     fr.Close();
                 }
-                throw e;
+                throw;
             }
 
             if (TextReader != null)

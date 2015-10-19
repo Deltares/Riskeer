@@ -190,7 +190,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
                 {
                     if (label.IsAnyNull(geomi))
                     {
-                        Locations loc = Locations.Null;
+                        Locations loc;
                         if (hasDimensionalCollapseEdge[geomi])
                         {
                             loc = Locations.Exterior;

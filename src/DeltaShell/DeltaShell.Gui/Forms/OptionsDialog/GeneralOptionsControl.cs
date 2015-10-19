@@ -118,7 +118,7 @@ namespace DeltaShell.Gui.Forms.OptionsDialog
 
         private string GetRealNumberFormatFromControls()
         {
-            string format = "";
+            string format;
             var numDecimals = (int) upDownNumberOfDecimals.Value;
 
             if (radioButtonCompactNotation.Checked)

@@ -133,7 +133,7 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Relate
             // compute the On location value
             int boundaryCount = 0;
             bool foundInterior = false;
-            Locations loc = Locations.Null;
+            Locations loc;
 
             for (IEnumerator it = GetEnumerator(); it.MoveNext();)
             {

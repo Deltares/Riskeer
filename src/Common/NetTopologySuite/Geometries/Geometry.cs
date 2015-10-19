@@ -340,7 +340,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
                     return null;
                 }
 
-                ICoordinate centPt = null;
+                ICoordinate centPt;
                 Dimensions dim = Dimension;
                 if (dim == Dimensions.Point)
                 {

@@ -306,8 +306,7 @@ namespace GisSharpBlog.NetTopologySuite.Triangulate
 
         private ConstraintVertex CreateVertex(ICoordinate p)
         {
-            ConstraintVertex v = null;
-            v = VertexFactory != null ? VertexFactory.CreateVertex(p, null) : new ConstraintVertex(p);
+            var v = VertexFactory != null ? VertexFactory.CreateVertex(p, null) : new ConstraintVertex(p);
             return v;
         }
 

@@ -360,7 +360,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
              * A new different implementation by Marc Jacquin:
              * this code manages also SRID values.
              */
-            IGeometry returned = null;
+            IGeometry returned;
             string sridValue = null;
             string type = tokens[0].ToString();
 

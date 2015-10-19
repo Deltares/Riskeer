@@ -106,7 +106,7 @@ namespace DelftTools.Utils.Reflection
         {
             var key = declaringType + "_" + genericType + "_" + methodName;
 
-            MethodInfo methodInfo = null;
+            MethodInfo methodInfo;
 
             CachedMethods.TryGetValue(key, out methodInfo);
 

@@ -97,13 +97,13 @@ namespace GisSharpBlog.NetTopologySuite.LinearReferencing
             {
                 line = geomFact.CreateLineString(pts);
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException)
             {
                 // exception is due to too few points in line.
                 // only propagate if not ignoring short lines
                 if (!IgnoreInvalidLines)
                 {
-                    throw ex;
+                    throw;
                 }
             }
 

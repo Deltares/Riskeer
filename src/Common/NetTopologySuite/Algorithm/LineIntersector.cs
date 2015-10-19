@@ -170,7 +170,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
             double dx = Math.Abs(p1.X - p0.X);
             double dy = Math.Abs(p1.Y - p0.Y);
 
-            double dist = -1.0; // sentinel value
+            double dist;
             if (p.Equals(p0))
             {
                 dist = 0.0;

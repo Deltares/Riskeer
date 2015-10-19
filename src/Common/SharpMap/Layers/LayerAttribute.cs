@@ -93,7 +93,7 @@ namespace SharpMap.Layers
             {
                 var uniqueValues = new HashSet<IComparable>();
 
-                IEnumerable values = null;
+                IEnumerable values;
 
                 if (layer is VectorLayer)
                 {

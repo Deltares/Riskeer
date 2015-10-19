@@ -70,7 +70,7 @@ namespace SharpMap.Extensions.CoordinateSystems
             {
                 Load();
 
-                var s = "";
+                string s;
                 ExportToPrettyWkt(out s, 0);
                 return s;
             }
@@ -82,7 +82,7 @@ namespace SharpMap.Extensions.CoordinateSystems
             {
                 Load();
 
-                var xml = "";
+                string xml;
                 ExportToXML(out xml, string.Empty);
                 return xml;
             }
@@ -94,7 +94,7 @@ namespace SharpMap.Extensions.CoordinateSystems
             {
                 Load();
 
-                var proj4 = "";
+                string proj4;
                 ExportToProj4(out proj4);
                 return proj4;
             }
@@ -115,7 +115,7 @@ namespace SharpMap.Extensions.CoordinateSystems
                 return null;
             }
 
-            var wkt = "";
+            string wkt;
             ogrCoordinateSystem.ExportToPrettyWkt(out wkt, 1);
             return wkt;
         }

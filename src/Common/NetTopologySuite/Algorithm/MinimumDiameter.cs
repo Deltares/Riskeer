@@ -145,7 +145,7 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <param name="geom"></param>
         private void ComputeWidthConvex(IGeometry geom)
         {
-            ICoordinate[] pts = null;
+            ICoordinate[] pts;
             if (geom is IPolygon)
             {
                 pts = ((IPolygon) geom).ExteriorRing.Coordinates;

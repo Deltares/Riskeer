@@ -148,8 +148,7 @@ namespace SharpMap.Web.Wms
 
         private static XmlNode GenerateCapabilityNode(Map map, XmlDocument capabilities)
         {
-            string OnlineResource = "";
-            OnlineResource = HttpContext.Current.Server.HtmlEncode("http://" + HttpContext.Current.Request.Url.Host + HttpContext.Current.Request.Url.AbsolutePath);
+            var OnlineResource = HttpContext.Current.Server.HtmlEncode("http://" + HttpContext.Current.Request.Url.Host + HttpContext.Current.Request.Url.AbsolutePath);
             XmlNode CapabilityNode = capabilities.CreateNode(XmlNodeType.Element, "Capability", wmsNamespaceURI);
             XmlNode RequestNode = capabilities.CreateNode(XmlNodeType.Element, "Request", wmsNamespaceURI);
             XmlNode GetCapabilitiesNode = capabilities.CreateNode(XmlNodeType.Element, "GetCapabilities", wmsNamespaceURI);

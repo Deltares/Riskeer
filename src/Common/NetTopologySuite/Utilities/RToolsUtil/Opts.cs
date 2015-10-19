@@ -112,7 +112,7 @@ namespace RTools_NTS.Util
                 "-number",
                 "-3.2"
             };
-            string errorMessage = null;
+            string errorMessage;
 
             Opts opts = new Opts();
             opts.ParseSpec = parseSpec;

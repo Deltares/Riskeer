@@ -47,7 +47,7 @@ namespace SharpMap.Extensions.Layers
 
             foreach (var tileInfo in tileInfos)
             {
-                byte[] bytes = null;
+                byte[] bytes;
 
                 lock (cache)
                 {

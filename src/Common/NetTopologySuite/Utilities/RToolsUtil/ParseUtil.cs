@@ -66,7 +66,7 @@ namespace RTools_NTS.Util
                 endToken = new EofToken();
             }
 
-            Token token = null;
+            Token token;
             token = (Token) tokens[i++];
             int arrayLength = 0;
 

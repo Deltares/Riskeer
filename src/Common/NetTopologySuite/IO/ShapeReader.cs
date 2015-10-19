@@ -155,7 +155,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         {
             // Support vars
             ILineString[] strings = new ILineString[indexParts.Length];
-            ICoordinate[] destCoords = null;
+            ICoordinate[] destCoords;
             int index = 0;
             int length = 0;
             int partIndex = 1;
@@ -201,7 +201,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
             int i = 0;
             int index = 0;
             int shellLength = 0;
-            ICoordinate[] shellCoords = null;
+            ICoordinate[] shellCoords;
             ILinearRing[] shells = new ILinearRing[indexParts.Length];
             ArrayList polygonIndex = new ArrayList();
 
@@ -254,8 +254,8 @@ namespace GisSharpBlog.NetTopologySuite.IO
                 int start = 0;
                 int end = 0;
                 int length = 0;
-                ILinearRing shell = null; // Contains Polygon Shell
-                ILinearRing[] holes = null; // Contains Polygon Holes
+                ILinearRing shell; // Contains Polygon Shell
+                ILinearRing[] holes; // Contains Polygon Holes
                 IPolygon[] polygons = new IPolygon[polygonIndex.Count]; // Array containing all Polygons                                              
 
                 // Building procedure

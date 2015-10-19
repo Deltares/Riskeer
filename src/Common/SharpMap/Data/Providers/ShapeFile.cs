@@ -428,7 +428,7 @@ namespace SharpMap.Data.Providers
                 {
                     Trace.TraceWarning("Coordinate system file '" + projfile +
                                        "' found, but could not be parsed. WKT parser returned:" + ex.Message);
-                    throw (ex);
+                    throw;
                 }
             }
         }

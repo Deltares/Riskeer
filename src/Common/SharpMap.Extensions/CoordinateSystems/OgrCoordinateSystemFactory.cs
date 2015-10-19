@@ -54,7 +54,7 @@ namespace SharpMap.Extensions.CoordinateSystems
                 return null;
             }
 
-            var wkt = "";
+            string wkt;
             ogrCoordinateSystem.ExportToPrettyWkt(out wkt, 1);
             return wkt;
         }

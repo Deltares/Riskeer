@@ -161,8 +161,7 @@ namespace GisSharpBlog.NetTopologySuite.GeometriesGraph
         /// <param name="eltIndex"></param>
         public Locations ComputeMergedLocation(Label label2, int eltIndex)
         {
-            Locations loc = Locations.Null;
-            loc = label.GetLocation(eltIndex);
+            var loc = label.GetLocation(eltIndex);
             if (!label2.IsNull(eltIndex))
             {
                 Locations nLoc = label2.GetLocation(eltIndex);

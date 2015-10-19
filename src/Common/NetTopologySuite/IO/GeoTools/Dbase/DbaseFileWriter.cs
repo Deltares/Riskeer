@@ -126,7 +126,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <param name="decimalCount">The number of decimal places in the column.</param>
         public void Write(decimal number, int length, int decimalCount)
         {
-            string outString = string.Empty;
+            string outString;
 
             int wholeLength = length;
             if (decimalCount > 0)

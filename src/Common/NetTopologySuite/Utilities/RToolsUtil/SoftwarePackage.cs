@@ -51,7 +51,7 @@ namespace RTools_NTS.Util
         /// <returns>bool - true for success, false for failure</returns>
         public bool Uninstall(bool interactive)
         {
-            Process p = null;
+            Process p;
             ProcessStartInfo psi = null;
 
             // build process start info

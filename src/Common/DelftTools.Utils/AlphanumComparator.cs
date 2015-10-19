@@ -63,15 +63,15 @@ namespace DelftTools.Utils
                 {
                     return -1;
                 }
-                else if (thatMarker >= s2.Length)
+                if (thatMarker >= s2.Length)
                 {
                     return 1;
                 }
                 char thisCh = s1[thisMarker];
                 char thatCh = s2[thatMarker];
 
-                StringBuilder thisChunk = new StringBuilder();
-                StringBuilder thatChunk = new StringBuilder();
+                var thisChunk = new StringBuilder();
+                var thatChunk = new StringBuilder();
 
                 while ((thisMarker < s1.Length) && (thisChunk.Length == 0 || InChunk(thisCh, thisChunk[0])))
                 {

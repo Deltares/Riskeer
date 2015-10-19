@@ -160,25 +160,20 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
                     {
                         CreateChildren();
                     }
-                    int c = 0;
                     if (Children[TL].Bounds.IntersectsWith(bounds))
                     {
-                        c++;
                         Children[TL].Insert(recordIndex, bounds);
                     }
                     if (Children[TR].Bounds.IntersectsWith(bounds))
                     {
-                        c++;
                         Children[TR].Insert(recordIndex, bounds);
                     }
                     if (Children[BL].Bounds.IntersectsWith(bounds))
                     {
-                        c++;
                         Children[BL].Insert(recordIndex, bounds);
                     }
                     if (Children[BR].Bounds.IntersectsWith(bounds))
                     {
-                        c++;
                         Children[BR].Insert(recordIndex, bounds);
                     }
                 }
@@ -201,25 +196,20 @@ namespace SharpMap.Data.Providers.EGIS.ShapeFileLib
                     {
                         CreateChildren();
                     }
-                    int c = 0;
                     if (Children[TL].Bounds.IntersectsWith(recBounds))
                     {
-                        c++;
                         Children[TL].Insert(recordIndex, ref recBounds);
                     }
                     if (Children[TR].Bounds.IntersectsWith(recBounds))
                     {
-                        c++;
                         Children[TR].Insert(recordIndex, ref recBounds);
                     }
                     if (Children[BL].Bounds.IntersectsWith(recBounds))
                     {
-                        c++;
                         Children[BL].Insert(recordIndex, ref recBounds);
                     }
                     if (Children[BR].Bounds.IntersectsWith(recBounds))
                     {
-                        c++;
                         Children[BR].Insert(recordIndex, ref recBounds);
                     }
                 }
