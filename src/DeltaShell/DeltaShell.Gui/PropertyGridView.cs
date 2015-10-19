@@ -17,6 +17,11 @@ namespace DeltaShell.Gui
 {
     public class PropertyGridView : PropertyGrid, IPropertyGrid, IObserver
     {
+        /// <summary>
+        /// This delegate enabled asynchronous calls to methods without arguments.
+        /// </summary>
+        private delegate void ArgumentlessDelegate();
+
         private static readonly ILog Log = LogManager.GetLogger(typeof(PropertyGridView));
 
         /// <summary>
@@ -37,51 +42,6 @@ namespace DeltaShell.Gui
             PropertySort = PropertySort.Categorized;
 
             gui.SelectionChanged += GuiSelectionChanged;
-        }
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Forms.PropertyGrid.PropertySortChanged"/> event.
-        /// </summary>
-        /// <param name="e">A <see cref="T:System.EventArgs"/> that contains the event data. </param>
-        protected override void OnPropertySortChanged(EventArgs e)
-        {
-            // Needed for maintaining property order
-            if (PropertySort == PropertySort.CategorizedAlphabetical)
-            {
-                PropertySort = PropertySort.Categorized;
-            }
-
-            base.OnPropertySortChanged(e);
-        }
-        
-        private new object SelectedObject
-        {
-            get
-            {
-                return selectedObject;
-            }
-            set
-            {
-                // Performance optimization
-                if (selectedObject == value)
-                {
-                    return;
-                }
-
-                selectedObject = value;
-
-                if (selectedObject == null)
-                {
-                    base.SelectedObject = null;
-                    return;
-                }
-
-                var selectedType = GetRelevantType(selectedObject);
-
-                Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, selectedType.Name);
-
-                base.SelectedObject = selectedObject;
-            }
         }
 
         public void UpdateObserver()
@@ -137,6 +97,21 @@ namespace DeltaShell.Gui
             return null;
         }
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Forms.PropertyGrid.PropertySortChanged"/> event.
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.EventArgs"/> that contains the event data. </param>
+        protected override void OnPropertySortChanged(EventArgs e)
+        {
+            // Needed for maintaining property order
+            if (PropertySort == PropertySort.CategorizedAlphabetical)
+            {
+                PropertySort = PropertySort.Categorized;
+            }
+
+            base.OnPropertySortChanged(e);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (gui != null)
@@ -150,6 +125,36 @@ namespace DeltaShell.Gui
             }
 
             base.Dispose(disposing);
+        }
+
+        private new object SelectedObject
+        {
+            get
+            {
+                return selectedObject;
+            }
+            set
+            {
+                // Performance optimization
+                if (selectedObject == value)
+                {
+                    return;
+                }
+
+                selectedObject = value;
+
+                if (selectedObject == null)
+                {
+                    base.SelectedObject = null;
+                    return;
+                }
+
+                var selectedType = GetRelevantType(selectedObject);
+
+                Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, selectedType.Name);
+
+                base.SelectedObject = selectedObject;
+            }
         }
 
         private void HideTabsButton()
@@ -243,11 +248,6 @@ namespace DeltaShell.Gui
 
             return propertyBag != null ? propertyBag.GetContentType() : obj.GetType();
         }
-
-        /// <summary>
-        /// This delegate enabled asynchronous calls to methods without arguments.
-        /// </summary>
-        delegate void ArgumentlessDelegate();
 
         #region IPropertyGrid Members
 
