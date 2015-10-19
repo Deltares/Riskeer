@@ -4,7 +4,6 @@ using System.ComponentModel;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
-using log4net;
 using Wti.Data;
 using Wti.Forms.Properties;
 using Wti.Service;

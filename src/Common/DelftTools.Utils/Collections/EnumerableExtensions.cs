@@ -14,13 +14,11 @@ namespace DelftTools.Utils.Collections
         /// <returns></returns>
         public static Type GetInnerType(this IEnumerable source)
         {
-            Type inner = null;
-
             foreach (var item in source)
             {
                 return item.GetType();
             }
-            return inner;
+            return null;
         }
 
         /// <summary>

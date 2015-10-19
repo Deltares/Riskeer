@@ -111,8 +111,10 @@ namespace Wti.IO
                     };
                 }
 
-                var surfaceLine = new PipingSurfaceLine();
-                surfaceLine.Name = tokenizedString.First();
+                var surfaceLine = new PipingSurfaceLine
+                {
+                    Name = tokenizedString.First()
+                };
                 surfaceLine.SetGeometry(points);
                 return surfaceLine;
             }

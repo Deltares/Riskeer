@@ -45,12 +45,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
             {};
         }
 
-        public void AddLayerFromFile(string path)
-        {
-            AddLayerFromFile(path, null);
-        }
-
-        public void AddLayerFromFile(string path, Map mapToUse)
+        public void AddLayerFromFile(string path, Map mapToUse = null)
         {
             Map map = null;
 

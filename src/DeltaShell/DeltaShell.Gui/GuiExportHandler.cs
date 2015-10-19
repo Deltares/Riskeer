@@ -112,9 +112,9 @@ namespace DeltaShell.Gui
             var dlg = new SaveFileDialog
             {
                 Filter = exporter.FileFilter,
-                Title = Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_file_to_export_to
+                Title = Resources.GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_file_to_export_to,
+                FilterIndex = 2
             };
-            dlg.FilterIndex = 2;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 if (exporter.Export(item, dlg.FileName))

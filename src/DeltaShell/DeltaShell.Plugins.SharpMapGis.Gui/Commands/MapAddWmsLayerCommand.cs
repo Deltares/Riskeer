@@ -27,9 +27,11 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
 
             try
             {
-                WmsLayer layer = new WmsLayer(url, url);
-                layer.TimeOut = 100000;
-                layer.SpatialReferenceSystem = "EPSG:4326";
+                WmsLayer layer = new WmsLayer(url, url)
+                {
+                    TimeOut = 100000,
+                    SpatialReferenceSystem = "EPSG:4326"
+                };
                 foreach (Client.WmsServerLayer childLayer in layer.RootLayer.ChildLayers)
                 {
                     // no visible by default
@@ -47,8 +49,10 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
 
         protected override void OnExecute(params object[] arguments)
         {
-            var openUrlDialog = new OpenUrlDialog();
-            openUrlDialog.Url = "http://www2.demis.nl/wms/wms.asp?wms=WorldMap&REQUEST=GetCapabilities";
+            var openUrlDialog = new OpenUrlDialog
+            {
+                Url = "http://www2.demis.nl/wms/wms.asp?wms=WorldMap&REQUEST=GetCapabilities"
+            };
 
             if (openUrlDialog.ShowDialog() == DialogResult.OK)
             {

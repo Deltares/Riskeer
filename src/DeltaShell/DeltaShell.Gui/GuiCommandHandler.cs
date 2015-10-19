@@ -155,12 +155,7 @@ namespace DeltaShell.Gui
             }
 
             var projectItemActiveView = activeView.Data as IProjectItem;
-            if (projectItemActiveView != null)
-            {
-                return projectItemActiveView;
-            }
-
-            return null;
+            return projectItemActiveView;
         }
 
         public bool SaveProject()

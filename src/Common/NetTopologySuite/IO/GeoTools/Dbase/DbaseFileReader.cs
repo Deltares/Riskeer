@@ -24,7 +24,7 @@ namespace GisSharpBlog.NetTopologySuite.IO
         {
             if (filename == null)
             {
-                throw new ArgumentNullException(filename);
+                throw new ArgumentNullException("filename");
             }
             // check for the file existing here, otherwise we will not get an error
             //until we read the first record or read the header.

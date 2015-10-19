@@ -632,9 +632,11 @@ namespace DeltaShell.Plugins.SharpMapGis.HibernateMappings
             var fillColorBlends = new List<colorBlend>();
             for (int i = 0; i < colorBlend.Positions.Length; i++)
             {
-                var fillBlend = new colorBlend();
-                fillBlend.color = ColorTranslator.ToHtml(colorBlend.Colors[i]);
-                fillBlend.position = colorBlend.Positions[i];
+                var fillBlend = new colorBlend
+                {
+                    color = ColorTranslator.ToHtml(colorBlend.Colors[i]),
+                    position = colorBlend.Positions[i]
+                };
                 fillColorBlends.Add(fillBlend);
             }
             return fillColorBlends.ToArray();
