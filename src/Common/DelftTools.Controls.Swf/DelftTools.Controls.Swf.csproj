@@ -244,8 +244,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataEditorGenerator\DataEditorGeneratorSwf.cs" />
-    <Compile Include="DataEditorGenerator\FromType\OperationIfAttribute.cs" />
-    <Compile Include="DataEditorGenerator\FromType\VisibleIfAttribute.cs" />
     <Compile Include="DataEditorGenerator\InteractiveToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -256,9 +254,6 @@
     <Compile Include="DataEditorGenerator\Metadata\FieldUIDescription.cs" />
     <Compile Include="DataEditorGenerator\Metadata\ICustomControlHelper.cs" />
     <Compile Include="DataEditorGenerator\Metadata\ObjectUIDescription.cs" />
-    <Compile Include="DataEditorGenerator\FromType\CustomControlHelperAttribute.cs" />
-    <Compile Include="DataEditorGenerator\FromType\DependentPropertyAttribute.cs" />
-    <Compile Include="DataEditorGenerator\FromType\EnabledIfAttribute.cs" />
     <Compile Include="DataEditorGenerator\SelfCollapsingGroupbox.cs">
       <SubType>Component</SubType>
     </Compile>

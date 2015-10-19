@@ -9,8 +9,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 {
     public class ThemeItemTreeViewNodePresenter : TreeViewNodePresenterBaseForPluginGui<IThemeItem>
     {
-        public ThemeItemTreeViewNodePresenter() : base(null) {}
-
         public ThemeItemTreeViewNodePresenter(GuiPlugin guiPlugin) : base(guiPlugin) {}
 
         public override void UpdateNode(ITreeNode parentNode, ITreeNode node, IThemeItem themeItem)

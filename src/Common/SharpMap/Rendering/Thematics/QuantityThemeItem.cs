@@ -1,7 +1,6 @@
 using DelftTools.Utils.Aop;
 using GisSharpBlog.NetTopologySuite.Index.Bintree;
 using SharpMap.Api;
-using SharpMap.Styles;
 
 namespace SharpMap.Rendering.Thematics
 {
@@ -9,8 +8,6 @@ namespace SharpMap.Rendering.Thematics
     public class QuantityThemeItem : ThemeItem
     {
         private Interval interval;
-
-        public QuantityThemeItem() : this(new Interval(), new VectorStyle()) {}
 
         public QuantityThemeItem(Interval interval, IStyle style)
         {

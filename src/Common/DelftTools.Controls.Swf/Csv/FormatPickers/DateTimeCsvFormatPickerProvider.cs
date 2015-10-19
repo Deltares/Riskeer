@@ -19,14 +19,6 @@ namespace DelftTools.Controls.Swf.Csv.FormatPickers
             }
         }
 
-        public override Type ValueType
-        {
-            get
-            {
-                return typeof(DateTime);
-            }
-        }
-
         public override Control GetFormatPicker()
         {
             var panel = new Panel

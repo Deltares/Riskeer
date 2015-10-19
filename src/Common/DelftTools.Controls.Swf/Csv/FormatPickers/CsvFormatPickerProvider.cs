@@ -8,7 +8,6 @@ namespace DelftTools.Controls.Swf.Csv.FormatPickers
     {
         public event EventHandler UserSelectionChanged;
         public abstract string Label { get; }
-        public abstract Type ValueType { get; }
         public abstract Control GetFormatPicker();
         public abstract IFormatProvider GetFormatProvider();
 

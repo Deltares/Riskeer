@@ -13,7 +13,6 @@ namespace GeoAPI.Geometries
         IPrecisionModel PrecisionModel { get; }
 
         IGeometry BuildGeometry(ICollection geomList);
-        IGeometry CreateGeometry(IGeometry g);
 
         IPoint CreatePoint(ICoordinate coordinate);
         IPoint CreatePoint(ICoordinateSequence coordinates);
@@ -28,7 +27,6 @@ namespace GeoAPI.Geometries
 
         IMultiPoint CreateMultiPoint(ICoordinate[] coordinates);
         IMultiPoint CreateMultiPoint(IPoint[] point);
-        IMultiPoint CreateMultiPoint(ICoordinateSequence coordinates);
 
         IMultiLineString CreateMultiLineString(ILineString[] lineStrings);
 

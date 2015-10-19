@@ -13,10 +13,6 @@ namespace DelftTools.Controls.Swf.Csv
 
         public string PreviewText
         {
-            get
-            {
-                return csvToDataTableControl1.PreviewText;
-            }
             set
             {
                 csvToDataTableControl1.PreviewText = value;

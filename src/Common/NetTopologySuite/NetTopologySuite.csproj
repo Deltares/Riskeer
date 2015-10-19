@@ -103,9 +103,6 @@
     <Compile Include="Algorithm\RobustDeterminant.cs" />
     <Compile Include="Algorithm\RobustLineIntersector.cs" />
     <Compile Include="Algorithm\SimplePointInAreaLocator.cs" />
-    <Compile Include="CoordinateSystems\Transformations\GeometryTransform.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Geometries\Coordinate.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -215,8 +212,6 @@
     <Compile Include="IO\GeoTools\ShapefileReader.cs" />
     <Compile Include="IO\PostGisGeometryType.cs" />
     <Compile Include="IO\PostGisReader.cs" />
-    <Compile Include="IO\PostGisWriter.cs" />
-    <Compile Include="IO\GDBReader.cs" />
     <Compile Include="IO\ParseException.cs" />
     <Compile Include="IO\GeoTools\Handlers\ShapeHandler.cs" />
     <Compile Include="IO\ShapeGeometryType.cs">
@@ -235,7 +230,6 @@
     <Compile Include="LinearReferencing\LinearGeometryBuilder.cs" />
     <Compile Include="LinearReferencing\LinearIterator.cs" />
     <Compile Include="LinearReferencing\LinearLocation.cs" />
-    <Compile Include="LinearReferencing\LocationIndexedLine.cs" />
     <Compile Include="LinearReferencing\LocationIndexOfLine.cs" />
     <Compile Include="LinearReferencing\LocationIndexOfPoint.cs" />
     <Compile Include="Mathematics\DD.cs" />

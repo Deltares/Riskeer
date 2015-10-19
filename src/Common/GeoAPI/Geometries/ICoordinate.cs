@@ -10,7 +10,7 @@ namespace GeoAPI.Geometries
 
         double Z { get; set; }
 
-        ICoordinate CoordinateValue { get; set; }
+        ICoordinate CoordinateValue { set; }
 
         double Distance(ICoordinate p);
 

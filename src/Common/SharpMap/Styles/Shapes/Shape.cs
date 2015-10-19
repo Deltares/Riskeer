@@ -291,10 +291,6 @@ namespace SharpMap.Styles.Shapes
 
         ShapeType IShape.ShapeType
         {
-            get
-            {
-                return (ShapeType) Enum.Parse(typeof(ShapeType), ShapeType.ToString());
-            }
             set
             {
                 ShapeType = (eShape) Enum.Parse(typeof(eShape), value.ToString());

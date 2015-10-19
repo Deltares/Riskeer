@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
 using SharpMap.Api.Layers;
@@ -11,13 +10,7 @@ namespace SharpMap.Api.Editors
         /// <summary>
         /// Snap rules defined for the layer, used during feature edits.
         /// </summary>
-        IList<ISnapRule> SnapRules { get; set; }
-
-        /// <summary>
-        /// Get or set method used to creates a new feature which can be later added to the current layer.
-        /// </summary>
-        /// <returns></returns>
-        Func<ILayer, IFeature> CreateNewFeature { get; set; }
+        IList<ISnapRule> SnapRules { get; }
 
         /// <summary>
         /// Creates a new instance of the feature interactor which can be used to manipulate <paramref name="feature"/>.

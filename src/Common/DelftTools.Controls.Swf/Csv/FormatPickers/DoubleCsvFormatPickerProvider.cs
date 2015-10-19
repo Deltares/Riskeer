@@ -19,14 +19,6 @@ namespace DelftTools.Controls.Swf.Csv.FormatPickers
             }
         }
 
-        public override Type ValueType
-        {
-            get
-            {
-                return typeof(double);
-            }
-        }
-
         public override Control GetFormatPicker()
         {
             numberFormatComboBox = CreateCombobox(GenerateNumberSeparators().Cast<object>().ToArray());

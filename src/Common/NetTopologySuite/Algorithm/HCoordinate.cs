@@ -12,16 +12,6 @@ namespace GisSharpBlog.NetTopologySuite.Algorithm
         /// <summary>
         /// 
         /// </summary>
-        public HCoordinate()
-        {
-            X = 0.0;
-            Y = 0.0;
-            W = 1.0;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="w"></param>

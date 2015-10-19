@@ -14,14 +14,4 @@ namespace DelftTools.Shell.Gui
 
         public object Item { get; private set; }
     }
-
-    public class SelectedItemChangedEventArgs<T> : EventArgs
-    {
-        public SelectedItemChangedEventArgs(T item)
-        {
-            Item = item;
-        }
-
-        public T Item { get; private set; }
-    }
 }

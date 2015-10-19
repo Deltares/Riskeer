@@ -10,6 +10,6 @@ namespace DelftTools.Shell.Core
         /// <summary>
         /// Project service used to export project
         /// </summary>
-        IProjectService ProjectService { get; set; }
+        IProjectService ProjectService { set; }
     }
 }
