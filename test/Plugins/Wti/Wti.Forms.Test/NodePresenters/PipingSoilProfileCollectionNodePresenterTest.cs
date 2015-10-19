@@ -38,10 +38,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
-            IEnumerable<object> surfaceLinesCollection = Enumerable.Empty<object>();
+            IEnumerable<object> soilProfileCollection = Enumerable.Empty<object>();
 
             // Call
-            nodePresenter.UpdateNode(null, soilProfileCollectionNodeStub, surfaceLinesCollection);
+            nodePresenter.UpdateNode(null, soilProfileCollectionNodeStub, soilProfileCollection);
 
             // Assert
             Assert.AreEqual(WtiFormsResources.PipingSoilProfilesCollectionName, soilProfileCollectionNodeStub.Text);
@@ -60,10 +60,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
-            IEnumerable<object> surfaceLinesCollection = new object[0];
+            IEnumerable<object> soilProfilesCollection = new object[0];
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(surfaceLinesCollection, nodeMock);
+            var children = nodePresenter.GetChildNodeObjects(soilProfilesCollection, nodeMock);
 
             // Assert
             CollectionAssert.IsEmpty(children);
