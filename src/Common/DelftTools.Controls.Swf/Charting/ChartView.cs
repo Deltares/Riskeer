@@ -788,7 +788,7 @@ namespace DelftTools.Controls.Swf.Charting
             return tool;
         }
 
-        public IHistoryTool NewHistoryTool()
+        public HistoryTool NewHistoryTool()
         {
             var tool = new HistoryTool(teeChart)
             {

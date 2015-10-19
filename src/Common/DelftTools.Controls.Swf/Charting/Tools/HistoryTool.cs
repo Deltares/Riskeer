@@ -15,7 +15,7 @@ namespace DelftTools.Controls.Swf.Charting.Tools
     /// <summary>
     /// A tool for History: it sets old series to history layout
     /// </summary>
-    internal class HistoryTool : ToolSeries, IHistoryTool
+    public class HistoryTool : ToolSeries, IChartViewTool
     {
         public event EventHandler<EventArgs> ActiveChanged;
 

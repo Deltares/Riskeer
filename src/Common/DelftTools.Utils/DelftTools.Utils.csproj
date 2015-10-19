@@ -143,9 +143,7 @@
     <Compile Include="Editing\IEditAction.cs" />
     <Compile Include="GraphicsUtils.cs" />
     <Compile Include="Interop\NativeWin32.cs" />
-    <Compile Include="Interop\Pinned.cs" />
     <Compile Include="IO\ITransactionalChangeAccess.cs" />
-    <Compile Include="MappingDocument.cs" />
     <Compile Include="Reflection\AutoCloner.cs" />
     <Compile Include="Reflection\DynamicTypeUtils.cs" />
     <Compile Include="Properties\Resource.Designer.cs">
@@ -163,7 +161,6 @@
     <Compile Include="ResourcesDescriptionAttribute.cs" />
     <Compile Include="ResourcesDisplayNameAttribute.cs" />
     <Compile Include="Selector.cs" />
-    <Compile Include="Serialization\DrawingFastSerializationHelper.cs" />
     <Compile Include="Serialization\IByteCompressor.cs" />
     <Compile Include="Serialization\IFastSerializationTypeSurrogate.cs" />
     <Compile Include="Serialization\IMemoryStreamByteCompressor.cs" />
@@ -228,7 +225,6 @@
     <Compile Include="Tuple.cs" />
     <Compile Include="TypeConverter.cs" />
     <Compile Include="Url.cs" />
-    <Compile Include="Validation\ValidationHelper.cs" />
     <Compile Include="Validation\ValidationIssue.cs" />
     <Compile Include="Validation\ValidationReport.cs" />
     <Compile Include="Validation\ValidationSeverity.cs" />
@@ -237,7 +233,6 @@
     <Compile Include="WeakEventHandler.cs" />
     <Compile Include="FormulaParser\ExcelFormula.cs" />
     <Compile Include="FormulaParser\ExcelFormulaToken.cs" />
-    <Compile Include="Interop\OcxHelper.cs" />
     <Compile Include="IO\FileUtils.cs" />
     <Compile Include="Reflection\AssemblyUtils.cs" />
     <Compile Include="Threading\EventsHelper.cs" />

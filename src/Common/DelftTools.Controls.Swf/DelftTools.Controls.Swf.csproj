@@ -200,7 +200,6 @@
     </Compile>
     <Compile Include="Charting\Tools\IBandTool.cs" />
     <Compile Include="Charting\Tools\ICursorLineTool.cs" />
-    <Compile Include="Charting\Tools\IHistoryTool.cs" />
     <Compile Include="Charting\Tools\IMarkerTool.cs" />
     <Compile Include="Charting\Tools\IRectangleTool.cs" />
     <Compile Include="Charting\Tools\MarkerTool.cs">
