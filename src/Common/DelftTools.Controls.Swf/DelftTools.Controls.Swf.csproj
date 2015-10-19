@@ -295,7 +295,6 @@
     <Compile Include="DataEditorGenerator\FromType\HideAttribute.cs" />
     <Compile Include="DataEditorGenerator\FromType\SubCategoryAttribute.cs" />
     <Compile Include="DataEditorGenerator\FromType\UnitAttribute.cs" />
-    <Compile Include="DataEditorGenerator\FromType\ObjectDescriptionFromTypeExtractor.cs" />
     <Compile Include="DataEditorGenerator\SelfCollapsingGroupbox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -357,12 +356,6 @@
       <DependentUpon>InputTextDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="IWizardPage.cs" />
-    <Compile Include="ListBasedDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ListBasedDialog.Designer.cs">
-      <DependentUpon>ListBasedDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="MenuItemContextMenuStripAdapter.cs" />
     <Compile Include="MenuItemToolStripMenuItemAdapter.cs" />
     <Compile Include="ModalHelper.cs" />
@@ -491,10 +484,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InputTextDialog.resx">
       <DependentUpon>InputTextDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ListBasedDialog.resx">
-      <DependentUpon>ListBasedDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="OpenUrlDialog.resx">
       <DependentUpon>OpenUrlDialog.cs</DependentUpon>

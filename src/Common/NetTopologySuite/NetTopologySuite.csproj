@@ -104,12 +104,8 @@
     <Compile Include="Algorithm\RobustDeterminant.cs" />
     <Compile Include="Algorithm\RobustLineIntersector.cs" />
     <Compile Include="Algorithm\SimplePointInAreaLocator.cs" />
-    <Compile Include="Algorithm\SimplePointInRing.cs" />
-    <Compile Include="Algorithm\SIRtreePointInRing.cs" />
     <Compile Include="CoordinateSystems\Transformations\GeometryTransform.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Features\AttributesTable.cs">
     </Compile>
     <Compile Include="Features\Feature.cs" />
     <Compile Include="Features\IAttributesTable.cs" />
@@ -397,9 +393,7 @@
     <Compile Include="Utilities\AssertionFailedException.cs" />
     <Compile Include="Utilities\BitConverter.cs" />
     <Compile Include="Utilities\CollectionUtil.cs" />
-    <Compile Include="Utilities\CoordinateArrayFilter.cs" />
     <Compile Include="Utilities\CoordinateCompare.cs" />
-    <Compile Include="Utilities\CoordinateCountFilter.cs" />
     <Compile Include="Utilities\GeometricShapeFactory.cs" />
     <Compile Include="Utilities\HexConverter.cs" />
     <Compile Include="Utilities\Global.cs" />

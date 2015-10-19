@@ -209,7 +209,6 @@
     <Compile Include="IO\ZipFileUtils.cs" />
     <Compile Include="MathUtils.cs" />
     <Compile Include="NamingHelper.cs" />
-    <Compile Include="ObjectHelper.cs" />
     <Compile Include="PropertyBag\PropertyBag.cs" />
     <Compile Include="PropertyOrderAttribute.cs" />
     <Compile Include="PropertyBag\PropertySpec.cs" />

@@ -111,7 +111,6 @@
     <Compile Include="Converters\WellKnownText\TokenType.cs" />
     <Compile Include="Converters\WellKnownText\WKTStreamTokenizer.cs" />
     <Compile Include="CoordinateSystems\CoordinateSystemValidator.cs" />
-    <Compile Include="CoordinateSystems\Transformations\CoordinateTransformationCache.cs" />
     <Compile Include="CoordinateSystems\Transformations\CoordinateTransformationException.cs" />
     <Compile Include="CoordinateSystems\Transformations\GeometryTransform.cs" />
     <Compile Include="CoordinateSystems\Transformations\GeodeticDistance.cs" />
@@ -146,7 +145,6 @@
     <Compile Include="Editors\FallOff\NoFallOffPolicy.cs" />
     <Compile Include="Editors\FallOff\RingFallOffPolicy.cs" />
     <Compile Include="Editors\FeatureInteractor.cs" />
-    <Compile Include="Editors\Interactors\LinearRingInteractor.cs" />
     <Compile Include="Editors\Interactors\LineStringInteractor.cs" />
     <Compile Include="Editors\Interactors\PointInteractor.cs" />
     <Compile Include="Editors\Snapping\SnapRule.cs" />
