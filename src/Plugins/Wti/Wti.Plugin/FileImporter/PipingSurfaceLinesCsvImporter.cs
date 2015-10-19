@@ -5,6 +5,7 @@ using System.Drawing;
 using DelftTools.Shell.Core;
 
 using Wti.Data;
+using Wti.IO;
 
 using WtiFormsResources = Wti.Forms.Properties.Resources;
 using ApplicationResources = Wti.Plugin.Properties.Resources;
@@ -89,17 +90,29 @@ namespace Wti.Plugin.FileImporter
 
         public object ImportItem(string path, object target = null)
         {
-            // TODO: Open file at 'path' with PipingSurfaceLinesCsvReader
-            // TODO: Determine line count (for progress)
-            // TODO: For each line...
-                // TODO: Check ShouldCancel for early abort
-                // TODO: Read line
-                // TODO: Parse line
-                // TODO: Create PipingSurfaceLine
-                // TODO: Set data on PipingSurfaceLine
-            // TODO: Add all PipingSurfaceLines to 'target' if no errors occur.
+            List<PipingSurfaceLine> readSurfaceLines;
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                var itemCount = reader.GetSurfaceLinesCount();
+                readSurfaceLines = new List<PipingSurfaceLine>(itemCount);
+                for (int i = 0; i < itemCount; i++)
+                {
+                    // TODO: Check ShouldCancel for early abort
+                    readSurfaceLines.Add(reader.ReadLine());
+                }
+            }
+            
+            var targetCollection = (ICollection<PipingSurfaceLine>)target;
+            foreach (var readSurfaceLine in readSurfaceLines)
+            {
+                targetCollection.Add(readSurfaceLine);
+            }
 
-            // TODO: Notifying observer?
+            var observableTarget = targetCollection as IObservable;
+            if (observableTarget != null)
+            {
+                observableTarget.NotifyObservers();
+            }
 
             return target;
         }

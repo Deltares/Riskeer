@@ -55,10 +55,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NodePresenters\PipingFailureMechanismNodePresenter.cs" />
+    <Compile Include="NodePresenters\PipingNodePresenterBase.cs" />
     <Compile Include="NodePresenters\PipingOutputNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingDataNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingSoilProfileCollectionNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingSurfaceLineCollectionNodePresenter.cs" />
+    <Compile Include="NodePresenters\PipingSurfaceLineNodePresenter.cs" />
     <Compile Include="NodePresenters\WtiProjectNodePresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

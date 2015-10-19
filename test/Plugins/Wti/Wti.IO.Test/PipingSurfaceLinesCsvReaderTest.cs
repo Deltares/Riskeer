@@ -87,10 +87,38 @@ namespace Wti.IO.Test
             DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLines_ReturnCreatedSurfaceLine();
         }
 
+        [Test]
+        public void ReadLine_OpenedValidFileWithoutHeaderAndTwoSurfaceLinesWhileAtTheEndOfFile_ReturnNull()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                int surfaceLinesCount = reader.GetSurfaceLinesCount();
+                for (int i = 0; i < surfaceLinesCount; i++)
+                {
+                    var pipingSurfaceLine = reader.ReadLine();
+                    Assert.IsNotInstanceOf<IDisposable>(pipingSurfaceLine,
+                                                        "Fail Fast: Disposal logic required to be implemented in test.");
+                    Assert.IsNotNull(pipingSurfaceLine);
+                }
+
+                // Call
+                var result = reader.ReadLine();
+
+                // Assert
+                Assert.IsNull(result);
+            }
+        }
+
         private void DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLines_ReturnCreatedSurfaceLine()
         {
             // Setup
             string path = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
+
+            // Precondition:
+            Assert.IsTrue(File.Exists(path));
 
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
@@ -129,31 +157,6 @@ namespace Wti.IO.Test
                 Assert.AreEqual(surfaceLine2.EndingWorldPoint, surfaceLine2.Points.Last());
 
                 #endregion
-            }
-        }
-
-        [Test]
-        public void ReadLine_OpenedValidFileWithoutHeaderAndTwoSurfaceLinesWhileAtTheEndOfFile_ReturnNull()
-        {
-            // Setup
-            string path = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
-
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
-            {
-                int surfaceLinesCount = reader.GetSurfaceLinesCount();
-                for (int i = 0; i < surfaceLinesCount; i++)
-                {
-                    var pipingSurfaceLine = reader.ReadLine();
-                    Assert.IsNotInstanceOf<IDisposable>(pipingSurfaceLine,
-                        "Fail Fast: Disposal logic required to be implemented in test.");
-                    Assert.IsNotNull(pipingSurfaceLine);
-                }
-
-                // Call
-                var result = reader.ReadLine();
-
-                // Assert
-                Assert.IsNull(result);
             }
         }
     }

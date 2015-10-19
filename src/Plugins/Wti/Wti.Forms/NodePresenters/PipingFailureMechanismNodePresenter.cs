@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
+
 using DelftTools.Controls;
 using DelftTools.Utils.Collections;
+
 using Wti.Data;
 using Wti.Forms.Properties;
 
@@ -92,7 +94,7 @@ namespace Wti.Forms.NodePresenters
         {
             if (nodeData is PipingFailureMechanism)
             {
-                var wtiProject = (WtiProject) parentNodeData;
+                var wtiProject = (WtiProject)parentNodeData;
 
                 wtiProject.ClearPipingFailureMechanism();
                 wtiProject.NotifyObservers();

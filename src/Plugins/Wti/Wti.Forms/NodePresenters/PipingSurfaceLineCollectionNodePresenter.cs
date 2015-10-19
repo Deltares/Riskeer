@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf;
@@ -37,8 +38,9 @@ namespace Wti.Forms.NodePresenters
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
+            var data = (IEnumerable<PipingSurfaceLine>)nodeData;
             node.Text = Resources.PipingSurfaceLinesCollectionName;
-            node.ForegroundColor = Color.FromKnownColor(KnownColor.GrayText);
+            node.ForegroundColor = data.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText);
             node.Image = Resources.FolderIcon;
         }
 

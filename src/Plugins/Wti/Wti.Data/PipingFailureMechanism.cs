@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+
 using DelftTools.Shell.Core;
 
 namespace Wti.Data
@@ -17,7 +18,7 @@ namespace Wti.Data
         /// </summary>
         public PipingFailureMechanism()
         {
-            SurfaceLines = Enumerable.Empty<PipingSurfaceLine>();
+            SurfaceLines = new ObservableList<PipingSurfaceLine>();
             SoilProfiles = Enumerable.Empty<PipingSoilProfile>();
             PipingData = new PipingData();
         }

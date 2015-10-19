@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 using DelftTools.Shell.Core;
+using DelftTools.TestUtils;
 
 using NUnit.Framework;
 
@@ -17,6 +20,8 @@ namespace Wti.Plugin.Test.FileImporter
     [TestFixture]
     public class PipingSurfaceLineCsvImporterTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Plugins.Wti.WtiIOPath, "PipingSurfaceLinesCsvReader");
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -80,21 +85,43 @@ namespace Wti.Plugin.Test.FileImporter
         public void ImportItem_ImportingToValidTargetWithValidFile_ImportSurfaceLinesToCollection()
         {
             // Setup
-            const string validFilePath = "";
-            var piping = new PipingFailureMechanism();
+            string validFilePath = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
 
-            var importTarget = piping.SurfaceLines;
-
             // Precondition
-            Assert.IsTrue(importer.CanImportOn(importTarget));
+            CollectionAssert.IsEmpty(observableSurfaceLinesList);
+            Assert.IsTrue(importer.CanImportOn(observableSurfaceLinesList));
+            Assert.IsTrue(File.Exists(validFilePath));
 
             // Call
-            var importedItem = importer.ImportItem(validFilePath, importTarget);
+            var importedItem = importer.ImportItem(validFilePath, observableSurfaceLinesList);
 
             // Assert
-            Assert.AreSame(importTarget, importedItem);
+            Assert.AreSame(observableSurfaceLinesList, importedItem);
+            var importTargetArray = observableSurfaceLinesList.ToArray();
+            Assert.AreEqual(2, importTargetArray.Length);
+
+            // Sample some of the imported data:
+            var firstSurfaceLine = importTargetArray[0];
+            Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
+            Assert.AreEqual(8, firstSurfaceLine.Points.Count());
+            Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
+
+            var secondSurfaceLine = importTargetArray[1];
+            Assert.AreEqual("ArtificalLocal", secondSurfaceLine.Name);
+            Assert.AreEqual(3, secondSurfaceLine.Points.Count());
+            Assert.AreEqual(4.4, secondSurfaceLine.EndingWorldPoint.X);
+
+            mocks.VerifyAll();
         }
     }
 }

@@ -94,9 +94,10 @@ namespace Wti.Plugin.Test
                 ITreeNodePresenter[] nodePresenters = guiPlugin.GetProjectTreeViewNodePresenters().ToArray();
 
                 // assert
-                Assert.AreEqual(6, nodePresenters.Length);
+                Assert.AreEqual(7, nodePresenters.Length);
                 Assert.IsTrue(nodePresenters.Any(np => np is WtiProjectNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineCollectionNodePresenter));
+                Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSoilProfileCollectionNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingDataNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingFailureMechanismNodePresenter));

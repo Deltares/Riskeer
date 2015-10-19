@@ -95,6 +95,10 @@
       <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
       <Name>Wti.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\DelftTools.TestUtils\DelftTools.TestUtils.csproj">
+      <Project>{efa25023-cf6a-4ff7-8c42-b24d7f9509e1}</Project>
+      <Name>DelftTools.TestUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

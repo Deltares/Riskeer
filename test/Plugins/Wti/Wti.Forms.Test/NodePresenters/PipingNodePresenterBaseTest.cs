@@ -1,105 +1,67 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 
 using DelftTools.Controls;
-using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
 
 using NUnit.Framework;
 
 using Rhino.Mocks;
 
-using Wti.Data;
 using Wti.Forms.NodePresenters;
-
-using WtiFormsResources = Wti.Forms.Properties.Resources;
 
 namespace Wti.Forms.Test.NodePresenters
 {
     [TestFixture]
-    public class PipingSurfaceLineCollectionNodePresenterTest
+    public class PipingNodePresenterBaseTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<double>();
 
             // Assert
-            Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
+            Assert.AreEqual(typeof(double), nodePresenter.NodeTagType);
             Assert.IsNull(nodePresenter.TreeView);
-            Assert.AreEqual(typeof(IEnumerable<PipingSurfaceLine>), nodePresenter.NodeTagType);
         }
 
         [Test]
-        public void UpdateNode_WithData_InitializeNode()
+        public void UpdateNode_WithData_DoNothing()
         {
             // Setup
             var mocks = new MockRepository();
-            var surfaceLinesCollectionNodeMock = mocks.Stub<ITreeNode>();
+            var parentNode = mocks.StrictMock<ITreeNode>();
+            var pipingNode = mocks.StrictMock<ITreeNode>();
+            var pipingData = mocks.StrictMock<SomePipingClass>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
-
-            IEnumerable<PipingSurfaceLine> surfaceLinesCollection = new[]{ new PipingSurfaceLine() };
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
-            nodePresenter.UpdateNode(null, surfaceLinesCollectionNodeMock, surfaceLinesCollection);
+            nodePresenter.UpdateNode(parentNode, pipingNode, pipingData);
 
             // Assert
-            Assert.AreEqual(WtiFormsResources.PipingSurfaceLinesCollectionName, surfaceLinesCollectionNodeMock.Text);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), surfaceLinesCollectionNodeMock.ForegroundColor);
-            Assert.AreEqual(16, surfaceLinesCollectionNodeMock.Image.Height);
-            Assert.AreEqual(16, surfaceLinesCollectionNodeMock.Image.Width);
+            mocks.VerifyAll(); // Expect no calls on mocks
         }
 
         [Test]
-        public void UpdateNode_CollectionIsEmpty_InitializeNodeWithGreyedOutText()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var surfaceLinesCollectionNodeMock = mocks.Stub<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
-
-            IEnumerable<PipingSurfaceLine> surfaceLinesCollection = Enumerable.Empty<PipingSurfaceLine>();
-
-            // Call
-            nodePresenter.UpdateNode(null, surfaceLinesCollectionNodeMock, surfaceLinesCollection);
-
-            // Assert
-            Assert.AreEqual(WtiFormsResources.PipingSurfaceLinesCollectionName, surfaceLinesCollectionNodeMock.Text);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), surfaceLinesCollectionNodeMock.ForegroundColor);
-            Assert.AreEqual(16, surfaceLinesCollectionNodeMock.Image.Height);
-            Assert.AreEqual(16, surfaceLinesCollectionNodeMock.Image.Width);
-        }
-
-        [Test]
-        public void GetChildNodeObjects_WithData_ReturnAllItemsInCollection()
+        public void GetChildNodeObjects_Always_ReturnNoChildData()
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
+            var dataMock = mocks.StrictMock<SomePipingClass>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
-
-            IEnumerable<PipingSurfaceLine> surfaceLinesCollection = new[]
-            {
-                new PipingSurfaceLine(),
-                new PipingSurfaceLine()
-            };
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(surfaceLinesCollection, nodeMock);
+            var children = nodePresenter.GetChildNodeObjects(dataMock, nodeMock).OfType<object>().ToArray();
 
             // Assert
-            CollectionAssert.AreEqual(surfaceLinesCollection, children);
+            CollectionAssert.IsEmpty(children);
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 
@@ -111,7 +73,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNode(nodeMock);
@@ -129,7 +91,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
@@ -144,13 +106,13 @@ namespace Wti.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var dataMock = mocks.StrictMock<SomePipingClass>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
-            TestDelegate call = () => { nodePresenter.OnNodeRenamed(nodeMock, "<Insert New Name Here>"); };
+            TestDelegate call = () => { nodePresenter.OnNodeRenamed(dataMock, "<Insert New Name Here>"); };
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(call);
@@ -167,7 +129,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
             nodePresenter.OnNodeChecked(nodeMock);
@@ -181,10 +143,10 @@ namespace Wti.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<SomePipingClass>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
             DragOperations dragAllowed = nodePresenter.CanDrag(dataMock);
@@ -199,12 +161,12 @@ namespace Wti.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<SomePipingClass>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
             DragOperations dropAllowed = nodePresenter.CanDrop(dataMock, sourceMock, targetMock, DragOperations.Move);
@@ -219,12 +181,12 @@ namespace Wti.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<SomePipingClass>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
             bool insertionAllowed = nodePresenter.CanInsert(dataMock, sourceMock, targetMock);
@@ -239,12 +201,12 @@ namespace Wti.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<SomePipingClass>();
             var sourceParentNodeMock = mocks.StrictMock<ITreeNode>();
             var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
             nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
@@ -258,10 +220,10 @@ namespace Wti.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<SomePipingClass>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
             nodePresenter.OnNodeSelected(dataMock);
@@ -271,18 +233,16 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_DefaultScenario_ReturnNull()
+        public void GetContextMenu_Always_ReturnsNull()
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<object>();
-            mocks.ReplayAll();
+            var dataMock = mocks.StrictMock<SomePipingClass>();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter
-            {
-                ImportSurfaceLinesAction = null
-            };
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
+
+            mocks.ReplayAll();
 
             // Call
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
@@ -293,45 +253,16 @@ namespace Wti.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_SurfaceLinesImportActionSet_HaveImportSurfaceLinesItemInContextMenu()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<object>();
-            var actionStub = mocks.Stub<Action>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter
-            {
-                ImportSurfaceLinesAction = actionStub
-            };
-
-            // Call
-            var returnedContextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
-
-            // Assert
-            var contextMenu = ((MenuItemContextMenuStripAdapter)returnedContextMenu).ContextMenuStrip;
-            Assert.AreEqual(1, contextMenu.Items.Count);
-            var importItem = contextMenu.Items[0];
-            Assert.AreEqual("Importeer dwarsdoorsnedes", importItem.Text);
-            Assert.AreEqual("Importeer nieuwe dwarsdoorsnedes van een *.csv bestand.", importItem.ToolTipText);
-            Assert.AreEqual(16, importItem.Image.Width);
-            Assert.AreEqual(16, importItem.Image.Height);
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
         public void OnPropertyChange_Always_DoNothing()
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<SomePipingClass>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
@@ -345,11 +276,11 @@ namespace Wti.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<SomePipingClass>();
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
             nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
@@ -363,14 +294,13 @@ namespace Wti.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var dataMock = mocks.StrictMock<SomePipingClass>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
             // Call
-            bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
+            bool removalAllowed = nodePresenter.CanRemove(null, dataMock);
 
             // Assert
             Assert.IsFalse(removalAllowed);
@@ -380,22 +310,25 @@ namespace Wti.Forms.Test.NodePresenters
         [Test]
         public void RemoveNodeData_Always_ThrowInvalidOperationException()
         {
-            // setup
-            var mocks = new MockRepository();
-            var parentNodeDataMock = mocks.StrictMock<object>();
-            var nodeDataMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            // Setup
+            var nodePresenter = new SimplePipingNodePresenterBase<SomePipingClass>();
 
-            var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
+            // Call
+            TestDelegate call = () => nodePresenter.RemoveNodeData(null, new SomePipingClass());
 
-            // call
-            TestDelegate call = () => nodePresenter.RemoveNodeData(parentNodeDataMock, nodeDataMock);
-
-            // assert
+            // Assert
             var exception = Assert.Throws<InvalidOperationException>(call);
-            var expectedMessage = string.Format("Cannot delete node of type {0}.", nodePresenter.GetType().Name);
-            Assert.AreEqual(expectedMessage, exception.Message);
-            mocks.VerifyAll(); // Expect no calls on arguments
+            Assert.AreEqual(String.Format("Cannot delete node of type {0}.", nodePresenter.GetType().Name), exception.Message);
         }
+
+        private class SimplePipingNodePresenterBase<T> : PipingNodePresenterBase<T>
+        {
+            protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, T nodeData)
+            {
+                
+            }
+        }
+
+        public class SomePipingClass{}
     }
 }

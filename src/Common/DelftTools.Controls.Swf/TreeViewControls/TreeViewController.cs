@@ -174,61 +174,70 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         /// <param name="tag">the object bound to this node</param>
         public void UpdateNode(ITreeNode treeNode, object tag)
         {
-            var suspend = false; // suspend tree view locally
-
-            if (!treeView.IsUpdateSuspended)
+            var treeViewControl = treeView as Control;
+            if (treeViewControl != null && treeViewControl.InvokeRequired)
             {
-                treeView.BeginUpdate();
-                suspend = true;
+                UpdateNodeInvokeDelegate updateNode = UpdateNode;
+                treeViewControl.Invoke(updateNode, treeNode, tag);
             }
-            try
+            else
             {
-                var nodePresenter = treeNode.Presenter;
+                var suspend = false; // suspend tree view locally
 
-                if (nodePresenter == null)
+                if (!treeView.IsUpdateSuspended)
                 {
-                    Log.Debug("Can't find node presenter for tree view, object:" + tag);
-                    return;
+                    treeView.BeginUpdate();
+                    suspend = true;
                 }
-
-                bool wasLoaded = treeNode.IsLoaded;
-                if (!ReferenceEquals(treeNode.Tag, tag))
+                try
                 {
-                    treeNode.Tag = tag;
-                    treeNode.Presenter = ResolveNodePresenterForData(tag);
-                    nodePresenter = treeNode.Presenter;
-                }
+                    var nodePresenter = treeNode.Presenter;
 
-                nodePresenter.UpdateNode(treeNode.Parent, treeNode, treeNode.Tag);
-
-                var childNodeObjects = GetChildNodeObjects(treeNode).ToArray();
-                var count = childNodeObjects.Length;
-
-                ((TreeNode) treeNode).HasChildren = count > 0;
-
-                if (!treeNode.IsLoaded && !wasLoaded)
-                {
-                    return;
-                }
-
-                if (treeNode.Nodes.Count != count)
-                {
-                    RefreshChildNodes(treeNode);
-                }
-                else
-                {
-                    //update existing nodes
-                    for (var i = 0; i < treeNode.Nodes.Count; i++)
+                    if (nodePresenter == null)
                     {
-                        UpdateNode(treeNode.Nodes[i], childNodeObjects[i]);
+                        Log.Debug("Can't find node presenter for tree view, object:" + tag);
+                        return;
+                    }
+
+                    bool wasLoaded = treeNode.IsLoaded;
+                    if (!ReferenceEquals(treeNode.Tag, tag))
+                    {
+                        treeNode.Tag = tag;
+                        treeNode.Presenter = ResolveNodePresenterForData(tag);
+                        nodePresenter = treeNode.Presenter;
+                    }
+
+                    nodePresenter.UpdateNode(treeNode.Parent, treeNode, treeNode.Tag);
+
+                    var childNodeObjects = GetChildNodeObjects(treeNode).ToArray();
+                    var count = childNodeObjects.Length;
+
+                    ((TreeNode)treeNode).HasChildren = count > 0;
+
+                    if (!treeNode.IsLoaded && !wasLoaded)
+                    {
+                        return;
+                    }
+
+                    if (treeNode.Nodes.Count != count)
+                    {
+                        RefreshChildNodes(treeNode);
+                    }
+                    else
+                    {
+                        //update existing nodes
+                        for (var i = 0; i < treeNode.Nodes.Count; i++)
+                        {
+                            UpdateNode(treeNode.Nodes[i], childNodeObjects[i]);
+                        }
                     }
                 }
-            }
-            finally
-            {
-                if (suspend)
+                finally
                 {
-                    treeView.EndUpdate();
+                    if (suspend)
+                    {
+                        treeView.EndUpdate();
+                    }
                 }
             }
         }
@@ -581,5 +590,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             node.Tag = nodeData;
             presenter.UpdateNode(parentNode, node, nodeData);
         }
+
+        /// <summary>
+        /// Delegate required to perform asynchronous calls to <see cref="UpdateNode(ITreeNode, object)"/>.
+        /// </summary>
+        delegate void UpdateNodeInvokeDelegate(ITreeNode treeNode, object tag);
     }
 }

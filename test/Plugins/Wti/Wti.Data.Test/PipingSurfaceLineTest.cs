@@ -44,7 +44,13 @@ namespace Wti.Data.Test
             // Setup
             var surfaceLine = new PipingSurfaceLine();
 
-            var sourceData = new[]{new Point3D{X=1.1,Y=2.2,Z=3.3}};
+            var sourceData = new[]
+            {
+                new Point3D
+                {
+                    X = 1.1, Y = 2.2, Z = 3.3
+                }
+            };
 
             // Call
             surfaceLine.SetGeometry(sourceData);

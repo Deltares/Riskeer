@@ -86,7 +86,15 @@ namespace DeltaShell.Gui
 
         public void UpdateObserver()
         {
-            Refresh();
+            if (InvokeRequired)
+            {
+                ArgumentlessDelegate d = UpdateObserver;
+                Invoke(d, new object[0]);
+            }
+            else
+            {
+                Refresh();
+            }
         }
 
         public object GetObjectProperties(object sourceData)
@@ -235,6 +243,11 @@ namespace DeltaShell.Gui
 
             return propertyBag != null ? propertyBag.GetContentType() : obj.GetType();
         }
+
+        /// <summary>
+        /// This delegate enabled asynchronous calls to methods without arguments.
+        /// </summary>
+        delegate void ArgumentlessDelegate();
 
         #region IPropertyGrid Members
 

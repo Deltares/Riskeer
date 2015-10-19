@@ -94,6 +94,7 @@
     <Compile Include="IObservable.cs" />
     <Compile Include="IObserver.cs" />
     <Compile Include="IPlugin.cs" />
+    <Compile Include="ObservableList.cs" />
     <Compile Include="Workflow\Activity.cs" />
     <Compile Include="Workflow\ActivityEventArgs.cs" />
     <Compile Include="Workflow\ActivityRunner.cs" />
