@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 
 using DelftTools.Shell.Core;
+
+using log4net;
 
 using Wti.Data;
 using Wti.IO;
@@ -90,18 +93,54 @@ namespace Wti.Plugin.FileImporter
 
         public object ImportItem(string path, object target = null)
         {
+            var readSurfaceLines = ReadPipingSurfaceLines(path);
+
+            if (!ShouldCancel)
+            {
+                AddImportedDataToModel(target, readSurfaceLines);
+            }
+            else
+            {
+                HandleUserCancellingImport();
+            }
+
+            return target;
+        }
+
+        private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
+        {
+            if (ProgressChanged != null)
+            {
+                ProgressChanged(currentStepName, currentStep, totalNumberOfSteps);
+            }
+        }
+
+        private List<PipingSurfaceLine> ReadPipingSurfaceLines(string path)
+        {
+            var stepName = String.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_0_, Path.GetFileName(path));
+
             List<PipingSurfaceLine> readSurfaceLines;
             using (var reader = new PipingSurfaceLinesCsvReader(path))
             {
                 var itemCount = reader.GetSurfaceLinesCount();
+
+                NotifyProgress(stepName, 0, itemCount);
+
                 readSurfaceLines = new List<PipingSurfaceLine>(itemCount);
-                for (int i = 0; i < itemCount; i++)
+                for (int i = 0; i < itemCount && !ShouldCancel; i++)
                 {
-                    // TODO: Check ShouldCancel for early abort
                     readSurfaceLines.Add(reader.ReadLine());
+
+                    NotifyProgress(stepName, i+1, itemCount);
                 }
             }
-            
+            return readSurfaceLines;
+        }
+
+        private void AddImportedDataToModel(object target, List<PipingSurfaceLine> readSurfaceLines)
+        {
+            NotifyProgress(ApplicationResources.PipingSurfaceLinesCsvImporter_AddingImportedDataToModel, readSurfaceLines.Count, readSurfaceLines.Count);
+
             var targetCollection = (ICollection<PipingSurfaceLine>)target;
             foreach (var readSurfaceLine in readSurfaceLines)
             {
@@ -113,8 +152,11 @@ namespace Wti.Plugin.FileImporter
             {
                 observableTarget.NotifyObservers();
             }
+        }
 
-            return target;
+        private void HandleUserCancellingImport()
+        {
+            LogManager.GetLogger(GetType()).Info(ApplicationResources.PipingSurfaceLinesCsvImporter_ImportItem_ImportCancelled);
         }
     }
 }

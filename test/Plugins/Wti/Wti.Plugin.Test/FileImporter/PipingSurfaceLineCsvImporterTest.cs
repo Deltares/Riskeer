@@ -85,7 +85,9 @@ namespace Wti.Plugin.Test.FileImporter
         public void ImportItem_ImportingToValidTargetWithValidFile_ImportSurfaceLinesToCollection()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
+            const int expectedNumberOfSurfaceLines = 2;
+            var twovalidsurfacelinesCsv = "TwoValidSurfaceLines.csv";
+            string validFilePath = Path.Combine(testDataPath, twovalidsurfacelinesCsv);
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -96,6 +98,25 @@ namespace Wti.Plugin.Test.FileImporter
             observableSurfaceLinesList.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
+            int callCount = 0;
+            importer.ProgressChanged += delegate(string currentStepName, int currentStep, int totalNumberOfSteps)
+            {
+                if (callCount <= expectedNumberOfSurfaceLines)
+                {
+                    Assert.AreEqual(String.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_0_, twovalidsurfacelinesCsv), currentStepName);
+                }
+                else if (callCount == expectedNumberOfSurfaceLines+1)
+                {
+                    Assert.AreEqual(ApplicationResources.PipingSurfaceLinesCsvImporter_AddingImportedDataToModel, currentStepName);
+                }
+                else
+                {
+                    Assert.Fail("Not expecting progress: \"{0}: {1} out of {2}\".", currentStepName, currentStep, totalNumberOfSteps);
+                }
+
+                Assert.AreEqual(expectedNumberOfSurfaceLines, totalNumberOfSteps);
+                callCount++;
+            };
 
             // Precondition
             CollectionAssert.IsEmpty(observableSurfaceLinesList);
@@ -108,7 +129,7 @@ namespace Wti.Plugin.Test.FileImporter
             // Assert
             Assert.AreSame(observableSurfaceLinesList, importedItem);
             var importTargetArray = observableSurfaceLinesList.ToArray();
-            Assert.AreEqual(2, importTargetArray.Length);
+            Assert.AreEqual(expectedNumberOfSurfaceLines, importTargetArray.Length);
 
             // Sample some of the imported data:
             var firstSurfaceLine = importTargetArray[0];
@@ -121,7 +142,44 @@ namespace Wti.Plugin.Test.FileImporter
             Assert.AreEqual(3, secondSurfaceLine.Points.Count());
             Assert.AreEqual(4.4, secondSurfaceLine.EndingWorldPoint.X);
 
+            Assert.AreEqual(4, callCount);
+
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ImportItem_ImportingToValidTargetWithValidFileWhileShouldCancelTrue_CancelImportAndLog()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            // Precondition
+            CollectionAssert.IsEmpty(observableSurfaceLinesList);
+            Assert.IsTrue(importer.CanImportOn(observableSurfaceLinesList));
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            importer.ShouldCancel = true;
+
+            object importedItem = null;
+
+            // Call
+            Action call = () => importedItem = importer.ImportItem(validFilePath, observableSurfaceLinesList);
+            
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, ApplicationResources.PipingSurfaceLinesCsvImporter_ImportItem_ImportCancelled, 1);
+            Assert.AreSame(observableSurfaceLinesList, importedItem);
+            CollectionAssert.IsEmpty(observableSurfaceLinesList);
+
+            mocks.VerifyAll(); // 'observer' should not be notified
         }
     }
 }

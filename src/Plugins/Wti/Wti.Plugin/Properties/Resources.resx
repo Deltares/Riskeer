@@ -141,4 +141,13 @@
   <data name="SoilFileName" xml:space="preserve">
     <value>DSoilModel bestand</value>
   </data>
+  <data name="PipingSurfaceLinesCsvImporter_AddingImportedDataToModel" xml:space="preserve">
+    <value>Geïmporteerde data toevoegen aan faalmechanisme...</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvImporter_ImportItem_ImportCancelled" xml:space="preserve">
+    <value>Dwarsdoorsneden importeren afgebroken; Geen data ingelezen.</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_0_" xml:space="preserve">
+    <value>Inlezen {0}...</value>
+  </data>
 </root>
