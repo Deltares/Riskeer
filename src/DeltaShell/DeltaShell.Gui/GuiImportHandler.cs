@@ -10,7 +10,6 @@ using DelftTools.Shell.Gui;
 using DelftTools.Utils.Aop;
 using DelftTools.Utils.IO;
 using DelftTools.Utils.Reflection;
-using DelftTools.Utils.RegularExpressions;
 using DeltaShell.Gui.Forms;
 using DeltaShell.Gui.Properties;
 using log4net;
@@ -40,8 +39,6 @@ namespace DeltaShell.Gui
         public void ImportDataTo(object target)
         {
             ImportToItem(target);
-
-            RegularExpression.ClearExpressionsCache(); // prevent memory leaks
         }
 
         public IFileImporter GetSupportedImporterForTargetType(object target)

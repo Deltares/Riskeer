@@ -90,7 +90,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="BackGroundMapLayer.cs" />
-    <Compile Include="LegFileConverter.cs" />
     <Compile Include="FileBasedLayerFactory.cs" />
     <Compile Include="MapDependencyResolver.cs" />
     <Compile Include="HibernateMappings\StyleTypeConverter.cs" />

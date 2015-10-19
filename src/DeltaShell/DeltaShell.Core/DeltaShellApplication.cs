@@ -19,7 +19,6 @@ using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.Globalization;
 using DelftTools.Utils.Reflection;
-using DelftTools.Utils.RegularExpressions;
 using DelftTools.Utils.Threading;
 using DeltaShell.Core.Services;
 using log4net;
@@ -794,8 +793,6 @@ namespace DeltaShell.Core
                     CloseProject();
 
                     projectBeingCreated = null;
-
-                    RegularExpression.ClearExpressionsCache();
 
                     //make sure we close our repository avoiding memory leaks
                     if (projectService != null)

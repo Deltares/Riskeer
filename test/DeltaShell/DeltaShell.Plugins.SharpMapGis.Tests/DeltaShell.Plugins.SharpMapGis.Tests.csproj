@@ -102,7 +102,6 @@
     <Compile Include="Forms\MapLegendViewTest.cs" />
     <Compile Include="HibernateMappings\StyleTypeConverterTest.cs" />
     <Compile Include="HibernateMappings\ThemeTypeConverterTest.cs" />
-    <Compile Include="LegFileConverterTest.cs" />
     <Compile Include="MapDependencyResolverTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.Designer.cs">

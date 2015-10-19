@@ -206,7 +206,6 @@
     <Compile Include="PropertyBag\PropertySpecEventArgs.cs" />
     <Compile Include="Reflection\TypeExtensions.cs" />
     <Compile Include="Reflection\TypeUtils.cs" />
-    <Compile Include="RegularExpressions\RegularExpression.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Threading\ThreadsafeBindingList.cs" />
     <Compile Include="Tuple.cs" />

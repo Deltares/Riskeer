@@ -8,16 +8,6 @@ namespace DeltaShell.Core
     /// </summary>
     public class ProjectRepositoryFactory<T> : IProjectRepositoryFactory where T : IProjectRepository, new()
     {
-        public string[] PluginNames { get; set; }
-
-        public string FileFormatVersion { get; set; }
-
-        public bool SpeedUpSessionCreationUsingParallelThread { get; set; }
-
-        public bool SpeedUpConfigurationCreationUsingCaching { get; set; }
-
-        public string ConfigurationCacheDirectory { get; set; }
-
         public IProjectRepository CreateNew()
         {
             var repository = new T();

@@ -11,7 +11,7 @@ namespace GeoAPI.Geometries
         IGeometryFactory Factory { get; }
         IPrecisionModel PrecisionModel { get; }
 
-        int SRID { get; set; }
+        int SRID { set; }
 
         string GeometryType { get; }
 

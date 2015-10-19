@@ -1,32 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace DelftTools.Utils
 {
-    public class MathUtils
+    public static class MathUtils
     {
-        /// <summary>
-        /// Minimum value for a list of IComparable elements
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public static T Min<T>(IEnumerable<T> values)
-        {
-            return Min<T>(values, Comparer<T>.Default);
-        }
-
-        /// <summary>
-        /// Maximum value for a list of IComparable elements
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public static T Max<T>(IEnumerable<T> values)
-        {
-            return Max<T>(values, Comparer<T>.Default);
-        }
-
         /// <summary>
         /// This method returns the clipped value of a value
         /// given a valid value range.
@@ -46,51 +23,8 @@ namespace DelftTools.Utils
             {
                 return min;
             }
+
             return value;
-        }
-
-        private static T Min<T>(IEnumerable<T> values, IComparer<T> comparer)
-        {
-            bool first = true;
-            T result = default(T);
-            foreach (T value in values)
-            {
-                if (first)
-                {
-                    result = value;
-                    first = false;
-                }
-                else
-                {
-                    if (comparer.Compare(result, value) > 0)
-                    {
-                        result = value;
-                    }
-                }
-            }
-            return result;
-        }
-
-        private static T Max<T>(IEnumerable<T> values, IComparer<T> comparer)
-        {
-            bool first = true;
-            T result = default(T);
-            foreach (T value in values)
-            {
-                if (first)
-                {
-                    result = value;
-                    first = false;
-                }
-                else
-                {
-                    if (comparer.Compare(result, value) < 0)
-                    {
-                        result = value;
-                    }
-                }
-            }
-            return result;
         }
     }
 }

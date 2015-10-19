@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using DelftTools.Utils.Data;
 
 namespace DelftTools.Shell.Core.Dao
@@ -11,17 +9,6 @@ namespace DelftTools.Shell.Core.Dao
         /// Path to the current repository.
         /// </summary>
         string Path { get; }
-
-        /// <summary>
-        /// Path to previous location of the repository or empty if there is none.
-        /// TODO: To be removed
-        /// </summary>
-        string PreviousPath { get; }
-
-        /// <summary>
-        /// Object types that are not used in a project and that should be included during migration (like IGuiViewContext)
-        /// </summary>
-        List<Type> TypesToIncludeInMigration { get; set; }
 
         /// <summary>
         /// Returns true if repository is currently opened.
@@ -52,13 +39,5 @@ namespace DelftTools.Shell.Core.Dao
         /// </summary>
         /// <returns></returns>
         Project GetProject();
-
-        // TODO: move 2 methods below to IObjectRepository
-
-        IEnumerable<T> GetAllEntities<T>();
-
-        void SaveOrUpdateEntity<T>(T obj);
-
-        void PreLoad<T>(params Expression<Func<T, object>>[] collectionToPreload) where T : class;
     }
 }

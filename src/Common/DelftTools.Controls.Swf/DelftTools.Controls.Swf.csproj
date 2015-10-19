@@ -134,10 +134,6 @@
     <Compile Include="Charting\Tools\ChartMouseEvent.cs" />
     <Compile Include="Charting\Tools\ExportChartAsImageChartTool.cs" />
     <Compile Include="Charting\Tools\RulerTool.cs" />
-    <Compile Include="Charting\Tools\ToolBase.cs" />
-    <Compile Include="Charting\Tools\ToolWrapper.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Charting\YearNavigatableLabelFormatProvider.cs" />
     <Compile Include="Charting\QuarterNavigatableLabelFormatProvider.cs" />
     <Compile Include="Charting\ChartView.cs">
@@ -146,7 +142,6 @@
     <Compile Include="Charting\ChartView.Designer.cs">
       <DependentUpon>ChartView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Charting\ColorBlend.cs" />
     <Compile Include="Charting\Enumerators.cs" />
     <Compile Include="Charting\IChart.cs" />
     <Compile Include="Charting\IChartAxis.cs" />

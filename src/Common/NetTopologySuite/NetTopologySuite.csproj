@@ -154,7 +154,6 @@
     <Compile Include="GeometriesGraph\Index\SegmentIntersector.cs" />
     <Compile Include="GeometriesGraph\Index\SimpleEdgeSetIntersector.cs" />
     <Compile Include="GeometriesGraph\Index\SimpleMCSweepLineIntersector.cs" />
-    <Compile Include="GeometriesGraph\Index\SimpleSweepLineIntersector.cs" />
     <Compile Include="GeometriesGraph\Index\SweepLineEvent.cs" />
     <Compile Include="GeometriesGraph\Index\SweepLineSegment.cs" />
     <Compile Include="GeometriesGraph\Label.cs" />
@@ -188,7 +187,6 @@
     <Compile Include="Index\Strtree\AbstractNode.cs" />
     <Compile Include="Index\Strtree\AbstractSTRtree.cs" />
     <Compile Include="Index\Strtree\IBoundable.cs" />
-    <Compile Include="Index\Strtree\Interval.cs" />
     <Compile Include="Index\Strtree\ItemBoundable.cs" />
     <Compile Include="Index\Strtree\STRtree.cs" />
     <Compile Include="IO\BEBinaryReader.cs" />
@@ -211,20 +209,17 @@
     <Compile Include="IO\GeoTools\ShapefileHeader.cs" />
     <Compile Include="IO\GeoTools\ShapefileReader.cs" />
     <Compile Include="IO\PostGisGeometryType.cs" />
-    <Compile Include="IO\PostGisReader.cs" />
     <Compile Include="IO\ParseException.cs" />
     <Compile Include="IO\GeoTools\Handlers\ShapeHandler.cs" />
     <Compile Include="IO\ShapeGeometryType.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IO\ShapeReader.cs" />
     <Compile Include="IO\GeoTools\TokenType.cs" />
     <Compile Include="IO\WKBReader.cs" />
     <Compile Include="IO\WKBGeometryTypes.cs" />
     <Compile Include="IO\WKBWriter.cs" />
     <Compile Include="IO\WKTReader.cs" />
     <Compile Include="IO\WKTWriter.cs" />
-    <Compile Include="LinearReferencing\ExtractLineByLocation.cs" />
     <Compile Include="LinearReferencing\LengthLocationMap.cs" />
     <Compile Include="LinearReferencing\LinearGeometryBuilder.cs" />
     <Compile Include="LinearReferencing\LinearIterator.cs" />
@@ -318,7 +313,6 @@
     <Compile Include="Simplify\TaggedLineStringSimplifier.cs" />
     <Compile Include="Triangulate\ConstraintEnforcementException.cs" />
     <Compile Include="Triangulate\ConstraintVertex.cs" />
-    <Compile Include="Triangulate\ConstraintVertexFactory.cs" />
     <Compile Include="Triangulate\DelaunayTriangulationBuilder.cs" />
     <Compile Include="Triangulate\IConstraintSplitPointFinder.cs" />
     <Compile Include="Triangulate\IncrementalDelaunayTriangulator.cs" />

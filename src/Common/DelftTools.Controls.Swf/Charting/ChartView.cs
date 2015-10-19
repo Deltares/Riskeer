@@ -571,13 +571,6 @@ namespace DelftTools.Controls.Swf.Charting
             if (e.Action == NotifyCollectionChangeAction.Remove)
             {
                 var tool = e.Item as Tool;
-
-                var toolBase = e.Item as ToolBase;
-                if (tool == null && toolBase != null)
-                {
-                    tool = toolBase.tool;
-                }
-
                 var index = teeChart.Tools.IndexOf(tool);
 
                 if (index >= 0)

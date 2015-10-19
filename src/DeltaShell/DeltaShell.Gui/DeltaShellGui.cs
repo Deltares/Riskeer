@@ -21,7 +21,6 @@ using DelftTools.Utils;
 using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.Reflection;
-using DelftTools.Utils.RegularExpressions;
 using DelftTools.Utils.Threading;
 using DeltaShell.Core;
 using DeltaShell.Gui.Forms;
@@ -377,7 +376,6 @@ namespace DeltaShell.Gui
 
                 MapCursors.DisposeCursors();
 
-                RegularExpression.ClearExpressionsCache();
                 TypeUtils.ClearCaches();
 
                 SelectedProjectItem = null;
