@@ -15,27 +15,33 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
         # region GetObjectProperties tests
 
         [Test]
-        public void TestGetObjectPropertiesWhenNoPropertyInfoIsFound()
+        public void GetObjectProperties_WhenNoPropertyInfoIsFound_ReturnNull()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
 
             gui.Stub(g => g.Plugins).Return(new List<GuiPlugin>());
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
 
             mocks.ReplayAll();
 
-            var propertyGrid = new PropertyGridView(gui);
-            var objectProperties = propertyGrid.GetObjectProperties(1.0);
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                // Call
+                var objectProperties = propertyGrid.GetObjectProperties(1.0);
 
-            Assert.IsNull(objectProperties);
-
+                // Assert
+                Assert.IsNull(objectProperties);
+            }
             mocks.VerifyAll();
         }
 
         [Test]
-        public void TestGetObjectPropertiesWhenOnePropertyInfoIsFound()
+        public void GetObjectProperties_WhenOnePropertyInfoIsFound_ReturnDynamicPropertyBagContainingOnlyThatPropertiesObject()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var guiPlugin = mocks.Stub<GuiPlugin>();
@@ -45,6 +51,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 guiPlugin
             });
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             guiPlugin.Stub(g => g.GetPropertyInfos()).Return(new PropertyInfo[]
             {
                 new PropertyInfo<A, SimpleProperties<A>>()
@@ -52,18 +59,22 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new PropertyGridView(gui);
-            var objectProperties = propertyGrid.GetObjectProperties(new A());
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                // Call
+                var objectProperties = propertyGrid.GetObjectProperties(new A());
 
-            Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<A>), ((DynamicPropertyBag) objectProperties).GetContentType());
-
+                // Assert
+                Assert.IsTrue(objectProperties is DynamicPropertyBag);
+                Assert.AreSame(typeof(SimpleProperties<A>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            }
             mocks.VerifyAll();
         }
 
         [Test]
-        public void TestGetObjectPropertiesWhenOnePropertyInfoIsFoundButAdditionalChecksFail()
+        public void GetObjectProperties_WhenOnePropertyInfoIsFoundButAdditionalChecksFail_ReturnNull()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var guiPlugin = mocks.Stub<GuiPlugin>();
@@ -73,6 +84,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 guiPlugin
             });
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             guiPlugin.Stub(g => g.GetPropertyInfos()).Return(new PropertyInfo[]
             {
                 new PropertyInfo<A, SimpleProperties<A>>
@@ -83,17 +95,21 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new PropertyGridView(gui);
-            var objectProperties = propertyGrid.GetObjectProperties(new A());
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                // Call
+                var objectProperties = propertyGrid.GetObjectProperties(new A());
 
-            Assert.IsNull(objectProperties);
-
+                // Assert
+                Assert.IsNull(objectProperties);
+            }
             mocks.VerifyAll();
         }
 
         [Test]
-        public void TestGetObjectPropertiesWhenTwoPropertyInfoAreFoundOneWithAdditionalCheckOneWithBetterType()
+        public void GetObjectProperties_WhenTwoPropertyInfoAreFoundOneWithAdditionalCheckOneWithBetterType_ReturnPropertiesObjectMatchingAdditionCheck()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var guiPlugin = mocks.Stub<GuiPlugin>();
@@ -103,6 +119,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 guiPlugin
             });
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
 
             // class C extends A
             var propertyInfoA = new PropertyInfo<A, SimpleProperties<A>>
@@ -120,18 +137,22 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new PropertyGridView(gui);
-            var objectProperties = propertyGrid.GetObjectProperties(new C()); //we ask for C
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                // Call
+                var objectProperties = propertyGrid.GetObjectProperties(new C()); //we ask for C
 
-            Assert.AreSame(typeof(SimpleProperties<C>),
-                           ((DynamicPropertyBag) objectProperties).GetContentType(), "we got A, expected C");
-
+                // Assert
+                Assert.AreSame(typeof(SimpleProperties<C>),
+                               ((DynamicPropertyBag)objectProperties).GetContentType(), "we got A, expected C");
+            }
             mocks.VerifyAll();
         }
 
         [Test]
-        public void TestObjectPropertiesBasedOnDirectObjectTypeMatch()
+        public void GetObjectProperties_BasedOnDirectObjectTypeMatch_ReturnObjectPropertiesMatchingTypeD()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var guiPlugin = mocks.Stub<GuiPlugin>();
@@ -141,6 +162,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 guiPlugin
             });
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             guiPlugin.Stub(g => g.GetPropertyInfos()).Return(new PropertyInfo[]
             {
                 new PropertyInfo<A, SimpleProperties<A>>(),
@@ -149,18 +171,22 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new PropertyGridView(gui);
-            var objectProperties = propertyGrid.GetObjectProperties(new D());
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                // Call
+                var objectProperties = propertyGrid.GetObjectProperties(new D());
 
-            Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<D>), ((DynamicPropertyBag) objectProperties).GetContentType());
-
+                // Setup
+                Assert.IsTrue(objectProperties is DynamicPropertyBag);
+                Assert.AreSame(typeof(SimpleProperties<D>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            }
             mocks.VerifyAll();
         }
 
         [Test]
-        public void TestObjectPropertiesBasedOnDerivedObjectTypeMatch()
+        public void GetObjectProperties_BasedOnDerivedObjectTypeMatch_ReturnObjectPropertiesForBaseClass()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var guiPlugin = mocks.Stub<GuiPlugin>();
@@ -170,6 +196,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 guiPlugin
             });
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             guiPlugin.Stub(g => g.GetPropertyInfos()).Return(new PropertyInfo[]
             {
                 new PropertyInfo<A, SimpleProperties<A>>(),
@@ -178,18 +205,22 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new PropertyGridView(gui);
-            var objectProperties = propertyGrid.GetObjectProperties(new D());
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                // Call
+                var objectProperties = propertyGrid.GetObjectProperties(new D());
 
-            Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<C>), ((DynamicPropertyBag) objectProperties).GetContentType());
-
+                // Assert
+                Assert.IsTrue(objectProperties is DynamicPropertyBag);
+                Assert.AreSame(typeof(SimpleProperties<C>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            }
             mocks.VerifyAll();
         }
 
         [Test]
-        public void TestObjectPropertiesBasedOnDerivedObjectTypeMatchAndAdditionalDataCheck()
+        public void GetObjectProperties_BasedOnDerivedObjectTypeMatchAndAdditionalDataCheck_ReturnObjectPropertiesForBaseClassMatchingAdditionCheck()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var guiPlugin = mocks.Stub<GuiPlugin>();
@@ -199,6 +230,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 guiPlugin
             });
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             guiPlugin.Stub(g => g.GetPropertyInfos()).Return(new PropertyInfo[]
             {
                 new PropertyInfo<A, SimpleProperties<A>>
@@ -213,18 +245,22 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new PropertyGridView(gui);
-            var objectProperties = propertyGrid.GetObjectProperties(new D());
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                // Call
+                var objectProperties = propertyGrid.GetObjectProperties(new D());
 
-            Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<C>), ((DynamicPropertyBag) objectProperties).GetContentType());
-
+                // Assert
+                Assert.IsTrue(objectProperties is DynamicPropertyBag);
+                Assert.AreSame(typeof(SimpleProperties<C>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            }
             mocks.VerifyAll();
         }
 
         [Test]
-        public void TestObjectPropertiesBasedOnMatchingAdditionalDataCheck()
+        public void GetObjectProperties_BasedOnMatchingAdditionalDataCheck_ReturnMatchingWithAdditionalDataCheck()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<DeltaShellGui>();
             var guiPlugin = mocks.Stub<GuiPlugin>();
@@ -241,18 +277,22 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new PropertyGridView(gui);
-            var objectProperties = propertyGrid.GetObjectProperties(new B());
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                // Call
+                var objectProperties = propertyGrid.GetObjectProperties(new B());
 
-            Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<B>), ((DynamicPropertyBag) objectProperties).GetContentType());
-
+                // Assert
+                Assert.IsTrue(objectProperties is DynamicPropertyBag);
+                Assert.AreSame(typeof(SimpleProperties<B>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            }
             mocks.VerifyAll();
         }
 
         [Test]
-        public void TestObjectPropertiesBasedOnMismatchingAdditionalDataCheck()
+        public void GetObjectProperties_BasedOnMismatchingAdditionalDataCheck_ReturnFallBackPropertiesObject()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var guiPlugin = mocks.Stub<GuiPlugin>();
@@ -262,6 +302,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 guiPlugin
             });
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             guiPlugin.Stub(g => g.GetPropertyInfos()).Return(new PropertyInfo[]
             {
                 new PropertyInfo<B, SimpleProperties<B>>
@@ -273,19 +314,23 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new PropertyGridView(gui);
-            var objectProperties = propertyGrid.GetObjectProperties(new B());
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                // Call
+                var objectProperties = propertyGrid.GetObjectProperties(new B());
 
-            Assert.IsTrue(objectProperties is DynamicPropertyBag);
+                // Assert
+                Assert.IsTrue(objectProperties is DynamicPropertyBag);
 
-            Assert.AreSame(typeof(OtherSimpleProperties<B>), ((DynamicPropertyBag) objectProperties).GetContentType());
-
+                Assert.AreSame(typeof(OtherSimpleProperties<B>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            }
             mocks.VerifyAll();
         }
 
         [Test]
-        public void TestObjectPropertiesBasedOnDerivedPropertyTypeMatch()
+        public void GetObjectProperties_BasedOnDerivedPropertyTypeMatch_ReturnDerivedObjectPropertiesClass()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var guiPlugin = mocks.Stub<GuiPlugin>();
@@ -295,6 +340,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 guiPlugin
             });
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             guiPlugin.Stub(g => g.GetPropertyInfos()).Return(new PropertyInfo[]
             {
                 new PropertyInfo<B, SimpleProperties<B>>(),
@@ -303,17 +349,23 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new PropertyGridView(gui);
-            var objectProperties = propertyGrid.GetObjectProperties(new B());
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                // Call
+                var objectProperties = propertyGrid.GetObjectProperties(new B());
 
-            Assert.IsTrue(objectProperties is DynamicPropertyBag);
+                // Assert
+                Assert.IsTrue(objectProperties is DynamicPropertyBag);
 
-            Assert.AreSame(typeof(DerivedSimpleProperties<B>), ((DynamicPropertyBag) objectProperties).GetContentType());
+                Assert.AreSame(typeof(DerivedSimpleProperties<B>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            }
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void TestObjectPropertiesBasedOnDerivedPropertyTypeMatchAndAdditionalDataCheck()
+        public void GetObjectProperties_BasedOnDerivedPropertyTypeMatchAndAdditionalDataCheck_ReturnDerivedObjectProperties()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var guiPlugin = mocks.Stub<GuiPlugin>();
@@ -323,6 +375,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 guiPlugin
             });
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             guiPlugin.Stub(g => g.GetPropertyInfos()).Return(new PropertyInfo[]
             {
                 new PropertyInfo<B, SimpleProperties<B>>
@@ -337,17 +390,23 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new PropertyGridView(gui);
-            var objectProperties = propertyGrid.GetObjectProperties(new B());
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                // Call
+                var objectProperties = propertyGrid.GetObjectProperties(new B());
 
-            Assert.IsTrue(objectProperties is DynamicPropertyBag);
+                // Assert
+                Assert.IsTrue(objectProperties is DynamicPropertyBag);
 
-            Assert.AreSame(typeof(DerivedSimpleProperties<B>), ((DynamicPropertyBag) objectProperties).GetContentType());
+                Assert.AreSame(typeof(DerivedSimpleProperties<B>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            }
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void TestGetPropertyObjectWhenMultiplePropertyObjectsAreFound()
+        public void GetObjectProperties_WhenMultiplePropertyObjectsAreFound_ReturnNullAndLogAmbiguity()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var guiPlugin = mocks.Stub<GuiPlugin>();
@@ -357,6 +416,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 guiPlugin
             });
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             guiPlugin.Stub(g => g.GetPropertyInfos()).Return(new PropertyInfo[]
             {
                 new PropertyInfo<B, SimpleProperties<B>>(),
@@ -366,16 +426,19 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
             mocks.ReplayAll();
 
             object propertyObject = new B();
-            var propertyGrid = new PropertyGridView(gui);
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                TestHelper.AssertLogMessageIsGenerated(() => propertyObject = propertyGrid.GetObjectProperties(new B()), "Multiple object property instances found for the same data object: no object properties are displayed in the property grid");
 
-            TestHelper.AssertLogMessageIsGenerated(() => propertyObject = propertyGrid.GetObjectProperties(new B()), "Multiple object property instances found for the same data object: no object properties are displayed in the property grid");
-
-            Assert.IsNull(propertyObject);
+                Assert.IsNull(propertyObject);
+            }
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void TestGetObjectPropertiesTakingAllPropertyInfoPropertiesIntoAccount()
+        public void GetObjectProperties_TakingAllPropertyInfoPropertiesIntoAccount_ReturnDerivedObjectPropertiesMatchingDataCheck()
         {
+            // Setup
             var mocks = new MockRepository();
             var gui = mocks.Stub<IGui>();
             var guiPlugin = mocks.Stub<GuiPlugin>();
@@ -385,6 +448,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 guiPlugin
             });
             gui.Expect(g => g.SelectionChanged += Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
+            gui.Expect(g => g.SelectionChanged -= Arg<EventHandler<SelectedItemChangedEventArgs>>.Is.Anything);
             guiPlugin.Stub(g => g.GetPropertyInfos()).Return(new PropertyInfo[]
             {
                 new PropertyInfo<D, DerivedSimpleProperties<D>>
@@ -411,12 +475,17 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             mocks.ReplayAll();
 
-            var propertyGrid = new PropertyGridView(gui);
-            var objectProperties = propertyGrid.GetObjectProperties(new C());
+            using (var propertyGrid = new PropertyGridView(gui))
+            {
+                // Call
+                var objectProperties = propertyGrid.GetObjectProperties(new C());
 
-            Assert.IsTrue(objectProperties is DynamicPropertyBag);
+                // Assert
+                Assert.IsTrue(objectProperties is DynamicPropertyBag);
 
-            Assert.AreSame(typeof(DerivedSimpleProperties<C>), ((DynamicPropertyBag) objectProperties).GetContentType());
+                Assert.AreSame(typeof(DerivedSimpleProperties<C>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            }
+            mocks.VerifyAll();
         }
 
         # endregion
