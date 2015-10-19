@@ -99,6 +99,24 @@ namespace Wti.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Importeer ondergrondprofielen.
+        /// </summary>
+        public static string ImportSoilProfiles {
+            get {
+                return ResourceManager.GetString("ImportSoilProfiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importeer nieuwe ondergrondprofielen van een *.soil bestand..
+        /// </summary>
+        public static string ImportSoilProfilesDescription {
+            get {
+                return ResourceManager.GetString("ImportSoilProfilesDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Importeer dwarsdoorsnedes.
         /// </summary>
         public static string ImportSurfaceLines {

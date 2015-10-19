@@ -3,19 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Windows.Forms;
 using DelftTools.Controls;
+using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
 using Wti.Data;
+using Wti.Forms.Extensions;
 using Wti.Forms.Properties;
 
 namespace Wti.Forms.NodePresenters
 {
     /// <summary>
-    /// Tree node presenter representing the collection of piping surface line available for piping
+    /// Tree node presenter representing the collection of <see cref="PipingSoilProfile"/> available for piping
     /// calculations.
     /// </summary>
     public class PipingSoilProfileCollectionNodePresenter : ITreeNodePresenter
     {
+        /// <summary>
+        /// Sets the action to be performed when importing <see cref="PipingSoilProfile"/> instances
+        /// to <see cref="PipingFailureMechanism.SoilProfiles"/>.
+        /// </summary>
+        public Action ImportSoilProfilesAction { private get; set; }
+
         public ITreeView TreeView { get; set; }
 
         public Type NodeTagType
@@ -81,6 +90,10 @@ namespace Wti.Forms.NodePresenters
 
         public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
         {
+            if (ImportSoilProfilesAction != null)
+            {
+                return new MenuItemContextMenuStripAdapter(CreateContextMenu());
+            }
             return null;
         }
 
@@ -96,6 +109,25 @@ namespace Wti.Forms.NodePresenters
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
             throw new InvalidOperationException(String.Format("Cannot delete node of type {0}.", GetType().Name));
+        }
+
+        private ContextMenuStrip CreateContextMenu()
+        {            
+            var strip = new ContextMenuStrip();
+            if (ImportSoilProfilesAction != null)
+            {
+                strip.AddMenuItem(
+                    Resources.ImportSoilProfiles,
+                    Resources.ImportSoilProfilesDescription,
+                    Resources.ImportIcon,
+                    ImportSoilProfilesOnClick);
+            }
+            return strip;
+        }
+
+        private void ImportSoilProfilesOnClick(object sender, EventArgs e)
+        {
+            ImportSoilProfilesAction();
         }
     }
 }

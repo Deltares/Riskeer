@@ -78,7 +78,10 @@ namespace Wti.Plugin
             {
                 ImportSurfaceLinesAction = Gui.CommandHandler.ImportToGuiSelection
             };
-            yield return new PipingSoilProfileCollectionNodePresenter();
+            yield return new PipingSoilProfileCollectionNodePresenter
+            {
+                ImportSoilProfilesAction = Gui.CommandHandler.ImportToGuiSelection
+            };
             yield return new PipingOutputNodePresenter();
         }
     }

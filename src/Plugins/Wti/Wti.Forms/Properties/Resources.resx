@@ -355,4 +355,10 @@
   <data name="PipingSoilProfilesCollectionName" xml:space="preserve">
     <value>Ondergrondprofielen</value>
   </data>
+  <data name="ImportSoilProfiles" xml:space="preserve">
+    <value>Importeer ondergrondprofielen</value>
+  </data>
+  <data name="ImportSoilProfilesDescription" xml:space="preserve">
+    <value>Importeer nieuwe ondergrondprofielen van een *.soil bestand.</value>
+  </data>
 </root>
