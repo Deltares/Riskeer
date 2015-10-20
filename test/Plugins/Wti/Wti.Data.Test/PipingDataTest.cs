@@ -1,5 +1,4 @@
-﻿using System;
-using DelftTools.Shell.Core;
+﻿using DelftTools.Shell.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 

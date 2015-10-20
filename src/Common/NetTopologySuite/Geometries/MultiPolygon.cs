@@ -11,11 +11,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
     public class MultiPolygon : GeometryCollection, IMultiPolygon
     {
         /// <summary>
-        /// Represents an empty <c>MultiPolygon</c>.
-        /// </summary>
-        public new static readonly IMultiPolygon Empty = new GeometryFactory().CreateMultiPolygon(null);
-
-        /// <summary>
         /// Constructs a <c>MultiPolygon</c>.
         /// </summary>
         /// <param name="polygons">

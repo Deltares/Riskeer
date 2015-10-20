@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Linq;
 using DelftTools.TestUtils;
-using DelftTools.Utils.Aop;
 using NUnit.Framework;
 using SharpMap.Data.Providers.EGIS.ShapeFileLib;
 

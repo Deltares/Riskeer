@@ -1,6 +1,5 @@
 using DelftTools.Controls;
 using DelftTools.Controls.Swf.TreeViewControls;
-using log4net;
 
 namespace DelftTools.Shell.Gui.Swf
 {

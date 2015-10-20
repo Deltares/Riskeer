@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Shell.Gui.Forms;
 using DeltaShell.Gui.Properties;
-using log4net;
 using log4net.Core;
 
 namespace DeltaShell.Gui.Forms.MessageWindow

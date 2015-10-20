@@ -131,7 +131,6 @@
     <Compile Include="Charting\Series\PolygonSeries.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Charting\Tools\ChartMouseEvent.cs" />
     <Compile Include="Charting\Tools\ExportChartAsImageChartTool.cs" />
     <Compile Include="Charting\Tools\RulerTool.cs" />
     <Compile Include="Charting\YearNavigatableLabelFormatProvider.cs" />

@@ -13,8 +13,6 @@ namespace DelftTools.Utils.Editing
             Name = name;
         }
 
-        public bool ExceptionWasThrownDuringDo { get; set; }
-
         public string Name { get; set; }
 
         public virtual object Instance { get; set; }
@@ -24,14 +22,6 @@ namespace DelftTools.Utils.Editing
         public object ReturnValue { get; set; }
 
         public virtual bool HandlesRestore
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public virtual bool SuppressEventBasedRestore
         {
             get
             {
@@ -58,10 +48,5 @@ namespace DelftTools.Utils.Editing
         }
 
         public virtual void BeforeChanges() {}
-
-        public virtual void Restore()
-        {
-            throw new NotImplementedException("Cannot restore, unexpected call");
-        }
     }
 }

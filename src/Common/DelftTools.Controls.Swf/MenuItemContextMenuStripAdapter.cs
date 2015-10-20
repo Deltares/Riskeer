@@ -49,116 +49,7 @@ namespace DelftTools.Controls.Swf
 
         #endregion
 
-        #region IMenuItem Members
-
-        public string Name
-        {
-            get
-            {
-                return ContextMenuStrip.Name;
-            }
-            set
-            {
-                ContextMenuStrip.Name = value;
-            }
-        }
-
-        public string Text
-        {
-            get
-            {
-                return ContextMenuStrip.Text;
-            }
-            set
-            {
-                ContextMenuStrip.Text = value;
-            }
-        }
-
-        public string Tooltip
-        {
-            get
-            {
-                return "";
-            }
-            set {}
-        }
-
-        public string Category
-        {
-            get
-            {
-                return "";
-            }
-            set {}
-        }
-
-        public bool Enabled
-        {
-            get
-            {
-                throw new NotImplementedException("The method or operation is not implemented.");
-            }
-            set
-            {
-                throw new NotImplementedException("The method or operation is not implemented.");
-            }
-        }
-
-        public string Shortcut
-        {
-            get
-            {
-                throw new NotImplementedException("The method or operation is not implemented.");
-            }
-            set
-            {
-                throw new NotImplementedException("The method or operation is not implemented.");
-            }
-        }
-
-        public IList<Type> ActiveForViews
-        {
-            get
-            {
-                throw new NotImplementedException("The method or operation is not implemented.");
-            }
-        }
-
-        public ICommand Command
-        {
-            get
-            {
-                throw new NotImplementedException("The method or operation is not implemented.");
-            }
-            set
-            {
-                throw new NotImplementedException("The method or operation is not implemented.");
-            }
-        }
-
-        #endregion
-
         #region IMenuItemCollection<IMenuItem> Members
-
-        public IMenuItem this[string name]
-        {
-            get
-            {
-                //ToolStripItem 
-                //ToolStripMenuItem
-                var menuItem = ContextMenuStrip.Items[name];
-                if (menuItem is ToolStripMenuItem)
-                {
-                    return new MenuItemToolStripMenuItemAdapter((ToolStripMenuItem) menuItem);
-                }
-                return null;
-            }
-            set
-            {
-                throw new NotImplementedException("The method or operation is not implemented.");
-            }
-        }
 
         public int IndexOf(string name)
         {
@@ -168,16 +59,6 @@ namespace DelftTools.Controls.Swf
                 return ContextMenuStrip.Items.IndexOf(menuItem);
             }
             return -1;
-        }
-
-        public void InsertAfter(string name, IMenuItem item)
-        {
-            throw new NotImplementedException("The method or operation is not implemented.");
-        }
-
-        public void InsertBefore(string name, IMenuItem item)
-        {
-            throw new NotImplementedException("The method or operation is not implemented.");
         }
 
         #endregion

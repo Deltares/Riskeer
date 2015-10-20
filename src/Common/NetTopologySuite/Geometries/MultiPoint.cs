@@ -11,12 +11,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
     public class MultiPoint : GeometryCollection, IMultiPoint
     {
         /// <summary>
-        /// Represents an empty <c>MultiPoint</c>.
-        /// </summary>
-        public new static readonly IMultiPoint Empty = new GeometryFactory().CreateMultiPoint(new IPoint[]
-        {});
-
-        /// <summary>
         /// Constructs a <c>MultiPoint</c>.
         /// </summary>
         /// <param name="points">

@@ -7,23 +7,9 @@ namespace DelftTools.Controls.Swf
 {
     internal class MenuItemToolStripMenuItemAdapter : IMenuItem
     {
-        private readonly ToolStripMenuItem toolStripMenuItem;
-
         public MenuItemToolStripMenuItemAdapter(ToolStripMenuItem toolStripMenuItem)
         {
-            this.toolStripMenuItem = toolStripMenuItem;
-        }
 
-        public bool Visible
-        {
-            get
-            {
-                return toolStripMenuItem.Visible;
-            }
-            set
-            {
-                toolStripMenuItem.Visible = value;
-            }
         }
 
         public int Count
@@ -37,92 +23,6 @@ namespace DelftTools.Controls.Swf
         public bool IsReadOnly
         {
             get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return toolStripMenuItem.Name;
-            }
-            set
-            {
-                toolStripMenuItem.Name = value;
-            }
-        }
-
-        public string Text
-        {
-            get
-            {
-                return toolStripMenuItem.Text;
-            }
-            set
-            {
-                toolStripMenuItem.Text = value;
-            }
-        }
-
-        public string Tooltip
-        {
-            get
-            {
-                return "";
-            }
-            set {}
-        }
-
-        public string Category
-        {
-            get
-            {
-                return "";
-            }
-            set {}
-        }
-
-        public string Shortcut
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public bool Enabled
-        {
-            get
-            {
-                return toolStripMenuItem.Enabled;
-            }
-            set
-            {
-                toolStripMenuItem.Enabled = value;
-            }
-        }
-
-        public IList<Type> ActiveForViews
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public ICommand Command
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
             {
                 throw new NotImplementedException();
             }
@@ -178,34 +78,7 @@ namespace DelftTools.Controls.Swf
             throw new NotImplementedException();
         }
 
-        public int IndexOf(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertAfter(string name, IMenuItem item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertBefore(string name, IMenuItem item)
-        {
-            throw new NotImplementedException();
-        }
-
         IMenuItem IList<IMenuItem>.this[int index]
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        IMenuItem IMenuItemCollection<IMenuItem>.this[string name]
         {
             get
             {
