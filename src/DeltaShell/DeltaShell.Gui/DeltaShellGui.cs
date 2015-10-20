@@ -21,7 +21,6 @@ using DelftTools.Utils;
 using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.Reflection;
-using DelftTools.Utils.Threading;
 using DeltaShell.Core;
 using DeltaShell.Gui.Forms;
 using DeltaShell.Gui.Forms.MainWindow;
@@ -79,7 +78,6 @@ namespace DeltaShell.Gui
             instance = this;
             instanceCreationStackTrace = new StackTrace().ToString();
             ViewPropertyEditor.Gui = this;
-            ThreadedWorker.WaitMethod = System.Windows.Forms.Application.DoEvents;
 
             Application = new DeltaShellApplication
             {

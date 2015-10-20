@@ -156,7 +156,6 @@
     <Compile Include="ResourcesDisplayNameAttribute.cs" />
     <Compile Include="SettingsHelper.cs" />
     <Compile Include="TextDocumentBase.cs" />
-    <Compile Include="Threading\ThreadedWorker.cs" />
     <Compile Include="TimeNavigatableLabelFormatProvider.cs" />
     <Compile Include="Collections\INotifyCollectionChanged.cs" />
     <Compile Include="Collections\INotifyCollectionChanging.cs" />
@@ -209,9 +208,6 @@
     <Compile Include="FormulaParser\ExcelFormulaToken.cs" />
     <Compile Include="IO\FileUtils.cs" />
     <Compile Include="Reflection\AssemblyUtils.cs" />
-    <Compile Include="Threading\EventsHelper.cs" />
-    <Compile Include="Threading\GenericEventHandler.cs" />
-    <Compile Include="Threading\NotifyingThreadQueue.cs" />
     <Compile Include="Collections\Generic\EventedList.cs" />
     <Compile Include="Collections\Generic\IEventedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -19,7 +19,6 @@ using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.Globalization;
 using DelftTools.Utils.Reflection;
-using DelftTools.Utils.Threading;
 using DeltaShell.Core.Services;
 using log4net;
 
@@ -51,7 +50,6 @@ namespace DeltaShell.Core
         private Project project;
         private DeltaShellApplicationSettings userSettings;
         private IProjectService projectService;
-        private NotifyingThreadQueue<IActivity> activities;
 
         private string defaultRepositoryTypeName;
 

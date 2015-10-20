@@ -120,7 +120,6 @@
     <Compile Include="TestHelperTests.cs" />
     <Compile Include="TextDocumentBaseTest.cs" />
     <Compile Include="TextDocumentTest.cs" />
-    <Compile Include="Threading\ThreadedWorkerTest.cs" />
     <Compile Include="Validation\ValidationReportTest.cs" />
   </ItemGroup>
   <ItemGroup>
