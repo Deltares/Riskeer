@@ -98,7 +98,7 @@
       </Directory>
     </Directory>
     
-		<Feature Id="CompleteInstallation" Title="!(loc.ApplicationLongName)" Level="1" Absent="disallow" ConfigurableDirectory="INSTALLDIR">
+		<Feature Id="CompleteInstallation" Title="!(loc.ApplicationLongName)" Level="1" Absent="disallow" ConfigurableDirectory="INSTALLDIR" AllowAdvertise="no">
       <ComponentGroupRef Id="WtiApplicationComponents"/>
       <ComponentRef Id="InstalledShortcut"/>
       <ComponentRef Id="ProgramMenuShortcut"/>
