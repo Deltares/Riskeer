@@ -242,8 +242,6 @@ namespace DelftTools.Utils.Tests.Collections.Generic
                     throw new NotImplementedException();
                 }
             }
-
-            bool INotifyPropertyChange.HasParent { get; set; }
         }
 
         private class MockClassWithTwoProperties : INotifyPropertyChange
@@ -271,8 +269,6 @@ namespace DelftTools.Utils.Tests.Collections.Generic
                     }
                 }
             }
-
-            bool INotifyPropertyChange.HasParent { get; set; }
         }
     }
 }

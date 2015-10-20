@@ -14,7 +14,6 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
     public static class DataEditorGeneratorSwf
     {
         public const int LabelWidth = 150;
-        public const int EditorWidth = FieldEditControlWidth;
         public const int DefaultHeight = 26;
 
         private const int FieldEditControlWidth = 125;

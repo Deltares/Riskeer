@@ -298,17 +298,14 @@
     <Compile Include="Precision\CommonBits.cs" />
     <Compile Include="Precision\CommonBitsRemover.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Triangulate\IConstraintSplitPointFinder.cs" />
     <Compile Include="Triangulate\QuadEdge\IQuadEdgeLocator.cs" />
     <Compile Include="Triangulate\QuadEdge\ITriangleVisitor.cs" />
     <Compile Include="Triangulate\QuadEdge\LastFoundQuadEdgeLocator.cs" />
     <Compile Include="Triangulate\QuadEdge\LocateFailureException.cs" />
     <Compile Include="Triangulate\QuadEdge\QuadEdge.cs" />
     <Compile Include="Triangulate\QuadEdge\QuadEdgeSubdivision.cs" />
-    <Compile Include="Triangulate\QuadEdge\QuadEdgeTriangle.cs" />
     <Compile Include="Triangulate\QuadEdge\TrianglePredicate.cs" />
     <Compile Include="Triangulate\QuadEdge\Vertex.cs" />
-    <Compile Include="Triangulate\Segment.cs" />
     <Compile Include="Utilities\Assert.cs" />
     <Compile Include="Utilities\AssertionFailedException.cs" />
     <Compile Include="Utilities\CollectionUtil.cs" />
@@ -330,7 +327,6 @@
     <Content Include="License.txt" />
     <Content Include="ReadMe.txt" />
     <Content Include="Triangulate\QuadEdge\QuadEdgeSummary.xml" />
-    <Content Include="Triangulate\TriangulateSummary.xml" />
     <Content Include="Utilities\RToolsUtil\Rtools.Util.License.txt" />
   </ItemGroup>
   <ItemGroup>

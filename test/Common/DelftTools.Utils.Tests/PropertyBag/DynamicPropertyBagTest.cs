@@ -326,8 +326,6 @@ namespace DelftTools.Utils.Tests.PropertyBag
             [ReadOnly(true)] //one static property
             public string Description { get; set; }
 
-            bool INotifyPropertyChange.HasParent { get; set; }
-
             /// <summary>
             /// Method checks if propertyName property is read-only (setter can be used).
             /// </summary>

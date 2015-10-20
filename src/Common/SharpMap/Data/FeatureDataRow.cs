@@ -9,7 +9,7 @@ namespace SharpMap.Data
     /// Represents a row of data in a FeatureDataTable.
     /// </summary>
     // [System.Diagnostics.DebuggerStepThrough()]
-    [Serializable()]
+    [Serializable]
     public class FeatureDataRow : DataRow, IFeature, IComparable
     {
         private IGeometry geometry;
@@ -17,8 +17,6 @@ namespace SharpMap.Data
         //private FeatureDataTable tableFeatureTable;
 
         internal FeatureDataRow(DataRowBuilder rb) : base(rb) {}
-
-        public virtual long Id { get; set; }
 
         /// <summary>
         /// The geometry of the current feature
@@ -49,28 +47,6 @@ namespace SharpMap.Data
             {
                 attributes = value;
             }
-        }
-
-        public virtual Type GetEntityType()
-        {
-            return GetType();
-        }
-
-        /// <summary>
-        /// Returns true of the geometry is null
-        /// </summary>
-        /// <returns></returns>
-        public bool IsFeatureGeometryNull()
-        {
-            return Geometry == null;
-        }
-
-        /// <summary>
-        /// Sets the geometry column to null
-        /// </summary>
-        public void SetFeatureGeometryNull()
-        {
-            Geometry = null;
         }
 
         public override bool Equals(object obj)

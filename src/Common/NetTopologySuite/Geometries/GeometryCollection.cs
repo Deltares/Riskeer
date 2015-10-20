@@ -12,29 +12,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
     public class GeometryCollection : Geometry, IGeometryCollection
     {
         /// <summary>
-        /// Represents an empty <c>GeometryCollection</c>.
+        /// Internal representation of this <c>GeometryCollection</c>.
         /// </summary>
-        public static readonly IGeometryCollection Empty = DefaultFactory.CreateGeometryCollection(null);
-
-        /// <summary>
-        /// Internal representation of this <c>GeometryCollection</c>.        
-        /// </summary>
-        protected IGeometry[] geometries = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="geometries">
-        /// The <c>Geometry</c>s for this <c>GeometryCollection</c>,
-        /// or <c>null</c> or an empty array to create the empty
-        /// point. Elements may be empty <c>Geometry</c>s,
-        /// but not <c>null</c>s.
-        /// </param>
-        /// <remarks>
-        /// For create this <see cref="Geometry"/> is used a standard <see cref="GeometryFactory"/> 
-        /// with <see cref="PrecisionModel" /> <c> == </c> <see cref="PrecisionModels.Floating"/>.
-        /// </remarks>
-        public GeometryCollection(IGeometry[] geometries) : this(geometries, DefaultFactory) {}
+        protected IGeometry[] geometries;
 
         /// <summary>
         /// 
@@ -270,25 +250,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
                     sum += (geometries[i]).Length;
                 }
                 return sum;
-            }
-        }
-
-        /// <summary>
-        /// Return <c>true</c> if all features in collection are of the same type.
-        /// </summary>
-        public bool IsHomogeneous
-        {
-            get
-            {
-                IGeometry baseGeom = Geometries[0];
-                for (int i = 1; i < Geometries.Length; i++)
-                {
-                    if (baseGeom.GetType() != Geometries[i].GetType())
-                    {
-                        return false;
-                    }
-                }
-                return true;
             }
         }
 

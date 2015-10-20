@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -13,19 +11,6 @@ namespace DelftTools.Controls.Swf
 
         [DllImport("uxtheme.dll", CharSet = CharSet.Unicode)]
         public static extern int SetWindowTheme(IntPtr hWnd, string textSubAppName, string textSubIdList);
-
-        public static Control GetFocusControl()
-        {
-            Control focusControl = null;
-            var focusHandle = GetFocus();
-            if (focusHandle != IntPtr.Zero)
-            {
-                // returns null if handle is not to a .NET control
-                focusControl = Control.FromHandle(focusHandle);
-            }
-
-            return focusControl;
-        }
 
         /// <summary>
         /// Call this method on a view if you want to trigger data binding. For example when switching between views, closing a 
@@ -53,12 +38,6 @@ namespace DelftTools.Controls.Swf
             }
 
             containerControl.ActiveControl = null; //unfocus current control, to force binding to happen
-        }
-
-        public static IEnumerable<T> GetChildControls<T>(Control control)
-        {
-            var controls = control.Controls.Cast<Control>();
-            return control.Controls.OfType<T>().Concat<T>(controls.SelectMany(GetChildControls<T>));
         }
 
         // Import GetFocus() from user32.dll

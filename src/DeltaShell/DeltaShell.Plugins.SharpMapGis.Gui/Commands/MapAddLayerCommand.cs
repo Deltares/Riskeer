@@ -16,14 +16,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Commands
 
         private IEnumerable<ILayer> addedLayers;
 
-        public IEnumerable<ILayer> AddedLayers
-        {
-            get
-            {
-                return addedLayers.Any() ? addedLayers : Enumerable.Empty<ILayer>();
-            }
-        }
-
         /// <summary>
         /// Shows a file dialog for adding layers
         /// </summary>
