@@ -8,6 +8,7 @@ namespace DelftTools.Shell.Gui.Swf
     /// Generic abstract class to save repetition in implementation of nodepresenters.
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    // TODO: Remove this class and use TreeViewNodePresenterBase<T> instead or directly derive ITreeNodePresenter
     public abstract class TreeViewNodePresenterBaseForPluginGui<T> : TreeViewNodePresenterBase<T>
     {
         public TreeViewNodePresenterBaseForPluginGui() {}
