@@ -114,7 +114,6 @@
     <Compile Include="Aop\Markers\NoNotifyCollectionChangeAttribute.cs" />
     <Compile Include="Aop\Markers\NoNotifyPropertyChangeAttribute.cs" />
     <Compile Include="Aop\TraceDllImportCallsAttribute.cs" />
-    <Compile Include="Binding\EnumBindingHelper.cs" />
     <Compile Include="Comparer.cs" />
     <Compile Include="ComponentModel\DynamicEditorAttribute.cs" />
     <Compile Include="ComponentModel\DynamicVisibleAttribute.cs" />
@@ -155,12 +154,6 @@
     <Compile Include="ResourcesCategoryAttribute.cs" />
     <Compile Include="ResourcesDescriptionAttribute.cs" />
     <Compile Include="ResourcesDisplayNameAttribute.cs" />
-    <Compile Include="Serialization\IFastSerializationTypeSurrogate.cs" />
-    <Compile Include="Serialization\IOwnedDataSerializable.cs" />
-    <Compile Include="Serialization\IOwnedDataSerializableAndRecreatable.cs" />
-    <Compile Include="Serialization\SerializationReader.cs" />
-    <Compile Include="Serialization\SerializationWriter.cs" />
-    <Compile Include="Serialization\SerializedType.cs" />
     <Compile Include="SettingsHelper.cs" />
     <Compile Include="TextDocumentBase.cs" />
     <Compile Include="Threading\ThreadedWorker.cs" />
@@ -206,7 +199,6 @@
     <Compile Include="Reflection\TypeExtensions.cs" />
     <Compile Include="Reflection\TypeUtils.cs" />
     <Compile Include="StringExtensions.cs" />
-    <Compile Include="Threading\ThreadsafeBindingList.cs" />
     <Compile Include="Tuple.cs" />
     <Compile Include="TypeConverter.cs" />
     <Compile Include="Url.cs" />

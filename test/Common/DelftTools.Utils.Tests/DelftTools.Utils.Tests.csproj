@@ -89,8 +89,6 @@
     <Compile Include="Aop\TestClasses\InvokeRequiredTestClass.cs" />
     <Compile Include="Aop\TestClasses\DllImports.cs" />
     <Compile Include="Aop\TraceDllImportCallsAttributeTest.cs" />
-    <Compile Include="Binding\EnumBindingHelperTest.cs" />
-    <Compile Include="Binding\SampleEnum.cs" />
     <Compile Include="ChartViewDateTimeFormatProviderTest.cs" />
     <Compile Include="Collections\EnumerableExtensionsTest.cs" />
     <Compile Include="Collections\Extensions\ListExtensions.cs" />
@@ -123,7 +121,6 @@
     <Compile Include="TextDocumentBaseTest.cs" />
     <Compile Include="TextDocumentTest.cs" />
     <Compile Include="Threading\ThreadedWorkerTest.cs" />
-    <Compile Include="Threading\ThreadsafeBindingListTest.cs" />
     <Compile Include="Validation\ValidationReportTest.cs" />
     <Compile Include="WeakEventHandlerTest.cs" />
     <Compile Include="Xml\Serialization\CustomSerializerTest.cs" />
