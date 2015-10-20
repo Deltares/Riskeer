@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Windows.Forms;
 using DelftTools.Utils.Collections;
 
 namespace DelftTools.Controls
@@ -135,12 +136,10 @@ namespace DelftTools.Controls
         /// <param name="nodeData"></param>
         void OnNodeSelected(object nodeData);
 
-        // TODO: change it to IMenuItem
-
         /// <summary>
         /// Returns context menu based on current data
         /// </summary>
-        IMenuItem GetContextMenu(ITreeNode sender, object nodeData);
+        ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData);
 
         /// <summary>
         /// Updates node due to it's property change.

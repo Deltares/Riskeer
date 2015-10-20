@@ -22,7 +22,7 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
             node.Tag = chart;
             node.Text = string.IsNullOrEmpty(chart.Title) ? Resources.ChartTreeNodePresenter_UpdateNode_Chart : chart.Title;
             node.Image = Resources.Chart;
-            node.ContextMenu = GetContextMenu(null, chart);
+            node.ContextMenuStrip = GetContextMenu(null, chart);
         }
 
         public override IEnumerable GetChildNodeObjects(IChart chart, ITreeNode node)

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Linq;
-
+using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Utils.Collections;
 
@@ -81,7 +81,7 @@ namespace Wti.Forms.NodePresenters
             OnNodeSelected((T)nodeData);
         }
 
-        public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
+        public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
             return GetContextMenu(sender, (T)nodeData);
         }
@@ -109,13 +109,13 @@ namespace Wti.Forms.NodePresenters
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.UpdateNode"/>.
         /// </summary>
-        /// <seealso cref="UpdateNode"/>
+        /// <seealso cref="ITreeNodePresenter.UpdateNode"/>
         protected abstract void UpdateNode(ITreeNode parentNode, ITreeNode node, T nodeData);
 
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.GetChildNodeObjects"/>.
         /// </summary>
-        /// <seealso cref="GetChildNodeObjects"/>
+        /// <seealso cref="ITreeNodePresenter.GetChildNodeObjects"/>
         protected virtual IEnumerable GetChildNodeObjects(T nodeData, ITreeNode node)
         {
             return Enumerable.Empty<object>();
@@ -124,7 +124,7 @@ namespace Wti.Forms.NodePresenters
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.OnNodeRenamed"/>.
         /// </summary>
-        /// <seealso cref="OnNodeRenamed"/>
+        /// <seealso cref="ITreeNodePresenter.OnNodeRenamed"/>
         protected virtual void OnNodeRenamed(T nodeData, string newName)
         {
             throw new InvalidOperationException(string.Format("Cannot rename tree node of type {0}.", GetType().Name));
@@ -133,7 +133,7 @@ namespace Wti.Forms.NodePresenters
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.CanDrag"/>.
         /// </summary>
-        /// <seealso cref="CanDrag"/>
+        /// <seealso cref="ITreeNodePresenter.CanDrag"/>
         protected virtual DragOperations CanDrag(T nodeData)
         {
             return DragOperations.None;
@@ -142,7 +142,7 @@ namespace Wti.Forms.NodePresenters
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.CanDrop"/>.
         /// </summary>
-        /// <seealso cref="CanDrop"/>
+        /// <seealso cref="ITreeNodePresenter.CanDrop"/>
         protected virtual DragOperations CanDrop(T item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
         {
             return DragOperations.None;
@@ -151,7 +151,7 @@ namespace Wti.Forms.NodePresenters
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.CanInsert"/>.
         /// </summary>
-        /// <seealso cref="CanInsert"/>
+        /// <seealso cref="ITreeNodePresenter.CanInsert"/>
         protected virtual bool CanInsert(T item, ITreeNode sourceNode, ITreeNode targetNode)
         {
             return false;
@@ -160,7 +160,7 @@ namespace Wti.Forms.NodePresenters
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.OnDragDrop"/>.
         /// </summary>
-        /// <seealso cref="OnDragDrop"/>
+        /// <seealso cref="ITreeNodePresenter.OnDragDrop"/>
         protected virtual void OnDragDrop(T item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position)
         {
             // Do nothing
@@ -169,7 +169,7 @@ namespace Wti.Forms.NodePresenters
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.OnNodeSelected"/>.
         /// </summary>
-        /// <seealso cref="OnNodeSelected"/>
+        /// <seealso cref="ITreeNodePresenter.OnNodeSelected"/>
         protected virtual void OnNodeSelected(T nodeData)
         {
             // Do nothing
@@ -178,8 +178,8 @@ namespace Wti.Forms.NodePresenters
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.GetContextMenu"/>.
         /// </summary>
-        /// <seealso cref="GetContextMenu"/>
-        protected virtual IMenuItem GetContextMenu(ITreeNode sender, T nodeData)
+        /// <seealso cref="ITreeNodePresenter.GetContextMenu"/>
+        protected virtual ContextMenuStrip GetContextMenu(ITreeNode sender, T nodeData)
         {
             return null;
         }
@@ -187,7 +187,7 @@ namespace Wti.Forms.NodePresenters
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.OnPropertyChanged"/>.
         /// </summary>
-        /// <seealso cref="OnPropertyChanged"/>
+        /// <seealso cref="ITreeNodePresenter.OnPropertyChanged"/>
         protected virtual void OnPropertyChanged(T sender, ITreeNode node, PropertyChangedEventArgs e)
         {
             // Do nothing
@@ -196,7 +196,7 @@ namespace Wti.Forms.NodePresenters
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.OnCollectionChanged"/>.
         /// </summary>
-        /// <seealso cref="OnCollectionChanged"/>
+        /// <seealso cref="ITreeNodePresenter.OnCollectionChanged"/>
         protected virtual void OnCollectionChanged(T sender, NotifyCollectionChangingEventArgs e)
         {
             // Do nothing
@@ -205,7 +205,7 @@ namespace Wti.Forms.NodePresenters
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.CanRemove"/>.
         /// </summary>
-        /// <seealso cref="CanRemove"/>
+        /// <seealso cref="ITreeNodePresenter.CanRemove"/>
         protected virtual bool CanRemove(object parentNodeData, T nodeData)
         {
             return false;
@@ -214,7 +214,7 @@ namespace Wti.Forms.NodePresenters
         /// <summary>
         /// Typed implementation method of <see cref="ITreeNodePresenter.RemoveNodeData"/>.
         /// </summary>
-        /// <seealso cref="RemoveNodeData"/>
+        /// <seealso cref="ITreeNodePresenter.RemoveNodeData"/>
         protected virtual bool RemoveNodeData(object parentNodeData, T nodeData)
         {
             throw new InvalidOperationException(String.Format("Cannot delete node of type {0}.", GetType().Name));

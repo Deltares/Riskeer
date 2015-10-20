@@ -347,12 +347,12 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui
             };
         }
 
-        public override IMenuItem GetContextMenu(object sender, object data)
+        public override ContextMenuStrip GetContextMenu(object sender, object data)
         {
             //custom treenodes for maplegend view
             if (sender is TreeNode)
             {
-                var treeNode = (TreeNode) sender;
+                var treeNode = (TreeNode)sender;
                 if (treeNode.TreeView.Parent == mapLegendView)
                 {
                     return mapLegendView != null ? mapLegendView.GetContextMenu(data) : null;

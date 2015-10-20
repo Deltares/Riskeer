@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace DelftTools.Controls
 {
@@ -27,7 +28,7 @@ namespace DelftTools.Controls
         /// <summary>
         /// Gets the shortcut menu associated with this tree node.
         /// </summary>
-        IMenuItem ContextMenu { get; set; }
+        ContextMenuStrip ContextMenuStrip { get; set; }
 
         /// <summary>
         /// Gets or sets a value that indicates whether a check box is displayed next to the node
@@ -172,6 +173,7 @@ namespace DelftTools.Controls
         ITreeNode GetParentOfLevel(int level);
 
         void ShowContextMenu(Point location);
-        new void EnsureVisible();
+
+        void EnsureVisible();
     }
 }

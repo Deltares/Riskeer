@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
+using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui.Forms;
@@ -120,7 +121,7 @@ namespace DelftTools.Shell.Gui
         /// <param name="sender"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public virtual IMenuItem GetContextMenu(object sender, object data)
+        public virtual ContextMenuStrip GetContextMenu(object sender, object data)
         {
             return null;
         }

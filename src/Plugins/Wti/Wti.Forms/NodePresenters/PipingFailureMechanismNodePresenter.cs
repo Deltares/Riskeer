@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
-
+using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Utils.Collections;
-
 using Wti.Data;
 using Wti.Forms.Properties;
 
@@ -76,7 +75,7 @@ namespace Wti.Forms.NodePresenters
 
         public void OnNodeSelected(object nodeData) {}
 
-        public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
+        public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
             return null;
         }

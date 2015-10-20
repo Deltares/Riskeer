@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Windows.Forms;
 using DelftTools.Controls;
-using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
 using Wti.Data;
 using Wti.Forms.Properties;
@@ -77,15 +77,14 @@ namespace Wti.Forms.NodePresenters
 
         public void OnNodeSelected(object nodeData) {}
 
-        public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
+        public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
             var contextMenu = new PipingContextMenuStrip((PipingData) nodeData);
-            var contextMenuAdapter = new MenuItemContextMenuStripAdapter(contextMenu);
 
             contextMenu.OnCalculationClick += PerformPipingCalculation;
             contextMenu.OnValidationClick += PerformPipingValidation;
 
-            return contextMenuAdapter;
+            return contextMenu;
         }
 
         public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}

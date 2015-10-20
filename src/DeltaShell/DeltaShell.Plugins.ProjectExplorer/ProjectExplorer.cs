@@ -84,7 +84,7 @@ namespace DeltaShell.Plugins.ProjectExplorer
             base.Dispose();
         }
 
-        public IMenuItem GetContextMenu(ITreeNode sender, object o)
+        public ContextMenuStrip GetContextMenu(ITreeNode sender, object o)
         {
             return ProjectTreeView.GetContextMenu(o);
         }

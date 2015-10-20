@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using DelftTools.Controls;
-using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -359,7 +358,7 @@ namespace Wti.Forms.Test.NodePresenters
             var returnedContextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
-            var contextMenu = ((MenuItemContextMenuStripAdapter)returnedContextMenu).ContextMenuStrip;
+            var contextMenu =  returnedContextMenu;
             Assert.AreEqual(1, contextMenu.Items.Count);
             var importItem = contextMenu.Items[0];
             Assert.AreEqual("Importeer ondergrondprofielen", importItem.Text);

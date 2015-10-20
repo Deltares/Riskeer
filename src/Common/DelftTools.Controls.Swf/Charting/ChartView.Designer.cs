@@ -63,7 +63,6 @@ namespace DelftTools.Controls.Swf.Charting
         }
         #endregion
 
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private DeltaShellTChart teeChart;
         private System.Windows.Forms.Timer timer1;
     }

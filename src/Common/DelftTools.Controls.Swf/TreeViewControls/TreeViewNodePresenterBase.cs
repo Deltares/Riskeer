@@ -162,7 +162,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             throw new NotImplementedException();
         }
 
-        public virtual IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
+        public virtual ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
             return null;
         }
@@ -290,7 +290,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
                         // create and add a new tree node
                         var newNode = TreeView.AddNewNode(parentNode, e.Item, newNodeIndex);
-                        newNode.ContextMenu = GetContextMenu(null, e.Item);
+                        newNode.ContextMenuStrip = GetContextMenu(null, e.Item);
                     }
                     else
                     {

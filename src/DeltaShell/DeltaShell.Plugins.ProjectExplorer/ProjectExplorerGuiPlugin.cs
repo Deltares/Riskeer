@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
@@ -136,9 +137,9 @@ namespace DeltaShell.Plugins.ProjectExplorer
         }
 
         /// <summary>
-        /// TODO: refactor it to IMenuItem
+        /// 
         /// </summary>
-        public override IMenuItem GetContextMenu(object sender, object nodeTag)
+        public override ContextMenuStrip GetContextMenu(object sender, object nodeTag)
         {
             return ProjectExplorer != null ? ProjectExplorer.ProjectTreeView.GetContextMenu(nodeTag) : null;
         }

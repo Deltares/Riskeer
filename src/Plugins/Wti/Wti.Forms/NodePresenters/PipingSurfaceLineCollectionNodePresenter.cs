@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using DelftTools.Controls;
-using DelftTools.Controls.Swf;
 using DelftTools.Utils.Collections;
 using Wti.Data;
 using Wti.Forms.Extensions;
@@ -89,11 +88,11 @@ namespace Wti.Forms.NodePresenters
 
         public void OnNodeSelected(object nodeData) {}
 
-        public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
+        public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
             if (ImportSurfaceLinesAction != null)
             {
-                return new MenuItemContextMenuStripAdapter(CreateContextMenu());
+                return CreateContextMenu();
             }
             return null;
         }

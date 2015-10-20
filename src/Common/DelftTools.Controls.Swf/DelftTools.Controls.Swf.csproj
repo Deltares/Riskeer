@@ -294,8 +294,6 @@
       <DependentUpon>InputTextDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="IWizardPage.cs" />
-    <Compile Include="MenuItemContextMenuStripAdapter.cs" />
-    <Compile Include="MenuItemToolStripMenuItemAdapter.cs" />
     <Compile Include="ModalHelper.cs" />
     <Compile Include="OpenUrlDialog.cs">
       <SubType>Form</SubType>

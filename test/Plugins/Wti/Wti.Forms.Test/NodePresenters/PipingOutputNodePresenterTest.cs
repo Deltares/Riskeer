@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
@@ -248,7 +249,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
-            IMenuItem contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
             Assert.IsNull(contextMenu);

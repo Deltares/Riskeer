@@ -551,7 +551,7 @@ namespace DelftTools.Controls.Swf.Charting
                 return;
             }
 
-            var contextMenu = contextMenuStrip1 ?? new ContextMenuStrip();
+            var contextMenu = new ContextMenuStrip();
             if (e.Button == MouseButtons.Right)
             {
                 foreach (IChartViewContextMenuTool tool in Tools.Where(tool => tool is IChartViewContextMenuTool && tool.Active))

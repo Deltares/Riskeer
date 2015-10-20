@@ -24,7 +24,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
     public partial class MapLegendView : UserControl, IView
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(MapLegendView));
-        private readonly IGui gui; //HACK: remove gui reference
+        private readonly IGui gui;
         private readonly IGisGuiService gisService;
 
         public Action<ILayer> OnOpenLayerAttributeTable = layer => { };
@@ -108,21 +108,19 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         public ViewInfo ViewInfo { get; set; }
 
-        // TODO,HACK: these clicking methods below should be moved to service/command handlers
-
-        public IMenuItem GetContextMenu(object nodeTag)
+        public ContextMenuStrip GetContextMenu(object nodeTag)
         {
             if (nodeTag is Layer)
             {
-                return new MenuItemContextMenuStripAdapter(contextMenuLayer);
+                return contextMenuLayer;
             }
             if (nodeTag is Client.WmsServerLayer)
             {
-                return new MenuItemContextMenuStripAdapter(contextMenuWmsLayer);
+                return contextMenuWmsLayer;
             }
             if (nodeTag is Map)
             {
-                return new MenuItemContextMenuStripAdapter(contextMenuMap);
+                return contextMenuMap;
             }
 
             return null;

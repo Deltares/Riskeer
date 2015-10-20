@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using DelftTools.Controls;
-using DelftTools.Controls.Swf;
 using DelftTools.Shell.Core;
 using DelftTools.TestUtils;
 using DelftTools.Utils.Collections;
@@ -288,14 +287,14 @@ namespace Wti.Forms.Test.NodePresenters
             mocks.ReplayAll();
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock) as MenuItemContextMenuStripAdapter;
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
             Assert.IsNotNull(contextMenu);
-            Assert.AreEqual(2, contextMenu.ContextMenuStrip.Items.Count);
-            Assert.AreEqual(WtiFormsResources.PipingDataContextMenuCalculate, contextMenu.ContextMenuStrip.Items[1].Text);
-            Assert.AreEqual(WtiFormsResources.PipingDataContextMenuValidate, contextMenu.ContextMenuStrip.Items[0].Text);
-            Assert.IsInstanceOf<PipingContextMenuStrip>(contextMenu.ContextMenuStrip);
+            Assert.AreEqual(2, contextMenu.Items.Count);
+            Assert.AreEqual(WtiFormsResources.PipingDataContextMenuCalculate, contextMenu.Items[1].Text);
+            Assert.AreEqual(WtiFormsResources.PipingDataContextMenuValidate, contextMenu.Items[0].Text);
+            Assert.IsInstanceOf<PipingContextMenuStrip>(contextMenu);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -387,10 +386,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             mockRepository.ReplayAll();
 
-            var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData) as MenuItemContextMenuStripAdapter;
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData);
             
             // When
-            Action action = () => contextMenuAdapter.ContextMenuStrip.Items[calculateContextMenuItemIndex].PerformClick();
+            Action action = () => contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
 
             // Then
             TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
@@ -415,10 +414,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             mockRepository.ReplayAll();
 
-            var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData) as MenuItemContextMenuStripAdapter;
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData);
 
             // When
-            Action action = () => contextMenuAdapter.ContextMenuStrip.Items[validateContextMenuItemIndex].PerformClick();
+            Action action = () => contextMenuAdapter.Items[validateContextMenuItemIndex].PerformClick();
 
             // Then
             TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
@@ -466,10 +465,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             mockRepository.ReplayAll();
 
-            var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData) as MenuItemContextMenuStripAdapter;
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData);
 
             // When
-            Action action = () => contextMenuAdapter.ContextMenuStrip.Items[calculateContextMenuItemIndex].PerformClick();
+            Action action = () => contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
 
             // Then
             TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);

@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using DelftTools.Controls;
-using DelftTools.Controls.Swf;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
@@ -277,15 +276,15 @@ namespace Wti.Forms.Test.NodePresenters
             var nodePresenter = new WtiProjectNodePresenter();
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, wtiProject) as MenuItemContextMenuStripAdapter;
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, wtiProject);
 
             // Assert
             Assert.IsNotNull(contextMenu);
-            Assert.AreEqual(1, contextMenu.ContextMenuStrip.Items.Count);
-            Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, contextMenu.ContextMenuStrip.Items[0].Text);
-            Assert.AreEqual(WtiFormsResources.WtiProjectTooltipAddPipingFailureMechanism, contextMenu.ContextMenuStrip.Items[0].ToolTipText);
-            Assert.IsTrue(contextMenu.ContextMenuStrip.Items[0].Enabled);
-            Assert.AreSame(wtiProject, contextMenu.ContextMenuStrip.Items[0].Tag);
+            Assert.AreEqual(1, contextMenu.Items.Count);
+            Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, contextMenu.Items[0].Text);
+            Assert.AreEqual(WtiFormsResources.WtiProjectTooltipAddPipingFailureMechanism, contextMenu.Items[0].ToolTipText);
+            Assert.IsTrue(contextMenu.Items[0].Enabled);
+            Assert.AreSame(wtiProject, contextMenu.Items[0].Tag);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -302,15 +301,15 @@ namespace Wti.Forms.Test.NodePresenters
             var nodePresenter = new WtiProjectNodePresenter();
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, wtiProject) as MenuItemContextMenuStripAdapter;
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, wtiProject);
 
             // Assert
             Assert.IsNotNull(contextMenu);
-            Assert.AreEqual(1, contextMenu.ContextMenuStrip.Items.Count);
-            Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, contextMenu.ContextMenuStrip.Items[0].Text);
-            Assert.AreEqual(WtiFormsResources.WtiProjectTooltipPipingFailureMechanismAlreadyAdded, contextMenu.ContextMenuStrip.Items[0].ToolTipText);
-            Assert.IsFalse(contextMenu.ContextMenuStrip.Items[0].Enabled);
-            Assert.IsNull(contextMenu.ContextMenuStrip.Items[0].Tag);
+            Assert.AreEqual(1, contextMenu.Items.Count);
+            Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, contextMenu.Items[0].Text);
+            Assert.AreEqual(WtiFormsResources.WtiProjectTooltipPipingFailureMechanismAlreadyAdded, contextMenu.Items[0].ToolTipText);
+            Assert.IsFalse(contextMenu.Items[0].Enabled);
+            Assert.IsNull(contextMenu.Items[0].Tag);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -408,15 +407,15 @@ namespace Wti.Forms.Test.NodePresenters
             mocks.ReplayAll();
 
             var nodePresenter = new WtiProjectNodePresenter();
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, wtiProject) as MenuItemContextMenuStripAdapter;
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, wtiProject);
 
             // Preconditions
             Assert.IsNotNull(contextMenu);
             Assert.IsNull(wtiProject.PipingFailureMechanism);
-            Assert.AreEqual(1, contextMenu.ContextMenuStrip.Items.Count);
+            Assert.AreEqual(1, contextMenu.Items.Count);
 
             // Call
-            contextMenu.ContextMenuStrip.Items[0].PerformClick();
+            contextMenu.Items[0].PerformClick();
 
             // Assert
             Assert.IsNotNull(wtiProject.PipingFailureMechanism);

@@ -14,7 +14,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         private readonly TreeNodeList nodes;
         private readonly ITreeView treeView;
         protected bool isLoaded;
-        private IMenuItem contextMenu;
 
         private object tag;
 
@@ -26,7 +25,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             nodes = new TreeNodeList(base.Nodes);
             IsVisible = true;
         }
-
+        
         /// <summary>
         /// Called when a user right clicks in the network tree
         /// </summary>
@@ -34,36 +33,14 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         {
             get
             {
-                ITreeNodePresenter treeNodePresenter = Presenter;
-                if (treeNodePresenter == null)
-                {
-                    log.WarnFormat("No treeNodePresenter for node: {0}", this);
-                    return null;
-                }
-
-                IMenuItem contextMenu = treeNodePresenter.GetContextMenu(this, Tag);
-                if (contextMenu == null)
-                {
-                    //log.WarnFormat("No contextmenu found for node: {0}", this);
-                    return null;
-                }
-
-                var adapter = contextMenu as MenuItemContextMenuStripAdapter;
-                if (adapter == null)
-                {
-                    log.WarnFormat(
-                        "Only ContextMenuStrip-adapted IMenuItems are supported as a context menu for now. Node: {0}, Menu: {1}",
-                        this, contextMenu);
-                    return null;
-                }
-                return adapter.ContextMenuStrip;
+                return Presenter != null ? Presenter.GetContextMenu(this, Tag) : null;
             }
             set
             {
                 base.ContextMenuStrip = value;
             }
         }
-
+        
         /// <summary>
         /// Used in rendering (has children indicates if a plus or minus must be drawn)
         /// </summary>
@@ -78,32 +55,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         }
 
         public ITreeNodePresenter Presenter { get; set; }
-
-        public new IMenuItem ContextMenu
-        {
-            get
-            {
-                return contextMenu;
-            }
-            set
-            {
-                if (null == value)
-                {
-                    //log.WarnFormat("No contextmenu set for : {0}", this);
-                    return;
-                }
-                var adapter = value as MenuItemContextMenuStripAdapter;
-                if (adapter == null)
-                {
-                    log.WarnFormat(
-                        "Only ContextMenuStrip-adapted IMenuItems are supported as a context menu for now. Node: {0}, Menu: {1}",
-                        this, contextMenu);
-                    return;
-                }
-                base.ContextMenuStrip = adapter.ContextMenuStrip;
-                contextMenu = value;
-            }
-        }
 
         public new string Text
         {
@@ -212,14 +163,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             get
             {
                 return (ITreeNode) PrevVisibleNode;
-            }
-        }
-
-        public Rectangle Bounds
-        {
-            get
-            {
-                return base.Bounds;
             }
         }
 

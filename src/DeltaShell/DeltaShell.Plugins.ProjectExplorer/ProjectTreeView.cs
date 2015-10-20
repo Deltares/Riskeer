@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using DelftTools.Controls;
-using DelftTools.Controls.Swf;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
 using DelftTools.Utils.Aop;
@@ -125,7 +124,7 @@ namespace DeltaShell.Plugins.ProjectExplorer
         public Image Image { get; set; }
         public ViewInfo ViewInfo { get; set; }
 
-        public IMenuItem GetContextMenu(object nodeTag)
+        public ContextMenuStrip GetContextMenu(object nodeTag)
         {
             //TODO: let go of menu's here but compose a menu on the fly based on selection.
             if (nodeTag is Project)
@@ -139,7 +138,7 @@ namespace DeltaShell.Plugins.ProjectExplorer
 
                 buttonFolderImportFolder.Enabled = gui.CommandHandler.CanImportToGuiSelection();
 
-                return new MenuItemContextMenuStripAdapter(contextMenuFolder);
+                return contextMenuFolder;
             }
 
             return null;

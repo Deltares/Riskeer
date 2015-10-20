@@ -3,7 +3,6 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using DelftTools.Controls;
-using DelftTools.Controls.Swf;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 using Wti.Data;
@@ -81,11 +80,10 @@ namespace Wti.Forms.NodePresenters
 
         public void OnNodeSelected(object nodeData) {}
 
-        public IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
+        public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
             var contextMenu = new ContextMenuStrip();
             var addPipingFailureMechanismItem = contextMenu.Items.Add(Resources.AddPipingFailureMechanismContextMenuItem);
-            var contextMenuAdapter = new MenuItemContextMenuStripAdapter(contextMenu);
 
             var wtiProject = (WtiProject) nodeData;
 
@@ -101,7 +99,7 @@ namespace Wti.Forms.NodePresenters
                 addPipingFailureMechanismItem.ToolTipText = Resources.WtiProjectTooltipPipingFailureMechanismAlreadyAdded;
             }
 
-            return contextMenuAdapter;
+            return contextMenu;
         }
 
         public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}

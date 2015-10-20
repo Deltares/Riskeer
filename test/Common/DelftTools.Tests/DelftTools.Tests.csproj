@@ -111,7 +111,6 @@
     <Compile Include="Controls\Swf\DataEditorGenerator\SelfCollapsingGroupboxTest.cs" />
     <Compile Include="Controls\Swf\FindAndReplaceControlTest.cs" />
     <Compile Include="Controls\Swf\Table\TableViewCsvImportWizardDialogTest.cs" />
-    <Compile Include="Controls\Swf\MenuItemContextMenuStripAdapterTest.cs" />
     <Compile Include="Controls\Swf\MessageBoxTest.cs" />
     <Compile Include="Controls\Swf\Table\TableViewPasteControllerTest.cs" />
     <Compile Include="Controls\Swf\Table\TableViewCopyPasteTest.cs" />

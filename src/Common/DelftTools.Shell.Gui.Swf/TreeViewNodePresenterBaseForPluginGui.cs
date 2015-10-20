@@ -1,3 +1,4 @@
+using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf.TreeViewControls;
 
@@ -18,7 +19,7 @@ namespace DelftTools.Shell.Gui.Swf
 
         public GuiPlugin GuiPlugin { get; set; }
 
-        public override IMenuItem GetContextMenu(ITreeNode sender, object nodeData)
+        public override ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
             if (GuiPlugin == null)
             {
