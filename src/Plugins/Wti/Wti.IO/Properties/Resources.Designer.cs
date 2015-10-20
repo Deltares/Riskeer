@@ -88,6 +88,15 @@ namespace Wti.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het bestand op &apos;{0}&apos; is leeg..
+        /// </summary>
+        public static string Error_File_0_empty {
+            get {
+                return ResourceManager.GetString("Error_File_0_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er is een onverwachte inleesfout opgetreden tijdens het lezen van het bestand &apos;{0}&apos;: {1}.
         /// </summary>
         public static string Error_General_IO_File_0_ErrorMessage_1_ {
@@ -129,6 +138,15 @@ namespace Wti.IO.Properties {
         public static string Error_Unexpected_IOError_File_0_Line_1_ {
             get {
                 return ResourceManager.GetString("Error_Unexpected_IOError_File_0_Line_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand op &apos;{0}&apos; is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1)..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvReader_File_0_invalid_header {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_File_0_invalid_header", resourceCulture);
             }
         }
     }

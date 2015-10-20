@@ -247,5 +247,69 @@ namespace Wti.Plugin.Test.FileImporter
                 "No items should be added to collection when import is aborted.");
             mocks.VerifyAll(); // Expect no calls on 'observer'
         }
+
+        [Test]
+        public void ImportItem_FileIsEmpty_AbortImportAndLog()
+        {
+            // Setup
+            string corruptPath = Path.Combine(testDataPath, "empty.csv");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            object importedItem = null;
+
+            // Call
+            Action call = () => importedItem = importer.ImportItem(corruptPath, observableSurfaceLinesList);
+
+            // Assert
+            var internalErrorMessage = String.Format(WtiIOResources.Error_File_0_empty,
+                                                     corruptPath);
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
+                                                   corruptPath, internalErrorMessage);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            Assert.AreSame(observableSurfaceLinesList, importedItem);
+            CollectionAssert.IsEmpty(observableSurfaceLinesList,
+                "No items should be added to collection when import is aborted.");
+            mocks.VerifyAll(); // Expect no calls on 'observer'
+        }
+
+        [Test]
+        public void ImportItem_InvalidHeader_AbortImportAndLog()
+        {
+            // Setup
+            string corruptPath = Path.Combine(testDataPath, "InvalidHeader_LacksY1.csv");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            object importedItem = null;
+
+            // Call
+            Action call = () => importedItem = importer.ImportItem(corruptPath, observableSurfaceLinesList);
+
+            // Assert
+            var internalErrorMessage = String.Format(WtiIOResources.PipingSurfaceLinesCsvReader_File_0_invalid_header,
+                                                     corruptPath);
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
+                                                   corruptPath, internalErrorMessage);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            Assert.AreSame(observableSurfaceLinesList, importedItem);
+            CollectionAssert.IsEmpty(observableSurfaceLinesList,
+                "No items should be added to collection when import is aborted.");
+            mocks.VerifyAll(); // Expect no calls on 'observer'
+        }
     }
 }

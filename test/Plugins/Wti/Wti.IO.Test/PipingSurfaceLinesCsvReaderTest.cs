@@ -191,6 +191,73 @@ namespace Wti.IO.Test
             }
         }
 
+        [Test]
+        public void GetSurfaceLinesCount_EmptyFile_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "empty.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.GetSurfaceLinesCount();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = string.Format(IOResources.Error_File_0_empty, path);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void GetSurfaceLinesCount_InvalidHeader1_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "InvalidHeader_UnsupportedId.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.GetSurfaceLinesCount();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_File_0_invalid_header, path);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        [TestCase("X")]
+        [TestCase("Y")]
+        [TestCase("Z")]
+        public void GetSurfaceLinesCount_InvalidHeader2_ThrowCriticalFileReadException(string missingVariableName)
+        {
+            // Setup
+            var filename = string.Format("InvalidHeader_Lacks{0}1.csv", missingVariableName);
+            string path = Path.Combine(testDataPath, filename);
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.GetSurfaceLinesCount();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = string.Format("Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).", path);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
         private void DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLines_ReturnCreatedSurfaceLine()
         {
             // Setup

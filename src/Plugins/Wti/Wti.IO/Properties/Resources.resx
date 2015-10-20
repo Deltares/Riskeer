@@ -141,4 +141,10 @@
   <data name="Error_General_IO_File_0_ErrorMessage_1_" xml:space="preserve">
     <value>Er is een onverwachte inleesfout opgetreden tijdens het lezen van het bestand '{0}': {1}</value>
   </data>
+  <data name="Error_File_0_empty" xml:space="preserve">
+    <value>Het bestand op '{0}' is leeg.</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvReader_File_0_invalid_header" xml:space="preserve">
+    <value>Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
+  </data>
 </root>

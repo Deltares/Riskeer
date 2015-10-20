@@ -19,12 +19,23 @@ namespace Wti.IO
     /// </summary>
     public class PipingSurfaceLinesCsvReader : IDisposable
     {
-        private readonly string[] acceptableIdNames =
+        private const char separator = ';';
+
+        private readonly string[] acceptableLowerCaseIdNames =
         {
-            "Profielnaam, LocationID"
+            "profielnaam",
+            "locationid"
         };
 
         private readonly string filePath;
+
+        private readonly string[] expectedFirstCoordinateHeader =
+        {
+            "x1",
+            "y1",
+            "z1"
+        };
+
         private StreamReader fileReader;
 
         /// <summary>
@@ -52,9 +63,9 @@ namespace Wti.IO
         /// <item>Some other I/O related issue occurred, such as: path includes an incorrect 
         /// or invalid syntax for file name, directory name, or volume label.</item>
         /// <item>There is insufficient memory to allocate a buffer for the returned string.</item>
+        /// <item>File incompatible for importing surface lines.</item>
         /// </list>
         /// </exception>
-        /// <exception cref="FormatException">The file in not properly formatted.</exception>
         public int GetSurfaceLinesCount()
         {
             int count = 0, lineNumber = 0;
@@ -63,9 +74,7 @@ namespace Wti.IO
             {
                 reader = new StreamReader(filePath);
 
-                // Skip header:
-                // TODO: Make sure header is valid
-                reader.ReadLine();
+                ValidateHeader(reader);
                 lineNumber++;
 
                 // Count SurfaceLines:
@@ -131,7 +140,7 @@ namespace Wti.IO
             var readText = fileReader.ReadLine();
             if (readText != null)
             {
-                var tokenizedString = readText.Split(';');
+                var tokenizedString = readText.Split(separator);
                 var worldCoordinateValues = tokenizedString.Skip(1)
                                                            .Select(ts => Double.Parse(ts, CultureInfo.InvariantCulture))
                                                            .ToArray();
@@ -165,6 +174,43 @@ namespace Wti.IO
                 fileReader.Dispose();
                 fileReader = null;
             }
+        }
+
+        private void ValidateHeader(StreamReader reader)
+        {
+            var header = reader.ReadLine();
+            if (header != null)
+            {
+                if (!IsHeaderValid(header))
+                {
+                    var expectedMessage = string.Format(Resources.PipingSurfaceLinesCsvReader_File_0_invalid_header, filePath);
+                    throw new CriticalFileReadException(expectedMessage);
+                }
+            }
+            else
+            {
+                var expectedMessage = string.Format(Resources.Error_File_0_empty, filePath);
+                throw new CriticalFileReadException(expectedMessage);
+            }
+        }
+
+        private bool IsHeaderValid(string header)
+        {
+            var tokenizedHeader = header.Split(separator).Select(s => s.Trim().ToLowerInvariant()).ToArray();
+
+            // Check for valid id:
+            if (!acceptableLowerCaseIdNames.Contains(tokenizedHeader[0]))
+            {
+                return false;
+            }
+
+            // CHeck for valid 1st coordinate in header:
+            bool valid = true;
+            for (int i = 0; i < expectedFirstCoordinateHeader.Length && valid; i++)
+            {
+                valid = tokenizedHeader[1 + i].Equals(expectedFirstCoordinateHeader[i]);
+            }
+            return valid;
         }
 
         private void CheckIfPathIsValid(string path)
