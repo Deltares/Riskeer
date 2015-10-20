@@ -117,15 +117,15 @@ namespace Wti.IO
             var query = new SQLiteCommand(connection)
             {
                 CommandText = string.Format(
-                    "SELECT p.SP2D_Name, l.GeometrySurface " +
+                    "SELECT p.SP2D_Name, l.GeometrySurface, mat.MA_Name " +
                     "FROM MechanismPointLocation as m " +
                     "JOIN SoilProfile2D as p ON m.SP2D_ID = p.SP2D_ID " +
                     "JOIN SoilLayer2D as l ON l.SP2D_ID = p.SP2D_ID " +
+                    "JOIN Materials as mat ON mat.MA_ID = l.MA_ID " +
                     "WHERE m.ME_ID = @{0} " +
                     "ORDER BY p.SP2D_ID, l.SP2D_ID",
                     mechanismParameterName)
             };
-
             query.Parameters.Add(new SQLiteParameter
             {
                 DbType = DbType.Int32,

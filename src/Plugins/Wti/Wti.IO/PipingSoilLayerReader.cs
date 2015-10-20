@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Xml;
 using Wti.Data;
@@ -28,6 +29,7 @@ namespace Wti.IO
         /// </summary>
         /// <param name="geometry">An array of <see cref="byte"/> which contains the information of a <see cref="PipingSoilLayer"/>
         /// in an XML document.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is null.</exception>
         internal PipingSoilLayerReader(byte[] geometry)
         {
             xmlTextReader = new XmlTextReader(new MemoryStream(geometry));
@@ -74,18 +76,29 @@ namespace Wti.IO
             {
                 loop = new HashSet<Point3D>();
 
-                while (xmlTextReader.Read() && !IsEndElementWithName(elementName))
+                if (!IsEmptyElement())
                 {
-                    Point3D parsedPoint;
-                    if (TryParsePoint(out parsedPoint))
+                    while (xmlTextReader.Read() && !IsEndElementWithName(elementName))
                     {
-                        loop.Add(parsedPoint);
+                        Point3D parsedPoint;
+                        if (TryParsePoint(out parsedPoint))
+                        {
+                            loop.Add(parsedPoint);
+                        }
                     }
                 }
-
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Finds out whether the element which the reader is currently pointing at is empty.
+        /// </summary>
+        /// <returns>True if the element is empty. False otherwise.</returns>
+        private bool IsEmptyElement()
+        {
+            return xmlTextReader.IsEmptyElement;
         }
 
         /// <summary>
@@ -102,9 +115,9 @@ namespace Wti.IO
                 var pointValues = ReadChildValues();
                 point = new Point3D
                 {
-                    X = double.Parse(pointValues[xElementName]),
-                    Y = double.Parse(pointValues[yElementName]),
-                    Z = double.Parse(pointValues[zElementName])
+                    X = double.Parse(pointValues[xElementName], CultureInfo.InvariantCulture),
+                    Y = double.Parse(pointValues[yElementName], CultureInfo.InvariantCulture),
+                    Z = double.Parse(pointValues[zElementName], CultureInfo.InvariantCulture)
                 };
                 return true;
             }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using DelftTools.TestUtils;
+using log4net.Core;
 using NUnit.Framework;
 using Wti.Data;
 using Wti.IO.Exceptions;
@@ -72,7 +74,20 @@ namespace Wti.IO.Test
         }
 
         [Test]
-        public void ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
+        [SetCulture("nl-NL")]
+        public void ReadSoilProfiles_NLCompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
+        {
+            ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries();
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        public void ReadSoilProfiles_ENCompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
+        {
+            ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries();
+        }
+
+        private void ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
         {
             // Setup
             var testFile = "complete.soil";
@@ -80,20 +95,50 @@ namespace Wti.IO.Test
 
             var firstProfileFirstLayerOuterLoop = new HashSet<Point3D>
             {
-                new Point3D{X=0,Y=0,Z=-10},
-                new Point3D{X=0,Y=0,Z=-3.5},
-                new Point3D{X=70.208,Y=0,Z=-3.5},
-                new Point3D{X=73.91,Y=0,Z=-3.5},
-                new Point3D{X=80.78,Y=0,Z=-3.5},
-                new Point3D{X=80.78,Y=0,Z=-10},
+                new Point3D
+                {
+                    X = 0, Y = 0, Z = -10
+                },
+                new Point3D
+                {
+                    X = 0, Y = 0, Z = -3.5
+                },
+                new Point3D
+                {
+                    X = 70.208, Y = 0, Z = -3.5
+                },
+                new Point3D
+                {
+                    X = 73.91, Y = 0, Z = -3.5
+                },
+                new Point3D
+                {
+                    X = 80.78, Y = 0, Z = -3.5
+                },
+                new Point3D
+                {
+                    X = 80.78, Y = 0, Z = -10
+                },
             };
 
             var secondProfileSecondLayerOuterLoop = new HashSet<Point3D>
             {
-                new Point3D{X=87.516,Y=0,Z=-1.5},
-                new Point3D{X=87.567000000000007,Y=0,Z=-0.70000000000000007},
-                new Point3D{X=101.4,Y=0,Z=-0.70000000000000007},
-                new Point3D{X=101.4,Y=0,Z=-1.5},
+                new Point3D
+                {
+                    X = 87.516, Y = 0, Z = -1.5
+                },
+                new Point3D
+                {
+                    X = 87.567000000000007, Y = 0, Z = -0.70000000000000007
+                },
+                new Point3D
+                {
+                    X = 101.4, Y = 0, Z = -0.70000000000000007
+                },
+                new Point3D
+                {
+                    X = 101.4, Y = 0, Z = -1.5
+                },
             };
 
             // Call
@@ -104,6 +149,7 @@ namespace Wti.IO.Test
             var firstProfile = result.SingleOrDefault(psp => psp.Name == "10Y_005_STBI");
             Assert.NotNull(firstProfile);
             Assert.AreEqual(13, firstProfile.Count());
+
             CollectionAssert.AreEqual(firstProfileFirstLayerOuterLoop, firstProfile.Layers.ToArray()[0].OuterLoop);
             Assert.IsNull(firstProfile.Layers.ToArray()[0].InnerLoop);
 
