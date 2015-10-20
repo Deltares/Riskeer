@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing.Design;
 using System.Linq;
 
 namespace DelftTools.Utils.PropertyBag
@@ -471,14 +470,7 @@ namespace DelftTools.Utils.PropertyBag
 
             public override bool CanResetValue(object component)
             {
-                if (item.DefaultValue == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return !GetValue(component).Equals(item.DefaultValue);
-                }
+                return false;
             }
 
             public override object GetValue(object component)
@@ -488,7 +480,7 @@ namespace DelftTools.Utils.PropertyBag
 
             public override void ResetValue(object component)
             {
-                SetValue(component, item.DefaultValue);
+
             }
 
             public override void SetValue(object component, object value)
@@ -502,16 +494,7 @@ namespace DelftTools.Utils.PropertyBag
 
             public override bool ShouldSerializeValue(object component)
             {
-                object val = GetValue(component);
-
-                if (item.DefaultValue == null && val == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return !val.Equals(item.DefaultValue);
-                }
+                return false;
             }
 
             private PropertySpecEventArgs ReEvaluateAttributes()
@@ -620,28 +603,6 @@ namespace DelftTools.Utils.PropertyBag
             foreach (PropertySpec property in Properties)
             {
                 var attrs = new ArrayList();
-
-                // If a category, description, editor, or type converter are specified
-                // in the PropertySpec, create attributes to define that relationship.
-                if (property.Category != null)
-                {
-                    attrs.Add(new CategoryAttribute(property.Category));
-                }
-
-                if (property.Description != null)
-                {
-                    attrs.Add(new DescriptionAttribute(property.Description));
-                }
-
-                if (property.EditorTypeName != null)
-                {
-                    attrs.Add(new EditorAttribute(property.EditorTypeName, typeof(UITypeEditor)));
-                }
-
-                if (property.ConverterTypeName != null)
-                {
-                    attrs.Add(new TypeConverterAttribute(property.ConverterTypeName));
-                }
 
                 // Additionally, append the custom attributes associated with the
                 // PropertySpec, if any.
