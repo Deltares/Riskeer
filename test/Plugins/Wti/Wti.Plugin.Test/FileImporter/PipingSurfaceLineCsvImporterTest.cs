@@ -215,5 +215,37 @@ namespace Wti.Plugin.Test.FileImporter
                 "No items should be added to collection when import is aborted.");
             mocks.VerifyAll(); // Expect no calls on 'observer'
         }
+
+        [Test]
+        public void ImportItem_FileDoesNotExist_AbortImportAndLog()
+        {
+            // Setup
+            string corruptPath = Path.Combine(testDataPath, "I_dont_exists.csv");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            object importedItem = null;
+
+            // Call
+            Action call = () => importedItem = importer.ImportItem(corruptPath, observableSurfaceLinesList);
+
+            // Assert
+            var internalErrorMessage = String.Format(WtiIOResources.Error_File_0_does_not_exist,
+                                                     corruptPath);
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
+                                                   corruptPath, internalErrorMessage);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            Assert.AreSame(observableSurfaceLinesList, importedItem);
+            CollectionAssert.IsEmpty(observableSurfaceLinesList,
+                "No items should be added to collection when import is aborted.");
+            mocks.VerifyAll(); // Expect no calls on 'observer'
+        }
     }
 }

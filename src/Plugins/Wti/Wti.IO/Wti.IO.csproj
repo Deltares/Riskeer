@@ -50,6 +50,7 @@
     <Compile Include="..\..\..\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Exceptions\CriticalFileReadException.cs" />
     <Compile Include="PipingSoilProfilesReader.cs" />
     <Compile Include="PipingSurfaceLinesCsvReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

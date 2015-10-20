@@ -9,6 +9,7 @@ using log4net;
 
 using Wti.Data;
 using Wti.IO;
+using Wti.IO.Exceptions;
 
 using WtiFormsResources = Wti.Forms.Properties.Resources;
 using ApplicationResources = Wti.Plugin.Properties.Resources;
@@ -137,9 +138,20 @@ namespace Wti.Plugin.FileImporter
 
             var stepName = String.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_0_,
                                          Path.GetFileName(path));
-            var itemCount = reader.GetSurfaceLinesCount();
 
-            NotifyProgress(stepName, 0, itemCount);
+            int itemCount;
+            try
+            {
+                itemCount = reader.GetSurfaceLinesCount();
+                NotifyProgress(stepName, 0, itemCount);
+            }
+            catch (CriticalFileReadException e)
+            {
+                var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
+                                            path, e.Message);
+                log.Error(message, e);
+                return new SurfaceLinesFileReadResult(true);
+            }
 
             var readSurfaceLines = new List<PipingSurfaceLine>(itemCount);
             for (int i = 0; i < itemCount && !ShouldCancel; i++)

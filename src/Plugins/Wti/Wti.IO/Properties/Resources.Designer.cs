@@ -61,6 +61,42 @@ namespace Wti.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het bestandspad &apos;{0}&apos; verwijst naar een map die niet bestaat..
+        /// </summary>
+        public static string Error_Directory_in_path_0_missing {
+            get {
+                return ResourceManager.GetString("Error_Directory_in_path_0_missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand op &apos;{0}&apos; heeft op regel {1} teveel tekst om in het RAM geheugen opgeslagen te worden..
+        /// </summary>
+        public static string Error_File_0_contains_Line_1_too_big {
+            get {
+                return ResourceManager.GetString("Error_File_0_contains_Line_1_too_big", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand op &apos;{0}&apos; bestaat niet..
+        /// </summary>
+        public static string Error_File_0_does_not_exist {
+            get {
+                return ResourceManager.GetString("Error_File_0_does_not_exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een onverwachte inleesfout opgetreden tijdens het lezen van het bestand &apos;{0}&apos;: {1}.
+        /// </summary>
+        public static string Error_General_IO_File_0_ErrorMessage_1_ {
+            get {
+                return ResourceManager.GetString("Error_General_IO_File_0_ErrorMessage_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bestandspad mag niet de volgende tekens bevatten: {0}.
         /// </summary>
         public static string Error_PathCannotContainCharacters_0_ {
@@ -84,6 +120,15 @@ namespace Wti.IO.Properties {
         public static string Error_PathMustNotPointToFolder {
             get {
                 return ResourceManager.GetString("Error_PathMustNotPointToFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand op &apos;{0}&apos; heeft op regel {1} teveel tekst om in het RAM geheugen opgeslagen te worden..
+        /// </summary>
+        public static string Error_Unexpected_IOError_File_0_Line_1_ {
+            get {
+                return ResourceManager.GetString("Error_Unexpected_IOError_File_0_Line_1_", resourceCulture);
             }
         }
     }
