@@ -14,11 +14,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
 
         private static readonly ICoordinate emptyCoordinate = null;
 
-        /// <summary>
-        /// Represents an empty <c>Point</c>.
-        /// </summary>
-        public static readonly IPoint Empty = new GeometryFactory().CreatePoint(emptyCoordinate);
-
         /// <summary>  
         /// The <c>Coordinate</c> wrapped by this <c>Point</c>.
         /// </summary>
@@ -55,7 +50,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
                 {});
             }
             Debug.Assert(coordinates.Count <= 1);
-            this.coordinates = (ICoordinateSequence) coordinates;
+            this.coordinates = coordinates;
             GeometryChangedAction();
         }
 
@@ -111,7 +106,7 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
             get
             {
                 return IsEmpty ? new ICoordinate[]
-                {} : new ICoordinate[]
+                {} : new[]
                 {
                     Coordinate
                 };

@@ -39,8 +39,6 @@ namespace DeltaShell.Plugins.CommonTools.Tests
         public int Count { get; private set; }
         public bool IsReadOnly { get; private set; }
 
-        bool INotifyCollectionChange.HasParentIsCheckedInItems { get; set; }
-
         public bool SkipChildItemEventBubbling
         {
             get

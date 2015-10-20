@@ -209,7 +209,6 @@ namespace SharpMap.Layers
             }
         }
 
-        bool INotifyCollectionChange.HasParentIsCheckedInItems { get; set; }
         bool INotifyCollectionChange.SkipChildItemEventBubbling { get; set; }
 
         public virtual IEnumerable<ILayer> GetAllLayers(bool includeGroupLayers)

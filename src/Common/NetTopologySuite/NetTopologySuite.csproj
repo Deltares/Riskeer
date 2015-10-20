@@ -110,7 +110,6 @@
     <Compile Include="Geometries\CoordinateArraySequence.cs" />
     <Compile Include="Geometries\CoordinateArraySequenceFactory.cs" />
     <Compile Include="Geometries\CoordinateList.cs" />
-    <Compile Include="Geometries\DefaultCoordinateSequence.cs" />
     <Compile Include="Geometries\Envelope.cs" />
     <Compile Include="Geometries\Geometry.cs" />
     <Compile Include="Geometries\GeometryCollection.cs" />
@@ -297,7 +296,6 @@
     <Compile Include="Planargraph\PlanarGraph.cs" />
     <Compile Include="Planargraph\Subgraph.cs" />
     <Compile Include="Precision\CommonBits.cs" />
-    <Compile Include="Precision\CommonBitsOp.cs" />
     <Compile Include="Precision\CommonBitsRemover.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Triangulate\IConstraintSplitPointFinder.cs" />

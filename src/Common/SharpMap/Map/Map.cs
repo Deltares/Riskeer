@@ -1688,7 +1688,6 @@ namespace SharpMap
         public virtual event NotifyCollectionChangedEventHandler CollectionChanged;
         public virtual event NotifyCollectionChangingEventHandler CollectionChanging;
 
-        bool INotifyCollectionChange.HasParentIsCheckedInItems { get; set; }
         bool INotifyCollectionChange.SkipChildItemEventBubbling { get; set; }
 
         public virtual bool HasDefaultEnvelopeSet

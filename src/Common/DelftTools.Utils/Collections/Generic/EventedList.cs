@@ -40,8 +40,6 @@ namespace DelftTools.Utils.Collections.Generic
 
         private bool skipChildItemEventBubbling;
 
-        bool INotifyCollectionChange.HasParentIsCheckedInItems { get; set; }
-
         bool INotifyCollectionChange.SkipChildItemEventBubbling
         {
             get

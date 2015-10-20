@@ -6,14 +6,9 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
 {
     /// <summary>
     /// Basic implementation of <c>MultiLineString</c>.
-    /// </summary>    
+    /// </summary>
     public class MultiLineString : GeometryCollection, IMultiLineString
     {
-        /// <summary>
-        /// Represents an empty <c>MultiLineString</c>.
-        /// </summary>
-        public new static readonly IMultiLineString Empty = new GeometryFactory().CreateMultiLineString(null);
-
         /// <summary>
         /// Constructs a <c>MultiLineString</c>.
         /// </summary>

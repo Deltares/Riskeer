@@ -231,8 +231,6 @@ namespace DelftTools.Utils.Tests.Collections.Generic
             public event NotifyCollectionChangingEventHandler CollectionChanging;
 #pragma warning restore 67
 
-            bool INotifyCollectionChange.HasParentIsCheckedInItems { get; set; }
-
             public bool SkipChildItemEventBubbling
             {
                 get
