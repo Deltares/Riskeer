@@ -120,7 +120,6 @@
     <Compile Include="SnappingCalculatorTest.cs" />
     <Compile Include="StringExtensionsTests.cs" />
     <Compile Include="TestHelperTests.cs" />
-    <Compile Include="TestReferenceHelperTest.cs" />
     <Compile Include="TextDocumentBaseTest.cs" />
     <Compile Include="TextDocumentTest.cs" />
     <Compile Include="Threading\ThreadedWorkerTest.cs" />

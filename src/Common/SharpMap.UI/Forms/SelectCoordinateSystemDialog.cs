@@ -8,10 +8,8 @@ namespace SharpMap.UI.Forms
 {
     public partial class SelectCoordinateSystemDialog : Form
     {
-        public event Action<ICoordinateSystem> SelectedCoordinateSystemChanged;
         private readonly List<TreeNode> gcsNodes = new List<TreeNode>();
         private readonly List<TreeNode> pcsNodes = new List<TreeNode>();
-        private readonly List<TreeNode> customNodes = new List<TreeNode>();
 
         private readonly Timer timerFilterChanged;
 
@@ -173,11 +171,6 @@ namespace SharpMap.UI.Forms
 
         private void TreeViewProjectionsOnAfterSelect(object sender, TreeViewEventArgs treeViewEventArgs)
         {
-            if (treeViewProjections.SelectedNode != null && SelectedCoordinateSystemChanged != null)
-            {
-                SelectedCoordinateSystemChanged(treeViewProjections.SelectedNode.Tag as ICoordinateSystem);
-            }
-
             if (treeViewProjections.SelectedNode != null && treeViewProjections.SelectedNode.Tag is ICoordinateSystem)
             {
                 var crs = treeViewProjections.SelectedNode.Tag as ICoordinateSystem;

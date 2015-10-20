@@ -14,13 +14,6 @@ namespace SharpMap.Extensions.CoordinateSystems
             GdalConfiguration.ConfigureGdal();
         }
 
-        public OgrCoordinateSystem(IntPtr cPtr, bool cMemoryOwn, object parent) : base(cPtr, cMemoryOwn, parent)
-        {
-            IsLoaded = false;
-        }
-
-        public OgrCoordinateSystem() : this("") {}
-
         public OgrCoordinateSystem(long authorityCode, string name, bool isGeographic) : this("")
         {
             AuthorityCode = authorityCode;
@@ -105,20 +98,6 @@ namespace SharpMap.Extensions.CoordinateSystems
         public double[] DefaultEnvelope { get; private set; }
 
         public bool IsGeographic { get; private set; }
-
-        public static string ExportToPrettyWkt(ICoordinateSystem coordinateSystem)
-        {
-            var ogrCoordinateSystem = coordinateSystem as OgrCoordinateSystem;
-
-            if (ogrCoordinateSystem == null)
-            {
-                return null;
-            }
-
-            string wkt;
-            ogrCoordinateSystem.ExportToPrettyWkt(out wkt, 1);
-            return wkt;
-        }
 
         public void Load()
         {

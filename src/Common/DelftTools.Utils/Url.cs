@@ -16,11 +16,6 @@ namespace DelftTools.Utils
 
         private string name;
 
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public Url() : this("new url", "about:blank") {}
-
         public Url(string name, string path)
         {
             this.name = name;

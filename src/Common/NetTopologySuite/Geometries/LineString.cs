@@ -11,12 +11,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
     [Serializable]
     public class LineString : Geometry, ILineString
     {
-        /// <summary>
-        /// Represents an empty <c>LineString</c>.
-        /// </summary>
-        public static readonly ILineString Empty = new GeometryFactory().CreateLineString(new ICoordinate[]
-        {});
-
         /// <summary>  
         /// The points of this <c>LineString</c>.
         /// </summary>
@@ -57,51 +51,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         /// <param name="points">The coordinates used for create this <see cref="LineString" />.</param>
         public LineString(ICoordinate[] points) :
             this(DefaultFactory.CoordinateSequenceFactory.Create(points), DefaultFactory) {}
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public ICoordinate this[int n]
-        {
-            get
-            {
-                return points.GetCoordinate(n);
-            }
-            set
-            {
-                points.SetOrdinate(n, Ordinates.X, value.X);
-                points.SetOrdinate(n, Ordinates.Y, value.Y);
-                points.SetOrdinate(n, Ordinates.Z, value.Z);
-                GeometryChangedAction();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <value></value>
-        public int Count
-        {
-            get
-            {
-                return points.Count;
-            }
-        }
-
-        /// <summary>
-        /// Returns the value of the angle (degrees (0-360) between the <see cref="StartPoint" />
-        /// and the <see cref="EndPoint" />.
-        /// </summary>
-        public double Angle
-        {
-            get
-            {
-                double angleRAD = Math.Atan((EndPoint.X - StartPoint.X)/(EndPoint.Y - StartPoint.Y));
-                return (angleRAD*180)/Math.PI;
-            }
-        }
 
         /// <summary>
         /// 
@@ -293,29 +242,12 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
                 {
                     return Factory.CreateMultiPoint((ICoordinate[]) null);
                 }
-                return Factory.CreateMultiPoint(new IPoint[]
+                return Factory.CreateMultiPoint(new[]
                 {
                     StartPoint,
                     EndPoint
                 });
             }
-        }
-
-        /// <summary>
-        /// Returns true if the given point is a vertex of this <c>LineString</c>.
-        /// </summary>
-        /// <param name="pt">The <c>Coordinate</c> to check.</param>
-        /// <returns><c>true</c> if <c>pt</c> is one of this <c>LineString</c>'s vertices.</returns>
-        public bool IsCoordinate(ICoordinate pt)
-        {
-            for (int i = 0; i < points.Count; i++)
-            {
-                if (points.GetCoordinate(i).Equals(pt))
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         /// <summary>

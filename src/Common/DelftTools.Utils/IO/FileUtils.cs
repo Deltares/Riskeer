@@ -17,8 +17,6 @@ namespace DelftTools.Utils.IO
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(FileUtils));
 
-        private static Regex fileFilterRegex = new Regex(@"^(\||\;)+\s*[\*\w]+\.\w+");
-
         /// <summary>
         /// Copy all files and folders in a directory to another directory
         /// 

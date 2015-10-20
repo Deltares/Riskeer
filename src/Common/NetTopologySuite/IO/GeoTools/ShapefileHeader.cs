@@ -64,11 +64,6 @@ namespace GisSharpBlog.NetTopologySuite.IO
         }
 
         /// <summary>
-        /// Initializes a new instance of the ShapefileHeader class.
-        /// </summary>
-        public ShapefileHeader() {}
-
-        /// <summary>
         /// Gets and sets the bounds of the shape file.
         /// </summary>
         public IEnvelope Bounds { get; set; }
@@ -115,51 +110,6 @@ namespace GisSharpBlog.NetTopologySuite.IO
             set
             {
                 _fileLength = value;
-            }
-        }
-
-        /// <summary>
-        /// Writes a shapefile header to the given stream;
-        /// </summary>
-        /// <param name="file">The binary writer to use.</param>
-        public void Write(BigEndianBinaryWriter file)
-        {
-            if (file == null)
-            {
-                throw new ArgumentNullException("file");
-            }
-            if (_fileLength == -1)
-            {
-                throw new InvalidOperationException("The header properties need to be set before writing the header record.");
-            }
-            int pos = 0;
-            file.WriteIntBE(_fileCode);
-            pos += 4;
-            for (int i = 0; i < 5; i++)
-            {
-                file.WriteIntBE(0); //Skip unused part of header
-                pos += 4;
-            }
-            file.WriteIntBE(_fileLength);
-            pos += 4;
-            file.Write(_version);
-            pos += 4;
-
-            file.Write(int.Parse(Enum.Format(typeof(ShapeGeometryType), _shapeType, "d")));
-
-            pos += 4;
-            // Write the bounding box
-            file.Write(Bounds.MinX);
-            file.Write(Bounds.MinY);
-            file.Write(Bounds.MaxX);
-            file.Write(Bounds.MaxY);
-            pos += 8*4;
-
-            // Skip remaining unused bytes
-            for (int i = 0; i < 4; i++)
-            {
-                file.Write(0.0); // Skip unused part of header
-                pos += 8;
             }
         }
     }

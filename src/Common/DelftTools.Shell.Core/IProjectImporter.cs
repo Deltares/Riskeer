@@ -12,6 +12,6 @@ namespace DelftTools.Shell.Core
         /// <summary>
         /// Project service used to open the project to import
         /// </summary>
-        IProjectService ProjectService { get; set; }
+        IProjectService ProjectService { set; }
     }
 }

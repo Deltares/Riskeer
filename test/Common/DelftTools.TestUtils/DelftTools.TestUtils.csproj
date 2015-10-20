@@ -39,14 +39,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-	<WarningLevel>4</WarningLevel>
+    <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\Release\</OutputPath>
-	<WarningLevel>4</WarningLevel>
+    <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DefineConstants>TRACE</DefineConstants>
@@ -104,9 +104,6 @@
     </Compile>
     <Compile Include="TestDataPath.cs" />
     <Compile Include="TestHelper.cs" />
-    <Compile Include="TestReferenceHelper\ReferenceLink.cs" />
-    <Compile Include="TestReferenceHelper\ReferenceNode.cs" />
-    <Compile Include="TestReferenceHelper\TestReferenceHelper.cs" />
     <Compile Include="WindowsFormsTestHelper.cs">
       <SubType>Form</SubType>
     </Compile>

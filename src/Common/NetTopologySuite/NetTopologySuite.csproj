@@ -190,7 +190,6 @@
     <Compile Include="IO\BEBinaryReader.cs" />
     <Compile Include="IO\BEBinaryWriter.cs" />
     <Compile Include="IO\GeoTools\BigEndianBinaryReader.cs" />
-    <Compile Include="IO\GeoTools\BigEndianBinaryWriter.cs" />
     <Compile Include="IO\GeoTools\Dbase\ColumnStructure.cs" />
     <Compile Include="IO\GeoTools\Dbase\DbaseFieldDescriptor.cs" />
     <Compile Include="IO\GeoTools\Dbase\DbaseFileHeader.cs" />
