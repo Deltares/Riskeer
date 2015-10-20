@@ -1,28 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace Wti.Data
 {
     /// <summary>
     /// This class represents a soil profile, which was imported for use in a piping calculation.
     /// </summary>
-    public class PipingSoilProfile
+    public class PipingSoilProfile : IEnumerable<PipingSoilLayer>
     {
-        public PipingSoilProfile(long id, string name)
+        public PipingSoilProfile(string name, IEnumerable<PipingSoilLayer> layers)
         {
-            Id = id;
             Name = name;
-            Layers = new List<PipingSoilLayer>();
+            Layers = layers;
         }
 
         public string Name { get; private set; }
 
-        private ICollection<PipingSoilLayer> Layers { get; set; }
-
-        public long Id { get; private set; }
-
-        public void Add(PipingSoilLayer pipingSoilLayer)
+        public IEnumerator<PipingSoilLayer> GetEnumerator()
         {
-            Layers.Add(pipingSoilLayer);
+            return Layers.GetEnumerator();
         }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerable<PipingSoilLayer> Layers { get; private set; }
     }
 }

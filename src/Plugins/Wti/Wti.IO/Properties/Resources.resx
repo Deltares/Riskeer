@@ -147,4 +147,7 @@
   <data name="PipingSurfaceLinesCsvReader_File_0_invalid_header" xml:space="preserve">
     <value>Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
   </data>
+  <data name="Error_SoilProfileReadFromDatabase" xml:space="preserve">
+    <value>Kon geen ondergrond profielen verkrijgen van de database '{0}'.</value>
+  </data>
 </root>
