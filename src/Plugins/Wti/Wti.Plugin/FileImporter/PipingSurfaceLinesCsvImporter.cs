@@ -93,15 +93,18 @@ namespace Wti.Plugin.FileImporter
 
         public object ImportItem(string path, object target = null)
         {
-            var readSurfaceLines = ReadPipingSurfaceLines(path);
+            var importResult = ReadPipingSurfaceLines(path);
 
-            if (!ShouldCancel)
+            if (!importResult.CriticalErrorOccurred)
             {
-                AddImportedDataToModel(target, readSurfaceLines);
-            }
-            else
-            {
-                HandleUserCancellingImport();
+                if (!ShouldCancel)
+                {
+                    AddImportedDataToModel(target, importResult.ImportedSurfaceLines);
+                }
+                else
+                {
+                    HandleUserCancellingImport();
+                }
             }
 
             return target;
@@ -115,29 +118,44 @@ namespace Wti.Plugin.FileImporter
             }
         }
 
-        private List<PipingSurfaceLine> ReadPipingSurfaceLines(string path)
+        private SurfaceLinesFileReadResult ReadPipingSurfaceLines(string path)
         {
-            var stepName = String.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_0_, Path.GetFileName(path));
+            var log = LogManager.GetLogger(GetType());
 
-            List<PipingSurfaceLine> readSurfaceLines;
-            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            PipingSurfaceLinesCsvReader reader;
+            try
             {
-                var itemCount = reader.GetSurfaceLinesCount();
-
-                NotifyProgress(stepName, 0, itemCount);
-
-                readSurfaceLines = new List<PipingSurfaceLine>(itemCount);
-                for (int i = 0; i < itemCount && !ShouldCancel; i++)
-                {
-                    readSurfaceLines.Add(reader.ReadLine());
-
-                    NotifyProgress(stepName, i+1, itemCount);
-                }
+                reader = new PipingSurfaceLinesCsvReader(path);
             }
-            return readSurfaceLines;
+            catch (ArgumentException e)
+            {
+                var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
+                                            path, e.Message);
+                log.Error(message, e);
+                return new SurfaceLinesFileReadResult(true);
+            }
+
+            var stepName = String.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_0_,
+                                         Path.GetFileName(path));
+            var itemCount = reader.GetSurfaceLinesCount();
+
+            NotifyProgress(stepName, 0, itemCount);
+
+            var readSurfaceLines = new List<PipingSurfaceLine>(itemCount);
+            for (int i = 0; i < itemCount && !ShouldCancel; i++)
+            {
+                readSurfaceLines.Add(reader.ReadLine());
+
+                NotifyProgress(stepName, i + 1, itemCount);
+            }
+
+            return new SurfaceLinesFileReadResult(false)
+            {
+                ImportedSurfaceLines = readSurfaceLines
+            };
         }
 
-        private void AddImportedDataToModel(object target, List<PipingSurfaceLine> readSurfaceLines)
+        private void AddImportedDataToModel(object target, ICollection<PipingSurfaceLine> readSurfaceLines)
         {
             NotifyProgress(ApplicationResources.PipingSurfaceLinesCsvImporter_AddingImportedDataToModel, readSurfaceLines.Count, readSurfaceLines.Count);
 
@@ -157,6 +175,19 @@ namespace Wti.Plugin.FileImporter
         private void HandleUserCancellingImport()
         {
             LogManager.GetLogger(GetType()).Info(ApplicationResources.PipingSurfaceLinesCsvImporter_ImportItem_ImportCancelled);
+        }
+
+        private class SurfaceLinesFileReadResult
+        {
+            public SurfaceLinesFileReadResult(bool errorOccurred)
+            {
+                CriticalErrorOccurred = errorOccurred;
+                ImportedSurfaceLines = new PipingSurfaceLine[0];
+            }
+
+            public ICollection<PipingSurfaceLine> ImportedSurfaceLines { get; set; }
+
+            public bool CriticalErrorOccurred { get; private set; }
         }
     }
 }

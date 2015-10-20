@@ -79,6 +79,15 @@ namespace Wti.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens het inlezen van &apos;{0}&apos; waardoor import niet uitgevoerd kan worden: {1}.
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dwarsdoorsneden importeren afgebroken; Geen data ingelezen..
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_ImportItem_ImportCancelled {

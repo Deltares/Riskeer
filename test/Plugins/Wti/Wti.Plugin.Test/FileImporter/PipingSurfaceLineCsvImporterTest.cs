@@ -13,6 +13,7 @@ using Rhino.Mocks;
 using Wti.Data;
 using Wti.Plugin.FileImporter;
 using WtiFormsResources = Wti.Forms.Properties.Resources;
+using WtiIOResources = Wti.IO.Properties.Resources;
 using ApplicationResources = Wti.Plugin.Properties.Resources;
 
 namespace Wti.Plugin.Test.FileImporter
@@ -180,6 +181,39 @@ namespace Wti.Plugin.Test.FileImporter
             CollectionAssert.IsEmpty(observableSurfaceLinesList);
 
             mocks.VerifyAll(); // 'observer' should not be notified
+        }
+
+        [Test]
+        public void ImportItem_PathIsInvalid_AbortImportAndLog()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
+            string corruptPath = validFilePath.Replace('S', Path.GetInvalidPathChars().First());
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            object importedItem = null;
+
+            // Call
+            Action call = () => importedItem = importer.ImportItem(corruptPath, observableSurfaceLinesList);
+
+            // Assert
+            var internalErrorMessage = String.Format(WtiIOResources.Error_PathCannotContainCharacters_0_,
+                                                     String.Join(", ", Path.GetInvalidFileNameChars()));
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
+                                                   corruptPath, internalErrorMessage);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            Assert.AreSame(observableSurfaceLinesList, importedItem);
+            CollectionAssert.IsEmpty(observableSurfaceLinesList,
+                "No items should be added to collection when import is aborted.");
+            mocks.VerifyAll(); // Expect no calls on 'observer'
         }
     }
 }

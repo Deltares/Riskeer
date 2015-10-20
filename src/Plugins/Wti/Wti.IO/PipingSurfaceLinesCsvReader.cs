@@ -27,13 +27,35 @@ namespace Wti.IO
         /// and opens a given file path.
         /// </summary>
         /// <param name="path">The path to the file to be read.</param>
+        /// <exception cref="ArgumentException"><paramref name="path"/> is invalid.</exception>
         public PipingSurfaceLinesCsvReader(string path)
+        {
+            CheckIfPathIsValid(path);
+            
+            filePath = path;
+        }
+
+        private void CheckIfPathIsValid(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
             {
                 throw new ArgumentException(Resources.Error_PathMustBeSpecified);
             }
-            filePath = path;
+
+            string name;
+            try
+            {
+                name = Path.GetFileName(path);
+            }
+            catch (ArgumentException e)
+            {
+                throw new ArgumentException(String.Format(Resources.Error_PathCannotContainCharacters_0_,
+                                                          String.Join(", ", Path.GetInvalidFileNameChars())), e);
+            }
+            if (string.Empty == name)
+            {
+                throw new ArgumentException(Resources.Error_PathMustNotPointToFolder);
+            }
         }
 
         public void Dispose()
@@ -54,6 +76,7 @@ namespace Wti.IO
         /// <exception cref="DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive.</exception>
         /// <exception cref="IOException">Filepath includes an incorrect or invalid syntax for file name, directory name, or volume label.</exception>
         /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
+        /// <exception cref="FormatException">The file in not properly formatted.</exception>
         public int GetSurfaceLinesCount()
         {
             var count = 0;
@@ -84,6 +107,8 @@ namespace Wti.IO
         /// <exception cref="DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive.</exception>
         /// <exception cref="IOException">Filepath includes an incorrect or invalid syntax for file name, directory name, or volume label.</exception>
         /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
+        /// <exception cref="FormatException">A coordinate value does not represent a number in a valid format or the line is incorrectly formatted.</exception>
+        /// <exception cref="OverflowException">A coordinate value represents a number that is less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
         public PipingSurfaceLine ReadLine()
         {
             if (fileReader == null)

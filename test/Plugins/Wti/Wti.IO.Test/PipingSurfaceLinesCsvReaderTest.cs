@@ -5,26 +5,58 @@ using System.Linq;
 using DelftTools.TestUtils;
 
 using NUnit.Framework;
+using IOResources = Wti.IO.Properties.Resources;
 
 namespace Wti.IO.Test
 {
     [TestFixture]
     public class PipingSurfaceLinesCsvReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Plugins.Wti.WtiIOPath, "PipingSurfaceLinesCsvReader");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Plugins.Wti.WtiIOPath, "PipingSurfaceLinesCsvReader" + Path.DirectorySeparatorChar);
 
         [Test]
         [TestCase("")]
         [TestCase(null)]
         [TestCase("     ")]
-        public void ParameterdConstructor_InvalidStringArgument_ArgumentException(string path)
+        public void ParameterdConstructor_InvalidStringArgument_ThrowsArgumentException(string path)
         {
             // Call
             TestDelegate call = () => new PipingSurfaceLinesCsvReader(path);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("Bestandspad mag niet leeg of ongedefinieerd zijn.", exception.Message);
+            Assert.AreEqual(IOResources.Error_PathMustBeSpecified, exception.Message);
+        }
+
+        [Test]
+        public void ParameterdConstructor_InvalidPathCharactersInPath_ThrowsArgumentException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
+
+            var invalidCharacters = Path.GetInvalidPathChars();
+
+            var corruptPath = path.Replace('V', invalidCharacters[0]);
+
+            // Call
+            TestDelegate call = () => new PipingSurfaceLinesCsvReader(corruptPath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            var expectedMessage = String.Format(IOResources.Error_PathCannotContainCharacters_0_,
+                String.Join(", ", Path.GetInvalidFileNameChars()));
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
+        public void ParametersConstructor_PathToFolder_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate call = () => new PipingSurfaceLinesCsvReader(testDataPath);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual(IOResources.Error_PathMustNotPointToFolder, exception.Message);
         }
 
         [Test]

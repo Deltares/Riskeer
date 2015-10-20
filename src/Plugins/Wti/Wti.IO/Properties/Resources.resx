@@ -120,4 +120,10 @@
   <data name="Error_PathMustBeSpecified" xml:space="preserve">
     <value>Bestandspad mag niet leeg of ongedefinieerd zijn.</value>
   </data>
+  <data name="Error_PathMustNotPointToFolder" xml:space="preserve">
+    <value>Bestandspad mag niet naar een map verwijzen.</value>
+  </data>
+  <data name="Error_PathCannotContainCharacters_0_" xml:space="preserve">
+    <value>Bestandspad mag niet de volgende tekens bevatten: {0}</value>
+  </data>
 </root>
