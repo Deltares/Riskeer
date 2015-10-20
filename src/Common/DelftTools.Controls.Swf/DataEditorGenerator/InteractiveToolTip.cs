@@ -132,13 +132,6 @@ namespace DelftTools.Controls.Swf.DataEditorGenerator
             }
 
             [StructLayout(LayoutKind.Sequential)]
-            public struct SIZE
-            {
-                public readonly int cx;
-                public readonly int cy;
-            }
-
-            [StructLayout(LayoutKind.Sequential)]
             public struct TOOLINFO
             {
                 public int cbSize;

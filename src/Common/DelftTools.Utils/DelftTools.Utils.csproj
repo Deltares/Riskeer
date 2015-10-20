@@ -106,7 +106,6 @@
     <Compile Include="..\..\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="AlphanumComparator.cs" />
     <Compile Include="Aop\EditActionAttribute.cs" />
     <Compile Include="Aop\ICustomNotifyCollectionChange.cs" />
     <Compile Include="Aop\ManualAspectInitializer.cs" />
@@ -214,7 +213,6 @@
     <Compile Include="Validation\ValidationIssue.cs" />
     <Compile Include="Validation\ValidationReport.cs" />
     <Compile Include="Validation\ValidationSeverity.cs" />
-    <Compile Include="WeakDictionary.cs" />
     <Compile Include="WeakEventHandler.cs" />
     <Compile Include="FormulaParser\ExcelFormula.cs" />
     <Compile Include="FormulaParser\ExcelFormulaToken.cs" />

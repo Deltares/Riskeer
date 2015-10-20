@@ -101,15 +101,11 @@
   <ItemGroup>
     <Compile Include="Converters\Geometries\GeometryFactory.cs" />
     <Compile Include="Converters\WellKnownBinary\GeometryFromWKB.cs" />
-    <Compile Include="Converters\WellKnownBinary\GeometryToWKB.cs" />
     <Compile Include="Converters\WellKnownBinary\WKBByteOrder.cs" />
     <Compile Include="Converters\WellKnownBinary\WKBGeometryType.cs" />
     <Compile Include="Converters\WellKnownText\GeometryFromWKT.cs" />
-    <Compile Include="Converters\WellKnownText\GeometryToWKT.cs" />
-    <Compile Include="Converters\WellKnownText\SpatialReference.cs" />
     <Compile Include="Converters\WellKnownText\StreamTokenizer.cs" />
     <Compile Include="Converters\WellKnownText\TokenType.cs" />
-    <Compile Include="Converters\WellKnownText\WKTStreamTokenizer.cs" />
     <Compile Include="CoordinateSystems\CoordinateSystemValidator.cs" />
     <Compile Include="CoordinateSystems\Transformations\CoordinateTransformationException.cs" />
     <Compile Include="CoordinateSystems\Transformations\GeometryTransform.cs" />
@@ -127,9 +123,6 @@
     </Compile>
     <Compile Include="Data\Providers\EGIS.ShapeFileLib\PolygonRecordP.cs" />
     <Compile Include="Data\Providers\EGIS.ShapeFileLib\QuadTree.cs" />
-    <Compile Include="Data\Providers\EGIS.ShapeFileLib\RectangleD.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Data\Providers\ShapeFileMainHeader.cs" />
     <Compile Include="Data\Providers\EGIS.ShapeFileLib\ShapeType.cs" />
     <Compile Include="Data\Providers\EGIS.ShapeFileLib\SizeD.cs">
@@ -208,14 +201,9 @@
     <Compile Include="Styles\Style.cs" />
     <Compile Include="Styles\VectorStyle.cs" />
     <Compile Include="Utilities\Indexing\BinaryTree.cs" />
-    <Compile Include="Utilities\Indexing\SpatialIndexing.cs" />
     <Compile Include="Utilities\Transform.cs" />
-    <Compile Include="Web\Cache.cs" />
-    <Compile Include="Web\HttpHandler.cs" />
     <Compile Include="Web\Wms\Capabilities.cs" />
     <Compile Include="Web\Wms\Client.cs" />
-    <Compile Include="Web\Wms\WmsException.cs" />
-    <Compile Include="Web\Wms\WmsServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DelftTools.snk" />

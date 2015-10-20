@@ -216,7 +216,6 @@
     <Compile Include="IO\WKTWriter.cs" />
     <Compile Include="LinearReferencing\LinearIterator.cs" />
     <Compile Include="LinearReferencing\LinearLocation.cs" />
-    <Compile Include="LinearReferencing\LocationIndexOfLine.cs" />
     <Compile Include="LinearReferencing\LocationIndexOfPoint.cs" />
     <Compile Include="Mathematics\DD.cs" />
     <Compile Include="Noding\IntersectionAdder.cs" />
@@ -252,8 +251,6 @@
     <Compile Include="Operation\Linemerge\LineMergeDirectedEdge.cs" />
     <Compile Include="Operation\Linemerge\LineMergeEdge.cs" />
     <Compile Include="Operation\Linemerge\LineMergeGraph.cs" />
-    <Compile Include="Operation\Linemerge\LineMerger.cs" />
-    <Compile Include="Operation\Linemerge\LineSequencer.cs" />
     <Compile Include="Operation\Overlay\LineBuilder.cs" />
     <Compile Include="Operation\Overlay\MaximalEdgeRing.cs" />
     <Compile Include="Operation\Overlay\MinimalEdgeRing.cs" />
@@ -269,7 +266,6 @@
     <Compile Include="Operation\Polygonize\PolygonizeDirectedEdge.cs" />
     <Compile Include="Operation\Polygonize\PolygonizeEdge.cs" />
     <Compile Include="Operation\Polygonize\PolygonizeGraph.cs" />
-    <Compile Include="Operation\Polygonize\Polygonizer.cs" />
     <Compile Include="Operation\Predicate\RectangleContains.cs" />
     <Compile Include="Operation\Predicate\RectangleIntersects.cs" />
     <Compile Include="Operation\Predicate\SegmentIntersectionTester.cs" />
@@ -314,13 +310,9 @@
     <Compile Include="Utilities\RToolsUtil\BufferedTextReader.cs" />
     <Compile Include="Utilities\RToolsUtil\CharBuffer.cs" />
     <Compile Include="Utilities\RToolsUtil\Logger.cs" />
-    <Compile Include="Utilities\RToolsUtil\Opts.cs" />
-    <Compile Include="Utilities\RToolsUtil\ParseUtil.cs" />
-    <Compile Include="Utilities\RToolsUtil\SoftwarePackage.cs" />
     <Compile Include="Utilities\RToolsUtil\StreamTokenizer.cs" />
     <Compile Include="Utilities\RToolsUtil\Token.cs" />
     <Compile Include="Utilities\RToolsUtil\VerbosityLevel.cs" />
-    <Compile Include="Utilities\GeoToolsStreamTokenizer.cs" />
     <Compile Include="Utilities\UniqueCoordinateArrayFilter.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -461,24 +461,5 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
                 return forwardComp;
             }
         }
-
-        /// <summary>
-        /// Compares two <see cref="Coordinate" /> arrays
-        /// in the forward direction of their coordinates,
-        /// using lexicographic ordering.
-        /// </summary>        
-        public class ForwardComparator : IComparer<ICoordinate[]>
-        {
-            /// <summary>
-            /// Compares the specified <see cref="Coordinate" />s arrays.
-            /// </summary>
-            /// <param name="pts1"></param>
-            /// <param name="pts2"></param>
-            /// <returns></returns>
-            public int Compare(ICoordinate[] pts1, ICoordinate[] pts2)
-            {
-                return CoordinateArrays.Compare(pts1, pts2);
-            }
-        }
     }
 }

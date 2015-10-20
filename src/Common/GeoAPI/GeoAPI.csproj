@@ -45,7 +45,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-	<WarningLevel>0</WarningLevel>
+    <WarningLevel>0</WarningLevel>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <NoWarn>
     </NoWarn>
@@ -82,15 +82,11 @@
     <Compile Include="CoordinateSystems\IAngularUnit.cs" />
     <Compile Include="CoordinateSystems\ICompoundCoordinateSystem.cs" />
     <Compile Include="CoordinateSystems\ICoordinateSystem.cs" />
-    <Compile Include="CoordinateSystems\ICoordinateSystemAuthorityFactory.cs" />
     <Compile Include="CoordinateSystems\ICoordinateSystemFactory.cs" />
     <Compile Include="CoordinateSystems\IDatum.cs" />
     <Compile Include="CoordinateSystems\IEllipsoid.cs" />
     <Compile Include="CoordinateSystems\IFittedCoordinateSystem.cs" />
-    <Compile Include="CoordinateSystems\IGeocentricCoordinateSystem.cs" />
-    <Compile Include="CoordinateSystems\IGeodeticSpatialReference.cs" />
     <Compile Include="CoordinateSystems\IGeographicCoordinateSystem.cs" />
-    <Compile Include="CoordinateSystems\IGeographicTransform.cs" />
     <Compile Include="CoordinateSystems\IHorizontalCoordinateSystem.cs" />
     <Compile Include="CoordinateSystems\IHorizontalDatum.cs" />
     <Compile Include="CoordinateSystems\IInfo.cs" />
@@ -108,7 +104,6 @@
     <Compile Include="CoordinateSystems\ProjectionParameter.cs" />
     <Compile Include="CoordinateSystems\Transformations\DomainFlags.cs" />
     <Compile Include="CoordinateSystems\Transformations\ICoordinateTransformation.cs" />
-    <Compile Include="CoordinateSystems\Transformations\ICoordinateTransformationFactory.cs" />
     <Compile Include="CoordinateSystems\Transformations\IMathTransform.cs" />
     <Compile Include="CoordinateSystems\Transformations\IMathTransformFactory.cs" />
     <Compile Include="CoordinateSystems\Transformations\TransformType.cs" />
