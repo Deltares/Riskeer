@@ -13,7 +13,7 @@ using DelftTools.Utils.PropertyBag.Dynamic;
 using DeltaShell.Gui.Properties;
 using log4net;
 
-namespace DeltaShell.Gui
+namespace DeltaShell.Gui.Forms.PropertyGridView
 {
     public class PropertyGridView : PropertyGrid, IPropertyGrid, IObserver
     {

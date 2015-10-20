@@ -4,6 +4,7 @@ using DelftTools.Shell.Gui;
 using DelftTools.TestUtils;
 using DelftTools.Utils.PropertyBag.Dynamic;
 using DeltaShell.Gui;
+using DeltaShell.Gui.Forms.PropertyGridView;
 using NUnit.Framework;
 using Rhino.Mocks;
 
