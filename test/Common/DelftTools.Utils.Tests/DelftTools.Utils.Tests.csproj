@@ -122,25 +122,6 @@
     <Compile Include="TextDocumentTest.cs" />
     <Compile Include="Threading\ThreadedWorkerTest.cs" />
     <Compile Include="Validation\ValidationReportTest.cs" />
-    <Compile Include="WeakEventHandlerTest.cs" />
-    <Compile Include="Xml\Serialization\CustomSerializerTest.cs" />
-    <Compile Include="Xml\Serialization\DictionarySerializerTest.cs" />
-    <Compile Include="Xml\Serialization\ObjectXmlSerializerTest.cs" />
-    <Compile Include="Xml\Serialization\TestClasses\BaseClass.cs" />
-    <Compile Include="Xml\Serialization\TestClasses\DerivedClass.cs" />
-    <Compile Include="Xml\Serialization\TestClasses\TestClass.cs" />
-    <Compile Include="Xml\Serialization\TestClasses\XmlValidator.cs" />
-    <Compile Include="Xml\Serialization\TestData\Product.cs">
-      <DependentUpon>Product.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Xml\Serialization\TestData\Product.Designer.cs">
-      <DependentUpon>Product.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Xml\Serialization\TestData\Product1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Product.xsd</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Common\DelftTools.Utils\DelftTools.Utils.csproj">
@@ -154,20 +135,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Xml\Serialization\TestData\Product.xsc">
-      <DependentUpon>Product.xsd</DependentUpon>
-    </None>
-    <None Include="Xml\Serialization\TestData\Product.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Product1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Xml\Serialization\TestData\Product.xss">
-      <DependentUpon>Product.xsd</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Xml\Serialization\TestData\SomeProduct.xml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

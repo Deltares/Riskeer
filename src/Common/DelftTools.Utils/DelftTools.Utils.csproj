@@ -205,7 +205,6 @@
     <Compile Include="Validation\ValidationIssue.cs" />
     <Compile Include="Validation\ValidationReport.cs" />
     <Compile Include="Validation\ValidationSeverity.cs" />
-    <Compile Include="WeakEventHandler.cs" />
     <Compile Include="FormulaParser\ExcelFormula.cs" />
     <Compile Include="FormulaParser\ExcelFormulaToken.cs" />
     <Compile Include="IO\FileUtils.cs" />
@@ -213,11 +212,8 @@
     <Compile Include="Threading\EventsHelper.cs" />
     <Compile Include="Threading\GenericEventHandler.cs" />
     <Compile Include="Threading\NotifyingThreadQueue.cs" />
-    <Compile Include="Xml\Serialization\CustomSerializer.cs" />
     <Compile Include="Collections\Generic\EventedList.cs" />
     <Compile Include="Collections\Generic\IEventedList.cs" />
-    <Compile Include="Xml\Serialization\DictionarySerializer.cs" />
-    <Compile Include="Xml\Serialization\ObjectXmlSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,13 +222,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Uml\Workflow.cd" />
-    <None Include="Xml\Serialization\DictionarySchema.xsd">
-      <SubType>
-      </SubType>
-    </None>
-    <None Include="Xml\Serialization\DictionarySchema.xsx">
-      <DependentUpon>DictionarySchema.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
