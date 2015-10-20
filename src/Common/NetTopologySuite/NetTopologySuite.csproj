@@ -307,7 +307,6 @@
     <Compile Include="Utilities\CollectionUtil.cs" />
     <Compile Include="Utilities\GeometricShapeFactory.cs" />
     <Compile Include="Utilities\HexConverter.cs" />
-    <Compile Include="Utilities\RToolsUtil\BufferedTextReader.cs" />
     <Compile Include="Utilities\RToolsUtil\CharBuffer.cs" />
     <Compile Include="Utilities\RToolsUtil\Logger.cs" />
     <Compile Include="Utilities\RToolsUtil\StreamTokenizer.cs" />

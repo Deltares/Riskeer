@@ -16,12 +16,7 @@ namespace DelftTools.Utils.Xml.Serialization
     {
         private const string NS = "http://www.develop.com/xml/serialization";
 
-        public IDictionary dictionary;
-
-        public DictionarySerializer()
-        {
-            dictionary = new Hashtable();
-        }
+        public readonly IDictionary dictionary;
 
         public DictionarySerializer(IDictionary dictionary)
         {

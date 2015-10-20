@@ -25,8 +25,6 @@ namespace DelftTools.Shell.Gui.Swf
         private static readonly Bitmap outputFolderImage = Resources.folder_output;
         private static readonly Bitmap folderImage = Resources.Folder;
 
-        public TreeFolder(IEnumerable childItems, string text, FolderImageType imageType) : this(null, childItems, text, imageType) {}
-
         /// <summary>
         /// TODO: refactor childItems to be Func[IEnumerable] since it may change after property/collection change
         /// </summary>

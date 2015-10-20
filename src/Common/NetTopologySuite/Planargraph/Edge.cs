@@ -15,24 +15,6 @@ namespace GisSharpBlog.NetTopologySuite.Planargraph
         protected DirectedEdge[] dirEdge;
 
         /// <summary>
-        /// Constructs an Edge whose DirectedEdges are not yet set. Be sure to call
-        /// <c>SetDirectedEdges(DirectedEdge, DirectedEdge)</c>.
-        /// </summary>
-        public Edge() {}
-
-        /// <summary>
-        /// Constructs an Edge initialized with the given DirectedEdges, and for each
-        /// DirectedEdge: sets the Edge, sets the symmetric DirectedEdge, and adds
-        /// this Edge to its from-Node.
-        /// </summary>
-        /// <param name="de0"></param>
-        /// <param name="de1"></param>
-        public Edge(DirectedEdge de0, DirectedEdge de1)
-        {
-            SetDirectedEdges(de0, de1);
-        }
-
-        /// <summary>
         /// Tests whether this component has been removed from its containing graph.
         /// </summary>
         /// <value></value>

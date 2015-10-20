@@ -21,11 +21,6 @@ namespace GisSharpBlog.NetTopologySuite.IO
         /// <summary>
         /// Initializes a new instance of the <see cref="T:BEBinaryWriter"/> class.
         /// </summary>
-        public BEBinaryWriter() {}
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:BEBinaryWriter"/> class.
-        /// </summary>
         /// <param name="output">The supplied stream.</param>
         /// <exception cref="T:System.ArgumentNullException">output is null. </exception>
         /// <exception cref="T:System.ArgumentException">

@@ -26,27 +26,6 @@ namespace GisSharpBlog.NetTopologySuite.Geometries
         }
 
         /// <summary>
-        /// Constructs a new list from a collection of Coordinates,
-        /// allows repeated points.
-        /// </summary>
-        /// <param name="coordList">Collection of coordinates to load into the list.</param>
-        public CoordinateList(List<ICoordinate> coordList)
-        {
-            AddAll(coordList, true);
-        }
-
-        /// <summary>
-        /// Constructs a new list from a collection of Coordinates,
-        /// allowing caller to specify if repeated points are to be removed.
-        /// </summary>
-        /// <param name="coordList">Collection of coordinates to load into the list.</param>
-        /// <param name="allowRepeated">If <c>false</c>, repeated points are removed.</param>
-        public CoordinateList(List<ICoordinate> coordList, bool allowRepeated)
-        {
-            AddAll(coordList, allowRepeated);
-        }
-
-        /// <summary>
         /// Constructs a new list from an array of Coordinates,
         /// allowing caller to specify if repeated points are to be removed.
         /// </summary>

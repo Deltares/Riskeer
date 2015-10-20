@@ -29,12 +29,6 @@ namespace DelftTools.Utils.Collections.Generic
             Dirty = true;
         }
 
-        public EnumerableList(IEnumerable<T> enumerable)
-        {
-            Dirty = true;
-            Enumerable = enumerable;
-        }
-
         public T this[int index]
         {
             get

@@ -20,12 +20,6 @@ namespace DelftTools.Controls.Swf
         /// Initializes a new instance of the <see cref="ExceptionDialog"/> class.
         /// </summary>
         /// <param name="exception">The exception.</param>
-        public ExceptionDialog(Exception exception) : this(exception, "") {}
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ExceptionDialog"/> class.
-        /// </summary>
-        /// <param name="exception">The exception.</param>
         /// <param name="text">The text to be added after exception.</param>
         public ExceptionDialog(Exception exception, string text)
         {

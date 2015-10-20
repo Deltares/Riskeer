@@ -17,19 +17,6 @@ namespace SharpMap.UI.Tools.Decorations
         private readonly bool ImageIsVectorBased = false;
 
         /// <summary>
-        /// Creates the north arrow layout component showing a specified bitmap.
-        /// </summary>
-        /// <param name="northArrowBitmap">The bitmap image to show</param>
-        /// <param name="mapControl">The map control it operates on</param>
-        public NorthArrowTool(Bitmap northArrowBitmap)
-        {
-            this.northArrowBitmap = northArrowBitmap;
-            // The size of this component is defined by the size of the bitmap
-            size = northArrowBitmap.Size;
-            Name = "NorthArrow";
-        }
-
-        /// <summary>
         /// Creates the north arrow layout component showing default bitmap.
         /// </summary>
         /// <param name="northArrowBitmap">The bitmap image to show</param>

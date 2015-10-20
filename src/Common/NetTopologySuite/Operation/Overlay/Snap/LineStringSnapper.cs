@@ -17,15 +17,6 @@ namespace GisSharpBlog.NetTopologySuite.Operation.Overlay.Snap
         private readonly bool isClosed = false;
 
         /// <summary>
-        /// Creates a new snapper using the points in the given {@link LineString}
-        /// as target snap points.
-        /// </summary>
-        /// <param name="line"></param>
-        /// <param name="snapTolerance"></param>
-        public LineStringSnapper(ILineString line, double snapTolerance) :
-            this(line.Coordinates, snapTolerance) {}
-
-        /// <summary>
         /// Creates a new snapper using the given points
         /// as target snap points.
         /// </summary>

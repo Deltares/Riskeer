@@ -12,8 +12,6 @@ namespace DelftTools.Utils
     /// <typeparam name="T2"></typeparam>
     public class Tuple<T1, T2>
     {
-        public Tuple() {}
-
         public Tuple(T1 first, T2 second)
         {
             if (first == null)

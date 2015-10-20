@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 
@@ -22,17 +21,6 @@ namespace DelftTools.Utils.Threading
         /// Creates a bindinglist using the givin synchronization context
         /// </summary>
         public ThreadsafeBindingList(SynchronizationContext context)
-        {
-            if (context == null)
-            {
-                context = new SynchronizationContext();
-            }
-
-            synchronizationContext = context;
-        }
-
-        public ThreadsafeBindingList(SynchronizationContext context, IList<T> list)
-            : base(list)
         {
             if (context == null)
             {

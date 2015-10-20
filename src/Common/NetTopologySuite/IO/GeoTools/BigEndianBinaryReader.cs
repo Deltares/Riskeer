@@ -22,14 +22,6 @@ namespace GisSharpBlog.NetTopologySuite.IO
         public BigEndianBinaryReader(Stream stream) : base(stream) {}
 
         /// <summary>
-        /// Initializes a new instance of the BigEndianBinaryReader class 
-        /// based on the supplied stream and a specific character encoding.
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="encoding"></param>
-        public BigEndianBinaryReader(Stream input, Encoding encoding) : base(input, encoding) {}
-
-        /// <summary>
         /// Reads a 4-byte signed integer using the big-endian layout 
         /// from the current stream and advances the current position of the stream by four bytes.
         /// </summary>
