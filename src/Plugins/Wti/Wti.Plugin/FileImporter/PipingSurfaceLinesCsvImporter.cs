@@ -170,7 +170,7 @@ namespace Wti.Plugin.FileImporter
         {
             var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
                                         path, e.Message);
-            log.Error(message, e);
+            log.Error(message);
             return new SurfaceLinesFileReadResult(true);
         }
 
