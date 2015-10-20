@@ -23,6 +23,13 @@ namespace Wti.Plugin.FileImporter
     /// </summary>
     public class PipingSurfaceLinesCsvImporter : IFileImporter
     {
+        private readonly ILog log;
+
+        public PipingSurfaceLinesCsvImporter()
+        {
+            log = LogManager.GetLogger(GetType());
+        }
+
         public string Name
         {
             get
@@ -121,8 +128,6 @@ namespace Wti.Plugin.FileImporter
 
         private SurfaceLinesFileReadResult ReadPipingSurfaceLines(string path)
         {
-            var log = LogManager.GetLogger(GetType());
-
             PipingSurfaceLinesCsvReader reader;
             try
             {
@@ -130,10 +135,7 @@ namespace Wti.Plugin.FileImporter
             }
             catch (ArgumentException e)
             {
-                var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
-                                            path, e.Message);
-                log.Error(message, e);
-                return new SurfaceLinesFileReadResult(true);
+                return HandleCriticalError(path, e);
             }
 
             var stepName = String.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_0_,
@@ -147,10 +149,7 @@ namespace Wti.Plugin.FileImporter
             }
             catch (CriticalFileReadException e)
             {
-                var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
-                                            path, e.Message);
-                log.Error(message, e);
-                return new SurfaceLinesFileReadResult(true);
+                return HandleCriticalError(path, e);
             }
 
             var readSurfaceLines = new List<PipingSurfaceLine>(itemCount);
@@ -165,6 +164,14 @@ namespace Wti.Plugin.FileImporter
             {
                 ImportedSurfaceLines = readSurfaceLines
             };
+        }
+
+        private SurfaceLinesFileReadResult HandleCriticalError(string path, Exception e)
+        {
+            var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
+                                        path, e.Message);
+            log.Error(message, e);
+            return new SurfaceLinesFileReadResult(true);
         }
 
         private void AddImportedDataToModel(object target, ICollection<PipingSurfaceLine> readSurfaceLines)
@@ -186,7 +193,7 @@ namespace Wti.Plugin.FileImporter
 
         private void HandleUserCancellingImport()
         {
-            LogManager.GetLogger(GetType()).Info(ApplicationResources.PipingSurfaceLinesCsvImporter_ImportItem_ImportCancelled);
+            log.Info(ApplicationResources.PipingSurfaceLinesCsvImporter_ImportItem_ImportCancelled);
         }
 
         private class SurfaceLinesFileReadResult
