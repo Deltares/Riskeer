@@ -1,7 +1,7 @@
 ﻿using System;
 using PostSharp.Extensibility;
 
-namespace DelftTools.Utils.Aop
+namespace DelftTools.Utils.Aop.Markers
 {
     /// <summary>
     /// Apply this attribute to properties you do not want to be intercepted

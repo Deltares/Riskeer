@@ -19,6 +19,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using DelftTools.Utils.Aop;
+using DelftTools.Utils.Aop.Markers;
 using GeoAPI.Geometries;
 using SharpMap.Styles.Shapes;
 
