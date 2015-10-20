@@ -31,8 +31,7 @@ namespace DeltaShell.Gui
         /// </summary>
         private readonly IGui gui;
 
-        private object selectedObject;
-        private IObservable observableProperty;
+        private IObservable observable;
 
         public PropertyGridView(IGui gui)
         {
@@ -119,48 +118,17 @@ namespace DeltaShell.Gui
                 gui.SelectionChanged -= GuiSelectionChanged;
             }
 
-            if (observableProperty != null)
+            if (observable != null)
             {
-                observableProperty.Detach(this);
+                observable.Detach(this);
             }
 
             base.Dispose(disposing);
         }
 
-        private new object SelectedObject
-        {
-            get
-            {
-                return selectedObject;
-            }
-            set
-            {
-                // Performance optimization
-                if (selectedObject == value)
-                {
-                    return;
-                }
-
-                selectedObject = value;
-
-                if (selectedObject == null)
-                {
-                    base.SelectedObject = null;
-                    return;
-                }
-
-                var selectedType = GetRelevantType(selectedObject);
-
-                Log.DebugFormat(Resources.PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_, selectedType.Name);
-
-                base.SelectedObject = selectedObject;
-            }
-        }
-
         private void HideTabsButton()
         {
-            // removing "property tabs" button and separator before it
-            // TODO: case we used derived functionality for this?
+            // Removing "property tabs" button and separator before it
             var strip = Controls.OfType<ToolStrip>().ToList()[0];
             strip.Items[3].Visible = false;
             strip.Items[4].Visible = false;
@@ -168,9 +136,9 @@ namespace DeltaShell.Gui
 
         private void GuiSelectionChanged(object sender, EventArgs e)
         {
-            if (observableProperty != null)
+            if (observable != null)
             {
-                observableProperty.Detach(this);
+                observable.Detach(this);
             }
 
             var selection = gui.Selection;
@@ -180,10 +148,10 @@ namespace DeltaShell.Gui
                 return;
             }
 
-            observableProperty = selection as IObservable;
-            if (observableProperty != null)
+            observable = selection as IObservable;
+            if (observable != null)
             {
-                observableProperty.Attach(this);
+                observable.Attach(this);
             }
 
             SelectedObject = GetObjectProperties(selection);
@@ -229,24 +197,14 @@ namespace DeltaShell.Gui
                 var objectProperties = propertyInfo.CreateObjectProperties(sourceData);
 
                 // Return a dynamic property bag containing the created object properties
-                return objectProperties is DynamicPropertyBag
-                           ? (object) objectProperties
-                           : new DynamicPropertyBag(objectProperties);
+                return new DynamicPropertyBag(objectProperties);
             }
             catch (Exception)
             {
                 Log.Debug(Resources.PropertyGrid_CreateObjectProperties_Could_not_create_object_properties_for_the_data);
 
-                // Directly return the source data (TODO: Shouldn't we return "null" instead?)
-                return sourceData;
+                return null;
             }
-        }
-
-        private static Type GetRelevantType(object obj)
-        {
-            var propertyBag = obj as DynamicPropertyBag;
-
-            return propertyBag != null ? propertyBag.GetContentType() : obj.GetType();
         }
 
         #region IPropertyGrid Members
