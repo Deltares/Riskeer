@@ -37,6 +37,7 @@ namespace Wti.IO
         };
 
         private StreamReader fileReader;
+        private int lineNumber;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingSurfaceLinesCsvReader"/> class
@@ -46,7 +47,7 @@ namespace Wti.IO
         /// <exception cref="ArgumentException"><paramref name="path"/> is invalid.</exception>
         public PipingSurfaceLinesCsvReader(string path)
         {
-            CheckIfPathIsValid(path);
+            ValidateFilePath(path);
 
             filePath = path;
         }
@@ -68,54 +69,12 @@ namespace Wti.IO
         /// </exception>
         public int GetSurfaceLinesCount()
         {
-            int count = 0, lineNumber = 0;
-            StreamReader reader = null;
-            try
+            using (var reader = InitializeStreamReader(filePath))
             {
-                reader = new StreamReader(filePath);
-
                 ValidateHeader(reader);
-                lineNumber++;
 
-                // Count SurfaceLines:
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    lineNumber++;
-                    if (!String.IsNullOrWhiteSpace(line))
-                    {
-                        count++;
-                    }
-                }
+                return CountNonEmptyLines(reader, 2);
             }
-            catch (FileNotFoundException e)
-            {
-                var message = string.Format(Resources.Error_File_0_does_not_exist, filePath);
-                throw new CriticalFileReadException(message, e);
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                var message = string.Format(Resources.Error_Directory_in_path_0_missing, filePath);
-                throw new CriticalFileReadException(message, e);
-            }
-            catch (OutOfMemoryException e)
-            {
-                var message = string.Format(Resources.Error_File_0_contains_Line_1_too_big, filePath, lineNumber);
-                throw new CriticalFileReadException(message, e);
-            }
-            catch (IOException e)
-            {
-                var message = string.Format(Resources.Error_General_IO_File_0_ErrorMessage_1_, filePath, e.Message);
-                throw new CriticalFileReadException(message, e);
-            }
-            finally
-            {
-                if (reader != null)
-                {
-                    reader.Dispose();
-                }
-            }
-            return count;
         }
 
         /// <summary>
@@ -123,21 +82,29 @@ namespace Wti.IO
         /// of <see cref="PipingSurfaceLine"/>.
         /// </summary>
         /// <returns>Return the parse surfaceline, or null when at the end of the file.</returns>
-        /// <exception cref="FileNotFoundException">The file cannot be found.</exception>
-        /// <exception cref="DirectoryNotFoundException">The specified path is invalid, such as being on an unmapped drive.</exception>
-        /// <exception cref="IOException">Filepath includes an incorrect or invalid syntax for file name, directory name, or volume label.</exception>
-        /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
+        /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
+        /// <list type="bullet">
+        /// <item>File cannot be found at specified path.</item>
+        /// <item>The specified path is invalid, such as being on an unmapped drive.</item>
+        /// <item>Some other I/O related issue occurred, such as: path includes an incorrect 
+        /// or invalid syntax for file name, directory name, or volume label.</item>
+        /// <item>There is insufficient memory to allocate a buffer for the returned string.</item>
+        /// <item>File incompatible for importing surface lines.</item>
+        /// </list>
+        /// </exception>
         /// <exception cref="FormatException">A coordinate value does not represent a number in a valid format or the line is incorrectly formatted.</exception>
         /// <exception cref="OverflowException">A coordinate value represents a number that is less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
         public PipingSurfaceLine ReadLine()
         {
             if (fileReader == null)
             {
-                fileReader = new StreamReader(filePath);
-                // Skip Header:
-                fileReader.ReadLine();
+                fileReader = InitializeStreamReader(filePath);
+
+                ValidateHeader(fileReader);
+                lineNumber = 2;
             }
-            var readText = fileReader.ReadLine();
+
+            var readText = ReadLineAndHandleIOExceptions(fileReader, lineNumber);
             if (readText != null)
             {
                 var tokenizedString = readText.Split(separator);
@@ -155,6 +122,8 @@ namespace Wti.IO
                         Z = worldCoordinateValues[i * 3 + 2]
                     };
                 }
+
+                lineNumber++;
 
                 var surfaceLine = new PipingSurfaceLine
                 {
@@ -176,9 +145,44 @@ namespace Wti.IO
             }
         }
 
-        private void ValidateHeader(StreamReader reader)
+        /// <summary>
+        /// Initializes the stream reader for a UTF8 encoded file.
+        /// </summary>
+        /// <param name="path">The path to the file to be read.</param>
+        /// <returns>A UTF8 encoding configured stream reader opened on <paramref name="path"/>.</returns>
+        /// <exception cref="CriticalFileReadException">File/directory cannot be found or 
+        /// some other I/O related problem occurred.</exception>
+        private static StreamReader InitializeStreamReader(string path)
         {
-            var header = reader.ReadLine();
+            try
+            {
+                return new StreamReader(path);
+            }
+            catch (FileNotFoundException e)
+            {
+                var message = string.Format(Resources.Error_File_0_does_not_exist, path);
+                throw new CriticalFileReadException(message, e);
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                var message = string.Format(Resources.Error_Directory_in_path_0_missing, path);
+                throw new CriticalFileReadException(message, e);
+            }
+            catch (IOException e)
+            {
+                var message = string.Format(Resources.Error_General_IO_File_0_ErrorMessage_1_, path, e.Message);
+                throw new CriticalFileReadException(message, e);
+            }
+        }
+
+        /// <summary>
+        /// Validates the header of the file.
+        /// </summary>
+        /// <param name="reader">The reader, which is currently at the header row.</param>
+        /// <exception cref="CriticalFileReadException">The header is not in the required format.</exception>
+        private void ValidateHeader(TextReader reader)
+        {
+            var header = ReadLineAndHandleIOExceptions(reader, 1);
             if (header != null)
             {
                 if (!IsHeaderValid(header))
@@ -191,6 +195,53 @@ namespace Wti.IO
             {
                 var expectedMessage = string.Format(Resources.Error_File_0_empty, filePath);
                 throw new CriticalFileReadException(expectedMessage);
+            }
+        }
+
+        /// <summary>
+        /// Counts the remaining non-empty lines.
+        /// </summary>
+        /// <param name="reader">The reader at the row from which counting should start.</param>
+        /// <param name="currentLine">The current line, used for error messaging.</param>
+        /// <returns>An integer greater than or equal to 0.</returns>
+        /// <exception cref="CriticalFileReadException">An I/O exception occurred.</exception>
+        private int CountNonEmptyLines(TextReader reader, int currentLine)
+        {
+            var count = 0;
+            string line;
+            while ((line = ReadLineAndHandleIOExceptions(reader, currentLine)) != null)
+            {
+                if (!String.IsNullOrWhiteSpace(line))
+                {
+                    count++;
+                }
+                currentLine++;
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// Reads the next line and handles I/O exceptions.
+        /// </summary>
+        /// <param name="reader">The opened text file reader.</param>
+        /// <param name="currentLine">Row number for error messaging.</param>
+        /// <returns>The read line, or null when at the end of the file.</returns>
+        /// <exception cref="CriticalFileReadException">An critical I/O exception occurred.</exception>
+        private string ReadLineAndHandleIOExceptions(TextReader reader, int currentLine)
+        {
+            try
+            {
+                return reader.ReadLine();
+            }
+            catch (OutOfMemoryException e)
+            {
+                var message = string.Format(Resources.Error_File_0_contains_Line_1_too_big, filePath, currentLine);
+                throw new CriticalFileReadException(message, e);
+            }
+            catch (IOException e)
+            {
+                var message = string.Format(Resources.Error_General_IO_File_0_ErrorMessage_1_, filePath, e.Message);
+                throw new CriticalFileReadException(message, e);
             }
         }
 
@@ -213,7 +264,12 @@ namespace Wti.IO
             return valid;
         }
 
-        private void CheckIfPathIsValid(string path)
+        /// <summary>
+        /// Validates the file path.
+        /// </summary>
+        /// <param name="path">The file path to be validated.</param>
+        /// <exception cref="System.ArgumentException"><paramref name="path"/> is invalid.</exception>
+        private void ValidateFilePath(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
             {

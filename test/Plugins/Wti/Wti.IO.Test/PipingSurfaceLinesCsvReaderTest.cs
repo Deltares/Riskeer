@@ -258,6 +258,117 @@ namespace Wti.IO.Test
             }
         }
 
+        [Test]
+        public void ReadLine_FileCannotBeFound_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "I_do_not_exist.csv");
+
+            // Precondition
+            Assert.IsFalse(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = string.Format(IOResources.Error_File_0_does_not_exist, path);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<FileNotFoundException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void ReadLine_DirectoryCannotBeFound_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "..", "this_folder_does_not_exist", "I_do_not_exist.csv");
+
+            // Precondition
+            Assert.IsFalse(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = string.Format(IOResources.Error_Directory_in_path_0_missing, path);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<DirectoryNotFoundException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        public void ReadLine_EmptyFile_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "empty.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = string.Format(IOResources.Error_File_0_empty, path);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ReadLine_InvalidHeader1_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "InvalidHeader_UnsupportedId.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_File_0_invalid_header, path);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        [TestCase("X")]
+        [TestCase("Y")]
+        [TestCase("Z")]
+        public void ReadLine_InvalidHeader2_ThrowCriticalFileReadException(string missingVariableName)
+        {
+            // Setup
+            var filename = string.Format("InvalidHeader_Lacks{0}1.csv", missingVariableName);
+            string path = Path.Combine(testDataPath, filename);
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var expectedMessage = string.Format("Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).", path);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
         private void DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLines_ReturnCreatedSurfaceLine()
         {
             // Setup

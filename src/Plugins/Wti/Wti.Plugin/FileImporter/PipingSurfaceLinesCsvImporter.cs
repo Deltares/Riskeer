@@ -155,9 +155,15 @@ namespace Wti.Plugin.FileImporter
             var readSurfaceLines = new List<PipingSurfaceLine>(itemCount);
             for (int i = 0; i < itemCount && !ShouldCancel; i++)
             {
-                readSurfaceLines.Add(reader.ReadLine());
-
-                NotifyProgress(stepName, i + 1, itemCount);
+                try
+                {
+                    readSurfaceLines.Add(reader.ReadLine());
+                    NotifyProgress(stepName, i + 1, itemCount);
+                }
+                catch (CriticalFileReadException e)
+                {
+                    return HandleCriticalError(path, e);
+                }
             }
 
             return new SurfaceLinesFileReadResult(false)

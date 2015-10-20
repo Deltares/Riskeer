@@ -311,5 +311,55 @@ namespace Wti.Plugin.Test.FileImporter
                 "No items should be added to collection when import is aborted.");
             mocks.VerifyAll(); // Expect no calls on 'observer'
         }
+
+        [Test]
+        public void ImportItem_FileDeletedDuringRead_AbortImportAndLog()
+        {
+            // Setup
+            var copyTargetPath = "ImportItem_FileDeletedDuringRead_AbortImportAndLog.csv";
+            string validFilePath = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
+            File.Copy(validFilePath, copyTargetPath);
+
+            try
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                mocks.ReplayAll();
+
+                var importer = new PipingSurfaceLinesCsvImporter();
+                importer.ProgressChanged += (name, step, steps) =>
+                {
+                    // Delete the file being read by the import during the import itself:
+                    File.Delete(copyTargetPath);
+                };
+
+                var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+                observableSurfaceLinesList.Attach(observer);
+
+                object importedItem = null;
+
+                // Call
+                Action call = () => importedItem = importer.ImportItem(copyTargetPath, observableSurfaceLinesList);
+
+                // Assert
+                var internalErrorMessage = String.Format(WtiIOResources.Error_File_0_does_not_exist,
+                                                         copyTargetPath);
+                var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
+                                                       copyTargetPath, internalErrorMessage);
+                TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+                Assert.AreSame(observableSurfaceLinesList, importedItem);
+                CollectionAssert.IsEmpty(observableSurfaceLinesList,
+                                         "No items should be added to collection when import is aborted.");
+                mocks.VerifyAll(); // Expect no calls on 'observer'
+            }
+            finally
+            {
+                // Fallback delete in case progress event is not fired:
+                if (File.Exists(copyTargetPath))
+                {
+                    File.Delete(copyTargetPath);
+                }
+            }
+        }
     }
 }
