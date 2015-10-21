@@ -94,10 +94,6 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
 
                 // Return a dynamic property bag containing the created object properties
                 return new DynamicPropertyBag(objectProperties); 
-                return objectProperties is DynamicPropertyBag
-                           ? (object)objectProperties
-                           : new DynamicPropertyBag(objectProperties);
-                return new DynamicPropertyBag(objectProperties);
             }
             catch (Exception)
             {
