@@ -117,55 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error_PathMustBeSpecified" xml:space="preserve">
-    <value>Bestandspad mag niet leeg of ongedefinieerd zijn.</value>
-  </data>
-  <data name="Error_PathMustNotPointToFolder" xml:space="preserve">
-    <value>Bestandspad mag niet naar een map verwijzen.</value>
-  </data>
-  <data name="Error_PathCannotContainCharacters_0_" xml:space="preserve">
-    <value>Bestandspad mag niet de volgende tekens bevatten: {0}</value>
-  </data>
-  <data name="Error_File_0_does_not_exist" xml:space="preserve">
-    <value>Het bestand op '{0}' bestaat niet.</value>
-  </data>
-  <data name="Error_Directory_in_path_0_missing" xml:space="preserve">
-    <value>Het bestandspad '{0}' verwijst naar een map die niet bestaat.</value>
-  </data>
-  <data name="Error_Unexpected_IOError_File_0_Line_1_" xml:space="preserve">
-    <value>Het bestand op '{0}' heeft op regel {1} teveel tekst om in het RAM geheugen opgeslagen te worden.</value>
-  </data>
-  <data name="Error_File_0_contains_Line_1_too_big" xml:space="preserve">
-    <value>Het bestand op '{0}' heeft op regel {1} teveel tekst om in het RAM geheugen opgeslagen te worden.</value>
-  </data>
-  <data name="Error_General_IO_File_0_ErrorMessage_1_" xml:space="preserve">
-    <value>Er is een onverwachte inleesfout opgetreden tijdens het lezen van het bestand '{0}': {1}</value>
-  </data>
-  <data name="Error_File_0_empty" xml:space="preserve">
-    <value>Het bestand op '{0}' is leeg.</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvReader_File_0_invalid_header" xml:space="preserve">
-    <value>Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
-  </data>
-  <data name="Error_SoilProfileReadFromDatabase" xml:space="preserve">
-    <value>Kon geen ondergrond profielen verkrijgen van de database '{0}'.</value>
-  </data>
-  <data name="Error_SoilProfileBuilderCantDetermineIntersectAtDoubleNaN" xml:space="preserve">
-    <value>Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{0}'.</value>
-  </data>
-  <data name="Error_File_0_has_not_double_Line_1_" xml:space="preserve">
-    <value>Het bestand '{0}' heeft op regel {1} een waarde dat geen getal is.</value>
-  </data>
-  <data name="Error_File_0_Parsing_causes_overflow_Line_1_" xml:space="preserve">
-    <value>Het bestand '{0}' heeft op regel {1} een waarde dat te groot/klein is om ingelezen te worden.</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_NoId" xml:space="preserve">
-    <value>Het bestand '{0}' heeft op regel {1} heeft geen ID.</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_separator_2_" xml:space="preserve">
-    <value>Het bestand '{0}' heeft op regel {1} geen verwacht scheidingsteken (het karakter: {2}).</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_values_for_coordinate_triplet" xml:space="preserve">
-    <value>Het bestand '{0}' heeft op regel {1} ontbrekende waardes om een 3D (X,Y,Z) punt aan te maken.</value>
+  <data name="Error_CannotConstructPipingSoilProfileWithoutLayers" xml:space="preserve">
+    <value>Geen lagen gevonden voor het profiel '{0}'.</value>
   </data>
 </root>

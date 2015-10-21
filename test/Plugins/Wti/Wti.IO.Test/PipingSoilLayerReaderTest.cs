@@ -13,7 +13,7 @@ namespace Wti.IO.Test
         public void Constructor_AnyByteArray_ReturnsNewInstance(int size)
         {
             // Call
-            var result = new PipingSoilLayerReader(new byte[size]);
+            var result = new PipingSoilLayer2DReader(new byte[size]);
 
             // Assert
             Assert.NotNull(result);
@@ -24,7 +24,7 @@ namespace Wti.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("test");
-            var reader = new PipingSoilLayerReader(xmlDoc);
+            var reader = new PipingSoilLayer2DReader(xmlDoc);
 
             // Call
             TestDelegate test = () => reader.Read();
@@ -38,7 +38,7 @@ namespace Wti.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("<doc/>");
-            var reader = new PipingSoilLayerReader(xmlDoc);
+            var reader = new PipingSoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -54,7 +54,7 @@ namespace Wti.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("<OuterLoop/>");
-            var reader = new PipingSoilLayerReader(xmlDoc);
+            var reader = new PipingSoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -70,7 +70,7 @@ namespace Wti.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("<InnerLoop/>");
-            var reader = new PipingSoilLayerReader(xmlDoc);
+            var reader = new PipingSoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -86,7 +86,7 @@ namespace Wti.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("<root><OuterLoop/><InnerLoop/></root>");
-            var reader = new PipingSoilLayerReader(xmlDoc);
+            var reader = new PipingSoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -115,7 +115,7 @@ namespace Wti.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("<root><OuterLoop><HeadPoint><X>0</X><Y>0.1</Y><Z>1.1</Z></HeadPoint></OuterLoop></root>");
-            var reader = new PipingSoilLayerReader(xmlDoc);
+            var reader = new PipingSoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -130,7 +130,7 @@ namespace Wti.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("<root><InnerLoop><HeadPoint><X>0</X><Y>0.1</Y><Z>1.1</Z></HeadPoint></InnerLoop></root>");
-            var reader = new PipingSoilLayerReader(xmlDoc);
+            var reader = new PipingSoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -145,7 +145,7 @@ namespace Wti.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("<root><OuterLoop><HeadPoint><X>0</X><Y>0.1</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0.1</Y><Z>1.1</Z></EndPoint></OuterLoop></root>");
-            var reader = new PipingSoilLayerReader(xmlDoc);
+            var reader = new PipingSoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -160,7 +160,7 @@ namespace Wti.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("<root><InnerLoop><HeadPoint><X>0</X><Y>0.1</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0.1</Y><Z>1.1</Z></EndPoint></InnerLoop></root>");
-            var reader = new PipingSoilLayerReader(xmlDoc);
+            var reader = new PipingSoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();

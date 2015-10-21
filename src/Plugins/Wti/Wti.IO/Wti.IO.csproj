@@ -50,10 +50,13 @@
     <Compile Include="..\..\..\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Builders\SoilLayer2D.cs" />
+    <Compile Include="Builders\SoilProfileBuilder.cs" />
+    <Compile Include="Calculation\Math2D.cs" />
     <Compile Include="Exceptions\CriticalFileReadException.cs" />
     <Compile Include="Exceptions\LineParseException.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadException.cs" />
-    <Compile Include="PipingSoilLayerReader.cs" />
+    <Compile Include="PipingSoilLayer2DReader.cs" />
     <Compile Include="PipingSoilProfileReader.cs" />
     <Compile Include="PipingSurfaceLinesCsvReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

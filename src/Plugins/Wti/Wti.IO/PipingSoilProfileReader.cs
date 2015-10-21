@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using Wti.Data;
+using Wti.IO.Builders;
 using Wti.IO.Exceptions;
 using Wti.IO.Properties;
 
@@ -21,6 +22,8 @@ namespace Wti.IO
         private const int pipingMechanismId = 4;
         private const int profileNameIndex = 0;
         private const int profileLayerGeometryIndex = 1;
+        private const int intersectionXIndex = 3;
+
         private SQLiteConnection connection;
         private SQLiteDataReader dataReader;
 
@@ -52,22 +55,23 @@ namespace Wti.IO
         /// <exception cref="XmlException">Thrown when parsing the geometry of a soil layer failed.</exception>
         public IEnumerable<PipingSoilProfile> Read()
         {
-            var pipingSoilProfiles = new Dictionary<string, ICollection<PipingSoilLayer>>();
+            var pipingSoilProfiles = new Dictionary<string, SoilProfileBuilder>();
 
             CreateDataReader();
 
             while (dataReader.Read())
             {
                 var profileName = (string) dataReader[profileNameIndex];
+                var intersectionX = (double) dataReader[intersectionXIndex];
                 if (!pipingSoilProfiles.ContainsKey(profileName))
                 {
-                    pipingSoilProfiles.Add(profileName, new Collection<PipingSoilLayer>());
+                    pipingSoilProfiles.Add(profileName, new SoilProfileBuilder(profileName, intersectionX));
                 }
 
                 pipingSoilProfiles[profileName].Add(ReadPipingSoilLayer());
             }
 
-            return pipingSoilProfiles.Select(keyValue => new PipingSoilProfile(keyValue.Key, keyValue.Value));
+            return pipingSoilProfiles.Select(keyValue => keyValue.Value.Build());
         }
 
         public void Dispose()
@@ -101,11 +105,11 @@ namespace Wti.IO
             }
         }
 
-        private PipingSoilLayer ReadPipingSoilLayer()
+        private SoilLayer2D ReadPipingSoilLayer()
         {
             var columnValue = dataReader[profileLayerGeometryIndex];
             var geometry = (byte[]) columnValue;
-            return new PipingSoilLayerReader(geometry).Read();
+            return new PipingSoilLayer2DReader(geometry).Read();
         }
 
         /// <summary>
@@ -117,8 +121,9 @@ namespace Wti.IO
             var query = new SQLiteCommand(connection)
             {
                 CommandText = string.Format(
-                    "SELECT p.SP2D_Name, l.GeometrySurface, mat.MA_Name " +
+                    "SELECT p.SP2D_Name, l.GeometrySurface, mat.MA_Name, mpl.X " +
                     "FROM MechanismPointLocation as m " +
+                    "JOIN MechanismPointLocation as mpl ON m.ME_ID = mpl.ME_ID " +
                     "JOIN SoilProfile2D as p ON m.SP2D_ID = p.SP2D_ID " +
                     "JOIN SoilLayer2D as l ON l.SP2D_ID = p.SP2D_ID " +
                     "JOIN Materials as mat ON mat.MA_ID = l.MA_ID " +

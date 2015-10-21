@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Xml;
 using Wti.Data;
+using Wti.IO.Builders;
 
 namespace Wti.IO
 {
@@ -11,7 +12,7 @@ namespace Wti.IO
     /// This class is responsible for reading an array of bytes and interpret this as a XML document, which contains information about
     /// the geometry of a <see cref="PipingSoilLayer"/>.
     /// </summary>
-    internal class PipingSoilLayerReader
+    internal class PipingSoilLayer2DReader
     {
         private const string outerLoopElementName = "OuterLoop";
         private const string innerLoopElementName = "InnerLoop";
@@ -24,26 +25,26 @@ namespace Wti.IO
         private readonly XmlTextReader xmlTextReader;
 
         /// <summary>
-        /// Constructs a new <see cref="PipingSoilLayerReader"/>, which uses the <paramref name="geometry"/> as the source of the 
+        /// Constructs a new <see cref="PipingSoilLayer2DReader"/>, which uses the <paramref name="geometry"/> as the source of the 
         /// geometry for a <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="geometry">An array of <see cref="byte"/> which contains the information of a <see cref="PipingSoilLayer"/>
         /// in an XML document.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is null.</exception>
-        internal PipingSoilLayerReader(byte[] geometry)
+        internal PipingSoilLayer2DReader(byte[] geometry)
         {
             xmlTextReader = new XmlTextReader(new MemoryStream(geometry));
         }
 
         /// <summary>
-        /// Reads the XML document and from this obtains the required information and constructs a <see cref="PipingSoilLayer"/> based
+        /// Reads the XML document and from this obtains the required information and constructs a <see cref="SoilLayer2D"/> based
         /// on this information.
         /// </summary>
-        /// <returns>A new <see cref="PipingSoilLayer"/> with information taken from the XML document.</returns>
-        /// <exception cref="XmlException">When reading from the XML document of the <see cref="PipingSoilLayerReader"/> failed.</exception>
-        internal PipingSoilLayer Read()
+        /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
+        /// <exception cref="XmlException">When reading from the XML document of the <see cref="PipingSoilLayer2DReader"/> failed.</exception>
+        internal SoilLayer2D Read()
         {
-            var pipingSoilLayer = new PipingSoilLayer();
+            var pipingSoilLayer = new SoilLayer2D();
 
             while (xmlTextReader.Read())
             {

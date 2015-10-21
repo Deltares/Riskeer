@@ -1,0 +1,22 @@
+﻿using System;
+using NUnit.Framework;
+
+namespace Wti.Data.Test
+{
+    public class PipingSoilLayerTest
+    {
+        [Test]
+        public void Constructor_WithTop_ReturnsNewInstanceWithTopSet()
+        {
+            // Setup
+            var top = new Random(22).NextDouble();
+
+            // Call
+            var layer = new PipingSoilLayer(top);
+
+            // Assert
+            Assert.NotNull(layer);
+            Assert.AreEqual(top, layer.Top);
+        }
+    }
+}

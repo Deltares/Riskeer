@@ -4,7 +4,11 @@ namespace Wti.Data
 {
     public class PipingSoilLayer
     {
-        public HashSet<Point3D> OuterLoop { get; set; }
-        public HashSet<Point3D> InnerLoop { get; set; }
+        public PipingSoilLayer(double top)
+        {
+            Top = top;
+        }
+
+        public double Top { get; private set; }
     }
 }
