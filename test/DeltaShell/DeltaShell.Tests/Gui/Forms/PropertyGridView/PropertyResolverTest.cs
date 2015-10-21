@@ -4,7 +4,7 @@ using DelftTools.Utils.PropertyBag.Dynamic;
 using DeltaShell.Gui.Forms.PropertyGridView;
 using NUnit.Framework;
 
-namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
+namespace DeltaShell.Tests.Gui.Forms.PropertyGridView
 {
     [TestFixture]
     public class PropertyResolverTest
