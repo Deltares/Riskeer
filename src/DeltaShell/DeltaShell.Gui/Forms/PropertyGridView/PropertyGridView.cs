@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Security.Permissions;
@@ -8,7 +9,9 @@ using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
 using DelftTools.Shell.Gui.Forms;
+using DelftTools.Utils.PropertyBag.Dynamic;
 using DeltaShell.Gui.Properties;
+using log4net;
 
 namespace DeltaShell.Gui.Forms.PropertyGridView
 {
@@ -18,6 +21,8 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
         /// This delegate enabled asynchronous calls to methods without arguments.
         /// </summary>
         private delegate void ArgumentlessDelegate();
+
+        private static readonly ILog Log = LogManager.GetLogger(typeof(PropertyGridView));
 
         /// <summary>
         /// todo: This is still an unwanted dependency. PropertyGrid uses gui to subscribe to the SelectionChanged
@@ -49,6 +54,46 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
             {
                 Refresh();
             }
+        }
+
+        public object GetObjectProperties(object sourceData)
+        {
+            if (sourceData == null)
+            {
+                return null;
+            }
+
+            // Obtain all property information
+            var propertyInfos = gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList();
+
+            // 1. Match property information based on ObjectType and on AdditionalDataCheck
+            propertyInfos = propertyInfos.Where(pi => pi.ObjectType.IsInstanceOfType(sourceData) && (pi.AdditionalDataCheck == null || pi.AdditionalDataCheck(sourceData))).ToList();
+
+            // 2. Match property information based on object type inheritance
+            propertyInfos = FilterPropertyInfoByTypeInheritance(propertyInfos, pi => pi.ObjectType);
+
+            // 3. Match property information based on property type inheritance
+            propertyInfos = FilterPropertyInfoByTypeInheritance(propertyInfos, pi => pi.PropertyType);
+
+            if (propertyInfos.Count == 0)
+            {
+                // No (or multiple) object properties found: return 'null' so that no object properties are shown in the property grid
+                return null;
+            }
+
+            if (propertyInfos.Count > 1)
+            {
+                // 4. We assume that the propertyInfos with AdditionalDataCheck are the most specific
+                propertyInfos = propertyInfos.Where(pi => pi.AdditionalDataCheck != null).ToList();
+            }
+
+            if (propertyInfos.Count == 1)
+            {
+                return CreateObjectProperties(propertyInfos.ElementAt(0), sourceData);
+            }
+
+            Log.Debug(Resources.PropertyGrid_GetObjectProperties_Multiple_object_property_instances_found_for_the_same_data_object__no_object_properties_are_displayed_in_the_property_grid);
+            return null;
         }
 
         /// <summary>
@@ -112,6 +157,56 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
             SelectedObject = GetObjectProperties(selection);
         }
 
+        private List<PropertyInfo> FilterPropertyInfoByTypeInheritance(List<PropertyInfo> propertyInfo, Func<PropertyInfo, Type> getTypeAction)
+        {
+            var propertyInfoCount = propertyInfo.Count;
+            var propertyInfoWithUnInheritedType = propertyInfo.ToList();
+
+            for (var i = 0; i < propertyInfoCount; i++)
+            {
+                var firstType = getTypeAction(propertyInfo.ElementAt(i));
+
+                for (var j = 0; j < propertyInfoCount; j++)
+                {
+                    if (i == j)
+                    {
+                        continue;
+                    }
+
+                    var secondType = getTypeAction(propertyInfo.ElementAt(j));
+
+                    if (firstType != secondType && firstType.IsAssignableFrom(secondType))
+                    {
+                        propertyInfoWithUnInheritedType.Remove(propertyInfo.ElementAt(i));
+
+                        break;
+                    }
+                }
+            }
+
+            return propertyInfoWithUnInheritedType.Any()
+                       ? propertyInfoWithUnInheritedType.ToList() // One or more specific property information objects found: return the filtered list
+                       : propertyInfo; // No specific property information found: return the original list
+        }
+
+        private object CreateObjectProperties(PropertyInfo propertyInfo, object sourceData)
+        {
+            try
+            {
+                // Try to create object properties for the source data
+                var objectProperties = propertyInfo.CreateObjectProperties(sourceData);
+
+                // Return a dynamic property bag containing the created object properties
+                return new DynamicPropertyBag(objectProperties);
+            }
+            catch (Exception)
+            {
+                Log.Debug(Resources.PropertyGrid_CreateObjectProperties_Could_not_create_object_properties_for_the_data);
+
+                return null;
+            }
+        }
+
         #region IPropertyGrid Members
 
         public object Data
@@ -139,16 +234,6 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
         }
 
         public void EnsureVisible(object item) {}
-
-        public object GetObjectProperties(object sourceData)
-        {
-            if (gui != null)
-            {
-                PropertyResolver.GetObjectProperties(gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList(), sourceData);
-            }
-
-            return null;
-        }
 
         public ViewInfo ViewInfo { get; set; }
 
