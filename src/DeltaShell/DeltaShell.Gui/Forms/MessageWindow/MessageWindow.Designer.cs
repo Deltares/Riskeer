@@ -270,7 +270,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         private System.Windows.Forms.ToolStripButton buttonShowInfo;
         private System.Windows.Forms.DataGridView messagesDataGridView;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private DataGridViewTextBoxColumn sourceDataGridViewTextBoxColumn;
         private DataGridViewImageColumn imageDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn timeDataGridViewTextBoxColumn;
