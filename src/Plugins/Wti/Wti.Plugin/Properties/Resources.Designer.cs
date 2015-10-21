@@ -106,6 +106,16 @@ namespace Wti.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is een leesfout opgetreden bij dwarsdoorsnede {1} van bestand &apos;{0}&apos; en is overgeslagen: {2}.
+        /// </summary>
+        public static string PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseError_File_0_SurfaceLinesNumber_1_Message_2_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseError_File_0_SurfaceLin" +
+                        "esNumber_1_Message_2_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DSoilModel bestand.
         /// </summary>
         public static string SoilFileName {

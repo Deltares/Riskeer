@@ -369,6 +369,59 @@ namespace Wti.IO.Test
             }
         }
 
+        [Test]
+        [TestCase("X")]
+        [TestCase("Y")]
+        [TestCase("Z")]
+        public void ReadLine_FileHasInvalidCoordinate_ThrowLineParseException(string malformattedVariableName)
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, string.Format("InvalidRow_{0}NotAValidNumber.csv", malformattedVariableName));
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = string.Format(IOResources.Error_File_0_has_not_double_Line_1_, path, 2);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<FormatException>(exception.InnerException);
+            }
+        }
+
+        [Test]
+        [TestCase("XOver")]
+        [TestCase("YOver")]
+        [TestCase("ZOver")]
+        [TestCase("XUnder")]
+        [TestCase("YUnder")]
+        [TestCase("ZUnder")]
+        public void ReadLine_FileHasCoordinateCausingOverOrUnderflow_ThrowLineParseException(string malformattedVariableName)
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, string.Format("InvalidRow_{0}flowingNumber.csv", malformattedVariableName));
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = string.Format(IOResources.Error_File_0_Parsing_causes_overflow_Line_1_, path, 2);
+                Assert.AreEqual(expectedMessage, exception.Message);
+                Assert.IsInstanceOf<OverflowException>(exception.InnerException);
+            }
+        }
+
         private void DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLines_ReturnCreatedSurfaceLine()
         {
             // Setup

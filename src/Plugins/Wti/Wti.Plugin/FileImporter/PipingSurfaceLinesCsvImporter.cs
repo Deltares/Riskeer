@@ -158,12 +158,18 @@ namespace Wti.Plugin.FileImporter
                 try
                 {
                     readSurfaceLines.Add(reader.ReadLine());
-                    NotifyProgress(stepName, i + 1, itemCount);
                 }
                 catch (CriticalFileReadException e)
                 {
                     return HandleCriticalError(path, e);
                 }
+                catch (LineParseException e)
+                {
+                    var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseError_File_0_SurfaceLinesNumber_1_Message_2_,
+                                                path, i+1, e.Message);
+                    log.Error(message);
+                }
+                NotifyProgress(stepName, i + 1, itemCount);
             }
 
             return new SurfaceLinesFileReadResult(false)

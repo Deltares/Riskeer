@@ -92,8 +92,12 @@ namespace Wti.IO
         /// <item>File incompatible for importing surface lines.</item>
         /// </list>
         /// </exception>
-        /// <exception cref="FormatException">A coordinate value does not represent a number in a valid format or the line is incorrectly formatted.</exception>
-        /// <exception cref="OverflowException">A coordinate value represents a number that is less than <see cref="double.MinValue"/> or greater than <see cref="double.MaxValue"/>.</exception>
+        /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
+        /// <list type="bullet">
+        /// <item>The row contains a coordinate value that cannot be parsed as a double.</item>
+        /// <item>The row contains a number that is too big or too small to be represented with a double.</item>
+        /// </list>
+        /// </exception>
         public PipingSurfaceLine ReadLine()
         {
             if (fileReader == null)
@@ -104,13 +108,13 @@ namespace Wti.IO
                 lineNumber = 2;
             }
 
-            var readText = ReadLineAndHandleIOExceptions(fileReader, lineNumber);
+            var readText = ReadLineAndHandleIOExceptions(fileReader);
             if (readText != null)
             {
                 var tokenizedString = readText.Split(separator);
-                var worldCoordinateValues = tokenizedString.Skip(1)
-                                                           .Select(ts => Double.Parse(ts, CultureInfo.InvariantCulture))
-                                                           .ToArray();
+                var worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString);
+
+                // TODO: Format Error: missing values to complete coordinate triplet
                 int coordinateCount = worldCoordinateValues.Length / 3;
                 var points = new Point3D[coordinateCount];
                 for (int i = 0; i < coordinateCount; i++)
@@ -127,6 +131,7 @@ namespace Wti.IO
 
                 var surfaceLine = new PipingSurfaceLine
                 {
+                    // TODO: Format Error: Row identifier null, empty or whitespace
                     Name = tokenizedString.First()
                 };
                 surfaceLine.SetGeometry(points);
@@ -134,6 +139,39 @@ namespace Wti.IO
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Parses the world coordinate values and handles parse errors.
+        /// </summary>
+        /// <param name="tokenizedString">The tokenized string.</param>
+        /// <returns></returns>
+        /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
+        /// <list type="bullet">
+        /// <item>The row contains a coordinate value that cannot be parsed as a double.</item>
+        /// <item>The row contains a number that is too big or too small to be represented with a double.</item>
+        /// </list>
+        /// </exception>
+        private double[] ParseWorldCoordinateValuesAndHandleParseErrors(string[] tokenizedString)
+        {
+            try
+            {
+                return tokenizedString.Skip(1)
+                                      .Select(ts => Double.Parse(ts, CultureInfo.InvariantCulture))
+                                      .ToArray();
+            }
+            catch (FormatException e)
+            {
+                var message = string.Format(Resources.Error_File_0_has_not_double_Line_1_,
+                                            filePath, lineNumber);
+                throw new LineParseException(message, e);
+            }
+            catch (OverflowException e)
+            {
+                var message = string.Format(Resources.Error_File_0_Parsing_causes_overflow_Line_1_,
+                                            filePath, lineNumber);
+                throw new LineParseException(message, e);
+            }
         }
 
         public void Dispose()
@@ -182,7 +220,7 @@ namespace Wti.IO
         /// <exception cref="CriticalFileReadException">The header is not in the required format.</exception>
         private void ValidateHeader(TextReader reader)
         {
-            var header = ReadLineAndHandleIOExceptions(reader, 1);
+            var header = ReadLineAndHandleIOExceptions(reader);
             if (header != null)
             {
                 if (!IsHeaderValid(header))
@@ -209,7 +247,7 @@ namespace Wti.IO
         {
             var count = 0;
             string line;
-            while ((line = ReadLineAndHandleIOExceptions(reader, currentLine)) != null)
+            while ((line = ReadLineAndHandleIOExceptions(reader)) != null)
             {
                 if (!String.IsNullOrWhiteSpace(line))
                 {
@@ -227,7 +265,7 @@ namespace Wti.IO
         /// <param name="currentLine">Row number for error messaging.</param>
         /// <returns>The read line, or null when at the end of the file.</returns>
         /// <exception cref="CriticalFileReadException">An critical I/O exception occurred.</exception>
-        private string ReadLineAndHandleIOExceptions(TextReader reader, int currentLine)
+        private string ReadLineAndHandleIOExceptions(TextReader reader)
         {
             try
             {
@@ -235,7 +273,7 @@ namespace Wti.IO
             }
             catch (OutOfMemoryException e)
             {
-                var message = string.Format(Resources.Error_File_0_contains_Line_1_too_big, filePath, currentLine);
+                var message = string.Format(Resources.Error_File_0_contains_Line_1_too_big, filePath, lineNumber);
                 throw new CriticalFileReadException(message, e);
             }
             catch (IOException e)

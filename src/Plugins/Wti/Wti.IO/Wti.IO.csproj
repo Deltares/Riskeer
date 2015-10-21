@@ -51,6 +51,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Exceptions\CriticalFileReadException.cs" />
+    <Compile Include="Exceptions\LineParseException.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadException.cs" />
     <Compile Include="PipingSoilLayerReader.cs" />
     <Compile Include="PipingSoilProfileReader.cs" />

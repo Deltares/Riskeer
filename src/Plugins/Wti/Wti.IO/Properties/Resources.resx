@@ -150,4 +150,10 @@
   <data name="Error_SoilProfileReadFromDatabase" xml:space="preserve">
     <value>Kon geen ondergrond profielen verkrijgen van de database '{0}'.</value>
   </data>
+  <data name="Error_File_0_has_not_double_Line_1_" xml:space="preserve">
+    <value>Het bestand '{0}' heeft op regel {1} een waarde dat geen getal is.</value>
+  </data>
+  <data name="Error_File_0_Parsing_causes_overflow_Line_1_" xml:space="preserve">
+    <value>Het bestand '{0}' heeft op regel {1} een waarde dat te groot/klein is om ingelezen te worden.</value>
+  </data>
 </root>

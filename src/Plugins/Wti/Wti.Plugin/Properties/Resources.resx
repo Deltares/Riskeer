@@ -153,4 +153,7 @@
   <data name="PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens het inlezen van '{0}' waardoor import niet uitgevoerd kan worden: {1}</value>
   </data>
+  <data name="PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseError_File_0_SurfaceLinesNumber_1_Message_2_" xml:space="preserve">
+    <value>Er is een leesfout opgetreden bij dwarsdoorsnede {1} van bestand '{0}' en is overgeslagen: {2}</value>
+  </data>
 </root>

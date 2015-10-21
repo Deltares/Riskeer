@@ -361,5 +361,49 @@ namespace Wti.Plugin.Test.FileImporter
                 }
             }
         }
+
+        [Test]
+        public void ImportItem_FileWithTwoValidLinesAndOneInvalidDueToUnparsableNumber_SkipInvalidRowAndLog()
+        {
+            // Setup
+            string corruptPath = Path.Combine(testDataPath, "TwoValidAndOneInvalidNumberRowSurfaceLines.csv");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+            int progressCallCount = 0;
+            importer.ProgressChanged += (name, step, steps) =>
+            {
+                progressCallCount++;
+            };
+
+            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            object importedItem = null;
+
+            // Call
+            Action call = () => importedItem = importer.ImportItem(corruptPath, observableSurfaceLinesList);
+
+            // Assert
+            var internalErrorMessage = String.Format(WtiIOResources.Error_File_0_has_not_double_Line_1_,
+                                                     corruptPath, 3);
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseError_File_0_SurfaceLinesNumber_1_Message_2_,
+                                                   corruptPath, 2, internalErrorMessage);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            Assert.AreSame(observableSurfaceLinesList, importedItem);
+
+            Assert.AreEqual(2, observableSurfaceLinesList.Count,
+                "Ensure only the two valid surfacelines have been imported.");
+            Assert.AreEqual(1, observableSurfaceLinesList.Count(sl => sl.Name == "Rotterdam1"));
+            Assert.AreEqual(1, observableSurfaceLinesList.Count(sl => sl.Name == "ArtificalLocal"));
+
+            Assert.AreEqual(5, progressCallCount,
+                "Expect 1 call for each surfaceline (3 in total) +1 for 0/N progress, and 1 for putting data in model.");
+            mocks.VerifyAll();
+        }
     }
 }
