@@ -166,7 +166,7 @@ namespace Wti.Plugin.FileImporter
                 catch (LineParseException e)
                 {
                     var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseError_File_0_SurfaceLinesNumber_1_Message_2_,
-                                                path, i+1, e.Message);
+                                                path, i + 1, e.Message);
                     log.Error(message);
                 }
                 NotifyProgress(stepName, i + 1, itemCount);

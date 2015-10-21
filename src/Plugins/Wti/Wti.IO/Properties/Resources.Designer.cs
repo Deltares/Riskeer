@@ -176,5 +176,33 @@ namespace Wti.IO.Properties {
                 return ResourceManager.GetString("PipingSurfaceLinesCsvReader_File_0_invalid_header", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft op regel {1} geen verwacht scheidingsteken (het karakter: {2})..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_separator_2_ {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_separator_2_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft op regel {1} ontbrekende waardes om een 3D (X,Y,Z) punt aan te maken..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_values_for_coordinate_triplet {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_values_for_coordinate_tr" +
+                        "iplet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft op regel {1} heeft geen ID..
+        /// </summary>
+        public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_NoId {
+            get {
+                return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_NoId", resourceCulture);
+            }
+        }
     }
 }

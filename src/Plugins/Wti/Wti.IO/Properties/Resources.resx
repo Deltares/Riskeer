@@ -156,4 +156,13 @@
   <data name="Error_File_0_Parsing_causes_overflow_Line_1_" xml:space="preserve">
     <value>Het bestand '{0}' heeft op regel {1} een waarde dat te groot/klein is om ingelezen te worden.</value>
   </data>
+  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_NoId" xml:space="preserve">
+    <value>Het bestand '{0}' heeft op regel {1} heeft geen ID.</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_separator_2_" xml:space="preserve">
+    <value>Het bestand '{0}' heeft op regel {1} geen verwacht scheidingsteken (het karakter: {2}).</value>
+  </data>
+  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_values_for_coordinate_triplet" xml:space="preserve">
+    <value>Het bestand '{0}' heeft op regel {1} ontbrekende waardes om een 3D (X,Y,Z) punt aan te maken.</value>
+  </data>
 </root>

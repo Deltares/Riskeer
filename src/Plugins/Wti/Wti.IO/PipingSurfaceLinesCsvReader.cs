@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -71,7 +72,7 @@ namespace Wti.IO
         {
             using (var reader = InitializeStreamReader(filePath))
             {
-                ValidateHeader(reader);
+                ValidateHeader(reader, 1);
 
                 return CountNonEmptyLines(reader, 2);
             }
@@ -94,8 +95,11 @@ namespace Wti.IO
         /// </exception>
         /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
+        /// <item>The row doesn't contain any supported separator character.</item>
         /// <item>The row contains a coordinate value that cannot be parsed as a double.</item>
         /// <item>The row contains a number that is too big or too small to be represented with a double.</item>
+        /// <item>The row is missing an identifier value.</item>
+        /// <item>The row is missing values to form a surface line point.</item>
         /// </list>
         /// </exception>
         public PipingSurfaceLine ReadLine()
@@ -104,41 +108,116 @@ namespace Wti.IO
             {
                 fileReader = InitializeStreamReader(filePath);
 
-                ValidateHeader(fileReader);
+                ValidateHeader(fileReader, 1);
                 lineNumber = 2;
             }
 
-            var readText = ReadLineAndHandleIOExceptions(fileReader);
+            var readText = ReadLineAndHandleIOExceptions(fileReader, lineNumber);
             if (readText != null)
             {
-                var tokenizedString = readText.Split(separator);
-                var worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString);
-
-                // TODO: Format Error: missing values to complete coordinate triplet
-                int coordinateCount = worldCoordinateValues.Length / 3;
-                var points = new Point3D[coordinateCount];
-                for (int i = 0; i < coordinateCount; i++)
+                try
                 {
-                    points[i] = new Point3D
+                    var tokenizedString = TokenizeString(readText);
+
+                    var surfaceLineName = GetSurfaceLineName(tokenizedString);
+                    var points = GetSurfaceLinePoints(tokenizedString);
+
+                    var surfaceLine = new PipingSurfaceLine
                     {
-                        X = worldCoordinateValues[i * 3],
-                        Y = worldCoordinateValues[i * 3 + 1],
-                        Z = worldCoordinateValues[i * 3 + 2]
+                        Name = surfaceLineName
                     };
+                    surfaceLine.SetGeometry(points);
+                    return surfaceLine;
                 }
-
-                lineNumber++;
-
-                var surfaceLine = new PipingSurfaceLine
+                finally
                 {
-                    // TODO: Format Error: Row identifier null, empty or whitespace
-                    Name = tokenizedString.First()
-                };
-                surfaceLine.SetGeometry(points);
-                return surfaceLine;
+                    lineNumber++;
+                }
             }
 
             return null;
+        }
+
+        public void Dispose()
+        {
+            if (fileReader != null)
+            {
+                fileReader.Dispose();
+                fileReader = null;
+            }
+        }
+
+        /// <summary>
+        /// Tokenizes a string using a separator character.
+        /// </summary>
+        /// <param name="readText">The text.</param>
+        /// <returns>The tokenized parts.</returns>
+        /// <exception cref="LineParseException"><paramref name="readText"/> lacks separator character.</exception>
+        private string[] TokenizeString(string readText)
+        {
+            if (!readText.Contains(separator))
+            {
+                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_separator_2_,
+                                            filePath, lineNumber, separator);
+                throw new LineParseException(message);
+            }
+            return readText.Split(separator);
+        }
+
+        /// <summary>
+        /// Gets the 3D surface line points.
+        /// </summary>
+        /// <param name="tokenizedString">The tokenized string.</param>
+        /// <returns></returns>
+        /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
+        /// <list type="bullet">
+        /// <item><paramref name="tokenizedString"/> contains a coordinate value that cannot be parsed as a double.</item>
+        /// <item><paramref name="tokenizedString"/> contains a number that is too big or too small to be represented with a double.</item>
+        /// <item><paramref name="tokenizedString"/> is missing coordinate values to define a proper surface line point.</item>
+        /// </list>
+        /// </exception>
+        private Point3D[] GetSurfaceLinePoints(string[] tokenizedString)
+        {
+            const int expectedValuesForPoint = 3;
+
+            var worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString);
+            if (worldCoordinateValues.Length % expectedValuesForPoint != 0)
+            {
+                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_values_for_coordinate_triplet,
+                                            filePath, lineNumber);
+                throw new LineParseException(message);
+            }
+
+            int coordinateCount = worldCoordinateValues.Length / expectedValuesForPoint;
+            var points = new Point3D[coordinateCount];
+            for (int i = 0; i < coordinateCount; i++)
+            {
+                points[i] = new Point3D
+                {
+                    X = worldCoordinateValues[i * expectedValuesForPoint],
+                    Y = worldCoordinateValues[i * expectedValuesForPoint + 1],
+                    Z = worldCoordinateValues[i * expectedValuesForPoint + 2]
+                };
+            }
+            return points;
+        }
+
+        /// <summary>
+        /// Gets the name of the surface line.
+        /// </summary>
+        /// <param name="tokenizedString">The tokenized string from which the name should be extrated.</param>
+        /// <returns>The name of the surface line.</returns>
+        /// <exception cref="LineParseException">Id value is null or empty.</exception>
+        private string GetSurfaceLineName(IList<string> tokenizedString)
+        {
+            var name = tokenizedString[0].Trim();
+            if (string.IsNullOrEmpty(name))
+            {
+                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_NoId,
+                                            filePath, lineNumber);
+                throw new LineParseException(message);
+            }
+            return name;
         }
 
         /// <summary>
@@ -171,15 +250,6 @@ namespace Wti.IO
                 var message = string.Format(Resources.Error_File_0_Parsing_causes_overflow_Line_1_,
                                             filePath, lineNumber);
                 throw new LineParseException(message, e);
-            }
-        }
-
-        public void Dispose()
-        {
-            if (fileReader != null)
-            {
-                fileReader.Dispose();
-                fileReader = null;
             }
         }
 
@@ -217,10 +287,11 @@ namespace Wti.IO
         /// Validates the header of the file.
         /// </summary>
         /// <param name="reader">The reader, which is currently at the header row.</param>
+        /// <param name="currentLine">Row index used in error messaging.</param>
         /// <exception cref="CriticalFileReadException">The header is not in the required format.</exception>
-        private void ValidateHeader(TextReader reader)
+        private void ValidateHeader(TextReader reader, int currentLine)
         {
-            var header = ReadLineAndHandleIOExceptions(reader);
+            var header = ReadLineAndHandleIOExceptions(reader, currentLine);
             if (header != null)
             {
                 if (!IsHeaderValid(header))
@@ -245,15 +316,15 @@ namespace Wti.IO
         /// <exception cref="CriticalFileReadException">An I/O exception occurred.</exception>
         private int CountNonEmptyLines(TextReader reader, int currentLine)
         {
-            var count = 0;
+            int count = 0, lineNumberForMessage = currentLine;
             string line;
-            while ((line = ReadLineAndHandleIOExceptions(reader)) != null)
+            while ((line = ReadLineAndHandleIOExceptions(reader, lineNumberForMessage)) != null)
             {
                 if (!String.IsNullOrWhiteSpace(line))
                 {
                     count++;
                 }
-                currentLine++;
+                lineNumberForMessage++;
             }
             return count;
         }
@@ -265,7 +336,7 @@ namespace Wti.IO
         /// <param name="currentLine">Row number for error messaging.</param>
         /// <returns>The read line, or null when at the end of the file.</returns>
         /// <exception cref="CriticalFileReadException">An critical I/O exception occurred.</exception>
-        private string ReadLineAndHandleIOExceptions(TextReader reader)
+        private string ReadLineAndHandleIOExceptions(TextReader reader, int currentLine)
         {
             try
             {
@@ -273,7 +344,7 @@ namespace Wti.IO
             }
             catch (OutOfMemoryException e)
             {
-                var message = string.Format(Resources.Error_File_0_contains_Line_1_too_big, filePath, lineNumber);
+                var message = string.Format(Resources.Error_File_0_contains_Line_1_too_big, filePath, currentLine);
                 throw new CriticalFileReadException(message, e);
             }
             catch (IOException e)

@@ -422,6 +422,102 @@ namespace Wti.IO.Test
             }
         }
 
+        [Test]
+        public void ReadLine_FileLacksIds_ThrowLineParseException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "TwoInvalidRows_LacksId.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                // 1st line has no text at all:
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_NoId, path, 2);
+                Assert.AreEqual(expectedMessage, exception.Message);
+
+                // 2nd line has only whitespace text:
+                expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_NoId, path, 3);
+                exception = Assert.Throws<LineParseException>(call);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ReadLine_IncorrectValueSeparator_ThrowLineParseException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "InvalidRow_IncorrectValueSeparator.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_separator_2_, path, 2, ';');
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ReadLine_FileLacksCoordinateValues_ThrowLineParseException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "InvalidRow_LacksCoordinateValues.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_separator_2_, path, 2, ';');
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ReadLine_FileHasIncompleteCoordinateTriplets_ThrowLineParseException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "TwoInvalidRows_IncompleteCoordinateTriplets.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                // 1st row lacks 1 coordinate value:
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_values_for_coordinate_triplet, path, 2);
+                Assert.AreEqual(expectedMessage, exception.Message);
+
+                // 2nd row lacks 2 coordinate values:
+                exception = Assert.Throws<LineParseException>(call);
+                expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_values_for_coordinate_triplet, path, 3);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
         private void DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLines_ReturnCreatedSurfaceLine()
         {
             // Setup
