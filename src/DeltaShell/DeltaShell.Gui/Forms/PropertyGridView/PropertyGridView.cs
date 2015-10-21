@@ -34,8 +34,9 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
             HideTabsButton();
             FixDescriptionArea();
 
-            this.gui = gui;
             PropertySort = PropertySort.Categorized;
+
+            this.gui = gui;
 
             gui.SelectionChanged += GuiSelectionChanged;
         }
@@ -53,10 +54,6 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
             }
         }
 
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Forms.PropertyGrid.PropertySortChanged"/> event.
-        /// </summary>
-        /// <param name="e">A <see cref="T:System.EventArgs"/> that contains the event data. </param>
         protected override void OnPropertySortChanged(EventArgs e)
         {
             // Needed for maintaining property order
@@ -136,19 +133,14 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
 
         public object GetObjectProperties(object sourceData)
         {
-            if (gui != null)
-            {
-                return PropertyResolver.GetObjectProperties(gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList(), sourceData);
-            }
-
-            return null;
+            return gui != null ? PropertyResolver.GetObjectProperties(gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList(), sourceData) : null;
         }
 
         public ViewInfo ViewInfo { get; set; }
 
         #endregion
 
-        #region Enable tab key navigation on property grid
+        #region Tab key navigation
 
         /// <summary>
         /// Do special processing for Tab key. 
@@ -230,7 +222,7 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
 
         #endregion
 
-        #region PropertyGrid tweaks
+        #region Visualization tweaks
 
         /// <summary>
         /// Removes the redundant "tabs" toolstrip button and its corresponding separator.

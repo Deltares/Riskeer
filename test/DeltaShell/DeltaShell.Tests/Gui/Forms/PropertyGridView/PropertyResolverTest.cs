@@ -64,11 +64,11 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGridView
                 {
                     AdditionalDataCheck = o => false
                 },
-                new PropertyInfo<C, SimpleProperties<C>>() // specifically for C
+                new PropertyInfo<C, SimpleProperties<C>>()
             };
 
             // Call
-            var objectProperties = PropertyResolver.GetObjectProperties(propertyInfos, new C()); //we ask for C
+            var objectProperties = PropertyResolver.GetObjectProperties(propertyInfos, new C());
 
             // Assert
             Assert.AreSame(typeof(SimpleProperties<C>),
@@ -88,7 +88,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGridView
             // Call
             var objectProperties = PropertyResolver.GetObjectProperties(propertyInfos, new D());
 
-            // Setup
+            // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
             Assert.AreSame(typeof(SimpleProperties<D>), ((DynamicPropertyBag) objectProperties).GetContentType());
         }
@@ -143,8 +143,8 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGridView
             {
                 new PropertyInfo<B, SimpleProperties<B>>
                 {
-                    AdditionalDataCheck = o => true
-                }, // Additional data check which will be matched
+                    AdditionalDataCheck = o => true // Additional data check which will be matched
+                },
                 new PropertyInfo<B, OtherSimpleProperties<B>>()
             };
 
@@ -164,8 +164,8 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGridView
             {
                 new PropertyInfo<B, SimpleProperties<B>>
                 {
-                    AdditionalDataCheck = o => false
-                }, // Additional data check which will not be matched
+                    AdditionalDataCheck = o => false // Additional data check which will not be matched
+                },
                 new PropertyInfo<B, OtherSimpleProperties<B>>()
             };
 
@@ -231,6 +231,8 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGridView
 
             // Call
             var objectProperties = PropertyResolver.GetObjectProperties(propertyInfos, new B());
+
+            // Assert
             Assert.IsNull(objectProperties);
         }
 
@@ -291,15 +293,15 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGridView
          * 
          */
 
-        internal class A {}
+        private class A {}
 
         private class B : A {}
 
-        internal class C : A {}
+        private class C : A {}
 
         private class D : C {}
 
-        internal class SimpleProperties<T> : ObjectProperties<T> {}
+        private class SimpleProperties<T> : ObjectProperties<T> {}
 
         private class DerivedSimpleProperties<T> : SimpleProperties<T> {}
 

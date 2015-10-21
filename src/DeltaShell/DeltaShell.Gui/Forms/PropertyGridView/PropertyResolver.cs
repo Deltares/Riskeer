@@ -7,16 +7,16 @@ using DelftTools.Utils.PropertyBag.Dynamic;
 namespace DeltaShell.Gui.Forms.PropertyGridView
 {
     /// <summary>
-    /// Helper class for resolving <see cref="PropertyInfo"/> objects.
+    /// Helper class for resolving object properties.
     /// </summary>
     public static class PropertyResolver
     {
         /// <summary>
         /// Returns object properties based on the provided <paramref name="propertyInfos"/> and <paramref name="sourceData"/>.
         /// </summary>
-        /// <param name="propertyInfos">The list of property info objects to obtain the object properties from.</param>
+        /// <param name="propertyInfos">The list of property information objects to obtain the object properties from.</param>
         /// <param name="sourceData">The source data to get the object properties for.</param>
-        /// <returns>An object properties object, or null when no relevant propwrties object is found.</returns>
+        /// <returns>An object properties object, or null when no relevant properties object is found.</returns>
         public static object GetObjectProperties(List<PropertyInfo> propertyInfos, object sourceData)
         {
             if (sourceData == null)
@@ -93,7 +93,7 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
                 var objectProperties = propertyInfo.CreateObjectProperties(sourceData);
 
                 // Return a dynamic property bag containing the created object properties
-                return new DynamicPropertyBag(objectProperties); 
+                return new DynamicPropertyBag(objectProperties);
             }
             catch (Exception)
             {
