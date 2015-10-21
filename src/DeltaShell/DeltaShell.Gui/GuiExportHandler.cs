@@ -51,7 +51,7 @@ namespace DeltaShell.Gui
 
             if (view != null)
             {
-                if (view.ShowModal() == DelftDialogResult.OK)
+                if (view.ShowModal() == DialogResult.OK)
                 {
                     if (view is IConfigureDialog)
                     {

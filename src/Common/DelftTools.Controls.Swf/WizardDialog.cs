@@ -160,22 +160,13 @@ namespace DelftTools.Controls.Swf
             Pages.Remove(page);
         }
 
-        public DelftDialogResult ShowModal()
+        public DialogResult ShowModal()
         {
             if (ShowDialog() == DialogResult.OK)
             {
-                return DelftDialogResult.OK;
+                return DialogResult.OK;
             }
-            return DelftDialogResult.Cancel;
-        }
-
-        public DelftDialogResult ShowModal(object owner)
-        {
-            if (ShowDialog((IWin32Window) owner) == DialogResult.OK)
-            {
-                return DelftDialogResult.OK;
-            }
-            return DelftDialogResult.Cancel;
+            return DialogResult.Cancel;
         }
 
         protected bool WelcomePageVisible

@@ -74,7 +74,8 @@ namespace DelftTools.Controls.Swf
             {
                 BaseImage = image
             };
-            if (imageResolutionDialog.ShowModal() != DelftDialogResult.OK)
+
+            if (imageResolutionDialog.ShowModal() != DialogResult.OK)
             {
                 return;
             }

@@ -75,7 +75,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Command.cs" />
-    <Compile Include="DelftDialogResult.cs" />
     <Compile Include="DragOperations.cs" />
     <Compile Include="ICanvasEditor.cs" />
     <Compile Include="ICommand.cs" />

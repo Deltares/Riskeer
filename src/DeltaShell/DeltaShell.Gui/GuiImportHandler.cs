@@ -186,7 +186,7 @@ namespace DeltaShell.Gui
                     return;
                 }
 
-                if (importerDialog.ShowModal() != DelftDialogResult.OK)
+                if (importerDialog.ShowModal() != DialogResult.OK)
                 {
                     return;
                 }

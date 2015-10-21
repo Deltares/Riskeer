@@ -6,7 +6,7 @@ namespace DelftTools.Controls.Swf
 {
     public partial class ImageResolutionDialog : Form, IDialog
     {
-        private DelftDialogResult result;
+        private DialogResult result;
         private bool updatingControls;
 
         private Image baseImage;
@@ -43,14 +43,14 @@ namespace DelftTools.Controls.Swf
 
         public string Title { get; set; }
 
-        public DelftDialogResult ShowModal()
+        public DialogResult ShowModal()
         {
             if (BaseImage == null)
             {
-                return DelftDialogResult.Cancel;
+                return DialogResult.Cancel;
             }
 
-            result = DelftDialogResult.Cancel;
+            result = DialogResult.Cancel;
 
             UpdateControls();
 
@@ -64,14 +64,9 @@ namespace DelftTools.Controls.Swf
             return result;
         }
 
-        public DelftDialogResult ShowModal(object owner)
-        {
-            return ShowModal();
-        }
-
         private void OkButtonClicked(object sender, EventArgs e)
         {
-            result = DelftDialogResult.OK;
+            result = DialogResult.OK;
             CloseDialog();
         }
 
