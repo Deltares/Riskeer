@@ -33,7 +33,6 @@ namespace DeltaShell.Plugins.CommonTools.Gui.Forms.Charting
             node.Tag = chartSeries;
             node.Checked = chartSeries.Visible;
             node.ShowCheckBox = true;
-            node.ContextMenuStrip = GetContextMenu(null, chartSeries);
             node.Image = GetImage(chartSeries);
         }
 

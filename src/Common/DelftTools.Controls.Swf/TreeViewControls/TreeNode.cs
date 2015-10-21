@@ -35,10 +35,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             {
                 return Presenter != null ? Presenter.GetContextMenu(this, Tag) : null;
             }
-            set
-            {
-                base.ContextMenuStrip = value;
-            }
         }
         
         /// <summary>
