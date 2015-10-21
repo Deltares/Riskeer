@@ -87,7 +87,7 @@
     <Compile Include="Core\Extensions\CompositeActivityExtensionsTest.cs" />
     <Compile Include="Gui\Forms\AvalonDockDockingManagerTest.cs" />
     <Compile Include="Gui\Forms\ProgressBarDialogTest.cs" />
-    <Compile Include="Gui\Forms\PropertyGrid\PropertyGridTest.cs" />
+    <Compile Include="Gui\Forms\PropertyGrid\PropertyResolverTest.cs" />
     <Compile Include="Gui\GuiExportHandlerTest.cs" />
     <Compile Include="Gui\DelftShellGuiTests.cs" />
     <Compile Include="Gui\ImportActivityTest.cs" />

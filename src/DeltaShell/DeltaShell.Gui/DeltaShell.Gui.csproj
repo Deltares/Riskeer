@@ -146,6 +146,7 @@
     <Compile Include="Forms\PropertyGridView\PropertyGridView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\PropertyGridView\PropertyResolver.cs" />
     <Compile Include="Forms\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
