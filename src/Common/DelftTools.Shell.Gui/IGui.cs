@@ -15,7 +15,7 @@ namespace DelftTools.Shell.Gui
     /// <summary>
     /// Provides graphical user interface logic required to work with an application.
     /// </summary>
-    public interface IGui : ISelectionContainer
+    public interface IGui
     {
         #region Public Properties
 
@@ -69,6 +69,20 @@ namespace DelftTools.Shell.Gui
         /// </summary>
         bool IsViewRemoveOnItemDeleteSuspended { get; set; }
 
+        /// <summary>
+        /// Gets or sets current selected object(s). 
+        /// Visibility of the menus, toolbars and other controls should be updated when selected object is changed.
+        /// Default implementation will also show it in the PropertyGrid.
+        /// </summary>
+        object Selection { get; set; }
+
+        /// <summary>
+        /// Selected project item. 
+        /// If non-IProjectItem is selected in project tree view then this item must be set from outside 
+        /// (by a project tree view or any other IProjectItem navigation control).
+        /// </summary>
+        IProjectItem SelectedProjectItem { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -98,10 +112,19 @@ namespace DelftTools.Shell.Gui
         /// <param name="projectPath">Path to the project to be opened.</param>
         void Run(string projectPath);
 
+        #endregion
+
+        #region Events
+
         /// <summary>
         /// Fired after application has been started.
         /// </summary>
         event Action AfterRun;
+
+        /// <summary>
+        /// Fired when user changes selection by clicking on it or by setting it using Selection property.
+        /// </summary>
+        event EventHandler<SelectedItemChangedEventArgs> SelectionChanged;
 
         #endregion
     }

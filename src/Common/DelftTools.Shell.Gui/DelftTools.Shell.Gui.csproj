@@ -105,7 +105,6 @@
     <Compile Include="IViewResolver.cs" />
     <Compile Include="ObjectProperties.cs" />
     <Compile Include="PropertyInfo.cs" />
-    <Compile Include="ISelectionContainer.cs" />
     <Compile Include="IViewList.cs" />
     <Compile Include="GuiPluginConfiguration.cs">
       <DependentUpon>GuiPluginConfiguration.xsd</DependentUpon>
