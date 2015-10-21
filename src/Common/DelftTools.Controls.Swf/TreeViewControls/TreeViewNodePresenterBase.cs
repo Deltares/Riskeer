@@ -289,8 +289,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                         }
 
                         // create and add a new tree node
-                        var newNode = TreeView.AddNewNode(parentNode, e.Item, newNodeIndex);
-                        newNode.ContextMenuStrip = GetContextMenu(null, e.Item);
+                        TreeView.AddNewNode(parentNode, e.Item, newNodeIndex);
                     }
                     else
                     {

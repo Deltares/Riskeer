@@ -32,7 +32,7 @@ namespace DeltaShell.Plugins.ProjectExplorer
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectTreeView));
-            this.contextMenuFolder = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuProject = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.buttonFolderAdd = new DelftTools.Controls.Swf.ClonableToolStripMenuItem();
             this.buttonFolderAddNewItem = new DelftTools.Controls.Swf.ClonableToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -46,12 +46,12 @@ namespace DeltaShell.Plugins.ProjectExplorer
             this.buttonFolderCollapseAll = new DelftTools.Controls.Swf.ClonableToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonFolderProperties = new DelftTools.Controls.Swf.ClonableToolStripMenuItem();
-            this.contextMenuFolder.SuspendLayout();
+            this.contextMenuProject.SuspendLayout();
             this.SuspendLayout();
             // 
-            // contextMenuFolder
+            // contextMenuProject
             // 
-            this.contextMenuFolder.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuProject.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonFolderAdd,
             this.toolStripSeparator4,
             this.buttonFolderImportFolder,
@@ -64,8 +64,8 @@ namespace DeltaShell.Plugins.ProjectExplorer
             this.buttonFolderCollapseAll,
             this.toolStripSeparator7,
             this.buttonFolderProperties});
-            this.contextMenuFolder.Name = "contextMenuFolder";
-            resources.ApplyResources(this.contextMenuFolder, "contextMenuFolder");
+            this.contextMenuProject.Name = "contextMenuProject";
+            resources.ApplyResources(this.contextMenuProject, "contextMenuProject");
             // 
             // buttonFolderAdd
             // 
@@ -156,14 +156,14 @@ namespace DeltaShell.Plugins.ProjectExplorer
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "ProjectTreeView";
-            this.contextMenuFolder.ResumeLayout(false);
+            this.contextMenuProject.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ContextMenuStrip contextMenuFolder;
+        private System.Windows.Forms.ContextMenuStrip contextMenuProject;
         private ClonableToolStripMenuItem buttonFolderAdd;
         private ClonableToolStripMenuItem buttonFolderAddNewItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;

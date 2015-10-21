@@ -117,45 +117,45 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="contextMenuFolder.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="contextMenuProject.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>296, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="buttonFolderAddNewItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>152, 22</value>
+    <value>98, 22</value>
   </data>
   <data name="buttonFolderAddNewItem.Text" xml:space="preserve">
     <value>Item</value>
   </data>
   <data name="buttonFolderAdd.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="buttonFolderAdd.Text" xml:space="preserve">
     <value>New</value>
   </data>
   <data name="toolStripSeparator4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 6</value>
+    <value>149, 6</value>
   </data>
   <data name="buttonFolderImportFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="buttonFolderImportFolder.Text" xml:space="preserve">
     <value>Import</value>
   </data>
   <data name="buttonFolderExportFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="buttonFolderExportFolder.Text" xml:space="preserve">
     <value>&amp;Export ...</value>
   </data>
   <data name="toolStripSeparator18.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 6</value>
+    <value>149, 6</value>
   </data>
   <data name="buttonFolderDelete.ShortcutKeyDisplayString" xml:space="preserve">
     <value />
   </data>
   <data name="buttonFolderDelete.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="buttonFolderDelete.Text" xml:space="preserve">
     <value>&amp;Delete</value>
@@ -164,42 +164,42 @@
     <value />
   </data>
   <data name="buttonFolderRename.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="buttonFolderRename.Text" xml:space="preserve">
     <value>Re&amp;name</value>
   </data>
   <data name="toolStripSeparator5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 6</value>
+    <value>149, 6</value>
   </data>
   <data name="buttonFolderExpandAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="buttonFolderExpandAll.Text" xml:space="preserve">
     <value>Expand All</value>
   </data>
   <data name="buttonFolderCollapseAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="buttonFolderCollapseAll.Text" xml:space="preserve">
     <value>Collapse All</value>
   </data>
   <data name="toolStripSeparator7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 6</value>
+    <value>149, 6</value>
   </data>
   <data name="buttonFolderProperties.Size" type="System.Drawing.Size, System.Drawing">
-    <value>136, 22</value>
+    <value>152, 22</value>
   </data>
   <data name="buttonFolderProperties.Text" xml:space="preserve">
     <value>Properties</value>
   </data>
-  <data name="contextMenuFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 204</value>
+  <data name="contextMenuProject.Size" type="System.Drawing.Size, System.Drawing">
+    <value>153, 226</value>
   </data>
-  <data name="&gt;&gt;contextMenuFolder.Name" xml:space="preserve">
-    <value>contextMenuFolder</value>
+  <data name="&gt;&gt;contextMenuProject.Name" xml:space="preserve">
+    <value>contextMenuProject</value>
   </data>
-  <data name="&gt;&gt;contextMenuFolder.Type" xml:space="preserve">
+  <data name="&gt;&gt;contextMenuProject.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -218,13 +218,13 @@
     <value>buttonFolderAdd</value>
   </data>
   <data name="&gt;&gt;buttonFolderAdd.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=1.0.4.31767, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d</value>
+    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonFolderAddNewItem.Name" xml:space="preserve">
     <value>buttonFolderAddNewItem</value>
   </data>
   <data name="&gt;&gt;buttonFolderAddNewItem.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=1.0.4.31767, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d</value>
+    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
     <value>toolStripSeparator4</value>
@@ -236,7 +236,7 @@
     <value>buttonFolderImportFolder</value>
   </data>
   <data name="&gt;&gt;buttonFolderImportFolder.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=1.0.4.31767, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d</value>
+    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonFolderExportFolder.Name" xml:space="preserve">
     <value>buttonFolderExportFolder</value>
@@ -272,13 +272,13 @@
     <value>buttonFolderExpandAll</value>
   </data>
   <data name="&gt;&gt;buttonFolderExpandAll.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=1.0.4.31767, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d</value>
+    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonFolderCollapseAll.Name" xml:space="preserve">
     <value>buttonFolderCollapseAll</value>
   </data>
   <data name="&gt;&gt;buttonFolderCollapseAll.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=1.0.4.31767, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d</value>
+    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator7.Name" xml:space="preserve">
     <value>toolStripSeparator7</value>
@@ -290,7 +290,7 @@
     <value>buttonFolderProperties</value>
   </data>
   <data name="&gt;&gt;buttonFolderProperties.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=1.0.4.31767, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d</value>
+    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>ProjectTreeView</value>

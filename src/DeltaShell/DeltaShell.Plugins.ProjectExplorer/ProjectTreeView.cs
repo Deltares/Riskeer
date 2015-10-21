@@ -138,7 +138,7 @@ namespace DeltaShell.Plugins.ProjectExplorer
 
                 buttonFolderImportFolder.Enabled = gui.CommandHandler.CanImportToGuiSelection();
 
-                return contextMenuFolder;
+                return contextMenuProject;
             }
 
             return null;

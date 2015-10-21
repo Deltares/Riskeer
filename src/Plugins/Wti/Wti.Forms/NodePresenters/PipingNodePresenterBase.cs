@@ -107,114 +107,114 @@ namespace Wti.Forms.NodePresenters
         }
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.UpdateNode"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.UpdateNode"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.UpdateNode"/>
+        /// <seealso cref="UpdateNode(ITreeNode, ITreeNode, object)"/>
         protected abstract void UpdateNode(ITreeNode parentNode, ITreeNode node, T nodeData);
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.GetChildNodeObjects"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.GetChildNodeObjects"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.GetChildNodeObjects"/>
+        /// <seealso cref="GetChildNodeObjects(object, ITreeNode)"/>
         protected virtual IEnumerable GetChildNodeObjects(T nodeData, ITreeNode node)
         {
             return Enumerable.Empty<object>();
         }
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.OnNodeRenamed"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.OnNodeRenamed"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.OnNodeRenamed"/>
+        /// <seealso cref="OnNodeRenamed(object, string)"/>
         protected virtual void OnNodeRenamed(T nodeData, string newName)
         {
             throw new InvalidOperationException(string.Format("Cannot rename tree node of type {0}.", GetType().Name));
         }
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.CanDrag"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.CanDrag"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.CanDrag"/>
+        /// <seealso cref="CanDrag(object)"/>
         protected virtual DragOperations CanDrag(T nodeData)
         {
             return DragOperations.None;
         }
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.CanDrop"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.CanDrop"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.CanDrop"/>
+        /// <seealso cref="CanDrop(object, ITreeNode, ITreeNode, DragOperations)"/>
         protected virtual DragOperations CanDrop(T item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
         {
             return DragOperations.None;
         }
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.CanInsert"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.CanInsert"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.CanInsert"/>
+        /// <seealso cref="CanInsert(object, ITreeNode, ITreeNode)"/>
         protected virtual bool CanInsert(T item, ITreeNode sourceNode, ITreeNode targetNode)
         {
             return false;
         }
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.OnDragDrop"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.OnDragDrop"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.OnDragDrop"/>
+        /// <seealso cref="OnDragDrop(object, object, object, DragOperations, System.Int32)"/>
         protected virtual void OnDragDrop(T item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position)
         {
             // Do nothing
         }
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.OnNodeSelected"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.OnNodeSelected"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.OnNodeSelected"/>
+        /// <seealso cref="OnNodeSelected(object)"/>
         protected virtual void OnNodeSelected(T nodeData)
         {
             // Do nothing
         }
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.GetContextMenu"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.GetContextMenu"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.GetContextMenu"/>
+        /// <seealso cref="GetContextMenu(ITreeNode, object)"/>
         protected virtual ContextMenuStrip GetContextMenu(ITreeNode sender, T nodeData)
         {
             return null;
         }
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.OnPropertyChanged"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.OnPropertyChanged"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.OnPropertyChanged"/>
+        /// <seealso cref="OnPropertyChanged(object, ITreeNode, PropertyChangedEventArgs)"/>
         protected virtual void OnPropertyChanged(T sender, ITreeNode node, PropertyChangedEventArgs e)
         {
             // Do nothing
         }
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.OnCollectionChanged"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.OnCollectionChanged"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.OnCollectionChanged"/>
+        /// <seealso cref="OnCollectionChanged(object, NotifyCollectionChangingEventArgs)"/>
         protected virtual void OnCollectionChanged(T sender, NotifyCollectionChangingEventArgs e)
         {
             // Do nothing
         }
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.CanRemove"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.CanRemove"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.CanRemove"/>
+        /// <seealso cref="CanRemove(object, object)"/>
         protected virtual bool CanRemove(object parentNodeData, T nodeData)
         {
             return false;
         }
 
         /// <summary>
-        /// Typed implementation method of <see cref="ITreeNodePresenter.RemoveNodeData"/>.
+        /// Typed implementation of method <see cref="ITreeNodePresenter.RemoveNodeData"/>.
         /// </summary>
-        /// <seealso cref="ITreeNodePresenter.RemoveNodeData"/>
+        /// <seealso cref="RemoveNodeData(object, object)"/>
         protected virtual bool RemoveNodeData(object parentNodeData, T nodeData)
         {
             throw new InvalidOperationException(String.Format("Cannot delete node of type {0}.", GetType().Name));

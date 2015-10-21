@@ -358,9 +358,8 @@ namespace Wti.Forms.Test.NodePresenters
             var returnedContextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
-            var contextMenu =  returnedContextMenu;
-            Assert.AreEqual(1, contextMenu.Items.Count);
-            var importItem = contextMenu.Items[0];
+            Assert.AreEqual(1, returnedContextMenu.Items.Count);
+            var importItem = returnedContextMenu.Items[0];
             Assert.AreEqual("Importeer ondergrondprofielen", importItem.Text);
             Assert.AreEqual("Importeer nieuwe ondergrondprofielen van een *.soil bestand.", importItem.ToolTipText);
             Assert.AreEqual(16, importItem.Image.Width);

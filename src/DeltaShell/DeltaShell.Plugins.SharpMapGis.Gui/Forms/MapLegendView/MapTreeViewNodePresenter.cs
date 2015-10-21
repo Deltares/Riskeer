@@ -84,8 +84,7 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                 var sourceLayerGroup = sourceParentNodeData as GroupLayer;
                 var layer = (ILayer) item;
 
-                bool removed;
-                removed = sourceLayerGroup != null ? sourceLayerGroup.Layers.Remove(layer) : target.Layers.Remove(layer);
+                var removed = sourceLayerGroup != null ? sourceLayerGroup.Layers.Remove(layer) : target.Layers.Remove(layer);
 
                 if (removed)
                 {

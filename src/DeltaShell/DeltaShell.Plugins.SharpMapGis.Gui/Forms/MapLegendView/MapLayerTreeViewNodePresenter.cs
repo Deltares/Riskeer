@@ -36,7 +36,6 @@ namespace DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             node.Text = layer.Name;
             node.Checked = layer.Visible;
             node.ShowCheckBox = true;
-            node.ContextMenuStrip = GetContextMenu(null, layer);
             node.IsVisible = layer.ShowInTreeView;
         }
 

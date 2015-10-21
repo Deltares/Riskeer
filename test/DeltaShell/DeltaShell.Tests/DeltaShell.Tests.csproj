@@ -92,8 +92,6 @@
     <Compile Include="Gui\DelftShellGuiTests.cs" />
     <Compile Include="Gui\ImportActivityTest.cs" />
     <Compile Include="Gui\Log4netTest.cs" />
-    <Compile Include="Gui\MenuManagerTest.cs">
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
