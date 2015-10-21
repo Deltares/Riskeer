@@ -17,12 +17,10 @@
   <Interface Name="DelftTools.Controls.ITableView">
     <Position X="0.75" Y="0.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>owgAAAAAUIBAcKASAAQAAERAkACgKABgAEEIQJhIAqU=</HashCode>
+      <HashCode>owgAAAAAUIAAYKASAIAAAERAkAAgKABgAAAIQJhIAqE=</HashCode>
       <FileName>ITableView.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="FocusedCell" />
-      <Property Name="PasteBehaviour" />
       <Property Name="PasteController" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
@@ -33,17 +31,14 @@
   <Interface Name="DelftTools.Controls.ITableViewColumn">
     <Position X="5" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAgAAIAYAEAAI0AAAAAARAICAAIAYAAAAA=</HashCode>
+      <HashCode>AAAABAAAAAAgAAIAYAEAAMwAAABAARAICAAIAYAAAAA=</HashCode>
       <FileName>ITableViewColumn.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="SortOrder" />
-    </ShowAsAssociation>
   </Interface>
   <Interface Name="DelftTools.Controls.ITableViewPasteController">
     <Position X="5" Y="6.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAACAAAAAAAIA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAIA=</HashCode>
       <FileName>ITableViewPasteController.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -58,14 +53,7 @@
     <Position X="5" Y="10.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ITableView.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="DelftTools.Controls.SortOrder">
-    <Position X="8" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAAAAAAABAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
-      <FileName>SortOrder.cs</FileName>
+      <FileName>TableViewPasteBehaviourOptions.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

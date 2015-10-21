@@ -113,8 +113,6 @@ namespace DeltaShell.Gui
                 {
                     Application.ProjectClosing -= ApplicationProjectClosing;
                     Application.ProjectOpened -= ApplicationProjectOpened;
-                    Application.ProjectOpening -= ApplicationProjectOpening;
-                    Application.ProjectSaving -= ApplicationProjectSaving;
                     Application.ProjectSaved -= ApplicationProjectSaved;
                     Application.ActivityRunner.IsRunningChanged -= ActivityRunnerIsRunningChanged;
                     Application.ActivityRunner.ActivityCompleted -= ActivityRunnerActivityCompleted;
@@ -127,8 +125,6 @@ namespace DeltaShell.Gui
                     // subscribe to application events so that we can handle opening, closing, renamig of views on project changes
                     Application.ProjectClosing += ApplicationProjectClosing;
                     Application.ProjectOpened += ApplicationProjectOpened;
-                    Application.ProjectOpening += ApplicationProjectOpening;
-                    Application.ProjectSaving += ApplicationProjectSaving;
                     Application.ProjectSaved += ApplicationProjectSaved;
                     Application.ActivityRunner.IsRunningChanged += ActivityRunnerIsRunningChanged;
                     Application.ActivityRunner.ActivityCompleted += ActivityRunnerActivityCompleted;
@@ -545,45 +541,12 @@ namespace DeltaShell.Gui
             ResumeUI();
         }
 
-        private void ApplicationProjectSaving(Project obj)
-        {
-            SuspendUI();
-        }
-
-        private void SuspendUI()
-        {
-            if (documentViews != null)
-            {
-                documentViews.SuspendAllViewUpdates();
-            }
-
-            if (toolWindowViews != null)
-            {
-                toolWindowViews.SuspendAllViewUpdates();
-            }
-        }
-
         private void ResumeUI()
         {
-            if (documentViews != null)
-            {
-                documentViews.ResumeAllViewUpdates();
-            }
-
-            if (toolWindowViews != null)
-            {
-                toolWindowViews.ResumeAllViewUpdates();
-            }
-
             if (mainWindow != null)
             {
                 mainWindow.ValidateItems();
             }
-        }
-
-        private void ApplicationProjectOpening(Project obj)
-        {
-            SuspendUI();
         }
 
         [InvokeRequired]
@@ -594,11 +557,7 @@ namespace DeltaShell.Gui
                 return;
             }
 
-            if (Application.IsActivityRunning())
-            {
-                SuspendUI();
-            }
-            else
+            if (!Application.IsActivityRunning())
             {
                 ResumeUI();
             }
@@ -675,8 +634,6 @@ namespace DeltaShell.Gui
 
         private void ApplicationProjectClosing(Project project)
         {
-            SuspendUI();
-
             ClonableToolStripMenuItem.ClearCache();
         }
 

@@ -1,6 +1,3 @@
-using System;
-using System.Drawing;
-
 namespace DelftTools.Controls
 {
     /// <summary>
@@ -18,81 +15,15 @@ namespace DelftTools.Controls
     /// </example>
     public abstract class Command : ICommand
     {
-        private string name;
-        private Image image;
-
-        /// <summary>
-        /// Commands can be disabled when they should not be used.
-        /// </summary>
         public abstract bool Enabled { get; }
 
-        /// <summary>
-        /// HACK: Commands can checked if they represent a (boolean) state.
-        /// </summary>
         public virtual bool Checked { set; get; }
 
-        /// <summary>
-        /// DisplayName of the command.
-        /// </summary>
-        public virtual string Name
-        {
-            get
-            {
-                return name;
-            }
-
-            protected set
-            {
-                string oldName = name;
-                name = value;
-            }
-        }
-
-        #region ICommand Members
-
-        /// <summary>
-        /// Image of the command
-        /// </summary>
-        public Image Image
-        {
-            get
-            {
-                return image;
-            }
-            set
-            {
-                Image oldImage = image;
-                image = value;
-            }
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Method to be called when command will be executed.
-        /// </summary>
-        /// <param name="arguments">arguments to the command</param>
-        protected abstract void OnExecute(params object[] arguments);
-
-        #region ICommand Members
-
-        /// <summary>
-        /// Execute the command. 
-        /// </summary>
-        /// <param name="arguments">Arguments past to the command.</param>
         public void Execute(params object[] arguments)
         {
             OnExecute(arguments);
         }
 
-        /// <summary>
-        /// Undo the command.
-        /// </summary>
-        public void Unexecute()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
+        protected abstract void OnExecute(params object[] arguments);
     }
 }

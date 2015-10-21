@@ -117,28 +117,6 @@ namespace DeltaShell.Gui.Forms.ViewManager
             }
         }
 
-        /// <summary>
-        /// The resume all view updates.
-        /// </summary>
-        public void ResumeAllViewUpdates()
-        {
-            foreach (var view in AllViews.OfType<ISuspendibleView>())
-            {
-                view.ResumeUpdates();
-            }
-        }
-
-        /// <summary>
-        /// The suspend all view updates.
-        /// </summary>
-        public void SuspendAllViewUpdates()
-        {
-            foreach (var view in AllViews.OfType<ISuspendibleView>())
-            {
-                view.SuspendUpdates();
-            }
-        }
-
         public void EnableTabContextMenus()
         {
             viewSelectionMouseController = new ViewSelectionMouseController(dockingManager, this);

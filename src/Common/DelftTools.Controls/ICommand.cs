@@ -21,10 +21,5 @@ namespace DelftTools.Controls
         /// </summary>
         /// <param name="arguments">Arguments used in executing the Command.</param>
         void Execute(params object[] arguments);
-
-        /// <summary>
-        /// Unexecute or undo the Command. 
-        /// </summary>
-        void Unexecute();
     }
 }

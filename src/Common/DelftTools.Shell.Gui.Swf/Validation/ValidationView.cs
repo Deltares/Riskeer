@@ -9,11 +9,10 @@ using DelftTools.Utils.Validation;
 
 namespace DelftTools.Shell.Gui.Swf.Validation
 {
-    public partial class ValidationView : UserControl, ISuspendibleView, IAdditionalView
+    public partial class ValidationView : UserControl, IAdditionalView
     {
         private readonly Stopwatch stopwatch = new Stopwatch();
         private Func<object, ValidationReport> onValidate;
-        private bool suspend;
         private object data;
 
         public ValidationView()
@@ -61,16 +60,6 @@ namespace DelftTools.Shell.Gui.Swf.Validation
         public ViewInfo ViewInfo { get; set; }
 
         public void EnsureVisible(object item) {}
-
-        public void SuspendUpdates()
-        {
-            suspend = true;
-        }
-
-        public void ResumeUpdates()
-        {
-            suspend = false;
-        }
 
         private void SetViewText()
         {
@@ -130,11 +119,6 @@ namespace DelftTools.Shell.Gui.Swf.Validation
 
         private void RefreshTimerTick(object sender, EventArgs e)
         {
-            if (suspend)
-            {
-                return;
-            }
-
             refreshTimer.Stop();
             if (RefreshReport())
             {

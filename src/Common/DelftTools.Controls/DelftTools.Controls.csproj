@@ -80,7 +80,6 @@
     <Compile Include="ICanvasEditor.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="IRowValidationResult.cs" />
-    <Compile Include="ISuspendibleView.cs" />
     <Compile Include="ITableViewPasteController.cs" />
     <Compile Include="IDialog.cs" />
     <Compile Include="IReusableView.cs" />
