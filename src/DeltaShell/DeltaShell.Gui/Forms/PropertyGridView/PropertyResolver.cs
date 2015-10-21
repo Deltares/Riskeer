@@ -97,7 +97,7 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
             }
             catch (Exception)
             {
-                return sourceData;
+                return null;
             }
         }
     }
