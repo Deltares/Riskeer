@@ -263,6 +263,8 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
                             field.SetValue(control, true);
                         }
                     }
+
+                    return;
                 }
             }
         }
