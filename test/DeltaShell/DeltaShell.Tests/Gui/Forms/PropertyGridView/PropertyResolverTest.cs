@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DelftTools.Shell.Gui;
-using DelftTools.TestUtils;
 using DelftTools.Utils.PropertyBag.Dynamic;
-using DeltaShell.Gui;
 using DeltaShell.Gui.Forms.PropertyGridView;
 using NUnit.Framework;
-using Rhino.Mocks;
 
 namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 {
@@ -28,7 +24,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
             // Setup
             var propertyInfos = new List<PropertyInfo>
             {
-                new PropertyInfo<A, SimpleProperties<A>>()                
+                new PropertyInfo<A, SimpleProperties<A>>()
             };
 
             // Call
@@ -38,7 +34,6 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
             Assert.AreSame(typeof(SimpleProperties<A>), ((DynamicPropertyBag) objectProperties).GetContentType());
         }
-        
 
         [Test]
         public void GetObjectProperties_WhenOnePropertyInfoIsFoundButAdditionalChecksFail_ReturnNull()
@@ -46,7 +41,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
             // Setup
             var propertyInfos = new List<PropertyInfo>
             {
-                new PropertyInfo<A, SimpleProperties<A>>()                
+                new PropertyInfo<A, SimpleProperties<A>>()
                 {
                     AdditionalDataCheck = o => false
                 }
@@ -72,13 +67,12 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 new PropertyInfo<C, SimpleProperties<C>>() // specifically for C
             };
 
-
             // Call
             var objectProperties = PropertyResolver.GetObjectProperties(propertyInfos, new C()); //we ask for C
 
             // Assert
             Assert.AreSame(typeof(SimpleProperties<C>),
-                           ((DynamicPropertyBag)objectProperties).GetContentType(), "we got A, expected C");
+                           ((DynamicPropertyBag) objectProperties).GetContentType(), "we got A, expected C");
         }
 
         [Test]
@@ -96,7 +90,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             // Setup
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<D>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            Assert.AreSame(typeof(SimpleProperties<D>), ((DynamicPropertyBag) objectProperties).GetContentType());
         }
 
         [Test]
@@ -109,13 +103,12 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
                 new PropertyInfo<C, SimpleProperties<C>>()
             };
 
-
             // Call
             var objectProperties = PropertyResolver.GetObjectProperties(propertyInfos, new D());
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<C>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            Assert.AreSame(typeof(SimpleProperties<C>), ((DynamicPropertyBag) objectProperties).GetContentType());
         }
 
         [Test]
@@ -139,7 +132,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<C>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            Assert.AreSame(typeof(SimpleProperties<C>), ((DynamicPropertyBag) objectProperties).GetContentType());
         }
 
         [Test]
@@ -160,7 +153,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(SimpleProperties<B>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            Assert.AreSame(typeof(SimpleProperties<B>), ((DynamicPropertyBag) objectProperties).GetContentType());
         }
 
         [Test]
@@ -181,7 +174,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(OtherSimpleProperties<B>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            Assert.AreSame(typeof(OtherSimpleProperties<B>), ((DynamicPropertyBag) objectProperties).GetContentType());
         }
 
         [Test]
@@ -199,7 +192,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(DerivedSimpleProperties<B>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            Assert.AreSame(typeof(DerivedSimpleProperties<B>), ((DynamicPropertyBag) objectProperties).GetContentType());
         }
 
         [Test]
@@ -223,7 +216,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(DerivedSimpleProperties<B>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            Assert.AreSame(typeof(DerivedSimpleProperties<B>), ((DynamicPropertyBag) objectProperties).GetContentType());
         }
 
         [Test]
@@ -274,7 +267,7 @@ namespace DeltaShell.Tests.Gui.Forms.PropertyGrid
 
             // Assert
             Assert.IsTrue(objectProperties is DynamicPropertyBag);
-            Assert.AreSame(typeof(DerivedSimpleProperties<C>), ((DynamicPropertyBag)objectProperties).GetContentType());
+            Assert.AreSame(typeof(DerivedSimpleProperties<C>), ((DynamicPropertyBag) objectProperties).GetContentType());
         }
 
         # endregion
