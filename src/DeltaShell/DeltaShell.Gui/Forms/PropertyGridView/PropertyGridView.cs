@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using DelftTools.Controls;
@@ -31,6 +32,7 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
         public PropertyGridView(IGui gui)
         {
             HideTabsButton();
+            FixDescriptionArea();
 
             this.gui = gui;
             PropertySort = PropertySort.Categorized;
@@ -79,14 +81,6 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
             }
 
             base.Dispose(disposing);
-        }
-
-        private void HideTabsButton()
-        {
-            // Removing "property tabs" button and separator before it
-            var strip = Controls.OfType<ToolStrip>().ToList()[0];
-            strip.Items[3].Visible = false;
-            strip.Items[4].Visible = false;
         }
 
         private void GuiSelectionChanged(object sender, EventArgs e)
@@ -144,7 +138,7 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
         {
             if (gui != null)
             {
-                PropertyResolver.GetObjectProperties(gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList(), sourceData);
+                return PropertyResolver.GetObjectProperties(gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList(), sourceData);
             }
 
             return null;
@@ -230,6 +224,45 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
                 foreach (GridItem child in parent.GridItems)
                 {
                     AddExpandedItems(child, items);
+                }
+            }
+        }
+
+        #endregion
+
+        #region PropertyGrid tweaks
+
+        /// <summary>
+        /// Removes the redundant "tabs" toolstrip button and its corresponding separator.
+        /// </summary>
+        private void HideTabsButton()
+        {
+            var strip = Controls.OfType<ToolStrip>().ToList()[0];
+
+            strip.Items[3].Visible = false;
+            strip.Items[4].Visible = false;
+        }
+
+        /// <summary>
+        /// Ensures the description area is no longer auto-resizing.
+        /// </summary>
+        private void FixDescriptionArea()
+        {
+            foreach (var control in Controls)
+            {
+                var type = control.GetType();
+
+                if (type.Name == "DocComment")
+                {
+                    var baseType = type.BaseType;
+                    if (baseType != null)
+                    {
+                        var field = baseType.GetField("userSized", BindingFlags.Instance | BindingFlags.NonPublic);
+                        if (field != null)
+                        {
+                            field.SetValue(control, true);
+                        }
+                    }
                 }
             }
         }
