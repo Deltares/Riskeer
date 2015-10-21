@@ -14,7 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>DelftTools.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -96,7 +97,6 @@
     <Compile Include="ViewInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DelftTools.snk" />
     <None Include="UML\ITableView.cd" />
   </ItemGroup>
   <ItemGroup>

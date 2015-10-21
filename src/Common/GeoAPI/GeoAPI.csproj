@@ -11,7 +11,8 @@
     <RootNamespace>GeoAPI</RootNamespace>
     <AssemblyName>GeoAPI</AssemblyName>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>geoapi.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <SccProjectName>
     </SccProjectName>
     <SccLocalPath>
@@ -137,7 +138,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="geoapi.snk" />
     <None Include="Uml\Geometries.cd" />
   </ItemGroup>
   <ItemGroup>

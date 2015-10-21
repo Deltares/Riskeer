@@ -322,7 +322,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="NTS.ndoc" />
-    <None Include="nts.snk" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

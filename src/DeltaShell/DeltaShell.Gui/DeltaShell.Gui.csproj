@@ -15,7 +15,8 @@
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>DelftTools.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
@@ -384,7 +385,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon_clear_all_messages.PNG" />
-    <None Include="DelftTools.snk" />
     <None Include="Forms\MessageWindow\MessageWindowData.xsc">
       <DependentUpon>MessageWindowData.xsd</DependentUpon>
     </None>

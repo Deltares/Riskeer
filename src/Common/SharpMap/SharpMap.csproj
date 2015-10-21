@@ -46,7 +46,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>DelftTools.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -206,7 +207,6 @@
     <Compile Include="Web\Wms\Client.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DelftTools.snk" />
     <None Include="LICENSE.txt" />
     <EmbeddedResource Include="Properties\Resources.nl-NL.resx" />
     <EmbeddedResource Include="Styles\DefaultSymbol.png" />
