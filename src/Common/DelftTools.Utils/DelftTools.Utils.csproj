@@ -176,7 +176,6 @@
     <Compile Include="Collections\NotifyCollectionChangingEventArgs.cs" />
     <Compile Include="ComparableExtensions.cs" />
     <Compile Include="ConversionHelper.cs" />
-    <Compile Include="Data\IObjectRepository.cs" />
     <Compile Include="ComponentModel\DynamicReadOnlyValidationMethodAttribute.cs" />
     <Compile Include="PropertyBag\Dynamic\DynamicPropertyBag.cs" />
     <Compile Include="ComponentModel\DynamicReadOnlyAttribute.cs" />

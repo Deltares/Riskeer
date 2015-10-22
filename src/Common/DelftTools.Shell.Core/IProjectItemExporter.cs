@@ -1,5 +1,3 @@
-using DelftTools.Shell.Core.Services;
-
 namespace DelftTools.Shell.Core
 {
     /// <summary>
@@ -7,9 +5,5 @@ namespace DelftTools.Shell.Core
     /// </summary>
     public interface IProjectItemExporter : IFileExporter
     {
-        /// <summary>
-        /// Project service used to export project
-        /// </summary>
-        IProjectService ProjectService { set; }
     }
 }

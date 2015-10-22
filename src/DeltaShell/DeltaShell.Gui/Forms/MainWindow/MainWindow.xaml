@@ -61,7 +61,7 @@
 
                     <fluent:BackstageTabControl>
                         <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_New}"
-                                       x:Name="ButtonMenuFileNewProject"
+                                       Name="ButtonMenuFileNewProject"
                                        Icon="/DeltaShell.Gui;component\Resources\DocumentHS.png"
                                        fluent:KeyTip.Keys="N"
                                        Click="OnFileNewClicked" x:FieldModifier="private" />
@@ -131,20 +131,23 @@
 
                 <fluent:QuickAccessMenuItem IsChecked="True">
                     <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_New}"
-                                       Icon="/DeltaShell.Gui;component\Resources\DocumentHS.png"
-                                       Click="OnFileNewClicked"/>
+                                    Name="ButtonQuickAccessNewProject"
+                                    Icon="/DeltaShell.Gui;component\Resources\DocumentHS.png"
+                                    Click="OnFileNewClicked"/>
                 </fluent:QuickAccessMenuItem>
 
                 <fluent:QuickAccessMenuItem IsChecked="True">
                     <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_Open}"
-                                       Icon="/DeltaShell.Gui;component\Resources\openfolderHS.png"
-                                       Click="OnFileOpenClicked" />
+                                   Name="ButtonQuickAccessOpenProject"
+                                   Icon="/DeltaShell.Gui;component\Resources\openfolderHS.png"
+                                   Click="OnFileOpenClicked" />
                 </fluent:QuickAccessMenuItem>
 
                 <fluent:QuickAccessMenuItem IsChecked="True">
                     <fluent:Button Header="{x:Static Properties:Resources.Ribbon_Command_Save}" 
-                                       Icon="/DeltaShell.Gui;component\Resources\saveHS.png"
-                                       Click="OnFileSaveClicked" />
+                                   Name="ButtonQuickAccessSaveProject"
+                                   Icon="/DeltaShell.Gui;component\Resources\saveHS.png"
+                                   Click="OnFileSaveClicked" />
                 </fluent:QuickAccessMenuItem>
 
             </fluent:Ribbon.QuickAccessItems>

@@ -3,12 +3,10 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using DelftTools.Shell.Core;
-using DelftTools.Shell.Core.Dao;
 using DelftTools.Shell.Core.Workflow;
 using DelftTools.TestUtils;
 using DelftTools.Utils.Collections;
 using DeltaShell.Core;
-using DeltaShell.Core.Services;
 using DeltaShell.Gui;
 using DeltaShell.Plugins.CommonTools;
 using DeltaShell.Plugins.CommonTools.Gui;
@@ -147,28 +145,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        public void ProjectIsTemporaryAtTheBeginningAndAfterCreateNew()
-        {
-            using (var gui = new DeltaShellGui())
-            {
-                var app = gui.Application;
-
-                app.Plugins.Add(new CommonToolsApplicationPlugin());
-                app.Plugins.Add(new SharpMapGisApplicationPlugin());
-                gui.Plugins.Add(new ProjectExplorerGuiPlugin());
-                gui.Run();
-
-                app.UserSettings["autosaveWindowLayout"] = false; // skip damagin of window layout
-
-                app.Project.IsTemporary.Should("Project is temporary at the beginning").Be.True();
-
-                gui.CommandHandler.TryCreateNewWTIProject();
-
-                app.Project.IsTemporary.Should("Project is temporary after create new").Be.True();
-            }
-        }
-
-        [Test]
         public void ClosingEmptyProjectShouldNotGiveException()
         {
             using (var gui = new DeltaShellGui())
@@ -228,44 +204,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        public void CloseProjectDisposesAllResources()
-        {
-            var repository = mocks.StrictMock<IProjectRepository>();
-            var factory = mocks.Stub<IProjectRepositoryFactory>();
-            Expect.Call(factory.CreateNew()).Return(repository).Repeat.Once();
-
-            var project = new Project("project");
-            var map = new Map();
-            var vectorLayer = new VectorLayer();
-
-            project.Items.Add(map);
-
-            var shapeFile = mocks.StrictMock<ShapeFile>();
-            shapeFile.Expect(sf => sf.GetExtents()).Return(null).Repeat.Any();
-            shapeFile.Expect(sf => sf.FeaturesChanged += null).IgnoreArguments().Repeat.Once();
-            shapeFile.Expect(sf => sf.FeaturesChanged -= null).IgnoreArguments().Repeat.Twice();
-            shapeFile.Expect(sf => sf.AddNewFeatureFromGeometryDelegate = null).IgnoreArguments().Repeat.Once();
-            shapeFile.Expect(sf => sf.CoordinateSystemChanged += null).IgnoreArguments().Repeat.Once();
-            shapeFile.Expect(sf => sf.CoordinateSystemChanged -= null).IgnoreArguments().Repeat.Twice();
-            shapeFile.Expect(sf => sf.Dispose()).Repeat.Once();
-            shapeFile.Expect(sf => sf.AddNewFeatureFromGeometryDelegate).Return(null).Repeat.Once();
-
-            Expect.Call(repository.Path).Repeat.Any().Return("a_path");
-            Expect.Call(repository.IsOpen).Return(true);
-            Expect.Call(repository.Close);
-
-            mocks.ReplayAll();
-
-            vectorLayer.DataSource = shapeFile;
-            map.Layers.Add(vectorLayer);
-            var projectService = new ProjectService(factory);
-
-            projectService.Close(project);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void StartGuiWithToolboxDoesNotCrash()
         {
             using (var gui = new DeltaShellGui())
@@ -288,8 +226,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         [Test]
         public void CreateNewProjectAfterStartWithCommonPluginsShouldBeFast()
         {
-            DeltaShellApplication.TemporaryProjectSavedAsynchroneously = true;
-
             using (var gui = new DeltaShellGui())
             {
                 var app = gui.Application;
@@ -430,8 +366,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
 
         private static void StartWithCommonPlugins()
         {
-            DeltaShellApplication.TemporaryProjectSavedAsynchroneously = true;
-
             using (var gui = new DeltaShellGui())
             {
                 var app = gui.Application;

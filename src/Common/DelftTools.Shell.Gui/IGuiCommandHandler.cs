@@ -45,9 +45,6 @@ namespace DelftTools.Shell.Gui
         /// <returns>Whether or not the WTI project was correctly closed.</returns>
         bool TryCloseWTIProject();
 
-        bool SaveProject();
-        bool SaveProjectAs();
-
         /// <summary>
         /// Presents the user with a dialog to choose an editor for the selected dataitem
         /// </summary>

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Resources;
-using DelftTools.Shell.Core.Dao;
-using DelftTools.Shell.Core.Services;
 using DelftTools.Shell.Core.Workflow;
 
 namespace DelftTools.Shell.Core
@@ -64,28 +62,14 @@ namespace DelftTools.Shell.Core
         /// </summary>
         ResourceManager Resources { get; set; }
 
-        IProjectService ProjectService { get; }
-
         IEnumerable<IFileImporter> FileImporters { get; }
 
         IEnumerable<IFileExporter> FileExporters { get; }
 
-        IProjectRepositoryFactory ProjectRepositoryFactory { get; set; }
-
         // TODO: hide it?
-        string ProjectDataDirectory { get; }
-
         string ProjectFilePath { get; }
 
-        string Version { get; }
-
         string PluginVersions { get; }
-
-        /// <summary>
-        /// In some applications only a single activity run is performed (e.g. command-line, external wrapper).
-        /// In this case for performance reasons synchronization this flag can be set to true.
-        /// </summary>
-        bool IsDataAccessSynchronizationDisabled { get; set; }
 
         ApplicationPlugin GetPluginForType(Type type);
 

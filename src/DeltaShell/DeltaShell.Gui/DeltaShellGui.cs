@@ -269,11 +269,6 @@ namespace DeltaShell.Gui
             {
                 log.Info(Resources.DeltaShellGui_Run_Starting_application____);
 
-                if (!GetType().Assembly.Location.ToLower().Contains("test")) // HACK: make sure it is sync in tests
-                {
-                    DeltaShellApplication.TemporaryProjectSavedAsynchroneously = true;
-                }
-
                 application.Run();
             }
 
@@ -283,7 +278,7 @@ namespace DeltaShell.Gui
 
             log.Info(Resources.DeltaShellGui_Run_Waiting_until_new_project_is_initialized____);
 
-            while (!DeltaShellApplication.TemporaryProjectSaved || Application.Plugins.Any(p => !p.IsActive))
+            while (Application.Plugins.Any(p => !p.IsActive))
             {
                 Thread.Sleep(50);
                 splashScreen.Dispatcher.Invoke(DispatcherPriority.Render, new Action(() => { }));
@@ -292,8 +287,6 @@ namespace DeltaShell.Gui
             log.InfoFormat(Resources.DeltaShellGui_Run_Started_in__0_f2__sec, (DateTime.Now - startTime).TotalSeconds);
 
             runFinished = true;
-
-            DeltaShellApplication.TemporaryProjectSavedAsynchroneously = false;
 
             if (AfterRun != null)
             {
@@ -627,8 +620,6 @@ namespace DeltaShell.Gui
 
         private void ApplicationProjectOpened(Project project)
         {
-            Application.Project.IsChanged = false;
-
             ResumeUI();
         }
 

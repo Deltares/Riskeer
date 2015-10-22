@@ -11,15 +11,12 @@ using System.Reflection;
 using System.Resources;
 using System.Threading;
 using DelftTools.Shell.Core;
-using DelftTools.Shell.Core.Dao;
-using DelftTools.Shell.Core.Services;
 using DelftTools.Shell.Core.Workflow;
 using DelftTools.Utils;
 using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.Globalization;
 using DelftTools.Utils.Reflection;
-using DeltaShell.Core.Services;
 using log4net;
 
 namespace DeltaShell.Core
@@ -31,16 +28,11 @@ namespace DeltaShell.Core
         // TODO: migrate into ProjectService
         public event Action<Project> ProjectOpening;
         public event Action<Project> ProjectOpened;
-
-        // TODO: migrate into ProjectService
         public event Action<Project> ProjectClosing;
         public event Action<Project> ProjectSaving;
         public event Action<Project> ProjectSaveFailed;
         public event Action<Project> ProjectSaved;
 
-        public static bool TemporaryProjectBeingSaved;
-        public static bool TemporaryProjectSaved;
-        public static bool TemporaryProjectSavedAsynchroneously;
         private static readonly ILog log = LogManager.GetLogger(typeof(DeltaShellApplication));
         private readonly IList<IFileImporter> fileImporters = new List<IFileImporter>();
         private readonly IList<IFileExporter> fileExporters = new List<IFileExporter>();
@@ -49,9 +41,6 @@ namespace DeltaShell.Core
 
         private Project project;
         private DeltaShellApplicationSettings userSettings;
-        private IProjectService projectService;
-
-        private string defaultRepositoryTypeName;
 
         private bool isRunning;
 
@@ -64,12 +53,8 @@ namespace DeltaShell.Core
 
         public DeltaShellApplication()
         {
-            ProjectRepositoryFactory = new ProjectRepositoryFactory<InMemoryProjectRepository>();
-
             Settings = ConfigurationManager.AppSettings;
             UserSettings = Properties.Settings.Default;
-
-            ProjectService = new ProjectService(ProjectRepositoryFactory);
 
             Plugins = new List<ApplicationPlugin>();
 
@@ -85,16 +70,6 @@ namespace DeltaShell.Core
             UserSettings = Properties.Settings.Default;
         }
 
-        public PluginConfigurationLoader PluginConfigurationLoader { get; private set; }
-
-        public string ApplicationNameAndVersion
-        {
-            get
-            {
-                return SettingsHelper.ApplicationNameAndVersion;
-            }
-        }
-
         public bool IsProjectCreatedInTemporaryDirectory { get; set; }
 
         public string PluginVersions
@@ -104,11 +79,6 @@ namespace DeltaShell.Core
                 return String.Join("\n", Plugins.Select(p => p.Name + "  " + p.Version));
             }
         }
-
-        public bool IsDataAccessSynchronizationDisabled { get; set; }
-
-        // TODO: migrate into ProjectService
-        public IProjectRepositoryFactory ProjectRepositoryFactory { get; set; }
 
         public Project Project
         {
@@ -127,7 +97,7 @@ namespace DeltaShell.Core
                         ProjectClosing(project);
                     }
 
-                    ProjectService.Close(project);
+                    CloseProject();
                 }
 
                 if (value != null && ProjectOpening != null)
@@ -165,58 +135,7 @@ namespace DeltaShell.Core
 
         public NameValueCollection Settings { get; set; }
 
-        public string Version
-        {
-            get
-            {
-                return SettingsHelper.ApplicationVersion;
-                /*var assemblyInfo = AssemblyUtils.GetAssemblyInfo(Assembly.GetExecutingAssembly());
-                return assemblyInfo.Version;*/
-            }
-        }
-
-        // TODO: hide it
-        public IProjectService ProjectService
-        {
-            get
-            {
-                return projectService;
-            }
-            set
-            {
-                if (projectService != null)
-                {
-                    projectService.ProjectSaving -= ProjectServiceProjectSaving;
-                    projectService.ProjectSaved -= ProjectServiceProjectSaved;
-                    projectService.ProjectSaveFailed -= ProjectServiceProjectSaveFailed;
-                }
-
-                projectService = value;
-
-                if (projectService != null)
-                {
-                    projectService.ProjectSaving += ProjectServiceProjectSaving;
-                    projectService.ProjectSaved += ProjectServiceProjectSaved;
-                    projectService.ProjectSaveFailed += ProjectServiceProjectSaveFailed;
-                }
-            }
-        }
-
-        public string ProjectDataDirectory
-        {
-            get
-            {
-                return projectService.ProjectDataDirectory;
-            }
-        }
-
-        public string ProjectFilePath
-        {
-            get
-            {
-                return projectService.ProjectRepository.Path;
-            }
-        }
+        public string ProjectFilePath{ get; private set; }
 
         public IEnumerable<IFileImporter> FileImporters
         {
@@ -328,8 +247,6 @@ namespace DeltaShell.Core
 
             SetLanguageAndRegionalSettions();
 
-            ProjectService = new ProjectService();
-
             //Disabled trace logging this causes focus bugs combined with avalon dock (KeyPreview debug messages)
             //InitializeLogging();
 
@@ -341,7 +258,6 @@ namespace DeltaShell.Core
             InitializePlugins();
 
             log.Info(Properties.Resources.DeltaShellApplication_Run_Initializing_project_repository____);
-            InitializeProjectRepositoryFactory();
 
             isRunning = true;
 
@@ -358,15 +274,6 @@ namespace DeltaShell.Core
             RegisterExporters();
 
             log.Info(Properties.Resources.DeltaShellApplication_Run_Waiting_until_all_plugins_are_activated____);
-
-            if (!TemporaryProjectSavedAsynchroneously)
-            {
-                // wait until all plugins are activated
-                while (Plugins.Any(p => !p.IsActive))
-                {
-                    Thread.Sleep(250);
-                }
-            }
 
             Project = projectBeingCreated; // opens project in application
 
@@ -389,12 +296,12 @@ namespace DeltaShell.Core
 
         public void SaveProjectAs(string path)
         {
-            ProjectService.SaveProjectAs(Project, path);
+            // TODO: implement
         }
 
         public void SaveProject()
         {
-            ProjectService.Save(Project);
+            // TODO: implement
         }
 
         public void CreateNewProject()
@@ -410,26 +317,6 @@ namespace DeltaShell.Core
             {
                 Project = projectBeingCreated;
             }
-
-            if (IsProjectCreatedInTemporaryDirectory)
-            {
-                TemporaryProjectBeingSaved = true;
-
-                // for now enable async save only during start-up
-                if (initializing && TemporaryProjectSavedAsynchroneously)
-                {
-                    var saveProjectThread = new Thread(SaveTemporaryProjectThread)
-                    {
-                        CurrentCulture = CultureInfo.CurrentCulture,
-                        CurrentUICulture = CultureInfo.CurrentUICulture
-                    };
-                    saveProjectThread.Start();
-                }
-                else
-                {
-                    SaveTemporaryProjectThread();
-                }
-            }
         }
 
         public bool OpenProject(string path)
@@ -439,24 +326,16 @@ namespace DeltaShell.Core
                 throw new InvalidOperationException(Properties.Resources.DeltaShellApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened);
             }
 
-            if (Project != null)
-            {
-                CloseProject();
-            }
-
-            var retrievedProject = ProjectService.Open(path);
-            if (retrievedProject != null)
-            {
-                Project = retrievedProject;
-            }
-            return retrievedProject != null;
+            // TODO: implement and remove Project = new Project();
+            Project = new Project();
+            return false;
         }
 
         public void Exit()
         {
             Trace.Listeners.Clear();
 
-            if (Project != null && Project.IsChanged)
+            if (Project != null)
             {
                 CloseProject();
             }
@@ -585,40 +464,6 @@ namespace DeltaShell.Core
             return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(asm => asm.FullName == args.Name);
         }
 
-        [InvokeRequired]
-        private void ProjectServiceProjectSaving(object sender, EventArgs e)
-        {
-            if (ProjectSaving != null)
-            {
-                ProjectSaving(Project);
-            }
-        }
-
-        [InvokeRequired]
-        private void ProjectServiceProjectSaveFailed(object sender, EventArgs e)
-        {
-            if (ProjectSaveFailed != null)
-            {
-                ProjectSaveFailed(Project);
-            }
-        }
-
-        [InvokeRequired]
-        private void ProjectServiceProjectSaved(object sender, EventArgs e)
-        {
-            if (ProjectSaved != null)
-            {
-                ProjectSaved(Project);
-            }
-        }
-
-        private void SaveTemporaryProjectThread()
-        {
-            ProjectService.SaveProjectInTemporaryFolder(projectBeingCreated);
-            TemporaryProjectSaved = true;
-            TemporaryProjectBeingSaved = false;
-        }
-
         private static void LogSystemInfo()
         {
             log.DebugFormat(Properties.Resources.DeltaShellApplication_LogSystemInfo_Environmental_variables_);
@@ -704,28 +549,6 @@ namespace DeltaShell.Core
             }
         }
 
-        // TODO: migrate into ProjectService
-        private void InitializeProjectRepositoryFactory()
-        {
-            //File.WriteAllText(@"d:\check.graphml", new PluginPersistencyGraphMlExporter().GetGraphML(Plugins));
-            RegisterPersistentAssemblies(ProjectRepositoryFactory);
-
-            // add data access listeners from plugins
-            foreach (var plugin in Plugins)
-            {
-                var dataAccessListenersProvider = plugin as IDataAccessListenersProvider;
-                if (dataAccessListenersProvider != null)
-                {
-                    foreach (var listener in dataAccessListenersProvider.CreateDataAccessListeners())
-                    {
-                        ProjectRepositoryFactory.AddDataAccessListener(listener);
-                    }
-                }
-            }
-
-            projectService.ProjectRepositoryFactory = ProjectRepositoryFactory;
-        }
-
         private void RegisterDataTypes()
         {
             log.Debug(Properties.Resources.DeltaShellApplication_RegisterDataTypes_Registering_persistent_data_types____);
@@ -745,7 +568,8 @@ namespace DeltaShell.Core
                 var projectImporter = fileImporter as IProjectImporter;
                 if (projectImporter != null)
                 {
-                    projectImporter.ProjectService = ProjectService;
+                    // TODO: implement
+                    // projectImporter.ProjectService = ProjectService;
                 }
 
                 fileImporters.Add(fileImporter);
@@ -763,22 +587,13 @@ namespace DeltaShell.Core
                 var projectExporter = fileExporter as IProjectItemExporter;
                 if (projectExporter != null)
                 {
-                    projectExporter.ProjectService = ProjectService;
+                    // TODO: implement
+                    // projectExporter.ProjectService = ProjectService;
                 }
 
                 fileExporters.Add(fileExporter);
 
                 log.DebugFormat(Properties.Resources.DeltaShellApplication_RegisterExporters_Registering_exporter__0_, fileExporter.Name);
-            }
-        }
-
-        private static void RegisterPersistentAssemblies(IProjectRepositoryFactory projectRepositoryFactory)
-        {
-            log.Debug(Properties.Resources.DeltaShellApplication_RegisterPersistentAssemblies_Registering_assemblies_containing_persistent_data_types____);
-
-            foreach (var plugin in PluginManager.GetPlugins<IPlugin>())
-            {
-                projectRepositoryFactory.AddPlugin(plugin);
             }
         }
 
@@ -791,13 +606,6 @@ namespace DeltaShell.Core
                     CloseProject();
 
                     projectBeingCreated = null;
-
-                    //make sure we close our repository avoiding memory leaks
-                    if (projectService != null)
-                    {
-                        projectService.Dispose();
-                        projectService = null;
-                    }
 
                     foreach (var plugin in Plugins)
                     {

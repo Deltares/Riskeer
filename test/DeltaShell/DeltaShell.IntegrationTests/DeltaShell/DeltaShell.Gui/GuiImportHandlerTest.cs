@@ -108,7 +108,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             targetItemImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
 
             application.Expect(a => a.FileImporters).IgnoreArguments().Repeat.Any().Return(importers);
-            application.Expect(a => a.ProjectDataDirectory).Return("").IgnoreArguments().Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -160,7 +159,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             targetItemImporter2.Expect(fi => fi.CanImportOnRootLevel).Return(true);
 
             application.Expect(a => a.FileImporters).IgnoreArguments().Repeat.Any().Return(importers);
-            application.Expect(a => a.ProjectDataDirectory).Return("").IgnoreArguments().Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -210,7 +208,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             targetItemImporterWhereCanImportIsFalse.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(false).Repeat.Any();
 
             application.Expect(a => a.FileImporters).IgnoreArguments().Repeat.Any().Return(importers);
-            application.Expect(a => a.ProjectDataDirectory).Return("").IgnoreArguments().Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -251,7 +248,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             targetItemImporter.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
 
             application.Expect(a => a.FileImporters).IgnoreArguments().Repeat.Any().Return(importers);
-            application.Expect(a => a.ProjectDataDirectory).Return("").IgnoreArguments().Repeat.Any();
 
             mocks.ReplayAll();
 
@@ -309,7 +305,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             fileImporter3.Expect(fi => fi.CanImportOn(null)).IgnoreArguments().Return(true).Repeat.Any();
 
             application.Expect(a => a.FileImporters).Repeat.Any().Return(importers).Repeat.Once();
-            application.Expect(a => a.ProjectDataDirectory).Return("").IgnoreArguments().Repeat.Any();
 
             mocks.ReplayAll();
 

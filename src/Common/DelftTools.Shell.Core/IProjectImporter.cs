@@ -1,5 +1,3 @@
-using DelftTools.Shell.Core.Services;
-
 namespace DelftTools.Shell.Core
 {
     /// <summary>
@@ -9,9 +7,5 @@ namespace DelftTools.Shell.Core
     /// </summary>
     public interface IProjectImporter : IFileImporter
     {
-        /// <summary>
-        /// Project service used to open the project to import
-        /// </summary>
-        IProjectService ProjectService { set; }
     }
 }

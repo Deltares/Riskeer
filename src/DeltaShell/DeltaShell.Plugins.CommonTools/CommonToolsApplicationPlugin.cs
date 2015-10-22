@@ -1,15 +1,13 @@
-using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using DelftTools.Shell.Core;
-using DelftTools.Shell.Core.Dao;
 
 namespace DeltaShell.Plugins.CommonTools
 {
     /// <summary>
     /// Common tool plugins
     /// </summary>
-    public class CommonToolsApplicationPlugin : ApplicationPlugin, IDataAccessListenersProvider
+    public class CommonToolsApplicationPlugin : ApplicationPlugin
     {
         /// <summary>
         /// Gets the name of the plugin
@@ -69,13 +67,6 @@ namespace DeltaShell.Plugins.CommonTools
             {
                 return new Bitmap(32, 32);
             }
-        }
-
-
-
-        public IEnumerable<IDataAccessListener> CreateDataAccessListeners()
-        {
-            yield return new CommonToolsDataAccessListener();
         }
     }
 }

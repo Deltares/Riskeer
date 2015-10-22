@@ -25,7 +25,6 @@ using DelftTools.Utils.Aop;
 using DelftTools.Utils.Collections;
 using DelftTools.Utils.Collections.Extensions;
 using DelftTools.Utils.Interop;
-using DelftTools.Utils.Reflection;
 using DeltaShell.Core;
 using DeltaShell.Gui.Forms.OptionsDialog;
 using DeltaShell.Gui.Properties;
@@ -663,11 +662,20 @@ namespace DeltaShell.Gui.Forms.MainWindow
             var isActivityRunning = Gui.Application.IsActivityRunning();
 
             // filemenu items dependent on existence of project and if processes are running
+            /*
             ButtonMenuFileNewProject.IsEnabled = !isActivityRunning;
             ButtonMenuFileOpenProject.IsEnabled = !isActivityRunning;
             ButtonMenuFileSaveProject.IsEnabled = appHasProject && !isActivityRunning;
             ButtonMenuFileSaveProjectAs.IsEnabled = appHasProject && !isActivityRunning;
             ButtonMenuFileCloseProject.IsEnabled = appHasProject && !isActivityRunning;
+             * */
+
+            // TODO: remove when implemented
+            ButtonMenuFileNewProject.IsEnabled = false;
+            ButtonMenuFileOpenProject.IsEnabled = false;
+            ButtonMenuFileSaveProject.IsEnabled = false;
+            ButtonMenuFileSaveProjectAs.IsEnabled = false;
+            ButtonMenuFileCloseProject.IsEnabled = false;
         }
 
         private void InitMessagesWindowOrActivate()
@@ -711,7 +719,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
 
         private void OnFileSaveClicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Not implemented yet.");
+            //TODO: Implement
             return;
 
             // Original code:
@@ -721,7 +729,7 @@ namespace DeltaShell.Gui.Forms.MainWindow
 
         private void OnFileSaveAsClicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Not implemented yet.");
+            //TODO: Implement
             return;
 
             // Original code:
@@ -731,17 +739,23 @@ namespace DeltaShell.Gui.Forms.MainWindow
 
         private void OnAfterProjectSaveOrOpen(bool actionSuccesful)
         {
+            //TODO: Implement
+            return;
+
+            // Original code:
+            /*
             if (actionSuccesful)
             {
                 AddNewMruItem(Gui.Application.ProjectFilePath);
                 CommitMruToSettings();
             }
             ValidateItems();
+            */
         }
 
         private void OnFileOpenClicked(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Not implemented yet.");
+            //TODO: Implement
             return;
 
             // Original code:
@@ -751,14 +765,22 @@ namespace DeltaShell.Gui.Forms.MainWindow
 
         private void OnFileCloseClicked(object sender, RoutedEventArgs e)
         {
-            Gui.CommandHandler.TryCloseWTIProject();
-            ValidateItems();
+            //TODO: Implement
+            return;
+
+            // Original code:
+            //Gui.CommandHandler.TryCloseWTIProject();
+            //ValidateItems();
         }
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)
         {
-            Gui.CommandHandler.TryCreateNewWTIProject();
-            ValidateItems();
+            //TODO: Implement
+            return;
+
+            // Original code:
+            //Gui.CommandHandler.TryCreateNewWTIProject();
+            //ValidateItems();
         }
 
         private void OnFileExitClicked(object sender, RoutedEventArgs e)
@@ -940,11 +962,15 @@ namespace DeltaShell.Gui.Forms.MainWindow
             SetColorTheme((string) Gui.Application.UserSettings["colorTheme"]);
             FileManualButton.IsEnabled = File.Exists(ConfigurationManager.AppSettings["manualFileName"]);
 
-            // Enable as soon as relevant/implemented
+            // TODO: Enable as soon as relevant/implemented
             AboutButton.IsEnabled = false;
             LicenseButton.IsEnabled = false;
             FeedbackButton.IsEnabled = false;
 
+            ButtonQuickAccessNewProject.IsEnabled = false;
+            ButtonQuickAccessOpenProject.IsEnabled = false;
+            ButtonQuickAccessSaveProject.IsEnabled = false;
+            
             UpdateMainWindowRibbonElements();
             UpdateRibbonExtensions();
 
@@ -1220,9 +1246,6 @@ namespace DeltaShell.Gui.Forms.MainWindow
 
         private HelpAboutBoxData GetAboutBoxData()
         {
-            //dat ain the aboutbox. Some is defined in the assembly, some in the settingshelper.
-            var executingAssemblyInfo = AssemblyUtils.GetExecutingAssemblyInfo();
-
             var data = new HelpAboutBoxData
             {
                 //product and version from settingshelper

@@ -22,8 +22,6 @@ namespace DelftTools.Tests.Shell.Core
             Assert.AreEqual("Project", project.Name);
             Assert.IsNull(project.Description);
             CollectionAssert.IsEmpty(project.Items);
-            Assert.IsFalse(project.IsChanged);
-            Assert.IsFalse(project.IsTemporary);
         }
 
         [Test]
@@ -39,8 +37,6 @@ namespace DelftTools.Tests.Shell.Core
             Assert.AreEqual(someName, project.Name);
             Assert.IsNull(project.Description);
             CollectionAssert.IsEmpty(project.Items);
-            Assert.IsFalse(project.IsChanged);
-            Assert.IsFalse(project.IsTemporary);
         }
 
         [Test]
@@ -54,15 +50,11 @@ namespace DelftTools.Tests.Shell.Core
             {
                 Name = niceProjectName,
                 Description = nicerDescription,
-                IsChanged = true,
-                IsTemporary = true
             };
 
             // assert
             Assert.AreEqual(niceProjectName, project.Name);
             Assert.AreEqual(nicerDescription, project.Description);
-            Assert.IsTrue(project.IsChanged);
-            Assert.IsTrue(project.IsTemporary);
         }
 
         [Test]

@@ -77,7 +77,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeltaShell\DeltaShell.Plugins.SharpMapGis\SharpMapGisPluginTest.cs" />
     <Compile Include="DeltaShell\DeltaShell.Core\DelftShellApplicationIntegrationTest.cs" />
     <Compile Include="DeltaShell\DeltaShell.Gui\DeltaShellGuiIntegrationTest.cs">
     </Compile>

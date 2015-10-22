@@ -102,29 +102,6 @@ namespace DeltaShell.Gui
             {
                 Log.Info("Closing current WTI project.");
 
-                // Ask to save any changes first
-                if (gui.Application.Project.IsChanged)
-                {
-                    var result =
-                        MessageBox.Show(string.Format(Resources.GuiCommandHandler_CloseProject_Save_changes_to_the_project___0_, gui.Application.Project.Name),
-                                        Resources.GuiCommandHandler_CloseProject_Closing_project____, MessageBoxButtons.YesNoCancel);
-
-                    if (result == DialogResult.Yes)
-                    {
-                        // Code below disabled as save/load plugin not implemented yet. Keep existing framework though.
-                        var alwaysOkResult = MessageBox.Show("Not implemented yet.");
-                        if (alwaysOkResult != DialogResult.OK)
-                        {
-                            if (!SaveProject()) {}
-                        }
-                    }
-
-                    if (result == DialogResult.Cancel)
-                    {
-                        return false;
-                    }
-                }
-
                 // Disconnect project
                 ((INotifyPropertyChanged) gui.Application.Project).PropertyChanged -= CurrentProjectChanged;
 
@@ -156,84 +133,6 @@ namespace DeltaShell.Gui
 
             var projectItemActiveView = activeView.Data as IProjectItem;
             return projectItemActiveView;
-        }
-
-        public bool SaveProject()
-        {
-            var project = gui.Application.Project;
-            if (project == null)
-            {
-                return false;
-            }
-
-            if (project.IsTemporary)
-            {
-                return SaveProjectAs();
-            }
-
-            string path = null;
-
-            UnselectActiveControlToForceBinding();
-
-            SaveProjectWithProgressDialog(path);
-
-            AddProjectToMruList();
-
-            RefreshGui();
-
-            return true;
-        }
-
-        /// <summary>
-        /// Shows a dialog for saving the project to file.
-        /// </summary>
-        /// <returns></returns>
-        public bool SaveProjectAs()
-        {
-            var project = gui.Application.Project;
-            if (project == null)
-            {
-                return false;
-            }
-
-            UnselectActiveControlToForceBinding();
-
-            // show file open dialog and select project file
-            var saveFileDialog = new SaveFileDialog
-            {
-                Filter = string.Format(Resources.Wti_project_file_filter),
-                FilterIndex = 1,
-                RestoreDirectory = true,
-                FileName = String.Format("{0}.wti", project.Name)
-            };
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    string path = saveFileDialog.FileName; // Constructs file path, might throw PathTooLongException
-
-                    project.Name = Path.GetFileNameWithoutExtension(path);
-                    SaveProjectWithProgressDialog(path);
-
-                    Log.InfoFormat(Resources.GuiCommandHandler_SaveProjectAs_Project__0__saved, path);
-                }
-                catch (PathTooLongException)
-                {
-                    MessageBox.Show(Resources.GuiCommandHandler_SaveProjectAs_The_specified_file_path_is_too_long__please_choose_a_shorter_path_, Resources.GuiCommandHandler_SaveProjectAs_Warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-
-            AddProjectToMruList();
-
-            RefreshGui();
-
-            return true;
         }
 
         public void ShowProperties()
@@ -422,24 +321,6 @@ namespace DeltaShell.Gui
             gui.Application.ProjectClosing -= ApplicationProjectClosing;
         }
 
-        private void SaveProjectWithProgressDialog(string path = null)
-        {
-            var actualPath = path ?? gui.Application.ProjectFilePath;
-
-            ProgressBarDialog.PerformTask(string.Format(Resources.GuiCommandHandler_SaveProjectWithProgressDialog_Saving__0_, actualPath),
-                                          () =>
-                                          {
-                                              if (path == null)
-                                              {
-                                                  gui.Application.SaveProject();
-                                              }
-                                              else
-                                              {
-                                                  gui.Application.SaveProjectAs(path);
-                                              }
-                                          });
-        }
-
         private GuiImportHandler CreateGuiImportHandler()
         {
             return new GuiImportHandler(gui);
@@ -492,7 +373,7 @@ namespace DeltaShell.Gui
                 //throw new NotImplementedException();
             }
         }
-
+        
         private void AddProjectToMruList()
         {
             var mruList = (StringCollection) Settings.Default["mruList"];
@@ -503,7 +384,7 @@ namespace DeltaShell.Gui
 
             mruList.Insert(0, gui.Application.ProjectFilePath);
         }
-
+        
         private static void UnselectActiveControlToForceBinding()
         {
             var elementWithFocus = Keyboard.FocusedElement;
@@ -621,7 +502,7 @@ namespace DeltaShell.Gui
                 gui.MainWindow.Title = string.Format(Resources.GuiCommandHandler_UpdateGui__no_project_opened_____0_, mainWindowTitle);
                 return;
             }
-            gui.MainWindow.Title = project.Name + (project.IsChanged ? "*" : "") + " - " + mainWindowTitle;
+            gui.MainWindow.Title = project.Name + " - " + mainWindowTitle;
 
             ((INotifyPropertyChanged) project).PropertyChanged -= CurrentProjectChanged;
             ((INotifyPropertyChanged) project).PropertyChanged += CurrentProjectChanged;

@@ -4,8 +4,6 @@ using System.Collections.Specialized;
 using System.Configuration;
 using System.Resources;
 using DelftTools.Shell.Core;
-using DelftTools.Shell.Core.Dao;
-using DelftTools.Shell.Core.Services;
 using DelftTools.Shell.Core.Workflow;
 
 namespace DeltaShell.Tests.TestObjects
@@ -31,15 +29,6 @@ namespace DeltaShell.Tests.TestObjects
 
         public Project Project { get; set; }
 
-        public IProjectRepositoryFactory ProjectRepositoryFactory
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set {}
-        }
-
         public IActivityRunner ActivityRunner
         {
             get
@@ -52,8 +41,6 @@ namespace DeltaShell.Tests.TestObjects
         public ApplicationSettingsBase UserSettings { get; set; }
 
         public ResourceManager Resources { get; set; }
-
-        public IProjectService ProjectService { get; set; }
 
         public IEnumerable<IFileImporter> FileImporters
         {
@@ -87,16 +74,7 @@ namespace DeltaShell.Tests.TestObjects
             }
         }
 
-        public string Version
-        {
-            get
-            {
-                return "";
-            }
-        }
-
         public string PluginVersions { get; private set; }
-        public bool IsDataAccessSynchronizationDisabled { get; set; }
 
         public ApplicationPlugin GetPluginForType(Type type)
         {

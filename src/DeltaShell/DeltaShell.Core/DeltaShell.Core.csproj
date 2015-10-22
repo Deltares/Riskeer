@@ -90,8 +90,6 @@
     <Compile Include="ForceLocalAddinFileSystemExtension.cs" />
     <Compile Include="MonoAddinsConsoleLogger.cs" />
     <Compile Include="PluginManager.cs" />
-    <Compile Include="ProjectRepositoryFactory.cs" />
-    <Compile Include="InMemoryProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -114,7 +112,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Services\ProjectService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">

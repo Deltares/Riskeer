@@ -1,7 +1,6 @@
 using System.Configuration;
 using System.Linq;
 using DelftTools.Shell.Core;
-using DelftTools.Shell.Core.Services;
 using DelftTools.Shell.Gui;
 using DeltaShell.Gui;
 using NUnit.Framework;
@@ -37,14 +36,9 @@ namespace DeltaShell.Plugins.ProjectExplorer.Tests
                 Gui = gui
             };
 
-            var projectService = mocks.StrictMock<IProjectService>();
-
             // in case of mock
             Expect.Call(app.UserSettings).Return(settings).Repeat.Any();
 
-            // we set an expectation that the ProjectSaved event will be attached to, see also
-            // http://haacked.com/archive/2006/06/23/UsingRhinoMocksToUnitTestEventsOnInterfaces.aspx
-            projectService.ProjectSaved += null;
             LastCall.Repeat.Any();
             LastCall.IgnoreArguments();
 

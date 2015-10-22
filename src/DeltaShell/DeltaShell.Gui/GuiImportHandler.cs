@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DelftTools.Controls;
@@ -147,7 +148,7 @@ namespace DeltaShell.Gui
         {
             get
             {
-                return gui.Application.ProjectDataDirectory;
+                return Path.GetDirectoryName(gui.Application.ProjectFilePath);
             }
         }
 

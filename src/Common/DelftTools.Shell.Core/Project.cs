@@ -41,16 +41,6 @@ namespace DelftTools.Shell.Core
         /// </summary>
         public IEventedList<object> Items { get; private set; }
 
-        /// <summary>
-        /// True if project has changes.
-        /// </summary>
-        public bool IsChanged { get; set; }
-
-        /// <summary>
-        /// True if project is temporary.
-        /// </summary>
-        public bool IsTemporary { get; set; }
-
         # region IObservable
 
         private readonly IList<IObserver> observers = new List<IObserver>();

@@ -80,23 +80,6 @@ namespace DeltaShell.Tests.Core
         }
 
         [Test]
-        public void DisposingApplicationClosesProjectOnProjectService()
-        {
-            using (var delftShellApplication = new DeltaShellApplication())
-            {
-                var service = new TestProjectService();
-                delftShellApplication.ProjectService = service;
-                delftShellApplication.Project = new Project();
-
-                //action!
-                delftShellApplication.Dispose();
-
-                //assert dispose got called
-                Assert.AreEqual(1, service.CloseCallCount);
-            }
-        }
-
-        [Test]
         public void CurrentCultureIsChangedWhenTurkishOrAzeri()
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
