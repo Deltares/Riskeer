@@ -1,1 +1,0 @@
-This folder contains IKVM version 7.2.4630.5
