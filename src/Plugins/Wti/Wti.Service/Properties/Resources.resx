@@ -126,6 +126,9 @@
   <data name="ErrorInPipingCalculation_0" xml:space="preserve">
     <value>Piping berekening niet gelukt: {0}</value>
   </data>
+  <data name="ErrorInPipingValidation_0" xml:space="preserve">
+    <value>Validatie mislukt: {0}</value>
+  </data>
   <data name="ValidationEnded_0" xml:space="preserve">
     <value>Validatie beëindigd om: {0}</value>
   </data>

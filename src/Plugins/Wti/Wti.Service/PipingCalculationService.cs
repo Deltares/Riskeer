@@ -49,18 +49,18 @@ namespace Wti.Service
             PipingDataLogger.Info(String.Format(Resources.ValidationStarted_0, DateTimeService.CurrentTimeAsString));
 
             var validationResults = new PipingCalculation(CreateInputFromData(pipingData)).Validate();
-            LogMessagesAsError(validationResults.ToArray());
+            LogMessagesAsError(Resources.ErrorInPipingValidation_0, validationResults.ToArray());
 
             PipingDataLogger.Info(String.Format(Resources.ValidationEnded_0, DateTimeService.CurrentTimeAsString));
 
             return validationResults.Count > 0 ? PipingCalculationResult.ValidationErrors : PipingCalculationResult.Successful;
         }
 
-        private static void LogMessagesAsError(params string[] errorMessages)
+        private static void LogMessagesAsError(string format, params string[] errorMessages)
         {
             foreach (var errorMessage in errorMessages)
             {
-                PipingDataLogger.Error(string.Format(Resources.ErrorInPipingCalculation_0, errorMessage));
+                PipingDataLogger.Error(string.Format(format, errorMessage));
             }
         }
 
@@ -86,7 +86,7 @@ namespace Wti.Service
             }
             catch (PipingCalculationException e)
             {
-                LogMessagesAsError(e.Message);
+                LogMessagesAsError(Resources.ErrorInPipingCalculation_0, e.Message);
                 return PipingCalculationResult.CalculationErrors;
             }
             finally

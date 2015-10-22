@@ -88,6 +88,15 @@ namespace Wti.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Validatie mislukt: {0}.
+        /// </summary>
+        internal static string ErrorInPipingValidation_0 {
+            get {
+                return ResourceManager.GetString("ErrorInPipingValidation_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validatie beëindigd om: {0}.
         /// </summary>
         internal static string ValidationEnded_0 {
