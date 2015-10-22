@@ -112,9 +112,6 @@
     </Compile>
     <Compile Include="PropertyInfo.cs" />
     <Compile Include="IViewList.cs" />
-    <Compile Include="GuiPluginConfiguration.cs">
-      <DependentUpon>GuiPluginConfiguration.xsd</DependentUpon>
-    </Compile>
     <Compile Include="ItemEventArgs.cs" />
     <Compile Include="Forms\IMainWindow.cs" />
     <Compile Include="IGui.cs" />
@@ -155,13 +152,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="GuiPluginConfiguration-generate.cmd" />
-    <None Include="GuiPluginConfiguration.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="GuiPluginConfiguration.xsx">
-      <DependentUpon>GuiPluginConfiguration.xsd</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Uml\Gui.cd" />
     <None Include="Uml\Properties.cd" />
