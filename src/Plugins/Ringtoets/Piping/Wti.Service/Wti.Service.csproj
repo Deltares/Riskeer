@@ -15,7 +15,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-	<WarningLevel>4</WarningLevel>
+    <WarningLevel>4</WarningLevel>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -26,7 +26,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\Release\</OutputPath>
-	<WarningLevel>4</WarningLevel>
+    <WarningLevel>4</WarningLevel>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -37,9 +37,8 @@
     <DocumentationFile>bin\Release\Wti.Service.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\log4net.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -52,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\GlobalAssembly.cs">
+    <Compile Include="..\..\..\..\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="DateTimeService.cs" />
@@ -66,28 +65,28 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\DelftTools.Controls.Swf\DelftTools.Controls.Swf.csproj">
+    <ProjectReference Include="..\..\..\..\Common\DelftTools.Controls.Swf\DelftTools.Controls.Swf.csproj">
       <Project>{3DBD23CE-5C4A-4A49-B51C-B268CB2B510E}</Project>
       <Name>DelftTools.Controls.Swf</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\DelftTools.Controls\DelftTools.Controls.csproj">
+    <ProjectReference Include="..\..\..\..\Common\DelftTools.Controls\DelftTools.Controls.csproj">
       <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
       <Name>DelftTools.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
+    <ProjectReference Include="..\..\..\..\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
       <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
       <Name>DelftTools.Shell.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\Wti.Base\Wti.Base.csproj">
+    <ProjectReference Include="..\..\..\..\Common\Wti.Base\Wti.Base.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Wti.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Wti.Calculation\Wti.Calculation.csproj">
+    <ProjectReference Include="..\..\..\Wti\Wti.Calculation\Wti.Calculation.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
       <Name>Wti.Calculation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wti.Data\Wti.Data.csproj">
+    <ProjectReference Include="..\..\..\Wti\Wti.Data\Wti.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Wti.Data</Name>
     </ProjectReference>

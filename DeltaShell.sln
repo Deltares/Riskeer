@@ -150,7 +150,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "installer", "installer", "{
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WtiSetup", "setup\Plugins\WtiSetup\WtiSetup.wixproj", "{3CCB05DB-C7B3-4EF7-B41D-22B6D2A3774E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Service", "src\Plugins\Wti\Wti.Service\Wti.Service.csproj", "{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Service", "src\Plugins\Ringtoets\Piping\Wti.Service\Wti.Service.csproj", "{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Service.Test", "test\Plugins\Wti\Wti.Service.Test\Wti.Service.Test.csproj", "{D783543B-46A1-4848-A812-AF5A5259ED7E}"
 EndProject
