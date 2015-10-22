@@ -25,24 +25,19 @@ namespace DeltaShell.Plugins.ProjectExplorer.Tests
             var gui = mocks.Stub<IGui>();
             var app = mocks.StrictMock<IApplication>();
             var settings = mocks.Stub<ApplicationSettingsBase>();
-            settings["showHiddenDataItems"] = true;
 
             var documentViews = mocks.Stub<IViewList>();
             gui.Application = app;
             Expect.Call(gui.DocumentViews).Return(documentViews).Repeat.Any();
 
+            // in case of mock
+            Expect.Call(app.UserSettings).Return(settings).Repeat.Any();
+            mocks.ReplayAll();
+
             var pluginGui = new ProjectExplorerGuiPlugin
             {
                 Gui = gui
             };
-
-            // in case of mock
-            Expect.Call(app.UserSettings).Return(settings).Repeat.Any();
-
-            LastCall.Repeat.Any();
-            LastCall.IgnoreArguments();
-
-            mocks.ReplayAll();
 
             var projectTreeView = new ProjectTreeView(pluginGui);
             Assert.IsNotNull(projectTreeView);
