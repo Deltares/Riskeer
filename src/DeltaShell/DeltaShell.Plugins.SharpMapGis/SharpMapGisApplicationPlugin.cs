@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using DelftTools.Shell.Core;
+using Mono.Addins;
 using SharpMap;
 using SharpMap.Extensions.CoordinateSystems;
 
 namespace DeltaShell.Plugins.SharpMapGis
 {
+    [Extension(typeof(IPlugin))]
     public class SharpMapGisApplicationPlugin : ApplicationPlugin
     {
         public SharpMapGisApplicationPlugin()

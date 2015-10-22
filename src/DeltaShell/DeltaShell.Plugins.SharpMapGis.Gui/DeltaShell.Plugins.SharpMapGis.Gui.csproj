@@ -181,6 +181,9 @@
     <Reference Include="log4net">
       <HintPath>..\..\..\lib\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Addins">
+      <HintPath>..\..\..\lib\Mono.Addins.dll</HintPath>
+    </Reference>
     <Reference Include="PostSharp">
       <HintPath>..\..\..\packages\PostSharp.2.1.7.28\lib\net20\PostSharp.dll</HintPath>
     </Reference>
