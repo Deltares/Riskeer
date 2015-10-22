@@ -57,7 +57,7 @@ namespace Wti.Plugin.Test
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(3, propertyInfos.Length);
+                Assert.AreEqual(4, propertyInfos.Length);
 
                 var wtiProjectProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(WtiProject));
                 Assert.AreEqual(typeof(WtiProjectProperties), wtiProjectProperties.PropertyType);
@@ -76,6 +76,12 @@ namespace Wti.Plugin.Test
                 Assert.IsNull(pipingOutputProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingOutputProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingOutputProperties.AfterCreate);
+
+                var pipingSurfaceLineProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingSurfaceLine));
+                Assert.AreEqual(typeof(PipingSurfaceLineProperties), pipingSurfaceLineProperties.PropertyType);
+                Assert.IsNull(pipingSurfaceLineProperties.AdditionalDataCheck);
+                Assert.IsNull(pipingSurfaceLineProperties.GetObjectPropertiesData);
+                Assert.IsNull(pipingSurfaceLineProperties.AfterCreate);
             }
         }
 

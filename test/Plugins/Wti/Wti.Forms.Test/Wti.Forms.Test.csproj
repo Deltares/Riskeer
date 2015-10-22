@@ -59,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\PipingDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingOutputPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\PipingSurfaceLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WtiProjectPropertiesTest.cs" />
   </ItemGroup>
   <ItemGroup>
