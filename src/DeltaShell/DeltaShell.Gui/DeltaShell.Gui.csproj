@@ -596,8 +596,6 @@ IF EXIST "%25VS110COMNTOOLS%25vsvars32.bat" CALL “%25VS110COMNTOOLS%25vsvars32
 :endvsvars
 editbin /LARGEADDRESSAWARE $(TargetFileName)
 
-rem "$(SolutionDir)\build\tools\sgen.exe" /force /compiler:/keyfile:..\..\..\..\Common\DelftTools.Shell.Core\DelftTools.snk /t:DelftTools.Shell.Gui.guiPlugin /a:DelftTools.Shell.Gui.dll 
-
 copy "$(SolutionDir)\lib\DeltaShell\DeltaShell.Gui\license.lic" .\
 
 xcopy /S /D /Y /Q "$(SolutionDir)\lib\Common\SharpMap\*" .\
