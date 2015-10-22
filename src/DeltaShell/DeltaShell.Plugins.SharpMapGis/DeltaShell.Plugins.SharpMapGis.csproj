@@ -92,11 +92,6 @@
     <Compile Include="BackGroundMapLayer.cs" />
     <Compile Include="FileBasedLayerFactory.cs" />
     <Compile Include="MapDependencyResolver.cs" />
-    <Compile Include="HibernateMappings\StyleTypeConverter.cs" />
-    <Compile Include="HibernateMappings\ThemeData.cs">
-      <DependentUpon>ThemeData.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="HibernateMappings\ThemeTypeConverter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -186,22 +181,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="HibernateMappings\ThemeData-generate.cmd" />
-    <None Include="HibernateMappings\ThemeData.xsc">
-      <DependentUpon>ThemeData.xsd</DependentUpon>
-    </None>
-    <None Include="HibernateMappings\ThemeData.xsd">
-      <SubType>
-      </SubType>
-    </None>
-    <None Include="HibernateMappings\ThemeData.xss">
-      <DependentUpon>ThemeData.xsd</DependentUpon>
-    </None>
-    <None Include="HibernateMappings\ThemeData.xsx">
-      <DependentUpon>ThemeData.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.nl-NL.resx" />
