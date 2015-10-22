@@ -20,13 +20,7 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
         /// </summary>
         private delegate void ArgumentlessDelegate();
 
-        /// <summary>
-        /// todo: This is still an unwanted dependency. PropertyGrid uses gui to subscribe to the SelectionChanged
-        /// delegate and in responce queries the gui.Selection
-        /// nicer? : custom public delegate in IPropertyGrid with selection as parameter
-        /// </summary>
         private readonly IGui gui;
-
         private IObservable observable;
 
         public PropertyGridView(IGui gui)
@@ -56,7 +50,7 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
 
         protected override void OnPropertySortChanged(EventArgs e)
         {
-            // Needed for maintaining property order
+            // Needed for maintaining property order (no support for both categorized and alphabethical sorting)
             if (PropertySort == PropertySort.CategorizedAlphabetical)
             {
                 PropertySort = PropertySort.Categorized;
@@ -211,6 +205,7 @@ namespace DeltaShell.Gui.Forms.PropertyGridView
             {
                 items.Add(parent);
             }
+
             if (parent.Expanded)
             {
                 foreach (GridItem child in parent.GridItems)
