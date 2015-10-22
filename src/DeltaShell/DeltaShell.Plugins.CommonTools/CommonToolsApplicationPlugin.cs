@@ -3,14 +3,12 @@ using System.Drawing;
 using System.Reflection;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Core.Dao;
-using Mono.Addins;
 
 namespace DeltaShell.Plugins.CommonTools
 {
     /// <summary>
     /// Common tool plugins
     /// </summary>
-    [Extension(typeof(IPlugin))]
     public class CommonToolsApplicationPlugin : ApplicationPlugin, IDataAccessListenersProvider
     {
         /// <summary>
