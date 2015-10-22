@@ -52,5 +52,20 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 
             Assert.AreEqual(node.Text.Length, hugeText.Length);
         }
+
+        [Test]
+        public void TestTextSetToNull()
+        {
+            var node = treeView.NewNode();
+
+            treeView.Nodes.Add(node);
+
+            var originalText = "tst";
+            node.Text = originalText;
+            Assert.AreEqual(originalText, node.Text);
+
+            node.Text = null;
+            Assert.AreEqual("", node.Text);
+        }
     }
 }
