@@ -1,4 +1,4 @@
-﻿namespace Wti.Service
+﻿namespace Ringtoets.Piping.Service
 {
     /// <summary>
     /// Status result from a calculation or validation performed by the <see cref="PipingCalculationService"/>.

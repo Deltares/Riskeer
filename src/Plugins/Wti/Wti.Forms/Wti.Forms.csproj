@@ -106,9 +106,9 @@
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
       <Name>Wti.Calculation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Ringtoets\Piping\Wti.Service\Wti.Service.csproj">
+    <ProjectReference Include="..\..\Ringtoets\Piping\Wti.Service\Ringtoets.Piping.Service.csproj">
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
-      <Name>Wti.Service</Name>
+      <Name>Ringtoets.Piping.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wti.Data\Wti.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>

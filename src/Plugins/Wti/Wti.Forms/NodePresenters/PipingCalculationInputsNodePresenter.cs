@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Utils.Collections;
+
+using Ringtoets.Piping.Service;
+
 using Wti.Data;
 using Wti.Forms.PresentationObjects;
 using Wti.Forms.Properties;
-using Wti.Service;
 
 namespace Wti.Forms.NodePresenters
 {

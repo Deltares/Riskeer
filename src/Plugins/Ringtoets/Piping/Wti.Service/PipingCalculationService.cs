@@ -1,10 +1,13 @@
 ﻿using System;
+
 using log4net;
+
+using Ringtoets.Piping.Service.Properties;
+
 using Wti.Calculation.Piping;
 using Wti.Data;
-using Wti.Service.Properties;
 
-namespace Wti.Service
+namespace Ringtoets.Piping.Service
 {
     /// <summary>
     /// This class is responsible for invoking operations on the <see cref="PipingCalculation"/>. Error and status information is 

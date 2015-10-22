@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Wti.Service
+namespace Ringtoets.Piping.Service
 {
     /// <summary>
     /// The <see cref="DateTimeService"/> class is responsible for providing general <see cref="DateTime"/> operations.
