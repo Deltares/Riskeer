@@ -62,6 +62,7 @@
     <Compile Include="PropertyClasses\PipingOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingSurfaceLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WtiProjectPropertiesTest.cs" />
+    <Compile Include="UITypeEditors\PipingCalculationInputsSurfaceLineSelectionEditorTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\src\Common\DelftTools.Controls.Swf\DelftTools.Controls.Swf.csproj">

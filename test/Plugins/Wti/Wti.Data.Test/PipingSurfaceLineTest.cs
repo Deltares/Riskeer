@@ -61,5 +61,22 @@ namespace Wti.Data.Test
             Assert.AreSame(sourceData[0], surfaceLine.StartingWorldPoint);
             Assert.AreSame(sourceData[0], surfaceLine.EndingWorldPoint);
         }
+
+        [Test]
+        public void ToString_ReturnName()
+        {
+            // Setup
+            const string niceName = "Nice name";
+            var surfaceLine = new PipingSurfaceLine
+            {
+                Name = niceName
+            };
+
+            // Call
+            var text = surfaceLine.ToString();
+
+            // Assert
+            Assert.AreEqual(niceName, text);
+        }
     }
 }

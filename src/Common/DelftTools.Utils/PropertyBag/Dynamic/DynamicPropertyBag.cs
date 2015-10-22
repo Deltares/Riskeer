@@ -21,6 +21,14 @@ namespace DelftTools.Utils.PropertyBag.Dynamic
             Initialize(propertyObject, customPropertyInfos ?? propertyObject.GetType().GetProperties());
         }
 
+        public object WrappedObject
+        {
+            get
+            {
+                return propertyObject;
+            }
+        }
+
         public Type GetContentType()
         {
             return propertyObject.GetType();

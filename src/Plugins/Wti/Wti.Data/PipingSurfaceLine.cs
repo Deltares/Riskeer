@@ -52,5 +52,10 @@ namespace Wti.Data
                 EndingWorldPoint = point3Ds[point3Ds.Length - 1];
             }
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

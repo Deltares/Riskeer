@@ -1,9 +1,14 @@
-﻿using DelftTools.Shell.Gui;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing.Design;
+
+using DelftTools.Shell.Gui;
 using DelftTools.Utils;
 
 using Wti.Data;
 using Wti.Forms.PresentationObjects;
 using Wti.Forms.Properties;
+using Wti.Forms.UITypeEditors;
 
 namespace Wti.Forms.PropertyClasses
 {
@@ -346,6 +351,7 @@ namespace Wti.Forms.PropertyClasses
             }
         }
 
+        [Editor(typeof(PipingCalculationInputsSurfaceLineSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataSurfaceLineDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingDataSurfaceLineDescription")]
@@ -355,6 +361,19 @@ namespace Wti.Forms.PropertyClasses
             {
                 return data.PipingData.SurfaceLine;
             }
+            set
+            {
+                data.PipingData.SurfaceLine = value;
+                data.PipingData.NotifyObservers();
+            }
+        }
+
+        /// <summary>
+        /// Gets the available surface lines on <see cref="PipingCalculationInputs"/>.
+        /// </summary>
+        public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
+        {
+            return data.AvailablePipingSurfaceLines;
         }
     }
 }
