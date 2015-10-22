@@ -10,10 +10,10 @@ namespace DelftTools.Controls.Swf.TreeViewControls
     {
         private readonly TreeNodeList nodes;
         private readonly ITreeView treeView;
-        private readonly int maximumTextLength = 1000; // having very big strings causes problems by tree-view
         protected bool isLoaded;
         private object tag;
         private IObservable observable;
+        private readonly int maximumTextLength = 1000; // Having very big strings causes problems by tree-view
 
         public TreeNode(ITreeView treeView)
         {
@@ -58,6 +58,13 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             {
                 if (base.Text == value)
                 {
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    base.Text = "";
+
                     return;
                 }
 
