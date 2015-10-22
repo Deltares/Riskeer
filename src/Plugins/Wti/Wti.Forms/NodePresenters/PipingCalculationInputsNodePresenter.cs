@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Utils.Collections;
 using Wti.Data;
+using Wti.Forms.PresentationObjects;
 using Wti.Forms.Properties;
 using Wti.Service;
 
@@ -14,7 +15,7 @@ namespace Wti.Forms.NodePresenters
     /// This class presents the data on <see cref="PipingData"/> as a node in a <see cref="ITreeView"/> and
     /// implements the way the user can interact with the node.
     /// </summary>
-    public class PipingDataNodePresenter : ITreeNodePresenter
+    public class PipingCalculationInputsNodePresenter : ITreeNodePresenter
     {
         public ITreeView TreeView { get; set; }
 
@@ -22,7 +23,7 @@ namespace Wti.Forms.NodePresenters
         {
             get
             {
-                return typeof(PipingData);
+                return typeof(PipingCalculationInputs);
             }
         }
 
@@ -34,7 +35,7 @@ namespace Wti.Forms.NodePresenters
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
-            var pipingData = ((PipingData) parentNodeData).Output;
+            var pipingData = ((PipingCalculationInputs) parentNodeData).PipingData.Output;
             if (pipingData != null)
             {
                 yield return pipingData;

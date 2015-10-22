@@ -33,6 +33,7 @@ namespace Wti.Data.Test
             Assert.AreEqual(0, defaultConstructed.Diameter70);
             Assert.AreEqual(0, defaultConstructed.ThicknessAquiferLayer);
             Assert.AreEqual(0, defaultConstructed.DarcyPermeability);
+            Assert.IsNull(defaultConstructed.SurfaceLine);
 
             Assert.AreEqual(1.0, defaultConstructed.DampingFactorExit);
             Assert.AreEqual(0.3, defaultConstructed.SellmeijerReductionFactor);

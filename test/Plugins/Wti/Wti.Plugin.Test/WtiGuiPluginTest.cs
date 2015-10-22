@@ -10,6 +10,7 @@ using Rhino.Mocks;
 
 using Wti.Data;
 using Wti.Forms.NodePresenters;
+using Wti.Forms.PresentationObjects;
 using Wti.Forms.PropertyClasses;
 using GuiPluginResources = Wti.Plugin.Properties.Resources;
 
@@ -65,8 +66,8 @@ namespace Wti.Plugin.Test
                 Assert.IsNull(wtiProjectProperties.GetObjectPropertiesData);
                 Assert.IsNull(wtiProjectProperties.AfterCreate);
 
-                var pipingDataProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingData));
-                Assert.AreEqual(typeof(PipingDataProperties), pipingDataProperties.PropertyType);
+                var pipingDataProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingCalculationInputs));
+                Assert.AreEqual(typeof(PipingCalculationInputsProperties), pipingDataProperties.PropertyType);
                 Assert.IsNull(pipingDataProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingDataProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingDataProperties.AfterCreate);
@@ -105,7 +106,7 @@ namespace Wti.Plugin.Test
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineCollectionNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSoilProfileCollectionNodePresenter));
-                Assert.IsTrue(nodePresenters.Any(np => np is PipingDataNodePresenter));
+                Assert.IsTrue(nodePresenters.Any(np => np is PipingCalculationInputsNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingFailureMechanismNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingOutputNodePresenter));
             }

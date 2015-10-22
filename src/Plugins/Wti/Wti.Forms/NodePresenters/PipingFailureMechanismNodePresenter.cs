@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Utils.Collections;
 using Wti.Data;
+using Wti.Forms.PresentationObjects;
 using Wti.Forms.Properties;
 
 namespace Wti.Forms.NodePresenters
@@ -35,7 +36,11 @@ namespace Wti.Forms.NodePresenters
 
             if (failureMechanism.PipingData != null)
             {
-                yield return failureMechanism.PipingData;
+                yield return new PipingCalculationInputs
+                {
+                    PipingData = failureMechanism.PipingData, 
+                    AvailablePipingSurfaceLines = failureMechanism.SurfaceLines
+                };
             }
         }
 

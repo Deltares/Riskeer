@@ -6,7 +6,7 @@ using Wti.Forms.Properties;
 namespace Wti.Forms.NodePresenters
 {
     /// <summary>
-    /// Class for creating a <seealso cref="ContextMenuStrip"/> for a <see cref="PipingDataNodePresenter"/>.
+    /// Class for creating a <seealso cref="ContextMenuStrip"/> for a <see cref="PipingCalculationInputsNodePresenter"/>.
     /// </summary>
     internal sealed class PipingContextMenuStrip : ContextMenuStrip
     {

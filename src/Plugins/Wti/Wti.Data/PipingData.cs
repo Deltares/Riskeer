@@ -154,6 +154,11 @@ namespace Wti.Data
         public double ExitPointXCoordinate { get; set; }
 
         /// <summary>
+        /// Gets or sets the surface line.
+        /// </summary>
+        public PipingSurfaceLine SurfaceLine { get; set; }
+
+        /// <summary>
         /// Gets or sets <see cref="PipingOutput"/>, which contains the results of a Piping calculation.
         /// </summary>
         public PipingOutput Output { get; set; }

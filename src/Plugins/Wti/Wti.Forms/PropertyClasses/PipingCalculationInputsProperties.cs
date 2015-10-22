@@ -1,12 +1,14 @@
 ﻿using DelftTools.Shell.Gui;
 using DelftTools.Utils;
+
 using Wti.Data;
+using Wti.Forms.PresentationObjects;
 using Wti.Forms.Properties;
 
 namespace Wti.Forms.PropertyClasses
 {
     [ResourcesDisplayName(typeof(Resources), "PipingDataPropertiesDisplayName")]
-    public class PipingDataProperties : ObjectProperties<PipingData>
+    public class PipingCalculationInputsProperties : ObjectProperties<PipingCalculationInputs>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataWaterVolumetricWeightDisplayName")]
@@ -15,12 +17,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.WaterVolumetricWeight;
+                return data.PipingData.WaterVolumetricWeight;
             }
             set
             {
-                data.WaterVolumetricWeight = value;
-                data.NotifyObservers();
+                data.PipingData.WaterVolumetricWeight = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -31,12 +33,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.UpliftModelFactor;
+                return data.PipingData.UpliftModelFactor;
             }
             set
             {
-                data.UpliftModelFactor = value;
-                data.NotifyObservers();
+                data.PipingData.UpliftModelFactor = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -47,12 +49,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.AssessmentLevel;
+                return data.PipingData.AssessmentLevel;
             }
             set
             {
-                data.AssessmentLevel = value;
-                data.NotifyObservers();
+                data.PipingData.AssessmentLevel = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -63,12 +65,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.PiezometricHeadExit;
+                return data.PipingData.PiezometricHeadExit;
             }
             set
             {
-                data.PiezometricHeadExit = value;
-                data.NotifyObservers();
+                data.PipingData.PiezometricHeadExit = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -79,12 +81,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.DampingFactorExit;
+                return data.PipingData.DampingFactorExit;
             }
             set
             {
-                data.DampingFactorExit = value;
-                data.NotifyObservers();
+                data.PipingData.DampingFactorExit = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -95,12 +97,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.PhreaticLevelExit;
+                return data.PipingData.PhreaticLevelExit;
             }
             set
             {
-                data.PhreaticLevelExit = value;
-                data.NotifyObservers();
+                data.PipingData.PhreaticLevelExit = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -111,12 +113,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.PiezometricHeadPolder;
+                return data.PipingData.PiezometricHeadPolder;
             }
             set
             {
-                data.PiezometricHeadPolder = value;
-                data.NotifyObservers();
+                data.PipingData.PiezometricHeadPolder = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -127,12 +129,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.CriticalHeaveGradient;
+                return data.PipingData.CriticalHeaveGradient;
             }
             set
             {
-                data.CriticalHeaveGradient = value;
-                data.NotifyObservers();
+                data.PipingData.CriticalHeaveGradient = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -143,12 +145,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.ThicknessCoverageLayer;
+                return data.PipingData.ThicknessCoverageLayer;
             }
             set
             {
-                data.ThicknessCoverageLayer = value;
-                data.NotifyObservers();
+                data.PipingData.ThicknessCoverageLayer = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -159,12 +161,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.SellmeijerModelFactor;
+                return data.PipingData.SellmeijerModelFactor;
             }
             set
             {
-                data.SellmeijerModelFactor = value;
-                data.NotifyObservers();
+                data.PipingData.SellmeijerModelFactor = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -175,12 +177,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.SellmeijerReductionFactor;
+                return data.PipingData.SellmeijerReductionFactor;
             }
             set
             {
-                data.SellmeijerReductionFactor = value;
-                data.NotifyObservers();
+                data.PipingData.SellmeijerReductionFactor = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -191,12 +193,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.SeepageLength;
+                return data.PipingData.SeepageLength;
             }
             set
             {
-                data.SeepageLength = value;
-                data.NotifyObservers();
+                data.PipingData.SeepageLength = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -207,12 +209,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.SandParticlesVolumicWeight;
+                return data.PipingData.SandParticlesVolumicWeight;
             }
             set
             {
-                data.SandParticlesVolumicWeight = value;
-                data.NotifyObservers();
+                data.PipingData.SandParticlesVolumicWeight = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -223,12 +225,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.WhitesDragCoefficient;
+                return data.PipingData.WhitesDragCoefficient;
             }
             set
             {
-                data.WhitesDragCoefficient = value;
-                data.NotifyObservers();
+                data.PipingData.WhitesDragCoefficient = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -239,12 +241,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.Diameter70;
+                return data.PipingData.Diameter70;
             }
             set
             {
-                data.Diameter70 = value;
-                data.NotifyObservers();
+                data.PipingData.Diameter70 = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -255,12 +257,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.DarcyPermeability;
+                return data.PipingData.DarcyPermeability;
             }
             set
             {
-                data.DarcyPermeability = value;
-                data.NotifyObservers();
+                data.PipingData.DarcyPermeability = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -271,12 +273,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.WaterKinematicViscosity;
+                return data.PipingData.WaterKinematicViscosity;
             }
             set
             {
-                data.WaterKinematicViscosity = value;
-                data.NotifyObservers();
+                data.PipingData.WaterKinematicViscosity = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -287,12 +289,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.Gravity;
+                return data.PipingData.Gravity;
             }
             set
             {
-                data.Gravity = value;
-                data.NotifyObservers();
+                data.PipingData.Gravity = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -303,12 +305,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.ThicknessAquiferLayer;
+                return data.PipingData.ThicknessAquiferLayer;
             }
             set
             {
-                data.ThicknessAquiferLayer = value;
-                data.NotifyObservers();
+                data.PipingData.ThicknessAquiferLayer = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -319,12 +321,12 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.MeanDiameter70;
+                return data.PipingData.MeanDiameter70;
             }
             set
             {
-                data.MeanDiameter70 = value;
-                data.NotifyObservers();
+                data.PipingData.MeanDiameter70 = value;
+                data.PipingData.NotifyObservers();
             }
         }
 
@@ -335,12 +337,23 @@ namespace Wti.Forms.PropertyClasses
         {
             get
             {
-                return data.BeddingAngle;
+                return data.PipingData.BeddingAngle;
             }
             set
             {
-                data.BeddingAngle = value;
-                data.NotifyObservers();
+                data.PipingData.BeddingAngle = value;
+                data.PipingData.NotifyObservers();
+            }
+        }
+
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "PipingDataSurfaceLineDisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingDataSurfaceLineDescription")]
+        public PipingSurfaceLine SurfaceLine
+        {
+            get
+            {
+                return data.PipingData.SurfaceLine;
             }
         }
     }

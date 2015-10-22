@@ -459,6 +459,24 @@ namespace Wti.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De dwarsdoorsnede die voor de piping berekening gebruikt wordt..
+        /// </summary>
+        public static string PipingDataSurfaceLineDescription {
+            get {
+                return ResourceManager.GetString("PipingDataSurfaceLineDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drawsdoorsnede.
+        /// </summary>
+        public static string PipingDataSurfaceLineDisplayName {
+            get {
+                return ResourceManager.GetString("PipingDataSurfaceLineDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De dikte van de eerste of bovenste voor doorlatendheid te onderscheiden zandlaag van mogelijk meerdere zandlagen vanaf de cohesieve grondlaag..
         /// </summary>
         public static string PipingDataThicknessAquiferLayerDescription {

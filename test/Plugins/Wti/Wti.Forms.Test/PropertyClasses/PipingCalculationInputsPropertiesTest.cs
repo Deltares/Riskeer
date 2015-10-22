@@ -3,21 +3,22 @@ using DelftTools.Shell.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Wti.Data;
+using Wti.Forms.PresentationObjects;
 using Wti.Forms.PropertyClasses;
 
 namespace Wti.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class PipingDataPropertiesTest
+    public class PipingCalculationInputsPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new PipingDataProperties();
+            var properties = new PipingCalculationInputsProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PipingData>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<PipingCalculationInputs>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -25,11 +26,18 @@ namespace Wti.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var pipingData = new PipingData();
-
-            var properties = new PipingDataProperties
+            var surfaceLine = new PipingSurfaceLine();
+            var pipingData = new PipingData
             {
-                Data = pipingData
+                SurfaceLine = surfaceLine
+            };
+
+            var properties = new PipingCalculationInputsProperties
+            {
+                Data = new PipingCalculationInputs
+                {
+                    PipingData = pipingData
+                }
             };
 
             // Call & Assert
@@ -55,6 +63,7 @@ namespace Wti.Forms.Test.PropertyClasses
             Assert.AreEqual(0.25, properties.WhitesDragCoefficient);
             Assert.AreEqual(37, properties.BeddingAngle);
             Assert.AreEqual(2.08e-4, properties.MeanDiameter70);
+            Assert.AreSame(surfaceLine, properties.SurfaceLine);
         }
 
         [Test]
@@ -69,9 +78,12 @@ namespace Wti.Forms.Test.PropertyClasses
             var pipingData = new PipingData();
             pipingData.Attach(projectObserver);
 
-            var properties = new PipingDataProperties
+            var properties = new PipingCalculationInputsProperties
             {
-                Data = pipingData
+                Data = new PipingCalculationInputs
+                {
+                    PipingData = pipingData
+                }
             };
 
             // Call & Assert

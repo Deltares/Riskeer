@@ -7,6 +7,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
+using Wti.Forms.PresentationObjects;
 
 namespace Wti.Forms.Test.NodePresenters
 {
@@ -66,7 +67,9 @@ namespace Wti.Forms.Test.NodePresenters
             Assert.AreEqual(3, children.Length);
             Assert.AreSame(pipingFailureMechanism.SoilProfiles, children[0]);
             Assert.AreSame(pipingFailureMechanism.SurfaceLines, children[1]);
-            Assert.AreSame(pipingFailureMechanism.PipingData, children[2]);
+            var pipingCalculationInputsObject = (PipingCalculationInputs)children[2];
+            Assert.AreSame(pipingFailureMechanism.PipingData, pipingCalculationInputsObject.PipingData);
+            Assert.AreSame(pipingFailureMechanism.SurfaceLines, pipingCalculationInputsObject.AvailablePipingSurfaceLines);
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 

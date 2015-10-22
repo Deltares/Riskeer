@@ -9,12 +9,14 @@ using Rhino.Mocks;
 using Wti.Calculation.Test.Piping.Stub;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
+using Wti.Forms.PresentationObjects;
+
 using WtiFormsResources = Wti.Forms.Properties.Resources;
 
 namespace Wti.Forms.Test.NodePresenters
 {
     [TestFixture]
-    public class PipingDataNodePresenterTest
+    public class PipingCalculationInputsNodePresenterTest
     {
         private MockRepository mockRepository;
 
@@ -28,12 +30,12 @@ namespace Wti.Forms.Test.NodePresenters
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Assert
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
-            Assert.AreEqual(typeof(PipingData), nodePresenter.NodeTagType);
+            Assert.AreEqual(typeof(PipingCalculationInputs), nodePresenter.NodeTagType);
         }
 
         [Test]
@@ -46,7 +48,7 @@ namespace Wti.Forms.Test.NodePresenters
             var pipingNode = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             var pipingData = new PipingData
             {
@@ -70,15 +72,18 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
-            var pipingData = new PipingData
+            var pipingCalculationInputs = new PipingCalculationInputs
             {
-                Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+                PipingData = new PipingData
+                {
+                    Output = new PipingOutput(0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+                }
             };
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(pipingData, nodeMock);
+            var children = nodePresenter.GetChildNodeObjects(pipingCalculationInputs, nodeMock);
 
             // Assert
             Assert.AreEqual(1, children.Count());
@@ -94,12 +99,15 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
-            var pipingData = new PipingData();
+            var pipingCalculationInputs = new PipingCalculationInputs
+            {
+                PipingData = new PipingData()
+            };
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(pipingData, nodeMock);
+            var children = nodePresenter.GetChildNodeObjects(pipingCalculationInputs, nodeMock);
 
             // Assert
             Assert.AreEqual(0, children.Count());
@@ -114,7 +122,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNode(nodeMock);
@@ -132,7 +140,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
@@ -151,7 +159,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             TestDelegate call = () => { nodePresenter.OnNodeRenamed(nodeMock, "<Insert New Name Here>"); };
@@ -171,7 +179,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             nodePresenter.OnNodeChecked(nodeMock);
@@ -188,7 +196,7 @@ namespace Wti.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             DragOperations dragAllowed = nodePresenter.CanDrag(dataMock);
@@ -208,7 +216,7 @@ namespace Wti.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             DragOperations dropAllowed = nodePresenter.CanDrop(dataMock, sourceMock, targetMock, DragOperations.Move);
@@ -228,7 +236,7 @@ namespace Wti.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             bool insertionAllowed = nodePresenter.CanInsert(dataMock, sourceMock, targetMock);
@@ -248,7 +256,7 @@ namespace Wti.Forms.Test.NodePresenters
             var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
@@ -265,7 +273,7 @@ namespace Wti.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             nodePresenter.OnNodeSelected(dataMock);
@@ -282,7 +290,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var dataMock = mocks.StrictMock<PipingData>();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             mocks.ReplayAll();
 
@@ -308,7 +316,7 @@ namespace Wti.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
@@ -326,7 +334,7 @@ namespace Wti.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
@@ -344,7 +352,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
@@ -358,7 +366,7 @@ namespace Wti.Forms.Test.NodePresenters
         public void RemoveNodeData_Always_ThrowsInvalidOperationException()
         {
             // Setup
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
             TestDelegate removeAction = () => nodePresenter.RemoveNodeData(null, null);
@@ -380,7 +388,7 @@ namespace Wti.Forms.Test.NodePresenters
             var calculateContextMenuItemIndex = 1;
             var pipingData = new PipingData();
             var observer = mockRepository.StrictMock<IObserver>();
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
             observer.Expect(o => o.UpdateObserver());
             pipingData.Attach(observer);
 
@@ -408,7 +416,7 @@ namespace Wti.Forms.Test.NodePresenters
             var validateContextMenuItemIndex = 0;
             var pipingData = new PipingData();
             var observer = mockRepository.StrictMock<IObserver>();
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
             observer.Expect(o => o.UpdateObserver()).Repeat.Never();
             pipingData.Attach(observer);
 
@@ -459,7 +467,7 @@ namespace Wti.Forms.Test.NodePresenters
             pipingData.WhitesDragCoefficient = validPipingInput.WhitesDragCoefficient;
 
             var observer = mockRepository.StrictMock<IObserver>();
-            var nodePresenter = new PipingDataNodePresenter();
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
             observer.Expect(o => o.UpdateObserver());
             pipingData.Attach(observer);
 

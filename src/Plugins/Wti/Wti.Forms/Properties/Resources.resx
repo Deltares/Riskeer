@@ -379,4 +379,10 @@
   <data name="SurfaceLinePropertiesDisplayName" xml:space="preserve">
     <value>Dwarsdoorsnede</value>
   </data>
+  <data name="PipingDataSurfaceLineDescription" xml:space="preserve">
+    <value>De dwarsdoorsnede die voor de piping berekening gebruikt wordt.</value>
+  </data>
+  <data name="PipingDataSurfaceLineDisplayName" xml:space="preserve">
+    <value>Drawsdoorsnede</value>
+  </data>
 </root>

@@ -6,6 +6,7 @@ using DelftTools.Shell.Gui.Forms;
 using Mono.Addins;
 using Wti.Data;
 using Wti.Forms.NodePresenters;
+using Wti.Forms.PresentationObjects;
 using Wti.Forms.PropertyClasses;
 
 namespace Wti.Plugin
@@ -61,7 +62,7 @@ namespace Wti.Plugin
             };
             yield return new PropertyInfo
             {
-                ObjectType = typeof(PipingData), PropertyType = typeof(PipingDataProperties)
+                ObjectType = typeof(PipingCalculationInputs), PropertyType = typeof(PipingCalculationInputsProperties)
             };
             yield return new PropertyInfo
             {
@@ -76,7 +77,7 @@ namespace Wti.Plugin
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
             yield return new WtiProjectNodePresenter();
-            yield return new PipingDataNodePresenter();
+            yield return new PipingCalculationInputsNodePresenter();
             yield return new PipingFailureMechanismNodePresenter();
             yield return new PipingSurfaceLineCollectionNodePresenter
             {
