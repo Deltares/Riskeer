@@ -122,7 +122,7 @@ namespace Wti.IO
                 CommandText = string.Format(
                     "SELECT p.SP2D_Name, l.GeometrySurface, mat.MA_Name, mpl.X " +
                     "FROM MechanismPointLocation as m " +
-                    "JOIN MechanismPointLocation as mpl ON m.ME_ID = mpl.ME_ID " +
+                    "JOIN MechanismPointLocation as mpl ON p.SP2D_ID = mpl.SP2D_ID " +
                     "JOIN SoilProfile2D as p ON m.SP2D_ID = p.SP2D_ID " +
                     "JOIN SoilLayer2D as l ON l.SP2D_ID = p.SP2D_ID " +
                     "JOIN Materials as mat ON mat.MA_ID = l.MA_ID " +

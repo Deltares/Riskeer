@@ -7,6 +7,7 @@ using DelftTools.TestUtils;
 using log4net.Core;
 using NUnit.Framework;
 using Wti.Data;
+using Wti.IO.Calculation;
 using Wti.IO.Exceptions;
 using Wti.IO.Properties;
 
@@ -71,6 +72,61 @@ namespace Wti.IO.Test
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
             Assert.AreEqual(String.Format(Resources.Error_SoilProfileReadFromDatabase, dbName), exception.Message);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void ReadSoilProfiles_NLCompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
+        {
+            ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries();
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        public void ReadSoilProfiles_ENCompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
+        {
+            ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries();
+        }
+
+        private void ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
+        {
+            // Setup
+            var testFile = "complete.soil";
+            var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile));
+
+            // Call
+            PipingSoilProfile[] result = pipingSoilProfilesReader.Read().ToArray();
+
+            // Assert
+            Assert.AreEqual(2, result.Length);
+            var firstProfile = result.SingleOrDefault(psp => psp.Name == "10Y_005_STBI");
+            Assert.NotNull(firstProfile);
+
+            Assert.AreEqual(-10, firstProfile.Bottom);
+            Assert.AreEqual(6, firstProfile.Layers.Count());
+            var expected = new[]
+            {
+                -3.5,
+                -1.2,
+                0.63,
+                1.088434916,
+                1.947578092,
+                2.473341176
+            };
+            CollectionAssert.AllItemsAreUnique(firstProfile.Layers.Select(l => l.Top));
+            Assert.AreEqual(6, firstProfile.Layers.Count(l => expected.Contains(l.Top, new DoubleComparer())));
+        }
+    }
+
+    internal class DoubleComparer : IEqualityComparer<double> {
+        public bool Equals(double x, double y)
+        {
+            return Math.Abs(x - y) < Math2D.EpsilonForComparisons;
+        }
+
+        public int GetHashCode(double obj)
+        {
+            return obj.GetHashCode();
         }
     }
 }

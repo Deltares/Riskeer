@@ -7,13 +7,19 @@ using Wti.IO.Properties;
 namespace Wti.IO.Builders
 {
     /// <summary>
-    /// Constructs a 1d Soil Profile based on definitions of <see cref="2DSoilLayer"/>.
+    /// Constructs a 1d Soil Profile based on definitions of <see cref="SoilLayer2D"/>.
     /// </summary>
-    public class SoilProfileBuilder
+    internal class SoilProfileBuilder
     {
         private readonly ICollection<PipingSoilLayer> layers = new Collection<PipingSoilLayer>();
 
-        public SoilProfileBuilder(string profileName, double atX)
+        /// <summary>
+        /// Creates a new instance of <see cref="SoilProfileBuilder"/> with the supposed name for the new <see cref="PipingSoilProfile"/>
+        /// and the point at which a 1D profile should be obtained from the 2D profile.
+        /// </summary>
+        /// <param name="profileName">The name for the <see cref="PipingSoilProfile"/> constructed by the <see cref="SoilProfileBuilder"/>.</param>
+        /// <param name="atX">The x position from which to obtain a 1D profile.</param>
+        internal SoilProfileBuilder(string profileName, double atX)
         {
             if (double.IsNaN(atX))
             {
@@ -24,7 +30,12 @@ namespace Wti.IO.Builders
             Bottom = double.MaxValue;
         }
 
-        public void Add(SoilLayer2D soilLayer)
+        /// <summary>
+        /// Adds a new <see cref="SoilLayer2D"/> to the profile.
+        /// </summary>
+        /// <param name="soilLayer">The <see cref="SoilLayer2D"/> to add to the profile.</param>
+        /// <returns>The <see cref="SoilProfileBuilder"/>.</returns>
+        internal SoilProfileBuilder Add(SoilLayer2D soilLayer)
         {
             double bottom;
             foreach (PipingSoilLayer layer in soilLayer.AsPipingSoilLayers(AtX, out bottom))
@@ -32,9 +43,14 @@ namespace Wti.IO.Builders
                 layers.Add(layer);
             }
             Bottom = Math.Min(Bottom, bottom);
+            return this;
         }
 
-        public PipingSoilProfile Build()
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingSoilProfile"/>.
+        /// </summary>
+        /// <returns>A new <see cref="PipingSoilProfile"/>.</returns>
+        internal PipingSoilProfile Build()
         {
             return new PipingSoilProfile(ProfileName, Bottom, layers);
         }

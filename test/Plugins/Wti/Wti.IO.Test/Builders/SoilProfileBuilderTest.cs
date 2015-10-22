@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Wti.Data;
+using Wti.Data.TestUtil;
 using Wti.IO.Builders;
 using Wti.IO.Properties;
 
@@ -86,6 +87,113 @@ namespace Wti.IO.Test.Builders
             Assert.AreEqual(1, soilProfile.Layers.Count());
             Assert.AreEqual(1.0, soilProfile.Layers.ToArray()[0].Top);
             Assert.AreEqual(-1.0, soilProfile.Bottom);
+        }
+
+        [Test]
+        public void Build_WithMultipleLayersOnlyOuterLoop_ReturnsProfileWithBottomAndALayers()
+        {
+            // Setup
+            var profileName = "SomeProfile";
+            var builder = new SoilProfileBuilder(profileName, 1.0);
+            builder.Add(new SoilLayer2D
+            {
+                OuterLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                    "10",
+                    "...",
+                    "...",
+                    "...",
+                    "...",
+                    "...",
+                    "...",
+                    "...",
+                    "1.2",
+                    "4.3",
+                    "..."
+                ))
+            }).Add(new SoilLayer2D
+            {
+                OuterLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                    "10",
+                    "...",
+                    "...",
+                    "...",
+                    "...",
+                    "...",
+                    "4.3",
+                    "...",
+                    "1.2",
+                    "...",
+                    "..."
+                ))
+            }).Add(new SoilLayer2D
+            {
+                OuterLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                    "10",
+                    "...",
+                    "1.2",
+                    "...",
+                    "...",
+                    "...",
+                    "4.3",
+                    "...",
+                    "...",
+                    "...",
+                    "..."
+                ))
+            });
+
+            // Call
+            PipingSoilProfile soilProfile = builder.Build();
+
+            // Assert
+            Assert.AreEqual(profileName, soilProfile.Name);
+            Assert.AreEqual(3, soilProfile.Layers.Count());
+            CollectionAssert.AreEquivalent(new[] { 2.0, 4.0, 8.0 }, soilProfile.Layers.Select(rl => rl.Top));
+            Assert.AreEqual(1.0, soilProfile.Bottom);
+        }
+
+
+        [Test]
+        public void Build_WithLayerFilledWithOtherLayer_ReturnsProfileWithBottomAndALayers()
+        {
+            // Setup
+            var profileName = "SomeProfile";
+            var builder = new SoilProfileBuilder(profileName, 2.0);
+            var loopHole = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                    "5",
+                    ".....",
+                    ".4.1.",
+                    ".3.2.",
+                    ".....",
+                    "....."
+                ));
+            builder.Add(new SoilLayer2D
+            {
+                OuterLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                    "5",
+                    "2...3",
+                    ".....",
+                    ".....",
+                    ".....",
+                    "1...4"
+                )),
+                InnerLoops =
+                {
+                    loopHole
+                }
+            }).Add(new SoilLayer2D
+            {
+                OuterLoop = loopHole
+            });
+
+            // Call
+            PipingSoilProfile soilProfile = builder.Build();
+
+            // Assert
+            Assert.AreEqual(profileName, soilProfile.Name);
+            Assert.AreEqual(3, soilProfile.Layers.Count());
+            CollectionAssert.AreEquivalent(new[] { 4.0, 3.0, 2.0 }, soilProfile.Layers.Select(rl => rl.Top));
+            Assert.AreEqual(0.0, soilProfile.Bottom);
         }
     }
 }

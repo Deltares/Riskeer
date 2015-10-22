@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
 using Wti.Data;
 using Wti.IO.Calculation;
@@ -10,16 +8,35 @@ using Wti.IO.Properties;
 
 namespace Wti.IO.Builders
 {
-    public class SoilLayer2D
+    /// <summary>
+    /// This class represents objects which were imported from a DSoilModel database. This class 
+    /// </summary>
+    internal class SoilLayer2D
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="SoilLayer2D"/>.
+        /// </summary>
         public SoilLayer2D()
         {
             InnerLoops = new Collection<HashSet<Point3D>>();
         }
 
-        public HashSet<Point3D> OuterLoop { get; set; }
-        public Collection<HashSet<Point3D>> InnerLoops { get; private set; }
+        /// <summary>
+        /// Gets the outer loop of the <see cref="SoilLayer2D"/> as a <see cref="HashSet{T}"/> of <see cref="Point3D"/>.
+        /// </summary>
+        internal HashSet<Point3D> OuterLoop { get; set; }
 
+        /// <summary>
+        /// Gets the <see cref="Collection{T}"/> of inner loops (as <see cref="HashSet{T}"/> of <see cref="Point3D"/>) of the <see cref="SoilLayer2D"/>.
+        /// </summary>
+        internal Collection<HashSet<Point3D>> InnerLoops { get; private set; }
+
+        /// <summary>
+        /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the <see cref="InnerLoops"/> and <see cref="OuterLoop"/> set for the <see cref="SoilLayer2D"/>.
+        /// </summary>
+        /// <param name="atX">The point from which to take a 1D profile.</param>
+        /// <param name="bottom">The bottom level of the <see cref="PipingSoilLayer"/>.</param>
+        /// <returns></returns>
         internal IEnumerable<PipingSoilLayer> AsPipingSoilLayers(double atX, out double bottom)
         {
             bottom = Double.MaxValue;
