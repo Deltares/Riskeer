@@ -18,7 +18,6 @@ using DeltaShell.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using DeltaShell.Plugins.SharpMapGis.Gui.NodePresenters;
 using GeoAPI.Extensions.Feature;
 using GeoAPI.Geometries;
-using Mono.Addins;
 using SharpMap;
 using SharpMap.Api.Layers;
 using SharpMap.Data.Providers;
@@ -30,7 +29,6 @@ using PropertyInfo = DelftTools.Shell.Gui.PropertyInfo;
 
 namespace DeltaShell.Plugins.SharpMapGis.Gui
 {
-    [Extension(typeof(IPlugin))]
     public class SharpMapGisGuiPlugin : GuiPlugin
     {
         private static IGui gui;
