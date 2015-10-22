@@ -28,8 +28,29 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 
             var node = node12.GetParentOfLevel(0);
 
-            node
-                .Should().Be.EqualTo(node1);
+            node.Should().Be.EqualTo(node1);
+        }
+    
+        [Test]
+        public void TestTextLengthLimit()
+        {
+            var node = treeView.NewNode();
+            
+            treeView.Nodes.Add(node);
+            
+            var hugeText = "";
+            for (var i = 0; i <= 99; i++) 
+            {
+                hugeText +=  "1834567890"; // hondred times 10 symbols = 1000 symbols
+            }
+            Assert.AreEqual(hugeText.Length, 1000);
+
+            node.Text = hugeText;
+            Assert.AreEqual(node.Text.Length, hugeText.Length);
+
+            node.Text = hugeText + "123";
+
+            Assert.AreEqual(node.Text.Length, hugeText.Length);
         }
     }
 }

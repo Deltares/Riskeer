@@ -1,22 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Reflection;
 using System.Windows.Forms;
 using DelftTools.Shell.Core;
-using log4net;
 
 namespace DelftTools.Controls.Swf.TreeViewControls
 {
     public class TreeNode : System.Windows.Forms.TreeNode, ITreeNode, IObserver
     {
-        private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly TreeNodeList nodes;
         private readonly ITreeView treeView;
+        private readonly int maximumTextLength = 1000; // having very big strings causes problems by tree-view
         protected bool isLoaded;
-
         private object tag;
-
         private IObservable observable;
 
         public TreeNode(ITreeView treeView)
@@ -25,7 +21,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             nodes = new TreeNodeList(base.Nodes);
             IsVisible = true;
         }
-        
+
         /// <summary>
         /// Called when a user right clicks in the network tree
         /// </summary>
@@ -36,7 +32,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                 return Presenter != null ? Presenter.GetContextMenu(this, Tag) : null;
             }
         }
-        
+
         /// <summary>
         /// Used in rendering (has children indicates if a plus or minus must be drawn)
         /// </summary>
@@ -60,10 +56,12 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             }
             set
             {
-                if (base.Text != value)
+                if (base.Text == value)
                 {
-                    base.Text = value;
+                    return;
                 }
+
+                base.Text = value.Length > maximumTextLength ? value.Substring(0, maximumTextLength) : value;
             }
         }
 
@@ -197,9 +195,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         }
 
         public bool Bold { get; set; }
-
         public Image Image { get; set; }
-
         public bool IsUpdating { get; private set; }
 
         public void RefreshChildNodes(bool forcedRefresh = false)
