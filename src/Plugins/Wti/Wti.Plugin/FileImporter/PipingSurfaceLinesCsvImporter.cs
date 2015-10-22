@@ -60,7 +60,7 @@ namespace Wti.Plugin.FileImporter
             {
                 return new[]
                 {
-                    typeof(IEnumerable<PipingSurfaceLine>)
+                    typeof(IEnumerable<RingtoetsPipingSurfaceLine>)
                 };
             }
         }
@@ -96,7 +96,7 @@ namespace Wti.Plugin.FileImporter
 
         public bool CanImportOn(object targetObject)
         {
-            return targetObject is ICollection<PipingSurfaceLine>;
+            return targetObject is ICollection<RingtoetsPipingSurfaceLine>;
         }
 
         public object ImportItem(string path, object target = null)
@@ -152,7 +152,7 @@ namespace Wti.Plugin.FileImporter
                 return HandleCriticalError(path, e);
             }
 
-            var readSurfaceLines = new List<PipingSurfaceLine>(itemCount);
+            var readSurfaceLines = new List<RingtoetsPipingSurfaceLine>(itemCount);
             for (int i = 0; i < itemCount && !ShouldCancel; i++)
             {
                 try
@@ -186,11 +186,11 @@ namespace Wti.Plugin.FileImporter
             return new SurfaceLinesFileReadResult(true);
         }
 
-        private void AddImportedDataToModel(object target, ICollection<PipingSurfaceLine> readSurfaceLines)
+        private void AddImportedDataToModel(object target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines)
         {
             NotifyProgress(ApplicationResources.PipingSurfaceLinesCsvImporter_AddingImportedDataToModel, readSurfaceLines.Count, readSurfaceLines.Count);
 
-            var targetCollection = (ICollection<PipingSurfaceLine>)target;
+            var targetCollection = (ICollection<RingtoetsPipingSurfaceLine>)target;
             foreach (var readSurfaceLine in readSurfaceLines)
             {
                 targetCollection.Add(readSurfaceLine);
@@ -213,10 +213,10 @@ namespace Wti.Plugin.FileImporter
             public SurfaceLinesFileReadResult(bool errorOccurred)
             {
                 CriticalErrorOccurred = errorOccurred;
-                ImportedSurfaceLines = new PipingSurfaceLine[0];
+                ImportedSurfaceLines = new RingtoetsPipingSurfaceLine[0];
             }
 
-            public ICollection<PipingSurfaceLine> ImportedSurfaceLines { get; set; }
+            public ICollection<RingtoetsPipingSurfaceLine> ImportedSurfaceLines { get; set; }
 
             public bool CriticalErrorOccurred { get; private set; }
         }

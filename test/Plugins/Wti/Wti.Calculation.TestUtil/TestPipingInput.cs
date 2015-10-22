@@ -1,7 +1,9 @@
 using System;
-using Wti.Calculation.Piping;
 
-namespace Wti.Calculation.Test.Piping.Stub
+using Wti.Calculation.Piping;
+using Wti.Data;
+
+namespace Wti.Calculation.TestUtil
 {
     public class TestPipingInput
     {
@@ -27,6 +29,7 @@ namespace Wti.Calculation.Test.Piping.Stub
         public double BeddingAngle;
         public double MeanDiameter70;
         public double ThicknessAquiferLayer;
+        public RingtoetsPipingSurfaceLine SurfaceLine;
 
         private readonly Random random = new Random(22);
         private double last;
@@ -55,12 +58,17 @@ namespace Wti.Calculation.Test.Piping.Stub
             BeddingAngle = NextIncrementalDouble();
             MeanDiameter70 = NextIncrementalDouble();
             ThicknessAquiferLayer = NextIncrementalDouble();
+            SurfaceLine = CreateValidSurfaceLine();
+        }
+
+        private RingtoetsPipingSurfaceLine CreateValidSurfaceLine()
+        {
+            return new RingtoetsPipingSurfaceLine();
         }
 
         /// <summary>
         /// The returned double is sure to be different from the last time it was called.
         /// </summary>
-        /// <returns></returns>
         private double NextIncrementalDouble()
         {
             return last += random.NextDouble() + 1e-6;
@@ -69,7 +77,6 @@ namespace Wti.Calculation.Test.Piping.Stub
         /// <summary>
         /// Returns the current set value as a <see cref="PipingCalculationInput"/>
         /// </summary>
-        /// <returns></returns>
         public PipingCalculationInput AsRealInput()
         {
             return new PipingCalculationInput(
@@ -94,7 +101,8 @@ namespace Wti.Calculation.Test.Piping.Stub
                 ThicknessAquiferLayer,
                 MeanDiameter70,
                 BeddingAngle,
-                ExitPointXCoordinate
+                ExitPointXCoordinate,
+                SurfaceLine
                 );
         }
     }

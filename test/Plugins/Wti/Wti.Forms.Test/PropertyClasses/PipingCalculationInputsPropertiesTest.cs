@@ -26,7 +26,7 @@ namespace Wti.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
             var pipingData = new PipingData
             {
                 SurfaceLine = surfaceLine

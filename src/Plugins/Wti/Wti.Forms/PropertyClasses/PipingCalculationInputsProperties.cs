@@ -355,7 +355,7 @@ namespace Wti.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataSurfaceLineDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingDataSurfaceLineDescription")]
-        public PipingSurfaceLine SurfaceLine
+        public RingtoetsPipingSurfaceLine SurfaceLine
         {
             get
             {
@@ -371,7 +371,7 @@ namespace Wti.Forms.PropertyClasses
         /// <summary>
         /// Gets the available surface lines on <see cref="PipingCalculationInputs"/>.
         /// </summary>
-        public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
+        public IEnumerable<RingtoetsPipingSurfaceLine> GetAvailableSurfaceLines()
         {
             return data.AvailablePipingSurfaceLines;
         }

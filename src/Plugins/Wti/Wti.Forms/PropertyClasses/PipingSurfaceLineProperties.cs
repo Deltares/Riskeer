@@ -10,10 +10,10 @@ using TypeConverter = System.ComponentModel.TypeConverterAttribute;
 namespace Wti.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="PipingSurfaceLine"/> for properties panel.
+    /// ViewModel of <see cref="RingtoetsPipingSurfaceLine"/> for properties panel.
     /// </summary>
     [ResourcesDisplayName(typeof(Resources), "SurfaceLinePropertiesDisplayName")]
-    public class PipingSurfaceLineProperties : ObjectProperties<PipingSurfaceLine>
+    public class PipingSurfaceLineProperties : ObjectProperties<RingtoetsPipingSurfaceLine>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingSurfaceLineNameDisplayName")]

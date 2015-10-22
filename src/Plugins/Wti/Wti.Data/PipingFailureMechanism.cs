@@ -18,15 +18,15 @@ namespace Wti.Data
         /// </summary>
         public PipingFailureMechanism()
         {
-            SurfaceLines = new ObservableList<PipingSurfaceLine>();
+            SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
             SoilProfiles = Enumerable.Empty<PipingSoilProfile>();
             PipingData = new PipingData();
         }
 
         /// <summary>
-        /// Gets the available <see cref="PipingSurfaceLine"/> within the scope of the piping failure mechanism.
+        /// Gets the available <see cref="RingtoetsPipingSurfaceLine"/> within the scope of the piping failure mechanism.
         /// </summary>
-        public IEnumerable<PipingSurfaceLine> SurfaceLines { get; private set; }
+        public IEnumerable<RingtoetsPipingSurfaceLine> SurfaceLines { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="PipingData"/>, which contains input and output of a piping calculation.

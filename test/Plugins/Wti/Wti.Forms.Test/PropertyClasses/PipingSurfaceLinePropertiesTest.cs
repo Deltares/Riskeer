@@ -17,7 +17,7 @@ namespace Wti.Forms.Test.PropertyClasses
             var properties = new PipingSurfaceLineProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PipingSurfaceLine>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<RingtoetsPipingSurfaceLine>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -26,7 +26,7 @@ namespace Wti.Forms.Test.PropertyClasses
         {
             // Setup
             const string expectedName = "<some nice name>";
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = expectedName
             };

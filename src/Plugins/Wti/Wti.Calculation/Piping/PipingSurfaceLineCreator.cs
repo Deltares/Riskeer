@@ -1,20 +1,29 @@
+using System.Linq;
+
 using Deltares.WTIPiping;
+
+using Wti.Data;
 
 namespace Wti.Calculation.Piping
 {
     /// <summary>
-    /// Creates <see cref="PipingSurfaceLine"/> instances which are required by the <see cref="PipingCalculation"/>.
+    /// Creates <see cref="Deltares.WTIPiping.PipingSurfaceLine"/> instances which are required by the <see cref="PipingCalculation"/>.
     /// </summary>
     internal static class PipingSurfaceLineCreator
     {
         /// <summary>
-        /// Creates a simple <see cref="PipingSurfaceLine"/> with a single <see cref="PipingPoint"/> at the origin.
+        /// Creates a <see cref="Deltares.WTIPiping.PipingSurfaceLine"/> for the kernel
+        /// given different surface line.
         /// </summary>
-        /// <returns></returns>
-        public static PipingSurfaceLine Create()
+        /// <param name="line">The surface line configured in the Ringtoets application.</param>
+        /// <returns>The surface line to be consumed by the kernel.</returns>
+        public static PipingSurfaceLine Create(RingtoetsPipingSurfaceLine line)
         {
-            var surfaceLine = new PipingSurfaceLine();
-            surfaceLine.Points.Add(new PipingPoint(0, 0, 0));
+            var surfaceLine = new PipingSurfaceLine
+            {
+                Name = line.Name
+            };
+            surfaceLine.Points.AddRange(line.Points.Select(p => new PipingPoint(p.X, p.Y, p.Z)));
 
             return surfaceLine;
         }

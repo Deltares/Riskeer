@@ -80,7 +80,7 @@ namespace Wti.Forms.NodePresenters
 
         public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
-            var contextMenu = new PipingContextMenuStrip((PipingData) nodeData);
+            var contextMenu = new PipingContextMenuStrip(((PipingCalculationInputs) nodeData).PipingData);
 
             contextMenu.OnCalculationClick += PerformPipingCalculation;
             contextMenu.OnValidationClick += PerformPipingValidation;

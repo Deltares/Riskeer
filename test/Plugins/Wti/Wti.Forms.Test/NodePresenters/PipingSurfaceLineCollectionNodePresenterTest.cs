@@ -26,7 +26,7 @@ namespace Wti.Forms.Test.NodePresenters
             // Assert
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
-            Assert.AreEqual(typeof(IEnumerable<PipingSurfaceLine>), nodePresenter.NodeTagType);
+            Assert.AreEqual(typeof(IEnumerable<RingtoetsPipingSurfaceLine>), nodePresenter.NodeTagType);
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
 
-            IEnumerable<PipingSurfaceLine> surfaceLinesCollection = new[]{ new PipingSurfaceLine() };
+            IEnumerable<RingtoetsPipingSurfaceLine> surfaceLinesCollection = new[]{ new RingtoetsPipingSurfaceLine() };
 
             // Call
             nodePresenter.UpdateNode(null, surfaceLinesCollectionNodeMock, surfaceLinesCollection);
@@ -61,7 +61,7 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
 
-            IEnumerable<PipingSurfaceLine> surfaceLinesCollection = Enumerable.Empty<PipingSurfaceLine>();
+            IEnumerable<RingtoetsPipingSurfaceLine> surfaceLinesCollection = Enumerable.Empty<RingtoetsPipingSurfaceLine>();
 
             // Call
             nodePresenter.UpdateNode(null, surfaceLinesCollectionNodeMock, surfaceLinesCollection);
@@ -83,10 +83,10 @@ namespace Wti.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
 
-            IEnumerable<PipingSurfaceLine> surfaceLinesCollection = new[]
+            IEnumerable<RingtoetsPipingSurfaceLine> surfaceLinesCollection = new[]
             {
-                new PipingSurfaceLine(),
-                new PipingSurfaceLine()
+                new RingtoetsPipingSurfaceLine(),
+                new RingtoetsPipingSurfaceLine()
             };
 
             // Call

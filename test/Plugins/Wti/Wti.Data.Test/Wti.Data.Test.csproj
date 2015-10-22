@@ -48,7 +48,7 @@
     <Compile Include="PipingOutputTest.cs" />
     <Compile Include="PipingSoilLayerTest.cs" />
     <Compile Include="PipingSoilProfileTest.cs" />
-    <Compile Include="PipingSurfaceLineTest.cs" />
+    <Compile Include="RingtoetsPipingSurfaceLineTest.cs" />
     <Compile Include="Point3DTest.cs" />
     <Compile Include="PointCollectionHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

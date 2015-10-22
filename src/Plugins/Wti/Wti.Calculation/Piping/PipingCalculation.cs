@@ -2,6 +2,8 @@
 using System.Linq;
 using Deltares.WTIPiping;
 
+using Wti.Calculation.Properties;
+
 namespace Wti.Calculation.Piping
 {
     /// <summary>
@@ -51,7 +53,12 @@ namespace Wti.Calculation.Piping
         /// </summary>
         public List<string> Validate()
         {
-            List<string> upliftCalculatorValidationResults = CreateUpliftCalculator().Validate();
+            List<string> upliftCalculatorValidationResults = input.SurfaceLine != null ?
+                                                                 CreateUpliftCalculator().Validate() :
+                                                                 new List<string>(new[]
+                                                                 {
+                                                                     Resources.PipingCalculation_Validate_Lacks_surfaceline_uplift
+                                                                 });
             List<string> heaveCalculatorValidationResults = CreateHeaveCalculator().Validate();
             List<string> sellmeijerCalculatorValidationResults = CreateSellmeijerCalculator().Validate();
 
@@ -177,7 +184,7 @@ namespace Wti.Calculation.Piping
                 ExitPointXCoordinate = input.ExitPointXCoordinate,
                 PhreaticLevel = input.PhreaticLevelExit,
                 SoilProfile = PipingProfileCreator.Create(),
-                SurfaceLine = PipingSurfaceLineCreator.Create(),
+                SurfaceLine = PipingSurfaceLineCreator.Create(input.SurfaceLine),
                 VolumicWeightOfWater = input.WaterVolumetricWeight
             };
             calculator.Calculate();

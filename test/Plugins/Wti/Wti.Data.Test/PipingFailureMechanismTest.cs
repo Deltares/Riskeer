@@ -23,7 +23,7 @@ namespace Wti.Data.Test
 
             // assert
             CollectionAssert.IsEmpty(piping.SurfaceLines);
-            Assert.IsInstanceOf<ObservableList<PipingSurfaceLine>>(piping.SurfaceLines);
+            Assert.IsInstanceOf<ObservableList<RingtoetsPipingSurfaceLine>>(piping.SurfaceLines);
             CollectionAssert.IsEmpty(piping.SoilProfiles);
             Assert.IsNotNull(piping.PipingData);
         }

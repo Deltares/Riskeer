@@ -78,7 +78,7 @@ namespace Wti.Plugin.Test
                 Assert.IsNull(pipingOutputProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingOutputProperties.AfterCreate);
 
-                var pipingSurfaceLineProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingSurfaceLine));
+                var pipingSurfaceLineProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(RingtoetsPipingSurfaceLine));
                 Assert.AreEqual(typeof(PipingSurfaceLineProperties), pipingSurfaceLineProperties.PropertyType);
                 Assert.IsNull(pipingSurfaceLineProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingSurfaceLineProperties.GetObjectPropertiesData);

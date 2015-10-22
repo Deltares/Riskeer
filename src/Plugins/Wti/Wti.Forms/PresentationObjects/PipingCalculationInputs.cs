@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+using DelftTools.Shell.Core;
+
 using Wti.Data;
 
 namespace Wti.Forms.PresentationObjects
@@ -9,14 +11,14 @@ namespace Wti.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="PipingData"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class PipingCalculationInputs
+    public class PipingCalculationInputs : IObservable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationInputs"/> class.
         /// </summary>
         public PipingCalculationInputs()
         {
-            AvailablePipingSurfaceLines = Enumerable.Empty<PipingSurfaceLine>();
+            AvailablePipingSurfaceLines = Enumerable.Empty<RingtoetsPipingSurfaceLine>();
         }
 
         /// <summary>
@@ -28,6 +30,25 @@ namespace Wti.Forms.PresentationObjects
         /// Gets or sets the available piping surface lines in order for the user to select
         /// one to set <see cref="Wti.Data.PipingData.SurfaceLine"/>.
         /// </summary>
-        public IEnumerable<PipingSurfaceLine> AvailablePipingSurfaceLines { get; set; }
+        public IEnumerable<RingtoetsPipingSurfaceLine> AvailablePipingSurfaceLines { get; set; }
+
+        #region IObservable
+
+        public void Attach(IObserver observer)
+        {
+            PipingData.Attach(observer);
+        }
+
+        public void Detach(IObserver observer)
+        {
+            PipingData.Detach(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            PipingData.NotifyObservers();
+        }
+
+        #endregion
     }
 }

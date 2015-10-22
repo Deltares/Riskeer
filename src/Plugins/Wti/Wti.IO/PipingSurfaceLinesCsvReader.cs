@@ -54,7 +54,7 @@ namespace Wti.IO
         }
 
         /// <summary>
-        /// Reads the file to determine the number of available <see cref="PipingSurfaceLine"/>
+        /// Reads the file to determine the number of available <see cref="RingtoetsPipingSurfaceLine"/>
         /// data rows.
         /// </summary>
         /// <returns>A value greater than or equal to 0.</returns>
@@ -80,7 +80,7 @@ namespace Wti.IO
 
         /// <summary>
         /// Reads and consumes the next data row, parsing the data to create an instance 
-        /// of <see cref="PipingSurfaceLine"/>.
+        /// of <see cref="RingtoetsPipingSurfaceLine"/>.
         /// </summary>
         /// <returns>Return the parse surfaceline, or null when at the end of the file.</returns>
         /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
@@ -102,7 +102,7 @@ namespace Wti.IO
         /// <item>The row is missing values to form a surface line point.</item>
         /// </list>
         /// </exception>
-        public PipingSurfaceLine ReadLine()
+        public RingtoetsPipingSurfaceLine ReadLine()
         {
             if (fileReader == null)
             {
@@ -122,7 +122,7 @@ namespace Wti.IO
                     var surfaceLineName = GetSurfaceLineName(tokenizedString);
                     var points = GetSurfaceLinePoints(tokenizedString);
 
-                    var surfaceLine = new PipingSurfaceLine
+                    var surfaceLine = new RingtoetsPipingSurfaceLine
                     {
                         Name = surfaceLineName
                     };

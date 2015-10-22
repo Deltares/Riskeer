@@ -35,7 +35,7 @@ namespace Wti.Plugin.Test.FileImporter
             Assert.AreEqual(ApplicationResources.WtiApplicationName, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
-            CollectionAssert.AreEqual(new[]{typeof(IEnumerable<PipingSurfaceLine>)}, importer.SupportedItemTypes);
+            CollectionAssert.AreEqual(new[]{typeof(IEnumerable<RingtoetsPipingSurfaceLine>)}, importer.SupportedItemTypes);
             Assert.IsFalse(importer.CanImportOnRootLevel);
             var expectedFileFilter = String.Format("{0} {1} (*.csv)|*.csv", 
                 WtiFormsResources.PipingSurfaceLinesCollectionName, ApplicationResources.CsvFileName);
@@ -51,7 +51,7 @@ namespace Wti.Plugin.Test.FileImporter
         {
             // Setup
             var mocks = new MockRepository();
-            var validTarget = mocks.StrictMock<ICollection<PipingSurfaceLine>>();
+            var validTarget = mocks.StrictMock<ICollection<RingtoetsPipingSurfaceLine>>();
             mocks.ReplayAll();
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -69,7 +69,7 @@ namespace Wti.Plugin.Test.FileImporter
         {
             // Setup
             var mocks = new MockRepository();
-            var invalidTarget = mocks.StrictMock<IEnumerable<PipingSurfaceLine>>();
+            var invalidTarget = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             mocks.ReplayAll();
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -95,7 +95,7 @@ namespace Wti.Plugin.Test.FileImporter
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
             observableSurfaceLinesList.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -158,7 +158,7 @@ namespace Wti.Plugin.Test.FileImporter
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
             observableSurfaceLinesList.Attach(observer);
 
             var importer = new PipingSurfaceLinesCsvImporter();
@@ -196,7 +196,7 @@ namespace Wti.Plugin.Test.FileImporter
 
             var importer = new PipingSurfaceLinesCsvImporter();
 
-            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
             observableSurfaceLinesList.Attach(observer);
 
             object importedItem = null;
@@ -228,7 +228,7 @@ namespace Wti.Plugin.Test.FileImporter
 
             var importer = new PipingSurfaceLinesCsvImporter();
 
-            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
             observableSurfaceLinesList.Attach(observer);
 
             object importedItem = null;
@@ -260,7 +260,7 @@ namespace Wti.Plugin.Test.FileImporter
 
             var importer = new PipingSurfaceLinesCsvImporter();
 
-            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
             observableSurfaceLinesList.Attach(observer);
 
             object importedItem = null;
@@ -292,7 +292,7 @@ namespace Wti.Plugin.Test.FileImporter
 
             var importer = new PipingSurfaceLinesCsvImporter();
 
-            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
             observableSurfaceLinesList.Attach(observer);
 
             object importedItem = null;
@@ -333,7 +333,7 @@ namespace Wti.Plugin.Test.FileImporter
                     File.Delete(copyTargetPath);
                 };
 
-                var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+                var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
                 observableSurfaceLinesList.Attach(observer);
 
                 object importedItem = null;
@@ -380,7 +380,7 @@ namespace Wti.Plugin.Test.FileImporter
                 progressCallCount++;
             };
 
-            var observableSurfaceLinesList = new ObservableList<PipingSurfaceLine>();
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
             observableSurfaceLinesList.Attach(observer);
 
             object importedItem = null;

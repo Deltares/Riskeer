@@ -14,7 +14,7 @@ namespace Wti.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="PipingSurfaceLine"/> from a collection.
+    /// <see cref="RingtoetsPipingSurfaceLine"/> from a collection.
     /// </summary>
     public class PipingCalculationInputsSurfaceLineSelectionEditor : UITypeEditor
     {
@@ -51,7 +51,7 @@ namespace Wti.Forms.UITypeEditors
             var listBox = new ListBox
             {
                 SelectionMode = SelectionMode.One,
-                DisplayMember = TypeUtils.GetMemberName<PipingSurfaceLine>(sl => sl.Name)
+                DisplayMember = TypeUtils.GetMemberName<RingtoetsPipingSurfaceLine>(sl => sl.Name)
             };
             listBox.SelectedValueChanged += (sender, eventArgs) => editorService.CloseDropDown();
 

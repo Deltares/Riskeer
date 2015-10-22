@@ -1,4 +1,6 @@
-﻿namespace Wti.Calculation.Piping
+﻿using Wti.Data;
+
+namespace Wti.Calculation.Piping
 {
     /// <summary>
     /// This class contains all the parameters that are required to perform a piping assessment.
@@ -27,6 +29,7 @@
         private readonly double meanDiameter70;
         private readonly double beddingAngle;
         private readonly double exitPointXCoordinate;
+        private readonly RingtoetsPipingSurfaceLine surfaceLine;
 
         /// <summary>
         /// Constructs a new <see cref="PipingCalculationInput"/>, which contains values for the parameters used
@@ -54,7 +57,8 @@
         /// <param name="meanDiameter70">The mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit. [m]</param>
         /// <param name="beddingAngle">The angle of the force balance representing the amount in which sand grains resist rolling. [&#176;]</param>
         /// <param name="exitPointXCoordinate">The x coordinate of the exit point. [m]</param>
-        public PipingCalculationInput(double waterVolumetricWeight, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double piezometricHeadPolder, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate)
+        /// <param name="surfaceLine">The surface line.</param>
+        public PipingCalculationInput(double waterVolumetricWeight, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double piezometricHeadPolder, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine)
         {
             this.waterVolumetricWeight = waterVolumetricWeight;
             this.upliftModelFactor = upliftModelFactor;
@@ -78,6 +82,7 @@
             this.meanDiameter70 = meanDiameter70;
             this.beddingAngle = beddingAngle;
             this.exitPointXCoordinate = exitPointXCoordinate;
+            this.surfaceLine = surfaceLine;
         }
 
         #region properties
@@ -337,6 +342,17 @@
             get
             {
                 return exitPointXCoordinate;
+            }
+        }
+
+        /// <summary>
+        /// Gets the surface line.
+        /// </summary>
+        public RingtoetsPipingSurfaceLine SurfaceLine
+        {
+            get
+            {
+                return surfaceLine;
             }
         }
 

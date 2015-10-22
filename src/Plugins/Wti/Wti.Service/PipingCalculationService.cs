@@ -120,7 +120,8 @@ namespace Wti.Service
                 pipingData.ThicknessAquiferLayer,
                 pipingData.MeanDiameter70,
                 pipingData.BeddingAngle,
-                pipingData.ExitPointXCoordinate
+                pipingData.ExitPointXCoordinate,
+                pipingData.SurfaceLine
                 );
         }
     }

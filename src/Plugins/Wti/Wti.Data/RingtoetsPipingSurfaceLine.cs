@@ -6,12 +6,12 @@ namespace Wti.Data
     /// <summary>
     /// Definition of a surfaceline for piping.
     /// </summary>
-    public class PipingSurfaceLine
+    public class RingtoetsPipingSurfaceLine
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingSurfaceLine"/> class.
+        /// Initializes a new instance of the <see cref="RingtoetsPipingSurfaceLine"/> class.
         /// </summary>
-        public PipingSurfaceLine()
+        public RingtoetsPipingSurfaceLine()
         {
             Name = string.Empty;
             Points = Enumerable.Empty<Point3D>();

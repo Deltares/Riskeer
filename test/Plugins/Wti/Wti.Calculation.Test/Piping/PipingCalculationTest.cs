@@ -2,7 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 using Wti.Calculation.Piping;
-using Wti.Calculation.Test.Piping.Stub;
+using Wti.Calculation.TestUtil;
 
 namespace Wti.Calculation.Test.Piping
 {
@@ -212,6 +212,25 @@ namespace Wti.Calculation.Test.Piping
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
             Assert.IsTrue(validationMessages.Any(message => message.Contains("HRiver - HExit - (Rc*DTotal)")));
+        }
+
+        [Test]
+        public void Validate_NoSurfaceLineSet_ValidationMessageForHavingNoSurfaceLineSelected()
+        {
+            // Setup
+            PipingCalculationInput input = new TestPipingInput
+            {
+                SurfaceLine = null,
+            }.AsRealInput();
+
+            var calculation = new PipingCalculation(input);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            Assert.AreEqual(1, validationMessages.Count);
+            Assert.AreEqual("Een dwarsdoorsnede moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.", validationMessages[0]);
         }
 
         [Test]

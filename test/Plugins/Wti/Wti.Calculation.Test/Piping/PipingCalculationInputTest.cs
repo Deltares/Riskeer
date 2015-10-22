@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using Wti.Calculation.Piping;
+using Wti.Data;
 
 namespace Wti.Calculation.Test.Piping
 {
@@ -33,6 +34,7 @@ namespace Wti.Calculation.Test.Piping
             double meanDiameter70Value = random.NextDouble();
             double beddingAngleValue = random.NextDouble();
             double exitPointXCoordinate = random.NextDouble();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             var input = new PipingCalculationInput(
                 volumetricWeightOfWaterValue,
@@ -56,30 +58,32 @@ namespace Wti.Calculation.Test.Piping
                 thicknessAquiferLayerValue,
                 meanDiameter70Value,
                 beddingAngleValue,
-                exitPointXCoordinate);
+                exitPointXCoordinate,
+                surfaceLine);
 
-            Assert.That(input.WaterVolumetricWeight, Is.EqualTo(volumetricWeightOfWaterValue));
-            Assert.That(input.UpliftModelFactor, Is.EqualTo(modelFactorUpliftValue));
-            Assert.That(input.AssessmentLevel, Is.EqualTo(hRiverValue));
-            Assert.That(input.PiezometricHeadExit, Is.EqualTo(phiExitValue));
-            Assert.That(input.DampingFactorExit, Is.EqualTo(rExitValue));
-            Assert.That(input.PhreaticLevelExit, Is.EqualTo(hExitValue));
-            Assert.That(input.PiezometricHeadPolder, Is.EqualTo(phiPolderValue));
-            Assert.That(input.CriticalHeaveGradient, Is.EqualTo(ichValue));
-            Assert.That(input.ThicknessCoverageLayer, Is.EqualTo(dTotalValue));
-            Assert.That(input.SellmeijerModelFactor, Is.EqualTo(sellmeijerModelFactorValue));
-            Assert.That(input.SellmeijerReductionFactor, Is.EqualTo(reductionFactorValue));
-            Assert.That(input.SeepageLength, Is.EqualTo(seepageLengthValue));
-            Assert.That(input.SandParticlesVolumicWeight, Is.EqualTo(sandParticlesVolumicWeightValue));
-            Assert.That(input.WhitesDragCoefficient, Is.EqualTo(whitesDragCoefficientValue));
-            Assert.That(input.Diameter70, Is.EqualTo(diameter70Value));
-            Assert.That(input.DarcyPermeability, Is.EqualTo(darcyPermeabilityValue));
-            Assert.That(input.WaterKinematicViscosity, Is.EqualTo(waterKinematicViscosityValue));
-            Assert.That(input.Gravity, Is.EqualTo(gravityValue));
-            Assert.That(input.ThicknessAquiferLayer, Is.EqualTo(thicknessAquiferLayerValue));
-            Assert.That(input.MeanDiameter70, Is.EqualTo(meanDiameter70Value));
-            Assert.That(input.BeddingAngle, Is.EqualTo(beddingAngleValue));
-            Assert.That(input.ExitPointXCoordinate, Is.EqualTo(exitPointXCoordinate));
+            Assert.AreEqual(volumetricWeightOfWaterValue, input.WaterVolumetricWeight);
+            Assert.AreEqual(modelFactorUpliftValue, input.UpliftModelFactor);
+            Assert.AreEqual(hRiverValue, input.AssessmentLevel);
+            Assert.AreEqual(phiExitValue, input.PiezometricHeadExit);
+            Assert.AreEqual(rExitValue, input.DampingFactorExit);
+            Assert.AreEqual(hExitValue, input.PhreaticLevelExit);
+            Assert.AreEqual(phiPolderValue, input.PiezometricHeadPolder);
+            Assert.AreEqual(ichValue, input.CriticalHeaveGradient);
+            Assert.AreEqual(dTotalValue, input.ThicknessCoverageLayer);
+            Assert.AreEqual(sellmeijerModelFactorValue, input.SellmeijerModelFactor);
+            Assert.AreEqual(reductionFactorValue, input.SellmeijerReductionFactor);
+            Assert.AreEqual(seepageLengthValue, input.SeepageLength);
+            Assert.AreEqual(sandParticlesVolumicWeightValue, input.SandParticlesVolumicWeight);
+            Assert.AreEqual(whitesDragCoefficientValue, input.WhitesDragCoefficient);
+            Assert.AreEqual(diameter70Value, input.Diameter70);
+            Assert.AreEqual(darcyPermeabilityValue, input.DarcyPermeability);
+            Assert.AreEqual(waterKinematicViscosityValue, input.WaterKinematicViscosity);
+            Assert.AreEqual(gravityValue, input.Gravity);
+            Assert.AreEqual(thicknessAquiferLayerValue, input.ThicknessAquiferLayer);
+            Assert.AreEqual(meanDiameter70Value, input.MeanDiameter70);
+            Assert.AreEqual(beddingAngleValue, input.BeddingAngle);
+            Assert.AreEqual(exitPointXCoordinate, input.ExitPointXCoordinate);
+            Assert.AreSame(surfaceLine, input.SurfaceLine);
         }
     }
 }

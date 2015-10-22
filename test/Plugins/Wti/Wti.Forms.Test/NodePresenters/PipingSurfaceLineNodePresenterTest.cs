@@ -19,7 +19,7 @@ namespace Wti.Forms.Test.NodePresenters
             var nodePresenter = new PipingSurfaceLineNodePresenter();
 
             // Assert
-            Assert.IsInstanceOf<PipingNodePresenterBase<PipingSurfaceLine>>(nodePresenter);
+            Assert.IsInstanceOf<PipingNodePresenterBase<RingtoetsPipingSurfaceLine>>(nodePresenter);
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace Wti.Forms.Test.NodePresenters
             mocks.ReplayAll();
 
             const string name = "<insert name here>";
-            var surfaceLine = new PipingSurfaceLine { Name = name };
+            var surfaceLine = new RingtoetsPipingSurfaceLine { Name = name };
 
             var nodePresenter = new PipingSurfaceLineNodePresenter();
 

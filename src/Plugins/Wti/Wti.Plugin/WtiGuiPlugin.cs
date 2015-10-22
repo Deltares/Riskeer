@@ -70,7 +70,7 @@ namespace Wti.Plugin
             };
             yield return new PropertyInfo
             {
-                ObjectType = typeof(PipingSurfaceLine), PropertyType = typeof(PipingSurfaceLineProperties)
+                ObjectType = typeof(RingtoetsPipingSurfaceLine), PropertyType = typeof(PipingSurfaceLineProperties)
             };
         }
 

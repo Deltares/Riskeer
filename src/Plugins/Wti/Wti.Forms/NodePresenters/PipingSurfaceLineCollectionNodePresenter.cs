@@ -14,13 +14,13 @@ using Wti.Forms.Properties;
 namespace Wti.Forms.NodePresenters
 {
     /// <summary>
-    /// Tree node presenter representing the collection of <see cref="PipingSurfaceLine"/> available for piping
+    /// Tree node presenter representing the collection of <see cref="RingtoetsPipingSurfaceLine"/> available for piping
     /// calculations.
     /// </summary>
     public class PipingSurfaceLineCollectionNodePresenter : ITreeNodePresenter
     {
         /// <summary>
-        /// Injects the action to be performed when importing <see cref="PipingSurfaceLine"/>
+        /// Injects the action to be performed when importing <see cref="RingtoetsPipingSurfaceLine"/>
         /// instances to <see cref="PipingFailureMechanism.SurfaceLines"/>.
         /// </summary>
         public Action ImportSurfaceLinesAction { private get; set; }
@@ -31,13 +31,13 @@ namespace Wti.Forms.NodePresenters
         {
             get
             {
-                return typeof(IEnumerable<PipingSurfaceLine>);
+                return typeof(IEnumerable<RingtoetsPipingSurfaceLine>);
             }
         }
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
-            var data = (IEnumerable<PipingSurfaceLine>)nodeData;
+            var data = (IEnumerable<RingtoetsPipingSurfaceLine>)nodeData;
             node.Text = Resources.PipingSurfaceLinesCollectionName;
             node.ForegroundColor = data.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText);
             node.Image = Resources.FolderIcon;
@@ -45,7 +45,7 @@ namespace Wti.Forms.NodePresenters
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
-            var surfaceLines = (IEnumerable<PipingSurfaceLine>) parentNodeData;
+            var surfaceLines = (IEnumerable<RingtoetsPipingSurfaceLine>) parentNodeData;
             foreach (var pipingSurfaceLine in surfaceLines)
             {
                 yield return pipingSurfaceLine;

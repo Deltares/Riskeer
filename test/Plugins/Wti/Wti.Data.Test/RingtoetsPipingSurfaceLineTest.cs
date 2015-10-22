@@ -6,13 +6,13 @@ using NUnit.Framework;
 namespace Wti.Data.Test
 {
     [TestFixture]
-    public class PipingSurfaceLineTest
+    public class RingtoetsPipingSurfaceLineTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Assert
             Assert.AreEqual(String.Empty, surfaceLine.Name);
@@ -25,7 +25,7 @@ namespace Wti.Data.Test
         public void SetGeometry_EmptyCollection_PointsSetEmptyAndNullStartAndEndWorldPoints()
         {
             // Setup
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             var sourceData = Enumerable.Empty<Point3D>();
 
@@ -42,7 +42,7 @@ namespace Wti.Data.Test
         public void SetGeometry_CollectionOfOnePoint_InitializeStartAndEndWorldPointsToSameInstanceAndInitializePoints()
         {
             // Setup
-            var surfaceLine = new PipingSurfaceLine();
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             var sourceData = new[]
             {
@@ -67,7 +67,7 @@ namespace Wti.Data.Test
         {
             // Setup
             const string niceName = "Nice name";
-            var surfaceLine = new PipingSurfaceLine
+            var surfaceLine = new RingtoetsPipingSurfaceLine
             {
                 Name = niceName
             };
