@@ -34,7 +34,8 @@ namespace Wti.Service.Test
                 UpliftModelFactor = 1.0,
                 WaterKinematicViscosity = 1.0,
                 WaterVolumetricWeight = 1.0,
-                WhitesDragCoefficient = 1.0
+                WhitesDragCoefficient = 1.0,
+                SurfaceLine = new RingtoetsPipingSurfaceLine()
             };
         }
 

@@ -289,7 +289,7 @@ namespace Wti.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<PipingData>();
+            var dataMock = mocks.StrictMock<PipingCalculationInputs>();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -395,7 +395,7 @@ namespace Wti.Forms.Test.NodePresenters
 
             mockRepository.ReplayAll();
 
-            var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData);
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationInputs { PipingData = pipingData });
             
             // When
             Action action = () => contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
@@ -423,7 +423,7 @@ namespace Wti.Forms.Test.NodePresenters
 
             mockRepository.ReplayAll();
 
-            var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData);
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationInputs { PipingData = pipingData });
 
             // When
             Action action = () => contextMenuAdapter.Items[validateContextMenuItemIndex].PerformClick();
@@ -466,6 +466,7 @@ namespace Wti.Forms.Test.NodePresenters
             pipingData.WaterVolumetricWeight = validPipingInput.WaterVolumetricWeight;
             pipingData.WaterKinematicViscosity = validPipingInput.WaterKinematicViscosity;
             pipingData.WhitesDragCoefficient = validPipingInput.WhitesDragCoefficient;
+            pipingData.SurfaceLine = new RingtoetsPipingSurfaceLine();
 
             var observer = mockRepository.StrictMock<IObserver>();
             var nodePresenter = new PipingCalculationInputsNodePresenter();
@@ -474,7 +475,7 @@ namespace Wti.Forms.Test.NodePresenters
 
             mockRepository.ReplayAll();
 
-            var contextMenuAdapter = nodePresenter.GetContextMenu(null, pipingData);
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationInputs { PipingData = pipingData });
 
             // When
             Action action = () => contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
