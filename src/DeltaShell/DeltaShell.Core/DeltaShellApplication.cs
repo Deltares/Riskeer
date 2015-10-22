@@ -96,8 +96,6 @@ namespace DeltaShell.Core
                     {
                         ProjectClosing(project);
                     }
-
-                    CloseProject();
                 }
 
                 if (value != null && ProjectOpening != null)
