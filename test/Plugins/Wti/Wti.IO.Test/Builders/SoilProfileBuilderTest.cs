@@ -48,5 +48,44 @@ namespace Wti.IO.Test.Builders
             // Assert
             Assert.Throws<ArgumentException>(test);
         }
+
+        [Test]
+        public void Build_WithSingleLayerOnlyOuterLoop_ReturnsProfileWithBottomAndALayer()
+        {
+            // Setup
+            var profileName = "SomeProfile";
+            var builder = new SoilProfileBuilder(profileName, 0.0);
+            builder.Add(new SoilLayer2D
+            {
+                OuterLoop = new HashSet<Point3D>
+                {
+                    new Point3D
+                    {
+                        X = -0.5, Z = 1.0
+                    },
+                    new Point3D
+                    {
+                        X = 0.5, Z = 1.0
+                    },
+                    new Point3D
+                    {
+                        X = 0.5, Z = -1.0
+                    },
+                    new Point3D
+                    {
+                        X = -0.5, Z = -1.0
+                    }
+                }
+            });
+
+            // Call
+            PipingSoilProfile soilProfile = builder.Build();
+
+            // Assert
+            Assert.AreEqual(profileName, soilProfile.Name);
+            Assert.AreEqual(1, soilProfile.Layers.Count());
+            Assert.AreEqual(1.0, soilProfile.Layers.ToArray()[0].Top);
+            Assert.AreEqual(-1.0, soilProfile.Bottom);
+        }
     }
 }

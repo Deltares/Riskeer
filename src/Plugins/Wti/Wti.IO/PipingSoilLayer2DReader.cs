@@ -56,7 +56,7 @@ namespace Wti.IO
                 }
                 if (TryParseLoop(innerLoopElementName, out innerLoop))
                 {
-                    pipingSoilLayer.InnerLoop = innerLoop;
+                    pipingSoilLayer.InnerLoops.Add(innerLoop);
                 }
             }
 

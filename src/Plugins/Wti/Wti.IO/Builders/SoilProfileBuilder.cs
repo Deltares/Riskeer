@@ -27,19 +27,19 @@ namespace Wti.IO.Builders
         public void Add(SoilLayer2D soilLayer)
         {
             double bottom;
-            foreach(PipingSoilLayer layer in soilLayer.AsPipingSoilLayers(AtX, out bottom))
+            foreach (PipingSoilLayer layer in soilLayer.AsPipingSoilLayers(AtX, out bottom))
             {
                 layers.Add(layer);
             }
             Bottom = Math.Min(Bottom, bottom);
         }
 
-        private double Bottom { get; set; }
-
         public PipingSoilProfile Build()
         {
-            return new PipingSoilProfile(ProfileName, 0.0, layers);
+            return new PipingSoilProfile(ProfileName, Bottom, layers);
         }
+
+        private double Bottom { get; set; }
 
         private double AtX { get; set; }
 

@@ -122,7 +122,7 @@ namespace Wti.IO.Test.Calculation
             var segments = ToSegmentCoordinatesCollections(coordinates);
 
             // Call
-            var result = Math2D.LineSegmentIntersectionWithLineSegment(segments[0], segments[1], segments[2], segments[3]);
+            var result = Math2D.LineSegmentIntersectionWithLineSegment(segments[0], segments[1]);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -140,7 +140,7 @@ namespace Wti.IO.Test.Calculation
             var segments = ToSegmentCoordinatesCollections(coordinates);
 
             // Call
-            var result = Math2D.LineSegmentIntersectionWithLineSegment(segments[0], segments[1], segments[2], segments[3]);
+            var result = Math2D.LineSegmentIntersectionWithLineSegment(segments[0], segments[1]);
 
             // Assert
             Assert.AreEqual(0, result.Length);
@@ -154,7 +154,7 @@ namespace Wti.IO.Test.Calculation
             var segments = ToSegmentCoordinatesCollections(coordinates);
 
             // Call
-            var result = Math2D.LineSegmentIntersectionWithLineSegment(segments[0], segments[1], segments[2], segments[3]);
+            var result = Math2D.LineSegmentIntersectionWithLineSegment(segments[0], segments[1]);
 
             // Assert
             Assert.AreEqual(0, result.Length);
@@ -165,29 +165,21 @@ namespace Wti.IO.Test.Calculation
             double[] segmentX =
             {
                 coordinates[0],
-                coordinates[2]
+                coordinates[2],
+                coordinates[4],
+                coordinates[6]
             };
             double[] segmentY =
             {
                 coordinates[1],
-                coordinates[3]
-            };
-            double[] otherSegmentX =
-            {
-                coordinates[4],
-                coordinates[6]
-            };
-            double[] otherSegmentY =
-            {
+                coordinates[3],
                 coordinates[5],
                 coordinates[7]
             };
             return new[]
             {
                 segmentX,
-                segmentY,
-                otherSegmentX,
-                otherSegmentY
+                segmentY
             };
         }
     }

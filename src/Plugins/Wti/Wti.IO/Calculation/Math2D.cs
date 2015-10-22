@@ -9,45 +9,63 @@ namespace Wti.IO.Calculation
         /// <summary>
         /// Determines whether two line segments intersect with each other. If the lines are parallel, no intersection point is returned.
         /// </summary>
-        /// <param name="segmentX">X coordinates of the first segment. Should have matching y coordinates in <paramref name="segmentY"/>.</param>
-        /// <param name="segmentY">Y coordinates of the first segment. Should have matching x coordinates in <paramref name="segmentX"/>.</param>
-        /// <param name="otherX">X coordinates of the second segment. Should have matching y coordinates in <paramref name="otherY"/>.</param>
-        /// <param name="otherY">Y coordinates of the second segment. Should have matching x coordinates in <paramref name="otherX"/>.</param>
+        /// <param name="segmentsX">X coordinates of the segments. Should have matching y coordinates in <paramref name="segmentsY"/>.</param>
+        /// <param name="segmentsY">Y coordinates of the segments. Should have matching x coordinates in <paramref name="segmentsX"/>.</param>
         /// <returns></returns>
-        public static double[] LineSegmentIntersectionWithLineSegment(double[] segmentX, double[] segmentY, double[] otherX, double[] otherY)
+        public static double[] LineSegmentIntersectionWithLineSegment(double[] segmentsX, double[] segmentsY)
         {
-            var numberOfPoints = 2;
-            if (segmentX.Length != numberOfPoints || segmentY.Length != numberOfPoints || otherX.Length != numberOfPoints || otherY.Length != numberOfPoints)
+            var numberOfPoints = 4;
+            if (segmentsX.Length != numberOfPoints || segmentsY.Length != numberOfPoints)
             {
-                throw new ArgumentException("Collections of segments' x and y coordinates need to have length of 2");
+                throw new ArgumentException(String.Format("Collections of segments' x and y coordinates need to have length of {0}.", numberOfPoints));
             }
-            var extraPolatedIntersectionPoint = LineIntersectionWithLine(segmentX, segmentY, otherX, otherY);
+            var extraPolatedIntersectionPoint = LineSegmentIntersectionWithLine(segmentsX, segmentsY);
+
+            if (extraPolatedIntersectionPoint.Length == 2)
+            {
+                var onSecondSegment = IsBetween(new[]
+                {
+                    segmentsX[2],
+                    segmentsX[3],
+                    extraPolatedIntersectionPoint[0]
+                }, new[]
+                {
+                    segmentsY[2],
+                    segmentsY[3],
+                    extraPolatedIntersectionPoint[1]
+                });
+                if (onSecondSegment)
+                {
+                    return extraPolatedIntersectionPoint;
+                }
+            }
+            return new double[0];
+        }
+
+        /// <summary>
+        /// Determines whether a line segment intersects with a line. If the segment and the line are parallel, no intersection point is returned.
+        /// </summary>
+        /// <param name="segmentsX">X coordinates of the segment and line. Should have matching y coordinates in <paramref name="segmentsY"/>.</param>
+        /// <param name="segmentsY">Y coordinates of the segment and line. Should have matching x coordinates in <paramref name="segmentsX"/>.</param>
+        /// <returns></returns>
+        public static double[] LineSegmentIntersectionWithLine(double[] segmentsX, double[] segmentsY)
+        {
+            var extraPolatedIntersectionPoint = LineIntersectionWithLine(segmentsX, segmentsY);
 
             if (extraPolatedIntersectionPoint.Length == 2)
             {
                 var onFirstSegment = IsBetween(new[]
                 {
-                    segmentX[0],
-                    segmentX[1],
+                    segmentsX[0],
+                    segmentsX[1],
                     extraPolatedIntersectionPoint[0]
                 }, new[]
                 {
-                    segmentY[0],
-                    segmentY[1],
+                    segmentsY[0],
+                    segmentsY[1],
                     extraPolatedIntersectionPoint[1]
                 });
-                var onSecondSegment = IsBetween(new[]
-                {
-                    otherX[0],
-                    otherX[1],
-                    extraPolatedIntersectionPoint[0]
-                }, new[]
-                {
-                    otherY[0],
-                    otherY[1],
-                    extraPolatedIntersectionPoint[1]
-                });
-                if (onFirstSegment && onSecondSegment)
+                if (onFirstSegment)
                 {
                     return extraPolatedIntersectionPoint;
                 }
@@ -56,21 +74,21 @@ namespace Wti.IO.Calculation
         }
 
         /// <remarks>Taken from: https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-line-intersection-and-its-applications/ .</remarks>
-        private static double[] LineIntersectionWithLine(double[] lineX, double[] lineY, double[] otherLineX, double[] otherLineY)
+        private static double[] LineIntersectionWithLine(double[] linesX, double[] linesY)
         {
-            var numberOfPoints = 2;
-            if (lineX.Length != numberOfPoints || lineY.Length != numberOfPoints || otherLineX.Length != numberOfPoints || otherLineY.Length != numberOfPoints)
+            var numberOfPoints = 4;
+            if (linesX.Length != numberOfPoints || linesY.Length != numberOfPoints)
             {
-                throw new ArgumentException("Collections of lines' x and y coordinates need to have length of 2");
+                throw new ArgumentException(String.Format("Collections of lines' x and y coordinates need to have length of {0}", numberOfPoints));
             }
 
-            var aLine = lineY[1] - lineY[0];
-            var bLine = lineX[0] - lineX[1];
-            var cLine = aLine*lineX[0] + bLine*lineY[0];
+            var aLine = linesY[1] - linesY[0];
+            var bLine = linesX[0] - linesX[1];
+            var cLine = aLine * linesX[0] + bLine * linesY[0];
 
-            var aOtherLine = otherLineY[1] - otherLineY[0];
-            var bOtherLine = otherLineX[0] - otherLineX[1];
-            var cOtherLine = aOtherLine * otherLineX[0] + bOtherLine * otherLineY[0];
+            var aOtherLine = linesY[3] - linesY[2];
+            var bOtherLine = linesX[2] - linesX[3];
+            var cOtherLine = aOtherLine * linesX[2] + bOtherLine * linesY[2];
 
             var determinant = aLine*bOtherLine - aOtherLine*bLine;
             if (Math.Abs(determinant) < epsilonForComparisons)

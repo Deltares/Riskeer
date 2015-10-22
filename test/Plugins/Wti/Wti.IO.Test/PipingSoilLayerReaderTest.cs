@@ -34,7 +34,7 @@ namespace Wti.IO.Test
         }
 
         [Test]
-        public void Read_XmlDocumentWithoutSaneContent_ReturnsLayerWithoutLoops()
+        public void Read_XmlDocumentWithoutSaneContent_ReturnsLayerWithoutOuterLoopAndEmptyInnerLoops()
         {
             // Setup
             var xmlDoc = GetBytes("<doc/>");
@@ -46,7 +46,7 @@ namespace Wti.IO.Test
             // Assert
             Assert.NotNull(result);
             Assert.IsNull(result.OuterLoop);
-            Assert.IsNull(result.InnerLoop);
+            CollectionAssert.IsEmpty(result.InnerLoops);
         }
 
         [Test]
@@ -62,11 +62,11 @@ namespace Wti.IO.Test
             // Assert
             Assert.NotNull(result);
             CollectionAssert.IsEmpty(result.OuterLoop);
-            Assert.IsNull(result.InnerLoop);
+            CollectionAssert.IsEmpty(result.InnerLoops);
         }
 
         [Test]
-        public void Read_XmlDocumentWithEmptyInnerLoop_ReturnsLayerWithEmptyInnerLoop()
+        public void Read_XmlDocumentWithEmptyInnerLoop_ReturnsLayerWithOneEmptyInnerLoop()
         {
             // Setup
             var xmlDoc = GetBytes("<InnerLoop/>");
@@ -78,7 +78,8 @@ namespace Wti.IO.Test
             // Assert
             Assert.NotNull(result);
             Assert.IsNull(result.OuterLoop);
-            CollectionAssert.IsEmpty(result.InnerLoop);
+            Assert.AreEqual(1, result.InnerLoops.Count);
+            CollectionAssert.IsEmpty(result.InnerLoops[0]);
         }
 
         [Test]
@@ -94,7 +95,8 @@ namespace Wti.IO.Test
             // Assert
             Assert.NotNull(result);
             CollectionAssert.IsEmpty(result.OuterLoop);
-            CollectionAssert.IsEmpty(result.InnerLoop);
+            Assert.AreEqual(1, result.InnerLoops.Count);
+            CollectionAssert.IsEmpty(result.InnerLoops[0]);
         }
 
         [Test]
@@ -137,7 +139,8 @@ namespace Wti.IO.Test
 
             // Assert
             Assert.NotNull(result);
-            CollectionAssert.AreEqual(new HashSet<Point3D> { new Point3D { X = 0, Y = 0.1, Z = 1.1 } }, result.InnerLoop);
+            Assert.AreEqual(1, result.InnerLoops.Count);
+            CollectionAssert.AreEqual(new HashSet<Point3D> { new Point3D { X = 0, Y = 0.1, Z = 1.1 } }, result.InnerLoops[0]);
         }
 
         [Test]
@@ -167,7 +170,8 @@ namespace Wti.IO.Test
 
             // Assert
             Assert.NotNull(result);
-            CollectionAssert.AreEqual(new HashSet<Point3D> { new Point3D { X = 0, Y = 0.1, Z = 1.1 }, new Point3D { X = 1.0, Y = 0.1, Z = 1.1 } }, result.InnerLoop);
+            Assert.AreEqual(1, result.InnerLoops.Count);
+            CollectionAssert.AreEqual(new HashSet<Point3D> { new Point3D { X = 0, Y = 0.1, Z = 1.1 }, new Point3D { X = 1.0, Y = 0.1, Z = 1.1 } }, result.InnerLoops[0]);
         }
 
         static byte[] GetBytes(string str)

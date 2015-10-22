@@ -29,6 +29,26 @@ namespace Wti.Data.Test
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(bottom, profile.Bottom);
         }
+
+        [Test]
+        public void Constructor_WithNameBottomLayersEmpty_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new PipingSoilProfile(String.Empty, Double.NaN, new Collection<PipingSoilLayer>());
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Constructor_WithNameBottomLayersNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new PipingSoilProfile(String.Empty, Double.NaN, null);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
         
     }
 }
