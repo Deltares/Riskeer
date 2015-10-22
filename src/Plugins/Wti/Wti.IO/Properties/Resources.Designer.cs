@@ -61,11 +61,11 @@ namespace Wti.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Kan geen 1D profiel bepalen wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}..
         /// </summary>
-        public static string Error_CoordinateCollectionSizesDoNotMatch {
+        public static string Error_CanNotDetermine1DProfileWithVerticalSegmentsAtX {
             get {
-                return ResourceManager.GetString("Error_CoordinateCollectionSizesDoNotMatch", resourceCulture);
+                return ResourceManager.GetString("Error_CanNotDetermine1DProfileWithVerticalSegmentsAtX", resourceCulture);
             }
         }
         

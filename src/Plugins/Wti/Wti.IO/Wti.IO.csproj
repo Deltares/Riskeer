@@ -51,6 +51,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Builders\SoilLayer2D.cs" />
+    <Compile Include="Builders\SoilLayer2DConversionException.cs" />
     <Compile Include="Builders\SoilProfileBuilder.cs" />
     <Compile Include="Calculation\Math2D.cs" />
     <Compile Include="Exceptions\CriticalFileReadException.cs" />

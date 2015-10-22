@@ -2,12 +2,18 @@
 
 namespace Wti.IO.Calculation
 {
-    public class Math2D
+    /// <summary>
+    /// This class contains general mathematical routines for 2D lines.
+    /// </summary>
+    public static class Math2D
     {
-        private const double epsilonForComparisons = 1e-8;
+        /// <summary>
+        /// Constant which is used to precision errors in <see cref="double"/> comparisons.
+        /// </summary>
+        public const double EpsilonForComparisons = 1e-8;
 
         /// <summary>
-        /// Determines whether two line segments intersect with each other. If the lines are parallel, no intersection point is returned.
+        /// Tries to find the point where two line segments intersect with each other. Note that if the lines are parallel, no intersection point is returned.
         /// </summary>
         /// <param name="segmentsX">X coordinates of the segments. Should have matching y coordinates in <paramref name="segmentsY"/>.</param>
         /// <param name="segmentsY">Y coordinates of the segments. Should have matching x coordinates in <paramref name="segmentsX"/>.</param>
@@ -43,7 +49,7 @@ namespace Wti.IO.Calculation
         }
 
         /// <summary>
-        /// Determines whether a line segment intersects with a line. If the segment and the line are parallel, no intersection point is returned.
+        /// Tries to find the point where the line segment intersects with the line. Note that if the segment and the line are parallel, no intersection point is returned.
         /// </summary>
         /// <param name="segmentsX">X coordinates of the segment and line. Should have matching y coordinates in <paramref name="segmentsY"/>.</param>
         /// <param name="segmentsY">Y coordinates of the segment and line. Should have matching x coordinates in <paramref name="segmentsX"/>.</param>
@@ -91,7 +97,7 @@ namespace Wti.IO.Calculation
             var cOtherLine = aOtherLine * linesX[2] + bOtherLine * linesY[2];
 
             var determinant = aLine*bOtherLine - aOtherLine*bLine;
-            if (Math.Abs(determinant) < epsilonForComparisons)
+            if (Math.Abs(determinant) < EpsilonForComparisons)
             {
                 return new double[0];
             }
@@ -114,7 +120,7 @@ namespace Wti.IO.Calculation
         private static bool IsBetween(double[] x, double[] y)
         {
             var crossProduct = (y[2] - y[0])*(x[1] - x[0]) - (x[2] - x[0])*(y[1] - y[0]);
-            if (Math.Abs(crossProduct) > epsilonForComparisons)
+            if (Math.Abs(crossProduct) > EpsilonForComparisons)
             {
                 return false;
             }
