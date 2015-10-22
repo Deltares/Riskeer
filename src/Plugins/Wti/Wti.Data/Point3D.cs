@@ -1,4 +1,6 @@
-﻿namespace Wti.Data
+﻿using System;
+
+namespace Wti.Data
 {
     /// <summary>
     /// Defines a mathematical point in 3D Euclidean space.
@@ -46,6 +48,11 @@
                 hashCode = (hashCode*397) ^ Z.GetHashCode();
                 return hashCode;
             }
+        }
+
+        public override string ToString()
+        {
+            return String.Format("({0}, {1}, {2})", X, Y, Z);
         }
 
         /// <summary>

@@ -136,5 +136,35 @@ namespace Wti.Data.Test
             // Assert
             Assert.AreEqual(result, otherResult);
         }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void ToString_HasCoordinatValues_NL_PrintCoordinateValuesInLocalCulture()
+        {
+            DoToString_HasCoordinateValues_PrintCoordinateValuesInLocalCulture();
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        public void ToString_HasCoordinatValues_EN_PrintCoordinateValuesInLocalCulture()
+        {
+            DoToString_HasCoordinateValues_PrintCoordinateValuesInLocalCulture();
+        }
+
+        private static void DoToString_HasCoordinateValues_PrintCoordinateValuesInLocalCulture()
+        {
+            // Setup
+            var point = new Point3D
+            {
+                X = 1.1, Y = 2.2, Z = 3.3
+            };
+
+            // Call
+            var stringRepresentation = point.ToString();
+
+            // Assert
+            var expectedText = String.Format("({0}, {1}, {2})", point.X, point.Y, point.Z);
+            Assert.AreEqual(expectedText, stringRepresentation);
+        }
     }
 }

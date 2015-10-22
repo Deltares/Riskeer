@@ -5,6 +5,7 @@ using DelftTools.Utils;
 
 using Wti.Data;
 using Wti.Forms.Properties;
+using TypeConverter = System.ComponentModel.TypeConverterAttribute;
 
 namespace Wti.Forms.PropertyClasses
 {
@@ -14,6 +15,7 @@ namespace Wti.Forms.PropertyClasses
     [ResourcesDisplayName(typeof(Resources), "SurfaceLinePropertiesDisplayName")]
     public class PipingSurfaceLineProperties : ObjectProperties<PipingSurfaceLine>
     {
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingSurfaceLineNameDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSurfaceLineNameDescription")]
         public string Name
@@ -24,6 +26,8 @@ namespace Wti.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingSurfaceLinePointsDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSurfaceLinePointsDescription")]
         public Point3D[] Points
