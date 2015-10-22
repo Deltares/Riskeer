@@ -21,9 +21,6 @@ using System.Diagnostics;
 
 namespace SharpMap.Utilities.Indexing
 {
-// Binary Tree not working yet on Mono 
-// see bug: http://bugzilla.ximian.com/show_bug.cgi?id=78502
-#if !MONO
     [Serializable]
     internal class Node<T, U> where T : IComparable<T>
     {
@@ -369,5 +366,4 @@ namespace SharpMap.Utilities.Indexing
 
         #endregion
     }
-#endif
 }

@@ -695,7 +695,7 @@ namespace DeltaShell.Gui
             //enable activation AFTER initialization
             documentViews.IgnoreActivation = false;
             toolWindowViews.IgnoreActivation = false;
-#if !MONO
+
             if (Settings.Default.SettingsKey.Contains("mruList"))
             {
                 if (Settings.Default["mruList"] == null)
@@ -703,7 +703,6 @@ namespace DeltaShell.Gui
                     Settings.Default["mruList"] = new StringCollection();
                 }
             }
-#endif
         }
 
         private void HandleApplicationExit(object sender, EventArgs e)
@@ -937,7 +936,6 @@ namespace DeltaShell.Gui
         // TODO: incapsulate any knowledge of the plugin XML inside plugin configurator, the rest of the system should not know about it!
         private void InitToolWindows()
         {
-#if !MONO
             log.Info(Resources.DeltaShellGui_InitToolWindows_Creating_document_window_manager____);
 
             var allowedDocumentWindowLocations = new[]
@@ -990,7 +988,6 @@ namespace DeltaShell.Gui
             mainWindow.InitializeToolWindows();
 
             log.Debug(Resources.DeltaShellGui_InitToolWindows_Finished_InitToolWindows);
-#endif
 
             mainWindow.SubscribeToGui();
         }

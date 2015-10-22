@@ -36,13 +36,11 @@ namespace DeltaShell.Tests.Gui
             ILog log = LogManager.GetLogger("delftshell.tests.log4net");
             //The following methods somehow dont work under mono.....
             //TODO: find the cause of this
-#if !MONO
             log.InfoFormat("LoggingTypes {0}", 1);
             log.DebugFormat("LoggingTypes {0}", 1);
             log.WarnFormat("LoggingTypes {0}", 1);
             log.ErrorFormat("LoggingTypes {0}", 1);
             log.FatalFormat("LoggingTypes {0}", 1);
-#endif
         }
     }
 }

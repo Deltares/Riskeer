@@ -191,9 +191,6 @@ namespace SharpMap.Data.Providers
             IsOpen = false;
         }
 
-        // Binary Tree not working yet on Mono 
-        // see bug: http://bugzilla.ximian.com/show_bug.cgi?id=78502
-#if !MONO
         /// <summary>
         /// Indexes a DBF column in a binary tree [NOT COMPLETE]
         /// </summary>
@@ -209,7 +206,6 @@ namespace SharpMap.Data.Providers
             }
             return tree;
         }
-#endif
 
         /// <summary>
         /// Returns a DataTable that describes the column metadata of the DBase file.
@@ -420,8 +416,6 @@ namespace SharpMap.Data.Providers
                     return ((tempChar == 'T') || (tempChar == 't') || (tempChar == 'Y') || (tempChar == 'y'));
                 case "System.DateTime":
                     DateTime date;
-                    // Mono has not yet implemented DateTime.TryParseExact
-#if !MONO
                     if (DateTime.TryParseExact(Encoding.UTF7.GetString((br.ReadBytes(8))),
                                                "yyyyMMdd", Map.numberFormat_EnUS, DateTimeStyles.None, out date))
                     {
@@ -431,17 +425,6 @@ namespace SharpMap.Data.Providers
                     {
                         return DBNull.Value;
                     }
-#else
-					try 
-					{
-						return date = DateTime.ParseExact ( System.Text.Encoding.UTF7.GetString((br.ReadBytes(8))), 	
-						"yyyyMMdd", SharpMap.Map.numberFormat_EnUS, System.Globalization.DateTimeStyles.None );
-					}
-					catch ( Exception e )
-					{
-						return DBNull.Value;
-					}
-					#endif
                 default:
                     throw (new NotSupportedException("Cannot parse DBase field '" + dbf.ColumnName + "' of type '" + dbf.DataType.ToString() + "'"));
             }
