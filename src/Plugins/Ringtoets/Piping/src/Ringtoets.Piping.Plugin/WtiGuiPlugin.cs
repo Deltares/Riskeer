@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
+
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
 using DelftTools.Shell.Gui.Forms;
+
 using Mono.Addins;
+
 using Wti.Data;
 using Wti.Forms.NodePresenters;
 using Wti.Forms.PresentationObjects;
 using Wti.Forms.PropertyClasses;
 
-namespace Wti.Plugin
+namespace Ringtoets.Piping.Plugin
 {
     [Extension(typeof(IPlugin))]
     public class WtiGuiPlugin : GuiPlugin

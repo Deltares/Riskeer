@@ -78,9 +78,9 @@
       <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
       <Name>Wti.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Plugins\Wti\Wti.Plugin\Wti.Plugin.csproj">
+    <ProjectReference Include="..\..\Plugins\Ringtoets\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
       <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
-      <Name>Wti.Plugin</Name>
+      <Name>Ringtoets.Piping.Plugin</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

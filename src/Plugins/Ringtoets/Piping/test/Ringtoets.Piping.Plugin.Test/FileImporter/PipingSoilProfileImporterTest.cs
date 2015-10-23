@@ -7,12 +7,14 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
-using Wti.Data;
-using Wti.Plugin.FileImporter;
-using WtiFormsResources = Wti.Forms.Properties.Resources;
-using ApplicationResources = Wti.Plugin.Properties.Resources;
+using Ringtoets.Piping.Plugin.FileImporter;
 
-namespace Wti.Plugin.Test.FileImporter
+using Wti.Data;
+
+using WtiFormsResources = Wti.Forms.Properties.Resources;
+using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
+
+namespace Ringtoets.Piping.Plugin.Test.FileImporter
 {
     [TestFixture]
     public class PipingSoilProfilesImporterTest

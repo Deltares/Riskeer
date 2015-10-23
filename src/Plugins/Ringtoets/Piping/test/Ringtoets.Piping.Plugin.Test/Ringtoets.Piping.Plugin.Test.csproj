@@ -7,8 +7,8 @@
     <ProjectGuid>{9A5C8069-520E-49D3-AA62-E8FB19614A27}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wti.Plugin.Test</RootNamespace>
-    <AssemblyName>Wti.Plugin.Test</AssemblyName>
+    <RootNamespace>Ringtoets.Piping.Plugin.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.Plugin.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -94,9 +94,9 @@
       <Project>{efa25023-cf6a-4ff7-8c42-b24d7f9509e1}</Project>
       <Name>DelftTools.TestUtils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Plugin\Wti.Plugin.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
       <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
-      <Name>Wti.Plugin</Name>
+      <Name>Ringtoets.Piping.Plugin</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

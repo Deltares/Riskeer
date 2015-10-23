@@ -12,9 +12,9 @@ using Wti.IO;
 using Wti.IO.Exceptions;
 
 using WtiFormsResources = Wti.Forms.Properties.Resources;
-using ApplicationResources = Wti.Plugin.Properties.Resources;
+using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
-namespace Wti.Plugin.FileImporter
+namespace Ringtoets.Piping.Plugin.FileImporter
 {
     /// <summary>
     /// Imports *.csv files having the following header pattern:

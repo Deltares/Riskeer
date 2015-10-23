@@ -10,13 +10,15 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
+using Ringtoets.Piping.Plugin.FileImporter;
+
 using Wti.Data;
-using Wti.Plugin.FileImporter;
+
 using WtiFormsResources = Wti.Forms.Properties.Resources;
 using WtiIOResources = Wti.IO.Properties.Resources;
-using ApplicationResources = Wti.Plugin.Properties.Resources;
+using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
-namespace Wti.Plugin.Test.FileImporter
+namespace Ringtoets.Piping.Plugin.Test.FileImporter
 {
     [TestFixture]
     public class PipingSurfaceLineCsvImporterTest

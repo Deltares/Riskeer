@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using DelftTools.Shell.Core;
-using Wti.Data;
-using WtiFormsResources = Wti.Forms.Properties.Resources;
-using ApplicationResources = Wti.Plugin.Properties.Resources;
 
-namespace Wti.Plugin.FileImporter
+using DelftTools.Shell.Core;
+
+using Wti.Data;
+
+using WtiFormsResources = Wti.Forms.Properties.Resources;
+using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
+
+namespace Ringtoets.Piping.Plugin.FileImporter
 {
     /// <summary>
     /// Imports .soil files (SqlLite database files) created with the DSoilModel application.

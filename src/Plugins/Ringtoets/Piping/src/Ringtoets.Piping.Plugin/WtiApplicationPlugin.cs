@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
+
 using DelftTools.Shell.Core;
+
 using Mono.Addins;
+
+using Ringtoets.Piping.Plugin.FileImporter;
+
 using Wti.Data;
-using Wti.Plugin.FileImporter;
 
 using WtiFormsResources = Wti.Forms.Properties.Resources;
-using ApplicationResources = Wti.Plugin.Properties.Resources;
+using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
-namespace Wti.Plugin
+namespace Ringtoets.Piping.Plugin
 {
     [Extension(typeof(IPlugin))]
     public class WtiApplicationPlugin : ApplicationPlugin

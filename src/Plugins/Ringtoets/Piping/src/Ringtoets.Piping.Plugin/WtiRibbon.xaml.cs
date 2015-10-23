@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+
 using DelftTools.Controls;
 using DelftTools.Shell.Gui.Forms;
 
-namespace Wti.Plugin
+namespace Ringtoets.Piping.Plugin
 {
     /// <summary>
     /// Interaction logic for WtiRibbon.xaml

@@ -3,14 +3,16 @@ using System.Linq;
 using DelftTools.Shell.Core;
 using Mono.Addins;
 using NUnit.Framework;
-using Wti.Data;
-using Wti.Plugin.FileImporter;
 
-using PluginResources = Wti.Plugin.Properties.Resources;
+using Ringtoets.Piping.Plugin;
+using Ringtoets.Piping.Plugin.FileImporter;
+
+using Wti.Data;
+
+using PluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 using FormsResources = Wti.Forms.Properties.Resources;
 
 using WtiFormsResources = Wti.Forms.Properties.Resources;
-using ApplicationResources = Wti.Plugin.Properties.Resources;
 
 namespace Wti.Plugin.Test
 {
@@ -57,7 +59,7 @@ namespace Wti.Plugin.Test
 
             DataItemInfo projectDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(WtiProject));
             Assert.AreEqual(WtiFormsResources.WtiProjectPropertiesDisplayName, projectDataItemDefinition.Name);
-            Assert.AreEqual(ApplicationResources.WtiApplicationName, projectDataItemDefinition.Category);
+            Assert.AreEqual(PluginResources.WtiApplicationName, projectDataItemDefinition.Category);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Width);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Height);
             Assert.IsNull(projectDataItemDefinition.AdditionalOwnerCheck);

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Linq;
+
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
+
 using Mono.Addins;
+
 using NUnit.Framework;
 
 using Rhino.Mocks;
@@ -12,9 +15,10 @@ using Wti.Data;
 using Wti.Forms.NodePresenters;
 using Wti.Forms.PresentationObjects;
 using Wti.Forms.PropertyClasses;
-using GuiPluginResources = Wti.Plugin.Properties.Resources;
 
-namespace Wti.Plugin.Test
+using GuiPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
+
+namespace Ringtoets.Piping.Plugin.Test
 {
     [TestFixture]
     public class WtiGuiPluginTest
