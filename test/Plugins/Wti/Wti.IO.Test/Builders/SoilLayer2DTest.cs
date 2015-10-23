@@ -309,28 +309,28 @@ namespace Wti.IO.Test.Builders
             var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                 "6",
                 "........",
-                "........",
-                "...12...",
-                "........",
-                "........",
-                "...43..."));
-
-            var innerLoop2 = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "........",
                 "...12...",
                 "........",
                 "...43...",
                 "........",
                 "........"));
 
+            var innerLoop2 = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                "6",
+                "........",
+                "........",
+                "...12...",
+                "........",
+                "........",
+                "...43..."));
+
             var layer = new SoilLayer2D
             {
                 OuterLoop = outerLoop,
                 InnerLoops =
                 {
-                    innerLoop2,
-                    innerLoop
+                    innerLoop,
+                    innerLoop2
                 }
             };
 
@@ -342,6 +342,129 @@ namespace Wti.IO.Test.Builders
             Assert.AreEqual(1, result.Length);
             Assert.AreEqual(4.0, bottom);
             CollectionAssert.AreEquivalent(new[] { 5.0 }, result.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void AsPipingSoilLayers_OuterLoopInnerLoopOnBorderBottom_ReturnsTwoLayers()
+        {
+            // Setup
+            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                "6",
+                "..1..2..",
+                "........",
+                "........",
+                "........",
+                ".4....3.",
+                "........"));
+
+            var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                "6",
+                "........",
+                "........",
+                "...12...",
+                "........",
+                "...43...",
+                "........"));
+
+            var layer = new SoilLayer2D
+            {
+                OuterLoop = outerLoop,
+                InnerLoops =
+                {
+                    innerLoop
+                }
+            };
+
+            // Call
+            double bottom;
+            var result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(2, result.Length);
+            Assert.AreEqual(3.0, bottom);
+            CollectionAssert.AreEquivalent(new[] { 5.0, 1.0 }, result.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void AsPipingSoilLayers_OuterLoopInnerLoopOverlapTop_ReturnsOneLayer()
+        {
+            // Setup
+            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                "6",
+                "........",
+                "..1..2..",
+                "........",
+                "........",
+                ".4....3.",
+                "........"));
+
+            var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                "6",
+                "...43...",
+                "........",
+                "...12...",
+                "........",
+                "........",
+                "........"));
+
+            var layer = new SoilLayer2D
+            {
+                OuterLoop = outerLoop,
+                InnerLoops =
+                {
+                    innerLoop
+                }
+            };
+
+            // Call
+            double bottom;
+            var result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, result.Length);
+            Assert.AreEqual(1.0, bottom);
+            CollectionAssert.AreEquivalent(new[] { 3.0 }, result.Select(rl => rl.Top));
+        }
+
+        [Test]
+        public void AsPipingSoilLayers_OuterLoopInnerLoopOnBorderTop_ReturnsOneLayer()
+        {
+            // Setup
+            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                "6",
+                "..1..2..",
+                "........",
+                "........",
+                "........",
+                ".4....3.",
+                "........"));
+
+            var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                "6",
+                "...43...",
+                "........",
+                "...12...",
+                "........",
+                "........",
+                "........"));
+
+            var layer = new SoilLayer2D
+            {
+                OuterLoop = outerLoop,
+                InnerLoops =
+                {
+                    innerLoop
+                }
+            };
+
+            // Call
+            double bottom;
+            var result = layer.AsPipingSoilLayers(3.5, out bottom).ToArray();
+
+            // Assert
+            Assert.AreEqual(1, result.Length);
+            Assert.AreEqual(1.0, bottom);
+            CollectionAssert.AreEquivalent(new[] { 3.0 }, result.Select(rl => rl.Top));
         }
 
         [Test]

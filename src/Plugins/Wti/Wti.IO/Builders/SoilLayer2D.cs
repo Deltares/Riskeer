@@ -47,26 +47,20 @@ namespace Wti.IO.Builders
                 
                 if (outerLoopIntersectionHeights.Count > 0)
                 {
-                    Collection<Tuple<double, double>> outerLoopIntersectionHeightPairs = new Collection<Tuple<double, double>>();
-                    AddOrderedStartAndEndPairsIn1D(outerLoopIntersectionHeights, outerLoopIntersectionHeightPairs);
-                    foreach (var heightPair in outerLoopIntersectionHeightPairs)
-                    {
-                        result.Add(new PipingSoilLayer(heightPair.Item2));
-                    }
-                    bottom = outerLoopIntersectionHeightPairs[0].Item1;
-
                     IEnumerable<Collection<double>> innerLoopsIntersectionHeights = InnerLoops.Select(loop => GetLoopIntersectionHeights(loop, atX));
                     IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(innerLoopsIntersectionHeights).ToList();
+                    IEnumerable<Tuple<double, double>> outerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(outerLoopIntersectionHeights).ToList();
 
-                    bottom = EnsureBottomOutsideInnerLoop(innerLoopIntersectionHeightPairs.ToList(), bottom);
+                    var currentBottom = outerLoopIntersectionHeightPairs.First().Item1;
+                    var heights = new List<double>();
+                    heights.AddRange(innerLoopIntersectionHeightPairs.Where(p => p.Item1 >= currentBottom).Select(p => p.Item1));
+                    heights.AddRange(outerLoopIntersectionHeightPairs.Select(p => p.Item2));
 
-                    foreach (var heightPair in innerLoopIntersectionHeightPairs)
+                    foreach (var height in heights.Where(height => !innerLoopIntersectionHeightPairs.Any(tuple => HeightInInnerLoop(tuple, height))))
                     {
-                        if (heightPair.Item1 > bottom)
-                        {
-                            result.Add(new PipingSoilLayer(heightPair.Item1));
-                        }
+                        result.Add(new PipingSoilLayer(height));
                     }
+                    bottom = EnsureBottomOutsideInnerLoop(innerLoopIntersectionHeightPairs, currentBottom);
                 }
             }
             return result;
@@ -86,9 +80,14 @@ namespace Wti.IO.Builders
             return newBottom;
         }
 
-        private bool BottomInInnerLoop(Tuple<double, double> tuple, double bottom)
+        private bool HeightInInnerLoop(Tuple<double, double> tuple, double height)
         {
-            return bottom < tuple.Item2 && bottom >= tuple.Item1;
+            return height <= tuple.Item2 && height > tuple.Item1;
+        }
+
+        private bool BottomInInnerLoop(Tuple<double, double> tuple, double height)
+        {
+            return height < tuple.Item2 && height >= tuple.Item1;
         }
 
         private IEnumerable<Tuple<double, double>> GetOrderedStartAndEndPairsIn1D(IEnumerable<Collection<double>> innerLoopsIntersectionPoints)
@@ -96,21 +95,25 @@ namespace Wti.IO.Builders
             Collection<Tuple<double,double>> result = new Collection<Tuple<double, double>>();
             foreach (var innerLoopIntersectionPoints in innerLoopsIntersectionPoints)
             {
-                AddOrderedStartAndEndPairsIn1D(innerLoopIntersectionPoints, result);
+                foreach (var tuple in GetOrderedStartAndEndPairsIn1D(innerLoopIntersectionPoints))
+                {
+                    result.Add(tuple);
+                }
             }
             return result;
         }
 
-        private static void AddOrderedStartAndEndPairsIn1D(Collection<double> innerLoopIntersectionPoints, Collection<Tuple<double, double>> result)
+        private static Collection<Tuple<double, double>> GetOrderedStartAndEndPairsIn1D(IEnumerable<double> innerLoopIntersectionPoints)
         {
+            var result = new Collection<Tuple<double, double>>();
             var orderedHeights = innerLoopIntersectionPoints.OrderBy(v => v).ToList();
-            while (orderedHeights.Count >= 2)
+            for (int i = 0; i < orderedHeights.Count; i = i+2)
             {
-                var first = orderedHeights[0];
-                var second = orderedHeights[1];
-                orderedHeights.RemoveRange(0, 2);
+                var first = orderedHeights[i];
+                var second = orderedHeights[i+1];
                 result.Add(new Tuple<double, double>(first, second));
             }
+            return result;
         }
 
         private Collection<double> GetLoopIntersectionHeights(HashSet<Point3D> loop, double atX)
