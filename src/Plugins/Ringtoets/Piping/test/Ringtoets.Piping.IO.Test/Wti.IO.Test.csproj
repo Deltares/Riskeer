@@ -33,12 +33,11 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\log4net.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\..\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\..\..\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -57,19 +56,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\Plugins\Ringtoets\Piping\src\Ringtoets.Piping.Data\Wti.Data.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Wti.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Wti.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.IO\Wti.IO.csproj">
-      <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
-      <Name>Wti.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\DelftTools.TestUtils\DelftTools.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\..\..\..\test\Common\DelftTools.TestUtils\DelftTools.TestUtils.csproj">
       <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
       <Name>DelftTools.TestUtils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.Data.TestUtil\Wti.Data.TestUtil.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.IO\Wti.IO.csproj">
+      <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
+      <Name>Wti.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Piping.Data.TestUtil\Wti.Data.TestUtil.csproj">
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
       <Name>Wti.Data.TestUtil</Name>
     </ProjectReference>

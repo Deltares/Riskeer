@@ -111,6 +111,10 @@
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
       <Name>Wti.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Piping.IO\Wti.IO.csproj">
+      <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
+      <Name>Wti.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
       <Name>Ringtoets.Piping.Service</Name>
@@ -118,10 +122,6 @@
     <ProjectReference Include="..\Ringtoets.Piping.Data\Wti.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Wti.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Wti\Wti.IO\Wti.IO.csproj">
-      <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
-      <Name>Wti.IO</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

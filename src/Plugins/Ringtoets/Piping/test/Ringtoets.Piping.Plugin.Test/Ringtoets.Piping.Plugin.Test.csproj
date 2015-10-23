@@ -82,10 +82,6 @@
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Wti.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Wti\Wti.IO\Wti.IO.csproj">
-      <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
-      <Name>Wti.IO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\test\Common\DelftTools.TestUtils\DelftTools.TestUtils.csproj">
       <Project>{efa25023-cf6a-4ff7-8c42-b24d7f9509e1}</Project>
       <Name>DelftTools.TestUtils</Name>
@@ -93,6 +89,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Forms\Wti.Forms.csproj">
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
       <Name>Wti.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.IO\Wti.IO.csproj">
+      <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
+      <Name>Wti.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
       <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
