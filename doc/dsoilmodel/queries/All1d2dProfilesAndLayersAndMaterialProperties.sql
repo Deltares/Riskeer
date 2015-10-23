@@ -1,7 +1,9 @@
 SELECT 
+  2 as Dimensions,
   p.SP2D_Name as ProfileName,
   l.GeometrySurface as LayerGeometry, 
   mpl.X as IntersectionX,
+  null as Bottom,
   sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) AbovePhreaticLevel,
   sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) BelowPhreaticLevel,
   sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) PermeabKx,
@@ -21,9 +23,11 @@ WHERE m.ME_ID = 4
 GROUP BY l.SL2D_ID
 UNION
 SELECT 
+  1 as Dimensions,
   p.SP1D_Name as ProfileName,
   null as LayerGeometry,
   null as IntersectionX,
+  p.BottomLevel as Bottom,
   sum(case when mat.PN_Name = "AbovePhreaticLevel" then mat.PV_Value end) AbovePhreaticLevel,
   sum(case when mat.PN_Name = "BelowPhreaticLevel" then mat.PV_Value end) BelowPhreaticLevel,
   sum(case when mat.PN_Name = "PermeabKx" then mat.PV_Value end) PermeabKx,

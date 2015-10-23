@@ -45,7 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builders\SoilLayer2DTest.cs" />
-    <Compile Include="Builders\SoilProfileBuilderTest.cs" />
+    <Compile Include="Builders\SoilProfileBuilder1DTest.cs" />
+    <Compile Include="Builders\SoilProfileBuilder2DTest.cs" />
     <Compile Include="Calculation\Math2DTest.cs" />
     <Compile Include="Exceptions\CriticalFileReadExceptionTest.cs" />
     <Compile Include="Exceptions\LineParseExceptionTest.cs" />

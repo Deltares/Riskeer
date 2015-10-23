@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
@@ -26,6 +27,7 @@ namespace Ringtoets.Piping.IO
         private SQLiteDataReader dataReader;
         private const string profileNameColumn = "ProfileName";
         private const string intersectionXColumn = "IntersectionX";
+        private const string bottomColumn = "Bottom";
         private const string layerGeometryColumn = "LayerGeometry";
         private const string abovePhreaticLevelColumn = "AbovePhreaticLevel";
         private const string belowPhreaticLevelColumn = "BelowPhreaticLevel";
@@ -33,6 +35,7 @@ namespace Ringtoets.Piping.IO
         private const string diameterD70Column = "DiameterD70";
         private const string whitesConstantColumn = "WhitesConstant";
         private const string beddingAngleColumn = "BeddingAngle";
+        private const string dimensionsColumn = "Dimensions";
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingSoilProfileReader"/> which will use the <paramref name="dbFile"/>
@@ -62,26 +65,55 @@ namespace Ringtoets.Piping.IO
         /// <exception cref="XmlException">Thrown when parsing the geometry of a soil layer failed.</exception>
         public IEnumerable<PipingSoilProfile> Read()
         {
-            var pipingSoilProfiles = new Dictionary<string, SoilProfileBuilder>();
+            var pipingSoilProfileBuilders = new Dictionary<string, ISoilProfileBuilder>();
 
             CreateDataReader();
 
             while (dataReader.Read())
             {
                 var profileName = (string)dataReader[profileNameColumn];
-                var intersectionX = dataReader[intersectionXColumn] as double?;
-                if (intersectionX != null)
+                var dimensions = (long) dataReader[dimensionsColumn];
+                if (dimensions == 2)
                 {
-                    if (!pipingSoilProfiles.ContainsKey(profileName))
+                    var intersectionX = (double) dataReader[intersectionXColumn];
+                    if (!pipingSoilProfileBuilders.ContainsKey(profileName))
                     {
-                        pipingSoilProfiles.Add(profileName, new SoilProfileBuilder(profileName, intersectionX.Value));
+                        pipingSoilProfileBuilders.Add(profileName, new SoilProfileBuilder2D(profileName, intersectionX));
                     }
 
-                    pipingSoilProfiles[profileName].Add(ReadPiping2DSoilLayer());
+                    var soilProfile2DBuilder = pipingSoilProfileBuilders[profileName] as SoilProfileBuilder2D;
+
+                    if(soilProfile2DBuilder == null)
+                    {
+                        throw new PipingSoilProfileReadException(Resources.Error_CannotCombine2DAnd1DLayersInProfile);
+                    }
+
+                    soilProfile2DBuilder.Add(ReadPiping2DSoilLayer());
+                }
+                else
+                {
+                    var bottom = (double)dataReader[bottomColumn];
+                    if (!pipingSoilProfileBuilders.ContainsKey(profileName))
+                    {
+                        pipingSoilProfileBuilders.Add(profileName, new SoilProfileBuilder1D(profileName, bottom));
+                    }
+                    var soilProfile1DBuilder = pipingSoilProfileBuilders[profileName] as SoilProfileBuilder1D;
+
+                    if (soilProfile1DBuilder == null)
+                    {
+                        throw new PipingSoilProfileReadException(Resources.Error_CannotCombine2DAnd1DLayersInProfile);
+                    }
+                    soilProfile1DBuilder.Add(ReadPipingSoilLayer());
                 }
             }
 
-            return pipingSoilProfiles.Select(keyValue => keyValue.Value.Build());
+            return pipingSoilProfileBuilders.Select(keyValue => keyValue.Value.Build());
+        }
+
+        private PipingSoilLayer ReadPipingSoilLayer()
+        {
+            var columnValue = (double) dataReader[bottomColumn];
+            return new PipingSoilLayer(columnValue);
         }
 
         public void Dispose()
@@ -136,12 +168,14 @@ namespace Ringtoets.Piping.IO
                       "p.SP2D_Name as {0},",
                       "l.GeometrySurface as {1},",
                       "mpl.X as {2},",
-                      "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {3},",
-                      "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {4},",
-                      "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {5},",
-                      "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {6},",
-                      "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {7},",
-                      "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {8}",
+                      "null as {3},",
+                      "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {4},",
+                      "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {5},",
+                      "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {6},",
+                      "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {7},",
+                      "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {8},",
+                      "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {9},",
+                      "2 as {10}",
                     "FROM MechanismPointLocation as m",
                     "JOIN MechanismPointLocation as mpl ON p.SP2D_ID = mpl.SP2D_ID",
                     "JOIN SoilProfile2D as p ON m.SP2D_ID = p.SP2D_ID",
@@ -151,19 +185,21 @@ namespace Ringtoets.Piping.IO
 	                    "FROM ParameterNames as pn",
 	                    "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
 	                    "JOIN Materials as m ON m.MA_ID = pv.MA_ID) as mat ON l.MA_ID = mat.MA_ID",
-                    "WHERE m.ME_ID = @{9}",
+                    "WHERE m.ME_ID = @{11}",
                     "GROUP BY l.SL2D_ID",
                     "UNION",
                     "SELECT",
                       "p.SP1D_Name as {0},",
                       "null as {1},",
                       "null as {2},",
-                      "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {3},",
-                      "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {4},",
-                      "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {5},",
-                      "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {6},",
-                      "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {7},",
-                      "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {8}",
+                      "p.BottomLevel as {3},",
+                      "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {4},",
+                      "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {5},",
+                      "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {6},",
+                      "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {7},",
+                      "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {8},",
+                      "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {9},",
+                      "1 as {10}",
                     "FROM SoilProfile1D as p",
                       "JOIN SoilLayer1D as l ON l.SP1D_ID = p.SP1D_ID",
                       "JOIN (",
@@ -177,12 +213,14 @@ namespace Ringtoets.Piping.IO
                 profileNameColumn,
                 layerGeometryColumn,
                 intersectionXColumn,
+                bottomColumn,
                 abovePhreaticLevelColumn,
                 belowPhreaticLevelColumn,
                 permeabKxColumn,
                 diameterD70Column,
                 whitesConstantColumn,
                 beddingAngleColumn,
+                dimensionsColumn,
                 mechanismParameterName)
             };
             query.Parameters.Add(new SQLiteParameter

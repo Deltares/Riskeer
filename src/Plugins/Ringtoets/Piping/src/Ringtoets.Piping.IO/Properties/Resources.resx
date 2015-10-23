@@ -171,4 +171,7 @@
   <data name="Error_CanNotDetermine1DProfileWithVerticalSegmentsAtX" xml:space="preserve">
     <value>Kan geen 1D profiel bepalen wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.</value>
   </data>
+  <data name="Error_CannotCombine2DAnd1DLayersInProfile" xml:space="preserve">
+    <value>Kan geen 2D en 1D lagen combineren in een profiel.</value>
+  </data>
 </root>

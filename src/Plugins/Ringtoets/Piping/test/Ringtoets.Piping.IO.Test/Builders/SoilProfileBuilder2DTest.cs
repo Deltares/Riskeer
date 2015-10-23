@@ -11,7 +11,7 @@ using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.Test.Builders
 {
-    public class SoilProfileBuilderTest
+    public class SoilProfileBuilder2DTest
     {
         [Test]
         [TestCase(null)]
@@ -19,7 +19,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void Constructor_WithNameInvalidX_ThrowsArgumentExcpetion(string name)
         {
             // Call
-            TestDelegate test = () => new SoilProfileBuilder(name, double.NaN);
+            TestDelegate test = () => new SoilProfileBuilder2D(name, double.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void Constructor_WithNameValidX_ReturnsNewInstance(string name)
         {
             // Call
-            var builder = new SoilProfileBuilder(name, 0.0);
+            var builder = new SoilProfileBuilder2D(name, 0.0);
 
             // Assert
             Assert.NotNull(builder);
@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var profileName = "SomeProfile";
-            var builder = new SoilProfileBuilder(profileName, 0.0);
+            var builder = new SoilProfileBuilder2D(profileName, 0.0);
 
             // Call
             TestDelegate test = () => builder.Build();
@@ -57,7 +57,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var profileName = "SomeProfile";
-            var builder = new SoilProfileBuilder(profileName, 0.0);
+            var builder = new SoilProfileBuilder2D(profileName, 0.0);
             builder.Add(new SoilLayer2D
             {
                 OuterLoop = new HashSet<Point3D>
@@ -96,7 +96,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var profileName = "SomeProfile";
-            var builder = new SoilProfileBuilder(profileName, 1.0);
+            var builder = new SoilProfileBuilder2D(profileName, 1.0);
             builder.Add(new SoilLayer2D
             {
                 OuterLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var profileName = "SomeProfile";
-            var builder = new SoilProfileBuilder(profileName, 2.0);
+            var builder = new SoilProfileBuilder2D(profileName, 2.0);
             var loopHole = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                     "5",
                     ".....",

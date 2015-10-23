@@ -11,7 +11,8 @@ using Ringtoets.Piping.IO.Properties;
 namespace Ringtoets.Piping.IO.Builders
 {
     /// <summary>
-    /// This class represents objects which were imported from a DSoilModel database. This class 
+    /// This class represents objects which were imported from a DSoilModel database. Instances of this class are transient and are not to be used
+    /// once the DSoilModel database has been imported.
     /// </summary>
     internal class SoilLayer2D
     {

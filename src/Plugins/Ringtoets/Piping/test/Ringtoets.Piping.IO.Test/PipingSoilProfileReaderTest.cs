@@ -98,12 +98,98 @@ namespace Ringtoets.Piping.IO.Test
             PipingSoilProfile[] result = pipingSoilProfilesReader.Read().ToArray();
 
             // Assert
-            Assert.AreEqual(2, result.Length);
-            var firstProfile = result.SingleOrDefault(psp => psp.Name == "10Y_005_STBI");
-            Assert.NotNull(firstProfile);
+            Assert.AreEqual(36, result.Length);
+            CollectionAssert.AreEquivalent(new []
+            {
+                "10Y_005_STBI_p",
+                "10Y_024_STBI_p",
+                "10Y_041_STBI_p",
+                "10Y_042_STBI_p",
+                "10Y_043_STBI_p",
+                "10Y_054_STBI_p",
+                "10Y_066_STBI_p",
+                "10Y_090_STBI_p",
+                "10Y_102_STBI_p",
+                "10Y_117_STBI_p",
+                "10Y_130_STBI_p",
+                "10Y_149_STBI_p",
+                "10Z_157_STBI_p",
+                "10Z_165_STBI_p",
+                "10Z_181_STBI_p",
+                "10Z_186_STBI_p",
+                "10Z_199_STBI_p",
+                "10Z_228_STBI_p",
+                "10Z_258_STBI_p",
+                "10Z_275_STBI_p",
+                "10Z_282_STBI_p",
+                "10Z_286_STBI_p",
+                "10Z_311_STBI_p",
+                "10Z_327_STBI_p",
+                "10Z_352_STBI_p",
+                "10Z_358_STBI_p",
+                "10Z_369_STBI_p",
+                "10Z_380_STBI_p",
+                "10Z_390_STBI_p",
+                "10Z_400_STBI_p",
+                "10Z_421_STBI_p",
+                "10Z_432_STBI_p",
+                "10Z_460_STBI_p",
+                "10Y_091_STBI_p",
+                "10Y_005_STBI",
+                "10Y_041_STBI"
+            },result.Select(p => p.Name));
 
-            Assert.AreEqual(-10, firstProfile.Bottom);
-            Assert.AreEqual(6, firstProfile.Layers.Count());
+            CollectionAssert.AreEquivalent(new[]
+            {
+                -10,
+                -12.0,
+                -10.8,
+                -10,
+                -21.5,
+                -21.5,
+                -21.5,
+                -22.0,
+                -24.0,
+                -21.5,
+                -21.5,
+                -22.0,
+                -24.17,
+                -24.8,
+                -25.0,
+                -24.0,
+                -22.8,
+                -23.8,
+                -24.2,
+                -24.5,
+                -24.0,
+                -23.7,
+                -24.4,
+                -24.0,
+                -31.5,
+                -23.2,
+                -23.9,
+                -23.1,
+                -23.5,
+                -23.125,
+                -22.5,
+                -21.88,
+                -22.0,
+                40.0,
+                40.0,
+                40.0
+            }, result.Select(p => p.Bottom));
+
+            foreach (var l in result.Select(p => p.Layers.Count()))
+            {
+                Console.WriteLine(l);
+            }
+            CollectionAssert.AreEquivalent(new[]
+            {
+                6,3,2,3,2,2,2,2,3,2,2,2,2,3,3,3,2,2,2,2,3,2,3,3,2,2,3,2,2,2,2,2,2,1,1,1
+            }, result.Select(p => p.Layers.Count()));
+
+            var firstProfile = result.FirstOrDefault(l => l.Name == "10Y_005_STBI");
+            Assert.NotNull(firstProfile);
             var expected = new[]
             {
                 -3.5,

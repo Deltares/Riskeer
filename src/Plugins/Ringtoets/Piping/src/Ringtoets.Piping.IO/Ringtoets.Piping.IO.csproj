@@ -39,9 +39,11 @@
     <Compile Include="..\..\..\..\..\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Builders\ISoilProfileBuilder.cs" />
     <Compile Include="Builders\SoilLayer2D.cs" />
     <Compile Include="Builders\SoilLayer2DConversionException.cs" />
-    <Compile Include="Builders\SoilProfileBuilder.cs" />
+    <Compile Include="Builders\SoilProfileBuilder1D.cs" />
+    <Compile Include="Builders\SoilProfileBuilder2D.cs" />
     <Compile Include="Calculation\Math2D.cs" />
     <Compile Include="Exceptions\CriticalFileReadException.cs" />
     <Compile Include="Exceptions\LineParseException.cs" />
