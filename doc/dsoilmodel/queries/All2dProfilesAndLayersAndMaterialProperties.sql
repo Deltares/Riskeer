@@ -1,8 +1,7 @@
 SELECT 
-  p.SP2D_Name,
-  l.GeometrySurface, 
-  mat.MA_ID, 
-  mpl.X,
+  p.SP2D_Name as ProfileName,
+  l.GeometrySurface as LayerGeometry, 
+  mpl.X as IntersectionX,
   sum(case when mat.PN_Name = "AbovePhreaticLevel" then mat.PV_Value end) AbovePhreaticLevel,
   sum(case when mat.PN_Name = "BelowPhreaticLevel" then mat.PV_Value end) BelowPhreaticLevel,
   sum(case when mat.PN_Name = "PermeabKx" then mat.PV_Value end) PermeabKx,
