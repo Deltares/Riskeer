@@ -40,7 +40,6 @@ using Application = System.Windows.Forms.Application;
 using Button = Fluent.Button;
 using Cursors = System.Windows.Input.Cursors;
 using IWin32Window = System.Windows.Forms.IWin32Window;
-using MessageBox = DelftTools.Controls.Swf.MessageBox;
 
 namespace DeltaShell.Gui.Forms.MainWindow
 {

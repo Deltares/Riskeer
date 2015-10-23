@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DelftTools.Controls.Swf;
@@ -35,10 +36,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
 
             gui = mocks.Stub<IGui>();
 
-            realApp = new DeltaShellApplication
-            {
-                IsProjectCreatedInTemporaryDirectory = true
-            };
+            realApp = new DeltaShellApplication();
             realApp.Plugins.Add(commonToolsPlugin);
             realApp.Plugins.Add(new SharpMapGisApplicationPlugin());
             realApp.Run();
@@ -82,7 +80,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             {
                 plugin
             });
-
+            application.Stub(a => a.ProjectFilePath).Return(Directory.GetCurrentDirectory()).Repeat.Any();
             gui.Application = application;
 
             IEnumerable<IFileImporter> importers = new[]
@@ -145,6 +143,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             {
                 plugin
             });
+            application.Stub(a => a.ProjectFilePath).Return(Directory.GetCurrentDirectory()).Repeat.Any();
             gui.Application = application;
 
             IEnumerable<IFileImporter> importers = new[]
@@ -179,7 +178,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             var fileImporter = mocks.Stub<IFileImporter>();
             var targetItemImporter = mocks.Stub<IFileImporter>();
             var targetItemImporterWhereCanImportIsFalse = mocks.Stub<IFileImporter>();
-
+            application.Stub(a => a.ProjectFilePath).Return(Directory.GetCurrentDirectory()).Repeat.Any();
             gui.Application = application;
 
             IEnumerable<IFileImporter> importers = new[]
@@ -233,6 +232,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             {
                 plugin
             });
+            application.Stub(a => a.ProjectFilePath).Return(Directory.GetCurrentDirectory()).Repeat.Any();
 
             gui.Application = application;
 
@@ -277,7 +277,7 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
             {
                 plugin1
             });
-
+            application.Stub(a => a.ProjectFilePath).Return(Directory.GetCurrentDirectory()).Repeat.Any();
             gui.Application = application;
 
             IEnumerable<IFileImporter> importers = new[]

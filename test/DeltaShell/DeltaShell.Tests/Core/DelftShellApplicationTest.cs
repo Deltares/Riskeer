@@ -5,7 +5,6 @@ using System.Threading;
 using DelftTools.Shell.Core;
 using DeltaShell.Core;
 using DeltaShell.Gui;
-using DeltaShell.Tests.TestObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 
