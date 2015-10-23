@@ -72,7 +72,7 @@
     <Message Text="Copying plugin component $(ProjectName) to $(InstallDir)\plugins directory ..." Condition="'$(IsPluginComponent)'=='true'" />
     <Exec 
       WorkingDirectory="$(OutDir)" 
-      Command="$(SolutionDir)\build\tools\PluginPostBuild.cmd $(SolutionDir) $(TargetDir) $(ProjectName) $(PluginName) $(InstallDir) $(ProjectDir) $(PluginCategory)" 
+      Command="$(SolutionDir)\build\PluginPostBuild.cmd $(SolutionDir) $(TargetDir) $(ProjectName) $(PluginName) $(InstallDir) $(ProjectDir) $(PluginCategory)" 
       Condition="'$(IsPluginComponent)'=='true'" />
   </Target>
 
