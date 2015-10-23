@@ -109,7 +109,7 @@
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
       <Name>Wti.Calculation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Ringtoets\Piping\Wti.Service\Ringtoets.Piping.Service.csproj">
+    <ProjectReference Include="..\..\Ringtoets\Piping\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
       <Name>Ringtoets.Piping.Service</Name>
     </ProjectReference>

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D783543B-46A1-4848-A812-AF5A5259ED7E}</ProjectGuid>
+    <ProjectGuid>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wti.Service.Test</RootNamespace>
-    <AssemblyName>Wti.Service.Test</AssemblyName>
+    <RootNamespace>Ringtoets.Piping.Service</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.Service</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -19,8 +19,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\Ringtoets.Piping.Service.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\Release\</OutputPath>
@@ -31,16 +33,16 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <DocumentationFile>bin\Release\Ringtoets.Piping.Service.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\..\..\..\..\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Mocks">
-      <HintPath>..\..\..\..\..\..\lib\Rhino.Mocks.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\..\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,8 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PipingCalculationServiceTest.cs" />
+    <Compile Include="..\..\..\..\..\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
+    <Compile Include="DateTimeService.cs" />
+    <Compile Include="PipingCalculationResult.cs" />
+    <Compile Include="PipingCalculationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Controls.Swf\DelftTools.Controls.Swf.csproj">
@@ -65,28 +77,31 @@
       <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
       <Name>DelftTools.Shell.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Common\Wti.Base\Wti.Base.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Wti.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Wti\Wti.Calculation\Wti.Calculation.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
       <Name>Wti.Calculation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Service.csproj">
-      <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
-      <Name>Ringtoets.Piping.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Wti\Wti.Data\Wti.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Wti.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Wti\Wti.Forms\Wti.Forms.csproj">
-      <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
-      <Name>Wti.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\test\Plugins\Wti\Wti.Calculation.TestUtil\Wti.Calculation.TestUtil.csproj">
-      <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
-      <Name>Wti.Calculation.TestUtil</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
