@@ -2,11 +2,13 @@
 using DelftTools.Shell.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Wti.Data;
-using Wti.Forms.PresentationObjects;
-using Wti.Forms.PropertyClasses;
 
-namespace Wti.Forms.Test.PropertyClasses
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Forms.PropertyClasses;
+
+namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class PipingCalculationInputsPropertiesTest

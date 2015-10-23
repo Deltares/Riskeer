@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
-using Wti.Data.TestUtil;
+using Ringtoets.Piping.Data.TestUtil;
 
-namespace Wti.Data.Test
+namespace Ringtoets.Piping.Data.Test
 {
     public class PointCollectionHelperTest
     {

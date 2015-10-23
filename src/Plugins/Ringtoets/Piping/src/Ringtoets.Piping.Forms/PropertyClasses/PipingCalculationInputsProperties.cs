@@ -5,12 +5,13 @@ using System.Drawing.Design;
 using DelftTools.Shell.Gui;
 using DelftTools.Utils;
 
-using Wti.Data;
-using Wti.Forms.PresentationObjects;
-using Wti.Forms.Properties;
-using Wti.Forms.UITypeEditors;
+using Ringtoets.Piping.Data;
 
-namespace Wti.Forms.PropertyClasses
+using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Forms.UITypeEditors;
+
+namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     [ResourcesDisplayName(typeof(Resources), "PipingDataPropertiesDisplayName")]
     public class PipingCalculationInputsProperties : ObjectProperties<PipingCalculationInputs>

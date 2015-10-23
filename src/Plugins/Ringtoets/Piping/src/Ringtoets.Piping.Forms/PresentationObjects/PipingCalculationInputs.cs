@@ -3,9 +3,9 @@ using System.Linq;
 
 using DelftTools.Shell.Core;
 
-using Wti.Data;
+using Ringtoets.Piping.Data;
 
-namespace Wti.Forms.PresentationObjects
+namespace Ringtoets.Piping.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="PipingData"/>
@@ -28,7 +28,7 @@ namespace Wti.Forms.PresentationObjects
 
         /// <summary>
         /// Gets or sets the available piping surface lines in order for the user to select
-        /// one to set <see cref="Wti.Data.PipingData.SurfaceLine"/>.
+        /// one to set <see cref="Ringtoets.Piping.Data.PipingData.SurfaceLine"/>.
         /// </summary>
         public IEnumerable<RingtoetsPipingSurfaceLine> AvailablePipingSurfaceLines { get; set; }
 

@@ -1,7 +1,8 @@
 ﻿using NUnit.Framework;
 
-using Wti.Calculation.Test.Piping.Stub;
-using Wti.Data;
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.Calculation.Test.Piping.Stub;
 
 namespace Ringtoets.Piping.Service.Test
 {

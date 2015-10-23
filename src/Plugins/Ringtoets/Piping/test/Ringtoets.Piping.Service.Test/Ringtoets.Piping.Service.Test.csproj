@@ -65,25 +65,25 @@
       <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
       <Name>DelftTools.Shell.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Calculation\Wti.Calculation.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
-      <Name>Wti.Calculation</Name>
+      <Name>Ringtoets.Piping.Calculation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
       <Name>Ringtoets.Piping.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Wti.Data.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
-      <Name>Wti.Data</Name>
+      <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Forms\Wti.Forms.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
-      <Name>Wti.Forms</Name>
+      <Name>Ringtoets.Piping.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Calculation.TestUtil\Wti.Calculation.TestUtil.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.Calculation.TestUtil\Ringtoets.Piping.Calculation.TestUtil.csproj">
       <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
-      <Name>Wti.Calculation.TestUtil</Name>
+      <Name>Ringtoets.Piping.Calculation.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

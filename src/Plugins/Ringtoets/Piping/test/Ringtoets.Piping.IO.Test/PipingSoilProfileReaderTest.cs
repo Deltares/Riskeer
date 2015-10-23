@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using DelftTools.TestUtils;
-using log4net.Core;
-using NUnit.Framework;
-using Wti.Data;
-using Wti.IO.Calculation;
-using Wti.IO.Exceptions;
-using Wti.IO.Properties;
 
-namespace Wti.IO.Test
+using NUnit.Framework;
+
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Calculation;
+using Ringtoets.Piping.IO.Exceptions;
+using Ringtoets.Piping.IO.Properties;
+
+namespace Ringtoets.Piping.IO.Test
 {
     public class PipingSoilProfileReaderTest
     {

@@ -4,10 +4,11 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
-using Wti.Data;
-using Wti.Forms.PresentationObjects;
+using Ringtoets.Piping.Data;
 
-namespace Wti.Forms.Test.PresentationObjects
+using Ringtoets.Piping.Forms.PresentationObjects;
+
+namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
     public class PipingCalculationInputsTest

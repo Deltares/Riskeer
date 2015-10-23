@@ -2,10 +2,10 @@
 
 using NUnit.Framework;
 
-using Wti.Forms.Extensions;
-using FormsResources = Wti.Forms.Properties.Resources;
+using Ringtoets.Piping.Forms.Extensions;
+using FormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
-namespace Wti.Forms.Test.Extensions
+namespace Ringtoets.Piping.Forms.Test.Extensions
 {
     [TestFixture]
     public class ContextMenuStripExtensionsTest

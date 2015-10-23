@@ -1,9 +1,11 @@
 ﻿using DelftTools.Shell.Gui;
 using DelftTools.Utils;
-using Wti.Data;
-using Wti.Forms.Properties;
 
-namespace Wti.Forms.PropertyClasses
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.Forms.Properties;
+
+namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     [ResourcesDisplayName(typeof(Resources), "PipingOutputPropertiesDisplayName")]
     public class PipingOutputProperties : ObjectProperties<PipingOutput>

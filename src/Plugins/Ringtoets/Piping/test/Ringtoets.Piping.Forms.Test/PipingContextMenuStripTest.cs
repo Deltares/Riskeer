@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using Wti.Forms.NodePresenters;
+using Ringtoets.Piping.Forms.NodePresenters;
 
-namespace Wti.Forms.Test
+namespace Ringtoets.Piping.Forms.Test
 {
     public class PipingContextMenuStripTest
     {

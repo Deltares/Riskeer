@@ -2,9 +2,9 @@
 
 using NUnit.Framework;
 
-using Wti.Forms.UITypeEditors;
+using Ringtoets.Piping.Forms.UITypeEditors;
 
-namespace Wti.Forms.Test.UITypeEditors
+namespace Ringtoets.Piping.Forms.Test.UITypeEditors
 {
     [TestFixture]
     public class PipingCalculationInputsSurfaceLineSelectionEditorTest

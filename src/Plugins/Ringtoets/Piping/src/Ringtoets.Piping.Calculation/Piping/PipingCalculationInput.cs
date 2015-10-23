@@ -1,6 +1,6 @@
-﻿using Wti.Data;
+﻿using Ringtoets.Piping.Data;
 
-namespace Wti.Calculation.Piping
+namespace Ringtoets.Piping.Calculation.Piping
 {
     /// <summary>
     /// This class contains all the parameters that are required to perform a piping assessment.

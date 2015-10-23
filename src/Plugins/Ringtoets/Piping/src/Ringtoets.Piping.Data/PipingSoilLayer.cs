@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Wti.Data
+﻿namespace Ringtoets.Piping.Data
 {
     public class PipingSoilLayer
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Wti.Data
+namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Defines a mathematical point in 3D Euclidean space.

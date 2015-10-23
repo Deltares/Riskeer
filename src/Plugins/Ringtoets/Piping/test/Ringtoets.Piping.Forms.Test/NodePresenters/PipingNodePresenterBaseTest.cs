@@ -9,9 +9,9 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
-using Wti.Forms.NodePresenters;
+using Ringtoets.Piping.Forms.NodePresenters;
 
-namespace Wti.Forms.Test.NodePresenters
+namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
     public class PipingNodePresenterBaseTest

@@ -7,8 +7,8 @@
     <ProjectGuid>{7CD038E1-E111-4969-ACED-22C5BD2974E1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wti.Forms</RootNamespace>
-    <AssemblyName>Wti.Forms</AssemblyName>
+    <RootNamespace>Ringtoets.Piping.Forms</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.Forms</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -22,7 +22,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Debug\Wti.Forms.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Ringtoets.Piping.Forms.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
@@ -34,7 +34,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Release\Wti.Forms.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Ringtoets.Piping.Forms.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
@@ -101,17 +101,17 @@
       <Name>Wti.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Calculation\Wti.Calculation.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
-      <Name>Wti.Calculation</Name>
+      <Name>Ringtoets.Piping.Calculation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
       <Name>Ringtoets.Piping.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Data\Wti.Data.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Wti.Data</Name>
+      <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

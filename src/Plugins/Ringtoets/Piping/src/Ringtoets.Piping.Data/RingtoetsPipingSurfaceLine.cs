@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Wti.Data
+namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Definition of a surfaceline for piping.

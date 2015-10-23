@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+
 using DelftTools.Shell.Core;
 
-namespace Wti.Data
+namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// This class holds the information which can be made visible in the graphical interface of the application.

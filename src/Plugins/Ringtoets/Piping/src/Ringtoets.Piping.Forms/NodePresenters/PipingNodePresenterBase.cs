@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Utils.Collections;
 
-namespace Wti.Forms.NodePresenters
+namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
     /// Implements <see cref="ITreeNodePresenter"/> in a featureless way as possible,

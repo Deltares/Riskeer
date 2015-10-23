@@ -1,10 +1,12 @@
 ﻿using System;
 using DelftTools.Shell.Gui;
 using NUnit.Framework;
-using Wti.Data;
-using Wti.Forms.PropertyClasses;
 
-namespace Wti.Forms.Test.PropertyClasses
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.Forms.PropertyClasses;
+
+namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class PipingOutputPropertiesTest

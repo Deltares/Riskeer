@@ -3,11 +3,12 @@
 using DelftTools.Shell.Gui;
 using DelftTools.Utils;
 
-using Wti.Data;
-using Wti.Forms.Properties;
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.Forms.Properties;
 using TypeConverter = System.ComponentModel.TypeConverterAttribute;
 
-namespace Wti.Forms.PropertyClasses
+namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="RingtoetsPipingSurfaceLine"/> for properties panel.

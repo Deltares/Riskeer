@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Wti.IO.Exceptions
+namespace Ringtoets.Piping.IO.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when a file reader class encounters an error while

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Wti.IO.Calculation
+namespace Ringtoets.Piping.IO.Calculation
 {
     /// <summary>
     /// This class contains general mathematical routines for 2D lines.

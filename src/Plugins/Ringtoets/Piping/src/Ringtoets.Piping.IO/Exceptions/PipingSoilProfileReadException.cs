@@ -1,7 +1,8 @@
 ﻿using System;
-using Wti.Data;
 
-namespace Wti.IO.Exceptions
+using Ringtoets.Piping.Data;
+
+namespace Ringtoets.Piping.IO.Exceptions
 {
     /// <summary>
     /// Exception thrown when something went wrong while reading <see cref="PipingSoilProfile"/> in <see cref="PipingSoilProfileReader"/>.

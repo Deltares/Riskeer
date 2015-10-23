@@ -2,10 +2,9 @@
 
 using log4net;
 
+using Ringtoets.Piping.Calculation.Piping;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service.Properties;
-
-using Wti.Calculation.Piping;
-using Wti.Data;
 
 namespace Ringtoets.Piping.Service
 {

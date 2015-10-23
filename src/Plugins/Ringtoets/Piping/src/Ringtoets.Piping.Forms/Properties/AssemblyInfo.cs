@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Wti.Forms")]
-[assembly: AssemblyProduct("Wti.Forms")]
+[assembly: AssemblyTitle("Ringtoets.Piping.Forms")]
+[assembly: AssemblyProduct("Ringtoets.Piping.Forms")]
 [assembly: Guid("97bf528a-7e74-41c1-a382-43fd5c521bfa")]
-[assembly: InternalsVisibleTo("Wti.Forms.Test")]
+[assembly: InternalsVisibleTo("Ringtoets.Piping.Forms.Test")]

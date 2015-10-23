@@ -5,11 +5,13 @@ using DelftTools.Controls;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Wti.Data;
-using Wti.Forms.NodePresenters;
-using Wti.Forms.PresentationObjects;
 
-namespace Wti.Forms.Test.NodePresenters
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.Forms.NodePresenters;
+using Ringtoets.Piping.Forms.PresentationObjects;
+
+namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     public class PipingFailureMechanismNodePresenterTest
     {

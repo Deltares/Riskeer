@@ -1,4 +1,4 @@
-﻿namespace Wti.Calculation.Piping
+﻿namespace Ringtoets.Piping.Calculation.Piping
 {
     /// <summary>
     /// This class contains all the results of a complete piping calculation.

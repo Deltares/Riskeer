@@ -7,11 +7,12 @@ using DelftTools.Shell.Core;
 
 using log4net;
 
-using Wti.Data;
-using Wti.IO;
-using Wti.IO.Exceptions;
+using Ringtoets.Piping.Data;
 
-using WtiFormsResources = Wti.Forms.Properties.Resources;
+using Ringtoets.Piping.IO;
+using Ringtoets.Piping.IO.Exceptions;
+
+using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter

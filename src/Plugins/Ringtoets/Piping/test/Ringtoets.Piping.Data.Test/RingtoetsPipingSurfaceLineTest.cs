@@ -3,7 +3,9 @@ using System.Linq;
 
 using NUnit.Framework;
 
-namespace Wti.Data.Test
+using Ringtoets.Piping.Data;
+
+namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
     public class RingtoetsPipingSurfaceLineTest

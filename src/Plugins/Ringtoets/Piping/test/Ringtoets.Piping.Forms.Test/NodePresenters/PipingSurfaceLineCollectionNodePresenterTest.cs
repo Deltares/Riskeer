@@ -7,12 +7,14 @@ using DelftTools.Controls;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Wti.Data;
-using Wti.Forms.NodePresenters;
 
-using WtiFormsResources = Wti.Forms.Properties.Resources;
+using Ringtoets.Piping.Data;
 
-namespace Wti.Forms.Test.NodePresenters
+using Ringtoets.Piping.Forms.NodePresenters;
+
+using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+
+namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
     public class PipingSurfaceLineCollectionNodePresenterTest

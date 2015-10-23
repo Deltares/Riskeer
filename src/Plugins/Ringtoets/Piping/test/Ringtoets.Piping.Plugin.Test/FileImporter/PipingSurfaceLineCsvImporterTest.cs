@@ -10,12 +10,11 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 
-using Wti.Data;
-
-using WtiFormsResources = Wti.Forms.Properties.Resources;
-using WtiIOResources = Wti.IO.Properties.Resources;
+using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using WtiIOResources = Ringtoets.Piping.IO.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.FileImporter

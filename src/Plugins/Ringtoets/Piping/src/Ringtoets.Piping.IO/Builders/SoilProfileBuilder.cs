@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Wti.Data;
-using Wti.IO.Properties;
 
-namespace Wti.IO.Builders
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.IO.Properties;
+
+namespace Ringtoets.Piping.IO.Builders
 {
     /// <summary>
     /// Constructs a 1d Soil Profile based on definitions of <see cref="SoilLayer2D"/>.

@@ -5,11 +5,13 @@ using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Wti.Data;
-using Wti.Forms.NodePresenters;
-using WtiFormsResources = Wti.Forms.Properties.Resources;
 
-namespace Wti.Forms.Test.NodePresenters
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.Forms.NodePresenters;
+using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+
+namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
     public class WtiProjectNodePresenterTest

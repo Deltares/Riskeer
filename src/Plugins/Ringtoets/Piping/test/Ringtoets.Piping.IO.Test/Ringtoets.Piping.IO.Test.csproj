@@ -7,8 +7,8 @@
     <ProjectGuid>{E4B0E068-F1A3-47BA-965F-0EC1E78E530A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wti.IO.Test</RootNamespace>
-    <AssemblyName>Wti.IO.Test</AssemblyName>
+    <RootNamespace>Ringtoets.Piping.IO.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.IO.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -56,21 +56,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Wti.Data.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Wti.Data</Name>
+      <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\..\test\Common\DelftTools.TestUtils\DelftTools.TestUtils.csproj">
       <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
       <Name>DelftTools.TestUtils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.IO\Wti.IO.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.IO\Ringtoets.Piping.IO.csproj">
       <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
-      <Name>Wti.IO</Name>
+      <Name>Ringtoets.Piping.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Data.TestUtil\Wti.Data.TestUtil.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
-      <Name>Wti.Data.TestUtil</Name>
+      <Name>Ringtoets.Piping.Data.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

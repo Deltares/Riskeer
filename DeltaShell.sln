@@ -10,19 +10,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E9AB82
 		{B4F97281-0DBD-4835-9ED8-7DFB966E87FF} = {B4F97281-0DBD-4835-9ED8-7DFB966E87FF}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{29A2E166-071C-4838-A376-3563449FF941}"
-	ProjectSection(FolderStartupServices) = postProject
-		{B4F97281-0DBD-4835-9ED8-7DFB966E87FF} = {B4F97281-0DBD-4835-9ED8-7DFB966E87FF}
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DeltaShell", "DeltaShell", "{56884934-D362-4799-BDBE-A6F781D4CD2E}"
 	ProjectSection(FolderStartupServices) = postProject
 		{B4F97281-0DBD-4835-9ED8-7DFB966E87FF} = {B4F97281-0DBD-4835-9ED8-7DFB966E87FF}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{EFC4807B-3CF8-4A8F-BDE5-F9B9BD9E4F24}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{2975843E-D6D2-42DE-8B41-548D73D7B206}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9C0E0D92-93E4-426C-92AD-556D9C3241FF}"
 EndProject
@@ -122,29 +115,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeltaShell.Plugins.SharpMap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMap.Api", "src\Common\SharpMap.Api\SharpMap.Api.csproj", "{A3C9DF74-978A-44B1-B55D-A72AC4221E3A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wti", "Wti", "{C9DA93BC-1034-4D15-AD4E-773E3F560179}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Data", "src\Plugins\Ringtoets\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj", "{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Data", "src\Plugins\Ringtoets\Piping\src\Ringtoets.Piping.Data\Wti.Data.csproj", "{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.IO", "src\Plugins\Ringtoets\Piping\src\Ringtoets.Piping.IO\Ringtoets.Piping.IO.csproj", "{35B87B7A-7F50-4139-B563-589EE522B1ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.IO", "src\Plugins\Ringtoets\Piping\src\Ringtoets.Piping.IO\Wti.IO.csproj", "{35B87B7A-7F50-4139-B563-589EE522B1ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Forms", "src\Plugins\Ringtoets\Piping\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj", "{7CD038E1-E111-4969-ACED-22C5BD2974E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Forms", "src\Plugins\Ringtoets\Piping\src\Ringtoets.Piping.Forms\Wti.Forms.csproj", "{7CD038E1-E111-4969-ACED-22C5BD2974E1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Calculation", "src\Plugins\Ringtoets\Piping\src\Ringtoets.Piping.Calculation\Wti.Calculation.csproj", "{D64E4F0E-E341-496F-82B2-941AD202B4E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Calculation", "src\Plugins\Ringtoets\Piping\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj", "{D64E4F0E-E341-496F-82B2-941AD202B4E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Plugin", "src\Plugins\Ringtoets\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj", "{1D3D58B6-EF7E-401E-92A0-104067D222EE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wti", "Wti", "{BC862348-6B4E-49EA-9099-2E5BE6DC183A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Calculation.Test", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.Calculation.Test\Ringtoets.Piping.Calculation.Test.csproj", "{91389DA2-3FF4-4559-90B3-4061549789DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Calculation.Test", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.Calculation.Test\Wti.Calculation.Test.csproj", "{91389DA2-3FF4-4559-90B3-4061549789DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Forms.Test", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.Forms.Test\Ringtoets.Piping.Forms.Test.csproj", "{622A8282-D872-4DD5-8B70-578A403F74FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Forms.Test", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.Forms.Test\Wti.Forms.Test.csproj", "{622A8282-D872-4DD5-8B70-578A403F74FF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.IO.Test", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.IO.Test\Wti.IO.Test.csproj", "{E4B0E068-F1A3-47BA-965F-0EC1E78E530A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.IO.Test", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.IO.Test\Ringtoets.Piping.IO.Test.csproj", "{E4B0E068-F1A3-47BA-965F-0EC1E78E530A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Plugin.Test", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.Plugin.Test\Ringtoets.Piping.Plugin.Test.csproj", "{9A5C8069-520E-49D3-AA62-E8FB19614A27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Data.Test", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.Data.Test\Wti.Data.Test.csproj", "{19EB1C52-D90B-40F2-A7AF-364CC5D89F68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Data.Test", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.Data.Test\Ringtoets.Piping.Data.Test.csproj", "{19EB1C52-D90B-40F2-A7AF-364CC5D89F68}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "installer", "installer", "{C4E268AD-A25B-4F47-8F92-E5137FDF7CC7}"
 EndProject
@@ -160,9 +149,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UML", "src\documentation\UM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Base", "src\Common\Wti.Base\Wti.Base.csproj", "{C90B77DA-E421-43CC-B82E-529651BC21AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Calculation.TestUtil", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.Calculation.TestUtil\Wti.Calculation.TestUtil.csproj", "{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Calculation.TestUtil", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.Calculation.TestUtil\Ringtoets.Piping.Calculation.TestUtil.csproj", "{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wti.Data.TestUtil", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.Data.TestUtil\Wti.Data.TestUtil.csproj", "{955E574D-67CE-4347-AA6B-7DF8A04ED754}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Data.TestUtil", "src\Plugins\Ringtoets\Piping\test\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj", "{955E574D-67CE-4347-AA6B-7DF8A04ED754}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ringtoets", "Ringtoets", "{5A029776-37C6-4622-A4E9-9DB9E8E935AB}"
 EndProject
@@ -475,7 +464,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E9AB82FF-E943-42BD-895B-1617B073982D} = {BABF6FD6-CAC9-4D9D-ACD7-4F8593F4A6B5}
-		{29A2E166-071C-4838-A376-3563449FF941} = {BABF6FD6-CAC9-4D9D-ACD7-4F8593F4A6B5}
 		{56884934-D362-4799-BDBE-A6F781D4CD2E} = {BABF6FD6-CAC9-4D9D-ACD7-4F8593F4A6B5}
 		{5A029776-37C6-4622-A4E9-9DB9E8E935AB} = {BABF6FD6-CAC9-4D9D-ACD7-4F8593F4A6B5}
 		{30E4C2AE-719E-4D70-9FA9-668A9767FBFA} = {E9AB82FF-E943-42BD-895B-1617B073982D}
@@ -493,7 +481,6 @@ Global
 		{82B61D20-FD4B-49BE-9252-5BF6E3EE4666} = {E9AB82FF-E943-42BD-895B-1617B073982D}
 		{A3C9DF74-978A-44B1-B55D-A72AC4221E3A} = {E9AB82FF-E943-42BD-895B-1617B073982D}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {E9AB82FF-E943-42BD-895B-1617B073982D}
-		{C9DA93BC-1034-4D15-AD4E-773E3F560179} = {29A2E166-071C-4838-A376-3563449FF941}
 		{4A7D6720-4AA1-4F0B-A796-A0436DB3D7D7} = {56884934-D362-4799-BDBE-A6F781D4CD2E}
 		{3BBFD65B-B277-4E50-AE6D-BD24C3434609} = {56884934-D362-4799-BDBE-A6F781D4CD2E}
 		{BEFDCC44-2638-4972-B353-42D14C7DA2C6} = {56884934-D362-4799-BDBE-A6F781D4CD2E}
@@ -501,10 +488,8 @@ Global
 		{696DAAEE-D1D8-42D0-86AC-471B970FB17E} = {56884934-D362-4799-BDBE-A6F781D4CD2E}
 		{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6} = {56884934-D362-4799-BDBE-A6F781D4CD2E}
 		{0BC3751E-EC42-40A0-A7D3-B7C2AA66976E} = {56884934-D362-4799-BDBE-A6F781D4CD2E}
-		{2975843E-D6D2-42DE-8B41-548D73D7B206} = {EFC4807B-3CF8-4A8F-BDE5-F9B9BD9E4F24}
 		{9C0E0D92-93E4-426C-92AD-556D9C3241FF} = {EFC4807B-3CF8-4A8F-BDE5-F9B9BD9E4F24}
 		{A300D2BD-2E91-4EA7-A421-646EE7B5118B} = {EFC4807B-3CF8-4A8F-BDE5-F9B9BD9E4F24}
-		{BC862348-6B4E-49EA-9099-2E5BE6DC183A} = {2975843E-D6D2-42DE-8B41-548D73D7B206}
 		{FAFDB463-9612-41F4-B3DD-FF9C6E7023BA} = {9C0E0D92-93E4-426C-92AD-556D9C3241FF}
 		{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1} = {9C0E0D92-93E4-426C-92AD-556D9C3241FF}
 		{B750C8AF-F947-4F90-97FC-3211D1D7336A} = {9C0E0D92-93E4-426C-92AD-556D9C3241FF}

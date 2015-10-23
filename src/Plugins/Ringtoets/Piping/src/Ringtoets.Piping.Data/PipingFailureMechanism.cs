@@ -4,7 +4,7 @@ using System.Linq;
 
 using DelftTools.Shell.Core;
 
-namespace Wti.Data
+namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Model for performing piping calculations.

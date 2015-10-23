@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Wti.Data.TestUtil
+using Ringtoets.Piping.Data;
+
+namespace Ringtoets.Piping.Data.TestUtil
 {
     public class PointCollectionHelper
     {

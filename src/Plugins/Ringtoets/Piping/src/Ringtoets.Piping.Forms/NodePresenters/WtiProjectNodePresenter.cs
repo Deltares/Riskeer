@@ -5,10 +5,12 @@ using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
-using Wti.Data;
-using Wti.Forms.Properties;
 
-namespace Wti.Forms.NodePresenters
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.Forms.Properties;
+
+namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
     /// Node presenter for <see cref="WtiProject"/> items in the tree view.

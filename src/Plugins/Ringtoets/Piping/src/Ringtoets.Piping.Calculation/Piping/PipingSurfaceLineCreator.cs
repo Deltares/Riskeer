@@ -2,9 +2,9 @@ using System.Linq;
 
 using Deltares.WTIPiping;
 
-using Wti.Data;
+using Ringtoets.Piping.Data;
 
-namespace Wti.Calculation.Piping
+namespace Ringtoets.Piping.Calculation.Piping
 {
     /// <summary>
     /// Creates <see cref="Deltares.WTIPiping.PipingSurfaceLine"/> instances which are required by the <see cref="PipingCalculation"/>.

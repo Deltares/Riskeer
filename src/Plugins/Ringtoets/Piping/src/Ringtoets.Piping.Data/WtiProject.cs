@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+
 using DelftTools.Shell.Core;
 using DelftTools.Utils;
 
-namespace Wti.Data
+namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Container for all the data that has been imported and calculated by the user when performing an assessment.

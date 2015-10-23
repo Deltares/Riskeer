@@ -103,25 +103,25 @@
       <Name>Wti.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Calculation\Wti.Calculation.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
-      <Name>Wti.Calculation</Name>
+      <Name>Ringtoets.Piping.Calculation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Forms\Wti.Forms.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
-      <Name>Wti.Forms</Name>
+      <Name>Ringtoets.Piping.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.IO\Wti.IO.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.IO\Ringtoets.Piping.IO.csproj">
       <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
-      <Name>Wti.IO</Name>
+      <Name>Ringtoets.Piping.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
       <Name>Ringtoets.Piping.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Piping.Data\Wti.Data.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Wti.Data</Name>
+      <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

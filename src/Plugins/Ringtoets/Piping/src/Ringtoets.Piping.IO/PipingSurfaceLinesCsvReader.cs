@@ -4,11 +4,12 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-using Wti.Data;
-using Wti.IO.Exceptions;
-using Wti.IO.Properties;
+using Ringtoets.Piping.Data;
 
-namespace Wti.IO
+using Ringtoets.Piping.IO.Exceptions;
+using Ringtoets.Piping.IO.Properties;
+
+namespace Ringtoets.Piping.IO
 {
     /// <summary>
     /// File reader for a plain text file in comma-separated values format (*.csv), containing

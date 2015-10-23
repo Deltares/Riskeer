@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Wti.Forms.Test")]
+[assembly: AssemblyTitle("Ringtoets.Piping.Forms.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Wti.Forms.Test")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
+[assembly: AssemblyCompany("Deltares")]
+[assembly: AssemblyProduct("Ringtoets.Piping.Forms.Test")]
+[assembly: AssemblyCopyright("Copyright © Deltares 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

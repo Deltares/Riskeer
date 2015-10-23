@@ -6,11 +6,11 @@ using DelftTools.TestUtils;
 
 using NUnit.Framework;
 
-using Wti.IO.Exceptions;
+using Ringtoets.Piping.IO.Exceptions;
 
-using IOResources = Wti.IO.Properties.Resources;
+using IOResources = Ringtoets.Piping.IO.Properties.Resources;
 
-namespace Wti.IO.Test
+namespace Ringtoets.Piping.IO.Test
 {
     [TestFixture]
     public class PipingSurfaceLinesCsvReaderTest

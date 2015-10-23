@@ -1,7 +1,9 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace Wti.Data.Test
+using Ringtoets.Piping.Data;
+
+namespace Ringtoets.Piping.Data.Test
 {
     public class PipingOutputTest
     {

@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Wti.Calculation.Piping;
-using Wti.Calculation.TestUtil;
 
-namespace Wti.Calculation.Test.Piping
+using Ringtoets.Piping.Calculation.Piping;
+
+using Ringtoets.Piping.Calculation.TestUtil;
+
+namespace Ringtoets.Piping.Calculation.Test.Piping
 {
     public class PipingCalculationTest
     {

@@ -6,15 +6,18 @@ using DelftTools.TestUtils;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Wti.Calculation.Test.Piping.Stub;
-using Wti.Calculation.TestUtil;
-using Wti.Data;
-using Wti.Forms.NodePresenters;
-using Wti.Forms.PresentationObjects;
 
-using WtiFormsResources = Wti.Forms.Properties.Resources;
+using Ringtoets.Piping.Data;
 
-namespace Wti.Forms.Test.NodePresenters
+using Ringtoets.Piping.Calculation.Test.Piping.Stub;
+using Ringtoets.Piping.Calculation.TestUtil;
+using Ringtoets.Piping.Forms;
+using Ringtoets.Piping.Forms.NodePresenters;
+using Ringtoets.Piping.Forms.PresentationObjects;
+
+using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+
+namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
     public class PipingCalculationInputsNodePresenterTest

@@ -4,10 +4,11 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
-using Wti.Data;
-using Wti.Forms.NodePresenters;
+using Ringtoets.Piping.Data;
 
-namespace Wti.Forms.Test.NodePresenters
+using Ringtoets.Piping.Forms.NodePresenters;
+
+namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
     public class PipingSurfaceLineNodePresenterTest

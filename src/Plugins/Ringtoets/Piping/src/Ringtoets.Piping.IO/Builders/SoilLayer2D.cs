@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Wti.Data;
-using Wti.IO.Calculation;
-using Wti.IO.Properties;
 
-namespace Wti.IO.Builders
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.IO.Calculation;
+using Ringtoets.Piping.IO.Properties;
+
+namespace Ringtoets.Piping.IO.Builders
 {
     /// <summary>
     /// This class represents objects which were imported from a DSoilModel database. This class 

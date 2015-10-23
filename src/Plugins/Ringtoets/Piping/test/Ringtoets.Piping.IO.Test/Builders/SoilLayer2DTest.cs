@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Wti.Data;
-using Wti.Data.TestUtil;
-using Wti.IO.Builders;
-using Wti.IO.Properties;
 
-namespace Wti.IO.Test.Builders
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.Data.TestUtil;
+using Ringtoets.Piping.IO.Builders;
+using Ringtoets.Piping.IO.Properties;
+
+namespace Ringtoets.Piping.IO.Test.Builders
 {
     public class SoilLayer2DTest
     {

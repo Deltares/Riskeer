@@ -1,7 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using Wti.Data;
 
-namespace Wti.Calculation.Test.Piping.Stub
+using Ringtoets.Piping.Data;
+
+namespace Ringtoets.Piping.Calculation.Test.Piping.Stub
 {
     public class TestPipingSoilProfile : PipingSoilProfile
     {

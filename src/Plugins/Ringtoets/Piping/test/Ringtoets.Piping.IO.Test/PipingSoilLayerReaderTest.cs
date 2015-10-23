@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 using NUnit.Framework;
-using Wti.Data;
 
-namespace Wti.IO.Test
+using Ringtoets.Piping.Data;
+
+namespace Ringtoets.Piping.IO.Test
 {
     public class PipingSoilLayerReaderTest
     {

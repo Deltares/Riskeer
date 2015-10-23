@@ -1,9 +1,11 @@
 using System;
 using System.Windows.Forms;
-using Wti.Data;
-using Wti.Forms.Properties;
 
-namespace Wti.Forms.NodePresenters
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.Forms.Properties;
+
+namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
     /// Class for creating a <seealso cref="ContextMenuStrip"/> for a <see cref="PipingCalculationInputsNodePresenter"/>.

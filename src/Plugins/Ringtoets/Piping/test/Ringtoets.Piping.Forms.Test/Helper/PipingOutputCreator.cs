@@ -1,7 +1,8 @@
 ﻿using System;
-using Wti.Data;
 
-namespace Wti.Forms.Test.Helper
+using Ringtoets.Piping.Data;
+
+namespace Ringtoets.Piping.Forms.Test.Helper
 {
     /// <summary>
     /// Helper class to create simple <see cref="PipingOutput"/>.

@@ -1,7 +1,8 @@
 ﻿using System;
-using Wti.Data;
 
-namespace Wti.IO.Builders
+using Ringtoets.Piping.Data;
+
+namespace Ringtoets.Piping.IO.Builders
 {
     /// <summary>
     /// Exception thrown when something went wrong while converting <see cref="SoilLayer2D"/> to <see cref="PipingSoilProfile"/>.

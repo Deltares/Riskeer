@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Wti.Calculation.Piping
+namespace Ringtoets.Piping.Calculation.Piping
 {
     /// <summary>
     /// Exception thrown when something went wrong in the <see cref="PipingCalculation"/>

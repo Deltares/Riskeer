@@ -7,10 +7,11 @@ using System.Windows.Forms.Design;
 using DelftTools.Utils.PropertyBag.Dynamic;
 using DelftTools.Utils.Reflection;
 
-using Wti.Data;
-using Wti.Forms.PropertyClasses;
+using Ringtoets.Piping.Data;
 
-namespace Wti.Forms.UITypeEditors
+using Ringtoets.Piping.Forms.PropertyClasses;
+
+namespace Ringtoets.Piping.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a

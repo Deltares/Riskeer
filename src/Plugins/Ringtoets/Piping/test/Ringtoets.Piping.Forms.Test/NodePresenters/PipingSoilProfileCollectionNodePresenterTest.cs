@@ -7,12 +7,14 @@ using DelftTools.Controls;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Wti.Calculation.Test.Piping.Stub;
-using Wti.Data;
-using Wti.Forms.NodePresenters;
-using WtiFormsResources = Wti.Forms.Properties.Resources;
 
-namespace Wti.Forms.Test.NodePresenters
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.Calculation.Test.Piping.Stub;
+using Ringtoets.Piping.Forms.NodePresenters;
+using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+
+namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
     public class PipingSoilProfileCollectionNodePresenterTest

@@ -2,7 +2,9 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Wti.Data.Test
+using Ringtoets.Piping.Data;
+
+namespace Ringtoets.Piping.Data.Test
 {
     public class PipingDataTest
     {

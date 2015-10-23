@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Wti.Data.Properties;
 
-namespace Wti.Data
+using Ringtoets.Piping.Data.Properties;
+
+namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// This class represents a soil profile, which was imported for use in a piping calculation.
@@ -14,7 +14,7 @@ namespace Wti.Data
         private IEnumerable<PipingSoilLayer> layers;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingSoilProfile"/>, with the given <paramref name="name"/>, <paramref name="bottom"/> and <paramref name="layers"/>.
+        /// Creates a new instance ofL <see cref="PipingSoilProfile"/>, with the given <paramref name="name"/>, <paramref name="bottom"/> and <paramref name="layers"/>.
         /// A new collection is created for <paramref name="layers"/> and used in the <see cref="PipingSoilProfile"/>.
         /// </summary>
         /// <param name="name">The name of the profile.</param>

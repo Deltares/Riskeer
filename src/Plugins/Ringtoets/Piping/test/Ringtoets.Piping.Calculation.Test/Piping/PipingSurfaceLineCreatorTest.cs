@@ -2,10 +2,11 @@
 
 using Deltares.WTIPiping;
 using NUnit.Framework;
-using Wti.Calculation.Piping;
-using Wti.Data;
 
-namespace Wti.Calculation.Test.Piping
+using Ringtoets.Piping.Calculation.Piping;
+using Ringtoets.Piping.Data;
+
+namespace Ringtoets.Piping.Calculation.Test.Piping
 {
     public class PipingSurfaceLineCreatorTest
     {

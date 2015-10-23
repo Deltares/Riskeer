@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Xml;
-using Wti.Data;
-using Wti.IO.Builders;
 
-namespace Wti.IO
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.IO.Builders;
+
+namespace Ringtoets.Piping.IO
 {
     /// <summary>
     /// This class is responsible for reading an array of bytes and interpret this as a XML document, which contains information about

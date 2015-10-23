@@ -1,4 +1,4 @@
-﻿namespace Wti.Data
+﻿namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Simple class containing the results of a Piping calculation.

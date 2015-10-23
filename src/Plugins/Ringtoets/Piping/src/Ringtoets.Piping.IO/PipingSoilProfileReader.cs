@@ -5,12 +5,14 @@ using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using System.Xml;
-using Wti.Data;
-using Wti.IO.Builders;
-using Wti.IO.Exceptions;
-using Wti.IO.Properties;
 
-namespace Wti.IO
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.IO.Builders;
+using Ringtoets.Piping.IO.Exceptions;
+using Ringtoets.Piping.IO.Properties;
+
+namespace Ringtoets.Piping.IO
 {
     /// <summary>
     /// This class reads a SqLite database file and constructs <see cref="PipingSoilProfile"/> from this database.

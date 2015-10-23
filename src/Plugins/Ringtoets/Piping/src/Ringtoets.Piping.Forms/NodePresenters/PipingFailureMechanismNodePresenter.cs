@@ -4,11 +4,13 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Utils.Collections;
-using Wti.Data;
-using Wti.Forms.PresentationObjects;
-using Wti.Forms.Properties;
 
-namespace Wti.Forms.NodePresenters
+using Ringtoets.Piping.Data;
+
+using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Forms.Properties;
+
+namespace Ringtoets.Piping.Forms.NodePresenters
 {
     public class PipingFailureMechanismNodePresenter : ITreeNodePresenter
     {

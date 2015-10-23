@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using Wti.IO.Calculation;
+using Ringtoets.Piping.IO.Calculation;
 
-namespace Wti.IO.Test.Calculation
+namespace Ringtoets.Piping.IO.Test.Calculation
 {
     public class Math2DTest
     {

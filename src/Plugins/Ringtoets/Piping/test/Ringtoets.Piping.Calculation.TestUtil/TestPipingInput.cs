@@ -1,9 +1,9 @@
 using System;
 
-using Wti.Calculation.Piping;
-using Wti.Data;
+using Ringtoets.Piping.Calculation.Piping;
+using Ringtoets.Piping.Data;
 
-namespace Wti.Calculation.TestUtil
+namespace Ringtoets.Piping.Calculation.TestUtil
 {
     public class TestPipingInput
     {

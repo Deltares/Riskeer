@@ -1,6 +1,6 @@
-﻿using Wti.Data;
+﻿using Ringtoets.Piping.Data;
 
-namespace Wti.Calculation.Test.Piping.Stub
+namespace Ringtoets.Piping.Calculation.Test.Piping.Stub
 {
     public class TestPipingOutput : PipingOutput
     {

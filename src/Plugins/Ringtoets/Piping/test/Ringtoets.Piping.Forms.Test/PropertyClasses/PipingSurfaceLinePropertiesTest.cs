@@ -2,10 +2,11 @@
 
 using NUnit.Framework;
 
-using Wti.Data;
-using Wti.Forms.PropertyClasses;
+using Ringtoets.Piping.Data;
 
-namespace Wti.Forms.Test.PropertyClasses
+using Ringtoets.Piping.Forms.PropertyClasses;
+
+namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class PipingSurfaceLinePropertiesTest

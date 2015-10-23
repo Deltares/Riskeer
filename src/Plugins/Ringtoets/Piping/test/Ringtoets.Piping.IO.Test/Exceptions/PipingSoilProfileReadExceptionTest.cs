@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
-using Wti.IO.Exceptions;
+using Ringtoets.Piping.IO.Exceptions;
 
-namespace Wti.IO.Test.Exceptions
+namespace Ringtoets.Piping.IO.Test.Exceptions
 {
     public class PipingSoilProfileReadExceptionTest
     {

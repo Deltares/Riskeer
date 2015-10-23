@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+
 using Deltares.WTIPiping;
 
-using Wti.Calculation.Properties;
+using Ringtoets.Piping.Calculation.Properties;
 
-namespace Wti.Calculation.Piping
+namespace Ringtoets.Piping.Calculation.Piping
 {
     /// <summary>
     /// This class represents a combination of piping sub-calculations, which together can be used

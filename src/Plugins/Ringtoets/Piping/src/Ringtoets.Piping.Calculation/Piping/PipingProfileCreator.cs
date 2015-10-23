@@ -1,6 +1,6 @@
 ﻿using Deltares.WTIPiping;
 
-namespace Wti.Calculation.Piping
+namespace Ringtoets.Piping.Calculation.Piping
 {
     /// <summary>
     /// Creates <see cref="PipingProfile"/> instances which are required by the <see cref="PipingCalculation"/>.

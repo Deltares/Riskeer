@@ -4,9 +4,9 @@ using System.Drawing;
 
 using DelftTools.Shell.Core;
 
-using Wti.Data;
+using Ringtoets.Piping.Data;
 
-using WtiFormsResources = Wti.Forms.Properties.Resources;
+using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter

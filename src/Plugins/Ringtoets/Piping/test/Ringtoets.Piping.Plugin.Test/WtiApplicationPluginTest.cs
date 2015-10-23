@@ -4,15 +4,14 @@ using DelftTools.Shell.Core;
 using Mono.Addins;
 using NUnit.Framework;
 
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.Piping.Plugin.FileImporter;
 
-using Wti.Data;
-
 using PluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
-using FormsResources = Wti.Forms.Properties.Resources;
+using FormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
-using WtiFormsResources = Wti.Forms.Properties.Resources;
+using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Wti.Plugin.Test
 {
