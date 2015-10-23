@@ -510,9 +510,7 @@ namespace DelftTools.TestUtils
 
         private static void CreateChart(List<TestRunInfo> testInfos, string filePath)
         {
-            var templateFilePath = GetSolutionRoot() + Path.DirectorySeparatorChar + "build" + Path.DirectorySeparatorChar + "tools" + Path.DirectorySeparatorChar + "flot" + Path.DirectorySeparatorChar + "chart.template.html";
-
-            var content = File.ReadAllText(templateFilePath);
+            var content = File.ReadAllText(TestDataDirectory + "/Common/DelftTools.TestUtils/chart.template.html");
 
             var seriesPassed = "";
             var seriesFailed = "";
