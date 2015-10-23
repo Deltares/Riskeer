@@ -87,6 +87,7 @@
     </Compile>
     <Compile Include="DeltaShellApplication.cs" />
     <Compile Include="DeltaShellApplicationSettings.cs" />
+    <Compile Include="DeltaShellUserDataFolderConverter.cs" />
     <Compile Include="ForceLocalAddinFileSystemExtension.cs" />
     <Compile Include="MonoAddinsConsoleLogger.cs" />
     <Compile Include="PluginManager.cs" />
