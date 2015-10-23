@@ -4,70 +4,85 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{91389DA2-3FF4-4559-90B3-4061549789DD}</ProjectGuid>
+    <ProjectGuid>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wti.Calculation.Test</RootNamespace>
-    <AssemblyName>Wti.Calculation.Test</AssemblyName>
+    <RootNamespace>Wti.Calculation</RootNamespace>
+    <AssemblyName>Wti.Calculation</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-	<WarningLevel>4</WarningLevel>
+    <WarningLevel>4</WarningLevel>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\Wti.Calculation.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\Release\</OutputPath>
-	<WarningLevel>4</WarningLevel>
+    <WarningLevel>4</WarningLevel>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Release\Wti.Calculation.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Deltares.WTIPiping, Version=15.1.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.WTIPiping.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\..\..\lib\nunit.framework.dll</HintPath>
+    <Reference Include="Deltares.WTIPiping">
+      <HintPath>..\..\..\..\..\..\lib\Plugins\Wti\Deltares.WTIPiping.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Piping\PipingCalculationExceptionTest.cs" />
-    <Compile Include="Piping\PipingCalculationInputTest.cs" />
-    <Compile Include="Piping\PipingCalculationResultTest.cs" />
-    <Compile Include="Piping\PipingCalculationTest.cs" />
-    <Compile Include="Piping\PipingProfileCreatorTest.cs" />
-    <Compile Include="Piping\PipingSurfaceLineCreatorTest.cs" />
+    <Compile Include="..\..\..\..\..\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
+    <Compile Include="Piping\PipingCalculation.cs" />
+    <Compile Include="Piping\PipingCalculationException.cs" />
+    <Compile Include="Piping\PipingCalculationInput.cs" />
+    <Compile Include="Piping\PipingCalculationResult.cs" />
+    <Compile Include="Piping\PipingProfileCreator.cs" />
+    <Compile Include="Piping\PipingSurfaceLineCreator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Calculation\Wti.Calculation.csproj">
-      <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
-      <Name>Wti.Calculation</Name>
+    <ProjectReference Include="..\..\..\..\..\Common\Wti.Base\Wti.Base.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Wti.Base</Name>
+      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Data\Wti.Data.csproj">
+    <ProjectReference Include="..\..\..\..\Wti\Wti.Data\Wti.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Wti.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wti.Calculation.TestUtil\Wti.Calculation.TestUtil.csproj">
-      <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
-      <Name>Wti.Calculation.TestUtil</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\..\..\..\build\DeltaShell.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
