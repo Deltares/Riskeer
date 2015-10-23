@@ -1,0 +1,22 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <Framework>$(WINDIR)\Microsoft.NET\Framework\v4.0.30319</Framework>
+    <BuildPath>$(MSBuildProjectDirectory)\..</BuildPath>
+    <SolutionDir>$(MSBuildProjectDirectory)\..</SolutionDir> 
+    <DoxygenOutputDirectory>$(BuildPath)\target\Technical_documentation\</DoxygenOutputDirectory>
+    <ProgramVersion>1.0.0</ProgramVersion>
+  </PropertyGroup>
+
+  <Target Name="Doxygen" DependsOnTargets="Release">
+    <RemoveDir Directories="$(DoxygenOutputDirectory)"/>
+    <MakeDir Directories="$(DoxygenOutputDirectory)" />
+    <Exec Command="Technical_documentation\Doxygen\bin\doxygen.exe Technical_documentation\DeltaShell.doxygen" />
+  </Target>
+
+  <Target Name="Release">
+    <RemoveDir Directories="$(BuildPath)\target"/>
+    <MSBuild Projects="..\DeltaShell.sln" Targets="Build" Properties="Configuration=Release;SolutionDir=$(SolutionDir);StartUsingCommandLine=$(StartUsingCommandLine)" />
+  </Target>
+
+</Project>
