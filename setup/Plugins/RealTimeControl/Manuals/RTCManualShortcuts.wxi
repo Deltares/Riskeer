@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-
-  <Shortcut Id="RTCTools_Reference_Manual_Shortcut" Name="!(loc.RTCReferenceManualName)" Target="[BINDIR]RTC-Tools_Technical_Reference_Manual.pdf" WorkingDirectory="BINDIR"/>
-  <Shortcut Id="DRTC_User_Manual_Shortcut" Name="!(loc.RTCUserManualName)" Target="[BINDIR]D-RTC_User_Manual.pdf" WorkingDirectory="BINDIR"/>
-  
-</Include>

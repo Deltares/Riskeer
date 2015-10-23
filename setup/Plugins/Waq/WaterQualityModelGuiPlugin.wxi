@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <?define waqgui_plugin_bin="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.DelftModels.WaterQualityModel.Gui\"?>
-  <Directory Id='DeltaShell.Plugins.WaterQualityModel.Gui' Name='DeltaShell.Plugins.WaterQualityModel.Gui'>
-    <Component Id='WaterQualityModelGuiPlugin' Guid="24AA65FC-305F-486B-A38D-A7715EFCC5A6">
-      <File Id="DeltaShell.Plugins.DelftModels.WaterQualityModel.Gui.dll" Source='$(var.waqgui_plugin_bin)DeltaShell.Plugins.DelftModels.WaterQualityModel.Gui.dll' />
-    </Component>
-  </Directory>
-</Include>

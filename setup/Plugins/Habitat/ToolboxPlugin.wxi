@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <Directory Id='Toolbox' Name='DeltaShell.Plugins.Toolbox'>
-    <Component Id='ToolboxPlugin' Guid="$(var.PLUGIN_ID)">
-      <File Id="DeltaShell.Plugins.Habitat.Toolbox.dll" Name="DeltaShell.Plugins.Habitat.Toolbox.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat.Toolbox\DeltaShell.Plugins.Habitat.Toolbox.dll' />
-      <File Id="DeltaShell.Plugins.Habitat.Toolbox.dll.config" Name="DeltaShell.Plugins.Habitat.Toolbox.dll.config" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Habitat.Toolbox\DeltaShell.Plugins.Habitat.Toolbox.dll.config' />
-    </Component>
-  </Directory>
-</Include>

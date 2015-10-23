@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <Directory Id="NetCDF" Name="DeltaShell.Plugins.NetCDF">
-    <Component Id="NetCDFPlugin" Guid="3B265E62-812A-4362-AF5B-77CA4290D2CA">
-      <File Id="DeltaShell.Plugins.NetCDF.dll" Source="$(var.deltashell_gui_bin)plugins\DeltaShell.Plugins.NetCDF\DeltaShell.Plugins.NetCDF.dll" />
-    </Component>
-  </Directory>
-</Include>

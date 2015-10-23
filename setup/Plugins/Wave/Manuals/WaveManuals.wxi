@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <File Id="DWaves_User_Manual" Source="$(var.SolutionDir)\setup\Plugins\Wave\$(var.Delft3DPackageName)_Manuals\D-Waves_User_Manual.pdf"/>
-</Include>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-
-  <Shortcut Id="DWaves_User_Manual_Shortcut" Name="!(loc.WaveUserManualName)" Target="[BINDIR]D-Waves_User_Manual.pdf" WorkingDirectory="BINDIR"/>
-
-  <util:InternetShortcut Id="SWAN_Website_Shortcut" Name="!(loc.SWANDocumentationName)" Target="http://www.swan.tudelft.nl"/>
-
-</Include>

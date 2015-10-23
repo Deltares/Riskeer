@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <!-- OpenDA -->
-  <File Id="OpenDA_documentation" Source="$(var.SolutionDir)\setup\DeltaShell\OpenDA\Manuals\OpenDA_documentation.pdf"/>
-</Include>

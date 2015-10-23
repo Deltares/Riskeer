@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
-  <String Id="FewsAdapterFeatureName">FEWS Adapter</String>
-  <String Id="FewsAdapterFeatureDescription">Enables communication with FEWS</String>
-</WixLocalization>

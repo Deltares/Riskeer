@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <Feature Id="ToolboxDefaultScriptingDirectories" Description="Toolbox Files" Level="1"  Absent="disallow" AllowAdvertise="no"  Display="hidden">
-    <ComponentRef Id="ExamplesInit" />
-    <ComponentRef Id="LibrariesInit" />
-    <ComponentRef Id="ScriptsInit" />
-    <ComponentRef Id="SnippetsInit" />
-  </Feature>
-</Include>

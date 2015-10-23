@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
-  <String Id="RTCFeatureName">D-Real Time Control</String>
-  <String Id="RTCFeatureDescription">Allows to simulate Real-Time Control for models, such as D-Flow 1D.</String>
-  <String Id="RTCUserManualName">D-Real Time Control User Manual</String>
-  <String Id="RTCReferenceManualName">RTC-Tools Reference Manual</String>
-</WixLocalization>

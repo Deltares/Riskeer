@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <Directory Id='Hymos' Name='DeltaShell.Plugins.Hymos'>
-    <Component Id='HymosPlugin' Guid="$(var.PLUGIN_ID)">
-      <File Id="DeltaShell.Plugins.Hymos.dll"        Name="DeltaShell.Plugins.Hymos.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Hymos\DeltaShell.Plugins.Hymos.dll' />
-    </Component>
-  </Directory>
-</Include>

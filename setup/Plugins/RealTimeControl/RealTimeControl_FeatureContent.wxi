@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <!-- Wanted to add this to a separate feature with conditions, but couldn't manage to get it to work.-->
-  <ComponentRef Id="HydroModelPlugin"/>
-  <ComponentRef Id="RealTimeControlPluginDll"/>
-  <ComponentRef Id="RealTimeControlPluginXsd"/>
-  <ComponentRef Id="rtc_kernel"/>
-</Include>

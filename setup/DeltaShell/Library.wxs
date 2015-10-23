@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Fragment>
-		<!-- DeltaShell is not used as Fragment. DeltaShell contains includes to be used by other setups -->
-	</Fragment>
-</Wix>

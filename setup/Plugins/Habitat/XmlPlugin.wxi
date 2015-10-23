@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <Directory Id='Data.Xml' Name='DeltaShell.Plugins.Data.Xml'>
-    <Component Id='XmlPlugin' Guid="$(var.PLUGIN_ID)">
-      <File Id="DeltaShell.Plugins.Data.Xml.dll" Name="DeltaShell.Plugins.Data.Xml.dll" DiskId='1' Source='$(var.SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin\Plugins\DeltaShell.Plugins.Data.Xml\DeltaShell.Plugins.Data.Xml.dll' />      
-    </Component>
-  </Directory>
-</Include>

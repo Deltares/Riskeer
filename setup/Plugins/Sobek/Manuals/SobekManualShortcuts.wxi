@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Include>
-  <Shortcut Id="SOBEK_3_User_Manual_Shortcut" Name="!(loc.Flow1DUserManualName)" Target="[BINDIR]D-Flow1D_User_Manual.pdf" WorkingDirectory="BINDIR"/>
-  <Shortcut Id="DRainfallRunoff_User_Manual_Shortcut" Name="!(loc.RRUserManualName)" Target="[BINDIR]D-Rainfall_Runoff_User_Manual.pdf" WorkingDirectory="BINDIR"/>
-  <Shortcut Id="SOBEK_3_Technical_Reference_Manual_Shortcut" Name="!(loc.Flow1DReferenceManualName)" Target="[BINDIR]D-Flow1D_Technical_Reference_Manual.pdf" WorkingDirectory="BINDIR"/>
-  <Shortcut Id="DRainfall_Runoff_Technical_Reference_Manual_Shortcut" Name="!(loc.RRReferenceManualName)" Target="[BINDIR]D-Rainfall_Runoff_Technical_Reference_Manual.pdf" WorkingDirectory="BINDIR"/>
-</Include>
