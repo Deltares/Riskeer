@@ -65,7 +65,7 @@
       <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
       <Name>DelftTools.Shell.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Wti\Wti.Calculation\Wti.Calculation.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Calculation\Wti.Calculation.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
       <Name>Wti.Calculation</Name>
     </ProjectReference>
@@ -73,7 +73,7 @@
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
       <Name>Ringtoets.Piping.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Wti\Wti.Data\Wti.Data.csproj">
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Wti.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Wti.Data</Name>
     </ProjectReference>

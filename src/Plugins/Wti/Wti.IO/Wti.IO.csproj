@@ -77,7 +77,7 @@
       <Name>Wti.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Wti.Data\Wti.Data.csproj">
+    <ProjectReference Include="..\..\Ringtoets\Piping\src\Ringtoets.Piping.Data\Wti.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Wti.Data</Name>
     </ProjectReference>

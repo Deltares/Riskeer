@@ -40,7 +40,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\GlobalAssembly.cs">
+    <Compile Include="..\..\..\..\..\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="PipingData.cs" />
@@ -59,15 +59,15 @@
     <Compile Include="WtiProject.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
+    <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
       <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
       <Name>DelftTools.Shell.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\DelftTools.Utils\DelftTools.Utils.csproj">
+    <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Utils\DelftTools.Utils.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>DelftTools.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\Wti.Base\Wti.Base.csproj">
+    <ProjectReference Include="..\..\..\..\..\Common\Wti.Base\Wti.Base.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Wti.Base</Name>
       <Private>False</Private>
@@ -80,7 +80,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\..\build\DeltaShell.targets" />
+  <Import Project="..\..\..\..\..\..\build\DeltaShell.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>

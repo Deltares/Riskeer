@@ -103,7 +103,7 @@
       <Name>Wti.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Wti\Wti.Calculation\Wti.Calculation.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.Calculation\Wti.Calculation.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
       <Name>Wti.Calculation</Name>
     </ProjectReference>
@@ -111,7 +111,7 @@
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
       <Name>Ringtoets.Piping.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Wti\Wti.Data\Wti.Data.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.Data\Wti.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Wti.Data</Name>
     </ProjectReference>
