@@ -38,20 +38,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\log4net.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\..\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Mono.Addins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Mono.Addins.dll</HintPath>
+    <Reference Include="Mono.Addins">
+      <HintPath>..\..\..\..\..\..\lib\Mono.Addins.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -59,14 +57,14 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\GlobalAssembly.cs">
+    <Compile Include="..\..\..\..\..\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="FileImporter\PipingSoilProfilesImporter.cs" />
@@ -84,44 +82,44 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\DelftTools.Controls\DelftTools.Controls.csproj">
+    <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Controls\DelftTools.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>DelftTools.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
+    <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
       <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
       <Name>DelftTools.Shell.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\DelftTools.Shell.Gui\DelftTools.Shell.Gui.csproj">
+    <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Shell.Gui\DelftTools.Shell.Gui.csproj">
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>DelftTools.Shell.Gui</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\DelftTools.Utils\DelftTools.Utils.csproj">
+    <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Utils\DelftTools.Utils.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>DelftTools.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\Wti.Base\Wti.Base.csproj">
+    <ProjectReference Include="..\..\..\..\..\Common\Wti.Base\Wti.Base.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
       <Name>Wti.Base</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Wti.Calculation\Wti.Calculation.csproj">
+    <ProjectReference Include="..\..\..\..\Wti\Wti.Calculation\Wti.Calculation.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
       <Name>Wti.Calculation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Ringtoets\Piping\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
+    <ProjectReference Include="..\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
       <Name>Ringtoets.Piping.Service</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wti.Data\Wti.Data.csproj">
+    <ProjectReference Include="..\..\..\..\Wti\Wti.Data\Wti.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Wti.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wti.Forms\Wti.Forms.csproj">
+    <ProjectReference Include="..\..\..\..\Wti\Wti.Forms\Wti.Forms.csproj">
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
       <Name>Wti.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wti.IO\Wti.IO.csproj">
+    <ProjectReference Include="..\..\..\..\Wti\Wti.IO\Wti.IO.csproj">
       <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
       <Name>Wti.IO</Name>
     </ProjectReference>
@@ -147,7 +145,7 @@
     <IsPluginComponent>true</IsPluginComponent>
     <PluginName>Wti.Plugin</PluginName>
   </PropertyGroup>
-  <Import Project="..\..\..\..\build\DeltaShell.targets" />
+  <Import Project="..\..\..\..\..\..\build\DeltaShell.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>

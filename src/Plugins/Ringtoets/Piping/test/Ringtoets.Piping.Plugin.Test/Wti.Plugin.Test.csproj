@@ -33,17 +33,16 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Addins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Mono.Addins.dll</HintPath>
+    <Reference Include="Mono.Addins">
+      <HintPath>..\..\..\..\..\..\lib\Mono.Addins.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\..\..\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="Rhino.Mocks">
-      <HintPath>..\..\..\..\lib\Rhino.Mocks.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\lib\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,45 +58,45 @@
     <Compile Include="WtiGuiPluginTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\Common\DelftTools.Controls\DelftTools.Controls.csproj">
+    <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Controls\DelftTools.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>DelftTools.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
+    <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
       <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
       <Name>DelftTools.Shell.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Common\DelftTools.Shell.Gui\DelftTools.Shell.Gui.csproj">
+    <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Shell.Gui\DelftTools.Shell.Gui.csproj">
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>DelftTools.Shell.Gui</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Common\DelftTools.Utils\DelftTools.Utils.csproj">
+    <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Utils\DelftTools.Utils.csproj">
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>DelftTools.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Calculation\Wti.Calculation.csproj">
+    <ProjectReference Include="..\..\..\..\Wti\Wti.Calculation\Wti.Calculation.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
       <Name>Wti.Calculation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Data\Wti.Data.csproj">
+    <ProjectReference Include="..\..\..\..\Wti\Wti.Data\Wti.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Wti.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Forms\Wti.Forms.csproj">
+    <ProjectReference Include="..\..\..\..\Wti\Wti.Forms\Wti.Forms.csproj">
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
       <Name>Wti.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.IO\Wti.IO.csproj">
+    <ProjectReference Include="..\..\..\..\Wti\Wti.IO\Wti.IO.csproj">
       <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
       <Name>Wti.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\src\Plugins\Wti\Wti.Plugin\Wti.Plugin.csproj">
-      <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
-      <Name>Wti.Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\DelftTools.TestUtils\DelftTools.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\..\..\..\test\Common\DelftTools.TestUtils\DelftTools.TestUtils.csproj">
       <Project>{efa25023-cf6a-4ff7-8c42-b24d7f9509e1}</Project>
       <Name>DelftTools.TestUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Plugin\Wti.Plugin.csproj">
+      <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
+      <Name>Wti.Plugin</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
