@@ -7,8 +7,8 @@
     <ProjectGuid>{D783543B-46A1-4848-A812-AF5A5259ED7E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wti.Service.Test</RootNamespace>
-    <AssemblyName>Wti.Service.Test</AssemblyName>
+    <RootNamespace>Ringtoets.Piping.Service.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.Service.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
