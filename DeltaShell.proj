@@ -6,7 +6,7 @@
     <BuildPath>$(MSBuildProjectDirectory)</BuildPath>
     <GuiPath>$(BuildPath)\src\DeltaShell\DeltaShell.Gui\</GuiPath>
     <SolutionDir>$(MSBuildProjectDirectory)</SolutionDir> 
-    <DoxygenOutputDirectory>$(BuildPath)\target\doxygen\</DoxygenOutputDirectory>
+    <DoxygenOutputDirectory>$(BuildPath)\doc\Technical_documentation\</DoxygenOutputDirectory>
     <NuGetCmd>$(BuildPath)\build\tools\NuGet</NuGetCmd>
     <ProgramVersion>1.0.0</ProgramVersion>
   </PropertyGroup>
