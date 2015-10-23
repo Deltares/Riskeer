@@ -15,9 +15,9 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && addNewMessagesTimer != null)
+            if (disposing && newMessages != null)
             {
-                addNewMessagesTimer.Dispose();
+                newMessages.Detach(this);
             }
 
             if (disposing && (components != null))
