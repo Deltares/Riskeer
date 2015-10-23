@@ -41,7 +41,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             var hugeText = "";
             for (var i = 0; i <= 99; i++) 
             {
-                hugeText +=  "1834567890"; // hondred times 10 symbols = 1000 symbols
+                hugeText +=  "1834567890"; // hundred times 10 symbols = 1000 symbols
             }
             Assert.AreEqual(hugeText.Length, 1000);
 
