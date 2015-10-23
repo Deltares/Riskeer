@@ -17,13 +17,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         private readonly ITreeView treeView;
         private readonly IEventedList<ITreeNodePresenter> nodePresenters = new EventedList<ITreeNodePresenter>();
 
-        // use timer in order to combine property and collection change
-        // note that timer is active only when there is a full refresh taking place
-        private readonly Timer fullRefreshTimer = new Timer
-        {
-            Interval = 250
-        };
-
         private readonly Dictionary<Type, ITreeNodePresenter> nodeTagTypePresenters = new Dictionary<Type, ITreeNodePresenter>();
         private object data;
 
@@ -42,13 +35,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             this.treeView = treeView;
 
             nodePresenters.CollectionChanged += NodePresentersCollectionChanged;
-
-            // for a time being we use timer here to perform full refresh to avoid double refresh
-            fullRefreshTimer.Tick += (sender, args) =>
-            {
-                fullRefreshTimer.Stop();
-                treeView.Refresh();
-            };
         }
 
         /// <summary>
@@ -95,7 +81,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
 
         public void WaitUntilAllEventsAreProcessed()
         {
-            while (treeView.IsUpdateSuspended || (treeView.Visible && fullRefreshTimer.Enabled))
+            while (treeView.IsUpdateSuspended || treeView.Visible)
             {
                 Application.DoEvents();
             }
@@ -345,11 +331,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             treeView.Refresh(); // Ensure the treeview is always up to date after creating handle (data is set and might be changed before enabling the delayed event handlers)
         }
 
-        public void OnTreeViewHandleDestroyed()
-        {
-            fullRefreshTimer.Stop();
-        }
-
         #region Implementation of IDisposable
 
         public void Dispose()
@@ -358,47 +339,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         }
 
         #endregion
-
-        internal void EnableDataEventListeners()
-        {
-            var notifyPropertyChanged = data as INotifyPropertyChanged;
-            if (notifyPropertyChanged != null)
-            {
-                (notifyPropertyChanged).PropertyChanged += DataPropertyChanged;
-            }
-
-            var notifyCollectionChange = data as INotifyCollectionChange;
-            if (notifyCollectionChange != null)
-            {
-                (notifyCollectionChange).CollectionChanged += DataCollectionChanged;
-            }
-        }
-
-        internal void DisableDataEventListeners()
-        {
-            var notifyPropertyChanged = data as INotifyPropertyChanged;
-            if (notifyPropertyChanged != null)
-            {
-                (notifyPropertyChanged).PropertyChanged -= DataPropertyChanged;
-            }
-
-            var notifyCollectionChange = data as INotifyCollectionChange;
-            if (notifyCollectionChange != null)
-            {
-                (notifyCollectionChange).CollectionChanged -= DataCollectionChanged;
-            }
-        }
-
-        private void FullRefreshEventHandler(object sender, EventArgs eventArgs)
-        {
-            if (fullRefreshTimer.Enabled)
-            {
-                fullRefreshTimer.Stop(); // Reset timer when already started before
-            }
-
-            fullRefreshTimer.Start(); // schedule full refresh
-        }
-
+        
         private IEnumerable<ITreeNode> GetAllLoadedChildNodes(ITreeNode node, string[] forceNodeLoad = null)
         {
             if (!node.IsLoaded && (forceNodeLoad == null || !forceNodeLoad.Contains(node.FullPath)))
@@ -470,56 +411,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             }
 
             return nodePresenterFunction(nodePresenter);
-        }
-
-        private void DataCollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            if (SkipEvents)
-            {
-                return;
-            }
-
-            DataCollectionChangedSynchronized(sender, e);
-
-            FullRefreshEventHandler(sender, e);
-        }
-
-        private void DataCollectionChangedSynchronized(object sender, NotifyCollectionChangingEventArgs e)
-        {
-            var nodePresenter = ResolveNodePresenterForData(e.Item);
-            if (nodePresenter == null)
-            {
-                return;
-            }
-
-            nodePresenter.OnCollectionChanged(sender, e);
-        }
-
-        private void DataPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (SkipEvents)
-            {
-                return;
-            }
-
-            var nodePresenter = ResolveNodePresenterForData(sender);
-
-            if (nodePresenter == null)
-            {
-                return;
-            }
-            var node = treeView.GetNodeByTag(sender);
-
-            // HACK: bug in WaterFlowModel1DBoundaryDataNodeDataNodePresenter, in some cases event somes with a sender which is child of actual node.Tag object - find out how to fix it
-            var actualSender = sender;
-            if (node != null && sender != node.Tag)
-            {
-                actualSender = node.Tag;
-            }
-
-            nodePresenter.OnPropertyChanged(actualSender, node, e);
-
-            FullRefreshEventHandler(sender, e);
         }
 
         private void CreateRootNode()
