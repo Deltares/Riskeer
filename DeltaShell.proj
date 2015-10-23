@@ -11,64 +11,15 @@
     <ProgramVersion>1.0.0</ProgramVersion>
   </PropertyGroup>
 
-  <!-- our build hangs and produces incorrect performance results when anti-virus is running -->
-  <Target Name="StopSophos"> 
-     <Exec Command="build\tools\stop_antivirus.cmd" />
-  </Target>
-
-  <Target Name="FxCop">
-     <Exec Command="$(Framework)\msbuild build\FxCop.proj /m /nr:true /v:m" />  
-  </Target>
-
-  <Target Name="Documentation">
-     <Exec Command="$(Framework)\msbuild build\Doc.proj /m /nr:true /v:m" />  
-  </Target>
-
-  <Target Name="NCover" DependsOnTargets="StopSophos">
-    <Exec Command="$(Framework)\msbuild build\NCover.proj /property:testTarget=unittest /nr:true /v:m /m" />
-  </Target>
-
-  <Target Name="NCover_Integration" DependsOnTargets="StopSophos">
-    <Exec Command="$(Framework)\msbuild build\NCover.proj /property:testTarget=integrationtest /nr:true /v:m /m" />
-  </Target>
-
-  <Target Name="NDepend" DependsOnTargets="StopSophos">
-    <Exec Command="$(Framework)\msbuild build\NDepend.proj /nr:true /v:m /m" />
-  </Target>  
-
   <Target Name="Doxygen" DependsOnTargets="Release">
     <RemoveDir Directories="$(DoxygenOutputDirectory)"/>
     <MakeDir Directories="$(DoxygenOutputDirectory)" />
-    <Exec Command="build\tools\doxygen\bin\doxygen.exe DeltaShell.doxygen" />
-  </Target>   
-
-  <!-- main target -->
-  <Target Name="Clean">
-    <Message Text="SolutionDir: '$(SolutionDir)'" />
-    <Message Text="MSBuildProjectDirectory: '$(MSBuildProjectDirectory)'" />
-    <MSBuild Projects="DeltaShell.sln" Targets="Clean" Properties="Configuration=Release;SolutionDir=$(SolutionDir);StartUsingCommandLine=$(StartUsingCommandLine)" />
-  </Target>
-
-  <Target Name="CleanDebug">
-    <MSBuild Projects="DeltaShell.sln" Targets="Clean" Properties="Configuration=Debug;SolutionDir=$(SolutionDir);StartUsingCommandLine=$(StartUsingCommandLine)" />
-  </Target>
-
-  <Target Name="Build" DependsOnTargets="StopSophos">
-    <RemoveDir Directories="$(BuildPath)\target"/>
-    <MSBuild Projects="DeltaShell.sln" Targets="Build" Properties="Configuration=Release;SolutionDir=$(SolutionDir);StartUsingCommandLine=$(StartUsingCommandLine)" />
+    <Exec Command="build\Technical_documentation\Doxygen\bin\doxygen.exe build\Technical_documentation\DeltaShell.doxygen" />
   </Target>
 
   <Target Name="Release">
     <RemoveDir Directories="$(BuildPath)\target"/>
     <MSBuild Projects="DeltaShell.sln" Targets="Build" Properties="Configuration=Release;SolutionDir=$(SolutionDir);StartUsingCommandLine=$(StartUsingCommandLine)" />
-  </Target>
-
-  <Target Name="BuildDebug" DependsOnTargets="StopSophos">
-    <MSBuild Projects="DeltaShell.sln" Targets="Build" Properties="Configuration=Debug;SolutionDir=$(SolutionDir);StartUsingCommandLine=$(StartUsingCommandLine)" />
-  </Target>
-
-  <Target Name="Rebuild" DependsOnTargets="StopSophos">
-    <MSBuild Projects="DeltaShell.sln" Targets="Rebuild" Properties="Configuration=Release;SolutionDir=$(SolutionDir);StartUsingCommandLine=$(StartUsingCommandLine)" />
   </Target>
 
   <ItemGroup>
