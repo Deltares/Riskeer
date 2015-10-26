@@ -118,7 +118,12 @@ namespace Ringtoets.Piping.IO
 
         public void Dispose()
         {
-            dataReader.Dispose();
+            if (dataReader != null)
+            {
+                dataReader.Close();
+                dataReader.Dispose();
+            }
+            connection.Close();
             connection.Dispose();
         }
 
