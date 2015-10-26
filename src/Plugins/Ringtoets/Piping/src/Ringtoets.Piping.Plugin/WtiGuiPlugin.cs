@@ -60,22 +60,10 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo
-            {
-                ObjectType = typeof(WtiProject), PropertyType = typeof(WtiProjectProperties)
-            };
-            yield return new PropertyInfo
-            {
-                ObjectType = typeof(PipingCalculationInputs), PropertyType = typeof(PipingCalculationInputsProperties)
-            };
-            yield return new PropertyInfo
-            {
-                ObjectType = typeof(PipingOutput), PropertyType = typeof(PipingOutputProperties)
-            };
-            yield return new PropertyInfo
-            {
-                ObjectType = typeof(RingtoetsPipingSurfaceLine), PropertyType = typeof(PipingSurfaceLineProperties)
-            };
+            yield return new PropertyInfo<WtiProject, WtiProjectProperties>();
+            yield return new PropertyInfo<PipingCalculationInputs, PipingCalculationInputsProperties>();
+            yield return new PropertyInfo<PipingOutput, PipingOutputProperties>();
+            yield return new PropertyInfo<RingtoetsPipingSurfaceLine, PipingSurfaceLineProperties>();
             yield return new PropertyInfo<PipingSoilProfile, PipingSoilProfileProperties>();
         }
 
