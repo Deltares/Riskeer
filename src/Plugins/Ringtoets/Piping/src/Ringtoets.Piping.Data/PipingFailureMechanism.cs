@@ -20,7 +20,7 @@ namespace Ringtoets.Piping.Data
         {
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
             SoilProfiles = Enumerable.Empty<PipingSoilProfile>();
-            PipingData = new PipingData();
+            Calculations = new List<PipingData> { new PipingData() };
         }
 
         /// <summary>
@@ -29,14 +29,14 @@ namespace Ringtoets.Piping.Data
         public IEnumerable<RingtoetsPipingSurfaceLine> SurfaceLines { get; private set; }
 
         /// <summary>
-        /// Gets the <see cref="PipingData"/>, which contains input and output of a piping calculation.
-        /// </summary>
-        public PipingData PipingData { get; private set; }
-
-        /// <summary>
         /// Gets the available profiles within the scope of the piping failure mechanism.
         /// </summary>
         public IEnumerable SoilProfiles { get; private set; }
+
+        /// <summary>
+        /// Gets all available piping calculations.
+        /// </summary>
+        public ICollection<PipingData> Calculations { get; private set; }
 
         public void Attach(IObserver observer)
         {

@@ -6,7 +6,7 @@ using DelftTools.Controls;
 using DelftTools.Utils.Collections;
 
 using Ringtoets.Piping.Data;
-
+using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 
@@ -36,11 +36,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             yield return failureMechanism.SoilProfiles;
             yield return failureMechanism.SurfaceLines;
 
-            if (failureMechanism.PipingData != null)
+            foreach (var calculation in failureMechanism.Calculations)
             {
                 yield return new PipingCalculationInputs
                 {
-                    PipingData = failureMechanism.PipingData, 
+                    PipingData = calculation,
                     AvailablePipingSurfaceLines = failureMechanism.SurfaceLines
                 };
             }
@@ -84,7 +84,17 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
-            return null;
+            var rootMenu = new ContextMenuStrip();
+
+            rootMenu.AddMenuItem("Berekening toevoegen", "Voeg een nieuwe piping berekening toe aan het faalmechanisme.",
+                Resources.PipingIcon, (o, args) =>
+                {
+                    var failureMechanism = (PipingFailureMechanism)nodeData;
+                    failureMechanism.Calculations.Add(new PipingData());
+                    failureMechanism.NotifyObservers();
+                });
+
+            return rootMenu;
         }
 
         public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}
