@@ -1,4 +1,7 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using NUnit.Framework;
 using Ringtoets.Piping.IO.Calculation;
 
 namespace Ringtoets.Piping.IO.Test.Calculation
@@ -158,6 +161,66 @@ namespace Ringtoets.Piping.IO.Test.Calculation
 
             // Assert
             Assert.AreEqual(0, result.Length);
+        }
+
+        [Test]
+        [TestCase(3,2)]
+        [TestCase(2,3)]
+        [TestCase(3,3)]
+        [TestCase(1,1)]
+        [TestCase(1,2)]
+        [TestCase(2,1)]
+        public void LineSegmentIntersectionWithLineSegment_IncorrectLengthOfParameters_ThrowsArgumentException(int xLength, int yLength)
+        {
+            // Setup
+            Collection<double> xCollection = new Collection<double>();
+            Collection<double> yCollection = new Collection<double>();
+            var random = new Random(22);
+            for (var i = 0; i < xLength; i++)
+            {
+                xCollection.Add(random.NextDouble());
+            }
+            for (var i = 0; i < yLength; i++)
+            {
+                yCollection.Add(random.NextDouble());
+            }
+
+            // Call
+            TestDelegate test = () => Math2D.LineSegmentIntersectionWithLineSegment(xCollection.ToArray(), yCollection.ToArray());
+            
+            // Assert
+            var message = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual(message.Message, "Collections of lines' x and y coordinates need to have length of 4.");
+        }
+
+        [Test]
+        [TestCase(3, 2)]
+        [TestCase(2, 3)]
+        [TestCase(3, 3)]
+        [TestCase(1, 1)]
+        [TestCase(1, 2)]
+        [TestCase(2, 1)]
+        public void LineSegmentIntersectionWithLine_IncorrectLengthOfParameters_ThrowsArgumentException(int xLength, int yLength)
+        {
+            // Setup
+            Collection<double> xCollection = new Collection<double>();
+            Collection<double> yCollection = new Collection<double>();
+            var random = new Random(22);
+            for (var i = 0; i < xLength; i++)
+            {
+                xCollection.Add(random.NextDouble());
+            }
+            for (var i = 0; i < yLength; i++)
+            {
+                yCollection.Add(random.NextDouble());
+            }
+
+            // Call
+            TestDelegate test = () => Math2D.LineSegmentIntersectionWithLine(xCollection.ToArray(), yCollection.ToArray());
+
+            // Assert
+            var message = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual(message.Message, "Collections of lines' x and y coordinates need to have length of 4.");
         }
 
         private double[][] ToSegmentCoordinatesCollections(double[] coordinates)

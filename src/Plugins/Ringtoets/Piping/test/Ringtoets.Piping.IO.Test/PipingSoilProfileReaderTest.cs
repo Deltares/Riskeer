@@ -174,6 +174,21 @@ namespace Ringtoets.Piping.IO.Test
             CollectionAssert.AllItemsAreUnique(secondProfile.Layers.Select(l => l.Top));
             Assert.AreEqual(3, secondProfile.Layers.Count(l => expectedSecondProfileLayersTops.Contains(l.Top, new DoubleComparer())));
         }
+
+        [Test]
+        public void ReadProfiles_DatabaseWith1DAnd2DProfilesWithSameName_ThrowsPipingSoilProfileReadException()
+        {
+            // Setup
+            var testFile = "Combined1dAnd2d.soil";
+            var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile));
+
+            // Call
+            TestDelegate test = () => pipingSoilProfilesReader.Read();
+
+            // Assert
+            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            Assert.AreEqual(Resources.Error_CannotCombine2DAnd1DLayersInProfile, exception.Message);
+        }
     }
 
     internal class DoubleComparer : IEqualityComparer<double> {

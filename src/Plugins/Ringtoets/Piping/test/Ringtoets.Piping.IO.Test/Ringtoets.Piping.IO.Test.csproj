@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\SoilLayer2DConversionExceptionTest.cs" />
     <Compile Include="Builders\SoilLayer2DTest.cs" />
     <Compile Include="Builders\SoilProfileBuilder1DTest.cs" />
     <Compile Include="Builders\SoilProfileBuilder2DTest.cs" />

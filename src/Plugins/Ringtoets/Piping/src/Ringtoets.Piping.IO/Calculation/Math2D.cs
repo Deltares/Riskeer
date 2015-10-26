@@ -20,11 +20,6 @@ namespace Ringtoets.Piping.IO.Calculation
         /// <returns></returns>
         public static double[] LineSegmentIntersectionWithLineSegment(double[] segmentsX, double[] segmentsY)
         {
-            var numberOfPoints = 4;
-            if (segmentsX.Length != numberOfPoints || segmentsY.Length != numberOfPoints)
-            {
-                throw new ArgumentException(String.Format("Collections of segments' x and y coordinates need to have length of {0}.", numberOfPoints));
-            }
             var extraPolatedIntersectionPoint = LineSegmentIntersectionWithLine(segmentsX, segmentsY);
 
             if (extraPolatedIntersectionPoint.Length == 2)
@@ -85,7 +80,7 @@ namespace Ringtoets.Piping.IO.Calculation
             var numberOfPoints = 4;
             if (linesX.Length != numberOfPoints || linesY.Length != numberOfPoints)
             {
-                throw new ArgumentException(String.Format("Collections of lines' x and y coordinates need to have length of {0}", numberOfPoints));
+                throw new ArgumentException(String.Format("Collections of lines' x and y coordinates need to have length of {0}.", numberOfPoints));
             }
 
             var aLine = linesY[1] - linesY[0];
@@ -119,20 +114,28 @@ namespace Ringtoets.Piping.IO.Calculation
         /// and <paramref name="x"/>[1],<paramref name="y"/>[1]. False otherwise.</returns>
         private static bool IsBetween(double[] x, double[] y)
         {
-            var crossProduct = (y[2] - y[0])*(x[1] - x[0]) - (x[2] - x[0])*(y[1] - y[0]);
-            if (Math.Abs(crossProduct) > EpsilonForComparisons)
+            if (Math.Abs(CrossProduct(x, y)) > EpsilonForComparisons)
             {
                 return false;
             }
 
-            var dotProduct = (x[2] - x[0])*(x[1] - x[0]) + (y[2] - y[0])*(y[1] - y[0]);
-            if (dotProduct < 0)
+            if (DotProduct(x, y) < 0)
             {
                 return false;
             }
 
             var squaredLengthSegment = (x[1] - x[0])*(x[1] - x[0]) + (y[1] - y[0])*(y[1] - y[0]);
-            return dotProduct <= squaredLengthSegment;
+            return DotProduct(x, y) <= squaredLengthSegment;
+        }
+
+        private static double DotProduct(double[] x, double[] y)
+        {
+            return (x[2] - x[0])*(x[1] - x[0]) + (y[2] - y[0])*(y[1] - y[0]);
+        }
+
+        private static double CrossProduct(double[] x, double[] y)
+        {
+            return (y[2] - y[0])*(x[1] - x[0]) - (x[2] - x[0])*(y[1] - y[0]);
         }
     }
 }
