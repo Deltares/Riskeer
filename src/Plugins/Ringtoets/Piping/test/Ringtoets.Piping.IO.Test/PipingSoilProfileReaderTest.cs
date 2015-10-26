@@ -141,48 +141,9 @@ namespace Ringtoets.Piping.IO.Test
 
             CollectionAssert.AreEquivalent(new[]
             {
-                -10,
-                -12.0,
-                -10.8,
-                -10,
-                -21.5,
-                -21.5,
-                -21.5,
-                -22.0,
-                -24.0,
-                -21.5,
-                -21.5,
-                -22.0,
-                -24.17,
-                -24.8,
-                -25.0,
-                -24.0,
-                -22.8,
-                -23.8,
-                -24.2,
-                -24.5,
-                -24.0,
-                -23.7,
-                -24.4,
-                -24.0,
-                -31.5,
-                -23.2,
-                -23.9,
-                -23.1,
-                -23.5,
-                -23.125,
-                -22.5,
-                -21.88,
-                -22.0,
-                40.0,
-                40.0,
-                40.0
+                -10,-12.0,-10.8,-10,-21.5,-21.5,-21.5,-22.0,-24.0,-21.5,-21.5,-22.0,-24.17,-24.8,-25.0,-24.0,-22.8,-23.8,-24.2,-24.5,-24.0,-23.7,-24.4,-24.0,-31.5,-23.2,-23.9,-23.1,-23.5,-23.125,-22.5,-21.88,-22.0,40.0,40.0,40.0
             }, result.Select(p => p.Bottom));
 
-            foreach (var l in result.Select(p => p.Layers.Count()))
-            {
-                Console.WriteLine(l);
-            }
             CollectionAssert.AreEquivalent(new[]
             {
                 6,3,2,3,2,2,2,2,3,2,2,2,2,3,3,3,2,2,2,2,3,2,3,3,2,2,3,2,2,2,2,2,2,1,1,1
@@ -190,7 +151,7 @@ namespace Ringtoets.Piping.IO.Test
 
             var firstProfile = result.FirstOrDefault(l => l.Name == "10Y_005_STBI");
             Assert.NotNull(firstProfile);
-            var expected = new[]
+            var expectedFirstProfileLayersTops = new[]
             {
                 -3.5,
                 -1.2,
@@ -200,7 +161,18 @@ namespace Ringtoets.Piping.IO.Test
                 2.473341176
             };
             CollectionAssert.AllItemsAreUnique(firstProfile.Layers.Select(l => l.Top));
-            Assert.AreEqual(6, firstProfile.Layers.Count(l => expected.Contains(l.Top, new DoubleComparer())));
+            Assert.AreEqual(6, firstProfile.Layers.Count(l => expectedFirstProfileLayersTops.Contains(l.Top, new DoubleComparer())));
+
+            var secondProfile = result.FirstOrDefault(l => l.Name == "10Y_041_STBI");
+            Assert.NotNull(secondProfile);
+            var expectedSecondProfileLayersTops = new[]
+            {
+                -1.5,
+                -1.180438596,
+                0.333203067
+            };
+            CollectionAssert.AllItemsAreUnique(secondProfile.Layers.Select(l => l.Top));
+            Assert.AreEqual(3, secondProfile.Layers.Count(l => expectedSecondProfileLayersTops.Contains(l.Top, new DoubleComparer())));
         }
     }
 
