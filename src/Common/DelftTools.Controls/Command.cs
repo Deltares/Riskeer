@@ -1,7 +1,7 @@
 namespace DelftTools.Controls
 {
     /// <summary>
-    /// Linking command to button. <seealso href="http://jasonkemp.ca/archive/2006/05/16/UsingtheCommandPatterninWindowsFormsclients.aspx">Using the Command Pattern in Windows Forms clients.</seealso>
+    /// Linking command to button. <a href="http://jasonkemp.ca/archive/2006/05/16/UsingtheCommandPatterninWindowsFormsclients.aspx">Using the Command Pattern in Windows Forms clients.</a>
     /// </summary>
     /// <example>
     /// This example demonstrates how to create a Button, hook it up to a Command with a minimum of code and let the power of data binding deal with turning the command on and off:
