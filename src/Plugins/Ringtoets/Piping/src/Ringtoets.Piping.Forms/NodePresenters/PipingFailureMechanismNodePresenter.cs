@@ -9,6 +9,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -93,6 +94,13 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                     failureMechanism.Calculations.Add(new PipingData());
                     failureMechanism.NotifyObservers();
                 });
+            rootMenu.AddMenuItem("Berekenen", "Valideer en vervolgens reken all piping berekeningen door in het faalmechanisme.",
+                                 Resources.PlayAll, (o, args) =>
+                                 {
+                                     var failureMechanism = (PipingFailureMechanism)nodeData;
+                                     PipingCalculationService.PerfromValidatedCalculation(failureMechanism);
+                                     failureMechanism.NotifyObservers();
+                                 });
 
             return rootMenu;
         }

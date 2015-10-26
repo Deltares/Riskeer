@@ -26,17 +26,13 @@ namespace Ringtoets.Piping.Service
         /// <returns>If <paramref name="pipingData"/> contains validation errors, then <see cref="PipingCalculationResult.ValidationErrors"/> is returned.
         /// If problems were encountered during the calculation, <see cref="PipingCalculationResult.CalculationErrors"/> is returned. 
         /// Otherwise, <see cref="PipingCalculationResult.Successful"/> is returned.</returns>
-        public static PipingCalculationResult PerfromValidatedCalculation(PipingData pipingData)
+        public static void PerfromValidatedCalculation(PipingData pipingData)
         {
-            PipingCalculationResult validationResult = Validate(pipingData);
-
-            if (validationResult == PipingCalculationResult.Successful)
+            if (Validate(pipingData))
             {
                 ClearOutput(pipingData);
-                return Calculate(pipingData);
+                Calculate(pipingData);
             }
-
-            return validationResult;
         }
 
         /// <summary>
@@ -44,9 +40,8 @@ namespace Ringtoets.Piping.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="pipingData">The <see cref="PipingData"/> for which to validate the values.</param>
-        /// <returns>If <paramref name="pipingData"/> contains validation errors, then <see cref="PipingCalculationResult.ValidationErrors"/> is returned.
-        /// Otherwise, <see cref="PipingCalculationResult.Successful"/> is returned.</returns>
-        public static PipingCalculationResult Validate(PipingData pipingData)
+        /// <returns>False if <paramref name="pipingData"/> contains validation errors; True otherwise.</returns>
+        public static bool Validate(PipingData pipingData)
         {
             PipingDataLogger.Info(String.Format(Resources.ValidationStarted_0, DateTimeService.CurrentTimeAsString));
 
@@ -55,7 +50,7 @@ namespace Ringtoets.Piping.Service
 
             PipingDataLogger.Info(String.Format(Resources.ValidationEnded_0, DateTimeService.CurrentTimeAsString));
 
-            return validationResults.Count > 0 ? PipingCalculationResult.ValidationErrors : PipingCalculationResult.Successful;
+            return validationResults.Count == 0;
         }
 
         private static void LogMessagesAsError(string format, params string[] errorMessages)
@@ -71,7 +66,7 @@ namespace Ringtoets.Piping.Service
             pipingData.Output = null;
         }
 
-        private static PipingCalculationResult Calculate(PipingData pipingData)
+        private static void Calculate(PipingData pipingData)
         {
             PipingDataLogger.Info(String.Format(Resources.CalculationStarted_0, DateTimeService.CurrentTimeAsString));
 
@@ -89,13 +84,11 @@ namespace Ringtoets.Piping.Service
             catch (PipingCalculationException e)
             {
                 LogMessagesAsError(Resources.ErrorInPipingCalculation_0, e.Message);
-                return PipingCalculationResult.CalculationErrors;
             }
             finally
             {
                 PipingDataLogger.Info(String.Format(Resources.CalculationEnded_0, DateTimeService.CurrentTimeAsString));
             }
-            return PipingCalculationResult.Successful;
         }
 
         private static PipingCalculationInput CreateInputFromData(PipingData pipingData)
@@ -125,6 +118,14 @@ namespace Ringtoets.Piping.Service
                 pipingData.ExitPointXCoordinate,
                 pipingData.SurfaceLine
                 );
+        }
+
+        public static void PerfromValidatedCalculation(PipingFailureMechanism failureMechanism)
+        {
+            foreach (var calculation in failureMechanism.Calculations)
+            {
+                PerfromValidatedCalculation(calculation);
+            }
         }
     }
 }

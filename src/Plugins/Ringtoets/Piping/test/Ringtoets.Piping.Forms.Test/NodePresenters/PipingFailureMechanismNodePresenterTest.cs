@@ -267,12 +267,19 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
-            Assert.AreEqual(1, contextMenu.Items.Count);
+            Assert.AreEqual(2, contextMenu.Items.Count);
             var addCalculationItem = contextMenu.Items[0];
             Assert.AreEqual("Berekening toevoegen", addCalculationItem.Text);
             Assert.AreEqual("Voeg een nieuwe piping berekening toe aan het faalmechanisme.", addCalculationItem.ToolTipText);
             Assert.AreEqual(16, addCalculationItem.Image.Width);
             Assert.AreEqual(16, addCalculationItem.Image.Height);
+
+            var runAllItem = contextMenu.Items[1];
+            Assert.AreEqual("Berekenen", runAllItem.Text);
+            Assert.AreEqual("Valideer en vervolgens reken all piping berekeningen door in het faalmechanisme.", runAllItem.ToolTipText);
+            Assert.AreEqual(16, runAllItem.Image.Width);
+            Assert.AreEqual(16, runAllItem.Image.Height);
+
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 

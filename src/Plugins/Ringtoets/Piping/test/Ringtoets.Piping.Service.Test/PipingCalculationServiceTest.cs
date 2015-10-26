@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+
+using NUnit.Framework;
 
 using Ringtoets.Piping.Data;
 
@@ -8,12 +10,153 @@ namespace Ringtoets.Piping.Service.Test
 {
     public class PipingCalculationServiceTest
     {
-        private PipingData validPipingData;
-
-        [SetUp]
-        public void SetUp()
+        [Test]
+        public void PerformValidatedCalculation_ValidPipingDataNoOutput_ShouldSetOutput()
         {
-            validPipingData = new PipingData
+            // Setup
+            PipingData validPipingData = CreateCalculationWithValidInput();
+
+            // Precondition
+            Assert.IsNull(validPipingData.Output);
+
+            // Call
+            PipingCalculationService.PerfromValidatedCalculation(validPipingData);
+
+            // Assert
+            Assert.IsNotNull(validPipingData.Output);
+        }
+
+        [Test]
+        public void PerformValidatedCalculation_ValidPipingDataWithOutput_ShouldChangeOutput()
+        {
+            // Setup
+            var output = new TestPipingOutput();
+
+            PipingData validPipingData = CreateCalculationWithValidInput();
+            validPipingData.Output = output;
+
+            // Call
+            PipingCalculationService.PerfromValidatedCalculation(validPipingData);
+
+            // Assert
+            Assert.AreNotSame(output, validPipingData.Output);
+        }
+
+        [Test]
+        public void PerformValidatedCalculation_InValidPipingDataWithOutput_ReturnsFalseNoOutputChange()
+        {
+            // Setup
+            var output = new TestPipingOutput();
+            var invalidPipingData = CreateCalculationWithInvalidData();
+            invalidPipingData.Output = output;
+
+            // Call
+            PipingCalculationService.PerfromValidatedCalculation(invalidPipingData);
+            
+            // Assert
+            Assert.AreSame(output, invalidPipingData.Output);
+        }
+
+        [Test]
+        public void PerformValidatedCalculation_Diameter70AndAquiferPermeabilityZero_CalculationErrorOutputNull()
+        {
+            // Setup
+            PipingData validPipingData = CreateCalculationWithValidInput();
+            validPipingData.Diameter70 = 0;
+            validPipingData.DarcyPermeability = 0;
+
+            // Call
+            PipingCalculationService.PerfromValidatedCalculation(validPipingData);
+
+            // Assert
+            Assert.IsNull(validPipingData.Output);
+        }
+
+        [Test]
+        public void PerformValidatedCalculation_FailureMechanismHasMultipleValidCalculations_SetOutpufOnEach()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Calculations.Clear();
+            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
+
+            // Call
+            PipingCalculationService.PerfromValidatedCalculation(failureMechanism);
+
+            // Assert
+            foreach (var calculation in failureMechanism.Calculations)
+            {
+                Assert.IsNotNull(calculation.Output);
+            }
+        }
+
+        [Test]
+        public void PerformValidatedCalculation_FailureMechanismHasCalculationsWithOutputs_ReplaceOutputOnEach()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Calculations.Clear();
+            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
+
+            foreach (var calculation in failureMechanism.Calculations)
+            {
+                calculation.Output = new TestPipingOutput();
+            }
+            var originalOutputs = failureMechanism.Calculations.Select(c => c.Output).ToArray();
+
+            // Call
+            PipingCalculationService.PerfromValidatedCalculation(failureMechanism);
+
+            // Assert
+            var index = 0;
+            foreach (var calculation in failureMechanism.Calculations)
+            {
+                Assert.IsNotNull(calculation.Output);
+                Assert.AreNotSame(originalOutputs[index++], calculation.Output);
+            }
+        }
+
+        [Test]
+        public void PerformValidatedCalculation_FailureMechanismHasOneInvalidCalculation_ReplaceOutputOnEach()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.Calculations.Clear();
+            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(CreateCalculationWithInvalidData()); // Unable to calculate
+            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
+
+            // Call
+            PipingCalculationService.PerfromValidatedCalculation(failureMechanism);
+
+            // Assert
+            var index = 0;
+            foreach (var calculation in failureMechanism.Calculations)
+            {
+                if (index++ == 1)
+                {
+                    Assert.IsNull(calculation.Output,
+                        "Calculation input is not valid, therefore calculation cannot produce output.");
+                }
+                else
+                {
+                    Assert.IsNotNull(calculation.Output);
+                }
+            }
+        }
+
+        private PipingData CreateCalculationWithInvalidData()
+        {
+            return new PipingData();
+        }
+
+        private PipingData CreateCalculationWithValidInput()
+        {
+            return new PipingData
             {
                 AssessmentLevel = 1.0,
                 BeddingAngle = 1.0,
@@ -39,68 +182,6 @@ namespace Ringtoets.Piping.Service.Test
                 WhitesDragCoefficient = 1.0,
                 SurfaceLine = new RingtoetsPipingSurfaceLine()
             };
-        }
-
-        [Test]
-        public void PerfromValidatedCalculation_ValidPipingDataNoOutput_ShouldSetOutput()
-        {
-            // Precondition
-            Assert.IsNull(validPipingData.Output);
-
-            // Call
-            var result = PipingCalculationService.PerfromValidatedCalculation(validPipingData);
-
-            // Assert
-            Assert.AreEqual(PipingCalculationResult.Successful, result);
-            Assert.IsNotNull(validPipingData.Output);
-        }
-
-        [Test]
-        public void PerfromValidatedCalculation_ValidPipingDataWithOutput_ShouldChangeOutput()
-        {
-            // Setup
-            var output = new TestPipingOutput();
-            validPipingData.Output = output;
-
-            // Call
-            var result = PipingCalculationService.PerfromValidatedCalculation(validPipingData);
-
-            // Assert
-            Assert.AreEqual(PipingCalculationResult.Successful, result);
-            Assert.AreNotSame(output, validPipingData.Output);
-        }
-
-        [Test]
-        public void PerfromValidatedCalculation_InValidPipingDataWithOutput_ReturnsFalseNoOutputChange()
-        {
-            // Setup
-            var output = new TestPipingOutput();
-            var invalidPipingData = new PipingData
-            {
-                Output = output
-            };
-
-            // Call
-            var result = PipingCalculationService.PerfromValidatedCalculation(invalidPipingData);
-            
-            // Assert
-            Assert.AreEqual(PipingCalculationResult.ValidationErrors, result);
-            Assert.AreSame(output, invalidPipingData.Output);
-        }
-
-        [Test]
-        public void PerformValidatedCalculation_Diameter70AndAquiferPermeabilityZero_CalculationErrorOutputNull()
-        {
-            // Setup
-            validPipingData.Diameter70 = 0;
-            validPipingData.DarcyPermeability = 0;
-
-            // Call
-            var result = PipingCalculationService.PerfromValidatedCalculation(validPipingData);
-
-            // Assert
-            Assert.AreEqual(PipingCalculationResult.CalculationErrors, result);
-            Assert.IsNull(validPipingData.Output);
         }
     }
 }
