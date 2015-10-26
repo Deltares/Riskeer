@@ -33,6 +33,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MathNet.Numerics, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\..\packages\MathNet.Numerics.3.8.0\lib\net40\MathNet.Numerics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\..\..\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -41,6 +45,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PipingDataTest.cs" />
@@ -48,6 +53,7 @@
     <Compile Include="PipingOutputTest.cs" />
     <Compile Include="PipingSoilLayerTest.cs" />
     <Compile Include="PipingSoilProfileTest.cs" />
+    <Compile Include="Point2DTest.cs" />
     <Compile Include="RingtoetsPipingSurfaceLineTest.cs" />
     <Compile Include="Point3DTest.cs" />
     <Compile Include="PointCollectionHelperTest.cs" />
@@ -71,6 +77,9 @@
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
       <Name>Ringtoets.Piping.Data.TestUtil</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Deltares.WTIPiping;
@@ -55,7 +56,7 @@ namespace Ringtoets.Piping.Calculation.Piping
         public List<string> Validate()
         {
             List<string> upliftCalculatorValidationResults = input.SurfaceLine != null ?
-                                                                 CreateUpliftCalculator().Validate() :
+                                                                 ValidateUpliftCalculator() :
                                                                  new List<string>(new[]
                                                                  {
                                                                      Resources.PipingCalculation_Validate_Lacks_surfaceline_uplift
@@ -64,6 +65,22 @@ namespace Ringtoets.Piping.Calculation.Piping
             List<string> sellmeijerCalculatorValidationResults = CreateSellmeijerCalculator().Validate();
 
             return upliftCalculatorValidationResults.Concat(heaveCalculatorValidationResults).Concat(sellmeijerCalculatorValidationResults).ToList();
+        }
+
+        private List<string> ValidateUpliftCalculator()
+        {
+            try
+            {
+                EffectiveThicknessCalculator effectiveThicknessCalculator = CalculateEffectiveThickness();
+                return CreateUpliftCalculator(effectiveThicknessCalculator.EffectiveStress).Validate();
+            }
+            catch (Exception exception)
+            {
+                return new List<string>
+                {
+                    exception.Message
+                };
+            }
         }
 
         private Sellmeijer2011Calculator CalculateSellmeijer()
@@ -104,7 +121,8 @@ namespace Ringtoets.Piping.Calculation.Piping
 
         private WTIUpliftCalculator CalculateUplift()
         {
-            WTIUpliftCalculator upliftCalculator = CreateUpliftCalculator();
+            EffectiveThicknessCalculator calculatedEffectiveStressResult = CalculateEffectiveThickness();
+            WTIUpliftCalculator upliftCalculator = CreateUpliftCalculator(calculatedEffectiveStressResult.EffectiveStress);
             
             try
             {
@@ -136,15 +154,13 @@ namespace Ringtoets.Piping.Calculation.Piping
             return calculator;
         }
 
-        private WTIUpliftCalculator CreateUpliftCalculator()
+        private WTIUpliftCalculator CreateUpliftCalculator(double effectiveStress)
         {
-            var effectiveStressResult = CalculateEffectiveThickness();
-
             var calculator = new WTIUpliftCalculator
             {
                 VolumetricWeightOfWater = input.WaterVolumetricWeight,
                 ModelFactorUplift = input.UpliftModelFactor,
-                EffectiveStress = effectiveStressResult.EffectiveStress,
+                EffectiveStress = effectiveStress,
                 HRiver = input.AssessmentLevel,
                 PhiExit = input.PiezometricHeadExit,
                 RExit = input.DampingFactorExit,
