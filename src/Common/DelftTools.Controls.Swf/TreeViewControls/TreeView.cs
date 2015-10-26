@@ -402,8 +402,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             {
                 BeforeWaitUntilAllEventsAreProcessed();
             }
-
-            controller.WaitUntilAllEventsAreProcessed();
         }
 
         protected override void OnPaint(PaintEventArgs e)

@@ -41,11 +41,6 @@ namespace DelftTools.Controls
         IEnumerable<ITreeNode> AllLoadedNodes { get; }
 
         /// <summary>
-        /// Indicates if updates are suspended (rendering, layout).
-        /// </summary>
-        bool IsUpdateSuspended { get; }
-
-        /// <summary>
         /// Returns a specific node presenter for the given data object.
         /// </summary>
         /// <param name="nodeData"></param>

@@ -71,14 +71,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             }
         }
 
-        public void WaitUntilAllEventsAreProcessed()
-        {
-            while (treeView.IsUpdateSuspended || treeView.Visible)
-            {
-                Application.DoEvents();
-            }
-        }
-
         /// <summary>
         /// Gets the most specific node presenter for a piece of data. Does so by walking up the class hierarchy and trying to find an exact match
         /// It is in the helper to allow heavy testing since this is complex logic.
@@ -160,13 +152,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             }
             else
             {
-                var suspend = false; // suspend tree view locally
-
-                if (!treeView.IsUpdateSuspended)
-                {
-                    treeView.BeginUpdate();
-                    suspend = true;
-                }
+                treeView.BeginUpdate();
                 try
                 {
                     var nodePresenter = treeNode.Presenter;
@@ -212,10 +198,7 @@ namespace DelftTools.Controls.Swf.TreeViewControls
                 }
                 finally
                 {
-                    if (suspend)
-                    {
-                        treeView.EndUpdate();
-                    }
+                    treeView.EndUpdate();
                 }
             }
         }

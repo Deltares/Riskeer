@@ -286,7 +286,6 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             });
             treeview.Expect(tv => tv.RefreshChildNodes(null)).IgnoreArguments().Repeat.Once();
             treeview.Expect(tv => tv.Visible).IgnoreArguments().Return(false).Repeat.Any();
-            treeview.Expect(tv => tv.IsUpdateSuspended).IgnoreArguments().Return(false).Repeat.Any();
             treeview.Expect(tv => tv.BeginUpdate()).IgnoreArguments().Repeat.Any();
             treeview.Expect(tv => tv.Refresh()).IgnoreArguments().Repeat.Any();
 
@@ -330,9 +329,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 
             // generate collection changed with listeners disabled
             parent.Children.Add(child2);
-
-            controller.WaitUntilAllEventsAreProcessed();
-
+            
             mocks.VerifyAll();
         }
 
@@ -493,7 +490,6 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             var tag = new object();
 
             Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
-            Expect.Call(treeview.IsUpdateSuspended).IgnoreArguments().Return(false).Repeat.Any();
             Expect.Call(treeview.BeginUpdate).IgnoreArguments().Repeat.Any();
             Expect.Call(treeview.EndUpdate).IgnoreArguments().Repeat.Any();
 
@@ -540,7 +536,6 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             };
 
             Expect.Call(treeview.GetNodeByTag(null)).IgnoreArguments().Return(null).Repeat.Any();
-            Expect.Call(treeview.IsUpdateSuspended).IgnoreArguments().Return(false).Repeat.Any();
             Expect.Call(treeview.BeginUpdate).IgnoreArguments().Repeat.Any();
             Expect.Call(treeview.EndUpdate).IgnoreArguments().Repeat.Any();
 
