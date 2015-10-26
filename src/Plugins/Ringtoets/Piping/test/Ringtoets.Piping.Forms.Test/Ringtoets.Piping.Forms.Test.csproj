@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ContextMenuStripExtensionsTest.cs" />
+    <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="NodePresenters\PipingSoilProfileCollectionNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingCalculationInputsNodePresenterTest.cs" />
     <Compile Include="Helper\PipingOutputCreator.cs" />

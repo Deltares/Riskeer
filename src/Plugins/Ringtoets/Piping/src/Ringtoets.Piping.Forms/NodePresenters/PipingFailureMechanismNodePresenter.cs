@@ -7,6 +7,7 @@ using DelftTools.Utils.Collections;
 
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Extensions;
+using Ringtoets.Piping.Forms.Helpers;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Service;
@@ -88,12 +89,16 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             var rootMenu = new ContextMenuStrip();
 
             rootMenu.AddMenuItem("Berekening toevoegen", "Voeg een nieuwe piping berekening toe aan het faalmechanisme.",
-                Resources.PipingIcon, (o, args) =>
-                {
-                    var failureMechanism = (PipingFailureMechanism)nodeData;
-                    failureMechanism.Calculations.Add(new PipingData());
-                    failureMechanism.NotifyObservers();
-                });
+                                 Resources.PipingIcon, (o, args) =>
+                                 {
+                                     var failureMechanism = (PipingFailureMechanism)nodeData;
+                                     var pipingData = new PipingData
+                                     {
+                                         Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, "Piping", pd => pd.Name)
+                                     };
+                                     failureMechanism.Calculations.Add(pipingData);
+                                     failureMechanism.NotifyObservers();
+                                 });
             rootMenu.AddMenuItem("Berekenen", "Valideer en vervolgens reken all piping berekeningen door in het faalmechanisme.",
                                  Resources.PlayAll, (o, args) =>
                                  {

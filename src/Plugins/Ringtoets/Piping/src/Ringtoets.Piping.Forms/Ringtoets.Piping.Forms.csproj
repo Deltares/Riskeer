@@ -52,6 +52,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Extensions\ContextMenuStripExtensions.cs" />
+    <Compile Include="Helpers\NamingHelper.cs" />
     <Compile Include="NodePresenters\PipingContextMenuStrip.cs">
       <SubType>Component</SubType>
     </Compile>
