@@ -42,7 +42,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DocumentationFile>bin\Debug\DelftTools.Controls.Swf.XML</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <NoWarn>1591</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -54,7 +54,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>bin\Release\DelftTools.Controls.Swf.XML</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <Optimize>true</Optimize>
     <NoWarn>
     </NoWarn>
