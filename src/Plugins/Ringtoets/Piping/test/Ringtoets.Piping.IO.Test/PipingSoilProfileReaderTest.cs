@@ -75,20 +75,6 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        public void ReadSoilProfiles_NLCompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
-        {
-            ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries();
-        }
-
-        [Test]
-        [SetCulture("en-US")]
-        public void ReadSoilProfiles_ENCompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
-        {
-            ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries();
-        }
-
-        [Test]
         public void ReadProfiles_DatabaseWith1DAnd2DProfilesWithSameName_ThrowsPipingSoilProfileReadException()
         {
             // Setup
@@ -102,6 +88,51 @@ namespace Ringtoets.Piping.IO.Test
                 var exception = Assert.Throws<PipingSoilProfileReadException>(test);
                 Assert.AreEqual(Resources.Error_CannotCombine2DAnd1DLayersInProfile, exception.Message);
             }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void ReadProfiles_NLDatabaseWith1DProfile_ReturnsCompleteSoilProfile()
+        {
+            ReadProfiles_DatabaseWith1DProfile_ReturnsCompleteSoilProfile();
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        public void ReadProfiles_ENDatabaseWith1DProfile_ReturnsCompleteSoilProfile()
+        {
+            ReadProfiles_DatabaseWith1DProfile_ReturnsCompleteSoilProfile();
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void ReadSoilProfiles_NLCompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
+        {
+            ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries();
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        public void ReadSoilProfiles_ENCompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
+        {
+            ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries();
+        }
+
+        public void ReadProfiles_DatabaseWith1DProfile_ReturnsCompleteSoilProfile()
+        {
+            // Setup
+            var testFile = "1dprofile.soil";
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            {
+                // Call
+                PipingSoilProfile[] result = pipingSoilProfilesReader.Read().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, result.Length);
+                Assert.AreEqual(-12, result[0].Bottom);
+                CollectionAssert.AreEquivalent(new[] { 60, 0.63, -7.0 }, result[0].Layers.Select(l => l.Top));
+            }
+
         }
 
         private void ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries()
@@ -229,7 +260,7 @@ namespace Ringtoets.Piping.IO.Test
                     2,
                     2,
                     2,
-                    2,
+                    3,
                     1,
                     1,
                     1

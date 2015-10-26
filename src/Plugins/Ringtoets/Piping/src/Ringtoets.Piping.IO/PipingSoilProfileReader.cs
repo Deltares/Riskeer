@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
@@ -28,6 +27,7 @@ namespace Ringtoets.Piping.IO
         private const string profileNameColumn = "ProfileName";
         private const string intersectionXColumn = "IntersectionX";
         private const string bottomColumn = "Bottom";
+        private const string topColumn = "Top";
         private const string layerGeometryColumn = "LayerGeometry";
         private const string abovePhreaticLevelColumn = "AbovePhreaticLevel";
         private const string belowPhreaticLevelColumn = "BelowPhreaticLevel";
@@ -112,7 +112,7 @@ namespace Ringtoets.Piping.IO
 
         private PipingSoilLayer ReadPipingSoilLayer()
         {
-            var columnValue = (double) dataReader[bottomColumn];
+            var columnValue = (double) dataReader[topColumn];
             return new PipingSoilLayer(columnValue);
         }
 
@@ -174,13 +174,14 @@ namespace Ringtoets.Piping.IO
                       "l.GeometrySurface as {1},",
                       "mpl.X as {2},",
                       "null as {3},",
-                      "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {4},",
-                      "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {5},",
-                      "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {6},",
-                      "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {7},",
-                      "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {8},",
-                      "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {9},",
-                      "2 as {10}",
+                      "null as {4},",
+                      "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {5},",
+                      "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {6},",
+                      "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {7},",
+                      "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {8},",
+                      "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {9},",
+                      "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {10},",
+                      "2 as {11}",
                     "FROM MechanismPointLocation as m",
                     "JOIN MechanismPointLocation as mpl ON p.SP2D_ID = mpl.SP2D_ID",
                     "JOIN SoilProfile2D as p ON m.SP2D_ID = p.SP2D_ID",
@@ -190,7 +191,7 @@ namespace Ringtoets.Piping.IO
 	                    "FROM ParameterNames as pn",
 	                    "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
 	                    "JOIN Materials as m ON m.MA_ID = pv.MA_ID) as mat ON l.MA_ID = mat.MA_ID",
-                    "WHERE m.ME_ID = @{11}",
+                    "WHERE m.ME_ID = @{12}",
                     "GROUP BY l.SL2D_ID",
                     "UNION",
                     "SELECT",
@@ -198,13 +199,14 @@ namespace Ringtoets.Piping.IO
                       "null as {1},",
                       "null as {2},",
                       "p.BottomLevel as {3},",
-                      "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {4},",
-                      "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {5},",
-                      "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {6},",
-                      "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {7},",
-                      "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {8},",
-                      "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {9},",
-                      "1 as {10}",
+                      "l.TopLevel as {4},",
+                      "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {5},",
+                      "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {6},",
+                      "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {7},",
+                      "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {8},",
+                      "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {9},",
+                      "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {10},",
+                      "1 as {11}",
                     "FROM SoilProfile1D as p",
                       "JOIN SoilLayer1D as l ON l.SP1D_ID = p.SP1D_ID",
                       "JOIN (",
@@ -219,6 +221,7 @@ namespace Ringtoets.Piping.IO
                 layerGeometryColumn,
                 intersectionXColumn,
                 bottomColumn,
+                topColumn,
                 abovePhreaticLevelColumn,
                 belowPhreaticLevelColumn,
                 permeabKxColumn,
