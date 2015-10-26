@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingSoilProfileCollectionNodePresenter();
 
-            IEnumerable<object> soilProfilesCollection = Enumerable.Empty<object>();
+            IEnumerable<PipingSoilProfile> soilProfilesCollection = new PipingSoilProfile[0];
 
             // Call
             nodePresenter.UpdateNode(null, soilProfileCollectionNodeStub, soilProfilesCollection);

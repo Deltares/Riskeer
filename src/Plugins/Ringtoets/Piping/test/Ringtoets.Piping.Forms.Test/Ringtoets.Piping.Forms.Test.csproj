@@ -52,6 +52,7 @@
     <Compile Include="NodePresenters\PipingFailureMechanismNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingNodePresenterBaseTest.cs" />
     <Compile Include="NodePresenters\PipingOutputNodePresenterTest.cs" />
+    <Compile Include="NodePresenters\PipingSoilProfileNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingSurfaceLineCollectionNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingSurfaceLineNodePresenterTest.cs" />
     <Compile Include="NodePresenters\WtiProjectNodePresenterTest.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\PipingCalculationInputsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingOutputPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\PipingSoilProfilePropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingSurfaceLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WtiProjectPropertiesTest.cs" />
     <Compile Include="UITypeEditors\PipingCalculationInputsSurfaceLineSelectionEditorTest.cs" />

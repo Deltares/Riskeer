@@ -60,6 +60,7 @@
     <Compile Include="NodePresenters\PipingOutputNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingCalculationInputsNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingSoilProfileCollectionNodePresenter.cs" />
+    <Compile Include="NodePresenters\PipingSoilProfileNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingSurfaceLineCollectionNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingSurfaceLineNodePresenter.cs" />
     <Compile Include="NodePresenters\WtiProjectNodePresenter.cs" />
@@ -72,6 +73,7 @@
     </Compile>
     <Compile Include="PropertyClasses\PipingCalculationInputsProperties.cs" />
     <Compile Include="PropertyClasses\PipingOutputProperties.cs" />
+    <Compile Include="PropertyClasses\PipingSoilProfileProperties.cs" />
     <Compile Include="PropertyClasses\PipingSurfaceLineProperties.cs" />
     <Compile Include="PropertyClasses\WtiProjectProperties.cs" />
     <Compile Include="UITypeEditors\PipingCalculationInputsSurfaceLineSelectionEditor.cs" />

@@ -76,6 +76,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 ObjectType = typeof(RingtoetsPipingSurfaceLine), PropertyType = typeof(PipingSurfaceLineProperties)
             };
+            yield return new PropertyInfo<PipingSoilProfile, PipingSoilProfileProperties>();
         }
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
@@ -92,6 +93,7 @@ namespace Ringtoets.Piping.Plugin
             {
                 ImportSoilProfilesAction = Gui.CommandHandler.ImportToGuiSelection
             };
+            yield return new PipingSoilProfileNodePresenter();
             yield return new PipingOutputNodePresenter();
         }
     }

@@ -19,7 +19,7 @@ namespace Ringtoets.Piping.Data
         public PipingFailureMechanism()
         {
             SurfaceLines = new ObservableList<RingtoetsPipingSurfaceLine>();
-            SoilProfiles = Enumerable.Empty<PipingSoilProfile>();
+            SoilProfiles = new ObservableList<PipingSoilProfile>();
             Calculations = new List<PipingData> { new PipingData() };
         }
 

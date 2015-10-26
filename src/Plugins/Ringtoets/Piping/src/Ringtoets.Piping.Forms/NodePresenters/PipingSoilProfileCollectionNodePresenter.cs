@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Utils.Collections;
-
 using Ringtoets.Piping.Data;
-
 using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.Properties;
 
@@ -38,9 +37,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
+            var pipingSoilProfiles = (IEnumerable<PipingSoilProfile>) nodeData;
             node.Text = Resources.PipingSoilProfilesCollectionName;
-            node.ForegroundColor = Color.FromKnownColor(KnownColor.GrayText);
             node.Image = Resources.FolderIcon;
+
+            node.ForegroundColor = GetTextColor(pipingSoilProfiles);
         }
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
@@ -112,8 +113,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             throw new InvalidOperationException(String.Format("Cannot delete node of type {0}.", GetType().Name));
         }
 
+        private static Color GetTextColor(object nodeData)
+        {
+            var pipingSoilProfiles = (IEnumerable<PipingSoilProfile>) nodeData;
+            return Color.FromKnownColor(pipingSoilProfiles.Any() ? KnownColor.Black : KnownColor.GrayText);
+        }
+
         private ContextMenuStrip CreateContextMenu()
-        {            
+        {
             var strip = new ContextMenuStrip();
             if (ImportSoilProfilesAction != null)
             {

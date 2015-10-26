@@ -391,4 +391,25 @@
   <data name="PipingDataNameDisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
+  <data name="PipingSoilProfileBottomDescription" xml:space="preserve">
+    <value>Het niveau van de onderkant van dit profiel.</value>
+  </data>
+  <data name="PipingSoilProfileBottomDisplayName" xml:space="preserve">
+    <value>Bodemniveau</value>
+  </data>
+  <data name="PipingSoilProfileNameDescription" xml:space="preserve">
+    <value>De naam van het ondergrondprofiel.</value>
+  </data>
+  <data name="PipingSoilProfileNameDisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="PipingSoilProfilePropertiesDisplayName" xml:space="preserve">
+    <value>Ondergrondprofiel</value>
+  </data>
+  <data name="PipingSoilProfileTopsDescription" xml:space="preserve">
+    <value>De niveaus van de bovenkant van de lagen binnen dit profiel.</value>
+  </data>
+  <data name="PipingSoilProfileTopsDisplayName" xml:space="preserve">
+    <value>Topniveaus</value>
+  </data>
 </root>
