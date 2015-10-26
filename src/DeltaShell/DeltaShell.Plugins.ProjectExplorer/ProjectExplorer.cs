@@ -60,16 +60,6 @@ namespace DeltaShell.Plugins.ProjectExplorer
         public Image Image { get; set; }
         public ViewInfo ViewInfo { get; set; }
 
-        public void EndWaitMode()
-        {
-            ProjectTreeView.EnableEvents();
-        }
-
-        public void BeginWaitMode()
-        {
-            ProjectTreeView.DisableEvents();
-        }
-
         public new void Dispose()
         {
             ProjectTreeView.Data = null;

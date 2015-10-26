@@ -157,12 +157,12 @@ namespace DeltaShell.Plugins.ProjectExplorer
 
         private void ApplicationProjectSaved(Project project)
         {
-            ProjectExplorer.EndWaitMode();
+            // Place for actions after project is already saved
         }
 
         private void ApplicationOnProjectSaving(Project project)
         {
-            ProjectExplorer.BeginWaitMode();
+            // Place for actions after project is about to be saved
         }
 
         private void ApplicationProjectClosed(Project project)

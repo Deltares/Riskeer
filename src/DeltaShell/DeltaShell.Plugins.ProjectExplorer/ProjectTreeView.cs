@@ -143,17 +143,7 @@ namespace DeltaShell.Plugins.ProjectExplorer
 
             return null;
         }
-
-        public void EnableEvents()
-        {
-            treeView.EnableDataEventListeners();
-        }
-
-        public void DisableEvents()
-        {
-            treeView.DisableDataEventListeners(); // HACK: dangerous, all changes in the tree nodes during save won't be shown
-        }
-
+        
         public new void Dispose()
         {
             if (gui != null)
