@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf.TreeViewControls;
+using DelftTools.Shell.Core;
 using DelftTools.TestUtils;
 using DelftTools.Utils.Aop;
-using DelftTools.Utils.Aop.Markers;
-using DelftTools.Utils.Collections;
-using DelftTools.Utils.Collections.Generic;
 using NUnit.Framework;
 
 namespace DelftTools.Tests.Controls.Swf.TreeViewControls
@@ -59,8 +57,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
                 Assert.AreEqual(3, GetAllNodes(treeView.Nodes).Count());
 
                 group.Children.Remove(child1);
-
-                treeView.WaitUntilAllEventsAreProcessed();
+                group.NotifyObservers();
 
                 Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
 
@@ -90,14 +87,12 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
                 WindowsFormsTestHelper.Show(treeView);
 
                 group.Children.Remove(child1);
-
-                treeView.WaitUntilAllEventsAreProcessed();
+                group.NotifyObservers();
 
                 Assert.AreEqual(false, groupNode.HasChildren);
 
                 group.Children.Add(child1);
-
-                treeView.WaitUntilAllEventsAreProcessed();
+                group.NotifyObservers();
 
                 Assert.AreEqual(true, groupNode.HasChildren);
 
@@ -131,8 +126,7 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
                 Assert.AreEqual(3, GetAllNodes(treeView.Nodes).Count());
 
                 group.Children.Remove(child1);
-
-                treeView.WaitUntilAllEventsAreProcessed();
+                group.NotifyObservers();
 
                 Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
 
@@ -191,13 +185,12 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
                 WindowsFormsTestHelper.Show(treeView);
 
                 group.Children.Add(child1);
-
-                treeView.WaitUntilAllEventsAreProcessed();
+                group.NotifyObservers();
 
                 Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
 
                 group.Children.Add(child2);
-                treeView.WaitUntilAllEventsAreProcessed();
+                group.NotifyObservers();
 
                 Assert.AreEqual(3, GetAllNodes(treeView.Nodes).Count());
 
@@ -229,12 +222,12 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
                 Assert.AreEqual(1, GetAllNodes(treeView.Nodes).Count());
 
                 group.Children.Add(child1);
-                treeView.WaitUntilAllEventsAreProcessed();
+                group.NotifyObservers();
 
                 Assert.AreEqual(2, GetAllNodes(treeView.Nodes).Count());
 
                 group.Children.Add(child2);
-                treeView.WaitUntilAllEventsAreProcessed();
+                group.NotifyObservers();
 
                 Assert.AreEqual(3, GetAllNodes(treeView.Nodes).Count());
 
@@ -247,40 +240,71 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
         #region Test Classes
 
         [Entity(FireOnCollectionChange = false)]
-        private class TestPerson
+        private class TestPerson : IObservable
         {
+            private readonly IList<IObserver> observers = new List<IObserver>();
             public string Name { get; set; }
 
-            [NoNotifyPropertyChange]
             public TestGroup TestGroup { get; set; }
+
+            #region IObservable
+
+            public void Attach(IObserver observer)
+            {
+                observers.Add(observer);
+            }
+
+            public void Detach(IObserver observer)
+            {
+                observers.Remove(observer);
+            }
+
+            public void NotifyObservers()
+            {
+                foreach (var observer in observers)
+                {
+                    observer.UpdateObserver();
+                }
+            }
+
+            #endregion
         }
 
         [Entity]
-        private class TestGroup
+        private class TestGroup : IObservable
         {
+            private readonly IList<IObserver> observers = new List<IObserver>();
             public TestGroup()
             {
-                Children = new EventedList<TestPerson>();
-                Children.CollectionChanged += CollectionChanged;
-                Adults = new EventedList<TestPerson>();
-                Adults.CollectionChanged += CollectionChanged;
+                Children = new ObservableList<TestPerson>();
+                Adults = new ObservableList<TestPerson>();
             }
 
             public string Name { get; set; }
-            public IEventedList<TestPerson> Children { get; set; }
-            public IEventedList<TestPerson> Adults { get; set; }
+            public ObservableList<TestPerson> Children { get; set; }
+            public ObservableList<TestPerson> Adults { get; set; }
 
-            private void CollectionChanged(object sender, NotifyCollectionChangingEventArgs e)
+            #region IObservable
+
+            public void Attach(IObserver observer)
             {
-                if (e.Action == NotifyCollectionChangeAction.Add)
+                observers.Add(observer);
+            }
+
+            public void Detach(IObserver observer)
+            {
+                observers.Remove(observer);
+            }
+
+            public void NotifyObservers()
+            {
+                foreach (var observer in observers)
                 {
-                    ((TestPerson) e.Item).TestGroup = this;
-                }
-                else if (e.Action == NotifyCollectionChangeAction.Remove)
-                {
-                    ((TestPerson) e.Item).TestGroup = null;
+                    observer.UpdateObserver();
                 }
             }
+
+            #endregion
         }
 
         private class GroupNodePresenterUsingCollection : TreeViewNodePresenterBase<TestGroup>
