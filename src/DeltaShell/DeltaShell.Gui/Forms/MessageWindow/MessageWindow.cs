@@ -11,7 +11,7 @@ using log4net.Core;
 
 namespace DeltaShell.Gui.Forms.MessageWindow
 {
-    public partial class MessageWindow : UserControl, IMessageWindow, IObserver
+    public partial class MessageWindow : UserControl, IMessageWindow
     {
         public event EventHandler OnError;
         private readonly Dictionary<string, string> levelImageName;
@@ -58,44 +58,50 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             // fixes DPI problem
             messagesDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             messagesDataGridView.RowsAdded += messagesDataGridView_RowsAdded;
-
-            newMessages.Attach(this);
         }
 
-        public void UpdateObserver()
+        private void PopulateMessages()
         {
             if (newMessages.Count == 0)
             {
                 return;
             }
 
-            messagesDataGridView.SuspendLayout();
+            var hasError = false;
+            messageWindowData.Messages.BeginLoadData();
             try
             {
-                Refresh();
-
-                while (newMessages.Count != 0)
+                foreach (var msg in newMessages)
                 {
-                    var newMessage = newMessages[0];
-                    newMessages.RemoveAt(0);
-
-                    messageWindowData.Messages.AddMessagesRow(newMessage.ImageName, newMessage.Time, newMessage.Message);
-
-                    if (newMessage.ImageName == "ERROR" && OnError != null)
-                    {
-                        OnError(this, null);
-                    }
+                    messageWindowData.Messages.AddMessagesRow(msg.ImageName, msg.Time, msg.Message);
+                    hasError = hasError || (msg.ImageName == "ERROR" && OnError != null);
                 }
             }
             finally
             {
-                messagesDataGridView.ResumeLayout();
+                newMessages.Clear();
+                messageWindowData.Messages.EndLoadData();
+            }
+
+            if (hasError)
+            {
+                OnError(this, null);
             }
 
             if (messagesDataGridView.Rows.Count > 0)
             {
                 messagesDataGridView.CurrentCell = messagesDataGridView.Rows[0].Cells[0];
             }
+        }
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Forms.Control.Paint"/> event.
+        /// </summary>
+        /// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs"/> that contains the event data. </param>
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            PopulateMessages();
         }
 
         private void messagesDataGridView_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
@@ -300,7 +306,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             {
                 ImageName = level.ToString(), Time = time, Message = message
             });
-            newMessages.NotifyObservers();
+            Invalidate();
         }
 
         /// <summary>
