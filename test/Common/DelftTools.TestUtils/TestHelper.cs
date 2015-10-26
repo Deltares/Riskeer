@@ -255,6 +255,18 @@ namespace DelftTools.TestUtils
         }
 
         /// <summary>
+        /// Method use to perform any type of assertion on the generated log while performing
+        /// a particular action.
+        /// </summary>
+        /// <param name="action">Action to be performed while recording the log.</param>
+        /// <param name="assertLogMessages">The assertion logic performed on the generated log-messages.</param>
+        public static void AssertLogMessages(Action action, Action<IEnumerable<string>> assertLogMessages)
+        {
+            var renderedMessages = GetAllRenderedMessages(action);
+            assertLogMessages(renderedMessages);
+        }
+
+        /// <summary>
         /// Method used to check if a specific message is not in the log.
         /// This function allowed checking log messages being generated like <see cref="AssertLogMessageIsGenerated"/>
         /// without having to rerun the action for every single message.

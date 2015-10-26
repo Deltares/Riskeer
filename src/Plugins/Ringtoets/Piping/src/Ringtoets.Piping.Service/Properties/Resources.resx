@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CalculationEnded_0" xml:space="preserve">
-    <value>Berekening beëindigd om: {0}</value>
+  <data name="Calculation_Subject_0_Ended_Time_1_" xml:space="preserve">
+    <value>Berekening van '{0}' beëindigd om: {1}</value>
   </data>
-  <data name="CalculationStarted_0" xml:space="preserve">
-    <value>Berekening gestart om: {0}</value>
+  <data name="Calculation_Subject_0_Started_Time_1_" xml:space="preserve">
+    <value>Berekening van '{0}' gestart om: {1}</value>
   </data>
   <data name="ErrorInPipingCalculation_0" xml:space="preserve">
     <value>Piping berekening niet gelukt: {0}</value>
@@ -129,10 +129,10 @@
   <data name="ErrorInPipingValidation_0" xml:space="preserve">
     <value>Validatie mislukt: {0}</value>
   </data>
-  <data name="ValidationEnded_0" xml:space="preserve">
-    <value>Validatie beëindigd om: {0}</value>
+  <data name="Validation_Subject_0_Ended_Time_1_" xml:space="preserve">
+    <value>Validatie van '{0}' beëindigd om: {1}</value>
   </data>
-  <data name="ValidationStarted_0" xml:space="preserve">
-    <value>Validatie gestart om: {0}</value>
+  <data name="Validation_Subject_0_Started_Time_1_" xml:space="preserve">
+    <value>Validatie van '{0}' gestart om: {1}</value>
   </data>
 </root>

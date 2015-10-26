@@ -43,12 +43,14 @@ namespace Ringtoets.Piping.Service
         /// <returns>False if <paramref name="pipingData"/> contains validation errors; True otherwise.</returns>
         public static bool Validate(PipingData pipingData)
         {
-            PipingDataLogger.Info(String.Format(Resources.ValidationStarted_0, DateTimeService.CurrentTimeAsString));
+            PipingDataLogger.Info(String.Format(Resources.Validation_Subject_0_Started_Time_1_,
+                                                pipingData.Name, DateTimeService.CurrentTimeAsString));
 
             var validationResults = new PipingCalculation(CreateInputFromData(pipingData)).Validate();
             LogMessagesAsError(Resources.ErrorInPipingValidation_0, validationResults.ToArray());
 
-            PipingDataLogger.Info(String.Format(Resources.ValidationEnded_0, DateTimeService.CurrentTimeAsString));
+            PipingDataLogger.Info(String.Format(Resources.Validation_Subject_0_Ended_Time_1_,
+                                                pipingData.Name, DateTimeService.CurrentTimeAsString));
 
             return validationResults.Count == 0;
         }
@@ -68,7 +70,8 @@ namespace Ringtoets.Piping.Service
 
         private static void Calculate(PipingData pipingData)
         {
-            PipingDataLogger.Info(String.Format(Resources.CalculationStarted_0, DateTimeService.CurrentTimeAsString));
+            PipingDataLogger.Info(String.Format(Resources.Calculation_Subject_0_Started_Time_1_,
+                                                pipingData.Name, DateTimeService.CurrentTimeAsString));
 
             try
             {
@@ -87,7 +90,8 @@ namespace Ringtoets.Piping.Service
             }
             finally
             {
-                PipingDataLogger.Info(String.Format(Resources.CalculationEnded_0, DateTimeService.CurrentTimeAsString));
+                PipingDataLogger.Info(String.Format(Resources.Calculation_Subject_0_Ended_Time_1_,
+                                                    pipingData.Name, DateTimeService.CurrentTimeAsString));
             }
         }
 

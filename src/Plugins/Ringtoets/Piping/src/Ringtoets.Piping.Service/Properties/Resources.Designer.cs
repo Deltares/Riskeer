@@ -61,20 +61,20 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening beëindigd om: {0}.
+        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; beëindigd om: {1}.
         /// </summary>
-        internal static string CalculationEnded_0 {
+        internal static string Calculation_Subject_0_Ended_Time_1_ {
             get {
-                return ResourceManager.GetString("CalculationEnded_0", resourceCulture);
+                return ResourceManager.GetString("Calculation_Subject_0_Ended_Time_1_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekening gestart om: {0}.
+        ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; gestart om: {1}.
         /// </summary>
-        internal static string CalculationStarted_0 {
+        internal static string Calculation_Subject_0_Started_Time_1_ {
             get {
-                return ResourceManager.GetString("CalculationStarted_0", resourceCulture);
+                return ResourceManager.GetString("Calculation_Subject_0_Started_Time_1_", resourceCulture);
             }
         }
         
@@ -97,20 +97,20 @@ namespace Ringtoets.Piping.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatie beëindigd om: {0}.
+        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; beëindigd om: {1}.
         /// </summary>
-        internal static string ValidationEnded_0 {
+        internal static string Validation_Subject_0_Ended_Time_1_ {
             get {
-                return ResourceManager.GetString("ValidationEnded_0", resourceCulture);
+                return ResourceManager.GetString("Validation_Subject_0_Ended_Time_1_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatie gestart om: {0}.
+        ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; gestart om: {1}.
         /// </summary>
-        internal static string ValidationStarted_0 {
+        internal static string Validation_Subject_0_Started_Time_1_ {
             get {
-                return ResourceManager.GetString("ValidationStarted_0", resourceCulture);
+                return ResourceManager.GetString("Validation_Subject_0_Started_Time_1_", resourceCulture);
             }
         }
     }

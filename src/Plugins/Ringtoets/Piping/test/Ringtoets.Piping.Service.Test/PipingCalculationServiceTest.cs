@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+
+using DelftTools.TestUtils;
 
 using NUnit.Framework;
 
@@ -10,6 +13,51 @@ namespace Ringtoets.Piping.Service.Test
 {
     public class PipingCalculationServiceTest
     {
+        [Test]
+        public void Validate_Always_LogStartAndEndOfValidatingInputs()
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            var pipingData = CreateCalculationWithValidInput();
+            pipingData.Name = name;
+
+            // Call
+            Action call = () => PipingCalculationService.Validate(pipingData);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+        }
+
+        [Test]
+        public void PerformValidatedCalculation_ValidPipingData_LogStartAndEndOfValidatingInputsAndCalculation()
+        {
+            // Setup
+            const string name = "<very nice name>";
+
+            var pipingData = CreateCalculationWithValidInput();
+            pipingData.Name = name;
+
+            // Call
+            Action call = () => PipingCalculationService.PerfromValidatedCalculation(pipingData);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' gestart om: ", name), msgs.First());
+                StringAssert.StartsWith(String.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+
+                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", name), msgs[2]);
+                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", name), msgs.Last());
+            });
+        }
+
         [Test]
         public void PerformValidatedCalculation_ValidPipingDataNoOutput_ShouldSetOutput()
         {
