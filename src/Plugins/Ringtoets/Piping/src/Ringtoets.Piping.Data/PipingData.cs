@@ -16,6 +16,8 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public PipingData()
         {
+            Name = "Piping";
+
             // Defaults as they have been defined in the DikesPiping Kernel's Technical Documentation of 07 Oct 15
             BeddingAngle = 37.0;
             MeanDiameter70 = 2.08e-4;
@@ -27,6 +29,11 @@ namespace Ringtoets.Piping.Data
             SellmeijerReductionFactor = 0.3;
             DampingFactorExit = 1.0;
         }
+
+        /// <summary>
+        /// Gets or sets the name the user gave this this calculation object.
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the damping factor at the exit point.

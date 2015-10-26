@@ -17,6 +17,22 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     public class PipingCalculationInputsProperties : ObjectProperties<PipingCalculationInputs>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "PipingDataNameDisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingDataNameDescription")]
+        public string Name
+        {
+            get
+            {
+                return data.PipingData.Name;
+            }
+            set
+            {
+                data.PipingData.Name = value;
+                data.PipingData.NotifyObservers();
+            }
+        }
+
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataWaterVolumetricWeightDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingDataWaterVolumetricWeightDescription")]
         public double WaterVolumetricWeight

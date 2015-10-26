@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
-            node.Text = Resources.PipingDataDisplayName;
+            node.Text = ((PipingCalculationInputs)nodeData).PipingData.Name;
             node.Image = Resources.PipingIcon;
         }
 
@@ -46,17 +46,19 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public bool CanRenameNode(ITreeNode node)
         {
-            return false;
+            return true;
         }
 
         public bool CanRenameNodeTo(ITreeNode node, string newName)
         {
-            return false;
+            return true;
         }
 
         public void OnNodeRenamed(object nodeData, string newName)
         {
-            throw new InvalidOperationException(string.Format("Cannot rename tree node of type {0}.", GetType().Name));
+            var pipingCalculationInputs = ((PipingCalculationInputs)nodeData);
+            pipingCalculationInputs.PipingData.Name = newName;
+            pipingCalculationInputs.PipingData.NotifyObservers();
         }
 
         public void OnNodeChecked(ITreeNode node) {}

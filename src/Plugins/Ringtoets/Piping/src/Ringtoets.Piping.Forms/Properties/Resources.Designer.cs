@@ -261,15 +261,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Piping.
-        /// </summary>
-        public static string PipingDataDisplayName {
-            get {
-                return ResourceManager.GetString("PipingDataDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De x-coordinaat van het uittredepunt..
         /// </summary>
         public static string PipingDataExitPointXCoordinateDescription {
@@ -320,6 +311,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingDataMeanDiameter70DisplayName {
             get {
                 return ResourceManager.GetString("PipingDataMeanDiameter70DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van de piping berekening..
+        /// </summary>
+        public static string PipingDataNameDescription {
+            get {
+                return ResourceManager.GetString("PipingDataNameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string PipingDataNameDisplayName {
+            get {
+                return ResourceManager.GetString("PipingDataNameDisplayName", resourceCulture);
             }
         }
         

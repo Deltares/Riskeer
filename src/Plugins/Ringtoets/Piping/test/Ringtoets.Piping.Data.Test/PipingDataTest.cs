@@ -23,6 +23,8 @@ namespace Ringtoets.Piping.Data.Test
             var defaultConstructed = new PipingData();
 
             // Assert
+            Assert.AreEqual("Piping", defaultConstructed.Name);
+
             Assert.AreEqual(0, defaultConstructed.CriticalHeaveGradient);
             Assert.AreEqual(0, defaultConstructed.UpliftModelFactor);
             Assert.AreEqual(0, defaultConstructed.PiezometricHeadExit);

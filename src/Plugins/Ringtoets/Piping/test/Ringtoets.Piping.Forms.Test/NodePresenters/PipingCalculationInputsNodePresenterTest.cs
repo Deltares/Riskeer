@@ -8,10 +8,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Piping.Data;
-
-using Ringtoets.Piping.Calculation.Test.Piping.Stub;
 using Ringtoets.Piping.Calculation.TestUtil;
-using Ringtoets.Piping.Forms;
 using Ringtoets.Piping.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
 
@@ -46,7 +43,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void UpdateNode_WithData_InitializeNode()
         {
             // Setup
-            const string nodeName = "Piping";
+            const string nodeName = "<Cool name>";
 
             var mocks = new MockRepository();
             var pipingNode = mocks.Stub<ITreeNode>();
@@ -54,13 +51,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
-            var pipingData = new PipingData
+            var pipingCalculationInputs = new PipingCalculationInputs
             {
-                AssessmentLevel = 2.0
+                PipingData = new PipingData
+                {
+                    Name = nodeName,
+                    AssessmentLevel = 2.0
+                }
             };
 
             // Call
-            nodePresenter.UpdateNode(null, pipingNode, pipingData);
+            nodePresenter.UpdateNode(null, pipingNode, pipingCalculationInputs);
 
             // Assert
             Assert.AreEqual(nodeName, pipingNode.Text);
@@ -119,7 +120,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanRenameNode_Always_ReturnFalse()
+        public void CanRenameNode_Always_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -132,12 +133,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var renameAllowed = nodePresenter.CanRenameNode(nodeMock);
 
             // Assert
-            Assert.IsFalse(renameAllowed);
+            Assert.IsTrue(renameAllowed);
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
-        public void CanRenameNodeTo_Always_ReturnFalse()
+        public void CanRenameNodeTo_Always_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -150,29 +151,38 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
 
             // Assert
-            Assert.IsFalse(renameAllowed);
+            Assert.IsTrue(renameAllowed);
             mocks.ReplayAll(); // Expect no calls on tree node
         }
 
-
         [Test]
-        public void OnNodeRenamed_Always_ThrowInvalidOperationException()
+        public void OnNodeRenamed_Always_SetNewNameToPipingData()
         {
             // Setup
             var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
+
+            var pipingData = new PipingData
+            {
+                Name = "<Original name>"
+            };
+            var pipingCalculationsInputs = new PipingCalculationInputs
+            {
+                PipingData = pipingData
+            };
+            pipingCalculationsInputs.Attach(observerMock);
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
             // Call
-            TestDelegate call = () => { nodePresenter.OnNodeRenamed(nodeMock, "<Insert New Name Here>"); };
+            const string newName = "<Insert New Name Here>";
+            nodePresenter.OnNodeRenamed(pipingCalculationsInputs, newName);
 
             // Assert
-            var exception = Assert.Throws<InvalidOperationException>(call);
-            var expectedMessage = string.Format("Cannot rename tree node of type {0}.", nodePresenter.GetType().Name);
-            Assert.AreEqual(expectedMessage, exception.Message);
-            mocks.ReplayAll(); // Expect no calls on tree node
+            Assert.AreEqual(newName, pipingData.Name);
+            mocks.VerifyAll();
         }
 
         [Test]

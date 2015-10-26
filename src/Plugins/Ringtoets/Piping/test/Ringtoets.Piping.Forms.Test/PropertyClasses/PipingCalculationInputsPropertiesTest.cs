@@ -28,9 +28,11 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
+            const string name = "<very cool name>";
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             var pipingData = new PipingData
             {
+                Name = name,
                 SurfaceLine = surfaceLine
             };
 
@@ -43,6 +45,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             };
 
             // Call & Assert
+            Assert.AreEqual(name, properties.Name);
             Assert.AreEqual(0, properties.CriticalHeaveGradient);
             Assert.AreEqual(0, properties.UpliftModelFactor);
             Assert.AreEqual(0, properties.PiezometricHeadExit);
