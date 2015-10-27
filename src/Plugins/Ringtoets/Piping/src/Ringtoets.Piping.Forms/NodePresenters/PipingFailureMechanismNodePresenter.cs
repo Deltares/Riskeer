@@ -43,7 +43,8 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 yield return new PipingCalculationInputs
                 {
                     PipingData = calculation,
-                    AvailablePipingSurfaceLines = failureMechanism.SurfaceLines
+                    AvailablePipingSurfaceLines = failureMechanism.SurfaceLines,
+                    AvailablePipingSoilProfiles = failureMechanism.SoilProfiles
                 };
             }
         }

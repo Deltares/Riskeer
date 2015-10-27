@@ -113,7 +113,8 @@ namespace Ringtoets.Piping.IO
         private PipingSoilLayer ReadPipingSoilLayer()
         {
             var columnValue = (double) dataReader[topColumn];
-            return new PipingSoilLayer(columnValue);
+            var pipingSoilLayer = new PipingSoilLayer(columnValue);
+            return pipingSoilLayer;
         }
 
         public void Dispose()

@@ -30,6 +30,7 @@ namespace Ringtoets.Piping.Calculation.Piping
         private readonly double beddingAngle;
         private readonly double exitPointXCoordinate;
         private readonly RingtoetsPipingSurfaceLine surfaceLine;
+        private readonly PipingSoilProfile soilProfile;
 
         /// <summary>
         /// Constructs a new <see cref="PipingCalculationInput"/>, which contains values for the parameters used
@@ -58,7 +59,8 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// <param name="beddingAngle">The angle of the force balance representing the amount in which sand grains resist rolling. [&#176;]</param>
         /// <param name="exitPointXCoordinate">The x coordinate of the exit point. [m]</param>
         /// <param name="surfaceLine">The surface line.</param>
-        public PipingCalculationInput(double waterVolumetricWeight, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double piezometricHeadPolder, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine)
+        /// <param name="soilProfile"></param>
+        public PipingCalculationInput(double waterVolumetricWeight, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double piezometricHeadPolder, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
         {
             this.waterVolumetricWeight = waterVolumetricWeight;
             this.upliftModelFactor = upliftModelFactor;
@@ -83,6 +85,7 @@ namespace Ringtoets.Piping.Calculation.Piping
             this.beddingAngle = beddingAngle;
             this.exitPointXCoordinate = exitPointXCoordinate;
             this.surfaceLine = surfaceLine;
+            this.soilProfile = soilProfile;
         }
 
         #region properties
@@ -353,6 +356,17 @@ namespace Ringtoets.Piping.Calculation.Piping
             get
             {
                 return surfaceLine;
+            }
+        }
+
+        /// <summary>
+        /// Gets the surface line.
+        /// </summary>
+        public PipingSoilProfile SoilProfile
+        {
+            get
+            {
+                return soilProfile;
             }
         }
 

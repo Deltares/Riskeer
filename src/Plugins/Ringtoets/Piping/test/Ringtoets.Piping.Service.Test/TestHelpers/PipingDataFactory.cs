@@ -1,4 +1,5 @@
-﻿using Ringtoets.Piping.Data;
+﻿using System;
+using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Service.Test.TestHelpers
 {
@@ -11,6 +12,11 @@ namespace Ringtoets.Piping.Service.Test.TestHelpers
 
         public static PipingData CreateCalculationWithValidInput()
         {
+            var random = new Random(22);
+            var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
+            {
+                new PipingSoilLayer(random.NextDouble()) 
+            });
             return new PipingData
             {
                 AssessmentLevel = 1.0,
@@ -35,7 +41,8 @@ namespace Ringtoets.Piping.Service.Test.TestHelpers
                 WaterKinematicViscosity = 1.0,
                 WaterVolumetricWeight = 1.0,
                 WhitesDragCoefficient = 1.0,
-                SurfaceLine = new RingtoetsPipingSurfaceLine()
+                SurfaceLine = new RingtoetsPipingSurfaceLine(),
+                SoilProfile = soilProfile
             };
         }
     }

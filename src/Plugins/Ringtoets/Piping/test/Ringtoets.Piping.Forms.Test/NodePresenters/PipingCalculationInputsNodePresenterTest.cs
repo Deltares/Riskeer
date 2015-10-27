@@ -45,9 +45,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             const string nodeName = "<Cool name>";
 
-            var mocks = new MockRepository();
-            var pipingNode = mocks.Stub<ITreeNode>();
-            mocks.ReplayAll();
+            var pipingNode = mockRepository.Stub<ITreeNode>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -73,9 +72,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GetChildNodeObjects_WithOutputData_ReturnOutputChildNode()
         {
             // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -93,16 +91,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.AreEqual(1, children.Count());
             CollectionAssert.AllItemsAreInstancesOfType(children, typeof(PipingOutput));
-            mocks.VerifyAll(); // Expect no calls on tree node
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void GetChildNodeObjects_WithoutOutput_ReturnNoChildNodes()
         {
             // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -116,16 +113,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(0, children.Count());
-            mocks.VerifyAll(); // Expect no calls on tree node
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void CanRenameNode_Always_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -134,16 +130,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsTrue(renameAllowed);
-            mocks.VerifyAll(); // Expect no calls on tree node
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void CanRenameNodeTo_Always_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -152,17 +147,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsTrue(renameAllowed);
-            mocks.ReplayAll(); // Expect no calls on tree node
+            mockRepository.ReplayAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void OnNodeRenamed_Always_SetNewNameToPipingData()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
+            var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             var pipingData = new PipingData
             {
@@ -182,16 +176,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(newName, pipingData.Name);
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void OnNodeChecked_Always_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -199,16 +192,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.OnNodeChecked(nodeMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on tree node
+            mockRepository.VerifyAll(); // Expect no calls on tree node
         }
 
         [Test]
         public void CanDrag_Always_ReturnNone()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<object>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -217,18 +209,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(DragOperations.None, dragAllowed);
-            mocks.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void CanDrop_Always_ReturnNone()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var sourceMock = mocks.StrictMock<ITreeNode>();
-            var targetMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<object>();
+            var sourceMock = mockRepository.StrictMock<ITreeNode>();
+            var targetMock = mockRepository.StrictMock<ITreeNode>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -237,18 +228,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(DragOperations.None, dropAllowed);
-            mocks.VerifyAll(); // Expect no calls on mocks.
+            mockRepository.VerifyAll(); // Expect no calls on mockRepository.
         }
 
         [Test]
         public void CanInsert_Always_ReturnFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var sourceMock = mocks.StrictMock<ITreeNode>();
-            var targetMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<object>();
+            var sourceMock = mockRepository.StrictMock<ITreeNode>();
+            var targetMock = mockRepository.StrictMock<ITreeNode>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -257,18 +247,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(insertionAllowed);
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void OnDragDrop_Always_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var sourceParentNodeMock = mocks.StrictMock<ITreeNode>();
-            var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<object>();
+            var sourceParentNodeMock = mockRepository.StrictMock<ITreeNode>();
+            var targetParentNodeDataMock = mockRepository.StrictMock<ITreeNode>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -276,16 +265,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void OnNodeSelected_Always_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<object>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -293,20 +281,19 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.OnNodeSelected(dataMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void GetContextMenu_Always_ContextMenuWithOneItemForCalculate()
         {
             // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<PipingCalculationInputs>();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var dataMock = mockRepository.StrictMock<PipingCalculationInputs>();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
-            mocks.ReplayAll();
+            mockRepository.ReplayAll();
 
             // Call
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
@@ -317,18 +304,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(WtiFormsResources.PipingDataContextMenuCalculate, contextMenu.Items[1].Text);
             Assert.AreEqual(WtiFormsResources.PipingDataContextMenuValidate, contextMenu.Items[0].Text);
             Assert.IsInstanceOf<PipingContextMenuStrip>(contextMenu);
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void OnPropertyChange_Always_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<object>();
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var eventArgsMock = mockRepository.StrictMock<PropertyChangedEventArgs>("");
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -336,17 +322,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void OnCollectionChange_Always_DoNothing()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<object>();
+            var eventArgsMock = mockRepository.StrictMock<NotifyCollectionChangingEventArgs>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -354,17 +339,16 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
 
             // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
         public void CanRemove_Always_ReturnTrue()
         {
             // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var nodeMock = mocks.StrictMock<object>();
-            mocks.ReplayAll();
+            var dataMock = mockRepository.StrictMock<object>();
+            var nodeMock = mockRepository.StrictMock<object>();
+            mockRepository.ReplayAll();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -373,7 +357,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsFalse(removalAllowed);
-            mocks.VerifyAll(); // Expect no calls on arguments
+            mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
@@ -395,7 +379,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GivenInvalidPipingData_WhenCalculatingFromContextMenu_ThenPipingDataNotifiesObserversAndLogMessageAdded()
         {
             // Given
-            var expectedValidationMessageCount = 6;
+            var expectedValidationMessageCount = 7;
             var expectedStatusMessageCount = 2;
             var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
 
@@ -423,7 +407,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GivenInvalidPipingData_WhenValidatingFromContextMenu_ThenLogMessageAddedAndNoNotifyObserver()
         {
             // Given
-            var expectedValidationMessageCount = 6;
+            var expectedValidationMessageCount = 7;
             var expectedStatusMessageCount = 2;
             var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
 
@@ -454,6 +438,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var expectedValidationStatusMessageCount = 2;
             var expectedLogMessageCount = expectedCalculationStatusMessageCount + expectedValidationStatusMessageCount;
 
+            var random = new Random(22);
+
             var calculateContextMenuItemIndex = 1;
             var pipingData = new PipingData();
             var validPipingInput = new TestPipingInput();
@@ -480,6 +466,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             pipingData.WaterKinematicViscosity = validPipingInput.WaterKinematicViscosity;
             pipingData.WhitesDragCoefficient = validPipingInput.WhitesDragCoefficient;
             pipingData.SurfaceLine = new RingtoetsPipingSurfaceLine();
+            pipingData.SoilProfile = new PipingSoilProfile(String.Empty,random.NextDouble(), new []
+            {
+                new PipingSoilLayer(1.0) 
+            });
 
             var observer = mockRepository.StrictMock<IObserver>();
             var nodePresenter = new PipingCalculationInputsNodePresenter();

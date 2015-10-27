@@ -1,4 +1,5 @@
-﻿using DelftTools.Shell.Core;
+﻿using System;
+using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -28,12 +29,19 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
+            var random = new Random(22);
+
             const string name = "<very cool name>";
             var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var soilProfile = new PipingSoilProfile(String.Empty,random.NextDouble(), new []
+            {
+                new PipingSoilLayer(random.NextDouble()) 
+            });
             var pipingData = new PipingData
             {
                 Name = name,
-                SurfaceLine = surfaceLine
+                SurfaceLine = surfaceLine,
+                SoilProfile = soilProfile
             };
 
             var properties = new PipingCalculationInputsProperties
@@ -69,6 +77,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(37, properties.BeddingAngle);
             Assert.AreEqual(2.08e-4, properties.MeanDiameter70);
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
+            Assert.AreSame(soilProfile, properties.SoilProfile);
         }
 
         [Test]

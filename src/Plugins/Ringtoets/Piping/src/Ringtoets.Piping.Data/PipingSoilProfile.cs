@@ -55,5 +55,10 @@ namespace Ringtoets.Piping.Data
                 layers = value.ToArray();
             }
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

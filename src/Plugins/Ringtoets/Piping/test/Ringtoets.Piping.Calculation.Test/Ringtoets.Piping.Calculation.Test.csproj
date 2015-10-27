@@ -43,6 +43,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Piping\PipingProfileCreatorExceptionTest.cs" />
     <Compile Include="Piping\PipingCalculationExceptionTest.cs" />
     <Compile Include="Piping\PipingCalculationInputTest.cs" />
     <Compile Include="Piping\PipingCalculationResultTest.cs" />

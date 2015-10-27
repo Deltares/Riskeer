@@ -11,7 +11,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
     public class PipingCalculationTest
     {
         [Test]
-        public void GivenACompleteInput_WhenCalculationPerformed_ThenResultContainsNoNaN()
+        public void Calculate_CompleteValidInput_ReturnsResultWithNoNaN()
         {
             PipingCalculationInput input = new TestPipingInput().AsRealInput();
 
@@ -24,6 +24,20 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             Assert.IsFalse(double.IsNaN(actual.HeaveFactorOfSafety));
             Assert.IsFalse(double.IsNaN(actual.SellmeijerZValue));
             Assert.IsFalse(double.IsNaN(actual.SellmeijerFactorOfSafety));
+        }
+
+        [Test]
+        public void Validate_CompleteValidInput_ReturnsNoValidationMessages()
+        {
+            // Setup
+            PipingCalculationInput input = new TestPipingInput().AsRealInput();
+            var calculation = new PipingCalculation(input);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            Assert.AreEqual(0, validationMessages.Count);
         }
 
         [Test]
@@ -233,6 +247,25 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
             Assert.AreEqual("Een dwarsdoorsnede moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.", validationMessages[0]);
+        }
+
+        [Test]
+        public void Validate_NoSoilProfileSet_ValidationMessageForHavingNoSoilProfileSelected()
+        {
+            // Setup
+            PipingCalculationInput input = new TestPipingInput
+            {
+                SoilProfile = null,
+            }.AsRealInput();
+
+            var calculation = new PipingCalculation(input);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            Assert.AreEqual(1, validationMessages.Count);
+            Assert.AreEqual("Een ondergrondprofiel moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.", validationMessages[0]);
         }
 
         [Test]

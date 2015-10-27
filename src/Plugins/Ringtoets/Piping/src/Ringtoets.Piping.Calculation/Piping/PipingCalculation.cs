@@ -55,16 +55,44 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// </summary>
         public List<string> Validate()
         {
-            List<string> upliftCalculatorValidationResults = input.SurfaceLine != null ?
-                                                                 ValidateUpliftCalculator() :
-                                                                 new List<string>(new[]
-                                                                 {
-                                                                     Resources.PipingCalculation_Validate_Lacks_surfaceline_uplift
-                                                                 });
+            List<string> soilProfileValidationResults = ValidateSoilProfile();
+            List<string> surfaceLineValidationResults = ValidateSurfaceLine();
+            List<string> upliftCalculatorValidationResults = new List<string>();
+            if (soilProfileValidationResults.Count == 0 && surfaceLineValidationResults.Count == 0)
+            {
+                upliftCalculatorValidationResults = ValidateUpliftCalculator();
+            }
             List<string> heaveCalculatorValidationResults = CreateHeaveCalculator().Validate();
             List<string> sellmeijerCalculatorValidationResults = CreateSellmeijerCalculator().Validate();
 
-            return upliftCalculatorValidationResults.Concat(heaveCalculatorValidationResults).Concat(sellmeijerCalculatorValidationResults).ToList();
+            return upliftCalculatorValidationResults
+                .Concat(surfaceLineValidationResults)
+                .Concat(soilProfileValidationResults)
+                .Concat(heaveCalculatorValidationResults)
+                .Concat(sellmeijerCalculatorValidationResults)
+                .ToList();
+        }
+
+        private List<string> ValidateSurfaceLine()
+        {
+            var validationResults = new List<string>();
+            if (input.SurfaceLine == null)
+            {
+                validationResults.Add(Resources.PipingCalculation_Validate_Lacks_surfaceline_uplift);
+                
+            }
+            return validationResults;
+        }
+
+        private List<string> ValidateSoilProfile()
+        {
+            var validationResults = new List<string>();
+            if (input.SoilProfile == null)
+            {
+                validationResults.Add(Resources.PipingCalculation_Validate_Lacks_SoilProfile_Uplift);
+                
+            }
+            return validationResults;
         }
 
         private List<string> ValidateUpliftCalculator()
@@ -200,7 +228,7 @@ namespace Ringtoets.Piping.Calculation.Piping
             {
                 ExitPointXCoordinate = input.ExitPointXCoordinate,
                 PhreaticLevel = input.PhreaticLevelExit,
-                SoilProfile = PipingProfileCreator.Create(),
+                SoilProfile = PipingProfileCreator.Create(input.SoilProfile),
                 SurfaceLine = PipingSurfaceLineCreator.Create(input.SurfaceLine),
                 VolumicWeightOfWater = input.WaterVolumetricWeight
             };

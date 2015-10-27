@@ -36,6 +36,10 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             double beddingAngleValue = random.NextDouble();
             double exitPointXCoordinate = random.NextDouble();
             var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var soilProfile = new PipingSoilProfile(string.Empty, random.NextDouble(), new []
+            {
+                new PipingSoilLayer(random.NextDouble()), 
+            });
 
             var input = new PipingCalculationInput(
                 volumetricWeightOfWaterValue,
@@ -60,7 +64,8 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
                 meanDiameter70Value,
                 beddingAngleValue,
                 exitPointXCoordinate,
-                surfaceLine);
+                surfaceLine, 
+                soilProfile);
 
             Assert.AreEqual(volumetricWeightOfWaterValue, input.WaterVolumetricWeight);
             Assert.AreEqual(modelFactorUpliftValue, input.UpliftModelFactor);
@@ -85,6 +90,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             Assert.AreEqual(beddingAngleValue, input.BeddingAngle);
             Assert.AreEqual(exitPointXCoordinate, input.ExitPointXCoordinate);
             Assert.AreSame(surfaceLine, input.SurfaceLine);
+            Assert.AreSame(soilProfile, input.SoilProfile);
         }
     }
 }

@@ -8,5 +8,6 @@
         }
 
         public double Top { get; private set; }
+        public bool IsAquifer { get; set; }
     }
 }

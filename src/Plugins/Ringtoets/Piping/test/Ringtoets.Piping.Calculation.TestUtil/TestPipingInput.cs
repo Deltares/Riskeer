@@ -30,6 +30,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
         public double MeanDiameter70;
         public double ThicknessAquiferLayer;
         public RingtoetsPipingSurfaceLine SurfaceLine;
+        public PipingSoilProfile SoilProfile;
 
         private readonly Random random = new Random(22);
         private double last;
@@ -59,11 +60,40 @@ namespace Ringtoets.Piping.Calculation.TestUtil
             MeanDiameter70 = NextIncrementalDouble();
             ThicknessAquiferLayer = NextIncrementalDouble();
             SurfaceLine = CreateValidSurfaceLine();
+            SoilProfile = CreateValidSoilProfile();
+        }
+
+        private PipingSoilProfile CreateValidSoilProfile()
+        {
+            return new PipingSoilProfile(String.Empty, -2, new []
+            {
+                new PipingSoilLayer(9),
+                new PipingSoilLayer(2), 
+                new PipingSoilLayer(-1), 
+            });
         }
 
         private RingtoetsPipingSurfaceLine CreateValidSurfaceLine()
         {
-            return new RingtoetsPipingSurfaceLine();
+            var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
+            ringtoetsPipingSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D
+                {
+                    X = 0, Y = 0, Z = 2
+                },
+                new Point3D
+                {
+                    X = 1, Y = 0, Z = 8
+
+                },
+                new Point3D
+                {
+                    X = 2, Y = 0, Z = -1
+
+                }
+            });
+            return ringtoetsPipingSurfaceLine;
         }
 
         /// <summary>
@@ -102,8 +132,8 @@ namespace Ringtoets.Piping.Calculation.TestUtil
                 MeanDiameter70,
                 BeddingAngle,
                 ExitPointXCoordinate,
-                SurfaceLine
-                );
+                SurfaceLine, 
+                SoilProfile);
         }
     }
 }

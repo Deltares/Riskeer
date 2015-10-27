@@ -120,7 +120,8 @@ namespace Ringtoets.Piping.Service
                 pipingData.MeanDiameter70,
                 pipingData.BeddingAngle,
                 pipingData.ExitPointXCoordinate,
-                pipingData.SurfaceLine
+                pipingData.SurfaceLine,
+                pipingData.SoilProfile
                 );
         }
 

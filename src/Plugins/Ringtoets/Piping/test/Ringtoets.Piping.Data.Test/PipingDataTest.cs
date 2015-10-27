@@ -38,6 +38,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0, defaultConstructed.ThicknessAquiferLayer);
             Assert.AreEqual(0, defaultConstructed.DarcyPermeability);
             Assert.IsNull(defaultConstructed.SurfaceLine);
+            Assert.IsNull(defaultConstructed.SoilProfile);
 
             Assert.AreEqual(1.0, defaultConstructed.DampingFactorExit);
             Assert.AreEqual(0.3, defaultConstructed.SellmeijerReductionFactor);
