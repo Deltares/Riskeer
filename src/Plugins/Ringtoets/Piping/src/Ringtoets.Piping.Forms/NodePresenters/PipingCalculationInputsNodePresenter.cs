@@ -3,6 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using DelftTools.Controls;
+using DelftTools.Shell.Core.Workflow;
 using DelftTools.Utils.Collections;
 
 using Ringtoets.Piping.Data;
@@ -28,6 +29,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 return typeof(PipingCalculationInputs);
             }
         }
+
+        /// <summary>
+        /// Injection points for a method to cause an <see cref="IActivity"/> to be scheduled for execution.
+        /// </summary>
+        public Action<IActivity> RunActivityAction { get; set; }
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
@@ -113,8 +119,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         private void PerformPipingCalculation(PipingData pipingData)
         {
-            PipingCalculationService.PerfromValidatedCalculation(pipingData);
-            pipingData.NotifyObservers();
+            RunActivityAction(new PipingCalculationActivity(pipingData));
         }
     }
 }

@@ -70,7 +70,10 @@ namespace Ringtoets.Piping.Plugin
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
             yield return new WtiProjectNodePresenter();
-            yield return new PipingCalculationInputsNodePresenter();
+            yield return new PipingCalculationInputsNodePresenter
+            {
+                RunActivityAction = Gui.Application.ActivityRunner.Enqueue
+            };
             yield return new PipingFailureMechanismNodePresenter();
             yield return new PipingSurfaceLineCollectionNodePresenter
             {

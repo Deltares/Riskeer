@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Ringtoets.Piping.Data;
 
 using Ringtoets.Piping.Calculation.Test.Piping.Stub;
+using Ringtoets.Piping.Service.Test.TestHelpers;
 
 namespace Ringtoets.Piping.Service.Test
 {
@@ -19,7 +20,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            var pipingData = CreateCalculationWithValidInput();
+            var pipingData = PipingDataFactory.CreateCalculationWithValidInput();
             pipingData.Name = name;
 
             // Call
@@ -40,7 +41,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             const string name = "<very nice name>";
 
-            var pipingData = CreateCalculationWithValidInput();
+            var pipingData = PipingDataFactory.CreateCalculationWithValidInput();
             pipingData.Name = name;
 
             // Call
@@ -62,7 +63,7 @@ namespace Ringtoets.Piping.Service.Test
         public void PerformValidatedCalculation_ValidPipingDataNoOutput_ShouldSetOutput()
         {
             // Setup
-            PipingData validPipingData = CreateCalculationWithValidInput();
+            PipingData validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
 
             // Precondition
             Assert.IsNull(validPipingData.Output);
@@ -80,7 +81,7 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var output = new TestPipingOutput();
 
-            PipingData validPipingData = CreateCalculationWithValidInput();
+            PipingData validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
             validPipingData.Output = output;
 
             // Call
@@ -95,7 +96,7 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var output = new TestPipingOutput();
-            var invalidPipingData = CreateCalculationWithInvalidData();
+            var invalidPipingData = PipingDataFactory.CreateCalculationWithInvalidData();
             invalidPipingData.Output = output;
 
             // Call
@@ -109,7 +110,7 @@ namespace Ringtoets.Piping.Service.Test
         public void PerformValidatedCalculation_Diameter70AndAquiferPermeabilityZero_CalculationErrorOutputNull()
         {
             // Setup
-            PipingData validPipingData = CreateCalculationWithValidInput();
+            PipingData validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
             validPipingData.Diameter70 = 0;
             validPipingData.DarcyPermeability = 0;
 
@@ -126,9 +127,9 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Calculations.Clear();
-            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
-            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
-            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
 
             // Call
             PipingCalculationService.PerfromValidatedCalculation(failureMechanism);
@@ -146,9 +147,9 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Calculations.Clear();
-            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
-            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
-            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
 
             foreach (var calculation in failureMechanism.Calculations)
             {
@@ -174,9 +175,9 @@ namespace Ringtoets.Piping.Service.Test
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Calculations.Clear();
-            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
-            failureMechanism.Calculations.Add(CreateCalculationWithInvalidData()); // Unable to calculate
-            failureMechanism.Calculations.Add(CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
+            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithInvalidData()); // Unable to calculate
+            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
 
             // Call
             PipingCalculationService.PerfromValidatedCalculation(failureMechanism);
@@ -195,41 +196,6 @@ namespace Ringtoets.Piping.Service.Test
                     Assert.IsNotNull(calculation.Output);
                 }
             }
-        }
-
-        private PipingData CreateCalculationWithInvalidData()
-        {
-            return new PipingData();
-        }
-
-        private PipingData CreateCalculationWithValidInput()
-        {
-            return new PipingData
-            {
-                AssessmentLevel = 1.0,
-                BeddingAngle = 1.0,
-                CriticalHeaveGradient = 1.0,
-                DampingFactorExit = 1.0,
-                DarcyPermeability = 1.0,
-                Diameter70 = 1.0,
-                ExitPointXCoordinate = 1.0,
-                Gravity = 1.0,
-                MeanDiameter70 = 1.0,
-                PiezometricHeadExit = 1.0,
-                PiezometricHeadPolder = 1.0,
-                PhreaticLevelExit = 2.0,
-                SandParticlesVolumicWeight = 1.0,
-                SeepageLength = 1.0,
-                SellmeijerModelFactor = 1.0,
-                SellmeijerReductionFactor = 1.0,
-                ThicknessAquiferLayer = 1.0,
-                ThicknessCoverageLayer = 1.0,
-                UpliftModelFactor = 1.0,
-                WaterKinematicViscosity = 1.0,
-                WaterVolumetricWeight = 1.0,
-                WhitesDragCoefficient = 1.0,
-                SurfaceLine = new RingtoetsPipingSurfaceLine()
-            };
         }
     }
 }

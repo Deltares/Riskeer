@@ -49,8 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PipingCalculationActivityTest.cs" />
     <Compile Include="PipingCalculationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestHelpers\PipingDataFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\test\Common\DelftTools.TestUtils\DelftTools.TestUtils.csproj">
@@ -68,6 +70,10 @@
     <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Shell.Core\DelftTools.Shell.Core.csproj">
       <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
       <Name>DelftTools.Shell.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\Common\DelftTools.Utils\DelftTools.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>DelftTools.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj">
       <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>

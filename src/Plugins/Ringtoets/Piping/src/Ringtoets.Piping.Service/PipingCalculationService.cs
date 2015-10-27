@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.Service
             pipingData.Output = null;
         }
 
-        private static void Calculate(PipingData pipingData)
+        public static void Calculate(PipingData pipingData)
         {
             PipingDataLogger.Info(String.Format(Resources.Calculation_Subject_0_Started_Time_1_,
                                                 pipingData.Name, DateTimeService.CurrentTimeAsString));

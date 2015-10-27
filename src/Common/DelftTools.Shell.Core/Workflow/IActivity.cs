@@ -6,6 +6,11 @@ namespace DelftTools.Shell.Core.Workflow
     /// <summary>
     /// Defines basic activity which can be executed as part of the workflow.
     /// </summary>
+    /// <example>
+    /// <para>Regular workflow for an activity is: Initialize -> Execute -> Finish -> Cleanup.</para>
+    /// <para>Regular workflow for an activity with an error occurring: [Initialize/Execute/Finish] -> ! Exception / Error ! -> Cleanup.</para> 
+    /// <para>Regular workflow for an activity being cancelled: [Initialize/Execute/Finish] -> ! Cancel ! -> Cleanup.</para>
+    /// </example>
     public interface IActivity : IProjectItem /* TODO: wrap it with the ProjectItem instead */
     {
         /// <summary>
@@ -34,7 +39,8 @@ namespace DelftTools.Shell.Core.Workflow
         string ProgressText { get; }
 
         /// <summary>
-        /// Initializes activity. If initialization step is successful, <see cref="Status"/> will change to <see cref="ActivityStatus.Initialized"/>.
+        /// Initializes activity. If initialization step is successful, <see cref="Status"/> 
+        /// will change to <see cref="ActivityStatus.Initialized"/>.
         /// </summary>
         void Initialize();
 
@@ -58,6 +64,8 @@ namespace DelftTools.Shell.Core.Workflow
         /// <summary>
         /// Cleans all resources required during execution.
         /// </summary>
+        /// <remarks>This method will always be called, even when an exception occurs. Take
+        /// this into account when implementing this method.</remarks>
         void Cleanup();
     }
 }

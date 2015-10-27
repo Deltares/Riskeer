@@ -1,10 +1,10 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using DelftTools.Controls;
-using DelftTools.Shell.Core;
 using DelftTools.Shell.Gui.Forms;
 using DeltaShell.Gui.Properties;
 using log4net.Core;
@@ -15,7 +15,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
     {
         public event EventHandler OnError;
         private readonly Dictionary<string, string> levelImageName;
-        private readonly ObservableList<MessageData> newMessages = new ObservableList<MessageData>();
+        private readonly ConcurrentQueue<MessageData> newMessages = new ConcurrentQueue<MessageData>();
         private bool filtering;
 
         public MessageWindow()
@@ -62,7 +62,7 @@ namespace DeltaShell.Gui.Forms.MessageWindow
 
         private void PopulateMessages()
         {
-            if (newMessages.Count == 0)
+            if (newMessages.IsEmpty)
             {
                 return;
             }
@@ -71,7 +71,8 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             messageWindowData.Messages.BeginLoadData();
             try
             {
-                foreach (var msg in newMessages)
+                MessageData msg;
+                while (newMessages.TryDequeue(out msg))
                 {
                     messageWindowData.Messages.AddMessagesRow(msg.ImageName, msg.Time, msg.Message);
                     hasError = hasError || (msg.ImageName == "ERROR" && OnError != null);
@@ -79,7 +80,6 @@ namespace DeltaShell.Gui.Forms.MessageWindow
             }
             finally
             {
-                newMessages.Clear();
                 messageWindowData.Messages.EndLoadData();
             }
 
@@ -298,11 +298,10 @@ namespace DeltaShell.Gui.Forms.MessageWindow
         /// </summary>
         /// <param name="level"></param>
         /// <param name="time"></param>
-        /// <param name="source"></param>
         /// <param name="message"></param>
         public void AddMessage(Level level, DateTime time, string message)
         {
-            newMessages.Add(new MessageData
+            newMessages.Enqueue(new MessageData
             {
                 ImageName = level.ToString(), Time = time, Message = message
             });
