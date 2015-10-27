@@ -8,6 +8,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Calculation;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.IO.Test.TestHelpers;
 
 namespace Ringtoets.Piping.IO.Test
 {
@@ -27,6 +28,37 @@ namespace Ringtoets.Piping.IO.Test
                 // Assert
                 Assert.NotNull(pipingSoilProfilesReader);
             }
+        }
+
+        [Test]
+        public void Dispose_AfterConstruction_CorrectlyReleasesFile()
+        {
+            // Setup
+            var testFile = "empty.soil";
+            var dbFile = Path.Combine(testDataPath, testFile);
+            var pipingSoilProfilesReader = new PipingSoilProfileReader(dbFile);
+
+            // Call
+            pipingSoilProfilesReader.Dispose();
+
+            // Assert
+            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
+        public void Dispose_WhenRead_CorrectlyReleasesFile()
+        {
+            // Setup
+            var testFile = "1dprofile.soil";
+            var dbFile = Path.Combine(testDataPath, testFile);
+            var pipingSoilProfilesReader = new PipingSoilProfileReader(dbFile);
+            pipingSoilProfilesReader.Read();
+
+            // Call
+            pipingSoilProfilesReader.Dispose();
+
+            // Assert
+            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
@@ -130,9 +162,13 @@ namespace Ringtoets.Piping.IO.Test
                 // Assert
                 Assert.AreEqual(1, result.Length);
                 Assert.AreEqual(-12, result[0].Bottom);
-                CollectionAssert.AreEquivalent(new[] { 60, 0.63, -7.0 }, result[0].Layers.Select(l => l.Top));
+                CollectionAssert.AreEquivalent(new[]
+                {
+                    60,
+                    0.63,
+                    -7.0
+                }, result[0].Layers.Select(l => l.Top));
             }
-
         }
 
         private void ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries()

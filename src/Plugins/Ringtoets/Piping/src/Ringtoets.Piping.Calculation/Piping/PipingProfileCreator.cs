@@ -25,7 +25,7 @@ namespace Ringtoets.Piping.Calculation.Piping
             {
                 BottomLevel = soilProfile.Bottom
             };
-            foreach (PipingSoilLayer layer in soilProfile.Layers.OrderByDescending(l => l.Top))
+            foreach (PipingSoilLayer layer in soilProfile.Layers)
             {
                 profile.Layers.Add(new PipingLayer
                 {

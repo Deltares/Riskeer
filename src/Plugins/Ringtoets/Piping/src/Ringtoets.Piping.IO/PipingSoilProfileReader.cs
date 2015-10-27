@@ -167,57 +167,58 @@ namespace Ringtoets.Piping.IO
         private void CreateDataReader()
         {
             var mechanismParameterName = "mechanism";
-            var query = new SQLiteCommand(connection)
+            using (var query = new SQLiteCommand(connection)
             {
-                CommandText = string.Format(string.Join(" ",
-                    "SELECT",
-                      "p.SP2D_Name as {0},",
-                      "l.GeometrySurface as {1},",
-                      "mpl.X as {2},",
-                      "null as {3},",
-                      "null as {4},",
-                      "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {5},",
-                      "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {6},",
-                      "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {7},",
-                      "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {8},",
-                      "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {9},",
-                      "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {10},",
-                      "2 as {11}",
-                    "FROM MechanismPointLocation as m",
-                    "JOIN MechanismPointLocation as mpl ON p.SP2D_ID = mpl.SP2D_ID",
-                    "JOIN SoilProfile2D as p ON m.SP2D_ID = p.SP2D_ID",
-                    "JOIN SoilLayer2D as l ON l.SP2D_ID = p.SP2D_ID",
-                    "JOIN (",
-	                    "SELECT m.MA_ID, pn.PN_Name, pv.PV_Value",
-	                    "FROM ParameterNames as pn",
-	                    "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
-	                    "JOIN Materials as m ON m.MA_ID = pv.MA_ID) as mat ON l.MA_ID = mat.MA_ID",
-                    "WHERE m.ME_ID = @{12}",
-                    "GROUP BY l.SL2D_ID",
-                    "UNION",
-                    "SELECT",
-                      "p.SP1D_Name as {0},",
-                      "null as {1},",
-                      "null as {2},",
-                      "p.BottomLevel as {3},",
-                      "l.TopLevel as {4},",
-                      "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {5},",
-                      "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {6},",
-                      "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {7},",
-                      "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {8},",
-                      "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {9},",
-                      "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {10},",
-                      "1 as {11}",
-                    "FROM SoilProfile1D as p",
-                      "JOIN SoilLayer1D as l ON l.SP1D_ID = p.SP1D_ID",
-                      "JOIN (",
-	                    "SELECT m.MA_ID, pn.PN_Name, pv.PV_Value",
-	                    "FROM ParameterNames as pn",
-	                    "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
-	                    "JOIN Materials as m ON m.MA_ID = pv.MA_ID) as mat ON l.MA_ID = mat.MA_ID",
-                    "GROUP BY l.SL1D_ID",
-                    "ORDER BY ProfileName"
-                ),
+                CommandText = string.Format(string.Join(
+                            " ",
+                            "SELECT",
+                            "p.SP2D_Name as {0},",
+                            "l.GeometrySurface as {1},",
+                            "mpl.X as {2},",
+                            "null as {3},",
+                            "null as {4},",
+                            "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {5},",
+                            "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {6},",
+                            "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {7},",
+                            "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {8},",
+                            "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {9},",
+                            "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {10},",
+                            "2 as {11}",
+                            "FROM MechanismPointLocation as m",
+                            "JOIN MechanismPointLocation as mpl ON p.SP2D_ID = mpl.SP2D_ID",
+                            "JOIN SoilProfile2D as p ON m.SP2D_ID = p.SP2D_ID",
+                            "JOIN SoilLayer2D as l ON l.SP2D_ID = p.SP2D_ID",
+                            "JOIN (",
+                            "SELECT m.MA_ID, pn.PN_Name, pv.PV_Value",
+                            "FROM ParameterNames as pn",
+                            "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
+                            "JOIN Materials as m ON m.MA_ID = pv.MA_ID) as mat ON l.MA_ID = mat.MA_ID",
+                            "WHERE m.ME_ID = @{12}",
+                            "GROUP BY l.SL2D_ID",
+                            "UNION",
+                            "SELECT",
+                            "p.SP1D_Name as {0},",
+                            "null as {1},",
+                            "null as {2},",
+                            "p.BottomLevel as {3},",
+                            "l.TopLevel as {4},",
+                            "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {5},",
+                            "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {6},",
+                            "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {7},",
+                            "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {8},",
+                            "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {9},",
+                            "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {10},",
+                            "1 as {11}",
+                            "FROM SoilProfile1D as p",
+                            "JOIN SoilLayer1D as l ON l.SP1D_ID = p.SP1D_ID",
+                            "JOIN (",
+                            "SELECT m.MA_ID, pn.PN_Name, pv.PV_Value",
+                            "FROM ParameterNames as pn",
+                            "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
+                            "JOIN Materials as m ON m.MA_ID = pv.MA_ID) as mat ON l.MA_ID = mat.MA_ID",
+                            "GROUP BY l.SL1D_ID",
+                            "ORDER BY ProfileName"
+                    ),
                 profileNameColumn,
                 layerGeometryColumn,
                 intersectionXColumn,
@@ -231,21 +232,24 @@ namespace Ringtoets.Piping.IO
                 beddingAngleColumn,
                 dimensionsColumn,
                 mechanismParameterName)
-            };
-            query.Parameters.Add(new SQLiteParameter
+            })
             {
-                DbType = DbType.Int32,
-                Value = pipingMechanismId,
-                ParameterName = mechanismParameterName
-            });
+                query.Parameters.Add(new SQLiteParameter
+                {
+                    DbType = DbType.Int32,
+                    Value = pipingMechanismId,
+                    ParameterName = mechanismParameterName
+                });
+                
+                try
+                {
+                    dataReader = query.ExecuteReader();
+                }
+                catch (SQLiteException e)
+                {
+                    throw new PipingSoilProfileReadException(string.Format(Resources.Error_SoilProfileReadFromDatabase, connection.DataSource), e);
+                }
 
-            try
-            {
-                dataReader = query.ExecuteReader();
-            }
-            catch (SQLiteException e)
-            {
-                throw new PipingSoilProfileReadException(string.Format(Resources.Error_SoilProfileReadFromDatabase, connection.DataSource), e);
             }
         }
     }

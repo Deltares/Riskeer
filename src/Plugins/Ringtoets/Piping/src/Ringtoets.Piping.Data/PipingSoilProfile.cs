@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Data
             }
             private set
             {
-                layers = value.ToArray();
+                layers = value.OrderByDescending(l => l.Top).ToArray();
             }
         }
 
