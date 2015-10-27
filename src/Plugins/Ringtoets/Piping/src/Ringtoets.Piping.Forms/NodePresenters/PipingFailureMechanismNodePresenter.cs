@@ -3,6 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using DelftTools.Controls;
+using DelftTools.Shell.Core.Workflow;
 using DelftTools.Utils.Collections;
 
 using Ringtoets.Piping.Data;
@@ -25,6 +26,11 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                 return typeof(PipingFailureMechanism);
             }
         }
+
+        /// <summary>
+        /// Injection points for a method to cause an <see cref="IActivity"/> to be scheduled for execution.
+        /// </summary>
+        public Action<IActivity> RunActivityAction { private get; set; }
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
@@ -89,7 +95,8 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             var rootMenu = new ContextMenuStrip();
 
-            rootMenu.AddMenuItem("Berekening toevoegen", "Voeg een nieuwe piping berekening toe aan het faalmechanisme.",
+            rootMenu.AddMenuItem(Resources.PipingFailureMechanism_Add_piping_calculation,
+                                 Resources.PipingFailureMechanism_Add_piping_calculation_Tooltip,
                                  Resources.PipingIcon, (o, args) =>
                                  {
                                      var failureMechanism = (PipingFailureMechanism)nodeData;
@@ -100,12 +107,15 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                      failureMechanism.Calculations.Add(pipingData);
                                      failureMechanism.NotifyObservers();
                                  });
-            rootMenu.AddMenuItem("Berekenen", "Valideer en vervolgens reken all piping berekeningen door in het faalmechanisme.",
+            rootMenu.AddMenuItem(Resources.Calculate,
+                                 Resources.PipingFailureMechanism_Calculate_Tooltip,
                                  Resources.PlayAll, (o, args) =>
                                  {
                                      var failureMechanism = (PipingFailureMechanism)nodeData;
-                                     PipingCalculationService.PerfromValidatedCalculation(failureMechanism);
-                                     failureMechanism.NotifyObservers();
+                                     foreach (var calc in failureMechanism.Calculations)
+                                     {
+                                         RunActivityAction(new PipingCalculationActivity(calc));
+                                     }
                                  });
 
             return rootMenu;

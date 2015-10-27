@@ -36,6 +36,22 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
+        public void Validate_InValidPipingDataWithOutput_ReturnsFalseNoOutputChange()
+        {
+            // Setup
+            var output = new TestPipingOutput();
+            var invalidPipingData = PipingDataFactory.CreateCalculationWithInvalidData();
+            invalidPipingData.Output = output;
+
+            // Call
+            var isValid = PipingCalculationService.Validate(invalidPipingData);
+
+            // Assert
+            Assert.IsFalse(isValid);
+            Assert.AreSame(output, invalidPipingData.Output);
+        }
+
+        [Test]
         public void PerformValidatedCalculation_ValidPipingData_LogStartAndEndOfValidatingInputsAndCalculation()
         {
             // Setup
@@ -45,7 +61,11 @@ namespace Ringtoets.Piping.Service.Test
             pipingData.Name = name;
 
             // Call
-            Action call = () => PipingCalculationService.PerfromValidatedCalculation(pipingData);
+            Action call = () =>
+            {
+                Assert.IsTrue(PipingCalculationService.Validate(pipingData));
+                PipingCalculationService.Calculate(pipingData);
+            };
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -69,7 +89,8 @@ namespace Ringtoets.Piping.Service.Test
             Assert.IsNull(validPipingData.Output);
 
             // Call
-            PipingCalculationService.PerfromValidatedCalculation(validPipingData);
+            Assert.IsTrue(PipingCalculationService.Validate(validPipingData));
+            PipingCalculationService.Calculate(validPipingData);
 
             // Assert
             Assert.IsNotNull(validPipingData.Output);
@@ -85,25 +106,11 @@ namespace Ringtoets.Piping.Service.Test
             validPipingData.Output = output;
 
             // Call
-            PipingCalculationService.PerfromValidatedCalculation(validPipingData);
+            Assert.IsTrue(PipingCalculationService.Validate(validPipingData));
+            PipingCalculationService.Calculate(validPipingData);
 
             // Assert
             Assert.AreNotSame(output, validPipingData.Output);
-        }
-
-        [Test]
-        public void PerformValidatedCalculation_InValidPipingDataWithOutput_ReturnsFalseNoOutputChange()
-        {
-            // Setup
-            var output = new TestPipingOutput();
-            var invalidPipingData = PipingDataFactory.CreateCalculationWithInvalidData();
-            invalidPipingData.Output = output;
-
-            // Call
-            PipingCalculationService.PerfromValidatedCalculation(invalidPipingData);
-            
-            // Assert
-            Assert.AreSame(output, invalidPipingData.Output);
         }
 
         [Test]
@@ -115,87 +122,12 @@ namespace Ringtoets.Piping.Service.Test
             validPipingData.DarcyPermeability = 0;
 
             // Call
-            PipingCalculationService.PerfromValidatedCalculation(validPipingData);
+            var isValid = PipingCalculationService.Validate(validPipingData);
+            PipingCalculationService.Calculate(validPipingData);
 
             // Assert
+            Assert.IsTrue(isValid);
             Assert.IsNull(validPipingData.Output);
-        }
-
-        [Test]
-        public void PerformValidatedCalculation_FailureMechanismHasMultipleValidCalculations_SetOutpufOnEach()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.Calculations.Clear();
-            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
-            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
-            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
-
-            // Call
-            PipingCalculationService.PerfromValidatedCalculation(failureMechanism);
-
-            // Assert
-            foreach (var calculation in failureMechanism.Calculations)
-            {
-                Assert.IsNotNull(calculation.Output);
-            }
-        }
-
-        [Test]
-        public void PerformValidatedCalculation_FailureMechanismHasCalculationsWithOutputs_ReplaceOutputOnEach()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.Calculations.Clear();
-            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
-            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
-            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
-
-            foreach (var calculation in failureMechanism.Calculations)
-            {
-                calculation.Output = new TestPipingOutput();
-            }
-            var originalOutputs = failureMechanism.Calculations.Select(c => c.Output).ToArray();
-
-            // Call
-            PipingCalculationService.PerfromValidatedCalculation(failureMechanism);
-
-            // Assert
-            var index = 0;
-            foreach (var calculation in failureMechanism.Calculations)
-            {
-                Assert.IsNotNull(calculation.Output);
-                Assert.AreNotSame(originalOutputs[index++], calculation.Output);
-            }
-        }
-
-        [Test]
-        public void PerformValidatedCalculation_FailureMechanismHasOneInvalidCalculation_ReplaceOutputOnEach()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.Calculations.Clear();
-            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
-            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithInvalidData()); // Unable to calculate
-            failureMechanism.Calculations.Add(PipingDataFactory.CreateCalculationWithValidInput());
-
-            // Call
-            PipingCalculationService.PerfromValidatedCalculation(failureMechanism);
-
-            // Assert
-            var index = 0;
-            foreach (var calculation in failureMechanism.Calculations)
-            {
-                if (index++ == 1)
-                {
-                    Assert.IsNull(calculation.Output,
-                        "Calculation input is not valid, therefore calculation cannot produce output.");
-                }
-                else
-                {
-                    Assert.IsNotNull(calculation.Output);
-                }
-            }
         }
     }
 }

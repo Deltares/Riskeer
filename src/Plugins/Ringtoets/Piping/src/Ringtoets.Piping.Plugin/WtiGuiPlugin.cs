@@ -74,7 +74,10 @@ namespace Ringtoets.Piping.Plugin
             {
                 RunActivityAction = Gui.Application.ActivityRunner.Enqueue
             };
-            yield return new PipingFailureMechanismNodePresenter();
+            yield return new PipingFailureMechanismNodePresenter
+            {
+                RunActivityAction = Gui.Application.ActivityRunner.Enqueue
+            };
             yield return new PipingSurfaceLineCollectionNodePresenter
             {
                 ImportSurfaceLinesAction = Gui.CommandHandler.ImportToGuiSelection
