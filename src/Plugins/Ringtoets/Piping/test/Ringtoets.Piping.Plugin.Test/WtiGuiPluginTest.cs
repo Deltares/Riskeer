@@ -3,6 +3,7 @@ using System.Linq;
 
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
+using DelftTools.Shell.Core.Workflow;
 using DelftTools.Shell.Gui;
 
 using Mono.Addins;
@@ -102,8 +103,13 @@ namespace Ringtoets.Piping.Plugin.Test
         {
             // setup
             var mocks = new MockRepository();
+            var application = mocks.Stub<IApplication>();
+            application.Stub(a => a.ActivityRunner).Return(mocks.Stub<IActivityRunner>());
+
             var guiStub = mocks.Stub<IGui>();
             guiStub.CommandHandler = mocks.Stub<IGuiCommandHandler>();
+            guiStub.Application = application;
+
             mocks.ReplayAll();
 
             using (var guiPlugin = new WtiGuiPlugin { Gui = guiStub })

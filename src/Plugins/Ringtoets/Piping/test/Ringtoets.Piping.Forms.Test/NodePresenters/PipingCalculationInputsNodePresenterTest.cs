@@ -1,7 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows.Forms;
+
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
+using DelftTools.Shell.Core.Workflow;
 using DelftTools.TestUtils;
 using DelftTools.Utils.Collections;
 using NUnit.Framework;
@@ -380,27 +383,49 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Given
             var expectedValidationMessageCount = 7;
-            var expectedStatusMessageCount = 2;
-            var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
+
+            var observer = mockRepository.StrictMock<IObserver>();
+            mockRepository.ReplayAll();
 
             var calculateContextMenuItemIndex = 1;
             var pipingData = new PipingData();
-            var observer = mockRepository.StrictMock<IObserver>();
-            var nodePresenter = new PipingCalculationInputsNodePresenter();
-            observer.Expect(o => o.UpdateObserver());
             pipingData.Attach(observer);
+            
+            var activityRunner = new ActivityRunner();
 
-            mockRepository.ReplayAll();
-
+            var nodePresenter = new PipingCalculationInputsNodePresenter
+            {
+                RunActivityAction = activity => activityRunner.Enqueue(activity)
+            };
             var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationInputs { PipingData = pipingData });
             
             // When
-            Action action = () => contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
+            Action action = () =>
+            {
+                contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
+                while (activityRunner.IsRunning)
+                {
+                    // Do something useful while waiting for calculation to finish...
+                    Application.DoEvents();
+                }
+            };
 
             // Then
-            TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.GetEnumerator();
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("Validatie van 'Piping' gestart om: ", msgs.Current);
+                for (int i = 0; i < expectedValidationMessageCount; i++)
+                {
+                    Assert.IsTrue(msgs.MoveNext());
+                    StringAssert.StartsWith("Validatie mislukt: ", msgs.Current);
+                }
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("Validatie van 'Piping' beëindigd om: ", msgs.Current);
+            });
             Assert.IsNull(pipingData.Output);
-            mockRepository.VerifyAll();
+            mockRepository.VerifyAll();// Expect no calls on observer as no calculation has been performed
         }
 
         [Test]
@@ -434,10 +459,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GivenValidPipingData_WhenCalculatingFromContextMenu_ThenPipingDataNotifiesObservers()
         {
             // Given
-            var expectedCalculationStatusMessageCount = 2;
-            var expectedValidationStatusMessageCount = 2;
-            var expectedLogMessageCount = expectedCalculationStatusMessageCount + expectedValidationStatusMessageCount;
-
             var random = new Random(22);
 
             var calculateContextMenuItemIndex = 1;
@@ -472,19 +493,42 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             });
 
             var observer = mockRepository.StrictMock<IObserver>();
-            var nodePresenter = new PipingCalculationInputsNodePresenter();
             observer.Expect(o => o.UpdateObserver());
             pipingData.Attach(observer);
 
             mockRepository.ReplayAll();
 
+            var activityRunner = new ActivityRunner();
+
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
             var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationInputs { PipingData = pipingData });
+            nodePresenter.RunActivityAction = activity => activityRunner.Enqueue(activity);
 
             // When
-            Action action = () => contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
+            Action action = () =>
+            {
+                contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
+                while(activityRunner.IsRunning)
+                {
+                    // Do something useful while waiting for calculation to finish...
+                    Application.DoEvents();
+                }
+            };
 
             // Then
-            TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.GetEnumerator();
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("Validatie van 'Piping' gestart om: ", msgs.Current);
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("Validatie van 'Piping' beëindigd om: ", msgs.Current);
+
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("Berekening van 'Piping' gestart om: ", msgs.Current);
+                Assert.IsTrue(msgs.MoveNext());
+                StringAssert.StartsWith("Berekening van 'Piping' beëindigd om: ", msgs.Current);
+            });
             Assert.IsNotNull(pipingData.Output);
             mockRepository.VerifyAll();
         }

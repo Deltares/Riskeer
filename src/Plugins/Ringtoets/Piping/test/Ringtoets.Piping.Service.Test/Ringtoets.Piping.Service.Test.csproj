@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="PipingCalculationActivityTest.cs" />
     <Compile Include="PipingCalculationServiceTest.cs" />
+    <Compile Include="PipingFailureMechanismCalculationActivityTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelpers\PipingDataFactory.cs" />
   </ItemGroup>

@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Service.Test
                 StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", validPipingData.Name), msgs.First());
                 StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", validPipingData.Name), msgs.Last());
             });
-            Assert.AreEqual(ActivityStatus.Executed, activity.Status);
+            Assert.AreEqual(ActivityStatus.Done, activity.Status);
             Assert.IsNotNull(validPipingData.Output);
         }
 
