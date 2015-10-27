@@ -160,50 +160,6 @@ namespace DeltaShell.IntegrationTests.DeltaShell.DeltaShell.Gui
         }
 
         [Test]
-        public void ErrorLogMessageShouldActivateMessageWindow()
-        {
-            using (var gui = new DeltaShellGui())
-            {
-                gui.Application.Plugins.ForEach(p => p.Application = gui.Application);
-                gui.Run();
-
-                var activeViewChanged = false;
-                Action onShown = delegate
-                {
-                    // nothing active initial
-                    gui.ToolWindowViews.ActiveView = null;
-
-                    gui.ToolWindowViews.ActiveViewChanged += delegate
-                    {
-                        activeViewChanged = true;
-                        if (gui.ToolWindowViews.ActiveView != null)
-                        {
-                            gui.ToolWindowViews.ActiveView.Should("error log message must trigger message window activation").Be.EqualTo(gui.MainWindow.MessageWindow);
-                        }
-                    };
-
-                    var stopWatch = new Stopwatch();
-                    stopWatch.Start();
-
-                    // trigger message window to appear
-                    log.Error("Error to appear in message window");
-
-                    while (!activeViewChanged)
-                    {
-                        if (stopWatch.ElapsedMilliseconds > 10000) //10 sec, prevent infinite loop
-                        {
-                            Assert.Fail("Should have happened by now..");
-                            break;
-                        }
-                        Application.DoEvents();
-                    }
-                };
-
-                WpfTestHelper.ShowModal((Window) gui.MainWindow, onShown);
-            }
-        }
-
-        [Test]
         public void StartGuiWithToolboxDoesNotCrash()
         {
             using (var gui = new DeltaShellGui())
