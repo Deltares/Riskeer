@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-
+using System.Linq;
 using DelftTools.Shell.Core;
 using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO;
+using Ringtoets.Piping.IO.Exceptions;
 using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
@@ -130,9 +131,10 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 {
                     return soilProfileReader.Read();
                 }
-                catch
+                catch (PipingSoilProfileReadException e)
                 {
-                    return null;
+                    log.Error(e.Message);
+                    return Enumerable.Empty<PipingSoilProfile>();
                 }
             }
         }

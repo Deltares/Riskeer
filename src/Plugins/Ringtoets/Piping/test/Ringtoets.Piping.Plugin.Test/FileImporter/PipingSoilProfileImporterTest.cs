@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.IO;
 using DelftTools.Shell.Core;
-
+using DelftTools.TestUtils;
 using NUnit.Framework;
 
 using Rhino.Mocks;
@@ -18,6 +18,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
     [TestFixture]
     public class PipingSoilProfilesImporterTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Plugins.Wti.WtiIOPath, "PipingSoilProfilesReader");
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -44,7 +46,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void CanImportOn_TargetIsCollectionOfPipingSurfaceLines_ReturnTrue()
+        public void CanImportOn_TargetIsCollectionOfPipingSoilProfile_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
@@ -80,10 +82,31 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void ImportItem_ImportingToValidTargetWithValidFile_ImportSurfaceLinesToCollection()
+        public void ImportItem_ImportingToValidTargetWithValidFile_ImportSoilProfilesToCollection()
         {
             // Setup
-            const string validFilePath = "";
+            string validFilePath = Path.Combine(testDataPath, "complete.soil");
+            var piping = new PipingFailureMechanism();
+
+            var importer = new PipingSoilProfilesImporter();
+
+            var importTarget = piping.SoilProfiles;
+
+            // Precondition
+            Assert.IsTrue(importer.CanImportOn(importTarget));
+
+            // Call
+            var importedItem = importer.ImportItem(validFilePath, importTarget);
+
+            // Assert
+            Assert.AreSame(importTarget, importedItem);
+        }
+
+        [Test]
+        public void ImportItem_ImportingToInvalidTargetWithValidFile_ImportSoilProfilesToCollection()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "empty.soil");
             var piping = new PipingFailureMechanism();
 
             var importer = new PipingSoilProfilesImporter();

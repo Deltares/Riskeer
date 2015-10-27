@@ -468,6 +468,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het ondergrondprofiel dat voor de piping berekening gebruikt wordt..
+        /// </summary>
+        public static string PipingDataSoilProfileDescription {
+            get {
+                return ResourceManager.GetString("PipingDataSoilProfileDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondergrondprofiel.
+        /// </summary>
+        public static string PipingDataSoilProfileDisplayName {
+            get {
+                return ResourceManager.GetString("PipingDataSoilProfileDisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De dwarsdoorsnede die voor de piping berekening gebruikt wordt..
         /// </summary>
         public static string PipingDataSurfaceLineDescription {

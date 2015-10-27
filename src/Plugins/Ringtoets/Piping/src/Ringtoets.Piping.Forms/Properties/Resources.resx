@@ -412,4 +412,10 @@
   <data name="PipingSoilProfileTopsDisplayName" xml:space="preserve">
     <value>Topniveaus</value>
   </data>
+  <data name="PipingDataSoilProfileDescription" xml:space="preserve">
+    <value>Het ondergrondprofiel dat voor de piping berekening gebruikt wordt.</value>
+  </data>
+  <data name="PipingDataSoilProfileDisplayName" xml:space="preserve">
+    <value>Ondergrondprofiel</value>
+  </data>
 </root>

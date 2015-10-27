@@ -385,12 +385,37 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [Editor(typeof(PipingCalculationInputsSoilProfileSelectionEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(Resources), "Categories_General")]
+        [ResourcesDisplayName(typeof(Resources), "PipingDataSoilProfileDisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingDataSoilProfileDescription")]
+        public PipingSoilProfile SoilProfile
+        {
+            get
+            {
+                return data.PipingData.SoilProfile;
+            }
+            set
+            {
+                data.PipingData.SoilProfile = value;
+                data.PipingData.NotifyObservers();
+            }
+        }
+
         /// <summary>
         /// Gets the available surface lines on <see cref="PipingCalculationInputs"/>.
         /// </summary>
         public IEnumerable<RingtoetsPipingSurfaceLine> GetAvailableSurfaceLines()
         {
             return data.AvailablePipingSurfaceLines;
+        }
+
+        /// <summary>
+        /// Gets the available soil profiles on <see cref="PipingCalculationInputs"/>.
+        /// </summary>
+        public IEnumerable<PipingSoilProfile> GetAvailableSoilProfiles()
+        {
+            return data.AvailablePipingSoilProfiles;
         }
     }
 }

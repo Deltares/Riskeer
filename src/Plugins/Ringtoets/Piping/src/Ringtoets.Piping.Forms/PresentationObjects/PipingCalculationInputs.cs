@@ -19,6 +19,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         public PipingCalculationInputs()
         {
             AvailablePipingSurfaceLines = Enumerable.Empty<RingtoetsPipingSurfaceLine>();
+            AvailablePipingSoilProfiles = Enumerable.Empty<PipingSoilProfile>();
         }
 
         /// <summary>
@@ -28,9 +29,15 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
 
         /// <summary>
         /// Gets or sets the available piping surface lines in order for the user to select
-        /// one to set <see cref="Ringtoets.Piping.Data.PipingData.SurfaceLine"/>.
+        /// one to set <see cref="Data.PipingData.SurfaceLine"/>.
         /// </summary>
         public IEnumerable<RingtoetsPipingSurfaceLine> AvailablePipingSurfaceLines { get; set; }
+
+        /// <summary>
+        /// Gets or sets the available piping soil profiles in order for the user to select
+        /// one to set <see cref="Data.PipingData.SoilProfile"/>.
+        /// </summary>
+        public IEnumerable<PipingSoilProfile> AvailablePipingSoilProfiles { get; set; }
 
         #region IObservable
 
