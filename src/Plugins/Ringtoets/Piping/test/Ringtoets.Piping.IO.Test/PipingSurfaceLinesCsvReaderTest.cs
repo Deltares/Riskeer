@@ -7,6 +7,7 @@ using DelftTools.TestUtils;
 using NUnit.Framework;
 
 using Ringtoets.Piping.IO.Exceptions;
+using Ringtoets.Piping.IO.Test.TestHelpers;
 
 using IOResources = Ringtoets.Piping.IO.Properties.Resources;
 
@@ -231,6 +232,32 @@ namespace Ringtoets.Piping.IO.Test
         public void ReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLinesWithCultureEN_ReturnCreatedSurfaceLine()
         {
             DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLines_ReturnCreatedSurfaceLine();
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        public void ReadLine_OpenedValidFileWithHeaderAndSurfaceLinesWithDuplicatePointsWithCultureEN_ReturnCreatedSurfaceLineWithoutDuplicatePoints()
+        {
+            // Setup
+            // File: First 3 points are identical
+            string path = Path.Combine(testDataPath, "ValidSurfaceLine_HasDuplicatePoints.csv");
+
+            // Precondition:
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                var surfaceLine1 = reader.ReadLine();
+
+                // Assert
+                Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
+                var geometryPoints = surfaceLine1.Points.ToArray();
+                Assert.AreEqual(geometryPoints.Length, geometryPoints.Distinct().Count());
+                Assert.AreNotEqual(geometryPoints[0].X, geometryPoints[1].X);
+                Assert.AreEqual(surfaceLine1.StartingWorldPoint, geometryPoints.First());
+                Assert.AreEqual(surfaceLine1.EndingWorldPoint, geometryPoints.Last());
+            }
         }
 
         [Test]
@@ -518,6 +545,48 @@ namespace Ringtoets.Piping.IO.Test
             }
         }
 
+        [Test]
+        public void ReadLine_LineWithoutMonotonicallyIncreasingLCoordinates_ThrowLineParseException()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "InvalidRow_NotMonotinocallyIncreasingLCoordinates.csv");
+
+            // Precondition
+            Assert.IsTrue(File.Exists(path));
+
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
+
+                // Assert
+                var exception = Assert.Throws<LineParseException>(call);
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Has_reclining_geometry,
+                                                    path, 2);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void Dispose_HavingReadFile_CorrectlyReleaseFile()
+        {
+            // Setup
+            string path = Path.Combine(testDataPath, "TwoValidSurfaceLines.csv");
+
+            // Precondition:
+            Assert.IsTrue(File.Exists(path));
+
+            // Call
+            using (var reader = new PipingSurfaceLinesCsvReader(path))
+            {
+                reader.ReadLine();
+                reader.ReadLine();
+            }
+
+            // Assert
+            Assert.IsTrue(FileHelper.CanOpenFileForWrite(path));
+        }
+
         private void DoReadLine_OpenedValidFileWithHeaderAndTwoSurfaceLines_ReturnCreatedSurfaceLine()
         {
             // Setup
@@ -556,7 +625,7 @@ namespace Ringtoets.Piping.IO.Test
                 Assert.AreEqual(2.3, surfaceLine2.StartingWorldPoint.X);
                 Assert.AreEqual(0, surfaceLine2.StartingWorldPoint.Y);
                 Assert.AreEqual(1, surfaceLine2.StartingWorldPoint.Z);
-                Assert.AreEqual(4.4, surfaceLine2.EndingWorldPoint.X);
+                Assert.AreEqual(5.7, surfaceLine2.EndingWorldPoint.X);
                 Assert.AreEqual(0, surfaceLine2.EndingWorldPoint.Y);
                 Assert.AreEqual(1.1, surfaceLine2.EndingWorldPoint.Z);
                 Assert.AreEqual(surfaceLine2.StartingWorldPoint, surfaceLine2.Points.First());

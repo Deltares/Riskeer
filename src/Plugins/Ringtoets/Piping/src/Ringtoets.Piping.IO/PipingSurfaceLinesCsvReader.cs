@@ -128,6 +128,9 @@ namespace Ringtoets.Piping.IO
                         Name = surfaceLineName
                     };
                     surfaceLine.SetGeometry(points);
+
+                    CheckGeometry(surfaceLine);
+
                     return surfaceLine;
                 }
                 finally
@@ -137,6 +140,20 @@ namespace Ringtoets.Piping.IO
             }
 
             return null;
+        }
+
+        private void CheckGeometry(RingtoetsPipingSurfaceLine surfaceLine)
+        {
+            double[] lCoordinates = surfaceLine.ProjectGeometryToLZ().Select(p => p.X).ToArray();
+            for (int i = 1; i < lCoordinates.Length; i++)
+            {
+                if (lCoordinates[i - 1] > lCoordinates[i])
+                {
+                    var expectedMessage = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Has_reclining_geometry,
+                                                        filePath, 2);
+                    throw new LineParseException(expectedMessage);
+                }
+            }
         }
 
         public void Dispose()
@@ -149,7 +166,7 @@ namespace Ringtoets.Piping.IO
         }
 
         /// <summary>
-        /// Tokenizes a string using a separator character.
+        /// Tokenizes a string using a separator character up to the first empty field.
         /// </summary>
         /// <param name="readText">The text.</param>
         /// <returns>The tokenized parts.</returns>
@@ -162,14 +179,16 @@ namespace Ringtoets.Piping.IO
                                             filePath, lineNumber, separator);
                 throw new LineParseException(message);
             }
-            return readText.Split(separator);
+            return readText.Split(separator)
+                           .TakeWhile(text => !String.IsNullOrEmpty(text))
+                           .ToArray();
         }
 
         /// <summary>
         /// Gets the 3D surface line points.
         /// </summary>
         /// <param name="tokenizedString">The tokenized string.</param>
-        /// <returns></returns>
+        /// <returns>Set of all unique 3D world coordinate points.</returns>
         /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
         /// <item><paramref name="tokenizedString"/> contains a coordinate value that cannot be parsed as a double.</item>
@@ -177,7 +196,7 @@ namespace Ringtoets.Piping.IO
         /// <item><paramref name="tokenizedString"/> is missing coordinate values to define a proper surface line point.</item>
         /// </list>
         /// </exception>
-        private Point3D[] GetSurfaceLinePoints(string[] tokenizedString)
+        private IEnumerable<Point3D> GetSurfaceLinePoints(string[] tokenizedString)
         {
             const int expectedValuesForPoint = 3;
 
@@ -200,7 +219,7 @@ namespace Ringtoets.Piping.IO
                     Z = worldCoordinateValues[i * expectedValuesForPoint + 2]
                 };
             }
-            return points;
+            return points.Distinct();
         }
 
         /// <summary>
@@ -211,7 +230,7 @@ namespace Ringtoets.Piping.IO
         /// <exception cref="LineParseException">Id value is null or empty.</exception>
         private string GetSurfaceLineName(IList<string> tokenizedString)
         {
-            var name = tokenizedString[0].Trim();
+            var name = tokenizedString.Any() ? tokenizedString[0].Trim() : string.Empty;
             if (string.IsNullOrEmpty(name))
             {
                 var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_NoId,

@@ -177,4 +177,7 @@
   <data name="PipingSoilProfileReader_InvalidValueOnColumn" xml:space="preserve">
     <value>Ondergrondprofiel in database bevat geen geldige waarde in kolom {0}.</value>
   </data>
+  <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Has_reclining_geometry" xml:space="preserve">
+    <value>Het bestand '{0}' heeft op regel {1} een dwarsdoorsnede met teruglopende geometrie (Punten behoren een oplosende set L-coordinaten te hebben in het lokaal coordinatensteltsel).</value>
+  </data>
 </root>

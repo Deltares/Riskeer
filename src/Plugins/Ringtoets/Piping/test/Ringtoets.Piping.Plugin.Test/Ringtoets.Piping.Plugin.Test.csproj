@@ -98,6 +98,10 @@
       <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
       <Name>Ringtoets.Piping.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Piping.IO.Test\Ringtoets.Piping.IO.Test.csproj">
+      <Project>{E4B0E068-F1A3-47BA-965F-0EC1E78E530A}</Project>
+      <Name>Ringtoets.Piping.IO.Test</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

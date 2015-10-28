@@ -11,6 +11,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Test.TestHelpers;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
@@ -142,9 +143,11 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             var secondSurfaceLine = importTargetArray[1];
             Assert.AreEqual("ArtificalLocal", secondSurfaceLine.Name);
             Assert.AreEqual(3, secondSurfaceLine.Points.Count());
-            Assert.AreEqual(4.4, secondSurfaceLine.EndingWorldPoint.X);
+            Assert.AreEqual(5.7, secondSurfaceLine.EndingWorldPoint.X);
 
             Assert.AreEqual(4, callCount);
+
+            Assert.IsTrue(FileHelper.CanOpenFileForWrite(validFilePath));
 
             mocks.VerifyAll();
         }

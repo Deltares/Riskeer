@@ -150,6 +150,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
             catch (CriticalFileReadException e)
             {
+                reader.Dispose();
                 return HandleCriticalError(path, e);
             }
 
@@ -162,6 +163,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
                 catch (CriticalFileReadException e)
                 {
+                    reader.Dispose();
                     return HandleCriticalError(path, e);
                 }
                 catch (LineParseException e)
@@ -172,6 +174,8 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
                 NotifyProgress(stepName, i + 1, itemCount);
             }
+
+            reader.Dispose();
 
             return new SurfaceLinesFileReadResult(false)
             {
