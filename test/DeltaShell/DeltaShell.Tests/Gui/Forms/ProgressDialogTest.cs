@@ -36,7 +36,7 @@ namespace DeltaShell.Tests.Gui.Forms
 
             progressDlg.Show();
             
-            var grid = progressDlg.Controls.OfType<DataGridView>().ToList()[0];
+            var grid = progressDlg.Controls.OfType<DataGridView>().First();
 
             Assert.AreEqual(2, grid.RowCount);
 
