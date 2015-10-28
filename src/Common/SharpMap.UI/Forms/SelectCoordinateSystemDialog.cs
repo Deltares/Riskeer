@@ -11,8 +11,6 @@ namespace SharpMap.UI.Forms
         private readonly List<TreeNode> gcsNodes = new List<TreeNode>();
         private readonly List<TreeNode> pcsNodes = new List<TreeNode>();
 
-        private readonly Timer timerFilterChanged;
-
         private readonly IList<ICoordinateSystem> supportedCoordinateSystems;
         private readonly IList<ICoordinateSystem> customCoordinateSystems;
 
@@ -26,13 +24,6 @@ namespace SharpMap.UI.Forms
             this.customCoordinateSystems = customCoordinateSystems;
 
             InitializeComponent();
-
-            timerFilterChanged = new Timer
-            {
-                Interval = 200
-            };
-            timerFilterChanged.Tick += delegate { FilterTree(); };
-            components.Add(timerFilterChanged);
         }
 
         public ICoordinateSystem SelectedCoordinateSystem
@@ -194,64 +185,61 @@ namespace SharpMap.UI.Forms
 
         private void textBoxFilter_TextChanged(object sender, EventArgs e)
         {
-            timerFilterChanged.Start();
+            FilterTree();
         }
 
         private void FilterTree()
         {
-            timerFilterChanged.Stop();
-
-            treeViewProjections.SuspendLayout();
-            // var node3Expanded = treeViewProjections.Nodes[2].IsExpanded;
-
             var gcsNodesFiltered = new List<TreeNode>();
             var pcsNodesFiltered = new List<TreeNode>();
-            // var ccsNodesFiltered = new List<TreeNode>();
+            var filterText = textBoxFilter.Text;
 
-            if (!string.IsNullOrWhiteSpace(textBoxFilter.Text))
+            treeViewProjections.BeginUpdate();
+            try
             {
-                var filter = textBoxFilter.Text.ToLower().TrimStart(' ').TrimEnd(' ');
-                gcsNodesFiltered.AddRange(from node in gcsNodes where node.Name.ToLower().Contains(filter) select (TreeNode) node.Clone());
-                pcsNodesFiltered.AddRange(from node in pcsNodes where node.Name.ToLower().Contains(filter) select (TreeNode) node.Clone());
-                // ccsNodesFiltered.AddRange(from node in customNodes where node.Name.ToLower().Contains(filter) select (TreeNode)node.Clone());
-            }
-            else
-            {
-                gcsNodesFiltered.AddRange(from node in gcsNodes select (TreeNode) node.Clone());
-                pcsNodesFiltered.AddRange(from node in pcsNodes select (TreeNode) node.Clone());
-                // ccsNodesFiltered.AddRange(from node in customNodes select (TreeNode)node.Clone());
-            }
-
-            if (treeViewProjections.Nodes.ContainsKey(geographicNodeName))
-            {
-                var geographicNode = treeViewProjections.Nodes[geographicNodeName];
-                //treeViewProjections.Nodes[2].Nodes.Clear();
-                //treeViewProjections.Nodes[2].Nodes.AddRange(ccsNodesFiltered.ToArray());
-
-                geographicNode.Nodes.Clear();
-                geographicNode.Nodes.AddRange(gcsNodesFiltered.ToArray());
-
-                if (geographicNode.IsExpanded)
+                if (!string.IsNullOrWhiteSpace(filterText))
                 {
-                    geographicNode.Expand();
+                    var filter = filterText.ToLower().TrimStart(' ').TrimEnd(' ');
+                    gcsNodesFiltered.AddRange(from node in gcsNodes where node.Name.ToLower().Contains(filter) select (TreeNode)node.Clone());
+                    pcsNodesFiltered.AddRange(from node in pcsNodes where node.Name.ToLower().Contains(filter) select (TreeNode)node.Clone());
                 }
-            }
-            if (treeViewProjections.Nodes.ContainsKey(projectedNodeName))
-            {
-                var projectedNode = treeViewProjections.Nodes[projectedNodeName];
-                projectedNode.Nodes.Clear();
-                projectedNode.Nodes.AddRange(pcsNodesFiltered.ToArray());
-
-                if (projectedNode.IsExpanded)
+                else
                 {
-                    projectedNode.Expand();
+                    gcsNodesFiltered.AddRange(from node in gcsNodes select (TreeNode)node.Clone());
+                    pcsNodesFiltered.AddRange(from node in pcsNodes select (TreeNode)node.Clone());
                 }
-            }
 
-            //if (node3Expanded) treeViewProjections.Nodes[2].Expand();
-            treeViewProjections.TopNode = treeViewProjections.Nodes[0];
-            treeViewProjections.SelectedNode = treeViewProjections.Nodes[0];
-            treeViewProjections.ResumeLayout();
+                if (treeViewProjections.Nodes.ContainsKey(geographicNodeName))
+                {
+                    var geographicNode = treeViewProjections.Nodes[geographicNodeName];
+
+                    geographicNode.Nodes.Clear();
+                    geographicNode.Nodes.AddRange(gcsNodesFiltered.ToArray());
+
+                    if (geographicNode.IsExpanded)
+                    {
+                        geographicNode.Expand();
+                    }
+                }
+                if (treeViewProjections.Nodes.ContainsKey(projectedNodeName))
+                {
+                    var projectedNode = treeViewProjections.Nodes[projectedNodeName];
+                    projectedNode.Nodes.Clear();
+                    projectedNode.Nodes.AddRange(pcsNodesFiltered.ToArray());
+
+                    if (projectedNode.IsExpanded)
+                    {
+                        projectedNode.Expand();
+                    }
+                }
+
+                treeViewProjections.TopNode = treeViewProjections.Nodes[0];
+                treeViewProjections.SelectedNode = treeViewProjections.Nodes[0];
+            }
+            finally
+            {
+                treeViewProjections.EndUpdate();
+            }
         }
     }
 }
