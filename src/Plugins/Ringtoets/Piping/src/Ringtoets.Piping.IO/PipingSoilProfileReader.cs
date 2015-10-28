@@ -87,55 +87,56 @@ namespace Ringtoets.Piping.IO
             return pipingSoilProfileBuilders.Select(keyValue => keyValue.Value.Build());
         }
 
-        private void ReadPipingSoilLayers2D(SQLiteDataReader dataReader, Dictionary<string, ISoilProfileBuilder> pipingSoilProfileBuilders)
+        public void Dispose()
+        {
+            connection.Close();
+            connection.Dispose();
+        }
+
+        private void ReadPipingSoilLayers2D(SQLiteDataReader dataReader, IDictionary<string, ISoilProfileBuilder> pipingSoilProfileBuilders)
         {
             while (dataReader.Read())
             {
                 var profileName = TryRead<string>(dataReader, profileNameColumn);
                 var intersectionX = TryRead<double>(dataReader, intersectionXColumn);
-                if (!pipingSoilProfileBuilders.ContainsKey(profileName))
-                {
-                    pipingSoilProfileBuilders.Add(profileName, new SoilProfileBuilder2D(profileName, intersectionX));
-                }
 
-                var soilProfileBuilder = GetSoilProfileBuilder<SoilProfileBuilder2D>(profileName, pipingSoilProfileBuilders);
+                Func<SoilProfileBuilder2D> create = () => new SoilProfileBuilder2D(profileName, intersectionX);
+
+                var soilProfileBuilder = GetSoilProfileBuilder(profileName, pipingSoilProfileBuilders, create);
 
                 soilProfileBuilder.Add(ReadPiping2DSoilLayer(dataReader));
             }
         }
 
-        private void ReadPipingSoilLayers(SQLiteDataReader dataReader, Dictionary<string, ISoilProfileBuilder> pipingSoilProfileBuilders)
+        private void ReadPipingSoilLayers(SQLiteDataReader dataReader, IDictionary<string, ISoilProfileBuilder> pipingSoilProfileBuilders)
         {
             while (dataReader.Read())
             {
                 var profileName = TryRead<string>(dataReader, profileNameColumn);
                 var bottom = TryRead<double>(dataReader, bottomColumn);
-                if (!pipingSoilProfileBuilders.ContainsKey(profileName))
-                {
-                    pipingSoilProfileBuilders.Add(profileName, new SoilProfileBuilder1D(profileName, bottom));
-                }
-                var soilProfileBuilder = GetSoilProfileBuilder<SoilProfileBuilder1D>(profileName, pipingSoilProfileBuilders);
+
+                Func<SoilProfileBuilder1D> create = () => new SoilProfileBuilder1D(profileName, bottom);
+
+                var soilProfileBuilder = GetSoilProfileBuilder(profileName, pipingSoilProfileBuilders, create);
 
                 soilProfileBuilder.Add(ReadPipingSoilLayer(dataReader));
             }
         }
 
-        private static T GetSoilProfileBuilder<T>(string profileName, Dictionary<string, ISoilProfileBuilder> pipingSoilProfileBuilders)
+        private static T GetSoilProfileBuilder<T>(string profileName, IDictionary<string, ISoilProfileBuilder> pipingSoilProfileBuilders, Func<T> createInstance) where T : ISoilProfileBuilder
         {
             try
             {
-                return (T)pipingSoilProfileBuilders[profileName];
+                if (!pipingSoilProfileBuilders.ContainsKey(profileName))
+                {
+                    pipingSoilProfileBuilders.Add(profileName, createInstance());
+                }
+                return (T) pipingSoilProfileBuilders[profileName];
             }
             catch (InvalidCastException e)
             {
                 throw new PipingSoilProfileReadException(Resources.Error_CannotCombine2DAnd1DLayersInProfile, e);
             }
-        }
-
-        public void Dispose()
-        {
-            connection.Close();
-            connection.Dispose();
         }
 
         private T TryRead<T>(SQLiteDataReader dataReader, string columnName)
@@ -216,14 +217,14 @@ namespace Ringtoets.Piping.IO
                                                 "FROM SoilProfile1D as p",
                                                 "JOIN SoilLayer1D as l ON l.SP1D_ID = p.SP1D_ID",
                                                 "JOIN (",
-                                                    "SELECT m.MA_ID, pn.PN_Name, pv.PV_Value",
-                                                    "FROM ParameterNames as pn",
-                                                    "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
-                                                    "JOIN Materials as m ON m.MA_ID = pv.MA_ID) as mat ON l.MA_ID = mat.MA_ID",
+                                                "SELECT m.MA_ID, pn.PN_Name, pv.PV_Value",
+                                                "FROM ParameterNames as pn",
+                                                "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
+                                                "JOIN Materials as m ON m.MA_ID = pv.MA_ID) as mat ON l.MA_ID = mat.MA_ID",
                                                 "JOIN (",
-                                                    "SELECT pv.SL1D_ID, pn.PN_Name, pv.PV_Value",
-                                                    "FROM ParameterNames as pn",
-                                                    "JOIN LayerParameterValues as pv ON pn.PN_ID = pv.PN_ID) as lpv ON lpv.SL1D_ID = l.SL1D_ID",
+                                                "SELECT pv.SL1D_ID, pn.PN_Name, pv.PV_Value",
+                                                "FROM ParameterNames as pn",
+                                                "JOIN LayerParameterValues as pv ON pn.PN_ID = pv.PN_ID) as lpv ON lpv.SL1D_ID = l.SL1D_ID",
                                                 "GROUP BY l.SL1D_ID",
                                                 "ORDER BY ProfileName"),
                                     profileNameColumn,
@@ -241,13 +242,13 @@ namespace Ringtoets.Piping.IO
                                                 "JOIN SoilLayer2D as l ON l.SP2D_ID = p.SP2D_ID",
                                                 "JOIN (",
                                                 "SELECT m.MA_ID, pn.PN_Name, pv.PV_Value",
-                                                    "FROM ParameterNames as pn",
-                                                    "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
-                                                    "JOIN Materials as m ON m.MA_ID = pv.MA_ID) as mat ON l.MA_ID = mat.MA_ID",
+                                                "FROM ParameterNames as pn",
+                                                "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
+                                                "JOIN Materials as m ON m.MA_ID = pv.MA_ID) as mat ON l.MA_ID = mat.MA_ID",
                                                 "JOIN (",
-                                                    "SELECT pv.SL2D_ID, pn.PN_Name, pv.PV_Value",
-                                                    "FROM ParameterNames as pn",
-                                                    "JOIN LayerParameterValues as pv ON pn.PN_ID = pv.PN_ID) as lpv ON lpv.SL2D_ID = l.SL2D_ID",
+                                                "SELECT pv.SL2D_ID, pn.PN_Name, pv.PV_Value",
+                                                "FROM ParameterNames as pn",
+                                                "JOIN LayerParameterValues as pv ON pn.PN_ID = pv.PN_ID) as lpv ON lpv.SL2D_ID = l.SL2D_ID",
                                                 "WHERE m.ME_Name = @{3}",
                                                 "GROUP BY l.SL2D_ID"),
                                     profileNameColumn,
