@@ -34,6 +34,7 @@
     <Cultures>nl-NL</Cultures>
     <SuppressAllWarnings>True</SuppressAllWarnings>
     <Pedantic>False</Pedantic>
+    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\Application.Ringtoets\bin;</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Installer UI\BrowseDlgDeltares.wxs" />
@@ -102,8 +103,8 @@
     <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\..\..\src\DeltaShell\DeltaShell.Gui\bin;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\src\DeltaShell\DeltaShell.Gui\bin -cg WtiApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)WtiPayload.wxs"
-$(ProjectDir)..\..\..\build\svn_insert_version.cmd $(ProjectDir) GenerateVariables.wxi.svn GenerateVariables.wxi%3b</PreBuildEvent>
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\Application.Ringtoets\bin -cg WtiApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)WtiPayload.wxs"
+$(ProjectDir)..\..\build\svn_insert_version.cmd $(ProjectDir) GenerateVariables.wxi.svn GenerateVariables.wxi%3b</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
