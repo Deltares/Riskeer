@@ -7,7 +7,7 @@ using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
 
 using Ringtoets.Piping.Data;
-
+using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
@@ -84,21 +84,22 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
-            var contextMenu = new ContextMenuStrip();
-            var addPipingFailureMechanismItem = contextMenu.Items.Add(Resources.AddPipingFailureMechanismContextMenuItem);
-
             var wtiProject = (WtiProject) nodeData;
 
+            var contextMenu = new ContextMenuStrip();
             if (wtiProject.CanAddPipingFailureMechanism())
             {
-                addPipingFailureMechanismItem.Tag = nodeData;
-                addPipingFailureMechanismItem.Click += InitializePipingFailureMechanismForWtiProject;
-                addPipingFailureMechanismItem.ToolTipText = Resources.WtiProjectTooltipAddPipingFailureMechanism;
+                contextMenu.AddMenuItem(Resources.AddPipingFailureMechanismContextMenuItem,
+                    Resources.WtiProjectTooltipAddPipingFailureMechanism,
+                    Resources.PipingIcon,
+                    InitializePipingFailureMechanismForWtiProject).Tag = nodeData;
             }
             else
             {
-                addPipingFailureMechanismItem.Enabled = false;
-                addPipingFailureMechanismItem.ToolTipText = Resources.WtiProjectTooltipPipingFailureMechanismAlreadyAdded;
+                contextMenu.AddMenuItem(Resources.AddPipingFailureMechanismContextMenuItem,
+                    Resources.WtiProjectTooltipPipingFailureMechanismAlreadyAdded,
+                    Resources.PipingIcon,
+                    InitializePipingFailureMechanismForWtiProject).Enabled = false;
             }
 
             return contextMenu;

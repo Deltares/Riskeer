@@ -17,7 +17,8 @@ namespace Ringtoets.Piping.Forms.Extensions
         /// <param name="tooltip">Value for <see cref="ToolStripItem.ToolTipText"/>.</param>
         /// <param name="icon">Value for <see cref="ToolStripItem.Image"/>.</param>
         /// <param name="clickHandler">Method to handle the user clicking on the item..</param>
-        public static void AddMenuItem(this ContextMenuStrip parentMenu, string text, string tooltip, Image icon, EventHandler clickHandler)
+        /// <returns>The newly created menu item.</returns>
+        public static ToolStripItem AddMenuItem(this ContextMenuStrip parentMenu, string text, string tooltip, Image icon, EventHandler clickHandler)
         {
             var newItem = new ToolStripMenuItem(text)
             {
@@ -27,6 +28,8 @@ namespace Ringtoets.Piping.Forms.Extensions
             newItem.Click += clickHandler;
 
             parentMenu.Items.Add(newItem);
+
+            return newItem;
         }
     }
 }

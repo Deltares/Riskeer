@@ -7,6 +7,7 @@ using DelftTools.Shell.Core.Workflow;
 using DelftTools.Utils.Collections;
 
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Service;
 
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -90,10 +91,23 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
-            var contextMenu = new PipingContextMenuStrip(((PipingCalculationInputs) nodeData).PipingData);
+            PipingData pipingData = ((PipingCalculationInputs) nodeData).PipingData;
 
-            contextMenu.OnCalculationClick += PerformPipingCalculation;
-            contextMenu.OnValidationClick += PerformPipingValidation;
+            var contextMenu = new ContextMenuStrip();
+            contextMenu.AddMenuItem(Resources.PipingDataContextMenuValidate,
+                                    null,
+                                    null,
+                                    (o, args) =>
+                                    {
+                                        PipingCalculationService.Validate(pipingData);
+                                    });
+            contextMenu.AddMenuItem(Resources.PipingDataContextMenuCalculate,
+                                    null,
+                                    Resources.Play,
+                                    (o, args) =>
+                                    {
+                                        RunActivityAction(new PipingCalculationActivity(pipingData));
+                                    });
 
             return contextMenu;
         }
@@ -110,16 +124,6 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
             throw new InvalidOperationException(String.Format("Cannot delete node of type {0}.", GetType().Name));
-        }
-
-        private void PerformPipingValidation(PipingData pipingData)
-        {
-            PipingCalculationService.Validate(pipingData);
-        }
-
-        private void PerformPipingCalculation(PipingData pipingData)
-        {
-            RunActivityAction(new PipingCalculationActivity(pipingData));
         }
     }
 }

@@ -299,14 +299,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             mockRepository.ReplayAll();
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(2, contextMenu.Items.Count);
-            Assert.AreEqual(WtiFormsResources.PipingDataContextMenuCalculate, contextMenu.Items[1].Text);
             Assert.AreEqual(WtiFormsResources.PipingDataContextMenuValidate, contextMenu.Items[0].Text);
-            Assert.IsInstanceOf<PipingContextMenuStrip>(contextMenu);
+
+            ToolStripItem calculatePipingItem = contextMenu.Items[1];
+            Assert.AreEqual(WtiFormsResources.PipingDataContextMenuCalculate, calculatePipingItem.Text);
+            Assert.AreEqual(16, calculatePipingItem.Image.Height);
+            Assert.AreEqual(16, calculatePipingItem.Image.Width);
             mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 

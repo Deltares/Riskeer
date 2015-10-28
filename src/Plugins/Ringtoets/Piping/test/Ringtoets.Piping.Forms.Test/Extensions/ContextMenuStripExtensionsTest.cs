@@ -21,11 +21,12 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             const string menuItemsTooltip = "<menu.Items[0].ToolTip>";
 
             // Call
-            menu.AddMenuItem(menuItemsText, menuItemsTooltip, FormsResources.ImportIcon, (sender, args) => callCount++);
+            var newItem = menu.AddMenuItem(menuItemsText, menuItemsTooltip, FormsResources.ImportIcon, (sender, args) => callCount++);
 
             // Assert
             Assert.AreEqual(1, menu.Items.Count);
             var addedMenuItem = menu.Items[0];
+            Assert.AreSame(newItem, addedMenuItem);
             Assert.AreEqual(menuItemsText, addedMenuItem.Text);
             Assert.AreEqual(menuItemsTooltip, addedMenuItem.ToolTipText);
             Assert.IsNotNull(addedMenuItem.Image);

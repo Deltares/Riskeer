@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Linq;
+using System.Windows.Forms;
+
 using DelftTools.Controls;
 using DelftTools.Shell.Core;
 using DelftTools.Utils.Collections;
@@ -283,10 +285,13 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(1, contextMenu.Items.Count);
-            Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, contextMenu.Items[0].Text);
-            Assert.AreEqual(WtiFormsResources.WtiProjectTooltipAddPipingFailureMechanism, contextMenu.Items[0].ToolTipText);
-            Assert.IsTrue(contextMenu.Items[0].Enabled);
-            Assert.AreSame(wtiProject, contextMenu.Items[0].Tag);
+            ToolStripItem addPipingItem = contextMenu.Items[0];
+            Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, addPipingItem.Text);
+            Assert.AreEqual(WtiFormsResources.WtiProjectTooltipAddPipingFailureMechanism, addPipingItem.ToolTipText);
+            Assert.IsTrue(addPipingItem.Enabled);
+            Assert.AreSame(wtiProject, addPipingItem.Tag);
+            Assert.AreEqual(16, addPipingItem.Image.Height);
+            Assert.AreEqual(16, addPipingItem.Image.Width);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -308,10 +313,13 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(1, contextMenu.Items.Count);
-            Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, contextMenu.Items[0].Text);
-            Assert.AreEqual(WtiFormsResources.WtiProjectTooltipPipingFailureMechanismAlreadyAdded, contextMenu.Items[0].ToolTipText);
-            Assert.IsFalse(contextMenu.Items[0].Enabled);
-            Assert.IsNull(contextMenu.Items[0].Tag);
+            ToolStripItem addPipingItem = contextMenu.Items[0];
+            Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, addPipingItem.Text);
+            Assert.AreEqual(WtiFormsResources.WtiProjectTooltipPipingFailureMechanismAlreadyAdded, addPipingItem.ToolTipText);
+            Assert.IsFalse(addPipingItem.Enabled);
+            Assert.IsNull(addPipingItem.Tag);
+            Assert.AreEqual(16, addPipingItem.Image.Height);
+            Assert.AreEqual(16, addPipingItem.Image.Width);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
