@@ -29,7 +29,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly TreeNodeList nodes;
 
-        private bool isUpdateSuspended;
         private TreeViewController controller;
         private int dropAtLocation;
         private Point lastDragOverPoint;
@@ -181,14 +180,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ViewInfo ViewInfo { get; set; }
-
-        public bool IsUpdateSuspended
-        {
-            get
-            {
-                return isUpdateSuspended;
-            }
-        }
 
         public bool SelectedNodeCanDelete()
         {
@@ -366,24 +357,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
             }
         }
 
-        public new void BeginUpdate()
-        {
-            if (!isUpdateSuspended)
-            {
-                isUpdateSuspended = true;
-                base.BeginUpdate();
-            }
-        }
-
-        public new void EndUpdate()
-        {
-            if (isUpdateSuspended)
-            {
-                isUpdateSuspended = false;
-                base.EndUpdate();
-            }
-        }
-
         public IEnumerable<ITreeNode> GetAllLoadedNodes(ITreeNode currentNode)
         {
             var allChildNodes = new[]
@@ -437,11 +410,6 @@ namespace DelftTools.Controls.Swf.TreeViewControls
         protected override void OnDrawNode(DrawTreeNodeEventArgs e)
         {
             e.DrawDefault = false;
-
-            if (isUpdateSuspended)
-            {
-                return;
-            }
 
             var selected = (e.State & TreeNodeStates.Selected) == TreeNodeStates.Selected;
 

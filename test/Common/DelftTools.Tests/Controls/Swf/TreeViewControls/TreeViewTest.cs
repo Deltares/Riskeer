@@ -1,5 +1,9 @@
+using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 using DelftTools.Controls;
 using DelftTools.Controls.Swf.TreeViewControls;
 using DelftTools.Tests.TestObjects;
@@ -7,6 +11,7 @@ using DelftTools.TestUtils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using SharpTestsEx;
+using TreeView = DelftTools.Controls.Swf.TreeViewControls.TreeView;
 
 namespace DelftTools.Tests.Controls.Swf.TreeViewControls
 {
@@ -305,7 +310,73 @@ namespace DelftTools.Tests.Controls.Swf.TreeViewControls
             treeView.Nodes[0].Nodes[0].IsExpanded.Should("node remains expanded").Be.True();
         }
 
-        private class DynamicParentNodePresenter : TreeViewNodePresenterBase<Parent>
+        [Test]
+        public void TreeViewUpdateOnManyPropertyChangesShouldBeFast()
+        {
+            var parent = new Child
+            {
+                Name = "parent"
+            };
+
+            for (var i = 0; i < 100; i++)
+            {
+                parent.Children.Add(new Child
+                {
+                    Name = i.ToString()
+                });
+            }
+
+            // measure time to perform action without tree view
+            Func<double> processingAction = () =>
+            {
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
+                var rnd = new Random();
+                for (var i = 0; i < 99; i++)
+                {
+                    var child = parent.Children[rnd.Next(99)];
+                    child.Name = i.ToString();
+                }
+                stopwatch.Stop();
+
+                return stopwatch.ElapsedMilliseconds;
+            };
+
+            Console.WriteLine("Elapsed time to perform action without tree view: " + processingAction());
+
+            var treeView = new TreeView
+            {
+                NodePresenters =
+                {
+                    new ChildNodePresenter()
+                },
+                Data = parent
+            };
+
+            // expand / collapse / expand
+            treeView.ExpandAll();
+
+            double elapsedMillisecondsWithTreeView = 0;
+            Action<Form> onShow = delegate
+            {
+                var stopwatch = new Stopwatch();
+                stopwatch.Start();
+
+                elapsedMillisecondsWithTreeView = processingAction();
+                Console.WriteLine("Elapsed time to perform action with tree view: " + elapsedMillisecondsWithTreeView);
+
+                treeView.WaitUntilAllEventsAreProcessed();
+
+                stopwatch.Stop();
+                Console.WriteLine("Elapsed time to refresh tree view: " + stopwatch.ElapsedMilliseconds);
+            };
+
+            WindowsFormsTestHelper.ShowModal(treeView, onShow);
+
+            TestHelper.AssertIsFasterThan(10, () => Thread.Sleep((int) elapsedMillisecondsWithTreeView));
+        }
+
+        public class DynamicParentNodePresenter : TreeViewNodePresenterBase<Parent>
         {
             public override void UpdateNode(ITreeNode parentNode, ITreeNode node, Parent nodeData)
             {
