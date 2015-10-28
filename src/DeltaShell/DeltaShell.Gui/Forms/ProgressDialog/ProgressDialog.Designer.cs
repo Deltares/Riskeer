@@ -24,13 +24,6 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
 
             using (InvokeRequiredAttribute.BlockInvokeCallsDuringDispose())
             {
-                if (refreshTimer != null)
-                {
-                    refreshTimer.Tick -= RefreshTimerOnTick;
-                    refreshTimer.Dispose();
-                    refreshTimer = null;
-                }
-
                 if (components != null)
                 {
                     components.Dispose();

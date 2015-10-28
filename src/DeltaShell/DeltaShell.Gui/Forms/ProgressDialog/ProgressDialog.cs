@@ -13,20 +13,14 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
     public partial class ProgressDialog : Form
     {
         public event EventHandler<EventArgs> CancelClicked;
-        private Timer refreshTimer = new Timer();
         private BindingList<ActivityInfo> bindingList;
-
         private IEventedList<IActivity> data;
-        //private IEnumerable<IActivity> activities;
 
         public ProgressDialog()
         {
             InitializeComponent();
             dgvActivities.AutoGenerateColumns = false;
             StartPosition = FormStartPosition.Manual;
-
-            refreshTimer.Interval = 300;
-            refreshTimer.Tick += RefreshTimerOnTick;
         }
 
         public IEventedList<IActivity> Data
@@ -37,11 +31,6 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
             }
             set
             {
-                /*if (data != null)
-                {
-                    UnWireBindingList();
-                }*/
-                //create a bindinglist<ActivityInfo>
                 data = value;
                 if (data != null)
                 {
@@ -49,7 +38,6 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
                     WireBindingList();
                     dgvActivities.DataSource = bindingList;
                 }
-                //data = value;
             }
         }
 
@@ -80,19 +68,11 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
             {
                 e.Cancel = true;
             }
-
-            refreshTimer.Start();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             CenterToParent();
-            refreshTimer.Start();
-        }
-
-        private void RefreshTimerOnTick(object sender, EventArgs eventArgs)
-        {
-            dgvActivities.Refresh();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -116,14 +96,6 @@ namespace DeltaShell.Gui.Forms.ProgressDialog
             {
                 btnCancel.Text = Resources.ProgressDialog_SetButtonState_Cancel_all_activities;
                 btnCancel.Enabled = true;
-            }
-        }
-
-        private void UnWireBindingList()
-        {
-            if (data is INotifyPropertyChanged)
-            {
-                data.CollectionChanged -= DataCollectionChanged;
             }
         }
 
