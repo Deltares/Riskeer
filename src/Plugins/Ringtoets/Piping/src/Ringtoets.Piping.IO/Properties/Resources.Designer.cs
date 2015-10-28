@@ -196,6 +196,15 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ondergrondprofiel in database bevat geen geldige waarde in kolom {0}..
+        /// </summary>
+        public static string PipingSoilProfileReader_InvalidValueOnColumn {
+            get {
+                return ResourceManager.GetString("PipingSoilProfileReader_InvalidValueOnColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bestand op &apos;{0}&apos; is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1)..
         /// </summary>
         public static string PipingSurfaceLinesCsvReader_File_0_invalid_header {

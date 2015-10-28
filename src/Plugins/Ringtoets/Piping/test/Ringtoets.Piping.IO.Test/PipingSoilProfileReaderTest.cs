@@ -51,6 +51,10 @@ namespace Ringtoets.Piping.IO.Test
             // Setup
             var testFile = "1dprofile.soil";
             var dbFile = Path.Combine(testDataPath, testFile);
+
+            // Precondition
+            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile), "Precondition failed: The file should be writable to begin with.");
+
             var pipingSoilProfilesReader = new PipingSoilProfileReader(dbFile);
             pipingSoilProfilesReader.Read();
 
@@ -78,7 +82,7 @@ namespace Ringtoets.Piping.IO.Test
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void ReadSoilProfiles_NullOrEmpty_ThrowsArgumentException(string fileName)
+        public void Read_NullOrEmpty_ThrowsArgumentException(string fileName)
         {
             // Call
             TestDelegate test = () => new PipingSoilProfileReader(fileName);
@@ -89,7 +93,7 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
-        public void ReadSoilProfiles_IncorrectFormatFile_ThrowsSqLiteException()
+        public void Read_IncorrectFormatFile_ThrowsSqLiteException()
         {
             // Setup
             var dbName = "text";
@@ -107,10 +111,10 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
-        public void ReadProfiles_DatabaseWith1DAnd2DProfilesWithSameName_ThrowsPipingSoilProfileReadException()
+        public void Read_DatabaseWith1DAnd2DProfilesWithSameName_ThrowsPipingSoilProfileReadException()
         {
             // Setup
-            var testFile = "Combined1dAnd2d.soil";
+            var testFile = "combined1d2d.soil";
             using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
             {
                 // Call
@@ -123,17 +127,34 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        public void ReadProfiles_NLDatabaseWith1DProfile_ReturnsCompleteSoilProfile()
+        public void Read_DatabaseWithNullValueForBottom_ThrowsPipingSoilProfileReadException()
         {
-            ReadProfiles_DatabaseWith1DProfile_ReturnsCompleteSoilProfile();
+            // Setup
+            var testFile = "invalidbottom.soil";
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            {
+                // Call
+                TestDelegate test = () => pipingSoilProfilesReader.Read();
+
+                // Assert
+                var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+                var message = String.Format(Resources.PipingSoilProfileReader_InvalidValueOnColumn, "Bottom");
+                Assert.AreEqual(message, exception.Message);
+            }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void Read_NLDatabaseWith1DProfile_ReturnsCompleteSoilProfile()
+        {
+            Read_DatabaseWith1DProfile_ReturnsCompleteSoilProfile();
         }
 
         [Test]
         [SetCulture("en-US")]
-        public void ReadProfiles_ENDatabaseWith1DProfile_ReturnsCompleteSoilProfile()
+        public void Read_ENDatabaseWith1DProfile_ReturnsCompleteSoilProfile()
         {
-            ReadProfiles_DatabaseWith1DProfile_ReturnsCompleteSoilProfile();
+            Read_DatabaseWith1DProfile_ReturnsCompleteSoilProfile();
         }
 
         [Test]
@@ -150,7 +171,7 @@ namespace Ringtoets.Piping.IO.Test
             ReadSoilProfiles_CompleteDatabase_Returns2ProfilesWithLayersAndGeometries();
         }
 
-        public void ReadProfiles_DatabaseWith1DProfile_ReturnsCompleteSoilProfile()
+        public void Read_DatabaseWith1DProfile_ReturnsCompleteSoilProfile()
         {
             // Setup
             var testFile = "1dprofile.soil";
@@ -161,12 +182,12 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 Assert.AreEqual(1, result.Length);
-                Assert.AreEqual(-12, result[0].Bottom);
-                CollectionAssert.AreEquivalent(new[]
+                Assert.AreEqual(-2.1, result[0].Bottom);
+                CollectionAssert.AreEqual(new[]
                 {
-                    60,
-                    0.63,
-                    -7.0
+                    3.3,
+                    2.2,
+                    1.1
                 }, result[0].Layers.Select(l => l.Top));
             }
         }
@@ -181,165 +202,104 @@ namespace Ringtoets.Piping.IO.Test
                 PipingSoilProfile[] result = pipingSoilProfilesReader.Read().ToArray();
 
                 // Assert
-                Assert.AreEqual(36, result.Length);
+                Assert.AreEqual(26, result.Length);
                 CollectionAssert.AreEquivalent(new[]
                 {
-                    "10Y_005_STBI_p",
-                    "10Y_024_STBI_p",
-                    "10Y_041_STBI_p",
-                    "10Y_042_STBI_p",
-                    "10Y_043_STBI_p",
-                    "10Y_054_STBI_p",
-                    "10Y_066_STBI_p",
-                    "10Y_090_STBI_p",
-                    "10Y_102_STBI_p",
-                    "10Y_117_STBI_p",
-                    "10Y_130_STBI_p",
-                    "10Y_149_STBI_p",
-                    "10Z_157_STBI_p",
-                    "10Z_165_STBI_p",
-                    "10Z_181_STBI_p",
-                    "10Z_186_STBI_p",
-                    "10Z_199_STBI_p",
-                    "10Z_228_STBI_p",
-                    "10Z_258_STBI_p",
-                    "10Z_275_STBI_p",
-                    "10Z_282_STBI_p",
-                    "10Z_286_STBI_p",
-                    "10Z_311_STBI_p",
-                    "10Z_327_STBI_p",
-                    "10Z_352_STBI_p",
-                    "10Z_358_STBI_p",
-                    "10Z_369_STBI_p",
-                    "10Z_380_STBI_p",
-                    "10Z_390_STBI_p",
-                    "10Z_400_STBI_p",
-                    "10Z_421_STBI_p",
-                    "10Z_432_STBI_p",
-                    "10Z_460_STBI_p",
-                    "10Y_091_STBI_p",
-                    "10Y_005_STBI",
-                    "10Y_041_STBI"
+                    "AD640M00_Segment_36005_1D1",
+                    "AD640M00_Segment_36005_1D2",
+                    "Segment_36005_1D1",
+                    "Segment_36005_1D2",
+                    "Segment_36005_1D3",
+                    "Segment_36005_1D4",
+                    "Segment_36005_1D5",
+                    "Segment_36005_1D6",
+                    "Segment_36005_1D7",
+                    "Segment_36005_1D8",
+                    "Segment_36005_1D9",
+                    "Segment_36005_1D10",
+                    "Segment_36006_1D1",
+                    "Segment_36006_1D2",
+                    "Segment_36006_1D3",
+                    "Segment_36006_1D4",
+                    "Segment_36006_1D5",
+                    "Segment_36006_1D6",
+                    "Segment_36007_1D1",
+                    "Segment_36007_1D2",
+                    "Segment_36007_1D3",
+                    "Segment_36007_1D4",
+                    "Segment_36007_1D5",
+                    "Segment_36007_1D6",
+                    "Segment_36007_1D7",
+                    "Segment_36007_1D8"
                 }, result.Select(p => p.Name));
 
                 CollectionAssert.AreEquivalent(new[]
                 {
-                    -10,
-                    -12.0,
-                    -10.8,
-                    -10,
-                    -21.5,
-                    -21.5,
-                    -21.5,
-                    -22.0,
-                    -24.0,
-                    -21.5,
-                    -21.5,
-                    -22.0,
-                    -24.17,
-                    -24.8,
-                    -25.0,
-                    -24.0,
-                    -22.8,
-                    -23.8,
-                    -24.2,
-                    -24.5,
-                    -24.0,
-                    -23.7,
-                    -24.4,
-                    -24.0,
-                    -31.5,
-                    -23.2,
-                    -23.9,
-                    -23.1,
-                    -23.5,
-                    -23.125,
-                    -22.5,
-                    -21.88,
-                    -22.0,
-                    40.0,
-                    40.0,
-                    40.0
+                    -39.999943172545208,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -45,
+                    -52,
+                    -52,
+                    -52,
+                    -52,
+                    -24,
+                    -21.25,
+                    -21,
+                    -21
                 }, result.Select(p => p.Bottom));
 
                 CollectionAssert.AreEquivalent(new[]
                 {
-                    6,
-                    3,
-                    2,
-                    3,
-                    2,
-                    2,
-                    2,
-                    2,
-                    3,
-                    2,
-                    2,
-                    2,
-                    2,
-                    3,
-                    3,
-                    3,
-                    2,
-                    2,
-                    2,
-                    2,
-                    3,
-                    2,
-                    3,
-                    3,
-                    2,
-                    2,
-                    3,
-                    2,
-                    2,
-                    2,
-                    2,
-                    2,
-                    3,
-                    1,
-                    1,
-                    1
+                    8,8,8,6,6,5,5,6,4,4,3,3,7,7,7,5,5,5,6,6,4,5,4,4,2,3
                 }, result.Select(p => p.Layers.Count()));
 
-                var firstProfile = result.FirstOrDefault(l => l.Name == "10Y_005_STBI");
+                var firstProfile = result.FirstOrDefault(l => l.Name == "AD640M00_Segment_36005_1D1");
                 Assert.NotNull(firstProfile);
                 var expectedFirstProfileLayersTops = new[]
                 {
-                    -3.5,
-                    -1.2,
-                    0.63,
-                    1.088434916,
-                    1.947578092,
-                    2.473341176
+                    3.12499857931363,
+                    2.3749957379408912,
+                    1.1874992896568151,
+                    0.12499005519541202,
+                    -5.1250298344137661,
+                    -14.000011365490959,
+                    -19.000022730981915,
+                    -30.000056827454785,
                 };
                 CollectionAssert.AllItemsAreUnique(firstProfile.Layers.Select(l => l.Top));
-                Assert.AreEqual(6, firstProfile.Layers.Count(l => expectedFirstProfileLayersTops.Contains(l.Top, new DoubleComparer())));
+                CollectionAssert.AreEqual(expectedFirstProfileLayersTops, firstProfile.Layers.Select(l => l.Top));
 
-                var secondProfile = result.FirstOrDefault(l => l.Name == "10Y_041_STBI");
+                var secondProfile = result.FirstOrDefault(l => l.Name == "AD640M00_Segment_36005_1D2");
                 Assert.NotNull(secondProfile);
                 var expectedSecondProfileLayersTops = new[]
                 {
-                    -1.5,
-                    -1.180438596,
-                    0.333203067
+                    5.9075002357930053,
+                    4.3475186908270276,
+                    3.25,
+                    -0.5,
+                    -0.75,
+                    -13,
+                    -17,
+                    -25,
                 };
                 CollectionAssert.AllItemsAreUnique(secondProfile.Layers.Select(l => l.Top));
-                Assert.AreEqual(3, secondProfile.Layers.Count(l => expectedSecondProfileLayersTops.Contains(l.Top, new DoubleComparer())));
+                CollectionAssert.AreEqual(expectedSecondProfileLayersTops, secondProfile.Layers.Select(l => l.Top));
             }
-        }
-    }
-
-    internal class DoubleComparer : IEqualityComparer<double>
-    {
-        public bool Equals(double x, double y)
-        {
-            return Math.Abs(x - y) < Math2D.EpsilonForComparisons;
-        }
-
-        public int GetHashCode(double obj)
-        {
-            return obj.GetHashCode();
         }
     }
 }

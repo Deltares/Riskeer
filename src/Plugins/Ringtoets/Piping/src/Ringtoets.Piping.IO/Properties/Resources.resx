@@ -174,4 +174,7 @@
   <data name="Error_CannotCombine2DAnd1DLayersInProfile" xml:space="preserve">
     <value>Kan geen 2D en 1D lagen combineren in een profiel.</value>
   </data>
+  <data name="PipingSoilProfileReader_InvalidValueOnColumn" xml:space="preserve">
+    <value>Ondergrondprofiel in database bevat geen geldige waarde in kolom {0}.</value>
+  </data>
 </root>
