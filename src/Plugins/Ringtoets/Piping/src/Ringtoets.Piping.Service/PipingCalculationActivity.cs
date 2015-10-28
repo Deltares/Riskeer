@@ -11,6 +11,10 @@ namespace Ringtoets.Piping.Service
     {
         private readonly PipingData pipingData;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PipingCalculationActivity"/> class.
+        /// </summary>
+        /// <param name="pipingData">The piping data used for the calculation.</param>
         public PipingCalculationActivity(PipingData pipingData)
         {
             this.pipingData = pipingData;

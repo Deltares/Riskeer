@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// <summary>
         /// Injection points for a method to cause an <see cref="IActivity"/> to be scheduled for execution.
         /// </summary>
-        public Action<IActivity> RunActivityAction { get; set; }
+        public Action<IActivity> RunActivityAction { private get; set; }
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {

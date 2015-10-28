@@ -15,6 +15,10 @@ using Ringtoets.Piping.Service;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
+    /// <summary>
+    /// This class presents the data on <see cref="PipingFailureMechanism"/> as a node in a 
+    /// <see cref="ITreeView"/> and implements the way the user can interact with the node.
+    /// </summary>
     public class PipingFailureMechanismNodePresenter : ITreeNodePresenter
     {
         public ITreeView TreeView { get; set; }

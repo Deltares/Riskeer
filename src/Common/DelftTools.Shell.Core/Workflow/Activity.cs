@@ -147,31 +147,43 @@ namespace DelftTools.Shell.Core.Workflow
         }
 
         /// <summary>
-        /// Initializes internal state. Changes status to <see cref="ActivityStatus.Initialized"/>
+        /// Initializes internal state to prepare for execution. After calling this method,
+        /// <see cref="Status"/> will be set to <see cref="ActivityStatus.Initialized"/> if
+        /// no error has occurred.
         /// </summary>
+        /// <remarks>Set <see cref="Status"/> to <see cref="ActivityStatus.Failed"/>
+        /// when an error has occurred while performing the initialization.</remarks>
         protected abstract void OnInitialize();
 
         /// <summary>
-        /// Executes one step. Changes status to <see cref="ActivityStatus.Executed"/> or <see cref="ActivityStatus.Finished"/>.
+        /// Executes one step. This method will be called multiple times to allow for multiple
+        /// execution steps. After calling this method, <see cref="Status"/> will be set to 
+        /// <see cref="ActivityStatus.Executed"/> if no error has occurred.
         /// </summary>
+        /// <remarks>
+        /// <para>Set <see cref="Status"/> to <see cref="ActivityStatus.Failed"/>
+        /// when an error has occurred while executing.</para>
+        /// <para>Set <see cref="Status"/> to <see cref="ActivityStatus.Done"/>
+        /// when execution has finished without errors.</para>
+        /// </remarks>
         protected abstract void OnExecute();
 
         /// <summary>
-        /// Cancels current run. Changes status to <see cref="ActivityStatus.Cancelled"/>.
+        /// Activity has finished successfully. After calling this method, <see cref="Status"/> 
+        /// will be set to <see cref="ActivityStatus.Finished"/> if no error has occurred.
         /// </summary>
-        /// <returns>True when finished.</returns>
+        protected abstract void OnFinish();
+
+        /// <summary>
+        /// Cancels current run. <see cref="Status"/> will change to <see cref="ActivityStatus.Cancelled"/>
+        /// after this method has been called.
+        /// </summary>
         protected abstract void OnCancel();
 
         /// <summary>
         /// Performs clean-up of all internal resources.
         /// </summary>
-        /// <returns>True when finished.</returns>
         protected abstract void OnCleanUp();
-
-        /// <summary>
-        /// Activity has finished successfully.
-        /// </summary>
-        protected abstract void OnFinish();
 
         private void ChangeState(Action transitionAction, ActivityStatus statusBefore, ActivityStatus statusAfter)
         {
