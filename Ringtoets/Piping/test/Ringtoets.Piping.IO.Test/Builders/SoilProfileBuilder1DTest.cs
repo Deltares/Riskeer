@@ -23,7 +23,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
-        public void Build_WithSingleLayer_ReturnsProfileWithBottomAndALayer()
+        public void Build_WithoutAquiferLayer_ThrowsArgumentException()
         {
             // Setup
             var profileName = "SomeProfile";
@@ -32,6 +32,27 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var top = random.NextDouble();
             var builder = new SoilProfileBuilder1D(profileName, bottom);
             builder.Add(new PipingSoilLayer(top));
+
+            // Call
+            TestDelegate test = () => builder.Build();
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Build_WithSingleLayer_ReturnsProfileWithBottomAndALayer()
+        {
+            // Setup
+            var profileName = "SomeProfile";
+            var random = new Random(22);
+            var bottom = random.NextDouble();
+            var top = random.NextDouble();
+            var builder = new SoilProfileBuilder1D(profileName, bottom);
+            builder.Add(new PipingSoilLayer(top)
+            {
+                IsAquifer = true
+            });
 
             // Call
             PipingSoilProfile soilProfile = builder.Build();
@@ -54,7 +75,10 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var top2 = random.NextDouble();
 
             var builder = new SoilProfileBuilder1D(profileName, bottom);
-            builder.Add(new PipingSoilLayer(top));
+            builder.Add(new PipingSoilLayer(top)
+            {
+                IsAquifer = true
+            });
             builder.Add(new PipingSoilLayer(top2));
 
             // Call

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
-using System.Linq;
 using System.Xml;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;
@@ -20,6 +18,7 @@ namespace Ringtoets.Piping.IO
     {
         private const string pipingMechanismName = "Piping";
 
+        private const string dimensionColumn = "Dimension";
         private const string isAquiferColumn = "IsAquifer";
         private const string profileNameColumn = "ProfileName";
         private const string intersectionXColumn = "IntersectionX";
@@ -32,18 +31,18 @@ namespace Ringtoets.Piping.IO
         private const string diameterD70Column = "DiameterD70";
         private const string whitesConstantColumn = "WhitesConstant";
         private const string beddingAngleColumn = "BeddingAngle";
+        private const string layerCountColumn = "LayerCount";
         private const string mechanismParameterName = "mechanism";
 
         private SQLiteConnection connection;
-
-        private string query1D;
-        private string query2D;
+        private SQLiteDataReader dataReader;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingSoilProfileReader"/> which will use the <paramref name="dbFile"/>
-        /// as its source.
+        /// as its source. The reader will not point to any record at the start. Use <see cref="Next"/> to start reading
+        /// profiles.
         /// </summary>
-        /// <param name="dbFile"></param>
+        /// <param name="dbFile">The path of the database file to open.</param>
         public PipingSoilProfileReader(string dbFile)
         {
             if (String.IsNullOrEmpty(dbFile))
@@ -55,91 +54,104 @@ namespace Ringtoets.Piping.IO
                 throw new FileNotFoundException(String.Format(Resources.Error_File_0_does_not_exist, dbFile));
             }
 
-            PrepareConnection(dbFile);
-            PrepareQueries();
-            Connect();
+            OpenConnection(dbFile);
         }
 
         /// <summary>
-        /// Creates instances of <see cref="PipingSoilProfile"/> based on the database file of the <see cref="PipingSoilProfileReader"/>.
+        /// Prepares the next layer from the database.
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="PipingSoilProfileReadException">Thrown when reading soil profile entries from the database failed.</exception>
-        /// <exception cref="XmlException">Thrown when parsing the geometry of a soil layer failed.</exception>
-        public IEnumerable<PipingSoilProfile> Read()
+        /// <returns>False if there are no more rows to be read. True otherwise.</returns>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when reading the layer entry from the database failed.</exception>
+        /// <exception cref="XmlException">Thrown when parsing the geometry of a 2d soil layer failed.</exception>
+        public PipingSoilProfile ReadProfile()
         {
-            var pipingSoilProfileBuilders = new Dictionary<string, ISoilProfileBuilder>();
-
-            using (var dataReader = CreateDataReader(query2D, new SQLiteParameter
+            if (dataReader == null)
             {
-                DbType = DbType.String,
-                Value = pipingMechanismName,
-                ParameterName = mechanismParameterName
-            }))
-            {
-                ReadPipingSoilLayers2D(dataReader, pipingSoilProfileBuilders);
-            }
-            using (var dataReader = CreateDataReader(query1D))
-            {
-                ReadPipingSoilLayers(dataReader, pipingSoilProfileBuilders);
+                throw new InvalidOperationException(GetType() + " was not initialized using Next()");
             }
 
-            return pipingSoilProfileBuilders.Select(keyValue => keyValue.Value.Build());
+            return TryRead<long>(dimensionColumn) == 1 ? ReadPipingProfile1D().Build() : ReadPipingProfile2D().Build();
+        }
+
+        /// <summary>
+        /// Moves the reader to the next record in the database.
+        /// </summary>
+        /// <returns><c>true</c> if there was another record. Otherwise, <c>false</c>.</returns>
+        /// <remarks>You should never make two calls to this method without calling <see cref="ReadProfile"/> in between.</remarks>
+        public bool Next()
+        {
+            InitializeReader();
+            if (!dataReader.Read())
+            {
+                if (dataReader.NextResult())
+                {
+                    return dataReader.Read();
+                }
+            }
+            else
+            {
+                return true;
+            }
+            return false;
         }
 
         public void Dispose()
         {
+            if (dataReader != null)
+            {
+                dataReader.Dispose();
+            }
             connection.Close();
             connection.Dispose();
         }
 
-        private void ReadPipingSoilLayers2D(SQLiteDataReader dataReader, IDictionary<string, ISoilProfileBuilder> pipingSoilProfileBuilders)
+        private ISoilProfileBuilder ReadPipingProfile1D()
         {
-            while (dataReader.Read())
+            var profileName = TryRead<string>(profileNameColumn);
+            var bottom = TryRead<double>(bottomColumn);
+            var layerCount = TryRead<long>(layerCountColumn);
+
+            var soilProfileBuilder = new SoilProfileBuilder1D(profileName, bottom);
+
+            for (int i = 1; i <= layerCount; i++)
             {
-                var profileName = TryRead<string>(dataReader, profileNameColumn);
-                var intersectionX = TryRead<double>(dataReader, intersectionXColumn);
-
-                Func<SoilProfileBuilder2D> create = () => new SoilProfileBuilder2D(profileName, intersectionX);
-
-                var soilProfileBuilder = GetSoilProfileBuilder(profileName, pipingSoilProfileBuilders, create);
-
-                soilProfileBuilder.Add(ReadPiping2DSoilLayer(dataReader));
-            }
-        }
-
-        private void ReadPipingSoilLayers(SQLiteDataReader dataReader, IDictionary<string, ISoilProfileBuilder> pipingSoilProfileBuilders)
-        {
-            while (dataReader.Read())
-            {
-                var profileName = TryRead<string>(dataReader, profileNameColumn);
-                var bottom = TryRead<double>(dataReader, bottomColumn);
-
-                Func<SoilProfileBuilder1D> create = () => new SoilProfileBuilder1D(profileName, bottom);
-
-                var soilProfileBuilder = GetSoilProfileBuilder(profileName, pipingSoilProfileBuilders, create);
-
-                soilProfileBuilder.Add(ReadPipingSoilLayer(dataReader));
-            }
-        }
-
-        private static T GetSoilProfileBuilder<T>(string profileName, IDictionary<string, ISoilProfileBuilder> pipingSoilProfileBuilders, Func<T> createInstance) where T : ISoilProfileBuilder
-        {
-            try
-            {
-                if (!pipingSoilProfileBuilders.ContainsKey(profileName))
+                soilProfileBuilder.Add(ReadPipingSoilLayer());
+                if (i < layerCount)
                 {
-                    pipingSoilProfileBuilders.Add(profileName, createInstance());
+                    Next();
                 }
-                return (T) pipingSoilProfileBuilders[profileName];
             }
-            catch (InvalidCastException e)
+            return soilProfileBuilder;
+        }
+
+        private ISoilProfileBuilder ReadPipingProfile2D()
+        {
+            var profileName = TryRead<string>(profileNameColumn);
+            var intersectionX = TryRead<double>(intersectionXColumn);
+            var layerCount = TryRead<long>(layerCountColumn);
+
+            var soilProfileBuilder = new SoilProfileBuilder2D(profileName, intersectionX);
+
+            for (int i = 1; i <= layerCount; i++)
             {
-                throw new PipingSoilProfileReadException(Resources.Error_CannotCombine2DAnd1DLayersInProfile, e);
+                soilProfileBuilder.Add(ReadPiping2DSoilLayer());
+                if (i < layerCount)
+                {
+                    Next();
+                }
+            }
+            return soilProfileBuilder;
+        }
+
+        private void InitializeReader()
+        {
+            if (dataReader == null)
+            {
+                PrepareQueries();
             }
         }
 
-        private T TryRead<T>(SQLiteDataReader dataReader, string columnName)
+        private T TryRead<T>(string columnName)
         {
             try
             {
@@ -151,14 +163,7 @@ namespace Ringtoets.Piping.IO
             }
         }
 
-        private PipingSoilLayer ReadPipingSoilLayer(SQLiteDataReader dataReader)
-        {
-            var columnValue = TryRead<double>(dataReader, topColumn);
-            var pipingSoilLayer = new PipingSoilLayer(columnValue);
-            return pipingSoilLayer;
-        }
-
-        private void PrepareConnection(string dbFile)
+        private void OpenConnection(string dbFile)
         {
             var connectionStringBuilder = new SQLiteConnectionStringBuilder
             {
@@ -169,6 +174,7 @@ namespace Ringtoets.Piping.IO
             };
 
             connection = new SQLiteConnection(connectionStringBuilder.ConnectionString);
+            Connect();
         }
 
         private void Connect()
@@ -183,78 +189,166 @@ namespace Ringtoets.Piping.IO
             }
         }
 
-        private SoilLayer2D ReadPiping2DSoilLayer(SQLiteDataReader dataReader)
+        private PipingSoilLayer ReadPipingSoilLayer()
         {
-            var geometry = TryRead<byte[]>(dataReader, layerGeometryColumn);
+            var columnValue = TryRead<double>(topColumn);
+            var isAquiferValue = TryRead<double>(isAquiferColumn);
+            var pipingSoilLayer = new PipingSoilLayer(columnValue)
+            {
+                IsAquifer = isAquiferValue.Equals(1.0)
+            };
+            return pipingSoilLayer;
+        }
 
-            return new PipingSoilLayer2DReader(geometry).Read();
+        private SoilLayer2D ReadPiping2DSoilLayer()
+        {
+            var geometry = TryRead<byte[]>(layerGeometryColumn);
+            var isAquiferValue = TryRead<double>(isAquiferColumn);
+
+            SoilLayer2D pipingSoilLayer = new PipingSoilLayer2DReader(geometry).Read();
+            pipingSoilLayer.IsAquifer = isAquiferValue.Equals(1.0);
+
+            return pipingSoilLayer;
         }
 
         private void PrepareQueries()
         {
-            string sharedSelectColumns = string.Format(string.Join(" ",
-                                                                   "sum(case when lpv.PN_Name = 'IsAquifer' then lpv.PV_Value end) {0},",
-                                                                   "sum(case when mat.PN_Name = 'AbovePhreaticLevel' then mat.PV_Value end) {1},",
-                                                                   "sum(case when mat.PN_Name = 'BelowPhreaticLevel' then mat.PV_Value end) {2},",
-                                                                   "sum(case when mat.PN_Name = 'PermeabKx' then mat.PV_Value end) {3},",
-                                                                   "sum(case when mat.PN_Name = 'DiameterD70' then mat.PV_Value end) {4},",
-                                                                   "sum(case when mat.PN_Name = 'WhitesConstant' then mat.PV_Value end) {5},",
-                                                                   "sum(case when mat.PN_Name = 'BeddingAngle' then mat.PV_Value end) {6}"),
-                                                       isAquiferColumn,
-                                                       abovePhreaticLevelColumn,
-                                                       belowPhreaticLevelColumn,
-                                                       permeabKxColumn,
-                                                       diameterD70Column,
-                                                       whitesConstantColumn,
-                                                       beddingAngleColumn
-                );
+            string materialPropertiesQuery = string.Format(
+                string.Join(" ",
+                            "(SELECT",
+                            "m.MA_ID,",
+                            "sum(case when pn.PN_Name = 'AbovePhreaticLevel' then pv.PV_Value end) {0},",
+                            "sum(case when pn.PN_Name = 'BelowPhreaticLevel' then pv.PV_Value end) {1},",
+                            "sum(case when pn.PN_Name = 'PermeabKx' then pv.PV_Value end) {2},",
+                            "sum(case when pn.PN_Name = 'DiameterD70' then pv.PV_Value end) {3},",
+                            "sum(case when pn.PN_Name = 'WhitesConstant' then pv.PV_Value end) {4},",
+                            "sum(case when pn.PN_Name = 'BeddingAngle' then pv.PV_Value end) {5}",
+                            "FROM ParameterNames as pn",
+                            "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
+                            "JOIN Materials as m ON m.MA_ID = pv.MA_ID",
+                            "GROUP BY m.MA_ID) as mat ON l.MA_ID = mat.MA_ID"),
+                abovePhreaticLevelColumn,
+                belowPhreaticLevelColumn,
+                permeabKxColumn,
+                diameterD70Column,
+                whitesConstantColumn,
+                beddingAngleColumn);
 
-            query1D = string.Format(string.Join(" ", "SELECT",
-                                                "p.SP1D_Name as {0},",
-                                                "p.BottomLevel as {1},",
-                                                "l.TopLevel as {2},",
-                                                sharedSelectColumns,
-                                                "FROM SoilProfile1D as p",
-                                                "JOIN SoilLayer1D as l ON l.SP1D_ID = p.SP1D_ID",
-                                                "JOIN (",
-                                                "SELECT m.MA_ID, pn.PN_Name, pv.PV_Value",
-                                                "FROM ParameterNames as pn",
-                                                "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
-                                                "JOIN Materials as m ON m.MA_ID = pv.MA_ID) as mat ON l.MA_ID = mat.MA_ID",
-                                                "JOIN (",
-                                                "SELECT pv.SL1D_ID, pn.PN_Name, pv.PV_Value",
-                                                "FROM ParameterNames as pn",
-                                                "JOIN LayerParameterValues as pv ON pn.PN_ID = pv.PN_ID) as lpv ON lpv.SL1D_ID = l.SL1D_ID",
-                                                "GROUP BY l.SL1D_ID",
-                                                "ORDER BY ProfileName"),
-                                    profileNameColumn,
-                                    bottomColumn,
-                                    topColumn);
+            string layer1DCountQuery = string.Format(
+                string.Join(" ",
+                            "(SELECT SP1D_ID, COUNT(*) as {0}",
+                            "FROM SoilLayer1D",
+                            "GROUP BY SP1D_ID) lc ON  lc.SP1D_ID = p.SP1D_ID"), layerCountColumn);
 
-            query2D = string.Format(string.Join(" ", "SELECT",
-                                                "p.SP2D_Name as {0},",
-                                                "l.GeometrySurface as {1}, ",
-                                                "mpl.X as {2},",
-                                                sharedSelectColumns,
-                                                "FROM Mechanism as m",
-                                                "JOIN MechanismPointLocation as mpl ON mpl.ME_ID = m.ME_ID",
-                                                "JOIN SoilProfile2D as p ON p.SP2D_ID = mpl.SP2D_ID ",
-                                                "JOIN SoilLayer2D as l ON l.SP2D_ID = p.SP2D_ID",
-                                                "JOIN (",
-                                                "SELECT m.MA_ID, pn.PN_Name, pv.PV_Value",
-                                                "FROM ParameterNames as pn",
-                                                "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
-                                                "JOIN Materials as m ON m.MA_ID = pv.MA_ID) as mat ON l.MA_ID = mat.MA_ID",
-                                                "JOIN (",
-                                                "SELECT pv.SL2D_ID, pn.PN_Name, pv.PV_Value",
-                                                "FROM ParameterNames as pn",
-                                                "JOIN LayerParameterValues as pv ON pn.PN_ID = pv.PN_ID) as lpv ON lpv.SL2D_ID = l.SL2D_ID",
-                                                "WHERE m.ME_Name = @{3}",
-                                                "GROUP BY l.SL2D_ID"),
-                                    profileNameColumn,
-                                    layerGeometryColumn,
-                                    intersectionXColumn,
-                                    mechanismParameterName);
+            string layer2DCountQuery = string.Format(
+                string.Join(" ",
+                            "(SELECT SP2D_ID, COUNT(*) as {0}",
+                            "FROM SoilLayer2D",
+                            "GROUP BY SP2D_ID) lc ON  lc.SP2D_ID = p.SP2D_ID"), layerCountColumn);
+
+            string layer1DPropertiesQuery = string.Format(
+                string.Join(" ",
+                            "(SELECT",
+                            "pv.SL1D_ID,",
+                            "sum(case when pn.PN_Name = 'IsAquifer' then pv.PV_Value end) {0}",
+                            "FROM ParameterNames as pn",
+                            "JOIN LayerParameterValues as pv ON pn.PN_ID = pv.PN_ID",
+                            "GROUP BY pv.SL1D_ID) as lpv ON lpv.SL1D_ID = l.SL1D_ID"
+                    ), isAquiferColumn);
+
+            string layer2DPropertiesQuery = string.Format(
+                string.Join(" ",
+                            "(SELECT",
+                            "pv.SL2D_ID,",
+                            "sum(case when pn.PN_Name = 'IsAquifer' then pv.PV_Value end) {0}",
+                            "FROM ParameterNames as pn",
+                            "JOIN LayerParameterValues as pv ON pn.PN_ID = pv.PN_ID",
+                            "GROUP BY pv.SL2D_ID) as lpv ON lpv.SL2D_ID = l.SL2D_ID"
+                    ), isAquiferColumn);
+
+            var query1D = string.Format(
+                string.Join(" ", "SELECT",
+                            "1 as {0},",
+                            "p.SP1D_Name as {1},",
+                            "lc.{2},",
+                            "p.BottomLevel as {3},",
+                            "l.TopLevel as {4},",
+                            "{5},",
+                            "{6},",
+                            "{7},",
+                            "{8},",
+                            "{9},",
+                            "{10},",
+                            "{11}",
+                            "FROM SoilProfile1D as p",
+                            "JOIN {12}",
+                            "JOIN SoilLayer1D as l ON l.SP1D_ID = p.SP1D_ID",
+                            "LEFT JOIN {13}",
+                            "JOIN {14}",
+                            "ORDER BY ProfileName;"),
+                dimensionColumn,
+                profileNameColumn,
+                layerCountColumn,
+                bottomColumn,
+                topColumn,
+                abovePhreaticLevelColumn,
+                belowPhreaticLevelColumn,
+                permeabKxColumn,
+                diameterD70Column,
+                whitesConstantColumn,
+                beddingAngleColumn,
+                isAquiferColumn,
+                layer1DCountQuery,
+                materialPropertiesQuery,
+                layer1DPropertiesQuery);
+
+            var query2D = string.Format(
+                string.Join(" ",
+                            "SELECT",
+                            "2 as {0},",
+                            "p.SP2D_Name as {1},",
+                            "lc.{2},",
+                            "l.GeometrySurface as {3}, ",
+                            "mpl.X as {4},",
+                            "{5},",
+                            "{6},",
+                            "{7},",
+                            "{8},",
+                            "{9},",
+                            "{10},",
+                            "{11}",
+                            "FROM Mechanism as m",
+                            "JOIN MechanismPointLocation as mpl ON mpl.ME_ID = m.ME_ID",
+                            "JOIN SoilProfile2D as p ON p.SP2D_ID = mpl.SP2D_ID",
+                            "JOIN {12}",
+                            "JOIN SoilLayer2D as l ON l.SP2D_ID = p.SP2D_ID",
+                            "LEFT JOIN {13}",
+                            "JOIN {14}",
+                            "WHERE m.ME_Name = @{15}",
+                            "ORDER BY ProfileName;"),
+                dimensionColumn,
+                profileNameColumn,
+                layerCountColumn,
+                layerGeometryColumn,
+                intersectionXColumn,
+                abovePhreaticLevelColumn,
+                belowPhreaticLevelColumn,
+                permeabKxColumn,
+                diameterD70Column,
+                whitesConstantColumn,
+                beddingAngleColumn,
+                isAquiferColumn,
+                layer2DCountQuery,
+                materialPropertiesQuery,
+                layer2DPropertiesQuery,
+                mechanismParameterName);
+
+            dataReader = CreateDataReader(query2D + query1D, new SQLiteParameter
+            {
+                DbType = DbType.String,
+                Value = pipingMechanismName,
+                ParameterName = mechanismParameterName
+            });
         }
 
         /// <summary>

@@ -38,7 +38,10 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             var soilProfile = new PipingSoilProfile(string.Empty, random.NextDouble(), new []
             {
-                new PipingSoilLayer(random.NextDouble()), 
+                new PipingSoilLayer(random.NextDouble())
+                {
+                    IsAquifer = true
+                } 
             });
 
             var input = new PipingCalculationInput(

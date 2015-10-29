@@ -15,7 +15,10 @@ namespace Ringtoets.Piping.Service.Test.TestHelpers
             var random = new Random(22);
             var soilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
             {
-                new PipingSoilLayer(random.NextDouble()) 
+                new PipingSoilLayer(random.NextDouble())
+                {
+                    IsAquifer = true
+                }
             });
             return new PipingData
             {

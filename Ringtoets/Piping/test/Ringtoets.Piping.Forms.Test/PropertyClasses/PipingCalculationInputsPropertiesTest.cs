@@ -35,7 +35,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var surfaceLine = new RingtoetsPipingSurfaceLine();
             var soilProfile = new PipingSoilProfile(String.Empty,random.NextDouble(), new []
             {
-                new PipingSoilLayer(random.NextDouble()) 
+                new PipingSoilLayer(random.NextDouble())
+                {
+                    IsAquifer = true
+                }
             });
             var pipingData = new PipingData
             {

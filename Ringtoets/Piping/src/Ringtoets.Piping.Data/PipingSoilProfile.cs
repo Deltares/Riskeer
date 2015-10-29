@@ -22,10 +22,6 @@ namespace Ringtoets.Piping.Data
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
         public PipingSoilProfile(string name, double bottom, IEnumerable<PipingSoilLayer> layers)
         {
-            if (layers == null || layers.Count() == 0)
-            {
-                throw new ArgumentException(String.Format(Resources.Error_CannotConstructPipingSoilProfileWithoutLayers, name));
-            }
             Name = name;
             Bottom = bottom;
             Layers = layers;
@@ -52,6 +48,14 @@ namespace Ringtoets.Piping.Data
             }
             private set
             {
+                if (value == null || !value.Any())
+                {
+                    throw new ArgumentException(string.Format(Resources.Error_CannotConstructPipingSoilProfileWithoutLayers));
+                }
+                if (!value.Any(l => l.IsAquifer))
+                {
+                    throw new ArgumentException(string.Format(Resources.Error_CannotConstructPipingSoilProfileWithoutAquiferLayer));
+                }
                 layers = value.OrderByDescending(l => l.Top).ToArray();
             }
         }

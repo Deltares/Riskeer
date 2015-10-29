@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using Core.Common.BaseDelftTools;
 
@@ -130,7 +131,20 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 try
                 {
-                    return soilProfileReader.Read();
+                    var profiles = new Collection<PipingSoilProfile>();
+
+                    while (soilProfileReader.Next())
+                    {
+                        try
+                        {
+                            profiles.Add(soilProfileReader.ReadProfile());
+                        }
+                        catch (Exception e)
+                        {
+                            log.Warn(e.Message);
+                        }
+                    }
+                    return profiles;
                 }
                 catch (PipingSoilProfileReadException e)
                 {

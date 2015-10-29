@@ -34,6 +34,8 @@ namespace Ringtoets.Piping.IO.Builders
         /// </summary>
         internal Collection<HashSet<Point3D>> InnerLoops { get; private set; }
 
+        public bool IsAquifer { get; set; }
+
         /// <summary>
         /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the <see cref="InnerLoops"/> and <see cref="OuterLoop"/> set for the <see cref="SoilLayer2D"/>.
         /// </summary>
@@ -61,7 +63,10 @@ namespace Ringtoets.Piping.IO.Builders
 
                     foreach (var height in heights.Where(height => !innerLoopIntersectionHeightPairs.Any(tuple => HeightInInnerLoop(tuple, height))))
                     {
-                        result.Add(new PipingSoilLayer(height));
+                        result.Add(new PipingSoilLayer(height)
+                        {
+                            IsAquifer = IsAquifer
+                        });
                     }
                     bottom = EnsureBottomOutsideInnerLoop(innerLoopIntersectionHeightPairs, currentBottom);
                 }

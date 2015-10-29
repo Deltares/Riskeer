@@ -21,7 +21,10 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             var expectedBottom = random.NextDouble();
             IEnumerable<PipingSoilLayer> layers = new []
             {
-                new PipingSoilLayer(expectedTop), 
+                new PipingSoilLayer(expectedTop)
+                {
+                    IsAquifer = true
+                }, 
             };
             var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers);
 
@@ -50,7 +53,10 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             var expectedBottom = random.NextDouble();
             IEnumerable<PipingSoilLayer> layers = new[]
             {
-                new PipingSoilLayer(expectedTopA), 
+                new PipingSoilLayer(expectedTopA)
+                {
+                    IsAquifer = true
+                }, 
                 new PipingSoilLayer(expectedTopB), 
                 new PipingSoilLayer(expectedTopC) 
             };
@@ -84,7 +90,10 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             var expectedBottom = random.NextDouble();
             IEnumerable<PipingSoilLayer> layers = new[]
             {
-                new PipingSoilLayer(expectedTopA), 
+                new PipingSoilLayer(expectedTopA)
+                {
+                    IsAquifer = true
+                }, 
                 new PipingSoilLayer(expectedTopB), 
                 new PipingSoilLayer(expectedTopC) 
             };

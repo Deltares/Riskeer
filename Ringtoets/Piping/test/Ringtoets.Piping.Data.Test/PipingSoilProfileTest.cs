@@ -2,8 +2,6 @@
 using System.Collections.ObjectModel;
 using NUnit.Framework;
 
-using Ringtoets.Piping.Data;
-
 namespace Ringtoets.Piping.Data.Test
 {
     public class PipingSoilProfileTest
@@ -11,7 +9,7 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         [TestCase(1)]
         [TestCase(5)]
-        public void Constructor_WithNameBottomLayers_ReturnsInstanceWithPropsAndEquivalentLayerCollection(int layerCount)
+        public void Constructor_WithNameBottomLayersAndAquifer_ReturnsInstanceWithPropsAndEquivalentLayerCollection(int layerCount)
         {
             // Setup
             var name = "Profile";
@@ -20,6 +18,10 @@ namespace Ringtoets.Piping.Data.Test
             for (var i = 0; i < layerCount; i++)
             {
                 equivalentLayers.Add(new PipingSoilLayer(0.0));
+                if (i == 0)
+                {
+                    equivalentLayers[0].IsAquifer = true;
+                }
             }
 
             // Call
@@ -33,13 +35,36 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [TestCase(1)]
+        [TestCase(5)]
+        public void Constructor_WithNameBottomLayersNoAquifer_ThrowsArgumentException(int layerCount)
+        {
+            // Setup
+            var name = "Profile";
+            var bottom = new Random(22).NextDouble();
+            var equivalentLayers = new Collection<PipingSoilLayer>();
+            for (var i = 0; i < layerCount; i++)
+            {
+                equivalentLayers.Add(new PipingSoilLayer(0.0));
+            }
+
+            // Call
+            TestDelegate test = () => new PipingSoilProfile(name, bottom, equivalentLayers);
+
+            // Assert
+            var message = Assert.Throws<ArgumentException>(test).Message;
+            Assert.AreEqual(Properties.Resources.Error_CannotConstructPipingSoilProfileWithoutAquiferLayer, message);
+        }
+
+        [Test]
         public void Constructor_WithNameBottomLayersEmpty_ThrowsArgumentException()
         {
             // Call
             TestDelegate test = () => new PipingSoilProfile(String.Empty, Double.NaN, new Collection<PipingSoilLayer>());
 
             // Assert
-            Assert.Throws<ArgumentException>(test);
+            var message = Assert.Throws<ArgumentException>(test).Message;
+            Assert.AreEqual(Properties.Resources.Error_CannotConstructPipingSoilProfileWithoutLayers, message);
         }
 
         [Test]
@@ -49,7 +74,8 @@ namespace Ringtoets.Piping.Data.Test
             TestDelegate test = () => new PipingSoilProfile(String.Empty, Double.NaN, null);
 
             // Assert
-            Assert.Throws<ArgumentException>(test);
+            var message = Assert.Throws<ArgumentException>(test).Message;
+            Assert.AreEqual(Properties.Resources.Error_CannotConstructPipingSoilProfileWithoutLayers, message);
         }
         
     }

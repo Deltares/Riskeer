@@ -37,7 +37,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             double bottom = random.NextDouble();
             IEnumerable<PipingSoilLayer> layers = new[]
             {
-                new PipingSoilLayer(random.NextDouble()) 
+                new PipingSoilLayer(random.NextDouble())
+                {
+                    IsAquifer = true
+                } 
             };
             var soilProfile = new PipingSoilProfile(name, bottom, layers);
 

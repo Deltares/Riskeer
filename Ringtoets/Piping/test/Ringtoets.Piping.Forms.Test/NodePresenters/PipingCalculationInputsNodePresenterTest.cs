@@ -488,11 +488,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             pipingData.WaterVolumetricWeight = validPipingInput.WaterVolumetricWeight;
             pipingData.WaterKinematicViscosity = validPipingInput.WaterKinematicViscosity;
             pipingData.WhitesDragCoefficient = validPipingInput.WhitesDragCoefficient;
-            pipingData.SurfaceLine = new RingtoetsPipingSurfaceLine();
-            pipingData.SoilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
-            {
-                new PipingSoilLayer(1.0) 
-            });
+            pipingData.SurfaceLine = validPipingInput.SurfaceLine;
+            pipingData.SoilProfile = validPipingInput.SoilProfile;
 
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());

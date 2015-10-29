@@ -16,7 +16,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         [Test]
         [TestCase(null)]
         [TestCase("name")]
-        public void Constructor_WithNameInvalidX_ThrowsArgumentExcpetion(string name)
+        public void Constructor_WithNameInvalidX_ThrowsArgumentException(string name)
         {
             // Call
             TestDelegate test = () => new SoilProfileBuilder2D(name, double.NaN);
@@ -24,6 +24,45 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
             Assert.AreEqual(Resources.Error_SoilProfileBuilderCantDetermineIntersectAtDoubleNaN, exception.Message);
+        }
+
+
+        [Test]
+        public void Build_WithoutAquiferLayer_ThrowsArgumentException()
+        {
+            // Setup
+            var profileName = "SomeProfile";
+            var random = new Random(22);
+            var bottom = random.NextDouble();
+            var builder = new SoilProfileBuilder2D(profileName, bottom);
+            builder.Add(new SoilLayer2D
+            {
+                OuterLoop = new HashSet<Point3D>
+                {
+                    new Point3D
+                    {
+                        X = -0.5, Z = 1.0
+                    },
+                    new Point3D
+                    {
+                        X = 0.5, Z = 1.0
+                    },
+                    new Point3D
+                    {
+                        X = 0.5, Z = -1.0
+                    },
+                    new Point3D
+                    {
+                        X = -0.5, Z = -1.0
+                    }
+                }
+            });
+
+            // Call
+            TestDelegate test = () => builder.Build();
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
         }
 
         [Test]
@@ -78,7 +117,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
                     {
                         X = -0.5, Z = -1.0
                     }
-                }
+                },
+                IsAquifer = true
             });
 
             // Call
@@ -141,7 +181,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
                     "...",
                     "...",
                     "..."
-                ))
+                )),
+                IsAquifer = true
             });
 
             // Call
@@ -182,7 +223,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 InnerLoops =
                 {
                     loopHole
-                }
+                },
+                IsAquifer = true
             }).Add(new SoilLayer2D
             {
                 OuterLoop = loopHole

@@ -5,6 +5,12 @@ namespace Ringtoets.Piping.Calculation.TestUtil
 {
     public class TestPipingSoilProfile : PipingSoilProfile
     {
-        public TestPipingSoilProfile() : base("", 0.0, new Collection<PipingSoilLayer> {new PipingSoilLayer(0.0)}) { }
+        public TestPipingSoilProfile() : base("", 0.0, new Collection<PipingSoilLayer>
+        {
+            new PipingSoilLayer(0.0)
+            {
+                IsAquifer = true
+            }
+        }) {}
     }
 }
