@@ -52,10 +52,6 @@ namespace Ringtoets.Piping.Data
                 {
                     throw new ArgumentException(string.Format(Resources.Error_CannotConstructPipingSoilProfileWithoutLayers));
                 }
-                if (!value.Any(l => l.IsAquifer))
-                {
-                    throw new ArgumentException(string.Format(Resources.Error_CannotConstructPipingSoilProfileWithoutAquiferLayer));
-                }
                 layers = value.OrderByDescending(l => l.Top).ToArray();
             }
         }

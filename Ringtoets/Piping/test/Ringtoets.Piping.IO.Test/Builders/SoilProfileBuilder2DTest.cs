@@ -26,45 +26,6 @@ namespace Ringtoets.Piping.IO.Test.Builders
             Assert.AreEqual(Resources.Error_SoilProfileBuilderCantDetermineIntersectAtDoubleNaN, exception.Message);
         }
 
-
-        [Test]
-        public void Build_WithoutAquiferLayer_ThrowsArgumentException()
-        {
-            // Setup
-            var profileName = "SomeProfile";
-            var random = new Random(22);
-            var bottom = random.NextDouble();
-            var builder = new SoilProfileBuilder2D(profileName, bottom);
-            builder.Add(new SoilLayer2D
-            {
-                OuterLoop = new HashSet<Point3D>
-                {
-                    new Point3D
-                    {
-                        X = -0.5, Z = 1.0
-                    },
-                    new Point3D
-                    {
-                        X = 0.5, Z = 1.0
-                    },
-                    new Point3D
-                    {
-                        X = 0.5, Z = -1.0
-                    },
-                    new Point3D
-                    {
-                        X = -0.5, Z = -1.0
-                    }
-                }
-            });
-
-            // Call
-            TestDelegate test = () => builder.Build();
-
-            // Assert
-            Assert.Throws<ArgumentException>(test);
-        }
-
         [Test]
         [TestCase(null)]
         [TestCase("name")]

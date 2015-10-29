@@ -33,29 +33,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(bottom, profile.Bottom);
         }
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(5)]
-        public void Constructor_WithNameBottomLayersNoAquifer_ThrowsArgumentException(int layerCount)
-        {
-            // Setup
-            var name = "Profile";
-            var bottom = new Random(22).NextDouble();
-            var equivalentLayers = new Collection<PipingSoilLayer>();
-            for (var i = 0; i < layerCount; i++)
-            {
-                equivalentLayers.Add(new PipingSoilLayer(0.0));
-            }
-
-            // Call
-            TestDelegate test = () => new PipingSoilProfile(name, bottom, equivalentLayers);
-
-            // Assert
-            var message = Assert.Throws<ArgumentException>(test).Message;
-            Assert.AreEqual(Properties.Resources.Error_CannotConstructPipingSoilProfileWithoutAquiferLayer, message);
-        }
-
         [Test]
         public void Constructor_WithNameBottomLayersEmpty_ThrowsArgumentException()
         {
