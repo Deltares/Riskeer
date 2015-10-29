@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9A5C8069-520E-49D3-AA62-E8FB19614A27}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ringtoets.Piping.Plugin.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.Plugin.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\Release\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Addins">
+      <HintPath>..\..\..\..\lib\Mono.Addins.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\..\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\..\..\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FileImporter\PipingSoilProfileImporterTest.cs" />
+    <Compile Include="FileImporter\PipingSurfaceLineCsvImporterTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WtiApplicationPluginTest.cs" />
+    <Compile Include="WtiGuiPluginTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.BaseDelftTools\Core.Common.BaseDelftTools.csproj">
+      <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
+      <Name>Core.Common.BaseDelftTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
+      <Name>Core.Common.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
+      <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
+      <Name>Core.Common.TestUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj">
+      <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
+      <Name>Ringtoets.Piping.Calculation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
+      <Name>Ringtoets.Piping.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
+      <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
+      <Name>Ringtoets.Piping.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.IO\Ringtoets.Piping.IO.csproj">
+      <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
+      <Name>Ringtoets.Piping.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
+      <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
+      <Name>Ringtoets.Piping.Plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Piping.IO.Test\Ringtoets.Piping.IO.Test.csproj">
+      <Project>{E4B0E068-F1A3-47BA-965F-0EC1E78E530A}</Project>
+      <Name>Ringtoets.Piping.IO.Test</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

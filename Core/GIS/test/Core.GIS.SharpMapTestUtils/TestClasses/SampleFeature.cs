@@ -1,0 +1,38 @@
+using Core.Common.Utils.Aop;
+using Core.Gis.GeoApi.Extensions.Feature;
+using Core.Gis.GeoApi.Geometries;
+
+namespace Core.GIS.SharpMapTestUtils.TestClasses
+{
+    [Entity(FireOnCollectionChange = false)]
+    public class SampleFeature : IFeature
+    {
+        [FeatureAttribute]
+        public int IntegerProperty { get; set; }
+
+        [FeatureAttribute]
+        public double DoubleProperty { get; set; }
+
+        [FeatureAttribute]
+        public string StringProperty { get; set; }
+
+        public object Clone()
+        {
+            return new SampleFeature
+            {
+                Geometry = (IGeometry) (Geometry == null ? null : Geometry.Clone()),
+                DoubleProperty = DoubleProperty,
+                IntegerProperty = IntegerProperty,
+                StringProperty = StringProperty
+            };
+        }
+
+        #region IFeature members
+
+        public IGeometry Geometry { get; set; }
+
+        public IFeatureAttributeCollection Attributes { get; set; }
+
+        #endregion IFeature
+    }
+}

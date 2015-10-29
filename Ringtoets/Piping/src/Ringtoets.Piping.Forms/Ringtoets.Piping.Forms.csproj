@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7CD038E1-E111-4969-ACED-22C5BD2974E1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ringtoets.Piping.Forms</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.Forms</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\Release\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
+      <Link>Properties\GlobalAssembly.cs</Link>
+    </Compile>
+    <Compile Include="Extensions\ContextMenuStripExtensions.cs" />
+    <Compile Include="Helpers\NamingHelper.cs" />
+    <Compile Include="NodePresenters\PipingFailureMechanismNodePresenter.cs" />
+    <Compile Include="NodePresenters\PipingNodePresenterBase.cs" />
+    <Compile Include="NodePresenters\PipingOutputNodePresenter.cs" />
+    <Compile Include="NodePresenters\PipingCalculationInputsNodePresenter.cs" />
+    <Compile Include="NodePresenters\PipingSoilProfileCollectionNodePresenter.cs" />
+    <Compile Include="NodePresenters\PipingSoilProfileNodePresenter.cs" />
+    <Compile Include="NodePresenters\PipingSurfaceLineCollectionNodePresenter.cs" />
+    <Compile Include="NodePresenters\PipingSurfaceLineNodePresenter.cs" />
+    <Compile Include="NodePresenters\WtiProjectNodePresenter.cs" />
+    <Compile Include="PresentationObjects\PipingCalculationInputs.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyClasses\PipingCalculationInputsProperties.cs" />
+    <Compile Include="PropertyClasses\PipingOutputProperties.cs" />
+    <Compile Include="PropertyClasses\PipingSoilProfileProperties.cs" />
+    <Compile Include="PropertyClasses\PipingSurfaceLineProperties.cs" />
+    <Compile Include="PropertyClasses\WtiProjectProperties.cs" />
+    <Compile Include="UITypeEditors\PipingCalculationInputsSoilProfileSelectionEditor.cs" />
+    <Compile Include="UITypeEditors\PipingCalculationInputsSurfaceLineSelectionEditor.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.Swf\Core.Common.Controls.Swf.csproj">
+      <Project>{3DBD23CE-5C4A-4A49-B51C-B268CB2B510E}</Project>
+      <Name>Core.Common.Controls.Swf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.BaseDelftTools\Core.Common.BaseDelftTools.csproj">
+      <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
+      <Name>Core.Common.BaseDelftTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
+      <Name>Core.Common.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Version\Core.Common.Version.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Core.Common.Version</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj">
+      <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
+      <Name>Ringtoets.Piping.Calculation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
+      <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
+      <Name>Ringtoets.Piping.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
+      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
+      <Name>Ringtoets.Piping.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder-stand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\control_equalizer_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table-import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chart_curve.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayAll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\PlayHS.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\..\build\DeltaShell.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

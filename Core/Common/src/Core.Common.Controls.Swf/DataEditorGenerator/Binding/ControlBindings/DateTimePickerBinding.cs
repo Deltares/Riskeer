@@ -1,0 +1,44 @@
+﻿using System;
+using System.Windows.Forms;
+
+namespace Core.Common.Controls.Swf.DataEditorGenerator.Binding.ControlBindings
+{
+    internal class DateTimePickerBinding : Binding<DateTimePicker>
+    {
+        protected override object GetControlValue()
+        {
+            return Control.Value;
+        }
+
+        protected override void Initialize()
+        {
+            Control.ValueChanged += ControlValueChanged;
+            FillControl();
+        }
+
+        protected override void Deinitialize()
+        {
+            Control.ValueChanged -= ControlValueChanged;
+        }
+
+        protected override void DataSourceChanged()
+        {
+            FillControl();
+        }
+
+        private void ControlValueChanged(object sender, EventArgs e)
+        {
+            DataValue = GetControlValue();
+        }
+
+        private void FillControl()
+        {
+            var value = (DateTime) DataValue;
+
+            if (value > DateTime.MinValue)
+            {
+                Control.Value = value;
+            }
+        }
+    }
+}

@@ -7,7 +7,7 @@
   <!-- <Import Project="$(SolutionDir)\build\user.targets" Condition="Exists('$(SolutionDir)\build\user.targets')"/> -->
 
   <PropertyGroup>
-    <LoaderProjectName>DeltaShell.Gui</LoaderProjectName>
+    <LoaderProjectName>Application.Ringtoets</LoaderProjectName>
     <OutputPath Condition="'$(CustomOutputPath)' != ''">$(CustomOutputPath)\</OutputPath>
     <OutDir Condition="'$(CustomOutDir)' != ''">$(CustomOutDir)\</OutDir>
     <IntermediateOutputPath Condition="'$(CustomIntermediateOutputPath)' != ''">$(CustomIntermediateOutputPath)\</IntermediateOutputPath>
@@ -16,7 +16,7 @@
 
  <!-- used by loader and also as a location of plugins/ directory -->
   <PropertyGroup Condition="'$(InstallDir)'==''">
-    <InstallDir>$(SolutionDir)\src\DeltaShell\DeltaShell.Gui\bin</InstallDir>
+    <InstallDir>$(SolutionDir)\Application\Application.Ringtoets\bin</InstallDir>
   </PropertyGroup>
 
   <ItemGroup>

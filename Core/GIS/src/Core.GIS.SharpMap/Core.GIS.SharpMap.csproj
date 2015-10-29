@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C83777FC-AABB-47D9-911F-D76255D4D541}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core.GIS.SharpMap</RootNamespace>
+    <AssemblyName>Core.GIS.SharpMap</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <DontImportPostSharp>True</DontImportPostSharp>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <WarningLevel>0</WarningLevel>
+    <NoWarn>
+    </NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>1591</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="PostSharp">
+      <HintPath>..\..\..\..\packages\PostSharp.2.1.7.28\lib\net20\PostSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Threading, Version=1.0.3058.34407, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\System.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Converters\Geometries\GeometryFactory.cs" />
+    <Compile Include="Converters\WellKnownBinary\GeometryFromWKB.cs" />
+    <Compile Include="Converters\WellKnownBinary\WKBByteOrder.cs" />
+    <Compile Include="Converters\WellKnownBinary\WKBGeometryType.cs" />
+    <Compile Include="Converters\WellKnownText\GeometryFromWKT.cs" />
+    <Compile Include="Converters\WellKnownText\StreamTokenizer.cs" />
+    <Compile Include="Converters\WellKnownText\TokenType.cs" />
+    <Compile Include="CoordinateSystems\CoordinateSystemValidator.cs" />
+    <Compile Include="CoordinateSystems\Transformations\CoordinateTransformationException.cs" />
+    <Compile Include="CoordinateSystems\Transformations\GeometryTransform.cs" />
+    <Compile Include="CoordinateSystems\Transformations\GeodeticDistance.cs" />
+    <Compile Include="Data\FeatureDataRow.cs" />
+    <Compile Include="Data\FeatureDataRowAttributeAccessor.cs" />
+    <Compile Include="Data\FeatureDataSet.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Data\Providers\DbaseReader.cs" />
+    <Compile Include="Data\Providers\EGIS.ShapeFileLib\EndianUtils.cs" />
+    <Compile Include="Data\Providers\EGIS.ShapeFileLib\NativeMethods.cs" />
+    <Compile Include="Data\Providers\EGIS.ShapeFileLib\PointD.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Providers\EGIS.ShapeFileLib\PolygonRecordP.cs" />
+    <Compile Include="Data\Providers\EGIS.ShapeFileLib\QuadTree.cs" />
+    <Compile Include="Data\Providers\ShapeFileMainHeader.cs" />
+    <Compile Include="Data\Providers\EGIS.ShapeFileLib\ShapeType.cs" />
+    <Compile Include="Data\Providers\EGIS.ShapeFileLib\SizeD.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Providers\FeatureCollection.cs" />
+    <Compile Include="Data\Providers\DataTableFeatureProvider.cs" />
+    <Compile Include="Data\Providers\ShapeFile.cs" />
+    <Compile Include="Data\Providers\ShapeType.cs" />
+    <Compile Include="Editors\FeatureEditor.cs" />
+    <Compile Include="Editors\FallOff\LinearFallOffPolicy.cs" />
+    <Compile Include="Editors\FallOff\NoFallOffPolicy.cs" />
+    <Compile Include="Editors\FallOff\RingFallOffPolicy.cs" />
+    <Compile Include="Editors\FeatureInteractor.cs" />
+    <Compile Include="Editors\Interactors\LineStringInteractor.cs" />
+    <Compile Include="Editors\Interactors\PointInteractor.cs" />
+    <Compile Include="Editors\Snapping\SnapRule.cs" />
+    <Compile Include="Editors\Snapping\SnapRole.cs" />
+    <Compile Include="Editors\TrackerSymbolHelper.cs" />
+    <Compile Include="Layers\LayerAttribute.cs" />
+    <Compile Include="Layers\LabelLayer.cs" />
+    <Compile Include="Layers\Layer.cs" />
+    <Compile Include="Layers\GroupLayer.cs" />
+    <Compile Include="Layers\SharpMapLayerFactory.cs" />
+    <Compile Include="Layers\VectorLayer.cs" />
+    <Compile Include="Layers\WmsLayer.cs" />
+    <Compile Include="Map\Map.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Rendering\LineRectangleClipHelper.cs" />
+    <Compile Include="Rendering\MapHelper.cs" />
+    <Compile Include="Rendering\Label.cs" />
+    <Compile Include="Rendering\LabelCollisionDetection.cs" />
+    <Compile Include="Rendering\RenderExceptions.cs" />
+    <Compile Include="Rendering\Thematics\CategorialTheme.cs" />
+    <Compile Include="Rendering\Thematics\CategorialThemeItem.cs" />
+    <Compile Include="Rendering\Thematics\ColorBlend.cs" />
+    <Compile Include="Rendering\Thematics\CustomTheme.cs" />
+    <Compile Include="Rendering\Thematics\GradientTheme.cs" />
+    <Compile Include="Rendering\Thematics\GradientThemeItem.cs" />
+    <Compile Include="Rendering\Thematics\QuantityTheme.cs" />
+    <Compile Include="Rendering\Thematics\QuantityThemeIntervalType.cs" />
+    <Compile Include="Rendering\Thematics\QuantityThemeItem.cs" />
+    <Compile Include="Rendering\Thematics\Theme.cs" />
+    <Compile Include="Rendering\Thematics\ThemeFactory.cs" />
+    <Compile Include="Rendering\Thematics\ThemeFactoryHelper.cs" />
+    <Compile Include="Rendering\Thematics\ThemeHelper.cs" />
+    <Compile Include="Rendering\Thematics\ThemeItem.cs" />
+    <Compile Include="Rendering\VectorRenderingHelper.cs" />
+    <Compile Include="Styles\LabelStyle.cs" />
+    <Compile Include="Styles\IShape.cs" />
+    <Compile Include="Styles\Shapes\BorderStyleEditor.cs" />
+    <Compile Include="Styles\Shapes\cBlendItems.cs" />
+    <Compile Include="Styles\Shapes\cFocalPoints.cs" />
+    <Compile Include="Styles\Shapes\CornerProperties.cs" />
+    <Compile Include="Styles\Shapes\DropdownRadiusInner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Styles\Shapes\DropdownShapeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Styles\Shapes\LineStyleEditorStuff.cs" />
+    <Compile Include="Styles\Shapes\LineStyleListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Styles\Shapes\RadiusInnerTypeEditor.cs" />
+    <Compile Include="Styles\Shapes\Shape.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Styles\Shapes\ShapeTypeEditor.cs" />
+    <Compile Include="Styles\ShapeType.cs" />
+    <Compile Include="Styles\Style.cs" />
+    <Compile Include="Styles\VectorStyle.cs" />
+    <Compile Include="Utilities\Indexing\BinaryTree.cs" />
+    <Compile Include="Utilities\Transform.cs" />
+    <Compile Include="Web\Wms\Capabilities.cs" />
+    <Compile Include="Web\Wms\Client.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LICENSE.txt" />
+    <EmbeddedResource Include="Properties\Resources.nl-NL.resx" />
+    <EmbeddedResource Include="Styles\DefaultSymbol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Styles\Shapes\DropdownShapeEditor.resx">
+      <DependentUpon>DropdownShapeEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Web\Wms\Schemas\1.3.0\capabilities_1_3_0.xsd">
+      <SubType>
+      </SubType>
+    </EmbeddedResource>
+    <None Include="Web\Wms\Schemas\1.3.0\capabilities_1_3_0.xsx">
+      <DependentUpon>capabilities_1_3_0.xsd</DependentUpon>
+    </None>
+    <EmbeddedResource Include="Web\Wms\Schemas\1.3.0\exceptions_1_3_0.xsd">
+      <SubType>
+      </SubType>
+    </EmbeddedResource>
+    <None Include="Web\Wms\Schemas\1.3.0\exceptions_1_3_0.xsx">
+      <DependentUpon>exceptions_1_3_0.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.GIS.GeoAPI.Extensions\Core.GIS.GeoAPI.Extensions.csproj">
+      <Project>{016DBD27-99BF-489A-81B5-50D66964BB90}</Project>
+      <Name>Core.GIS.GeoApi.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.GIS.GeoAPI\Core.GIS.GeoAPI.csproj">
+      <Project>{FFB69466-79DE-466A-ADA7-5C47C5C5CA3A}</Project>
+      <Name>Core.GIS.GeoApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.GIS.NetTopologySuite.Extensions\Core.GIS.NetTopologySuite.Extensions.csproj">
+      <Project>{8A3636FB-31B4-4F4B-9165-F718F87A92DF}</Project>
+      <Name>Core.GIS.NetTopologySuite.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.GIS.NetTopologySuite\Core.GIS.NetTopologySuite.csproj">
+      <Project>{5770DAA9-84E5-4770-AF43-F6B815894368}</Project>
+      <Name>Core.GIS.NetTopologySuite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.GIS.SharpMap.Api\Core.GIS.SharpMap.Api.csproj">
+      <Project>{A3C9DF74-978A-44B1-B55D-A72AC4221E3A}</Project>
+      <Name>Core.GIS.SharpMap.Api</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Editors\Cursors\Move.cur" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Import Project="..\..\..\..\build\DeltaShell.targets" />
+  <Import Project="..\..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets" Condition="Exists('..\..\..\..\packages\PostSharp.2.1.7.28\tools\PostSharp.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
