@@ -40,11 +40,6 @@ namespace Core.GIS.SharpMap.UI.Forms
         Rectangle ClientRectangle { get; }
 
         /// <summary>
-        /// True if map control is busy processing something in a separate thread.
-        /// </summary>
-        bool IsProcessing { get; }
-
-        /// <summary>
         /// Gets the <see cref="IMapTool"/>, matching on <see cref="IMapTool.Name"/>.
         /// </summary>
         /// <param name="toolName">Name of the tool.</param>

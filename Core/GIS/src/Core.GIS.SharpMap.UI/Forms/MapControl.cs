@@ -55,11 +55,6 @@ namespace Core.GIS.SharpMap.UI.Forms
         private Map.Map map;
         private IList<IFeature> selectedFeatures = new List<IFeature>();
 
-        private Timer refreshTimer = new Timer
-        {
-            Interval = 300
-        };
-
         /// <summary>
         /// Initializes a new map
         /// </summary>
@@ -82,7 +77,6 @@ namespace Core.GIS.SharpMap.UI.Forms
         }
 
         public MoveTool LinearMoveTool { get; private set; }
-
         public DeleteTool DeleteTool { get; private set; }
 
         [Description("The map image currently visualized.")]
@@ -134,11 +128,6 @@ namespace Core.GIS.SharpMap.UI.Forms
                     //unsubscribe from changes in the map layercollection
                     UnSubscribeMapEvents();
                     map.ClearImage();
-                    if (refreshTimer != null)
-                    {
-                        refreshTimer.Stop();
-                        refreshTimer.Tick -= RefreshTimerTick;
-                    }
                 }
 
                 map = value;
@@ -158,15 +147,6 @@ namespace Core.GIS.SharpMap.UI.Forms
                 SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 
                 Refresh();
-
-                if (Visible && refreshTimer != null)
-                {
-                    refreshTimer.Tick += RefreshTimerTick;
-                    if (Visible)
-                    {
-                        refreshTimer.Start();
-                    }
-                }
             }
         }
 
@@ -179,9 +159,7 @@ namespace Core.GIS.SharpMap.UI.Forms
         }
 
         public MoveTool MoveTool { get; private set; }
-
         public SelectTool SelectTool { get; private set; }
-
         public SnapTool SnapTool { get; private set; }
 
         [Browsable(false)]
@@ -202,14 +180,7 @@ namespace Core.GIS.SharpMap.UI.Forms
                 }
             }
         }
-
-        public bool IsProcessing
-        {
-            get
-            {
-                return false;
-            }
-        }
+        
 
         /// <summary>
         /// Modifies a Vectorstyle to "highlight" during operation (eg. moving features)
@@ -371,46 +342,29 @@ namespace Core.GIS.SharpMap.UI.Forms
         [InvokeRequired]
         public override void Refresh()
         {
-            if (inRefresh || disposed)
+            if (disposed)
             {
                 return;
             }
 
-            if (refreshTimer != null)
+            if (map == null)
             {
-                refreshTimer.Stop();
+                return;
             }
 
-            try
+            map.Render();
+
+            base.Refresh();
+
+            if (SelectTool != null)
             {
-                inRefresh = true;
-
-                if (map == null)
-                {
-                    return;
-                }
-
-                map.Render();
-
-                base.Refresh();
-
-                // log.DebugFormat("Refreshed");
-
-                if (MapRefreshed != null)
-                {
-                    MapRefreshed(this, null);
-                }
+                SelectTool.RefreshFeatureInteractors();
             }
-            finally
+
+            // todo: remove it! it's needed only for testing - test should handle it by itself
+            if (MapRefreshed != null)
             {
-                inRefresh = false;
-                if (Visible)
-                {
-                    if (refreshTimer != null)
-                    {
-                        refreshTimer.Start();
-                    }
-                }
+                MapRefreshed(this, null);
             }
         }
 
@@ -423,50 +377,6 @@ namespace Core.GIS.SharpMap.UI.Forms
             }
 
             base.OnResize(e);
-        }
-
-        protected override void OnHandleDestroyed(EventArgs e)
-        {
-            if (refreshTimer != null)
-            {
-                refreshTimer.Tick -= RefreshTimerTick;
-                refreshTimer.Stop();
-                refreshTimer.Dispose();
-                refreshTimer = null;
-            }
-
-            base.OnHandleDestroyed(e);
-        }
-
-        protected override void OnVisibleChanged(EventArgs e)
-        {
-            base.OnVisibleChanged(e);
-
-            if (disposingActive)
-            {
-                return;
-            }
-
-            if (refreshTimer == null)
-            {
-                refreshTimer = new Timer()
-                {
-                    Interval = 300
-                };
-            }
-
-            if (Visible)
-            {
-                refreshTimer.Stop();
-                refreshTimer.Tick -= RefreshTimerTick;
-                refreshTimer.Tick += RefreshTimerTick;
-                refreshTimer.Start();
-            }
-            else
-            {
-                refreshTimer.Stop();
-                refreshTimer.Tick -= RefreshTimerTick;
-            }
         }
 
         /// <summary>
@@ -716,14 +626,6 @@ namespace Core.GIS.SharpMap.UI.Forms
 
                 Cursor = null;
 
-                if (refreshTimer != null)
-                {
-                    refreshTimer.Tick -= RefreshTimerTick;
-                    refreshTimer.Stop();
-                    refreshTimer.Dispose();
-                    refreshTimer = null;
-                }
-
                 base.Dispose(disposing);
             }
             catch (Exception e)
@@ -817,26 +719,6 @@ namespace Core.GIS.SharpMap.UI.Forms
         private void OnFullRefresh(object sender, EventArgs e)
         {
             SelectTool.RefreshSelection();
-        }
-
-        private void RefreshTimerTick(object sender, EventArgs e)
-        {
-            if (Map == null)
-            {
-                return;
-            }
-
-            if (Visible && !Tools.Any(t => t.IsBusy))
-            {
-                if (Map.Layers.Any(l => l.Visible && l.RenderRequired) || Map.RenderRequired)
-                {
-                    if (SelectTool != null)
-                    {
-                        SelectTool.RefreshFeatureInteractors();
-                    }
-                    Refresh();
-                }
-            }
         }
 
         private void UnSubscribeMapEvents()
@@ -979,20 +861,6 @@ namespace Core.GIS.SharpMap.UI.Forms
             {
                 return; // may happen in multi-threaded environment
             }
-
-/*            switch (e.Action)
-            {
-                case NotifyCollectionChangeAction.Add:
-                    var allLayersWereEmpty = Map.Layers.Except(new[] { layer }).All(l => l.Envelope != null && l.Envelope.IsNull);
-                    if (allLayersWereEmpty && layer.Envelope != null && !layer.Envelope.IsNull)
-                    {
-                        map.ZoomToExtents(); //HACK: OOPS, changing domain model from separate thread!
-                    }
-
-                    break;
-                case NotifyCollectionChangeAction.Replace:
-                    throw new NotImplementedException();
-            }*/
 
             Refresh();
         }
