@@ -75,6 +75,7 @@
     <Compile Include="PropertyClasses\PipingSurfaceLineProperties.cs" />
     <Compile Include="PropertyClasses\WtiProjectProperties.cs" />
     <Compile Include="TypeConverters\LognormalDistributionTypeConverter.cs" />
+    <Compile Include="TypeConverters\ProbabilisticDistributionTypeConverter.cs" />
     <Compile Include="TypeConverters\ShiftedLognormalDistributionTypeConverter.cs" />
     <Compile Include="TypeConverters\TextPropertyDescriptorDecorator.cs" />
     <Compile Include="TypeConverters\NormalDistributionTypeConverter.cs" />

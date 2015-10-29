@@ -92,14 +92,14 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             Assert.AreEqual(typeof(double), meanPropertyDescriptor.PropertyType);
             Assert.IsFalse(meanPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("\u03BC", meanPropertyDescriptor.DisplayName);
-            Assert.AreEqual("De gemiddelde waarde van de lognormale verdeling.", meanPropertyDescriptor.Description);
+            Assert.AreEqual("De gemiddelde waarde van de verschoven lognormale verdeling.", meanPropertyDescriptor.Description);
 
             var stdPropertyDescriptor = properties[1];
             Assert.AreEqual(distribution.GetType().BaseType, stdPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(double), stdPropertyDescriptor.PropertyType);
             Assert.IsFalse(stdPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("\u03C3", stdPropertyDescriptor.DisplayName);
-            Assert.AreEqual("De standaardafwijking van de lognormale verdeling.", stdPropertyDescriptor.Description);
+            Assert.AreEqual("De standaardafwijking van de verschoven lognormale verdeling.", stdPropertyDescriptor.Description);
 
             var shiftPropertyDescriptor = properties[2];
             Assert.AreEqual(distribution.GetType(), shiftPropertyDescriptor.ComponentType);
