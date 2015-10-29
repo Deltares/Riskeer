@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.AddPointTool" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.AddPointTool" Collapsed="true">
     <Position X="15" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AECAAERABQAgAAEIAAAACAAACBAAAABAIAAAAECCACA=</HashCode>
       <FileName>Charting\Tools\AddPointTool.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.ZoomUsingMouseWheelTool" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.ZoomUsingMouseWheelTool" Collapsed="true">
     <Position X="7.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Tools\ZoomUsingMouseWheelTool.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.ChartViewSeriesToolBase" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.ChartViewSeriesToolBase" Collapsed="true">
     <Position X="13" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEgAQAACAAAAIQAAACAAAAAABABAAAAIEAAQAAiAAE=</HashCode>
@@ -22,7 +22,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.CursorLineTool" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.CursorLineTool" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="15.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgAAIAgAEUAMAABACABAgAAAACEAAgAAAAIACAAgA=</HashCode>
@@ -30,14 +30,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.EditPointTool" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.EditPointTool" Collapsed="true">
     <Position X="13" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEEAAAABECIAAAABCAAICAAYAhAEUBBAIAEQIQOCAiA=</HashCode>
       <FileName>Charting\Tools\EditPointTool.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.ExportChartAsImageChartTool" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.ExportChartAsImageChartTool" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="18" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAAAADAAAAAAAAAAAAgAAAAAAAAAIA=</HashCode>
@@ -45,10 +45,10 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.GeoApiHelper" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.GeoApiHelper" Collapsed="true">
     <Position X="1" Y="0.75" Width="1.5" />
     <NestedTypes>
-      <Class Name="DelftTools.Controls.Swf.Charting.Tools.GeoApiHelper.GeometryFactory" Collapsed="true">
+      <Class Name="Core.Common.Controls.Swf.Charting.Tools.GeoApiHelper.GeometryFactory" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Charting\Tools\GeoApiHelper.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -59,7 +59,7 @@
       <FileName>Charting\Tools\GeoApiHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.HistoryTool" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.HistoryTool" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="5.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAogAAAAEAABAIAACACAAAgAADAAAAAgEAAAAAAAABA=</HashCode>
@@ -67,7 +67,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.MarkerTool" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.MarkerTool" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="9.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQgAAAkAQAAAIAAEACAAgAAAEAAEAAgAgAAAAAAAAA=</HashCode>
@@ -75,14 +75,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.PointEventArgs" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.PointEventArgs" Collapsed="true">
     <Position X="1" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAFgAAABYAE=</HashCode>
       <FileName>Charting\Tools\PointEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.RectangleTool" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.RectangleTool" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="19.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>FBQiQCEQIUAgCIQMRAiAGAAEAAASBAAAAIAAAJBCAYo=</HashCode>
@@ -90,14 +90,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.SelectPoint" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.SelectPoint" Collapsed="true">
     <Position X="8.25" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>Charting\Tools\SelectPointTool.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.SelectPointTool" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.SelectPointTool" Collapsed="true">
     <Position X="11" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACACBQAEQByiQsIBIAAiAAQAhCEQADABEAQQACCAgA=</HashCode>
@@ -108,7 +108,7 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.SeriesBandTool" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.SeriesBandTool" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="17.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAAAACAAAAQAABAAAAAAAAAAAAAAAE=</HashCode>
@@ -116,7 +116,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.WaterLevelTool" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.WaterLevelTool" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="11" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAKAAgACAABwCIIABACACAYQAACAAAAAABAAAgAgAAE=</HashCode>
@@ -145,119 +145,119 @@
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Tools.ISeriesBandTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Tools.ISeriesBandTool" Collapsed="true">
     <Position X="9.75" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>Charting\Tools\IBandTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Tools.IBandTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Tools.IBandTool" Collapsed="true">
     <Position X="0.75" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Tools\IBandTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Tools.ICursorLineTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Tools.ICursorLineTool" Collapsed="true">
     <Position X="7.75" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAIAAAAUAEAAAAAABAAAAAAAEAAAAAAAIACAAAA=</HashCode>
       <FileName>Charting\Tools\ICursorLineTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Tools.IHistoryTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Tools.IHistoryTool" Collapsed="true">
     <Position X="12" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAABAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Tools\IHistoryTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Tools.IMarkerTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Tools.IMarkerTool" Collapsed="true">
     <Position X="14" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAQAAAAAAEAAAAAAAAEAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Tools\IMarkerTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Tools.IRectangleTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Tools.IRectangleTool" Collapsed="true">
     <Position X="15.75" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAACAAAAAAAAAAQAAAAAGEAAAAAAAAAACAAAAAAAAIA=</HashCode>
       <FileName>Charting\Tools\IRectangleTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Tools.ISelectPointTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Tools.ISelectPointTool" Collapsed="true">
     <Position X="5.75" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAEAQAAAAAAAAAAgAAAAgAAAABABAAAQAAAAgA=</HashCode>
       <FileName>Charting\Tools\ISelectPointTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Tools.IWaterLevelTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Tools.IWaterLevelTool" Collapsed="true">
     <Position X="0.75" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAQAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Tools\IWaterLevelTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartViewTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewTool" Collapsed="true">
     <Position X="9.75" Y="8.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAAAACAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>Charting\IChartViewTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartViewSeriesTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewSeriesTool" Collapsed="true">
     <Position X="3" Y="10.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>Charting\IChartViewSeriesTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartViewContextMenuTool" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewContextMenuTool" Collapsed="true">
     <Position X="17.75" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\IChartViewContextMenuTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Enum Name="DelftTools.Controls.Swf.Charting.Tools.NearestPointStyles" Collapsed="true">
+  <Enum Name="Core.Common.Controls.Swf.Charting.Tools.NearestPointStyles" Collapsed="true">
     <Position X="1" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAggAgAAAAAAAAEAAAA=</HashCode>
       <FileName>Charting\Tools\SelectPointTool.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Delegate Name="DelftTools.Controls.Swf.Charting.Tools.SelectionChangedEventHandler" Collapsed="true">
+  <Delegate Name="Core.Common.Controls.Swf.Charting.Tools.SelectionChangedEventHandler" Collapsed="true">
     <Position X="1" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAIQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Tools\PointEventArgs.cs</FileName>
     </TypeIdentifier>
   </Delegate>
-  <Delegate Name="DelftTools.Controls.Swf.Charting.Tools.RectangleToolDraggingEventHandler" Collapsed="true">
+  <Delegate Name="Core.Common.Controls.Swf.Charting.Tools.RectangleToolDraggingEventHandler" Collapsed="true">
     <Position X="1" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAACAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Tools\RectangleTool.cs</FileName>
     </TypeIdentifier>
   </Delegate>
-  <Delegate Name="DelftTools.Controls.Swf.Charting.Tools.RectangleToolResizingEventHandler" Collapsed="true">
+  <Delegate Name="Core.Common.Controls.Swf.Charting.Tools.RectangleToolResizingEventHandler" Collapsed="true">
     <Position X="1" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAACAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Tools\RectangleTool.cs</FileName>
     </TypeIdentifier>
   </Delegate>
-  <Delegate Name="DelftTools.Controls.Swf.Charting.Tools.RectangleToolResizedEventHandler" Collapsed="true">
+  <Delegate Name="Core.Common.Controls.Swf.Charting.Tools.RectangleToolResizedEventHandler" Collapsed="true">
     <Position X="1" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAACAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Tools\RectangleTool.cs</FileName>
     </TypeIdentifier>
   </Delegate>
-  <Delegate Name="DelftTools.Controls.Swf.Charting.Tools.RectangleToolDraggedEventHandler" Collapsed="true">
+  <Delegate Name="Core.Common.Controls.Swf.Charting.Tools.RectangleToolDraggedEventHandler" Collapsed="true">
     <Position X="1" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAACAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>

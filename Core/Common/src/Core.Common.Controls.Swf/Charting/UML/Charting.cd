@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Chart" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Gui.Swf.Controls.Charting.Chart" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="17.75" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAAAAAAAAAAAAIAAQAAAAEAAAAAAAAAAAAAAE=</HashCode>
@@ -8,7 +8,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Shell.Gui.Swf.Controls.Charting.ChartView" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Gui.Swf.Controls.Charting.ChartView" BaseTypeListCollapsed="true">
     <Position X="24.5" Y="3.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -19,35 +19,35 @@
     </TypeIdentifier>
     <Lollipop Position="0.385" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.ColorBlend" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.ColorBlend" Collapsed="true">
     <Position X="21.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAgIAgEAAAAggAAAAAAAAAgAAASAQIAAgBAgCAA=</HashCode>
       <FileName>Charting\ColorBlend.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Shell.Gui.Swf.Controls.Charting.NotifyChartSeriesValueChangedArgs" Collapsed="true">
+  <Class Name="Core.Common.Gui.Swf.Controls.Charting.NotifyChartSeriesValueChangedArgs" Collapsed="true">
     <Position X="19.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\IChartSeriesValueProvider.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.TeeChartHelper" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.TeeChartHelper" Collapsed="true">
     <Position X="19.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAgAAAAA=</HashCode>
       <FileName>Charting\TeeChartHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tracker" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tracker" Collapsed="true">
     <Position X="17.75" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAAQEBgAAAAIgAAQAIAAEAAAAAAAEAAEABAAA=</HashCode>
       <FileName>Charting\Tracker.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Series.AreaSeries" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Gui.Swf.Controls.Charting.Series.AreaSeries" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="3.75" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAQACIAAAAggAAAAAAAAIEAAAAAAAAAAACAAQgAAA=</HashCode>
@@ -55,7 +55,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Series.LineSeries" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Gui.Swf.Controls.Charting.Series.LineSeries" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="6" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAQACIAAAAggAAAgAACAAEAAAIAAAAAAACAAQgAAA=</HashCode>
@@ -63,14 +63,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Series.LineSeriesProperties" Collapsed="true">
+  <Class Name="Core.Common.Gui.Swf.Controls.Charting.Series.LineSeriesProperties" Collapsed="true">
     <Position X="17.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAAAAAAAAAAAAACEAAAAAAAAAAIAAAAAAAAAA=</HashCode>
       <FileName>Charting\Series\LineSeriesProperties.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Series.PointSeries" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Gui.Swf.Controls.Charting.Series.PointSeries" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="8.25" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAQACIAAAAgAAAAAAAAAAEAAAAAAAAAAACAAQgAAA=</HashCode>
@@ -78,7 +78,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Series.TeeChartSeriesDecorator" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Series.TeeChartSeriesDecorator" BaseTypeListCollapsed="true">
     <Position X="14.25" Y="14.75" Width="2" />
     <AssociationLine Name="series" Type="Steema.TeeChart.Styles.CustomPoint" FixedFromPoint="true" FixedToPoint="true">
       <Path>
@@ -96,7 +96,7 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.AddPointTool" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.AddPointTool" Collapsed="true">
     <Position X="4.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEGgAERAAQAgAIEIAACACEAQCBAAAABAIAAAAECCAAA=</HashCode>
@@ -104,7 +104,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Tools.CursorLineTool" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Gui.Swf.Controls.Charting.Tools.CursorLineTool" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="4" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAgAAAAgCEQgAAAAAAABEgAAAACEIAhBAAAgACAAgA=</HashCode>
@@ -112,7 +112,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.EditPointTool" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.EditPointTool" Collapsed="true">
     <Position X="8.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEEgAAIAGRIAAIAACACICAAQABAEAABAIAAQQQOCAgE=</HashCode>
@@ -120,7 +120,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.HistoryTool" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.HistoryTool" Collapsed="true">
     <Position X="11" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAoAAAAAEAAAAIAAAECAAAgAACAAAAAgAAAAAIAAABA=</HashCode>
@@ -128,7 +128,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.MarkerTool" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.MarkerTool" Collapsed="true">
     <Position X="6.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ARQwAAAEEQCAEIAAEACAAAAABEAAEAAhAgAAAAEAAAA=</HashCode>
@@ -136,14 +136,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.PointEventArgs" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.PointEventArgs" Collapsed="true">
     <Position X="21.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFgAAABYAA=</HashCode>
       <FileName>Charting\Tools\PointEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Tools.SelectorTool" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Gui.Swf.Controls.Charting.Tools.SelectorTool" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="14.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
@@ -151,7 +151,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Tools.SelectPointTool" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.SelectPointTool" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="2.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACgABQAGABwiYoABICAAAAQAgCEQAAABEAQQACgAgA=</HashCode>
@@ -159,7 +159,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Tools.SeriesChartTool" Collapsed="true">
+  <Class Name="Core.Common.Gui.Swf.Controls.Charting.Tools.SeriesChartTool" Collapsed="true">
     <Position X="6.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgACCEAAAAgBAwBAAAAQAQAAAAAAAgBACAAICEAgE=</HashCode>
@@ -167,14 +167,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Tools.TeeChartMouseEventArgs" Collapsed="true">
+  <Class Name="Core.Common.Gui.Swf.Controls.Charting.Tools.TeeChartMouseEventArgs" Collapsed="true">
     <Position X="21.25" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Tools\SeriesChartTool.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Series.AreaSeries" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Series.AreaSeries" BaseTypeListCollapsed="true">
     <Position X="17.75" Y="16.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAQgQEKIACIEg0oAAwAgAAIEAAgAACAAAAAAgBQkAAI=</HashCode>
@@ -185,7 +185,7 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Series.LineSeries" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Series.LineSeries" BaseTypeListCollapsed="true">
     <Position X="22" Y="16.75" Width="2" />
     <TypeIdentifier>
       <HashCode>CIIgQAAIAAAEg0AAAwAgCAAEAAAIACgAAAAIAAQkAAM=</HashCode>
@@ -193,7 +193,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Charting.Series.PointSeries" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Series.PointSeries" BaseTypeListCollapsed="true">
     <Position X="19.5" Y="16.75" Width="2" />
     <TypeIdentifier>
       <HashCode>CAIAQAAIAAAAgQAAAQAAAAAEAAAAACAAAAAAAAQgAAI=</HashCode>
@@ -229,77 +229,77 @@
     <Position X="18.5" Y="13.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
-  <Interface Name="DelftTools.Shell.Gui.Swf.Controls.Charting.IChart" Collapsed="true">
+  <Interface Name="Core.Common.Gui.Swf.Controls.Charting.IChart" Collapsed="true">
     <Position X="16" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>Charting\IChart.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartSeries">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartSeries">
     <Position X="7.5" Y="11.25" Width="2" />
     <TypeIdentifier>
       <HashCode>CAAAQCAAAAAAg0AAAAAAAAAEAAAAACAIAAAAAAQgAAI=</HashCode>
       <FileName>Charting\IChartSeries.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartSeriesValueProvider" Collapsed="true">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartSeriesValueProvider" Collapsed="true">
     <Position X="17.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAYAAAAAAAAQAEABAACAYAgAAAAAAAA=</HashCode>
       <FileName>Charting\IChartSeriesValueProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.Swf.Controls.Charting.IChartTool" Collapsed="true">
+  <Interface Name="Core.Common.Gui.Swf.Controls.Charting.IChartTool" Collapsed="true">
     <Position X="5.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>Charting\IChartTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.Swf.Controls.Charting.IChartView">
+  <Interface Name="Core.Common.Gui.Swf.Controls.Charting.IChartView">
     <Position X="26.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgEAAIAAAAAAAAAAAAAAAQCAAAAAgQAE=</HashCode>
       <FileName>Charting\IChartView.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Series.IAreaChartSeries" Collapsed="true">
+  <Interface Name="Core.Common.Gui.Swf.Controls.Charting.Series.IAreaChartSeries" Collapsed="true">
     <Position X="3.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Series\IAreaChartSeries.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Series.ILineChartSeries" Collapsed="true">
+  <Interface Name="Core.Common.Gui.Swf.Controls.Charting.Series.ILineChartSeries" Collapsed="true">
     <Position X="6" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Series\ILineChartSeries.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Series.IPointChartSeries" Collapsed="true">
+  <Interface Name="Core.Common.Gui.Swf.Controls.Charting.Series.IPointChartSeries" Collapsed="true">
     <Position X="8.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\Series\IPointChartSeries.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Tools.ICursorLineTool" Collapsed="true">
+  <Interface Name="Core.Common.Gui.Swf.Controls.Charting.Tools.ICursorLineTool" Collapsed="true">
     <Position X="4" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAAAAAAAiAAAQAAABAIAAAAAAKABBAAAAACAAgA=</HashCode>
       <FileName>Charting\Tools\ICursorLineTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.Swf.Controls.Charting.ISeriesChartTool" Collapsed="true">
+  <Interface Name="Core.Common.Gui.Swf.Controls.Charting.ISeriesChartTool" Collapsed="true">
     <Position X="6.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEAAAAgBAgAAAAAQAAAAAAAAAAAAAAAIAEAAE=</HashCode>
       <FileName>Charting\ISeriesChartTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChart">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChart">
     <Position X="11.5" Y="11" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAIAAAAAAAQEAAAAAAACAAACAAABABAEAAEABBAAE=</HashCode>
@@ -309,7 +309,7 @@
       <Property Name="Series" />
     </ShowAsCollectionAssociation>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartView">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartView">
     <Position X="14.5" Y="9" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAIAAAAAgAAAMAAAAAAAAAAACAAAQCAAAAQgQIA=</HashCode>
@@ -322,63 +322,63 @@
       <Property Name="Tools" />
     </ShowAsCollectionAssociation>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Series.IAreaChartSeries">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Series.IAreaChartSeries">
     <Position X="5.5" Y="15.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAQwAEKAACIEgEoAAwAgAAIAAAgAACAAAAAAgBBEAAA=</HashCode>
       <FileName>Charting\Series\IAreaChartSeries.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Series.IPointChartSeries">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Series.IPointChartSeries">
     <Position X="10" Y="15.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>Charting\Series\IPointChartSeries.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Series.ILineChartSeries">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Series.ILineChartSeries">
     <Position X="7.75" Y="15.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CIIgAAAAAAAEAUCAgwAgAAAAAAAAAAAAAgAIAAEEAAE=</HashCode>
       <FileName>Charting\Series\ILineChartSeries.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartBrush">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartBrush">
     <Position X="3.25" Y="16.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAIBAAAgAAAAAA=</HashCode>
       <FileName>Charting\IChartBrush.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartViewTool">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewTool">
     <Position X="11.75" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAAAACAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>Charting\IChartViewTool.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Enum Name="DelftTools.Controls.Swf.Charting.Tools.NearestPointStyles" Collapsed="true">
+  <Enum Name="Core.Common.Controls.Swf.Charting.Tools.NearestPointStyles" Collapsed="true">
     <Position X="16" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAggAgAAAAAAAAEAAAA=</HashCode>
       <FileName>Charting\Tools\SelectPointTool.cs</FileName>
     </TypeIdentifier>
   </Enum>
-  <Delegate Name="DelftTools.Shell.Gui.Swf.Controls.Charting.NotifyChartSeriesValueChanged" Collapsed="true">
+  <Delegate Name="Core.Common.Gui.Swf.Controls.Charting.NotifyChartSeriesValueChanged" Collapsed="true">
     <Position X="16" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>Charting\IChartSeriesValueProvider.cs</FileName>
     </TypeIdentifier>
   </Delegate>
-  <Delegate Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Tools.SelectionChangedEventHandler" Collapsed="true">
+  <Delegate Name="Core.Common.Gui.Swf.Controls.Charting.Tools.SelectionChangedEventHandler" Collapsed="true">
     <Position X="17.75" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAACAAAAAAAAAA=</HashCode>
       <FileName>Charting\Tools\PointEventArgs.cs</FileName>
     </TypeIdentifier>
   </Delegate>
-  <Delegate Name="DelftTools.Shell.Gui.Swf.Controls.Charting.Tools.SelectorSelectedEventHandler" Collapsed="true">
+  <Delegate Name="Core.Common.Gui.Swf.Controls.Charting.Tools.SelectorSelectedEventHandler" Collapsed="true">
     <Position X="19.5" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAACAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>

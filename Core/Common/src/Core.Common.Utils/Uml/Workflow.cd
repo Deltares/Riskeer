@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Interface Name="DelftTools.Utils.Workflow.IActivity">
+  <Interface Name="Core.Common.BaseDelftTools.Workflow.IActivity">
     <Position X="1.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEQAAAAQQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -10,14 +10,14 @@
       <Property Name="Status" />
     </ShowAsAssociation>
   </Interface>
-  <Interface Name="DelftTools.Utils.Workflow.Generics.IProgressingActivity&lt;T, TStep&gt;">
+  <Interface Name="Core.Common.BaseDelftTools.Workflow.Generics.IProgressingActivity&lt;T, TStep&gt;">
     <Position X="0.75" Y="3" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAIAAAEAA=</HashCode>
       <FileName>Workflow\Generics\IProgressingActivity.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Enum Name="DelftTools.Utils.Workflow.ActivityStatus">
+  <Enum Name="Core.Common.BaseDelftTools.Workflow.ActivityStatus">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAEAAAQCAAAAAAAAQAAAAAAAAAAAAIABAAAAEAAAA=</HashCode>

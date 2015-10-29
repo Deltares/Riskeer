@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartSeries">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartSeries">
     <Position X="6.5" Y="4.5" Width="2" />
-    <AssociationLine Name="Chart" Type="DelftTools.Controls.Swf.Charting.IChart" FixedFromPoint="true">
+    <AssociationLine Name="Chart" Type="Core.Common.Controls.Swf.Charting.IChart" FixedFromPoint="true">
       <Path>
         <Point X="6.5" Y="5.835" />
         <Point X="4.75" Y="5.835" />
@@ -16,9 +16,9 @@
       <Property Name="Chart" />
     </ShowAsAssociation>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChart">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChart">
     <Position X="3.25" Y="4.5" Width="1.5" />
-    <AssociationLine Name="Legend" Type="DelftTools.Controls.Swf.Charting.IChartLegend" FixedToPoint="true">
+    <AssociationLine Name="Legend" Type="Core.Common.Controls.Swf.Charting.IChartLegend" FixedToPoint="true">
       <Path>
         <Point X="3.25" Y="5.75" />
         <Point X="2.25" Y="5.75" />
@@ -35,23 +35,23 @@
       <Property Name="Legend" />
     </ShowAsAssociation>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartAxis">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartAxis">
     <Position X="3.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAAAACCAEAAAAEIAAAAAAIAAAAAIIAAIAAAAAAAAAAA=</HashCode>
       <FileName>Charting\IChartAxis.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartLegend">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartLegend">
     <Position X="0.75" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAACAAAEABAAAIAAAICAAAAAAAAAA=</HashCode>
       <FileName>Charting\IChartLegend.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartView">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartView">
     <Position X="3.25" Y="0.5" Width="1.5" />
-    <AssociationLine Name="Zoom" Type="DelftTools.Controls.Swf.Charting.IChartViewZoom" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="Zoom" Type="Core.Common.Controls.Swf.Charting.IChartViewZoom" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="3.25" Y="1.938" />
         <Point X="2.875" Y="1.938" />
@@ -59,7 +59,7 @@
         <Point X="2" Y="1.938" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="ChartCoordinateService" Type="DelftTools.Controls.Swf.Charting.IChartCoordinateService" ManuallyRouted="true" FixedToPoint="true">
+    <AssociationLine Name="ChartCoordinateService" Type="Core.Common.Controls.Swf.Charting.IChartCoordinateService" ManuallyRouted="true" FixedToPoint="true">
       <Path>
         <Point X="4.75" Y="1.875" />
         <Point X="6.75" Y="1.875" />
@@ -78,37 +78,37 @@
       <Property Name="ChartCoordinateService" />
     </ShowAsAssociation>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Series.IAreaChartSeries">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Series.IAreaChartSeries">
     <Position X="6.75" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAIAAAAAAAAAAwAggQAgAACAIAAAIAQIAAIUAAA=</HashCode>
       <FileName>Charting\Series\IAreaChartSeries.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Series.ILineChartSeries">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Series.ILineChartSeries">
     <Position X="9" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIiAAAAAAAAAAQAAAwAggEAAAAAACAEQIAAIAAMUAAA=</HashCode>
       <FileName>Charting\Series\ILineChartSeries.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.Series.IPointChartSeries">
+  <Interface Name="Core.Common.Controls.Swf.Charting.Series.IPointChartSeries">
     <Position X="11.25" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAIAAAAAgAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
       <FileName>Charting\Series\IPointChartSeries.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartCoordinateService">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartCoordinateService">
     <Position X="6.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAAAAACAAAAAAGAAAAAAAAAAAAAAAIAAGAQ=</HashCode>
       <FileName>Charting\IChartCoordinateService.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartViewTool">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewTool">
     <Position X="10" Y="3" Width="1.5" />
-    <AssociationLine Name="ChartView" Type="DelftTools.Controls.Swf.Charting.IChartView" FixedFromPoint="true">
+    <AssociationLine Name="ChartView" Type="Core.Common.Controls.Swf.Charting.IChartView" FixedFromPoint="true">
       <Path>
         <Point X="10" Y="3.312" />
         <Point X="4.75" Y="3.312" />
@@ -122,14 +122,14 @@
       <Property Name="ChartView" />
     </ShowAsAssociation>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartViewZoom">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewZoom">
     <Position X="0.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAAAiAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Charting\IChartViewZoom.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.Swf.Charting.IChartViewSeriesTool">
+  <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewSeriesTool">
     <Position X="10" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>

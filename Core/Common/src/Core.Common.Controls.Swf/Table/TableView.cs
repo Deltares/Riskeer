@@ -206,7 +206,7 @@ namespace Core.Common.Controls.Swf.Table
                         at System.ComponentModel.Component.Dispose()
                         at System.Windows.Forms.Control.Dispose(Boolean disposing)
                         at System.Windows.Forms.ContainerControl.Dispose(Boolean disposing)
-                        at DelftTools.Controls.Swf.Table.TableView.Dispose(Boolean disposing) in TableView.Designer.cs: line 22
+                        at Core.Common.Controls.Swf.Table.TableView.Dispose(Boolean disposing) in TableView.Designer.cs: line 22
                  */
                 base.Dispose(disposing);
             }

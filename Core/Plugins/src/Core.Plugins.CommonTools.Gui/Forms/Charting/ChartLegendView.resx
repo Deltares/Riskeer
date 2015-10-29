@@ -217,7 +217,7 @@
     <value>treeView</value>
   </data>
   <data name="&gt;&gt;treeView.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.TreeViewControls.TreeView, DelftTools.Controls.Swf, Version=1.0.4.31422, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d</value>
+    <value>Core.Common.Controls.Swf.TreeViewControls.TreeView, Core.Common.Controls.Swf, Version=1.0.4.31422, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d</value>
   </data>
   <data name="&gt;&gt;treeView.Parent" xml:space="preserve">
     <value>$this</value>

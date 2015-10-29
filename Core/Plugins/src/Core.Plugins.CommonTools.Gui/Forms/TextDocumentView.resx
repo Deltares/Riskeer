@@ -175,7 +175,7 @@
     <value>findAndReplaceControl1</value>
   </data>
   <data name="&gt;&gt;findAndReplaceControl1.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.FindAndReplaceControl, DelftTools.Controls.Swf, Version=1.0.4.31420, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d</value>
+    <value>Core.Common.Controls.Swf.FindAndReplaceControl, Core.Common.Controls.Swf, Version=1.0.4.31420, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d</value>
   </data>
   <data name="&gt;&gt;findAndReplaceControl1.Parent" xml:space="preserve">
     <value>$this</value>

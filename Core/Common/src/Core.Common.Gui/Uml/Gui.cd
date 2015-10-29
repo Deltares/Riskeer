@@ -1,34 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="DelftTools.Shell.Gui.SelectedItemChangedEventArgs">
+  <Class Name="Core.Common.Gui.SelectedItemChangedEventArgs">
     <Position X="11" Y="20.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ItemEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Shell.Gui.SelectedItemChangedEventArgs&lt;T&gt;">
+  <Class Name="Core.Common.Gui.SelectedItemChangedEventArgs&lt;T&gt;">
     <Position X="11" Y="22.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ItemEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Shell.Gui.guiPluginPlugin" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Gui.guiPluginPlugin" BaseTypeListCollapsed="true">
     <Position X="14.75" Y="18.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GuiPluginConfiguration.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Shell.Gui.ViewEventArgs">
+  <Class Name="Core.Common.Gui.ViewEventArgs">
     <Position X="11" Y="24.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Shell.Gui.GuiPlugin" Collapsed="true">
+  <Class Name="Core.Common.Gui.GuiPlugin" Collapsed="true">
     <Position X="9.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>YEAAQAAAJCRgEAFAECAIAEQAAAABgBAAEACBAAAACEA=</HashCode>
@@ -36,9 +36,9 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="DelftTools.Shell.Gui.IGui">
+  <Interface Name="Core.Common.Gui.IGui">
     <Position X="6.75" Y="8" Width="1.75" />
-    <AssociationLine Name="CompositeViewProvider" Type="DelftTools.Shell.Gui.ICompositeViewProvider" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="CompositeViewProvider" Type="Core.Common.Gui.ICompositeViewProvider" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="8.5" Y="9.312" />
         <Point X="9.174" Y="9.312" />
@@ -49,7 +49,7 @@
         <Position X="0.212" Y="0.155" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="CopyPasteHandler" Type="DelftTools.Shell.Gui.IProjectItemCopyPasteHandler" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="CopyPasteHandler" Type="Core.Common.Gui.IProjectItemCopyPasteHandler" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.75" Y="9.345" />
         <Point X="5.882" Y="9.345" />
@@ -60,7 +60,7 @@
         <Position X="0.098" Y="0.29" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="DocumentViews" Type="DelftTools.Shell.Gui.IViewManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="DocumentViews" Type="Core.Common.Gui.IViewManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.75" Y="9.057" />
         <Point X="5.476" Y="9.057" />
@@ -68,13 +68,13 @@
         <Point X="3" Y="13.587" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="MainWindow" Type="DelftTools.Shell.Gui.Forms.IMainWindow" FixedFromPoint="true">
+    <AssociationLine Name="MainWindow" Type="Core.Common.Gui.Forms.IMainWindow" FixedFromPoint="true">
       <Path>
         <Point X="6.75" Y="8.576" />
         <Point X="3" Y="8.576" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="ToolWindowViews" Type="DelftTools.Shell.Gui.IViewManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="ToolWindowViews" Type="Core.Common.Gui.IViewManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.75" Y="8.816" />
         <Point X="5.052" Y="8.816" />
@@ -82,7 +82,7 @@
         <Point X="3" Y="12.512" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="UndoRedoManager" Type="DelftTools.Utils.UndoRedo.IUndoRedoManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="UndoRedoManager" Type="Core.Common.BaseDelftTools.UndoRedo.IUndoRedoManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.75" Y="9.489" />
         <Point X="6.51" Y="9.489" />
@@ -110,100 +110,100 @@
       <Property Name="Plugins" />
     </ShowAsCollectionAssociation>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.IGuiCommandHandler">
+  <Interface Name="Core.Common.Gui.IGuiCommandHandler">
     <Position X="8" Y="17.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>ACAACAAREAAqAKQQFAoiACAAZgAkAiQAMEAhKIAAgBA=</HashCode>
       <FileName>IGuiCommandHandler.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.Forms.IMainWindow">
+  <Interface Name="Core.Common.Gui.Forms.IMainWindow">
     <Position X="1.25" Y="7.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAIIAAEAAAQAAAAAAAAAEAAgIAAAAAAGAAIA=</HashCode>
       <FileName>Forms\IMainWindow.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.IApplication" Collapsed="true">
+  <Interface Name="Core.Common.Core.IApplication" Collapsed="true">
     <Position X="9.25" Y="6" Width="1.75" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.ICompositeViewProvider">
+  <Interface Name="Core.Common.Gui.ICompositeViewProvider">
     <Position X="11.75" Y="9.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
       <FileName>ICompositeViewProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.IProjectItemCopyPasteHandler">
+  <Interface Name="Core.Common.Gui.IProjectItemCopyPasteHandler">
     <Position X="1.25" Y="16.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AQQRBAAAAAQAAAAAAAAAAAAAAgAAAAAAQEAAAAAACAA=</HashCode>
       <FileName>IProjectItemCopyPasteHandler.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.IViewManager">
+  <Interface Name="Core.Common.Gui.IViewManager">
     <Position X="1.25" Y="11.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AIIAEIAAAAAAAAAAQAAACUACCAAAAMAAAAAAAABACAA=</HashCode>
       <FileName>IViewManager.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Utils.UndoRedo.IUndoRedoManager">
+  <Interface Name="Core.Common.BaseDelftTools.UndoRedo.IUndoRedoManager">
     <Position X="1.25" Y="19.25" Width="1.75" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.IViewProvider">
+  <Interface Name="Core.Common.Gui.IViewProvider">
     <Position X="11.75" Y="6.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AEAAAAAAAQAAAAABAAEAAAAAAAIAAIAgAAAAAAAAAAA=</HashCode>
       <FileName>IViewProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.ICommand">
+  <Interface Name="Core.Common.Controls.ICommand">
     <Position X="11.75" Y="11" Width="2.25" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.Forms.IProjectExplorer">
+  <Interface Name="Core.Common.Gui.Forms.IProjectExplorer">
     <Position X="1.25" Y="4.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEIAAAA=</HashCode>
       <FileName>Forms\IProjectExplorer.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.IGuiContextManager">
+  <Interface Name="Core.Common.Gui.IGuiContextManager">
     <Position X="11.5" Y="15" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAQAAAAAAAAAAAAAAAAAAAAACAAAAAAAEAAA=</HashCode>
       <FileName>IGuiContextManager.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.IConfigureDialog">
+  <Interface Name="Core.Common.Gui.IConfigureDialog">
     <Position X="11" Y="18.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IConfigureDialog.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.IGuiView">
+  <Interface Name="Core.Common.Gui.IGuiView">
     <Position X="4.25" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IGuiView.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.ISelectionContainer">
+  <Interface Name="Core.Common.Gui.ISelectionContainer">
     <Position X="6.5" Y="3.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAEAAAQAAAQAA=</HashCode>
       <FileName>ISelectionContainer.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.IView">
+  <Interface Name="Core.Common.Controls.IView">
     <Position X="2.75" Y="0.5" Width="1.5" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.IGuiCommand" Collapsed="true">
+  <Interface Name="Core.Common.Gui.IGuiCommand" Collapsed="true">
     <Position X="9.5" Y="11.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>

@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="DelftTools.Controls.Swf.Table.TableView" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Table.TableView" BaseTypeListCollapsed="true">
     <Position X="1.25" Y="7" Width="2.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <NestedTypes>
-      <Enum Name="DelftTools.Controls.Swf.Table.TableView.ValidationExceptionMode" Collapsed="true">
+      <Enum Name="Core.Common.Controls.Swf.Table.TableView.ValidationExceptionMode" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Table\TableView.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -24,14 +24,14 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Table.TableViewArgumentBasedPasteController">
+  <Class Name="Core.Common.Controls.Swf.Table.TableViewArgumentBasedPasteController">
     <Position X="0.75" Y="2" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAQIAAAAAAQAAKAAAAEMAEACAAMAAAAIAAAQAACAg=</HashCode>
       <FileName>Table\TableViewArgumentBasedPasteController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Table.TableViewCellFormatterProvider" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Table.TableViewCellFormatterProvider" BaseTypeListCollapsed="true">
     <Position X="10.5" Y="3.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
@@ -39,14 +39,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Table.TableViewCellStyle">
+  <Class Name="Core.Common.Controls.Swf.Table.TableViewCellStyle">
     <Position X="11.5" Y="8" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAABAAI=</HashCode>
       <FileName>Table\TableViewCellStyle.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Table.TableViewColumn" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Table.TableViewColumn" BaseTypeListCollapsed="true">
     <Position X="8" Y="5.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -58,14 +58,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Table.TableViewColumnMenuItem">
+  <Class Name="Core.Common.Controls.Swf.Table.TableViewColumnMenuItem">
     <Position X="6.5" Y="11.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AIAABAAAAAAAEAAAABAAAAAAAAAAABAACAAQAAAAAgA=</HashCode>
       <FileName>Table\TableViewColumnMenuItem.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Table.TableViewComboBoxItem" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Table.TableViewComboBoxItem" BaseTypeListCollapsed="true">
     <Position X="13.75" Y="5.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAABAAIAAAAAAAMEAAAAQAAEAAAAAAAgANggogYQAAI=</HashCode>
@@ -73,14 +73,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Table.TableViewExceptionMessageController">
+  <Class Name="Core.Common.Controls.Swf.Table.TableViewExceptionMessageController">
     <Position X="10" Y="1.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Table\TableViewExceptionMessageController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Table.TableViewPasteController" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Table.TableViewPasteController" Collapsed="true">
     <Position X="1" Y="0.75" Width="2" />
     <TypeIdentifier>
       <HashCode>BCAAQAAAAECAgAAMAiQACEACAAgABQAgBCAAIEACAog=</HashCode>
@@ -88,14 +88,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Table.XtraGridRepositoryItemBuilder">
+  <Class Name="Core.Common.Controls.Swf.Table.XtraGridRepositoryItemBuilder">
     <Position X="4.25" Y="0.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAIAAQAEAAAAAAAAAAAAAABBgIEAAAAAAAACAIAAE=</HashCode>
       <FileName>Table\XtraGridRepositoryItemBuilder.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Table.Validation.RowValidationResult">
+  <Class Name="Core.Common.Controls.Swf.Table.Validation.RowValidationResult">
     <Position X="7.5" Y="1.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAAAAAAAAAAAACAAAAAAAAAAAAAABAAAAAA=</HashCode>
@@ -103,7 +103,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Controls.Swf.Table.Validation.TableViewValidator">
+  <Class Name="Core.Common.Controls.Swf.Table.Validation.TableViewValidator">
     <Position X="5.25" Y="6.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAgBAYAAAAAABAAnBAAGBAAAQAAACAAAAAA=</HashCode>

@@ -218,13 +218,13 @@
     <value>buttonFolderAdd</value>
   </data>
   <data name="&gt;&gt;buttonFolderAdd.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonFolderAddNewItem.Name" xml:space="preserve">
     <value>buttonFolderAddNewItem</value>
   </data>
   <data name="&gt;&gt;buttonFolderAddNewItem.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
     <value>toolStripSeparator4</value>
@@ -236,7 +236,7 @@
     <value>buttonFolderImportFolder</value>
   </data>
   <data name="&gt;&gt;buttonFolderImportFolder.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonFolderExportFolder.Name" xml:space="preserve">
     <value>buttonFolderExportFolder</value>
@@ -272,13 +272,13 @@
     <value>buttonFolderExpandAll</value>
   </data>
   <data name="&gt;&gt;buttonFolderExpandAll.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;buttonFolderCollapseAll.Name" xml:space="preserve">
     <value>buttonFolderCollapseAll</value>
   </data>
   <data name="&gt;&gt;buttonFolderCollapseAll.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator7.Name" xml:space="preserve">
     <value>toolStripSeparator7</value>
@@ -290,7 +290,7 @@
     <value>buttonFolderProperties</value>
   </data>
   <data name="&gt;&gt;buttonFolderProperties.Type" xml:space="preserve">
-    <value>DelftTools.Controls.Swf.ClonableToolStripMenuItem, DelftTools.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.Swf.ClonableToolStripMenuItem, Core.Common.Controls.Swf, Version=0.5.0.345, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>ProjectTreeView</value>

@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="DelftTools.Controls.TableViewCell">
+  <Class Name="Core.Common.Controls.TableViewCell">
     <Position X="5" Y="8.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>TableViewCell.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Controls.TableSelectionChangedEventArgs">
+  <Class Name="Core.Common.Controls.TableSelectionChangedEventArgs">
     <Position X="8.75" Y="10" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>TableSelectionChangedEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="DelftTools.Controls.ITableView">
+  <Interface Name="Core.Common.Controls.ITableView">
     <Position X="0.75" Y="0.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>owgAAAAAUIAAYKASAIAAAERAkAAgKABgAAAIQJhIAqE=</HashCode>
@@ -28,28 +28,28 @@
       <Property Name="SelectedCells" />
     </ShowAsCollectionAssociation>
   </Interface>
-  <Interface Name="DelftTools.Controls.ITableViewColumn">
+  <Interface Name="Core.Common.Controls.ITableViewColumn">
     <Position X="5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAgAAIAYAEAAMwAAABAARAICAAIAYAAAAA=</HashCode>
       <FileName>ITableViewColumn.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.ITableViewPasteController">
+  <Interface Name="Core.Common.Controls.ITableViewPasteController">
     <Position X="5" Y="6.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAIA=</HashCode>
       <FileName>ITableViewPasteController.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Controls.IRowValidationResult">
+  <Interface Name="Core.Common.Controls.IRowValidationResult">
     <Position X="5" Y="4.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAAAAAAAAAAAACAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>IRowValidationResult.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Enum Name="DelftTools.Controls.TableViewPasteBehaviourOptions">
+  <Enum Name="Core.Common.Controls.TableViewPasteBehaviourOptions">
     <Position X="5" Y="10.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>

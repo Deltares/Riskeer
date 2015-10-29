@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="DelftTools.Shell.Core.Project">
+  <Class Name="Core.Common.Core.Project">
     <Position X="9.25" Y="16.5" Width="2.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="RootFolder" Type="DelftTools.Shell.Core.Folder" FixedFromPoint="true">
+    <AssociationLine Name="RootFolder" Type="Core.Common.Core.Folder" FixedFromPoint="true">
       <Path>
         <Point X="11.75" Y="17.5" />
         <Point X="12.75" Y="17.5" />
@@ -20,12 +20,12 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Shell.Core.Folder">
+  <Class Name="Core.Common.Core.Folder">
     <Position X="12.75" Y="14.75" Width="3.25" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="Folders" Type="DelftTools.Shell.Core.Folder" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="Folders" Type="Core.Common.Core.Folder" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="15.278" Y="14.75" />
         <Point X="15.278" Y="14.168" />
@@ -47,7 +47,7 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Shell.Core.ApplicationPlugin" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Core.ApplicationPlugin" BaseTypeListCollapsed="true">
     <Position X="11.5" Y="4.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAIBBgAAFAEAEAAAQAAQAAwBAAAAAQAAAAAAA=</HashCode>
@@ -55,40 +55,40 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Shell.Core.ModelInfo">
+  <Class Name="Core.Common.Core.ModelInfo">
     <Position X="13.75" Y="4.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAAAAAAAAAAAQAAgAAABAAAAAAAAAACAA=</HashCode>
       <FileName>ModelInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Shell.Core.DataItemInfo">
+  <Class Name="Core.Common.Core.DataItemInfo">
     <Position X="13.75" Y="6.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAAAAAAAAAAAQAAAAAABAAAAAQAAAAGAI=</HashCode>
       <FileName>DataItemInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="DelftTools.Shell.Core.DataItemInfo&lt;TValue&gt;">
+  <Class Name="Core.Common.Core.DataItemInfo&lt;TValue&gt;">
     <Position X="7" Y="22.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAAAAAAAAAAAQAAAAAABAABAAQAAAAGAI=</HashCode>
       <FileName>DataItemInfo.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="DelftTools.Shell.Core.Services.IProjectService">
+  <Interface Name="Core.Common.Core.Services.IProjectService">
     <Position X="5" Y="12" Width="2.5" />
-    <AssociationLine Name="ProjectRepository" Type="DelftTools.Shell.Core.Dao.IProjectRepository">
+    <AssociationLine Name="ProjectRepository" Type="Core.Common.Core.Dao.IProjectRepository">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.146" Y="0.095" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="ProjectFileBasedItemRepository" Type="DelftTools.Shell.Core.Dao.IProjectFileBasedItemRepository">
+    <AssociationLine Name="ProjectFileBasedItemRepository" Type="Core.Common.Core.Dao.IProjectFileBasedItemRepository">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-1.98" Y="0.198" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="ProjectRepositoryFactory" Type="DelftTools.Shell.Core.Dao.IProjectRepositoryFactory">
+    <AssociationLine Name="ProjectRepositoryFactory" Type="Core.Common.Core.Dao.IProjectRepositoryFactory">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-1.572" Y="0.154" />
       </MemberNameLabel>
@@ -103,53 +103,53 @@
       <Property Name="ProjectRepositoryFactory" />
     </ShowAsAssociation>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.Services.IModelService">
+  <Interface Name="Core.Common.Core.Services.IModelService">
     <Position X="5.25" Y="7.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAgAAAAAAAAACAAgAgGAAAAAIAABAAAAAAAA=</HashCode>
       <FileName>Services\IModelService.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.Services.IDataItemService">
+  <Interface Name="Core.Common.Core.Services.IDataItemService">
     <Position X="5.25" Y="10" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAABAEAAAEAAAAAAgCAAAAAA=</HashCode>
       <FileName>Services\IDataItemService.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.IApplication">
+  <Interface Name="Core.Common.Core.IApplication">
     <Position X="9.25" Y="8.75" Width="2.5" />
-    <AssociationLine Name="Project" Type="DelftTools.Shell.Core.Project">
+    <AssociationLine Name="Project" Type="Core.Common.Core.Project">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.192" Y="0.181" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="ActivityRunner" Type="DelftTools.Utils.Threading.IActivityRunner" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="ActivityRunner" Type="Core.Common.BaseDelftTools.Threading.IActivityRunner" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="10.062" Y="8.75" />
         <Point X="10.062" Y="3.615" />
         <Point X="7.25" Y="3.615" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="ProjectService" Type="DelftTools.Shell.Core.Services.IProjectService" FixedFromPoint="true">
+    <AssociationLine Name="ProjectService" Type="Core.Common.Core.Services.IProjectService" FixedFromPoint="true">
       <Path>
         <Point X="9.25" Y="13.062" />
         <Point X="7.5" Y="13.062" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="ModelService" Type="DelftTools.Shell.Core.Services.IModelService" FixedFromPoint="true">
+    <AssociationLine Name="ModelService" Type="Core.Common.Core.Services.IModelService" FixedFromPoint="true">
       <Path>
         <Point X="9.25" Y="9.25" />
         <Point X="7.5" Y="9.25" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="DataItemService" Type="DelftTools.Shell.Core.Services.IDataItemService" FixedToPoint="true">
+    <AssociationLine Name="DataItemService" Type="Core.Common.Core.Services.IDataItemService" FixedToPoint="true">
       <Path>
         <Point X="9.25" Y="11.125" />
         <Point X="7.5" Y="11.125" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="ScriptRunner" Type="DelftTools.Shell.Core.IScriptRunner" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="ScriptRunner" Type="Core.Common.Core.IScriptRunner" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="9.625" Y="8.75" />
         <Point X="9.625" Y="6.375" />
@@ -172,42 +172,42 @@
       <Property Name="Plugins" />
     </ShowAsCollectionAssociation>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.Dao.IProjectRepositoryFactory">
+  <Interface Name="Core.Common.Core.Dao.IProjectRepositoryFactory">
     <Position X="4.25" Y="19.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAQgAAAACAAgAAAAAAAAAAACA=</HashCode>
       <FileName>Dao\IProjectRepositoryFactory.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.Dao.IProjectRepository">
+  <Interface Name="Core.Common.Core.Dao.IProjectRepository">
     <Position X="4" Y="16.25" Width="2" />
     <TypeIdentifier>
       <HashCode>IAAAAAgQAAAAIAIAAAAAAAAAAAAAAEAAAhAwAACAAAA=</HashCode>
       <FileName>Dao\IProjectRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.IPlugin">
+  <Interface Name="Core.Common.Core.IPlugin">
     <Position X="11" Y="1.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAIABgAAFAEAAAAAQAAAAAgBAAAAAAAAAAAAA=</HashCode>
       <FileName>IPlugin.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.Dao.IDataAccessListener">
+  <Interface Name="Core.Common.Core.Dao.IDataAccessListener">
     <Position X="17.5" Y="6.75" Width="2" />
     <TypeIdentifier>
       <HashCode>hAAAIAAQAAAAAAAAAAAAAAAAAAAJgAAAAAAAAAAAAgA=</HashCode>
       <FileName>Dao\IDataAccessListener.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.IFileExporter">
+  <Interface Name="Core.Common.Core.IFileExporter">
     <Position X="19.75" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAABAQAAAAAAAAAAAAEEAEAAAA=</HashCode>
       <FileName>IFileExporter.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.IFileImporter">
+  <Interface Name="Core.Common.Core.IFileImporter">
     <Position X="17.5" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAAEAgAAAAAAAAAQAABACABAAAAAEAAAACAA=</HashCode>
@@ -217,23 +217,23 @@
       <Property Name="ProgressChanged" />
     </ShowAsAssociation>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.IProjectImporter">
+  <Interface Name="Core.Common.Core.IProjectImporter">
     <Position X="17.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IProjectImporter.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.IProjectItem">
+  <Interface Name="Core.Common.Core.IProjectItem">
     <Position X="18.25" Y="14.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IProjectItem.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.IProjectItemExporter">
+  <Interface Name="Core.Common.Core.IProjectItemExporter">
     <Position X="19.75" Y="4.5" Width="1.75" />
-    <InheritanceLine Type="DelftTools.Shell.Core.IFileExporter" FixedFromPoint="true" FixedToPoint="true">
+    <InheritanceLine Type="Core.Common.Core.IFileExporter" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="20.562" Y="3.992" />
         <Point X="20.562" Y="4.5" />
@@ -244,56 +244,56 @@
       <FileName>IProjectItemExporter.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.IScriptRunner">
+  <Interface Name="Core.Common.Core.IScriptRunner">
     <Position X="5" Y="5.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAABAAAAAAAAEAAAAAAAIAAAAAAAAIAAAAA=</HashCode>
       <FileName>IScriptRunner.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Utils.Threading.IActivityRunner">
+  <Interface Name="Core.Common.BaseDelftTools.Threading.IActivityRunner">
     <Position X="5" Y="2.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AABACAAAQAAAQAQAAAAAQAAAAAAAAAABAAAAAIAAAAA=</HashCode>
       <FileName>Workflow\IActivityRunner.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.Workflow.DataItems.IDataItem">
+  <Interface Name="Core.Common.Core.Workflow.DataItems.IDataItem">
     <Position X="19" Y="17" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AJYAAEiAAAAgAAAAEAEEQCAEAAAAAAAABAAgIAAEEAA=</HashCode>
       <FileName>Workflow\DataItems\IDataItem.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.Workflow.IModel">
+  <Interface Name="Core.Common.Core.Workflow.IModel">
     <Position X="16.25" Y="20.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AEAAAACAAAAAAARIAAAAACxAACAAAgCgIQAgAAQAACA=</HashCode>
       <FileName>Workflow\IModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.Workflow.IActivity">
+  <Interface Name="Core.Common.Core.Workflow.IActivity">
     <Position X="17" Y="17" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAEQAEAAQQAAAAAAAAAAFAABAAAAAAAAEAAAAA=</HashCode>
       <FileName>Workflow\IActivity.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.Dao.IProjectFileBasedItemRepository">
+  <Interface Name="Core.Common.Core.Dao.IProjectFileBasedItemRepository">
     <Position X="6.25" Y="16.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAIAAAAAAAQAAAAAACACAAAAAAAgAABAAAACAAIA=</HashCode>
       <FileName>Dao\IProjectFileBasedItemRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.IProjectItemOwned">
+  <Interface Name="Core.Common.Core.IProjectItemOwned">
     <Position X="9.75" Y="22.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IProjectItemOwned.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Delegate Name="DelftTools.Shell.Core.ImportProgressChangedDelegate">
+  <Delegate Name="Core.Common.Core.ImportProgressChangedDelegate">
     <Position X="13.75" Y="2.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAABAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>

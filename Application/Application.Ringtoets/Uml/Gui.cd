@@ -44,27 +44,27 @@
     <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Interface Name="DelftTools.Shell.Gui.IGuiCommandHandler">
+  <Interface Name="Core.Common.Gui.IGuiCommandHandler">
     <Position X="3" Y="0.5" Width="3" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.IApplication">
+  <Interface Name="Core.Common.Core.IApplication">
     <Position X="11" Y="0.5" Width="4" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.Services.IProjectService">
+  <Interface Name="Core.Common.Core.Services.IProjectService">
     <Position X="2.5" Y="6.5" Width="4" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.Services.IModelService">
+  <Interface Name="Core.Common.Core.Services.IModelService">
     <Position X="6.75" Y="12.75" Width="5" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="DelftTools.Shell.Core.Services.IDataItemService">
+  <Interface Name="Core.Common.Core.Services.IDataItemService">
     <Position X="6.75" Y="15" Width="4.75" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.IGui">
+  <Interface Name="Core.Common.Gui.IGui">
     <Position X="16.25" Y="0.5" Width="3.75" />
     <TypeIdentifier />
     <ShowAsAssociation>

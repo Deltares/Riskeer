@@ -10,7 +10,7 @@ using Core.Common.Controls.Swf.TreeViewControls;
 namespace Core.Common.Controls.Swf
 {
     /// <summary>
-    /// TODO: migrate to DelftTools.Controls.Swf
+    /// TODO: migrate to Core.Common.Controls.Swf
     /// </summary>
     public partial class FileSystemTreeView : TreeView
     {

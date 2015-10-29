@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="DelftTools.Shell.Gui.ObjectProperties&lt;T&gt;">
+  <Class Name="Core.Common.Gui.ObjectProperties&lt;T&gt;">
     <Position X="0.5" Y="2.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAA=</HashCode>
@@ -8,7 +8,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Shell.Gui.PropertyInfo&lt;TObject, TProperty&gt;">
+  <Class Name="Core.Common.Gui.PropertyInfo&lt;TObject, TProperty&gt;">
     <Position X="3.75" Y="3.25" Width="3" />
     <TypeIdentifier>
       <HashCode>ASAgIAAAAAAAAAAAAAAABAAAAAAAAAQAAIACEAAAAAA=</HashCode>
@@ -16,7 +16,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="DelftTools.Shell.Gui.DynamicObjectProperties">
+  <Class Name="Core.Common.Gui.DynamicObjectProperties">
     <Position X="0.5" Y="4.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAA=</HashCode>
@@ -24,14 +24,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="DelftTools.Shell.Gui.IObjectProperties">
+  <Interface Name="Core.Common.Gui.IObjectProperties">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>IObjectProperties.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="DelftTools.Shell.Gui.IPropertyInfo">
+  <Interface Name="Core.Common.Gui.IPropertyInfo">
     <Position X="3.75" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>ASAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAIACEAAAAAA=</HashCode>
