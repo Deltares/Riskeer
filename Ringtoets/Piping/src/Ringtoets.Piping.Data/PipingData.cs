@@ -180,7 +180,7 @@ namespace Ringtoets.Piping.Data
         public RingtoetsPipingSurfaceLine SurfaceLine { get; set; }
 
         /// <summary>
-        /// Gets or sets the soil profile.
+        /// Gets or sets the profile which contains a 1 dimensional definition of soil layers with properties.
         /// </summary>
         public PipingSoilProfile SoilProfile { get; set; }
 
