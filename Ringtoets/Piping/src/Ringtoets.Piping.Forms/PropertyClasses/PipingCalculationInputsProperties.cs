@@ -228,18 +228,19 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(ShiftedLognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataSandParticlesVolumicWeightDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingDataSandParticlesVolumicWeightDescription")]
-        public double SandParticlesVolumicWeight
+        public ShiftedLognormalDistribution SandParticlesVolumicWeight
         {
             get
             {
-                return data.PipingData.SandParticlesVolumicWeight.Mean;
+                return data.PipingData.SandParticlesVolumicWeight;
             }
             set
             {
-                data.PipingData.SandParticlesVolumicWeight.Mean = value;
+                data.PipingData.SandParticlesVolumicWeight = value;
                 data.PipingData.NotifyObservers();
             }
         }
