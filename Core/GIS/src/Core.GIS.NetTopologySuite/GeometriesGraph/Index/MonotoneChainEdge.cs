@@ -1,4 +1,4 @@
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 
 namespace Core.GIS.NetTopologySuite.GeometriesGraph.Index

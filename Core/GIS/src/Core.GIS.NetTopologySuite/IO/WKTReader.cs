@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.NetTopologySuite.Utilities;
 using Core.GIS.NetTopologySuite.Utilities.RToolsUtil;

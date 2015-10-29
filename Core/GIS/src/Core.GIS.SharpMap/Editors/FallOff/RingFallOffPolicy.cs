@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api.Editors;
 
 namespace Core.GIS.SharpMap.Editors.FallOff

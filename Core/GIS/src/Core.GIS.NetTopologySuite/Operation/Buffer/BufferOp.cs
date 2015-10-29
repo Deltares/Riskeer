@@ -1,6 +1,6 @@
 using System;
-using Core.GIS.GeoApi.Geometries;
-using Core.GIS.GeoApi.Operation.Buffer;
+using Core.GIS.GeoAPI.Geometries;
+using Core.GIS.GeoAPI.Operation.Buffer;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.NetTopologySuite.Noding;
 using Core.GIS.NetTopologySuite.Noding.Snapround;

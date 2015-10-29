@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace Core.GIS.GeoApi.Geometries
+namespace Core.GIS.GeoAPI.Geometries
 {
     /// <summary>  
     /// A Dimensionally Extended Nine-Intersection Model (DE-9IM) matrix. This class

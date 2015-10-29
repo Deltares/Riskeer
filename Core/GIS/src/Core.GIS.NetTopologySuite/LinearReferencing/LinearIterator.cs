@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 
 namespace Core.GIS.NetTopologySuite.LinearReferencing

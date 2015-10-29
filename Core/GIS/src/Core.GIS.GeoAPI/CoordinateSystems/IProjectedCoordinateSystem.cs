@@ -15,7 +15,7 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
-namespace Core.GIS.GeoApi.CoordinateSystems
+namespace Core.GIS.GeoAPI.CoordinateSystems
 {
     /// <summary>
     /// The IProjectedCoordinateSystem interface defines the standard information stored with

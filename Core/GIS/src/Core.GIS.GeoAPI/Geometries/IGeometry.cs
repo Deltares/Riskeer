@@ -1,7 +1,7 @@
 using System;
-using Core.GIS.GeoApi.Operation.Buffer;
+using Core.GIS.GeoAPI.Operation.Buffer;
 
-namespace Core.GIS.GeoApi.Geometries
+namespace Core.GIS.GeoAPI.Geometries
 {
     /// <summary>
     /// 

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.SharpMap.Api.Editors;
 
 namespace Core.GIS.SharpMap.Api.Delegates

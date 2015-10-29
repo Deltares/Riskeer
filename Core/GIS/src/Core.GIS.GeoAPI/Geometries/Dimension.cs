@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.GIS.GeoApi.Geometries
+namespace Core.GIS.GeoAPI.Geometries
 {
     /// <summary>
     /// Constants representing the dimensions of a point, a curve and a surface.

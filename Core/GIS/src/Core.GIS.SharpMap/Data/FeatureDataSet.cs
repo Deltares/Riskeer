@@ -26,8 +26,8 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.Schema;
-using Core.GIS.GeoApi.Extensions.Feature;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Extensions.Feature;
+using Core.GIS.GeoAPI.Geometries;
 
 namespace Core.GIS.SharpMap.Data
 {

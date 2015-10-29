@@ -4,9 +4,9 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections.Generic;
-using Core.GIS.GeoApi.CoordinateSystems;
-using Core.GIS.GeoApi.Extensions.Feature;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.CoordinateSystems;
+using Core.GIS.GeoAPI.Extensions.Feature;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api.Delegates;
 using Core.GIS.SharpMap.Api.Layers;
 

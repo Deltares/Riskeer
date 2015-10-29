@@ -8,8 +8,8 @@
     <ProjectGuid>{FFB69466-79DE-466A-ADA7-5C47C5C5CA3A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.GIS.GeoApi</RootNamespace>
-    <AssemblyName>Core.GIS.GeoApi</AssemblyName>
+    <RootNamespace>Core.GIS.GeoAPI</RootNamespace>
+    <AssemblyName>Core.GIS.GeoAPI</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>

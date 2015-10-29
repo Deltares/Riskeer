@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 
 namespace Core.GIS.NetTopologySuite.Operation.Overlay.Snap

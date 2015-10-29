@@ -1,4 +1,4 @@
-namespace Core.GIS.GeoApi.Operation.Buffer
+namespace Core.GIS.GeoAPI.Operation.Buffer
 {
     /// <summary>
     /// Buffer style.

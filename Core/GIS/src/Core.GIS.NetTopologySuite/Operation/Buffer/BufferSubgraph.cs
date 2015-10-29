@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.GeometriesGraph;
 using Core.GIS.NetTopologySuite.Utilities;
 using Wintellect.PowerCollections;

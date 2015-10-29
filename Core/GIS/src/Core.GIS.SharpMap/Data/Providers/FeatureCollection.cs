@@ -5,9 +5,9 @@ using System.ComponentModel;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Reflection;
-using Core.GIS.GeoApi.CoordinateSystems;
-using Core.GIS.GeoApi.Extensions.Feature;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.CoordinateSystems;
+using Core.GIS.GeoAPI.Extensions.Feature;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Api;
 

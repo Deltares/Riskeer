@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Common.Controls;
-using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.SharpMap.Api.Layers;
 
 namespace Core.Common.Gui

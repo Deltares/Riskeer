@@ -16,9 +16,9 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
 using System.Collections.Generic;
-using Core.GIS.GeoApi.CoordinateSystems.Transformations;
+using Core.GIS.GeoAPI.CoordinateSystems.Transformations;
 
-namespace Core.GIS.GeoApi.CoordinateSystems
+namespace Core.GIS.GeoAPI.CoordinateSystems
 {
     /// <summary>
     /// Builds up complex objects from simpler objects or values.

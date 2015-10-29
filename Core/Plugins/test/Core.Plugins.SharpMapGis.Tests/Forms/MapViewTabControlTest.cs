@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
-using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.Plugins.SharpMapGis.Gui.Forms;
 using NUnit.Framework;

@@ -1,7 +1,7 @@
 using System.Linq;
 using Core.Common.Gui;
 using Core.Common.Utils.Collections;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.Plugins.SharpMapGis.Gui.Forms;

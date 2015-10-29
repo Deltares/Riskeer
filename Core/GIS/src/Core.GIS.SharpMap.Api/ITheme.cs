@@ -18,7 +18,7 @@
 using System;
 using System.Drawing;
 using Core.Common.Utils.Collections.Generic;
-using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoAPI.Extensions.Feature;
 
 namespace Core.GIS.SharpMap.Api
 {

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.GIS.GeoApi.CoordinateSystems;
-using Core.GIS.GeoApi.CoordinateSystems.Transformations;
+using Core.GIS.GeoAPI.CoordinateSystems;
+using Core.GIS.GeoAPI.CoordinateSystems.Transformations;
 using Core.GIS.SharpMap.Extensions.Properties;
 
 namespace Core.GIS.SharpMap.Extensions.CoordinateSystems

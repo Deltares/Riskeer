@@ -14,7 +14,7 @@ using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.ComponentModel;
 using Core.Common.Utils.Reflection;
-using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.Plugins.SharpMapGis.Gui.Properties;

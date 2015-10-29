@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.GIS.GeoApi.Extensions.Feature
+namespace Core.GIS.GeoAPI.Extensions.Feature
 {
     /// <summary>
     /// Attribute to be used for properties which need to be declared as Feature Attributes.

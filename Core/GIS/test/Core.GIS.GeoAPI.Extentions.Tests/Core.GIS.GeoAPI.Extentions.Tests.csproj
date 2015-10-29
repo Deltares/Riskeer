@@ -8,8 +8,8 @@
     <ProjectGuid>{B750C8AF-F947-4F90-97FC-3211D1D7336A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Gis.GeoApi.Extentions.Tests</RootNamespace>
-    <AssemblyName>Core.Gis.GeoApi.Extentions.Tests</AssemblyName>
+    <RootNamespace>Core.Gis.GeoAPI.Extentions.Tests</RootNamespace>
+    <AssemblyName>Core.Gis.GeoAPI.Extentions.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>

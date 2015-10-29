@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.GIS.GeoApi.CoordinateSystems;
+using Core.GIS.GeoAPI.CoordinateSystems;
 
 namespace Core.GIS.SharpMap.UI.Forms
 {

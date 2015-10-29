@@ -8,7 +8,7 @@
  */
 
 using System;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Algorithm;
 using Core.GIS.NetTopologySuite.Geometries;
 

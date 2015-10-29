@@ -3,7 +3,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using Core.Common.TestUtils;
-using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.NetTopologySuite.IO;

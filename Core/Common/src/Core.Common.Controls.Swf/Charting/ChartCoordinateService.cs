@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 
 namespace Core.Common.Controls.Swf.Charting

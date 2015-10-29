@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtils;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.NetTopologySuite.Utilities;
 using Core.GIS.SharpMap.Editors.FallOff;

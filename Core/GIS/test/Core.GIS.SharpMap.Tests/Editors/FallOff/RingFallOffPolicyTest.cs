@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Editors.FallOff;
 using NUnit.Framework;

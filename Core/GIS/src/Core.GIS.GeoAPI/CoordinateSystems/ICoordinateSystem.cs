@@ -17,7 +17,7 @@
 
 using System;
 
-namespace Core.GIS.GeoApi.CoordinateSystems
+namespace Core.GIS.GeoAPI.CoordinateSystems
 {
     /// <summary>
     /// Base interface for all coordinate systems

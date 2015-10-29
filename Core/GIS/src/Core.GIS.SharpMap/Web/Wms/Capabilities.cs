@@ -22,7 +22,7 @@ using System.Reflection;
 using System.Web;
 using System.Xml;
 using System.Xml.Schema;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Layers;
 

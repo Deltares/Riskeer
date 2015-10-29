@@ -6,7 +6,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Xml;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Converters.Geometries;
 
 namespace Core.GIS.SharpMap.Web.Wms

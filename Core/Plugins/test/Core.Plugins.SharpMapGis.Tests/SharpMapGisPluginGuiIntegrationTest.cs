@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Application.Ringtoets;
-using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.NetTopologySuite.IO;
 using Core.GIS.SharpMap.Data.Providers;

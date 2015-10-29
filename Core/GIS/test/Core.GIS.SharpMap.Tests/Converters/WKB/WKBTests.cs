@@ -1,4 +1,4 @@
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Converters.WellKnownBinary;
 using Core.GIS.SharpMap.Converters.WellKnownText;
 using NUnit.Framework;

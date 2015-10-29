@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Core.GIS.GeoApi.Extensions.Feature
+namespace Core.GIS.GeoAPI.Extensions.Feature
 {
     public interface IFeatureAttributeCollection : IDictionary<string, object>, ICloneable {}
 }

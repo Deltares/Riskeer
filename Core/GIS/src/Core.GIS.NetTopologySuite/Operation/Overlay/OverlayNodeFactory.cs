@@ -1,4 +1,4 @@
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.GeometriesGraph;
 
 namespace Core.GIS.NetTopologySuite.Operation.Overlay

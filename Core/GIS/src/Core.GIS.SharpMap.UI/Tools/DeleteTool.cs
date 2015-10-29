@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Utils.Editing;
-using Core.GIS.GeoApi.Extensions.Feature;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Extensions.Feature;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api.Layers;
 
 namespace Core.GIS.SharpMap.UI.Tools

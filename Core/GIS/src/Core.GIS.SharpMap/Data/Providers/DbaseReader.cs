@@ -23,7 +23,7 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.SharpMap.Utilities.Indexing;
 

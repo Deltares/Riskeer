@@ -3,7 +3,7 @@ using System.Drawing.Design;
 using System.Windows.Forms;
 using Core.Common.Gui;
 using Core.Common.Utils;
-using Core.GIS.GeoApi.CoordinateSystems;
+using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.SharpMap.CoordinateSystems.Transformations;
 using Core.GIS.SharpMap.Map;
 using Core.GIS.SharpMap.UI.Forms;

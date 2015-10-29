@@ -257,11 +257,11 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Core\GIS\src\Core.GIS.GeoAPI.Extensions\Core.GIS.GeoAPI.Extensions.csproj">
       <Project>{016dbd27-99bf-489a-81b5-50d66964bb90}</Project>
-      <Name>Core.GIS.GeoApi.Extensions</Name>
+      <Name>Core.GIS.GeoAPI.Extensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\GIS\src\Core.GIS.GeoAPI\Core.GIS.GeoAPI.csproj">
       <Project>{ffb69466-79de-466a-ada7-5c47c5c5ca3a}</Project>
-      <Name>Core.GIS.GeoApi</Name>
+      <Name>Core.GIS.GeoAPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\GIS\src\Core.GIS.NetTopologySuite.Extensions\Core.GIS.NetTopologySuite.Extensions.csproj">
       <Project>{8a3636fb-31b4-4f4b-9165-f718f87a92df}</Project>

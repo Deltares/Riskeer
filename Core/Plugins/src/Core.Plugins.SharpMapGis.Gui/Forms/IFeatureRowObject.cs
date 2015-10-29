@@ -1,4 +1,4 @@
-﻿using Core.GIS.GeoApi.Extensions.Feature;
+﻿using Core.GIS.GeoAPI.Extensions.Feature;
 
 namespace Core.Plugins.SharpMapGis.Gui.Forms
 {

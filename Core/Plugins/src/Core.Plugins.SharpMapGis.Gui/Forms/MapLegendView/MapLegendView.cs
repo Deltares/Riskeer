@@ -8,7 +8,7 @@ using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
 using Core.Common.Utils.Aop;
-using Core.GIS.GeoApi.CoordinateSystems;
+using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Extensions.Layers;
 using Core.GIS.SharpMap.Layers;

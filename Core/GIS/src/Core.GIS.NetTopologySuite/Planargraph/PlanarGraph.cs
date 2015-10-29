@@ -1,5 +1,5 @@
 using System.Collections;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 
 namespace Core.GIS.NetTopologySuite.Planargraph
 {

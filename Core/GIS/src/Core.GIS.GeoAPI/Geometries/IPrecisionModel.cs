@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.GIS.GeoApi.Geometries
+namespace Core.GIS.GeoAPI.Geometries
 {
     /// <summary>
     /// 

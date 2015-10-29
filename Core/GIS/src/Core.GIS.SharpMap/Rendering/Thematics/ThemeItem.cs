@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
 using Core.Common.Utils.Aop;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Styles;
 

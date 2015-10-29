@@ -7,7 +7,7 @@ using System.Linq;
 using Core.Common.TestUtils;
 using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.Reflection;
-using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Api;

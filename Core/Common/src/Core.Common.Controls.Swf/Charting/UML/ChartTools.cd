@@ -45,10 +45,10 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Core.Common.Controls.Swf.Charting.Tools.GeoApiHelper" Collapsed="true">
+  <Class Name="Core.Common.Controls.Swf.Charting.Tools.GeoAPIHelper" Collapsed="true">
     <Position X="1" Y="0.75" Width="1.5" />
     <NestedTypes>
-      <Class Name="Core.Common.Controls.Swf.Charting.Tools.GeoApiHelper.GeometryFactory" Collapsed="true">
+      <Class Name="Core.Common.Controls.Swf.Charting.Tools.GeoAPIHelper.GeometryFactory" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Charting\Tools\GeoApiHelper.cs</NewMemberFileName>
         </TypeIdentifier>

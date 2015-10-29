@@ -1,4 +1,4 @@
-using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Data;
 using NUnit.Framework;
