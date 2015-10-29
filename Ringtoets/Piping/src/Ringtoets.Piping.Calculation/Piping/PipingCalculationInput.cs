@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// <param name="beddingAngle">The angle of the force balance representing the amount in which sand grains resist rolling. [&#176;]</param>
         /// <param name="exitPointXCoordinate">The x coordinate of the exit point. [m]</param>
         /// <param name="surfaceLine">The surface line.</param>
-        /// <param name="soilProfile"></param>
+        /// <param name="soilProfile">The profile which contains a 1 dimensional definition of soil layers with properties.</param>
         public PipingCalculationInput(double waterVolumetricWeight, double upliftModelFactor, double assessmentLevel, double piezometricHeadExit, double dampingFactorExit, double phreaticLevelExit, double piezometricHeadPolder, double criticalHeaveGradient, double thicknessCoverageLayer, double sellmeijerModelFactor, double sellmeijerReductionFactor, double seepageLength, double sandParticlesVolumicWeight, double whitesDragCoefficient, double diameter70, double darcyPermeability, double waterKinematicViscosity, double gravity, double thicknessAquiferLayer, double meanDiameter70, double beddingAngle, double exitPointXCoordinate, RingtoetsPipingSurfaceLine surfaceLine, PipingSoilProfile soilProfile)
         {
             this.waterVolumetricWeight = waterVolumetricWeight;
@@ -360,7 +360,7 @@ namespace Ringtoets.Piping.Calculation.Piping
         }
 
         /// <summary>
-        /// Gets the surface line.
+        /// The profile which contains a 1 dimensional definition of soil layers with properties.
         /// </summary>
         public PipingSoilProfile SoilProfile
         {
