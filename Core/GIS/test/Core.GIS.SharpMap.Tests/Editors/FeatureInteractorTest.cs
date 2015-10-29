@@ -1,5 +1,5 @@
 ﻿using Core.Common.Utils.Editing;
-using Core.Gis.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Extensions.Feature;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Editors;
 using Core.GIS.SharpMap.Layers;

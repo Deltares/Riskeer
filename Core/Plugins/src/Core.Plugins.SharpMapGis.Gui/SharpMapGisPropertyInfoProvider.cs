@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.Common.Gui;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Data;
 using Core.GIS.SharpMap.Layers;

@@ -1,6 +1,6 @@
 using System.Windows.Forms;
-using Core.Gis.GeoApi.Extensions.Feature;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Data.Providers;

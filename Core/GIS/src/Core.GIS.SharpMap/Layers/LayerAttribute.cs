@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
-using Core.Gis.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.SharpMap.Api.Layers;
 

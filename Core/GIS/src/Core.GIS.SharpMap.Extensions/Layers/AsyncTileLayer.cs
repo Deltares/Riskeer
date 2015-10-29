@@ -7,7 +7,7 @@ using System.Linq;
 using BruTile;
 using BruTile.Cache;
 using BruTile.Web;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Layers;

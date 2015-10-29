@@ -4,8 +4,8 @@ using System.Drawing;
 using Core.Common.Gui;
 using Core.Common.Utils;
 using Core.Common.Utils.ComponentModel;
-using Core.Gis.GeoApi.CoordinateSystems;
-using Core.Gis.GeoApi.CoordinateSystems.Transformations;
+using Core.GIS.GeoApi.CoordinateSystems;
+using Core.GIS.GeoApi.CoordinateSystems.Transformations;
 using Core.GIS.SharpMap.Layers;
 using Core.Plugins.SharpMapGis.Gui.Properties;
 

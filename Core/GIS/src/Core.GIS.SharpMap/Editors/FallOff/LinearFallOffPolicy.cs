@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.NetTopologySuite.Extensions.Geometries;
 using Core.GIS.SharpMap.Api.Editors;
 

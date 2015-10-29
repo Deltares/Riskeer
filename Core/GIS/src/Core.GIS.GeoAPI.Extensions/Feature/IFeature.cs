@@ -1,7 +1,7 @@
 using System;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 
-namespace Core.Gis.GeoApi.Extensions.Feature
+namespace Core.GIS.GeoApi.Extensions.Feature
 {
     public interface IFeature : ICloneable
     {

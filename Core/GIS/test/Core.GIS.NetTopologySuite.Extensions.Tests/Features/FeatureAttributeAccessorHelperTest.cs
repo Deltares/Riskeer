@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using Core.Common.TestUtils;
-using Core.Gis.NetTopologySuite.Extensions.Tests.TestObjects;
+using Core.GIS.NetTopologySuite.Extensions.Tests.TestObjects;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using NUnit.Framework;
 
-namespace Core.Gis.NetTopologySuite.Extensions.Tests.Features
+namespace Core.GIS.NetTopologySuite.Extensions.Tests.Features
 {
     [TestFixture]
     public class FeatureAttributeAccessorHelperTest

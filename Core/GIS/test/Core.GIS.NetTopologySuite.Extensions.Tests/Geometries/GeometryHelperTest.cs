@@ -9,7 +9,7 @@ using NUnit.Framework;
 using SharpTestsEx;
 using Assert = NUnit.Framework.Assert;
 
-namespace Core.Gis.NetTopologySuite.Extensions.Tests.Geometries
+namespace Core.GIS.NetTopologySuite.Extensions.Tests.Geometries
 {
     [TestFixture]
     public class GeometryHelperTest

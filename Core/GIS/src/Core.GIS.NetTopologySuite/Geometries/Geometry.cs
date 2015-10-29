@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
-using Core.Gis.GeoApi.Geometries;
-using Core.Gis.GeoApi.Operation.Buffer;
+using Core.GIS.GeoApi.Geometries;
+using Core.GIS.GeoApi.Operation.Buffer;
 using Core.GIS.NetTopologySuite.Algorithm;
 using Core.GIS.NetTopologySuite.IO;
 using Core.GIS.NetTopologySuite.Operation.Buffer;

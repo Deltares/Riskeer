@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using Core.Gis.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Extensions.Feature;
 
 namespace Core.GIS.SharpMap.Data
 {

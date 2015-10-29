@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
-using Core.Gis.GeoApi.Extensions.Feature;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Geometries;
 
 namespace Core.GIS.SharpMap.Data
 {

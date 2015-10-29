@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.SharpMap.Converters.WellKnownText;
 using Core.GIS.SharpMap.Data;
 using Core.GIS.SharpMap.Data.Providers;

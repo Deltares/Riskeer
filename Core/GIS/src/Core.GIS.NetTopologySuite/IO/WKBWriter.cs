@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 
 namespace Core.GIS.NetTopologySuite.IO
 {

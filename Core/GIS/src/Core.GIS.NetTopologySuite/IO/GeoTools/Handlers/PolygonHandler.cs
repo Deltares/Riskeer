@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.NetTopologySuite.Algorithm;
 using Core.GIS.NetTopologySuite.Geometries;
 

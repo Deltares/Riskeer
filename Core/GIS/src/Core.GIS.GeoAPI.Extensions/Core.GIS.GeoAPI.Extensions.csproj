@@ -8,8 +8,8 @@
     <ProjectGuid>{016DBD27-99BF-489A-81B5-50D66964BB90}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Gis.GeoApi.Extensions</RootNamespace>
-    <AssemblyName>Core.Gis.GeoApi.Extensions</AssemblyName>
+    <RootNamespace>Core.GIS.GeoApi.Extensions</RootNamespace>
+    <AssemblyName>Core.GIS.GeoApi.Extensions</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>

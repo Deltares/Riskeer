@@ -17,7 +17,7 @@
 
 using System.Collections.Generic;
 
-namespace Core.Gis.GeoApi.CoordinateSystems.Transformations
+namespace Core.GIS.GeoApi.CoordinateSystems.Transformations
 {
     /// <summary>
     /// Creates math transforms.

@@ -19,7 +19,7 @@ using System;
 using System.Drawing;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections.Generic;
-using Core.Gis.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Extensions.Feature;
 using Core.GIS.SharpMap.Api;
 
 namespace Core.GIS.SharpMap.Rendering.Thematics

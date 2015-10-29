@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Core.Gis.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Extensions.Feature;
 
 namespace Core.GIS.NetTopologySuite.Extensions.Features
 {

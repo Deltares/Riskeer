@@ -24,7 +24,7 @@ using Core.Common.Utils.Aop;
 using Core.Common.Utils.Aop.Markers;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Api.Layers;

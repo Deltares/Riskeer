@@ -1,6 +1,6 @@
 using System;
 using System.Text;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.NetTopologySuite.Algorithm;
 
 namespace Core.GIS.NetTopologySuite.Geometries

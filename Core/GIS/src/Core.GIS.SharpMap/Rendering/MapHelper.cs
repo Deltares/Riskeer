@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Api;
 using GeometryFactory = Core.GIS.SharpMap.Converters.Geometries.GeometryFactory;

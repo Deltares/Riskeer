@@ -1,4 +1,4 @@
-﻿using Core.Gis.GeoApi.Extensions.Feature;
+﻿using Core.GIS.GeoApi.Extensions.Feature;
 using Core.GIS.SharpMap.Data.Providers;
 using NUnit.Framework;
 using Rhino.Mocks;

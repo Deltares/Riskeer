@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
-using Core.Gis.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Extensions.Feature;
 
 namespace Core.GIS.NetTopologySuite.Extensions.Features
 {

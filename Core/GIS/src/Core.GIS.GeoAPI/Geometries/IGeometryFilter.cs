@@ -1,4 +1,4 @@
-namespace Core.Gis.GeoApi.Geometries
+namespace Core.GIS.GeoApi.Geometries
 {
     /// <summary>
     /// <c>GeometryCollection</c> classes support the concept of

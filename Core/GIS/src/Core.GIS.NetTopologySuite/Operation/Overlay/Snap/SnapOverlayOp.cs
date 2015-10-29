@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.NetTopologySuite.Precision;
 
 namespace Core.GIS.NetTopologySuite.Operation.Overlay.Snap

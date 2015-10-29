@@ -17,8 +17,8 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Gis.GeoApi.CoordinateSystems.Transformations;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.CoordinateSystems.Transformations;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.NetTopologySuite.Geometries;
 using GeometryFactory = Core.GIS.SharpMap.Converters.Geometries.GeometryFactory;
 

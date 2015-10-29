@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace Core.Gis.GeoApi.Geometries
+namespace Core.GIS.GeoApi.Geometries
 {
     /// <summary>
     /// 

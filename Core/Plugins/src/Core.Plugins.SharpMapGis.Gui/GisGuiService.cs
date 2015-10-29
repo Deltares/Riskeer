@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.SharpMap.Api;
 using Core.Plugins.SharpMapGis.Gui.Forms;
 

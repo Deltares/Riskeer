@@ -1,4 +1,4 @@
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.NetTopologySuite.Planargraph;
 
 namespace Core.GIS.NetTopologySuite.Operation.Polygonize

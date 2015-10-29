@@ -1,6 +1,6 @@
 ﻿using Core.Common.Gui;
 using Core.Common.Utils.Reflection;
-using Core.Gis.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Map;
 using Core.GIS.SharpMap.UI.Forms;

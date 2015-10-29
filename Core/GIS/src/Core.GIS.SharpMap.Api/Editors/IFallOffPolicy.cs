@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Core.Gis.GeoApi.Extensions.Feature;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Geometries;
 
 namespace Core.GIS.SharpMap.Api.Editors
 {

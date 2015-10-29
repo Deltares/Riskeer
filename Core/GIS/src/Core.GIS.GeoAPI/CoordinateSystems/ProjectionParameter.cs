@@ -18,7 +18,7 @@
 using System;
 using System.Globalization;
 
-namespace Core.Gis.GeoApi.CoordinateSystems
+namespace Core.GIS.GeoApi.CoordinateSystems
 {
     /// <summary>
     /// A named projection parameter value.

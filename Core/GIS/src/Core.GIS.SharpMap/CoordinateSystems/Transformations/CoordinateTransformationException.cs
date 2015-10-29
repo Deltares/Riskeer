@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Gis.GeoApi.CoordinateSystems;
+using Core.GIS.GeoApi.CoordinateSystems;
 
 namespace Core.GIS.SharpMap.CoordinateSystems.Transformations
 {

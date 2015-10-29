@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Linq;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Wintellect.PowerCollections;
 
 namespace Core.GIS.NetTopologySuite.Planargraph

@@ -20,7 +20,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Aop.Markers;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.SharpMap.Styles.Shapes;
 
 namespace Core.GIS.SharpMap.Styles

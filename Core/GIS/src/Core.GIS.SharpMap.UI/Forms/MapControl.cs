@@ -10,7 +10,7 @@ using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.Reflection;
-using Core.Gis.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Extensions.Feature;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Api.Editors;
 using Core.GIS.SharpMap.Api.Layers;

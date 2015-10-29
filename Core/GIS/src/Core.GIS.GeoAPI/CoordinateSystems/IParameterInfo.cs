@@ -17,7 +17,7 @@
 
 using System.Collections.Generic;
 
-namespace Core.Gis.GeoApi.CoordinateSystems
+namespace Core.GIS.GeoApi.CoordinateSystems
 {
     /// <summary>
     /// The IParameterInfo interface provides an interface through which clients of a

@@ -21,7 +21,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using Core.Common.Utils.Aop;
-using Core.Gis.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Styles;

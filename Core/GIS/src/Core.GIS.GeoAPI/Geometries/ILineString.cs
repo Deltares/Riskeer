@@ -1,4 +1,4 @@
-namespace Core.Gis.GeoApi.Geometries
+namespace Core.GIS.GeoApi.Geometries
 {
     public interface ILineString : ICurve
     {

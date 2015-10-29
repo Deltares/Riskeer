@@ -17,9 +17,9 @@
 
 using System;
 using System.Collections;
-using Core.Gis.GeoApi.CoordinateSystems;
-using Core.Gis.GeoApi.Extensions.Feature;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.CoordinateSystems;
+using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Geometries;
 
 namespace Core.GIS.SharpMap.Api
 {

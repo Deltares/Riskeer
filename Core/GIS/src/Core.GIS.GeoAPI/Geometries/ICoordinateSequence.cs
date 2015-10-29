@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.Gis.GeoApi.Geometries
+namespace Core.GIS.GeoApi.Geometries
 {
     /// <summary>
     /// Standard ordinate index values.

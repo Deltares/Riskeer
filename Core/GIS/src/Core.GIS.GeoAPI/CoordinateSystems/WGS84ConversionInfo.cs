@@ -18,7 +18,7 @@
 using System;
 using System.Globalization;
 
-namespace Core.Gis.GeoApi.CoordinateSystems
+namespace Core.GIS.GeoApi.CoordinateSystems
 {
     /// <summary>
     /// Parameters for a geographic transformation into WGS84. The Bursa Wolf parameters should be applied 

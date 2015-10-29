@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using Core.Gis.GeoApi.Extensions.Feature;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Geometries;
 
-namespace Core.Gis.NetTopologySuite.Extensions.Tests.TestObjects
+namespace Core.GIS.NetTopologySuite.Extensions.Tests.TestObjects
 {
     //Just a subclass
     internal class TestFeatureSubClass : TestFeature {}

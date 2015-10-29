@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Styles;
 using Core.GIS.SharpMap.Utilities;

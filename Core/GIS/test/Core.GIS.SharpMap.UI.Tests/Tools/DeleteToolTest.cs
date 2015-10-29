@@ -1,5 +1,5 @@
 using Core.Common.Utils.Editing;
-using Core.Gis.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.NetTopologySuite.Geometries;
 using Core.GIS.SharpMap.Api.Editors;

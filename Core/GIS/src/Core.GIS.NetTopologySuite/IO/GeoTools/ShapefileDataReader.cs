@@ -3,7 +3,7 @@ using System.Collections;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.NetTopologySuite.IO.GeoTools.Dbase;
 
 namespace Core.GIS.NetTopologySuite.IO.GeoTools

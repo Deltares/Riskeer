@@ -17,7 +17,7 @@
 
 using System;
 using System.Drawing;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Converters.Geometries;
 

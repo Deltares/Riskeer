@@ -26,7 +26,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Caching;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Rendering;
 using Core.GIS.SharpMap.Web.Wms;

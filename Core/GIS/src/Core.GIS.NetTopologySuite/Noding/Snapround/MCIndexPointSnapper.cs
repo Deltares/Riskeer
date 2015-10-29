@@ -1,5 +1,5 @@
 using System.Collections;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.NetTopologySuite.Index;
 using Core.GIS.NetTopologySuite.Index.Chain;
 using Core.GIS.NetTopologySuite.Index.Strtree;

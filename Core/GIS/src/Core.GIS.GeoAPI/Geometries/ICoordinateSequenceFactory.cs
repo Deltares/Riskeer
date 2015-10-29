@@ -1,4 +1,4 @@
-namespace Core.Gis.GeoApi.Geometries
+namespace Core.GIS.GeoApi.Geometries
 {
     /// <summary>
     /// An object that knows how to build a particular implementation of

@@ -1,5 +1,5 @@
 using System;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Geometries;
 
 namespace Core.GIS.NetTopologySuite.Geometries
 {

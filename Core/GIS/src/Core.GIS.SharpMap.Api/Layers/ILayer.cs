@@ -18,10 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Core.Gis.GeoApi.CoordinateSystems;
-using Core.Gis.GeoApi.CoordinateSystems.Transformations;
-using Core.Gis.GeoApi.Extensions.Feature;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.CoordinateSystems;
+using Core.GIS.GeoApi.CoordinateSystems.Transformations;
+using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.SharpMap.Api.Editors;
 
 namespace Core.GIS.SharpMap.Api.Layers

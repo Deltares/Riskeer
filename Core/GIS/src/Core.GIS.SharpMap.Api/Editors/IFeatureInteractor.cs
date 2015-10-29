@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Common.Utils.Editing;
-using Core.Gis.GeoApi.Extensions.Feature;
-using Core.Gis.GeoApi.Geometries;
+using Core.GIS.GeoApi.Extensions.Feature;
+using Core.GIS.GeoApi.Geometries;
 using Core.GIS.SharpMap.Api.Delegates;
 using Core.GIS.SharpMap.Api.Layers;
 

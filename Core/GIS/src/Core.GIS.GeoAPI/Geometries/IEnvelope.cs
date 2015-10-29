@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.Gis.GeoApi.Geometries
+namespace Core.GIS.GeoApi.Geometries
 {
     public interface IEnvelope : ICloneable, IComparable, IComparable<IEnvelope>, IEquatable<IEnvelope>
     {

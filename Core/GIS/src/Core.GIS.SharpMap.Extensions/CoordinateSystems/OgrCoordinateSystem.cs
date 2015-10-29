@@ -1,5 +1,5 @@
 using System;
-using Core.Gis.GeoApi.CoordinateSystems;
+using Core.GIS.GeoApi.CoordinateSystems;
 using OSGeo.OSR;
 
 namespace Core.GIS.SharpMap.Extensions.CoordinateSystems
