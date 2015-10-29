@@ -4,9 +4,10 @@ using System.Drawing.Design;
 using Core.Common.Gui;
 using Core.Common.Utils;
 using Ringtoets.Piping.Data;
-
+using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Piping.Forms.TypeConverters;
 using Ringtoets.Piping.Forms.UITypeEditors;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
@@ -110,18 +111,19 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(NormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataPhreaticLevelExitDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingDataPhreaticLevelExitDescription")]
-        public double PhreaticLevelExit
+        public NormalDistribution PhreaticLevelExit
         {
             get
             {
-                return data.PipingData.PhreaticLevelExit.Mean;
+                return data.PipingData.PhreaticLevelExit;
             }
             set
             {
-                data.PipingData.PhreaticLevelExit.Mean = value;
+                data.PipingData.PhreaticLevelExit = value;
                 data.PipingData.NotifyObservers();
             }
         }

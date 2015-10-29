@@ -57,12 +57,15 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Call & Assert
             Assert.AreEqual(name, properties.Name);
+
+            Assert.AreEqual(pipingData.PhreaticLevelExit.Mean, properties.PhreaticLevelExit.Mean);
+            Assert.AreEqual(pipingData.PhreaticLevelExit.StandardDeviation, properties.PhreaticLevelExit.StandardDeviation);
+
             Assert.AreEqual(0, properties.CriticalHeaveGradient);
             Assert.AreEqual(0, properties.UpliftModelFactor);
             Assert.AreEqual(0, properties.PiezometricHeadExit);
             Assert.AreEqual(0, properties.PiezometricHeadPolder);
             Assert.AreEqual(0, properties.ThicknessCoverageLayer);
-            Assert.AreEqual(0, properties.PhreaticLevelExit);
             Assert.AreEqual(0, properties.AssessmentLevel);
             Assert.AreEqual(0, properties.SellmeijerModelFactor);
             Assert.AreEqual(0, properties.SeepageLength);
