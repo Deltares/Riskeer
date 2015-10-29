@@ -737,9 +737,6 @@ Select No to save the project as a new project at a different location.</value>
   <data name="SaveAsHH" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveAsHH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PlayHS12_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PlayHS12_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="GuiCommandHandler_SaveProjectAs_The_specified_file_path_is_too_long__please_choose_a_shorter_path_" xml:space="preserve">
     <value>The specified file path is too long, please choose a shorter path.</value>
   </data>

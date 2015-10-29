@@ -160,9 +160,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CoordinateSystems\Projections\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\build\DeltaShell.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -74,8 +74,8 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(1e-8, 0, 0)]
-        [TestCase(0, 1e-8, 0)]
+        [TestCase(1e-8, 0)]
+        [TestCase(0, 1e-8)]
         public void Equals_CloseToOtherPoint_ReturnsFalse(double deltaX, double deltaY)
         {
             // Setup

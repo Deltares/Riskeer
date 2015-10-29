@@ -42,7 +42,8 @@
     <OutputPath>bin\Debug\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <NoWarn>1591</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -54,7 +55,8 @@
     <OutputPath>bin\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <Optimize>true</Optimize>
     <NoWarn>
     </NoWarn>
@@ -217,17 +219,12 @@
     <None Include="Resources\folder_output.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\arrow-repeat.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\restart.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\restart_empty.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Threading\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
