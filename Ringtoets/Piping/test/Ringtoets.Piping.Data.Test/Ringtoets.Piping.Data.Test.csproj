@@ -56,6 +56,7 @@
     <Compile Include="Point2DTest.cs" />
     <Compile Include="Probabilistics\LognormalDistributionTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionTest.cs" />
+    <Compile Include="Probabilistics\ShiftedLognormalDistributionTest.cs" />
     <Compile Include="RingtoetsPipingSurfaceLineTest.cs" />
     <Compile Include="Point3DTest.cs" />
     <Compile Include="PointCollectionHelperTest.cs" />

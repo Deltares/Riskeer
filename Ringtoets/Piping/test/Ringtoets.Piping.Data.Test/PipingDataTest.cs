@@ -35,9 +35,10 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.ThicknessCoverageLayer);
             Assert.AreEqual(0, defaultConstructed.ThicknessCoverageLayer.Mean);
             Assert.AreEqual(1, defaultConstructed.ThicknessCoverageLayer.StandardDeviation);
-            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.SandParticlesVolumicWeight);
+            Assert.IsInstanceOf<ShiftedLognormalDistribution>(defaultConstructed.SandParticlesVolumicWeight);
             Assert.AreEqual(16.5, defaultConstructed.SandParticlesVolumicWeight.Mean);
             Assert.AreEqual(1, defaultConstructed.SandParticlesVolumicWeight.StandardDeviation);
+            Assert.AreEqual(0, defaultConstructed.SandParticlesVolumicWeight.Shift);
             Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.CriticalHeaveGradient);
             Assert.AreEqual(0, defaultConstructed.CriticalHeaveGradient.Mean);
             Assert.AreEqual(1, defaultConstructed.CriticalHeaveGradient.StandardDeviation);

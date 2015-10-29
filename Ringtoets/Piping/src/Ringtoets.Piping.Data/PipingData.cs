@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Data
             PhreaticLevelExit = new NormalDistribution();
             DampingFactorExit = new LognormalDistribution { Mean = 1.0 };
             ThicknessCoverageLayer = new LognormalDistribution();
-            SandParticlesVolumicWeight = new LognormalDistribution { Mean = 16.5 };
+            SandParticlesVolumicWeight = new ShiftedLognormalDistribution { Mean = 16.5 };
             CriticalHeaveGradient = new LognormalDistribution();
             SeepageLength = new LognormalDistribution();
             Diameter70 = new LognormalDistribution();
@@ -165,7 +165,7 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
         /// [kN/m&#179;]
         /// </summary>
-        public LognormalDistribution SandParticlesVolumicWeight { get; set; }
+        public ShiftedLognormalDistribution SandParticlesVolumicWeight { get; set; }
 
         /// <summary>
         /// Gets or sets the damping factor at the exit point.
