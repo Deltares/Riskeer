@@ -64,6 +64,7 @@
     <Compile Include="PropertyClasses\PipingSoilProfilePropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingSurfaceLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WtiProjectPropertiesTest.cs" />
+    <Compile Include="TypeConverters\LognormalDistributionTypeConverterTest.cs" />
     <Compile Include="TypeConverters\TextPropertyDescriptorDecoratorTest.cs" />
     <Compile Include="TypeConverters\NormalDistributionTypeConverterTest.cs" />
     <Compile Include="UITypeEditors\PipingCalculationInputsSurfaceLineSelectionEditorTest.cs" />

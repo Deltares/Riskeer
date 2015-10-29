@@ -95,18 +95,19 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataDampingFactorExitDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingDataDampingFactorExitDescription")]
-        public double DampingFactorExit
+        public LognormalDistribution DampingFactorExit
         {
             get
             {
-                return data.PipingData.DampingFactorExit.Mean;
+                return data.PipingData.DampingFactorExit;
             }
             set
             {
-                data.PipingData.DampingFactorExit.Mean = value;
+                data.PipingData.DampingFactorExit = value;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -144,34 +145,36 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataCriticalHeaveGradientDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingDataCriticalHeaveGradientDescription")]
-        public double CriticalHeaveGradient
+        public LognormalDistribution CriticalHeaveGradient
         {
             get
             {
-                return data.PipingData.CriticalHeaveGradient.Mean;
+                return data.PipingData.CriticalHeaveGradient;
             }
             set
             {
-                data.PipingData.CriticalHeaveGradient.Mean = value;
+                data.PipingData.CriticalHeaveGradient = value;
                 data.PipingData.NotifyObservers();
             }
         }
 
+        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataThicknessCoverageLayerDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingDataThicknessCoverageLayerDescription")]
-        public double ThicknessCoverageLayer
+        public LognormalDistribution ThicknessCoverageLayer
         {
             get
             {
-                return data.PipingData.ThicknessCoverageLayer.Mean;
+                return data.PipingData.ThicknessCoverageLayer;
             }
             set
             {
-                data.PipingData.ThicknessCoverageLayer.Mean = value;
+                data.PipingData.ThicknessCoverageLayer = value;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -208,18 +211,19 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataSeepageLengthDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingDataSeepageLengthDescription")]
-        public double SeepageLength
+        public LognormalDistribution SeepageLength
         {
             get
             {
-                return data.PipingData.SeepageLength.Mean;
+                return data.PipingData.SeepageLength;
             }
             set
             {
-                data.PipingData.SeepageLength.Mean = value;
+                data.PipingData.SeepageLength = value;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -256,34 +260,36 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataDiameter70DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingDataDiameter70Description")]
-        public double Diameter70
+        public LognormalDistribution Diameter70
         {
             get
             {
-                return data.PipingData.Diameter70.Mean;
+                return data.PipingData.Diameter70;
             }
             set
             {
-                data.PipingData.Diameter70.Mean = value;
+                data.PipingData.Diameter70 = value;
                 data.PipingData.NotifyObservers();
             }
         }
 
+        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataDarcyPermeabilityDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingDataDarcyPermeabilityDescription")]
-        public double DarcyPermeability
+        public LognormalDistribution DarcyPermeability
         {
             get
             {
-                return data.PipingData.DarcyPermeability.Mean;
+                return data.PipingData.DarcyPermeability;
             }
             set
             {
-                data.PipingData.DarcyPermeability.Mean = value;
+                data.PipingData.DarcyPermeability = value;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -320,18 +326,19 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
+        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingDataThicknessAquiferLayerDisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingDataThicknessAquiferLayerDescription")]
-        public double ThicknessAquiferLayer
+        public LognormalDistribution ThicknessAquiferLayer
         {
             get
             {
-                return data.PipingData.ThicknessAquiferLayer.Mean;
+                return data.PipingData.ThicknessAquiferLayer;
             }
             set
             {
-                data.PipingData.ThicknessAquiferLayer.Mean = value;
+                data.PipingData.ThicknessAquiferLayer = value;
                 data.PipingData.NotifyObservers();
             }
         }

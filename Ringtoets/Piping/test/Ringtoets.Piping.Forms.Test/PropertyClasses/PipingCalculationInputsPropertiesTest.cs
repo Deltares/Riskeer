@@ -61,19 +61,33 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(pipingData.PhreaticLevelExit.Mean, properties.PhreaticLevelExit.Mean);
             Assert.AreEqual(pipingData.PhreaticLevelExit.StandardDeviation, properties.PhreaticLevelExit.StandardDeviation);
 
-            Assert.AreEqual(0, properties.CriticalHeaveGradient);
+            Assert.AreEqual(pipingData.DampingFactorExit.Mean, properties.DampingFactorExit.Mean);
+            Assert.AreEqual(pipingData.DampingFactorExit.StandardDeviation, properties.DampingFactorExit.StandardDeviation);
+
+            Assert.AreEqual(pipingData.ThicknessCoverageLayer.Mean, properties.ThicknessCoverageLayer.Mean);
+            Assert.AreEqual(pipingData.ThicknessCoverageLayer.StandardDeviation, properties.ThicknessCoverageLayer.StandardDeviation);
+
+            Assert.AreEqual(pipingData.CriticalHeaveGradient.Mean, properties.CriticalHeaveGradient.Mean);
+            Assert.AreEqual(pipingData.CriticalHeaveGradient.StandardDeviation, properties.CriticalHeaveGradient.StandardDeviation);
+
+            Assert.AreEqual(pipingData.SeepageLength.Mean, properties.SeepageLength.Mean);
+            Assert.AreEqual(pipingData.SeepageLength.StandardDeviation, properties.SeepageLength.StandardDeviation);
+
+            Assert.AreEqual(pipingData.Diameter70.Mean, properties.Diameter70.Mean);
+            Assert.AreEqual(pipingData.Diameter70.StandardDeviation, properties.Diameter70.StandardDeviation);
+
+            Assert.AreEqual(pipingData.DarcyPermeability.Mean, properties.DarcyPermeability.Mean);
+            Assert.AreEqual(pipingData.DarcyPermeability.StandardDeviation, properties.DarcyPermeability.StandardDeviation);
+
+            Assert.AreEqual(pipingData.ThicknessAquiferLayer.Mean, properties.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(pipingData.ThicknessAquiferLayer.StandardDeviation, properties.ThicknessAquiferLayer.StandardDeviation);
+
             Assert.AreEqual(0, properties.UpliftModelFactor);
             Assert.AreEqual(0, properties.PiezometricHeadExit);
             Assert.AreEqual(0, properties.PiezometricHeadPolder);
-            Assert.AreEqual(0, properties.ThicknessCoverageLayer);
             Assert.AreEqual(0, properties.AssessmentLevel);
             Assert.AreEqual(0, properties.SellmeijerModelFactor);
-            Assert.AreEqual(0, properties.SeepageLength);
-            Assert.AreEqual(0, properties.Diameter70);
-            Assert.AreEqual(0, properties.ThicknessAquiferLayer);
-            Assert.AreEqual(0, properties.DarcyPermeability);
 
-            Assert.AreEqual(1.0, properties.DampingFactorExit);
             Assert.AreEqual(0.3, properties.SellmeijerReductionFactor);
             Assert.AreEqual(16.5, properties.SandParticlesVolumicWeight);
             Assert.AreEqual(9.81, properties.Gravity);

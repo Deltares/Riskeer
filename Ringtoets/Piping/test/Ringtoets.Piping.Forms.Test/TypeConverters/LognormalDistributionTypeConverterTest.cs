@@ -16,13 +16,13 @@ using Ringtoets.Piping.Forms.TypeConverters;
 namespace Ringtoets.Piping.Forms.Test.TypeConverters
 {
     [TestFixture]
-    public class NormalDistributionTypeConverterTest
+    public class LognormalDistributionTypeConverterTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var converter = new NormalDistributionTypeConverter();
+            var converter = new LognormalDistributionTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void CanConvertTo_DestinationTypeIsString_ReturnTrue()
         {
             // Setup
-            var converter = new NormalDistributionTypeConverter();
+            var converter = new LognormalDistributionTypeConverter();
 
             // Call
             var canConvert = converter.CanConvertTo(typeof(string));
@@ -42,21 +42,21 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         }
 
         [Test]
-        public void ConvertTo_DestinationTypeIsString_ReturnNormalDistributionSpecs()
+        public void ConvertTo_DestinationTypeIsString_ReturnLognormalDistributionSpecs()
         {
             // Setup
-            var distribution = new NormalDistribution
+            var distribution = new LognormalDistribution
             {
                 Mean = 1.1,
                 StandardDeviation = 2.2
             };
-            var converter = new NormalDistributionTypeConverter();
+            var converter = new LognormalDistributionTypeConverter();
 
             // Call
             var result = converter.ConvertTo(distribution, typeof(string));
 
             // Assert
-            var expectedText = string.Format("Normale verdeling (\u03BC = {0}, \u03C3 = {1})",
+            var expectedText = string.Format("Lognormale verdeling (\u03BC = {0}, \u03C3 = {1})",
                                              distribution.Mean, distribution.StandardDeviation);
             Assert.AreEqual(expectedText, result);
         }
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetPropertiesSupported_Always_ReturnTrue()
         {
             // Setup
-            var converter = new NormalDistributionTypeConverter();
+            var converter = new LognormalDistributionTypeConverter();
 
             // Call
             var hasSubProperties = converter.GetPropertiesSupported();
@@ -78,8 +78,8 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetProperties_Always_ReturnMeanAndStandardDeviation()
         {
             // Setup
-            var distribution = new NormalDistribution();
-            var converter = new NormalDistributionTypeConverter();
+            var distribution = new LognormalDistribution();
+            var converter = new LognormalDistributionTypeConverter();
 
             // Call
             var properties = converter.GetProperties(distribution);
@@ -92,14 +92,14 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             Assert.AreEqual(typeof(double), meanPropertyDescriptor.PropertyType);
             Assert.IsFalse(meanPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("\u03BC", meanPropertyDescriptor.DisplayName);
-            Assert.AreEqual("De gemiddelde waarde van de normale verdeling.", meanPropertyDescriptor.Description);
+            Assert.AreEqual("De gemiddelde waarde van de lognormale verdeling.", meanPropertyDescriptor.Description);
 
             var stdPropertyDescriptor = properties[1];
             Assert.AreEqual(distribution.GetType(), stdPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(double), stdPropertyDescriptor.PropertyType);
             Assert.IsFalse(stdPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("\u03C3", stdPropertyDescriptor.DisplayName);
-            Assert.AreEqual("De standaardafwijking van de normale verdeling.", stdPropertyDescriptor.Description);
+            Assert.AreEqual("De standaardafwijking van de lognormale verdeling.", stdPropertyDescriptor.Description);
         }
 
         #region Integration tests
@@ -131,9 +131,9 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             pipingData.Attach(observer);
 
-            NormalDistribution distribution = calculationInputsProperties.PhreaticLevelExit;
+            LognormalDistribution distribution = calculationInputsProperties.DampingFactorExit;
 
-            var properties = new NormalDistributionTypeConverter().GetProperties(typeDescriptorContextMock, distribution);
+            var properties = new LognormalDistributionTypeConverter().GetProperties(typeDescriptorContextMock, distribution);
 
             // Precondition
             Assert.IsNotNull(properties);
