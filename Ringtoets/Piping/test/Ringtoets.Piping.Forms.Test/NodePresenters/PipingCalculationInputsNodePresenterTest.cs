@@ -468,28 +468,28 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var validPipingInput = new TestPipingInput();
             pipingData.AssessmentLevel = validPipingInput.AssessmentLevel;
             pipingData.BeddingAngle = validPipingInput.BeddingAngle;
-            pipingData.CriticalHeaveGradient = validPipingInput.CriticalHeaveGradient;
-            pipingData.DampingFactorExit = validPipingInput.DampingFactorExit;
-            pipingData.DarcyPermeability = validPipingInput.DarcyPermeability;
-            pipingData.Diameter70 = validPipingInput.Diameter70;
+            pipingData.CriticalHeaveGradient.Mean = validPipingInput.CriticalHeaveGradient;
+            pipingData.DampingFactorExit.Mean = validPipingInput.DampingFactorExit;
+            pipingData.DarcyPermeability.Mean = validPipingInput.DarcyPermeability;
+            pipingData.Diameter70.Mean = validPipingInput.Diameter70;
             pipingData.ExitPointXCoordinate = validPipingInput.ExitPointXCoordinate;
             pipingData.Gravity = validPipingInput.Gravity;
             pipingData.MeanDiameter70 = validPipingInput.MeanDiameter70;
-            pipingData.PhreaticLevelExit = validPipingInput.PhreaticLevelExit;
+            pipingData.PhreaticLevelExit.Mean = validPipingInput.PhreaticLevelExit;
             pipingData.PiezometricHeadExit = validPipingInput.PiezometricHeadExit;
             pipingData.PiezometricHeadPolder = validPipingInput.PiezometricHeadPolder;
-            pipingData.SandParticlesVolumicWeight = validPipingInput.SandParticlesVolumicWeight;
-            pipingData.SeepageLength = validPipingInput.SeepageLength;
+            pipingData.SandParticlesVolumicWeight.Mean = validPipingInput.SandParticlesVolumicWeight;
+            pipingData.SeepageLength.Mean = validPipingInput.SeepageLength;
             pipingData.SellmeijerModelFactor = validPipingInput.SellmeijerModelFactor;
             pipingData.SellmeijerReductionFactor = validPipingInput.SellmeijerReductionFactor;
-            pipingData.ThicknessAquiferLayer = validPipingInput.ThicknessAquiferLayer;
-            pipingData.ThicknessCoverageLayer = validPipingInput.ThicknessCoverageLayer;
+            pipingData.ThicknessAquiferLayer.Mean = validPipingInput.ThicknessAquiferLayer;
+            pipingData.ThicknessCoverageLayer.Mean = validPipingInput.ThicknessCoverageLayer;
             pipingData.UpliftModelFactor = validPipingInput.UpliftModelFactor;
             pipingData.WaterVolumetricWeight = validPipingInput.WaterVolumetricWeight;
             pipingData.WaterKinematicViscosity = validPipingInput.WaterKinematicViscosity;
             pipingData.WhitesDragCoefficient = validPipingInput.WhitesDragCoefficient;
             pipingData.SurfaceLine = new RingtoetsPipingSurfaceLine();
-            pipingData.SoilProfile = new PipingSoilProfile(String.Empty,random.NextDouble(), new []
+            pipingData.SoilProfile = new PipingSoilProfile(String.Empty, random.NextDouble(), new[]
             {
                 new PipingSoilLayer(1.0) 
             });
@@ -510,7 +510,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Action action = () =>
             {
                 contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
-                while(activityRunner.IsRunning)
+                while (activityRunner.IsRunning)
                 {
                     // Do something useful while waiting for calculation to finish...
                     Application.DoEvents();

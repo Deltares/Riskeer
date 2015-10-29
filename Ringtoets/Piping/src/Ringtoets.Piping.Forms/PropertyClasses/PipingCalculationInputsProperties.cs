@@ -101,11 +101,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.PipingData.DampingFactorExit;
+                return data.PipingData.DampingFactorExit.Mean;
             }
             set
             {
-                data.PipingData.DampingFactorExit = value;
+                data.PipingData.DampingFactorExit.Mean = value;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -117,11 +117,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.PipingData.PhreaticLevelExit;
+                return data.PipingData.PhreaticLevelExit.Mean;
             }
             set
             {
-                data.PipingData.PhreaticLevelExit = value;
+                data.PipingData.PhreaticLevelExit.Mean = value;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -149,11 +149,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.PipingData.CriticalHeaveGradient;
+                return data.PipingData.CriticalHeaveGradient.Mean;
             }
             set
             {
-                data.PipingData.CriticalHeaveGradient = value;
+                data.PipingData.CriticalHeaveGradient.Mean = value;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -165,11 +165,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.PipingData.ThicknessCoverageLayer;
+                return data.PipingData.ThicknessCoverageLayer.Mean;
             }
             set
             {
-                data.PipingData.ThicknessCoverageLayer = value;
+                data.PipingData.ThicknessCoverageLayer.Mean = value;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -213,11 +213,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.PipingData.SeepageLength;
+                return data.PipingData.SeepageLength.Mean;
             }
             set
             {
-                data.PipingData.SeepageLength = value;
+                data.PipingData.SeepageLength.Mean = value;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -229,11 +229,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.PipingData.SandParticlesVolumicWeight;
+                return data.PipingData.SandParticlesVolumicWeight.Mean;
             }
             set
             {
-                data.PipingData.SandParticlesVolumicWeight = value;
+                data.PipingData.SandParticlesVolumicWeight.Mean = value;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -261,11 +261,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.PipingData.Diameter70;
+                return data.PipingData.Diameter70.Mean;
             }
             set
             {
-                data.PipingData.Diameter70 = value;
+                data.PipingData.Diameter70.Mean = value;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -277,11 +277,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.PipingData.DarcyPermeability;
+                return data.PipingData.DarcyPermeability.Mean;
             }
             set
             {
-                data.PipingData.DarcyPermeability = value;
+                data.PipingData.DarcyPermeability.Mean = value;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -325,11 +325,11 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         {
             get
             {
-                return data.PipingData.ThicknessAquiferLayer;
+                return data.PipingData.ThicknessAquiferLayer.Mean;
             }
             set
             {
-                data.PipingData.ThicknessAquiferLayer = value;
+                data.PipingData.ThicknessAquiferLayer.Mean = value;
                 data.PipingData.NotifyObservers();
             }
         }

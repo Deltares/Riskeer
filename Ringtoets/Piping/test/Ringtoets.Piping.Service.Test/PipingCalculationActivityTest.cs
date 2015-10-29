@@ -93,8 +93,8 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             var validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
-            validPipingData.Diameter70 = 0;
-            validPipingData.DarcyPermeability = 0;
+            validPipingData.Diameter70.Mean = 0;
+            validPipingData.DarcyPermeability.Mean = 0;
             validPipingData.Output = new TestPipingOutput();
 
             var activity = new PipingCalculationActivity(validPipingData);

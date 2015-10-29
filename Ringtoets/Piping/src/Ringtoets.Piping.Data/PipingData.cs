@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Core.Common.BaseDelftTools;
 
+using Ringtoets.Piping.Data.Probabilistics;
+
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
@@ -23,21 +25,24 @@ namespace Ringtoets.Piping.Data
             Gravity = 9.81;
             WaterKinematicViscosity = 1.33e-6;
             WhitesDragCoefficient = 0.25;
-            SandParticlesVolumicWeight = 16.5;
             WaterVolumetricWeight = 9.81;
             SellmeijerReductionFactor = 0.3;
-            DampingFactorExit = 1.0;
+
+            PhreaticLevelExit = new NormalDistribution();
+            DampingFactorExit = new LognormalDistribution { Mean = 1.0 };
+            ThicknessCoverageLayer = new LognormalDistribution();
+            SandParticlesVolumicWeight = new LognormalDistribution { Mean = 16.5 };
+            CriticalHeaveGradient = new LognormalDistribution();
+            SeepageLength = new LognormalDistribution();
+            Diameter70 = new LognormalDistribution();
+            DarcyPermeability = new LognormalDistribution();
+            ThicknessAquiferLayer = new LognormalDistribution();
         }
 
         /// <summary>
         /// Gets or sets the name the user gave this this calculation object.
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the damping factor at the exit point.
-        /// </summary>
-        public double DampingFactorExit { get; set; }
 
         /// <summary>
         /// Gets or sets the reduction factor Sellmeijer.
@@ -49,12 +54,6 @@ namespace Ringtoets.Piping.Data
         /// [kN/m&#179;]
         /// </summary>
         public double WaterVolumetricWeight { get; set; }
-
-        /// <summary>
-        /// Gets or sets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
-        /// [kN/m&#179;]
-        /// </summary>
-        public double SandParticlesVolumicWeight { get; set; }
 
         /// <summary>
         /// Gets or sets the White's drag coefficient.
@@ -103,27 +102,10 @@ namespace Ringtoets.Piping.Data
         public double PiezometricHeadExit { get; set; }
 
         /// <summary>
-        /// Gets or sets the phreatic level at the exit point.
-        /// [m]
-        /// </summary>
-        public double PhreaticLevelExit { get; set; }
-
-        /// <summary>
         /// Gets or sets the piezometric head in the hinterland.
         /// [m]
         /// </summary>
         public double PiezometricHeadPolder { get; set; }
-
-        /// <summary>
-        /// Gets or sets the critical exit gradient for heave.
-        /// </summary>
-        public double CriticalHeaveGradient { get; set; }
-
-        /// <summary>
-        /// Gets or sets the total thickness of the coverage layer at the exit point.
-        /// [m]
-        /// </summary>
-        public double ThicknessCoverageLayer { get; set; }
 
         /// <summary>
         /// Gets or sets the calculation value used to account for uncertainty in the model for Sellmeijer.
@@ -131,34 +113,66 @@ namespace Ringtoets.Piping.Data
         public double SellmeijerModelFactor { get; set; }
 
         /// <summary>
+        /// Gets or sets the x coordinate of the exit point.
+        /// [m]
+        /// </summary>
+        public double ExitPointXCoordinate { get; set; }
+
+        #region Probabilistic parameters
+
+        /// <summary>
+        /// Gets or sets the phreatic level at the exit point.
+        /// [m]
+        /// </summary>
+        public NormalDistribution PhreaticLevelExit { get; set; }
+
+        /// <summary>
         /// Gets or sets the horizontal distance between entree and exit point.
         /// [m]
         /// </summary>
-        public double SeepageLength { get; set; }
+        public LognormalDistribution SeepageLength { get; set; }
 
         /// <summary>
         /// Gets or sets the sieve size through which 70% fraction of the grains of the top part of the aquifer passes.
         /// [m]
         /// </summary>
-        public double Diameter70 { get; set; }
+        public LognormalDistribution Diameter70 { get; set; }
 
         /// <summary>
         /// Gets or sets the Darcy-speed with which water flows through the aquifer layer.
         /// [m/s]
         /// </summary>
-        public double DarcyPermeability { get; set; }
+        public LognormalDistribution DarcyPermeability { get; set; }
 
         /// <summary>
         /// Gets or sets the thickness of the aquifer layer.
         /// [m]
         /// </summary>
-        public double ThicknessAquiferLayer { get; set; }
+        public LognormalDistribution ThicknessAquiferLayer { get; set; }
 
         /// <summary>
-        /// Gets or sets the x coordinate of the exit point.
+        /// Gets or sets the critical exit gradient for heave.
+        /// </summary>
+        public LognormalDistribution CriticalHeaveGradient { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total thickness of the coverage layer at the exit point.
         /// [m]
         /// </summary>
-        public double ExitPointXCoordinate { get; set; }
+        public LognormalDistribution ThicknessCoverageLayer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
+        /// [kN/m&#179;]
+        /// </summary>
+        public LognormalDistribution SandParticlesVolumicWeight { get; set; }
+
+        /// <summary>
+        /// Gets or sets the damping factor at the exit point.
+        /// </summary>
+        public LognormalDistribution DampingFactorExit { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Gets or sets the surface line.

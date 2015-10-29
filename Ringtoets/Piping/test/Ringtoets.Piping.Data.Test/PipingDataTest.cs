@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 
-using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.Probabilistics;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -25,24 +25,44 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.AreEqual("Piping", defaultConstructed.Name);
 
-            Assert.AreEqual(0, defaultConstructed.CriticalHeaveGradient);
+            Assert.IsInstanceOf<NormalDistribution>(defaultConstructed.PhreaticLevelExit);
+            Assert.AreEqual(0, defaultConstructed.PhreaticLevelExit.Mean);
+            Assert.AreEqual(1, defaultConstructed.PhreaticLevelExit.StandardDeviation);
+
+            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.DampingFactorExit);
+            Assert.AreEqual(1, defaultConstructed.DampingFactorExit.Mean);
+            Assert.AreEqual(1, defaultConstructed.DampingFactorExit.StandardDeviation);
+            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.ThicknessCoverageLayer);
+            Assert.AreEqual(0, defaultConstructed.ThicknessCoverageLayer.Mean);
+            Assert.AreEqual(1, defaultConstructed.ThicknessCoverageLayer.StandardDeviation);
+            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.SandParticlesVolumicWeight);
+            Assert.AreEqual(16.5, defaultConstructed.SandParticlesVolumicWeight.Mean);
+            Assert.AreEqual(1, defaultConstructed.SandParticlesVolumicWeight.StandardDeviation);
+            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.CriticalHeaveGradient);
+            Assert.AreEqual(0, defaultConstructed.CriticalHeaveGradient.Mean);
+            Assert.AreEqual(1, defaultConstructed.CriticalHeaveGradient.StandardDeviation);
+            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.SeepageLength);
+            Assert.AreEqual(0, defaultConstructed.SeepageLength.Mean);
+            Assert.AreEqual(1, defaultConstructed.SeepageLength.StandardDeviation);
+            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.Diameter70);
+            Assert.AreEqual(0, defaultConstructed.Diameter70.Mean);
+            Assert.AreEqual(1, defaultConstructed.Diameter70.StandardDeviation);
+            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.DarcyPermeability);
+            Assert.AreEqual(0, defaultConstructed.DarcyPermeability.Mean);
+            Assert.AreEqual(1, defaultConstructed.DarcyPermeability.StandardDeviation);
+            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.ThicknessAquiferLayer);
+            Assert.AreEqual(0, defaultConstructed.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(1, defaultConstructed.ThicknessAquiferLayer.StandardDeviation);
+
             Assert.AreEqual(0, defaultConstructed.UpliftModelFactor);
             Assert.AreEqual(0, defaultConstructed.PiezometricHeadExit);
             Assert.AreEqual(0, defaultConstructed.PiezometricHeadPolder);
-            Assert.AreEqual(0, defaultConstructed.ThicknessCoverageLayer);
-            Assert.AreEqual(0, defaultConstructed.PhreaticLevelExit);
             Assert.AreEqual(0, defaultConstructed.AssessmentLevel);
             Assert.AreEqual(0, defaultConstructed.SellmeijerModelFactor);
-            Assert.AreEqual(0, defaultConstructed.SeepageLength);
-            Assert.AreEqual(0, defaultConstructed.Diameter70);
-            Assert.AreEqual(0, defaultConstructed.ThicknessAquiferLayer);
-            Assert.AreEqual(0, defaultConstructed.DarcyPermeability);
             Assert.IsNull(defaultConstructed.SurfaceLine);
             Assert.IsNull(defaultConstructed.SoilProfile);
 
-            Assert.AreEqual(1.0, defaultConstructed.DampingFactorExit);
             Assert.AreEqual(0.3, defaultConstructed.SellmeijerReductionFactor);
-            Assert.AreEqual(16.5, defaultConstructed.SandParticlesVolumicWeight);
             Assert.AreEqual(9.81, defaultConstructed.Gravity);
             Assert.AreEqual(1.33e-6, defaultConstructed.WaterKinematicViscosity);
             Assert.AreEqual(9.81, defaultConstructed.WaterVolumetricWeight);

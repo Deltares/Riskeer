@@ -68,5 +68,14 @@ namespace Ringtoets.Piping.Data.Properties {
                 return ResourceManager.GetString("Error_CannotConstructPipingSoilProfileWithoutLayers", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Standaard afwijking (&amp;#963;) moet groter zijn dan 0..
+        /// </summary>
+        internal static string NormalDistribution_StandardDeviation_Should_be_greater_then_zero {
+            get {
+                return ResourceManager.GetString("NormalDistribution_StandardDeviation_Should_be_greater_then_zero", resourceCulture);
+            }
+        }
     }
 }
