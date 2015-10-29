@@ -1,11 +1,8 @@
 using System;
-using System.Diagnostics;
 using System.Threading;
-using System.Windows;
 using Application.Ringtoets;
 using Core.Common.BaseDelftTools.Workflow;
 using Core.Common.TestUtils;
-using Core.Common.Utils.Collections;
 using Core.GIS.SharpMap.Map;
 using Core.Plugins.CommonTools;
 using Core.Plugins.CommonTools.Gui;
@@ -18,7 +15,7 @@ using Rhino.Mocks;
 using SharpTestsEx;
 using Control = System.Windows.Controls.Control;
 
-namespace DeltaShell.IntegrationTests.DeltaShell.Application.Ringtoets
+namespace Core.Common.IntegrationTests.DeltaShell.Application.Ringtoets
 {
     [TestFixture]
     public class DeltaShellGuiIntegrationTest

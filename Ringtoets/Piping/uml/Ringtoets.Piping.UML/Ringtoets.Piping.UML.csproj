@@ -7,8 +7,8 @@
     <ProjectGuid>{4AD99020-8612-46E5-A313-F9ADA7B196E4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UML</RootNamespace>
-    <AssemblyName>UML</AssemblyName>
+    <RootNamespace>Ringtoets.Piping.UML</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.UML</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

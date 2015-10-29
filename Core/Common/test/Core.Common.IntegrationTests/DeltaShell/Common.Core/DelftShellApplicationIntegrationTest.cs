@@ -3,7 +3,7 @@ using Core.Common.Base;
 using Core.Common.BaseDelftTools.Workflow;
 using NUnit.Framework;
 
-namespace DeltaShell.IntegrationTests.DeltaShell.Common.Core
+namespace Core.Common.IntegrationTests.DeltaShell.Common.Core
 {
     [TestFixture]
     public class DeltaShellApplicationIntegrationTest

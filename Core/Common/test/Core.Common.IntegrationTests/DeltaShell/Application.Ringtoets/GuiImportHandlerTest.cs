@@ -16,7 +16,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
-namespace DeltaShell.IntegrationTests.DeltaShell.Application.Ringtoets
+namespace Core.Common.IntegrationTests.DeltaShell.Application.Ringtoets
 {
     [TestFixture]
     public class GuiImportHandlerTest
