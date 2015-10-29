@@ -34,7 +34,6 @@
     <Cultures>nl-NL</Cultures>
     <SuppressAllWarnings>True</SuppressAllWarnings>
     <Pedantic>False</Pedantic>
-    <DefineConstants>Release</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Installer UI\BrowseDlgDeltares.wxs" />
