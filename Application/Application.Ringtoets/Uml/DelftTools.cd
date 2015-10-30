@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Core.Common.Core.Project">
-    <Position X="8.25" Y="1.25" Width="2" />
+  <Class Name="Core.Common.BaseDelftTools.Project">
+    <Position X="3.75" Y="0.5" Width="2" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
       <Compartment Name="Events" Collapsed="true" />
@@ -9,41 +9,12 @@
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="Core.Common.Core.IApplication">
-    <Position X="5" Y="0.75" Width="2.25" />
-    <TypeIdentifier />
-    <ShowAsAssociation>
-      <Property Name="Project" />
-      <Property Name="ProjectService" />
-      <Property Name="ModelService" />
-      <Property Name="DataItemService" />
-    </ShowAsAssociation>
-  </Interface>
-  <Interface Name="Core.Common.Core.IPlugin">
-    <Position X="8.25" Y="4.5" Width="1.5" />
+  <Interface Name="Core.Common.BaseDelftTools.IApplication">
+    <Position X="0.5" Y="0.5" Width="2.25" />
     <TypeIdentifier />
   </Interface>
-  <Interface Name="Core.Common.Core.Dao.IProjectRepository">
-    <Position X="16.25" Y="4" Width="2" />
-    <Compartments>
-      <Compartment Name="Properties" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier />
-  </Interface>
-  <Interface Name="Core.Common.BaseDelftTools.Data.IObjectRepository&lt;T, ID&gt;">
-    <Position X="16.25" Y="2" Width="2" />
-    <TypeIdentifier />
-  </Interface>
-  <Interface Name="Core.Common.Core.Services.IDataItemService" Collapsed="true">
-    <Position X="2" Y="2.75" Width="1.5" />
-    <TypeIdentifier />
-  </Interface>
-  <Interface Name="Core.Common.Core.Services.IModelService" Collapsed="true">
-    <Position X="2" Y="2" Width="1.5" />
-    <TypeIdentifier />
-  </Interface>
-  <Interface Name="Core.Common.Core.Services.IProjectService" Collapsed="true">
-    <Position X="2" Y="1.25" Width="1.5" />
+  <Interface Name="Core.Common.BaseDelftTools.IPlugin">
+    <Position X="3.75" Y="3.25" Width="2.25" />
     <TypeIdentifier />
   </Interface>
   <Font Name="Tahoma" Size="8.25" />
