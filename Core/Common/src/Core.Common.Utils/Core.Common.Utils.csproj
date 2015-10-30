@@ -121,13 +121,6 @@
     <Compile Include="ComponentModel\DynamicEditorAttribute.cs" />
     <Compile Include="ComponentModel\DynamicVisibleAttribute.cs" />
     <Compile Include="ComponentModel\DynamicVisibleValidationMethodAttribute.cs" />
-    <Compile Include="Csv\Importer\CsvColumnInfo.cs" />
-    <Compile Include="Csv\Importer\CsvFilter.cs" />
-    <Compile Include="Csv\Importer\CsvMappingData.cs" />
-    <Compile Include="Csv\Importer\CsvImporter.cs" />
-    <Compile Include="Csv\Importer\CsvPassIfEqualFilter.cs" />
-    <Compile Include="Csv\Importer\CsvRequiredField.cs" />
-    <Compile Include="Csv\Importer\CsvSettings.cs" />
     <Compile Include="CultureUtils.cs" />
     <Compile Include="DateTimeExtensions.cs" />
     <Compile Include="DateTimeFormatGuesser.cs" />

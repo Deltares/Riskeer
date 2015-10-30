@@ -56,7 +56,6 @@ namespace Core.Common.Controls.Swf.Table
         private readonly EventedList<TableViewCell> selectedCells;
         private readonly TableViewValidator tableViewValidator;
         private readonly EventedList<ITableViewColumn> columns;
-        private readonly TableViewDataToolBar dataToolToolbar;
 
         private bool isPasting;
         private bool isSelectionChanging;
@@ -74,12 +73,6 @@ namespace Core.Common.Controls.Swf.Table
         public TableView()
         {
             InitializeComponent();
-            dataToolToolbar = new TableViewDataToolBar
-            {
-                Dock = DockStyle.Top, Visible = false
-            };
-            dataToolToolbar.SetTableView(this);
-            Controls.Add(dataToolToolbar);
 
             columns = new EventedList<ITableViewColumn>();
             ColumnMenuItems = new List<TableViewColumnMenuItem>();
@@ -849,29 +842,6 @@ namespace Core.Common.Controls.Swf.Table
 
         #region Public properties
 
-        public bool ShowImportExportToolbar
-        {
-            get
-            {
-                return dataToolToolbar.Visible;
-            }
-            set
-            {
-                dataToolToolbar.Visible = value;
-            }
-        }
-
-        /// <summary>
-        /// Exposes the data toolbar.
-        /// </summary>
-        public TableViewDataToolBar DataToolToolBar
-        {
-            get
-            {
-                return dataToolToolbar;
-            }
-        }
-
         /// <summary>
         /// Specifies whether the edit buttons on the bottom of the table view is shown
         /// </summary>
@@ -1251,8 +1221,6 @@ namespace Core.Common.Controls.Swf.Table
                 UpdateHeaderColumnSize();
 
                 EndInit();
-
-                dataToolToolbar.RefreshButtons();
             }
         }
 
