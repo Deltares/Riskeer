@@ -79,6 +79,15 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens het inlezen van &apos;{0}&apos; waardoor import niet uitgevoerd kan worden: {1}.
+        /// </summary>
+        public static string PipingSoilProfilesImporter_CriticalErrorReading_0_Cause_1_ {
+            get {
+                return ResourceManager.GetString("PipingSoilProfilesImporter_CriticalErrorReading_0_Cause_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grondprofielen importeren afgebroken. Geen data ingelezen..
         /// </summary>
         public static string PipingSoilProfilesImporter_ImportItem_ImportCancelled {
@@ -93,6 +102,15 @@ namespace Ringtoets.Piping.Plugin.Properties {
         public static string PipingSoilProfilesImporter_ReadingDatabase {
             get {
                 return ResourceManager.GetString("PipingSoilProfilesImporter_ReadingDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een leesfout opgetreden bij ondergrondprofiel van bestand &apos;{0}&apos; en is overgeslagen: {1}.
+        /// </summary>
+        public static string PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_ {
+            get {
+                return ResourceManager.GetString("PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_", resourceCulture);
             }
         }
         

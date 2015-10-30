@@ -196,6 +196,24 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan de geometry van laag nummer &apos;{0}&apos; in profiel &apos;{1}&apos; niet interpreteren..
+        /// </summary>
+        public static string PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_ {
+            get {
+                return ResourceManager.GetString("PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De database heeft niet de vereiste versie informatie. Vereiste versie is: {0}..
+        /// </summary>
+        public static string PipingSoilProfileReader_DatabaseFileIncorrectVersions_Requires_0 {
+            get {
+                return ResourceManager.GetString("PipingSoilProfileReader_DatabaseFileIncorrectVersions_Requires_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ondergrondprofiel in database bevat geen geldige waarde in kolom {0}..
         /// </summary>
         public static string PipingSoilProfileReader_InvalidValueOnColumn {

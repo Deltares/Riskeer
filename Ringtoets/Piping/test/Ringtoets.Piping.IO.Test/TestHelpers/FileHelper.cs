@@ -4,12 +4,12 @@ namespace Ringtoets.Piping.IO.Test.TestHelpers
 {
     public static class FileHelper {
 
-        public static bool CanOpenFileForWrite(string dbFile)
+        public static bool CanOpenFileForWrite(string pathToFile)
         {
             FileStream file = null;
             try
             {
-                file = File.OpenWrite(dbFile);
+                file = File.OpenWrite(pathToFile);
                 return true;
             }
             catch (IOException)

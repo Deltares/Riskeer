@@ -183,4 +183,10 @@
   <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_NoId" xml:space="preserve">
     <value>Het bestand '{0}' heeft op regel {1} heeft geen ID.</value>
   </data>
+  <data name="PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_" xml:space="preserve">
+    <value>Kan de geometry van laag nummer '{0}' in profiel '{1}' niet interpreteren.</value>
+  </data>
+  <data name="PipingSoilProfileReader_DatabaseFileIncorrectVersions_Requires_0" xml:space="preserve">
+    <value>De database heeft niet de vereiste versie informatie. Vereiste versie is: {0}.</value>
+  </data>
 </root>

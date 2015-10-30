@@ -17,22 +17,50 @@ namespace Ringtoets.Piping.IO.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingSoilProfilesReader");
 
         [Test]
-        public void ReadProfile_NextNotCalled_ThrowsInvalidOperationException()
+        public void Constructor_NonExistingPath_ThrowsFileNotFoundException()
         {
             // Setup
-            var testFile = "1dprofile.soil";
-            var dbFile = Path.Combine(testDataPath, testFile);
+            var testFile = Path.Combine(testDataPath, "none.soil");
 
-            using (var pipingSoilProfileReader = new PipingSoilProfileReader(dbFile))
-            {
-                // Call
-                TestDelegate test = () =>
-                {
-                    pipingSoilProfileReader.ReadProfile();
-                };
-                // Assert
-                Assert.Throws<InvalidOperationException>(test);
-            }
+            // Call
+            TestDelegate test = () => new PipingSoilProfileReader(testFile);
+
+            // Assert
+            var exception = Assert.Throws<FileNotFoundException>(test);
+            Assert.AreEqual(String.Format(Resources.Error_File_0_does_not_exist, testFile), exception.Message);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        public void Constructor_FileNullOrEmpty_ThrowsArgumentException(string fileName)
+        {
+            // Call
+            TestDelegate test = () => new PipingSoilProfileReader(fileName);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual(Resources.Error_PathMustBeSpecified, exception.Message);
+        }
+
+        [Test]
+        [TestCase("text.txt")]
+        [TestCase("empty.soil")]
+        public void Constructor_IncorrectFormatFileOrInvalidSchema_ThrowsPipingSoilProfileReadException(string dbName)
+        {
+            // Setup
+            var dbFile = Path.Combine(testDataPath, dbName);
+
+            // Precondition
+            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
+
+            // Call
+            TestDelegate test = () => new PipingSoilProfileReader(dbFile);
+
+            // Assert
+            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            Assert.AreEqual(String.Format(Resources.Error_SoilProfileReadFromDatabase, dbName), exception.Message);
+            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
@@ -44,37 +72,15 @@ namespace Ringtoets.Piping.IO.Test
 
             using (var pipingSoilProfileReader = new PipingSoilProfileReader(dbFile))
             {
-                while (pipingSoilProfileReader.Next())
+                while (pipingSoilProfileReader.HasNext)
                 {
                     pipingSoilProfileReader.ReadProfile();
                 }
 
                 // Call
-                TestDelegate test = () =>
-                {
-                    pipingSoilProfileReader.ReadProfile();
-                };
+                TestDelegate test = () => { pipingSoilProfileReader.ReadProfile(); };
                 // Assert
                 Assert.Throws<InvalidOperationException>(test);
-            }
-        }
-
-        [Test]
-        public void Next_InvalidSchema_ThrowsPipingSoilProfileReadException()
-        {
-            // Setup
-            var testFile = "empty.soil";
-            var dbFile = Path.Combine(testDataPath, testFile);
-
-            using (var pipingSoilProfileReader = new PipingSoilProfileReader(dbFile))
-            {
-                // Call
-                TestDelegate test = () =>
-                {
-                    pipingSoilProfileReader.Next();
-                };
-                // Assert
-                Assert.Throws<PipingSoilProfileReadException>(test);
             }
         }
 
@@ -117,74 +123,20 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
-        public void Constructor_NonExistingPath_ThrowsFileNotFoundException()
-        {
-            // Setup
-            var testFile = Path.Combine(testDataPath, "none.soil");
-
-            // Call
-            TestDelegate test = () => new PipingSoilProfileReader(testFile);
-
-            // Assert
-            var exception = Assert.Throws<FileNotFoundException>(test);
-            Assert.AreEqual(String.Format(Resources.Error_File_0_does_not_exist, testFile), exception.Message);
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        public void Constructor_FileNullOrEmpty_ThrowsArgumentException(string fileName)
-        {
-            // Call
-            TestDelegate test = () => new PipingSoilProfileReader(fileName);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual(Resources.Error_PathMustBeSpecified, exception.Message);
-        }
-
-        [Test]
-        public void Next_IncorrectFormatFile_ThrowsPipingSoilProfileReadException()
-        {
-            // Setup
-            var dbName = "text";
-            var dbFile = Path.Combine(testDataPath, dbName + ".txt");
-
-            using (var pipingSoilProfileReader = new PipingSoilProfileReader(dbFile))
-            {
-                // Call
-                TestDelegate test = () => pipingSoilProfileReader.Next();
-
-                // Assert
-                var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-                Assert.AreEqual(String.Format(Resources.Error_SoilProfileReadFromDatabase, dbName), exception.Message);
-            }
-        }
-
-        [Test]
         public void ReadProfile_DatabaseWith1DProfile3Layers_ReturnsProfile()
         {
             // Setup
             var testFile = "1dprofile.soil";
             var dbFile = Path.Combine(testDataPath, testFile);
             var reader = new PipingSoilProfileReader(dbFile);
+
             PipingSoilProfile profile;
-            var skipped = 0;
+
             // Call
-            while (reader.Next())
-            {
-                try
-                {
-                    profile = reader.ReadProfile();
-                }
-                catch (PipingSoilProfileReadException)
-                {
-                    skipped++;
-                }
-            } 
+            profile = reader.ReadProfile();
 
             // Assert
-            Assert.AreEqual(0, skipped);
+            Assert.AreEqual(3,profile.Layers.Count());
         }
 
         [Test]
@@ -199,7 +151,7 @@ namespace Ringtoets.Piping.IO.Test
                 var result = new Collection<PipingSoilProfile>();
 
                 // Call
-                while (pipingSoilProfilesReader.Next())
+                while (pipingSoilProfilesReader.HasNext)
                 {
                     result.Add(pipingSoilProfilesReader.ReadProfile());
                 }
@@ -211,21 +163,25 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
-        public void Read_DatabaseWithNullValueForBottom_ThrowsPipingSoilProfileReadException()
+        public void Read_DatabaseProfileWithInvalid2dLayerGeometry_SkipsTheProfile()
         {
             // Setup
-            var testFile = "invalidbottom.soil";
+            var testFile = "invalid2dGeometry.soil";
             using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
             {
-                pipingSoilProfilesReader.Next();
-
                 // Call
-                TestDelegate test = () => pipingSoilProfilesReader.ReadProfile();
+                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
+                Func<PipingSoilProfile> profile2 = () => pipingSoilProfilesReader.ReadProfile();
 
                 // Assert
-                var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-                var message = String.Format(Resources.PipingSoilProfileReader_InvalidValueOnColumn, "Bottom");
+                var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
+                var message = String.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, 1, "Profile");
                 Assert.AreEqual(message, exception.Message);
+
+                var pipingSoilProfile = profile2();
+                Assert.AreEqual("Profile2", pipingSoilProfile.Name);
+                Assert.AreEqual(3, pipingSoilProfile.Layers.Count());
+
                 Assert.IsTrue(FileHelper.CanOpenFileForWrite(testFile));
             }
         }
@@ -266,9 +222,9 @@ namespace Ringtoets.Piping.IO.Test
             {
                 // Call
                 var result = new Collection<PipingSoilProfile>();
-                var skippedProfiles = 0;
+                var skipped = 0;
 
-                while (pipingSoilProfilesReader.Next())
+                while (pipingSoilProfilesReader.HasNext)
                 {
                     try
                     {
@@ -276,11 +232,12 @@ namespace Ringtoets.Piping.IO.Test
                     }
                     catch
                     {
-                        skippedProfiles++;
+                        skipped++;
                     }
                 }
 
                 // Assert
+                Assert.AreEqual(0, skipped);
                 Assert.AreEqual(1, result.Count);
                 Assert.AreEqual(-2.1, result[0].Bottom);
                 CollectionAssert.AreEqual(new[]
@@ -302,7 +259,7 @@ namespace Ringtoets.Piping.IO.Test
                 ICollection<PipingSoilProfile> result = new List<PipingSoilProfile>();
                 int skipped = 0;
 
-                while (pipingSoilProfilesReader.Next())
+                while (pipingSoilProfilesReader.HasNext)
                 {
                     try
                     {
@@ -379,7 +336,32 @@ namespace Ringtoets.Piping.IO.Test
 
                 CollectionAssert.AreEquivalent(new[]
                 {
-                    9,8,8,6,6,5,5,6,4,4,3,3,7,7,7,5,5,5,6,6,4,5,4,4,2,3
+                    9,
+                    8,
+                    8,
+                    6,
+                    6,
+                    5,
+                    5,
+                    6,
+                    4,
+                    4,
+                    3,
+                    3,
+                    7,
+                    7,
+                    7,
+                    5,
+                    5,
+                    5,
+                    6,
+                    6,
+                    4,
+                    5,
+                    4,
+                    4,
+                    2,
+                    3
                 }, result.Select(p => p.Layers.Count()));
 
                 var firstProfile = result.FirstOrDefault(l => l.Name == "AD640M00_Segment_36005_1D1");

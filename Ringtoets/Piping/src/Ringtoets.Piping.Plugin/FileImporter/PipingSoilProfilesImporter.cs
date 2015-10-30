@@ -96,24 +96,27 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             var importResult = ReadSoilProfiles(path);
 
-            if (!ShouldCancel)
+            if (!importResult.CriticalErrorOccurred)
             {
-                AddImportedDataToModel(target, importResult);
-            }
-            else
-            {
-                HandleUserCancellingImport();
+                if (!ShouldCancel)
+                {
+                    AddImportedDataToModel(target, importResult);
+                }
+                else
+                {
+                    HandleUserCancellingImport();
+                }
             }
 
             return target;
         }
 
-        private void AddImportedDataToModel(object target, IEnumerable<PipingSoilProfile> importedSoilProfiles)
+        private void AddImportedDataToModel(object target, SoilProfilesReadResult importedSoilProfiles)
         {
             NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_AddingImportedDataToModel, 2, 2);
 
             var targetCollection = (ICollection<PipingSoilProfile>)target;
-            foreach (var soilProfile in importedSoilProfiles)
+            foreach (var soilProfile in importedSoilProfiles.ImportedSoilProfiles)
             {
                 targetCollection.Add(soilProfile);
             }
@@ -125,33 +128,40 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private IEnumerable<PipingSoilProfile> ReadSoilProfiles(string path)
+        private SoilProfilesReadResult ReadSoilProfiles(string path)
         {
-            using (var soilProfileReader = new PipingSoilProfileReader(path))
+            var profiles = new Collection<PipingSoilProfile>();
+            PipingSoilProfileReader soilProfileReader = null;
+
+            try
+            {
+                soilProfileReader = new PipingSoilProfileReader(path);
+            }
+            catch (Exception e)
+            {
+                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorReading_0_Cause_1_,
+                                            path, e.Message);
+                log.Error(message);
+                return new SoilProfilesReadResult(true);
+            }
+
+            while (soilProfileReader.HasNext)
             {
                 try
                 {
-                    var profiles = new Collection<PipingSoilProfile>();
-
-                    while (soilProfileReader.Next())
-                    {
-                        try
-                        {
-                            profiles.Add(soilProfileReader.ReadProfile());
-                        }
-                        catch (Exception e)
-                        {
-                            log.Warn(e.Message);
-                        }
-                    }
-                    return profiles;
+                    profiles.Add(soilProfileReader.ReadProfile());
                 }
                 catch (PipingSoilProfileReadException e)
                 {
-                    log.Error(e.Message);
-                    return Enumerable.Empty<PipingSoilProfile>();
+                    var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_,
+                                                path, e.Message);
+                    log.Error(message);
                 }
             }
+            return new SoilProfilesReadResult(false)
+            {
+                ImportedSoilProfiles = profiles
+            };
         }
 
         private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
@@ -165,6 +175,19 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         private void HandleUserCancellingImport()
         {
             log.Info(ApplicationResources.PipingSoilProfilesImporter_ImportItem_ImportCancelled);
+        }
+
+        private class SoilProfilesReadResult
+        {
+            public SoilProfilesReadResult(bool errorOccurred)
+            {
+                CriticalErrorOccurred = errorOccurred;
+                ImportedSoilProfiles = new PipingSoilProfile[0];
+            }
+
+            public ICollection<PipingSoilProfile> ImportedSoilProfiles { get; set; }
+
+            public bool CriticalErrorOccurred { get; private set; }
         }
     }
 }

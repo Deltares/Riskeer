@@ -12,7 +12,6 @@ namespace Ringtoets.Piping.IO
 {
     /// <summary>
     /// This class reads a SqLite database file and constructs <see cref="PipingSoilProfile"/> from this database.
-    /// The database is created with the DSoilModel application.
     /// </summary>
     public class PipingSoilProfileReader : IDisposable
     {
@@ -37,62 +36,51 @@ namespace Ringtoets.Piping.IO
         private SQLiteConnection connection;
         private SQLiteDataReader dataReader;
 
+        private readonly string databaseFileName;
+        private readonly string databaseRequiredVersion = "15.0.5.0";
+
         /// <summary>
-        /// Creates a new instance of <see cref="PipingSoilProfileReader"/> which will use the <paramref name="dbFile"/>
-        /// as its source. The reader will not point to any record at the start. Use <see cref="Next"/> to start reading
+        /// Creates a new instance of <see cref="PipingSoilProfileReader"/> which will use the <paramref name="databaseFilePath"/>
+        /// as its source. The reader will not point to any record at the start. Use <see cref="MoveNext"/> to start reading
         /// profiles.
         /// </summary>
-        /// <param name="dbFile">The path of the database file to open.</param>
-        public PipingSoilProfileReader(string dbFile)
+        /// <param name="databaseFilePath">The path of the database file to open.</param>
+        public PipingSoilProfileReader(string databaseFilePath)
         {
-            if (String.IsNullOrEmpty(dbFile))
+            if (String.IsNullOrEmpty(databaseFilePath))
             {
                 throw new ArgumentException(Resources.Error_PathMustBeSpecified);
             }
-            if (!File.Exists(dbFile))
+            if (!File.Exists(databaseFilePath))
             {
-                throw new FileNotFoundException(String.Format(Resources.Error_File_0_does_not_exist, dbFile));
+                throw new FileNotFoundException(String.Format(Resources.Error_File_0_does_not_exist, databaseFilePath));
             }
 
-            OpenConnection(dbFile);
+            databaseFileName = Path.GetFileName(databaseFilePath);
+            OpenConnection(databaseFilePath);
+            SetReaderToFirstRecord();
         }
+
+        /// <summary>
+        /// Gets the value <c>true</c> if profiles can be read using the <see cref="PipingSoilProfileReader"/>.
+        /// <c>false</c> otherwise.
+        /// </summary>
+        public bool HasNext { get; private set; }
 
         /// <summary>
         /// Prepares the next layer from the database.
         /// </summary>
         /// <returns>False if there are no more rows to be read. True otherwise.</returns>
-        /// <exception cref="PipingSoilProfileReadException">Thrown when reading the layer entry from the database failed.</exception>
         /// <exception cref="XmlException">Thrown when parsing the geometry of a 2d soil layer failed.</exception>
         public PipingSoilProfile ReadProfile()
         {
-            if (dataReader == null)
+            if (!HasNext)
             {
-                throw new InvalidOperationException(GetType() + " was not initialized using Next()");
+                throw new InvalidOperationException("Reader has reached the end and cannot read more profiles.");
             }
 
-            return TryRead<long>(dimensionColumn) == 1 ? ReadPipingProfile1D().Build() : ReadPipingProfile2D().Build();
-        }
-
-        /// <summary>
-        /// Moves the reader to the next record in the database.
-        /// </summary>
-        /// <returns><c>true</c> if there was another record. Otherwise, <c>false</c>.</returns>
-        /// <remarks>You should never make two calls to this method without calling <see cref="ReadProfile"/> in between.</remarks>
-        public bool Next()
-        {
-            InitializeReader();
-            if (!dataReader.Read())
-            {
-                if (dataReader.NextResult())
-                {
-                    return dataReader.Read();
-                }
-            }
-            else
-            {
-                return true;
-            }
-            return false;
+            var dimensionValue = Read<long>(dimensionColumn);
+            return dimensionValue == 1 ? ReadPipingProfile1D().Build() : ReadPipingProfile2D().Build();
         }
 
         public void Dispose()
@@ -105,62 +93,88 @@ namespace Ringtoets.Piping.IO
             connection.Dispose();
         }
 
+        /// <summary>
+        /// Moves the reader to the next record in the database.
+        /// </summary>
+        private void MoveNext()
+        {
+            HasNext = dataReader.Read() || (dataReader.NextResult() && dataReader.Read());
+        }
+
         private ISoilProfileBuilder ReadPipingProfile1D()
         {
-            var profileName = TryRead<string>(profileNameColumn);
-            var bottom = TryRead<double>(bottomColumn);
-            var layerCount = TryRead<long>(layerCountColumn);
 
+            var profileName = Read<string>(profileNameColumn);
+            var layerCount = Read<long>(layerCountColumn);
+            var bottom = Read<double>(bottomColumn);
+            
             var soilProfileBuilder = new SoilProfileBuilder1D(profileName, bottom);
 
-            for (int i = 1; i <= layerCount; i++)
+            for (var i = 1; i <= layerCount; i++)
             {
                 soilProfileBuilder.Add(ReadPipingSoilLayer());
-                if (i < layerCount)
-                {
-                    Next();
-                }
+                MoveNext();
             }
+
             return soilProfileBuilder;
         }
 
         private ISoilProfileBuilder ReadPipingProfile2D()
         {
-            var profileName = TryRead<string>(profileNameColumn);
-            var intersectionX = TryRead<double>(intersectionXColumn);
-            var layerCount = TryRead<long>(layerCountColumn);
 
+            var profileName = Read<string>(profileNameColumn);
+            var layerCount = Read<long>(layerCountColumn);
+            var intersectionX = Read<double>(intersectionXColumn);
+            
             var soilProfileBuilder = new SoilProfileBuilder2D(profileName, intersectionX);
 
             for (int i = 1; i <= layerCount; i++)
             {
-                soilProfileBuilder.Add(ReadPiping2DSoilLayer());
-                if (i < layerCount)
+                try
                 {
-                    Next();
+                    soilProfileBuilder.Add(ReadPiping2DSoilLayer());
                 }
+                catch (XmlException e)
+                {
+                    var exception = new PipingSoilProfileReadException(
+                        string.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, i, profileName), e);
+                    
+                    while (i++ <= layerCount)
+                    {
+                        MoveNext();
+                    }
+
+                    throw exception;
+                }
+                MoveNext();
             }
+
             return soilProfileBuilder;
         }
 
-        private void InitializeReader()
+        private void SetReaderToFirstRecord()
         {
-            if (dataReader == null)
-            {
-                PrepareQueries();
-            }
+            InitializeDataReader();
+            MoveNext();
         }
 
-        private T TryRead<T>(string columnName)
+        private bool TryRead<T>(string columnName, out T value)
         {
             try
             {
-                return (T) dataReader[columnName];
+                value = (T) dataReader[columnName];
+                return true;
             }
             catch (InvalidCastException e)
             {
-                throw new PipingSoilProfileReadException(String.Format(Resources.PipingSoilProfileReader_InvalidValueOnColumn, columnName), e);
+                value = default(T);
+                return false;
             }
+        }
+
+        private T Read<T>(string columnName)
+        {
+            return (T)dataReader[columnName];
         }
 
         private void OpenConnection(string dbFile)
@@ -191,9 +205,18 @@ namespace Ringtoets.Piping.IO
 
         private PipingSoilLayer ReadPipingSoilLayer()
         {
-            var columnValue = TryRead<double>(topColumn);
-            var isAquiferValue = TryRead<double>(isAquiferColumn);
-            var pipingSoilLayer = new PipingSoilLayer(columnValue)
+            double topValue;
+            double isAquiferValue;
+
+            var columnValueRead = TryRead(topColumn, out topValue);
+            var isAquiferValueRead = TryRead(isAquiferColumn, out isAquiferValue);
+
+            if (!columnValueRead || !isAquiferValueRead)
+            {
+                return null;
+            }
+
+            var pipingSoilLayer = new PipingSoilLayer(topValue)
             {
                 IsAquifer = isAquiferValue.Equals(1.0)
             };
@@ -202,17 +225,35 @@ namespace Ringtoets.Piping.IO
 
         private SoilLayer2D ReadPiping2DSoilLayer()
         {
-            var geometry = TryRead<byte[]>(layerGeometryColumn);
-            var isAquiferValue = TryRead<double>(isAquiferColumn);
+            double isAquiferValue;
+            byte[] geometryValue;
 
-            SoilLayer2D pipingSoilLayer = new PipingSoilLayer2DReader(geometry).Read();
+            var geometryRead = TryRead(layerGeometryColumn, out geometryValue);
+            var isAquiferValueRead = TryRead(isAquiferColumn, out isAquiferValue);
+
+            if (!geometryRead || !isAquiferValueRead)
+            {
+                return null;
+            }
+
+            SoilLayer2D pipingSoilLayer = new PipingSoilLayer2DReader(geometryValue).Read();
             pipingSoilLayer.IsAquifer = isAquiferValue.Equals(1.0);
 
             return pipingSoilLayer;
         }
 
-        private void PrepareQueries()
+        /// <summary>
+        /// Prepares the two queries required for obtaining all the SoilProfile1D and SoilProfile2D with an x defined
+        /// to take an intersection from. Since two separate queries are used, the <see cref="dataReader"/> will
+        /// have two result sets which the <see cref="MoveNext()"/> method takes into account.
+        /// </summary>
+        private void InitializeDataReader()
         {
+            string versionQuery = string.Format(
+                "SELECT Value FROM _Metadata WHERE Key = 'VERSION' AND Value = '{0}';",
+                databaseRequiredVersion
+                );
+
             string materialPropertiesQuery = string.Format(
                 string.Join(" ",
                             "(SELECT",
@@ -343,7 +384,7 @@ namespace Ringtoets.Piping.IO
                 layer2DPropertiesQuery,
                 mechanismParameterName);
 
-            dataReader = CreateDataReader(query2D + query1D, new SQLiteParameter
+            CreateDataReader(versionQuery + query2D + query1D, new SQLiteParameter
             {
                 DbType = DbType.String,
                 Value = pipingMechanismName,
@@ -352,9 +393,9 @@ namespace Ringtoets.Piping.IO
         }
 
         /// <summary>
-        /// Creates a new data reader to use in this class, based on a query which returns all the known soil layers for which its profile has a X coordinate defined for piping.
+        /// Creates a new data reader to use in this class.
         /// </summary>
-        private SQLiteDataReader CreateDataReader(string queryString, params SQLiteParameter[] parameters)
+        private void CreateDataReader(string queryString, params SQLiteParameter[] parameters)
         {
             using (var query = new SQLiteCommand(connection)
             {
@@ -365,13 +406,27 @@ namespace Ringtoets.Piping.IO
 
                 try
                 {
-                    return query.ExecuteReader();
+                    dataReader = query.ExecuteReader();
+                    CheckVersion();
                 }
                 catch (SQLiteException e)
                 {
-                    throw new PipingSoilProfileReadException(string.Format(Resources.Error_SoilProfileReadFromDatabase, connection.DataSource), e);
+                    connection.Dispose();
+                    var exception = new PipingSoilProfileReadException(string.Format(Resources.Error_SoilProfileReadFromDatabase, databaseFileName), e);
+                    throw exception;
                 }
             }
+        }
+
+        private void CheckVersion()
+        {
+            if (!dataReader.HasRows)
+            {
+                throw new PipingSoilProfileReadException(String.Format(
+                    Resources.PipingSoilProfileReader_DatabaseFileIncorrectVersions_Requires_0,
+                    databaseRequiredVersion));
+            }
+            dataReader.NextResult();
         }
     }
 }

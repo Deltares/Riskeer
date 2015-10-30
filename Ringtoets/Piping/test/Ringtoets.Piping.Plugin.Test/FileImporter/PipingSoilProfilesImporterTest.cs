@@ -12,6 +12,7 @@ using Ringtoets.Piping.Plugin.FileImporter;
 
 using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
+using WtiIOResources = Ringtoets.Piping.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.FileImporter
 {
@@ -103,24 +104,69 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void ImportItem_ImportingToInvalidTargetWithValidFile_ImportSoilProfilesToCollection()
+        public void ImportItem_ImportingToValidTargetWithEmptyFile_AbortImportAndLog()
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "empty.soil");
-            var piping = new PipingFailureMechanism();
+            string corruptPath = Path.Combine(testDataPath, "empty.soil");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
 
             var importer = new PipingSoilProfilesImporter();
 
-            var importTarget = piping.SoilProfiles;
+            var observableSoilProfileList = new ObservableList<PipingSoilProfile>();
+            observableSoilProfileList.Attach(observer);
 
-            // Precondition
-            Assert.IsTrue(importer.CanImportOn(importTarget));
+            object importedItem = null;
 
             // Call
-            var importedItem = importer.ImportItem(validFilePath, importTarget);
+            Action call = () => importedItem = importer.ImportItem(corruptPath, observableSoilProfileList);
 
             // Assert
-            Assert.AreSame(importTarget, importedItem);
+            var internalErrorMessage = string.Format(WtiIOResources.Error_SoilProfileReadFromDatabase,
+                                                     Path.GetFileName(corruptPath));
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorReading_0_Cause_1_,
+                                                   corruptPath, internalErrorMessage);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            Assert.AreSame(observableSoilProfileList, importedItem);
+            CollectionAssert.IsEmpty(observableSoilProfileList,
+                "No items should be added to collection when import is aborted.");
+            mocks.VerifyAll(); // Expect no calls on 'observer'
+        }
+
+        [Test]
+        public void ImportItem_ImportingToValidTargetWithProfileContainingInvalidValue_SkipImportAndLog()
+        {
+            // Setup
+            string corruptPath = Path.Combine(testDataPath, "invalid2dGeometry.soil");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var importer = new PipingSoilProfilesImporter();
+
+            var observableSoilProfileList = new ObservableList<PipingSoilProfile>();
+            observableSoilProfileList.Attach(observer);
+
+            object importedItem = null;
+
+            // Call
+            Action call = () => importedItem = importer.ImportItem(corruptPath, observableSoilProfileList);
+
+            // Assert
+            var internalErrorMessage = string.Format(WtiIOResources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_,
+                                                     1, "Profile");
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_,
+                                                   corruptPath, internalErrorMessage);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+
+            Assert.AreSame(observableSoilProfileList, importedItem);
+            Assert.AreEqual(1, observableSoilProfileList.Count);
+
+            mocks.VerifyAll();
         }
     }
 }
