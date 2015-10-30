@@ -1,76 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Interface Name="Core.Common.Gui.IGuiView">
-    <Position X="7" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IGuiView.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Core.Common.Gui.ICompositeViewProvider">
-    <Position X="1.25" Y="4.5" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>ICompositeViewProvider.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Interface Name="Core.Common.Gui.IConfigureDialog">
-    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Position X="2.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IConfigureDialog.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Core.Common.Gui.IViewManager">
-    <Position X="5" Y="1" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>AIIAEIAAAAAAIAAAAAAACUACDAAAAMAAAAAAAABACAA=</HashCode>
-      <FileName>IViewManager.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="ActiveView" />
-      <Property Name="ViewProvider" />
-    </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="AllViews" />
-    </ShowAsCollectionAssociation>
-  </Interface>
-  <Interface Name="Core.Common.Gui.IViewProvider">
-    <Position X="1" Y="1.25" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AEAAAAAAAQAAAAABIAEAAAAAAAAAAIAgAAAAAAAAAAA=</HashCode>
-      <FileName>IViewProvider.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Interface Name="Core.Common.Controls.IView">
-    <Position X="9.5" Y="2.25" Width="1.5" />
-    <TypeIdentifier />
-  </Interface>
-  <Interface Name="Core.Common.Controls.IView&lt;T&gt;">
-    <Position X="11.5" Y="6" Width="1.5" />
+    <Position X="2.75" Y="2.25" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Core.Common.Controls.ICompositeView">
-    <Position X="13.75" Y="6" Width="1.5" />
-    <TypeIdentifier />
-  </Interface>
-  <Interface Name="Core.Common.Controls.IContextAwareView">
-    <Position X="9" Y="6" Width="2" />
-    <TypeIdentifier />
-  </Interface>
-  <Interface Name="Core.Common.Controls.ISuspendibleView">
-    <Position X="12" Y="2.75" Width="1.5" />
+    <Position X="1.25" Y="6" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Core.Common.Controls.IReusableView">
-    <Position X="15.75" Y="6" Width="1.5" />
+    <Position X="4.25" Y="6" Width="1.5" />
     <TypeIdentifier />
   </Interface>
+  <Interface Name="Core.Common.Gui.IViewResolver">
+    <Position X="6.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAIAAAAAAABEAAAAAAAkQAAAAAIAAAAAAAAAACAA=</HashCode>
+      <FileName>IViewResolver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Enum Name="Core.Common.Gui.ViewLocation">
-    <Position X="3" Y="6.25" Width="1.5" />
+    <Position X="6.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAUAAAAAAAIAAACCACAAAAAAAA=</HashCode>
-      <FileName>IViewManager.cs</FileName>
+      <FileName>IViewList.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

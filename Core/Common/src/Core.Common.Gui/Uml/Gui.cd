@@ -1,109 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Core.Common.Gui.SelectedItemChangedEventArgs">
-    <Position X="11" Y="20.75" Width="2.75" />
+    <Position X="10.25" Y="6" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ItemEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Core.Common.Gui.SelectedItemChangedEventArgs&lt;T&gt;">
-    <Position X="11" Y="22.5" Width="2.75" />
+  <Class Name="Core.Common.Gui.PropertyInfoExtensions">
+    <Position X="10.25" Y="7.75" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ItemEventArgs.cs</FileName>
+      <FileName>PropertyInfoExtensions.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Core.Common.Gui.guiPluginPlugin" BaseTypeListCollapsed="true">
-    <Position X="14.75" Y="18.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>GuiPluginConfiguration.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Core.Common.Gui.ViewEventArgs">
-    <Position X="11" Y="24.25" Width="2.75" />
+  <Class Name="Core.Common.Gui.ActiveViewChangeEventArgs">
+    <Position X="10.25" Y="9.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ViewEventArgs.cs</FileName>
+      <FileName>ActiveViewChangeEventArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Core.Common.Gui.GuiPlugin" Collapsed="true">
-    <Position X="9.5" Y="8.25" Width="1.5" />
+    <Position X="9.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>YEAAQAAAJCRgEAFAECAIAEQAAAABgBAAEACBAAAACEA=</HashCode>
+      <HashCode>YMQAUAAAICRgEABAECAIAAQAAAIBgBAAEACBAAAICAA=</HashCode>
       <FileName>GuiPlugin.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Interface Name="Core.Common.Gui.IGui">
-    <Position X="6.75" Y="8" Width="1.75" />
-    <AssociationLine Name="CompositeViewProvider" Type="Core.Common.Gui.ICompositeViewProvider" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="8.5" Y="9.312" />
-        <Point X="9.174" Y="9.312" />
-        <Point X="9.174" Y="9.562" />
-        <Point X="11.75" Y="9.562" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.212" Y="0.155" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <AssociationLine Name="CopyPasteHandler" Type="Core.Common.Gui.IProjectItemCopyPasteHandler" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="6.75" Y="9.345" />
-        <Point X="5.882" Y="9.345" />
-        <Point X="5.882" Y="18" />
-        <Point X="3.5" Y="18" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.098" Y="0.29" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <AssociationLine Name="DocumentViews" Type="Core.Common.Gui.IViewManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="6.75" Y="9.057" />
-        <Point X="5.476" Y="9.057" />
-        <Point X="5.476" Y="13.587" />
-        <Point X="3" Y="13.587" />
-      </Path>
-    </AssociationLine>
+    <Position X="6.5" Y="2.25" Width="1.75" />
     <AssociationLine Name="MainWindow" Type="Core.Common.Gui.Forms.IMainWindow" FixedFromPoint="true">
       <Path>
-        <Point X="6.75" Y="8.576" />
-        <Point X="3" Y="8.576" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="ToolWindowViews" Type="Core.Common.Gui.IViewManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="6.75" Y="8.816" />
-        <Point X="5.052" Y="8.816" />
-        <Point X="5.052" Y="12.512" />
-        <Point X="3" Y="12.512" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="UndoRedoManager" Type="Core.Common.BaseDelftTools.UndoRedo.IUndoRedoManager" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="6.75" Y="9.489" />
-        <Point X="6.51" Y="9.489" />
-        <Point X="6.51" Y="21.415" />
-        <Point X="3" Y="21.415" />
+        <Point X="6.5" Y="2.826" />
+        <Point X="2.75" Y="2.826" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAgAAABAAIAAAAAAGgBAABAAAAAAAIkAAAwAAACI=</HashCode>
+      <HashCode>AAAAAgAAABAAIAAAAAAnAAEABAAAEAAAIgAAQgAAQCI=</HashCode>
       <FileName>IGui.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Application" />
       <Property Name="CommandHandler" />
-      <Property Name="CompositeViewProvider" />
-      <Property Name="CopyPasteHandler" />
-      <Property Name="DocumentViews" />
-      <Property Name="ViewContextManager" />
       <Property Name="MainWindow" />
-      <Property Name="ToolWindowViews" />
-      <Property Name="UndoRedoManager" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Commands" />
@@ -111,103 +51,53 @@
     </ShowAsCollectionAssociation>
   </Interface>
   <Interface Name="Core.Common.Gui.IGuiCommandHandler">
-    <Position X="8" Y="17.25" Width="1.75" />
+    <Position X="7.75" Y="11.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>ACAACAAREAAqAKQQFAoiACAAZgAkAiQAMEAhKIAAgBA=</HashCode>
+      <HashCode>ACIgCAAQAAAKAIAAAAIhAAIAYAAACIAAIEABIAAAABA=</HashCode>
       <FileName>IGuiCommandHandler.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Core.Common.Gui.Forms.IMainWindow">
-    <Position X="1.25" Y="7.5" Width="1.75" />
+    <Position X="1" Y="1.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAIIAAEAAAQAAAAAAAAAEAAgIAAAAAAGAAIA=</HashCode>
+      <HashCode>AAIAAAAAAIAAAEAAAQAgAAAAAAAEAAgIAAAAAACAgIA=</HashCode>
       <FileName>Forms\IMainWindow.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Core.Common.Core.IApplication" Collapsed="true">
-    <Position X="9.25" Y="6" Width="1.75" />
-    <TypeIdentifier />
-  </Interface>
-  <Interface Name="Core.Common.Gui.ICompositeViewProvider">
-    <Position X="11.75" Y="9.25" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>ICompositeViewProvider.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Core.Common.Gui.IProjectItemCopyPasteHandler">
-    <Position X="1.25" Y="16.25" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AQQRBAAAAAQAAAAAAAAAAAAAAgAAAAAAQEAAAAAACAA=</HashCode>
-      <FileName>IProjectItemCopyPasteHandler.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Core.Common.Gui.IViewManager">
-    <Position X="1.25" Y="11.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AIIAEIAAAAAAAAAAQAAACUACCAAAAMAAAAAAAABACAA=</HashCode>
-      <FileName>IViewManager.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Core.Common.BaseDelftTools.UndoRedo.IUndoRedoManager">
-    <Position X="1.25" Y="19.25" Width="1.75" />
-    <TypeIdentifier />
-  </Interface>
-  <Interface Name="Core.Common.Gui.IViewProvider">
-    <Position X="11.75" Y="6.5" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AEAAAAAAAQAAAAABAAEAAAAAAAIAAIAgAAAAAAAAAAA=</HashCode>
-      <FileName>IViewProvider.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Interface Name="Core.Common.Controls.ICommand">
-    <Position X="11.75" Y="11" Width="2.25" />
+    <Position X="3.5" Y="5.5" Width="2.25" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Core.Common.Gui.Forms.IProjectExplorer">
-    <Position X="1.25" Y="4.5" Width="1.75" />
+    <Position X="2" Y="13.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEIAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEIAAAA=</HashCode>
       <FileName>Forms\IProjectExplorer.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Core.Common.Gui.IGuiContextManager">
-    <Position X="11.5" Y="15" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAABAAAAAQAAAAAAAAAAAAAAAAAAAAACAAAAAAAEAAA=</HashCode>
-      <FileName>IGuiContextManager.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Interface Name="Core.Common.Gui.IConfigureDialog">
-    <Position X="11" Y="18.5" Width="2.25" />
+    <Position X="10.25" Y="4.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IConfigureDialog.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Core.Common.Gui.IGuiView">
-    <Position X="4.25" Y="4.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IGuiView.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Core.Common.Gui.ISelectionContainer">
-    <Position X="6.5" Y="3.25" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAEAAAQAAAQAA=</HashCode>
-      <FileName>ISelectionContainer.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
   <Interface Name="Core.Common.Controls.IView">
-    <Position X="2.75" Y="0.5" Width="1.5" />
+    <Position X="2.25" Y="10.75" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="Core.Common.Gui.IGuiCommand" Collapsed="true">
-    <Position X="9.5" Y="11.5" Width="1.5" />
+    <Position X="3.75" Y="7.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IGuiCommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Core.Common.Gui.IViewResolver">
+    <Position X="11.5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAIAAAAAAABEAAAAAAAkQAAAAAIAAAAAAAAAACAA=</HashCode>
+      <FileName>IViewResolver.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Tahoma" Size="8.25" />

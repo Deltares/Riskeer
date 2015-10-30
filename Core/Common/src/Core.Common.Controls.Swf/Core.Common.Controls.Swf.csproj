@@ -427,7 +427,6 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Charting\UML\Charting.cd" />
     <None Include="Charting\UML\ChartTools.cd" />
     <None Include="Charting\UML\Chart.cd" />
     <None Include="packages.config" />

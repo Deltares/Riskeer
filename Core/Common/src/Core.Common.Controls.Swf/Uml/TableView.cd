@@ -13,7 +13,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>u620HAmC0OxDYOo+GMjAKURXmChxqbtoSDFLxZjZR6U=</HashCode>
+      <HashCode>u620HAmC0PxDYOo6GMjAKURXmChhrbtoSDFLxZjZR6U=</HashCode>
       <FileName>Table\TableView.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -23,13 +23,6 @@
       <Property Name="ColumnMenuItems" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Core.Common.Controls.Swf.Table.TableViewArgumentBasedPasteController">
-    <Position X="0.75" Y="2" Width="3" />
-    <TypeIdentifier>
-      <HashCode>AAAAQIAAAAAAQAAKAAAAEMAEACAAMAAAAIAAAQAACAg=</HashCode>
-      <FileName>Table\TableViewArgumentBasedPasteController.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Class Name="Core.Common.Controls.Swf.Table.TableViewCellFormatterProvider" BaseTypeListCollapsed="true">
     <Position X="10.5" Y="3.75" Width="2.5" />
@@ -42,7 +35,7 @@
   <Class Name="Core.Common.Controls.Swf.Table.TableViewCellStyle">
     <Position X="11.5" Y="8" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAABAAI=</HashCode>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAI=</HashCode>
       <FileName>Table\TableViewCellStyle.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -53,7 +46,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>CAAADCAAACBiAAIgYAECAI0BAEBACRBICAgIAYAAAEA=</HashCode>
+      <HashCode>CAAADCAAACBiAAIgYAECAM0BAEBACRBICAgIAYAAAEA=</HashCode>
       <FileName>Table\TableViewColumn.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -83,7 +76,7 @@
   <Class Name="Core.Common.Controls.Swf.Table.TableViewPasteController" Collapsed="true">
     <Position X="1" Y="0.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>BCAAQAAAAECAgAAMAiQACEACAAgABQAgBCAAIEACAog=</HashCode>
+      <HashCode>BCAAQAAAAECAgAAEAiQACEACAAgABQAgBCAAIEACAog=</HashCode>
       <FileName>Table\TableViewPasteController.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

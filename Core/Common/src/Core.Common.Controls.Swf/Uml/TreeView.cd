@@ -7,14 +7,14 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <NestedTypes>
-      <Enum Name="Core.Common.Controls.Swf.TreeViewControls.TreeView.PlaceholderLocation" Collapsed="true">
+      <Class Name="Core.Common.Controls.Swf.TreeViewControls.TreeView.NativeInterop" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>TreeViewControls\TreeView.cs</NewMemberFileName>
         </TypeIdentifier>
-      </Enum>
+      </Class>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>CDIwEIQIACZJCRAIaACTCAWIAgGaAFIjAooYgKyRLAI=</HashCode>
+      <HashCode>CBOwCoAIACRLCBEIwoCZCAWQAgCCAFAjhIoAAAyELQM=</HashCode>
       <FileName>TreeViewControls\TreeView.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -55,7 +55,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>CAAgCAAAAABgECAIABQETIAEDAggABEiAAAACEIAIAg=</HashCode>
+      <HashCode>CyQgACAAACggECAIBBCFTIAEDAggABEiIAAACEIAIAA=</HashCode>
       <FileName>TreeViewControls\TreeNode.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -66,7 +66,7 @@
   <Class Name="Core.Common.Controls.Swf.TreeViewControls.TreeViewNodePresenterBase&lt;T&gt;" BaseTypeListCollapsed="true">
     <Position X="18.75" Y="0.75" Width="3" />
     <TypeIdentifier>
-      <HashCode>AoAAABQACgAIAAAAIAgAAAkACAABABAIEEKIACIGoAE=</HashCode>
+      <HashCode>AAAAABQACgAIAAAAIAAAAAsACAABABAAEECIAAIGoAE=</HashCode>
       <FileName>TreeViewControls\TreeViewNodePresenterBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

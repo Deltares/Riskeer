@@ -8,7 +8,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Core.Common.Controls.TableSelectionChangedEventArgs">
-    <Position X="8.75" Y="10" Width="2.5" />
+    <Position X="8" Y="4" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>TableSelectionChangedEventArgs.cs</FileName>
@@ -36,21 +36,21 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Core.Common.Controls.ITableViewPasteController">
-    <Position X="5" Y="6.5" Width="2" />
+    <Position X="5" Y="6" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAIA=</HashCode>
       <FileName>ITableViewPasteController.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Core.Common.Controls.IRowValidationResult">
-    <Position X="5" Y="4.75" Width="1.75" />
+    <Position X="8" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAEAAAAAAAAAAAACAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>IRowValidationResult.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="Core.Common.Controls.TableViewPasteBehaviourOptions">
-    <Position X="5" Y="10.5" Width="2.5" />
+    <Position X="8" Y="2.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>TableViewPasteBehaviourOptions.cs</FileName>
