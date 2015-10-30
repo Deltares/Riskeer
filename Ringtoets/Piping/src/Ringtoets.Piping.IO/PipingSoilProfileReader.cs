@@ -103,7 +103,6 @@ namespace Ringtoets.Piping.IO
 
         private ISoilProfileBuilder ReadPipingProfile1D()
         {
-
             var profileName = Read<string>(profileNameColumn);
             var layerCount = Read<long>(layerCountColumn);
             var bottom = Read<double>(bottomColumn);
@@ -121,7 +120,6 @@ namespace Ringtoets.Piping.IO
 
         private ISoilProfileBuilder ReadPipingProfile2D()
         {
-
             var profileName = Read<string>(profileNameColumn);
             var layerCount = Read<long>(layerCountColumn);
             var intersectionX = Read<double>(intersectionXColumn);
@@ -158,17 +156,15 @@ namespace Ringtoets.Piping.IO
             MoveNext();
         }
 
-        private bool TryRead<T>(string columnName, out T value)
+        private void TryRead<T>(string columnName, out T value)
         {
             try
             {
                 value = (T) dataReader[columnName];
-                return true;
             }
             catch (InvalidCastException e)
             {
                 value = default(T);
-                return false;
             }
         }
 
@@ -205,16 +201,10 @@ namespace Ringtoets.Piping.IO
 
         private PipingSoilLayer ReadPipingSoilLayer()
         {
-            double topValue;
             double isAquiferValue;
 
-            var columnValueRead = TryRead(topColumn, out topValue);
-            var isAquiferValueRead = TryRead(isAquiferColumn, out isAquiferValue);
-
-            if (!columnValueRead || !isAquiferValueRead)
-            {
-                return null;
-            }
+            var topValue = Read<double>(topColumn);
+            TryRead(isAquiferColumn, out isAquiferValue);
 
             var pipingSoilLayer = new PipingSoilLayer(topValue)
             {
@@ -226,15 +216,9 @@ namespace Ringtoets.Piping.IO
         private SoilLayer2D ReadPiping2DSoilLayer()
         {
             double isAquiferValue;
-            byte[] geometryValue;
 
-            var geometryRead = TryRead(layerGeometryColumn, out geometryValue);
-            var isAquiferValueRead = TryRead(isAquiferColumn, out isAquiferValue);
-
-            if (!geometryRead || !isAquiferValueRead)
-            {
-                return null;
-            }
+            var geometryValue = Read<byte[]>(layerGeometryColumn);
+            TryRead(isAquiferColumn, out isAquiferValue);
 
             SoilLayer2D pipingSoilLayer = new PipingSoilLayer2DReader(geometryValue).Read();
             pipingSoilLayer.IsAquifer = isAquiferValue.Equals(1.0);
