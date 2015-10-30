@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
 
 using Core.Common.BaseDelftTools;
 
@@ -17,18 +16,6 @@ namespace Ringtoets.Piping.Forms.TypeConverters
     /// If its reused somewhere else, change notification might not work properly.</remarks>
     public class NormalDistributionTypeConverter : ProbabilisticDistributionTypeConverter<NormalDistribution>
     {
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (destinationType == typeof(string))
-            {
-                var distribution = (NormalDistribution)value;
-                return String.Format("Normale verdeling (\u03BC = {0}, \u03C3 = {1})",
-                                     distribution.Mean.ToString(culture),
-                                     distribution.StandardDeviation.ToString(culture));
-            }
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
-
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             IObservable observableParent = GetObservableOwnerOfDistribution(context);
@@ -39,6 +26,32 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             properties[1] = CreateStandardDeviationPropertyDescriptor(propertyDescriptorCollection, observableParent);
 
             return new PropertyDescriptorCollection(properties);
+        }
+
+        protected override ParameterDefinition<NormalDistribution>[] Parameters
+        {
+            get
+            {
+                return new[]
+                {
+                    new ParameterDefinition<NormalDistribution>
+                    {
+                        Symbol = "\u03BC", GetValue = distribution => distribution.Mean
+                    },
+                    new ParameterDefinition<NormalDistribution>
+                    {
+                        Symbol = "\u03C3", GetValue = distribution => distribution.StandardDeviation
+                    }
+                };
+            }
+        }
+
+        protected override string DistributionName
+        {
+            get
+            {
+                return "Normale verdeling";
+            }
         }
 
         private PropertyDescriptor CreateMeanPropertyDescriptor(PropertyDescriptorCollection originalProperties, IObservable observableParent)

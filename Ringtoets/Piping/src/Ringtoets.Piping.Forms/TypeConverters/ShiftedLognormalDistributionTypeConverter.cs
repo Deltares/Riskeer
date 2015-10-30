@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
 
 using Core.Common.BaseDelftTools;
 
@@ -17,19 +16,6 @@ namespace Ringtoets.Piping.Forms.TypeConverters
     /// If its reused somewhere else, change notification might not work properly.</remarks>
     public class ShiftedLognormalDistributionTypeConverter : ProbabilisticDistributionTypeConverter<ShiftedLognormalDistribution>
     {
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (destinationType == typeof(string))
-            {
-                var distribution = (ShiftedLognormalDistribution)value;
-                return String.Format("Verschoven lognormale verdeling (\u03BC = {0}, \u03C3 = {1}, Verschuiving = {2})",
-                                     distribution.Mean.ToString(culture),
-                                     distribution.StandardDeviation.ToString(culture),
-                                     distribution.Shift);
-            }
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
-
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             IObservable observableParent = GetObservableOwnerOfDistribution(context);
@@ -41,6 +27,36 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             properties[2] = CreateShiftPropertyDescriptor(propertyDescriptorCollection, observableParent);
 
             return new PropertyDescriptorCollection(properties);
+        }
+
+        protected override ParameterDefinition<ShiftedLognormalDistribution>[] Parameters
+        {
+            get
+            {
+                return new[]
+                {
+                    new ParameterDefinition<ShiftedLognormalDistribution>
+                    {
+                        Symbol = "\u03BC", GetValue = distribution => distribution.Mean
+                    },
+                    new ParameterDefinition<ShiftedLognormalDistribution>
+                    {
+                        Symbol = "\u03C3", GetValue = distribution => distribution.StandardDeviation
+                    },
+                    new ParameterDefinition<ShiftedLognormalDistribution>
+                    {
+                        Symbol = "Verschuiving", GetValue = distribution => distribution.Shift
+                    },
+                };
+            }
+        }
+
+        protected override string DistributionName
+        {
+            get
+            {
+                return "Verschoven lognormale verdeling";
+            }
         }
 
         private PropertyDescriptor CreateMeanPropertyDescriptor(PropertyDescriptorCollection originalProperties, IObservable observableParent)
