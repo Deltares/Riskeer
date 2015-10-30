@@ -52,6 +52,7 @@
     <Compile Include="Exceptions\CriticalFileReadExceptionTest.cs" />
     <Compile Include="Exceptions\LineParseExceptionTest.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadExceptionTest.cs" />
+    <Compile Include="FileUtilsTest.cs" />
     <Compile Include="PipingSoilLayerReaderTest.cs" />
     <Compile Include="PipingSoilProfileReaderTest.cs" />
     <Compile Include="PipingSurfaceLinesCsvReaderTest.cs" />

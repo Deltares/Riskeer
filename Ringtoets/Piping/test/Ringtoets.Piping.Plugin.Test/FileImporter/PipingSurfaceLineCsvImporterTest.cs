@@ -22,7 +22,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
     [TestFixture]
     public class PipingSurfaceLineCsvImporterTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingSurfaceLinesCsvReader");
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SurfaceLines");
 
         [Test]
         public void DefaultConstructor_ExpectedValues()
@@ -145,6 +145,55 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(5.7, secondSurfaceLine.EndingWorldPoint.X);
 
             Assert.AreEqual(4, callCount);
+
+            Assert.IsTrue(FileHelper.CanOpenFileForWrite(validFilePath));
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ImportItem_ImportingToValidTargetWithValidFileWithConsecutiveDuplicatePoints_ImportSurfaceLineWithDuplicatesRemovedToCollection()
+        {
+            // Setup
+            var twovalidsurfacelinesCsv = "ValidSurfaceLine_HasConsecutiveDuplicatePoints.csv";
+            string validFilePath = Path.Combine(testDataPath, twovalidsurfacelinesCsv);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            // Precondition
+            CollectionAssert.IsEmpty(observableSurfaceLinesList);
+            Assert.IsTrue(importer.CanImportOn(observableSurfaceLinesList));
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            // Call
+            object importedItem = null;
+            Action call = () => importedItem = importer.ImportItem(validFilePath, observableSurfaceLinesList);
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, "Dwarsdoorsnede Rotterdam1 bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.", 1);
+            Assert.AreSame(observableSurfaceLinesList, importedItem);
+            var importTargetArray = observableSurfaceLinesList.ToArray();
+            Assert.AreEqual(1, importTargetArray.Length);
+
+            // Sample some of the imported data:
+            var firstSurfaceLine = importTargetArray[0];
+            Assert.AreEqual("Rotterdam1", firstSurfaceLine.Name);
+            var geometryPoints = firstSurfaceLine.Points.ToArray();
+            Assert.AreEqual(8, geometryPoints.Length);
+            Assert.AreNotEqual(geometryPoints[0].X, geometryPoints[1].X,
+                               "Originally duplicate points at the start have been removed.");
+            Assert.AreNotEqual(geometryPoints[0].X, geometryPoints[2].X,
+                               "Originally duplicate points at the start have been removed.");
+            Assert.AreEqual(427776.654093, firstSurfaceLine.StartingWorldPoint.Y);
+            CollectionAssert.AllItemsAreUnique(geometryPoints);
 
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(validFilePath));
 
@@ -406,6 +455,47 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
 
             Assert.AreEqual(5, progressCallCount,
                 "Expect 1 call for each surfaceline (3 in total) +1 for 0/N progress, and 1 for putting data in model.");
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ImportItem_ImportingToValidTargetWithInValidFileWithDuplicatePointsCausingRecline_SkipInvalidRowAndLog()
+        {
+            // Setup
+            var twovalidsurfacelinesCsv = "ValidSurfaceLine_HasDuplicatePoints.csv";
+            string path = Path.Combine(testDataPath, twovalidsurfacelinesCsv);
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var observableSurfaceLinesList = new ObservableList<RingtoetsPipingSurfaceLine>();
+            observableSurfaceLinesList.Attach(observer);
+
+            var importer = new PipingSurfaceLinesCsvImporter();
+
+            // Precondition
+            CollectionAssert.IsEmpty(observableSurfaceLinesList);
+            Assert.IsTrue(importer.CanImportOn(observableSurfaceLinesList));
+            Assert.IsTrue(File.Exists(path));
+
+            // Call
+            object importedItem = null;
+            Action call = () => importedItem = importer.ImportItem(path, observableSurfaceLinesList);
+
+            // Assert
+            var internalErrorMessage = String.Format(WtiIOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Has_reclining_geometry,
+                                                     path, 2);
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseError_File_0_SurfaceLinesNumber_1_Message_2_,
+                                                   path, 1, internalErrorMessage);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
+            Assert.AreSame(observableSurfaceLinesList, importedItem);
+            var importTargetArray = observableSurfaceLinesList.ToArray();
+            Assert.AreEqual(0, importTargetArray.Length);
+
+            Assert.IsTrue(FileHelper.CanOpenFileForWrite(path));
+
             mocks.VerifyAll();
         }
     }

@@ -16,7 +16,7 @@ namespace Ringtoets.Piping.IO.Test
     [TestFixture]
     public class PipingSurfaceLinesCsvReaderTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingSurfaceLinesCsvReader" + Path.DirectorySeparatorChar);
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "SurfaceLines" + Path.DirectorySeparatorChar);
 
         [Test]
         [TestCase("")]
@@ -240,7 +240,7 @@ namespace Ringtoets.Piping.IO.Test
         {
             // Setup
             // File: First 3 points are identical
-            string path = Path.Combine(testDataPath, "ValidSurfaceLine_HasDuplicatePoints.csv");
+            string path = Path.Combine(testDataPath, "ValidSurfaceLine_HasConsecutiveDuplicatePoints.csv");
 
             // Precondition:
             Assert.IsTrue(File.Exists(path));

@@ -28,9 +28,15 @@ namespace Ringtoets.Piping.Data
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the 3D points describing its geometry.
+        /// Gets the 3D points describing its geometry.
         /// </summary>
-        public IEnumerable<Point3D> Points { get {return geometryPoints; } }
+        public IEnumerable<Point3D> Points
+        {
+            get
+            {
+                return geometryPoints;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the first 3D geometry point defining the surfaceline in world coordinates.
@@ -57,11 +63,11 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        public override string ToString()
-        {
-            return Name;
-        }
-
+        /// <summary>
+        /// Projects the points in <see cref="Points"/> to localized coordinate (LZ-plane) system.
+        /// Z-values are retained, and the first point is put a L=0.
+        /// </summary>
+        /// <returns>Collection of 2D points in the LZ-plane.</returns>
         public IEnumerable<Point2D> ProjectGeometryToLZ()
         {
             var count = geometryPoints.Length;
@@ -76,13 +82,21 @@ namespace Ringtoets.Piping.Data
             {
                 ProjectPointsAfterFirstOntoSpanningLine(localCoordinatesX);
             }
-            
+
             var result = new Point2D[count];
             for (int i = 0; i < count; i++)
             {
-                result[i] = new Point2D { X = localCoordinatesX[i], Y = geometryPoints[i].Z };
+                result[i] = new Point2D
+                {
+                    X = localCoordinatesX[i], Y = geometryPoints[i].Z
+                };
             }
             return result;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         /// <summary>
@@ -92,13 +106,16 @@ namespace Ringtoets.Piping.Data
         /// each vector along the 'spanning line'.
         /// </summary>
         /// <param name="localCoordinatesX">The array into which the projected X-coordinate 
-        /// values should be stored. It's <see cref="Array.Length"/> should be the same as
+        /// values should be stored. Its <see cref="Array.Length"/> should be the same as
         /// the collection-size of <see cref="geometryPoints"/>.</param>
         private void ProjectPointsAfterFirstOntoSpanningLine(double[] localCoordinatesX)
         {
             // Determine the vectors from the first coordinate to each other coordinate point 
             // in the XY world coordinate plane:
-            var worldCoordinates = Points.Select(p => new Point2D { X = p.X, Y = p.Y }).ToArray();
+            Point2D[] worldCoordinates = Points.Select(p => new Point2D
+            {
+                X = p.X, Y = p.Y
+            }).ToArray();
             var worldCoordinateVectors = new Vector[worldCoordinates.Length - 1];
             for (int i = 1; i < worldCoordinates.Length; i++)
             {
@@ -106,15 +123,15 @@ namespace Ringtoets.Piping.Data
             }
 
             // Determine the 'spanning line' vector:
-            var spanningVector = worldCoordinateVectors[worldCoordinateVectors.Length - 1];
-            var spanningVectorDotProduct = spanningVector.DotProduct(spanningVector);
-            var length = Math.Sqrt(spanningVectorDotProduct);
+            Vector spanningVector = worldCoordinateVectors[worldCoordinateVectors.Length - 1];
+            double spanningVectorDotProduct = spanningVector.DotProduct(spanningVector);
+            double length = Math.Sqrt(spanningVectorDotProduct);
 
             // Project each vector onto the 'spanning vector' to determine it's X coordinate in local coordinates:
             for (int i = 0; i < worldCoordinateVectors.Length - 1; i++)
             {
-                var projectOnSpanningVectorFactor = (worldCoordinateVectors[i].DotProduct(spanningVector)) /
-                                                    (spanningVectorDotProduct);
+                double projectOnSpanningVectorFactor = (worldCoordinateVectors[i].DotProduct(spanningVector)) /
+                                                       (spanningVectorDotProduct);
                 localCoordinatesX[i + 1] = projectOnSpanningVectorFactor * length;
             }
             localCoordinatesX[localCoordinatesX.Length - 1] = length;

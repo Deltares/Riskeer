@@ -17,7 +17,7 @@ namespace Ringtoets.Piping.IO
     /// Expects data to be specified in the following format:
     /// <para><c>{ID};X1;Y1;Z1...;(Xn;Yn;Zn)</c></para>
     /// Where {ID} has to be a particular accepted text, and n triplets of doubles form the
-    /// 3D coordinates defining the geometric shape of the surfaceline..
+    /// 3D coordinates defining the geometric shape of the surfaceline.
     /// </summary>
     public class PipingSurfaceLinesCsvReader : IDisposable
     {
@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.IO
         /// <exception cref="ArgumentException"><paramref name="path"/> is invalid.</exception>
         public PipingSurfaceLinesCsvReader(string path)
         {
-            ValidateFilePath(path);
+            FileUtils.ValidateFilePath(path);
 
             filePath = path;
         }
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.IO
                     };
                     surfaceLine.SetGeometry(points);
 
-                    CheckGeometry(surfaceLine);
+                    CheckIfGeometryIsValid(surfaceLine);
 
                     return surfaceLine;
                 }
@@ -142,16 +142,16 @@ namespace Ringtoets.Piping.IO
             return null;
         }
 
-        private void CheckGeometry(RingtoetsPipingSurfaceLine surfaceLine)
+        private void CheckIfGeometryIsValid(RingtoetsPipingSurfaceLine surfaceLine)
         {
             double[] lCoordinates = surfaceLine.ProjectGeometryToLZ().Select(p => p.X).ToArray();
             for (int i = 1; i < lCoordinates.Length; i++)
             {
                 if (lCoordinates[i - 1] > lCoordinates[i])
                 {
-                    var expectedMessage = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Has_reclining_geometry,
-                                                        filePath, 2);
-                    throw new LineParseException(expectedMessage);
+                    var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Has_reclining_geometry,
+                                                filePath, 2);
+                    throw new LineParseException(message);
                 }
             }
         }
@@ -188,7 +188,7 @@ namespace Ringtoets.Piping.IO
         /// Gets the 3D surface line points.
         /// </summary>
         /// <param name="tokenizedString">The tokenized string.</param>
-        /// <returns>Set of all unique 3D world coordinate points.</returns>
+        /// <returns>Set of all 3D world coordinate points.</returns>
         /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
         /// <item><paramref name="tokenizedString"/> contains a coordinate value that cannot be parsed as a double.</item>
@@ -219,7 +219,7 @@ namespace Ringtoets.Piping.IO
                     Z = worldCoordinateValues[i * expectedValuesForPoint + 2]
                 };
             }
-            return points.Distinct();
+            return points;
         }
 
         /// <summary>
@@ -316,14 +316,14 @@ namespace Ringtoets.Piping.IO
             {
                 if (!IsHeaderValid(header))
                 {
-                    var expectedMessage = string.Format(Resources.PipingSurfaceLinesCsvReader_File_0_invalid_header, filePath);
-                    throw new CriticalFileReadException(expectedMessage);
+                    var message = string.Format(Resources.PipingSurfaceLinesCsvReader_File_0_invalid_header, filePath);
+                    throw new CriticalFileReadException(message);
                 }
             }
             else
             {
-                var expectedMessage = string.Format(Resources.Error_File_0_empty, filePath);
-                throw new CriticalFileReadException(expectedMessage);
+                var message = string.Format(Resources.Error_File_0_empty, filePath);
+                throw new CriticalFileReadException(message);
             }
         }
 
@@ -332,7 +332,7 @@ namespace Ringtoets.Piping.IO
         /// </summary>
         /// <param name="reader">The reader at the row from which counting should start.</param>
         /// <param name="currentLine">The current line, used for error messaging.</param>
-        /// <returns>An integer greater than or equal to 0.</returns>
+        /// <returns>An integer greater than or equal to 0, being the number of surfaceline rows.</returns>
         /// <exception cref="CriticalFileReadException">An I/O exception occurred.</exception>
         private int CountNonEmptyLines(TextReader reader, int currentLine)
         {
@@ -391,34 +391,6 @@ namespace Ringtoets.Piping.IO
                 valid = tokenizedHeader[1 + i].Equals(expectedFirstCoordinateHeader[i]);
             }
             return valid;
-        }
-
-        /// <summary>
-        /// Validates the file path.
-        /// </summary>
-        /// <param name="path">The file path to be validated.</param>
-        /// <exception cref="System.ArgumentException"><paramref name="path"/> is invalid.</exception>
-        private void ValidateFilePath(string path)
-        {
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                throw new ArgumentException(Resources.Error_PathMustBeSpecified);
-            }
-
-            string name;
-            try
-            {
-                name = Path.GetFileName(path);
-            }
-            catch (ArgumentException e)
-            {
-                throw new ArgumentException(String.Format(Resources.Error_PathCannotContainCharacters_0_,
-                                                          String.Join(", ", Path.GetInvalidFileNameChars())), e);
-            }
-            if (string.Empty == name)
-            {
-                throw new ArgumentException(Resources.Error_PathMustNotPointToFolder);
-            }
         }
     }
 }

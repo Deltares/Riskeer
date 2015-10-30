@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+
 using Core.Common.BaseDelftTools;
+
 using log4net;
 
 using Ringtoets.Piping.Data;
-
 using Ringtoets.Piping.IO;
 using Ringtoets.Piping.IO.Exceptions;
 
@@ -157,7 +159,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 try
                 {
-                    readSurfaceLines.Add(reader.ReadLine());
+                    var ringtoetsPipingSurfaceLine = reader.ReadLine();
+                    PruneConsecutiveDuplicateGeometryPoints(ringtoetsPipingSurfaceLine);
+                    readSurfaceLines.Add(ringtoetsPipingSurfaceLine);
                 }
                 catch (CriticalFileReadException e)
                 {
@@ -179,6 +183,31 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 ImportedSurfaceLines = readSurfaceLines
             };
+        }
+
+        private void PruneConsecutiveDuplicateGeometryPoints(RingtoetsPipingSurfaceLine ringtoetsPipingSurfaceLine)
+        {
+            Point3D[] readPoints = ringtoetsPipingSurfaceLine.Points.ToArray();
+            var consecutiveDuplicatePointIndices = new List<int>();
+            Point3D previousPoint = null;
+            for (int j = 0; j < readPoints.Length; j++)
+            {
+                if (j != 0 && readPoints[j].Equals(previousPoint))
+                {
+                    consecutiveDuplicatePointIndices.Add(j);
+                    previousPoint = readPoints[j];
+                }
+                else
+                {
+                    previousPoint = readPoints[j];
+                }
+            }
+
+            if (consecutiveDuplicatePointIndices.Any())
+            {
+                log.WarnFormat("Dwarsdoorsnede {0} bevat aaneengesloten dubbele geometrie punten, welke zijn genegeerd.", ringtoetsPipingSurfaceLine.Name);
+                ringtoetsPipingSurfaceLine.SetGeometry(readPoints.Where((p, index) => !consecutiveDuplicatePointIndices.Contains(index)));
+            }
         }
 
         private SurfaceLinesFileReadResult HandleCriticalError(string path, Exception e)

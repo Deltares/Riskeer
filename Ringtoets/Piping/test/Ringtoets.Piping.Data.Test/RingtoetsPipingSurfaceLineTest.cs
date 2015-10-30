@@ -64,16 +64,52 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void SetGeometry_CollectionOfMultiplePoints_InitializeStartAndEndWorldPointsInitializePoints()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            var sourceData = new[]
+            {
+                new Point3D
+                {
+                    X = 1.1, Y = 2.2, Z = 3.3
+                },
+                new Point3D
+                {
+                    X = 4.4, Y = 5.5, Z = 6.6
+                },
+                new Point3D
+                {
+                    X = 7.7, Y = 8.8, Z = 9.9
+                },
+                new Point3D
+                {
+                    X = 10.10, Y = 11.11, Z = 12.12
+                },
+            };
+
+            // Call
+            surfaceLine.SetGeometry(sourceData);
+
+            // Assert
+            Assert.AreNotSame(sourceData, surfaceLine.Points);
+            CollectionAssert.AreEqual(sourceData, surfaceLine.Points);
+            Assert.AreSame(sourceData[0], surfaceLine.StartingWorldPoint);
+            Assert.AreSame(sourceData[3], surfaceLine.EndingWorldPoint);
+        }
+
+        [Test]
         public void ProjectGeometryToLZ_EmptyCollection_ReturnEmptyCollection()
         {
             // Setup
             var surfaceLine = new RingtoetsPipingSurfaceLine();
 
             // Call
-            IEnumerable<Point2D> lzCoordiantes = surfaceLine.ProjectGeometryToLZ();
+            IEnumerable<Point2D> lzCoordinates = surfaceLine.ProjectGeometryToLZ();
 
             // Assert
-            CollectionAssert.IsEmpty(lzCoordiantes);
+            CollectionAssert.IsEmpty(lzCoordinates);
         }
 
         [Test]
@@ -86,10 +122,10 @@ namespace Ringtoets.Piping.Data.Test
 
 
             // Call
-            Point2D[] lzCoordiantes = surfaceLine.ProjectGeometryToLZ().ToArray();
+            Point2D[] lzCoordinates = surfaceLine.ProjectGeometryToLZ().ToArray();
 
             // Assert
-            CollectionAssert.AreEqual(new[]{ new Point2D { X = 0.0, Y = originalZ } }, lzCoordiantes);
+            CollectionAssert.AreEqual(new[]{ new Point2D { X = 0.0, Y = originalZ } }, lzCoordinates);
         }
 
         [Test]
