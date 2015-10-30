@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-
-using Core.Common.BaseDelftTools;
+﻿using System.ComponentModel;
 
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -16,34 +13,24 @@ namespace Ringtoets.Piping.Forms.TypeConverters
     /// If its reused somewhere else, change notification might not work properly.</remarks>
     public class NormalDistributionTypeConverter : ProbabilisticDistributionTypeConverter<NormalDistribution>
     {
-        public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
+        private readonly ParameterDefinition<NormalDistribution>[] parameters;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NormalDistributionTypeConverter"/> class.
+        /// </summary>
+        public NormalDistributionTypeConverter()
         {
-            IObservable observableParent = GetObservableOwnerOfDistribution(context);
-
-            var propertyDescriptorCollection = TypeDescriptor.GetProperties(value);
-            var properties = new PropertyDescriptor[2];
-            properties[0] = CreateMeanPropertyDescriptor(propertyDescriptorCollection, observableParent);
-            properties[1] = CreateStandardDeviationPropertyDescriptor(propertyDescriptorCollection, observableParent);
-
-            return new PropertyDescriptorCollection(properties);
-        }
-
-        protected override ParameterDefinition<NormalDistribution>[] Parameters
-        {
-            get
+            parameters = new[]
             {
-                return new[]
+                new ParameterDefinition<NormalDistribution>(d => d.Mean)
                 {
-                    new ParameterDefinition<NormalDistribution>
-                    {
-                        Symbol = "\u03BC", GetValue = distribution => distribution.Mean
-                    },
-                    new ParameterDefinition<NormalDistribution>
-                    {
-                        Symbol = "\u03C3", GetValue = distribution => distribution.StandardDeviation
-                    }
-                };
-            }
+                    Symbol = "\u03BC", Description = "De gemiddelde waarde van de normale verdeling."
+                },
+                new ParameterDefinition<NormalDistribution>(d => d.StandardDeviation)
+                {
+                    Symbol = "\u03C3", Description = "De standaardafwijking van de normale verdeling."
+                }
+            };
         }
 
         protected override string DistributionName
@@ -54,14 +41,12 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             }
         }
 
-        private PropertyDescriptor CreateMeanPropertyDescriptor(PropertyDescriptorCollection originalProperties, IObservable observableParent)
+        protected override ParameterDefinition<NormalDistribution>[] Parameters
         {
-            return CreatePropertyDescriptor(originalProperties, nd => nd.Mean, "\u03BC", "De gemiddelde waarde van de normale verdeling.", observableParent);
-        }
-
-        private PropertyDescriptor CreateStandardDeviationPropertyDescriptor(PropertyDescriptorCollection originalProperties, IObservable observableParent)
-        {
-            return CreatePropertyDescriptor(originalProperties, nd => nd.StandardDeviation, "\u03C3", "De standaardafwijking van de normale verdeling.", observableParent);
+            get
+            {
+                return parameters;
+            }
         }
     }
 }

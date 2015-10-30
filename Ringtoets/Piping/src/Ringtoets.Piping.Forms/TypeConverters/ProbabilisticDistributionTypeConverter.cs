@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 
 using Core.Common.BaseDelftTools;
 using Core.Common.Utils.PropertyBag.Dynamic;
-using Core.Common.Utils.Reflection;
 
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
@@ -36,17 +35,42 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             return true;
         }
 
-        /// <summary>
-        /// Gets all parameters available for the given distribution.
-        /// </summary>
-        protected abstract ParameterDefinition<T>[] Parameters { get; }
+        public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
+        {
+            IObservable observableParent = GetObservableOwnerOfDistribution(context);
+
+            var propertyDescriptorCollection = TypeDescriptor.GetProperties(value);
+            var properties = new PropertyDescriptor[Parameters.Length];
+            for (int i = 0; i < Parameters.Length; i++)
+            {
+                properties[i] = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], observableParent);
+            }
+
+            return new PropertyDescriptorCollection(properties);
+        }
 
         /// <summary>
         /// Gets the name of the distribution.
         /// </summary>
         protected abstract string DistributionName { get; }
 
-        protected static IObservable GetObservableOwnerOfDistribution(ITypeDescriptorContext context)
+        /// <summary>
+        /// Gets all parameters available for the given distribution.
+        /// </summary>
+        protected abstract ParameterDefinition<T>[] Parameters { get; }
+
+        private static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, ParameterDefinition<T> parameter, IObservable observableParent)
+        {
+            PropertyDescriptor originalMeanPropertyDescriptor = originalProperties.Find(parameter.PropertyName, false);
+            return new TextPropertyDescriptorDecorator(originalMeanPropertyDescriptor,
+                                                       parameter.Symbol,
+                                                       parameter.Description)
+            {
+                ObservableParent = observableParent
+            };
+        }
+
+        private static IObservable GetObservableOwnerOfDistribution(ITypeDescriptorContext context)
         {
             if (context == null)
             {
@@ -67,18 +91,6 @@ namespace Ringtoets.Piping.Forms.TypeConverters
                        null;
         }
 
-        protected static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, Expression<Func<T, object>> propertyExpression, string customDisplayName, string customDescription, IObservable observableParent)
-        {
-            string propertyName = TypeUtils.GetMemberName(propertyExpression);
-            PropertyDescriptor originalMeanPropertyDescriptor = originalProperties.Find(propertyName, false);
-            return new TextPropertyDescriptorDecorator(originalMeanPropertyDescriptor,
-                                                       customDisplayName,
-                                                       customDescription)
-            {
-                ObservableParent = observableParent
-            };
-        }
-
         /// <summary>
         /// A generic parameter description class.
         /// </summary>
@@ -86,14 +98,35 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         protected class ParameterDefinition<DistributionType>
         {
             /// <summary>
+            /// Instantiates a new instance of <see cref="ParameterDefinition{T}"/> for a
+            /// given parameter.
+            /// </summary>
+            /// <param name="expression">The parameter expression.</param>
+            public ParameterDefinition(Expression<Func<DistributionType, double>> expression)
+            {
+                PropertyName = ((MemberExpression)expression.Body).Member.Name;
+                GetValue = expression.Compile();
+            }
+
+            /// <summary>
             /// The symbol of name of the parameter.
             /// </summary>
             public string Symbol { get; set; }
 
             /// <summary>
+            /// Name of the property holding the parameter
+            /// </summary>
+            public string PropertyName { get; private set; }
+
+            /// <summary>
             /// Method to retrieve the value of the parameter from a distribution.
             /// </summary>
-            public Func<DistributionType, double> GetValue { get; set; }
+            public Func<DistributionType, double> GetValue { get; private set; }
+
+            /// <summary>
+            /// Description text of the parameter.
+            /// </summary>
+            public string Description { get; set; }
 
             /// <summary>
             /// Retrieves the 'symbol = value' text.
