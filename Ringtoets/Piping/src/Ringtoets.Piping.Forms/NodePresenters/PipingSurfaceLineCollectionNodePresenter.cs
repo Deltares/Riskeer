@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
             var data = (IEnumerable<RingtoetsPipingSurfaceLine>)nodeData;
-            node.Text = Resources.PipingSurfaceLinesCollectionName;
+            node.Text = Resources.PipingSurfaceLinesCollection_DisplayName;
             node.ForegroundColor = data.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText);
             node.Image = Resources.FolderIcon;
         }
@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
             if (ImportSurfaceLinesAction != null)
             {
-                rootMenu.AddMenuItem(Resources.ImportSurfaceLines, Resources.ImportSurfaceLinesDescription,
+                rootMenu.AddMenuItem(Resources.Import_SurfaceLines, Resources.Import_SurfaceLines_Tooltip,
                                      Resources.ImportIcon, ImportItemOnClick);
             }
 

@@ -25,7 +25,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return WtiFormsResources.PipingSoilProfilesCollectionName;
+                return WtiFormsResources.PipingSoilProfilesCollection_DisplayName;
             }
         }
 
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             get
             {
                 return String.Format("{0} {1} (*.soil)|*.soil",
-                                     WtiFormsResources.PipingSoilProfilesCollectionName, ApplicationResources.SoilFileName);
+                                     WtiFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.SoilFileName);
             }
         }
 

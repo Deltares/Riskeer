@@ -61,7 +61,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new PropertyInfo<WtiProject, WtiProjectProperties>();
             yield return new PropertyInfo<PipingCalculationInputs, PipingCalculationInputsProperties>();
             yield return new PropertyInfo<PipingOutput, PipingOutputProperties>();
-            yield return new PropertyInfo<RingtoetsPipingSurfaceLine, PipingSurfaceLineProperties>();
+            yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
             yield return new PropertyInfo<PipingSoilProfile, PipingSoilProfileProperties>();
         }
 

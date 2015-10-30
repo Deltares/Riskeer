@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.IsNull(pipingOutputProperties.AfterCreate);
 
                 var pipingSurfaceLineProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(RingtoetsPipingSurfaceLine));
-                Assert.AreEqual(typeof(PipingSurfaceLineProperties), pipingSurfaceLineProperties.PropertyType);
+                Assert.AreEqual(typeof(RingtoetsPipingSurfaceLineProperties), pipingSurfaceLineProperties.PropertyType);
                 Assert.IsNull(pipingSurfaceLineProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingSurfaceLineProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingSurfaceLineProperties.AfterCreate);

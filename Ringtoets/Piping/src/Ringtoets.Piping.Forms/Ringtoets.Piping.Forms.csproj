@@ -72,7 +72,7 @@
     <Compile Include="PropertyClasses\PipingCalculationInputsProperties.cs" />
     <Compile Include="PropertyClasses\PipingOutputProperties.cs" />
     <Compile Include="PropertyClasses\PipingSoilProfileProperties.cs" />
-    <Compile Include="PropertyClasses\PipingSurfaceLineProperties.cs" />
+    <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLineProperties.cs" />
     <Compile Include="PropertyClasses\WtiProjectProperties.cs" />
     <Compile Include="TypeConverters\LognormalDistributionTypeConverter.cs" />
     <Compile Include="TypeConverters\ProbabilisticDistributionTypeConverter.cs" />

@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
-            node.Text = Resources.PipingFailureMechanismDisplayName;
+            node.Text = Resources.PipingFailureMechanism_DisplayName;
             node.Image = Resources.PipingIcon;
         }
 
@@ -99,8 +99,8 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             var rootMenu = new ContextMenuStrip();
 
-            rootMenu.AddMenuItem(Resources.PipingFailureMechanism_Add_piping_calculation,
-                                 Resources.PipingFailureMechanism_Add_piping_calculation_Tooltip,
+            rootMenu.AddMenuItem(Resources.PipingFailureMechanism_Add_Piping_Calculation,
+                                 Resources.PipingFailureMechanism_Add_Piping_Calculation_Tooltip,
                                  Resources.PipingIcon, (o, args) =>
                                  {
                                      var failureMechanism = (PipingFailureMechanism)nodeData;

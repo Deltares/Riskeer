@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.UpdateNode(null, surfaceLinesCollectionNodeMock, surfaceLinesCollection);
 
             // Assert
-            Assert.AreEqual(WtiFormsResources.PipingSurfaceLinesCollectionName, surfaceLinesCollectionNodeMock.Text);
+            Assert.AreEqual(WtiFormsResources.PipingSurfaceLinesCollection_DisplayName, surfaceLinesCollectionNodeMock.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), surfaceLinesCollectionNodeMock.ForegroundColor);
             Assert.AreEqual(16, surfaceLinesCollectionNodeMock.Image.Height);
             Assert.AreEqual(16, surfaceLinesCollectionNodeMock.Image.Width);
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.UpdateNode(null, surfaceLinesCollectionNodeMock, surfaceLinesCollection);
 
             // Assert
-            Assert.AreEqual(WtiFormsResources.PipingSurfaceLinesCollectionName, surfaceLinesCollectionNodeMock.Text);
+            Assert.AreEqual(WtiFormsResources.PipingSurfaceLinesCollection_DisplayName, surfaceLinesCollectionNodeMock.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), surfaceLinesCollectionNodeMock.ForegroundColor);
             Assert.AreEqual(16, surfaceLinesCollectionNodeMock.Image.Height);
             Assert.AreEqual(16, surfaceLinesCollectionNodeMock.Image.Width);

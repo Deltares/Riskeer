@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return WtiFormsResources.PipingSurfaceLinesCollectionName;
+                return WtiFormsResources.PipingSurfaceLinesCollection_DisplayName;
             }
         }
 
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             get
             {
                 return String.Format("{0} {1} (*.csv)|*.csv",
-                                     WtiFormsResources.PipingSurfaceLinesCollectionName, ApplicationResources.CsvFileName);
+                                     WtiFormsResources.PipingSurfaceLinesCollection_DisplayName, ApplicationResources.CsvFileName);
             }
         }
 

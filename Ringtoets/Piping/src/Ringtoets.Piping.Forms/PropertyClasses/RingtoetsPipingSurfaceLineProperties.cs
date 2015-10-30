@@ -11,12 +11,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="RingtoetsPipingSurfaceLine"/> for properties panel.
     /// </summary>
-    [ResourcesDisplayName(typeof(Resources), "SurfaceLinePropertiesDisplayName")]
-    public class PipingSurfaceLineProperties : ObjectProperties<RingtoetsPipingSurfaceLine>
+    [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_DisplayName")]
+    public class RingtoetsPipingSurfaceLineProperties : ObjectProperties<RingtoetsPipingSurfaceLine>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingSurfaceLineNameDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingSurfaceLineNameDescription")]
+        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_Name_Description")]
         public string Name
         {
             get
@@ -27,8 +27,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingSurfaceLinePointsDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingSurfaceLinePointsDescription")]
+        [ResourcesDisplayName(typeof(Resources), "RingtoetsPipingSurfaceLine_Points_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "RingtoetsPipingSurfaceLine_Points_Description")]
         public Point3D[] Points
         {
             get

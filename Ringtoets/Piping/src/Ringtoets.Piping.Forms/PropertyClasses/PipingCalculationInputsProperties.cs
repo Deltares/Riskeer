@@ -12,12 +12,12 @@ using Ringtoets.Piping.Forms.UITypeEditors;
 
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
-    [ResourcesDisplayName(typeof(Resources), "PipingDataPropertiesDisplayName")]
+    [ResourcesDisplayName(typeof(Resources), "PipingCalculationInputsProperties_DisplayName")]
     public class PipingCalculationInputsProperties : ObjectProperties<PipingCalculationInputs>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataNameDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataNameDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_Name_Description")]
         public string Name
         {
             get
@@ -32,8 +32,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataWaterVolumetricWeightDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataWaterVolumetricWeightDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_WaterVolumetricWeight_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_WaterVolumetricWeight_Description")]
         public double WaterVolumetricWeight
         {
             get
@@ -48,8 +48,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataUpliftModelFactorDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataUpliftModelFactorDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_UpliftModelFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_UpliftModelFactor_Description")]
         public double UpliftModelFactor
         {
             get
@@ -64,8 +64,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataAssessmentLevelDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataAssessmentLevelDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_AssessmentLevel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_AssessmentLevel_Description")]
         public double AssessmentLevel
         {
             get
@@ -80,8 +80,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataPiezometricHeadExitDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataPiezometricHeadExitDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_PiezometricHeadExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_PiezometricHeadExit_Description")]
         public double PiezometricHeadExit
         {
             get
@@ -97,8 +97,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataDampingFactorExitDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataDampingFactorExitDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_DampingFactorExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_DampingFactorExit_Description")]
         public LognormalDistribution DampingFactorExit
         {
             get
@@ -114,8 +114,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(NormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataPhreaticLevelExitDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataPhreaticLevelExitDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_PhreaticLevelExit_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_PhreaticLevelExit_Description")]
         public NormalDistribution PhreaticLevelExit
         {
             get
@@ -130,8 +130,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataPiezometricHeadPolderDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataPiezometricHeadPolderDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_PiezometricHeadPolder_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_PiezometricHeadPolder_Description")]
         public double PiezometricHeadPolder
         {
             get
@@ -147,8 +147,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataCriticalHeaveGradientDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataCriticalHeaveGradientDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_CriticalHeaveGradient_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_CriticalHeaveGradient_Description")]
         public LognormalDistribution CriticalHeaveGradient
         {
             get
@@ -164,8 +164,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataThicknessCoverageLayerDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataThicknessCoverageLayerDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_ThicknessCoverageLayer_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_ThicknessCoverageLayer_Description")]
         public LognormalDistribution ThicknessCoverageLayer
         {
             get
@@ -180,8 +180,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataSellmeijerModelFactorDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataSellmeijerModelFactorDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_SellmeijerModelFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_SellmeijerModelFactor_Description")]
         public double SellmeijerModelFactor
         {
             get
@@ -196,8 +196,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataSellmeijerReductionFactorDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataSellmeijerReductionFactorDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_SellmeijerReductionFactor_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_SellmeijerReductionFactor_Description")]
         public double SellmeijerReductionFactor
         {
             get
@@ -213,8 +213,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataSeepageLengthDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataSeepageLengthDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_SeepageLength_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_SeepageLength_Description")]
         public LognormalDistribution SeepageLength
         {
             get
@@ -230,8 +230,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(ShiftedLognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataSandParticlesVolumicWeightDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataSandParticlesVolumicWeightDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_SandParticlesVolumicWeight_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_SandParticlesVolumicWeight_Description")]
         public ShiftedLognormalDistribution SandParticlesVolumicWeight
         {
             get
@@ -246,8 +246,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataWhitesDragCoefficientDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataWhitesDragCoefficientDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_WhitesDragCoefficient_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_WhitesDragCoefficient_Description")]
         public double WhitesDragCoefficient
         {
             get
@@ -263,8 +263,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataDiameter70DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataDiameter70Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_Diameter70_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_Diameter70_Description")]
         public LognormalDistribution Diameter70
         {
             get
@@ -280,8 +280,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataDarcyPermeabilityDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataDarcyPermeabilityDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_DarcyPermeability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_DarcyPermeability_Description")]
         public LognormalDistribution DarcyPermeability
         {
             get
@@ -296,8 +296,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataWaterKinematicViscosityDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataWaterKinematicViscosityDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_WaterKinematicViscosity_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_WaterKinematicViscosity_Description")]
         public double WaterKinematicViscosity
         {
             get
@@ -312,8 +312,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataGravityDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataGravityDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_Gravity_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_Gravity_Description")]
         public double Gravity
         {
             get
@@ -329,8 +329,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataThicknessAquiferLayerDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataThicknessAquiferLayerDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_ThicknessAquiferLayer_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_ThicknessAquiferLayer_Description")]
         public LognormalDistribution ThicknessAquiferLayer
         {
             get
@@ -345,8 +345,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataMeanDiameter70DisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataMeanDiameter70Description")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_MeanDiameter70_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_MeanDiameter70_Description")]
         public double MeanDiameter70
         {
             get
@@ -361,8 +361,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataBeddingAngleDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataBeddingAngleDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_BeddingAngle_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_BeddingAngle_Description")]
         public double BeddingAngle
         {
             get
@@ -378,8 +378,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [Editor(typeof(PipingCalculationInputsSurfaceLineSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataSurfaceLineDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataSurfaceLineDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_SurfaceLine_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_SurfaceLine_Description")]
         public RingtoetsPipingSurfaceLine SurfaceLine
         {
             get
@@ -395,8 +395,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [Editor(typeof(PipingCalculationInputsSoilProfileSelectionEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingDataSoilProfileDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingDataSoilProfileDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingData_SoilProfile_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingData_SoilProfile_Description")]
         public PipingSoilProfile SoilProfile
         {
             get

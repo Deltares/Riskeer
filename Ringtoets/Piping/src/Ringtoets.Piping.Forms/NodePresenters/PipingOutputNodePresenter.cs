@@ -24,7 +24,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
-            node.Text = Resources.PipingOutputDisplayName;
+            node.Text = Resources.PipingOutput_DisplayName;
             node.Image = Resources.PipingIcon;
         }
 

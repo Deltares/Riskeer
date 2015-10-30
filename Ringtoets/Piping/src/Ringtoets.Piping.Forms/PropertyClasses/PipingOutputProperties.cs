@@ -10,8 +10,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     public class PipingOutputProperties : ObjectProperties<PipingOutput>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingOutputHeaveFactorOfSafetyDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingOutputHeaveFactorOfSafetyDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingOutput_HeaveFactorOfSafety_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingOutput_HeaveFactorOfSafety_Description")]
         public double HeaveFactorOfSafety
         {
             get
@@ -21,8 +21,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingOutputHeaveZValueDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingOutputHeaveZValueDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingOutput_HeaveZValue_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingOutput_HeaveZValue_Description")]
         public double HeaveZValue
         {
             get
@@ -32,8 +32,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingOutputUpliftFactorOfSafetyDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingOutputUpliftFactorOfSafetyDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingOutput_UpliftFactorOfSafety_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingOutput_UpliftFactorOfSafety_Description")]
         public double UpliftFactorOfSafety
         {
             get
@@ -43,8 +43,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingOutputUpliftZValueDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingOutputUpliftZValueDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingOutput_UpliftZValue_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingOutput_UpliftZValue_Description")]
         public double UpliftZValue
         {
             get
@@ -54,8 +54,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingOutputSellmeijerFactorOfSafetyDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingOutputSellmeijerFactorOfSafetyDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingOutput_SellmeijerFactorOfSafety_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingOutput_SellmeijerFactorOfSafety_Description")]
         public double SellmeijerFactorOfSafety
         {
             get
@@ -65,8 +65,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingOutputSellmeijerZValueDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingOutputSellmeijerZValueDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingOutput_SellmeijerZValue_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingOutput_SellmeijerZValue_Description")]
         public double SellmeijerZValue
         {
             get

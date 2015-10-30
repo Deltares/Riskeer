@@ -286,8 +286,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(1, contextMenu.Items.Count);
             ToolStripItem addPipingItem = contextMenu.Items[0];
-            Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, addPipingItem.Text);
-            Assert.AreEqual(WtiFormsResources.WtiProjectTooltipAddPipingFailureMechanism, addPipingItem.ToolTipText);
+            Assert.AreEqual(WtiFormsResources.WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism, addPipingItem.Text);
+            Assert.AreEqual(WtiFormsResources.WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip, addPipingItem.ToolTipText);
             Assert.IsTrue(addPipingItem.Enabled);
             Assert.AreSame(wtiProject, addPipingItem.Tag);
             Assert.AreEqual(16, addPipingItem.Image.Height);
@@ -314,8 +314,8 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(1, contextMenu.Items.Count);
             ToolStripItem addPipingItem = contextMenu.Items[0];
-            Assert.AreEqual(WtiFormsResources.AddPipingFailureMechanismContextMenuItem, addPipingItem.Text);
-            Assert.AreEqual(WtiFormsResources.WtiProjectTooltipPipingFailureMechanismAlreadyAdded, addPipingItem.ToolTipText);
+            Assert.AreEqual(WtiFormsResources.WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism, addPipingItem.Text);
+            Assert.AreEqual(WtiFormsResources.WtiProjectNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip, addPipingItem.ToolTipText);
             Assert.IsFalse(addPipingItem.Enabled);
             Assert.IsNull(addPipingItem.Tag);
             Assert.AreEqual(16, addPipingItem.Image.Height);

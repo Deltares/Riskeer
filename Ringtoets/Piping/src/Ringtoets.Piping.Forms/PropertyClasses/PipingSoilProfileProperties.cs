@@ -10,12 +10,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="PipingSoilProfile"/> for properties panel.
     /// </summary>
-    [ResourcesDisplayName(typeof(Resources), "PipingSoilProfilePropertiesDisplayName")]
+    [ResourcesDisplayName(typeof(Resources), "PipingSoilProfileProperties_DisplayName")]
     public class PipingSoilProfileProperties : ObjectProperties<PipingSoilProfile>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingSoilProfileNameDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingSoilProfileNameDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingSoilProfile_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingSoilProfile_Name_Description")]
         public string Name
         {
             get
@@ -26,8 +26,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingSoilProfileTopsDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingSoilProfileTopsDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingSoilProfile_Tops_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingSoilProfile_Tops_Description")]
         public double[] TopLevels
         {
             get
@@ -37,8 +37,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "PipingSoilProfileBottomDisplayName")]
-        [ResourcesDescription(typeof(Resources), "PipingSoilProfileBottomDescription")]
+        [ResourcesDisplayName(typeof(Resources), "PipingSoilProfile_Bottom_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingSoilProfile_Bottom_Description")]
         public double Bottom
         {
             get

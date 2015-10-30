@@ -124,304 +124,301 @@
   <data name="FolderIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PipingDataAssessmentLevelDescription" xml:space="preserve">
+  <data name="PipingData_AssessmentLevel_Description" xml:space="preserve">
     <value>Peil dat gebruikt moet worden in de toetsing.</value>
   </data>
-  <data name="PipingDataAssessmentLevelDisplayName" xml:space="preserve">
+  <data name="PipingData_AssessmentLevel_DisplayName" xml:space="preserve">
     <value>Toetspeil</value>
   </data>
-  <data name="PipingDataBeddingAngleDescription" xml:space="preserve">
+  <data name="PipingData_BeddingAngle_Description" xml:space="preserve">
     <value>Hoek in het krachtenevenwicht die aangeeft hoeveel de korrels weerstand bieden tegen rollen; ook beddingshoek genoemd.</value>
   </data>
-  <data name="PipingDataBeddingAngleDisplayName" xml:space="preserve">
+  <data name="PipingData_BeddingAngle_DisplayName" xml:space="preserve">
     <value>Rolweerstandshoek</value>
   </data>
-  <data name="PipingDataContextMenuCalculate" xml:space="preserve">
-    <value>Berekenen</value>
-  </data>
-  <data name="PipingDataCriticalHeaveGradientDescription" xml:space="preserve">
+  <data name="PipingData_CriticalHeaveGradient_Description" xml:space="preserve">
     <value>Kritiek verhang met betrekking tot heave.</value>
   </data>
-  <data name="PipingDataCriticalHeaveGradientDisplayName" xml:space="preserve">
+  <data name="PipingData_CriticalHeaveGradient_DisplayName" xml:space="preserve">
     <value>Kritiek verhang m.b.t. heave</value>
   </data>
-  <data name="PipingDataDampingFactorExitDescription" xml:space="preserve">
+  <data name="PipingData_DampingFactorExit_Description" xml:space="preserve">
     <value>Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand.</value>
   </data>
-  <data name="PipingDataDampingFactorExitDisplayName" xml:space="preserve">
+  <data name="PipingData_DampingFactorExit_DisplayName" xml:space="preserve">
     <value>Dempingsfactor bij uittredepunt</value>
   </data>
-  <data name="PipingDataDarcyPermeabilityDescription" xml:space="preserve">
+  <data name="PipingData_DarcyPermeability_Description" xml:space="preserve">
     <value>Darcy-snelheid waarmee water door de eerste voor doorlatendheid te onderscheiden zandlaag loopt.</value>
   </data>
-  <data name="PipingDataDarcyPermeabilityDisplayName" xml:space="preserve">
+  <data name="PipingData_DarcyPermeability_DisplayName" xml:space="preserve">
     <value>Doorlatendheid aquifer</value>
   </data>
-  <data name="PipingDataDiameter70Description" xml:space="preserve">
+  <data name="PipingData_Diameter70_Description" xml:space="preserve">
     <value>Zeefmaat waar 70 gewichtsprocent van de korrels uit een zandlaag doorheen gaat. Hier de korreldiameter van het bovenste gedeelte van de aquifer, bepaald zonder fijne fractie (&lt; 63µm).</value>
   </data>
-  <data name="PipingDataDiameter70DisplayName" xml:space="preserve">
+  <data name="PipingData_Diameter70_DisplayName" xml:space="preserve">
     <value>70%-fraktiel van de korreldiameter in de bovenste zandlaag</value>
   </data>
-  <data name="PipingDataExitPointXCoordinateDescription" xml:space="preserve">
+  <data name="PipingData_ExitPointXCoordinate_Description" xml:space="preserve">
     <value>De x-coordinaat van het uittredepunt.</value>
   </data>
-  <data name="PipingDataExitPointXCoordinateDisplayName" xml:space="preserve">
+  <data name="PipingData_ExitPointXCoordinate_DisplayName" xml:space="preserve">
     <value>X-coordinaat uittredepunt</value>
   </data>
-  <data name="PipingDataGravityDescription" xml:space="preserve">
+  <data name="PipingData_Gravity_Description" xml:space="preserve">
     <value>Valversnelling</value>
   </data>
-  <data name="PipingDataGravityDisplayName" xml:space="preserve">
+  <data name="PipingData_Gravity_DisplayName" xml:space="preserve">
     <value>Valversnelling</value>
   </data>
-  <data name="PipingDataMeanDiameter70Description" xml:space="preserve">
+  <data name="PipingData_MeanDiameter70_Description" xml:space="preserve">
     <value>gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit.</value>
   </data>
-  <data name="PipingDataMeanDiameter70DisplayName" xml:space="preserve">
+  <data name="PipingData_MeanDiameter70_DisplayName" xml:space="preserve">
     <value>Referentie waarde voor 70%-fraktiel in Sellmeijer regel</value>
   </data>
-  <data name="PipingDataPhreaticLevelExitDescription" xml:space="preserve">
+  <data name="PipingData_PhreaticLevelExit_Description" xml:space="preserve">
     <value>Freatische waterstand bij uittredepunt.</value>
   </data>
-  <data name="PipingDataPhreaticLevelExitDisplayName" xml:space="preserve">
+  <data name="PipingData_PhreaticLevelExit_DisplayName" xml:space="preserve">
     <value>Freatische waterstand bij uittredepunt</value>
   </data>
-  <data name="PipingDataPiezometricHeadExitDescription" xml:space="preserve">
+  <data name="PipingData_PiezometricHeadExit_Description" xml:space="preserve">
     <value>Stijghoogte bij uittredepunt.</value>
   </data>
-  <data name="PipingDataPiezometricHeadExitDisplayName" xml:space="preserve">
+  <data name="PipingData_PiezometricHeadExit_DisplayName" xml:space="preserve">
     <value>Stijghoogte bij uittredepunt</value>
   </data>
-  <data name="PipingDataPiezometricHeadPolderDescription" xml:space="preserve">
+  <data name="PipingData_PiezometricHeadPolder_Description" xml:space="preserve">
     <value>Stijghoogte in achterland.</value>
   </data>
-  <data name="PipingDataPiezometricHeadPolderDisplayName" xml:space="preserve">
+  <data name="PipingData_PiezometricHeadPolder_DisplayName" xml:space="preserve">
     <value>Stijghoogte in achterland</value>
   </data>
-  <data name="PipingDataPropertiesDisplayName" xml:space="preserve">
+  <data name="PipingCalculationInputsProperties_DisplayName" xml:space="preserve">
     <value>Piping</value>
   </data>
-  <data name="PipingDataSandParticlesVolumicWeightDescription" xml:space="preserve">
+  <data name="PipingData_SandParticlesVolumicWeight_Description" xml:space="preserve">
     <value>Het (ondergedempelde) volumegewicht van zandkorrelmateriaal van een zandlaag.</value>
   </data>
-  <data name="PipingDataSandParticlesVolumicWeightDisplayName" xml:space="preserve">
+  <data name="PipingData_SandParticlesVolumicWeight_DisplayName" xml:space="preserve">
     <value>Volumiek gewicht van de zandkorrels onder water</value>
   </data>
-  <data name="PipingDataSeepageLengthDescription" xml:space="preserve">
+  <data name="PipingData_SeepageLength_Description" xml:space="preserve">
     <value>De horizontale afstand tussen intree- en uitreepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt.</value>
   </data>
-  <data name="PipingDataSeepageLengthDisplayName" xml:space="preserve">
+  <data name="PipingData_SeepageLength_DisplayName" xml:space="preserve">
     <value>Kwelweglengte</value>
   </data>
-  <data name="PipingDataSellmeijerModelFactorDescription" xml:space="preserve">
+  <data name="PipingData_SellmeijerModelFactor_Description" xml:space="preserve">
     <value>Rekenwaarde om de modelonzekerheid in het model van Sellmeijer in rekening te brengen.</value>
   </data>
-  <data name="PipingDataSellmeijerModelFactorDisplayName" xml:space="preserve">
+  <data name="PipingData_SellmeijerModelFactor_DisplayName" xml:space="preserve">
     <value>Modelfactor piping toegepast op Sellmeijermodel</value>
   </data>
-  <data name="PipingDataSellmeijerReductionFactorDescription" xml:space="preserve">
+  <data name="PipingData_SellmeijerReductionFactor_Description" xml:space="preserve">
     <value>Reductiefactor Sellmeijer.</value>
   </data>
-  <data name="PipingDataSellmeijerReductionFactorDisplayName" xml:space="preserve">
+  <data name="PipingData_SellmeijerReductionFactor_DisplayName" xml:space="preserve">
     <value>Reductiefactor Sellmeijer</value>
   </data>
-  <data name="PipingDataThicknessAquiferLayerDescription" xml:space="preserve">
+  <data name="PipingData_ThicknessAquiferLayer_Description" xml:space="preserve">
     <value>De dikte van de eerste of bovenste voor doorlatendheid te onderscheiden zandlaag van mogelijk meerdere zandlagen vanaf de cohesieve grondlaag.</value>
   </data>
-  <data name="PipingDataThicknessAquiferLayerDisplayName" xml:space="preserve">
+  <data name="PipingData_ThicknessAquiferLayer_DisplayName" xml:space="preserve">
     <value>Dikte watervoerend pakket</value>
   </data>
-  <data name="PipingDataThicknessCoverageLayerDescription" xml:space="preserve">
+  <data name="PipingData_ThicknessCoverageLayer_Description" xml:space="preserve">
     <value>Totale deklaagdikte bij uittredepunt.</value>
   </data>
-  <data name="PipingDataThicknessCoverageLayerDisplayName" xml:space="preserve">
+  <data name="PipingData_ThicknessCoverageLayer_DisplayName" xml:space="preserve">
     <value>Totale deklaagdikte bij uittredepunt</value>
   </data>
-  <data name="PipingDataUpliftModelFactorDescription" xml:space="preserve">
+  <data name="PipingData_UpliftModelFactor_Description" xml:space="preserve">
     <value>Rekenwaarde om de modelonzekerheid in het model van opbarsten in rekening te brengen.</value>
   </data>
-  <data name="PipingDataUpliftModelFactorDisplayName" xml:space="preserve">
+  <data name="PipingData_UpliftModelFactor_DisplayName" xml:space="preserve">
     <value>Modelfactor opbarsten</value>
   </data>
-  <data name="PipingDataWaterKinematicViscosityDescription" xml:space="preserve">
+  <data name="PipingData_WaterKinematicViscosity_Description" xml:space="preserve">
     <value>Kinematische viscositeit van water bij 10º Celsius.</value>
   </data>
-  <data name="PipingDataWaterKinematicViscosityDisplayName" xml:space="preserve">
+  <data name="PipingData_WaterKinematicViscosity_DisplayName" xml:space="preserve">
     <value>Kinematische viscositeit van water bij 10º Celsius</value>
   </data>
-  <data name="PipingDataWaterVolumetricWeightDescription" xml:space="preserve">
+  <data name="PipingData_WaterVolumetricWeight_Description" xml:space="preserve">
     <value>Volumiek gewicht van water.</value>
   </data>
-  <data name="PipingDataWaterVolumetricWeightDisplayName" xml:space="preserve">
+  <data name="PipingData_WaterVolumetricWeight_DisplayName" xml:space="preserve">
     <value>Volumiek gewicht van water</value>
   </data>
-  <data name="PipingDataWhitesDragCoefficientDescription" xml:space="preserve">
+  <data name="PipingData_WhitesDragCoefficient_Description" xml:space="preserve">
     <value>Sleepkrachtfactor volgens White.</value>
   </data>
-  <data name="PipingDataWhitesDragCoefficientDisplayName" xml:space="preserve">
+  <data name="PipingData_WhitesDragCoefficient_DisplayName" xml:space="preserve">
     <value>Coëfficiënt van White</value>
   </data>
   <data name="PipingIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\control_equalizer_blue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PipingOutputDisplayName" xml:space="preserve">
+  <data name="PipingOutput_DisplayName" xml:space="preserve">
     <value>Piping resultaat</value>
   </data>
-  <data name="PipingOutputHeaveFactorOfSafetyDescription" xml:space="preserve">
+  <data name="PipingOutput_HeaveFactorOfSafety_Description" xml:space="preserve">
     <value>Veiligheidsfactor heave</value>
   </data>
-  <data name="PipingOutputHeaveFactorOfSafetyDisplayName" xml:space="preserve">
+  <data name="PipingOutput_HeaveFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor heave</value>
   </data>
-  <data name="PipingOutputHeaveZValueDescription" xml:space="preserve">
+  <data name="PipingOutput_HeaveZValue_Description" xml:space="preserve">
     <value>Z-waarde heave</value>
   </data>
-  <data name="PipingOutputHeaveZValueDisplayName" xml:space="preserve">
+  <data name="PipingOutput_HeaveZValue_DisplayName" xml:space="preserve">
     <value>Z-waarde heave</value>
   </data>
-  <data name="PipingOutputPropertiesDisplayName" xml:space="preserve">
+  <data name="PipingOutput_Properties_DisplayName" xml:space="preserve">
     <value>Piping resultaten</value>
   </data>
-  <data name="PipingOutputSellmeijerFactorOfSafetyDescription" xml:space="preserve">
+  <data name="PipingOutput_SellmeijerFactorOfSafety_Description" xml:space="preserve">
     <value>Veiligheidsfactor Sellmeijer</value>
   </data>
-  <data name="PipingOutputSellmeijerFactorOfSafetyDisplayName" xml:space="preserve">
+  <data name="PipingOutput_SellmeijerFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor Sellmeijer</value>
   </data>
-  <data name="PipingOutputSellmeijerZValueDescription" xml:space="preserve">
+  <data name="PipingOutput_SellmeijerZValue_Description" xml:space="preserve">
     <value>Z-waarde Sellmeijer</value>
   </data>
-  <data name="PipingOutputSellmeijerZValueDisplayName" xml:space="preserve">
+  <data name="PipingOutput_SellmeijerZValue_DisplayName" xml:space="preserve">
     <value>Z-waarde Sellmeijer</value>
   </data>
-  <data name="PipingOutputUpliftFactorOfSafetyDescription" xml:space="preserve">
+  <data name="PipingOutput_UpliftFactorOfSafety_Description" xml:space="preserve">
     <value>Veiligheidsfactor opbarsten</value>
   </data>
-  <data name="PipingOutputUpliftFactorOfSafetyDisplayName" xml:space="preserve">
+  <data name="PipingOutput_UpliftFactorOfSafety_DisplayName" xml:space="preserve">
     <value>Veiligheidsfactor opbarsten</value>
   </data>
-  <data name="PipingOutputUpliftZValueDescription" xml:space="preserve">
+  <data name="PipingOutput_UpliftZValue_Description" xml:space="preserve">
     <value>Z-waarde opbarsten</value>
   </data>
-  <data name="PipingOutputUpliftZValueDisplayName" xml:space="preserve">
+  <data name="PipingOutput_UpliftZValue_DisplayName" xml:space="preserve">
     <value>Z-waarde opbarsten</value>
   </data>
-  <data name="PipingSurfaceLinesCollectionName" xml:space="preserve">
+  <data name="PipingSurfaceLinesCollection_DisplayName" xml:space="preserve">
     <value>Dwarsdoorsneden</value>
   </data>
   <data name="WtiProjectFolderIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder-stand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WtiProjectNameDescription" xml:space="preserve">
+  <data name="WtiProject_Name_Description" xml:space="preserve">
     <value>Naam van het wettelijk toets instrumentarium project.</value>
   </data>
-  <data name="WtiProjectNameDisplayName" xml:space="preserve">
+  <data name="WtiProject_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
-  <data name="WtiProjectPropertiesDisplayName" xml:space="preserve">
+  <data name="WtiProjectProperties_DisplayName" xml:space="preserve">
     <value>WTI project</value>
   </data>
-  <data name="PipingFailureMechanismDisplayName" xml:space="preserve">
+  <data name="PipingFailureMechanism_DisplayName" xml:space="preserve">
     <value>Faalmechanisme piping</value>
   </data>
   <data name="PipingSurfaceLineIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\u48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AddPipingFailureMechanismContextMenuItem" xml:space="preserve">
+  <data name="WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism" xml:space="preserve">
     <value>Voeg piping faalmechanisme toe</value>
   </data>
-  <data name="PipingDataContextMenuValidate" xml:space="preserve">
+  <data name="Validate" xml:space="preserve">
     <value>Valideren</value>
   </data>
   <data name="ImportIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\table-import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ImportSurfaceLines" xml:space="preserve">
+  <data name="Import_SurfaceLines" xml:space="preserve">
     <value>Importeer dwarsdoorsnedes</value>
   </data>
-  <data name="ImportSurfaceLinesDescription" xml:space="preserve">
+  <data name="Import_SurfaceLines_Tooltip" xml:space="preserve">
     <value>Importeer nieuwe dwarsdoorsnedes van een *.csv bestand.</value>
   </data>
-  <data name="WtiProjectTooltipAddPipingFailureMechanism" xml:space="preserve">
+  <data name="WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip" xml:space="preserve">
     <value>Start een nieuwe piping toetsing voor dit project.</value>
   </data>
-  <data name="WtiProjectTooltipPipingFailureMechanismAlreadyAdded" xml:space="preserve">
+  <data name="WtiProjectNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip" xml:space="preserve">
     <value>Kan geen nieuwe piping toetsing starten, omdat er al een piping toetsing is gestart voor dit project.</value>
   </data>
-  <data name="PipingSoilProfilesCollectionName" xml:space="preserve">
+  <data name="PipingSoilProfilesCollection_DisplayName" xml:space="preserve">
     <value>Ondergrondprofielen</value>
   </data>
-  <data name="ImportSoilProfiles" xml:space="preserve">
+  <data name="Import_SoilProfiles" xml:space="preserve">
     <value>Importeer ondergrondprofielen</value>
   </data>
-  <data name="ImportSoilProfilesDescription" xml:space="preserve">
+  <data name="Import_SoilProfiles_Tooltip" xml:space="preserve">
     <value>Importeer nieuwe ondergrondprofielen van een *.soil bestand.</value>
   </data>
   <data name="PipingSoilProfileIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PipingSurfaceLineNameDescription" xml:space="preserve">
+  <data name="RingtoetsPipingSurfaceLine_Name_Description" xml:space="preserve">
     <value>Naam van de dwarsdoorsnede</value>
   </data>
-  <data name="PipingSurfaceLineNameDisplayName" xml:space="preserve">
+  <data name="RingtoetsPipingSurfaceLine_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
-  <data name="PipingSurfaceLinePointsDescription" xml:space="preserve">
+  <data name="RingtoetsPipingSurfaceLine_Points_Description" xml:space="preserve">
     <value>De punten die de geometrie van de dwarsdoorsnede definiëren.</value>
   </data>
-  <data name="PipingSurfaceLinePointsDisplayName" xml:space="preserve">
+  <data name="RingtoetsPipingSurfaceLine_Points_DisplayName" xml:space="preserve">
     <value>Geometriepunten</value>
   </data>
-  <data name="SurfaceLinePropertiesDisplayName" xml:space="preserve">
+  <data name="RingtoetsPipingSurfaceLine_DisplayName" xml:space="preserve">
     <value>Dwarsdoorsnede</value>
   </data>
-  <data name="PipingDataSurfaceLineDescription" xml:space="preserve">
+  <data name="PipingData_SurfaceLine_Description" xml:space="preserve">
     <value>De dwarsdoorsnede die voor de piping berekening gebruikt wordt.</value>
   </data>
-  <data name="PipingDataSurfaceLineDisplayName" xml:space="preserve">
+  <data name="PipingData_SurfaceLine_DisplayName" xml:space="preserve">
     <value>Dwarsdoorsnede</value>
   </data>
   <data name="PlayAll" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PlayAll.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="PipingDataNameDescription" xml:space="preserve">
+  <data name="PipingData_Name_Description" xml:space="preserve">
     <value>Naam van de piping berekening.</value>
   </data>
-  <data name="PipingDataNameDisplayName" xml:space="preserve">
+  <data name="PipingData_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
-  <data name="PipingSoilProfileBottomDescription" xml:space="preserve">
+  <data name="PipingSoilProfile_Bottom_Description" xml:space="preserve">
     <value>Het niveau van de onderkant van dit profiel.</value>
   </data>
-  <data name="PipingSoilProfileBottomDisplayName" xml:space="preserve">
+  <data name="PipingSoilProfile_Bottom_DisplayName" xml:space="preserve">
     <value>Bodemniveau</value>
   </data>
-  <data name="PipingSoilProfileNameDescription" xml:space="preserve">
+  <data name="PipingSoilProfile_Name_Description" xml:space="preserve">
     <value>De naam van het ondergrondprofiel.</value>
   </data>
-  <data name="PipingSoilProfileNameDisplayName" xml:space="preserve">
+  <data name="PipingSoilProfile_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
-  <data name="PipingSoilProfilePropertiesDisplayName" xml:space="preserve">
+  <data name="PipingSoilProfileProperties_DisplayName" xml:space="preserve">
     <value>Ondergrondprofiel</value>
   </data>
-  <data name="PipingSoilProfileTopsDescription" xml:space="preserve">
+  <data name="PipingSoilProfile_Tops_Description" xml:space="preserve">
     <value>De niveaus van de bovenkant van de lagen binnen dit profiel.</value>
   </data>
-  <data name="PipingSoilProfileTopsDisplayName" xml:space="preserve">
+  <data name="PipingSoilProfile_Tops_DisplayName" xml:space="preserve">
     <value>Topniveaus</value>
   </data>
-  <data name="PipingDataSoilProfileDescription" xml:space="preserve">
+  <data name="PipingData_SoilProfile_Description" xml:space="preserve">
     <value>Het ondergrondprofiel dat voor de piping berekening gebruikt wordt.</value>
   </data>
-  <data name="PipingDataSoilProfileDisplayName" xml:space="preserve">
+  <data name="PipingData_SoilProfile_DisplayName" xml:space="preserve">
     <value>Ondergrondprofiel</value>
   </data>
-  <data name="PipingFailureMechanism_Add_piping_calculation" xml:space="preserve">
+  <data name="PipingFailureMechanism_Add_Piping_Calculation" xml:space="preserve">
     <value>Berekening toevoegen</value>
   </data>
-  <data name="PipingFailureMechanism_Add_piping_calculation_Tooltip" xml:space="preserve">
+  <data name="PipingFailureMechanism_Add_Piping_Calculation_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe piping berekening toe aan het faalmechanisme.</value>
   </data>
   <data name="Calculate" xml:space="preserve">

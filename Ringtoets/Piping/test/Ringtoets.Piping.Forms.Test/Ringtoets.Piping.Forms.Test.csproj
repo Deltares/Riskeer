@@ -62,7 +62,7 @@
     <Compile Include="PropertyClasses\PipingCalculationInputsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingSoilProfilePropertiesTest.cs" />
-    <Compile Include="PropertyClasses\PipingSurfaceLinePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WtiProjectPropertiesTest.cs" />
     <Compile Include="TypeConverters\LognormalDistributionTypeConverterTest.cs" />
     <Compile Include="TypeConverters\ShiftedLognormalDistributionTypeConverterTest.cs" />

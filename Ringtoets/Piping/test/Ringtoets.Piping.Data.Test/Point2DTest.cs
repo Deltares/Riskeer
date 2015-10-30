@@ -49,10 +49,9 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        [TestCase(0, 0, 0)]
-        [TestCase(1, 2, 3)]
-        [TestCase(3.5, 3.6, 3.7)]
-        public void Equals_OtherWithSameCoordinates_ReturnsTrue(double x, double y, double z)
+        [TestCase(0, 0)]
+        [TestCase(1, 2)]
+        public void Equals_OtherWithSameCoordinates_ReturnsTrue(double x, double y)
         {
             // Setup
             var point = new Point2D

@@ -8,13 +8,13 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class PipingSurfaceLinePropertiesTest
+    public class RingtoetsPipingSurfaceLinePropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new PipingSurfaceLineProperties();
+            var properties = new RingtoetsPipingSurfaceLineProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<RingtoetsPipingSurfaceLine>>(properties);
@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 Name = expectedName
             };
 
-            var properties = new PipingSurfaceLineProperties
+            var properties = new RingtoetsPipingSurfaceLineProperties
             {
                 Data = surfaceLine
             };

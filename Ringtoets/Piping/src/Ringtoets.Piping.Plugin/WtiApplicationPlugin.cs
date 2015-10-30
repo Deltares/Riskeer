@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Plugin
         {
             yield return new DataItemInfo<WtiProject>
             {
-                Name = WtiFormsResources.WtiProjectPropertiesDisplayName,
+                Name = WtiFormsResources.WtiProjectProperties_DisplayName,
                 Category = ApplicationResources.WtiApplicationName,
                 Image = WtiFormsResources.WtiProjectFolderIcon,
                 CreateData = owner => new WtiProject()

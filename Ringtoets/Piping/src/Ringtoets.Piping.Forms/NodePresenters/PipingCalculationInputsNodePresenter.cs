@@ -94,14 +94,14 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             PipingData pipingData = ((PipingCalculationInputs) nodeData).PipingData;
 
             var contextMenu = new ContextMenuStrip();
-            contextMenu.AddMenuItem(Resources.PipingDataContextMenuValidate,
+            contextMenu.AddMenuItem(Resources.Validate,
                                     null,
                                     null,
                                     (o, args) =>
                                     {
                                         PipingCalculationService.Validate(pipingData);
                                     });
-            contextMenu.AddMenuItem(Resources.PipingDataContextMenuCalculate,
+            contextMenu.AddMenuItem(Resources.Calculate,
                                     null,
                                     Resources.Play,
                                     (o, args) =>

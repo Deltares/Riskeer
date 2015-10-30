@@ -25,14 +25,14 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Prepare
             var expectedFileFilter = String.Format("{0} {1} (*.soil)|*.soil",
-                WtiFormsResources.PipingSoilProfilesCollectionName, ApplicationResources.SoilFileName);
+                WtiFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.SoilFileName);
 
             // Call
             var importer = new PipingSoilProfilesImporter();
 
             // Assert
             Assert.IsInstanceOf<IFileImporter>(importer);
-            Assert.AreEqual(WtiFormsResources.PipingSoilProfilesCollectionName, importer.Name);
+            Assert.AreEqual(WtiFormsResources.PipingSoilProfilesCollection_DisplayName, importer.Name);
             Assert.AreEqual(ApplicationResources.WtiApplicationName, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);

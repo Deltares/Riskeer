@@ -88,15 +88,15 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             var contextMenu = new ContextMenuStrip();
             if (wtiProject.CanAddPipingFailureMechanism())
             {
-                contextMenu.AddMenuItem(Resources.AddPipingFailureMechanismContextMenuItem,
-                    Resources.WtiProjectTooltipAddPipingFailureMechanism,
+                contextMenu.AddMenuItem(Resources.WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism,
+                    Resources.WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip,
                     Resources.PipingIcon,
                     InitializePipingFailureMechanismForWtiProject).Tag = nodeData;
             }
             else
             {
-                contextMenu.AddMenuItem(Resources.AddPipingFailureMechanismContextMenuItem,
-                    Resources.WtiProjectTooltipPipingFailureMechanismAlreadyAdded,
+                contextMenu.AddMenuItem(Resources.WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism,
+                    Resources.WtiProjectNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip,
                     Resources.PipingIcon,
                     InitializePipingFailureMechanismForWtiProject).Enabled = false;
             }

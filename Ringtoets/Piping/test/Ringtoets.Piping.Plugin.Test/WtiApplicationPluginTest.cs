@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Plugin.Test
             Assert.AreEqual(1, dataItemDefinitions.Length);
 
             DataItemInfo projectDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(WtiProject));
-            Assert.AreEqual(WtiFormsResources.WtiProjectPropertiesDisplayName, projectDataItemDefinition.Name);
+            Assert.AreEqual(WtiFormsResources.WtiProjectProperties_DisplayName, projectDataItemDefinition.Name);
             Assert.AreEqual(PluginResources.WtiApplicationName, projectDataItemDefinition.Category);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Width);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Height);

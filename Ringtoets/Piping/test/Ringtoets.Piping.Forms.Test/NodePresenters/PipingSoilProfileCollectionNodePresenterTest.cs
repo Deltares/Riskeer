@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.UpdateNode(null, soilProfileCollectionNodeStub, soilProfilesCollection);
 
             // Assert
-            Assert.AreEqual(WtiFormsResources.PipingSoilProfilesCollectionName, soilProfileCollectionNodeStub.Text);
+            Assert.AreEqual(WtiFormsResources.PipingSoilProfilesCollection_DisplayName, soilProfileCollectionNodeStub.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), soilProfileCollectionNodeStub.ForegroundColor);
             Assert.AreEqual(16, soilProfileCollectionNodeStub.Image.Height);
             Assert.AreEqual(16, soilProfileCollectionNodeStub.Image.Width);

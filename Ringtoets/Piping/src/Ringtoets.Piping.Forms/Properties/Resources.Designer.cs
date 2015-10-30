@@ -61,15 +61,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg piping faalmechanisme toe.
-        /// </summary>
-        public static string AddPipingFailureMechanismContextMenuItem {
-            get {
-                return ResourceManager.GetString("AddPipingFailureMechanismContextMenuItem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekenen.
         /// </summary>
         public static string Calculate {
@@ -98,6 +89,42 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Importeer ondergrondprofielen.
+        /// </summary>
+        public static string Import_SoilProfiles {
+            get {
+                return ResourceManager.GetString("Import_SoilProfiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importeer nieuwe ondergrondprofielen van een *.soil bestand..
+        /// </summary>
+        public static string Import_SoilProfiles_Tooltip {
+            get {
+                return ResourceManager.GetString("Import_SoilProfiles_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importeer dwarsdoorsnedes.
+        /// </summary>
+        public static string Import_SurfaceLines {
+            get {
+                return ResourceManager.GetString("Import_SurfaceLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importeer nieuwe dwarsdoorsnedes van een *.csv bestand..
+        /// </summary>
+        public static string Import_SurfaceLines_Tooltip {
+            get {
+                return ResourceManager.GetString("Import_SurfaceLines_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ImportIcon {
@@ -108,533 +135,479 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Importeer ondergrondprofielen.
+        ///   Looks up a localized string similar to Piping.
         /// </summary>
-        public static string ImportSoilProfiles {
+        public static string PipingCalculationInputsProperties_DisplayName {
             get {
-                return ResourceManager.GetString("ImportSoilProfiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Importeer nieuwe ondergrondprofielen van een *.soil bestand..
-        /// </summary>
-        public static string ImportSoilProfilesDescription {
-            get {
-                return ResourceManager.GetString("ImportSoilProfilesDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Importeer dwarsdoorsnedes.
-        /// </summary>
-        public static string ImportSurfaceLines {
-            get {
-                return ResourceManager.GetString("ImportSurfaceLines", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Importeer nieuwe dwarsdoorsnedes van een *.csv bestand..
-        /// </summary>
-        public static string ImportSurfaceLinesDescription {
-            get {
-                return ResourceManager.GetString("ImportSurfaceLinesDescription", resourceCulture);
+                return ResourceManager.GetString("PipingCalculationInputsProperties_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Peil dat gebruikt moet worden in de toetsing..
         /// </summary>
-        public static string PipingDataAssessmentLevelDescription {
+        public static string PipingData_AssessmentLevel_Description {
             get {
-                return ResourceManager.GetString("PipingDataAssessmentLevelDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_AssessmentLevel_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Toetspeil.
         /// </summary>
-        public static string PipingDataAssessmentLevelDisplayName {
+        public static string PipingData_AssessmentLevel_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataAssessmentLevelDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_AssessmentLevel_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Hoek in het krachtenevenwicht die aangeeft hoeveel de korrels weerstand bieden tegen rollen; ook beddingshoek genoemd..
         /// </summary>
-        public static string PipingDataBeddingAngleDescription {
+        public static string PipingData_BeddingAngle_Description {
             get {
-                return ResourceManager.GetString("PipingDataBeddingAngleDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_BeddingAngle_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Rolweerstandshoek.
         /// </summary>
-        public static string PipingDataBeddingAngleDisplayName {
+        public static string PipingData_BeddingAngle_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataBeddingAngleDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekenen.
-        /// </summary>
-        public static string PipingDataContextMenuCalculate {
-            get {
-                return ResourceManager.GetString("PipingDataContextMenuCalculate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valideren.
-        /// </summary>
-        public static string PipingDataContextMenuValidate {
-            get {
-                return ResourceManager.GetString("PipingDataContextMenuValidate", resourceCulture);
+                return ResourceManager.GetString("PipingData_BeddingAngle_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kritiek verhang met betrekking tot heave..
         /// </summary>
-        public static string PipingDataCriticalHeaveGradientDescription {
+        public static string PipingData_CriticalHeaveGradient_Description {
             get {
-                return ResourceManager.GetString("PipingDataCriticalHeaveGradientDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_CriticalHeaveGradient_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kritiek verhang m.b.t. heave.
         /// </summary>
-        public static string PipingDataCriticalHeaveGradientDisplayName {
+        public static string PipingData_CriticalHeaveGradient_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataCriticalHeaveGradientDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_CriticalHeaveGradient_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dempingsfactor relateert respons van stijghoogte bij binnenteen aan buitenwaterstand..
         /// </summary>
-        public static string PipingDataDampingFactorExitDescription {
+        public static string PipingData_DampingFactorExit_Description {
             get {
-                return ResourceManager.GetString("PipingDataDampingFactorExitDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_DampingFactorExit_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dempingsfactor bij uittredepunt.
         /// </summary>
-        public static string PipingDataDampingFactorExitDisplayName {
+        public static string PipingData_DampingFactorExit_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataDampingFactorExitDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_DampingFactorExit_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Darcy-snelheid waarmee water door de eerste voor doorlatendheid te onderscheiden zandlaag loopt..
         /// </summary>
-        public static string PipingDataDarcyPermeabilityDescription {
+        public static string PipingData_DarcyPermeability_Description {
             get {
-                return ResourceManager.GetString("PipingDataDarcyPermeabilityDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_DarcyPermeability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Doorlatendheid aquifer.
         /// </summary>
-        public static string PipingDataDarcyPermeabilityDisplayName {
+        public static string PipingData_DarcyPermeability_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataDarcyPermeabilityDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_DarcyPermeability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Zeefmaat waar 70 gewichtsprocent van de korrels uit een zandlaag doorheen gaat. Hier de korreldiameter van het bovenste gedeelte van de aquifer, bepaald zonder fijne fractie (&lt; 63µm)..
         /// </summary>
-        public static string PipingDataDiameter70Description {
+        public static string PipingData_Diameter70_Description {
             get {
-                return ResourceManager.GetString("PipingDataDiameter70Description", resourceCulture);
+                return ResourceManager.GetString("PipingData_Diameter70_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 70%-fraktiel van de korreldiameter in de bovenste zandlaag.
         /// </summary>
-        public static string PipingDataDiameter70DisplayName {
+        public static string PipingData_Diameter70_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataDiameter70DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_Diameter70_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De x-coordinaat van het uittredepunt..
         /// </summary>
-        public static string PipingDataExitPointXCoordinateDescription {
+        public static string PipingData_ExitPointXCoordinate_Description {
             get {
-                return ResourceManager.GetString("PipingDataExitPointXCoordinateDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_ExitPointXCoordinate_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to X-coordinaat uittredepunt.
         /// </summary>
-        public static string PipingDataExitPointXCoordinateDisplayName {
+        public static string PipingData_ExitPointXCoordinate_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataExitPointXCoordinateDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_ExitPointXCoordinate_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Valversnelling.
         /// </summary>
-        public static string PipingDataGravityDescription {
+        public static string PipingData_Gravity_Description {
             get {
-                return ResourceManager.GetString("PipingDataGravityDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_Gravity_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Valversnelling.
         /// </summary>
-        public static string PipingDataGravityDisplayName {
+        public static string PipingData_Gravity_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataGravityDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_Gravity_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop formule van Sellmeijer is gefit..
         /// </summary>
-        public static string PipingDataMeanDiameter70Description {
+        public static string PipingData_MeanDiameter70_Description {
             get {
-                return ResourceManager.GetString("PipingDataMeanDiameter70Description", resourceCulture);
+                return ResourceManager.GetString("PipingData_MeanDiameter70_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Referentie waarde voor 70%-fraktiel in Sellmeijer regel.
         /// </summary>
-        public static string PipingDataMeanDiameter70DisplayName {
+        public static string PipingData_MeanDiameter70_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataMeanDiameter70DisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_MeanDiameter70_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Naam van de piping berekening..
         /// </summary>
-        public static string PipingDataNameDescription {
+        public static string PipingData_Name_Description {
             get {
-                return ResourceManager.GetString("PipingDataNameDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_Name_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Naam.
         /// </summary>
-        public static string PipingDataNameDisplayName {
+        public static string PipingData_Name_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataNameDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_Name_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Freatische waterstand bij uittredepunt..
         /// </summary>
-        public static string PipingDataPhreaticLevelExitDescription {
+        public static string PipingData_PhreaticLevelExit_Description {
             get {
-                return ResourceManager.GetString("PipingDataPhreaticLevelExitDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_PhreaticLevelExit_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Freatische waterstand bij uittredepunt.
         /// </summary>
-        public static string PipingDataPhreaticLevelExitDisplayName {
+        public static string PipingData_PhreaticLevelExit_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataPhreaticLevelExitDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_PhreaticLevelExit_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Stijghoogte bij uittredepunt..
         /// </summary>
-        public static string PipingDataPiezometricHeadExitDescription {
+        public static string PipingData_PiezometricHeadExit_Description {
             get {
-                return ResourceManager.GetString("PipingDataPiezometricHeadExitDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_PiezometricHeadExit_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Stijghoogte bij uittredepunt.
         /// </summary>
-        public static string PipingDataPiezometricHeadExitDisplayName {
+        public static string PipingData_PiezometricHeadExit_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataPiezometricHeadExitDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_PiezometricHeadExit_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Stijghoogte in achterland..
         /// </summary>
-        public static string PipingDataPiezometricHeadPolderDescription {
+        public static string PipingData_PiezometricHeadPolder_Description {
             get {
-                return ResourceManager.GetString("PipingDataPiezometricHeadPolderDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_PiezometricHeadPolder_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Stijghoogte in achterland.
         /// </summary>
-        public static string PipingDataPiezometricHeadPolderDisplayName {
+        public static string PipingData_PiezometricHeadPolder_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataPiezometricHeadPolderDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Piping.
-        /// </summary>
-        public static string PipingDataPropertiesDisplayName {
-            get {
-                return ResourceManager.GetString("PipingDataPropertiesDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_PiezometricHeadPolder_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het (ondergedempelde) volumegewicht van zandkorrelmateriaal van een zandlaag..
         /// </summary>
-        public static string PipingDataSandParticlesVolumicWeightDescription {
+        public static string PipingData_SandParticlesVolumicWeight_Description {
             get {
-                return ResourceManager.GetString("PipingDataSandParticlesVolumicWeightDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_SandParticlesVolumicWeight_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Volumiek gewicht van de zandkorrels onder water.
         /// </summary>
-        public static string PipingDataSandParticlesVolumicWeightDisplayName {
+        public static string PipingData_SandParticlesVolumicWeight_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataSandParticlesVolumicWeightDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_SandParticlesVolumicWeight_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De horizontale afstand tussen intree- en uitreepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt..
         /// </summary>
-        public static string PipingDataSeepageLengthDescription {
+        public static string PipingData_SeepageLength_Description {
             get {
-                return ResourceManager.GetString("PipingDataSeepageLengthDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_SeepageLength_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kwelweglengte.
         /// </summary>
-        public static string PipingDataSeepageLengthDisplayName {
+        public static string PipingData_SeepageLength_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataSeepageLengthDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_SeepageLength_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Rekenwaarde om de modelonzekerheid in het model van Sellmeijer in rekening te brengen..
         /// </summary>
-        public static string PipingDataSellmeijerModelFactorDescription {
+        public static string PipingData_SellmeijerModelFactor_Description {
             get {
-                return ResourceManager.GetString("PipingDataSellmeijerModelFactorDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_SellmeijerModelFactor_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Modelfactor piping toegepast op Sellmeijermodel.
         /// </summary>
-        public static string PipingDataSellmeijerModelFactorDisplayName {
+        public static string PipingData_SellmeijerModelFactor_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataSellmeijerModelFactorDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_SellmeijerModelFactor_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Reductiefactor Sellmeijer..
         /// </summary>
-        public static string PipingDataSellmeijerReductionFactorDescription {
+        public static string PipingData_SellmeijerReductionFactor_Description {
             get {
-                return ResourceManager.GetString("PipingDataSellmeijerReductionFactorDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_SellmeijerReductionFactor_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Reductiefactor Sellmeijer.
         /// </summary>
-        public static string PipingDataSellmeijerReductionFactorDisplayName {
+        public static string PipingData_SellmeijerReductionFactor_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataSellmeijerReductionFactorDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_SellmeijerReductionFactor_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het ondergrondprofiel dat voor de piping berekening gebruikt wordt..
         /// </summary>
-        public static string PipingDataSoilProfileDescription {
+        public static string PipingData_SoilProfile_Description {
             get {
-                return ResourceManager.GetString("PipingDataSoilProfileDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_SoilProfile_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ondergrondprofiel.
         /// </summary>
-        public static string PipingDataSoilProfileDisplayName {
+        public static string PipingData_SoilProfile_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataSoilProfileDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_SoilProfile_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De dwarsdoorsnede die voor de piping berekening gebruikt wordt..
         /// </summary>
-        public static string PipingDataSurfaceLineDescription {
+        public static string PipingData_SurfaceLine_Description {
             get {
-                return ResourceManager.GetString("PipingDataSurfaceLineDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_SurfaceLine_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dwarsdoorsnede.
         /// </summary>
-        public static string PipingDataSurfaceLineDisplayName {
+        public static string PipingData_SurfaceLine_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataSurfaceLineDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_SurfaceLine_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De dikte van de eerste of bovenste voor doorlatendheid te onderscheiden zandlaag van mogelijk meerdere zandlagen vanaf de cohesieve grondlaag..
         /// </summary>
-        public static string PipingDataThicknessAquiferLayerDescription {
+        public static string PipingData_ThicknessAquiferLayer_Description {
             get {
-                return ResourceManager.GetString("PipingDataThicknessAquiferLayerDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_ThicknessAquiferLayer_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dikte watervoerend pakket.
         /// </summary>
-        public static string PipingDataThicknessAquiferLayerDisplayName {
+        public static string PipingData_ThicknessAquiferLayer_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataThicknessAquiferLayerDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_ThicknessAquiferLayer_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Totale deklaagdikte bij uittredepunt..
         /// </summary>
-        public static string PipingDataThicknessCoverageLayerDescription {
+        public static string PipingData_ThicknessCoverageLayer_Description {
             get {
-                return ResourceManager.GetString("PipingDataThicknessCoverageLayerDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_ThicknessCoverageLayer_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Totale deklaagdikte bij uittredepunt.
         /// </summary>
-        public static string PipingDataThicknessCoverageLayerDisplayName {
+        public static string PipingData_ThicknessCoverageLayer_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataThicknessCoverageLayerDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_ThicknessCoverageLayer_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Rekenwaarde om de modelonzekerheid in het model van opbarsten in rekening te brengen..
         /// </summary>
-        public static string PipingDataUpliftModelFactorDescription {
+        public static string PipingData_UpliftModelFactor_Description {
             get {
-                return ResourceManager.GetString("PipingDataUpliftModelFactorDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_UpliftModelFactor_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Modelfactor opbarsten.
         /// </summary>
-        public static string PipingDataUpliftModelFactorDisplayName {
+        public static string PipingData_UpliftModelFactor_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataUpliftModelFactorDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_UpliftModelFactor_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kinematische viscositeit van water bij 10º Celsius..
         /// </summary>
-        public static string PipingDataWaterKinematicViscosityDescription {
+        public static string PipingData_WaterKinematicViscosity_Description {
             get {
-                return ResourceManager.GetString("PipingDataWaterKinematicViscosityDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_WaterKinematicViscosity_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kinematische viscositeit van water bij 10º Celsius.
         /// </summary>
-        public static string PipingDataWaterKinematicViscosityDisplayName {
+        public static string PipingData_WaterKinematicViscosity_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataWaterKinematicViscosityDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_WaterKinematicViscosity_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Volumiek gewicht van water..
         /// </summary>
-        public static string PipingDataWaterVolumetricWeightDescription {
+        public static string PipingData_WaterVolumetricWeight_Description {
             get {
-                return ResourceManager.GetString("PipingDataWaterVolumetricWeightDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_WaterVolumetricWeight_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Volumiek gewicht van water.
         /// </summary>
-        public static string PipingDataWaterVolumetricWeightDisplayName {
+        public static string PipingData_WaterVolumetricWeight_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataWaterVolumetricWeightDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_WaterVolumetricWeight_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Sleepkrachtfactor volgens White..
         /// </summary>
-        public static string PipingDataWhitesDragCoefficientDescription {
+        public static string PipingData_WhitesDragCoefficient_Description {
             get {
-                return ResourceManager.GetString("PipingDataWhitesDragCoefficientDescription", resourceCulture);
+                return ResourceManager.GetString("PipingData_WhitesDragCoefficient_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Coëfficiënt van White.
         /// </summary>
-        public static string PipingDataWhitesDragCoefficientDisplayName {
+        public static string PipingData_WhitesDragCoefficient_DisplayName {
             get {
-                return ResourceManager.GetString("PipingDataWhitesDragCoefficientDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingData_WhitesDragCoefficient_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Berekening toevoegen.
         /// </summary>
-        public static string PipingFailureMechanism_Add_piping_calculation {
+        public static string PipingFailureMechanism_Add_Piping_Calculation {
             get {
-                return ResourceManager.GetString("PipingFailureMechanism_Add_piping_calculation", resourceCulture);
+                return ResourceManager.GetString("PipingFailureMechanism_Add_Piping_Calculation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Voeg een nieuwe piping berekening toe aan het faalmechanisme..
         /// </summary>
-        public static string PipingFailureMechanism_Add_piping_calculation_Tooltip {
+        public static string PipingFailureMechanism_Add_Piping_Calculation_Tooltip {
             get {
-                return ResourceManager.GetString("PipingFailureMechanism_Add_piping_calculation_Tooltip", resourceCulture);
+                return ResourceManager.GetString("PipingFailureMechanism_Add_Piping_Calculation_Tooltip", resourceCulture);
             }
         }
         
@@ -650,9 +623,9 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Faalmechanisme piping.
         /// </summary>
-        public static string PipingFailureMechanismDisplayName {
+        public static string PipingFailureMechanism_DisplayName {
             get {
-                return ResourceManager.GetString("PipingFailureMechanismDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingFailureMechanism_DisplayName", resourceCulture);
             }
         }
         
@@ -669,144 +642,180 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Piping resultaat.
         /// </summary>
-        public static string PipingOutputDisplayName {
+        public static string PipingOutput_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Veiligheidsfactor heave.
         /// </summary>
-        public static string PipingOutputHeaveFactorOfSafetyDescription {
+        public static string PipingOutput_HeaveFactorOfSafety_Description {
             get {
-                return ResourceManager.GetString("PipingOutputHeaveFactorOfSafetyDescription", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_HeaveFactorOfSafety_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Veiligheidsfactor heave.
         /// </summary>
-        public static string PipingOutputHeaveFactorOfSafetyDisplayName {
+        public static string PipingOutput_HeaveFactorOfSafety_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputHeaveFactorOfSafetyDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_HeaveFactorOfSafety_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Z-waarde heave.
         /// </summary>
-        public static string PipingOutputHeaveZValueDescription {
+        public static string PipingOutput_HeaveZValue_Description {
             get {
-                return ResourceManager.GetString("PipingOutputHeaveZValueDescription", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_HeaveZValue_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Z-waarde heave.
         /// </summary>
-        public static string PipingOutputHeaveZValueDisplayName {
+        public static string PipingOutput_HeaveZValue_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputHeaveZValueDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_HeaveZValue_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Piping resultaten.
         /// </summary>
-        public static string PipingOutputPropertiesDisplayName {
+        public static string PipingOutput_Properties_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputPropertiesDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_Properties_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Veiligheidsfactor Sellmeijer.
         /// </summary>
-        public static string PipingOutputSellmeijerFactorOfSafetyDescription {
+        public static string PipingOutput_SellmeijerFactorOfSafety_Description {
             get {
-                return ResourceManager.GetString("PipingOutputSellmeijerFactorOfSafetyDescription", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerFactorOfSafety_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Veiligheidsfactor Sellmeijer.
         /// </summary>
-        public static string PipingOutputSellmeijerFactorOfSafetyDisplayName {
+        public static string PipingOutput_SellmeijerFactorOfSafety_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputSellmeijerFactorOfSafetyDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerFactorOfSafety_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Z-waarde Sellmeijer.
         /// </summary>
-        public static string PipingOutputSellmeijerZValueDescription {
+        public static string PipingOutput_SellmeijerZValue_Description {
             get {
-                return ResourceManager.GetString("PipingOutputSellmeijerZValueDescription", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerZValue_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Z-waarde Sellmeijer.
         /// </summary>
-        public static string PipingOutputSellmeijerZValueDisplayName {
+        public static string PipingOutput_SellmeijerZValue_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputSellmeijerZValueDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_SellmeijerZValue_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Veiligheidsfactor opbarsten.
         /// </summary>
-        public static string PipingOutputUpliftFactorOfSafetyDescription {
+        public static string PipingOutput_UpliftFactorOfSafety_Description {
             get {
-                return ResourceManager.GetString("PipingOutputUpliftFactorOfSafetyDescription", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_UpliftFactorOfSafety_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Veiligheidsfactor opbarsten.
         /// </summary>
-        public static string PipingOutputUpliftFactorOfSafetyDisplayName {
+        public static string PipingOutput_UpliftFactorOfSafety_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputUpliftFactorOfSafetyDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_UpliftFactorOfSafety_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Z-waarde opbarsten.
         /// </summary>
-        public static string PipingOutputUpliftZValueDescription {
+        public static string PipingOutput_UpliftZValue_Description {
             get {
-                return ResourceManager.GetString("PipingOutputUpliftZValueDescription", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_UpliftZValue_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Z-waarde opbarsten.
         /// </summary>
-        public static string PipingOutputUpliftZValueDisplayName {
+        public static string PipingOutput_UpliftZValue_DisplayName {
             get {
-                return ResourceManager.GetString("PipingOutputUpliftZValueDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingOutput_UpliftZValue_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het niveau van de onderkant van dit profiel..
         /// </summary>
-        public static string PipingSoilProfileBottomDescription {
+        public static string PipingSoilProfile_Bottom_Description {
             get {
-                return ResourceManager.GetString("PipingSoilProfileBottomDescription", resourceCulture);
+                return ResourceManager.GetString("PipingSoilProfile_Bottom_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Bodemniveau.
         /// </summary>
-        public static string PipingSoilProfileBottomDisplayName {
+        public static string PipingSoilProfile_Bottom_DisplayName {
             get {
-                return ResourceManager.GetString("PipingSoilProfileBottomDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingSoilProfile_Bottom_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De naam van het ondergrondprofiel..
+        /// </summary>
+        public static string PipingSoilProfile_Name_Description {
+            get {
+                return ResourceManager.GetString("PipingSoilProfile_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string PipingSoilProfile_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingSoilProfile_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De niveaus van de bovenkant van de lagen binnen dit profiel..
+        /// </summary>
+        public static string PipingSoilProfile_Tops_Description {
+            get {
+                return ResourceManager.GetString("PipingSoilProfile_Tops_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Topniveaus.
+        /// </summary>
+        public static string PipingSoilProfile_Tops_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingSoilProfile_Tops_DisplayName", resourceCulture);
             }
         }
         
@@ -821,56 +830,20 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De naam van het ondergrondprofiel..
-        /// </summary>
-        public static string PipingSoilProfileNameDescription {
-            get {
-                return ResourceManager.GetString("PipingSoilProfileNameDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string PipingSoilProfileNameDisplayName {
-            get {
-                return ResourceManager.GetString("PipingSoilProfileNameDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ondergrondprofiel.
         /// </summary>
-        public static string PipingSoilProfilePropertiesDisplayName {
+        public static string PipingSoilProfileProperties_DisplayName {
             get {
-                return ResourceManager.GetString("PipingSoilProfilePropertiesDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingSoilProfileProperties_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ondergrondprofielen.
         /// </summary>
-        public static string PipingSoilProfilesCollectionName {
+        public static string PipingSoilProfilesCollection_DisplayName {
             get {
-                return ResourceManager.GetString("PipingSoilProfilesCollectionName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De niveaus van de bovenkant van de lagen binnen dit profiel..
-        /// </summary>
-        public static string PipingSoilProfileTopsDescription {
-            get {
-                return ResourceManager.GetString("PipingSoilProfileTopsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Topniveaus.
-        /// </summary>
-        public static string PipingSoilProfileTopsDisplayName {
-            get {
-                return ResourceManager.GetString("PipingSoilProfileTopsDisplayName", resourceCulture);
+                return ResourceManager.GetString("PipingSoilProfilesCollection_DisplayName", resourceCulture);
             }
         }
         
@@ -885,47 +858,11 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van de dwarsdoorsnede.
-        /// </summary>
-        public static string PipingSurfaceLineNameDescription {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLineNameDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string PipingSurfaceLineNameDisplayName {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLineNameDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De punten die de geometrie van de dwarsdoorsnede definiëren..
-        /// </summary>
-        public static string PipingSurfaceLinePointsDescription {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinePointsDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geometriepunten.
-        /// </summary>
-        public static string PipingSurfaceLinePointsDisplayName {
-            get {
-                return ResourceManager.GetString("PipingSurfaceLinePointsDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dwarsdoorsneden.
         /// </summary>
-        public static string PipingSurfaceLinesCollectionName {
+        public static string PipingSurfaceLinesCollection_DisplayName {
             get {
-                return ResourceManager.GetString("PipingSurfaceLinesCollectionName", resourceCulture);
+                return ResourceManager.GetString("PipingSurfaceLinesCollection_DisplayName", resourceCulture);
             }
         }
         
@@ -952,9 +889,72 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Dwarsdoorsnede.
         /// </summary>
-        public static string SurfaceLinePropertiesDisplayName {
+        public static string RingtoetsPipingSurfaceLine_DisplayName {
             get {
-                return ResourceManager.GetString("SurfaceLinePropertiesDisplayName", resourceCulture);
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van de dwarsdoorsnede.
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLine_Name_Description {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLine_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De punten die de geometrie van de dwarsdoorsnede definiëren..
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLine_Points_Description {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_Points_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geometriepunten.
+        /// </summary>
+        public static string RingtoetsPipingSurfaceLine_Points_DisplayName {
+            get {
+                return ResourceManager.GetString("RingtoetsPipingSurfaceLine_Points_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valideren.
+        /// </summary>
+        public static string Validate {
+            get {
+                return ResourceManager.GetString("Validate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van het wettelijk toets instrumentarium project..
+        /// </summary>
+        public static string WtiProject_Name_Description {
+            get {
+                return ResourceManager.GetString("WtiProject_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string WtiProject_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("WtiProject_Name_DisplayName", resourceCulture);
             }
         }
         
@@ -969,47 +969,38 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van het wettelijk toets instrumentarium project..
+        ///   Looks up a localized string similar to Voeg piping faalmechanisme toe.
         /// </summary>
-        public static string WtiProjectNameDescription {
+        public static string WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism {
             get {
-                return ResourceManager.GetString("WtiProjectNameDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string WtiProjectNameDisplayName {
-            get {
-                return ResourceManager.GetString("WtiProjectNameDisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to WTI project.
-        /// </summary>
-        public static string WtiProjectPropertiesDisplayName {
-            get {
-                return ResourceManager.GetString("WtiProjectPropertiesDisplayName", resourceCulture);
+                return ResourceManager.GetString("WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Start een nieuwe piping toetsing voor dit project..
         /// </summary>
-        public static string WtiProjectTooltipAddPipingFailureMechanism {
+        public static string WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip {
             get {
-                return ResourceManager.GetString("WtiProjectTooltipAddPipingFailureMechanism", resourceCulture);
+                return ResourceManager.GetString("WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kan geen nieuwe piping toetsing starten, omdat er al een piping toetsing is gestart voor dit project..
         /// </summary>
-        public static string WtiProjectTooltipPipingFailureMechanismAlreadyAdded {
+        public static string WtiProjectNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip {
             get {
-                return ResourceManager.GetString("WtiProjectTooltipPipingFailureMechanismAlreadyAdded", resourceCulture);
+                return ResourceManager.GetString("WtiProjectNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WTI project.
+        /// </summary>
+        public static string WtiProjectProperties_DisplayName {
+            get {
+                return ResourceManager.GetString("WtiProjectProperties_DisplayName", resourceCulture);
             }
         }
     }

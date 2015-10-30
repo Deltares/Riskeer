@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
             var pipingSoilProfiles = (IEnumerable<PipingSoilProfile>) nodeData;
-            node.Text = Resources.PipingSoilProfilesCollectionName;
+            node.Text = Resources.PipingSoilProfilesCollection_DisplayName;
             node.Image = Resources.FolderIcon;
 
             node.ForegroundColor = GetTextColor(pipingSoilProfiles);
@@ -125,8 +125,8 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             if (ImportSoilProfilesAction != null)
             {
                 strip.AddMenuItem(
-                    Resources.ImportSoilProfiles,
-                    Resources.ImportSoilProfilesDescription,
+                    Resources.Import_SoilProfiles,
+                    Resources.Import_SoilProfiles_Tooltip,
                     Resources.ImportIcon,
                     ImportSoilProfilesOnClick);
             }

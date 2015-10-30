@@ -24,7 +24,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
             return UITypeEditorEditStyle.DropDown;
         }
 
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object originalValue)
         {
             if (provider != null)
             {
@@ -34,15 +34,15 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
             if (editorService != null)
             {
                 // Create editor:
-                var listBox = CreateSurfaceLinesSelectionControl(context);
+                ListBox listBox = CreateSurfaceLinesSelectionControl(context);
 
                 // Open editor for user to select an item:
                 editorService.DropDownControl(listBox);
 
                 // Return user selected object, or original value if user did not select anything:
-                return listBox.SelectedItem ?? value;
+                return listBox.SelectedItem ?? originalValue;
             }
-            return base.EditValue(context, provider, value);
+            return base.EditValue(context, provider, originalValue);
         }
 
         private ListBox CreateSurfaceLinesSelectionControl(ITypeDescriptorContext context)
@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.Forms.UITypeEditors
             listBox.SelectedValueChanged += (sender, eventArgs) => editorService.CloseDropDown();
 
             var properties = (PipingCalculationInputsProperties)((DynamicPropertyBag)context.Instance).WrappedObject;
-            foreach (var surfaceLine in properties.GetAvailableSurfaceLines())
+            foreach (RingtoetsPipingSurfaceLine surfaceLine in properties.GetAvailableSurfaceLines())
             {
                 int index = listBox.Items.Add(surfaceLine);
                 if (ReferenceEquals(properties.SurfaceLine, surfaceLine))

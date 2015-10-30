@@ -9,12 +9,12 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="WtiProject"/> for properties panel.
     /// </summary>
-    [ResourcesDisplayName(typeof(Resources), "WtiProjectPropertiesDisplayName")]
+    [ResourcesDisplayName(typeof(Resources), "WtiProjectProperties_DisplayName")]
     public class WtiProjectProperties : ObjectProperties<WtiProject>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "WtiProjectNameDisplayName")]
-        [ResourcesDescription(typeof(Resources), "WtiProjectNameDescription")]
+        [ResourcesDisplayName(typeof(Resources), "WtiProject_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WtiProject_Name_Description")]
         public string Name
         {
             get
