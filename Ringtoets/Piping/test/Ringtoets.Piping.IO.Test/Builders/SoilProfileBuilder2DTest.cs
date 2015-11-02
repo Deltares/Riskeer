@@ -23,7 +23,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual(Resources.Error_SoilProfileBuilderCantDetermineIntersectAtDoubleNaN, exception.Message);
+            Assert.AreEqual(Resources.Error_SoilProfileBuilder_cant_determine_intersect_at_double_NaN, exception.Message);
         }
 
         [Test]

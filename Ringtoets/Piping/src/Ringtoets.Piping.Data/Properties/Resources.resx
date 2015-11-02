@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error_CannotConstructPipingSoilProfileWithoutAquiferLayer" xml:space="preserve">
+  <data name="Error_Cannot_Construct_PipingSoilProfile_Without_Aquifer_Layer" xml:space="preserve">
     <value>Geen waterdoorlatende laag gevonden voor het profiel.</value>
   </data>
-  <data name="Error_CannotConstructPipingSoilProfileWithoutLayers" xml:space="preserve">
+  <data name="Error_Cannot_Construct_PipingSoilProfile_Without_Layers" xml:space="preserve">
     <value>Geen lagen gevonden voor het profiel.</value>
   </data>
-  <data name="NormalDistribution_StandardDeviation_Should_be_greater_then_zero" xml:space="preserve">
-    <value>Standaard afwijking (&#963;) moet groter zijn dan 0.</value>
+  <data name="NormalDistribution_StandardDeviation_Should_Be_Greater_Then_Zero" xml:space="preserve">
+    <value>Standaard afwijking (σ) moet groter zijn dan 0.</value>
   </data>
 </root>

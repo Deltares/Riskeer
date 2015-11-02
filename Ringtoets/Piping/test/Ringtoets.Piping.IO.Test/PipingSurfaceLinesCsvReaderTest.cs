@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual(IOResources.Error_PathMustBeSpecified, exception.Message);
+            Assert.AreEqual(IOResources.Error_Path_must_be_specified, exception.Message);
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            var expectedMessage = String.Format(IOResources.Error_PathCannotContainCharacters_0_,
+            var expectedMessage = String.Format(IOResources.Error_Path_cannot_contain_characters_0_,
                 String.Join(", ", Path.GetInvalidFileNameChars()));
             Assert.AreEqual(expectedMessage, exception.Message);
         }
@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual(IOResources.Error_PathMustNotPointToFolder, exception.Message);
+            Assert.AreEqual(IOResources.Error_Path_must_not_point_to_folder, exception.Message);
         }
 
         [Test]
@@ -443,7 +443,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.Error_File_0_Parsing_causes_overflow_Line_1_, path, 2);
+                var expectedMessage = string.Format(IOResources.Error_File_0_parsing_causes_overflow_Line_1_, path, 2);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             }
@@ -466,11 +466,11 @@ namespace Ringtoets.Piping.IO.Test
                 // Assert
                 // 1st line has no text at all:
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_NoId, path, 2);
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID, path, 2);
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd line has only whitespace text:
-                expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_NoId, path, 3);
+                expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID, path, 3);
                 exception = Assert.Throws<LineParseException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
@@ -492,7 +492,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_separator_2_, path, 2, ';');
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_separator_2_, path, 2, ';');
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -513,7 +513,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_separator_2_, path, 2, ';');
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_separator_2_, path, 2, ';');
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -535,12 +535,12 @@ namespace Ringtoets.Piping.IO.Test
                 // Assert
                 // 1st row lacks 1 coordinate value:
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_values_for_coordinate_triplet, path, 2);
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_values_for_coordinate_triplet, path, 2);
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd row lacks 2 coordinate values:
                 exception = Assert.Throws<LineParseException>(call);
-                expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_values_for_coordinate_triplet, path, 3);
+                expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_values_for_coordinate_triplet, path, 3);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -561,7 +561,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Has_reclining_geometry,
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_has_reclining_geometry,
                                                     path, 2);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }

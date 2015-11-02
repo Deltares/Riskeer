@@ -149,7 +149,7 @@ namespace Ringtoets.Piping.IO
             {
                 if (lCoordinates[i - 1] > lCoordinates[i])
                 {
-                    var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Has_reclining_geometry,
+                    var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_has_reclining_geometry,
                                                 filePath, 2);
                     throw new LineParseException(message);
                 }
@@ -175,7 +175,7 @@ namespace Ringtoets.Piping.IO
         {
             if (!readText.Contains(separator))
             {
-                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_separator_2_,
+                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_separator_2_,
                                             filePath, lineNumber, separator);
                 throw new LineParseException(message);
             }
@@ -203,7 +203,7 @@ namespace Ringtoets.Piping.IO
             var worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString);
             if (worldCoordinateValues.Length % expectedValuesForPoint != 0)
             {
-                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Lacks_values_for_coordinate_triplet,
+                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_values_for_coordinate_triplet,
                                             filePath, lineNumber);
                 throw new LineParseException(message);
             }
@@ -233,7 +233,7 @@ namespace Ringtoets.Piping.IO
             var name = tokenizedString.Any() ? tokenizedString[0].Trim() : string.Empty;
             if (string.IsNullOrEmpty(name))
             {
-                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_NoId,
+                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID,
                                             filePath, lineNumber);
                 throw new LineParseException(message);
             }
@@ -267,7 +267,7 @@ namespace Ringtoets.Piping.IO
             }
             catch (OverflowException e)
             {
-                var message = string.Format(Resources.Error_File_0_Parsing_causes_overflow_Line_1_,
+                var message = string.Format(Resources.Error_File_0_parsing_causes_overflow_Line_1_,
                                             filePath, lineNumber);
                 throw new LineParseException(message, e);
             }

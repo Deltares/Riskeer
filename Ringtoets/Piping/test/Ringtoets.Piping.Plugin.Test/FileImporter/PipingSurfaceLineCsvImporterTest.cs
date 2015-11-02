@@ -257,7 +257,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSurfaceLinesList);
 
             // Assert
-            var internalErrorMessage = String.Format(WtiIOResources.Error_PathCannotContainCharacters_0_,
+            var internalErrorMessage = String.Format(WtiIOResources.Error_Path_cannot_contain_characters_0_,
                                                      String.Join(", ", Path.GetInvalidFileNameChars()));
             var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
                                                    corruptPath, internalErrorMessage);
@@ -485,7 +485,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(path, observableSurfaceLinesList);
 
             // Assert
-            var internalErrorMessage = String.Format(WtiIOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_Has_reclining_geometry,
+            var internalErrorMessage = String.Format(WtiIOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_has_reclining_geometry,
                                                      path, 2);
             var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseError_File_0_SurfaceLinesNumber_1_Message_2_,
                                                    path, 1, internalErrorMessage);

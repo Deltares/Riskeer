@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.IO.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual(Resources.Error_PathMustBeSpecified, exception.Message);
+            Assert.AreEqual(Resources.Error_Path_must_be_specified, exception.Message);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.IO.Test
 
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
-            Assert.AreEqual(String.Format(Resources.Error_SoilProfileReadFromDatabase, dbName), exception.Message);
+            Assert.AreEqual(String.Format(Resources.Error_SoilProfile_read_from_database, dbName), exception.Message);
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
         }
 

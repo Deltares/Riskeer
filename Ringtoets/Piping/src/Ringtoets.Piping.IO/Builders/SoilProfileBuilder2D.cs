@@ -25,7 +25,7 @@ namespace Ringtoets.Piping.IO.Builders
         {
             if (double.IsNaN(atX))
             {
-                throw new ArgumentException(Resources.Error_SoilProfileBuilderCantDetermineIntersectAtDoubleNaN);
+                throw new ArgumentException(Resources.Error_SoilProfileBuilder_cant_determine_intersect_at_double_NaN);
             }
             ProfileName = profileName;
             AtX = atX;

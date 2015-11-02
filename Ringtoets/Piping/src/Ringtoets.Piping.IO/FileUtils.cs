@@ -19,7 +19,7 @@ namespace Ringtoets.Piping.IO
         {
             if (String.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentException(Resources.Error_PathMustBeSpecified);
+                throw new ArgumentException(Resources.Error_Path_must_be_specified);
             }
 
             string name;
@@ -29,12 +29,12 @@ namespace Ringtoets.Piping.IO
             }
             catch (ArgumentException e)
             {
-                throw new ArgumentException(String.Format(Resources.Error_PathCannotContainCharacters_0_,
+                throw new ArgumentException(String.Format(Resources.Error_Path_cannot_contain_characters_0_,
                                                           String.Join(", ", Path.GetInvalidFileNameChars())), e);
             }
             if (String.Empty == name)
             {
-                throw new ArgumentException(Resources.Error_PathMustNotPointToFolder);
+                throw new ArgumentException(Resources.Error_Path_must_not_point_to_folder);
             }
         }
     }

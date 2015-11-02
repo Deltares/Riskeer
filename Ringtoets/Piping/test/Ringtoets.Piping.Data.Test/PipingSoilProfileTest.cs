@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
-            Assert.AreEqual(Properties.Resources.Error_CannotConstructPipingSoilProfileWithoutLayers, message);
+            Assert.AreEqual(Properties.Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers, message);
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
-            Assert.AreEqual(Properties.Resources.Error_CannotConstructPipingSoilProfileWithoutLayers, message);
+            Assert.AreEqual(Properties.Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers, message);
         }
         
     }

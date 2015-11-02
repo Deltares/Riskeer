@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.IO.Builders
                 }
                 else if (IsVerticalAtX(GetSegmentWithStartAtIndex(loop, segmentIndex), atX))
                 {
-                    throw new SoilLayer2DConversionException(String.Format(Resources.Error_CanNotDetermine1DProfileWithVerticalSegmentsAtX, atX));
+                    throw new SoilLayer2DConversionException(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_x, atX));
                 }
             }
             return intersectionPointY;

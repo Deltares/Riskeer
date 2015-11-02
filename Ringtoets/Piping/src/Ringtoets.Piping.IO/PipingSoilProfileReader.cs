@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.IO
         {
             if (String.IsNullOrEmpty(databaseFilePath))
             {
-                throw new ArgumentException(Resources.Error_PathMustBeSpecified);
+                throw new ArgumentException(Resources.Error_Path_must_be_specified);
             }
             if (!File.Exists(databaseFilePath))
             {
@@ -396,9 +396,8 @@ namespace Ringtoets.Piping.IO
                 catch (SQLiteException e)
                 {
                     connection.Dispose();
-                    var exception = new PipingSoilProfileReadException(string.Format(Resources.Error_SoilProfileReadFromDatabase, databaseFileName), e);
-                    throw exception;
-                }
+                    var exception = new PipingSoilProfileReadException(string.Format(Resources.Error_SoilProfile_read_from_database, databaseFileName), e);
+                    throw exception;                }
             }
         }
 

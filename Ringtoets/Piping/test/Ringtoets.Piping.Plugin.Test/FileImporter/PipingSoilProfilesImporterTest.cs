@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSoilProfileList);
 
             // Assert
-            var internalErrorMessage = string.Format(WtiIOResources.Error_SoilProfileReadFromDatabase,
+            var internalErrorMessage = string.Format(WtiIOResources.Error_SoilProfile_read_from_database,
                                                      Path.GetFileName(corruptPath));
             var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorReading_0_Cause_1_,
                                                    corruptPath, internalErrorMessage);

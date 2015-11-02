@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Data
             {
                 if (value == null || !value.Any())
                 {
-                    throw new ArgumentException(string.Format(Resources.Error_CannotConstructPipingSoilProfileWithoutLayers));
+                    throw new ArgumentException(string.Format(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers));
                 }
                 layers = value.OrderByDescending(l => l.Top).ToArray();
             }
