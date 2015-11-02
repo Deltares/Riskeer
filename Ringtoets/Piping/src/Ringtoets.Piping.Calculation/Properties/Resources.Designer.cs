@@ -63,9 +63,9 @@ namespace Ringtoets.Piping.Calculation.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Een ondergrondprofiel moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren..
         /// </summary>
-        internal static string PipingCalculation_Validate_Lacks_SoilProfile_Uplift {
+        internal static string PipingCalculation_Validate_Lacks_SoilProfile_uplift {
             get {
-                return ResourceManager.GetString("PipingCalculation_Validate_Lacks_SoilProfile_Uplift", resourceCulture);
+                return ResourceManager.GetString("PipingCalculation_Validate_Lacks_SoilProfile_uplift", resourceCulture);
             }
         }
         
@@ -81,9 +81,9 @@ namespace Ringtoets.Piping.Calculation.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het profiel &apos;{0}&apos; bevat geen waterdoorlatende laag..
         /// </summary>
-        internal static string PipingProfileCreator_No_Aquifer_Layer {
+        internal static string PipingProfileCreator_No_aquifer_layer {
             get {
-                return ResourceManager.GetString("PipingProfileCreator_No_Aquifer_Layer", resourceCulture);
+                return ResourceManager.GetString("PipingProfileCreator_No_aquifer_layer", resourceCulture);
             }
         }
     }

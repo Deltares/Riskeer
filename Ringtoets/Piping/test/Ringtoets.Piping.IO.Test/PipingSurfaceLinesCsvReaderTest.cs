@@ -236,7 +236,7 @@ namespace Ringtoets.Piping.IO.Test
 
         [Test]
         [SetCulture("en-US")]
-        public void ReadLine_OpenedValidFileWithHeaderAndSurfaceLinesWithDuplicatePointsWithCultureEN_ReturnCreatedSurfaceLineWithoutDuplicatePoints()
+        public void ReadLine_OpenedValidFileWithHeaderAndSurfaceLinesWithDuplicatePointsWithCultureEN_ReturnCreatedSurfaceLineWithDuplicatePoints()
         {
             // Setup
             // File: First 3 points are identical
@@ -253,8 +253,10 @@ namespace Ringtoets.Piping.IO.Test
                 // Assert
                 Assert.AreEqual("Rotterdam1", surfaceLine1.Name);
                 var geometryPoints = surfaceLine1.Points.ToArray();
-                Assert.AreEqual(geometryPoints.Length, geometryPoints.Distinct().Count());
-                Assert.AreNotEqual(geometryPoints[0].X, geometryPoints[1].X);
+                Assert.AreNotEqual(geometryPoints.Length, geometryPoints.Distinct().Count(),
+                    "Duplicate points should be parsed.");
+                Assert.AreEqual(geometryPoints[0].X, geometryPoints[1].X,
+                    "Consecutive duplicate points are still parsed.");
                 Assert.AreEqual(surfaceLine1.StartingWorldPoint, geometryPoints.First());
                 Assert.AreEqual(surfaceLine1.EndingWorldPoint, geometryPoints.Last());
             }

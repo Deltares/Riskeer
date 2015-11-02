@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Calculation.Piping
             {
                 if (dSoilModelDatabaseContainsAquiferOnLayerLevel)
                 {
-                    var message = String.Format(Resources.PipingProfileCreator_No_Aquifer_Layer, soilProfile.Name);
+                    var message = String.Format(Resources.PipingProfileCreator_No_aquifer_layer, soilProfile.Name);
                     throw new PipingProfileCreatorException(message);
                 }
                 soilProfile.Layers.First().IsAquifer = true;
