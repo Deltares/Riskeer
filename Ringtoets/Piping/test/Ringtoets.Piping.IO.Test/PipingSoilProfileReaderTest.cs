@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
-        public void Dispose_WhenPreparedLayer_CorrectlyReleasesFile()
+        public void Dispose_WhenReadProfile_CorrectlyReleasesFile()
         {
             // Setup
             var testFile = "1dprofile.soil";
@@ -114,6 +114,7 @@ namespace Ringtoets.Piping.IO.Test
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile), "Precondition failed: The file should be writable to begin with.");
 
             var pipingSoilProfilesReader = new PipingSoilProfileReader(dbFile);
+            pipingSoilProfilesReader.ReadProfile();
 
             // Call
             pipingSoilProfilesReader.Dispose();
@@ -136,6 +137,10 @@ namespace Ringtoets.Piping.IO.Test
             profile = reader.ReadProfile();
 
             // Assert
+            CollectionAssert.AreEqual(new[] {false, false, true}, profile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, profile.Layers.Select(l => l.AbovePhreaticLevel));
+            CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, profile.Layers.Select(l => l.BelowPhreaticLevel));
+            CollectionAssert.AreEqual(new double?[] { null, null, null }, profile.Layers.Select(l => l.DryUnitWeight));
             Assert.AreEqual(3,profile.Layers.Count());
         }
 

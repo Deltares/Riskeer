@@ -27,6 +27,7 @@ namespace Ringtoets.Piping.IO
         private const string layerGeometryColumn = "LayerGeometry";
         private const string abovePhreaticLevelColumn = "AbovePhreaticLevel";
         private const string belowPhreaticLevelColumn = "BelowPhreaticLevel";
+        private const string dryUnitWeightColumn = "DryUnitWeight";
         private const string permeabKxColumn = "PermeabKx";
         private const string diameterD70Column = "DiameterD70";
         private const string whitesConstantColumn = "WhitesConstant";
@@ -207,27 +208,45 @@ namespace Ringtoets.Piping.IO
 
         private PipingSoilLayer ReadPipingSoilLayer()
         {
-            double isAquiferValue;
+            double? isAquiferValue;
+            double? belowPhreaticLevelValue;
+            double? abovePhreaticLevelValue;
+            double? dryUnitWeightValue;
 
             var topValue = Read<double>(topColumn);
             TryRead(isAquiferColumn, out isAquiferValue);
+            TryRead(belowPhreaticLevelColumn, out belowPhreaticLevelValue);
+            TryRead(abovePhreaticLevelColumn, out abovePhreaticLevelValue);
+            TryRead(dryUnitWeightColumn, out dryUnitWeightValue);
 
             var pipingSoilLayer = new PipingSoilLayer(topValue)
             {
-                IsAquifer = isAquiferValue.Equals(1.0)
+                IsAquifer = isAquiferValue.Equals(1.0),
+                BelowPhreaticLevel = belowPhreaticLevelValue,
+                AbovePhreaticLevel = abovePhreaticLevelValue,
+                DryUnitWeight = dryUnitWeightValue
             };
             return pipingSoilLayer;
         }
 
         private SoilLayer2D ReadPiping2DSoilLayer()
         {
-            double isAquiferValue;
+            double? isAquiferValue;
+            double? belowPhreaticLevelValue;
+            double? abovePhreaticLevelValue;
+            double? dryUnitWeightValue;
 
             var geometryValue = Read<byte[]>(layerGeometryColumn);
             TryRead(isAquiferColumn, out isAquiferValue);
+            TryRead(belowPhreaticLevelColumn, out belowPhreaticLevelValue);
+            TryRead(abovePhreaticLevelColumn, out abovePhreaticLevelValue);
+            TryRead(dryUnitWeightColumn, out dryUnitWeightValue);
 
             SoilLayer2D pipingSoilLayer = new PipingSoilLayer2DReader(geometryValue).Read();
             pipingSoilLayer.IsAquifer = isAquiferValue.Equals(1.0);
+            pipingSoilLayer.BelowPhreaticLevel = belowPhreaticLevelValue;
+            pipingSoilLayer.AbovePhreaticLevel = abovePhreaticLevelValue;
+            pipingSoilLayer.DryUnitWeight = dryUnitWeightValue;
 
             return pipingSoilLayer;
         }
@@ -263,20 +282,14 @@ namespace Ringtoets.Piping.IO
                             "m.MA_ID,",
                             "sum(case when pn.PN_Name = 'AbovePhreaticLevel' then pv.PV_Value end) {0},",
                             "sum(case when pn.PN_Name = 'BelowPhreaticLevel' then pv.PV_Value end) {1},",
-                            "sum(case when pn.PN_Name = 'PermeabKx' then pv.PV_Value end) {2},",
-                            "sum(case when pn.PN_Name = 'DiameterD70' then pv.PV_Value end) {3},",
-                            "sum(case when pn.PN_Name = 'WhitesConstant' then pv.PV_Value end) {4},",
-                            "sum(case when pn.PN_Name = 'BeddingAngle' then pv.PV_Value end) {5}",
+                            "sum(case when pn.PN_Name = 'DryUnitWeight' then pv.PV_Value end) {2}",
                             "FROM ParameterNames as pn",
                             "JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID",
                             "JOIN Materials as m ON m.MA_ID = pv.MA_ID",
                             "GROUP BY m.MA_ID) as mat ON l.MA_ID = mat.MA_ID"),
                 abovePhreaticLevelColumn,
                 belowPhreaticLevelColumn,
-                permeabKxColumn,
-                diameterD70Column,
-                whitesConstantColumn,
-                beddingAngleColumn);
+                dryUnitWeightColumn);
 
             string layer1DCountQuery = string.Format(
                 string.Join(" ",
@@ -320,15 +333,12 @@ namespace Ringtoets.Piping.IO
                             "{5},",
                             "{6},",
                             "{7},",
-                            "{8},",
-                            "{9},",
-                            "{10},",
-                            "{11}",
+                            "{8}",
                             "FROM SoilProfile1D as p",
-                            "JOIN {12}",
+                            "JOIN {9}",
                             "JOIN SoilLayer1D as l ON l.SP1D_ID = p.SP1D_ID",
-                            "LEFT JOIN {13}",
-                            "JOIN {14}",
+                            "LEFT JOIN {10}",
+                            "JOIN {11}",
                             "ORDER BY ProfileName;"),
                 dimensionColumn,
                 profileNameColumn,
@@ -337,10 +347,7 @@ namespace Ringtoets.Piping.IO
                 topColumn,
                 abovePhreaticLevelColumn,
                 belowPhreaticLevelColumn,
-                permeabKxColumn,
-                diameterD70Column,
-                whitesConstantColumn,
-                beddingAngleColumn,
+                dryUnitWeightColumn,
                 isAquiferColumn,
                 layer1DCountQuery,
                 materialPropertiesQuery,
@@ -357,18 +364,15 @@ namespace Ringtoets.Piping.IO
                             "{5},",
                             "{6},",
                             "{7},",
-                            "{8},",
-                            "{9},",
-                            "{10},",
-                            "{11}",
+                            "{8}",
                             "FROM Mechanism as m",
                             "JOIN MechanismPointLocation as mpl ON mpl.ME_ID = m.ME_ID",
                             "JOIN SoilProfile2D as p ON p.SP2D_ID = mpl.SP2D_ID",
-                            "JOIN {12}",
+                            "JOIN {9}",
                             "JOIN SoilLayer2D as l ON l.SP2D_ID = p.SP2D_ID",
-                            "LEFT JOIN {13}",
-                            "JOIN {14}",
-                            "WHERE m.ME_Name = @{15}",
+                            "LEFT JOIN {10}",
+                            "JOIN {11}",
+                            "WHERE m.ME_Name = @{12}",
                             "ORDER BY ProfileName;"),
                 dimensionColumn,
                 profileNameColumn,
@@ -377,10 +381,7 @@ namespace Ringtoets.Piping.IO
                 intersectionXColumn,
                 abovePhreaticLevelColumn,
                 belowPhreaticLevelColumn,
-                permeabKxColumn,
-                diameterD70Column,
-                whitesConstantColumn,
-                beddingAngleColumn,
+                dryUnitWeightColumn,
                 isAquiferColumn,
                 layer2DCountQuery,
                 materialPropertiesQuery,

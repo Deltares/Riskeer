@@ -4,9 +4,6 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using Core.Common.BaseDelftTools;
 
-using System.Linq;
-using System.Threading;
-using Core.Common.Utils.Collections.Extensions;
 using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO;

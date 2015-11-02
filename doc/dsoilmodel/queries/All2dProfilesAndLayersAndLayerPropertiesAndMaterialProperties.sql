@@ -6,10 +6,7 @@ SELECT
 	mpl.X as IntersectionX,
 	AbovePhreaticLevel,
 	BelowPhreaticLevel,
-	PermeabKx,
-	DiameterD70,
-	WhitesConstant,
-	BeddingAngle,
+	DryUnitWeight,
 	IsAquifer
 FROM Mechanism as m
 JOIN MechanismPointLocation as mpl ON mpl.ME_ID = m.ME_ID
@@ -24,10 +21,7 @@ LEFT JOIN (
 		m.MA_ID, 
 		sum(case when pn.PN_Name = 'AbovePhreaticLevel' then pv.PV_Value end) AbovePhreaticLevel,
 		sum(case when pn.PN_Name = 'BelowPhreaticLevel' then pv.PV_Value end) BelowPhreaticLevel,
-		sum(case when pn.PN_Name = 'PermeabKx' then pv.PV_Value end) PermeabKx,
-		sum(case when pn.PN_Name = 'DiameterD70' then pv.PV_Value end) DiameterD70,
-		sum(case when pn.PN_Name = 'WhitesConstant' then pv.PV_Value end) WhitesConstant,
-		sum(case when pn.PN_Name = 'BeddingAngle' then pv.PV_Value end) BeddingAngle
+		sum(case when pn.PN_Name = 'DryUnitWeight' then pv.PV_Value end) DryUnitWeight
 	FROM ParameterNames as pn
 	JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID
 	JOIN Materials as m ON m.MA_ID = pv.MA_ID

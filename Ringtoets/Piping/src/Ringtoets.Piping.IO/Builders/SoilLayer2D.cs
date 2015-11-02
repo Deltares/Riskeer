@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
 using Ringtoets.Piping.Data;
-
 using Ringtoets.Piping.IO.Calculation;
 using Ringtoets.Piping.IO.Properties;
 
@@ -25,6 +23,26 @@ namespace Ringtoets.Piping.IO.Builders
         }
 
         /// <summary>
+        /// Gets or sets whether the <see cref="PipingSoilLayer"/> is an aquifer.
+        /// </summary>
+        public bool IsAquifer { get; set; }
+
+        /// <summary>
+        /// Gets or sets the above phreatic level for the <see cref="PipingSoilLayer"/>.
+        /// </summary>
+        public double? AbovePhreaticLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the below phreatic level for the <see cref="PipingSoilLayer"/>.
+        /// </summary>
+        public double? BelowPhreaticLevel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the dry unit weight for the <see cref="PipingSoilLayer"/>.
+        /// </summary>
+        public double? DryUnitWeight { get; set; }
+
+        /// <summary>
         /// Gets the outer loop of the <see cref="SoilLayer2D"/> as a <see cref="HashSet{T}"/> of <see cref="Point3D"/>.
         /// </summary>
         internal HashSet<Point3D> OuterLoop { get; set; }
@@ -33,14 +51,6 @@ namespace Ringtoets.Piping.IO.Builders
         /// Gets the <see cref="Collection{T}"/> of inner loops (as <see cref="HashSet{T}"/> of <see cref="Point3D"/>) of the <see cref="SoilLayer2D"/>.
         /// </summary>
         internal Collection<HashSet<Point3D>> InnerLoops { get; private set; }
-
-        public bool IsAquifer { get; set; }
-
-        public double? DryUnitWeight { get; set; }
-
-        public double? AbovePhreaticLevel { get; set; }
-
-        public double? BelowPhreaticLevel { get; set; }
 
         /// <summary>
         /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the <see cref="InnerLoops"/> and <see cref="OuterLoop"/> set for the <see cref="SoilLayer2D"/>.
@@ -55,7 +65,7 @@ namespace Ringtoets.Piping.IO.Builders
             if (OuterLoop != null)
             {
                 Collection<double> outerLoopIntersectionHeights = GetLoopIntersectionHeights(OuterLoop, atX);
-                
+
                 if (outerLoopIntersectionHeights.Count > 0)
                 {
                     IEnumerable<Collection<double>> innerLoopsIntersectionHeights = InnerLoops.Select(loop => GetLoopIntersectionHeights(loop, atX));
@@ -69,7 +79,8 @@ namespace Ringtoets.Piping.IO.Builders
 
                     foreach (var height in heights.Where(height => !innerLoopIntersectionHeightPairs.Any(tuple => HeightInInnerLoop(tuple, height))))
                     {
-                        result.Add(new PipingSoilLayer(height){
+                        result.Add(new PipingSoilLayer(height)
+                        {
                             IsAquifer = IsAquifer,
                             BelowPhreaticLevel = BelowPhreaticLevel,
                             AbovePhreaticLevel = AbovePhreaticLevel,
@@ -108,7 +119,7 @@ namespace Ringtoets.Piping.IO.Builders
 
         private IEnumerable<Tuple<double, double>> GetOrderedStartAndEndPairsIn1D(IEnumerable<Collection<double>> innerLoopsIntersectionPoints)
         {
-            Collection<Tuple<double,double>> result = new Collection<Tuple<double, double>>();
+            Collection<Tuple<double, double>> result = new Collection<Tuple<double, double>>();
             foreach (var innerLoopIntersectionPoints in innerLoopsIntersectionPoints)
             {
                 foreach (var tuple in GetOrderedStartAndEndPairsIn1D(innerLoopIntersectionPoints))
@@ -123,10 +134,10 @@ namespace Ringtoets.Piping.IO.Builders
         {
             var result = new Collection<Tuple<double, double>>();
             var orderedHeights = innerLoopIntersectionPoints.OrderBy(v => v).ToList();
-            for (int i = 0; i < orderedHeights.Count; i = i+2)
+            for (int i = 0; i < orderedHeights.Count; i = i + 2)
             {
                 var first = orderedHeights[i];
-                var second = orderedHeights[i+1];
+                var second = orderedHeights[i + 1];
                 result.Add(new Tuple<double, double>(first, second));
             }
             return result;
@@ -134,7 +145,8 @@ namespace Ringtoets.Piping.IO.Builders
 
         private Collection<double> GetLoopIntersectionHeights(HashSet<Point3D> loop, double atX)
         {
-            Collection<double> intersectionPointY = new Collection<double>(); ;
+            Collection<double> intersectionPointY = new Collection<double>();
+            ;
             for (int segmentIndex = 0; segmentIndex < loop.Count; segmentIndex++)
             {
                 var intersectionPoint = GetSegmentIntersectionAtX(loop, segmentIndex, atX);
@@ -159,7 +171,7 @@ namespace Ringtoets.Piping.IO.Builders
         private static Point3D[] GetSegmentWithStartAtIndex(HashSet<Point3D> loop, int i)
         {
             var current = loop.ElementAt(i);
-            var next = loop.ElementAt((i + 1) % loop.Count);
+            var next = loop.ElementAt((i + 1)%loop.Count);
 
             return new[]
             {
