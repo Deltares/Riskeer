@@ -12,7 +12,7 @@ namespace Core.Common.Utils.Tests.Reflection
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             AssemblyUtils.AssemblyInfo assemblyInfo = AssemblyUtils.GetAssemblyInfo(assembly);
-            Assert.AreEqual("DelftTools.Utils.Tests", assemblyInfo.Title);
+            Assert.AreEqual("Core.Common.Utils.Tests", assemblyInfo.Title);
         }
     }
 }

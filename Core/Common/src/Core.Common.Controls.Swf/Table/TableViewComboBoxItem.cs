@@ -3,7 +3,7 @@ using Core.Common.Utils;
 
 namespace Core.Common.Controls.Swf.Table
 {
-    internal class TableViewComboBoxItem : IConvertible
+    public class TableViewComboBoxItem : IConvertible
     {
         public object Value { get; set; }
 

@@ -6,7 +6,7 @@ using DevExpress.XtraGrid.Views.Grid;
 
 namespace Core.Common.Controls.Swf.Table.Validation
 {
-    internal class TableViewValidator
+    public class TableViewValidator
     {
         private readonly TableView tableView;
 

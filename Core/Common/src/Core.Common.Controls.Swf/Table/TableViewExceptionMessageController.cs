@@ -2,7 +2,7 @@
 
 namespace Core.Common.Controls.Swf.Table
 {
-    internal class TableViewExceptionMessageController : GridLocalizer
+    public class TableViewExceptionMessageController : GridLocalizer
     {
         public override string GetLocalizedString(GridStringId id)
         {

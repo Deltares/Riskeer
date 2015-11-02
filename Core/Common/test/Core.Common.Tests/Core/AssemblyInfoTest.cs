@@ -12,10 +12,10 @@ namespace Core.Common.Tests.Core
         {
             AssemblyUtils.AssemblyInfo info = AssemblyUtils.GetAssemblyInfo((typeof(DeltaShellApplication)).Assembly);
 
-            Assert.AreEqual("Delta Shell", info.Title);
+            Assert.AreEqual("Core.Common.Base", info.Title);
             Assert.IsNotNull(info.Version);
             Assert.IsNotNull(info.Description);
-            Assert.AreEqual("Delta Shell", info.Product);
+            Assert.AreEqual("Core.Common.Base", info.Product);
             Assert.IsNotNull(info.Copyright);
             Assert.AreEqual("Deltares", info.Company);
         }

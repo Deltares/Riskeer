@@ -6,7 +6,7 @@ namespace Core.Common.Controls.Swf.Table
     /// Wrapper for ICustomFormatter, so that IFormatProvider won't have to be implemented.
     /// http://documentation.devexpress.com/#WindowsForms/CustomDocument3045
     /// </summary>
-    internal class TableViewCellFormatterProvider : IFormatProvider
+    public class TableViewCellFormatterProvider : IFormatProvider
     {
         private readonly ICustomFormatter formatter;
 

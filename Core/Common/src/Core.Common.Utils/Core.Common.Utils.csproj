@@ -17,7 +17,7 @@
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>

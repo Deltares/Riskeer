@@ -9,7 +9,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
     /// <summary>
     /// Wraps TreeNodeCollection from Windows.Forms.TreeView so it appears as a list of ITreeNode.
     /// </summary>
-    internal class TreeNodeList : IList<ITreeNode>
+    public class TreeNodeList : IList<ITreeNode>
     {
         private readonly TreeNodeCollection nodes;
 

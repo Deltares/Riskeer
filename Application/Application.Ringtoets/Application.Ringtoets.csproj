@@ -532,8 +532,6 @@
     <Resource Include="Resources\brick_add.png" />
     <Resource Include="Resources\brick_active.png" />
     <Resource Include="Resources\brick.png" />
-    <None Include="Uml\DelftTools.cd" />
-    <None Include="Uml\Gui.cd" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

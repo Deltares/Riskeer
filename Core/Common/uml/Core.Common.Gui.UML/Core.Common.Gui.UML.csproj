@@ -41,11 +41,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Application.cd" />
+    <None Include="ApplicationGui.cd" />
     <None Include="Gui.cd" />
     <None Include="Properties.cd" />
     <None Include="ViewManager.cd" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Application\Application.Ringtoets\Application.Ringtoets.csproj">
+      <Project>{4a7d6720-4aa1-4f0b-a796-a0436db3d7d7}</Project>
+      <Name>Application.Ringtoets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>

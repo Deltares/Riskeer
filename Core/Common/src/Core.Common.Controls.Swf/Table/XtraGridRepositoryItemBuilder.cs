@@ -15,7 +15,7 @@ using log4net;
 
 namespace Core.Common.Controls.Swf.Table
 {
-    internal static class XtraGridRepositoryItemBuilder
+    public static class XtraGridRepositoryItemBuilder
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(TableViewColumn));
 
