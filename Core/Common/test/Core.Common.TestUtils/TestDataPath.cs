@@ -20,9 +20,9 @@ namespace Core.Common.TestUtils
             public static readonly TestDataPath DelftToolsUtilsTests =
                 System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Utils.Tests");
 
-            public static class DelftTools
+            public static class Base
             {
-                public static readonly TestDataPath DelftToolsTests = @"Core/Common/test/Core.Common.DelftTools.Tests";
+                public static readonly TestDataPath DelftToolsTests = @"Core/Common/test/Core.Common.Base.Tests";
             }
         }
 
