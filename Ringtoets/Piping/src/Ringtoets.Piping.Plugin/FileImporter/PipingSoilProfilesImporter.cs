@@ -115,7 +115,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             PipingSoilProfileReader soilProfileReader = null;
 
-            NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_ReadingDatabase, 1, 1);
+            NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_Reading_database, 1, 1);
 
             try
             {
