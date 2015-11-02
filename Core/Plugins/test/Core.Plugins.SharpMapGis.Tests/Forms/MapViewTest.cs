@@ -137,6 +137,7 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
                         }
 
                         mapView.Map.Layers.Add(layer);
+                        mapView.Map.NotifyObservers();
                     });
                 }, layer);
 

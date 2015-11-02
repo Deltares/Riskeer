@@ -32,7 +32,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         private Map map;
         private bool disableGuiSelectionSync;
         private string ddbDatasetString = "Delft Dashboard Dataset";
-
+        
         public MapLegendView(IGui gui)
         {
             InitializeComponent();
@@ -377,6 +377,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             }
 
             map.Layers.Add(layer);
+            map.NotifyObservers();
         }
 
         private void RemoveLayer(ILayer layer)
@@ -393,6 +394,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                 var disposableLayer = layer as IDisposable;
                 disposableLayer.Dispose();
             }
+            map.NotifyObservers();
         }
 
         private void ButtonRemoveLayerClick(object sender, EventArgs e)
@@ -517,6 +519,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
         private void AddLayergroupToolStripMenuItemClick(object sender, EventArgs e)
         {
             map.Layers.Add(new GroupLayer("New group"));
+            map.NotifyObservers();
         }
 
         private void ContextMenuMapVisibleChanged(object sender, EventArgs e)

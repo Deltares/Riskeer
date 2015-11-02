@@ -22,6 +22,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.Linq;
+using Core.Common.BaseDelftTools;
 using Core.Common.Utils;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Aop.Markers;
@@ -82,7 +83,7 @@ namespace Core.GIS.SharpMap.Map
     /// </example>
     [Entity(FireOnCollectionChange = false)]
     //[Serializable]
-    public class Map : IDisposable, INotifyCollectionChange, IMap
+    public class Map : Observable, IDisposable, INotifyCollectionChange, IMap
     {
         /// <summary>
         /// When layer render time is less than this - image will not be cached, increase this parameter when you get memory leaks.
@@ -744,6 +745,7 @@ namespace Core.GIS.SharpMap.Map
             foreach (ILayer layer in Layers)
             {
                 clone.Layers.Add((ILayer) layer.Clone());
+                clone.NotifyObservers();
             }
 
             return clone;
@@ -788,6 +790,7 @@ namespace Core.GIS.SharpMap.Map
             }
 
             ReplacingLayer = false;
+            NotifyObservers();
         }
 
         private void UpdateDimensions()

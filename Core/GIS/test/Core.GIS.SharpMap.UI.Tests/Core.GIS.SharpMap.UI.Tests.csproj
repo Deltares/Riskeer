@@ -86,6 +86,10 @@
     <Compile Include="Tools\ZoomHistoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.BaseDelftTools\Core.Common.BaseDelftTools.csproj">
+      <Project>{82B61D20-FD4B-49BE-9252-5BF6E3EE4666}</Project>
+      <Name>Core.Common.BaseDelftTools</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.GIS.SharpMap.Api\Core.GIS.SharpMap.Api.csproj">
       <Project>{A3C9DF74-978A-44B1-B55D-A72AC4221E3A}</Project>
       <Name>Core.GIS.SharpMap.Api</Name>
@@ -122,7 +126,7 @@
       <Project>{C83777FC-AABB-47D9-911F-D76255D4D541}</Project>
       <Name>Core.GIS.SharpMap</Name>
     </ProjectReference>
-	<ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
       <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
       <Name>Core.Common.TestUtils</Name>
     </ProjectReference>

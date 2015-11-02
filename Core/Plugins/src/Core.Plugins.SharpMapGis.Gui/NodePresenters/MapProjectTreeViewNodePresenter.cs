@@ -47,17 +47,11 @@ namespace Core.Plugins.SharpMapGis.Gui.NodePresenters
 
             if (item is ILayer)
             {
-                var sourceMap = sourceParentNodeData as Map;
-                IGroupLayer sourceGroupLayer = null;
-                if (sourceMap == null)
-                {
-                    sourceGroupLayer = sourceParentNodeData as IGroupLayer;
-                }
-
                 var layer = (ILayer) item;
 
                 target.Layers.Remove(layer); // only changing position of layer within map
                 target.Layers.Insert(position, layer);
+                target.NotifyObservers();
             }
         }
 

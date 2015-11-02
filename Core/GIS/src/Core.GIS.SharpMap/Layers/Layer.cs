@@ -22,6 +22,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
+using Core.Common.BaseDelftTools;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Aop.Markers;
 using Core.Common.Utils.Diagnostics;
@@ -717,6 +718,7 @@ namespace Core.GIS.SharpMap.Layers
             }
 
             quadTreeQuadLayers.Clear();
+            (map as IObservable).NotifyObservers();
         }
 
         private void RemoveQuadTreeEnvelopesLayer()
@@ -728,6 +730,7 @@ namespace Core.GIS.SharpMap.Layers
 
             map.Layers.Remove(quadTreeEnvelopesLayer);
             quadTreeEnvelopesLayer = null;
+            (map as IObservable).NotifyObservers();
         }
 
         // quad tree layers are used for debugging purposes

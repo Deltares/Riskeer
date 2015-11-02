@@ -29,6 +29,7 @@ namespace Core.Plugins.SharpMapGis
                     }
                 }
             }
+            map.NotifyObservers();
         }
 
         private static IEnumerable<ILayer> GetMapLayersForData(Map map, object value)

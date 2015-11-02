@@ -40,6 +40,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
 
                 layer.SetImageFormat(layer.OutputFormats[0]);
                 map.Layers.Add(layer);
+                map.NotifyObservers();
             }
             catch (Exception ex)
             {

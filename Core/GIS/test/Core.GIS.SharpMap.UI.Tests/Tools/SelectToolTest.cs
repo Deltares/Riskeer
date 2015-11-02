@@ -106,6 +106,7 @@ namespace Core.GIS.SharpMap.UI.Tests.Tools
                 selectTool.Select(featureProvider.Features.Cast<IFeature>());
 
                 mapControl.Map.Layers.Remove(groupLayer);
+                mapControl.Map.NotifyObservers();
 
                 selectTool.Selection
                           .Should("selection is cleared on layer remove").Be.Empty();

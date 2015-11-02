@@ -431,6 +431,8 @@ namespace Core.Plugins.SharpMapGis.Gui
                     map.Layers.Add(layer);
                 }
             }
+
+            map.NotifyObservers();
         }
 
         public override IEnumerable<Assembly> GetPersistentAssemblies()

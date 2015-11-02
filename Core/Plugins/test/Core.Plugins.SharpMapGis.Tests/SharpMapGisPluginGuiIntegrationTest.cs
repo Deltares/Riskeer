@@ -68,6 +68,7 @@ namespace Core.Plugins.SharpMapGis.Tests
                     Name = "Map"
                 };
                 map.Layers.Add(layer);
+                map.NotifyObservers();
 
                 gui.Application.Project.Items.Add(map);
 

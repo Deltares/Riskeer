@@ -124,6 +124,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                 else if (sourceMap != null)
                 {
                     sourceMap.Layers.Remove((ILayer) item);
+                    sourceMap.NotifyObservers();
                 }
                 else
                 {

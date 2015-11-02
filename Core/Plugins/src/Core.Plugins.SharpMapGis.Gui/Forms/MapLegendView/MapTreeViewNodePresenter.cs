@@ -89,6 +89,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                 if (removed)
                 {
                     target.Layers.Insert(position, layer);
+                    target.NotifyObservers();
                 }
             }
         }

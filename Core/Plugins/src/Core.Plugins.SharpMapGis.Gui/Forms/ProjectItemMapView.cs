@@ -358,6 +358,8 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             {
                 MapView.Map.ZoomToExtents();
             }
+
+            MapView.Map.NotifyObservers();
         }
 
         private static IEnumerable<KeyValuePair<string, ILayer>> CreateLayerByPathLookup(ILayer layer, string path)
