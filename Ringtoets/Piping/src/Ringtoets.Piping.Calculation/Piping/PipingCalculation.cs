@@ -90,7 +90,17 @@ namespace Ringtoets.Piping.Calculation.Piping
             if (input.SoilProfile == null)
             {
                 validationResults.Add(Resources.PipingCalculation_Validate_Lacks_SoilProfile_uplift);
-                
+            }
+            else
+            {
+                try
+                {
+                    PipingProfileCreator.Create(input.SoilProfile).Validate();
+                }
+                catch (PipingProfileException e)
+                {
+                    validationResults.Add(e.Message);
+                }
             }
             return validationResults;
         }

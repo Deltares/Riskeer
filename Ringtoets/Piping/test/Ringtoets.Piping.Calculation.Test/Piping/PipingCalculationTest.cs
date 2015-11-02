@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
 using Ringtoets.Piping.Calculation.Piping;
 
 using Ringtoets.Piping.Calculation.TestUtil;
+using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Calculation.Test.Piping
 {
@@ -266,6 +268,55 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             // Assert
             Assert.AreEqual(1, validationMessages.Count);
             Assert.AreEqual("Een ondergrondprofiel moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.", validationMessages[0]);
+        }
+
+        [Test]
+        public void Validate_SoilProfileWithoutAquiferSet_ValidationWithDefaultNullReferenceMessage()
+        {
+            // Setup
+            PipingCalculationInput input = new TestPipingInput
+            {
+                SoilProfile = new PipingSoilProfile(String.Empty, -1.0,new []
+                {
+                    new PipingSoilLayer(0) 
+                })
+            }.AsRealInput();
+
+            var calculation = new PipingCalculation(input);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            Assert.AreEqual(1, validationMessages.Count);
+            var nullReferenceException = new NullReferenceException();
+            Assert.IsTrue(validationMessages.Any(vm => vm.Contains(nullReferenceException.Message)));
+        }
+
+        [Test]
+        [TestCase(-1e-8)]
+        [TestCase(0)]
+        public void Validate_SoilProfileBottomAtTopLevel_ValidationMessageForHavingTooHighBottom(double bottom)
+        {
+            // Setup
+            var top = 0;
+            PipingCalculationInput input = new TestPipingInput
+            {
+                SoilProfile = new PipingSoilProfile(String.Empty, bottom, new[]
+                {
+                    new PipingSoilLayer(top) 
+                })
+            }.AsRealInput();
+
+            var calculation = new PipingCalculation(input);
+
+            // Call
+            List<string> validationMessages = calculation.Validate();
+
+            // Assert
+            var message = string.Format("The bottomlevel ({0}) of the profile is not deep enough. It must be below at least 0.001 m below the toplevel of the deepest layer ({1}).", bottom, top);
+            Assert.AreEqual(1, validationMessages.Count);
+            Assert.IsTrue(validationMessages.Any(vm => vm.Contains(message)));
         }
 
         [Test]

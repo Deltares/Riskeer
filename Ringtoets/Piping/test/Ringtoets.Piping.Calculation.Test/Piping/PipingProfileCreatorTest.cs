@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         }
 
         [Test]
-        public void Create_ProfileWithMultipleLayers_ReturnsProfileWithMultipleLayers()
+        public void Create_ProfileWithMultipleLayers_ReturnsProfileWithOrderedMultipleLayers()
         {
             // Setup
             var random = new Random(22);
@@ -60,18 +60,24 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
                 new PipingSoilLayer(expectedTopB), 
                 new PipingSoilLayer(expectedTopC) 
             };
-            var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers);
+            var soilProfile = new PipingSoilProfile(string.Empty, expectedBottom, layers);
+
+            // Precondition
+            CollectionAssert.AreNotEqual(layers, layers.OrderByDescending(l => l.Top), "Layers were already ordered.");
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);
 
             // Assert
+            var ordered = actual.Layers.OrderByDescending(l => l.TopLevel);
+            CollectionAssert.AreEqual(ordered, actual.Layers);
+
             Assert.AreEqual(3, actual.Layers.Count);
             IEnumerable expectedAquifers = new[]
             {
+                false,
+                false,
                 true,
-                false,
-                false,
                 
             };
             CollectionAssert.AreEqual(expectedAquifers, actual.Layers.Select(l => l.IsAquifer));
@@ -80,7 +86,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
         }
 
         [Test]
-        public void Create_ProfileWithDecreasingTops_ReturnsProfileWithSingleLayer()
+        public void Create_ProfileWithDecreasingTops_ReturnsProfileWithMultipleLayers()
         {
             // Setup
             var random = new Random(22);
@@ -97,6 +103,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
                 new PipingSoilLayer(expectedTopB), 
                 new PipingSoilLayer(expectedTopC) 
             };
+
             var soilProfile = new PipingSoilProfile(String.Empty, expectedBottom, layers);
 
             // Call

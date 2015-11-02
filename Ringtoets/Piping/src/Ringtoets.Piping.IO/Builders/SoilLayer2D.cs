@@ -36,6 +36,12 @@ namespace Ringtoets.Piping.IO.Builders
 
         public bool IsAquifer { get; set; }
 
+        public double? DryUnitWeight { get; set; }
+
+        public double? AbovePhreaticLevel { get; set; }
+
+        public double? BelowPhreaticLevel { get; set; }
+
         /// <summary>
         /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the <see cref="InnerLoops"/> and <see cref="OuterLoop"/> set for the <see cref="SoilLayer2D"/>.
         /// </summary>
@@ -63,9 +69,11 @@ namespace Ringtoets.Piping.IO.Builders
 
                     foreach (var height in heights.Where(height => !innerLoopIntersectionHeightPairs.Any(tuple => HeightInInnerLoop(tuple, height))))
                     {
-                        result.Add(new PipingSoilLayer(height)
-                        {
-                            IsAquifer = IsAquifer
+                        result.Add(new PipingSoilLayer(height){
+                            IsAquifer = IsAquifer,
+                            BelowPhreaticLevel = BelowPhreaticLevel,
+                            AbovePhreaticLevel = AbovePhreaticLevel,
+                            DryUnitWeight = DryUnitWeight
                         });
                     }
                     bottom = EnsureBottomOutsideInnerLoop(innerLoopIntersectionHeightPairs, currentBottom);

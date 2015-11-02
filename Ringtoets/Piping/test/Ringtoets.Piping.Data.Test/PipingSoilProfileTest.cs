@@ -17,11 +17,10 @@ namespace Ringtoets.Piping.Data.Test
             var equivalentLayers = new Collection<PipingSoilLayer>();
             for (var i = 0; i < layerCount; i++)
             {
-                equivalentLayers.Add(new PipingSoilLayer(0.0));
-                if (i == 0)
+                equivalentLayers.Add(new PipingSoilLayer(0.0)
                 {
-                    equivalentLayers[0].IsAquifer = true;
-                }
+                    IsAquifer = i == 0
+                });
             }
 
             // Call
