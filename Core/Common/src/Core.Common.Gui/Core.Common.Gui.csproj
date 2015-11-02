@@ -155,9 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Uml\Gui.cd" />
-    <None Include="Uml\Properties.cd" />
-    <None Include="Uml\ViewManager.cd" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />

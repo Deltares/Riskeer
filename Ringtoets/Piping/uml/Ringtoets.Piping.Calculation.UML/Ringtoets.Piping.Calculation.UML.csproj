@@ -4,47 +4,46 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4AD99020-8612-46E5-A313-F9ADA7B196E4}</ProjectGuid>
+    <ProjectGuid>{55125A6D-59E7-40C9-AFFF-ED16610289A1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.Piping.UML</RootNamespace>
-    <AssemblyName>Ringtoets.Piping.UML</AssemblyName>
+    <RootNamespace>Ringtoets.Piping.Calculation.UML</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.Calculation.UML</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
-    <WarningLevel>4</WarningLevel>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+	<PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+	<PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Plugins\Wti\Piping\PipingCalculation.cd" />
-    <None Include="Plugins\Wti\Piping\PipingDataModel.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.BaseDelftTools\Core.Common.BaseDelftTools.csproj">
@@ -63,10 +62,6 @@
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
-      <Project>{10b8d63d-87e8-46df-aca9-a8cf22ee8fb5}</Project>
-      <Name>Ringtoets.Piping.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
       <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
       <Name>Ringtoets.Piping.Forms</Name>
@@ -79,6 +74,13 @@
       <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
       <Name>Ringtoets.Piping.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
+      <Project>{10b8d63d-87e8-46df-aca9-a8cf22ee8fb5}</Project>
+      <Name>Ringtoets.Piping.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PipingCalculation.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

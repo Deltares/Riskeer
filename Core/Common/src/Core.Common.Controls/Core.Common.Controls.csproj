@@ -42,7 +42,8 @@
     <OutputPath>bin\Debug\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <NoWarn>1591</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -54,7 +55,8 @@
     <OutputPath>bin\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <Optimize>true</Optimize>
     <NoWarn>
     </NoWarn>
@@ -95,9 +97,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableViewPasteBehaviourOptions.cs" />
     <Compile Include="ViewInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="UML\ITableView.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Common.Utils\Core.Common.Utils.csproj">

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8013D94E-E95F-4CDE-B480-7B6749312B90}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core.Common.Controls.Swf.UML</RootNamespace>
+    <AssemblyName>Core.Common.Controls.Swf.UML</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\DevExpress.Data.v9.3.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\DevExpress.Utils.v9.3.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\DevExpress.XtraEditors.v9.3.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\DevExpress.XtraGrid.v9.3.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraWizard.v9.3, Version=9.3.7.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\DevExpress.XtraWizard.v9.3.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="TeeChart, Version=3.5.3700.30575, Culture=neutral, PublicKeyToken=1463a114303c2e80, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\TeeChart.dll</HintPath>
+    </Reference>
+    <Reference Include="ValidationAspects, Version=2.1.0.0, Culture=neutral, PublicKeyToken=cef13554f3ca1f2d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\ValidationAspects.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI\Core.GIS.GeoAPI.csproj">
+      <Project>{ffb69466-79de-466a-ada7-5c47c5c5ca3a}</Project>
+      <Name>Core.GIS.GeoAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.NetTopologySuite\Core.GIS.NetTopologySuite.csproj">
+      <Project>{5770daa9-84e5-4770-af43-f6b815894368}</Project>
+      <Name>Core.GIS.NetTopologySuite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.BaseDelftTools\Core.Common.BaseDelftTools.csproj">
+      <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
+      <Name>Core.Common.BaseDelftTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.Controls.Swf\Core.Common.Controls.Swf.csproj">
+      <Project>{3dbd23ce-5c4a-4a49-b51c-b268cb2b510e}</Project>
+      <Name>Core.Common.Controls.Swf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.Version\Core.Common.Version.csproj">
+      <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>
+      <Name>Core.Common.Version</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Chart.cd" />
+    <None Include="ChartTools.cd" />
+    <None Include="TableView.cd" />
+    <None Include="TreeView.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -430,8 +430,6 @@
     <None Include="Charting\UML\ChartTools.cd" />
     <None Include="Charting\UML\Chart.cd" />
     <None Include="packages.config" />
-    <None Include="Uml\TableView.cd" />
-    <None Include="Uml\TreeView.cd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\computer.png" />
