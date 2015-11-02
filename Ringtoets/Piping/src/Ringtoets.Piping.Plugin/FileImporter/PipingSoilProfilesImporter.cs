@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return ApplicationResources.WtiApplicationName;
+                return ApplicationResources.Wti_application_name;
             }
         }
 
@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             get
             {
                 return String.Format("{0} {1} (*.soil)|*.soil",
-                                     WtiFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.SoilFileName);
+                                     WtiFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.Soil_file_name);
             }
         }
 
@@ -170,7 +170,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             var targetCollection = (ObservableList<PipingSoilProfile>)target;
 
             int totalProfileCount = importedSoilProfiles.ImportedSoilProfiles.Count;
-            NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_AddingImportedDataToModel, totalProfileCount, totalProfileCount);
+            NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_Adding_imported_data_to_model, totalProfileCount, totalProfileCount);
 
             targetCollection.AddRange(importedSoilProfiles.ImportedSoilProfiles);
 
@@ -187,7 +187,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void HandleUserCancellingImport()
         {
-            log.Info(ApplicationResources.PipingSoilProfilesImporter_ImportItem_ImportCancelled);
+            log.Info(ApplicationResources.PipingSoilProfilesImporter_ImportItem_Import_cancelled);
         }
 
         private class SoilProfilesReadResult

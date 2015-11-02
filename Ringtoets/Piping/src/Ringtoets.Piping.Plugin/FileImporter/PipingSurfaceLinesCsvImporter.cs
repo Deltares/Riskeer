@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return ApplicationResources.WtiApplicationName;
+                return ApplicationResources.Wti_application_name;
             }
         }
 
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             get
             {
                 return String.Format("{0} {1} (*.csv)|*.csv",
-                                     WtiFormsResources.PipingSurfaceLinesCollection_DisplayName, ApplicationResources.CsvFileName);
+                                     WtiFormsResources.PipingSurfaceLinesCollection_DisplayName, ApplicationResources.Csv_file_name);
             }
         }
 
@@ -139,7 +139,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return HandleCriticalError(path, e);
             }
 
-            var stepName = String.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_0_,
+            var stepName = String.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_,
                                          Path.GetFileName(path));
 
             int itemCount;
@@ -170,7 +170,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 }
                 catch (LineParseException e)
                 {
-                    var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseError_File_0_SurfaceLinesNumber_1_Message_2_,
+                    var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_Parse_error_File_0_SurfaceLinesNumber_1_Message_2_,
                                                 path, i + 1, e.Message);
                     log.Error(message);
                 }
@@ -212,7 +212,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private SurfaceLinesFileReadResult HandleCriticalError(string path, Exception e)
         {
-            var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_,
+            var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_,
                                         path, e.Message);
             log.Error(message);
             return new SurfaceLinesFileReadResult(true);
@@ -220,7 +220,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void AddImportedDataToModel(object target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines)
         {
-            NotifyProgress(ApplicationResources.PipingSurfaceLinesCsvImporter_AddingImportedDataToModel, readSurfaceLines.Count, readSurfaceLines.Count);
+            NotifyProgress(ApplicationResources.PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model, readSurfaceLines.Count, readSurfaceLines.Count);
 
             var targetCollection = (ICollection<RingtoetsPipingSurfaceLine>)target;
             foreach (var readSurfaceLine in readSurfaceLines)
@@ -237,7 +237,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void HandleUserCancellingImport()
         {
-            log.Info(ApplicationResources.PipingSurfaceLinesCsvImporter_ImportItem_ImportCancelled);
+            log.Info(ApplicationResources.PipingSurfaceLinesCsvImporter_ImportItem_Import_cancelled);
         }
 
         private class SurfaceLinesFileReadResult

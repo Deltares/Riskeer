@@ -17,7 +17,7 @@ namespace Ringtoets.Piping.Plugin
         {
             get
             {
-                return Properties.Resources.WtiApplicationName;
+                return Properties.Resources.Wti_application_name;
             }
         }
 
@@ -25,7 +25,7 @@ namespace Ringtoets.Piping.Plugin
         {
             get
             {
-                return Properties.Resources.WtiApplicationDisplayName;
+                return Properties.Resources.Wti_application_DisplayName;
             }
         }
 
@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Plugin
         {
             get
             {
-                return Properties.Resources.WtiApplicationDescription;
+                return Properties.Resources.Wti_application_Description;
             }
         }
 
@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Plugin
             yield return new DataItemInfo<WtiProject>
             {
                 Name = WtiFormsResources.WtiProjectProperties_DisplayName,
-                Category = ApplicationResources.WtiApplicationName,
+                Category = ApplicationResources.Wti_application_name,
                 Image = WtiFormsResources.WtiProjectFolderIcon,
                 CreateData = owner => new WtiProject()
             };

@@ -21,9 +21,9 @@ namespace Ringtoets.Piping.Plugin.Test
 
             // assert
             Assert.IsInstanceOf<ApplicationPlugin>(wtiPlugin);
-            Assert.AreEqual(PluginResources.WtiApplicationName, wtiPlugin.Name);
-            Assert.AreEqual(PluginResources.WtiApplicationDisplayName, wtiPlugin.DisplayName);
-            Assert.AreEqual(PluginResources.WtiApplicationDescription, wtiPlugin.Description);
+            Assert.AreEqual(PluginResources.Wti_application_name, wtiPlugin.Name);
+            Assert.AreEqual(PluginResources.Wti_application_DisplayName, wtiPlugin.DisplayName);
+            Assert.AreEqual(PluginResources.Wti_application_Description, wtiPlugin.Description);
             Assert.AreEqual("0.5.0.0", wtiPlugin.Version);
         }
 
@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Plugin.Test
 
             DataItemInfo projectDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(WtiProject));
             Assert.AreEqual(WtiFormsResources.WtiProjectProperties_DisplayName, projectDataItemDefinition.Name);
-            Assert.AreEqual(PluginResources.WtiApplicationName, projectDataItemDefinition.Category);
+            Assert.AreEqual(PluginResources.Wti_application_name, projectDataItemDefinition.Category);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Width);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Height);
             Assert.IsNull(projectDataItemDefinition.AdditionalOwnerCheck);

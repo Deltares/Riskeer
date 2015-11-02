@@ -117,52 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="WtiApplicationDescription" xml:space="preserve">
+  <data name="Wti_application_Description" xml:space="preserve">
     <value>Instrumentarium om de WTI toetsnorm mee uit te voeren.</value>
   </data>
-  <data name="WtiApplicationDisplayName" xml:space="preserve">
+  <data name="Wti_application_DisplayName" xml:space="preserve">
     <value>Wettelijk Toets Instrumentarium</value>
   </data>
-  <data name="WtiApplicationName" xml:space="preserve">
+  <data name="Wti_application_name" xml:space="preserve">
     <value>WTI</value>
   </data>
-  <data name="WtiApplicationGuiName" xml:space="preserve">
+  <data name="Wti_application_gui_name" xml:space="preserve">
     <value>WTI-UI</value>
   </data>
-  <data name="wtiGuiPluginDescription" xml:space="preserve">
+  <data name="WtiGuiPlugin_Description" xml:space="preserve">
     <value>Gebruikersinterface voor het Wettelijk Toets Instrumentarium programma.</value>
   </data>
-  <data name="wtiGuiPluginDisplayName" xml:space="preserve">
+  <data name="WtiGuiPlugin_DisplayName" xml:space="preserve">
     <value>Wettelijk Toets Instrumentarium interface</value>
   </data>
-  <data name="CsvFileName" xml:space="preserve">
+  <data name="Csv_file_name" xml:space="preserve">
     <value>Kommagescheiden bestand</value>
   </data>
-  <data name="SoilFileName" xml:space="preserve">
+  <data name="Soil_file_name" xml:space="preserve">
     <value>DSoilModel bestand</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_AddingImportedDataToModel" xml:space="preserve">
+  <data name="PipingSurfaceLinesCsvImporter_Adding_imported_data_to_model" xml:space="preserve">
     <value>Geïmporteerde data toevoegen aan faalmechanisme...</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_ImportItem_ImportCancelled" xml:space="preserve">
+  <data name="PipingSurfaceLinesCsvImporter_ImportItem_Import_cancelled" xml:space="preserve">
     <value>Dwarsdoorsneden importeren afgebroken. Geen data ingelezen.</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_0_" xml:space="preserve">
+  <data name="PipingSurfaceLinesCsvImporter_Read_PipingSurfaceLines_0_" xml:space="preserve">
     <value>Inlezen {0}...</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_CriticalErrorReading_0_Cause_1_" xml:space="preserve">
+  <data name="PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens het inlezen van '{0}' waardoor import niet uitgevoerd kan worden: {1}</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_ParseError_File_0_SurfaceLinesNumber_1_Message_2_" xml:space="preserve">
+  <data name="PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_Parse_error_File_0_SurfaceLinesNumber_1_Message_2_" xml:space="preserve">
     <value>Er is een leesfout opgetreden bij dwarsdoorsnede {1} van bestand '{0}' en is overgeslagen: {2}</value>
   </data>
-  <data name="PipingSoilProfilesImporter_AddingImportedDataToModel" xml:space="preserve">
+  <data name="PipingSoilProfilesImporter_Adding_imported_data_to_model" xml:space="preserve">
     <value>Geïmporteerde data toevoegen aan faalmechanisme...</value>
   </data>
-  <data name="PipingSoilProfilesImporter_ImportItem_ImportCancelled" xml:space="preserve">
+  <data name="PipingSoilProfilesImporter_ImportItem_Import_cancelled" xml:space="preserve">
     <value>Grondprofielen importeren afgebroken. Geen data ingelezen.</value>
   </data>
-  <data name="PipingSoilProfilesImporter_ReadingDatabase" xml:space="preserve">
+  <data name="PipingSoilProfilesImporter_Reading_database" xml:space="preserve">
     <value>Inlezen van de D-Soil Model database...</value>
   </data>
   <data name="PipingSoilProfilesImporter_CriticalErrorReading_0_Cause_1_" xml:space="preserve">

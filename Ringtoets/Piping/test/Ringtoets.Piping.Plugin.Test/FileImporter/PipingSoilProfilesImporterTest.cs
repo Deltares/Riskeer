@@ -26,7 +26,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Prepare
             var expectedFileFilter = String.Format("{0} {1} (*.soil)|*.soil",
-                WtiFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.SoilFileName);
+                WtiFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.Soil_file_name);
 
             // Call
             var importer = new PipingSoilProfilesImporter();
@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             Assert.IsInstanceOf<IFileImporter>(importer);
             Assert.AreEqual(WtiFormsResources.PipingSoilProfilesCollection_DisplayName, importer.Name);
-            Assert.AreEqual(ApplicationResources.WtiApplicationName, importer.Category);
+            Assert.AreEqual(ApplicationResources.Wti_application_name, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
             CollectionAssert.AreEqual(new[] { typeof(IEnumerable<PipingSoilProfile>) }, importer.SupportedItemTypes);

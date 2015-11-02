@@ -20,7 +20,7 @@ namespace Ringtoets.Piping.Plugin
         {
             get
             {
-                return Properties.Resources.WtiApplicationGuiName;
+                return Properties.Resources.Wti_application_gui_name;
             }
         }
 
@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.Plugin
         {
             get
             {
-                return Properties.Resources.wtiGuiPluginDisplayName;
+                return Properties.Resources.WtiGuiPlugin_DisplayName;
             }
         }
 
@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Plugin
         {
             get
             {
-                return Properties.Resources.wtiGuiPluginDescription;
+                return Properties.Resources.WtiGuiPlugin_Description;
             }
         }
 
