@@ -612,7 +612,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer en vervolgens reken all piping berekeningen door in het faalmechanisme..
+        ///   Looks up a localized string similar to Valideer en voer alle berekeningen binnen het piping faalmechanisme uit..
         /// </summary>
         public static string PipingFailureMechanism_Calculate_Tooltip {
             get {

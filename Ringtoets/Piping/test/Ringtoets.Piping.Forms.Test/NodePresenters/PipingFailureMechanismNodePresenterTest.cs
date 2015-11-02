@@ -276,7 +276,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var runAllItem = contextMenu.Items[1];
             Assert.AreEqual("Berekenen", runAllItem.Text);
-            Assert.AreEqual("Valideer en vervolgens reken all piping berekeningen door in het faalmechanisme.", runAllItem.ToolTipText);
+            Assert.AreEqual("Valideer en voer alle berekeningen binnen het piping faalmechanisme uit.", runAllItem.ToolTipText);
             Assert.AreEqual(16, runAllItem.Image.Width);
             Assert.AreEqual(16, runAllItem.Image.Height);
 
