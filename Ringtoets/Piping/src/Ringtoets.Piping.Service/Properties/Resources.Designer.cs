@@ -63,54 +63,54 @@ namespace Ringtoets.Piping.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; beëindigd om: {1}.
         /// </summary>
-        internal static string Calculation_Subject_0_Ended_Time_1_ {
+        internal static string Calculation_Subject_0_ended_Time_1_ {
             get {
-                return ResourceManager.GetString("Calculation_Subject_0_Ended_Time_1_", resourceCulture);
+                return ResourceManager.GetString("Calculation_Subject_0_ended_Time_1_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Berekening van &apos;{0}&apos; gestart om: {1}.
         /// </summary>
-        internal static string Calculation_Subject_0_Started_Time_1_ {
+        internal static string Calculation_Subject_0_started_Time_1_ {
             get {
-                return ResourceManager.GetString("Calculation_Subject_0_Started_Time_1_", resourceCulture);
+                return ResourceManager.GetString("Calculation_Subject_0_started_Time_1_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Piping berekening niet gelukt: {0}.
         /// </summary>
-        internal static string ErrorInPipingCalculation_0 {
+        internal static string Error_in_piping_calculation_0 {
             get {
-                return ResourceManager.GetString("ErrorInPipingCalculation_0", resourceCulture);
+                return ResourceManager.GetString("Error_in_piping_calculation_0", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Validatie mislukt: {0}.
         /// </summary>
-        internal static string ErrorInPipingValidation_0 {
+        internal static string Error_in_piping_validation_0 {
             get {
-                return ResourceManager.GetString("ErrorInPipingValidation_0", resourceCulture);
+                return ResourceManager.GetString("Error_in_piping_validation_0", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; beëindigd om: {1}.
         /// </summary>
-        internal static string Validation_Subject_0_Ended_Time_1_ {
+        internal static string Validation_Subject_0_ended_Time_1_ {
             get {
-                return ResourceManager.GetString("Validation_Subject_0_Ended_Time_1_", resourceCulture);
+                return ResourceManager.GetString("Validation_Subject_0_ended_Time_1_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Validatie van &apos;{0}&apos; gestart om: {1}.
         /// </summary>
-        internal static string Validation_Subject_0_Started_Time_1_ {
+        internal static string Validation_Subject_0_started_Time_1_ {
             get {
-                return ResourceManager.GetString("Validation_Subject_0_Started_Time_1_", resourceCulture);
+                return ResourceManager.GetString("Validation_Subject_0_started_Time_1_", resourceCulture);
             }
         }
     }

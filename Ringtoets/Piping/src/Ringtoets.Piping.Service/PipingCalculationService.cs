@@ -25,13 +25,13 @@ namespace Ringtoets.Piping.Service
         /// <returns>False if <paramref name="pipingData"/> contains validation errors; True otherwise.</returns>
         public static bool Validate(PipingData pipingData)
         {
-            pipingDataLogger.Info(String.Format(Resources.Validation_Subject_0_Started_Time_1_,
+            pipingDataLogger.Info(String.Format(Resources.Validation_Subject_0_started_Time_1_,
                                                 pipingData.Name, DateTimeService.CurrentTimeAsString));
 
             var validationResults = new PipingCalculation(CreateInputFromData(pipingData)).Validate();
-            LogMessagesAsError(Resources.ErrorInPipingValidation_0, validationResults.ToArray());
+            LogMessagesAsError(Resources.Error_in_piping_validation_0, validationResults.ToArray());
 
-            pipingDataLogger.Info(String.Format(Resources.Validation_Subject_0_Ended_Time_1_,
+            pipingDataLogger.Info(String.Format(Resources.Validation_Subject_0_ended_Time_1_,
                                                 pipingData.Name, DateTimeService.CurrentTimeAsString));
 
             return validationResults.Count == 0;
@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Service
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
         public static void Calculate(PipingData pipingData)
         {
-            pipingDataLogger.Info(String.Format(Resources.Calculation_Subject_0_Started_Time_1_,
+            pipingDataLogger.Info(String.Format(Resources.Calculation_Subject_0_started_Time_1_,
                                                 pipingData.Name, DateTimeService.CurrentTimeAsString));
 
             try
@@ -62,11 +62,11 @@ namespace Ringtoets.Piping.Service
             }
             catch (PipingCalculationException e)
             {
-                LogMessagesAsError(Resources.ErrorInPipingCalculation_0, e.Message);
+                LogMessagesAsError(Resources.Error_in_piping_calculation_0, e.Message);
             }
             finally
             {
-                pipingDataLogger.Info(String.Format(Resources.Calculation_Subject_0_Ended_Time_1_,
+                pipingDataLogger.Info(String.Format(Resources.Calculation_Subject_0_ended_Time_1_,
                                                     pipingData.Name, DateTimeService.CurrentTimeAsString));
             }
         }
