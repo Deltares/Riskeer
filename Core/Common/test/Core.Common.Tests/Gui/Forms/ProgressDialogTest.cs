@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Core.Common.Tests.Gui.Forms
 {
     [TestFixture]
-    class ProgressDialogTest
+    public class ProgressDialogTest
     {
         private ProgressDialog progressDlg;
         private ActivityRunner activityRunner;

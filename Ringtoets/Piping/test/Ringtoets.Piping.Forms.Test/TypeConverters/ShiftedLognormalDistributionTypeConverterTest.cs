@@ -15,6 +15,7 @@ using Ringtoets.Piping.Forms.TypeConverters;
 
 namespace Ringtoets.Piping.Forms.Test.TypeConverters
 {
+    [TestFixture]
     public class ShiftedShiftedLognormalDistributionTypeConverterTest
     {
         [Test]
