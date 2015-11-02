@@ -9,7 +9,7 @@
         xmlns:Properties="clr-namespace:Application.Ringtoets.Properties"
         mc:Ignorable="d" x:Class="Application.Ringtoets.Forms.MainWindow.MainWindow"
         Title="MainWindow" Height="768" Width="1024" Background="White" Foreground="Black" x:Name="window"
-        Icon="/Application.Ringtoets;component\Resources/Deltares.ico"
+        Icon="/Application.Ringtoets;component\Resources/Ringtoets.ico"
     ResizeMode="CanResizeWithGrip"
     FlowDirection="LeftToRight"
     Loaded="MainWindow_OnLoaded">

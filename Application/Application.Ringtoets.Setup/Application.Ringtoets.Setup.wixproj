@@ -66,9 +66,9 @@
     <Content Include="GenerateVariables.wxi" />
     <Content Include="GenerateVariables.wxi.svn" />
     <Content Include="License.rtf" />
+    <Content Include="Ringtoets.ico" />
     <Content Include="Start_493x312.bmp" />
     <Content Include="Variables.wxi" />
-    <Content Include="Wti.ico" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUIExtension">

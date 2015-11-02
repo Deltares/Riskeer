@@ -178,7 +178,6 @@
     <None Include="Resources\playall.png" />
     <None Include="Resources\invalidOverlay.png" />
     <None Include="Resources\linkOverlay.png" />
-    <None Include="Resources\DLTRS.ico" />
     <None Include="Resources\WebInsertHyperlinkHS.png" />
     <None Include="Resources\StopHS.png" />
     <None Include="Resources\shape_square.png" />

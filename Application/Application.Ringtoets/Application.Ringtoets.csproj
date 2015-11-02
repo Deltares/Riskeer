@@ -384,6 +384,7 @@
     <Resource Include="Resources\application_view_list.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Ringtoets.ico" />
     <None Include="Resources\icon_clear_all_messages.PNG" />
     <None Include="Forms\MessageWindow\MessageWindowData.xsc">
       <DependentUpon>MessageWindowData.xsd</DependentUpon>
@@ -407,7 +408,6 @@
     <Resource Include="Resources\cross-small.png" />
     <Resource Include="Resources\cross-small-bw.png" />
     <Resource Include="Resources\Copy.png" />
-    <Resource Include="Resources\Deltares.ico" />
     <Resource Include="Resources\cross_small.png" />
     <Resource Include="Resources\binocular_32.png" />
     <Resource Include="Resources\clipboard_32.png" />
@@ -461,7 +461,6 @@
     <Resource Include="Resources\link_break.png" />
     <Resource Include="Resources\link.png" />
     <Resource Include="Resources\information.png" />
-    <None Include="Resources\Icon1.ico" />
     <Resource Include="Resources\graphhs.png" />
     <Resource Include="Resources\fullscreen.PNG" />
     <Resource Include="Resources\folder_wrench.png" />

@@ -11,7 +11,7 @@
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Languages="1043" Manufacturer="!(loc.Manufacturer)" Comments=" "/>
     
     <Media Id="1" Cabinet="WtiFull.cab" EmbedCab="yes"/>
-    <Property Id="ARPPRODUCTICON" Value="Wti.ico" />
+    <Property Id="ARPPRODUCTICON" Value="Ringtoets.ico" />
 
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" AllowSameVersionUpgrades="yes"/>
 
@@ -46,7 +46,7 @@
                         Description="!(loc.StartApplicationDescription)"
                         Target="[APPLICATIONDIR]$(var.Application.Ringtoets.TargetFileName)"
                         WorkingDirectory="APPLICATIONDIR"
-                        Icon="Wti.ico"/>
+                        Icon="Ringtoets.ico"/>
 
               <RemoveFolder Id="RemoveINSTALLDIR" Directory="INSTALLDIR" On="uninstall" />
               <RemoveFolder Id="RemoveDeltares" Directory="Deltares" On="uninstall" />
@@ -68,7 +68,7 @@
                         Description="!(loc.StartApplicationDescription)"
                         Target="[APPLICATIONDIR]$(var.Application.Ringtoets.TargetFileName)"
                         WorkingDirectory="APPLICATIONDIR"
-                        Icon="Wti.ico"/>
+                        Icon="Ringtoets.ico"/>
               
               <RemoveFolder Id="RemoveProgramMenuShortcut" Directory="ProgramMenuWti" On="uninstall" />
               <RemoveFolder Id="RemoveProgramMenuDeltares" Directory="ProgramMenuDeltares" On="uninstall" />
@@ -89,7 +89,7 @@
                     Description="!(loc.StartApplicationDescription)"
                     Target="[APPLICATIONDIR]$(var.Application.Ringtoets.TargetFileName)"
                     WorkingDirectory="APPLICATIONDIR"
-                    Icon="Wti.ico"/>
+                    Icon="Ringtoets.ico"/>
 
           <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="wtiDesktopShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
 
@@ -105,7 +105,7 @@
       <ComponentRef Id="DesktopShortcut"/>
 		</Feature>
 
-    <Icon Id="Wti.ico" SourceFile="Wti.ico"/>
+    <Icon Id="Ringtoets.ico" SourceFile="Ringtoets.ico"/>
     
 	</Product>
 </Wix>

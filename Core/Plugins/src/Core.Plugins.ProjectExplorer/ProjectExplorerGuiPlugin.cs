@@ -58,7 +58,7 @@ namespace Core.Plugins.ProjectExplorer
         {
             get
             {
-                return Properties.Resources.DLTRS.ToBitmap();
+                return new Bitmap(32, 32);
             }
         }
 
