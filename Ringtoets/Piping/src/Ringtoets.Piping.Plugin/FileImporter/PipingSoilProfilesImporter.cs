@@ -5,6 +5,8 @@ using System.Drawing;
 using Core.Common.BaseDelftTools;
 
 using System.Linq;
+using System.Threading;
+using Core.Common.Utils.Collections.Extensions;
 using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO;
@@ -92,8 +94,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public object ImportItem(string path, object target = null)
         {
-            NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_ReadingDatabase, 1, 2);
-
             var importResult = ReadSoilProfiles(path);
 
             if (!importResult.CriticalErrorOccurred)
@@ -111,27 +111,11 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return target;
         }
 
-        private void AddImportedDataToModel(object target, SoilProfilesReadResult importedSoilProfiles)
-        {
-            NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_AddingImportedDataToModel, 2, 2);
-
-            var targetCollection = (ICollection<PipingSoilProfile>)target;
-            foreach (var soilProfile in importedSoilProfiles.ImportedSoilProfiles)
-            {
-                targetCollection.Add(soilProfile);
-            }
-
-            var observableTarget = targetCollection as IObservable;
-            if (observableTarget != null)
-            {
-                observableTarget.NotifyObservers();
-            }
-        }
-
         private SoilProfilesReadResult ReadSoilProfiles(string path)
         {
-            var profiles = new Collection<PipingSoilProfile>();
             PipingSoilProfileReader soilProfileReader = null;
+
+            NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_ReadingDatabase, 1, 1);
 
             try
             {
@@ -145,10 +129,27 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                 return new SoilProfilesReadResult(true);
             }
 
+            return GetProfileReadResult(path, soilProfileReader);
+
+        }
+
+        private SoilProfilesReadResult GetProfileReadResult(string path, PipingSoilProfileReader soilProfileReader)
+        {
+            var totalNumberOfSteps = soilProfileReader.Count;
+            var currentStep = 1;
+
+            NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_ReadingSoilProfiles, currentStep, totalNumberOfSteps);
+
+            var profiles = new Collection<PipingSoilProfile>();
             while (soilProfileReader.HasNext)
             {
+                if (ShouldCancel)
+                {
+                    return new SoilProfilesReadResult(false);
+                }
                 try
                 {
+                    NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_ReadingSoilProfiles, currentStep++, totalNumberOfSteps);
                     profiles.Add(soilProfileReader.ReadProfile());
                 }
                 catch (PipingSoilProfileReadException e)
@@ -164,11 +165,23 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             };
         }
 
+        private void AddImportedDataToModel(object target, SoilProfilesReadResult importedSoilProfiles)
+        {
+            var targetCollection = (ObservableList<PipingSoilProfile>)target;
+
+            int totalProfileCount = importedSoilProfiles.ImportedSoilProfiles.Count;
+            NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_AddingImportedDataToModel, totalProfileCount, totalProfileCount);
+
+            targetCollection.AddRange(importedSoilProfiles.ImportedSoilProfiles);
+
+            targetCollection.NotifyObservers();
+        }
+
         private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)
         {
             if (ProgressChanged != null)
             {
-                ProgressChanged(currentStepName, currentStep, totalNumberOfSteps);
+               ProgressChanged(currentStepName, currentStep, totalNumberOfSteps);
             }
         }
 

@@ -17,6 +17,7 @@ namespace Ringtoets.Piping.IO
     {
         private const string pipingMechanismName = "Piping";
 
+        private const string profileCountColumn = "ProfileCount";
         private const string dimensionColumn = "Dimension";
         private const string isAquiferColumn = "IsAquifer";
         private const string profileNameColumn = "ProfileName";
@@ -33,11 +34,11 @@ namespace Ringtoets.Piping.IO
         private const string layerCountColumn = "LayerCount";
         private const string mechanismParameterName = "mechanism";
 
-        private SQLiteConnection connection;
-        private SQLiteDataReader dataReader;
-
         private readonly string databaseFileName;
         private readonly string databaseRequiredVersion = "15.0.5.0";
+
+        private SQLiteConnection connection;
+        private SQLiteDataReader dataReader;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingSoilProfileReader"/> which will use the <paramref name="databaseFilePath"/>
@@ -60,6 +61,11 @@ namespace Ringtoets.Piping.IO
             OpenConnection(databaseFilePath);
             SetReaderToFirstRecord();
         }
+
+        /// <summary>
+        /// Gets the total number of profiles that can be read from the database.
+        /// </summary>
+        public int Count { get; private set; }
 
         /// <summary>
         /// Gets the value <c>true</c> if profiles can be read using the <see cref="PipingSoilProfileReader"/>.
@@ -106,7 +112,7 @@ namespace Ringtoets.Piping.IO
             var profileName = Read<string>(profileNameColumn);
             var layerCount = Read<long>(layerCountColumn);
             var bottom = Read<double>(bottomColumn);
-            
+
             var soilProfileBuilder = new SoilProfileBuilder1D(profileName, bottom);
 
             for (var i = 1; i <= layerCount; i++)
@@ -123,7 +129,7 @@ namespace Ringtoets.Piping.IO
             var profileName = Read<string>(profileNameColumn);
             var layerCount = Read<long>(layerCountColumn);
             var intersectionX = Read<double>(intersectionXColumn);
-            
+
             var soilProfileBuilder = new SoilProfileBuilder2D(profileName, intersectionX);
 
             for (int i = 1; i <= layerCount; i++)
@@ -136,7 +142,7 @@ namespace Ringtoets.Piping.IO
                 {
                     var exception = new PipingSoilProfileReadException(
                         string.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, i, profileName), e);
-                    
+
                     while (i++ <= layerCount)
                     {
                         MoveNext();
@@ -170,7 +176,7 @@ namespace Ringtoets.Piping.IO
 
         private T Read<T>(string columnName)
         {
-            return (T)dataReader[columnName];
+            return (T) dataReader[columnName];
         }
 
         private void OpenConnection(string dbFile)
@@ -233,10 +239,23 @@ namespace Ringtoets.Piping.IO
         /// </summary>
         private void InitializeDataReader()
         {
+
             string versionQuery = string.Format(
                 "SELECT Value FROM _Metadata WHERE Key = 'VERSION' AND Value = '{0}';",
                 databaseRequiredVersion
                 );
+
+            string countQuery = string.Format(string.Join(
+                " ",
+                "SELECT",
+                "(SELECT COUNT(*)",
+                "FROM Mechanism as m",
+                "JOIN MechanismPointLocation as mpl ON mpl.ME_ID = m.ME_ID",
+                "JOIN SoilProfile2D as p2 ON p2.SP2D_ID = mpl.SP2D_ID",
+                "WHERE m.ME_Name = @{0})",
+                " + ",
+                "(SELECT COUNT(*)",
+                "FROM SoilProfile1D) as {1};"), mechanismParameterName, profileCountColumn);
 
             string materialPropertiesQuery = string.Format(
                 string.Join(" ",
@@ -368,7 +387,7 @@ namespace Ringtoets.Piping.IO
                 layer2DPropertiesQuery,
                 mechanismParameterName);
 
-            CreateDataReader(versionQuery + query2D + query1D, new SQLiteParameter
+            CreateDataReader(versionQuery + countQuery + query2D + query1D, new SQLiteParameter
             {
                 DbType = DbType.String,
                 Value = pipingMechanismName,
@@ -392,6 +411,7 @@ namespace Ringtoets.Piping.IO
                 {
                     dataReader = query.ExecuteReader();
                     CheckVersion();
+                    GetCount();
                 }
                 catch (SQLiteException e)
                 {
@@ -405,10 +425,17 @@ namespace Ringtoets.Piping.IO
         {
             if (!dataReader.HasRows)
             {
-                throw new PipingSoilProfileReadException(String.Format(
+                throw new PipingSoilProfileReadException(string.Format(
                     Resources.PipingSoilProfileReader_DatabaseFileIncorrectVersions_Requires_0,
                     databaseRequiredVersion));
             }
+            dataReader.NextResult();
+        }
+
+        private void GetCount()
+        {
+            dataReader.Read();
+            Count = (int)Read<long>(profileCountColumn);
             dataReader.NextResult();
         }
     }

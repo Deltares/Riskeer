@@ -163,12 +163,15 @@
     <value>Grondprofielen importeren afgebroken. Geen data ingelezen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_ReadingDatabase" xml:space="preserve">
-    <value>Inlezen van de D-SoilModel database...</value>
+    <value>Inlezen van de D-Soil Model database...</value>
   </data>
   <data name="PipingSoilProfilesImporter_CriticalErrorReading_0_Cause_1_" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens het inlezen van '{0}' waardoor import niet uitgevoerd kan worden: {1}</value>
   </data>
   <data name="PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_" xml:space="preserve">
     <value>Er is een leesfout opgetreden bij ondergrondprofiel van bestand '{0}' en is overgeslagen: {1}</value>
+  </data>
+  <data name="PipingSoilProfilesImporter_ReadingSoilProfiles" xml:space="preserve">
+    <value>Inlezen van de grondprofielen uit de D-Soil Model database...</value>
   </data>
 </root>

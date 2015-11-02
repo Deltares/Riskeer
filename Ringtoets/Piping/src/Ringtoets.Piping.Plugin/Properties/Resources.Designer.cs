@@ -97,11 +97,20 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inlezen van de D-SoilModel database....
+        ///   Looks up a localized string similar to Inlezen van de D-Soil Model database....
         /// </summary>
         public static string PipingSoilProfilesImporter_ReadingDatabase {
             get {
                 return ResourceManager.GetString("PipingSoilProfilesImporter_ReadingDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inlezen van de grondprofielen uit de D-Soil Model database....
+        /// </summary>
+        public static string PipingSoilProfilesImporter_ReadingSoilProfiles {
+            get {
+                return ResourceManager.GetString("PipingSoilProfilesImporter_ReadingSoilProfiles", resourceCulture);
             }
         }
         
