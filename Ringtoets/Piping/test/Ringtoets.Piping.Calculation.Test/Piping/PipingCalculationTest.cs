@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using NUnit.Framework;
 
@@ -314,7 +315,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             List<string> validationMessages = calculation.Validate();
 
             // Assert
-            var message = string.Format("The bottomlevel ({0}) of the profile is not deep enough. It must be below at least 0.001 m below the toplevel of the deepest layer ({1}).", bottom, top);
+            var message = string.Format("The bottomlevel ({0}) of the profile is not deep enough. It must be below at least {1} m below the toplevel of the deepest layer ({2}).", bottom, 0.001, top);
             Assert.AreEqual(1, validationMessages.Count);
             Assert.IsTrue(validationMessages.Any(vm => vm.Contains(message)));
         }
