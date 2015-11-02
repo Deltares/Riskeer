@@ -8,8 +8,8 @@
     <ProjectGuid>{FAFDB463-9612-41F4-B3DD-FF9C6E7023BA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Core.Common.DelftTools.Tests</RootNamespace>
-    <AssemblyName>Core.Common.DelftTools.Tests</AssemblyName>
+    <RootNamespace>Core.Common.Base.Tests</RootNamespace>
+    <AssemblyName>Core.Common.Base.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
