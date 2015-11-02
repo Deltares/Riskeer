@@ -3,7 +3,7 @@ using System.Linq;
 using Core.Common.Controls.Swf.Charting.Series;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.Charting.Series
+namespace Core.Common.Base.Tests.Controls.Swf.Charting.Series
 {
     [TestFixture]
     public class TeeChartSeriesDecoratorTest

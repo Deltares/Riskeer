@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base.Tests.TestObjects;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.DelftTools.Tests.TestObjects;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Child = Core.Common.DelftTools.Tests.Controls.Swf.UndoRedoTestClasses.Child;
-using Parent = Core.Common.DelftTools.Tests.Controls.Swf.UndoRedoTestClasses.Parent;
+using Child = Core.Common.Base.Tests.Controls.Swf.UndoRedoTestClasses.Child;
+using Parent = Core.Common.Base.Tests.Controls.Swf.UndoRedoTestClasses.Parent;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.TreeViewControls
+namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 {
     [TestFixture]
     public class TreeViewControllerTest

@@ -1,7 +1,7 @@
 ﻿using Core.Common.Utils.Aop;
 using Core.Common.Utils.Editing;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.UndoRedoTestClasses
+namespace Core.Common.Base.Tests.Controls.Swf.UndoRedoTestClasses
 {
     [Entity(FireOnCollectionChange = false)]
     public class Child : IEditableObject

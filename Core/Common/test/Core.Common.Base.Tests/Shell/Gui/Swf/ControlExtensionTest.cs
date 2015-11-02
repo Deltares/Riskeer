@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Swf;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests.Shell.Gui.Swf
+namespace Core.Common.Base.Tests.Shell.Gui.Swf
 {
     [TestFixture]
     public class ControlExtensionsTest

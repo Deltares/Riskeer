@@ -2,7 +2,7 @@
 using Core.Common.Controls.Swf.DataEditorGenerator;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.DataEditorGenerator
+namespace Core.Common.Base.Tests.Controls.Swf.DataEditorGenerator
 {
     [TestFixture]
     public class SelfCollapsingGroupboxTest

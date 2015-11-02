@@ -3,7 +3,7 @@ using System.Linq;
 using Core.Common.BaseDelftTools;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests.Shell.Core
+namespace Core.Common.Base.Tests.Shell.Core
 {
     [TestFixture]
     public class ApplicationPluginTest

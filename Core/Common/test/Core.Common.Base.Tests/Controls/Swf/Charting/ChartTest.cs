@@ -6,7 +6,7 @@ using Core.Common.TestUtils;
 using Core.Common.Utils.Collections;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.Charting
+namespace Core.Common.Base.Tests.Controls.Swf.Charting
 {
     [TestFixture]
     public class ChartTest

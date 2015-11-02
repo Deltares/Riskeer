@@ -4,7 +4,7 @@ using Core.Common.Controls.Swf.TreeViewControls;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.TreeViewControls
+namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 {
     [TestFixture]
     public class TreeNodeGraphicExtensionsTest

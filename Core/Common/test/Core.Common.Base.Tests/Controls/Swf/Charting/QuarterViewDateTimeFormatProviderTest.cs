@@ -3,7 +3,7 @@ using Core.Common.Controls.Swf.Charting;
 using NUnit.Framework;
 using SharpTestsEx;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.Charting
+namespace Core.Common.Base.Tests.Controls.Swf.Charting
 {
     [TestFixture]
     public class QuarterViewDateTimeFormatProviderTest

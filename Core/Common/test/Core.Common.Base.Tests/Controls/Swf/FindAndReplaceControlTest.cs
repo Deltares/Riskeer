@@ -2,7 +2,7 @@
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf
+namespace Core.Common.Base.Tests.Controls.Swf
 {
     [TestFixture]
     public class FindAndReplaceControlTest

@@ -3,7 +3,7 @@ using Core.Common.Utils.Aop.Markers;
 using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.Editing;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.UndoRedoTestClasses
+namespace Core.Common.Base.Tests.Controls.Swf.UndoRedoTestClasses
 {
     [Entity]
     public class Parent : IEditableObject

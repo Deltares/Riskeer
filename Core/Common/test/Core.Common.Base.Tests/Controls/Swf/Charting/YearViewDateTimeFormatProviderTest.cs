@@ -2,7 +2,7 @@
 using Core.Common.Controls.Swf.Charting;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.Charting
+namespace Core.Common.Base.Tests.Controls.Swf.Charting
 {
     [TestFixture]
     public class YearViewDateTimeFormatProviderTest

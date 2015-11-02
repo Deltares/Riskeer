@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Common.BaseDelftTools;
 
-namespace Core.Common.DelftTools.Tests.TestObjects
+namespace Core.Common.Base.Tests.TestObjects
 {
     public class Parent : IObservable
     {

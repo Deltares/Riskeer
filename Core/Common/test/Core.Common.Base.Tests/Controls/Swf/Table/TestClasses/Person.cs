@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.Table.TestClasses
+namespace Core.Common.Base.Tests.Controls.Swf.Table.TestClasses
 {
     public class Person
     {

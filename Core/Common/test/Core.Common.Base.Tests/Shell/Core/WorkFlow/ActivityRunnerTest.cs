@@ -2,7 +2,7 @@
 using Core.Common.BaseDelftTools.Workflow;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests.Shell.Core.WorkFlow
+namespace Core.Common.Base.Tests.Shell.Core.WorkFlow
 {
     [TestFixture]
     public class ActivityRunnerTest

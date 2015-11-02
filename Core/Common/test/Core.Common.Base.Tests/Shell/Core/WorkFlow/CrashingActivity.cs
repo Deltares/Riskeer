@@ -1,7 +1,7 @@
 using System;
 using Core.Common.BaseDelftTools.Workflow;
 
-namespace Core.Common.DelftTools.Tests.Shell.Core.WorkFlow
+namespace Core.Common.Base.Tests.Shell.Core.WorkFlow
 {
     public class CrashingActivity : Activity
     {

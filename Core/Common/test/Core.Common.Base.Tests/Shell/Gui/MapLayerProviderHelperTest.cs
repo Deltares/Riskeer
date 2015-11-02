@@ -9,7 +9,7 @@ using Core.GIS.SharpMap.Layers;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.DelftTools.Tests.Shell.Gui
+namespace Core.Common.Base.Tests.Shell.Gui
 {
     [TestFixture]
     public class MapLayerProviderHelperTest

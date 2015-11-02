@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using Core.Common.TestUtils;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests.TestUtils
+namespace Core.Common.Base.Tests.TestUtils
 {
     [TestFixture]
     public class WindowsFormsTestHelperTest

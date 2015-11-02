@@ -2,18 +2,18 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Linq;
-using Core.Common.Controls;
-using Core.Common.Controls.Swf.TreeViewControls;
-using Core.Common.DelftTools.Tests.TestObjects;
-using Core.Common.TestUtils;
 using System.Threading;
 using System.Windows.Forms;
+using Core.Common.Base.Tests.TestObjects;
+using Core.Common.Controls;
+using Core.Common.Controls.Swf.TreeViewControls;
+using Core.Common.TestUtils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using SharpTestsEx;
 using TreeView = Core.Common.Controls.Swf.TreeViewControls.TreeView;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.TreeViewControls
+namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 {
     [TestFixture]
     public class TreeViewTest

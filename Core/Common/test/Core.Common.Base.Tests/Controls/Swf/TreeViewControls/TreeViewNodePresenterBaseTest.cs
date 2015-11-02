@@ -8,7 +8,7 @@ using Core.Common.TestUtils;
 using Core.Common.Utils.Aop;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.TreeViewControls
+namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 {
     [TestFixture]
     public class TreeViewNodePresenterBaseTest

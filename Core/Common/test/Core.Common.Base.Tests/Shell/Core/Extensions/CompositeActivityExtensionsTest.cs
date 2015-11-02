@@ -5,7 +5,7 @@ using Core.Common.Utils.Collections.Generic;
 using NUnit.Framework;
 using Rhino.Mocks;
 
-namespace Core.Common.DelftTools.Tests.Shell.Core.Extensions
+namespace Core.Common.Base.Tests.Shell.Core.Extensions
 {
     [TestFixture]
     public class CompositeActivityExtensionsTest

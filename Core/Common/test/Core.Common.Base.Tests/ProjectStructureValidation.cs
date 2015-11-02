@@ -5,7 +5,7 @@ using Core.Common.Utils.IO;
 using log4net;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests
+namespace Core.Common.Base.Tests
 {
     [TestFixture]
     public class ProjectStructureValidation

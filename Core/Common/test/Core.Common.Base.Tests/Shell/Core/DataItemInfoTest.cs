@@ -1,9 +1,9 @@
 ﻿using System.Drawing;
+using Core.Common.Base.Tests.Properties;
 using Core.Common.BaseDelftTools;
-using Core.Common.DelftTools.Tests.Properties;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests.Shell.Core
+namespace Core.Common.Base.Tests.Shell.Core
 {
     [TestFixture]
     public class DataItemInfoTest

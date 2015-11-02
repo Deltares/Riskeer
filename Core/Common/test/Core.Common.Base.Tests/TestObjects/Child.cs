@@ -2,7 +2,7 @@
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections.Generic;
 
-namespace Core.Common.DelftTools.Tests.TestObjects
+namespace Core.Common.Base.Tests.TestObjects
 {
     [Entity]
     public class Child

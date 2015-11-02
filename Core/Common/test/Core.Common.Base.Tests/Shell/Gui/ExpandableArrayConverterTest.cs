@@ -3,7 +3,7 @@ using System.Globalization;
 using Core.Common.Gui;
 using NUnit.Framework;
 
-namespace Core.Common.DelftTools.Tests.Shell.Gui
+namespace Core.Common.Base.Tests.Shell.Gui
 {
     [TestFixture]
     public class ExpandableArrayConverterTest

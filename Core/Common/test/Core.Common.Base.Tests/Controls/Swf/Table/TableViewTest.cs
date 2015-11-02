@@ -9,10 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using Core.Common.Base.Tests.Controls.Swf.Table.TestClasses;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.Editors;
 using Core.Common.Controls.Swf.Table;
-using Core.Common.DelftTools.Tests.Controls.Swf.Table.TestClasses;
 using Core.Common.TestUtils;
 using Core.Common.Utils.Collections.Generic;
 using Core.Common.Utils.Globalization;
@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using SharpTestsEx;
 
-namespace Core.Common.DelftTools.Tests.Controls.Swf.Table
+namespace Core.Common.Base.Tests.Controls.Swf.Table
 {
     [TestFixture]
     public class TableViewTest
