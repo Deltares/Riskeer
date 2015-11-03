@@ -2,7 +2,7 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Utils.Collections;
 using Ringtoets.Piping.Data;

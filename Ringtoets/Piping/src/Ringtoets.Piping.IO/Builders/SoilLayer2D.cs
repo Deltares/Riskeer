@@ -146,7 +146,7 @@ namespace Ringtoets.Piping.IO.Builders
         private Collection<double> GetLoopIntersectionHeights(HashSet<Point3D> loop, double atX)
         {
             Collection<double> intersectionPointY = new Collection<double>();
-            ;
+
             for (int segmentIndex = 0; segmentIndex < loop.Count; segmentIndex++)
             {
                 var intersectionPoint = GetSegmentIntersectionAtX(loop, segmentIndex, atX);

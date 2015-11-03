@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Linq;
-using Core.Common.BaseDelftTools;
 using Core.Common.Controls;
 using Core.Common.Utils.Collections;
 using System.Windows.Forms;
-
+using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 

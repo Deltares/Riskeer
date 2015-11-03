@@ -117,12 +117,12 @@ namespace Core.Common.Controls
         IEnumerable<ITreeNode> GetAllLoadedNodes(ITreeNode node);
 
         /// <summary>
-        /// Suspend tree view refreshes (long running actions), sets <see cref="IsUpdateSuspended"/> to true.
+        /// Suspend tree view refreshes (long running actions), sets IsUpdateSuspended to true.
         /// </summary>
         void BeginUpdate();
 
         /// <summary>
-        /// Ends updates, sets <see cref="IsUpdateSuspended"/> to false.
+        /// Ends updates, sets IsUpdateSuspended to false.
         /// </summary>
         void EndUpdate();
 

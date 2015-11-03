@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
-
-using Core.Common.BaseDelftTools;
-
+using Core.Common.Base;
 using NUnit.Framework;
 
 using Rhino.Mocks;

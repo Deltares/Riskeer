@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Application.Ringtoets.Properties;
-using Core.Common.BaseDelftTools.Workflow;
+using Core.Common.Base.Workflow;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;

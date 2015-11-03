@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.Utils.Reflection;
 using Core.GIS.SharpMap.Data.Providers;

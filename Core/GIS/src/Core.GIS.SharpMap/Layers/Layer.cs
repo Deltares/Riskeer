@@ -22,7 +22,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Aop.Markers;
 using Core.Common.Utils.Diagnostics;

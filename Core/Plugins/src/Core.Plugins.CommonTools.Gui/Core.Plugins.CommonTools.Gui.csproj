@@ -192,6 +192,10 @@
     <Content Include="Resources\textdocument.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.Swf\Core.Common.Controls.Swf.csproj">
       <Project>{3dbd23ce-5c4a-4a49-b51c-b268cb2b510e}</Project>
       <Name>Core.Common.Controls.Swf</Name>
@@ -199,10 +203,6 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
       <Name>Core.Common.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.BaseDelftTools\Core.Common.BaseDelftTools.csproj">
-      <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
-      <Name>Core.Common.BaseDelftTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui.Swf\Core.Common.Gui.Swf.csproj">
       <Project>{08205620-d756-4533-922c-d6a4c0038535}</Project>

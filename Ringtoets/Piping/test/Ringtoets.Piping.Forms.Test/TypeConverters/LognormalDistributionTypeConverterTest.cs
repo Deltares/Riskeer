@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Linq.Expressions;
-
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Utils.PropertyBag.Dynamic;
 
 using NUnit.Framework;

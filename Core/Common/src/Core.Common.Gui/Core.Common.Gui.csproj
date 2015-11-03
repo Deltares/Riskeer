@@ -72,6 +72,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fluent">
+      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\log4net.dll</HintPath>
@@ -82,24 +85,50 @@
     <Reference Include="PostSharp">
       <HintPath>..\..\..\..\packages\PostSharp.2.1.7.28\lib\net20\PostSharp.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\..\..\..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\..\..\..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Expression">
+      <HintPath>..\..\..\..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.Themes.Expression.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\..\..\..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\..\..\..\packages\AvalonDock.2.0.2000\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ExpandableArrayConverter.cs" />
-    <Compile Include="Forms\IMessageWindow.cs" />
-    <Compile Include="Forms\IOptionsControl.cs" />
     <Compile Include="Forms\IRibbonCommandHandler.cs" />
     <Compile Include="Forms\IProjectExplorer.cs" />
     <Compile Include="Forms\IPropertyGrid.cs" />
+    <Compile Include="Forms\MainWindow\IMainWindow.cs" />
+    <Compile Include="Forms\MessageWindow\IMessageWindow.cs" />
+    <Compile Include="Forms\OptionsDialog\IOptionsControl.cs" />
+    <Compile Include="Forms\SplashScreen\SplashScreen.xaml.cs" />
     <Compile Include="IConfigureDialog.cs" />
     <Compile Include="IGuiCommand.cs" />
     <Compile Include="ILayerEditorView.cs" />
@@ -112,10 +141,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.nl-NL.Designer.cs" />
     <Compile Include="PropertyInfo.cs" />
     <Compile Include="IViewList.cs" />
     <Compile Include="ItemEventArgs.cs" />
-    <Compile Include="Forms\IMainWindow.cs" />
     <Compile Include="IGui.cs" />
     <Compile Include="IGuiCommandHandler.cs" />
     <Compile Include="GuiPlugin.cs">
@@ -127,13 +156,13 @@
     <Compile Include="ViewPropertyEditor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
       <Name>Core.Common.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Common.BaseDelftTools\Core.Common.BaseDelftTools.csproj">
-      <Project>{82B61D20-FD4B-49BE-9252-5BF6E3EE4666}</Project>
-      <Name>Core.Common.BaseDelftTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
@@ -177,10 +206,21 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.nl-NL.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Forms\ProgressDialog\" />
+    <Folder Include="Forms\ViewManager\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Forms\SplashScreen\SplashScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\build\DeltaShell.targets" />

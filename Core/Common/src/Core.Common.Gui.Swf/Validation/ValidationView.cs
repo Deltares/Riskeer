@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Utils;
 using Core.Common.Utils.Validation;

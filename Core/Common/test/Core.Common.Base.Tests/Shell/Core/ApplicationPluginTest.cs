@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Tests.Shell.Core

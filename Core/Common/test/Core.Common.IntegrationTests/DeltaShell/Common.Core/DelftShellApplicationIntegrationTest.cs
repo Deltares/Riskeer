@@ -1,6 +1,6 @@
 using System.Threading;
 using Core.Common.Base;
-using Core.Common.BaseDelftTools.Workflow;
+using Core.Common.Base.Workflow;
 using NUnit.Framework;
 
 namespace Core.Common.IntegrationTests.DeltaShell.Common.Core

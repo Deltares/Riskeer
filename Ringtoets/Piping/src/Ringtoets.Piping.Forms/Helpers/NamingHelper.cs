@@ -7,7 +7,7 @@ namespace Ringtoets.Piping.Forms.Helpers
     /// <summary>
     /// Helper class for generating unique names.
     /// </summary>
-    /// <remarks>Has been created due to <see cref="DelftTools.Utils.NamingHelper"/> being obsolete.</remarks>
+    /// <remarks>Has been created due to <see cref="Core.Common.Utils.NamingHelper"/> being obsolete.</remarks>
     public static class NamingHelper
     {
         /// <summary>

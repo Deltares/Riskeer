@@ -42,6 +42,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <NoWarn>1591</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -55,6 +56,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DefineConstants>TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <Optimize>true</Optimize>
     <NoWarn>
     </NoWarn>
@@ -81,18 +83,34 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ApplicationPlugin.cs" />
+    <Compile Include="DataItemInfo.cs" />
     <Compile Include="DeltaShellApplication.cs" />
     <Compile Include="DeltaShellApplicationSettings.cs" />
     <Compile Include="DeltaShellUserDataFolderConverter.cs" />
+    <Compile Include="Extensions\CompositeActivityExtensions.cs" />
     <Compile Include="ForceLocalAddinFileSystemExtension.cs" />
+    <Compile Include="IApplication.cs" />
+    <Compile Include="IFileExporter.cs" />
+    <Compile Include="IFileImporter.cs" />
+    <Compile Include="IObservable.cs" />
+    <Compile Include="IObserver.cs" />
+    <Compile Include="IPlugin.cs" />
+    <Compile Include="IProjectImporter.cs" />
+    <Compile Include="IProjectItem.cs" />
+    <Compile Include="IProjectItemExporter.cs" />
     <Compile Include="MonoAddinsConsoleLogger.cs" />
+    <Compile Include="Observable.cs" />
+    <Compile Include="ObservableList.cs" />
     <Compile Include="PluginManager.cs" />
+    <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -101,6 +119,22 @@
     </Compile>
     <Compile Include="RunningActivityLogAppender.cs" />
     <Compile Include="PluginConfigurationLoader.cs" />
+    <Compile Include="Workflow\Activity.cs" />
+    <Compile Include="Workflow\ActivityEventArgs.cs" />
+    <Compile Include="Workflow\ActivityRunner.cs" />
+    <Compile Include="Workflow\ActivityStatus.cs" />
+    <Compile Include="Workflow\ActivityStatusChangedEventArgs.cs" />
+    <Compile Include="Workflow\AsyncActivityRunner.cs" />
+    <Compile Include="Workflow\BackgroundWorker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Workflow\CompositeActivity.cs" />
+    <Compile Include="Workflow\FileImportActivity.cs" />
+    <Compile Include="Workflow\IActivity.cs" />
+    <Compile Include="Workflow\IActivityRunner.cs" />
+    <Compile Include="Workflow\ICompositeActivity.cs" />
+    <Compile Include="Workflow\ParallelActivity.cs" />
+    <Compile Include="Workflow\SequentialActivity.cs" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -116,10 +150,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Common.BaseDelftTools\Core.Common.BaseDelftTools.csproj">
-      <Project>{82B61D20-FD4B-49BE-9252-5BF6E3EE4666}</Project>
-      <Name>Core.Common.BaseDelftTools</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>

@@ -103,7 +103,7 @@ namespace Core.Common.TestUtils
         public static string GetDataDir()
         {
             var testProjectDirectory = GetTestProjectDirectory();
-            var rootedTestProjectFolderPath = Path.GetFullPath(Path.Combine(testProjectDirectory, "..", ".."));;
+            var rootedTestProjectFolderPath = Path.GetFullPath(Path.Combine(testProjectDirectory, "..", ".."));
 
             return Path.GetFullPath(Path.Combine(rootedTestProjectFolderPath, "test-data") + Path.DirectorySeparatorChar);
         }

@@ -98,10 +98,6 @@
       <Project>{5770daa9-84e5-4770-af43-f6b815894368}</Project>
       <Name>Core.GIS.NetTopologySuite</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Common.BaseDelftTools\Core.Common.BaseDelftTools.csproj">
-      <Project>{82b61d20-fd4b-49be-9252-5bf6e3ee4666}</Project>
-      <Name>Core.Common.BaseDelftTools</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>

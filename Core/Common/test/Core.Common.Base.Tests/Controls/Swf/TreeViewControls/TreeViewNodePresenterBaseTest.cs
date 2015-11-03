@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.BaseDelftTools;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.TestUtils;

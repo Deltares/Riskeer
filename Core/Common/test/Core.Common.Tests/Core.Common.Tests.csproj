@@ -172,17 +172,17 @@
       <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
       <Name>Core.Common.Controls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.BaseDelftTools\Core.Common.BaseDelftTools.csproj">
-      <Project>{82B61D20-FD4B-49BE-9252-5BF6E3EE4666}</Project>
-      <Name>Core.Common.BaseDelftTools</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
       <Name>Core.Common.Gui</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
-      <Project>{BEFDCC44-2638-4972-B353-42D14C7DA2C6}</Project>
-      <Name>DeltaShell.Plugins.CommonTools</Name>
+      <Project>{befdcc44-2638-4972-b353-42d14c7da2c6}</Project>
+      <Name>Core.Plugins.CommonTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
       <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
@@ -191,10 +191,6 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
-      <Name>DeltaShell.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
-using Core.Common.BaseDelftTools;
 using Core.Common.Controls;
 using Core.Common.Utils.Collections;
 using Core.Common.TestUtils;
 using System.Windows.Forms;
-using Core.Common.BaseDelftTools.Workflow;
+using Core.Common.Base;
+using Core.Common.Base.Workflow;
 using NUnit.Framework;
 using Rhino.Mocks;
 

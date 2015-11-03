@@ -7,8 +7,9 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.MainWindow;
 
 namespace Core.Common.Gui
 {

@@ -10,8 +10,7 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
-using Core.Common.BaseDelftTools;
-using Core.Common.BaseDelftTools.Workflow;
+using Core.Common.Base.Workflow;
 using Core.Common.Utils;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
@@ -353,7 +352,7 @@ namespace Core.Common.Base
         {
             if (WaitMethod == null) //typically in console
             {
-                BaseDelftTools.Workflow.ActivityRunner.RunActivity(activity); //run sync
+                Workflow.ActivityRunner.RunActivity(activity); //run sync
                 return;
             }
 

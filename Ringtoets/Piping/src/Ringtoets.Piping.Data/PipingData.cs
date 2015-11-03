@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.Common.BaseDelftTools;
-
+using Core.Common.Base;
 using Ringtoets.Piping.Data.Probabilistics;
 
 namespace Ringtoets.Piping.Data

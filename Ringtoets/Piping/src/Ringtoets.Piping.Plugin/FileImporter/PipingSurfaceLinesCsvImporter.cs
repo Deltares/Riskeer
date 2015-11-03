@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-
-using Core.Common.BaseDelftTools;
-
+using Core.Common.Base;
 using log4net;
 
 using Ringtoets.Piping.Data;

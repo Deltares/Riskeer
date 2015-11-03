@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using Core.GIS.SharpMap.Map;
 using Mono.Addins;

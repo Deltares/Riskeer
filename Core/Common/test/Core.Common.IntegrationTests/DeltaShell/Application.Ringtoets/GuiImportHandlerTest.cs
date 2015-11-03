@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Application.Ringtoets;
 using Core.Common.Base;
-using Core.Common.BaseDelftTools;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
 using Core.Common.TestUtils;

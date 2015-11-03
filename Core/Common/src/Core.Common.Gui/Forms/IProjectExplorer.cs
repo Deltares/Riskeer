@@ -1,4 +1,4 @@
-﻿using Core.Common.BaseDelftTools;
+﻿using Core.Common.Base;
 using Core.Common.Controls;
 
 namespace Core.Common.Gui.Forms

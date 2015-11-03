@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using Application.Ringtoets;
-using Core.Common.BaseDelftTools.Workflow;
+using Core.Common.Base.Workflow;
 using Core.Common.TestUtils;
 using Core.GIS.SharpMap.Map;
 using Core.Plugins.CommonTools;

@@ -160,6 +160,10 @@
       <Project>{4a7d6720-4aa1-4f0b-a796-a0436db3d7d7}</Project>
       <Name>Application.Ringtoets</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Common.Gui\Core.Common.Gui.csproj">
       <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
       <Name>Core.Common.Gui</Name>
@@ -179,10 +183,6 @@
     <ProjectReference Include="..\..\src\Core.Common.Controls\Core.Common.Controls.csproj">
       <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
       <Name>Core.Common.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Core.Common.BaseDelftTools\Core.Common.BaseDelftTools.csproj">
-      <Project>{82B61D20-FD4B-49BE-9252-5BF6E3EE4666}</Project>
-      <Name>Core.Common.BaseDelftTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.Common.Gui.Swf\Core.Common.Gui.Swf.csproj">
       <Project>{08205620-D756-4533-922C-D6A4C0038535}</Project>

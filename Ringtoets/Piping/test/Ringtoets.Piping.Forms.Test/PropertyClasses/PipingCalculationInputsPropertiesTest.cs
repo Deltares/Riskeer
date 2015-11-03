@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;

@@ -69,9 +69,9 @@
     <Compile Include="TestClasses\SampleFeature.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.BaseDelftTools\Core.Common.BaseDelftTools.csproj">
-      <Project>{82B61D20-FD4B-49BE-9252-5BF6E3EE4666}</Project>
-      <Name>Core.Common.BaseDelftTools</Name>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
       <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.TestUtils;
 
 using NUnit.Framework;

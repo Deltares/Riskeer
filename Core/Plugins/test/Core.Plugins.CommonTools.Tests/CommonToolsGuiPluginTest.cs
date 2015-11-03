@@ -1,8 +1,9 @@
 ﻿using System.Linq;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Plugins.CommonTools.Gui;
 using Core.Plugins.CommonTools.Gui.Forms.Charting;
 using Core.Plugins.CommonTools.Gui.Property.Charting;

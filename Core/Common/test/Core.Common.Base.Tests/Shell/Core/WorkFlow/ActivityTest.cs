@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Common.BaseDelftTools.Workflow;
+using Core.Common.Base.Workflow;
 using Core.Common.TestUtils;
 using NUnit.Framework;
 

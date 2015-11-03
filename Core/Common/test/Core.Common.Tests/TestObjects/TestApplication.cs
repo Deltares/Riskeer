@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Resources;
-using Core.Common.BaseDelftTools;
-using Core.Common.BaseDelftTools.Workflow;
+using Core.Common.Base;
+using Core.Common.Base.Workflow;
 
 namespace Core.Common.Tests.TestObjects
 {

@@ -5,9 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.OptionsDialog;
 
 namespace Core.Common.Gui
 {

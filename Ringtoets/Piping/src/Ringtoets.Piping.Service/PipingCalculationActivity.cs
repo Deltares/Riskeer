@@ -1,4 +1,4 @@
-﻿using Core.Common.BaseDelftTools.Workflow;
+﻿using Core.Common.Base.Workflow;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Service

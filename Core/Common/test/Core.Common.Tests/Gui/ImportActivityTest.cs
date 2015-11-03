@@ -1,6 +1,6 @@
 using System.Linq;
-using Core.Common.BaseDelftTools;
-using Core.Common.BaseDelftTools.Workflow;
+using Core.Common.Base;
+using Core.Common.Base.Workflow;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;

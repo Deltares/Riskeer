@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using Core.Common.Base.Tests.Properties;
-using Core.Common.BaseDelftTools;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Tests.Shell.Core

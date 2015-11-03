@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using Core.Common.BaseDelftTools;
-
+using Core.Common.Base;
 using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO;

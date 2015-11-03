@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using Core.Common.BaseDelftTools.Workflow;
+using Core.Common.Base.Workflow;
 using Core.Common.Gui;
 using Core.Common.Utils;
 using Core.Plugins.CommonTools.Gui.Properties;

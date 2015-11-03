@@ -1,4 +1,4 @@
-﻿using Core.Common.BaseDelftTools;
+﻿using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 

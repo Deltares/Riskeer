@@ -1,5 +1,5 @@
 ﻿using System.Threading;
-using Core.Common.BaseDelftTools.Workflow;
+using Core.Common.Base.Workflow;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Tests.Shell.Core.WorkFlow

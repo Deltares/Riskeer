@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using Application.Ringtoets;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using SharpTestsEx;

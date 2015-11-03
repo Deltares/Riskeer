@@ -3,7 +3,7 @@ using System.ComponentModel;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 
-namespace Core.GIS.NetTopologySuite.Extensions.Tests.TestObjects
+namespace Core.Gis.NetTopologySuite.Extensions.Tests.TestObjects
 {
     //Just a subclass
     internal class TestFeatureSubClass : TestFeature {}

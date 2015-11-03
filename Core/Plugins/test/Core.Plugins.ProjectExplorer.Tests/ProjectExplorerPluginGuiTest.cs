@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using NUnit.Framework;

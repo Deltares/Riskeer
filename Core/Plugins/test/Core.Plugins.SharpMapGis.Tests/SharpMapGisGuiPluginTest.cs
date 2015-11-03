@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Application.Ringtoets.Forms.ViewManager;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Gui;
 using Core.GIS.SharpMap.Layers;
 using Core.Plugins.SharpMapGis.Gui;

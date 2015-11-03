@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 using Application.Ringtoets.Properties;
-using Core.Common.BaseDelftTools.Workflow;
+using Core.Common.Base.Workflow;
 using Core.Common.Utils.Reflection;
 
 namespace Application.Ringtoets.Forms.ProgressDialog

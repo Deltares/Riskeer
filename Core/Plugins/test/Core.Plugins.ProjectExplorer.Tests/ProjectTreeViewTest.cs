@@ -1,7 +1,7 @@
 using System.Configuration;
 using System.Linq;
 using Application.Ringtoets;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;

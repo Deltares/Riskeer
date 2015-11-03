@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 using Application.Ringtoets.Forms.ProgressDialog;
-using Core.Common.BaseDelftTools.Workflow;
+using Core.Common.Base.Workflow;
 using NUnit.Framework;
 
 namespace Core.Common.Tests.Gui.Forms

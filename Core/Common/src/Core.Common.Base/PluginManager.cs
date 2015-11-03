@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Core.Common.Base.Properties;
-using Core.Common.BaseDelftTools;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.IO;

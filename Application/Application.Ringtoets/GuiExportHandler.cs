@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Application.Ringtoets.Forms;
 using Application.Ringtoets.Properties;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using log4net;

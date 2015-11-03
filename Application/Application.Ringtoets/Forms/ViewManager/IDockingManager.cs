@@ -36,6 +36,7 @@ namespace Application.Ringtoets.Forms.ViewManager
         /// Removes view and container from bars. If bar is empty it is also removed
         /// </summary>
         /// <param name="view"></param>
+        /// <param name="removeTabFromDockingbar"></param>
         void Remove(IView view, bool removeTabFromDockingbar);
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace Application.Ringtoets.Forms.ViewManager
         /// <summary>
         /// Activates view.
         /// </summary>
-        /// <param name="viewText"></param>
+        /// <param name="view"></param>
         void ActivateView(IView view);
     }
 }

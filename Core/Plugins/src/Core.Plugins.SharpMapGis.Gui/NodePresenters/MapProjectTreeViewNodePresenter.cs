@@ -1,5 +1,5 @@
 using System.Drawing;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui.Swf;
 using Core.GIS.SharpMap.Api.Layers;

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.Swf;

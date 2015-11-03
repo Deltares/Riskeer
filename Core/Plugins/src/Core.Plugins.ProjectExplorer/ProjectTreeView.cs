@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Utils.Aop;

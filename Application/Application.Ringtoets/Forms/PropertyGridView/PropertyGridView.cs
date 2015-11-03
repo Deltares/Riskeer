@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using Application.Ringtoets.Properties;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;

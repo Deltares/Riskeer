@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.BaseDelftTools;
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Utils.Collections;
 using NUnit.Framework;
