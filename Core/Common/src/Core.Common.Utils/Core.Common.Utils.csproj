@@ -118,8 +118,6 @@
     <Compile Include="ComponentModel\DynamicVisibleAttribute.cs" />
     <Compile Include="ComponentModel\DynamicVisibleValidationMethodAttribute.cs" />
     <Compile Include="CultureUtils.cs" />
-    <Compile Include="DateTimeExtensions.cs" />
-    <Compile Include="DateTimeFormatGuesser.cs" />
     <Compile Include="DateTimeFormats.cs" />
     <Compile Include="Diagnostics\ResourceMonitor.cs" />
     <Compile Include="DisplayFormatAttribute.cs" />
