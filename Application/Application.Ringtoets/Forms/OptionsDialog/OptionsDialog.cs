@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Application.Ringtoets.Properties;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.OptionsDialog;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 

@@ -1,4 +1,4 @@
-﻿namespace Core.Common.Gui.Forms
+﻿namespace Core.Common.Gui.Forms.OptionsDialog
 {
     /// <summary>
     /// Interface to specify controls that are incorporated in the Options dialog. Each implementation should derive from System.Windows.Forms.Control

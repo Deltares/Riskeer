@@ -4,6 +4,7 @@ using System.Security.Permissions;
 using System.Windows.Forms;
 using Application.Ringtoets.Properties;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.OptionsDialog;
 using Core.Common.Utils.Globalization;
 
 namespace Application.Ringtoets.Forms.OptionsDialog

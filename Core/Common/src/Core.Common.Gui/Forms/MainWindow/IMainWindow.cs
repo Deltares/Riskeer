@@ -1,4 +1,6 @@
-namespace Core.Common.Gui.Forms
+using Core.Common.Gui.Forms.MessageWindow;
+
+namespace Core.Common.Gui.Forms.MainWindow
 {
     /// <summary>
     /// Main window of a shell application

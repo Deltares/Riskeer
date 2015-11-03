@@ -2,7 +2,7 @@ using System;
 using Core.Common.Controls;
 using log4net.Core;
 
-namespace Core.Common.Gui.Forms
+namespace Core.Common.Gui.Forms.MessageWindow
 {
     public interface IMessageWindow : IView
     {

@@ -128,7 +128,6 @@
     <Compile Include="Forms\MainWindow\IMainWindow.cs" />
     <Compile Include="Forms\MessageWindow\IMessageWindow.cs" />
     <Compile Include="Forms\OptionsDialog\IOptionsControl.cs" />
-    <Compile Include="Forms\SplashScreen\SplashScreen.xaml.cs" />
     <Compile Include="IConfigureDialog.cs" />
     <Compile Include="IGuiCommand.cs" />
     <Compile Include="ILayerEditorView.cs" />
@@ -141,7 +140,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Resources.nl-NL.Designer.cs" />
     <Compile Include="PropertyInfo.cs" />
     <Compile Include="IViewList.cs" />
     <Compile Include="ItemEventArgs.cs" />
@@ -206,7 +204,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.nl-NL.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -214,13 +211,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Forms\ProgressDialog\" />
+    <Folder Include="Forms\SplashScreen\" />
     <Folder Include="Forms\ViewManager\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Forms\SplashScreen\SplashScreen.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\build\DeltaShell.targets" />

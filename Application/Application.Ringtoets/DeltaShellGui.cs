@@ -24,7 +24,6 @@ using Core.Common.Controls.Swf;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Forms.SplashScreen;
 using Core.Common.Utils;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;

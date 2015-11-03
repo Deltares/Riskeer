@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Application.Ringtoets.Properties;
 using Core.Common.Controls;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.MessageWindow;
 using log4net.Core;
 
 namespace Application.Ringtoets.Forms.MessageWindow

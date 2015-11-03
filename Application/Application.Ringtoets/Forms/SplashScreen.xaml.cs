@@ -5,7 +5,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Core.Common.Base;
-using Core.Common.BaseDelftTools;
 using log4net;
 
 namespace Application.Ringtoets.Forms

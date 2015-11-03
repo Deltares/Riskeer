@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Resources;
 using Application.Ringtoets.Properties;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.MessageWindow;
 using log4net.Appender;
 using log4net.Core;
 
