@@ -206,7 +206,7 @@
     <value>Volumiek gewicht van de zandkorrels onder water</value>
   </data>
   <data name="PipingData_SeepageLength_Description" xml:space="preserve">
-    <value>De horizontale afstand tussen intree- en uitreepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt.</value>
+    <value>De horizontale afstand tussen intrede- en uittredepunt die het kwelwater ondergronds aflegt voordat het weer aan de oppervlakte komt.</value>
   </data>
   <data name="PipingData_SeepageLength_DisplayName" xml:space="preserve">
     <value>Kwelweglengte</value>
