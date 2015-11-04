@@ -52,14 +52,6 @@ namespace Core.Plugins.ProjectExplorer
             }
         }
 
-        public override Image Image
-        {
-            get
-            {
-                return new Bitmap(32, 32);
-            }
-        }
-
         public override IRibbonCommandHandler RibbonCommandHandler
         {
             get

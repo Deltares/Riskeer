@@ -37,17 +37,6 @@ namespace Core.Common.Base
         public abstract string Version { get; }
 
         /// <summary>
-        ///  Image for displaying in gui. Default format 32x32 bitmap or scalable. 
-        ///  </summary>
-        public virtual Image Image
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
         ///  ResourceManger of plugin. Default Properties.Resources.
         ///  </summary>
         public virtual ResourceManager Resources { get; set; }

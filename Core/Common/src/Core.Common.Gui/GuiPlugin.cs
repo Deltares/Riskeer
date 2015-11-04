@@ -78,17 +78,6 @@ namespace Core.Common.Gui
         public virtual ResourceManager Resources { get; set; }
 
         /// <summary>
-        ///  Image for displaying in gui. Default format 32x32 bitmap or scalable. 
-        ///  </summary>
-        public virtual Image Image
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
         /// Returns all property information objects supported by the plugin
         /// </summary>
         public virtual IEnumerable<PropertyInfo> GetPropertyInfos()

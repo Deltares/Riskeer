@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Reflection;
-using System.Resources;
+﻿using System.Resources;
 
 namespace Core.Common.Base
 {
@@ -26,11 +23,6 @@ namespace Core.Common.Base
         ///  Gets the version of the plugin.
         ///  <value>The version.</value></summary>
         string Version { get; }
-
-        /// <summary>
-        ///  Image for displaying in gui. Default format 32x32 bitmap or scalable. 
-        ///  </summary>
-        Image Image { get; }
 
         /// <summary>
         ///  ResourceManger of plugin. Default Properties.Resources.

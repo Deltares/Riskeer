@@ -56,17 +56,5 @@ namespace Core.Plugins.CommonTools
                 return Assembly.GetExecutingAssembly().GetName().Version.ToString();
             }
         }
-
-        /// <summary>
-        /// Image for displaying in gui. Default format 32x32 bitmap. 
-        /// Derived from <see cref="ApplicationPlugin.Image">ApplicationPlugin.Image</see>
-        /// </summary>
-        public override Image Image
-        {
-            get
-            {
-                return new Bitmap(32, 32);
-            }
-        }
     }
 }

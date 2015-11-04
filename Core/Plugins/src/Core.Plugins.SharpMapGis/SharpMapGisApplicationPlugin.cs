@@ -45,14 +45,6 @@ namespace Core.Plugins.SharpMapGis
             }
         }
 
-        public override Image Image
-        {
-            get
-            {
-                return new Bitmap(32, 32);
-            }
-        }
-
         public override IEnumerable<DataItemInfo> GetDataItemInfos()
         {
             //            yield return new DataItemInfo<Map>

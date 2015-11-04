@@ -14,7 +14,6 @@ namespace Core.Common.Base.Tests.Shell.Core
             var applicationPlugin = new SimpleApplicationPlugin();
 
             // assert
-            Assert.IsNull(applicationPlugin.Image);
             Assert.IsNull(applicationPlugin.Resources);
             Assert.IsNull(applicationPlugin.Application);
         }
