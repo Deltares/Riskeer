@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         {
             IObservable observableParent = GetObservableOwnerOfDistribution(context);
 
-            var propertyDescriptorCollection = TypeDescriptor.GetProperties(value);
+            PropertyDescriptorCollection propertyDescriptorCollection = TypeDescriptor.GetProperties(value);
             var properties = new PropertyDescriptor[Parameters.Length];
             for (int i = 0; i < Parameters.Length; i++)
             {

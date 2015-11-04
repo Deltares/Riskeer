@@ -430,4 +430,31 @@
   <data name="Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PlayHS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="LognormalDistribution_DisplayName" xml:space="preserve">
+    <value>Lognormale verdeling</value>
+  </data>
+  <data name="Probabilistics_Mean_Symbol" xml:space="preserve">
+    <value>μ</value>
+  </data>
+  <data name="Probabilistics_StandardDeviation_Symbol" xml:space="preserve">
+    <value>σ</value>
+  </data>
+  <data name="Probabilistics_Mean_description_for_Distribution_0_" xml:space="preserve">
+    <value>De gemiddelde waarde van de {0}.</value>
+  </data>
+  <data name="Probabilistics_StandardDeviation_description_for_Distribution_0_" xml:space="preserve">
+    <value>De standaardafwijking van de {0}.</value>
+  </data>
+  <data name="NormalDistribution_DisplayName" xml:space="preserve">
+    <value>Normale verdeling</value>
+  </data>
+  <data name="Probabilistics_Shift_Symbol" xml:space="preserve">
+    <value>Verschuiving</value>
+  </data>
+  <data name="ShiftedLognormalDistribution_DisplayName" xml:space="preserve">
+    <value>Verschoven lognormale verdeling</value>
+  </data>
+  <data name="Probabilistics_Shift_Description" xml:space="preserve">
+    <value>De verschuiving van de lognormale verdeling.</value>
+  </data>
 </root>

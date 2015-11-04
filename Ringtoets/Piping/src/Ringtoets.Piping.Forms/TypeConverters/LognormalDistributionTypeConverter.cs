@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 using Ringtoets.Piping.Data.Probabilistics;
+using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.TypeConverters
@@ -11,7 +13,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
     /// </summary>
     /// <remarks>This class has been designed to be used in <see cref="PipingCalculationInputsProperties"/>.
     /// If its reused somewhere else, change notification might not work properly.</remarks>
-    public class LognormalDistributionTypeConverter : ProbabilisticDistributionTypeConverter<LognormalDistribution>
+    public sealed class LognormalDistributionTypeConverter : ProbabilisticDistributionTypeConverter<LognormalDistribution>
     {
         private readonly ParameterDefinition<LognormalDistribution>[] parameters;
 
@@ -20,15 +22,20 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         /// </summary>
         public LognormalDistributionTypeConverter()
         {
+            var lowerCaseDistributionName = DistributionName.ToLower();
             parameters = new[]
             {
                 new ParameterDefinition<LognormalDistribution>(d => d.Mean)
                 {
-                    Symbol = "\u03BC", Description = "De gemiddelde waarde van de lognormale verdeling."
+                    Symbol = Resources.Probabilistics_Mean_Symbol,
+                    Description = String.Format(Resources.Probabilistics_Mean_description_for_Distribution_0_,
+                                                lowerCaseDistributionName)
                 },
                 new ParameterDefinition<LognormalDistribution>(d => d.StandardDeviation)
                 {
-                    Symbol = "\u03C3", Description = "De standaardafwijking van de lognormale verdeling."
+                    Symbol = Resources.Probabilistics_StandardDeviation_Symbol,
+                    Description = String.Format(Resources.Probabilistics_StandardDeviation_description_for_Distribution_0_,
+                                                lowerCaseDistributionName)
                 }
             };
         }
@@ -37,7 +44,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         {
             get
             {
-                return "Lognormale verdeling";
+                return Resources.LognormalDistribution_DisplayName;
             }
         }
 

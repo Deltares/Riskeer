@@ -81,9 +81,9 @@ namespace Ringtoets.Piping.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Standaard afwijking (σ) moet groter zijn dan 0..
         /// </summary>
-        internal static string NormalDistribution_StandardDeviation_Should_Be_Greater_Then_Zero {
+        internal static string StandardDeviation_Should_be_greater_then_zero {
             get {
-                return ResourceManager.GetString("NormalDistribution_StandardDeviation_Should_Be_Greater_Then_Zero", resourceCulture);
+                return ResourceManager.GetString("StandardDeviation_Should_be_greater_then_zero", resourceCulture);
             }
         }
     }

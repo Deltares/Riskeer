@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException(Resources.NormalDistribution_StandardDeviation_Should_Be_Greater_Then_Zero);
+                    throw new ArgumentException(Resources.StandardDeviation_Should_be_greater_then_zero);
                 }
                 standardDeviation = value;
             }
