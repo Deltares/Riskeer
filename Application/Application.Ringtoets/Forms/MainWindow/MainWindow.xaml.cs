@@ -1245,17 +1245,14 @@ namespace Application.Ringtoets.Forms.MainWindow
 
         private HelpAboutBoxData GetAboutBoxData()
         {
-            var data = new HelpAboutBoxData
+            return new HelpAboutBoxData
             {
-                //product and version from settingshelper
-                Plugins = Gui.Application.Plugins.Cast<IPlugin>().Concat(Gui.Plugins),
                 ProductName = SettingsHelper.ApplicationName,
                 Version = SettingsHelper.ApplicationVersion,
                 Copyright = Gui.Application.Settings["copyright"],
                 SupportPhone = Gui.Application.Settings["supportPhone"],
                 SupportEmail = Gui.Application.Settings["supportEmail"]
             };
-            return data;
         }
 
         private void OpenStartPage()

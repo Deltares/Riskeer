@@ -101,7 +101,6 @@
     <Compile Include="IFileImporter.cs" />
     <Compile Include="IObservable.cs" />
     <Compile Include="IObserver.cs" />
-    <Compile Include="IPlugin.cs" />
     <Compile Include="IProjectImporter.cs" />
     <Compile Include="IProjectItem.cs" />
     <Compile Include="IProjectItemExporter.cs" />

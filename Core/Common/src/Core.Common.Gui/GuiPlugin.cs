@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls;
@@ -10,7 +9,7 @@ using Core.Common.Gui.Forms.OptionsDialog;
 
 namespace Core.Common.Gui
 {
-    public abstract class GuiPlugin : IPlugin, IDisposable
+    public abstract class GuiPlugin : IDisposable
     {
         /// <summary>
         /// Reference to the the gui (set by framework)

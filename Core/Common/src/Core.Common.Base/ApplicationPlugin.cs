@@ -1,13 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Resources;
 
 namespace Core.Common.Base
 {
-    /// <summary>
-    /// Provides default functionality making it easier to implement <see cref="IPlugin"/>.
-    /// Handles Active status in activate/deactivate.
-    /// </summary>
-    public abstract class ApplicationPlugin : IPlugin
+    public abstract class ApplicationPlugin
     {
         /// <summary>
         ///  Gets or sets the application.
