@@ -1,64 +1,32 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing.Design;
-using System.Windows.Forms;
-using System.Windows.Forms.Design;
-using Core.Common.Utils.PropertyBag.Dynamic;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Forms.UITypeEditors
 {
-    public class PipingCalculationInputsSoilProfileSelectionEditor : UITypeEditor
+    /// <summary>
+    /// This class defines a drop down list edit-control from which the user can select a
+    /// <see cref="PipingSoilProfile"/> from a collection.
+    /// </summary>
+    public class PipingCalculationInputsSoilProfileSelectionEditor : PipingCalculationInputSelectionEditor<PipingSoilProfile>
     {
-        private IWindowsFormsEditorService editorService;
-
-        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingCalculationInputsSoilProfileSelectionEditor"/>.
+        /// </summary>
+        public PipingCalculationInputsSoilProfileSelectionEditor()
         {
-            return UITypeEditorEditStyle.DropDown;
+            DisplayMember = TypeUtils.GetMemberName<PipingSoilProfile>(sl => sl.Name);
         }
 
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        protected override IEnumerable<PipingSoilProfile> GetAvailableOptions(ITypeDescriptorContext context)
         {
-            if (provider != null)
-            {
-                editorService = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
-            }
-
-            if (editorService != null)
-            {
-                // Create editor:
-                var listBox = CreateSoilProfileSelectionControl(context);
-
-                // Open editor for user to select an item:
-                editorService.DropDownControl(listBox);
-
-                // Return user selected object, or original value if user did not select anything:
-                return listBox.SelectedItem ?? value;
-            }
-            return base.EditValue(context, provider, value);
+            return GetPropertiesObject(context).GetAvailableSoilProfiles();
         }
 
-        private ListBox CreateSoilProfileSelectionControl(ITypeDescriptorContext context)
+        protected override PipingSoilProfile GetCurrentOption(ITypeDescriptorContext context)
         {
-            var listBox = new ListBox
-            {
-                SelectionMode = SelectionMode.One,
-                DisplayMember = TypeUtils.GetMemberName<PipingSoilProfile>(sl => sl.Name)
-            };
-            listBox.SelectedValueChanged += (sender, eventArgs) => editorService.CloseDropDown();
-
-            var properties = (PipingCalculationInputsProperties)((DynamicPropertyBag)context.Instance).WrappedObject;
-            foreach (var soilProfile in properties.GetAvailableSoilProfiles())
-            {
-                int index = listBox.Items.Add(soilProfile);
-                if (ReferenceEquals(properties.SoilProfile, soilProfile))
-                {
-                    listBox.SelectedIndex = index;
-                }
-            }
-            return listBox;
-        } 
+            return GetPropertiesObject(context).SoilProfile;
+        }
     }
 }

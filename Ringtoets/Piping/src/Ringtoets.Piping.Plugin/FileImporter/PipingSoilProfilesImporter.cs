@@ -108,7 +108,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return target;
         }
 
-        private ReadResult<PipingSoilProfile> ReadSoilProfiles(string path)
+        private PipingReadResult<PipingSoilProfile> ReadSoilProfiles(string path)
         {
             NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_Reading_database, 1, 1);
 
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 HandleException(path, e);
             }
-            return new ReadResult<PipingSoilProfile>(true);
+            return new PipingReadResult<PipingSoilProfile>(true);
         }
 
         private void HandleException(string path, Exception e)
@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             log.Error(message);
         }
 
-        private ReadResult<PipingSoilProfile> GetProfileReadResult(string path, PipingSoilProfileReader soilProfileReader)
+        private PipingReadResult<PipingSoilProfile> GetProfileReadResult(string path, PipingSoilProfileReader soilProfileReader)
         {
             var totalNumberOfSteps = soilProfileReader.Count;
             var currentStep = 1;
@@ -153,7 +153,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 if (ShouldCancel)
                 {
-                    return new ReadResult<PipingSoilProfile>(false);
+                    return new PipingReadResult<PipingSoilProfile>(false);
                 }
                 try
                 {
@@ -167,13 +167,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                     log.Error(message);
                 }
             }
-            return new ReadResult<PipingSoilProfile>(false)
+            return new PipingReadResult<PipingSoilProfile>(false)
             {
                 ImportedItems = profiles
             };
         }
 
-        private void AddImportedDataToModel(object target, ReadResult<PipingSoilProfile> imported)
+        private void AddImportedDataToModel(object target, PipingReadResult<PipingSoilProfile> imported)
         {
             var targetCollection = (ObservableList<PipingSoilProfile>)target;
 

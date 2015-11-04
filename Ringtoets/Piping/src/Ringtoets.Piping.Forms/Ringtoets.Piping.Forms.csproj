@@ -79,6 +79,7 @@
     <Compile Include="TypeConverters\ShiftedLognormalDistributionTypeConverter.cs" />
     <Compile Include="TypeConverters\TextPropertyDescriptorDecorator.cs" />
     <Compile Include="TypeConverters\NormalDistributionTypeConverter.cs" />
+    <Compile Include="UITypeEditors\PipingCalculationInputSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingCalculationInputsSoilProfileSelectionEditor.cs" />
     <Compile Include="UITypeEditors\PipingCalculationInputsSurfaceLineSelectionEditor.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />

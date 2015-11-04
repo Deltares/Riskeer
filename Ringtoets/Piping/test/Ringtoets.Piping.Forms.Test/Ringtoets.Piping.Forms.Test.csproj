@@ -68,6 +68,8 @@
     <Compile Include="TypeConverters\ShiftedLognormalDistributionTypeConverterTest.cs" />
     <Compile Include="TypeConverters\TextPropertyDescriptorDecoratorTest.cs" />
     <Compile Include="TypeConverters\NormalDistributionTypeConverterTest.cs" />
+    <Compile Include="UITypeEditors\PipingCalculationInputSelectionEditorTest.cs" />
+    <Compile Include="UITypeEditors\PipingCalculationInputSoilProfileSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingCalculationInputsSurfaceLineSelectionEditorTest.cs" />
   </ItemGroup>
   <ItemGroup>

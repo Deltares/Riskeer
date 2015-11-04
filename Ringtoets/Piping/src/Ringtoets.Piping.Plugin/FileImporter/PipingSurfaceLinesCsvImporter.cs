@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private ReadResult<RingtoetsPipingSurfaceLine> ReadPipingSurfaceLines(string path)
+        private PipingReadResult<RingtoetsPipingSurfaceLine> ReadPipingSurfaceLines(string path)
         {
             PipingSurfaceLinesCsvReader reader;
             try
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             reader.Dispose();
 
-            return new ReadResult<RingtoetsPipingSurfaceLine>(false)
+            return new PipingReadResult<RingtoetsPipingSurfaceLine>(false)
             {
                 ImportedItems = readSurfaceLines
             };
@@ -208,12 +208,12 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private ReadResult<RingtoetsPipingSurfaceLine> HandleCriticalError(string path, Exception e)
+        private PipingReadResult<RingtoetsPipingSurfaceLine> HandleCriticalError(string path, Exception e)
         {
             var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_,
                                         path, e.Message);
             log.Error(message);
-            return new ReadResult<RingtoetsPipingSurfaceLine>(true);
+            return new PipingReadResult<RingtoetsPipingSurfaceLine>(true);
         }
 
         private void AddImportedDataToModel(object target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines)
