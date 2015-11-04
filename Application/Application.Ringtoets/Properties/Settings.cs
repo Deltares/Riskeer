@@ -27,10 +27,6 @@ namespace Application.Ringtoets.Properties
             {
                 defaultViews = new StringCollection();
             }
-            if (disabledPlugins == null)
-            {
-                disabledPlugins = new StringCollection();
-            }
             if (defaultViewDataTypes == null)
             {
                 defaultViewDataTypes = new StringCollection();

@@ -36,17 +36,6 @@ namespace Application.Ringtoets.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection disabledPlugins {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["disabledPlugins"]));
-            }
-            set {
-                this["disabledPlugins"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public global::System.Collections.Specialized.StringCollection defaultViewDataTypes {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["defaultViewDataTypes"]));
