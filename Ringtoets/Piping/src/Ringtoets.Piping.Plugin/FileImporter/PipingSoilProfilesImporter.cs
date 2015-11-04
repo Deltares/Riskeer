@@ -166,6 +166,13 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                                                 path, e.Message);
                     log.Error(message);
                 }
+                catch (CriticalFileReadException e)
+                {
+                    var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_,
+                                                path, e.Message);
+                    log.Error(message);
+                    return new PipingReadResult<PipingSoilProfile>(true);
+                }
             }
             return new PipingReadResult<PipingSoilProfile>(false)
             {

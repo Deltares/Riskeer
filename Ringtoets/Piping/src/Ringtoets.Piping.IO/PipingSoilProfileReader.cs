@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.IO
                 return null;
             }
 
-            var dimensionValue = Read<long>(dimensionColumn);
+            var dimensionValue = TryRead<long>(dimensionColumn);
             return dimensionValue == 1 ? ReadPipingProfile1D() : ReadPipingProfile2D();
         }
 
@@ -106,9 +106,9 @@ namespace Ringtoets.Piping.IO
 
         private PipingSoilProfile ReadPipingProfile1D()
         {
-            var profileName = Read<string>(profileNameColumn);
-            var layerCount = Read<long>(layerCountColumn);
-            var bottom = Read<double>(bottomColumn);
+            var profileName = TryRead<string>(profileNameColumn);
+            var layerCount = TryRead<long>(layerCountColumn);
+            var bottom = TryRead<double>(bottomColumn);
 
             var soilProfileBuilder = new SoilProfileBuilder1D(profileName, bottom);
 
@@ -128,9 +128,9 @@ namespace Ringtoets.Piping.IO
         /// <exception cref="PipingSoilProfileReadException">Thrown when a layer's geometry could not be parsed as XML.</exception>
         private PipingSoilProfile ReadPipingProfile2D()
         {
-            var profileName = Read<string>(profileNameColumn);
-            var layerCount = Read<long>(layerCountColumn);
-            var intersectionX = Read<double>(intersectionXColumn);
+            var profileName = TryRead<string>(profileNameColumn);
+            var layerCount = TryRead<long>(layerCountColumn);
+            var intersectionX = TryRead<double>(intersectionXColumn);
 
             var soilProfileBuilder = new SoilProfileBuilder2D(profileName, intersectionX);
 
@@ -145,10 +145,7 @@ namespace Ringtoets.Piping.IO
                     var exception = new PipingSoilProfileReadException(
                         string.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, i, profileName), e);
 
-                    while (i++ <= layerCount)
-                    {
-                        MoveNext();
-                    }
+                    SkipRecords((int)layerCount + 1 - i);
 
                     throw exception;
                 }
@@ -158,22 +155,18 @@ namespace Ringtoets.Piping.IO
             return soilProfileBuilder.Build();
         }
 
+        private void SkipRecords(int count)
+        {
+            for(int i = 0; i < count; i++)
+            {
+                MoveNext();
+            }
+        }
+
         private void SetReaderToFirstRecord()
         {
             InitializeDataReader();
             MoveNext();
-        }
-
-        private void TryRead<T>(string columnName, out T value)
-        {
-            try
-            {
-                value = (T) dataReader[columnName];
-            }
-            catch (InvalidCastException)
-            {
-                value = default(T);
-            }
         }
 
         /// <summary>
@@ -183,11 +176,26 @@ namespace Ringtoets.Piping.IO
         /// <param name="columnName">The name of the column to read from.</param>
         /// <returns>The read value from the column with name <paramref name="columnName"/>.</returns>
         /// <exception cref="InvalidCastException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
-        private T Read<T>(string columnName)
+        private T TryRead<T>(string columnName)
         {
-            return (T) dataReader[columnName];
-        }
+            var dbValue = dataReader[columnName];
+            var isNullable = typeof(T).IsGenericType && typeof(Nullable<>).IsAssignableFrom(typeof(T).GetGenericTypeDefinition());
 
+            if (isNullable && dbValue == DBNull.Value)
+            {
+                return default(T);
+            }
+
+            try
+            {
+                return (T)dbValue;
+            }
+            catch (InvalidCastException)
+            {
+                throw new CriticalFileReadException(Resources.PipingSoilProfileReader_Invalid_value_on_column);
+            }
+        }
+        
         private void OpenConnection(string dbFile)
         {
             var connectionStringBuilder = new SQLiteConnectionStringBuilder
@@ -216,16 +224,11 @@ namespace Ringtoets.Piping.IO
 
         private PipingSoilLayer ReadPipingSoilLayer()
         {
-            double? isAquiferValue;
-            double? belowPhreaticLevelValue;
-            double? abovePhreaticLevelValue;
-            double? dryUnitWeightValue;
-
-            var topValue = Read<double>(topColumn);
-            TryRead(isAquiferColumn, out isAquiferValue);
-            TryRead(belowPhreaticLevelColumn, out belowPhreaticLevelValue);
-            TryRead(abovePhreaticLevelColumn, out abovePhreaticLevelValue);
-            TryRead(dryUnitWeightColumn, out dryUnitWeightValue);
+            var topValue = TryRead<double>(topColumn);
+            var isAquiferValue = TryRead<double?>(isAquiferColumn);
+            var belowPhreaticLevelValue = TryRead<double?>(belowPhreaticLevelColumn);
+            var abovePhreaticLevelValue = TryRead<double?>(abovePhreaticLevelColumn);
+            var dryUnitWeightValue = TryRead<double?>(dryUnitWeightColumn);
 
             var pipingSoilLayer = new PipingSoilLayer(topValue)
             {
@@ -244,16 +247,11 @@ namespace Ringtoets.Piping.IO
         /// <exception cref="InvalidCastException">Thrown when a column did not contain a value of the expected type.</exception>
         private SoilLayer2D ReadPiping2DSoilLayer()
         {
-            double? isAquiferValue;
-            double? belowPhreaticLevelValue;
-            double? abovePhreaticLevelValue;
-            double? dryUnitWeightValue;
-
-            var geometryValue = Read<byte[]>(layerGeometryColumn);
-            TryRead(isAquiferColumn, out isAquiferValue);
-            TryRead(belowPhreaticLevelColumn, out belowPhreaticLevelValue);
-            TryRead(abovePhreaticLevelColumn, out abovePhreaticLevelValue);
-            TryRead(dryUnitWeightColumn, out dryUnitWeightValue);
+            var geometryValue = TryRead<byte[]>(layerGeometryColumn);
+            var isAquiferValue = TryRead<double?>(isAquiferColumn);
+            var belowPhreaticLevelValue = TryRead<double?>(belowPhreaticLevelColumn);
+            var abovePhreaticLevelValue = TryRead<double?>(abovePhreaticLevelColumn);
+            var dryUnitWeightValue = TryRead<double?>(dryUnitWeightColumn);
 
             SoilLayer2D pipingSoilLayer = new PipingSoilLayer2DReader(geometryValue).Read();
             pipingSoilLayer.IsAquifer = isAquiferValue;
@@ -462,7 +460,7 @@ namespace Ringtoets.Piping.IO
         private void GetCount()
         {
             dataReader.Read();
-            Count = (int)Read<long>(profileCountColumn);
+            Count = (int)TryRead<long>(profileCountColumn);
             dataReader.NextResult();
         }
     }
