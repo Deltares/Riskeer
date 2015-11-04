@@ -27,55 +27,6 @@
     <Message Text="BuildInParallel: $(BuildInParallel)" />
   </Target>
 
-  <Target Name="CopyExternalDependencies">
-  
-    <ItemGroup>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies)\*.*" Condition="'$(ExternalDependencies)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies1)\*.*" Condition="'$(ExternalDependencies1)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies2)\*.*" Condition="'$(ExternalDependencies2)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies3)\*.*" Condition="'$(ExternalDependencies3)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies4)\*.*" Condition="'$(ExternalDependencies4)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies5)\*.*" Condition="'$(ExternalDependencies5)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies6)\*.*" Condition="'$(ExternalDependencies6)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies7)\*.*" Condition="'$(ExternalDependencies7)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies8)\*.*" Condition="'$(ExternalDependencies8)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies9)\*.*" Condition="'$(ExternalDependencies9)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies10)\*.*" Condition="'$(ExternalDependencies10)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies11)\*.*" Condition="'$(ExternalDependencies11)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies12)\*.*" Condition="'$(ExternalDependencies12)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies13)\*.*" Condition="'$(ExternalDependencies13)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies14)\*.*" Condition="'$(ExternalDependencies14)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies15)\*.*" Condition="'$(ExternalDependencies15)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies16)\*.*" Condition="'$(ExternalDependencies16)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies17)\*.*" Condition="'$(ExternalDependencies17)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies18)\*.*" Condition="'$(ExternalDependencies18)' != ''"/>
-      <DependentLibraries Include="$(SolutionDir)\$(ExternalDependencies19)\*.*" Condition="'$(ExternalDependencies19)' != ''"/>
-    </ItemGroup>
-  
-    <!-- Everything to prevent using **, as that seems to freeze MSBuild. Using Regex instead. -->
-  
-    <ItemGroup>
-      <DependentLibraries Remove="@(DependentLibraries)" Condition=" $([System.Text.RegularExpressions.Regex]::IsMatch(%(DependentLibraries.FullPath), '.*?\.svn.*?')) "/>	
-    </ItemGroup>
-    
-      <Message Text="Copying ExternalDependencies for project $(ProjectName) ..." Condition="'@(DependentLibraries)' != ''"/>
-      <Copy
-        Condition="'@(DependentLibraries)' != ''"
-        SourceFiles="@(DependentLibraries)"
-        DestinationFolder="$(TargetDir)\%(RecursiveDir)"
-        SkipUnchangedFiles="true" />
-  </Target>
-
-  <Target Name="AfterBuild" DependsOnTargets="CopyExternalDependencies">
-    <Error Condition="'$(IsPluginComponent)'=='true' and '$(PluginName)'==''" Text="PluginName must be specified when IsPluginComponent==true!"/>
-
-    <Message Text="Copying plugin component $(ProjectName) to $(InstallDir)\plugins directory ..." Condition="'$(IsPluginComponent)'=='true'" />
-    <Exec 
-      WorkingDirectory="$(OutDir)" 
-      Command="$(SolutionDir)\build\PluginPostBuild.cmd $(SolutionDir) $(TargetDir) $(ProjectName) $(PluginName) $(InstallDir) $(ProjectDir) $(PluginCategory)" 
-      Condition="'$(IsPluginComponent)'=='true'" />
-  </Target>
-
   <!-- makes sure all crap is removed -->    
   <Target Name="AfterClean">    
     <Delete Files="$(OutDir)\$(TargetFileName)" Condition="Exists('$(OutDir)\$(TargetFileName)')" />
