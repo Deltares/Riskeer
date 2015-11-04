@@ -89,7 +89,7 @@ namespace Ringtoets.Piping.Service
                 pipingData.DampingFactorExit.Mean,
                 pipingData.PhreaticLevelExit.Mean,
                 pipingData.PiezometricHeadPolder,
-                pipingData.CriticalHeaveGradient.Mean,
+                pipingData.CriticalHeaveGradient,
                 pipingData.ThicknessCoverageLayer.Mean,
                 pipingData.SellmeijerModelFactor,
                 pipingData.SellmeijerReductionFactor,

@@ -145,20 +145,14 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_CriticalHeaveGradient_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_CriticalHeaveGradient_Description")]
-        public LognormalDistribution CriticalHeaveGradient
+        public double CriticalHeaveGradient
         {
             get
             {
                 return data.PipingData.CriticalHeaveGradient;
-            }
-            set
-            {
-                data.PipingData.CriticalHeaveGradient = value;
-                data.PipingData.NotifyObservers();
             }
         }
 

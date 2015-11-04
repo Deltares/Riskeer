@@ -39,9 +39,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(16.5, defaultConstructed.SandParticlesVolumicWeight.Mean);
             Assert.AreEqual(1, defaultConstructed.SandParticlesVolumicWeight.StandardDeviation);
             Assert.AreEqual(0, defaultConstructed.SandParticlesVolumicWeight.Shift);
-            Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.CriticalHeaveGradient);
-            Assert.AreEqual(0, defaultConstructed.CriticalHeaveGradient.Mean);
-            Assert.AreEqual(1, defaultConstructed.CriticalHeaveGradient.StandardDeviation);
             Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.SeepageLength);
             Assert.AreEqual(0, defaultConstructed.SeepageLength.Mean);
             Assert.AreEqual(1, defaultConstructed.SeepageLength.StandardDeviation);
@@ -55,7 +52,6 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0, defaultConstructed.ThicknessAquiferLayer.Mean);
             Assert.AreEqual(1, defaultConstructed.ThicknessAquiferLayer.StandardDeviation);
 
-            Assert.AreEqual(0, defaultConstructed.UpliftModelFactor);
             Assert.AreEqual(0, defaultConstructed.PiezometricHeadExit);
             Assert.AreEqual(0, defaultConstructed.PiezometricHeadPolder);
             Assert.AreEqual(0, defaultConstructed.AssessmentLevel);
@@ -63,10 +59,12 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsNull(defaultConstructed.SurfaceLine);
             Assert.IsNull(defaultConstructed.SoilProfile);
 
+            Assert.AreEqual(1.0, defaultConstructed.UpliftModelFactor);
+            Assert.AreEqual(0.5, defaultConstructed.CriticalHeaveGradient);
             Assert.AreEqual(0.3, defaultConstructed.SellmeijerReductionFactor);
             Assert.AreEqual(9.81, defaultConstructed.Gravity);
             Assert.AreEqual(1.33e-6, defaultConstructed.WaterKinematicViscosity);
-            Assert.AreEqual(9.81, defaultConstructed.WaterVolumetricWeight);
+            Assert.AreEqual(10.0, defaultConstructed.WaterVolumetricWeight);
             Assert.AreEqual(0.25, defaultConstructed.WhitesDragCoefficient);
             Assert.AreEqual(37, defaultConstructed.BeddingAngle);
             Assert.AreEqual(2.08e-4, defaultConstructed.MeanDiameter70);

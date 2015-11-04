@@ -18,20 +18,21 @@ namespace Ringtoets.Piping.Data
         {
             Name = "Piping";
 
-            // Defaults as they have been defined in the DikesPiping Kernel's Technical Documentation of 07 Oct 15
-            BeddingAngle = 37.0;
-            MeanDiameter70 = 2.08e-4;
-            Gravity = 9.81;
-            WaterKinematicViscosity = 1.33e-6;
+            // Defaults as they have been defined in 'functional design semi-probabilistic assessments 1209431-008-ZWS-0009 Version 2 Final'
+            UpliftModelFactor = 1.0;
+            WaterVolumetricWeight = 10.0;
             WhitesDragCoefficient = 0.25;
-            WaterVolumetricWeight = 9.81;
+            WaterKinematicViscosity = 1.33e-6;
+            Gravity = 9.81;
+            MeanDiameter70 = 2.08e-4;
+            BeddingAngle = 37.0;
             SellmeijerReductionFactor = 0.3;
+            CriticalHeaveGradient = 0.5;
 
             PhreaticLevelExit = new NormalDistribution();
             DampingFactorExit = new LognormalDistribution { Mean = 1.0 };
             ThicknessCoverageLayer = new LognormalDistribution();
             SandParticlesVolumicWeight = new ShiftedLognormalDistribution { Mean = 16.5 };
-            CriticalHeaveGradient = new LognormalDistribution();
             SeepageLength = new LognormalDistribution();
             Diameter70 = new LognormalDistribution();
             DarcyPermeability = new LognormalDistribution();
@@ -150,11 +151,6 @@ namespace Ringtoets.Piping.Data
         public LognormalDistribution ThicknessAquiferLayer { get; set; }
 
         /// <summary>
-        /// Gets or sets the critical exit gradient for heave.
-        /// </summary>
-        public LognormalDistribution CriticalHeaveGradient { get; set; }
-
-        /// <summary>
         /// Gets or sets the total thickness of the coverage layer at the exit point.
         /// [m]
         /// </summary>
@@ -170,6 +166,15 @@ namespace Ringtoets.Piping.Data
         /// Gets or sets the damping factor at the exit point.
         /// </summary>
         public LognormalDistribution DampingFactorExit { get; set; }
+
+        #endregion
+
+        #region Constants
+
+        /// <summary>
+        /// Gets or sets the critical exit gradient for heave.
+        /// </summary>
+        public double CriticalHeaveGradient { get; private set; }
 
         #endregion
 

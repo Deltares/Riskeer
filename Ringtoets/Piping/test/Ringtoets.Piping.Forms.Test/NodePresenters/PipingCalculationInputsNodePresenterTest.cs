@@ -461,14 +461,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GivenValidPipingData_WhenCalculatingFromContextMenu_ThenPipingDataNotifiesObservers()
         {
             // Given
-            var random = new Random(22);
-
             var calculateContextMenuItemIndex = 1;
             var pipingData = new PipingData();
             var validPipingInput = new TestPipingInput();
             pipingData.AssessmentLevel = validPipingInput.AssessmentLevel;
             pipingData.BeddingAngle = validPipingInput.BeddingAngle;
-            pipingData.CriticalHeaveGradient.Mean = validPipingInput.CriticalHeaveGradient;
             pipingData.DampingFactorExit.Mean = validPipingInput.DampingFactorExit;
             pipingData.DarcyPermeability.Mean = validPipingInput.DarcyPermeability;
             pipingData.Diameter70.Mean = validPipingInput.Diameter70;

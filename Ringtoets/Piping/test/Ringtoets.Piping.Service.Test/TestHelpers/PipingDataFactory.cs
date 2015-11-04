@@ -24,10 +24,6 @@ namespace Ringtoets.Piping.Service.Test.TestHelpers
             {
                 AssessmentLevel = 1.0,
                 BeddingAngle = 1.0,
-                CriticalHeaveGradient =
-                {
-                    Mean = 1.0
-                },
                 DampingFactorExit =
                 {
                     Mean = 1.0

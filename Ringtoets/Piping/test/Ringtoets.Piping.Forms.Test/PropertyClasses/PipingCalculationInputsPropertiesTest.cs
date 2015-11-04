@@ -67,9 +67,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(pipingData.ThicknessCoverageLayer.Mean, properties.ThicknessCoverageLayer.Mean);
             Assert.AreEqual(pipingData.ThicknessCoverageLayer.StandardDeviation, properties.ThicknessCoverageLayer.StandardDeviation);
 
-            Assert.AreEqual(pipingData.CriticalHeaveGradient.Mean, properties.CriticalHeaveGradient.Mean);
-            Assert.AreEqual(pipingData.CriticalHeaveGradient.StandardDeviation, properties.CriticalHeaveGradient.StandardDeviation);
-
             Assert.AreEqual(pipingData.SeepageLength.Mean, properties.SeepageLength.Mean);
             Assert.AreEqual(pipingData.SeepageLength.StandardDeviation, properties.SeepageLength.StandardDeviation);
 
@@ -86,19 +83,20 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(pipingData.SandParticlesVolumicWeight.StandardDeviation, properties.SandParticlesVolumicWeight.StandardDeviation);
             Assert.AreEqual(pipingData.SandParticlesVolumicWeight.Shift, properties.SandParticlesVolumicWeight.Shift);
 
-            Assert.AreEqual(0, properties.UpliftModelFactor);
-            Assert.AreEqual(0, properties.PiezometricHeadExit);
-            Assert.AreEqual(0, properties.PiezometricHeadPolder);
-            Assert.AreEqual(0, properties.AssessmentLevel);
-            Assert.AreEqual(0, properties.SellmeijerModelFactor);
+            Assert.AreEqual(pipingData.UpliftModelFactor, properties.UpliftModelFactor);
+            Assert.AreEqual(pipingData.PiezometricHeadExit, properties.PiezometricHeadExit);
+            Assert.AreEqual(pipingData.PiezometricHeadPolder, properties.PiezometricHeadPolder);
+            Assert.AreEqual(pipingData.AssessmentLevel, properties.AssessmentLevel);
+            Assert.AreEqual(pipingData.SellmeijerModelFactor, properties.SellmeijerModelFactor);
 
-            Assert.AreEqual(0.3, properties.SellmeijerReductionFactor);
-            Assert.AreEqual(9.81, properties.Gravity);
-            Assert.AreEqual(1.33e-6, properties.WaterKinematicViscosity);
-            Assert.AreEqual(9.81, properties.WaterVolumetricWeight);
-            Assert.AreEqual(0.25, properties.WhitesDragCoefficient);
-            Assert.AreEqual(37, properties.BeddingAngle);
-            Assert.AreEqual(2.08e-4, properties.MeanDiameter70);
+            Assert.AreEqual(pipingData.CriticalHeaveGradient, properties.CriticalHeaveGradient);
+            Assert.AreEqual(pipingData.SellmeijerReductionFactor, properties.SellmeijerReductionFactor);
+            Assert.AreEqual(pipingData.Gravity, properties.Gravity);
+            Assert.AreEqual(pipingData.WaterKinematicViscosity, properties.WaterKinematicViscosity);
+            Assert.AreEqual(pipingData.WaterVolumetricWeight, properties.WaterVolumetricWeight);
+            Assert.AreEqual(pipingData.WhitesDragCoefficient, properties.WhitesDragCoefficient);
+            Assert.AreEqual(pipingData.BeddingAngle, properties.BeddingAngle);
+            Assert.AreEqual(pipingData.MeanDiameter70, properties.MeanDiameter70);
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
             Assert.AreSame(soilProfile, properties.SoilProfile);
         }
