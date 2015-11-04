@@ -2,15 +2,34 @@
 
 namespace Core.Common.Base
 {
+    /// <summary>
+    /// Template class for application plugin definitions.
+    /// </summary>
     public abstract class ApplicationPlugin
     {
         /// <summary>
-        ///  Gets or sets the application.
-        ///  <value>The application.</value></summary>
-        public virtual IApplication Application { get; set; }
+        /// Gets or sets the application.
+        /// </summary>
+        public IApplication Application { get; set; }
 
         /// <summary>
-        /// Provides information about data that can be created
+        /// Activates the application plugin.
+        /// </summary>
+        public virtual void Activate()
+        {
+
+        }
+
+        /// <summary>
+        /// Deactivates the application plugin.
+        /// </summary>
+        public virtual void Deactivate()
+        {
+
+        }
+
+        /// <summary>
+        /// Data items which can be provided by the application plugin.
         /// </summary>
         public virtual IEnumerable<DataItemInfo> GetDataItemInfos()
         {
@@ -18,7 +37,7 @@ namespace Core.Common.Base
         }
 
         /// <summary>
-        /// File importers of this plugin
+        /// File importers which can be provided by the application plugin.
         /// </summary>
         public virtual IEnumerable<IFileImporter> GetFileImporters()
         {
@@ -26,27 +45,11 @@ namespace Core.Common.Base
         }
 
         /// <summary>
-        /// File exporters of this plugin
+        /// File exporters which can be provided by the application plugin.
         /// </summary>
         public virtual IEnumerable<IFileExporter> GetFileExporters()
         {
             yield break;
-        }
-
-        /// <summary>
-        ///  Activates the plugin.
-        ///  </summary>
-        public virtual void Activate()
-        {
-
-        }
-
-        /// <summary>
-        ///  Deactivates the plugin.
-        ///  </summary>
-        public virtual void Deactivate()
-        {
-
         }
     }
 }
