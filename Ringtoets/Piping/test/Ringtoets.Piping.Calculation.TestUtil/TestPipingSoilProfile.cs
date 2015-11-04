@@ -19,7 +19,7 @@ namespace Ringtoets.Piping.Calculation.TestUtil
         {
             new PipingSoilLayer(0.0)
             {
-                IsAquifer = true
+                IsAquifer = 1.0
             }
         }) {}
     }

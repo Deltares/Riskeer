@@ -143,10 +143,10 @@ namespace Ringtoets.Piping.IO.Test
                 // Call
                 var profile = reader.ReadProfile();
 
-                // Assert
-                CollectionAssert.AreEqual(new[] {false, false, true}, profile.Layers.Select(l => l.IsAquifer));
-                CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, profile.Layers.Select(l => l.AbovePhreaticLevel));
-                CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, profile.Layers.Select(l => l.BelowPhreaticLevel));
+            // Assert
+            CollectionAssert.AreEqual(new[] {0.0, 0.0, 1.0}, profile.Layers.Select(l => l.IsAquifer));
+            CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, profile.Layers.Select(l => l.AbovePhreaticLevel));
+            CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, profile.Layers.Select(l => l.BelowPhreaticLevel));
                 CollectionAssert.AreEqual(new double?[] { null, null, null }, profile.Layers.Select(l => l.DryUnitWeight));
                 Assert.AreEqual(3,profile.Layers.Count());
             }
@@ -196,6 +196,32 @@ namespace Ringtoets.Piping.IO.Test
                 Assert.AreEqual(3, pipingSoilProfile.Layers.Count());
 
                 Assert.IsTrue(FileHelper.CanOpenFileForWrite(testFile));
+            }
+        }
+
+        [Test]
+        public void Read_DatabaseProfileWithoutValuesForLayerProperties_ReturnsProfileWithAllLayers()
+        {
+            // Setup
+            var testFile = "1dprofileNoValues.soil";
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            {
+                // Call
+                var profile = pipingSoilProfilesReader.ReadProfile();
+
+                // Assert
+                var nullCollection = new double?[]
+                {
+                    null,
+                    null,
+                    null
+                };
+                Assert.AreEqual("Profile", profile.Name);
+                Assert.AreEqual(3, profile.Layers.Count());
+                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.IsAquifer));
+                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.AbovePhreaticLevel));
+                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.BelowPhreaticLevel));
+                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.DryUnitWeight));
             }
         }
 

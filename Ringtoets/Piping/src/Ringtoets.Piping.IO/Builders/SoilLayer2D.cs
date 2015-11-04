@@ -25,7 +25,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// <summary>
         /// Gets or sets whether the <see cref="PipingSoilLayer"/> is an aquifer.
         /// </summary>
-        public bool IsAquifer { get; set; }
+        public double? IsAquifer { get; set; }
 
         /// <summary>
         /// Gets or sets the above phreatic level for the <see cref="PipingSoilLayer"/>.

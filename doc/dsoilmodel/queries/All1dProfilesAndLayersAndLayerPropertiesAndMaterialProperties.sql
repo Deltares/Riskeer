@@ -24,7 +24,7 @@ LEFT JOIN (
 	JOIN ParameterValues as pv ON pn.PN_ID = pv.PN_ID
 	JOIN Materials as m ON m.MA_ID = pv.MA_ID
 	GROUP BY m.MA_ID) as mat ON l.MA_ID = mat.MA_ID
-JOIN (
+LEFT JOIN (
 	SELECT 
 		pv.SL1D_ID, 
 		sum(case when pn.PN_Name = 'IsAquifer' then pv.PV_Value end) IsAquifer

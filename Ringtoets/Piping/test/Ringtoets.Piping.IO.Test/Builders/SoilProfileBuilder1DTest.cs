@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var builder = new SoilProfileBuilder1D(profileName, bottom);
             builder.Add(new PipingSoilLayer(top)
             {
-                IsAquifer = true
+                IsAquifer = 1.0
             });
 
             // Call
@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var builder = new SoilProfileBuilder1D(profileName, bottom);
             builder.Add(new PipingSoilLayer(top)
             {
-                IsAquifer = true
+                IsAquifer = 1.0
             });
             builder.Add(new PipingSoilLayer(top2));
 

@@ -170,7 +170,7 @@ namespace Ringtoets.Piping.IO
             {
                 value = (T) dataReader[columnName];
             }
-            catch (InvalidCastException e)
+            catch (InvalidCastException)
             {
                 value = default(T);
             }
@@ -229,7 +229,7 @@ namespace Ringtoets.Piping.IO
 
             var pipingSoilLayer = new PipingSoilLayer(topValue)
             {
-                IsAquifer = isAquiferValue.Equals(1.0),
+                IsAquifer = isAquiferValue,
                 BelowPhreaticLevel = belowPhreaticLevelValue,
                 AbovePhreaticLevel = abovePhreaticLevelValue,
                 DryUnitWeight = dryUnitWeightValue
@@ -256,7 +256,7 @@ namespace Ringtoets.Piping.IO
             TryRead(dryUnitWeightColumn, out dryUnitWeightValue);
 
             SoilLayer2D pipingSoilLayer = new PipingSoilLayer2DReader(geometryValue).Read();
-            pipingSoilLayer.IsAquifer = isAquiferValue.Equals(1.0);
+            pipingSoilLayer.IsAquifer = isAquiferValue;
             pipingSoilLayer.BelowPhreaticLevel = belowPhreaticLevelValue;
             pipingSoilLayer.AbovePhreaticLevel = abovePhreaticLevelValue;
             pipingSoilLayer.DryUnitWeight = dryUnitWeightValue;
@@ -351,7 +351,7 @@ namespace Ringtoets.Piping.IO
                             "JOIN {9}",
                             "JOIN SoilLayer1D as l ON l.SP1D_ID = p.SP1D_ID",
                             "LEFT JOIN {10}",
-                            "JOIN {11}",
+                            "LEFT JOIN {11}",
                             "ORDER BY ProfileName;"),
                 dimensionColumn,
                 profileNameColumn,
@@ -384,7 +384,7 @@ namespace Ringtoets.Piping.IO
                             "JOIN {9}",
                             "JOIN SoilLayer2D as l ON l.SP2D_ID = p.SP2D_ID",
                             "LEFT JOIN {10}",
-                            "JOIN {11}",
+                            "LEFT JOIN {11}",
                             "WHERE m.ME_Name = @{12}",
                             "ORDER BY ProfileName;"),
                 dimensionColumn,

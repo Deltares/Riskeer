@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                         X = -0.5, Z = -1.0
                     }
                 },
-                IsAquifer = true
+                IsAquifer = 1.0
             });
 
             // Call
@@ -143,7 +143,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                     "...",
                     "..."
                 )),
-                IsAquifer = true
+                IsAquifer = 1.0
             });
 
             // Call
@@ -185,7 +185,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 {
                     loopHole
                 },
-                IsAquifer = true
+                IsAquifer = 1.0
             }).Add(new SoilLayer2D
             {
                 OuterLoop = loopHole

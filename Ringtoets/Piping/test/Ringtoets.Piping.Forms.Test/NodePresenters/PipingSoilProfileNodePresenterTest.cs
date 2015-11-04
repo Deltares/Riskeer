@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             {
                 new PipingSoilLayer(random.NextDouble())
                 {
-                    IsAquifer = true
+                    IsAquifer = 1.0
                 } 
             };
             var soilProfile = new PipingSoilProfile(name, bottom, layers);

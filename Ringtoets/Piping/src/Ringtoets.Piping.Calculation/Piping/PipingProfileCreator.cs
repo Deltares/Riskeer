@@ -25,7 +25,7 @@ namespace Ringtoets.Piping.Calculation.Piping
                 var pipingLayer = new PipingLayer
                 {
                     TopLevel = layer.Top,
-                    IsAquifer = layer.IsAquifer
+                    IsAquifer = layer.IsAquifer.Equals(1.0)
                 };
                 if (layer.AbovePhreaticLevel.HasValue)
                 {

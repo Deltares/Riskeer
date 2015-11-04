@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             {
                 new PipingSoilLayer(random.NextDouble())
                 {
-                    IsAquifer = true
+                    IsAquifer = 1.0
                 }
             });
             var pipingData = new PipingData
