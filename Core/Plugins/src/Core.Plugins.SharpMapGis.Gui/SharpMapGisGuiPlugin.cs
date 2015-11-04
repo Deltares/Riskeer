@@ -13,9 +13,7 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Utils;
 using Core.GIS.GeoAPI.Extensions.Feature;
-using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api.Layers;
-using Core.GIS.SharpMap.Data.Providers;
 using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;
 using Core.GIS.SharpMap.UI.Forms;
@@ -322,71 +320,6 @@ namespace Core.Plugins.SharpMapGis.Gui
             {
                 GuiPlugin = this
             };
-        }
-
-        public override bool CanDrop(object source, object target)
-        {
-            if (source is ILayer && target is Map)
-            {
-                return true;
-            }
-
-            if (source is IList && target is Map && ((IEnumerable) source).Cast<object>().FirstOrDefault() is IGeometry)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public override void OnDragDrop(object source, object target)
-        {
-            var map = target as Map;
-
-            if (map == null)
-            {
-                return;
-            }
-
-            if (source is ILayer)
-            {
-                map.Layers.Add((ILayer) source);
-            }
-
-            if (source is IList)
-            {
-                var items = (IList) source;
-
-                if (items.Count > 0 && items[0] is IGeometry)
-                {
-                    var provider = new FeatureCollection();
-                    foreach (var item in items)
-                    {
-                        var geometry = (IGeometry) item;
-                        provider.Features.Add(geometry);
-                    }
-                    ILayer layer = new VectorLayer
-                    {
-                        DataSource = provider
-                    };
-                    map.Layers.Add(layer);
-                }
-
-                if (items.Count > 0 && items[0] is IFeature)
-                {
-                    var provider = new FeatureCollection
-                    {
-                        Features = items
-                    };
-                    ILayer layer = new VectorLayer
-                    {
-                        DataSource = provider
-                    };
-                    map.Layers.Add(layer);
-                }
-            }
-
-            map.NotifyObservers();
         }
 
         internal static MapView GetFocusedMapView(IView view = null)

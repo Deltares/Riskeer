@@ -94,23 +94,6 @@ namespace Core.Common.Gui
             yield break;
         }
 
-        /// <summary>
-        /// TODO: is it not part of IView?
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="target"></param>
-        public virtual void OnDragDrop(object source, object target) {}
-
-        /// <summary>
-        /// TODO: is it not part of IView?
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="target"></param>
-        public virtual bool CanDrop(object source, object target)
-        {
-            return false;
-        }
-
         public virtual void Dispose()
         {
             Gui = null;

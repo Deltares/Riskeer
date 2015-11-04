@@ -804,101 +804,15 @@ namespace Application.Ringtoets
 
         private void ActiveViewChanging(object sender, ActiveViewChangeEventArgs e)
         {
-            // TODO: if view removes controls - we will have a problem here, view controls won't be unsubscribed
-            var activeViewControl = (Control) e.OldView;
-            if (e.OldView != null)
-            {
-                activeViewControl.DragEnter -= DeltaShellGuiDragEnter;
-                activeViewControl.DragOver -= DeltaShellGui_DragOver;
-                activeViewControl.DragDrop -= DeltaShellGuiDragDrop;
-                foreach (Control control in activeViewControl.Controls)
-                {
-                    control.DragEnter -= DeltaShellGuiDragEnter;
-                    control.DragOver -= DeltaShellGui_DragOver;
-                    control.DragDrop -= DeltaShellGuiDragDrop;
-                }
-            }
-
             if (e.View == null || mainWindow == null || mainWindow.IsWindowDisposed)
             {
                 return;
-            }
-
-            activeViewControl = (Control) e.View;
-            activeViewControl.DragEnter += DeltaShellGuiDragEnter;
-            activeViewControl.DragOver += DeltaShellGui_DragOver;
-            activeViewControl.DragDrop += DeltaShellGuiDragDrop;
-            foreach (Control control in activeViewControl.Controls)
-            {
-                control.DragEnter += DeltaShellGuiDragEnter;
-                control.DragOver += DeltaShellGui_DragOver;
-                control.DragDrop += DeltaShellGuiDragDrop;
             }
 
             if (mainWindow.ProjectExplorer != null)
             {
                 SetToolTipForView(e.View);
             }
-        }
-
-        private void DeltaShellGuiDragEnter(object sender, DragEventArgs e)
-        {
-            dropTargetPluginGuis.Clear();
-            foreach (var pluginGui in Plugins)
-            {
-                var formats = e.Data.GetFormats();
-                foreach (var format in formats)
-                {
-                    if (DocumentViews.ActiveView != null && pluginGui.CanDrop(e.Data.GetData(format), DocumentViews.ActiveView.Data))
-                    {
-                        if (e.Effect != DragDropEffects.Link)
-                        {
-                            e.Effect = DragDropEffects.Link;
-                        }
-
-                        dropTargetPluginGuis.Add(pluginGui);
-                    }
-                }
-            }
-        }
-
-        private void DeltaShellGuiDragDrop(object sender, DragEventArgs e)
-        {
-            if (e.Effect == DragDropEffects.None) // already handled
-            {
-                log.Debug(Resources.DeltaShellGui_DeltaShellGuiDragDrop_DragDrop_is_already_handled_in_control_itself);
-                return;
-            }
-
-            foreach (var pluginGui in dropTargetPluginGuis)
-            {
-                var formats = e.Data.GetFormats();
-                foreach (var format in formats)
-                {
-                    if (DocumentViews.ActiveView == null)
-                    {
-                        return;
-                    }
-
-                    var source = e.Data.GetData(format);
-
-                    pluginGui.OnDragDrop(source, DocumentViews.ActiveView.Data);
-
-                    if (DocumentViews.ActiveView is ICompositeView)
-                    {
-                        // try to drop on one of child views
-                        foreach (var view in ((ICompositeView) DocumentViews.ActiveView).ChildViews)
-                        {
-                            pluginGui.OnDragDrop(source, view.Data);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void DeltaShellGui_DragOver(object sender, DragEventArgs e)
-        {
-            // check if we can drop things here
         }
 
         // TODO: incapsulate any knowledge of the plugin XML inside plugin configurator, the rest of the system should not know about it!
