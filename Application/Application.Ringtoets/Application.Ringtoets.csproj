@@ -76,9 +76,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Addins">
-      <HintPath>..\..\lib\Mono.Addins.dll</HintPath>
-    </Reference>
     <Reference Include="NDesk.Options">
       <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
     </Reference>
@@ -292,9 +289,33 @@
       <Name>Core.Common.Version</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.CommonTools.Gui\Core.Plugins.CommonTools.Gui.csproj">
+      <Project>{93E73FAB-FAE8-49C6-9ABB-27D24DF761F6}</Project>
+      <Name>Core.Plugins.CommonTools.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj">
+      <Project>{BEFDCC44-2638-4972-B353-42D14C7DA2C6}</Project>
+      <Name>Core.Plugins.CommonTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj">
+      <Project>{ED20DBA9-D577-423F-A68D-A0A8130FB10B}</Project>
+      <Name>Core.Plugins.ProjectExplorer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.SharpMapGis.Gui\Core.Plugins.SharpMapGis.Gui.csproj">
+      <Project>{0BC3751E-EC42-40A0-A7D3-B7C2AA66976E}</Project>
+      <Name>Core.Plugins.SharpMapGis.Gui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.SharpMapGis\Core.Plugins.SharpMapGis.csproj">
+      <Project>{696DAAEE-D1D8-42D0-86AC-471B970FB17E}</Project>
+      <Name>Core.Plugins.SharpMapGis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Ringtoets\Piping\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
       <Name>Ringtoets.Piping.Calculation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Ringtoets\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
+      <Project>{1D3D58B6-EF7E-401E-92A0-104067D222EE}</Project>
+      <Name>Ringtoets.Piping.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Ringtoets\Piping\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
       <Project>{10b8d63d-87e8-46df-aca9-a8cf22ee8fb5}</Project>

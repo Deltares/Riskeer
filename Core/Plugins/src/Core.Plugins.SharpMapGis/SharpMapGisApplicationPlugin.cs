@@ -4,11 +4,9 @@ using System.Reflection;
 using Core.Common.Base;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using Core.GIS.SharpMap.Map;
-using Mono.Addins;
 
 namespace Core.Plugins.SharpMapGis
 {
-    [Extension(typeof(IPlugin))]
     public class SharpMapGisApplicationPlugin : ApplicationPlugin
     {
         public SharpMapGisApplicationPlugin()

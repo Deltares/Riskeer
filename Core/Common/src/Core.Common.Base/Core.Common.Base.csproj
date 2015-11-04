@@ -96,7 +96,6 @@
     <Compile Include="DeltaShellApplicationSettings.cs" />
     <Compile Include="DeltaShellUserDataFolderConverter.cs" />
     <Compile Include="Extensions\CompositeActivityExtensions.cs" />
-    <Compile Include="ForceLocalAddinFileSystemExtension.cs" />
     <Compile Include="IApplication.cs" />
     <Compile Include="IFileExporter.cs" />
     <Compile Include="IFileImporter.cs" />
@@ -106,10 +105,8 @@
     <Compile Include="IProjectImporter.cs" />
     <Compile Include="IProjectItem.cs" />
     <Compile Include="IProjectItemExporter.cs" />
-    <Compile Include="MonoAddinsConsoleLogger.cs" />
     <Compile Include="Observable.cs" />
     <Compile Include="ObservableList.cs" />
-    <Compile Include="PluginManager.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -118,7 +115,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RunningActivityLogAppender.cs" />
-    <Compile Include="PluginConfigurationLoader.cs" />
     <Compile Include="Workflow\Activity.cs" />
     <Compile Include="Workflow\ActivityEventArgs.cs" />
     <Compile Include="Workflow\ActivityRunner.cs" />

@@ -2,11 +2,9 @@
 using System.Drawing;
 using System.Reflection;
 using System.Resources;
-using Mono.Addins;
 
 namespace Core.Common.Base
 {
-    [TypeExtensionPoint]
     public interface IPlugin
     {
         /// <summary>

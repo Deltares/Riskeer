@@ -12,10 +12,15 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls.Swf;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
+using Core.Plugins.CommonTools;
+using Core.Plugins.CommonTools.Gui;
+using Core.Plugins.ProjectExplorer;
+using Core.Plugins.SharpMapGis;
+using Core.Plugins.SharpMapGis.Gui;
 using log4net;
 using NDesk.Options;
+using Ringtoets.Piping.Plugin;
 using MessageBox = System.Windows.MessageBox;
 
 namespace Application.Ringtoets
@@ -64,7 +69,23 @@ namespace Application.Ringtoets
 
             gui = new DeltaShellGui
             {
-                MainWindow = mainWindow
+                MainWindow = mainWindow,
+                Plugins =
+                {
+                    new ProjectExplorerGuiPlugin(),
+                    new CommonToolsGuiPlugin(),
+                    new SharpMapGisGuiPlugin(),
+                    new WtiGuiPlugin()
+                },
+                Application =
+                {
+                    Plugins =
+                    {
+                        new CommonToolsApplicationPlugin(),
+                        new SharpMapGisApplicationPlugin(),
+                        new WtiApplicationPlugin()
+                    }
+                }
             };
 
             //gui.Application.ProjectRepositoryFactory.SpeedUpSessionCreationUsingParallelThread = true;

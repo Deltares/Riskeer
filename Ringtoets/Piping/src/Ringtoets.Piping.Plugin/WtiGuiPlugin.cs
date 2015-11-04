@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
-using Mono.Addins;
 
 using Ringtoets.Piping.Data;
 
@@ -13,7 +11,6 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Plugin
 {
-    [Extension(typeof(IPlugin))]
     public class WtiGuiPlugin : GuiPlugin
     {
         public override string Name

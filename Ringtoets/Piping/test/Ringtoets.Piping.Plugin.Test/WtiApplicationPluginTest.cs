@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Core.Common.Base;
-using Mono.Addins;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -25,18 +24,6 @@ namespace Ringtoets.Piping.Plugin.Test
             Assert.AreEqual(PluginResources.Wti_application_DisplayName, wtiPlugin.DisplayName);
             Assert.AreEqual(PluginResources.Wti_application_Description, wtiPlugin.Description);
             Assert.AreEqual("0.5.0.0", wtiPlugin.Version);
-        }
-
-        [Test]
-        public void WtiApplicationPlugin_ShouldBeDeltaShellPlugin()
-        {
-            // call
-            var attribute = Attribute.GetCustomAttribute(typeof(WtiApplicationPlugin), typeof(ExtensionAttribute));
-
-            // assert
-            Assert.IsInstanceOf<ExtensionAttribute>(attribute);
-            var extensionAttribute = (ExtensionAttribute) attribute;
-            Assert.AreEqual(typeof(IPlugin), extensionAttribute.Type);
         }
 
         [Test]

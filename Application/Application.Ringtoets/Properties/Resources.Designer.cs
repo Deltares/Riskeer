@@ -920,24 +920,6 @@ namespace Application.Ringtoets.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} gui plugin(s) were loaded.
-        /// </summary>
-        public static string DeltaShellGui_LoadPlugins__0__gui_plugin_s__were_loaded {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_LoadPlugins__0__gui_plugin_s__were_loaded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Searching for Gui plugins ....
-        /// </summary>
-        public static string DeltaShellGui_LoadPlugins_Searching_for_Gui_plugins____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_LoadPlugins_Searching_for_Gui_plugins____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Initializing graphical user interface ....
         /// </summary>
         public static string DeltaShellGui_Run_Initializing_graphical_user_interface____ {

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Core.Common.Base;
-using Mono.Addins;
 
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
@@ -10,7 +9,6 @@ using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin
 {
-    [Extension(typeof(IPlugin))]
     public class WtiApplicationPlugin : ApplicationPlugin
     {
         public override string Name

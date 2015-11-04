@@ -24,12 +24,10 @@ using Core.Plugins.CommonTools.Gui.Forms.Charting;
 using Core.Plugins.CommonTools.Gui.Property;
 using Core.Plugins.CommonTools.Gui.Property.Charting;
 using DevExpress.Data.Access;
-using Mono.Addins;
 using PropertyInfo = Core.Common.Gui.PropertyInfo;
 
 namespace Core.Plugins.CommonTools.Gui
 {
-    [Extension(typeof(IPlugin))]
     public class CommonToolsGuiPlugin : GuiPlugin
     {
         private static bool tableViewInitialized;

@@ -5,8 +5,6 @@ using Core.Common.Base.Workflow;
 using Core.Common.Controls;
 using Core.Common.Gui;
 
-using Mono.Addins;
-
 using NUnit.Framework;
 
 using Rhino.Mocks;
@@ -39,18 +37,6 @@ namespace Ringtoets.Piping.Plugin.Test
                 Assert.AreEqual("0.5.0.0", wtiGuiPlugin.Version);
                 Assert.IsInstanceOf<WtiRibbon>(wtiGuiPlugin.RibbonCommandHandler);
             }
-        }
-
-        [Test]
-        public void WtiApplicationPlugin_ShouldBeDeltaShellPlugin()
-        {
-            // call
-            var attribute = Attribute.GetCustomAttribute(typeof(WtiApplicationPlugin), typeof(ExtensionAttribute));
-
-            // assert
-            Assert.IsInstanceOf<ExtensionAttribute>(attribute);
-            var extensionAttribute = (ExtensionAttribute) attribute;
-            Assert.AreEqual(typeof(IPlugin), extensionAttribute.Type);
         }
 
         [Test]

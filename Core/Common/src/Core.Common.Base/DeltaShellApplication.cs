@@ -71,14 +71,6 @@ namespace Core.Common.Base
 
         public bool IsProjectCreatedInTemporaryDirectory { get; set; }
 
-        public string PluginVersions
-        {
-            get
-            {
-                return String.Join("\n", Plugins.Select(p => p.Name + "  " + p.Version));
-            }
-        }
-
         public Project Project
         {
             get
@@ -189,24 +181,6 @@ namespace Core.Common.Base
             plugin.Resources = new ResourceManager(resourceName, plugin.GetType().Assembly);
         }
 
-        public ApplicationPlugin GetPluginForType(Type type)
-        {
-            foreach (var plugin in Plugins)
-            {
-                if (plugin.GetType().Assembly.Equals(type.Assembly))
-                {
-                    return plugin;
-                }
-
-                if (plugin.GetDataItemInfos().Any(dii => dii.ValueType == type))
-                {
-                    return plugin;
-                }
-            }
-
-            return null;
-        }
-
         public string GetUserSettingsDirectoryPath()
         {
             return SettingsHelper.GetApplicationLocalUserSettingsDirectory();
@@ -251,10 +225,7 @@ namespace Core.Common.Base
 
             InitializeLicense();
 
-            log.Info(Properties.Resources.DeltaShellApplication_Run_Initializing_plugins____);
-            InitializePlugins();
-
-            log.Info(Properties.Resources.DeltaShellApplication_Run_Initializing_project_repository____);
+            Plugins.ForEach(p => p.Application = this);
 
             isRunning = true;
 
@@ -424,25 +395,6 @@ namespace Core.Common.Base
             log.Debug(Properties.Resources.DeltaShellApplication_ActivatePlugins_All_plugins_were_activated_);
         }
 
-        protected void InitializePlugins()
-        {
-            log.Debug(Properties.Resources.DeltaShellApplication_InitializePlugins_Searching_for_plugins____);
-
-            var pluginsDirectory = GetPluginDirectory();
-
-            PluginManager.RegisterAdditionalPlugins(Plugins);
-            PluginManager.Initialize(pluginsDirectory);
-
-            var newApplicationPlugins = PluginManager.GetPlugins<ApplicationPlugin>().Except(Plugins).ToList();
-            foreach (var plugin in newApplicationPlugins)
-            {
-                Plugins.Add(plugin);
-            }
-            Plugins.ForEach(p => p.Application = this);
-
-            log.InfoFormat(Properties.Resources.DeltaShellApplication_InitializePlugins__0__plugin_s__were_loaded, Plugins.Count);
-        }
-
         /// <summary>
         /// Initialize the log4net part
         /// </summary>
@@ -509,21 +461,6 @@ namespace Core.Common.Base
             }
 
             log.Debug(Properties.Resources.DeltaShellApplication_InitializeLicense_License_is_initialized_);
-        }
-
-        private string GetPluginDirectory()
-        {
-            // load plugins from a configured folder
-            if (Settings != null)
-            {
-                string pluginsDirectory = Settings["pluginsDirectory"];
-
-                if (Directory.Exists(pluginsDirectory))
-                {
-                    return pluginsDirectory;
-                }
-            }
-            return null;
         }
 
         private void InitializePluginResources()
@@ -617,8 +554,6 @@ namespace Core.Common.Base
                     Plugins.Clear();
 
                     Plugins = null;
-
-                    PluginManager.Reset();
 
                     if (RunningActivityLogAppender.Instance != null)
                     {

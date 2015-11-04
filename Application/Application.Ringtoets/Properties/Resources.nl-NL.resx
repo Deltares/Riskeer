@@ -330,12 +330,6 @@
   <data name="DeltaShellGui_InitToolWindows_Finished_InitToolWindows" xml:space="preserve">
     <value>NL Finished InitToolWindows</value>
   </data>
-  <data name="DeltaShellGui_LoadPlugins__0__gui_plugin_s__were_loaded" xml:space="preserve">
-    <value>NL {0} gui plugin(s) were loaded</value>
-  </data>
-  <data name="DeltaShellGui_LoadPlugins_Searching_for_Gui_plugins____" xml:space="preserve">
-    <value>NL Searching for Gui plugins ...</value>
-  </data>
   <data name="DeltaShellGui_Run_Initializing_graphical_user_interface____" xml:space="preserve">
     <value>NL Initializing graphical user interface ...</value>
   </data>

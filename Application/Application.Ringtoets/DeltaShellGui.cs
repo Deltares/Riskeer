@@ -22,7 +22,6 @@ using Core.Common.Base.Workflow;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Utils;
 using Core.Common.Utils.Aop;
@@ -258,8 +257,6 @@ namespace Application.Ringtoets
             ConfigureLogging();
 
             ShowSplashScreen();
-
-            PluginManager.RegisterAdditionalPlugins(Plugins);
 
             if (!String.IsNullOrEmpty(projectPath))
             {
@@ -667,8 +664,6 @@ namespace Application.Ringtoets
 
         private void Initialize()
         {
-            LoadPlugins();
-
             InitializeWindows();
 
             InitializePluginResources();
@@ -1122,36 +1117,6 @@ namespace Application.Ringtoets
                 log.Warn(Resources.DeltaShellGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_);
                 log.Warn(Resources.DeltaShellGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_);
             }
-        }
-
-        private void LoadPlugins()
-        {
-            log.Debug(Resources.DeltaShellGui_LoadPlugins_Searching_for_Gui_plugins____);
-
-            var newGuiPlugins = PluginManager.GetPlugins<GuiPlugin>().Except(Plugins).ToList();
-            foreach (var plugin in newGuiPlugins)
-            {
-                Plugins.Add(plugin);
-            }
-
-            log.InfoFormat(Resources.DeltaShellGui_LoadPlugins__0__gui_plugin_s__were_loaded, Plugins.Count);
-
-/*
-            if (Directory.Exists(Application.Settings["pluginsDirectory"]))
-            {
-                var pluginConfigurationLoader = new PluginConfigurationLoader(Application.Settings["pluginsDirectory"]);
-
-                pluginConfigurations = new List<guiPlugin>();
-                pluginAssemblies = new List<Assembly>();
-
-                // Needed for reading configuration files (menus, toolbars etc.)
-                pluginConfigurationLoader.FillPluginConfigurationsFromPath<guiPlugin, GuiPluginConfigurationSectionHandler>(pluginConfigurations, pluginAssemblies);
-            }
-            else
-            {
-                log.Error("Could not load plugin configurations");
-            }
-*/
         }
 
         private void CopyDefaultViewsFromUserSettings()

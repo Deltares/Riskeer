@@ -7,11 +7,9 @@ using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Utils.Collections;
-using Mono.Addins;
 
 namespace Core.Plugins.ProjectExplorer
 {
-    [Extension(typeof(IPlugin))]
     public class ProjectExplorerGuiPlugin : GuiPlugin
     {
         private readonly IList<ITreeNodePresenter> projectTreeViewNodePresenters;

@@ -69,10 +69,6 @@ namespace Core.Common.Base
         // TODO: hide it?
         string ProjectFilePath { get; }
 
-        string PluginVersions { get; }
-
-        ApplicationPlugin GetPluginForType(Type type);
-
         /// <summary>
         /// Check if any activity is running.
         /// </summary>

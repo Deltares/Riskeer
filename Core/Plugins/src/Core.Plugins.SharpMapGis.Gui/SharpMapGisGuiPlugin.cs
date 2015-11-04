@@ -25,12 +25,10 @@ using Core.GIS.SharpMap.UI.Tools.Decorations;
 using Core.Plugins.SharpMapGis.Gui.Forms;
 using Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView;
 using Core.Plugins.SharpMapGis.Gui.NodePresenters;
-using Mono.Addins;
 using PropertyInfo = Core.Common.Gui.PropertyInfo;
 
 namespace Core.Plugins.SharpMapGis.Gui
 {
-    [Extension(typeof(IPlugin))]
     public class SharpMapGisGuiPlugin : GuiPlugin
     {
         private static IGui gui;
