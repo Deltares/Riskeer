@@ -79,7 +79,6 @@ namespace Ringtoets.Piping.Calculation.Piping
             if (input.SurfaceLine == null)
             {
                 validationResults.Add(Resources.PipingCalculation_Validate_Lacks_surfaceline_uplift);
-                
             }
             return validationResults;
         }

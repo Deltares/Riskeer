@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(ApplicationResources.Wti_application_name, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
-            CollectionAssert.AreEqual(new[]{typeof(IEnumerable<RingtoetsPipingSurfaceLine>)}, importer.SupportedItemTypes);
+            CollectionAssert.AreEqual(new[] { typeof(ICollection<RingtoetsPipingSurfaceLine>) }, importer.SupportedItemTypes);
             Assert.IsFalse(importer.CanImportOnRootLevel);
             var expectedFileFilter = String.Format("{0} {1} (*.csv)|*.csv", 
                 WtiFormsResources.PipingSurfaceLinesCollection_DisplayName, ApplicationResources.Csv_file_name);
