@@ -26,12 +26,14 @@
         public double? IsAquifer { get; set; }
 
         /// <summary>
-        /// Gets or sets the above phreatic level for the <see cref="PipingSoilLayer"/>.
+        /// Gets or sets the volumic weight of the <see cref="PipingSoilLayer"/> above the phreatic level.
+        /// [kN/m&#179;]
         /// </summary>
         public double? AbovePhreaticLevel { get; set; }
 
         /// <summary>
-        /// Gets or sets the below phreatic level for the <see cref="PipingSoilLayer"/>.
+        /// Gets or sets the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
+        /// [kN/m&#179;]
         /// </summary>
         public double? BelowPhreaticLevel { get; set; }
 

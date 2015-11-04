@@ -8,22 +8,6 @@ namespace Ringtoets.Piping.Calculation.Piping
     /// </summary>
     public static class PipingSemiProbabilisticDesignValueFactory
     {
-        #region Uplift parameters
-
-        /// <summary>
-        /// Creates the design variable for <see cref="PipingData.SandParticlesVolumicWeight"/>.
-        /// </summary>
-        public static DesignVariable GetSandParticlesVolumicWeight(PipingData pipingData)
-        {
-            return new DesignVariable
-            {
-                Distribution = pipingData.SandParticlesVolumicWeight,
-                Percentile = 0.05
-            };
-        }
-
-        #endregion
-
         #region General parameters
 
         /// <summary>

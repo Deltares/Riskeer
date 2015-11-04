@@ -6,8 +6,10 @@ using System.Linq.Expressions;
 using Core.Common.Base;
 using Core.Common.Utils.PropertyBag.Dynamic;
 
+using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
+using Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors;
 
 namespace Ringtoets.Piping.Forms.TypeConverters
 {
@@ -16,15 +18,15 @@ namespace Ringtoets.Piping.Forms.TypeConverters
     /// distributions to the property editor.
     /// </summary>
     /// <typeparam name="T">Type of distributionci</typeparam>
-    public abstract class ProbabilisticDistributionTypeConverter<T> : TypeConverter
+    public abstract class DesignVariableTypeConverter<T> : TypeConverter where T:IDistribution
     {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
             {
-                var distribution = (T)value;
-                var variablesText = string.Join(", ", Parameters.Select(p => p.GetSummary(distribution, culture)));
-                return String.Format("{0} ({1})", DistributionName, variablesText);
+                var designVariable = (DesignVariable)value;
+                var variablesText = string.Join(", ", Parameters.Select(p => p.GetSummary((T)designVariable.Distribution, culture)));
+                return String.Format("{0} ({1})", designVariable.GetDesignValue(), variablesText);
             }
             return base.ConvertTo(context, culture, value, destinationType);
         }
@@ -38,12 +40,15 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         {
             IObservable observableParent = GetObservableOwnerOfDistribution(context);
 
-            PropertyDescriptorCollection propertyDescriptorCollection = TypeDescriptor.GetProperties(value);
-            var properties = new PropertyDescriptor[Parameters.Length];
+            var designVariable = (DesignVariable)value;
+            PropertyDescriptorCollection propertyDescriptorCollection = TypeDescriptor.GetProperties(designVariable.Distribution);
+            var properties = new PropertyDescriptor[Parameters.Length+2];
+            properties[0] = new SimpleReadonlyPropertyDescriptorItem("Type verdeling", "De soort kansverdeling waarin deze parameter in gedefiniëerd wordt.", "DistributionType", DistributionName);
             for (int i = 0; i < Parameters.Length; i++)
             {
-                properties[i] = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], observableParent);
+                properties[i+1] = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], observableParent);
             }
+            properties[Parameters.Length + 1] = new SimpleReadonlyPropertyDescriptorItem("Rekenwaarde", "De representatieve waarde die gebruikt wordt door de berekening.", "DesignValue", designVariable.GetDesignValue());
 
             return new PropertyDescriptorCollection(properties);
         }
@@ -61,11 +66,12 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         private static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, ParameterDefinition<T> parameter, IObservable observableParent)
         {
             PropertyDescriptor originalMeanPropertyDescriptor = originalProperties.Find(parameter.PropertyName, false);
-            return new TextPropertyDescriptorDecorator(originalMeanPropertyDescriptor,
+            var reroutedPropertyDescriptor = new RoutedPropertyDescriptor(originalMeanPropertyDescriptor, o => ((DesignVariable)o).Distribution);
+            return new TextPropertyDescriptorDecorator(reroutedPropertyDescriptor,
                                                        parameter.Symbol,
                                                        parameter.Description)
             {
-                ObservableParent = observableParent
+                ObservableParent = observableParent,
             };
         }
 

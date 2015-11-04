@@ -13,14 +13,14 @@ namespace Ringtoets.Piping.Forms.TypeConverters
     /// </summary>
     /// <remarks>This class has been designed to be used in <see cref="PipingCalculationInputsProperties"/>.
     /// If its reused somewhere else, change notification might not work properly.</remarks>
-    public sealed class LognormalDistributionTypeConverter : ProbabilisticDistributionTypeConverter<LognormalDistribution>
+    public sealed class LognormalDistributionDesignVariableTypeConverter : DesignVariableTypeConverter<LognormalDistribution>
     {
         private readonly ParameterDefinition<LognormalDistribution>[] parameters;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LognormalDistributionTypeConverter"/> class.
+        /// Initializes a new instance of the <see cref="LognormalDistributionDesignVariableTypeConverter"/> class.
         /// </summary>
-        public LognormalDistributionTypeConverter()
+        public LognormalDistributionDesignVariableTypeConverter()
         {
             var lowerCaseDistributionName = DistributionName.ToLower();
             parameters = new[]

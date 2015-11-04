@@ -54,24 +54,6 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
 
         #endregion
 
-        #region Uplift parameters
-
-        [Test]
-        public void GetSandParticlesVolumicWeight_ValidPipingData_CreateDesignVariableForSandParticlesVolumicWeight()
-        {
-            // Setup
-            var pipingData = new PipingData();
-
-            // Call
-            var dampingFactorExit = PipingSemiProbabilisticDesignValueFactory.GetSandParticlesVolumicWeight(pipingData);
-
-            // Assert
-            Assert.AreSame(pipingData.SandParticlesVolumicWeight, dampingFactorExit.Distribution);
-            Assert.AreEqual(0.05, dampingFactorExit.Percentile);
-        }
-
-        #endregion
-
         #region Piping parameters
 
         [Test]

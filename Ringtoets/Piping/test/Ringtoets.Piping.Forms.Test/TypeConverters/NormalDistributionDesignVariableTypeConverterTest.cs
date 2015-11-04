@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Linq.Expressions;
 using Core.Common.Base;
 using Core.Common.Utils.PropertyBag.Dynamic;
 
@@ -16,13 +15,13 @@ using Ringtoets.Piping.Forms.TypeConverters;
 namespace Ringtoets.Piping.Forms.Test.TypeConverters
 {
     [TestFixture]
-    public class LognormalDistributionTypeConverterTest
+    public class NormalDistributionDesignVariableTypeConverterTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var converter = new LognormalDistributionTypeConverter();
+            var converter = new NormalDistributionDesignVariableTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -32,7 +31,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void CanConvertTo_DestinationTypeIsString_ReturnTrue()
         {
             // Setup
-            var converter = new LognormalDistributionTypeConverter();
+            var converter = new NormalDistributionDesignVariableTypeConverter();
 
             // Call
             var canConvert = converter.CanConvertTo(typeof(string));
@@ -42,22 +41,23 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         }
 
         [Test]
-        public void ConvertTo_DestinationTypeIsString_ReturnLognormalDistributionSpecs()
+        public void ConvertTo_DestinationTypeIsString_ReturnNormalDistributionSpecs()
         {
             // Setup
-            var distribution = new LognormalDistribution
+            var distribution = new NormalDistribution
             {
                 Mean = 1.1,
                 StandardDeviation = 2.2
             };
-            var converter = new LognormalDistributionTypeConverter();
+            var designVariable = new DesignVariable{ Distribution = distribution };
+            var converter = new NormalDistributionDesignVariableTypeConverter();
 
             // Call
-            var result = converter.ConvertTo(distribution, typeof(string));
+            var result = converter.ConvertTo(designVariable, typeof(string));
 
             // Assert
-            var expectedText = string.Format("Lognormale verdeling (\u03BC = {0}, \u03C3 = {1})",
-                                             distribution.Mean, distribution.StandardDeviation);
+            var expectedText = string.Format("{0} (\u03BC = {1}, \u03C3 = {2})",
+                                             designVariable.GetDesignValue(), distribution.Mean, distribution.StandardDeviation);
             Assert.AreEqual(expectedText, result);
         }
 
@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetPropertiesSupported_Always_ReturnTrue()
         {
             // Setup
-            var converter = new LognormalDistributionTypeConverter();
+            var converter = new NormalDistributionDesignVariableTypeConverter();
 
             // Call
             var hasSubProperties = converter.GetPropertiesSupported();
@@ -78,35 +78,53 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetProperties_Always_ReturnMeanAndStandardDeviation()
         {
             // Setup
-            var distribution = new LognormalDistribution();
-            var converter = new LognormalDistributionTypeConverter();
+            var distribution = new NormalDistribution();
+            var designVariable = new DesignVariable { Distribution = distribution };
+            var converter = new NormalDistributionDesignVariableTypeConverter();
 
             // Call
-            var properties = converter.GetProperties(distribution);
+            var properties = converter.GetProperties(designVariable);
 
             // Assert
             Assert.IsNotNull(properties);
-            Assert.AreEqual(2, properties.Count);
-            var meanPropertyDescriptor = properties[0];
+            Assert.AreEqual(4, properties.Count);
+
+            var distributionTypePropertyDescriptor = properties[0];
+            Assert.AreEqual(typeof(string), distributionTypePropertyDescriptor.PropertyType);
+            Assert.IsTrue(distributionTypePropertyDescriptor.IsReadOnly);
+            Assert.AreEqual("Type verdeling", distributionTypePropertyDescriptor.DisplayName);
+            Assert.AreEqual("De soort kansverdeling waarin deze parameter in gedefiniëerd wordt.", distributionTypePropertyDescriptor.Description);
+            Assert.AreEqual("DistributionType", distributionTypePropertyDescriptor.Name);
+            Assert.AreEqual("Normale verdeling", distributionTypePropertyDescriptor.GetValue(new object()));
+
+            var meanPropertyDescriptor = properties[1];
             Assert.AreEqual(distribution.GetType(), meanPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(double), meanPropertyDescriptor.PropertyType);
             Assert.IsFalse(meanPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("\u03BC", meanPropertyDescriptor.DisplayName);
-            Assert.AreEqual("De gemiddelde waarde van de lognormale verdeling.", meanPropertyDescriptor.Description);
+            Assert.AreEqual("De gemiddelde waarde van de normale verdeling.", meanPropertyDescriptor.Description);
 
-            var stdPropertyDescriptor = properties[1];
+            var stdPropertyDescriptor = properties[2];
             Assert.AreEqual(distribution.GetType(), stdPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(double), stdPropertyDescriptor.PropertyType);
             Assert.IsFalse(stdPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("\u03C3", stdPropertyDescriptor.DisplayName);
-            Assert.AreEqual("De standaardafwijking van de lognormale verdeling.", stdPropertyDescriptor.Description);
+            Assert.AreEqual("De standaardafwijking van de normale verdeling.", stdPropertyDescriptor.Description);
+
+            var designValuePropertyDescriptor = properties[3];
+            Assert.AreEqual(typeof(double), designValuePropertyDescriptor.PropertyType);
+            Assert.IsTrue(designValuePropertyDescriptor.IsReadOnly);
+            Assert.AreEqual("Rekenwaarde", designValuePropertyDescriptor.DisplayName);
+            Assert.AreEqual("De representatieve waarde die gebruikt wordt door de berekening.", designValuePropertyDescriptor.Description);
+            Assert.AreEqual("DesignValue", designValuePropertyDescriptor.Name);
+            Assert.AreEqual(designVariable.GetDesignValue(), designValuePropertyDescriptor.GetValue(new object()));
         }
 
         #region Integration tests
 
         [Test]
-        [TestCase(0)]
         [TestCase(1)]
+        [TestCase(2)]
         public void GivenContextOfPipingCalculationInputsPropertiesWrappedInDynamicPropertyBag_WhenSettingNewValue_ThenPipingDataNotifiedObserversOfChange(int propertyIndexToChange)
         {
             // Scenario
@@ -131,17 +149,25 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             pipingData.Attach(observer);
 
-            LognormalDistribution distribution = calculationInputsProperties.DampingFactorExit;
-
-            var properties = new LognormalDistributionTypeConverter().GetProperties(typeDescriptorContextMock, distribution);
+            DesignVariable designVariable = calculationInputsProperties.PhreaticLevelExit;
+            var properties = new NormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, designVariable);
 
             // Precondition
             Assert.IsNotNull(properties);
 
             // Event
-            properties[propertyIndexToChange].SetValue(distribution, 2.3);
+            properties[propertyIndexToChange].SetValue(designVariable, 2.3);
 
             // Result
+            switch (propertyIndexToChange)
+            {
+                case 1:
+                    Assert.AreEqual(2.3, pipingData.PhreaticLevelExit.Mean);
+                    break;
+                case 2:
+                    Assert.AreEqual(2.3, pipingData.PhreaticLevelExit.StandardDeviation);
+                    break;
+            }
             mocks.VerifyAll();
         }
 

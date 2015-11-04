@@ -64,10 +64,12 @@
     <Compile Include="PropertyClasses\PipingSoilProfilePropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\WtiProjectPropertiesTest.cs" />
-    <Compile Include="TypeConverters\LognormalDistributionTypeConverterTest.cs" />
-    <Compile Include="TypeConverters\ShiftedLognormalDistributionTypeConverterTest.cs" />
-    <Compile Include="TypeConverters\TextPropertyDescriptorDecoratorTest.cs" />
-    <Compile Include="TypeConverters\NormalDistributionTypeConverterTest.cs" />
+    <Compile Include="TypeConverters\LognormalDistributionDesignVariableTypeConverterTest.cs" />
+    <Compile Include="TypeConverters\PropertyDescriptors\RoutedPropertyDescriptorTest.cs" />
+    <Compile Include="TypeConverters\ShiftedLognormalDistributionDesignVariableTypeConverterTest.cs" />
+    <Compile Include="TypeConverters\PropertyDescriptors\SimpleReadonlyPropertyDescriptorItemTest.cs" />
+    <Compile Include="TypeConverters\PropertyDescriptors\TextPropertyDescriptorDecoratorTest.cs" />
+    <Compile Include="TypeConverters\NormalDistributionDesignVariableTypeConverterTest.cs" />
     <Compile Include="UITypeEditors\PipingCalculationInputSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingCalculationInputSoilProfileSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingCalculationInputsSurfaceLineSelectionEditorTest.cs" />

@@ -58,31 +58,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.AreEqual(name, properties.Name);
 
-            Assert.AreEqual(pipingData.PhreaticLevelExit.Mean, properties.PhreaticLevelExit.Mean);
-            Assert.AreEqual(pipingData.PhreaticLevelExit.StandardDeviation, properties.PhreaticLevelExit.StandardDeviation);
-
-            Assert.AreEqual(pipingData.DampingFactorExit.Mean, properties.DampingFactorExit.Mean);
-            Assert.AreEqual(pipingData.DampingFactorExit.StandardDeviation, properties.DampingFactorExit.StandardDeviation);
-
-            Assert.AreEqual(pipingData.ThicknessCoverageLayer.Mean, properties.ThicknessCoverageLayer.Mean);
-            Assert.AreEqual(pipingData.ThicknessCoverageLayer.StandardDeviation, properties.ThicknessCoverageLayer.StandardDeviation);
-
-            Assert.AreEqual(pipingData.SeepageLength.Mean, properties.SeepageLength.Mean);
-            Assert.AreEqual(pipingData.SeepageLength.StandardDeviation, properties.SeepageLength.StandardDeviation);
-
-            Assert.AreEqual(pipingData.Diameter70.Mean, properties.Diameter70.Mean);
-            Assert.AreEqual(pipingData.Diameter70.StandardDeviation, properties.Diameter70.StandardDeviation);
-
-            Assert.AreEqual(pipingData.DarcyPermeability.Mean, properties.DarcyPermeability.Mean);
-            Assert.AreEqual(pipingData.DarcyPermeability.StandardDeviation, properties.DarcyPermeability.StandardDeviation);
-
-            Assert.AreEqual(pipingData.ThicknessAquiferLayer.Mean, properties.ThicknessAquiferLayer.Mean);
-            Assert.AreEqual(pipingData.ThicknessAquiferLayer.StandardDeviation, properties.ThicknessAquiferLayer.StandardDeviation);
-
-            Assert.AreEqual(pipingData.SandParticlesVolumicWeight.Mean, properties.SandParticlesVolumicWeight.Mean);
-            Assert.AreEqual(pipingData.SandParticlesVolumicWeight.StandardDeviation, properties.SandParticlesVolumicWeight.StandardDeviation);
-            Assert.AreEqual(pipingData.SandParticlesVolumicWeight.Shift, properties.SandParticlesVolumicWeight.Shift);
-
+            Assert.AreSame(pipingData.PhreaticLevelExit, properties.PhreaticLevelExit.Distribution);
+            Assert.AreSame(pipingData.DampingFactorExit, properties.DampingFactorExit.Distribution);
+            Assert.AreSame(pipingData.ThicknessCoverageLayer, properties.ThicknessCoverageLayer.Distribution);
+            Assert.AreSame(pipingData.SeepageLength, properties.SeepageLength.Distribution);
+            Assert.AreSame(pipingData.Diameter70, properties.Diameter70.Distribution);
+            Assert.AreSame(pipingData.DarcyPermeability, properties.DarcyPermeability.Distribution);
+            Assert.AreSame(pipingData.ThicknessAquiferLayer, properties.ThicknessAquiferLayer.Distribution);
+            
             Assert.AreEqual(pipingData.UpliftModelFactor, properties.UpliftModelFactor);
             Assert.AreEqual(pipingData.PiezometricHeadExit, properties.PiezometricHeadExit);
             Assert.AreEqual(pipingData.PiezometricHeadPolder, properties.PiezometricHeadPolder);
@@ -94,6 +77,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(pipingData.Gravity, properties.Gravity);
             Assert.AreEqual(pipingData.WaterKinematicViscosity, properties.WaterKinematicViscosity);
             Assert.AreEqual(pipingData.WaterVolumetricWeight, properties.WaterVolumetricWeight);
+            Assert.AreEqual(pipingData.SandParticlesVolumicWeight, properties.SandParticlesVolumicWeight);
             Assert.AreEqual(pipingData.WhitesDragCoefficient, properties.WhitesDragCoefficient);
             Assert.AreEqual(pipingData.BeddingAngle, properties.BeddingAngle);
             Assert.AreEqual(pipingData.MeanDiameter70, properties.MeanDiameter70);

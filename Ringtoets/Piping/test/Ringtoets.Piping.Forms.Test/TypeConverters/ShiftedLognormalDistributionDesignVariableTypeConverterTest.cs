@@ -1,27 +1,20 @@
 ﻿using System.ComponentModel;
-using Core.Common.Base;
-using Core.Common.Utils.PropertyBag.Dynamic;
 
 using NUnit.Framework;
 
-using Rhino.Mocks;
-
-using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.PropertyClasses;
 using Ringtoets.Piping.Forms.TypeConverters;
 
 namespace Ringtoets.Piping.Forms.Test.TypeConverters
 {
     [TestFixture]
-    public class ShiftedShiftedLognormalDistributionTypeConverterTest
+    public class ShiftedLognormalDistributionDesignVariableTypeConverterTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var converter = new ShiftedLognormalDistributionTypeConverter();
+            var converter = new ShiftedLognormalDistributionDesignVariableTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -31,7 +24,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void CanConvertTo_DestinationTypeIsString_ReturnTrue()
         {
             // Setup
-            var converter = new ShiftedLognormalDistributionTypeConverter();
+            var converter = new ShiftedLognormalDistributionDesignVariableTypeConverter();
 
             // Call
             var canConvert = converter.CanConvertTo(typeof(string));
@@ -50,14 +43,15 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
                 StandardDeviation = 2.2,
                 Shift = 3.3
             };
-            var converter = new ShiftedLognormalDistributionTypeConverter();
+            var designVariable = new DesignVariable { Distribution = distribution };
+            var converter = new ShiftedLognormalDistributionDesignVariableTypeConverter();
 
             // Call
-            var result = converter.ConvertTo(distribution, typeof(string));
+            var result = converter.ConvertTo(designVariable, typeof(string));
 
             // Assert
-            var expectedText = string.Format("Verschoven lognormale verdeling (\u03BC = {0}, \u03C3 = {1}, Verschuiving = {2})",
-                                             distribution.Mean, distribution.StandardDeviation, distribution.Shift);
+            var expectedText = string.Format("{0} (\u03BC = {1}, \u03C3 = {2}, Verschuiving = {3})",
+                                             designVariable.GetDesignValue(), distribution.Mean, distribution.StandardDeviation, distribution.Shift);
             Assert.AreEqual(expectedText, result);
         }
 
@@ -65,7 +59,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         public void GetPropertiesSupported_Always_ReturnTrue()
         {
             // Setup
-            var converter = new ShiftedLognormalDistributionTypeConverter();
+            var converter = new ShiftedLognormalDistributionDesignVariableTypeConverter();
 
             // Call
             var hasSubProperties = converter.GetPropertiesSupported();
@@ -79,80 +73,53 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         {
             // Setup
             var distribution = new ShiftedLognormalDistribution();
-            var converter = new ShiftedLognormalDistributionTypeConverter();
+            var designVariable = new DesignVariable { Distribution = distribution };
+            var converter = new ShiftedLognormalDistributionDesignVariableTypeConverter();
 
             // Call
-            var properties = converter.GetProperties(distribution);
+            var properties = converter.GetProperties(designVariable);
 
             // Assert
             Assert.IsNotNull(properties);
-            Assert.AreEqual(3, properties.Count);
-            var meanPropertyDescriptor = properties[0];
+            Assert.AreEqual(5, properties.Count);
+            var distributionTypePropertyDescriptor = properties[0];
+            Assert.AreEqual(typeof(string), distributionTypePropertyDescriptor.PropertyType);
+            Assert.IsTrue(distributionTypePropertyDescriptor.IsReadOnly);
+            Assert.AreEqual("Type verdeling", distributionTypePropertyDescriptor.DisplayName);
+            Assert.AreEqual("De soort kansverdeling waarin deze parameter in gedefiniëerd wordt.", distributionTypePropertyDescriptor.Description);
+            Assert.AreEqual("DistributionType", distributionTypePropertyDescriptor.Name);
+            Assert.AreEqual("Verschoven lognormale verdeling", distributionTypePropertyDescriptor.GetValue(new object()));
+
+            var meanPropertyDescriptor = properties[1];
             Assert.AreEqual(distribution.GetType().BaseType, meanPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(double), meanPropertyDescriptor.PropertyType);
             Assert.IsFalse(meanPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("\u03BC", meanPropertyDescriptor.DisplayName);
             Assert.AreEqual("De gemiddelde waarde van de verschoven lognormale verdeling.", meanPropertyDescriptor.Description);
 
-            var stdPropertyDescriptor = properties[1];
+            var stdPropertyDescriptor = properties[2];
             Assert.AreEqual(distribution.GetType().BaseType, stdPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(double), stdPropertyDescriptor.PropertyType);
             Assert.IsFalse(stdPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("\u03C3", stdPropertyDescriptor.DisplayName);
             Assert.AreEqual("De standaardafwijking van de verschoven lognormale verdeling.", stdPropertyDescriptor.Description);
 
-            var shiftPropertyDescriptor = properties[2];
+            var shiftPropertyDescriptor = properties[3];
             Assert.AreEqual(distribution.GetType(), shiftPropertyDescriptor.ComponentType);
             Assert.AreEqual(typeof(double), shiftPropertyDescriptor.PropertyType);
             Assert.IsFalse(shiftPropertyDescriptor.IsReadOnly);
             Assert.AreEqual("Verschuiving", shiftPropertyDescriptor.DisplayName);
             Assert.AreEqual("De verschuiving van de lognormale verdeling.", shiftPropertyDescriptor.Description);
+
+            var designValuePropertyDescriptor = properties[4];
+            Assert.AreEqual(typeof(double), designValuePropertyDescriptor.PropertyType);
+            Assert.IsTrue(designValuePropertyDescriptor.IsReadOnly);
+            Assert.AreEqual("Rekenwaarde", designValuePropertyDescriptor.DisplayName);
+            Assert.AreEqual("De representatieve waarde die gebruikt wordt door de berekening.", designValuePropertyDescriptor.Description);
+            Assert.AreEqual("DesignValue", designValuePropertyDescriptor.Name);
+            Assert.AreEqual(designVariable.GetDesignValue(), designValuePropertyDescriptor.GetValue(new object()));
         }
 
-        #region Integration tests
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void GivenContextOfPipingCalculationInputsPropertiesWrappedInDynamicPropertyBag_WhenSettingNewValue_ThenPipingDataNotifiedObserversOfChange(int propertyIndexToChange)
-        {
-            // Scenario
-            var pipingData = new PipingData();
-            var calculationInputs = new PipingCalculationInputs
-            {
-                PipingData = pipingData
-            };
-            var calculationInputsProperties = new PipingCalculationInputsProperties
-            {
-                Data = calculationInputs
-            };
-            var dynamicPropertyBag = new DynamicPropertyBag(calculationInputsProperties);
-
-            var mocks = new MockRepository();
-            var typeDescriptorContextMock = mocks.StrictMock<ITypeDescriptorContext>();
-            typeDescriptorContextMock.Expect(tdc => tdc.Instance).Return(dynamicPropertyBag);
-
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            pipingData.Attach(observer);
-
-            ShiftedLognormalDistribution distribution = calculationInputsProperties.SandParticlesVolumicWeight;
-
-            var properties = new ShiftedLognormalDistributionTypeConverter().GetProperties(typeDescriptorContextMock, distribution);
-
-            // Precondition
-            Assert.IsNotNull(properties);
-
-            // Event
-            properties[propertyIndexToChange].SetValue(distribution, 2.3);
-
-            // Result
-            mocks.VerifyAll();
-        }
-
-        #endregion 
+        // TODO: Add integration test if parameter 'Saturated volumetric weight of the cover layer' can be found somewhere in the application. Probably should be a soil layer property (SoilLayer.BelowPhreaticLevel).
     }
 }

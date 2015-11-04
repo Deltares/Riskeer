@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Service
                 pipingData.SellmeijerModelFactor,
                 pipingData.SellmeijerReductionFactor,
                 PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(pipingData).GetDesignValue(),
-                PipingSemiProbabilisticDesignValueFactory.GetSandParticlesVolumicWeight(pipingData).GetDesignValue(),
+                pipingData.SandParticlesVolumicWeight,
                 pipingData.WhitesDragCoefficient,
                 PipingSemiProbabilisticDesignValueFactory.GetDiameter70(pipingData).GetDesignValue(),
                 PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(pipingData).GetDesignValue(),

@@ -475,7 +475,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             pipingData.PhreaticLevelExit.Mean = validPipingInput.PhreaticLevelExit;
             pipingData.PiezometricHeadExit = validPipingInput.PiezometricHeadExit;
             pipingData.PiezometricHeadPolder = validPipingInput.PiezometricHeadPolder;
-            pipingData.SandParticlesVolumicWeight.Mean = validPipingInput.SandParticlesVolumicWeight;
+            pipingData.SandParticlesVolumicWeight = validPipingInput.SandParticlesVolumicWeight;
             pipingData.SeepageLength.Mean = validPipingInput.SeepageLength;
             pipingData.SellmeijerModelFactor = validPipingInput.SellmeijerModelFactor;
             pipingData.SellmeijerReductionFactor = validPipingInput.SellmeijerReductionFactor;

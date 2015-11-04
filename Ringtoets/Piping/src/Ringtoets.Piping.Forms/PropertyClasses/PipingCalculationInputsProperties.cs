@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using Core.Common.Gui;
 using Core.Common.Utils;
+
+using Ringtoets.Piping.Calculation.Piping;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -95,36 +97,36 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
+        [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_DampingFactorExit_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_DampingFactorExit_Description")]
-        public LognormalDistribution DampingFactorExit
+        public DesignVariable DampingFactorExit
         {
             get
             {
-                return data.PipingData.DampingFactorExit;
+                return PipingSemiProbabilisticDesignValueFactory.GetDampingFactorExit(data.PipingData);
             }
             set
             {
-                data.PipingData.DampingFactorExit = value;
+                data.PipingData.DampingFactorExit = (LognormalDistribution)value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }
 
-        [TypeConverter(typeof(NormalDistributionTypeConverter))]
+        [TypeConverter(typeof(NormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_PhreaticLevelExit_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_PhreaticLevelExit_Description")]
-        public NormalDistribution PhreaticLevelExit
+        public DesignVariable PhreaticLevelExit
         {
             get
             {
-                return data.PipingData.PhreaticLevelExit;
+                return PipingSemiProbabilisticDesignValueFactory.GetPhreaticLevelExit(data.PipingData);
             }
             set
             {
-                data.PipingData.PhreaticLevelExit = value;
+                data.PipingData.PhreaticLevelExit = (NormalDistribution)value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -156,19 +158,19 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
+        [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_ThicknessCoverageLayer_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_ThicknessCoverageLayer_Description")]
-        public LognormalDistribution ThicknessCoverageLayer
+        public DesignVariable ThicknessCoverageLayer
         {
             get
             {
-                return data.PipingData.ThicknessCoverageLayer;
+                return PipingSemiProbabilisticDesignValueFactory.GetThicknessCoverageLayer(data.PipingData);
             }
             set
             {
-                data.PipingData.ThicknessCoverageLayer = value;
+                data.PipingData.ThicknessCoverageLayer = (LognormalDistribution)value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -205,28 +207,27 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
+        [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_SeepageLength_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_SeepageLength_Description")]
-        public LognormalDistribution SeepageLength
+        public DesignVariable SeepageLength
         {
             get
             {
-                return data.PipingData.SeepageLength;
+                return PipingSemiProbabilisticDesignValueFactory.GetSeepageLength(data.PipingData);
             }
             set
             {
-                data.PipingData.SeepageLength = value;
+                data.PipingData.SeepageLength = (LognormalDistribution)value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }
 
-        [TypeConverter(typeof(ShiftedLognormalDistributionTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_SandParticlesVolumicWeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_SandParticlesVolumicWeight_Description")]
-        public ShiftedLognormalDistribution SandParticlesVolumicWeight
+        public double SandParticlesVolumicWeight
         {
             get
             {
@@ -255,36 +256,36 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
+        [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_Diameter70_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_Diameter70_Description")]
-        public LognormalDistribution Diameter70
+        public DesignVariable Diameter70
         {
             get
             {
-                return data.PipingData.Diameter70;
+                return PipingSemiProbabilisticDesignValueFactory.GetDiameter70(data.PipingData);
             }
             set
             {
-                data.PipingData.Diameter70 = value;
+                data.PipingData.Diameter70 = (LognormalDistribution)value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }
 
-        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
+        [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_DarcyPermeability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_DarcyPermeability_Description")]
-        public LognormalDistribution DarcyPermeability
+        public DesignVariable DarcyPermeability
         {
             get
             {
-                return data.PipingData.DarcyPermeability;
+                return PipingSemiProbabilisticDesignValueFactory.GetDarcyPermeability(data.PipingData);
             }
             set
             {
-                data.PipingData.DarcyPermeability = value;
+                data.PipingData.DarcyPermeability = (LognormalDistribution)value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -321,19 +322,19 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [TypeConverter(typeof(LognormalDistributionTypeConverter))]
+        [TypeConverter(typeof(LognormalDistributionDesignVariableTypeConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_ThicknessAquiferLayer_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_ThicknessAquiferLayer_Description")]
-        public LognormalDistribution ThicknessAquiferLayer
+        public DesignVariable ThicknessAquiferLayer
         {
             get
             {
-                return data.PipingData.ThicknessAquiferLayer;
+                return PipingSemiProbabilisticDesignValueFactory.GetThicknessAquiferLayer(data.PipingData);
             }
             set
             {
-                data.PipingData.ThicknessAquiferLayer = value;
+                data.PipingData.ThicknessAquiferLayer = (LognormalDistribution)value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }

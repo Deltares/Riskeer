@@ -45,10 +45,7 @@ namespace Ringtoets.Piping.Service.Test.TestHelpers
                 {
                     Mean = 2.0
                 },
-                SandParticlesVolumicWeight =
-                {
-                    Mean = 1.0
-                },
+                SandParticlesVolumicWeight = 1.0,
                 SeepageLength =
                 {
                     Mean = 1.0

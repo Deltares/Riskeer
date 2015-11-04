@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+
 using Core.Common.Base;
 
-namespace Ringtoets.Piping.Forms.TypeConverters
+namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
 {
     /// <summary>
     /// This class allows for overriding <see cref="DisplayName"/> and <see cref="Description"/>

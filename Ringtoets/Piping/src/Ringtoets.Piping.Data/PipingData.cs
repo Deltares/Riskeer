@@ -20,8 +20,10 @@ namespace Ringtoets.Piping.Data
 
             // Defaults as they have been defined in 'functional design semi-probabilistic assessments 1209431-008-ZWS-0009 Version 2 Final'
             UpliftModelFactor = 1.0;
+            SellmeijerModelFactor = 1.0;
             WaterVolumetricWeight = 10.0;
             WhitesDragCoefficient = 0.25;
+            SandParticlesVolumicWeight = 16.5;
             WaterKinematicViscosity = 1.33e-6;
             Gravity = 9.81;
             MeanDiameter70 = 2.08e-4;
@@ -32,7 +34,6 @@ namespace Ringtoets.Piping.Data
             PhreaticLevelExit = new NormalDistribution();
             DampingFactorExit = new LognormalDistribution { Mean = 1.0 };
             ThicknessCoverageLayer = new LognormalDistribution();
-            SandParticlesVolumicWeight = new ShiftedLognormalDistribution { Mean = 16.5 };
             SeepageLength = new LognormalDistribution();
             Diameter70 = new LognormalDistribution();
             DarcyPermeability = new LognormalDistribution();
@@ -54,6 +55,12 @@ namespace Ringtoets.Piping.Data
         /// [kN/m&#179;]
         /// </summary>
         public double WaterVolumetricWeight { get; set; }
+
+        /// <summary>
+        /// Gets or sets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
+        /// [kN/m&#179;]
+        /// </summary>
+        public double SandParticlesVolumicWeight { get; set; }
 
         /// <summary>
         /// Gets or sets the White's drag coefficient.
@@ -155,12 +162,6 @@ namespace Ringtoets.Piping.Data
         /// [m]
         /// </summary>
         public LognormalDistribution ThicknessCoverageLayer { get; set; }
-
-        /// <summary>
-        /// Gets or sets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
-        /// [kN/m&#179;]
-        /// </summary>
-        public ShiftedLognormalDistribution SandParticlesVolumicWeight { get; set; }
 
         /// <summary>
         /// Gets or sets the damping factor at the exit point.
