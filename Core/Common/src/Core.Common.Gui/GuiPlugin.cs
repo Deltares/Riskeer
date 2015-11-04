@@ -52,11 +52,6 @@ namespace Core.Common.Gui
         }
 
         /// <summary>
-        ///  ResourceManger of plugin. Default Properties.Resources.
-        ///  </summary>
-        public virtual ResourceManager Resources { get; set; }
-
-        /// <summary>
         /// Returns all property information objects supported by the plugin
         /// </summary>
         public virtual IEnumerable<PropertyInfo> GetPropertyInfos()

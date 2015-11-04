@@ -171,16 +171,6 @@ namespace Core.Common.Base
             }
         }
 
-        /// <summary>
-        /// Sets plugin resources, resource manager will automatically select culture-aware resource file.
-        /// </summary>
-        /// <param name="plugin"></param>
-        public static void InitializePluginResources(IPlugin plugin)
-        {
-            var resourceName = plugin.GetType().Assembly.FullName.Split(',')[0] + ".Properties.Resources";
-            plugin.Resources = new ResourceManager(resourceName, plugin.GetType().Assembly);
-        }
-
         public string GetUserSettingsDirectoryPath()
         {
             return SettingsHelper.GetApplicationLocalUserSettingsDirectory();
@@ -233,8 +223,6 @@ namespace Core.Common.Base
             CreateNewProject();
 
             log.Info(Properties.Resources.DeltaShellApplication_Run_Activating_plugins____);
-            InitializePluginResources();
-
             ActivatePlugins();
 
             RegisterDataTypes();
@@ -449,14 +437,6 @@ namespace Core.Common.Base
             }
 
             log.Debug(Properties.Resources.DeltaShellApplication_InitializeLicense_License_is_initialized_);
-        }
-
-        private void InitializePluginResources()
-        {
-            foreach (var plugin in Plugins)
-            {
-                InitializePluginResources(plugin);
-            }
         }
 
         private void RegisterDataTypes()

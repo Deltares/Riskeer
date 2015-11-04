@@ -650,8 +650,6 @@ namespace Application.Ringtoets
         {
             InitializeWindows();
 
-            InitializePluginResources();
-
             Plugins.ForEach(p => p.Gui = this);
 
             ActivatePlugins();
@@ -1077,14 +1075,6 @@ namespace Application.Ringtoets
             }
 
             mainWindow.ResumeLayout();
-        }
-
-        private void InitializePluginResources()
-        {
-            foreach (var p in Plugins)
-            {
-                DeltaShellApplication.InitializePluginResources(p);
-            }
         }
 
         private void CopyDefaultViewsFromUserSettings()

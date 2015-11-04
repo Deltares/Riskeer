@@ -51,7 +51,6 @@ namespace Core.Common.Tests.Core
             var plugin = mocks.StrictMock<ApplicationPlugin>();
 
             Expect.Call(plugin.Application = null).IgnoreArguments();
-            Expect.Call(plugin.Resources = null).IgnoreArguments();
             Expect.Call(plugin.Deactivate);
             Expect.Call(plugin.GetDataItemInfos()).Return(new List<DataItemInfo>()).Repeat.Any();
             Expect.Call(plugin.GetFileImporters()).Return(new List<IFileImporter>());

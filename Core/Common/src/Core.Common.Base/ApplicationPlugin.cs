@@ -15,11 +15,6 @@ namespace Core.Common.Base
         public virtual IApplication Application { get; set; }
 
         /// <summary>
-        ///  ResourceManger of plugin. Default Properties.Resources.
-        ///  </summary>
-        public virtual ResourceManager Resources { get; set; }
-
-        /// <summary>
         /// Provides information about data that can be created
         /// </summary>
         public virtual IEnumerable<DataItemInfo> GetDataItemInfos()
