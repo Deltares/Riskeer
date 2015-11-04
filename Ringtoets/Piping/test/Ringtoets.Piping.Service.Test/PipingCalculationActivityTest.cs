@@ -89,34 +89,6 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void Execute_InvalidPipingDataAndInitialized_ErrorLoggedAndOutputNullWithStartAndEnd()
-        {
-            // Setup
-            var validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
-            validPipingData.Diameter70.Mean = 0;
-            validPipingData.DarcyPermeability.Mean = 0;
-            validPipingData.Output = new TestPipingOutput();
-
-            var activity = new PipingCalculationActivity(validPipingData);
-            activity.Initialize();
-
-            // Call
-            Action call = () => activity.Execute();
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' gestart om: ", validPipingData.Name), msgs.First());
-                StringAssert.StartsWith("Piping berekening niet gelukt: ", msgs[1]);
-                StringAssert.StartsWith(String.Format("Berekening van '{0}' beëindigd om: ", validPipingData.Name), msgs.Last());
-            });
-            Assert.AreEqual(ActivityStatus.Done, activity.Status);
-            Assert.IsNull(validPipingData.Output);
-        }
-
-        [Test]
         public void Execute_ValidPipingDataAndInitialized_PerformPipingCalculationAndLogStartAndEnd()
         {
             // Setup

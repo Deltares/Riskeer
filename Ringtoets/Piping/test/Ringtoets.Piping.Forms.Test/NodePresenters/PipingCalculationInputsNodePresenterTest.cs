@@ -384,7 +384,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GivenInvalidPipingData_WhenCalculatingFromContextMenu_ThenPipingDataNotifiesObserversAndLogMessageAdded()
         {
             // Given
-            var expectedValidationMessageCount = 7;
+            var expectedValidationMessageCount = 2; // No surfaceline or soil profile selected for calculation
 
             var observer = mockRepository.StrictMock<IObserver>();
             mockRepository.ReplayAll();
@@ -434,7 +434,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GivenInvalidPipingData_WhenValidatingFromContextMenu_ThenLogMessageAddedAndNoNotifyObserver()
         {
             // Given
-            var expectedValidationMessageCount = 7;
+            var expectedValidationMessageCount = 2; // No surfaceline or soil profile selected for calculation
             var expectedStatusMessageCount = 2;
             var expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
 

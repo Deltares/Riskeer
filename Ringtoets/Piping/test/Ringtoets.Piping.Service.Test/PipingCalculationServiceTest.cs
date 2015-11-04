@@ -111,22 +111,5 @@ namespace Ringtoets.Piping.Service.Test
             // Assert
             Assert.AreNotSame(output, validPipingData.Output);
         }
-
-        [Test]
-        public void PerformValidatedCalculation_Diameter70AndAquiferPermeabilityZero_CalculationErrorOutputNull()
-        {
-            // Setup
-            PipingData validPipingData = PipingDataFactory.CreateCalculationWithValidInput();
-            validPipingData.Diameter70.Mean = 0;
-            validPipingData.DarcyPermeability.Mean = 0;
-
-            // Call
-            var isValid = PipingCalculationService.Validate(validPipingData);
-            PipingCalculationService.Calculate(validPipingData);
-
-            // Assert
-            Assert.IsTrue(isValid);
-            Assert.IsNull(validPipingData.Output);
-        }
     }
 }
