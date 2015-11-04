@@ -6,33 +6,35 @@ namespace Ringtoets.Piping.IO.Builders
     /// <summary>
     /// Helps in the creation of a <see cref="PipingSoilProfile"/>.
     /// </summary>
-    public class SoilProfileBuilder1D : ISoilProfileBuilder
+    public class SoilProfileBuilder1D
     {
+        private readonly Collection<PipingSoilLayer> layers;
+        private readonly string name;
+        private readonly double bottom;
+
         internal SoilProfileBuilder1D(string name, double bottom)
         {
-            Name = name;
-            Bottom = bottom;
-            Layers = new Collection<PipingSoilLayer>();
+            this.name = name;
+            this.bottom = bottom;
+            layers = new Collection<PipingSoilLayer>();
         }
 
-        private Collection<PipingSoilLayer> Layers { get; set; }
-
-        private string Name { get; set; }
-
-        private double Bottom { get; set; }
-
+        /// <summary>
+        /// Creates a new instances of the <see cref="PipingSoilProfile"/> based on the layer definitions.
+        /// </summary>
+        /// <returns>A new <see cref="PipingSoilProfile"/>.</returns>
         public PipingSoilProfile Build()
         {
-            return new PipingSoilProfile(Name, Bottom, Layers);
+            return new PipingSoilProfile(name, bottom, layers);
         }
 
         /// <summary>
         /// Adds a new <see cref="PipingSoilLayer"/>, which will be added to the <see cref="PipingSoilProfile"/>.
         /// </summary>
-        /// <param name="soilLayer"></param>
+        /// <param name="soilLayer">The <see cref="PipingSoilLayer"/> to add.</param>
         internal void Add(PipingSoilLayer soilLayer)
         {
-            Layers.Add(soilLayer);
+            layers.Add(soilLayer);
         }
     }
 }

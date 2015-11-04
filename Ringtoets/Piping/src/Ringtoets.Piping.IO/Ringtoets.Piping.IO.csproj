@@ -41,7 +41,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Builders\ISoilProfileBuilder.cs" />
+    <Compile Include="Builders\SoilProfileBuilderException.cs" />
     <Compile Include="Builders\SoilLayer2D.cs" />
     <Compile Include="Builders\SoilLayer2DConversionException.cs" />
     <Compile Include="Builders\SoilProfileBuilder1D.cs" />

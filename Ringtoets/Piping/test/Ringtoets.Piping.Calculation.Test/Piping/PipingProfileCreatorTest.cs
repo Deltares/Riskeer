@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             var soilProfile = new PipingSoilProfile(string.Empty, expectedBottom, layers);
 
             // Precondition
-            CollectionAssert.AreNotEqual(layers, layers.OrderByDescending(l => l.Top), "Layers were already ordered.");
+            CollectionAssert.AreNotEqual(layers, layers.OrderByDescending(l => l.Top), "Layer collection should not be in descending order by the Top property.");
 
             // Call
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);

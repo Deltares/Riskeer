@@ -186,4 +186,10 @@
   <data name="PipingSoilProfileReader_DatabaseFileIncorrectVersions_Requires_0" xml:space="preserve">
     <value>De database heeft niet de vereiste versie informatie. Vereiste versie is: {0}.</value>
   </data>
+  <data name="Error_Collections_of_lines_coordinates_need_length_of_0_" xml:space="preserve">
+    <value>Collecties van de x en y coordinaten van lijnen vereisen een lengte van 4.</value>
+  </data>
+  <data name="PipingSoilProfileReader_Could_not_build_profile_0_from_layer_definitions" xml:space="preserve">
+    <value>Kon profiel '{0}' niet opbouwen vanuit de gegevens uit de database.</value>
+  </data>
 </root>

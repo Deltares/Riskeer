@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreNotSame(equivalentLayers, profile.Layers);
-            CollectionAssert.AreEquivalent(equivalentLayers, profile.Layers);
+            CollectionAssert.AreEqual(equivalentLayers, profile.Layers);
             Assert.AreEqual(name, profile.Name);
             Assert.AreEqual(bottom, profile.Bottom);
         }

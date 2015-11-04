@@ -57,7 +57,9 @@ namespace Ringtoets.Piping.IO.Builders
         /// </summary>
         /// <param name="atX">The point from which to take a 1D profile.</param>
         /// <param name="bottom">The bottom level of the <see cref="PipingSoilLayer"/>.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="PipingSoilLayer"/>.</returns>
+        /// <exception cref="SoilLayer2DConversionException">Thrown when any of the <see cref="InnerLoops"/> or
+        /// <see cref="OuterLoop"/> contain a vertical line at <paramref name="atX"/>.</exception>
         internal IEnumerable<PipingSoilLayer> AsPipingSoilLayers(double atX, out double bottom)
         {
             bottom = Double.MaxValue;
@@ -143,6 +145,16 @@ namespace Ringtoets.Piping.IO.Builders
             return result;
         }
 
+        /// <summary>
+        /// Gets a <see cref="Collection{T}"/> of heights where the <paramref name="loop"/> intersects the 
+        /// vertical line at <paramref name="atX"/>.
+        /// </summary>
+        /// <param name="loop">The <see cref="HashSet{T}"/> of <see cref="Point3D"/> which together create a loop.</param>
+        /// <param name="atX">The point on the x-axis where the vertical line is constructed do determine intersections with.</param>
+        /// <returns>A <see cref="Collection{T}"/> of <see cref="double"/>, representing the height at which the 
+        /// <paramref name="loop"/> intersects the vertical line at <paramref name="atX"/>.</returns>
+        /// <exception cref="SoilLayer2DConversionException">Thrown when a segment is vertical at <see cref="atX"/> and thus
+        /// no deterministic intersection points can be determined.</exception>
         private Collection<double> GetLoopIntersectionHeights(HashSet<Point3D> loop, double atX)
         {
             Collection<double> intersectionPointY = new Collection<double>();

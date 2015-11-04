@@ -98,13 +98,13 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "..1..2..",
-                "........",
-                "..8.7...",
-                "..5.6...",
-                "..4..3..",
-                "........"));
+                                                                               "6",
+                                                                               "..1..2..",
+                                                                               "........",
+                                                                               "..8.7...",
+                                                                               "..5.6...",
+                                                                               "..4..3..",
+                                                                               "........"));
 
             var layer = new SoilLayer2D
             {
@@ -126,22 +126,22 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine, 
-                "6",
-                "..1..2..",
-                "........",
-                "........",
-                "........",
-                "........",
-                "..4..3.."));
+                                                                               "6",
+                                                                               "..1..2..",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               "..4..3.."));
 
             var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "........",
-                "...12...",
-                "........",
-                "........",
-                "...43...",
-                "........"));
+                                                                               "6",
+                                                                               "........",
+                                                                               "...12...",
+                                                                               "........",
+                                                                               "........",
+                                                                               "...43...",
+                                                                               "........"));
 
             var layer = new SoilLayer2D
             {
@@ -167,22 +167,22 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "..1..2..",
-                "........",
-                "........",
-                "........",
-                "........",
-                "..4..3.."));
+                                                                               "6",
+                                                                               "..1..2..",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               "..4..3.."));
 
             var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "........",
-                "...1.2..",
-                "...87...",
-                "...56...",
-                "...4.3..",
-                "........"));
+                                                                               "6",
+                                                                               "........",
+                                                                               "...1.2..",
+                                                                               "...87...",
+                                                                               "...56...",
+                                                                               "...4.3..",
+                                                                               "........"));
 
             var layer = new SoilLayer2D
             {
@@ -208,31 +208,31 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "..1..2..",
-                "........",
-                "........",
-                "........",
-                "........",
-                "..4..3.."));
+                                                                               "6",
+                                                                               "..1..2..",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               "..4..3.."));
 
             var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "........",
-                "...12...",
-                "...43...",
-                "........",
-                "........",
-                "........"));
+                                                                               "6",
+                                                                               "........",
+                                                                               "...12...",
+                                                                               "...43...",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........"));
 
             var innerLoop2 = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "........",
-                "........",
-                "........",
-                "........",
-                "...12...",
-                "........"));
+                                                                                "6",
+                                                                                "........",
+                                                                                "........",
+                                                                                "........",
+                                                                                "........",
+                                                                                "...12...",
+                                                                                "........"));
 
             var layer = new SoilLayer2D
             {
@@ -259,22 +259,22 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "..1..2..",
-                "........",
-                "........",
-                "........",
-                ".4....3.",
-                "........"));
+                                                                               "6",
+                                                                               "..1..2..",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               ".4....3.",
+                                                                               "........"));
 
             var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "........",
-                "........",
-                "........",
-                "...12...",
-                "........",
-                "...43..."));
+                                                                               "6",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               "...12...",
+                                                                               "........",
+                                                                               "...43..."));
 
             var layer = new SoilLayer2D
             {
@@ -300,31 +300,31 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "..1..2..",
-                "........",
-                "........",
-                "........",
-                ".4....3.",
-                "........"));
+                                                                               "6",
+                                                                               "..1..2..",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               ".4....3.",
+                                                                               "........"));
 
             var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "........",
-                "...12...",
-                "........",
-                "...43...",
-                "........",
-                "........"));
+                                                                               "6",
+                                                                               "........",
+                                                                               "...12...",
+                                                                               "........",
+                                                                               "...43...",
+                                                                               "........",
+                                                                               "........"));
 
             var innerLoop2 = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "........",
-                "........",
-                "...12...",
-                "........",
-                "........",
-                "...43..."));
+                                                                                "6",
+                                                                                "........",
+                                                                                "........",
+                                                                                "...12...",
+                                                                                "........",
+                                                                                "........",
+                                                                                "...43..."));
 
             var layer = new SoilLayer2D
             {
@@ -351,22 +351,22 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "..1..2..",
-                "........",
-                "........",
-                "........",
-                ".4....3.",
-                "........"));
+                                                                               "6",
+                                                                               "..1..2..",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               ".4....3.",
+                                                                               "........"));
 
             var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "........",
-                "........",
-                "...12...",
-                "........",
-                "...43...",
-                "........"));
+                                                                               "6",
+                                                                               "........",
+                                                                               "........",
+                                                                               "...12...",
+                                                                               "........",
+                                                                               "...43...",
+                                                                               "........"));
 
             var layer = new SoilLayer2D
             {
@@ -392,22 +392,22 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "........",
-                "..1..2..",
-                "........",
-                "........",
-                ".4....3.",
-                "........"));
+                                                                               "6",
+                                                                               "........",
+                                                                               "..1..2..",
+                                                                               "........",
+                                                                               "........",
+                                                                               ".4....3.",
+                                                                               "........"));
 
             var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "...43...",
-                "........",
-                "...12...",
-                "........",
-                "........",
-                "........"));
+                                                                               "6",
+                                                                               "...43...",
+                                                                               "........",
+                                                                               "...12...",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........"));
 
             var layer = new SoilLayer2D
             {
@@ -433,22 +433,22 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "..1..2..",
-                "........",
-                "........",
-                "........",
-                ".4....3.",
-                "........"));
+                                                                               "6",
+                                                                               "..1..2..",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               ".4....3.",
+                                                                               "........"));
 
             var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "...43...",
-                "........",
-                "...12...",
-                "........",
-                "........",
-                "........"));
+                                                                               "6",
+                                                                               "...43...",
+                                                                               "........",
+                                                                               "...12...",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........"));
 
             var layer = new SoilLayer2D
             {
@@ -475,13 +475,13 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             var atX = 2.0;
             var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "..1..2..",
-                "........",
-                "........",
-                "........",
-                "........",
-                "..4..3.."));
+                                                                               "6",
+                                                                               "..1..2..",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               "..4..3.."));
 
             var layer = new SoilLayer2D
             {
@@ -503,22 +503,22 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             var atX = 3.0;
             var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "..1..2..",
-                "........",
-                "........",
-                "........",
-                "........",
-                "..4..3.."));
+                                                                               "6",
+                                                                               "..1..2..",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               "........",
+                                                                               "..4..3.."));
 
             var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                "6",
-                "........",
-                "...1.2..",
-                "........",
-                "........",
-                "...4.3..",
-                "........"));
+                                                                               "6",
+                                                                               "........",
+                                                                               "...1.2..",
+                                                                               "........",
+                                                                               "........",
+                                                                               "...4.3..",
+                                                                               "........"));
 
             var layer = new SoilLayer2D
             {

@@ -126,33 +126,62 @@ namespace Ringtoets.Piping.IO
         /// </summary>
         /// <returns>A new <see cref="PipingSoilProfile"/> with information from the database.</returns>
         /// <exception cref="PipingSoilProfileReadException">Thrown when a layer's geometry could not be parsed as XML.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when no valid point to obtain a one-dimensional
+        /// intersection from was read from the database, or when after reading layers, no layers were added
+        /// to be build.</exception>
         private PipingSoilProfile ReadPipingProfile2D()
         {
             var profileName = TryRead<string>(profileNameColumn);
             var layerCount = TryRead<long>(layerCountColumn);
             var intersectionX = TryRead<double>(intersectionXColumn);
 
-            var soilProfileBuilder = new SoilProfileBuilder2D(profileName, intersectionX);
-
-            for (int i = 1; i <= layerCount; i++)
+            try
             {
-                try
-                {
-                    soilProfileBuilder.Add(ReadPiping2DSoilLayer());
-                }
-                catch (XmlException e)
-                {
-                    var exception = new PipingSoilProfileReadException(
-                        string.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, i, profileName), e);
+                var soilProfileBuilder = new SoilProfileBuilder2D(profileName, intersectionX);
 
-                    SkipRecords((int)layerCount + 1 - i);
-
-                    throw exception;
+                for (int i = 1; i <= layerCount; i++)
+                {
+                    try
+                    {
+                        soilProfileBuilder.Add(ReadPiping2DSoilLayer());
+                    }
+                    catch (SoilLayer2DConversionException e)
+                    {
+                        HandleLayerParseException(layerCount, i, profileName, e);
+                    }
+                    catch (XmlException e)
+                    {
+                        HandleLayerParseException(layerCount, i, profileName, e);
+                    }
+                    MoveNext();
                 }
-                MoveNext();
+
+                return soilProfileBuilder.Build();
             }
+            catch (ArgumentException e)
+            {
+                HandleCriticalBuildException(profileName, e);
+            }
+            catch (SoilProfileBuilderException e)
+            {
+                HandleCriticalBuildException(profileName, e);
+            }
+            return null;
+        }
 
-            return soilProfileBuilder.Build();
+        private static void HandleCriticalBuildException(string profileName, Exception e)
+        {
+            var message = string.Format(Resources.PipingSoilProfileReader_Could_not_build_profile_0_from_layer_definitions, profileName);
+            throw new CriticalFileReadException(message, e);
+        }
+
+        private void HandleLayerParseException(long layerCount, int i, string profileName, Exception e)
+        {
+            SkipRecords((int) layerCount + 1 - i);
+            var exception = new PipingSoilProfileReadException(
+                string.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, i, profileName), e);
+
+            throw exception;
         }
 
         private void SkipRecords(int count)

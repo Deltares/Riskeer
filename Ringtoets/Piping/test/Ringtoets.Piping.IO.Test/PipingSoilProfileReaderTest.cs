@@ -77,11 +77,122 @@ namespace Ringtoets.Piping.IO.Test
                     pipingSoilProfileReader.ReadProfile();
                 }
 
+                // Call & Assert
+                Assert.IsNull(pipingSoilProfileReader.ReadProfile());
+            }
+        }
+
+        [Test]
+        public void ReadProfile_DatabaseWith1DAnd2DProfilesWithSameName_ReturnTwoProfilesWithSameName()
+        {
+            // Setup
+            var testFile = "combined1d2d.soil";
+            var dbFile = Path.Combine(testDataPath, testFile);
+
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(dbFile))
+            {
+                var result = new Collection<PipingSoilProfile>();
+
                 // Call
-                var profile = pipingSoilProfileReader.ReadProfile();
+                while (pipingSoilProfilesReader.HasNext)
+                {
+                    result.Add(pipingSoilProfilesReader.ReadProfile());
+                }
 
                 // Assert
-                Assert.IsNull(profile);
+                Assert.AreEqual(2, result.Count);
+                Assert.AreEqual(result[0].Name, result[1].Name);
+            }
+        }
+
+        [Test]
+        public void ReadProfile_DatabaseProfileWithInvalid2dLayerGeometry_SkipsTheProfile()
+        {
+            // Setup
+            var testFile = "invalid2dGeometry.soil";
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            {
+                // Call
+                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
+
+                // Assert
+                var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
+                var message = String.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, 1, "Profile");
+                Assert.AreEqual(message, exception.Message);
+
+                // Call
+                var pipingSoilProfile = pipingSoilProfilesReader.ReadProfile();
+
+                // Assert
+                Assert.AreEqual("Profile2", pipingSoilProfile.Name);
+                Assert.AreEqual(3, pipingSoilProfile.Layers.Count());
+
+                Assert.IsTrue(FileHelper.CanOpenFileForWrite(testFile));
+            }
+        }
+
+        [Test]
+        public void ReadProfile_DatabaseProfileWithoutValuesForLayerProperties_ReturnsProfileWithAllLayers()
+        {
+            // Setup
+            var testFile = "1dprofileNoValues.soil";
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            {
+                // Call
+                var profile = pipingSoilProfilesReader.ReadProfile();
+
+                // Assert
+                var nullCollection = new double?[]
+                {
+                    null,
+                    null,
+                    null
+                };
+                Assert.AreEqual("Profile", profile.Name);
+                Assert.AreEqual(3, profile.Layers.Count());
+                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.IsAquifer));
+                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.AbovePhreaticLevel));
+                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.BelowPhreaticLevel));
+                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.DryUnitWeight));
+            }
+        }
+
+        [Test]
+        public void ReadProfile_DatabaseWith1DProfile3Layers_ReturnsProfile()
+        {
+            // Setup
+            var testFile = "1dprofile.soil";
+            var dbFile = Path.Combine(testDataPath, testFile);
+            using (var reader = new PipingSoilProfileReader(dbFile))
+            {
+                // Call
+                var profile = reader.ReadProfile();
+
+                // Assert
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.0,
+                    0.0,
+                    1.0
+                }, profile.Layers.Select(l => l.IsAquifer));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.001,
+                    0.001,
+                    0.001
+                }, profile.Layers.Select(l => l.AbovePhreaticLevel));
+                CollectionAssert.AreEqual(new[]
+                {
+                    0.001,
+                    0.001,
+                    0.001
+                }, profile.Layers.Select(l => l.BelowPhreaticLevel));
+                CollectionAssert.AreEqual(new double?[]
+                {
+                    null,
+                    null,
+                    null
+                }, profile.Layers.Select(l => l.DryUnitWeight));
             }
         }
 
@@ -134,98 +245,6 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
-        public void ReadProfile_DatabaseWith1DProfile3Layers_ReturnsProfile()
-        {
-            // Setup
-            var testFile = "1dprofile.soil";
-            var dbFile = Path.Combine(testDataPath, testFile);
-            using(var reader = new PipingSoilProfileReader(dbFile)){
-                // Call
-                var profile = reader.ReadProfile();
-
-            // Assert
-            CollectionAssert.AreEqual(new[] {0.0, 0.0, 1.0}, profile.Layers.Select(l => l.IsAquifer));
-            CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, profile.Layers.Select(l => l.AbovePhreaticLevel));
-            CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, profile.Layers.Select(l => l.BelowPhreaticLevel));
-                CollectionAssert.AreEqual(new double?[] { null, null, null }, profile.Layers.Select(l => l.DryUnitWeight));
-                Assert.AreEqual(3,profile.Layers.Count());
-            }
-        }
-
-        [Test]
-        public void Read_DatabaseWith1DAnd2DProfilesWithSameName_ReturnTwoProfilesWithSameName()
-        {
-            // Setup
-            var testFile = "combined1d2d.soil";
-            var dbFile = Path.Combine(testDataPath, testFile);
-
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(dbFile))
-            {
-                var result = new Collection<PipingSoilProfile>();
-
-                // Call
-                while (pipingSoilProfilesReader.HasNext)
-                {
-                    result.Add(pipingSoilProfilesReader.ReadProfile());
-                }
-
-                // Assert
-                Assert.AreEqual(2, result.Count);
-                Assert.AreEqual(result[0].Name, result[1].Name);
-            }
-        }
-
-        [Test]
-        public void Read_DatabaseProfileWithInvalid2dLayerGeometry_SkipsTheProfile()
-        {
-            // Setup
-            var testFile = "invalid2dGeometry.soil";
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
-            {
-                // Call
-                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
-                Func<PipingSoilProfile> profile2 = () => pipingSoilProfilesReader.ReadProfile();
-
-                // Assert
-                var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
-                var message = String.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, 1, "Profile");
-                Assert.AreEqual(message, exception.Message);
-
-                var pipingSoilProfile = profile2();
-                Assert.AreEqual("Profile2", pipingSoilProfile.Name);
-                Assert.AreEqual(3, pipingSoilProfile.Layers.Count());
-
-                Assert.IsTrue(FileHelper.CanOpenFileForWrite(testFile));
-            }
-        }
-
-        [Test]
-        public void Read_DatabaseProfileWithoutValuesForLayerProperties_ReturnsProfileWithAllLayers()
-        {
-            // Setup
-            var testFile = "1dprofileNoValues.soil";
-            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
-            {
-                // Call
-                var profile = pipingSoilProfilesReader.ReadProfile();
-
-                // Assert
-                var nullCollection = new double?[]
-                {
-                    null,
-                    null,
-                    null
-                };
-                Assert.AreEqual("Profile", profile.Name);
-                Assert.AreEqual(3, profile.Layers.Count());
-                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.IsAquifer));
-                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.AbovePhreaticLevel));
-                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.BelowPhreaticLevel));
-                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.DryUnitWeight));
-            }
-        }
-
-        [Test]
         [SetCulture("nl-NL")]
         public void GivenDatabaseWith1DProfileAndDutchLocale_WhenReadingTheCompleteDatabase_ReturnsCompleteSoilProfile()
         {
@@ -253,7 +272,7 @@ namespace Ringtoets.Piping.IO.Test
             GivenACompleteDatabase_WhenReadingTheCompleteDatabase_Returns2ProfilesWithLayersAndGeometries();
         }
 
-        public void GivenDatabaseWith1DProfile_WhenReadingTheCompleteDatabase_ReturnsCompleteSoilProfile()
+        private void GivenDatabaseWith1DProfile_WhenReadingTheCompleteDatabase_ReturnsCompleteSoilProfile()
         {
             // Setup
             var testFile = "1dprofile.soil";
@@ -313,11 +332,12 @@ namespace Ringtoets.Piping.IO.Test
                 // Assert
                 Assert.AreEqual(0, skipped);
                 Assert.AreEqual(26, result.Count);
-                CollectionAssert.AreEquivalent(new[]
+                CollectionAssert.AreEqual(new[]
                 {
                     "AD640M00_Segment_36005_1D1",
                     "AD640M00_Segment_36005_1D2",
                     "Segment_36005_1D1",
+                    "Segment_36005_1D10",
                     "Segment_36005_1D2",
                     "Segment_36005_1D3",
                     "Segment_36005_1D4",
@@ -326,7 +346,6 @@ namespace Ringtoets.Piping.IO.Test
                     "Segment_36005_1D7",
                     "Segment_36005_1D8",
                     "Segment_36005_1D9",
-                    "Segment_36005_1D10",
                     "Segment_36006_1D1",
                     "Segment_36006_1D2",
                     "Segment_36006_1D3",
@@ -343,7 +362,7 @@ namespace Ringtoets.Piping.IO.Test
                     "Segment_36007_1D8"
                 }, result.Select(p => p.Name));
 
-                CollectionAssert.AreEquivalent(new[]
+                CollectionAssert.AreEqual(new[]
                 {
                     -39.999943172545208,
                     -45,
@@ -373,19 +392,19 @@ namespace Ringtoets.Piping.IO.Test
                     -21
                 }, result.Select(p => p.Bottom));
 
-                CollectionAssert.AreEquivalent(new[]
+                CollectionAssert.AreEqual(new[]
                 {
                     9,
                     8,
                     8,
-                    6,
-                    6,
-                    5,
-                    5,
-                    6,
-                    4,
-                    4,
                     3,
+                    6,
+                    6,
+                    5,
+                    5,
+                    6,
+                    4,
+                    4,
                     3,
                     7,
                     7,

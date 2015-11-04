@@ -37,7 +37,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Assert.AreEqual(ApplicationResources.Wti_application_name, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
-            CollectionAssert.AreEqual(new[] { typeof(IEnumerable<PipingSoilProfile>) }, importer.SupportedItemTypes);
+            CollectionAssert.AreEqual(new[] { typeof(ObservableList<PipingSoilProfile>) }, importer.SupportedItemTypes);
             Assert.IsFalse(importer.CanImportOnRootLevel);
             Assert.AreEqual(expectedFileFilter, importer.FileFilter);
             Assert.IsNull(importer.TargetDataDirectory);

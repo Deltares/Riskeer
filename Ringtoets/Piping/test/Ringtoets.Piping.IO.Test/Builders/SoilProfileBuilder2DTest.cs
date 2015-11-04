@@ -32,14 +32,14 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void Constructor_WithNameValidX_ReturnsNewInstance(string name)
         {
             // Call
-            var builder = new SoilProfileBuilder2D(name, 0.0);
+            TestDelegate test = () => new SoilProfileBuilder2D(name, 0.0);
 
             // Assert
-            Assert.NotNull(builder);
+            Assert.DoesNotThrow(test);
         }
 
         [Test]
-        public void Build_WithOutLayers_ThrowsArgumentException()
+        public void Build_WithOutLayers_ThrowsSoilProfileBuilderException()
         {
             // Setup
             var profileName = "SomeProfile";
@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             TestDelegate test = () => builder.Build();
 
             // Assert
-            Assert.Throws<ArgumentException>(test);
+            Assert.Throws<SoilProfileBuilderException>(test);
         }
 
         [Test]

@@ -8,98 +8,86 @@ namespace Ringtoets.Piping.IO.Test.Calculation
 {
     public class Math2DTest
     {
+        #region testcases
+
+        /// <summary>
+        /// Test cases for intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
+        /// which represent the coordinate of a point. Each pair of coordinates form a segment. 
+        /// The last 2 double values are the expected intersection points.
+        /// </summary>
         private static readonly double[][] IntersectingSegments =
         {
             // \/
             // /\
             new[]
             {
-                0.0,
-                0.0,
-                1.0,
-                1.0,
-                1.0,
-                0.0,
-                0.0,
-                1.0,
-                0.5,
-                0.5
+                0.0,0.0,
+                1.0,1.0,
+                1.0,0.0,
+                0.0,1.0,
+                0.5,0.5
             },
             // __
             //  /
             // /
             new[]
             {
-                0.0,
-                0.0,
-                1.0,
-                1.0,
-                0.0,
-                1.0,
-                1.0,
-                1.0,
-                1.0,
-                1.0
+                0.0,0.0,
+                1.0,1.0,
+                0.0,1.0,
+                1.0,1.0,
+                1.0,1.0
             },
             // 
             //  /
             // /__
             new[]
             {
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                0.0,
-                1.0,
-                1.0,
-                0.0,
-                0.0
+                0.0,0.0,
+                1.0,0.0,
+                0.0,0.0,
+                1.0,1.0,
+                0.0,0.0
             }
         };
 
+        /// <summary>
+        /// Test cases for parallel segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
+        /// which represent the coordinate of a point. Each pair of coordinates form a segment.
+        /// </summary>
         private static readonly double[][] ParallelSegments =
         {
             // __
             // __
             new[]
             {
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.0,
-                1.0,
-                1.0,
-                1.0
+                0.0,0.0,
+                1.0,0.0,
+                0.0,1.0,
+                1.0,1.0
             },
             // ____ (connected in single point)
             new[]
             {
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                1.0,
-                0.0,
-                2.0,
-                0.0
+                0.0,0.0,
+                1.0,0.0,
+                1.0,0.0,
+                2.0,0.0
             },
             // __ (overlap)
             new[]
             {
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.5,
-                0.0,
-                1.5,
-                0.0
+                0.0,0.0,
+                1.0,0.0,
+                0.5,0.0,
+                1.5,0.0
             }
         };
 
+        /// <summary>
+        /// Test cases for non intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
+        /// which represent the coordinate of a point. Each pair of coordinates form a segment.
+        /// </summary>
         private static readonly double[][] NonIntersectingSegments =
         {
             //  |
@@ -116,6 +104,8 @@ namespace Ringtoets.Piping.IO.Test.Calculation
                 0.5
             }
         };
+
+        #endregion
 
         [Test]
         [TestCaseSource("IntersectingSegments")]
@@ -190,7 +180,7 @@ namespace Ringtoets.Piping.IO.Test.Calculation
             
             // Assert
             var message = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual(message.Message, "Collections of lines' x and y coordinates need to have length of 4.");
+            Assert.AreEqual(message.Message, "Collecties van de x en y coordinaten van lijnen vereisen een lengte van 4.");
         }
 
         [Test]
@@ -220,7 +210,7 @@ namespace Ringtoets.Piping.IO.Test.Calculation
 
             // Assert
             var message = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual(message.Message, "Collections of lines' x and y coordinates need to have length of 4.");
+            Assert.AreEqual(message.Message, "Collecties van de x en y coordinaten van lijnen vereisen een lengte van 4.");
         }
 
         private double[][] ToSegmentCoordinatesCollections(double[] coordinates)

@@ -79,6 +79,15 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collecties van de x en y coordinaten van lijnen vereisen een lengte van 4..
+        /// </summary>
+        public static string Error_Collections_of_lines_coordinates_need_length_of_0_ {
+            get {
+                return ResourceManager.GetString("Error_Collections_of_lines_coordinates_need_length_of_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bestandspad &apos;{0}&apos; verwijst naar een map die niet bestaat..
         /// </summary>
         public static string Error_Directory_in_path_0_missing {
@@ -183,6 +192,15 @@ namespace Ringtoets.Piping.IO.Properties {
         public static string Error_SoilProfileBuilder_cant_determine_intersect_at_double_NaN {
             get {
                 return ResourceManager.GetString("Error_SoilProfileBuilder_cant_determine_intersect_at_double_NaN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kon profiel &apos;{0}&apos; niet opbouwen vanuit de gegevens uit de database..
+        /// </summary>
+        public static string PipingSoilProfileReader_Could_not_build_profile_0_from_layer_definitions {
+            get {
+                return ResourceManager.GetString("PipingSoilProfileReader_Could_not_build_profile_0_from_layer_definitions", resourceCulture);
             }
         }
         

@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 return new[]
                 {
-                    typeof(IEnumerable<PipingSoilProfile>)
+                    typeof(ObservableList<PipingSoilProfile>)
                 };
             }
         }

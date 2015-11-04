@@ -1,4 +1,5 @@
 ﻿using System;
+using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.Calculation
 {
@@ -17,7 +18,8 @@ namespace Ringtoets.Piping.IO.Calculation
         /// </summary>
         /// <param name="segmentsX">X coordinates of the segments. Should have matching y coordinates in <paramref name="segmentsY"/>.</param>
         /// <param name="segmentsY">Y coordinates of the segments. Should have matching x coordinates in <paramref name="segmentsX"/>.</param>
-        /// <returns></returns>
+        /// <returns>An array of double representing the point where the line segments intersect ((x,y) = (array[0],array[1])).</returns>
+        /// <exception cref="ArgumentException">Thrown when either <paramref name="segmentsX"/> or <paramref name="segmentsY"/> is not of length 4.</exception>
         public static double[] LineSegmentIntersectionWithLineSegment(double[] segmentsX, double[] segmentsY)
         {
             var extraPolatedIntersectionPoint = LineSegmentIntersectionWithLine(segmentsX, segmentsY);
@@ -48,7 +50,9 @@ namespace Ringtoets.Piping.IO.Calculation
         /// </summary>
         /// <param name="segmentsX">X coordinates of the segment and line. Should have matching y coordinates in <paramref name="segmentsY"/>.</param>
         /// <param name="segmentsY">Y coordinates of the segment and line. Should have matching x coordinates in <paramref name="segmentsX"/>.</param>
-        /// <returns></returns>
+        /// <returns>An array of double representing the point where the line segment intersects with the line 
+        /// ((x,y) = (array[0],array[1])).</returns>
+        /// <exception cref="ArgumentException">Thrown when either <paramref name="linesX"/> or <paramref name="linesY"/> is not of length 4.</exception>
         public static double[] LineSegmentIntersectionWithLine(double[] segmentsX, double[] segmentsY)
         {
             var extraPolatedIntersectionPoint = LineIntersectionWithLine(segmentsX, segmentsY);
@@ -74,13 +78,17 @@ namespace Ringtoets.Piping.IO.Calculation
             return new double[0];
         }
 
-        /// <remarks>Taken from: https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-line-intersection-and-its-applications/ .</remarks>
+        /// <remarks>
+        /// <para>Taken from: https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-line-intersection-and-its-applications/ </para>
+        /// <para>Based on https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection </para>
+        /// </remarks>
+        /// <exception cref="ArgumentException">Thrown when either <paramref name="linesX"/> or <paramref name="linesY"/> is not of length 4.</exception>
         private static double[] LineIntersectionWithLine(double[] linesX, double[] linesY)
         {
             var numberOfPoints = 4;
             if (linesX.Length != numberOfPoints || linesY.Length != numberOfPoints)
             {
-                throw new ArgumentException(String.Format("Collections of lines' x and y coordinates need to have length of {0}.", numberOfPoints));
+                throw new ArgumentException(String.Format(Resources.Error_Collections_of_lines_coordinates_need_length_of_0_, numberOfPoints));
             }
 
             var aLine = linesY[1] - linesY[0];
