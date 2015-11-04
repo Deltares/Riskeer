@@ -126,4 +126,10 @@
   <data name="StandardDeviation_Should_be_greater_then_zero" xml:space="preserve">
     <value>Standaard afwijking (σ) moet groter zijn dan 0.</value>
   </data>
+  <data name="DesignVariable_Percentile_must_be_in_range" xml:space="preserve">
+    <value>Percentiel moet in het bereik van [0, 1] vallen.</value>
+  </data>
+  <data name="DesignVariable_GetDesignValue_Distribution_must_be_set" xml:space="preserve">
+    <value>Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.</value>
+  </data>
 </root>

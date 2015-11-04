@@ -61,6 +61,24 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen..
+        /// </summary>
+        internal static string DesignVariable_GetDesignValue_Distribution_must_be_set {
+            get {
+                return ResourceManager.GetString("DesignVariable_GetDesignValue_Distribution_must_be_set", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Percentiel moet in het bereik van [0, 1] vallen..
+        /// </summary>
+        internal static string DesignVariable_Percentile_must_be_in_range {
+            get {
+                return ResourceManager.GetString("DesignVariable_Percentile_must_be_in_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geen waterdoorlatende laag gevonden voor het profiel..
         /// </summary>
         internal static string Error_Cannot_Construct_PipingSoilProfile_Without_Aquifer_Layer {

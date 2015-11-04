@@ -1,5 +1,7 @@
 ﻿using System;
 
+using MathNet.Numerics.Distributions;
+
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data.Probabilistics
@@ -7,7 +9,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
     /// <summary>
     /// Class representing a log-normal distribution.
     /// </summary>
-    public class LognormalDistribution
+    public class LognormalDistribution : IDistribution
     {
         private double standardDeviation;
 
@@ -43,6 +45,15 @@ namespace Ringtoets.Piping.Data.Probabilistics
                 }
                 standardDeviation = value;
             }
+        }
+
+        public virtual double InverseCDF(double p)
+        {
+            if (p < 0.0 || p > 1)
+            {
+                throw new ArgumentOutOfRangeException("p", "Kans moet in het bereik van [0, 1] opgegeven worden.");
+            }
+            return LogNormal.InvCDF(Mean, StandardDeviation, p);
         }
     }
 }

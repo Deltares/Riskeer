@@ -56,6 +56,8 @@
     <Compile Include="PipingSoilLayer.cs" />
     <Compile Include="PipingSoilProfile.cs" />
     <Compile Include="Point2D.cs" />
+    <Compile Include="Probabilistics\DesignVariable.cs" />
+    <Compile Include="Probabilistics\IDistribution.cs" />
     <Compile Include="Probabilistics\LognormalDistribution.cs" />
     <Compile Include="Probabilistics\NormalDistribution.cs" />
     <Compile Include="Probabilistics\ShiftedLognormalDistribution.cs" />

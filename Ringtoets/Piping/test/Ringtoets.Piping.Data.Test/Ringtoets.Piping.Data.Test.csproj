@@ -54,6 +54,7 @@
     <Compile Include="PipingSoilLayerTest.cs" />
     <Compile Include="PipingSoilProfileTest.cs" />
     <Compile Include="Point2DTest.cs" />
+    <Compile Include="Probabilistics\DesignVariableTest.cs" />
     <Compile Include="Probabilistics\LognormalDistributionTest.cs" />
     <Compile Include="Probabilistics\NormalDistributionTest.cs" />
     <Compile Include="Probabilistics\ShiftedLognormalDistributionTest.cs" />
