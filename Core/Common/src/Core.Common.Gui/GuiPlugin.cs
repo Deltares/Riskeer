@@ -46,17 +46,6 @@ namespace Core.Common.Gui
         }
 
         /// <summary>
-        /// Provides custom object map layers.
-        /// </summary>
-        public virtual IMapLayerProvider MapLayerProvider
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-        /// <summary>
         /// Returns all property information objects supported by the plugin
         /// </summary>
         public virtual IEnumerable<PropertyInfo> GetPropertyInfos()

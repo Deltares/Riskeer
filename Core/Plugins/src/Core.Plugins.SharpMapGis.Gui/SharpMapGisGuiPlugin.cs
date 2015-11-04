@@ -13,7 +13,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.Forms;
 using Core.Common.Utils;
 using Core.GIS.GeoAPI.Extensions.Feature;
-using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Layers;
 using Core.GIS.SharpMap.Map;
 using Core.GIS.SharpMap.UI.Forms;
@@ -86,64 +85,6 @@ namespace Core.Plugins.SharpMapGis.Gui
             {
                 return mapLegendView;
             }
-        }
-
-        /// <summary>
-        /// Creates a <see cref="VectorLayerAttributeTableView"/> <see cref="ViewInfo"/> object for 
-        /// a IEnumerable of TFeature that is present part of a TFeatureContainer
-        /// </summary>
-        /// <example>
-        /// Model - boundaries 
-        /// <code>
-        /// var viewInfo = CreateAttributeTableViewInfo<![CDATA[<BoundaryType, ModelType>]]>(m => m.Boundaries, () => Gui)
-        /// </code>
-        /// </example>
-        /// <typeparam name="TFeature">Type of the sub features</typeparam>
-        /// <typeparam name="TFeatureContainer">Type of the feature container</typeparam>
-        /// <param name="getCollection">Function for getting the IEnumerable of <typeparam name="TFeature"/> from <typeparam name="TFeatureContainer"/> </param>
-        /// <param name="getGui">Function for getting an <see cref="IGui"/></param>
-        public static ViewInfo<IEnumerable<TFeature>, ILayer, VectorLayerAttributeTableView> CreateAttributeTableViewInfo<TFeature, TFeatureContainer>(Func<TFeatureContainer, IEnumerable<TFeature>> getCollection, Func<IGui> getGui)
-        {
-            return new ViewInfo<IEnumerable<TFeature>, ILayer, VectorLayerAttributeTableView>
-            {
-                Description = "Attribute Table",
-                GetViewName = (v, o) => o.Name,
-                AdditionalDataCheck = o =>
-                {
-                    var container = getGui().Application.Project.Items.OfType<TFeatureContainer>().FirstOrDefault(fc => Equals(o, getCollection(fc)));
-                    return container != null;
-                },
-                GetViewData = o =>
-                {
-                    var centralMap = getGui().DocumentViews.OfType<ProjectItemMapView>()
-                                             .FirstOrDefault(v => v.MapView.GetLayerForData(o) != null);
-                    return centralMap == null ? null : centralMap.MapView.GetLayerForData(o);
-                },
-                CompositeViewType = typeof(ProjectItemMapView),
-                GetCompositeViewData = o => getGui().Application.Project.Items.OfType<IProjectItem>().FirstOrDefault(fc =>
-                {
-                    if (fc is TFeatureContainer)
-                    {
-                        return Equals(o, getCollection((TFeatureContainer) fc));
-                    }
-
-                    return false;
-                }),
-                AfterCreate = (v, o) =>
-                {
-                    var centralMap = getGui().DocumentViews.OfType<ProjectItemMapView>()
-                                             .FirstOrDefault(vi => vi.MapView.GetLayerForData(o) != null);
-                    if (centralMap == null)
-                    {
-                        return;
-                    }
-
-                    v.DeleteSelectedFeatures = () => centralMap.MapView.MapControl.DeleteTool.DeleteSelection();
-                    v.OpenViewMethod = ob => getGui().CommandHandler.OpenView(ob);
-                    v.ZoomToFeature = feature => centralMap.MapView.EnsureVisible(feature);
-                    v.CanAddDeleteAttributes = false;
-                }
-            };
         }
 
         public void InitializeMapLegend()
@@ -258,44 +199,9 @@ namespace Core.Plugins.SharpMapGis.Gui
             {
                 Description = "Map"
             };
-            yield return new ViewInfo<VectorLayer, VectorLayerAttributeTableView>
-            {
-                Description = "Attribute table",
-                CompositeViewType = typeof(ProjectItemMapView),
-                GetViewName = (v, o) => o.Name + " Attributes"
-            };
             yield return new ViewInfo<DataTable, TableView>
             {
                 Description = "Table"
-            };
-            yield return new ViewInfo<IProjectItem, IProjectItem, ProjectItemMapView>
-            {
-                Description = "Map",
-                AdditionalDataCheck = o => CanLayerProvidersCreateLayerFor(o),
-                GetViewData = o => o,
-                GetViewName = (v, o) => o.Name,
-                OnActivateView = (v, o) =>
-                {
-                    var layerData = o;
-                    var layer = v.MapView.GetLayerForData(layerData);
-                    if (layer != null)
-                    {
-                        v.MapView.EnsureVisible(layer);
-
-                        if (MapLegendView != null)
-                        {
-                            MapLegendView.EnsureVisible(layer);
-                        }
-                    }
-                },
-                AfterCreate = (v, o) =>
-                {
-                    var mapLayerProviders = Gui.Plugins.Select(p => p.MapLayerProvider).Where(p => p != null).ToList();
-
-                    v.CreateLayerForData = (lo, ld) => MapLayerProviderHelper.CreateLayersRecursive(lo, null, mapLayerProviders, ld);
-                    v.RefreshLayersAction = (l, ld, po) => MapLayerProviderHelper.RefreshLayersRecursive(l, ld, mapLayerProviders, po);
-                },
-                CloseForData = (v, o) => v.Data.Equals(o) // only close the view if it is the root object 
             };
         }
 
@@ -485,18 +391,6 @@ namespace Core.Plugins.SharpMapGis.Gui
             var data = selectedFeatures.First();
 
             gui.CommandHandler.OpenView(data);
-        }
-
-        private bool CanLayerProvidersCreateLayerFor(object data)
-        {
-            if (Gui == null || Gui.Plugins == null)
-            {
-                return false;
-            }
-
-            return Gui.Plugins.Select(p => p.MapLayerProvider)
-                      .Where(p => p != null)
-                      .Any(p => p.CanCreateLayerFor(data, Gui.SelectedProjectItem));
         }
     }
 }

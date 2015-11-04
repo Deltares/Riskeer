@@ -14,16 +14,16 @@ namespace Core.Plugins.SharpMapGis
 
         public override IEnumerable<DataItemInfo> GetDataItemInfos()
         {
-            //            yield return new DataItemInfo<Map>
-            //            {
-            //                Name = "Map",
-            //                Category = "General",
-            //                Image = Properties.Resources.Map,
-            //                CreateData = owner => new Map
-            //                {
-            //                    Name = "Map"
-            //                }
-            //            };
+//            yield return new DataItemInfo<Map>
+//            {
+//                Name = "Map",
+//                Category = "General",
+//                Image = Properties.Resources.Map,
+//                CreateData = owner => new Map
+//                {
+//                    Name = "Map"
+//                }
+//            };
 
             yield break;
         }
