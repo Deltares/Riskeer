@@ -2,19 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.OptionsDialog;
 
 namespace Core.Common.Gui
 {
+    /// <summary>
+    /// Template class for gui plugin definitions.
+    /// </summary>
     public abstract class GuiPlugin : IDisposable
     {
         /// <summary>
-        /// Reference to the the gui (set by framework)
+        /// Gets or sets the gui.
         /// </summary>
         public virtual IGui Gui { get; set; }
+
+        /// <summary>
+        /// Activates the gui plugin.
+        /// </summary>
+        public virtual void Activate()
+        {
+
+        }
+
+        /// <summary>
+        /// Deactivates the gui plugin.
+        /// </summary>
+        public virtual void Deactivate()
+        {
+
+        }
 
         /// <summary>
         /// Extends ribbon control of the main window.
@@ -105,63 +123,9 @@ namespace Core.Common.Gui
             return false;
         }
 
-        /// <summary>
-        /// Returns false if plugin does not allow to paste <paramref name="item"/> into <paramref name="container"/>.
-        /// 
-        /// Return true in default implementation.
-        /// </summary>
-        public virtual bool CanPaste(IProjectItem item, IProjectItem container)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Returns false if plugin does not allow to copy <paramref name="item"/> for copy/paste action.
-        /// 
-        /// Return true in default implementation.
-        /// </summary>
-        public virtual bool CanCopy(IProjectItem item)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Returns false if plugin does not allow to cut <paramref name="item"/> for copy/paste action.
-        /// 
-        /// Return true in default implementation.
-        /// </summary>
-        public virtual bool CanCut(IProjectItem item)
-        {
-            return true;
-        }
-
-        /// <summary>
-        /// Returns false when data item can not be deleted by the user. 
-        /// </summary>
-        public virtual bool CanDelete(IProjectItem item)
-        {
-            return true;
-        }
-
         public virtual void Dispose()
         {
             Gui = null;
-        }
-
-        /// <summary>
-        ///  Activates the plugin.
-        ///  </summary>
-        public virtual void Activate()
-        {
-
-        }
-
-        /// <summary>
-        ///  Deactivates the plugin.
-        ///  </summary>
-        public virtual void Deactivate()
-        {
-
         }
     }
 }
