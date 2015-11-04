@@ -4,7 +4,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Gui.Forms;
-using Core.Common.Gui.Forms.OptionsDialog;
 
 namespace Core.Common.Gui
 {
@@ -43,17 +42,6 @@ namespace Core.Common.Gui
             get
             {
                 return null;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual IEnumerable<IOptionsControl> OptionsControls
-        {
-            get
-            {
-                yield break;
             }
         }
 

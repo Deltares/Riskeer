@@ -1098,11 +1098,13 @@ namespace Application.Ringtoets.Forms.MainWindow
 
         private void OnFileOptionsClicked(object sender, RoutedEventArgs e)
         {
-            var optionsDialog = new OptionsDialog.OptionsDialog();
-            var generalOptions = CreateGeneralOptions();
-
-            var optionsControls = Gui.Plugins.SelectMany(p => p.OptionsControls);
-            optionsDialog.OptionsControls.AddRange(optionsControls.Plus(generalOptions));
+            var optionsDialog = new OptionsDialog.OptionsDialog()
+            {
+                OptionsControls =
+                {
+                    CreateGeneralOptions()
+                }
+            };
 
             optionsDialog.ShowDialog();
         }
