@@ -1118,9 +1118,6 @@ Select No to save the project as a new project at a different location.</value>
   <data name="Ribbon_Recent" xml:space="preserve">
     <value>Recent</value>
   </data>
-  <data name="DeltaShellGui_Run_Waiting_until_new_project_is_initialized____" xml:space="preserve">
-    <value>Waiting until new project is initialized ...</value>
-  </data>
   <data name="ProjectItemCopyPasteHandler_CanPasteInto_Can_not_cut___paste_into_the_same_container_without_providing_position" xml:space="preserve">
     <value>Can not cut / paste into the same container without providing position</value>
   </data>

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Workflow;
@@ -35,7 +34,6 @@ namespace Core.Plugins.SharpMapGis.Gui
 
         private static MapLegendView mapLegendView;
         private static IGisGuiService gisGuiService;
-        private bool isActive;
 
         private IRibbonCommandHandler ribbonCommandHandler;
 
@@ -74,14 +72,6 @@ namespace Core.Plugins.SharpMapGis.Gui
             get
             {
                 return GetType().Assembly.GetName().Version.ToString();
-            }
-        }
-
-        public override bool IsActive
-        {
-            get
-            {
-                return isActive;
             }
         }
 
@@ -244,8 +234,6 @@ namespace Core.Plugins.SharpMapGis.Gui
             {
                 gui.Application.ActivityRunner.ActivityCompleted += ActivityRunnerOnActivityCompleted;
             }
-
-            isActive = true;
         }
 
         public override void Dispose()
@@ -431,11 +419,6 @@ namespace Core.Plugins.SharpMapGis.Gui
             }
 
             map.NotifyObservers();
-        }
-
-        public override IEnumerable<Assembly> GetPersistentAssemblies()
-        {
-            yield return GetType().Assembly;
         }
 
         internal static MapView GetFocusedMapView(IView view = null)

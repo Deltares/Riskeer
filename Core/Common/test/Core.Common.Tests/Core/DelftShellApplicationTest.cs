@@ -50,7 +50,6 @@ namespace Core.Common.Tests.Core
 
             var plugin = mocks.StrictMock<ApplicationPlugin>();
 
-            Expect.Call(plugin.IsActive).Repeat.Any().Return(true);
             Expect.Call(plugin.Application = null).IgnoreArguments();
             Expect.Call(plugin.Resources = null).IgnoreArguments();
             Expect.Call(plugin.Name).Return("mock plugin").Repeat.Any();

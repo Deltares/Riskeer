@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -88,11 +87,6 @@ namespace Core.Common.Gui
                 return null;
             }
         }
-
-        /// <summary>
-        ///  Gets a value indicating whether the plugin is active.
-        ///  <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value></summary>
-        public virtual bool IsActive { get; protected set; }
 
         /// <summary>
         /// Returns all property information objects supported by the plugin
@@ -197,7 +191,7 @@ namespace Core.Common.Gui
         ///  </summary>
         public virtual void Activate()
         {
-            IsActive = true;
+
         }
 
         /// <summary>
@@ -205,12 +199,7 @@ namespace Core.Common.Gui
         ///  </summary>
         public virtual void Deactivate()
         {
-            IsActive = false;
-        }
 
-        public virtual IEnumerable<Assembly> GetPersistentAssemblies()
-        {
-            yield break;
         }
     }
 }

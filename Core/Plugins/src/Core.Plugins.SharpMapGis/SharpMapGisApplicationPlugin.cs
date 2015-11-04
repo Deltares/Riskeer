@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Drawing;
-using System.Reflection;
 using Core.Common.Base;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using Core.GIS.SharpMap.Map;
@@ -68,11 +67,6 @@ namespace Core.Plugins.SharpMapGis
             //            };
 
             yield break;
-        }
-
-        public override IEnumerable<Assembly> GetPersistentAssemblies()
-        {
-            yield return GetType().Assembly;
         }
     }
 }

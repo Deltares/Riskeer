@@ -37,11 +37,6 @@ namespace Core.Common.Base
         public abstract string Version { get; }
 
         /// <summary>
-        ///  Gets a value indicating whether the plugin is active.
-        ///  <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value></summary>
-        public virtual bool IsActive { get; protected set; }
-
-        /// <summary>
         ///  Image for displaying in gui. Default format 32x32 bitmap or scalable. 
         ///  </summary>
         public virtual Image Image
@@ -86,7 +81,7 @@ namespace Core.Common.Base
         ///  </summary>
         public virtual void Activate()
         {
-            IsActive = true;
+
         }
 
         /// <summary>
@@ -94,13 +89,7 @@ namespace Core.Common.Base
         ///  </summary>
         public virtual void Deactivate()
         {
-            IsActive = false;
-        }
 
-        // TODO: check if we can remove it
-        public virtual IEnumerable<Assembly> GetPersistentAssemblies()
-        {
-            yield break;
         }
     }
 }

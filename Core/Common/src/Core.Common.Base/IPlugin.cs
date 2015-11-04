@@ -28,11 +28,6 @@ namespace Core.Common.Base
         string Version { get; }
 
         /// <summary>
-        ///  Gets a value indicating whether the plugin is active.
-        ///  <value><c>true</c> if this instance is active; otherwise, <c>false</c>.</value></summary>
-        bool IsActive { get; }
-
-        /// <summary>
         ///  Image for displaying in gui. Default format 32x32 bitmap or scalable. 
         ///  </summary>
         Image Image { get; }
@@ -51,8 +46,5 @@ namespace Core.Common.Base
         ///  Deactivates the plugin.
         ///  </summary>
         void Deactivate();
-
-        // TODO: check if we can remove it
-        IEnumerable<Assembly> GetPersistentAssemblies();
     }
 }

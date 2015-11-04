@@ -947,15 +947,6 @@ namespace Application.Ringtoets.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waiting until new project is initialized ....
-        /// </summary>
-        public static string DeltaShellGui_Run_Waiting_until_new_project_is_initialized____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_Run_Waiting_until_new_project_is_initialized____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Logo file {0} does not exist.
         /// </summary>
         public static string DeltaShellGui_ShowSplashScreen_Logo_file__0__does_not_exist {

@@ -173,11 +173,6 @@ namespace Core.Plugins.CommonTools.Gui
             }
 
             ribbon = new Ribbon();
-
-            if (tableViewInitialized)
-            {
-                IsActive = true;
-            }
         }
 
         public override void Dispose()
@@ -283,7 +278,6 @@ namespace Core.Plugins.CommonTools.Gui
             InitializeTableViewSynchronized();
 
             tableViewInitialized = true;
-            IsActive = true;
         }
 
         [InvokeRequired]

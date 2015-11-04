@@ -273,14 +273,6 @@ namespace Application.Ringtoets
 
             Initialize();
 
-            log.Info(Resources.DeltaShellGui_Run_Waiting_until_new_project_is_initialized____);
-
-            while (Application.Plugins.Any(p => !p.IsActive))
-            {
-                Thread.Sleep(50);
-                splashScreen.Dispatcher.Invoke(DispatcherPriority.Render, new Action(() => { }));
-            }
-
             log.InfoFormat(Resources.DeltaShellGui_Run_Started_in__0_f2__sec, (DateTime.Now - startTime).TotalSeconds);
 
             runFinished = true;
@@ -682,11 +674,11 @@ namespace Application.Ringtoets
             documentViews.IgnoreActivation = false;
             toolWindowViews.IgnoreActivation = false;
 
-            if (Properties.Settings.Default.SettingsKey.Contains("mruList"))
+            if (Settings.Default.SettingsKey.Contains("mruList"))
             {
-                if (Properties.Settings.Default["mruList"] == null)
+                if (Settings.Default["mruList"] == null)
                 {
-                    Properties.Settings.Default["mruList"] = new StringCollection();
+                    Settings.Default["mruList"] = new StringCollection();
                 }
             }
         }

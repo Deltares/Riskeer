@@ -339,9 +339,6 @@
   <data name="DeltaShellGui_Run_Starting_application____" xml:space="preserve">
     <value>NL Starting application ...</value>
   </data>
-  <data name="DeltaShellGui_Run_Waiting_until_new_project_is_initialized____" xml:space="preserve">
-    <value>NL Waiting until new project is initialized ...</value>
-  </data>
   <data name="DeltaShellGui_ShowSplashScreen_Logo_file__0__does_not_exist" xml:space="preserve">
     <value>NL Logo file {0} does not exist</value>
   </data>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Core.Common.Base;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Tests.Shell.Core
@@ -15,7 +14,6 @@ namespace Core.Common.Base.Tests.Shell.Core
             var applicationPlugin = new SimpleApplicationPlugin();
 
             // assert
-            Assert.IsFalse(applicationPlugin.IsActive);
             Assert.IsNull(applicationPlugin.Image);
             Assert.IsNull(applicationPlugin.Resources);
             Assert.IsNull(applicationPlugin.Application);
@@ -58,33 +56,6 @@ namespace Core.Common.Base.Tests.Shell.Core
 
             // assert
             CollectionAssert.IsEmpty(importers);
-        }
-
-        [Test]
-        public void Activate_PluginWasNotActivated_SetIsActiveTrue()
-        {
-            // setup
-            var applicationPlugin = new SimpleApplicationPlugin();
-
-            // call
-            applicationPlugin.Activate();
-
-            // assert
-            Assert.IsTrue(applicationPlugin.IsActive);
-        }
-
-        [Test]
-        public void Deactivate_PluginWasActivated_SetIsActiveFalse()
-        {
-            // setup
-            var applicationPlugin = new SimpleApplicationPlugin();
-            applicationPlugin.Activate();
-
-            // call
-            applicationPlugin.Deactivate();
-
-            // assert
-            Assert.IsFalse(applicationPlugin.IsActive);
         }
     }
 

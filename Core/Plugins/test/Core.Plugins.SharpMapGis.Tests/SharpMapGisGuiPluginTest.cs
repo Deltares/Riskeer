@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Application.Ringtoets.Forms.ViewManager;
 using Core.Common.Base;
 using Core.Common.Gui;
 using Core.GIS.SharpMap.Layers;
@@ -61,37 +60,6 @@ namespace Core.Plugins.SharpMapGis.Tests
             Assert.IsNotNull(sharpMapGisPluginGui.GetContextMenu(layerNode, vectorLayer));
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Activate()
-        {
-            //just a check to make sure activation does not crash..can very well because of the ammount of depencies
-            var gui = mocks.Stub<IGui>();
-            var dockingManager = mocks.Stub<IDockingManager>();
-            var viewList = new ViewList(dockingManager, null);
-            var application = mocks.Stub<IApplication>();
-            var project = new Project();
-            var sharpMapGisPluginGui = new SharpMapGisGuiPlugin
-            {
-                Gui = gui
-            };
-
-            Expect.Call(application.Project).Return(project).Repeat.Any();
-            Expect.Call(application.FileExporters).Return(new List<IFileExporter>()).Repeat.Any();
-
-            Expect.Call(gui.ToolWindowViews).Return(viewList).Repeat.Any();
-            Expect.Call(gui.DocumentViews).Return(viewList).Repeat.Any();
-            Expect.Call(gui.Plugins).Return(new[]
-            {
-                sharpMapGisPluginGui
-            }).Repeat.Any();
-            gui.Application = application;
-
-            mocks.ReplayAll();
-
-            sharpMapGisPluginGui.Activate();
-            Assert.IsTrue(sharpMapGisPluginGui.IsActive);
         }
     }
 }
