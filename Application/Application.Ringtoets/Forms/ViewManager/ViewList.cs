@@ -536,11 +536,6 @@ namespace Application.Ringtoets.Forms.ViewManager
             }
 
             ActiveView = view;
-
-            if (Gui != null && Gui.Plugins != null)
-            {
-                Gui.Plugins.ForEach(p => p.OnViewAdded(view));
-            }
         }
     }
 }

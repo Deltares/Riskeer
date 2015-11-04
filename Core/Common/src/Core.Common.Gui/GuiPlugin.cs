@@ -61,8 +61,6 @@ namespace Core.Common.Gui
             yield break;
         }
 
-        public virtual void OnViewAdded(IView view) {}
-
         public virtual void OnViewRemoved(IView view) {}
 
         public virtual void OnActiveViewChanged(IView view) {}
