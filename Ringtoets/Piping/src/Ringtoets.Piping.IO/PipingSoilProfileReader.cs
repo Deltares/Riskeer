@@ -11,10 +11,11 @@ using Ringtoets.Piping.IO.Properties;
 namespace Ringtoets.Piping.IO
 {
     /// <summary>
-    /// This class reads a SqLite database file and constructs <see cref="PipingSoilProfile"/> from this database.
+    /// This class reads a SqLite database file and constructs <see cref="PipingSoilProfile"/> instances from this database.
     /// </summary>
     public class PipingSoilProfileReader : IDisposable
     {
+        private const string databaseRequiredVersion = "15.0.5.0";
         private const string pipingMechanismName = "Piping";
 
         private const string profileCountColumn = "ProfileCount";
@@ -28,15 +29,10 @@ namespace Ringtoets.Piping.IO
         private const string abovePhreaticLevelColumn = "AbovePhreaticLevel";
         private const string belowPhreaticLevelColumn = "BelowPhreaticLevel";
         private const string dryUnitWeightColumn = "DryUnitWeight";
-        private const string permeabKxColumn = "PermeabKx";
-        private const string diameterD70Column = "DiameterD70";
-        private const string whitesConstantColumn = "WhitesConstant";
-        private const string beddingAngleColumn = "BeddingAngle";
         private const string layerCountColumn = "LayerCount";
         private const string mechanismParameterName = "mechanism";
 
         private readonly string databaseFileName;
-        private readonly string databaseRequiredVersion = "15.0.5.0";
 
         private SQLiteConnection connection;
         private SQLiteDataReader dataReader;
@@ -47,12 +43,11 @@ namespace Ringtoets.Piping.IO
         /// profiles.
         /// </summary>
         /// <param name="databaseFilePath">The path of the database file to open.</param>
+        /// <exception cref="ArgumentException">Thrown when the given <paramref name="databaseFilePath"/> is invalid.</exception>
+        /// <exception cref="FileNotFoundException">Thrown when the given <paramref name="databaseFilePath"/> didn't point to an existing file.</exception>
         public PipingSoilProfileReader(string databaseFilePath)
         {
-            if (String.IsNullOrEmpty(databaseFilePath))
-            {
-                throw new ArgumentException(Resources.Error_Path_must_be_specified);
-            }
+            FileUtils.ValidateFilePath(databaseFilePath);
             if (!File.Exists(databaseFilePath))
             {
                 throw new FileNotFoundException(String.Format(Resources.Error_File_0_does_not_exist, databaseFilePath));
@@ -75,19 +70,20 @@ namespace Ringtoets.Piping.IO
         public bool HasNext { get; private set; }
 
         /// <summary>
-        /// Prepares the next layer from the database.
+        /// Reads the information for the next profile from the database and creates a <see cref="PipingSoilProfile"/> instance
+        /// of the information.
         /// </summary>
-        /// <returns>False if there are no more rows to be read. True otherwise.</returns>
-        /// <exception cref="XmlException">Thrown when parsing the geometry of a 2d soil layer failed.</exception>
+        /// <returns>The next <see cref="PipingSoilProfile"/> from the database, or <c>null</c> if no more profiles can be read.</returns>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when reading the profile in the database contained a non-parsable geometry.</exception>
         public PipingSoilProfile ReadProfile()
         {
             if (!HasNext)
             {
-                throw new InvalidOperationException("Reader has reached the end and cannot read more profiles.");
+                return null;
             }
 
             var dimensionValue = Read<long>(dimensionColumn);
-            return dimensionValue == 1 ? ReadPipingProfile1D().Build() : ReadPipingProfile2D().Build();
+            return dimensionValue == 1 ? ReadPipingProfile1D() : ReadPipingProfile2D();
         }
 
         public void Dispose()
@@ -108,7 +104,7 @@ namespace Ringtoets.Piping.IO
             HasNext = dataReader.Read() || (dataReader.NextResult() && dataReader.Read());
         }
 
-        private ISoilProfileBuilder ReadPipingProfile1D()
+        private PipingSoilProfile ReadPipingProfile1D()
         {
             var profileName = Read<string>(profileNameColumn);
             var layerCount = Read<long>(layerCountColumn);
@@ -122,10 +118,15 @@ namespace Ringtoets.Piping.IO
                 MoveNext();
             }
 
-            return soilProfileBuilder;
+            return soilProfileBuilder.Build();
         }
 
-        private ISoilProfileBuilder ReadPipingProfile2D()
+        /// <summary>
+        /// Reads information for a profile from the database and creates a <see cref="PipingSoilProfile"/> based on the information.
+        /// </summary>
+        /// <returns>A new <see cref="PipingSoilProfile"/> with information from the database.</returns>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when a layer's geometry could not be parsed as XML.</exception>
+        private PipingSoilProfile ReadPipingProfile2D()
         {
             var profileName = Read<string>(profileNameColumn);
             var layerCount = Read<long>(layerCountColumn);
@@ -154,7 +155,7 @@ namespace Ringtoets.Piping.IO
                 MoveNext();
             }
 
-            return soilProfileBuilder;
+            return soilProfileBuilder.Build();
         }
 
         private void SetReaderToFirstRecord()
@@ -175,6 +176,13 @@ namespace Ringtoets.Piping.IO
             }
         }
 
+        /// <summary>
+        /// Reads a value at column <paramref name="columnName"/> from the database.
+        /// </summary>
+        /// <typeparam name="T">The expected type of value in the column with name <paramref name="columnName"/>.</typeparam>
+        /// <param name="columnName">The name of the column to read from.</param>
+        /// <returns>The read value from the column with name <paramref name="columnName"/>.</returns>
+        /// <exception cref="InvalidCastException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
         private T Read<T>(string columnName)
         {
             return (T) dataReader[columnName];
@@ -229,6 +237,11 @@ namespace Ringtoets.Piping.IO
             return pipingSoilLayer;
         }
 
+        /// <summary>
+        /// Reads a soil layer from a 2d profile
+        /// </summary>
+        /// <returns>A new <see cref="SoilLayer2D"/> instance, based on the information read from the database.</returns>
+        /// <exception cref="InvalidCastException">Thrown when a column did not contain a value of the expected type.</exception>
         private SoilLayer2D ReadPiping2DSoilLayer()
         {
             double? isAquiferValue;
@@ -399,6 +412,14 @@ namespace Ringtoets.Piping.IO
         /// <summary>
         /// Creates a new data reader to use in this class.
         /// </summary>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when
+        /// <list type="bullet">
+        ///     <item>Version of the database doesn't match the required version.</item>
+        ///     <item>Version of the database could not be read.</item>
+        ///     <item>Amount of profiles in database could not be read.</item>
+        ///     <item>A query could not be executed on the database schema.</item>
+        /// </list>
+        /// </exception>
         private void CreateDataReader(string queryString, params SQLiteParameter[] parameters)
         {
             using (var query = new SQLiteCommand(connection)
@@ -418,10 +439,15 @@ namespace Ringtoets.Piping.IO
                 {
                     connection.Dispose();
                     var exception = new PipingSoilProfileReadException(string.Format(Resources.Error_SoilProfile_read_from_database, databaseFileName), e);
-                    throw exception;                }
+                    throw exception;
+                }
             }
         }
 
+        /// <summary>
+        /// Checks the version read from the metadata table against the <see cref="databaseRequiredVersion"/>.
+        /// </summary>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when versions don't match.</exception>
         private void CheckVersion()
         {
             if (!dataReader.HasRows)

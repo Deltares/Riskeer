@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             var mocks = new MockRepository();
-            var validTarget = mocks.StrictMock<ICollection<PipingSoilProfile>>();
+            var validTarget = mocks.StrictMock<ObservableList<PipingSoilProfile>>();
             mocks.ReplayAll();
 
             var importer = new PipingSoilProfilesImporter();
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             var internalErrorMessage = string.Format(WtiIOResources.Error_SoilProfile_read_from_database,
                                                      Path.GetFileName(corruptPath));
-            var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorReading_0_Cause_1_,
+            var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_Critical_error_reading_File_0_Cause_1_,
                                                    corruptPath, internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
             Assert.AreSame(observableSoilProfileList, importedItem);

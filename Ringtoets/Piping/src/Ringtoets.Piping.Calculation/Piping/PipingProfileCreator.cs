@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using Deltares.WTIPiping;
-using Ringtoets.Piping.Calculation.Properties;
+﻿using Deltares.WTIPiping;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Calculation.Piping
@@ -12,10 +9,11 @@ namespace Ringtoets.Piping.Calculation.Piping
     internal static class PipingProfileCreator
     {
         /// <summary>
-        /// Creates a simple <see cref="PipingProfile"/> with a single default constructed <see cref="PipingLayer"/>.
+        /// Creates a <see cref="PipingProfile"/> based on information contained in the provided <paramref name="soilProfile"/>,
+        /// which can then be used in the <see cref="PipingCalculation"/>.
         /// </summary>
-        /// <param name="soilProfile"></param>
-        /// <returns></returns>
+        /// <param name="soilProfile">The <see cref="PipingSoilProfile"/> from which to take the information.</param>
+        /// <returns>A new <see cref="PipingProfile"/> with information taken from the <paramref name="soilProfile"/>.</returns>
         public static PipingProfile Create(PipingSoilProfile soilProfile)
         {
             var profile = new PipingProfile

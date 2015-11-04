@@ -38,7 +38,8 @@ namespace Ringtoets.Piping.Data
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets a <see cref="IEnumerable{T}"/> of the <see cref="PipingSoilLayer"/> for the <see cref="PipingSoilProfile"/>.
+        /// Gets an ordered (by <see cref="PipingSoilLayer.Top"/>, descending) <see cref="IEnumerable{T}"/> of 
+        /// <see cref="PipingSoilLayer"/> for the <see cref="PipingSoilProfile"/>.
         /// </summary>
         public IEnumerable<PipingSoilLayer> Layers
         {

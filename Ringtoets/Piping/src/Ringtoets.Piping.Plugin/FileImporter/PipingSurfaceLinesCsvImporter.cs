@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 if (!ShouldCancel)
                 {
-                    AddImportedDataToModel(target, importResult.ImportedSurfaceLines);
+                    AddImportedDataToModel(target, importResult.ImportedItems);
                 }
                 else
                 {
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private SurfaceLinesFileReadResult ReadPipingSurfaceLines(string path)
+        private ReadResult<RingtoetsPipingSurfaceLine> ReadPipingSurfaceLines(string path)
         {
             PipingSurfaceLinesCsvReader reader;
             try
@@ -177,9 +177,9 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
             reader.Dispose();
 
-            return new SurfaceLinesFileReadResult(false)
+            return new ReadResult<RingtoetsPipingSurfaceLine>(false)
             {
-                ImportedSurfaceLines = readSurfaceLines
+                ImportedItems = readSurfaceLines
             };
         }
 
@@ -208,12 +208,12 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             }
         }
 
-        private SurfaceLinesFileReadResult HandleCriticalError(string path, Exception e)
+        private ReadResult<RingtoetsPipingSurfaceLine> HandleCriticalError(string path, Exception e)
         {
             var message = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_Critical_error_reading_File_0_Cause_1_,
                                         path, e.Message);
             log.Error(message);
-            return new SurfaceLinesFileReadResult(true);
+            return new ReadResult<RingtoetsPipingSurfaceLine>(true);
         }
 
         private void AddImportedDataToModel(object target, ICollection<RingtoetsPipingSurfaceLine> readSurfaceLines)
@@ -236,19 +236,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         private void HandleUserCancellingImport()
         {
             log.Info(ApplicationResources.PipingSurfaceLinesCsvImporter_ImportItem_Import_cancelled);
-        }
-
-        private class SurfaceLinesFileReadResult
-        {
-            public SurfaceLinesFileReadResult(bool errorOccurred)
-            {
-                CriticalErrorOccurred = errorOccurred;
-                ImportedSurfaceLines = new RingtoetsPipingSurfaceLine[0];
-            }
-
-            public ICollection<RingtoetsPipingSurfaceLine> ImportedSurfaceLines { get; set; }
-
-            public bool CriticalErrorOccurred { get; private set; }
         }
     }
 }

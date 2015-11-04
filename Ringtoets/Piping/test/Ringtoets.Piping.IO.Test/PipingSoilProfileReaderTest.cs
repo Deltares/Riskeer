@@ -23,7 +23,7 @@ namespace Ringtoets.Piping.IO.Test
             var testFile = Path.Combine(testDataPath, "none.soil");
 
             // Call
-            TestDelegate test = () => new PipingSoilProfileReader(testFile);
+            TestDelegate test = () => new PipingSoilProfileReader(testFile).Dispose();
 
             // Assert
             var exception = Assert.Throws<FileNotFoundException>(test);
@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.IO.Test
         public void Constructor_FileNullOrEmpty_ThrowsArgumentException(string fileName)
         {
             // Call
-            TestDelegate test = () => new PipingSoilProfileReader(fileName);
+            TestDelegate test = () => new PipingSoilProfileReader(fileName).Dispose();
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(test);
@@ -55,7 +55,7 @@ namespace Ringtoets.Piping.IO.Test
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
 
             // Call
-            TestDelegate test = () => new PipingSoilProfileReader(dbFile);
+            TestDelegate test = () => new PipingSoilProfileReader(dbFile).Dispose();
 
             // Assert
             var exception = Assert.Throws<PipingSoilProfileReadException>(test);
@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
-        public void ReadProfile_AfterDatabaseHasBeenRead_ThrowsInvalidOperationException()
+        public void ReadProfile_AfterDatabaseHasBeenRead_ReturnsNull()
         {
             // Setup
             var testFile = "1dprofile.soil";
@@ -78,9 +78,10 @@ namespace Ringtoets.Piping.IO.Test
                 }
 
                 // Call
-                TestDelegate test = () => { pipingSoilProfileReader.ReadProfile(); };
+                var profile = pipingSoilProfileReader.ReadProfile();
+
                 // Assert
-                Assert.Throws<InvalidOperationException>(test);
+                Assert.IsNull(profile);
             }
         }
 
@@ -94,10 +95,8 @@ namespace Ringtoets.Piping.IO.Test
             // Precondition
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile), "Precondition failed: The file should be writable to begin with.");
 
-            var pipingSoilProfilesReader = new PipingSoilProfileReader(dbFile);
-
             // Call
-            pipingSoilProfilesReader.Dispose();
+            new PipingSoilProfileReader(dbFile).Dispose();
 
             // Assert
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
@@ -113,13 +112,24 @@ namespace Ringtoets.Piping.IO.Test
             // Precondition
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile), "Precondition failed: The file should be writable to begin with.");
 
-            var pipingSoilProfilesReader = new PipingSoilProfileReader(dbFile);
-            pipingSoilProfilesReader.ReadProfile();
-
-            // Call
-            pipingSoilProfilesReader.Dispose();
+            PipingSoilProfileReader pipingSoilProfilesReader = null;
+            PipingSoilProfile profile = null;
+            try
+            {
+                pipingSoilProfilesReader = new PipingSoilProfileReader(dbFile);
+                profile = pipingSoilProfilesReader.ReadProfile();
+            }
+            finally
+            {
+                // Call
+                if (pipingSoilProfilesReader != null)
+                {
+                    pipingSoilProfilesReader.Dispose();
+                }
+            }
 
             // Assert
+            Assert.NotNull(profile);
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
         }
 
@@ -129,19 +139,17 @@ namespace Ringtoets.Piping.IO.Test
             // Setup
             var testFile = "1dprofile.soil";
             var dbFile = Path.Combine(testDataPath, testFile);
-            var reader = new PipingSoilProfileReader(dbFile);
+            using(var reader = new PipingSoilProfileReader(dbFile)){
+                // Call
+                var profile = reader.ReadProfile();
 
-            PipingSoilProfile profile;
-
-            // Call
-            profile = reader.ReadProfile();
-
-            // Assert
-            CollectionAssert.AreEqual(new[] {false, false, true}, profile.Layers.Select(l => l.IsAquifer));
-            CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, profile.Layers.Select(l => l.AbovePhreaticLevel));
-            CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, profile.Layers.Select(l => l.BelowPhreaticLevel));
-            CollectionAssert.AreEqual(new double?[] { null, null, null }, profile.Layers.Select(l => l.DryUnitWeight));
-            Assert.AreEqual(3,profile.Layers.Count());
+                // Assert
+                CollectionAssert.AreEqual(new[] {false, false, true}, profile.Layers.Select(l => l.IsAquifer));
+                CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, profile.Layers.Select(l => l.AbovePhreaticLevel));
+                CollectionAssert.AreEqual(new[] { 0.001, 0.001, 0.001 }, profile.Layers.Select(l => l.BelowPhreaticLevel));
+                CollectionAssert.AreEqual(new double?[] { null, null, null }, profile.Layers.Select(l => l.DryUnitWeight));
+                Assert.AreEqual(3,profile.Layers.Count());
+            }
         }
 
         [Test]

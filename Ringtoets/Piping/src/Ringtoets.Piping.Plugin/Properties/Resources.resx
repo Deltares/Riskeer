@@ -165,7 +165,7 @@
   <data name="PipingSoilProfilesImporter_Reading_database" xml:space="preserve">
     <value>Inlezen van de D-Soil Model database...</value>
   </data>
-  <data name="PipingSoilProfilesImporter_CriticalErrorReading_0_Cause_1_" xml:space="preserve">
+  <data name="PipingSoilProfilesImporter_Critical_error_reading_File_0_Cause_1_" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens het inlezen van '{0}' waardoor import niet uitgevoerd kan worden: {1}</value>
   </data>
   <data name="PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_" xml:space="preserve">

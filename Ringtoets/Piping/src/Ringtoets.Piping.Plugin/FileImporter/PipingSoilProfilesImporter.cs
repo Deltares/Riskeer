@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.IO;
 using Core.Common.Base;
 using log4net;
 using Ringtoets.Piping.Data;
@@ -85,7 +86,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public bool CanImportOn(object targetObject)
         {
-            return targetObject is ICollection<PipingSoilProfile>;
+            return targetObject is ObservableList<PipingSoilProfile>;
         }
 
         public object ImportItem(string path, object target = null)
@@ -107,29 +108,40 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             return target;
         }
 
-        private SoilProfilesReadResult ReadSoilProfiles(string path)
+        private ReadResult<PipingSoilProfile> ReadSoilProfiles(string path)
         {
-            PipingSoilProfileReader soilProfileReader = null;
-
             NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_Reading_database, 1, 1);
 
             try
             {
-                soilProfileReader = new PipingSoilProfileReader(path);
+                using (var soilProfileReader = new PipingSoilProfileReader(path))
+                {
+                    return GetProfileReadResult(path, soilProfileReader);
+                }
             }
-            catch (Exception e)
+            catch (PipingSoilProfileReadException e)
             {
-                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_CriticalErrorReading_0_Cause_1_,
-                                            path, e.Message);
-                log.Error(message);
-                return new SoilProfilesReadResult(true);
+                HandleException(path, e);
             }
-
-            return GetProfileReadResult(path, soilProfileReader);
-
+            catch (FileNotFoundException e)
+            {
+                HandleException(path, e);
+            }
+            catch (ArgumentException e)
+            {
+                HandleException(path, e);
+            }
+            return new ReadResult<PipingSoilProfile>(true);
         }
 
-        private SoilProfilesReadResult GetProfileReadResult(string path, PipingSoilProfileReader soilProfileReader)
+        private void HandleException(string path, Exception e)
+        {
+            var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_Critical_error_reading_File_0_Cause_1_,
+                                        path, e.Message);
+            log.Error(message);
+        }
+
+        private ReadResult<PipingSoilProfile> GetProfileReadResult(string path, PipingSoilProfileReader soilProfileReader)
         {
             var totalNumberOfSteps = soilProfileReader.Count;
             var currentStep = 1;
@@ -141,7 +153,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 if (ShouldCancel)
                 {
-                    return new SoilProfilesReadResult(false);
+                    return new ReadResult<PipingSoilProfile>(false);
                 }
                 try
                 {
@@ -155,20 +167,20 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                     log.Error(message);
                 }
             }
-            return new SoilProfilesReadResult(false)
+            return new ReadResult<PipingSoilProfile>(false)
             {
-                ImportedSoilProfiles = profiles
+                ImportedItems = profiles
             };
         }
 
-        private void AddImportedDataToModel(object target, SoilProfilesReadResult importedSoilProfiles)
+        private void AddImportedDataToModel(object target, ReadResult<PipingSoilProfile> imported)
         {
             var targetCollection = (ObservableList<PipingSoilProfile>)target;
 
-            int totalProfileCount = importedSoilProfiles.ImportedSoilProfiles.Count;
+            int totalProfileCount = imported.ImportedItems.Count;
             NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_Adding_imported_data_to_model, totalProfileCount, totalProfileCount);
 
-            targetCollection.AddRange(importedSoilProfiles.ImportedSoilProfiles);
+            targetCollection.AddRange(imported.ImportedItems);
 
             targetCollection.NotifyObservers();
         }
@@ -186,17 +198,5 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             log.Info(ApplicationResources.PipingSoilProfilesImporter_ImportItem_Import_cancelled);
         }
 
-        private class SoilProfilesReadResult
-        {
-            public SoilProfilesReadResult(bool errorOccurred)
-            {
-                CriticalErrorOccurred = errorOccurred;
-                ImportedSoilProfiles = new PipingSoilProfile[0];
-            }
-
-            public ICollection<PipingSoilProfile> ImportedSoilProfiles { get; set; }
-
-            public bool CriticalErrorOccurred { get; private set; }
-        }
     }
 }
