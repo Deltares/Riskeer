@@ -123,7 +123,4 @@
   <data name="ExportMapToImageMapTool_OnBeforeContextMenu_Export_map_as_image" xml:space="preserve">
     <value>Exporteer kaart als afbeelding</value>
   </data>
-  <data name="SharpMapGisApplicationPlugin_Description" xml:space="preserve">
-    <value>NL Provides common GIS functionality.</value>
-  </data>
 </root>

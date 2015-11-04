@@ -38,30 +38,6 @@ namespace Core.Plugins.CommonTools.Gui
             Instance = this;
         }
 
-        public override string DisplayName
-        {
-            get
-            {
-                return Properties.Resources.CommonToolsGuiPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin__UI_;
-            }
-        }
-
-        public override string Description
-        {
-            get
-            {
-                return CommonTools.Properties.Resources.CommonToolsApplicationPlugin_Description;
-            }
-        }
-
-        public override string Version
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
-
         public override IRibbonCommandHandler RibbonCommandHandler
         {
             get

@@ -19,9 +19,6 @@ namespace Ringtoets.Piping.Plugin.Test
 
             // assert
             Assert.IsInstanceOf<ApplicationPlugin>(wtiPlugin);
-            Assert.AreEqual(PluginResources.Wti_application_DisplayName, wtiPlugin.DisplayName);
-            Assert.AreEqual(PluginResources.Wti_application_Description, wtiPlugin.Description);
-            Assert.AreEqual("0.5.0.0", wtiPlugin.Version);
         }
 
         [Test]

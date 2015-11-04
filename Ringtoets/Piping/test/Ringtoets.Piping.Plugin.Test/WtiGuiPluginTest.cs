@@ -31,9 +31,6 @@ namespace Ringtoets.Piping.Plugin.Test
             {
                 // assert
                 Assert.IsInstanceOf<GuiPlugin>(wtiGuiPlugin);
-                Assert.AreEqual(GuiPluginResources.WtiGuiPlugin_DisplayName, wtiGuiPlugin.DisplayName);
-                Assert.AreEqual(GuiPluginResources.WtiGuiPlugin_Description, wtiGuiPlugin.Description);
-                Assert.AreEqual("0.5.0.0", wtiGuiPlugin.Version);
                 Assert.IsInstanceOf<WtiRibbon>(wtiGuiPlugin.RibbonCommandHandler);
             }
         }

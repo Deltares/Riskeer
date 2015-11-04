@@ -145,9 +145,6 @@
   <data name="MainWindow_ShowStartPage_Adding_welcome_page____" xml:space="preserve">
     <value>Adding welcome page ...</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Initializing_gui_plugin__0_____" xml:space="preserve">
-    <value>Initializing gui plugin {0} ...</value>
-  </data>
   <data name="RelationshipsHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RelationshipsHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -395,9 +392,6 @@ Select No to save the project as a new project at a different location.</value>
   <data name="GuiCommandHandler_StopSelectedModel_Can_t_stop_model__no_models_selected_" xml:space="preserve">
     <value>Can't stop model, no models selected.</value>
   </data>
-  <data name="DeltaShellGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_" xml:space="preserve">
-    <value>Please check your configuration and plugins folder!</value>
-  </data>
   <data name="AllFilesFilter" xml:space="preserve">
     <value>All files (*.*)|*.*</value>
   </data>
@@ -427,9 +421,6 @@ Select No to save the project as a new project at a different location.</value>
   </data>
   <data name="DeltaShellGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied" xml:space="preserve">
     <value>Delta Shell clipboard emptied</value>
-  </data>
-  <data name="DeltaShellGui_InitializePluginResources_DeltaShell_application_started__active_plugins__" xml:space="preserve">
-    <value>DeltaShell application started, active plugins:</value>
   </data>
   <data name="GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file__opening_log_file_directory_instead_" xml:space="preserve">
     <value>Unable to open log file, opening log file directory instead.</value>
@@ -779,9 +770,6 @@ Select No to save the project as a new project at a different location.</value>
   <data name="script" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\script.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_" xml:space="preserve">
-    <value>No plugins found, most probably there is a configuration problem.</value>
-  </data>
   <data name="Ribbon_New_Item" xml:space="preserve">
     <value>New Item</value>
   </data>
@@ -1004,9 +992,6 @@ Select No to save the project as a new project at a different location.</value>
   <data name="OrgChartHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OrgChartHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Error_during_plugin_activation" xml:space="preserve">
-    <value>Error during plugin activation</value>
-  </data>
   <data name="GuiCommandHandler_UpdateGui__no_project_opened_____0_" xml:space="preserve">
     <value>&lt;no project opened&gt; - {0}</value>
   </data>
@@ -1195,9 +1180,6 @@ Select No to save the project as a new project at a different location.</value>
   </data>
   <data name="SaveAllHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveAllHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DeltaShellGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____" xml:space="preserve">
-    <value>Gui plugin {0} activation has failed, skipping ...</value>
   </data>
   <data name="Ribbon_Reset_Layout_After_Restart" xml:space="preserve">
     <value>Reset Layout After Restart</value>

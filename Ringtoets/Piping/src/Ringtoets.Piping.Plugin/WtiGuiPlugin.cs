@@ -13,30 +13,6 @@ namespace Ringtoets.Piping.Plugin
 {
     public class WtiGuiPlugin : GuiPlugin
     {
-        public override string DisplayName
-        {
-            get
-            {
-                return Properties.Resources.WtiGuiPlugin_DisplayName;
-            }
-        }
-
-        public override string Description
-        {
-            get
-            {
-                return Properties.Resources.WtiGuiPlugin_Description;
-            }
-        }
-
-        public override string Version
-        {
-            get
-            {
-                return "0.5.0.0";
-            }
-        }
-
         public override IRibbonCommandHandler RibbonCommandHandler
         {
             get

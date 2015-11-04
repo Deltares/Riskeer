@@ -808,9 +808,6 @@
   <data name="Ribbon_Ruler" xml:space="preserve">
     <value>Ruler</value>
   </data>
-  <data name="CommonToolsGuiPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin__UI_" xml:space="preserve">
-    <value>Delta Shell Common Tools Plugin (UI)</value>
-  </data>
   <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Text_editor" xml:space="preserve">
     <value>Text editor</value>
   </data>

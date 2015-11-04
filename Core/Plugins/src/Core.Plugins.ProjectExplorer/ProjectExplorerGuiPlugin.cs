@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -18,30 +17,6 @@ namespace Core.Plugins.ProjectExplorer
         {
             Instance = this;
             projectTreeViewNodePresenters = new List<ITreeNodePresenter>();
-        }
-
-        public override string DisplayName
-        {
-            get
-            {
-                return Properties.Resources.ProjectExplorerGuiPlugin_DisplayName_Delta_Shell_Project_Explorer__UI_;
-            }
-        }
-
-        public override string Description
-        {
-            get
-            {
-                return Properties.Resources.ProjectExplorerGuiPlugin_Description_TreeView_representation_of_a_project;
-            }
-        }
-
-        public override string Version
-        {
-            get
-            {
-                return GetType().Assembly.GetName().Version.ToString();
-            }
         }
 
         public override IRibbonCommandHandler RibbonCommandHandler

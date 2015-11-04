@@ -15,21 +15,6 @@ namespace Core.Common.Base
         public virtual IApplication Application { get; set; }
 
         /// <summary>
-        ///  Gets the name of the plugin as displayed in the user interface.
-        /// </summary>
-        public abstract string DisplayName { get; }
-
-        /// <summary>
-        ///  Gets the description of the plugin.
-        /// </summary>
-        public abstract string Description { get; }
-
-        /// <summary>
-        ///  Gets the version of the plugin.
-        /// </summary>
-        public abstract string Version { get; }
-
-        /// <summary>
         ///  ResourceManger of plugin. Default Properties.Resources.
         ///  </summary>
         public virtual ResourceManager Resources { get; set; }

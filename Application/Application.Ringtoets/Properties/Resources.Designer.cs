@@ -733,15 +733,6 @@ namespace Application.Ringtoets.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error during plugin activation.
-        /// </summary>
-        public static string DeltaShellGui_ActivatePlugins_Error_during_plugin_activation {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_ActivatePlugins_Error_during_plugin_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Exception during plugin deactivation.
         /// </summary>
         public static string DeltaShellGui_ActivatePlugins_Exception_during_plugin_deactivation {
@@ -756,24 +747,6 @@ namespace Application.Ringtoets.Properties {
         public static string DeltaShellGui_ActivatePlugins_Exception_during_plugin_gui_deactivation {
             get {
                 return ResourceManager.GetString("DeltaShellGui_ActivatePlugins_Exception_during_plugin_gui_deactivation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gui plugin {0} activation has failed, skipping ....
-        /// </summary>
-        public static string DeltaShellGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initializing gui plugin {0} ....
-        /// </summary>
-        public static string DeltaShellGui_ActivatePlugins_Initializing_gui_plugin__0_____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_ActivatePlugins_Initializing_gui_plugin__0_____", resourceCulture);
             }
         }
         
@@ -832,36 +805,6 @@ namespace Application.Ringtoets.Properties {
         public static string DeltaShellGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____ {
             get {
                 return ResourceManager.GetString("DeltaShellGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DeltaShell application started, active plugins:.
-        /// </summary>
-        public static string DeltaShellGui_InitializePluginResources_DeltaShell_application_started__active_plugins__ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitializePluginResources_DeltaShell_application_started__active_pl" +
-                        "ugins__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No plugins found, most probably there is a configuration problem..
-        /// </summary>
-        public static string DeltaShellGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitializePluginResources_No_plugins_found__most_probably_there_is_" +
-                        "a_configuration_problem_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please check your configuration and plugins folder!.
-        /// </summary>
-        public static string DeltaShellGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitializePluginResources_Please_check_your_configuration_and_plugi" +
-                        "ns_folder_", resourceCulture);
             }
         }
         

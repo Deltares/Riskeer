@@ -117,17 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CommonToolsApplicationPlugin_Description" xml:space="preserve">
-    <value>NL Plugin for common views and data.</value>
-  </data>
   <data name="Category_General" xml:space="preserve">
     <value>NL General</value>
   </data>
   <data name="Category_State" xml:space="preserve">
     <value>NL State</value>
-  </data>
-  <data name="CommonToolsApplicationPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin" xml:space="preserve">
-    <value>NL Delta Shell Common Tools Plugin</value>
   </data>
   <data name="CommonToolsApplicationPlugin_GetDataItemInfos_Text_Document" xml:space="preserve">
     <value>NL Text Document</value>

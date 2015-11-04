@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Core.Plugins.SharpMapGis.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -127,15 +130,6 @@ namespace Core.Plugins.SharpMapGis.Properties {
         public static string Resources_nl_NL {
             get {
                 return ResourceManager.GetString("Resources_nl_NL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Provides common GIS functionality..
-        /// </summary>
-        public static string SharpMapGisApplicationPlugin_Description {
-            get {
-                return ResourceManager.GetString("SharpMapGisApplicationPlugin_Description", resourceCulture);
             }
         }
     }

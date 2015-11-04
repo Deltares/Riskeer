@@ -270,20 +270,11 @@
   <data name="AvalonDockDockingManager_AddToolView_View_location__0__is_not_implemented_yet" xml:space="preserve">
     <value>NL View location {0} is not implemented yet</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Error_during_plugin_activation" xml:space="preserve">
-    <value>NL Error during plugin activation</value>
-  </data>
   <data name="DeltaShellGui_ActivatePlugins_Exception_during_plugin_deactivation" xml:space="preserve">
     <value>NL Exception during plugin deactivation</value>
   </data>
   <data name="DeltaShellGui_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
     <value>NL Exception during plugin gui deactivation</value>
-  </data>
-  <data name="DeltaShellGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____" xml:space="preserve">
-    <value>NL Gui plugin {0} activation has failed, skipping ...</value>
-  </data>
-  <data name="DeltaShellGui_ActivatePlugins_Initializing_gui_plugin__0_____" xml:space="preserve">
-    <value>NL Initializing gui plugin {0} ...</value>
   </data>
   <data name="DeltaShellGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_settings_lost_" xml:space="preserve">
     <value>NL Unable to load view settings; view settings lost!</value>
@@ -302,15 +293,6 @@
   </data>
   <data name="DeltaShellGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____" xml:space="preserve">
     <value>NL Setting up menus and toolbars ...</value>
-  </data>
-  <data name="DeltaShellGui_InitializePluginResources_DeltaShell_application_started__active_plugins__" xml:space="preserve">
-    <value>NL DeltaShell application started, active plugins:</value>
-  </data>
-  <data name="DeltaShellGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_" xml:space="preserve">
-    <value>NL No plugins found, most probably there is a configuration problem.</value>
-  </data>
-  <data name="DeltaShellGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_" xml:space="preserve">
-    <value>NL Please check your configuration and plugins folder!</value>
   </data>
   <data name="DeltaShellGui_InitializeWindows_All_windows_are_created_" xml:space="preserve">
     <value>NL All windows are created.</value>

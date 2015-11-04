@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Core.Plugins.CommonTools.Gui.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -754,15 +757,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         public static string CommonToolsGuiPlugin_CommonToolsGuiPlugin_Generate_Data_in_Series___ {
             get {
                 return ResourceManager.GetString("CommonToolsGuiPlugin_CommonToolsGuiPlugin_Generate_Data_in_Series___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delta Shell Common Tools Plugin (UI).
-        /// </summary>
-        public static string CommonToolsGuiPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin__UI_ {
-            get {
-                return ResourceManager.GetString("CommonToolsGuiPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin__UI_", resourceCulture);
             }
         }
         

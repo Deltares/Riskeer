@@ -708,9 +708,6 @@
   <data name="CommonToolsGuiPlugin_ActiveViewDragDrop_TODO__show_dialog_and_select_which_part_of_function_should_be_shown_on_a_chart_and_select_series_type_" xml:space="preserve">
     <value>NL TODO: show dialog and select which part of function should be shown on a chart and select series type.</value>
   </data>
-  <data name="CommonToolsGuiPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin__UI_" xml:space="preserve">
-    <value>NL Delta Shell Common Tools Plugin (UI)</value>
-  </data>
   <data name="CommonToolsGuiPlugin_FindTimeNavigatableView_View_of_type__0__has_multiple_ITimeNavigatable_ChildViews__ambiguous_" xml:space="preserve">
     <value>NL View of type {0} has multiple ITimeNavigatable ChildViews: ambiguous.</value>
   </data>

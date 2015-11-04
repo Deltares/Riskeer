@@ -117,20 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Wti_application_Description" xml:space="preserve">
-    <value>Instrumentarium om de WTI toetsnorm mee uit te voeren.</value>
-  </data>
-  <data name="Wti_application_DisplayName" xml:space="preserve">
-    <value>Wettelijk Toets Instrumentarium</value>
-  </data>
   <data name="Wti_application_name" xml:space="preserve">
     <value>WTI</value>
-  </data>
-  <data name="WtiGuiPlugin_Description" xml:space="preserve">
-    <value>Gebruikersinterface voor het Wettelijk Toets Instrumentarium programma.</value>
-  </data>
-  <data name="WtiGuiPlugin_DisplayName" xml:space="preserve">
-    <value>Wettelijk Toets Instrumentarium interface</value>
   </data>
   <data name="Csv_file_name" xml:space="preserve">
     <value>Kommagescheiden bestand</value>

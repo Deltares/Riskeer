@@ -179,47 +179,11 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instrumentarium om de WTI toetsnorm mee uit te voeren..
-        /// </summary>
-        public static string Wti_application_Description {
-            get {
-                return ResourceManager.GetString("Wti_application_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wettelijk Toets Instrumentarium.
-        /// </summary>
-        public static string Wti_application_DisplayName {
-            get {
-                return ResourceManager.GetString("Wti_application_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to WTI.
         /// </summary>
         public static string Wti_application_name {
             get {
                 return ResourceManager.GetString("Wti_application_name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gebruikersinterface voor het Wettelijk Toets Instrumentarium programma..
-        /// </summary>
-        public static string WtiGuiPlugin_Description {
-            get {
-                return ResourceManager.GetString("WtiGuiPlugin_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wettelijk Toets Instrumentarium interface.
-        /// </summary>
-        public static string WtiGuiPlugin_DisplayName {
-            get {
-                return ResourceManager.GetString("WtiGuiPlugin_DisplayName", resourceCulture);
             }
         }
     }

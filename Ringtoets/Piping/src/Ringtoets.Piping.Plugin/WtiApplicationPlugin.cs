@@ -11,30 +11,6 @@ namespace Ringtoets.Piping.Plugin
 {
     public class WtiApplicationPlugin : ApplicationPlugin
     {
-        public override string DisplayName
-        {
-            get
-            {
-                return Properties.Resources.Wti_application_DisplayName;
-            }
-        }
-
-        public override string Description
-        {
-            get
-            {
-                return Properties.Resources.Wti_application_Description;
-            }
-        }
-
-        public override string Version
-        {
-            get
-            {
-                return "0.5.0.0";
-            }
-        }
-
         public override IEnumerable<DataItemInfo> GetDataItemInfos()
         {
             yield return new DataItemInfo<WtiProject>

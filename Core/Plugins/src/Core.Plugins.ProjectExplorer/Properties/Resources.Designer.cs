@@ -947,24 +947,6 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TreeView representation of a project.
-        /// </summary>
-        public static string ProjectExplorerGuiPlugin_Description_TreeView_representation_of_a_project {
-            get {
-                return ResourceManager.GetString("ProjectExplorerGuiPlugin_Description_TreeView_representation_of_a_project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delta Shell Project Explorer (UI).
-        /// </summary>
-        public static string ProjectExplorerGuiPlugin_DisplayName_Delta_Shell_Project_Explorer__UI_ {
-            get {
-                return ResourceManager.GetString("ProjectExplorerGuiPlugin_DisplayName_Delta_Shell_Project_Explorer__UI_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Project.
         /// </summary>
         public static string ProjectExplorerPluginGui_InitializeProjectTreeView_Project_Explorer {

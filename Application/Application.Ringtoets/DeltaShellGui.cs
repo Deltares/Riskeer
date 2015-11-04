@@ -1042,16 +1042,12 @@ namespace Application.Ringtoets
             mainWindow.SuspendLayout();
             foreach (var plugin in Plugins)
             {
-                log.InfoFormat(Resources.DeltaShellGui_ActivatePlugins_Initializing_gui_plugin__0_____, plugin.DisplayName);
-
                 try
                 {
                     plugin.Activate();
                 }
                 catch (Exception e)
                 {
-                    log.WarnFormat(Resources.DeltaShellGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____, plugin.DisplayName);
-                    log.Error(Resources.DeltaShellGui_ActivatePlugins_Error_during_plugin_activation, e);
                     problematicPlugins.Add(plugin);
                 }
             }
@@ -1085,21 +1081,9 @@ namespace Application.Ringtoets
 
         private void InitializePluginResources()
         {
-            if (Plugins.Count > 0)
+            foreach (var p in Plugins)
             {
-                string s = "";
-                foreach (var p in Plugins)
-                {
-                    DeltaShellApplication.InitializePluginResources(p);
-
-                    s += p.DisplayName + ", ";
-                }
-                log.Debug(Resources.DeltaShellGui_InitializePluginResources_DeltaShell_application_started__active_plugins__ + s.Substring(0, s.Length - 2));
-            }
-            else
-            {
-                log.Warn(Resources.DeltaShellGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_);
-                log.Warn(Resources.DeltaShellGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_);
+                DeltaShellApplication.InitializePluginResources(p);
             }
         }
 

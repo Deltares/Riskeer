@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Tests.Shell.Core
@@ -60,28 +59,5 @@ namespace Core.Common.Base.Tests.Shell.Core
 
     internal class SimpleApplicationPlugin : ApplicationPlugin
     {
-        public override string DisplayName
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public override string Description
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public override string Version
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
     }
 }

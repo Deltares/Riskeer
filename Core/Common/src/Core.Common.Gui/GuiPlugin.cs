@@ -52,21 +52,6 @@ namespace Core.Common.Gui
         }
 
         /// <summary>
-        ///  Gets the name of the plugin as displayed in the Gui.
-        ///  <value>The name.</value></summary>
-        public abstract string DisplayName { get; }
-
-        /// <summary>
-        ///  Gets the description.
-        ///  <value>The description.</value></summary>
-        public abstract string Description { get; }
-
-        /// <summary>
-        ///  Gets the version of the plugin.
-        ///  <value>The version.</value></summary>
-        public abstract string Version { get; }
-
-        /// <summary>
         ///  ResourceManger of plugin. Default Properties.Resources.
         ///  </summary>
         public virtual ResourceManager Resources { get; set; }
