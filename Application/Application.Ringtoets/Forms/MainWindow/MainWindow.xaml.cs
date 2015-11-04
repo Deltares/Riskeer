@@ -989,7 +989,7 @@ namespace Application.Ringtoets.Forms.MainWindow
         private void UpdateRibbonExtensions()
         {
             // get all ribbon controls
-            ribbonCommandHandlers = Gui.Plugins.Where(p => p.RibbonCommandHandler != null).OrderBy(p => p.Name).Select(p => p.RibbonCommandHandler).ToArray();
+            ribbonCommandHandlers = Gui.Plugins.Where(p => p.RibbonCommandHandler != null).Select(p => p.RibbonCommandHandler).ToArray();
 
             foreach (var ribbonExtension in ribbonCommandHandlers)
             {

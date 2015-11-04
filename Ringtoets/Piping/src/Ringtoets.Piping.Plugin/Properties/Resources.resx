@@ -126,9 +126,6 @@
   <data name="Wti_application_name" xml:space="preserve">
     <value>WTI</value>
   </data>
-  <data name="Wti_application_gui_name" xml:space="preserve">
-    <value>WTI-UI</value>
-  </data>
   <data name="WtiGuiPlugin_Description" xml:space="preserve">
     <value>Gebruikersinterface voor het Wettelijk Toets Instrumentarium programma.</value>
   </data>

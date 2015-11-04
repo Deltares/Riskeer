@@ -5,11 +5,6 @@ namespace Core.Common.Base
     public interface IPlugin
     {
         /// <summary>
-        ///  Gets the name of the plugin.
-        ///  <value>The name.</value></summary>
-        string Name { get; }
-
-        /// <summary>
         ///  Gets the name of the plugin as displayed in the Gui.
         ///  <value>The name.</value></summary>
         string DisplayName { get; }

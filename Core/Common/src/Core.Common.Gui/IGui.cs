@@ -8,7 +8,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Gui.Forms;
 using Core.Common.Gui.Forms.MainWindow;
 
 namespace Core.Common.Gui
@@ -59,11 +58,6 @@ namespace Core.Common.Gui
         /// List of plugins.
         /// </summary>
         IList<GuiPlugin> Plugins { get; }
-
-        /// <summary>
-        /// Get a string that describes all loaded plugins and their versions. 
-        /// </summary>
-        string PluginVersions { get; }
 
         /// <summary>
         /// Suspends view removal on project item delete. Useful to avoid unnecessary checks (faster item removal).

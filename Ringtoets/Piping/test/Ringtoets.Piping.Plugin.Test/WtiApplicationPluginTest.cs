@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
@@ -20,7 +19,6 @@ namespace Ringtoets.Piping.Plugin.Test
 
             // assert
             Assert.IsInstanceOf<ApplicationPlugin>(wtiPlugin);
-            Assert.AreEqual(PluginResources.Wti_application_name, wtiPlugin.Name);
             Assert.AreEqual(PluginResources.Wti_application_DisplayName, wtiPlugin.DisplayName);
             Assert.AreEqual(PluginResources.Wti_application_Description, wtiPlugin.Description);
             Assert.AreEqual("0.5.0.0", wtiPlugin.Version);

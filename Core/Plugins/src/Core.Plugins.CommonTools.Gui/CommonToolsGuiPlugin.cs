@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -37,14 +36,6 @@ namespace Core.Plugins.CommonTools.Gui
         public CommonToolsGuiPlugin()
         {
             Instance = this;
-        }
-
-        public override string Name
-        {
-            get
-            {
-                return "CommonToolsPlugin (UI)";
-            }
         }
 
         public override string DisplayName

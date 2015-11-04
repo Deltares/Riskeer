@@ -130,9 +130,6 @@
   <data name="DeltaShellApplication_LogSystemInfo_Environmental_variables_" xml:space="preserve">
     <value>Environmental variables:</value>
   </data>
-  <data name="DeltaShellApplication_ActivatePlugins_Activating_plugin__0_____" xml:space="preserve">
-    <value>Activating plugin {0} ...</value>
-  </data>
   <data name="DeltaShellApplication_ActivatePlugins_All_plugins_were_activated_" xml:space="preserve">
     <value>All plugins were activated.</value>
   </data>
@@ -144,15 +141,6 @@
   </data>
   <data name="DeltaShellApplication_InitializeLicense_License_is_initialized_" xml:space="preserve">
     <value>License is initialized.</value>
-  </data>
-  <data name="DeltaShellApplication_InitializePluginResources_DeltaShell_application_started__active_plugins__" xml:space="preserve">
-    <value>DeltaShell application started, active plugins:</value>
-  </data>
-  <data name="DeltaShellApplication_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_" xml:space="preserve">
-    <value>No plugins found, most probably there is a configuration problem.</value>
-  </data>
-  <data name="DeltaShellApplication_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_" xml:space="preserve">
-    <value>Please check your configuration and plugins folder!</value>
   </data>
   <data name="DeltaShellApplication_RegisterDataTypes_Registering_persistent_data_types____" xml:space="preserve">
     <value>Registering persistent data types ...</value>

@@ -1,4 +1,3 @@
-using System.Drawing;
 using System.Reflection;
 using Core.Common.Base;
 
@@ -9,18 +8,6 @@ namespace Core.Plugins.CommonTools
     /// </summary>
     public class CommonToolsApplicationPlugin : ApplicationPlugin
     {
-        /// <summary>
-        /// Gets the name of the plugin
-        /// Derived from <see cref="ApplicationPlugin.Name">ApplicationPlugin.Name</see>
-        /// </summary>
-        public override string Name
-        {
-            get
-            {
-                return "CommonToolsPlugin";
-            }
-        }
-
         /// <summary>
         /// Gets the display name from the <see cref="Properties.Resources.CommonToolsApplicationPlugin_DisplayName_Delta_Shell_Common_Tools_Plugin">resource</see>
         /// Derived from <see cref="ApplicationPlugin.DisplayName">ApplicationPlugin.DisplayName</see>

@@ -168,9 +168,6 @@
   <data name="ProjectExplorerGuiPlugin_DisplayName_Delta_Shell_Project_Explorer__UI_" xml:space="preserve">
     <value>NL Delta Shell Project Explorer (UI)</value>
   </data>
-  <data name="ProjectExplorerGuiPlugin_Name_Project_Explorer__UI_" xml:space="preserve">
-    <value>NL Project Explorer (UI)</value>
-  </data>
   <data name="ProjectNodePresenter_GetChildNodeObjects_FolderNodePresenter_should_have_been_added_to_project_treenodepresenters" xml:space="preserve">
     <value>NL FolderNodePresenter should have been added to project treenodepresenters</value>
   </data>

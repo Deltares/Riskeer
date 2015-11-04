@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DeltaShellApplication_ActivatePlugins_Activating_plugin__0_____" xml:space="preserve">
-    <value>NL Activating plugin {0} ...</value>
-  </data>
   <data name="DeltaShellApplication_ActivatePlugins_All_plugins_were_activated_" xml:space="preserve">
     <value>NL All plugins were activated.</value>
   </data>
@@ -134,15 +131,6 @@
   </data>
   <data name="DeltaShellApplication_InitializeLicense_License_is_initialized_" xml:space="preserve">
     <value>NL License is initialized.</value>
-  </data>
-  <data name="DeltaShellApplication_InitializePluginResources_DeltaShell_application_started__active_plugins__" xml:space="preserve">
-    <value>NL DeltaShell application started, active plugins:</value>
-  </data>
-  <data name="DeltaShellApplication_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_" xml:space="preserve">
-    <value>NL No plugins found, most probably there is a configuration problem.</value>
-  </data>
-  <data name="DeltaShellApplication_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_" xml:space="preserve">
-    <value>NL Please check your configuration and plugins folder!</value>
   </data>
   <data name="DeltaShellApplication_LogSystemInfo_Environmental_variables_" xml:space="preserve">
     <value>NL Environmental variables:</value>

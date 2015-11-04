@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Reflection;
 using System.Resources;
 
 namespace Core.Common.Base
@@ -15,11 +13,6 @@ namespace Core.Common.Base
         ///  Gets or sets the application.
         ///  <value>The application.</value></summary>
         public virtual IApplication Application { get; set; }
-
-        /// <summary>
-        ///  Gets the name of the plugin.
-        /// </summary>
-        public abstract string Name { get; }
 
         /// <summary>
         ///  Gets the name of the plugin as displayed in the user interface.

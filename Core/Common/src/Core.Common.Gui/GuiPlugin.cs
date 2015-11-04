@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Resources;
 using System.Windows.Forms;
@@ -51,11 +50,6 @@ namespace Core.Common.Gui
                 return null;
             }
         }
-
-        /// <summary>
-        ///  Gets the name of the plugin. (used for plugin versioning (backwards compatibility))
-        ///  <value>The name.</value></summary>
-        public abstract string Name { get; }
 
         /// <summary>
         ///  Gets the name of the plugin as displayed in the Gui.

@@ -43,14 +43,6 @@ namespace Core.Plugins.SharpMapGis.Gui
             gisGuiService = new GisGuiService(this);
         }
 
-        public override string Name
-        {
-            get
-            {
-                return "GIS (UI)";
-            }
-        }
-
         public override string DisplayName
         {
             get

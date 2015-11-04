@@ -361,21 +361,9 @@ namespace Core.Common.Base
         {
             log.Debug(Properties.Resources.DeltaShellApplication_Run_Activating_plugins____);
 
-            /*
-            // activate all plugins (parallel)
-            Parallel.For(0, plugins.Count, delegate(int i)
-            {
-                log.InfoFormat("Activating plugin {0} ...", plugins[i].Name);
-                plugins[i].Activate();
-                log.InfoFormat("Activating plugin {0} done.", plugins[i].Name);
-            }
-            );
-            */
-
-            // activate all plugins
+            // Activate all plugins
             foreach (var plugin in Plugins)
             {
-                log.DebugFormat(Properties.Resources.DeltaShellApplication_ActivatePlugins_Activating_plugin__0_____, plugin.Name);
                 string cwdOld = ".";
 
                 var assembly = plugin.GetType().Assembly;
@@ -465,21 +453,9 @@ namespace Core.Common.Base
 
         private void InitializePluginResources()
         {
-            if (Plugins.Count > 0)
+            foreach (var plugin in Plugins)
             {
-                string s = "";
-                foreach (var p in Plugins)
-                {
-                    InitializePluginResources(p);
-
-                    s += p.Name + ", ";
-                }
-                log.Debug(Properties.Resources.DeltaShellApplication_InitializePluginResources_DeltaShell_application_started__active_plugins__ + s.Substring(0, s.Length - 2));
-            }
-            else
-            {
-                log.Warn(Properties.Resources.DeltaShellApplication_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_);
-                log.Warn(Properties.Resources.DeltaShellApplication_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_);
+                InitializePluginResources(plugin);
             }
         }
 

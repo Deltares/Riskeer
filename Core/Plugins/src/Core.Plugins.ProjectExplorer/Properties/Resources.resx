@@ -424,9 +424,6 @@
   <data name="ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item___0_" xml:space="preserve">
     <value>Can't find tree node for item: {0}</value>
   </data>
-  <data name="ProjectExplorerGuiPlugin_Name_Project_Explorer__UI_" xml:space="preserve">
-    <value>Project Explorer (UI)</value>
-  </data>
   <data name="ProjectExplorerGuiPlugin_DisplayName_Delta_Shell_Project_Explorer__UI_" xml:space="preserve">
     <value>Delta Shell Project Explorer (UI)</value>
   </data>

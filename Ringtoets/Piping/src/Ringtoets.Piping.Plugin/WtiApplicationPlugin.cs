@@ -11,14 +11,6 @@ namespace Ringtoets.Piping.Plugin
 {
     public class WtiApplicationPlugin : ApplicationPlugin
     {
-        public override string Name
-        {
-            get
-            {
-                return Properties.Resources.Wti_application_name;
-            }
-        }
-
         public override string DisplayName
         {
             get

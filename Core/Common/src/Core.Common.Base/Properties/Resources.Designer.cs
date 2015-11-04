@@ -58,15 +58,6 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activating plugin {0} ....
-        /// </summary>
-        internal static string DeltaShellApplication_ActivatePlugins_Activating_plugin__0_____ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_ActivatePlugins_Activating_plugin__0_____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to All plugins were activated..
         /// </summary>
         internal static string DeltaShellApplication_ActivatePlugins_All_plugins_were_activated_ {
@@ -109,36 +100,6 @@ namespace Core.Common.Base.Properties {
         internal static string DeltaShellApplication_InitializeLicense_License_is_initialized_ {
             get {
                 return ResourceManager.GetString("DeltaShellApplication_InitializeLicense_License_is_initialized_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DeltaShell application started, active plugins:.
-        /// </summary>
-        internal static string DeltaShellApplication_InitializePluginResources_DeltaShell_application_started__active_plugins__ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_InitializePluginResources_DeltaShell_application_started__a" +
-                        "ctive_plugins__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No plugins found, most probably there is a configuration problem..
-        /// </summary>
-        internal static string DeltaShellApplication_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_InitializePluginResources_No_plugins_found__most_probably_t" +
-                        "here_is_a_configuration_problem_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please check your configuration and plugins folder!.
-        /// </summary>
-        internal static string DeltaShellApplication_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_InitializePluginResources_Please_check_your_configuration_a" +
-                        "nd_plugins_folder_", resourceCulture);
             }
         }
         

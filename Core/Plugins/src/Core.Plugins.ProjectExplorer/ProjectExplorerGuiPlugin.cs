@@ -20,14 +20,6 @@ namespace Core.Plugins.ProjectExplorer
             projectTreeViewNodePresenters = new List<ITreeNodePresenter>();
         }
 
-        public override string Name
-        {
-            get
-            {
-                return Properties.Resources.ProjectExplorerGuiPlugin_Name_Project_Explorer__UI_;
-            }
-        }
-
         public override string DisplayName
         {
             get

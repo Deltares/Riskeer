@@ -230,14 +230,6 @@ namespace Application.Ringtoets
 
         public IList<GuiPlugin> Plugins { get; private set; }
 
-        public string PluginVersions
-        {
-            get
-            {
-                return String.Join("\n", Plugins.Select(p => string.Format("{0} ({1}) {2}", p.Name, p.DisplayName, p.Version)));
-            }
-        }
-
         public bool IsViewRemoveOnItemDeleteSuspended { get; set; }
 
         public void Dispose()

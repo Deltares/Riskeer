@@ -60,14 +60,6 @@ namespace Core.Common.Base.Tests.Shell.Core
 
     internal class SimpleApplicationPlugin : ApplicationPlugin
     {
-        public override string Name
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public override string DisplayName
         {
             get

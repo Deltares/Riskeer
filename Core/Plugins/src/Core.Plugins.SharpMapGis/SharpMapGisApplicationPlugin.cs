@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Drawing;
 using Core.Common.Base;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using Core.GIS.SharpMap.Map;
@@ -11,14 +10,6 @@ namespace Core.Plugins.SharpMapGis
         public SharpMapGisApplicationPlugin()
         {
             Map.CoordinateSystemFactory = new OgrCoordinateSystemFactory();
-        }
-
-        public override string Name
-        {
-            get
-            {
-                return "GIS";
-            }
         }
 
         public override string DisplayName
