@@ -1,5 +1,5 @@
-﻿using Application.Ringtoets.Forms.ViewManager;
-using Core.Common.Gui;
+﻿using Core.Common.Gui;
+using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Tests.TestObjects;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;

@@ -1,117 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Core.Common.BaseDelftTools.ApplicationPlugin" BaseTypeListCollapsed="true">
+  <Class Name="Core.Common.Base.ApplicationPlugin" BaseTypeListCollapsed="true">
     <Position X="8.25" Y="4" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>IAAAEAAAIBBgAABAEAEAAAQAAAAAwBAAAAAQAAAAAAA=</HashCode>
-      <FileName>ApplicationPlugin.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <TypeIdentifier />
   </Class>
-  <Class Name="Core.Common.BaseDelftTools.DataItemInfo">
+  <Class Name="Core.Common.Base.DataItemInfo">
     <Position X="18" Y="8.25" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAABAAAAAAAAAAAAAAAAAQAAAAAABAAAAAQAAAAGAI=</HashCode>
-      <FileName>DataItemInfo.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
-  <Class Name="Core.Common.BaseDelftTools.DataItemInfo&lt;TValue&gt;">
+  <Class Name="Core.Common.Base.DataItemInfo&lt;TValue&gt;">
     <Position X="14.75" Y="8.25" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAABAAAAAAAAAAAAAAAAAQAAAAAABAABAAQAAAAGAI=</HashCode>
-      <FileName>DataItemInfo.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
-  <Class Name="Core.Common.BaseDelftTools.Project">
+  <Class Name="Core.Common.Base.Project">
     <Position X="8.25" Y="9.5" Width="2.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAAIAAAAAAAgCAIAAAAAAAQAAIAAAAAAAAAAAAAgAAA=</HashCode>
-      <FileName>Project.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="Core.Common.BaseDelftTools.IApplication">
+  <Interface Name="Core.Common.Base.Workflow.IActivityRunner">
+    <Position X="0.75" Y="0.75" Width="2.25" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Core.Common.Base.IApplication">
     <Position X="4.25" Y="0.75" Width="2.5" />
-    <AssociationLine Name="ActivityRunner" Type="Core.Common.BaseDelftTools.Workflow.IActivityRunner" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="ActivityRunner" Type="Core.Common.Base.Workflow.IActivityRunner" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="4.25" Y="2.125" />
-        <Point X="3.875" Y="2.125" />
-        <Point X="3.875" Y="2.115" />
         <Point X="3" Y="2.115" />
       </Path>
     </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>QAADAAEAIAAAAoAQpgACDABAAgAEEAAAsgABMAAAABI=</HashCode>
-      <FileName>IApplication.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <ShowAsAssociation>
       <Property Name="ActivityRunner" />
     </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="Plugins" />
-    </ShowAsCollectionAssociation>
   </Interface>
-  <Interface Name="Core.Common.BaseDelftTools.IFileExporter">
-    <Position X="19.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAABAQAAAAAgAAAAAAEEAEACAA=</HashCode>
-      <FileName>IFileExporter.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Core.Common.BaseDelftTools.IFileImporter">
+  <Interface Name="Core.Common.Base.IFileImporter">
     <Position X="15.25" Y="0.5" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAEAAAAAAEAgAAAAAAAAAQAABECABAAAAAEAAAACAA=</HashCode>
-      <FileName>IFileImporter.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <ShowAsAssociation>
       <Property Name="ProgressChanged" />
     </ShowAsAssociation>
   </Interface>
-  <Interface Name="Core.Common.BaseDelftTools.Workflow.IActivityRunner">
-    <Position X="0.75" Y="0.75" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AABACAAAQAAAQAQAAAAAQAAAAAAAAAABAAAAAIAAAAA=</HashCode>
-      <FileName>Workflow\IActivityRunner.cs</FileName>
-    </TypeIdentifier>
+  <Interface Name="Core.Common.Base.IFileExporter">
+    <Position X="19.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
   </Interface>
-  <Interface Name="Core.Common.BaseDelftTools.Workflow.IActivity">
-    <Position X="2.75" Y="11.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAEQAEAAQQAAAAAAAAAAFAABAAAAAAAAEAAAAg=</HashCode>
-      <FileName>Workflow\IActivity.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Core.Common.BaseDelftTools.IProjectImporter">
-    <Position X="15" Y="4.5" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IProjectImporter.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Core.Common.BaseDelftTools.IProjectItemExporter">
+  <Interface Name="Core.Common.Base.IProjectItemExporter">
     <Position X="19" Y="4.5" Width="3" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IProjectItemExporter.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Interface>
-  <Interface Name="Core.Common.BaseDelftTools.IProjectItem">
+  <Interface Name="Core.Common.Base.IProjectImporter">
+    <Position X="15" Y="4.5" Width="2.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Core.Common.Base.IProjectItem">
     <Position X="2" Y="8.25" Width="3" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IProjectItem.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Interface>
-  <Delegate Name="Core.Common.BaseDelftTools.ImportProgressChangedDelegate">
+  <Interface Name="Core.Common.Base.Workflow.IActivity">
+    <Position X="2.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Delegate Name="Core.Common.Base.ImportProgressChangedDelegate">
     <Position X="11.5" Y="0.75" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAABAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
-      <FileName>IFileImporter.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Delegate>
   <Font Name="Tahoma" Size="8.25" />
 </ClassDiagram>

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Application.Ringtoets.Forms.ViewManager;
 using Core.Common.Controls;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.ViewManager;
 
 namespace Core.Common.Tests.TestObjects
 {

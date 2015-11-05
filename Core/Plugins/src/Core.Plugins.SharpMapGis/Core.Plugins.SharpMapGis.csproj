@@ -66,9 +66,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Addins">
-      <HintPath>..\..\..\..\lib\Mono.Addins.dll</HintPath>
-    </Reference>
     <Reference Include="SharpVectorBindings, Version=0.3.1.27844, Culture=neutral, PublicKeyToken=a8855419d33ac940, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\Common\SharpMap.Extensions\SharpVectorBindings.dll</HintPath>

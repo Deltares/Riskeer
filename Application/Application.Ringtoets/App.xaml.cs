@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls.Swf;
+using Core.Common.Gui;
+using Core.Common.Gui.Properties;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Plugins.CommonTools;
 using Core.Plugins.CommonTools.Gui;
@@ -51,14 +53,14 @@ namespace Application.Ringtoets
 
         static App()
         {
-            DeltaShellApplication.SetLanguageAndRegionalSettions(Ringtoets.Properties.Settings.Default);
+            DeltaShellApplication.SetLanguageAndRegionalSettions(Settings.Default);
 
-            log.Info(Ringtoets.Properties.Resources.App_App_Starting_Delta_Shell____);
+            log.Info(Core.Common.Gui.Properties.Resources.App_App_Starting_Delta_Shell____);
         }
 
-        public static void RunDeltaShell(IMainWindow mainWindow)
+        public static void RunDeltaShell()
         {
-            log.Info(Ringtoets.Properties.Resources.App_RunDeltaShell_Starting_Delta_Shell_Gui____);
+            log.Info(Core.Common.Gui.Properties.Resources.App_RunDeltaShell_Starting_Delta_Shell_Gui____);
 
             var loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var startupDirectory = Directory.GetCurrentDirectory();
@@ -67,27 +69,7 @@ namespace Application.Ringtoets
                 Environment.CurrentDirectory = loaderDirectory;
             }
 
-            gui = new DeltaShellGui
-            {
-                MainWindow = mainWindow,
-                Plugins =
-                {
-                    new ProjectExplorerGuiPlugin(),
-                    new CommonToolsGuiPlugin(),
-                    new SharpMapGisGuiPlugin(),
-                    new WtiGuiPlugin()
-                },
-                Application =
-                {
-                    Plugins =
-                    {
-                        new CommonToolsApplicationPlugin(),
-                        new SharpMapGisApplicationPlugin(),
-                        new WtiApplicationPlugin()
-                    }
-                }
-            };
-
+            
             //gui.Application.ProjectRepositoryFactory.SpeedUpSessionCreationUsingParallelThread = true;
             //gui.Application.ProjectRepositoryFactory.SpeedUpConfigurationCreationUsingCaching = true;
             //gui.Application.ProjectRepositoryFactory.ConfigurationCacheDirectory = gui.Application.GetUserSettingsDirectoryPath();
@@ -115,7 +97,7 @@ namespace Application.Ringtoets
                 }
                 else
                 {
-                    log.ErrorFormat(Ringtoets.Properties.Resources.App_RunDeltaShell_Specified_project___0___was_not_found_, projectFilePath);
+                    log.ErrorFormat(Core.Common.Gui.Properties.Resources.App_RunDeltaShell_Specified_project___0___was_not_found_, projectFilePath);
                 }
             }
 
@@ -125,7 +107,7 @@ namespace Application.Ringtoets
                 {
                     if (gui.Application.Project == null)
                     {
-                        log.ErrorFormat(Ringtoets.Properties.Resources.App_RunDeltaShell_No_project_found__load_project_first);
+                        log.ErrorFormat(Core.Common.Gui.Properties.Resources.App_RunDeltaShell_No_project_found__load_project_first);
                         return;
                     }
 
@@ -137,19 +119,19 @@ namespace Application.Ringtoets
                     if (activity == null)
                     {
                         log.ErrorFormat(
-                            Ringtoets.Properties.Resources.App_RunDeltaShell_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_load_a_project_,
+                            Core.Common.Gui.Properties.Resources.App_RunDeltaShell_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_load_a_project_,
                             runActivity);
                         return;
                     }
 
-                    log.InfoFormat(Ringtoets.Properties.Resources.App_RunDeltaShell_Starting_activity___0__, runActivity);
+                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunDeltaShell_Starting_activity___0__, runActivity);
                     gui.Application.RunActivity(activity);
-                    log.InfoFormat(Ringtoets.Properties.Resources.App_RunDeltaShell_Activity___0___ended_with_status__1_, runActivity, activity.Status);
+                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunDeltaShell_Activity___0___ended_with_status__1_, runActivity, activity.Status);
 
-                    log.InfoFormat(Ringtoets.Properties.Resources.App_RunDeltaShell_Saving_project___0__, gui.Application.Project.Name);
+                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunDeltaShell_Saving_project___0__, gui.Application.Project.Name);
                     gui.Application.SaveProject();
                     // Necessary for persisting the output of the activity run (e.g. netCDF files). 
-                    log.InfoFormat(Ringtoets.Properties.Resources.App_RunDeltaShell_Saved_project___0__, gui.Application.Project.Name);
+                    log.InfoFormat(Core.Common.Gui.Properties.Resources.App_RunDeltaShell_Saved_project___0__, gui.Application.Project.Name);
                 }
             };
 
@@ -177,7 +159,35 @@ namespace Application.Ringtoets
 
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
             ParseArguments(e.Args);
-            StartupUri = new Uri("Forms/MainWindow/MainWindow.xaml", UriKind.Relative);
+ 
+            
+           
+            gui = new DeltaShellGui
+            {
+                Plugins =
+                {
+                    new ProjectExplorerGuiPlugin(),
+                    new CommonToolsGuiPlugin(),
+                    new SharpMapGisGuiPlugin(),
+                    new WtiGuiPlugin()
+                },
+                Application =
+                {
+                    Plugins =
+                    {
+                        new CommonToolsApplicationPlugin(),
+                        new SharpMapGisApplicationPlugin(),
+                        new WtiApplicationPlugin()
+                    }
+                }
+            };
+
+            var mainWindow = new MainWindow(gui);
+            gui.MainWindow = mainWindow;
+
+            RunDeltaShell();
+
+            mainWindow.Show();
         }
 
         private bool ShutdownIfNotFirstInstance()
@@ -190,7 +200,7 @@ namespace Application.Ringtoets
                 {
                     if (!AcquireSingleInstancePerUserMutex())
                     {
-                        MessageBox.Show(Ringtoets.Properties.Resources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_DeltaShell__Please_close_the_other_instance_first_);
+                        MessageBox.Show(Core.Common.Gui.Properties.Resources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_DeltaShell__Please_close_the_other_instance_first_);
                         Shutdown(1);
                         return true; //done here
                     }
@@ -253,7 +263,7 @@ namespace Application.Ringtoets
 
             if (exception == null)
             {
-                exception = new Exception(Ringtoets.Properties.Resources.App_AppDomain_UnhandledException_Unknown_exception_);
+                exception = new Exception(Core.Common.Gui.Properties.Resources.App_AppDomain_UnhandledException_Unknown_exception_);
             }
 
             HandleExceptionOnMainThread(exception, e.IsTerminating);
@@ -309,7 +319,7 @@ namespace Application.Ringtoets
                 previousExceptionsCount++;
                 var s = previousExceptionsText;
                 previousExceptionsText =
-                    string.Format(Ringtoets.Properties.Resources.App_HandleException_,
+                    string.Format(Core.Common.Gui.Properties.Resources.App_HandleException_,
                                   previousExceptionsCount,
                                   dialog.ExceptionText,
                                   s);
@@ -357,13 +367,13 @@ namespace Application.Ringtoets
                     }
                 },
                 {
-                    "r|run-activity=", Ringtoets.Properties.Resources.App_ParseArguments_Run_activity_or_model_available_in_the_project_, v => runActivity = v
+                    "r|run-activity=", Core.Common.Gui.Properties.Resources.App_ParseArguments_Run_activity_or_model_available_in_the_project_, v => runActivity = v
                 },
                 {
-                    "f|run-file=", Ringtoets.Properties.Resources.App_ParseArguments_Run_script_from_file, v => runScriptFilePath = Path.GetFullPath(v)
+                    "f|run-file=", Core.Common.Gui.Properties.Resources.App_ParseArguments_Run_script_from_file, v => runScriptFilePath = Path.GetFullPath(v)
                 },
                 {
-                    "c|run-command=", Ringtoets.Properties.Resources.App_ParseArguments_Run_specified_command__Python__, v => runCommand = v
+                    "c|run-command=", Core.Common.Gui.Properties.Resources.App_ParseArguments_Run_specified_command__Python__, v => runCommand = v
                 },
                 {
                     "p|project=", delegate(string projectPath) { projectFilePath = projectPath; }

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using Application.Ringtoets.Forms.ProgressDialog;
 using Core.Common.Base.Workflow;
+using Core.Common.Gui.Forms.ProgressDialog;
 using NUnit.Framework;
 
 namespace Core.Common.Tests.Gui.Forms

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Forms.ViewManager;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
+using Core.Common.Gui.Forms.ViewManager;
 using Core.Common.Tests.TestObjects;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;

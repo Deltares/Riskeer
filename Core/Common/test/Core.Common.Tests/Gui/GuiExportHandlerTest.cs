@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Application.Ringtoets;
 using Core.Common.Base;
+using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
 using SharpTestsEx;
