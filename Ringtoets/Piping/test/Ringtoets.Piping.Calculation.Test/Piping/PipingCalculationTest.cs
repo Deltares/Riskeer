@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using NUnit.Framework;
-
 using Ringtoets.Piping.Calculation.Piping;
-
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Calculation.Test.Piping
 {
+    [TestFixture]
     public class PipingCalculationTest
     {
         [Test]

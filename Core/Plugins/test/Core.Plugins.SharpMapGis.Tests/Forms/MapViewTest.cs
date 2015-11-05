@@ -1,7 +1,6 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using Application.Ringtoets;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.TestUtils;
