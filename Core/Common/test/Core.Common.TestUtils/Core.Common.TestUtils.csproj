@@ -123,9 +123,9 @@
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoApi\Core.GIS.GeoApi.csproj">
+    <ProjectReference Include="..\..\..\GIS\src\Core.GIS.GeoAPI\Core.GIS.GeoAPI.csproj">
       <Project>{FFB69466-79DE-466A-ADA7-5C47C5C5CA3A}</Project>
-      <Name>Core.GIS.GeoApi</Name>
+      <Name>Core.GIS.GeoAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -140,7 +140,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Service.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Tests", "Core\Common\test\Core.Common.Tests\Core.Common.Tests.csproj", "{E0990383-FB2E-47D1-99CD-9B9FA2929E5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.IntegrationTests", "Core\Common\test\Core.Common.IntegrationTests\Core.Common.IntegrationTests.csproj", "{A6A434E0-AE5A-4D5B-97D7-532B00FBDFE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Integration.Tests", "Core\Common\test\Core.Common.Integration.Tests\Core.Common.Integration.Tests.csproj", "{A6A434E0-AE5A-4D5B-97D7-532B00FBDFE9}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Application.Ringtoets.Setup", "Application\Application.Ringtoets.Setup\Application.Ringtoets.Setup.wixproj", "{3CCB05DB-C7B3-4EF7-B41D-22B6D2A3774E}"
 EndProject
@@ -160,7 +160,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Data.UML",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Base.Tests", "Core\Common\test\Core.Common.Base.Tests\Core.Common.Base.Tests.csproj", "{FAFDB463-9612-41F4-B3DD-FF9C6E7023BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.IntegrationTest", "Ringtoets\Piping\test\Ringtoets.Piping.IntegrationTest\Ringtoets.Piping.IntegrationTest.csproj", "{813FFA92-1F3F-462B-B596-5919334007A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Integration.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Integration.Test\Ringtoets.Piping.Integration.Test.csproj", "{813FFA92-1F3F-462B-B596-5919334007A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

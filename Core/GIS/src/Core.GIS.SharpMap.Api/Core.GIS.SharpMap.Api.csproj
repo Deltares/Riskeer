@@ -84,11 +84,11 @@
     </ProjectReference>
     <ProjectReference Include="..\Core.GIS.GeoAPI.Extensions\Core.GIS.GeoAPI.Extensions.csproj">
       <Project>{016DBD27-99BF-489A-81B5-50D66964BB90}</Project>
-      <Name>Core.Gis.GeoApi.Extensions</Name>
+      <Name>Core.GIS.GeoAPI.Extensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.GIS.GeoAPI\Core.GIS.GeoAPI.csproj">
       <Project>{FFB69466-79DE-466A-ADA7-5C47C5C5CA3A}</Project>
-      <Name>Core.GIS.GeoApi</Name>
+      <Name>Core.GIS.GeoAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,65 +2,38 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Core.Common.Controls.Swf.Charting.Tools.AddPointTool" Collapsed="true">
     <Position X="8.5" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AECAAERABQAgAAAIAAAACAAACBAAAABAIAAAAECCACE=</HashCode>
-      <FileName>Charting\Tools\AddPointTool.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Charting.Tools.ZoomUsingMouseWheelTool" Collapsed="true">
     <Position X="0.75" Y="6.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Charting\Tools\ZoomUsingMouseWheelTool.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Charting.Tools.ChartViewSeriesToolBase" Collapsed="true">
     <Position X="6.5" Y="6.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAEgAQAACIAAAIQAAACAQAAQABABAAAgIEAAQAAiAAE=</HashCode>
-      <FileName>Charting\Tools\ChartViewSeriesToolBase.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Charting.Tools.EditPointTool" Collapsed="true">
     <Position X="6.5" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AEEAAAABECAAAAAACAAYSAAIBhAEUAAAIAEQIQOCAgE=</HashCode>
-      <FileName>Charting\Tools\EditPointTool.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Charting.Tools.ExportChartAsImageChartTool" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="7.75" Y="10.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAIAAAADAAAAAAAAAAAAgAAAAIAAAAIA=</HashCode>
-      <FileName>Charting\Tools\ExportChartAsImageChartTool.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Charting.Tools.PointEventArgs">
     <Position X="1" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAYAE=</HashCode>
-      <FileName>Charting\Tools\PointEventArgs.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Charting.Tools.SelectPoint" Collapsed="true">
     <Position X="1.75" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
-      <FileName>Charting\Tools\SelectPointTool.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Charting.Tools.SelectPointTool" Collapsed="true">
     <Position X="4.5" Y="8.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AACACBQAAQAyiQIIBIAAyAAAAhCEQADABEAQAACCAgA=</HashCode>
-      <FileName>Charting\Tools\SelectPointTool.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Field Name="selectedPoints" />
-    </ShowAsCollectionAssociation>
+    <TypeIdentifier />
   </Class>
   <Class Name="Steema.TeeChart.Tools.ToolSeries" Collapsed="true">
     <Position X="4.5" Y="4.75" Width="1.5" />
@@ -85,38 +58,23 @@
   </Class>
   <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewTool" Collapsed="true">
     <Position X="3.25" Y="10.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAIAAAACAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>Charting\IChartViewTool.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Interface>
   <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewSeriesTool" Collapsed="true">
     <Position X="1.25" Y="12.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
-      <FileName>Charting\IChartViewSeriesTool.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Interface>
   <Interface Name="Core.Common.Controls.Swf.Charting.IChartViewContextMenuTool" Collapsed="true">
     <Position X="4.75" Y="12.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Charting\IChartViewContextMenuTool.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Interface>
   <Enum Name="Core.Common.Controls.Swf.Charting.Tools.NearestPointStyles">
     <Position X="1" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAggAgAAAAAAAAEAAAA=</HashCode>
-      <FileName>Charting\Tools\SelectPointTool.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Enum>
   <Delegate Name="Core.Common.Controls.Swf.Charting.Tools.SelectionChangedEventHandler">
-    <Position X="3.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Charting\Tools\PointEventArgs.cs</FileName>
-    </TypeIdentifier>
+    <Position X="3.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier />
   </Delegate>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

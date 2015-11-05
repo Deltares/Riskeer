@@ -7,7 +7,7 @@ using Ringtoets.Piping.Calculation.Piping;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 
-namespace Ringtoets.Piping.IntegrationTest
+namespace Ringtoets.Piping.Integration.Test
 {
     public class ImportSoilProfileFromDatabaseTest
     {

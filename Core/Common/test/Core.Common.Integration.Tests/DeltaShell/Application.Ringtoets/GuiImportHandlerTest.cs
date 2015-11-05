@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Application.Ringtoets;
 using Core.Common.Base;
 using Core.Common.Controls.Swf;
 using Core.Common.Gui;
@@ -15,7 +14,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
-namespace Core.Common.IntegrationTests.DeltaShell.Application.Ringtoets
+namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
 {
     [TestFixture]
     public class GuiImportHandlerTest

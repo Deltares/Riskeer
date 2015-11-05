@@ -1,9 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
-using NUnit.Framework;
 
-[assembly: AssemblyTitle("Core.Common.IntegrationTests")]
-[assembly: AssemblyProduct("Core.Common.IntegrationTests")]
+[assembly: AssemblyTitle("Ringtoets.Piping.Integration.Test")]
+[assembly: AssemblyProduct("Ringtoets.Piping.Integration.Test")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -11,6 +10,4 @@ using NUnit.Framework;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4a1c7014-8890-4030-a00e-24b8895caf67")]
-
-[assembly: RequiresSTA]
+[assembly: Guid("ada0645c-6897-4db1-9bfb-f89bc8cccc50")]

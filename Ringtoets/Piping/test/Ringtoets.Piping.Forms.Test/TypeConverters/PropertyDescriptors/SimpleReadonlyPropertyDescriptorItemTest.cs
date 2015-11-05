@@ -1,11 +1,8 @@
 ﻿using System.ComponentModel;
-
 using NUnit.Framework;
-
-using Ringtoets.Piping.Forms.TypeConverters;
 using Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors;
 
-namespace Ringtoets.Piping.Forms.Test.TypeConverters
+namespace Ringtoets.Piping.Forms.Test.TypeConverters.PropertyDescriptors
 {
     [TestFixture]
     public class SimpleReadonlyPropertyDescriptorItemTest

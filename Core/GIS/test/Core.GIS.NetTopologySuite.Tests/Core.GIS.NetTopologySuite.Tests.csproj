@@ -72,7 +72,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-  <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
       <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
       <Name>Core.Common.TestUtils</Name>
     </ProjectReference>
@@ -90,11 +90,11 @@
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.GIS.GeoAPI.Extensions\Core.GIS.GeoAPI.Extensions.csproj">
       <Project>{016DBD27-99BF-489A-81B5-50D66964BB90}</Project>
-      <Name>Core.GIS.GeoApi.Extensions</Name>
+      <Name>Core.GIS.GeoAPI.Extensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.GIS.GeoAPI\Core.GIS.GeoAPI.csproj">
       <Project>{FFB69466-79DE-466A-ADA7-5C47C5C5CA3A}</Project>
-      <Name>Core.GIS.GeoApi</Name>
+      <Name>Core.GIS.GeoAPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.GIS.NetTopologySuite\Core.GIS.NetTopologySuite.csproj">
       <Project>{5770DAA9-84E5-4770-AF43-F6B815894368}</Project>

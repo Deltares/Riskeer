@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using Application.Ringtoets;
 using Core.Common.Base.Workflow;
 using Core.Common.Gui;
 using Core.Common.TestUtils;
@@ -16,7 +15,7 @@ using Rhino.Mocks;
 using SharpTestsEx;
 using Control = System.Windows.Controls.Control;
 
-namespace Core.Common.IntegrationTests.DeltaShell.Application.Ringtoets
+namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
 {
     [TestFixture]
     public class DeltaShellGuiIntegrationTest

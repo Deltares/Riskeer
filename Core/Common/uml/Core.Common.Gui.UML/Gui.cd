@@ -2,48 +2,26 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Core.Common.Gui.SelectedItemChangedEventArgs">
     <Position X="10.25" Y="6" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ItemEventArgs.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Core.Common.Gui.PropertyInfoExtensions">
     <Position X="10.25" Y="7.75" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PropertyInfoExtensions.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Core.Common.Gui.ActiveViewChangeEventArgs">
     <Position X="10.25" Y="9.25" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ActiveViewChangeEventArgs.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Core.Common.Gui.GuiPlugin" Collapsed="true">
     <Position X="9.25" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>YMQAUAAAICRgEABAECAIAAQAAAIBgBAAEACBAAAICAA=</HashCode>
-      <FileName>GuiPlugin.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
   <Interface Name="Core.Common.Gui.IGui">
     <Position X="6.5" Y="2.25" Width="1.75" />
-    <AssociationLine Name="MainWindow" Type="Core.Common.Gui.Forms.IMainWindow" FixedFromPoint="true">
-      <Path>
-        <Point X="6.5" Y="2.826" />
-        <Point X="2.75" Y="2.826" />
-      </Path>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAgAAABAAIAAAAAAnAAEABAAAEAAAIgAAQgAAQCI=</HashCode>
-      <FileName>IGui.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <ShowAsAssociation>
       <Property Name="CommandHandler" />
-      <Property Name="MainWindow" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Commands" />
@@ -52,17 +30,7 @@
   </Interface>
   <Interface Name="Core.Common.Gui.IGuiCommandHandler">
     <Position X="7.75" Y="11.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>ACIgCAAQAAAKAIAAAAIhAAIAYAAACIAAIEABIAAAABA=</HashCode>
-      <FileName>IGuiCommandHandler.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Core.Common.Gui.Forms.IMainWindow">
-    <Position X="1" Y="1.75" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAIAAAAAAIAAAEAAAQAgAAAAAAAEAAgIAAAAAACAgIA=</HashCode>
-      <FileName>Forms\IMainWindow.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Interface>
   <Interface Name="Core.Common.Controls.ICommand">
     <Position X="3.5" Y="5.5" Width="2.25" />
@@ -70,17 +38,11 @@
   </Interface>
   <Interface Name="Core.Common.Gui.Forms.IProjectExplorer">
     <Position X="2" Y="13.75" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEIAAAA=</HashCode>
-      <FileName>Forms\IProjectExplorer.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Interface>
   <Interface Name="Core.Common.Gui.IConfigureDialog">
     <Position X="10.25" Y="4.5" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IConfigureDialog.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Interface>
   <Interface Name="Core.Common.Controls.IView">
     <Position X="2.25" Y="10.75" Width="1.5" />
@@ -88,17 +50,15 @@
   </Interface>
   <Interface Name="Core.Common.Gui.IGuiCommand" Collapsed="true">
     <Position X="3.75" Y="7.75" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>IGuiCommand.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Interface>
   <Interface Name="Core.Common.Gui.IViewResolver">
     <Position X="11.5" Y="0.75" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AIAAAIAAAAAAABEAAAAAAAkQAAAAAIAAAAAAAAAACAA=</HashCode>
-      <FileName>IViewResolver.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="Core.Common.Gui.Forms.MainWindow.IMainWindow">
+    <Position X="1" Y="1.75" Width="2.75" />
+    <TypeIdentifier />
   </Interface>
   <Font Name="Tahoma" Size="8.25" />
 </ClassDiagram>

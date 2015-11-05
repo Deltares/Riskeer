@@ -7,18 +7,10 @@
     </Compartments>
     <NestedTypes>
       <Enum Name="Core.Common.Controls.Swf.Table.TableView.ValidationExceptionMode" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Table\TableView.cs</NewMemberFileName>
-        </TypeIdentifier>
+        <TypeIdentifier />
       </Enum>
     </NestedTypes>
-    <TypeIdentifier>
-      <HashCode>u620HAmC0PxDYOo6GMjAKURXmChhrbtoSDFLxZjZR6U=</HashCode>
-      <FileName>Table\TableView.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="tableViewValidator" />
-    </ShowAsAssociation>
+    <TypeIdentifier />
     <ShowAsCollectionAssociation>
       <Property Name="ColumnMenuItems" />
     </ShowAsCollectionAssociation>
@@ -26,18 +18,12 @@
   </Class>
   <Class Name="Core.Common.Controls.Swf.Table.TableViewCellFormatterProvider" BaseTypeListCollapsed="true">
     <Position X="10.5" Y="3.75" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Table\TableViewCellFormatterProvider.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Table.TableViewCellStyle">
     <Position X="11.5" Y="8" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAI=</HashCode>
-      <FileName>Table\TableViewCellStyle.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Table.TableViewColumn" BaseTypeListCollapsed="true">
     <Position X="8" Y="5.75" Width="1.5" />
@@ -45,63 +31,39 @@
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <TypeIdentifier>
-      <HashCode>CAAADCAAACBiAAIgYAECAM0BAEBACRBICAgIAYAAAEA=</HashCode>
-      <FileName>Table\TableViewColumn.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Table.TableViewColumnMenuItem">
     <Position X="6.5" Y="11.25" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AIAABAAAAAAAEAAAABAAAAAAAAAAABAACAAQAAAAAgA=</HashCode>
-      <FileName>Table\TableViewColumnMenuItem.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Table.TableViewComboBoxItem" BaseTypeListCollapsed="true">
     <Position X="13.75" Y="5.5" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAABAAIAAAAAAAMEAAAAQAAEAAAAAAAgANggogYQAAI=</HashCode>
-      <FileName>Table\TableViewComboBoxItem.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Table.TableViewExceptionMessageController">
     <Position X="10" Y="1.25" Width="2.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Table\TableViewExceptionMessageController.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Table.TableViewPasteController" Collapsed="true">
     <Position X="1" Y="0.75" Width="2" />
-    <TypeIdentifier>
-      <HashCode>BCAAQAAAAECAgAAEAiQACEACAAgABQAgBCAAIEACAog=</HashCode>
-      <FileName>Table\TableViewPasteController.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Table.XtraGridRepositoryItemBuilder">
     <Position X="4.25" Y="0.75" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAIAAQAEAAAAAAAAAAAAAABBgIEAAAAAAAACAIAAE=</HashCode>
-      <FileName>Table\XtraGridRepositoryItemBuilder.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Table.Validation.RowValidationResult">
     <Position X="7.5" Y="1.25" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAAAAAAAAAAACAAAAAAAAAAAAAABAAAAAA=</HashCode>
-      <FileName>Table\Validation\RowValidationResult.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Core.Common.Controls.Swf.Table.Validation.TableViewValidator">
     <Position X="5.25" Y="6.25" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAEAAAAgBAYAAAAAABAAnBAAGBAAAQAAACAAAAAA=</HashCode>
-      <FileName>Table\Validation\TableViewValidator.cs</FileName>
-    </TypeIdentifier>
+    <TypeIdentifier />
   </Class>
   <Font Name="Tahoma" Size="8.25" />
 </ClassDiagram>

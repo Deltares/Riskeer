@@ -7,8 +7,8 @@
     <ProjectGuid>{813FFA92-1F3F-462B-B596-5919334007A9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ringtoets.Piping.IntegrationTest</RootNamespace>
-    <AssemblyName>Ringtoets.Piping.IntegrationTest</AssemblyName>
+    <RootNamespace>Ringtoets.Piping.Integration.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Piping.Integration.Test</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

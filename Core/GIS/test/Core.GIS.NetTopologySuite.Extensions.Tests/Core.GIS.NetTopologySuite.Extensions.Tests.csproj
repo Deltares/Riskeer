@@ -69,21 +69,21 @@
     <Compile Include="TestObjects\TestFeature.cs" />
   </ItemGroup>
   <ItemGroup>
-	<ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
       <Project>{EFA25023-CF6A-4FF7-8C42-B24D7F9509E1}</Project>
       <Name>Core.Common.TestUtils</Name>
     </ProjectReference>
-	<ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.GIS.GeoAPI.Extensions\Core.GIS.GeoAPI.Extensions.csproj">
       <Project>{016DBD27-99BF-489A-81B5-50D66964BB90}</Project>
-      <Name>Core.GIS.GeoApi.Extensions</Name>
+      <Name>Core.GIS.GeoAPI.Extensions</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.GIS.GeoAPI\Core.GIS.GeoAPI.csproj">
       <Project>{FFB69466-79DE-466A-ADA7-5C47C5C5CA3A}</Project>
-      <Name>Core.GIS.GeoApi</Name>
+      <Name>Core.GIS.GeoAPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Core.GIS.NetTopologySuite.Extensions\Core.GIS.NetTopologySuite.Extensions.csproj">
       <Project>{8A3636FB-31B4-4F4B-9165-F718F87A92DF}</Project>
