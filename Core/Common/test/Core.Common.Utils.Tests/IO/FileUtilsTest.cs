@@ -13,9 +13,26 @@ namespace Core.Common.Utils.Tests.IO
     public class FileUtilsTest
     {
         private readonly string fileWithContentPath = TestHelper.GetTestDataPath(TestDataPath.Common.DelftToolsUtilsTests, "File_with_content.txt");
+        private const int allowedTimeForDelete = 2000;
+
+        private static bool DoesDirectoryExistsAfterTimeout(string directory)
+        {
+            var start = DateTime.Now;
+            while (Directory.Exists(directory))
+            {
+                // Due to a race condition on the FileSystem, a while loop was required
+                var timeSpan = DateTime.Now - start;
+                if (timeSpan.Milliseconds > allowedTimeForDelete)
+                {
+                    return true;
+                }
+                Thread.Sleep(50);
+            }
+            return false;
+        }
 
         [Test]
-        public void isSubDirectoryTest()
+        public void IsSubDirectoryTest()
         {
             const string rootDir = "D:/Habitat";
 
@@ -34,7 +51,7 @@ namespace Core.Common.Utils.Tests.IO
         }
 
         [Test]
-        public void isSubDirectoryOrEqualsTest()
+        public void IsSubDirectoryOrEqualsTest()
         {
             const string rootDir = "D:/Habitat";
 
@@ -198,43 +215,28 @@ namespace Core.Common.Utils.Tests.IO
             // no error if it does not exist
             FileUtils.DeleteIfExists("mydir");
 
-            var allowedTimeForDelete = 1000;
+
             FileUtils.CreateDirectoryIfNotExists("mydir");
             FileUtils.DeleteIfExists("mydir");
 
-            var start = DateTime.Now;
-            while (Directory.Exists("mydir"))
+            if (DoesDirectoryExistsAfterTimeout("mydir"))
             {
-                // Due to a race condition on the FileSystem, a while loop was required
-                var timeSpan = DateTime.Now - start;
-                if (timeSpan.Milliseconds > allowedTimeForDelete)
-                {
-                    Assert.Fail("Given {0} ms to delete the file.", allowedTimeForDelete);
-                }
-                Thread.Sleep(10);
+                Assert.Fail("Given {0} ms to delete the file.", allowedTimeForDelete);
             }
         }
 
         [Test]
         public void DeleteNonEmptyDirectoryIfItExists()
         {
-            var allowedTimeForDelete = 1000;
-
             FileUtils.CreateDirectoryIfNotExists("mydir2");
             FileUtils.CreateDirectoryIfNotExists("mydir2/subdir");
             File.Create("mydir2/somefile.nc").Close();
 
             FileUtils.DeleteIfExists("mydir2");
-            var start = DateTime.Now;
-            while (Directory.Exists("mydir2"))
+
+            if (DoesDirectoryExistsAfterTimeout("mydir2"))
             {
-                // Due to a race condition on the FileSystem, a while loop was required
-                var timeSpan = DateTime.Now - start;
-                if (timeSpan.Milliseconds > allowedTimeForDelete)
-                {
-                    Assert.Fail("Given {0} ms to delete the file.", allowedTimeForDelete);
-                }
-                Thread.Sleep(10);
+                Assert.Fail("Given {0} ms to delete the file.", allowedTimeForDelete);
             }
         }
 
