@@ -55,5 +55,13 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         }
 
         #endregion
+
+        /// <summary>
+        /// Clears the output of the <see cref="PipingCalculationInputs"/>.
+        /// </summary>
+        public void ClearOutput()
+        {
+            PipingData.ClearOutput();
+        }
     }
 }

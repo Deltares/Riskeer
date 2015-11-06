@@ -44,10 +44,10 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
-            var pipingData = ((PipingCalculationInputs) parentNodeData).PipingData.Output;
-            if (pipingData != null)
+            var pipingOutput = ((PipingCalculationInputs) parentNodeData).PipingData.Output;
+            if (pipingOutput != null)
             {
-                yield return pipingData;
+                yield return pipingOutput;
             }
         }
 

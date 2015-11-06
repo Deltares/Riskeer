@@ -5,10 +5,11 @@ using Core.Common.Controls;
 using Core.Common.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
-
+using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 
 using Ringtoets.Piping.Forms.NodePresenters;
+using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Test.Helper;
 using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
@@ -53,193 +54,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetChildNodeObjects_Always_ReturnNoChildNodes()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingOutputNodePresenter();
-
-            var output = PipingOutputCreator.Create();
-
-            // Call
-            var children = nodePresenter.GetChildNodeObjects(output, nodeMock);
-
-            // Assert
-            Assert.AreEqual(0, children.Count());
-            mocks.VerifyAll(); // Expect no calls on tree node
-        }
-
-        [Test]
-        public void CanRenameNode_Always_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingOutputNodePresenter();
-
-            // Call
-            var renameAllowed = nodePresenter.CanRenameNode(nodeMock);
-
-            // Assert
-            Assert.IsFalse(renameAllowed);
-            mocks.VerifyAll(); // Expect no calls on tree node
-        }
-
-        [Test]
-        public void CanRenameNodeTo_Always_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingOutputNodePresenter();
-
-            // Call
-            var renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
-
-            // Assert
-            Assert.IsFalse(renameAllowed);
-            mocks.VerifyAll(); // Expect no calls on tree node
-        }
-
-        [Test]
-        public void OnNodeRenamed_Always_ThrowInvalidOperationException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingOutputNodePresenter();
-
-            // Call
-            TestDelegate call = () => { nodePresenter.OnNodeRenamed(nodeMock, "<Insert New Name Here>"); };
-
-            // Assert
-            var exception = Assert.Throws<InvalidOperationException>(call);
-            var expectedMessage = string.Format("Cannot rename tree node of type {0}.", nodePresenter.GetType().Name);
-            Assert.AreEqual(expectedMessage, exception.Message);
-            mocks.VerifyAll(); // Expect no calls on tree node
-        }
-
-        [Test]
-        public void OnNodeChecked_Always_DoNothing()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingOutputNodePresenter();
-
-            // Call
-            nodePresenter.OnNodeChecked(nodeMock);
-
-            // Assert
-            mocks.VerifyAll(); // Expect no calls on tree node
-        }
-
-        [Test]
-        public void CanDrag_Always_ReturnNone()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingOutputNodePresenter();
-
-            // Call
-            DragOperations dragAllowed = nodePresenter.CanDrag(dataMock);
-
-            // Assert
-            Assert.AreEqual(DragOperations.None, dragAllowed);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CanDrop_Always_ReturnNone()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var sourceMock = mocks.StrictMock<ITreeNode>();
-            var targetMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingOutputNodePresenter();
-
-            // Call
-            DragOperations dropAllowed = nodePresenter.CanDrop(dataMock, sourceMock, targetMock, DragOperations.Move);
-
-            // Assert
-            Assert.AreEqual(DragOperations.None, dropAllowed);
-            mocks.VerifyAll(); // Expect no calls on mocks.
-        }
-
-        [Test]
-        public void CanInsert_Always_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var sourceMock = mocks.StrictMock<ITreeNode>();
-            var targetMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingOutputNodePresenter();
-
-            // Call
-            bool insertionAllowed = nodePresenter.CanInsert(dataMock, sourceMock, targetMock);
-
-            // Assert
-            Assert.IsFalse(insertionAllowed);
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void OnDragDrop_Always_DoNothing()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var sourceParentNodeMock = mocks.StrictMock<ITreeNode>();
-            var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingOutputNodePresenter();
-
-            // Call
-            nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
-
-            // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void OnNodeSelected_Always_DoNothing()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingOutputNodePresenter();
-
-            // Call
-            nodePresenter.OnNodeSelected(dataMock);
-
-            // Assert
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
         public void GetContextMenu_Always_ReturnsNull()
         {
             // Setup
@@ -259,63 +73,42 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void OnPropertyChange_Always_DoNothing()
+        public void CanRemove_NotPipingOutput_ThrowsInvalidCastException()
         {
             // Setup
             var mocks = new MockRepository();
             var dataMock = mocks.StrictMock<object>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             mocks.ReplayAll();
 
             var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
-            nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
+            TestDelegate test = () => nodePresenter.CanRemove(null, dataMock);
 
             // Assert
+            Assert.Throws<InvalidCastException>(test);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
-        public void OnCollectionChange_Always_DoNothing()
+        public void CanRemove_PipingOutput_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
-            nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
+            var result = nodePresenter.CanRemove(null, new TestPipingOutput());
 
             // Assert
+            Assert.IsTrue(result);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
         [Test]
-        public void CanRemove_Always_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingOutputNodePresenter();
-
-            // Call
-            bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
-
-            // Assert
-            Assert.IsFalse(removalAllowed);
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void RemoveNodeData_Always_ThrowsInvalidOperationException()
+        public void RemoveNodeData_NullObject_ThrowsNullReferenceException()
         {
             // Setup
             var nodePresenter = new PipingOutputNodePresenter();
@@ -324,9 +117,67 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             TestDelegate removeAction = () => nodePresenter.RemoveNodeData(null, null);
 
             // Assert
-            var exception = Assert.Throws<InvalidOperationException>(removeAction);
-            var expectedMessage = string.Format("Cannot delete node of type {0}.", nodePresenter.GetType().Name);
-            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.Throws<NullReferenceException>(removeAction);
+        }
+
+        [Test]
+        public void RemoveNodeData_Object_ThrowsInvalidCastException()
+        {
+            // Setup
+            var nodePresenter = new PipingOutputNodePresenter();
+
+            // Call
+            TestDelegate removeAction = () => nodePresenter.RemoveNodeData(null, new object());
+
+            // Assert
+            Assert.Throws<InvalidCastException>(removeAction);
+        }
+
+        [Test]
+        public void RemoveNodeData_NullParent_ThrowsNullReferenceException()
+        {
+            // Setup
+            var nodePresenter = new PipingOutputNodePresenter();
+
+            // Call
+            TestDelegate removeAction = () => nodePresenter.RemoveNodeData(null, new TestPipingOutput());
+
+            // Assert
+            Assert.Throws<NullReferenceException>(removeAction);
+        }
+
+        [Test]
+        public void RemoveNodeData_WithParentNotContainingPipingData_ThrowsNullReferenceException()
+        {
+            // Setup
+            var nodePresenter = new PipingOutputNodePresenter();
+
+            // Call
+            TestDelegate removeAction = () => nodePresenter.RemoveNodeData(new PipingCalculationInputs(), new TestPipingOutput());
+
+            // Assert
+            Assert.Throws<NullReferenceException>(removeAction);
+        }
+
+        [Test]
+        public void RemoveNodeData_WithParentContainingOutput_OutputCleared()
+        {
+            // Setup
+            var nodePresenter = new PipingOutputNodePresenter();
+
+            var pipingCalculationInputs = new PipingCalculationInputs
+            {
+                PipingData = new PipingData
+                {
+                    Output = new TestPipingOutput()
+                }
+            };
+
+            // Call
+            nodePresenter.RemoveNodeData(pipingCalculationInputs, new TestPipingOutput());
+
+            // Assert
+            Assert.IsNull(pipingCalculationInputs.PipingData.Output);
         }
     }
 }

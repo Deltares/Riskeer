@@ -194,6 +194,14 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         public PipingOutput Output { get; set; }
 
+        /// <summary>
+        /// Clears the <see cref="Output"/>.
+        /// </summary>
+        public void ClearOutput()
+        {
+            Output = null;
+        }
+
         public void Attach(IObserver observer)
         {
             observers.Add(observer);

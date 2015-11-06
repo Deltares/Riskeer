@@ -1,7 +1,7 @@
 ﻿using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
-
+using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data.Probabilistics;
 
 namespace Ringtoets.Piping.Data.Test
@@ -156,6 +156,22 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call & Assert
             pipingData.Detach(observer);
+        }
+
+        [Test]
+        public void ClearOutput_Always_SetsOutputToNull()
+        {
+            // Setup
+            var data = new PipingData
+            {
+                Output = new TestPipingOutput()
+            };
+
+            // Call
+            data.ClearOutput();
+
+            // Assert
+            Assert.IsNull(data.Output);
         }
     }
 }

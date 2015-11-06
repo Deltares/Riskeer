@@ -2,7 +2,7 @@
 using NUnit.Framework;
 
 using Rhino.Mocks;
-
+using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -89,6 +89,25 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ClearOutput_Always_SetsOutputToNull()
+        {
+            // Setup
+            var inputs = new PipingCalculationInputs
+            {
+                PipingData = new PipingData
+                {
+                    Output = new TestPipingOutput()
+                }
+            };
+
+            // Call
+            inputs.ClearOutput();
+
+            // Assert
+            Assert.IsNull(inputs.PipingData.Output);
         }
     }
 }
