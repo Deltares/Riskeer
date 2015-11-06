@@ -123,8 +123,8 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         #region Integration tests
 
         [Test]
-        [TestCase(1)]
-        [TestCase(2)]
+        [TestCase(1, TestName = "PipingCalculationInputsPropertiesWrappedInDynamicPropertyBag_WhenSettingNewValue_ThenPipingDataNotifiedObserversOfChange(1)")]
+        [TestCase(2, TestName = "PipingCalculationInputsPropertiesWrappedInDynamicPropertyBag_WhenSettingNewValue_ThenPipingDataNotifiedObserversOfChange(2)")]
         public void GivenContextOfPipingCalculationInputsPropertiesWrappedInDynamicPropertyBag_WhenSettingNewValue_ThenPipingDataNotifiedObserversOfChange(int propertyIndexToChange)
         {
             // Scenario

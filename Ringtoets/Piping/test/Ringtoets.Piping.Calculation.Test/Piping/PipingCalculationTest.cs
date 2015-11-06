@@ -205,10 +205,10 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             Assert.IsTrue(validationMessages.Any(message => message.Contains("Volumetric weight water")));
         }
 
-        [Test]
-        [TestCase(2, 1, 2, 0.5)]
-        [TestCase(1, 1, 0, 2)]
-        [TestCase(8, 4, 2, 2)]
+        [Test] // Validate_DifferenceAssessmentLevelAndPhreaticLevelExitEqualToSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidationMessageForHRiverHExitRcDTotal
+        [TestCase(2, 1, 2, 0.5, TestName = "AssessmntLvlPhreaticLevelExitEqualsSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidateMsgHRiverHExitRcDTotal(2,1,2,0.5)")]
+        [TestCase(1, 1, 0, 2, TestName = "AssessmntLvlPhreaticLevelExitEqualsSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidateMsgHRiverHExitRcDTotal(1,1,0,2)")]
+        [TestCase(8, 4, 2, 2, TestName = "AssessmntLvlPhreaticLevelExitEqualsSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidateMsgHRiverHExitRcDTotal(8,4,2,2)")]
         public void Validate_DifferenceAssessmentLevelAndPhreaticLevelExitEqualToSellmeijerReductionFactorTimesThicknessCoverageLayer_ValidationMessageForHRiverHExitRcDTotal(
             double assessmentLevel, double phreaticLevelExit, double sellmeijerReductionFactor, double thicknessCoverageLayer)
         {
