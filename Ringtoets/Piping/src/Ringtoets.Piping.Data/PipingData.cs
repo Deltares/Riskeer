@@ -195,6 +195,17 @@ namespace Ringtoets.Piping.Data
         public PipingOutput Output { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether the <see cref="PipingData"/> has <see cref="Output"/>.
+        /// </summary>
+        public bool HasOutput
+        {
+            get
+            {
+                return Output != null;
+            }
+        }
+
+        /// <summary>
         /// Clears the <see cref="Output"/>.
         /// </summary>
         public void ClearOutput()

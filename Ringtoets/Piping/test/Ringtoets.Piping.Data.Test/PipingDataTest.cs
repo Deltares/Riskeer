@@ -173,5 +173,31 @@ namespace Ringtoets.Piping.Data.Test
             // Assert
             Assert.IsNull(data.Output);
         }
+
+        [Test]
+        public void HasOutput_OutputNull_ReturnsFalse()
+        {
+            // Setup
+            var data = new PipingData
+            {
+                Output = null
+            };
+
+            // Call & Assert
+            Assert.IsFalse(data.HasOutput);
+        }
+
+        [Test]
+        public void HasOutput_OutputSet_ReturnsTrue()
+        {
+            // Setup
+            var data = new PipingData
+            {
+                Output = new TestPipingOutput()
+            };
+
+            // Call & Assert
+            Assert.IsTrue(data.HasOutput);
+        }
     }
 }

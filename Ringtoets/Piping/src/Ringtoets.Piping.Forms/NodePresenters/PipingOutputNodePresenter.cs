@@ -10,7 +10,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingOutput nodeData)
         {
             node.Text = Resources.PipingOutput_DisplayName;
-            node.Image = Resources.PipingIcon;
+            node.Image = Resources.PipingOutputIcon;
         }
 
         protected override bool CanRemove(object parentNodeData, PipingOutput nodeData)

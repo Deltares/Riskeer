@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Controls;
-using Core.Common.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Calculation.TestUtil;
@@ -11,7 +9,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Test.Helper;
-using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -54,18 +51,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_Always_ReturnsNull()
+        public void GetContextMenu_PipingOutput_ReturnsNull()
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingOutputNodePresenter();
 
             // Call
-            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, new TestPipingOutput());
 
             // Assert
             Assert.IsNull(contextMenu);

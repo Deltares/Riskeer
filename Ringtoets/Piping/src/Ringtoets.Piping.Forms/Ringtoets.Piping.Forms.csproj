@@ -155,6 +155,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\PlayHS.png" />
+    <None Include="Resources\table_delete.png" />
+    <None Include="Resources\table.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

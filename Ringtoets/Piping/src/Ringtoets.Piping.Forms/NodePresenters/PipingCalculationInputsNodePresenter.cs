@@ -109,6 +109,21 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                         RunActivityAction(new PipingCalculationActivity(pipingData));
                                     });
 
+            var clearOutputItem = contextMenu.AddMenuItem(Resources.Clear_output,
+                                    null,
+                                    Resources.PipingOutputClear,
+                                    (o, args) =>
+                                    {
+                                        pipingData.ClearOutput();
+                                        pipingData.NotifyObservers();
+                                    });
+
+            if (!pipingData.HasOutput)
+            {
+                clearOutputItem.Enabled = false;
+                clearOutputItem.ToolTipText = Resources.ClearOutput_No_output_to_clear;
+            }
+
             return contextMenu;
         }
 

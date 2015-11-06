@@ -287,11 +287,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_Always_ContextMenuWithOneItemForCalculate()
+        public void GetContextMenu_WithPipingData_ContextMenuWithThreeItems()
         {
             // Setup
             var nodeMock = mockRepository.StrictMock<ITreeNode>();
             var dataMock = mockRepository.StrictMock<PipingCalculationInputs>();
+            dataMock.PipingData = new PipingData();
 
             var nodePresenter = new PipingCalculationInputsNodePresenter();
 
@@ -302,13 +303,69 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsNotNull(contextMenu);
-            Assert.AreEqual(2, contextMenu.Items.Count);
+            Assert.AreEqual(3, contextMenu.Items.Count);
             Assert.AreEqual(WtiFormsResources.Validate, contextMenu.Items[0].Text);
 
             ToolStripItem calculatePipingItem = contextMenu.Items[1];
             Assert.AreEqual(WtiFormsResources.Calculate, calculatePipingItem.Text);
             Assert.AreEqual(16, calculatePipingItem.Image.Height);
             Assert.AreEqual(16, calculatePipingItem.Image.Width);
+
+            ToolStripItem clearOutputItem = contextMenu.Items[2];
+            Assert.AreEqual(WtiFormsResources.Clear_output, clearOutputItem.Text);
+            Assert.AreEqual(16, clearOutputItem.Image.Height);
+            Assert.AreEqual(16, clearOutputItem.Image.Width);
+            mockRepository.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void GetContextMenu_PipingDataWithoutOutput_ContextMenuItemClearOutputDisabled()
+        {
+            // Setup
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var dataMock = mockRepository.StrictMock<PipingCalculationInputs>();
+            dataMock.PipingData = new PipingData();
+
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
+
+            mockRepository.ReplayAll();
+
+            // Call
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+
+            // Assert
+            Assert.IsNotNull(contextMenu);
+            Assert.AreEqual(3, contextMenu.Items.Count);
+
+            ToolStripItem clearOutputItem = contextMenu.Items[2];
+            Assert.IsFalse(clearOutputItem.Enabled);
+            mockRepository.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void GetContextMenu_PipingDataWithOutput_ContextMenuItemClearOutputEnabled()
+        {
+            // Setup
+            var nodeMock = mockRepository.StrictMock<ITreeNode>();
+            var dataMock = mockRepository.StrictMock<PipingCalculationInputs>();
+            dataMock.PipingData = new PipingData
+            {
+                Output = new TestPipingOutput()
+            };
+
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
+
+            mockRepository.ReplayAll();
+
+            // Call
+            ContextMenuStrip contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+
+            // Assert
+            Assert.IsNotNull(contextMenu);
+            Assert.AreEqual(3, contextMenu.Items.Count);
+
+            ToolStripItem clearOutputItem = contextMenu.Items[2];
+            Assert.IsTrue(clearOutputItem.Enabled);
             mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
