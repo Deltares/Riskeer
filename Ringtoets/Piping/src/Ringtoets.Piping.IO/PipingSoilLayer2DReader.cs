@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Xml;
@@ -20,8 +21,8 @@ namespace Ringtoets.Piping.IO
         private const string innerLoopElementName = "InnerLoop";
         private const string endPointElementName = "EndPoint";
         private const string headPointElementName = "HeadPoint";
+        private const string geometryCurveElementName = "GeometryCurve";
         private const string xElementName = "X";
-        private const string yElementName = "Y";
         private const string zElementName = "Z";
 
         private readonly XmlTextReader xmlTextReader;
@@ -50,15 +51,15 @@ namespace Ringtoets.Piping.IO
 
             while (xmlTextReader.Read())
             {
-                HashSet<Point3D> outerLoop;
-                HashSet<Point3D> innerLoop;
+                List<Segment2D> outerLoop;
+                List<Segment2D> innerLoop;
                 if (TryParseLoop(outerLoopElementName, out outerLoop))
                 {
                     pipingSoilLayer.OuterLoop = outerLoop;
                 }
                 if (TryParseLoop(innerLoopElementName, out innerLoop))
                 {
-                    pipingSoilLayer.InnerLoops.Add(innerLoop);
+                    pipingSoilLayer.AddInnerLoop(innerLoop);
                 }
             }
 
@@ -71,26 +72,64 @@ namespace Ringtoets.Piping.IO
         /// <param name="elementName">The name of the element which the reader should be currently pointing at.</param>
         /// <param name="loop">The result of parsing the element as a loop. <c>null</c> if the current element's name does not match <paramref name="elementName"/>.</param>
         /// <returns>True if the reader currently points to an element with name <paramref name="elementName"/>. False otherwise.</returns>
-        private bool TryParseLoop(String elementName, out HashSet<Point3D> loop)
+        /// <exception cref="XmlException">Thrown when not both HeadPoint and EndPoint are defined in 
+        /// the GeometryCurve XML element.</exception>
+        private bool TryParseLoop(string elementName, out List<Segment2D> loop)
         {
             loop = null;
 
             if (IsElementWithName(elementName))
             {
-                loop = new HashSet<Point3D>();
+                loop = new List<Segment2D>();
 
                 if (!IsEmptyElement())
                 {
                     while (xmlTextReader.Read() && !IsEndElementWithName(elementName))
                     {
-                        Point3D parsedPoint;
-                        if (TryParsePoint(out parsedPoint))
+                        Segment2D segment;
+                        if (TryParseSegment(out segment))
                         {
-                            loop.Add(parsedPoint);
+                            loop.Add(segment);
                         }
                     }
                 }
                 return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Tries to parse a GeometryCurve XML element to a <see cref="Segment2D"/>.
+        /// </summary>
+        /// <param name="segment">The segment reference in which to put the parsed <see cref="Segment2D"/>.</param>
+        /// <returns><c>true</c> if a segment could be parsed. <c>false</c> otherwise.</returns>
+        /// <exception cref="XmlException">Thrown when not both HeadPoint and EndPoint are defined in 
+        /// the GeometryCurve XML element.</exception>
+        private bool TryParseSegment(out Segment2D segment)
+        {
+            segment = null;
+            if (IsElementWithName(geometryCurveElementName) || IsElementWithName(endPointElementName))
+            {
+                var points = new Point2D[2];
+                var index = 0;
+                while (xmlTextReader.Read() && !IsEndElementWithName(geometryCurveElementName))
+                {
+                    Point2D point;
+                    if (TryParsePoint(out point))
+                    {
+                        points[index] = point;
+                        index++;
+                    }
+                }
+                try
+                {
+                    segment = new Segment2D(points[0], points[1]);
+                    return true;
+                }
+                catch (ArgumentException e)
+                {
+                    throw new XmlException(e.Message, e);
+                }
             }
             return false;
         }
@@ -109,18 +148,17 @@ namespace Ringtoets.Piping.IO
         /// </summary>
         /// <param name="point">The result of parsing the element as a point. <c>null</c> if current element is not a head or end point.</param>
         /// <returns>True if the reader currently points to an element with name <see cref="headPointElementName"/> or <see cref="endPointElementName"/>. False otherwise.</returns>
-        private bool TryParsePoint(out Point3D point)
+        private bool TryParsePoint(out Point2D point)
         {
             point = null;
 
             if (IsElementWithName(headPointElementName) || IsElementWithName(endPointElementName))
             {
                 var pointValues = ReadChildValues();
-                point = new Point3D
+                point = new Point2D
                 {
                     X = double.Parse(pointValues[xElementName], CultureInfo.InvariantCulture),
-                    Y = double.Parse(pointValues[yElementName], CultureInfo.InvariantCulture),
-                    Z = double.Parse(pointValues[zElementName], CultureInfo.InvariantCulture)
+                    Y = double.Parse(pointValues[zElementName], CultureInfo.InvariantCulture)
                 };
                 return true;
             }

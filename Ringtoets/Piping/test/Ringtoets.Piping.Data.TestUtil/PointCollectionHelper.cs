@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Ringtoets.Piping.Data.TestUtil
@@ -11,23 +11,36 @@ namespace Ringtoets.Piping.Data.TestUtil
     /// </summary>
     public class PointCollectionHelper
     {
-        public static HashSet<Point3D> CreateFromString(string s)
+        public static List<Segment2D> CreateFromString(string s)
         {
-            var points = new SortedDictionary<int, Point3D>();
+            var points = new SortedDictionary<int, Point2D>();
             var lines = s.Split(new [] { Environment.NewLine }, StringSplitOptions.None);
             var height = int.Parse(lines[0]);
             var lineIndex = 1;
-            for (int z = height - 1; z >= 0; z--, lineIndex++)
+            for (int y = height - 1; y >= 0; y--, lineIndex++)
             {
                 foreach (var tuple in AllIndexesOfDigit(lines[lineIndex]))
                 {
-                    points.Add(tuple.Item1,new Point3D
+                    points.Add(tuple.Item1,new Point2D
                     {
-                        X = tuple.Item2, Z = z
+                        X = tuple.Item2, Y = y
                     });
                 }
             }
-            return new HashSet<Point3D>(points.Values);
+            return CreateLoop(points);
+        }
+
+        private static List<Segment2D> CreateLoop(SortedDictionary<int, Point2D> points)
+        {
+            List<Segment2D> loop = new List<Segment2D>(points.Count);
+            var count = points.Values.Count;
+            for (int i = 0; i < count; i++)
+            {
+                var firstPoint = points.Values.ElementAt(i);
+                var secondPoint = points.Values.ElementAt((i+1)%count);
+                loop.Add(new Segment2D(firstPoint,secondPoint));
+            }
+            return loop;
         }
 
         /// <summary>

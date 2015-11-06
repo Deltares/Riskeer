@@ -22,8 +22,8 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(1, result.Length);
-            Assert.AreEqual(2, result[0].X);
-            Assert.AreEqual(2, result[0].Z);
+            Assert.AreEqual(2, result[0].FirstPoint.X);
+            Assert.AreEqual(2, result[0].FirstPoint.Y);
         }
 
         [Test]
@@ -39,10 +39,10 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(2, result.Length);
-            Assert.AreEqual(2, result[0].X);
-            Assert.AreEqual(2, result[0].Z);
-            Assert.AreEqual(4, result[1].X);
-            Assert.AreEqual(0, result[1].Z);
+            Assert.AreEqual(2, result[0].FirstPoint.X);
+            Assert.AreEqual(2, result[0].FirstPoint.Y);
+            Assert.AreEqual(4, result[0].SecondPoint.X);
+            Assert.AreEqual(0, result[0].SecondPoint.Y);
         }
 
         [Test]
@@ -58,10 +58,10 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(2, result.Length);
-            Assert.AreEqual(2, result[1].X);
-            Assert.AreEqual(2, result[1].Z);
-            Assert.AreEqual(4, result[0].X);
-            Assert.AreEqual(0, result[0].Z);
+            Assert.AreEqual(2, result[0].SecondPoint.X);
+            Assert.AreEqual(2, result[0].SecondPoint.Y);
+            Assert.AreEqual(4, result[0].FirstPoint.X);
+            Assert.AreEqual(0, result[0].FirstPoint.Y);
         }
     }
 }

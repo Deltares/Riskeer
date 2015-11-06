@@ -1,5 +1,4 @@
 ﻿using System;
-
 using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace Ringtoets.Piping.Data
@@ -9,6 +8,24 @@ namespace Ringtoets.Piping.Data
     /// </summary>
     public class Point2D
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="Point2D"/>, with <see cref="X"/> set to <c>0</c>
+        /// and <see cref="Y"/> set to <c>0</c>.
+        /// </summary>
+        public Point2D() {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="Point2D"/>, with <see cref="X"/> set to <paramref name="x"/>
+        /// and <see cref="Y"/> set to <paramref name="y"/>.
+        /// </summary>
+        /// <param name="x">The x coordinate to set.</param>
+        /// <param name="y">The y coordinate to set.</param>
+        public Point2D(double x, double y)
+        {
+            X = x;
+            Y = y;
+        }
+
         /// <summary>
         /// Gets or sets the x coordinate.
         /// </summary>
@@ -47,7 +64,7 @@ namespace Ringtoets.Piping.Data
             {
                 return false;
             }
-            return Equals((Point2D)obj);
+            return Equals((Point2D) obj);
         }
 
         public override int GetHashCode()
@@ -55,7 +72,7 @@ namespace Ringtoets.Piping.Data
             unchecked
             {
                 var hashCode = X.GetHashCode();
-                hashCode = (hashCode * 397) ^ Y.GetHashCode();
+                hashCode = (hashCode*397) ^ Y.GetHashCode();
                 return hashCode;
             }
         }

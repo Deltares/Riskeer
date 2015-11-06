@@ -43,14 +43,33 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_WithOuterLoopNotIntersectingX_ReturnsEmptyCollectionWithMaxValueBottom()
         {
             // Setup
+            var random = new Random(22);
+            var y1 = random.NextDouble();
+            var y2 = random.NextDouble();
+
             var layer = new SoilLayer2D
             {
-                OuterLoop = new HashSet<Point3D>
+                OuterLoop = new List<Segment2D>
                 {
-                    new Point3D
-                    {
-                        X = 0.1, Z = new Random(22).NextDouble()
-                    }
+                    new Segment2D(
+                        new Point2D
+                        {
+                            X = 1.0, Y = y1
+                        },
+                        new Point2D
+                        {
+                            X = 1.2, Y = y2
+                        }),
+                        
+                    new Segment2D(
+                        new Point2D
+                        {
+                            X = 1.2, Y = y2
+                        },
+                        new Point2D
+                        {
+                            X = 1.0, Y = y1
+                        })
                 }
             };
             double bottom;
@@ -70,16 +89,27 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var expectedZ = new Random(22).NextDouble();
             var layer = new SoilLayer2D
             {
-                OuterLoop = new HashSet<Point3D>
+                OuterLoop = new List<Segment2D>
                 {
-                    new Point3D
-                    {
-                        X = -0.1, Z = expectedZ
-                    },
-                    new Point3D
-                    {
-                        X = 0.1, Z = expectedZ
-                    }
+                    new Segment2D(
+                        new Point2D
+                        {
+                            X = -0.1, Y = expectedZ
+                        },
+                        new Point2D
+                        {
+                            X = 0.1, Y = expectedZ
+                        }),
+                        
+                    new Segment2D(
+                        new Point2D
+                        {
+                            X = -0.1, Y = expectedZ
+                        },
+                        new Point2D
+                        {
+                            X = 0.1, Y = expectedZ
+                        })
                 }
             };
             double bottom;
@@ -146,11 +176,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var layer = new SoilLayer2D
             {
                 OuterLoop = outerLoop,
-                InnerLoops =
-                {
-                    innerLoop
-                }
             };
+            layer.AddInnerLoop(innerLoop);
 
             // Call
             double bottom;
@@ -187,11 +214,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var layer = new SoilLayer2D
             {
                 OuterLoop = outerLoop,
-                InnerLoops =
-                {
-                    innerLoop
-                }
             };
+            layer.AddInnerLoop(innerLoop);
 
             // Call
             double bottom;
@@ -237,12 +261,9 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var layer = new SoilLayer2D
             {
                 OuterLoop = outerLoop,
-                InnerLoops =
-                {
-                    innerLoop,
-                    innerLoop2
-                }
             };
+            layer.AddInnerLoop(innerLoop);
+            layer.AddInnerLoop(innerLoop2);
 
             // Call
             double bottom;
@@ -279,11 +300,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var layer = new SoilLayer2D
             {
                 OuterLoop = outerLoop,
-                InnerLoops =
-                {
-                    innerLoop
-                }
             };
+            layer.AddInnerLoop(innerLoop);
 
             // Call
             double bottom;
@@ -329,12 +347,9 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var layer = new SoilLayer2D
             {
                 OuterLoop = outerLoop,
-                InnerLoops =
-                {
-                    innerLoop,
-                    innerLoop2
-                }
             };
+            layer.AddInnerLoop(innerLoop);
+            layer.AddInnerLoop(innerLoop2);
 
             // Call
             double bottom;
@@ -371,11 +386,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var layer = new SoilLayer2D
             {
                 OuterLoop = outerLoop,
-                InnerLoops =
-                {
-                    innerLoop
-                }
             };
+            layer.AddInnerLoop(innerLoop);
 
             // Call
             double bottom;
@@ -412,11 +424,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var layer = new SoilLayer2D
             {
                 OuterLoop = outerLoop,
-                InnerLoops =
-                {
-                    innerLoop
-                }
             };
+            layer.AddInnerLoop(innerLoop);
 
             // Call
             double bottom;
@@ -453,11 +462,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var layer = new SoilLayer2D
             {
                 OuterLoop = outerLoop,
-                InnerLoops =
-                {
-                    innerLoop
-                }
             };
+            layer.AddInnerLoop(innerLoop);
 
             // Call
             double bottom;
@@ -523,11 +529,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var layer = new SoilLayer2D
             {
                 OuterLoop = outerLoop,
-                InnerLoops =
-                {
-                    innerLoop
-                }
             };
+            layer.AddInnerLoop(innerLoop);
 
             // Call
             double bottom;

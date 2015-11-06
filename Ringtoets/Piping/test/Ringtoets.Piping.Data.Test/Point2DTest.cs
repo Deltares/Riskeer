@@ -21,6 +21,21 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void Constructor_WithXandY_SetPropeties()
+        {
+            // Setup
+            var random = new Random(22);
+            var x = random.NextDouble();
+            var y = random.NextDouble();
+
+            // Call
+            var point = new Point2D(x,y);
+
+            // Assert
+            Assert.AreEqual(x, point.X);
+            Assert.AreEqual(y, point.Y);
+        }
+        [Test]
         public void AutomaticProperties_SetAndGetValuesAgain_ReturnedValueShouldBeSameAsSetValue()
         {
             // Setup

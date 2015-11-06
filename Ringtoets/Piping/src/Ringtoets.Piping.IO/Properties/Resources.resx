@@ -181,7 +181,7 @@
     <value>Het bestand '{0}' heeft op regel {1} heeft geen ID.</value>
   </data>
   <data name="PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_" xml:space="preserve">
-    <value>Kan de geometry van laag nummer '{0}' in profiel '{1}' niet interpreteren.</value>
+    <value>Kan de geometrie van laag nummer '{0}' in profiel '{1}' niet interpreteren.</value>
   </data>
   <data name="PipingSoilProfileReader_DatabaseFileIncorrectVersions_Requires_0" xml:space="preserve">
     <value>De database heeft niet de vereiste versie informatie. Vereiste versie is: {0}.</value>
@@ -191,5 +191,8 @@
   </data>
   <data name="PipingSoilProfileReader_Could_not_build_profile_0_from_layer_definitions" xml:space="preserve">
     <value>Kon profiel '{0}' niet opbouwen vanuit de gegevens uit de database.</value>
+  </data>
+  <data name="SoilLayer2D_Error_Loop_contains_disconnected_segments" xml:space="preserve">
+    <value>De segmenten van de geometrie van de laag vormen geen lus.</value>
   </data>
 </root>

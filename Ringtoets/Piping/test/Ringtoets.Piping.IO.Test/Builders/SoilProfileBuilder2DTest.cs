@@ -58,26 +58,30 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             var profileName = "SomeProfile";
             var builder = new SoilProfileBuilder2D(profileName, 0.0);
+            var firstPoint = new Point2D
+            {
+                X = -0.5, Y = 1.0
+            };
+            var secondPoint = new Point2D
+            {
+                X = 0.5, Y = 1.0
+            };
+            var thirdPoint = new Point2D
+            {
+                X = 0.5, Y = -1.0
+            };
+            var fourthPoint = new Point2D
+            {
+                X = -0.5, Y = -1.0
+            };
             builder.Add(new SoilLayer2D
             {
-                OuterLoop = new HashSet<Point3D>
+                OuterLoop = new List<Segment2D>
                 {
-                    new Point3D
-                    {
-                        X = -0.5, Z = 1.0
-                    },
-                    new Point3D
-                    {
-                        X = 0.5, Z = 1.0
-                    },
-                    new Point3D
-                    {
-                        X = 0.5, Z = -1.0
-                    },
-                    new Point3D
-                    {
-                        X = -0.5, Z = -1.0
-                    }
+                    new Segment2D(firstPoint,secondPoint),
+                    new Segment2D(secondPoint,thirdPoint),
+                    new Segment2D(thirdPoint,fourthPoint),
+                    new Segment2D(fourthPoint,firstPoint)
                 },
                 IsAquifer = 1.0
             });
@@ -171,22 +175,20 @@ namespace Ringtoets.Piping.IO.Test.Builders
                     ".....",
                     "....."
                 ));
-            builder.Add(new SoilLayer2D
+            var soilLayer2D = new SoilLayer2D
             {
                 OuterLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
-                    "5",
-                    "2...3",
-                    ".....",
-                    ".....",
-                    ".....",
-                    "1...4"
-                )),
-                InnerLoops =
-                {
-                    loopHole
-                },
+                                                                               "5",
+                                                                               "2...3",
+                                                                               ".....",
+                                                                               ".....",
+                                                                               ".....",
+                                                                               "1...4"
+                                                                       )),
                 IsAquifer = 1.0
-            }).Add(new SoilLayer2D
+            };
+            soilLayer2D.AddInnerLoop(loopHole);
+            builder.Add(soilLayer2D).Add(new SoilLayer2D
             {
                 OuterLoop = loopHole
             });

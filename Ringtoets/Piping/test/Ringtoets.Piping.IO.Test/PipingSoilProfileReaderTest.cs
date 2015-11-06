@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Core.Common.TestUtils;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
@@ -364,7 +366,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 CollectionAssert.AreEqual(new[]
                 {
-                    -39.999943172545208,
+                    -45,
                     -45,
                     -45,
                     -45,
@@ -395,7 +397,7 @@ namespace Ringtoets.Piping.IO.Test
                 CollectionAssert.AreEqual(new[]
                 {
                     9,
-                    8,
+                    7,
                     8,
                     3,
                     6,
@@ -426,25 +428,24 @@ namespace Ringtoets.Piping.IO.Test
                 Assert.NotNull(firstProfile);
                 var expectedFirstProfileLayersTops = new[]
                 {
-                    5.9075002357930027,
-                    3.12499857931363,
-                    2.3749957379408912,
-                    1.1874992896568151,
-                    0.12499005519541202,
-                    -5.1250298344137661,
-                    -14.000011365490959,
-                    -19.000022730981915,
-                    -30.000056827454785,
+                    5.9075,
+                    3.250,
+                    2.750,
+                    1.250,
+                    1.0,
+                    -2.5,
+                    -13,
+                    -17,
+                    -25,
                 };
                 CollectionAssert.AllItemsAreUnique(firstProfile.Layers.Select(l => l.Top));
-                CollectionAssert.AreEqual(expectedFirstProfileLayersTops, firstProfile.Layers.Select(l => l.Top));
+                CollectionAssert.AreEqual(expectedFirstProfileLayersTops, firstProfile.Layers.Select(l => l.Top), new DoubleWithToleranceComparer(1e-6));
 
                 var secondProfile = result.FirstOrDefault(l => l.Name == "AD640M00_Segment_36005_1D2");
                 Assert.NotNull(secondProfile);
                 var expectedSecondProfileLayersTops = new[]
                 {
-                    5.9075002357930053,
-                    4.3475186908270276,
+                    5.9075,
                     3.25,
                     -0.5,
                     -0.75,
@@ -453,8 +454,38 @@ namespace Ringtoets.Piping.IO.Test
                     -25,
                 };
                 CollectionAssert.AllItemsAreUnique(secondProfile.Layers.Select(l => l.Top));
-                CollectionAssert.AreEqual(expectedSecondProfileLayersTops, secondProfile.Layers.Select(l => l.Top));
+                CollectionAssert.AreEqual(expectedSecondProfileLayersTops, secondProfile.Layers.Select(l => l.Top), new DoubleWithToleranceComparer(1e-6));
             }
+        }
+    }
+
+    internal class DoubleWithToleranceComparer : IComparer
+    {
+        private double tolerance;
+
+        public DoubleWithToleranceComparer(double tolerance)
+        {
+            this.tolerance = tolerance;
+        }
+
+        public int Compare(double firstDouble, double secondDouble)
+        {
+            var diff = firstDouble - secondDouble;
+
+            var tolerable = Math.Abs(diff) < tolerance;
+
+            var nonTolerableDiff = !tolerable && diff < 0 ? -1 : 1;
+
+            return tolerable ? 0 : nonTolerableDiff;
+        }
+
+        public int Compare(object x, object y)
+        {
+            if (!(x is double) || !(y is double))
+            {
+                throw new NotSupportedException(string.Format("Cannot compare objects other than {0} with this comparer.", typeof(Point2D)));
+            }
+            return Compare((double)x, (double)y);
         }
     }
 }

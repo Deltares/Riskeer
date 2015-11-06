@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Calculation;
 
 namespace Ringtoets.Piping.IO.Test.Calculation
@@ -15,39 +16,39 @@ namespace Ringtoets.Piping.IO.Test.Calculation
         /// which represent the coordinate of a point. Each pair of coordinates form a segment. 
         /// The last 2 double values are the expected intersection points.
         /// </summary>
-        private static readonly double[][] IntersectingSegments =
+        private static readonly Point2D[][] IntersectingSegments =
         {
             // \/
             // /\
-            new[]
+            new []
             {
-                0.0,0.0,
-                1.0,1.0,
-                1.0,0.0,
-                0.0,1.0,
-                0.5,0.5
+                new Point2D(0.0,0.0),
+                new Point2D(1.0,1.0),
+                new Point2D(1.0,0.0),
+                new Point2D(0.0,1.0),
+                new Point2D(0.5,0.5)
             },
             // __
             //  /
             // /
             new[]
             {
-                0.0,0.0,
-                1.0,1.0,
-                0.0,1.0,
-                1.0,1.0,
-                1.0,1.0
+                new Point2D(0.0,0.0),
+                new Point2D(1.0,1.0),
+                new Point2D(0.0,1.0),
+                new Point2D(1.0,1.0),
+                new Point2D(1.0,1.0)
             },
             // 
             //  /
             // /__
             new[]
             {
-                0.0,0.0,
-                1.0,0.0,
-                0.0,0.0,
-                1.0,1.0,
-                0.0,0.0
+                new Point2D(0.0,0.0),
+                new Point2D(1.0,0.0),
+                new Point2D(0.0,0.0),
+                new Point2D(1.0,1.0),
+                new Point2D(0.0,0.0)
             }
         };
 
@@ -55,32 +56,32 @@ namespace Ringtoets.Piping.IO.Test.Calculation
         /// Test cases for parallel segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
         /// which represent the coordinate of a point. Each pair of coordinates form a segment.
         /// </summary>
-        private static readonly double[][] ParallelSegments =
+        private static readonly Point2D[][] ParallelSegments =
         {
             // __
             // __
             new[]
             {
-                0.0,0.0,
-                1.0,0.0,
-                0.0,1.0,
-                1.0,1.0
+                new Point2D(0.0,0.0),
+                new Point2D(1.0,0.0),
+                new Point2D(0.0,1.0),
+                new Point2D(1.0,1.0)
             },
             // ____ (connected in single point)
             new[]
             {
-                0.0,0.0,
-                1.0,0.0,
-                1.0,0.0,
-                2.0,0.0
+                new Point2D(0.0,0.0),
+                new Point2D(1.0,0.0),
+                new Point2D(1.0,0.0),
+                new Point2D(2.0,0.0)
             },
             // __ (overlap)
             new[]
             {
-                0.0,0.0,
-                1.0,0.0,
-                0.5,0.0,
-                1.5,0.0
+                new Point2D(0.0,0.0),
+                new Point2D(1.0,0.0),
+                new Point2D(0.5,0.0),
+                new Point2D(1.5,0.0)
             }
         };
 
@@ -88,20 +89,17 @@ namespace Ringtoets.Piping.IO.Test.Calculation
         /// Test cases for non intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
         /// which represent the coordinate of a point. Each pair of coordinates form a segment.
         /// </summary>
-        private static readonly double[][] NonIntersectingSegments =
+        private static readonly Point2D[][] NonIntersectingSegments =
         {
             //  |
             // ___
             new[]
             {
-                0.0,
-                0.0,
-                1.0,
-                0.0,
-                0.5,
-                1.0,
-                0.5,
-                0.5
+                new Point2D(0.0,0.0),
+                new Point2D(1.0,0.0),
+                new Point2D(0.5,1.0),
+                new Point2D(0.5,0.5),
+                new Point2D(0.5,0.0)
             }
         };
 
@@ -109,131 +107,50 @@ namespace Ringtoets.Piping.IO.Test.Calculation
 
         [Test]
         [TestCaseSource("IntersectingSegments")]
-        public void LineSegmentIntersectionWithLineSegment_DifferentLineSegmentsWithIntersections_ReturnsPoint(double[] coordinates)
+        public void LineIntersectionWithLine_DifferentLineSegmentsWithIntersections_ReturnsPoint(Point2D[] points)
         {
-            // Setup
-            var segments = ToSegmentCoordinatesCollections(coordinates);
-
             // Call
-            var result = Math2D.LineSegmentIntersectionWithLineSegment(segments[0], segments[1]);
+            var result = Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
 
             // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                coordinates[8],
-                coordinates[9]
-            }, result);
+            Assert.AreEqual(points[4], result);
         }
 
         [Test]
         [TestCaseSource("ParallelSegments")]
-        public void LineSegmentIntersectionWithLineSegment_DifferentParallelLineSegments_ReturnsNoPoint(double[] coordinates)
+        public void LineIntersectionWithLine_DifferentParallelLineSegments_ReturnsNoPoint(Point2D[] points)
         {
-            // Setup
-            var segments = ToSegmentCoordinatesCollections(coordinates);
-
             // Call
-            var result = Math2D.LineSegmentIntersectionWithLineSegment(segments[0], segments[1]);
+            var result = Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
 
             // Assert
-            Assert.AreEqual(0, result.Length);
+            Assert.IsNull(result);
         }
 
         [Test]
         [TestCaseSource("NonIntersectingSegments")]
-        public void LineSegmentIntersectionWithLineSegment_DifferentLineSegmentsWithNoIntersection_ReturnsNoPoint(double[] coordinates)
+        public void LineIntersectionWithLine_DifferentLineSegmentsWithNoIntersection_ReturnsPoint(Point2D[] points)
         {
-            // Setup
-            var segments = ToSegmentCoordinatesCollections(coordinates);
-
             // Call
-            var result = Math2D.LineSegmentIntersectionWithLineSegment(segments[0], segments[1]);
+            var result = Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
 
             // Assert
-            Assert.AreEqual(0, result.Length);
+            Assert.AreEqual(points[4], result);
         }
 
         [Test]
-        [TestCase(3,2)]
-        [TestCase(2,3)]
-        [TestCase(3,3)]
-        [TestCase(1,1)]
-        [TestCase(1,2)]
-        [TestCase(2,1)]
-        public void LineSegmentIntersectionWithLineSegment_IncorrectLengthOfParameters_ThrowsArgumentException(int xLength, int yLength)
+        public void LineIntersectionWithLine_InterSectionsHigherUpX_ReturnsIntersectionWithTolerance()
         {
             // Setup
-            Collection<double> xCollection = new Collection<double>();
-            Collection<double> yCollection = new Collection<double>();
-            var random = new Random(22);
-            for (var i = 0; i < xLength; i++)
-            {
-                xCollection.Add(random.NextDouble());
-            }
-            for (var i = 0; i < yLength; i++)
-            {
-                yCollection.Add(random.NextDouble());
-            }
+            var y1 = 5.925;
+            var y2 = 5.890;
+            var start = 133;
 
             // Call
-            TestDelegate test = () => Math2D.LineSegmentIntersectionWithLineSegment(xCollection.ToArray(), yCollection.ToArray());
-            
-            // Assert
-            var message = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual(message.Message, "Collecties van de x en y coordinaten van lijnen vereisen een lengte van 4.");
-        }
-
-        [Test]
-        [TestCase(3, 2)]
-        [TestCase(2, 3)]
-        [TestCase(3, 3)]
-        [TestCase(1, 1)]
-        [TestCase(1, 2)]
-        [TestCase(2, 1)]
-        public void LineSegmentIntersectionWithLine_IncorrectLengthOfParameters_ThrowsArgumentException(int xLength, int yLength)
-        {
-            // Setup
-            Collection<double> xCollection = new Collection<double>();
-            Collection<double> yCollection = new Collection<double>();
-            var random = new Random(22);
-            for (var i = 0; i < xLength; i++)
-            {
-                xCollection.Add(random.NextDouble());
-            }
-            for (var i = 0; i < yLength; i++)
-            {
-                yCollection.Add(random.NextDouble());
-            }
-
-            // Call
-            TestDelegate test = () => Math2D.LineSegmentIntersectionWithLine(xCollection.ToArray(), yCollection.ToArray());
+            var result = Math2D.LineIntersectionWithLine(new Point2D(start, y1), new Point2D(start + 1, y2), new Point2D(start + 0.5, 0), new Point2D(start + 0.5, 1));
 
             // Assert
-            var message = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual(message.Message, "Collecties van de x en y coordinaten van lijnen vereisen een lengte van 4.");
-        }
-
-        private double[][] ToSegmentCoordinatesCollections(double[] coordinates)
-        {
-            double[] segmentX =
-            {
-                coordinates[0],
-                coordinates[2],
-                coordinates[4],
-                coordinates[6]
-            };
-            double[] segmentY =
-            {
-                coordinates[1],
-                coordinates[3],
-                coordinates[5],
-                coordinates[7]
-            };
-            return new[]
-            {
-                segmentX,
-                segmentY
-            };
+            Assert.AreEqual((y1+y2)/2, result.Y, 1e-8);
         }
     }
 }

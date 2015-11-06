@@ -14,12 +14,15 @@ namespace Ringtoets.Piping.IO.Builders
     /// </summary>
     internal class SoilLayer2D
     {
+        private readonly Collection<List<Segment2D>> innerLoops;
+        private List<Segment2D> outerLoop;
+
         /// <summary>
         /// Creates a new instance of <see cref="SoilLayer2D"/>.
         /// </summary>
         public SoilLayer2D()
         {
-            InnerLoops = new Collection<HashSet<Point3D>>();
+            innerLoops = new Collection<List<Segment2D>>();
         }
 
         /// <summary>
@@ -43,14 +46,51 @@ namespace Ringtoets.Piping.IO.Builders
         public double? DryUnitWeight { get; set; }
 
         /// <summary>
-        /// Gets the outer loop of the <see cref="SoilLayer2D"/> as a <see cref="HashSet{T}"/> of <see cref="Point3D"/>.
+        /// Gets the outer loop of the <see cref="SoilLayer2D"/> as a <see cref="List{T}"/> of <see cref="Segment2D"/>,
+        /// for which each of the segments are connected to the next.
         /// </summary>
-        internal HashSet<Point3D> OuterLoop { get; set; }
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> does not form a loop.</exception>
+        internal List<Segment2D> OuterLoop
+        {
+            get
+            {
+                return outerLoop;
+            }
+            set
+            {
+                if (value.Count == 1 || !IsLoopConnected(value))
+                {
+                    throw new ArgumentException(Resources.SoilLayer2D_Error_Loop_contains_disconnected_segments);
+                }
+                outerLoop = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the <see cref="Collection{T}"/> of inner loops (as <see cref="HashSet{T}"/> of <see cref="Point3D"/>) of the <see cref="SoilLayer2D"/>.
+        /// Gets the <see cref="Collection{T}"/> of inner loops (as <see cref="List{T}"/> of <see cref="Segment2D"/>,
+        /// for which each of the segments are connected to the next) of the <see cref="SoilLayer2D"/>.
         /// </summary>
-        internal Collection<HashSet<Point3D>> InnerLoops { get; private set; }
+        internal IEnumerable<List<Segment2D>> InnerLoops
+        {
+            get
+            {
+                return innerLoops;
+            }
+        }
+
+        /// <summary>
+        /// Adds an inner loop to the <see cref="SoilLayer2D"/> geometry.
+        /// </summary>
+        /// <param name="innerLoop">The innerloop to add.</param>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="innerLoop"/> does not form a loop.</exception>
+        internal void AddInnerLoop(List<Segment2D> innerLoop)
+        {
+            if (innerLoop.Count == 1 || !IsLoopConnected(innerLoop))
+            {
+                throw new ArgumentException(Resources.SoilLayer2D_Error_Loop_contains_disconnected_segments);
+            }
+            innerLoops.Add(innerLoop);
+        }
 
         /// <summary>
         /// Constructs a (1D) <see cref="PipingSoilLayer"/> based on the <see cref="InnerLoops"/> and <see cref="OuterLoop"/> set for the <see cref="SoilLayer2D"/>.
@@ -93,6 +133,25 @@ namespace Ringtoets.Piping.IO.Builders
                 }
             }
             return result;
+        }
+
+        private static bool IsLoopConnected(List<Segment2D> segments)
+        {
+            int segmentCount = segments.Count;
+            if (segmentCount == 2)
+            {
+                return segments[0].Equals(segments[1]);
+            }
+            for (int i = 0; i < segmentCount; i++)
+            {
+                var segmentA = segments[i];
+                var segmentB = segments[(i + 1)%segmentCount];
+                if (!segmentA.IsConnected(segmentB))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private double EnsureBottomOutsideInnerLoop(IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs, double bottom)
@@ -155,60 +214,44 @@ namespace Ringtoets.Piping.IO.Builders
         /// <paramref name="loop"/> intersects the vertical line at <paramref name="atX"/>.</returns>
         /// <exception cref="SoilLayer2DConversionException">Thrown when a segment is vertical at <see cref="atX"/> and thus
         /// no deterministic intersection points can be determined.</exception>
-        private Collection<double> GetLoopIntersectionHeights(HashSet<Point3D> loop, double atX)
+        private Collection<double> GetLoopIntersectionHeights(List<Segment2D> loop, double atX)
         {
             Collection<double> intersectionPointY = new Collection<double>();
 
-            for (int segmentIndex = 0; segmentIndex < loop.Count; segmentIndex++)
+            foreach (Segment2D segment in loop)
             {
-                var intersectionPoint = GetSegmentIntersectionAtX(loop, segmentIndex, atX);
-
-                if (intersectionPoint.Length > 0)
+                if (!segment.ContainsX(atX))
                 {
-                    intersectionPointY.Add(intersectionPoint[1]);
+                    continue;
                 }
-                else if (IsVerticalAtX(GetSegmentWithStartAtIndex(loop, segmentIndex), atX))
+                if (segment.IsVertical())
                 {
                     throw new SoilLayer2DConversionException(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_x, atX));
                 }
+
+                var intersectionPoint = GetSegmentIntersectionAtX(segment, atX);
+
+                if (intersectionPoint != null)
+                {
+                    intersectionPointY.Add(intersectionPoint.Y);
+                }
             }
+
             return intersectionPointY;
         }
 
-        private bool IsVerticalAtX(Point3D[] segment, double atX)
+        private Point2D GetSegmentIntersectionAtX(Segment2D segment, double x)
         {
-            return Math.Abs(segment[0].X - atX) + Math.Abs(segment[1].X - atX) < Math2D.EpsilonForComparisons;
-        }
-
-        private static Point3D[] GetSegmentWithStartAtIndex(HashSet<Point3D> loop, int i)
-        {
-            var current = loop.ElementAt(i);
-            var next = loop.ElementAt((i + 1)%loop.Count);
-
-            return new[]
+            var verticalLineFirstPoint = new Point2D
             {
-                current,
-                next
+                X = x, Y = 0
             };
-        }
-
-        private static double[] GetSegmentIntersectionAtX(HashSet<Point3D> loop, int segmentIndex, double atX)
-        {
-            Point3D[] segment = GetSegmentWithStartAtIndex(loop, segmentIndex);
-
-            return Math2D.LineSegmentIntersectionWithLine(new[]
+            var verticalLineSecondPoint = new Point2D
             {
-                segment[0].X,
-                segment[1].X,
-                atX,
-                atX
-            }, new[]
-            {
-                segment[0].Z,
-                segment[1].Z,
-                0,
-                1
-            });
+                X = x, Y = 1
+            };
+
+            return Math2D.LineIntersectionWithLine(segment.FirstPoint, segment.SecondPoint, verticalLineFirstPoint, verticalLineSecondPoint);
         }
     }
 }

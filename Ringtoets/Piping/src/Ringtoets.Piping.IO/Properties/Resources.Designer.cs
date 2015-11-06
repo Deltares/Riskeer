@@ -205,7 +205,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan de geometry van laag nummer &apos;{0}&apos; in profiel &apos;{1}&apos; niet interpreteren..
+        ///   Looks up a localized string similar to Kan de geometrie van laag nummer &apos;{0}&apos; in profiel &apos;{1}&apos; niet interpreteren..
         /// </summary>
         public static string PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_ {
             get {
@@ -283,6 +283,15 @@ namespace Ringtoets.Piping.IO.Properties {
         public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID {
             get {
                 return ResourceManager.GetString("PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De segmenten van de geometrie van de laag vormen geen lus..
+        /// </summary>
+        public static string SoilLayer2D_Error_Loop_contains_disconnected_segments {
+            get {
+                return ResourceManager.GetString("SoilLayer2D_Error_Loop_contains_disconnected_segments", resourceCulture);
             }
         }
     }

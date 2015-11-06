@@ -1,4 +1,5 @@
 ﻿using System;
+using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.Calculation
@@ -13,137 +14,30 @@ namespace Ringtoets.Piping.IO.Calculation
         /// </summary>
         public const double EpsilonForComparisons = 1e-8;
 
-        /// <summary>
-        /// Tries to find the point where two line segments intersect with each other. Note that if the lines are parallel, no intersection point is returned.
-        /// </summary>
-        /// <param name="segmentsX">X coordinates of the segments. Should have matching y coordinates in <paramref name="segmentsY"/>.</param>
-        /// <param name="segmentsY">Y coordinates of the segments. Should have matching x coordinates in <paramref name="segmentsX"/>.</param>
-        /// <returns>An array of double representing the point where the line segments intersect ((x,y) = (array[0],array[1])).</returns>
-        /// <exception cref="ArgumentException">Thrown when either <paramref name="segmentsX"/> or <paramref name="segmentsY"/> is not of length 4.</exception>
-        public static double[] LineSegmentIntersectionWithLineSegment(double[] segmentsX, double[] segmentsY)
-        {
-            var extraPolatedIntersectionPoint = LineSegmentIntersectionWithLine(segmentsX, segmentsY);
-
-            if (extraPolatedIntersectionPoint.Length == 2)
-            {
-                var onSecondSegment = IsBetween(new[]
-                {
-                    segmentsX[2],
-                    segmentsX[3],
-                    extraPolatedIntersectionPoint[0]
-                }, new[]
-                {
-                    segmentsY[2],
-                    segmentsY[3],
-                    extraPolatedIntersectionPoint[1]
-                });
-                if (onSecondSegment)
-                {
-                    return extraPolatedIntersectionPoint;
-                }
-            }
-            return new double[0];
-        }
-
-        /// <summary>
-        /// Tries to find the point where the line segment intersects with the line. Note that if the segment and the line are parallel, no intersection point is returned.
-        /// </summary>
-        /// <param name="segmentsX">X coordinates of the segment and line. Should have matching y coordinates in <paramref name="segmentsY"/>.</param>
-        /// <param name="segmentsY">Y coordinates of the segment and line. Should have matching x coordinates in <paramref name="segmentsX"/>.</param>
-        /// <returns>An array of double representing the point where the line segment intersects with the line 
-        /// ((x,y) = (array[0],array[1])).</returns>
-        /// <exception cref="ArgumentException">Thrown when either <paramref name="linesX"/> or <paramref name="linesY"/> is not of length 4.</exception>
-        public static double[] LineSegmentIntersectionWithLine(double[] segmentsX, double[] segmentsY)
-        {
-            var extraPolatedIntersectionPoint = LineIntersectionWithLine(segmentsX, segmentsY);
-
-            if (extraPolatedIntersectionPoint.Length == 2)
-            {
-                var onFirstSegment = IsBetween(new[]
-                {
-                    segmentsX[0],
-                    segmentsX[1],
-                    extraPolatedIntersectionPoint[0]
-                }, new[]
-                {
-                    segmentsY[0],
-                    segmentsY[1],
-                    extraPolatedIntersectionPoint[1]
-                });
-                if (onFirstSegment)
-                {
-                    return extraPolatedIntersectionPoint;
-                }
-            }
-            return new double[0];
-        }
-
         /// <remarks>
         /// <para>Taken from: https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-line-intersection-and-its-applications/ </para>
         /// <para>Based on https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection </para>
         /// </remarks>
-        /// <exception cref="ArgumentException">Thrown when either <paramref name="linesX"/> or <paramref name="linesY"/> is not of length 4.</exception>
-        private static double[] LineIntersectionWithLine(double[] linesX, double[] linesY)
+        public static Point2D LineIntersectionWithLine(Point2D firstPoint, Point2D secondPoint, Point2D verticalLineFirstPoint, Point2D verticalLineSecondPoint)
         {
-            var numberOfPoints = 4;
-            if (linesX.Length != numberOfPoints || linesY.Length != numberOfPoints)
-            {
-                throw new ArgumentException(String.Format(Resources.Error_Collections_of_lines_coordinates_need_length_of_0_, numberOfPoints));
-            }
+            var aLine = secondPoint.Y - firstPoint.Y;
+            var bLine = firstPoint.X - secondPoint.X;
+            var cLine = aLine * firstPoint.X + bLine * firstPoint.Y;
 
-            var aLine = linesY[1] - linesY[0];
-            var bLine = linesX[0] - linesX[1];
-            var cLine = aLine * linesX[0] + bLine * linesY[0];
+            var aOtherLine = verticalLineSecondPoint.Y - verticalLineFirstPoint.Y;
+            var bOtherLine = verticalLineFirstPoint.X - verticalLineSecondPoint.X;
+            var cOtherLine = aOtherLine * verticalLineFirstPoint.X + bOtherLine * verticalLineFirstPoint.Y;
 
-            var aOtherLine = linesY[3] - linesY[2];
-            var bOtherLine = linesX[2] - linesX[3];
-            var cOtherLine = aOtherLine * linesX[2] + bOtherLine * linesY[2];
-
-            var determinant = aLine*bOtherLine - aOtherLine*bLine;
+            var determinant = aLine * bOtherLine - aOtherLine * bLine;
             if (Math.Abs(determinant) < EpsilonForComparisons)
             {
-                return new double[0];
+                return null;
             }
 
-            return new[]
-            {
-                (bOtherLine*cLine - bLine*cOtherLine)/determinant,
-                (aLine*cOtherLine - aOtherLine*cLine)/determinant
+            return new Point2D {
+                X = (bOtherLine*cLine - bLine*cOtherLine)/determinant,
+                Y = (aLine*cOtherLine - aOtherLine*cLine)/determinant
             };
-        }
-
-        /// <summary>
-        /// Checks whether point <paramref name="x"/>[2],<paramref name="y"/>[2] lies between <paramref name="x"/>[0],<paramref name="y"/>[0] 
-        /// and <paramref name="x"/>[1],<paramref name="y"/>[1].
-        /// </summary>
-        /// <param name="x">X-coordinates of the 3 points.</param>
-        /// <param name="y">Y-coordinates of the 3 points.</param>
-        /// <returns>True if point <paramref name="x"/>[2],<paramref name="y"/>[2] lies between <paramref name="x"/>[0],<paramref name="y"/>[0] 
-        /// and <paramref name="x"/>[1],<paramref name="y"/>[1]. False otherwise.</returns>
-        private static bool IsBetween(double[] x, double[] y)
-        {
-            if (Math.Abs(CrossProduct(x, y)) > EpsilonForComparisons)
-            {
-                return false;
-            }
-
-            if (DotProduct(x, y) < 0)
-            {
-                return false;
-            }
-
-            var squaredLengthSegment = (x[1] - x[0])*(x[1] - x[0]) + (y[1] - y[0])*(y[1] - y[0]);
-            return DotProduct(x, y) <= squaredLengthSegment;
-        }
-
-        private static double DotProduct(double[] x, double[] y)
-        {
-            return (x[2] - x[0])*(x[1] - x[0]) + (y[2] - y[0])*(y[1] - y[0]);
-        }
-
-        private static double CrossProduct(double[] x, double[] y)
-        {
-            return (y[2] - y[0])*(x[1] - x[0]) - (x[2] - x[0])*(y[1] - y[0]);
         }
     }
 }
