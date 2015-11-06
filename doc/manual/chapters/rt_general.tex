@@ -66,8 +66,15 @@ Toolvensters geven de eigenschappen van het huidig geselecteerde item weer. In R
 \item Chart (5)
 \item Properties (6)
 \item Messages (7)
-\item Time Navigator (8)
 \end{itemize}
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[width=\textwidth]{figures/chapter_general/rt_Welcome.png}
+		\caption{De RT interface}
+	\label{fig:RT_Welcome_Page}
+\end{figure}
+
 
 \subsection*{Document vensters}
 Document vensters worden gebruikt voor het visualiseren en het bewerken van specifieke gegevenstypen. Ze worden geopend in het hoofdvenster (9) dat centraal staat na het opstarten van RT. Voorbeelden van document vensters zijn:
@@ -77,12 +84,6 @@ Document vensters worden gebruikt voor het visualiseren en het bewerken van spec
 \item Visualizers
 \end{itemize}
 
-\begin{figure}[H]
-	\centering
-		\includegraphics[width=\textwidth]{figures/chapter_general/rt_Welcome.png}
-		\caption{De RT interface}
-	\label{fig:RT_Welcome_Page}
-\end{figure}
 
 \subsection{Hoofdvenster}
 Het hoofdscherm is de plek waar alle documentvensters die door de gebruiker zijn geopend (bijvoorbeeld kaarten en editors) bekeken en bewerkt kunnen worden. Het venster beschikt over een tabstructuur vergelijkbaar met tabs in een Excel document. De gebruiker kan door middel van de pijltjes rechtsboven door de tabs navigeren. Docking en het verplaatsen van vensters (zie paragraaf \ref{sec:RT_Docking}) maakt het mogelijk om op een overzichtelijke manier verschillende document vensters naast elkaar te gebruiken.
@@ -233,7 +234,7 @@ Onder aan het \textit{Properties} toolvenster wordt er een uitgebreide beschrijv
 	\label{sec:TimeSeriesNavigator}
 De time navigator wordt gebruikt om te navigeren door tijd(stappen) van een tijdsafhankelijke variabele. Elk scherm dat tijdsafhankelijke informatie toont heeft zijn eigen time navigator. Hiermee is er de mogelijkheid om te navigeren door de tijd. Deze tijdnavigatie kan twee vormen aannemen:
 \begin{itemize}
-\item Enkele tijdsindicatie. In dit geval heeft de tijdnavigatie balk een verticale lijn die de positie in de tijd aangeeft. In dit geval wordt slechts een tijdstip weergegeven en wel het tijdstip links van de genoemde lijn (zie figuur \ref{fig:TimeSeriesNavigator}). 
+\item Enkele tijdsindicatie. In dit geval heeft de tijdnavigatie balk een verticale lijn die de positie in de tijd aangeeft. In dit geval wordt slechts een tijdstip weergegeven en wel het tijdstip links van de genoemde lijn (zie \Fref{fig:TimeSeriesNavigator}). 
 \item Tijd range (figuur \ref{fig:TimeSeriesNavigator_Range}). In dit geval heeft de navigatie balk een rechthoek die begin en eind tijdstip aangeeft. In dit geval worden alle gegevens tussen het begin en eind tijdstip weergegeven.
 \end{itemize}
 
@@ -243,6 +244,7 @@ De time navigator wordt gebruikt om te navigeren door tijd(stappen) van een tijd
 		\caption{Time Navigator met enkele tijdsindicatie}
 	\label{fig:TimeSeriesNavigator}
 \end{figure}
+
 \begin{figure}[H]
 	\centering
 		\includegraphics[width=\textwidth]{figures/chapter_general/TimeSeriesNavigator_Range.png}
@@ -252,11 +254,7 @@ De time navigator wordt gebruikt om te navigeren door tijd(stappen) van een tijd
 
 \subsection{Messages}
 	\label{sec:RT_Messages}
-Het message venster is een logging venster. Berichten verstuurd uit modellen of verschillende delen van het systeem worden hier chronologisch getoond. Afhankelijk van de inhoud van het bericht worden deze weergegeven met een icoon (zie voor een verklaring van de iconen tabel \ref{table:message_icons}). Indien het venster wordt gesloten en weer geopend (zie paragraaf \ref{sec:RT_Docking}) worden alleen nieuwe berichten getoond. Oudere berichten worden op twee plaatsen opgeslagen:
-\begin{enumerate}
-\item Een run rapport wordt getoond in de output folder van het Project toolvenster voor elke modelberekening. Dit run rapport bevat alle berichten die zich voordoen tijdens de berekening.
-\item Daarnaast word een applicatie log bijgehouden voor elke sessie (van opstarten tot afsluiten) van RT in de project database. In deze log-file worden alle berichten opgeslagen die zich tijdens de sessie voordoen. De applicatie log kan ten alle tijden worden opgevraagd door in de \textbf{Home} ribbon op de knop \textbf{Show Log} te klikken.
-\end{enumerate}
+Het \textit{Messages } venster is een loggingvenster. Berichten verstuurd uit modellen of verschillende delen van het systeem worden hier chronologisch getoond (hoe verder naar beneden, des te ouder het bericht). De informatie van elk bericht wordt getoond in drie kolommen (zie \Fref{fig:general.messagesPanel}). Afhankelijk van de inhoud van het bericht worden deze weergegeven met een icoon in de eerste kolom (zie voor een verklaring van de iconen tabel \ref{table:message_icons}). De tweede kolom geeft weer de tijdstip waarop het bericht gegenereerd werd. Op de derde kolom, wordt de tekst met de informatie van het bericht weergegeven.
 
 \begin{table}[H]
 \caption{Bericht types}
@@ -276,6 +274,34 @@ Het message venster is een logging venster. Berichten verstuurd uit modellen of 
 \end{tabular}
 \label{table:message_icons}
 \end{table}
+
+Door de drie meest linkse icoontjes boven aan de berichtenlijst aan al dan uit te zetten, kan er vastgelegd worden welke types van berichten in het \textit{Messages} venster getoond worden. Deze knoppen kunnen op elk moment bediend worden, en deze actie veroorzaakt niet dat er berichten gewist worden. Deze icoontjes controleren alleen maar de zichtbaarheid van de verschillende berichttypes. 
+
+Het meest rechtse icoontje wordt gebruikt om het laatst geselecteerde bericht in een apart venster te laten zien. Dit is handig als de tekst van het bericht lang is, om hem beter te kunnen bestuderen en, eventueel, deels of volledig kopi\"{e}ren naar het klembord.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics{figures/chapter_general/messagesPanel}
+		\caption{Time Navigator met tijdrange weergave}
+	\label{fig:general.messagesPanel}
+\end{figure}
+
+Het is mogelijk om alle berichten van alle types in een klap te wissen. Dit kan door de optie \textit{Verwijder alles} te kiezen in het context menu op het loggingvenster (\Fref{fig:general.messagesPanelContextMenu}). Indien het venster wordt gesloten en weer geopend (zie paragraaf \ref{sec:RT_Docking}) worden ook alle eerdere berichten gewist en alleen de nieuwe berichten worden eraan bijgevoegd. In hetzelfde contextmenu (\Fref{fig:general.messagesPanelContextMenu}) bestaat er ook een optie om alle geselecteerde regels naar het klembord te kopi\"{e}ren.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics{figures/chapter_general/messagesPanelContextMenu}
+		\caption{Time Navigator met tijdrange weergave}
+	\label{fig:general.messagesPanelContextMenu}
+\end{figure}
+
+
+Oudere berichten worden op twee plaatsen opgeslagen:
+\begin{enumerate}
+\item Een run rapport wordt getoond in de output folder van het Project toolvenster voor elke modelberekening. Dit run rapport bevat alle berichten die zich voordoen tijdens de berekening.
+\item Daarnaast word een applicatie log bijgehouden voor elke sessie (van opstarten tot afsluiten) van RT in de project database. In deze log-file worden alle berichten opgeslagen die zich tijdens de sessie voordoen. De applicatie log kan ten alle tijden worden opgevraagd door in de \textbf{Home} ribbon op de knop \textbf{Show Log} te klikken.
+\end{enumerate}
+
 
 \section {Import \ Export}
 Indien voor een item in het \textbf{Project} toolvenster een zogenaamde exporter of importer is gedefinieerd, is het in RT mogelijk om gegevens te exporteren of importeren via het menu onder de rechter muisknop. Kies hiervoor \textbf{Export...} of \textbf{Import...}. Indien een plugin of het framework zelf een exporter of importer voor het geklikte item is aangeboden kan deze worden gebuikt. In sommige gevallen zijn er meerdere manieren om items te exporteren (bijvoorbeeld berekeningsresultaten kunnen als figuur worden ge"exporteerd, maar ook naar het csv format dat in Excel leesbaar is).
