@@ -3,8 +3,17 @@ using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
 {
+    /// <summary>
+    /// This class represents lines between two <see cref="Point2D"/>.
+    /// </summary>
     public class Segment2D
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="Segment2D"/>, with the <see cref="FirstPoint"/> set to
+        /// <paramref name="first"/> and the <see cref="SecondPoint"/> set to <paramref name="second"/>.
+        /// </summary>
+        /// <param name="first">The first <see cref="Point2D"/> of the <see cref="Segment2D"/>.</param>
+        /// <param name="second">The second <see cref="Point2D"/> of the <see cref="Segment2D"/>.</param>
         public Segment2D(Point2D first, Point2D second)
         {
             if (first == null || second == null)
@@ -15,8 +24,14 @@ namespace Ringtoets.Piping.Data
             SecondPoint = second;
         }
 
+        /// <summary>
+        /// The first <see cref="Point2D"/> of the <see cref="Segment2D"/>.
+        /// </summary>
         public Point2D FirstPoint { get; private set; }
 
+        /// <summary>
+        /// The second <see cref="Point2D"/> of the <see cref="Segment2D"/>.
+        /// </summary>
         public Point2D SecondPoint { get; private set; }
 
         /// <summary>
@@ -45,10 +60,19 @@ namespace Ringtoets.Piping.Data
             return Math.Abs(FirstPoint.X - SecondPoint.X) < 1e-8;
         }
 
-        protected bool Equals(Segment2D other)
+        /// <summary>
+        /// Determines whether two segments are connected by each other's <see cref="FirstPoint"/>
+        /// and <see cref="SecondPoint"/>.
+        /// </summary>
+        /// <param name="segment">The segment which may be connected to the <see cref="Segment2D"/>.</param>
+        /// <returns><c>true</c> if the segments are connected. <c>false</c> otherwise.</returns>
+        public bool IsConnected(Segment2D segment)
         {
-            return FirstPoint.Equals(other.FirstPoint) && SecondPoint.Equals(other.SecondPoint) || 
-                FirstPoint.Equals(other.SecondPoint) && SecondPoint.Equals(other.FirstPoint);
+            return
+                FirstPoint.Equals(segment.FirstPoint) ||
+                FirstPoint.Equals(segment.SecondPoint) ||
+                SecondPoint.Equals(segment.FirstPoint) ||
+                SecondPoint.Equals(segment.SecondPoint);
         }
 
         public override bool Equals(object obj)
@@ -61,7 +85,7 @@ namespace Ringtoets.Piping.Data
             {
                 return true;
             }
-            if (obj.GetType() != this.GetType())
+            if (obj.GetType() != GetType())
             {
                 return false;
             }
@@ -72,23 +96,14 @@ namespace Ringtoets.Piping.Data
         {
             unchecked
             {
-                return ((FirstPoint.X + SecondPoint.X).GetHashCode() * 397) ^ (FirstPoint.Y + SecondPoint.Y).GetHashCode();
+                return ((FirstPoint.X + SecondPoint.X).GetHashCode()*397) ^ (FirstPoint.Y + SecondPoint.Y).GetHashCode();
             }
         }
 
-        /// <summary>
-        /// Determines whether two segments are connected by each other's <see cref="FirstPoint"/>
-        /// and <see cref="SecondPoint"/>.
-        /// </summary>
-        /// <param name="segment">The segment which may be connected to the <see cref="Segment2D"/>.</param>
-        /// <returns><c>true</c> if the segments are connected. <c>false</c> otherwise.</returns>
-        public bool IsConnected(Segment2D segment)
+        protected bool Equals(Segment2D other)
         {
-            return 
-                FirstPoint.Equals(segment.FirstPoint) || 
-                FirstPoint.Equals(segment.SecondPoint) ||
-                SecondPoint.Equals(segment.FirstPoint) ||
-                SecondPoint.Equals(segment.SecondPoint);
+            return FirstPoint.Equals(other.FirstPoint) && SecondPoint.Equals(other.SecondPoint) ||
+                   FirstPoint.Equals(other.SecondPoint) && SecondPoint.Equals(other.FirstPoint);
         }
     }
 }

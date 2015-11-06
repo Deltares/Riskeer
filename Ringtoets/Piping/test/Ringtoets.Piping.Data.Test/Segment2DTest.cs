@@ -220,7 +220,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void IsConnected_ThreeSegments_AreAllConnected()
+        public void IsConnected_ThreeConnectedSegments_AreAllConnected()
         {
             // Setup
             var random = new Random(22);
@@ -250,7 +250,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void IsConnected_ThreeSegments_AreAllDisconnected()
+        public void IsConnected_TwoSeperateSegments_AreDisconnected()
         {
             // Setup
             var random = new Random(22);

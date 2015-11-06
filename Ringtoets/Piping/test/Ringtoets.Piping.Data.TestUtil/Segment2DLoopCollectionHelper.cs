@@ -9,8 +9,25 @@ namespace Ringtoets.Piping.Data.TestUtil
     /// The class helps to construct collections of points by reading a string (from file or directly) and
     /// transforming this in objects that can be used in tests.
     /// </summary>
-    public class PointCollectionHelper
+    public static class Segment2DLoopCollectionHelper
     {
+        /// <summary>
+        /// Creates a loop from a given string. The string needs to be formatted as follows.
+        /// <list type="bullet">
+        ///   <item>First line contains the number of lines (<c>n</c>).</item>
+        ///   <item>The <c>n</c> following lines contain a number of digits.</item>
+        ///   <item>Each digit is a point and should be unique.</item>
+        /// </list> 
+        /// Example string:
+        /// <c>
+        /// "3" + Environment.NewLine +
+        /// "..1.." + Environment.NewLine +
+        /// "3...." + Environment.NewLine +
+        /// "...2."
+        /// </c>
+        /// </summary>
+        /// <param name="s">The (correctly formatted) string representing a grid with points.</param>
+        /// <returns>The <see cref="List{T}"/> of <see cref="Segment2D"/> which describe a loop.</returns>
         public static List<Segment2D> CreateFromString(string s)
         {
             var points = new SortedDictionary<int, Point2D>();

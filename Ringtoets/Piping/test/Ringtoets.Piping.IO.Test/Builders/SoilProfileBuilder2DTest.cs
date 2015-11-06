@@ -104,7 +104,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             var builder = new SoilProfileBuilder2D(profileName, 1.0);
             builder.Add(new SoilLayer2D
             {
-                OuterLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                     "10",
                     "...",
                     "...",
@@ -119,7 +119,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 ))
             }).Add(new SoilLayer2D
             {
-                OuterLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                     "10",
                     "...",
                     "...",
@@ -134,7 +134,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 ))
             }).Add(new SoilLayer2D
             {
-                OuterLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                     "10",
                     "...",
                     "1.2",
@@ -167,7 +167,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
             // Setup
             var profileName = "SomeProfile";
             var builder = new SoilProfileBuilder2D(profileName, 2.0);
-            var loopHole = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var loopHole = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                     "5",
                     ".....",
                     ".4.1.",
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                 ));
             var soilLayer2D = new SoilLayer2D
             {
-                OuterLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+                OuterLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "5",
                                                                                "2...3",
                                                                                ".....",

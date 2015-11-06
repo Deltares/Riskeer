@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopComplex_ReturnsTwoLayers()
         {
             // Setup
-            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "..1..2..",
                                                                                "........",
@@ -155,7 +155,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopInnerLoopSimple_ReturnsTwoLayers()
         {
             // Setup
-            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine, 
+            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine, 
                                                                                "6",
                                                                                "..1..2..",
                                                                                "........",
@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                "........",
                                                                                "..4..3.."));
 
-            var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "........",
                                                                                "...12...",
@@ -193,7 +193,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopInnerLoopComplex_ReturnsThreeLayers()
         {
             // Setup
-            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "..1..2..",
                                                                                "........",
@@ -202,7 +202,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                "........",
                                                                                "..4..3.."));
 
-            var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "........",
                                                                                "...1.2..",
@@ -231,7 +231,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopMultipleInnerLoops_ReturnsThreeLayers()
         {
             // Setup
-            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "..1..2..",
                                                                                "........",
@@ -240,7 +240,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                "........",
                                                                                "..4..3.."));
 
-            var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "........",
                                                                                "...12...",
@@ -249,7 +249,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                "........",
                                                                                "........"));
 
-            var innerLoop2 = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                 "6",
                                                                                 "........",
                                                                                 "........",
@@ -279,7 +279,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopOverlappingInnerLoop_ReturnsOneLayer()
         {
             // Setup
-            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "..1..2..",
                                                                                "........",
@@ -288,7 +288,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                ".4....3.",
                                                                                "........"));
 
-            var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "........",
                                                                                "........",
@@ -317,7 +317,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopOverlappingInnerLoopsFirstInnerLoopNotOverBottom_ReturnsOneLayer()
         {
             // Setup
-            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "..1..2..",
                                                                                "........",
@@ -326,7 +326,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                ".4....3.",
                                                                                "........"));
 
-            var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "........",
                                                                                "...12...",
@@ -335,7 +335,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                "........",
                                                                                "........"));
 
-            var innerLoop2 = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var innerLoop2 = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                 "6",
                                                                                 "........",
                                                                                 "........",
@@ -365,7 +365,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopInnerLoopOnBorderBottom_ReturnsTwoLayers()
         {
             // Setup
-            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "..1..2..",
                                                                                "........",
@@ -374,7 +374,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                ".4....3.",
                                                                                "........"));
 
-            var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "........",
                                                                                "........",
@@ -403,7 +403,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopInnerLoopOverlapTop_ReturnsOneLayer()
         {
             // Setup
-            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "........",
                                                                                "..1..2..",
@@ -412,7 +412,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                ".4....3.",
                                                                                "........"));
 
-            var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "...43...",
                                                                                "........",
@@ -441,7 +441,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         public void AsPipingSoilLayers_OuterLoopInnerLoopOnBorderTop_ReturnsOneLayer()
         {
             // Setup
-            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "..1..2..",
                                                                                "........",
@@ -450,7 +450,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                ".4....3.",
                                                                                "........"));
 
-            var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "...43...",
                                                                                "........",
@@ -480,7 +480,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var atX = 2.0;
-            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "..1..2..",
                                                                                "........",
@@ -508,7 +508,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
         {
             // Setup
             var atX = 3.0;
-            var outerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var outerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "..1..2..",
                                                                                "........",
@@ -517,7 +517,7 @@ namespace Ringtoets.Piping.IO.Test.Builders
                                                                                "........",
                                                                                "..4..3.."));
 
-            var innerLoop = PointCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
+            var innerLoop = Segment2DLoopCollectionHelper.CreateFromString(String.Join(Environment.NewLine,
                                                                                "6",
                                                                                "........",
                                                                                "...1.2..",
