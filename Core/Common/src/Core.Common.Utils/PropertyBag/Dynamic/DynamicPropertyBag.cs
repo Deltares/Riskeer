@@ -18,7 +18,7 @@ namespace Core.Common.Utils.PropertyBag.Dynamic
 
         public DynamicPropertyBag(object propertyObject, PropertyInfo[] customPropertyInfos = null)
         {
-            Initialize(propertyObject, customPropertyInfos ?? propertyObject.GetType().GetProperties());
+            Initialize(propertyObject, customPropertyInfos ?? propertyObject.GetType().GetProperties().OrderBy(x => x.MetadataToken).ToArray());
         }
 
         public object WrappedObject
