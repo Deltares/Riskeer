@@ -18,9 +18,7 @@ namespace Core.Common.Gui.Forms.SplashScreen
 
         private readonly DispatcherTimer updateTimer;
 
-        public int maxProgressBarValue;
         private IApplication app;
-        private DateTime lastUpdateTime;
         private string logoImageFilePath;
         private volatile ProgressInfo progressInfo;
         private bool scheduleUpdate;
@@ -39,8 +37,6 @@ namespace Core.Common.Gui.Forms.SplashScreen
         {
             InitializeComponent();
 
-            lastUpdateTime = new DateTime(0);
-
             if (app == null)
             {
                 throw new ArgumentNullException("app");
@@ -57,19 +53,6 @@ namespace Core.Common.Gui.Forms.SplashScreen
             updateTimer.Tick += OnTimer;
             updateTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             updateTimer.Start();
-        }
-
-        public string LogoImageFilePath
-        {
-            get
-            {
-                return logoImageFilePath;
-            }
-            set
-            {
-                logoImageFilePath = value;
-                Background = new ImageBrush(new BitmapImage(new Uri(logoImageFilePath, UriKind.Relative)));
-            }
         }
 
         public string LabelVersionVersion
@@ -120,19 +103,6 @@ namespace Core.Common.Gui.Forms.SplashScreen
             }
         }
 
-        public int MaxProgressBarValue
-        {
-            get
-            {
-                return maxProgressBarValue;
-            }
-            set
-            {
-                progressBar.Maximum = value;
-                maxProgressBarValue = value;
-            }
-        }
-
         public int ProgressBarValue
         {
             get
@@ -156,18 +126,6 @@ namespace Core.Common.Gui.Forms.SplashScreen
             {
                 labelProgressBar.Content = value;
             }
-        }
-
-        public void SetProgress(ProgressInfo info)
-        {
-            // multi-threaded app support, makes sure that the last message is really the last one (skip "")
-            if (info.Message == "" && progressInfo != null && progressInfo.Message != "")
-            {
-                lastProgressMessage = progressInfo.Message;
-            }
-
-            progressInfo = info;
-            ScheduleUpdate();
         }
 
         public void Shutdown()
