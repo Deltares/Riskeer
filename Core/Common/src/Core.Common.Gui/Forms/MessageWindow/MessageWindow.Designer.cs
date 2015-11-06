@@ -174,7 +174,7 @@ namespace Core.Common.Gui.Forms.MessageWindow
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.messagesDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             resources.ApplyResources(this.messagesDataGridView, "messagesDataGridView");
             this.messagesDataGridView.Name = "messagesDataGridView";
