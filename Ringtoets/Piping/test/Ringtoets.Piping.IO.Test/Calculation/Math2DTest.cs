@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+using System.Collections;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Calculation;
@@ -16,74 +15,87 @@ namespace Ringtoets.Piping.IO.Test.Calculation
         /// which represent the coordinate of a point. Each pair of coordinates form a segment. 
         /// The last 2 double values are the expected intersection points.
         /// </summary>
-        private static readonly Point2D[][] IntersectingSegments =
+        private static IEnumerable IntersectingSegments()
         {
             // \/
             // /\
-            new []
+            var testCaseDatadata1 = new TestCaseData(new[]
             {
                 new Point2D(0.0,0.0),
                 new Point2D(1.0,1.0),
                 new Point2D(1.0,0.0),
                 new Point2D(0.0,1.0),
                 new Point2D(0.5,0.5)
-            },
+            }, "IntersectingSegments 1");
+            yield return testCaseDatadata1; 
+
             // __
             //  /
             // /
-            new[]
+            var testCaseDatadata2 = new TestCaseData(new[]
             {
                 new Point2D(0.0,0.0),
                 new Point2D(1.0,1.0),
                 new Point2D(0.0,1.0),
                 new Point2D(1.0,1.0),
                 new Point2D(1.0,1.0)
-            },
+            }, "IntersectingSegments 2");
+            yield return testCaseDatadata2;
+
             // 
             //  /
             // /__
-            new[]
+            var testCaseDatadata3 = new TestCaseData(new[]
             {
                 new Point2D(0.0,0.0),
                 new Point2D(1.0,0.0),
                 new Point2D(0.0,0.0),
                 new Point2D(1.0,1.0),
                 new Point2D(0.0,0.0)
-            }
-        };
+            }, "IntersectingSegments 3");
+            yield return testCaseDatadata3;
+        }
 
         /// <summary>
         /// Test cases for parallel segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
         /// which represent the coordinate of a point. Each pair of coordinates form a segment.
         /// </summary>
-        private static readonly Point2D[][] ParallelSegments =
+        private static IEnumerable ParallelSegments()
         {
+
             // __
             // __
-            new[]
+            var testCaseDatadata1 = new TestCaseData(new[]
             {
-                new Point2D(0.0,0.0),
-                new Point2D(1.0,0.0),
-                new Point2D(0.0,1.0),
-                new Point2D(1.0,1.0)
-            },
-            // ____ (connected in single point)
-            new[]
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(0.0, 1.0),
+                new Point2D(1.0, 1.0)
+            }, "ParallelSegments");
+            yield return testCaseDatadata1; 
+
+            
+           // ____ (connected in single point)
+            var testCaseDatadata2 = new TestCaseData(new[]
             {
-                new Point2D(0.0,0.0),
-                new Point2D(1.0,0.0),
-                new Point2D(1.0,0.0),
-                new Point2D(2.0,0.0)
-            },
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(2.0, 0.0)
+            }, "ParallelSegments, connected in single point");
+            yield return testCaseDatadata2;
+
+
             // __ (overlap)
-            new[]
+            var testCaseDatadata3 = new TestCaseData(new[]
             {
-                new Point2D(0.0,0.0),
-                new Point2D(1.0,0.0),
-                new Point2D(0.5,0.0),
-                new Point2D(1.5,0.0)
-            }
-        };
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(0.5, 0.0),
+                new Point2D(1.5, 0.0)
+            }, "ParallelSegments, overlap");
+            yield return testCaseDatadata3;
+        }
 
         /// <summary>
         /// Test cases for non intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
@@ -107,7 +119,7 @@ namespace Ringtoets.Piping.IO.Test.Calculation
 
         [Test]
         [TestCaseSource("IntersectingSegments")]
-        public void LineIntersectionWithLine_DifferentLineSegmentsWithIntersections_ReturnsPoint(Point2D[] points)
+        public void LineIntersectionWithLine_DifferentLineSegmentsWithIntersections_ReturnsPoint(Point2D[] points, string testname = "")
         {
             // Call
             var result = Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
@@ -118,7 +130,8 @@ namespace Ringtoets.Piping.IO.Test.Calculation
 
         [Test]
         [TestCaseSource("ParallelSegments")]
-        public void LineIntersectionWithLine_DifferentParallelLineSegments_ReturnsNoPoint(Point2D[] points)
+        // String testname was added because the Teamcity report only counts the unique signatures that were tested
+        public void LineIntersectionWithLine_DifferentParallelLineSegments_ReturnsNoPoint(Point2D[] points, string testname="")
         {
             // Call
             var result = Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
