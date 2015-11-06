@@ -3,10 +3,11 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls;
+using Core.Common.Gui.Properties;
 using Core.Common.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
-
+using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 
 using Ringtoets.Piping.Forms.NodePresenters;
@@ -252,12 +253,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_Always_ReturnsNull()
+        public void GetContextMenu_PipingFailureMechanism_ReturnsContextMenuWithThreeItems()
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<PipingData>();
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter();
 
@@ -267,7 +268,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
 
             // Assert
-            Assert.AreEqual(2, contextMenu.Items.Count);
+            Assert.AreEqual(3, contextMenu.Items.Count);
             var addCalculationItem = contextMenu.Items[0];
             Assert.AreEqual("Berekening toevoegen", addCalculationItem.Text);
             Assert.AreEqual("Voeg een nieuwe piping berekening toe aan het faalmechanisme.", addCalculationItem.ToolTipText);
@@ -279,6 +280,65 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual("Valideer en voer alle berekeningen binnen het piping faalmechanisme uit.", runAllItem.ToolTipText);
             Assert.AreEqual(16, runAllItem.Image.Width);
             Assert.AreEqual(16, runAllItem.Image.Height);
+
+            var clearOutputItem = contextMenu.Items[2];
+            Assert.AreEqual("Wis uitvoer van alle berekeningen", clearOutputItem.Text);
+            Assert.AreEqual(16, clearOutputItem.Image.Width);
+            Assert.AreEqual(16, clearOutputItem.Image.Height);
+
+            mocks.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void GetContextMenu_PipingFailureMechanismNoOutput_ClearAllOutputDisabled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
+
+            var nodePresenter = new PipingFailureMechanismNodePresenter();
+
+            mocks.ReplayAll();
+
+            // Call
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+
+            // Assert
+            Assert.AreEqual(3, contextMenu.Items.Count);
+
+            var clearOutputItem = contextMenu.Items[2];
+            Assert.IsFalse(clearOutputItem.Enabled);
+            Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
+
+            mocks.VerifyAll(); // Expect no calls on arguments
+        }
+        
+        [Test]
+        public void GetContextMenu_PipingFailureMechanismWithOutput_ClearAllOutputEnabled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
+            dataMock.Calculations.Add(new PipingData
+            {
+                Output = new TestPipingOutput()
+            });
+
+            var nodePresenter = new PipingFailureMechanismNodePresenter();
+
+            mocks.ReplayAll();
+
+            // Call
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, dataMock);
+
+            // Assert
+            Assert.AreEqual(3, contextMenu.Items.Count);
+
+            var clearOutputItem = contextMenu.Items[2];
+            Assert.IsTrue(clearOutputItem.Enabled);
+            Assert.IsNull(clearOutputItem.ToolTipText);
 
             mocks.VerifyAll(); // Expect no calls on arguments
         }

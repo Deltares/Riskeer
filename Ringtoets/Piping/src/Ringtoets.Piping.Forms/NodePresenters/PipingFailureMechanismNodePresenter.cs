@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
@@ -99,11 +100,12 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             var rootMenu = new ContextMenuStrip();
 
+            var failureMechanism = (PipingFailureMechanism)nodeData;
+
             rootMenu.AddMenuItem(Resources.PipingFailureMechanism_Add_Piping_Calculation,
                                  Resources.PipingFailureMechanism_Add_Piping_Calculation_Tooltip,
                                  Resources.PipingIcon, (o, args) =>
                                  {
-                                     var failureMechanism = (PipingFailureMechanism)nodeData;
                                      var pipingData = new PipingData
                                      {
                                          Name = NamingHelper.GetUniqueName(failureMechanism.Calculations, "Piping", pd => pd.Name)
@@ -115,12 +117,27 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                  Resources.PipingFailureMechanism_Calculate_Tooltip,
                                  Resources.PlayAll, (o, args) =>
                                  {
-                                     var failureMechanism = (PipingFailureMechanism)nodeData;
                                      foreach (var calc in failureMechanism.Calculations)
                                      {
                                          RunActivityAction(new PipingCalculationActivity(calc));
                                      }
                                  });
+
+            var clearOutputNode = rootMenu.AddMenuItem(Resources.Clear_all_output,
+                                 null,
+                                 Resources.PipingOutputClear, (o, args) =>
+                                 {
+                                     foreach (var calc in failureMechanism.Calculations)
+                                     {
+                                         calc.ClearOutput();
+                                     }
+                                 });
+
+            if (!failureMechanism.Calculations.Any(c => c.HasOutput))
+            {
+                clearOutputNode.Enabled = false;
+                clearOutputNode.ToolTipText = Resources.ClearOutput_No_calculation_with_output_to_clear;
+            }
 
             return rootMenu;
         }

@@ -79,11 +79,29 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wis uitvoer van alle berekeningen.
+        /// </summary>
+        public static string Clear_all_output {
+            get {
+                return ResourceManager.GetString("Clear_all_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wis uitvoer.
         /// </summary>
         public static string Clear_output {
             get {
                 return ResourceManager.GetString("Clear_output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen berekeningen met uitvoer om te wissen..
+        /// </summary>
+        public static string ClearOutput_No_calculation_with_output_to_clear {
+            get {
+                return ResourceManager.GetString("ClearOutput_No_calculation_with_output_to_clear", resourceCulture);
             }
         }
         

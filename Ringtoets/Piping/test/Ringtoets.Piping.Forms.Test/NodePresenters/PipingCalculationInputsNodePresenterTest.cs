@@ -339,6 +339,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             ToolStripItem clearOutputItem = contextMenu.Items[2];
             Assert.IsFalse(clearOutputItem.Enabled);
+            Assert.AreEqual(WtiFormsResources.ClearOutput_No_output_to_clear, clearOutputItem.ToolTipText);
             mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -366,6 +367,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             ToolStripItem clearOutputItem = contextMenu.Items[2];
             Assert.IsTrue(clearOutputItem.Enabled);
+            Assert.IsNull(clearOutputItem.ToolTipText);
             mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 
