@@ -177,8 +177,8 @@
   <data name="PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_" xml:space="preserve">
     <value>Kan de geometrie van laag nummer '{0}' in profiel '{1}' niet interpreteren.</value>
   </data>
-  <data name="PipingSoilProfileReader_DatabaseFileIncorrectVersions_Requires_0" xml:space="preserve">
-    <value>De database heeft niet de vereiste versie informatie. Vereiste versie is: {0}.</value>
+  <data name="PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1" xml:space="preserve">
+    <value>De database '{0}' heeft niet de vereiste versie informatie. Vereiste versie is '{1}'.</value>
   </data>
   <data name="PipingSoilProfileReader_Could_not_build_profile_0_from_layer_definitions" xml:space="preserve">
     <value>Kon profiel '{0}' niet opbouwen vanuit de gegevens uit de database.</value>

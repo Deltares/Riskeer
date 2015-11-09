@@ -104,6 +104,41 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
+        public void ImportItem_ImportingToValidTargetWithValidFileWhileShouldCancelTrue_CancelImportAndLog()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, "complete.soil");
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            var observableList = new ObservableList<PipingSoilProfile>();
+            observableList.Attach(observer);
+
+            var importer = new PipingSoilProfilesImporter();
+
+            // Precondition
+            CollectionAssert.IsEmpty(observableList);
+            Assert.IsTrue(importer.CanImportOn(observableList));
+            Assert.IsTrue(File.Exists(validFilePath));
+
+            importer.ShouldCancel = true;
+
+            object importedItem = null;
+
+            // Call
+            Action call = () => importedItem = importer.ImportItem(validFilePath, observableList);
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, ApplicationResources.PipingSoilProfilesImporter_ImportItem_Import_cancelled, 1);
+            Assert.AreSame(observableList, importedItem);
+            CollectionAssert.IsEmpty(observableList);
+
+            mocks.VerifyAll(); // 'observer' should not be notified
+        }
+
+        [Test]
         public void ImportItem_ImportingToValidTargetWithEmptyFile_AbortImportAndLog()
         {
             // Setup

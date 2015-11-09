@@ -66,6 +66,26 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
+        public void Constructor_IncorrectVersion_ThrowsPipingSoilProfileReadException()
+        {
+            // Setup
+            var version = "15.0.5.0";
+            var dbName = "incorrectversion.soil";
+            var dbFile = Path.Combine(testDataPath, dbName);
+
+            // Precondition
+            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile), "Precondition: file can be opened for edits.");
+
+            // Call
+            TestDelegate test = () => new PipingSoilProfileReader(dbFile).Dispose();
+
+            // Assert
+            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            Assert.AreEqual(String.Format(Resources.PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1, dbName, version), exception.Message);
+            Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
+        }
+
+        [Test]
         public void ReadProfile_AfterDatabaseHasBeenRead_ReturnsNull()
         {
             // Setup

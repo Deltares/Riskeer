@@ -3,9 +3,9 @@ using Core.Common.Base;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
-
+using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
-
+using Ringtoets.Piping.Data.Probabilistics;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
@@ -109,6 +109,123 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             const double assessmentLevel = 0.12;
             properties.AssessmentLevel = assessmentLevel;
             Assert.AreEqual(assessmentLevel, pipingData.AssessmentLevel);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var projectObserver = mocks.StrictMock<IObserver>();
+            int numberProperties = 22;
+            projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            mocks.ReplayAll();
+
+            var pipingData = new PipingData();
+            pipingData.Attach(projectObserver);
+
+            Random random = new Random(22);
+
+            double waterVolumetricWeight = random.NextDouble();
+            double upliftModelFactor = random.NextDouble();
+            double piezometricHeadExit = random.NextDouble();
+            double piezometricHeadPolder = random.NextDouble();
+            double sellmeijerModelFactor = random.NextDouble();
+            double sellmeijerReductionFactor = random.NextDouble();
+            double sandParticlesVolumicWeight = random.NextDouble();
+            double whitesDragCoefficient = random.NextDouble();
+            double waterKinematicViscosity = random.NextDouble();
+            double gravity = random.NextDouble();
+            double meanDiameter70 = random.NextDouble();
+            double beddingAngle = random.NextDouble();
+
+            IDistribution dampingFactorExit = new LognormalDistribution();
+            IDistribution phreaticLevelExit = new NormalDistribution();
+            IDistribution thicknessCoverageLayer = new LognormalDistribution();
+            IDistribution seepageLength = new LognormalDistribution();
+            IDistribution diameter70 = new LognormalDistribution();
+            IDistribution darcyPermeability = new LognormalDistribution();
+            IDistribution thicknessAquiferLayer = new LognormalDistribution();
+
+            RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
+            PipingSoilProfile soilProfile = new TestPipingSoilProfile();
+
+            new PipingCalculationInputsProperties
+            {
+                Data = new PipingCalculationInputs()
+                {
+                    PipingData = pipingData
+                },
+                Name = string.Empty,
+                WaterVolumetricWeight = waterVolumetricWeight,
+                UpliftModelFactor = upliftModelFactor,
+                PiezometricHeadExit = piezometricHeadExit,
+                DampingFactorExit = new DesignVariable
+                {
+                    Distribution = dampingFactorExit
+                },
+                PhreaticLevelExit = new DesignVariable
+                {
+                    Distribution = phreaticLevelExit
+                },
+                PiezometricHeadPolder = piezometricHeadPolder,
+                ThicknessCoverageLayer = new DesignVariable
+                {
+                    Distribution = thicknessCoverageLayer
+                },
+                SellmeijerModelFactor = sellmeijerModelFactor,
+                SellmeijerReductionFactor = sellmeijerReductionFactor,
+                SeepageLength = new DesignVariable
+                {
+                    Distribution = seepageLength
+                },
+                SandParticlesVolumicWeight = sandParticlesVolumicWeight,
+                WhitesDragCoefficient = whitesDragCoefficient,
+                Diameter70 = new DesignVariable
+                {
+                    Distribution = diameter70
+                },
+                DarcyPermeability = new DesignVariable
+                {
+                    Distribution = darcyPermeability
+                },
+                WaterKinematicViscosity = waterKinematicViscosity,
+                Gravity = gravity,
+                ThicknessAquiferLayer = new DesignVariable
+                {
+                    Distribution = thicknessAquiferLayer
+                },
+                MeanDiameter70 = meanDiameter70,
+                BeddingAngle = beddingAngle,
+                SurfaceLine = surfaceLine,
+                SoilProfile = soilProfile,
+            };
+
+            // Call & Assert
+            Assert.AreEqual(string.Empty, pipingData.Name);
+            Assert.AreEqual(waterVolumetricWeight, pipingData.WaterVolumetricWeight);
+            Assert.AreEqual(upliftModelFactor, pipingData.UpliftModelFactor);
+            Assert.AreEqual(piezometricHeadExit, pipingData.PiezometricHeadExit);
+            Assert.AreEqual(dampingFactorExit, pipingData.DampingFactorExit);
+            Assert.AreEqual(phreaticLevelExit, pipingData.PhreaticLevelExit);
+            Assert.AreEqual(piezometricHeadPolder, pipingData.PiezometricHeadPolder);
+            Assert.AreEqual(thicknessCoverageLayer, pipingData.ThicknessCoverageLayer);
+            Assert.AreEqual(sellmeijerModelFactor, pipingData.SellmeijerModelFactor);
+            Assert.AreEqual(sellmeijerReductionFactor, pipingData.SellmeijerReductionFactor);
+            Assert.AreEqual(seepageLength, pipingData.SeepageLength);
+            Assert.AreEqual(sandParticlesVolumicWeight, pipingData.SandParticlesVolumicWeight);
+            Assert.AreEqual(whitesDragCoefficient, pipingData.WhitesDragCoefficient);
+            Assert.AreEqual(diameter70, pipingData.Diameter70);
+            Assert.AreEqual(darcyPermeability, pipingData.DarcyPermeability);
+            Assert.AreEqual(waterKinematicViscosity, pipingData.WaterKinematicViscosity);
+            Assert.AreEqual(gravity, pipingData.Gravity);
+            Assert.AreEqual(thicknessAquiferLayer, pipingData.ThicknessAquiferLayer);
+            Assert.AreEqual(meanDiameter70, pipingData.MeanDiameter70);
+            Assert.AreEqual(beddingAngle, pipingData.BeddingAngle);
+            Assert.AreEqual(surfaceLine, pipingData.SurfaceLine);
+            Assert.AreEqual(soilProfile, pipingData.SoilProfile);
+
             mocks.VerifyAll();
         }
     }

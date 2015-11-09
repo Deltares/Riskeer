@@ -51,6 +51,27 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
+        public void Calculate_InValidPipingDataWithOutput_LogsError()
+        {
+            // Setup
+            var invalidPipingData = PipingDataFactory.CreateCalculationWithValidInput();
+            invalidPipingData.BeddingAngle = -1;
+
+            // Call
+            Action call = () => PipingCalculationService.Calculate(invalidPipingData);
+
+            // Assert
+
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", invalidPipingData.Name), msgs[0]);
+                StringAssert.StartsWith("Piping berekening niet gelukt: ", msgs[1]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", invalidPipingData.Name), msgs[2]);
+            });
+        }
+
+        [Test]
         public void PerformValidatedCalculation_ValidPipingData_LogStartAndEndOfValidatingInputsAndCalculation()
         {
             // Setup

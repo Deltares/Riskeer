@@ -464,7 +464,7 @@ namespace Ringtoets.Piping.IO
                 }
                 catch (SQLiteException e)
                 {
-                    connection.Dispose();
+                    Dispose();
                     var exception = new PipingSoilProfileReadException(string.Format(Resources.Error_SoilProfile_read_from_database, databaseFileName), e);
                     throw exception;
                 }
@@ -479,8 +479,10 @@ namespace Ringtoets.Piping.IO
         {
             if (!dataReader.HasRows)
             {
+                Dispose();
                 throw new PipingSoilProfileReadException(string.Format(
-                    Resources.PipingSoilProfileReader_DatabaseFileIncorrectVersions_Requires_0,
+                    Resources.PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1,
+                    databaseFileName,
                     databaseRequiredVersion));
             }
             dataReader.NextResult();
