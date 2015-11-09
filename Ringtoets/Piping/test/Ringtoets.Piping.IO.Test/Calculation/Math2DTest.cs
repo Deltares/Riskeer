@@ -3,6 +3,7 @@ using System.Collections;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Calculation;
+using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.Test.Calculation
 {
@@ -149,6 +150,20 @@ namespace Ringtoets.Piping.IO.Test.Calculation
 
             // Assert
             Assert.AreEqual(points[4], result);
+        }
+
+        [Test]
+        public void LineIntersectionWithLine_WithEqualPoints_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate testA = () => Math2D.LineIntersectionWithLine(new Point2D(0,0), new Point2D(0,0), new Point2D(1,0), new Point2D(0,1));
+            TestDelegate testB = () => Math2D.LineIntersectionWithLine(new Point2D(0, 1), new Point2D(0, 0), new Point2D(1, 1), new Point2D(1, 1));
+
+            // Assert
+            var exceptionA = Assert.Throws<ArgumentException>(testA);
+            var exceptionB = Assert.Throws<ArgumentException>(testB);
+            Assert.AreEqual(Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal,exceptionA.Message);
+            Assert.AreEqual(Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal,exceptionB.Message);
         }
 
         [Test]

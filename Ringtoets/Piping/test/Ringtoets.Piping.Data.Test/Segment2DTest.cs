@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(1, 2, 3, false)]
         [TestCase(1, 2, 2 + 1e-6, false)]
         [TestCase(1, 2, 1 - 1e-6, false)]
-        public void ContainsX_DifferentSetsOfX_ReturnsTrue(double firstPointX, double secondPointX, double containedX, bool isContained)
+        public void ContainsX_DifferentSetsOfX_ReturnsExpectedValue(double firstPointX, double secondPointX, double containedX, bool isContained)
         {
             // Setup
             var random = new Random(22);
@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Data.Test
         [TestCase(1, 1 - 1e-6, false)]
         [TestCase(1, 1 + 1e-9, true)]
         [TestCase(1, 1 - 1e-9, true)]
-        public void IsVertical_DifferentSetsOfX_ReturnsFalse(double firstPointX, double secondPointX, bool isVertical)
+        public void IsVertical_DifferentSetsOfX_ReturnsExpectedValue(double firstPointX, double secondPointX, bool isVertical)
         {
             // Setup
             var random = new Random(22);
@@ -187,6 +187,11 @@ namespace Ringtoets.Piping.Data.Test
             var segment1 = new Segment2D(point1, point2);
             var segment2 = new Segment2D(point1, point2);
             var segment3 = new Segment2D(point2, point1);
+
+            // Precondition
+            Assert.AreEqual(segment1, segment1);
+            Assert.AreEqual(segment1, segment2);
+            Assert.AreEqual(segment1, segment3);
 
             // Call & Assert
             Assert.AreEqual(segment1.GetHashCode(), segment1.GetHashCode());

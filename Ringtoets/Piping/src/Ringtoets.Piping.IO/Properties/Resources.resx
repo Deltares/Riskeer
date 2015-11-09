@@ -189,4 +189,7 @@
   <data name="PipingSoilProfileReader_Critical_Unexpected_value_on_column_0_" xml:space="preserve">
     <value>Database bevat een onverwachte waarde in kolom {0}.</value>
   </data>
+  <data name="Math2D_LineIntersectionWithLine_Line_points_are_equal" xml:space="preserve">
+    <value>Punten voor een lijn moeten uitelkaar liggen om een lijn te kunnen vormen.</value>
+  </data>
 </root>

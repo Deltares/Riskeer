@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -501,36 +500,6 @@ namespace Ringtoets.Piping.IO.Test
                 CollectionAssert.AllItemsAreUnique(secondProfile.Layers.Select(l => l.Top));
                 CollectionAssert.AreEqual(expectedSecondProfileLayersTops, secondProfile.Layers.Select(l => l.Top), new DoubleWithToleranceComparer(1e-6));
             }
-        }
-    }
-
-    internal class DoubleWithToleranceComparer : IComparer
-    {
-        private double tolerance;
-
-        public DoubleWithToleranceComparer(double tolerance)
-        {
-            this.tolerance = tolerance;
-        }
-
-        public int Compare(double firstDouble, double secondDouble)
-        {
-            var diff = firstDouble - secondDouble;
-
-            var tolerable = Math.Abs(diff) < tolerance;
-
-            var nonTolerableDiff = !tolerable && diff < 0 ? -1 : 1;
-
-            return tolerable ? 0 : nonTolerableDiff;
-        }
-
-        public int Compare(object x, object y)
-        {
-            if (!(x is double) || !(y is double))
-            {
-                throw new NotSupportedException(string.Format("Cannot compare objects other than {0} with this comparer.", typeof(Point2D)));
-            }
-            return Compare((double)x, (double)y);
         }
     }
 }

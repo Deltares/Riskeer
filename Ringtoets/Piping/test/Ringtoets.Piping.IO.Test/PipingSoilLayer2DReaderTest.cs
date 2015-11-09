@@ -244,8 +244,8 @@ namespace Ringtoets.Piping.IO.Test
             var result = reader.Read();
 
             // Assert
-            Assert.AreEqual(2, result.OuterLoop.Count);
-            Assert.AreEqual(result.OuterLoop[0], result.OuterLoop[1]);
+            Assert.AreEqual(2, result.OuterLoop.Count());
+            Assert.AreEqual(result.OuterLoop.ElementAt(0), result.OuterLoop.ElementAt(1));
         }
 
         static byte[] GetBytes(string str)

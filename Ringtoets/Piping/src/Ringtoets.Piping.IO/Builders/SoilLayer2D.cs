@@ -14,15 +14,15 @@ namespace Ringtoets.Piping.IO.Builders
     /// </summary>
     internal class SoilLayer2D
     {
-        private readonly Collection<List<Segment2D>> innerLoops;
-        private List<Segment2D> outerLoop;
+        private readonly Collection<Segment2D[]> innerLoops;
+        private Segment2D[] outerLoop;
 
         /// <summary>
         /// Creates a new instance of <see cref="SoilLayer2D"/>.
         /// </summary>
         public SoilLayer2D()
         {
-            innerLoops = new Collection<List<Segment2D>>();
+            innerLoops = new Collection<Segment2D[]>();
         }
 
         /// <summary>
@@ -50,19 +50,17 @@ namespace Ringtoets.Piping.IO.Builders
         /// for which each of the segments are connected to the next.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> does not form a loop.</exception>
-        internal List<Segment2D> OuterLoop
+        public IEnumerable<Segment2D> OuterLoop
         {
             get
             {
                 return outerLoop;
             }
-            set
+            internal set
             {
-                if (value.Count == 1 || !IsLoopConnected(value))
-                {
-                    throw new ArgumentException(Resources.SoilLayer2D_Error_Loop_contains_disconnected_segments);
-                }
-                outerLoop = value;
+                var loop = value.ToArray();;
+                CheckValidLoop(loop);
+                outerLoop = loop;
             }
         }
 
@@ -70,7 +68,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// Gets the <see cref="Collection{T}"/> of inner loops (as <see cref="List{T}"/> of <see cref="Segment2D"/>,
         /// for which each of the segments are connected to the next) of the <see cref="SoilLayer2D"/>.
         /// </summary>
-        internal IEnumerable<List<Segment2D>> InnerLoops
+        public IEnumerable<Segment2D[]> InnerLoops
         {
             get
             {
@@ -83,13 +81,11 @@ namespace Ringtoets.Piping.IO.Builders
         /// </summary>
         /// <param name="innerLoop">The innerloop to add.</param>
         /// <exception cref="ArgumentException">Thrown when the <paramref name="innerLoop"/> does not form a loop.</exception>
-        internal void AddInnerLoop(List<Segment2D> innerLoop)
+        internal void AddInnerLoop(IEnumerable<Segment2D> innerLoop)
         {
-            if (innerLoop.Count == 1 || !IsLoopConnected(innerLoop))
-            {
-                throw new ArgumentException(Resources.SoilLayer2D_Error_Loop_contains_disconnected_segments);
-            }
-            innerLoops.Add(innerLoop);
+            var loop = innerLoop.ToArray();
+            CheckValidLoop(loop);
+            innerLoops.Add(loop);
         }
 
         /// <summary>
@@ -106,7 +102,7 @@ namespace Ringtoets.Piping.IO.Builders
             var result = new Collection<PipingSoilLayer>();
             if (OuterLoop != null)
             {
-                Collection<double> outerLoopIntersectionHeights = GetLoopIntersectionHeights(OuterLoop, atX);
+                Collection<double> outerLoopIntersectionHeights = GetLoopIntersectionHeights(outerLoop, atX);
 
                 if (outerLoopIntersectionHeights.Count > 0)
                 {
@@ -135,9 +131,17 @@ namespace Ringtoets.Piping.IO.Builders
             return result;
         }
 
-        private static bool IsLoopConnected(List<Segment2D> segments)
+        private static void CheckValidLoop(Segment2D[] innerLoop)
         {
-            int segmentCount = segments.Count;
+            if (innerLoop.Length == 1 || !IsLoopConnected(innerLoop))
+            {
+                throw new ArgumentException(Resources.SoilLayer2D_Error_Loop_contains_disconnected_segments);
+            }
+        }
+
+        private static bool IsLoopConnected(Segment2D[] segments)
+        {
+            int segmentCount = segments.Length;
             if (segmentCount == 2)
             {
                 return segments[0].Equals(segments[1]);
@@ -214,22 +218,18 @@ namespace Ringtoets.Piping.IO.Builders
         /// <paramref name="loop"/> intersects the vertical line at <paramref name="atX"/>.</returns>
         /// <exception cref="SoilLayer2DConversionException">Thrown when a segment is vertical at <see cref="atX"/> and thus
         /// no deterministic intersection points can be determined.</exception>
-        private Collection<double> GetLoopIntersectionHeights(List<Segment2D> loop, double atX)
+        private Collection<double> GetLoopIntersectionHeights(IEnumerable<Segment2D> loop, double atX)
         {
-            Collection<double> intersectionPointY = new Collection<double>();
+            var intersectionPointY = new Collection<double>();
 
-            foreach (Segment2D segment in loop)
+            foreach (Segment2D segment in loop.Where(s => s.ContainsX(atX)))
             {
-                if (!segment.ContainsX(atX))
-                {
-                    continue;
-                }
                 if (segment.IsVertical())
                 {
                     throw new SoilLayer2DConversionException(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_x, atX));
                 }
 
-                var intersectionPoint = GetSegmentIntersectionAtX(segment, atX);
+                Point2D intersectionPoint = GetSegmentIntersectionAtX(segment, atX);
 
                 if (intersectionPoint != null)
                 {
@@ -251,7 +251,14 @@ namespace Ringtoets.Piping.IO.Builders
                 X = x, Y = 1
             };
 
-            return Math2D.LineIntersectionWithLine(segment.FirstPoint, segment.SecondPoint, verticalLineFirstPoint, verticalLineSecondPoint);
+            try
+            {
+                return Math2D.LineIntersectionWithLine(segment.FirstPoint, segment.SecondPoint, verticalLineFirstPoint, verticalLineSecondPoint);
+            }
+            catch (ArgumentException)
+            {
+                return null;
+            }
         }
     }
 }

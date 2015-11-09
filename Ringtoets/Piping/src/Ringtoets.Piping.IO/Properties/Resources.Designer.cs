@@ -178,6 +178,15 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Punten voor een lijn moeten uitelkaar liggen om een lijn te kunnen vormen..
+        /// </summary>
+        public static string Math2D_LineIntersectionWithLine_Line_points_are_equal {
+            get {
+                return ResourceManager.GetString("Math2D_LineIntersectionWithLine_Line_points_are_equal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kon profiel &apos;{0}&apos; niet opbouwen vanuit de gegevens uit de database..
         /// </summary>
         public static string PipingSoilProfileReader_Could_not_build_profile_0_from_layer_definitions {

@@ -50,7 +50,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             {
                 return new[]
                 {
-                    typeof(ObservableList<PipingSoilProfile>)
+                    typeof(ICollection<PipingSoilProfile>)
                 };
             }
         }
@@ -86,7 +86,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         public bool CanImportOn(object targetObject)
         {
-            return targetObject is ObservableList<PipingSoilProfile>;
+            return targetObject is ICollection<PipingSoilProfile>;
         }
 
         public object ImportItem(string path, object target = null)
@@ -180,14 +180,21 @@ namespace Ringtoets.Piping.Plugin.FileImporter
 
         private void AddImportedDataToModel(object target, PipingReadResult<PipingSoilProfile> imported)
         {
-            var targetCollection = (ObservableList<PipingSoilProfile>)target;
+            var targetCollection = (ICollection<PipingSoilProfile>)target;
 
             int totalProfileCount = imported.ImportedItems.Count;
             NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_Adding_imported_data_to_model, totalProfileCount, totalProfileCount);
 
-            targetCollection.AddRange(imported.ImportedItems);
+            foreach (var item in imported.ImportedItems)
+            {
+                targetCollection.Add(item);
+            }
 
-            targetCollection.NotifyObservers();
+            var observableCollection = targetCollection as IObservable;
+            if (observableCollection != null)
+            {
+                observableCollection.NotifyObservers();
+            }
         }
 
         private void NotifyProgress(string currentStepName, int currentStep, int totalNumberOfSteps)

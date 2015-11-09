@@ -75,6 +75,7 @@ namespace Ringtoets.Piping.IO
         /// </summary>
         /// <returns>The next <see cref="PipingSoilProfile"/> from the database, or <c>null</c> if no more profiles can be read.</returns>
         /// <exception cref="PipingSoilProfileReadException">Thrown when reading the profile in the database contained a non-parsable geometry.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the database returned incorrect values for required properties.</exception>
         public PipingSoilProfile ReadProfile()
         {
             if (!HasNext)
@@ -134,10 +135,16 @@ namespace Ringtoets.Piping.IO
         /// Reads information for a profile from the database and creates a <see cref="PipingSoilProfile"/> based on the information.
         /// </summary>
         /// <returns>A new <see cref="PipingSoilProfile"/> with information from the database.</returns>
-        /// <exception cref="PipingSoilProfileReadException">Thrown when a layer's geometry could not be parsed as XML.</exception>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when
+        /// <list type="bullet">
+        /// <item>a layer's geometry could not be parsed as XML;</item>
+        /// <item>the parsed geometry did not contain loops;</item>
+        /// <item>after reading the layers, no layers were added to be build;</item>
+        /// <item>unexpected values were encountered for layer properties</item>
+        /// </list> 
+        /// </exception>
         /// <exception cref="CriticalFileReadException">Thrown when no valid point to obtain a one-dimensional
-        /// intersection from was read from the database, or when after reading layers, no layers were added
-        /// to be build.</exception>
+        /// intersection from was read from the database.</exception>
         private PipingSoilProfile ReadPipingProfile2D()
         {
             var profileName = Read<string>(profileNameColumn);
@@ -173,6 +180,14 @@ namespace Ringtoets.Piping.IO
                             format, e);
                     }
                     catch (SoilProfileBuilderException e)
+                    {
+                        SkipRecords((int) layerCount + 1 - i);
+
+                        var format = string.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, i, profileName);
+                        throw new PipingSoilProfileReadException(
+                            format, e);
+                    }
+                    catch (ArgumentException e)
                     {
                         SkipRecords((int) layerCount + 1 - i);
 
@@ -250,7 +265,7 @@ namespace Ringtoets.Piping.IO
         /// <typeparam name="T">The expected type of value in the column with name <paramref name="columnName"/>.</typeparam>
         /// <param name="columnName">The name of the column to read from.</param>
         /// <returns>The read value from the column with name <paramref name="columnName"/>.</returns>
-        /// <exception cref="InvalidCastException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
         private T Read<T>(string columnName)
         {
             try
@@ -286,6 +301,8 @@ namespace Ringtoets.Piping.IO
         /// </summary>
         /// <returns>A new <see cref="SoilLayer2D"/> instance, based on the information read from the database.</returns>
         /// <exception cref="InvalidCastException">Thrown when a column did not contain a value of the expected type.</exception>
+        /// <exception cref="ArgumentException">Thrown when the read geometry does not contain segments that form form 
+        /// a loop for either the inner or outer loop.</exception>
         private SoilLayer2D ReadPiping2DSoilLayer()
         {
             var geometryValue = TryRead<byte[]>(layerGeometryColumn);

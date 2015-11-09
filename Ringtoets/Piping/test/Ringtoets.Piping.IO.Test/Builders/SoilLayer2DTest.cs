@@ -89,8 +89,8 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             Assert.NotNull(layer.OuterLoop);
-            Assert.AreEqual(new Segment2D(pointA,pointB), layer.OuterLoop[0]);
-            Assert.AreEqual(new Segment2D(pointB,pointA), layer.OuterLoop[1]);
+            Assert.AreEqual(new Segment2D(pointA,pointB), layer.OuterLoop.ElementAt(0));
+            Assert.AreEqual(new Segment2D(pointB,pointA), layer.OuterLoop.ElementAt(1));
         }
 
         [Test]
@@ -112,9 +112,9 @@ namespace Ringtoets.Piping.IO.Test.Builders
 
             // Assert
             Assert.NotNull(layer.OuterLoop);
-            Assert.AreEqual(new Segment2D(pointA,pointB), layer.OuterLoop[0]);
-            Assert.AreEqual(new Segment2D(pointB,pointC), layer.OuterLoop[1]);
-            Assert.AreEqual(new Segment2D(pointC,pointA), layer.OuterLoop[2]);
+            Assert.AreEqual(new Segment2D(pointA, pointB), layer.OuterLoop.ElementAt(0));
+            Assert.AreEqual(new Segment2D(pointB, pointC), layer.OuterLoop.ElementAt(1));
+            Assert.AreEqual(new Segment2D(pointC, pointA), layer.OuterLoop.ElementAt(2));
         }
 
         [Test]

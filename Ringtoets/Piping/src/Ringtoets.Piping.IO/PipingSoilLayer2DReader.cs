@@ -44,7 +44,8 @@ namespace Ringtoets.Piping.IO
         /// on this information.
         /// </summary>
         /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
-        /// <exception cref="XmlException">When reading from the XML document of the <see cref="PipingSoilLayer2DReader"/> failed.</exception>
+        /// <exception cref="XmlException">Thrown when reading from the XML document of the <see cref="PipingSoilLayer2DReader"/> failed.</exception>
+        /// <exception cref="ArgumentException">Thrown when the segments do not form a loop for either the inner or outer loop.</exception>
         internal SoilLayer2D Read()
         {
             var pipingSoilLayer = new SoilLayer2D();
