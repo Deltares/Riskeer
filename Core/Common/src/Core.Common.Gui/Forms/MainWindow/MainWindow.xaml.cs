@@ -665,7 +665,6 @@ namespace Core.Common.Gui.Forms.MainWindow
              * */
 
             // TODO: remove when implemented
-            ButtonMenuFileNewProject.IsEnabled = false;
             ButtonMenuFileOpenProject.IsEnabled = false;
             ButtonMenuFileSaveProject.IsEnabled = false;
             ButtonMenuFileSaveProjectAs.IsEnabled = false;
@@ -769,12 +768,9 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)
         {
-            //TODO: Implement
-            return;
-
             // Original code:
-            //Gui.CommandHandler.TryCreateNewWTIProject();
-            //ValidateItems();
+            Gui.CommandHandler.TryCreateNewWTIProject();
+            ValidateItems();
         }
 
         private void OnFileExitClicked(object sender, RoutedEventArgs e)
@@ -961,7 +957,6 @@ namespace Core.Common.Gui.Forms.MainWindow
             LicenseButton.IsEnabled = false;
             FeedbackButton.IsEnabled = false;
 
-            ButtonQuickAccessNewProject.IsEnabled = false;
             ButtonQuickAccessOpenProject.IsEnabled = false;
             ButtonQuickAccessSaveProject.IsEnabled = false;
             
