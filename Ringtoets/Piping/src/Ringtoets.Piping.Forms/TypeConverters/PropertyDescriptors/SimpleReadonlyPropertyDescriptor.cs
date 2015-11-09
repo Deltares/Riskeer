@@ -4,9 +4,9 @@ using System.ComponentModel;
 namespace Ringtoets.Piping.Forms.TypeConverters.PropertyDescriptors
 {
     /// <summary>
-    /// This class defines a simple readonly property item that actually isn't an actual
-    /// property of an object, but a standalone piece of data. Because the piece of data
-    /// does not belong to some component, the data is readonly and cannot be set or changed.
+    /// This class defines a simple readonly property item that isn't an actual property 
+    /// of an object, but a standalone piece of data. Because the piece of data does not 
+    /// belong to some component, the data is readonly and cannot be set or changed.
     /// </summary>
     public class SimpleReadonlyPropertyDescriptorItem : PropertyDescriptor
     {

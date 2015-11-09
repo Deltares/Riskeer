@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
                 Mean = 1.1,
                 StandardDeviation = 2.2
             };
-            var designVariable = new DesignVariable { Distribution = distribution };
+            var designVariable = new DesignVariable(distribution);
 
             var converter = new LognormalDistributionDesignVariableTypeConverter();
 
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         {
             // Setup
             var distribution = new LognormalDistribution();
-            var designVariable = new DesignVariable{ Distribution = distribution };
+            var designVariable = new DesignVariable(distribution);
             var converter = new LognormalDistributionDesignVariableTypeConverter();
 
             // Call
@@ -157,16 +157,17 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             Assert.IsNotNull(properties);
 
             // Event
-            properties[propertyIndexToChange].SetValue(dampingFactorExit, 2.3);
+            const double newValue = 2.3;
+            properties[propertyIndexToChange].SetValue(dampingFactorExit, newValue);
 
             // Result
             switch (propertyIndexToChange)
             {
                 case 1:
-                    Assert.AreEqual(2.3, pipingData.DampingFactorExit.Mean);
+                    Assert.AreEqual(newValue, pipingData.DampingFactorExit.Mean);
                     break;
                 case 2:
-                    Assert.AreEqual(2.3, pipingData.DampingFactorExit.StandardDeviation);
+                    Assert.AreEqual(newValue, pipingData.DampingFactorExit.StandardDeviation);
                     break;
             }
             mocks.VerifyAll();

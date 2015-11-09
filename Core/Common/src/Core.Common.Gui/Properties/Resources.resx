@@ -1217,4 +1217,16 @@ Select No to save the project as a new project at a different location.</value>
   <data name="ExpandableArrayConverter_ConvertTo_Aantal_0_" xml:space="preserve">
     <value>Aantal ({0})</value>
   </data>
+  <data name="DesignVariableTypeConverter_DestributionType_DisplayName" xml:space="preserve">
+    <value>Type verdeling</value>
+  </data>
+  <data name="DesignVariableTypeConverter_DistributionType_Description" xml:space="preserve">
+    <value>De soort kansverdeling waarin deze parameter in gedefiniëerd wordt.</value>
+  </data>
+  <data name="DesignVariableTypeConverter_DesignValue_DisplayName" xml:space="preserve">
+    <value>Rekenwaarde</value>
+  </data>
+  <data name="DesignVariableTypeConverter_DesignValue_Description" xml:space="preserve">
+    <value>De representatieve waarde die gebruikt wordt door de berekening.</value>
+  </data>
 </root>

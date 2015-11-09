@@ -132,4 +132,7 @@
   <data name="Segment2D_Constructor_Segment_must_be_created_with_two_points" xml:space="preserve">
     <value>Voor het maken van een segment zijn twee punten nodig.</value>
   </data>
+  <data name="IDistribution_InverseCDF_Probability_must_be_in_range" xml:space="preserve">
+    <value>Kans moet in het bereik van [0, 1] opgegeven worden.</value>
+  </data>
 </root>

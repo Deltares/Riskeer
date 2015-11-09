@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
         {
             if (p < 0.0 || p > 1)
             {
-                throw new ArgumentOutOfRangeException("p", "Kans moet in het bereik van [0, 1] opgegeven worden.");
+                throw new ArgumentOutOfRangeException("p", Resources.IDistribution_InverseCDF_Probability_must_be_in_range);
             }
             return LogNormal.InvCDF(Mean, StandardDeviation, p);
         }

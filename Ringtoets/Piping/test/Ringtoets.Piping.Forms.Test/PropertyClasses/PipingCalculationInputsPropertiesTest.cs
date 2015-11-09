@@ -161,41 +161,20 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 WaterVolumetricWeight = waterVolumetricWeight,
                 UpliftModelFactor = upliftModelFactor,
                 PiezometricHeadExit = piezometricHeadExit,
-                DampingFactorExit = new DesignVariable
-                {
-                    Distribution = dampingFactorExit
-                },
-                PhreaticLevelExit = new DesignVariable
-                {
-                    Distribution = phreaticLevelExit
-                },
+                DampingFactorExit = new DesignVariable(dampingFactorExit),
+                PhreaticLevelExit = new DesignVariable(phreaticLevelExit),
                 PiezometricHeadPolder = piezometricHeadPolder,
-                ThicknessCoverageLayer = new DesignVariable
-                {
-                    Distribution = thicknessCoverageLayer
-                },
+                ThicknessCoverageLayer = new DesignVariable(thicknessCoverageLayer),
                 SellmeijerModelFactor = sellmeijerModelFactor,
                 SellmeijerReductionFactor = sellmeijerReductionFactor,
-                SeepageLength = new DesignVariable
-                {
-                    Distribution = seepageLength
-                },
+                SeepageLength = new DesignVariable(seepageLength),
                 SandParticlesVolumicWeight = sandParticlesVolumicWeight,
                 WhitesDragCoefficient = whitesDragCoefficient,
-                Diameter70 = new DesignVariable
-                {
-                    Distribution = diameter70
-                },
-                DarcyPermeability = new DesignVariable
-                {
-                    Distribution = darcyPermeability
-                },
+                Diameter70 = new DesignVariable(diameter70),
+                DarcyPermeability = new DesignVariable(darcyPermeability),
                 WaterKinematicViscosity = waterKinematicViscosity,
                 Gravity = gravity,
-                ThicknessAquiferLayer = new DesignVariable
-                {
-                    Distribution = thicknessAquiferLayer
-                },
+                ThicknessAquiferLayer = new DesignVariable(thicknessAquiferLayer),
                 MeanDiameter70 = meanDiameter70,
                 BeddingAngle = beddingAngle,
                 SurfaceLine = surfaceLine,

@@ -15,9 +15,8 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// </summary>
         public static DesignVariable GetThicknessCoverageLayer(PipingData pipingData)
         {
-            return new DesignVariable
+            return new DesignVariable(pipingData.ThicknessCoverageLayer)
             {
-                Distribution = pipingData.ThicknessCoverageLayer,
                 Percentile = 0.05
             };
         }
@@ -27,9 +26,8 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// </summary>
         public static DesignVariable GetPhreaticLevelExit(PipingData pipingData)
         {
-            return new DesignVariable
+            return new DesignVariable(pipingData.PhreaticLevelExit)
             {
-                Distribution = pipingData.PhreaticLevelExit,
                 Percentile = 0.05
             };
         }
@@ -39,9 +37,8 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// </summary>
         public static DesignVariable GetDampingFactorExit(PipingData pipingData)
         {
-            return new DesignVariable
+            return new DesignVariable(pipingData.DampingFactorExit)
             {
-                Distribution = pipingData.DampingFactorExit,
                 Percentile = 0.95
             };
         }
@@ -55,9 +52,8 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// </summary>
         public static DesignVariable GetSeepageLength(PipingData pipingData)
         {
-            return new DesignVariable
+            return new DesignVariable(pipingData.SeepageLength)
             {
-                Distribution = pipingData.SeepageLength,
                 Percentile = 0.05
             };
         }
@@ -67,9 +63,8 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// </summary>
         public static DesignVariable GetDiameter70(PipingData pipingData)
         {
-            return new DesignVariable
+            return new DesignVariable(pipingData.Diameter70)
             {
-                Distribution = pipingData.Diameter70,
                 Percentile = 0.05
             };
         }
@@ -79,9 +74,8 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// </summary>
         public static DesignVariable GetDarcyPermeability(PipingData pipingData)
         {
-            return new DesignVariable
+            return new DesignVariable(pipingData.DarcyPermeability)
             {
-                Distribution = pipingData.DarcyPermeability,
                 Percentile = 0.95
             };
         }
@@ -91,9 +85,8 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// </summary>
         public static DesignVariable GetThicknessAquiferLayer(PipingData pipingData)
         {
-            return new DesignVariable
+            return new DesignVariable(pipingData.ThicknessAquiferLayer)
             {
-                Distribution = pipingData.ThicknessAquiferLayer,
                 Percentile = 0.95
             };
         }

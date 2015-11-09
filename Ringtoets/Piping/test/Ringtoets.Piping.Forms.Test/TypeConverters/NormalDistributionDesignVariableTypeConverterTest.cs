@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
                 Mean = 1.1,
                 StandardDeviation = 2.2
             };
-            var designVariable = new DesignVariable{ Distribution = distribution };
+            var designVariable = new DesignVariable(distribution);
             var converter = new NormalDistributionDesignVariableTypeConverter();
 
             // Call
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         {
             // Setup
             var distribution = new NormalDistribution();
-            var designVariable = new DesignVariable { Distribution = distribution };
+            var designVariable = new DesignVariable(distribution);
             var converter = new NormalDistributionDesignVariableTypeConverter();
 
             // Call
@@ -156,16 +156,17 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
             Assert.IsNotNull(properties);
 
             // Event
-            properties[propertyIndexToChange].SetValue(designVariable, 2.3);
+            const double newValue = 2.3;
+            properties[propertyIndexToChange].SetValue(designVariable, newValue);
 
             // Result
             switch (propertyIndexToChange)
             {
                 case 1:
-                    Assert.AreEqual(2.3, pipingData.PhreaticLevelExit.Mean);
+                    Assert.AreEqual(newValue, pipingData.PhreaticLevelExit.Mean);
                     break;
                 case 2:
-                    Assert.AreEqual(2.3, pipingData.PhreaticLevelExit.StandardDeviation);
+                    Assert.AreEqual(newValue, pipingData.PhreaticLevelExit.StandardDeviation);
                     break;
             }
             mocks.VerifyAll();

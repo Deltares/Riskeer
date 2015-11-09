@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using Core.Common.Base;
+using Core.Common.Gui.Properties;
 using Core.Common.Utils.PropertyBag.Dynamic;
 
 using Ringtoets.Piping.Data.Probabilistics;
@@ -43,12 +44,18 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             var designVariable = (DesignVariable)value;
             PropertyDescriptorCollection propertyDescriptorCollection = TypeDescriptor.GetProperties(designVariable.Distribution);
             var properties = new PropertyDescriptor[Parameters.Length+2];
-            properties[0] = new SimpleReadonlyPropertyDescriptorItem("Type verdeling", "De soort kansverdeling waarin deze parameter in gedefiniëerd wordt.", "DistributionType", DistributionName);
+            properties[0] = new SimpleReadonlyPropertyDescriptorItem(Resources.DesignVariableTypeConverter_DestributionType_DisplayName,
+                                                                     Resources.DesignVariableTypeConverter_DistributionType_Description,
+                                                                     "DistributionType",
+                                                                     DistributionName);
             for (int i = 0; i < Parameters.Length; i++)
             {
                 properties[i+1] = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], observableParent);
             }
-            properties[Parameters.Length + 1] = new SimpleReadonlyPropertyDescriptorItem("Rekenwaarde", "De representatieve waarde die gebruikt wordt door de berekening.", "DesignValue", designVariable.GetDesignValue());
+            properties[Parameters.Length + 1] = new SimpleReadonlyPropertyDescriptorItem(Resources.DesignVariableTypeConverter_DesignValue_DisplayName,
+                                                                                         Resources.DesignVariableTypeConverter_DesignValue_Description,
+                                                                                         "DesignValue",
+                                                                                         designVariable.GetDesignValue());
 
             return new PropertyDescriptorCollection(properties);
         }
@@ -71,7 +78,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
                                                        parameter.Symbol,
                                                        parameter.Description)
             {
-                ObservableParent = observableParent,
+                ObservableParent = observableParent
             };
         }
 

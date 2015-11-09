@@ -11,20 +11,38 @@ namespace Ringtoets.Piping.Data.Probabilistics
     public class DesignVariable
     {
         private double percentile;
+        private IDistribution distribution;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DesignVariable"/> class with 
         /// <see cref="Percentile"/> equal to 0.5.
         /// </summary>
-        public DesignVariable()
+        /// <exception cref="ArgumentNullException"><see cref="Distribution"/> is null.</exception>
+        public DesignVariable(IDistribution distribution)
         {
+            Distribution = distribution;
             percentile = 0.5;
         }
 
         /// <summary>
         /// Gets or sets the probabilistic distribution of the parameter being modeled.
         /// </summary>
-        public IDistribution Distribution { get; set; }
+        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
+        public IDistribution Distribution
+        {
+            get
+            {
+                return distribution;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value", Resources.DesignVariable_GetDesignValue_Distribution_must_be_set);
+                }
+                distribution = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the percentile used to derive a deterministic value based on <see cref="Distribution"/>.
@@ -49,13 +67,8 @@ namespace Ringtoets.Piping.Data.Probabilistics
         /// Gets the design value based on the <see cref="Distribution"/> and <see cref="Percentile"/>.
         /// </summary>
         /// <returns>A design value.</returns>
-        /// <exception cref="System.InvalidOperationException"><see cref="Distribution"/> is null.</exception>
         public double GetDesignValue()
         {
-            if (Distribution == null)
-            {
-                throw new InvalidOperationException(Resources.DesignVariable_GetDesignValue_Distribution_must_be_set);
-            }
             return Distribution.InverseCDF(Percentile);
         }
     }

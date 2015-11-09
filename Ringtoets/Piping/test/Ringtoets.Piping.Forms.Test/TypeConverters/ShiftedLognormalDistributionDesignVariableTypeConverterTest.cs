@@ -43,7 +43,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
                 StandardDeviation = 2.2,
                 Shift = 3.3
             };
-            var designVariable = new DesignVariable { Distribution = distribution };
+            var designVariable = new DesignVariable(distribution);
             var converter = new ShiftedLognormalDistributionDesignVariableTypeConverter();
 
             // Call
@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         {
             // Setup
             var distribution = new ShiftedLognormalDistribution();
-            var designVariable = new DesignVariable { Distribution = distribution };
+            var designVariable = new DesignVariable(distribution);
             var converter = new ShiftedLognormalDistributionDesignVariableTypeConverter();
 
             // Call
