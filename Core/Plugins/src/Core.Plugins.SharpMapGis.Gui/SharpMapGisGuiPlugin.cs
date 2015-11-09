@@ -173,21 +173,6 @@ namespace Core.Plugins.SharpMapGis.Gui
             gisGuiService = null;
         }
 
-        public override void OnViewRemoved(IView view)
-        {
-            UpdateMapLegendView();
-
-            var mapView = GetFocusedMapView(view);
-            if (mapView == null)
-            {
-                return;
-            }
-
-            mapView.MapControl.SelectedFeaturesChanged -= MapControlSelectedFeaturesChanged;
-            mapView.MapControl.MouseDoubleClick -= mapView_MouseDoubleClick;
-            mapView.Map.MapRendered -= MapMapRendered;
-        }
-
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             return SharpMapGisPropertyInfoProvider.GetPropertyInfos();

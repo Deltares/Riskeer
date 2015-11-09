@@ -403,11 +403,6 @@ namespace Core.Common.Gui.Forms.ViewManager
                 childViewSubscribtionLookup.Remove(view);
             }
 
-            if (Gui != null && Gui.Plugins != null)
-            {
-                Gui.Plugins.ForEach(p => p.OnViewRemoved(view));
-            }
-
             // remove from docking manager
             dockingManager.Remove(view, removeTabFromDockingManager);
 
