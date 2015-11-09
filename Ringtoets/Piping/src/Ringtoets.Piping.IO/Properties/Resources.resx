@@ -156,8 +156,8 @@
   <data name="Error_SoilProfile_read_from_database" xml:space="preserve">
     <value>Kon geen ondergrond profielen verkrijgen van de database '{0}'.</value>
   </data>
-  <data name="PipingSoilProfileReader_Invalid_value_on_column" xml:space="preserve">
-    <value>Ondergrondprofiel in database bevat geen geldige waarde in kolom {0}.</value>
+  <data name="PipingSoilProfileReader_Profile_0_has_invalid_value_on_column_1_" xml:space="preserve">
+    <value>Ondergrondprofiel '{0}' in database bevat geen geldige waarde in kolom '{1}'.</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_File_0_invalid_header" xml:space="preserve">
     <value>Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
@@ -185,5 +185,8 @@
   </data>
   <data name="SoilLayer2D_Error_Loop_contains_disconnected_segments" xml:space="preserve">
     <value>De segmenten van de geometrie van de laag vormen geen lus.</value>
+  </data>
+  <data name="PipingSoilProfileReader_Critical_Unexpected_value_on_column_0_" xml:space="preserve">
+    <value>Database bevat een onverwachte waarde in kolom {0}.</value>
   </data>
 </root>

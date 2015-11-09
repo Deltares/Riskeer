@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.IO
                 return null;
             }
 
-            var dimensionValue = TryRead<long>(dimensionColumn);
+            var dimensionValue = Read<long>(dimensionColumn);
             return dimensionValue == 1 ? ReadPipingProfile1D() : ReadPipingProfile2D();
         }
 
@@ -106,9 +106,18 @@ namespace Ringtoets.Piping.IO
 
         private PipingSoilProfile ReadPipingProfile1D()
         {
-            var profileName = TryRead<string>(profileNameColumn);
-            var layerCount = TryRead<long>(layerCountColumn);
-            var bottom = TryRead<double>(bottomColumn);
+            var profileName = Read<string>(profileNameColumn);
+            var layerCount = Read<long>(layerCountColumn);
+
+            double bottom;
+            try
+            {
+                bottom = Read<double>(bottomColumn);
+            } catch (InvalidCastException e) {
+                SkipRecords((int)layerCount);
+                var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_column_1_, profileName, intersectionXColumn);
+                throw new PipingSoilProfileReadException(message, e);
+            }
 
             var soilProfileBuilder = new SoilProfileBuilder1D(profileName, bottom);
 
@@ -131,12 +140,22 @@ namespace Ringtoets.Piping.IO
         /// to be build.</exception>
         private PipingSoilProfile ReadPipingProfile2D()
         {
-            var profileName = TryRead<string>(profileNameColumn);
-            var layerCount = TryRead<long>(layerCountColumn);
-            var intersectionX = TryRead<double>(intersectionXColumn);
+            var profileName = Read<string>(profileNameColumn);
+            var layerCount = Read<long>(layerCountColumn);
 
             try
             {
+                double intersectionX;
+                try
+                {
+                    intersectionX = TryRead<double>(intersectionXColumn);
+                }
+                catch (InvalidCastException e)
+                {
+                    SkipRecords((int)layerCount);
+                    var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_column_1_, profileName, intersectionXColumn);
+                    throw new PipingSoilProfileReadException(message, e);
+                }
                 var soilProfileBuilder = new SoilProfileBuilder2D(profileName, intersectionX);
 
                 for (int i = 1; i <= layerCount; i++)
@@ -145,24 +164,46 @@ namespace Ringtoets.Piping.IO
                     {
                         soilProfileBuilder.Add(ReadPiping2DSoilLayer());
                     }
-                    catch (SoilLayer2DConversionException e)
-                    {
-                        HandleLayerParseException(layerCount, i, profileName, e);
-                    }
                     catch (XmlException e)
                     {
-                        HandleLayerParseException(layerCount, i, profileName, e);
+                        SkipRecords((int)layerCount + 1 - i);
+
+                        var format = string.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, i, profileName);
+                        throw new PipingSoilProfileReadException(
+                            format, e);
+                    }
+                    catch (SoilProfileBuilderException e)
+                    {
+                        SkipRecords((int) layerCount + 1 - i);
+
+                        var format = string.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, i, profileName);
+                        throw new PipingSoilProfileReadException(
+                            format, e);
+                    }
+                    catch (InvalidCastException e)
+                    {
+                        SkipRecords((int)layerCount + 1 - i);
+
+                        var message = string.Format(Resources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_column_1_, profileName, intersectionXColumn);
+                        throw new PipingSoilProfileReadException(message, e);
                     }
                     MoveNext();
                 }
 
-                return soilProfileBuilder.Build();
+                try
+                {
+                    return soilProfileBuilder.Build();
+                }
+                catch (SoilProfileBuilderException e)
+                {
+                    SkipRecords((int) 0 + 1 - 1);
+                    var exception = new PipingSoilProfileReadException(
+                        string.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, 1, profileName), e);
+
+                    throw exception;
+                }
             }
             catch (ArgumentException e)
-            {
-                HandleCriticalBuildException(profileName, e);
-            }
-            catch (SoilProfileBuilderException e)
             {
                 HandleCriticalBuildException(profileName, e);
             }
@@ -175,27 +216,12 @@ namespace Ringtoets.Piping.IO
             throw new CriticalFileReadException(message, e);
         }
 
-        private void HandleLayerParseException(long layerCount, int i, string profileName, Exception e)
-        {
-            SkipRecords((int) layerCount + 1 - i);
-            var exception = new PipingSoilProfileReadException(
-                string.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, i, profileName), e);
-
-            throw exception;
-        }
-
         private void SkipRecords(int count)
         {
             for(int i = 0; i < count; i++)
             {
                 MoveNext();
             }
-        }
-
-        private void SetReaderToFirstRecord()
-        {
-            InitializeDataReader();
-            MoveNext();
         }
 
         /// <summary>
@@ -215,39 +241,25 @@ namespace Ringtoets.Piping.IO
                 return default(T);
             }
 
+            return (T)dbValue;
+        }
+
+        /// <summary>
+        /// Reads a value at column <paramref name="columnName"/> from the database.
+        /// </summary>
+        /// <typeparam name="T">The expected type of value in the column with name <paramref name="columnName"/>.</typeparam>
+        /// <param name="columnName">The name of the column to read from.</param>
+        /// <returns>The read value from the column with name <paramref name="columnName"/>.</returns>
+        /// <exception cref="InvalidCastException">Thrown when the value in the column was not of type <typeparamref name="T"/>.</exception>
+        private T Read<T>(string columnName)
+        {
             try
             {
-                return (T)dbValue;
+                return (T)dataReader[columnName];
             }
             catch (InvalidCastException)
             {
-                throw new CriticalFileReadException(Resources.PipingSoilProfileReader_Invalid_value_on_column);
-            }
-        }
-        
-        private void OpenConnection(string dbFile)
-        {
-            var connectionStringBuilder = new SQLiteConnectionStringBuilder
-            {
-                FailIfMissing = true,
-                DataSource = dbFile,
-                ReadOnly = true,
-                ForeignKeys = true
-            };
-
-            connection = new SQLiteConnection(connectionStringBuilder.ConnectionString);
-            Connect();
-        }
-
-        private void Connect()
-        {
-            try
-            {
-                connection.Open();
-            }
-            catch (SQLiteException)
-            {
-                connection.Dispose();
+                throw new CriticalFileReadException(string.Format(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column_0_, columnName));
             }
         }
 
@@ -277,6 +289,7 @@ namespace Ringtoets.Piping.IO
         private SoilLayer2D ReadPiping2DSoilLayer()
         {
             var geometryValue = TryRead<byte[]>(layerGeometryColumn);
+
             var isAquiferValue = TryRead<double?>(isAquiferColumn);
             var belowPhreaticLevelValue = TryRead<double?>(belowPhreaticLevelColumn);
             var abovePhreaticLevelValue = TryRead<double?>(abovePhreaticLevelColumn);
@@ -289,6 +302,38 @@ namespace Ringtoets.Piping.IO
             pipingSoilLayer.DryUnitWeight = dryUnitWeightValue;
 
             return pipingSoilLayer;
+        }
+
+        private void SetReaderToFirstRecord()
+        {
+            InitializeDataReader();
+            MoveNext();
+        }
+
+        private void OpenConnection(string dbFile)
+        {
+            var connectionStringBuilder = new SQLiteConnectionStringBuilder
+            {
+                FailIfMissing = true,
+                DataSource = dbFile,
+                ReadOnly = true,
+                ForeignKeys = true
+            };
+
+            connection = new SQLiteConnection(connectionStringBuilder.ConnectionString);
+            Connect();
+        }
+
+        private void Connect()
+        {
+            try
+            {
+                connection.Open();
+            }
+            catch (SQLiteException)
+            {
+                connection.Dispose();
+            }
         }
 
         /// <summary>
@@ -491,7 +536,7 @@ namespace Ringtoets.Piping.IO
         private void GetCount()
         {
             dataReader.Read();
-            Count = (int)TryRead<long>(profileCountColumn);
+            Count = (int)Read<long>(profileCountColumn);
             dataReader.NextResult();
         }
     }

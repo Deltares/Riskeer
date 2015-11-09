@@ -146,8 +146,6 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             var totalNumberOfSteps = soilProfileReader.Count;
             var currentStep = 1;
 
-            NotifyProgress(ApplicationResources.PipingSoilProfilesImporter_ReadingSoilProfiles, currentStep, totalNumberOfSteps);
-
             var profiles = new Collection<PipingSoilProfile>();
             while (soilProfileReader.HasNext)
             {

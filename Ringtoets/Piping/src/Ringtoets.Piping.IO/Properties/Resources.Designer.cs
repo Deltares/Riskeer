@@ -196,6 +196,15 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Database bevat een onverwachte waarde in kolom {0}..
+        /// </summary>
+        public static string PipingSoilProfileReader_Critical_Unexpected_value_on_column_0_ {
+            get {
+                return ResourceManager.GetString("PipingSoilProfileReader_Critical_Unexpected_value_on_column_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De database &apos;{0}&apos; heeft niet de vereiste versie informatie. Vereiste versie is &apos;{1}&apos;..
         /// </summary>
         public static string PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1 {
@@ -205,11 +214,11 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ondergrondprofiel in database bevat geen geldige waarde in kolom {0}..
+        ///   Looks up a localized string similar to Ondergrondprofiel &apos;{0}&apos; in database bevat geen geldige waarde in kolom &apos;{1}&apos;..
         /// </summary>
-        public static string PipingSoilProfileReader_Invalid_value_on_column {
+        public static string PipingSoilProfileReader_Profile_0_has_invalid_value_on_column_1_ {
             get {
-                return ResourceManager.GetString("PipingSoilProfileReader_Invalid_value_on_column", resourceCulture);
+                return ResourceManager.GetString("PipingSoilProfileReader_Profile_0_has_invalid_value_on_column_1_", resourceCulture);
             }
         }
         

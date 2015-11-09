@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using Core.Common.TestUtils;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
@@ -132,6 +131,32 @@ namespace Ringtoets.Piping.IO.Test
         {
             // Setup
             var testFile = "invalid2dGeometry.soil";
+            using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
+            {
+                // Call
+                TestDelegate profile = () => pipingSoilProfilesReader.ReadProfile();
+
+                // Assert
+                var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
+                var message = String.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, 1, "Profile");
+                Assert.AreEqual(message, exception.Message);
+
+                // Call
+                var pipingSoilProfile = pipingSoilProfilesReader.ReadProfile();
+
+                // Assert
+                Assert.AreEqual("Profile2", pipingSoilProfile.Name);
+                Assert.AreEqual(3, pipingSoilProfile.Layers.Count());
+
+                Assert.IsTrue(FileHelper.CanOpenFileForWrite(testFile));
+            }
+        }
+
+        [Test]
+        public void ReadProfile_DatabaseProfileWithVerticalSegmentAtX_SkipsTheProfile()
+        {
+            // Setup
+            var testFile = "vertical2dGeometry.soil";
             using (var pipingSoilProfilesReader = new PipingSoilProfileReader(Path.Combine(testDataPath, testFile)))
             {
                 // Call
