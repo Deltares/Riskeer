@@ -130,6 +130,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                      foreach (var calc in failureMechanism.Calculations)
                                      {
                                          calc.ClearOutput();
+                                         calc.NotifyObservers();
                                      }
                                  });
 

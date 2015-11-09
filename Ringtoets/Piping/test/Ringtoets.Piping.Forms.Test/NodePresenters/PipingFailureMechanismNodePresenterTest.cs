@@ -480,5 +480,41 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsFalse(removalSuccesful);
             Assert.AreSame(expectedFailureMechanism, project.PipingFailureMechanism);
         }
+
+        [Test]
+        public void GivenMultiplePipingDataWithOutput_WhenClearingOutputFromContextMenu_ThenPipingDataOutputCleared()
+        {
+            // Given
+            int clearOutputItemPosition = 2;
+
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
+
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
+            dataMock.Calculations.Add(new PipingData
+            {
+                Output = new TestPipingOutput()
+            });
+            dataMock.Calculations.Add(new PipingData
+            {
+                Output = new TestPipingOutput()
+            });
+            dataMock.Calculations.ElementAt(0).Attach(observer);
+            dataMock.Calculations.ElementAt(1).Attach(observer);
+
+            var nodePresenter = new PipingFailureMechanismNodePresenter();
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, dataMock);
+
+            mocks.ReplayAll();
+
+            // When
+            contextMenuAdapter.Items[clearOutputItemPosition].PerformClick();
+
+            // Then
+            CollectionAssert.IsEmpty(dataMock.Calculations.Where(c => c.HasOutput));
+
+            mocks.VerifyAll();
+        }
     }
 }

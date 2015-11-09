@@ -587,5 +587,30 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsNotNull(pipingData.Output);
             mockRepository.VerifyAll();
         }
+
+        [Test]
+        public void GivenPipingDataWithOutput_WhenClearingOutputFromContextMenu_ThenPipingDataOutputClearedAndNotified()
+        {
+            // Given
+            int clearOutputItemPosition = 2;
+            var pipingData = new PipingData();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            pipingData.Output = new TestPipingOutput();
+            pipingData.Attach(observer);
+
+            mockRepository.ReplayAll();
+
+            var nodePresenter = new PipingCalculationInputsNodePresenter();
+            var contextMenuAdapter = nodePresenter.GetContextMenu(null, new PipingCalculationInputs { PipingData = pipingData });
+
+            // When
+            contextMenuAdapter.Items[clearOutputItemPosition].PerformClick();
+
+            // Then
+            Assert.IsFalse(pipingData.HasOutput);
+
+            mockRepository.VerifyAll();
+        }
     }
 }
