@@ -34,8 +34,7 @@ namespace Core.Common.Gui
         }
 
         /// <summary>
-        /// Extends ribbon control of the main window.
-        /// Override this property to add tabs, groups, buttons or other controls to the ribbon.
+        /// Ribbon command handler (adding tabs, groups, buttons, etc.) which can be provided by the gui plugin.
         /// </summary>
         public virtual IRibbonCommandHandler RibbonCommandHandler
         {
@@ -46,7 +45,7 @@ namespace Core.Common.Gui
         }
 
         /// <summary>
-        /// Returns all property information objects supported by the plugin
+        /// Property info objects which can be provided by the gui plugin.
         /// </summary>
         public virtual IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -54,28 +53,24 @@ namespace Core.Common.Gui
         }
 
         /// <summary>
-        /// Provides views info objects for creating views.
+        /// View information objects which can be provided by the gui plugin.
         /// </summary>
         public virtual IEnumerable<ViewInfo> GetViewInfoObjects()
         {
             yield break;
         }
 
-        public virtual void OnViewRemoved(IView view) {}
-
-        public virtual void OnActiveViewChanged(IView view) {}
-
         /// <summary>
-        /// Returns a context menu which is used for this object.
+        /// Context menu which can be provided by the gui plugin.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
         public virtual ContextMenuStrip GetContextMenu(object sender, object data)
         {
             return null;
         }
 
+        /// <summary>
+        /// Node presenters which can be provided by the gui plugin.
+        /// </summary>
         public virtual IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
             yield break;
@@ -85,5 +80,9 @@ namespace Core.Common.Gui
         {
             Gui = null;
         }
+
+        public virtual void OnViewRemoved(IView view) { }
+
+        public virtual void OnActiveViewChanged(IView view) { }
     }
 }
