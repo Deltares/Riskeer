@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error_Cannot_Construct_PipingSoilProfile_Without_Aquifer_Layer" xml:space="preserve">
-    <value>Geen waterdoorlatende laag gevonden voor het profiel.</value>
-  </data>
   <data name="Error_Cannot_Construct_PipingSoilProfile_Without_Layers" xml:space="preserve">
     <value>Geen lagen gevonden voor het profiel.</value>
   </data>

@@ -39,6 +39,45 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
+        public void Add_LayerWithVerticalLineOnXInXml_ThrowsSoilProfileBuilderException()
+        {
+            // Setup
+            var profileName = "SomeProfile";
+            var atX = 0.0;
+            var builder = new SoilProfileBuilder2D(profileName, atX);
+
+            SoilLayer2D soilLayer = new SoilLayer2D
+            {
+                OuterLoop = new List<Segment2D> {
+                    new Segment2D
+                    (
+                       new Point2D(atX,0.0),
+                       new Point2D(atX,1.0)
+                    ),
+                    new Segment2D(
+                
+                       new Point2D(atX,1.0),
+                       new Point2D(0.5,0.5)
+                    ),
+                    new Segment2D(
+                
+                       new Point2D(0.5,0.5),
+                       new Point2D(atX,0.0)
+                    )
+                }
+            };
+            
+            // Call
+            TestDelegate test = () => builder.Add(soilLayer);
+
+            // Assert
+            var exception = Assert.Throws<SoilProfileBuilderException>(test);
+            Assert.IsInstanceOf<SoilLayer2DConversionException>(exception.InnerException);
+            var message = string.Format("Kan geen 1D profiel bepalen wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.", atX);
+            Assert.AreEqual(message, exception.Message);
+        }
+
+        [Test]
         public void Build_WithOutLayers_ThrowsSoilProfileBuilderException()
         {
             // Setup

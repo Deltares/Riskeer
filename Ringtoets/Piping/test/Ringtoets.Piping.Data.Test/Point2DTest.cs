@@ -51,6 +51,32 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void Equals_ToNull_ReturnsFalse()
+        {
+            // Setup
+            var point = new Point2D();
+
+            // Call
+            var result = point.Equals(null);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Equals_ToOtherType_ReturnsFalse()
+        {
+            // Setup
+            var point = new Point2D();
+
+            // Call
+            var result = point.Equals(new Point3D());
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
         public void Equals_ToItself_ReturnsTrue()
         {
             // Setup

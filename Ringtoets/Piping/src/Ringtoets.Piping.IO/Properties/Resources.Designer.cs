@@ -70,24 +70,6 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen 2D en 1D lagen combineren in een profiel..
-        /// </summary>
-        public static string Error_Cannot_combine_2D_and_1D_layers_in_profile {
-            get {
-                return ResourceManager.GetString("Error_Cannot_combine_2D_and_1D_layers_in_profile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Collecties van de x en y coordinaten van lijnen vereisen een lengte van 4..
-        /// </summary>
-        public static string Error_Collections_of_lines_coordinates_need_length_of_0_ {
-            get {
-                return ResourceManager.GetString("Error_Collections_of_lines_coordinates_need_length_of_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het bestandspad &apos;{0}&apos; verwijst naar een map die niet bestaat..
         /// </summary>
         public static string Error_Directory_in_path_0_missing {
@@ -228,15 +210,6 @@ namespace Ringtoets.Piping.IO.Properties {
         public static string PipingSoilProfileReader_Invalid_value_on_column {
             get {
                 return ResourceManager.GetString("PipingSoilProfileReader_Invalid_value_on_column", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden bij het inlezen van het profiel..
-        /// </summary>
-        public static string PipingSoilProfileReader_Unexepected_error_occured {
-            get {
-                return ResourceManager.GetString("PipingSoilProfileReader_Unexepected_error_occured", resourceCulture);
             }
         }
         

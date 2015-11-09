@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error_Cannot_combine_2D_and_1D_layers_in_profile" xml:space="preserve">
-    <value>Kan geen 2D en 1D lagen combineren in een profiel.</value>
-  </data>
   <data name="Error_Can_not_determine_1D_profile_with_vertical_segments_at_x" xml:space="preserve">
     <value>Kan geen 1D profiel bepalen wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.</value>
   </data>
@@ -162,9 +159,6 @@
   <data name="PipingSoilProfileReader_Invalid_value_on_column" xml:space="preserve">
     <value>Ondergrondprofiel in database bevat geen geldige waarde in kolom {0}.</value>
   </data>
-  <data name="PipingSoilProfileReader_Unexepected_error_occured" xml:space="preserve">
-    <value>Er is een onverwachte fout opgetreden bij het inlezen van het profiel.</value>
-  </data>
   <data name="PipingSurfaceLinesCsvReader_File_0_invalid_header" xml:space="preserve">
     <value>Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
   </data>
@@ -185,9 +179,6 @@
   </data>
   <data name="PipingSoilProfileReader_DatabaseFileIncorrectVersions_Requires_0" xml:space="preserve">
     <value>De database heeft niet de vereiste versie informatie. Vereiste versie is: {0}.</value>
-  </data>
-  <data name="Error_Collections_of_lines_coordinates_need_length_of_0_" xml:space="preserve">
-    <value>Collecties van de x en y coordinaten van lijnen vereisen een lengte van 4.</value>
   </data>
   <data name="PipingSoilProfileReader_Could_not_build_profile_0_from_layer_definitions" xml:space="preserve">
     <value>Kon profiel '{0}' niet opbouwen vanuit de gegevens uit de database.</value>

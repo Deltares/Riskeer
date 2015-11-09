@@ -123,7 +123,4 @@
   <data name="PipingCalculation_Validate_Lacks_surfaceline_uplift" xml:space="preserve">
     <value>Een dwarsdoorsnede moet geselecteerd zijn om een Uplift berekening uit te kunnen voeren.</value>
   </data>
-  <data name="PipingProfileCreator_No_aquifer_layer" xml:space="preserve">
-    <value>Het profiel '{0}' bevat geen waterdoorlatende laag.</value>
-  </data>
 </root>

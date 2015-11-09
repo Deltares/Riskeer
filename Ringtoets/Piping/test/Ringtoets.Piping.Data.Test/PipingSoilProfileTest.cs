@@ -53,6 +53,21 @@ namespace Ringtoets.Piping.Data.Test
             var message = Assert.Throws<ArgumentException>(test).Message;
             Assert.AreEqual(Properties.Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers, message);
         }
-        
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("some name")]
+        public void ToString_WithName_ReturnsName(string name)
+        {
+            // Setup
+            var profile = new PipingSoilProfile(name, 0.0, new[]
+            {
+                new PipingSoilLayer(0.0)
+            });
+
+            // Call & Assert
+            Assert.AreEqual(name, profile.ToString());
+        }
     }
 }

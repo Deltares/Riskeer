@@ -118,6 +118,17 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void Equals_WithOtherObjectType_ReturnsFalse()
+        {
+            // Setup
+            var random = new Random(22);
+            var segment = new Segment2D(new Point2D(random.NextDouble(), random.NextDouble()), new Point2D(random.NextDouble(), random.NextDouble()));
+
+            // Call & Assert
+            Assert.IsFalse(segment.Equals(new Point2D(0.0,0.0)));
+        }
+
+        [Test]
         public void Equals_SegmentWithTwoPointsWithSameXY_ReturnsTrue()
         {
             // Setup

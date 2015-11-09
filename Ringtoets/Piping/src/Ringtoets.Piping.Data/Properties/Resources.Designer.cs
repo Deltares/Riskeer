@@ -79,15 +79,6 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen waterdoorlatende laag gevonden voor het profiel..
-        /// </summary>
-        internal static string Error_Cannot_Construct_PipingSoilProfile_Without_Aquifer_Layer {
-            get {
-                return ResourceManager.GetString("Error_Cannot_Construct_PipingSoilProfile_Without_Aquifer_Layer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geen lagen gevonden voor het profiel..
         /// </summary>
         internal static string Error_Cannot_Construct_PipingSoilProfile_Without_Layers {

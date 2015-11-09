@@ -25,6 +25,192 @@ namespace Ringtoets.Piping.IO.Test.Builders
         }
 
         [Test]
+        [TestCase(1e-8)]
+        [TestCase(1)]
+        public void OuterLoop_TwoDisconnectedSegment_ThrowsArgumentException(double diff)
+        {
+            // Setup
+            var layer = new SoilLayer2D();
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(0.0, diff);
+
+            // Call
+            TestDelegate test = () => layer.OuterLoop = new List<Segment2D>
+            {
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointC)
+            };
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
+        }
+
+        [Test]
+        [TestCase(1e-8)]
+        [TestCase(1)]
+        public void OuterLoop_ThreeDisconnectedSegment_ThrowsArgumentException(double diff)
+        {
+            // Setup
+            var layer = new SoilLayer2D();
+            var pointA = new Point2D(0.0,0.0);
+            var pointB = new Point2D(1.0,0.0);
+            var pointC = new Point2D(1.0,1.0);
+            var pointD = new Point2D(0.0,diff);
+
+            // Call
+            TestDelegate test = () => layer.OuterLoop = new List<Segment2D>
+            {
+                new Segment2D(pointA,pointB),
+                new Segment2D(pointB,pointC),
+                new Segment2D(pointC,pointD),
+            };
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
+        }
+
+        [Test]
+        public void OuterLoop_TwoConnectedSegment_SetsNewLoop()
+        {
+            // Setup
+            var layer = new SoilLayer2D();
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+
+            // Call
+            layer.OuterLoop = new List<Segment2D>
+            {
+                new Segment2D(pointA,pointB),
+                new Segment2D(pointB,pointA)
+            };
+
+            // Assert
+            Assert.NotNull(layer.OuterLoop);
+            Assert.AreEqual(new Segment2D(pointA,pointB), layer.OuterLoop[0]);
+            Assert.AreEqual(new Segment2D(pointB,pointA), layer.OuterLoop[1]);
+        }
+
+        [Test]
+        public void OuterLoop_ThreeConnectedSegment_SetsNewLoop()
+        {
+            // Setup
+            var layer = new SoilLayer2D();
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(1.0, 1.0);
+
+            // Call
+            layer.OuterLoop = new List<Segment2D>
+            {
+                new Segment2D(pointA,pointB),
+                new Segment2D(pointB,pointC),
+                new Segment2D(pointC,pointA)
+            };
+
+            // Assert
+            Assert.NotNull(layer.OuterLoop);
+            Assert.AreEqual(new Segment2D(pointA,pointB), layer.OuterLoop[0]);
+            Assert.AreEqual(new Segment2D(pointB,pointC), layer.OuterLoop[1]);
+            Assert.AreEqual(new Segment2D(pointC,pointA), layer.OuterLoop[2]);
+        }
+
+        [Test]
+        [TestCase(1e-8)]
+        [TestCase(1)]
+        public void AddInnerLoop_TwoDisconnectedSegment_ThrowsArgumentException(double diff)
+        {
+            // Setup
+            var layer = new SoilLayer2D();
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(0.0, diff);
+
+            // Call
+            TestDelegate test = () => layer.AddInnerLoop(new List<Segment2D>
+            {
+                new Segment2D(pointA, pointB),
+                new Segment2D(pointB, pointC)
+            });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
+        }
+
+        [Test]
+        [TestCase(1e-8)]
+        [TestCase(1)]
+        public void AddInnerLoop_ThreeDisconnectedSegment_ThrowsArgumentException(double diff)
+        {
+            // Setup
+            var layer = new SoilLayer2D();
+            var pointA = new Point2D(0.0,0.0);
+            var pointB = new Point2D(1.0,0.0);
+            var pointC = new Point2D(1.0,1.0);
+            var pointD = new Point2D(0.0,diff);
+
+            // Call
+            TestDelegate test = () => layer.AddInnerLoop(new List<Segment2D>
+            {
+                new Segment2D(pointA,pointB),
+                new Segment2D(pointB,pointC),
+                new Segment2D(pointC,pointD),
+            });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
+        }
+
+        [Test]
+        public void AddInnerLoop_TwoConnectedSegment_SetsNewLoop()
+        {
+            // Setup
+            var layer = new SoilLayer2D();
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+
+            // Call
+            layer.AddInnerLoop(new List<Segment2D>
+            {
+                new Segment2D(pointA,pointB),
+                new Segment2D(pointB,pointA)
+            });
+
+            // Assert
+            Assert.AreEqual(1, layer.InnerLoops.Count());
+            Assert.AreEqual(new Segment2D(pointA, pointB), layer.InnerLoops.ElementAt(0)[0]);
+            Assert.AreEqual(new Segment2D(pointB, pointA), layer.InnerLoops.ElementAt(0)[1]);
+        }
+
+        [Test]
+        public void AddInnerLoop_ThreeConnectedSegment_SetsNewLoop()
+        {
+            // Setup
+            var layer = new SoilLayer2D();
+            var pointA = new Point2D(0.0, 0.0);
+            var pointB = new Point2D(1.0, 0.0);
+            var pointC = new Point2D(1.0, 1.0);
+
+            // Call
+            layer.AddInnerLoop(new List<Segment2D>
+            {
+                new Segment2D(pointA,pointB),
+                new Segment2D(pointB,pointC),
+                new Segment2D(pointC,pointA)
+            });
+
+            // Assert
+            Assert.AreEqual(1, layer.InnerLoops.Count());
+            Assert.AreEqual(new Segment2D(pointA,pointB), layer.InnerLoops.ElementAt(0)[0]);
+            Assert.AreEqual(new Segment2D(pointB, pointC), layer.InnerLoops.ElementAt(0)[1]);
+            Assert.AreEqual(new Segment2D(pointC, pointA), layer.InnerLoops.ElementAt(0)[2]);
+        }
+
+        [Test]
         public void AsPipingSoilLayers_DefaultConstructed_ReturnsEmptyCollectionWithMaxValueBottom()
         {
             // Setup
