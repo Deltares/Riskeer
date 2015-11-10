@@ -245,30 +245,6 @@ namespace Core.Common.Utils.Tests.Reflection
         }
 
         [Test]
-        [Ignore("Proof of Concept")]
-        public void BuildInMemberwiseCloneCorruptsPostSharpAndNhibernate()
-        {
-            var instances = new List<object>();
-            PropertyChangedEventHandler handler = (s, e) => instances.Add(s);
-
-            var inst = new CloneTestClass
-            {
-                Name = "name1"
-            };
-            ((INotifyPropertyChange) inst).PropertyChanged += handler;
-
-            var clonedInst = (CloneTestClass) inst.Clone();
-            ((INotifyPropertyChange) clonedInst).PropertyChanged += handler;
-
-            inst.Id = 1;
-            inst.Name = "blah";
-            clonedInst.Name = "blah2";
-
-            Assert.AreEqual(3, instances.Count); //is 6 because MemberwiseClone conflicts with PostSharp/events
-            Assert.AreEqual(0, clonedInst.Id);
-        }
-
-        [Test]
         public void OurDeepCloneWorksWellWithPostSharpAndNhibernate()
         {
             var instances = new List<object>();

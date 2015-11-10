@@ -190,23 +190,6 @@ namespace Core.Common.Utils.Tests.Aop
             Task.WaitAll(Task.Factory.StartNew(CreateManyObjects<Super>), Task.Factory.StartNew(CreateManyObjects<Person>), Task.Factory.StartNew(CreateManyObjects<Super>));
         }
 
-        [Test]
-        [Ignore("Known issue")]
-        public void WIPUnsubscriptionShouldWorkInCaseOfVirtualCallsNotCallingBase()
-        {
-            var super = new Super();
-
-            var elements = super.OtherElements;
-            super.OtherElements = null;
-
-            var called = 0;
-            ((INotifyCollectionChanged) super).CollectionChanged += (s, e) => called++;
-
-            elements.Add(new Person());
-
-            Assert.AreEqual(0, called);
-        }
-
         private void CreateManyObjects<T>() where T : new()
         {
             for (int i = 0; i < 1000000; i++)
