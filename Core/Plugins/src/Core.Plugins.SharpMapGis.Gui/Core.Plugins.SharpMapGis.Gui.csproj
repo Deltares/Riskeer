@@ -46,7 +46,6 @@
     <Compile Include="Commands\MapChangeCoordinateSystemCommand.cs" />
     <Compile Include="Commands\ExportMapAsImageCommand.cs" />
     <Compile Include="Commands\MapAddLayerCommand.cs" />
-    <Compile Include="Commands\MapAddWmsLayerCommand.cs" />
     <Compile Include="Commands\MapFixedZoomInCommand.cs" />
     <Compile Include="Commands\MapFixedZoomOutCommand.cs" />
     <Compile Include="Commands\MapMeasureCommand.cs" />
@@ -94,8 +93,6 @@
     <Compile Include="Forms\MapLegendView\MapTreeViewNodePresenter.cs" />
     <Compile Include="Forms\MapLegendView\ThemeItemTreeViewNodePresenter.cs" />
     <Compile Include="Forms\MapLegendView\VectorStyleTreeViewNodePresenter.cs" />
-    <Compile Include="Forms\MapLegendView\WmsMapLayerGroupNodePresenter.cs" />
-    <Compile Include="Forms\MapLegendView\WmsMapLayerTreeViewNodePresenter.cs" />
     <Compile Include="Forms\MapView.cs">
       <SubType>UserControl</SubType>
     </Compile>

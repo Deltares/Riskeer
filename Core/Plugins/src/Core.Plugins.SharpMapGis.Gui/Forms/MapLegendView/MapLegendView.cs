@@ -42,15 +42,11 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
             this.gui = gui;
 
-            var wmsMapLayerGroupTreeViewNodePresenter = new WmsMapLayerGroupTreeViewNodePresenter(guiPlugin, gisService);
-            var wmsMapLayerTreeViewNodePresenter = new WmsMapLayerTreeViewNodePresenter(guiPlugin, gisService);
             var mapTreeViewNodePresenter = new MapTreeViewNodePresenter(guiPlugin);
             var mapLayerTreeViewNodePresenter = new MapLayerTreeViewNodePresenter(guiPlugin);
             var mapLayerLegendStyleTreeViewNodePresenter = new VectorStyleTreeViewNodePresenter();
             var themeItemTreeViewNodePresenter = new ThemeItemTreeViewNodePresenter(guiPlugin);
 
-            TreeView.NodePresenters.Add(wmsMapLayerGroupTreeViewNodePresenter);
-            TreeView.NodePresenters.Add(wmsMapLayerTreeViewNodePresenter);
             TreeView.NodePresenters.Add(mapTreeViewNodePresenter);
             TreeView.NodePresenters.Add(mapLayerTreeViewNodePresenter);
             TreeView.NodePresenters.Add(mapLayerLegendStyleTreeViewNodePresenter);

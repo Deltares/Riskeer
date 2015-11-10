@@ -132,7 +132,6 @@
     <Compile Include="Rendering\Thematics\QuantityThemeTest.cs" />
     <Compile Include="Rendering\Thematics\ThemeFactoryHelperTest.cs" />
     <Compile Include="Rendering\VectorRenderingHelperTest.cs" />
-    <Compile Include="TestWmsCapabilityParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">

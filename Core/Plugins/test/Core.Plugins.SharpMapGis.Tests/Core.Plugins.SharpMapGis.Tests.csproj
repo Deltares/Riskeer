@@ -79,7 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackGroundMapLayerTest.cs" />
-    <Compile Include="Commands\CommandTests.cs" />
     <Compile Include="Commands\MapZoomToFeatureCommandTest.cs" />
     <Compile Include="Forms\GridProperties\LineStylePropertiesTest.cs" />
     <Compile Include="Forms\GridProperties\PointStylePropertiesTest.cs" />
