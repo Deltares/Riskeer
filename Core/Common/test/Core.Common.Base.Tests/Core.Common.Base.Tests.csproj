@@ -144,7 +144,6 @@
     <Compile Include="Shell\Core\ProjectTest.cs" />
     <Compile Include="Shell\Core\UrlTest.cs" />
     <Compile Include="Controls\Swf\FileSystemTreeViewTest.cs" />
-    <Compile Include="ProjectStructureValidation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shell\Gui\Swf\ControlExtensionTest.cs" />
     <Compile Include="TestObjects\Child.cs" />
