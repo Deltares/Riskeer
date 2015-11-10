@@ -70,7 +70,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
                     var contents = File.ReadAllText(file);
                     Clipboard.SetText(contents);
 
-                    TestHelper.AssertIsFasterThan(17500, view.PasteClipboardContents);
+                    TestHelper.AssertIsFasterThan(2000, view.PasteClipboardContents);
 
                     Assert.Greater(dataTable.Rows.Count, 5);
                 }
