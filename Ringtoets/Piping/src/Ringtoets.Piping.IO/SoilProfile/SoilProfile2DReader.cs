@@ -68,7 +68,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// </list></exception>
         private static SoilLayer2D ReadPiping2DSoilLayer(IRowBasedReader reader, string profileName)
         {
-            LayerProperties properties = new LayerProperties(reader, profileName);
+            var properties = new LayerProperties(reader, profileName);
 
             SoilLayer2D pipingSoilLayer;
             try

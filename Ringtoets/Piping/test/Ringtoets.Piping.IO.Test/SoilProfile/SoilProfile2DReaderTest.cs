@@ -122,6 +122,23 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadFrom_InvalidIsAquifer_ReturnsProfileWithNullValuesOnLayer()
+        {
+            // Setup
+            reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1).Repeat.Any();
+            reader.Expect(r => r.ReadOrNull<double>(SoilProfileDatabaseColumns.IsAquifer)).Throw(new InvalidCastException());
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
+
+            // Assert
+            Assert.Throws<PipingSoilProfileReadException>(test);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void ReadFrom_NullValuesForLayer_ReturnsProfileWithNullValuesOnLayer()
         {
             // Setup
