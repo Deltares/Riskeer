@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls;
-using Core.Common.Gui.Properties;
 using Core.Common.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -12,6 +11,7 @@ using Ringtoets.Piping.Data;
 
 using Ringtoets.Piping.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new PipingFailureMechanismNodePresenter();
 
-            var pipingData = new PipingData();
+            var pipingData = new PipingFailureMechanism();
 
             // Call
             nodePresenter.UpdateNode(null, pipingNode, pipingData);
@@ -131,7 +131,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var nodeMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter();
@@ -168,7 +168,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter();
@@ -186,7 +186,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
@@ -206,7 +206,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
@@ -226,7 +226,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             var sourceParentNodeMock = mocks.StrictMock<ITreeNode>();
             var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
@@ -245,7 +245,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter();
@@ -287,7 +287,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.AreEqual(16, runAllItem.Image.Height);
 
             var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-            Assert.AreEqual("Wis uitvoer van alle berekeningen", clearOutputItem.Text);
+            Assert.AreEqual("Wis alle uitvoer", clearOutputItem.Text);
             Assert.AreEqual(16, clearOutputItem.Image.Width);
             Assert.AreEqual(16, clearOutputItem.Image.Height);
 
@@ -343,7 +343,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.IsTrue(clearOutputItem.Enabled);
-            Assert.IsNull(clearOutputItem.ToolTipText);
+            Assert.AreEqual(Resources.PipingFailureMechanism_Clear_all_output_Tooltip, clearOutputItem.ToolTipText);
 
             mocks.VerifyAll(); // Expect no calls on arguments
         }
@@ -381,7 +381,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             mocks.ReplayAll();
@@ -400,7 +400,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<PipingFailureMechanism>();
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             mocks.ReplayAll();
 
@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<WtiProject>();
             var nodeMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
@@ -429,25 +429,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.IsTrue(removalAllowed);
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void CanRemove_NotPipingFailureMechanism_ReturnFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
-            var nodeMock = mocks.StrictMock<object>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-
-            // Call
-            bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
-
-            // Assert
-            Assert.IsFalse(removalAllowed);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -466,24 +447,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.IsTrue(removalSuccesful);
             Assert.IsNull(project.PipingFailureMechanism);
-        }
-
-        [Test]
-        public void RemoveNodeData_NotPipingFailureMechanism_PipingFailureMechanismStillAssignedToWtiProject()
-        {
-            // Setup
-            var project = new WtiProject();
-            project.InitializePipingFailureMechanism();
-            var expectedFailureMechanism = project.PipingFailureMechanism;
-
-            var nodePresenter = new PipingFailureMechanismNodePresenter();
-
-            // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(project, new object());
-
-            // Assert
-            Assert.IsFalse(removalSuccesful);
-            Assert.AreSame(expectedFailureMechanism, project.PipingFailureMechanism);
         }
 
         [Test]
