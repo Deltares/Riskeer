@@ -11,7 +11,7 @@ using Ringtoets.Piping.IO.Properties;
 using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.IO.Test.TestHelpers;
 
-namespace Ringtoets.Piping.IO.Test
+namespace Ringtoets.Piping.IO.Test.SoilProfile
 {
     public class PipingSoilProfileReaderTest
     {

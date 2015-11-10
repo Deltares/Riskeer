@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using System.IO;
 using Core.Common.Base;
 using log4net;
 using Ringtoets.Piping.Data;

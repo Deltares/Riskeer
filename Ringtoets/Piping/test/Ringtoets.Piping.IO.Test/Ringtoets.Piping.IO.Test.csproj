@@ -39,11 +39,15 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\..\..\..\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\SoilLayer1DTest.cs" />
     <Compile Include="Builders\SoilLayer2DConversionExceptionTest.cs" />
     <Compile Include="Builders\SoilLayer2DTest.cs" />
     <Compile Include="Builders\SoilProfileBuilder1DTest.cs" />
@@ -54,12 +58,16 @@
     <Compile Include="Exceptions\LineParseExceptionTest.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadExceptionTest.cs" />
     <Compile Include="FileUtilsTest.cs" />
-    <Compile Include="PipingSoilLayer2DReaderTest.cs" />
-    <Compile Include="PipingSoilProfileReaderTest.cs" />
+    <Compile Include="SoilProfile\CriticalProfilePropertiesTest.cs" />
+    <Compile Include="SoilProfile\PipingSoilLayer2DReaderTest.cs" />
+    <Compile Include="SoilProfile\PipingSoilProfileReaderTest.cs" />
     <Compile Include="PipingSurfaceLinesCsvReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoilProfile\SoilProfile1DReaderTest.cs" />
+    <Compile Include="SoilProfile\SoilProfile2DReaderTest.cs" />
     <Compile Include="TestHelpers\DoubleWithToleranceComparer.cs" />
     <Compile Include="TestHelpers\FileHelper.cs" />
+    <Compile Include="TestHelpers\StringGeometryHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">

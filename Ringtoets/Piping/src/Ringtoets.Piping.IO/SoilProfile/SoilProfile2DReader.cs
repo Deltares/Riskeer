@@ -7,13 +7,17 @@ using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
+    /// <summary>
+    /// This class is responsible for reading 2d profile definitions from the Soil database using a constructed reader
+    /// and transform the definitions to a <see cref="PipingSoilProfile"/>.
+    /// </summary>
     internal static class SoilProfile2DReader
     {
-
         /// <summary>
         /// Reads information for a profile from the database and creates a <see cref="PipingSoilProfile"/> based on the information.
         /// </summary>
-        /// <returns>A new <see cref="PipingSoilProfile"/> with information from the database.</returns>
+        /// <param name="reader">A <see cref="IRowBasedReader"/> which is used to read row values from.</param>
+        /// <returns>A new <see cref="PipingSoilProfile"/>, which is based on the information from the database.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when reading the profile encountered an unrecoverable error.</exception>
         /// <exception cref="PipingSoilProfileReadException">Thrown when
         /// <list type="bullet">
