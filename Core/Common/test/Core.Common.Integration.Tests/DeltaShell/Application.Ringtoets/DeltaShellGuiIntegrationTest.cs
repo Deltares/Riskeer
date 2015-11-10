@@ -108,12 +108,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
         {
             using (var gui = new DeltaShellGui())
             {
-                var app = gui.Application;
-                app.Plugins.Add(new CommonToolsApplicationPlugin());
-                app.Plugins.Add(new SharpMapGisApplicationPlugin());
-                gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
-
                 gui.CommandHandler.TryCloseWTIProject(); //should not trigger exception
             }
         }
