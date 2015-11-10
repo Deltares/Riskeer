@@ -34,33 +34,30 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
         [Test]
         public void TestTextLengthLimit()
         {
-            var node = treeView.NewNode();
-            
-            treeView.Nodes.Add(node);
-            
-            var hugeText = "";
-            for (var i = 0; i <= 99; i++) 
+            var node = new TreeNode(null);
+
+            var largeText = "";
+            for (var i = 0; i <= 24; i++) 
             {
-                hugeText +=  "1834567890"; // hundred times 10 symbols = 1000 symbols
+                largeText += "1234567890";
             }
-            Assert.AreEqual(hugeText.Length, 1000);
 
-            node.Text = hugeText;
-            Assert.AreEqual(node.Text.Length, hugeText.Length);
+            node.Text = largeText;
+            Assert.AreEqual(250, node.Text.Length);
 
-            node.Text = hugeText + "123";
+            node.Text = largeText + "123456789";
+            Assert.AreEqual(259, node.Text.Length);
 
-            Assert.AreEqual(node.Text.Length, hugeText.Length);
+            node.Text = largeText + "1234567890";
+            Assert.AreEqual(259, node.Text.Length, "Text length limit should be 259");
         }
 
         [Test]
         public void TestTextSetToNull()
         {
-            var node = treeView.NewNode();
+            var node = new TreeNode(null);
 
-            treeView.Nodes.Add(node);
-
-            var originalText = "tst";
+            var originalText = "test";
             node.Text = originalText;
             Assert.AreEqual(originalText, node.Text);
 
