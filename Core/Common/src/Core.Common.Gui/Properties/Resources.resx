@@ -362,9 +362,6 @@ Select No to save the project as a new project at a different location.</value>
   <data name="DeltaShellGui_Run_Starting_application____" xml:space="preserve">
     <value>Starting application ...</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Exception_during_plugin_deactivation" xml:space="preserve">
-    <value>Exception during plugin deactivation</value>
-  </data>
   <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed" xml:space="preserve">
     <value>Export failed</value>
   </data>

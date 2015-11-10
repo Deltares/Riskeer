@@ -345,7 +345,7 @@ namespace Core.Common.Base
             GC.SuppressFinalize(this);
         }
 
-        protected void ActivatePlugins()
+        private void ActivatePlugins()
         {
             log.Debug(Properties.Resources.DeltaShellApplication_Run_Activating_plugins____);
 

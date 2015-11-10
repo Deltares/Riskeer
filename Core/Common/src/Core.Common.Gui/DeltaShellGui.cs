@@ -51,7 +51,6 @@ namespace Core.Common.Gui
         private ViewList toolWindowViews;
         private AvalonDockDockingManager toolWindowViewsDockingManager;
 
-        private readonly IList<GuiPlugin> dropTargetPluginGuis = new List<GuiPlugin>();
         private readonly IList<IGuiCommand> commands = new List<IGuiCommand>();
 
         private SplashScreen splashScreen;
@@ -375,12 +374,11 @@ namespace Core.Common.Gui
 
                     if (Plugins != null)
                     {
-                        dropTargetPluginGuis.Clear();
-                        foreach (var plugin in Plugins)
+                        foreach (var plugin in Plugins.ToList())
                         {
-                            plugin.Deactivate();
-                            plugin.Dispose();
+                            DeactivatePlugin(plugin);
                         }
+
                         Plugins = null;
                     }
 
@@ -504,6 +502,22 @@ namespace Core.Common.Gui
 
             instanceCreationStackTrace = "";
             instance = null;
+        }
+
+        private void DeactivatePlugin(GuiPlugin plugin)
+        {
+            try
+            {
+                plugin.Deactivate();
+            }
+            catch (Exception exception)
+            {
+                log.Error(Resources.DeltaShellGui_ActivatePlugins_Exception_during_plugin_gui_deactivation, exception);
+            }
+
+            plugin.Dispose();
+
+            Plugins.Remove(plugin);
         }
 
         private void ApplicationProjectSaved(Project obj)
@@ -948,6 +962,8 @@ namespace Core.Common.Gui
             var problematicPlugins = new List<GuiPlugin>();
 
             mainWindow.SuspendLayout();
+
+            // Try to activate all plugins
             foreach (var plugin in Plugins)
             {
                 try
@@ -960,28 +976,10 @@ namespace Core.Common.Gui
                 }
             }
 
-            // remove problematic plugins
-            for (int i = 0; i < problematicPlugins.Count; i++)
+            // Deactivate and remove all problematic plugins
+            foreach (var problematicPlugin in problematicPlugins)
             {
-                try
-                {
-                    problematicPlugins[i].Deactivate();
-                }
-                catch (Exception exception)
-                {
-                    log.Error(Resources.DeltaShellGui_ActivatePlugins_Exception_during_plugin_gui_deactivation, exception);
-                }
-
-                try
-                {
-                    problematicPlugins[i].Deactivate();
-                }
-                catch (Exception exception)
-                {
-                    log.Error(Resources.DeltaShellGui_ActivatePlugins_Exception_during_plugin_deactivation, exception);
-                }
-
-                Plugins.Remove(problematicPlugins[i]);
+                DeactivatePlugin(problematicPlugin);
             }
 
             mainWindow.ResumeLayout();

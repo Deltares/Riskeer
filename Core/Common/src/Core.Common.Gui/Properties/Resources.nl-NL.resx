@@ -273,9 +273,6 @@
   <data name="DeltaShellGui_ActivatePlugins_Error_during_plugin_activation" xml:space="preserve">
     <value>NL Error during plugin activation</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Exception_during_plugin_deactivation" xml:space="preserve">
-    <value>NL Exception during plugin deactivation</value>
-  </data>
   <data name="DeltaShellGui_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
     <value>NL Exception during plugin gui deactivation</value>
   </data>
