@@ -47,7 +47,6 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
         }
 
         [Test]
-        [Ignore("potentially hangs")]
         public void RunManyActivitiesCancelCheckForThreadingIssuesTools9791()
         {
             using (var gui = new DeltaShellGui())
@@ -59,7 +58,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
                 {
                     var smallActivity = new TestActivity2();
 
-                    for (int i = 0; i < 1000; i++)
+                    for (int i = 0; i < 10; i++)
                     {
                         app.RunActivityInBackground(smallActivity);
 
