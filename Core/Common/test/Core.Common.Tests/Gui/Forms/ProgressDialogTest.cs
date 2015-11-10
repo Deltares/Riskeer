@@ -49,11 +49,11 @@ namespace Core.Common.Tests.Gui.Forms
 
         private class TimedActivity: ParallelActivity
         {
-            private readonly int durationSec;
+            private readonly int hundredsOfMilliseconds;
 
-            public TimedActivity(int durationSec)
+            public TimedActivity(int hundredsOfMilliseconds)
             {
-                this.durationSec = durationSec;
+                this.hundredsOfMilliseconds = hundredsOfMilliseconds;
             }
 
             protected override void OnInitialize()
@@ -63,12 +63,13 @@ namespace Core.Common.Tests.Gui.Forms
 
             protected override void OnExecute()
             {
-                for (var i = 0; i < durationSec; i++)
+                for (var i = 0; i < hundredsOfMilliseconds; i++)
                 {
                     SetProgressText(i.ToString());
-                    
-                    Thread.Sleep(1000);
+
+                    Thread.Sleep(100);
                 }
+
                 Status = ActivityStatus.Done;
             }
 
