@@ -46,7 +46,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             Assert.AreEqual(expectedTop, actual.TopLevel);
             Assert.AreEqual(expectedBottom, actual.BottomLevel);
 
-            var pipingLayer = actual.Layers.First();
+            PipingLayer pipingLayer = actual.Layers.First();
             Assert.IsTrue(pipingLayer.IsAquifer);
             Assert.AreEqual(belowPhreaticLevel, pipingLayer.BelowPhreaticLevel);
             Assert.AreEqual(abovePhreaticLevel, pipingLayer.AbovePhreaticLevel);
@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             PipingProfile actual = PipingProfileCreator.Create(soilProfile);
 
             // Assert
-            var ordered = actual.Layers.OrderByDescending(l => l.TopLevel);
+            IEnumerable<PipingLayer> ordered = actual.Layers.OrderByDescending(l => l.TopLevel);
             CollectionAssert.AreEqual(ordered, actual.Layers);
 
             Assert.AreEqual(3, actual.Layers.Count);
@@ -160,7 +160,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             var soilProfile = new PipingSoilProfile(string.Empty, -2, layers);
 
             // Call
-            var actual = PipingProfileCreator.Create(soilProfile);
+            PipingProfile actual = PipingProfileCreator.Create(soilProfile);
 
             CollectionAssert.AreEqual(new[]
             {
@@ -197,7 +197,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             var soilProfile = new PipingSoilProfile(string.Empty, -2, layers);
 
             // Call
-            var actual = PipingProfileCreator.Create(soilProfile);
+            PipingProfile actual = PipingProfileCreator.Create(soilProfile);
 
             CollectionAssert.AreEqual(new[]
             {
@@ -234,7 +234,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             var soilProfile = new PipingSoilProfile(string.Empty, -2, layers);
 
             // Call
-            var actual = PipingProfileCreator.Create(soilProfile);
+            PipingProfile actual = PipingProfileCreator.Create(soilProfile);
 
             CollectionAssert.AreEqual(new[]
             {
