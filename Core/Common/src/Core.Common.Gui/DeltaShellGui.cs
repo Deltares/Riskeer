@@ -676,12 +676,12 @@ namespace Core.Common.Gui
 
         private void ShowSplashScreen()
         {
-            splashScreen = new SplashScreen(Application)
+            splashScreen = new SplashScreen()
             {
-                LabelVersionVersion = SettingsHelper.ApplicationVersion,
-                SplashScreenCopyright = Application.Settings["copyright"],
-                LabelLicense = Application.Settings["license"],
-                LabelCompany = SettingsHelper.ApplicationCompany
+                VersionText = SettingsHelper.ApplicationVersion,
+                CopyrightText = Application.Settings["copyright"],
+                LicenseText = Application.Settings["license"],
+                CompanyText = SettingsHelper.ApplicationCompany
             };
 
             splashScreen.IsVisibleChanged += delegate

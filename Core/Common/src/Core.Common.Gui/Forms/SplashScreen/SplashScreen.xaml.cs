@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
+﻿using System.Windows.Media;
 using Core.Common.Base;
 using log4net;
 
@@ -15,195 +10,168 @@ namespace Core.Common.Gui.Forms.SplashScreen
     public partial class SplashScreen
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DeltaShellApplication));
+        private string progressText;
+        private int progressValuePercent;
+        private string licenseText;
+        private string companyText;
+        private string copyrightText;
+        private string versionText;
 
-        private readonly DispatcherTimer updateTimer;
-
-        private IApplication app;
-        private string logoImageFilePath;
-        private volatile ProgressInfo progressInfo;
-        private bool scheduleUpdate;
-
-        private int progressBarValue;
-
-        private string lastProgressMessage; // sometimes we progress only percentage, in this case we keep the last message here
-
-        private bool refreshing;
-
-        private bool shutdown;
-
-        public SplashScreen() : this(null) {}
-
-        public SplashScreen(IApplication app)
+        public SplashScreen()
         {
             InitializeComponent();
 
-            if (app == null)
-            {
-                throw new ArgumentNullException("app");
-            }
-            this.app = app;
+            progressBar.Maximum = 100; // classic percentage approach, there is no need for the splash screen to be more precise
 
-            progressBar.Maximum = 1;
-            progressBar.Value = 0;
-            labelProgressBar.Content = "0 %";
-
-            IsVisibleChanged += SplashScreen_VisibleChanged;
-
-            updateTimer = new DispatcherTimer(DispatcherPriority.Render, Dispatcher);
-            updateTimer.Tick += OnTimer;
-            updateTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
-            updateTimer.Start();
+            ProgressValuePercent = 0;
+            ProgressText = "";
+            CompanyText = "";
+            CopyrightText = "";
+            LicenseText = "";
+            VersionText = "";
         }
 
-        public string LabelVersionVersion
+        /// <summary>
+        /// Version to be shown
+        /// </summary>
+        public string VersionText
         {
             get
             {
-                return (string) labelVersion.Content;
+                return versionText;
             }
             set
             {
-                labelVersion.Content = value;
+                versionText = value;
+                InvalidateVisual();
             }
         }
 
-        public string SplashScreenCopyright
+        /// <summary>
+        /// Copyright owner to be shown
+        /// </summary>
+        public string CopyrightText
         {
             get
             {
-                return (string) labelCopyright.Content;
+                return copyrightText;
             }
             set
             {
-                labelCopyright.Content = value;
+                copyrightText = value;
+                InvalidateVisual();
             }
         }
 
-        public string LabelCompany
+        /// <summary>
+        /// Registred company to be shown
+        /// </summary>
+        public string CompanyText
         {
             get
             {
-                return (string) labelCompany.Content;
+                return companyText;
             }
             set
             {
-                labelCompany.Content = value;
+                companyText = value;
+                InvalidateVisual();
             }
         }
 
-        public string LabelLicense
+        /// <summary>
+        /// Type of the license, plain text
+        /// </summary>
+        public string LicenseText
         {
             get
             {
-                return (string) labelLicense.Content;
+                return licenseText;
             }
             set
             {
-                labelLicense.Content = value;
+                licenseText = value;
+                InvalidateVisual();
             }
         }
 
-        public int ProgressBarValue
+        /// <summary>
+        /// Percentage value to be set as progress indication. 
+        /// </summary>
+        public int ProgressValuePercent
         {
             get
             {
-                return progressBarValue;
+                return progressValuePercent;
             }
             set
             {
-                progressBar.Value = value;
-                progressBarValue = value;
+                progressValuePercent = value;
+                InvalidateVisual();
             }
         }
 
-        public string ProgressBarText
+        /// <summary>
+        /// Text, as a current status of the progress
+        /// </summary>
+        public string ProgressText
         {
             get
             {
-                return (string) labelProgressBar.Content;
+                return progressText;
             }
             set
             {
-                labelProgressBar.Content = value;
+                progressText = value;
+                InvalidateVisual();
             }
         }
 
         public void Shutdown()
         {
-            shutdown = true;
-
-            updateTimer.Stop();
-            while (refreshing)
-            {
-                Dispatcher.Invoke(DispatcherPriority.Render, new Action(() => { }));
-            }
-
             Focusable = false;
-            app = null;
-
             log.Info(Properties.Resources.SplashScreen_Shutdown_Hiding_splash_screen____);
-
             Close();
         }
 
-        private void OnTimer(object state, EventArgs eventArgs)
+        /// <summary>
+        /// When overridden in a derived class, participates in rendering operations that are directed by the layout system. The rendering instructions for this element are not used directly when this method is invoked, and are instead preserved for later asynchronous use by layout and drawing. 
+        /// </summary>
+        /// <param name="drawingContext">The drawing instructions for a specific element. This context is provided to the layout system.</param>
+        protected override void OnRender(DrawingContext drawingContext)
         {
-            UpdateProgress();
-        }
+            base.OnRender(drawingContext);
 
-        private void UpdateProgress()
-        {
-            if (!scheduleUpdate)
+            if (progressBar.Value != ProgressValuePercent)
             {
-                return;
+                progressBar.Value = ProgressValuePercent;
+                labelProgressBar.Content = string.Format("{0} %", ProgressValuePercent);
             }
 
-            scheduleUpdate = false;
-
-            ProgressInfo newInfo = progressInfo;
-
-            ProgressBarValue = newInfo.ProgressValue;
-            ProgressBarText = newInfo.ProgressText;
-
-            labelProgressMessage.Content = newInfo.Message != "" ? newInfo.Message : lastProgressMessage;
-        }
-
-        private void SplashScreen_VisibleChanged(object sender, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
-        {
-            if (IsVisible)
+            if (labelProgressMessage.Content.ToString() != ProgressText)
             {
-                log.Debug(Properties.Resources.SplashScreen_SplashScreen_VisibleChanged_Showing_splash_screen____);
-                string splashScreenLogFilePath =
-                    Path.Combine(app.GetUserSettingsDirectoryPath(), "splash-screen-log-history.xml");
+                labelProgressMessage.Content = ProgressText;
             }
-            else
+
+            if (labelLicense.Content.ToString() != LicenseText)
             {
-                updateTimer.Stop();
+                labelLicense.Content = LicenseText;
             }
-        }
 
-        private void ScheduleUpdate()
-        {
-            if (!shutdown)
+            if (labelCompany.Content.ToString() != CompanyText)
             {
-                scheduleUpdate = true;
-                RefreshControls();
+                labelCompany.Content = CompanyText;
             }
-        }
 
-        private void RefreshControls()
-        {
-            refreshing = true;
-            progressBar.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() => { }));
-            labelProgressMessage.Dispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() => { }));
-            refreshing = false;
-        }
+            if (labelCopyright.Content.ToString() != CopyrightText)
+            {
+                labelCopyright.Content = CopyrightText;
+            }
 
-        public class ProgressInfo
-        {
-            public string Message;
-            public string ProgressText;
-            public int ProgressValue;
+            if (labelVersion.Content.ToString() != VersionText)
+            {
+                labelVersion.Content = VersionText;
+            }
         }
     }
 }
