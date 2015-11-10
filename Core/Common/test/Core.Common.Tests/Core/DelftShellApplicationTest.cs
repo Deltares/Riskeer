@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
-using Application.Ringtoets;
 using Core.Common.Base;
-using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -62,14 +60,12 @@ namespace Core.Common.Tests.Core
 
             mocks.ReplayAll();
 
-            using (var gui = new DeltaShellGui())
+            using (var deltaShellApplication = new DeltaShellApplication())
             {
-                var app = gui.Application;
-                gui.Application = app;
-                gui.Application.Plugins.Add(plugin);
-                gui.Run();
+                deltaShellApplication.Plugins.Add(plugin);
+                deltaShellApplication.Run();
 
-                gui.Dispose();
+                deltaShellApplication.Dispose();
 
                 mocks.VerifyAll();
             }

@@ -47,38 +47,6 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
         }
 
         [Test]
-        public void RunManyActivitiesCancelCheckForThreadingIssuesTools9791()
-        {
-            using (var gui = new DeltaShellGui())
-            {
-                var app = gui.Application;
-                gui.Run();
-
-                Action onShown = delegate
-                {
-                    var smallActivity = new TestActivity2();
-
-                    for (int i = 0; i < 10; i++)
-                    {
-                        app.RunActivityInBackground(smallActivity);
-
-                        // cancel
-                        while (!app.IsActivityRunning())
-                        {
-                            Thread.Sleep(1);
-                        }
-                        app.ActivityRunner.CancelAll();
-                        while (app.IsActivityRunning())
-                        {
-                            System.Windows.Forms.Application.DoEvents();
-                        }
-                    }
-                };
-                WpfTestHelper.ShowModal((Control) gui.MainWindow, onShown);
-            }
-        }
-
-        [Test]
         public void ProgressDialogIsModal()
         {
             if (!Environment.UserInteractive)
