@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             {
                 new PipingSoilLayer(random.NextDouble())
                 {
-                    IsAquifer = 1.0
+                    IsAquifer = true
                 } 
             });
 

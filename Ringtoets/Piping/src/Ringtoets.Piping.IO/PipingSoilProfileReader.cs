@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.IO
 
             for (var i = 1; i <= layerCount; i++)
             {
-                soilProfileBuilder.Add(ReadPipingSoilLayer());
+                soilProfileBuilder.Add(ReadPipingSoilLayer().AsPipingSoilLayer());
                 MoveNext();
             }
 
@@ -278,7 +278,7 @@ namespace Ringtoets.Piping.IO
             }
         }
 
-        private PipingSoilLayer ReadPipingSoilLayer()
+        private SoilLayer1D ReadPipingSoilLayer()
         {
             var topValue = TryRead<double>(topColumn);
             var isAquiferValue = TryRead<double?>(isAquiferColumn);
@@ -286,7 +286,7 @@ namespace Ringtoets.Piping.IO
             var abovePhreaticLevelValue = TryRead<double?>(abovePhreaticLevelColumn);
             var dryUnitWeightValue = TryRead<double?>(dryUnitWeightColumn);
 
-            var pipingSoilLayer = new PipingSoilLayer(topValue)
+            var pipingSoilLayer = new SoilLayer1D(topValue)
             {
                 IsAquifer = isAquiferValue,
                 BelowPhreaticLevel = belowPhreaticLevelValue,

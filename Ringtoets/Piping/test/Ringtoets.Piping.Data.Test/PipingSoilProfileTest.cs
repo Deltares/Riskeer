@@ -19,7 +19,7 @@ namespace Ringtoets.Piping.Data.Test
             {
                 equivalentLayers.Add(new PipingSoilLayer(0.0)
                 {
-                    IsAquifer = i == 0 ? 1.0 : 0.0
+                    IsAquifer = i == 0
                 });
             }
 

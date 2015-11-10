@@ -188,18 +188,12 @@ namespace Ringtoets.Piping.IO.Test
                 var profile = pipingSoilProfilesReader.ReadProfile();
 
                 // Assert
-                var nullCollection = new double?[]
-                {
-                    null,
-                    null,
-                    null
-                };
                 Assert.AreEqual("Profile", profile.Name);
                 Assert.AreEqual(3, profile.Layers.Count());
-                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.IsAquifer));
-                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.AbovePhreaticLevel));
-                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.BelowPhreaticLevel));
-                CollectionAssert.AreEqual(nullCollection, profile.Layers.Select(l => l.DryUnitWeight));
+                CollectionAssert.AreEqual(Enumerable.Repeat(false, 3), profile.Layers.Select(l => l.IsAquifer));
+                CollectionAssert.AreEqual(Enumerable.Repeat((double?)null, 3), profile.Layers.Select(l => l.AbovePhreaticLevel));
+                CollectionAssert.AreEqual(Enumerable.Repeat((double?)null, 3), profile.Layers.Select(l => l.BelowPhreaticLevel));
+                CollectionAssert.AreEqual(Enumerable.Repeat((double?)null, 3), profile.Layers.Select(l => l.DryUnitWeight));
             }
         }
 
@@ -217,9 +211,9 @@ namespace Ringtoets.Piping.IO.Test
                 // Assert
                 CollectionAssert.AreEqual(new[]
                 {
-                    0.0,
-                    0.0,
-                    1.0
+                    false,
+                    false,
+                    true
                 }, profile.Layers.Select(l => l.IsAquifer));
                 CollectionAssert.AreEqual(new[]
                 {

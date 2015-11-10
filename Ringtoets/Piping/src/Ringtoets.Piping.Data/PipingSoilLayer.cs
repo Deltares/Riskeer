@@ -21,9 +21,9 @@
         public double Top { get; private set; }
 
         /// <summary>
-        /// Gets or sets the double which represents whether the <see cref="PipingSoilLayer"/> is an aquifer.
+        /// Gets or sets the boolean value which represents whether the <see cref="PipingSoilLayer"/> is an aquifer.
         /// </summary>
-        public double? IsAquifer { get; set; }
+        public bool IsAquifer { get; set; }
 
         /// <summary>
         /// Gets or sets the volumic weight of the <see cref="PipingSoilLayer"/> above the phreatic level.

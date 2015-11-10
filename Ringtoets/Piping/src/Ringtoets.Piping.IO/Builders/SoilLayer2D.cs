@@ -26,22 +26,23 @@ namespace Ringtoets.Piping.IO.Builders
         }
 
         /// <summary>
-        /// Gets or sets whether the <see cref="PipingSoilLayer"/> is an aquifer.
+        /// Gets or sets a <see cref="double"/> value representing 
+        /// whether the <see cref="SoilLayer2D"/> is an aquifer.
         /// </summary>
         public double? IsAquifer { get; set; }
 
         /// <summary>
-        /// Gets or sets the above phreatic level for the <see cref="PipingSoilLayer"/>.
+        /// Gets or sets the above phreatic level for the <see cref="SoilLayer2D"/>.
         /// </summary>
         public double? AbovePhreaticLevel { get; set; }
 
         /// <summary>
-        /// Gets or sets the below phreatic level for the <see cref="PipingSoilLayer"/>.
+        /// Gets or sets the below phreatic level for the <see cref="SoilLayer2D"/>.
         /// </summary>
         public double? BelowPhreaticLevel { get; set; }
 
         /// <summary>
-        /// Gets or sets the dry unit weight for the <see cref="PipingSoilLayer"/>.
+        /// Gets or sets the dry unit weight for the <see cref="SoilLayer2D"/>.
         /// </summary>
         public double? DryUnitWeight { get; set; }
 
@@ -119,7 +120,7 @@ namespace Ringtoets.Piping.IO.Builders
                     {
                         result.Add(new PipingSoilLayer(height)
                         {
-                            IsAquifer = IsAquifer,
+                            IsAquifer = IsAquifer.HasValue && IsAquifer.Value.Equals(1.0),
                             BelowPhreaticLevel = BelowPhreaticLevel,
                             AbovePhreaticLevel = AbovePhreaticLevel,
                             DryUnitWeight = DryUnitWeight

@@ -17,7 +17,7 @@ namespace Ringtoets.Piping.Service.Test.TestHelpers
             {
                 new PipingSoilLayer(random.NextDouble())
                 {
-                    IsAquifer = 1.0
+                    IsAquifer = true
                 }
             });
             return new PipingData

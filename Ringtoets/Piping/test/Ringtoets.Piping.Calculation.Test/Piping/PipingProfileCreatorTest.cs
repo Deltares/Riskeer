@@ -26,7 +26,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             {
                 new PipingSoilLayer(expectedTop)
                 {
-                    IsAquifer = 1.0,
+                    IsAquifer = true,
                     BelowPhreaticLevel = belowPhreaticLevel,
                     AbovePhreaticLevel = abovePhreaticLevel,
                     DryUnitWeight = dryUnitWeight
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             {
                 new PipingSoilLayer(expectedTopA)
                 {
-                    IsAquifer = 1.0
+                    IsAquifer = true
                 },
                 new PipingSoilLayer(expectedTopB),
                 new PipingSoilLayer(expectedTopC)
@@ -103,7 +103,7 @@ namespace Ringtoets.Piping.Calculation.Test.Piping
             {
                 new PipingSoilLayer(expectedTopA)
                 {
-                    IsAquifer = 1.0
+                    IsAquifer = true
                 }, 
                 new PipingSoilLayer(expectedTopB), 
                 new PipingSoilLayer(expectedTopC) 
