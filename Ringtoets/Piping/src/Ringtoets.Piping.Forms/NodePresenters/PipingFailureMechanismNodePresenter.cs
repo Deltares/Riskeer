@@ -20,32 +20,21 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// This class presents the data on <see cref="PipingFailureMechanism"/> as a node in a 
     /// <see cref="ITreeView"/> and implements the way the user can interact with the node.
     /// </summary>
-    public class PipingFailureMechanismNodePresenter : ITreeNodePresenter
+    public class PipingFailureMechanismNodePresenter : PipingNodePresenterBase<PipingFailureMechanism>
     {
-        public ITreeView TreeView { get; set; }
-
-        public Type NodeTagType
-        {
-            get
-            {
-                return typeof(PipingFailureMechanism);
-            }
-        }
-
         /// <summary>
         /// Injection points for a method to cause an <see cref="IActivity"/> to be scheduled for execution.
         /// </summary>
         public Action<IActivity> RunActivityAction { private get; set; }
 
-        public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
+        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingFailureMechanism nodeData)
         {
             node.Text = Resources.PipingFailureMechanism_DisplayName;
             node.Image = Resources.PipingIcon;
         }
 
-        public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
+        protected override IEnumerable GetChildNodeObjects(PipingFailureMechanism failureMechanism, ITreeNode node)
         {
-            PipingFailureMechanism failureMechanism = (PipingFailureMechanism) parentNodeData;
             yield return failureMechanism.SoilProfiles;
             yield return failureMechanism.SurfaceLines;
 
@@ -60,47 +49,9 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             }
         }
 
-        public bool CanRenameNode(ITreeNode node)
-        {
-            return false;
-        }
-
-        public bool CanRenameNodeTo(ITreeNode node, string newName)
-        {
-            return false;
-        }
-
-        public void OnNodeRenamed(object nodeData, string newName)
-        {
-            throw new InvalidOperationException(string.Format("Cannot rename tree node of type {0}.", GetType().Name));
-        }
-
-        public void OnNodeChecked(ITreeNode node) {}
-
-        public DragOperations CanDrag(object nodeData)
-        {
-            return DragOperations.None;
-        }
-
-        public DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
-        {
-            return DragOperations.None;
-        }
-
-        public bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
-        {
-            return false;
-        }
-
-        public void OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position) {}
-
-        public void OnNodeSelected(object nodeData) {}
-
-        public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingFailureMechanism failureMechanism)
         {
             var rootMenu = new ContextMenuStrip();
-
-            var failureMechanism = (PipingFailureMechanism)nodeData;
 
             rootMenu.AddMenuItem(Resources.PipingFailureMechanism_Add_Piping_Calculation,
                                  Resources.PipingFailureMechanism_Add_Piping_Calculation_Tooltip,
@@ -124,7 +75,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                  });
 
             var clearOutputNode = rootMenu.AddMenuItem(Resources.Clear_all_output,
-                                 null,
+                                 Resources.PipingFailureMechanism_Clear_all_output_Tooltip,
                                  Resources.PipingOutputClear, (o, args) =>
                                  {
                                      foreach (var calc in failureMechanism.Calculations)
@@ -143,27 +94,19 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             return rootMenu;
         }
 
-        public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}
-
-        public void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e) {}
-
-        public bool CanRemove(object parentNodeData, object nodeData)
+        protected override bool CanRemove(object parentNodeData, PipingFailureMechanism nodeData)
         {
-            return nodeData is PipingFailureMechanism;
+            return true;
         }
 
-        public bool RemoveNodeData(object parentNodeData, object nodeData)
+        protected override bool RemoveNodeData(object parentNodeData, PipingFailureMechanism nodeData)
         {
-            if (nodeData is PipingFailureMechanism)
-            {
-                var wtiProject = (WtiProject)parentNodeData;
+            var wtiProject = (WtiProject)parentNodeData;
 
-                wtiProject.ClearPipingFailureMechanism();
-                wtiProject.NotifyObservers();
+            wtiProject.ClearPipingFailureMechanism();
+            wtiProject.NotifyObservers();
 
-                return true;
-            }
-            return false;
+            return true;
         }
     }
 }

@@ -216,9 +216,9 @@ namespace Ringtoets.Piping.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De database &apos;{0}&apos; heeft niet de vereiste versie informatie. Vereiste versie is &apos;{1}&apos;..
         /// </summary>
-        public static string PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1 {
+        public static string PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1_ {
             get {
-                return ResourceManager.GetString("PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1", resourceCulture);
+                return ResourceManager.GetString("PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1_", resourceCulture);
             }
         }
         

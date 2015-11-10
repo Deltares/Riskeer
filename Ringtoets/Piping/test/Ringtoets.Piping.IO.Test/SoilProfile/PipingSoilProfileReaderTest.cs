@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
 
             // Assert
             var exception = Assert.Throws<CriticalFileReadException>(test);
-            Assert.AreEqual(String.Format(Resources.PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1, dbName, version), exception.Message);
+            Assert.AreEqual(String.Format(Resources.PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1_, dbName, version), exception.Message);
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
         }
 

@@ -17,6 +17,11 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     public class PipingFailureMechanismNodePresenterTest
     {
+
+        private const int contextMenuAddIndex = 0;
+        private const int contextMenuCalculateIndex = 1;
+        private const int contextMenuClearIndex = 2;
+
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
@@ -269,19 +274,19 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             Assert.AreEqual(3, contextMenu.Items.Count);
-            var addCalculationItem = contextMenu.Items[0];
+            var addCalculationItem = contextMenu.Items[contextMenuAddIndex];
             Assert.AreEqual("Berekening toevoegen", addCalculationItem.Text);
             Assert.AreEqual("Voeg een nieuwe piping berekening toe aan het faalmechanisme.", addCalculationItem.ToolTipText);
             Assert.AreEqual(16, addCalculationItem.Image.Width);
             Assert.AreEqual(16, addCalculationItem.Image.Height);
 
-            var runAllItem = contextMenu.Items[1];
+            var runAllItem = contextMenu.Items[contextMenuCalculateIndex];
             Assert.AreEqual("Alles berekenen", runAllItem.Text);
             Assert.AreEqual("Valideer en voer alle berekeningen binnen het piping faalmechanisme uit.", runAllItem.ToolTipText);
             Assert.AreEqual(16, runAllItem.Image.Width);
             Assert.AreEqual(16, runAllItem.Image.Height);
 
-            var clearOutputItem = contextMenu.Items[2];
+            var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.AreEqual("Wis uitvoer van alle berekeningen", clearOutputItem.Text);
             Assert.AreEqual(16, clearOutputItem.Image.Width);
             Assert.AreEqual(16, clearOutputItem.Image.Height);
@@ -307,7 +312,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.AreEqual(3, contextMenu.Items.Count);
 
-            var clearOutputItem = contextMenu.Items[2];
+            var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.IsFalse(clearOutputItem.Enabled);
             Assert.AreEqual("Er zijn geen berekeningen met uitvoer om te wissen.", clearOutputItem.ToolTipText);
 
@@ -336,7 +341,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.AreEqual(3, contextMenu.Items.Count);
 
-            var clearOutputItem = contextMenu.Items[2];
+            var clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.IsTrue(clearOutputItem.Enabled);
             Assert.IsNull(clearOutputItem.ToolTipText);
 
@@ -362,7 +367,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Call
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, failureMechanism);
-            var addCalculationItem = contextMenu.Items[0];
+            var addCalculationItem = contextMenu.Items[contextMenuAddIndex];
             addCalculationItem.PerformClick();
 
             // Assert
@@ -485,8 +490,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void GivenMultiplePipingDataWithOutput_WhenClearingOutputFromContextMenu_ThenPipingDataOutputCleared()
         {
             // Given
-            int clearOutputItemPosition = 2;
-
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Twice();
@@ -509,7 +512,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             mocks.ReplayAll();
 
             // When
-            contextMenuAdapter.Items[clearOutputItemPosition].PerformClick();
+            contextMenuAdapter.Items[contextMenuClearIndex].PerformClick();
 
             // Then
             CollectionAssert.IsEmpty(dataMock.Calculations.Where(c => c.HasOutput));

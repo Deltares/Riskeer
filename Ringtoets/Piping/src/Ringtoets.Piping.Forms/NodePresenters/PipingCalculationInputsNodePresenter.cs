@@ -19,77 +19,45 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// This class presents the data on <see cref="PipingData"/> as a node in a <see cref="ITreeView"/> and
     /// implements the way the user can interact with the node.
     /// </summary>
-    public class PipingCalculationInputsNodePresenter : ITreeNodePresenter
+    public class PipingCalculationInputsNodePresenter : PipingNodePresenterBase<PipingCalculationInputs>
     {
-        public ITreeView TreeView { get; set; }
-
-        public Type NodeTagType
-        {
-            get
-            {
-                return typeof(PipingCalculationInputs);
-            }
-        }
-
         /// <summary>
         /// Injection points for a method to cause an <see cref="IActivity"/> to be scheduled for execution.
         /// </summary>
         public Action<IActivity> RunActivityAction { private get; set; }
 
-        public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
+        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingCalculationInputs pipingCalculationInputs)
         {
-            node.Text = ((PipingCalculationInputs)nodeData).PipingData.Name;
+            node.Text = pipingCalculationInputs.PipingData.Name;
             node.Image = Resources.PipingIcon;
         }
 
-        public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
+        protected override IEnumerable GetChildNodeObjects(PipingCalculationInputs pipingCalculationInputs, ITreeNode node)
         {
-            var pipingOutput = ((PipingCalculationInputs) parentNodeData).PipingData.Output;
+            var pipingOutput = pipingCalculationInputs.PipingData.Output;
             if (pipingOutput != null)
             {
                 yield return pipingOutput;
             }
         }
 
-        public bool CanRenameNode(ITreeNode node)
+        public override bool CanRenameNode(ITreeNode node)
         {
             return true;
         }
 
-        public bool CanRenameNodeTo(ITreeNode node, string newName)
+        public override bool CanRenameNodeTo(ITreeNode node, string newName)
         {
             return true;
         }
 
-        public void OnNodeRenamed(object nodeData, string newName)
+        protected override void OnNodeRenamed(PipingCalculationInputs pipingCalculationInputs, string newName)
         {
-            var pipingCalculationInputs = ((PipingCalculationInputs)nodeData);
             pipingCalculationInputs.PipingData.Name = newName;
             pipingCalculationInputs.PipingData.NotifyObservers();
         }
 
-        public void OnNodeChecked(ITreeNode node) {}
-
-        public DragOperations CanDrag(object nodeData)
-        {
-            return DragOperations.None;
-        }
-
-        public DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
-        {
-            return DragOperations.None;
-        }
-
-        public bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
-        {
-            return false;
-        }
-
-        public void OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position) {}
-
-        public void OnNodeSelected(object nodeData) {}
-
-        public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingCalculationInputs nodeData)
         {
             PipingData pipingData = ((PipingCalculationInputs) nodeData).PipingData;
 
@@ -125,20 +93,6 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             }
 
             return contextMenu;
-        }
-
-        public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}
-
-        public void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e) {}
-
-        public bool CanRemove(object parentNodeData, object nodeData)
-        {
-            return false;
-        }
-
-        public bool RemoveNodeData(object parentNodeData, object nodeData)
-        {
-            throw new InvalidOperationException(String.Format("Cannot delete node of type {0}.", GetType().Name));
         }
     }
 }

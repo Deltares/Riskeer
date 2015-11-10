@@ -387,7 +387,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 Dispose();
                 throw new CriticalFileReadException(string.Format(
-                    Resources.PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1,
+                    Resources.PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1_,
                     databaseFileName,
                     databaseRequiredVersion));
             }

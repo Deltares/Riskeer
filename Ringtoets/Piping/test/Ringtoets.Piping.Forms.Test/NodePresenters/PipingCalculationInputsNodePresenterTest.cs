@@ -23,6 +23,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
     {
         private MockRepository mockRepository;
 
+        private const int contextMenuValidateIndex = 0;
+        private const int contextMenuCalculateIndex = 1;
+        private const int contextMenuClearIndex = 2;
+
         [SetUp]
         public void SetUp()
         {
@@ -304,14 +308,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(3, contextMenu.Items.Count);
-            Assert.AreEqual(WtiFormsResources.Validate, contextMenu.Items[0].Text);
+            Assert.AreEqual(WtiFormsResources.Validate, contextMenu.Items[contextMenuValidateIndex].Text);
 
-            ToolStripItem calculatePipingItem = contextMenu.Items[1];
+            ToolStripItem calculatePipingItem = contextMenu.Items[contextMenuCalculateIndex];
             Assert.AreEqual(WtiFormsResources.Calculate, calculatePipingItem.Text);
             Assert.AreEqual(16, calculatePipingItem.Image.Height);
             Assert.AreEqual(16, calculatePipingItem.Image.Width);
 
-            ToolStripItem clearOutputItem = contextMenu.Items[2];
+            ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.AreEqual(WtiFormsResources.Clear_output, clearOutputItem.Text);
             Assert.AreEqual(16, clearOutputItem.Image.Height);
             Assert.AreEqual(16, clearOutputItem.Image.Width);
@@ -337,7 +341,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(3, contextMenu.Items.Count);
 
-            ToolStripItem clearOutputItem = contextMenu.Items[2];
+            ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.IsFalse(clearOutputItem.Enabled);
             Assert.AreEqual(WtiFormsResources.ClearOutput_No_output_to_clear, clearOutputItem.ToolTipText);
             mockRepository.VerifyAll(); // Expect no calls on arguments
@@ -365,7 +369,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(3, contextMenu.Items.Count);
 
-            ToolStripItem clearOutputItem = contextMenu.Items[2];
+            ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.IsTrue(clearOutputItem.Enabled);
             Assert.IsNull(clearOutputItem.ToolTipText);
             mockRepository.VerifyAll(); // Expect no calls on arguments

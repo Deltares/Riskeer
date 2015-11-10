@@ -151,6 +151,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             RingtoetsPipingSurfaceLine surfaceLine = new RingtoetsPipingSurfaceLine();
             PipingSoilProfile soilProfile = new TestPipingSoilProfile();
 
+            // Call
             new PipingCalculationInputsProperties
             {
                 Data = new PipingCalculationInputs()
@@ -181,7 +182,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                 SoilProfile = soilProfile,
             };
 
-            // Call & Assert
+            // Assert
             Assert.AreEqual(string.Empty, pipingData.Name);
             Assert.AreEqual(waterVolumetricWeight, pipingData.WaterVolumetricWeight);
             Assert.AreEqual(upliftModelFactor, pipingData.UpliftModelFactor);

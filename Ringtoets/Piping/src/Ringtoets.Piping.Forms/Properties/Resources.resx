@@ -464,7 +464,7 @@
     <value>De berekening heeft geen uitvoer om te wissen.</value>
   </data>
   <data name="Clear_all_output" xml:space="preserve">
-    <value>Wis uitvoer van alle berekeningen</value>
+    <value>Wis alle uitvoer</value>
   </data>
   <data name="Clear_output" xml:space="preserve">
     <value>Wis uitvoer</value>
@@ -477,5 +477,8 @@
   </data>
   <data name="CalculateAll" xml:space="preserve">
     <value>Alles berekenen</value>
+  </data>
+  <data name="PipingFailureMechanism_Clear_all_output_Tooltip" xml:space="preserve">
+    <value>Wis de uitvoer van alle berekeningen binnen het faalmechanisme.</value>
   </data>
 </root>
