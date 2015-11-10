@@ -186,10 +186,13 @@
   <data name="SoilLayer2D_Error_Loop_contains_disconnected_segments" xml:space="preserve">
     <value>De segmenten van de geometrie van de laag vormen geen lus.</value>
   </data>
-  <data name="PipingSoilProfileReader_Critical_Unexpected_value_on_column_0_" xml:space="preserve">
-    <value>Database bevat een onverwachte waarde in kolom {0}.</value>
+  <data name="PipingSoilProfileReader_Critical_Unexpected_value_on_column" xml:space="preserve">
+    <value>Kritieke fout opgetreden bij het uitlezen van waarden uit kolommen in de database.</value>
   </data>
   <data name="Math2D_LineIntersectionWithLine_Line_points_are_equal" xml:space="preserve">
     <value>Punten voor een lijn moeten uitelkaar liggen om een lijn te kunnen vormen.</value>
+  </data>
+  <data name="SoilLayer2DReader_Geometry_contains_no_valid_xml" xml:space="preserve">
+    <value>Het XML document dat de geometrie beschrijft voor de laag is niet valide.</value>
   </data>
 </root>

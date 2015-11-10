@@ -6,8 +6,8 @@ using System.IO;
 using Core.Common.Base;
 using log4net;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO;
 using Ringtoets.Piping.IO.Exceptions;
+using Ringtoets.Piping.IO.SoilProfile;
 using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
@@ -119,15 +119,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
                     return GetProfileReadResult(path, soilProfileReader);
                 }
             }
-            catch (PipingSoilProfileReadException e)
-            {
-                HandleException(path, e);
-            }
-            catch (FileNotFoundException e)
-            {
-                HandleException(path, e);
-            }
-            catch (ArgumentException e)
+            catch (CriticalFileReadException e)
             {
                 HandleException(path, e);
             }

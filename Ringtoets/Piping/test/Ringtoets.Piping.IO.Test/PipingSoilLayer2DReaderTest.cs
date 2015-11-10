@@ -7,6 +7,8 @@ using System.Xml;
 using NUnit.Framework;
 
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.IO.Builders;
+using Ringtoets.Piping.IO.SoilProfile;
 
 namespace Ringtoets.Piping.IO.Test
 {
@@ -18,24 +20,24 @@ namespace Ringtoets.Piping.IO.Test
         public void Constructor_AnyByteArray_ReturnsNewInstance(int size)
         {
             // Call
-            var result = new PipingSoilLayer2DReader(new byte[size]);
+            var result = new SoilLayer2DReader(new byte[size]);
 
             // Assert
             Assert.NotNull(result);
         }
 
         [Test]
-        public void Read_MalformedXmlDocument_ThrowsXmlException()
+        public void Read_MalformedXmlDocument_ThrowsSoilLayer2DConversionException()
         {
             // Setup
             var xmlDoc = GetBytes("test");
-            var reader = new PipingSoilLayer2DReader(xmlDoc);
+            var reader = new SoilLayer2DReader(xmlDoc);
 
             // Call
             TestDelegate test = () => reader.Read();
 
             // Assert
-            Assert.Throws<XmlException>(test);
+            Assert.Throws<SoilLayer2DConversionException>(test);
         }
 
         [Test]
@@ -43,7 +45,7 @@ namespace Ringtoets.Piping.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("<doc/>");
-            var reader = new PipingSoilLayer2DReader(xmlDoc);
+            var reader = new SoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -59,7 +61,7 @@ namespace Ringtoets.Piping.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("<OuterLoop/>");
-            var reader = new PipingSoilLayer2DReader(xmlDoc);
+            var reader = new SoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -75,7 +77,7 @@ namespace Ringtoets.Piping.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("<InnerLoop/>");
-            var reader = new PipingSoilLayer2DReader(xmlDoc);
+            var reader = new SoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -92,7 +94,7 @@ namespace Ringtoets.Piping.IO.Test
         {
             // Setup
             var xmlDoc = GetBytes("<root><OuterLoop/><InnerLoop/></root>");
-            var reader = new PipingSoilLayer2DReader(xmlDoc);
+            var reader = new SoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -147,7 +149,7 @@ namespace Ringtoets.Piping.IO.Test
                                                                         x1String, y1String, x2String, y2String);
             var bytes = GetBytes(sometempvarforbassie);
             var xmlDoc = bytes;
-            var reader = new PipingSoilLayer2DReader(xmlDoc);
+            var reader = new SoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -185,7 +187,7 @@ namespace Ringtoets.Piping.IO.Test
                                   "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
                                   "<HeadPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></HeadPoint>" +
                                   "</GeometryCurve></InnerLoop></root>", x1String, y1String, x2String, y2String));
-            var reader = new PipingSoilLayer2DReader(xmlDoc);
+            var reader = new SoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();
@@ -198,31 +200,31 @@ namespace Ringtoets.Piping.IO.Test
         }
 
         [Test]
-        public void Read_XmlDocumentSinglePointOuterLoopGeometryCurve_ThrowsXmlException()
+        public void Read_XmlDocumentSinglePointOuterLoopGeometryCurve_ThrowsSoilLayer2DConversionException()
         {
             // Setup
             var xmlDoc = GetBytes("<root><OuterLoop><GeometryCurve><EndPoint><X>1</X><Y>0.1</Y><Z>1.1</Z></EndPoint></GeometryCurve></OuterLoop></root>");
-            var reader = new PipingSoilLayer2DReader(xmlDoc);
+            var reader = new SoilLayer2DReader(xmlDoc);
 
             // Call
             TestDelegate test = () => { reader.Read(); };
 
             // Assert
-            Assert.Throws<XmlException>(test);
+            Assert.Throws<SoilLayer2DConversionException>(test);
         }
 
         [Test]
-        public void Read_XmlDocumentSinglePointInnerLoopGeometryCurve_ThrowsXmlException()
+        public void Read_XmlDocumentSinglePointInnerLoopGeometryCurve_ThrowsSoilLayer2DConversionException()
         {
             // Setup
             var xmlDoc = GetBytes("<root><InnerLoop><GeometryCurve><HeadPoint><X>0</X><Y>0.1</Y><Z>1.1</Z></HeadPoint></GeometryCurve></InnerLoop></root>");
-            var reader = new PipingSoilLayer2DReader(xmlDoc);
+            var reader = new SoilLayer2DReader(xmlDoc);
 
             // Call
             TestDelegate test = () => { reader.Read(); };
 
             // Assert
-            Assert.Throws<XmlException>(test);
+            Assert.Throws<SoilLayer2DConversionException>(test);
         }
 
         [Test]
@@ -238,7 +240,7 @@ namespace Ringtoets.Piping.IO.Test
                                   "</GeometryCurve>" +
                                   "</OuterLoop></root>");
 
-            var reader = new PipingSoilLayer2DReader(xmlDoc);
+            var reader = new SoilLayer2DReader(xmlDoc);
 
             // Call
             var result = reader.Read();

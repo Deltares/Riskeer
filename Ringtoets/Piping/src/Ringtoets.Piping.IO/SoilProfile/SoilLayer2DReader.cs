@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Xml;
-
 using Ringtoets.Piping.Data;
-
 using Ringtoets.Piping.IO.Builders;
+using Ringtoets.Piping.IO.Properties;
 
-namespace Ringtoets.Piping.IO
+namespace Ringtoets.Piping.IO.SoilProfile
 {
     /// <summary>
     /// This class is responsible for reading an array of bytes and interpret this as a XML document, which contains information about
     /// the geometry of a <see cref="PipingSoilLayer"/>.
     /// </summary>
-    internal class PipingSoilLayer2DReader
+    internal class SoilLayer2DReader
     {
         private const string outerLoopElementName = "OuterLoop";
         private const string innerLoopElementName = "InnerLoop";
@@ -28,15 +26,22 @@ namespace Ringtoets.Piping.IO
         private readonly XmlTextReader xmlTextReader;
 
         /// <summary>
-        /// Constructs a new <see cref="PipingSoilLayer2DReader"/>, which uses the <paramref name="geometry"/> as the source of the 
+        /// Constructs a new <see cref="SoilLayer2DReader"/>, which uses the <paramref name="geometry"/> as the source of the 
         /// geometry for a <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="geometry">An array of <see cref="byte"/> which contains the information of a <see cref="PipingSoilLayer"/>
         /// in an XML document.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometry"/> is null.</exception>
-        internal PipingSoilLayer2DReader(byte[] geometry)
+        /// <exception cref="SoilLayer2DConversionException">Thrown when <paramref name="geometry"/> is null.</exception>
+        internal SoilLayer2DReader(byte[] geometry)
         {
-            xmlTextReader = new XmlTextReader(new MemoryStream(geometry));
+            try
+            {
+                xmlTextReader = new XmlTextReader(new MemoryStream(geometry));
+            }
+            catch (ArgumentNullException e)
+            {
+                throw new SoilLayer2DConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, e);
+            }
         }
 
         /// <summary>
@@ -44,24 +49,39 @@ namespace Ringtoets.Piping.IO
         /// on this information.
         /// </summary>
         /// <returns>A new <see cref="SoilLayer2D"/> with information taken from the XML document.</returns>
-        /// <exception cref="XmlException">Thrown when reading from the XML document of the <see cref="PipingSoilLayer2DReader"/> failed.</exception>
-        /// <exception cref="ArgumentException">Thrown when the segments do not form a loop for either the inner or outer loop.</exception>
+        /// <exception cref="SoilLayer2DConversionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>Reading from the XML document of the <see cref="SoilLayer2DReader"/> failed.</item>
+        /// <item>The segments do not form a loop for either the inner or outer loop.</item>
+        /// </list>
+        /// </exception>
         internal SoilLayer2D Read()
         {
             var pipingSoilLayer = new SoilLayer2D();
 
-            while (xmlTextReader.Read())
+            try
             {
-                List<Segment2D> outerLoop;
-                List<Segment2D> innerLoop;
-                if (TryParseLoop(outerLoopElementName, out outerLoop))
+                while (xmlTextReader.Read())
                 {
-                    pipingSoilLayer.OuterLoop = outerLoop;
+                    List<Segment2D> outerLoop;
+                    List<Segment2D> innerLoop;
+                    if (TryParseLoop(outerLoopElementName, out outerLoop))
+                    {
+                        pipingSoilLayer.OuterLoop = outerLoop;
+                    }
+                    if (TryParseLoop(innerLoopElementName, out innerLoop))
+                    {
+                        pipingSoilLayer.AddInnerLoop(innerLoop);
+                    }
                 }
-                if (TryParseLoop(innerLoopElementName, out innerLoop))
-                {
-                    pipingSoilLayer.AddInnerLoop(innerLoop);
-                }
+            }
+            catch (XmlException e)
+            {
+                throw new SoilLayer2DConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, e);
+            }
+            catch (ArgumentException e)
+            {
+                throw new SoilLayer2DConversionException(e.Message, e);
             }
 
             return pipingSoilLayer;
@@ -129,7 +149,7 @@ namespace Ringtoets.Piping.IO
                 }
                 catch (ArgumentException e)
                 {
-                    throw new XmlException(e.Message, e);
+                    throw new SoilLayer2DConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, e);
                 }
             }
             return false;

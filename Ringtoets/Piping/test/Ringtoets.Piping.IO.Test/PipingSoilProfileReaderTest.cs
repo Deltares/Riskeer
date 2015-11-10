@@ -8,6 +8,7 @@ using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.IO.SoilProfile;
 using Ringtoets.Piping.IO.Test.TestHelpers;
 
 namespace Ringtoets.Piping.IO.Test
@@ -17,7 +18,7 @@ namespace Ringtoets.Piping.IO.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, "PipingSoilProfilesReader");
 
         [Test]
-        public void Constructor_NonExistingPath_ThrowsFileNotFoundException()
+        public void Constructor_NonExistingPath_ThrowsCriticalFileReadException()
         {
             // Setup
             var testFile = Path.Combine(testDataPath, "none.soil");
@@ -26,27 +27,27 @@ namespace Ringtoets.Piping.IO.Test
             TestDelegate test = () => new PipingSoilProfileReader(testFile).Dispose();
 
             // Assert
-            var exception = Assert.Throws<FileNotFoundException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(String.Format(Resources.Error_File_0_does_not_exist, testFile), exception.Message);
         }
 
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void Constructor_FileNullOrEmpty_ThrowsArgumentException(string fileName)
+        public void Constructor_FileNullOrEmpty_ThrowsCriticalFileReadException(string fileName)
         {
             // Call
             TestDelegate test = () => new PipingSoilProfileReader(fileName).Dispose();
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(Resources.Error_Path_must_be_specified, exception.Message);
         }
 
         [Test]
         [TestCase("text.txt")]
         [TestCase("empty.soil")]
-        public void Constructor_IncorrectFormatFileOrInvalidSchema_ThrowsPipingSoilProfileReadException(string dbName)
+        public void Constructor_IncorrectFormatFileOrInvalidSchema_ThrowsPipingCriticalFileReadException(string dbName)
         {
             // Setup
             var dbFile = Path.Combine(testDataPath, dbName);
@@ -58,13 +59,13 @@ namespace Ringtoets.Piping.IO.Test
             TestDelegate test = () => new PipingSoilProfileReader(dbFile).Dispose();
 
             // Assert
-            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(String.Format(Resources.Error_SoilProfile_read_from_database, dbName), exception.Message);
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
         }
 
         [Test]
-        public void Constructor_IncorrectVersion_ThrowsPipingSoilProfileReadException()
+        public void Constructor_IncorrectVersion_ThrowsCriticalFileReadException()
         {
             // Setup
             var version = "15.0.5.0";
@@ -78,7 +79,7 @@ namespace Ringtoets.Piping.IO.Test
             TestDelegate test = () => new PipingSoilProfileReader(dbFile).Dispose();
 
             // Assert
-            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
             Assert.AreEqual(String.Format(Resources.PipingSoilProfileReader_Database_file_0_incorrect_version_requires_1, dbName, version), exception.Message);
             Assert.IsTrue(FileHelper.CanOpenFileForWrite(dbFile));
         }
@@ -137,8 +138,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
-                var message = String.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, 1, "Profile");
-                Assert.AreEqual(message, exception.Message);
+                Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
 
                 // Call
                 var pipingSoilProfile = pipingSoilProfilesReader.ReadProfile();
@@ -163,7 +163,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<PipingSoilProfileReadException>(profile);
-                var message = String.Format(Resources.PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_, 1, "Profile");
+                var message = String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_x, 85.2);
                 Assert.AreEqual(message, exception.Message);
 
                 // Call

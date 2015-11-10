@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.IO.Builders
@@ -23,6 +24,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// Creates a new instances of the <see cref="PipingSoilProfile"/> based on the layer definitions.
         /// </summary>
         /// <returns>A new <see cref="PipingSoilProfile"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown when no layers have been added through <see cref="Add"/>.</exception>
         public PipingSoilProfile Build()
         {
             return new PipingSoilProfile(name, bottom, layers);

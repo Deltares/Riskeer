@@ -137,7 +137,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Setup
             var file = "/";
-            string validFilePath = Path.Combine(testDataPath, file);
+            string invalidFilePath = Path.Combine(testDataPath, file);
 
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
@@ -158,13 +158,13 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             object importedItem = null;
 
             // Call
-            Action call = () => importedItem = importer.ImportItem(validFilePath, observableList);
+            Action call = () => importedItem = importer.ImportItem(invalidFilePath, observableList);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_Critical_error_reading_File_0_Cause_1_, validFilePath, String.Empty);
+                var message = string.Format(ApplicationResources.PipingSoilProfilesImporter_Critical_error_reading_File_0_Cause_1_, invalidFilePath, String.Empty);
                 StringAssert.StartsWith(message, messageArray[0]);
             });
             Assert.AreSame(observableList, importedItem);

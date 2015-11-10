@@ -205,11 +205,11 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Database bevat een onverwachte waarde in kolom {0}..
+        ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waarden uit kolommen in de database..
         /// </summary>
-        public static string PipingSoilProfileReader_Critical_Unexpected_value_on_column_0_ {
+        public static string PipingSoilProfileReader_Critical_Unexpected_value_on_column {
             get {
-                return ResourceManager.GetString("PipingSoilProfileReader_Critical_Unexpected_value_on_column_0_", resourceCulture);
+                return ResourceManager.GetString("PipingSoilProfileReader_Critical_Unexpected_value_on_column", resourceCulture);
             }
         }
         
@@ -283,6 +283,15 @@ namespace Ringtoets.Piping.IO.Properties {
         public static string SoilLayer2D_Error_Loop_contains_disconnected_segments {
             get {
                 return ResourceManager.GetString("SoilLayer2D_Error_Loop_contains_disconnected_segments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het XML document dat de geometrie beschrijft voor de laag is niet valide..
+        /// </summary>
+        public static string SoilLayer2DReader_Geometry_contains_no_valid_xml {
+            get {
+                return ResourceManager.GetString("SoilLayer2DReader_Geometry_contains_no_valid_xml", resourceCulture);
             }
         }
     }

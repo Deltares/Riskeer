@@ -14,6 +14,8 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="first">The first <see cref="Point2D"/> of the <see cref="Segment2D"/>.</param>
         /// <param name="second">The second <see cref="Point2D"/> of the <see cref="Segment2D"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when either the <paramref name="first"/> or <paramref name="second"/>
+        /// point is <c>null</c>.</exception>
         public Segment2D(Point2D first, Point2D second)
         {
             if (first == null || second == null)
@@ -100,7 +102,7 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        protected bool Equals(Segment2D other)
+        private bool Equals(Segment2D other)
         {
             return FirstPoint.Equals(other.FirstPoint) && SecondPoint.Equals(other.SecondPoint) ||
                    FirstPoint.Equals(other.SecondPoint) && SecondPoint.Equals(other.FirstPoint);

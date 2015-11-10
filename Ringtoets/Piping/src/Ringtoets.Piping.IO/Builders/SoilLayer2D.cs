@@ -50,7 +50,8 @@ namespace Ringtoets.Piping.IO.Builders
         /// Gets the outer loop of the <see cref="SoilLayer2D"/> as a <see cref="List{T}"/> of <see cref="Segment2D"/>,
         /// for which each of the segments are connected to the next.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> does not form a loop.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <see cref="Segment2D"/> in <paramref name="value"/>
+        /// do not form a loop.</exception>
         public IEnumerable<Segment2D> OuterLoop
         {
             get
@@ -81,7 +82,8 @@ namespace Ringtoets.Piping.IO.Builders
         /// Adds an inner loop to the <see cref="SoilLayer2D"/> geometry.
         /// </summary>
         /// <param name="innerLoop">The innerloop to add.</param>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="innerLoop"/> does not form a loop.</exception>
+        /// <exception cref="ArgumentException">Thrown when the <see cref="Segment2D"/> in <paramref name="innerLoop"/> 
+        /// do not form a loop.</exception>
         internal void AddInnerLoop(IEnumerable<Segment2D> innerLoop)
         {
             var loop = innerLoop.ToArray();
