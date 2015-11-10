@@ -9,8 +9,6 @@ namespace Core.GIS.SharpMap.Tests.Data.Providers
     [TestFixture]
     public class ShapeFileTests
     {
-        // TODO: write tests for shapefile
-
         [Test]
         public void ContainsShouldWorkForShapeFile()
         {
@@ -21,20 +19,18 @@ namespace Core.GIS.SharpMap.Tests.Data.Providers
         }
 
         [Test]
-        [Ignore("Should we drop the ShapeFile class and continue with the OgrFeatureProvider?")]
         public void GetFeatureShouldWorkForShapeFile()
         {
-            string path = @"..\..\..\..\data\Europe_Lakes.shp";
+            string path = TestHelper.GetTestDataPath(TestDataPath.DeltaShell.DeltaShellDeltaShellPluginsSharpMapGisTests, "Europe_Lakes.shp");
             var s = new ShapeFile(path);
             var feature = s.Features[1];
             Assert.LessOrEqual(0, s.IndexOf((IFeature) feature));
         }
 
         [Test]
-        [Ignore("Should we drop the ShapeFile class and continue with the OgrFeatureProvider?")]
         public void GetFeatureShouldWorkForShapeFileWithoutObjectID()
         {
-            string path = @"..\..\..\..\data\gemeenten.shp";
+            string path = TestHelper.GetTestDataPath(TestDataPath.DeltaShell.DeltaShellDeltaShellPluginsSharpMapGisTests, "gemeenten.shp");
             var s = new ShapeFile(path);
             var feature = s.Features[0];
             Assert.LessOrEqual(0, s.IndexOf((IFeature) feature));
