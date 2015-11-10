@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
 
             databaseFileName = Path.GetFileName(databaseFilePath);
             OpenConnection(databaseFilePath);
-            SetReaderToFirstRecord();
+            InitializeReader();
         }
 
         /// <summary>
@@ -87,34 +87,6 @@ namespace Ringtoets.Piping.IO.SoilProfile
             catch (InvalidCastException e)
             {
                 throw new CriticalFileReadException(Resources.PipingSoilProfileReader_Critical_Unexpected_value_on_column, e);
-            }
-        }
-
-        /// <summary>
-        /// Reads a <see cref="PipingSoilProfile"/> from the database.
-        /// </summary>
-        /// <returns>A new <see cref="PipingSoilProfile"/>.</returns>
-        /// <exception cref="PipingSoilProfileReadException">Thrown when a recoverable error occurred while reading from the database.</exception>
-        /// <exception cref="InvalidCastException">Thrown when recovering from the <see cref="PipingSoilProfileReadException"/> failed.</exception>
-        private PipingSoilProfile ReadPipingSoilProfile()
-        {
-            try
-            {
-                var dimensionValue = Read<long>(SoilProfileDatabaseColumns.Dimension);
-                return dimensionValue == 1 ? SoilProfile1DReader.ReadFrom(this) : SoilProfile2DReader.ReadFrom(this);
-            }
-            catch (PipingSoilProfileReadException e)
-            {
-                MoveToNextProfile(e.ProfileName);
-                throw;
-            }
-        }
-
-        private void MoveToNextProfile(string profileName)
-        {
-            while (Read<string>(SoilProfileDatabaseColumns.ProfileName).Equals(profileName))
-            {
-                MoveNext();
             }
         }
 
@@ -166,19 +138,58 @@ namespace Ringtoets.Piping.IO.SoilProfile
             return (T) dataReader[columnName];
         }
 
-        private void SetReaderToFirstRecord()
+        /// <summary>
+        /// Reads a <see cref="PipingSoilProfile"/> from the database.
+        /// </summary>
+        /// <returns>A new <see cref="PipingSoilProfile"/>.</returns>
+        /// <exception cref="PipingSoilProfileReadException">Thrown when a recoverable error occurred while reading from the database.</exception>
+        /// <exception cref="InvalidCastException">Thrown when recovering from the <see cref="PipingSoilProfileReadException"/> failed.</exception>
+        private PipingSoilProfile ReadPipingSoilProfile()
         {
-            InitializeDataReader();
+            try
+            {
+                var dimensionValue = Read<long>(SoilProfileDatabaseColumns.Dimension);
+                return dimensionValue == 1 ? SoilProfile1DReader.ReadFrom(this) : SoilProfile2DReader.ReadFrom(this);
+            }
+            catch (PipingSoilProfileReadException e)
+            {
+                MoveToNextProfile(e.ProfileName);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Steps through the result rows until a row is read which' profile name differs from <paramref name="profileName"/>.
+        /// </summary>
+        /// <param name="profileName">The name of the profile to skip.</param>
+        private void MoveToNextProfile(string profileName)
+        {
+            while (Read<string>(SoilProfileDatabaseColumns.ProfileName).Equals(profileName))
+            {
+                MoveNext();
+            }
+        }
+
+        /// <summary>
+        /// Prepares a new data reader with queries for obtaining the profiles and updates the reader
+        /// so that it points to the first row of the result set.
+        /// </summary>
+        private void InitializeReader()
+        {
+            PrepareReader();
             MoveNext();
         }
 
-        /// <exception cref="SQLiteException">Thrown when opening the connection failed.</exception>
-        private void OpenConnection(string dbFile)
+        /// <summary>
+        /// Opens the connection with the <paramref name="databaseFile"/>.
+        /// </summary>
+        /// <param name="databaseFile">The database file to establish a connection with.</param>
+        private void OpenConnection(string databaseFile)
         {
             var connectionStringBuilder = new SQLiteConnectionStringBuilder
             {
                 FailIfMissing = true,
-                DataSource = dbFile,
+                DataSource = databaseFile,
                 ReadOnly = true,
                 ForeignKeys = true
             };
@@ -192,7 +203,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// to take an intersection from. Since two separate queries are used, the <see cref="dataReader"/> will
         /// have two result sets which the <see cref="MoveNext()"/> method takes into account.
         /// </summary>
-        private void InitializeDataReader()
+        private void PrepareReader()
         {
             string versionQuery = string.Format(
                 "SELECT Value FROM _Metadata WHERE Key = 'VERSION' AND Value = '{0}';",

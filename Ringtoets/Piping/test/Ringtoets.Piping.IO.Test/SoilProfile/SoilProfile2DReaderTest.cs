@@ -122,6 +122,32 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
+        public void ReadFrom_NullValuesForLayer_ReturnsProfileWithNullValuesOnLayer()
+        {
+            // Setup
+            SetExpectations(1, "", 0.0, null, null, null, null, someGeometry);
+
+            mocks.ReplayAll();
+
+            // Call
+            var profile = SoilProfile2DReader.ReadFrom(reader);
+
+            // Assert
+            Assert.AreEqual(1, profile.Layers.Count());
+            Assert.AreEqual(1.1, profile.Bottom);
+
+            var pipingSoilLayer = profile.Layers.First();
+
+            Assert.AreEqual(1.1, pipingSoilLayer.Top);
+            Assert.IsNull(pipingSoilLayer.BelowPhreaticLevel);
+            Assert.IsNull(pipingSoilLayer.AbovePhreaticLevel);
+            Assert.IsNull(pipingSoilLayer.DryUnitWeight);
+            Assert.IsFalse(pipingSoilLayer.IsAquifer);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(3)]
