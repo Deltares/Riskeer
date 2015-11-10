@@ -121,12 +121,16 @@ namespace Core.Plugins.CommonTools.Gui
 
             Gui.Application.ProjectClosing += ApplicationProjectClosing;
             Gui.Application.ProjectOpening += ApplicationProjectOpening;
+
             if (Gui != null && Gui.DocumentViews != null)
             {
                 if (Gui.DocumentViews.ActiveView != null)
                 {
-                    OnActiveViewChanged(Gui.DocumentViews.ActiveView);
+                    DocumentViewsActiveViewChanged();
                 }
+
+                Gui.DocumentViews.ActiveViewChanging += DocumentViewsActiveViewChanging;
+                Gui.DocumentViews.ActiveViewChanged += DocumentViewsActiveViewChanged;
                 Gui.DocumentViews.ChildViewChanged += DocumentViewsOnChildViewChanged;
                 Gui.DocumentViews.CollectionChanged += ViewsCollectionChanged;
             }
@@ -150,6 +154,13 @@ namespace Core.Plugins.CommonTools.Gui
             {
                 if (Gui.DocumentViews != null)
                 {
+                    if (Gui.DocumentViews.ActiveView != null)
+                    {
+                        DocumentViewsActiveViewChanging();
+                    }
+
+                    Gui.DocumentViews.ActiveViewChanging -= DocumentViewsActiveViewChanging;
+                    Gui.DocumentViews.ActiveViewChanged -= DocumentViewsActiveViewChanged;
                     Gui.DocumentViews.ChildViewChanged -= DocumentViewsOnChildViewChanged;
                     Gui.DocumentViews.CollectionChanged -= ViewsCollectionChanged;
                 }
@@ -180,11 +191,26 @@ namespace Core.Plugins.CommonTools.Gui
             base.Deactivate();
         }
 
-        public override void OnActiveViewChanged(IView view)
+        private void DocumentViewsActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
+        {
+            DocumentViewsActiveViewChanged();
+        }
+
+        private void DocumentViewsActiveViewChanged()
+        {
+            Subscribe();
+
+            UpdateChartLegendView();
+        }
+
+        private void DocumentViewsActiveViewChanging(object sender, ActiveViewChangeEventArgs e)
+        {
+            DocumentViewsActiveViewChanging();
+        }
+
+        private void DocumentViewsActiveViewChanging()
         {
             Unsubscribe();
-
-            Subscribe();
 
             UpdateChartLegendView();
         }
@@ -247,7 +273,7 @@ namespace Core.Plugins.CommonTools.Gui
 
         private void DocumentViewsOnChildViewChanged(object sender, NotifyCollectionChangingEventArgs notifyCollectionChangingEventArgs)
         {
-            OnActiveViewChanged(notifyCollectionChangingEventArgs.Item as IView);
+            DocumentViewsActiveViewChanged();
         }
 
         private void UpdateChartLegendView()

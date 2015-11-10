@@ -80,7 +80,5 @@ namespace Core.Common.Gui
         {
             Gui = null;
         }
-
-        public virtual void OnActiveViewChanged(IView view) { }
     }
 }

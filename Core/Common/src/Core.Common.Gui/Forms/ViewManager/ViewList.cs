@@ -337,11 +337,6 @@ namespace Core.Common.Gui.Forms.ViewManager
             }
 
             FireActiveViewChangedEvent(oldView);
-
-            if (Gui != null && Gui.Plugins != null)
-            {
-                Gui.Plugins.ForEach(p => p.OnActiveViewChanged(view));
-            }
         }
 
         /// <summary>
