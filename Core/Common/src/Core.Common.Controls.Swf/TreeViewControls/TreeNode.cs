@@ -13,7 +13,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         protected bool isLoaded;
         private object tag;
         private IObservable observable;
-        private readonly int maximumTextLength = 1000; // Having very big strings causes problems by tree-view
+        private readonly int maximumTextLength = 259; // Having very big strings causes problems by tree-view
 
         public TreeNode(ITreeView treeView)
         {
