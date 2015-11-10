@@ -124,7 +124,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een onverwachte inleesfout opgetreden tijdens het lezen van het bestand &apos;{0}&apos;: {1}.
+        ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand &apos;{0}&apos;: {1}.
         /// </summary>
         public static string Error_General_IO_File_0_ErrorMessage_1_ {
             get {
@@ -178,7 +178,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Punten voor een lijn moeten uitelkaar liggen om een lijn te kunnen vormen..
+        ///   Looks up a localized string similar to Punten voor een lijn moeten uit elkaar liggen om een lijn te kunnen vormen..
         /// </summary>
         public static string Math2D_LineIntersectionWithLine_Line_points_are_equal {
             get {
@@ -241,7 +241,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft op regel {1} een dwarsdoorsnede met teruglopende geometrie (Punten behoren een oplosende set L-coordinaten te hebben in het lokaal coordinatensteltsel)..
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft op regel {1} een dwarsdoorsnede met teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coordinatenstelsel)..
         /// </summary>
         public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_has_reclining_geometry {
             get {
@@ -259,7 +259,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft op regel {1} ontbrekende waardes om een 3D (X,Y,Z) punt aan te maken..
+        ///   Looks up a localized string similar to In het bestand &apos;{0}&apos;, op regel {1}, ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken..
         /// </summary>
         public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_values_for_coordinate_triplet {
             get {
@@ -269,7 +269,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft op regel {1} heeft geen ID..
+        ///   Looks up a localized string similar to Het bestand &apos;{0}&apos; heeft geen ID op regel {1}..
         /// </summary>
         public static string PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID {
             get {
@@ -287,7 +287,7 @@ namespace Ringtoets.Piping.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het XML document dat de geometrie beschrijft voor de laag is niet valide..
+        ///   Looks up a localized string similar to Het XML document dat de geometrie beschrijft voor de laag is niet geldig..
         /// </summary>
         public static string SoilLayer2DReader_Geometry_contains_no_valid_xml {
             get {

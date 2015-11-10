@@ -139,7 +139,7 @@
     <value>Het bestand '{0}' heeft op regel {1} een waarde dat te groot/klein is om ingelezen te worden.</value>
   </data>
   <data name="Error_General_IO_File_0_ErrorMessage_1_" xml:space="preserve">
-    <value>Er is een onverwachte inleesfout opgetreden tijdens het lezen van het bestand '{0}': {1}</value>
+    <value>Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand '{0}': {1}</value>
   </data>
   <data name="Error_Path_cannot_contain_characters_0_" xml:space="preserve">
     <value>Bestandspad mag niet de volgende tekens bevatten: {0}</value>
@@ -163,16 +163,16 @@
     <value>Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_has_reclining_geometry" xml:space="preserve">
-    <value>Het bestand '{0}' heeft op regel {1} een dwarsdoorsnede met teruglopende geometrie (Punten behoren een oplosende set L-coordinaten te hebben in het lokaal coordinatensteltsel).</value>
+    <value>Het bestand '{0}' heeft op regel {1} een dwarsdoorsnede met teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coordinatenstelsel).</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_separator_2_" xml:space="preserve">
     <value>Het bestand '{0}' heeft op regel {1} geen verwacht scheidingsteken (het karakter: {2}).</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_values_for_coordinate_triplet" xml:space="preserve">
-    <value>Het bestand '{0}' heeft op regel {1} ontbrekende waardes om een 3D (X,Y,Z) punt aan te maken.</value>
+    <value>In het bestand '{0}', op regel {1}, ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_no_ID" xml:space="preserve">
-    <value>Het bestand '{0}' heeft op regel {1} heeft geen ID.</value>
+    <value>Het bestand '{0}' heeft geen ID op regel {1}.</value>
   </data>
   <data name="PipingSoilProfileReader_CouldNotParseGeometryOfLayer_0_InProfile_1_" xml:space="preserve">
     <value>Kan de geometrie van laag nummer '{0}' in profiel '{1}' niet interpreteren.</value>
@@ -190,9 +190,9 @@
     <value>Kritieke fout opgetreden bij het uitlezen van waarden uit kolommen in de database.</value>
   </data>
   <data name="Math2D_LineIntersectionWithLine_Line_points_are_equal" xml:space="preserve">
-    <value>Punten voor een lijn moeten uitelkaar liggen om een lijn te kunnen vormen.</value>
+    <value>Punten voor een lijn moeten uit elkaar liggen om een lijn te kunnen vormen.</value>
   </data>
   <data name="SoilLayer2DReader_Geometry_contains_no_valid_xml" xml:space="preserve">
-    <value>Het XML document dat de geometrie beschrijft voor de laag is niet valide.</value>
+    <value>Het XML document dat de geometrie beschrijft voor de laag is niet geldig.</value>
   </data>
 </root>
