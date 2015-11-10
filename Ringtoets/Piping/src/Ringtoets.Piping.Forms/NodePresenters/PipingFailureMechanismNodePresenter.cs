@@ -113,7 +113,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
                                      failureMechanism.Calculations.Add(pipingData);
                                      failureMechanism.NotifyObservers();
                                  });
-            rootMenu.AddMenuItem(Resources.Calculate,
+            rootMenu.AddMenuItem(Resources.CalculateAll,
                                  Resources.PipingFailureMechanism_Calculate_Tooltip,
                                  Resources.PlayAll, (o, args) =>
                                  {

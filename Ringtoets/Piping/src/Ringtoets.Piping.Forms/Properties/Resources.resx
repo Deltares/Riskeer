@@ -475,4 +475,7 @@
   <data name="ClearOutput_No_calculation_with_output_to_clear" xml:space="preserve">
     <value>Er zijn geen berekeningen met uitvoer om te wissen.</value>
   </data>
+  <data name="CalculateAll" xml:space="preserve">
+    <value>Alles berekenen</value>
+  </data>
 </root>
