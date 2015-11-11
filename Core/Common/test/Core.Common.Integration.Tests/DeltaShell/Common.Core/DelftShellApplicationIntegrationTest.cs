@@ -17,7 +17,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Common.Core
                 WaitMethod = System.Windows.Forms.Application.DoEvents
             })
             {
-                for (int i = 0; i < 2000; i++)
+                for (int i = 0; i < 500; i++)
                 {
                     app.RunActivity(smallActivity);
                 }
@@ -30,7 +30,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Common.Core
 
             protected override void OnExecute()
             {
-                Thread.Sleep(2);
+                Thread.Sleep(1);
                 Status = ActivityStatus.Done;
             }
 

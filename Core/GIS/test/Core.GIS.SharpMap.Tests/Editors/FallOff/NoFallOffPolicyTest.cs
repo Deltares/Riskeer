@@ -130,9 +130,12 @@ namespace Core.GIS.SharpMap.Tests.Editors.FallOff
         [Test]
         public void MovePolygonWithTrackersShouldBeFast()
         {
-            var factory = new GeometricShapeFactory();
-            factory.NumPoints = 10000; // many
-            factory.Size = 300;
+            var factory = new GeometricShapeFactory
+            {
+                NumPoints = 100,
+                Size = 300
+            };
+
             var circle = factory.CreateCircle();
             var circleSource = (IGeometry) circle.Clone();
 
@@ -144,8 +147,7 @@ namespace Core.GIS.SharpMap.Tests.Editors.FallOff
 
             var handles = Enumerable.Range(0, trackers.Count).ToList();
 
-            TestHelper.AssertIsFasterThan(100,
-                                          () => noFallOffPolicy.Move(circle, circleSource, trackers, handles, 0, 5, 5));
+            TestHelper.AssertIsFasterThan(3, () => noFallOffPolicy.Move(circle, circleSource, trackers, handles, 0, 5, 5));
         }
 
         /// <summary>

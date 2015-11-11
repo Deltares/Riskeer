@@ -68,7 +68,7 @@ namespace Core.GIS.NetTopologySuite.Tests.Geometry
         [Test]
         public void GetHashCodeShouldBeComputedLazyAndShouldBeFast()
         {
-            var geometryCount = 1000000;
+            var geometryCount = 1000;
             var geometries = new IGeometry[geometryCount];
 
             for (int i = 0; i < geometryCount; i++)
