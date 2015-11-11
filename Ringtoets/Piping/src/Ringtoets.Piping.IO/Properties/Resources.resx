@@ -160,7 +160,7 @@
     <value>Ondergrondprofiel '{0}' in database bevat geen geldige waarde in kolom '{1}'.</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_File_0_invalid_header" xml:space="preserve">
-    <value>Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locatieID;X1;Y1;Z1).</value>
+    <value>Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry" xml:space="preserve">
     <value>Dwarsdoorsnede {1} van bestand '{0}' heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel).</value>
