@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Data
         /// <returns><c>true</c> if the <see cref="Segment2D"/> is vertical. <c>false</c> otherwise.</returns>
         public bool IsVertical()
         {
-            return Math.Abs(FirstPoint.X - SecondPoint.X) < 1e-8;
+            return Math.Abs(FirstPoint.X - SecondPoint.X) < 1e-8 && !FirstPoint.Y.Equals(SecondPoint.Y);
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Calculation;
 using Ringtoets.Piping.IO.Properties;
@@ -105,11 +106,11 @@ namespace Ringtoets.Piping.IO.Builders
             var result = new Collection<PipingSoilLayer>();
             if (OuterLoop != null)
             {
-                Collection<double> outerLoopIntersectionHeights = GetLoopIntersectionHeights(outerLoop, atX);
+                IEnumerable<double> outerLoopIntersectionHeights = GetLoopIntersectionHeights(outerLoop, atX);
 
-                if (outerLoopIntersectionHeights.Count > 0)
+                if (outerLoopIntersectionHeights.Any())
                 {
-                    IEnumerable<Collection<double>> innerLoopsIntersectionHeights = InnerLoops.Select(loop => GetLoopIntersectionHeights(loop, atX));
+                    IEnumerable<IEnumerable<double>> innerLoopsIntersectionHeights = InnerLoops.Select(loop => GetLoopIntersectionHeights(loop, atX));
                     IEnumerable<Tuple<double, double>> innerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(innerLoopsIntersectionHeights).ToList();
                     IEnumerable<Tuple<double, double>> outerLoopIntersectionHeightPairs = GetOrderedStartAndEndPairsIn1D(outerLoopIntersectionHeights).ToList();
 
@@ -185,7 +186,7 @@ namespace Ringtoets.Piping.IO.Builders
             return height < tuple.Item2 && height >= tuple.Item1;
         }
 
-        private IEnumerable<Tuple<double, double>> GetOrderedStartAndEndPairsIn1D(IEnumerable<Collection<double>> innerLoopsIntersectionPoints)
+        private IEnumerable<Tuple<double, double>> GetOrderedStartAndEndPairsIn1D(IEnumerable<IEnumerable<double>> innerLoopsIntersectionPoints)
         {
             Collection<Tuple<double, double>> result = new Collection<Tuple<double, double>>();
             foreach (var innerLoopIntersectionPoints in innerLoopsIntersectionPoints)
@@ -221,47 +222,20 @@ namespace Ringtoets.Piping.IO.Builders
         /// <paramref name="loop"/> intersects the vertical line at <paramref name="atX"/>.</returns>
         /// <exception cref="SoilLayer2DConversionException">Thrown when a segment is vertical at <see cref="atX"/> and thus
         /// no deterministic intersection points can be determined.</exception>
-        private Collection<double> GetLoopIntersectionHeights(IEnumerable<Segment2D> loop, double atX)
+        private IEnumerable<double> GetLoopIntersectionHeights(IEnumerable<Segment2D> loop, double atX)
         {
-            var intersectionPointY = new Collection<double>();
-
-            foreach (Segment2D segment in loop.Where(s => s.ContainsX(atX)))
+            var segment2Ds = loop.ToArray();
+            if(segment2Ds.Any(segment => IsVerticalAtX(segment, atX)))
             {
-                if (segment.IsVertical())
-                {
-                    throw new SoilLayer2DConversionException(String.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_x, atX));
-                }
-
-                Point2D intersectionPoint = GetSegmentIntersectionAtX(segment, atX);
-
-                if (intersectionPoint != null)
-                {
-                    intersectionPointY.Add(intersectionPoint.Y);
-                }
+                var message = string.Format(Resources.Error_Can_not_determine_1D_profile_with_vertical_segments_at_x, atX);
+                throw new SoilLayer2DConversionException(message);
             }
-
-            return intersectionPointY;
+            return Math2D.SegmentsIntersectionWithVerticalLine(segment2Ds, atX).Select(p => p.Y);
         }
 
-        private Point2D GetSegmentIntersectionAtX(Segment2D segment, double x)
+        private static bool IsVerticalAtX(Segment2D segment, double atX)
         {
-            var verticalLineFirstPoint = new Point2D
-            {
-                X = x, Y = 0
-            };
-            var verticalLineSecondPoint = new Point2D
-            {
-                X = x, Y = 1
-            };
-
-            try
-            {
-                return Math2D.LineIntersectionWithLine(segment.FirstPoint, segment.SecondPoint, verticalLineFirstPoint, verticalLineSecondPoint);
-            }
-            catch (ArgumentException)
-            {
-                return null;
-            }
+            return segment.FirstPoint.X.Equals(atX) && segment.IsVertical();
         }
     }
 }

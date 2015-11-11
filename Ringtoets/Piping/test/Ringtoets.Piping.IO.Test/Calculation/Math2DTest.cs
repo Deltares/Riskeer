@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Calculation;
@@ -7,6 +8,7 @@ using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.Test.Calculation
 {
+    [TestFixture]
     public class Math2DTest
     {
         #region testcases
@@ -179,6 +181,30 @@ namespace Ringtoets.Piping.IO.Test.Calculation
 
             // Assert
             Assert.AreEqual((y1+y2)/2, result.Y, 1e-8);
+        }
+
+        [Test]
+        [TestCase(2.5, new [] {3.3})]
+        [TestCase(1.1, new double[0])]
+        [TestCase(5.5, new double[0])]
+        [TestCase(-1.5, new []{1.5, 3.75})]
+        public void SegmentsIntersectionWithVerticalLine_SegmentsCollectionNotIntersecting_ReturnsEmptyCollection(double x, double[] intersectionHeights)
+        {
+            // Setup
+            var segments = new[]
+            {
+                new Segment2D(new Point2D(2.2,3.3), new Point2D(3.3,3.3)),
+                new Segment2D(new Point2D(1.1,5.0), new Point2D(1.1,2.0)), // vertical
+                new Segment2D(new Point2D(5.5,2.0), new Point2D(5.5,2.0)), // no length
+                new Segment2D(new Point2D(-2.0,1.0), new Point2D(-1.0,2.0)),
+                new Segment2D(new Point2D(-1.0,2.0), new Point2D(-2.0,5.5))
+            };
+
+            // Call
+            var result = Math2D.SegmentsIntersectionWithVerticalLine(segments, x);
+
+            // Assert
+            Assert.AreEqual(intersectionHeights.Select(y => new Point2D(x, y)), result);
         }
     }
 }

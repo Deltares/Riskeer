@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Properties;
 
@@ -58,6 +61,69 @@ namespace Ringtoets.Piping.IO.Calculation
                 X = (bOtherLine*cLine - bLine*cOtherLine)/determinant,
                 Y = (aLine*cOtherLine - aOtherLine*cLine)/determinant
             };
+        }
+
+        /// <summary>
+        /// Determines the intersection points of a <see cref="IEnumerable{T}"/> of <see cref="Segment2D"/> with a vertical line
+        /// which is plotted at x=<paramref name="verticalLineX"/>.
+        /// </summary>
+        /// <param name="segments">A collection of segments that possibly intersect with the
+        /// vertical line at x=<paramref name="verticalLineX"/>.</param>
+        /// <param name="verticalLineX">The x coordinate of the vertical line.</param>
+        /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> with all intersection points of the 
+        /// <paramref name="segments"/> with the vertical line at x=<paramref name="verticalLineX"/>.</returns>
+        /// <remark>Segments which have length=0 or which are vertical, will not return an intersection point.</remark>
+        public static IEnumerable<Point2D> SegmentsIntersectionWithVerticalLine(IEnumerable<Segment2D> segments, double verticalLineX)
+        {
+            var intersectionPointY = new Collection<Point2D>();
+
+            foreach (Segment2D segment in segments.Where(s => s.ContainsX(verticalLineX)))
+            {
+                Point2D intersectionPoint = LineIntersectionWithVerticalLine(segment.FirstPoint, segment.SecondPoint, verticalLineX);
+
+                if (intersectionPoint != null)
+                {
+                    intersectionPointY.Add(intersectionPoint);
+                }
+            }
+
+            return intersectionPointY;
+        }
+
+        /// <summary>
+        /// Determines the intersection point of a line through the points <paramref name="point1"/> and
+        /// <paramref name="point2"/> with a vertical line at x=<paramref name="x"/>. If 
+        /// <paramref name="point1"/> equals <paramref name="point2"/>, then no intersection point 
+        /// will be returned.
+        /// </summary>
+        /// <param name="point1">A <see cref="Point2D"/> which the line passes through.</param>
+        /// <param name="point2">Another <see cref="Point2D"/> which the line passes through.</param>
+        /// <param name="x">The x coordinate of the vertical line.</param>
+        /// <returns>The intersection point between the line through <paramref name="point1"/> and
+        /// <paramref name="point2"/> and the vertical line at x=<paramref name="x"/>; or null if
+        /// the line through <paramref name="point1"/> and <paramref name="point2"/> is vertical or
+        /// the points are equal.</returns>
+        private static Point2D LineIntersectionWithVerticalLine(Point2D point1, Point2D point2, double x)
+        {
+            var verticalLineFirstPoint = new Point2D
+            {
+                X = x,
+                Y = 0
+            };
+            var verticalLineSecondPoint = new Point2D
+            {
+                X = x,
+                Y = 1
+            };
+
+            try
+            {
+                return LineIntersectionWithLine(point1, point2, verticalLineFirstPoint, verticalLineSecondPoint);
+            }
+            catch (ArgumentException)
+            {
+                return null;
+            }
         }
     }
 }
