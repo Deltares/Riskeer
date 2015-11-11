@@ -112,11 +112,6 @@ namespace Core.Common.Gui
         #region Events
 
         /// <summary>
-        /// Fired after application has been started.
-        /// </summary>
-        event Action AfterRun;
-
-        /// <summary>
         /// Fired when user changes selection by clicking on it or by setting it using Selection property.
         /// </summary>
         event EventHandler<SelectedItemChangedEventArgs> SelectionChanged;

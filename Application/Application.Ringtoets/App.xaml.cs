@@ -159,9 +159,7 @@ namespace Application.Ringtoets
 
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
             ParseArguments(e.Args);
- 
-            
-           
+
             gui = new DeltaShellGui
             {
                 Plugins =

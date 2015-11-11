@@ -36,7 +36,6 @@ namespace Core.Common.Gui
     public class DeltaShellGui : IGui, IDisposable
     {
         public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; // TODO: make it weak
-        public event Action AfterRun;
         private static readonly ILog log = LogManager.GetLogger(typeof(DeltaShellGui));
 
         private static DeltaShellGui instance;
@@ -263,11 +262,6 @@ namespace Core.Common.Gui
             log.InfoFormat(Resources.DeltaShellGui_Run_Started_in__0_f2__sec, (DateTime.Now - startTime).TotalSeconds);
 
             runFinished = true;
-
-            if (AfterRun != null)
-            {
-                AfterRun();
-            }
 
             HideSplashScreen();
 

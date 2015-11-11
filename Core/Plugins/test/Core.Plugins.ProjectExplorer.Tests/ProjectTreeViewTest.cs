@@ -1,13 +1,8 @@
 using System.Configuration;
-using System.Linq;
-using Application.Ringtoets;
 using Core.Common.Base;
 using Core.Common.Gui;
 using NUnit.Framework;
 using Rhino.Mocks;
-using SharpTestsEx;
-
-// note: this is a reference to a builded assembly! not the project itself
 
 namespace Core.Plugins.ProjectExplorer.Tests
 {
@@ -41,23 +36,6 @@ namespace Core.Plugins.ProjectExplorer.Tests
 
             var projectTreeView = new ProjectTreeView(pluginGui);
             Assert.IsNotNull(projectTreeView);
-        }
-
-        [Test]
-        public void SelectingProjectNodeSetsSelectedItemToProject()
-        {
-            var gui = new DeltaShellGui();
-            var app = gui.Application;
-
-            gui.Plugins.Add(new ProjectExplorerGuiPlugin());
-            gui.Run();
-
-            var projectExplorer = gui.ToolWindowViews.OfType<ProjectExplorer>().First();
-
-            var treeView = projectExplorer.TreeView;
-            treeView.SelectedNode = treeView.Nodes[0]; // project node
-
-            gui.Selection.Should().Be.EqualTo(app.Project);
         }
     }
 }

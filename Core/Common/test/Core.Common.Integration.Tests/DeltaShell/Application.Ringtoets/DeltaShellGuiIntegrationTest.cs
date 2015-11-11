@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using Core.Common.Base.Workflow;
 using Core.Common.Gui;
@@ -9,9 +10,7 @@ using Core.Plugins.CommonTools.Gui;
 using Core.Plugins.ProjectExplorer;
 using Core.Plugins.SharpMapGis;
 using Core.Plugins.SharpMapGis.Gui;
-using log4net;
 using NUnit.Framework;
-using Rhino.Mocks;
 using SharpTestsEx;
 using Control = System.Windows.Controls.Control;
 
@@ -20,9 +19,6 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
     [TestFixture]
     public class DeltaShellGuiIntegrationTest
     {
-        private readonly MockRepository mocks = new MockRepository();
-        private static readonly ILog log = LogManager.GetLogger(typeof(DeltaShellGuiIntegrationTest));
-
         [SetUp]
         public void SetUp()
         {
@@ -210,45 +206,23 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
             }
         }
 
-        private class TestActivity2 : Activity
+        [Test]
+        public void SelectingProjectNodeSetsSelectedItemToProject()
         {
-            private bool shouldCancel;
-
-            public override void Execute()
+            using (var gui = new DeltaShellGui())
             {
-                if (shouldCancel)
-                {
-                    Status = ActivityStatus.Cancelled;
-                    shouldCancel = false;
-                    return;
-                }
+                var app = gui.Application;
 
-                base.Execute();
+                gui.Plugins.Add(new ProjectExplorerGuiPlugin());
+                gui.Run();
+
+                var projectExplorer = gui.ToolWindowViews.OfType<ProjectExplorer>().First();
+
+                var treeView = projectExplorer.TreeView;
+                treeView.SelectedNode = treeView.Nodes[0]; // project node
+
+                gui.Selection.Should().Be.EqualTo(app.Project);
             }
-
-            public override void Cancel()
-            {
-                shouldCancel = true;
-            }
-
-            protected override void OnInitialize() {}
-
-            protected override void OnExecute()
-            {
-                Thread.Sleep(100);
-            }
-
-            protected override void OnCancel()
-            {
-                throw new NotImplementedException();
-            }
-
-            protected override void OnCleanUp()
-            {
-                shouldCancel = false;
-            }
-
-            protected override void OnFinish() {}
         }
 
         private class TestActivity : Activity

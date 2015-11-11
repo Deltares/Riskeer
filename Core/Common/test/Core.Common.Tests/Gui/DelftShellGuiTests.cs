@@ -1,4 +1,3 @@
-using Application.Ringtoets;
 using Core.Common.Gui;
 using Core.Common.Tests.TestObjects;
 using Core.Common.TestUtils;
@@ -13,10 +12,23 @@ namespace Core.Common.Tests.Gui
     {
         private DeltaShellGui gui;
 
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
+        {
+            LogHelper.ConfigureLogging();
+        }
+
+        [TestFixtureTearDown]
+        public void TestFixtureTearDown()
+        {
+            LogHelper.ResetLogging();
+        }
+
         [SetUp]
         public void SetUp()
         {
             LogHelper.SetLoggingLevel(Level.Error);
+
             gui = new DeltaShellGui();
         }
 
@@ -43,28 +55,6 @@ namespace Core.Common.Tests.Gui
         public void CheckViewPropertyEditorIsInitialized()
         {
             ViewPropertyEditor.Gui.Should().Not.Be.Null();
-        }
-
-        [Test]
-        public void FireEventAfterRun()
-        {
-            var callCount = 0;
-            gui.AfterRun += () => callCount++;
-            gui.Run();
-
-            callCount.Should("AfterRun event is fired after gui starts").Be.EqualTo(1);
-        }
-
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
-        {
-            LogHelper.ConfigureLogging();
-        }
-
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
-        {
-            LogHelper.ResetLogging();
         }
     }
 }

@@ -19,22 +19,6 @@ namespace Core.Plugins.SharpMapGis.Tests
     public class SharpMapGisPluginGuiIntegrationTest
     {
         [Test]
-        public void EmptyMapIsReturnedIfNoMapDefaultMapDataItemIsSet()
-        {
-            using (var gui = new DeltaShellGui())
-            {
-                var application = gui.Application;
-                gui.Application.Plugins.Add(new SharpMapGisApplicationPlugin());
-                gui.Run();
-
-                application.CreateNewProject();
-
-                // Assert statements are here for clearness and it should be the same as 
-                // the null check test in the property SharpMapGisGuiPlugin.DefaultMap
-            }
-        }
-
-        [Test]
         public void SelectMultipleFeaturesUpdatesAllMaps()
         {
             using (var gui = new DeltaShellGui())
