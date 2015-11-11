@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Error_Can_not_determine_1D_profile_with_vertical_segments_at_x" xml:space="preserve">
-    <value>Kan geen 1D profiel bepalen wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.</value>
+    <value>Er kan geen 1D-profiel bepaald worden wanneer segmenten in een 2D laag verticaal lopen op de gekozen positie: x = {0}.</value>
   </data>
   <data name="Error_Directory_in_path_0_missing" xml:space="preserve">
     <value>Het bestandspad '{0}' verwijst naar een map die niet bestaat.</value>
@@ -133,10 +133,10 @@
     <value>Het bestand op '{0}' is leeg.</value>
   </data>
   <data name="Error_File_0_has_not_double_SurfaceLineName_1_" xml:space="preserve">
-    <value>Het bestand '{0}' heeft voor dwarsdoorsnede {1} een waarde dat geen getal is.</value>
+    <value>Het bestand '{0}' heeft voor dwarsdoorsnede {1} een waarde die niet omgezet kan worden naar een getal.</value>
   </data>
   <data name="Error_File_0_parsing_causes_overflow_SurfaceLineName_1_" xml:space="preserve">
-    <value>Het bestand '{0}' heeft voor dwarsdoorsnede {1} een waarde dat te groot/klein is om ingelezen te worden.</value>
+    <value>Het bestand '{0}' heeft voor dwarsdoorsnede {1} een waarde die te groot of te klein is om ingelezen te worden.</value>
   </data>
   <data name="Error_General_IO_File_0_ErrorMessage_1_" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden tijdens het inlezen van het bestand '{0}': {1}</value>
@@ -160,10 +160,10 @@
     <value>Ondergrondprofiel '{0}' in database bevat geen geldige waarde in kolom '{1}'.</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_File_0_invalid_header" xml:space="preserve">
-    <value>Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locationid;X1;Y1;Z1).</value>
+    <value>Het bestand op '{0}' is niet geschikt om dwarsdoorsneden uit te lezen (Verwachte header: locatieID;X1;Y1;Z1).</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry" xml:space="preserve">
-    <value>Dwarsdoorsnede {1} van bestand '{0}' heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coordinatenstelsel).</value>
+    <value>Dwarsdoorsnede {1} van bestand '{0}' heeft een teruglopende geometrie (Punten behoren een oplopende set L-coordinaten te hebben in het lokaal coördinatenstelsel).</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_separator_2_" xml:space="preserve">
     <value>Het bestand '{0}' heeft op regel {1} geen verwacht scheidingsteken (het karakter: {2}).</value>
@@ -187,9 +187,9 @@
     <value>De segmenten van de geometrie van de laag vormen geen lus.</value>
   </data>
   <data name="PipingSoilProfileReader_Critical_Unexpected_value_on_column" xml:space="preserve">
-    <value>Kritieke fout opgetreden bij het uitlezen van waarden uit kolommen in de database.</value>
+    <value>Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.</value>
   </data>
   <data name="SoilLayer2DReader_Geometry_contains_no_valid_xml" xml:space="preserve">
-    <value>Het XML document dat de geometrie beschrijft voor de laag is niet geldig.</value>
+    <value>Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.</value>
   </data>
 </root>
