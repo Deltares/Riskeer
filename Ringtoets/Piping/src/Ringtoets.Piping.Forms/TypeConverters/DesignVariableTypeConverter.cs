@@ -25,8 +25,8 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         {
             if (destinationType == typeof(string))
             {
-                var designVariable = (DesignVariable)value;
-                var variablesText = string.Join(", ", Parameters.Select(p => p.GetSummary((T)designVariable.Distribution, culture)));
+                var designVariable = (DesignVariable<T>)value;
+                var variablesText = string.Join(", ", Parameters.Select(p => p.GetSummary(designVariable.Distribution, culture)));
                 return String.Format("{0} ({1})", designVariable.GetDesignValue(), variablesText);
             }
             return base.ConvertTo(context, culture, value, destinationType);
@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         {
             IObservable observableParent = GetObservableOwnerOfDistribution(context);
 
-            var designVariable = (DesignVariable)value;
+            var designVariable = (DesignVariable<T>)value;
             PropertyDescriptorCollection propertyDescriptorCollection = TypeDescriptor.GetProperties(designVariable.Distribution);
             var properties = new PropertyDescriptor[Parameters.Length+2];
             properties[0] = new SimpleReadonlyPropertyDescriptorItem(Resources.DesignVariableTypeConverter_DestributionType_DisplayName,
@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         private static PropertyDescriptor CreatePropertyDescriptor(PropertyDescriptorCollection originalProperties, ParameterDefinition<T> parameter, IObservable observableParent)
         {
             PropertyDescriptor originalMeanPropertyDescriptor = originalProperties.Find(parameter.PropertyName, false);
-            var reroutedPropertyDescriptor = new RoutedPropertyDescriptor(originalMeanPropertyDescriptor, o => ((DesignVariable)o).Distribution);
+            var reroutedPropertyDescriptor = new RoutedPropertyDescriptor(originalMeanPropertyDescriptor, o => ((DesignVariable<T>)o).Distribution);
             return new TextPropertyDescriptorDecorator(reroutedPropertyDescriptor,
                                                        parameter.Symbol,
                                                        parameter.Description)

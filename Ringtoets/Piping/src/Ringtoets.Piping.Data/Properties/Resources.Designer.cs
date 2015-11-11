@@ -97,6 +97,15 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gemiddelde moet groter zijn dan 0..
+        /// </summary>
+        internal static string LognormalDistribution_Mean_must_be_greater_equal_to_zero {
+            get {
+                return ResourceManager.GetString("LognormalDistribution_Mean_must_be_greater_equal_to_zero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Voor het maken van een segment zijn twee punten nodig..
         /// </summary>
         internal static string Segment2D_Constructor_Segment_must_be_created_with_two_points {

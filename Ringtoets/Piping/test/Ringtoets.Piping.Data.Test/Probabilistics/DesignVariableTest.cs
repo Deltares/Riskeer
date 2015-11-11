@@ -20,7 +20,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             mocks.ReplayAll();
 
             // Call
-            var designVariable = new DesignVariable(distributionMock);
+            var designVariable = new SimpleDesignVariable(distributionMock);
 
             // Assert
             Assert.AreSame(distributionMock, designVariable.Distribution);
@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
         public void ParameteredConstructor_DistributionIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DesignVariable(null);
+            TestDelegate call = () => new SimpleDesignVariable(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             var distributionMock = mocks.StrictMock<IDistribution>();
             mocks.ReplayAll();
 
-            var designVariable = new DesignVariable(distributionMock);
+            var designVariable = new SimpleDesignVariable(distributionMock);
 
             // Call
             TestDelegate call = () => designVariable.Percentile = invalidPercentile;
@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             var distributionMock = mocks.StrictMock<IDistribution>();
             mocks.ReplayAll();
 
-            var designVariable = new DesignVariable(distributionMock);
+            var designVariable = new SimpleDesignVariable(distributionMock);
 
             // Call
             designVariable.Percentile = validPercentile;
@@ -93,7 +93,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             var distributionMock = mocks.StrictMock<IDistribution>();
             mocks.ReplayAll();
 
-            var designVariable = new DesignVariable(distributionMock);
+            var designVariable = new SimpleDesignVariable(distributionMock);
 
             // Call
             TestDelegate call = () => designVariable.Distribution = null;
@@ -104,29 +104,14 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
             Assert.AreEqual("Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.", customMessagePart);
         }
 
-        [Test]
-        public void GetDesignValue_DistributionSet_ReturnInverseCdfForGivenPercentile()
+        private class SimpleDesignVariable : DesignVariable<IDistribution>
         {
-            // Setup
-            const double percentile = 0.5;
-            const double expectedValue = 1.1;
+            public SimpleDesignVariable(IDistribution distribution) : base(distribution) {}
 
-            var mocks = new MockRepository();
-            var distribution = mocks.StrictMock<IDistribution>();
-            distribution.Expect(d => d.InverseCDF(percentile)).Return(expectedValue);
-            mocks.ReplayAll();
-
-            var designVariable = new DesignVariable(distribution)
+            public override double GetDesignValue()
             {
-                Percentile = percentile
-            };
-
-            // Call
-            var designValue = designVariable.GetDesignValue();
-
-            // Assert
-            Assert.AreEqual(expectedValue, designValue);
-            mocks.VerifyAll();
+                throw new NotImplementedException();
+            }
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
                 Mean = 1.1,
                 StandardDeviation = 2.2
             };
-            var designVariable = new DesignVariable(distribution);
+            var designVariable = new LognormalDistributionDesignVariable(distribution);
 
             var converter = new LognormalDistributionDesignVariableTypeConverter();
 
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         {
             // Setup
             var distribution = new LognormalDistribution();
-            var designVariable = new DesignVariable(distribution);
+            var designVariable = new LognormalDistributionDesignVariable(distribution);
             var converter = new LognormalDistributionDesignVariableTypeConverter();
 
             // Call
@@ -150,7 +150,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             pipingData.Attach(observer);
 
-            DesignVariable dampingFactorExit = calculationInputsProperties.DampingFactorExit;
+            DesignVariable<LognormalDistribution> dampingFactorExit = calculationInputsProperties.DampingFactorExit;
             var properties = new LognormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, dampingFactorExit);
 
             // Precondition

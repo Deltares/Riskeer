@@ -10,10 +10,5 @@
         /// Gets or sets the shift applied to the log-normal distribution.
         /// </summary>
         public double Shift { get; set; }
-
-        public override double InverseCDF(double p)
-        {
-            return base.InverseCDF(p) + Shift;
-        }
     }
 }

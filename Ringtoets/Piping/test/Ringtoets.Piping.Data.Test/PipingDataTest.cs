@@ -1,4 +1,6 @@
-﻿using Core.Common.Base;
+﻿using System;
+
+using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Calculation.TestUtil;
@@ -29,24 +31,26 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(0, defaultConstructed.PhreaticLevelExit.Mean);
             Assert.AreEqual(1, defaultConstructed.PhreaticLevelExit.StandardDeviation);
 
+            double defaultLogNormalMean = Math.Exp(-0.5);
+            double defaultLogNormalStandardDev = Math.Sqrt((Math.Exp(1) - 1) * Math.Exp(1));
             Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.DampingFactorExit);
             Assert.AreEqual(1, defaultConstructed.DampingFactorExit.Mean);
-            Assert.AreEqual(1, defaultConstructed.DampingFactorExit.StandardDeviation);
+            Assert.AreEqual(defaultLogNormalStandardDev, defaultConstructed.DampingFactorExit.StandardDeviation);
             Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.ThicknessCoverageLayer);
-            Assert.AreEqual(0, defaultConstructed.ThicknessCoverageLayer.Mean);
-            Assert.AreEqual(1, defaultConstructed.ThicknessCoverageLayer.StandardDeviation);
+            Assert.AreEqual(defaultLogNormalMean, defaultConstructed.ThicknessCoverageLayer.Mean);
+            Assert.AreEqual(defaultLogNormalStandardDev, defaultConstructed.ThicknessCoverageLayer.StandardDeviation);
             Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.SeepageLength);
-            Assert.AreEqual(0, defaultConstructed.SeepageLength.Mean);
-            Assert.AreEqual(1, defaultConstructed.SeepageLength.StandardDeviation);
+            Assert.AreEqual(defaultLogNormalMean, defaultConstructed.SeepageLength.Mean);
+            Assert.AreEqual(defaultLogNormalStandardDev, defaultConstructed.SeepageLength.StandardDeviation);
             Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.Diameter70);
-            Assert.AreEqual(0, defaultConstructed.Diameter70.Mean);
-            Assert.AreEqual(1, defaultConstructed.Diameter70.StandardDeviation);
+            Assert.AreEqual(defaultLogNormalMean, defaultConstructed.Diameter70.Mean);
+            Assert.AreEqual(defaultLogNormalStandardDev, defaultConstructed.Diameter70.StandardDeviation);
             Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.DarcyPermeability);
-            Assert.AreEqual(0, defaultConstructed.DarcyPermeability.Mean);
-            Assert.AreEqual(1, defaultConstructed.DarcyPermeability.StandardDeviation);
+            Assert.AreEqual(defaultLogNormalMean, defaultConstructed.DarcyPermeability.Mean);
+            Assert.AreEqual(defaultLogNormalStandardDev, defaultConstructed.DarcyPermeability.StandardDeviation);
             Assert.IsInstanceOf<LognormalDistribution>(defaultConstructed.ThicknessAquiferLayer);
-            Assert.AreEqual(0, defaultConstructed.ThicknessAquiferLayer.Mean);
-            Assert.AreEqual(1, defaultConstructed.ThicknessAquiferLayer.StandardDeviation);
+            Assert.AreEqual(defaultLogNormalMean, defaultConstructed.ThicknessAquiferLayer.Mean);
+            Assert.AreEqual(defaultLogNormalStandardDev, defaultConstructed.ThicknessAquiferLayer.StandardDeviation);
 
             Assert.AreEqual(0, defaultConstructed.PiezometricHeadExit);
             Assert.AreEqual(0, defaultConstructed.PiezometricHeadPolder);

@@ -8,12 +8,14 @@ namespace Ringtoets.Piping.Data.Probabilistics
     public interface IDistribution
     {
         /// <summary>
-        /// Performs the inverse Cumulative Density Function on the distribution, returning 
-        /// the concrete realization corresponding with the given probability.
+        /// Gets or sets the mean (expected value, E(X)) of the distribution.
         /// </summary>
-        /// <param name="p">The probability, for which P(X&lt;x) applies where x will be the returned result.</param>
-        /// <returns>The concrete realization value.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="p"/> is not in the range [0.0, 1.0].</exception>
-        double InverseCDF(double p);
+        double Mean { get; set; }
+
+        /// <summary>
+        /// Gets or sets the standard deviation (square root of the Var(X)) of the distribution.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Standard deviation is less then or equal to 0.</exception>
+        double StandardDeviation { get; set; }
     }
 }

@@ -8,17 +8,17 @@ namespace Ringtoets.Piping.Data.Probabilistics
     /// This class is a representation of a variable derived from a probabilistic distribution,
     /// based on a percentile.
     /// </summary>
-    public class DesignVariable
+    public abstract class DesignVariable<DistributionType> where DistributionType : IDistribution
     {
         private double percentile;
-        private IDistribution distribution;
+        private DistributionType distribution;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DesignVariable"/> class with 
+        /// Initializes a new instance of the <see cref="DesignVariable{T}"/> class with 
         /// <see cref="Percentile"/> equal to 0.5.
         /// </summary>
         /// <exception cref="ArgumentNullException"><see cref="Distribution"/> is null.</exception>
-        public DesignVariable(IDistribution distribution)
+        protected DesignVariable(DistributionType distribution)
         {
             Distribution = distribution;
             percentile = 0.5;
@@ -28,7 +28,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
         /// Gets or sets the probabilistic distribution of the parameter being modeled.
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
-        public IDistribution Distribution
+        public DistributionType Distribution
         {
             get
             {
@@ -67,9 +67,6 @@ namespace Ringtoets.Piping.Data.Probabilistics
         /// Gets the design value based on the <see cref="Distribution"/> and <see cref="Percentile"/>.
         /// </summary>
         /// <returns>A design value.</returns>
-        public double GetDesignValue()
-        {
-            return Distribution.InverseCDF(Percentile);
-        }
+        public abstract double GetDesignValue();
     }
 }

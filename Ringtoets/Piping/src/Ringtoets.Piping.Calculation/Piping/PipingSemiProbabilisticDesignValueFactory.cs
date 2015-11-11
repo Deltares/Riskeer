@@ -13,34 +13,25 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// <summary>
         /// Creates the design variable for <see cref="PipingData.ThicknessCoverageLayer"/>.
         /// </summary>
-        public static DesignVariable GetThicknessCoverageLayer(PipingData pipingData)
+        public static DesignVariable<LognormalDistribution> GetThicknessCoverageLayer(PipingData pipingData)
         {
-            return new DesignVariable(pipingData.ThicknessCoverageLayer)
-            {
-                Percentile = 0.05
-            };
+            return CreateDesignVariable(pipingData.ThicknessCoverageLayer, 0.05);
         }
 
         /// <summary>
         /// Creates the design variable for <see cref="PipingData.PhreaticLevelExit"/>.
         /// </summary>
-        public static DesignVariable GetPhreaticLevelExit(PipingData pipingData)
+        public static DesignVariable<NormalDistribution> GetPhreaticLevelExit(PipingData pipingData)
         {
-            return new DesignVariable(pipingData.PhreaticLevelExit)
-            {
-                Percentile = 0.05
-            };
+            return CreateDesignVariable(pipingData.PhreaticLevelExit, 0.05);
         }
 
         /// <summary>
         /// Creates the design variable for <see cref="PipingData.DampingFactorExit"/>.
         /// </summary>
-        public static DesignVariable GetDampingFactorExit(PipingData pipingData)
+        public static DesignVariable<LognormalDistribution> GetDampingFactorExit(PipingData pipingData)
         {
-            return new DesignVariable(pipingData.DampingFactorExit)
-            {
-                Percentile = 0.95
-            };
+            return CreateDesignVariable(pipingData.DampingFactorExit, 0.95);
         }
 
         #endregion
@@ -50,47 +41,51 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// <summary>
         /// Creates the design variable for <see cref="PipingData.SeepageLength"/>.
         /// </summary>
-        public static DesignVariable GetSeepageLength(PipingData pipingData)
+        public static DesignVariable<LognormalDistribution> GetSeepageLength(PipingData pipingData)
         {
-            return new DesignVariable(pipingData.SeepageLength)
-            {
-                Percentile = 0.05
-            };
+            return CreateDesignVariable(pipingData.SeepageLength, 0.05);
         }
 
         /// <summary>
         /// Creates the design variable for <see cref="PipingData.Diameter70"/>.
         /// </summary>
-        public static DesignVariable GetDiameter70(PipingData pipingData)
+        public static DesignVariable<LognormalDistribution> GetDiameter70(PipingData pipingData)
         {
-            return new DesignVariable(pipingData.Diameter70)
-            {
-                Percentile = 0.05
-            };
+            return CreateDesignVariable(pipingData.Diameter70, 0.05);
         }
 
         /// <summary>
         /// Creates the design variable for <see cref="PipingData.DarcyPermeability"/>.
         /// </summary>
-        public static DesignVariable GetDarcyPermeability(PipingData pipingData)
+        public static DesignVariable<LognormalDistribution> GetDarcyPermeability(PipingData pipingData)
         {
-            return new DesignVariable(pipingData.DarcyPermeability)
-            {
-                Percentile = 0.95
-            };
+            return CreateDesignVariable(pipingData.DarcyPermeability, 0.95);
         }
 
         /// <summary>
         /// Creates the design variable for <see cref="PipingData.ThicknessAquiferLayer"/>.
         /// </summary>
-        public static DesignVariable GetThicknessAquiferLayer(PipingData pipingData)
+        public static DesignVariable<LognormalDistribution> GetThicknessAquiferLayer(PipingData pipingData)
         {
-            return new DesignVariable(pipingData.ThicknessAquiferLayer)
-            {
-                Percentile = 0.95
-            };
+            return CreateDesignVariable(pipingData.ThicknessAquiferLayer, 0.95);
         }
 
         #endregion
+
+        private static DesignVariable<NormalDistribution> CreateDesignVariable(NormalDistribution distribution, double percentile)
+        {
+            return new NormalDistributionDesignVariable(distribution)
+            {
+                Percentile = percentile
+            };
+        }
+
+        private static DesignVariable<LognormalDistribution> CreateDesignVariable(LognormalDistribution distribution, double percentile)
+        {
+            return new LognormalDistributionDesignVariable(distribution)
+            {
+                Percentile = percentile
+            };
+        }
     }
 }

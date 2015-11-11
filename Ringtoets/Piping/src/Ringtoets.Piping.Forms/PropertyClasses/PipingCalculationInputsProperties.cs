@@ -101,7 +101,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_DampingFactorExit_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_DampingFactorExit_Description")]
-        public DesignVariable DampingFactorExit
+        public DesignVariable<LognormalDistribution> DampingFactorExit
         {
             get
             {
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.PipingData.DampingFactorExit = (LognormalDistribution)value.Distribution;
+                data.PipingData.DampingFactorExit = value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_PhreaticLevelExit_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_PhreaticLevelExit_Description")]
-        public DesignVariable PhreaticLevelExit
+        public DesignVariable<NormalDistribution> PhreaticLevelExit
         {
             get
             {
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.PipingData.PhreaticLevelExit = (NormalDistribution)value.Distribution;
+                data.PipingData.PhreaticLevelExit = value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -162,7 +162,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_ThicknessCoverageLayer_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_ThicknessCoverageLayer_Description")]
-        public DesignVariable ThicknessCoverageLayer
+        public DesignVariable<LognormalDistribution> ThicknessCoverageLayer
         {
             get
             {
@@ -170,7 +170,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.PipingData.ThicknessCoverageLayer = (LognormalDistribution)value.Distribution;
+                data.PipingData.ThicknessCoverageLayer = value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -211,7 +211,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_SeepageLength_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_SeepageLength_Description")]
-        public DesignVariable SeepageLength
+        public DesignVariable<LognormalDistribution> SeepageLength
         {
             get
             {
@@ -219,7 +219,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.PipingData.SeepageLength = (LognormalDistribution)value.Distribution;
+                data.PipingData.SeepageLength = value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -260,7 +260,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_Diameter70_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_Diameter70_Description")]
-        public DesignVariable Diameter70
+        public DesignVariable<LognormalDistribution> Diameter70
         {
             get
             {
@@ -268,7 +268,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.PipingData.Diameter70 = (LognormalDistribution)value.Distribution;
+                data.PipingData.Diameter70 = value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -277,7 +277,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_DarcyPermeability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_DarcyPermeability_Description")]
-        public DesignVariable DarcyPermeability
+        public DesignVariable<LognormalDistribution> DarcyPermeability
         {
             get
             {
@@ -285,7 +285,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.PipingData.DarcyPermeability = (LognormalDistribution)value.Distribution;
+                data.PipingData.DarcyPermeability = value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }
@@ -326,7 +326,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "PipingData_ThicknessAquiferLayer_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingData_ThicknessAquiferLayer_Description")]
-        public DesignVariable ThicknessAquiferLayer
+        public DesignVariable<LognormalDistribution> ThicknessAquiferLayer
         {
             get
             {
@@ -334,7 +334,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
             set
             {
-                data.PipingData.ThicknessAquiferLayer = (LognormalDistribution)value.Distribution;
+                data.PipingData.ThicknessAquiferLayer = value.Distribution;
                 data.PipingData.NotifyObservers();
             }
         }

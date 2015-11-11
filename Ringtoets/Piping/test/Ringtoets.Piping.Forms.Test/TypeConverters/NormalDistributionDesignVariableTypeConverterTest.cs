@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
                 Mean = 1.1,
                 StandardDeviation = 2.2
             };
-            var designVariable = new DesignVariable(distribution);
+            var designVariable = new NormalDistributionDesignVariable(distribution);
             var converter = new NormalDistributionDesignVariableTypeConverter();
 
             // Call
@@ -79,7 +79,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
         {
             // Setup
             var distribution = new NormalDistribution();
-            var designVariable = new DesignVariable(distribution);
+            var designVariable = new NormalDistributionDesignVariable(distribution);
             var converter = new NormalDistributionDesignVariableTypeConverter();
 
             // Call
@@ -149,7 +149,7 @@ namespace Ringtoets.Piping.Forms.Test.TypeConverters
 
             pipingData.Attach(observer);
 
-            DesignVariable designVariable = calculationInputsProperties.PhreaticLevelExit;
+            DesignVariable<NormalDistribution> designVariable = calculationInputsProperties.PhreaticLevelExit;
             var properties = new NormalDistributionDesignVariableTypeConverter().GetProperties(typeDescriptorContextMock, designVariable);
 
             // Precondition
