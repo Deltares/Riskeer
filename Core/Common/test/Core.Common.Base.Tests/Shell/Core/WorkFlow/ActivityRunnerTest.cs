@@ -65,7 +65,7 @@ namespace Core.Common.Base.Tests.Shell.Core.WorkFlow
             Assert.AreEqual(0, runner.Activities.Count);
         }
 
-        public class SimpleActivity : Activity
+        private class SimpleActivity : Activity
         {
             public SimpleActivity()
             {
@@ -85,24 +85,24 @@ namespace Core.Common.Base.Tests.Shell.Core.WorkFlow
 
             protected override void OnFinish() {}
         }
-    }
 
-    public class InfiniteActivity : Activity
-    {
-        private bool shouldCancel;
-
-        protected override void OnInitialize() {}
-
-        protected override void OnExecute()
+        private class InfiniteActivity : Activity
         {
-            Thread.Sleep(100);
-            Status = ActivityStatus.Done;
+            private bool shouldCancel;
+
+            protected override void OnInitialize() {}
+
+            protected override void OnExecute()
+            {
+                Thread.Sleep(100);
+                Status = ActivityStatus.Done;
+            }
+
+            protected override void OnCancel() {}
+
+            protected override void OnCleanUp() {}
+
+            protected override void OnFinish() {}
         }
-
-        protected override void OnCancel() {}
-
-        protected override void OnCleanUp() {}
-
-        protected override void OnFinish() {}
     }
 }

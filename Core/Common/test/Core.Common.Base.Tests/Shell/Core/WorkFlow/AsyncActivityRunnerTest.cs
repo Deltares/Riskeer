@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Threading;
 using Core.Common.Base.Workflow;
 using NUnit.Framework;
@@ -73,6 +74,34 @@ namespace Core.Common.Base.Tests.Shell.Core.WorkFlow
             }
 
             Assert.AreEqual(true, uiCultureIsSet, "UI culture is not set in background thread");
+        }
+
+        private class CrashingActivity : Activity
+        {
+            protected override void OnInitialize()
+            {
+                throw new NotImplementedException();
+            }
+
+            protected override void OnExecute()
+            {
+                throw new NotImplementedException();
+            }
+
+            protected override void OnCancel()
+            {
+                throw new NotImplementedException();
+            }
+
+            protected override void OnCleanUp()
+            {
+                throw new NotImplementedException();
+            }
+
+            protected override void OnFinish()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
