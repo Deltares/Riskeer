@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -52,6 +53,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void PasteLargeAmountOfDataShouldBeFast()
         {
             using (var dataset = new DataSet())
