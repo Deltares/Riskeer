@@ -8,9 +8,9 @@ using SharpTestsEx;
 namespace Core.Common.Tests.Gui
 {
     [TestFixture]
-    public class DeltaShellGuiTests
+    public class RingtoetsGuiTests
     {
-        private DeltaShellGui gui;
+        private RingtoetsGui gui;
 
         [TestFixtureSetUp]
         public void TestFixtureSetUp()
@@ -29,7 +29,7 @@ namespace Core.Common.Tests.Gui
         {
             LogHelper.SetLoggingLevel(Level.Error);
 
-            gui = new DeltaShellGui();
+            gui = new RingtoetsGui();
         }
 
         [TearDown]

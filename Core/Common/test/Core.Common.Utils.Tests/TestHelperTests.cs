@@ -33,12 +33,12 @@ namespace Core.Common.Utils.Tests
         [Test]
         public void TestPredefinedTestPath()
         {
-            //common
+            // common
             var path = TestHelper.GetTestDataPath(TestDataPath.Common.Base.DelftToolsTests);
             Assert.IsTrue(Directory.Exists(path));
 
-            //deltashell
-            path = TestHelper.GetTestDataPath(TestDataPath.DeltaShell.DeltaShellDeltaShellPluginsSharpMapGisTests);
+            // Ringtoets
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.CorePluginsSharpMapGisTests);
             Assert.IsTrue(Directory.Exists(path));
         }
 

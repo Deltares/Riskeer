@@ -144,7 +144,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
 
         public IStyle GetStyle<T>(T value) where T : IComparable<T>, IComparable
         {
-            // TODO: This should use a delegate for GetStyle as well (but this isn't used by DeltaShell)
+            // TODO: This should use a delegate for GetStyle as well (but this isn't used by Ringtoets)
             return DefaultStyle;
         }
 

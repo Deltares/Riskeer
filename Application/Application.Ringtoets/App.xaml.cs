@@ -36,7 +36,7 @@ namespace Application.Ringtoets
 
         private static readonly ILog log = LogManager.GetLogger(typeof(App));
 
-        private static DeltaShellGui gui;
+        private static RingtoetsGui gui;
 
         private static int waitForProcessId = -1; // start Delta Shell after this process will exit (used during restart)
 
@@ -53,12 +53,12 @@ namespace Application.Ringtoets
 
         static App()
         {
-            DeltaShellApplication.SetLanguageAndRegionalSettions(Settings.Default);
+            RingtoetsApplication.SetLanguageAndRegionalSettions(Settings.Default);
 
             log.Info(Core.Common.Gui.Properties.Resources.App_App_Starting_Delta_Shell____);
         }
 
-        public static void RunDeltaShell()
+        public static void RunRingtoets()
         {
             log.Info(Core.Common.Gui.Properties.Resources.App_RunDeltaShell_Starting_Delta_Shell_Gui____);
 
@@ -160,7 +160,7 @@ namespace Application.Ringtoets
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
             ParseArguments(e.Args);
 
-            gui = new DeltaShellGui
+            gui = new RingtoetsGui
             {
                 Plugins =
                 {
@@ -183,7 +183,7 @@ namespace Application.Ringtoets
             var mainWindow = new MainWindow(gui);
             gui.MainWindow = mainWindow;
 
-            RunDeltaShell();
+            RunRingtoets();
 
             mainWindow.Show();
         }
@@ -245,7 +245,7 @@ namespace Application.Ringtoets
                                           ? ConfigurationManager.AppSettings["applicationName"]
                                           : "";
 
-                var mutexName = string.Format("DeltaShell-single-instance-mutex-{0}-{1}", Environment.UserName,
+                var mutexName = string.Format("Ringtoets-single-instance-mutex-{0}-{1}", Environment.UserName,
                                               applicationName);
                 singleInstanceMutex = new Mutex(true, mutexName, out createdNew);
             }

@@ -493,7 +493,7 @@ namespace Core.Common.Gui
 
             var mainWindowTitle = gui.Application.Settings != null
                                       ? gui.Application.Settings["mainWindowTitle"]
-                                      : "DeltaShell";
+                                      : "Ringtoets";
 
             if (project == null)
             {

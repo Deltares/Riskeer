@@ -120,7 +120,7 @@
     </Compile>
     <Compile Include="Commands\MainWindowCommands.cs" />
     <Compile Include="CustomSettingsProvider.cs" />
-    <Compile Include="DeltaShellGui.cs" />
+    <Compile Include="RingtoetsGui.cs" />
     <Compile Include="ExpandableArrayConverter.cs" />
     <Compile Include="Forms\IRibbonCommandHandler.cs" />
     <Compile Include="Forms\IProjectExplorer.cs" />

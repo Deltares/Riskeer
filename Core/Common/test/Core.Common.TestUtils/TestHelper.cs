@@ -353,7 +353,7 @@ namespace Core.Common.TestUtils
 
         private static string GetSolutionRoot()
         {
-            const string solutionName = "DeltaShell.sln";
+            const string solutionName = "Ringtoets.sln";
             //get the current directory and scope up
             //TODO find a faster safer method 
             string curDir = ".";

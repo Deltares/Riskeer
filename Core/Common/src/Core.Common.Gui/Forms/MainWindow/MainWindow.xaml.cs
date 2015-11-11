@@ -84,9 +84,9 @@ namespace Core.Common.Gui.Forms.MainWindow
             log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
         }
 
-        public MainWindow(DeltaShellGui gui)
+        public MainWindow(RingtoetsGui gui)
         {
-            DeltaShellApplication.SetLanguageAndRegionalSettions(Properties.Settings.Default);
+            RingtoetsApplication.SetLanguageAndRegionalSettions(Properties.Settings.Default);
 
             Gui = gui;
 
@@ -100,7 +100,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             log.Info(Properties.Resources.MainWindow_MainWindow_Main_window_created_);
         }
 
-        public DeltaShellGui Gui { get; set; }
+        public RingtoetsGui Gui { get; set; }
 
         public bool IsWindowDisposed { get; private set; }
 

@@ -5,14 +5,14 @@ using NUnit.Framework;
 namespace Core.Common.Tests.Core
 {
     [TestFixture]
-    public class DeltaShellApplicationSettingsTest
+    public class RingtoetsApplicationSettingsTest
     {
         [Test]
         public void PropertyChangedWorksForWrappedSettings()
         {
             var settings = new TestSettings();
 
-            var wrappedSettings = new DeltaShellApplicationSettings(settings);
+            var wrappedSettings = new RingtoetsApplicationSettings(settings);
             int callCount = 0;
             wrappedSettings.PropertyChanged += (s, e) => callCount++;
             wrappedSettings["Name"] = "kees";

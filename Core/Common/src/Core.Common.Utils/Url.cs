@@ -51,20 +51,17 @@ namespace Core.Common.Utils
             return new Url(name, path);
         }
 
-        [Obsolete("Xml serialization is optional for DeltaShell and is supported for backward compatibility with the old projects of some DeltaShell plugins.")]
         public XmlSchema GetSchema()
         {
             throw new NotImplementedException();
         }
 
-        [Obsolete("Xml serialization is optional for DeltaShell and is supported for backward compatibility with the old projects of some DeltaShell plugins.")]
         public void ReadXml(XmlReader reader)
         {
             name = reader.GetAttribute("name");
             path = reader.GetAttribute("path");
         }
 
-        [Obsolete("Xml serialization is optional for DeltaShell and is supported for backward compatibility with the old projects of some DeltaShell plugins.")]
         public void WriteXml(XmlWriter writer)
         {
             throw new NotImplementedException();

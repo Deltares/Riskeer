@@ -60,8 +60,8 @@ namespace Core.GIS.SharpMap.Extensions
             {
                 // some code to handle tests: instead of adding gdal native to all test 
                 // projects (+/- 10), I decided to handle those cases here..
-                const string deltaShellTestDir = @"\test\";
-                if (gdalPath.Contains(deltaShellTestDir))
+                const string ringtoetslTestDir = @"\test\";
+                if (gdalPath.Contains(ringtoetslTestDir))
                 {
                     var indexOfTestDir = gdalPath.IndexOf(@"\test\", StringComparison.InvariantCultureIgnoreCase);
                     var root = gdalPath.Substring(0, indexOfTestDir);

@@ -5,9 +5,9 @@ using Steema.TeeChart;
 
 namespace Core.Common.Controls.Swf.Charting.Customized
 {
-    public class DeltaShellTChart : TChart
+    public class RingtoetsTChart : TChart
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(DeltaShellTChart));
+        private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsTChart));
 
         protected override void OnPaint(PaintEventArgs pe)
         {

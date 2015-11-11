@@ -27,7 +27,7 @@ namespace Core.Common.Gui
     /// </example>
     public class ViewPropertyEditor : UITypeEditor
     {
-        public static IGui Gui { get; set; } //static: injected in DeltaShellGui
+        public static IGui Gui { get; set; } //static: injected in RingtoetsGui
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {

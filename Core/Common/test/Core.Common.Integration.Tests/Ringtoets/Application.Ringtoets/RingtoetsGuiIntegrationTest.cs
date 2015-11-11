@@ -14,10 +14,10 @@ using NUnit.Framework;
 using SharpTestsEx;
 using Control = System.Windows.Controls.Control;
 
-namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
+namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 {
     [TestFixture]
-    public class DeltaShellGuiIntegrationTest
+    public class RingtoetsGuiIntegrationTest
     {
         [SetUp]
         public void SetUp()
@@ -28,7 +28,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
         [Test]
         public void DeleteProjectDataDirectoryShouldNotThrowExceptionOnNewProjectAndShouldNotHang()
         {
-            using (var gui = new DeltaShellGui())
+            using (var gui = new RingtoetsGui())
             {
                 var app = gui.Application;
 
@@ -47,7 +47,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
         {
             if (!Environment.UserInteractive)
             {
-                return; //progress dialog stuff isn't processed on non-interactive environment (see DeltaShellGui::UpdateProgressDialog)
+                return; //progress dialog stuff isn't processed on non-interactive environment (see RingtoetsGui::UpdateProgressDialog)
             }
 
             if (GuiTestHelper.IsBuildServer)
@@ -55,7 +55,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
                 return; // bleh (fails if users log in etc..)
             }
 
-            using (var gui = new DeltaShellGui())
+            using (var gui = new RingtoetsGui())
             {
                 var app = gui.Application;
 
@@ -102,7 +102,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
         [Test]
         public void ClosingEmptyProjectShouldNotGiveException()
         {
-            using (var gui = new DeltaShellGui())
+            using (var gui = new RingtoetsGui())
             {
                 gui.Run();
                 gui.CommandHandler.TryCloseWTIProject(); //should not trigger exception
@@ -112,7 +112,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
         [Test]
         public void StartGuiWithToolboxDoesNotCrash()
         {
-            using (var gui = new DeltaShellGui())
+            using (var gui = new RingtoetsGui())
             {
                 var app = gui.Application;
 
@@ -132,7 +132,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
         [Test]
         public void CreateNewProjectAfterStartWithCommonPluginsShouldBeFast()
         {
-            using (var gui = new DeltaShellGui())
+            using (var gui = new RingtoetsGui())
             {
                 var app = gui.Application;
 
@@ -153,7 +153,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
         [Test]
         public void ExitShouldBeFast()
         {
-            using (var gui = new DeltaShellGui())
+            using (var gui = new RingtoetsGui())
             {
                 var app = gui.Application;
 
@@ -183,7 +183,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
         public void GuiSelectionIsSetToProjectAfterStartWithProjectExplorer()
         {
             // initialize
-            using (var gui = new DeltaShellGui())
+            using (var gui = new RingtoetsGui())
             {
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
@@ -197,7 +197,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
         {
             //testing testhelper + visible changed event of mainwindow.
             //could be tested separately but the combination is vital to many tests. That's why this test is here.
-            using (var gui = new DeltaShellGui())
+            using (var gui = new RingtoetsGui())
             {
                 gui.Run();
                 int callCount = 0;
@@ -209,7 +209,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
         [Test]
         public void SelectingProjectNodeSetsSelectedItemToProject()
         {
-            using (var gui = new DeltaShellGui())
+            using (var gui = new RingtoetsGui())
             {
                 var app = gui.Application;
 
@@ -250,7 +250,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
 
         private static void StartWithCommonPlugins()
         {
-            using (var gui = new DeltaShellGui())
+            using (var gui = new RingtoetsGui())
             {
                 var app = gui.Application;
 

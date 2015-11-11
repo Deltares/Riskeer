@@ -80,7 +80,6 @@ namespace Core.GIS.SharpMap.Data.Providers
         private bool _CoordsysReadFromFile = false;
         private IEnvelope _Envelope;
         private int _FeatureCount;
-        private readonly bool _FileBasedIndex;
         private string path;
         private bool _IsOpen;
         private ShapeType _ShapeType;
@@ -103,34 +102,16 @@ namespace Core.GIS.SharpMap.Data.Providers
 
         private unsafe byte* zeroPtr;
 
-        public ShapeFile()
-        {
-            _FileBasedIndex = false;
-        }
-
-        /// <summary>
-        /// Initializes a ShapeFile DataProvider without a file-based spatial index.
-        /// </summary>
-        /// <param name="filename">Path to shape file</param>
-        public ShapeFile(string filename)
-            : this(filename, false) {}
-
-        /// <summary>
+       /// <summary>
         /// Initializes a ShapeFile DataProvider.
+        /// If <paramref name="FileBasedIndex"/> is true, the spatial index will be read from a local copy. If it doesn't exist, it will be generated and saved to [filename] + '.sidx'. 
+        /// Using a file-based index is especially recommended for ASP.NET applications which will speed up start-up time when the cache has been emptied.
         /// </summary>
-        /// <remarks>
-        /// <para>If FileBasedIndex is true, the spatial index will be read from a local copy. If it doesn't exist,
-        /// it will be generated and saved to [filename] + '.sidx'.</para>
-        /// <para>Using a file-based index is especially recommended for ASP.NET applications which will speed up
-        /// start-up time when the cache has been emptied.
-        /// </para>
-        /// </remarks>
         /// <param name="filename">Path to shape file</param>
-        /// <param name="fileBasedIndex">Use file-based spatial index</param>
-        public ShapeFile(string filename, bool fileBasedIndex)
+        /// <param name="fileBasedIndex">Use file-based spatial index.</param>
+        public ShapeFile(string filename)
         {
             Open(filename);
-            _FileBasedIndex = fileBasedIndex;
         }
 
         /// <summary>
@@ -344,7 +325,7 @@ namespace Core.GIS.SharpMap.Data.Providers
             }
         }
 
-        private void InitializeShape(string filename, bool FileBasedIndex)
+        private void InitializeShape(string filename)
         {
             if (!File.Exists(filename))
             {
@@ -998,18 +979,12 @@ namespace Core.GIS.SharpMap.Data.Providers
             // Get a Connector.  The connector returned is guaranteed to be connected and ready to go.
             // Pooling.Connector connector = Pooling.ConnectorPool.ConnectorPoolManager.RequestConnector(this,true);
 
-            logNoShapeFile = true;
-
             if (!_IsOpen || this.path != path)
             {
                 if (!File.Exists(path))
                 {
-                    if (logNoShapeFile)
-                    {
-                        log.Error("Could not find " + path);
-                        logNoShapeFile = false;
-                    }
-                    return;
+                    log.Error("Could not find " + path);
+                    throw new FileNotFoundException("ShapeFile could not be opened",path);
                 }
 
                 try
@@ -1042,7 +1017,7 @@ namespace Core.GIS.SharpMap.Data.Providers
 
                         zeroPtr = (byte*) shpFileMemoryMapView.ToPointer();
 
-                        InitializeShape(this.path, _FileBasedIndex);
+                        InitializeShape(this.path);
 
                         if (dbaseFile != null)
                         {

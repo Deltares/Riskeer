@@ -3,16 +3,16 @@ using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using NUnit.Framework;
 
-namespace Core.Common.Integration.Tests.DeltaShell.Common.Core
+namespace Core.Common.Integration.Tests.Ringtoets.Common.Core
 {
     [TestFixture]
-    public class DeltaShellApplicationIntegrationTest
+    public class RingtoetsApplicationIntegrationTest
     {
         [Test]
         public void RunManyActivitiesCheckForThreadingIssues()
         {
             var smallActivity = new SmallActivity();
-            using (var app = new DeltaShellApplication
+            using (var app = new RingtoetsApplication
             {
                 WaitMethod = System.Windows.Forms.Application.DoEvents
             })

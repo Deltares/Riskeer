@@ -9,13 +9,13 @@ using Rhino.Mocks;
 namespace Core.Common.Tests.Core
 {
     [TestFixture]
-    public class DeltaShellApplicationTest
+    public class RingtoetsApplicationTest
     {
         [Test]
         [ExpectedException(typeof(InvalidOperationException))]
         public void ApplicationShouldRunBeforeProjectCanBeOpened()
         {
-            using (var app = new DeltaShellApplication())
+            using (var app = new RingtoetsApplication())
             {
                 app.OpenProject(null);
             }
@@ -25,7 +25,7 @@ namespace Core.Common.Tests.Core
         [ExpectedException(typeof(InvalidOperationException))]
         public void ApplicationShouldRunBeforeProjectCanBeCreated()
         {
-            using (var app = new DeltaShellApplication())
+            using (var app = new RingtoetsApplication())
             {
                 app.OpenProject(null);
             }
@@ -35,7 +35,7 @@ namespace Core.Common.Tests.Core
         [ExpectedException(typeof(InvalidOperationException))]
         public void ApplicationRunCanBeCalledOnlyOnce()
         {
-            using (var app = new DeltaShellApplication())
+            using (var app = new RingtoetsApplication())
             {
                 app.Run();
                 app.Run();
@@ -60,12 +60,12 @@ namespace Core.Common.Tests.Core
 
             mocks.ReplayAll();
 
-            using (var deltaShellApplication = new DeltaShellApplication())
+            using (var ringtoetsApplication = new RingtoetsApplication())
             {
-                deltaShellApplication.Plugins.Add(plugin);
-                deltaShellApplication.Run();
+                ringtoetsApplication.Plugins.Add(plugin);
+                ringtoetsApplication.Run();
 
-                deltaShellApplication.Dispose();
+                ringtoetsApplication.Dispose();
 
                 mocks.VerifyAll();
             }
@@ -75,30 +75,30 @@ namespace Core.Common.Tests.Core
         public void CurrentCultureIsChangedWhenTurkishOrAzeri()
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            using (var delftShellApplication = new DeltaShellApplication())
+            using (var ringtoetsApplication = new RingtoetsApplication())
             {
-                delftShellApplication.Run();
+                ringtoetsApplication.Run();
                 Assert.AreEqual("en-US", Thread.CurrentThread.CurrentCulture.ToString());
             }
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo("nl-NL");
-            using (var delftShellApplication = new DeltaShellApplication())
+            using (var ringtoetsApplication = new RingtoetsApplication())
             {
-                delftShellApplication.Run();
+                ringtoetsApplication.Run();
                 Assert.AreEqual("nl-NL", Thread.CurrentThread.CurrentCulture.ToString());
             }
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo("tr-TR");
-            using (var delftShellApplication = new DeltaShellApplication())
+            using (var ringtoetsApplication = new RingtoetsApplication())
             {
-                delftShellApplication.Run();
+                ringtoetsApplication.Run();
                 Assert.AreEqual("en-US", Thread.CurrentThread.CurrentCulture.ToString());
             }
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo("az");
-            using (var delftShellApplication = new DeltaShellApplication())
+            using (var ringtoetsApplication = new RingtoetsApplication())
             {
-                delftShellApplication.Run();
+                ringtoetsApplication.Run();
                 Assert.AreEqual("en-US", Thread.CurrentThread.CurrentCulture.ToString());
             }
         }

@@ -13,7 +13,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
     public class RulerTool : IChartViewTool
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(RulerTool));
-        private readonly DeltaShellTChart teeChart;
+        private readonly RingtoetsTChart teeChart;
         private string toolTip;
         private Steema.TeeChart.Chart.ChartToolTip annotationToolTip;
         private Point measuringStartPoint;
@@ -29,7 +29,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
         private Cursor cursor;
         private bool selectToolOldState = true;
 
-        public RulerTool(DeltaShellTChart teeChart)
+        public RulerTool(RingtoetsTChart teeChart)
         {
             var chartView = teeChart.Parent as ChartView;
 

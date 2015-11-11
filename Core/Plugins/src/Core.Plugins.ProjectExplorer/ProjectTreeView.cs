@@ -12,7 +12,7 @@ using TreeView = Core.Common.Controls.Swf.TreeViewControls.TreeView;
 namespace Core.Plugins.ProjectExplorer
 {
     /// <summary>
-    /// TODO: extract Clipboard-related methods into DeltaShell Clipboard class
+    /// TODO: extract Clipboard-related methods into Ringtoets Clipboard class
     /// </summary>
     public partial class ProjectTreeView : UserControl, IView
     {

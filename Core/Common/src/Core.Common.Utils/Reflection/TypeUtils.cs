@@ -158,7 +158,7 @@ namespace Core.Common.Utils.Reflection
             var type = AppDomain.CurrentDomain.GetAssemblies()
                                 .Where(a => a.FullName.Contains("NHibernate"))
                                 .SelectMany(a => a.GetTypes())
-                                .First(t => t.Name == "DeltaShellProxyInterceptor");
+                                .First(t => t.Name == "RingtoetsProxyInterceptor");
 
             //static deproxy method:
             var deproxyMethod = type.GetMethod("GetRealObject", BindingFlags.NonPublic | BindingFlags.Static);

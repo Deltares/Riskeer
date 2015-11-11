@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Gui;
+using Core.Common.TestUtils;
 using Core.Common.Utils.Reflection;
 using Core.GIS.SharpMap.Data.Providers;
 using Core.GIS.SharpMap.Layers;
@@ -35,9 +36,9 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
             var map = new Map();
             mapLegendView.Map = map;
 
-            const string path = DataPath + "rivers.shp";
+            string path = TestHelper.GetDataDir() + "rivers.shp";
 
-            var shapeFile = mocks.StrictMock<ShapeFile>();
+            var shapeFile = mocks.StrictMock<ShapeFile>(path);
             shapeFile.Expect(sf => sf.GetExtents()).Return(null).Repeat.Any();
             shapeFile.Expect(sf => sf.FeaturesChanged += null).IgnoreArguments().Repeat.Once();
             shapeFile.Expect(sf => sf.FeaturesChanged -= null).IgnoreArguments().Repeat.Twice();
@@ -107,8 +108,6 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
             };
             MapLegendView.HideAllLayersButThisOne(layer1, map);
         }
-
-        private const string DataPath = @"..\..\..\..\..\test-data\DeltaShell\DeltaShell.Plugins.SharpMapGis.Tests\";
 
         private MapLegendView CreateMapLegendView()
         {

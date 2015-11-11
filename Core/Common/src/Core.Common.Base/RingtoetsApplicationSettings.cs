@@ -4,11 +4,11 @@ using System.Configuration;
 namespace Core.Common.Base
 {
     // Decoration class for settings with IsDirty flag (speed-up exit)
-    public class DeltaShellApplicationSettings : ApplicationSettingsBase
+    public class RingtoetsApplicationSettings : ApplicationSettingsBase
     {
         private readonly ApplicationSettingsBase child;
 
-        public DeltaShellApplicationSettings(ApplicationSettingsBase child)
+        public RingtoetsApplicationSettings(ApplicationSettingsBase child)
         {
             this.child = child;
         }

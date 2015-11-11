@@ -57,7 +57,7 @@ namespace Core.GIS.SharpMap.Tests.Layers
         public void LoadFromFile()
         {
             string filePath = Path.GetFullPath(TestHelper.GetDataDir() + @"\rivers.shp");
-            IFeatureProvider dataSource = new ShapeFile(filePath, false);
+            IFeatureProvider dataSource = new ShapeFile(filePath);
             VectorLayer vectorLayer = new VectorLayer("rivers", dataSource);
             Assert.AreEqual("rivers", vectorLayer.Name);
             Assert.AreEqual(dataSource, vectorLayer.DataSource);

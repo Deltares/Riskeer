@@ -14,7 +14,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
-namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
+namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
 {
     [TestFixture]
     public class GuiImportHandlerTest
@@ -34,7 +34,7 @@ namespace Core.Common.Integration.Tests.DeltaShell.Application.Ringtoets
 
             gui = mocks.Stub<IGui>();
 
-            realApp = new DeltaShellApplication();
+            realApp = new RingtoetsApplication();
             realApp.Plugins.Add(commonToolsPlugin);
             realApp.Plugins.Add(new SharpMapGisApplicationPlugin());
             realApp.Run();

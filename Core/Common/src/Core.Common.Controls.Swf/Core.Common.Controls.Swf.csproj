@@ -121,7 +121,7 @@
     <Compile Include="Charting\ChartCoordinateService.cs" />
     <Compile Include="Charting\ChartGraphics.cs" />
     <Compile Include="Charting\ChartLegend.cs" />
-    <Compile Include="Charting\Customized\DeltaShellTChart.cs">
+    <Compile Include="Charting\Customized\RingtoetsTChart.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Charting\IChartViewContextMenuTool.cs" />
@@ -427,8 +427,6 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Charting\UML\ChartTools.cd" />
-    <None Include="Charting\UML\Chart.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

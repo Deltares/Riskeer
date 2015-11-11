@@ -23,7 +23,7 @@ namespace Core.Common.Controls.Swf.Charting
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.teeChart = new DeltaShellTChart();
+            this.teeChart = new RingtoetsTChart();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
@@ -63,7 +63,7 @@ namespace Core.Common.Controls.Swf.Charting
         }
         #endregion
 
-        private DeltaShellTChart teeChart;
+        private RingtoetsTChart teeChart;
         private System.Windows.Forms.Timer timer1;
     }
 }

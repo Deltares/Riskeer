@@ -26,18 +26,15 @@ namespace Core.Common.TestUtils
             }
         }
 
-        public static class DeltaShell
-        {
-            public static readonly TestDataPath DeltaShellDeltaShellPluginsSharpMapGisTests =
-                @"Core/Plugins/test/Core.Plugins.SharpMapGis.Tests/";
-        }
-
         public static class Ringtoets
         {
             public static class Piping
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Piping", "test", "Ringtoets.Piping.IO.Test");
             }
+
+            public static readonly TestDataPath CorePluginsSharpMapGisTests =
+                @"Core/Plugins/test/Core.Plugins.SharpMapGis.Tests/";
         }
     }
 }

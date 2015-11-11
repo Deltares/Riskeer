@@ -24,7 +24,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
         private const double clippingTolerance = 1e-4;
         private static readonly ILog log = LogManager.GetLogger(typeof(EditPointTool));
         private readonly ToolTip toolTip;
-        private readonly DeltaShellTChart tChart;
+        private readonly RingtoetsTChart tChart;
         private DragStyle style = DragStyle.Both;
         private bool pointHasMoved;
         private Color selectedPointerColor = Color.LimeGreen;
@@ -60,7 +60,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
         /// Constructor for schowing a toolTip displaying the coordinates in drga mode.
         /// </summary>
         /// <param name="c"></param>
-        public EditPointTool(DeltaShellTChart c)
+        public EditPointTool(RingtoetsTChart c)
             : base(c.Chart)
         {
             tChart = c;

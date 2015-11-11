@@ -21,7 +21,7 @@ namespace Core.Plugins.SharpMapGis.Tests
         [Test]
         public void SelectMultipleFeaturesUpdatesAllMaps()
         {
-            using (var gui = new DeltaShellGui())
+            using (var gui = new RingtoetsGui())
             {
                 gui.Application.Plugins.Add(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new SharpMapGisGuiPlugin());
@@ -85,7 +85,7 @@ namespace Core.Plugins.SharpMapGis.Tests
         [Test]
         public void SetMapSelectionDoesNotSetItAgain()
         {
-            using (var gui = new DeltaShellGui())
+            using (var gui = new RingtoetsGui())
             {
                 gui.Application.Plugins.Add(new SharpMapGisApplicationPlugin());
                 gui.Plugins.Add(new SharpMapGisGuiPlugin());

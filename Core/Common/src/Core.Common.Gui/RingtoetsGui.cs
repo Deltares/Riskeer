@@ -33,12 +33,12 @@ namespace Core.Common.Gui
     /// <summary>
     /// Gui class provides graphical user functionality for a given IApplication.
     /// </summary>
-    public class DeltaShellGui : IGui, IDisposable
+    public class RingtoetsGui : IGui, IDisposable
     {
         public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; // TODO: make it weak
-        private static readonly ILog log = LogManager.GetLogger(typeof(DeltaShellGui));
+        private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsGui));
 
-        private static DeltaShellGui instance;
+        private static RingtoetsGui instance;
         private static string instanceCreationStackTrace;
 
         private IApplication application;
@@ -59,9 +59,9 @@ namespace Core.Common.Gui
         private bool runFinished;
         private bool isExiting;
 
-        public DeltaShellGui()
+        public RingtoetsGui()
         {
-            // error detection code, make sure we use only a single instance of DeltaShellGui at a time
+            // error detection code, make sure we use only a single instance of RingtoetsGui at a time
             if (instance != null)
             {
                 instance = null; // reset to that the consequent creations won't fail.
@@ -72,7 +72,7 @@ namespace Core.Common.Gui
             instanceCreationStackTrace = new StackTrace().ToString();
             ViewPropertyEditor.Gui = this;
 
-            Application = new DeltaShellApplication
+            Application = new RingtoetsApplication
             {
                 IsProjectCreatedInTemporaryDirectory = true,
                 WaitMethod = () => System.Windows.Forms.Application.DoEvents()
@@ -1023,7 +1023,7 @@ namespace Core.Common.Gui
             Application.UserSettings["defaultViewDataTypes"] = defaultViewDataTypes;
         }
 
-        ~DeltaShellGui()
+        ~RingtoetsGui()
         {
             Dispose(false);
         }

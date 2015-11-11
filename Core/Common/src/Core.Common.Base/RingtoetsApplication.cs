@@ -20,7 +20,7 @@ using log4net;
 
 namespace Core.Common.Base
 {
-    public class DeltaShellApplication : IApplication
+    public class RingtoetsApplication : IApplication
     {
         public event Action AfterRun;
 
@@ -32,14 +32,14 @@ namespace Core.Common.Base
         public event Action<Project> ProjectSaveFailed;
         public event Action<Project> ProjectSaved;
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(DeltaShellApplication));
+        private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsApplication));
         private readonly IList<IFileImporter> fileImporters = new List<IFileImporter>();
         private readonly IList<IFileExporter> fileExporters = new List<IFileExporter>();
 
         public Action WaitMethod;
 
         private Project project;
-        private DeltaShellApplicationSettings userSettings;
+        private RingtoetsApplicationSettings userSettings;
 
         private bool isRunning;
 
@@ -50,7 +50,7 @@ namespace Core.Common.Base
 
         private bool disposed;
 
-        public DeltaShellApplication()
+        public RingtoetsApplication()
         {
             Settings = ConfigurationManager.AppSettings;
             UserSettings = Properties.Settings.Default;
@@ -118,7 +118,7 @@ namespace Core.Common.Base
             }
             set
             {
-                userSettings = new DeltaShellApplicationSettings(value); // small hack, wrap settings so that we will know when they are changed.
+                userSettings = new RingtoetsApplicationSettings(value); // small hack, wrap settings so that we will know when they are changed.
             }
         }
 
@@ -376,9 +376,9 @@ namespace Core.Common.Base
         /// </summary>
         protected static void InitializeLogging()
         {
-            if (!Trace.Listeners.Cast<TraceListener>().Any(tl => tl is DeltaShellTraceListener))
+            if (!Trace.Listeners.Cast<TraceListener>().Any(tl => tl is RingtoetsTraceListener))
             {
-                Trace.Listeners.Add(new DeltaShellTraceListener());
+                Trace.Listeners.Add(new RingtoetsTraceListener());
             }
         }
 
@@ -521,19 +521,19 @@ namespace Core.Common.Base
             disposed = true;
         }
 
-        ~DeltaShellApplication()
+        ~RingtoetsApplication()
         {
             Dispose(false);
         }
 
-        #region Nested type: DeltaShellTraceListener
+        #region Nested type: RingtoetsTraceListener
 
-        internal class DeltaShellTraceListener : TraceListener
+        internal class RingtoetsTraceListener : TraceListener
         {
             private static ILog log;
             private static bool logTraceMessages = true;
 
-            public DeltaShellTraceListener()
+            public RingtoetsTraceListener()
             {
                 log = LogManager.GetLogger(GetType());
             }

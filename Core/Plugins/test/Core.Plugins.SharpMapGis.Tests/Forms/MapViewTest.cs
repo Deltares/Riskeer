@@ -56,11 +56,11 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
         {
             Map map = new Map(new Size(2, 1));
 
-            string rivers = DataPath + "rivers.shp";
-            string cities = DataPath + "cities_europe.shp";
+            var rivers = Path.GetFullPath(TestHelper.GetDataDir() + "rivers.shp");
+            var cities = Path.GetFullPath(TestHelper.GetDataDir() + "cities_europe.shp");
 
-            ShapeFile shapeFileRivers = new ShapeFile(rivers, false);
-            ShapeFile shapeFileCities = new ShapeFile(cities, false);
+            ShapeFile shapeFileRivers = new ShapeFile(rivers);
+            ShapeFile shapeFileCities = new ShapeFile(cities);
 
             VectorLayer vlRivers = new VectorLayer(Path.GetFileNameWithoutExtension(rivers), shapeFileRivers);
             VectorLayer vlCities = new VectorLayer(Path.GetFileNameWithoutExtension(cities), shapeFileCities);
@@ -84,14 +84,14 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
         [Test]
         [TestCase(@"osm\europe_western_europe_netherlands_location.shp", ShapeType.Point)]
         [TestCase(@"osm\europe_western_europe_netherlands_water.shp", ShapeType.Polygon)]
-        [TestCase(@"osm\europe_western_europe_netherlands_highway.shp", ShapeType.PolyLine)]
+        [TestCase(@"osm\europe_western_europe_netherlands_coastline.shp", ShapeType.PolyLine)]
         public void RenderLargeShapefile(string filePath, ShapeType type)
         {
             LogHelper.ConfigureLogging(Level.Debug);
 
-            var path = DataPath + filePath;
+            var path = Path.GetFullPath(TestHelper.GetDataDir() + filePath);
 
-            ShapeFile shp;
+            ShapeFile shp = new ShapeFile(path);
             Map.CoordinateSystemFactory = new OgrCoordinateSystemFactory();
 
             var layer = new VectorLayer
@@ -105,7 +105,7 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
 
             var mapView = new MapView();
 
-            using (var gui = new DeltaShellGui
+            using (var gui = new RingtoetsGui
             {
                 Plugins =
                 {
@@ -123,7 +123,7 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
                 {
                     TestHelper.AssertIsFasterThan(40000, () =>
                     {
-                        shp = new ShapeFile(path, true);
+                        
                         //layer.SimplifyGeometryDuringRendering = false;
                         layer.DataSource = shp;
 
@@ -166,7 +166,9 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
         [Test]
         public void OpenMapViewWithVectorLayerAttributeTable()
         {
-            var shapefile = new ShapeFile(DataPath + "rivers.shp");
+            var rivers = Path.GetFullPath(TestHelper.GetDataDir() + "rivers.shp");
+
+            var shapefile = new ShapeFile(rivers);
             var layer = new VectorLayer
             {
                 DataSource = shapefile
@@ -195,7 +197,7 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
         [Test]
         public void CloseLastTabCollapsesSplitter()
         {
-            var shapefile = new ShapeFile(DataPath + "rivers.shp");
+            var shapefile = new ShapeFile(TestHelper.GetDataDir() + "rivers.shp");
             var layer = new VectorLayer
             {
                 DataSource = shapefile
@@ -263,8 +265,6 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
 
             mocks.VerifyAll();
         }
-
-        private const string DataPath = @"..\..\..\..\..\test-data\DeltaShell\DeltaShell.Plugins.SharpMapGis.Tests\";
 
         [TestFixtureSetUp]
         public void TestFixtureSetUp()

@@ -22,7 +22,7 @@ namespace Core.Plugins.SharpMapGis
                 case ".shp":
                     //todo: optimize ogr featureprovider and replace shapefile by ogr provider
                     //var shapeFile = new OgrFeatureProvider(path, Path.GetFileNameWithoutExtension(path));
-                    var shapeFile = new ShapeFile(path, false);
+                    var shapeFile = new ShapeFile(path);
                     var shapeFileLayer = SharpMapLayerFactory.CreateLayer(shapeFile);
                     shapeFileLayer.Name = fileName;
                     yield return shapeFileLayer;

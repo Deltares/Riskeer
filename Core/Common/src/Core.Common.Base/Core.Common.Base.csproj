@@ -89,9 +89,9 @@
     </Compile>
     <Compile Include="ApplicationPlugin.cs" />
     <Compile Include="DataItemInfo.cs" />
-    <Compile Include="DeltaShellApplication.cs" />
-    <Compile Include="DeltaShellApplicationSettings.cs" />
-    <Compile Include="DeltaShellUserDataFolderConverter.cs" />
+    <Compile Include="RingtoetsApplication.cs" />
+    <Compile Include="RingtoetsApplicationSettings.cs" />
+    <Compile Include="RingtoetsUserDataFolderConverter.cs" />
     <Compile Include="IApplication.cs" />
     <Compile Include="IFileExporter.cs" />
     <Compile Include="IFileImporter.cs" />
@@ -122,9 +122,6 @@
     <Compile Include="Workflow\FileImportActivity.cs" />
     <Compile Include="Workflow\IActivity.cs" />
     <Compile Include="Workflow\IActivityRunner.cs" />
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

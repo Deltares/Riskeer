@@ -346,7 +346,7 @@ namespace Core.Common.Controls.Swf.Charting
 
         private void OnBeforeDrawAxes(object sender, Graphics3D e)
         {
-            var senderChart = sender as DeltaShellTChart;
+            var senderChart = sender as RingtoetsTChart;
 
             if (senderChart == null)
             {

@@ -11,7 +11,7 @@ namespace Core.Common.Base
     /// <summary>
     /// PatternConverter for 'Special' Folder 
     /// </summary>
-    public class DeltaShellUserDataFolderConverter : PatternConverter // NOTE: Class might be marked as unused, but it's actually created in DeltaShell.Core/app.config!
+    public class RingtoetsUserDataFolderConverter : PatternConverter // NOTE: Class might be marked as unused, but it's actually created in Application.Ringtoets/app.config!
     {
         protected override void Convert(TextWriter writer, object state)
         {
@@ -48,7 +48,7 @@ namespace Core.Common.Base
  * <file type="log4net.Util.PatternString">
         <converter>
           <name value="dsuserdata" />
-          <type value="DeltaShell.Core.DeltaShellUserDataFolderConverter,DeltaShell.Core" />
+          <type value="Core.Common.Base.RingtoetsUserDataFolderConverter,Ringtoets.Core" />
         </converter>
         <conversionPattern value="%dsuserdata\log-file.txt" />
       </file>

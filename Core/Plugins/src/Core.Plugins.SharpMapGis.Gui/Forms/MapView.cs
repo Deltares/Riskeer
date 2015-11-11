@@ -55,7 +55,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             // hide for now
             IsTabControlVisible = false;
 
-            // add some tools here, to avoid references to DeltaShell projects in SharpMap
+            // add some tools here, to avoid references to Ringtoets projects in SharpMap
             MapControl.Tools.Add(new ExportMapToImageMapTool());
             Map = new Map(MapControl.ClientSize)
             {

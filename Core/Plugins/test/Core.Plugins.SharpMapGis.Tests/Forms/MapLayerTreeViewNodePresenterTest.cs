@@ -189,7 +189,7 @@ namespace Core.Plugins.SharpMapGis.Tests.Forms
         private static VectorLayer GetRiverLayer()
         {
             var path = TestHelper.GetDataDir() + @"\rivers.shp";
-            var shapeFile = new ShapeFile(path, false);
+            var shapeFile = new ShapeFile(path);
 
             return new VectorLayer(Path.GetFileName(path), shapeFile);
         }
