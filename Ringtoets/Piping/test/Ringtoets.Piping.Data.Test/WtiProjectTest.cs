@@ -1,9 +1,6 @@
 ﻿using Core.Common.Base;
-using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
-
-using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -17,7 +14,6 @@ namespace Ringtoets.Piping.Data.Test
             var project = new WtiProject();
 
             // Assert
-            Assert.IsInstanceOf<INameable>(project);
             Assert.IsInstanceOf<IObservable>(project);
             Assert.AreEqual("WTI project", project.Name);
         }
@@ -33,7 +29,6 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.IsNotNull(project.PipingFailureMechanism);
-
         }
 
         [Test]

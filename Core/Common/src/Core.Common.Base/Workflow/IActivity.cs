@@ -1,5 +1,7 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 using Core.Common.Utils.Collections.Generic;
+using PostSharp.Aspects.Advices;
 
 namespace Core.Common.Base.Workflow
 {
@@ -13,6 +15,8 @@ namespace Core.Common.Base.Workflow
     /// </example>
     public interface IActivity : IProjectItem /* TODO: wrap it with the ProjectItem instead */
     {
+        string Name { get; set; }
+
         /// <summary>
         /// Event to be fired when we want to publish changes in <see cref="ProgressText"/>.
         /// </summary>

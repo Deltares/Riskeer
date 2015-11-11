@@ -211,8 +211,7 @@ namespace Core.Common.Gui.Swf.Validation
         {
             foreach (var issue in issues)
             {
-                var nameable = (issue.Subject as INameable);
-                var name = nameable != null ? nameable.Name + ": " : "";
+                var name = issue.Subject.GetType().Name; // todo: does every subject a name?
                 var node = CreateIssueNode(name + issue.Message, issue);
                 nodeCollection.Add(node);
             }

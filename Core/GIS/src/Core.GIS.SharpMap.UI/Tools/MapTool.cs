@@ -510,7 +510,7 @@ namespace Core.GIS.SharpMap.UI.Tools
 
         private static string GetFeatureName(IFeature feature, ILayer layer)
         {
-            var featureName = feature is INameable ? ((INameable) feature).Name : feature.ToString();
+            var featureName = feature.Name;
             var layerName = layer == null ? "-" : layer.Name;
             return string.Format("{0} ({1})", featureName, layerName);
         }

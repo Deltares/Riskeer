@@ -5,6 +5,8 @@ namespace Core.GIS.NetTopologySuite.Extensions.Features
 {
     public class Feature : IFeature
     {
+        public string Name { get; set; }
+
         /// <summary>
         /// When changing the geometry of a feature make sure to call GeometryChangedAction
         /// </summary>

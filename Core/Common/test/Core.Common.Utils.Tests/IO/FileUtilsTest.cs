@@ -139,65 +139,7 @@ namespace Core.Common.Utils.Tests.IO
                 Debug.WriteLine(e);
             }
         }
-
-        [Test]
-        public void GetUniqueFileNameWithPathReturnsCorrectFilePath()
-        {
-            const string someFileName = "somefile.nc";
-
-            using (File.Create(someFileName)) {}
-
-            var path = Path.GetFullPath(someFileName).Replace(someFileName, "");
-
-            string newName = FileUtils.GetUniqueFileNameWithPath(Path.Combine(path, someFileName));
-            Assert.AreEqual(Path.Combine(path, "somefile (1).nc"), newName);
-
-            File.Delete(someFileName);
-        }
-
-        [Test]
-        public void GetUniqueFileNameReturnsTheSameNameWhenNoFileIsFound()
-        {
-            const string someFileName = "somefile.nc";
-            Assert.AreEqual(someFileName, FileUtils.GetUniqueFileName(someFileName));
-        }
-
-        [Test]
-        public void GetUniqueFileNameReturnsNewNameBasedOnFilesFound()
-        {
-            const string someFileName = "somefile.nc";
-
-            using (File.Create(someFileName)) {}
-
-            string newName = FileUtils.GetUniqueFileName(someFileName);
-            Assert.AreEqual("somefile (1).nc", newName);
-
-            File.Delete(someFileName);
-        }
-
-        [Test]
-        public void GetUniqueFileNameReturnsNewNameBasedOnMultipleFilesFound()
-        {
-            const string someFileName0 = "somefile.nc";
-            using (File.Create(someFileName0)) {}
-
-            const string someFileName1 = "somefile (1).nc";
-            using (File.Create(someFileName1)) {}
-
-            string newName = FileUtils.GetUniqueFileName(someFileName0);
-            Assert.AreEqual("somefile (2).nc", newName);
-
-            File.Delete(someFileName0);
-            File.Delete(someFileName1);
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void GetUniqueFileNameThrowsArgumentNullExceptionOnNullArgument()
-        {
-            FileUtils.GetUniqueFileName(null);
-        }
-
+        
         [Test]
         public void DeleteFileIfItExists()
         {

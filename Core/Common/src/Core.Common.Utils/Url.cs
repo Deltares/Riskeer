@@ -10,7 +10,7 @@ namespace Core.Common.Utils
     /// Web link, url.
     /// </summary>
     [Entity(FireOnCollectionChange = false)]
-    public class Url : ICloneable, INameable, IXmlSerializable
+    public class Url : ICloneable, IXmlSerializable
     {
         private string path;
 

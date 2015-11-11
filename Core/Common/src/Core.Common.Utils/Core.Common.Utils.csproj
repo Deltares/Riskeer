@@ -172,12 +172,10 @@
     <Compile Include="EnumDescriptionAttributeTypeConverter.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="IDeepCloneable.cs" />
-    <Compile Include="INameable.cs" />
     <Compile Include="Interop\NativeLibrary.cs" />
     <Compile Include="IO\FileWatcher.cs" />
     <Compile Include="IO\ZipFileUtils.cs" />
     <Compile Include="MathUtils.cs" />
-    <Compile Include="NamingHelper.cs" />
     <Compile Include="PropertyBag\PropertyBag.cs" />
     <Compile Include="PropertyOrderAttribute.cs" />
     <Compile Include="PropertyBag\PropertySpec.cs" />

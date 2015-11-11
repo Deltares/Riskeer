@@ -236,7 +236,7 @@ namespace Core.GIS.SharpMap.UI.Tools
             if (MouseMoved(worldPosition, mouseDownLocation) && MapControl.SelectTool.SelectedFeatureInteractors.Count > 0)
             {
                 var interactor = trackerFeature.FeatureInteractor;
-                DoEditAction(interactor.EditableObject, interactor.SourceFeature as INameable, () => interactor.Stop(snapResult));
+                DoEditAction(interactor.EditableObject, interactor.SourceFeature, () => interactor.Stop(snapResult));
 
                 Map.GetLayerByFeature(interactor.SourceFeature).RenderRequired = true;
             }
@@ -355,11 +355,11 @@ namespace Core.GIS.SharpMap.UI.Tools
             return !selectTool.KeyToggleSelection && !selectTool.KeyExtendSelection && trackerAlreadySelected;
         }
 
-        private static void DoEditAction(IEditableObject editableObject, INameable nameable, Action editAction)
+        private static void DoEditAction(IEditableObject editableObject, IFeature sourceFeature, Action editAction)
         {
             if (editableObject != null)
             {
-                editableObject.BeginEdit(string.Format("Move feature {0}", nameable != null ? nameable.Name : ""));
+                editableObject.BeginEdit(string.Format("Move feature {0}", sourceFeature.Name));
             }
 
             editAction();

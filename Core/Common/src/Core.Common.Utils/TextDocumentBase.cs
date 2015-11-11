@@ -3,7 +3,7 @@
 namespace Core.Common.Utils
 {
     [Entity(FireOnCollectionChange = false)]
-    public abstract class TextDocumentBase : INameable
+    public abstract class TextDocumentBase
     {
         private readonly bool readOnly;
 

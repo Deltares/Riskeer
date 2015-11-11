@@ -29,6 +29,7 @@ namespace Core.GIS.SharpMapTestUtils.TestClasses
 
         #region IFeature members
 
+        public string Name { get; set; }
         public IGeometry Geometry { get; set; }
 
         public IFeatureAttributeCollection Attributes { get; set; }

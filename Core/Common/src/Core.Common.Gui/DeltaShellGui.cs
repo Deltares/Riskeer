@@ -33,12 +33,12 @@ namespace Core.Common.Gui
     /// <summary>
     /// Gui class provides graphical user functionality for a given IApplication.
     /// </summary>
-    public class RingtoetsGui : IGui, IDisposable
+    public class DeltaShellGui : IGui, IDisposable
     {
         public event EventHandler<SelectedItemChangedEventArgs> SelectionChanged; // TODO: make it weak
-        private static readonly ILog log = LogManager.GetLogger(typeof(RingtoetsGui));
+        private static readonly ILog log = LogManager.GetLogger(typeof(DeltaShellGui));
 
-        private static RingtoetsGui instance;
+        private static DeltaShellGui instance;
         private static string instanceCreationStackTrace;
 
         private IApplication application;
@@ -59,9 +59,9 @@ namespace Core.Common.Gui
         private bool runFinished;
         private bool isExiting;
 
-        public RingtoetsGui()
+        public DeltaShellGui()
         {
-            // error detection code, make sure we use only a single instance of RingtoetsGui at a time
+            // error detection code, make sure we use only a single instance of DeltaShellGui at a time
             if (instance != null)
             {
                 instance = null; // reset to that the consequent creations won't fail.
@@ -72,7 +72,7 @@ namespace Core.Common.Gui
             instanceCreationStackTrace = new StackTrace().ToString();
             ViewPropertyEditor.Gui = this;
 
-            Application = new RingtoetsApplication
+            Application = new DeltaShellApplication
             {
                 IsProjectCreatedInTemporaryDirectory = true,
                 WaitMethod = () => System.Windows.Forms.Application.DoEvents()
@@ -908,7 +908,7 @@ namespace Core.Common.Gui
 
             var enumerable = view.Data as IEnumerable;
             var data = enumerable == null ? view.Data : enumerable.Cast<object>().FirstOrDefault();
-
+            
             return view.Data == null ? "" : view.Data.ToString();
         }
 
@@ -1022,7 +1022,7 @@ namespace Core.Common.Gui
             Application.UserSettings["defaultViewDataTypes"] = defaultViewDataTypes;
         }
 
-        ~RingtoetsGui()
+        ~DeltaShellGui()
         {
             Dispose(false);
         }

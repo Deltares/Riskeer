@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.GIS.GeoAPI.CoordinateSystems.Transformations;
 using Core.GIS.GeoAPI.Extensions.Feature;
@@ -69,19 +68,14 @@ namespace Core.GIS.SharpMap.UI.Tools
         public event EventHandler SelectionChanged;
         public static int MaxSelectedFeatures = 5000;
         private static readonly ILog log = LogManager.GetLogger(typeof(SelectTool));
-
         private static readonly IDictionary<Bitmap, VectorStyle> stylesCache = new Dictionary<Bitmap, VectorStyle>();
         private readonly Collection<LocalCoordinateSystemTrackerFeature> trackers = new Collection<LocalCoordinateSystemTrackerFeature>();
         private readonly List<PointF> selectPoints = new List<PointF>();
-
         private readonly VectorLayer trackingLayer;
-
         private DateTime orgClickTime;
-
         private ICoordinate mouseDownLocation; // TODO: remove me
         private ICoordinate orgMouseDownLocation;
         private ICoordinate WORLDPOSITION;
-
         private bool isMultiSelect;
 
         public SelectTool()
@@ -319,7 +313,7 @@ namespace Core.GIS.SharpMap.UI.Tools
                     {
                         var message = string.Format("The feature '{1}' you want to select is NOT in the layer '{0}'",
                                                     foundLayer.Name,
-                                                    feature is INameable ? ((INameable) feature).Name : feature.ToString());
+                                                    feature.Name);
                         warningMessages.Add(message);
                     }
                 }

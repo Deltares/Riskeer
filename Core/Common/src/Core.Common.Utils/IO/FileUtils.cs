@@ -448,65 +448,6 @@ namespace Core.Common.Utils.IO
             }
         }
 
-        public static string GetUniqueFileNameWithPath(string existingFileName)
-        {
-            var newFileName = GetUniqueFileName(existingFileName);
-            return Path.Combine(Path.GetDirectoryName(existingFileName), newFileName);
-        }
-
-        public static string MakeDirectoryNameUnique(string directory)
-        {
-            if (!Directory.Exists(directory))
-            {
-                return directory;
-            }
-
-            var parentDirectory = Directory.GetParent(directory);
-            var directoryName = Path.GetFileName(directory);
-
-            var uniqueFolderName = NamingHelper.GenerateUniqueNameFromList(directoryName + "{0}", true, parentDirectory.GetDirectories().Select(d => d.Name));
-            return Path.Combine(parentDirectory.FullName, uniqueFolderName);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="existingFileName">The name of the file wich may include the path</param>
-        /// <returns></returns>
-        public static string GetUniqueFileName(string existingFileName)
-        {
-            if (existingFileName == null)
-            {
-                throw new ArgumentNullException("existingFileName");
-            }
-
-            var directory = Path.GetDirectoryName(existingFileName).Replace(Path.GetFileName(existingFileName), "");
-            directory = string.IsNullOrEmpty(directory) ? "." : directory;
-
-            // Declare a function to strip a file name which leaves out the extension
-            Func<string, string> getFileNameWithoutExtension = Path.GetFileNameWithoutExtension;
-
-            var searchString = string.Format("{0}*.*", getFileNameWithoutExtension(existingFileName));
-
-            // get all items with the same name
-            var items = Directory.GetFiles(directory, searchString);
-
-            // make a list of INameable items where the Name property will get the name of the file
-            var namedItems =
-                items.Select(f => new FileName
-                {
-                    Name = getFileNameWithoutExtension(f)
-                });
-
-            var newName = getFileNameWithoutExtension(existingFileName);
-            if (namedItems.Any())
-            {
-                newName = NamingHelper.GetUniqueName(string.Format("{0} ({{0}})", newName), namedItems, typeof(INameable));
-            }
-
-            return newName + Path.GetExtension(existingFileName);
-        }
-
         public static IList<string> GetDirectoriesRelative(string path)
         {
             var q = from subdir in Directory.GetDirectories(path)
@@ -623,7 +564,7 @@ namespace Core.Common.Utils.IO
             return info1.FullName == info2.FullName;
         }
 
-        private class FileName : INameable
+        private class FileName 
         {
             public string Name { get; set; }
         }

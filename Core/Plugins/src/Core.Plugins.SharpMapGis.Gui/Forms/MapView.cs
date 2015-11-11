@@ -424,7 +424,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
                     yield break;
                 }
 
-                var matchingItems = layer.DataSource.Features.OfType<INameable>().
+                var matchingItems = layer.DataSource.Features.OfType<IFeature>().
                                           Where(n => n.Name != null &&
                                                      (caseSensitive
                                                           ? n.Name.Contains(text)

@@ -7,7 +7,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// Container for all the data that has been imported and calculated by the user when performing an assessment.
     /// </summary>
-    public class WtiProject : INameable, IObservable
+    public class WtiProject : IObservable
     {
         private readonly IList<IObserver> observers = new List<IObserver>();
 

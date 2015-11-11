@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using Core.Common.Utils;
 using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.GeoAPI.Extensions.Feature;
@@ -12,7 +11,7 @@ using Core.GIS.SharpMap.Api.Layers;
 
 namespace Core.GIS.SharpMap.Api
 {
-    public interface IMap : INameable, ICloneable
+    public interface IMap : ICloneable
     {
         /// <summary>
         /// Event fired when the zoomlevel or the center point has been changed
@@ -131,7 +130,6 @@ namespace Core.GIS.SharpMap.Api
         /// </summary>
         double MaximumZoom { get; set; }
 
-        string Name { get; set; }
         bool HasDefaultEnvelopeSet { get; }
 
         bool IsDisposing { get; }

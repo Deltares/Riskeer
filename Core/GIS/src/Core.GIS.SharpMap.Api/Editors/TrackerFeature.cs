@@ -83,6 +83,8 @@ namespace Core.GIS.SharpMap.Api.Editors
 
         #region IFeature Members
 
+        public string Name { get; set; }
+
         public virtual IGeometry Geometry
         {
             get

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Utils;
 using Core.Common.Utils.Collections.Generic;
 
 namespace Core.Common.Controls.Swf.Charting
 {
-    public interface IChart : INameable
+    public interface IChart 
     {
         /// <summary>
         /// Color to use as background color for the chart

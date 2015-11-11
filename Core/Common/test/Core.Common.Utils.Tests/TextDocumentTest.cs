@@ -14,7 +14,6 @@ namespace Core.Common.Utils.Tests
             var doc = new TextDocument();
 
             // assert
-            Assert.IsInstanceOf<INameable>(doc);
             Assert.IsInstanceOf<ICloneable>(doc);
             Assert.IsInstanceOf<INotifyPropertyChanged>(doc);
             Assert.IsFalse(doc.ReadOnly);
@@ -31,7 +30,6 @@ namespace Core.Common.Utils.Tests
             var doc = new TextDocument(isReadOnly);
 
             // assert
-            Assert.IsInstanceOf<INameable>(doc);
             Assert.IsInstanceOf<ICloneable>(doc);
             Assert.IsInstanceOf<INotifyPropertyChanged>(doc);
             Assert.AreEqual(isReadOnly, doc.ReadOnly);

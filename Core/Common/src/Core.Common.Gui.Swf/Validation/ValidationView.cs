@@ -68,7 +68,7 @@ namespace Core.Common.Gui.Swf.Validation
                 return;
             }
 
-            var dataName = (data is INameable) ? ((INameable) data).Name : data.ToString();
+            var dataName = data.ToString();
             Text = dataName + " Validation Report";
         }
 

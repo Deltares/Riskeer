@@ -31,12 +31,12 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         /// <exception cref="InvalidOperationException">This method should be overridden for <paramref name="data"/> that do not inherit from <see cref="INameable"/>.</exception>
         public virtual void OnNodeRenamed(T data, string newName)
         {
-            if (data is INameable)
+            var nameProperty = data.GetType().GetMember("Name");
+            if (nameProperty.Any())
             {
-                var nameable = (INameable) data;
-                if (nameable.Name != newName)
+                if (nameProperty.GetValue(0) != newName)
                 {
-                    nameable.Name = newName;
+                    nameProperty.SetValue(newName, 0);
                 }
             }
             else

@@ -159,10 +159,7 @@ namespace Core.GIS.SharpMap.UI.Tools
 
                     if (featureInteractor.EditableObject != null)
                     {
-                        var featureName = featureInteractor.SourceFeature is INameable
-                                              ? ((INameable) featureInteractor.SourceFeature).Name
-                                              : "";
-
+                        var featureName = featureInteractor.SourceFeature.Name;
                         featureInteractor.EditableObject.BeginEdit(string.Format(ActionName + " {0}", featureName));
                     }
 

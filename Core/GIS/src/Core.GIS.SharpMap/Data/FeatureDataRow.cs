@@ -18,6 +18,8 @@ namespace Core.GIS.SharpMap.Data
 
         internal FeatureDataRow(DataRowBuilder rb) : base(rb) {}
 
+        public string Name { get; set; }
+
         /// <summary>
         /// The geometry of the current feature
         /// </summary>
