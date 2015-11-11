@@ -29,7 +29,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
                 try
                 {
                     activeView.Map.CoordinateSystem = selectCoordinateSystemDialog.SelectedCoordinateSystem;
-
+                    activeView.Map.NotifyObservers();
                     activeView.Map.ZoomToExtents();
                 }
                 catch (CoordinateTransformException e)
