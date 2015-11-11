@@ -138,4 +138,10 @@
   <data name="LognormalDistribution_Mean_must_be_greater_equal_to_zero" xml:space="preserve">
     <value>Gemiddelde moet groter zijn dan 0.</value>
   </data>
+  <data name="Math2D_LineIntersectionWithLine_Line_points_are_equal" xml:space="preserve">
+    <value>Punten voor een lijn moeten uit elkaar liggen om een lijn te kunnen vormen.</value>
+  </data>
+  <data name="RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l" xml:space="preserve">
+    <value>Kan geen hoogte bepalen op het punt L={0}, omdate de dwarsdoorsnede verticaal loopt op dat punt.</value>
+  </data>
 </root>

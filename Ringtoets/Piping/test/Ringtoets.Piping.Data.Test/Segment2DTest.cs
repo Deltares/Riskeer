@@ -84,6 +84,37 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        [TestCase(1e-9, false)]
+        [TestCase(1e-8 + 1e-10, true)]
+        [TestCase(1e-8 - 1e-10, false)]
+        [TestCase(1e-7, true)]
+        [TestCase(1, true)]
+        public void IsVertical_DifferencesInY_ReturnsExpectedValue(double difference, bool isVertical)
+        {
+            // Setup
+            var random = new Random(22);
+            var x = random.NextDouble();
+            var y = random.NextDouble();
+            var firstPoint = new Point2D
+            {
+                X = x,
+                Y = y
+            };
+            var secondPoint = new Point2D
+            {
+                X = x,
+                Y = y+difference
+            };
+            var segment = new Segment2D(firstPoint, secondPoint);
+
+            // Call
+            var result = segment.IsVertical();
+
+            // Assert
+            Assert.AreEqual(isVertical, result);
+        }
+
+        [Test]
         public void Equals_SameSegment_ReturnsTrue()
         {
             // Setup

@@ -2,11 +2,9 @@
 using System.Collections;
 using System.Linq;
 using NUnit.Framework;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Calculation;
-using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.Data.Calculation;
 
-namespace Ringtoets.Piping.IO.Test.Calculation
+namespace Ringtoets.Piping.Data.Test.Calculation
 {
     [TestFixture]
     public class Math2DTest
@@ -164,8 +162,8 @@ namespace Ringtoets.Piping.IO.Test.Calculation
             // Assert
             var exceptionA = Assert.Throws<ArgumentException>(testA);
             var exceptionB = Assert.Throws<ArgumentException>(testB);
-            Assert.AreEqual(Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal,exceptionA.Message);
-            Assert.AreEqual(Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal,exceptionB.Message);
+            Assert.AreEqual(Properties.Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal, exceptionA.Message);
+            Assert.AreEqual(Properties.Resources.Math2D_LineIntersectionWithLine_Line_points_are_equal,exceptionB.Message);
         }
 
         [Test]

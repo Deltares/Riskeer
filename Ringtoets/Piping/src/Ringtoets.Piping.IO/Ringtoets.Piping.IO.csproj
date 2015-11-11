@@ -47,7 +47,6 @@
     <Compile Include="Builders\SoilLayer2DConversionException.cs" />
     <Compile Include="Builders\SoilProfileBuilder1D.cs" />
     <Compile Include="Builders\SoilProfileBuilder2D.cs" />
-    <Compile Include="Calculation\Math2D.cs" />
     <Compile Include="Exceptions\CriticalFileReadException.cs" />
     <Compile Include="Exceptions\LineParseException.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadException.cs" />

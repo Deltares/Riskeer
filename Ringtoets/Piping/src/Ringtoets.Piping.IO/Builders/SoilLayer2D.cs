@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Calculation;
+using Ringtoets.Piping.Data.Calculation;
 using Ringtoets.Piping.IO.Properties;
 
 namespace Ringtoets.Piping.IO.Builders

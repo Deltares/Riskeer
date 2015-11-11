@@ -53,7 +53,6 @@
     <Compile Include="Builders\SoilProfileBuilder1DTest.cs" />
     <Compile Include="Builders\SoilProfileBuilder2DTest.cs" />
     <Compile Include="Builders\SoilProfileBuilderExceptionTest.cs" />
-    <Compile Include="Calculation\Math2DTest.cs" />
     <Compile Include="Exceptions\CriticalFileReadExceptionTest.cs" />
     <Compile Include="Exceptions\LineParseExceptionTest.cs" />
     <Compile Include="Exceptions\PipingSoilProfileReadExceptionTest.cs" />

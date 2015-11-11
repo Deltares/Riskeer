@@ -38,6 +38,9 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Deltares.WTIPiping">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.WTIPiping.dll</HintPath>
+    </Reference>
     <Reference Include="MathNet.Numerics, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\MathNet.Numerics.3.8.0\lib\net40\MathNet.Numerics.dll</HintPath>
       <Private>True</Private>
@@ -50,6 +53,8 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Calculation\Math2D.cs" />
+    <Compile Include="Exceptions\RingtoetsPipingSurfaceLineException.cs" />
     <Compile Include="PipingData.cs" />
     <Compile Include="PipingFailureMechanism.cs" />
     <Compile Include="PipingOutput.cs" />

@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using MathNet.Numerics.LinearAlgebra.Double;
+using Ringtoets.Piping.Data.Calculation;
+using Ringtoets.Piping.Data.Exceptions;
+using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
 {
@@ -61,6 +65,34 @@ namespace Ringtoets.Piping.Data
                 StartingWorldPoint = geometryPoints[0];
                 EndingWorldPoint = geometryPoints[geometryPoints.Length - 1];
             }
+        }
+
+        /// <summary>
+        /// Gets the height of the projected <see cref="RingtoetsPipingSurfaceLine"/> at a L=<paramref name="l"/>.
+        /// </summary>
+        /// <param name="l">The L coordinate from where to take the height of the <see cref="RingtoetsPipingSurfaceLine"/>.</param>
+        /// <returns>The height of the <see cref="RingtoetsPipingSurfaceLine"/> at L=<paramref name="l"/>.</returns>
+        /// <exception cref="RingtoetsPipingSurfaceLineException">Thrown when the <see cref="RingtoetsPipingSurfaceLine"/>
+        /// intersection point at <paramref name="l"/> have a significant difference in their y coordinate.</exception>
+        public double GetZAtL(double l)
+        {
+            var projectGeometryToLz = ProjectGeometryToLZ().ToArray();
+            var segments = new Collection<Segment2D>();
+            for (int i = 1; i < projectGeometryToLz.Length; i++)
+            {
+                segments.Add(new Segment2D(projectGeometryToLz[i-1], projectGeometryToLz[i]));   
+            }
+
+            var intersectionPoints = Math2D.SegmentsIntersectionWithVerticalLine(segments, l).OrderBy(p => p.Y).ToArray();
+            var equalIntersections = Math.Abs(intersectionPoints.First().Y - intersectionPoints.Last().Y) < 1e-8;
+
+            if (equalIntersections)
+            {
+                return intersectionPoints.First().Y;
+            }
+
+            var message = string.Format(Resources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
+            throw new RingtoetsPipingSurfaceLineException(message);
         }
 
         /// <summary>

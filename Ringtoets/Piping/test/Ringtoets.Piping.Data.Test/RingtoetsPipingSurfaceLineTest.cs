@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using NUnit.Framework;
+using Ringtoets.Piping.Data.Exceptions;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -154,6 +155,53 @@ namespace Ringtoets.Piping.Data.Test
             };
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.Select(p => p.X).ToArray());
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Select(p => p.Y).ToArray());
+        }
+
+        [Test]
+        public void GetZAtL_SurfaceLineContainsPointAtL_ReturnsZOfPoint()
+        {
+            // Setup
+            var testZ = new Random(22).NextDouble();
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var l = 2.0;
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D { X = 0.0, Y = 0.0, Z = 2.2 }, 
+                new Point3D { X = l, Y = 0.0, Z = testZ },
+                new Point3D { X = 3.0, Y = 0.0, Z = 7.7 },
+            });
+
+            // Call
+            var result = surfaceLine.GetZAtL(l);
+
+            // Assert
+            Assert.AreEqual(testZ, result);
+        }
+
+        [Test]
+        public void GetZAtL_SurfaceLineVerticalAtL_ThrowsRingtoetsPipingSurfaceLineException()
+        {
+            // Setup
+            var testZ = new Random(22).NextDouble();
+
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+            var l = 2.0;
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D { X = 0.0, Y = 0.0, Z = 2.2 }, 
+                new Point3D { X = l, Y = 0.0, Z = testZ },
+                new Point3D { X = l, Y = 0.0, Z = testZ+1 },
+                new Point3D { X = 3.0, Y = 0.0, Z = 7.7 },
+            });
+
+            // Call
+            TestDelegate test = () => surfaceLine.GetZAtL(l);
+
+            // Assert
+            var exception = Assert.Throws<RingtoetsPipingSurfaceLineException>(test);
+            var message = string.Format(Properties.Resources.RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l, l);
+            Assert.AreEqual(message, exception.Message);
         }
 
         [Test]

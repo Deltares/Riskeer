@@ -48,6 +48,8 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculation\Math2DTest.cs" />
+    <Compile Include="Exceptions\RingtoetsPipingSurfaceLineExceptionTest.cs" />
     <Compile Include="PipingDataTest.cs" />
     <Compile Include="PipingFailureMechanismTest.cs" />
     <Compile Include="PipingOutputTest.cs" />

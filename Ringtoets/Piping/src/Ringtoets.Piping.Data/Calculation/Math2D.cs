@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.IO.Properties;
+using Ringtoets.Piping.Data.Properties;
 
-namespace Ringtoets.Piping.IO.Calculation
+namespace Ringtoets.Piping.Data.Calculation
 {
     /// <summary>
     /// This class contains general mathematical routines for 2D lines.

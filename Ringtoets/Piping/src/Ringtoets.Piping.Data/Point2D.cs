@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="other">A <see cref="Point2D"/> to compare with.</param>
         /// <returns>True if the coordinates of the <see cref="Point3D"/> matches the coordinate of <paramref name="other"/>. False otherwise.</returns>
-        protected bool Equals(Point2D other)
+        private bool Equals(Point2D other)
         {
             return X.Equals(other.X) && Y.Equals(other.Y);
         }
