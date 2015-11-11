@@ -185,12 +185,9 @@
   </Target>
   -->
   <PropertyGroup>
-    <ExternalDependencies>lib\DeltaShell\DeltaShell.Plugins.Data.NHibernate</ExternalDependencies>
     <ExternalDependencies1>lib\Common\SharpMap.Extensions</ExternalDependencies1>
-    <ExternalDependencies2>lib\DeltaShell\DeltaShell.Plugins.NetCdf</ExternalDependencies2>
-    <ExternalDependencies3>lib\DeltaShell\DeltaShell.Plugins.Scripting</ExternalDependencies3>
   </PropertyGroup>
-  <Import Project="..\..\..\..\build\DeltaShell.targets" />
+  <Import Project="..\..\..\..\build\Ringtoets.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>

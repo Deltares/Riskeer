@@ -443,7 +443,6 @@
     <Resource Include="Resources\data_item_link.png" />
     <Resource Include="Resources\delete.png" />
     <Resource Include="Resources\DeleteHS.png" />
-    <Resource Include="Resources\DeltaShell11.png" />
     <Resource Include="Resources\DocumentHS.png" />
     <Resource Include="Resources\edit-redo.png" />
     <Resource Include="Resources\edit-undo.png" />
@@ -510,7 +509,7 @@
     <Resource Include="Resources\WebInsertHyperlinkHS.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\..\build\DeltaShell.targets" />
+  <Import Project="..\..\..\..\build\Ringtoets.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

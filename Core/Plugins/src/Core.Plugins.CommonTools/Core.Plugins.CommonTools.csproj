@@ -158,5 +158,5 @@
     <IsPluginComponent>true</IsPluginComponent>
     <PluginName>$(ProjectName)</PluginName>
   </PropertyGroup>
-  <Import Project="..\..\..\..\build\DeltaShell.targets" />
+  <Import Project="..\..\..\..\build\Ringtoets.targets" />
 </Project>

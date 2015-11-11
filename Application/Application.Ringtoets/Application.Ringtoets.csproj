@@ -208,12 +208,10 @@ IF EXIST "%25VS110COMNTOOLS%25vsvars32.bat" CALL “%25VS110COMNTOOLS%25vsvars32
 :endvsvars
 editbin /LARGEADDRESSAWARE $(TargetFileName)
 
-copy "$(SolutionDir)\lib\DeltaShell\Application.Ringtoets\license.lic" .\
+copy "$(SolutionDir)\lib\Ringtoets\Application.Ringtoets\license.lic" .\
 
 xcopy /S /D /Y /Q "$(SolutionDir)\lib\Common\SharpMap\*" .\
 xcopy /S /D /Y /Q "$(SolutionDir)\lib\Common\SharpMap.Extensions\*" .\
-
-copy "$(SolutionDir)\Core\Common\src\Core.Common.Base\bin\$(ConfigurationName)\DeltaShell.Core.XmlSerializers.dll" .\
 
 copy "$(SolutionDir)\lib\*.dll" .\
 
@@ -221,9 +219,9 @@ copy "$(SolutionDir)\lib\*.dll" .\
     xcopy /s /y "$(SolutionDir)\packages\GDAL.Native.1.9.2\gdal\*.*" "$(TargetDir)gdal"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <ExternalDependencies>lib\DeltaShell\Application.Ringtoets</ExternalDependencies>
+    <ExternalDependencies>lib\Ringtoets\Application.Ringtoets</ExternalDependencies>
   </PropertyGroup>
-  <Import Project="..\..\build\DeltaShell.targets" />
+  <Import Project="..\..\build\Ringtoets.targets" />
   <ProjectExtensions>
     <MonoDevelop>
       <Properties InternalTargetFrameworkVersion="3.5" />

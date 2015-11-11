@@ -139,8 +139,8 @@
   <data name="ProjectItemExporter_name_Export_to_new_project" xml:space="preserve">
     <value>Export to new project</value>
   </data>
-  <data name="ProjectItemExporter_fileFilter_DeltaShell_project_files" xml:space="preserve">
-    <value>DeltaShell project files</value>
+  <data name="ProjectItemExporter_fileFilter_Ringtoets_project_files" xml:space="preserve">
+    <value>Ringtoets project files</value>
   </data>
   <data name="ProjectItemExporter_Export_ProjectFolderExporter_only_supports_export_of_IProjectItem_based_objects" xml:space="preserve">
     <value>ProjectFolderExporter only supports export of IProjectItem based objects</value>
@@ -148,8 +148,8 @@
   <data name="ProjectImporter_Name_Project" xml:space="preserve">
     <value>Project</value>
   </data>
-  <data name="ProjectImporter_FileFilter_Delta_Shell_Project_Files" xml:space="preserve">
-    <value>Delta Shell Project Files</value>
+  <data name="ProjectImporter_FileFilter_Ringtoets_Project_Files" xml:space="preserve">
+    <value>Ringtoets Project Files</value>
   </data>
   <data name="FileBasedRestartStateImporter_Name_Restart_State" xml:space="preserve">
     <value>Restart State</value>
@@ -157,8 +157,8 @@
   <data name="Category_State" xml:space="preserve">
     <value>State</value>
   </data>
-  <data name="FileFilter_Delta_Shell_State_File" xml:space="preserve">
-    <value>Delta Shell State File</value>
+  <data name="FileFilter_Ringtoets_State_File" xml:space="preserve">
+    <value>Ringtoets State File</value>
   </data>
   <data name="FileBasedRestartStateExporter_Name_Restart_State_Exporter" xml:space="preserve">
     <value>Restart State Exporter</value>

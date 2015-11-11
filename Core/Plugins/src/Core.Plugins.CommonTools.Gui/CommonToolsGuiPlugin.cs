@@ -29,7 +29,7 @@ namespace Core.Plugins.CommonTools.Gui
     public class CommonToolsGuiPlugin : GuiPlugin
     {
         private static bool tableViewInitialized;
-        private static TableView speedupTableView; // used to speed-up start of Delta Shell
+        private static TableView speedupTableView; // used to speed-up start of Ringtoets
         private IRibbonCommandHandler ribbon;
 
         public CommonToolsGuiPlugin()

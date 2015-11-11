@@ -1456,13 +1456,12 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This wizard is used to import data from an existing DeltaShell project into the current DeltaShell project..
+        ///   Looks up a localized string similar to This wizard is used to import data from an existing project into the current project..
         /// </summary>
-        public static string ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_This_wizard_is_used_to_import_data_from_an_existing_DeltaShell_project_into_the_current_DeltaShell_project_ {
+        public static string ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_This_wizard_is_used_to_import_data_from_an_existing_project_into_the_current_project_ {
             get {
                 return ResourceManager.GetString("ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_This_wizard_is_us" +
-                        "ed_to_import_data_from_an_existing_DeltaShell_project_into_the_current_DeltaShel" +
-                        "l_project_", resourceCulture);
+                        "ed_to_import_data_from_an_existing_project_into_the_current_project_", resourceCulture);
             }
         }
         
@@ -2356,11 +2355,11 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delta Shell Project File.
+        ///   Looks up a localized string similar to Ringtoets Project File.
         /// </summary>
-        public static string SelectProjectFileWizardPage_ButtonSelectFileClick_Delta_Shell_Project_File {
+        public static string SelectProjectFileWizardPage_ButtonSelectFileClick_Ringtoets_Project_File {
             get {
-                return ResourceManager.GetString("SelectProjectFileWizardPage_ButtonSelectFileClick_Delta_Shell_Project_File", resourceCulture);
+                return ResourceManager.GetString("SelectProjectFileWizardPage_ButtonSelectFileClick_Ringtoets_Project_File", resourceCulture);
             }
         }
         

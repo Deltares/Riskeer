@@ -97,7 +97,7 @@
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(483, 20);
             this.richTextBox1.TabIndex = 3;
-            this.richTextBox1.Text = "An unhandled exception has occurred. Delta Shell needs to be restarted. ";
+            this.richTextBox1.Text = "An unhandled exception has occurred. Ringtoets needs to be restarted. ";
             // 
             // buttonExit
             // 

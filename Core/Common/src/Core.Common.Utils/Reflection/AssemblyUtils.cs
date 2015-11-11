@@ -100,7 +100,7 @@ namespace Core.Common.Utils.Reflection
             {
                 return new AssemblyInfo
                 {
-                    Company = "Deltares", Product = "Delta Shell", Version = "Tests Development"
+                    Company = "Deltares", Product = "Ringtoets", Version = "Tests Development"
                 };
             }
 

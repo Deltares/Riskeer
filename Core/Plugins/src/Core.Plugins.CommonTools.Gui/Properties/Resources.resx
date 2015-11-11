@@ -841,8 +841,8 @@
   <data name="ChartProperties_FontValid_Font_size_is_not_within_limits__3___200_" xml:space="preserve">
     <value>Font size is not within limits (3 - 200)</value>
   </data>
-  <data name="SelectProjectFileWizardPage_ButtonSelectFileClick_Delta_Shell_Project_File" xml:space="preserve">
-    <value>Delta Shell Project File</value>
+  <data name="SelectProjectFileWizardPage_ButtonSelectFileClick_Ringtoets_Project_File" xml:space="preserve">
+    <value>Ringtoets Project File</value>
   </data>
   <data name="VariablesFolderTreeViewNodePresenter_UpdateNode_Arguments" xml:space="preserve">
     <value>Arguments</value>
@@ -1006,8 +1006,8 @@
   <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Import_project" xml:space="preserve">
     <value>Import project</value>
   </data>
-  <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_This_wizard_is_used_to_import_data_from_an_existing_DeltaShell_project_into_the_current_DeltaShell_project_" xml:space="preserve">
-    <value>This wizard is used to import data from an existing DeltaShell project into the current DeltaShell project.</value>
+  <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_This_wizard_is_used_to_import_data_from_an_existing_project_into_the_current_project_" xml:space="preserve">
+    <value>This wizard is used to import data from an existing project into the current project.</value>
   </data>
   <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Press_Finish_to_Finish_" xml:space="preserve">
     <value>Press Finish to Finish.</value>

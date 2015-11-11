@@ -822,8 +822,8 @@
   <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Select_an_existing_project_from_which_you_want_to_import" xml:space="preserve">
     <value>NL Select an existing project from which you want to import</value>
   </data>
-  <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_This_wizard_is_used_to_import_data_from_an_existing_DeltaShell_project_into_the_current_DeltaShell_project_" xml:space="preserve">
-    <value>NL This wizard is used to import data from an existing DeltaShell project into the current DeltaShell project.</value>
+  <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_This_wizard_is_used_to_import_data_from_an_existing_project_into_the_current_project_" xml:space="preserve">
+    <value>NL This wizard is used to import data from an existing project into the current project.</value>
   </data>
   <data name="MultipleFunctionView_GetNoDataValues_Unable_to_set_no_data_values_for_series__Invalid_type" xml:space="preserve">
     <value>NL Unable to set no data values for series. Invalid type</value>
@@ -855,8 +855,8 @@
   <data name="MultipleFunctionView_TableViewSelectionChanged_Too_many_chart_series_to_draw____Limited_to_the_first__0__" xml:space="preserve">
     <value>NL Too many chart series to draw... Limited to the first {0}.</value>
   </data>
-  <data name="SelectProjectFileWizardPage_ButtonSelectFileClick_Delta_Shell_Project_File" xml:space="preserve">
-    <value>NL Delta Shell Project File</value>
+  <data name="SelectProjectFileWizardPage_ButtonSelectFileClick_Ringtoets_Project_File" xml:space="preserve">
+    <value>NL Ringtoets Project File</value>
   </data>
   <data name="TabbedMultipleFunctionView_ConfigureControls_right_click_to_join_tabs" xml:space="preserve">
     <value>NL right-click to join tabs</value>

@@ -4,7 +4,6 @@ namespace Core.Common.Utils
 {
     /// <summary>
     /// This class was introduced to support the most simple as possible support for Tuples.
-    /// the class DelftTools.DataObjects.Functions.Tuples.Pair has some restrictions.
     /// see http://luke.breuer.com/time/item/C_Tuple%5BT1,_T2%5D/219.aspx
     /// TODO in c# use dynamic type see: http://spellcoder.com/blogs/dodyg/archive/2008/10/30/16319.aspx
     /// </summary>

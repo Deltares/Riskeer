@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Core.Common.Base.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -54,188 +57,6 @@ namespace Core.Common.Base.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to All plugins were activated..
-        /// </summary>
-        internal static string DeltaShellApplication_ActivatePlugins_All_plugins_were_activated_ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_ActivatePlugins_All_plugins_were_activated_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Run() must be called first before project can be opened.
-        /// </summary>
-        internal static string DeltaShellApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_CreateNewProject_Run___must_be_called_first_before_project_" +
-                        "can_be_opened", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initializing license ....
-        /// </summary>
-        internal static string DeltaShellApplication_InitializeLicense_Initializing_license____ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_InitializeLicense_Initializing_license____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to License file does not exist: {0}.
-        /// </summary>
-        internal static string DeltaShellApplication_InitializeLicense_License_file_does_not_exist___0_ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_InitializeLicense_License_file_does_not_exist___0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to License is initialized..
-        /// </summary>
-        internal static string DeltaShellApplication_InitializeLicense_License_is_initialized_ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_InitializeLicense_License_is_initialized_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Environmental variables:.
-        /// </summary>
-        internal static string DeltaShellApplication_LogSystemInfo_Environmental_variables_ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_LogSystemInfo_Environmental_variables_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registering data type {0}.
-        /// </summary>
-        internal static string DeltaShellApplication_RegisterDataTypes_Registering_data_type__0_ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_RegisterDataTypes_Registering_data_type__0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registering persistent data types ....
-        /// </summary>
-        internal static string DeltaShellApplication_RegisterDataTypes_Registering_persistent_data_types____ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_RegisterDataTypes_Registering_persistent_data_types____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registering exporter {0}.
-        /// </summary>
-        internal static string DeltaShellApplication_RegisterExporters_Registering_exporter__0_ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_RegisterExporters_Registering_exporter__0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registering exporters ....
-        /// </summary>
-        internal static string DeltaShellApplication_RegisterExporters_Registering_exporters____ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_RegisterExporters_Registering_exporters____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registering importer {0}.
-        /// </summary>
-        internal static string DeltaShellApplication_RegisterImporters_Registering_importer__0_ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_RegisterImporters_Registering_importer__0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registering importers ....
-        /// </summary>
-        internal static string DeltaShellApplication_RegisterImporters_Registering_importers____ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_RegisterImporters_Registering_importers____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registering assemblies containing persistent data types ....
-        /// </summary>
-        internal static string DeltaShellApplication_RegisterPersistentAssemblies_Registering_assemblies_containing_persistent_data_types____ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_RegisterPersistentAssemblies_Registering_assemblies_contain" +
-                        "ing_persistent_data_types____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Activating plugins ....
-        /// </summary>
-        internal static string DeltaShellApplication_Run_Activating_plugins____ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_Run_Activating_plugins____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Application is already running.
-        /// </summary>
-        internal static string DeltaShellApplication_Run_Application_is_already_running {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_Run_Application_is_already_running", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Creating new project ....
-        /// </summary>
-        internal static string DeltaShellApplication_Run_Creating_new_project____ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_Run_Creating_new_project____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delta Shell is ready, started in {0:F3} sec..
-        /// </summary>
-        internal static string DeltaShellApplication_Run_Delta_Shell_is_ready__started_in__0_F3__sec_ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_Run_Delta_Shell_is_ready__started_in__0_F3__sec_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Starting Delta Shell ....
-        /// </summary>
-        internal static string DeltaShellApplication_Run_Starting_Delta_Shell____ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_Run_Starting_Delta_Shell____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waiting until all plugins are activated ....
-        /// </summary>
-        internal static string DeltaShellApplication_Run_Waiting_until_all_plugins_are_activated____ {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_Run_Waiting_until_all_plugins_are_activated____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You can call Run() only once per application.
-        /// </summary>
-        internal static string DeltaShellApplication_Run_You_can_call_Run___only_once_per_application {
-            get {
-                return ResourceManager.GetString("DeltaShellApplication_Run_You_can_call_Run___only_once_per_application", resourceCulture);
             }
         }
         
@@ -341,6 +162,188 @@ namespace Core.Common.Base.Properties {
             get {
                 return ResourceManager.GetString("ProjectService_SaveProjectAs_Error_during_delete_of_old_project_file_and_director" +
                         "y__skipping____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All plugins were activated..
+        /// </summary>
+        internal static string RingtoetsApplication_ActivatePlugins_All_plugins_were_activated_ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_ActivatePlugins_All_plugins_were_activated_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run() must be called first before project can be opened.
+        /// </summary>
+        internal static string RingtoetsApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_CreateNewProject_Run___must_be_called_first_before_project_c" +
+                        "an_be_opened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initializing license ....
+        /// </summary>
+        internal static string RingtoetsApplication_InitializeLicense_Initializing_license____ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_InitializeLicense_Initializing_license____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License file does not exist: {0}.
+        /// </summary>
+        internal static string RingtoetsApplication_InitializeLicense_License_file_does_not_exist___0_ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_InitializeLicense_License_file_does_not_exist___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License is initialized..
+        /// </summary>
+        internal static string RingtoetsApplication_InitializeLicense_License_is_initialized_ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_InitializeLicense_License_is_initialized_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Environmental variables:.
+        /// </summary>
+        internal static string RingtoetsApplication_LogSystemInfo_Environmental_variables_ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_LogSystemInfo_Environmental_variables_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registering data type {0}.
+        /// </summary>
+        internal static string RingtoetsApplication_RegisterDataTypes_Registering_data_type__0_ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_RegisterDataTypes_Registering_data_type__0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registering persistent data types ....
+        /// </summary>
+        internal static string RingtoetsApplication_RegisterDataTypes_Registering_persistent_data_types____ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_RegisterDataTypes_Registering_persistent_data_types____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registering exporter {0}.
+        /// </summary>
+        internal static string RingtoetsApplication_RegisterExporters_Registering_exporter__0_ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_RegisterExporters_Registering_exporter__0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registering exporters ....
+        /// </summary>
+        internal static string RingtoetsApplication_RegisterExporters_Registering_exporters____ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_RegisterExporters_Registering_exporters____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registering importer {0}.
+        /// </summary>
+        internal static string RingtoetsApplication_RegisterImporters_Registering_importer__0_ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_RegisterImporters_Registering_importer__0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registering importers ....
+        /// </summary>
+        internal static string RingtoetsApplication_RegisterImporters_Registering_importers____ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_RegisterImporters_Registering_importers____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registering assemblies containing persistent data types ....
+        /// </summary>
+        internal static string RingtoetsApplication_RegisterPersistentAssemblies_Registering_assemblies_containing_persistent_data_types____ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_RegisterPersistentAssemblies_Registering_assemblies_containi" +
+                        "ng_persistent_data_types____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activating plugins ....
+        /// </summary>
+        internal static string RingtoetsApplication_Run_Activating_plugins____ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_Run_Activating_plugins____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application is already running.
+        /// </summary>
+        internal static string RingtoetsApplication_Run_Application_is_already_running {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_Run_Application_is_already_running", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating new project ....
+        /// </summary>
+        internal static string RingtoetsApplication_Run_Creating_new_project____ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_Run_Creating_new_project____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ringtoets is ready, started in {0:F3} sec..
+        /// </summary>
+        internal static string RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__sec_ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__sec_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting Ringtoets ....
+        /// </summary>
+        internal static string RingtoetsApplication_Run_Starting_Delta_Shell____ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_Run_Starting_Delta_Shell____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting until all plugins are activated ....
+        /// </summary>
+        internal static string RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated____ {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can call Run() only once per application.
+        /// </summary>
+        internal static string RingtoetsApplication_Run_You_can_call_Run___only_once_per_application {
+            get {
+                return ResourceManager.GetString("RingtoetsApplication_Run_You_can_call_Run___only_once_per_application", resourceCulture);
             }
         }
         

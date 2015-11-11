@@ -12,7 +12,7 @@ namespace Core.Common.Utils.Tests.IO
     [TestFixture]
     public class FileUtilsTest
     {
-        private readonly string fileWithContentPath = TestHelper.GetTestDataPath(TestDataPath.Common.DelftToolsUtilsTests, "File_with_content.txt");
+        private readonly string fileWithContentPath = TestHelper.GetTestDataPath(TestDataPath.Common.CoreCommonUtilsTests, "File_with_content.txt");
         private const int allowedTimeForDelete = 2000;
 
         private static bool DoesDirectoryExistsAfterTimeout(string directory)
@@ -263,7 +263,7 @@ namespace Core.Common.Utils.Tests.IO
         public void VerifyChecksumTest()
         {
             // setup
-            var testPath = TestHelper.GetTestDataPath(TestDataPath.Common.DelftToolsUtilsTests, "Test.txt");
+            var testPath = TestHelper.GetTestDataPath(TestDataPath.Common.CoreCommonUtilsTests, "Test.txt");
 
             // call & assert
             Assert.IsTrue(FileUtils.VerifyChecksum(fileWithContentPath, ExpectedChecksumForFileWithContent));

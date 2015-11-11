@@ -6,10 +6,10 @@ namespace Core.Common.Gui
 {
     /// <summary>
     /// Use this type in combination with the Editor Attribute on properties in property classes which you want to 
-    /// edit with a delta shell view.
+    /// edit with a Ringtoets view.
     /// 
     /// The property grid will display an ellipsis button (...). Clicking on the button will open the default view
-    /// for the data object in the central tabbed document area of Delta Shell. The view will remain open until 
+    /// for the data object in the central tabbed document area of Ringtoets. The view will remain open until 
     /// closed by the user and is not modal.
     /// 
     /// </summary>

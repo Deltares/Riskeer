@@ -17,12 +17,12 @@ namespace Core.Common.TestUtils
 
         public static class Common
         {
-            public static readonly TestDataPath DelftToolsUtilsTests =
+            public static readonly TestDataPath CoreCommonUtilsTests =
                 System.IO.Path.Combine("Core", "Common", "test", "Core.Common.Utils.Tests");
 
             public static class Base
             {
-                public static readonly TestDataPath DelftToolsTests = @"Core/Common/test/Core.Common.Base.Tests";
+                public static readonly TestDataPath CoreCommonBaseTests = @"Core/Common/test/Core.Common.Base.Tests";
             }
         }
 

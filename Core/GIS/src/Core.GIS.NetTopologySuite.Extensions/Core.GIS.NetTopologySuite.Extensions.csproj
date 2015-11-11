@@ -139,5 +139,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\..\..\build\DeltaShell.targets" />
+  <Import Project="..\..\..\..\build\Ringtoets.targets" />
 </Project>

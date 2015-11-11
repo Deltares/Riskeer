@@ -120,7 +120,7 @@
   <data name="Properties" xml:space="preserve">
     <value>Properties</value>
   </data>
-  <data name="App_RunDeltaShell_Specified_project___0___was_not_found_" xml:space="preserve">
+  <data name="App_RunRingtoets_Specified_project___0___was_not_found_" xml:space="preserve">
     <value>Specified project ({0}) was not found.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
@@ -145,7 +145,7 @@
   <data name="MainWindow_ShowStartPage_Adding_welcome_page____" xml:space="preserve">
     <value>Adding welcome page ...</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Initializing_gui_plugin__0_____" xml:space="preserve">
+  <data name="RingtoetsGui_ActivatePlugins_Initializing_gui_plugin__0_____" xml:space="preserve">
     <value>Initializing gui plugin {0} ...</value>
   </data>
   <data name="RelationshipsHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -200,8 +200,8 @@
   <data name="MainWindowCommands_ShowPropertiesViewCommand_Text_Show_Properties__Shift___Alt____P_" xml:space="preserve">
     <value>Show Properties (Shift + Alt  + P)</value>
   </data>
-  <data name="App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_DeltaShell__Please_close_the_other_instance_first_" xml:space="preserve">
-    <value>Cannot start multiple instances of DeltaShell. Please close the other instance first.</value>
+  <data name="App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets__Please_close_the_other_instance_first_" xml:space="preserve">
+    <value>Cannot start multiple instances of Ringtoets. Please close the other instance first.</value>
   </data>
   <data name="brick_active" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\brick_active.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -221,7 +221,7 @@
   <data name="cog_add_Large" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cog_add_Large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_ShowSplashScreen_Logo_file__0__does_not_exist" xml:space="preserve">
+  <data name="RingtoetsGui_ShowSplashScreen_Logo_file__0__does_not_exist" xml:space="preserve">
     <value>Logo file {0} does not exist</value>
   </data>
   <data name="project-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -332,13 +332,13 @@ Select No to save the project as a new project at a different location.</value>
   <data name="MainWindowCommands_SwitchToNextToolWindowCommand_Text_Switch_To_Next_Toolwindow__Ctrl___Shift___PgDwn_" xml:space="preserve">
     <value>Switch To Next Toolwindow (Ctrl + Shift + PgDwn)</value>
   </data>
-  <data name="DeltaShellGui_InitializeWindows_Creating_default_tool_windows____" xml:space="preserve">
+  <data name="RingtoetsGui_InitializeWindows_Creating_default_tool_windows____" xml:space="preserve">
     <value>Creating default tool windows ...</value>
   </data>
   <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting" xml:space="preserve">
     <value>Start exporting</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
+  <data name="RingtoetsGui_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
     <value>Exception during plugin gui deactivation</value>
   </data>
   <data name="MainWindowCommands_ShowMessageWindowCommand_Name_Show_Messages" xml:space="preserve">
@@ -359,7 +359,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="MainWindowCommands_ShowObjectInTreeViewCommand_Name_Find_In_Project_Treeview" xml:space="preserve">
     <value>Find In Project Treeview</value>
   </data>
-  <data name="DeltaShellGui_Run_Starting_application____" xml:space="preserve">
+  <data name="RingtoetsGui_Run_Starting_application____" xml:space="preserve">
     <value>Starting application ...</value>
   </data>
   <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed" xml:space="preserve">
@@ -368,7 +368,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_" xml:space="preserve">
     <value>Selected object of type: {0}</value>
   </data>
-  <data name="App_RunDeltaShell_Activity___0___ended_with_status__1_" xml:space="preserve">
+  <data name="App_RunRingtoets_Activity___0___ended_with_status__1_" xml:space="preserve">
     <value>Activity '{0}' ended with status {1}</value>
   </data>
   <data name="Messages" xml:space="preserve">
@@ -392,7 +392,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="GuiCommandHandler_StopSelectedModel_Can_t_stop_model__no_models_selected_" xml:space="preserve">
     <value>Can't stop model, no models selected.</value>
   </data>
-  <data name="DeltaShellGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_" xml:space="preserve">
+  <data name="RingtoetsGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_" xml:space="preserve">
     <value>Please check your configuration and plugins folder!</value>
   </data>
   <data name="AllFilesFilter" xml:space="preserve">
@@ -422,11 +422,11 @@ Select No to save the project as a new project at a different location.</value>
   <data name="DocumentHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DocumentHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied" xml:space="preserve">
-    <value>Delta Shell clipboard emptied</value>
+  <data name="RingtoetsGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied" xml:space="preserve">
+    <value>Ringtoets clipboard emptied</value>
   </data>
-  <data name="DeltaShellGui_InitializePluginResources_DeltaShell_application_started__active_plugins__" xml:space="preserve">
-    <value>DeltaShell application started, active plugins:</value>
+  <data name="RingtoetsGui_InitializePluginResources_Ringtoets_application_started__active_plugins__" xml:space="preserve">
+    <value>Ringtoets application started, active plugins:</value>
   </data>
   <data name="GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file__opening_log_file_directory_instead_" xml:space="preserve">
     <value>Unable to open log file, opening log file directory instead.</value>
@@ -437,7 +437,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="control_stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/control_stop.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="App_RunDeltaShell_Starting_activity___0__" xml:space="preserve">
+  <data name="App_RunRingtoets_Starting_activity___0__" xml:space="preserve">
     <value>Starting activity '{0}'</value>
   </data>
   <data name="PortableSettingsProvider_ThrowIfRoaming_Setting__0__is_roaming__This_is_not_supported" xml:space="preserve">
@@ -467,10 +467,10 @@ Select No to save the project as a new project at a different location.</value>
   <data name="saveHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\saveHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_settings_lost_" xml:space="preserve">
+  <data name="RingtoetsGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_settings_lost_" xml:space="preserve">
     <value>Unable to load view settings; view settings lost!</value>
   </data>
-  <data name="App_RunDeltaShell_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_load_a_project_" xml:space="preserve">
+  <data name="App_RunRingtoets_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_load_a_project_" xml:space="preserve">
     <value>Activity '{0}' not found in project! Typo, or did you forget to load a project?</value>
   </data>
   <data name="Opening_existing_wti_project_cancelled" xml:space="preserve">
@@ -479,7 +479,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="graphhs" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\graphhs.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_InitToolWindows_Creating_document_window_manager____" xml:space="preserve">
+  <data name="RingtoetsGui_InitToolWindows_Creating_document_window_manager____" xml:space="preserve">
     <value>Creating document window manager ...</value>
   </data>
   <data name="ViewList_UpdateViewContext_Unable_to_add_ViewContext_of_view__0___ViewContext_ViewType_is_not_of_type__1__" xml:space="preserve">
@@ -497,7 +497,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="Edit_RedoHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Edit_RedoHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="App_RunDeltaShell_Saved_project___0__" xml:space="preserve">
+  <data name="App_RunRingtoets_Saved_project___0__" xml:space="preserve">
     <value>Saved project '{0}'</value>
   </data>
   <data name="ViewSelectionMouseController_OnViewSelectionMouseDown_Sender_must_be_non_null_and_of_type_Control" xml:space="preserve">
@@ -566,7 +566,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="RichTextView_RichTextView_The_license_file__0__cannot_be_found_on_the_computer_" xml:space="preserve">
     <value>The license file {0} cannot be found on the computer.</value>
   </data>
-  <data name="DeltaShellGui_InitToolWindows_Finished_InitToolWindows" xml:space="preserve">
+  <data name="RingtoetsGui_InitToolWindows_Finished_InitToolWindows" xml:space="preserve">
     <value>Finished InitToolWindows</value>
   </data>
   <data name="Ribbon_Command_Save_As" xml:space="preserve">
@@ -581,7 +581,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="binocular_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\binocular_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_InitializeWindows_Initializing_windows____" xml:space="preserve">
+  <data name="RingtoetsGui_InitializeWindows_Initializing_windows____" xml:space="preserve">
     <value>Initializing windows ...</value>
   </data>
   <data name="HelpAboutBox_UpdateAboutBox_About__0_" xml:space="preserve">
@@ -620,8 +620,8 @@ Select No to save the project as a new project at a different location.</value>
   <data name="Ribbon_Find" xml:space="preserve">
     <value>Find</value>
   </data>
-  <data name="App_App_Starting_Delta_Shell____" xml:space="preserve">
-    <value>Starting Delta Shell ...</value>
+  <data name="App_App_Starting_Ringtoets____" xml:space="preserve">
+    <value>Starting Ringtoets ...</value>
   </data>
   <data name="ToolWindow_Name_Map" xml:space="preserve">
     <value>Map</value>
@@ -728,7 +728,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="Ribbon_Undo" xml:space="preserve">
     <value>Undo</value>
   </data>
-  <data name="App_RunDeltaShell_No_project_found__load_project_first" xml:space="preserve">
+  <data name="App_RunRingtoets_No_project_found__load_project_first" xml:space="preserve">
     <value>No project found, load project first</value>
   </data>
   <data name="SaveAsHH" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -776,19 +776,19 @@ Select No to save the project as a new project at a different location.</value>
   <data name="script" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\script.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_" xml:space="preserve">
+  <data name="RingtoetsGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_" xml:space="preserve">
     <value>No plugins found, most probably there is a configuration problem.</value>
   </data>
   <data name="Ribbon_New_Item" xml:space="preserve">
     <value>New Item</value>
   </data>
-  <data name="DeltaShellGui_Run_Started_in__0_f2__sec" xml:space="preserve">
+  <data name="RingtoetsGui_Run_Started_in__0_f2__sec" xml:space="preserve">
     <value>Started in {0:f2} sec</value>
   </data>
   <data name="folder_input" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder_input.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_InitToolWindows_Creating_tool_window_manager____" xml:space="preserve">
+  <data name="RingtoetsGui_InitToolWindows_Creating_tool_window_manager____" xml:space="preserve">
     <value>Creating tool window manager ...</value>
   </data>
   <data name="application_import_blue" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -797,7 +797,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="application_import_blue1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\application_import_blue.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_Run_Initializing_graphical_user_interface____" xml:space="preserve">
+  <data name="RingtoetsGui_Run_Initializing_graphical_user_interface____" xml:space="preserve">
     <value>Initializing graphical user interface ...</value>
   </data>
   <data name="GuiCommandHandler_DeleteProjectItem_The_model_you_are_trying_to_delete_is_linked_by_other_models___0__after_deletion_these_links_will_be_lost__Do_you_wish_to_continue_" xml:space="preserve">
@@ -836,7 +836,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="GuiCommandHandler_IsInvalidDataItem_The_data_item__0__cannot_be_viewed_because_it_is_not_valid" xml:space="preserve">
     <value>The data item {0} cannot be viewed because it is not valid</value>
   </data>
-  <data name="DeltaShellGui_ShowSplashScreen_User_has_cancelled_start__exiting____" xml:space="preserve">
+  <data name="RingtoetsGui_ShowSplashScreen_User_has_cancelled_start__exiting____" xml:space="preserve">
     <value>User has cancelled start, exiting ...</value>
   </data>
   <data name="OptionsHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -896,8 +896,8 @@ Select No to save the project as a new project at a different location.</value>
   <data name="SelectItemDialog_buttonOk_Click_Error" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on__the_default_layout_will_be_used_when_restarting_DeltaShell_" xml:space="preserve">
-    <value>When this option is turned on, the default layout will be used when restarting DeltaShell.</value>
+  <data name="MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on__the_default_layout_will_be_used_when_restarting_Ringtoets_" xml:space="preserve">
+    <value>When this option is turned on, the default layout will be used when restarting Ringtoets.</value>
   </data>
   <data name="cog" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>../Resources/cog.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -914,7 +914,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="GuiCommandHandler_SaveProjectAs_Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
-  <data name="DeltaShellGui_InitializeWindows_All_windows_are_created_" xml:space="preserve">
+  <data name="RingtoetsGui_InitializeWindows_All_windows_are_created_" xml:space="preserve">
     <value>All windows are created.</value>
   </data>
   <data name="GuiImportHandler_GetImportedItemsUsingFileOpenDialog_Select_a_file_to_import_from" xml:space="preserve">
@@ -926,7 +926,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="Ribbon_Cut" xml:space="preserve">
     <value>Cut</value>
   </data>
-  <data name="DeltaShellGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____" xml:space="preserve">
+  <data name="RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____" xml:space="preserve">
     <value>Setting up menus and toolbars ...</value>
   </data>
   <data name="MainWindowCommands_ShowChartContentsViewCommand_Text_Show_Chart_Contents__Shift___Alt____C_" xml:space="preserve">
@@ -950,11 +950,11 @@ Select No to save the project as a new project at a different location.</value>
   <data name="App_ParseArguments_Run_activity_or_model_available_in_the_project_" xml:space="preserve">
     <value>Run activity or model available in the project.</value>
   </data>
-  <data name="DeltaShellGui_DeltaShellGuiDragDrop_DragDrop_is_already_handled_in_control_itself" xml:space="preserve">
+  <data name="RingtoetsGui_RingtoetsGuiDragDrop_DragDrop_is_already_handled_in_control_itself" xml:space="preserve">
     <value>DragDrop is already handled in control itself</value>
   </data>
-  <data name="App_RunDeltaShell_Starting_Delta_Shell_Gui____" xml:space="preserve">
-    <value>Starting Delta Shell Gui ...</value>
+  <data name="App_RunRingtoets_Starting_Ringtoets_Gui____" xml:space="preserve">
+    <value>StartingRingtoets Gui ...</value>
   </data>
   <data name="ProjectItemCopyPasteHandler_CopyPaste_Creating_a_copy_of_an_item___0___in___1__" xml:space="preserve">
     <value>Creating a copy of an item "{0}" in "{1}"</value>
@@ -992,7 +992,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="cut_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cut_red.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready_" xml:space="preserve">
+  <data name="RingtoetsGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready_" xml:space="preserve">
     <value>Menus and toolbars are ready.</value>
   </data>
   <data name="GuiCommandHandler_DeleteProjectItem_The_item_you_are_trying_to_delete_is_linked_by_other_items__after_deletion_these_links_will_be_lost__Do_you_wish_to_continue_" xml:space="preserve">
@@ -1001,7 +1001,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="OrgChartHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\OrgChartHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Error_during_plugin_activation" xml:space="preserve">
+  <data name="RingtoetsGui_ActivatePlugins_Error_during_plugin_activation" xml:space="preserve">
     <value>Error during plugin activation</value>
   </data>
   <data name="GuiCommandHandler_UpdateGui__no_project_opened_____0_" xml:space="preserve">
@@ -1019,7 +1019,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="GuiCommandHandler_OpenLogFileExternal_Unable_to_open_log_file" xml:space="preserve">
     <value>Unable to open log file</value>
   </data>
-  <data name="App_RunDeltaShell_Saving_project___0__" xml:space="preserve">
+  <data name="App_RunRingtoets_Saving_project___0__" xml:space="preserve">
     <value>Saving project '{0}'</value>
   </data>
   <data name="calendar" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -1061,7 +1061,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="cross_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cross-small.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="App_RunDeltaShell_Could_not_find_script__0_" xml:space="preserve">
+  <data name="App_RunRingtoets_Could_not_find_script__0_" xml:space="preserve">
     <value>Could not find script {0}</value>
   </data>
   <data name="GuiExportHandler_ExporterItemUsingFileOpenDialog_Select_a_file_to_export_to" xml:space="preserve">
@@ -1160,8 +1160,8 @@ Select No to save the project as a new project at a different location.</value>
   <data name="MainWindow_ButtonDelete_Click_Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
-  <data name="DeltaShellGui_DeltaShellGui_Only_a_single_instance_of_DeltaShelGui_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__" xml:space="preserve">
-    <value>Only a single instance of DeltaShelGui is allowed at the same time per process, make sure that the previous instance was disposed correctly, stack trace:</value>
+  <data name="RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__" xml:space="preserve">
+    <value>Only a single instance of RingtoetsGui is allowed at the same time per process, make sure that the previous instance was disposed correctly, stack trace:</value>
   </data>
   <data name="GuiCommandHandler_CloseProject_Closing_project____" xml:space="preserve">
     <value>Closing project ...</value>
@@ -1172,7 +1172,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="MessageWindow_MessageWindow_Messages" xml:space="preserve">
     <value>Messages</value>
   </data>
-  <data name="App_RunDeltaShell_" xml:space="preserve">
+  <data name="App_RunRingtoets_" xml:space="preserve">
     <value>======== running command ===========</value>
   </data>
   <data name="GuiCommandHandler_AddNewFolder_Add_new_folder" xml:space="preserve">
@@ -1193,7 +1193,7 @@ Select No to save the project as a new project at a different location.</value>
   <data name="SaveAllHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SaveAllHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____" xml:space="preserve">
+  <data name="RingtoetsGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____" xml:space="preserve">
     <value>Gui plugin {0} activation has failed, skipping ...</value>
   </data>
   <data name="Ribbon_Reset_Layout_After_Restart" xml:space="preserve">

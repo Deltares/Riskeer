@@ -15,14 +15,14 @@ namespace Core.Common.Tests.Gui
         [Test]
         public void CreateLogger()
         {
-            ILog log = LogManager.GetLogger("delftshell.tests.log4net");
-            Assert.AreEqual(log.Logger.Name, "delftshell.tests.log4net");
+            ILog log = LogManager.GetLogger("Core.Common.tests.log4net");
+            Assert.AreEqual(log.Logger.Name, "Core.Common.tests.log4net");
         }
 
         [Test]
         public void LoggingTypes()
         {
-            ILog log = LogManager.GetLogger("delftshell.tests.log4net");
+            ILog log = LogManager.GetLogger("Core.Common.tests.log4net");
             log.Info("LoggingTypes");
             log.Debug("LoggingTypes");
             log.Warn("LoggingTypes");
@@ -33,7 +33,7 @@ namespace Core.Common.Tests.Gui
         [Test]
         public void LoggingFormat()
         {
-            ILog log = LogManager.GetLogger("delftshell.tests.log4net");
+            ILog log = LogManager.GetLogger("Core.Common.tests.log4net");
             //The following methods somehow dont work under mono.....
             //TODO: find the cause of this
             log.InfoFormat("LoggingTypes {0}", 1);

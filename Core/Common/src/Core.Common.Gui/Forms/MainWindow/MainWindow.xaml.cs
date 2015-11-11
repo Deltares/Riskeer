@@ -41,7 +41,7 @@ using IWin32Window = System.Windows.Forms.IWin32Window;
 namespace Core.Common.Gui.Forms.MainWindow
 {
     /// <summary>
-    /// Main windows of Delta Shell
+    /// Main windows of Ringtoets
     /// </summary>
     public partial class MainWindow : IMainWindow, IDisposable, IWin32Window, ISynchronizeInvoke
     {
@@ -971,7 +971,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             resetUIButton.ToolTip = new ScreenTip
             {
                 Title = Properties.Resources.MainWindow_UpdateMainWindowRibbonElements_Reset_layout__restart_,
-                Text = Properties.Resources.MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on__the_default_layout_will_be_used_when_restarting_DeltaShell_,
+                Text = Properties.Resources.MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on__the_default_layout_will_be_used_when_restarting_Ringtoets_,
                 MaxWidth = 250
             };
         }

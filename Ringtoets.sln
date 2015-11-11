@@ -568,6 +568,6 @@ Global
 		TextTemplating = 1
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
-		Project = ".\build\DeltaShell.ndproj"
+		Project = ".\build\Ringtoets.ndproj"
 	EndGlobalSection
 EndGlobal

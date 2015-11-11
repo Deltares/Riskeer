@@ -89,7 +89,7 @@
     <Compile Include="Gui\Forms\ProgressDialogTest.cs" />
     <Compile Include="Gui\Forms\PropertyGridView\PropertyResolverTest.cs" />
     <Compile Include="Gui\GuiExportHandlerTest.cs" />
-    <Compile Include="Gui\DelftShellGuiTests.cs" />
+    <Compile Include="Gui\RingtoetsGuiTests.cs" />
     <Compile Include="Gui\ImportActivityTest.cs" />
     <Compile Include="Gui\Log4netTest.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -214,7 +214,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\..\..\build\DeltaShell.targets" />
+  <Import Project="..\..\..\..\build\Ringtoets.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -227,9 +227,6 @@
     </PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ExternalDependencies>lib\DeltaShell\DeltaShell.Plugins.Data.NHibernate</ExternalDependencies>
   </PropertyGroup>
   <ProjectExtensions>
     <MonoDevelop>

@@ -124,11 +124,11 @@ namespace Core.Plugins.CommonTools.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delta Shell State File.
+        ///   Looks up a localized string similar to Ringtoets State File.
         /// </summary>
-        public static string FileFilter_Delta_Shell_State_File {
+        public static string FileFilter_Ringtoets_State_File {
             get {
-                return ResourceManager.GetString("FileFilter_Delta_Shell_State_File", resourceCulture);
+                return ResourceManager.GetString("FileFilter_Ringtoets_State_File", resourceCulture);
             }
         }
         
@@ -274,11 +274,11 @@ namespace Core.Plugins.CommonTools.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delta Shell Project Files.
+        ///   Looks up a localized string similar to Ringtoets Project Files.
         /// </summary>
-        public static string ProjectImporter_FileFilter_Delta_Shell_Project_Files {
+        public static string ProjectImporter_FileFilter_Ringtoets_Project_Files {
             get {
-                return ResourceManager.GetString("ProjectImporter_FileFilter_Delta_Shell_Project_Files", resourceCulture);
+                return ResourceManager.GetString("ProjectImporter_FileFilter_Ringtoets_Project_Files", resourceCulture);
             }
         }
         
@@ -302,11 +302,11 @@ namespace Core.Plugins.CommonTools.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DeltaShell project files.
+        ///   Looks up a localized string similar to Ringtoets project files.
         /// </summary>
-        public static string ProjectItemExporter_fileFilter_DeltaShell_project_files {
+        public static string ProjectItemExporter_fileFilter_Ringtoets_project_files {
             get {
-                return ResourceManager.GetString("ProjectItemExporter_fileFilter_DeltaShell_project_files", resourceCulture);
+                return ResourceManager.GetString("ProjectItemExporter_fileFilter_Ringtoets_project_files", resourceCulture);
             }
         }
         

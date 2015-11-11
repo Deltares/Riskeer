@@ -270,76 +270,76 @@
   <data name="AvalonDockDockingManager_AddToolView_View_location__0__is_not_implemented_yet" xml:space="preserve">
     <value>NL View location {0} is not implemented yet</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Error_during_plugin_activation" xml:space="preserve">
+  <data name="RingtoetsGui_ActivatePlugins_Error_during_plugin_activation" xml:space="preserve">
     <value>NL Error during plugin activation</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
+  <data name="RingtoetsGui_ActivatePlugins_Exception_during_plugin_gui_deactivation" xml:space="preserve">
     <value>NL Exception during plugin gui deactivation</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____" xml:space="preserve">
+  <data name="RingtoetsGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____" xml:space="preserve">
     <value>NL Gui plugin {0} activation has failed, skipping ...</value>
   </data>
-  <data name="DeltaShellGui_ActivatePlugins_Initializing_gui_plugin__0_____" xml:space="preserve">
+  <data name="RingtoetsGui_ActivatePlugins_Initializing_gui_plugin__0_____" xml:space="preserve">
     <value>NL Initializing gui plugin {0} ...</value>
   </data>
-  <data name="DeltaShellGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_settings_lost_" xml:space="preserve">
+  <data name="RingtoetsGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_settings_lost_" xml:space="preserve">
     <value>NL Unable to load view settings; view settings lost!</value>
   </data>
-  <data name="DeltaShellGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied" xml:space="preserve">
-    <value>NL Delta Shell clipboard emptied</value>
+  <data name="RingtoetsGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied" xml:space="preserve">
+    <value>NL Ringtoets clipboard emptied</value>
   </data>
-  <data name="DeltaShellGui_DeltaShellGui_Only_a_single_instance_of_DeltaShelGui_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__" xml:space="preserve">
-    <value>NL Only a single instance of DeltaShelGui is allowed at the same time per process, make sure that the previous instance was disposed correctly, stack trace:</value>
+  <data name="RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__" xml:space="preserve">
+    <value>NL Only a single instance of Ringtoets is allowed at the same time per process, make sure that the previous instance was disposed correctly, stack trace:</value>
   </data>
-  <data name="DeltaShellGui_DeltaShellGuiDragDrop_DragDrop_is_already_handled_in_control_itself" xml:space="preserve">
+  <data name="RingtoetsGui_RingtoetsGuiDragDrop_DragDrop_is_already_handled_in_control_itself" xml:space="preserve">
     <value>NL DragDrop is already handled in control itself</value>
   </data>
-  <data name="DeltaShellGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready_" xml:space="preserve">
+  <data name="RingtoetsGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready_" xml:space="preserve">
     <value>NL Menus and toolbars are ready.</value>
   </data>
-  <data name="DeltaShellGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____" xml:space="preserve">
+  <data name="RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____" xml:space="preserve">
     <value>NL Setting up menus and toolbars ...</value>
   </data>
-  <data name="DeltaShellGui_InitializePluginResources_DeltaShell_application_started__active_plugins__" xml:space="preserve">
-    <value>NL DeltaShell application started, active plugins:</value>
+  <data name="RingtoetsGui_InitializePluginResources_Ringtoets_application_started__active_plugins__" xml:space="preserve">
+    <value>NL Ringtoets application started, active plugins:</value>
   </data>
-  <data name="DeltaShellGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_" xml:space="preserve">
+  <data name="RingtoetsGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_" xml:space="preserve">
     <value>NL No plugins found, most probably there is a configuration problem.</value>
   </data>
-  <data name="DeltaShellGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_" xml:space="preserve">
+  <data name="RingtoetsGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_" xml:space="preserve">
     <value>NL Please check your configuration and plugins folder!</value>
   </data>
-  <data name="DeltaShellGui_InitializeWindows_All_windows_are_created_" xml:space="preserve">
+  <data name="RingtoetsGui_InitializeWindows_All_windows_are_created_" xml:space="preserve">
     <value>NL All windows are created.</value>
   </data>
-  <data name="DeltaShellGui_InitializeWindows_Creating_default_tool_windows____" xml:space="preserve">
+  <data name="RingtoetsGui_InitializeWindows_Creating_default_tool_windows____" xml:space="preserve">
     <value>NL Creating default tool windows ...</value>
   </data>
-  <data name="DeltaShellGui_InitializeWindows_Initializing_windows____" xml:space="preserve">
+  <data name="RingtoetsGui_InitializeWindows_Initializing_windows____" xml:space="preserve">
     <value>NL Initializing windows ...</value>
   </data>
-  <data name="DeltaShellGui_InitToolWindows_Creating_document_window_manager____" xml:space="preserve">
+  <data name="RingtoetsGui_InitToolWindows_Creating_document_window_manager____" xml:space="preserve">
     <value>NL Creating document window manager ...</value>
   </data>
-  <data name="DeltaShellGui_InitToolWindows_Creating_tool_window_manager____" xml:space="preserve">
+  <data name="RingtoetsGui_InitToolWindows_Creating_tool_window_manager____" xml:space="preserve">
     <value>NL Creating tool window manager ...</value>
   </data>
-  <data name="DeltaShellGui_InitToolWindows_Finished_InitToolWindows" xml:space="preserve">
+  <data name="RingtoetsGui_InitToolWindows_Finished_InitToolWindows" xml:space="preserve">
     <value>NL Finished InitToolWindows</value>
   </data>
-  <data name="DeltaShellGui_Run_Initializing_graphical_user_interface____" xml:space="preserve">
+  <data name="RingtoetsGui_Run_Initializing_graphical_user_interface____" xml:space="preserve">
     <value>NL Initializing graphical user interface ...</value>
   </data>
-  <data name="DeltaShellGui_Run_Started_in__0_f2__sec" xml:space="preserve">
+  <data name="RingtoetsGui_Run_Started_in__0_f2__sec" xml:space="preserve">
     <value>NL Started in {0:f2} sec</value>
   </data>
-  <data name="DeltaShellGui_Run_Starting_application____" xml:space="preserve">
+  <data name="RingtoetsGui_Run_Starting_application____" xml:space="preserve">
     <value>NL Starting application ...</value>
   </data>
-  <data name="DeltaShellGui_ShowSplashScreen_Logo_file__0__does_not_exist" xml:space="preserve">
+  <data name="RingtoetsGui_ShowSplashScreen_Logo_file__0__does_not_exist" xml:space="preserve">
     <value>NL Logo file {0} does not exist</value>
   </data>
-  <data name="DeltaShellGui_ShowSplashScreen_User_has_cancelled_start__exiting____" xml:space="preserve">
+  <data name="RingtoetsGui_ShowSplashScreen_User_has_cancelled_start__exiting____" xml:space="preserve">
     <value>NL User has cancelled start, exiting ...</value>
   </data>
   <data name="GuiCommandHandler_AddNewFolder_Add_new_folder" xml:space="preserve">
@@ -522,8 +522,8 @@ Select No to save the project as a new project at a different location.</value>
   <data name="MainWindow_UpdateMainWindowRibbonElements_Reset_layout__restart_" xml:space="preserve">
     <value>NL Reset layout (restart)</value>
   </data>
-  <data name="MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on__the_default_layout_will_be_used_when_restarting_DeltaShell_" xml:space="preserve">
-    <value>NL When this option is turned on, the default layout will be used when restarting DeltaShell.</value>
+  <data name="MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on__the_default_layout_will_be_used_when_restarting_Ringtoets_" xml:space="preserve">
+    <value>NL When this option is turned on, the default layout will be used when restarting Ringtoets.</value>
   </data>
   <data name="MainWindowCommands_CloseViewTabCommand_Name_Close_Current_View" xml:space="preserve">
     <value>NL Close Current View</value>
@@ -828,8 +828,8 @@ Select No to save the project as a new project at a different location.</value>
   <data name="SearchDialog_BackgroundWorker1RunWorkerCompleted_The_search_has_been_cancelled" xml:space="preserve">
     <value>NL The search has been cancelled</value>
   </data>
-  <data name="App_App_Starting_Delta_Shell____" xml:space="preserve">
-    <value>NL Starting Delta Shell ...</value>
+  <data name="App_App_Starting_Ringtoets____" xml:space="preserve">
+    <value>NL Starting Ringtoets ...</value>
   </data>
   <data name="App_AppDomain_UnhandledException_Unknown_exception_" xml:space="preserve">
     <value>NL Unknown exception!</value>
@@ -847,38 +847,38 @@ Select No to save the project as a new project at a different location.</value>
   <data name="App_ParseArguments_Run_specified_command__Python__" xml:space="preserve">
     <value>NL Run specified command (Python).</value>
   </data>
-  <data name="App_RunDeltaShell_" xml:space="preserve">
+  <data name="App_RunRingtoets_" xml:space="preserve">
     <value>NL ======== running command ===========</value>
   </data>
-  <data name="App_RunDeltaShell_Activity___0___ended_with_status__1_" xml:space="preserve">
+  <data name="App_RunRingtoets_Activity___0___ended_with_status__1_" xml:space="preserve">
     <value>NL Activity '{0}' ended with status {1}</value>
   </data>
-  <data name="App_RunDeltaShell_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_load_a_project_" xml:space="preserve">
+  <data name="App_RunRingtoets_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_load_a_project_" xml:space="preserve">
     <value>NL Activity '{0}' not found in project! Typo, or did you forget to load a project?</value>
   </data>
-  <data name="App_RunDeltaShell_Could_not_find_script__0_" xml:space="preserve">
+  <data name="App_RunRingtoets_Could_not_find_script__0_" xml:space="preserve">
     <value>NL Could not find script {0}</value>
   </data>
-  <data name="App_RunDeltaShell_No_project_found__load_project_first" xml:space="preserve">
+  <data name="App_RunRingtoets_No_project_found__load_project_first" xml:space="preserve">
     <value>NL No project found, load project first</value>
   </data>
-  <data name="App_RunDeltaShell_Saved_project___0__" xml:space="preserve">
+  <data name="App_RunRingtoets_Saved_project___0__" xml:space="preserve">
     <value>NL Saved project '{0}'</value>
   </data>
-  <data name="App_RunDeltaShell_Saving_project___0__" xml:space="preserve">
+  <data name="App_RunRingtoets_Saving_project___0__" xml:space="preserve">
     <value>NL Saving project '{0}'</value>
   </data>
-  <data name="App_RunDeltaShell_Specified_project___0___was_not_found_" xml:space="preserve">
+  <data name="App_RunRingtoets_Specified_project___0___was_not_found_" xml:space="preserve">
     <value>NL Specified project ({0}) was not found.</value>
   </data>
-  <data name="App_RunDeltaShell_Starting_activity___0__" xml:space="preserve">
+  <data name="App_RunRingtoets_Starting_activity___0__" xml:space="preserve">
     <value>NL Starting activity '{0}'</value>
   </data>
-  <data name="App_RunDeltaShell_Starting_Delta_Shell_Gui____" xml:space="preserve">
-    <value>NL Starting Delta Shell Gui ...</value>
+  <data name="App_RunRingtoets_Starting_Ringtoets_Gui____" xml:space="preserve">
+    <value>NL Starting Ringtoets Gui ...</value>
   </data>
-  <data name="App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_DeltaShell__Please_close_the_other_instance_first_" xml:space="preserve">
-    <value>NL Cannot start multiple instances of DeltaShell. Please close the other instance first.</value>
+  <data name="App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets__Please_close_the_other_instance_first_" xml:space="preserve">
+    <value>NL Cannot start multiple instances of Ringtoets. Please close the other instance first.</value>
   </data>
   <data name="Wti_project_file_filter" xml:space="preserve">
     <value>WTI projectbestanden (.wti)|*.wti</value>

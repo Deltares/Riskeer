@@ -14,7 +14,7 @@ namespace Core.Common.Utils.Tests.IO
         public void ExtractFromZipFile()
         {
             File.Delete("LogoNLMW.xml");
-            ZipFileUtils.Extract(TestHelper.GetTestDataPath(TestDataPath.Common.Base.DelftToolsTests, @"zipfile\") + "MetaData.zip", ".");
+            ZipFileUtils.Extract(TestHelper.GetTestDataPath(TestDataPath.Common.Base.CoreCommonBaseTests, @"zipfile\") + "MetaData.zip", ".");
             Assert.IsTrue(File.Exists("LogoNLMW.xml"));
         }
 

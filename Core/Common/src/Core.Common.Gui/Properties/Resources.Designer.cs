@@ -89,11 +89,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Starting Delta Shell ....
+        ///   Looks up a localized string similar to Starting Ringtoets ....
         /// </summary>
-        public static string App_App_Starting_Delta_Shell____ {
+        public static string App_App_Starting_Ringtoets____ {
             get {
-                return ResourceManager.GetString("App_App_Starting_Delta_Shell____", resourceCulture);
+                return ResourceManager.GetString("App_App_Starting_Ringtoets____", resourceCulture);
             }
         }
         
@@ -146,101 +146,101 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ======== running command ===========.
         /// </summary>
-        public static string App_RunDeltaShell_ {
+        public static string App_RunRingtoets_ {
             get {
-                return ResourceManager.GetString("App_RunDeltaShell_", resourceCulture);
+                return ResourceManager.GetString("App_RunRingtoets_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Activity &apos;{0}&apos; ended with status {1}.
         /// </summary>
-        public static string App_RunDeltaShell_Activity___0___ended_with_status__1_ {
+        public static string App_RunRingtoets_Activity___0___ended_with_status__1_ {
             get {
-                return ResourceManager.GetString("App_RunDeltaShell_Activity___0___ended_with_status__1_", resourceCulture);
+                return ResourceManager.GetString("App_RunRingtoets_Activity___0___ended_with_status__1_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Activity &apos;{0}&apos; not found in project! Typo, or did you forget to load a project?.
         /// </summary>
-        public static string App_RunDeltaShell_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_load_a_project_ {
+        public static string App_RunRingtoets_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_load_a_project_ {
             get {
-                return ResourceManager.GetString("App_RunDeltaShell_Activity___0___not_found_in_project__Typo__or_did_you_forget_to" +
-                        "_load_a_project_", resourceCulture);
+                return ResourceManager.GetString("App_RunRingtoets_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_" +
+                        "load_a_project_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Could not find script {0}.
         /// </summary>
-        public static string App_RunDeltaShell_Could_not_find_script__0_ {
+        public static string App_RunRingtoets_Could_not_find_script__0_ {
             get {
-                return ResourceManager.GetString("App_RunDeltaShell_Could_not_find_script__0_", resourceCulture);
+                return ResourceManager.GetString("App_RunRingtoets_Could_not_find_script__0_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No project found, load project first.
         /// </summary>
-        public static string App_RunDeltaShell_No_project_found__load_project_first {
+        public static string App_RunRingtoets_No_project_found__load_project_first {
             get {
-                return ResourceManager.GetString("App_RunDeltaShell_No_project_found__load_project_first", resourceCulture);
+                return ResourceManager.GetString("App_RunRingtoets_No_project_found__load_project_first", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Saved project &apos;{0}&apos;.
         /// </summary>
-        public static string App_RunDeltaShell_Saved_project___0__ {
+        public static string App_RunRingtoets_Saved_project___0__ {
             get {
-                return ResourceManager.GetString("App_RunDeltaShell_Saved_project___0__", resourceCulture);
+                return ResourceManager.GetString("App_RunRingtoets_Saved_project___0__", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Saving project &apos;{0}&apos;.
         /// </summary>
-        public static string App_RunDeltaShell_Saving_project___0__ {
+        public static string App_RunRingtoets_Saving_project___0__ {
             get {
-                return ResourceManager.GetString("App_RunDeltaShell_Saving_project___0__", resourceCulture);
+                return ResourceManager.GetString("App_RunRingtoets_Saving_project___0__", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Specified project ({0}) was not found..
         /// </summary>
-        public static string App_RunDeltaShell_Specified_project___0___was_not_found_ {
+        public static string App_RunRingtoets_Specified_project___0___was_not_found_ {
             get {
-                return ResourceManager.GetString("App_RunDeltaShell_Specified_project___0___was_not_found_", resourceCulture);
+                return ResourceManager.GetString("App_RunRingtoets_Specified_project___0___was_not_found_", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Starting activity &apos;{0}&apos;.
         /// </summary>
-        public static string App_RunDeltaShell_Starting_activity___0__ {
+        public static string App_RunRingtoets_Starting_activity___0__ {
             get {
-                return ResourceManager.GetString("App_RunDeltaShell_Starting_activity___0__", resourceCulture);
+                return ResourceManager.GetString("App_RunRingtoets_Starting_activity___0__", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Starting Delta Shell Gui ....
+        ///   Looks up a localized string similar to StartingRingtoets Gui ....
         /// </summary>
-        public static string App_RunDeltaShell_Starting_Delta_Shell_Gui____ {
+        public static string App_RunRingtoets_Starting_Ringtoets_Gui____ {
             get {
-                return ResourceManager.GetString("App_RunDeltaShell_Starting_Delta_Shell_Gui____", resourceCulture);
+                return ResourceManager.GetString("App_RunRingtoets_Starting_Ringtoets_Gui____", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot start multiple instances of DeltaShell. Please close the other instance first..
+        ///   Looks up a localized string similar to Cannot start multiple instances of Ringtoets. Please close the other instance first..
         /// </summary>
-        public static string App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_DeltaShell__Please_close_the_other_instance_first_ {
+        public static string App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets__Please_close_the_other_instance_first_ {
             get {
-                return ResourceManager.GetString("App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_DeltaShell__Ple" +
-                        "ase_close_the_other_instance_first_", resourceCulture);
+                return ResourceManager.GetString("App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets__Plea" +
+                        "se_close_the_other_instance_first_", resourceCulture);
             }
         }
         
@@ -729,229 +729,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("DeleteHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error during plugin activation.
-        /// </summary>
-        public static string DeltaShellGui_ActivatePlugins_Error_during_plugin_activation {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_ActivatePlugins_Error_during_plugin_activation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Exception during plugin gui deactivation.
-        /// </summary>
-        public static string DeltaShellGui_ActivatePlugins_Exception_during_plugin_gui_deactivation {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_ActivatePlugins_Exception_during_plugin_gui_deactivation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gui plugin {0} activation has failed, skipping ....
-        /// </summary>
-        public static string DeltaShellGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initializing gui plugin {0} ....
-        /// </summary>
-        public static string DeltaShellGui_ActivatePlugins_Initializing_gui_plugin__0_____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_ActivatePlugins_Initializing_gui_plugin__0_____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to load view settings; view settings lost!.
-        /// </summary>
-        public static string DeltaShellGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_settings_lost_ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_setting" +
-                        "s_lost_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delta Shell clipboard emptied.
-        /// </summary>
-        public static string DeltaShellGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Only a single instance of DeltaShelGui is allowed at the same time per process, make sure that the previous instance was disposed correctly, stack trace:.
-        /// </summary>
-        public static string DeltaShellGui_DeltaShellGui_Only_a_single_instance_of_DeltaShelGui_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_DeltaShellGui_Only_a_single_instance_of_DeltaShelGui_is_allowed_at_" +
-                        "the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_cor" +
-                        "rectly__stack_trace__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DragDrop is already handled in control itself.
-        /// </summary>
-        public static string DeltaShellGui_DeltaShellGuiDragDrop_DragDrop_is_already_handled_in_control_itself {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_DeltaShellGuiDragDrop_DragDrop_is_already_handled_in_control_itself" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Menus and toolbars are ready..
-        /// </summary>
-        public static string DeltaShellGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready_ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Setting up menus and toolbars ....
-        /// </summary>
-        public static string DeltaShellGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to DeltaShell application started, active plugins:.
-        /// </summary>
-        public static string DeltaShellGui_InitializePluginResources_DeltaShell_application_started__active_plugins__ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitializePluginResources_DeltaShell_application_started__active_pl" +
-                        "ugins__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No plugins found, most probably there is a configuration problem..
-        /// </summary>
-        public static string DeltaShellGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitializePluginResources_No_plugins_found__most_probably_there_is_" +
-                        "a_configuration_problem_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please check your configuration and plugins folder!.
-        /// </summary>
-        public static string DeltaShellGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitializePluginResources_Please_check_your_configuration_and_plugi" +
-                        "ns_folder_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to All windows are created..
-        /// </summary>
-        public static string DeltaShellGui_InitializeWindows_All_windows_are_created_ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitializeWindows_All_windows_are_created_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Creating default tool windows ....
-        /// </summary>
-        public static string DeltaShellGui_InitializeWindows_Creating_default_tool_windows____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitializeWindows_Creating_default_tool_windows____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initializing windows ....
-        /// </summary>
-        public static string DeltaShellGui_InitializeWindows_Initializing_windows____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitializeWindows_Initializing_windows____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Creating document window manager ....
-        /// </summary>
-        public static string DeltaShellGui_InitToolWindows_Creating_document_window_manager____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitToolWindows_Creating_document_window_manager____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Creating tool window manager ....
-        /// </summary>
-        public static string DeltaShellGui_InitToolWindows_Creating_tool_window_manager____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitToolWindows_Creating_tool_window_manager____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Finished InitToolWindows.
-        /// </summary>
-        public static string DeltaShellGui_InitToolWindows_Finished_InitToolWindows {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_InitToolWindows_Finished_InitToolWindows", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initializing graphical user interface ....
-        /// </summary>
-        public static string DeltaShellGui_Run_Initializing_graphical_user_interface____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_Run_Initializing_graphical_user_interface____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Started in {0:f2} sec.
-        /// </summary>
-        public static string DeltaShellGui_Run_Started_in__0_f2__sec {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_Run_Started_in__0_f2__sec", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Starting application ....
-        /// </summary>
-        public static string DeltaShellGui_Run_Starting_application____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_Run_Starting_application____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Logo file {0} does not exist.
-        /// </summary>
-        public static string DeltaShellGui_ShowSplashScreen_Logo_file__0__does_not_exist {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_ShowSplashScreen_Logo_file__0__does_not_exist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User has cancelled start, exiting ....
-        /// </summary>
-        public static string DeltaShellGui_ShowSplashScreen_User_has_cancelled_start__exiting____ {
-            get {
-                return ResourceManager.GetString("DeltaShellGui_ShowSplashScreen_User_has_cancelled_start__exiting____", resourceCulture);
             }
         }
         
@@ -1919,12 +1696,12 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When this option is turned on, the default layout will be used when restarting DeltaShell..
+        ///   Looks up a localized string similar to When this option is turned on, the default layout will be used when restarting Ringtoets..
         /// </summary>
-        public static string MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on__the_default_layout_will_be_used_when_restarting_DeltaShell_ {
+        public static string MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on__the_default_layout_will_be_used_when_restarting_Ringtoets_ {
             get {
                 return ResourceManager.GetString("MainWindow_UpdateMainWindowRibbonElements_When_this_option_is_turned_on__the_defa" +
-                        "ult_layout_will_be_used_when_restarting_DeltaShell_", resourceCulture);
+                        "ult_layout_will_be_used_when_restarting_Ringtoets_", resourceCulture);
             }
         }
         
@@ -3111,6 +2888,228 @@ namespace Core.Common.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("Ringtoets", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error during plugin activation.
+        /// </summary>
+        public static string RingtoetsGui_ActivatePlugins_Error_during_plugin_activation {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_ActivatePlugins_Error_during_plugin_activation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception during plugin gui deactivation.
+        /// </summary>
+        public static string RingtoetsGui_ActivatePlugins_Exception_during_plugin_gui_deactivation {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_ActivatePlugins_Exception_during_plugin_gui_deactivation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gui plugin {0} activation has failed, skipping ....
+        /// </summary>
+        public static string RingtoetsGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initializing gui plugin {0} ....
+        /// </summary>
+        public static string RingtoetsGui_ActivatePlugins_Initializing_gui_plugin__0_____ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_ActivatePlugins_Initializing_gui_plugin__0_____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to load view settings; view settings lost!.
+        /// </summary>
+        public static string RingtoetsGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_settings_lost_ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_settings" +
+                        "_lost_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ringtoets clipboard emptied.
+        /// </summary>
+        public static string RingtoetsGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menus and toolbars are ready..
+        /// </summary>
+        public static string RingtoetsGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready_ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_InitializeMenusAndToolbars_Menus_and_toolbars_are_ready_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting up menus and toolbars ....
+        /// </summary>
+        public static string RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No plugins found, most probably there is a configuration problem..
+        /// </summary>
+        public static string RingtoetsGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a" +
+                        "_configuration_problem_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please check your configuration and plugins folder!.
+        /// </summary>
+        public static string RingtoetsGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_InitializePluginResources_Please_check_your_configuration_and_plugin" +
+                        "s_folder_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ringtoets application started, active plugins:.
+        /// </summary>
+        public static string RingtoetsGui_InitializePluginResources_Ringtoets_application_started__active_plugins__ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_InitializePluginResources_Ringtoets_application_started__active_plug" +
+                        "ins__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All windows are created..
+        /// </summary>
+        public static string RingtoetsGui_InitializeWindows_All_windows_are_created_ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_InitializeWindows_All_windows_are_created_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating default tool windows ....
+        /// </summary>
+        public static string RingtoetsGui_InitializeWindows_Creating_default_tool_windows____ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_InitializeWindows_Creating_default_tool_windows____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initializing windows ....
+        /// </summary>
+        public static string RingtoetsGui_InitializeWindows_Initializing_windows____ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_InitializeWindows_Initializing_windows____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating document window manager ....
+        /// </summary>
+        public static string RingtoetsGui_InitToolWindows_Creating_document_window_manager____ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_InitToolWindows_Creating_document_window_manager____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating tool window manager ....
+        /// </summary>
+        public static string RingtoetsGui_InitToolWindows_Creating_tool_window_manager____ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_InitToolWindows_Creating_tool_window_manager____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finished InitToolWindows.
+        /// </summary>
+        public static string RingtoetsGui_InitToolWindows_Finished_InitToolWindows {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_InitToolWindows_Finished_InitToolWindows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only a single instance of RingtoetsGui is allowed at the same time per process, make sure that the previous instance was disposed correctly, stack trace:.
+        /// </summary>
+        public static string RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_" +
+                        "process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trac" +
+                        "e__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DragDrop is already handled in control itself.
+        /// </summary>
+        public static string RingtoetsGui_RingtoetsGuiDragDrop_DragDrop_is_already_handled_in_control_itself {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_RingtoetsGuiDragDrop_DragDrop_is_already_handled_in_control_itself", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initializing graphical user interface ....
+        /// </summary>
+        public static string RingtoetsGui_Run_Initializing_graphical_user_interface____ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_Run_Initializing_graphical_user_interface____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Started in {0:f2} sec.
+        /// </summary>
+        public static string RingtoetsGui_Run_Started_in__0_f2__sec {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_Run_Started_in__0_f2__sec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting application ....
+        /// </summary>
+        public static string RingtoetsGui_Run_Starting_application____ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_Run_Starting_application____", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logo file {0} does not exist.
+        /// </summary>
+        public static string RingtoetsGui_ShowSplashScreen_Logo_file__0__does_not_exist {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_ShowSplashScreen_Logo_file__0__does_not_exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User has cancelled start, exiting ....
+        /// </summary>
+        public static string RingtoetsGui_ShowSplashScreen_User_has_cancelled_start__exiting____ {
+            get {
+                return ResourceManager.GetString("RingtoetsGui_ShowSplashScreen_User_has_cancelled_start__exiting____", resourceCulture);
             }
         }
         

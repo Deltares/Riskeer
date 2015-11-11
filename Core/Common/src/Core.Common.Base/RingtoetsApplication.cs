@@ -186,7 +186,7 @@ namespace Core.Common.Base
         {
             if (isRunning)
             {
-                throw new InvalidOperationException(Properties.Resources.DeltaShellApplication_Run_You_can_call_Run___only_once_per_application);
+                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_Run_You_can_call_Run___only_once_per_application);
             }
 
             initializing = true;
@@ -194,11 +194,11 @@ namespace Core.Common.Base
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            log.Info(Properties.Resources.DeltaShellApplication_Run_Starting_Delta_Shell____);
+            log.Info(Properties.Resources.RingtoetsApplication_Run_Starting_Delta_Shell____);
 
             if (running)
             {
-                throw new InvalidOperationException(Properties.Resources.DeltaShellApplication_Run_Application_is_already_running);
+                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_Run_Application_is_already_running);
             }
 
             running = true;
@@ -219,17 +219,17 @@ namespace Core.Common.Base
 
             isRunning = true;
 
-            log.Info(Properties.Resources.DeltaShellApplication_Run_Creating_new_project____);
+            log.Info(Properties.Resources.RingtoetsApplication_Run_Creating_new_project____);
             CreateNewProject();
 
-            log.Info(Properties.Resources.DeltaShellApplication_Run_Activating_plugins____);
+            log.Info(Properties.Resources.RingtoetsApplication_Run_Activating_plugins____);
             ActivatePlugins();
 
             RegisterDataTypes();
             RegisterImporters();
             RegisterExporters();
 
-            log.Info(Properties.Resources.DeltaShellApplication_Run_Waiting_until_all_plugins_are_activated____);
+            log.Info(Properties.Resources.RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated____);
 
             Project = projectBeingCreated; // opens project in application
 
@@ -237,7 +237,7 @@ namespace Core.Common.Base
 
             stopwatch.Stop();
 
-            log.InfoFormat(Properties.Resources.DeltaShellApplication_Run_Delta_Shell_is_ready__started_in__0_F3__sec_, stopwatch.ElapsedMilliseconds/1000.0);
+            log.InfoFormat(Properties.Resources.RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__sec_, stopwatch.ElapsedMilliseconds/1000.0);
 
             if (AfterRun != null)
             {
@@ -264,7 +264,7 @@ namespace Core.Common.Base
         {
             if (!isRunning)
             {
-                throw new InvalidOperationException(Properties.Resources.DeltaShellApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened);
+                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened);
             }
 
             projectBeingCreated = new Project();
@@ -279,7 +279,7 @@ namespace Core.Common.Base
         {
             if (!isRunning)
             {
-                throw new InvalidOperationException(Properties.Resources.DeltaShellApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened);
+                throw new InvalidOperationException(Properties.Resources.RingtoetsApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened);
             }
 
             // TODO: implement and remove Project = new Project();
@@ -347,7 +347,7 @@ namespace Core.Common.Base
 
         private void ActivatePlugins()
         {
-            log.Debug(Properties.Resources.DeltaShellApplication_Run_Activating_plugins____);
+            log.Debug(Properties.Resources.RingtoetsApplication_Run_Activating_plugins____);
 
             // Activate all plugins
             foreach (var plugin in Plugins)
@@ -368,7 +368,7 @@ namespace Core.Common.Base
                 Environment.CurrentDirectory = cwd;
             }
 
-            log.Debug(Properties.Resources.DeltaShellApplication_ActivatePlugins_All_plugins_were_activated_);
+            log.Debug(Properties.Resources.RingtoetsApplication_ActivatePlugins_All_plugins_were_activated_);
         }
 
         /// <summary>
@@ -391,7 +391,7 @@ namespace Core.Common.Base
 
         private static void LogSystemInfo()
         {
-            log.DebugFormat(Properties.Resources.DeltaShellApplication_LogSystemInfo_Environmental_variables_);
+            log.DebugFormat(Properties.Resources.RingtoetsApplication_LogSystemInfo_Environmental_variables_);
 
             var culture = Thread.CurrentThread.CurrentCulture;
             log.DebugFormat("{0} = {1}", "CURRENT_THREAD_CULTURE", culture.EnglishName);
@@ -425,33 +425,33 @@ namespace Core.Common.Base
                 return;
             }
 
-            log.Debug(Properties.Resources.DeltaShellApplication_InitializeLicense_Initializing_license____);
+            log.Debug(Properties.Resources.RingtoetsApplication_InitializeLicense_Initializing_license____);
 
             if (!File.Exists(licenseFilePath))
             {
-                log.WarnFormat(Properties.Resources.DeltaShellApplication_InitializeLicense_License_file_does_not_exist___0_, licenseFilePath);
+                log.WarnFormat(Properties.Resources.RingtoetsApplication_InitializeLicense_License_file_does_not_exist___0_, licenseFilePath);
             }
             else
             {
-                Environment.SetEnvironmentVariable("DHSDELFT_LICENSE_FILE", Path.GetFullPath(licenseFilePath));
+                Environment.SetEnvironmentVariable("RINGTOETS_LICENSE_FILE", Path.GetFullPath(licenseFilePath));
             }
 
-            log.Debug(Properties.Resources.DeltaShellApplication_InitializeLicense_License_is_initialized_);
+            log.Debug(Properties.Resources.RingtoetsApplication_InitializeLicense_License_is_initialized_);
         }
 
         private void RegisterDataTypes()
         {
-            log.Debug(Properties.Resources.DeltaShellApplication_RegisterDataTypes_Registering_persistent_data_types____);
+            log.Debug(Properties.Resources.RingtoetsApplication_RegisterDataTypes_Registering_persistent_data_types____);
 
             foreach (var dataName in Plugins.SelectMany(plugin => plugin.GetDataItemInfos().Select(dii => dii.Name)))
             {
-                log.DebugFormat(Properties.Resources.DeltaShellApplication_RegisterDataTypes_Registering_data_type__0_, dataName);
+                log.DebugFormat(Properties.Resources.RingtoetsApplication_RegisterDataTypes_Registering_data_type__0_, dataName);
             }
         }
 
         private void RegisterImporters()
         {
-            log.Debug(Properties.Resources.DeltaShellApplication_RegisterImporters_Registering_importers____);
+            log.Debug(Properties.Resources.RingtoetsApplication_RegisterImporters_Registering_importers____);
 
             foreach (var fileImporter in Plugins.SelectMany(plugin => plugin.GetFileImporters()))
             {
@@ -464,13 +464,13 @@ namespace Core.Common.Base
 
                 fileImporters.Add(fileImporter);
 
-                log.DebugFormat(Properties.Resources.DeltaShellApplication_RegisterImporters_Registering_importer__0_, fileImporter.Name);
+                log.DebugFormat(Properties.Resources.RingtoetsApplication_RegisterImporters_Registering_importer__0_, fileImporter.Name);
             }
         }
 
         private void RegisterExporters()
         {
-            log.Debug(Properties.Resources.DeltaShellApplication_RegisterExporters_Registering_exporters____);
+            log.Debug(Properties.Resources.RingtoetsApplication_RegisterExporters_Registering_exporters____);
 
             foreach (var fileExporter in Plugins.SelectMany(plugin => plugin.GetFileExporters()))
             {
@@ -483,7 +483,7 @@ namespace Core.Common.Base
 
                 fileExporters.Add(fileExporter);
 
-                log.DebugFormat(Properties.Resources.DeltaShellApplication_RegisterExporters_Registering_exporter__0_, fileExporter.Name);
+                log.DebugFormat(Properties.Resources.RingtoetsApplication_RegisterExporters_Registering_exporter__0_, fileExporter.Name);
             }
         }
 

@@ -34,7 +34,7 @@ namespace Core.Common.Utils.Tests
         public void TestPredefinedTestPath()
         {
             // common
-            var path = TestHelper.GetTestDataPath(TestDataPath.Common.Base.DelftToolsTests);
+            var path = TestHelper.GetTestDataPath(TestDataPath.Common.Base.CoreCommonBaseTests);
             Assert.IsTrue(Directory.Exists(path));
 
             // Ringtoets

@@ -138,8 +138,8 @@
   <data name="FileFilter_CSV_Files" xml:space="preserve">
     <value>NL CSV Files</value>
   </data>
-  <data name="FileFilter_Delta_Shell_State_File" xml:space="preserve">
-    <value>NL Delta Shell State File</value>
+  <data name="FileFilter_Ringtoets_State_File" xml:space="preserve">
+    <value>NL Ringtoets State File</value>
   </data>
   <data name="GenerateDataService_AddOneIntervalStep_Cannot_add_one_step_to_the_old_value_of_type__0___because_the_amount_to_add_is_of_incompatible_type__1__" xml:space="preserve">
     <value>NL Cannot add one step to the old value of type {0}, because the amount to add is of incompatible type {1}.</value>
@@ -180,8 +180,8 @@
   <data name="GenerateDataService_SubstractOneIntervalStep_Cannot_progress_one_interval_step__Variable_values_of_type__0__are_not_supported_" xml:space="preserve">
     <value>NL Cannot progress one interval step: Variable values of type {0} are not supported.</value>
   </data>
-  <data name="ProjectImporter_FileFilter_Delta_Shell_Project_Files" xml:space="preserve">
-    <value>NL Delta Shell Project Files</value>
+  <data name="ProjectImporter_FileFilter_Ringtoets_Project_Files" xml:space="preserve">
+    <value>NL Ringtoets Project Files</value>
   </data>
   <data name="ProjectImporter_Name_Project" xml:space="preserve">
     <value>NL Project</value>
@@ -189,8 +189,8 @@
   <data name="ProjectItemExporter_Export_ProjectFolderExporter_only_supports_export_of_IProjectItem_based_objects" xml:space="preserve">
     <value>NL ProjectFolderExporter only supports export of IProjectItem based objects</value>
   </data>
-  <data name="ProjectItemExporter_fileFilter_DeltaShell_project_files" xml:space="preserve">
-    <value>NL DeltaShell project files</value>
+  <data name="ProjectItemExporter_fileFilter_Ringtoets_project_files" xml:space="preserve">
+    <value>NL Ringtoets project files</value>
   </data>
   <data name="ProjectItemExporter_name_Export_to_new_project" xml:space="preserve">
     <value>NL Export to new project</value>
