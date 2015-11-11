@@ -253,23 +253,6 @@ namespace Core.Common.Utils.Aop
             args.ProceedSetValue();
         }
 
-        /// <summary>
-        /// </summary>
-        /// <remarks>seperate method to take a compile time iso runtime performance hit</remarks>
-        /// <param name="args"></param>
-        [OnLocationSetValueAdvice]
-        [MethodPointcut("GetAggregationListFieldsToSubscribeTo")]
-        public void OnFieldSetAggregationList(LocationInterceptionArgs args)
-        {
-            var notifyCollectionChange = args.Value as INotifyCollectionChange;
-            if (notifyCollectionChange != null)
-            {
-                notifyCollectionChange.SkipChildItemEventBubbling = true;
-            }
-
-            OnFieldSet(args);
-        }
-
         public override void RuntimeInitializeInstance()
         {
             if (inInitialize)
@@ -446,17 +429,7 @@ namespace Core.Common.Utils.Aop
 
         private IEnumerable<FieldInfo> GetFieldsToSubscribeTo(Type type)
         {
-            return GetApplicableFields(type)
-                .Where(info => !info.PropertyInfo.IsDefined(typeof(AggregationAttribute), false))
-                .Select(i => i.FieldInfo);
-        }
-
-        private IEnumerable<FieldInfo> GetAggregationListFieldsToSubscribeTo(Type type)
-        {
-            return GetApplicableFields(type)
-                .Where(info => info.PropertyInfo.IsDefined(typeof(AggregationAttribute), false) &&
-                               IsEventedListAggregation(info.FieldInfo))
-                .Select(info => info.FieldInfo);
+            return GetApplicableFields(type).Select(i => i.FieldInfo);
         }
 
         private struct FieldPropertyInfo

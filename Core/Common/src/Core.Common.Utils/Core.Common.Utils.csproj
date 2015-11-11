@@ -108,7 +108,6 @@
     <Compile Include="Aop\EditActionAttribute.cs" />
     <Compile Include="Aop\ICustomNotifyCollectionChange.cs" />
     <Compile Include="Aop\ManualAspectInitializer.cs" />
-    <Compile Include="Aop\Markers\AggregationAttribute.cs" />
     <Compile Include="Aop\EntityAttribute.cs" />
     <Compile Include="Aop\Markers\NoNotifyCollectionChangeAttribute.cs" />
     <Compile Include="Aop\Markers\NoNotifyPropertyChangeAttribute.cs" />
