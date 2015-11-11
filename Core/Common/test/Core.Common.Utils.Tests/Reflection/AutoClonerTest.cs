@@ -55,33 +55,6 @@ namespace Core.Common.Utils.Tests.Reflection
         }
 
         [Test]
-        public void AutoCloneWithExternalAggregation()
-        {
-            // create small graph with aggregation
-            var set = new Set
-            {
-                Elements =
-                {
-                    new Element
-                    {
-                        Name = "a"
-                    },
-                    new Element
-                    {
-                        Name = "b"
-                    }
-                }
-            };
-            set.Elements.ForEach(e => e.Set = set);
-
-            // clone only subgraph
-            var clonedElement = TypeUtils.DeepClone(set.Elements.First());
-
-            // make sure objects outside graph weren't cloned
-            Assert.AreSame(set, clonedElement.Set);
-        }
-
-        [Test]
         public void AutoCloneWithInternalAggregation()
         {
             // create small graph with aggregation
@@ -117,7 +90,6 @@ namespace Core.Common.Utils.Tests.Reflection
 
         public class Element
         {
-            [Aggregation]
             public Set Set { get; set; }
 
             public string Name { get; set; }
@@ -132,7 +104,6 @@ namespace Core.Common.Utils.Tests.Reflection
 
             public List<Element> Elements { get; set; }
 
-            [Aggregation]
             public Element RootElement { get; set; }
         }
     }

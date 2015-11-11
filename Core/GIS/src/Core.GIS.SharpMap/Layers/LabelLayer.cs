@@ -254,7 +254,7 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        [Aggregation]
+        [NoNotifyPropertyChange]
         public virtual ILayer Parent { get; set; }
 
         /// <summary>

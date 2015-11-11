@@ -308,7 +308,7 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        [Aggregation]
+        [NoNotifyPropertyChange]
         public virtual IMap Map
         {
             get

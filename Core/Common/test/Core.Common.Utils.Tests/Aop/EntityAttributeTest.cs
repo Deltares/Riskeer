@@ -32,33 +32,6 @@ namespace Core.Common.Utils.Tests.Aop
         }
 
         [Test]
-        public void TestAggregationList()
-        {
-            var person = new Person
-            {
-                Child = new Person
-                {
-                    Prop3 = 15
-                },
-                AllPersons = new EventedList<Person>()
-            };
-
-            var propChanged = 0;
-            var collChanged = 0;
-
-            ((INotifyPropertyChanged) person).PropertyChanged += (s, e) => propChanged++;
-            ((INotifyCollectionChange) person).CollectionChanged += (s, e) => collChanged++;
-
-            person.AllPersons.Add(person.Child);
-
-            Assert.AreEqual(1, collChanged, "coll");
-
-            person.Child.Prop3 = 16;
-
-            Assert.AreEqual(1, propChanged, "prop");
-        }
-
-        [Test]
         public void TestNoNotify()
         {
             var person = new Person();
@@ -99,37 +72,6 @@ namespace Core.Common.Utils.Tests.Aop
             };
 
             person.Child.Prop1 = true;
-
-            Assert.AreEqual(1, calledChanging);
-            Assert.AreEqual(1, calledChanged);
-        }
-
-        [Test]
-        public void TestAggregationEvent()
-        {
-            var person = new Person();
-
-            var calledChanging = 0;
-            var calledChanged = 0;
-
-            ((INotifyPropertyChanging) person).PropertyChanging += (s, e) =>
-            {
-                Assert.AreEqual(s, person);
-                calledChanging++;
-            };
-
-            ((INotifyPropertyChanged) person).PropertyChanged += (s, e) =>
-            {
-                Assert.AreEqual(s, person);
-                calledChanged++;
-            };
-
-            person.Parent = new Person();
-
-            Assert.AreEqual(1, calledChanging);
-            Assert.AreEqual(1, calledChanged);
-
-            person.Parent.Prop1 = true;
 
             Assert.AreEqual(1, calledChanging);
             Assert.AreEqual(1, calledChanged);
@@ -234,7 +176,6 @@ namespace Core.Common.Utils.Tests.Aop
         {
             public Person Child { get; set; }
 
-            [Aggregation]
             public Person Parent { get; set; }
 
             public bool Prop1 { get; set; }
@@ -244,7 +185,6 @@ namespace Core.Common.Utils.Tests.Aop
 
             public int Prop3 { get; set; }
 
-            [Aggregation]
             public IEventedList<Person> AllPersons { get; set; }
         }
     }

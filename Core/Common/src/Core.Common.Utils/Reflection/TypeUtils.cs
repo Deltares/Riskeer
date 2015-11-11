@@ -6,8 +6,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Core.Common.Utils.Aop;
-using Core.Common.Utils.Aop.Markers;
-using Core.Common.Utils.Collections;
 using log4net;
 
 namespace Core.Common.Utils.Reflection
@@ -452,22 +450,6 @@ namespace Core.Common.Utils.Reflection
             //see http://stackoverflow.com/questions/1423733/how-to-tell-if-a-net-assembly-is-dynamic
             //more nice than depending on an exception..
             return (assembly.ManifestModule.GetType().Namespace == "System.Reflection.Emit");
-        }
-
-        public static bool IsAggregationProperty(object sender, string propertyName)
-        {
-            var propertyInfo = GetPropertyInfo(sender.GetType(), propertyName);
-            return propertyInfo.GetCustomAttributes(typeof(AggregationAttribute), false).Length > 0;
-        }
-
-        public static bool IsAggregationList(object sender)
-        {
-            if (sender is INotifyCollectionChange)
-            {
-                var collChange = sender as INotifyCollectionChange;
-                return collChange.SkipChildItemEventBubbling;
-            }
-            return false;
         }
 
         public static void ClearCaches()

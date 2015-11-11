@@ -681,7 +681,7 @@ namespace Core.Common.Utils.Reflection
                     var attributes = pi.GetCustomAttributes(false); //or true?
                     PropertyAttributeInfo[pi] = new AttributeDetails
                     {
-                        Aggregation = attributes.Any(a => a is AggregationAttribute),
+                        Aggregation = false,
                         NoNotify = attributes.Any(a => a is NoNotifyPropertyChangeAttribute),
                         NonSerialized = attributes.Any(a => a is NonSerializedAttribute)
                     };

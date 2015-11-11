@@ -30,7 +30,7 @@ namespace Core.GIS.SharpMap.Api.Layers
         /// </remarks>
         GetLabelMethod LabelStringDelegate { get; set; }
 
-        [Aggregation]
+        [NoNotifyPropertyChange]
         ILayer Parent { get; set; }
     }
 }

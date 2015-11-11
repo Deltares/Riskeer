@@ -16,7 +16,6 @@ namespace Core.Common.Base.Workflow
 
         public bool ReadOnly { get; set; }
 
-        [Aggregation]
         public virtual ICompositeActivity CurrentWorkflow
         {
             get
