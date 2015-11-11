@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using Core.Common.Utils.Aop.Markers;
 using Core.Common.Utils.Collections;
-using Core.Common.Utils.Collections.Generic;
 using PostSharp.Aspects;
 using PostSharp.Aspects.Advices;
 using PostSharp.Extensibility;
@@ -419,12 +418,6 @@ namespace Core.Common.Utils.Aop
                 .GetProperties()
                 .FirstOrDefault(p => p.Name.ToLower() == field.Name.ToLower() ||
                                      field.Name == string.Format("<{0}>k__BackingField", p.Name));
-        }
-
-        private static bool IsEventedListAggregation(FieldInfo fieldInfo)
-        {
-            return fieldInfo.FieldType.IsGenericType &&
-                   fieldInfo.FieldType.GetGenericTypeDefinition() == typeof(IEventedList<>);
         }
 
         private IEnumerable<FieldInfo> GetFieldsToSubscribeTo(Type type)
