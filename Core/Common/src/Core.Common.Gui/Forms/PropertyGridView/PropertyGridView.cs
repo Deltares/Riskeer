@@ -33,6 +33,9 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             gui.SelectionChanged += GuiSelectionChanged;
         }
 
+        /// <summary>
+        /// Comes from IObserver. Reaction to the change in observable.
+        /// </summary>
         public void UpdateObserver()
         {
             if (InvokeRequired)
@@ -46,6 +49,10 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             }
         }
 
+        /// <summary>
+        /// Handles proeprties sorting change.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnPropertySortChanged(EventArgs e)
         {
             // Needed for maintaining property order (no support for both categorized and alphabethical sorting)
@@ -123,6 +130,11 @@ namespace Core.Common.Gui.Forms.PropertyGridView
 
         public void EnsureVisible(object item) {}
 
+        /// <summary>
+        /// Retrieves adapter for the sourceData to be shown as the source object in the grid.
+        /// </summary>
+        /// <param name="sourceData"></param>
+        /// <returns></returns>
         public object GetObjectProperties(object sourceData)
         {
             return gui != null ? PropertyResolver.GetObjectProperties(gui.Plugins.SelectMany(p => p.GetPropertyInfos()).ToList(), sourceData) : null;
