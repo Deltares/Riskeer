@@ -1,7 +1,10 @@
-﻿using System.Windows;
+﻿//using System.Threading;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using NUnit.Framework;
+using SplashScreen = Core.Common.Gui.Forms.SplashScreen.SplashScreen;
+//using Application = System.Windows.Forms.Application;
 
 namespace Core.Common.Gui.Tests.Forms
 {
@@ -18,7 +21,7 @@ namespace Core.Common.Gui.Tests.Forms
             var strVersion = "Version1";
             var strProgressText = "SomeProgress1";
 
-            var screen = new Gui.Forms.SplashScreen.SplashScreen
+            var screen = new SplashScreen
             {
                 CompanyText = strCompany,
                 CopyrightText = strCopyright,
@@ -36,6 +39,27 @@ namespace Core.Common.Gui.Tests.Forms
             Assert.AreEqual(strProgressText, GetLabelText(screen, "labelProgressMessage"));
         }
 
+        /*
+        [Test]
+        [RequiresSTA]
+        public void TestProgressBarFillsUp()
+        {
+            var screen = new SplashScreen();
+
+            screen.Show();
+            var counter = 0;
+            //            screen.ContentRendered += (sender, args) => counter++;
+
+            for (var i = 0; i <= 99; i++)
+            {
+                screen.ProgressValuePercent = i;
+                Thread.Sleep(20);
+                Application.DoEvents();
+            }
+
+//            Assert.AreEqual(100, counter);
+        }
+  */
         private FrameworkElement FindControlRecursively(FrameworkElement parent, string name)
         {
             var childrenCount = VisualTreeHelper.GetChildrenCount(parent);
@@ -53,7 +77,7 @@ namespace Core.Common.Gui.Tests.Forms
 
             return foundChild;
         }
-
+      
         private string GetLabelText(FrameworkElement parent, string labelName)
         {
             var label = FindControlRecursively(parent, labelName);
