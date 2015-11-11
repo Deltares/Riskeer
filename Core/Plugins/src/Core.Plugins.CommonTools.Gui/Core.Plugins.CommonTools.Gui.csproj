@@ -108,7 +108,6 @@
     <Compile Include="Property\Charting\LineChartSeriesProperties.cs" />
     <Compile Include="Property\Charting\PointChartSeriesProperties.cs" />
     <Compile Include="Property\Charting\PolygonChartSeriesProperties.cs" />
-    <Compile Include="Property\CompositeActivityProperties.cs" />
     <Compile Include="Property\ProjectProperties.cs" />
     <Compile Include="Property\TextDocumentProperties.cs" />
     <Compile Include="Property\TreeFolderProperties.cs" />

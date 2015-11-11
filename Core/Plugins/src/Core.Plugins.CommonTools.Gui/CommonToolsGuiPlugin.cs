@@ -6,7 +6,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using Core.Common.Base;
-using Core.Common.Base.Workflow;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf;
 using Core.Common.Controls.Swf.Charting;
@@ -70,7 +69,6 @@ namespace Core.Plugins.CommonTools.Gui
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<ICompositeActivity, CompositeActivityProperties>();
             yield return new PropertyInfo<Url, UrlProperties>();
             yield return new PropertyInfo<TextDocument, TextDocumentProperties>();
             yield return new PropertyInfo<Project, ProjectProperties>();

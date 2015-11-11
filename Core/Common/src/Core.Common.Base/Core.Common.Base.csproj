@@ -92,7 +92,6 @@
     <Compile Include="DeltaShellApplication.cs" />
     <Compile Include="DeltaShellApplicationSettings.cs" />
     <Compile Include="DeltaShellUserDataFolderConverter.cs" />
-    <Compile Include="Extensions\CompositeActivityExtensions.cs" />
     <Compile Include="IApplication.cs" />
     <Compile Include="IFileExporter.cs" />
     <Compile Include="IFileImporter.cs" />
@@ -120,13 +119,9 @@
     <Compile Include="Workflow\BackgroundWorker.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Workflow\CompositeActivity.cs" />
     <Compile Include="Workflow\FileImportActivity.cs" />
     <Compile Include="Workflow\IActivity.cs" />
     <Compile Include="Workflow\IActivityRunner.cs" />
-    <Compile Include="Workflow\ICompositeActivity.cs" />
-    <Compile Include="Workflow\ParallelActivity.cs" />
-    <Compile Include="Workflow\SequentialActivity.cs" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>

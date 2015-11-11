@@ -129,11 +129,9 @@
     </Compile>
     <Compile Include="Shell\Core\ApplicationPluginTest.cs" />
     <Compile Include="Shell\Core\DataItemInfoTest.cs" />
-    <Compile Include="Shell\Core\Extensions\CompositeActivityExtensionsTest.cs" />
     <Compile Include="Shell\Core\ObservableListTest.cs" />
     <Compile Include="Shell\Core\WorkFlow\ActivityTest.cs" />
     <Compile Include="Shell\Core\WorkFlow\BackgroundWorkerTest.cs" />
-    <Compile Include="Shell\Core\WorkFlow\CompositeActivityTest.cs" />
     <Compile Include="Shell\Core\WorkFlow\FileImportActivityTest.cs" />
     <Compile Include="Shell\Gui\ExpandableArrayConverterTest.cs" />
     <Compile Include="Shell\Gui\MapLayerProviderHelperTest.cs" />

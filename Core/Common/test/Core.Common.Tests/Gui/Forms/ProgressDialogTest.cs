@@ -47,7 +47,7 @@ namespace Core.Common.Tests.Gui.Forms
             Assert.AreEqual(0, grid.RowCount);
         }
 
-        private class TimedActivity: ParallelActivity
+        private class TimedActivity: Activity
         {
             private readonly int hundredsOfMilliseconds;
 

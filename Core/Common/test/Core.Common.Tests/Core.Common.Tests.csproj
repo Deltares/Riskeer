@@ -84,7 +84,6 @@
     <Compile Include="Core\AssemblyInfoTest.cs" />
     <Compile Include="Core\DelftShellApplicationTest.cs" />
     <Compile Include="Core\DeltaShellApplicationSettingsTest.cs" />
-    <Compile Include="Core\Extensions\CompositeActivityExtensionsTest.cs" />
     <Compile Include="Gui\Forms\AvalonDockDockingManagerTest.cs" />
     <Compile Include="Gui\Forms\ProgressBarDialogTest.cs" />
     <Compile Include="Gui\Forms\ProgressDialogTest.cs" />
