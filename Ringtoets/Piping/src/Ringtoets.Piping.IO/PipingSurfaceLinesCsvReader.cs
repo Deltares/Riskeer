@@ -121,7 +121,7 @@ namespace Ringtoets.Piping.IO
                     var tokenizedString = TokenizeString(readText);
 
                     var surfaceLineName = GetSurfaceLineName(tokenizedString);
-                    var points = GetSurfaceLinePoints(tokenizedString);
+                    var points = GetSurfaceLinePoints(tokenizedString, surfaceLineName);
 
                     var surfaceLine = new RingtoetsPipingSurfaceLine
                     {
@@ -142,6 +142,11 @@ namespace Ringtoets.Piping.IO
             return null;
         }
 
+        /// <summary>
+        /// Checks if the geometry dfining the surface line is valid.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line to be checked.</param>
+        /// <exception cref="LineParseException">Surface line geometry is invalid</exception>
         private void CheckIfGeometryIsValid(RingtoetsPipingSurfaceLine surfaceLine)
         {
             double[] lCoordinates = surfaceLine.ProjectGeometryToLZ().Select(p => p.X).ToArray();
@@ -149,8 +154,8 @@ namespace Ringtoets.Piping.IO
             {
                 if (lCoordinates[i - 1] > lCoordinates[i])
                 {
-                    var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_has_reclining_geometry,
-                                                filePath, 2);
+                    var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry,
+                                                filePath, surfaceLine.Name);
                     throw new LineParseException(message);
                 }
             }
@@ -188,6 +193,7 @@ namespace Ringtoets.Piping.IO
         /// Gets the 3D surface line points.
         /// </summary>
         /// <param name="tokenizedString">The tokenized string.</param>
+        /// <param name="surfaceLineName"></param>
         /// <returns>Set of all 3D world coordinate points.</returns>
         /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
@@ -196,15 +202,15 @@ namespace Ringtoets.Piping.IO
         /// <item><paramref name="tokenizedString"/> is missing coordinate values to define a proper surface line point.</item>
         /// </list>
         /// </exception>
-        private IEnumerable<Point3D> GetSurfaceLinePoints(string[] tokenizedString)
+        private IEnumerable<Point3D> GetSurfaceLinePoints(string[] tokenizedString, string surfaceLineName)
         {
             const int expectedValuesForPoint = 3;
 
-            var worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString);
+            var worldCoordinateValues = ParseWorldCoordinateValuesAndHandleParseErrors(tokenizedString, surfaceLineName);
             if (worldCoordinateValues.Length % expectedValuesForPoint != 0)
             {
-                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_values_for_coordinate_triplet,
-                                            filePath, lineNumber);
+                var message = string.Format(Resources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_lacks_values_for_coordinate_triplet,
+                                            filePath, surfaceLineName);
                 throw new LineParseException(message);
             }
 
@@ -244,6 +250,7 @@ namespace Ringtoets.Piping.IO
         /// Parses the world coordinate values and handles parse errors.
         /// </summary>
         /// <param name="tokenizedString">The tokenized string.</param>
+        /// <param name="surfaceLineName"></param>
         /// <returns></returns>
         /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
@@ -251,7 +258,7 @@ namespace Ringtoets.Piping.IO
         /// <item>The row contains a number that is too big or too small to be represented with a double.</item>
         /// </list>
         /// </exception>
-        private double[] ParseWorldCoordinateValuesAndHandleParseErrors(string[] tokenizedString)
+        private double[] ParseWorldCoordinateValuesAndHandleParseErrors(string[] tokenizedString, string surfaceLineName)
         {
             try
             {
@@ -261,14 +268,14 @@ namespace Ringtoets.Piping.IO
             }
             catch (FormatException e)
             {
-                var message = string.Format(Resources.Error_File_0_has_not_double_Line_1_,
-                                            filePath, lineNumber);
+                var message = string.Format(Resources.Error_File_0_has_not_double_SurfaceLineName_1_,
+                                            filePath, surfaceLineName);
                 throw new LineParseException(message, e);
             }
             catch (OverflowException e)
             {
-                var message = string.Format(Resources.Error_File_0_parsing_causes_overflow_Line_1_,
-                                            filePath, lineNumber);
+                var message = string.Format(Resources.Error_File_0_parsing_causes_overflow_SurfaceLineName_1_,
+                                            filePath, surfaceLineName);
                 throw new LineParseException(message, e);
             }
         }

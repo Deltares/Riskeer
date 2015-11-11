@@ -441,8 +441,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSurfaceLinesList);
 
             // Assert
-            var internalErrorMessage = String.Format(WtiIOResources.Error_File_0_has_not_double_Line_1_,
-                                                     corruptPath, 3);
+            var internalErrorMessage = String.Format(WtiIOResources.Error_File_0_has_not_double_SurfaceLineName_1_,
+                                                     corruptPath, "InvalidRow");
             var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_Parse_error_File_0_SurfaceLinesNumber_1_Message_2_,
                                                    corruptPath, 2, internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);
@@ -462,7 +462,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         public void ImportItem_ImportingToValidTargetWithInValidFileWithDuplicatePointsCausingRecline_SkipInvalidRowAndLog()
         {
             // Setup
-            var twovalidsurfacelinesCsv = "ValidSurfaceLine_HasDuplicatePoints.csv";
+            var twovalidsurfacelinesCsv = "InvalidRow_DuplicatePointsCausingRecline.csv";
             string path = Path.Combine(testDataPath, twovalidsurfacelinesCsv);
 
             var mocks = new MockRepository();
@@ -485,8 +485,8 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(path, observableSurfaceLinesList);
 
             // Assert
-            var internalErrorMessage = String.Format(WtiIOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_has_reclining_geometry,
-                                                     path, 2);
+            var internalErrorMessage = String.Format(WtiIOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry,
+                                                     path, "Rotterdam1");
             var expectedLogMessage = string.Format(ApplicationResources.PipingSurfaceLinesCsvImporter_ReadPipingSurfaceLines_Parse_error_File_0_SurfaceLinesNumber_1_Message_2_,
                                                    path, 1, internalErrorMessage);
             TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage, 1);

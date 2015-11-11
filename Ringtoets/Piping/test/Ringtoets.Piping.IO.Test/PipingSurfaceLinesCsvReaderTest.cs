@@ -417,7 +417,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.Error_File_0_has_not_double_Line_1_, path, 2);
+                var expectedMessage = string.Format(IOResources.Error_File_0_has_not_double_SurfaceLineName_1_, path, "InvalidSurfaceLine");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<FormatException>(exception.InnerException);
             }
@@ -445,7 +445,7 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.Error_File_0_parsing_causes_overflow_Line_1_, path, 2);
+                var expectedMessage = string.Format(IOResources.Error_File_0_parsing_causes_overflow_SurfaceLineName_1_, path, "InvalidSurfaceLine");
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<OverflowException>(exception.InnerException);
             }
@@ -537,12 +537,12 @@ namespace Ringtoets.Piping.IO.Test
                 // Assert
                 // 1st row lacks 1 coordinate value:
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_values_for_coordinate_triplet, path, 2);
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_lacks_values_for_coordinate_triplet, path, "LacksOneCoordinate");
                 Assert.AreEqual(expectedMessage, exception.Message);
 
                 // 2nd row lacks 2 coordinate values:
                 exception = Assert.Throws<LineParseException>(call);
-                expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_lacks_values_for_coordinate_triplet, path, 3);
+                expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_lacks_values_for_coordinate_triplet, path, "LacksTwoCoordinates");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
@@ -563,8 +563,8 @@ namespace Ringtoets.Piping.IO.Test
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
-                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_Line_1_has_reclining_geometry,
-                                                    path, 2);
+                var expectedMessage = string.Format(IOResources.PipingSurfaceLinesCsvReader_ReadLine_File_0_SurfaceLineName_1_has_reclining_geometry,
+                                                    path, "ArtificalLocal");
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
