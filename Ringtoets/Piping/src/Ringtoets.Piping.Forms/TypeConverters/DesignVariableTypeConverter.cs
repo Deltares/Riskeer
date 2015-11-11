@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             properties[0] = new SimpleReadonlyPropertyDescriptorItem(Resources.DesignVariableTypeConverter_DestributionType_DisplayName,
                                                                      Resources.DesignVariableTypeConverter_DistributionType_Description,
                                                                      "DistributionType",
-                                                                     DistributionName);
+                                                                     DistributionShortName);
             for (int i = 0; i < Parameters.Length; i++)
             {
                 properties[i+1] = CreatePropertyDescriptor(propertyDescriptorCollection, Parameters[i], observableParent);
@@ -61,9 +61,14 @@ namespace Ringtoets.Piping.Forms.TypeConverters
         }
 
         /// <summary>
-        /// Gets the name of the distribution.
+        /// Gets the full name of the distribution.
         /// </summary>
         protected abstract string DistributionName { get; }
+
+        /// <summary>
+        /// Gets the short name of the distribution.
+        /// </summary>
+        protected abstract string DistributionShortName { get; }
 
         /// <summary>
         /// Gets all parameters available for the given distribution.

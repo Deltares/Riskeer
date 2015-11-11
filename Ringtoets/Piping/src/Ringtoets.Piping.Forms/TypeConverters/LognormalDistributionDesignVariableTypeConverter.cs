@@ -48,6 +48,14 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             }
         }
 
+        protected override string DistributionShortName
+        {
+            get
+            {
+                return Resources.LognormalDistribution_ShortName;
+            }
+        }
+
         protected override ParameterDefinition<LognormalDistribution>[] Parameters
         {
             get

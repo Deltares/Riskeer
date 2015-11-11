@@ -60,7 +60,7 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.AreEqual(1.0, defaultConstructed.UpliftModelFactor);
             Assert.AreEqual(1, defaultConstructed.SellmeijerModelFactor);
-            Assert.AreEqual(0.5, defaultConstructed.CriticalHeaveGradient);
+            Assert.AreEqual(0.3, defaultConstructed.CriticalHeaveGradient);
             Assert.AreEqual(0.3, defaultConstructed.SellmeijerReductionFactor);
             Assert.AreEqual(9.81, defaultConstructed.Gravity);
             Assert.AreEqual(1.33e-6, defaultConstructed.WaterKinematicViscosity);

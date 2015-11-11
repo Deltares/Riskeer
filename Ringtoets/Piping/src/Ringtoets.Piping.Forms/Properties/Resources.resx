@@ -481,4 +481,13 @@
   <data name="PipingFailureMechanism_Clear_all_output_Tooltip" xml:space="preserve">
     <value>Wis de uitvoer van alle berekeningen binnen het faalmechanisme.</value>
   </data>
+  <data name="LognormalDistribution_ShortName" xml:space="preserve">
+    <value>Lognormaal</value>
+  </data>
+  <data name="NormalDistribution_ShortName" xml:space="preserve">
+    <value>Normaal</value>
+  </data>
+  <data name="ShiftedLognormalDistribution_ShortName" xml:space="preserve">
+    <value>Verschoven lognormaal</value>
+  </data>
 </root>

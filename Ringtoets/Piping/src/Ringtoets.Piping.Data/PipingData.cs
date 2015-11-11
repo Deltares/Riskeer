@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Data
             MeanDiameter70 = 2.08e-4;
             BeddingAngle = 37.0;
             SellmeijerReductionFactor = 0.3;
-            CriticalHeaveGradient = 0.5;
+            CriticalHeaveGradient = 0.3;
 
             PhreaticLevelExit = new NormalDistribution();
             DampingFactorExit = new LognormalDistribution { Mean = 1.0 };

@@ -48,6 +48,14 @@ namespace Ringtoets.Piping.Forms.TypeConverters
             }
         }
 
+        protected override string DistributionShortName
+        {
+            get
+            {
+                return Resources.NormalDistribution_ShortName;
+            }
+        }
+
         protected override ParameterDefinition<NormalDistribution>[] Parameters
         {
             get
