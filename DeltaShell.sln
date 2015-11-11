@@ -162,7 +162,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Base.Tests", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Integration.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Integration.Test\Ringtoets.Piping.Integration.Test.csproj", "{813FFA92-1F3F-462B-B596-5919334007A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Gui.Tests", "Core\Common\test\SplashScreenTest\Core.Common.Gui.Tests.csproj", "{D5EC1DF2-03C9-467B-B6AF-BE5AC83417F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Common.Gui.Tests", "Core\Common\test\Core.Common.Gui.Test\Core.Common.Gui.Tests.csproj", "{D5EC1DF2-03C9-467B-B6AF-BE5AC83417F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -443,47 +443,26 @@ Global
 		{3CCB05DB-C7B3-4EF7-B41D-22B6D2A3774E}.Debug|x86.ActiveCfg = Debug|x86
 		{3CCB05DB-C7B3-4EF7-B41D-22B6D2A3774E}.Release|x86.ActiveCfg = Release|x86
 		{EE2D52A2-9D3E-4056-8A21-F1725F67E5CF}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{EE2D52A2-9D3E-4056-8A21-F1725F67E5CF}.CreateInstaller|x86.Build.0 = Release|x86
 		{EE2D52A2-9D3E-4056-8A21-F1725F67E5CF}.Debug|x86.ActiveCfg = Debug|x86
-		{EE2D52A2-9D3E-4056-8A21-F1725F67E5CF}.Debug|x86.Build.0 = Debug|x86
 		{EE2D52A2-9D3E-4056-8A21-F1725F67E5CF}.Release|x86.ActiveCfg = Release|x86
-		{EE2D52A2-9D3E-4056-8A21-F1725F67E5CF}.Release|x86.Build.0 = Release|x86
 		{DD70F63E-6459-4C49-86EC-4DB87DCE9B01}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{DD70F63E-6459-4C49-86EC-4DB87DCE9B01}.CreateInstaller|x86.Build.0 = Release|x86
 		{DD70F63E-6459-4C49-86EC-4DB87DCE9B01}.Debug|x86.ActiveCfg = Debug|x86
-		{DD70F63E-6459-4C49-86EC-4DB87DCE9B01}.Debug|x86.Build.0 = Debug|x86
 		{DD70F63E-6459-4C49-86EC-4DB87DCE9B01}.Release|x86.ActiveCfg = Release|x86
-		{DD70F63E-6459-4C49-86EC-4DB87DCE9B01}.Release|x86.Build.0 = Release|x86
 		{38C9E9C3-A3A9-49A0-A0DE-A4EDB9885A61}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{38C9E9C3-A3A9-49A0-A0DE-A4EDB9885A61}.CreateInstaller|x86.Build.0 = Release|x86
 		{38C9E9C3-A3A9-49A0-A0DE-A4EDB9885A61}.Debug|x86.ActiveCfg = Debug|x86
-		{38C9E9C3-A3A9-49A0-A0DE-A4EDB9885A61}.Debug|x86.Build.0 = Debug|x86
 		{38C9E9C3-A3A9-49A0-A0DE-A4EDB9885A61}.Release|x86.ActiveCfg = Release|x86
-		{38C9E9C3-A3A9-49A0-A0DE-A4EDB9885A61}.Release|x86.Build.0 = Release|x86
 		{8013D94E-E95F-4CDE-B480-7B6749312B90}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{8013D94E-E95F-4CDE-B480-7B6749312B90}.CreateInstaller|x86.Build.0 = Release|x86
 		{8013D94E-E95F-4CDE-B480-7B6749312B90}.Debug|x86.ActiveCfg = Debug|x86
-		{8013D94E-E95F-4CDE-B480-7B6749312B90}.Debug|x86.Build.0 = Debug|x86
 		{8013D94E-E95F-4CDE-B480-7B6749312B90}.Release|x86.ActiveCfg = Release|x86
-		{8013D94E-E95F-4CDE-B480-7B6749312B90}.Release|x86.Build.0 = Release|x86
 		{D12DB026-5354-4E11-8FD9-F50B5797EAB2}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{D12DB026-5354-4E11-8FD9-F50B5797EAB2}.CreateInstaller|x86.Build.0 = Release|x86
 		{D12DB026-5354-4E11-8FD9-F50B5797EAB2}.Debug|x86.ActiveCfg = Debug|x86
-		{D12DB026-5354-4E11-8FD9-F50B5797EAB2}.Debug|x86.Build.0 = Debug|x86
 		{D12DB026-5354-4E11-8FD9-F50B5797EAB2}.Release|x86.ActiveCfg = Release|x86
-		{D12DB026-5354-4E11-8FD9-F50B5797EAB2}.Release|x86.Build.0 = Release|x86
 		{55125A6D-59E7-40C9-AFFF-ED16610289A1}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{55125A6D-59E7-40C9-AFFF-ED16610289A1}.CreateInstaller|x86.Build.0 = Release|x86
 		{55125A6D-59E7-40C9-AFFF-ED16610289A1}.Debug|x86.ActiveCfg = Debug|x86
-		{55125A6D-59E7-40C9-AFFF-ED16610289A1}.Debug|x86.Build.0 = Debug|x86
 		{55125A6D-59E7-40C9-AFFF-ED16610289A1}.Release|x86.ActiveCfg = Release|x86
-		{55125A6D-59E7-40C9-AFFF-ED16610289A1}.Release|x86.Build.0 = Release|x86
 		{5991C4E2-AC39-470C-8848-056B3A954FB1}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{5991C4E2-AC39-470C-8848-056B3A954FB1}.CreateInstaller|x86.Build.0 = Release|x86
 		{5991C4E2-AC39-470C-8848-056B3A954FB1}.Debug|x86.ActiveCfg = Debug|x86
-		{5991C4E2-AC39-470C-8848-056B3A954FB1}.Debug|x86.Build.0 = Debug|x86
 		{5991C4E2-AC39-470C-8848-056B3A954FB1}.Release|x86.ActiveCfg = Release|x86
-		{5991C4E2-AC39-470C-8848-056B3A954FB1}.Release|x86.Build.0 = Release|x86
 		{FAFDB463-9612-41F4-B3DD-FF9C6E7023BA}.CreateInstaller|x86.ActiveCfg = Release|x86
 		{FAFDB463-9612-41F4-B3DD-FF9C6E7023BA}.Debug|x86.ActiveCfg = Debug|x86
 		{FAFDB463-9612-41F4-B3DD-FF9C6E7023BA}.Debug|x86.Build.0 = Debug|x86
