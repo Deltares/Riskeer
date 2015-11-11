@@ -169,11 +169,6 @@ namespace Core.Common.Utils.Reflection
             });
         }
 
-        public static T DeepClone<T>(T inst)
-        {
-            return AutoCloner.DeepClone(inst);
-        }
-
         public static object CallStaticGenericMethod(Type type, string methodName, Type genericType,
                                                      params object[] args)
         {
