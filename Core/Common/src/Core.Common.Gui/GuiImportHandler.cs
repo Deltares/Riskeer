@@ -33,7 +33,7 @@ namespace Core.Common.Gui
 
         public void ImportUsingImporter(IFileImporter importer, object target)
         {
-            ConfigureImporterAndRun(importer, null, target);
+            ConfigureImporterAndRun(importer, target);
         }
 
         public void ImportDataTo(object target)
@@ -167,16 +167,16 @@ namespace Core.Common.Gui
                 return;
             }
 
-            ConfigureImporterAndRun(importer, null, item);
+            ConfigureImporterAndRun(importer, item);
         }
 
-        private void ConfigureImporterAndRun(IFileImporter importer, IProjectItem importedItemOwner, object target)
+        private void ConfigureImporterAndRun(IFileImporter importer, object target)
         {
             using (var view = gui.DocumentViewsResolver.CreateViewForData(importer))
             {
                 if (view == null)
                 {
-                    GetImportedItemsUsingFileOpenDialog(importer, importedItemOwner, target);
+                    GetImportedItemsUsingFileOpenDialog(importer, target);
                     return;
                 }
 
@@ -198,10 +198,7 @@ namespace Core.Common.Gui
                 }
             }
 
-            var importActivity = new FileImportActivity(importer, target)
-            {
-                ImportedItemOwner = importedItemOwner
-            };
+            var importActivity = new FileImportActivity(importer, target);
 
             importActivity.OnImportFinished += ImportActivityOnImportFinished;
 
@@ -229,10 +226,9 @@ namespace Core.Common.Gui
         /// 
         /// </summary>
         /// <param name="importer">Item to import</param>
-        /// <param name="importedItemOwner"></param>
         /// <param name="target"></param>
         /// <returns></returns>
-        private void GetImportedItemsUsingFileOpenDialog(IFileImporter importer, IProjectItem importedItemOwner, object target)
+        private void GetImportedItemsUsingFileOpenDialog(IFileImporter importer, object target)
         {
             var dialog = new OpenFileDialog
             {
@@ -251,8 +247,7 @@ namespace Core.Common.Gui
 
             var importActivity = new FileImportActivity(importer, target)
             {
-                Files = dialog.FileNames.ToArray(),
-                ImportedItemOwner = importedItemOwner
+                Files = dialog.FileNames.ToArray()
             };
 
             importActivity.OnImportFinished += ImportActivityOnImportFinished;

@@ -41,8 +41,6 @@ namespace Core.Common.Base.Workflow
             }
         }
 
-        public object ImportedItemOwner { get; set; }
-
         protected override void OnInitialize()
         {
             if (importer.ShouldCancel)

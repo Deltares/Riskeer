@@ -19,6 +19,7 @@ namespace Core.Common.Tests.Gui
             var gui = mockRepository.Stub<IGui>();
             var app = mockRepository.Stub<IApplication>();
             var project = new Project("test");
+
             gui.Application = app;
             app.Expect(a => a.Project).Return(project).Repeat.Any();
 
@@ -36,19 +37,15 @@ namespace Core.Common.Tests.Gui
             Expect.Call(importer.ImportItem("test1")).Repeat.Once().Return(new object());
             Expect.Call(importer.ImportItem("test2")).Repeat.Once().Return(new object());
             Expect.Call(importer.ImportItem("test3")).Repeat.Once().Return(new object());
+
             mockRepository.ReplayAll();
 
             // expect some reporting while processing each file
-            fileImportActivity.ImportedItemOwner = app.Project;
             fileImportActivity.OnImportFinished += (sender, importedObject, theImporter) =>
             {
-                var projectToAddTo = sender.ImportedItemOwner as Project;
-
-                if (projectToAddTo != null)
-                {
-                    projectToAddTo.Items.Add(importedObject);
-                }
+                project.Items.Add(importedObject);
             };
+
             fileImportActivity.Initialize();
             fileImportActivity.Initialize();
             fileImportActivity.Execute();
