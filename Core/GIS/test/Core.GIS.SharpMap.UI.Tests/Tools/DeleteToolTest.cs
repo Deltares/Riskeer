@@ -1,4 +1,3 @@
-using Core.Common.Utils.Editing;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.NetTopologySuite.Geometries;
@@ -55,13 +54,9 @@ namespace Core.GIS.SharpMap.UI.Tests.Tools
             mapControl.Map.Layers.Add(vectorLayer);
 
             var featureMutator = mocks.StrictMock<IFeatureInteractor>();
-            var editableObject = mocks.StrictMock<IEditableObject>();
 
-            featureMutator.Expect(fm => fm.EditableObject).Return(editableObject).Repeat.Any();
             featureMutator.Expect(fm => fm.AllowDeletion()).Return(false).Repeat.Any();
             featureMutator.Expect(fm => fm.Delete()).Repeat.Never();
-            editableObject.Expect(eo => eo.BeginEdit(null)).IgnoreArguments().Repeat.Never(); //never expect BeginEdit!
-            editableObject.Expect(eo => eo.EndEdit()).IgnoreArguments().Repeat.Never();
 
             mocks.ReplayAll();
 
@@ -92,14 +87,10 @@ namespace Core.GIS.SharpMap.UI.Tests.Tools
             mapControl.Map.Layers.Add(vectorLayer);
 
             var featureMutator = mocks.StrictMock<IFeatureInteractor>();
-            var editableObject = mocks.StrictMock<IEditableObject>();
-
-            featureMutator.Expect(fm => fm.EditableObject).Return(editableObject).Repeat.Any();
+            
             featureMutator.Expect(fm => fm.AllowDeletion()).Return(true).Repeat.Any();
             featureMutator.Expect(fm => fm.Delete()).Repeat.Once();
-            editableObject.Expect(eo => eo.BeginEdit(null)).IgnoreArguments().Repeat.Once(); //expect BeginEdit!
-            editableObject.Expect(eo => eo.EndEdit()).IgnoreArguments().Repeat.Once();
-
+            
             mocks.ReplayAll();
 
             selectTool.Select((IFeature) layer2Data.Features[0]);

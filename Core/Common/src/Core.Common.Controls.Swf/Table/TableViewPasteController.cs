@@ -254,7 +254,7 @@ namespace Core.Common.Controls.Swf.Table
         {
             if (wrapInEditAction)
             {
-                TableView.DoActionInEditAction(TableView, "Pasting values", () => PasteValuesCore(clipboardLines, targetSelection, allowNewRows));
+                PasteValuesCore(clipboardLines, targetSelection, allowNewRows);
             }
             else
             {

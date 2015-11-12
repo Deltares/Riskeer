@@ -16,7 +16,6 @@ using Core.Common.Utils;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
-using Core.Common.Utils.Editing;
 using Core.Common.Utils.Globalization;
 using Core.Common.Utils.Reflection;
 using DevExpress.Data;
@@ -33,7 +32,6 @@ using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using log4net;
-using IEditableObject = Core.Common.Utils.Editing.IEditableObject;
 using TypeConverter = Core.Common.Utils.TypeConverter;
 
 namespace Core.Common.Controls.Swf.Table
@@ -52,11 +50,9 @@ namespace Core.Common.Controls.Swf.Table
         }
 
         private static readonly ILog Log = LogManager.GetLogger(typeof(TableView));
-
         private readonly EventedList<TableViewCell> selectedCells;
         private readonly TableViewValidator tableViewValidator;
         private readonly EventedList<ITableViewColumn> columns;
-
         private bool isPasting;
         private bool isSelectionChanging;
         private bool updatingSelection;
@@ -65,7 +61,6 @@ namespace Core.Common.Controls.Swf.Table
         private bool refreshRequired;
         private bool allowColumnSorting = true;
         private bool f2Pressed;
-
         private Timer refreshTimer;
         private BindingSource bindingSource;
         private GridCell[] cellsToFill;
@@ -1346,10 +1341,6 @@ namespace Core.Common.Controls.Swf.Table
 
         public bool IsEndEditOnEnterKey { get; set; }
 
-        [Browsable(false)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public IEditableObject EditableObject { get; set; }
-
         ///<summary>
         /// Enable filtering for all columns
         ///</summary>
@@ -1783,29 +1774,26 @@ namespace Core.Common.Controls.Swf.Table
                 return;
             }
 
-            DoActionInEditAction(this, "Deleting selection", () =>
+            //delete rows in case entire rows are selected
+            var groupBy = SelectedCells.GroupBy(c => c.RowIndex);
+            var count = Columns.Count(c => c.Visible);
+            if (AllowDeleteRow && (RowSelect || groupBy.All(g => g.Count() == count)))
             {
-                //delete rows in case entire rows are selected
-                var groupBy = SelectedCells.GroupBy(c => c.RowIndex);
-                var count = Columns.Count(c => c.Visible);
-                if (AllowDeleteRow && (RowSelect || groupBy.All(g => g.Count() == count)))
+                if (RowDeleteHandler == null || !RowDeleteHandler())
                 {
-                    if (RowDeleteHandler == null || !RowDeleteHandler())
-                    {
-                        dxGridView.DeleteSelectedRows();
-                    }
-                    return;
+                    dxGridView.DeleteSelectedRows();
                 }
+                return;
+            }
 
-                var selectedGridCells = SelectedCells.ToList();
-                foreach (var c in selectedGridCells)
-                {
-                    var defaultValue = c.Column.DefaultValue ??
-                                       TypeUtils.GetDefaultValue(c.Column.ColumnType);
+            var selectedGridCells = SelectedCells.ToList();
+            foreach (var c in selectedGridCells)
+            {
+                var defaultValue = c.Column.DefaultValue ??
+                                   TypeUtils.GetDefaultValue(c.Column.ColumnType);
 
-                    SetCellValue(c.RowIndex, c.Column.DisplayIndex, Convert.ToString(defaultValue));
-                }
-            });
+                SetCellValue(c.RowIndex, c.Column.DisplayIndex, Convert.ToString(defaultValue));
+            }
         }
 
         public void AddColumn(string dataSourcePropertyName, string columnCaption, bool readOnly = false, int width = 100, Type columnType = null, string displayFormat = null)
@@ -1908,27 +1896,6 @@ namespace Core.Common.Controls.Swf.Table
         internal bool IsSorted()
         {
             return Columns.Any(c => c.SortOrder != SortOrder.None);
-        }
-
-        internal static void DoActionInEditAction(ITableView tableView, string actionName, Action action)
-        {
-            var editableObject = tableView.EditableObject ?? tableView.Data as IEditableObject;
-            if (editableObject != null)
-            {
-                editableObject.BeginEdit(new DefaultEditAction(actionName));
-            }
-
-            try
-            {
-                action();
-            }
-            finally
-            {
-                if (editableObject != null)
-                {
-                    editableObject.EndEdit();
-                }
-            }
         }
 
         internal TableViewCell GetFocusedCell()
@@ -2347,12 +2314,6 @@ namespace Core.Common.Controls.Swf.Table
                         if (gridcell.Column.ColumnType == e.Value.GetType())
                         {
                             dxGridView.SetRowCellValue(gridcell.RowHandle, gridcell.Column, e.Value);
-
-                            var editableRowObject = dxGridView.GetRow(gridcell.RowHandle) as System.ComponentModel.IEditableObject;
-                            if (editableRowObject != null)
-                            {
-                                editableRowObject.EndEdit(); // Can throw exception, validation for example
-                            }
                         }
                     }
                 }

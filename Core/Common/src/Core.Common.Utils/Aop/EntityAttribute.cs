@@ -213,7 +213,6 @@ namespace Core.Common.Utils.Aop
 
             if (fireEvents)
             {
-                EditActionAttribute.FireBeforeEventCall(instance, true);
                 OnEntityEventMethod(instance, new PropertyChangingEventArgs(locationName),
                                     EntityEventType.PropertyChanging);
             }
@@ -226,15 +225,8 @@ namespace Core.Common.Utils.Aop
             {
                 if (fireEvents)
                 {
-                    try
-                    {
-                        OnEntityEventMethod(instance, new PropertyChangedEventArgs(locationName),
-                                            EntityEventType.PropertyChanged);
-                    }
-                    finally
-                    {
-                        EditActionAttribute.FireAfterEventCall(instance, true, false);
-                    }
+                    OnEntityEventMethod(instance, new PropertyChangedEventArgs(locationName),
+                                        EntityEventType.PropertyChanged);
                 }
             }
         }

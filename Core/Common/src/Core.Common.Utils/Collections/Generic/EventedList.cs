@@ -18,11 +18,9 @@ namespace Core.Common.Utils.Collections.Generic
     {
         public event NotifyCollectionChangingEventHandler CollectionChanging;
         public event NotifyCollectionChangedEventHandler CollectionChanged;
-
         public event PropertyChangingEventHandler PropertyChanging;
         public event PropertyChangedEventHandler PropertyChanged;
         private static readonly ILog eventsLog = LogManager.GetLogger("Events");
-
         // WARNING: any change here should be mirrored in >>>>>>>>> PersistentEventedList <<<<<<<<<< !!!!!!!
         // TODO: make PersistentEventedList<T> and EventedList<T> use the same impl
         // TODO: make it work on Ranges and send events on ranges
@@ -37,8 +35,8 @@ namespace Core.Common.Utils.Collections.Generic
         private PropertyChangedEventHandler Item_PropertyChangedDelegate;
         private NotifyCollectionChangingEventHandler Item_CollectionChangingDelegate;
         private NotifyCollectionChangedEventHandler Item_CollectionChangedDelegate;
-
         private bool skipChildItemEventBubbling;
+        public bool HasParent { get; set; }
 
         bool INotifyCollectionChange.SkipChildItemEventBubbling
         {
@@ -71,8 +69,6 @@ namespace Core.Common.Utils.Collections.Generic
                 }
             }
         }
-
-        public bool HasParent { get; set; }
 
         #region Constructors
 
@@ -420,8 +416,6 @@ namespace Core.Common.Utils.Collections.Generic
 
         private bool FireCollectionChangingEvent(NotifyCollectionChangeAction action, T item, int index)
         {
-            EditActionAttribute.FireBeforeEventCall(this, false);
-
             if (CollectionChanging != null)
             {
                 if (EventSettings.EnableLogging)
@@ -437,13 +431,7 @@ namespace Core.Common.Utils.Collections.Generic
                 }
                 catch
                 {
-                    EditActionAttribute.FireAfterEventCall(this, false, args.Cancel);
                     throw;
-                }
-
-                if (args.Cancel)
-                {
-                    EditActionAttribute.FireAfterEventCall(this, false, args.Cancel);
                 }
 
                 return !args.Cancel;
@@ -454,25 +442,18 @@ namespace Core.Common.Utils.Collections.Generic
 
         private void FireCollectionChangedEvent(NotifyCollectionChangeAction action, object item, int index, object oldItem = null)
         {
-            try
+            if (CollectionChanged != null)
             {
-                if (CollectionChanged != null)
+                if (EventSettings.EnableLogging)
                 {
-                    if (EventSettings.EnableLogging)
-                    {
-                        eventsLog.DebugFormat("CollectionChanged L<< '{0}[{1}]', item:{2}, index:{3}, action:{4} - END <<<<<<<<<<<<<<", "EventedList", typeof(T).Name, item, index, action);
-                    }
-
-                    var args = new NotifyCollectionChangingEventArgs(action, item, index, -1)
-                    {
-                        OldItem = oldItem
-                    };
-                    CollectionChanged(this, args);
+                    eventsLog.DebugFormat("CollectionChanged L<< '{0}[{1}]', item:{2}, index:{3}, action:{4} - END <<<<<<<<<<<<<<", "EventedList", typeof(T).Name, item, index, action);
                 }
-            }
-            finally
-            {
-                EditActionAttribute.FireAfterEventCall(this, false, false);
+
+                var args = new NotifyCollectionChangingEventArgs(action, item, index, -1)
+                {
+                    OldItem = oldItem
+                };
+                CollectionChanged(this, args);
             }
         }
 

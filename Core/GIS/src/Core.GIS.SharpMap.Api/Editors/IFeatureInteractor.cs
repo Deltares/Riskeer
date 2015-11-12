@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Core.Common.Utils.Editing;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api.Delegates;
@@ -47,11 +46,6 @@ namespace Core.GIS.SharpMap.Api.Editors
         /// </summary>
         /// <returns></returns>
         IList<TrackerFeature> Trackers { get; }
-
-        /// <summary>
-        /// TODO: YAGNI, do it using feature, somewhere else
-        /// </summary>
-        IEditableObject EditableObject { get; set; }
 
         /// <summary>
         /// Moves selected trackers. <paramref name="trackerFeature"/> is leading and will be used as source for

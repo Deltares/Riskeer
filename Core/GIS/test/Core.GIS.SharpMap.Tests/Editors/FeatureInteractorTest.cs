@@ -1,5 +1,4 @@
-﻿using Core.Common.Utils.Editing;
-using Core.GIS.GeoAPI.Extensions.Feature;
+﻿using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Editors;
 using Core.GIS.SharpMap.Layers;
@@ -83,8 +82,8 @@ namespace Core.GIS.SharpMap.Tests.Editors
 
         private class TestFeatureInteractor : FeatureInteractor
         {
-            public TestFeatureInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle, IEditableObject editableObject)
-                : base(layer, feature, vectorStyle, editableObject) {}
+            public TestFeatureInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle, object targetObject)
+                : base(layer, feature, vectorStyle, targetObject) {}
 
             public bool IsEditable { get; set; }
 

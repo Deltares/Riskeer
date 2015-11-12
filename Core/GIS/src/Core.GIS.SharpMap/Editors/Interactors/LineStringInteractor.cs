@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Utils.Collections.Extensions;
-using Core.Common.Utils.Editing;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api.Editors;
@@ -22,8 +21,8 @@ namespace Core.GIS.SharpMap.Editors.Interactors
         private static Bitmap trackerSmall;
         private static Bitmap selectedTrackerSmall;
 
-        public LineStringInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle, IEditableObject editableObject)
-            : base(layer, feature, vectorStyle, editableObject) {}
+        public LineStringInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle, object targetObject)
+            : base(layer, feature, vectorStyle, targetObject) {}
 
         public override TrackerFeature GetTrackerAtCoordinate(ICoordinate worldPos)
         {

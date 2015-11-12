@@ -120,8 +120,8 @@
     <Compile Include="Controls\Swf\TreeViewControls\TreeViewNodePresenterBaseTest.cs" />
     <Compile Include="Controls\Swf\TreeViewControls\TreeViewControllerTest.cs" />
     <Compile Include="Controls\Swf\TreeViewControls\TreeViewTest.cs" />
-    <Compile Include="Controls\Swf\UndoRedoTestClasses\Child.cs" />
-    <Compile Include="Controls\Swf\UndoRedoTestClasses\Parent.cs" />
+    <Compile Include="Controls\Swf\TestClasses\Child.cs" />
+    <Compile Include="Controls\Swf\TestClasses\Parent.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

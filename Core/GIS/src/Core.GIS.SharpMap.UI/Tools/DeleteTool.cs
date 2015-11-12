@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Utils.Editing;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api.Layers;
@@ -39,16 +38,10 @@ namespace Core.GIS.SharpMap.UI.Tools
             }
 
             var featuresDeleted = false;
-            var editableObject = MapControl.SelectTool.SelectedFeatureInteractors[0].EditableObject;
 
             var interactors = MapControl.SelectTool.SelectedFeatureInteractors.Where(featureMutator => featureMutator.AllowDeletion()).ToArray();
             foreach (var interactor in interactors)
             {
-                if (!featuresDeleted && editableObject != null)
-                {
-                    editableObject.BeginEdit("Delete feature(s)");
-                }
-
                 interactor.Delete();
                 featuresDeleted = true;
             }
@@ -56,11 +49,6 @@ namespace Core.GIS.SharpMap.UI.Tools
             if (!featuresDeleted)
             {
                 return;
-            }
-
-            if (editableObject != null)
-            {
-                editableObject.EndEdit();
             }
 
             MapControl.SelectTool.Clear();

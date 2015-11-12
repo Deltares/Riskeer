@@ -105,7 +105,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Aop\EditActionAttribute.cs" />
     <Compile Include="Aop\ICustomNotifyCollectionChange.cs" />
     <Compile Include="Aop\ManualAspectInitializer.cs" />
     <Compile Include="Aop\EntityAttribute.cs" />
@@ -120,11 +119,7 @@
     <Compile Include="DateTimeFormats.cs" />
     <Compile Include="Diagnostics\ResourceMonitor.cs" />
     <Compile Include="DisplayFormatAttribute.cs" />
-    <Compile Include="Editing\DefaultEditAction.cs" />
-    <Compile Include="Editing\EditActionBase.cs" />
     <Compile Include="Globalization\RegionalSettingsManager.cs" />
-    <Compile Include="Editing\EditableObjectExtensions.cs" />
-    <Compile Include="Editing\IEditAction.cs" />
     <Compile Include="GraphicsUtils.cs" />
     <Compile Include="Interop\NativeWin32.cs" />
     <Compile Include="Reflection\DynamicTypeUtils.cs" />
@@ -150,7 +145,6 @@
     <Compile Include="Collections\NotifyCollectionChangeAction.cs" />
     <Compile Include="Collections\NotifyCollectionChangedEventHandler.cs" />
     <Compile Include="Collections\NotifyCollectionChangingEventHandler.cs" />
-    <Compile Include="Editing\IEditableObject.cs" />
     <Compile Include="INotifyPropertyChange.cs" />
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Collections\EnumerableExtensions.cs" />

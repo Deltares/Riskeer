@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using Core.Common.Controls.Swf.DataEditorGenerator.Binding;
 using Core.Common.Controls.Swf.DataEditorGenerator.Binding.ControlBindings;
 using Core.Common.Utils.Collections;
-using IEditableObject = Core.Common.Utils.Editing.IEditableObject;
 
 namespace Core.Common.Controls.Swf.DataEditorGenerator
 {
@@ -85,12 +84,6 @@ namespace Core.Common.Controls.Swf.DataEditorGenerator
 
         private void DataPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var dataAsEditableObject = data as IEditableObject;
-            if (dataAsEditableObject != null && dataAsEditableObject.IsEditing)
-            {
-                return; // still editing, skip
-            }
-
             foreach (var binding in Bindings)
             {
                 binding.OnPropertyChanged(sender, e);

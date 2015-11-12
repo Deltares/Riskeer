@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using IEditableObject = Core.Common.Utils.Editing.IEditableObject;
 
 namespace Core.Common.Controls
 {
@@ -133,11 +132,6 @@ namespace Core.Common.Controls
         /// Commit row at enter.
         /// </summary>
         bool IsEndEditOnEnterKey { get; set; }
-
-        /// <summary>
-        /// If data is not editable object it's owner is, this should be set to it.
-        /// </summary>
-        IEditableObject EditableObject { get; set; }
 
         /// <summary>
         /// Allows to fit all columns to their contents.

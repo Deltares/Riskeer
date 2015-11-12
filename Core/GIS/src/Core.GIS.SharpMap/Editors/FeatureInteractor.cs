@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using Core.Common.Utils.Editing;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.NetTopologySuite.Extensions.Geometries;
@@ -27,13 +26,13 @@ namespace Core.GIS.SharpMap.Editors
         private readonly List<TrackerFeature> trackers = new List<TrackerFeature>();
         private IFeature sourceFeature;
 
-        protected FeatureInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle, IEditableObject editableObject)
+        protected FeatureInteractor(ILayer layer, IFeature feature, VectorStyle vectorStyle, object targetObject)
         {
             Layer = layer;
             SourceFeature = feature;
             VectorStyle = vectorStyle;
             FeatureRelationEditors = new List<IFeatureRelationInteractor>();
-            EditableObject = editableObject;
+            TargetObject = targetObject;
             CreateTrackers();
         }
 
@@ -60,7 +59,7 @@ namespace Core.GIS.SharpMap.Editors
 
         public virtual IFallOffPolicy FallOffPolicy { get; set; }
 
-        public virtual IEditableObject EditableObject { get; set; }
+        public virtual object TargetObject { get; set; }
 
         public virtual IList<TrackerFeature> Trackers
         {

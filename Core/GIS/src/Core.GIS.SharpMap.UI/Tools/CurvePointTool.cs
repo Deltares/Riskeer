@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Utils;
-using Core.Common.Utils.Editing;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api.Editors;
@@ -157,22 +155,11 @@ namespace Core.GIS.SharpMap.UI.Tools
                 {
                     featureInteractor.Start();
 
-                    if (featureInteractor.EditableObject != null)
-                    {
-                        var featureName = featureInteractor.SourceFeature.Name;
-                        featureInteractor.EditableObject.BeginEdit(string.Format(ActionName + " {0}", featureName));
-                    }
-
                     renderRequired = Mode == EditMode.Add
                                          ? featureInteractor.InsertTracker(worldPos, SnapResult.SnapIndexPrevious + 1)
                                          : featureInteractor.RemoveTracker(trackerFeature);
 
                     featureInteractor.Stop();
-                }
-
-                if (featureInteractor.EditableObject != null)
-                {
-                    featureInteractor.EditableObject.EndEdit();
                 }
 
                 SelectTool.Select(featureInteractor.Layer, featureInteractor.SourceFeature);

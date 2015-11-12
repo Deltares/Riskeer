@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Utils;
-using Core.Common.Utils.Editing;
 using Core.GIS.GeoAPI.CoordinateSystems.Transformations;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
@@ -236,7 +234,7 @@ namespace Core.GIS.SharpMap.UI.Tools
             if (MouseMoved(worldPosition, mouseDownLocation) && MapControl.SelectTool.SelectedFeatureInteractors.Count > 0)
             {
                 var interactor = trackerFeature.FeatureInteractor;
-                DoEditAction(interactor.EditableObject, interactor.SourceFeature, () => interactor.Stop(snapResult));
+                interactor.Stop(snapResult);
 
                 Map.GetLayerByFeature(interactor.SourceFeature).RenderRequired = true;
             }
@@ -353,21 +351,6 @@ namespace Core.GIS.SharpMap.UI.Tools
                                                                                          .Any(f => f == trackerAtCoordinate));
 
             return !selectTool.KeyToggleSelection && !selectTool.KeyExtendSelection && trackerAlreadySelected;
-        }
-
-        private static void DoEditAction(IEditableObject editableObject, IFeature sourceFeature, Action editAction)
-        {
-            if (editableObject != null)
-            {
-                editableObject.BeginEdit(string.Format("Move feature {0}", sourceFeature.Name));
-            }
-
-            editAction();
-
-            if (editableObject != null)
-            {
-                editableObject.EndEdit();
-            }
         }
 
         private void ResetDragLayers()
