@@ -31,8 +31,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
 
         private Map map;
         private bool disableGuiSelectionSync;
-        private string ddbDatasetString = "Delft Dashboard Dataset";
-        
+
         public MapLegendView(IGui gui)
         {
             InitializeComponent();

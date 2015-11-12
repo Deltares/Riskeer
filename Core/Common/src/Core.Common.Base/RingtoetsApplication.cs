@@ -194,7 +194,7 @@ namespace Core.Common.Base
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            log.Info(Properties.Resources.RingtoetsApplication_Run_Starting_Delta_Shell____);
+            log.Info(Properties.Resources.RingtoetsApplication_Run_starting);
 
             if (running)
             {

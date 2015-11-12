@@ -285,7 +285,7 @@
   <data name="RingtoetsGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_settings_lost_" xml:space="preserve">
     <value>NL Unable to load view settings; view settings lost!</value>
   </data>
-  <data name="RingtoetsGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied" xml:space="preserve">
+  <data name="RingtoetsGui_ApplicationProjectSaving_clipboard_emptied" xml:space="preserve">
     <value>NL Ringtoets clipboard emptied</value>
   </data>
   <data name="RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__" xml:space="preserve">

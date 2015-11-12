@@ -126,7 +126,7 @@
   <data name="RingtoetsApplication_Run_You_can_call_Run___only_once_per_application" xml:space="preserve">
     <value>You can call Run() only once per application</value>
   </data>
-  <data name="RingtoetsApplication_Run_Starting_Delta_Shell____" xml:space="preserve">
+  <data name="RingtoetsApplication_Run_starting" xml:space="preserve">
     <value>Starting Ringtoets ...</value>
   </data>
   <data name="RingtoetsApplication_Run_Application_is_already_running" xml:space="preserve">

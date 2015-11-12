@@ -313,9 +313,9 @@ namespace Core.Common.Base.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Starting Ringtoets ....
         /// </summary>
-        internal static string RingtoetsApplication_Run_Starting_Delta_Shell____ {
+        internal static string RingtoetsApplication_Run_starting {
             get {
-                return ResourceManager.GetString("RingtoetsApplication_Run_Starting_Delta_Shell____", resourceCulture);
+                return ResourceManager.GetString("RingtoetsApplication_Run_starting", resourceCulture);
             }
         }
         

@@ -468,7 +468,6 @@
     <Resource Include="Resources\folder_wrench.png" />
     <Resource Include="Resources\fullscreen.PNG" />
     <Resource Include="Resources\graphhs.png" />
-    <Content Include="Resources\helpabout.htm" />
     <Resource Include="Resources\icon_clear_all_messages.PNG" />
     <Resource Include="Resources\information.png" />
     <Resource Include="Resources\information_32.png" />

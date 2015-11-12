@@ -2748,9 +2748,9 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ringtoets clipboard emptied.
         /// </summary>
-        public static string RingtoetsGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied {
+        public static string RingtoetsGui_ApplicationProjectSaving_clipboard_emptied {
             get {
-                return ResourceManager.GetString("RingtoetsGui_ApplicationProjectSaving_Delta_Shell_clipboard_emptied", resourceCulture);
+                return ResourceManager.GetString("RingtoetsGui_ApplicationProjectSaving_clipboard_emptied", resourceCulture);
             }
         }
         
