@@ -80,7 +80,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All files (*.*)|*.*.
+        ///   Looks up a localized string similar to Alle bestanden (*.*)|*.*.
         /// </summary>
         public static string AllFilesFilter {
             get {
@@ -181,7 +181,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen project gevonden, laat het  project eerst.
+        ///   Looks up a localized string similar to Geen project gevonden, laad het project eerst.
         /// </summary>
         public static string App_RunRingtoets_No_project_found__load_project_first {
             get {
@@ -1066,47 +1066,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er moet een project zijn om een folder te kunnen toevoegen.
-        /// </summary>
-        public static string GuiCommandHandler_AddNewFolder_There_needs_to_be_a_project_to_add_a_folder {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_AddNewFolder_There_needs_to_be_a_project_to_add_a_folder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan niet een &quot;item&quot; toevoegen aan de geselecteerde &quot;container&quot;.
-        /// </summary>
-        public static string GuiCommandHandler_AddNewItem_Cannot_add_an_item_to_the_selected_container {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_AddNewItem_Cannot_add_an_item_to_the_selected_container", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er moet een project zijn om een &quot;item&quot; te kunnen toevoegen.
         /// </summary>
         public static string GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item {
             get {
                 return ResourceManager.GetString("GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toevoegen model.
-        /// </summary>
-        public static string GuiCommandHandler_AddNewModel_Add_model {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_AddNewModel_Add_model", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project aan het sluiten....
-        /// </summary>
-        public static string GuiCommandHandler_CloseProject_Closing_project____ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_CloseProject_Closing_project____", resourceCulture);
             }
         }
         
@@ -1120,49 +1084,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sla wijzigingen in het project op: {0}.
-        /// </summary>
-        public static string GuiCommandHandler_CloseProject_Save_changes_to_the_project___0_ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_CloseProject_Save_changes_to_the_project___0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan het &quot;model object&quot; voor {0} niet instantiëren (of het creëren is geannuleerd).
-        /// </summary>
-        public static string GuiCommandHandler_CreateNewModelUsingDialog_Can_not_instantiate_model_object_for___0____or_the_creation_has_been_canceled_ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_CreateNewModelUsingDialog_Can_not_instantiate_model_object_for_" +
-                        "__0____or_the_creation_has_been_canceled_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer model....
-        /// </summary>
-        public static string GuiCommandHandler_CreateNewModelUsingDialog_Select_model____ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_CreateNewModelUsingDialog_Select_model____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan niet importeren naar {0}.
         /// </summary>
         public static string GuiCommandHandler_ImportOn_Unable_to_import_on__0__ {
             get {
                 return ResourceManager.GetString("GuiCommandHandler_ImportOn_Unable_to_import_on__0__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De &quot;data item&quot; {0} kan niet worden weergegeven omdat het niet geldig is.
-        /// </summary>
-        public static string GuiCommandHandler_IsInvalidDataItem_The_data_item__0__cannot_be_viewed_because_it_is_not_valid {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_IsInvalidDataItem_The_data_item__0__cannot_be_viewed_because_it" +
-                        "_is_not_valid", resourceCulture);
             }
         }
         
@@ -1186,110 +1112,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen model geselecteerd. Berekening model kan niet worden uitgevoerd.
-        /// </summary>
-        public static string GuiCommandHandler_RunSelectedModel_Can_t_run_model__no_models_selected_ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_RunSelectedModel_Can_t_run_model__no_models_selected_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dit project is gemaakt met behulp van een oudere versie en is gemigreerd naar de huidige versie.
-        ///
-        ///Wilt u de oude projectbestanden overschrijven met die van de nieuwe versie? (dit kan niet ongedaan worden gemaakt)
-        ///Selecteer Nee om het project opslaan als een nieuw project op een andere locatie..
-        /// </summary>
-        public static string GuiCommandHandler_SaveProject_ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_SaveProject_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overschrijf het huidige project.
-        /// </summary>
-        public static string GuiCommandHandler_SaveProject_Overwrite_current_project {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_SaveProject_Overwrite_current_project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project {0} is opgeslagen.
-        /// </summary>
-        public static string GuiCommandHandler_SaveProjectAs_Project__0__saved {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_SaveProjectAs_Project__0__saved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De opgegeven naam voor het bestandspad is te lang, kies een kortere naam..
-        /// </summary>
-        public static string GuiCommandHandler_SaveProjectAs_The_specified_file_path_is_too_long__please_choose_a_shorter_path_ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_SaveProjectAs_The_specified_file_path_is_too_long__please_choos" +
-                        "e_a_shorter_path_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waarschuwing.
-        /// </summary>
-        public static string GuiCommandHandler_SaveProjectAs_Warning {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_SaveProjectAs_Warning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opslaan {0}.
-        /// </summary>
-        public static string GuiCommandHandler_SaveProjectWithProgressDialog_Saving__0_ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_SaveProjectWithProgressDialog_Saving__0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekenen van model {0} is mislukt; volgende modellen in de folder worden overgeslagen..
-        /// </summary>
-        public static string GuiCommandHandler_StopModel_Run_model__0__failed__next_models_in_folder_ignored_ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_StopModel_Run_model__0__failed__next_models_in_folder_ignored_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geen geldige selectie. Selecteer folder of project..
-        /// </summary>
-        public static string GuiCommandHandler_StopModelsForSelection_No_valid_selection__please_select_folder_or_project_ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_StopModelsForSelection_No_valid_selection__please_select_folder" +
-                        "_or_project_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan model niet stoppen. Geen modellen geselecteerd..
-        /// </summary>
-        public static string GuiCommandHandler_StopSelectedModel_Can_t_stop_model__no_models_selected_ {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_StopSelectedModel_Can_t_stop_model__no_models_selected_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Model {0} is beëindigd.
-        /// </summary>
-        public static string GuiCommandHandler_StopSelectedModel_Model__0__terminated {
-            get {
-                return ResourceManager.GetString("GuiCommandHandler_StopSelectedModel_Model__0__terminated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt; geen project geopend &gt; - {0}.
         /// </summary>
         public static string GuiCommandHandler_UpdateGui__no_project_opened_____0_ {
@@ -1299,7 +1121,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export failed.
+        ///   Looks up a localized string similar to Exporteren mislukt.
         /// </summary>
         public static string GuiExportHandler_ExporterItemUsingFileOpenDialog_Export_failed {
             get {
@@ -1308,7 +1130,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finished exporting.
+        ///   Looks up a localized string similar to Exporteren afgerond.
         /// </summary>
         public static string GuiExportHandler_ExporterItemUsingFileOpenDialog_Finished_exporting {
             get {
@@ -1326,7 +1148,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start exporting.
+        ///   Looks up a localized string similar to Exporteren gestart.
         /// </summary>
         public static string GuiExportHandler_ExporterItemUsingFileOpenDialog_Start_exporting {
             get {
@@ -1399,63 +1221,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 return ResourceManager.GetString("GuiImportHandler_GetSupportedImporterForTargetType_No_importer_available_for_this" +
                         "_item___0___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} is geen geldige &quot;target&quot; voor het resultaat van de &quot;import&quot;.
-        /// </summary>
-        public static string GuiImportHandler_ImportDataTo__0__is_no_valid_target_for_the_result_of_the_import {
-            get {
-                return ResourceManager.GetString("GuiImportHandler_ImportDataTo__0__is_no_valid_target_for_the_result_of_the_import" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} konden niet worden geïmporteerd..
-        /// </summary>
-        public static string GuiImportHandler_ImportFilesTo__0__could_not_be_imported_by_this_importer_ {
-            get {
-                return ResourceManager.GetString("GuiImportHandler_ImportFilesTo__0__could_not_be_imported_by_this_importer_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan de bestanden niet importeren in {0}.
-        /// </summary>
-        public static string GuiImportHandler_ImportFilesTo_Can_not_import_file_s__into__0_ {
-            get {
-                return ResourceManager.GetString("GuiImportHandler_ImportFilesTo_Can_not_import_file_s__into__0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geen &quot;importer&quot; is gevonden voor het bestandtype {0} en &quot;target&quot; {1}..
-        /// </summary>
-        public static string GuiImportHandler_ImportFilesTo_No_importer_has_been_found_for_file_type__0__and_target__1__ {
-            get {
-                return ResourceManager.GetString("GuiImportHandler_ImportFilesTo_No_importer_has_been_found_for_file_type__0__and_t" +
-                        "arget__1__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het typen van het geselecteerde object en het geïmporteerde object zijn niet hetzelfde..
-        /// </summary>
-        public static string GuiImportHandler_SetDataItemValue_The_types_of_the_selected_object_and_the_imported_object_aren_t_the_same_ {
-            get {
-                return ResourceManager.GetString("GuiImportHandler_SetDataItemValue_The_types_of_the_selected_object_and_the_import" +
-                        "ed_object_aren_t_the_same_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Over {0}.
-        /// </summary>
-        public static string HelpAboutBox_UpdateAboutBox_About__0_ {
-            get {
-                return ResourceManager.GetString("HelpAboutBox_UpdateAboutBox_About__0_", resourceCulture);
             }
         }
         
@@ -1548,34 +1313,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Moet er een project zijn om een model te kunnen toevoegen.
-        /// </summary>
-        public static string MainWindow_ButtonAddModel_Click_There_needs_to_be_a_project_to_add_a_model {
-            get {
-                return ResourceManager.GetString("MainWindow_ButtonAddModel_Click_There_needs_to_be_a_project_to_add_a_model", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Weet u het zeker dat u het volgende &quot;item&quot; {0} wilt wissen.
-        /// </summary>
-        public static string MainWindow_ButtonDelete_Click_Are_you_sure_you_want_to_delete_the_following_item___0_ {
-            get {
-                return ResourceManager.GetString("MainWindow_ButtonDelete_Click_Are_you_sure_you_want_to_delete_the_following_item_" +
-                        "__0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bevestigen.
-        /// </summary>
-        public static string MainWindow_ButtonDelete_Click_Confirm {
-            get {
-                return ResourceManager.GetString("MainWindow_ButtonDelete_Click_Confirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hoofdschermvenster is aangemaakt..
         /// </summary>
         public static string MainWindow_MainWindow_Main_window_created_ {
@@ -1647,60 +1384,6 @@ namespace Core.Common.Gui.Properties {
         public static string MainWindowCommands_CloseViewTabCommand_Text_Close_Current_view__Ctrl___W_ {
             get {
                 return ResourceManager.GetString("MainWindowCommands_CloseViewTabCommand_Text_Close_Current_view__Ctrl___W_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zoeken in het  Project.
-        /// </summary>
-        public static string MainWindowCommands_FindInProjectCommand_Name_Find_In_Project {
-            get {
-                return ResourceManager.GetString("MainWindowCommands_FindInProjectCommand_Name_Find_In_Project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zoeken in het  Project (Ctrl + F).
-        /// </summary>
-        public static string MainWindowCommands_FindInProjectCommand_Text_Find_In_Project__Ctrl___F_ {
-            get {
-                return ResourceManager.GetString("MainWindowCommands_FindInProjectCommand_Text_Find_In_Project__Ctrl___F_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle modellen berekenen.
-        /// </summary>
-        public static string MainWindowCommands_RunAllModelsCommand_Name_Run_All_Models {
-            get {
-                return ResourceManager.GetString("MainWindowCommands_RunAllModelsCommand_Name_Run_All_Models", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekenen van alle modellen (Ctrl + F9).
-        /// </summary>
-        public static string MainWindowCommands_RunAllModelsCommand_Text_Run_All_Models__Ctrl___F9_ {
-            get {
-                return ResourceManager.GetString("MainWindowCommands_RunAllModelsCommand_Text_Run_All_Models__Ctrl___F9_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bereken huidig model.
-        /// </summary>
-        public static string MainWindowCommands_RunCurrentModelCommand_Name_Run_Current_Model {
-            get {
-                return ResourceManager.GetString("MainWindowCommands_RunCurrentModelCommand_Name_Run_Current_Model", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bereken huidig Model (F9).
-        /// </summary>
-        public static string MainWindowCommands_RunCurrentModelCommand_Text_Run_Current_Model__F9_ {
-            get {
-                return ResourceManager.GetString("MainWindowCommands_RunCurrentModelCommand_Text_Run_Current_Model__F9_", resourceCulture);
             }
         }
         
@@ -1800,64 +1483,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tijdnavigatie weergeven.
-        /// </summary>
-        public static string MainWindowCommands_ShowTimeNavigatorCommand_Name_Show_Time_Navigator {
-            get {
-                return ResourceManager.GetString("MainWindowCommands_ShowTimeNavigatorCommand_Name_Show_Time_Navigator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tijdnavigatie weergeven (Shift + Alt + T).
-        /// </summary>
-        public static string MainWindowCommands_ShowTimeNavigatorCommand_Text_Show_Time_Navigator__Shift___Alt___T_ {
-            get {
-                return ResourceManager.GetString("MainWindowCommands_ShowTimeNavigatorCommand_Text_Show_Time_Navigator__Shift___Alt" +
-                        "___T_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overschakelen naar volgende &quot;Toolwindow&quot;.
-        /// </summary>
-        public static string MainWindowCommands_SwitchToNextToolWindowCommand_Name_Switch_To_Next_Toolwindow {
-            get {
-                return ResourceManager.GetString("MainWindowCommands_SwitchToNextToolWindowCommand_Name_Switch_To_Next_Toolwindow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overschakelen naar volgend &quot;Toolwindow&quot; (Ctrl + Shift + PgDwn).
-        /// </summary>
-        public static string MainWindowCommands_SwitchToNextToolWindowCommand_Text_Switch_To_Next_Toolwindow__Ctrl___Shift___PgDwn_ {
-            get {
-                return ResourceManager.GetString("MainWindowCommands_SwitchToNextToolWindowCommand_Text_Switch_To_Next_Toolwindow__" +
-                        "Ctrl___Shift___PgDwn_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overschakelen naar vorig &quot;Toolwindow&quot;.
-        /// </summary>
-        public static string MainWindowCommands_SwitchToPreviousToolWindowCommand_Name_Switch_To_Previous_Toolwindow {
-            get {
-                return ResourceManager.GetString("MainWindowCommands_SwitchToPreviousToolWindowCommand_Name_Switch_To_Previous_Tool" +
-                        "window", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overschakelen naar vorig &quot;Toolwindow&quot; (Ctrl + Shift + PgUp).
-        /// </summary>
-        public static string MainWindowCommands_SwitchToPreviousToolWindowCommand_Text_Switch_To_Previous_Toolwindow__Ctrl___Shift___PgUp_ {
-            get {
-                return ResourceManager.GetString("MainWindowCommands_SwitchToPreviousToolWindowCommand_Text_Switch_To_Previous_Tool" +
-                        "window__Ctrl___Shift___PgUp_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap map {
@@ -1873,15 +1498,6 @@ namespace Core.Common.Gui.Properties {
         public static string Messages {
             get {
                 return ResourceManager.GetString("Messages", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Afbeelding = &apos;{0}&apos;.
-        /// </summary>
-        public static string MessageWindow_ApplyFilter_ {
-            get {
-                return ResourceManager.GetString("MessageWindow_ApplyFilter_", resourceCulture);
             }
         }
         
@@ -1914,7 +1530,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Ringtoets project successfully opened..
+        ///   Looks up a localized string similar to Nieuw Ringtoets project succesvol geopend..
         /// </summary>
         public static string New_Ringtoets_project_successfully_opened {
             get {
@@ -1953,7 +1569,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opening existing Ringtoets project..
+        ///   Looks up a localized string similar to Openen van bestaand Ringtoets project..
         /// </summary>
         public static string Opening_existing_Ringtoets_project {
             get {
@@ -1962,7 +1578,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opening existing Ringtoets project cancelled..
+        ///   Looks up a localized string similar to Openen van bestaand Ringtoets project geannuleerd..
         /// </summary>
         public static string Opening_existing_Ringtoets_project_cancelled {
             get {
@@ -1971,7 +1587,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opening new Ringtoets project..
+        ///   Looks up a localized string similar to Openen van nieuw Ringtoets project..
         /// </summary>
         public static string Opening_new_Ringtoets_project {
             get {
@@ -1980,7 +1596,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opening new Ringtoets project cancelled..
+        ///   Looks up a localized string similar to Openen van nieuw Ringtoets project geannuleerd..
         /// </summary>
         public static string Opening_new_Ringtoets_project_cancelled {
             get {
@@ -2059,57 +1675,12 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} plugins gevonden..
-        /// </summary>
-        public static string PluginDialog_UpdatePlugins__0__plugins_found_ {
-            get {
-                return ResourceManager.GetString("PluginDialog_UpdatePlugins__0__plugins_found_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uitzetten.
-        /// </summary>
-        public static string PluginStatusControl_UpdateInfo_Disable {
-            get {
-                return ResourceManager.GetString("PluginStatusControl_UpdateInfo_Disable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aanzetten.
-        /// </summary>
-        public static string PluginStatusControl_UpdateInfo_Enable {
-            get {
-                return ResourceManager.GetString("PluginStatusControl_UpdateInfo_Enable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Plugin {0} beschikt niet over een afbeelding..
-        /// </summary>
-        public static string PluginStatusControl_UpdateInfo_Plugin__0__does_not_have_an_image_ {
-            get {
-                return ResourceManager.GetString("PluginStatusControl_UpdateInfo_Plugin__0__does_not_have_an_image_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap plus_button_32 {
             get {
                 object obj = ResourceManager.GetObject("plus_button_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} (naam = {1}).
-        /// </summary>
-        public static string PopupCommand_OnExecute_ {
-            get {
-                return ResourceManager.GetString("PopupCommand_OnExecute_", resourceCulture);
             }
         }
         
@@ -2176,82 +1747,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("PropertiesHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle geselecteerde objecten ({0}).
-        /// </summary>
-        public static string PropertyGrid_comboBox1_DrawItem_All_selected_Objects___0__ {
-            get {
-                return ResourceManager.GetString("PropertyGrid_comboBox1_DrawItem_All_selected_Objects___0__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to geselecteerde {0} ({1}).
-        /// </summary>
-        public static string PropertyGrid_comboBox1_DrawItem_selected__0____1__ {
-            get {
-                return ResourceManager.GetString("PropertyGrid_comboBox1_DrawItem_selected__0____1__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan geen &quot;object properties&quot; voor de data aanmaken.
-        /// </summary>
-        public static string PropertyGrid_CreateObjectProperties_Could_not_create_object_properties_for_the_data {
-            get {
-                return ResourceManager.GetString("PropertyGrid_CreateObjectProperties_Could_not_create_object_properties_for_the_da" +
-                        "ta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon &quot;object properties&quot; niet creëren voor het &quot;data item&quot;.
-        /// </summary>
-        public static string PropertyGrid_CreateObjectProperties_Could_not_create_object_properties_for_the_data_item {
-            get {
-                return ResourceManager.GetString("PropertyGrid_CreateObjectProperties_Could_not_create_object_properties_for_the_da" +
-                        "ta_item", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon geen &quot;object properties&quot; met de waarde van de &quot;data item&quot;creëren.
-        /// </summary>
-        public static string PropertyGrid_CreateObjectProperties_Could_not_create_object_properties_for_the_value_of_the_data_item {
-            get {
-                return ResourceManager.GetString("PropertyGrid_CreateObjectProperties_Could_not_create_object_properties_for_the_va" +
-                        "lue_of_the_data_item", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Meerdere &quot;object property&quot; instanties gevonden voor de zelfde &quot;data object&quot;: geen &quot;object properties&quot; worden weergegeven in de &quot;property grid&quot;.
-        /// </summary>
-        public static string PropertyGrid_GetObjectProperties_Multiple_object_property_instances_found_for_the_same_data_object__no_object_properties_are_displayed_in_the_property_grid {
-            get {
-                return ResourceManager.GetString("PropertyGrid_GetObjectProperties_Multiple_object_property_instances_found_for_the" +
-                        "_same_data_object__no_object_properties_are_displayed_in_the_property_grid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selecteer meerdere objecten:.
-        /// </summary>
-        public static string PropertyGrid_OnSelectedObjectsChanged_Selected_multiple_objects_ {
-            get {
-                return ResourceManager.GetString("PropertyGrid_OnSelectedObjectsChanged_Selected_multiple_objects_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geselecteerd object van het type: {0}.
-        /// </summary>
-        public static string PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_ {
-            get {
-                return ResourceManager.GetString("PropertyGrid_OnSelectedObjectsChanged_Selected_object_of_type___0_", resourceCulture);
             }
         }
         
@@ -2330,74 +1825,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kopiëren.
-        /// </summary>
-        public static string Ribbon_Copy {
-            get {
-                return ResourceManager.GetString("Ribbon_Copy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Knippen.
-        /// </summary>
-        public static string Ribbon_Cut {
-            get {
-                return ResourceManager.GetString("Ribbon_Cut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Verwijderen.
-        /// </summary>
-        public static string Ribbon_Delete {
-            get {
-                return ResourceManager.GetString("Ribbon_Delete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Afsluiten.
         /// </summary>
         public static string Ribbon_Exit {
             get {
                 return ResourceManager.GetString("Ribbon_Exit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Exporteren.
-        /// </summary>
-        public static string Ribbon_Export {
-            get {
-                return ResourceManager.GetString("Ribbon_Export", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Feedback.
-        /// </summary>
-        public static string Ribbon_Feedback {
-            get {
-                return ResourceManager.GetString("Ribbon_Feedback", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zoeken.
-        /// </summary>
-        public static string Ribbon_Find {
-            get {
-                return ResourceManager.GetString("Ribbon_Find", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Klembord.
-        /// </summary>
-        public static string Ribbon_GroupBox_Clipboard {
-            get {
-                return ResourceManager.GetString("Ribbon_GroupBox_Clipboard", resourceCulture);
             }
         }
         
@@ -2411,38 +1843,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekenen.
-        /// </summary>
-        public static string Ribbon_GroupBox_Run {
-            get {
-                return ResourceManager.GetString("Ribbon_GroupBox_Run", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Weergeven/Verbergen.
         /// </summary>
         public static string Ribbon_GroupBox_Show_Hide {
             get {
                 return ResourceManager.GetString("Ribbon_GroupBox_Show_Hide", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Help.
-        /// </summary>
-        public static string Ribbon_Help {
-            get {
-                return ResourceManager.GetString("Ribbon_Help", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Importeren.
-        /// </summary>
-        public static string Ribbon_Import {
-            get {
-                return ResourceManager.GetString("Ribbon_Import", resourceCulture);
             }
         }
         
@@ -2465,33 +1870,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuwe Folder.
-        /// </summary>
-        public static string Ribbon_New_Folder {
-            get {
-                return ResourceManager.GetString("Ribbon_New_Folder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nieuw Item.
-        /// </summary>
-        public static string Ribbon_New_Item {
-            get {
-                return ResourceManager.GetString("Ribbon_New_Item", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nieuw Model.
-        /// </summary>
-        public static string Ribbon_New_Model {
-            get {
-                return ResourceManager.GetString("Ribbon_New_Model", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Open Handleiding.
         /// </summary>
         public static string Ribbon_Open_Manual {
@@ -2506,24 +1884,6 @@ namespace Core.Common.Gui.Properties {
         public static string Ribbon_Options {
             get {
                 return ResourceManager.GetString("Ribbon_Options", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Plakken.
-        /// </summary>
-        public static string Ribbon_Paste {
-            get {
-                return ResourceManager.GetString("Ribbon_Paste", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Plugins.
-        /// </summary>
-        public static string Ribbon_Plugins {
-            get {
-                return ResourceManager.GetString("Ribbon_Plugins", resourceCulture);
             }
         }
         
@@ -2546,38 +1906,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opnieuw Berekenen.
-        /// </summary>
-        public static string Ribbon_Redo {
-            get {
-                return ResourceManager.GetString("Ribbon_Redo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Opmaak resetten na opnieuw opstarten.
         /// </summary>
         public static string Ribbon_Reset_Layout_After_Restart {
             get {
                 return ResourceManager.GetString("Ribbon_Reset_Layout_After_Restart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alles Berekenen.
-        /// </summary>
-        public static string Ribbon_Run_All {
-            get {
-                return ResourceManager.GetString("Ribbon_Run_All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selectie Berekenen.
-        /// </summary>
-        public static string Ribbon_Run_Current {
-            get {
-                return ResourceManager.GetString("Ribbon_Run_Current", resourceCulture);
             }
         }
         
@@ -2609,24 +1942,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop alles.
-        /// </summary>
-        public static string Ribbon_Stop_All {
-            get {
-                return ResourceManager.GetString("Ribbon_Stop_All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Stop Selectie.
-        /// </summary>
-        public static string Ribbon_Stop_Current {
-            get {
-                return ResourceManager.GetString("Ribbon_Stop_Current", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Feedback Verzenden.
         /// </summary>
         public static string Ribbon_Submit_Feedback {
@@ -2645,15 +1960,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start.
-        /// </summary>
-        public static string Ribbon_TabItem_Home {
-            get {
-                return ResourceManager.GetString("Ribbon_TabItem_Home", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Recente Projecten.
         /// </summary>
         public static string Ribbon_TabItem_Recent_Projects {
@@ -2668,15 +1974,6 @@ namespace Core.Common.Gui.Properties {
         public static string Ribbon_TabItem_View {
             get {
                 return ResourceManager.GetString("Ribbon_TabItem_View", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ongedaan Maken.
-        /// </summary>
-        public static string Ribbon_Undo {
-            get {
-                return ResourceManager.GetString("Ribbon_Undo", resourceCulture);
             }
         }
         
@@ -2700,20 +1997,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets project files (.rt)|*.rtx.
+        ///   Looks up a localized string similar to Ringtoets project files (.rtx)|*.rtx.
         /// </summary>
         public static string Ringtoets_project_file_filter {
             get {
                 return ResourceManager.GetString("Ringtoets_project_file_filter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fout tijdens het activeren van de plugin.
-        /// </summary>
-        public static string RingtoetsGui_ActivatePlugins_Error_during_plugin_activation {
-            get {
-                return ResourceManager.GetString("RingtoetsGui_ActivatePlugins_Error_during_plugin_activation", resourceCulture);
             }
         }
         
@@ -2723,43 +2011,6 @@ namespace Core.Common.Gui.Properties {
         public static string RingtoetsGui_ActivatePlugins_Exception_during_plugin_gui_deactivation {
             get {
                 return ResourceManager.GetString("RingtoetsGui_ActivatePlugins_Exception_during_plugin_gui_deactivation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &quot;GUI plugin&quot; {0} activering is mislukt, overslaan....
-        /// </summary>
-        public static string RingtoetsGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____ {
-            get {
-                return ResourceManager.GetString("RingtoetsGui_ActivatePlugins_Gui_plugin__0__activation_has_failed__skipping____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &quot;GUI plugin&quot; {0} initialiseren....
-        /// </summary>
-        public static string RingtoetsGui_ActivatePlugins_Initializing_gui_plugin__0_____ {
-            get {
-                return ResourceManager.GetString("RingtoetsGui_ActivatePlugins_Initializing_gui_plugin__0_____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Niet in staat om de weergave-instellingen te laden. De weergave-instellingen zijn verloren gegaan!.
-        /// </summary>
-        public static string RingtoetsGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_settings_lost_ {
-            get {
-                return ResourceManager.GetString("RingtoetsGui_ApplicationProjectOpened_Unable_to_load_view_settings__view_settings" +
-                        "_lost_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Klembord  &quot;Ringtoets&quot; geleegd.
-        /// </summary>
-        public static string RingtoetsGui_ApplicationProjectSaving_clipboard_emptied {
-            get {
-                return ResourceManager.GetString("RingtoetsGui_ApplicationProjectSaving_clipboard_emptied", resourceCulture);
             }
         }
         
@@ -2778,36 +2029,6 @@ namespace Core.Common.Gui.Properties {
         public static string RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____ {
             get {
                 return ResourceManager.GetString("RingtoetsGui_InitializeMenusAndToolbars_Setting_up_menus_and_toolbars____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geen plugins gevonden. Waarschijnlijk is er een probleem met de configuratie..
-        /// </summary>
-        public static string RingtoetsGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a_configuration_problem_ {
-            get {
-                return ResourceManager.GetString("RingtoetsGui_InitializePluginResources_No_plugins_found__most_probably_there_is_a" +
-                        "_configuration_problem_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controleer uw configuratie en plugins folder!.
-        /// </summary>
-        public static string RingtoetsGui_InitializePluginResources_Please_check_your_configuration_and_plugins_folder_ {
-            get {
-                return ResourceManager.GetString("RingtoetsGui_InitializePluginResources_Please_check_your_configuration_and_plugin" +
-                        "s_folder_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to &quot;Ringtoets&quot; applicatie gestart, actieve plugins:.
-        /// </summary>
-        public static string RingtoetsGui_InitializePluginResources_Ringtoets_application_started__active_plugins__ {
-            get {
-                return ResourceManager.GetString("RingtoetsGui_InitializePluginResources_Ringtoets_application_started__active_plug" +
-                        "ins__", resourceCulture);
             }
         }
         
@@ -2877,15 +2098,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;DragDrop&quot; wordt al behandeld in de &quot;control&quot;.
-        /// </summary>
-        public static string RingtoetsGui_RingtoetsGuiDragDrop_DragDrop_is_already_handled_in_control_itself {
-            get {
-                return ResourceManager.GetString("RingtoetsGui_RingtoetsGuiDragDrop_DragDrop_is_already_handled_in_control_itself", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Grafische gebruikersinterface initialiseren....
         /// </summary>
         public static string RingtoetsGui_Run_Initializing_graphical_user_interface____ {
@@ -2909,15 +2121,6 @@ namespace Core.Common.Gui.Properties {
         public static string RingtoetsGui_Run_Starting_application____ {
             get {
                 return ResourceManager.GetString("RingtoetsGui_Run_Starting_application____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Logo-bestand {0} bestaat niet.
-        /// </summary>
-        public static string RingtoetsGui_ShowSplashScreen_Logo_file__0__does_not_exist {
-            get {
-                return ResourceManager.GetString("RingtoetsGui_ShowSplashScreen_Logo_file__0__does_not_exist", resourceCulture);
             }
         }
         
@@ -2967,51 +2170,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("script", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} heeft geen ondersteuning voor zoeken.
-        /// </summary>
-        public static string SearchDialog_BackgroundWorker1DoWork__0__does_not_support_searching {
-            get {
-                return ResourceManager.GetString("SearchDialog_BackgroundWorker1DoWork__0__does_not_support_searching", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De volgende fout is opgetreden:.
-        /// </summary>
-        public static string SearchDialog_BackgroundWorker1RunWorkerCompleted_The_following_error_occured___ {
-            get {
-                return ResourceManager.GetString("SearchDialog_BackgroundWorker1RunWorkerCompleted_The_following_error_occured___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De zoekopdracht is geannuleerd.
-        /// </summary>
-        public static string SearchDialog_BackgroundWorker1RunWorkerCompleted_The_search_has_been_cancelled {
-            get {
-                return ResourceManager.GetString("SearchDialog_BackgroundWorker1RunWorkerCompleted_The_search_has_been_cancelled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Huidige weergave.
-        /// </summary>
-        public static string SearchDialog_SearchDialogLoad_Current_View {
-            get {
-                return ResourceManager.GetString("SearchDialog_SearchDialogLoad_Current_View", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het hele Project.
-        /// </summary>
-        public static string SearchDialog_SearchDialogLoad_Entire_Project {
-            get {
-                return ResourceManager.GetString("SearchDialog_SearchDialogLoad_Entire_Project", resourceCulture);
             }
         }
         
@@ -3125,15 +2283,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weergegeven van &quot;splash&quot;-scherm....
-        /// </summary>
-        public static string SplashScreen_SplashScreen_VisibleChanged_Showing_splash_screen____ {
-            get {
-                return ResourceManager.GetString("SplashScreen_SplashScreen_VisibleChanged_Showing_splash_screen____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Opstarten....
         /// </summary>
         public static string SplashScreen_Starting {
@@ -3158,24 +2307,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("SplashScreenBackground", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Verbergen &quot;splash&quot;-scherm....
-        /// </summary>
-        public static string SplashScreenWindowsForms_SplashScreen_VisibleChanged_Hiding_splash_screen____ {
-            get {
-                return ResourceManager.GetString("SplashScreenWindowsForms_SplashScreen_VisibleChanged_Hiding_splash_screen____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Weergegeven van &quot;splash&quot;-scherm....
-        /// </summary>
-        public static string SplashScreenWindowsForms_SplashScreen_VisibleChanged_Showing_splash_screen____ {
-            get {
-                return ResourceManager.GetString("SplashScreenWindowsForms_SplashScreen_VisibleChanged_Showing_splash_screen____", resourceCulture);
             }
         }
         
@@ -3214,15 +2345,6 @@ namespace Core.Common.Gui.Properties {
         public static string ToolWindow_Name_Map {
             get {
                 return ResourceManager.GetString("ToolWindow_Name_Map", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tijd Navigatie.
-        /// </summary>
-        public static string ToolWindow_Name_Time_Navigator {
-            get {
-                return ResourceManager.GetString("ToolWindow_Name_Time_Navigator", resourceCulture);
             }
         }
         
@@ -3270,26 +2392,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 return ResourceManager.GetString("ViewList_Insert_No_default_location_specified__Cannot_add_a_view_without_location" +
                         "_parameter_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het is niet mogelijk om &quot;ViewContext&quot; van de weergave {0} toe te voegen omdat &quot;ViewContext&quot; gelijk is aan &quot;null&quot;..
-        /// </summary>
-        public static string ViewList_UpdateViewContext_Unable_to_add_ViewContext_of_view__0___ViewContext_is_null_ {
-            get {
-                return ResourceManager.GetString("ViewList_UpdateViewContext_Unable_to_add_ViewContext_of_view__0___ViewContext_is_" +
-                        "null_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het is niet mogelijk &quot;ViewContext&quot; van de weergave {0} toe te voegen omdat &quot;ViewContext.ViewType&quot; niet van type {1} is..
-        /// </summary>
-        public static string ViewList_UpdateViewContext_Unable_to_add_ViewContext_of_view__0___ViewContext_ViewType_is_not_of_type__1__ {
-            get {
-                return ResourceManager.GetString("ViewList_UpdateViewContext_Unable_to_add_ViewContext_of_view__0___ViewContext_Vie" +
-                        "wType_is_not_of_type__1__", resourceCulture);
             }
         }
         

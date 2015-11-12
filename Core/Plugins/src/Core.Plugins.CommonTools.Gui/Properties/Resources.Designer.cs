@@ -2327,15 +2327,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ongedaan maken/Opnieuw.
-        /// </summary>
-        public static string Ribbon_Undo_Redo {
-            get {
-                return ResourceManager.GetString("Ribbon_Undo_Redo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ruler_3 {

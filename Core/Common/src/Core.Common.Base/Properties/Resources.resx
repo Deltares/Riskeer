@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RunningActivityLogAppender_SendLogToActivity_Run_report" xml:space="preserve">
-    <value>Berekeningsrapportage</value>
-  </data>
-  <data name="InMemoryProjectRepository_Open_Can_t_read_project_from_path__project_can_be_only_created_in_memory_using_this_project_repository" xml:space="preserve">
-    <value>Kan project niet lezen in folder, project kan alleen in geheugen gemaakt worden met behulp van "project repository"</value>
-  </data>
   <data name="RingtoetsApplication_Run_You_can_call_Run___only_once_per_application" xml:space="preserve">
     <value>U kunt  slechts eenmaal Run() uitvoeren per applicatie</value>
   </data>
@@ -148,7 +142,7 @@
     <value>"Run()" moet eerst worden aangeroepen voordat het project kan worden geopend</value>
   </data>
   <data name="RingtoetsApplication_LogSystemInfo_Environmental_variables_" xml:space="preserve">
-    <value>"Environmental"-variables:</value>
+    <value>Omgevingsvariabelen:</value>
   </data>
   <data name="RingtoetsApplication_ActivatePlugins_All_plugins_were_activated_" xml:space="preserve">
     <value>Alle plugins waren geactiveerd.</value>
@@ -168,9 +162,6 @@
   <data name="RingtoetsApplication_RegisterDataTypes_Registering_data_type__0_" xml:space="preserve">
     <value>Registreren gegevenstype {0}</value>
   </data>
-  <data name="RingtoetsApplication_RegisterImporters_Registering_importers____" xml:space="preserve">
-    <value>Registreren "importers"...</value>
-  </data>
   <data name="RingtoetsApplication_RegisterImporters_Registering_importer__0_" xml:space="preserve">
     <value>Registreren "importer" {0}</value>
   </data>
@@ -180,37 +171,7 @@
   <data name="RingtoetsApplication_RegisterExporters_Registering_exporter__0_" xml:space="preserve">
     <value>Registreren "exporter" {0}</value>
   </data>
-  <data name="RingtoetsApplication_RegisterPersistentAssemblies_Registering_assemblies_containing_persistent_data_types____" xml:space="preserve">
-    <value>Registreren van "assemblies" met "persistent data types"...</value>
-  </data>
-  <data name="ProjectService_CreateNewProjectInTemporaryFolder_Creating_new_empty_project_in_temporary_folder____" xml:space="preserve">
-    <value>Creëren van een nieuw leeg project in een tijdelijke folder...</value>
-  </data>
-  <data name="ProjectService_CreateNewProjectInTemporaryFolder_New_empty_project_created" xml:space="preserve">
-    <value>Nieuw leeg project is aangemaakt</value>
-  </data>
-  <data name="ProjectService_Open_Loading_project__0_____" xml:space="preserve">
-    <value>Project {0} aan het laden...</value>
-  </data>
-  <data name="ProjectService_Open_Stopped_loading_project__0_" xml:space="preserve">
-    <value>Laden van het project {0} is gestopped</value>
-  </data>
-  <data name="ProjectService_SaveProjectAs_Error_during_delete_of_old_project_file_and_directory__skipping____" xml:space="preserve">
-    <value>Fout tijdens het verwijderen van oude projectbestanden en folders, dit wordt nu overgeslagen...</value>
-  </data>
-  <data name="ProjectService_CreateWorkingDirectories_Parameter_projectDataDirectory_should_be_absolute_path" xml:space="preserve">
-    <value>Parameter "projectDataDirectory" moet een "absolute path" zijn</value>
-  </data>
-  <data name="ProjectService_FireProjectSaving_Saving_project__0__as__1_" xml:space="preserve">
-    <value>Opslaan van het project {0} als {1}</value>
-  </data>
-  <data name="ProjectService_FireProjectSaved_Project__0__saved" xml:space="preserve">
-    <value>Project {0} is opgeslagen</value>
-  </data>
-  <data name="ProjectService_Export_Unable_to_export_to_file__0___You_cannot_export_to_the_current_project_" xml:space="preserve">
-    <value>Kan niet exporteren naar bestand {0}. U kunt niet naar huit huidige project exporteren.</value>
-  </data>
-  <data name="ProjectService_ExportProjectItemTo_Unable_to_export_file__0___An_error_has_occurred_during_clone_with_the_following_message___1_" xml:space="preserve">
-    <value>Niet in staat om bestand {0} te exporteren. Er is een fout opgetreden tijdens de kloon met het volgende bericht: {1}</value>
+  <data name="RingtoetsApplication_RegisterImporters_Registering_importers____" xml:space="preserve">
+    <value>Registreren "importers"...</value>
   </data>
 </root>

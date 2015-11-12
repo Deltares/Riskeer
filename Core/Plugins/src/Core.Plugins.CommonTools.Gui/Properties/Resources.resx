@@ -763,9 +763,6 @@
   <data name="Ribbon_ContextualGroup_Charting" xml:space="preserve">
     <value>Grafieken</value>
   </data>
-  <data name="Ribbon_Undo_Redo" xml:space="preserve">
-    <value>Ongedaan maken/Opnieuw</value>
-  </data>
   <data name="Ribbon_GroupBox_Show_Hide" xml:space="preserve">
     <value>Weergeven/Verbergen</value>
   </data>

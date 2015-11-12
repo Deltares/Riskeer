@@ -61,101 +61,6 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan project niet lezen in folder, project kan alleen in geheugen gemaakt worden met behulp van &quot;project repository&quot;.
-        /// </summary>
-        internal static string InMemoryProjectRepository_Open_Can_t_read_project_from_path__project_can_be_only_created_in_memory_using_this_project_repository {
-            get {
-                return ResourceManager.GetString("InMemoryProjectRepository_Open_Can_t_read_project_from_path__project_can_be_only_" +
-                        "created_in_memory_using_this_project_repository", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Creëren van een nieuw leeg project in een tijdelijke folder....
-        /// </summary>
-        internal static string ProjectService_CreateNewProjectInTemporaryFolder_Creating_new_empty_project_in_temporary_folder____ {
-            get {
-                return ResourceManager.GetString("ProjectService_CreateNewProjectInTemporaryFolder_Creating_new_empty_project_in_te" +
-                        "mporary_folder____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nieuw leeg project is aangemaakt.
-        /// </summary>
-        internal static string ProjectService_CreateNewProjectInTemporaryFolder_New_empty_project_created {
-            get {
-                return ResourceManager.GetString("ProjectService_CreateNewProjectInTemporaryFolder_New_empty_project_created", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Parameter &quot;projectDataDirectory&quot; moet een &quot;absolute path&quot; zijn.
-        /// </summary>
-        internal static string ProjectService_CreateWorkingDirectories_Parameter_projectDataDirectory_should_be_absolute_path {
-            get {
-                return ResourceManager.GetString("ProjectService_CreateWorkingDirectories_Parameter_projectDataDirectory_should_be_" +
-                        "absolute_path", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan niet exporteren naar bestand {0}. U kunt niet naar huit huidige project exporteren..
-        /// </summary>
-        internal static string ProjectService_Export_Unable_to_export_to_file__0___You_cannot_export_to_the_current_project_ {
-            get {
-                return ResourceManager.GetString("ProjectService_Export_Unable_to_export_to_file__0___You_cannot_export_to_the_curr" +
-                        "ent_project_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project {0} is opgeslagen.
-        /// </summary>
-        internal static string ProjectService_FireProjectSaved_Project__0__saved {
-            get {
-                return ResourceManager.GetString("ProjectService_FireProjectSaved_Project__0__saved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Opslaan van het project {0} als {1}.
-        /// </summary>
-        internal static string ProjectService_FireProjectSaving_Saving_project__0__as__1_ {
-            get {
-                return ResourceManager.GetString("ProjectService_FireProjectSaving_Saving_project__0__as__1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project {0} aan het laden....
-        /// </summary>
-        internal static string ProjectService_Open_Loading_project__0_____ {
-            get {
-                return ResourceManager.GetString("ProjectService_Open_Loading_project__0_____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Laden van het project {0} is gestopped.
-        /// </summary>
-        internal static string ProjectService_Open_Stopped_loading_project__0_ {
-            get {
-                return ResourceManager.GetString("ProjectService_Open_Stopped_loading_project__0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Fout tijdens het verwijderen van oude projectbestanden en folders, dit wordt nu overgeslagen....
-        /// </summary>
-        internal static string ProjectService_SaveProjectAs_Error_during_delete_of_old_project_file_and_directory__skipping____ {
-            get {
-                return ResourceManager.GetString("ProjectService_SaveProjectAs_Error_during_delete_of_old_project_file_and_director" +
-                        "y__skipping____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alle plugins waren geactiveerd..
         /// </summary>
         internal static string RingtoetsApplication_ActivatePlugins_All_plugins_were_activated_ {
@@ -202,7 +107,7 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Environmental&quot;-variables:.
+        ///   Looks up a localized string similar to Omgevingsvariabelen:.
         /// </summary>
         internal static string RingtoetsApplication_LogSystemInfo_Environmental_variables_ {
             get {
@@ -261,16 +166,6 @@ namespace Core.Common.Base.Properties {
         internal static string RingtoetsApplication_RegisterImporters_Registering_importers____ {
             get {
                 return ResourceManager.GetString("RingtoetsApplication_RegisterImporters_Registering_importers____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registreren van &quot;assemblies&quot; met &quot;persistent data types&quot;....
-        /// </summary>
-        internal static string RingtoetsApplication_RegisterPersistentAssemblies_Registering_assemblies_containing_persistent_data_types____ {
-            get {
-                return ResourceManager.GetString("RingtoetsApplication_RegisterPersistentAssemblies_Registering_assemblies_containi" +
-                        "ng_persistent_data_types____", resourceCulture);
             }
         }
         
@@ -334,15 +229,6 @@ namespace Core.Common.Base.Properties {
         internal static string RingtoetsApplication_Run_You_can_call_Run___only_once_per_application {
             get {
                 return ResourceManager.GetString("RingtoetsApplication_Run_You_can_call_Run___only_once_per_application", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekeningsrapportage.
-        /// </summary>
-        internal static string RunningActivityLogAppender_SendLogToActivity_Run_report {
-            get {
-                return ResourceManager.GetString("RunningActivityLogAppender_SendLogToActivity_Run_report", resourceCulture);
             }
         }
     }
