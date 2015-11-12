@@ -121,16 +121,9 @@ namespace Core.Common.Gui
             return true;
         }
 
-        public IProjectItem GetProjectItemForActiveView()
+        public object GetDataOfActiveView()
         {
-            var activeView = gui.DocumentViews.ActiveView;
-            if (activeView == null || activeView.Data == null)
-            {
-                return null;
-            }
-
-            var projectItemActiveView = activeView.Data as IProjectItem;
-            return projectItemActiveView;
+            return gui.DocumentViews.ActiveView != null ? gui.DocumentViews.ActiveView.Data : null;
         }
 
         public void ShowProperties()

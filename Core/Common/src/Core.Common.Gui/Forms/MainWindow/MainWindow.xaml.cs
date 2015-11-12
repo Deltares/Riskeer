@@ -1258,10 +1258,10 @@ namespace Core.Common.Gui.Forms.MainWindow
         private void FindObjectInTreeView(object sender, ExecutedRoutedEventArgs e)
         {
             Gui.ToolWindowViews.ActiveView = ProjectExplorer;
-            var projectItem = Gui.CommandHandler.GetProjectItemForActiveView();
-            if (projectItem != null)
+            var dataOfActiveView = Gui.CommandHandler.GetDataOfActiveView();
+            if (dataOfActiveView != null)
             {
-                ProjectExplorer.ScrollTo(projectItem);
+                ProjectExplorer.ScrollTo(dataOfActiveView);
             }
         }
 

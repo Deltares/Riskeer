@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms;
@@ -79,13 +78,13 @@ namespace Core.Plugins.ProjectExplorer
             return ProjectTreeView.GetContextMenu(o);
         }
 
-        public void ScrollTo(IProjectItem projectItem)
+        public void ScrollTo(object o)
         {
-            var nodeToSelect = TreeView.GetNodeByTag(projectItem);
+            var nodeToSelect = TreeView.GetNodeByTag(o);
 
             if (nodeToSelect == null)
             {
-                log.DebugFormat(Resources.ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item___0_, projectItem);
+                log.DebugFormat(Resources.ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item___0_, o);
                 return;
             }
 
@@ -106,16 +105,16 @@ namespace Core.Plugins.ProjectExplorer
         private void DocumentViewsActiveViewChanged(object sender, ActiveViewChangeEventArgs e)
         {
             buttonScrollToItemInActiveView.Enabled = gui.DocumentViews.ActiveView != null &&
-                                                     gui.CommandHandler.GetProjectItemForActiveView() != null;
+                                                     gui.CommandHandler.GetDataOfActiveView() != null;
         }
 
         private void ButtonScrollToItemInActiveViewClick(object sender, EventArgs e)
         {
-            var activeViewProjectItem = gui.CommandHandler.GetProjectItemForActiveView();
-
-            if (activeViewProjectItem != null)
+            var dataOfActiveView = gui.CommandHandler.GetDataOfActiveView();
+            if (dataOfActiveView != null)
             {
-                ScrollTo(activeViewProjectItem);
+                ScrollTo(dataOfActiveView);
+
                 return;
             }
 

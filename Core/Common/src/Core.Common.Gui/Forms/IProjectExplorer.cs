@@ -1,5 +1,4 @@
-﻿using Core.Common.Base;
-using Core.Common.Controls;
+﻿using Core.Common.Controls;
 
 namespace Core.Common.Gui.Forms
 {
@@ -7,6 +6,6 @@ namespace Core.Common.Gui.Forms
     {
         ITreeView TreeView { get; }
 
-        void ScrollTo(IProjectItem projectItem);
+        void ScrollTo(object o);
     }
 }

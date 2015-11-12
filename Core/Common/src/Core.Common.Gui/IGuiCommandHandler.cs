@@ -98,7 +98,7 @@ namespace Core.Common.Gui
         /// </summary>
         bool CanImportToGuiSelection();
 
-        IProjectItem GetProjectItemForActiveView();
+        object GetDataOfActiveView();
 
         void OpenLogFileExternal();
 
