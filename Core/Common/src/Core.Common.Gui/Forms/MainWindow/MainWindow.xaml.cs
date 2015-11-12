@@ -1210,7 +1210,6 @@ namespace Core.Common.Gui.Forms.MainWindow
 
         private void OnFileHelpSubmitFeedback_Clicked(object sender, RoutedEventArgs e)
         {
-            Process.Start("http://deltashell.uservoice.com");
         }
 
         private void OnFileHelpShowLog_Clicked(object sender, RoutedEventArgs e)
