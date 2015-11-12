@@ -167,7 +167,7 @@ namespace Application.Ringtoets
                     new ProjectExplorerGuiPlugin(),
                     new CommonToolsGuiPlugin(),
                     new SharpMapGisGuiPlugin(),
-                    new WtiGuiPlugin()
+                    new RingtoetsGuiPlugin()
                 },
                 Application =
                 {
@@ -175,7 +175,7 @@ namespace Application.Ringtoets
                     {
                         new CommonToolsApplicationPlugin(),
                         new SharpMapGisApplicationPlugin(),
-                        new WtiApplicationPlugin()
+                        new RingtoetsApplicationPlugin()
                     }
                 }
             };

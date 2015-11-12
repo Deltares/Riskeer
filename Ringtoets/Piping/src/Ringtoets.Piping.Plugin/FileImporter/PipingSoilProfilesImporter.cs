@@ -7,7 +7,7 @@ using log4net;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Exceptions;
 using Ringtoets.Piping.IO.SoilProfile;
-using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
@@ -23,7 +23,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return WtiFormsResources.PipingSoilProfilesCollection_DisplayName;
+                return RingtoetsFormsResources.PipingSoilProfilesCollection_DisplayName;
             }
         }
 
@@ -31,7 +31,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return ApplicationResources.Wti_application_name;
+                return RingtoetsFormsResources.RingtoetsProjectProperties_Category;
             }
         }
 
@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return WtiFormsResources.PipingSoilProfileIcon;
+                return RingtoetsFormsResources.PipingSoilProfileIcon;
             }
         }
 
@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             get
             {
                 return String.Format("{0} {1} (*.soil)|*.soil",
-                                     WtiFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.Soil_file_name);
+                                     RingtoetsFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.Soil_file_name);
             }
         }
 

@@ -593,7 +593,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             {
                 try
                 {
-                    Gui.CommandHandler.TryOpenExistingWTIProject(path);
+                    Gui.CommandHandler.TryOpenExistingProject(path);
                     RecentProjectsTabControl.Items.Remove(newItem);
                     RecentProjectsTabControl.Items.Insert(1, newItem);
                 }
@@ -752,7 +752,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             return;
 
             // Original code:
-            //var succesful = Gui.CommandHandler.TryOpenExistingWTIProject();
+            //var succesful = Gui.CommandHandler.TryOpenExistingProject();
             //OnAfterProjectSaveOrOpen(succesful);
         }
 
@@ -762,14 +762,14 @@ namespace Core.Common.Gui.Forms.MainWindow
             return;
 
             // Original code:
-            //Gui.CommandHandler.TryCloseWTIProject();
+            //Gui.CommandHandler.TryCloseProject();
             //ValidateItems();
         }
 
         private void OnFileNewClicked(object sender, RoutedEventArgs e)
         {
             // Original code:
-            Gui.CommandHandler.TryCreateNewWTIProject();
+            Gui.CommandHandler.TryCreateNewProject();
             ValidateItems();
         }
 

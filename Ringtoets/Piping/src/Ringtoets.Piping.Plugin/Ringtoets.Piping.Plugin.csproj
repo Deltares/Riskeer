@@ -75,10 +75,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="WtiApplicationPlugin.cs" />
-    <Compile Include="WtiGuiPlugin.cs" />
-    <Compile Include="WtiRibbon.xaml.cs">
-      <DependentUpon>WtiRibbon.xaml</DependentUpon>
+    <Compile Include="RingtoetsApplicationPlugin.cs" />
+    <Compile Include="RingtoetsGuiPlugin.cs" />
+    <Compile Include="RingtoetsRibbon.xaml.cs">
+      <DependentUpon>RingtoetsRibbon.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +133,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="WtiRibbon.xaml">
+    <Page Include="RingtoetsRibbon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -144,7 +144,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <IsPluginComponent>true</IsPluginComponent>
-    <PluginName>Wti.Plugin</PluginName>
+    <PluginName>Ringtoets.Piping.Plugin</PluginName>
   </PropertyGroup>
   <Import Project="..\..\..\..\build\Ringtoets.targets" />
   <PropertyGroup>

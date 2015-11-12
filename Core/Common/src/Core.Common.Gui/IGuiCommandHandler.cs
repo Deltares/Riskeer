@@ -10,40 +10,40 @@ namespace Core.Common.Gui
     public interface IGuiCommandHandler : IDisposable
     {
         /// <summary>
-        /// Tries to create a new WTI project.
+        /// Tries to create a new Ringtoets project.
         /// </summary>
         /// <remarks>
         /// The creation action might be cancelled (due to user interaction).
         /// </remarks>
-        void TryCreateNewWTIProject();
+        void TryCreateNewProject();
 
         /// <summary>
-        /// Tries to open an existing WTI project.
+        /// Tries to open an existing Ringtoets project.
         /// </summary>
         /// <remarks>
         /// The opening action might be cancelled (due to user interaction).
         /// </remarks>
-        /// <returns>Whether or not an existing WTI project was correctly opened.</returns>
-        bool TryOpenExistingWTIProject();
+        /// <returns>Whether or not an existing project was correctly opened.</returns>
+        bool TryOpenExistingProject();
 
         /// <summary>
-        /// Tries to open an existing WTI project from file.
+        /// Tries to open an existing Ringtoets project from file.
         /// </summary>
-        /// <param name="filePath">The path to the existing WTI project file.</param>
+        /// <param name="filePath">The path to the existing Ringtoets project file.</param>
         /// <remarks>
         /// The opening action might be cancelled (due to user interaction).
         /// </remarks>
-        /// <returns>Whether or not an existing WTI project was correctly opened.</returns>
-        bool TryOpenExistingWTIProject(string filePath);
+        /// <returns>Whether or not an existing project was correctly opened.</returns>
+        bool TryOpenExistingProject(string filePath);
 
         /// <summary>
-        /// Tries to close a WTI project.
+        /// Tries to close a Ringtoets project.
         /// </summary>
         /// <remarks>
         /// The closing action might be cancelled (due to user interaction).
         /// </remarks>
-        /// <returns>Whether or not the WTI project was correctly closed.</returns>
-        bool TryCloseWTIProject();
+        /// <returns>Whether or not the project was correctly closed.</returns>
+        bool TryCloseProject();
 
         /// <summary>
         /// Presents the user with a dialog to choose an editor for the selected dataitem

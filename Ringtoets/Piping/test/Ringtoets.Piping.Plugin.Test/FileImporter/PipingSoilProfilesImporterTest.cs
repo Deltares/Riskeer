@@ -11,9 +11,9 @@ using Rhino.Mocks;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 
-using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
-using WtiIOResources = Ringtoets.Piping.IO.Properties.Resources;
+using RingtoetsIOResources = Ringtoets.Piping.IO.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test.FileImporter
 {
@@ -34,15 +34,15 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Prepare
             var expectedFileFilter = String.Format("{0} {1} (*.soil)|*.soil",
-                WtiFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.Soil_file_name);
+                RingtoetsFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.Soil_file_name);
 
             // Call
             var importer = new PipingSoilProfilesImporter();
 
             // Assert
             Assert.IsInstanceOf<IFileImporter>(importer);
-            Assert.AreEqual(WtiFormsResources.PipingSoilProfilesCollection_DisplayName, importer.Name);
-            Assert.AreEqual(ApplicationResources.Wti_application_name, importer.Category);
+            Assert.AreEqual(RingtoetsFormsResources.PipingSoilProfilesCollection_DisplayName, importer.Name);
+            Assert.AreEqual(RingtoetsFormsResources.RingtoetsProjectProperties_Category, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
             CollectionAssert.AreEqual(new[] { typeof(ICollection<PipingSoilProfile>) }, importer.SupportedItemTypes);
@@ -262,7 +262,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSoilProfileList);
 
             // Assert
-            var internalErrorMessage = string.Format(WtiIOResources.Error_SoilProfile_read_from_database,
+            var internalErrorMessage = string.Format(RingtoetsIOResources.Error_SoilProfile_read_from_database,
                                                      Path.GetFileName(corruptPath));
             var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_Critical_error_reading_File_0_Cause_1_,
                                                    corruptPath, internalErrorMessage);
@@ -300,7 +300,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importedItem = importer.ImportItem(corruptPath, observableSoilProfileList);
 
             // Assert
-            var internalErrorMessage = string.Format(WtiIOResources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_column_1_,
+            var internalErrorMessage = string.Format(RingtoetsIOResources.PipingSoilProfileReader_Profile_0_has_invalid_value_on_column_1_,
                                                      "Profile","IntersectionX");
             var expectedLogMessage = string.Format(ApplicationResources.PipingSoilProfilesImporter_ReadSoilProfiles_File_0_Message_1_,
                                                    corruptPath, internalErrorMessage);

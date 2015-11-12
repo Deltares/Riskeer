@@ -1,22 +1,21 @@
 ﻿using System.Collections.Generic;
 using Core.Common.Base;
-using Core.Common.Utils;
 
 namespace Ringtoets.Piping.Data
 {
     /// <summary>
     /// Container for all the data that has been imported and calculated by the user when performing an assessment.
     /// </summary>
-    public class WtiProject : IObservable
+    public class RingtoetsProject : IObservable
     {
         private readonly IList<IObserver> observers = new List<IObserver>();
 
         /// <summary>
-        /// Creates a new instance of <see cref="WtiProject"/> with a default name set.
+        /// Creates a new instance of <see cref="RingtoetsProject"/> with a default name set.
         /// </summary>
-        public WtiProject()
+        public RingtoetsProject()
         {
-            Name = "WTI project";
+            Name = "Ringtoets project";
         }
 
         /// <summary>
@@ -25,12 +24,12 @@ namespace Ringtoets.Piping.Data
         public PipingFailureMechanism PipingFailureMechanism { get; private set; }
 
         /// <summary>
-        /// The name of the <see cref="WtiProject"/>.
+        /// The name of the <see cref="RingtoetsProject"/>.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Removes the <see cref="PipingFailureMechanism"/> assigned to the <see cref="WtiProject"/>.
+        /// Removes the <see cref="PipingFailureMechanism"/> assigned to the <see cref="RingtoetsProject"/>.
         /// </summary>
         public void ClearPipingFailureMechanism()
         {
@@ -38,7 +37,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Creates a new <see cref="PipingFailureMechanism"/> and assign it to the <see cref="WtiProject"/>.
+        /// Creates a new <see cref="PipingFailureMechanism"/> and assign it to the <see cref="RingtoetsProject"/>.
         /// </summary>
         public void InitializePipingFailureMechanism()
         {
@@ -46,7 +45,7 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Determines whether a new <see cref="PipingFailureMechanism"/> can be added to the <see cref="WtiProject"/>.
+        /// Determines whether a new <see cref="PipingFailureMechanism"/> can be added to the <see cref="RingtoetsProject"/>.
         /// </summary>
         /// <returns>True if a new <see cref="PipingFailureMechanism"/> can be assigned. False otherwise.</returns>
         public bool CanAddPipingFailureMechanism()

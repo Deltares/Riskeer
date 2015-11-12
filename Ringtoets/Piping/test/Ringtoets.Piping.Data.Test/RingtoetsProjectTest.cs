@@ -5,24 +5,24 @@ using Rhino.Mocks;
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class WtiProjectTest
+    public class RingtoetsProjectTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var project = new WtiProject();
+            var project = new RingtoetsProject();
 
             // Assert
             Assert.IsInstanceOf<IObservable>(project);
-            Assert.AreEqual("WTI project", project.Name);
+            Assert.AreEqual("Ringtoets project", project.Name);
         }
 
         [Test]
         public void InitializePipingFailureMechanism_WithoutFailureMechanismSet_SetNewFailureMechanism()
         {
             // Setup
-            var project = new WtiProject();
+            var project = new RingtoetsProject();
 
             // Call
             project.InitializePipingFailureMechanism();
@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Data.Test
         public void InitializePipingFailureMechanism_WithFailureMechanismSet_SetNewFailureMechanism()
         {
             // Setup
-            var project = new WtiProject();
+            var project = new RingtoetsProject();
             project.InitializePipingFailureMechanism();
             PipingFailureMechanism notExpectedFailureMechanism = project.PipingFailureMechanism;
 
@@ -53,7 +53,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ClearPipingFailureMechanism_WithFailureMechanismSet_FailureMechanismUnassigned()
         {
             // Setup
-            var project = new WtiProject();
+            var project = new RingtoetsProject();
             project.InitializePipingFailureMechanism();
             PipingFailureMechanism notExpectedFailureMechanism = project.PipingFailureMechanism;
 
@@ -71,7 +71,7 @@ namespace Ringtoets.Piping.Data.Test
         public void ClearPipingFailureMechanism_WithoutFailureMechanismSet_PipingFailureMechanismStillUnassigned()
         {
             // Setup
-            var project = new WtiProject();
+            var project = new RingtoetsProject();
 
             // Precondition
             Assert.IsNull(project.PipingFailureMechanism);
@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.Data.Test
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var project = new WtiProject();
+            var project = new RingtoetsProject();
             project.Attach(observer);
 
             // Call
@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Data.Test
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var project = new WtiProject();
+            var project = new RingtoetsProject();
             project.Attach(observer);
             project.Detach(observer);
 
@@ -125,7 +125,7 @@ namespace Ringtoets.Piping.Data.Test
         public void CanAddPipingFailureMechanism_NoPipingFailureMechanismAssigned_ReturnsTrue()
         {
             // Setup
-            var project = new WtiProject();
+            var project = new RingtoetsProject();
 
             // Call
             var result = project.CanAddPipingFailureMechanism();
@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.Data.Test
         public void CanAddPipingFailureMechanism_PipingFailureMechanismInitialized_ReturnsTrue()
         {
             // Setup
-            var project = new WtiProject();
+            var project = new RingtoetsProject();
             project.InitializePipingFailureMechanism();
 
             // Call

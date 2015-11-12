@@ -10,16 +10,16 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class WtiProjectPropertiesTest
+    public class RingtoetsProjectPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new WtiProjectProperties();
+            var properties = new RingtoetsProjectProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<WtiProject>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<RingtoetsProject>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -27,12 +27,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var project = new WtiProject
+            var project = new RingtoetsProject
             {
                 Name = "Test"
             };
 
-            var properties = new WtiProjectProperties
+            var properties = new RingtoetsProjectProperties
             {
                 Data = project
             };
@@ -50,10 +50,10 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var project = new WtiProject();
+            var project = new RingtoetsProject();
             project.Attach(projectObserver);
 
-            var properties = new WtiProjectProperties
+            var properties = new RingtoetsProjectProperties
             {
                 Data = project
             };

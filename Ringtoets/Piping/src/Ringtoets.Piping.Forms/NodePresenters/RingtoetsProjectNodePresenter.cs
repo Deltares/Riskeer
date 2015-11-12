@@ -12,9 +12,9 @@ using Ringtoets.Piping.Forms.Properties;
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
-    /// Node presenter for <see cref="WtiProject"/> items in the tree view.
+    /// Node presenter for <see cref="RingtoetsProject"/> items in the tree view.
     /// </summary>
-    public class WtiProjectNodePresenter : ITreeNodePresenter
+    public class RingtoetsProjectNodePresenter : ITreeNodePresenter
     {
         public ITreeView TreeView { get; set; }
 
@@ -22,23 +22,23 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             get
             {
-                return typeof(WtiProject);
+                return typeof(RingtoetsProject);
             }
         }
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
-            var wtiProject = (WtiProject) nodeData;
-            node.Text = wtiProject.Name;
-            node.Image = Resources.WtiProjectFolderIcon;
+            var ringtoetsProject = (RingtoetsProject) nodeData;
+            node.Text = ringtoetsProject.Name;
+            node.Image = Resources.RingtoetsProjectFolderIcon;
         }
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
-            var wtiProject = (WtiProject) parentNodeData;
-            if (wtiProject.PipingFailureMechanism != null)
+            var ringtoetsProject = (RingtoetsProject) parentNodeData;
+            if (ringtoetsProject.PipingFailureMechanism != null)
             {
-                yield return wtiProject.PipingFailureMechanism;
+                yield return ringtoetsProject.PipingFailureMechanism;
             }
         }
 
@@ -54,7 +54,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public void OnNodeRenamed(object nodeData, string newName)
         {
-            var project = (WtiProject) nodeData;
+            var project = (RingtoetsProject) nodeData;
 
             project.Name = newName;
             project.NotifyObservers();
@@ -83,22 +83,22 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
-            var wtiProject = (WtiProject) nodeData;
+            var ringtoetsProject = (RingtoetsProject) nodeData;
 
             var contextMenu = new ContextMenuStrip();
-            if (wtiProject.CanAddPipingFailureMechanism())
+            if (ringtoetsProject.CanAddPipingFailureMechanism())
             {
-                contextMenu.AddMenuItem(Resources.WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism,
-                    Resources.WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip,
+                contextMenu.AddMenuItem(Resources.RingtoetsProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism,
+                    Resources.RingtoetsProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip,
                     Resources.PipingIcon,
-                    InitializePipingFailureMechanismForWtiProject).Tag = nodeData;
+                    InitializePipingFailureMechanismForRingtoetsProject).Tag = nodeData;
             }
             else
             {
-                contextMenu.AddMenuItem(Resources.WtiProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism,
-                    Resources.WtiProjectNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip,
+                contextMenu.AddMenuItem(Resources.RingtoetsProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism,
+                    Resources.RingtoetsProjectNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip,
                     Resources.PipingIcon,
-                    InitializePipingFailureMechanismForWtiProject).Enabled = false;
+                    InitializePipingFailureMechanismForRingtoetsProject).Enabled = false;
             }
 
             return contextMenu;
@@ -116,22 +116,22 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
             var parentProject = (Project) parentNodeData;
-            var wtiProject = (WtiProject) nodeData;
+            var ringtoetsProject = (RingtoetsProject) nodeData;
 
-            parentProject.Items.Remove(wtiProject);
+            parentProject.Items.Remove(ringtoetsProject);
             parentProject.NotifyObservers();
 
             return true;
         }
 
-        private void InitializePipingFailureMechanismForWtiProject(object sender, EventArgs e)
+        private void InitializePipingFailureMechanismForRingtoetsProject(object sender, EventArgs e)
         {
             var treeNode = (ToolStripItem) sender;
             if (treeNode != null)
             {
-                var wtiProject = (WtiProject) treeNode.Tag;
-                wtiProject.InitializePipingFailureMechanism();
-                wtiProject.NotifyObservers();
+                var ringtoetsProject = (RingtoetsProject) treeNode.Tag;
+                ringtoetsProject.InitializePipingFailureMechanism();
+                ringtoetsProject.NotifyObservers();
             }
         }
     }

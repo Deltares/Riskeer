@@ -15,12 +15,12 @@
 		Environment Variable: BUILD_NUMBER
 		Field could be set by BuildServer. If not present, it will be skipped.
 	-->
-    <OutputName Condition=" '$(BUILD_NUMBER)' == '' ">WTI Setup ($(ReleaseVersion))</OutputName>
-    <OutputName Condition=" '$(BUILD_NUMBER)' != '' ">WTI Setup ($(ReleaseVersion).$(BUILD_NUMBER))</OutputName>
+    <OutputName Condition=" '$(BUILD_NUMBER)' == '' ">Ringtoets Setup %28%24%28ReleaseVersion%29%29</OutputName>
+    <OutputName Condition=" '$(BUILD_NUMBER)' != '' ">Ringtoets Setup ($(ReleaseVersion).$(BUILD_NUMBER))</OutputName>
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
-    <Name>WtiSetup</Name>
+    <Name>RingtoetsSetup</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -57,9 +57,9 @@
     <Compile Include="Installer UI\UserExitDeltares.wxs" />
     <Compile Include="Installer UI\VerifyReadyDlgDeltares.wxs" />
     <Compile Include="Installer UI\WelcomeDlgDeltares.wxs" />
-    <Compile Include="Installer UI\wixUI_Deltares.wxs" />
+    <Compile Include="Installer UI\RingtoetsUI_Deltares.wxs" />
     <Compile Include="Product.wxs" />
-    <Compile Include="WtiPayload.wxs" />
+    <Compile Include="RingtoetsPayload.wxs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Banner_493x77.bmp" />
@@ -81,7 +81,7 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Installer UI\WixUIVariables.wxl" />
+    <EmbeddedResource Include="Installer UI\RingtoetsUIVariables.wxl" />
     <EmbeddedResource Include="Localization_nl-NL.wxl" />
   </ItemGroup>
   <ItemGroup>
@@ -102,7 +102,7 @@
     <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\Application.Ringtoets\bin;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\Application.Ringtoets\bin -cg WtiApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)WtiPayload.wxs"
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\Application.Ringtoets\bin -cg RingtoetsApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RingtoetsPayload.wxs"
 $(ProjectDir)..\..\build\svn_insert_version.cmd $(ProjectDir) GenerateVariables.wxi.svn GenerateVariables.wxi%3b</PreBuildEvent>
   </PropertyGroup>
   <!--

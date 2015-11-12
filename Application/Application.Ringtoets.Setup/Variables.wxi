@@ -2,7 +2,7 @@
 <Include>
   <!--
     BUILD_NUMBER is an environment variable, for example defined by buildserver.
-    ReleaseVersion is defined as custom variable in WtiSetup.wixproj.
+    ReleaseVersion is defined as custom variable in RingtoetsSetup.wixproj.
     Revision is defined in GenerateVariables.wxi, which is create at prebuild step.
   -->
   <?ifdef env.BUILD_NUMBER ?>

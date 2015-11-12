@@ -7,14 +7,14 @@ using Ringtoets.Piping.Forms.Properties;
 namespace Ringtoets.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="WtiProject"/> for properties panel.
+    /// ViewModel of <see cref="RingtoetsProject"/> for properties panel.
     /// </summary>
-    [ResourcesDisplayName(typeof(Resources), "WtiProjectProperties_DisplayName")]
-    public class WtiProjectProperties : ObjectProperties<WtiProject>
+    [ResourcesDisplayName(typeof(Resources), "RingtoetsProjectProperties_DisplayName")]
+    public class RingtoetsProjectProperties : ObjectProperties<RingtoetsProject>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "WtiProject_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WtiProject_Name_Description")]
+        [ResourcesDisplayName(typeof(Resources), "RingtoetsProject_Name_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "RingtoetsProject_Name_Description")]
         public string Name
         {
             get

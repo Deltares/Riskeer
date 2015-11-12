@@ -3,29 +3,29 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
-using PluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
-using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
+using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.Test
 {
     [TestFixture]
-    public class WtiApplicationPluginTest
+    public class RingtoetsApplicationPluginTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // call
-            var wtiPlugin = new WtiApplicationPlugin();
+            var ringtoetsApplicationPlugin = new RingtoetsApplicationPlugin();
 
             // assert
-            Assert.IsInstanceOf<ApplicationPlugin>(wtiPlugin);
+            Assert.IsInstanceOf<ApplicationPlugin>(ringtoetsApplicationPlugin);
         }
 
         [Test]
         public void GetDataItemInfos_ReturnsExpectedDataItemDefinitions()
         {
             // setup
-            var plugin = new WtiApplicationPlugin();
+            var plugin = new RingtoetsApplicationPlugin();
 
             // call
             var dataItemDefinitions = plugin.GetDataItemInfos().ToArray();
@@ -33,13 +33,13 @@ namespace Ringtoets.Piping.Plugin.Test
             // assert
             Assert.AreEqual(1, dataItemDefinitions.Length);
 
-            DataItemInfo projectDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(WtiProject));
-            Assert.AreEqual(WtiFormsResources.WtiProjectProperties_DisplayName, projectDataItemDefinition.Name);
-            Assert.AreEqual(PluginResources.Wti_application_name, projectDataItemDefinition.Category);
+            DataItemInfo projectDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(RingtoetsProject));
+            Assert.AreEqual(RingtoetsFormsResources.RingtoetsProjectProperties_DisplayName, projectDataItemDefinition.Name);
+            Assert.AreEqual(RingtoetsFormsResources.RingtoetsProjectProperties_Category, projectDataItemDefinition.Category);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Width);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Height);
             Assert.IsNull(projectDataItemDefinition.AdditionalOwnerCheck);
-            Assert.IsInstanceOf<WtiProject>(projectDataItemDefinition.CreateData(null));
+            Assert.IsInstanceOf<RingtoetsProject>(projectDataItemDefinition.CreateData(null));
             Assert.IsNull(projectDataItemDefinition.AddExampleData);
         }
 
@@ -47,7 +47,7 @@ namespace Ringtoets.Piping.Plugin.Test
         public void GetFileImporters_Always_ReturnExpectedFileImporters()
         {
             // Setup
-            var plugin = new WtiApplicationPlugin();
+            var plugin = new RingtoetsApplicationPlugin();
 
             // Call
             var importers = plugin.GetFileImporters().ToArray();

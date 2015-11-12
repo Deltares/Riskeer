@@ -11,19 +11,19 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Piping.Plugin
 {
-    public class WtiGuiPlugin : GuiPlugin
+    public class RingtoetsGuiPlugin : GuiPlugin
     {
         public override IRibbonCommandHandler RibbonCommandHandler
         {
             get
             {
-                return new WtiRibbon();
+                return new RingtoetsRibbon();
             }
         }
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<WtiProject, WtiProjectProperties>();
+            yield return new PropertyInfo<RingtoetsProject, RingtoetsProjectProperties>();
             yield return new PropertyInfo<PipingCalculationInputs, PipingCalculationInputsProperties>();
             yield return new PropertyInfo<PipingOutput, PipingOutputProperties>();
             yield return new PropertyInfo<RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>();
@@ -32,7 +32,7 @@ namespace Ringtoets.Piping.Plugin
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new WtiProjectNodePresenter();
+            yield return new RingtoetsProjectNodePresenter();
             yield return new PipingCalculationInputsNodePresenter
             {
                 RunActivityAction = Gui.Application.ActivityRunner.Enqueue

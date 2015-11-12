@@ -267,7 +267,7 @@ namespace Core.Common.Gui
 
             isExiting = true;
 
-            if (!SkipDialogsOnExit && !CommandHandler.TryCloseWTIProject())
+            if (!SkipDialogsOnExit && !CommandHandler.TryCloseProject())
             {
                 // user cancelled exit:
                 isExiting = false;

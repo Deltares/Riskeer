@@ -20,18 +20,18 @@ using GuiPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
 namespace Ringtoets.Piping.Plugin.Test
 {
     [TestFixture]
-    public class WtiGuiPluginTest
+    public class RingtoetsGuiPluginTest
     {
         [Test]
         [STAThread] // For creation of XAML UI component
         public void DefaultConstructor_ExpectedValues()
         {
             // call
-            using (var wtiGuiPlugin = new WtiGuiPlugin())
+            using (var ringtoetsGuiPlugin = new RingtoetsGuiPlugin())
             {
                 // assert
-                Assert.IsInstanceOf<GuiPlugin>(wtiGuiPlugin);
-                Assert.IsInstanceOf<WtiRibbon>(wtiGuiPlugin.RibbonCommandHandler);
+                Assert.IsInstanceOf<GuiPlugin>(ringtoetsGuiPlugin);
+                Assert.IsInstanceOf<RingtoetsRibbon>(ringtoetsGuiPlugin.RibbonCommandHandler);
             }
         }
 
@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Plugin.Test
         public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
         {
             // setup
-            using (var guiPlugin = new WtiGuiPlugin())
+            using (var guiPlugin = new RingtoetsGuiPlugin())
             {
                 // call
                 PropertyInfo[] propertyInfos = guiPlugin.GetPropertyInfos().ToArray();
@@ -47,11 +47,11 @@ namespace Ringtoets.Piping.Plugin.Test
                 // assert
                 Assert.AreEqual(5, propertyInfos.Length);
 
-                var wtiProjectProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(WtiProject));
-                Assert.AreEqual(typeof(WtiProjectProperties), wtiProjectProperties.PropertyType);
-                Assert.IsNull(wtiProjectProperties.AdditionalDataCheck);
-                Assert.IsNull(wtiProjectProperties.GetObjectPropertiesData);
-                Assert.IsNull(wtiProjectProperties.AfterCreate);
+                var RingtoetsProjectProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(RingtoetsProject));
+                Assert.AreEqual(typeof(RingtoetsProjectProperties), RingtoetsProjectProperties.PropertyType);
+                Assert.IsNull(RingtoetsProjectProperties.AdditionalDataCheck);
+                Assert.IsNull(RingtoetsProjectProperties.GetObjectPropertiesData);
+                Assert.IsNull(RingtoetsProjectProperties.AfterCreate);
 
                 var pipingDataProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingCalculationInputs));
                 Assert.AreEqual(typeof(PipingCalculationInputsProperties), pipingDataProperties.PropertyType);
@@ -93,14 +93,14 @@ namespace Ringtoets.Piping.Plugin.Test
 
             mocks.ReplayAll();
 
-            using (var guiPlugin = new WtiGuiPlugin { Gui = guiStub })
+            using (var guiPlugin = new RingtoetsGuiPlugin { Gui = guiStub })
             {
                 // call
                 ITreeNodePresenter[] nodePresenters = guiPlugin.GetProjectTreeViewNodePresenters().ToArray();
 
                 // assert
                 Assert.AreEqual(8, nodePresenters.Length);
-                Assert.IsTrue(nodePresenters.Any(np => np is WtiProjectNodePresenter));
+                Assert.IsTrue(nodePresenters.Any(np => np is RingtoetsProjectNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineCollectionNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSoilProfileCollectionNodePresenter));

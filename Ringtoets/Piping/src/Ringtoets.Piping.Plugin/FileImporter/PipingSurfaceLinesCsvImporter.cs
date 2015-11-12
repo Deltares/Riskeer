@@ -10,7 +10,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO;
 using Ringtoets.Piping.IO.Exceptions;
 
-using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 
 namespace Ringtoets.Piping.Plugin.FileImporter
@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return WtiFormsResources.PipingSurfaceLinesCollection_DisplayName;
+                return RingtoetsFormsResources.PipingSurfaceLinesCollection_DisplayName;
             }
         }
 
@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return ApplicationResources.Wti_application_name;
+                return RingtoetsFormsResources.RingtoetsProjectProperties_Category;
             }
         }
 
@@ -49,7 +49,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return WtiFormsResources.PipingSurfaceLineIcon;
+                return RingtoetsFormsResources.PipingSurfaceLineIcon;
             }
         }
 
@@ -77,7 +77,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
             get
             {
                 return String.Format("{0} {1} (*.csv)|*.csv",
-                                     WtiFormsResources.PipingSurfaceLinesCollection_DisplayName, ApplicationResources.Csv_file_name);
+                                     RingtoetsFormsResources.PipingSurfaceLinesCollection_DisplayName, ApplicationResources.Csv_file_name);
             }
         }
 

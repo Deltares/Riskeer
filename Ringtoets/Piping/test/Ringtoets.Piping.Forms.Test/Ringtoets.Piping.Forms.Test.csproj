@@ -56,14 +56,14 @@
     <Compile Include="NodePresenters\PipingSoilProfileNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingSurfaceLineCollectionNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingSurfaceLineNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\WtiProjectNodePresenterTest.cs" />
+    <Compile Include="NodePresenters\RingtoetsProjectNodePresenterTest.cs" />
     <Compile Include="PresentationObjects\PipingCalculationInputsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\PipingCalculationInputsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingOutputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\PipingSoilProfilePropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsPipingSurfaceLinePropertiesTest.cs" />
-    <Compile Include="PropertyClasses\WtiProjectPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="TypeConverters\LognormalDistributionDesignVariableTypeConverterTest.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\RoutedPropertyDescriptorTest.cs" />
     <Compile Include="TypeConverters\PropertyDescriptors\SimpleReadonlyPropertyDescriptorItemTest.cs" />

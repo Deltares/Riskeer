@@ -10,7 +10,7 @@
     <!--Comment left empty on purpose to remove auto-generated text.-->
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Languages="1043" Manufacturer="!(loc.Manufacturer)" Comments=" "/>
     
-    <Media Id="1" Cabinet="WtiFull.cab" EmbedCab="yes"/>
+    <Media Id="1" Cabinet="RingtoetsFull.cab" EmbedCab="yes"/>
     <Property Id="ARPPRODUCTICON" Value="Ringtoets.ico" />
 
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" AllowSameVersionUpgrades="yes"/>
@@ -36,8 +36,8 @@
             <Directory Id="APPLICATIONDIR" Name="application"/>
             
             <!--
-            WtiPayload.wxs defines all files going into this folder. 
-            WtiPayload.wxs will be generated on pre-build. Ensure you clean first before building the installer!
+            RingtoetsPayload.wxs defines all files going into this folder. 
+            RingtoetsPayload.wxs will be generated on pre-build. Ensure you clean first before building the installer!
             -->
 
             <Component Id="InstalledShortcut" Guid="441A8BC7-0B13-453D-9FBB-F03293282A3D">
@@ -50,7 +50,7 @@
 
               <RemoveFolder Id="RemoveINSTALLDIR" Directory="INSTALLDIR" On="uninstall" />
               <RemoveFolder Id="RemoveDeltares" Directory="Deltares" On="uninstall" />
-              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="wtiAppShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
+              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RingtoetsAppShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
             
           </Directory>
@@ -60,7 +60,7 @@
       <!-- Start menu folder -->
       <Directory Id="ProgramMenuFolder" Name="Programs">
         <Directory Id="ProgramMenuDeltares" Name="!(loc.Manufacturer)">
-          <Directory Id="ProgramMenuWti" Name="!(loc.ApplicationLongName)">
+          <Directory Id="ProgramMenuRingtoets" Name="!(loc.ApplicationLongName)">
             
             <Component Id="ProgramMenuShortcut" Guid="1BF4BE48-FB81-425D-85E4-C30F1BF51DA4">
               <Shortcut Id="ApplicationStartMenuShortcut"
@@ -70,9 +70,9 @@
                         WorkingDirectory="APPLICATIONDIR"
                         Icon="Ringtoets.ico"/>
               
-              <RemoveFolder Id="RemoveProgramMenuShortcut" Directory="ProgramMenuWti" On="uninstall" />
+              <RemoveFolder Id="RemoveProgramMenuShortcut" Directory="ProgramMenuRingtoets" On="uninstall" />
               <RemoveFolder Id="RemoveProgramMenuDeltares" Directory="ProgramMenuDeltares" On="uninstall" />
-              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="wtiProgMenuShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
+              <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RingtoetsProgMenuShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
               
             </Component>
             
@@ -91,7 +91,7 @@
                     WorkingDirectory="APPLICATIONDIR"
                     Icon="Ringtoets.ico"/>
 
-          <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="wtiDesktopShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
+          <RegistryValue Root="HKCU" Key="Software\!(loc.Manufacturer)\!(loc.ApplicationShortName)" Name="RingtoetsDesktopShortcutInstalled" Type="integer" Value="1" KeyPath="yes"/>
 
         </Component>
 
@@ -99,7 +99,7 @@
     </Directory>
     
 		<Feature Id="CompleteInstallation" Title="!(loc.ApplicationLongName)" Level="1" Absent="disallow" ConfigurableDirectory="INSTALLDIR" AllowAdvertise="no">
-      <ComponentGroupRef Id="WtiApplicationComponents"/>
+      <ComponentGroupRef Id="RingtoetsApplicationComponents"/>
       <ComponentRef Id="InstalledShortcut"/>
       <ComponentRef Id="ProgramMenuShortcut"/>
       <ComponentRef Id="DesktopShortcut"/>

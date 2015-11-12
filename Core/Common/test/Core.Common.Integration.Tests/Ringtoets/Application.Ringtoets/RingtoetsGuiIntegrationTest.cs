@@ -37,8 +37,8 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
                 gui.Plugins.Add(new ProjectExplorerGuiPlugin());
                 gui.Run();
 
-                gui.CommandHandler.TryCreateNewWTIProject();
-                gui.CommandHandler.TryCreateNewWTIProject();
+                gui.CommandHandler.TryCreateNewProject();
+                gui.CommandHandler.TryCreateNewProject();
             }
         }
 
@@ -105,7 +105,7 @@ namespace Core.Common.Integration.Tests.Ringtoets.Application.Ringtoets
             using (var gui = new RingtoetsGui())
             {
                 gui.Run();
-                gui.CommandHandler.TryCloseWTIProject(); //should not trigger exception
+                gui.CommandHandler.TryCloseProject(); //should not trigger exception
             }
         }
 

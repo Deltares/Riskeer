@@ -14,7 +14,7 @@ using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
 
-using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -308,15 +308,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(3, contextMenu.Items.Count);
-            Assert.AreEqual(WtiFormsResources.Validate, contextMenu.Items[contextMenuValidateIndex].Text);
+            Assert.AreEqual(RingtoetsFormsResources.Validate, contextMenu.Items[contextMenuValidateIndex].Text);
 
             ToolStripItem calculatePipingItem = contextMenu.Items[contextMenuCalculateIndex];
-            Assert.AreEqual(WtiFormsResources.Calculate, calculatePipingItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.Calculate, calculatePipingItem.Text);
             Assert.AreEqual(16, calculatePipingItem.Image.Height);
             Assert.AreEqual(16, calculatePipingItem.Image.Width);
 
             ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
-            Assert.AreEqual(WtiFormsResources.Clear_output, clearOutputItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.Clear_output, clearOutputItem.Text);
             Assert.AreEqual(16, clearOutputItem.Image.Height);
             Assert.AreEqual(16, clearOutputItem.Image.Width);
             mockRepository.VerifyAll(); // Expect no calls on arguments
@@ -343,7 +343,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
             Assert.IsFalse(clearOutputItem.Enabled);
-            Assert.AreEqual(WtiFormsResources.ClearOutput_No_output_to_clear, clearOutputItem.ToolTipText);
+            Assert.AreEqual(RingtoetsFormsResources.ClearOutput_No_output_to_clear, clearOutputItem.ToolTipText);
             mockRepository.VerifyAll(); // Expect no calls on arguments
         }
 

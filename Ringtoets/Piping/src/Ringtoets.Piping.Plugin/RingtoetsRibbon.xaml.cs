@@ -5,11 +5,11 @@ using Core.Common.Gui.Forms;
 namespace Ringtoets.Piping.Plugin
 {
     /// <summary>
-    /// Interaction logic for WtiRibbon.xaml
+    /// Interaction logic for RingtoetsRibbon.xaml
     /// </summary>
-    public partial class WtiRibbon : IRibbonCommandHandler
+    public partial class RingtoetsRibbon : IRibbonCommandHandler
     {
-        public WtiRibbon()
+        public RingtoetsRibbon()
         {
             InitializeComponent();
         }
@@ -24,7 +24,7 @@ namespace Ringtoets.Piping.Plugin
 
         public object GetRibbonControl()
         {
-            return WtiRibbonControl;
+            return RingtoetsRibbonControl;
         }
 
         public void ValidateItems() {}

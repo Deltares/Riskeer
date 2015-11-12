@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using Core.Common.Controls;
-using Core.Common.Utils.Collections;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.Calculation.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.NodePresenters;
-using WtiFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
@@ -45,7 +42,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             nodePresenter.UpdateNode(null, soilProfileCollectionNodeStub, soilProfilesCollection);
 
             // Assert
-            Assert.AreEqual(WtiFormsResources.PipingSoilProfilesCollection_DisplayName, soilProfileCollectionNodeStub.Text);
+            Assert.AreEqual(RingtoetsFormsResources.PipingSoilProfilesCollection_DisplayName, soilProfileCollectionNodeStub.Text);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), soilProfileCollectionNodeStub.ForegroundColor);
             Assert.AreEqual(16, soilProfileCollectionNodeStub.Image.Height);
             Assert.AreEqual(16, soilProfileCollectionNodeStub.Image.Width);

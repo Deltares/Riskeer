@@ -101,10 +101,10 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override bool RemoveNodeData(object parentNodeData, PipingFailureMechanism nodeData)
         {
-            var wtiProject = (WtiProject)parentNodeData;
+            var ringtoetsProject = (RingtoetsProject)parentNodeData;
 
-            wtiProject.ClearPipingFailureMechanism();
-            wtiProject.NotifyObservers();
+            ringtoetsProject.ClearPipingFailureMechanism();
+            ringtoetsProject.NotifyObservers();
 
             return true;
         }

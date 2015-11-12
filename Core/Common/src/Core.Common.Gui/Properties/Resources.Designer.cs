@@ -1510,11 +1510,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Loading WTI project from selected file..
+        ///   Looks up a localized string similar to Loading Ringtoets project from selected file..
         /// </summary>
-        public static string Loading_wti_project_from_selected_file {
+        public static string Loading_Ringtoets_project_from_selected_file {
             get {
-                return ResourceManager.GetString("Loading_wti_project_from_selected_file", resourceCulture);
+                return ResourceManager.GetString("Loading_Ringtoets_project_from_selected_file", resourceCulture);
             }
         }
         
@@ -1914,11 +1914,11 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New WTI project successfully opened..
+        ///   Looks up a localized string similar to New Ringtoets project successfully opened..
         /// </summary>
-        public static string New_wti_project_successfully_opened {
+        public static string New_Ringtoets_project_successfully_opened {
             get {
-                return ResourceManager.GetString("New_wti_project_successfully_opened", resourceCulture);
+                return ResourceManager.GetString("New_Ringtoets_project_successfully_opened", resourceCulture);
             }
         }
         
@@ -1953,38 +1953,38 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opening existing WTI project..
+        ///   Looks up a localized string similar to Opening existing Ringtoets project..
         /// </summary>
-        public static string Opening_existing_wti_project {
+        public static string Opening_existing_Ringtoets_project {
             get {
-                return ResourceManager.GetString("Opening_existing_wti_project", resourceCulture);
+                return ResourceManager.GetString("Opening_existing_Ringtoets_project", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opening existing WTI project cancelled..
+        ///   Looks up a localized string similar to Opening existing Ringtoets project cancelled..
         /// </summary>
-        public static string Opening_existing_wti_project_cancelled {
+        public static string Opening_existing_Ringtoets_project_cancelled {
             get {
-                return ResourceManager.GetString("Opening_existing_wti_project_cancelled", resourceCulture);
+                return ResourceManager.GetString("Opening_existing_Ringtoets_project_cancelled", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opening new WTI project..
+        ///   Looks up a localized string similar to Opening new Ringtoets project..
         /// </summary>
-        public static string Opening_new_wti_project {
+        public static string Opening_new_Ringtoets_project {
             get {
-                return ResourceManager.GetString("Opening_new_wti_project", resourceCulture);
+                return ResourceManager.GetString("Opening_new_Ringtoets_project", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opening new WTI project cancelled..
+        ///   Looks up a localized string similar to Opening new Ringtoets project cancelled..
         /// </summary>
-        public static string Opening_new_wti_project_cancelled {
+        public static string Opening_new_Ringtoets_project_cancelled {
             get {
-                return ResourceManager.GetString("Opening_new_wti_project_cancelled", resourceCulture);
+                return ResourceManager.GetString("Opening_new_Ringtoets_project_cancelled", resourceCulture);
             }
         }
         
@@ -2700,6 +2700,15 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ringtoets project files (.rt)|*.rtx.
+        /// </summary>
+        public static string Ringtoets_project_file_filter {
+            get {
+                return ResourceManager.GetString("Ringtoets_project_file_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error during plugin activation.
         /// </summary>
         public static string RingtoetsGui_ActivatePlugins_Error_during_plugin_activation {
@@ -3337,15 +3346,6 @@ namespace Core.Common.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("WebInsertHyperlinkHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to WTI project files (.wti)|*.wti.
-        /// </summary>
-        public static string Wti_project_file_filter {
-            get {
-                return ResourceManager.GetString("Wti_project_file_filter", resourceCulture);
             }
         }
     }

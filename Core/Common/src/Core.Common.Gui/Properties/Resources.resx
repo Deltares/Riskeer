@@ -151,8 +151,8 @@
   <data name="RelationshipsHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RelationshipsHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Opening_new_wti_project_cancelled" xml:space="preserve">
-    <value>Opening new WTI project cancelled.</value>
+  <data name="Opening_new_Ringtoets_project_cancelled" xml:space="preserve">
+    <value>Opening new Ringtoets project cancelled.</value>
   </data>
   <data name="information_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\information_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -239,8 +239,8 @@ Select No to save the project as a new project at a different location.</value>
   <data name="GuiCommandHandler_AddNewItem_Cannot_add_an_item_to_the_selected_container" xml:space="preserve">
     <value>Cannot add an item to the selected container</value>
   </data>
-  <data name="Wti_project_file_filter" xml:space="preserve">
-    <value>WTI project files (.wti)|*.wti</value>
+  <data name="Ringtoets_project_file_filter" xml:space="preserve">
+    <value>Ringtoets project files (.rt)|*.rtx</value>
   </data>
   <data name="PortableSettingsProvider_SetPropertyValues_Error_storing_settings_to__0_" xml:space="preserve">
     <value>Error storing settings to {0}</value>
@@ -449,8 +449,8 @@ Select No to save the project as a new project at a different location.</value>
   <data name="App_RunRingtoets_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_load_a_project_" xml:space="preserve">
     <value>Activity '{0}' not found in project! Typo, or did you forget to load a project?</value>
   </data>
-  <data name="Opening_existing_wti_project_cancelled" xml:space="preserve">
-    <value>Opening existing WTI project cancelled.</value>
+  <data name="Opening_existing_Ringtoets_project_cancelled" xml:space="preserve">
+    <value>Opening existing Ringtoets project cancelled.</value>
   </data>
   <data name="graphhs" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\graphhs.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -497,8 +497,8 @@ Select No to save the project as a new project at a different location.</value>
   <data name="ViewResolver_OpenViewForData_No_view_registered_for____0_" xml:space="preserve">
     <value>No view registered for : {0}</value>
   </data>
-  <data name="Loading_wti_project_from_selected_file" xml:space="preserve">
-    <value>Loading WTI project from selected file.</value>
+  <data name="Loading_Ringtoets_project_from_selected_file" xml:space="preserve">
+    <value>Loading Ringtoets project from selected file.</value>
   </data>
   <data name="App_ParseArguments_Run_script_from_file" xml:space="preserve">
     <value>Run script from file</value>
@@ -638,8 +638,8 @@ Select No to save the project as a new project at a different location.</value>
   <data name="Ribbon_Messages" xml:space="preserve">
     <value>Messages</value>
   </data>
-  <data name="New_wti_project_successfully_opened" xml:space="preserve">
-    <value>New WTI project successfully opened.</value>
+  <data name="New_Ringtoets_project_successfully_opened" xml:space="preserve">
+    <value>New Ringtoets project successfully opened.</value>
   </data>
   <data name="MainWindowCommands_FindInProjectCommand_Name_Find_In_Project" xml:space="preserve">
     <value>Find In Project</value>
@@ -893,8 +893,8 @@ Select No to save the project as a new project at a different location.</value>
   <data name="MainWindowCommands_ShowChartContentsViewCommand_Text_Show_Chart_Contents__Shift___Alt____C_" xml:space="preserve">
     <value>Show Chart Contents (Shift + Alt  + C)</value>
   </data>
-  <data name="Opening_new_wti_project" xml:space="preserve">
-    <value>Opening new WTI project.</value>
+  <data name="Opening_new_Ringtoets_project" xml:space="preserve">
+    <value>Opening new Ringtoets project.</value>
   </data>
   <data name="chart_bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_bar.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1031,8 +1031,8 @@ Select No to save the project as a new project at a different location.</value>
   <data name="Ribbon_Properties" xml:space="preserve">
     <value>Properties</value>
   </data>
-  <data name="Opening_existing_wti_project" xml:space="preserve">
-    <value>Opening existing WTI project.</value>
+  <data name="Opening_existing_Ringtoets_project" xml:space="preserve">
+    <value>Opening existing Ringtoets project.</value>
   </data>
   <data name="Ribbon_GroupBox_Clipboard" xml:space="preserve">
     <value>Clipboard</value>

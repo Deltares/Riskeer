@@ -820,26 +820,26 @@ Select No to save the project as a new project at a different location.</value>
   <data name="App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Ringtoets__Please_close_the_other_instance_first_" xml:space="preserve">
     <value>NL Cannot start multiple instances of Ringtoets. Please close the other instance first.</value>
   </data>
-  <data name="Wti_project_file_filter" xml:space="preserve">
-    <value>WTI projectbestanden (.wti)|*.wti</value>
+  <data name="Ringtoets_project_file_filter" xml:space="preserve">
+    <value>Ringtoets projectbestanden (.rt)|*.trx</value>
   </data>
-  <data name="Opening_existing_wti_project_cancelled" xml:space="preserve">
-    <value>Openen bestaand WTI project geannuleerd.</value>
+  <data name="Opening_existing_Ringtoets_project_cancelled" xml:space="preserve">
+    <value>Openen bestaand Ringtoets project geannuleerd.</value>
   </data>
-  <data name="Opening_existing_wti_project" xml:space="preserve">
-    <value>Openen bestaand WTI project.</value>
+  <data name="Opening_existing_Ringtoets_project" xml:space="preserve">
+    <value>Openen bestaand Ringtoets project.</value>
   </data>
-  <data name="Loading_wti_project_from_selected_file" xml:space="preserve">
-    <value>Inladen WTI project uit geselecteerd bestand.</value>
+  <data name="Loading_Ringtoets_project_from_selected_file" xml:space="preserve">
+    <value>Inladen Ringtoets project uit geselecteerd bestand.</value>
   </data>
-  <data name="Opening_new_wti_project_cancelled" xml:space="preserve">
-    <value>Openen nieuw WTI project geannuleerd.</value>
+  <data name="Opening_new_Ringtoets_project_cancelled" xml:space="preserve">
+    <value>Openen nieuw Ringtoets project geannuleerd.</value>
   </data>
-  <data name="Opening_new_wti_project" xml:space="preserve">
-    <value>Openen nieuw WTI project.</value>
+  <data name="Opening_new_Ringtoets_project" xml:space="preserve">
+    <value>Openen nieuw Ringtoets project.</value>
   </data>
-  <data name="New_wti_project_successfully_opened" xml:space="preserve">
-    <value>Nieuw WTI project succesvol geopend.</value>
+  <data name="New_Ringtoets_project_successfully_opened" xml:space="preserve">
+    <value>Nieuw Ringtoets project succesvol geopend.</value>
   </data>
   <data name="ExpandableArrayConverter_ConvertTo_Aantal_0_" xml:space="preserve">
     <value>Aantal ({0})</value>

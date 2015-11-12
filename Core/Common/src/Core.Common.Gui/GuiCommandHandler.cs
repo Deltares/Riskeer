@@ -42,63 +42,63 @@ namespace Core.Common.Gui
             guiExportHandler = CreateGuiExportHandler();
         }
 
-        public void TryCreateNewWTIProject()
+        public void TryCreateNewProject()
         {
-            if (!TryCloseWTIProject())
+            if (!TryCloseProject())
             {
-                Log.Warn(Resources.Opening_new_wti_project_cancelled);
+                Log.Warn(Resources.Opening_new_Ringtoets_project_cancelled);
                 return;
             }
 
-            Log.Info(Resources.Opening_new_wti_project);
+            Log.Info(Resources.Opening_new_Ringtoets_project);
             gui.Application.CreateNewProject();
-            Log.Info(Resources.New_wti_project_successfully_opened);
+            Log.Info(Resources.New_Ringtoets_project_successfully_opened);
 
             RefreshGui();
         }
 
-        public bool TryOpenExistingWTIProject()
+        public bool TryOpenExistingProject()
         {
             var openFileDialog = new OpenFileDialog
             {
-                Filter = Resources.Wti_project_file_filter,
+                Filter = Resources.Ringtoets_project_file_filter,
                 FilterIndex = 1,
                 RestoreDirectory = true
             };
 
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
             {
-                Log.Warn(Resources.Opening_existing_wti_project_cancelled);
+                Log.Warn(Resources.Opening_existing_Ringtoets_project_cancelled);
                 return false;
             }
 
-            Log.Info(Resources.Opening_existing_wti_project);
+            Log.Info(Resources.Opening_existing_Ringtoets_project);
 
-            return TryOpenExistingWTIProject(openFileDialog.FileName);
+            return TryOpenExistingProject(openFileDialog.FileName);
         }
 
-        public bool TryOpenExistingWTIProject(string filePath)
+        public bool TryOpenExistingProject(string filePath)
         {
-            if (!TryCloseWTIProject())
+            if (!TryCloseProject())
             {
-                Log.Warn(Resources.Opening_existing_wti_project_cancelled);
+                Log.Warn(Resources.Opening_existing_Ringtoets_project_cancelled);
                 return false;
             }
 
             var result = false;
 
-            ProgressBarDialog.PerformTask(Resources.Loading_wti_project_from_selected_file, () => result = gui.Application.OpenProject(filePath));
+            ProgressBarDialog.PerformTask(Resources.Loading_Ringtoets_project_from_selected_file, () => result = gui.Application.OpenProject(filePath));
 
             RefreshGui();
 
             return result;
         }
 
-        public bool TryCloseWTIProject()
+        public bool TryCloseProject()
         {
             if (gui.Application.Project != null)
             {
-                Log.Info("Closing current WTI project.");
+                Log.Info("Closing current project.");
 
                 // Disconnect project
                 ((INotifyPropertyChanged) gui.Application.Project).PropertyChanged -= CurrentProjectChanged;

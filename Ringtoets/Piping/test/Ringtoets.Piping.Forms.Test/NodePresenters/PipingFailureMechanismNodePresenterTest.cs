@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<WtiProject>();
+            var dataMock = mocks.StrictMock<RingtoetsProject>();
             var nodeMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
@@ -433,10 +433,10 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void RemoveNodeData_PipingFailureMechanism_PipingFailureMechanismRemovedFromWtiProject()
+        public void RemoveNodeData_PipingFailureMechanism_PipingFailureMechanismRemovedFromRingtoetsProject()
         {
             // Setup
-            var project = new WtiProject();
+            var project = new RingtoetsProject();
             project.InitializePipingFailureMechanism();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter();

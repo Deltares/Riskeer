@@ -177,14 +177,5 @@ namespace Ringtoets.Piping.Plugin.Properties {
                 return ResourceManager.GetString("Soil_file_name", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to WTI.
-        /// </summary>
-        public static string Wti_application_name {
-            get {
-                return ResourceManager.GetString("Wti_application_name", resourceCulture);
-            }
-        }
     }
 }
