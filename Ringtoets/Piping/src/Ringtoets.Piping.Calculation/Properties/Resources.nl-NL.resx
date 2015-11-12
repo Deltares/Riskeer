@@ -112,31 +112,9 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="buttonScrollToItemInActiveView.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHxSURBVDhPxdLfa9JRGMfx/SNBBNFNl0EQ/Qu7EK1Z27Ta
-        Dza0NmcKahgxZMFIQpajUTGbKd/pRsms3CyDVmxtNLLmnLO6SNtco6h25Q/eeb7f8CLtorrogc/NgfM6
-        z3nOaWr611L1S4YrU9ldRzCLPVCNP4Ptdhrr+CqWW28w30wyMLZC//WX9HmXMI4sYvfO74p98tmucKri
-        iW3xp+m5mqjIgDj5b9I9/AQZsPs3yLDKhpwUWdZ4xzq6kIZ45iHb3wuUKiV+rY6hRwpgm1ivAenKawaf
-        O2TgmK+ZWCpK4dtWQ+CUa/YnUB2Y6EDEFOtFJ2lIbM/S4W8lmoxQ+FoFyvUd6C49UAAxbbHZMmfk/H0D
-        zriV1nE1hmAn0ZUIm182KZaLdVdoc0YVQDzVmbAW00wv3mU3nqVh3AtDdPn0TC+G+fg537CDkxciCmC+
-        8UruoFvS0xloR+/TcsR5iPaxFkLPJHI7uYaA1n5XAfpGl2sz0Fxr5ujFw7yvrhw8e4Dw/CT5nTzFUv0V
-        NJawApwbeVED1spJdKMnZGB/1z4CiTvkPn1o2IHaPKkARs9CDRD/4C1pGdir24M/PvFbQDUgKYDKFJR6
-        3E8RP6vz8mNOu+bQD8Zoc84gBqV13KPFNs1x6xQaSwi1WUJlEglKMvDf6wcjKm2ZdkZ+ZwAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
-  <data name="buttonScrollToItemInActiveView.Text" xml:space="preserve">
-    <value>Найти в проекте</value>
-  </data>
-  <data name="buttonScrollToItemInActiveView.ToolTipText" xml:space="preserve">
-    <value>Найти текущий элемент в проекте</value>
-  </data>
 </root>

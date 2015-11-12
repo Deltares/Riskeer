@@ -125,7 +125,7 @@
     <value>223, 22</value>
   </data>
   <data name="buttonCopy.Text" xml:space="preserve">
-    <value>Kopieer geselecteerde regels</value>
+    <value>&amp;Kopiëren</value>
   </data>
   <data name="cToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>220, 6</value>
@@ -134,7 +134,7 @@
     <value>223, 22</value>
   </data>
   <data name="buttonClearAll.Text" xml:space="preserve">
-    <value>Verwijder alles</value>
+    <value>&amp;Alles wissen</value>
   </data>
   <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
     <value>224, 54</value>
@@ -230,7 +230,7 @@
     <value>23, 22</value>
   </data>
   <data name="buttonShowInfo.Text" xml:space="preserve">
-    <value>Show Info Messages</value>
+    <value>Toon Informatieberichten</value>
   </data>
   <data name="buttonShowInfo.ToolTipText" xml:space="preserve">
     <value>Toon informatieberichten</value>
@@ -242,7 +242,7 @@
     <value>23, 22</value>
   </data>
   <data name="buttonShowWarning.Text" xml:space="preserve">
-    <value>Show Warning Messages</value>
+    <value>Laat Waarschuwingsberichten zien</value>
   </data>
   <data name="buttonShowWarning.ToolTipText" xml:space="preserve">
     <value>Toon waarschuwingen</value>
@@ -254,7 +254,7 @@
     <value>23, 22</value>
   </data>
   <data name="buttonShowError.Text" xml:space="preserve">
-    <value>Show Error Messages</value>
+    <value>Laat foutberichten zien</value>
   </data>
   <data name="buttonShowError.ToolTipText" xml:space="preserve">
     <value>Toon fouten</value>
@@ -309,7 +309,7 @@
     <value>True</value>
   </metadata>
   <data name="Id.HeaderText" xml:space="preserve">
-    <value>Id</value>
+    <value>"Id"</value>
   </data>
   <data name="Id.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -318,7 +318,7 @@
     <value>41</value>
   </data>
   <data name="timeDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
-    <value>Tijdstip</value>
+    <value>Tijd</value>
   </data>
   <data name="timeDataGridViewTextBoxColumn.Width" type="System.Int32, mscorlib">
     <value>65</value>
@@ -469,5 +469,23 @@
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="buttonClearAllMessages.Text" xml:space="preserve">
+    <value>Alle berichten wissen</value>
+  </data>
+  <data name="buttonShowDebug.Text" xml:space="preserve">
+    <value>Laat "Debug"-berichten zien</value>
+  </data>
+  <data name="Exception.HeaderText" xml:space="preserve">
+    <value>Exceptie</value>
+  </data>
+  <data name="showDetailsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Details weergeven</value>
+  </data>
+  <data name="sourceDataGridViewTextBoxColumn.HeaderText" xml:space="preserve">
+    <value>"Source"</value>
+  </data>
+  <data name="toolStrip2.Text" xml:space="preserve">
+    <value>"toolStrip2"</value>
   </data>
 </root>

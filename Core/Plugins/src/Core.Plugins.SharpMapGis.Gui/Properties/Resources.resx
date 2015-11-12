@@ -122,13 +122,13 @@
     <value>..\Resources\measureTool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RegularGridCoverageCellProperties_Coverage_Description" xml:space="preserve">
-    <value>The grid spatial data that this cell belongs to.</value>
+    <value>Het "spatial data"-raster waar deze cel aan toe tot behoort.</value>
   </data>
   <data name="LocationAndTimeDependentFunctionEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\feature_coverage_with_time_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RegularGridCoverageTimeDependentProperties_TimeExtrapolationType_Description" xml:space="preserve">
-    <value>Extrapolation scheme applied along the time axis when evaluating values.</value>
+    <value>Extrapolatie schema toegepast langs de tijd-as bij de evaluatie van de waarden.</value>
   </data>
   <data name="polygon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\polygon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -140,32 +140,32 @@
     <value>..\Resources\layers-stack-arrange-back.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CurvilinearGridLayerProperties_ShowFaces_Description" xml:space="preserve">
-    <value>Determines whether or not to show the surfaces (faces) of the grid.</value>
+    <value>Bepaal of u wel of niet de oppervlakken ("faces") van het raster wilt laten zien.</value>
   </data>
   <data name="RegularGridCoverageCellProperties_Value_Description" xml:space="preserve">
-    <value>The value of the grid cell.</value>
+    <value>De waarde van de rastercel.</value>
   </data>
   <data name="VectorLayerProperties_LineWidth_Description" xml:space="preserve">
-    <value>Width of the line.</value>
+    <value>Breedte van de lijn.</value>
   </data>
   <data name="ValueOperation_Operation_Description" xml:space="preserve">
-    <value>Operation that is pointwise applied upon the values of the spatial data</value>
+    <value>Operatie die puntsgewijs wordt toegepast op de waarden van de "spatial data"</value>
   </data>
   <data name="Categories_Storage" xml:space="preserve">
-    <value>Storage</value>
+    <value>Opslag</value>
   </data>
   <data name="PointStyleProperties_Symbol_DisplayName" xml:space="preserve">
-    <value>Symbol</value>
+    <value>Symbool</value>
   </data>
   <data name="ContourOperation_Value_DisplayName" xml:space="preserve">
-    <value>Argument value</value>
+    <value>Argumentwaarde</value>
     <comment>Display name of the Value property in the properties menu that is used to set the value on the points of the contour</comment>
   </data>
   <data name="RegularGridCoverageCellProperties_Y_DisplayName" xml:space="preserve">
     <value>Y</value>
   </data>
   <data name="VectorLayerPointProperties_DisplayName" xml:space="preserve">
-    <value>Vector layer (point)</value>
+    <value>Vector laag (punt)</value>
   </data>
   <data name="down" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -189,25 +189,25 @@
     <value>..\Resources\showprofile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VectorStyleProperties_DisplayName" xml:space="preserve">
-    <value>Vector style</value>
+    <value>Vector stijl</value>
   </data>
   <data name="cut" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\cut.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CurvilinearGridLayerProperties_Name_Description" xml:space="preserve">
-    <value>Name of the curvilinear shown to the user.</value>
+    <value>Naam van de kromlijnige die getoond wordt aan de gebruiker.</value>
   </data>
   <data name="layers-stack" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\layers-stack.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RegularGridCoverageCellProperties_I_Description" xml:space="preserve">
-    <value>The 0-based index along the X axis.</value>
+    <value>De op 0 gebaseerde index langs de X-as.</value>
   </data>
   <data name="Common_Name_DisplayName" xml:space="preserve">
-    <value>Name</value>
+    <value>Naam</value>
   </data>
   <data name="VectorStyleProperties_DashStyle_Description" xml:space="preserve">
-    <value>Dash style of the line aling the circumference of the line.</value>
+    <value>Onderbroken-lijnstijl van de lijn aling de omtrek van de lijn.</value>
   </data>
   <data name="RegularGridCoverageCellProperties_X_DisplayName" xml:space="preserve">
     <value>X</value>
@@ -216,37 +216,37 @@
     <value>..\resources\table_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GdalRasterLayerProperties_Size_Description" xml:space="preserve">
-    <value>Number of grid cells along the axis of the grid.</value>
+    <value>Aantal rastercellen langs de as van het raster.</value>
   </data>
   <data name="Categories_General" xml:space="preserve">
-    <value>General</value>
+    <value>Algemeen</value>
   </data>
   <data name="PolygonStyleProperties_OutlineColor_Description" xml:space="preserve">
-    <value>Color of the line along the circumference of the polygon.</value>
+    <value>Kleur van de lijn langs de omtrek van de polygoon.</value>
   </data>
   <data name="LineStyleProperies_DashStyle_DisplayName" xml:space="preserve">
-    <value>Dash style</value>
+    <value>Streepstijl</value>
   </data>
   <data name="PointStyleProperties_DisplayName" xml:space="preserve">
-    <value>Point style</value>
+    <value>Punt stijl</value>
   </data>
   <data name="MapProperties_Name_Description" xml:space="preserve">
-    <value>Name of this map shown to the user.</value>
+    <value>Naam van deze kaart die getoond wordt aan de gebruiker.</value>
   </data>
   <data name="GdalRasterLayerProperties_Size_DisplayName" xml:space="preserve">
-    <value>Grid Size</value>
+    <value>Rastergrootte</value>
   </data>
   <data name="PointStyleProperties_EnableOutline_Description" xml:space="preserve">
-    <value>Determines whether or not to show the line along the circumference of the point.</value>
+    <value>Bepaal of u wel of niet de lijn langs de omtrek van het punt wilt laten zien.</value>
   </data>
   <data name="GdalRasterLayerProperties_Step_DisplayName" xml:space="preserve">
-    <value>Grid cell size</value>
+    <value>De grootte van een rastercel</value>
   </data>
   <data name="operation_large" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\operation_large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PointStyleProperties_OutlineWidth_DisplayName" xml:space="preserve">
-    <value>Outline width</value>
+    <value>Randbreedte</value>
   </data>
   <data name="selection_select" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\selection-select.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -258,40 +258,40 @@
     <value>..\resources\deletehs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GdalRasterLayerProperties_MaxVisible_Description" xml:space="preserve">
-    <value>Maximum zoom level where this layer is still visible.</value>
+    <value>Maximale zoomniveau waar deze laag nog steeds zichtbaar is.</value>
   </data>
   <data name="RegularGridCoverageTimeDependentProperties_TimeInterpolationType_Description" xml:space="preserve">
-    <value>Interpolation scheme applied along the time axis when evaluating values.</value>
+    <value>Interpolatie schema bij de evaluatie van waarden is langs de tijdas toegepast.</value>
   </data>
   <data name="table" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\table.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LayerProperties_DisplayName" xml:space="preserve">
-    <value>Layer</value>
+    <value>Laag</value>
   </data>
   <data name="GradientOperation_StartValue_DisplayName" xml:space="preserve">
-    <value>Initial value</value>
+    <value>Beginwaarde</value>
   </data>
   <data name="CurvilinearGridLayerProperties_ShowLines_DisplayName" xml:space="preserve">
-    <value>Show lines</value>
+    <value>Toon regels</value>
   </data>
   <data name="LegendToolProperties_Padding_Description" xml:space="preserve">
-    <value>The number of pixels as inner margin along all edges of the legend.</value>
+    <value>Het aantal pixels als "inner margin" langs alle randen van de legenda.</value>
   </data>
   <data name="PointStyleProperties_Color_Description" xml:space="preserve">
-    <value>Color of the points.</value>
+    <value>Kleur van de punten.</value>
   </data>
   <data name="VectorLayerProperties_LineColor_DisplayName" xml:space="preserve">
-    <value>Line color</value>
+    <value>Lijnkleur</value>
   </data>
   <data name="GradientOperation_StopValue_Description" xml:space="preserve">
-    <value>Final value for the gradient</value>
+    <value>Definitieve waarde voor de helling</value>
   </data>
   <data name="GdalRasterLayerProperties_MaxVisibility_DisplayName" xml:space="preserve">
-    <value>Maximum visibility zoom</value>
+    <value>Maximale zichtbaarheidszoomniveau</value>
   </data>
   <data name="PointStyleProperties_Shape_Description" xml:space="preserve">
-    <value>Shape for the point symbols.</value>
+    <value>Vorm voor de symbolen van het punt.</value>
   </data>
   <data name="globe__pencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\globe--pencil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -300,19 +300,19 @@
     <value>..\Resources\QueryTimeSeriesMapCommand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SharpMapGisPluginGui_InitializeMapLegend_Map_Contents" xml:space="preserve">
-    <value>Map</value>
+    <value>Kaart</value>
   </data>
   <data name="PointStyleProperties_EnableOutline_DisplayName" xml:space="preserve">
-    <value>Show outline</value>
+    <value>Rand weergeven</value>
   </data>
   <data name="SpatialOperation_Enabled_Displayname" xml:space="preserve">
-    <value>Enabled</value>
+    <value>Ingeschakeld</value>
   </data>
   <data name="MapPanZoomImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MapPanZoomImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SmoothingOperation_Iterations_Description" xml:space="preserve">
-    <value>Number of cycles in the smoothing algorithm</value>
+    <value>Aantal cycli in het "smoothing"-algoritme</value>
   </data>
   <data name="gradient" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\gradient.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -327,121 +327,121 @@
     <value>..\resources\grid_2d_invalid.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VectorLayerProperties_OutlineWidth_Description" xml:space="preserve">
-    <value>Width of the line along the circumference of the line.</value>
+    <value>Breedte van de lijn langs de omtrek van de lijn.</value>
   </data>
   <data name="LineStyleProperies_DashStyle_Description" xml:space="preserve">
-    <value>Dash style of the line.</value>
+    <value>Onderbroken-lijnstijl van de lijn.</value>
   </data>
   <data name="FeatureDataRowProperties_DisplayName" xml:space="preserve">
-    <value>Feature data</value>
+    <value>Onderdeelgegevens</value>
   </data>
   <data name="polygonsetvalue" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\polygonsetvalue.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GroupLayerProperties_DisplayName" xml:space="preserve">
-    <value>Group layer</value>
+    <value>Groep-laag</value>
   </data>
   <data name="linetool" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\linetool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RegularGridCoverageCellProperties_J_Description" xml:space="preserve">
-    <value>The 0-based index along the Y axis.</value>
+    <value>De op 0 gebaseerde index langs de Y-as.</value>
   </data>
   <data name="SpatialOperation_Enabled_Description" xml:space="preserve">
-    <value>Determines whether the operation executes when the  operation stack result is refreshed</value>
+    <value>Bepaal of de operatie wordt uitgevoerd wanneer het resultaat van de "stack" wordt vernieuwd</value>
   </data>
   <data name="RegularGridCoverageProperties_Path_DisplayName" xml:space="preserve">
-    <value>File path</value>
+    <value>Bestandsfolder</value>
   </data>
   <data name="MoveSingle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MoveSingle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VectorLayerPolygonProperties_DisplayName" xml:space="preserve">
-    <value>Vector layer (polygon)</value>
+    <value>Vector laag (polygoon)</value>
   </data>
   <data name="paintcan" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\paintcan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RegularGridCoverageProperties_NoDataValues_Description" xml:space="preserve">
-    <value>Values that represent the absence of data.</value>
+    <value>Waarden die het ontbreken van gegevens vertegenwoordigen.</value>
   </data>
   <data name="GradientOperation_Angle_DisplayName" xml:space="preserve">
-    <value>Angle</value>
+    <value>Hoek</value>
   </data>
   <data name="VectorLayerLineProperties_DisplayName" xml:space="preserve">
-    <value>Vector layer (line)</value>
+    <value>Vector laag (lijn)</value>
   </data>
   <data name="PointStyleProperties_OutlineDashStyle_Description" xml:space="preserve">
-    <value>Dash style of the line along the circumference of the point.</value>
+    <value>Onderbroken-lijnstijl van de lijn langs de omtrek van het punt.</value>
   </data>
   <data name="RegularGridCoverageProperties_Store_DisplayName" xml:space="preserve">
-    <value>Store</value>
+    <value>Winkel</value>
   </data>
   <data name="InterpolateOperation_Samples_Displayname" xml:space="preserve">
-    <value>Sample set</value>
+    <value>Meetpunten reeks</value>
   </data>
   <data name="PointStyleProperties_ShapeSize_DisplayName" xml:space="preserve">
-    <value>Shape size</value>
+    <value>Vormgrootte</value>
   </data>
   <data name="GdalRasterLayerProperties_MinVisible_Description" xml:space="preserve">
-    <value>Minimum zoom level where this layer is still visible.</value>
+    <value>Minimale zoomniveau waar the laag nog steeds zichtbaar is.</value>
   </data>
   <data name="Categories_Operation_Parameters" xml:space="preserve">
-    <value>Operation parameters</value>
+    <value>Operatie parameters</value>
   </data>
   <data name="InterpolateOperation_Samples_Description" xml:space="preserve">
-    <value>Point set that being  interpolated to the grid</value>
+    <value>Punt instellen die wordt geïnterpoleerd op het raster</value>
   </data>
   <data name="RegularGridCoverageProperties_FileBased_Description" xml:space="preserve">
-    <value>Indicates whether or not this regular grid uses a file-based storage scheme.</value>
+    <value>Hiermee wordt aangegeven of dit regelmatige raster een bestand gebaseerde opslag schema gebruikt.</value>
   </data>
   <data name="RegularGridCoverageProperties_Store_Description" xml:space="preserve">
-    <value>Scheme used to save this regular grid spatial data.</value>
+    <value>Schema dat gebruikt wordt om deze regelmatige raster "spatial data" op te slaan.</value>
   </data>
   <data name="Categories_Style" xml:space="preserve">
-    <value>Style</value>
+    <value>Stijl</value>
   </data>
   <data name="RegularGridCoverageTimeDependentProperties_TimeInterpolationType_DisplayName" xml:space="preserve">
-    <value>Time interpolation</value>
+    <value>Tijd interpolatie</value>
   </data>
   <data name="CurvilinearGridLayerProperties_ShowFaces_DisplayName" xml:space="preserve">
-    <value>Show surfaces</value>
+    <value>Toon oppervlakken</value>
   </data>
   <data name="LineStyleProperies_Color_DisplayName" xml:space="preserve">
-    <value>Color</value>
+    <value>Kleur</value>
   </data>
   <data name="PointStyleProperties_OutlineWidth_Description" xml:space="preserve">
-    <value>Width of the line along the circumference of the point.</value>
+    <value>Breedte van de lijn langs de omtrek van het punt.</value>
   </data>
   <data name="GradientOperation_Angle_Description" xml:space="preserve">
-    <value>Horizontal angle of the gradient in degrees (90 = northward)</value>
+    <value>Horizontale hoek van het verloop in graden (90 = noordwaarts)</value>
   </data>
   <data name="LocationDependentFunctionEmpty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\function_coverage_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VectorLayerProperties_DisplayName" xml:space="preserve">
-    <value>Vector layer</value>
+    <value>Vector laag</value>
   </data>
   <data name="LineStyleProperies_DisplayName" xml:space="preserve">
-    <value>Line style</value>
+    <value>Lijnstijl</value>
   </data>
   <data name="PointStyleProperties_OutlineDashStyle_DisplayName" xml:space="preserve">
-    <value>Outline dash style</value>
+    <value>Randstreepstijl</value>
   </data>
   <data name="crop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\crop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RegularGridCoverageProperties_Name_Description" xml:space="preserve">
-    <value>Name of the regular grid spatial data.</value>
+    <value>Naam van het regelmatige raster van "spatial data".</value>
   </data>
   <data name="LineStyleProperies_Width_DisplayName" xml:space="preserve">
-    <value>Width</value>
+    <value>Breedte</value>
   </data>
   <data name="RegularGridCoverageProperties_DisplayName" xml:space="preserve">
-    <value>Regular grid spatial data</value>
+    <value>Regelmatig "spatial data"-raster</value>
   </data>
   <data name="RegularGridCoverageCellProperties_X_Description" xml:space="preserve">
-    <value>The X coordinate of the grid cell.</value>
+    <value>De X-coördinaat van het rastercel.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="MapZoomInImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -465,36 +465,36 @@
     <value>..\Resources\theme.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ContourOperation_Value_Description" xml:space="preserve">
-    <value>Argument used as value for the points on the contour.</value>
+    <value>Argument wordt gebruikt als waarde voor de punten op de contour.</value>
     <comment>Description for the Value property</comment>
   </data>
   <data name="PolygonStyleProperties_FillColor_Description" xml:space="preserve">
-    <value>Color used to fill the polygons with.</value>
+    <value>Kleur die gebruikt wordt om de polygonen te vullen.</value>
   </data>
   <data name="RegularGridCoverageProperties_NoDataValues_DisplayName" xml:space="preserve">
-    <value>'No data'-values</value>
+    <value>"No data"-waarden</value>
   </data>
   <data name="ThemeItemProperties_Label_DisplayName" xml:space="preserve">
     <value>Label</value>
   </data>
   <data name="RegularGridCoverageProperties_ValueType_Description" xml:space="preserve">
-    <value>Indicates the value type used to represent values with.</value>
+    <value>Geeft het waardetype aan dat gebruikt wordt om waarden weer te geven.</value>
   </data>
   <data name="ContourOperation_DesiredSampleSpacing_DisplayName" xml:space="preserve">
-    <value>Sampling distance</value>
+    <value>Bemonstering van de afstand</value>
     <comment>The desired sampling distance between points on the contour</comment>
   </data>
   <data name="RegularGridCoverageCellProperties_I_DisplayName" xml:space="preserve">
     <value>X index</value>
   </data>
   <data name="SetValueOperation_Value_DisplayName" xml:space="preserve">
-    <value>Argument value</value>
+    <value>Argumentwaarde</value>
   </data>
   <data name="ScaleBarIconImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\scaleBarIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SetValueOperation_Value_Description" xml:space="preserve">
-    <value>Value used as argument for the pointwise operation</value>
+    <value>Waarde die wordt gebruikt als argument voor de puntsgewijze operatie</value>
   </data>
   <data name="tag_export" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\tag-export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -503,67 +503,67 @@
     <value>..\resources\tag--minus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GroupLayerProperties_NumberOfLayers_Description" xml:space="preserve">
-    <value>Number of layers in the layer group.</value>
+    <value>Het aantal lagen in de laaggroep.</value>
   </data>
   <data name="GradientOperation_StopValue_DisplayName" xml:space="preserve">
-    <value>Final value</value>
+    <value>Laatste waarde</value>
   </data>
   <data name="MapProperties_Map_DisplayName" xml:space="preserve">
-    <value>Map</value>
+    <value>Kaart</value>
   </data>
   <data name="SmoothingOperation_Exponent_Displayname" xml:space="preserve">
     <value>Exponent</value>
   </data>
   <data name="RegularGridCoverageProperties_FileBased_DisplayName" xml:space="preserve">
-    <value>Is file based</value>
+    <value>Heeft het bestand een basis bestand</value>
   </data>
   <data name="GdalRasterLayerProperties_Origin_DisplayName" xml:space="preserve">
-    <value>Origin</value>
+    <value>Oorsprong</value>
   </data>
   <data name="ThemeItemProperties_DisplayName" xml:space="preserve">
-    <value>Theme item</value>
+    <value>Thema item</value>
   </data>
   <data name="VectorLayerProperties_LineColor_Description" xml:space="preserve">
-    <value>Primary color of the line.</value>
+    <value>Primaire kleur van de lijn.</value>
   </data>
   <data name="GradientOperation_StartValue_Description" xml:space="preserve">
-    <value>Initial value for the gradient</value>
+    <value>Initiele waarde voor de gradiënt</value>
   </data>
   <data name="GdalRasterLayerProperties_MinVisible_DisplayName" xml:space="preserve">
-    <value>Minimum visibility zoom</value>
+    <value>Minimale zichtbaarheidszoomniveau</value>
   </data>
   <data name="SetValueOperationProperties_DisplayName" xml:space="preserve">
-    <value>Interpolation operation</value>
+    <value>Operatie interpolatie</value>
   </data>
   <data name="GroupLayerProperties_NumberOfLayers_DisplayName" xml:space="preserve">
-    <value>Number of layers</value>
+    <value>Aantal lagen</value>
   </data>
   <data name="CurvilinearGridLayerProperties_DisplayName" xml:space="preserve">
-    <value>Curvilinear grid</value>
+    <value>Kromlijnigraster</value>
   </data>
   <data name="RegularGridCoverageCellProperties_Y_Description" xml:space="preserve">
-    <value>Y coordinate of the grid cell.</value>
+    <value>Y-coördinaat van de rastercel.</value>
   </data>
   <data name="SmoothingOperationProperties_DisplayName" xml:space="preserve">
-    <value>Smoothing</value>
+    <value>Vloeiend maken</value>
   </data>
   <data name="discretization_empty" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\discretization_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VectorStyleProperties_EnableOutline_Description" xml:space="preserve">
-    <value>Determines whether or not to show the line along the circumference of the line.</value>
+    <value>Bepaal of u wel of niet de lijn langs de omtrek van de lijn wilt laten zien.</value>
   </data>
   <data name="RegularGridCoverageProperties_FilePath_Description" xml:space="preserve">
-    <value>File path where the data for this regular grid spatial data can be found.</value>
+    <value>Bestandsfolder waar het reguliere raster voor "spatial data" gevonden kan worden.</value>
   </data>
   <data name="RegularGridCoverageCellProperties_Value_DisplayName" xml:space="preserve">
-    <value>Value</value>
+    <value>Waarde</value>
   </data>
   <data name="RegularGridCoverageProperties_Description_DisplayName" xml:space="preserve">
-    <value>Description</value>
+    <value>Omschrijving</value>
   </data>
   <data name="PointStyleProperties_OutlineColor_Description" xml:space="preserve">
-    <value>Color of the line along the circumference of the point.</value>
+    <value>Kleur van de lijn langs de omtrek van het punt.</value>
   </data>
   <data name="magnifier__arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\magnifier--arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -575,7 +575,7 @@
     <value>..\resources\copyhs1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VectorLayerProperties_SymbolScale_DisplayName" xml:space="preserve">
-    <value>Symbol scale</value>
+    <value>Symbool schaal</value>
   </data>
   <data name="arrow_circle_double" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrow-circle-double.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -584,10 +584,10 @@
     <value>..\Resources\legendIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RegularGridCoverageCellProperties_Coverage_DislpayName" xml:space="preserve">
-    <value>Name of spatial data</value>
+    <value>Naam van de "spatial data"</value>
   </data>
   <data name="PointStyleProperties_ShapeSize_Description" xml:space="preserve">
-    <value>Size of the pointer symbols.</value>
+    <value>Grootte van aanwijs symbolen.</value>
   </data>
   <data name="geometries" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\geometries.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -596,13 +596,13 @@
     <value>..\Resources\function_coverage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SmoothingOperation_Method_Displayname" xml:space="preserve">
-    <value>Overwrite method</value>
+    <value>Overschrijf methode</value>
   </data>
   <data name="FeatureDataRowProperties_Data_Description" xml:space="preserve">
-    <value>The available feature attribute data.</value>
+    <value>De beschikbare "featue attribute data".</value>
   </data>
   <data name="ContourOperation_DesiredSampleSpacing_Description" xml:space="preserve">
-    <value>The desired space between points on the contour.</value>
+    <value>De gewenste ruimte tussen punten op de omtrek.</value>
     <comment>Description for the DesiredSamplingSpace property</comment>
   </data>
   <data name="zoom" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -615,53 +615,53 @@
     <value>..\Resources\previous.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GradientOperationProperties_DisplayName" xml:space="preserve">
-    <value>Gradient operation</value>
+    <value>Operatie kleurovergang</value>
   </data>
   <data name="SmoothingOperation_Iterations_Displayname" xml:space="preserve">
-    <value>Iterations</value>
+    <value>Iteraties</value>
   </data>
   <data name="VectorLayerProperties_Categories_DefaultStyle" xml:space="preserve">
-    <value>Default style</value>
+    <value>Standaardstijl</value>
   </data>
   <data name="GroupLayerProperties_Name_Description" xml:space="preserve">
-    <value>Name of the layer group.</value>
+    <value>Naam van de groepslaag.</value>
   </data>
   <data name="discretization" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\discretization.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LineStyleProperies_Color_Description" xml:space="preserve">
-    <value>Primary color of the line</value>
+    <value>Primaire kleur van de lijn.</value>
   </data>
   <data name="PointStyleProperties_OutlineColor_DisplayName" xml:space="preserve">
-    <value>Outline color</value>
+    <value>Randkleur</value>
   </data>
   <data name="points" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\points.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="VectorLayerProperties_FillColor_Description" xml:space="preserve">
-    <value>Color used to fill the area within the lines with.</value>
+    <value>Kleur die gebruikt was om het gebied binnen de lijnen te vullen.</value>
   </data>
   <data name="ContourOperationProperties_DisplayName" xml:space="preserve">
     <value />
     <comment>Display name of the Contour operation in the properties menu</comment>
   </data>
   <data name="VectorLayerProperties_Name_Description" xml:space="preserve">
-    <value>Name of the layer shown to the user.</value>
+    <value>Naam van de laag die getoond wordt aan de gebruiker.</value>
   </data>
   <data name="VectorLayerProperties_FillColor_DisplayName" xml:space="preserve">
-    <value>Fill color</value>
+    <value>Opvulkleur</value>
   </data>
   <data name="MapZoomNextImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\next.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PolygonStyleProperties_DisplayName" xml:space="preserve">
-    <value>Polygon style</value>
+    <value>Polygoonstijl</value>
   </data>
   <data name="MoveSingleSimple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MoveSingleSimple.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RegularGridCoverageTimeDependentProperties_DisplayName" xml:space="preserve">
-    <value>Time dependent regular grid spatial data</value>
+    <value>Tijdsafhankelijk regelmatige raster ruimtelijke gegevens</value>
   </data>
   <data name="Attribute" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\attribute.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -684,76 +684,76 @@
 </value>
   </data>
   <data name="VectorLayerProperties_OutlineColor_Description" xml:space="preserve">
-    <value>Color of the line along the circumference of the line.</value>
+    <value>Kleur van de lijn langs de omtrek van de lijn.</value>
   </data>
   <data name="CurvilinearGridLayerProperties_ShowVertices_DisplayName" xml:space="preserve">
-    <value>Show points</value>
+    <value>Punten weergeven</value>
   </data>
   <data name="tag_import" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\tag-import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CropOperationProperties_DisplayName" xml:space="preserve">
-    <value>Crop operation</value>
+    <value>"Crop"-operatie</value>
   </data>
   <data name="CurvilinearGridLayerProperties_ShowVertices_Description" xml:space="preserve">
-    <value>Determines whether or not to show the defined points (vertices) of the grid.</value>
+    <value>Bepaar of u wel of niet de gedefinieerde punten (hoekpunten) van het raster wilt laten zien.</value>
   </data>
   <data name="NorthArrowIconImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\northArrowIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RegularGridCoverageProperties_Description_Description" xml:space="preserve">
-    <value>Description of the regular grid spatial data.</value>
+    <value>Beschrijving van de regelmatige raster van de "spatial data".</value>
   </data>
   <data name="PolygonStyleProperties_OutlineWidth_Description" xml:space="preserve">
-    <value>Width of the line along the circumference of the polygon.</value>
+    <value>Breedte van de lijn langs de omtrek van de polygoon.</value>
   </data>
   <data name="InterpolateOperationProperties_DisplayName" xml:space="preserve">
-    <value>Interpolation operation</value>
+    <value>Operatie interpolatie</value>
   </data>
   <data name="VectorLayerProperties_SymbolScale_Description" xml:space="preserve">
-    <value>Scaling factor for the symbol.</value>
+    <value>Schaalfactor voor het symbool.</value>
   </data>
   <data name="GdalRasterLayerProperties_Name_Description" xml:space="preserve">
-    <value>Name of the Gdal grid layer shown to the user.</value>
+    <value>Naam van het "Gdal"-rasterlaag dat getoond wordt aan de gebruiker.</value>
   </data>
   <data name="LineStyleProperies_Width_Description" xml:space="preserve">
-    <value>Width of the line.</value>
+    <value>Breedte van de lijn.</value>
   </data>
   <data name="RegularGridCoverageCellProperties_DisplayName" xml:space="preserve">
-    <value>Regular grid spatial data cell</value>
+    <value>Regelmatig "spatial data"-rastercel</value>
   </data>
   <data name="ValueOperation_Operation_DisplayName" xml:space="preserve">
-    <value>Pointwise operation</value>
+    <value>Puntsgewijze operatie</value>
   </data>
   <data name="GdalRasterLayerProperties_DisplayName" xml:space="preserve">
-    <value>Gdal grid layer</value>
+    <value>"Gdal"-rasterlaag</value>
   </data>
   <data name="GdalRasterLayerProperties_Envelope_Description" xml:space="preserve">
-    <value>The extends of the Gdal grid layer.</value>
+    <value>De verlenging van het "Gdal"-rasterlaag.</value>
   </data>
   <data name="ThemeItemProperties_Label_Description" xml:space="preserve">
-    <value>Label text shown to the user.</value>
+    <value>Tekst van label wordt getoond aan de gebruiker.</value>
   </data>
   <data name="contrast_low" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\contrast_low.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LegendToolProperties_DisplayName" xml:space="preserve">
-    <value>Map legend</value>
+    <value>Legenda van de kaart</value>
   </data>
   <data name="CurvilinearGridLayerProperties_ShowLines_Description" xml:space="preserve">
-    <value>Determines whether or not to show the lines (edges) between grid points.</value>
+    <value>Bepaal of u wel of niet de lijnen (randen) tussen de rasterpunten wilt laten zien.</value>
   </data>
   <data name="LayerProperties_Opacity_DisplayName" xml:space="preserve">
-    <value>Opacity</value>
+    <value>Dekking</value>
   </data>
   <data name="FeatureDataRowProperties_Data_DisplayName" xml:space="preserve">
-    <value>Data</value>
+    <value>Gegevens</value>
   </data>
   <data name="GdalRasterLayerProperties_Envelope_DisplayName" xml:space="preserve">
-    <value>Layer extend</value>
+    <value>Uitbreiding van de laag</value>
   </data>
   <data name="LegendToolProperties_Font_DisplayName" xml:space="preserve">
-    <value>Font</value>
+    <value>Lettertype</value>
   </data>
   <data name="CurvePointSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CurvePointSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -762,34 +762,34 @@
     <value>..\Resources\lassoselect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PointStyleProperties_Symbol_Description" xml:space="preserve">
-    <value>Image symbol used for point features.</value>
+    <value>Afbeeldingsymbool dat gebruikt wordt voor punteigenschappen.</value>
   </data>
   <data name="mapToolbar" xml:space="preserve">
-    <value>Map</value>
+    <value>Kaart</value>
   </data>
   <data name="LayerProperties_Opacity_Description" xml:space="preserve">
-    <value>Value in the range 0.0 (fully transparent) - 1.0 (fully opaque)</value>
+    <value>De waarde moet in het bereik tussen 0.0 (geheel doorzichtig) en 1.0 (volledig dekkend) zijn</value>
   </data>
   <data name="GdalRasterLayerProperties_Origin_Description" xml:space="preserve">
-    <value>The coordinate of the origin of the Gdal grid layer.</value>
+    <value>De coördinaat van de oorsprong van de "Gdal"-rasterlaag.</value>
   </data>
   <data name="VectorLayerProperties_LineWidth_DisplayName" xml:space="preserve">
-    <value>Line width</value>
+    <value>Lijndikte</value>
   </data>
   <data name="PointStyleProperties_Shape_DisplayName" xml:space="preserve">
-    <value>Point shape</value>
+    <value>Puntvorm</value>
   </data>
   <data name="table_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\table_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="RegularGridCoverageProperties_ValueType_DisplayName" xml:space="preserve">
-    <value>Value type</value>
+    <value>Waardetype</value>
   </data>
   <data name="SmoothingOperation_Exponent_Description" xml:space="preserve">
-    <value>Inverse distance weight exponent</value>
+    <value>Omgekeerde afstand gewicht exponent</value>
   </data>
   <data name="RegularGridCoverageTimeDependentProperties_TimeExtrapolationType_DisplayName" xml:space="preserve">
-    <value>Time extrapolation</value>
+    <value>Tijdextrapolatie</value>
   </data>
   <data name="Map" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -798,16 +798,16 @@
     <value>..\Resources\information.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LegendToolProperties_Padding_DisplayName" xml:space="preserve">
-    <value>Padding</value>
+    <value>Opvulling</value>
   </data>
   <data name="Categories_Dimensions" xml:space="preserve">
-    <value>Dimensions</value>
+    <value>Dimensies</value>
   </data>
   <data name="GdalRasterLayerProperties_Step_Description" xml:space="preserve">
-    <value>The dimensions of a single grid cell.</value>
+    <value>De afmetingen van een enkele rastercel.</value>
   </data>
   <data name="PointStyleProperties_Color_DisplayName" xml:space="preserve">
-    <value>Color</value>
+    <value>Kleur</value>
   </data>
   <data name="RegularGridCoverageCellProperties_J_DisplayName" xml:space="preserve">
     <value>Y index</value>
@@ -830,7 +830,7 @@
 </value>
   </data>
   <data name="LegendToolProperties_Font_Description" xml:space="preserve">
-    <value>Font used in the map legend.</value>
+    <value>Lettertype dat gebruikt wordt in de kaartlegenda.</value>
   </data>
   <data name="up" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -848,31 +848,31 @@
     <value>..\Resources\disabled_operation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ImportSamplesOperation_Source_CS_Description" xml:space="preserve">
-    <value>Coordinate system in which the points in the file are represented.</value>
+    <value>Coördinatenstelsel waarin de punten van het bestand zijn aangegeven.</value>
   </data>
   <data name="ImportSamplesOperation_Source_CS_Displayname" xml:space="preserve">
-    <value>Source coordinate system</value>
+    <value>Broncoördinatenstelsel</value>
   </data>
   <data name="ImportSamplesOperation_File_Description" xml:space="preserve">
-    <value>File from which the sample set is read.</value>
+    <value>Bestand waaruit de meetpuntenreeks wordt gelezen.</value>
   </data>
   <data name="ImportSamplesOperation_File_Displayname" xml:space="preserve">
-    <value>Input file</value>
+    <value>Invoerbestand</value>
   </data>
   <data name="Categories_Input" xml:space="preserve">
-    <value>Input</value>
+    <value>Invoer</value>
   </data>
   <data name="Categories_Output" xml:space="preserve">
-    <value>Output</value>
+    <value>Uitvoer</value>
   </data>
   <data name="ImportSamplesOperation_Target_CS_Description" xml:space="preserve">
-    <value>Coordinate system to which the input points should be converted.</value>
+    <value>Coördinatenstelsel waarnaar de invoerpunten moeten worden geconverteerd.</value>
   </data>
   <data name="ImportSamplesOperation_Target_CS_Displayname" xml:space="preserve">
-    <value>Target coordinate system</value>
+    <value>Doelcoördinatenstelsel</value>
   </data>
   <data name="ImportSamplesOperationProperties_DisplayName" xml:space="preserve">
-    <value>Sample points import properties</value>
+    <value>Meetpunten importeren eigenschappen</value>
   </data>
   <data name="pipette" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pipette.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -887,10 +887,10 @@
     <value>..\Resources\eraser.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="EraseOperationProperties_DisplayName" xml:space="preserve">
-    <value>Erase operation</value>
+    <value>Wis operatie</value>
   </data>
   <data name="AddSamplesOperationProperties_DisplayName" xml:space="preserve">
-    <value>Add samples operation</value>
+    <value>Voeg meetpunten operatie toe</value>
   </data>
   <data name="exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -908,22 +908,22 @@
     <value>..\Resources\marker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="OverwriteValueOperationProperties_DisplayName" xml:space="preserve">
-    <value>Overwrite spatial data value</value>
+    <value>"Spatial data"-waarden overschrijven</value>
   </data>
   <data name="OverwriteValueOperation_Value_Description" xml:space="preserve">
-    <value>New value to be inserted.</value>
+    <value>Nieuwe waarde dat ingevoegd moet worden.</value>
   </data>
   <data name="OverwriteValueOperation_Value_DisplayName" xml:space="preserve">
-    <value>Value</value>
+    <value>Waarde</value>
   </data>
   <data name="OverwriteValueOperation_X_Description" xml:space="preserve">
-    <value>First coordinate value of the location where to overwrite.</value>
+    <value>De waarde van de eerste coördinaat van de locatie zal overschreven worden.</value>
   </data>
   <data name="OverwriteValueOperation_X_DisplayName" xml:space="preserve">
     <value>X</value>
   </data>
   <data name="OverwriteValueOperation_Y_Description" xml:space="preserve">
-    <value>Second coordinate value of the location where to overwrite.</value>
+    <value>Tweede coördinaatwaarde van de locatie zal overschreven worden.</value>
   </data>
   <data name="OverwriteValueOperation_Y_DisplayName" xml:space="preserve">
     <value>Y</value>
@@ -935,48 +935,54 @@
     <value>..\resources\layer_select_point.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="InterpolateOperation_AveragingMethod_Description" xml:space="preserve">
-    <value>Determines which value to return for the found samples</value>
+    <value>Bepaal welke waarde als resultaat wordt gegeven voor de gevonden meetpunten</value>
   </data>
   <data name="InterpolateOperation_AveragingMethod_DisplayName" xml:space="preserve">
-    <value>Grid cell averaging method</value>
+    <value>Celraster middelingsmethode</value>
   </data>
   <data name="InterpolateOperation_InterpolationMethod_Description" xml:space="preserve">
-    <value>Interpolation method: Delauny triangulation or grid-cell averaging</value>
+    <value>Interpolatiemethode: "Delauny triangulatie" of rastercel gemiddelde</value>
   </data>
   <data name="InterpolateOperation_InterpolationMethod_DisplayName" xml:space="preserve">
-    <value>Interpolation method</value>
+    <value>Interpolatiemethode</value>
   </data>
   <data name="InterpolateOperation_MinPoints_Description" xml:space="preserve">
-    <value>Lower bound on the number of samples found per cell when interpolating</value>
+    <value>Ondergrens van het aantal meetpunten per "cell" dat is gevonden bij het interpoleren</value>
   </data>
   <data name="InterpolateOperation_MinPoints_DisplayName" xml:space="preserve">
-    <value>Minimum samples per cell</value>
+    <value>Minimaal aantal meetpunten per "cell"</value>
   </data>
   <data name="InterpolateOperation_RelSearchCellSize_Description" xml:space="preserve">
-    <value>Scaling factor for cell sizes</value>
+    <value>Schaalfactor voor de celgrootte</value>
   </data>
   <data name="InterpolateOperation_RelSearchCellSize_DisplayName" xml:space="preserve">
-    <value>Rel. search cell size</value>
+    <value>Relatieve zoek-celgrootte</value>
   </data>
   <data name="FilterFunctionDialog_ValidateMultiSelectError" xml:space="preserve">
-    <value>This function does not support partial multi-select. Please select only one or all values instead for argument</value>
+    <value>Deze functie biedt geen ondersteuning voor gedeeltelijk selecteren van meerdere onderdelen. Selecteer slechts één of alle waarden</value>
   </data>
   <data name="RealTimeControlModelNodePresenter_GetContextMenu_Validate___" xml:space="preserve">
-    <value>Validate...</value>
+    <value>Valideren...</value>
   </data>
   <data name="RealTimeControlModelNodePresenter_GetContextMenu_Open_Last_Working_Directory____" xml:space="preserve">
-    <value>Open Last Working Directory ...</value>
+    <value>Laatste werkfolder openen...</value>
   </data>
   <data name="SharpMapGisGuiPlugin_GetContextMenu_Use_Previous_Output___" xml:space="preserve">
-    <value>Use Previous Output...</value>
+    <value>Gebruik de vorige uitvoer...</value>
   </data>
   <data name="SharpMapGisGuiPlugin_GetContextMenu_Use_As_Default_Background_Layer" xml:space="preserve">
-    <value>Use As Default Background Layer</value>
+    <value>Gebruik als standaard achtergrondlaag</value>
   </data>
   <data name="SharpMapGisGuiPlugin_GetContextMenu_Remove_As_Default_Background_Layer" xml:space="preserve">
-    <value>Remove As Default Background Layer</value>
+    <value>De standaard achtergrondlaag verwijderen</value>
   </data>
   <data name="CellAveragingAlgorithm_DisplayName" xml:space="preserve">
-    <value>Cell averaging algorithm</value>
+    <value>Cel-middelen-algoritme</value>
+  </data>
+  <data name="mapToolbar1" xml:space="preserve">
+    <value>Kaart</value>
+  </data>
+  <data name="SharpMapGisPluginGui_InitializeMapLegend_Map_Contents1" xml:space="preserve">
+    <value>Kaart</value>
   </data>
 </root>

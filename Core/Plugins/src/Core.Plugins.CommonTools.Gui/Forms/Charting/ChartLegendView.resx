@@ -128,7 +128,7 @@
     <value>23, 22</value>
   </data>
   <data name="toolStripButtonStackSeries.Text" xml:space="preserve">
-    <value>Stack/unstack chart series of the same type (does not work for bar series)</value>
+    <value>Stapel/stapelen grafiekreeks van hetzelfde type (werkt niet voor bar serie)</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
     <value>6, 25</value>
@@ -140,7 +140,7 @@
     <value>23, 22</value>
   </data>
   <data name="toolStripButtonAreaSeries.Text" xml:space="preserve">
-    <value>Convert series to area series</value>
+    <value>Serie omzetten naar vlak serie</value>
   </data>
   <data name="toolStripButtonLineSeries.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -149,7 +149,7 @@
     <value>23, 22</value>
   </data>
   <data name="toolStripButtonLineSeries.Text" xml:space="preserve">
-    <value>Convert series to line series</value>
+    <value>Serie omzetten naar lijn serie</value>
   </data>
   <data name="toolStripButtonPointSeries.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -158,7 +158,7 @@
     <value>23, 22</value>
   </data>
   <data name="toolStripButtonPointSeries.Text" xml:space="preserve">
-    <value>Convert series to point series</value>
+    <value>Converteer serie naar punt serie</value>
   </data>
   <data name="toolStripButtonBarSeries.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -167,7 +167,7 @@
     <value>23, 22</value>
   </data>
   <data name="toolStripButtonBarSeries.Text" xml:space="preserve">
-    <value>Convert series to bar series</value>
+    <value>Converteer serie naar bar serie</value>
   </data>
   <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>

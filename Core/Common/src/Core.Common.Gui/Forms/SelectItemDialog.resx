@@ -160,7 +160,7 @@
     <value>2</value>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annuleren</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
     <value>buttonCancel</value>
@@ -187,7 +187,7 @@
     <value>5</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Type:</value>
+    <value>Types:</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -521,7 +521,7 @@
     <value>6</value>
   </data>
   <data name="checkBoxExample.Text" xml:space="preserve">
-    <value>Example</value>
+    <value>Voorbeeld</value>
   </data>
   <data name="&gt;&gt;checkBoxExample.Name" xml:space="preserve">
     <value>checkBoxExample</value>
@@ -548,7 +548,7 @@
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Select Type of Data ...</value>
+    <value>Selecteer gegevenstype...</value>
   </data>
   <data name="&gt;&gt;imageList.Name" xml:space="preserve">
     <value>imageList</value>

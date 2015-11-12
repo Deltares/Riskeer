@@ -160,7 +160,7 @@
     <value>2</value>
   </data>
   <data name="buttonCancel.Text" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annuleren</value>
   </data>
   <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
     <value>buttonCancel</value>
@@ -211,7 +211,7 @@
     <value>4</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Choose view to open:</value>
+    <value>Kies een weergave methode:</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -241,7 +241,7 @@
     <value>5</value>
   </data>
   <data name="checkBoxDefault.Text" xml:space="preserve">
-    <value>Use as default</value>
+    <value>Gebruiken als standaard</value>
   </data>
   <data name="&gt;&gt;checkBoxDefault.Name" xml:space="preserve">
     <value>checkBoxDefault</value>
@@ -268,7 +268,7 @@
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Open With ...</value>
+    <value>Openen met...</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>SelectViewDialog</value>

@@ -133,7 +133,7 @@
     <value>0</value>
   </data>
   <data name="btnCancel.Text" xml:space="preserve">
-    <value>Cancel all activities</value>
+    <value>Annuleer alle activiteiten</value>
   </data>
   <data name="&gt;&gt;btnCancel.Name" xml:space="preserve">
     <value>btnCancel</value>
@@ -154,13 +154,13 @@
     <value>True</value>
   </metadata>
   <data name="NameColumn.HeaderText" xml:space="preserve">
-    <value>Name</value>
+    <value>Naam</value>
   </data>
   <metadata name="Progress.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="Progress.HeaderText" xml:space="preserve">
-    <value>Progress</value>
+    <value>Voortgang</value>
   </data>
   <data name="dgvActivities.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 30</value>
@@ -196,7 +196,7 @@
     <value>2</value>
   </data>
   <data name="lblTitle.Text" xml:space="preserve">
-    <value>Please wait while processing...</value>
+    <value>Wacht a.u.b. tijdens het verwerking...</value>
   </data>
   <data name="&gt;&gt;lblTitle.Name" xml:space="preserve">
     <value>lblTitle</value>
@@ -220,7 +220,7 @@
     <value>544, 336</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Busy...</value>
+    <value>Bezig...</value>
   </data>
   <data name="&gt;&gt;NameColumn.Name" xml:space="preserve">
     <value>NameColumn</value>

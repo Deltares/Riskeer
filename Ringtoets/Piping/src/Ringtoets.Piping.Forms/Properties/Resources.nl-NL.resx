@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,31 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error_Cannot_Construct_PipingSoilProfile_Without_Layers" xml:space="preserve">
-    <value>Geen lagen gevonden voor het profiel.</value>
-  </data>
-  <data name="StandardDeviation_Should_be_greater_than_zero" xml:space="preserve">
-    <value>Standaard afwijking (?) moet groter zijn dan 0.</value>
-  </data>
-  <data name="DesignVariable_Percentile_must_be_in_range" xml:space="preserve">
-    <value>Percentiel moet in het bereik van [0, 1] vallen.</value>
-  </data>
-  <data name="DesignVariable_GetDesignValue_Distribution_must_be_set" xml:space="preserve">
-    <value>Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.</value>
-  </data>
-  <data name="Segment2D_Constructor_Segment_must_be_created_with_two_points" xml:space="preserve">
-    <value>Voor het maken van een segment zijn twee punten nodig.</value>
-  </data>
-  <data name="IDistribution_InverseCDF_Probability_must_be_in_range" xml:space="preserve">
-    <value>Kans moet in het bereik van [0, 1] opgegeven worden.</value>
-  </data>
-  <data name="LognormalDistribution_Mean_must_be_greater_equal_to_zero" xml:space="preserve">
-    <value>Gemiddelde moet groter zijn dan 0.</value>
-  </data>
-  <data name="Math2D_LineIntersectionWithLine_Line_points_are_equal" xml:space="preserve">
-    <value>Punten voor een lijn moeten uit elkaar liggen om een lijn te kunnen vormen.</value>
-  </data>
-  <data name="RingtoetsPipingSurfaceLine_Cannot_determine_reliable_z_when_surface_line_is_vertical_in_l" xml:space="preserve">
-    <value>Kan geen hoogte bepalen op het punt L={0}, omdate de dwarsdoorsnede verticaal loopt op dat punt.</value>
-  </data>
 </root>

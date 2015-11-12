@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SharpMapLayerFactory_GetCoverageLayerRenderError" xml:space="preserve">
-    <value>Unable to render spatial data '{0}'. Remove time filter(s) to render it.</value>
+    <value>Niet in staat om "spatial data" '{0}' te produceren. Verwijder de tijdfilter(s) zodat het geproduceerd kan worden.</value>
   </data>
   <data name="CoverageFeatureProvider_CannotSetMultipleFeaturesOnSpatialDataProvider" xml:space="preserve">
-    <value>Cannot set multiple features on spatial data provider</value>
+    <value>Kan geen meerdere "features" op "spatial data provider" instellen</value>
   </data>
   <data name="CoverageFeatureProvider_CannotSetFeaturesOtherThanSpatialData" xml:space="preserve">
-    <value>Cannot set features other than spatial data on spatial data provider</value>
+    <value>Kan geen "features" anders dan "spatial data" op "spatial data provider" instellen</value>
   </data>
   <data name="CoverageFeatureProvider_CannotSetFeaturetype" xml:space="preserve">
-    <value>Cannot set featuretype on spatial data provider</value>
+    <value>Kan "featuretype"niet op "spatial data provider" instellen</value>
   </data>
   <data name="FeatureProviderMask_SpatialDataTypeNotSupported" xml:space="preserve">
-    <value>Spatial data of type {0} is not implemented yet</value>
+    <value>"Spatial data" van type {0} is nog niet geïmplementeerd</value>
   </data>
 </root>

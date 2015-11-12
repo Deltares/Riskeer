@@ -1006,7 +1006,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to μ.
+        ///   Looks up a localized string similar to ?.
         /// </summary>
         public static string Probabilistics_Mean_Symbol {
             get {
@@ -1042,7 +1042,7 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to σ.
+        ///   Looks up a localized string similar to ?.
         /// </summary>
         public static string Probabilistics_StandardDeviation_Symbol {
             get {

@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="strTill" xml:space="preserve">
-    <value>till</value>
+    <value>tot</value>
   </data>
   <data name="ObjectHelper_ValueOfTypeCantBeCloned" xml:space="preserve">
-    <value>Value of type {0} object can't be cloned, implement ICloneable</value>
+    <value>Waarde van type {0} "object" kan niet gekloond worden. Implementeer "ICloneable"</value>
   </data>
   <data name="ObjectHelper_CouldNotFindFeatureInOriginalContext" xml:space="preserve">
-    <value>Attempting to replace features in feature spatial data, but could not find feature in original context: {0}</value>
+    <value>Geprobeerd te vervangen "features" in "feature spatial data", maar kon "feature" niet vinden in de oorspronkelijke "context": {0}</value>
   </data>
 </root>

@@ -175,7 +175,7 @@
     <value>7</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Color Theme:</value>
+    <value>Kleurenthema:</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -229,7 +229,7 @@
     <value>7</value>
   </data>
   <data name="lblDecimalsOrSignificants.Text" xml:space="preserve">
-    <value>Decimal places:</value>
+    <value>Decimalen:</value>
   </data>
   <data name="lblDecimalsOrSignificants.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
@@ -286,7 +286,7 @@
     <value>1</value>
   </data>
   <data name="radioButtonNumberNotation.Text" xml:space="preserve">
-    <value>Fixed</value>
+    <value>Vast aantal decimalen achter komma</value>
   </data>
   <data name="&gt;&gt;radioButtonNumberNotation.Name" xml:space="preserve">
     <value>radioButtonNumberNotation</value>
@@ -313,7 +313,7 @@
     <value>1</value>
   </data>
   <data name="radioButtonScientificNotation.Text" xml:space="preserve">
-    <value>Scientific</value>
+    <value>Wetenschappelijk</value>
   </data>
   <data name="&gt;&gt;radioButtonScientificNotation.Name" xml:space="preserve">
     <value>radioButtonScientificNotation</value>
@@ -349,10 +349,10 @@
     <value>0</value>
   </data>
   <data name="textBoxRealFormatSample.Text" xml:space="preserve">
-    <value>0.00001
-1.00001
-10.0000
-1000.00</value>
+    <value>0,00001
+1,00001
+10,0000
+1000,00</value>
   </data>
   <data name="&gt;&gt;textBoxRealFormatSample.Name" xml:space="preserve">
     <value>textBoxRealFormatSample</value>
@@ -379,7 +379,7 @@
     <value>9</value>
   </data>
   <data name="groupBox2.Text" xml:space="preserve">
-    <value>Sample</value>
+    <value>Voorbeeld</value>
   </data>
   <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
     <value>groupBox2</value>
@@ -403,7 +403,7 @@
     <value>6</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>Real Number Format</value>
+    <value>Getalnotatie</value>
   </data>
   <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
     <value>groupBox1</value>
@@ -430,7 +430,7 @@
     <value>3</value>
   </data>
   <data name="checkBoxStartPage.Text" xml:space="preserve">
-    <value>Show documentation page after start</value>
+    <value>Toon documentatiepagina na start</value>
   </data>
   <data name="&gt;&gt;checkBoxStartPage.Name" xml:space="preserve">
     <value>checkBoxStartPage</value>
@@ -457,7 +457,7 @@
     <value>0</value>
   </data>
   <data name="groupBoxUserSettings.Text" xml:space="preserve">
-    <value>User Settings</value>
+    <value>Gebruikersinstellingen</value>
   </data>
   <data name="&gt;&gt;groupBoxUserSettings.Name" xml:space="preserve">
     <value>groupBoxUserSettings</value>
@@ -488,5 +488,8 @@
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="checkBoxAutoSaveOnRun.Text" xml:space="preserve">
+    <value>Automatisch project opslaan bij model berekenen</value>
   </data>
 </root>

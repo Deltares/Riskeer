@@ -224,10 +224,6 @@
     <EmbeddedResource Include="ProjectExplorer.resx">
       <DependentUpon>ProjectExplorer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProjectExplorer.ru-RU.resx">
-      <DependentUpon>ProjectExplorer.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="ProjectTreeView.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ProjectTreeView.cs</DependentUpon>

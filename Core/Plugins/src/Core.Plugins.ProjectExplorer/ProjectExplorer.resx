@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -129,7 +129,7 @@
     <value>5</value>
   </data>
   <data name="buttonScrollToItemInActiveView.ToolTipText" xml:space="preserve">
-    <value>Locate active view item in project explorer</value>
+    <value>Zoek scherm behorende bij het actieve item in de projectverkenner</value>
   </data>
   <data name="buttonScrollToItemInActiveView.Size" type="System.Drawing.Size, System.Drawing">
     <value>23, 22</value>
@@ -181,7 +181,7 @@
     <value>None</value>
   </data>
   <data name="buttonScrollToItemInActiveView.Text" xml:space="preserve">
-    <value>Locate</value>
+    <value>Zoek</value>
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>

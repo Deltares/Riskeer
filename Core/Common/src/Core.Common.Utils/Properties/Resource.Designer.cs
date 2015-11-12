@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace Core.Common.Utils.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -58,7 +61,7 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attempting to replace features in feature spatial data, but could not find feature in original context: {0}.
+        ///   Looks up a localized string similar to Geprobeerd te vervangen &quot;features&quot; in &quot;feature spatial data&quot;, maar kon &quot;feature&quot; niet vinden in de oorspronkelijke &quot;context&quot;: {0}.
         /// </summary>
         internal static string ObjectHelper_CouldNotFindFeatureInOriginalContext {
             get {
@@ -67,7 +70,7 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value of type {0} object can&apos;t be cloned, implement ICloneable.
+        ///   Looks up a localized string similar to Waarde van type {0} &quot;object&quot; kan niet gekloond worden. Implementeer &quot;ICloneable&quot;.
         /// </summary>
         internal static string ObjectHelper_ValueOfTypeCantBeCloned {
             get {
@@ -76,7 +79,7 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to till.
+        ///   Looks up a localized string similar to tot.
         /// </summary>
         internal static string strTill {
             get {

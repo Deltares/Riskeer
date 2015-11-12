@@ -122,10 +122,10 @@
     <value>Resources.nl-NL.resx;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="BackGroundMapLayer_UpdateLayers_Background_BackgroundMapName" xml:space="preserve">
-    <value>Background ({0})</value>
+    <value>Achtergrond ({0})</value>
   </data>
   <data name="ExportMapToImageMapTool_OnBeforeContextMenu_Export_map_as_image" xml:space="preserve">
-    <value>Export map as image</value>
+    <value>Exporteer kaart als figuren</value>
   </data>
   <data name="Map" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\map.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
