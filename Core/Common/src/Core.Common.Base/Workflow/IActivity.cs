@@ -1,7 +1,4 @@
 using System;
-using System.Security.Cryptography.X509Certificates;
-using Core.Common.Utils.Collections.Generic;
-using PostSharp.Aspects.Advices;
 
 namespace Core.Common.Base.Workflow
 {
@@ -13,7 +10,7 @@ namespace Core.Common.Base.Workflow
     /// <para>Regular workflow for an activity with an error occurring: [Initialize/Execute/Finish] -> ! Exception / Error ! -> Cleanup.</para> 
     /// <para>Regular workflow for an activity being cancelled: [Initialize/Execute/Finish] -> ! Cancel ! -> Cleanup.</para>
     /// </example>
-    public interface IActivity : IProjectItem /* TODO: wrap it with the ProjectItem instead */
+    public interface IActivity
     {
         string Name { get; set; }
 
@@ -26,11 +23,6 @@ namespace Core.Common.Base.Workflow
         /// Event to be fired on every <see cref="Status"/> change.
         /// </summary>
         event EventHandler<ActivityStatusChangedEventArgs> StatusChanged;
-
-        /// <summary>
-        /// Activity may depend on other activities. Used within <see cref="CompositeActivity"/>.
-        /// </summary>
-        IEventedList<IActivity> DependsOn { get; set; }
 
         /// <summary>
         /// Returns current status of the activity (executing, cancelling, etc.)

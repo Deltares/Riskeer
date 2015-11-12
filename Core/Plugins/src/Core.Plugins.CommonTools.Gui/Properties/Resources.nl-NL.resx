@@ -333,9 +333,6 @@
   <data name="CommonToolsGuiPlugin_GetContextMenu_Use_Restart" xml:space="preserve">
     <value>NL Use Restart</value>
   </data>
-  <data name="CompositeActivityProperties_DisplayName" xml:space="preserve">
-    <value>NL Composite Activity</value>
-  </data>
   <data name="DataItemProperties_DisplayName" xml:space="preserve">
     <value>NL Data item</value>
   </data>

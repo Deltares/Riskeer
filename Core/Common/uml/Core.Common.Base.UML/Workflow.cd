@@ -9,29 +9,8 @@
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Core.Common.Base.Workflow.CompositeActivity">
-    <Position X="9.25" Y="4" Width="1.75" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier />
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Core.Common.Base.Workflow.ParallelActivity">
-    <Position X="8.5" Y="6.75" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
-  <Class Name="Core.Common.Base.Workflow.SequentialActivity">
-    <Position X="10.5" Y="6.75" Width="1.75" />
-    <TypeIdentifier />
-  </Class>
   <Interface Name="Core.Common.Base.Workflow.IActivity">
     <Position X="2.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier />
-  </Interface>
-  <Interface Name="Core.Common.Base.Workflow.ICompositeActivity">
-    <Position X="1.25" Y="4.5" Width="1.75" />
     <TypeIdentifier />
   </Interface>
   <Enum Name="Core.Common.Base.Workflow.ActivityStatus">

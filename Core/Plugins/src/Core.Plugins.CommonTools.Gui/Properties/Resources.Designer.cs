@@ -879,15 +879,6 @@ namespace Core.Plugins.CommonTools.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Composite Activity.
-        /// </summary>
-        public static string CompositeActivityProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("CompositeActivityProperties_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Control {
