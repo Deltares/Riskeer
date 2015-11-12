@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Gui.Properties;
 using Core.Common.Utils.Reflection;
@@ -209,7 +208,7 @@ namespace Core.Common.Gui.Forms.ViewManager
 
             // filter on inheritance
             var dataTypes = viewInfos.Select(i => i.DataType).ToList();
-            return viewInfos.Where(i => i.DataType == typeof(IProjectItem) || !dataTypes.Any(t => t != i.DataType && t.Implements(i.DataType)));
+            return viewInfos.Where(i => !dataTypes.Any(t => t != i.DataType && t.Implements(i.DataType)));
         }
 
         private static IEnumerable<ViewInfo> FilterCompositeViewsForChildViews(IList<ViewInfo> viewInfoList)

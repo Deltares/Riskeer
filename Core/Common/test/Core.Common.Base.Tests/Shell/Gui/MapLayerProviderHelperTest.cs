@@ -19,36 +19,36 @@ namespace Core.Common.Base.Tests.Shell.Gui
             var mocks = new MockRepository();
 
             var layerProvider = mocks.StrictMock<IMapLayerProvider>();
-            var projectItemGroupLayer = mocks.Stub<GroupLayer>();
-            var projectItemLayer = mocks.Stub<ILayer>();
-            var projectItem = mocks.StrictMock<IProjectItem>();
-            var projectItemName = "Project item";
+            var dummyItemGroupLayer = mocks.Stub<GroupLayer>();
+            var dummyItemLayer = mocks.Stub<ILayer>();
+            var dummyItem = mocks.StrictMock<IDummyItem>();
+            var dummyItemName = "Dummy item";
 
-            projectItemGroupLayer.Layers = new EventedList<ILayer>();
+            dummyItemGroupLayer.Layers = new EventedList<ILayer>();
 
-            layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItem, null)).Return(true);
-            layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItemName, projectItem)).Return(true);
-            layerProvider.Expect(lp => lp.CreateLayer(projectItem, null)).Return(projectItemGroupLayer);
-            layerProvider.Expect(lp => lp.CreateLayer(projectItemName, projectItem)).Return(projectItemLayer);
-            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            layerProvider.Expect(lp => lp.CanCreateLayerFor(dummyItem, null)).Return(true);
+            layerProvider.Expect(lp => lp.CanCreateLayerFor(dummyItemName, dummyItem)).Return(true);
+            layerProvider.Expect(lp => lp.CreateLayer(dummyItem, null)).Return(dummyItemGroupLayer);
+            layerProvider.Expect(lp => lp.CreateLayer(dummyItemName, dummyItem)).Return(dummyItemLayer);
+            layerProvider.Expect(lp => lp.ChildLayerObjects(dummyItem)).Return(new[]
             {
-                projectItemName
+                dummyItemName
             });
 
             mocks.ReplayAll();
 
             var layerDataDictionary = new Dictionary<ILayer, object>();
 
-            var layer = MapLayerProviderHelper.CreateLayersRecursive(projectItem, null, new[]
+            var layer = MapLayerProviderHelper.CreateLayersRecursive(dummyItem, null, new[]
             {
                 layerProvider
             }, layerDataDictionary);
 
-            Assert.AreEqual(layer, projectItemGroupLayer);
-            Assert.AreEqual(1, projectItemGroupLayer.Layers.Count);
-            Assert.AreEqual(projectItemLayer, projectItemGroupLayer.Layers[0]);
+            Assert.AreEqual(layer, dummyItemGroupLayer);
+            Assert.AreEqual(1, dummyItemGroupLayer.Layers.Count);
+            Assert.AreEqual(dummyItemLayer, dummyItemGroupLayer.Layers[0]);
 
-            Assert.AreEqual(projectItemName, layerDataDictionary[projectItemLayer]);
+            Assert.AreEqual(dummyItemName, layerDataDictionary[dummyItemLayer]);
 
             mocks.VerifyAll();
         }
@@ -61,26 +61,26 @@ namespace Core.Common.Base.Tests.Shell.Gui
             var firstChanceProvider = mocks.StrictMock<IMapLayerProvider>();
             var otherProvider = mocks.StrictMock<IMapLayerProvider>();
 
-            var projectItem = mocks.StrictMock<IProjectItem>();
-            var projectItemName = "Project item";
+            var dummyItem = mocks.StrictMock<IDummyItem>();
+            var dummyItemName = "Dummy item";
 
             var objLayer = new GroupLayer();
             var subLayer = new VectorLayer();
 
-            otherProvider.Expect(lp => lp.CanCreateLayerFor(projectItem, null)).Return(false);
-            firstChanceProvider.Expect(lp => lp.CanCreateLayerFor(projectItem, null)).Return(true);
-            firstChanceProvider.Expect(lp => lp.CreateLayer(projectItem, null)).Return(objLayer);
-            firstChanceProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            otherProvider.Expect(lp => lp.CanCreateLayerFor(dummyItem, null)).Return(false);
+            firstChanceProvider.Expect(lp => lp.CanCreateLayerFor(dummyItem, null)).Return(true);
+            firstChanceProvider.Expect(lp => lp.CreateLayer(dummyItem, null)).Return(objLayer);
+            firstChanceProvider.Expect(lp => lp.ChildLayerObjects(dummyItem)).Return(new[]
             {
-                projectItemName
+                dummyItemName
             });
             // this is the important part; we don't want 'otherProvider' to be called here:
-            firstChanceProvider.Expect(lp => lp.CanCreateLayerFor(projectItemName, projectItem)).Return(true);
-            firstChanceProvider.Expect(lp => lp.CreateLayer(projectItemName, projectItem)).Return(subLayer);
+            firstChanceProvider.Expect(lp => lp.CanCreateLayerFor(dummyItemName, dummyItem)).Return(true);
+            firstChanceProvider.Expect(lp => lp.CreateLayer(dummyItemName, dummyItem)).Return(subLayer);
 
             mocks.ReplayAll();
 
-            MapLayerProviderHelper.CreateLayersRecursive(projectItem, null, new[]
+            MapLayerProviderHelper.CreateLayersRecursive(dummyItem, null, new[]
             {
                 otherProvider,
                 firstChanceProvider
@@ -95,18 +95,18 @@ namespace Core.Common.Base.Tests.Shell.Gui
             var mocks = new MockRepository();
 
             var layerProvider = mocks.StrictMock<IMapLayerProvider>();
-            var projectItemGroupLayer = new GroupLayer();
-            var projectItemLayer = mocks.Stub<ILayer>();
+            var dummyItemGroupLayer = new GroupLayer();
+            var dummyItemLayer = mocks.Stub<ILayer>();
 
-            var projectItem = mocks.StrictMock<IProjectItem>();
-            var projectItemName = "Project item";
+            var dummyItem = mocks.StrictMock<IDummyItem>();
+            var dummyItemName = "Dummy item";
 
-            layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItem, null)).Return(true);
-            layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItemName, projectItem)).Return(true);
-            layerProvider.Expect(lp => lp.CreateLayer(projectItemName, projectItem)).Return(projectItemLayer);
-            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            layerProvider.Expect(lp => lp.CanCreateLayerFor(dummyItem, null)).Return(true);
+            layerProvider.Expect(lp => lp.CanCreateLayerFor(dummyItemName, dummyItem)).Return(true);
+            layerProvider.Expect(lp => lp.CreateLayer(dummyItemName, dummyItem)).Return(dummyItemLayer);
+            layerProvider.Expect(lp => lp.ChildLayerObjects(dummyItem)).Return(new[]
             {
-                projectItemName
+                dummyItemName
             });
 
             mocks.ReplayAll();
@@ -115,20 +115,20 @@ namespace Core.Common.Base.Tests.Shell.Gui
             var layerDataDictionary = new Dictionary<ILayer, object>
             {
                 {
-                    projectItemGroupLayer, projectItem
+                    dummyItemGroupLayer, dummyItem
                 }
             };
 
-            // RefreshLayersRecursive should detect that the layer is out of sync, and add the project item mlayer
-            MapLayerProviderHelper.RefreshLayersRecursive(projectItemGroupLayer, layerDataDictionary, new[]
+            // RefreshLayersRecursive should detect that the layer is out of sync, and add the dummy item mlayer
+            MapLayerProviderHelper.RefreshLayersRecursive(dummyItemGroupLayer, layerDataDictionary, new[]
             {
                 layerProvider
             }, null);
 
-            Assert.AreEqual(1, projectItemGroupLayer.Layers.Count);
-            Assert.AreEqual(projectItemLayer, projectItemGroupLayer.Layers[0]);
+            Assert.AreEqual(1, dummyItemGroupLayer.Layers.Count);
+            Assert.AreEqual(dummyItemLayer, dummyItemGroupLayer.Layers[0]);
 
-            Assert.AreEqual(projectItemName, layerDataDictionary[projectItemLayer]);
+            Assert.AreEqual(dummyItemName, layerDataDictionary[dummyItemLayer]);
 
             mocks.VerifyAll();
         }
@@ -139,32 +139,32 @@ namespace Core.Common.Base.Tests.Shell.Gui
             var mocks = new MockRepository();
 
             var layerProvider = mocks.StrictMock<IMapLayerProvider>();
-            var projectItemGroupLayer = new GroupLayer();
-            var projectItemLayer1 = mocks.Stub<ILayer>();
-            var projectItemLayer2 = mocks.Stub<ILayer>();
+            var dummyItemGroupLayer = new GroupLayer();
+            var dummyItemLayer1 = mocks.Stub<ILayer>();
+            var dummyItemLayer2 = mocks.Stub<ILayer>();
 
-            var projectItem = mocks.StrictMock<IProjectItem>();
-            var projectItemName1 = "Project item 1";
-            var projectItemName2 = "Project item 2";
+            var dummyItem = mocks.StrictMock<IDummyItem>();
+            var dummyItemName1 = "Dummy item 1";
+            var dummyItemName2 = "Dummy item 2";
 
             // first time (create)
-            layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItem, null)).Return(true).Repeat.Twice();
-            layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItemName1, projectItem)).Return(true);
-            layerProvider.Expect(lp => lp.CreateLayer(projectItem, null)).Return(projectItemGroupLayer);
-            layerProvider.Expect(lp => lp.CreateLayer(projectItemName1, projectItem)).Return(projectItemLayer1);
-            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            layerProvider.Expect(lp => lp.CanCreateLayerFor(dummyItem, null)).Return(true).Repeat.Twice();
+            layerProvider.Expect(lp => lp.CanCreateLayerFor(dummyItemName1, dummyItem)).Return(true);
+            layerProvider.Expect(lp => lp.CreateLayer(dummyItem, null)).Return(dummyItemGroupLayer);
+            layerProvider.Expect(lp => lp.CreateLayer(dummyItemName1, dummyItem)).Return(dummyItemLayer1);
+            layerProvider.Expect(lp => lp.ChildLayerObjects(dummyItem)).Return(new[]
             {
-                projectItemName1
+                dummyItemName1
             });
 
             // second time (refresh)
-            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            layerProvider.Expect(lp => lp.ChildLayerObjects(dummyItem)).Return(new[]
             {
-                projectItemName1,
-                projectItemName2
+                dummyItemName1,
+                dummyItemName2
             });
-            layerProvider.Expect(lp => lp.CanCreateLayerFor(projectItemName2, projectItem)).Return(true);
-            layerProvider.Expect(lp => lp.CreateLayer(projectItemName2, projectItem)).Return(projectItemLayer2);
+            layerProvider.Expect(lp => lp.CanCreateLayerFor(dummyItemName2, dummyItem)).Return(true);
+            layerProvider.Expect(lp => lp.CreateLayer(dummyItemName2, dummyItem)).Return(dummyItemLayer2);
 
             mocks.ReplayAll();
 
@@ -175,10 +175,10 @@ namespace Core.Common.Base.Tests.Shell.Gui
             };
 
             // create
-            MapLayerProviderHelper.CreateLayersRecursive(projectItem, null, mapLayerProviders, layerDataDictionary);
+            MapLayerProviderHelper.CreateLayersRecursive(dummyItem, null, mapLayerProviders, layerDataDictionary);
 
             var layerAdded = 0;
-            projectItemGroupLayer.Layers.CollectionChanged += (s, e) =>
+            dummyItemGroupLayer.Layers.CollectionChanged += (s, e) =>
             {
                 if (e.Action == NotifyCollectionChangeAction.Remove)
                 {
@@ -190,13 +190,13 @@ namespace Core.Common.Base.Tests.Shell.Gui
                 }
             };
 
-            // refresh (but it should not remove layer for project item 1)
-            MapLayerProviderHelper.RefreshLayersRecursive(projectItemGroupLayer, layerDataDictionary, mapLayerProviders, null);
+            // refresh (but it should not remove layer for dummy item 1)
+            MapLayerProviderHelper.RefreshLayersRecursive(dummyItemGroupLayer, layerDataDictionary, mapLayerProviders, null);
 
             Assert.AreEqual(1, layerAdded);
-            Assert.AreEqual(2, projectItemGroupLayer.Layers.Count);
+            Assert.AreEqual(2, dummyItemGroupLayer.Layers.Count);
 
-            Assert.AreEqual(projectItemName1, layerDataDictionary[projectItemLayer1]);
+            Assert.AreEqual(dummyItemName1, layerDataDictionary[dummyItemLayer1]);
 
             mocks.VerifyAll();
         }
@@ -213,9 +213,9 @@ namespace Core.Common.Base.Tests.Shell.Gui
             var oldModelItemLayer = new VectorLayer();
             var newModelItemLayer = mocks.Stub<ILayer>();
 
-            var projectItem = mocks.StrictMock<IProjectItem>();
-            var projectItemNameOld = "Project item old";
-            var projectItemNameNew = "Project item new";
+            var dummyItem = mocks.StrictMock<IDummyItem>();
+            var dummyItemNameOld = "Dummy item old";
+            var dummyItemNameNew = "Dummy item new";
 
             // verify the datasource is disposed (this happens through Layer.Dispose right now):
             oldDataSource.Expect(fp => fp.Dispose());
@@ -226,16 +226,16 @@ namespace Core.Common.Base.Tests.Shell.Gui
             oldDataSource.Expect(fp => fp.CoordinateSystemChanged -= null).IgnoreArguments().Repeat.Twice();
 
             // make sure the layerprovider does the right stuff:
-            layerProvider.Expect(lp => lp.CanCreateLayerFor(null, projectItem)).IgnoreArguments().Repeat.Any().Return(true);
-            layerProvider.Expect(lp => lp.CreateLayer(projectItemNameOld, projectItem)).Return(oldModelItemLayer);
-            layerProvider.Expect(lp => lp.CreateLayer(projectItemNameNew, projectItem)).Return(newModelItemLayer);
-            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            layerProvider.Expect(lp => lp.CanCreateLayerFor(null, dummyItem)).IgnoreArguments().Repeat.Any().Return(true);
+            layerProvider.Expect(lp => lp.CreateLayer(dummyItemNameOld, dummyItem)).Return(oldModelItemLayer);
+            layerProvider.Expect(lp => lp.CreateLayer(dummyItemNameNew, dummyItem)).Return(newModelItemLayer);
+            layerProvider.Expect(lp => lp.ChildLayerObjects(dummyItem)).Return(new[]
             {
-                projectItemNameOld
+                dummyItemNameOld
             });
-            layerProvider.Expect(lp => lp.ChildLayerObjects(projectItem)).Return(new[]
+            layerProvider.Expect(lp => lp.ChildLayerObjects(dummyItem)).Return(new[]
             {
-                projectItemNameNew
+                dummyItemNameNew
             });
 
             mocks.ReplayAll();
@@ -246,7 +246,7 @@ namespace Core.Common.Base.Tests.Shell.Gui
             var layerDataDictionary = new Dictionary<ILayer, object>
             {
                 {
-                    modelLayer, projectItem
+                    modelLayer, dummyItem
                 }
             };
 
@@ -267,5 +267,7 @@ namespace Core.Common.Base.Tests.Shell.Gui
 
             mocks.VerifyAll();
         }
+
+        public interface IDummyItem {}
     }
 }
