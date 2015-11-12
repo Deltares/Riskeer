@@ -118,96 +118,99 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="RunningActivityLogAppender_SendLogToActivity_Run_report" xml:space="preserve">
-    <value>Run report</value>
+    <value>Berekeningsrapportage</value>
   </data>
   <data name="InMemoryProjectRepository_Open_Can_t_read_project_from_path__project_can_be_only_created_in_memory_using_this_project_repository" xml:space="preserve">
-    <value>Can't read project from path, project can be only created in memory using this project repository</value>
+    <value>Kan project niet lezen in folder, project kan alleen in geheugen gemaakt worden met behulp van "project repository"</value>
   </data>
   <data name="RingtoetsApplication_Run_You_can_call_Run___only_once_per_application" xml:space="preserve">
-    <value>You can call Run() only once per application</value>
+    <value>U kunt  slechts eenmaal Run() uitvoeren per applicatie</value>
   </data>
   <data name="RingtoetsApplication_Run_starting" xml:space="preserve">
-    <value>Starting Ringtoets ...</value>
+    <value>Ringtoets wordt gestart...</value>
   </data>
   <data name="RingtoetsApplication_Run_Application_is_already_running" xml:space="preserve">
-    <value>Application is already running</value>
+    <value>Toepassing is al actief</value>
   </data>
   <data name="RingtoetsApplication_Run_Creating_new_project____" xml:space="preserve">
-    <value>Creating new project ...</value>
+    <value>Nieuw project aanmaken...</value>
   </data>
   <data name="RingtoetsApplication_Run_Activating_plugins____" xml:space="preserve">
-    <value>Activating plugins ...</value>
+    <value>Activeer plugins...</value>
   </data>
   <data name="RingtoetsApplication_Run_Waiting_until_all_plugins_are_activated____" xml:space="preserve">
-    <value>Waiting until all plugins are activated ...</value>
+    <value>Wachten tot alle plugins zijn geactiveerd...</value>
   </data>
   <data name="RingtoetsApplication_Run_Ringtoets_is_ready__started_in__0_F3__sec_" xml:space="preserve">
-    <value>Ringtoets is ready, started in {0:F3} sec.</value>
+    <value>Ringtoets is klaar, opstarttijd van {0:F3} seconde</value>
   </data>
   <data name="RingtoetsApplication_CreateNewProject_Run___must_be_called_first_before_project_can_be_opened" xml:space="preserve">
-    <value>Run() must be called first before project can be opened</value>
+    <value>"Run()" moet eerst worden aangeroepen voordat het project kan worden geopend</value>
   </data>
   <data name="RingtoetsApplication_LogSystemInfo_Environmental_variables_" xml:space="preserve">
-    <value>Environmental variables:</value>
+    <value>"Environmental"-variables:</value>
   </data>
   <data name="RingtoetsApplication_ActivatePlugins_All_plugins_were_activated_" xml:space="preserve">
-    <value>All plugins were activated.</value>
+    <value>Alle plugins waren geactiveerd.</value>
   </data>
   <data name="RingtoetsApplication_InitializeLicense_Initializing_license____" xml:space="preserve">
-    <value>Initializing license ...</value>
+    <value>Licentie initialiseren...</value>
   </data>
   <data name="RingtoetsApplication_InitializeLicense_License_file_does_not_exist___0_" xml:space="preserve">
-    <value>License file does not exist: {0}</value>
+    <value>Licentiebestand bestaat niet: {0}</value>
   </data>
   <data name="RingtoetsApplication_InitializeLicense_License_is_initialized_" xml:space="preserve">
-    <value>License is initialized.</value>
+    <value>Licentie wordt geïnitialiseerd.</value>
   </data>
   <data name="RingtoetsApplication_RegisterDataTypes_Registering_persistent_data_types____" xml:space="preserve">
-    <value>Registering persistent data types ...</value>
+    <value>Registreren van "persistent data types"...</value>
   </data>
   <data name="RingtoetsApplication_RegisterDataTypes_Registering_data_type__0_" xml:space="preserve">
-    <value>Registering data type {0}</value>
+    <value>Registreren gegevenstype {0}</value>
   </data>
   <data name="RingtoetsApplication_RegisterImporters_Registering_importers____" xml:space="preserve">
-    <value>Registering importers ...</value>
+    <value>Registreren "importers"...</value>
   </data>
   <data name="RingtoetsApplication_RegisterImporters_Registering_importer__0_" xml:space="preserve">
-    <value>Registering importer {0}</value>
+    <value>Registreren "importer" {0}</value>
   </data>
   <data name="RingtoetsApplication_RegisterExporters_Registering_exporters____" xml:space="preserve">
-    <value>Registering exporters ...</value>
+    <value>Registratie van de "exporters"...</value>
   </data>
   <data name="RingtoetsApplication_RegisterExporters_Registering_exporter__0_" xml:space="preserve">
-    <value>Registering exporter {0}</value>
+    <value>Registreren "exporter" {0}</value>
   </data>
   <data name="RingtoetsApplication_RegisterPersistentAssemblies_Registering_assemblies_containing_persistent_data_types____" xml:space="preserve">
-    <value>Registering assemblies containing persistent data types ...</value>
+    <value>Registreren van "assemblies" met "persistent data types"...</value>
   </data>
   <data name="ProjectService_CreateNewProjectInTemporaryFolder_Creating_new_empty_project_in_temporary_folder____" xml:space="preserve">
-    <value>Creating new empty project in temporary folder ...</value>
+    <value>Creëren van een nieuw leeg project in een tijdelijke folder...</value>
   </data>
   <data name="ProjectService_CreateNewProjectInTemporaryFolder_New_empty_project_created" xml:space="preserve">
-    <value>New empty project created</value>
+    <value>Nieuw leeg project is aangemaakt</value>
   </data>
   <data name="ProjectService_Open_Loading_project__0_____" xml:space="preserve">
-    <value>Loading project {0} ...</value>
+    <value>Project {0} aan het laden...</value>
   </data>
   <data name="ProjectService_Open_Stopped_loading_project__0_" xml:space="preserve">
-    <value>Stopped loading project {0}</value>
+    <value>Laden van het project {0} is gestopped</value>
   </data>
   <data name="ProjectService_SaveProjectAs_Error_during_delete_of_old_project_file_and_directory__skipping____" xml:space="preserve">
-    <value>Error during delete of old project file and directory, skipping ...</value>
+    <value>Fout tijdens het verwijderen van oude projectbestanden en folders, dit wordt nu overgeslagen...</value>
   </data>
   <data name="ProjectService_CreateWorkingDirectories_Parameter_projectDataDirectory_should_be_absolute_path" xml:space="preserve">
-    <value>Parameter projectDataDirectory should be absolute path</value>
+    <value>Parameter "projectDataDirectory" moet een "absolute path" zijn</value>
   </data>
   <data name="ProjectService_FireProjectSaving_Saving_project__0__as__1_" xml:space="preserve">
-    <value>Saving project {0} as {1}</value>
+    <value>Opslaan van het project {0} als {1}</value>
   </data>
   <data name="ProjectService_FireProjectSaved_Project__0__saved" xml:space="preserve">
-    <value>Project {0} saved</value>
+    <value>Project {0} is opgeslagen</value>
   </data>
   <data name="ProjectService_Export_Unable_to_export_to_file__0___You_cannot_export_to_the_current_project_" xml:space="preserve">
-    <value>Unable to export to file {0}. You cannot export to the current project.</value>
+    <value>Kan niet exporteren naar bestand {0}. U kunt niet naar huit huidige project exporteren.</value>
+  </data>
+  <data name="ProjectService_ExportProjectItemTo_Unable_to_export_file__0___An_error_has_occurred_during_clone_with_the_following_message___1_" xml:space="preserve">
+    <value>Niet in staat om bestand {0} te exporteren. Er is een fout opgetreden tijdens de kloon met het volgende bericht: {1}</value>
   </data>
 </root>

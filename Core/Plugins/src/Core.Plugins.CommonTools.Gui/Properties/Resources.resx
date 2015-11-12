@@ -134,43 +134,43 @@
     <value>..\resources\textdocument.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Categories_General" xml:space="preserve">
-    <value>General</value>
+    <value>Algemeen</value>
   </data>
   <data name="Common_Name_DisplayName" xml:space="preserve">
-    <value>Name</value>
+    <value>Naam</value>
   </data>
   <data name="Common_Name_Description" xml:space="preserve">
-    <value>Given name of this item.</value>
+    <value>Naam van dit item.</value>
   </data>
   <data name="FileBasedRestartStateProperties_DisplayName" xml:space="preserve">
     <value>Restart state</value>
   </data>
   <data name="FileBasedRestartStateProperties_Name_Description" xml:space="preserve">
-    <value>Name of the restart state.</value>
+    <value>Naam van de restart state.</value>
   </data>
   <data name="FileBasedRestartStateProperties_Description_DisplayName" xml:space="preserve">
-    <value>Description</value>
+    <value>Omschrijving</value>
   </data>
   <data name="FileBasedRestartStateProperties_Description_Description" xml:space="preserve">
-    <value>The description text for this restart state.</value>
+    <value>De beschrijvende tekst voor deze restart state.</value>
   </data>
   <data name="FileBasedRestartStateProperties_SimulationTime_DisplayName" xml:space="preserve">
-    <value>Simulation time</value>
+    <value>Simulatietijd</value>
   </data>
   <data name="FileBasedRestartStateProperties_SimulationTime_Description" xml:space="preserve">
-    <value>The simulation date and time for which this restart state was created.</value>
+    <value>De simulatie datum en tijd waarvoor deze herstart staat is gemaakt.</value>
   </data>
   <data name="FileBasedRestartStateProperties_CreationTime_DisplayName" xml:space="preserve">
-    <value>Creation time</value>
+    <value>Aanmaaktijd</value>
   </data>
   <data name="FileBasedRestartStateProperties_CreationTime_Description" xml:space="preserve">
-    <value>The real-world date and time at the time this restart state was created.</value>
+    <value>De werkelijke datum en tijd op het moment van aanmaken van deze herstart staat.</value>
   </data>
   <data name="FileBasedRestartStateProperties_Empty_DisplayName" xml:space="preserve">
-    <value>Is empty</value>
+    <value>Leeg</value>
   </data>
   <data name="FileBasedRestartStateProperties_Empty_Description" xml:space="preserve">
-    <value>Indicates if this restart state is empty or not.</value>
+    <value>Geeft aan of deze restart state leeg is of niet.</value>
   </data>
   <data name="TreeNodeModelDataWrapperProperties_DisplayName" xml:space="preserve">
     <value>Item set</value>
@@ -179,25 +179,25 @@
     <value>URL</value>
   </data>
   <data name="UrlProperties_Name_Description" xml:space="preserve">
-    <value>Name of the website or data where the URL refers to.</value>
+    <value>Naam van de website of waar de URL naar verwijst gegevens.</value>
   </data>
   <data name="UrlProperties_Path_DisplayName" xml:space="preserve">
-    <value>Path</value>
+    <value>Pad</value>
   </data>
   <data name="UrlProperties_Path_Description" xml:space="preserve">
-    <value>Location to where the URL points to.</value>
+    <value>Locatie waarnaar de URL naar verwijst.</value>
   </data>
   <data name="TextDocumentProperties_DisplayName" xml:space="preserve">
-    <value>Text document</value>
+    <value>Tekstdocument</value>
   </data>
   <data name="TextDocumentProperties_Name_Description" xml:space="preserve">
-    <value>Name of the text document.</value>
+    <value>Naam van het tekstdocument.</value>
   </data>
   <data name="TextDocumentProperties_ReadOnly_DisplayName" xml:space="preserve">
-    <value>Read only</value>
+    <value>Alleen-lezen</value>
   </data>
   <data name="TextDocumentProperties_ReadOnly_Description" xml:space="preserve">
-    <value>Indicates if the file can only be read (true), or that it can modified as well (false).</value>
+    <value>Geeft aan of het bestand alleen kan worden gelezen (true) of dat het ook kan worden gewijzigd (false).</value>
   </data>
   <data name="ProjectProperties_DisplayName" xml:space="preserve">
     <value>Project</value>
@@ -206,349 +206,349 @@
     <value>Project</value>
   </data>
   <data name="ProjectProperties_Name_Description" xml:space="preserve">
-    <value>Name of the project shown to the user.</value>
+    <value>Naam van het getoonde project.</value>
   </data>
   <data name="ProjectProperties_Description_Description" xml:space="preserve">
-    <value>Short description of the project.</value>
+    <value>Korte beschrijving van het project.</value>
   </data>
   <data name="ProjectProperties_Description_DisplayName" xml:space="preserve">
-    <value>Description</value>
+    <value>Omschrijving</value>
   </data>
   <data name="ProjectProperties_TaskCount_Description" xml:space="preserve">
-    <value>Number of tasks in the project.</value>
+    <value>Het aantal taken in het project.</value>
   </data>
   <data name="ProjectProperties_TaskCount_DisplayName" xml:space="preserve">
-    <value>Task count</value>
+    <value>Aantal taken</value>
   </data>
   <data name="ProjectProperties_CreateTime_Description" xml:space="preserve">
-    <value>Date and time when this project was created.</value>
+    <value>Datum en tijd waarop dit project is gemaakt.</value>
   </data>
   <data name="ProjectProperties_CreateTime_DisplayName" xml:space="preserve">
-    <value>Created</value>
+    <value>Gemaakt op</value>
   </data>
   <data name="ProjectProperties_ChangeTime_Description" xml:space="preserve">
-    <value>Date and time when the project was changed.</value>
+    <value>Datum en tijd wanneer het project is gewijzigd.</value>
   </data>
   <data name="ProjectProperties_ChangeTime_DisplayName" xml:space="preserve">
-    <value>Changed</value>
+    <value>Gewijzigd op</value>
   </data>
   <data name="ProjectProperties_Size_Description" xml:space="preserve">
-    <value>Size of all the project data, in kilobytes.</value>
+    <value>Grootte van alle projectgegevens, in kilobytes.</value>
   </data>
   <data name="ProjectProperties_Size_DisplayName" xml:space="preserve">
-    <value>Size</value>
+    <value>Grootte</value>
   </data>
   <data name="FolderProperties_DisplayName" xml:space="preserve">
     <value>Folder</value>
   </data>
   <data name="FolderProperties_Name_Description" xml:space="preserve">
-    <value>Name of the folder shown to the user.</value>
+    <value>Naam van de getoonde map.</value>
   </data>
   <data name="DataItemSetProperties_DisplayName" xml:space="preserve">
     <value>Data item set</value>
   </data>
   <data name="DataItemSetProperties_Name_Description" xml:space="preserve">
-    <value>Name of the data item set shown to the user.</value>
+    <value>Naam van het getoonde data item set.</value>
   </data>
   <data name="DataItemProperties_DisplayName" xml:space="preserve">
     <value>Data item</value>
   </data>
   <data name="DataItemProperties_Name_Description" xml:space="preserve">
-    <value>Name of the data item shown to the user.</value>
+    <value>Naam van het getoond item.</value>
   </data>
   <data name="IndependentVariableProperties_DisplayName" xml:space="preserve">
-    <value>Independent variable</value>
+    <value>Onafhankelijke variabele</value>
   </data>
   <data name="VariableProperties_Name_Description" xml:space="preserve">
-    <value>Name of the variable shown to the user.</value>
+    <value>Naam van de getoonde variabele.</value>
   </data>
   <data name="VariableProperties_ValueType_DisplayName" xml:space="preserve">
     <value>Value type</value>
   </data>
   <data name="VariableProperties_ValueType_Description" xml:space="preserve">
-    <value>The value type of the variable.</value>
+    <value>Het value type van de variabele.</value>
   </data>
   <data name="VariableProperties_Unit_DisplayName" xml:space="preserve">
-    <value>Unit</value>
+    <value>Eenheid</value>
   </data>
   <data name="IndependentVariableProperties_Unit_Description" xml:space="preserve">
-    <value>The unit in which the variable values are expressed.</value>
+    <value>De eenheid waarin de variabele waarden worden uitgedrukt.</value>
   </data>
   <data name="VariableProperties_DefaultValue_DisplayName" xml:space="preserve">
-    <value>Default value</value>
+    <value>Standaardwaarde</value>
   </data>
   <data name="VariableProperties_DefaultValue_Description" xml:space="preserve">
-    <value>Variable value in case no data is specified for this variable.</value>
+    <value>Waarde van de variabele in geval er geen gegevens voor deze variabele zijn opgegeven.</value>
   </data>
   <data name="IndependentVariableProperties_ValueCount_DisplayName" xml:space="preserve">
-    <value>Value count</value>
+    <value>Aantal values</value>
   </data>
   <data name="IndependentVariableProperties_VariableCount_Description" xml:space="preserve">
-    <value>Number of defined values in this variable.</value>
+    <value>Het aantal gedefinieerde waarden in deze variabele.</value>
   </data>
   <data name="IndependentVariableProperties_Interpolation_DisplayName" xml:space="preserve">
-    <value>Interpolation</value>
+    <value>Interpolatie</value>
   </data>
   <data name="IndependentVariableProperties_Interpolation_Description" xml:space="preserve">
-    <value>The interpolation scheme used along this variable.</value>
+    <value>Het interpolatieschema dat wordt gebruikt langs deze variabele.</value>
   </data>
   <data name="IndependentVariableProperties_Extrapolation_DisplayName" xml:space="preserve">
-    <value>Extrapolation</value>
+    <value>Extrapolatie</value>
   </data>
   <data name="IndependentVariableProperties_Extrapolation_Description" xml:space="preserve">
-    <value>The extrapolation scheme used along this variable.</value>
+    <value>Het extrapolatieschema dat wordt gebruikt langs deze variabele.</value>
   </data>
   <data name="DependentVariableProperties_NoDataValue_DisplayName" xml:space="preserve">
-    <value>'No data'-value</value>
+    <value>Geen gegevens'-waarde</value>
   </data>
   <data name="DependentVariableProperties_NoDataValue_Description" xml:space="preserve">
-    <value>Value that represents the absence of data.</value>
+    <value>Waarde die het ontbreken van gegevens weergeeft.</value>
   </data>
   <data name="DependentVariableProperties_DependsOn_DisplayName" xml:space="preserve">
-    <value>Depends on</value>
+    <value>Afhankelijk van</value>
   </data>
   <data name="DependentVariableProperties_DependsOn_Description" xml:space="preserve">
-    <value>This variable depends on these variables.</value>
+    <value>Deze variabele is afhankelijk van deze variabelen.</value>
   </data>
   <data name="DependentVariableProperties_DisplayName" xml:space="preserve">
-    <value>Dependent variable</value>
+    <value>Afhankelijke variabele</value>
   </data>
   <data name="ParameterProperties_DisplayName" xml:space="preserve">
     <value>Parameter</value>
   </data>
   <data name="ParameterProperties_Name_Description" xml:space="preserve">
-    <value>Name of the parameter shown to the user.</value>
+    <value>Naam van de getoonde parameter.</value>
   </data>
   <data name="ParameterProperties_ValueType_Description" xml:space="preserve">
-    <value>The value type of the parameter.</value>
+    <value>Het value type van de parameter.</value>
   </data>
   <data name="ParameterProperties_Unit_Description" xml:space="preserve">
-    <value>The unit in which the parameter values is expressed.</value>
+    <value>De eenheid waarin de parameterwaarden wordt uitgedrukt.</value>
   </data>
   <data name="ParameterProperties_Value_DisplayName" xml:space="preserve">
-    <value>Value</value>
+    <value>Waarde</value>
   </data>
   <data name="ParameterProperties_Value_Description" xml:space="preserve">
-    <value>The value of this parameter.</value>
+    <value>De waarde van deze parameter.</value>
   </data>
   <data name="TimeSeriesProperties_DisplayName" xml:space="preserve">
-    <value>Time series</value>
+    <value>Tijdreeksen</value>
   </data>
   <data name="TimeSeriesProperties_Extrapolation_Description" xml:space="preserve">
-    <value>The extrapolation scheme used along the time axis.</value>
+    <value>Het extrapolatieschema dat wordt gebruikt langs de tijdas.</value>
   </data>
   <data name="TimeSeriesProperties_Interpolation_Description" xml:space="preserve">
-    <value>The interpolation scheme used along the time axis.</value>
+    <value>Het interpolatieschema dat wordt gebruikt langs de tijdas.</value>
   </data>
   <data name="TimeSeriesProperties_Name_Description" xml:space="preserve">
-    <value>Name of the time series shown to the user.</value>
+    <value>Naam van de getoonde tijdreeks.</value>
   </data>
   <data name="TreeFolderProperties_DisplayName" xml:space="preserve">
     <value>Folder</value>
   </data>
   <data name="TreeFolderProperties_Name_Description" xml:space="preserve">
-    <value>Name of the folder shown to the user.</value>
+    <value>Naam van de map getoond aan de gebruiker.</value>
   </data>
   <data name="Area" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Area.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AreaChartSeriesProperties_DisplayName" xml:space="preserve">
-    <value>Area series settings</value>
+    <value>Vlak serie instellingen</value>
   </data>
   <data name="AreaChartSeriesProperties_Interpolation_Description" xml:space="preserve">
-    <value>Interpolation scheme of the series.</value>
+    <value>Interpolatieschema van de serie.</value>
   </data>
   <data name="AreaChartSeriesProperties_Interpolation_DisplayName" xml:space="preserve">
-    <value>Interpolation</value>
+    <value>Interpolatie</value>
   </data>
   <data name="Bars" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bars.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BarSeriesProperties_Color_Description" xml:space="preserve">
-    <value>Color of the bars in the series.</value>
+    <value>Kleur van de balken in de serie.</value>
   </data>
   <data name="BarSeriesProperties_Color_DisplayName" xml:space="preserve">
-    <value>Color</value>
+    <value>Kleur</value>
   </data>
   <data name="BarSeriesProperties_DashStyle_Description" xml:space="preserve">
-    <value>Dash style of the line along the circumference of the series.</value>
+    <value>Lijnstijl van de lijn langs de omtrek van de serie.</value>
   </data>
   <data name="BarSeriesProperties_DashStyle_DisplayName" xml:space="preserve">
-    <value>Dash style</value>
+    <value>Dash stijl</value>
   </data>
   <data name="BarSeriesProperties_DisplayName" xml:space="preserve">
-    <value>Bar series settings</value>
+    <value>Bar series instellingen</value>
   </data>
   <data name="BarSeriesProperties_LineVisible_Description" xml:space="preserve">
-    <value>Visibility of the line along the circumference of the series.</value>
+    <value>Zichtbaarheid van de lijn langs de omtrek van de serie.</value>
   </data>
   <data name="BarSeriesProperties_OutlineColor_Description" xml:space="preserve">
-    <value>Color of the line along the circumference of the series.</value>
+    <value>Kleur van de lijn langs de omtrek van de serie.</value>
   </data>
   <data name="BarSeriesProperties_OutlineColor_DisplayName" xml:space="preserve">
-    <value>Outline color</value>
+    <value>Kleur van de omtrek</value>
   </data>
   <data name="BarSeriesProperties_Width_Description" xml:space="preserve">
-    <value>Width of the line along the circumference of the series.</value>
+    <value>Breedte van de lijn langs de omtrek van de serie.</value>
   </data>
   <data name="BarSeriesProperties_Width_DisplayName" xml:space="preserve">
-    <value>Width</value>
+    <value>Breedte</value>
   </data>
   <data name="Calculator" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calculator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Categories_General1" xml:space="preserve">
-    <value>General</value>
+    <value>Algemeen</value>
   </data>
   <data name="Chart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\chart_curve.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ChartAxisProperties_Automatic_Description" xml:space="preserve">
-    <value>Automatically detect the minimum and maximum values of the series and use those as limits for the axis.</value>
+    <value>Detecteer automatisch de minimale en maximale waarden van de serie en gebruik deze als as limieten.</value>
   </data>
   <data name="ChartAxisProperties_Automatic_DisplayName" xml:space="preserve">
-    <value>Automatic range</value>
+    <value>Automatische range</value>
   </data>
   <data name="ChartAxisProperties_DisplayName" xml:space="preserve">
-    <value>Axis settings</value>
+    <value>As instellingen</value>
   </data>
   <data name="ChartAxisProperties_LabelFont_Description" xml:space="preserve">
-    <value>The font of the labels on the axis.</value>
+    <value>Het lettertype van de labels op de as.</value>
   </data>
   <data name="ChartAxisProperties_LabelFont_DisplayName" xml:space="preserve">
-    <value>Label font</value>
+    <value>Lettertype voor label</value>
   </data>
   <data name="ChartAxisProperties_Labels_Description" xml:space="preserve">
-    <value>Determines whether or not to show the labels of this axis.</value>
+    <value>Bepaal of de as-labels worden getoond.</value>
   </data>
   <data name="ChartAxisProperties_Labels_DisplayName" xml:space="preserve">
-    <value>Show labels</value>
+    <value>Labels weergeven</value>
   </data>
   <data name="ChartAxisProperties_Logarithmic_Description" xml:space="preserve">
-    <value>Determines whether or not the axis uses a logarithmic scale (true) or a linear scale (false).</value>
+    <value>Hiermee bepaalt u of de as een logaritmische schaal (true) of een lineaire schaal (false) gebruikt.</value>
   </data>
   <data name="ChartAxisProperties_Logarithmic_DisplayName" xml:space="preserve">
-    <value>Logarithmic</value>
+    <value>Logaritmisch</value>
   </data>
   <data name="ChartAxisProperties_Maximum_Description" xml:space="preserve">
-    <value>Maximum value for this axis.</value>
+    <value>Maximale waarde voor deze as.</value>
   </data>
   <data name="ChartAxisProperties_Maximum_DisplayName" xml:space="preserve">
-    <value>Maximum</value>
+    <value>Maximaal</value>
   </data>
   <data name="ChartAxisProperties_Minimum_Description" xml:space="preserve">
-    <value>Minimum value for this axis.</value>
+    <value>Minimumwaarde voor deze as.</value>
   </data>
   <data name="ChartAxisProperties_Minimum_DisplayName" xml:space="preserve">
     <value>Minimum</value>
   </data>
   <data name="ChartAxisProperties_TitleFont_Description" xml:space="preserve">
-    <value>The font of the title of the axis.</value>
+    <value>Het lettertype van de titel van de as.</value>
   </data>
   <data name="ChartAxisProperties_TitleFont_DisplayName" xml:space="preserve">
-    <value>Title font</value>
+    <value>Titel lettertype</value>
   </data>
   <data name="ChartAxisProperties_Title_Description" xml:space="preserve">
-    <value>The title of these axis.</value>
+    <value>Titel van deze as.</value>
   </data>
   <data name="ChartAxisProperties_Title_DisplayName" xml:space="preserve">
-    <value>Title</value>
+    <value>Titel</value>
   </data>
   <data name="ChartAxisProperties_Visible_Description" xml:space="preserve">
-    <value>Determines wither or not to show these axis.</value>
+    <value>Hiermee bepaalt u of deze as wordt weergegeven.</value>
   </data>
   <data name="ChartingProperties_Visible_DisplayName" xml:space="preserve">
-    <value>Visible</value>
+    <value>Zichtbaar</value>
   </data>
   <data name="ChartingSeriesProperties_AreaStyle_DisplayName" xml:space="preserve">
-    <value>Area style</value>
+    <value>Vlak stijl</value>
   </data>
   <data name="Charting_Categories_LineStyle" xml:space="preserve">
-    <value>Line style</value>
+    <value>Lijnstijl</value>
   </data>
   <data name="Charting_Categories_PointStyle" xml:space="preserve">
-    <value>Point style</value>
+    <value>Punt stijl</value>
   </data>
   <data name="ChartProperties_BackgroundColor_Description" xml:space="preserve">
-    <value>Color of the chart's background.</value>
+    <value>Kleur van de achtergrond van de grafiek.</value>
   </data>
   <data name="ChartProperties_BackgroundColor_DisplayName" xml:space="preserve">
-    <value>Background color</value>
+    <value>Achtergrondkleur</value>
   </data>
   <data name="ChartProperties_BottomAxis_Description" xml:space="preserve">
-    <value>Bottom axis of this chart.</value>
+    <value>De onderste as van deze grafiek.</value>
   </data>
   <data name="ChartProperties_BottomAxis_DisplayName" xml:space="preserve">
-    <value>Bottom axis</value>
+    <value>Onderas</value>
   </data>
   <data name="ChartProperties_Categories_Axes" xml:space="preserve">
-    <value>Axes</value>
+    <value>Assen</value>
   </data>
   <data name="ChartProperties_Categories_Legend" xml:space="preserve">
-    <value>Legend</value>
+    <value>Legenda</value>
   </data>
   <data name="ChartProperties_Categories_Title" xml:space="preserve">
-    <value>Title</value>
+    <value>Titel</value>
   </data>
   <data name="ChartProperties_DisplayName" xml:space="preserve">
-    <value>Chart settings</value>
+    <value>Grafiek instellingen</value>
   </data>
   <data name="ChartProperties_Font_DisplayName" xml:space="preserve">
-    <value>Font</value>
+    <value>Lettertype</value>
   </data>
   <data name="ChartProperties_Font_Legend_Description" xml:space="preserve">
-    <value>Used font in the chart legend.</value>
+    <value>Gebruikt lettertype in de legenda van de grafiek.</value>
   </data>
   <data name="ChartProperties_LeftAxis_Description" xml:space="preserve">
-    <value>Left axis of this chart.</value>
+    <value>Linkeras van deze grafiek.</value>
   </data>
   <data name="ChartProperties_LeftAxis_DisplayName" xml:space="preserve">
-    <value>Left axis</value>
+    <value>Linkeras</value>
   </data>
   <data name="ChartProperties_LegendAlignment_Description" xml:space="preserve">
-    <value>The placement location of the legend of this chart.</value>
+    <value>De locatie van legenda op deze grafiek.</value>
   </data>
   <data name="ChartProperties_LegendAlignment_DisplayName" xml:space="preserve">
-    <value>Alignment</value>
+    <value>Uitlijning</value>
   </data>
   <data name="ChartProperties_RightAcis_Description" xml:space="preserve">
-    <value>Right axis of this chart.</value>
+    <value>Rechteras van deze grafiek.</value>
   </data>
   <data name="ChartProperties_RightAxis_DisplayName" xml:space="preserve">
-    <value>Right axis</value>
+    <value>Rechteras</value>
   </data>
   <data name="ChartProperties_TitleFont_Description" xml:space="preserve">
-    <value>Used font in the chart title.</value>
+    <value>Gebruikt lettertype van de grafiektitel.</value>
   </data>
   <data name="ChartProperties_TitleVisibility_Description" xml:space="preserve">
-    <value>Determines whether or not to show the title.</value>
+    <value>Hiermee bepaalt u of de titel wordt getoond.</value>
   </data>
   <data name="ChartProperties_Title_Description" xml:space="preserve">
-    <value>The title of the chart.</value>
+    <value>Titel van de grafiek.</value>
   </data>
   <data name="ChartProperties_Title_DisplayName" xml:space="preserve">
-    <value>Text</value>
+    <value>Tekst</value>
   </data>
   <data name="ChartProperties_Visible_Description" xml:space="preserve">
-    <value>Determines whether or not to show the legend.</value>
+    <value>Hiermee bepaalt u of de legenda wordt getoond</value>
   </data>
   <data name="ChartSeriesProperties_DisplayName" xml:space="preserve">
-    <value>Series settings</value>
+    <value>Serie instellingen</value>
   </data>
   <data name="ChartSeriesProperties_ShowInLegend_Description" xml:space="preserve">
-    <value>Determines whether or not to show this series in the chart legend.</value>
+    <value>Hiermee bepaalt u of deze serie in de legenda van de grafiek wordt weergeven.</value>
   </data>
   <data name="ChartSeriesProperties_ShowInLegend_DisplayName" xml:space="preserve">
-    <value>Show in legend</value>
+    <value>In legenda weergeven</value>
   </data>
   <data name="ChartSeriesProperties_Title_Description" xml:space="preserve">
-    <value>Title of this series.</value>
+    <value>Titel van deze serie.</value>
   </data>
   <data name="ChartSeriesProperties_VerticalAxis_Description" xml:space="preserve">
-    <value>The vertical axis whose values are associated with this series.</value>
+    <value>Verticale as waarvan de waarden gekoppeld zijn aan deze serie.</value>
   </data>
   <data name="ChartSeriesProperties_VerticalAxis_DisplayName" xml:space="preserve">
-    <value>Vertical axis</value>
+    <value>Verticale as</value>
   </data>
   <data name="Control" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\control.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -581,67 +581,67 @@
     <value>..\Resources\Line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LineChartSeriesProperties_Color_Description" xml:space="preserve">
-    <value>Color of the line series.</value>
+    <value>Kleur van de lijn-serie.</value>
   </data>
   <data name="LineChartSeriesProperties_Color_DisplayName" xml:space="preserve">
-    <value>Color</value>
+    <value>Kleur</value>
   </data>
   <data name="LineChartSeriesProperties_DashStyle_Description" xml:space="preserve">
-    <value>The dash style applied to the line series.</value>
+    <value>De dashstijl van deze lijn.</value>
   </data>
   <data name="LineChartSeriesProperties_DashStyle_DisplayName" xml:space="preserve">
-    <value>Dash style</value>
+    <value>Dash stijl</value>
   </data>
   <data name="LineChartSeriesProperties_DisplayName" xml:space="preserve">
-    <value>Line series settings</value>
+    <value>Lijn serie instellingen</value>
   </data>
   <data name="LineChartSeriesProperties_TitleLabelVisible_Description" xml:space="preserve">
-    <value>Determines whether or not to show the title as label.</value>
+    <value>Hiermee bepaalt u of de titel als label wordt getoond.</value>
   </data>
   <data name="LineChartSeriesProperties_TitleLabelVisible_DisplayName" xml:space="preserve">
-    <value>Show title label</value>
+    <value>Titel label weergeven</value>
   </data>
   <data name="LineChartSeriesProperties_Width_Description" xml:space="preserve">
-    <value>Width of the line series.</value>
+    <value>Breedte van de lijn-serie.</value>
   </data>
   <data name="LineChartSeriesProperties_Width_DisplayName" xml:space="preserve">
-    <value>Width</value>
+    <value>Breedte</value>
   </data>
   <data name="PointChartSeriesProperties_DisplayName" xml:space="preserve">
-    <value>Point settings</value>
+    <value>Punt instellingen</value>
   </data>
   <data name="PointChartSeriesProperties_PointerColor_Description" xml:space="preserve">
-    <value>Color of the value pointers.</value>
+    <value>Kleur van de pointers.</value>
   </data>
   <data name="PointChartSeriesProperties_PointerColor_DisplayName" xml:space="preserve">
-    <value>Pointer color</value>
+    <value>Pointer kleur</value>
   </data>
   <data name="PointChartSeriesProperties_PointerLineVisible_Description" xml:space="preserve">
-    <value>Determines wither or not to show the line along the circumference of the value pointers.</value>
+    <value>Hiermee bepaalt u of de pointer-lijn wordt weergegeven.</value>
   </data>
   <data name="PointChartSeriesProperties_PointerLineVisible_DisplayName" xml:space="preserve">
-    <value>Show pointer outline</value>
+    <value>Toon pointer-lijn</value>
   </data>
   <data name="PointChartSeriesProperties_PointerOutlineColor_Description" xml:space="preserve">
-    <value>Color of the line along the circumference of the value pointers.</value>
+    <value>Kleur van de lijn langs de omtrek van de pointers.</value>
   </data>
   <data name="PointChartSeriesProperties_PointerOutlineColor_DisplayName" xml:space="preserve">
-    <value>Pointer outline color</value>
+    <value>Pointer-lijn kleur</value>
   </data>
   <data name="PointChartSeriesProperties_PointerShape_Description" xml:space="preserve">
-    <value>Shape of the value pointers.</value>
+    <value>Vorm van de value pointers.</value>
   </data>
   <data name="PointChartSeriesProperties_PointerShape_DisplayName" xml:space="preserve">
-    <value>Shape</value>
+    <value>Vorm</value>
   </data>
   <data name="PointChartSeriesProperties_Size_Description" xml:space="preserve">
-    <value>Size of the value pointers.</value>
+    <value>Pointergrootte.</value>
   </data>
   <data name="PointChartSeriesProperties_Size_DisplayName" xml:space="preserve">
-    <value>Size</value>
+    <value>Grootte</value>
   </data>
   <data name="PointChartSeriesProperties_Visibility_Description" xml:space="preserve">
-    <value>Determines whether or not to show the value pointers of the series.</value>
+    <value>Hiermee bepaalt u of de pointers van de serie worden weergegeven.</value>
   </data>
   <data name="Points" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Points.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -650,43 +650,43 @@
     <value>..\Resources\Polygon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="PolygonChartSeriesProperties_AreaColor_Description" xml:space="preserve">
-    <value>Color of the area series.</value>
+    <value>Kleur van de vlak serie.</value>
   </data>
   <data name="PolygonChartSeriesProperties_Closed_Description" xml:space="preserve">
-    <value>When true, the polygon is automatically closed by drawing a line between the last and first defined points.</value>
+    <value>Indien true, is de polygoon automatisch gesloten door een lijn te trekken tussen de laatste en eerste gedefinieerde punten.</value>
   </data>
   <data name="PolygonChartSeriesProperties_Closed_DisplayName" xml:space="preserve">
-    <value>Auto-close polygon</value>
+    <value>Automatisch sluiten van de polygoon</value>
   </data>
   <data name="PolygonChartSeriesProperties_DisplayName" xml:space="preserve">
-    <value>Polygon series settings</value>
+    <value>Polygoon serie instellingen</value>
   </data>
   <data name="PolygonChartSeriesProperties_FillColor_DisplayName" xml:space="preserve">
-    <value>Fill color</value>
+    <value>Opvulkleur</value>
   </data>
   <data name="PolygonChartSeriesProperties_HatchColor_Description" xml:space="preserve">
-    <value>Secondary color used in the hatch style.</value>
+    <value>Tweede kleur die gebruikt wordt in de arceringstijl.</value>
   </data>
   <data name="PolygonChartSeriesProperties_HatchColor_DisplayName" xml:space="preserve">
-    <value>Hatch color</value>
+    <value>Arceringkleur</value>
   </data>
   <data name="PolygonChartSeriesProperties_HatchStyle_Description" xml:space="preserve">
-    <value>Hatch style of this series.</value>
+    <value>Arceringstijl van deze serie.</value>
   </data>
   <data name="PolygonChartSeriesProperties_HatchStyle_DisplayName" xml:space="preserve">
-    <value>Hatch Style</value>
+    <value>Arceringstijl</value>
   </data>
   <data name="PolygonChartSeriesProperties_Transparency_Description" xml:space="preserve">
-    <value>Percentage of transparency of the series.</value>
+    <value>Percentage van de transparantie van de serie.</value>
   </data>
   <data name="PolygonChartSeriesProperties_Transparency_DisplayName" xml:space="preserve">
-    <value>Transparency</value>
+    <value>Transparantie</value>
   </data>
   <data name="PolygonChartSeriesProperties_UseHatch_Description" xml:space="preserve">
-    <value>Determines whether or not to use a hatch style for the series.</value>
+    <value>Deze waarde bepaalt welke stijl gebruikt wordt voor het arceren van de serie.</value>
   </data>
   <data name="PolygonChartSeriesProperties_UseHatch_DisplayName" xml:space="preserve">
-    <value>Use hatch brush</value>
+    <value>Gebruik arceringborstel</value>
   </data>
   <data name="Rewind" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rw11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -713,7 +713,7 @@
     <value>..\Resources\image-export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TimeSeries_Attributes_Description" xml:space="preserve">
-    <value>Meta data associated with the time series.</value>
+    <value>Meta-gegevens die zijn gekoppeld aan de tijdreeksen.</value>
   </data>
   <data name="TimeSeries_Attributes_DisplayName" xml:space="preserve">
     <value>Attributes</value>
@@ -731,318 +731,318 @@
     <value>..\Resources\function_coverage_empty.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TextDocumentFromFileProperties_DisplayName" xml:space="preserve">
-    <value>Text document (from file)</value>
+    <value>Tekstdocument (uit bestand)</value>
   </data>
   <data name="TextDocumentFromFileProperties_Path_Description" xml:space="preserve">
-    <value>Location to where the file can be found.</value>
+    <value>Locatie waar het bestand kan worden gevonden.</value>
   </data>
   <data name="TextDocumentFromFileProperties_Path_DisplayName" xml:space="preserve">
-    <value>Path</value>
+    <value>Pad</value>
   </data>
   <data name="ruler_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ruler-3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="CommonToolsGuiPlugin_CommonToolsGuiPlugin_Generate_Data_in_Series___" xml:space="preserve">
-    <value>Generate Data in Series...</value>
+    <value>Gegevens in de serie genereren...</value>
   </data>
   <data name="CommonToolsGuiPlugin_GetContextMenu_Use_Restart" xml:space="preserve">
-    <value>Use Restart</value>
+    <value>Gebruik Herstart</value>
   </data>
   <data name="CommonToolsGuiPlugin_GetContextMenu_Use_Last_Valid_Restart" xml:space="preserve">
-    <value>Use Last Valid Restart</value>
+    <value>Gebruik Laatste Successvolle Restart</value>
   </data>
   <data name="CommonToolsGuiPlugin_GetContextMenu_Use_as_Initial_State" xml:space="preserve">
-    <value>Use as Initial State</value>
+    <value>Gebruik als Beginstatus</value>
   </data>
   <data name="CommonToolsGuiPlugin_GetContextMenu_Paste_State" xml:space="preserve">
-    <value>Paste State</value>
+    <value>Plakken status</value>
   </data>
   <data name="CommonToolsGuiPlugin_GetContextMenu_Copy_State" xml:space="preserve">
     <value>Copy State</value>
   </data>
   <data name="Ribbon_ContextualGroup_Charting" xml:space="preserve">
-    <value>Charting</value>
+    <value>Grafieken</value>
   </data>
   <data name="Ribbon_Undo_Redo" xml:space="preserve">
-    <value>Undo/Redo</value>
+    <value>Ongedaan maken/Opnieuw</value>
   </data>
   <data name="Ribbon_GroupBox_Show_Hide" xml:space="preserve">
-    <value>Show/Hide</value>
+    <value>Weergeven/Verbergen</value>
   </data>
   <data name="Ribbon_TabItem_View" xml:space="preserve">
-    <value>View</value>
+    <value>Beeld</value>
   </data>
   <data name="Ribbon_Data_Structure_View" xml:space="preserve">
-    <value>Data Structure View</value>
+    <value>Data Structuur</value>
   </data>
   <data name="Ribbon_Time_Navigator" xml:space="preserve">
-    <value>Time Navigator</value>
+    <value>Tijd Navigatie</value>
   </data>
   <data name="Ribbon_Chart_Contents" xml:space="preserve">
-    <value>Chart Contents</value>
+    <value>Grafiek</value>
   </data>
   <data name="Ribbon_TabItem_Chart" xml:space="preserve">
-    <value>Chart</value>
+    <value>Grafiek</value>
   </data>
   <data name="Ribbon_GroupBox_Export" xml:space="preserve">
-    <value>Export</value>
+    <value>Exporteren</value>
   </data>
   <data name="Ribbon_ExportAsImage" xml:space="preserve">
-    <value>Export as Image</value>
+    <value>Exporteer als figuren</value>
   </data>
   <data name="Ribbon_GroupBox_Style" xml:space="preserve">
-    <value>Style</value>
+    <value>Stijl</value>
   </data>
   <data name="Ribbon_IncreaseFontSize" xml:space="preserve">
-    <value>Increase Font Sizes</value>
+    <value>Lettertype Vergroten</value>
   </data>
   <data name="Ribbon_DecreaseFontSize" xml:space="preserve">
-    <value>Decrease Font Sizes</value>
+    <value>Lettertype Verkleinen</value>
   </data>
   <data name="Ribbon_GroupBox_Tools" xml:space="preserve">
-    <value>Tools</value>
+    <value>Hulpprogramma 's</value>
   </data>
   <data name="Ribbon_Ruler" xml:space="preserve">
-    <value>Ruler</value>
+    <value>Liniaal</value>
   </data>
   <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Text_editor" xml:space="preserve">
-    <value>Text editor</value>
+    <value>Teksteditor</value>
   </data>
   <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Browser" xml:space="preserve">
     <value>Browser</value>
   </data>
   <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Export_from_project" xml:space="preserve">
-    <value>Export from project</value>
+    <value>Exporteren vanaf project</value>
   </data>
   <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Table_View" xml:space="preserve">
-    <value>Table View</value>
+    <value>Tabelweergave</value>
   </data>
   <data name="CommonToolsGuiPlugin_GetViewInfoObjects_Chart_View" xml:space="preserve">
-    <value>Chart View</value>
+    <value>Grafiek</value>
   </data>
   <data name="CommonToolsGuiPlugin_InitializeFunctionTreeView_Data" xml:space="preserve">
-    <value>Data</value>
+    <value>Gegevens</value>
   </data>
   <data name="CommonToolsGuiPlugin_InitializeChartLegendView_Chart" xml:space="preserve">
-    <value>Chart</value>
+    <value>Grafiek</value>
   </data>
   <data name="CommonToolsGuiPlugin_FindTimeNavigatableView_View_of_type__0__has_multiple_ITimeNavigatable_ChildViews__ambiguous_" xml:space="preserve">
-    <value>View of type {0} has multiple ITimeNavigatable ChildViews: ambiguous.</value>
+    <value>View van type {0} heeft meerdere ITimeNavigatable ChildViews: dubbelzinnig.</value>
   </data>
   <data name="CommonToolsGuiPlugin_ActiveViewDragDrop_TODO__show_dialog_and_select_which_part_of_function_should_be_shown_on_a_chart_and_select_series_type_" xml:space="preserve">
-    <value>TODO: show dialog and select which part of function should be shown on a chart and select series type.</value>
+    <value>TODO: dialoogvenster weergeven en selecteer welk deel van de functie in een grafiek moet worden weergegeven en selecteer reekstype.</value>
   </data>
   <data name="ChartProperties_FontValid_Font_can_not_be_empty_" xml:space="preserve">
-    <value>Font can not be empty.</value>
+    <value>Lettertype kan niet leeg zijn.</value>
   </data>
   <data name="ChartProperties_FontValid_Font_size_is_not_within_limits__3___200_" xml:space="preserve">
-    <value>Font size is not within limits (3 - 200)</value>
+    <value>Lettertype grootte is niet binnen grenzen (3-200)</value>
   </data>
   <data name="SelectProjectFileWizardPage_ButtonSelectFileClick_Ringtoets_Project_File" xml:space="preserve">
-    <value>Ringtoets Project File</value>
+    <value>Ringtoets project</value>
   </data>
   <data name="VariablesFolderTreeViewNodePresenter_UpdateNode_Arguments" xml:space="preserve">
-    <value>Arguments</value>
+    <value>Argumenten</value>
   </data>
   <data name="VariablesFolderTreeViewNodePresenter_UpdateNode_Variables" xml:space="preserve">
-    <value>Variables</value>
+    <value>Variabelen</value>
   </data>
   <data name="TimeSeriesNavigator_TimeSeriesNavigator_Time_Navigator" xml:space="preserve">
-    <value>Time Navigator</value>
+    <value>Tijd Navigatie</value>
   </data>
   <data name="TimeSeriesNavigator_TimeNavigatableTimesChanged_Jumping_to_the_last_time___0_____" xml:space="preserve">
-    <value>Jumping to the last time: {0} ...</value>
+    <value>Spring naar het laatste tijdstip: {0}...</value>
   </data>
   <data name="TimeSeriesGeneratorDialog_FillControl_Current_" xml:space="preserve">
-    <value>Current:</value>
+    <value>Huidige:</value>
   </data>
   <data name="TimeSeriesGeneratorDialog_FillControl_till" xml:space="preserve">
-    <value>till</value>
+    <value>tot</value>
   </data>
   <data name="TimeSeriesGeneratorDialog_Apply_Generating_time_series_failed___0_" xml:space="preserve">
-    <value>Generating time series failed: {0}</value>
+    <value>Genereren van tijdreeksen mislukt: {0}</value>
   </data>
   <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_This_wizard_will_allow_you_to_import_CSV_data" xml:space="preserve">
-    <value>This wizard will allow you to import CSV data</value>
+    <value>Deze wizard zal u de mogelijkheid bieden om CSV-gegevens importeren</value>
   </data>
   <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Press_Finish_to_import_the_data_" xml:space="preserve">
-    <value>Press Finish to import the data.</value>
+    <value>Druk op Voltooien om de gegevens te importeren.</value>
   </data>
   <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_CSV_files" xml:space="preserve">
-    <value>CSV files</value>
+    <value>CSV-bestanden</value>
   </data>
   <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Select_the_CSV_file_containing_the_data" xml:space="preserve">
-    <value>Select the CSV-file containing the data</value>
+    <value>Selecteer het CSV-bestand met de gegevens</value>
   </data>
   <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Select_CSV_file" xml:space="preserve">
-    <value>Select CSV file</value>
+    <value>Selecteer CSV-bestand</value>
   </data>
   <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_CSV_parse_columns" xml:space="preserve">
-    <value>CSV parse columns</value>
+    <value>CSV-parse kolommen</value>
   </data>
   <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_CSV_format_settings" xml:space="preserve">
-    <value>CSV format settings</value>
+    <value>CSV-formaat instellingen</value>
   </data>
   <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Time_series_settings" xml:space="preserve">
-    <value>Time series settings</value>
+    <value>Tijdserie instellingen</value>
   </data>
   <data name="TimeSeriesCsvImportWizard_TimeSeriesCsvImportWizard_Choose_your_settings_for_the_imported_time_series" xml:space="preserve">
-    <value>Choose your settings for the imported time series</value>
+    <value>Kies uw instellingen voor de geïmporteerde tijdreeksen</value>
   </data>
   <data name="TableViewTimeSeriesGeneratorTool_ConfigureTableView_Generate" xml:space="preserve">
-    <value>Generate</value>
+    <value>Genereren</value>
   </data>
   <data name="TabbedMultipleFunctionView_TabbedMultipleFunctionView_Function_view" xml:space="preserve">
-    <value>Function view</value>
+    <value>Functie weergave</value>
   </data>
   <data name="TabbedMultipleFunctionView_TabbedMultipleFunctionView_split_tabs___" xml:space="preserve">
-    <value>split tabs...</value>
+    <value>Split tabbladen...</value>
   </data>
   <data name="TabbedMultipleFunctionView_TabbedMultipleFunctionView_join_tabs___" xml:space="preserve">
-    <value>join tabs...</value>
+    <value>Tabbladen samenvoegen...</value>
   </data>
   <data name="TabbedMultipleFunctionView_ConfigureControls_right_click_to_join_tabs" xml:space="preserve">
-    <value>right-click to join tabs</value>
+    <value>Rechts-klik om tabbladen samen te voegen</value>
   </data>
   <data name="TabbedMultipleFunctionView_ConfigureControls_right_click_to_split_into_tabs" xml:space="preserve">
-    <value>right-click to split into tabs</value>
+    <value>Rechts-klik om tabbladen te splitsen</value>
   </data>
   <data name="TabbedMultipleFunctionView_JoinTabsEventHandler_Cannot_display_series_with_different_argument_values_in_one_table_" xml:space="preserve">
-    <value>Cannot display series with different argument values in one table.</value>
+    <value>Kan de serie met verschillende argumentwaarden niet weergeven in een tabel.</value>
   </data>
   <data name="TabbedMultipleFunctionView_JoinTabsEventHandler_Tab_join_error" xml:space="preserve">
-    <value>Tab join error</value>
+    <value>Tabblad join fout</value>
   </data>
   <data name="TabbedMultipleFunctionView_TableViewEditorValidator_Please_enter_a_valid_number" xml:space="preserve">
-    <value>Please enter a valid number</value>
+    <value>Voer een geldig getal in</value>
   </data>
   <data name="TabbedMultipleFunctionView_TableViewEditorValidator_" xml:space="preserve">
-    <value>Please enter a value &gt;= {0}</value>
+    <value>Voer hier een waarde in &gt; = {0}</value>
   </data>
   <data name="TabbedMultipleFunctionView_TableViewEditorValidator_Please_enter_a_unique_value__Value__0__is_already_present_" xml:space="preserve">
-    <value>Please enter a unique value. Value {0} is already present.</value>
+    <value>Voer een unieke waarde in. Waarde {0} is al aanwezig.</value>
   </data>
   <data name="TabbedMultipleFunctionView_TableViewEditorValidator_Smaller" xml:space="preserve">
-    <value>Please enter a value &lt;= {0}</value>
+    <value>Voer hier een waarde in &lt; = {0}</value>
   </data>
   <data name="TabbedMultipleFunctionView_UpdateBottomAxisRange_Bottom_axis_range_mode__0__not_supported" xml:space="preserve">
-    <value>Bottom axis range mode {0} not supported</value>
+    <value>Onderas bereik modus {0} niet ondersteund</value>
   </data>
   <data name="MultipleFunctionView_MultipleFunctionView_Function_view" xml:space="preserve">
-    <value>Function view</value>
+    <value>Functie weergave</value>
   </data>
   <data name="MultipleFunctionView_GetReuseViewData_Table_will_be_hidden__Continue_to_add_function_to_current_view_" xml:space="preserve">
-    <value>Table will be hidden. Continue to add function to current view?</value>
+    <value>Tabel zal worden verborgen. Moet de functie nog steeds aan de huidige view worden toegeveogd?</value>
   </data>
   <data name="MultipleFunctionView_GetReuseViewData_Non_identical_argument_values_encountered" xml:space="preserve">
-    <value>Non-identical argument values encountered</value>
+    <value>Niet-identieke argumentwaarden tegengekomen</value>
   </data>
   <data name="MultipleFunctionView_TableViewEditorValidator_Please_enter_a_valid_number" xml:space="preserve">
-    <value>Please enter a valid number</value>
+    <value>Voer een geldig getal in</value>
   </data>
   <data name="MultipleFunctionView_TableViewEditorValidator_Larger" xml:space="preserve">
-    <value>Please enter a value &gt;= {0}</value>
+    <value>Voer hier een waarde in &gt; = {0}</value>
   </data>
   <data name="MultipleFunctionView_TableViewEditorValidator_Smaller" xml:space="preserve">
-    <value>Please enter a value &lt;= {0}</value>
+    <value>Voer hier een waarde in &lt; = {0}</value>
   </data>
   <data name="MultipleFunctionView_TableViewEditorValidator_Please_enter_a_unique_value__Value__0__is_already_present_" xml:space="preserve">
-    <value>Please enter a unique value. Value {0} is already present.</value>
+    <value>Voer een unieke waarde in. Waarde {0} is al aanwezig.</value>
   </data>
   <data name="MultipleFunctionView_TableViewEditorValidator_Year_should_not_be_smaller_than_1000" xml:space="preserve">
-    <value>Year should not be smaller than 1000</value>
+    <value>Jaar moet niet kleiner zijn dan 1000</value>
   </data>
   <data name="MultipleFunctionView_TableViewSelectionChanged_Too_many_chart_series_to_draw____Limited_to_the_first__0__" xml:space="preserve">
-    <value>Too many chart series to draw... Limited to the first {0}.</value>
+    <value>Teveel series om te tekenen... Beperkt tot de eerste {0}.</value>
   </data>
   <data name="MultipleFunctionView_GetNoDataValues_Unable_to_set_no_data_values_for_series__Invalid_type" xml:space="preserve">
-    <value>Unable to set no data values for series. Invalid type</value>
+    <value>Kan de no data values voor de series niet zetten. Ongeldig type</value>
   </data>
   <data name="GenerateDataSeriesWizard_MessageBoxHeader_Data_generation_settings_error" xml:space="preserve">
-    <value>Data generation settings error</value>
+    <value>Gegevensfout generatie instellingen</value>
   </data>
   <data name="GenerateDataSeriesWizard_CalculateRowsFromStartAndEnd_There_should_be_at_least_one_interval_step_between_the_start_and_end_values_" xml:space="preserve">
-    <value>There should be at least one interval step between the start and end values.</value>
+    <value>Er moet ten minste één interval stap tussen de begin- en eindwaarden zitten.</value>
   </data>
   <data name="GenerateDataSeriesWizard_CheckInput_The_starting_value_of_the_data_series_to_generate_isn_t_set_yet__All_argument_interval_fields_are_mandatory_" xml:space="preserve">
-    <value>The starting value of the data series to generate isn't set yet. All argument interval fields are mandatory.</value>
+    <value>De beginwaarde van de gegevensreeks voor het genereren van de serie is nog niet ingesteld. Alle argument interval velden zijn verplicht.</value>
   </data>
   <data name="GenerateDataSeriesWizard_CheckInput_The_interval_value_of_the_data_series_to_generate_isn_t_set_yet__All_argument_interval_fields_are_mandatory_" xml:space="preserve">
-    <value>The interval value of the data series to generate isn't set yet. All argument interval fields are mandatory.</value>
+    <value>De intervalwaarde van de te creeren data serie is nog niet ingesteld. Alle argument interval velden zijn verplicht.</value>
   </data>
   <data name="GenerateDataSeriesWizard_CheckInput_The_end_value_of_the_data_series_to_generate_isn_t_set_yet__All_argument_interval_fields_are_mandatory_" xml:space="preserve">
-    <value>The end value of the data series to generate isn't set yet. All argument interval fields are mandatory.</value>
+    <value>De eindwaarde van de te creeren data serie is nog niet ingesteld. Alle argument interval velden zijn verplicht.</value>
   </data>
   <data name="GenerateDataSeriesWizard_CheckInput_Please_enter_a_interval___0_" xml:space="preserve">
-    <value>Please enter a interval &gt; 0.</value>
+    <value>Voer een interval &gt; 0 in.</value>
   </data>
   <data name="GenerateDataSeriesWizard_CheckInput_The_constant_value_of_the_component___0___isn_t_set_yet__All_component_fields_are_mandatory_" xml:space="preserve">
-    <value>The constant value of the component '{0}' isn't set yet. All component fields are mandatory.</value>
+    <value>De constante waarde van de component '{0}' is nog niet ingesteld. Alle component velden zijn verplicht.</value>
   </data>
   <data name="ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_Export_from_project" xml:space="preserve">
-    <value>Export from project</value>
+    <value>Exporteren vanaf project</value>
   </data>
   <data name="ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_This_wizard_is_used_to_export_the_current_project_or_a_folder_in_the_current_project_to_a_new_project_" xml:space="preserve">
-    <value>This wizard is used to export the current project or a folder in the current project to a new project.</value>
+    <value>Deze wizard wordt gebruikt voor het exporteren van het huidige project of een map in het huidige project naar een nieuw project.</value>
   </data>
   <data name="ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_Press_Finish_to_Finish_" xml:space="preserve">
-    <value>Press Finish to Finish.</value>
+    <value>Druk op Voltooien om af te ronden.</value>
   </data>
   <data name="ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_Project_file_to_which_the_currently_selected_folder_or_project_will_be_exported" xml:space="preserve">
-    <value>Project file to which the currently selected folder or project will be exported</value>
+    <value>Project-bestand waarnaar de momenteel geselecteerde map of het project zal worden uitgevoerd</value>
   </data>
   <data name="ExportProjectFolderWizardDialog_ExportProjectFolderWizardDialog_target__dsproj_file" xml:space="preserve">
-    <value>target .dsproj file</value>
+    <value>doelbestand .dsproj</value>
   </data>
   <data name="ExportProjectFolderWizardDialog_Configure_Wizard_did_not_finish_correctly__Unable_to_configure_" xml:space="preserve">
-    <value>Wizard did not finish correctly. Unable to configure.</value>
+    <value>Wizard werd niet correct afgerond. Niet in staat om te configureren.</value>
   </data>
   <data name="ExportProjectFolderWizardDialog_Configure_Wizard_is_incompatible_with_given_exporter_" xml:space="preserve">
-    <value>Wizard is incompatible with given exporter.</value>
+    <value>Wizard is niet compatibel met gegeven exporteur.</value>
   </data>
   <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Import_project" xml:space="preserve">
-    <value>Import project</value>
+    <value>Project importeren</value>
   </data>
   <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_This_wizard_is_used_to_import_data_from_an_existing_project_into_the_current_project_" xml:space="preserve">
-    <value>This wizard is used to import data from an existing project into the current project.</value>
+    <value>Deze wizard wordt gebruikt om gegevens uit een bestaand project te importeren in het huidige project.</value>
   </data>
   <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Press_Finish_to_Finish_" xml:space="preserve">
-    <value>Press Finish to Finish.</value>
+    <value>Druk op Voltooien om af te ronden.</value>
   </data>
   <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog_Select_an_existing_project_from_which_you_want_to_import" xml:space="preserve">
-    <value>Select an existing project from which you want to import</value>
+    <value>Selecteer een bestaand project waaruit u wilt importeren</value>
   </data>
   <data name="ImportProjectFolderWizardDialog_ImportProjectFolderWizardDialog__dsproj_file_to_be_imported" xml:space="preserve">
-    <value>.dsproj file to be imported</value>
+    <value>.dsproj bestand dat geïmporteerd moet worden</value>
   </data>
   <data name="ImportProjectFolderWizardDialog_Configure_Wizard_did_not_finish_correctly__Unable_to_configure_" xml:space="preserve">
-    <value>Wizard did not finish correctly. Unable to configure.</value>
+    <value>Wizard werd niet correct afgerond. Niet in staat om te configureren.</value>
   </data>
   <data name="ImportProjectFolderWizardDialog_Configure_Wizard_is_incompatibale_with_given_importer_" xml:space="preserve">
-    <value>Wizard is incompatibale with given importer.</value>
+    <value>Wizard is incompatibale met gegeven importeur.</value>
   </data>
   <data name="FunctionChartSeriesCreator_ThrowWhenFunctionIsInvalid_Couldn_t_create_the_view_because_one_of_the_functions_is_null___empty" xml:space="preserve">
-    <value>Couldn't create the view because one of the functions is null / empty</value>
+    <value>Kon de View niet maken omdat een van de functies null of leeg is</value>
   </data>
   <data name="FunctionChartSeriesCreator_ThrowWhenFunctionIsInvalid_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_arguments" xml:space="preserve">
-    <value>Couldn't create view because one of the functions doesn't contain arguments</value>
+    <value>Kon View niet maken, omdat een van de functies geen argumenten bevat</value>
   </data>
   <data name="FunctionChartSeriesCreator_ThrowWhenFunctionIsInvalid_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_components" xml:space="preserve">
-    <value>Couldn't create view because one of the functions doesn't contain components</value>
+    <value>Kon View niet maken, omdat een van de functies geen componenten bevat</value>
   </data>
   <data name="FunctionChartSeriesCreator_ThrowWhenValueTypeIsNull_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_an_argument_of_type_network_location" xml:space="preserve">
-    <value>Couldn't create view because one of the functions doesn't contain an argument of type network location</value>
+    <value>Kon View niet maken, omdat een van de functies geen argument heeft van het type netwerklocatie</value>
   </data>
   <data name="FunctionChartSeriesCreator_ThrowWhenFunctionVariableNamesAreInvalid_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_a_valid_argument_name" xml:space="preserve">
-    <value>Couldn't create view because one of the functions doesn't contain a valid argument name</value>
+    <value>Kon View niet maken, omdat een van de functies niet de naam van een geldig argument bevatten</value>
   </data>
   <data name="FunctionChartSeriesCreator_ThrowWhenFunctionVariableNamesAreInvalid_Couldn_t_create_view_because_one_of_the_functions_doesn_t_contain_a_valid_component_name" xml:space="preserve">
-    <value>Couldn't create view because one of the functions doesn't contain a valid component name</value>
+    <value>Kon View niet maken, omdat een van de functies niet de naam van een geldige component bevatten</value>
   </data>
   <data name="FunctionChartSeriesCreator_ThrowWhenFunctionVariableNamesAreInvalid_Couldn_t_create_view_because_one_of_the_functions_component_name_is_the_same_as_the_argument_name_which_is_not_allowed" xml:space="preserve">
-    <value>Couldn't create view because one of the functions component name is the same as the argument name which is not allowed</value>
+    <value>Kon View niet maken, omdat een van de componenten dezelfde naam heeft als een argument. Dit is niet toegestaan</value>
   </data>
   <data name="ChartTreeNodePresenter_UpdateNode_Chart" xml:space="preserve">
-    <value>Chart</value>
+    <value>Grafiek</value>
   </data>
 </root>
