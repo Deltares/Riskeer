@@ -28,7 +28,6 @@ using Core.Common.Utils.Aop;
 using Core.Common.Utils.Aop.Markers;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
-using Core.Common.Utils.Diagnostics;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.GeoAPI.Geometries;
@@ -292,7 +291,6 @@ namespace Core.GIS.SharpMap.Map
         {
             if (image != null)
             {
-                ResourceMonitor.OnResourceDeallocated(this, image);
                 image.Dispose();
                 image = null;
             }
@@ -324,14 +322,12 @@ namespace Core.GIS.SharpMap.Map
             if (image != null && (Size.Width != image.Width || Size.Height != image.Height)) // re-create only when it is required
             {
                 image.Dispose();
-                ResourceMonitor.OnResourceDeallocated(this, image);
                 image = null;
             }
 
             if (image == null)
             {
                 image = new Bitmap(Size.Width, Size.Height, PixelFormat.Format32bppPArgb);
-                ResourceMonitor.OnResourceAllocated(this, image);
             }
 
             if (rendering)

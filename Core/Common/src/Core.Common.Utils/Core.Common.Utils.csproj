@@ -117,7 +117,6 @@
     <Compile Include="ComponentModel\DynamicVisibleValidationMethodAttribute.cs" />
     <Compile Include="CultureUtils.cs" />
     <Compile Include="DateTimeFormats.cs" />
-    <Compile Include="Diagnostics\ResourceMonitor.cs" />
     <Compile Include="DisplayFormatAttribute.cs" />
     <Compile Include="Globalization\RegionalSettingsManager.cs" />
     <Compile Include="GraphicsUtils.cs" />

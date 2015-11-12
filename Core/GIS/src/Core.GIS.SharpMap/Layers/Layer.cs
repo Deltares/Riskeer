@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Aop.Markers;
-using Core.Common.Utils.Diagnostics;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.GeoAPI.CoordinateSystems.Transformations;
 using Core.GIS.GeoAPI.Extensions.Feature;
@@ -1061,9 +1060,6 @@ namespace Core.GIS.SharpMap.Layers
             if (image != null)
             {
                 image.Dispose();
-
-                ResourceMonitor.OnResourceDeallocated(this, image);
-
                 image = null;
             }
         }
@@ -1092,7 +1088,6 @@ namespace Core.GIS.SharpMap.Layers
             if (image == null)
             {
                 image = new Bitmap(Map.Size.Width, Map.Size.Height, PixelFormat.Format32bppPArgb);
-                ResourceMonitor.OnResourceAllocated(this, image);
             }
 
             if (!Visible || MaxVisible < Map.Zoom || MinVisible > Map.Zoom)

@@ -18,11 +18,6 @@ namespace Core.Common.TestUtils
     /// </summary>
     public class GuiTestHelper
     {
-        /// <summary>
-        /// Enable to monitor allocated/deallocated resources
-        /// </summary>
-        public static bool UseResourceMonitor = false;
-
         private static GuiTestHelper instance;
 
         private static readonly ILog log = LogManager.GetLogger(typeof(WindowsFormsTestHelper));
@@ -35,8 +30,6 @@ namespace Core.Common.TestUtils
 
         private static bool appDomainExceptionOccured;
 
-        private static readonly ResourceMonitor resourceMonitor;
-
         static GuiTestHelper()
         {
             MessageBox.CustomMessageBox = new LoggingMessageBox();
@@ -48,12 +41,6 @@ namespace Core.Common.TestUtils
             Dispatcher.CurrentDispatcher.UnhandledException += CurrentDispatcher_UnhandledException;
             AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
             Application.ThreadException += Application_ThreadException;
-
-            if (UseResourceMonitor && resourceMonitor == null)
-            {
-                resourceMonitor = new ResourceMonitor();
-                resourceMonitor.Show();
-            }
         }
 
         public static GuiTestHelper Instance
