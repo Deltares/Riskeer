@@ -434,10 +434,10 @@
     <value>Lognormale verdeling</value>
   </data>
   <data name="Probabilistics_Mean_Symbol" xml:space="preserve">
-    <value>?</value>
+    <value>μ</value>
   </data>
   <data name="Probabilistics_StandardDeviation_Symbol" xml:space="preserve">
-    <value>?</value>
+    <value>σ</value>
   </data>
   <data name="Probabilistics_Mean_description_for_Distribution_0_" xml:space="preserve">
     <value>De gemiddelde waarde van de {0}.</value>
