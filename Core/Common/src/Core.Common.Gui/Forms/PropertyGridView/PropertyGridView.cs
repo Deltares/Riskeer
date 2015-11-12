@@ -50,7 +50,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
         }
 
         /// <summary>
-        /// Handles proeprties sorting change.
+        /// Handles properties sorting change.
         /// </summary>
         /// <param name="e"></param>
         protected override void OnPropertySortChanged(EventArgs e)
