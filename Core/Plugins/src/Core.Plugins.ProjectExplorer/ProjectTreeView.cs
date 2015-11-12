@@ -193,8 +193,6 @@ namespace Core.Plugins.ProjectExplorer
 
             var tag = treeView.SelectedNode != null ? treeView.SelectedNode.Tag : null;
 
-            gui.SelectedProjectItem = tag as IProjectItem;
-
             // triggers validate items for ribbon so this should be done after setting SelectedProjectItem
             gui.Selection = tag;
 
@@ -263,12 +261,7 @@ namespace Core.Plugins.ProjectExplorer
 
         private void buttonsAddNewDataClick(object sender, EventArgs e)
         {
-            var projectItem = gui.CommandHandler.AddNewProjectItem(gui.SelectedProjectItem);
-            if (null != projectItem)
-            {
-                // TODO: add model name to SelectItemDialog instead
-                // treeView.StartLabelEdit();
-            }
+            gui.CommandHandler.AddNewProjectItem(gui.Selection);
         }
 
         /// <summary>

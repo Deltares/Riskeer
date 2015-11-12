@@ -145,11 +145,6 @@ namespace Core.Common.Gui
 
                 selection = value;
 
-                if (Selection is IProjectItem && !ReferenceEquals(Selection, SelectedProjectItem))
-                {
-                    SelectedProjectItem = (IProjectItem) Selection;
-                }
-
                 settingSelection = true;
 
                 try
@@ -175,11 +170,6 @@ namespace Core.Common.Gui
                 }
             }
         }
-
-        /// <summary>
-        /// TODO: add body to setter and set Selection to a correct item. And vice-versa.
-        /// </summary>
-        public IProjectItem SelectedProjectItem { get; set; }
 
         public IList<IGuiCommand> Commands
         {
@@ -335,7 +325,6 @@ namespace Core.Common.Gui
 
                 TypeUtils.ClearCaches();
 
-                SelectedProjectItem = null;
                 Selection = null;
 
                 try

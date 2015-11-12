@@ -71,13 +71,6 @@ namespace Core.Common.Gui
         /// </summary>
         object Selection { get; set; }
 
-        /// <summary>
-        /// Selected project item. 
-        /// If non-IProjectItem is selected in project tree view then this item must be set from outside 
-        /// (by a project tree view or any other IProjectItem navigation control).
-        /// </summary>
-        IProjectItem SelectedProjectItem { get; set; }
-
         #endregion
 
         #region Public Methods

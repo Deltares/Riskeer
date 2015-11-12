@@ -240,12 +240,11 @@ namespace Core.Common.Gui
             return null;
         }
 
-        public object AddNewProjectItem(object parent)
+        public void AddNewProjectItem(object parent)
         {
             if (gui.Application.Project == null)
             {
                 Log.Error(Resources.GuiCommandHandler_AddNewProjectItem_There_needs_to_be_a_project_to_add_an_item);
-                return null;
             }
 
             var selectDataDialog = CreateSelectionDialogWithProjectItems(GetSupportedDataItemInfos(parent).ToList());
@@ -259,11 +258,7 @@ namespace Core.Common.Gui
                     gui.Selection = newProjectItem;
                     OpenViewForSelection();
                 }
-
-                return newProjectItem;
             }
-
-            return null;
         }
 
         /// <summary>
