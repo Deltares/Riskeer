@@ -2868,11 +2868,11 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Slechts één instantie van &quot;RingtoetsGui&quot; is toegestaan per proces. Zorg ervoor dat de vorige instantie correct gewist was, &quot;stack trace&quot;:.
         /// </summary>
-        public static string RingtoetsGui_RingtoetsGui_Only_a_single_instance_of_RingtoetsGui_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__ {
+        public static string RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__ {
             get {
-                return ResourceManager.GetString("RingtoetsGui_RingtoetsGui_Only_a_single_instance_of_RingtoetsGui_is_allowed_at_th" +
-                        "e_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_corre" +
-                        "ctly__stack_trace__", resourceCulture);
+                return ResourceManager.GetString("RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_" +
+                        "process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trac" +
+                        "e__", resourceCulture);
             }
         }
         

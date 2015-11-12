@@ -1103,7 +1103,7 @@ Selecteer Nee om het project opslaan als een nieuw project op een andere locatie
   <data name="MainWindow_ButtonDelete_Click_Confirm" xml:space="preserve">
     <value>Bevestigen</value>
   </data>
-  <data name="RingtoetsGui_RingtoetsGui_Only_a_single_instance_of_RingtoetsGui_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__" xml:space="preserve">
+  <data name="RingtoetsGui_Only_a_single_instance_of_Ringtoets_is_allowed_at_the_same_time_per_process__make_sure_that_the_previous_instance_was_disposed_correctly__stack_trace__" xml:space="preserve">
     <value>Slechts één instantie van "RingtoetsGui" is toegestaan per proces. Zorg ervoor dat de vorige instantie correct gewist was, "stack trace":</value>
   </data>
   <data name="GuiCommandHandler_CloseProject_Closing_project____" xml:space="preserve">
