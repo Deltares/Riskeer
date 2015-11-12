@@ -207,7 +207,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE.txt" />
-    <EmbeddedResource Include="Properties\Resources.nl-NL.resx" />
     <EmbeddedResource Include="Styles\DefaultSymbol.png" />
   </ItemGroup>
   <ItemGroup>

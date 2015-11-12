@@ -218,11 +218,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Resources.nl-NL.Designer.cs">
-      <DependentUpon>Resources.nl-NL.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Properties\Settings.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <DependentUpon>Settings.settings</DependentUpon>
@@ -312,29 +307,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\MessageWindow\MessageWindow.nl-NL.resx">
-      <DependentUpon>MessageWindow.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MessageWindow\MessageWindow.resx">
       <DependentUpon>MessageWindow.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OptionsDialog\GeneralOptionsControl.nl-NL.resx">
-      <DependentUpon>GeneralOptionsControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OptionsDialog\GeneralOptionsControl.resx">
       <DependentUpon>GeneralOptionsControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\OptionsDialog\OptionsDialog.nl-NL.resx">
-      <DependentUpon>OptionsDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\OptionsDialog\OptionsDialog.resx">
       <DependentUpon>OptionsDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ProgressDialog\ProgressDialog.nl-NL.resx">
-      <DependentUpon>ProgressDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ProgressDialog\ProgressDialog.resx">
       <DependentUpon>ProgressDialog.cs</DependentUpon>
@@ -343,15 +326,9 @@
       <DependentUpon>RichTextView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SelectItemDialog.nl-NL.resx">
-      <DependentUpon>SelectItemDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SelectItemDialog.resx">
       <DependentUpon>SelectItemDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SelectViewDialog.nl-NL.resx">
-      <DependentUpon>SelectViewDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SelectViewDialog.resx">
       <DependentUpon>SelectViewDialog.cs</DependentUpon>
@@ -359,11 +336,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ViewManager\ViewSelectionContextMenuController.resx">
       <DependentUpon>ViewSelectionContextMenuController.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.nl-NL.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.nl-NL.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

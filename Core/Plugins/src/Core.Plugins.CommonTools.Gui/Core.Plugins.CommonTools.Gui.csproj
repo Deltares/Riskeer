@@ -94,11 +94,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Properties\Resources.nl-NL.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.nl-NL.resx</DependentUpon>
-    </Compile>
     <Compile Include="Property\Charting\AreaChartSeriesProperties.cs" />
     <Compile Include="Property\Charting\BarSeriesProperties.cs" />
     <Compile Include="Property\Charting\ChartAxisProperties.cs" />
@@ -117,22 +112,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\Charting\ChartLegendView.nl-NL.resx">
-      <DependentUpon>ChartLegendView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Charting\ChartLegendView.resx">
       <DependentUpon>ChartLegendView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TextDocumentView.nl-NL.resx">
-      <DependentUpon>TextDocumentView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\TextDocumentView.resx">
       <DependentUpon>TextDocumentView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.nl-NL.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.nl-NL.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

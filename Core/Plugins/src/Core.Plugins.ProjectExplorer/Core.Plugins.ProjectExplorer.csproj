@@ -143,12 +143,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ProjectExplorer.nl-NL.resx">
-      <DependentUpon>ProjectExplorer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProjectTreeView.nl-NL.resx">
-      <DependentUpon>ProjectTreeView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -227,9 +221,6 @@
     <EmbeddedResource Include="ProjectTreeView.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ProjectTreeView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.nl-NL.resx">
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Resources\DeleteHS.png" />
     <None Include="Resources\delete.png" />

@@ -177,9 +177,6 @@
     <EmbeddedResource Include="Forms\SelectCoordinateSystemDialog.resx">
       <DependentUpon>SelectCoordinateSystemDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.nl-NL.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
