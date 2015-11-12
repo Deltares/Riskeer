@@ -226,7 +226,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to StartingRingtoets Gui ....
+        ///   Looks up a localized string similar to Starting Ringtoets Gui ....
         /// </summary>
         public static string App_RunRingtoets_Starting_Ringtoets_Gui____ {
             get {

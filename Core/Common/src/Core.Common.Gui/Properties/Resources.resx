@@ -915,7 +915,7 @@ Select No to save the project as a new project at a different location.</value>
     <value>DragDrop is already handled in control itself</value>
   </data>
   <data name="App_RunRingtoets_Starting_Ringtoets_Gui____" xml:space="preserve">
-    <value>StartingRingtoets Gui ...</value>
+    <value>Starting Ringtoets Gui ...</value>
   </data>
   <data name="Ribbon_Copy" xml:space="preserve">
     <value>Copy</value>
