@@ -419,7 +419,7 @@
     <value>MainWindow must be visible when WaitUntilAllEventsAreProcessed is called on project tree view.</value>
   </data>
   <data name="ProjectExplorer_ButtonScrollToItemInActiveViewClick_Can_t_find_project_item_for_view_data___0_" xml:space="preserve">
-    <value>Can't find project item for view data: {0}</value>
+    <value>Can't find item for view data: {0}</value>
   </data>
   <data name="ProjectExplorer_ScrollTo_Can_t_find_tree_node_for_item___0_" xml:space="preserve">
     <value>Can't find tree node for item: {0}</value>

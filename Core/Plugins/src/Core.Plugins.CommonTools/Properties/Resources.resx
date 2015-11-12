@@ -136,21 +136,6 @@
   <data name="CommonToolsApplicationPlugin_GetDataItemInfos_Text_Document" xml:space="preserve">
     <value>Text Document</value>
   </data>
-  <data name="ProjectItemExporter_name_Export_to_new_project" xml:space="preserve">
-    <value>Export to new project</value>
-  </data>
-  <data name="ProjectItemExporter_fileFilter_Ringtoets_project_files" xml:space="preserve">
-    <value>Ringtoets project files</value>
-  </data>
-  <data name="ProjectItemExporter_Export_ProjectFolderExporter_only_supports_export_of_IProjectItem_based_objects" xml:space="preserve">
-    <value>ProjectFolderExporter only supports export of IProjectItem based objects</value>
-  </data>
-  <data name="ProjectImporter_Name_Project" xml:space="preserve">
-    <value>Project</value>
-  </data>
-  <data name="ProjectImporter_FileFilter_Ringtoets_Project_Files" xml:space="preserve">
-    <value>Ringtoets Project Files</value>
-  </data>
   <data name="FileBasedRestartStateImporter_Name_Restart_State" xml:space="preserve">
     <value>Restart State</value>
   </data>

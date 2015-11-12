@@ -97,8 +97,6 @@
     <Compile Include="IFileImporter.cs" />
     <Compile Include="IObservable.cs" />
     <Compile Include="IObserver.cs" />
-    <Compile Include="IProjectImporter.cs" />
-    <Compile Include="IProjectItemExporter.cs" />
     <Compile Include="Observable.cs" />
     <Compile Include="ObservableList.cs" />
     <Compile Include="Project.cs" />

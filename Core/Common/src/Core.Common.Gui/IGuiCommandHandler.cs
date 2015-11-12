@@ -69,7 +69,7 @@ namespace Core.Common.Gui
         /// <param name="childItemTypes">The predicate which must evaluate to true for an item type to be included in the list</param>
         object AddNewChildItem(object parent, IEnumerable<Type> childItemTypes);
 
-        void AddNewProjectItem(object parent);
+        void AddNewItem(object parent);
 
         ///<summary>
         ///</summary>

@@ -918,7 +918,7 @@ namespace Core.Plugins.ProjectExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Can&apos;t find project item for view data: {0}.
+        ///   Looks up a localized string similar to Can&apos;t find item for view data: {0}.
         /// </summary>
         public static string ProjectExplorer_ButtonScrollToItemInActiveViewClick_Can_t_find_project_item_for_view_data___0_ {
             get {

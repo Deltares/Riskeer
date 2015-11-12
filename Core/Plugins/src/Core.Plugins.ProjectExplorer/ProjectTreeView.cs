@@ -193,7 +193,6 @@ namespace Core.Plugins.ProjectExplorer
 
             var tag = treeView.SelectedNode != null ? treeView.SelectedNode.Tag : null;
 
-            // triggers validate items for ribbon so this should be done after setting SelectedProjectItem
             gui.Selection = tag;
 
             selectingNode = false;
@@ -261,7 +260,7 @@ namespace Core.Plugins.ProjectExplorer
 
         private void buttonsAddNewDataClick(object sender, EventArgs e)
         {
-            gui.CommandHandler.AddNewProjectItem(gui.Selection);
+            gui.CommandHandler.AddNewItem(gui.Selection);
         }
 
         /// <summary>

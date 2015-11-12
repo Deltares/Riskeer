@@ -351,10 +351,10 @@
   <data name="GuiCommandHandler_AddNewModel_Add_model" xml:space="preserve">
     <value>NL Add model</value>
   </data>
-  <data name="GuiCommandHandler_AddNewProjectItem_Cannot_add_an_item_to_the_selected_container" xml:space="preserve">
+  <data name="GuiCommandHandler_AddNewItem_Cannot_add_an_item_to_the_selected_container" xml:space="preserve">
     <value>NL Cannot add an item to the selected container</value>
   </data>
-  <data name="GuiCommandHandler_AddNewProjectItem_There_needs_to_be_a_project_to_add_an_item" xml:space="preserve">
+  <data name="GuiCommandHandler_AddNewItem_There_needs_to_be_a_project_to_add_an_item" xml:space="preserve">
     <value>NL There needs to be a project to add an item</value>
   </data>
   <data name="GuiCommandHandler_CloseProject_Closing_project____" xml:space="preserve">
@@ -371,27 +371,6 @@
   </data>
   <data name="GuiCommandHandler_CreateNewModelUsingDialog_Select_model____" xml:space="preserve">
     <value>NL Select model ...</value>
-  </data>
-  <data name="GuiCommandHandler_DeleteCurrentProjectItem_No_current_selection_found_in_the_user_interface_to_delete_" xml:space="preserve">
-    <value>NL No current selection found in the user interface to delete.</value>
-  </data>
-  <data name="GuiCommandHandler_DeleteProjectItem_Delete__0_" xml:space="preserve">
-    <value>NL Delete {0}</value>
-  </data>
-  <data name="GuiCommandHandler_DeleteProjectItem_The_composite_model_you_are_trying_to_delete_contains_models_that_are_linked_by_other_models___0__after_deletion_these_links_will_be_lost__Do_you_wish_to_continue_" xml:space="preserve">
-    <value>NL The composite model you are trying to delete contains models that are linked by other models: {0} after deletion these links will be lost. Do you wish to continue?</value>
-  </data>
-  <data name="GuiCommandHandler_DeleteProjectItem_The_folder_you_are_trying_to_delete_contains_models_that_are_linked_by_other_models___0__after_deletion_these_links_will_be_lost__Do_you_wish_to_continue_" xml:space="preserve">
-    <value>NL The folder you are trying to delete contains models that are linked by other models: {0} after deletion these links will be lost. Do you wish to continue?</value>
-  </data>
-  <data name="GuiCommandHandler_DeleteProjectItem_The_following_model_0__depend_1__on_this_item__2_" xml:space="preserve">
-    <value>NL The following model{0} depend{1} on this item:{2}</value>
-  </data>
-  <data name="GuiCommandHandler_DeleteProjectItem_The_item_you_are_trying_to_delete_is_linked_by_other_items__after_deletion_these_links_will_be_lost__Do_you_wish_to_continue_" xml:space="preserve">
-    <value>NL The item you are trying to delete is linked by other items, after deletion these links will be lost. Do you wish to continue?</value>
-  </data>
-  <data name="GuiCommandHandler_DeleteProjectItem_The_model_you_are_trying_to_delete_is_linked_by_other_models___0__after_deletion_these_links_will_be_lost__Do_you_wish_to_continue_" xml:space="preserve">
-    <value>NL The model you are trying to delete is linked by other models: {0} after deletion these links will be lost. Do you wish to continue?</value>
   </data>
   <data name="GuiCommandHandler_ImportOn_Unable_to_import_on__0__" xml:space="preserve">
     <value>NL Unable to import on {0}.</value>
@@ -608,45 +587,6 @@ Select No to save the project as a new project at a different location.</value>
   </data>
   <data name="PortableSettingsProvider_ThrowIfRoaming_Setting__0__is_roaming__This_is_not_supported" xml:space="preserve">
     <value>NL Setting {0} is roaming. This is not supported</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_CanPasteInto_Can_not_cut___paste_into_child" xml:space="preserve">
-    <value>NL Can not cut / paste into child</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_CanPasteInto_Can_not_cut___paste_into_itself" xml:space="preserve">
-    <value>NL Can not cut / paste into itself</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_CanPasteInto_Can_not_cut___paste_into_the_same_container_without_providing_position" xml:space="preserve">
-    <value>NL Can not cut / paste into the same container without providing position</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_CanPasteInto_Target_paste_container_is_null" xml:space="preserve">
-    <value>NL Target paste container is null</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_Copy_Copy_item___0__" xml:space="preserve">
-    <value>NL Copy item "{0}"</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_CopyPaste_Can_not_paste__0__into__1___as_an_error_occurred_during_copy___2_" xml:space="preserve">
-    <value>NL Can not paste {0} into {1}, as an error occurred during copy: {2}</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_CopyPaste_Copy_item" xml:space="preserve">
-    <value>NL Copy item</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_CopyPaste_Copy_of__0_" xml:space="preserve">
-    <value>NL Copy of {0}</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_CopyPaste_Creating_a_copy_of_an_item___0___in___1__" xml:space="preserve">
-    <value>NL Creating a copy of an item "{0}" in "{1}"</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_Cut_Cut_item___0__" xml:space="preserve">
-    <value>NL Cut item "{0}"</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_CutPaste_" xml:space="preserve">
-    <value>NL Moving item "{0}" from "{1}" to "{2}" (position = {3})</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_CutPaste_Moving__0_" xml:space="preserve">
-    <value>NL Moving {0}</value>
-  </data>
-  <data name="ProjectItemCopyPasteHandler_Paste_Can_not_paste__0__into__1_" xml:space="preserve">
-    <value>NL Can not paste {0} into {1}</value>
   </data>
   <data name="RichTextView_RichTextView_The_license_file__0__cannot_be_found_on_the_computer_" xml:space="preserve">
     <value>NL The license file {0} cannot be found on the computer.</value>

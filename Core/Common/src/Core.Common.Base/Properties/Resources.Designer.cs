@@ -110,16 +110,6 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to export file {0}. An error has occurred during clone with the following message: {1}.
-        /// </summary>
-        internal static string ProjectService_ExportProjectItemTo_Unable_to_export_file__0___An_error_has_occurred_during_clone_with_the_following_message___1_ {
-            get {
-                return ResourceManager.GetString("ProjectService_ExportProjectItemTo_Unable_to_export_file__0___An_error_has_occurr" +
-                        "ed_during_clone_with_the_following_message___1_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Project {0} saved.
         /// </summary>
         internal static string ProjectService_FireProjectSaved_Project__0__saved {

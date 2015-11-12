@@ -186,15 +186,6 @@
   <data name="ProjectImporter_Name_Project" xml:space="preserve">
     <value>NL Project</value>
   </data>
-  <data name="ProjectItemExporter_Export_ProjectFolderExporter_only_supports_export_of_IProjectItem_based_objects" xml:space="preserve">
-    <value>NL ProjectFolderExporter only supports export of IProjectItem based objects</value>
-  </data>
-  <data name="ProjectItemExporter_fileFilter_Ringtoets_project_files" xml:space="preserve">
-    <value>NL Ringtoets project files</value>
-  </data>
-  <data name="ProjectItemExporter_name_Export_to_new_project" xml:space="preserve">
-    <value>NL Export to new project</value>
-  </data>
   <data name="TimeSeriesAttributes_SetToFunction_Setting_attributes_on_non_time_series_function_is_not_supported" xml:space="preserve">
     <value>NL Setting attributes on non-time series function is not supported</value>
   </data>

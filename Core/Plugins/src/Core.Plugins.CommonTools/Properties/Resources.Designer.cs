@@ -274,52 +274,6 @@ namespace Core.Plugins.CommonTools.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ringtoets Project Files.
-        /// </summary>
-        public static string ProjectImporter_FileFilter_Ringtoets_Project_Files {
-            get {
-                return ResourceManager.GetString("ProjectImporter_FileFilter_Ringtoets_Project_Files", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Project.
-        /// </summary>
-        public static string ProjectImporter_Name_Project {
-            get {
-                return ResourceManager.GetString("ProjectImporter_Name_Project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ProjectFolderExporter only supports export of IProjectItem based objects.
-        /// </summary>
-        public static string ProjectItemExporter_Export_ProjectFolderExporter_only_supports_export_of_IProjectItem_based_objects {
-            get {
-                return ResourceManager.GetString("ProjectItemExporter_Export_ProjectFolderExporter_only_supports_export_of_IProject" +
-                        "Item_based_objects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ringtoets project files.
-        /// </summary>
-        public static string ProjectItemExporter_fileFilter_Ringtoets_project_files {
-            get {
-                return ResourceManager.GetString("ProjectItemExporter_fileFilter_Ringtoets_project_files", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Export to new project.
-        /// </summary>
-        public static string ProjectItemExporter_name_Export_to_new_project {
-            get {
-                return ResourceManager.GetString("ProjectItemExporter_name_Export_to_new_project", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap textdocument {

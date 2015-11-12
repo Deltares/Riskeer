@@ -455,13 +455,6 @@ namespace Core.Common.Base
 
             foreach (var fileImporter in Plugins.SelectMany(plugin => plugin.GetFileImporters()))
             {
-                var projectImporter = fileImporter as IProjectImporter;
-                if (projectImporter != null)
-                {
-                    // TODO: implement
-                    // projectImporter.ProjectService = ProjectService;
-                }
-
                 fileImporters.Add(fileImporter);
 
                 log.DebugFormat(Properties.Resources.RingtoetsApplication_RegisterImporters_Registering_importer__0_, fileImporter.Name);
@@ -474,13 +467,6 @@ namespace Core.Common.Base
 
             foreach (var fileExporter in Plugins.SelectMany(plugin => plugin.GetFileExporters()))
             {
-                var projectExporter = fileExporter as IProjectItemExporter;
-                if (projectExporter != null)
-                {
-                    // TODO: implement
-                    // projectExporter.ProjectService = ProjectService;
-                }
-
                 fileExporters.Add(fileExporter);
 
                 log.DebugFormat(Properties.Resources.RingtoetsApplication_RegisterExporters_Registering_exporter__0_, fileExporter.Name);

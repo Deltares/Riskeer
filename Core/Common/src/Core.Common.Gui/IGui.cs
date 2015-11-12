@@ -60,7 +60,7 @@ namespace Core.Common.Gui
         IList<GuiPlugin> Plugins { get; }
 
         /// <summary>
-        /// Suspends view removal on project item delete. Useful to avoid unnecessary checks (faster item removal).
+        /// Suspends view removal on item delete. Useful to avoid unnecessary checks (faster item removal).
         /// </summary>
         bool IsViewRemoveOnItemDeleteSuspended { get; set; }
 
