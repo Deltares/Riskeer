@@ -9,8 +9,8 @@ using Core.Common.Utils.Collections;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Child = Core.Common.Base.Tests.Controls.Swf.UndoRedoTestClasses.Child;
-using Parent = Core.Common.Base.Tests.Controls.Swf.UndoRedoTestClasses.Parent;
+using Child = Core.Common.Base.Tests.Controls.Swf.TestClasses.Child;
+using Parent = Core.Common.Base.Tests.Controls.Swf.TestClasses.Parent;
 
 namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 {
