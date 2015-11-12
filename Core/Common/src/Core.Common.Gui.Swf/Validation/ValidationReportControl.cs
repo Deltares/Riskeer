@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Core.Common.Controls;
 using Core.Common.Gui.Swf.Properties;
-using Core.Common.Utils;
 using Core.Common.Utils.Validation;
 
 namespace Core.Common.Gui.Swf.Validation
@@ -211,7 +210,7 @@ namespace Core.Common.Gui.Swf.Validation
         {
             foreach (var issue in issues)
             {
-                var name = issue.Subject.GetType().Name; // todo: does every subject a name?
+                var name = issue.SubjectName; 
                 var node = CreateIssueNode(name + issue.Message, issue);
                 nodeCollection.Add(node);
             }

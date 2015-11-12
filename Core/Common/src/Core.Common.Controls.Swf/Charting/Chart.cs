@@ -32,18 +32,11 @@ namespace Core.Common.Controls.Swf.Charting
 
         public Chart()
         {
-            Name = "chart1";
-
             chart = new Steema.TeeChart.Chart();
             Series = new EventedList<IChartSeries>();
 
             SetDefaultValues();
         }
-
-        /// <summary>
-        /// Name of the chart.
-        /// </summary>
-        public string Name { get; set; }
 
         public bool TitleVisible
         {

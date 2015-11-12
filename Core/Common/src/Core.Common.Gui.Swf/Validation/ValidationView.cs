@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls;
-using Core.Common.Utils;
 using Core.Common.Utils.Validation;
 
 namespace Core.Common.Gui.Swf.Validation
@@ -52,7 +51,6 @@ namespace Core.Common.Gui.Swf.Validation
                     Gui = null;
                 }
 
-                SetViewText();
                 RefreshReport();
             }
         }
@@ -60,17 +58,6 @@ namespace Core.Common.Gui.Swf.Validation
         public ViewInfo ViewInfo { get; set; }
 
         public void EnsureVisible(object item) {}
-
-        private void SetViewText()
-        {
-            if (data == null)
-            {
-                return;
-            }
-
-            var dataName = data.ToString();
-            Text = dataName + " Validation Report";
-        }
 
         private bool RefreshReport()
         {
@@ -91,8 +78,6 @@ namespace Core.Common.Gui.Swf.Validation
 
                 // TextChanged triggers avalondock to update the image ;-)
                 Text = "Refreshing...";
-                SetViewText();
-                // end TextChanged
             }
 
             stopwatch.Stop();

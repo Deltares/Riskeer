@@ -889,16 +889,7 @@ namespace Core.Common.Gui
 
         private static string GetViewName(IView view)
         {
-            var name = view.ViewInfo != null ? view.ViewInfo.GetViewName(view, view.Data) : null;
-            if (name != null)
-            {
-                return name;
-            }
-
-            var enumerable = view.Data as IEnumerable;
-            var data = enumerable == null ? view.Data : enumerable.Cast<object>().FirstOrDefault();
-
-            return view.Data == null ? "" : view.Data.ToString();
+            return (view.ViewInfo != null ? view.ViewInfo.GetViewName(view, view.Data) : null) ?? "";
         }
 
         private void UpdateViewName(IView view)

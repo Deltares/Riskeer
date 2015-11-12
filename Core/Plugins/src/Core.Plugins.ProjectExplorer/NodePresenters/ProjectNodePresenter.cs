@@ -16,19 +16,6 @@ namespace Core.Plugins.ProjectExplorer.NodePresenters
             GuiPlugin = guiPlugin;
         }
 
-        public override bool CanRenameNode(ITreeNode node)
-        {
-            return false;
-        }
-
-        public override void OnNodeRenamed(Project project, string newName)
-        {
-            if (project.Name != newName)
-            {
-                project.Name = newName;
-            }
-        }
-
         public override IEnumerable GetChildNodeObjects(Project project, ITreeNode node)
         {
             return project.Items;

@@ -43,11 +43,11 @@ namespace Core.Common.Utils.Tests.Validation
 
         private static ValidationReport CreateValidationReport()
         {
-            var issue1 = new ValidationIssue("", ValidationSeverity.Warning, "");
-            var issue2 = new ValidationIssue("", ValidationSeverity.Info, "");
-            var issue3 = new ValidationIssue("", ValidationSeverity.None, "");
-            var issue4 = new ValidationIssue("", ValidationSeverity.Warning, "");
-            var issue5 = new ValidationIssue("", ValidationSeverity.Error, "");
+            var issue1 = new ValidationIssue("", "somename", ValidationSeverity.Warning, "");
+            var issue2 = new ValidationIssue("", "somename", ValidationSeverity.Info, "");
+            var issue3 = new ValidationIssue("", "somename", ValidationSeverity.None, "");
+            var issue4 = new ValidationIssue("", "somename", ValidationSeverity.Warning, "");
+            var issue5 = new ValidationIssue("", "somename", ValidationSeverity.Error, "");
             var subReport1 = new ValidationReport("q", new[]
             {
                 issue1,

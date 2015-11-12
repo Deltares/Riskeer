@@ -12,6 +12,9 @@ namespace Core.Common.Base.Workflow
     /// </example>
     public interface IActivity
     {
+        /// <summary>
+        /// Name of the activity that displayed in porgress dialog. NOTE: not to be used as a current progress discription.
+        /// </summary>
         string Name { get; set; }
 
         /// <summary>
@@ -23,7 +26,7 @@ namespace Core.Common.Base.Workflow
         /// Event to be fired on every <see cref="Status"/> change.
         /// </summary>
         event EventHandler<ActivityStatusChangedEventArgs> StatusChanged;
-
+            
         /// <summary>
         /// Returns current status of the activity (executing, cancelling, etc.)
         /// </summary>

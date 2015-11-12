@@ -563,10 +563,5 @@ namespace Core.Common.Utils.IO
             var info2 = new FileInfo(path2);
             return info1.FullName == info2.FullName;
         }
-
-        private class FileName 
-        {
-            public string Name { get; set; }
-        }
     }
 }

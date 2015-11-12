@@ -24,6 +24,16 @@ namespace Core.Plugins.CommonTools.Gui.Forms.Charting
             node.Image = Resources.Chart;
         }
 
+        public override void OnNodeRenamed(IChart chart, string newName)
+        {
+            if (chart == null || chart.Title == newName)
+            {
+                return;
+            }
+
+            chart.Title = newName;
+        }
+
         public override IEnumerable GetChildNodeObjects(IChart chart, ITreeNode node)
         {
             return chart.Series.Cast<object>();

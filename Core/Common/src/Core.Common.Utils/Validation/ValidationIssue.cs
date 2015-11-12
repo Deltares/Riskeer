@@ -4,18 +4,22 @@
     {
         private object viewData;
 
-        public ValidationIssue(object subject, ValidationSeverity severity, string message, object viewdata = null)
+        public ValidationIssue(object subject, string subjectName, ValidationSeverity severity, string message, object viewdata = null)
         {
             Severity = severity;
             Message = message;
             Subject = subject;
             ViewData = viewdata;
+            SubjectName = subjectName;
         }
+
+        public string SubjectName { get; set; }
 
         public ValidationSeverity Severity { get; private set; }
         public string Message { get; private set; }
 
         public object Subject { get; set; }
+        
 
         public object ViewData
         {
