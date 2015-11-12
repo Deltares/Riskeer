@@ -75,9 +75,6 @@ namespace Core.Common.Gui.Swf.Validation
             {
                 validationReportControl.Data = validationReport;
                 Image = ValidationReportControl.GetImageForSeverity(false, validationReport.Severity);
-
-                // TextChanged triggers avalondock to update the image ;-)
-                Text = "Refreshing...";
             }
 
             stopwatch.Stop();

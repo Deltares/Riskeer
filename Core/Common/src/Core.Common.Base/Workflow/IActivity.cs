@@ -13,7 +13,7 @@ namespace Core.Common.Base.Workflow
     public interface IActivity
     {
         /// <summary>
-        /// Name of the activity that displayed in porgress dialog. NOTE: not to be used as a current progress discription.
+        /// Name of the activity
         /// </summary>
         string Name { get; set; }
 

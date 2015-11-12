@@ -6,7 +6,7 @@ namespace Core.GIS.GeoAPI.Extensions.Feature
     public interface IFeature : ICloneable
     {
         /// <summary>
-        /// The Name of the feature.
+        /// The name of the feature.
         /// </summary>
         string Name { get; set; }
 
