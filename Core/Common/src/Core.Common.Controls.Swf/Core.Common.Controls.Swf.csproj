@@ -185,42 +185,6 @@
     </Compile>
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="ControlHelper.cs" />
-    <Compile Include="CustomInputDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CustomInputDialog.Designer.cs">
-      <DependentUpon>CustomInputDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataEditorGenerator\Binding\ControlBindings\DataGridBinding.cs" />
-    <Compile Include="DataEditorGenerator\Binding\ControlBindings\TimeSpanBinding.cs" />
-    <Compile Include="DataEditorGenerator\Binding\DataBinder.cs" />
-    <Compile Include="DataEditorGenerator\Binding\Binding.cs" />
-    <Compile Include="DataEditorGenerator\Binding\ControlBindings\CheckBoxBinding.cs" />
-    <Compile Include="DataEditorGenerator\Binding\ControlBindings\ComboBoxBinding.cs" />
-    <Compile Include="DataEditorGenerator\Binding\ControlBindings\DateTimePickerBinding.cs" />
-    <Compile Include="DataEditorGenerator\Binding\ControlBindings\TextBoxBinding.cs" />
-    <Compile Include="DataEditorGenerator\Binding\ControlBindings\CustomControlBinding.cs" />
-    <Compile Include="DataEditorGenerator\Binding\IBinding.cs" />
-    <Compile Include="DataEditorGenerator\DataEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DataEditorGenerator\DataEditorGeneratorSwf.cs" />
-    <Compile Include="DataEditorGenerator\InteractiveToolTip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DataEditorGenerator\InteractiveToolTip.Designer.cs">
-      <DependentUpon>InteractiveToolTip.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataEditorGenerator\LinkedToolTip.cs" />
-    <Compile Include="DataEditorGenerator\Metadata\FieldUIDescription.cs" />
-    <Compile Include="DataEditorGenerator\Metadata\ICustomControlHelper.cs" />
-    <Compile Include="DataEditorGenerator\Metadata\ObjectUIDescription.cs" />
-    <Compile Include="DataEditorGenerator\SelfCollapsingGroupbox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DataEditorGenerator\SelfCollapsingPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Editors\ButtonTypeEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -335,9 +299,6 @@
     <EmbeddedResource Include="Charting\ChartView.resx">
       <DependentUpon>ChartView.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CustomInputDialog.resx">
-      <DependentUpon>CustomInputDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExceptionDialog.resx">
       <DependentUpon>ExceptionDialog.cs</DependentUpon>
