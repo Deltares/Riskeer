@@ -308,7 +308,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
             var presenter = GetTreeViewNodePresenter(SelectedNode.Tag, SelectedNode);
             presenter.RemoveNodeData(SelectedNode.Parent.Tag, SelectedNode.Tag);
-            SelectedNode = (SelectedNode != null) ? SelectedNode.PreviousVisibleNode : Nodes.FirstOrDefault();
+            SelectedNode = SelectedNode ?? Nodes.FirstOrDefault();
         }
 
         public override void Refresh()
