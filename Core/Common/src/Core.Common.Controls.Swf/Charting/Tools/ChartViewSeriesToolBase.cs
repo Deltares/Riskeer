@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Charting.Series;
+using Core.Common.Controls.Swf.Properties;
 using Steema.TeeChart;
 using Steema.TeeChart.Styles;
 using Steema.TeeChart.Tools;
@@ -136,7 +137,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
             {
                 if (iSeries != null && iSeries != value)
                 {
-                    throw new ArgumentException(String.Format("This tool only accepts {0} as series", iSeries));
+                    throw new ArgumentException(String.Format(Resources.ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts__0__as_series, iSeries));
                 }
                 lastSelectedSeries = value;
             }

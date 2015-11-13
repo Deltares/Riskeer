@@ -469,10 +469,10 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
             {
                 if (c.Column.AbsoluteIndex == 0 && (v.ToString() == "b"))
                 {
-                    return new Core.Common.Utils.Tuple<string, bool>("b not allowed", false);
+                    return new Tuple<string, bool>("b not allowed", false);
                 }
 
-                return new Core.Common.Utils.Tuple<string, bool>("", true);
+                return new Tuple<string, bool>("", true);
             };
 
             var tableViewCopyPasteController = new TableViewPasteController(tableView);
@@ -502,10 +502,10 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
             return tableView;
         }
 
-        private static Core.Common.Utils.Tuple<string, bool> TableViewEditorValidator(TableViewCell tableViewCell, object value)
+        private static Tuple<string, bool> TableViewEditorValidator(TableViewCell tableViewCell, object value)
         {
             // do not accept "d"
-            return ((string) value).Contains("d") ? new Core.Common.Utils.Tuple<string, bool>("", false) : new Core.Common.Utils.Tuple<string, bool>("", true);
+            return ((string) value).Contains("d") ? new Tuple<string, bool>("", false) : new Tuple<string, bool>("", true);
         }
     }
 }

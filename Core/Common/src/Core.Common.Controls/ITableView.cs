@@ -116,7 +116,7 @@ namespace Core.Common.Controls
         /// </summary>
         IList<TableViewCell> SelectedCells { get; }
 
-        Func<TableViewCell, object, Utils.Tuple<string, bool>> InputValidator { get; set; }
+        Func<TableViewCell, object, Tuple<string, bool>> InputValidator { get; set; }
 
         /// <summary>
         /// Gets or sets the row values validator. The validator should return a RowValidationResult

@@ -414,7 +414,7 @@ namespace Core.Common.Controls.Swf.Table
                     dxGridView.UnselectCell(cell.RowIndex, gridColumn);
                     break;
                 default:
-                    throw new NotSupportedException(string.Format("Action {0} is not supported by the TableView", e.Action));
+                    throw new NotSupportedException(string.Format(Resources.TableView_SelectedCellsCollectionChanged_Action__0__is_not_supported_by_the_TableView, e.Action));
             }
         }
 
@@ -1321,7 +1321,7 @@ namespace Core.Common.Controls.Swf.Table
         /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public Func<TableViewCell, object, Utils.Tuple<string, bool>> InputValidator { get; set; }
+        public Func<TableViewCell, object, Tuple<string, bool>> InputValidator { get; set; }
 
         /// <summary>
         /// Gets or sets the function that checks if the current selection can be deleted.
@@ -1858,7 +1858,7 @@ namespace Core.Common.Controls.Swf.Table
             }
             else
             {
-                throw new ArgumentException(string.Format("Unbound columns of type {0} not supported.", columnType));
+                throw new ArgumentException(string.Format(Resources.TableView_AddUnboundColumn_Unbound_columns_of_type__0__not_supported_, columnType));
             }
             if (editor != null)
             {
@@ -2073,7 +2073,7 @@ namespace Core.Common.Controls.Swf.Table
 
         private void DxGridViewCellValueChanging(object sender, CellValueChangedEventArgs e)
         {
-            Trace.WriteLine(string.Format("Value Changing {0}", e.Value));
+            Trace.WriteLine(string.Format(Resources.TableView_DxGridViewCellValueChanging_Value_Changing__0_, e.Value));
         }
 
         private void DxGridViewCustomDrawRowIndicator(object sender, RowIndicatorCustomDrawEventArgs e)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils.ComponentModel
 {
@@ -23,7 +24,7 @@ namespace Core.Common.Utils.ComponentModel
             var propertyInfo = obj.GetType().GetProperty(propertyName);
             if (propertyInfo == null)
             {
-                throw new MissingMemberException(string.Format("Could not find property {0} on type {1}", propertyName,
+                throw new MissingMemberException(string.Format(Resource.DynamicVisibleAttribute_IsDynamicVisible_Could_not_find_property__0__on_type__1_, propertyName,
                                                                obj.GetType()));
             }
 
@@ -38,7 +39,7 @@ namespace Core.Common.Utils.ComponentModel
             if (validationMethod == null)
             {
                 throw new MissingMethodException(
-                    String.Format("{0} uses DynamicVisibleAttribute but does not have method marked using DynamicVisibleValidationMethodAttribute", obj));
+                    String.Format(Resource.DynamicVisibleAttribute_IsDynamicVisible__0__uses_DynamicVisibleAttribute_but_does_not_have_method_marked_using_DynamicVisibleValidationMethodAttribute, obj));
             }
 
             return (bool) validationMethod.Invoke(obj, new[]

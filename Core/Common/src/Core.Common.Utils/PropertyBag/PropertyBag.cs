@@ -628,7 +628,7 @@ namespace Core.Common.Utils.PropertyBag
                 }
             }
 
-            var orderedProperties = propsToOrder.OrderBy(p => p.First).Select(p => p.Second).ToList();
+            var orderedProperties = propsToOrder.OrderBy(p => p.Item1).Select(p => p.Item2).ToList();
 
             // Convert the list of PropertyDescriptors to a collection that the
             // ICustomTypeDescriptor can use, and return it.

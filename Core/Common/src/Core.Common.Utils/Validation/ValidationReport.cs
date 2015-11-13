@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils.Validation
 {
@@ -160,7 +161,7 @@ namespace Core.Common.Utils.Validation
 
         public override string ToString()
         {
-            return string.Format("{0}, severity: {1} ({2} error(s), {3} warning(s), {4} info)",
+            return string.Format(Resource.ValidationReport_ToString__0___severity___1____2__error_s____3__warning_s____4__info_,
                                  Category, Severity,
                                  ErrorCount, WarningCount, InfoCount);
         }

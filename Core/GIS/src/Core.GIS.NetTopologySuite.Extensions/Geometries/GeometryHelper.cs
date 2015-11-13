@@ -438,13 +438,13 @@ namespace Core.GIS.NetTopologySuite.Extensions.Geometries
         /// <param name="geometry"></param>
         /// <param name="splitPointX"></param>
         /// <returns></returns>
-        public static Common.Utils.Tuple<IGeometry, IGeometry> SplitGeometryVerticalAt(IGeometry geometry, double splitPointX)
+        public static Tuple<IGeometry, IGeometry> SplitGeometryVerticalAt(IGeometry geometry, double splitPointX)
         {
             ThrowIfArgumentInvalid(geometry, splitPointX);
 
             var rightHalf = GetRightHalfGeometry(geometry, splitPointX);
             var leftHalf = GetLeftHalfGeometry(geometry, splitPointX);
-            return new Common.Utils.Tuple<IGeometry, IGeometry>(leftHalf, rightHalf);
+            return new Tuple<IGeometry, IGeometry>(leftHalf, rightHalf);
         }
 
         public static IGeometry NormalizeGeometry(IGeometry geometryToNormalize)

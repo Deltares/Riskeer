@@ -61,11 +61,121 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Argument van DynamicReadOnlyValidationMethod heeft een incorrect type. Zou van het type string moeten zijn. Klasse: {0}.
+        /// </summary>
+        internal static string DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_argument_type__should_be_of_type_string__class___0_ {
+            get {
+                return ResourceManager.GetString("DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValida" +
+                        "tionMethod_has_incorrect_argument_type__should_be_of_type_string__class___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DynamicReadOnlyValidationMethod heeft een incorrecte aantal argumenten. Zou er één moeten zijn. Klasse: {0}.
+        /// </summary>
+        internal static string DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_number_of_arguments__should_be_1_of_type_string__class___0_ {
+            get {
+                return ResourceManager.GetString("DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValida" +
+                        "tionMethod_has_incorrect_number_of_arguments__should_be_1_of_type_string__class_" +
+                        "__0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DynamicReadOnlyValidationMethod moet &apos;bool&apos; als &apos;return type&apos; hebben. Klasse: {0}.
+        /// </summary>
+        internal static string DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_must_use_bool_as_a_return_type__class___0_ {
+            get {
+                return ResourceManager.GetString("DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValida" +
+                        "tionMethod_must_use_bool_as_a_return_type__class___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DynamicReadOnlyValidationMethod niet gevonden (of geen &apos;public&apos; toegankelijkheid). Klasse: {0}.
+        /// </summary>
+        internal static string DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_not_found__or_not_public___class___0_ {
+            get {
+                return ResourceManager.GetString("DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValida" +
+                        "tionMethod_not_found__or_not_public___class___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slechts één DynamicReadOnlyValidationMethod toegestaan per klasse: {0}.
+        /// </summary>
+        internal static string DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_Only_one_DynamicReadOnlyValidationMethod_is_allowed_per_class___0_ {
+            get {
+                return ResourceManager.GetString("DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_Only_one_DynamicReadO" +
+                        "nlyValidationMethod_is_allowed_per_class___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} gebruikt DynanamicReadOnlyAttribute, maar heeft geen methode gemarkeerd met DynamicReadOnlyValidationMethodAttribute.
+        /// </summary>
+        internal static string DynamicReadOnlyAttribute_IsDynamicReadOnly__0__uses_DynanamicReadOnlyAttribute_but_does_not_have_method_marked_using_DynamicReadOnlyValidationMethodAttribute {
+            get {
+                return ResourceManager.GetString("DynamicReadOnlyAttribute_IsDynamicReadOnly__0__uses_DynanamicReadOnlyAttribute_bu" +
+                        "t_does_not_have_method_marked_using_DynamicReadOnlyValidationMethodAttribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kon eigenschap {0} op type {1} niet vinden..
+        /// </summary>
+        internal static string DynamicReadOnlyAttribute_IsDynamicReadOnly_Could_not_find_property__0__on_type__1_ {
+            get {
+                return ResourceManager.GetString("DynamicReadOnlyAttribute_IsDynamicReadOnly_Could_not_find_property__0__on_type__1" +
+                        "_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} gebruikt DynamicVisibleAttribute, maar heeft geen methode gemarkeerd met DynamicVisibleValidationMethodAttribute.
+        /// </summary>
+        internal static string DynamicVisibleAttribute_IsDynamicVisible__0__uses_DynamicVisibleAttribute_but_does_not_have_method_marked_using_DynamicVisibleValidationMethodAttribute {
+            get {
+                return ResourceManager.GetString("DynamicVisibleAttribute_IsDynamicVisible__0__uses_DynamicVisibleAttribute_but_doe" +
+                        "s_not_have_method_marked_using_DynamicVisibleValidationMethodAttribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kon eigenschap {0} van type {1} niet vinden.
+        /// </summary>
+        internal static string DynamicVisibleAttribute_IsDynamicVisible_Could_not_find_property__0__on_type__1_ {
+            get {
+                return ResourceManager.GetString("DynamicVisibleAttribute_IsDynamicVisible_Could_not_find_property__0__on_type__1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parameter &apos;GroupSize&apos; moet groter zijn dan 0.
         /// </summary>
         internal static string EnumerableExtensions_SplitInGroups_GroupSize_must_be_greater_than_0 {
             get {
                 return ResourceManager.GetString("EnumerableExtensions_SplitInGroups_GroupSize_must_be_greater_than_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thread synchronisatiefout (aanroep {1}): {0}.
+        /// </summary>
+        internal static string InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error__call__1_____0_ {
+            get {
+                return ResourceManager.GetString("InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error__call__1_____" +
+                        "0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kon {3} niet vinden, dan wel laden.{2}Fout: {4} - {0}{2}Bestand: {5}\{1}.
+        /// </summary>
+        internal static string NativeLibrary_LoadNativeDll_Could_not_find___load__3___2_Error___4_____0__2_File___5___1_ {
+            get {
+                return ResourceManager.GetString("NativeLibrary_LoadNativeDll_Could_not_find___load__3___2_Error___4_____0__2_File_" +
+                        "__5___1_", resourceCulture);
             }
         }
         
@@ -88,11 +198,58 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan methode {0}.TryParse(string, out {0}) niet vinden.
+        /// </summary>
+        internal static string ParseHelper_ParseHelper_Cannot_find_method__0__TryParse_string__out__0__ {
+            get {
+                return ResourceManager.GetString("ParseHelper_ParseHelper_Cannot_find_method__0__TryParse_string__out__0__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to tot.
         /// </summary>
         internal static string strTill {
             get {
                 return ResourceManager.GetString("strTill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exceptie opgetreden.
+        /// </summary>
+        internal static string TypeUtils_CallMethod_Exception_occured {
+            get {
+                return ResourceManager.GetString("TypeUtils_CallMethod_Exception_occured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen &apos;default constructor&apos; gevonden voor type {0}.
+        /// </summary>
+        internal static string TypeUtils_CreateInstance_No_default_constructor_available_for_type__0_ {
+            get {
+                return ResourceManager.GetString("TypeUtils_CreateInstance_No_default_constructor_available_for_type__0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameter &apos;member&apos; is geen geldige expressie voor deze methode.
+        /// </summary>
+        internal static string TypeUtils_GetMemberNameFromMemberExpression__member__not_a_valid_expression_for_this_method {
+            get {
+                return ResourceManager.GetString("TypeUtils_GetMemberNameFromMemberExpression__member__not_a_valid_expression_for_t" +
+                        "his_method", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}, ernst: {1} ({2} fout(en), {3} waarschuwing(en), {4} info).
+        /// </summary>
+        internal static string ValidationReport_ToString__0___severity___1____2__error_s____3__warning_s____4__info_ {
+            get {
+                return ResourceManager.GetString("ValidationReport_ToString__0___severity___1____2__error_s____3__warning_s____4__i" +
+                        "nfo_", resourceCulture);
             }
         }
         

@@ -182,7 +182,6 @@
     <Compile Include="Reflection\TypeExtensions.cs" />
     <Compile Include="Reflection\TypeUtils.cs" />
     <Compile Include="StringExtensions.cs" />
-    <Compile Include="Tuple.cs" />
     <Compile Include="TypeConverter.cs" />
     <Compile Include="Url.cs" />
     <Compile Include="Validation\ValidationIssue.cs" />

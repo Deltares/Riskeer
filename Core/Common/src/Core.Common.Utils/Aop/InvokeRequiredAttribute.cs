@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.Remoting.Contexts;
 using System.Threading;
+using Core.Common.Utils.Properties;
 using log4net;
 using PostSharp.Aspects;
 
@@ -66,7 +67,7 @@ namespace Core.Common.Utils.Aop
 
         private static void LogInvokeError(string methodName, Exception e, bool beforeCall)
         {
-            log.Error(string.Format("Thread synchronization error (call {1}): {0}", methodName,
+            log.Error(string.Format(Resource.InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error__call__1_____0_, methodName,
                                     beforeCall ? "skipping" : "aborted"), e);
         }
 

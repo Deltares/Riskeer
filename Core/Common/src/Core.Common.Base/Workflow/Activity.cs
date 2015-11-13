@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Core.Common.Base.Properties;
 using Core.Common.Utils.Collections.Generic;
 using log4net;
 
@@ -68,12 +69,12 @@ namespace Core.Common.Base.Workflow
         {
             if (Status == ActivityStatus.Finished || Status == ActivityStatus.Cancelled || Status == ActivityStatus.Failed || Status == ActivityStatus.None)
             {
-                throw new InvalidOperationException(string.Format("Activity is {0}, Initialize() must be called before Execute()", Status));
+                throw new InvalidOperationException(string.Format(Resources.Activity_Execute_Activity_is__0___Initialize___must_be_called_before_Execute__, Status));
             }
 
             if (Status != ActivityStatus.Executed && Status != ActivityStatus.Initialized)
             {
-                throw new InvalidOperationException(string.Format("Can't call Execute() for activity in {0} state.", Status));
+                throw new InvalidOperationException(string.Format(Resources.Activity_Execute_Can_t_call_Execute___for_activity_in__0__state_, Status));
             }
 
             try

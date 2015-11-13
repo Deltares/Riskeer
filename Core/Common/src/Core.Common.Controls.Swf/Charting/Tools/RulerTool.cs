@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Charting.Customized;
+using Core.Common.Controls.Swf.Properties;
 using log4net;
 using Steema.TeeChart.Drawing;
 
@@ -187,13 +188,12 @@ namespace Core.Common.Controls.Swf.Charting.Tools
         private string GetDefaultDifferenceString(object dx, object dy)
         {
             var dxText = dx is TimeSpan
-                             ? ((TimeSpan) dx).TotalSeconds.ToString("0.##", CultureInfo.InvariantCulture) + " seconds"
+                             ? ((TimeSpan) dx).TotalSeconds.ToString("0.##", CultureInfo.InvariantCulture) + Resources.RulerTool_GetDefaultDifferenceString__seconds
                              : ((double) dx).ToString("0.##", CultureInfo.InvariantCulture);
             var dyText = dy is TimeSpan
-                             ? ((TimeSpan) dy).TotalSeconds.ToString("0.##", CultureInfo.InvariantCulture) + " seconds"
+                             ? ((TimeSpan) dy).TotalSeconds.ToString("0.##", CultureInfo.InvariantCulture) + Resources.RulerTool_GetDefaultDifferenceString__seconds
                              : ((double) dy).ToString("0.##", CultureInfo.InvariantCulture);
-            return string.Format("Difference:" + Environment.NewLine + "  horizontal: {0}" + Environment.NewLine +
-                                 "  vertical: {1}", dxText, dyText);
+            return string.Format(Resources.RulerTool_GetDefaultDifferenceString_Difference__2___horizontal___0__2___vertical___1_, dxText, dyText, Environment.NewLine);
         }
 
         private object GetAxesValue(double minValue, double maxValue, int minPixel, int maxPixel, int pixel)

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
+using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils
 {
@@ -118,7 +119,7 @@ namespace Core.Common.Utils
 
                     if (tryParseMethod == null)
                     {
-                        throw new InvalidOperationException(String.Format("Cannot find method {0}.TryParse(string, out {0})", type.FullName));
+                        throw new InvalidOperationException(String.Format(Resource.ParseHelper_ParseHelper_Cannot_find_method__0__TryParse_string__out__0__, type.FullName));
                     }
                     _parser = Expression.Lambda<Func<string, T, T, T>>(
                         Expression.Condition(
@@ -155,7 +156,7 @@ namespace Core.Common.Utils
 
                     if (tryParseMethod == null)
                     {
-                        throw new InvalidOperationException(String.Format("Cannot find method {0}.TryParse(string, out {0})", typeof(TBase).FullName));
+                        throw new InvalidOperationException(String.Format(Resource.ParseHelper_ParseHelper_Cannot_find_method__0__TryParse_string__out__0__, typeof(TBase).FullName));
                     }
                     ParameterExpression target = Expression.Parameter(typeof(string), "target");
                     ParameterExpression defaultValue = Expression.Parameter(typeof(TBase?), "defaultValue");

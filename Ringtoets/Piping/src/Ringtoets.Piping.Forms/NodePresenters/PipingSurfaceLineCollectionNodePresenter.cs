@@ -65,7 +65,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public void OnNodeRenamed(object nodeData, string newName)
         {
-            throw new InvalidOperationException(string.Format("Cannot rename tree node of type {0}.", GetType().Name));
+            throw new InvalidOperationException(string.Format(Resources.PipingNodePresenterBase_OnNodeRenamed_Cannot_rename_tree_node_of_type__0__, GetType().Name));
         }
 
         public void OnNodeChecked(ITreeNode node) {}
@@ -109,7 +109,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
-            throw new InvalidOperationException(String.Format("Cannot delete node of type {0}.", GetType().Name));
+            throw new InvalidOperationException(String.Format(Resources.PipingNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type__0__, GetType().Name));
         }
 
         private ContextMenuStrip CreateContextMenu()

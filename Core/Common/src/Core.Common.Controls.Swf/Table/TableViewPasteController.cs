@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 using Core.Common.Utils;
 using log4net;
 
@@ -388,7 +389,7 @@ namespace Core.Common.Controls.Swf.Table
             var startColumnIndex = targetSelection.Left;
             if (startRowIndex < 0)
             {
-                throw new ArgumentException(string.Format("Invalid row number {0}", startRowIndex),
+                throw new ArgumentException(string.Format(Resources.TableViewPasteController_PasteValuesCore_Invalid_row_number__0_, startRowIndex),
                                             "targetSelection");
             }
 

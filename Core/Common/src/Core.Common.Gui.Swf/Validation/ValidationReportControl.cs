@@ -185,7 +185,7 @@ namespace Core.Common.Gui.Swf.Validation
             {
                 AddIssues(categoryNode.Nodes, issues.Take(2));
 
-                var additionalIssuesNode = new TreeNode(String.Format("({0} more issues...)", issueCount - 2));
+                var additionalIssuesNode = new TreeNode(String.Format(Resources.ValidationReportControl_AddReport___0__more_issues____, issueCount - 2));
                 AddIssues(additionalIssuesNode.Nodes, issues.Skip(2));
                 additionalIssuesNode.Collapse();
                 categoryNode.Nodes.Add(additionalIssuesNode);

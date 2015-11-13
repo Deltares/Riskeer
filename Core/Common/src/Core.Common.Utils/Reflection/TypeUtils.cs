@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Core.Common.Utils.Aop;
+using Core.Common.Utils.Properties;
 using log4net;
 
 namespace Core.Common.Utils.Reflection
@@ -492,7 +493,7 @@ namespace Core.Common.Utils.Reflection
 
             if (defaultConstructor == null)
             {
-                throw new NotImplementedException(string.Format("No default constructor available for type {0}", type));
+                throw new NotImplementedException(string.Format(Resource.TypeUtils_CreateInstance_No_default_constructor_available_for_type__0_, type));
             }
 
             return (T) Activator.CreateInstance(type, true);
@@ -545,7 +546,7 @@ namespace Core.Common.Utils.Reflection
                 // re-throw original exception
                 if (e.InnerException != null)
                 {
-                    log.Error("Exception occured", e); // log outer exception
+                    log.Error(Resource.TypeUtils_CallMethod_Exception_occured, e); // log outer exception
 
                     throw e.InnerException;
                 }
@@ -574,7 +575,7 @@ namespace Core.Common.Utils.Reflection
             {
                 return member.Member.Name;
             }
-            throw new ArgumentException("'member' not a valid expression for this method");
+            throw new ArgumentException(Resource.TypeUtils_GetMemberNameFromMemberExpression__member__not_a_valid_expression_for_this_method);
         }
 
         private static FieldInfo GetFieldInfo(Type type, string fieldName)

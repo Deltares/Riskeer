@@ -58,9 +58,9 @@ namespace Core.Common.Controls.Swf.Table.Validation
             if (tableView.InputValidator != null)
             {
                 var result = tableView.InputValidator(cell, newValue);
-                if (!result.Second)
+                if (!result.Item2)
                 {
-                    error = "Validation of cell failed: " + result.First;
+                    error = "Validation of cell failed: " + result.Item1;
                     return false;
                 }
             }

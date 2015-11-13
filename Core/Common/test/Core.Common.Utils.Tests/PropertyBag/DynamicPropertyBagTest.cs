@@ -123,7 +123,7 @@ namespace Core.Common.Utils.Tests.PropertyBag
         }
 
         [Test]
-        [ExpectedException(typeof(MissingMethodException), ExpectedMessage = "DynamicReadOnlyValidationMethod not found (or not public), class: Core.Common.Utils.Tests.PropertyBag.DynamicPropertyBagTest+TestWithoutValidationMethodClassProperties")]
+        [ExpectedException(typeof(MissingMethodException), ExpectedMessage = "DynamicReadOnlyValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: Core.Common.Utils.Tests.PropertyBag.DynamicPropertyBagTest+TestWithoutValidationMethodClassProperties")]
         public void ThrowsExceptionOnTypoInDynamicAttributeFunction()
         {
             var dynamicPropertyBag = new DynamicPropertyBag(new TestWithoutValidationMethodClassProperties());
@@ -187,7 +187,7 @@ namespace Core.Common.Utils.Tests.PropertyBag
         }
 
         [Test]
-        [ExpectedException(typeof(MissingMethodException), ExpectedMessage = "DynamicReadOnlyValidationMethod has incorrect number of arguments, should be 1 of type string, class: Core.Common.Utils.Tests.PropertyBag.DynamicPropertyBagTest+TestInvalidValidationMethodClassProperties")]
+        [ExpectedException(typeof(MissingMethodException), ExpectedMessage = "DynamicReadOnlyValidationMethod heeft een incorrecte aantal argumenten. Zou er één moeten zijn. Klasse: Core.Common.Utils.Tests.PropertyBag.DynamicPropertyBagTest+TestInvalidValidationMethodClassProperties")]
         public void ThrowsExceptionOnInvalidValidationMethod()
         {
             var dynamicPropertyBag = new DynamicPropertyBag(new TestInvalidValidationMethodClassProperties());
@@ -209,7 +209,7 @@ namespace Core.Common.Utils.Tests.PropertyBag
         }
 
         [Test]
-        [ExpectedException(typeof(MissingMethodException), ExpectedMessage = "Only one DynamicReadOnlyValidationMethod is allowed per class: Core.Common.Utils.Tests.PropertyBag.DynamicPropertyBagTest+TestWithTwoValidationMethodsClassProperties")]
+        [ExpectedException(typeof(MissingMethodException), ExpectedMessage = "Slechts één DynamicReadOnlyValidationMethod toegestaan per klasse: Core.Common.Utils.Tests.PropertyBag.DynamicPropertyBagTest+TestWithTwoValidationMethodsClassProperties")]
         public void OnlySingleValidationMethodIsAllowed()
         {
             var dynamicPropertyBag = new DynamicPropertyBag(new TestWithTwoValidationMethodsClassProperties());

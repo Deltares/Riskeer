@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 using Steema.TeeChart.Drawing;
 using Steema.TeeChart.Styles;
 
@@ -91,7 +92,7 @@ namespace Core.Common.Controls.Swf.Charting.Series
                 }
                 catch (InvalidCastException ex)
                 {
-                    throw new ArgumentException("Invalid argument for series datasource. Are you passing IEnumerable? IList and IListSource are supported", ex);
+                    throw new ArgumentException(Resources.ChartSeries_DataSource_Invalid_argument_for_series_datasource__Are_you_passing_IEnumerable__IList_and_IListSource_are_supported, ex);
                 }
             }
         }
@@ -397,7 +398,7 @@ namespace Core.Common.Controls.Swf.Charting.Series
 
             if (!yIsNumeric)
             {
-                throw new NotSupportedException(String.Format("Input format not supported, y must be numeric but is of type: {0}.", y.GetType()));
+                throw new NotSupportedException(String.Format(Resources.ChartSeries_Add_Input_format_not_supported__y_must_be_numeric_but_is_of_type___0__, y.GetType()));
             }
 
             double yValue = Convert.ToDouble(y);

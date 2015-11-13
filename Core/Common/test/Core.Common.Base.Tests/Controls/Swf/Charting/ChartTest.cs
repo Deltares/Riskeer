@@ -46,32 +46,32 @@ namespace Core.Common.Base.Tests.Controls.Swf.Charting
             };
             chart.Series.Add(areaSeries);
 
-            TestHelper.AssertLogMessageIsGenerated(() => SaveDeleteAndAssertExport("test.svg", chart), "Hatch style is not supported for exports and will be ignored.", 1);
+            TestHelper.AssertLogMessageIsGenerated(() => SaveDeleteAndAssertExport("test.svg", chart), "Hatch stijl wordt niet ondersteund voor exporteren en zal genegeerd worden.", 1);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Argument did not contain a filename\r\nParameter name: filename")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Argument bevat geen bestandsnaam\r\nParameter name: filename")]
         public void ExportAsImageThrowsOnIncompleteFileName()
         {
             SaveDeleteAndAssertExport(".noname");
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Extension (.ext) not supported\r\nParameter name: filename")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Extensie (.ext) wordt niet ondersteund\r\nParameter name: filename")]
         public void ExportAsImageThrowsOnUnSupportedExtension()
         {
             SaveDeleteAndAssertExport("incorrect.ext");
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Argument should not be null\r\nParameter name: filename")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Argument kan niet de waarde 'null' hebben\r\nParameter name: filename")]
         public void ExportAsImageThrowsOnNullArgument()
         {
             SaveDeleteAndAssertExport(null);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Argument should have an extension\r\nParameter name: filename")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Bestandsnaam moet een extensie hebben.\r\nParameter name: filename")]
         public void ExportAsImageThrowsOnMissingExtension()
         {
             SaveDeleteAndAssertExport("noextension");

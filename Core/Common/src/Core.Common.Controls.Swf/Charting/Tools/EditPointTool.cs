@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Charting.Customized;
 using Core.Common.Controls.Swf.Charting.Series;
+using Core.Common.Controls.Swf.Properties;
 using Core.Common.Utils;
 using log4net;
 using Steema.TeeChart.Styles;
@@ -344,7 +345,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                 case DragStyle.Y:
                     return Cursors.SizeNS;
                 default:
-                    throw new NotImplementedException(String.Format("No cursor assigned for {0}", dragStyle));
+                    throw new NotImplementedException(String.Format(Resources.EditPointTool_GetCursorIcon_No_cursor_assigned_for__0_, dragStyle));
             }
         }
 

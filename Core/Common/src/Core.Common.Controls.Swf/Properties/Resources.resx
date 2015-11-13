@@ -202,4 +202,46 @@
   <data name="TableView_ConfigureContextMenu_Delete" xml:space="preserve">
     <value>Verwijderen</value>
   </data>
+  <data name="Chart_ExportAsImage_Hatch_style_is_not_supported_for_exports_and_will_be_ignored_" xml:space="preserve">
+    <value>Hatch stijl wordt niet ondersteund voor exporteren en zal genegeerd worden.</value>
+  </data>
+  <data name="Chart_GetImageFormatByExtension_Extension___0___not_supported" xml:space="preserve">
+    <value>Extensie ({0}) wordt niet ondersteund</value>
+  </data>
+  <data name="ChartSeries_Add_Input_format_not_supported__y_must_be_numeric_but_is_of_type___0__" xml:space="preserve">
+    <value>Invoerformaat wordt niet ondersteund. Y moet numeriek zijn maar is van type: {0}.</value>
+  </data>
+  <data name="ChartSeries_DataSource_Invalid_argument_for_series_datasource__Are_you_passing_IEnumerable__IList_and_IListSource_are_supported" xml:space="preserve">
+    <value>Ongeldig argument for databron van series. Biedt u een IEnumerable aan? IList en IListSource worden ondersteund</value>
+  </data>
+  <data name="ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts__0__as_series" xml:space="preserve">
+    <value>Dit programma accepteert alleen {0} als series</value>
+  </data>
+  <data name="EditPointTool_GetCursorIcon_No_cursor_assigned_for__0_" xml:space="preserve">
+    <value>Geen cursor toegewezen aan {0}</value>
+  </data>
+  <data name="RulerTool_GetDefaultDifferenceString_Difference__2___horizontal___0__2___vertical___1_" xml:space="preserve">
+    <value>Verschil: {2} horizontaal: {0} {2} verticaal: {1}</value>
+  </data>
+  <data name="RulerTool_GetDefaultDifferenceString__seconds" xml:space="preserve">
+    <value> seconden</value>
+  </data>
+  <data name="TableView_SelectedCellsCollectionChanged_Action__0__is_not_supported_by_the_TableView" xml:space="preserve">
+    <value>Actie {0} wordt niet ondersteund door de TableView</value>
+  </data>
+  <data name="TableView_AddUnboundColumn_Unbound_columns_of_type__0__not_supported_" xml:space="preserve">
+    <value>Ongebonden kolommen van type {0} worden niet ondersteund.</value>
+  </data>
+  <data name="TableView_DxGridViewCellValueChanging_Value_Changing__0_" xml:space="preserve">
+    <value>Waarde wordt gewijzigd {0}</value>
+  </data>
+  <data name="TableViewPasteController_PasteValuesCore_Invalid_row_number__0_" xml:space="preserve">
+    <value>Ongeldige rijnummer {0}</value>
+  </data>
+  <data name="TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item___0_" xml:space="preserve">
+    <value>Weet u zeker dat u het volgende item wilt verwijderen: {0}</value>
+  </data>
+  <data name="TreeViewController_UpdateNode_Can_t_find_INodePresenter_for__0___make_sure_you_added_it_to_Presenters_collection_of_a_TreeView" xml:space="preserve">
+    <value>Kan INodePresenter voor {0} niet vinden, zorg ervoor dat u het aan de Presenters verzameling voor een TreeView hebt toegevoegd</value>
+  </data>
 </root>

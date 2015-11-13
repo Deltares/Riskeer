@@ -853,7 +853,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
             var tableView = new TableView
             {
                 Data = persons,
-                InputValidator = (tvc, obj) => new Core.Common.Utils.Tuple<string, bool>("first", false)
+                InputValidator = (tvc, obj) => new Tuple<string, bool>("first", false)
             };
 
             //try to set the name on the first column...should fail

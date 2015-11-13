@@ -86,7 +86,7 @@ namespace Core.Gis.NetTopologySuite.Extensions.Tests.Geometries
                     new Coordinate(10, 0),
                     new Coordinate(0, 0)
                 },
-                polygonHalfs.First.Coordinates);
+                polygonHalfs.Item1.Coordinates);
 
             Assert.AreEqual(
                 new[]
@@ -96,7 +96,7 @@ namespace Core.Gis.NetTopologySuite.Extensions.Tests.Geometries
                     new Coordinate(10, 0),
                     new Coordinate(10, 10)
                 },
-                polygonHalfs.Second.Coordinates);
+                polygonHalfs.Item2.Coordinates);
         }
 
         [Test]
@@ -122,7 +122,7 @@ namespace Core.Gis.NetTopologySuite.Extensions.Tests.Geometries
                         new Coordinate(10, 0),
                         new Coordinate(0, 0)
                     },
-                    polygonHalfs.First.Coordinates);
+                    polygonHalfs.Item1.Coordinates);
 
                 Assert.AreEqual(
                     new[]
@@ -132,7 +132,7 @@ namespace Core.Gis.NetTopologySuite.Extensions.Tests.Geometries
                         new Coordinate(10, 0),
                         new Coordinate(10, 10)
                     },
-                    polygonHalfs.Second.Coordinates);
+                    polygonHalfs.Item2.Coordinates);
             }
             catch (Exception ex)
             {
@@ -169,7 +169,7 @@ namespace Core.Gis.NetTopologySuite.Extensions.Tests.Geometries
                     new Coordinate(10, 0),
                     new Coordinate(0, 0)
                 },
-                polygonHalfs.First.Coordinates);
+                polygonHalfs.Item1.Coordinates);
 
             Assert.AreEqual(
                 new[]
@@ -181,7 +181,7 @@ namespace Core.Gis.NetTopologySuite.Extensions.Tests.Geometries
                     new Coordinate(10, 0),
                     new Coordinate(10, 5)
                 },
-                polygonHalfs.Second.Coordinates);
+                polygonHalfs.Item2.Coordinates);
         }
 
         [Test]

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.Utils.Collections;
+using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
@@ -127,7 +128,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// <seealso cref="OnNodeRenamed(object, string)"/>
         protected virtual void OnNodeRenamed(T nodeData, string newName)
         {
-            throw new InvalidOperationException(string.Format("Cannot rename tree node of type {0}.", GetType().Name));
+            throw new InvalidOperationException(string.Format(Resources.PipingNodePresenterBase_OnNodeRenamed_Cannot_rename_tree_node_of_type__0__, GetType().Name));
         }
 
         /// <summary>
@@ -217,7 +218,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// <seealso cref="RemoveNodeData(object, object)"/>
         protected virtual bool RemoveNodeData(object parentNodeData, T nodeData)
         {
-            throw new InvalidOperationException(String.Format("Cannot delete node of type {0}.", GetType().Name));
+            throw new InvalidOperationException(String.Format(Resources.PipingNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type__0__, GetType().Name));
         }
     }
 }

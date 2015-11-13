@@ -254,7 +254,7 @@ namespace Core.Common.Controls.Swf.Charting
                                         Series.OfType<IPolygonChartSeries>().Any(cs => cs.UseHatch);
                 if (hatchStyleIgnored)
                 {
-                    log.WarnFormat("Hatch style is not supported for exports and will be ignored.");
+                    log.WarnFormat(Resources.Chart_ExportAsImage_Hatch_style_is_not_supported_for_exports_and_will_be_ignored_);
                 }
 
                 chart.Export.Image.SVG.Save(filename);
@@ -323,7 +323,7 @@ namespace Core.Common.Controls.Swf.Charting
                 case ".bmp":
                     return ImageFormat.Bmp;
                 default:
-                    throw new ArgumentException(string.Format("Extension ({0}) not supported", ext), "filename");
+                    throw new ArgumentException(string.Format(Resources.Chart_GetImageFormatByExtension_Extension___0___not_supported, ext), "filename");
             }
         }
 
@@ -355,7 +355,7 @@ namespace Core.Common.Controls.Swf.Charting
                     format = chart.Export.Image.EPS;
                     break;
                 default:
-                    throw new ArgumentException(string.Format("Extension ({0}) not supported", ext), "filename");
+                    throw new ArgumentException(string.Format(Resources.Chart_GetImageFormatByExtension_Extension___0___not_supported, ext), "filename");
             }
             return format;
         }

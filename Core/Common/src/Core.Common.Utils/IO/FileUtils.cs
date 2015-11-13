@@ -404,10 +404,6 @@ namespace Core.Common.Utils.IO
         /// <returns></returns>
         public static bool FileMatchesFileFilterByExtension(string fileFilter, string path)
         {
-            /* if (!fileFilterRegex.Match(fileFilter).Success)
-            {
-                throw new ArgumentException(string.Format("Invalid filefilter: {0}", fileFilter));
-            }*/
             if (String.IsNullOrEmpty(Path.GetExtension(path)))
             {
                 return false;

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 using log4net;
 using ValidationAspects;
 
@@ -299,7 +300,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
                 return;
             }
 
-            var message = string.Format("Are you sure you want to delete the following item: {0}", SelectedNode.Text);
+            var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item___0_, SelectedNode.Text);
             if (MessageBox.Show(message, "Confirm", MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;

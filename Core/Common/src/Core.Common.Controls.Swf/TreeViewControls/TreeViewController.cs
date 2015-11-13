@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 using log4net;
@@ -438,8 +439,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
             if (presenter == null)
             {
-                var message = String.Format("Can't find INodePresenter for {0}, " +
-                                            "make sure you added it to Presenters collection of a TreeView", nodeData);
+                var message = String.Format(Resources.TreeViewController_UpdateNode_Can_t_find_INodePresenter_for__0___make_sure_you_added_it_to_Presenters_collection_of_a_TreeView, nodeData);
 
                 throw new ArgumentNullException(message);
             }

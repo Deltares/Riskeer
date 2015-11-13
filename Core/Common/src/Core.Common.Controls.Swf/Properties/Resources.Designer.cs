@@ -98,6 +98,54 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hatch stijl wordt niet ondersteund voor exporteren en zal genegeerd worden..
+        /// </summary>
+        internal static string Chart_ExportAsImage_Hatch_style_is_not_supported_for_exports_and_will_be_ignored_ {
+            get {
+                return ResourceManager.GetString("Chart_ExportAsImage_Hatch_style_is_not_supported_for_exports_and_will_be_ignored_" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extensie ({0}) wordt niet ondersteund.
+        /// </summary>
+        internal static string Chart_GetImageFormatByExtension_Extension___0___not_supported {
+            get {
+                return ResourceManager.GetString("Chart_GetImageFormatByExtension_Extension___0___not_supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invoerformaat wordt niet ondersteund. Y moet numeriek zijn maar is van type: {0}..
+        /// </summary>
+        internal static string ChartSeries_Add_Input_format_not_supported__y_must_be_numeric_but_is_of_type___0__ {
+            get {
+                return ResourceManager.GetString("ChartSeries_Add_Input_format_not_supported__y_must_be_numeric_but_is_of_type___0_" +
+                        "_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ongeldig argument for databron van series. Biedt u een IEnumerable aan? IList en IListSource worden ondersteund.
+        /// </summary>
+        internal static string ChartSeries_DataSource_Invalid_argument_for_series_datasource__Are_you_passing_IEnumerable__IList_and_IListSource_are_supported {
+            get {
+                return ResourceManager.GetString("ChartSeries_DataSource_Invalid_argument_for_series_datasource__Are_you_passing_IE" +
+                        "numerable__IList_and_IListSource_are_supported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dit programma accepteert alleen {0} als series.
+        /// </summary>
+        internal static string ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts__0__as_series {
+            get {
+                return ResourceManager.GetString("ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts__0__as_series", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap computer {
@@ -184,6 +232,15 @@ namespace Core.Common.Controls.Swf.Properties {
             get {
                 object obj = ResourceManager.GetObject("edit_replace_all", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geen cursor toegewezen aan {0}.
+        /// </summary>
+        internal static string EditPointTool_GetCursorIcon_No_cursor_assigned_for__0_ {
+            get {
+                return ResourceManager.GetString("EditPointTool_GetCursorIcon_No_cursor_assigned_for__0_", resourceCulture);
             }
         }
         
@@ -276,12 +333,40 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  seconden.
+        /// </summary>
+        internal static string RulerTool_GetDefaultDifferenceString__seconds {
+            get {
+                return ResourceManager.GetString("RulerTool_GetDefaultDifferenceString__seconds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verschil: {2} horizontaal: {0} {2} verticaal: {1}.
+        /// </summary>
+        internal static string RulerTool_GetDefaultDifferenceString_Difference__2___horizontal___0__2___vertical___1_ {
+            get {
+                return ResourceManager.GetString("RulerTool_GetDefaultDifferenceString_Difference__2___horizontal___0__2___vertical" +
+                        "___1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap table_edit {
             get {
                 object obj = ResourceManager.GetObject("table_edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ongebonden kolommen van type {0} worden niet ondersteund..
+        /// </summary>
+        internal static string TableView_AddUnboundColumn_Unbound_columns_of_type__0__not_supported_ {
+            get {
+                return ResourceManager.GetString("TableView_AddUnboundColumn_Unbound_columns_of_type__0__not_supported_", resourceCulture);
             }
         }
         
@@ -313,11 +398,39 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waarde wordt gewijzigd {0}.
+        /// </summary>
+        internal static string TableView_DxGridViewCellValueChanging_Value_Changing__0_ {
+            get {
+                return ResourceManager.GetString("TableView_DxGridViewCellValueChanging_Value_Changing__0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actie {0} wordt niet ondersteund door de TableView.
+        /// </summary>
+        internal static string TableView_SelectedCellsCollectionChanged_Action__0__is_not_supported_by_the_TableView {
+            get {
+                return ResourceManager.GetString("TableView_SelectedCellsCollectionChanged_Action__0__is_not_supported_by_the_Table" +
+                        "View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to nieuwe Tabel.
         /// </summary>
         internal static string TableView_TableView_new_Table {
             get {
                 return ResourceManager.GetString("TableView_TableView_new_Table", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ongeldige rijnummer {0}.
+        /// </summary>
+        internal static string TableViewPasteController_PasteValuesCore_Invalid_row_number__0_ {
+            get {
+                return ResourceManager.GetString("TableViewPasteController_PasteValuesCore_Invalid_row_number__0_", resourceCulture);
             }
         }
         
@@ -328,6 +441,25 @@ namespace Core.Common.Controls.Swf.Properties {
             get {
                 object obj = ResourceManager.GetObject("tick", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weet u zeker dat u het volgende item wilt verwijderen: {0}.
+        /// </summary>
+        internal static string TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item___0_ {
+            get {
+                return ResourceManager.GetString("TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan INodePresenter voor {0} niet vinden, zorg ervoor dat u het aan de Presenters verzameling voor een TreeView hebt toegevoegd.
+        /// </summary>
+        internal static string TreeViewController_UpdateNode_Can_t_find_INodePresenter_for__0___make_sure_you_added_it_to_Presenters_collection_of_a_TreeView {
+            get {
+                return ResourceManager.GetString("TreeViewController_UpdateNode_Can_t_find_INodePresenter_for__0___make_sure_you_ad" +
+                        "ded_it_to_Presenters_collection_of_a_TreeView", resourceCulture);
             }
         }
     }

@@ -141,7 +141,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(call);
-            var expectedMessage = string.Format("Cannot rename tree node of type {0}.", nodePresenter.GetType().Name);
+            var expectedMessage = string.Format("Kan node uit boom van type {0} niet hernoemen.", nodePresenter.GetType().Name);
             Assert.AreEqual(expectedMessage, exception.Message);
             mocks.ReplayAll(); // Expect no calls on tree node
         }

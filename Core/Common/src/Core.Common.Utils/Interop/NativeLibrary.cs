@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils.Interop
 {
@@ -68,7 +69,7 @@ namespace Core.Common.Utils.Interop
                     var error = Marshal.GetLastWin32Error();
                     var exception = new Win32Exception(error);
                     throw new FileNotFoundException(
-                        string.Format("Could not find / load {3}.{2}Error: {4} - {0}{2}File: {5}\\{1}",
+                        string.Format(Resource.NativeLibrary_LoadNativeDll_Could_not_find___load__3___2_Error___4_____0__2_File___5___1_,
                                       exception.Message, dllFileName, Environment.NewLine, dllFileName, error, directory));
                 }
             }

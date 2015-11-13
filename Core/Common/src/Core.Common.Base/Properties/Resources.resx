@@ -174,4 +174,43 @@
   <data name="RingtoetsApplication_RegisterImporters_Registering_importers____" xml:space="preserve">
     <value>Registreren "importers"...</value>
   </data>
+  <data name="Activity_Execute_Activity_is__0___Initialize___must_be_called_before_Execute__" xml:space="preserve">
+    <value>Activiteit is '{0}', Initialize() moet aangeroepen worden voor Execute()</value>
+  </data>
+  <data name="Activity_Execute_Can_t_call_Execute___for_activity_in__0__state_" xml:space="preserve">
+    <value>Kan Execute() niet aanroepen voor activiteit met de '{0}' status.</value>
+  </data>
+  <data name="ActivityRunner_Completed_Cancelled_activity__0_" xml:space="preserve">
+    <value>Activiteit geannuleerd {0}</value>
+  </data>
+  <data name="ActivityRunner_Completed_Finished_activity__0_" xml:space="preserve">
+    <value>Activiteit voltooid {0}</value>
+  </data>
+  <data name="ActivityRunner_OnTaskCompleted_An_error_occured_while_running_a_background_activity__" xml:space="preserve">
+    <value>Een fout is opgetreden tijdens het uitvoeren van een achtergrond activiteit:</value>
+  </data>
+  <data name="ActivityRunner_OnTaskCompleted_An_error_occured_while_running_activity__0___" xml:space="preserve">
+    <value>Een fout is opgetreden tijdens het uitvoeren van activiteit {0}:</value>
+  </data>
+  <data name="ActivityRunner_Enqueue_Enqueued_activity__0_" xml:space="preserve">
+    <value>Enqueued activity {0}</value>
+  </data>
+  <data name="ActivityRunner_RunActivity_Initialization_of__0__has_failed_" xml:space="preserve">
+    <value>Initialisatie van {0} is mislukt.</value>
+  </data>
+  <data name="ActivityRunner_RunActivity_Execution_of__0__has_been_canceled_" xml:space="preserve">
+    <value>Uitvoering van {0} is geannuleerd.</value>
+  </data>
+  <data name="ActivityRunner_RunActivity_Execution_of__0__has_failed_" xml:space="preserve">
+    <value>Uitvoering van {0} is mislukt.</value>
+  </data>
+  <data name="ActivityRunner_RunActivity_Finishing_of__0__has_failed_" xml:space="preserve">
+    <value>Afwerking van {0} is mislukt.</value>
+  </data>
+  <data name="ActivityRunner_RunActivity_Clean_up_of__0__has_failed_" xml:space="preserve">
+    <value>Opschonen van {0} is mislukt.</value>
+  </data>
+  <data name="FileImportActivity_ImportFromFile__0__of__1_" xml:space="preserve">
+    <value>{0} van {1}</value>
+  </data>
 </root>
