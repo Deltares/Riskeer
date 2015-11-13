@@ -9,10 +9,10 @@
     <UserControl.Resources>
         <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml"/>
     </UserControl.Resources>
-    <fluent:Ribbon Name="RibbonControl" x:FieldModifier="private">
+    <fluent:Ribbon x:Name="RibbonControl" x:FieldModifier="private">
         <fluent:RibbonTabItem Header="{x:Static resx:Resources.Ribbon_TabItem_View}" fluent:KeyTip.Keys="V" >
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.Ribbon_GroupBox_ShowHide}" fluent:KeyTip.Keys="ZS">
-                <fluent:ToggleButton x:Name="ButtonShowProjectExplorerToolWindow" Header="{x:Static resx:Resources.Ribbon_ProjectExplorer}" Icon="/Core.Plugins.ProjectExplorer;component\Resources\folder_wrench.png" SizeDefinition="Middle" Click="ButtonShowProjectExplorerToolWindowClick" fluent:KeyTip.Keys="P" />
+                <fluent:ToggleButton x:Name="ButtonShowProjectExplorerToolWindow" Header="{x:Static resx:Resources.Ribbon_ProjectExplorer}" Icon="pack://application:,,,/Core.Plugins.ProjectExplorer;component\Resources\folder_wrench.png" SizeDefinition="Middle" Click="ButtonShowProjectExplorerToolWindowClick" fluent:KeyTip.Keys="P" />
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>

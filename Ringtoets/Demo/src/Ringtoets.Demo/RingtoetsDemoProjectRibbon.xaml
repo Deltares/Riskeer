@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Ringtoets.Demo.RingtoetsDemoProjectRibbon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fluent="clr-namespace:Fluent;assembly=Fluent"
+             xmlns:resx="clr-namespace:Ringtoets.Demo.Properties"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml"/>
+    </UserControl.Resources>
+    <fluent:Ribbon x:Name="RingtoetsDemoProjectRibbonControl" x:FieldModifier="private">
+        <fluent:RibbonTabItem Header="{x:Static resx:Resources.Demo}" fluent:KeyTip.Keys="D">
+            <fluent:RibbonGroupBox Header="{x:Static resx:Resources.ExampleData}" fluent:KeyTip.Keys="E" Height="Auto">
+                <fluent:Button x:Name="AddNewDemoProjectButton" IsEnabled="False" LargeIcon="pack://application:,,,/Ringtoets.Demo;component/Resources/folder-horizontal_large.png" Icon="pack://application:,,,/Ringtoets.Demo;component/Resources/folder-horizontal.png" Header="{x:Static resx:Resources.DemoProject}" SizeDefinition="Large,Medium,Small" Margin="20,0" KeyTip="P" Click="AddNewRingtoetsDemoProjectButton_Click"/>
+            </fluent:RibbonGroupBox>
+        </fluent:RibbonTabItem>
+    </fluent:Ribbon>
+</UserControl>

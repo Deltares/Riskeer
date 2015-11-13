@@ -49,7 +49,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>
     </DocumentationFile>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;INCLUDE_DEMOPROJECT</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\Release\</OutputPath>
@@ -57,7 +57,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;INCLUDE_DEMOPROJECT</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstaller|x86'">
@@ -66,6 +66,13 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoProject|x86'">
+    <OutputPath>bin\application\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DefineConstants>INCLUDE_DEMOPROJECT</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
@@ -147,6 +154,10 @@
     <ProjectReference Include="..\..\Core\Plugins\src\Core.Plugins.SharpMapGis\Core.Plugins.SharpMapGis.csproj">
       <Project>{696DAAEE-D1D8-42D0-86AC-471B970FB17E}</Project>
       <Name>Core.Plugins.SharpMapGis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Ringtoets\Demo\src\Ringtoets.Demo\Ringtoets.Demo.csproj" Condition="$(DefineConstants.Contains('INCLUDE_DEMOPROJECT'))">
+      <Project>{ffe3a667-3a4c-4f48-bc6b-1589867fcb41}</Project>
+      <Name>Ringtoets.Demo</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Ringtoets\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
       <Project>{1D3D58B6-EF7E-401E-92A0-104067D222EE}</Project>

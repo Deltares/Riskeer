@@ -22,8 +22,13 @@ using Core.Plugins.SharpMapGis;
 using Core.Plugins.SharpMapGis.Gui;
 using log4net;
 using NDesk.Options;
+
 using Ringtoets.Piping.Plugin;
 using MessageBox = System.Windows.MessageBox;
+
+#if INCLUDE_DEMOPROJECT
+using Ringtoets.Demo;
+#endif
 
 namespace Application.Ringtoets
 {
@@ -168,6 +173,9 @@ namespace Application.Ringtoets
                     new CommonToolsGuiPlugin(),
                     new SharpMapGisGuiPlugin(),
                     new RingtoetsGuiPlugin()
+#if INCLUDE_DEMOPROJECT
+                    ,new DemoProjectGuiPlugin()
+#endif
                 },
                 Application =
                 {

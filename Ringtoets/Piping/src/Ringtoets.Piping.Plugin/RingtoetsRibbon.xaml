@@ -9,5 +9,5 @@
     <UserControl.Resources>
         <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml"/>
     </UserControl.Resources>
-    <fluent:Ribbon Name="RingtoetsRibbonControl" x:FieldModifier="private" />
+    <fluent:Ribbon x:Name="RingtoetsRibbonControl" x:FieldModifier="private" />
 </UserControl>

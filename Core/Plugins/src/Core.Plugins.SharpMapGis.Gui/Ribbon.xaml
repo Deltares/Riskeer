@@ -8,31 +8,31 @@
     <UserControl.Resources>
         <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml"/>
     </UserControl.Resources>
-    <fluent:Ribbon Name="RibbonControl" x:FieldModifier="private">
+    <fluent:Ribbon x:Name="RibbonControl" x:FieldModifier="private">
         <fluent:Ribbon.ContextualGroups>
-            <fluent:RibbonContextualTabGroup Header="GIS" Visibility="Visible" Name="geospatialContextualGroup" Background="Green" BorderBrush="Green" />
+            <fluent:RibbonContextualTabGroup Header="GIS" Visibility="Visible" x:Name="geospatialContextualGroup" Background="Green" BorderBrush="Green" />
         </fluent:Ribbon.ContextualGroups>
         <fluent:RibbonTabItem Header="View" fluent:KeyTip.Keys="V">
             <fluent:RibbonGroupBox Header="Show/Hide" fluent:KeyTip.Keys="ZS">
-                <fluent:ToggleButton x:Name="ButtonShowMapContentsToolWindow" Header="Map Contents" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\map.png" Click="ButtonShowMapContentsToolWindow_Click" SizeDefinition="Middle" fluent:KeyTip.Keys="A"/>
+                <fluent:ToggleButton x:Name="ButtonShowMapContentsToolWindow" Header="Map Contents" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\map.png" Click="ButtonShowMapContentsToolWindow_Click" SizeDefinition="Middle" fluent:KeyTip.Keys="A"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
         <fluent:RibbonTabItem Header="Map" ReduceOrder="Decorations,Select,Tools,Zoom,Edit,Profile,SpatialOperationsGroup" Group="{Binding ElementName=geospatialContextualGroup}" x:Name="mapTab" fluent:KeyTip.Keys="M">
-            <fluent:RibbonGroupBox Header="Decorations" x:Name="Decorations" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\map--pencil.png" fluent:KeyTip.Keys="ZO">
-                <fluent:ToggleButton x:Name="ButtonMapShowNorthArrow" Header="North Arrow" ToolTip="Shows or hides north arrow" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\northArrowIcon.png" Click="ButtonMapShowNorthArrow_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="DN"/>
-                <fluent:ToggleButton x:Name="ButtonMapShowLegend" Header="Legend" ToolTip="Shows or hides legend" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\legendIcon.png" Click="ButtonMapShowLegend_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="DL"/>
-                <fluent:ToggleButton x:Name="ButtonMapShowScaleBar" Header="Scale Bar" ToolTip="Shows or hides scale bar" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\scaleBarIcon.png" Click="ButtonMapShowScaleBar_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="DS"/>
+            <fluent:RibbonGroupBox Header="Decorations" x:Name="Decorations" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\map--pencil.png" fluent:KeyTip.Keys="ZO">
+                <fluent:ToggleButton x:Name="ButtonMapShowNorthArrow" Header="North Arrow" ToolTip="Shows or hides north arrow" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\northArrowIcon.png" Click="ButtonMapShowNorthArrow_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="DN"/>
+                <fluent:ToggleButton x:Name="ButtonMapShowLegend" Header="Legend" ToolTip="Shows or hides legend" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\legendIcon.png" Click="ButtonMapShowLegend_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="DL"/>
+                <fluent:ToggleButton x:Name="ButtonMapShowScaleBar" Header="Scale Bar" ToolTip="Shows or hides scale bar" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\scaleBarIcon.png" Click="ButtonMapShowScaleBar_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="DS"/>
             </fluent:RibbonGroupBox>
-            <fluent:RibbonGroupBox Header="Tools" x:Name="Tools" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\pencil-ruler.png" fluent:KeyTip.Keys="ZT">
-                <fluent:ToggleButton x:Name="ButtonMapSelect" Header="Select" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\select.png" Click="ButtonMapSelectFeature_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="S"/>
-                <fluent:ToggleButton x:Name="ButtonMapPanZoom" Header="Pan" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\MapPanZoomImage.png" Click="ButtonMapPanZoom_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="P"/>
-                <fluent:Button x:Name="ButtonMapZoomToExtent" Header="Zoom To Extent" ToolTip="Zoom to map extent" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\MapZoomToExtentsImage.png" Click="ButtonMapZoomToExtent_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="X"/>
-                <fluent:ToggleButton x:Name="ButtonMapZoomUsingRectangle" Header="Zoom By Rectangle" ToolTip="Zoom in by drawing a rectangle" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\MapZoomRectangleImage.png" Click="ButtonMapZoomUsingRectangle_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="OR"/>
-                <fluent:Button x:Name="ButtonMapZoomPrevious" Header="Zoom Previous" ToolTip="Previous zoom view" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\previous.png" Click="ButtonMapZoomPrevious_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="OP"/>
-                <fluent:Button x:Name="ButtonMapZoomNext" Header="Zoom Next" ToolTip="Next zoom view" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\next.png" Click="ButtonMapZoomNext_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="ON"/>
-                <fluent:Button x:Name="ButtonMapChangeCoordinateSystem" Header="Map Coordinate System" ToolTip="Change map coordinate reference system" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\globe--pencil.png" Click="ButtonMapChangeCoordinateSystem_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="CC"/>
-                <fluent:ToggleButton x:Name="ButtonMapMeasure" Header="Measure Distance" ToolTip="Measure distance by drawing a polyline" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\measureTool.png" Click="ButtonMapMeasure_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="TM"/>
-                <fluent:Button x:Name="ButtonExportMapAsImage" Header="Export As Image" ToolTip="Export map as image" Icon="/Core.Plugins.SharpMapGis.Gui;component\Resources\exportIcon.png" Click="ButtonExportMapAsImage_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="TX"/>
+            <fluent:RibbonGroupBox Header="Tools" x:Name="Tools" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\pencil-ruler.png" fluent:KeyTip.Keys="ZT">
+                <fluent:ToggleButton x:Name="ButtonMapSelect" Header="Select" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\select.png" Click="ButtonMapSelectFeature_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="S"/>
+                <fluent:ToggleButton x:Name="ButtonMapPanZoom" Header="Pan" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\MapPanZoomImage.png" Click="ButtonMapPanZoom_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="P"/>
+                <fluent:Button x:Name="ButtonMapZoomToExtent" Header="Zoom To Extent" ToolTip="Zoom to map extent" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\MapZoomToExtentsImage.png" Click="ButtonMapZoomToExtent_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="X"/>
+                <fluent:ToggleButton x:Name="ButtonMapZoomUsingRectangle" Header="Zoom By Rectangle" ToolTip="Zoom in by drawing a rectangle" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\MapZoomRectangleImage.png" Click="ButtonMapZoomUsingRectangle_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="OR"/>
+                <fluent:Button x:Name="ButtonMapZoomPrevious" Header="Zoom Previous" ToolTip="Previous zoom view" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\previous.png" Click="ButtonMapZoomPrevious_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="OP"/>
+                <fluent:Button x:Name="ButtonMapZoomNext" Header="Zoom Next" ToolTip="Next zoom view" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\next.png" Click="ButtonMapZoomNext_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="ON"/>
+                <fluent:Button x:Name="ButtonMapChangeCoordinateSystem" Header="Map Coordinate System" ToolTip="Change map coordinate reference system" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\globe--pencil.png" Click="ButtonMapChangeCoordinateSystem_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="CC"/>
+                <fluent:ToggleButton x:Name="ButtonMapMeasure" Header="Measure Distance" ToolTip="Measure distance by drawing a polyline" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\measureTool.png" Click="ButtonMapMeasure_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="TM"/>
+                <fluent:Button x:Name="ButtonExportMapAsImage" Header="Export As Image" ToolTip="Export map as image" Icon="pack://application:,,,/Core.Plugins.SharpMapGis.Gui;component\Resources\exportIcon.png" Click="ButtonExportMapAsImage_Click" SizeDefinition="Middle,Small,Small" fluent:KeyTip.Keys="TX"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>
