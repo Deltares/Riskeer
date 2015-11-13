@@ -152,7 +152,7 @@ namespace Core.Common.TestUtils
         {
             public DialogResult Show(string text, string caption, MessageBoxButtons buttons)
             {
-                Console.WriteLine("MessageBox: " + caption + ". " + text);
+                Console.WriteLine(@"MessageBox: {0}. {1}",caption,text);
 
                 if (buttons == MessageBoxButtons.YesNoCancel || buttons == MessageBoxButtons.YesNo)
                 {

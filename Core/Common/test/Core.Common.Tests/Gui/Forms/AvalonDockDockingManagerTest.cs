@@ -28,7 +28,7 @@ namespace Core.Common.Tests.Gui.Forms
             var layout = TypeUtils.CallPrivateMethod<LayoutContent>(dock, "GetLayoutContent", view);
 
             Assert.AreEqual("", layout.Title);
-            view.Text = "Test";
+            view.Text = @"Test";
 
             Assert.AreEqual("Test", layout.Title);
         }

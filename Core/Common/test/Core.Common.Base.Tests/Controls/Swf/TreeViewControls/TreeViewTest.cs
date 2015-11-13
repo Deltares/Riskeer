@@ -342,7 +342,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
                 return stopwatch.ElapsedMilliseconds;
             };
 
-            Console.WriteLine("Elapsed time to perform action without tree view: " + processingAction());
+            Console.WriteLine(@"Elapsed time to perform action without tree view: " + processingAction());
 
             var treeView = new TreeView
             {
@@ -363,12 +363,12 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
                 stopwatch.Start();
 
                 elapsedMillisecondsWithTreeView = processingAction();
-                Console.WriteLine("Elapsed time to perform action with tree view: " + elapsedMillisecondsWithTreeView);
+                Console.WriteLine(@"Elapsed time to perform action with tree view: " + elapsedMillisecondsWithTreeView);
 
                 treeView.WaitUntilAllEventsAreProcessed();
 
                 stopwatch.Stop();
-                Console.WriteLine("Elapsed time to refresh tree view: " + stopwatch.ElapsedMilliseconds);
+                Console.WriteLine(@"Elapsed time to refresh tree view: " + stopwatch.ElapsedMilliseconds);
             };
 
             WindowsFormsTestHelper.ShowModal(treeView, onShow);

@@ -71,6 +71,33 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Argument bevat geen bestandsnaam.
+        /// </summary>
+        internal static string Chart_ExportAsImage_Argument_did_not_contain_a_filename {
+            get {
+                return ResourceManager.GetString("Chart_ExportAsImage_Argument_did_not_contain_a_filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bestandsnaam moet een extensie hebben..
+        /// </summary>
+        internal static string Chart_ExportAsImage_Argument_should_have_an_extension {
+            get {
+                return ResourceManager.GetString("Chart_ExportAsImage_Argument_should_have_an_extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Argument kan niet de waarde &apos;null&apos; hebben.
+        /// </summary>
+        internal static string Chart_ExportAsImage_Argument_should_not_be_null {
+            get {
+                return ResourceManager.GetString("Chart_ExportAsImage_Argument_should_not_be_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap computer {
@@ -161,6 +188,15 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exporteer als afbeelding.
+        /// </summary>
+        internal static string ExportImageHelper_ExportWithDialog_Export_as_image {
+            get {
+                return ResourceManager.GetString("ExportImageHelper_ExportWithDialog_Export_as_image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap folder {
@@ -246,6 +282,42 @@ namespace Core.Common.Controls.Swf.Properties {
             get {
                 object obj = ResourceManager.GetObject("table_edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kopiëren.
+        /// </summary>
+        internal static string TableView_ConfigureContextMenu_Copy {
+            get {
+                return ResourceManager.GetString("TableView_ConfigureContextMenu_Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verwijderen.
+        /// </summary>
+        internal static string TableView_ConfigureContextMenu_Delete {
+            get {
+                return ResourceManager.GetString("TableView_ConfigureContextMenu_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plakken.
+        /// </summary>
+        internal static string TableView_ConfigureContextMenu_Paste {
+            get {
+                return ResourceManager.GetString("TableView_ConfigureContextMenu_Paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to nieuwe Tabel.
+        /// </summary>
+        internal static string TableView_TableView_new_Table {
+            get {
+                return ResourceManager.GetString("TableView_TableView_new_Table", resourceCulture);
             }
         }
         

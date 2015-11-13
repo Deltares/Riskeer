@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils.Collections
 {
@@ -87,7 +89,7 @@ namespace Core.Common.Utils.Collections
         {
             if (groupSize <= 0)
             {
-                throw new ArgumentException("GroupSize must be greater than 0", "groupSize");
+                throw new ArgumentException(Resource.EnumerableExtensions_SplitInGroups_GroupSize_must_be_greater_than_0, "groupSize");
             }
 
             var countSoFar = 0;
@@ -128,7 +130,7 @@ namespace Core.Common.Utils.Collections
 
         public static string ConvertToString(this IEnumerable<int> values)
         {
-            return String.Join(",", values.Select(v => v.ToString()).ToArray());
+            return String.Join(CultureInfo.CurrentCulture.TextInfo.ListSeparator, values.Select(v => v.ToString()).ToArray());
         }
 
         public static IEnumerable<T> QuickSort<T>(this IEnumerable<T> list)

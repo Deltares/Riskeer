@@ -15,7 +15,7 @@ namespace Core.Common.Utils.Tests.Reflection
                           .Should().Be.EqualTo("person");
         }
 
-        [DisplayName("person")]
+        [DisplayName(@"person")]
         public class Person {}
     }
 }

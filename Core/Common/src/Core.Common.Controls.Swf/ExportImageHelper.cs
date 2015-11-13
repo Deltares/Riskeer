@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 
 namespace Core.Common.Controls.Swf
 {
@@ -62,7 +63,7 @@ namespace Core.Common.Controls.Swf
                 Filter = filter,
                 FilterIndex = 1,
                 RestoreDirectory = true,
-                Title = "Export as image"
+                Title = Resources.ExportImageHelper_ExportWithDialog_Export_as_image
             };
 
             if (saveFileDialog.ShowDialog() != DialogResult.OK)

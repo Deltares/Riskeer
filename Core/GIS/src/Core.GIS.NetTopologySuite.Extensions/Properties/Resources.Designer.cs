@@ -206,6 +206,15 @@ namespace Core.GIS.NetTopologySuite.Extensions.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parameter &apos;themeGroup&apos; kan niet leeg zijn.
+        /// </summary>
+        public static string Map_GetDataMinMaxForThemeGroup_expected_non_empty_themegroup {
+            get {
+                return ResourceManager.GetString("Map_GetDataMinMaxForThemeGroup_expected_non_empty_themegroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Interpolatie van methode {0} wordt niet ondersteund.
         /// </summary>
         public static string NetworkCoverageMathExtensions_InterpolationMethodNotSupported {

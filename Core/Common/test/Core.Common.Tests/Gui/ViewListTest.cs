@@ -24,7 +24,7 @@ namespace Core.Common.Tests.Gui
 
             var view = new ToolWindowTestControl
             {
-                Text = "text"
+                Text = @"text"
             };
 
             var senders = new List<object>();

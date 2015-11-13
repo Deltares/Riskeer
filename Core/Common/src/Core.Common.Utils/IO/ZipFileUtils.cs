@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Core.Common.Utils.Properties;
 using ICSharpCode.SharpZipLib.Zip;
 
 namespace Core.Common.Utils.IO
@@ -158,9 +159,11 @@ namespace Core.Common.Utils.IO
             }
 
             // Ensure a reasonable size of buffer is used without being prohibitive.
-            if (buffer.Length < 128)
+            var minimumBufferSize = 128;
+            if (buffer.Length < minimumBufferSize)
             {
-                throw new ArgumentException("Buffer is too small", "buffer");
+                var exceptionMessage = string.Format(Resource.ZipFileUtils_StreamUtilsCopy_Buffer_is_too_small_Should_be_at_least_0_, minimumBufferSize);
+                throw new ArgumentException(exceptionMessage, "buffer");
             }
 
             bool copying = true;

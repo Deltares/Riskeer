@@ -86,7 +86,7 @@ namespace Core.Common.Controls.Swf.Table
             dxGridView.OptionsBehavior.CopyToClipboardWithColumnHeaders = false; //mimic behavior of 8.2
             GridLocalizer.Active = new TableViewExceptionMessageController();
 
-            Text = "new Table";
+            Text = Resources.TableView_TableView_new_Table;
 
             ReadOnlyCellForeColor = Color.Black; //just use black as  a default to increase readability
             ReadOnlyCellBackColor = Color.FromArgb(255, 244, 244, 244);
@@ -2485,15 +2485,15 @@ namespace Core.Common.Controls.Swf.Table
         {
             var btnCopy = new ToolStripMenuItem
             {
-                Name = "btnCopy", Image = Resources.CopyHS, Size = new Size(116, 22), Text = "Copy", Tag = "btnCopy"
+                Name = "btnCopy", Image = Resources.CopyHS, Size = new Size(116, 22), Text = Resources.TableView_ConfigureContextMenu_Copy, Tag = "btnCopy"
             };
             var btnPaste = new ToolStripMenuItem
             {
-                Name = "btnPaste", Image = Resources.PasteHS, Size = new Size(116, 22), Text = "Paste", Tag = "btnPaste"
+                Name = "btnPaste", Image = Resources.PasteHS, Size = new Size(116, 22), Text = Resources.TableView_ConfigureContextMenu_Paste, Tag = "btnPaste"
             };
             var btnDelete = new ToolStripMenuItem
             {
-                Name = "btnDelete", Image = Resources.DeleteHS1, Size = new Size(116, 22), Text = "Delete", Tag = "btnDelete"
+                Name = "btnDelete", Image = Resources.DeleteHS1, Size = new Size(116, 22), Text = Resources.TableView_ConfigureContextMenu_Delete, Tag = "btnDelete"
             };
 
             btnCopy.Click += delegate { CopySelectionToClipboard(); };

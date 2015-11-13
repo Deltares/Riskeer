@@ -398,18 +398,18 @@ namespace Core.Common.TestUtils
             {
                 if (!includeCharts)
                 {
-                    File.AppendAllText(path, "<a href=\"performance-times-charts.html\" target=\"_blank\">View with charts</a><br />");
+                    File.AppendAllText(path, @"<a href=""performance-times-charts.html"" target=""_blank"">View with charts</a><br />");
                 }
 
                 if (machineRank != 1.0f)
                 {
-                    File.AppendAllText(path, "Machine performance rank (multiplier):" + machineRank + "<br />");
-                    File.AppendAllText(path, "Time is in milliseconds<br /><br />");
+                    File.AppendAllText(path, String.Format("Machine performance rank (multiplier):{0}<br />", machineRank));
+                    File.AppendAllText(path, @"Time is in milliseconds<br /><br />");
                     File.AppendAllText(path, String.Format("<table border=\"1\">\n<tr><th>Time</th><th>Name</th>{0}<th>MaxTime</th><th>ActualTime</th><th>RankedActualTime</th><th>Percentage</th></tr>", includeCharts ? "<th>Chart</th>" : ""));
                 }
                 else
                 {
-                    File.AppendAllText(path, "Time is in milliseconds<br /><br />");
+                    File.AppendAllText(path, @"Time is in milliseconds<br /><br />");
                     File.AppendAllText(path, String.Format("<table border=\"1\">\n<tr><th>Time</th><th>Name</th>{0}<th>MaxTime</th><th>ActualTime</th><th>Percentage</th></tr>", includeCharts ? "<th>Chart</th>" : ""));
                 }
             }

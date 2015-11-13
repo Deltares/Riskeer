@@ -213,4 +213,7 @@
   <data name="RegularGridCoverage_TimeInterpolationNotPossibleWithMoreThanOneFilter" xml:space="preserve">
     <value>Tijd interpolatie is niet mogelijk met meer dan één filter.</value>
   </data>
+  <data name="Map_GetDataMinMaxForThemeGroup_expected_non_empty_themegroup" xml:space="preserve">
+    <value>Parameter 'themeGroup' kan niet leeg zijn</value>
+  </data>
 </root>

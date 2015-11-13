@@ -95,7 +95,7 @@ namespace Core.Common.TestUtils
 
         private static void WindowOnClosed(object sender, EventArgs eventArgs)
         {
-            Console.WriteLine("Closed");
+            Console.WriteLine(@"Closed");
         }
 
         private void ThrowIfPropertyObjectsContainsActionDueToLikelyMisuse(object[] propertyObjects)

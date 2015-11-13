@@ -61,6 +61,15 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parameter &apos;GroupSize&apos; moet groter zijn dan 0.
+        /// </summary>
+        internal static string EnumerableExtensions_SplitInGroups_GroupSize_must_be_greater_than_0 {
+            get {
+                return ResourceManager.GetString("EnumerableExtensions_SplitInGroups_GroupSize_must_be_greater_than_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geprobeerd te vervangen &quot;features&quot; in &quot;feature spatial data&quot;, maar kon &quot;feature&quot; niet vinden in de oorspronkelijke &quot;context&quot;: {0}.
         /// </summary>
         internal static string ObjectHelper_CouldNotFindFeatureInOriginalContext {
@@ -84,6 +93,15 @@ namespace Core.Common.Utils.Properties {
         internal static string strTill {
             get {
                 return ResourceManager.GetString("strTill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De buffer is te klein: buffer moet minstens {0} byte groot zijn..
+        /// </summary>
+        internal static string ZipFileUtils_StreamUtilsCopy_Buffer_is_too_small_Should_be_at_least_0_ {
+            get {
+                return ResourceManager.GetString("ZipFileUtils_StreamUtilsCopy_Buffer_is_too_small_Should_be_at_least_0_", resourceCulture);
             }
         }
     }

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Charting.Series;
+using Core.Common.Controls.Swf.Properties;
 using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
@@ -230,7 +231,7 @@ namespace Core.Common.Controls.Swf.Charting
         {
             if (string.IsNullOrEmpty(filename))
             {
-                throw new ArgumentException("Argument should not be null", "filename");
+                throw new ArgumentException(Resources.Chart_ExportAsImage_Argument_should_not_be_null, "filename");
             }
 
             var dir = Path.GetDirectoryName(filename);
@@ -239,12 +240,12 @@ namespace Core.Common.Controls.Swf.Charting
 
             if (string.IsNullOrEmpty(ext))
             {
-                throw new ArgumentException("Argument should have an extension", "filename");
+                throw new ArgumentException(Resources.Chart_ExportAsImage_Argument_should_have_an_extension, "filename");
             }
 
             if (string.IsNullOrEmpty(filenameWithoutExtension))
             {
-                throw new ArgumentException("Argument did not contain a filename", "filename");
+                throw new ArgumentException(Resources.Chart_ExportAsImage_Argument_did_not_contain_a_filename, "filename");
             }
 
             if (ext == ".svg")

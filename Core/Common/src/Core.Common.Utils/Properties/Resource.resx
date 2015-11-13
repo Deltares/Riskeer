@@ -126,4 +126,10 @@
   <data name="ObjectHelper_CouldNotFindFeatureInOriginalContext" xml:space="preserve">
     <value>Geprobeerd te vervangen "features" in "feature spatial data", maar kon "feature" niet vinden in de oorspronkelijke "context": {0}</value>
   </data>
+  <data name="EnumerableExtensions_SplitInGroups_GroupSize_must_be_greater_than_0" xml:space="preserve">
+    <value>Parameter 'GroupSize' moet groter zijn dan 0</value>
+  </data>
+  <data name="ZipFileUtils_StreamUtilsCopy_Buffer_is_too_small_Should_be_at_least_0_" xml:space="preserve">
+    <value>De buffer is te klein: buffer moet minstens {0} byte groot zijn.</value>
+  </data>
 </root>

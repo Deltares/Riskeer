@@ -13,7 +13,7 @@ namespace Core.Gis.NetTopologySuite.Extensions.Tests.TestObjects
         [FeatureAttribute(Order = 2)]
         public string Name { get; set; }
 
-        [DisplayName("Kees")]
+        [DisplayName(@"Kees")]
         [FeatureAttribute(Order = 1, ExportName = "Piet")]
         public string Other { get; set; }
 

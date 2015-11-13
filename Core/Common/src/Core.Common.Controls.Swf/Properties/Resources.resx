@@ -178,4 +178,28 @@
   <data name="funneminus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\funnel--minus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Chart_ExportAsImage_Argument_should_not_be_null" xml:space="preserve">
+    <value>Argument kan niet de waarde 'null' hebben</value>
+  </data>
+  <data name="Chart_ExportAsImage_Argument_should_have_an_extension" xml:space="preserve">
+    <value>Bestandsnaam moet een extensie hebben.</value>
+  </data>
+  <data name="Chart_ExportAsImage_Argument_did_not_contain_a_filename" xml:space="preserve">
+    <value>Argument bevat geen bestandsnaam</value>
+  </data>
+  <data name="ExportImageHelper_ExportWithDialog_Export_as_image" xml:space="preserve">
+    <value>Exporteer als afbeelding</value>
+  </data>
+  <data name="TableView_TableView_new_Table" xml:space="preserve">
+    <value>nieuwe Tabel</value>
+  </data>
+  <data name="TableView_ConfigureContextMenu_Copy" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="TableView_ConfigureContextMenu_Paste" xml:space="preserve">
+    <value>Plakken</value>
+  </data>
+  <data name="TableView_ConfigureContextMenu_Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
 </root>
