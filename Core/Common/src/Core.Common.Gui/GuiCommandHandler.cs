@@ -46,13 +46,13 @@ namespace Core.Common.Gui
         {
             if (!TryCloseProject())
             {
-                Log.Warn(Resources.Opening_new_Ringtoets_project_cancelled);
+                Log.Warn(Resources.Opening_new_project_cancelled);
                 return;
             }
 
-            Log.Info(Resources.Opening_new_Ringtoets_project);
+            Log.Info(Resources.Opening_new_project);
             gui.Application.CreateNewProject();
-            Log.Info(Resources.New_Ringtoets_project_successfully_opened);
+            Log.Info(Resources.New_project_successfully_opened);
 
             RefreshGui();
         }
@@ -68,11 +68,11 @@ namespace Core.Common.Gui
 
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
             {
-                Log.Warn(Resources.Opening_existing_Ringtoets_project_cancelled);
+                Log.Warn(Resources.Opening_existing_project_cancelled);
                 return false;
             }
 
-            Log.Info(Resources.Opening_existing_Ringtoets_project);
+            Log.Info(Resources.Opening_existing_project);
 
             return TryOpenExistingProject(openFileDialog.FileName);
         }
@@ -81,13 +81,13 @@ namespace Core.Common.Gui
         {
             if (!TryCloseProject())
             {
-                Log.Warn(Resources.Opening_existing_Ringtoets_project_cancelled);
+                Log.Warn(Resources.Opening_existing_project_cancelled);
                 return false;
             }
 
             var result = false;
 
-            ProgressBarDialog.PerformTask(Resources.Loading_Ringtoets_project_from_selected_file, () => result = gui.Application.OpenProject(filePath));
+            ProgressBarDialog.PerformTask(Resources.Loading_project_from_selected_file, () => result = gui.Application.OpenProject(filePath));
 
             RefreshGui();
 

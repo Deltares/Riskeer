@@ -10,7 +10,7 @@ namespace Core.Common.Gui
     public interface IGuiCommandHandler : IDisposable
     {
         /// <summary>
-        /// Tries to create a new Ringtoets project.
+        /// Tries to create a new project.
         /// </summary>
         /// <remarks>
         /// The creation action might be cancelled (due to user interaction).
@@ -18,7 +18,7 @@ namespace Core.Common.Gui
         void TryCreateNewProject();
 
         /// <summary>
-        /// Tries to open an existing Ringtoets project.
+        /// Tries to open an existing project.
         /// </summary>
         /// <remarks>
         /// The opening action might be cancelled (due to user interaction).
@@ -27,9 +27,9 @@ namespace Core.Common.Gui
         bool TryOpenExistingProject();
 
         /// <summary>
-        /// Tries to open an existing Ringtoets project from file.
+        /// Tries to open an existing project from file.
         /// </summary>
-        /// <param name="filePath">The path to the existing Ringtoets project file.</param>
+        /// <param name="filePath">The path to the existing project file.</param>
         /// <remarks>
         /// The opening action might be cancelled (due to user interaction).
         /// </remarks>
@@ -37,7 +37,7 @@ namespace Core.Common.Gui
         bool TryOpenExistingProject(string filePath);
 
         /// <summary>
-        /// Tries to close a Ringtoets project.
+        /// Tries to close a project.
         /// </summary>
         /// <remarks>
         /// The closing action might be cancelled (due to user interaction).

@@ -33,13 +33,13 @@ namespace Ringtoets.Piping.Plugin.Test
             // assert
             Assert.AreEqual(1, dataItemDefinitions.Length);
 
-            DataItemInfo projectDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(RingtoetsProject));
-            Assert.AreEqual(RingtoetsFormsResources.RingtoetsProjectProperties_DisplayName, projectDataItemDefinition.Name);
-            Assert.AreEqual(RingtoetsFormsResources.RingtoetsProjectProperties_Category, projectDataItemDefinition.Category);
+            DataItemInfo projectDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(AssessmentSection));
+            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionProperties_DisplayName, projectDataItemDefinition.Name);
+            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionProperties_Category, projectDataItemDefinition.Category);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Width);
             Assert.AreEqual(16, projectDataItemDefinition.Image.Height);
             Assert.IsNull(projectDataItemDefinition.AdditionalOwnerCheck);
-            Assert.IsInstanceOf<RingtoetsProject>(projectDataItemDefinition.CreateData(null));
+            Assert.IsInstanceOf<AssessmentSection>(projectDataItemDefinition.CreateData(null));
             Assert.IsNull(projectDataItemDefinition.AddExampleData);
         }
 

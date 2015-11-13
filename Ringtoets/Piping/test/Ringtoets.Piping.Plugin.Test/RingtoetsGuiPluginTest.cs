@@ -47,11 +47,11 @@ namespace Ringtoets.Piping.Plugin.Test
                 // assert
                 Assert.AreEqual(5, propertyInfos.Length);
 
-                var RingtoetsProjectProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(RingtoetsProject));
-                Assert.AreEqual(typeof(RingtoetsProjectProperties), RingtoetsProjectProperties.PropertyType);
-                Assert.IsNull(RingtoetsProjectProperties.AdditionalDataCheck);
-                Assert.IsNull(RingtoetsProjectProperties.GetObjectPropertiesData);
-                Assert.IsNull(RingtoetsProjectProperties.AfterCreate);
+                var assessmentSectionProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(AssessmentSection));
+                Assert.AreEqual(typeof(AssessmentSectionProperties), assessmentSectionProperties.PropertyType);
+                Assert.IsNull(assessmentSectionProperties.AdditionalDataCheck);
+                Assert.IsNull(assessmentSectionProperties.GetObjectPropertiesData);
+                Assert.IsNull(assessmentSectionProperties.AfterCreate);
 
                 var pipingDataProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(PipingCalculationInputs));
                 Assert.AreEqual(typeof(PipingCalculationInputsProperties), pipingDataProperties.PropertyType);
@@ -100,7 +100,7 @@ namespace Ringtoets.Piping.Plugin.Test
 
                 // assert
                 Assert.AreEqual(8, nodePresenters.Length);
-                Assert.IsTrue(nodePresenters.Any(np => np is RingtoetsProjectNodePresenter));
+                Assert.IsTrue(nodePresenters.Any(np => np is AssessmentSectionNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineCollectionNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSurfaceLineNodePresenter));
                 Assert.IsTrue(nodePresenters.Any(np => np is PipingSoilProfileCollectionNodePresenter));

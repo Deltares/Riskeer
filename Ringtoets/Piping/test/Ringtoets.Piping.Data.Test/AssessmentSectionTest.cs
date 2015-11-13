@@ -5,82 +5,82 @@ using Rhino.Mocks;
 namespace Ringtoets.Piping.Data.Test
 {
     [TestFixture]
-    public class RingtoetsProjectTest
+    public class AssessmentSectionTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var project = new RingtoetsProject();
+            var assessmentSection = new AssessmentSection();
 
             // Assert
-            Assert.IsInstanceOf<IObservable>(project);
-            Assert.AreEqual("Ringtoets project", project.Name);
+            Assert.IsInstanceOf<IObservable>(assessmentSection);
+            Assert.AreEqual("Toetstraject", assessmentSection.Name);
         }
 
         [Test]
         public void InitializePipingFailureMechanism_WithoutFailureMechanismSet_SetNewFailureMechanism()
         {
             // Setup
-            var project = new RingtoetsProject();
+            var assessmentSection = new AssessmentSection();
 
             // Call
-            project.InitializePipingFailureMechanism();
+            assessmentSection.InitializePipingFailureMechanism();
 
             // Assert
-            Assert.IsNotNull(project.PipingFailureMechanism);
+            Assert.IsNotNull(assessmentSection.PipingFailureMechanism);
         }
 
         [Test]
         public void InitializePipingFailureMechanism_WithFailureMechanismSet_SetNewFailureMechanism()
         {
             // Setup
-            var project = new RingtoetsProject();
-            project.InitializePipingFailureMechanism();
-            PipingFailureMechanism notExpectedFailureMechanism = project.PipingFailureMechanism;
+            var assessmentSection = new AssessmentSection();
+            assessmentSection.InitializePipingFailureMechanism();
+            PipingFailureMechanism notExpectedFailureMechanism = assessmentSection.PipingFailureMechanism;
 
             // Precondition
             Assert.IsNotNull(notExpectedFailureMechanism);
 
             // Call
-            project.InitializePipingFailureMechanism();
+            assessmentSection.InitializePipingFailureMechanism();
 
             // Assert
-            Assert.AreNotSame(notExpectedFailureMechanism, project.PipingFailureMechanism);
+            Assert.AreNotSame(notExpectedFailureMechanism, assessmentSection.PipingFailureMechanism);
         }
 
         [Test]
         public void ClearPipingFailureMechanism_WithFailureMechanismSet_FailureMechanismUnassigned()
         {
             // Setup
-            var project = new RingtoetsProject();
-            project.InitializePipingFailureMechanism();
-            PipingFailureMechanism notExpectedFailureMechanism = project.PipingFailureMechanism;
+            var assessmentSection = new AssessmentSection();
+            assessmentSection.InitializePipingFailureMechanism();
+            PipingFailureMechanism notExpectedFailureMechanism = assessmentSection.PipingFailureMechanism;
 
             // Precondition
             Assert.IsNotNull(notExpectedFailureMechanism);
 
             // Call
-            project.ClearPipingFailureMechanism();
+            assessmentSection.ClearPipingFailureMechanism();
 
             // Assert
-            Assert.IsNull(project.PipingFailureMechanism);
+            Assert.IsNull(assessmentSection.PipingFailureMechanism);
         }
 
         [Test]
         public void ClearPipingFailureMechanism_WithoutFailureMechanismSet_PipingFailureMechanismStillUnassigned()
         {
             // Setup
-            var project = new RingtoetsProject();
+            var assessmentSection = new AssessmentSection();
 
             // Precondition
-            Assert.IsNull(project.PipingFailureMechanism);
+            Assert.IsNull(assessmentSection.PipingFailureMechanism);
 
             // Call
-            project.ClearPipingFailureMechanism();
+            assessmentSection.ClearPipingFailureMechanism();
 
             // Assert
-            Assert.IsNull(project.PipingFailureMechanism);
+            Assert.IsNull(assessmentSection.PipingFailureMechanism);
         }
 
         [Test]
@@ -92,11 +92,11 @@ namespace Ringtoets.Piping.Data.Test
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var project = new RingtoetsProject();
-            project.Attach(observer);
+            var assessmentSection = new AssessmentSection();
+            assessmentSection.Attach(observer);
 
             // Call
-            project.NotifyObservers();
+            assessmentSection.NotifyObservers();
 
             // Assert
             mocks.VerifyAll();
@@ -110,12 +110,12 @@ namespace Ringtoets.Piping.Data.Test
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var project = new RingtoetsProject();
-            project.Attach(observer);
-            project.Detach(observer);
+            var assessmentSection = new AssessmentSection();
+            assessmentSection.Attach(observer);
+            assessmentSection.Detach(observer);
 
             // Call
-            project.NotifyObservers();
+            assessmentSection.NotifyObservers();
 
             // Assert
             mocks.VerifyAll(); // Expect no calls on observer
@@ -125,10 +125,10 @@ namespace Ringtoets.Piping.Data.Test
         public void CanAddPipingFailureMechanism_NoPipingFailureMechanismAssigned_ReturnsTrue()
         {
             // Setup
-            var project = new RingtoetsProject();
+            var assessmentSection = new AssessmentSection();
 
             // Call
-            var result = project.CanAddPipingFailureMechanism();
+            var result = assessmentSection.CanAddPipingFailureMechanism();
 
             // Assert
             Assert.IsTrue(result);
@@ -138,11 +138,11 @@ namespace Ringtoets.Piping.Data.Test
         public void CanAddPipingFailureMechanism_PipingFailureMechanismInitialized_ReturnsTrue()
         {
             // Setup
-            var project = new RingtoetsProject();
-            project.InitializePipingFailureMechanism();
+            var assessmentSection = new AssessmentSection();
+            assessmentSection.InitializePipingFailureMechanism();
 
             // Call
-            var result = project.CanAddPipingFailureMechanism();
+            var result = assessmentSection.CanAddPipingFailureMechanism();
 
             // Assert
             Assert.IsFalse(result);

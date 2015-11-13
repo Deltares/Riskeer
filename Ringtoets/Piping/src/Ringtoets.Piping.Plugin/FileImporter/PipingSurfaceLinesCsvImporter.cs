@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Plugin.FileImporter
         {
             get
             {
-                return RingtoetsFormsResources.RingtoetsProjectProperties_Category;
+                return RingtoetsFormsResources.AssessmentSectionProperties_Category;
             }
         }
 

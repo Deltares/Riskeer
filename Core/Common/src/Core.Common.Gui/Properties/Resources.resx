@@ -145,7 +145,7 @@
   <data name="RelationshipsHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RelationshipsHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Opening_new_Ringtoets_project_cancelled" xml:space="preserve">
+  <data name="Opening_new_project_cancelled" xml:space="preserve">
     <value>Openen van nieuw Ringtoets project geannuleerd.</value>
   </data>
   <data name="information_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -359,7 +359,7 @@
   <data name="App_RunRingtoets_Activity___0___not_found_in_project__Typo__or_did_you_forget_to_load_a_project_" xml:space="preserve">
     <value>Activiteit '{0}' is niet gevonden in het project! Typefout of bent u misschien vergeten om een project te laden?</value>
   </data>
-  <data name="Opening_existing_Ringtoets_project_cancelled" xml:space="preserve">
+  <data name="Opening_existing_project_cancelled" xml:space="preserve">
     <value>Openen van bestaand Ringtoets project geannuleerd.</value>
   </data>
   <data name="graphhs" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -401,7 +401,7 @@
   <data name="ViewResolver_OpenViewForData_No_view_registered_for____0_" xml:space="preserve">
     <value>Geen weergave geregistreerd voor: {0}</value>
   </data>
-  <data name="Loading_Ringtoets_project_from_selected_file" xml:space="preserve">
+  <data name="Loading_project_from_selected_file" xml:space="preserve">
     <value>Loading Ringtoets project from selected file.</value>
   </data>
   <data name="App_ParseArguments_Run_script_from_file" xml:space="preserve">
@@ -479,8 +479,8 @@
   <data name="Ribbon_Messages" xml:space="preserve">
     <value>Berichten</value>
   </data>
-  <data name="New_Ringtoets_project_successfully_opened" xml:space="preserve">
-    <value>Nieuw Ringtoets project succesvol geopend.</value>
+  <data name="New_project_successfully_opened" xml:space="preserve">
+    <value>Nieuw project succesvol geopend.</value>
   </data>
   <data name="GeneralOptionsControl_RadioButtonCompactNotationCheckedChanged_Significant_digits_" xml:space="preserve">
     <value>Significante cijfers:</value>
@@ -644,7 +644,7 @@
   <data name="MainWindowCommands_ShowChartContentsViewCommand_Text_Show_Chart_Contents__Shift___Alt____C_" xml:space="preserve">
     <value>Inhoud van de grafiek weergeven (Shift + Alt + C)</value>
   </data>
-  <data name="Opening_new_Ringtoets_project" xml:space="preserve">
+  <data name="Opening_new_project" xml:space="preserve">
     <value>Openen van nieuw Ringtoets project.</value>
   </data>
   <data name="chart_bar" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -737,7 +737,7 @@
   <data name="Ribbon_Properties" xml:space="preserve">
     <value>Eigenschappen</value>
   </data>
-  <data name="Opening_existing_Ringtoets_project" xml:space="preserve">
+  <data name="Opening_existing_project" xml:space="preserve">
     <value>Openen van bestaand Ringtoets project.</value>
   </data>
   <data name="brick" type="System.Resources.ResXFileRef, System.Windows.Forms">

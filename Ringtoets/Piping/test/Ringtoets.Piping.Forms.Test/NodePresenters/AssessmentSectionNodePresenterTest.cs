@@ -15,18 +15,18 @@ using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
 namespace Ringtoets.Piping.Forms.Test.NodePresenters
 {
     [TestFixture]
-    public class RingtoetsProjectNodePresenterTest
+    public class AssessmentSectionNodePresenterTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Assert
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
-            Assert.AreEqual(typeof(RingtoetsProject), nodePresenter.NodeTagType);
+            Assert.AreEqual(typeof(AssessmentSection), nodePresenter.NodeTagType);
         }
 
         [Test]
@@ -39,15 +39,15 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var projectNode = mocks.Stub<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
-            var project = new RingtoetsProject
+            var assessmentSection = new AssessmentSection
             {
                 Name = projectName
             };
 
             // Call
-            nodePresenter.UpdateNode(null, projectNode, project);
+            nodePresenter.UpdateNode(null, projectNode, assessmentSection);
 
             // Assert
             Assert.AreEqual(projectName, projectNode.Text);
@@ -63,12 +63,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
-            var project = new RingtoetsProject();
+            var assessmentSection = new AssessmentSection();
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(project, nodeMock);
+            var children = nodePresenter.GetChildNodeObjects(assessmentSection, nodeMock);
 
             // Assert
             CollectionAssert.IsEmpty(children);
@@ -83,17 +83,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
-            var project = new RingtoetsProject();
-            project.InitializePipingFailureMechanism();
+            var assessmentSection = new AssessmentSection();
+            assessmentSection.InitializePipingFailureMechanism();
 
             // Call
-            var children = nodePresenter.GetChildNodeObjects(project, nodeMock).Cast<object>().AsList();
+            var children = nodePresenter.GetChildNodeObjects(assessmentSection, nodeMock).Cast<object>().AsList();
 
             // Assert
             Assert.AreEqual(1, children.Count);
-            Assert.AreSame(project.PipingFailureMechanism, children[0]);
+            Assert.AreSame(assessmentSection.PipingFailureMechanism, children[0]);
             mocks.VerifyAll(); // Expect no calls on tree node
         }
 
@@ -105,7 +105,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNode(nodeMock);
@@ -123,7 +123,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
             var renameAllowed = nodePresenter.CanRenameNodeTo(nodeMock, "<Insert New Name Here>");
@@ -138,21 +138,21 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var projectObserver = mocks.StrictMock<IObserver>();
-            projectObserver.Expect(o => o.UpdateObserver());
+            var assessmentSectionObserver = mocks.StrictMock<IObserver>();
+            assessmentSectionObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
-            var project = new RingtoetsProject();
-            project.Attach(projectObserver);
+            var assessmentSection = new AssessmentSection();
+            assessmentSection.Attach(assessmentSectionObserver);
 
             // Call
             const string newName = "New Name";
-            nodePresenter.OnNodeRenamed(project, newName);
+            nodePresenter.OnNodeRenamed(assessmentSection, newName);
 
             // Assert
-            Assert.AreEqual(newName, project.Name);
+            Assert.AreEqual(newName, assessmentSection.Name);
             mocks.VerifyAll();
         }
 
@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
             nodePresenter.OnNodeChecked(nodeMock);
@@ -181,7 +181,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
             DragOperations dragAllowed = nodePresenter.CanDrag(dataMock);
@@ -201,7 +201,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
             DragOperations dropAllowed = nodePresenter.CanDrop(dataMock, sourceMock, targetMock, DragOperations.Move);
@@ -221,7 +221,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
             bool insertionAllowed = nodePresenter.CanInsert(dataMock, sourceMock, targetMock);
@@ -241,7 +241,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
             nodePresenter.OnDragDrop(dataMock, sourceParentNodeMock, targetParentNodeDataMock, DragOperations.Move, 2);
@@ -258,7 +258,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var dataMock = mocks.StrictMock<object>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
             nodePresenter.OnNodeSelected(dataMock);
@@ -273,22 +273,22 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var ringtoetsProject = new RingtoetsProject();
+            var assessmentSection = new AssessmentSection();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, ringtoetsProject);
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, assessmentSection);
 
             // Assert
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(1, contextMenu.Items.Count);
             ToolStripItem addPipingItem = contextMenu.Items[0];
-            Assert.AreEqual(RingtoetsFormsResources.RingtoetsProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism, addPipingItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.RingtoetsProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip, addPipingItem.ToolTipText);
+            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism, addPipingItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip, addPipingItem.ToolTipText);
             Assert.IsTrue(addPipingItem.Enabled);
-            Assert.AreSame(ringtoetsProject, addPipingItem.Tag);
+            Assert.AreSame(assessmentSection, addPipingItem.Tag);
             Assert.AreEqual(16, addPipingItem.Image.Height);
             Assert.AreEqual(16, addPipingItem.Image.Width);
             mocks.VerifyAll(); // Expect no calls on arguments
@@ -300,21 +300,21 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var ringtoetsProject = new RingtoetsProject();
-            ringtoetsProject.InitializePipingFailureMechanism();
+            var assessmentSection = new AssessmentSection();
+            assessmentSection.InitializePipingFailureMechanism();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, ringtoetsProject);
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, assessmentSection);
 
             // Assert
             Assert.IsNotNull(contextMenu);
             Assert.AreEqual(1, contextMenu.Items.Count);
             ToolStripItem addPipingItem = contextMenu.Items[0];
-            Assert.AreEqual(RingtoetsFormsResources.RingtoetsProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism, addPipingItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.RingtoetsProjectNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip, addPipingItem.ToolTipText);
+            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism, addPipingItem.Text);
+            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip, addPipingItem.ToolTipText);
             Assert.IsFalse(addPipingItem.Enabled);
             Assert.IsNull(addPipingItem.Tag);
             Assert.AreEqual(16, addPipingItem.Image.Height);
@@ -332,7 +332,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
             nodePresenter.OnPropertyChanged(dataMock, nodeMock, eventArgsMock);
@@ -350,7 +350,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
             nodePresenter.OnCollectionChanged(dataMock, eventArgsMock);
@@ -368,7 +368,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
             bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
@@ -379,7 +379,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void RemoveNodeData_ProjectWithRingtoetsProject_ReturnTrueAndRemoveRingtoetsProject()
+        public void RemoveNodeData_ProjectWithAssessmentSection_ReturnTrueAndRemoveAssessmentSection()
         {
             // Setup
             var mocks = new MockRepository();
@@ -389,45 +389,45 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             mocks.ReplayAll();
 
-            var ringtoetsProject = new RingtoetsProject();
+            var assessmentSection = new AssessmentSection();
 
             var project = new Project();
-            project.Items.Add(ringtoetsProject);
+            project.Items.Add(assessmentSection);
             project.Attach(observerMock);
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
+            var nodePresenter = new AssessmentSectionNodePresenter();
 
             // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(project, ringtoetsProject);
+            bool removalSuccesful = nodePresenter.RemoveNodeData(project, assessmentSection);
 
             // Assert
             Assert.IsTrue(removalSuccesful);
-            CollectionAssert.DoesNotContain(project.Items, ringtoetsProject);
+            CollectionAssert.DoesNotContain(project.Items, assessmentSection);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void RingtoetsProjectWithoutPipingFailureMechanism_AddPipingFailureMechanismThroughContextMenu_RingtoetsProjectHasPipingFailureMechanism()
+        public void AssessmentSectionWithoutPipingFailureMechanism_AddPipingFailureMechanismThroughContextMenu_AssessmentSectionHasPipingFailureMechanism()
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var ringtoetsProject = new RingtoetsProject();
+            var assessmentSection = new AssessmentSection();
             mocks.ReplayAll();
 
-            var nodePresenter = new RingtoetsProjectNodePresenter();
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, ringtoetsProject);
+            var nodePresenter = new AssessmentSectionNodePresenter();
+            var contextMenu = nodePresenter.GetContextMenu(nodeMock, assessmentSection);
 
             // Preconditions
             Assert.IsNotNull(contextMenu);
-            Assert.IsNull(ringtoetsProject.PipingFailureMechanism);
+            Assert.IsNull(assessmentSection.PipingFailureMechanism);
             Assert.AreEqual(1, contextMenu.Items.Count);
 
             // Call
             contextMenu.Items[0].PerformClick();
 
             // Assert
-            Assert.IsNotNull(ringtoetsProject.PipingFailureMechanism);
+            Assert.IsNotNull(assessmentSection.PipingFailureMechanism);
         }
     }
 }

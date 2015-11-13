@@ -10,16 +10,16 @@ using Ringtoets.Piping.Forms.PropertyClasses;
 namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class RingtoetsProjectPropertiesTest
+    public class AssessmentSectionPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new RingtoetsProjectProperties();
+            var properties = new AssessmentSectionProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<RingtoetsProject>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<AssessmentSection>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -27,18 +27,18 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var project = new RingtoetsProject
+            var assessmentSection = new AssessmentSection
             {
                 Name = "Test"
             };
 
-            var properties = new RingtoetsProjectProperties
+            var properties = new AssessmentSectionProperties
             {
-                Data = project
+                Data = assessmentSection
             };
 
             // Call & Assert
-            Assert.AreEqual(project.Name, properties.Name);
+            Assert.AreEqual(assessmentSection.Name, properties.Name);
         }
 
         [Test]
@@ -50,12 +50,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var project = new RingtoetsProject();
-            project.Attach(projectObserver);
+            var assessmentSection = new AssessmentSection();
+            assessmentSection.Attach(projectObserver);
 
-            var properties = new RingtoetsProjectProperties
+            var properties = new AssessmentSectionProperties
             {
-                Data = project
+                Data = assessmentSection
             };
 
             const string newName = "Test";
@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             properties.Name = newName;
 
             // Assert
-            Assert.AreEqual(newName, project.Name);
+            Assert.AreEqual(newName, assessmentSection.Name);
             mocks.VerifyAll();
         }
     }

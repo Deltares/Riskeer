@@ -12,9 +12,9 @@ using Ringtoets.Piping.Forms.Properties;
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
     /// <summary>
-    /// Node presenter for <see cref="RingtoetsProject"/> items in the tree view.
+    /// Node presenter for <see cref="AssessmentSection"/> items in the tree view.
     /// </summary>
-    public class RingtoetsProjectNodePresenter : ITreeNodePresenter
+    public class AssessmentSectionNodePresenter : ITreeNodePresenter
     {
         public ITreeView TreeView { get; set; }
 
@@ -22,23 +22,23 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             get
             {
-                return typeof(RingtoetsProject);
+                return typeof(AssessmentSection);
             }
         }
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
-            var ringtoetsProject = (RingtoetsProject) nodeData;
-            node.Text = ringtoetsProject.Name;
-            node.Image = Resources.RingtoetsProjectFolderIcon;
+            var assessmentSection = (AssessmentSection) nodeData;
+            node.Text = assessmentSection.Name;
+            node.Image = Resources.AssessmentSectionFolderIcon;
         }
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
-            var ringtoetsProject = (RingtoetsProject) parentNodeData;
-            if (ringtoetsProject.PipingFailureMechanism != null)
+            var assessmentSection = (AssessmentSection) parentNodeData;
+            if (assessmentSection.PipingFailureMechanism != null)
             {
-                yield return ringtoetsProject.PipingFailureMechanism;
+                yield return assessmentSection.PipingFailureMechanism;
             }
         }
 
@@ -54,10 +54,10 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public void OnNodeRenamed(object nodeData, string newName)
         {
-            var project = (RingtoetsProject) nodeData;
+            var assessmentSection = (AssessmentSection) nodeData;
 
-            project.Name = newName;
-            project.NotifyObservers();
+            assessmentSection.Name = newName;
+            assessmentSection.NotifyObservers();
         }
 
         public void OnNodeChecked(ITreeNode node) {}
@@ -83,22 +83,22 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
-            var ringtoetsProject = (RingtoetsProject) nodeData;
+            var assessmentSection = (AssessmentSection) nodeData;
 
             var contextMenu = new ContextMenuStrip();
-            if (ringtoetsProject.CanAddPipingFailureMechanism())
+            if (assessmentSection.CanAddPipingFailureMechanism())
             {
-                contextMenu.AddMenuItem(Resources.RingtoetsProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism,
-                    Resources.RingtoetsProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip,
+                contextMenu.AddMenuItem(Resources.AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism,
+                    Resources.AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip,
                     Resources.PipingIcon,
-                    InitializePipingFailureMechanismForRingtoetsProject).Tag = nodeData;
+                    InitializePipingFailureMechanismForAssessmentSection).Tag = nodeData;
             }
             else
             {
-                contextMenu.AddMenuItem(Resources.RingtoetsProjectNodePresenter_ContextMenu_Add_PipingFailureMechanism,
-                    Resources.RingtoetsProjectNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip,
+                contextMenu.AddMenuItem(Resources.AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism,
+                    Resources.AssessmentSectionNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip,
                     Resources.PipingIcon,
-                    InitializePipingFailureMechanismForRingtoetsProject).Enabled = false;
+                    InitializePipingFailureMechanismForAssessmentSection).Enabled = false;
             }
 
             return contextMenu;
@@ -116,22 +116,22 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
             var parentProject = (Project) parentNodeData;
-            var ringtoetsProject = (RingtoetsProject) nodeData;
+            var assessmentSection = (AssessmentSection) nodeData;
 
-            parentProject.Items.Remove(ringtoetsProject);
+            parentProject.Items.Remove(assessmentSection);
             parentProject.NotifyObservers();
 
             return true;
         }
 
-        private void InitializePipingFailureMechanismForRingtoetsProject(object sender, EventArgs e)
+        private void InitializePipingFailureMechanismForAssessmentSection(object sender, EventArgs e)
         {
             var treeNode = (ToolStripItem) sender;
             if (treeNode != null)
             {
-                var ringtoetsProject = (RingtoetsProject) treeNode.Tag;
-                ringtoetsProject.InitializePipingFailureMechanism();
-                ringtoetsProject.NotifyObservers();
+                var assessmentSection = (AssessmentSection) treeNode.Tag;
+                assessmentSection.InitializePipingFailureMechanism();
+                assessmentSection.NotifyObservers();
             }
         }
     }

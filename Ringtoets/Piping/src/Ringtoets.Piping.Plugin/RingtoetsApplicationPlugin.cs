@@ -12,12 +12,12 @@ namespace Ringtoets.Piping.Plugin
     {
         public override IEnumerable<DataItemInfo> GetDataItemInfos()
         {
-            yield return new DataItemInfo<RingtoetsProject>
+            yield return new DataItemInfo<AssessmentSection>
             {
-                Name = RingtoetsFormsResources.RingtoetsProjectProperties_DisplayName,
-                Category = RingtoetsFormsResources.RingtoetsProjectProperties_Category,
-                Image = RingtoetsFormsResources.RingtoetsProjectFolderIcon,
-                CreateData = owner => new RingtoetsProject()
+                Name = RingtoetsFormsResources.AssessmentSectionProperties_DisplayName,
+                Category = RingtoetsFormsResources.AssessmentSectionProperties_Category,
+                Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
+                CreateData = owner => new AssessmentSection()
             };
         }
 

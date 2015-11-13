@@ -418,7 +418,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<RingtoetsProject>();
+            var dataMock = mocks.StrictMock<AssessmentSection>();
             var nodeMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
@@ -433,20 +433,20 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void RemoveNodeData_PipingFailureMechanism_PipingFailureMechanismRemovedFromRingtoetsProject()
+        public void RemoveNodeData_PipingFailureMechanism_PipingFailureMechanismRemovedFromAssessmentSection()
         {
             // Setup
-            var project = new RingtoetsProject();
-            project.InitializePipingFailureMechanism();
+            var assessmentSection = new AssessmentSection();
+            assessmentSection.InitializePipingFailureMechanism();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter();
 
             // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(project, new PipingFailureMechanism());
+            bool removalSuccesful = nodePresenter.RemoveNodeData(assessmentSection, new PipingFailureMechanism());
 
             // Assert
             Assert.IsTrue(removalSuccesful);
-            Assert.IsNull(project.PipingFailureMechanism);
+            Assert.IsNull(assessmentSection.PipingFailureMechanism);
         }
 
         [Test]

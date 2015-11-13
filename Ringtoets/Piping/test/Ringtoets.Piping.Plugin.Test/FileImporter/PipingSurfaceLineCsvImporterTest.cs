@@ -33,7 +33,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             // Assert
             Assert.IsInstanceOf<IFileImporter>(importer);
             Assert.AreEqual(RingtoetsFormsResources.PipingSurfaceLinesCollection_DisplayName, importer.Name);
-            Assert.AreEqual(RingtoetsFormsResources.RingtoetsProjectProperties_Category, importer.Category);
+            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionProperties_Category, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
             CollectionAssert.AreEqual(new[] { typeof(ICollection<RingtoetsPipingSurfaceLine>) }, importer.SupportedItemTypes);
