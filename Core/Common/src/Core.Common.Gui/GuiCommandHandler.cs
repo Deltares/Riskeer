@@ -98,7 +98,7 @@ namespace Core.Common.Gui
         {
             if (gui.Application.Project != null)
             {
-                Log.Info("Closing current project.");
+                Log.Info(Resources.GuiCommandHandler_TryCloseProject_Closing_current_project_);
 
                 // Disconnect project
                 ((INotifyPropertyChanged) gui.Application.Project).PropertyChanged -= CurrentProjectChanged;
