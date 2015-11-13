@@ -13,7 +13,7 @@
     <fluent:Ribbon x:Name="RingtoetsDemoProjectRibbonControl" x:FieldModifier="private">
         <fluent:RibbonTabItem Header="{x:Static resx:Resources.Demo}" fluent:KeyTip.Keys="D">
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.ExampleData}" fluent:KeyTip.Keys="E" Height="Auto">
-                <fluent:Button x:Name="AddNewDemoProjectButton" IsEnabled="False" LargeIcon="pack://application:,,,/Ringtoets.Demo;component/Resources/folder-horizontal_large.png" Icon="pack://application:,,,/Ringtoets.Demo;component/Resources/folder-horizontal.png" Header="{x:Static resx:Resources.DemoProject}" SizeDefinition="Large,Medium,Small" Margin="20,0" KeyTip="P" Click="AddNewRingtoetsDemoProjectButton_Click"/>
+                <fluent:Button x:Name="AddNewDemoProjectButton" LargeIcon="pack://application:,,,/Ringtoets.Demo;component/Resources/folder-horizontal_large.png" Icon="pack://application:,,,/Ringtoets.Demo;component/Resources/folder-horizontal.png" Header="{x:Static resx:Resources.DemoProject}" SizeDefinition="Large,Medium,Small" Margin="20,0" KeyTip="P" Click="AddNewRingtoetsDemoProjectButton_Click"/>
             </fluent:RibbonGroupBox>
         </fluent:RibbonTabItem>
     </fluent:Ribbon>

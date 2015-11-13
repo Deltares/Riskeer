@@ -3,6 +3,9 @@ using System.Linq;
 
 using Core.Common.Controls;
 using Core.Common.Gui.Forms;
+
+using Ringtoets.Demo.Commands;
+
 using DemoResources = Ringtoets.Demo.Properties.Resources;
 
 namespace Ringtoets.Demo
@@ -12,16 +15,20 @@ namespace Ringtoets.Demo
     /// </summary>
     public partial class RingtoetsDemoProjectRibbon : IRibbonCommandHandler
     {
+        private readonly ICommand addNewDemoProject;
+
         public RingtoetsDemoProjectRibbon()
         {
             InitializeComponent();
+
+            addNewDemoProject = new AddNewDemoProjectCommand();
         }
 
         public IEnumerable<ICommand> Commands
         {
             get
             {
-                return Enumerable.Empty<ICommand>();
+                yield return addNewDemoProject;
             }
         }
 
@@ -42,7 +49,7 @@ namespace Ringtoets.Demo
 
         private void AddNewRingtoetsDemoProjectButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            addNewDemoProject.Execute();
         }
     }
 }
