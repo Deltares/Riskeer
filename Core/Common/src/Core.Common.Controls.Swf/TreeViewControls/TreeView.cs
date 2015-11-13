@@ -292,7 +292,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             }
         }
 
-        public void DeleteNodeData()
+        public void TryDeleteSelectedNodeData()
         {
             if (!SelectedNodeCanDelete())
             {
@@ -306,6 +306,11 @@ namespace Core.Common.Controls.Swf.TreeViewControls
                 return;
             }
 
+            DeleteSelectedNodeData();
+        }
+
+        private void DeleteSelectedNodeData()
+        {
             var presenter = GetTreeViewNodePresenter(SelectedNode.Tag, SelectedNode);
             presenter.RemoveNodeData(SelectedNode.Parent.Tag, SelectedNode.Tag);
             SelectedNode = SelectedNode ?? Nodes.FirstOrDefault();
@@ -319,7 +324,6 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             }
 
             BeginUpdate();
-
             try
             {
                 var selectedNodePath = SelectedNode == null ? string.Empty : SelectedNode.FullPath;
@@ -542,7 +546,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
                 case Keys.Delete:
                     if (OnProcessCmdKey == null && SelectedNode != null && SelectedNode.Tag != null)
                     {
-                        DeleteNodeData();
+                        TryDeleteSelectedNodeData();
                         return true;
                     }
                     break;

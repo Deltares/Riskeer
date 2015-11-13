@@ -131,6 +131,6 @@ namespace Core.Common.Controls
         /// </summary>
         void StartLabelEdit();
 
-        void DeleteNodeData();
+        void TryDeleteSelectedNodeData();
     }
 }

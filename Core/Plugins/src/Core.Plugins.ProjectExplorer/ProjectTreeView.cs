@@ -216,7 +216,7 @@ namespace Core.Plugins.ProjectExplorer
             }
             if (keyData == Keys.Delete)
             {
-                treeView.DeleteNodeData();
+                treeView.TryDeleteSelectedNodeData();
 
                 return true;
             }
@@ -270,7 +270,7 @@ namespace Core.Plugins.ProjectExplorer
         /// <param name="e"></param>
         private void deleteMenuItemClick(object sender, EventArgs e)
         {
-            treeView.DeleteNodeData();
+            treeView.TryDeleteSelectedNodeData();
         }
 
         private void TreeViewDoubleClick(object sender, EventArgs e)

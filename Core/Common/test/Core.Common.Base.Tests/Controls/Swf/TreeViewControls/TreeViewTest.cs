@@ -8,6 +8,7 @@ using Core.Common.Base.Tests.TestObjects;
 using Core.Common.Controls;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.TestUtils;
+using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using SharpTestsEx;
@@ -308,6 +309,44 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
 
             // asserts
             treeView.Nodes[0].Nodes[0].IsExpanded.Should("node remains expanded").Be.True();
+        }
+
+        /// <summary>
+        /// If node deleted then selection should go to it's parent. In case, by some reason, there is no node selected after all selection should go to the very first node.
+        /// </summary>
+        [Test]
+        public void DeletedNodeMovesSelectionToItsParentNode()
+        {
+            var treeView = new TreeView
+            {
+                NodePresenters =
+                {
+                    new ParentNodePresenter(), // DynamicParentNodePresenter(),
+                    new ChildNodePresenter()
+                }
+            };
+
+            var parent = new Parent() { Name = "Parent"};
+            var child = new Child() { Name = "Child" };
+            var grandchild = new Child() { Name = "GrandChild" };
+            parent.Children.Add(child);
+            child.Children.Add(grandchild);
+
+            treeView.Data = parent;
+            
+            WindowsFormsTestHelper.Show(treeView); // show it to make sure that expand / refresh node really loads nodes.
+
+            treeView.ExpandAll();
+            treeView.Refresh();
+
+            treeView.SelectedNode = treeView.GetNodeByTag(grandchild);
+
+            TypeUtils.CallPrivateMethod(treeView, "DeleteSelectedNodeData");
+
+            treeView.ExpandAll();
+            treeView.Refresh();
+
+            Assert.AreEqual(treeView.SelectedNode, treeView.GetNodeByTag(child));
         }
 
         [Test]
