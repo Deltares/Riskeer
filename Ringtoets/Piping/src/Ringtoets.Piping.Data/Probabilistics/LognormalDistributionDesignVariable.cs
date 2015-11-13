@@ -24,40 +24,21 @@ namespace Ringtoets.Piping.Data.Probabilistics
         /// distribution' space and calculates the design value for that value space.
         /// </summary>
         /// <returns>The design value in 'normal distribution' space.</returns>
-        /// <remarks>Design values can only be determined in 'normal distribution' space.</remarks>
         private double DetermineDesignValueInNormalDistributionSpace()
         {
-            var normalDistribution = CreateNormalDistributionFromLognormalDistribution();
-            var normalDistributionDesignVariable = new NormalDistributionDesignVariable(normalDistribution)
-            {
-                Percentile = Percentile
-            };
-            return normalDistributionDesignVariable.GetDesignValue();
+            // Determine normal distribution parameters from log-normal parameters, as
+            // design value can only be determined in 'normal distribution' space.
+            // Below formula's come from Tu-Delft College dictaat "b3 Probabilistisch Ontwerpen"
+            // by ir. A.C.W.M. Vrouwenvelder and ir.J.K. Vrijling 5th reprint 1987.
+            double sigmaLogOverMuLog = Distribution.StandardDeviation / Distribution.Mean;
+            double sigmaNormal = Math.Sqrt(Math.Log(sigmaLogOverMuLog * sigmaLogOverMuLog + 1.0));
+            double muNormal = Math.Log(Distribution.Mean) - 0.5 * sigmaNormal * sigmaNormal;
+            return DetermineDesignValue(muNormal, sigmaNormal);
         }
 
         private static double ProjectFromNormalToLognormalSpace(double normalSpaceDesignValue)
         {
             return Math.Exp(normalSpaceDesignValue);
-        }
-
-        /// <summary>
-        /// Determine normal distribution parameters from log-normal parameters, as
-        /// design value can only be determined in 'normal distribution' space.
-        /// Below formula's come from Tu-Delft College dictaat "b3 Probabilistisch Ontwerpen"
-        /// by ir. A.C.W.M. Vrouwenvelder and ir.J.K. Vrijling 5th reprint 1987.
-        /// </summary>
-        /// <returns>A normal distribution based on the parameters of <see cref="DesignVariable{DistributionType}.Distribution"/>.</returns>
-        private NormalDistribution CreateNormalDistributionFromLognormalDistribution()
-        {
-            double sigmaLogOverMuLog = Distribution.StandardDeviation / Distribution.Mean;
-            double sigmaNormal = Math.Sqrt(Math.Log(sigmaLogOverMuLog * sigmaLogOverMuLog + 1.0));
-            double muNormal = Math.Log(Distribution.Mean) - 0.5 * sigmaNormal * sigmaNormal;
-
-            return new NormalDistribution
-            {
-                Mean = muNormal,
-                StandardDeviation = sigmaNormal
-            };
         }
     }
 }

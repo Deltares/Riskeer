@@ -1,6 +1,4 @@
-﻿using MathNet.Numerics.Distributions;
-
-namespace Ringtoets.Piping.Data.Probabilistics
+﻿namespace Ringtoets.Piping.Data.Probabilistics
 {
     public class NormalDistributionDesignVariable : DesignVariable<NormalDistribution>
     {
@@ -8,11 +6,7 @@ namespace Ringtoets.Piping.Data.Probabilistics
 
         public override double GetDesignValue()
         {
-            // Design factor is determined using the 'probit function', which is the inverse
-            // CDF function of the standard normal distribution. For more information see:
-            // "Quantile function" https://en.wikipedia.org/wiki/Normal_distribution
-            var designFactor = Normal.InvCDF(0.0, 1.0, Percentile);
-            return Distribution.Mean + designFactor * Distribution.StandardDeviation;
+            return DetermineDesignValue(Distribution.Mean, Distribution.StandardDeviation);
         }
     }
 }

@@ -29,6 +29,7 @@ namespace Ringtoets.Piping.Data.Test.Probabilistics
         [TestCase(75, 5, 0.95, 78.73383874)]
         [TestCase(75, 5, 0.05, 71.37978448)]
         [TestCase(1, 5, 0.5, 0.40824829)]
+        [TestCase(1, 1e-18, 0.5, 1)]
         public void GetDesignVariable_ValidLognormalDistribution_ReturnExpectedValue(
             double expectedValue, double variance, double percentile,
             double expectedResult)
