@@ -29,29 +29,48 @@ namespace Core.Common.Utils.Tests
         }
 
         [Test]
-        public void GetCorrectFormatForRange()
+        [SetCulture("nl-NL")]
+        public void GetCorrectFormatForRange_forNL()
         {
+            GetCorrectFormatForRange();
+        }
+
+        [Test]
+        [SetCulture("en-US")]
+        public void GetCorrectFormatForRange_forEN()
+        {
+            GetCorrectFormatForRange();
+        }
+
+        private static void GetCorrectFormatForRange()
+        {
+            // Setup
             var provider = new TimeNavigatableLabelFormatProvider();
 
-            var oldCulture = Thread.CurrentThread.CurrentCulture;
-            var oldCultureUI = Thread.CurrentThread.CurrentUICulture;
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-            Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
+            var timeA = new DateTime(2010, 1, 1);
+            var timeB = new DateTime(2010, 10, 1);
 
-            provider.CustomDateTimeFormatInfo = CultureInfo.InvariantCulture.DateTimeFormat;
+            DateTimeFormatInfo dateTimeFormatInfo = CultureInfo.CurrentCulture.DateTimeFormat;
 
-            var annotation = provider.GetRangeLabel(new DateTime(2010, 1, 1), new DateTime(2010, 10, 1));
+            string longDatePattern = dateTimeFormatInfo.LongDatePattern;
+            string shortDateTimePattern = dateTimeFormatInfo.ShortDatePattern + " " + dateTimeFormatInfo.ShortTimePattern;
+            string yearMonthPattern = dateTimeFormatInfo.YearMonthPattern;
 
-            annotation.Should("Annotation not as expected.").Be.EqualTo("(Friday, 01 January 2010 till Friday, 01 October 2010)");
+            var a = timeA.ToString(longDatePattern);
+            var b = timeB.ToString(longDatePattern);
+            var expectedAnnotation = String.Format("({0} tot {1})", a, b);
 
-            var label1 = provider.GetLabel(new DateTime(2010, 1, 1), new TimeSpan(2, 1, 1, 1));
-            var label2 = provider.GetLabel(new DateTime(2010, 1, 1), new TimeSpan(600, 1, 1, 1));
+            // Call
+            var annotation = provider.GetRangeLabel(timeA, timeB);
 
-            label1.Should("Label 1 not as expected").Be.EqualTo("01/01/2010 00:00");
-            label2.Should("Label 2 not as expected").Be.EqualTo("2010 January");
+            // Assert
+            Assert.AreEqual(expectedAnnotation, annotation);
 
-            Thread.CurrentThread.CurrentCulture = oldCulture;
-            Thread.CurrentThread.CurrentUICulture = oldCultureUI;
+            var label1 = provider.GetLabel(timeA, new TimeSpan(2, 1, 1, 1));
+            var label2 = provider.GetLabel(timeA, new TimeSpan(600, 1, 1, 1));
+
+            Assert.AreEqual(label1, timeA.ToString(shortDateTimePattern));
+            Assert.AreEqual(label2, timeA.ToString(yearMonthPattern));
         }
     }
 }
