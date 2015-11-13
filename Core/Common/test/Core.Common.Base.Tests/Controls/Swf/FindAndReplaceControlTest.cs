@@ -24,7 +24,7 @@ namespace Core.Common.Base.Tests.Controls.Swf
                 HighLightText = t => Assert.AreEqual("Test", t)
             };
 
-            findAndReplaceControl.FindTextBox.Text = @"Test";
+            findAndReplaceControl.findTextBox.Text = @"Test";
 
             TypeUtils.CallPrivateMethod(findAndReplaceControl, "FindNext");
         }
@@ -49,11 +49,11 @@ namespace Core.Common.Base.Tests.Controls.Swf
                     Assert.AreEqual(4, length);
                 },
                 HighLightText = t => Assert.AreEqual("Test", t),
-                FindTextBox =
+                findTextBox =
                 {
                     Text = @"Test"
                 },
-                ReplaceTextBox =
+                replaceTextBox =
                 {
                     Text = @"New test"
                 }

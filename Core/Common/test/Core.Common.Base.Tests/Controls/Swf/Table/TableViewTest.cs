@@ -1453,7 +1453,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Unable to select cells when tableView has RowSelect enabled. Use SelectRow instead.")]
+        [ExpectedException(typeof(InvalidOperationException), ExpectedMessage = "Niet in staat om cellen te selecteren wanneer tableView RowSelect ingeschakeld is. Gebruik in plaats daarvan SelectRow.")]
         public void SelectCellsForTableViewWithRowSelectThrowsException()
         {
             //this test relates to issue 3069...demonstrating a problem paste lines when rowselect is enabled.

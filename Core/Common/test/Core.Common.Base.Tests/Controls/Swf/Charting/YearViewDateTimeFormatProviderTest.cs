@@ -18,7 +18,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Charting
         [Test]
         public void GetAxisAnnotation()
         {
-            Assert.AreEqual("1991 till 2010", Provider.GetRangeLabel(new DateTime(1991, 11, 11), new DateTime(2010, 1, 1)));
+            Assert.AreEqual("1991 tot 2010", Provider.GetRangeLabel(new DateTime(1991, 11, 11), new DateTime(2010, 1, 1)));
         }
     }
 }

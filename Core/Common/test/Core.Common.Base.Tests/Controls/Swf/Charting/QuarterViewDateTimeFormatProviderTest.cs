@@ -16,7 +16,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Charting
             var minDate = new DateTime(2001, 1, 1);
             var maxDate = new DateTime(2002, 7, 1);
 
-            provider.GetRangeLabel(minDate, maxDate).Should("Unexpected quarter datetime string.").Be.EqualTo("1st Qtr 2001 till 3rd Qtr 2002");
+            provider.GetRangeLabel(minDate, maxDate).Should("Unexpected quarter datetime string.").Be.EqualTo("1e kwartaal 2001 tot 3e kw. 2002");
         }
     }
 }

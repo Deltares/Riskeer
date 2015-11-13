@@ -22,9 +22,9 @@ namespace Core.Common.Controls.Swf
             ShowReplaceControls(false);
         }
 
-        public TextBox FindTextBox { get; private set; }
+        public TextBox findTextBox { get; private set; }
 
-        public TextBox ReplaceTextBox { get; private set; }
+        public TextBox replaceTextBox { get; private set; }
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -60,7 +60,7 @@ namespace Core.Common.Controls.Swf
         private void ShowReplaceControls(bool show)
         {
             labelReplaceWith.Visible = show;
-            ReplaceTextBox.Visible = show;
+            replaceTextBox.Visible = show;
             buttonReplace.Visible = show;
             buttonReplaceAll.Visible = show;
         }
@@ -90,7 +90,7 @@ namespace Core.Common.Controls.Swf
 
             if (ReplaceText != null)
             {
-                ReplaceText(currentMatch.Index, currentMatch.Length, ReplaceTextBox.Text);
+                ReplaceText(currentMatch.Index, currentMatch.Length, replaceTextBox.Text);
             }
 
             FindNext();
@@ -117,7 +117,7 @@ namespace Core.Common.Controls.Swf
 
             if (nextMatch != null && SelectText != null)
             {
-                SelectText(nextMatch.Index, FindTextBox.Text.Length);
+                SelectText(nextMatch.Index, findTextBox.Text.Length);
                 if (ScrollToPosition != null)
                 {
                     ScrollToPosition(nextMatch.Index);
@@ -135,7 +135,7 @@ namespace Core.Common.Controls.Swf
                 textToSearch = currentText;
             }
 
-            var expr = new Regex(Regex.Escape(FindTextBox.Text));
+            var expr = new Regex(Regex.Escape(findTextBox.Text));
 
             if (matches == null || isDirty)
             {
@@ -179,9 +179,9 @@ namespace Core.Common.Controls.Swf
 
             foreach (var match in matches.OfType<Match>().Reverse())
             {
-                ReplaceText(match.Index, match.Length, ReplaceTextBox.Text);
+                ReplaceText(match.Index, match.Length, replaceTextBox.Text);
             }
-            Log.InfoFormat(Resources.FindAndReplaceControl_buttonReplaceAll_Click_Replaced__0__occurrences_of__1__with__2_, matches.Count, FindTextBox.Text, ReplaceTextBox.Text);
+            Log.InfoFormat(Resources.FindAndReplaceControl_buttonReplaceAll_Click_Replaced__0__occurrences_of__1__with__2_, matches.Count, findTextBox.Text, replaceTextBox.Text);
         }
 
         private void button_KeyDown(object sender, KeyEventArgs e)
@@ -200,9 +200,9 @@ namespace Core.Common.Controls.Swf
 
         private void textBoxFind_TextChanged(object sender, EventArgs e)
         {
-            if (sender == FindTextBox && HighLightText != null)
+            if (sender == findTextBox && HighLightText != null)
             {
-                HighLightText(FindTextBox.Text);
+                HighLightText(findTextBox.Text);
             }
 
             isDirty = true;
