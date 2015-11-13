@@ -187,9 +187,6 @@
   <data name="Chart_ExportAsImage_Argument_did_not_contain_a_filename" xml:space="preserve">
     <value>Argument bevat geen bestandsnaam</value>
   </data>
-  <data name="ExportImageHelper_ExportWithDialog_Export_as_image" xml:space="preserve">
-    <value>Exporteer als afbeelding</value>
-  </data>
   <data name="TableView_TableView_new_Table" xml:space="preserve">
     <value>nieuwe Tabel</value>
   </data>
@@ -243,5 +240,223 @@
   </data>
   <data name="TreeViewController_UpdateNode_Can_t_find_INodePresenter_for__0___make_sure_you_added_it_to_Presenters_collection_of_a_TreeView" xml:space="preserve">
     <value>Kan INodePresenter voor {0} niet vinden, zorg ervoor dat u het aan de Presenters verzameling voor een TreeView hebt toegevoegd</value>
+  </data>
+  <data name="ChartView_TeeChartBeforeDraw_Can_not_draw_chart" xml:space="preserve">
+    <value>Kan diagram niet tekenen</value>
+  </data>
+  <data name="QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__1st_Qtr_" xml:space="preserve">
+    <value>1e kwartaal {0}</value>
+  </data>
+  <data name="QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__2nd_Qtr_" xml:space="preserve">
+    <value>2e kw. {0}</value>
+  </data>
+  <data name="QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__3rd_Qtr_" xml:space="preserve">
+    <value>3e kw. {0}</value>
+  </data>
+  <data name="QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__4th_Qtr_" xml:space="preserve">
+    <value>4e kw. {0}</value>
+  </data>
+  <data name="QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__Unknown_quarter_" xml:space="preserve">
+    <value>Onbekend kwartaal</value>
+  </data>
+  <data name="ChartSeriesFactory_CreateSeries_unsupported_chartSeriesType" xml:space="preserve">
+    <value>ChartSeriesType niet ondersteund</value>
+  </data>
+  <data name="PolygonSeries_Draw_Number_of_X_values_should_be_equal_to_the_number_of_Y_values" xml:space="preserve">
+    <value>Aantal X-waarden moet gelijk zijn aan het aantal Y-waarden</value>
+  </data>
+  <data name="TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below__1__" xml:space="preserve">
+    <value>Zou geen indices lager dan -1 moeten teruggeven!</value>
+  </data>
+  <data name="ChartViewSeriesToolBase_SelectedPointIndex_Selected_index_outside_range_of_series" xml:space="preserve">
+    <value>Geselecteerde index is buiten bereik van de serie</value>
+  </data>
+  <data name="ChartViewSeriesToolBase_SelectedPointIndex_LastSelectedSeries_is_null_" xml:space="preserve">
+    <value>LastSelectedSeries is 'null'!</value>
+  </data>
+  <data name="ChartViewSeriesToolBase_GetChartSeriesFromInternalSeries_Unknown_TeeChart_series__not_related_to_any_known_ChartSeries" xml:space="preserve">
+    <value>Onbekende TeeChart serie: houdt geen verband met een bekende ChartSeries</value>
+  </data>
+  <data name="KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_" xml:space="preserve">
+    <value>Verwijderen is niet geïmplementeerd voor dit type databron.</value>
+  </data>
+  <data name="EditPointTool_CalculateXValue_left_limit" xml:space="preserve">
+    <value>X-waarde wordt vastgelegd (linker limiet) {0} =&gt; {1}</value>
+  </data>
+  <data name="EditPointTool_CalculateXValue_right_limit" xml:space="preserve">
+    <value>X-waarde wordt vastgelegd (rechter limiet) {0} =&gt; {1}</value>
+  </data>
+  <data name="Export_as_Image___" xml:space="preserve">
+    <value>Exporteer als afbeelding...</value>
+  </data>
+  <data name="SelectPointTool_KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_" xml:space="preserve">
+    <value>Verwijderen is niet geïmplementeerd voor dit type databron.</value>
+  </data>
+  <data name="ClonableToolStripMenuItem_Clone_Unclonable_subitems_in_menu_item" xml:space="preserve">
+    <value>Niet te klonen subitems in menu-item</value>
+  </data>
+  <data name="CollapsibleSplitter_OnPaint_The_Collapsible_Splitter_control_cannot_have_the_Filled_or_None_Dockstyle_property" xml:space="preserve">
+    <value>De inklapbare splitser kan geen "Dockstyle" "Filled:  of "None" hebben</value>
+  </data>
+  <data name="ExceptionDialog_GetExceptionText_Inner_exceptions" xml:space="preserve">
+    <value>Interne fout:{1}{2}</value>
+  </data>
+  <data name="ExceptionDialog_GetExceptionText_Loader_exceptions" xml:space="preserve">
+    <value>Foutmelding van de loader:</value>
+  </data>
+  <data name="ExceptionDialog_InitializeComponent_An_unhandled_exception_has_occurred__Ringtoets_needs_to_be_restarted__" xml:space="preserve">
+    <value>Een onafgehandelde exceptie is opgetreden. Ringtoets moet herstart worden.</value>
+  </data>
+  <data name="AllFilesFilter" xml:space="preserve">
+    <value>Alle bestanden (*.*)|*.*</value>
+  </data>
+  <data name="Shape_files_filter" xml:space="preserve">
+    <value>Shape bestanden |*.shp</value>
+  </data>
+  <data name="RangeLabel__0__till__1_" xml:space="preserve">
+    <value>{0} tot {1}</value>
+  </data>
+  <data name="QuarterNavigatableLabelFormatProvider_GetUnits_qtr_yyyy" xml:space="preserve">
+    <value>kw. yyyy</value>
+  </data>
+  <data name="YearNavigatableLabelFormatProvider_GetUnits_yyyy" xml:space="preserve">
+    <value>yyyy</value>
+  </data>
+  <data name="ExportImageHelper_Format_0_as_filter" xml:space="preserve">
+    <value>{0} bestanden (*.{0})|*.{0}</value>
+  </data>
+  <data name="WizardDialog_WizardControl1NextClick_An_error_occurred__please_verify_your_input___1__1_Error___1__0_" xml:space="preserve">
+    <value>Er is een fout opgetreden. Verifieer de invoer alstublieft. {1}{1}Error: {1}{0}</value>
+  </data>
+  <data name="WizardDialog_WizardControl1NextClick_Error_occurred" xml:space="preserve">
+    <value>Fout opgetreden</value>
+  </data>
+  <data name="TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class" xml:space="preserve">
+    <value>OnNodeRenamed moet zijn geimplementeerd in de afgeleide klasse</value>
+  </data>
+  <data name="TreeViewController_UpdateNode_Can_t_find_node_presenter_for_tree_view__object_" xml:space="preserve">
+    <value>Kan het object ("treeNode.Presenter") niet vinden om de boomstructuur weer te geven: {0}</value>
+  </data>
+  <data name="TreeViewController_OnNodeChecked_Unable_to_resolve_node_presenter_for_null_data" xml:space="preserve">
+    <value>Niet in staat om node presenter te vinden voor 'null' object</value>
+  </data>
+  <data name="TreeViewController_TreeViewController_Tree_view_can_t_be_null" xml:space="preserve">
+    <value>Structuurweergave mag niet leeg zijn</value>
+  </data>
+  <data name="TreeView_TreeViewDragDrop_Error_during_drag_drop_0_" xml:space="preserve">
+    <value>Fout tijdens slepen/neerzetten: {0}</value>
+  </data>
+  <data name="TreeView_DeleteNodeData_Confirm" xml:space="preserve">
+    <value>Bevestigen</value>
+  </data>
+  <data name="TreeView_DeleteNodeData_The_selected_item_cannot_be_removed" xml:space="preserve">
+    <value>Het geselecteerde item kan niet worden verwijderd</value>
+  </data>
+  <data name="TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented_" xml:space="preserve">
+    <value>De methode of operatie is niet geïmplementeerd.</value>
+  </data>
+  <data name="TimeSpanEditor_GetTimeSymbolAtPosition_Datetime_format_not_as_expected" xml:space="preserve">
+    <value>Datumtijd notatie niet zoals verwacht</value>
+  </data>
+  <data name="TableViewValidator_ValidateCell_Validation_of_cell_failed_0_" xml:space="preserve">
+    <value>Validatie van cel is mislukt: {0}</value>
+  </data>
+  <data name="TableViewValidator_ValidateRow_Validation_of_row_failed_0_" xml:space="preserve">
+    <value>Validatie van rij is mislukt: {0}</value>
+  </data>
+  <data name="TableViewPasteController_SafeSetCellValue_Invalid_row_reason_0_" xml:space="preserve">
+    <value>Ongeldige rij: {0}</value>
+  </data>
+  <data name="TableViewPasteController_PasteCellsToRow_Pasting_values_failed___0_" xml:space="preserve">
+    <value>Plakken waarden mislukt: {0}</value>
+  </data>
+  <data name="TableViewPasteController_PasteCellsToRow_Skipping_invalid_row__0__from_pasting" xml:space="preserve">
+    <value>Ongeldige geplate rij {0} wordt overgeslagen</value>
+  </data>
+  <data name="TableViewPasteController_PasteCellsToRow_Can_not_paste_value_into_cell___0____1____Row__0__will_be_skipped" xml:space="preserve">
+    <value>Kan de waarde in cel [{0}, {1}] niet plakken. Rij {0} wordt overgeslagen</value>
+  </data>
+  <data name="TableViewPasteController_CanPaste_Cannot_paste_into_filtered_tableview_" xml:space="preserve">
+    <value>Kan niet plakken in een gefilterde tableview.</value>
+  </data>
+  <data name="TableViewPasteController_CanPaste_Cannot_paste_into_sorted_column" xml:space="preserve">
+    <value>Kan niet plakken in gesorteerde kolom</value>
+  </data>
+  <data name="TableViewPasteController_CanPaste_There_are_no_values_to_paste__headers_are_skipped__" xml:space="preserve">
+    <value>Er zijn geen waardes om te plakken (headers worden overgeslagen).</value>
+  </data>
+  <data name="TableViewPasteController_GetPasteTargetSelection_Cannot_paste_into_non_rectangular_selection" xml:space="preserve">
+    <value>Kan niet in niet-rechthoekige selectie plakken</value>
+  </data>
+  <data name="TableViewPasteController_PasteClipboardContents_Clipboard_does_not_contain_text__so_it_cannot_be_pasted_to_the_grid_" xml:space="preserve">
+    <value>Klembord bevat geen tekst, hierdoor kan het niet worden geplakt op het rooster.</value>
+  </data>
+  <data name="TableViewExceptionMessageController_GetLocalizedString_" xml:space="preserve">
+    <value>Wilt u de waarde corrigeren? 
+
+Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waarde wilt terugkrijgen.</value>
+  </data>
+  <data name="TableViewColumn_SetXtraGridCustomFormatterCore__custom_" xml:space="preserve">
+    <value>&lt;aangepast&gt;</value>
+  </data>
+  <data name="TableView_AddNewRowToDataSource_Adding_rows_to_this_table_is_not_allowed" xml:space="preserve">
+    <value>Het is niet toegestaan om rijen aan deze tabel toe te voegen</value>
+  </data>
+  <data name="TableView_SelectCells_Unable_to_select_cells_when_tableView_has_RowSelect_enabled__Use_SelectRow_instead_" xml:space="preserve">
+    <value>Niet in staat om cellen te selecteren wanneer tableView RowSelect ingeschakeld is. Gebruik in plaats daarvan SelectRow.</value>
+  </data>
+  <data name="TableView_ConvertToColumnValue_Unable_to_convert_string__0__to__1__for_paste" xml:space="preserve">
+    <value>Kan tekenreeks {0} niet omzetten naar {1} om te plakken</value>
+  </data>
+  <data name="TableView_SetCellValueInternal_Can_not_set_value_into_cell___0____1___reason__2_" xml:space="preserve">
+    <value>Kan waarde in cel [{0}, {1}] niet instellen reden: {2}</value>
+  </data>
+  <data name="TableView_ValidateAndCommitRow_Can_not_set_value_for_row__0___reason___1_" xml:space="preserve">
+    <value>Kan waarde voor rij {0} niet instellen, reden: {1}</value>
+  </data>
+  <data name="TableView_UpdateColumnHeaderMenu_Copy_all_headers" xml:space="preserve">
+    <value>Copy all headers</value>
+  </data>
+  <data name="TableView_UpdateColumnHeaderMenu_Unpin_Column" xml:space="preserve">
+    <value>Maak kolom los</value>
+  </data>
+  <data name="TableView_UpdateColumnHeaderMenu_Pin_Column" xml:space="preserve">
+    <value>Pin kolom vast</value>
+  </data>
+  <data name="TableView_UpdateSelectionFromGridControl_Firing_selection_changed_event" xml:space="preserve">
+    <value>Selectie gewijzigd event firen</value>
+  </data>
+  <data name="ModalHelper_ShowModal_Main_window_not_injected" xml:space="preserve">
+    <value>Hoofdvenster niet geïnjecteerd</value>
+  </data>
+  <data name="InputTextDialog_InputTextDialog_Please_verify_the_input_is_valid" xml:space="preserve">
+    <value>Controleer of de invoer geldig is</value>
+  </data>
+  <data name="FindAndReplaceControl_buttonReplaceAll_Click_Replaced__0__occurrences_of__1__with__2_" xml:space="preserve">
+    <value>{0} exemplaren van {1} zijn met {2} vervangen</value>
+  </data>
+  <data name="FindAndReplaceControl_FindNext_There_is_no_text_to_search_" xml:space="preserve">
+    <value>Er is geen tekst om te zoeken.</value>
+  </data>
+  <data name="FindAndReplaceControl_FindNext_End_of_document_has_been_reached_" xml:space="preserve">
+    <value>Einde van document is bereikt.</value>
+  </data>
+  <data name="FileSystemTreeView_FileSystemTreeView_My_Computer" xml:space="preserve">
+    <value>Mijn Computer</value>
+  </data>
+  <data name="SelectPointTool_OnMouseUp_SelectPointTool___Up" xml:space="preserve">
+    <value>SelectPointTool: naar boven</value>
+  </data>
+  <data name="EditPointTool_OnMouseUp_EditPointTool___Up" xml:space="preserve">
+    <value>EditPointTool: naar boven</value>
+  </data>
+  <data name="EditPointTool_OnMouseDown_EditPointTool___Down" xml:space="preserve">
+    <value>EditPointTool: naar beneden</value>
+  </data>
+  <data name="AddPointTool_OnMouseDown_AddPointTool___Down" xml:space="preserve">
+    <value>AddPointTool: naar beneden</value>
+  </data>
+  <data name="AddPointTool_OnMouseUp_AddPointTool___Up" xml:space="preserve">
+    <value>AddPointTool: naar boven</value>
   </data>
 </root>

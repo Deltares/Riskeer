@@ -51,7 +51,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                     {
                         if ((value > LastSelectedSeries.Count - 1))
                         {
-                            throw new ArgumentException("Selected index outside range of series");
+                            throw new ArgumentException(Resources.ChartViewSeriesToolBase_SelectedPointIndex_Selected_index_outside_range_of_series);
                         }
 
                         selectedPointIndex = value;
@@ -78,7 +78,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                     }
                     else
                     {
-                        throw new InvalidOperationException("LastSelectedSeries is null!");
+                        throw new InvalidOperationException(Resources.ChartViewSeriesToolBase_SelectedPointIndex_LastSelectedSeries_is_null_);
                     }
                 }
             }
@@ -204,7 +204,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                     return matchingSeries;
                 }
             }
-            throw new ArgumentException("Unknown TeeChart series: not related to any known ChartSeries");
+            throw new ArgumentException(Resources.ChartViewSeriesToolBase_GetChartSeriesFromInternalSeries_Unknown_TeeChart_series__not_related_to_any_known_ChartSeries);
         }
 
         /// <summary>

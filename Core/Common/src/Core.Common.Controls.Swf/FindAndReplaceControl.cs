@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 using log4net;
 
 namespace Core.Common.Controls.Swf
@@ -103,14 +104,14 @@ namespace Core.Common.Controls.Swf
 
             if (string.IsNullOrEmpty(textToSearch))
             {
-                Log.Warn("There is no text to search.");
+                Log.Warn(Resources.FindAndReplaceControl_FindNext_There_is_no_text_to_search_);
                 return;
             }
 
             var nextMatch = matches.OfType<Match>().FirstOrDefault(m => m.Index > GetCurrentPosition());
             if (nextMatch == null)
             {
-                Log.Info("End of document has been reached.");
+                Log.Info(Resources.FindAndReplaceControl_FindNext_End_of_document_has_been_reached_);
                 nextMatch = matches.OfType<Match>().FirstOrDefault();
             }
 
@@ -180,7 +181,7 @@ namespace Core.Common.Controls.Swf
             {
                 ReplaceText(match.Index, match.Length, ReplaceTextBox.Text);
             }
-            Log.InfoFormat("Replaced {0} occurrences of {1} with {2}", matches.Count, FindTextBox.Text, ReplaceTextBox.Text);
+            Log.InfoFormat(Resources.FindAndReplaceControl_buttonReplaceAll_Click_Replaced__0__occurrences_of__1__with__2_, matches.Count, FindTextBox.Text, ReplaceTextBox.Text);
         }
 
         private void button_KeyDown(object sender, KeyEventArgs e)

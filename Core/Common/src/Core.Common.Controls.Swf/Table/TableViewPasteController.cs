@@ -48,7 +48,7 @@ namespace Core.Common.Controls.Swf.Table
             // for now only allow to paste text 
             if (!Clipboard.ContainsText())
             {
-                Log.Debug("Clipboard does not contain text, so it cannot be pasted to the grid.");
+                Log.Debug(Resources.TableViewPasteController_PasteClipboardContents_Clipboard_does_not_contain_text__so_it_cannot_be_pasted_to_the_grid_);
                 return;
             }
 
@@ -161,7 +161,7 @@ namespace Core.Common.Controls.Swf.Table
 
             if (selection == null)
             {
-                errorMessage = "Cannot paste into non rectangular selection";
+                errorMessage = Resources.TableViewPasteController_GetPasteTargetSelection_Cannot_paste_into_non_rectangular_selection;
             }
 
             return selection;
@@ -221,7 +221,7 @@ namespace Core.Common.Controls.Swf.Table
 
             if (clipboardLines.Length == 0)
             {
-                errorMessage = "There are no values to paste (headers are skipped).";
+                errorMessage = Resources.TableViewPasteController_CanPaste_There_are_no_values_to_paste__headers_are_skipped__;
                 return false;
             }
 
@@ -236,12 +236,12 @@ namespace Core.Common.Controls.Swf.Table
                                       select col).Any();
             if (sortedColumnExists)
             {
-                errorMessage = "Cannot paste into sorted column"; //todo: add name of column here?
+                errorMessage = Resources.TableViewPasteController_CanPaste_Cannot_paste_into_sorted_column; //todo: add name of column here?
                 return false;
             }
             if (TableView.Columns.Any(col => !string.IsNullOrEmpty(col.FilterString)))
             {
-                errorMessage = "Cannot paste into filtered tableview."; //todo: add name of column here?
+                errorMessage = Resources.TableViewPasteController_CanPaste_Cannot_paste_into_filtered_tableview_; //todo: add name of column here?
                 return false;
             }
             return true;
@@ -292,7 +292,7 @@ namespace Core.Common.Controls.Swf.Table
                     {
                         if (!SafeSetCellValue(index, startColumnIndex + i, content[i%contentWidth]))
                         {
-                            Log.ErrorFormat("Can not paste value into cell [{0}, {1}]. Row {0} will be skipped",
+                            Log.ErrorFormat(Resources.TableViewPasteController_PasteCellsToRow_Can_not_paste_value_into_cell___0____1____Row__0__will_be_skipped,
                                             startRowIndex, startColumnIndex + i);
                             if (addNewRow)
                             {
@@ -314,7 +314,7 @@ namespace Core.Common.Controls.Swf.Table
                     }
                     if (!SafeSetRowCellValues(index, startColumnIndex, values))
                     {
-                        Log.ErrorFormat("Skipping invalid row {0} from pasting",
+                        Log.ErrorFormat(Resources.TableViewPasteController_PasteCellsToRow_Skipping_invalid_row__0__from_pasting,
                                         startRowIndex);
                         if (addNewRow)
                         {
@@ -328,7 +328,7 @@ namespace Core.Common.Controls.Swf.Table
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("Pasting values failed: {0}", e.Message);
+                Log.ErrorFormat(Resources.TableViewPasteController_PasteCellsToRow_Pasting_values_failed___0_, e.Message);
             }
             finally
             {
@@ -437,7 +437,7 @@ namespace Core.Common.Controls.Swf.Table
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("Invalid row reason: {0}", e.Message);
+                Log.ErrorFormat(Resources.TableViewPasteController_SafeSetCellValue_Invalid_row_reason_0_, e.Message);
                 return false;
             }
         }
@@ -450,7 +450,7 @@ namespace Core.Common.Controls.Swf.Table
             }
             catch (Exception e)
             {
-                Log.ErrorFormat("Invalid row reason: {0}", e.Message);
+                Log.ErrorFormat(Resources.TableViewPasteController_SafeSetCellValue_Invalid_row_reason_0_, e.Message);
                 return false;
             }
         }

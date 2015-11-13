@@ -61,6 +61,33 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AddPointTool: naar beneden.
+        /// </summary>
+        internal static string AddPointTool_OnMouseDown_AddPointTool___Down {
+            get {
+                return ResourceManager.GetString("AddPointTool_OnMouseDown_AddPointTool___Down", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddPointTool: naar boven.
+        /// </summary>
+        internal static string AddPointTool_OnMouseUp_AddPointTool___Up {
+            get {
+                return ResourceManager.GetString("AddPointTool_OnMouseUp_AddPointTool___Up", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle bestanden (*.*)|*.*.
+        /// </summary>
+        internal static string AllFilesFilter {
+            get {
+                return ResourceManager.GetString("AllFilesFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap binocular {
@@ -137,11 +164,77 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ChartSeriesType niet ondersteund.
+        /// </summary>
+        internal static string ChartSeriesFactory_CreateSeries_unsupported_chartSeriesType {
+            get {
+                return ResourceManager.GetString("ChartSeriesFactory_CreateSeries_unsupported_chartSeriesType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan diagram niet tekenen.
+        /// </summary>
+        internal static string ChartView_TeeChartBeforeDraw_Can_not_draw_chart {
+            get {
+                return ResourceManager.GetString("ChartView_TeeChartBeforeDraw_Can_not_draw_chart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onbekende TeeChart serie: houdt geen verband met een bekende ChartSeries.
+        /// </summary>
+        internal static string ChartViewSeriesToolBase_GetChartSeriesFromInternalSeries_Unknown_TeeChart_series__not_related_to_any_known_ChartSeries {
+            get {
+                return ResourceManager.GetString("ChartViewSeriesToolBase_GetChartSeriesFromInternalSeries_Unknown_TeeChart_series_" +
+                        "_not_related_to_any_known_ChartSeries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dit programma accepteert alleen {0} als series.
         /// </summary>
         internal static string ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts__0__as_series {
             get {
                 return ResourceManager.GetString("ChartViewSeriesToolBase_LastSelectedSeries_This_tool_only_accepts__0__as_series", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LastSelectedSeries is &apos;null&apos;!.
+        /// </summary>
+        internal static string ChartViewSeriesToolBase_SelectedPointIndex_LastSelectedSeries_is_null_ {
+            get {
+                return ResourceManager.GetString("ChartViewSeriesToolBase_SelectedPointIndex_LastSelectedSeries_is_null_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geselecteerde index is buiten bereik van de serie.
+        /// </summary>
+        internal static string ChartViewSeriesToolBase_SelectedPointIndex_Selected_index_outside_range_of_series {
+            get {
+                return ResourceManager.GetString("ChartViewSeriesToolBase_SelectedPointIndex_Selected_index_outside_range_of_series" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niet te klonen subitems in menu-item.
+        /// </summary>
+        internal static string ClonableToolStripMenuItem_Clone_Unclonable_subitems_in_menu_item {
+            get {
+                return ResourceManager.GetString("ClonableToolStripMenuItem_Clone_Unclonable_subitems_in_menu_item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De inklapbare splitser kan geen &quot;Dockstyle&quot; &quot;Filled:  of &quot;None&quot; hebben.
+        /// </summary>
+        internal static string CollapsibleSplitter_OnPaint_The_Collapsible_Splitter_control_cannot_have_the_Filled_or_None_Dockstyle_property {
+            get {
+                return ResourceManager.GetString("CollapsibleSplitter_OnPaint_The_Collapsible_Splitter_control_cannot_have_the_Fill" +
+                        "ed_or_None_Dockstyle_property", resourceCulture);
             }
         }
         
@@ -236,6 +329,24 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to X-waarde wordt vastgelegd (linker limiet) {0} =&gt; {1}.
+        /// </summary>
+        internal static string EditPointTool_CalculateXValue_left_limit {
+            get {
+                return ResourceManager.GetString("EditPointTool_CalculateXValue_left_limit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X-waarde wordt vastgelegd (rechter limiet) {0} =&gt; {1}.
+        /// </summary>
+        internal static string EditPointTool_CalculateXValue_right_limit {
+            get {
+                return ResourceManager.GetString("EditPointTool_CalculateXValue_right_limit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geen cursor toegewezen aan {0}.
         /// </summary>
         internal static string EditPointTool_GetCursorIcon_No_cursor_assigned_for__0_ {
@@ -245,11 +356,103 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporteer als afbeelding.
+        ///   Looks up a localized string similar to EditPointTool: naar beneden.
         /// </summary>
-        internal static string ExportImageHelper_ExportWithDialog_Export_as_image {
+        internal static string EditPointTool_OnMouseDown_EditPointTool___Down {
             get {
-                return ResourceManager.GetString("ExportImageHelper_ExportWithDialog_Export_as_image", resourceCulture);
+                return ResourceManager.GetString("EditPointTool_OnMouseDown_EditPointTool___Down", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EditPointTool: naar boven.
+        /// </summary>
+        internal static string EditPointTool_OnMouseUp_EditPointTool___Up {
+            get {
+                return ResourceManager.GetString("EditPointTool_OnMouseUp_EditPointTool___Up", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interne fout:{1}{2}.
+        /// </summary>
+        internal static string ExceptionDialog_GetExceptionText_Inner_exceptions {
+            get {
+                return ResourceManager.GetString("ExceptionDialog_GetExceptionText_Inner_exceptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foutmelding van de loader:.
+        /// </summary>
+        internal static string ExceptionDialog_GetExceptionText_Loader_exceptions {
+            get {
+                return ResourceManager.GetString("ExceptionDialog_GetExceptionText_Loader_exceptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Een onafgehandelde exceptie is opgetreden. Ringtoets moet herstart worden..
+        /// </summary>
+        internal static string ExceptionDialog_InitializeComponent_An_unhandled_exception_has_occurred__Ringtoets_needs_to_be_restarted__ {
+            get {
+                return ResourceManager.GetString("ExceptionDialog_InitializeComponent_An_unhandled_exception_has_occurred__Ringtoet" +
+                        "s_needs_to_be_restarted__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporteer als afbeelding....
+        /// </summary>
+        internal static string Export_as_Image___ {
+            get {
+                return ResourceManager.GetString("Export_as_Image___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} bestanden (*.{0})|*.{0}.
+        /// </summary>
+        internal static string ExportImageHelper_Format_0_as_filter {
+            get {
+                return ResourceManager.GetString("ExportImageHelper_Format_0_as_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mijn Computer.
+        /// </summary>
+        internal static string FileSystemTreeView_FileSystemTreeView_My_Computer {
+            get {
+                return ResourceManager.GetString("FileSystemTreeView_FileSystemTreeView_My_Computer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} exemplaren van {1} zijn met {2} vervangen.
+        /// </summary>
+        internal static string FindAndReplaceControl_buttonReplaceAll_Click_Replaced__0__occurrences_of__1__with__2_ {
+            get {
+                return ResourceManager.GetString("FindAndReplaceControl_buttonReplaceAll_Click_Replaced__0__occurrences_of__1__with" +
+                        "__2_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Einde van document is bereikt..
+        /// </summary>
+        internal static string FindAndReplaceControl_FindNext_End_of_document_has_been_reached_ {
+            get {
+                return ResourceManager.GetString("FindAndReplaceControl_FindNext_End_of_document_has_been_reached_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is geen tekst om te zoeken..
+        /// </summary>
+        internal static string FindAndReplaceControl_FindNext_There_is_no_text_to_search_ {
+            get {
+                return ResourceManager.GetString("FindAndReplaceControl_FindNext_There_is_no_text_to_search_", resourceCulture);
             }
         }
         
@@ -294,6 +497,33 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Controleer of de invoer geldig is.
+        /// </summary>
+        internal static string InputTextDialog_InputTextDialog_Please_verify_the_input_is_valid {
+            get {
+                return ResourceManager.GetString("InputTextDialog_InputTextDialog_Please_verify_the_input_is_valid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verwijderen is niet geïmplementeerd voor dit type databron..
+        /// </summary>
+        internal static string KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_ {
+            get {
+                return ResourceManager.GetString("KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hoofdvenster niet geïnjecteerd.
+        /// </summary>
+        internal static string ModalHelper_ShowModal_Main_window_not_injected {
+            get {
+                return ResourceManager.GetString("ModalHelper_ShowModal_Main_window_not_injected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap page_white {
@@ -333,6 +563,79 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aantal X-waarden moet gelijk zijn aan het aantal Y-waarden.
+        /// </summary>
+        internal static string PolygonSeries_Draw_Number_of_X_values_should_be_equal_to_the_number_of_Y_values {
+            get {
+                return ResourceManager.GetString("PolygonSeries_Draw_Number_of_X_values_should_be_equal_to_the_number_of_Y_values", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1e kwartaal {0}.
+        /// </summary>
+        internal static string QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__1st_Qtr_ {
+            get {
+                return ResourceManager.GetString("QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__1st_Qtr_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2e kw. {0}.
+        /// </summary>
+        internal static string QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__2nd_Qtr_ {
+            get {
+                return ResourceManager.GetString("QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__2nd_Qtr_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 3e kw. {0}.
+        /// </summary>
+        internal static string QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__3rd_Qtr_ {
+            get {
+                return ResourceManager.GetString("QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__3rd_Qtr_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4e kw. {0}.
+        /// </summary>
+        internal static string QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__4th_Qtr_ {
+            get {
+                return ResourceManager.GetString("QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__4th_Qtr_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Onbekend kwartaal.
+        /// </summary>
+        internal static string QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__Unknown_quarter_ {
+            get {
+                return ResourceManager.GetString("QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__Unknown_quarte" +
+                        "r_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kw. yyyy.
+        /// </summary>
+        internal static string QuarterNavigatableLabelFormatProvider_GetUnits_qtr_yyyy {
+            get {
+                return ResourceManager.GetString("QuarterNavigatableLabelFormatProvider_GetUnits_qtr_yyyy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} tot {1}.
+        /// </summary>
+        internal static string RangeLabel__0__till__1_ {
+            get {
+                return ResourceManager.GetString("RangeLabel__0__till__1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  seconden.
         /// </summary>
         internal static string RulerTool_GetDefaultDifferenceString__seconds {
@@ -352,12 +655,48 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verwijderen is niet geïmplementeerd voor dit type databron..
+        /// </summary>
+        internal static string SelectPointTool_KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_ {
+            get {
+                return ResourceManager.GetString("SelectPointTool_KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SelectPointTool: naar boven.
+        /// </summary>
+        internal static string SelectPointTool_OnMouseUp_SelectPointTool___Up {
+            get {
+                return ResourceManager.GetString("SelectPointTool_OnMouseUp_SelectPointTool___Up", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shape bestanden |*.shp.
+        /// </summary>
+        internal static string Shape_files_filter {
+            get {
+                return ResourceManager.GetString("Shape_files_filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap table_edit {
             get {
                 object obj = ResourceManager.GetObject("table_edit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het is niet toegestaan om rijen aan deze tabel toe te voegen.
+        /// </summary>
+        internal static string TableView_AddNewRowToDataSource_Adding_rows_to_this_table_is_not_allowed {
+            get {
+                return ResourceManager.GetString("TableView_AddNewRowToDataSource_Adding_rows_to_this_table_is_not_allowed", resourceCulture);
             }
         }
         
@@ -398,11 +737,30 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan tekenreeks {0} niet omzetten naar {1} om te plakken.
+        /// </summary>
+        internal static string TableView_ConvertToColumnValue_Unable_to_convert_string__0__to__1__for_paste {
+            get {
+                return ResourceManager.GetString("TableView_ConvertToColumnValue_Unable_to_convert_string__0__to__1__for_paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waarde wordt gewijzigd {0}.
         /// </summary>
         internal static string TableView_DxGridViewCellValueChanging_Value_Changing__0_ {
             get {
                 return ResourceManager.GetString("TableView_DxGridViewCellValueChanging_Value_Changing__0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niet in staat om cellen te selecteren wanneer tableView RowSelect ingeschakeld is. Gebruik in plaats daarvan SelectRow..
+        /// </summary>
+        internal static string TableView_SelectCells_Unable_to_select_cells_when_tableView_has_RowSelect_enabled__Use_SelectRow_instead_ {
+            get {
+                return ResourceManager.GetString("TableView_SelectCells_Unable_to_select_cells_when_tableView_has_RowSelect_enabled" +
+                        "__Use_SelectRow_instead_", resourceCulture);
             }
         }
         
@@ -417,6 +775,15 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan waarde in cel [{0}, {1}] niet instellen reden: {2}.
+        /// </summary>
+        internal static string TableView_SetCellValueInternal_Can_not_set_value_into_cell___0____1___reason__2_ {
+            get {
+                return ResourceManager.GetString("TableView_SetCellValueInternal_Can_not_set_value_into_cell___0____1___reason__2_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to nieuwe Tabel.
         /// </summary>
         internal static string TableView_TableView_new_Table {
@@ -426,11 +793,188 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy all headers.
+        /// </summary>
+        internal static string TableView_UpdateColumnHeaderMenu_Copy_all_headers {
+            get {
+                return ResourceManager.GetString("TableView_UpdateColumnHeaderMenu_Copy_all_headers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin kolom vast.
+        /// </summary>
+        internal static string TableView_UpdateColumnHeaderMenu_Pin_Column {
+            get {
+                return ResourceManager.GetString("TableView_UpdateColumnHeaderMenu_Pin_Column", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maak kolom los.
+        /// </summary>
+        internal static string TableView_UpdateColumnHeaderMenu_Unpin_Column {
+            get {
+                return ResourceManager.GetString("TableView_UpdateColumnHeaderMenu_Unpin_Column", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selectie gewijzigd event firen.
+        /// </summary>
+        internal static string TableView_UpdateSelectionFromGridControl_Firing_selection_changed_event {
+            get {
+                return ResourceManager.GetString("TableView_UpdateSelectionFromGridControl_Firing_selection_changed_event", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan waarde voor rij {0} niet instellen, reden: {1}.
+        /// </summary>
+        internal static string TableView_ValidateAndCommitRow_Can_not_set_value_for_row__0___reason___1_ {
+            get {
+                return ResourceManager.GetString("TableView_ValidateAndCommitRow_Can_not_set_value_for_row__0___reason___1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;aangepast&gt;.
+        /// </summary>
+        internal static string TableViewColumn_SetXtraGridCustomFormatterCore__custom_ {
+            get {
+                return ResourceManager.GetString("TableViewColumn_SetXtraGridCustomFormatterCore__custom_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wilt u de waarde corrigeren? 
+        ///
+        ///Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waarde wilt terugkrijgen..
+        /// </summary>
+        internal static string TableViewExceptionMessageController_GetLocalizedString_ {
+            get {
+                return ResourceManager.GetString("TableViewExceptionMessageController_GetLocalizedString_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan niet plakken in een gefilterde tableview..
+        /// </summary>
+        internal static string TableViewPasteController_CanPaste_Cannot_paste_into_filtered_tableview_ {
+            get {
+                return ResourceManager.GetString("TableViewPasteController_CanPaste_Cannot_paste_into_filtered_tableview_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan niet plakken in gesorteerde kolom.
+        /// </summary>
+        internal static string TableViewPasteController_CanPaste_Cannot_paste_into_sorted_column {
+            get {
+                return ResourceManager.GetString("TableViewPasteController_CanPaste_Cannot_paste_into_sorted_column", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen waardes om te plakken (headers worden overgeslagen)..
+        /// </summary>
+        internal static string TableViewPasteController_CanPaste_There_are_no_values_to_paste__headers_are_skipped__ {
+            get {
+                return ResourceManager.GetString("TableViewPasteController_CanPaste_There_are_no_values_to_paste__headers_are_skipp" +
+                        "ed__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan niet in niet-rechthoekige selectie plakken.
+        /// </summary>
+        internal static string TableViewPasteController_GetPasteTargetSelection_Cannot_paste_into_non_rectangular_selection {
+            get {
+                return ResourceManager.GetString("TableViewPasteController_GetPasteTargetSelection_Cannot_paste_into_non_rectangula" +
+                        "r_selection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan de waarde in cel [{0}, {1}] niet plakken. Rij {0} wordt overgeslagen.
+        /// </summary>
+        internal static string TableViewPasteController_PasteCellsToRow_Can_not_paste_value_into_cell___0____1____Row__0__will_be_skipped {
+            get {
+                return ResourceManager.GetString("TableViewPasteController_PasteCellsToRow_Can_not_paste_value_into_cell___0____1__" +
+                        "__Row__0__will_be_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plakken waarden mislukt: {0}.
+        /// </summary>
+        internal static string TableViewPasteController_PasteCellsToRow_Pasting_values_failed___0_ {
+            get {
+                return ResourceManager.GetString("TableViewPasteController_PasteCellsToRow_Pasting_values_failed___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ongeldige geplate rij {0} wordt overgeslagen.
+        /// </summary>
+        internal static string TableViewPasteController_PasteCellsToRow_Skipping_invalid_row__0__from_pasting {
+            get {
+                return ResourceManager.GetString("TableViewPasteController_PasteCellsToRow_Skipping_invalid_row__0__from_pasting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Klembord bevat geen tekst, hierdoor kan het niet worden geplakt op het rooster..
+        /// </summary>
+        internal static string TableViewPasteController_PasteClipboardContents_Clipboard_does_not_contain_text__so_it_cannot_be_pasted_to_the_grid_ {
+            get {
+                return ResourceManager.GetString("TableViewPasteController_PasteClipboardContents_Clipboard_does_not_contain_text__" +
+                        "so_it_cannot_be_pasted_to_the_grid_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ongeldige rijnummer {0}.
         /// </summary>
         internal static string TableViewPasteController_PasteValuesCore_Invalid_row_number__0_ {
             get {
                 return ResourceManager.GetString("TableViewPasteController_PasteValuesCore_Invalid_row_number__0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ongeldige rij: {0}.
+        /// </summary>
+        internal static string TableViewPasteController_SafeSetCellValue_Invalid_row_reason_0_ {
+            get {
+                return ResourceManager.GetString("TableViewPasteController_SafeSetCellValue_Invalid_row_reason_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validatie van cel is mislukt: {0}.
+        /// </summary>
+        internal static string TableViewValidator_ValidateCell_Validation_of_cell_failed_0_ {
+            get {
+                return ResourceManager.GetString("TableViewValidator_ValidateCell_Validation_of_cell_failed_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validatie van rij is mislukt: {0}.
+        /// </summary>
+        internal static string TableViewValidator_ValidateRow_Validation_of_row_failed_0_ {
+            get {
+                return ResourceManager.GetString("TableViewValidator_ValidateRow_Validation_of_row_failed_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zou geen indices lager dan -1 moeten teruggeven!.
+        /// </summary>
+        internal static string TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below__1__ {
+            get {
+                return ResourceManager.GetString("TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below__1__", resourceCulture);
             }
         }
         
@@ -445,11 +989,74 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Datumtijd notatie niet zoals verwacht.
+        /// </summary>
+        internal static string TimeSpanEditor_GetTimeSymbolAtPosition_Datetime_format_not_as_expected {
+            get {
+                return ResourceManager.GetString("TimeSpanEditor_GetTimeSymbolAtPosition_Datetime_format_not_as_expected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De methode of operatie is niet geïmplementeerd..
+        /// </summary>
+        internal static string TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented_ {
+            get {
+                return ResourceManager.GetString("TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Weet u zeker dat u het volgende item wilt verwijderen: {0}.
         /// </summary>
         internal static string TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item___0_ {
             get {
                 return ResourceManager.GetString("TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bevestigen.
+        /// </summary>
+        internal static string TreeView_DeleteNodeData_Confirm {
+            get {
+                return ResourceManager.GetString("TreeView_DeleteNodeData_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het geselecteerde item kan niet worden verwijderd.
+        /// </summary>
+        internal static string TreeView_DeleteNodeData_The_selected_item_cannot_be_removed {
+            get {
+                return ResourceManager.GetString("TreeView_DeleteNodeData_The_selected_item_cannot_be_removed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout tijdens slepen/neerzetten: {0}.
+        /// </summary>
+        internal static string TreeView_TreeViewDragDrop_Error_during_drag_drop_0_ {
+            get {
+                return ResourceManager.GetString("TreeView_TreeViewDragDrop_Error_during_drag_drop_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niet in staat om node presenter te vinden voor &apos;null&apos; object.
+        /// </summary>
+        internal static string TreeViewController_OnNodeChecked_Unable_to_resolve_node_presenter_for_null_data {
+            get {
+                return ResourceManager.GetString("TreeViewController_OnNodeChecked_Unable_to_resolve_node_presenter_for_null_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Structuurweergave mag niet leeg zijn.
+        /// </summary>
+        internal static string TreeViewController_TreeViewController_Tree_view_can_t_be_null {
+            get {
+                return ResourceManager.GetString("TreeViewController_TreeViewController_Tree_view_can_t_be_null", resourceCulture);
             }
         }
         
@@ -460,6 +1067,53 @@ namespace Core.Common.Controls.Swf.Properties {
             get {
                 return ResourceManager.GetString("TreeViewController_UpdateNode_Can_t_find_INodePresenter_for__0___make_sure_you_ad" +
                         "ded_it_to_Presenters_collection_of_a_TreeView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan het object (&quot;treeNode.Presenter&quot;) niet vinden om de boomstructuur weer te geven: {0}.
+        /// </summary>
+        internal static string TreeViewController_UpdateNode_Can_t_find_node_presenter_for_tree_view__object_ {
+            get {
+                return ResourceManager.GetString("TreeViewController_UpdateNode_Can_t_find_node_presenter_for_tree_view__object_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnNodeRenamed moet zijn geimplementeerd in de afgeleide klasse.
+        /// </summary>
+        internal static string TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class {
+            get {
+                return ResourceManager.GetString("TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_deri" +
+                        "ved_class", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden. Verifieer de invoer alstublieft. {1}{1}Error: {1}{0}.
+        /// </summary>
+        internal static string WizardDialog_WizardControl1NextClick_An_error_occurred__please_verify_your_input___1__1_Error___1__0_ {
+            get {
+                return ResourceManager.GetString("WizardDialog_WizardControl1NextClick_An_error_occurred__please_verify_your_input_" +
+                        "__1__1_Error___1__0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fout opgetreden.
+        /// </summary>
+        internal static string WizardDialog_WizardControl1NextClick_Error_occurred {
+            get {
+                return ResourceManager.GetString("WizardDialog_WizardControl1NextClick_Error_occurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yyyy.
+        /// </summary>
+        internal static string YearNavigatableLabelFormatProvider_GetUnits_yyyy {
+            get {
+                return ResourceManager.GetString("YearNavigatableLabelFormatProvider_GetUnits_yyyy", resourceCulture);
             }
         }
     }

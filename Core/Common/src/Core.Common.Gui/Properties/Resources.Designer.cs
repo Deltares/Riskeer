@@ -80,15 +80,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle bestanden (*.*)|*.*.
-        /// </summary>
-        public static string AllFilesFilter {
-            get {
-                return ResourceManager.GetString("AllFilesFilter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &quot;Ringtoets&quot; wordt gestart....
         /// </summary>
         public static string App_App_Starting_Ringtoets____ {

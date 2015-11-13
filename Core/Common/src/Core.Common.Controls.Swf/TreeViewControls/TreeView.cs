@@ -296,12 +296,12 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         {
             if (!SelectedNodeCanDelete())
             {
-                MessageBox.Show("The selected item cannot be removed", "Confirm", MessageBoxButtons.OK);
+                MessageBox.Show(Resources.TreeView_DeleteNodeData_The_selected_item_cannot_be_removed, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OK);
                 return;
             }
 
             var message = string.Format(Resources.TreeView_DeleteNodeData_Are_you_sure_you_want_to_delete_the_following_item___0_, SelectedNode.Text);
-            if (MessageBox.Show(message, "Confirm", MessageBoxButtons.OKCancel) != DialogResult.OK)
+            if (MessageBox.Show(message, Resources.TreeView_DeleteNodeData_Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
             }
@@ -1030,7 +1030,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             }
             catch (Exception ex)
             {
-                log.Error("Error during drag/drop : " + ex.Message);
+                log.Error(string.Format(Resources.TreeView_TreeViewDragDrop_Error_during_drag_drop_0_, ex.Message));
             }
         }
 

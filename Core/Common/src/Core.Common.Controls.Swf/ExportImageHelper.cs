@@ -63,7 +63,7 @@ namespace Core.Common.Controls.Swf
                 Filter = filter,
                 FilterIndex = 1,
                 RestoreDirectory = true,
-                Title = Resources.ExportImageHelper_ExportWithDialog_Export_as_image
+                Title = Resources.Export_as_Image___
             };
 
             if (saveFileDialog.ShowDialog() != DialogResult.OK)
@@ -108,15 +108,9 @@ namespace Core.Common.Controls.Swf
 
         private static string GetFileFormatFilter(Dictionary<string, ImageFormat> imageFormats)
         {
-            var filter = new StringBuilder();
-
-            foreach (var imageFormatExt in imageFormats.Keys)
-            {
-                filter.AppendFormat("{0} files (*.{0})|", imageFormatExt);
-                filter.AppendFormat("*.{0}|", imageFormatExt);
-            }
-            filter.Append("All files (*.*)|*.*");
-            return filter.ToString();
+            List<string> filters = imageFormats.Keys.Select(ext => string.Format(Resources.ExportImageHelper_Format_0_as_filter, ext)).ToList();
+            filters.Add(Resources.AllFilesFilter);
+            return string.Join("|",filters);
         }
     }
 }

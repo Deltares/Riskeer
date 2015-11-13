@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 using Core.Common.Utils.Collections.Generic;
 using DevExpress.XtraWizard;
 
@@ -245,7 +246,7 @@ namespace Core.Common.Controls.Swf
                     }
                     catch (Exception ee)
                     {
-                        MessageBox.Show("An error occurred, please verify your input. \n\nError: \n" + ee.Message, "Error occurred", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        ShowExceptionInMessageWindow(ee);
                         e.Handled = true;
                     }
                 }
@@ -270,11 +271,17 @@ namespace Core.Common.Controls.Swf
                     }
                     catch (Exception ee)
                     {
-                        MessageBox.Show("An error occurred, please verify your input. \n\nError: \n" + ee.Message, "Error occurred", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        ShowExceptionInMessageWindow(ee);
                         e.Handled = true;
                     }
                 }
             }
+        }
+
+        private void ShowExceptionInMessageWindow(Exception ee)
+        {
+            var message = string.Format(Resources.WizardDialog_WizardControl1NextClick_An_error_occurred__please_verify_your_input___1__1_Error___1__0_, ee.Message, Environment.NewLine);
+            MessageBox.Show(message, Resources.WizardDialog_WizardControl1NextClick_Error_occurred, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void WizardControl1CancelClick(object sender, CancelEventArgs e)

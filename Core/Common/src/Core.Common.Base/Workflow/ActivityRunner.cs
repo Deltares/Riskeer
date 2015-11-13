@@ -123,7 +123,7 @@ namespace Core.Common.Base.Workflow
                     todoTasks.RemoveAt(0);
                 }
 
-                Debug.WriteLine("Run activity {0}", (taskToRun.Activity.Name));
+                Debug.WriteLine(Resources.ActivityRunner_StartTaskIfPossible_Run_activity__0_, (taskToRun.Activity.Name));
 
                 if (beforeActualRun != null)
                 {

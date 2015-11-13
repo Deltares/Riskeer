@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Reflection;
+using Core.Common.Controls.Swf.Properties;
 using Core.GIS.NetTopologySuite.Utilities;
 using Steema.TeeChart.Tools;
 
@@ -54,7 +55,7 @@ namespace Core.Common.Controls.Swf.Charting
                 }
             }
             //THIS is done because Tool.GetFirstLastSeries(series, out tmpMin, out tmpMax)) is not documented (unable to find)
-            Assert.IsTrue(result >= -1, "Should not return indexes below -1!!");
+            Assert.IsTrue(result >= -1, Resources.TeeChartHelper_GetNearestPoint_Should_not_return_indexes_below__1__);
             return result;
         }
 

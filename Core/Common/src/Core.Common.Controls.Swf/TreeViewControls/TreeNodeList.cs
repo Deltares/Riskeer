@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 
 namespace Core.Common.Controls.Swf.TreeViewControls
 {
@@ -132,7 +133,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException("The method or operation is not implemented.");
+            throw new NotImplementedException(Resources.TreeNodeList_GetEnumerator_The_method_or_operation_is_not_implemented_);
         }
 
         #endregion

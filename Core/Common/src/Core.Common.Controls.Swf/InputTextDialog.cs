@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 
 namespace Core.Common.Controls.Swf
 {
@@ -17,7 +18,7 @@ namespace Core.Common.Controls.Swf
             InitialText = "";
             textBox1.Validating += textBox1_Validating;
             errorProvider.SetIconAlignment(ButtonOk, ErrorIconAlignment.MiddleLeft);
-            ValidationErrorMsg = "Please verify the input is valid";
+            ValidationErrorMsg = Resources.InputTextDialog_InputTextDialog_Please_verify_the_input_is_valid;
         }
 
         public bool Multiline

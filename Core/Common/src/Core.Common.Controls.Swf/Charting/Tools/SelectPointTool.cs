@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Charting.Series;
+using Core.Common.Controls.Swf.Properties;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 using log4net;
@@ -258,7 +259,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                 }
                 else
                 {
-                    throw new NotImplementedException("Deletion not implemented for this type of datasource.");
+                    throw new NotImplementedException(Resources.KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_);
                 }
 
                 //// delete selected point from the series
@@ -270,7 +271,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            log.Debug("SelectPointTool : Up");
+            log.Debug(Resources.SelectPointTool_OnMouseUp_SelectPointTool___Up);
             selectedPoints.Clear();
             AddClickedPoint(e.X, e.Y);
             Invalidate();

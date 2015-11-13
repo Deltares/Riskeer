@@ -3,6 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 using Core.Common.Utils.Collections;
 
 namespace Core.Common.Controls.Swf.TreeViewControls
@@ -40,7 +41,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             }
             else
             {
-                throw new InvalidOperationException("OnNodeRenamed must be implemented in derived class");
+                throw new InvalidOperationException(Resources.TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class);
             }
         }
 

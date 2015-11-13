@@ -1,4 +1,5 @@
 using System;
+using Core.Common.Controls.Swf.Properties;
 
 namespace Core.Common.Controls.Swf.Charting.Series
 {
@@ -54,7 +55,7 @@ namespace Core.Common.Controls.Swf.Charting.Series
                 case ChartSeriesType.PolygonSeries:
                     return CreatePolygonSeries();
                 default:
-                    throw new ArgumentOutOfRangeException("unsupported chartSeriesType");
+                    throw new ArgumentOutOfRangeException(Resources.ChartSeriesFactory_CreateSeries_unsupported_chartSeriesType);
             }
         }
     }

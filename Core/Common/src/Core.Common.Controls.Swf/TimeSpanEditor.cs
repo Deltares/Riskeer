@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 
 namespace Core.Common.Controls.Swf
 {
@@ -189,7 +190,7 @@ namespace Core.Common.Controls.Swf
 
             if (!Char.IsLetter(timeSymbol) || !TimeSymbols.ContainsKey(timeSymbol))
             {
-                throw new InvalidOperationException("Datetime format not as expected");
+                throw new InvalidOperationException(Resources.TimeSpanEditor_GetTimeSymbolAtPosition_Datetime_format_not_as_expected);
             }
             return timeSymbol;
         }

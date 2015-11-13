@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Charting.Customized;
 using Core.Common.Controls.Swf.Charting.Tools;
+using Core.Common.Controls.Swf.Properties;
 using Core.Common.Utils;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
@@ -474,7 +475,7 @@ namespace Core.Common.Controls.Swf.Charting
             {
                 // check for all axes?
                 // extra error check to prevent stackoverflow in teechart
-                throw new InvalidOperationException("Can not draw chart");
+                throw new InvalidOperationException(Resources.ChartView_TeeChartBeforeDraw_Can_not_draw_chart);
             }
         }
 

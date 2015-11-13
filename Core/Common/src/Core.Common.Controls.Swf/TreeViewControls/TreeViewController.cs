@@ -28,7 +28,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         {
             if (treeView == null)
             {
-                throw new ArgumentException("Tree view can't be null");
+                throw new ArgumentException(Resources.TreeViewController_TreeViewController_Tree_view_can_t_be_null);
             }
 
             this.treeView = treeView;
@@ -127,7 +127,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
             if (node.Tag == null)
             {
-                throw new InvalidOperationException("Unable to resolve node presenter for null data");
+                throw new InvalidOperationException(Resources.TreeViewController_OnNodeChecked_Unable_to_resolve_node_presenter_for_null_data);
             }
 
             node.Presenter.OnNodeChecked(node);
@@ -160,7 +160,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
 
                     if (nodePresenter == null)
                     {
-                        Log.Debug("Can't find node presenter for tree view, object:" + tag);
+                        Log.Debug(string.Format(Resources.TreeViewController_UpdateNode_Can_t_find_node_presenter_for_tree_view__object_, tag));
                         return;
                     }
 

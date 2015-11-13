@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 using DevExpress.Data;
 using DevExpress.Utils;
 using DevExpress.XtraGrid;
@@ -394,7 +395,7 @@ namespace Core.Common.Controls.Swf.Table
 
             dxFormatInfo.FormatType = FormatType.Custom;
             dxFormatInfo.Format = new TableViewCellFormatterProvider(value);
-            dxFormatInfo.FormatString = "<custom>"; //must be non null/empty for custom formatting to work
+            dxFormatInfo.FormatString = Resources.TableViewColumn_SetXtraGridCustomFormatterCore__custom_; //must be non null/empty for custom formatting to work
         }
 
         private FormatType GetFormatType(string value)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using Core.Common.Controls.Swf.Properties;
 using Steema.TeeChart.Drawing;
 
 namespace Core.Common.Controls.Swf.Charting.Series
@@ -43,7 +44,7 @@ namespace Core.Common.Controls.Swf.Charting.Series
             if (XValues.Count != YValues.Count)
             {
                 // Just to be sure. I think TeeChart already accounts for this in Add methods.
-                throw new Exception("Number of X values should be equal to the number of Y values");
+                throw new Exception(Resources.PolygonSeries_Draw_Number_of_X_values_should_be_equal_to_the_number_of_Y_values);
             }
 
             var g = Chart.Graphics3D;

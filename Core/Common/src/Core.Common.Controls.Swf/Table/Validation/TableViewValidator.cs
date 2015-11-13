@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Core.Common.Controls.Swf.Properties;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
@@ -39,7 +40,7 @@ namespace Core.Common.Controls.Swf.Table.Validation
 
                 if (!result.Valid)
                 {
-                    firstError = "Validation of row failed: " + result.ErrorText;
+                    firstError = string.Format(Resources.TableViewValidator_ValidateRow_Validation_of_row_failed_0_, result.ErrorText);
                     tableView.SetColumnError(result.ColumnIndex == -1 ? null : tableView.Columns[result.ColumnIndex],
                                              result.ErrorText);
                     return false;
@@ -60,7 +61,7 @@ namespace Core.Common.Controls.Swf.Table.Validation
                 var result = tableView.InputValidator(cell, newValue);
                 if (!result.Item2)
                 {
-                    error = "Validation of cell failed: " + result.Item1;
+                    error = string.Format(Resources.TableViewValidator_ValidateCell_Validation_of_cell_failed_0_, result.Item1);
                     return false;
                 }
             }

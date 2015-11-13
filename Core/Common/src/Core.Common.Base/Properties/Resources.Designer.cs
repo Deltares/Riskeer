@@ -170,6 +170,15 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uitvoeren activiteit {0}.
+        /// </summary>
+        internal static string ActivityRunner_StartTaskIfPossible_Run_activity__0_ {
+            get {
+                return ResourceManager.GetString("ActivityRunner_StartTaskIfPossible_Run_activity__0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} van {1}.
         /// </summary>
         internal static string FileImportActivity_ImportFromFile__0__of__1_ {

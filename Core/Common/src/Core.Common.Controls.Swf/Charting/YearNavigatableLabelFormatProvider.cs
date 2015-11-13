@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Common.Controls.Swf.Properties;
 using Core.Common.Utils;
 
 namespace Core.Common.Controls.Swf.Charting
@@ -15,7 +16,7 @@ namespace Core.Common.Controls.Swf.Charting
 
         public override string GetUnits(TimeSpan duration)
         {
-            return "yyyy";
+            return Resources.YearNavigatableLabelFormatProvider_GetUnits_yyyy;
         }
 
         public override string GetRangeLabel(DateTime min, DateTime max)
@@ -24,7 +25,7 @@ namespace Core.Common.Controls.Swf.Charting
             {
                 return min.Year.ToString();
             }
-            return min.Year + " till " + max.Year;
+            return string.Format(Resources.RangeLabel__0__till__1_, min.Year, max.Year);
         }
     }
 }

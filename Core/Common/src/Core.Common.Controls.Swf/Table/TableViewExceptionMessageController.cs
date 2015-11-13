@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraGrid.Localization;
+﻿using Core.Common.Controls.Swf.Properties;
+using DevExpress.XtraGrid.Localization;
 
 namespace Core.Common.Controls.Swf.Table
 {
@@ -7,8 +8,7 @@ namespace Core.Common.Controls.Swf.Table
         public override string GetLocalizedString(GridStringId id)
         {
             return id == GridStringId.ColumnViewExceptionMessage
-                       ? " Do you want to correct the value?\n\n" +
-                         "Choose Yes to correct the value yourself. Choose No to revert to the original value."
+                       ? Resources.TableViewExceptionMessageController_GetLocalizedString_
                        : base.GetLocalizedString(id);
         }
     }

@@ -82,7 +82,7 @@ namespace Core.Common.Base
             //loggingEvent.RenderedMessage;
             foreach (var act in GetRunningActivitiesThreadSafe())
             {
-                var message = "[" + loggingEvent.TimeStamp.ToString("HH:mm:ss") + "]:" + loggingEvent.RenderedMessage + Environment.NewLine;
+                var message = string.Format("[{0:HH:mm:ss}]: {1}{2}", loggingEvent.TimeStamp, loggingEvent.RenderedMessage, Environment.NewLine);
 
                 using (new TryLock(activityLogsLock))
                 {

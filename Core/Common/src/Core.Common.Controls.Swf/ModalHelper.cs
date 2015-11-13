@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 
 namespace Core.Common.Controls.Swf
 {
@@ -27,7 +28,7 @@ namespace Core.Common.Controls.Swf
         {
             if (MainWindow == null)
             {
-                throw new InvalidOperationException("Main window not injected");
+                throw new InvalidOperationException(Resources.ModalHelper_ShowModal_Main_window_not_injected);
             }
 
             return f.ShowDialog(MainWindow);

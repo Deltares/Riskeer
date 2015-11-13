@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 
 namespace Core.Common.Controls.Swf.Charting.Tools
 {
@@ -40,7 +41,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                 menu.Items.Add(new ToolStripSeparator());
             }
 
-            menu.Items.Add(new ToolStripMenuItem("Export as Image...", null, ExportChartEventHandler));
+            menu.Items.Add(new ToolStripMenuItem(Resources.KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_, null, ExportChartEventHandler));
         }
 
         private void ExportChartEventHandler(object sender, EventArgs e)

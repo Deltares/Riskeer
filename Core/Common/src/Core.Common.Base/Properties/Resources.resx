@@ -213,4 +213,7 @@
   <data name="FileImportActivity_ImportFromFile__0__of__1_" xml:space="preserve">
     <value>{0} van {1}</value>
   </data>
+  <data name="ActivityRunner_StartTaskIfPossible_Run_activity__0_" xml:space="preserve">
+    <value>Uitvoeren activiteit {0}</value>
+  </data>
 </root>

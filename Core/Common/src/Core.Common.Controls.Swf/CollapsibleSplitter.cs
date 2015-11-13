@@ -42,6 +42,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using Core.Common.Controls.Swf.Properties;
 
 namespace Core.Common.Controls.Swf
 {
@@ -814,7 +815,7 @@ namespace Core.Common.Controls.Swf
 
             else
             {
-                throw new Exception("The Collapsible Splitter control cannot have the Filled or None Dockstyle property");
+                throw new Exception(Resources.CollapsibleSplitter_OnPaint_The_Collapsible_Splitter_control_cannot_have_the_Filled_or_None_Dockstyle_property);
             }
 
             // dispose the Graphics object

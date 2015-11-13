@@ -29,7 +29,7 @@ namespace Core.Common.Controls.Swf
 
             Data = new ComputerInfo
             {
-                HostName = "My Computer"
+                HostName = Resources.FileSystemTreeView_FileSystemTreeView_My_Computer
             };
 
             Nodes[0].Expand();

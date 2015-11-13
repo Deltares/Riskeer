@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 
 namespace Core.Common.Controls.Swf
 {
@@ -88,7 +89,7 @@ namespace Core.Common.Controls.Swf
                 }
                 else
                 {
-                    throw new InvalidOperationException("Unclonable subitems in menu item");
+                    throw new InvalidOperationException(Resources.ClonableToolStripMenuItem_Clone_Unclonable_subitems_in_menu_item);
                 }
             }
 

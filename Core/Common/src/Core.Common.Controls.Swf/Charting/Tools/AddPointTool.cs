@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Charting.Series;
+using Core.Common.Controls.Swf.Properties;
 using log4net;
 using Steema.TeeChart;
 using Steema.TeeChart.Styles;
@@ -127,13 +128,13 @@ namespace Core.Common.Controls.Swf.Charting.Tools
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            log.Debug("AddPointTool : Up");
+            log.Debug(Resources.AddPointTool_OnMouseUp_AddPointTool___Up);
             dragging = false;
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            log.Debug("AddPointTool : Down");
+            log.Debug(Resources.AddPointTool_OnMouseDown_AddPointTool___Down);
             Point p = new Point(e.X, e.Y);
             //button == Button.Left
             if (Steema.TeeChart.Utils.GetMouseButton(e) == button)

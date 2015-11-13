@@ -154,13 +154,13 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                     SelectedPointIndex = -1;
                     return;
                 }
-                throw new NotImplementedException("Deletion not implemented for this type of datasource.");
+                throw new NotImplementedException(Resources.KeyEvent_Deletion_not_implemented_for_this_type_of_datasource_);
             }
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
         {
-            log.Debug("EditPointTool : Down");
+            log.Debug(Resources.EditPointTool_OnMouseDown_EditPointTool___Down);
 
             Point p = new Point(e.X, e.Y);
 
@@ -271,7 +271,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            log.Debug("EditPointTool : Up");
+            log.Debug(Resources.EditPointTool_OnMouseUp_EditPointTool___Up);
 
             if (Steema.TeeChart.Utils.GetMouseButton(e) != MouseButtons.Left)
             {
@@ -361,7 +361,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                     double lowerLimit = LastSelectedSeries.XValues[SelectedPointIndex - 1];
                     if (xValue < lowerLimit)
                     {
-                        log.DebugFormat("Fixing x value (left limit) {0} => {1}", xValue, lowerLimit + clippingTolerance);
+                        log.DebugFormat(Resources.EditPointTool_CalculateXValue_left_limit, xValue, lowerLimit + clippingTolerance);
                         xValue = lowerLimit + clippingTolerance;
                     }
                 }
@@ -371,7 +371,7 @@ namespace Core.Common.Controls.Swf.Charting.Tools
                     double upperLimit = LastSelectedSeries.XValues[SelectedPointIndex + 1];
                     if (xValue > upperLimit)
                     {
-                        log.DebugFormat("Fixing x value (right limit) {0} => {1}", xValue, upperLimit - clippingTolerance);
+                        log.DebugFormat(Resources.EditPointTool_CalculateXValue_right_limit, xValue, upperLimit - clippingTolerance);
                         xValue = upperLimit - clippingTolerance;
                     }
                 }

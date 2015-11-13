@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Common.Controls.Swf.Properties;
 using Core.Common.Utils;
 
 namespace Core.Common.Controls.Swf.Charting
@@ -19,12 +20,12 @@ namespace Core.Common.Controls.Swf.Charting
             {
                 return GetQuarterStringForDateTime(min);
             }
-            return GetQuarterStringForDateTime(min) + " till " + GetQuarterStringForDateTime(max);
+            return string.Format(Resources.RangeLabel__0__till__1_, GetQuarterStringForDateTime(min), GetQuarterStringForDateTime(max));
         }
 
         public override string GetUnits(TimeSpan duration)
         {
-            return "qtr yyyy";
+            return Resources.QuarterNavigatableLabelFormatProvider_GetUnits_qtr_yyyy;
         }
 
         private static int GetQuarterNumber(DateTime min)
@@ -37,15 +38,15 @@ namespace Core.Common.Controls.Swf.Charting
             switch (GetQuarterNumber(labelValue)) //localization is your own responsibility here
             {
                 case 1:
-                    return "1st Qtr " + labelValue.Year;
+                    return string.Format(Resources.QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__1st_Qtr_, labelValue.Year);
                 case 2:
-                    return "2nd Qtr " + labelValue.Year;
+                    return string.Format(Resources.QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__2nd_Qtr_, labelValue.Year);
                 case 3:
-                    return "3rd Qtr " + labelValue.Year;
+                    return string.Format(Resources.QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__3rd_Qtr_, labelValue.Year);
                 case 4:
-                    return "4th Qtr " + labelValue.Year;
+                    return string.Format(Resources.QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__4th_Qtr_, labelValue.Year);
                 default:
-                    return "<Unknown quarter>";
+                    return Resources.QuarterNavigatableLabelFormatProvider_GetQuarterStringForDateTime__Unknown_quarter_;
             }
         }
     }

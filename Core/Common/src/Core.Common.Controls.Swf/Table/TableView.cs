@@ -613,7 +613,7 @@ namespace Core.Common.Controls.Swf.Table
             {
                 if (SelectionChanged != null)
                 {
-                    Log.DebugFormat("Firing selection changed event");
+                    Log.DebugFormat(Resources.TableView_UpdateSelectionFromGridControl_Firing_selection_changed_event);
                     SelectionChanged(this, new TableSelectionChangedEventArgs(selectedCells.ToArray()));
                 }
             }
@@ -708,7 +708,7 @@ namespace Core.Common.Controls.Swf.Table
             {
                 var pinColumnMenuItem = new DXMenuCheckItem
                 {
-                    Caption = viewColumn.Pinned ? "Unpin Column" : "Pin Column",
+                    Caption = viewColumn.Pinned ? Resources.TableView_UpdateColumnHeaderMenu_Unpin_Column : Resources.TableView_UpdateColumnHeaderMenu_Pin_Column,
                     Checked = viewColumn.Pinned,
                     Image = Resources.pin
                 };
@@ -720,7 +720,7 @@ namespace Core.Common.Controls.Swf.Table
 
             var copyHeadersColumnMenuItem = new DXMenuItem
             {
-                Caption = "Copy all headers",
+                Caption = Resources.TableView_UpdateColumnHeaderMenu_Copy_all_headers,
                 Image = Resources.CopyHS
             };
 
@@ -753,7 +753,7 @@ namespace Core.Common.Controls.Swf.Table
             string errorText;
             if (!tableViewValidator.ValidateRow(rowIndex, out errorText))
             {
-                Log.ErrorFormat("Can not set value for row {0}, reason: {1}", rowIndex, errorText);
+                Log.ErrorFormat(Resources.TableView_ValidateAndCommitRow_Can_not_set_value_for_row__0___reason___1_, rowIndex, errorText);
                 dxGridView.CancelUpdateCurrentRow();
                 tableViewValidator.RefreshRowData();
                 dxGridView.DeleteRow(rowIndex);
@@ -784,14 +784,14 @@ namespace Core.Common.Controls.Swf.Table
                                      : value;
             if (objectValue == null)
             {
-                Log.ErrorFormat("Can not set value into cell [{0}, {1}] reason:{2}", rowIndex, col.AbsoluteIndex, "No conversion from string possible");
+                Log.ErrorFormat(Resources.TableView_SetCellValueInternal_Can_not_set_value_into_cell___0____1___reason__2_, rowIndex, col.AbsoluteIndex, "No conversion from string possible");
                 return false;
             }
 
             string error;
             if (!tableViewValidator.ValidateCell(new TableViewCell(rowIndex, GetColumnByDxColumn(col)), objectValue, out error))
             {
-                Log.ErrorFormat("Can not set value into cell [{0}, {1}] reason:{2}", rowIndex, col.AbsoluteIndex, error);
+                Log.ErrorFormat(Resources.TableView_SetCellValueInternal_Can_not_set_value_into_cell___0____1___reason__2_, rowIndex, col.AbsoluteIndex, error);
                 return false;
             }
 
@@ -830,7 +830,7 @@ namespace Core.Common.Controls.Swf.Table
                     }
                 }
 
-                Log.WarnFormat("Unable to convert string {0} to {1} for paste", cellValue, columnType);
+                Log.WarnFormat(Resources.TableView_ConvertToColumnValue_Unable_to_convert_string__0__to__1__for_paste, cellValue, columnType);
                 return null;
             }
         }
@@ -1652,7 +1652,7 @@ namespace Core.Common.Controls.Swf.Table
             dxGridView.BeginSelection();
             if (RowSelect)
             {
-                throw new InvalidOperationException("Unable to select cells when tableView has RowSelect enabled. Use SelectRow instead.");
+                throw new InvalidOperationException(Resources.TableView_SelectCells_Unable_to_select_cells_when_tableView_has_RowSelect_enabled__Use_SelectRow_instead_);
             }
 
             if (clearOldSelection)
@@ -1937,7 +1937,7 @@ namespace Core.Common.Controls.Swf.Table
 
             if (!bindingSource.AllowNew)
             {
-                Log.Debug("Adding rows to this table is not allowed");
+                Log.Debug(Resources.TableView_AddNewRowToDataSource_Adding_rows_to_this_table_is_not_allowed);
                 return;
             }
             bindingSource.AddNew();

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using Core.Common.Controls.Swf.Properties;
 
 namespace Core.Common.Controls.Swf
 {
@@ -74,16 +75,17 @@ namespace Core.Common.Controls.Swf
 
             if (exception.InnerException != null)
             {
-                str += "Inner Exception:\n";
-                str += exception.InnerException.ToString();
+                str += string.Format(Resources.ExceptionDialog_GetExceptionText_Inner_exceptions, 
+                    Environment.NewLine,
+                    exception.InnerException);
             }
 
             if (exception is ReflectionTypeLoadException)
             {
                 var reflException = exception as ReflectionTypeLoadException;
 
-                str += "Loader Exceptions:\n";
-                str = reflException.LoaderExceptions.Aggregate(str, (current, ex) => current + (ex + "\n"));
+                str += Resources.ExceptionDialog_GetExceptionText_Loader_exceptions + Environment.NewLine;
+                str = reflException.LoaderExceptions.Aggregate(str, (current, ex) => current + (ex + Environment.NewLine));
             }
 
             return str;
