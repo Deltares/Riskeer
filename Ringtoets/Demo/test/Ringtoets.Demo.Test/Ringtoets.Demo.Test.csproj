@@ -31,7 +31,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -39,7 +39,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -51,7 +51,7 @@
     <OutputPath>bin\CreateInstallerWithDemoProject\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoProject|x86'">
-    <OutputPath>bin\x86\CreateInstallerWithDemoProject\</OutputPath>
+    <OutputPath>bin\CreateInstallerWithDemoProject\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
@@ -90,9 +90,17 @@
       <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
       <Name>Core.Common.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj">
+      <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>
+      <Name>Ringtoets.Piping.Calculation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
+      <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
+      <Name>Ringtoets.Piping.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Demo\Ringtoets.Demo.csproj">
       <Project>{ffe3a667-3a4c-4f48-bc6b-1589867fcb41}</Project>
