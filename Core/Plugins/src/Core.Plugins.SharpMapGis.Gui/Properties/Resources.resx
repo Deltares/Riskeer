@@ -1036,4 +1036,88 @@
   <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view___" xml:space="preserve">
     <value>Weergave openen...</value>
   </data>
+  <data name="Ribbon_View_MapContents_Header" xml:space="preserve">
+    <value>Kaartinhoud</value>
+  </data>
+  <data name="Ribbon_View_ShowHide_Header" xml:space="preserve">
+    <value>Weergeven/Verbergen</value>
+  </data>
+  <data name="Ribbon_View_Header" xml:space="preserve">
+    <value>Weergave</value>
+  </data>
+  <data name="Ribbon_Map_Header" xml:space="preserve">
+    <value>Kaart</value>
+  </data>
+  <data name="Ribbon_Map_Decorations_Header" xml:space="preserve">
+    <value>Decoraties</value>
+  </data>
+  <data name="Ribbon_Map_ShowNorthArrow_Header" xml:space="preserve">
+    <value>Windroos</value>
+  </data>
+  <data name="Ribbon_Map_ShowNorthArrow_ToolTip" xml:space="preserve">
+    <value>Weergeven of verbergen van de windroos</value>
+  </data>
+  <data name="Ribbon_Map_Legend_Header" xml:space="preserve">
+    <value>Legenda</value>
+  </data>
+  <data name="Ribbon_Map_Legend_ToolTip" xml:space="preserve">
+    <value>Weergeven of verbergen van de legenda</value>
+  </data>
+  <data name="Ribbon_Map_ScaleBar_Header" xml:space="preserve">
+    <value>Schaalbalk</value>
+  </data>
+  <data name="Ribbon_Map_ScaleBar_ToolTip" xml:space="preserve">
+    <value>Weergeven of verbergen van de schaalbalk</value>
+  </data>
+  <data name="Ribbon_Map_Tools_Header" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="Ribbon_Map_Select_Header" xml:space="preserve">
+    <value>Selecteren</value>
+  </data>
+  <data name="Ribbon_Map_Pan_Header" xml:space="preserve">
+    <value>Verschuiven</value>
+  </data>
+  <data name="Ribbon_Map_ZoomToExtent_Header" xml:space="preserve">
+    <value>Zoom naar alles</value>
+  </data>
+  <data name="Ribbon_Map_ZoomByRectange_Header" xml:space="preserve">
+    <value>Zoom door rechthoek</value>
+  </data>
+  <data name="Ribbon_Map_ZoomPrevious_Header" xml:space="preserve">
+    <value>Vorig zoomniveau</value>
+  </data>
+  <data name="Ribbon_Map_NextZoom_Header" xml:space="preserve">
+    <value>Volgend zoomniveau</value>
+  </data>
+  <data name="Ribbon_Map_CoordinateSystem_Header" xml:space="preserve">
+    <value>Kaart coördinaatsysteem</value>
+  </data>
+  <data name="Ribbon_Map_MeasureDistance_Header" xml:space="preserve">
+    <value>Afstand meten</value>
+  </data>
+  <data name="Ribbon_Map_ExportAsImage_Header" xml:space="preserve">
+    <value>Exporteren als afbeelding</value>
+  </data>
+  <data name="Ribbon_Map_ExportAsImage_ToolTip" xml:space="preserve">
+    <value>Exporteer de kaart als een afbeelding</value>
+  </data>
+  <data name="Ribbon_Map_CoordinateSystem_ToolTip" xml:space="preserve">
+    <value>Verander het coördinaat referentiestelsel van de kaart</value>
+  </data>
+  <data name="Ribbon_Map_NextZoom_ToolTip" xml:space="preserve">
+    <value>Volgend zoomniveau</value>
+  </data>
+  <data name="Ribbon_Map_ZoomByRectange_ToolTip" xml:space="preserve">
+    <value>Zoom in door het tekenen van een rechthoek</value>
+  </data>
+  <data name="Ribbon_Map_ZoomToExtent_ToolTip" xml:space="preserve">
+    <value>Zoom naar alles op de kaart</value>
+  </data>
+  <data name="Ribbon_Map_ZoomPrevious_ToolTip" xml:space="preserve">
+    <value>Vorig zoom niveau</value>
+  </data>
+  <data name="Ribbon_Map_MeasureDistance_ToolTip" xml:space="preserve">
+    <value>Meet afstand door het tekenen van een polylijn</value>
+  </data>
 </root>

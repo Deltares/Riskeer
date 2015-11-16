@@ -2178,6 +2178,258 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kaart coördinaatsysteem.
+        /// </summary>
+        public static string Ribbon_Map_CoordinateSystem_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_CoordinateSystem_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verander het coördinaat referentiestelsel van de kaart.
+        /// </summary>
+        public static string Ribbon_Map_CoordinateSystem_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_CoordinateSystem_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decoraties.
+        /// </summary>
+        public static string Ribbon_Map_Decorations_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_Decorations_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporteren als afbeelding.
+        /// </summary>
+        public static string Ribbon_Map_ExportAsImage_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_ExportAsImage_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporteer de kaart als een afbeelding.
+        /// </summary>
+        public static string Ribbon_Map_ExportAsImage_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_ExportAsImage_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaart.
+        /// </summary>
+        public static string Ribbon_Map_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legenda.
+        /// </summary>
+        public static string Ribbon_Map_Legend_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_Legend_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weergeven of verbergen van de legenda.
+        /// </summary>
+        public static string Ribbon_Map_Legend_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_Legend_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Afstand meten.
+        /// </summary>
+        public static string Ribbon_Map_MeasureDistance_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_MeasureDistance_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meet afstand door het tekenen van een polylijn.
+        /// </summary>
+        public static string Ribbon_Map_MeasureDistance_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_MeasureDistance_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volgend zoomniveau.
+        /// </summary>
+        public static string Ribbon_Map_NextZoom_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_NextZoom_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volgend zoomniveau.
+        /// </summary>
+        public static string Ribbon_Map_NextZoom_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_NextZoom_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verschuiven.
+        /// </summary>
+        public static string Ribbon_Map_Pan_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_Pan_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schaalbalk.
+        /// </summary>
+        public static string Ribbon_Map_ScaleBar_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_ScaleBar_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weergeven of verbergen van de schaalbalk.
+        /// </summary>
+        public static string Ribbon_Map_ScaleBar_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_ScaleBar_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecteren.
+        /// </summary>
+        public static string Ribbon_Map_Select_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_Select_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windroos.
+        /// </summary>
+        public static string Ribbon_Map_ShowNorthArrow_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_ShowNorthArrow_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weergeven of verbergen van de windroos.
+        /// </summary>
+        public static string Ribbon_Map_ShowNorthArrow_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_ShowNorthArrow_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tools.
+        /// </summary>
+        public static string Ribbon_Map_Tools_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_Tools_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom door rechthoek.
+        /// </summary>
+        public static string Ribbon_Map_ZoomByRectange_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_ZoomByRectange_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom in door het tekenen van een rechthoek.
+        /// </summary>
+        public static string Ribbon_Map_ZoomByRectange_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_ZoomByRectange_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vorig zoomniveau.
+        /// </summary>
+        public static string Ribbon_Map_ZoomPrevious_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_ZoomPrevious_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vorig zoom niveau.
+        /// </summary>
+        public static string Ribbon_Map_ZoomPrevious_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_ZoomPrevious_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom naar alles.
+        /// </summary>
+        public static string Ribbon_Map_ZoomToExtent_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_ZoomToExtent_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom naar alles op de kaart.
+        /// </summary>
+        public static string Ribbon_Map_ZoomToExtent_ToolTip {
+            get {
+                return ResourceManager.GetString("Ribbon_Map_ZoomToExtent_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weergave.
+        /// </summary>
+        public static string Ribbon_View_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_View_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kaartinhoud.
+        /// </summary>
+        public static string Ribbon_View_MapContents_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_View_MapContents_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weergeven/Verbergen.
+        /// </summary>
+        public static string Ribbon_View_ShowHide_Header {
+            get {
+                return ResourceManager.GetString("Ribbon_View_ShowHide_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap ScaleBarIconImage {
@@ -2378,15 +2630,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         public static string SpatialOperation_Enabled_Displayname {
             get {
                 return ResourceManager.GetString("SpatialOperation_Enabled_Displayname", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         
