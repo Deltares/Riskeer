@@ -1,11 +1,11 @@
-﻿using System.Windows.Forms;
-
+﻿using System.Drawing;
+using System.Windows.Forms;
 using NUnit.Framework;
 
-using Ringtoets.Piping.Forms.Extensions;
-using FormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using Ringtoets.Common.Forms.Extensions;
+using FormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Piping.Forms.Test.Extensions
+namespace Ringtoets.Common.Forms.Test.Extensions
 {
     [TestFixture]
     public class ContextMenuStripExtensionsTest
@@ -21,7 +21,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             const string menuItemsTooltip = "<menu.Items[0].ToolTip>";
 
             // Call
-            var newItem = menu.AddMenuItem(menuItemsText, menuItemsTooltip, FormsResources.ImportIcon, (sender, args) => callCount++);
+            var newItem = menu.AddMenuItem(menuItemsText, menuItemsTooltip, FormsResources.receipt_text, (sender, args) => callCount++);
 
             // Assert
             Assert.AreEqual(1, menu.Items.Count);
@@ -29,7 +29,7 @@ namespace Ringtoets.Piping.Forms.Test.Extensions
             Assert.AreSame(newItem, addedMenuItem);
             Assert.AreEqual(menuItemsText, addedMenuItem.Text);
             Assert.AreEqual(menuItemsTooltip, addedMenuItem.ToolTipText);
-            Assert.IsNotNull(addedMenuItem.Image);
+            Assert.IsNotNull((Image)addedMenuItem.Image);
 
             addedMenuItem.PerformClick();
             Assert.AreEqual(1, callCount);

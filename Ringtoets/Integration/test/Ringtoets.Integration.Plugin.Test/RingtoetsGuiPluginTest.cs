@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+
 using Core.Common.Base;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
@@ -9,15 +10,16 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
+using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.NodePresenters;
+using Ringtoets.Integration.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
-
+using Ringtoets.Piping.Plugin;
 using Ringtoets.Piping.Forms.NodePresenters;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.PropertyClasses;
 
-using GuiPluginResources = Ringtoets.Piping.Plugin.Properties.Resources;
-
-namespace Ringtoets.Piping.Plugin.Test
+namespace Ringtoets.Integration.Plugin.Test
 {
     [TestFixture]
     public class RingtoetsGuiPluginTest
@@ -47,7 +49,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 // assert
                 Assert.AreEqual(5, propertyInfos.Length);
 
-                var assessmentSectionProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(AssessmentSection));
+                var assessmentSectionProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(DikeAssessmentSection));
                 Assert.AreEqual(typeof(AssessmentSectionProperties), assessmentSectionProperties.PropertyType);
                 Assert.IsNull(assessmentSectionProperties.AdditionalDataCheck);
                 Assert.IsNull(assessmentSectionProperties.GetObjectPropertiesData);

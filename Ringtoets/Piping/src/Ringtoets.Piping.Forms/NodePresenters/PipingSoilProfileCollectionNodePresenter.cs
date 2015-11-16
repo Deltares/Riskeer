@@ -5,8 +5,9 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
+
+using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.NodePresenters

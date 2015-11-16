@@ -23,9 +23,10 @@ using Core.Plugins.SharpMapGis.Gui;
 using log4net;
 using NDesk.Options;
 
+using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
-using MessageBox = System.Windows.MessageBox;
 
+using MessageBox = System.Windows.MessageBox;
 #if INCLUDE_DEMOPROJECT
 using Ringtoets.Demo;
 #endif

@@ -5,7 +5,7 @@ using System.Reflection;
 
 using Core.Common.Gui;
 
-using Ringtoets.Piping.Data;
+using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Ringtoets.Demo.Commands
@@ -25,23 +25,18 @@ namespace Ringtoets.Demo.Commands
             project.NotifyObservers();
         }
 
-        private AssessmentSection CreateNewDemoAssessmentSection()
+        private DikeAssessmentSection CreateNewDemoAssessmentSection()
         {
-            var demoAssessmentSection = new AssessmentSection
+            var demoAssessmentSection = new DikeAssessmentSection()
             {
-                Name = "Demo traject"
+                Name = "Demo dijktraject"
             };
             InitializeDemoPipingData(demoAssessmentSection);
             return demoAssessmentSection;
         }
 
-        private void InitializeDemoPipingData(AssessmentSection demoAssessmentSection)
+        private void InitializeDemoPipingData(DikeAssessmentSection demoAssessmentSection)
         {
-            if (demoAssessmentSection.CanAddPipingFailureMechanism())
-            {
-                demoAssessmentSection.InitializePipingFailureMechanism();
-            }
-
             var pipingFailureMechanism = demoAssessmentSection.PipingFailureMechanism;
 
             using (var tempPath = new TemporaryImportFile("DR6_surfacelines.csv"))

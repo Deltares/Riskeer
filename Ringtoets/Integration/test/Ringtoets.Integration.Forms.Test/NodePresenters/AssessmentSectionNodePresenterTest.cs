@@ -1,18 +1,19 @@
 ﻿using System.ComponentModel;
 using System.Linq;
+
+using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Utils.Collections;
-using System.Windows.Forms;
-using Core.Common.Base;
+
 using NUnit.Framework;
+
 using Rhino.Mocks;
 
+using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 
-using Ringtoets.Piping.Forms.NodePresenters;
-using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
-
-namespace Ringtoets.Piping.Forms.Test.NodePresenters
+namespace Ringtoets.Integration.Forms.Test.NodePresenters
 {
     [TestFixture]
     public class AssessmentSectionNodePresenterTest
@@ -26,7 +27,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Assert
             Assert.IsInstanceOf<ITreeNodePresenter>(nodePresenter);
             Assert.IsNull(nodePresenter.TreeView);
-            Assert.AreEqual(typeof(AssessmentSection), nodePresenter.NodeTagType);
+            Assert.AreEqual(typeof(DikeAssessmentSection), nodePresenter.NodeTagType);
         }
 
         [Test]
@@ -41,7 +42,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new AssessmentSectionNodePresenter();
 
-            var assessmentSection = new AssessmentSection
+            var assessmentSection = new DikeAssessmentSection
             {
                 Name = projectName
             };
@@ -56,26 +57,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetChildNodeObjects_WithoutPipingFailureMechanism_ReturnsEmptyList()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            mocks.ReplayAll();
-
-            var nodePresenter = new AssessmentSectionNodePresenter();
-
-            var assessmentSection = new AssessmentSection();
-
-            // Call
-            var children = nodePresenter.GetChildNodeObjects(assessmentSection, nodeMock);
-
-            // Assert
-            CollectionAssert.IsEmpty(children);
-            mocks.VerifyAll(); // Expect no calls on tree node
-        }
-
-        [Test]
         public void GetChildNodeObjects_WithPipingFailureMechanism_ReturnPipingFailureMechanism()
         {
             // Setup
@@ -85,8 +66,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new AssessmentSectionNodePresenter();
 
-            var assessmentSection = new AssessmentSection();
-            assessmentSection.InitializePipingFailureMechanism();
+            var assessmentSection = new DikeAssessmentSection();
 
             // Call
             var children = nodePresenter.GetChildNodeObjects(assessmentSection, nodeMock).Cast<object>().AsList();
@@ -144,7 +124,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             var nodePresenter = new AssessmentSectionNodePresenter();
 
-            var assessmentSection = new AssessmentSection();
+            var assessmentSection = new DikeAssessmentSection();
             assessmentSection.Attach(assessmentSectionObserver);
 
             // Call
@@ -268,12 +248,12 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void GetContextMenu_WithNoPipingFailureMechanism_ReturnsContextMenuWithOneItemWithDataAsTag()
+        public void GetContextMenu_Always_ReturnsNull()
         {
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var assessmentSection = new AssessmentSection();
+            var assessmentSection = new DikeAssessmentSection();
             mocks.ReplayAll();
 
             var nodePresenter = new AssessmentSectionNodePresenter();
@@ -282,43 +262,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var contextMenu = nodePresenter.GetContextMenu(nodeMock, assessmentSection);
 
             // Assert
-            Assert.IsNotNull(contextMenu);
-            Assert.AreEqual(1, contextMenu.Items.Count);
-            ToolStripItem addPipingItem = contextMenu.Items[0];
-            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism, addPipingItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip, addPipingItem.ToolTipText);
-            Assert.IsTrue(addPipingItem.Enabled);
-            Assert.AreSame(assessmentSection, addPipingItem.Tag);
-            Assert.AreEqual(16, addPipingItem.Image.Height);
-            Assert.AreEqual(16, addPipingItem.Image.Width);
-            mocks.VerifyAll(); // Expect no calls on arguments
-        }
-
-        [Test]
-        public void GetContextMenu_WithPipingFailureMechanismAlreadySet_ReturnsContextMenuWithOneDisabledItem()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var assessmentSection = new AssessmentSection();
-            assessmentSection.InitializePipingFailureMechanism();
-            mocks.ReplayAll();
-
-            var nodePresenter = new AssessmentSectionNodePresenter();
-
-            // Call
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, assessmentSection);
-
-            // Assert
-            Assert.IsNotNull(contextMenu);
-            Assert.AreEqual(1, contextMenu.Items.Count);
-            ToolStripItem addPipingItem = contextMenu.Items[0];
-            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism, addPipingItem.Text);
-            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip, addPipingItem.ToolTipText);
-            Assert.IsFalse(addPipingItem.Enabled);
-            Assert.IsNull(addPipingItem.Tag);
-            Assert.AreEqual(16, addPipingItem.Image.Height);
-            Assert.AreEqual(16, addPipingItem.Image.Width);
+            Assert.IsNull(contextMenu);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -389,7 +333,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             mocks.ReplayAll();
 
-            var assessmentSection = new AssessmentSection();
+            var assessmentSection = new DikeAssessmentSection();
 
             var project = new Project();
             project.Items.Add(assessmentSection);
@@ -404,30 +348,6 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             Assert.IsTrue(removalSuccesful);
             CollectionAssert.DoesNotContain(project.Items, assessmentSection);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentSectionWithoutPipingFailureMechanism_AddPipingFailureMechanismThroughContextMenu_AssessmentSectionHasPipingFailureMechanism()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
-            var assessmentSection = new AssessmentSection();
-            mocks.ReplayAll();
-
-            var nodePresenter = new AssessmentSectionNodePresenter();
-            var contextMenu = nodePresenter.GetContextMenu(nodeMock, assessmentSection);
-
-            // Preconditions
-            Assert.IsNotNull(contextMenu);
-            Assert.IsNull(assessmentSection.PipingFailureMechanism);
-            Assert.AreEqual(1, contextMenu.Items.Count);
-
-            // Call
-            contextMenu.Items[0].PerformClick();
-
-            // Assert
-            Assert.IsNotNull(assessmentSection.PipingFailureMechanism);
         }
     }
 }

@@ -11,7 +11,8 @@ using Rhino.Mocks;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 
-using RingtoetsFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using PipingFormsResources = Ringtoets.Piping.Forms.Properties.Resources;
+using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using ApplicationResources = Ringtoets.Piping.Plugin.Properties.Resources;
 using RingtoetsIOResources = Ringtoets.Piping.IO.Properties.Resources;
 
@@ -34,15 +35,15 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         {
             // Prepare
             var expectedFileFilter = String.Format("{0} {1} (*.soil)|*.soil",
-                RingtoetsFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.Soil_file_name);
+                PipingFormsResources.PipingSoilProfilesCollection_DisplayName, ApplicationResources.Soil_file_name);
 
             // Call
             var importer = new PipingSoilProfilesImporter();
 
             // Assert
             Assert.IsInstanceOf<IFileImporter>(importer);
-            Assert.AreEqual(RingtoetsFormsResources.PipingSoilProfilesCollection_DisplayName, importer.Name);
-            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionProperties_Category, importer.Category);
+            Assert.AreEqual(PipingFormsResources.PipingSoilProfilesCollection_DisplayName, importer.Name);
+            Assert.AreEqual(RingtoetsFormsResources.Ringtoets_Category, importer.Category);
             Assert.AreEqual(16, importer.Image.Width);
             Assert.AreEqual(16, importer.Image.Height);
             CollectionAssert.AreEqual(new[] { typeof(ICollection<PipingSoilProfile>) }, importer.SupportedItemTypes);

@@ -1,4 +1,6 @@
-﻿using Ringtoets.Common.Placeholder;
+﻿using Core.Common.Base;
+
+using Ringtoets.Common.Placeholder;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Data
@@ -6,7 +8,7 @@ namespace Ringtoets.Integration.Data
     /// <summary>
     /// The section to be assessed by the user for safety in regards of various failure mechanisms.
     /// </summary>
-    public class DikeAssessmentSection
+    public class DikeAssessmentSection : Observable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DikeAssessmentSection"/> class.

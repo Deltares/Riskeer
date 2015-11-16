@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
-using Core.Common.Utils.Collections;
 
+using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Forms.Helpers;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
@@ -92,21 +90,6 @@ namespace Ringtoets.Piping.Forms.NodePresenters
             }
 
             return rootMenu;
-        }
-
-        protected override bool CanRemove(object parentNodeData, PipingFailureMechanism nodeData)
-        {
-            return true;
-        }
-
-        protected override bool RemoveNodeData(object parentNodeData, PipingFailureMechanism nodeData)
-        {
-            var assessmentSection = (AssessmentSection)parentNodeData;
-
-            assessmentSection.ClearPipingFailureMechanism();
-            assessmentSection.NotifyObservers();
-
-            return true;
         }
     }
 }

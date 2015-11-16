@@ -159,6 +159,10 @@
       <Project>{ffe3a667-3a4c-4f48-bc6b-1589867fcb41}</Project>
       <Name>Ringtoets.Demo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Ringtoets\Integration\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
+      <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
+      <Name>Ringtoets.Integration.Plugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Ringtoets\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
       <Project>{1D3D58B6-EF7E-401E-92A0-104067D222EE}</Project>
       <Name>Ringtoets.Piping.Plugin</Name>

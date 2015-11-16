@@ -2,17 +2,20 @@
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
+
 using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Utils.Collections;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Extensions;
-using Ringtoets.Piping.Forms.Properties;
 
-namespace Ringtoets.Piping.Forms.NodePresenters
+using Ringtoets.Common.Forms.Extensions;
+using Ringtoets.Integration.Data;
+
+using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+
+namespace Ringtoets.Integration.Forms.NodePresenters
 {
     /// <summary>
-    /// Node presenter for <see cref="AssessmentSection"/> items in the tree view.
+    /// Node presenter for <see cref="Ringtoets.Integration.Data.DikeAssessmentSection"/> items in the tree view.
     /// </summary>
     public class AssessmentSectionNodePresenter : ITreeNodePresenter
     {
@@ -22,20 +25,20 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         {
             get
             {
-                return typeof(AssessmentSection);
+                return typeof(DikeAssessmentSection);
             }
         }
 
         public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
         {
-            var assessmentSection = (AssessmentSection) nodeData;
+            var assessmentSection = (DikeAssessmentSection)nodeData;
             node.Text = assessmentSection.Name;
-            node.Image = Resources.AssessmentSectionFolderIcon;
+            node.Image = RingtoetsFormsResources.AssessmentSectionFolderIcon;
         }
 
         public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
         {
-            var assessmentSection = (AssessmentSection) parentNodeData;
+            var assessmentSection = (DikeAssessmentSection)parentNodeData;
             if (assessmentSection.PipingFailureMechanism != null)
             {
                 yield return assessmentSection.PipingFailureMechanism;
@@ -54,7 +57,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public void OnNodeRenamed(object nodeData, string newName)
         {
-            var assessmentSection = (AssessmentSection) nodeData;
+            var assessmentSection = (DikeAssessmentSection)nodeData;
 
             assessmentSection.Name = newName;
             assessmentSection.NotifyObservers();
@@ -83,25 +86,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
         {
-            var assessmentSection = (AssessmentSection) nodeData;
-
-            var contextMenu = new ContextMenuStrip();
-            if (assessmentSection.CanAddPipingFailureMechanism())
-            {
-                contextMenu.AddMenuItem(Resources.AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism,
-                    Resources.AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip,
-                    Resources.PipingIcon,
-                    InitializePipingFailureMechanismForAssessmentSection).Tag = nodeData;
-            }
-            else
-            {
-                contextMenu.AddMenuItem(Resources.AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism,
-                    Resources.AssessmentSectionNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip,
-                    Resources.PipingIcon,
-                    InitializePipingFailureMechanismForAssessmentSection).Enabled = false;
-            }
-
-            return contextMenu;
+            return null;
         }
 
         public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}
@@ -116,23 +101,12 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         public bool RemoveNodeData(object parentNodeData, object nodeData)
         {
             var parentProject = (Project) parentNodeData;
-            var assessmentSection = (AssessmentSection) nodeData;
+            var assessmentSection = (DikeAssessmentSection) nodeData;
 
             parentProject.Items.Remove(assessmentSection);
             parentProject.NotifyObservers();
 
             return true;
-        }
-
-        private void InitializePipingFailureMechanismForAssessmentSection(object sender, EventArgs e)
-        {
-            var treeNode = (ToolStripItem) sender;
-            if (treeNode != null)
-            {
-                var assessmentSection = (AssessmentSection) treeNode.Tag;
-                assessmentSection.InitializePipingFailureMechanism();
-                assessmentSection.NotifyObservers();
-            }
         }
     }
 }

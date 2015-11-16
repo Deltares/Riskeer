@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Ringtoets.Piping.Forms.Extensions
+namespace Ringtoets.Common.Forms.Extensions
 {
     /// <summary>
     /// Extension methods for <see cref="ContextMenuStrip"/>.

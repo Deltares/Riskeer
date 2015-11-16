@@ -414,21 +414,21 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         }
 
         [Test]
-        public void CanRemove_PipingFailureMechanism_ReturnTrue()
+        public void CanRemove_Always_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<AssessmentSection>();
+            var parentNodeDataMock = mocks.StrictMock<object>();
             var nodeMock = mocks.StrictMock<PipingFailureMechanism>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingFailureMechanismNodePresenter();
 
             // Call
-            bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
+            bool removalAllowed = nodePresenter.CanRemove(parentNodeDataMock, nodeMock);
 
             // Assert
-            Assert.IsTrue(removalAllowed);
+            Assert.IsFalse(removalAllowed);
             mocks.VerifyAll(); // Expect no calls on arguments
         }
 
@@ -436,17 +436,13 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         public void RemoveNodeData_PipingFailureMechanism_PipingFailureMechanismRemovedFromAssessmentSection()
         {
             // Setup
-            var assessmentSection = new AssessmentSection();
-            assessmentSection.InitializePipingFailureMechanism();
-
             var nodePresenter = new PipingFailureMechanismNodePresenter();
 
             // Call
-            bool removalSuccesful = nodePresenter.RemoveNodeData(assessmentSection, new PipingFailureMechanism());
+            TestDelegate call = () => nodePresenter.RemoveNodeData(new object(), new PipingFailureMechanism());
 
             // Assert
-            Assert.IsTrue(removalSuccesful);
-            Assert.IsNull(assessmentSection.PipingFailureMechanism);
+            Assert.Throws<InvalidOperationException>(call);
         }
 
         [Test]

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Base.Workflow;
 using Core.Common.Controls;
-using Core.Common.Utils.Collections;
 
+using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Extensions;
 using Ringtoets.Piping.Service;
 
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -59,7 +57,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
 
         protected override ContextMenuStrip GetContextMenu(ITreeNode sender, PipingCalculationInputs nodeData)
         {
-            PipingData pipingData = ((PipingCalculationInputs) nodeData).PipingData;
+            PipingData pipingData = nodeData.PipingData;
 
             var contextMenu = new ContextMenuStrip();
             contextMenu.AddMenuItem(Resources.Validate,

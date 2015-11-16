@@ -9,6 +9,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 using Ringtoets.Demo.Commands;
+using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Calculation.Piping;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service;
@@ -58,8 +59,8 @@ namespace Ringtoets.Demo.Test.Commands
 
             // Assert
             Assert.AreEqual(1, project.Items.Count);
-            var demoAssessmentSection = (AssessmentSection) project.Items[0];
-            Assert.AreEqual("Demo traject", demoAssessmentSection.Name);
+            var demoAssessmentSection = (DikeAssessmentSection) project.Items[0];
+            Assert.AreEqual("Demo dijktraject", demoAssessmentSection.Name);
 
             var profiles = demoAssessmentSection.PipingFailureMechanism.SoilProfiles.ToArray();
             Assert.AreEqual(26, profiles.Length);

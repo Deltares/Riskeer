@@ -1,16 +1,16 @@
 ﻿using Core.Common.Gui;
 using Core.Common.Utils;
-using Ringtoets.Piping.Data;
 
-using Ringtoets.Piping.Forms.Properties;
+using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.Properties;
 
-namespace Ringtoets.Piping.Forms.PropertyClasses
+namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="AssessmentSection"/> for properties panel.
+    /// ViewModel of <see cref="DikeAssessmentSection"/> for properties panel.
     /// </summary>
     [ResourcesDisplayName(typeof(Resources), "AssessmentSectionProperties_DisplayName")]
-    public class AssessmentSectionProperties : ObjectProperties<AssessmentSection>
+    public class AssessmentSectionProperties : ObjectProperties<DikeAssessmentSection>
     {
         [ResourcesCategory(typeof(Resources), "Categories_General")]
         [ResourcesDisplayName(typeof(Resources), "AssessmentSection_Name_DisplayName")]

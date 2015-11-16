@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Core.Common.Base;
+
+using NUnit.Framework;
 
 using Ringtoets.Piping.Data;
 
@@ -14,6 +16,8 @@ namespace Ringtoets.Integration.Data.Test
             var section = new DikeAssessmentSection();
 
             // Assert
+            Assert.IsInstanceOf<Observable>(section);
+
             Assert.AreEqual("Dijktraject", section.Name);
             Assert.AreEqual("Referentielijn", section.ReferenceLine.Name);
             Assert.AreEqual("Faalkansverdeling", section.FailureMechanismContribution.Name);

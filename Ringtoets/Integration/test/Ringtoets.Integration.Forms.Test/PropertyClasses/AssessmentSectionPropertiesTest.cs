@@ -1,13 +1,14 @@
 ﻿using Core.Common.Base;
 using Core.Common.Gui;
+
 using NUnit.Framework;
+
 using Rhino.Mocks;
 
-using Ringtoets.Piping.Data;
+using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.PropertyClasses;
 
-using Ringtoets.Piping.Forms.PropertyClasses;
-
-namespace Ringtoets.Piping.Forms.Test.PropertyClasses
+namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class AssessmentSectionPropertiesTest
@@ -19,7 +20,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var properties = new AssessmentSectionProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<AssessmentSection>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<DikeAssessmentSection>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -27,7 +28,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var assessmentSection = new AssessmentSection
+            var assessmentSection = new DikeAssessmentSection
             {
                 Name = "Test"
             };
@@ -50,7 +51,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             projectObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var assessmentSection = new AssessmentSection();
+            var assessmentSection = new DikeAssessmentSection();
             assessmentSection.Attach(projectObserver);
 
             var properties = new AssessmentSectionProperties
