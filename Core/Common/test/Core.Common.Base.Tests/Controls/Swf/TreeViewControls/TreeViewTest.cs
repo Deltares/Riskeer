@@ -302,13 +302,20 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             var parent = new Parent();
             treeView.Data = parent;
 
-            WindowsFormsTestHelper.Show(treeView); // show it to make sure that expand / refresh node really loads nodes.
+            try
+            {
+                WindowsFormsTestHelper.Show(treeView); // show it to make sure that expand / refresh node really loads nodes.
 
-            treeView.ExpandAll();
-            treeView.Refresh();
+                treeView.ExpandAll();
+                treeView.Refresh();
 
-            // asserts
-            treeView.Nodes[0].Nodes[0].IsExpanded.Should("node remains expanded").Be.True();
+                // asserts
+                treeView.Nodes[0].Nodes[0].IsExpanded.Should("node remains expanded").Be.True();
+            }
+            finally
+            {
+                WindowsFormsTestHelper.CloseAll();
+            }
         }
 
         /// <summary>
@@ -333,20 +340,27 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             child.Children.Add(grandchild);
 
             treeView.Data = parent;
-            
-            WindowsFormsTestHelper.Show(treeView); // show it to make sure that expand / refresh node really loads nodes.
 
-            treeView.ExpandAll();
-            treeView.Refresh();
+            try
+            {
+                WindowsFormsTestHelper.Show(treeView); // show it to make sure that expand / refresh node really loads nodes.
 
-            treeView.SelectedNode = treeView.GetNodeByTag(grandchild);
+                treeView.ExpandAll();
+                treeView.Refresh();
 
-            TypeUtils.CallPrivateMethod(treeView, "DeleteSelectedNodeData");
+                treeView.SelectedNode = treeView.GetNodeByTag(grandchild);
 
-            treeView.ExpandAll();
-            treeView.Refresh();
+                TypeUtils.CallPrivateMethod(treeView, "DeleteSelectedNodeData");
 
-            Assert.AreEqual(treeView.SelectedNode, treeView.GetNodeByTag(child));
+                treeView.ExpandAll();
+                treeView.Refresh();
+
+                Assert.AreEqual(treeView.SelectedNode, treeView.GetNodeByTag(child));
+            }
+            finally 
+            {
+                WindowsFormsTestHelper.CloseAll();
+            }
         }
 
         [Test]
