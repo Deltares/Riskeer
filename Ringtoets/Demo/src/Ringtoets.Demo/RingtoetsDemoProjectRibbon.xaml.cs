@@ -20,7 +20,7 @@ namespace Ringtoets.Demo
         {
             InitializeComponent();
 
-            addNewDemoProject = new AddNewDemoProjectCommand();
+            addNewDemoProject = new AddNewDemoAssessmentSectionCommand();
         }
 
         public IEnumerable<ICommand> Commands

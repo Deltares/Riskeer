@@ -13,7 +13,7 @@ namespace Ringtoets.Demo.Commands
     /// <summary>
     /// Command that adds a new Ringtoets project with demo data to the project tree.
     /// </summary>
-    public class AddNewDemoProjectCommand : IGuiCommand
+    public class AddNewDemoAssessmentSectionCommand : IGuiCommand
     {
         public bool Enabled { get { return true; } }
         public bool Checked { get; set; }
@@ -21,11 +21,11 @@ namespace Ringtoets.Demo.Commands
         public void Execute(params object[] arguments)
         {
             var project = Gui.Application.Project;
-            project.Items.Add(CreateNewDemoProject());
+            project.Items.Add(CreateNewDemoAssessmentSection());
             project.NotifyObservers();
         }
 
-        private AssessmentSection CreateNewDemoProject()
+        private AssessmentSection CreateNewDemoAssessmentSection()
         {
             var demoAssessmentSection = new AssessmentSection
             {

@@ -16,13 +16,13 @@ using Ringtoets.Piping.Service;
 namespace Ringtoets.Demo.Test.Commands
 {
     [TestFixture]
-    public class AddNewDemoProjectCommandTest
+    public class AddNewDemoAssessmentSectionCommandTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var command = new AddNewDemoProjectCommand();
+            var command = new AddNewDemoAssessmentSectionCommand();
 
             // Assert
             Assert.IsInstanceOf<ICommand>(command);
@@ -48,7 +48,7 @@ namespace Ringtoets.Demo.Test.Commands
             observerMock.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var command = new AddNewDemoProjectCommand();
+            var command = new AddNewDemoAssessmentSectionCommand();
             command.Gui = guiMock;
 
             project.Attach(observerMock);
@@ -58,16 +58,16 @@ namespace Ringtoets.Demo.Test.Commands
 
             // Assert
             Assert.AreEqual(1, project.Items.Count);
-            var demoProject = (AssessmentSection) project.Items[0];
-            Assert.AreEqual("Demo traject", demoProject.Name);
+            var demoAssessmentSection = (AssessmentSection) project.Items[0];
+            Assert.AreEqual("Demo traject", demoAssessmentSection.Name);
 
-            var profiles = demoProject.PipingFailureMechanism.SoilProfiles.ToArray();
+            var profiles = demoAssessmentSection.PipingFailureMechanism.SoilProfiles.ToArray();
             Assert.AreEqual(26, profiles.Length);
-            var surfaceLines = demoProject.PipingFailureMechanism.SurfaceLines.ToArray();
+            var surfaceLines = demoAssessmentSection.PipingFailureMechanism.SurfaceLines.ToArray();
             Assert.AreEqual(4, surfaceLines.Length);
 
-            Assert.AreEqual(1, demoProject.PipingFailureMechanism.Calculations.Count);
-            var calculation = demoProject.PipingFailureMechanism.Calculations.First();
+            Assert.AreEqual(1, demoAssessmentSection.PipingFailureMechanism.Calculations.Count);
+            var calculation = demoAssessmentSection.PipingFailureMechanism.Calculations.First();
             AssertCalculationAbleToCalculate(calculation);
             mocks.VerifyAll();
         }
