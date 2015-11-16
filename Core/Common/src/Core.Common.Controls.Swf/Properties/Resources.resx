@@ -459,7 +459,7 @@ Kies Ja om de waarde zelf te corrigeren. Kies Nee als u de oorspronkelijke waard
   <data name="AddPointTool_OnMouseUp_AddPointTool___Up" xml:space="preserve">
     <value>AddPointTool: naar boven</value>
   </data>
-  <data name="Categories_Collapsing_options" xml:space="preserve">
-    <value>Samenklap opties</value>
+  <data name="CollapsibleSplitter_BorderStyle3D_Description" xml:space="preserve">
+    <value>"An optional border style to paint on the control. Set to Flat for no border"</value>
   </data>
 </root>

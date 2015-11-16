@@ -164,7 +164,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_Coordinates")]
+        [Category("Coordinates")]
         [DisplayName("Map coordinate system")]
         [Description("Coordinate system (geographic or projected) on which the map is represented.")]
         public ICoordinateTransformation MapCoordinateSystem
@@ -179,7 +179,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "Categories_Coordinates")]
+        [Category("Coordinates")]
         [DisplayName("Layer contents coordinate system")]
         [Description("Coordinate system (geographic or projected) in which the objects contained in the selected layer are declared.")]
         public ICoordinateSystem LayerCoordinateSystem

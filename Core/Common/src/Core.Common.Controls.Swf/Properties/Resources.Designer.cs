@@ -98,15 +98,6 @@ namespace Core.Common.Controls.Swf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Samenklap opties.
-        /// </summary>
-        internal static string Categories_Collapsing_options {
-            get {
-                return ResourceManager.GetString("Categories_Collapsing_options", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Argument bevat geen bestandsnaam.
         /// </summary>
         internal static string Chart_ExportAsImage_Argument_did_not_contain_a_filename {
@@ -234,6 +225,15 @@ namespace Core.Common.Controls.Swf.Properties {
         internal static string ClonableToolStripMenuItem_Clone_Unclonable_subitems_in_menu_item {
             get {
                 return ResourceManager.GetString("ClonableToolStripMenuItem_Clone_Unclonable_subitems_in_menu_item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;An optional border style to paint on the control. Set to Flat for no border&quot;.
+        /// </summary>
+        internal static string CollapsibleSplitter_BorderStyle3D_Description {
+            get {
+                return ResourceManager.GetString("CollapsibleSplitter_BorderStyle3D_Description", resourceCulture);
             }
         }
         
