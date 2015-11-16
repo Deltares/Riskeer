@@ -263,66 +263,6 @@ namespace Core.Common.TestUtils
         }
 
         /// <summary>
-        /// Method used to check if a specific message is not in the log.
-        /// This function allowed checking log messages being generated like <see cref="AssertLogMessageIsGenerated"/>
-        /// without having to rerun the action for every single message.
-        /// </summary>
-        /// <param name="action">The action to be performed that should not generate <paramref name="unwantedMessage"/></param>
-        /// <param name="unwantedMessage">The log message that should not occur in the log</param>
-        /// <param name="expectedLogMessageCount">Optional: assert that log has this number of messages.</param>
-        /// <seealso cref="AssertLogMessagesAreNotGenerated"/>
-        [Obsolete("Please keep in mind that asserting unwanted messages are 'very easy to pass' asserts and can pass by a random change of 1 character.")]
-        public static void AssertLogMessageIsNotGenerated(Action action, string unwantedMessage, int? expectedLogMessageCount = null)
-        {
-            AssertLogMessagesAreNotGenerated(action, new[]
-            {
-                unwantedMessage
-            }, expectedLogMessageCount);
-        }
-
-        /// <summary>
-        /// Method used to check if a collection of messages have not occurred in the log.
-        /// This function allowed checking log messages being generated like <see cref="AssertLogMessageIsGenerated"/>
-        /// without having to rerun the action for every single message. Fails the test when any of checks fail.
-        /// </summary>
-        /// <param name="action">The action to be performed that should not generate any of the messages in <paramref name="unwantedMessages"/></param>
-        /// <param name="unwantedMessages">The log messages that should not occur in the log</param>
-        /// <param name="expectedLogMessageCount">Optional: assert that log has this number of messages.</param>
-        /// <seealso cref="AssertLogMessageIsGenerated"/>
-        [Obsolete("Please keep in mind that asserting unwanted messages are 'very easy to pass' asserts and can pass by a random change of 1 character.")]
-        public static void AssertLogMessagesAreNotGenerated(Action action, IEnumerable<string> unwantedMessages, int? expectedLogMessageCount = null)
-        {
-            var renderedMessages = GetAllRenderedMessages(action);
-
-            AssertUnwantedMessagesNotInRenderedMessages(unwantedMessages, renderedMessages);
-            if (expectedLogMessageCount != null)
-            {
-                Assert.AreEqual((int) expectedLogMessageCount, renderedMessages.Count());
-            }
-        }
-
-        /// <summary>
-        /// Checks if all expected messages occur in the log, 
-        /// while none of the unwanted messages should occur in the log.
-        /// </summary>
-        /// <param name="action">Action to be performed while recording the log</param>
-        /// <param name="expectedMessages">Collection of expected messages that should be in the log</param>
-        /// <param name="unwantedMessages">Collection of messages of which none should be in the log</param>
-        /// <param name="expectedLogMessageCount">Optional: assert that log has this number of messages.</param>
-        [Obsolete("Please keep in mind that asserting unwanted messages are 'very easy to pass' asserts and can pass by a random change of 1 character.")]
-        public static void AssertLogExpectedAndUnwantedMessages(Action action, IEnumerable<string> expectedMessages, IEnumerable<string> unwantedMessages, int? expectedLogMessageCount = null)
-        {
-            var renderedMessages = GetAllRenderedMessages(action);
-
-            AssertUnwantedMessagesNotInRenderedMessages(unwantedMessages, renderedMessages);
-            AssertExpectedMessagesInRenderedMessages(expectedMessages, renderedMessages);
-            if (expectedLogMessageCount != null)
-            {
-                Assert.AreEqual((int) expectedLogMessageCount, renderedMessages.Count());
-            }
-        }
-
-        /// <summary>
         /// Checks the number of messages in the log.
         /// </summary>
         /// <param name="action">Action to be performed while recording the log</param>

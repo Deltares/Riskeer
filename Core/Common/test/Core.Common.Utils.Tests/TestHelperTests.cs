@@ -113,41 +113,6 @@ namespace Core.Common.Utils.Tests
         }
 
         [Test]
-        public void TestAssertLogExpectedAndUnwantedMessages()
-        {
-            TestHelper.AssertLogExpectedAndUnwantedMessages(() => log.Error("Test 1"),
-                                                            new[]
-                                                            {
-                                                                "Test 1"
-                                                            },
-                                                            new[]
-                                                            {
-                                                                "Test1",
-                                                                "Test 2"
-                                                            });
-            TestHelper.AssertLogExpectedAndUnwantedMessages(() => log.Warn("Test 1"),
-                                                            new[]
-                                                            {
-                                                                "Test 1"
-                                                            },
-                                                            new[]
-                                                            {
-                                                                "Test1",
-                                                                "Test 2"
-                                                            });
-            TestHelper.AssertLogExpectedAndUnwantedMessages(() => log.Info("Test 1"),
-                                                            new[]
-                                                            {
-                                                                "Test 1"
-                                                            },
-                                                            new[]
-                                                            {
-                                                                "Test1",
-                                                                "Test 2"
-                                                            });
-        }
-
-        [Test]
         public void TestAssertLogMessagesCount()
         {
             TestHelper.AssertLogMessagesCount(() => log.Error("test 1"), 1);
