@@ -37,8 +37,8 @@ SET TEMPTEXTFILE= %OUTTEXTFILE%.temp
 
 
 REM GET THE SVN VERSION NUMBER AND  REVISION PATH
-CD VERSIONPATH
-ECHO "executing in directory %1"
+CD %VERSIONPATH%
+ECHO executing in directory "%VERSIONPATH%"
 
 FOR /f "tokens=1,* delims=¶" %%A IN ( '"type %VERSIONFILE%"') DO (
 	ECHO %%A | findstr /I "^[assembly: AssemblyVersion(" && SET REV_BUF=%%A
@@ -56,7 +56,7 @@ CD %ORG_DIR%
 REM SUBSTITUTE THE VERSION NUMBER IN TEMPLATE
 SET SEARCHTEXT=ASSEMBLYVERSION
 
-ECHO "executing in directory %ORG_DIR%"
+ECHO executing in directory "%ORG_DIR%"
 
 IF EXIST %TEMPTEXTFILE% (
     ECHO "removing %TEMPTEXTFILE%"
