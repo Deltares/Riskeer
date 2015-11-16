@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ValidationView));
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
             this.manualRefreshPanel = new System.Windows.Forms.Panel();
-            this.manualRefreshButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.validationReportControl = new ValidationReportControl();
+            this.manualRefreshButton = new System.Windows.Forms.Button();
+            this.validationReportControl = new Core.Common.Gui.Swf.Validation.ValidationReportControl();
             this.manualRefreshPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,51 +49,37 @@
             this.manualRefreshPanel.BackColor = System.Drawing.SystemColors.Info;
             this.manualRefreshPanel.Controls.Add(this.label1);
             this.manualRefreshPanel.Controls.Add(this.manualRefreshButton);
-            this.manualRefreshPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.manualRefreshPanel.Location = new System.Drawing.Point(0, 0);
+            resources.ApplyResources(this.manualRefreshPanel, "manualRefreshPanel");
             this.manualRefreshPanel.Name = "manualRefreshPanel";
-            this.manualRefreshPanel.Size = new System.Drawing.Size(805, 32);
-            this.manualRefreshPanel.TabIndex = 3;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // manualRefreshButton
             // 
             this.manualRefreshButton.BackColor = System.Drawing.SystemColors.Info;
-            this.manualRefreshButton.Location = new System.Drawing.Point(3, 3);
+            resources.ApplyResources(this.manualRefreshButton, "manualRefreshButton");
             this.manualRefreshButton.Name = "manualRefreshButton";
-            this.manualRefreshButton.Size = new System.Drawing.Size(72, 26);
-            this.manualRefreshButton.TabIndex = 0;
-            this.manualRefreshButton.Text = "Refresh...";
             this.manualRefreshButton.UseVisualStyleBackColor = false;
             this.manualRefreshButton.Click += new System.EventHandler(this.manualRefreshButton_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(81, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(363, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Auto refresh has been turned off due to model size; please refresh manually.";
             // 
             // validationReportControl
             // 
             this.validationReportControl.Data = null;
-            this.validationReportControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this.validationReportControl, "validationReportControl");
             this.validationReportControl.Image = null;
-            this.validationReportControl.Location = new System.Drawing.Point(0, 32);
             this.validationReportControl.Name = "validationReportControl";
-            this.validationReportControl.Size = new System.Drawing.Size(805, 482);
-            this.validationReportControl.TabIndex = 2;
             this.validationReportControl.ViewInfo = null;
             // 
             // ValidationView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.validationReportControl);
             this.Controls.Add(this.manualRefreshPanel);
             this.Name = "ValidationView";
-            this.Size = new System.Drawing.Size(805, 514);
             this.manualRefreshPanel.ResumeLayout(false);
             this.manualRefreshPanel.PerformLayout();
             this.ResumeLayout(false);
