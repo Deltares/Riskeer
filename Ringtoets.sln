@@ -1298,7 +1298,6 @@ Global
 		{D5EC1DF2-03C9-467B-B6AF-BE5AC83417F8}.CreateInstallerWithDemoProject|Mixed Platforms.ActiveCfg = CreateInstallerWithDemoProject|x86
 		{D5EC1DF2-03C9-467B-B6AF-BE5AC83417F8}.CreateInstallerWithDemoProject|Mixed Platforms.Build.0 = CreateInstallerWithDemoProject|x86
 		{D5EC1DF2-03C9-467B-B6AF-BE5AC83417F8}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
-		{D5EC1DF2-03C9-467B-B6AF-BE5AC83417F8}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
 		{D5EC1DF2-03C9-467B-B6AF-BE5AC83417F8}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{D5EC1DF2-03C9-467B-B6AF-BE5AC83417F8}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{D5EC1DF2-03C9-467B-B6AF-BE5AC83417F8}.Debug|Mixed Platforms.Build.0 = Debug|x86
