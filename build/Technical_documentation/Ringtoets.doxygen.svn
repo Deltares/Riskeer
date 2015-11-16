@@ -845,6 +845,7 @@ EXCLUDE_SYMLINKS       = NO
 # exclude all test directories for example use the pattern */test/*
 
 EXCLUDE_PATTERNS       = */test/* \
+						 */demo/* # Ignore demo files
 						 */obj/* #to prevent Doxygen from processing compiled files
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names
