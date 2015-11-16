@@ -12,16 +12,17 @@
   </Target>
   
    <Target Name="AssemblyVersion" DependsOnTargets="Release">
-   <Delete Files="Technical_documentation\Ringtoets.doxygen"/>
+   <Delete Files="Ringtoets.doxygen"/>
     <Exec Command="assembly_insert_version.cmd ..\..\Core\Common\src\Core.Common.Version GlobalAssembly.cs Ringtoets.doxygen.svn Ringtoets.doxygen" WorkingDirectory="Technical_documentation" />
   </Target>
   
   <Target Name="Doxygen" DependsOnTargets="AssemblyVersion">
     <MakeDir Directories="$(DoxygenOutputDirectory)" />
     <Exec Command="Technical_documentation\Doxygen\bin\doxygen.exe Technical_documentation\Ringtoets.doxygen" />
-	<Exec Command="pdflatex.exe -shell-escape -interaction=nonstopmode refman.tex" WorkingDirectory="..\target\Technical_documentation\latex" IgnoreExitCode="true" />
-	<Exec Command="makeindex.exe -shell-escape -interaction=nonstopmode refman.idx" WorkingDirectory="..\target\Technical_documentation\latex" IgnoreExitCode="true"/>
-	<Exec Command="pdflatex.exe -shell-escape -interaction=nonstopmode refman.tex" WorkingDirectory="..\target\Technical_documentation\latex"/>
+	<Exec Command="pdflatex.exe -shell-escape -interaction=nonstopmode refman.tex>nul" WorkingDirectory="..\target\Technical_documentation\latex" IgnoreExitCode="true" />
+	<Exec Command="makeindex.exe refman.idx>nul" WorkingDirectory="..\target\Technical_documentation\latex" IgnoreExitCode="true"/>
+	<Exec Command="pdflatex.exe -shell-escape -interaction=nonstopmode refman.tex>nul" WorkingDirectory="..\target\Technical_documentation\latex" IgnoreExitCode="true"/>
+	<Exec Command="ren refman.pdf Technical_documentation.pdf" WorkingDirectory="..\target\Technical_documentation\latex"/>
   </Target>
   
   <Target Name="Cleanup" DependsOnTargets="Doxygen">
