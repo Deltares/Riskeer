@@ -43,6 +43,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using Core.Common.Controls.Swf.Properties;
+using Core.Common.Utils;
 
 namespace Core.Common.Controls.Swf
 {
@@ -140,7 +141,7 @@ namespace Core.Common.Controls.Swf
         /// The initial state of the Splitter. Set to True if the control to hide is not visible by default
         /// </summary>
         [Bindable(true)]
-        [Category("Collapsing Options")]
+        [ResourcesCategory(typeof(Resources), "Categories_Collapsing_options")]
         [DefaultValue("False")]
         [Description("The initial state of the Splitter. Set to True if the control to hide is not visible by default")]
         public bool IsCollapsed
@@ -162,7 +163,7 @@ namespace Core.Common.Controls.Swf
         /// The System.Windows.Forms.Control that the splitter will collapse
         /// </summary>
         [Bindable(true)]
-        [Category("Collapsing Options")]
+        [ResourcesCategory(typeof(Resources), "Categories_Collapsing_options")]
         [DefaultValue("")]
         [Description("The System.Windows.Forms.Control that the splitter will collapse")]
         public Control ControlToHide { get; set; }
@@ -171,7 +172,7 @@ namespace Core.Common.Controls.Swf
         /// Determines if the collapse and expanding actions will be animated
         /// </summary>
         [Bindable(true)]
-        [Category("Collapsing Options")]
+        [ResourcesCategory(typeof(Resources), "Categories_Collapsing_options")]
         [DefaultValue("True")]
         [Description("Determines if the collapse and expanding actions will be animated")]
         public bool UseAnimations { get; set; }
@@ -180,7 +181,7 @@ namespace Core.Common.Controls.Swf
         /// The delay in millisenconds between animation steps
         /// </summary>
         [Bindable(true)]
-        [Category("Collapsing Options")]
+        [ResourcesCategory(typeof(Resources), "Categories_Collapsing_options")]
         [DefaultValue("20")]
         [Description("The delay in millisenconds between animation steps")]
         public int AnimationDelay
@@ -199,7 +200,7 @@ namespace Core.Common.Controls.Swf
         /// The amount of pixels moved in each animation step
         /// </summary>
         [Bindable(true)]
-        [Category("Collapsing Options")]
+        [ResourcesCategory(typeof(Resources), "Categories_Collapsing_options")]
         [DefaultValue("20")]
         [Description("The amount of pixels moved in each animation step")]
         public int AnimationStep
@@ -218,7 +219,7 @@ namespace Core.Common.Controls.Swf
         /// When true the entire parent form will be expanded and collapsed, otherwise just the contol to expand will be changed
         /// </summary>
         [Bindable(true)]
-        [Category("Collapsing Options")]
+        [ResourcesCategory(typeof(Resources), "Categories_Collapsing_options")]
         [DefaultValue("False")]
         [Description("When true the entire parent form will be expanded and collapsed, otherwise just the contol to expand will be changed")]
         public bool ExpandParentForm { get; set; }
@@ -227,7 +228,7 @@ namespace Core.Common.Controls.Swf
         /// The visual style that will be painted on the control
         /// </summary>
         [Bindable(true)]
-        [Category("Collapsing Options")]
+        [ResourcesCategory(typeof(Resources), "Categories_Collapsing_options")]
         [DefaultValue("VisualStyles.XP")]
         [Description("The visual style that will be painted on the control")]
         public VisualStyles VisualStyle
@@ -247,7 +248,7 @@ namespace Core.Common.Controls.Swf
         /// An optional border style to paint on the control. Set to Flat for no border
         /// </summary>
         [Bindable(true)]
-        [Category("Collapsing Options")]
+        [ResourcesCategory(typeof(Resources), "Categories_Collapsing_options")]
         [DefaultValue("System.Windows.Forms.Border3DStyle.Flat")]
         [Description("An optional border style to paint on the control. Set to Flat for no border")]
         public Border3DStyle BorderStyle3D

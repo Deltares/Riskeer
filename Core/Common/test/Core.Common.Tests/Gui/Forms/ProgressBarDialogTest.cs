@@ -8,6 +8,24 @@ namespace Core.Common.Tests.Gui.Forms
     [TestFixture]
     public class ProgressBarDialogTest
     {
+        /// <summary>
+        /// Defined as a field to ensure that the use of WeakReference in ModalHelper doesn't
+        /// make GC clean the instance up.
+        /// </summary>
+        private Form mainWindow = new Form();
+
+        [TestFixtureSetUp]
+        public void FixtureSetUp()
+        {
+            ModalHelper.MainWindow = mainWindow;
+        }
+
+        [TestFixtureTearDown]
+        public void FixtureTearDown()
+        {
+            ModalHelper.MainWindow = null;
+        }
+
         [Test]
         public void EmptyTaskDoesNotHang()
         {
@@ -18,18 +36,6 @@ namespace Core.Common.Tests.Gui.Forms
         public void ShowProgress()
         {
             ProgressBarDialog.PerformTask("Doing stuff", () => Thread.Sleep(200));
-        }
-
-        [TestFixtureSetUp]
-        public void FixtureSetUp()
-        {
-            ModalHelper.MainWindow = new Form();
-        }
-
-        [TestFixtureTearDown]
-        public void FixtureTearDown()
-        {
-            ModalHelper.MainWindow = null;
         }
     }
 }

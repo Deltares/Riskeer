@@ -106,10 +106,32 @@ namespace Core.Common.Utils.Tests.IO
         }
 
         [Test]
-        public void MakeRelativeToOtherRelativePath()
+        public void GetRelativePath_UsingRelativeFolderPath_ReturnsFullFilePath()
         {
-            string filePath = "\\myfolder\\myfile.txt";
-            string folderPath = "\\myfolder";
+            string filePath = "myfolder\\myfile.txt";
+            string folderPath = "otherfolder";
+
+            string result = FileUtils.GetRelativePath(folderPath, filePath);
+
+            Assert.AreEqual(filePath, result);
+        }
+
+        [Test]
+        public void GetRelativePath_UsingAbsoluteFolderPath_ReturnsRelativeFilePath()
+        {
+            string filePath = "C:\\myfolder\\myfile.txt";
+            string folderPath = "C:\\myfolder";
+
+            string result = FileUtils.GetRelativePath(folderPath, filePath);
+
+            Assert.AreEqual(".\\myfile.txt", result);
+        }
+
+        [Test]
+        public void GetRelativePath_UsingNetworkPathPath_ReturnsRelativeFilePath()
+        {
+            string filePath = "\\\\myfolder\\myfile.txt";
+            string folderPath = "\\\\myfolder";
 
             string result = FileUtils.GetRelativePath(folderPath, filePath);
 

@@ -47,8 +47,8 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
                 data.Opacity = (float) Math.Min(1.0, Math.Max(0.0, value));
             }
         }
-
-        [Category("Coordinates")]
+        
+        [ResourcesCategory(typeof(Resources), "Categories_Coordinates")]
         [DisplayName("Coordinate system")]
         [Description("Coordinate system (geographic or projected) used for drawing.")]
         [TypeConverter(typeof(CoordinateSystemStringTypeConverter))]
