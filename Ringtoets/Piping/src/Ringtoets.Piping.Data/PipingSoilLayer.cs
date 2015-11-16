@@ -27,13 +27,13 @@
 
         /// <summary>
         /// Gets or sets the volumic weight of the <see cref="PipingSoilLayer"/> above the phreatic level.
-        /// [kN/m&#179;]
+        /// [kN/m³]
         /// </summary>
         public double? AbovePhreaticLevel { get; set; }
 
         /// <summary>
         /// Gets or sets the volumic weight of the <see cref="PipingSoilLayer"/> below the phreatic level.
-        /// [kN/m&#179;]
+        /// [kN/m³]
         /// </summary>
         public double? BelowPhreaticLevel { get; set; }
 

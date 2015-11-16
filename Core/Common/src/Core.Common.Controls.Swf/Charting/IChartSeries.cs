@@ -113,7 +113,7 @@ namespace Core.Common.Controls.Swf.Charting
         void Refresh();
 
         /// <summary>
-        /// Gives the x value for the provided <paramrefref name="x"/> (screen position)
+        /// Gives the x value for the provided <paramref name="x"/> (screen position)
         /// </summary>
         /// <param name="x">The X screen position</param>
         /// <returns>Associated x value for the provided <paramref name="x"/></returns>

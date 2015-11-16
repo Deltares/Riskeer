@@ -28,13 +28,13 @@ namespace Ringtoets.Piping.IO.Builders
 
         /// <summary>
         /// Gets or sets the volumic weight of the <see cref="SoilLayer1D"/> above the phreatic level.
-        /// [kN/m&#179;]
+        /// [kN/m³]
         /// </summary>
         public double? AbovePhreaticLevel { get; set; }
 
         /// <summary>
         /// Gets or sets the volumic weight of the <see cref="SoilLayer1D"/> below the phreatic level.
-        /// [kN/m&#179;]
+        /// [kN/m³]
         /// </summary>
         public double? BelowPhreaticLevel { get; set; }
 

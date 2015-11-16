@@ -52,13 +52,13 @@ namespace Ringtoets.Piping.Data
 
         /// <summary>
         /// Gets or sets the volumetric weight of water.
-        /// [kN/m&#179;]
+        /// [kN/m³]
         /// </summary>
         public double WaterVolumetricWeight { get; set; }
 
         /// <summary>
         /// Gets or sets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
-        /// [kN/m&#179;]
+        /// [kN/m³]
         /// </summary>
         public double SandParticlesVolumicWeight { get; set; }
 
@@ -69,13 +69,13 @@ namespace Ringtoets.Piping.Data
 
         /// <summary>
         /// Gets or sets the kinematic viscosity of water at 10 degrees Celsius.
-        /// [m&#178;/s]
+        /// [m²/s]
         /// </summary>
         public double WaterKinematicViscosity { get; set; }
 
         /// <summary>
         /// Gets or sets the gravitational acceleration.
-        /// [m/s&#178;]
+        /// [m/s²]
         /// </summary>
         public double Gravity { get; set; }
 
@@ -87,7 +87,7 @@ namespace Ringtoets.Piping.Data
 
         /// <summary>
         /// Gets or sets the angle of the force balance representing the amount in which sand grains resist rolling.
-        /// [&#176;]
+        /// [°]
         /// </summary>
         public double BeddingAngle { get; set; }
 

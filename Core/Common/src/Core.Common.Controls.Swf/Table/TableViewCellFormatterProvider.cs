@@ -23,7 +23,6 @@ namespace Core.Common.Controls.Swf.Table
         /// if the <see cref="T:System.IFormatProvider"/> implementation can supply that type of object; otherwise, null.
         /// </returns>
         /// <param name="formatType">An object that specifies the type of format object to return. </param>
-        /// <filterpriority>1</filterpriority>
         public object GetFormat(Type formatType)
         {
             return formatter;

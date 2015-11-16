@@ -47,8 +47,8 @@ namespace Core.Common.Base
         /// <summary>
         /// Gets Application settings.
         /// Application settings are usually located in the app.config file of the main executable.
+        /// <para>See also http://www.codeproject.com/useritems/SystemConfiguration.asp</para>
         /// </summary>
-        /// <seealso href="http://www.codeproject.com/useritems/SystemConfiguration.asp"/>
         NameValueCollection Settings { get; set; }
 
         /// <summary>

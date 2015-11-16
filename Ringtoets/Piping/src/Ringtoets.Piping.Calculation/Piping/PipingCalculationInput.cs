@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// Constructs a new <see cref="PipingCalculationInput"/>, which contains values for the parameters used
         /// in the piping sub calculations.
         /// </summary>
-        /// <param name="waterVolumetricWeight">The volumetric weight of water. [kN/m&#179;]</param>
+        /// <param name="waterVolumetricWeight">The volumetric weight of water. [kN/m³]</param>
         /// <param name="upliftModelFactor">The calculation value used to account for uncertainty in the model for uplift.</param>
         /// <param name="assessmentLevel">The outside high water level. [m]</param>
         /// <param name="piezometricHeadExit">The piezometric head at the exit point. [m]</param>
@@ -48,15 +48,15 @@ namespace Ringtoets.Piping.Calculation.Piping
         /// <param name="sellmeijerModelFactor">The calculation value used to account for uncertainty in the model for Sellmeijer.</param>
         /// <param name="sellmeijerReductionFactor">The reduction factor Sellmeijer.</param>
         /// <param name="seepageLength">The horizontal distance between entree and exit point. [m]</param>
-        /// <param name="sandParticlesVolumicWeight">The (lowerbound) volumic weight of sand grain material of a sand layer under water. [kN/m&#179;]</param>
+        /// <param name="sandParticlesVolumicWeight">The (lowerbound) volumic weight of sand grain material of a sand layer under water. [kN/m³]</param>
         /// <param name="whitesDragCoefficient">The White's drag coefficient.</param>
         /// <param name="diameter70">The sieve size through which 70% fraction of the grains of the top part of the aquifer passes. [m]</param>
         /// <param name="darcyPermeability">The Darcy-speed with which water flows through the aquifer layer. [m/s]</param>
-        /// <param name="waterKinematicViscosity">The kinematic viscosity of water at 10 degrees Celsius. [m&#178;/s]</param>
-        /// <param name="gravity">The gravitational acceleration. [m/s&#178;]</param>
+        /// <param name="waterKinematicViscosity">The kinematic viscosity of water at 10 degrees Celsius. [m²/s]</param>
+        /// <param name="gravity">The gravitational acceleration. [m/s²]</param>
         /// <param name="thicknessAquiferLayer">The thickness of the aquifer layer. [m]</param>
         /// <param name="meanDiameter70">The mean diameter of small scale tests applied to different kinds of sand, on which the formula of Sellmeijer has been fit. [m]</param>
-        /// <param name="beddingAngle">The angle of the force balance representing the amount in which sand grains resist rolling. [&#176;]</param>
+        /// <param name="beddingAngle">The angle of the force balance representing the amount in which sand grains resist rolling. [°]</param>
         /// <param name="exitPointXCoordinate">The x coordinate of the exit point. [m]</param>
         /// <param name="surfaceLine">The surface line.</param>
         /// <param name="soilProfile">The profile which contains a 1 dimensional definition of soil layers with properties.</param>
@@ -92,7 +92,7 @@ namespace Ringtoets.Piping.Calculation.Piping
 
         /// <summary>
         /// Gets the volumetric weight of water.
-        /// [kN/m&#179;]
+        /// [kN/m³]
         /// </summary>
         public double WaterVolumetricWeight
         {
@@ -231,7 +231,7 @@ namespace Ringtoets.Piping.Calculation.Piping
 
         /// <summary>
         /// Gets the (lowerbound) volumic weight of sand grain material of a sand layer under water.
-        /// [kN/m&#179;]
+        /// [kN/m³]
         /// </summary>
         public double SandParticlesVolumicWeight
         {
@@ -278,7 +278,7 @@ namespace Ringtoets.Piping.Calculation.Piping
 
         /// <summary>
         /// Gets the kinematic viscosity of water at 10 degrees Celsius.
-        /// [m&#178;/s]
+        /// [m²/s]
         /// </summary>
         public double WaterKinematicViscosity
         {
@@ -290,7 +290,7 @@ namespace Ringtoets.Piping.Calculation.Piping
 
         /// <summary>
         /// Gets the gravitational acceleration.
-        /// [m/s&#178;]
+        /// [m/s²]
         /// </summary>
         public double Gravity
         {
@@ -326,7 +326,7 @@ namespace Ringtoets.Piping.Calculation.Piping
 
         /// <summary>
         /// Gets the angle of the force balance representing the amount in which sand grains resist rolling.
-        /// [&#176;]
+        /// [°]
         /// </summary>
         public double BeddingAngle
         {

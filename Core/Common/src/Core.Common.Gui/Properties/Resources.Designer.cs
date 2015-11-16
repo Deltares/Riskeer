@@ -2237,7 +2237,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to #NAME?.
+        ///   Looks up a localized string similar to NAME?.
         /// </summary>
         public static string SelectViewDialog_listBox_DrawItem_____Default_ {
             get {

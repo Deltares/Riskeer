@@ -5,16 +5,28 @@
     <SolutionDir>$(MSBuildProjectDirectory)\..</SolutionDir> 
     <DoxygenOutputDirectory>$(BuildPath)\target\Technical_documentation\</DoxygenOutputDirectory>
   </PropertyGroup>
-
-  <Target Name="Doxygen" DependsOnTargets="Release">
-    <RemoveDir Directories="$(DoxygenOutputDirectory)"/>
-    <MakeDir Directories="$(DoxygenOutputDirectory)" />
-    <Exec Command="Technical_documentation\Doxygen\bin\doxygen.exe Technical_documentation\Ringtoets.doxygen" />
-  </Target>
-
+  
   <Target Name="Release">
     <RemoveDir Directories="$(BuildPath)\target"/>
-    <MSBuild Projects="..\Ringtoets.sln" Targets="Build" Properties="Configuration=Release;SolutionDir=$(SolutionDir);StartUsingCommandLine=$(StartUsingCommandLine)" />
+    <MSBuild Projects="..\Core\Common\src\Core.Common.Version\Core.Common.Version.csproj" Targets="Build" Properties="Configuration=Release;Platform=x86;SolutionDir=$(SolutionDir);StartUsingCommandLine=$(StartUsingCommandLine)" />
+  </Target>
+  
+   <Target Name="AssemblyVersion" DependsOnTargets="Release">
+   <Delete Files="Technical_documentation\Ringtoets.doxygen"/>
+    <Exec Command="assembly_insert_version.cmd ..\..\Core\Common\src\Core.Common.Version GlobalAssembly.cs Ringtoets.doxygen.svn Ringtoets.doxygen" WorkingDirectory="Technical_documentation" />
+  </Target>
+  
+  <Target Name="Doxygen" DependsOnTargets="AssemblyVersion">
+    <MakeDir Directories="$(DoxygenOutputDirectory)" />
+    <Exec Command="Technical_documentation\Doxygen\bin\doxygen.exe Technical_documentation\Ringtoets.doxygen" />
+	<Exec Command="pdflatex.exe -shell-escape -interaction=nonstopmode refman.tex" WorkingDirectory="..\target\Technical_documentation\latex" IgnoreExitCode="true" />
+	<Exec Command="makeindex.exe -shell-escape -interaction=nonstopmode refman.idx" WorkingDirectory="..\target\Technical_documentation\latex" IgnoreExitCode="true"/>
+	<Exec Command="pdflatex.exe -shell-escape -interaction=nonstopmode refman.tex" WorkingDirectory="..\target\Technical_documentation\latex"/>
+  </Target>
+  
+  <Target Name="Cleanup" DependsOnTargets="Doxygen">
+    <Delete Files="Technical_documentation\refman.log"/>
+    <Delete Files="Technical_documentation\texput.log"/>
   </Target>
 
 </Project>
