@@ -87,7 +87,6 @@
     <Compile Include="Layers\BingLayerTest.cs" />
     <Compile Include="Layers\DeltaresOpenDapDdbTileServerTest.cs" />
     <Compile Include="Layers\OpenStreetMapLayerTest.cs" />
-    <Compile Include="Layers\WmscLayerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
