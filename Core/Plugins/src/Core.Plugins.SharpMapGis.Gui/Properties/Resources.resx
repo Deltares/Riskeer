@@ -985,4 +985,55 @@
   <data name="SharpMapGisPluginGui_InitializeMapLegend_Map_Contents1" xml:space="preserve">
     <value>Kaart</value>
   </data>
+  <data name="MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s__from_file__0____1_" xml:space="preserve">
+    <value>Kan met dit bestand ({0}) geen lagen aanmaken: {1}</value>
+  </data>
+  <data name="MapAddLayerCommand_TryAddLayerFromFile_Layer_creation_failed" xml:space="preserve">
+    <value>Laag aanmaken is mislukt</value>
+  </data>
+  <data name="MapChangeCoordinateSystemCommand_OnExecute_Cannot_convert_map_to_selected_coordinate_system___0_" xml:space="preserve">
+    <value>Kan kaart niet converteren naar geselecteerde coördinatenstelsel: {0}</value>
+  </data>
+  <data name="MapChangeCoordinateSystemCommand_OnExecute_Map_coordinate_system" xml:space="preserve">
+    <value>Coördinatenstelsel van de kaart</value>
+  </data>
+  <data name="MapProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_" xml:space="preserve">
+    <value>Kan de kaart niet converteren naar het coördinatenstelsel: {0}</value>
+  </data>
+  <data name="MapProperties_CoordinateSystem_Coordinate_transformation_error" xml:space="preserve">
+    <value>Coördinaat-transformatie fout</value>
+  </data>
+  <data name="Categories_Coordinates" xml:space="preserve">
+    <value>Coördinaten</value>
+  </data>
+  <data name="MapProperties_CoordinateSystem_Description" xml:space="preserve">
+    <value>Coördinaatsysteem (geografisch of geprojecteerd) dat gebruikt wordt voor het tekenen.</value>
+  </data>
+  <data name="MapProperties_CoordinateSystem_DisplayName" xml:space="preserve">
+    <value>Coördinaatsysteem</value>
+  </data>
+  <data name="MapProperties_ShowGrid_Description" xml:space="preserve">
+    <value>Het breedtegraad-/lengtegraadraster weergeven of verbergen.</value>
+  </data>
+  <data name="MapProperties_ShowGrid_DisplayName" xml:space="preserve">
+    <value>Raster weergeven</value>
+  </data>
+  <data name="MapProperties_ShowGrid_Showing_latitude___longitude_grid_is_supported_only_when_map_coordinate_system_is_non_empty" xml:space="preserve">
+    <value>Weergegeven breedtegraad-/lengtegraadraster wordt alleen ondersteund als coördinatenstelsel van de kaart niet leeg is</value>
+  </data>
+  <data name="VectorLayerPolygonProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_" xml:space="preserve">
+    <value>Kan de kaart niet converteren naar het coördinatenstelsel: {0}</value>
+  </data>
+  <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Add_Attribute" xml:space="preserve">
+    <value>Attribuut toevoegen</value>
+  </data>
+  <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Delete_Attribute" xml:space="preserve">
+    <value>Attribuut verwijderen</value>
+  </data>
+  <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Zoom_to_item" xml:space="preserve">
+    <value>Zoom naar item</value>
+  </data>
+  <data name="VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view___" xml:space="preserve">
+    <value>Weergave openen...</value>
+  </data>
 </root>

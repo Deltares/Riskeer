@@ -377,10 +377,10 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms
             const string addAttributeItemName = "btnAddAttribute";
             const string zoomItemName = "btnzoomToMenuItem";
             const string openViewItemName = "btnOpenViewMenuItem";
-            const string addAttributeCaption = "Add Attribute";
-            const string deleteAttributeCaption = "Delete Attribute";
-            const string zoomToItemCaption = "Zoom to item";
-            const string openViewCaption = "Open view...";
+            string addAttributeCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Add_Attribute;
+            string deleteAttributeCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Delete_Attribute;
+            string zoomToItemCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Zoom_to_item;
+            string openViewCaption = Resources.VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view___;
 
             if (CanAddDeleteAttributes)
             {

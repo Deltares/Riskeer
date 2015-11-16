@@ -33,9 +33,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             }
         }
 
-        [Category("Coordinates")]
-        [DisplayName("Coordinate system")]
-        [Description("Coordinate system (geographic or projected) used for drawing.")]
+        [ResourcesCategory(typeof(Resources), "Categories_Coordinates")]
+        [ResourcesDisplayName(typeof(Resources), "MapProperties_CoordinateSystem_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "MapProperties_CoordinateSystem_Description")]
         [TypeConverter(typeof(CoordinateSystemStringTypeConverter))]
         [Editor(typeof(CoordinateSystemTypeEditor), typeof(UITypeEditor))]
         public ICoordinateSystem CoordinateSystem
@@ -53,15 +53,16 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
                 }
                 catch (CoordinateTransformException e)
                 {
-                    MessageBox.Show("Cannot convert map to coordinate system: " + e.Message,
-                                    "Coordinate transformation error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var message = string.Format(Resources.MapProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_, e.Message);
+                    MessageBox.Show(message,
+                                    Resources.MapProperties_CoordinateSystem_Coordinate_transformation_error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
-        [Category("Coordinates")]
-        [DisplayName("Show grid")]
-        [Description("Shows or hides latitude / longitude grid.")]
+        [ResourcesCategory(typeof(Resources), "Categories_Coordinates")]
+        [ResourcesDisplayName(typeof(Resources), "MapProperties_ShowGrid_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "MapProperties_ShowGrid_Description")]
         public bool ShowGrid
         {
             get
@@ -72,7 +73,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.GridProperties
             {
                 if (data.CoordinateSystem == null)
                 {
-                    Log.DebugFormat("Showing latitude / longitude grid is supported only when map coordinate system is non-empty");
+                    Log.DebugFormat(Resources.MapProperties_ShowGrid_Showing_latitude___longitude_grid_is_supported_only_when_map_coordinate_system_is_non_empty);
 
                     return;
                 }

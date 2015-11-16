@@ -3,6 +3,7 @@ using Core.Common.Controls.Swf;
 using Core.GIS.SharpMap.CoordinateSystems.Transformations;
 using Core.GIS.SharpMap.Extensions.CoordinateSystems;
 using Core.GIS.SharpMap.UI.Forms;
+using Core.Plugins.SharpMapGis.Gui.Properties;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Core.Plugins.SharpMapGis.Gui.Commands
@@ -34,8 +35,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
                 }
                 catch (CoordinateTransformException e)
                 {
-                    MessageBox.Show("Cannot convert map to selected coordinate system: " + e.Message,
-                                    "Map coordinate system", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var message = string.Format(Resources.MapChangeCoordinateSystemCommand_OnExecute_Cannot_convert_map_to_selected_coordinate_system___0_,e.Message);
+                    MessageBox.Show(message,
+                                    Resources.MapChangeCoordinateSystemCommand_OnExecute_Map_coordinate_system, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     base.OnExecute(arguments);
                 }
             }

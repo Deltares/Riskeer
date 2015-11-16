@@ -90,6 +90,15 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Coördinaten.
+        /// </summary>
+        public static string Categories_Coordinates {
+            get {
+                return ResourceManager.GetString("Categories_Coordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dimensies.
         /// </summary>
         public static string Categories_Dimensions {
@@ -1244,12 +1253,85 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan met dit bestand ({0}) geen lagen aanmaken: {1}.
+        /// </summary>
+        public static string MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s__from_file__0____1_ {
+            get {
+                return ResourceManager.GetString("MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s__from_file__0____1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Laag aanmaken is mislukt.
+        /// </summary>
+        public static string MapAddLayerCommand_TryAddLayerFromFile_Layer_creation_failed {
+            get {
+                return ResourceManager.GetString("MapAddLayerCommand_TryAddLayerFromFile_Layer_creation_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan kaart niet converteren naar geselecteerde coördinatenstelsel: {0}.
+        /// </summary>
+        public static string MapChangeCoordinateSystemCommand_OnExecute_Cannot_convert_map_to_selected_coordinate_system___0_ {
+            get {
+                return ResourceManager.GetString("MapChangeCoordinateSystemCommand_OnExecute_Cannot_convert_map_to_selected_coordin" +
+                        "ate_system___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coördinatenstelsel van de kaart.
+        /// </summary>
+        public static string MapChangeCoordinateSystemCommand_OnExecute_Map_coordinate_system {
+            get {
+                return ResourceManager.GetString("MapChangeCoordinateSystemCommand_OnExecute_Map_coordinate_system", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap MapPanZoomImage {
             get {
                 object obj = ResourceManager.GetObject("MapPanZoomImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan de kaart niet converteren naar het coördinatenstelsel: {0}.
+        /// </summary>
+        public static string MapProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_ {
+            get {
+                return ResourceManager.GetString("MapProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coördinaat-transformatie fout.
+        /// </summary>
+        public static string MapProperties_CoordinateSystem_Coordinate_transformation_error {
+            get {
+                return ResourceManager.GetString("MapProperties_CoordinateSystem_Coordinate_transformation_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coördinaatsysteem (geografisch of geprojecteerd) dat gebruikt wordt voor het tekenen..
+        /// </summary>
+        public static string MapProperties_CoordinateSystem_Description {
+            get {
+                return ResourceManager.GetString("MapProperties_CoordinateSystem_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coördinaatsysteem.
+        /// </summary>
+        public static string MapProperties_CoordinateSystem_DisplayName {
+            get {
+                return ResourceManager.GetString("MapProperties_CoordinateSystem_DisplayName", resourceCulture);
             }
         }
         
@@ -1268,6 +1350,34 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         public static string MapProperties_Name_Description {
             get {
                 return ResourceManager.GetString("MapProperties_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het breedtegraad-/lengtegraadraster weergeven of verbergen..
+        /// </summary>
+        public static string MapProperties_ShowGrid_Description {
+            get {
+                return ResourceManager.GetString("MapProperties_ShowGrid_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raster weergeven.
+        /// </summary>
+        public static string MapProperties_ShowGrid_DisplayName {
+            get {
+                return ResourceManager.GetString("MapProperties_ShowGrid_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weergegeven breedtegraad-/lengtegraadraster wordt alleen ondersteund als coördinatenstelsel van de kaart niet leeg is.
+        /// </summary>
+        public static string MapProperties_ShowGrid_Showing_latitude___longitude_grid_is_supported_only_when_map_coordinate_system_is_non_empty {
+            get {
+                return ResourceManager.GetString("MapProperties_ShowGrid_Showing_latitude___longitude_grid_is_supported_only_when_m" +
+                        "ap_coordinate_system_is_non_empty", resourceCulture);
             }
         }
         
@@ -2417,6 +2527,44 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attribuut toevoegen.
+        /// </summary>
+        public static string VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Add_Attribute {
+            get {
+                return ResourceManager.GetString("VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Add_Attribute" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attribuut verwijderen.
+        /// </summary>
+        public static string VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Delete_Attribute {
+            get {
+                return ResourceManager.GetString("VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Delete_Attrib" +
+                        "ute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weergave openen....
+        /// </summary>
+        public static string VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view___ {
+            get {
+                return ResourceManager.GetString("VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Open_view___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom naar item.
+        /// </summary>
+        public static string VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Zoom_to_item {
+            get {
+                return ResourceManager.GetString("VectorLayerAttributeTableView_InitializeDynamicAttributeContextMenu_Zoom_to_item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vector laag (lijn).
         /// </summary>
         public static string VectorLayerLineProperties_DisplayName {
@@ -2431,6 +2579,16 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         public static string VectorLayerPointProperties_DisplayName {
             get {
                 return ResourceManager.GetString("VectorLayerPointProperties_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan de kaart niet converteren naar het coördinatenstelsel: {0}.
+        /// </summary>
+        public static string VectorLayerPolygonProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_system___0_ {
+            get {
+                return ResourceManager.GetString("VectorLayerPolygonProperties_CoordinateSystem_Cannot_convert_map_to_coordinate_sy" +
+                        "stem___0_", resourceCulture);
             }
         }
         

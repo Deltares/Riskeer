@@ -34,14 +34,14 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MapLegendView));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.buttonAddLayer = new System.Windows.Forms.ToolStripButton();
             this.buttonAddWmsLayer = new System.Windows.Forms.ToolStripButton();
+            this.buttonAddLayer = new System.Windows.Forms.ToolStripButton();
             this.buttonRemoveLayer = new System.Windows.Forms.ToolStripButton();
             this.contextMenuLayer = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuLayerOpenAttributeTable = new ClonableToolStripMenuItem();
+            this.contextMenuLayerOpenAttributeTable = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.contextMenuLayerDelete = new ClonableToolStripMenuItem();
-            this.contextMenuLayerRename = new ClonableToolStripMenuItem();
+            this.contextMenuLayerDelete = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
+            this.contextMenuLayerRename = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.orderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bringToFrontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,21 +49,21 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.bringForwardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sendBackwardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zoomToLayerToolStripMenuItem1 = new ClonableToolStripMenuItem();
-            this.zoomToMapExtentsToolStripMenuItem1 = new ClonableToolStripMenuItem();
+            this.zoomToLayerToolStripMenuItem1 = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
+            this.zoomToMapExtentsToolStripMenuItem1 = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.showLabelsToolStripMenuItem = new ClonableToolStripMenuItem();
-            this.showInLegendToolStripMenuItem = new ClonableToolStripMenuItem();
-            this.hideAllButThisOneToolStripMenuItem = new ClonableToolStripMenuItem();
-            this.TreeView = new TreeView();
+            this.showLabelsToolStripMenuItem = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
+            this.showInLegendToolStripMenuItem = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
+            this.hideAllButThisOneToolStripMenuItem = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
+            this.TreeView = new Core.Common.Controls.Swf.TreeViewControls.TreeView();
             this.contextMenuWmsLayer = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.zoomToLayerToolStripMenuItem = new ClonableToolStripMenuItem();
+            this.zoomToLayerToolStripMenuItem = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
             this.contextMenuMap = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.addLayerToolStripMenuItem = new ClonableToolStripMenuItem();
-            this.addLayergroupToolStripMenuItem = new ClonableToolStripMenuItem();
+            this.addLayerToolStripMenuItem = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
+            this.addLayergroupToolStripMenuItem = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.zoomToExtentsToolStripMenuItem = new ClonableToolStripMenuItem();
-            this.zoomToMapExtentsToolStripMenuItem = new ClonableToolStripMenuItem();
+            this.zoomToExtentsToolStripMenuItem = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
+            this.zoomToMapExtentsToolStripMenuItem = new Core.Common.Controls.Swf.ClonableToolStripMenuItem();
             this.changeCoordinateSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.contextMenuLayer.SuspendLayout();
@@ -73,53 +73,37 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             // 
             // toolStrip1
             // 
-            this.toolStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonAddWmsLayer,
             this.buttonAddLayer,
             this.buttonRemoveLayer});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(263, 25);
-            this.toolStrip1.TabIndex = 3;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // buttonAddLayer
-            // 
-            this.buttonAddLayer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonAddLayer.Image = ((System.Drawing.Image)(resources.GetObject("buttonAddLayer.Image")));
-            this.buttonAddLayer.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonAddLayer.Name = "buttonAddLayer";
-            this.buttonAddLayer.Size = new System.Drawing.Size(23, 22);
-            this.buttonAddLayer.Tag = "AddNewLayer";
-            this.buttonAddLayer.Text = "Add New layer ...";
-            this.buttonAddLayer.ToolTipText = "Add New Layer ...";
-            this.buttonAddLayer.Click += new System.EventHandler(this.ButtonAddLayerClick);
             // 
             // buttonAddWmsLayer
             // 
             this.buttonAddWmsLayer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonAddWmsLayer.Image = ((System.Drawing.Image)(resources.GetObject("buttonAddWmsLayer.Image")));
-            this.buttonAddWmsLayer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            resources.ApplyResources(this.buttonAddWmsLayer, "buttonAddWmsLayer");
             this.buttonAddWmsLayer.Name = "buttonAddWmsLayer";
-            this.buttonAddWmsLayer.Size = new System.Drawing.Size(23, 22);
             this.buttonAddWmsLayer.Tag = "AddNewWmsLayer";
-            this.buttonAddWmsLayer.Text = "Add New Wms Layer ...";
-            this.buttonAddWmsLayer.ToolTipText = "Add New Wms Layer ...";
             this.buttonAddWmsLayer.Click += new System.EventHandler(this.ButtonAddWmsLayerClick);
+            // 
+            // buttonAddLayer
+            // 
+            this.buttonAddLayer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            resources.ApplyResources(this.buttonAddLayer, "buttonAddLayer");
+            this.buttonAddLayer.Name = "buttonAddLayer";
+            this.buttonAddLayer.Tag = "AddNewLayer";
+            this.buttonAddLayer.Click += new System.EventHandler(this.ButtonAddLayerClick);
             // 
             // buttonRemoveLayer
             // 
             this.buttonRemoveLayer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonRemoveLayer.Image = ((System.Drawing.Image)(resources.GetObject("buttonRemoveLayer.Image")));
-            this.buttonRemoveLayer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            resources.ApplyResources(this.buttonRemoveLayer, "buttonRemoveLayer");
             this.buttonRemoveLayer.Name = "buttonRemoveLayer";
-            this.buttonRemoveLayer.Size = new System.Drawing.Size(23, 22);
             this.buttonRemoveLayer.Tag = "RemoveSelectedLayer";
-            this.buttonRemoveLayer.Text = "Remove Selected Layer";
-            this.buttonRemoveLayer.ToolTipText = "Remove Selected Layer";
             this.buttonRemoveLayer.Click += new System.EventHandler(this.ButtonRemoveLayerClick);
             // 
             // contextMenuLayer
@@ -138,7 +122,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.showInLegendToolStripMenuItem,
             this.hideAllButThisOneToolStripMenuItem});
             this.contextMenuLayer.Name = "contextMenuLayer";
-            this.contextMenuLayer.Size = new System.Drawing.Size(257, 220);
+            resources.ApplyResources(this.contextMenuLayer, "contextMenuLayer");
             this.contextMenuLayer.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuLayerOpening);
             this.contextMenuLayer.VisibleChanged += new System.EventHandler(this.ContextMenuLayerVisibleChanged);
             // 
@@ -146,34 +130,31 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             // 
             this.contextMenuLayerOpenAttributeTable.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.table;
             this.contextMenuLayerOpenAttributeTable.Name = "contextMenuLayerOpenAttributeTable";
-            this.contextMenuLayerOpenAttributeTable.Size = new System.Drawing.Size(256, 22);
-            this.contextMenuLayerOpenAttributeTable.Text = "Open Attribute Table";
+            resources.ApplyResources(this.contextMenuLayerOpenAttributeTable, "contextMenuLayerOpenAttributeTable");
             this.contextMenuLayerOpenAttributeTable.Click += new System.EventHandler(this.ContextMenuOpenLayerAttributeTableClick);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(253, 6);
+            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
             // 
             // contextMenuLayerDelete
             // 
             this.contextMenuLayerDelete.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.DeleteHS;
             this.contextMenuLayerDelete.Name = "contextMenuLayerDelete";
-            this.contextMenuLayerDelete.Size = new System.Drawing.Size(256, 22);
-            this.contextMenuLayerDelete.Text = "&Delete";
+            resources.ApplyResources(this.contextMenuLayerDelete, "contextMenuLayerDelete");
             this.contextMenuLayerDelete.Click += new System.EventHandler(this.ContextMenuLayerDeleteClick);
             // 
             // contextMenuLayerRename
             // 
             this.contextMenuLayerRename.Name = "contextMenuLayerRename";
-            this.contextMenuLayerRename.Size = new System.Drawing.Size(256, 22);
-            this.contextMenuLayerRename.Text = "&Rename";
+            resources.ApplyResources(this.contextMenuLayerRename, "contextMenuLayerRename");
             this.contextMenuLayerRename.Click += new System.EventHandler(this.ContextMenuLayerRenameClick);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(253, 6);
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
             // 
             // orderToolStripMenuItem
             // 
@@ -185,70 +166,62 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.sendBackwardToolStripMenuItem});
             this.orderToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.layers_stack;
             this.orderToolStripMenuItem.Name = "orderToolStripMenuItem";
-            this.orderToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.orderToolStripMenuItem.Text = "Order";
+            resources.ApplyResources(this.orderToolStripMenuItem, "orderToolStripMenuItem");
             // 
             // bringToFrontToolStripMenuItem
             // 
             this.bringToFrontToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.layers_stack_arrange;
             this.bringToFrontToolStripMenuItem.Name = "bringToFrontToolStripMenuItem";
-            this.bringToFrontToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.bringToFrontToolStripMenuItem.Text = "Bring to front";
+            resources.ApplyResources(this.bringToFrontToolStripMenuItem, "bringToFrontToolStripMenuItem");
             this.bringToFrontToolStripMenuItem.Click += new System.EventHandler(this.BringToFrontToolStripMenuItemClick);
             // 
             // sendToBackToolStripMenuItem
             // 
             this.sendToBackToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.layers_stack_arrange_back;
             this.sendToBackToolStripMenuItem.Name = "sendToBackToolStripMenuItem";
-            this.sendToBackToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.sendToBackToolStripMenuItem.Text = "Send to back";
+            resources.ApplyResources(this.sendToBackToolStripMenuItem, "sendToBackToolStripMenuItem");
             this.sendToBackToolStripMenuItem.Click += new System.EventHandler(this.SendToBackToolStripMenuItemClick);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(151, 6);
+            resources.ApplyResources(this.toolStripSeparator6, "toolStripSeparator6");
             // 
             // bringForwardToolStripMenuItem
             // 
             this.bringForwardToolStripMenuItem.Name = "bringForwardToolStripMenuItem";
-            this.bringForwardToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.bringForwardToolStripMenuItem.Text = "Bring forward";
+            resources.ApplyResources(this.bringForwardToolStripMenuItem, "bringForwardToolStripMenuItem");
             this.bringForwardToolStripMenuItem.Click += new System.EventHandler(this.BringForwardToolStripMenuItemClick);
             // 
             // sendBackwardToolStripMenuItem
             // 
             this.sendBackwardToolStripMenuItem.Name = "sendBackwardToolStripMenuItem";
-            this.sendBackwardToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.sendBackwardToolStripMenuItem.Text = "Send backward";
+            resources.ApplyResources(this.sendBackwardToolStripMenuItem, "sendBackwardToolStripMenuItem");
             this.sendBackwardToolStripMenuItem.Click += new System.EventHandler(this.SendBackwardToolStripMenuItemClick);
             // 
             // zoomToLayerToolStripMenuItem1
             // 
             this.zoomToLayerToolStripMenuItem1.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.MapZoomToExtentsImage;
             this.zoomToLayerToolStripMenuItem1.Name = "zoomToLayerToolStripMenuItem1";
-            this.zoomToLayerToolStripMenuItem1.Size = new System.Drawing.Size(256, 22);
-            this.zoomToLayerToolStripMenuItem1.Text = "&Zoom to Extent";
+            resources.ApplyResources(this.zoomToLayerToolStripMenuItem1, "zoomToLayerToolStripMenuItem1");
             this.zoomToLayerToolStripMenuItem1.Click += new System.EventHandler(this.ZoomToLayerToolStripMenuItem1Click);
             // 
             // zoomToMapExtentsToolStripMenuItem1
             // 
             this.zoomToMapExtentsToolStripMenuItem1.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.layers_ungroup;
             this.zoomToMapExtentsToolStripMenuItem1.Name = "zoomToMapExtentsToolStripMenuItem1";
-            this.zoomToMapExtentsToolStripMenuItem1.Size = new System.Drawing.Size(256, 22);
-            this.zoomToMapExtentsToolStripMenuItem1.Text = "Synchronize Zoom Level with Map";
+            resources.ApplyResources(this.zoomToMapExtentsToolStripMenuItem1, "zoomToMapExtentsToolStripMenuItem1");
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(253, 6);
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // showLabelsToolStripMenuItem
             // 
             this.showLabelsToolStripMenuItem.CheckOnClick = true;
             this.showLabelsToolStripMenuItem.Name = "showLabelsToolStripMenuItem";
-            this.showLabelsToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.showLabelsToolStripMenuItem.Text = "Show Labels";
+            resources.ApplyResources(this.showLabelsToolStripMenuItem, "showLabelsToolStripMenuItem");
             this.showLabelsToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.ShowLabelsToolStripMenuItemCheckStateChanged);
             // 
             // showInLegendToolStripMenuItem
@@ -257,44 +230,36 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.showInLegendToolStripMenuItem.CheckOnClick = true;
             this.showInLegendToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showInLegendToolStripMenuItem.Name = "showInLegendToolStripMenuItem";
-            this.showInLegendToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.showInLegendToolStripMenuItem.Text = "Show in Legend";
+            resources.ApplyResources(this.showInLegendToolStripMenuItem, "showInLegendToolStripMenuItem");
             this.showInLegendToolStripMenuItem.Click += new System.EventHandler(this.ShowInLegendToolStripMenuItemClick);
             // 
             // hideAllButThisOneToolStripMenuItem
             // 
             this.hideAllButThisOneToolStripMenuItem.Name = "hideAllButThisOneToolStripMenuItem";
-            this.hideAllButThisOneToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.hideAllButThisOneToolStripMenuItem.Text = "Hide All Layers but this one";
+            resources.ApplyResources(this.hideAllButThisOneToolStripMenuItem, "hideAllButThisOneToolStripMenuItem");
             this.hideAllButThisOneToolStripMenuItem.Click += new System.EventHandler(this.HideAllButThisOneToolStripMenuItemClick);
             // 
             // TreeView
             // 
             this.TreeView.AllowDrop = true;
-            this.TreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            resources.ApplyResources(this.TreeView, "TreeView");
             this.TreeView.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawAll;
             this.TreeView.HideSelection = false;
-            this.TreeView.ImageIndex = 0;
             this.TreeView.LabelEdit = true;
-            this.TreeView.Location = new System.Drawing.Point(0, 25);
             this.TreeView.Name = "TreeView";
-            this.TreeView.SelectedImageIndex = 0;
             this.TreeView.SelectNodeOnRightMouseClick = true;
-            this.TreeView.Size = new System.Drawing.Size(263, 363);
-            this.TreeView.TabIndex = 4;
             // 
             // contextMenuWmsLayer
             // 
             this.contextMenuWmsLayer.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.zoomToLayerToolStripMenuItem});
             this.contextMenuWmsLayer.Name = "contextMenuLayer";
-            this.contextMenuWmsLayer.Size = new System.Drawing.Size(152, 26);
+            resources.ApplyResources(this.contextMenuWmsLayer, "contextMenuWmsLayer");
             // 
             // zoomToLayerToolStripMenuItem
             // 
             this.zoomToLayerToolStripMenuItem.Name = "zoomToLayerToolStripMenuItem";
-            this.zoomToLayerToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
-            this.zoomToLayerToolStripMenuItem.Text = "Zoom to Layer";
+            resources.ApplyResources(this.zoomToLayerToolStripMenuItem, "zoomToLayerToolStripMenuItem");
             this.zoomToLayerToolStripMenuItem.Click += new System.EventHandler(this.ZoomToLayerToolStripMenuItemClick);
             // 
             // contextMenuMap
@@ -307,58 +272,52 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
             this.zoomToMapExtentsToolStripMenuItem,
             this.changeCoordinateSystemToolStripMenuItem});
             this.contextMenuMap.Name = "contextMenuMap";
-            this.contextMenuMap.Size = new System.Drawing.Size(258, 142);
+            resources.ApplyResources(this.contextMenuMap, "contextMenuMap");
             this.contextMenuMap.VisibleChanged += new System.EventHandler(this.ContextMenuMapVisibleChanged);
             // 
             // addLayerToolStripMenuItem
             // 
             this.addLayerToolStripMenuItem.Name = "addLayerToolStripMenuItem";
-            this.addLayerToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
-            this.addLayerToolStripMenuItem.Text = "Add Layer";
+            resources.ApplyResources(this.addLayerToolStripMenuItem, "addLayerToolStripMenuItem");
             this.addLayerToolStripMenuItem.Click += new System.EventHandler(this.AddLayerToolStripMenuItemClick);
             // 
             // addLayergroupToolStripMenuItem
             // 
             this.addLayergroupToolStripMenuItem.Name = "addLayergroupToolStripMenuItem";
-            this.addLayergroupToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
-            this.addLayergroupToolStripMenuItem.Text = "Add Layer Group";
+            resources.ApplyResources(this.addLayergroupToolStripMenuItem, "addLayergroupToolStripMenuItem");
             this.addLayergroupToolStripMenuItem.Click += new System.EventHandler(this.AddLayergroupToolStripMenuItemClick);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(254, 6);
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
             // 
             // zoomToExtentsToolStripMenuItem
             // 
             this.zoomToExtentsToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.MapZoomToExtentsImage;
             this.zoomToExtentsToolStripMenuItem.Name = "zoomToExtentsToolStripMenuItem";
-            this.zoomToExtentsToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
-            this.zoomToExtentsToolStripMenuItem.Text = "Zoom to Extents";
+            resources.ApplyResources(this.zoomToExtentsToolStripMenuItem, "zoomToExtentsToolStripMenuItem");
             this.zoomToExtentsToolStripMenuItem.Click += new System.EventHandler(this.ZoomToExtentsToolStripMenuItemClick);
             // 
             // zoomToMapExtentsToolStripMenuItem
             // 
             this.zoomToMapExtentsToolStripMenuItem.Name = "zoomToMapExtentsToolStripMenuItem";
-            this.zoomToMapExtentsToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
-            this.zoomToMapExtentsToolStripMenuItem.Text = "Zoom to Map";
+            resources.ApplyResources(this.zoomToMapExtentsToolStripMenuItem, "zoomToMapExtentsToolStripMenuItem");
             // 
             // changeCoordinateSystemToolStripMenuItem
             // 
             this.changeCoordinateSystemToolStripMenuItem.Image = global::Core.Plugins.SharpMapGis.Gui.Properties.Resources.globe__pencil;
             this.changeCoordinateSystemToolStripMenuItem.Name = "changeCoordinateSystemToolStripMenuItem";
-            this.changeCoordinateSystemToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
-            this.changeCoordinateSystemToolStripMenuItem.Text = "Change Map Coordinate System ...";
+            resources.ApplyResources(this.changeCoordinateSystemToolStripMenuItem, "changeCoordinateSystemToolStripMenuItem");
             this.changeCoordinateSystemToolStripMenuItem.Click += new System.EventHandler(this.ChangeCoordinateSystemToolStripMenuItem_Click);
             // 
             // MapLegendView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.TreeView);
             this.Controls.Add(this.toolStrip1);
             this.Name = "MapLegendView";
-            this.Size = new System.Drawing.Size(263, 388);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.contextMenuLayer.ResumeLayout(false);

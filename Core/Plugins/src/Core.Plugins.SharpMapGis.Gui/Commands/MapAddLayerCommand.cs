@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.GIS.SharpMap.Api.Layers;
 using Core.GIS.SharpMap.Map;
+using Core.Plugins.SharpMapGis.Gui.Properties;
 using log4net;
 using MessageBox = Core.Common.Controls.Swf.MessageBox;
 
@@ -90,9 +91,9 @@ namespace Core.Plugins.SharpMapGis.Gui.Commands
             }
             catch (Exception e)
             {
-                var message = string.Format("Cannot create layer(s) from file {0}: {1}", file, e.Message);
+                var message = string.Format(Resources.MapAddLayerCommand_TryAddLayerFromFile_Cannot_create_layer_s__from_file__0____1_, file, e.Message);
                 log.Error(message);
-                MessageBox.Show(message, "Layer creation failed",
+                MessageBox.Show(message, Resources.MapAddLayerCommand_TryAddLayerFromFile_Layer_creation_failed,
                                 MessageBoxButtons.OK);
             }
         }
