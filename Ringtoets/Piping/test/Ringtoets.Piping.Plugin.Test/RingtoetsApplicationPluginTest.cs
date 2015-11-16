@@ -33,14 +33,14 @@ namespace Ringtoets.Piping.Plugin.Test
             // assert
             Assert.AreEqual(1, dataItemDefinitions.Length);
 
-            DataItemInfo projectDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(AssessmentSection));
-            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionProperties_DisplayName, projectDataItemDefinition.Name);
-            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionProperties_Category, projectDataItemDefinition.Category);
-            Assert.AreEqual(16, projectDataItemDefinition.Image.Width);
-            Assert.AreEqual(16, projectDataItemDefinition.Image.Height);
-            Assert.IsNull(projectDataItemDefinition.AdditionalOwnerCheck);
-            Assert.IsInstanceOf<AssessmentSection>(projectDataItemDefinition.CreateData(null));
-            Assert.IsNull(projectDataItemDefinition.AddExampleData);
+            DataItemInfo assessmentSectionDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(AssessmentSection));
+            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionProperties_DisplayName, assessmentSectionDataItemDefinition.Name);
+            Assert.AreEqual(RingtoetsFormsResources.AssessmentSectionProperties_Category, assessmentSectionDataItemDefinition.Category);
+            Assert.AreEqual(16, assessmentSectionDataItemDefinition.Image.Width);
+            Assert.AreEqual(16, assessmentSectionDataItemDefinition.Image.Height);
+            Assert.IsNull(assessmentSectionDataItemDefinition.AdditionalOwnerCheck);
+            Assert.IsInstanceOf<AssessmentSection>(assessmentSectionDataItemDefinition.CreateData(null));
+            Assert.IsNull(assessmentSectionDataItemDefinition.AddExampleData);
         }
 
         [Test]

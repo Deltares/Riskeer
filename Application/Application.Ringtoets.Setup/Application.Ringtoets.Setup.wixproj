@@ -15,7 +15,7 @@
 		Environment Variable: BUILD_NUMBER
 		Field could be set by BuildServer. If not present, it will be skipped.
 	-->
-    <OutputName Condition=" '$(BUILD_NUMBER)' == '' ">Ringtoets Setup %28%24%28ReleaseVersion%29%29</OutputName>
+    <OutputName Condition=" '$(BUILD_NUMBER)' == '' ">Ringtoets Setup ($(ReleaseVersion))</OutputName>
     <OutputName Condition=" '$(BUILD_NUMBER)' != '' ">Ringtoets Setup ($(ReleaseVersion).$(BUILD_NUMBER))</OutputName>
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
@@ -57,7 +57,7 @@
     <Compile Include="Installer UI\UserExitDeltares.wxs" />
     <Compile Include="Installer UI\VerifyReadyDlgDeltares.wxs" />
     <Compile Include="Installer UI\WelcomeDlgDeltares.wxs" />
-    <Compile Include="Installer UI\RingtoetsUI_Deltares.wxs" />
+    <Compile Include="Installer UI\wixUI_Deltares.wxs" />
     <Compile Include="Product.wxs" />
     <Compile Include="RingtoetsPayload.wxs" />
   </ItemGroup>
@@ -81,7 +81,7 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Installer UI\RingtoetsUIVariables.wxl" />
+    <EmbeddedResource Include="Installer UI\WixUIVariables.wxl" />
     <EmbeddedResource Include="Localization_nl-NL.wxl" />
   </ItemGroup>
   <ItemGroup>
