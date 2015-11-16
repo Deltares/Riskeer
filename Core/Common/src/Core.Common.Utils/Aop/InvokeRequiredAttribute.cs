@@ -67,8 +67,8 @@ namespace Core.Common.Utils.Aop
 
         private static void LogInvokeError(string methodName, Exception e, bool beforeCall)
         {
-            log.Error(string.Format(Resource.InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error__call__1_____0_, methodName,
-                                    beforeCall ? "skipping" : "aborted"), e);
+            log.Error(string.Format(Resource.InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error_call_1_0_, methodName,
+                                    beforeCall ? Resource.InvokeRequiredAttribute_LogInvokeError_skipping : Resource.InvokeRequiredAttribute_LogInvokeError_aborted), e);
         }
 
         private class InvokeBlocker : IDisposable

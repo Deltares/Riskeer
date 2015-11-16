@@ -61,6 +61,16 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kon &apos;Assembly&apos; informatie niet lezen voor {0} : {1}.
+        /// </summary>
+        internal static string AssemblyUtils_LoadAllAssembliesFromDirectory_Could_not_read_assembly_information_for__0_____1_ {
+            get {
+                return ResourceManager.GetString("AssemblyUtils_LoadAllAssembliesFromDirectory_Could_not_read_assembly_information_" +
+                        "for__0_____1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Argument van DynamicReadOnlyValidationMethod heeft een incorrect type. Zou van het type string moeten zijn. Klasse: {0}.
         /// </summary>
         internal static string DynamicReadOnlyAttribute_GetDynamicReadOnlyValidationMethod_DynamicReadOnlyValidationMethod_has_incorrect_argument_type__should_be_of_type_string__class___0_ {
@@ -160,12 +170,38 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kopiëren van {0}\{1}.
+        /// </summary>
+        internal static string FileUtils_CopyAll_Copying__0___1_ {
+            get {
+                return ResourceManager.GetString("FileUtils_CopyAll_Copying__0___1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to afgebroken.
+        /// </summary>
+        internal static string InvokeRequiredAttribute_LogInvokeError_aborted {
+            get {
+                return ResourceManager.GetString("InvokeRequiredAttribute_LogInvokeError_aborted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to wordt overgeslagen.
+        /// </summary>
+        internal static string InvokeRequiredAttribute_LogInvokeError_skipping {
+            get {
+                return ResourceManager.GetString("InvokeRequiredAttribute_LogInvokeError_skipping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thread synchronisatiefout (aanroep {1}): {0}.
         /// </summary>
-        internal static string InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error__call__1_____0_ {
+        internal static string InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error_call_1_0_ {
             get {
-                return ResourceManager.GetString("InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error__call__1_____" +
-                        "0_", resourceCulture);
+                return ResourceManager.GetString("InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error_call_1_0_", resourceCulture);
             }
         }
         
@@ -230,6 +266,15 @@ namespace Core.Common.Utils.Properties {
         internal static string TypeUtils_CreateInstance_No_default_constructor_available_for_type__0_ {
             get {
                 return ResourceManager.GetString("TypeUtils_CreateInstance_No_default_constructor_available_for_type__0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; is niet een geldige expressie voor deze methode.
+        /// </summary>
+        internal static string TypeUtils_GetMemberName___0____is_not_a_valid_expression_for_this_method {
+            get {
+                return ResourceManager.GetString("TypeUtils_GetMemberName___0____is_not_a_valid_expression_for_this_method", resourceCulture);
             }
         }
         

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Core.Common.Utils.Properties;
 using log4net;
 
 namespace Core.Common.Utils.Reflection
@@ -274,7 +275,7 @@ namespace Core.Common.Utils.Reflection
                 }
                 catch (Exception exception)
                 {
-                    log.ErrorFormat("Could not read assembly information for {0} : {1}", assemblyName, exception.Message);
+                    log.ErrorFormat(Resource.AssemblyUtils_LoadAllAssembliesFromDirectory_Could_not_read_assembly_information_for__0_____1_, assemblyName, exception.Message);
                     continue;
                 }
 

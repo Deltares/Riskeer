@@ -127,7 +127,6 @@
     <Compile Include="ComponentModel\DynamicVisibleAttribute.cs" />
     <Compile Include="ComponentModel\DynamicVisibleValidationMethodAttribute.cs" />
     <Compile Include="CultureUtils.cs" />
-    <Compile Include="DateTimeFormats.cs" />
     <Compile Include="DisplayFormatAttribute.cs" />
     <Compile Include="Globalization\RegionalSettingsManager.cs" />
     <Compile Include="GraphicsUtils.cs" />
@@ -187,8 +186,6 @@
     <Compile Include="Validation\ValidationIssue.cs" />
     <Compile Include="Validation\ValidationReport.cs" />
     <Compile Include="Validation\ValidationSeverity.cs" />
-    <Compile Include="FormulaParser\ExcelFormula.cs" />
-    <Compile Include="FormulaParser\ExcelFormulaToken.cs" />
     <Compile Include="IO\FileUtils.cs" />
     <Compile Include="Reflection\AssemblyUtils.cs" />
     <Compile Include="Collections\Generic\EventedList.cs" />
@@ -234,6 +231,7 @@
     <EmbeddedResource Include="Properties\Resource.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

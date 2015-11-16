@@ -105,14 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\Swf\Charting\ChartTest.cs" />
-    <Compile Include="Controls\Swf\Charting\QuarterViewDateTimeFormatProviderTest.cs" />
     <Compile Include="Controls\Swf\Charting\Series\AreaChartSeriesTest.cs" />
     <Compile Include="Controls\Swf\Charting\Series\BarSeriesTest.cs" />
     <Compile Include="Controls\Swf\Charting\Series\LineChartSeriesTest.cs" />
     <Compile Include="Controls\Swf\Charting\Series\PointChartSeriesTest.cs" />
     <Compile Include="Controls\Swf\Charting\Series\PolygonChartSeriesTest.cs" />
     <Compile Include="Controls\Swf\Charting\Series\TeeChartSeriesDecoratorTest.cs" />
-    <Compile Include="Controls\Swf\Charting\YearViewDateTimeFormatProviderTest.cs" />
     <Compile Include="Controls\Swf\FindAndReplaceControlTest.cs" />
     <Compile Include="Controls\Swf\MessageBoxTest.cs" />
     <Compile Include="Controls\Swf\Table\TableViewPasteControllerTest.cs" />

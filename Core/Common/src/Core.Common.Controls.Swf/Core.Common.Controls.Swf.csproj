@@ -145,8 +145,6 @@
     </Compile>
     <Compile Include="Charting\Tools\ExportChartAsImageChartTool.cs" />
     <Compile Include="Charting\Tools\RulerTool.cs" />
-    <Compile Include="Charting\YearNavigatableLabelFormatProvider.cs" />
-    <Compile Include="Charting\QuarterNavigatableLabelFormatProvider.cs" />
     <Compile Include="Charting\ChartView.cs">
       <SubType>UserControl</SubType>
     </Compile>

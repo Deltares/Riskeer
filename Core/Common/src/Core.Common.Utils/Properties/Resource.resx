@@ -132,7 +132,7 @@
   <data name="ZipFileUtils_StreamUtilsCopy_Buffer_is_too_small_Should_be_at_least_0_" xml:space="preserve">
     <value>De buffer is te klein: buffer moet minstens {0} byte groot zijn.</value>
   </data>
-  <data name="InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error__call__1_____0_" xml:space="preserve">
+  <data name="InvokeRequiredAttribute_LogInvokeError_Thread_synchronization_error_call_1_0_" xml:space="preserve">
     <value>Thread synchronisatiefout (aanroep {1}): {0}</value>
   </data>
   <data name="DynamicReadOnlyAttribute_IsDynamicReadOnly_Could_not_find_property__0__on_type__1_" xml:space="preserve">
@@ -179,5 +179,20 @@
   </data>
   <data name="ValidationReport_ToString__0___severity___1____2__error_s____3__warning_s____4__info_" xml:space="preserve">
     <value>{0}, ernst: {1} ({2} fout(en), {3} waarschuwing(en), {4} info)</value>
+  </data>
+  <data name="InvokeRequiredAttribute_LogInvokeError_skipping" xml:space="preserve">
+    <value>wordt overgeslagen</value>
+  </data>
+  <data name="InvokeRequiredAttribute_LogInvokeError_aborted" xml:space="preserve">
+    <value>afgebroken</value>
+  </data>
+  <data name="FileUtils_CopyAll_Copying__0___1_" xml:space="preserve">
+    <value>Kopiëren van {0}\{1}</value>
+  </data>
+  <data name="AssemblyUtils_LoadAllAssembliesFromDirectory_Could_not_read_assembly_information_for__0_____1_" xml:space="preserve">
+    <value>Kon 'Assembly' informatie niet lezen voor {0} : {1}</value>
+  </data>
+  <data name="TypeUtils_GetMemberName___0____is_not_a_valid_expression_for_this_method" xml:space="preserve">
+    <value>'{0}' is niet een geldige expressie voor deze methode</value>
   </data>
 </root>

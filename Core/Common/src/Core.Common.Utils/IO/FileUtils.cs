@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Core.Common.Utils.Properties;
 using log4net;
 using NDepend.Helpers.FileDirectoryPath;
 
@@ -79,7 +80,7 @@ namespace Core.Common.Utils.IO
             }
             foreach (var fi in source.GetFiles())
             {
-                Log.DebugFormat(@"Copying {0}\{1}", target.FullName, fi.Name);
+                Log.DebugFormat(Resource.FileUtils_CopyAll_Copying__0___1_, target.FullName, fi.Name);
 
                 if (!target.Exists)
                 {
@@ -125,7 +126,7 @@ namespace Core.Common.Utils.IO
         /// <returns></returns>
         public static bool IsSubdirectory(string rootDir, string searchItem)
         {
-            if (rootDir.StartsWith("\\")) //network disk?
+            if (rootDir.StartsWith("\\\\")) //network disk?
             {
                 return searchItem.StartsWith(rootDir, StringComparison.InvariantCultureIgnoreCase);
             }
@@ -186,7 +187,7 @@ namespace Core.Common.Utils.IO
                 return filePath;
             }
 
-            if (rootDir.StartsWith("\\") && IsSubdirectory(rootDir, filePath)) //network disk?
+            if (rootDir.StartsWith("\\\\") && IsSubdirectory(rootDir, filePath)) //network disk?
             {
                 return "." + filePath.Substring(rootDir.Length);
             }

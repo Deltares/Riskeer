@@ -104,7 +104,6 @@
     <Compile Include="ComparableExtensionsTest.cs" />
     <Compile Include="ComparerTest.cs" />
     <Compile Include="ConversionHelperTest.cs" />
-    <Compile Include="ExcelFormulaTest.cs" />
     <Compile Include="General\TypeConverterTest.cs" />
     <Compile Include="Globalization\RegionalSettingsManagerTest.cs" />
     <Compile Include="IO\FileUtilsTest.cs" />

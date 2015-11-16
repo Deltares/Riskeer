@@ -270,9 +270,8 @@ namespace Core.Common.Utils.Reflection
                 return GetMemberNameFromMemberExpression(unary.Operand as MemberExpression);
             }
 
-            throw new ArgumentException(
-                "'" + e +
-                "': is not a valid expression for this method");
+            var message = string.Format(Resource.TypeUtils_GetMemberName___0____is_not_a_valid_expression_for_this_method, e);
+            throw new ArgumentException(message);
         }
 
         public static string GetMemberName<T>(Expression<Func<T>> e)
