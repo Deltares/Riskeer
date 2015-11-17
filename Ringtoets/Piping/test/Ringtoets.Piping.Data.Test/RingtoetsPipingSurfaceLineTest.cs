@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using NUnit.Framework;
 using Ringtoets.Piping.Data.Exceptions;
 
@@ -177,6 +176,34 @@ namespace Ringtoets.Piping.Data.Test
 
             // Assert
             Assert.AreEqual(testZ, result);
+        }
+
+        [Test]
+        public void SetGeometry_GeometryIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetGeometry(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            StringAssert.StartsWith(Properties.Resources.RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null, exception.Message);
+        }
+
+        [Test]
+        public void SetGeometry_GeometryContainsNullPoint_ThrowsArgumentException()
+        {
+            // Setup
+            var surfaceLine = new RingtoetsPipingSurfaceLine();
+
+            // Call
+            TestDelegate test = () => surfaceLine.SetGeometry(new Point3D[] { null });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            StringAssert.StartsWith(Properties.Resources.RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null, exception.Message);
         }
 
         [Test]

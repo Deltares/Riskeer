@@ -14,13 +14,17 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="first">The first <see cref="Point2D"/> of the <see cref="Segment2D"/>.</param>
         /// <param name="second">The second <see cref="Point2D"/> of the <see cref="Segment2D"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when either the <paramref name="first"/> or <paramref name="second"/>
+        /// <exception cref="ArgumentNullException">Thrown when either the <paramref name="first"/> or <paramref name="second"/>
         /// point is <c>null</c>.</exception>
         public Segment2D(Point2D first, Point2D second)
         {
-            if (first == null || second == null)
+            if (first == null)
             {
-                throw new ArgumentException(Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
+                throw new ArgumentNullException("first",Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
+            }
+            if (second == null)
+            {
+                throw new ArgumentNullException("second",Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points);
             }
             FirstPoint = first;
             SecondPoint = second;

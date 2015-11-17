@@ -20,7 +20,8 @@ namespace Ringtoets.Piping.Data
         /// <param name="name">The name of the profile.</param>
         /// <param name="bottom">The bottom level of the profile.</param>
         /// <param name="layers">The collection of layers that should be part of the profile.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> is <c>null</c> or contains no layers.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="layers"/> contains no layers.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layers"/> is <c>null</c>.</exception>
         public PipingSoilProfile(string name, double bottom, IEnumerable<PipingSoilLayer> layers)
         {
             Name = name;
@@ -42,7 +43,8 @@ namespace Ringtoets.Piping.Data
         /// Gets an ordered (by <see cref="PipingSoilLayer.Top"/>, descending) <see cref="IEnumerable{T}"/> of 
         /// <see cref="PipingSoilLayer"/> for the <see cref="PipingSoilProfile"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the value is <c>null</c> or contains no layers.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when the value is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the value contains no layers.</exception>
         public IEnumerable<PipingSoilLayer> Layers
         {
             get
@@ -51,7 +53,11 @@ namespace Ringtoets.Piping.Data
             }
             private set
             {
-                if (value == null || !value.Any())
+                if (value == null)
+                {
+                    throw new ArgumentNullException(@"value", string.Format(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers));
+                }
+                if(!value.Any())
                 {
                     throw new ArgumentException(string.Format(Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers));
                 }

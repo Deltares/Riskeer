@@ -16,25 +16,27 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <summary>
         /// Reads a 1D profile from the given <paramref name="reader"/>.
         /// </summary>
-        /// <param name="reader">A <see cref="IRowBasedReader"/> which is used to read row values from.</param>
+        /// <param name="reader">A <see cref="IRowBasedDatabaseReader"/> which is used to read row values from.</param>
         /// <returns>A new <see cref="PipingSoilProfile"/>, which is based on the information from the database.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when reading the profile encountered an unrecoverable error.</exception>
         /// <exception cref="PipingSoilProfileReadException">Thrown when reading the profile encountered a recoverable error.</exception>
-        internal static PipingSoilProfile ReadFrom(IRowBasedReader reader)
+        internal static PipingSoilProfile ReadFrom(IRowBasedDatabaseReader reader)
         {
             var criticalProperties = new CriticalProfileProperties(reader);
-            var requiredProperties = new RequiredProfileProperties(reader, criticalProperties.ProfileName);
 
-            var soilProfileBuilder = new SoilProfileBuilder1D(criticalProperties.ProfileName, requiredProperties.Bottom);
+            var profileName = criticalProperties.ProfileName;
+            var requiredProperties = new RequiredProfileProperties(reader, profileName);
+
+            var soilProfileBuilder = new SoilProfileBuilder1D(profileName, requiredProperties.Bottom);
 
             for (var i = 1; i <= criticalProperties.LayerCount; i++)
             {
-                SoilLayer1D soilLayer = ReadSoilLayerFrom(reader, criticalProperties.ProfileName);
+                SoilLayer1D soilLayer = ReadSoilLayerFrom(reader, profileName);
                 soilProfileBuilder.Add(soilLayer.AsPipingSoilLayer());
                 reader.MoveNext();
             }
 
-            return Build(soilProfileBuilder, criticalProperties.ProfileName);
+            return Build(soilProfileBuilder, profileName);
         }
 
         /// <summary>
@@ -47,7 +49,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             {
                 return soilProfileBuilder.Build();
             }
-            catch (ArgumentException e)
+            catch (SoilProfileBuilderException e)
             {
                 throw new PipingSoilProfileReadException(profileName, e.Message, e);
             }
@@ -57,7 +59,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// Reads a <see cref="SoilLayer1D"/> from the given <paramref name="reader"/>.
         /// </summary>
         /// <exception cref="PipingSoilProfileReadException">Thrown when reading properties of the layers failed.</exception>
-        private static SoilLayer1D ReadSoilLayerFrom(IRowBasedReader reader, string profileName)
+        private static SoilLayer1D ReadSoilLayerFrom(IRowBasedDatabaseReader reader, string profileName)
         {
             var properties = new LayerProperties(reader, profileName);
 
@@ -84,7 +86,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
             /// <exception cref="PipingSoilProfileReadException">Thrown when the values in the database could not be 
             /// casted to the expected column types.</exception>
-            internal RequiredProfileProperties(IRowBasedReader reader, string profileName)
+            internal RequiredProfileProperties(IRowBasedDatabaseReader reader, string profileName)
             {
                 string readColumn = SoilProfileDatabaseColumns.Bottom;
                 try
@@ -116,7 +118,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
             /// <exception cref="PipingSoilProfileReadException">Thrown when the values in the database could not be 
             /// casted to the expected column types.</exception>
-            internal LayerProperties(IRowBasedReader reader, string profileName)
+            internal LayerProperties(IRowBasedDatabaseReader reader, string profileName)
             {
                 string readColumn = SoilProfileDatabaseColumns.Top;
                 try

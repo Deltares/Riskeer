@@ -1,10 +1,15 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Piping.IO.Test.TestHelpers
 {
-    public class DoubleWithToleranceComparer : IComparer
+    /// <summary>
+    /// This class can be used to compare doubles with a given tolerance, which can be useful to overcome double precision
+    /// errors.
+    /// </summary>
+    public class DoubleWithToleranceComparer : IComparer, IComparer<Double>
     {
         private readonly double tolerance;
 
@@ -13,7 +18,7 @@ namespace Ringtoets.Piping.IO.Test.TestHelpers
             this.tolerance = tolerance;
         }
 
-        private int Compare(double firstDouble, double secondDouble)
+        public int Compare(double firstDouble, double secondDouble)
         {
             var diff = firstDouble - secondDouble;
 

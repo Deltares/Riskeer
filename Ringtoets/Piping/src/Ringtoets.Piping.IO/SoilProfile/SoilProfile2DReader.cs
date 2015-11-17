@@ -16,7 +16,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <summary>
         /// Reads information for a profile from the database and creates a <see cref="PipingSoilProfile"/> based on the information.
         /// </summary>
-        /// <param name="reader">A <see cref="IRowBasedReader"/> which is used to read row values from.</param>
+        /// <param name="reader">A <see cref="IRowBasedDatabaseReader"/> which is used to read row values from.</param>
         /// <returns>A new <see cref="PipingSoilProfile"/>, which is based on the information from the database.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when reading the profile encountered an unrecoverable error.</exception>
         /// <exception cref="PipingSoilProfileReadException">Thrown when
@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <item>unexpected values were encountered for layer properties</item>
         /// </list> 
         /// </exception>
-        internal static PipingSoilProfile ReadFrom(IRowBasedReader reader)
+        internal static PipingSoilProfile ReadFrom(IRowBasedDatabaseReader reader)
         {
             var criticalProperties = new CriticalProfileProperties(reader);
             var requiredProperties = new RequiredProfileProperties(reader, criticalProperties.ProfileName);
@@ -66,7 +66,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <item>A column for a layer property did not contain a value of the expected type.</item>
         /// <item>Thrown when the read geometry does not contain segments that form form a loop for either the inner or outer loop.</item>
         /// </list></exception>
-        private static SoilLayer2D ReadPiping2DSoilLayer(IRowBasedReader reader, string profileName)
+        private static SoilLayer2D ReadPiping2DSoilLayer(IRowBasedDatabaseReader reader, string profileName)
         {
             var properties = new LayerProperties(reader, profileName);
 
@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <param name="reader">The <see cref="SQLiteDataReader"/> to read the geometry value from.</param>
         /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
         /// <returns></returns>
-        private static byte[] ReadGeometryFrom(IRowBasedReader reader, string profileName)
+        private static byte[] ReadGeometryFrom(IRowBasedDatabaseReader reader, string profileName)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
             /// <exception cref="PipingSoilProfileReadException">Thrown when the values in the database could not be 
             /// casted to the expected column types.</exception>
-            internal RequiredProfileProperties(IRowBasedReader reader, string profileName)
+            internal RequiredProfileProperties(IRowBasedDatabaseReader reader, string profileName)
             {
                 string readColumn = SoilProfileDatabaseColumns.IntersectionX;
                 try
@@ -159,7 +159,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             /// <param name="profileName">The profile name used in generating exceptions messages if casting failed.</param>
             /// <exception cref="PipingSoilProfileReadException">Thrown when the values in the database could not be 
             /// casted to the expected column types.</exception>
-            internal LayerProperties(IRowBasedReader reader, string profileName)
+            internal LayerProperties(IRowBasedDatabaseReader reader, string profileName)
             {
                 string readColumn = SoilProfileDatabaseColumns.IsAquifer;
                 try

@@ -61,7 +61,7 @@
     <Compile Include="Exceptions\PipingSoilProfileReadException.cs" />
     <Compile Include="FileUtils.cs" />
     <Compile Include="SoilProfile\CriticalProfileProperties.cs" />
-    <Compile Include="SoilProfile\IRowBasedReader.cs" />
+    <Compile Include="SoilProfile\IRowBasedDatabaseReader.cs" />
     <Compile Include="SoilProfile\SoilLayer2DReader.cs" />
     <Compile Include="SoilProfile\SoilProfile1DReader.cs" />
     <Compile Include="SoilProfile\SoilProfile2DReader.cs" />

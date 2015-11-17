@@ -29,7 +29,8 @@ namespace Ringtoets.Piping.IO.Builders
         {
             if (double.IsNaN(atX))
             {
-                throw new ArgumentException(Resources.Error_SoilProfileBuilder_cant_determine_intersect_at_double_NaN);
+                var message = string.Format(Resources.Error_SoilProfileBuilder_cant_determine_intersect_at_double_NaN , profileName);
+                throw new ArgumentException(message);
             }
             this.profileName = profileName;
             this.atX = atX;
@@ -43,7 +44,7 @@ namespace Ringtoets.Piping.IO.Builders
         /// <exception cref="SoilProfileBuilderException">Thrown when trying to build a 
         /// <see cref="PipingSoilProfile"/> and not having added any layers using <see cref="Add"/>.
         /// </exception>
-        public PipingSoilProfile Build()
+        internal PipingSoilProfile Build()
         {
             try
             {

@@ -56,8 +56,17 @@ namespace Ringtoets.Piping.Data
         /// Sets the geometry of the surfaceline.
         /// </summary>
         /// <param name="points">The collection of points defining the surfaceline geometry.</param>
+        /// <exception cref="ArgumentException">Thrown when any of the <paramref name="points"/> has no value (== <c>null</c>).</exception>
         public void SetGeometry(IEnumerable<Point3D> points)
         {
+            if (points == null)
+            {
+                throw new ArgumentNullException("points", Resources.RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null);
+            }
+            if (points.Any(p => p == null))
+            {
+                throw new ArgumentException(Resources.RingtoetsPipingSurfaceLine_A_point_in_the_collection_was_null);
+            }
             geometryPoints = points.ToArray();
 
             if (geometryPoints.Length > 0)
@@ -80,7 +89,7 @@ namespace Ringtoets.Piping.Data
             var segments = new Collection<Segment2D>();
             for (int i = 1; i < projectGeometryToLz.Length; i++)
             {
-                segments.Add(new Segment2D(projectGeometryToLz[i-1], projectGeometryToLz[i]));   
+                segments.Add(new Segment2D(projectGeometryToLz[i - 1], projectGeometryToLz[i]));
             }
 
             var intersectionPoints = Math2D.SegmentsIntersectionWithVerticalLine(segments, l).OrderBy(p => p.Y).ToArray();

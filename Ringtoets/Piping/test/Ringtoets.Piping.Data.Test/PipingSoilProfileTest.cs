@@ -44,14 +44,14 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void Constructor_WithNameBottomLayersNull_ThrowsArgumentException()
+        public void Constructor_WithNameBottomLayersNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new PipingSoilProfile(String.Empty, Double.NaN, null);
 
             // Assert
-            var message = Assert.Throws<ArgumentException>(test).Message;
-            Assert.AreEqual(Properties.Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers, message);
+            var message = Assert.Throws<ArgumentNullException>(test).Message;
+            StringAssert.StartsWith(Properties.Resources.Error_Cannot_Construct_PipingSoilProfile_Without_Layers, message);
         }
 
         [Test]

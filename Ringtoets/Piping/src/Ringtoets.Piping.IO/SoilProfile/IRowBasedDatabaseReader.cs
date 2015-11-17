@@ -3,7 +3,10 @@ using Ringtoets.Piping.IO.Exceptions;
 
 namespace Ringtoets.Piping.IO.SoilProfile
 {
-    internal interface IRowBasedReader
+    /// <summary>
+    /// This interface can be used for data bases to implement a row/column based way of reading records.
+    /// </summary>
+    internal interface IRowBasedDatabaseReader
     {
         /// <summary>
         /// Moves the reader to the next record in the database.

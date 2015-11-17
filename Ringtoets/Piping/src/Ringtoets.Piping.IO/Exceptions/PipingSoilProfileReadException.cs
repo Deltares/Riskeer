@@ -9,6 +9,8 @@ namespace Ringtoets.Piping.IO.Exceptions
     /// </summary>
     public class PipingSoilProfileReadException : Exception
     {
+        private readonly string ProfileNameKey = "ProfileName";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingSoilProfileReadException"/> class.
         /// </summary>
@@ -47,6 +49,16 @@ namespace Ringtoets.Piping.IO.Exceptions
         /// <summary>
         /// The name of the profile for which this exception was thrown.
         /// </summary>
-        public string ProfileName { get; private set; }
+        public string ProfileName
+        {
+            get
+            {
+                return (string)Data[ProfileNameKey];
+            }
+            private set
+            {
+                Data[ProfileNameKey] = value;
+            }
+        }
     }
 }

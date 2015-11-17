@@ -22,7 +22,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_WithReaderValuesValid_SetProperties()
         {
             // Setup
-            var reader = mocks.StrictMock<IRowBasedReader>();
+            var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
             string profileName = "profile";
             var layerCount = 1;
 
@@ -45,7 +45,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_WithReaderInvalidProfileName_SetProperties()
         {
             // Setup
-            var reader = mocks.StrictMock<IRowBasedReader>();
+            var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
             var layerCount = 1;
             var invalidCastException = new InvalidCastException();
 
@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Constructor_WithReaderInvalidLayerCount_SetProperties()
         {
             // Setup
-            var reader = mocks.StrictMock<IRowBasedReader>();
+            var reader = mocks.StrictMock<IRowBasedDatabaseReader>();
             string profileName = "profile";
             var invalidCastException = new InvalidCastException();
 

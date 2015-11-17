@@ -12,7 +12,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
     public class SoilProfile2DReaderTest
     {
         private MockRepository mocks;
-        private IRowBasedReader reader;
+        private IRowBasedDatabaseReader reader;
 
         private readonly byte[] someGeometry = StringGeometryHelper.GetBytes("<root><OuterLoop>" +
                                   "<GeometryCurve>" +
@@ -27,7 +27,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void SetUp()
         {
             mocks = new MockRepository();
-            reader = mocks.DynamicMock<IRowBasedReader>();
+            reader = mocks.DynamicMock<IRowBasedDatabaseReader>();
         }
 
         [Test]
@@ -42,7 +42,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(test);
+            Assert.AreEqual("Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.", exception.Message);
 
             mocks.VerifyAll();
         }
@@ -61,7 +62,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            Assert.Throws<PipingSoilProfileReadException>(test);
+            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            Assert.AreEqual("Ondergrondprofiel '' in database bevat geen geldige waarde in kolom 'IntersectionX'.", exception.Message);
 
             mocks.VerifyAll();
         }
@@ -70,8 +72,10 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void ReadFrom_DoubleNaNIntersectionX_ThrowsPipingSoilProfileReadException()
         {
             // Setup
+            string name = "profile";
+
             reader.Expect(r => r.Read<long>(SoilProfileDatabaseColumns.LayerCount)).Return(1).Repeat.Any();
-            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return("").Repeat.Any();
+            reader.Expect(r => r.Read<string>(SoilProfileDatabaseColumns.ProfileName)).Return(name).Repeat.Any();
             reader.Expect(r => r.Read<double>(SoilProfileDatabaseColumns.IntersectionX)).Return(double.NaN);
 
             mocks.ReplayAll();
@@ -80,7 +84,9 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            Assert.Throws<PipingSoilProfileReadException>(test);
+            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            var expectedMessage = string.Format("Geen geldige X waarde gevonden om intersectie te maken uit 2D profiel '{0}'.", name);
+            Assert.AreEqual(expectedMessage, exception.Message);
 
             mocks.VerifyAll();
         }
@@ -97,7 +103,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            Assert.Throws<PipingSoilProfileReadException>(test);
+            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            Assert.AreEqual("Geen lagen gevonden voor het profiel.", exception.Message);
 
             mocks.VerifyAll();
         }
@@ -116,7 +123,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            Assert.Throws<PipingSoilProfileReadException>(test);
+            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            Assert.AreEqual("Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.", exception.Message);
 
             mocks.VerifyAll();
         }
@@ -133,7 +141,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
 
             // Assert
-            Assert.Throws<PipingSoilProfileReadException>(test);
+            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            Assert.AreEqual("Ondergrondprofiel '' in database bevat geen geldige waarde in kolom 'IsAquifer'.", exception.Message);
 
             mocks.VerifyAll();
         }

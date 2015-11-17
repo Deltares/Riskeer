@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -9,14 +10,46 @@ namespace Ringtoets.Piping.Data.Test
         [Test]
         public void Constructor_WithTwoPoints_ReturnsSegmentWithPointsSet()
         {
-            // Call
+            // Setup
             var firstPoint = new Point2D();
             var secondPoint = new Point2D();
+
+            // Call
             var segment = new Segment2D(firstPoint, secondPoint);
 
             // Assert
             Assert.AreSame(firstPoint, segment.FirstPoint);
             Assert.AreSame(secondPoint, segment.SecondPoint);
+        }
+
+        [Test]
+        public void Constructor_WithNullFirstPoint_ThrowsArgumentNullException()
+        {
+            // Setup
+            var firstPoint = new Point2D();
+            var secondPoint = new Point2D();
+
+            // Call
+            TestDelegate test = () => new Segment2D(null, secondPoint);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            StringAssert.StartsWith(Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points, exception.Message);
+        }
+
+        [Test]
+        public void Constructor_WithNullSecondPoint_ThrowsArgumentNullException()
+        {
+            // Setup
+            var firstPoint = new Point2D();
+            var secondPoint = new Point2D();
+
+            // Call
+            TestDelegate test = () => new Segment2D(firstPoint, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            StringAssert.StartsWith(Resources.Segment2D_Constructor_Segment_must_be_created_with_two_points, exception.Message);
         }
 
         [Test]

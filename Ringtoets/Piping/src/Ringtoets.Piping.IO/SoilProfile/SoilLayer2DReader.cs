@@ -147,7 +147,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
                     segment = new Segment2D(points[0], points[1]);
                     return true;
                 }
-                catch (ArgumentException e)
+                catch (ArgumentNullException e)
                 {
                     throw new SoilLayer2DConversionException(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, e);
                 }
