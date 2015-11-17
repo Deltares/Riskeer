@@ -192,4 +192,10 @@
   <data name="SoilLayer2DReader_Geometry_contains_no_valid_xml" xml:space="preserve">
     <value>Het XML-document dat de geometrie beschrijft voor de laag is niet geldig.</value>
   </data>
+  <data name="SoilLayer2DReader_Geometry_is_null" xml:space="preserve">
+    <value>De geometrie is leeg.</value>
+  </data>
+  <data name="SoilLayer2DReader_Schema_file_could_not_be_loaded" xml:space="preserve">
+    <value>Kon het XML-schema bestand niet laden om te kijken of de geometrie van de ondergrondlaag valide is.</value>
+  </data>
 </root>

@@ -286,5 +286,23 @@ namespace Ringtoets.Piping.IO.Properties {
                 return ResourceManager.GetString("SoilLayer2DReader_Geometry_contains_no_valid_xml", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De geometrie is leeg..
+        /// </summary>
+        public static string SoilLayer2DReader_Geometry_is_null {
+            get {
+                return ResourceManager.GetString("SoilLayer2DReader_Geometry_is_null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kon het XML-schema bestand niet laden om te kijken of de geometrie van de ondergrondlaag valide is..
+        /// </summary>
+        public static string SoilLayer2DReader_Schema_file_could_not_be_loaded {
+            get {
+                return ResourceManager.GetString("SoilLayer2DReader_Schema_file_could_not_be_loaded", resourceCulture);
+            }
+        }
     }
 }

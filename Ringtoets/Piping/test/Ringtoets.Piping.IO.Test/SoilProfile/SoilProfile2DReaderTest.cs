@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Xml;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Piping.IO.Exceptions;
@@ -14,14 +15,14 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         private MockRepository mocks;
         private IRowBasedDatabaseReader reader;
 
-        private readonly byte[] someGeometry = StringGeometryHelper.GetBytes("<root><OuterLoop>" +
-                                  "<GeometryCurve>" +
-                                  "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
-                                  "</GeometryCurve>" +
-                                  "<GeometryCurve>" +
-                                  "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
-                                  "</GeometryCurve>" +
-                                  "</OuterLoop></root>");
+        private readonly byte[] someGeometry = StringGeometryHelper.GetByteArray("<GeometrySurface><OuterLoop><CurveList>" +
+                                                                                   "<GeometryCurve>" +
+                                                                                   "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
+                                                                                   "</GeometryCurve>" +
+                                                                                   "<GeometryCurve>" +
+                                                                                   "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
+                                                                                   "</GeometryCurve>" +
+                                                                                   "</CurveList></OuterLoop></GeometrySurface>");
 
         [SetUp]
         public void SetUp()
@@ -110,12 +111,28 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        [TestCase(new byte[0])]
-        [TestCase(null)]
-        public void ReadFrom_EmptyGeometry_ThrowsPipingSoilProfileReadException(byte[] geometry)
+        public void ReadFrom_NullGeometry_ThrowsPipingSoilProfileReadException()
         {
             // Setup
-            SetExpectations(1, "", 0.0, 1.0, 0.0, 0.0, 0.0, geometry);
+            SetExpectations(1, "", 0.0, 1.0, 0.0, 0.0, 0.0, null);
+
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => SoilProfile2DReader.ReadFrom(reader);
+
+            // Assert
+            var exception = Assert.Throws<PipingSoilProfileReadException>(test);
+            StringAssert.StartsWith("De geometrie is leeg.", exception.Message);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ReadFrom_EmptyGeometry_ThrowsPipingSoilProfileReadException()
+        {
+            // Setup
+            SetExpectations(1, "", 0.0, 1.0, 0.0, 0.0, 0.0, new byte[0]);
 
             mocks.ReplayAll();
 

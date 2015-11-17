@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Data.SQLite;
+using System.IO;
+using System.Xml;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.IO.Builders;
 using Ringtoets.Piping.IO.Exceptions;
@@ -64,7 +66,8 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <exception cref="PipingSoilProfileReadException">Thrown when:
         /// <list type="bullet">
         /// <item>A column for a layer property did not contain a value of the expected type.</item>
-        /// <item>Thrown when the read geometry does not contain segments that form form a loop for either the inner or outer loop.</item>
+        /// <item>The database contains an invalid XML definition for geometry.</item>
+        /// <item>The read geometry does not contain segments that form form a loop for either the inner or outer loop.</item>
         /// </list></exception>
         private static SoilLayer2D ReadPiping2DSoilLayer(IRowBasedDatabaseReader reader, string profileName)
         {
@@ -74,7 +77,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
             try
             {
                 var geometryValue = ReadGeometryFrom(reader, profileName);
-                pipingSoilLayer = new SoilLayer2DReader(geometryValue).Read();
+                pipingSoilLayer = new SoilLayer2DReader().Read(geometryValue);
             }
             catch (SoilLayer2DConversionException e)
             {
