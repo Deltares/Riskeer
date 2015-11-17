@@ -6,12 +6,13 @@ using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Tests.TestObjects;
 using Core.Common.Controls;
+using Core.Common.Controls.Swf;
 using Core.Common.Controls.Swf.TreeViewControls;
 using Core.Common.TestUtils;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using SharpTestsEx;
+using MessageBox = Core.Common.Controls.Swf.MessageBox;
 using TreeView = Core.Common.Controls.Swf.TreeViewControls.TreeView;
 
 namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
@@ -324,44 +325,57 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
         [Test]
         public void DeletedNodeMovesSelectionToItsParentNode()
         {
-            var treeView = new TreeView
+            using (var treeView = new TreeView())
             {
-                NodePresenters =
+                treeView.NodePresenters.Add(new ParentNodePresenter());
+                treeView.NodePresenters.Add(new ChildNodePresenter());
+            
+                var parent = new Parent()
                 {
-                    new ParentNodePresenter(), // DynamicParentNodePresenter(),
-                    new ChildNodePresenter()
+                    Name = "Parent"
+                };
+                var child = new Child()
+                {
+                    Name = "Child"
+                };
+                var grandchild = new Child()
+                {
+                    Name = "GrandChild"
+                };
+                parent.Children.Add(child);
+                child.Children.Add(grandchild);
+
+                treeView.Data = parent;
+
+                try
+                {
+                    WindowsFormsTestHelper.Show(treeView); // show it to make sure that expand / refresh node really loads nodes.
+
+                    treeView.ExpandAll();
+
+                    treeView.SelectedNode = treeView.GetNodeByTag(grandchild);
+                    MessageBox.CustomMessageBox = new MessageBoxAlwaysYes();
+                    treeView.TryDeleteSelectedNodeData();
+
+                    treeView.ExpandAll();
+
+                    Assert.AreEqual(treeView.SelectedNode, treeView.GetNodeByTag(child));
                 }
-            };
-
-            var parent = new Parent() { Name = "Parent"};
-            var child = new Child() { Name = "Child" };
-            var grandchild = new Child() { Name = "GrandChild" };
-            parent.Children.Add(child);
-            child.Children.Add(grandchild);
-
-            treeView.Data = parent;
-
-            try
-            {
-                WindowsFormsTestHelper.Show(treeView); // show it to make sure that expand / refresh node really loads nodes.
-
-                treeView.ExpandAll();
-                treeView.Refresh();
-
-                treeView.SelectedNode = treeView.GetNodeByTag(grandchild);
-
-                TypeUtils.CallPrivateMethod(treeView, "DeleteSelectedNodeData");
-
-                treeView.ExpandAll();
-                treeView.Refresh();
-
-                Assert.AreEqual(treeView.SelectedNode, treeView.GetNodeByTag(child));
-            }
-            finally 
-            {
-                WindowsFormsTestHelper.CloseAll();
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
             }
         }
+
+        class MessageBoxAlwaysYes : IMessageBox
+        {
+            public DialogResult Show(string text, string caption, MessageBoxButtons buttons)
+            {
+                return DialogResult.OK; 
+            }
+        }
+
 
         [Test]
         public void TreeViewUpdateOnManyPropertyChangesShouldBeFast()

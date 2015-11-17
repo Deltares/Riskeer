@@ -33,8 +33,6 @@ namespace Core.Common.Base.Tests.TestObjects
                 }
             }
 
-            
-
             return true;
         }
 

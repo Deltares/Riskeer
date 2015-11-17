@@ -2,7 +2,7 @@
 
 namespace Core.Common.Base
 {
-    public class Observable : IObservable
+    public abstract class Observable : IObservable
     {
         private readonly IList<IObserver> observers = new List<IObserver>();
 

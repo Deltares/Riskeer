@@ -292,6 +292,9 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             }
         }
 
+        /// <summary>
+        /// The method wraps <see cref="DeleteSelectedNodeData"/> with a couple of messaging boxes.
+        /// </summary>
         public void TryDeleteSelectedNodeData()
         {
             if (!SelectedNodeCanDelete())
