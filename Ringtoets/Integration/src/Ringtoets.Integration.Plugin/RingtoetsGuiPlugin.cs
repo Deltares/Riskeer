@@ -11,32 +11,27 @@ using Ringtoets.Piping.Plugin;
 
 namespace Ringtoets.Integration.Plugin
 {
+    /// <summary>
+    /// The GUI plugin for the Ringtoets application.
+    /// </summary>
     public class RingtoetsGuiPlugin : GuiPlugin
     {
         public override IRibbonCommandHandler RibbonCommandHandler
         {
             get
             {
-                return new RingtoetsRibbon();
+                return new PipingRibbon();
             }
         }
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<DikeAssessmentSection, AssessmentSectionProperties>();
-            foreach (var propertyInfo in new PipingGuiPlugin().GetPropertyInfos())
-            {
-                yield return propertyInfo;
-            }
         }
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
             yield return new AssessmentSectionNodePresenter();
-            foreach (var pipingNodePresenter in new PipingGuiPlugin { Gui = Gui }.GetProjectTreeViewNodePresenters())
-            {
-                yield return pipingNodePresenter;
-            }
         }
     }
 }

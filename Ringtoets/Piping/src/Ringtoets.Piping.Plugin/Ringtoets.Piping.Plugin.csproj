@@ -78,6 +78,7 @@
     <Compile Include="FileImporter\PipingSoilProfilesImporter.cs" />
     <Compile Include="FileImporter\PipingSurfaceLinesCsvImporter.cs" />
     <Compile Include="FileImporter\PipingReadResult.cs" />
+    <Compile Include="PipingApplicationPlugin.cs" />
     <Compile Include="PipingFileImporterProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -86,8 +87,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PipingGuiPlugin.cs" />
-    <Compile Include="RingtoetsRibbon.xaml.cs">
-      <DependentUpon>RingtoetsRibbon.xaml</DependentUpon>
+    <Compile Include="PipingRibbon.xaml.cs">
+      <DependentUpon>PipingRibbon.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -145,7 +146,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="RingtoetsRibbon.xaml">
+    <Page Include="PipingRibbon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

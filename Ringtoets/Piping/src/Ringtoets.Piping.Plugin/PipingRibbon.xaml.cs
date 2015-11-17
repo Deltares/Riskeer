@@ -7,9 +7,9 @@ namespace Ringtoets.Piping.Plugin
     /// <summary>
     /// Interaction logic for RingtoetsRibbon.xaml
     /// </summary>
-    public partial class RingtoetsRibbon : IRibbonCommandHandler
+    public partial class PipingRibbon : IRibbonCommandHandler
     {
-        public RingtoetsRibbon()
+        public PipingRibbon()
         {
             InitializeComponent();
         }

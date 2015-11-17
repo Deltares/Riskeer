@@ -3,12 +3,14 @@
 using Core.Common.Base;
 
 using Ringtoets.Integration.Data;
-using Ringtoets.Piping.Plugin;
 
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin
 {
+    /// <summary>
+    /// The application plugin for Ringtoets.
+    /// </summary>
     public class RingtoetsApplicationPlugin : ApplicationPlugin
     {
         public override IEnumerable<DataItemInfo> GetDataItemInfos()
@@ -20,14 +22,6 @@ namespace Ringtoets.Integration.Plugin
                 Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
                 CreateData = owner => new DikeAssessmentSection()
             };
-        }
-
-        public override IEnumerable<IFileImporter> GetFileImporters()
-        {
-            foreach (var pipingFileImporter in PipingFileImporterProvider.GetFileImporters())
-            {
-                yield return pipingFileImporter;
-            }
         }
     }
 }

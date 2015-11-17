@@ -173,7 +173,8 @@ namespace Application.Ringtoets
                     new ProjectExplorerGuiPlugin(),
                     new CommonToolsGuiPlugin(),
                     new SharpMapGisGuiPlugin(),
-                    new RingtoetsGuiPlugin()
+                    new RingtoetsGuiPlugin(),
+                    new PipingGuiPlugin()
 #if INCLUDE_DEMOPROJECT
                     ,new DemoProjectGuiPlugin()
 #endif
@@ -184,7 +185,8 @@ namespace Application.Ringtoets
                     {
                         new CommonToolsApplicationPlugin(),
                         new SharpMapGisApplicationPlugin(),
-                        new RingtoetsApplicationPlugin()
+                        new RingtoetsApplicationPlugin(),
+                        new PipingApplicationPlugin()
                     }
                 }
             };

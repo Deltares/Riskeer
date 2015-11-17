@@ -17,7 +17,7 @@ namespace Ringtoets.Piping.Plugin
         {
             get
             {
-                return new RingtoetsRibbon();
+                return new PipingRibbon();
             }
         }
 
