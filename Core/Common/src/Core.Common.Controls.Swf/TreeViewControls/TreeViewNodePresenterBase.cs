@@ -28,21 +28,10 @@ namespace Core.Common.Controls.Swf.TreeViewControls
         }
 
         /// <seealso cref="ITreeNodePresenter.OnNodeRenamed"/>
-        /// <exception cref="InvalidOperationException">This method should be overridden for <paramref name="data"/> that do not inherit from <see cref="INameable"/>.</exception>
+        /// <exception cref="InvalidOperationException">This method should be overridden for <paramref name="data"/>.</exception>
         public virtual void OnNodeRenamed(T data, string newName)
         {
-            var nameProperty = data.GetType().GetMember("Name");
-            if (nameProperty.Any())
-            {
-                if (nameProperty.GetValue(0) != newName)
-                {
-                    nameProperty.SetValue(newName, 0);
-                }
-            }
-            else
-            {
-                throw new InvalidOperationException(Resources.TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class);
-            }
+            throw new InvalidOperationException(Resources.TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class);
         }
 
         ///<summary>
@@ -112,7 +101,7 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             return CanRenameNode(node) && (newName.Length > 0);
         }
 
-        /// <exception cref="InvalidOperationException">This method should be overridden for <paramref name="nodeData"/> that do not inherit from <see cref="INameable"/>.</exception>
+        /// <exception cref="InvalidOperationException">This method should be overridden for <paramref name="nodeData"/>.</exception>
         public void OnNodeRenamed(object nodeData, string newName)
         {
             var data = (T) nodeData;

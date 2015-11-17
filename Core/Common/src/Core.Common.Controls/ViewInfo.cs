@@ -31,8 +31,7 @@ namespace Core.Common.Controls
         public string Description { get; set; }
 
         /// <summary>
-        /// Name the view should have (if no name is specified
-        /// and the data is INameable then this name will be used)
+        /// Name the view should have
         /// <list type="number">
         ///     <item>The view to get a name for</item>
         ///     <item>The data of the view</item>
