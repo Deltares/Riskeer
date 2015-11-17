@@ -464,18 +464,6 @@ namespace Core.Common.Utils.Reflection
                     continue; //don't copy events
                 }
 
-                //skip 'Id'
-                if (fi.Name == "id" || fi.Name == "_id" || fi.Name == "<Id>k__BackingField")
-                {
-                    continue;
-                }
-
-                //skip PostSharp stuff?
-                if (fi.FieldType == typeof(EntityAttribute))
-                {
-                    continue;
-                }
-
                 yield return new KeyValuePair<FieldInfo, object>(fi, value);
             }
         }
