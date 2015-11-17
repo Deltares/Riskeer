@@ -16,24 +16,18 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
 
         public CategorialThemeItem() : this("", new VectorStyle(), new Bitmap(1, 1)) {}
 
-        public CategorialThemeItem(string category, IStyle style, Bitmap symbol, object value)
+        public CategorialThemeItem(string category, IStyle style, object value)
         {
             label = category;
             this.style = (IStyle) style.Clone();
-            Symbol = symbol;
 
             Value = value;
         }
 
-        public CategorialThemeItem(string category, IStyle style, Bitmap symbol)
+        public CategorialThemeItem(string category, IStyle style)
         {
             label = category;
             this.style = (IStyle) style.Clone();
-            if (symbol != null) {}
-            else
-            {
-                log.Debug("Symbol may not be null when initializing categorial themeitem");
-            }
         }
 
         private CategorialThemeItem(CategorialThemeItem another)

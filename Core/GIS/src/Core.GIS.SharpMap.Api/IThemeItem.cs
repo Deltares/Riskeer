@@ -7,7 +7,7 @@ namespace Core.GIS.SharpMap.Api
     {
         string Range { get; }
         string Label { get; set; }
-        Bitmap Symbol { get; set; }
         IStyle Style { get; set; }
+        Bitmap Symbol { get; }
     }
 }

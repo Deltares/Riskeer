@@ -49,7 +49,6 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
 
                 return null;
             }
-            set {}
         }
 
         public virtual IStyle Style

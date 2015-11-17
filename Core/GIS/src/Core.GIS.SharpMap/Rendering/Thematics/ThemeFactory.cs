@@ -125,8 +125,8 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
                 }
 
                 CategorialThemeItem categorialThemeItem = (values[i] != null)
-                                                              ? new CategorialThemeItem(label, vectorStyle, vectorStyle.LegendSymbol, values[i])
-                                                              : new CategorialThemeItem(label, vectorStyle, vectorStyle.LegendSymbol);
+                                                              ? new CategorialThemeItem(label, vectorStyle, values[i])
+                                                              : new CategorialThemeItem(label, vectorStyle);
 
                 categorialTheme.AddThemeItem(categorialThemeItem);
             }

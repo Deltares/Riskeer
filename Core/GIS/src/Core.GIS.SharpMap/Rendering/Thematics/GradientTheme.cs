@@ -67,9 +67,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             CreateThemeItems(minStyle, maxStyle, numberOfClasses);
 
             minColor = ThemeHelper.ExtractFillColorFromThemeItem(minItem);
-            minItem.Symbol = ((VectorStyle) minStyle).LegendSymbol;
             maxColor = ThemeHelper.ExtractFillColorFromThemeItem(maxItem);
-            maxItem.Symbol = ((VectorStyle) maxStyle).LegendSymbol;
         }
 
         /// <summary>
