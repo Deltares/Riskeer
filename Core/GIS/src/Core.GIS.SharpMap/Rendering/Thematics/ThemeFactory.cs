@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
 using Core.GIS.GeoAPI.Geometries;
-using Core.GIS.NetTopologySuite.Index.Bintree;
 using Core.GIS.SharpMap.Styles;
 
 namespace Core.GIS.SharpMap.Rendering.Thematics
@@ -132,114 +130,6 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
 
             return categorialTheme;
-        }
-
-        public static QuantityTheme CreateQuantityTheme(string attribute, VectorStyle defaultStyle, ColorBlend blend,
-                                                        int numberOfClasses, IList<Interval> intervals)
-        {
-            float minSize = defaultStyle.Line.Width;
-            float maxSize = defaultStyle.Line.Width;
-
-            return CreateQuantityTheme(attribute, defaultStyle, blend, numberOfClasses, intervals, minSize, maxSize, false, false);
-        }
-
-        public static QuantityTheme CreateQuantityTheme(string attribute, VectorStyle defaultStyle, ColorBlend blend,
-                                                        int numberOfClasses, IList<IComparable> values, float minSize, float maxSize, bool skipColors, bool skipSizes, QuantityThemeIntervalType intervalType)
-        {
-            var intervals = ThemeFactoryHelper.GetIntervalsForNumberOfClasses(values.Select(i => Convert.ToSingle(i)).ToList(),
-                                                                              intervalType, numberOfClasses);
-            return CreateQuantityTheme(attribute, defaultStyle, blend, numberOfClasses, intervals, minSize, maxSize, skipColors, skipSizes);
-        }
-
-        public static QuantityTheme CreateQuantityTheme(string attribute, VectorStyle defaultStyle, ColorBlend blend,
-                                                        int numberOfClasses, IList<Interval> intervals, float minSize, float maxSize, bool skipColors, bool skipSizes)
-        {
-            if (defaultStyle == null)
-            {
-                defaultStyle = new VectorStyle();
-                defaultStyle.GeometryType = typeof(IPolygon);
-            }
-
-            var quantityTheme = new QuantityTheme(attribute, defaultStyle);
-
-            var totalMinValue = (float) intervals[0].Min;
-            var totalMaxValue = (float) intervals[intervals.Count - 1].Max;
-
-            if (totalMinValue == totalMaxValue)
-            {
-                return null;
-            }
-
-            for (int i = 0; i < numberOfClasses; i++)
-            {
-                Color color = numberOfClasses > 1
-                                  ? blend.GetColor(1 - (float) i/(numberOfClasses - 1))
-                                  : ((SolidBrush) defaultStyle.Fill).Color;
-
-                float size = defaultStyle.Line.Width;
-
-                if (!skipSizes)
-                {
-                    var minValue = (float) intervals[i].Min;
-                    var maxValue = (float) intervals[i].Max;
-
-                    float width = maxValue - minValue;
-                    float mean = minValue + 0.5f*width;
-
-                    float fraction = (mean - totalMinValue)/(totalMaxValue - totalMinValue);
-
-                    size = minSize + fraction*(maxSize - minSize);
-                }
-
-                var vectorStyle = new VectorStyle
-                {
-                    GeometryType = defaultStyle.GeometryType
-                };
-
-                if (defaultStyle.GeometryType == typeof(IPoint))
-                {
-                    if (skipColors)
-                    {
-                        color = ((SolidBrush) defaultStyle.Fill).Color;
-                    }
-
-                    vectorStyle.Fill = new SolidBrush(color);
-                    vectorStyle.Shape = defaultStyle.Shape;
-
-                    if (!skipSizes)
-                    {
-                        vectorStyle.ShapeSize = Convert.ToInt32(size);
-                        vectorStyle.Line.Width = size;
-                    }
-                }
-                else if ((defaultStyle.GeometryType == typeof(IPolygon)) || (defaultStyle.GeometryType == typeof(IMultiPolygon)))
-                {
-                    if (skipColors)
-                    {
-                        color = ((SolidBrush) defaultStyle.Fill).Color;
-                    }
-                    vectorStyle.Fill = new SolidBrush(color);
-                    vectorStyle.Line = CreatePen(color, size, defaultStyle.Line);
-                    vectorStyle.Outline.Width = (defaultStyle.Outline.Width - defaultStyle.Line.Width) + size;
-                }
-                else if ((defaultStyle.GeometryType == typeof(ILineString)) || (defaultStyle.GeometryType == typeof(IMultiLineString)))
-                {
-                    if (skipColors)
-                    {
-                        color = defaultStyle.Line.Color;
-                    }
-                    vectorStyle.Line = CreatePen(color, size, defaultStyle.Line);
-                    vectorStyle.Outline.Width = (defaultStyle.Outline.Width - defaultStyle.Line.Width) + size;
-                }
-                else
-                {
-                    vectorStyle.Fill = new SolidBrush(color);
-                }
-
-                quantityTheme.AddStyle(vectorStyle, intervals[i]);
-            }
-
-            return quantityTheme;
         }
 
         public static CustomTheme CreateSingleFeatureTheme(Type geometryType, Color color, float width)

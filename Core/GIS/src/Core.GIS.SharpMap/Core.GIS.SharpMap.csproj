@@ -179,12 +179,8 @@
     <Compile Include="Rendering\Thematics\CustomTheme.cs" />
     <Compile Include="Rendering\Thematics\GradientTheme.cs" />
     <Compile Include="Rendering\Thematics\GradientThemeItem.cs" />
-    <Compile Include="Rendering\Thematics\QuantityTheme.cs" />
-    <Compile Include="Rendering\Thematics\QuantityThemeIntervalType.cs" />
-    <Compile Include="Rendering\Thematics\QuantityThemeItem.cs" />
     <Compile Include="Rendering\Thematics\Theme.cs" />
     <Compile Include="Rendering\Thematics\ThemeFactory.cs" />
-    <Compile Include="Rendering\Thematics\ThemeFactoryHelper.cs" />
     <Compile Include="Rendering\Thematics\ThemeHelper.cs" />
     <Compile Include="Rendering\Thematics\ThemeItem.cs" />
     <Compile Include="Rendering\VectorRenderingHelper.cs" />

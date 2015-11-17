@@ -23,7 +23,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                 {
                     GradientTheme gradientTheme;
                     CustomTheme customTheme;
-                    QuantityTheme quantityTheme;
                     CategorialTheme categorialTheme;
                     if ((customTheme = vectorLayer.Theme as CustomTheme) != null)
                     {
@@ -55,13 +54,6 @@ namespace Core.Plugins.SharpMapGis.Gui.Forms.MapLegendView
                         foreach (GradientThemeItem gradientThemeItem in gradientTheme.ThemeItems)
                         {
                             Styles.Add(gradientThemeItem.Style);
-                        }
-                    }
-                    else if ((quantityTheme = vectorLayer.Theme as QuantityTheme) != null)
-                    {
-                        foreach (QuantityThemeItem quantityThemeItem in quantityTheme.ThemeItems)
-                        {
-                            Styles.Add(quantityThemeItem.Style);
                         }
                     }
                     else
