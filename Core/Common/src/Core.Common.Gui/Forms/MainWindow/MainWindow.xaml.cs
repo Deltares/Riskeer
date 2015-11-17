@@ -1231,17 +1231,8 @@ namespace Core.Common.Gui.Forms.MainWindow
             var welcomePageName = (string) Gui.Application.UserSettings["startPageName"];
             var welcomePageUrl = Gui.Application.Settings["startPageUrl"];
 
-            // if it is a file - make sure that we use a full path
-            if (File.Exists(welcomePageUrl))
-            {
-                welcomePageUrl = Path.GetFullPath(welcomePageUrl);
-            }
-
-            if (welcomePageUrl != null)
-            {
-                var url = new Url(welcomePageName, welcomePageUrl);
-                Gui.CommandHandler.OpenView(url);
-            }
+            var url = new Url(welcomePageName, welcomePageUrl);
+            Gui.CommandHandler.OpenView(url);
         }
 
         private void CloseContent(LayoutContent c)
