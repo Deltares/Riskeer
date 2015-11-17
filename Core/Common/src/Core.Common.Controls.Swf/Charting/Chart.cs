@@ -6,7 +6,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Swf.Charting.Series;
 using Core.Common.Controls.Swf.Properties;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections;
 using Core.Common.Utils.Collections.Generic;
 using log4net;
@@ -18,10 +17,8 @@ namespace Core.Common.Controls.Swf.Charting
 {
     /// <summary>
     /// Dataobject for chartcontrol containing set of series.
-    /// 
     /// Facade for TeeChart Chart.
     /// </summary>
-    [Entity]
     public class Chart : IChart
     {
         internal readonly Steema.TeeChart.Chart chart;

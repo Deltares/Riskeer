@@ -3,7 +3,6 @@ using System.IO;
 using Core.Common.Controls.Swf.Charting;
 using Core.Common.Controls.Swf.Charting.Series;
 using Core.Common.TestUtils;
-using Core.Common.Utils.Collections;
 using NUnit.Framework;
 
 namespace Core.Common.Base.Tests.Controls.Swf.Charting
@@ -12,16 +11,16 @@ namespace Core.Common.Base.Tests.Controls.Swf.Charting
     public class ChartTest
     {
         [Test]
-        public void AddingSeriesToChartTriggersChartCollectionChanged()
+        public void ChartReferenceSetToChartSeriesAfterAddingItToChart()
         {
             var chart = new Chart();
-            var count = 0;
+            var chartSeries = new AreaChartSeries();
 
-            ((INotifyCollectionChanged) chart).CollectionChanged += (s, e) => { count++; };
+            Assert.IsNull(chartSeries.Chart);
 
-            chart.Series.Add(new AreaChartSeries());
+            chart.Series.Add(chartSeries);
 
-            Assert.AreEqual(1, count);
+            Assert.AreSame(chart, chartSeries.Chart);
         }
 
         [Test]
