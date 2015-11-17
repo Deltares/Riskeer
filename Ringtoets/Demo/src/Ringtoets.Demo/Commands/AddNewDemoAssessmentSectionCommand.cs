@@ -11,7 +11,7 @@ using Ringtoets.Piping.Plugin.FileImporter;
 namespace Ringtoets.Demo.Commands
 {
     /// <summary>
-    /// Command that adds a new Ringtoets project with demo data to the project tree.
+    /// Command that adds a new assessment section with demo data to the project tree.
     /// </summary>
     public class AddNewDemoAssessmentSectionCommand : IGuiCommand
     {
