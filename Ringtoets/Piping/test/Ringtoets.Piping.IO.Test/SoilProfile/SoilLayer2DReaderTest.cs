@@ -105,6 +105,46 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
+        [TestCase("x")]
+        [TestCase("")]
+        public void Read_XmlDocumentWithInvalidPointCoordinate_ThrowsSoilLayer2DConversionException(string incorrectNumber)
+        {
+            // Setup
+            var xmlDoc = StringGeometryHelper.GetXmlDocument(string.Format(
+                "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
+                "<HeadPoint><X>{0}</X><Z>1.2</Z></HeadPoint>" +
+                "<EndPoint><X>1.2</X><Z>1.2</Z></EndPoint>" +
+                "</GeometryCurve></CurveList></OuterLoop></GeometrySurface>",incorrectNumber));
+            var reader = new SoilLayer2DReader();
+
+            // Call
+            TestDelegate test = () => reader.Read(xmlDoc);
+
+            // Assert
+            var exception = Assert.Throws<SoilLayer2DConversionException>(test);
+            Assert.AreEqual(Resources.SoilLayer2DReader_Could_not_parse_point_location, exception.Message);
+        }
+
+        [Test]
+        public void Read_XmlDocumentWitOverflowingPointCoordinate_ThrowsSoilLayer2DConversionException()
+        {
+            // Setup
+            var xmlDoc = StringGeometryHelper.GetXmlDocument(string.Format(
+                "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
+                "<HeadPoint><X>{0}</X><Z>1.2</Z></HeadPoint>" +
+                "<EndPoint><X>1.2</X><Z>1.2</Z></EndPoint>" +
+                "</GeometryCurve></CurveList></OuterLoop></GeometrySurface>",double.MaxValue));
+            var reader = new SoilLayer2DReader();
+
+            // Call
+            TestDelegate test = () => reader.Read(xmlDoc);
+
+            // Assert
+            var exception = Assert.Throws<SoilLayer2DConversionException>(test);
+            Assert.AreEqual(Resources.SoilLayer2DReader_Could_not_parse_point_location, exception.Message);
+        }
+
+        [Test]
         [SetCulture("nl-NL")]
         public void Read_NLXmlDocumentPointInOuterLoop_ReturnsLayerWithOuterLoopWithPoint()
         {

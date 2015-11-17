@@ -198,4 +198,7 @@
   <data name="SoilLayer2DReader_Schema_file_could_not_be_loaded" xml:space="preserve">
     <value>Kon het XML-schema bestand niet laden om te kijken of de geometrie van de ondergrondlaag valide is.</value>
   </data>
+  <data name="SoilLayer2DReader_Could_not_parse_point_location" xml:space="preserve">
+    <value>Coördinaat van een punt bevat ongeldige waarde.</value>
+  </data>
 </root>

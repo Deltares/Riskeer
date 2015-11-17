@@ -4,32 +4,16 @@
 <xs:element name="GeometrySurface">
 	<xs:complexType>
 		<xs:choice maxOccurs="unbounded">
-			<xs:element name="OuterLoop">
-				<xs:complexType>
-					<xs:choice maxOccurs="unbounded">
-						<xs:element ref="CurveList" maxOccurs="unbounded" />
-						<xs:element minOccurs="0" name="Description" />
-						<xs:element minOccurs="0" name="Name" />
-					</xs:choice>
-				</xs:complexType>
-			</xs:element>
+			<xs:element name="OuterLoop" type="Loop" />
 			<xs:element name="InnerLoops">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element minOccurs="0" name="InnerLoop" maxOccurs="unbounded">
-							<xs:complexType>
-								<xs:choice maxOccurs="unbounded">
-									<xs:element ref="CurveList" maxOccurs="unbounded" />
-									<xs:element minOccurs="0" name="Description" />
-									<xs:element minOccurs="0" name="Name" />
-								</xs:choice>
-							</xs:complexType>
-						</xs:element>
+						<xs:element name="InnerLoop"  type="Loop" minOccurs="0" maxOccurs="unbounded" />
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
-			<xs:element minOccurs="0" name="Description" />
-			<xs:element minOccurs="0" name="Name" />
+			<xs:element name="Description" minOccurs="0" />
+			<xs:element name="Name" minOccurs="0" />
 		</xs:choice>
 	</xs:complexType>
 </xs:element>
@@ -39,26 +23,34 @@
 		<xs:sequence>
 			<xs:element name="GeometryCurve" maxOccurs="unbounded">
 				<xs:complexType>
-					<xs:choice maxOccurs="unbounded">
-						<xs:element name="HeadPoint" type="Point" maxOccurs="1" />
-						<xs:element name="EndPoint" type="Point" maxOccurs="1" />
-						<xs:element minOccurs="0" name="Description" />
-						<xs:element minOccurs="0" name="Name" />
-					</xs:choice>
+					<xs:all>
+						<xs:element name="HeadPoint" type="Point" />
+						<xs:element name="EndPoint" type="Point" />
+						<xs:element name="Description" minOccurs="0" />
+						<xs:element name="Name" minOccurs="0" />
+					</xs:all>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>	
 </xs:element>
 
+<xs:complexType name="Loop">
+	<xs:all>
+		<xs:element ref="CurveList" minOccurs="0" />
+		<xs:element name="Description" minOccurs="0" />
+		<xs:element name="Name" minOccurs="0" />
+	</xs:all>
+</xs:complexType>
+
 <xs:complexType name="Point">
-	<xs:choice maxOccurs="unbounded">
-		<xs:element name="X" maxOccurs="1"/>
-		<xs:element name="Y" maxOccurs="1" />
-		<xs:element name="Z" maxOccurs="1" />
-		<xs:element minOccurs="0" name="Description" />
-		<xs:element minOccurs="0" name="Name" />
-	</xs:choice>
+	<xs:all>
+		<xs:element name="X" />
+		<xs:element name="Z" />
+		<xs:element name="Y" minOccurs="0"/>
+		<xs:element name="Description" minOccurs="0" />
+		<xs:element name="Name" minOccurs="0" />
+	</xs:all>
 </xs:complexType>
 
 </xs:schema>
