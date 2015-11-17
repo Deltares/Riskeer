@@ -1,14 +1,14 @@
 using System;
+using System.ComponentModel;
 using System.Drawing;
-using Core.Common.Utils.Aop;
+using Core.Common.Utils;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Styles;
 
 namespace Core.GIS.SharpMap.Rendering.Thematics
 {
-    [Entity(FireOnCollectionChange = false)]
-    public abstract class ThemeItem : IThemeItem, ICloneable
+    public abstract class ThemeItem : IThemeItem, ICloneable, INotifyPropertyChange
     {
         protected string label;
         protected IStyle style;
@@ -16,7 +16,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
         /// <summary>
         /// The label identifying this ThemeItem (for example shown in a legend).
         /// </summary>
-        public virtual string Label
+        public string Label
         {
             get
             {
@@ -24,14 +24,30 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
             set
             {
+                OnPropertyChanging("Label");
                 label = value;
+                OnPropertyChanged("Label");
+            }
+        }
+
+        public IStyle Style
+        {
+            get
+            {
+                return style;
+            }
+            set
+            {
+                OnPropertyChanging("Style");
+                style = value;
+                OnPropertyChanged("Style");
             }
         }
 
         /// <summary>
         /// The symbol representing this ThemeItem (for example shown in a legend).
         /// </summary>
-        public virtual Bitmap Symbol
+        public Bitmap Symbol
         {
             get
             {
@@ -51,21 +67,34 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
         }
 
-        public virtual IStyle Style
-        {
-            get
-            {
-                return style;
-            }
-            set
-            {
-                style = value;
-            }
-        }
-
         public abstract string Range { get; }
 
         public abstract object Clone();
+
         public abstract int CompareTo(object obj);
+
+        #region INotifyPropertyChange
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        protected void OnPropertyChanging(string propertyName)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
     }
 }

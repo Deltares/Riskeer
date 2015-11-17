@@ -75,7 +75,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             {
                 foreach (CategorialThemeItem categorialThemeItem in ThemeItems)
                 {
-                    if (categorialThemeItem.Category.Equals(attr) ||
+                    if (categorialThemeItem.Label.Equals(attr) ||
                         (categorialThemeItem.Value != null && categorialThemeItem.Value.ToString().Equals(attr)))
                     {
                         return categorialThemeItem.Style;

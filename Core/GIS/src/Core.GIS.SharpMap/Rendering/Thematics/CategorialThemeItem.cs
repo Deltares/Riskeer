@@ -1,20 +1,17 @@
 using System.Drawing;
-using Core.Common.Utils.Aop;
 using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Styles;
-using log4net;
 
 namespace Core.GIS.SharpMap.Rendering.Thematics
 {
-    [Entity(FireOnCollectionChange = false)]
+    /// <summary>
+    /// Needed for RasterLayers to keep track between categories and their corresponding int values.
+    /// </summary>
     public class CategorialThemeItem : ThemeItem
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(CategorialThemeItem));
+        private object value;
 
-        // Needed for RasterLayers to keep track between categories and their corresponding int
-        // values
-
-        public CategorialThemeItem() : this("", new VectorStyle(), new Bitmap(1, 1)) {}
+        public CategorialThemeItem() : this("", new VectorStyle(), new Bitmap(1, 1)) { }
 
         public CategorialThemeItem(string category, IStyle style, object value)
         {
@@ -32,13 +29,9 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
 
         private CategorialThemeItem(CategorialThemeItem another)
         {
-            label = another.Category;
+            label = another.Label;
             style = (IStyle) another.Style.Clone();
-            if (another.Symbol != null) {}
-            else
-            {
-                log.WarnFormat("Symbol property of themeitem should not be null");
-            }
+
             Value = another.Value;
         }
 
@@ -46,21 +39,21 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
         {
             get
             {
-                return (Value == null) ? "" : Value.ToString();
+                return Value == null ? "" : Value.ToString();
             }
         }
 
-        public object Value { get; set; }
-
-        public string Category
+        public object Value
         {
             get
             {
-                return label;
+                return value;
             }
             set
             {
-                label = value;
+                OnPropertyChanging("Value");
+                this.value = value;
+                OnPropertyChanged("Value");
             }
         }
 
