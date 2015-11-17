@@ -22,7 +22,8 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                                                                                    "<GeometryCurve>" +
                                                                                    "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
                                                                                    "</GeometryCurve>" +
-                                                                                   "</CurveList></OuterLoop></GeometrySurface>");
+                                                                                   "</CurveList></OuterLoop>" +
+                                                                                 "<InnerLoops/></GeometrySurface>");
 
         [SetUp]
         public void SetUp()

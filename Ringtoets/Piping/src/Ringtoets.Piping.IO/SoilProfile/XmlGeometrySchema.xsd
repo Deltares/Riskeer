@@ -3,7 +3,7 @@
 
 <xs:element name="GeometrySurface">
 	<xs:complexType>
-		<xs:choice maxOccurs="unbounded">
+		<xs:all>
 			<xs:element name="OuterLoop" type="Loop" />
 			<xs:element name="InnerLoops">
 				<xs:complexType>
@@ -14,7 +14,7 @@
 			</xs:element>
 			<xs:element name="Description" minOccurs="0" />
 			<xs:element name="Name" minOccurs="0" />
-		</xs:choice>
+		</xs:all>
 	</xs:complexType>
 </xs:element>
 

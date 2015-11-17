@@ -55,36 +55,33 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         }
 
         [Test]
-        public void Read_XmlDocumentWithEmptyOuterLoop_ReturnsLayerWithEmptyOuterLoop()
+        public void Read_XmlDocumentWithNoInnerLoops_ThrowsSoilLayer2DConversionException()
         {
             // Setup
             var xmlDoc = StringGeometryHelper.GetXmlDocument("<GeometrySurface><OuterLoop/></GeometrySurface>");
             var reader = new SoilLayer2DReader();
 
             // Call
-            var result = reader.Read(xmlDoc);
+            TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            Assert.NotNull(result);
-            CollectionAssert.IsEmpty(result.OuterLoop);
-            CollectionAssert.IsEmpty(result.InnerLoops);
+            var exception = Assert.Throws<SoilLayer2DConversionException>(test);
+            Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
         }
 
         [Test]
-        public void Read_XmlDocumentWithEmptyInnerLoop_ReturnsLayerWithOneEmptyInnerLoop()
+        public void Read_XmlDocumentWithNoOuterLoop_ThrowsSoilLayer2DConversionException()
         {
             // Setup
             var xmlDoc = StringGeometryHelper.GetXmlDocument("<GeometrySurface><InnerLoops><InnerLoop/></InnerLoops></GeometrySurface>");
             var reader = new SoilLayer2DReader();
 
             // Call
-            var result = reader.Read(xmlDoc);
+            TestDelegate test = () => reader.Read(xmlDoc);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.IsNull(result.OuterLoop);
-            Assert.AreEqual(1, result.InnerLoops.Count());
-            CollectionAssert.IsEmpty(result.InnerLoops.ElementAt(0));
+            var exception = Assert.Throws<SoilLayer2DConversionException>(test);
+            Assert.AreEqual(Resources.SoilLayer2DReader_Geometry_contains_no_valid_xml, exception.Message);
         }
 
         [Test]
@@ -114,7 +111,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
                 "<HeadPoint><X>{0}</X><Z>1.2</Z></HeadPoint>" +
                 "<EndPoint><X>1.2</X><Z>1.2</Z></EndPoint>" +
-                "</GeometryCurve></CurveList></OuterLoop></GeometrySurface>",incorrectNumber));
+                "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>",incorrectNumber));
             var reader = new SoilLayer2DReader();
 
             // Call
@@ -133,7 +130,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                 "<GeometrySurface><OuterLoop><CurveList><GeometryCurve>" +
                 "<HeadPoint><X>{0}</X><Z>1.2</Z></HeadPoint>" +
                 "<EndPoint><X>1.2</X><Z>1.2</Z></EndPoint>" +
-                "</GeometryCurve></CurveList></OuterLoop></GeometrySurface>",double.MaxValue));
+                "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>",double.MaxValue));
             var reader = new SoilLayer2DReader();
 
             // Call
@@ -183,7 +180,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                                                                         "</GeometryCurve><GeometryCurve>" +
                                                                         "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
                                                                         "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
-                                                                        "</GeometryCurve></CurveList></OuterLoop></GeometrySurface>",
+                                                                        "</GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>",
                                                                         x1String, y1String, x2String, y2String);
             var bytes = StringGeometryHelper.GetXmlDocument(sometempvarforbassie);
             var xmlDoc = bytes;
@@ -218,7 +215,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
             var parsedX2 = double.Parse(x2String, invariantCulture);
             var parsedY1 = double.Parse(y1String, invariantCulture);
             var parsedY2 = double.Parse(y2String, invariantCulture);
-            var xmlDoc = StringGeometryHelper.GetXmlDocument(string.Format(invariantCulture, "<GeometrySurface><InnerLoops><InnerLoop><CurveList><GeometryCurve>" +
+            var xmlDoc = StringGeometryHelper.GetXmlDocument(string.Format(invariantCulture, "<GeometrySurface><OuterLoop/><InnerLoops><InnerLoop><CurveList><GeometryCurve>" +
                                                                                              "<HeadPoint><X>{0}</X><Y>0.1</Y><Z>{1}</Z></HeadPoint>" +
                                                                                              "<EndPoint><X>{2}</X><Y>0.1</Y><Z>{3}</Z></EndPoint>" +
                                                                                              "</GeometryCurve><GeometryCurve>" +
@@ -241,7 +238,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
         public void Read_XmlDocumentSinglePointOuterLoopGeometryCurve_ThrowsSoilLayer2DConversionException()
         {
             // Setup
-            var xmlDoc = StringGeometryHelper.GetXmlDocument("<GeometrySurface><OuterLoop><CurveList><GeometryCurve><EndPoint><X>1</X><Y>0.1</Y><Z>1.1</Z></EndPoint></GeometryCurve></CurveList></OuterLoop></GeometrySurface>");
+            var xmlDoc = StringGeometryHelper.GetXmlDocument("<GeometrySurface><OuterLoop><CurveList><GeometryCurve><EndPoint><X>1</X><Y>0.1</Y><Z>1.1</Z></EndPoint></GeometryCurve></CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
             var reader = new SoilLayer2DReader();
 
             // Call
@@ -276,7 +273,7 @@ namespace Ringtoets.Piping.IO.Test.SoilProfile
                                                              "<GeometryCurve>" +
                                                              "<HeadPoint><X>0</X><Y>0</Y><Z>1.1</Z></HeadPoint><EndPoint><X>1</X><Y>0</Y><Z>1.1</Z></EndPoint>" +
                                                              "</GeometryCurve>" +
-                                                             "</CurveList></OuterLoop></GeometrySurface>");
+                                                             "</CurveList></OuterLoop><InnerLoops/></GeometrySurface>");
 
             var reader = new SoilLayer2DReader();
 
