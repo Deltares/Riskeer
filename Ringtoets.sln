@@ -121,6 +121,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Plugin", "Ringtoets\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj", "{1D3D58B6-EF7E-401E-92A0-104067D222EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Service", "Ringtoets\Piping\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj", "{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Piping.Calculation.Test", "Ringtoets\Piping\test\Ringtoets.Piping.Calculation.Test\Ringtoets.Piping.Calculation.Test.csproj", "{91389DA2-3FF4-4559-90B3-4061549789DD}"
 EndProject
@@ -173,6 +176,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "uml", "uml", "{A2BB86BB-AC38-4A09-BD87-C90A7E0B9A45}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Demo", "Ringtoets\Demo\src\Ringtoets.Demo\Ringtoets.Demo.csproj", "{FFE3A667-3A4C-4F48-BC6B-1589867FCB41}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Demo.Test", "Ringtoets\Demo\test\Ringtoets.Demo.Test\Ringtoets.Demo.Test.csproj", "{C48E2C11-3FDA-4356-A10F-757469A108FD}"
 EndProject
