@@ -56,7 +56,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
@@ -91,10 +90,6 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
-      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
-      <Name>Core.Common.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Version\Core.Common.Version.csproj">
       <Project>{c90b77da-e421-43cc-b82e-529651bc21ac}</Project>

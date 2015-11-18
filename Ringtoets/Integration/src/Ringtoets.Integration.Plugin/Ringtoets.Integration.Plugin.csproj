@@ -44,24 +44,12 @@
       <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -96,22 +84,6 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
-      <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
-      <Name>Ringtoets.Piping.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
-      <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
-      <Name>Ringtoets.Piping.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.IO\Ringtoets.Piping.IO.csproj">
-      <Project>{35b87b7a-7f50-4139-b563-589ee522b1ed}</Project>
-      <Name>Ringtoets.Piping.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
-      <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>
-      <Name>Ringtoets.Piping.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>

@@ -5,7 +5,6 @@ using Core.Common.Base;
 using NUnit.Framework;
 
 using Ringtoets.Integration.Data;
-using Ringtoets.Piping.Plugin.FileImporter;
 
 namespace Ringtoets.Integration.Plugin.Test
 {

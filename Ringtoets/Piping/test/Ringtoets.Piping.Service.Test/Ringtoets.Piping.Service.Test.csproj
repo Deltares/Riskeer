@@ -50,12 +50,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PipingCalculationActivityTest.cs" />
@@ -68,14 +62,6 @@
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.Swf\Core.Common.Controls.Swf.csproj">
-      <Project>{3DBD23CE-5C4A-4A49-B51C-B268CB2B510E}</Project>
-      <Name>Core.Common.Controls.Swf</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Project>{9A2D67E6-26AC-4D17-B11A-2B4372F2F572}</Project>
-      <Name>Core.Common.Controls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
@@ -84,10 +70,6 @@
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
       <Name>Core.Common.TestUtils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj">
-      <Project>{D64E4F0E-E341-496F-82B2-941AD202B4E3}</Project>
-      <Name>Ringtoets.Piping.Calculation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Service\Ringtoets.Piping.Service.csproj">
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
       <Name>Ringtoets.Piping.Service</Name>
@@ -95,10 +77,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Ringtoets.Piping.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.Forms\Ringtoets.Piping.Forms.csproj">
-      <Project>{7cd038e1-e111-4969-aced-22c5bd2974e1}</Project>
-      <Name>Ringtoets.Piping.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Piping.Calculation.TestUtil\Ringtoets.Piping.Calculation.TestUtil.csproj">
       <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>

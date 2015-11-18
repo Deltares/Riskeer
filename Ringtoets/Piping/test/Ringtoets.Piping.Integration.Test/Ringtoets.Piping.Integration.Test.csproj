@@ -50,11 +50,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,10 +71,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{CE994CC9-6F6A-48AC-B4BE-02C30A21F4DB}</Project>
       <Name>Ringtoets.Piping.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Piping.IO\Ringtoets.Piping.IO.csproj">
-      <Project>{35B87B7A-7F50-4139-B563-589EE522B1ED}</Project>
-      <Name>Ringtoets.Piping.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
       <Project>{1D3D58B6-EF7E-401E-92A0-104067D222EE}</Project>
