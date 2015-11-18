@@ -178,5 +178,25 @@ namespace Core.GIS.SharpMap.Tests.Rendering.Thematics
 
             Assert.AreEqual(1, counter);
         }
+
+        [Test]
+        public void CategorialThemeItemBubblesPropertyChangesOfDefaultStyle()
+        {
+            var counter = 0;
+            var defaultStyle = new VectorStyle();
+            var categorialThemeItem = new CategorialTheme { DefaultStyle = defaultStyle };
+
+            ((INotifyPropertyChanged) categorialThemeItem).PropertyChanged += (sender, e) =>
+            {
+                if (sender is IStyle)
+                {
+                    counter++;
+                }
+            };
+
+            defaultStyle.EnableOutline = true;
+
+            Assert.AreEqual(1, counter);
+        }
     }
 }

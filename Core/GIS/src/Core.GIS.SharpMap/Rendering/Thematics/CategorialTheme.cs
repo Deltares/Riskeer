@@ -51,7 +51,20 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             {
                 OnPropertyChanging("DefaultStyle");
 
+                if (defaultStyle != null)
+                {
+                    defaultStyle.PropertyChanging -= OnPropertyChanging;
+                    defaultStyle.PropertyChanged -= OnPropertyChanged;
+                }
+
                 defaultStyle = value;
+
+                if (defaultStyle != null)
+                {
+                    defaultStyle.PropertyChanging += OnPropertyChanging;
+                    defaultStyle.PropertyChanged += OnPropertyChanged;
+                }
+
                 colorDictionary.Clear();
 
                 OnPropertyChanged("DefaultStyle");

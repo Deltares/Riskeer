@@ -115,7 +115,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
         }
 
-        private void OnPropertyChanging(object sender, PropertyChangingEventArgs e)
+        protected void OnPropertyChanging(object sender, PropertyChangingEventArgs e)
         {
             if (PropertyChanging != null)
             {
@@ -133,7 +133,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
         }
 
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        protected void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (PropertyChanged != null)
             {
