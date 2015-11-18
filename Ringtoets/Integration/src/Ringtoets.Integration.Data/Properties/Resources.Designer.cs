@@ -61,6 +61,33 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kunstwerken - Asfaltbekledingen.
+        /// </summary>
+        internal static string AsphaltRevetmentFailureMechanism_DisplayName {
+            get {
+                return ResourceManager.GetString("AsphaltRevetmentFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kunstwerken - Niet sluiten.
+        /// </summary>
+        internal static string ClosingFailureMechanism_DisplayName {
+            get {
+                return ResourceManager.GetString("ClosingFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dijktraject.
+        /// </summary>
+        internal static string DikeAssessmentSection_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeAssessmentSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duintraject.
         /// </summary>
         internal static string DuneAssessmentSection_DisplayName {
@@ -79,11 +106,38 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kunstwerken - Constructief falen.
+        /// </summary>
+        internal static string FailingOfConstructionFailureMechanism_DisplayName {
+            get {
+                return ResourceManager.GetString("FailingOfConstructionFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faalkansverdeling.
         /// </summary>
         internal static string FailureMechanismContribution_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismContribution_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dijken - Graserosie kruin en binnentalud.
+        /// </summary>
+        internal static string GrassErosionFailureMechanism_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassErosionFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kunstwerken - Grasbekledingen.
+        /// </summary>
+        internal static string GrassRevetmentFailureMechanism_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassRevetmentFailureMechanism_DisplayName", resourceCulture);
             }
         }
         
@@ -97,11 +151,38 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dijken - Macrostabiliteit binnenwaarts.
+        /// </summary>
+        internal static string MacrostabilityInwardFailureMechanism_DisplayName {
+            get {
+                return ResourceManager.GetString("MacrostabilityInwardFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kunstwerken - Overslag en overloop.
+        /// </summary>
+        internal static string OvertoppingFailureMechanism_DisplayName {
+            get {
+                return ResourceManager.GetString("OvertoppingFailureMechanism_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Referentielijn.
         /// </summary>
         internal static string ReferenceLine_DisplayName {
             get {
                 return ResourceManager.GetString("ReferenceLine_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kunstwerken - Steenbekledingen.
+        /// </summary>
+        internal static string StoneRevetmentFailureMechanism_DisplayName {
+            get {
+                return ResourceManager.GetString("StoneRevetmentFailureMechanism_DisplayName", resourceCulture);
             }
         }
     }

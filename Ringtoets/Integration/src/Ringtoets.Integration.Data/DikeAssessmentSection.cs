@@ -1,6 +1,7 @@
 ﻿using Core.Common.Base;
 
 using Ringtoets.Integration.Data.Placeholders;
+using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Data
@@ -15,20 +16,20 @@ namespace Ringtoets.Integration.Data
         /// </summary>
         public DikeAssessmentSection()
         {
-            Name = "Dijktraject";
-            ReferenceLine = new InputPlaceholder("Referentielijn");
-            FailureMechanismContribution = new InputPlaceholder("Faalkansverdeling");
-            HydraulicBoundaryDatabase = new InputPlaceholder("HR locatiedatabase");
+            Name = Resources.DikeAssessmentSection_DisplayName;
+            ReferenceLine = new InputPlaceholder(Resources.ReferenceLine_DisplayName);
+            FailureMechanismContribution = new InputPlaceholder(Resources.FailureMechanismContribution_DisplayName);
+            HydraulicBoundaryDatabase = new InputPlaceholder(Resources.HydraulicBoundaryDatabase_DisplayName);
 
             PipingFailureMechanism = new PipingFailureMechanism();
-            GrassErosionFailureMechanism = new FailureMechanismPlaceholder("Dijken - Graserosie kruin en binnentalud");
-            MacrostabilityInwardFailureMechanism = new FailureMechanismPlaceholder("Dijken - Macrostabiliteit binnenwaarts");
-            OvertoppingFailureMechanism = new FailureMechanismPlaceholder("Kunstwerken - Overslag en overloop");
-            ClosingFailureMechanism = new FailureMechanismPlaceholder("Kunstwerken - Niet sluiten");
-            FailingOfConstructionFailureMechanism = new FailureMechanismPlaceholder("Kunstwerken - Constructief falen");
-            StoneRevetmentFailureMechanism = new FailureMechanismPlaceholder("Kunstwerken - Steenbekledingen");
-            AsphaltRevetmentFailureMechanism = new FailureMechanismPlaceholder("Kunstwerken - Asfaltbekledingen");
-            GrassRevetmentFailureMechanism = new FailureMechanismPlaceholder("Kunstwerken - Grasbekledingen");
+            GrassErosionFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassErosionFailureMechanism_DisplayName);
+            MacrostabilityInwardFailureMechanism = new FailureMechanismPlaceholder(Resources.MacrostabilityInwardFailureMechanism_DisplayName);
+            OvertoppingFailureMechanism = new FailureMechanismPlaceholder(Resources.OvertoppingFailureMechanism_DisplayName);
+            ClosingFailureMechanism = new FailureMechanismPlaceholder(Resources.ClosingFailureMechanism_DisplayName);
+            FailingOfConstructionFailureMechanism = new FailureMechanismPlaceholder(Resources.FailingOfConstructionFailureMechanism_DisplayName);
+            StoneRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.StoneRevetmentFailureMechanism_DisplayName);
+            AsphaltRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.AsphaltRevetmentFailureMechanism_DisplayName);
+            GrassRevetmentFailureMechanism = new FailureMechanismPlaceholder(Resources.GrassRevetmentFailureMechanism_DisplayName);
         }
 
         /// <summary>
