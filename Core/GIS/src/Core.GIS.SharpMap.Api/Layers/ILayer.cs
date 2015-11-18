@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using Core.Common.Utils;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.GeoAPI.CoordinateSystems.Transformations;
 using Core.GIS.GeoAPI.Extensions.Feature;
@@ -29,7 +30,7 @@ namespace Core.GIS.SharpMap.Api.Layers
     /// <summary>
     /// Interface for map layers
     /// </summary>
-    public interface ILayer : ICloneable, IDisposable
+    public interface ILayer : ICloneable, IDisposable, INotifyPropertyChange
     {
         /// <summary>
         /// Image of the layer for current map, layer uses it to render it's content to.

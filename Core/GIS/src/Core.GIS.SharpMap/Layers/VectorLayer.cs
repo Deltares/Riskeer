@@ -57,7 +57,7 @@ namespace Core.GIS.SharpMap.Layers
     /// System.Drawing.Image mapImage = myMap.GetMap();
     /// </code>
     /// </example>
-    public class VectorLayer : Layer, INotifyPropertyChange
+    public class VectorLayer : Layer
     {
         public static readonly Bitmap DefaultPointSymbol = (Bitmap) Image.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("Core.GIS.SharpMap.Styles.DefaultSymbol.png"));
         private static readonly ILog log = LogManager.GetLogger(typeof(VectorLayer));

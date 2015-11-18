@@ -11,7 +11,6 @@ namespace Core.GIS.SharpMap.Tests.Layers
     public class GroupLayerTest
     {
         [Test]
-        [Ignore("WTI-81 | Will be activated (and will run correctly) when Entity is removed from Layer")]
         public void EnablingChildLayerBubblesOnePropertyChangedEvent()
         {
             //this is needed to let the mapcontrol refresh see issue 2749

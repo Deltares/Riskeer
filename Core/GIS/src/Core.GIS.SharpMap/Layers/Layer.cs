@@ -23,8 +23,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Utils.Aop;
-using Core.Common.Utils.Aop.Markers;
 using Core.GIS.GeoAPI.CoordinateSystems;
 using Core.GIS.GeoAPI.CoordinateSystems.Transformations;
 using Core.GIS.GeoAPI.Extensions.Feature;
@@ -47,7 +45,6 @@ namespace Core.GIS.SharpMap.Layers
     /// Abstract class for common layer properties
     /// Implement this class instead of the ILayer interface to save a lot of common code.
     /// </summary>
-    [Entity(FireOnCollectionChange = false)]
     public abstract class Layer : ILayer
     {
         #region Delegates
@@ -80,9 +77,7 @@ namespace Core.GIS.SharpMap.Layers
         private Image image;
         private double lastRenderDuration;
 
-        [NoNotifyPropertyChange]
         private IMap map;
-
         private bool renderRequired;
         private bool showInLegend = true;
         private bool showInTreeView = true;
@@ -93,6 +88,21 @@ namespace Core.GIS.SharpMap.Layers
         private QuadTree tree;
 
         private ICoordinateTransformation coordinateTransformation;
+
+        protected bool themeIsDirty;
+        private bool canBeRemovedByUser = true;
+        private int renderOrder;
+        private float opacity;
+        private bool readOnly;
+        private bool skipRenderingOfVerySmallFeatures;
+        private bool useQuadTree;
+        private bool useSimpleGeometryForQuadTree;
+        private IFeatureEditor featureEditor;
+        private string themeGroup;
+        private bool nameIsReadOnly;
+        private bool excludeFromMapExtent;
+        private double minVisible;
+        private bool selectable;
 
         protected Layer()
         {
@@ -117,8 +127,12 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("CoordinateTransformation");
+
                 tree = null; // reset quad tree
                 coordinateTransformation = value;
+
+                OnPropertyChanged("CoordinateTransformation");
             }
         }
 
@@ -130,7 +144,6 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        [NoNotifyPropertyChange]
         public virtual bool ThemeIsDirty
         {
             get
@@ -160,13 +173,26 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("LabelLayer");
+
+                if (labelLayer != null)
+                {
+                    labelLayer.PropertyChanging -= OnPropertyChanging;
+                    labelLayer.PropertyChanged -= OnPropertyChanged;
+                }
+
                 labelLayer = value;
 
                 if (labelLayer != null)
                 {
+                    labelLayer.PropertyChanging += OnPropertyChanging;
+                    labelLayer.PropertyChanged += OnPropertyChanged;
+
                     labelLayer.Parent = this;
                     labelLayer.Map = map;
                 }
+
+                OnPropertyChanged("LabelLayer");
             }
         }
 
@@ -299,15 +325,18 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("Name");
+
                 if (NameIsReadOnly)
                 {
                     throw new ReadOnlyException("Property Name of Layer is not editable because NameIsReadOnly is true.");
                 }
                 name = value;
+
+                OnPropertyChanged("Name");
             }
         }
 
-        [NoNotifyPropertyChange]
         public virtual IMap Map
         {
             get
@@ -328,7 +357,6 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        [NoNotifyPropertyChange]
         public virtual bool ShowLabels
         {
             get
@@ -354,7 +382,9 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("ShowInLegend");
                 showInLegend = value;
+                OnPropertyChanged("ShowInLegend");
             }
         }
 
@@ -366,7 +396,9 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("ShowInTreeView");
                 showInTreeView = value;
+                OnPropertyChanged("ShowInTreeView");
             }
         }
 
@@ -378,11 +410,25 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("ShowAttributeTable");
                 showAttributeTable = value;
+                OnPropertyChanged("ShowAttributeTable");
             }
         }
 
-        public virtual int RenderOrder { get; set; }
+        public virtual int RenderOrder
+        {
+            get
+            {
+                return renderOrder;
+            }
+            set
+            {
+                OnPropertyChanging("RenderOrder");
+                renderOrder = value;
+                OnPropertyChanged("RenderOrder");
+            }
+        }
 
         public virtual bool CanBeRemovedByUser
         {
@@ -392,21 +438,59 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("CanBeRemovedByUser");
                 canBeRemovedByUser = value;
+                OnPropertyChanged("CanBeRemovedByUser");
             }
         }
 
         /// <summary>
         /// Defines the layer opacity, expressed as a value between 0.0 and 1.0. A value of 0.0 indicates fully transparent.
         /// </summary>
-        public virtual float Opacity { get; set; }
+        public virtual float Opacity
+        {
+            get
+            {
+                return opacity;
+            }
+            set
+            {
+                OnPropertyChanging("Opacity");
+                opacity = value;
+                OnPropertyChanged("Opacity");
+            }
+        }
 
-        public virtual bool ReadOnly { get; set; }
+        public virtual bool ReadOnly
+        {
+            get
+            {
+                return readOnly;
+            }
+            set
+            {
+                OnPropertyChanging("ReadOnly");
+                readOnly = value;
+                OnPropertyChanged("ReadOnly");
+            }
+        }
 
         /// <summary>
         /// Performance. When true - very small features are not rendered (if implemented by feature povider).
         /// </summary>
-        public virtual bool SkipRenderingOfVerySmallFeatures { get; set; }
+        public virtual bool SkipRenderingOfVerySmallFeatures
+        {
+            get
+            {
+                return skipRenderingOfVerySmallFeatures;
+            }
+            set
+            {
+                OnPropertyChanging("SkipRenderingOfVerySmallFeatures");
+                skipRenderingOfVerySmallFeatures = value;
+                OnPropertyChanged("SkipRenderingOfVerySmallFeatures");
+            }
+        }
 
         public virtual ICoordinateSystem CoordinateSystem
         {
@@ -416,16 +500,44 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("CoordinateSystem");
+
                 if (dataSource != null)
                 {
                     dataSource.CoordinateSystem = value;
                 }
+
+                OnPropertyChanged("CoordinateSystem");
             }
         }
 
-        public virtual bool UseQuadTree { get; set; }
+        public virtual bool UseQuadTree
+        {
+            get
+            {
+                return useQuadTree;
+            }
+            set
+            {
+                OnPropertyChanging("UseQuadTree");
+                useQuadTree = value;
+                OnPropertyChanged("UseQuadTree");
+            }
+        }
 
-        public virtual bool UseSimpleGeometryForQuadTree { get; set; }
+        public virtual bool UseSimpleGeometryForQuadTree
+        {
+            get
+            {
+                return useSimpleGeometryForQuadTree;
+            }
+            set
+            {
+                OnPropertyChanging("UseSimpleGeometryForQuadTree");
+                useSimpleGeometryForQuadTree = value;
+                OnPropertyChanged("UseSimpleGeometryForQuadTree");
+            }
+        }
 
         public virtual QuadTree QuadTree
         {
@@ -875,6 +987,8 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("RenderQuadTree");
+
                 renderQuadTree = value;
 
                 if (value && quadTreeQuadLayers.Count == 0 && tree != null)
@@ -886,6 +1000,8 @@ namespace Core.GIS.SharpMap.Layers
                 {
                     RemoveQuadTreeLayers();
                 }
+
+                OnPropertyChanged("RenderQuadTree");
             }
         }
 
@@ -899,6 +1015,8 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("RenderQuadTreeEnvelopes");
+
                 renderQuadTreeEnvelopes = value;
 
                 if (value && quadTreeEnvelopesLayer == null && tree != null)
@@ -910,6 +1028,8 @@ namespace Core.GIS.SharpMap.Layers
                 {
                     RemoveQuadTreeEnvelopesLayer();
                 }
+
+                OnPropertyChanged("RenderQuadTreeEnvelopes");
             }
         }
 
@@ -923,6 +1043,8 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("DataSource");
+
                 if (dataSource != null)
                 {
                     dataSource.FeaturesChanged -= DataSourceFeaturesChanged;
@@ -950,6 +1072,8 @@ namespace Core.GIS.SharpMap.Layers
                         SkipRenderingOfVerySmallFeatures = true;
                     }
                 }
+
+                OnPropertyChanged("DataSource");
             }
         }
 
@@ -981,7 +1105,19 @@ namespace Core.GIS.SharpMap.Layers
             throw new NotImplementedException();
         }
 
-        public virtual IFeatureEditor FeatureEditor { get; set; }
+        public virtual IFeatureEditor FeatureEditor
+        {
+            get
+            {
+                return featureEditor;
+            }
+            set
+            {
+                OnPropertyChanging("FeatureEditor");
+                featureEditor = value;
+                OnPropertyChanged("FeatureEditor");
+            }
+        }
 
         protected virtual void DataSourceFeaturesChanged(object sender, EventArgs e)
         {
@@ -997,7 +1133,19 @@ namespace Core.GIS.SharpMap.Layers
 
         private LayerAttribute minMaxCache;
 
-        public virtual string ThemeGroup { get; set; }
+        public virtual string ThemeGroup
+        {
+            get
+            {
+                return themeGroup;
+            }
+            set
+            {
+                OnPropertyChanging("ThemeGroup");
+                themeGroup = value;
+                OnPropertyChanged("ThemeGroup");
+            }
+        }
 
         public virtual double MinDataValue
         {
@@ -1041,7 +1189,23 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("Theme");
+
+                if (theme != null)
+                {
+                    theme.PropertyChanging -= OnPropertyChanging;
+                    theme.PropertyChanged -= OnPropertyChanged;
+                }
+
                 theme = value;
+
+                if (theme != null)
+                {
+                    theme.PropertyChanging += OnPropertyChanging;
+                    theme.PropertyChanged += OnPropertyChanged;
+                }
+
+                OnPropertyChanging("Theme");
             }
         }
 
@@ -1053,7 +1217,19 @@ namespace Core.GIS.SharpMap.Layers
 
         //public abstract SharpMap.CoordinateSystems.CoordinateSystem CoordinateSystem { get; set; }
 
-        public virtual bool NameIsReadOnly { get; set; }
+        public virtual bool NameIsReadOnly
+        {
+            get
+            {
+                return nameIsReadOnly;
+            }
+            set
+            {
+                OnPropertyChanging("NameIsReadOnly");
+                nameIsReadOnly = value;
+                OnPropertyChanged("NameIsReadOnly");
+            }
+        }
 
         public virtual void ClearImage()
         {
@@ -1064,7 +1240,19 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        public virtual bool ExcludeFromMapExtent { get; set; }
+        public virtual bool ExcludeFromMapExtent
+        {
+            get
+            {
+                return excludeFromMapExtent;
+            }
+            set
+            {
+                OnPropertyChanging("ExcludeFromMapExtent");
+                excludeFromMapExtent = value;
+                OnPropertyChanged("ExcludeFromMapExtent");
+            }
+        }
 
         public virtual void Render()
         {
@@ -1132,11 +1320,12 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("CustomRenderers");
                 customRenderers = value;
+                OnPropertyChanged("CustomRenderers");
             }
         }
 
-        [NoNotifyPropertyChange]
         public virtual bool RenderRequired
         {
             get
@@ -1149,7 +1338,6 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        [NoNotifyPropertyChange]
         public virtual double LastRenderDuration
         {
             get
@@ -1212,7 +1400,19 @@ namespace Core.GIS.SharpMap.Layers
         /// <summary>
         /// Minimum visibility zoom, including this value
         /// </summary>
-        public virtual double MinVisible { get; set; }
+        public virtual double MinVisible
+        {
+            get
+            {
+                return minVisible;
+            }
+            set
+            {
+                OnPropertyChanging("MinVisible");
+                minVisible = value;
+                OnPropertyChanged("MinVisible");
+            }
+        }
 
         /// <summary>
         /// Maximum visibility zoom, excluding this value
@@ -1225,7 +1425,9 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("MaxVisible");
                 maxVisible = value;
+                OnPropertyChanged("MaxVisible");
             }
         }
 
@@ -1240,7 +1442,9 @@ namespace Core.GIS.SharpMap.Layers
             }
             set
             {
+                OnPropertyChanging("Visible");
                 visible = value;
+                OnPropertyChanged("Visible");
             }
         }
 
@@ -1257,15 +1461,23 @@ namespace Core.GIS.SharpMap.Layers
             }
         }
 
-        protected bool themeIsDirty;
-        private bool canBeRemovedByUser = true;
-
-        public virtual bool Selectable { get; set; }
+        public virtual bool Selectable
+        {
+            get
+            {
+                return selectable;
+            }
+            set
+            {
+                OnPropertyChanging("Selectable");
+                selectable = value;
+                OnPropertyChanged("Selectable");
+            }
+        }
 
         /// <summary>
         /// Determines whether the current theme should be updated when the datasouce changes
         /// </summary>
-        [NoNotifyPropertyChange] //don't notify..messes up serialization
         public virtual bool AutoUpdateThemeOnDataSourceChanged { get; set; }
 
         #endregion

@@ -29,7 +29,6 @@ namespace Core.GIS.SharpMap.Tests.Layers
         }
 
         [Test]
-        [Ignore("WTI-81 | Will be activated (and will run correctly) when Entity is removed from Layer")]
         public void EventBubbling()
         {
             var style = new VectorStyle();
@@ -203,7 +202,6 @@ namespace Core.GIS.SharpMap.Tests.Layers
         }
 
         [Test]
-        [Ignore("WTI-81 | Will be activated (and will run correctly) when Entity is removed from Layer")]
         public void VectorLayersBubblesPropertyChangesOfStyle()
         {
             var counter = 0;

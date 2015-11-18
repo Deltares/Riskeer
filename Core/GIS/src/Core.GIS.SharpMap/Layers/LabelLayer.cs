@@ -70,7 +70,6 @@ namespace Core.GIS.SharpMap.Layers
         private GetLabelMethod getLabelMethod;
         private SmoothingMode smoothingMode;
         private TextRenderingHint textRenderingHint;
-        private ITheme theme;
         private string labelColumn;
         private string rotationColumn;
         private int priority;
@@ -199,37 +198,6 @@ namespace Core.GIS.SharpMap.Layers
                 }
 
                 OnPropertyChanged("Style");
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets thematic settings for the layer. Set to null to ignore thematics
-        /// </summary>
-        public virtual ITheme Theme
-        {
-            get
-            {
-                return theme;
-            }
-            set
-            {
-                OnPropertyChanging("Theme");
-
-                if (theme != null)
-                {
-                    theme.PropertyChanging -= OnPropertyChanging;
-                    theme.PropertyChanged -= OnPropertyChanged;
-                }
-
-                theme = value;
-
-                if (theme != null)
-                {
-                    theme.PropertyChanging += OnPropertyChanging;
-                    theme.PropertyChanged += OnPropertyChanged;
-                }
-
-                OnPropertyChanged("Theme");
             }
         }
 

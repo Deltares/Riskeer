@@ -124,6 +124,7 @@
     <Compile Include="Editors\Snapping\SnapStrategyTest.cs" />
     <Compile Include="Layers\GroupLayerTest.cs" />
     <Compile Include="Layers\LabelLayerTest.cs" />
+    <Compile Include="Layers\LayerTest.cs" />
     <Compile Include="Layers\VectorLayerTest.cs" />
     <Compile Include="MapTest.cs">
     </Compile>

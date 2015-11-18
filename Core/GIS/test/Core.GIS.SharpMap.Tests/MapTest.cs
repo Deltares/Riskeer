@@ -27,7 +27,7 @@ namespace Core.GIS.SharpMap.Tests
     {
         //TODO: rename this test
         [Test]
-        [Ignore("WTI-81 | Will be activated (and will run correctly) when Entity is removed from Layer")]
+        [Ignore("WTI-81 | Will be activated (and will run correctly) when Entity is removed from Map")]
         public void EventBubbling2()
         {
             int changeCount = 0;
@@ -50,7 +50,6 @@ namespace Core.GIS.SharpMap.Tests
 
         //TODO: rename this test
         [Test]
-        [Ignore("WTI-81 | Will be activated (and will run correctly) when Entity is removed from Layer")]
         public void EventBubbling3()
         {
             int changeCount = 0;
