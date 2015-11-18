@@ -16,18 +16,19 @@
     <Exec Command="assembly_insert_version.cmd ..\..\Core\Common\src\Core.Common.Version GlobalAssembly.cs Ringtoets.doxygen.svn Ringtoets.doxygen" WorkingDirectory="Technical_documentation" />
   </Target>
   
-  <Target Name="Doxygen" DependsOnTargets="AssemblyVersion">
+  <Target Name="RunDoxygen" DependsOnTargets="AssemblyVersion">
     <MakeDir Directories="$(DoxygenOutputDirectory)" />
-    <Exec Command="Technical_documentation\Doxygen\bin\doxygen.exe Technical_documentation\Ringtoets.doxygen" />
-	<Exec Command="pdflatex.exe -shell-escape -interaction=nonstopmode refman.tex>nul" WorkingDirectory="..\target\Technical_documentation\latex" IgnoreExitCode="true" />
-	<Exec Command="makeindex.exe refman.idx>nul" WorkingDirectory="..\target\Technical_documentation\latex" IgnoreExitCode="true"/>
-	<Exec Command="pdflatex.exe -shell-escape -interaction=nonstopmode refman.tex>nul" WorkingDirectory="..\target\Technical_documentation\latex" IgnoreExitCode="true"/>
+    <Exec Command="Technical_documentation\Doxygen\bin\doxygen.exe Technical_documentation\Ringtoets.doxygen"/>
+  </Target>
+  
+   <Target Name="RunPDF2LaTeX" DependsOnTargets="RunDoxygen">
+	<Exec Command='$(MSBuildProjectDirectory)\Technical_documentation\replace_string_in_file.cmd "pdflatex " "pdflatex.exe -quiet -shell-escape -interaction=batchmode " "make.bat" "makeDeltares.bat"' WorkingDirectory="$(DoxygenOutputDirectory)latex"/>
+	<Exec Command='$(MSBuildProjectDirectory)\Technical_documentation\replace_string_in_file.cmd "setcounter{tocdepth}{3}" "setcounter{tocdepth}{2}" "refman.tex"' WorkingDirectory="$(DoxygenOutputDirectory)latex"/>
+	<Exec Command="makeDeltares.bat > makeDeltares.log" WorkingDirectory="$(DoxygenOutputDirectory)latex" IgnoreExitCode="true"/>
+  </Target>
+  
+  <Target Name="TechnicalDocumentation" DependsOnTargets="RunPDF2LaTeX">
 	<Exec Command="ren refman.pdf Technical_documentation.pdf" WorkingDirectory="..\target\Technical_documentation\latex"/>
   </Target>
   
-  <Target Name="Cleanup" DependsOnTargets="Doxygen">
-    <Delete Files="Technical_documentation\refman.log"/>
-    <Delete Files="Technical_documentation\texput.log"/>
-  </Target>
-
 </Project>
