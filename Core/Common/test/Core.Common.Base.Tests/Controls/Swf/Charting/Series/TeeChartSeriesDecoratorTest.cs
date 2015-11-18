@@ -9,7 +9,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Charting.Series
     public class TeeChartSeriesDecoratorTest
     {
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Ongeldig argument for databron van series. Biedt u een IEnumerable aan? IList en IListSource worden ondersteund")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Ongeldig argument voor databron van gegevensreeks. Biedt u een IEnumerable aan? IList en IListSource worden ondersteund.")]
         public void ThrowExceptionOnSettingInvalidDataSource()
         {
             ILineChartSeries lineChartSeries = ChartSeriesFactory.CreateLineSeries();

@@ -18,7 +18,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
     public class TreeViewControllerTest
     {
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Structuurweergave mag niet leeg zijn")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Structuurweergave mag niet leeg zijn.")]
         public void ConstructWithoutTreeView()
         {
             new TreeViewController(null);
@@ -144,7 +144,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
         }
 
         [Test]
-        [ExpectedException(ExpectedMessage = "Niet in staat om node presenter te vinden voor 'null' object")]
+        [ExpectedException(ExpectedMessage = "Niet in staat om node presenter te vinden voor 'null' object.")]
         public void TestOnNodeCheckedWithNodeWithoutTagValue()
         {
             var mocks = new MockRepository();

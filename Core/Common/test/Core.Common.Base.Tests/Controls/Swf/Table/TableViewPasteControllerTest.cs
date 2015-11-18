@@ -29,7 +29,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
             int callCount = 0;
             tableViewCopyPasteController.PasteFailed += (s, e) =>
             {
-                Assert.AreEqual("Kan niet plakken in gesorteerde kolom", e.Value);
+                Assert.AreEqual("Kan niet plakken in gesorteerde kolom.", e.Value);
                 callCount++;
             };
             //action! paste in the first column..second column is hit so should fail
@@ -235,7 +235,7 @@ namespace Core.Common.Base.Tests.Controls.Swf.Table
             {
                 callCount++;
                 Assert.AreEqual(
-                    "Kan niet in niet-rechthoekige selectie plakken",
+                    "Kan alleen in rechthoekige selectie plakken.",
                     e.Value);
             };
             //this should a paste failed event

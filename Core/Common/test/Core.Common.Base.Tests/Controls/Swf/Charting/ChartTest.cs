@@ -45,25 +45,25 @@ namespace Core.Common.Base.Tests.Controls.Swf.Charting
             };
             chart.Series.Add(areaSeries);
 
-            TestHelper.AssertLogMessageIsGenerated(() => SaveDeleteAndAssertExport("test.svg", chart), "Hatch stijl wordt niet ondersteund voor exporteren en zal genegeerd worden.", 1);
+            TestHelper.AssertLogMessageIsGenerated(() => SaveDeleteAndAssertExport("test.svg", chart), "Gearceerde stijl wordt niet ondersteund voor exporteren en zal genegeerd worden.", 1);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Argument bevat geen bestandsnaam\r\nParameter name: filename")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Argument bevat geen bestandsnaam.\r\nParameter name: filename")]
         public void ExportAsImageThrowsOnIncompleteFileName()
         {
             SaveDeleteAndAssertExport(".noname");
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Extensie (.ext) wordt niet ondersteund\r\nParameter name: filename")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Extensie (.ext) wordt niet ondersteund.\r\nParameter name: filename")]
         public void ExportAsImageThrowsOnUnSupportedExtension()
         {
             SaveDeleteAndAssertExport("incorrect.ext");
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Argument kan niet de waarde 'null' hebben\r\nParameter name: filename")]
+        [ExpectedException(typeof(ArgumentException), ExpectedMessage = "Argument kan niet de waarde 'null' hebben.\r\nParameter name: filename")]
         public void ExportAsImageThrowsOnNullArgument()
         {
             SaveDeleteAndAssertExport(null);
