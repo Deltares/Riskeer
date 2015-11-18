@@ -18,8 +18,6 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using Core.Common.Utils.Aop;
-using Core.Common.Utils.Aop.Markers;
 using Core.GIS.GeoAPI.Geometries;
 using Core.GIS.SharpMap.Styles.Shapes;
 
@@ -28,7 +26,6 @@ namespace Core.GIS.SharpMap.Styles
     /// <summary>
     /// Defines a style used for rendering vector data
     /// </summary>
-    [Entity(FireOnCollectionChange = false)]
     public class VectorStyle : Style, IDisposable
     {
         /// <summary>
@@ -83,7 +80,6 @@ namespace Core.GIS.SharpMap.Styles
         /// by an external source.
         /// </summary>
         /// <returns></returns>
-        [NoNotifyPropertyChange]
         public bool HasCustomSymbol { get; private set; }
 
         public override object Clone()
@@ -212,12 +208,16 @@ namespace Core.GIS.SharpMap.Styles
             }
             set
             {
+                OnPropertyChanging("Line");
+
                 line = value;
 
                 if (!HasCustomSymbol)
                 {
                     UpdateSymbols();
                 }
+
+                OnPropertyChanged("Line");
             }
         }
 
@@ -232,12 +232,16 @@ namespace Core.GIS.SharpMap.Styles
             }
             set
             {
+                OnPropertyChanging("Outline");
+
                 outline = value;
 
                 if (!HasCustomSymbol)
                 {
                     UpdateSymbols();
                 }
+
+                OnPropertyChanged("Outline");
             }
         }
 
@@ -252,12 +256,16 @@ namespace Core.GIS.SharpMap.Styles
             }
             set
             {
+                OnPropertyChanging("EnableOutline");
+
                 enableOutline = value;
 
                 if (!HasCustomSymbol)
                 {
                     UpdateSymbols();
                 }
+
+                OnPropertyChanged("EnableOutline");
             }
         }
 
@@ -272,12 +280,16 @@ namespace Core.GIS.SharpMap.Styles
             }
             set
             {
+                OnPropertyChanging("Fill");
+
                 fill = value;
 
                 if (!HasCustomSymbol)
                 {
                     UpdateSymbols();
                 }
+
+                OnPropertyChanged("Fill");
             }
         }
 
@@ -297,12 +309,16 @@ namespace Core.GIS.SharpMap.Styles
             }
             set
             {
+                OnPropertyChanging("GeometryType");
+
                 geometryType = value;
 
                 if (!HasCustomSymbol)
                 {
                     UpdateSymbols();
                 }
+
+                OnPropertyChanged("GeometryType");
             }
         }
 
@@ -317,6 +333,8 @@ namespace Core.GIS.SharpMap.Styles
             }
             set
             {
+                OnPropertyChanging("Symbol");
+
                 symbol = value;
                 HasCustomSymbol = true;
 
@@ -331,6 +349,8 @@ namespace Core.GIS.SharpMap.Styles
                     g.DrawImage(Symbol, 0, 0, legendSymbolBitmap.Width, legendSymbolBitmap.Height);
                     legendSymbol = legendSymbolBitmap;
                 }
+
+                OnPropertyChanged("Symbol");
             }
         }
 
@@ -350,7 +370,9 @@ namespace Core.GIS.SharpMap.Styles
             }
             set
             {
+                OnPropertyChanging("SymbolScale");
                 symbolScale = value;
+                OnPropertyChanged("SymbolScale");
             }
         }
 
@@ -360,7 +382,19 @@ namespace Core.GIS.SharpMap.Styles
         /// <remarks>
         /// The symbol offset is scaled with the <see cref="SymbolScale"/> property and refers to the offset af <see cref="SymbolScale"/>=1.0.
         /// </remarks>
-        public virtual PointF SymbolOffset { get; set; }
+        public virtual PointF SymbolOffset
+        {
+            get
+            {
+                return symbolOffset;
+            }
+            set
+            {
+                OnPropertyChanging("SymbolOffset");
+                symbolOffset = value;
+                OnPropertyChanged("SymbolOffset");
+            }
+        }
 
         ///<summary>
         /// Defines the shapesize for symbol
@@ -373,16 +407,22 @@ namespace Core.GIS.SharpMap.Styles
             }
             set
             {
+                OnPropertyChanging("ShapeSize");
+
                 shapeSize = value;
 
                 if (!HasCustomSymbol)
                 {
                     UpdateSymbols();
                 }
+
+                OnPropertyChanged("ShapeSize");
             }
         }
 
         private ShapeType shapeType = ShapeType.Diamond; // default
+        private PointF symbolOffset;
+        private float symbolRotation;
 
         ///<summary>
         /// Defines shape for symbol
@@ -395,15 +435,31 @@ namespace Core.GIS.SharpMap.Styles
             }
             set
             {
+                OnPropertyChanging("Shape");
+
                 shapeType = value;
                 UpdateSymbols();
+
+                OnPropertyChanged("Shape");
             }
         }
 
         /// <summary>
         /// Gets or sets the rotation of the symbol in degrees (clockwise is positive)
         /// </summary>
-        public virtual float SymbolRotation { get; set; }
+        public virtual float SymbolRotation
+        {
+            get
+            {
+                return symbolRotation;
+            }
+            set
+            {
+                OnPropertyChanging("SymbolRotation");
+                symbolRotation = value;
+                OnPropertyChanged("SymbolRotation");
+            }
+        }
 
         #endregion
     }

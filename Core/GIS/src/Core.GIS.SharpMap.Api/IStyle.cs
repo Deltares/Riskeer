@@ -16,16 +16,15 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
 using System;
+using Core.Common.Utils;
 
 namespace Core.GIS.SharpMap.Api
 {
     /// <summary>
     /// Defines an interface for defining layer styles
     /// </summary>
-    public interface IStyle : ICloneable
+    public interface IStyle : ICloneable, INotifyPropertyChange
     {
-        long Id { get; set; }
-
         /// <summary>
         /// Gets or sets the minimum zoom value where the style is applied
         /// </summary>

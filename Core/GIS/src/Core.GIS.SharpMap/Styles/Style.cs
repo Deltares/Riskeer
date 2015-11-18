@@ -16,6 +16,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
 using System;
+using System.ComponentModel;
 using Core.GIS.SharpMap.Api;
 
 namespace Core.GIS.SharpMap.Styles
@@ -46,18 +47,6 @@ namespace Core.GIS.SharpMap.Styles
             _minVisible = another.MinVisible;
             _maxVisible = another.MaxVisible;
             _Enabled = another.Enabled;
-        }
-
-        public long Id
-        {
-            get
-            {
-                return id;
-            }
-            set
-            {
-                id = value;
-            }
         }
 
         /// <summary>
@@ -110,5 +99,29 @@ namespace Core.GIS.SharpMap.Styles
         /// </summary>
         /// <returns>cloned object</returns>
         public abstract object Clone();
+
+        #region INotifyPropertyChange
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        protected void OnPropertyChanging(string propertyName)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
     }
 }
