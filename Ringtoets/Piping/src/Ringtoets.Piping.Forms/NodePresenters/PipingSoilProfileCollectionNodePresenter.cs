@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Core.Common.Controls;
 
 using Ringtoets.Common.Forms.Extensions;
+using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Properties;
 
@@ -16,7 +17,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// Tree node presenter representing the collection of <see cref="PipingSoilProfile"/> available for piping
     /// calculations.
     /// </summary>
-    public class PipingSoilProfileCollectionNodePresenter : PipingNodePresenterBase<IEnumerable<PipingSoilProfile>>
+    public class PipingSoilProfileCollectionNodePresenter : RingtoetsNodePresenterBase<IEnumerable<PipingSoilProfile>>
     {
         /// <summary>
         /// Sets the action to be performed when importing <see cref="PipingSoilProfile"/> instances

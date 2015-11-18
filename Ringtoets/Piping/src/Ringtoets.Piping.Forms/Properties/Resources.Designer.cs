@@ -730,24 +730,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan node uit boom van type {0} niet hernoemen..
-        /// </summary>
-        public static string PipingNodePresenterBase_OnNodeRenamed_Cannot_rename_tree_node_of_type__0__ {
-            get {
-                return ResourceManager.GetString("PipingNodePresenterBase_OnNodeRenamed_Cannot_rename_tree_node_of_type__0__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan node uit boom van type {0} niet verwijderen..
-        /// </summary>
-        public static string PipingNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type__0__ {
-            get {
-                return ResourceManager.GetString("PipingNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type__0__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Piping resultaat.
         /// </summary>
         public static string PipingOutput_DisplayName {

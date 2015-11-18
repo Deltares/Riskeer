@@ -84,9 +84,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ContextMenuStripExtensionsTest.cs" />
+    <Compile Include="NodePresenters\RingtoetsNodePresenterBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{f49bd8b2-332a-4c91-a196-8cce0a2c7d98}</Project>
+      <Name>Core.Common.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>

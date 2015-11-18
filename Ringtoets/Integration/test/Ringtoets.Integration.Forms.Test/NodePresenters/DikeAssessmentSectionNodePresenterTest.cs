@@ -11,12 +11,11 @@ using Rhino.Mocks;
 
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.NodePresenters;
-using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Forms.Test.NodePresenters
 {
     [TestFixture]
-    public class AssessmentSectionNodePresenterTest
+    public class DikeAssessmentSectionNodePresenterTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()

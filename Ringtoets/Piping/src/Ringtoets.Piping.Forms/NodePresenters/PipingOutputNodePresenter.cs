@@ -1,11 +1,13 @@
 ﻿using Core.Common.Controls;
+
+using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.Piping.Forms.Properties;
 
 namespace Ringtoets.Piping.Forms.NodePresenters
 {
-    public class PipingOutputNodePresenter : PipingNodePresenterBase<PipingOutput>
+    public class PipingOutputNodePresenter : RingtoetsNodePresenterBase<PipingOutput>
     {
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, PipingOutput nodeData)
         {

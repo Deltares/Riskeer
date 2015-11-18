@@ -59,7 +59,6 @@
     <Compile Include="NodePresenters\PipingCalculationInputsNodePresenterTest.cs" />
     <Compile Include="Helper\PipingOutputCreator.cs" />
     <Compile Include="NodePresenters\PipingFailureMechanismNodePresenterTest.cs" />
-    <Compile Include="NodePresenters\PipingNodePresenterBaseTest.cs" />
     <Compile Include="NodePresenters\PipingOutputNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingSoilProfileNodePresenterTest.cs" />
     <Compile Include="NodePresenters\PipingSurfaceLineCollectionNodePresenterTest.cs" />
@@ -107,6 +106,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtils\Core.Common.TestUtils.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+      <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
+      <Name>Ringtoets.Common.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Piping.Calculation\Ringtoets.Piping.Calculation.csproj">
       <Project>{d64e4f0e-e341-496f-82b2-941ad202b4e3}</Project>

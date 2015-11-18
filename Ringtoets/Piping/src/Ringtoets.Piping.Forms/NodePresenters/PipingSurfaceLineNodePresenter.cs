@@ -1,4 +1,6 @@
 ﻿using Core.Common.Controls;
+
+using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 
 using Ringtoets.Piping.Forms.Properties;
@@ -8,7 +10,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// <summary>
     /// Node presenter for <see cref="RingtoetsPipingSurfaceLine"/> data nodes in the project tree view.
     /// </summary>
-    public class PipingSurfaceLineNodePresenter : PipingNodePresenterBase<RingtoetsPipingSurfaceLine>
+    public class PipingSurfaceLineNodePresenter : RingtoetsNodePresenterBase<RingtoetsPipingSurfaceLine>
     {
         protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, RingtoetsPipingSurfaceLine nodeData)
         {

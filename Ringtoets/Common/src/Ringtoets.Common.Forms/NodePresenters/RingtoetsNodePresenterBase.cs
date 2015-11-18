@@ -3,18 +3,20 @@ using System.Collections;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+
 using Core.Common.Controls;
 using Core.Common.Utils.Collections;
-using Ringtoets.Piping.Forms.Properties;
 
-namespace Ringtoets.Piping.Forms.NodePresenters
+using Ringtoets.Common.Forms.Properties;
+
+namespace Ringtoets.Common.Forms.NodePresenters
 {
     /// <summary>
     /// Implements <see cref="ITreeNodePresenter"/> in a featureless way as possible,
     /// to serve as a base class for all node presenters.
     /// </summary>
     /// <typeparam name="T">The data object class corresponding with the node.</typeparam>
-    public abstract class PipingNodePresenterBase<T> : ITreeNodePresenter
+    public abstract class RingtoetsNodePresenterBase<T> : ITreeNodePresenter
     {
         public ITreeView TreeView { get; set; }
 
@@ -128,7 +130,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// <seealso cref="OnNodeRenamed(object, string)"/>
         protected virtual void OnNodeRenamed(T nodeData, string newName)
         {
-            throw new InvalidOperationException(string.Format(Resources.PipingNodePresenterBase_OnNodeRenamed_Cannot_rename_tree_node_of_type__0__, GetType().Name));
+            throw new InvalidOperationException(string.Format(Resources.RingtoetsNodePresenterBase_OnNodeRenamed_Cannot_rename_tree_node_of_type_0_, GetType().Name));
         }
 
         /// <summary>
@@ -218,7 +220,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// <seealso cref="RemoveNodeData(object, object)"/>
         protected virtual bool RemoveNodeData(object parentNodeData, T nodeData)
         {
-            throw new InvalidOperationException(String.Format(Resources.PipingNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type__0__, GetType().Name));
+            throw new InvalidOperationException(String.Format(Resources.RingtoetsNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type_0_, GetType().Name));
         }
     }
 }

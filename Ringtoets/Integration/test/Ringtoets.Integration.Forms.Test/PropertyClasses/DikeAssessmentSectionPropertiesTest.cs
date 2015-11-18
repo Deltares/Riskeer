@@ -11,7 +11,7 @@ using Ringtoets.Integration.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class AssessmentSectionPropertiesTest
+    public class DikeAssessmentSectionPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()

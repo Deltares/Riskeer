@@ -140,17 +140,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var nodeMock = mocks.StrictMock<ITreeNode>();
+            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
 
             // Call
-            TestDelegate call = () => { nodePresenter.OnNodeRenamed(nodeMock, "<Insert New Name Here>"); };
+            TestDelegate call = () => { nodePresenter.OnNodeRenamed(dataMock, "<Insert New Name Here>"); };
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(call);
-            var expectedMessage = string.Format("Kan node uit boom van type {0} niet hernoemen.", nodePresenter.GetType().Name);
+            var expectedMessage = string.Format("Kan knoop uit boom van type {0} niet hernoemen.", nodePresenter.GetType().Name);
             Assert.AreEqual(expectedMessage, exception.Message);
             mocks.ReplayAll(); // Expect no calls on tree node
         }
@@ -177,7 +177,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
@@ -195,7 +195,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
@@ -215,7 +215,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             var sourceMock = mocks.StrictMock<ITreeNode>();
             var targetMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
@@ -235,7 +235,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             var sourceParentNodeMock = mocks.StrictMock<ITreeNode>();
             var targetParentNodeDataMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
@@ -254,7 +254,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
@@ -272,7 +272,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter
@@ -294,7 +294,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // Setup
             var mocks = new MockRepository();
             var nodeMock = mocks.StrictMock<ITreeNode>();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             var actionStub = mocks.Stub<Action>();
             mocks.ReplayAll();
 
@@ -321,7 +321,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             var eventArgsMock = mocks.StrictMock<PropertyChangedEventArgs>("");
             mocks.ReplayAll();
@@ -340,7 +340,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             var eventArgsMock = mocks.StrictMock<NotifyCollectionChangingEventArgs>();
             mocks.ReplayAll();
 
@@ -358,14 +358,14 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
         {
             // Setup
             var mocks = new MockRepository();
-            var dataMock = mocks.StrictMock<object>();
+            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             var nodeMock = mocks.StrictMock<ITreeNode>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
 
             // Call
-            bool removalAllowed = nodePresenter.CanRemove(dataMock, nodeMock);
+            bool removalAllowed = nodePresenter.CanRemove(nodeMock, dataMock);
 
             // Assert
             Assert.IsFalse(removalAllowed);
@@ -378,17 +378,17 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             // setup
             var mocks = new MockRepository();
             var parentNodeDataMock = mocks.StrictMock<object>();
-            var nodeDataMock = mocks.StrictMock<ITreeNode>();
+            var dataMock = mocks.StrictMock<IEnumerable<RingtoetsPipingSurfaceLine>>();
             mocks.ReplayAll();
 
             var nodePresenter = new PipingSurfaceLineCollectionNodePresenter();
 
             // call
-            TestDelegate call = () => nodePresenter.RemoveNodeData(parentNodeDataMock, nodeDataMock);
+            TestDelegate call = () => nodePresenter.RemoveNodeData(parentNodeDataMock, dataMock);
 
             // assert
             var exception = Assert.Throws<InvalidOperationException>(call);
-            var expectedMessage = string.Format("Kan node uit boom van type {0} niet verwijderen.", nodePresenter.GetType().Name);
+            var expectedMessage = string.Format("Kan knoop uit boom van type {0} niet verwijderen.", nodePresenter.GetType().Name);
             Assert.AreEqual(expectedMessage, exception.Message);
             mocks.VerifyAll(); // Expect no calls on arguments
         }

@@ -869,12 +869,6 @@
   <data name="SplashScreen_Version" xml:space="preserve">
     <value>Versie</value>
   </data>
-  <data name="PipingNodePresenterBase_OnNodeRenamed_Cannot_rename_tree_node_of_type__0__" xml:space="preserve">
-    <value>Kan node uit boom van type {0} niet hernoemen.</value>
-  </data>
-  <data name="PipingNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type__0__" xml:space="preserve">
-    <value>Kan node uit boom van type {0} niet verwijderen.</value>
-  </data>
   <data name="GuiCommandHandler_TryCloseProject_Closing_current_project_" xml:space="preserve">
     <value>Sluiten van huidig project.</value>
   </data>

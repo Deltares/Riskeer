@@ -469,10 +469,4 @@
   <data name="ShiftedLognormalDistribution_ShortName" xml:space="preserve">
     <value>Verschoven lognormaal</value>
   </data>
-  <data name="PipingNodePresenterBase_OnNodeRenamed_Cannot_rename_tree_node_of_type__0__" xml:space="preserve">
-    <value>Kan node uit boom van type {0} niet hernoemen.</value>
-  </data>
-  <data name="PipingNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type__0__" xml:space="preserve">
-    <value>Kan node uit boom van type {0} niet verwijderen.</value>
-  </data>
 </root>

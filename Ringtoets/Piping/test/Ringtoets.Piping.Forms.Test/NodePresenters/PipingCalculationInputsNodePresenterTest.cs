@@ -439,7 +439,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(removeAction);
-            var expectedMessage = string.Format("Kan node uit boom van type {0} niet verwijderen.", nodePresenter.GetType().Name);
+            var expectedMessage = string.Format("Kan knoop uit boom van type {0} niet verwijderen.", nodePresenter.GetType().Name);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 

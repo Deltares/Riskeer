@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Core.Common.Controls;
 using NUnit.Framework;
 using Rhino.Mocks;
+
+using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.NodePresenters;
 
@@ -19,7 +21,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodePresenter = new PipingSoilProfileNodePresenter();
 
             // Assert
-            Assert.IsInstanceOf<PipingNodePresenterBase<PipingSoilProfile>>(nodePresenter);
+            Assert.IsInstanceOf<RingtoetsNodePresenterBase<PipingSoilProfile>>(nodePresenter);
             Assert.IsInstanceOf<PipingSoilProfileNodePresenter>(nodePresenter);
         }
 

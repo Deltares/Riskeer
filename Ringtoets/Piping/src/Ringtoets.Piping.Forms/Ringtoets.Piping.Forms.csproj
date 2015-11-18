@@ -62,7 +62,6 @@
     </Compile>
     <Compile Include="Helpers\NamingHelper.cs" />
     <Compile Include="NodePresenters\PipingFailureMechanismNodePresenter.cs" />
-    <Compile Include="NodePresenters\PipingNodePresenterBase.cs" />
     <Compile Include="NodePresenters\PipingOutputNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingCalculationInputsNodePresenter.cs" />
     <Compile Include="NodePresenters\PipingSoilProfileCollectionNodePresenter.cs" />

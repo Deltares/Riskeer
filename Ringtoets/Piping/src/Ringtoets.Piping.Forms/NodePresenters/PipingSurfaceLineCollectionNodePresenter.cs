@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls;
-using Core.Common.Utils.Collections;
 
 using Ringtoets.Common.Forms.Extensions;
+using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 
 using Ringtoets.Piping.Forms.Properties;
@@ -19,7 +18,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// Tree node presenter representing the collection of <see cref="RingtoetsPipingSurfaceLine"/> available for piping
     /// calculations.
     /// </summary>
-    public class PipingSurfaceLineCollectionNodePresenter : ITreeNodePresenter
+    public class PipingSurfaceLineCollectionNodePresenter : RingtoetsNodePresenterBase<IEnumerable<RingtoetsPipingSurfaceLine>>
     {
         /// <summary>
         /// Injects the action to be performed when importing <see cref="RingtoetsPipingSurfaceLine"/>
@@ -27,90 +26,28 @@ namespace Ringtoets.Piping.Forms.NodePresenters
         /// </summary>
         public Action ImportSurfaceLinesAction { private get; set; }
 
-        public ITreeView TreeView { get; set; }
-
-        public Type NodeTagType
+        protected override void UpdateNode(ITreeNode parentNode, ITreeNode node, IEnumerable<RingtoetsPipingSurfaceLine> nodeData)
         {
-            get
-            {
-                return typeof(IEnumerable<RingtoetsPipingSurfaceLine>);
-            }
-        }
-
-        public void UpdateNode(ITreeNode parentNode, ITreeNode node, object nodeData)
-        {
-            var data = (IEnumerable<RingtoetsPipingSurfaceLine>)nodeData;
             node.Text = Resources.PipingSurfaceLinesCollection_DisplayName;
-            node.ForegroundColor = data.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText);
+            node.ForegroundColor = nodeData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText);
             node.Image = Resources.FolderIcon;
         }
 
-        public IEnumerable GetChildNodeObjects(object parentNodeData, ITreeNode node)
+        protected override IEnumerable GetChildNodeObjects(IEnumerable<RingtoetsPipingSurfaceLine> nodeData, ITreeNode node)
         {
-            var surfaceLines = (IEnumerable<RingtoetsPipingSurfaceLine>) parentNodeData;
-            foreach (var pipingSurfaceLine in surfaceLines)
+            foreach (var pipingSurfaceLine in nodeData)
             {
                 yield return pipingSurfaceLine;
             }
         }
 
-        public bool CanRenameNode(ITreeNode node)
-        {
-            return false;
-        }
-
-        public bool CanRenameNodeTo(ITreeNode node, string newName)
-        {
-            return false;
-        }
-
-        public void OnNodeRenamed(object nodeData, string newName)
-        {
-            throw new InvalidOperationException(string.Format(Resources.PipingNodePresenterBase_OnNodeRenamed_Cannot_rename_tree_node_of_type__0__, GetType().Name));
-        }
-
-        public void OnNodeChecked(ITreeNode node) {}
-
-        public DragOperations CanDrag(object nodeData)
-        {
-            return DragOperations.None;
-        }
-
-        public DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
-        {
-            return DragOperations.None;
-        }
-
-        public bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode)
-        {
-            return false;
-        }
-
-        public void OnDragDrop(object item, object sourceParentNodeData, object targetParentNodeData, DragOperations operation, int position) {}
-
-        public void OnNodeSelected(object nodeData) {}
-
-        public ContextMenuStrip GetContextMenu(ITreeNode sender, object nodeData)
+        protected override ContextMenuStrip GetContextMenu(ITreeNode sender, IEnumerable<RingtoetsPipingSurfaceLine> nodeData)
         {
             if (ImportSurfaceLinesAction != null)
             {
                 return CreateContextMenu();
             }
             return null;
-        }
-
-        public void OnPropertyChanged(object sender, ITreeNode node, PropertyChangedEventArgs e) {}
-
-        public void OnCollectionChanged(object sender, NotifyCollectionChangingEventArgs e) {}
-
-        public bool CanRemove(object parentNodeData, object nodeData)
-        {
-            return false;
-        }
-
-        public bool RemoveNodeData(object parentNodeData, object nodeData)
-        {
-            throw new InvalidOperationException(String.Format(Resources.PipingNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type__0__, GetType().Name));
         }
 
         private ContextMenuStrip CreateContextMenu()

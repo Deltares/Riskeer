@@ -78,5 +78,23 @@ namespace Ringtoets.Common.Forms.Properties {
                 return ResourceManager.GetString("Ringtoets_Category", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan knoop uit boom van type {0} niet hernoemen..
+        /// </summary>
+        public static string RingtoetsNodePresenterBase_OnNodeRenamed_Cannot_rename_tree_node_of_type_0_ {
+            get {
+                return ResourceManager.GetString("RingtoetsNodePresenterBase_OnNodeRenamed_Cannot_rename_tree_node_of_type_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan knoop uit boom van type {0} niet verwijderen..
+        /// </summary>
+        public static string RingtoetsNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type_0_ {
+            get {
+                return ResourceManager.GetString("RingtoetsNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type_0_", resourceCulture);
+            }
+        }
     }
 }

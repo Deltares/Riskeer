@@ -124,4 +124,10 @@
   <data name="Ringtoets_Category" xml:space="preserve">
     <value>Algemeen</value>
   </data>
+  <data name="RingtoetsNodePresenterBase_OnNodeRenamed_Cannot_rename_tree_node_of_type_0_" xml:space="preserve">
+    <value>Kan knoop uit boom van type {0} niet hernoemen.</value>
+  </data>
+  <data name="RingtoetsNodePresenterBase_RemoveNodeData_Cannot_delete_node_of_type_0_" xml:space="preserve">
+    <value>Kan knoop uit boom van type {0} niet verwijderen.</value>
+  </data>
 </root>

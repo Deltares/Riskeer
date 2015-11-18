@@ -3,6 +3,7 @@ using NUnit.Framework;
 
 using Rhino.Mocks;
 
+using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 
 using Ringtoets.Piping.Forms.NodePresenters;
@@ -19,7 +20,7 @@ namespace Ringtoets.Piping.Forms.Test.NodePresenters
             var nodePresenter = new PipingSurfaceLineNodePresenter();
 
             // Assert
-            Assert.IsInstanceOf<PipingNodePresenterBase<RingtoetsPipingSurfaceLine>>(nodePresenter);
+            Assert.IsInstanceOf<RingtoetsNodePresenterBase<RingtoetsPipingSurfaceLine>>(nodePresenter);
         }
 
         [Test]

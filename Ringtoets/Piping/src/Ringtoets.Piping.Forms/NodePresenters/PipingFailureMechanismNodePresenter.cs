@@ -6,6 +6,7 @@ using Core.Common.Base.Workflow;
 using Core.Common.Controls;
 
 using Ringtoets.Common.Forms.Extensions;
+using Ringtoets.Common.Forms.NodePresenters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.Helpers;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -18,7 +19,7 @@ namespace Ringtoets.Piping.Forms.NodePresenters
     /// This class presents the data on <see cref="PipingFailureMechanism"/> as a node in a 
     /// <see cref="ITreeView"/> and implements the way the user can interact with the node.
     /// </summary>
-    public class PipingFailureMechanismNodePresenter : PipingNodePresenterBase<PipingFailureMechanism>
+    public class PipingFailureMechanismNodePresenter : RingtoetsNodePresenterBase<PipingFailureMechanism>
     {
         /// <summary>
         /// Injection points for a method to cause an <see cref="IActivity"/> to be scheduled for execution.
