@@ -9,9 +9,9 @@ namespace Core.Common.Controls.Swf.Charting
     /// </summary>
     public interface IChartSeries
     {
-        ///<summary>
+        /// <summary>
         /// The title of the series
-        ///</summary>
+        /// </summary>
         string Title { get; set; }
 
         /// <summary>

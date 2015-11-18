@@ -37,10 +37,10 @@ namespace Core.GIS.NetTopologySuite.Utilities.RToolsUtil
         // NOTE: modified for "safe" assembly in Sql 2005
         // Readonly added!
 
-        ///<summary>Backer for Log.</summary>
+        /// <summary>Backer for Log.</summary>
         protected static readonly Logger log = new Logger(String.Empty);
 
-        ///<summary>The name is prepended to all messages. </summary>
+        /// <summary>The name is prepended to all messages. </summary>
         protected string name;
 
         /// <summary>
@@ -68,9 +68,9 @@ namespace Core.GIS.NetTopologySuite.Utilities.RToolsUtil
             verbosity = VerbosityLevel.Debug;
         }
 
-        ///<summary>
+        /// <summary>
         ///A static instance you can use without creating your own.
-        ///</summary>
+        /// </summary>
         public static Logger Log
         {
             get

@@ -15,7 +15,7 @@ namespace Core.Common.Gui.Forms.MessageWindow {
     
     /// <summary>
     ///Represents a strongly typed in-memory cache of data.
-    ///</summary>
+    /// </summary>
     [global::System.Serializable()]
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
@@ -274,7 +274,7 @@ namespace Core.Common.Gui.Forms.MessageWindow {
         
         /// <summary>
         ///Represents the strongly named DataTable class.
-        ///</summary>
+        /// </summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class MessagesDataTable : global::System.Data.TypedTableBase<MessagesRow> {
@@ -576,7 +576,7 @@ namespace Core.Common.Gui.Forms.MessageWindow {
         
         /// <summary>
         ///Represents strongly named DataRow class.
-        ///</summary>
+        /// </summary>
         public partial class MessagesRow : global::System.Data.DataRow {
             
             private MessagesDataTable tableMessages;
@@ -686,7 +686,7 @@ namespace Core.Common.Gui.Forms.MessageWindow {
         
         /// <summary>
         ///Row event argument class
-        ///</summary>
+        /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public class MessagesRowChangeEvent : global::System.EventArgs {
             

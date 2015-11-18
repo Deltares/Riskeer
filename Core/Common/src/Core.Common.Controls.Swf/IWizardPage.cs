@@ -1,7 +1,7 @@
 namespace Core.Common.Controls.Swf
 {
-    ///<summary>
-    ///</summary>
+    /// <summary>
+    /// </summary>
     public interface IWizardPage
     {
         /// <summary>

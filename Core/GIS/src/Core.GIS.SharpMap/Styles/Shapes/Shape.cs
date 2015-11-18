@@ -223,9 +223,9 @@ namespace Core.GIS.SharpMap.Styles.Shapes
             }
         }
 
-        ///<summary>
+        /// <summary>
         ///
-        ///</summary>
+        /// </summary>
         [Category("Shape")]
         [Description("The Shape")]
         [Editor(typeof(ShapeTypeEditor), typeof(UITypeEditor))]

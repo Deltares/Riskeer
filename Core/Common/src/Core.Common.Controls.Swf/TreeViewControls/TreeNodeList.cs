@@ -67,9 +67,9 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Removes all nodes from the collection
-        ///</summary>
+        /// </summary>
         public void Clear()
         {
             var nodesToRemove = nodes.Cast<ITreeNode>().ToList();

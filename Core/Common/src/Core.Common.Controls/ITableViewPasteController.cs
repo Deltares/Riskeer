@@ -10,9 +10,9 @@ namespace Core.Common.Controls
         /// </summary>
         event EventHandler<EventArgs<string>> PasteFailed;
 
-        ///<summary>
+        /// <summary>
         /// Gets or sets the paste behaviour value
-        ///</summary>
+        /// </summary>
         TableViewPasteBehaviourOptions PasteBehaviour { set; }
 
         /// <summary>

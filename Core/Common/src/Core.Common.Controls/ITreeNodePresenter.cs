@@ -16,9 +16,9 @@ namespace Core.Common.Controls
         /// </summary>
         ITreeView TreeView { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Gets supported type of the object for this builder.
-        ///</summary>
+        /// </summary>
         Type NodeTagType { get; }
 
         /// <summary>
@@ -50,12 +50,12 @@ namespace Core.Common.Controls
         /// <seealso cref="OnNodeRenamed"/>
         bool CanRenameNode(ITreeNode node);
 
-        ///<summary>
+        /// <summary>
         /// Indicates that the can be renamed and newName is a valid name.
-        ///</summary>
-        ///<param name="node">The node to be renamed.</param>
-        ///<param name="newName">Suggested new name for <paramref name="node"/>.</param>
-        ///<returns>True if <paramref name="node"/> can be renamed, false otherwise.</returns>
+        /// </summary>
+        /// <param name="node">The node to be renamed.</param>
+        /// <param name="newName">Suggested new name for <paramref name="node"/>.</param>
+        /// <returns>True if <paramref name="node"/> can be renamed, false otherwise.</returns>
         /// <remarks>Any <see cref="ITreeNodePresenter"/> that can return true with this method, should use <see cref="OnNodeRenamed"/> for renaming logic.</remarks>
         /// <seealso cref="OnNodeRenamed"/>
         bool CanRenameNodeTo(ITreeNode node, string newName);
@@ -88,14 +88,14 @@ namespace Core.Common.Controls
         /// </returns>
         DragOperations CanDrag(object nodeData);
 
-        ///<summary>
+        /// <summary>
         /// Indicates if a node can be dropped to another location.
-        ///</summary>
-        ///<param name="item"></param>
-        ///<param name="sourceNode"></param>
-        ///<param name="targetNode"></param>
-        ///<param name="validOperations"></param>
-        ///<returns>
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="sourceNode"></param>
+        /// <param name="targetNode"></param>
+        /// <param name="validOperations"></param>
+        /// <returns>
         /// The return value indicates what operation is valid when the sourceNode is dropped onto the targetNode.
         /// This can only one of the following values
         /// None, Copy, Link, Move
@@ -111,12 +111,12 @@ namespace Core.Common.Controls
         /// TODO: change item, sourceParentNodeData, targetParentNodeData to ITreeNode!
         DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations);
 
-        ///<summary>
-        ///</summary>
-        ///<param name="item"></param>
-        ///<param name="sourceNode"></param>
-        ///<param name="targetNode"></param>
-        ///<returns></returns>
+        /// <summary>
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="sourceNode"></param>
+        /// <param name="targetNode"></param>
+        /// <returns></returns>
         bool CanInsert(object item, ITreeNode sourceNode, ITreeNode targetNode);
 
         /// <summary>

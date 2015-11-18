@@ -29,9 +29,9 @@ namespace Core.Common.Controls
         /// </summary>
         bool ShowCheckBox { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Gets or sets a value indicating whether the tree node is in a checked state
-        ///</summary>
+        /// </summary>
         bool Checked { get; set; }
 
         /// <summary>
@@ -54,9 +54,9 @@ namespace Core.Common.Controls
         /// </summary>
         Color ForegroundColor { set; get; }
 
-        ///<summary>
+        /// <summary>
         /// The tree view that holds the node
-        ///</summary>
+        /// </summary>
         ITreeView TreeView { get; }
 
         /// <summary>

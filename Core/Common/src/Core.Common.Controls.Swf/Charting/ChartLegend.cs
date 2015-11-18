@@ -4,17 +4,17 @@ using Steema.TeeChart;
 
 namespace Core.Common.Controls.Swf.Charting
 {
-    ///<summary>
+    /// <summary>
     /// A TeeChart Legend wrapper class
-    ///</summary>
+    /// </summary>
     public class ChartLegend : IChartLegend
     {
         private readonly Legend legend;
 
-        ///<summary>
+        /// <summary>
         /// Creates a TeeChart Legend wrapper class
-        ///</summary>
-        ///<param name="legend"></param>
+        /// </summary>
+        /// <param name="legend"></param>
         public ChartLegend(Legend legend)
         {
             this.legend = legend;
@@ -47,9 +47,9 @@ namespace Core.Common.Controls.Swf.Charting
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Enables checkboxes in the legend
-        ///</summary>
+        /// </summary>
         public bool ShowCheckBoxes
         {
             get
@@ -79,9 +79,9 @@ namespace Core.Common.Controls.Swf.Charting
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Maximum width of the legend
-        ///</summary>
+        /// </summary>
         public int Width
         {
             get
@@ -94,9 +94,9 @@ namespace Core.Common.Controls.Swf.Charting
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Distance between the upper left corner of the legend and the top of the axes canvas (in pixels)
-        ///</summary>
+        /// </summary>
         public int Top
         {
             get
@@ -109,9 +109,9 @@ namespace Core.Common.Controls.Swf.Charting
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Distance between the upper left corner of the legend and the left side of the axes canvas (in pixels)
-        ///</summary>
+        /// </summary>
         public int Left
         {
             get

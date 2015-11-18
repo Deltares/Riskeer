@@ -10,9 +10,9 @@ using Steema.TeeChart.Tools;
 
 namespace Core.Common.Controls.Swf.Charting.Tools
 {
-    ///<summary>
+    /// <summary>
     /// Base class for EditPointTool,SelectPointTool and AddPointTool
-    ///</summary>
+    /// </summary>
     public abstract class ChartViewSeriesToolBase : ToolSeries, IChartViewSeriesTool
     {
         public event SelectionChangedEventHandler SelectionChanged;

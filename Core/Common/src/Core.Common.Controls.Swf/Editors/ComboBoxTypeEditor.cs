@@ -24,9 +24,9 @@ namespace Core.Common.Controls.Swf.Editors
         /// </summary>
         public IEnumerable Items { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Sets the displayformat of the column. For example c2, D or AA{0}
-        ///</summary>
+        /// </summary>
         public string DisplayFormat { get; set; }
 
         /// <summary>

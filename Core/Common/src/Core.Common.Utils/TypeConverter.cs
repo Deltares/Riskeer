@@ -3,9 +3,9 @@ using System.ComponentModel;
 
 namespace Core.Common.Utils
 {
-    ///<summary>
+    /// <summary>
     /// Type conversion ie string conversion, works with nullable types.
-    ///</summary>
+    /// </summary>
     /// <remarks>http://www.dogaoztuzun.com/post/C-Generic-Type-Conversion.aspx</remarks>
     public class TypeConverter
     {

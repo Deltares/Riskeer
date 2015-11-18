@@ -78,10 +78,10 @@ namespace Core.Common.Controls
         /// </summary>
         ICustomFormatter CustomFormatter { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Sets the display format of the column. For example c2, D or AA{0}
         /// If CustomFormatter is used then this property is skipped.
-        ///</summary>
+        /// </summary>
         string DisplayFormat { get; set; }
 
         /// <summary>

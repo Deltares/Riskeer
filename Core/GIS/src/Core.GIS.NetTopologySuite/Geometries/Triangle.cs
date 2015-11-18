@@ -62,9 +62,9 @@ namespace Core.GIS.NetTopologySuite.Geometries
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Computes the line which is the perpendicular bisector of the
-        ///</summary>
+        /// </summary>
         /// <param name="a">A point</param>
         /// <param name="b">Another point</param>
         /// <returns>The perpendicular bisector, as an HCoordinate line segment a-b.</returns>
@@ -78,7 +78,7 @@ namespace Core.GIS.NetTopologySuite.Geometries
             return new HCoordinate(l1, l2);
         }
 
-        ///<summary>Computes the circumcentre of a triangle.</summary>
+        /// <summary>Computes the circumcentre of a triangle.</summary>
         /// <remarks>
         /// The circumcentre is the centre of the circumcircle, 
         /// the smallest circle which encloses the triangle.

@@ -27,9 +27,9 @@ namespace Core.Common.Controls.Swf.Table
             PastedBlocks = new List<RectangleSelection>();
         }
 
-        ///<summary>
+        /// <summary>
         /// Gets or sets the paste behaviour value
-        ///</summary>
+        /// </summary>
         public TableViewPasteBehaviourOptions PasteBehaviour { get; set; }
 
         public bool IsPasting { get; private set; }
@@ -515,9 +515,9 @@ namespace Core.Common.Controls.Swf.Table
             return lines;
         }
 
-        ///<summary>
+        /// <summary>
         /// Rectangular selection on a tableview. 
-        ///</summary>
+        /// </summary>
         protected class RectangleSelection
         {
             public RectangleSelection(TableViewCell topLeft, TableViewCell bottomRight)

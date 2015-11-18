@@ -8,9 +8,9 @@ using PostSharp.Aspects;
 
 namespace Core.Common.Utils.Aop
 {
-    ///<summary>
+    /// <summary>
     /// Implements thread-safe calls for Windows.Forms methods.
-    ///</summary>
+    /// </summary>
     [Serializable]
     [Synchronization]
     public class InvokeRequiredAttribute : MethodInterceptionAspect

@@ -196,11 +196,11 @@ namespace Core.Common.Controls.Swf.Charting.Tools
 
         public Cursor Cursor { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Add point a pointIndex for series to selectedPoints
-        ///</summary>
-        ///<param name="series"></param>
-        ///<param name="pointIndex"></param>
+        /// </summary>
+        /// <param name="series"></param>
+        /// <param name="pointIndex"></param>
         public void AddPointAtIndexToSelection(IChartSeries series, int pointIndex)
         {
             var teeChartSeries = ((ChartSeries) series).series;

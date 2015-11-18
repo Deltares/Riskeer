@@ -71,14 +71,14 @@ namespace Core.Common.Gui
 
         void AddNewItem(object parent);
 
-        ///<summary>
-        ///</summary>
-        ///<returns>true if there is a default vioew for the current selection</returns>
+        /// <summary>
+        /// </summary>
+        /// <returns>true if there is a default vioew for the current selection</returns>
         bool CanOpenDefaultViewForSelection();
 
-        ///<summary>
-        ///</summary>
-        ///<returns>true if there are more supported views for the current selection</returns>
+        /// <summary>
+        /// </summary>
+        /// <returns>true if there are more supported views for the current selection</returns>
         bool CanOpenSelectViewDialog();
 
         void AddItemToProject(object item);

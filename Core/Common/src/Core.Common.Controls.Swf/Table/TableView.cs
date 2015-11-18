@@ -36,9 +36,9 @@ using TypeConverter = Core.Common.Utils.TypeConverter;
 
 namespace Core.Common.Controls.Swf.Table
 {
-    ///<summary>
+    /// <summary>
     /// Graphical representation of tabular data.
-    ///</summary>
+    /// </summary>
     public partial class TableView : UserControl, ITableView, ISupportInitialize
     {
         public enum ValidationExceptionMode
@@ -955,9 +955,9 @@ namespace Core.Common.Controls.Swf.Table
 
         public bool IncludeHeadersOnCopy { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Gets a boolean value indicating that the view is being edited or not
-        ///</summary>
+        /// </summary>
         [Browsable(false)]
         public bool IsEditing
         {
@@ -967,9 +967,9 @@ namespace Core.Common.Controls.Swf.Table
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// TODO: If RowSelect is true, dxGridView.GetSelectedCells etc will give an empty array.... SelectedRows will stiull work.
-        ///</summary>
+        /// </summary>
         public bool RowSelect
         {
             get
@@ -1142,19 +1142,19 @@ namespace Core.Common.Controls.Swf.Table
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Gets or sets the disabled cell fore color
-        ///</summary>
+        /// </summary>
         public Color ReadOnlyCellForeColor { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Gets or sets the disabled cell fore color
-        ///</summary>
+        /// </summary>
         public Color ReadOnlyCellBackColor { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Gets or sets the background color of the invalid cell (value)
-        ///</summary>
+        /// </summary>
         public Color InvalidCellBackgroundColor { get; set; }
 
         /// <summary>
@@ -1280,23 +1280,23 @@ namespace Core.Common.Controls.Swf.Table
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IList<TableViewColumnMenuItem> ColumnMenuItems { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Gets or sets the filter to evaluate if the value of the cell is invalid
-        ///</summary>
+        /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Func<TableViewCell, bool> InvalidCellFilter { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Gets or sets the filter that can be used for making cells read-only
-        ///</summary>
+        /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Func<TableViewCell, bool> ReadOnlyCellFilter { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Gets or sets the filter that can be used for styling a cell
-        ///</summary>
+        /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Func<TableViewCellStyle, bool> DisplayCellFilter { get; set; }
@@ -1341,9 +1341,9 @@ namespace Core.Common.Controls.Swf.Table
 
         public bool IsEndEditOnEnterKey { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Enable filtering for all columns
-        ///</summary>
+        /// </summary>
         public bool AllowColumnFiltering
         {
             get
@@ -1381,19 +1381,19 @@ namespace Core.Common.Controls.Swf.Table
 
         public void EnsureVisible(object item) {}
 
-        ///<summary>
+        /// <summary>
         /// Function to check if the current focused row is a 
         /// new row (row that's not committed to the datasource)
-        ///</summary>
-        ///<returns>If the focused row is a new row</returns>
+        /// </summary>
+        /// <returns>If the focused row is a new row</returns>
         public bool OnNewRow()
         {
             return dxGridView.FocusedRowHandle.Equals(GridControl.NewItemRowHandle);
         }
 
-        ///<summary>
+        /// <summary>
         /// Clear selected rows
-        ///</summary>
+        /// </summary>
         public void ClearSelection()
         {
             dxGridView.ClearSelection();
@@ -1671,9 +1671,9 @@ namespace Core.Common.Controls.Swf.Table
             //dxGridControl.ResumeLayout();
         }
 
-        ///<summary>
+        /// <summary>
         /// Pastes clipboard contens into current selection
-        ///</summary>
+        /// </summary>
         public void PasteClipboardContents()
         {
             isPasting = true;

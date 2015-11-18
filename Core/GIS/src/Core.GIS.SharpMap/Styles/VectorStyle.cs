@@ -396,9 +396,9 @@ namespace Core.GIS.SharpMap.Styles
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Defines the shapesize for symbol
-        ///</summary>
+        /// </summary>
         public virtual int ShapeSize
         {
             get
@@ -424,9 +424,9 @@ namespace Core.GIS.SharpMap.Styles
         private PointF symbolOffset;
         private float symbolRotation;
 
-        ///<summary>
+        /// <summary>
         /// Defines shape for symbol
-        ///</summary>
+        /// </summary>
         public ShapeType Shape
         {
             get

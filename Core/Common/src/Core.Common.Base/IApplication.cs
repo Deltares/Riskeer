@@ -102,10 +102,10 @@ namespace Core.Common.Base
         /// <param name="activity"></param>
         void RunActivity(IActivity activity);
 
-        ///<summary>
+        /// <summary>
         /// Adds the activity to the CurrentActivities, runs it 
-        ///</summary>
-        ///<param name="activity"> </param>
+        /// </summary>
+        /// <param name="activity"> </param>
         void RunActivityInBackground(IActivity activity);
 
         /// <summary>

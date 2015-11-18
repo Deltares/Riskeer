@@ -51,12 +51,12 @@ using System.Text;
 
 namespace Core.GIS.SharpMap.Converters.WellKnownText
 {
-    ///<summary>
+    /// <summary>
     ///The StreamTokenizer class takes an input stream and parses it into "tokens", allowing the tokens to be read one at a time. The parsing process is controlled by a table and a number of flags that can be set to various states. The stream tokenizer can recognize identifiers, numbers, quoted strings, and various comment style
-    ///</summary>
-    ///<remarks>
+    /// </summary>
+    /// <remarks>
     ///This is a crude c# implementation of Java's <a href="http://java.sun.com/products/jdk/1.2/docs/api/java/io/StreamTokenizer.html">StreamTokenizer</a> class.
-    ///</remarks>
+    /// </remarks>
     internal class StreamTokenizer
     {
         private TokenType _currentTokenType;

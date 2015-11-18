@@ -23,9 +23,9 @@ namespace Core.Common.Controls.Swf.Charting
         /// </summary>
         event EventHandler<EventArgs> ToolsActiveChanged;
 
-        ///<summary>
+        /// <summary>
         /// Get or set the title of the Chart (shown above the chart)
-        ///</summary>
+        /// </summary>
         string Title { get; set; }
 
         /// <summary>

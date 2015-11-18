@@ -7,9 +7,9 @@ using Steema.TeeChart.Tools;
 
 namespace Core.Common.Controls.Swf.Charting
 {
-    ///<summary>
+    /// <summary>
     /// Utility class for common functions used by chart tools
-    ///</summary>
+    /// </summary>
     public class TeeChartHelper
     {
         public static int GetNearestPoint(Steema.TeeChart.Styles.Series series, Point p, double tolerance)

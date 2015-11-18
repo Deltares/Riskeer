@@ -31,7 +31,7 @@ namespace Core.GIS.NetTopologySuite.IO.GeoTools
         /// Initializes a new instance of the ShapefileDataReader class.
         /// </summary>
         /// <param name="filename">The shapefile to read (minus the .shp extension)</param>
-        ///<param name="geometryFactory">The GeometryFactory to use.</param>
+        /// <param name="geometryFactory">The GeometryFactory to use.</param>
         public ShapefileDataReader(string filename, IGeometryFactory geometryFactory)
         {
             Geometry = null;

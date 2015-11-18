@@ -34,9 +34,9 @@ namespace Core.Common.Controls.Swf
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Text the user entered in the dialog
-        ///</summary>
+        /// </summary>
         public string EnteredText
         {
             get

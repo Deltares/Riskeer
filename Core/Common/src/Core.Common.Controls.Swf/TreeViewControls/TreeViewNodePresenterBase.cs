@@ -34,10 +34,10 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             throw new InvalidOperationException(Resources.TreeViewNodePresenterBase_OnNodeRenamed_OnNodeRenamed_must_be_implemented_in_derived_class);
         }
 
-        ///<summary>
+        /// <summary>
         /// Returns the default drag operation based on pressed control keys and allowed operations
         /// It can be used as replacement for the implementation for TreeViewNodePresenterBase&lt;T&gt;::<see cref="TreeViewNodePresenterBase{T}.CanDrop"/>.
-        ///</summary>
+        /// </summary>
         public static DragOperations GetDefaultDropOperation(ITreeView treeView, object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
         {
             if (null != sourceNode)
@@ -126,9 +126,9 @@ namespace Core.Common.Controls.Swf.TreeViewControls
             return (null == TreeView.TreeViewNodeSorter);
         }
 
-        ///<summary>
+        /// <summary>
         /// Let the node decide what dragoperation should be carried out
-        ///</summary>
+        /// </summary>
         public virtual DragOperations CanDrop(object item, ITreeNode sourceNode, ITreeNode targetNode, DragOperations validOperations)
         {
             return DragOperations.None;

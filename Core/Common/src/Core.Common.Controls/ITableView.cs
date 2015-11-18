@@ -42,9 +42,9 @@ namespace Core.Common.Controls
         /// </summary>
         bool ReadOnly { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Gets a Boolean value indicating that the view is being edited or not
-        ///</summary>
+        /// </summary>
         bool IsEditing { get; }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace Core.Common.Controls
         /// </summary>
         bool MultipleCellEdit { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// TODO: If RowSelect is true, gridView.GetSelectedCells etc will give an empty array.... SelectedRows will still work.
-        ///</summary>
+        /// </summary>
         bool RowSelect { get; set; }
 
         /// <summary>
@@ -72,16 +72,16 @@ namespace Core.Common.Controls
         /// </summary>
         int RowCount { get; }
 
-        ///<summary>
+        /// <summary>
         /// Sets and gets the zero-based index of the focused row in the visualized table.
-        ///</summary>
-        ///<example>A value of 1 corresponds to the 2nd entry as shown in the table (sorted, filtered, etc).</example>
+        /// </summary>
+        /// <example>A value of 1 corresponds to the 2nd entry as shown in the table (sorted, filtered, etc).</example>
         int FocusedRowIndex { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Retrieve selected row indexes (when using multi-select). 
         /// TODO: Turn this into a method!
-        ///</summary>
+        /// </summary>
         int[] SelectedRowsIndices { get; }
 
         /// <summary>
@@ -89,19 +89,19 @@ namespace Core.Common.Controls
         /// </summary>
         object CurrentFocusedRowObject { get; }
 
-        ///<summary>
+        /// <summary>
         /// Gets or sets the disabled cell fore color
-        ///</summary>
+        /// </summary>
         Color ReadOnlyCellForeColor { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Gets or sets the disabled cell fore color
-        ///</summary>
+        /// </summary>
         Color ReadOnlyCellBackColor { get; set; }
 
-        ///<summary>
+        /// <summary>
         /// Gets or sets the background color of the invalid cell (value)
-        ///</summary>
+        /// </summary>
         Color InvalidCellBackgroundColor { get; set; }
 
         ITableViewPasteController PasteController { get; set; }
@@ -145,9 +145,9 @@ namespace Core.Common.Controls
         /// <param name="clearPreviousSelection"></param>
         void SelectRow(int index, bool clearPreviousSelection = true);
 
-        ///<summary>
+        /// <summary>
         /// Select multiple rows on index
-        ///</summary>
+        /// </summary>
         void SelectRows(int[] indices, bool clearPreviousSelection = true);
 
         /// <summary>
@@ -186,18 +186,18 @@ namespace Core.Common.Controls
         /// </summary>
         void ScheduleRefresh();
 
-        ///<summary>
+        /// <summary>
         /// Converts the displayRowIndex (used in events) to the dataSourceRowIndex
-        ///</summary>
-        ///<param name="rowIndex">The zero-based index of row in the table</param>
-        ///<returns>The matching zero-based index in the data source</returns>
+        /// </summary>
+        /// <param name="rowIndex">The zero-based index of row in the table</param>
+        /// <returns>The matching zero-based index in the data source</returns>
         int GetDataSourceIndexByRowIndex(int rowIndex);
 
-        ///<summary>
+        /// <summary>
         /// Converts the zero-based data source index to the zero-based index of the row in the table
-        ///</summary>
-        ///<param name="dataSourceIndex">The zero based index in the data source</param>
-        ///<returns>The zero-based index as visualized in the table</returns>
+        /// </summary>
+        /// <param name="dataSourceIndex">The zero based index in the data source</param>
+        /// <returns>The zero-based index as visualized in the table</returns>
         int GetRowIndexByDataSourceIndex(int dataSourceIndex);
 
         /// <summary>

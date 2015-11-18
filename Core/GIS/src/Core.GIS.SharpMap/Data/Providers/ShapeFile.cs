@@ -444,9 +444,9 @@ namespace Core.GIS.SharpMap.Data.Providers
             return recordHeaders;
         }
 
-        ///<summary>
+        /// <summary>
         ///Swaps the byte order of an int32
-        ///</summary>
+        /// </summary>
         /// <param name="i">Integer to swap</param>
         /// <returns>Byte Order swapped int32</returns>
         private int SwapByteOrder(int i)

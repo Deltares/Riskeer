@@ -2,13 +2,13 @@
 
 namespace Core.Common.Controls.Swf.Charting
 {
-    ///<summary>
-    ///</summary>
+    /// <summary>
+    /// </summary>
     public interface IChartLegend
     {
-        ///<summary>
+        /// <summary>
         /// sets the visibility of the chart legend
-        ///</summary>
+        /// </summary>
         bool Visible { get; set; }
 
         LegendAlignment Alignment { get; set; }

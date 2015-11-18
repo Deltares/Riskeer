@@ -6,50 +6,50 @@ using System.Windows.Forms;
 
 namespace Core.Common.Controls.Swf
 {
-    ///<summary>
+    /// <summary>
     /// Extension methods for the class Control
-    ///</summary>
+    /// </summary>
     public static class ControlExtensions
     {
         private const int WM_SETREDRAW = 11;
 
-        ///<summary>
+        /// <summary>
         /// Gets the first found control of type in the control container. Search is recursive.
-        ///</summary>
-        ///<param name="control">The control container to search in</param>
-        ///<typeparam name="T">The type of control to search for</typeparam>
-        ///<returns>Returns the first control found, returns null otherwise</returns>
+        /// </summary>
+        /// <param name="control">The control container to search in</param>
+        /// <typeparam name="T">The type of control to search for</typeparam>
+        /// <returns>Returns the first control found, returns null otherwise</returns>
         public static T GetFirstControlOfType<T>(this Control control) where T : Control
         {
             return GetAllControlsRecursive<T>(control).FirstOrDefault();
         }
 
-        ///<summary>
+        /// <summary>
         /// Gets all child controls (recursive) of a control container (parent)
-        ///</summary>
-        ///<param name="container">The parent container</param>
-        ///<typeparam name="T">The type of control to look for</typeparam>
-        ///<returns>A list of controls of type <typeparamref name="T"/></returns>
+        /// </summary>
+        /// <param name="container">The parent container</param>
+        /// <typeparam name="T">The type of control to look for</typeparam>
+        /// <returns>A list of controls of type <typeparamref name="T"/></returns>
         public static IEnumerable<T> GetAllControlsRecursive<T>(this Control container) where T : Control
         {
             return GetAllControlsRecursive(container).OfType<T>();
         }
 
-        ///<summary>
+        /// <summary>
         /// Gets all child controls (recursive) of a control container (parent)
-        ///</summary>
-        ///<param name="container">The parent container</param>
-        ///<returns>A list of all child controls></returns>
+        /// </summary>
+        /// <param name="container">The parent container</param>
+        /// <returns>A list of all child controls></returns>
         public static IEnumerable<Control> GetAllControlsRecursive(this Control container)
         {
             return GetAllControlsRecursive(container.Controls);
         }
 
-        ///<summary>
+        /// <summary>
         /// Gets all child controls (recursive) of a control container (parent)
-        ///</summary>
-        ///<param name="controlCollection">The parent container</param>
-        ///<returns>A list of all child controls></returns>
+        /// </summary>
+        /// <param name="controlCollection">The parent container</param>
+        /// <returns>A list of all child controls></returns>
         public static IEnumerable<Control> GetAllControlsRecursive(this Control.ControlCollection controlCollection)
         {
             foreach (Control child in controlCollection)

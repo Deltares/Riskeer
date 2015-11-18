@@ -279,7 +279,7 @@ namespace Core.GIS.NetTopologySuite.Geometries
 
         /// <summary>
         /// Returns whether the planar projections of the two <c>Coordinate</c>s are equal.
-        ///</summary>
+        /// </summary>
         /// <param name="other"><c>Coordinate</c> with which to do the 2D comparison.</param>
         /// <returns>
         /// <c>true</c> if the x- and y-coordinates are equal;

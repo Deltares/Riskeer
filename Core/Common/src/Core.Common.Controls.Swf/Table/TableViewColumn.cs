@@ -130,10 +130,10 @@ namespace Core.Common.Controls.Swf.Table
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Sets the displayformat of the column. For example c2, D or AA{0}
         /// If CustomFormatter is used then this property is skipped.
-        ///</summary>
+        /// </summary>
         public string DisplayFormat
         {
             get

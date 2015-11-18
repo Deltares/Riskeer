@@ -9,10 +9,10 @@ namespace Core.Common.Controls.Swf.Charting.Tools
     /// </summary>
     public class ZoomUsingMouseWheelTool : ToolSeries
     {
-        ///<summary>
+        /// <summary>
         /// default constructor
-        ///</summary>
-        ///<param name="chart"></param>
+        /// </summary>
+        /// <param name="chart"></param>
         public ZoomUsingMouseWheelTool(Steema.TeeChart.Chart chart) : base(chart) {}
 
         /// <summary>

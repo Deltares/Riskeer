@@ -92,10 +92,10 @@ namespace Core.Common.Utils.IO
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// Make all files and sub-directories writable.
-        ///</summary>
-        ///<param name="path"></param>
+        /// </summary>
+        /// <param name="path"></param>
         public static void MakeWritable(string path)
         {
             if (Directory.Exists(path))

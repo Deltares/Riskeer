@@ -58,9 +58,9 @@ namespace Core.Common.Controls.Swf.Charting.Series
             }
         }
 
-        ///<summary>
+        /// <summary>
         /// The title of the series
-        ///</summary>
+        /// </summary>
         /// <remarks>Changes null to an empty string to avoid TeeChart problems (TeeChart cannot cope with null titles)</remarks>
         public string Title
         {
