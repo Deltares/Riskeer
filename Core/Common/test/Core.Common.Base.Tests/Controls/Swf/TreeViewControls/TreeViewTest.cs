@@ -368,15 +368,6 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             }
         }
 
-        class MessageBoxAlwaysYes : IMessageBox
-        {
-            public DialogResult Show(string text, string caption, MessageBoxButtons buttons)
-            {
-                return DialogResult.OK; 
-            }
-        }
-
-
         [Test]
         public void TreeViewUpdateOnManyPropertyChangesShouldBeFast()
         {
@@ -441,6 +432,14 @@ namespace Core.Common.Base.Tests.Controls.Swf.TreeViewControls
             WindowsFormsTestHelper.ShowModal(treeView, onShow);
 
             TestHelper.AssertIsFasterThan(10, () => Thread.Sleep((int) elapsedMillisecondsWithTreeView));
+        }
+
+        private class MessageBoxAlwaysYes : IMessageBox
+        {
+            public DialogResult Show(string text, string caption, MessageBoxButtons buttons)
+            {
+                return DialogResult.OK;
+            }
         }
 
         public class DynamicParentNodePresenter : TreeViewNodePresenterBase<Parent>

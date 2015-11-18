@@ -2,6 +2,10 @@
 
 namespace Core.Common.Base
 {
+    /// <summary>
+    /// Own implementation of the Observable pattern that cooperates with Observers (own IObserver interface).
+    /// In places where multiple inheritance is not possible, use IObservable instead.
+    /// </summary>
     public abstract class Observable : IObservable
     {
         private readonly IList<IObserver> observers = new List<IObserver>();
