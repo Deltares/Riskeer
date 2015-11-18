@@ -5,5 +5,5 @@
   <String Id="Manufacturer">Deltares</String>
   <String Id="NetFramework45Required">De installatie vereist dat Microsoft .NET Framework 4.5 geïnstalleerd is om verder te gaan.</String>
   <String Id="DowngradeErrorMessage">Een nieuwere versie van !(loc.ApplicationLongName) is al geïnstalleerd.</String>
-  <String Id="StartApplicationDescription">Start het !(loc.ApplicationLongName).</String>
+  <String Id="StartApplicationDescription">Start !(loc.ApplicationLongName).</String>
 </WixLocalization>
