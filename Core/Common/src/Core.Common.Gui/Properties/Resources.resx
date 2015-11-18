@@ -878,4 +878,7 @@
   <data name="GuiCommandHandler_TryCloseProject_Closing_current_project_" xml:space="preserve">
     <value>Sluiten van huidig project.</value>
   </data>
+  <data name="Ribbon_TabItem_File" xml:space="preserve">
+    <value>Bestand</value>
+  </data>
 </root>

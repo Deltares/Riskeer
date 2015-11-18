@@ -2403,7 +2403,7 @@ namespace Core.Plugins.SharpMapGis.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weergave.
+        ///   Looks up a localized string similar to Beeld.
         /// </summary>
         public static string Ribbon_View_Header {
             get {
