@@ -61,67 +61,12 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van het toetstraject..
-        /// </summary>
-        internal static string AssessmentSection_Name_Description {
-            get {
-                return ResourceManager.GetString("AssessmentSection_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        internal static string AssessmentSection_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSection_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap AssessmentSectionFolderIcon {
             get {
                 object obj = ResourceManager.GetObject("AssessmentSectionFolderIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voeg piping faalmechanisme toe.
-        /// </summary>
-        internal static string AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism {
-            get {
-                return ResourceManager.GetString("AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start een nieuwe piping toetsing voor dit project..
-        /// </summary>
-        internal static string AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip {
-            get {
-                return ResourceManager.GetString("AssessmentSectionNodePresenter_ContextMenu_Add_PipingFailureMechanism_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kan geen nieuwe piping toetsing starten, omdat er al een piping toetsing is gestart voor dit project..
-        /// </summary>
-        internal static string AssessmentSectionNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_Tooltip {
-            get {
-                return ResourceManager.GetString("AssessmentSectionNodePresenter_ContextMenu_PipingFailureMechanism_Already_Added_T" +
-                        "ooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetstraject.
-        /// </summary>
-        internal static string AssessmentSectionProperties_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionProperties_DisplayName", resourceCulture);
             }
         }
         
@@ -135,21 +80,39 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dijktraject.
+        /// </summary>
+        internal static string DikeAssessmentSection_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeAssessmentSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van het dijktraject..
+        /// </summary>
+        internal static string DikeAssessmentSection_Name_Description {
+            get {
+                return ResourceManager.GetString("DikeAssessmentSection_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        internal static string DikeAssessmentSection_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("DikeAssessmentSection_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap FailureMechanismIcon {
             get {
                 object obj = ResourceManager.GetObject("FailureMechanismIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Algemeen.
-        /// </summary>
-        internal static string Ringtoets_Category {
-            get {
-                return ResourceManager.GetString("Ringtoets_Category", resourceCulture);
             }
         }
     }

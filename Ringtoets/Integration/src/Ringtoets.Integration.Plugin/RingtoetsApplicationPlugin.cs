@@ -4,6 +4,7 @@ using Core.Common.Base;
 
 using Ringtoets.Integration.Data;
 
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin
@@ -17,8 +18,8 @@ namespace Ringtoets.Integration.Plugin
         {
             yield return new DataItemInfo<DikeAssessmentSection>
             {
-                Name = RingtoetsFormsResources.AssessmentSectionProperties_DisplayName,
-                Category = RingtoetsFormsResources.Ringtoets_Category,
+                Name = RingtoetsFormsResources.DikeAssessmentSection_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 Image = RingtoetsFormsResources.AssessmentSectionFolderIcon,
                 CreateData = owner => new DikeAssessmentSection()
             };

@@ -17,7 +17,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var properties = new AssessmentSectionProperties();
+            var properties = new DikeAssessmentSectionProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<DikeAssessmentSection>>(properties);
@@ -33,7 +33,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 Name = "Test"
             };
 
-            var properties = new AssessmentSectionProperties
+            var properties = new DikeAssessmentSectionProperties
             {
                 Data = assessmentSection
             };
@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var assessmentSection = new DikeAssessmentSection();
             assessmentSection.Attach(projectObserver);
 
-            var properties = new AssessmentSectionProperties
+            var properties = new DikeAssessmentSectionProperties
             {
                 Data = assessmentSection
             };

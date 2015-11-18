@@ -7,7 +7,6 @@ using Core.Common.Base;
 using Core.Common.Controls;
 using Core.Common.Utils.Collections;
 
-using Ringtoets.Common.Forms.Extensions;
 using Ringtoets.Integration.Data;
 
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
@@ -17,7 +16,7 @@ namespace Ringtoets.Integration.Forms.NodePresenters
     /// <summary>
     /// Node presenter for <see cref="Ringtoets.Integration.Data.DikeAssessmentSection"/> items in the tree view.
     /// </summary>
-    public class AssessmentSectionNodePresenter : ITreeNodePresenter
+    public class DikeAssessmentSectionNodePresenter : ITreeNodePresenter
     {
         public ITreeView TreeView { get; set; }
 

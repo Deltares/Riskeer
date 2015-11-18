@@ -7,7 +7,6 @@ using Core.Common.Gui.Forms;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.NodePresenters;
 using Ringtoets.Integration.Forms.PropertyClasses;
-using Ringtoets.Piping.Plugin;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -20,18 +19,18 @@ namespace Ringtoets.Integration.Plugin
         {
             get
             {
-                return new PipingRibbon();
+                return new RingtoetsRibbon();
             }
         }
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<DikeAssessmentSection, AssessmentSectionProperties>();
+            yield return new PropertyInfo<DikeAssessmentSection, DikeAssessmentSectionProperties>();
         }
 
         public override IEnumerable<ITreeNodePresenter> GetProjectTreeViewNodePresenters()
         {
-            yield return new AssessmentSectionNodePresenter();
+            yield return new DikeAssessmentSectionNodePresenter();
         }
     }
 }

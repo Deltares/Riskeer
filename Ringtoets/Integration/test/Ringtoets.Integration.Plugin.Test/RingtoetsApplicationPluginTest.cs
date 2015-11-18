@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Plugin.Test
             Assert.AreEqual(1, dataItemDefinitions.Length);
 
             DataItemInfo AssessmentSectionDataItemDefinition = dataItemDefinitions.Single(did => did.ValueType == typeof(DikeAssessmentSection));
-            Assert.AreEqual("Toetstraject", AssessmentSectionDataItemDefinition.Name);
+            Assert.AreEqual("Dijktraject", AssessmentSectionDataItemDefinition.Name);
             Assert.AreEqual("Algemeen", AssessmentSectionDataItemDefinition.Category);
             Assert.AreEqual(16, AssessmentSectionDataItemDefinition.Image.Width);
             Assert.AreEqual(16, AssessmentSectionDataItemDefinition.Image.Height);

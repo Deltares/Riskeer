@@ -13,11 +13,6 @@ using Rhino.Mocks;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.NodePresenters;
 using Ringtoets.Integration.Forms.PropertyClasses;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Plugin;
-using Ringtoets.Piping.Forms.NodePresenters;
-using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Piping.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Plugin.Test
 {
@@ -33,7 +28,7 @@ namespace Ringtoets.Integration.Plugin.Test
             {
                 // assert
                 Assert.IsInstanceOf<GuiPlugin>(ringtoetsGuiPlugin);
-                Assert.IsInstanceOf<PipingRibbon>(ringtoetsGuiPlugin.RibbonCommandHandler);
+                Assert.IsInstanceOf<RingtoetsRibbon>(ringtoetsGuiPlugin.RibbonCommandHandler);
             }
         }
 
@@ -50,7 +45,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.AreEqual(1, propertyInfos.Length);
 
                 var assessmentSectionProperties = propertyInfos.Single(pi => pi.ObjectType == typeof(DikeAssessmentSection));
-                Assert.AreEqual(typeof(AssessmentSectionProperties), assessmentSectionProperties.PropertyType);
+                Assert.AreEqual(typeof(DikeAssessmentSectionProperties), assessmentSectionProperties.PropertyType);
                 Assert.IsNull(assessmentSectionProperties.AdditionalDataCheck);
                 Assert.IsNull(assessmentSectionProperties.GetObjectPropertiesData);
                 Assert.IsNull(assessmentSectionProperties.AfterCreate);
@@ -78,7 +73,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 // assert
                 Assert.AreEqual(1, nodePresenters.Length);
-                Assert.IsTrue(nodePresenters.Any(np => np is AssessmentSectionNodePresenter));
+                Assert.IsTrue(nodePresenters.Any(np => np is DikeAssessmentSectionNodePresenter));
             }
             mocks.VerifyAll();
         }
