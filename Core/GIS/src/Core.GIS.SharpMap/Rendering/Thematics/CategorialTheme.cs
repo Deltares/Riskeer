@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
@@ -15,7 +14,6 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
     /// Theme that finds all distinct values for an attribute, for which it uses a different style. 
     /// Can be used for any attribute. 
     /// </summary>
-    [Entity(FireOnCollectionChange = false)]
     public class CategorialTheme : Theme
     {
         private readonly IDictionary<IComparable, Color> colorDictionary = new Dictionary<IComparable, Color>();
@@ -30,7 +28,7 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             this.defaultStyle = (defaultStyle != null) ? (IStyle) defaultStyle.Clone() : null;
         }
 
-        public override IEventedList<IThemeItem> ThemeItems
+        public override EventedList<IThemeItem> ThemeItems
         {
             get
             {
@@ -51,8 +49,12 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
             set
             {
+                OnPropertyChanging("DefaultStyle");
+
                 defaultStyle = value;
                 colorDictionary.Clear();
+
+                OnPropertyChanged("DefaultStyle");
             }
         }
 

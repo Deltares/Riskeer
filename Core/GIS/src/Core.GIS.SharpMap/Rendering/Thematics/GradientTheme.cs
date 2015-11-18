@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
-using Core.Common.Utils.Aop;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.NetTopologySuite.Extensions.Features;
 using Core.GIS.SharpMap.Api;
@@ -31,7 +30,6 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
     /// <summary>
     /// The GradientTheme class defines a gradient color thematic rendering of features based by a numeric attribute.
     /// </summary>
-    [Entity(FireOnCollectionChange = false)]
     public class GradientTheme : Theme
     {
         private double maxValue;
@@ -45,6 +43,10 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
         private int numberOfClasses; //stored to update the items when mix/max changes
 
         private readonly Dictionary<int, VectorStyle> vectorStyleCache = new Dictionary<int, VectorStyle>();
+        private ColorBlend textColorBlend;
+        private ColorBlend lineColorBlend;
+        private ColorBlend fillColorBlend;
+        private bool useCustomRange;
 
         public GradientTheme(string attributeName, double minValue, double maxValue, IStyle minStyle, IStyle maxStyle,
                              ColorBlend fillColorBlend, ColorBlend lineColorBlend, ColorBlend textColorBlend) : this(attributeName, minValue, maxValue, minStyle, maxStyle,
@@ -132,8 +134,12 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
             private set
             {
+                OnPropertyChanging("Min");
+
                 minValue = value;
                 minItem.Label = minValue.ToString();
+
+                OnPropertyChanged("Min");
             }
         }
 
@@ -148,8 +154,12 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
             private set
             {
+                OnPropertyChanging("Max");
+
                 maxValue = value;
                 maxItem.Label = maxValue.ToString();
+
+                OnPropertyChanged("Max");
             }
         }
 
@@ -164,7 +174,9 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             } //minStyle; }
             set
             {
+                OnPropertyChanging("MinStyle");
                 minItem.Style = value;
+                OnPropertyChanged("MinStyle");
             }
         }
 
@@ -179,24 +191,62 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             } //maxStyle; }
             set
             {
+                OnPropertyChanging("MaxStyle");
                 maxItem.Style = value;
+                OnPropertyChanged("MaxStyle");
             }
         }
 
         /// <summary>
         /// Gets or sets the <see cref="SharpMap.Rendering.Thematics.ColorBlend"/> used on labels
         /// </summary>
-        public ColorBlend TextColorBlend { get; set; }
+        public ColorBlend TextColorBlend
+        {
+            get
+            {
+                return textColorBlend;
+            }
+            set
+            {
+                OnPropertyChanging("TextColorBlend");
+                textColorBlend = value;
+                OnPropertyChanged("TextColorBlend");
+            }
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="SharpMap.Rendering.Thematics.ColorBlend"/> used on lines
         /// </summary>
-        public ColorBlend LineColorBlend { get; set; }
+        public ColorBlend LineColorBlend
+        {
+            get
+            {
+                return lineColorBlend;
+            }
+            set
+            {
+                OnPropertyChanging("LineColorBlend");
+                lineColorBlend = value;
+                OnPropertyChanged("LineColorBlend");
+            }
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="SharpMap.Rendering.Thematics.ColorBlend"/> used as Fill
         /// </summary>
-        public ColorBlend FillColorBlend { get; set; }
+        public ColorBlend FillColorBlend
+        {
+            get
+            {
+                return fillColorBlend;
+            }
+            set
+            {
+                OnPropertyChanging("FillColorBlend");
+                fillColorBlend = value;
+                OnPropertyChanged("FillColorBlend");
+            }
+        }
 
         public int NumberOfClasses
         {
@@ -206,12 +256,28 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
             set
             {
+                OnPropertyChanging("NumberOfClasses");
+
                 numberOfClasses = value;
                 UpdateThemeItems();
+
+                OnPropertyChanged("NumberOfClasses");
             }
         }
 
-        public bool UseCustomRange { get; set; }
+        public bool UseCustomRange
+        {
+            get
+            {
+                return useCustomRange;
+            }
+            set
+            {
+                OnPropertyChanging("UseCustomRange");
+                useCustomRange = value;
+                OnPropertyChanged("UseCustomRange");
+            }
+        }
 
         public IStyle GetStyle(double attributeValue)
         {

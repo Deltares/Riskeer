@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using Core.Common.TestUtils;
+using Core.GIS.SharpMap.Api;
 using Core.GIS.SharpMap.Rendering.Thematics;
 using Core.GIS.SharpMap.Styles;
 using NUnit.Framework;
@@ -256,6 +258,26 @@ namespace Core.GIS.SharpMap.Tests.Rendering.Thematics
             Assert.AreEqual(expectedColor.R, actualColor.R);
             Assert.AreEqual(expectedColor.G, actualColor.G);
             Assert.AreEqual(expectedColor.B, actualColor.B);
+        }
+
+        [Test]
+        public void GradientThemeBubblesPropertyChangesOfGradientThemeItems()
+        {
+            var counter = 0;
+            var gradientThemeItem = new GradientThemeItem();
+            var gradientTheme = new GradientTheme("", double.MinValue, double.MaxValue, new VectorStyle(), new VectorStyle(), null, null, null) { ThemeItems = { gradientThemeItem } };
+
+            ((INotifyPropertyChanged) gradientTheme).PropertyChanged += (sender, e) =>
+            {
+                if (sender is IThemeItem)
+                {
+                    counter++;
+                }
+            };
+
+            gradientThemeItem.Label = "Test";
+
+            Assert.AreEqual(1, counter);
         }
     }
 }

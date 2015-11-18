@@ -8,7 +8,7 @@ using Core.GIS.SharpMap.Styles;
 
 namespace Core.GIS.SharpMap.Rendering.Thematics
 {
-    public abstract class ThemeItem : IThemeItem, ICloneable, INotifyPropertyChange
+    public abstract class ThemeItem : IThemeItem, ICloneable
     {
         protected string label;
         protected IStyle style;

@@ -1,23 +1,19 @@
 using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Drawing;
-using Core.Common.Utils.Aop;
-using Core.Common.Utils.Aop.Markers;
 using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.SharpMap.Api;
 
 namespace Core.GIS.SharpMap.Rendering.Thematics
 {
-    [Entity(FireOnCollectionChange = false)]
     public abstract class Theme : ITheme
     {
-        protected Color NoDataColor = Pens.Transparent.Color;
-
-        [NoNotifyPropertyChange]
         protected IList noDataValues;
-
-        protected IEventedList<IThemeItem> themeItems;
+        protected EventedList<IThemeItem> themeItems;
+        protected Color NoDataColor = Pens.Transparent.Color;
+        private string attributeName;
 
         protected Theme()
         {
@@ -36,9 +32,21 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
         }
 
-        public virtual string AttributeName { get; set; }
+        public virtual string AttributeName
+        {
+            get
+            {
+                return attributeName;
+            }
+            set
+            {
+                OnPropertyChanging("AttributeName");
+                attributeName = value;
+                OnPropertyChanged("AttributeName");
+            }
+        }
 
-        public virtual IEventedList<IThemeItem> ThemeItems
+        public virtual EventedList<IThemeItem> ThemeItems
         {
             get
             {
@@ -46,7 +54,19 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             }
             set
             {
+                if (themeItems != null)
+                {
+                    themeItems.PropertyChanging -= OnPropertyChanging;
+                    themeItems.PropertyChanged -= OnPropertyChanged;
+                }
+
                 themeItems = value;
+
+                if (themeItems != null)
+                {
+                    themeItems.PropertyChanging += OnPropertyChanging;
+                    themeItems.PropertyChanged += OnPropertyChanged;
+                }
             }
         }
 
@@ -82,5 +102,45 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
         // ADDED ONLY FOR PERFORMANCE
         // todo move to quantitytheme and categorialtheme ?
         public abstract Color GetFillColor<T>(T value) where T : IComparable;
+
+        #region INotifyPropertyChange
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        protected void OnPropertyChanging(string propertyName)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        private void OnPropertyChanging(object sender, PropertyChangingEventArgs e)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(sender, e);
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(sender, e);
+            }
+        }
+
+        #endregion
     }
 }

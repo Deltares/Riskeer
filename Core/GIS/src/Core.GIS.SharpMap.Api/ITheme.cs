@@ -17,6 +17,7 @@
 
 using System;
 using System.Drawing;
+using Core.Common.Utils;
 using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.Extensions.Feature;
 
@@ -27,13 +28,13 @@ namespace Core.GIS.SharpMap.Api
     /// 
     /// TODO: review ITheme, it should be easier to work with them, check implementation in ArgGIS, uDIG, QGIS...
     /// </summary>
-    public interface ITheme : ICloneable
+    public interface ITheme : ICloneable, INotifyPropertyChange
     {
         /// <summary>
         /// Returns all themeItems that are part of this theme
         /// </summary>
         /// <returns>Color</returns>
-        IEventedList<IThemeItem> ThemeItems { get; set; }
+        EventedList<IThemeItem> ThemeItems { get; set; }
 
         /// <summary>
         /// Theme attribute is used to find the values on which to base the coloring

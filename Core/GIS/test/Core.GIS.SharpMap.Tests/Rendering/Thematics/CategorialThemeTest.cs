@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Utils.Collections.Generic;
 using Core.GIS.SharpMap.Api;
@@ -157,5 +158,25 @@ namespace Core.GIS.SharpMap.Tests.Rendering.Thematics
         }
 
         #endregion
+
+        [Test]
+        public void CategorialThemeBubblesPropertyChangesOfCategorialThemeItems()
+        {
+            var counter = 0;
+            var categorialThemeItem = new CategorialThemeItem();
+            var categorialTheme = new CategorialTheme { ThemeItems = { categorialThemeItem } };
+
+            ((INotifyPropertyChanged) categorialTheme).PropertyChanged += (sender, e) =>
+            {
+                if (sender is IThemeItem)
+                {
+                    counter++;
+                }
+            };
+
+            categorialThemeItem.Label = "Test";
+
+            Assert.AreEqual(1, counter);
+        }
     }
 }

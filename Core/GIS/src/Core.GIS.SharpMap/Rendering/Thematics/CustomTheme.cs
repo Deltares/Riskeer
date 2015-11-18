@@ -16,8 +16,8 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
-using Core.Common.Utils.Aop;
 using Core.Common.Utils.Collections.Generic;
 using Core.GIS.GeoAPI.Extensions.Feature;
 using Core.GIS.SharpMap.Api;
@@ -27,9 +27,12 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
     /// <summary>
     /// The CustomTheme class is used for defining your own thematic rendering by using a custom get-style-delegate.
     /// </summary>
-    [Entity(FireOnCollectionChange = false)]
     public class CustomTheme : ITheme
     {
+        private IStyle defaultStyle;
+        private GetStyleMethod styleDelegate;
+        private string attributeName;
+
         /// <summary>
         /// Custom Style Delegate method
         /// </summary>
@@ -82,7 +85,19 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
         /// <summary>
         /// Gets or sets the default style when an attribute isn't found in any bucket
         /// </summary>
-        public IStyle DefaultStyle { get; set; }
+        public IStyle DefaultStyle
+        {
+            get
+            {
+                return defaultStyle;
+            }
+            set
+            {
+                OnPropertyChanging("DefaultStyle");
+                defaultStyle = value;
+                OnPropertyChanged("DefaultStyle");
+            }
+        }
 
         /// <summary>
         /// Gets or sets the style delegate used for determining the style of a feature
@@ -107,7 +122,19 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
         /// </example>
         /// </remarks>
         /// <seealso cref="GetStyleMethod"/>
-        public GetStyleMethod StyleDelegate { get; set; }
+        public GetStyleMethod StyleDelegate
+        {
+            get
+            {
+                return styleDelegate;
+            }
+            set
+            {
+                OnPropertyChanging("StyleDelegate");
+                styleDelegate = value;
+                OnPropertyChanged("StyleDelegate");
+            }
+        }
 
         public object Clone()
         {
@@ -148,14 +175,11 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             return DefaultStyle;
         }
 
-        public virtual IEventedList<IThemeItem> ThemeItems
+        public virtual EventedList<IThemeItem> ThemeItems
         {
             get
             {
-                //IEventedList<IThemeItem> themes = new EventedList<IThemeItem>();
-                //themes.ad
                 return new EventedList<IThemeItem>();
-                //throw new Exception("The method or operation is not implemented.");
             }
             set
             {
@@ -173,12 +197,48 @@ namespace Core.GIS.SharpMap.Rendering.Thematics
             throw new NotImplementedException();
         }
 
-        public virtual string AttributeName { get; set; }
+        public virtual string AttributeName
+        {
+            get
+            {
+                return attributeName;
+            }
+            set
+            {
+                OnPropertyChanging("AttributeName");
+                attributeName = value;
+                OnPropertyChanged("AttributeName");
+            }
+        }
 
         public void ScaleTo(double min, double max)
         {
             // no particular rescaling behavoir implemented
             return;
+        }
+
+        #endregion
+
+        #region INotifyPropertyChange
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        protected void OnPropertyChanging(string propertyName)
+        {
+            if (PropertyChanging != null)
+            {
+                PropertyChanging(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         #endregion
